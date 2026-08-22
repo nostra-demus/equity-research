@@ -10,7 +10,8 @@ import {
 } from '../src/execution-provenance'
 import { createRun, finishRun } from '../src/registry'
 import {
-  __setPostReviewCalibration, __setSupervisorCommitter, __setSupervisorCommitVerifier, supervisePublication,
+  __setPostReviewCalibration, __setSupervisorCommitter, __setSupervisorCommitVerifier,
+  drainPublicationIntents, queuePublicationIntent, recoverReadyPublications, supervisePublication,
 } from '../src/launcher'
 
 const root = `analyses/ZZPROVSUP_${Date.now()}`
@@ -160,6 +161,86 @@ try {
   assert.deepEqual(new Set(recordedChain.map((row) => row.provider)), new Set(['claude', 'codex']),
     'retained output across an explicit provider switch remains mixed')
   fs.rmSync(path.join(REPO_ROOT, retryRoot), { recursive: true, force: true })
+
+  // A tracked child can ask to publish while it and detached descendants are still alive, but that request
+  // is intent only. Stamping and Git begin exclusively in the close-owned drain after process extinction.
+  const deferredRoot = `${root}_deferred-publication`
+  const deferredAbsolute = path.join(REPO_ROOT, deferredRoot)
+  extraCleanup.push(deferredAbsolute)
+  fs.mkdirSync(deferredAbsolute, { recursive: true })
+  fs.writeFileSync(path.join(deferredAbsolute, 'decision_record.json'), '{"ticker":"ZZDEFER","version":1}\n')
+  fs.writeFileSync(path.join(deferredAbsolute, 'RUN_METADATA.md'), 'Commit SHA: (to be filled after commit)\n')
+  const deferred = createRun({
+    kind: 'full', ticker: 'ZZDEFER', provider: 'claude', executionProfile: profile,
+    profileKey: profile.key, model: 'sonnet', reasoningLevel: 'default', prompt: '', user: 'test',
+    userVia: 'local', runRoot: deferredRoot, willCommitToMain: true,
+    writeTargetsAbs: [deferredAbsolute], coveredModules: [], readDepsAbs: [],
+    closeWatcher: undefined, expected: new Map(),
+  })
+  deferred.publicationToken = randomUUID()
+  beginExecutionAttempt(deferred)
+  fs.writeFileSync(path.join(deferredAbsolute, 'decision_record.json'), '{"ticker":"ZZDEFER","version":2}\n')
+  let deferredCommits = 0
+  const deferredCommitter = __setSupervisorCommitter(async () => {
+    deferredCommits++
+    return 'COMMIT_SHA=2222222222222222222222222222222222222222'
+  })
+  const deferredVerifier = __setSupervisorCommitVerifier(async () => {})
+  try {
+    const queued = await queuePublicationIntent(deferred.runId, deferred.publicationToken, {
+      phase: 'commit', message: 'deferred fixture', pathspecs: [deferredRoot],
+    })
+    assert.equal(queued.phase, 'queued')
+    assert.equal(deferredCommits, 0, 'child-time request cannot stamp or invoke Git')
+    assert.equal(JSON.parse(fs.readFileSync(path.join(deferredAbsolute, 'decision_record.json'), 'utf8')).execution_provenance, undefined)
+    await drainPublicationIntents(deferred)
+    assert.equal(deferredCommits, 2, 'the close-owned drain publishes the primary bytes then the deterministic SHA backfill')
+    assert.equal(deferred.publicationCompleted, true)
+    assert.ok(JSON.parse(fs.readFileSync(path.join(deferredAbsolute, 'decision_record.json'), 'utf8')).execution_provenance)
+    assert.doesNotMatch(fs.readFileSync(path.join(deferredAbsolute, 'RUN_METADATA.md'), 'utf8'), /to be filled/)
+  } finally {
+    __setSupervisorCommitter(deferredCommitter)
+    __setSupervisorCommitVerifier(deferredVerifier)
+    finishRun(deferred, 'done')
+  }
+
+  // Once the provider group is extinct, a Git/push failure retains a protected immutable ready receipt.
+  // A restart retries that exact snapshot without launching either provider or trusting mutable HEAD.
+  const recoveryRelative = `${root}/reviews/2099-01-03_recovery_review.json`
+  const recoveryAbsolute = path.join(REPO_ROOT, recoveryRelative)
+  fs.mkdirSync(path.dirname(recoveryAbsolute), { recursive: true })
+  const recoveryRun = createRun({
+    kind: 'review', ticker: 'ZZPROVSUP', provider: 'claude', executionProfile: profile,
+    profileKey: profile.key, model: 'sonnet', reasoningLevel: 'default', prompt: '', user: 'test',
+    userVia: 'local', runRoot: root, willCommitToMain: true,
+    writeTargetsAbs: [path.dirname(recoveryAbsolute)], coveredModules: [], readDepsAbs: [],
+    closeWatcher: undefined, expected: new Map(),
+  })
+  recoveryRun.publicationToken = randomUUID()
+  beginExecutionAttempt(recoveryRun)
+  fs.writeFileSync(recoveryAbsolute, '{"verdict":"ready recovery fixture"}\n')
+  const failedRecoveryCommitter = __setSupervisorCommitter(async () => { throw new Error('fixture push failed') })
+  const recoveryVerifier = __setSupervisorCommitVerifier(async () => {})
+  try {
+    await queuePublicationIntent(recoveryRun.runId, recoveryRun.publicationToken, {
+      phase: 'commit', message: 'ready recovery fixture', pathspecs: [recoveryRelative],
+    })
+    await assert.rejects(drainPublicationIntents(recoveryRun), /fixture push failed/)
+    let retried = 0
+    const retryCommitter = __setSupervisorCommitter(async () => {
+      retried++
+      return 'COMMIT_SHA=3333333333333333333333333333333333333333'
+    })
+    try {
+      assert.equal(await recoverReadyPublications(), 1)
+      assert.equal(retried, 1, 'providerless recovery publishes the one protected snapshot exactly once')
+      assert.equal(await recoverReadyPublications(), 0, 'a cleared ready receipt cannot replay')
+    } finally { __setSupervisorCommitter(retryCommitter) }
+  } finally {
+    __setSupervisorCommitter(failedRecoveryCommitter)
+    __setSupervisorCommitVerifier(recoveryVerifier)
+    finishRun(recoveryRun, 'error')
+  }
 
   const configuredRoot = `${root}_configured-carry`
   extraCleanup.push(path.join(REPO_ROOT, configuredRoot))

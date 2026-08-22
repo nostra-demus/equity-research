@@ -1091,7 +1091,9 @@ Commit through the serialized helper (it holds a global git lock so concurrent c
 bash scripts/commit-run.sh "Research run: ${ARGUMENTS} <DATE>" -- "analyses/${ARGUMENTS}_<DATE>/"
 ```
 
-The helper prints `COMMIT_SHA=<sha>` on success, or `NOOP=1` if nothing was staged (if `NOOP=1`, there is nothing to backfill — skip the rest of this step). Capture `<sha>` from that line and patch the "Commit SHA" field in `RUN_METADATA.md` by rewriting that file via the Write tool (read it, substitute `<sha>` in place of `(to be filled after commit)`, write the full new content). Do not use `git commit --amend`. Add the SHA patch as a second commit through the same helper:
+In a tracked cockpit run (`NOSTRA_COCKPIT_RUN=1`), the helper prints `PUBLICATION_QUEUED=<intent-id>`. Stop the Git work here and leave the exact `(to be filled after commit)` placeholder untouched. After this process and all of its sub-agents have exited, the trusted cockpit supervisor publishes the frozen run, captures the verified primary SHA, rewrites only `RUN_METADATA.md`, and publishes the second backfill commit. A model process must never guess, read, or patch that SHA.
+
+Outside the cockpit, the helper prints `COMMIT_SHA=<sha>` on success, or `NOOP=1` if nothing was staged (if `NOOP=1`, there is nothing to backfill — skip the rest of this step). Capture `<sha>` from that line and patch the "Commit SHA" field in `RUN_METADATA.md` by rewriting that file via the Write tool (read it, substitute `<sha>` in place of `(to be filled after commit)`, write the full new content). Do not use `git commit --amend`. Add the SHA patch as a second commit through the same helper:
 
 ```
 bash scripts/commit-run.sh "Backfill commit SHA in RUN_METADATA for ${ARGUMENTS} <DATE>" -- "analyses/${ARGUMENTS}_<DATE>/RUN_METADATA.md"

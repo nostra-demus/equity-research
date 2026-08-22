@@ -935,6 +935,25 @@ export function recordProviderInterruptionAuthority(run: RunState): void {
   writeProviderSelection(run, 'interrupted', { [relative]: digest })
 }
 
+/** Seal a providerless publication retry only after the protected ready receipt and every committed blob
+ * have been re-verified by the supervisor. No child-authored marker can call this path. */
+export function recordRecoveredPublicationAuthority(input: {
+  runId: string
+  runRoot: string
+  provider: RunProvider
+  model: string
+  reasoningLevel?: string
+  profileKey: string
+  executionProfile: ProviderExecutionProfile
+}, artifactHashes: Record<string, string>): void {
+  if (!Object.keys(artifactHashes).length) throw new Error('recovered publication has no bound artifacts')
+  writeProviderSelection({
+    runId: input.runId, runRoot: input.runRoot, provider: input.provider, model: input.model,
+    reasoningLevel: input.reasoningLevel, profileKey: input.profileKey,
+    executionProfile: input.executionProfile,
+  } as RunState, 'published', artifactHashes)
+}
+
 /** Freeze the selected provider/profile as soon as admission succeeds, before run-root mutation. */
 export function recordAdmittedProviderSelection(run: RunState): void {
   if (!run.runRoot) throw new Error(`Run ${run.runId} has no run root for provider selection.`)

@@ -138,13 +138,13 @@ try {
 }
 
 await assert.rejects(
-  launch({ kind: 'full', ticker: 'TEST', deferModuleMemo: true }),
+  launch({ kind: 'full', ticker: 'TEST', provider: 'claude', deferModuleMemo: true }),
   (e: any) => e?.statusCode === 400 && /only for a research module launch/.test(e?.message || ''),
   'the one-run policy cannot be attached to a full/rerun/non-module launch',
 )
 
 await assert.rejects(
-  launch({ kind: 'module', ticker: 'TEST', exactModuleResume: true }),
+  launch({ kind: 'module', ticker: 'TEST', provider: 'claude', exactModuleResume: true }),
   (e: any) => e?.statusCode === 400 && /requires a guarded research module launch/.test(e?.message || ''),
   'current-run-only resolution cannot be attached without the final paid-boundary guard',
 )
@@ -153,6 +153,7 @@ await assert.rejects(
   launch({
     kind: 'module',
     ticker: 'TEST',
+    provider: 'claude',
     module: 'management-governance',
     exactModuleResume: true,
     exactModuleRunRoot: 'analyses/TEST_2026-08-21',
@@ -170,6 +171,7 @@ await assert.rejects(
   launch({
     kind: 'module',
     ticker: 'TEST',
+    provider: 'claude',
     module: 'management-governance',
     exactModuleResume: true,
     exactModuleRunRoot: 'analyses/TEST_2026-08-21',
@@ -187,6 +189,7 @@ await assert.rejects(
   launch({
     kind: 'module',
     ticker: 'TEST',
+    provider: 'claude',
     module: 'management-governance',
     exactModuleResume: true,
     exactModuleRunRoot: 'analyses/TEST_2026-08-21',

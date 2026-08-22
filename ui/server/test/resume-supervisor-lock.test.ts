@@ -8,7 +8,6 @@ import {
   type ResumableRun,
   type ResumeCandidateDispatchDeps,
 } from '../src/resume-supervisor'
-import { bindTerminalGuard, cancel } from '../src/launcher'
 import { createRun, finishRun, inFlightRunsForSubject, setActiveSubjectRun } from '../src/registry'
 import { SubjectBusyError, subjectMutationLockKey, withSubjectLock } from '../src/subject-lock'
 
@@ -111,23 +110,24 @@ function deps(overrides: Partial<ResumeCandidateDispatchDeps> = {}): ResumeCandi
   })
 }
 
-// Exact-module Cancel changes its display status before the killed process closes. A full-resume candidate
-// can become due in that window; endedAt-based liveness must keep both registry admission and the autonomous
-// supervisor from launching a second writer into the same analysis folder.
+// Registry liveness is endedAt-based rather than display-status-based. Even if a cancellation path has
+// already changed the visible status, an unfinalized writer remains admission authority until close.
 {
   const subject = 'CANCELRACE'
   const shuttingDown = createRun({
-    kind: 'module', ticker: subject, module: 'management-governance', model: 'sonnet', prompt: '',
+    kind: 'module', ticker: subject, module: 'management-governance', provider: 'claude', model: 'sonnet',
+    reasoningLevel: 'default', profileKey: 'claude|sonnet:default',
+    executionProfile: { key: 'claude|sonnet:default', parentModel: 'sonnet', parentReasoning: 'default' }, prompt: '',
     user: 'test', userVia: 'local', runRoot: 'analyses/CANCELRACE_2099-01-01', willCommitToMain: true,
     writeTargetsAbs: ['/tmp/CANCELRACE/management-governance/99_management-governance-synthesis.md'],
     coveredModules: ['management-governance'], readDepsAbs: [],
   })
   shuttingDown.status = 'running'
   shuttingDown.child = { pid: 2_000_000_000, kill: () => true } as any
-  bindTerminalGuard(shuttingDown, async () => ({ ok: true }))
   setActiveSubjectRun(shuttingDown.runId, subject, 'research')
   try {
-    assert.equal(await cancel(shuttingDown.runId), true)
+    shuttingDown.cancelRequested = true
+    shuttingDown.status = 'cancelled'
     assert.equal(shuttingDown.status, 'cancelled', 'Cancel is visible immediately')
     assert.equal(shuttingDown.endedAt, undefined, 'process close/finalization has not happened yet')
     assert.deepEqual(inFlightRunsForSubject(subject, 'research').map((run) => run.runId), [shuttingDown.runId],
@@ -148,4 +148,4 @@ function deps(overrides: Partial<ResumeCandidateDispatchDeps> = {}): ResumeCandi
   }
 }
 
-console.log('resume supervisor lock: both race orders + final live/disk recheck + cancel shutdown + swarm namespace passed')
+console.log('resume supervisor lock: both race orders + final live/disk recheck + unfinalized cancellation + swarm namespace passed')

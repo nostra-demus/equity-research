@@ -280,6 +280,16 @@ interface LeaseDirectorySnapshot {
   files: Array<{ path: string; identity: string }>
 }
 
+function clearCodexParentRuntimeArtifacts(home: string): void {
+  // Parent CLI commands (`sandbox`, and on 0.148 also the final `login status`) create transport CA files
+  // and tmp/arg0 helper symlinks under CODEX_HOME. They are not credentials or catalogue evidence and may
+  // not enter the strict, symlink-free one-use launch lease.
+  for (const name of ['proxy', 'tmp']) {
+    const transient = path.join(home, name)
+    try { fs.rmSync(transient, { recursive: true, force: true }) } catch { /* the subsequent snapshot fails closed */ }
+  }
+}
+
 function snapshotLeaseDirectory(home: string): LeaseDirectorySnapshot {
   const root = path.resolve(home)
   const rootStat = fs.lstatSync(root)
@@ -885,6 +895,12 @@ export async function assertCodexCredentialSandboxBoundary(options: {
   } finally {
     await Promise.all([close(publicationServer), close(unrelatedUnixServer), close(unrelatedTcpServer)])
     try { fs.rmSync(configPath, { force: true }) } catch { /* cleanup below remains best effort */ }
+    // `codex sandbox` creates parent-CLI transport material under CODEX_HOME while enforcing the child
+    // profile: proxy CA files plus tmp/arg0 helper symlinks. They are expected implementation debris, not
+    // launch credentials or catalogue proof, and cannot be sealed into the one-use lease (which correctly
+    // rejects every symlink). Remove only these two fixed lease-local namespaces after the sandbox process
+    // has exited; the later login/catalogue probes then seal their own strict regular-file state.
+    clearCodexParentRuntimeArtifacts(leaseHome)
     fs.rmSync(fixtureRoot, { recursive: true, force: true })
     fs.rmSync(socketRoot, { recursive: true, force: true })
   }
@@ -1301,6 +1317,7 @@ async function probeCodex(
     // rotate the lease token; the final login probe proves those exact post-refresh bytes are ChatGPT auth.
     const finalLogin = await run(['login', 'status'], 'Codex final ChatGPT login probe')
     assertChatGptLogin(`${finalLogin.stdout}\n${finalLogin.stderr}`)
+    clearCodexParentRuntimeArtifacts(isolatedHome.home)
     const finalPinned = pinCodexExecutable(command, sourceEnv)
     if (finalPinned.command !== command || finalPinned.identity !== pinned.identity) {
       throw new Error('Codex executable changed during capability probing.')

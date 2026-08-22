@@ -145,6 +145,10 @@ try {
       })
       assert.equal(fs.existsSync(path.join(isolated.home, 'config.toml')), false,
         'capability probing must remove its transient permission profile before sealing the lease')
+      assert.equal(fs.existsSync(path.join(isolated.home, 'tmp')), false,
+        'capability probing must remove parent-CLI helper symlinks before the strict lease snapshot')
+      assert.equal(fs.existsSync(path.join(isolated.home, 'proxy')), false,
+        'capability probing must remove transient network-proxy material before the strict lease snapshot')
       assert.equal(fs.readFileSync(path.join(sourceCodexHome, 'auth.json'), 'utf8'), '{"auth_mode":"chatgpt"}',
         'model-equivalent sandbox probing cannot read or mutate the original credential')
     }

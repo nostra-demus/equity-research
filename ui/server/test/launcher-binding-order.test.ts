@@ -69,9 +69,9 @@ const spawnStart = source.indexOf('async function spawnEngine(run: RunState)')
 const spawnEnd = source.indexOf('\n// Kill the run', spawnStart)
 assert.ok(spawnStart >= 0 && spawnEnd > spawnStart, 'spawnEngine() source boundary must remain discoverable')
 const spawnBody = source.slice(spawnStart, spawnEnd)
-const buildLaunch = spawnBody.indexOf('const launchSpec = await adapter.buildLaunch(')
+const buildLaunch = spawnBody.indexOf('launchSpec = await adapter.buildLaunch(')
 const finalCas = spawnBody.indexOf('const beforeSpawn = changedLaunchBinding()', buildLaunch)
-const provenanceAppend = spawnBody.indexOf('appendExecutionAttempt(run, manifestPath)', finalCas)
+const provenanceAppend = spawnBody.indexOf('appendExecutionAttempt(run)', finalCas)
 const paidSpawn = spawnBody.indexOf('child = execa(launchSpec.command', finalCas)
 assert.ok(
   buildLaunch >= 0

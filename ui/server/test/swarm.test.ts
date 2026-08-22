@@ -214,7 +214,7 @@ try {
   // A sweep merges today's inbox + rebuilds the board; a handoff appends the ledger + seeds the data
   // pool. Both used to carry zero write targets and no exclusivity, so two concurrent launches could
   // silently interleave (one sweep dropping the other's inbox rows; a duplicate paid handoff CLI).
-  check('admission: duplicate sweep and identical handoff are rejected; a different handoff target is admitted', () => {
+  check('admission: duplicate sweep/handoff and cross-target shared-store writes are serialized', () => {
     // release the SIG fixture runs from the earlier checks (not used below) so this check exercises
     // the subject rules, not the D5 global concurrency cap (default 3)
     finishRun(run, 'done')
@@ -244,12 +244,12 @@ try {
       const dup = admitRun({ ticker: 'TH-20990101-ZZZZ::AAA', kind: 'handoff', swarmId: 'screener', coveredModules: [], writeTargetsAbs: [boardAbs], readDepsAbs: [] })
       assert.equal(dup.ok, false)
       if (!dup.ok) assert.equal(dup.code, 'exclusivity')
-      // a DIFFERENT target of the same thesis is a different subject — still concurrent BY DESIGN,
-      // even though both declare the board index: admission is subject-scoped, and cross-subject
-      // board safety lives at the writer layer (per-process temp + atomic rename in
-      // update_board_index.py; lock + idempotency key in append-ndjson.sh)
+      // A different target is a different subject, but both handoffs rewrite the shared board/ledger.
+      // Admission must serialize that overlap across subjects so one terminal projection cannot stage
+      // another paid run's in-flight artifacts.
       const other = admitRun({ ticker: 'TH-20990101-ZZZZ::BBB', kind: 'handoff', swarmId: 'screener', coveredModules: [], writeTargetsAbs: [boardAbs], readDepsAbs: [] })
-      assert.equal(other.ok, true)
+      assert.equal(other.ok, false)
+      if (!other.ok) assert.equal(other.code, 'target_conflict')
     } finally {
       finishRun(handoff, 'done')
     }

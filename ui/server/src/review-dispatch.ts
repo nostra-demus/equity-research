@@ -92,6 +92,15 @@ function inheritedSelection(runRoot: string): RecordedProviderSelection | null {
   if (recorded) return recorded
   return hasProvenLegacyClaudeLineage(runRoot) ? { provider: 'claude' } : null
 }
+type ReviewSelectionResolver = (runRoot: string) => RecordedProviderSelection | null
+let reviewSelectionResolver: ReviewSelectionResolver = inheritedSelection
+
+/** Focused test seam; production always uses supervisor-sealed publication/legacy authority above. */
+export function __setReviewSelectionResolver(resolver: ReviewSelectionResolver): ReviewSelectionResolver {
+  const previous = reviewSelectionResolver
+  reviewSelectionResolver = resolver
+  return previous
+}
 
 /** Exported for focused dispatcher tests; production injects the common launcher from server.ts. */
 export function setTrackedReviewLauncher(launcher: TrackedReviewLauncher | null): void {
@@ -103,7 +112,7 @@ export function spawnReview(runRoot: string, window: string, ticker?: string): b
   if (inflightRuns.has(key) || firedKeyToday(key)) return false // in-flight, or already fired today (restart-safe)
   if (inflightRuns.size >= MAX_CONCURRENT) return false
   if (firedToday() >= DAILY_CAP) { log(`daily cap ${DAILY_CAP} reached — holding ${key}`); return false }
-  const selection = inheritedSelection(runRoot)
+  const selection = reviewSelectionResolver(runRoot)
   if (!selection) {
     log(`holding ${key} — source decision has no trusted provider/profile provenance; run it manually with an explicit provider`)
     return false

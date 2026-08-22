@@ -16,7 +16,7 @@ const SEGMENT_RE = /^[a-z0-9][a-z0-9-]*$/
 export const CANONICAL_COMMAND_FRONTMATTER_KEYS = new Set(['description', 'argument-hint', 'allowed-tools'])
 export const CANONICAL_AGENT_FRONTMATTER_KEYS = new Set([
   'name', 'description', 'tools', 'model', 'layer', 'fail_fast', 'depends_on', 'data_readiness',
-  'emits_signal_evidence', 'signal_families',
+  'emits_signal_evidence', 'signal_families', 'reads_from', 'exact_resume',
 ])
 
 export interface CanonicalCommand {
@@ -54,6 +54,23 @@ function contractError(code: string, message: string): never {
 function assertKnownKeys(data: Record<string, unknown>, allowed: Set<string>, sourcePath: string): void {
   const unknown = Object.keys(data).filter((key) => !allowed.has(key))
   if (unknown.length) contractError('CANONICAL_FRONTMATTER_UNKNOWN', `${sourcePath}: unknown frontmatter key(s): ${unknown.join(', ')}`)
+}
+
+function assertModuleMetadata(data: Record<string, unknown>, sourcePath: string): void {
+  for (const key of ['depends_on', 'reads_from'] as const) {
+    if (!(key in data)) continue
+    const value = data[key]
+    if (!Array.isArray(value) || value.some((item) => typeof item !== 'string' || !SEGMENT_RE.test(item.trim()))) {
+      contractError('CANONICAL_FRONTMATTER_INVALID', `${sourcePath}: '${key}' must be an array of canonical module names.`)
+    }
+    const normalized = (value as string[]).map((item) => item.trim())
+    if (new Set(normalized).size !== normalized.length) {
+      contractError('CANONICAL_FRONTMATTER_INVALID', `${sourcePath}: '${key}' contains duplicate module names.`)
+    }
+  }
+  if ('exact_resume' in data && typeof data.exact_resume !== 'boolean') {
+    contractError('CANONICAL_FRONTMATTER_INVALID', `${sourcePath}: 'exact_resume' must be a boolean.`)
+  }
 }
 
 export function parseCanonicalTools(value: unknown, sourcePath: string): CanonicalClaudeTool[] {
@@ -175,6 +192,7 @@ export function discoverCanonicalAgents(repoRoot: string = REPO_ROOT): Canonical
     const parsed = parseCanonicalMatter(raw, relative)
     const data = (parsed.data || {}) as Record<string, unknown>
     assertKnownKeys(data, CANONICAL_AGENT_FRONTMATTER_KEYS, relative)
+    assertModuleMetadata(data, relative)
     for (const required of ['name', 'description', 'tools']) {
       if (!(required in data)) contractError('CANONICAL_FRONTMATTER_MISSING', `${relative}: missing '${required}'.`)
     }

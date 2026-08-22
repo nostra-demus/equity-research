@@ -43,11 +43,12 @@ import './providers/claude'
 import './providers/codex'
 import { claudeChildEnv, detectClaudeFlags } from './providers/claude'
 import { getProviderAdapter, isProviderEnabled, listProviderAdapters, providerDisabledReason } from './providers/registry'
-import type { RunProvider } from './providers/types'
+import type { ProviderExecutionProfile, RunProvider } from './providers/types'
 import {
   appendExecutionAttempt, artifactIsFresh, attestParitySnapshotAtPublication,
   canonicalManifestJsonl, canonicalManifestPath, decisionArtifacts,
-  receiptPath, recordAdmittedProviderSelection, recordProviderInterruptionAuthority, releaseExecutionEpochAfterPublication,
+  receiptPath, recordAdmittedProviderSelection, recordProviderInterruptionAuthority,
+  recordRecoveredPublicationAuthority, releaseExecutionEpochAfterPublication,
   releaseParityRegistration, writeExecutionReceipt,
 } from './execution-provenance'
 
@@ -633,6 +634,12 @@ export function childCouldReportDoneOnClose(run: RunState, res: any): boolean {
 // missing-final-thesis integrity check can never be bypassed by an early clean result.
 export function finalizeRunOnClose(run: RunState, res: any, stderr: string, terminalProof: PreSpawnGuardResult = { ok: true }) {
   if (run.endedAt !== undefined) return // already finalized (stream-parser error path)
+  const finishClose = (status: RunStatus) => {
+    finishRun(run, status)
+    // Clear the crash-recovery lease last. If the supervisor dies anywhere before the durable terminal
+    // status/marker/publication above, startup still sees the lease and holds the root for recovery.
+    if (!runProcessTreeAlive(run)) clearProviderProcessLease(run.runId)
+  }
   let publicationTransportFailure: string | null = null
   try { run.publicationTransportVerify?.() } catch (error: any) {
     publicationTransportFailure = String(error?.message || error)
@@ -688,18 +695,18 @@ export function finalizeRunOnClose(run: RunState, res: any, stderr: string, term
   if ((run.status as string) === 'cancelled' || run.cancelRequested) {
     if (isResumableTerminalRun(run)) clearRunMarker(run.runRoot, '.interrupted') // a deliberate stop — cancel() wrote .aborted; never auto-resume
     emit(run, { type: 'run-error', runId: run.runId, status: 'cancelled', reason: 'cancelled', ts: Date.now() })
-    finishRun(run, 'cancelled')
+    finishClose('cancelled')
   } else if (streamResultErrors.has(run)) {
     // The stream path emitted the detailed error while retaining claims. Only this group-extinct close
     // finalizer releases them.
-    finishRun(run, 'error')
+    finishClose('error')
   } else if (!terminalProof.ok) {
     run.note = `incomplete: ${terminalProof.reason}`
     emit(run, {
       type: 'run-error', runId: run.runId, status: 'incomplete', reason: terminalProof.reason,
       message: terminalProof.message, ts: Date.now(),
     })
-    finishRun(run, 'incomplete')
+    finishClose('incomplete')
   } else if (isResumableResearchRun(run) && finalDeliverablesShippedByThisAttempt(run)
       && (!run.willCommitToMain || run.publicationCompleted)) {
     // SHIPPED before a trailing nonzero/kill: the terminal deliverables (final_thesis + decision_record) were
@@ -714,7 +721,7 @@ export function finalizeRunOnClose(run: RunState, res: any, stderr: string, term
     clearRunMarker(run.runRoot, '.interrupted')
     clearRunFailure(run.runRoot)
     emit(run, { type: 'run-done', runId: run.runId, status: 'done', costUsd: run.costUsd, durationMs: run.durationMs, numTurns: run.numTurns, ...finalPaths(run), ts: Date.now() })
-    finishRun(run, 'done')
+    finishClose('done')
   } else if (classified.outcome === 'terminated') {
     // killed from OUTSIDE cancel() (OOM killer, manual kill, parent shutdown, a dropped connection that
     // tears the process down) — an error, not a success. Mark the folder so the resume supervisor can pick
@@ -727,7 +734,7 @@ export function finalizeRunOnClose(run: RunState, res: any, stderr: string, term
     if (shouldRecordStop(run)) recordRunFailure(run, treason, terminalMessage) // A2: diagnosable note (self-guards + single-shot)
     run.note = failureNote(treason, terminalMessage) // A3: durable reason in the activity log (shown on the row)
     emit(run, { type: 'run-error', runId: run.runId, status: 'error', reason: treason, message: terminalMessage.slice(-400) || undefined, ts: Date.now() })
-    finishRun(run, 'error')
+    finishClose('error')
   } else if (classified.outcome === 'error') {
     // A clean provider exit that we converted above because publication never happened is itself a
     // publication failure, even though there was no request to set publicationRequested. Conversely,
@@ -754,7 +761,7 @@ export function finalizeRunOnClose(run: RunState, res: any, stderr: string, term
     if (shouldRecordStop(run)) recordRunFailure(run, reason, errorMessage) // A2: diagnosable note (self-guards + single-shot)
     run.note = failureNote(reason, errorMessage) // A3: durable reason in the activity log (shown on the row)
     emit(run, { type: 'run-error', runId: run.runId, status: 'error', reason, message: errorMessage.slice(-400) || undefined, ts: Date.now() })
-    finishRun(run, 'error')
+    finishClose('error')
   } else if (truncatedBeforeFinal(run)) {
     // The process exited cleanly, but a full/rerun that didn't write its terminal deliverable
     // (research: final thesis + decision record; constellation swarm: decision record) was almost
@@ -791,7 +798,7 @@ export function finalizeRunOnClose(run: RunState, res: any, stderr: string, term
     // QUEUE, and a deliberate cap-stop must never be auto-relaunched straight back into the cap.
     if (shouldRecordStop(run)) recordRunFailure(run, 'incomplete_deliverables', run.note ?? '')
     emit(run, { type: 'run-error', runId: run.runId, status: 'incomplete', reason: 'incomplete_deliverables', message: msg, ts: Date.now() })
-    finishRun(run, 'incomplete')
+    finishClose('incomplete')
   } else {
     // a completed research full/rerun has the 3 memos — copy them into the company's Drive folder
     // (timestamped). Constellation swarms (e.g. commodity) have no such memos, so this is research-only.
@@ -809,7 +816,7 @@ export function finalizeRunOnClose(run: RunState, res: any, stderr: string, term
       if (isResumableResearchRun(run)) clearRunFailure(run.runRoot) // drop a stale RUN_FAILURE.md from an earlier break of this now-complete run
     }
     emit(run, { type: 'run-done', runId: run.runId, status: 'done', costUsd: run.costUsd, durationMs: run.durationMs, numTurns: run.numTurns, ...finalPaths(run), ts: Date.now() })
-    finishRun(run, 'done')
+    finishClose('done')
   }
 }
 
@@ -923,6 +930,179 @@ async function holdClaimsUntilProcessGroupExtinct(pid: number | undefined): Prom
 function runProcessTreeAlive(run: RunState): boolean {
   if (run.processGroupPid) return processGroupAlive(run.processGroupPid)
   return processTreeAlive(run.child?.pid)
+}
+
+interface ProviderProcessLease {
+  schema_version: 'cockpit-provider-process/1.0'
+  run_id: string
+  run_root: string
+  subject: string
+  swarm: string
+  kind: RunKind
+  provider: RunProvider
+  profile_key: string
+  model: string
+  reasoning_level?: string
+  execution_profile: ProviderExecutionProfile
+  pid: number
+  process_started: string
+  run_started_at: number
+  self_sha256: string
+}
+
+const providerProcessLeaseDir = path.join(STATE_DIR, 'provider-process-groups')
+const providerProcessLeasePath = (runId: string) => path.join(providerProcessLeaseDir, `${runId}.json`)
+
+function processIdentity(pid: number): { pgid: number; started: string } | null {
+  try {
+    const raw = execFileSync('ps', ['-o', 'pgid=', '-o', 'lstart=', '-p', String(pid)], {
+      encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'],
+    }).trim()
+    const match = /^(\d+)\s+(.+)$/.exec(raw)
+    if (!match) return null
+    return { pgid: Number(match[1]), started: match[2].trim() }
+  } catch { return null }
+}
+
+function leaseDigest(value: Omit<ProviderProcessLease, 'self_sha256'>): string {
+  return `sha256:${createHash('sha256').update(JSON.stringify(value)).digest('hex')}`
+}
+
+function persistProviderProcessLease(run: RunState): void {
+  const pid = run.processGroupPid
+  if (!pid || !run.runRoot) throw new Error('provider process lease requires a process group and run root')
+  const identity = processIdentity(pid)
+  if (!identity || identity.pgid !== pid) throw new Error('spawned provider is not its own process-group leader')
+  fs.mkdirSync(providerProcessLeaseDir, { recursive: true, mode: 0o700 })
+  fs.chmodSync(providerProcessLeaseDir, 0o700)
+  const unsigned: Omit<ProviderProcessLease, 'self_sha256'> = {
+    schema_version: 'cockpit-provider-process/1.0', run_id: run.runId, run_root: run.runRoot,
+    subject: run.subjectId, swarm: run.swarmId, kind: run.kind, provider: run.provider,
+    profile_key: run.profileKey, model: run.model, reasoning_level: run.reasoningLevel,
+    execution_profile: run.executionProfile, pid, process_started: identity.started,
+    run_started_at: run.startedAt,
+  }
+  const lease: ProviderProcessLease = { ...unsigned, self_sha256: leaseDigest(unsigned) }
+  const target = providerProcessLeasePath(run.runId)
+  const temporary = `${target}.${process.pid}.tmp`
+  let descriptor: number | null = null
+  try {
+    descriptor = fs.openSync(temporary,
+      fs.constants.O_WRONLY | fs.constants.O_CREAT | fs.constants.O_EXCL | (fs.constants.O_NOFOLLOW ?? 0),
+      0o600)
+    fs.writeFileSync(descriptor, JSON.stringify(lease, null, 2) + '\n')
+    fs.fsyncSync(descriptor)
+    fs.closeSync(descriptor)
+    descriptor = null
+    fs.renameSync(temporary, target)
+    syncDirectory(providerProcessLeaseDir)
+  } catch (error) {
+    if (descriptor !== null) try { fs.closeSync(descriptor) } catch { /* best effort */ }
+    try { fs.unlinkSync(temporary) } catch { /* absent */ }
+    throw error
+  }
+}
+
+function clearProviderProcessLease(runId: string): void {
+  const target = providerProcessLeasePath(runId)
+  try {
+    const info = fs.lstatSync(target)
+    if (info.isFile() && !info.isSymbolicLink()) {
+      fs.unlinkSync(target)
+      syncDirectory(providerProcessLeaseDir)
+    }
+  } catch { /* absent or unsafe entries are reconciled on startup */ }
+}
+
+function readProviderProcessLease(absolute: string): ProviderProcessLease | null {
+  try {
+    const info = fs.lstatSync(absolute)
+    if (!info.isFile() || info.isSymbolicLink() || fs.realpathSync(absolute) !== absolute) return null
+    const value = JSON.parse(fs.readFileSync(absolute, 'utf8')) as ProviderProcessLease
+    if (value.schema_version !== 'cockpit-provider-process/1.0' || !/^[0-9a-f-]{36}$/.test(value.run_id)
+        || typeof value.run_root !== 'string' || typeof value.subject !== 'string'
+        || typeof value.swarm !== 'string' || !['claude', 'codex'].includes(value.provider)
+        || !Number.isSafeInteger(value.pid) || value.pid <= 1 || typeof value.process_started !== 'string'
+        || typeof value.profile_key !== 'string' || typeof value.model !== 'string'
+        || !value.execution_profile || typeof value.execution_profile !== 'object') return null
+    const { self_sha256, ...unsigned } = value
+    return self_sha256 === leaseDigest(unsigned) ? value : null
+  } catch { return null }
+}
+
+/** Kill and seal any detached provider group left by SIGKILL/OOM before this process admits work. */
+export async function reconcileOrphanedProviderGroups(): Promise<number> {
+  fs.mkdirSync(providerProcessLeaseDir, { recursive: true, mode: 0o700 })
+  fs.chmodSync(providerProcessLeaseDir, 0o700)
+  let reconciled = 0
+  for (const entry of fs.readdirSync(providerProcessLeaseDir, { withFileTypes: true })) {
+    if (!entry.name.endsWith('.json')) continue
+    const absolute = path.join(providerProcessLeaseDir, entry.name)
+    if (!entry.isFile() || entry.isSymbolicLink()) {
+      throw new Error(`unsafe provider-process lease entry: ${entry.name}`)
+    }
+    const lease = readProviderProcessLease(absolute)
+    if (!lease || entry.name !== `${lease.run_id}.json`) {
+      throw new Error(`invalid provider-process lease: ${entry.name}`)
+    }
+    const identity = processIdentity(lease.pid)
+    if (identity && identity.pgid === lease.pid && identity.started === lease.process_started) {
+      try { process.kill(-lease.pid, 'SIGTERM') } catch { /* exited between proof and signal */ }
+      const termDeadline = Date.now() + 1000
+      while (signalTargetAlive(-lease.pid) && Date.now() < termDeadline) {
+        await new Promise<void>((resolve) => setTimeout(resolve, 25))
+      }
+      if (signalTargetAlive(-lease.pid)) {
+        try { process.kill(-lease.pid, 'SIGKILL') } catch { /* exited between proof and signal */ }
+      }
+      while (signalTargetAlive(-lease.pid)) await new Promise<void>((resolve) => setTimeout(resolve, 25))
+    }
+    // A surviving lease proves the prior supervisor never owned a clean terminal close, even if the
+    // detached group happened to exit before this reconciliation. Preserve the bytes, but require an
+    // explicit provider-aware continuation instead of inferring completion from provider-authored files.
+    try {
+      writeRunMarker(lease.run_root, '.interrupted', {
+        reason: 'supervisor_restart', provider: lease.provider, profileKey: lease.profile_key,
+        model: lease.model, reasoningLevel: lease.reasoning_level,
+        runId: lease.run_id, startedAt: lease.run_started_at,
+      })
+      recordProviderInterruptionAuthority({
+        runId: lease.run_id, runRoot: lease.run_root, provider: lease.provider,
+        profileKey: lease.profile_key, model: lease.model, reasoningLevel: lease.reasoning_level,
+        executionProfile: lease.execution_profile,
+      } as RunState)
+    } catch (error: any) {
+      throw new Error(`orphan ${lease.run_id} was stopped but resume authority could not be sealed: ${String(error?.message || error)}`)
+    }
+    reconciled++
+    clearProviderProcessLease(lease.run_id)
+  }
+  return reconciled
+}
+
+/** Graceful shutdown writer barrier: stop every provider group and wait before releasing the singleton. */
+export async function drainProviderRunsForShutdown(): Promise<void> {
+  haltAllChains()
+  const active = listRuns().filter((run) => run.endedAt === undefined)
+  for (const run of active) {
+    if (run.child) {
+      if (isResumableTerminalRun(run) || run.kind === 'signal') {
+        try { writeInterruptionMarker(run, 'supervisor_shutdown', 'The cockpit stopped while this run was active.') } catch { /* best effort */ }
+      }
+      killProcessTree(run)
+    } else {
+      emit(run, { type: 'run-error', runId: run.runId, status: 'error', reason: 'supervisor_shutdown', ts: Date.now() })
+      finishRun(run, 'error')
+    }
+  }
+  const spawned = active.filter((run) => run.child)
+  if (spawned.length && !(await awaitRunsExited(spawned, 15_000))) {
+    throw new Error('provider process groups did not drain during graceful shutdown')
+  }
+  for (const run of spawned) {
+    if (run.endedAt === undefined) finalizeRunOnClose(run, { isTerminated: true, signal: 'SIGTERM' }, '')
+    clearProviderProcessLease(run.runId)
+  }
 }
 
 const MODEL_WRITABLE_TOP_LEVEL = new Set(['analyses', 'screener', 'commodity', 'watchlist', 'data'])
@@ -3037,8 +3217,55 @@ export const EXACT_MODULE_WRITABLE_ORBS_ENV = 'NOSTRA_EXACT_MODULE_WRITABLE_ORBS
 export const EXACT_MODULE_SYNTHESIS_ORBS_ENV = 'NOSTRA_EXACT_MODULE_SYNTHESIS_ORBS'
 // Back-compatible helper for the few untracked Claude-only wrappers that import childEnv(). Tracked
 // cockpit processes get their environment from their selected ProviderAdapter.
-export function childEnv(): NodeJS.ProcessEnv {
-  return claudeChildEnv()
+interface RunPolicyEnvOptions {
+  deferModuleMemo?: boolean
+  exactModuleResume?: boolean
+  exactModuleInputs?: unknown
+  exactModuleRunRoot?: unknown
+  exactModuleName?: unknown
+  exactModuleWritableOrbs?: unknown
+  exactModuleSynthesisOrbs?: unknown
+}
+
+function applyRunPolicyOptions(source: NodeJS.ProcessEnv, options: RunPolicyEnvOptions = {}): NodeJS.ProcessEnv {
+  const env = { ...source }
+  for (const key of [
+    DEFER_MODULE_MEMO_ENV, EXACT_MODULE_RESUME_ENV, EXACT_MODULE_INPUTS_ENV,
+    EXACT_MODULE_RUN_ROOT_ENV, EXACT_MODULE_NAME_ENV, EXACT_MODULE_WRITABLE_ORBS_ENV,
+    EXACT_MODULE_SYNTHESIS_ORBS_ENV,
+  ]) delete env[key]
+  if (options.deferModuleMemo) env[DEFER_MODULE_MEMO_ENV] = '1'
+  if (!options.exactModuleResume) return env
+
+  const root = typeof options.exactModuleRunRoot === 'string' ? options.exactModuleRunRoot : ''
+  if (!/^analyses\/[A-Z0-9.\-]{1,15}_\d{4}-\d{2}-\d{2}$/.test(root)) {
+    throw new Error('exact module resume requires a valid immutable run root')
+  }
+  const rawInputs = options.exactModuleInputs
+  const module = typeof options.exactModuleName === 'string' ? options.exactModuleName : ''
+  const rawWritable = options.exactModuleWritableOrbs
+  const rawSyntheses = options.exactModuleSynthesisOrbs
+  const validStrings = (value: unknown, pattern: RegExp): value is string[] => Array.isArray(value)
+    && value.every((item) => typeof item === 'string' && pattern.test(item))
+  if (!validStrings(rawInputs, /^[a-z0-9][a-z0-9-]*$/)) {
+    throw new Error('exact module resume requires a valid immutable run root and artifact scope')
+  }
+  if (!/^[a-z0-9][a-z0-9-]*$/.test(module)
+      || !validStrings(rawWritable, /^\d{2}_[a-z0-9][a-z0-9-]*$/)
+      || !validStrings(rawSyntheses, /^99_[a-z0-9][a-z0-9-]*$/)) {
+    throw new Error('exact module resume requires a valid immutable run root and artifact scope')
+  }
+  env[EXACT_MODULE_RESUME_ENV] = '1'
+  env[EXACT_MODULE_INPUTS_ENV] = [...new Set(rawInputs)].sort().join(',')
+  env[EXACT_MODULE_RUN_ROOT_ENV] = root
+  env[EXACT_MODULE_NAME_ENV] = module
+  env[EXACT_MODULE_WRITABLE_ORBS_ENV] = [...new Set(rawWritable)].sort().join(',')
+  env[EXACT_MODULE_SYNTHESIS_ORBS_ENV] = [...new Set(rawSyntheses)].sort().join(',')
+  return env
+}
+
+export function childEnv(options: RunPolicyEnvOptions = {}): NodeJS.ProcessEnv {
+  return applyRunPolicyOptions(claudeChildEnv(), options)
 }
 
 /** Reassert supervisor-only controls after a provider adapter applies its model-visible env allowlist. */
@@ -3060,6 +3287,19 @@ export function applySupervisorPublicationEnv(
   }
 }
 
+function applyRunPolicyEnv(source: NodeJS.ProcessEnv, run: RunState): NodeJS.ProcessEnv {
+  const scope = exactModuleArtifactScopeByRun.get(run)
+  return applyRunPolicyOptions(source, {
+    deferModuleMemo: deferredModuleMemoRuns.has(run),
+    exactModuleResume: exactModuleResumeRuns.has(run),
+    exactModuleInputs: exactModuleInputsByRun.get(run),
+    exactModuleRunRoot: exactModuleRunRootByRun.get(run),
+    exactModuleName: scope?.module,
+    exactModuleWritableOrbs: scope?.writableOrbs,
+    exactModuleSynthesisOrbs: scope?.synthesisOrbs,
+  })
+}
+
 const PUBLICATION_SOCKET_MAX_BODY = 64 * 1024
 const publicationTokenMatches = (expected: string, value: string): boolean => {
   const a = Buffer.from(expected)
@@ -3070,15 +3310,21 @@ const publicationTokenMatches = (expected: string, value: string): boolean => {
 function validSupervisorPublicationRequest(value: unknown): value is SupervisorPublicationRequest {
   if (!value || typeof value !== 'object' || Array.isArray(value)) return false
   const record = value as Record<string, unknown>
-  const allowed = new Set(['phase', 'message', 'pathspecs', 'comparisonArtifact', 'freezeReceipt', 'receiptOutput'])
+  const allowed = new Set([
+    'phase', 'message', 'pathspecs', 'comparisonArtifact', 'freezeReceipt', 'receiptOutput',
+    'executedAgainstDecisionFingerprint',
+  ])
   if (Object.keys(record).some((key) => !allowed.has(key))) return false
-  if (record.phase !== undefined && !['stamp', 'archive', 'commit', 'attest', 'verify-attestation'].includes(String(record.phase))) return false
+  if (record.phase !== undefined && !['stamp', 'archive', 'commit', 'intake-receipt', 'attest', 'verify-attestation'].includes(String(record.phase))) return false
   if (record.message !== undefined && (typeof record.message !== 'string' || record.message.length > 500)) return false
   if (record.pathspecs !== undefined && (!Array.isArray(record.pathspecs) || record.pathspecs.length > 32
       || record.pathspecs.some((item) => typeof item !== 'string' || item.length > 500))) return false
   for (const key of ['comparisonArtifact', 'freezeReceipt', 'receiptOutput']) {
     if (record[key] !== undefined && (typeof record[key] !== 'string' || record[key].length > 1000)) return false
   }
+  if (record.executedAgainstDecisionFingerprint !== undefined
+      && (typeof record.executedAgainstDecisionFingerprint !== 'string'
+        || !/^sha256:[a-f0-9]{64}$/.test(record.executedAgainstDecisionFingerprint))) return false
   return true
 }
 
@@ -3191,7 +3437,7 @@ export async function startSupervisorPublicationSocket(run: RunState): Promise<S
         response.end(JSON.stringify({ error: String(error?.message || error) }))
         return
       }
-      void supervisePublication(run.runId, token, body).then((result) => {
+      void queuePublicationIntent(run.runId, token, body).then((result) => {
         if (!response.writableEnded) response.end(JSON.stringify(result))
       }, (error: any) => {
         run.publicationError = String(error?.message || error).slice(0, 1000)
@@ -3270,12 +3516,159 @@ export async function startSupervisorPublicationSocket(run: RunState): Promise<S
 }
 
 export interface SupervisorPublicationRequest {
-  phase?: 'stamp' | 'archive' | 'commit' | 'attest' | 'verify-attestation'
+  phase?: 'stamp' | 'archive' | 'commit' | 'intake-receipt' | 'attest' | 'verify-attestation'
   message?: string
   pathspecs?: string[]
   comparisonArtifact?: string
   freezeReceipt?: string
   receiptOutput?: string
+  executedAgainstDecisionFingerprint?: string
+}
+
+interface QueuedPublicationIntent {
+  id: string
+  sequence: number
+  queuedAt: number
+  request: SupervisorPublicationRequest
+}
+
+const publicationIntentsByRun = new WeakMap<RunState, QueuedPublicationIntent[]>()
+const publicationDrainRuns = new WeakSet<RunState>()
+const MAX_PUBLICATION_INTENTS = 32
+
+function assertLivePublicationCapability(runId: string, token: string): RunState {
+  const run = getRun(runId)
+  if (!run || run.endedAt !== undefined || !run.publicationToken
+      || !publicationTokenMatches(run.publicationToken, token)) {
+    throw Object.assign(new Error('invalid or expired publication capability'), { statusCode: 403 })
+  }
+  run.publicationTransportVerify?.()
+  return run
+}
+
+/**
+ * Child-time publication is intent capture only. The provider and every detached descendant still own
+ * write access at this point, so stamping, archiving, Git, and calibration are forbidden here. The close
+ * owner drains these requests only after proving the whole process group extinct.
+ */
+export async function queuePublicationIntent(
+  runId: string,
+  token: string,
+  request: SupervisorPublicationRequest,
+): Promise<Record<string, unknown>> {
+  const run = assertLivePublicationCapability(runId, token)
+  // Parity adjudication is a live read/attestation exchange, not a data publication. Its finalizer still
+  // requires the supervisor-verified receipt, and no Git/stamping occurs in these two phases.
+  if (request.phase === 'attest' || request.phase === 'verify-attestation') {
+    return supervisePublication(runId, token, request)
+  }
+  if (request.phase === 'archive' && (run.swarmId !== 'commodity' || !run.runRoot
+      || !['full', 'rerun'].includes(run.kind))) {
+    throw Object.assign(new Error('commodity archive intent is valid only for a tracked terminal commodity run'), { statusCode: 409 })
+  }
+  if (request.phase === 'intake-receipt' && (run.swarmId !== 'commodity'
+      || !intakeReceiptByRun.has(run) || !run.module || !run.agent
+      || !request.executedAgainstDecisionFingerprint)) {
+    throw Object.assign(new Error('commodity intake-receipt intent does not match this tracked rerun'), { statusCode: 409 })
+  }
+  if (request.phase !== undefined && !['commit', 'stamp', 'archive', 'intake-receipt'].includes(request.phase)) {
+    throw Object.assign(new Error('unsupported publication intent phase'), { statusCode: 400 })
+  }
+  if (request.phase === 'commit' || request.phase === undefined) authorizedPublicationPaths(run, request.pathspecs)
+  const intents = publicationIntentsByRun.get(run) ?? []
+  if (intents.length >= MAX_PUBLICATION_INTENTS) {
+    throw Object.assign(new Error('too many publication intents for one run'), { statusCode: 409 })
+  }
+  const id = randomUUID()
+  intents.push({
+    id,
+    sequence: intents.length + 1,
+    queuedAt: Date.now(),
+    request: {
+      ...request,
+      pathspecs: request.pathspecs ? [...request.pathspecs] : undefined,
+    },
+  })
+  publicationIntentsByRun.set(run, intents)
+  run.publicationRequested = true
+  const response: Record<string, unknown> = {
+    ok: true,
+    phase: 'queued',
+    intentId: id,
+    sequence: intents.length,
+    output: `PUBLICATION_QUEUED=${id}`,
+  }
+  if (request.phase === 'archive') {
+    const deferredId = `PENDING-${run.subjectId}-${run.runId.slice(0, 8)}`
+    response.phase = 'archive'
+    response.archiveDecision = {
+      decisionId: deferredId,
+      path: path.join(REPO_ROOT, run.runRoot!, 'decisions', deferredId, 'decision_record.json'),
+      created: false,
+      deferred: true,
+    }
+  }
+  return response
+}
+
+/** Execute queued writes only after the caller has proved the detached provider group extinct. */
+export async function drainPublicationIntents(run: RunState): Promise<void> {
+  const intents = publicationIntentsByRun.get(run) ?? []
+  if (!intents.length) {
+    if (run.willCommitToMain) throw new Error('the provider exited without a queued terminal publication intent')
+    return
+  }
+  const stamp = intents.find((intent) => intent.request.phase === 'stamp')
+  const archive = intents.find((intent) => intent.request.phase === 'archive')
+  const receiptIntent = intents.find((intent) => intent.request.phase === 'intake-receipt')
+  const commits = intents.filter((intent) => !['stamp', 'archive', 'intake-receipt'].includes(intent.request.phase ?? 'commit'))
+  if (stamp && (archive || receiptIntent || commits.length)) throw new Error('a stamp-only canary cannot also request a normal publication')
+  if (!run.publicationToken) throw new Error('queued publication capability expired before terminal drain')
+  publicationDrainRuns.add(run)
+  try {
+    if (stamp) {
+      await supervisePublication(run.runId, run.publicationToken, stamp.request)
+    } else {
+    if (run.swarmId === 'commodity') {
+      if (!archive) throw new Error('terminal commodity publication has no queued archive intent')
+      await supervisePublication(run.runId, run.publicationToken, { phase: 'archive' })
+      if (receiptIntent) {
+        const bound = intakeReceiptByRun.get(run)
+        if (!bound || !run.runRoot || !run.module || !run.agent) {
+          throw new Error('queued commodity intake receipt lost its frozen launch binding')
+        }
+        const executed = receiptIntent.request.executedAgainstDecisionFingerprint
+        if (!executed) throw new Error('queued commodity intake receipt has no executed-against fingerprint')
+        const env = { ...process.env }
+        for (const key of ['NOSTRA_COCKPIT_RUN', 'NOSTRA_PUBLICATION_ENDPOINT', 'NOSTRA_PUBLICATION_TOKEN', 'NOSTRA_PUBLICATION_SOCKET']) delete env[key]
+        const result = await execa('python3', ['scripts/intake_execution_receipt.py', 'create',
+          '--swarm', run.swarmId, '--subject', run.subjectId, '--run-root', run.runRoot,
+          '--plan-path', bound.planPath, '--plan-sha256', bound.planSha256,
+          '--source-decision-fingerprint', bound.sourceDecisionFingerprint,
+          '--executed-against-decision-fingerprint', executed,
+          '--module', run.module, '--agent', run.agent,
+        ], { cwd: REPO_ROOT, env, reject: true })
+        const receiptPath = /^INTAKE-RECEIPT: ([A-Za-z0-9._/-]+) sha256:[a-f0-9]{64}$/m.exec(result.stdout)?.[1]
+        if (!receiptPath) throw new Error('supervisor commodity intake receipt returned no exact artifact')
+        run.supervisorPublicationArtifacts = [...new Set([...(run.supervisorPublicationArtifacts ?? []), receiptPath])]
+      }
+    } else if (archive || receiptIntent) {
+      throw new Error('archive/intake-receipt intents are commodity-only')
+    }
+    if (!commits.length) throw new Error('the provider exited without a queued terminal commit intent')
+    const pathspecs = [...new Set(commits.flatMap((intent) => intent.request.pathspecs ?? []))]
+    const terminal = [...commits].reverse().find((intent) =>
+      !String(intent.request.message ?? '').startsWith('Checkpoint:')) ?? commits.at(-1)!
+      await supervisePublication(run.runId, run.publicationToken, {
+        phase: 'commit',
+        message: terminal.request.message,
+        pathspecs,
+      })
+    }
+    publicationIntentsByRun.delete(run)
+  } finally {
+    publicationDrainRuns.delete(run)
+  }
 }
 
 const DATA_PUBLICATION_ROOTS = new Set(['analyses', 'screener', 'commodity', 'watchlist'])
@@ -3370,6 +3763,15 @@ let supervisorCommitVerifier: SupervisorCommitVerifier = async (output, required
   }
 }
 
+function verifiedPublishedRevision(output: string): string {
+  const reported = /(?:^|\n)COMMIT_SHA=([0-9a-f]{40}|[0-9a-f]{64})(?:\n|$)/.exec(output)?.[1]
+  if (reported) return reported
+  if (!/(?:^|\n)NOOP=1(?:\n|$)/.test(output)) throw new Error('publication has no verified revision')
+  return execFileSync('git', ['rev-parse', 'HEAD'], {
+    cwd: REPO_ROOT, encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'],
+  }).trim()
+}
+
 function nulPaths(value: Buffer): string[] {
   return value.toString('utf8').split('\0').filter(Boolean)
 }
@@ -3421,6 +3823,146 @@ function createPublicationSnapshot(run: RunState, pathspecs: string[], requiredP
     fs.rmSync(directory, { recursive: true, force: true })
     throw error
   }
+}
+
+type ReadyPublicationStage = 'primary-ready' | 'backfill-ready'
+interface ReadyPublicationRecord {
+  schema_version: 'cockpit-publication-ready/1.0'
+  run_id: string
+  run_root: string
+  subject: string
+  swarm: string
+  kind: RunKind
+  provider: RunProvider
+  profile_key: string
+  model: string
+  reasoning_level?: string
+  execution_profile: ProviderExecutionProfile
+  stage: ReadyPublicationStage
+  message: string
+  snapshot_manifest: string
+  snapshot_manifest_sha256: string
+  paths: string[]
+  artifact_hashes: Record<string, string>
+  primary_commit_sha?: string
+  created_at: string
+  self_sha256: string
+}
+
+const readyPublicationDir = path.join(STATE_DIR, 'publication-ready')
+const readyPublicationPath = (runId: string) => path.join(readyPublicationDir, `${runId}.json`)
+const readyPublicationDigest = (value: Omit<ReadyPublicationRecord, 'self_sha256'>): string =>
+  `sha256:${createHash('sha256').update(canonicalJson(value)).digest('hex')}`
+
+function syncDirectory(directory: string): void {
+  let descriptor: number | null = null
+  try {
+    descriptor = fs.openSync(directory, fs.constants.O_RDONLY)
+    fs.fsyncSync(descriptor)
+  } catch { /* the file fsync + atomic rename remain the primary durability boundary */ }
+  finally { if (descriptor !== null) try { fs.closeSync(descriptor) } catch { /* best effort */ } }
+}
+
+function writeReadyPublication(
+  run: RunState,
+  snapshot: ReturnType<typeof createPublicationSnapshot>,
+  message: string,
+  stage: ReadyPublicationStage,
+  artifactHashes: Record<string, string>,
+  primaryCommitSha?: string,
+): ReadyPublicationRecord {
+  if (!run.runRoot || !/^[0-9a-f-]{36}$/.test(run.runId)) throw new Error('ready publication has no canonical run identity')
+  const manifestInfo = assertRegularArtifact(snapshot.manifest, 'ready publication snapshot manifest')
+  if (manifestInfo.mode & 0o077 || path.dirname(snapshot.manifest) !== snapshot.directory
+      || !snapshot.directory.startsWith(`${path.resolve(STATE_DIR)}${path.sep}`)) {
+    throw new Error('ready publication snapshot is outside protected supervisor state')
+  }
+  const unsigned: Omit<ReadyPublicationRecord, 'self_sha256'> = {
+    schema_version: 'cockpit-publication-ready/1.0', run_id: run.runId, run_root: run.runRoot,
+    subject: run.subjectId, swarm: run.swarmId, kind: run.kind, provider: run.provider,
+    profile_key: run.profileKey, model: run.model, reasoning_level: run.reasoningLevel,
+    execution_profile: run.executionProfile, stage, message,
+    snapshot_manifest: snapshot.manifest,
+    snapshot_manifest_sha256: fileSha256(snapshot.manifest),
+    paths: [...snapshot.paths], artifact_hashes: { ...artifactHashes },
+    ...(primaryCommitSha ? { primary_commit_sha: primaryCommitSha } : {}),
+    created_at: new Date().toISOString(),
+  }
+  const record: ReadyPublicationRecord = { ...unsigned, self_sha256: readyPublicationDigest(unsigned) }
+  fs.mkdirSync(readyPublicationDir, { recursive: true, mode: 0o700 })
+  fs.chmodSync(readyPublicationDir, 0o700)
+  const target = readyPublicationPath(run.runId)
+  const temporary = `${target}.${process.pid}.${randomUUID()}.tmp`
+  let descriptor: number | null = null
+  try {
+    descriptor = fs.openSync(temporary,
+      fs.constants.O_WRONLY | fs.constants.O_CREAT | fs.constants.O_EXCL | (fs.constants.O_NOFOLLOW ?? 0),
+      0o600)
+    fs.writeFileSync(descriptor, `${JSON.stringify(record, null, 2)}\n`)
+    fs.fsyncSync(descriptor)
+    fs.closeSync(descriptor)
+    descriptor = null
+    fs.renameSync(temporary, target)
+    syncDirectory(readyPublicationDir)
+  } finally {
+    if (descriptor !== null) try { fs.closeSync(descriptor) } catch { /* best effort */ }
+    try { fs.rmSync(temporary, { force: true }) } catch { /* best effort */ }
+  }
+  return record
+}
+
+function readReadyPublication(absolute: string): ReadyPublicationRecord {
+  const info = fs.lstatSync(absolute)
+  const uid = process.getuid?.()
+  if (!info.isFile() || info.isSymbolicLink() || (info.mode & 0o077) !== 0
+      || (uid !== undefined && info.uid !== uid) || fs.realpathSync(absolute) !== absolute
+      || info.size <= 0 || info.size > 1024 * 1024) throw new Error('unsafe ready-publication receipt')
+  const value = JSON.parse(fs.readFileSync(absolute, 'utf8')) as ReadyPublicationRecord
+  if (value.schema_version !== 'cockpit-publication-ready/1.0'
+      || !/^[0-9a-f-]{36}$/.test(value.run_id) || path.basename(absolute) !== `${value.run_id}.json`
+      || !value.run_root || !value.subject || !value.swarm || !['claude', 'codex'].includes(value.provider)
+      || !['primary-ready', 'backfill-ready'].includes(value.stage)
+      || !value.profile_key || !value.model || !value.execution_profile
+      || !Array.isArray(value.paths) || !value.paths.length
+      || !value.artifact_hashes || typeof value.artifact_hashes !== 'object'
+      || typeof value.self_sha256 !== 'string') throw new Error('invalid ready-publication receipt')
+  const { self_sha256, ...unsigned } = value
+  if (readyPublicationDigest(unsigned) !== self_sha256) throw new Error('ready-publication receipt digest mismatch')
+  const manifest = path.resolve(value.snapshot_manifest)
+  const state = path.resolve(STATE_DIR)
+  if (!manifest.startsWith(`${state}${path.sep}`) || fileSha256(manifest) !== value.snapshot_manifest_sha256) {
+    throw new Error('ready-publication snapshot manifest is missing or changed')
+  }
+  const manifestValue = JSON.parse(fs.readFileSync(manifest, 'utf8')) as Record<string, any>
+  if (manifestValue.schema_version !== 'cockpit-publication-snapshot/1.0'
+      || manifestValue.run_id !== value.run_id || !Array.isArray(manifestValue.entries)) {
+    throw new Error('ready-publication snapshot manifest contract mismatch')
+  }
+  const entries = manifestValue.entries as Array<Record<string, unknown>>
+  const paths = entries.map((entry) => entry.path)
+  if (!isDeepStrictEqual(paths, value.paths)) throw new Error('ready-publication path list disagrees with its snapshot')
+  for (const entry of entries) {
+    if (typeof entry.path !== 'string' || typeof entry.snapshot !== 'string' || typeof entry.sha256 !== 'string'
+        || value.artifact_hashes[entry.path] !== entry.sha256) {
+      throw new Error('ready-publication entry disagrees with its bound hashes')
+    }
+    const snapshot = path.resolve(entry.snapshot)
+    if (path.dirname(snapshot) !== path.dirname(manifest)) throw new Error('ready-publication entry escapes its snapshot directory')
+    const snapshotInfo = assertRegularArtifact(snapshot, 'ready publication snapshot entry')
+    if (snapshotInfo.mode & 0o077 || fileSha256(snapshot) !== entry.sha256) {
+      throw new Error('ready-publication snapshot entry changed')
+    }
+  }
+  return value
+}
+
+function clearReadyPublication(record: ReadyPublicationRecord): void {
+  const target = readyPublicationPath(record.run_id)
+  const current = readReadyPublication(target)
+  if (current.self_sha256 !== record.self_sha256) throw new Error('a newer ready publication replaced this receipt')
+  fs.unlinkSync(target)
+  syncDirectory(readyPublicationDir)
+  fs.rmSync(path.dirname(record.snapshot_manifest), { recursive: true, force: true })
 }
 
 function retainPublicationSnapshot(
@@ -4213,6 +4755,8 @@ export async function supervisePublication(
     ...artifacts,
     ...(run.supervisorPublicationArtifacts ?? []),
     ...(receipt ? [receipt.path] : []),
+    ...(publicationDrainRuns.has(run) && run.kind === 'full' && run.swarmId === RESEARCH_SWARM_ID && run.runRoot
+      ? [`${run.runRoot}/RUN_METADATA.md`] : []),
   ])]
   for (const required of requiredCommitPaths) if (!pathspecs.includes(required)) pathspecs.push(required)
   const message = typeof request.message === 'string' && request.message.trim()
@@ -4224,6 +4768,15 @@ export async function supervisePublication(
   // may keep running while their HTTP request is in flight, but commit-run stages only these immutable
   // snapshots and HEAD verification compares against these fixed hashes, never mutable worktree bytes.
   const fixedAuthoredHashes = { ...supervisorAuthoredHashes, ...artifactHashes }
+  if (publicationDrainRuns.has(run) && run.kind === 'full' && run.swarmId === RESEARCH_SWARM_ID && run.runRoot) {
+    const metadata = path.join(REPO_ROOT, run.runRoot, 'RUN_METADATA.md')
+    assertRegularArtifact(metadata, 'full-run metadata awaiting commit-SHA backfill')
+    const body = fs.readFileSync(metadata, 'utf8')
+    const placeholder = '(to be filled after commit)'
+    if (!body.includes(placeholder) || body.replace(placeholder, '').includes(placeholder)) {
+      throw new Error('RUN_METADATA.md must contain exactly one commit-SHA placeholder')
+    }
+  }
   for (const [relative, expected] of Object.entries(fixedAuthoredHashes)) {
     if (fileSha256(path.join(REPO_ROOT, relative)) !== expected) {
       throw new Error(`terminal decision artifact changed before fixed publication snapshot: ${relative}`)
@@ -4247,16 +4800,64 @@ export async function supervisePublication(
   env.NOSTRA_SUPERVISOR_SNAPSHOT_MANIFEST = snapshot.manifest
   let output: string
   let retained = false
+  const deferredDrain = publicationDrainRuns.has(run)
+  let ready = deferredDrain
+    ? writeReadyPublication(run, snapshot, message, 'primary-ready', snapshot.hashes)
+    : null
+  if (ready) clearProviderProcessLease(run.runId)
+  const finalHashes = { ...snapshot.hashes }
   try {
     output = await supervisorCommitter(message, snapshot.paths, env)
     await supervisorCommitVerifier(output, snapshot.paths, snapshot.hashes)
     run.publicationTransportVerify?.()
-    retainPublicationSnapshot(run, snapshot)
+    if (!deferredDrain) retainPublicationSnapshot(run, snapshot)
     retained = true
   } finally {
-    if (!retained) snapshot.cleanup()
+    // A post-extinction ready receipt deliberately retains its immutable snapshot across a helper crash
+    // or push failure. Startup may retry only this protected receipt; merely queued/live intents carry no
+    // providerless authority. Direct focused-test calls retain their historical settle-on-close behavior.
+    if (!retained && !ready) snapshot.cleanup()
   }
-  run.publicationArtifactHashes = { ...snapshot.hashes }
+  // A commit cannot contain its own SHA. Full research runs therefore publish the frozen primary
+  // snapshot first, then the supervisor (after provider extinction) fills only RUN_METADATA.md and
+  // publishes that exact second snapshot. The model never receives authority to amend or infer HEAD.
+  if (deferredDrain && run.kind === 'full' && run.swarmId === RESEARCH_SWARM_ID && run.runRoot) {
+    const primarySha = verifiedPublishedRevision(output)
+    const metadataRelative = `${run.runRoot}/RUN_METADATA.md`
+    const metadataAbsolute = path.join(REPO_ROOT, metadataRelative)
+    if (fs.existsSync(metadataAbsolute)) {
+      assertRegularArtifact(metadataAbsolute, 'full-run metadata backfill')
+      const original = fs.readFileSync(metadataAbsolute, 'utf8')
+      const placeholder = '(to be filled after commit)'
+      if (!original.includes(placeholder)) throw new Error('RUN_METADATA.md has no exact commit-SHA placeholder')
+      const updated = original.replace(placeholder, primarySha)
+      if (updated.includes(placeholder)) throw new Error('RUN_METADATA.md contains more than one commit-SHA placeholder')
+      writeSupervisorRunFile(run.runRoot, 'RUN_METADATA.md', updated)
+      const backfill = createPublicationSnapshot(run, [metadataRelative], [metadataRelative])
+      const backfillEnv = { ...env, NOSTRA_SUPERVISOR_SNAPSHOT_MANIFEST: backfill.manifest }
+      finalHashes[metadataRelative] = backfill.hashes[metadataRelative]
+      const backfillReady = writeReadyPublication(
+        run, backfill, `Backfill commit SHA in RUN_METADATA for ${run.subjectId}`,
+        'backfill-ready', finalHashes, primarySha,
+      )
+      // The atomically replaced ready receipt now owns the backfill snapshot. The obsolete primary
+      // snapshot can be removed without creating a recovery gap.
+      snapshot.cleanup()
+      ready = backfillReady
+      try {
+        const backfillOutput = await supervisorCommitter(
+          `Backfill commit SHA in RUN_METADATA for ${run.subjectId}`,
+          backfill.paths,
+          backfillEnv,
+        )
+        await supervisorCommitVerifier(backfillOutput, backfill.paths, backfill.hashes)
+        await supervisorCommitVerifier(backfillOutput, Object.keys(finalHashes), finalHashes)
+        output = `${output}\n${backfillOutput}`
+      } finally { /* a failed backfill deliberately retains its protected ready snapshot */ }
+    }
+  }
+  if (ready) clearReadyPublication(ready)
+  run.publicationArtifactHashes = finalHashes
   run.publicationCompleted = true
   run.publicationPhase = 'terminal-complete'
   run.publicationToken = undefined
@@ -4273,7 +4874,78 @@ export async function supervisePublication(
       console.error(`[publication] ${postPublicationWarning}`) // eslint-disable-line no-console
     }
   }
-  return { ok: true, phase, output, artifacts, artifactHashes, ...(postPublicationWarning ? { postPublicationWarning } : {}) }
+  return { ok: true, phase, output, artifacts, artifactHashes: finalHashes, ...(postPublicationWarning ? { postPublicationWarning } : {}) }
+}
+
+function readySnapshotEntries(record: ReadyPublicationRecord): Array<{ path: string; snapshot: string; sha256: string }> {
+  const manifest = JSON.parse(fs.readFileSync(record.snapshot_manifest, 'utf8')) as Record<string, unknown>
+  return (manifest.entries as Array<{ path: string; snapshot: string; sha256: string }>).map((entry) => ({ ...entry }))
+}
+
+function runFromReadyPublication(record: ReadyPublicationRecord): RunState {
+  return {
+    runId: record.run_id, runRoot: record.run_root, subjectId: record.subject, ticker: record.subject,
+    swarmId: record.swarm, kind: record.kind, provider: record.provider, profileKey: record.profile_key,
+    model: record.model, reasoningLevel: record.reasoning_level, executionProfile: record.execution_profile,
+  } as RunState
+}
+
+/** Retry only post-extinction publications whose immutable snapshot and provider identity were sealed in
+ * protected supervisor state before Git began. Live/queued intents are intentionally unrecoverable: the
+ * preserved run is marked interrupted and requires an explicit continuation after a crash. */
+export async function recoverReadyPublications(): Promise<number> {
+  fs.mkdirSync(readyPublicationDir, { recursive: true, mode: 0o700 })
+  fs.chmodSync(readyPublicationDir, 0o700)
+  let recovered = 0
+  for (const entry of fs.readdirSync(readyPublicationDir, { withFileTypes: true }).sort((a, b) => a.name.localeCompare(b.name))) {
+    if (!entry.name.endsWith('.json')) continue
+    if (!entry.isFile() || entry.isSymbolicLink()) throw new Error(`unsafe ready-publication entry: ${entry.name}`)
+    let record = readReadyPublication(path.join(readyPublicationDir, entry.name))
+    const env: NodeJS.ProcessEnv = { ...process.env, NOSTRA_SUPERVISOR_SNAPSHOT_MANIFEST: record.snapshot_manifest }
+    for (const key of ['NOSTRA_COCKPIT_RUN', 'NOSTRA_PROVENANCE_MANIFEST', 'NOSTRA_PUBLICATION_ENDPOINT', 'NOSTRA_PUBLICATION_TOKEN', 'NOSTRA_PUBLICATION_SOCKET']) delete env[key]
+    const output = await supervisorCommitter(record.message, record.paths, env)
+    const snapshotHashes = Object.fromEntries(readySnapshotEntries(record).map((item) => [item.path, item.sha256]))
+    await supervisorCommitVerifier(output, record.paths, snapshotHashes)
+
+    if (record.stage === 'primary-ready' && record.kind === 'full' && record.swarm === RESEARCH_SWARM_ID) {
+      const primarySha = verifiedPublishedRevision(output)
+      const metadataRelative = `${record.run_root}/RUN_METADATA.md`
+      const metadataEntry = readySnapshotEntries(record).find((item) => item.path === metadataRelative)
+      if (!metadataEntry) throw new Error('recovered full publication omitted RUN_METADATA.md')
+      {
+        const original = fs.readFileSync(metadataEntry.snapshot, 'utf8')
+        const placeholder = '(to be filled after commit)'
+        if (!original.includes(placeholder) || original.replace(placeholder, primarySha).includes(placeholder)) {
+          throw new Error('recovered full-run metadata has no single exact commit-SHA placeholder')
+        }
+        writeSupervisorRunFile(record.run_root, 'RUN_METADATA.md', original.replace(placeholder, primarySha))
+        const run = runFromReadyPublication(record)
+        const backfill = createPublicationSnapshot(run, [metadataRelative], [metadataRelative])
+        const finalHashes = { ...record.artifact_hashes, [metadataRelative]: backfill.hashes[metadataRelative] }
+        const backfillRecord = writeReadyPublication(
+          run, backfill, `Backfill commit SHA in RUN_METADATA for ${record.subject}`,
+          'backfill-ready', finalHashes, primarySha,
+        )
+        fs.rmSync(path.dirname(record.snapshot_manifest), { recursive: true, force: true })
+        record = backfillRecord
+        const backfillEnv = { ...env, NOSTRA_SUPERVISOR_SNAPSHOT_MANIFEST: backfill.manifest }
+        const backfillOutput = await supervisorCommitter(record.message, record.paths, backfillEnv)
+        await supervisorCommitVerifier(backfillOutput, record.paths, backfill.hashes)
+        await supervisorCommitVerifier(backfillOutput, Object.keys(record.artifact_hashes), record.artifact_hashes)
+      }
+    } else {
+      await supervisorCommitVerifier(output, Object.keys(record.artifact_hashes), record.artifact_hashes)
+    }
+
+    recordRecoveredPublicationAuthority({
+      runId: record.run_id, runRoot: record.run_root, provider: record.provider,
+      model: record.model, reasoningLevel: record.reasoning_level, profileKey: record.profile_key,
+      executionProfile: record.execution_profile,
+    }, record.artifact_hashes)
+    clearReadyPublication(record)
+    recovered++
+  }
+  return recovered
 }
 
 /** Warm the once-per-process CLI probes at server startup so the FIRST user launch doesn't pay
@@ -4375,7 +5047,7 @@ async function spawnEngine(run: RunState): Promise<void> {
       writablePaths: providerWritablePaths(run),
       protectedWritePaths: providerProtectedWritePaths(run),
       protectedReadPaths: [path.resolve(STATE_DIR)],
-      env: applySupervisorPublicationEnv(process.env, publicationBinding),
+      env: applyRunPolicyEnv(applySupervisorPublicationEnv(process.env, publicationBinding), run),
       guard: LAUNCH_GUARDS[run.kind],
       resumeSessionId: run.resumeSessionId,
       availabilityProofId: run.availabilityProofId,
@@ -4387,7 +5059,7 @@ async function spawnEngine(run: RunState): Promise<void> {
   }
   // Runtime-owned publication controls are invariant across adapters. Reassert them after adapter env
   // scrubbing so a future provider cannot accidentally drop provenance or cockpit-mode signaling.
-  launchSpec.env = applySupervisorPublicationEnv(launchSpec.env, publicationBinding)
+  launchSpec.env = applyRunPolicyEnv(applySupervisorPublicationEnv(launchSpec.env, publicationBinding), run)
   run.cliVersion = launchSpec.cliVersion
   let launchSpecCleaned = false
   const cleanupLaunchSpec = () => {
@@ -4460,6 +5132,22 @@ async function spawnEngine(run: RunState): Promise<void> {
 
   run.child = child
   run.processGroupPid = child.pid
+  try {
+    // Persist the detached process-group identity before any asynchronous callback can release the
+    // singleton. A replacement supervisor reconciles this protected lease before it admits work.
+    persistProviderProcessLease(run)
+  } catch (error: any) {
+    try { if (child.pid) process.kill(-child.pid, 'SIGKILL') } catch { /* exited between spawn and lease */ }
+    try { await child } catch { /* reject:false normally resolves; the group probe remains authoritative */ }
+    if (child.pid) await holdClaimsUntilProcessGroupExtinct(child.pid)
+    releaseProviderLaunchResources(run)
+    emit(run, {
+      type: 'run-error', runId: run.runId, status: 'error', reason: 'spawn_failed',
+      message: `provider process identity could not be sealed: ${String(error?.message || error)}`, ts: Date.now(),
+    })
+    finishRun(run, 'error')
+    throw Object.assign(new Error('Failed to seal provider process identity'), { statusCode: 500 })
+  }
   // Install close ownership as soon as the paid child exists. Usually execa's real close callback wins;
   // if that notification is lost after PID exit, this bounded fallback prevents a permanent subject pin.
   armTerminalCloseWatchdog(run)
@@ -4546,6 +5234,28 @@ async function spawnEngine(run: RunState): Promise<void> {
     // Keep the subject/write claims live while this awaits, so no second run can race the terminal commit.
     // Failed/cancelled/truncated children retain their ordinary outcome and do not attempt publication.
     const childCouldReportDone = childCouldReportDoneOnClose(run, res)
+    if (childCouldReportDone && run.willCommitToMain && run.runRoot) {
+      const metrics = await writeAgentMetrics(run)
+      if (metrics) {
+        run.supervisorPublicationArtifacts = [...new Set([
+          ...(run.supervisorPublicationArtifacts ?? []), `${run.runRoot}/${metrics}`,
+        ])]
+      }
+    }
+    let publicationDrainError: string | null = null
+    if (childCouldReportDone && (run.publicationRequested || run.willCommitToMain)) {
+      try {
+        await drainPublicationIntents(run)
+      } catch (error: any) {
+        publicationDrainError = String(error?.message || error)
+        run.publicationError = publicationDrainError
+        run.publicationPhase = 'terminal-failed'
+        run.publicationToken = undefined
+      }
+    } else if (!childCouldReportDone) {
+      publicationIntentsByRun.delete(run)
+      run.publicationToken = undefined
+    }
     let terminalProof: PreSpawnGuardResult = { ok: true }
     let terminalWork: Promise<PreSpawnGuardResult> | undefined
     try {
@@ -4553,7 +5263,7 @@ async function spawnEngine(run: RunState): Promise<void> {
       // A valid synthesis gets its content-bound pending marker/publication attempt; invalid/truncated 99 fails
       // the guard and remains runnable. Skipping this would leave a mechanically valid local 99 with neither
       // publication receipt nor a way for the plan to retry it.
-      if (childCouldReportDone && terminalGuards.has(run)) {
+      if (childCouldReportDone && !publicationDrainError && terminalGuards.has(run)) {
         terminalWork = beginTerminalGuardWork(run)
         terminalProof = await terminalWork
         if (!terminalProof.ok) {
@@ -4575,15 +5285,13 @@ async function spawnEngine(run: RunState): Promise<void> {
         closeGroupProof.descendantObserved, childCouldReportDone, terminalProof,
       )
 
-      // per-agent cost/runtime from the transcripts (run_cost_report.py); fire-and-forget. Runs AFTER the
-      // command's own commit-run.sh has already pushed the run folder, so the metrics file needs its own
-      // commit here — otherwise it lands after the data commit and is never pushed (stranded on an ephemeral
-      // host, defeating the "aggregate across runs" purpose it exists for).
-      writeAgentMetrics(run, (r, filename) => {
-        if (r.runRoot) commitRunFile(r.runRoot, filename, `Agent metrics: ${r.ticker} (${filename})`)
-      })
       let finalResult = res
       const cleanExit = !res?.failed && !res?.isTerminated && (res?.exitCode === 0 || res?.exitCode === undefined)
+      if (publicationDrainError) {
+        run.note = `publication failed: ${publicationDrainError}`
+        stderr = `${stderr}\nSupervisor publication failed: ${publicationDrainError}`.trim()
+        finalResult = { ...res, failed: true, exitCode: 5, shortMessage: publicationDrainError }
+      }
       if (run.publicationCompleted && run.publicationArtifactHashes) {
         const changed = Object.entries(run.publicationArtifactHashes).find(([relative, expected]) => {
           try {

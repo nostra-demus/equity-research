@@ -292,7 +292,7 @@ const sorted = (a: string[]) => [...a].sort()
       await assert.rejects(
         withSubjectLock(subjectMutationLockKey('research', 'TESTLOCKFIRST'), async () => {
           contenderEntered = true
-          await launchFullChained('TESTLOCKFIRST', 'tester', 'local', f.deps)
+          await launchFullChained('TESTLOCKFIRST', 'tester', 'local', { provider: 'claude' }, f.deps)
         }),
         (error: any) => error instanceof SubjectBusyError,
       )
@@ -319,8 +319,8 @@ const sorted = (a: string[]) => [...a].sort()
   await check('stopping one subject halts only its DAG; an unrelated subject keeps advancing', async () => {
     const india = makeFake()
     const tcs = makeFake()
-    await launchFullChained('TESTINDIA', 'tester', 'local', india.deps)
-    await launchFullChained('TESTTCS', 'tester', 'local', tcs.deps)
+    await launchFullChained('TESTINDIA', 'tester', 'local', { provider: 'claude' }, india.deps)
+    await launchFullChained('TESTTCS', 'tester', 'local', { provider: 'claude' }, tcs.deps)
 
     await cancelSubject('TESTINDIA', 'research')
     assert.equal(subjectChainActive('TESTINDIA'), false, 'subject cancellation clears only its reservation')
@@ -391,7 +391,7 @@ const sorted = (a: string[]) => [...a].sort()
       fs.mkdirSync(moduleDir, { recursive: true })
       fs.writeFileSync(path.join(moduleDir, '99_business-model-synthesis.md'), '# cut off\n\n```json\n{"partial":true}\n')
       const f = makeFake()
-      const out = await launchFullChained(TICK, 'tester', 'local', f.deps)
+      const out = await launchFullChained(TICK, 'tester', 'local', { provider: 'claude' }, f.deps)
       assert.ok(!(out.skipped ?? []).includes('business-model'), 'invalid 99 cannot enter the resumed done set')
       assert.ok((out.planned ?? []).includes('business-model'), 'the module remains in the paid plan')
       assert.ok(f.mods().includes('business-model'), 'the full chain reruns the module instead of feeding bad bytes downstream')

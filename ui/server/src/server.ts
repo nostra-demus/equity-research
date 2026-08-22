@@ -21,8 +21,9 @@ import { ensureCompanyFolder, uploadToCompany, deleteDriveFile, deleteDriveFileS
 import { attachmentExists, attachmentPath, deleteAttachment, readAttachment, saveAttachment, watchlistFilesAvailable } from './watchlist-files'
 import {
   assertClaudeCli, assertProviderAvailable, cancel, cancelAll, cancelSubject, checkProviderUsage,
-  creditCheck, decideReadiness, estimate, isSealedResearchRun, launch, reapDeadSubjectRuns,
-  sigIdFor, subjectChainActive, supervisePublication, todayDate, warmLaunchProbes,
+  creditCheck, decideReadiness, drainProviderRunsForShutdown, estimate, isSealedResearchRun, launch,
+  queuePublicationIntent, reapDeadSubjectRuns, reconcileOrphanedProviderGroups, recoverReadyPublications, sigIdFor,
+  subjectChainActive, todayDate, warmLaunchProbes,
   type RunProviderSelection,
 } from './launcher'
 import { newsBus } from './news/bus'
@@ -1309,7 +1310,7 @@ app.post('/api/internal/runs/:runId/publication', {
   const token = Array.isArray(raw) ? raw[0] : raw
   if (typeof token !== 'string' || !token) return reply.code(403).send({ error: 'missing publication capability' })
   try {
-    return await supervisePublication(String((req.params as any).runId || ''), token, parsed.data)
+    return await queuePublicationIntent(String((req.params as any).runId || ''), token, parsed.data)
   } catch (error: any) {
     const run = getRun(String((req.params as any).runId || ''))
     if (run) run.publicationError = String(error?.message || error).slice(0, 1000)
@@ -2840,41 +2841,18 @@ app.post('/api/thesis-plan/module', { config: { rateLimit: { max: 30, timeWindow
         // the ordinary optional module-memo writer after 99; generic module-plan resumes keep their legacy mode.
         const terminalGuard = exactResume
           ? async () => {
-              const fingerprint = captureCompletedModuleFingerprint(
-                ticker, module, expectedTargetRunRoot,
-              )
-              if (!fingerprint) {
-                return {
-                  ok: false as const,
-                  reason: 'module_output_changed',
-                  message: 'The checks ended, but the completed module bytes could not be verified. Refresh before trying again.',
-                }
-              }
-              // Write the recovery receipt BEFORE Git starts. If the server restarts or publication fails,
-              // the next click can publish these exact completed bytes without launching another LLM task.
-              try {
-                writePendingModulePublication({
-                  ticker, module, targetRunRoot: expectedTargetRunRoot, fingerprint,
-                })
-              } catch {
-                return {
-                  ok: false as const,
-                  reason: 'module_publish_marker_failed',
-                  message: 'The checks finished, but a safe publication retry could not be recorded. The saved work remains on disk.',
-                }
-              }
-              const completed = await publishModuleResumeCheckpoint(ticker, expectedTargetRunRoot, module, [])
-              const unchanged = captureCompletedModuleFingerprint(
-                ticker, module, expectedTargetRunRoot,
-              ) === fingerprint
-              if (completed.ok && unchanged
-                  && clearPendingModulePublication(ticker, module, expectedTargetRunRoot, fingerprint)) {
-                return { ok: true as const }
-              }
+              // The tracked child already queued its exact module path through commit-run.sh. The shared
+              // close owner proves the entire process group extinct, stamps provenance, freezes those bytes,
+              // and publishes them before invoking this guard. Do not call the pre-launch checkpoint helper
+              // here: doing so would create a second un-stamped Git publication after the trusted one.
+              const active = admittedRunId ? getRun(admittedRunId) : undefined
+              if (active?.publicationCompleted === true
+                  && active.runRoot === expectedTargetRunRoot
+                  && active.module === module) return { ok: true as const }
               return {
                 ok: false as const,
                 reason: 'module_publish_failed',
-                message: 'The checks finished, but their module folder could not be verified on origin/main. The saved work remains on disk; click the module heading to retry saving it without rerunning the checks.',
+                message: 'The checks finished, but the trusted supervisor did not verify their module publication. The saved work remains on disk; refresh before trying again.',
               }
             }
           : undefined
@@ -6027,12 +6005,27 @@ async function shutdown(signal: string, code = 0) {
   shuttingDown = true
   // eslint-disable-next-line no-console
   console.log(`[swarm-cockpit] ${signal} — draining ${liveResponses.size} live stream(s), exit ${code}`)
-  // hard cap: a wedged res.end()/app.close() must never hang the restart. unref so it isn't itself a reason to stay up.
-  setTimeout(() => process.exit(code), 4000).unref()
+  // Keep the singleton while provider groups drain. Exiting on a wall-clock timer would orphan the
+  // detached writer and let the replacement engine admit a second writer into the same run root.
+  const slowDrainWarning = setTimeout(() => {
+    // eslint-disable-next-line no-console
+    console.error('[swarm-cockpit] shutdown is still draining a provider process group; retaining the singleton until it is extinct')
+  }, 30_000)
+  slowDrainWarning.unref()
   for (const res of liveResponses) {
     try { res.end() } catch {} // fires each stream's own 'close' cleanup (clearInterval + unsubscribe)
   }
   try { await app.close() } catch {} // stop accepting, drain in-flight HTTP, close keep-alive sockets (clean FIN)
+  try {
+    await drainProviderRunsForShutdown()
+  } catch (error) {
+    // Fail closed: never release the process-wide lock while a detached writer may still be alive.
+    // eslint-disable-next-line no-console
+    console.error('[swarm-cockpit] provider drain failed; refusing to exit unsafely', error)
+    return
+  } finally {
+    clearTimeout(slowDrainWarning)
+  }
   process.exit(code)
 }
 process.on('SIGTERM', () => { void shutdown('SIGTERM', 0) })
@@ -6052,7 +6045,13 @@ process.on('unhandledRejection', (reason) => {
 // A process crash can leave private media behind. Before accepting any request on a restart, remove every
 // abandoned Reel temp directory; there cannot be a live transcription owned by this new process yet.
 purgeReelTempDirs(0)
-  .then(() => app.listen({ host: HOST, port: PORT }))
+  .then(() => reconcileOrphanedProviderGroups())
+  .then(async (count) => {
+    if (count) console.log(`[swarm-cockpit] reconciled ${count} orphaned provider process group(s) before admission`) // eslint-disable-line no-console
+    const recovered = await recoverReadyPublications()
+    if (recovered) console.log(`[swarm-cockpit] recovered ${recovered} post-extinction publication(s) before admission`) // eslint-disable-line no-console
+    return app.listen({ host: HOST, port: PORT })
+  })
   .then(() => {
     const g = buildSwarmGraph()
     // eslint-disable-next-line no-console
