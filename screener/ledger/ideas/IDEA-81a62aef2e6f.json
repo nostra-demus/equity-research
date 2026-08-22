@@ -1,0 +1,76 @@
+{
+  "idea_id": "IDEA-81a62aef2e6f",
+  "idea_version": "IDEAV-2665b10497d2ccd5",
+  "idea_version_started_at": "2026-08-22T14:49:39Z",
+  "ticker": "OZON",
+  "company": "Ozon Holdings",
+  "exchange": "NASDAQ",
+  "ticker_verified": false,
+  "listing_verified": false,
+  "liquidity_verified": false,
+  "listing_verification_source": null,
+  "direction": "short",
+  "pair_with": null,
+  "reason": "Ukrainian drone strikes on a major warehouse facility disrupt logistics and inventory, likely leading to immediate operational losses and increased insurance/security costs.",
+  "why_now": "The attack occurred on 2026-08-22, creating immediate operational uncertainty.",
+  "conviction": 70,
+  "conviction_basis": "pre_edge_proxy",
+  "trade_score": 45,
+  "trade_score_basis": "evidence_gate_v2",
+  "trade_score_breakdown": {
+    "evidence": 14,
+    "impact": 19,
+    "specificity": 7,
+    "timing": 10,
+    "expression": 0,
+    "corroboration": 0,
+    "learning_adjustment": 0
+  },
+  "trade_readiness": "watch_only",
+  "missing_checks": [
+    "verified listed ticker",
+    "verified listing",
+    "live liquidity",
+    "dated catalyst",
+    "independent confirmation",
+    "live price, liquidity, and consensus"
+  ],
+  "learning": {
+    "resolved": 0,
+    "positive": 0,
+    "negative": 0,
+    "neutral": 0,
+    "adjustment": 0,
+    "basis": "not_enough_outcomes",
+    "evidenceIds": []
+  },
+  "priced_in": "room",
+  "thesis_type": "company_specific",
+  "origin_type": "wire",
+  "source_themes": [],
+  "source_event_ids": [
+    "EVT-9d6e67a3e3ac",
+    "EVT-a948f56b9aa2"
+  ],
+  "primary_source_event_id": "EVT-9d6e67a3e3ac",
+  "source_headlines": [
+    "Ukrainian drones kill several, hit warehouse of Russian online retailer Ozon",
+    "Russia: A warehouse of the distributor Ozon targeted by Ukrainian drones"
+  ],
+  "source_headline": "Ukrainian drones kill several, hit warehouse of Russian online retailer Ozon",
+  "source_url": "https://www.reuters.com/world/ukrainian-drones-hit-warehouse-russian-online-retailer-ozon-overnight-strikes-2026-08-22/",
+  "source_name": "Reuters — Latest (news sitemap)",
+  "materiality_max": 100,
+  "newest_source_at": "2026-08-22T12:54:09Z",
+  "prior_coverage": {
+    "has_run": false,
+    "latest_run": null,
+    "latest_decision": null,
+    "data_pool_present": false
+  },
+  "surfaced_at": "2026-08-22T14:49:39Z",
+  "updated_at": "2026-08-22T14:49:39Z",
+  "decay_at": "2026-08-24T00:54:09Z",
+  "status": "live",
+  "promoted_signal_id": null
+}

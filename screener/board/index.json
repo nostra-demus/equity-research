@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-22T14:49:00Z",
+  "generated_at": "2026-08-22T14:49:51Z",
   "inbox": [
     {
       "inbox_id": "INB-20260822-2369",
@@ -71673,6 +71673,76 @@
   "handoffs": [],
   "ideas": [
     {
+      "idea_id": "IDEA-07f356ae2f72",
+      "idea_version": "IDEAV-8aebf28cfbbfd2ee",
+      "idea_version_started_at": "2026-08-22T14:49:39Z",
+      "ticker": "MRVL",
+      "company": "Marvell Technology",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company secured a $12.2 billion deal with Alphabet to supply custom AI infrastructure, significantly increasing its long-term revenue visibility.",
+      "why_now": "The deal was reported on 2026-08-21 and fundamentally alters the company's growth trajectory.",
+      "conviction": 85,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-ed4042d194e6"
+      ],
+      "primary_source_event_id": "EVT-ed4042d194e6",
+      "source_headlines": [
+        "Marvell’s $12.2 Billion Google Deal Changes the Bull Case for MRVL Stock"
+      ],
+      "source_headline": "Marvell’s $12.2 Billion Google Deal Changes the Bull Case for MRVL Stock",
+      "source_url": "https://247wallst.com/investing/2026/08/21/marvells-12-2-billion-google-deal-changes-the-bull-case-for-mrvl-stock/",
+      "source_name": "24/7 Wall St.",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-21T15:00:56Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-22T14:49:39Z",
+      "updated_at": "2026-08-22T14:49:39Z",
+      "decay_at": "2026-08-23T03:00:56Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-ce5a3da6047f",
       "idea_version": "IDEAV-1189938ab48fac87",
       "idea_version_started_at": "2026-08-22T07:11:14Z",
@@ -71807,6 +71877,80 @@
       "surfaced_at": "2026-08-21T09:27:03Z",
       "updated_at": "2026-08-21T09:27:03Z",
       "decay_at": "2026-08-22T17:44:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-81a62aef2e6f",
+      "idea_version": "IDEAV-2665b10497d2ccd5",
+      "idea_version_started_at": "2026-08-22T14:49:39Z",
+      "ticker": "OZON",
+      "company": "Ozon Holdings",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Ukrainian drone strikes on a major warehouse facility disrupt logistics and inventory, likely leading to immediate operational losses and increased insurance/security costs.",
+      "why_now": "The attack occurred on 2026-08-22, creating immediate operational uncertainty.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-9d6e67a3e3ac",
+        "EVT-a948f56b9aa2"
+      ],
+      "primary_source_event_id": "EVT-9d6e67a3e3ac",
+      "source_headlines": [
+        "Ukrainian drones kill several, hit warehouse of Russian online retailer Ozon",
+        "Russia: A warehouse of the distributor Ozon targeted by Ukrainian drones"
+      ],
+      "source_headline": "Ukrainian drones kill several, hit warehouse of Russian online retailer Ozon",
+      "source_url": "https://www.reuters.com/world/ukrainian-drones-hit-warehouse-russian-online-retailer-ozon-overnight-strikes-2026-08-22/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-22T12:54:09Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-22T14:49:39Z",
+      "updated_at": "2026-08-22T14:49:39Z",
+      "decay_at": "2026-08-24T00:54:09Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -74868,148 +75012,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-f42669c74af8",
-      "idea_version": "IDEAV-47eee9241429bd83",
-      "idea_version_started_at": "2026-08-20T07:13:16Z",
-      "ticker": "01416",
-      "company": "CTR Holdings Limited",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company successfully tendered for land at Kaki Bukit, Singapore, representing a very substantial asset acquisition that expands its operational footprint.",
-      "why_now": "The successful tender announcement was officially filed on August 19, 2026.",
-      "conviction": 50,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-c9be8bcf140d"
-      ],
-      "primary_source_event_id": "EVT-c9be8bcf140d",
-      "source_headlines": [
-        "CTR HOLDINGS (01416): VERY SUBSTANTIAL ACQUISITION IN RELATION TO SUCCESSFUL TENDER OF LAND AT KAKI BUKIT, SINGAPORE"
-      ],
-      "source_headline": "CTR HOLDINGS (01416): VERY SUBSTANTIAL ACQUISITION IN RELATION TO SUCCESSFUL TENDER OF LAND AT KAKI BUKIT, SINGAPORE",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0819/2026081901707.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-19T14:34:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-20T07:13:16Z",
-      "updated_at": "2026-08-20T07:13:16Z",
-      "decay_at": "2026-08-21T02:34:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-7775515b1f9c",
-      "idea_version": "IDEAV-08a4bb2fcecd389e",
-      "idea_version_started_at": "2026-08-20T06:40:08Z",
-      "ticker": "09983",
-      "company": "CC NEW LIFE",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company issued a profit warning indicating a material decline in earnings, which typically leads to downward revisions in valuation multiples.",
-      "why_now": "The profit warning was filed on 2026-08-19.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-7aa2f8cc921c"
-      ],
-      "primary_source_event_id": "EVT-7aa2f8cc921c",
-      "source_headlines": [
-        "CC NEW LIFE (09983): INSIDE INFORMATION PROFIT WARNING"
-      ],
-      "source_headline": "CC NEW LIFE (09983): INSIDE INFORMATION PROFIT WARNING",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0819/2026081901591.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-19T14:00:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-20T06:40:08Z",
-      "updated_at": "2026-08-20T06:40:08Z",
-      "decay_at": "2026-08-21T02:00:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-bc50c2310a83",
       "idea_version": "IDEAV-870a61e387aa576b",
       "idea_version_started_at": "2026-08-20T06:40:08Z",
@@ -75368,7 +75370,7 @@
     "schema_version": "ideas-archive/v1",
     "health": {
       "status": "ok",
-      "file_count": 19,
+      "file_count": 21,
       "suppression_count": 0,
       "corrupt_count": 0,
       "invalid_count": 0,
@@ -76875,8 +76877,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-08-21T02:34:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-08-22T14:49:44Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -76949,8 +76951,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-08-21T02:00:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-08-22T14:49:44Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -78359,8 +78361,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 71,
-    "live_count": 30,
+    "surfaced_total": 73,
+    "live_count": 32,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
