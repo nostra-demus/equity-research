@@ -70,6 +70,15 @@ check('reports a broken review in simple words', () => {
   assert.equal(updates.find((update) => update.kind === 'review')?.tone, 'worse')
 })
 
+check('non-finite returns never leak into update text', () => {
+  const updates = buildCallUpdates([row('2026-08-01', 'Watchlist', Infinity, [review({
+    absolute_return_pct: Infinity,
+  })])])
+  assert.equal(updates.find((update) => update.kind === 'call')?.detail, null)
+  assert.equal(updates.find((update) => update.kind === 'review')?.detail,
+    'Sales beat the level the call said would matter. 1 forecast right · 0 wrong.')
+})
+
 check('a decision downgrade stays red even when expected return rose', () => {
   const updates = buildCallUpdates([
     row('2026-08-10', 'Avoid', 12),

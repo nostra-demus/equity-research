@@ -409,6 +409,10 @@ export interface ReviewFile {
   thesis_delta_verdict: string | null
 }
 
+function finiteNumber(value: unknown): number | null {
+  return typeof value === 'number' && Number.isFinite(value) ? value : null
+}
+
 // normalize forecast_results[].status (lowercase, unknown-safe) and count the resolved ones.
 function countForecastResults(results: unknown): { confirmed: number; falsified: number } {
   let confirmed = 0
@@ -458,8 +462,8 @@ function listReviewFiles(runRoot: string, authority: PublishedTreeAuthority): Re
       basename: n,
       review_window: typeof j?.review_window === 'string' ? j.review_window : '',
       review_date: typeof j?.review_date === 'string' ? j.review_date : '',
-      review_price: typeof j?.review_price === 'number' ? j.review_price : null,
-      absolute_return_pct: typeof j?.absolute_return_pct === 'number' ? j.absolute_return_pct : null,
+      review_price: finiteNumber(j?.review_price),
+      absolute_return_pct: finiteNumber(j?.absolute_return_pct),
       thesis_status: typeof j?.thesis_status === 'string' && j.thesis_status ? j.thesis_status : null,
       forecasts_confirmed: fc.confirmed,
       forecasts_falsified: fc.falsified,
@@ -622,7 +626,7 @@ export function publishedIntegrityStatus(runRoot: string, authority: PublishedTr
       const raw = JSON.parse(authority.readRequired(`${runRoot}/${reportFile}`).toString('utf8'))
       if (raw && typeof raw === 'object' && !Array.isArray(raw)) {
         verdict = typeof raw.verdict === 'string' && raw.verdict ? raw.verdict : null
-        score = Number.isFinite(raw.integrity_score) ? raw.integrity_score : null
+        score = finiteNumber(raw.integrity_score)
       }
     } catch (error: any) {
       if (error?.code === 'CALLS_AUTHORITY_UNAVAILABLE') throw error
@@ -679,8 +683,9 @@ function shortReviewDetail(review: ReviewFile): string | null {
   const firstSentence = raw.match(/^.*?[.!?](?:\s|$)/)?.[0]?.trim() || raw
   const why = firstSentence.length > 240 ? `${firstSentence.slice(0, 237).trimEnd()}…` : firstSentence
   const outcomes: string[] = []
-  if (typeof review.absolute_return_pct === 'number') {
-    outcomes.push(`Price since the call: ${review.absolute_return_pct >= 0 ? '+' : ''}${review.absolute_return_pct.toFixed(1)}%`)
+  const absoluteReturn = finiteNumber(review.absolute_return_pct)
+  if (absoluteReturn !== null) {
+    outcomes.push(`Price since the call: ${absoluteReturn >= 0 ? '+' : ''}${absoluteReturn.toFixed(1)}%`)
   }
   if (review.forecasts_confirmed || review.forecasts_falsified) {
     outcomes.push(`${review.forecasts_confirmed} forecast${review.forecasts_confirmed === 1 ? '' : 's'} right · ${review.forecasts_falsified} wrong`)
@@ -735,7 +740,7 @@ export function buildCallUpdates(rows: CallUpdateInput[]): CallUpdate[] {
           id: updateId('call', call.run_root), ticker, company: call.company ?? null,
           at: call.decision_date ?? null, kind: 'call',
           headline: `${ticker}: ${call.decision || 'new'} call recorded`,
-          detail: typeof call.expected_return_pct === 'number'
+          detail: finiteNumber(call.expected_return_pct) !== null
             ? `Expected return at the time: ${call.expected_return_pct > 0 ? '+' : ''}${call.expected_return_pct.toFixed(1)}%.`
             : null,
           tone: 'info', run_root: call.run_root, source_path: call.final_thesis_path || null,
@@ -807,8 +812,8 @@ function projectAllCalls(authority: PublishedTreeAuthority) {
     const reviews = listReviewFiles(runRoot, authority)
     const timeline = buildTimeline(d?.review_schedule || {}, reviews, today)
     const latest = pickWinner(reviews) // latest review across ALL windows incl. ad-hoc
-    const entry = typeof d?.entry_price === 'number' ? d.entry_price : null
-    const exp = typeof d?.expected_return_pct === 'number' ? d.expected_return_pct : null
+    const entry = finiteNumber(d?.entry_price)
+    const exp = finiteNumber(d?.expected_return_pct)
     const fc = { open: 0, confirmed: 0, falsified: 0, expired: 0, other: 0 }
     if (Array.isArray(d?.forecast_ledger)) {
       for (const f of d.forecast_ledger) {
@@ -848,7 +853,7 @@ function projectAllCalls(authority: PublishedTreeAuthority) {
       exchange: typeof d?.exchange === 'string' && d.exchange ? d.exchange : null,
       expected_return_pct: exp,
       implied_target: entry != null && exp != null ? Math.round(entry * (1 + exp / 100) * 100) / 100 : null,
-      downside_risk_pct: typeof d?.downside_risk_pct === 'number' ? d.downside_risk_pct : null,
+      downside_risk_pct: finiteNumber(d?.downside_risk_pct),
       kill_criteria_count: Array.isArray(d?.kill_criteria) ? d.kill_criteria.length : 0,
       forecasts: fc,
       run_root: runRoot,
