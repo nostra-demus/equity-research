@@ -203,7 +203,7 @@ export function buildCallsScorecard(calls: CallLike[]): CallsScorecard {
     assessed_calls: count('worked') + count('failed'), excluded_provisional: calls.length - eligibleCalls.length,
     worked: count('worked'), failed: count('failed'),
     mixed: count('mixed'), unscored: count('unscored'), average_return_pct: average(outcomeReturns),
-    average_vs_benchmark_pct: average(benchmarkReturns), horizons, confidence_check: confidenceCheck(calls),
+    average_vs_benchmark_pct: average(benchmarkReturns), horizons, confidence_check: confidenceCheck(eligibleCalls),
   }
 }
 
@@ -276,7 +276,7 @@ function namedWatchItem(review: ReviewLike | null): string | null {
     return { item, score, index }
   }).sort((a, b) => b.score - a.score || a.index - b.index)
   const item = ranked[0]?.item || null
-  return item && item.length > 220 ? `${item.slice(0, 217).trimEnd()}…` : item
+  return item && item.length > 170 ? `${item.slice(0, 167).trimEnd()}…` : item
 }
 
 export function selectCallMemories(calls: CallLike[], identifiers: string[], cap = 3, question?: string): CallMemoryItem[] {

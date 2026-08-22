@@ -41,6 +41,8 @@ assert.equal(withProvisional.excluded_provisional, 1)
 assert.equal(withProvisional.worked, score.worked)
 assert.equal(withProvisional.average_return_pct, score.average_return_pct,
   'provisional calls stay visible outside the scorecard but cannot change its accuracy or returns')
+assert.deepEqual(withProvisional.confidence_check, score.confidence_check,
+  'provisional calls cannot change confidence calibration')
 
 const sameDayReviews = [
   { window: '30d', status: 'done', review_date: '2026-08-09', decision_quality: 'genuine miss', absolute_return_pct: -4, review_file: 'reviews/a.json' },
