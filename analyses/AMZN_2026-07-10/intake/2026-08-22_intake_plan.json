@@ -1,0 +1,437 @@
+{
+  "schema_version": "1.1",
+  "swarm": "research",
+  "subject": "AMZN",
+  "ticker": "AMZN",
+  "run_root": "analyses/AMZN_2026-07-10",
+  "decision_fingerprint": "sha256:7d53652ba311595f7e82a42fe9c9fbb25ca5e58305c1cf447d507921fa00808a",
+  "scan_date": "2026-08-22",
+  "scanned_at": "2026-08-22T06:46:39.595Z",
+  "watermark": "analyses/AMZN_2026-07-10/final_thesis.md",
+  "new_docs": [
+    {
+      "path": "data/AMZN/external/yipitdata/Cloud (AWS, Azure, GCP) _ Mar-26 Update.pdf",
+      "sha256": "6e2cc3d8e78c7d839b51ee942666363bf4640ba8aab4d2ca6bb0bd7d1215f103",
+      "provider": "YipitData",
+      "source_type": "alt_data_panel",
+      "tier": 5,
+      "as_of": "2026-03",
+      "claims_summary": "Panel-based 1Q26 AWS revenue growth estimate of 29.3% y/y (above Visible Alpha consensus 25.4%, ~2.3pp margin of error at 80% backtest, inclusive of Trainium/OpenAI and 3x-scaled Bedrock adjustments); AWS AI-token share rose to 51% in Mar-26 from 16% a year ago while Azure's fell 53%->27%; AWS took multi-cloud share from Azure among dual-cloud panelists.",
+      "materiality_score": 68,
+      "impact_direction": "positive",
+      "entry_orbs": [
+        {
+          "module": "earnings",
+          "agent": "guidance-consensus",
+          "why": "The panel gives an independent Visible Alpha-consensus cross-check (with a stated vendor error margin) on AWS/Azure/GCP quarterly growth that the current guidance-consensus read does not carry.",
+          "confidence": 0.75
+        },
+        {
+          "module": "earnings",
+          "agent": "revenue-drivers",
+          "why": "The panel's AWS/cloud growth estimate and AI/Bedrock revenue detail sit below the granularity of the run's current 10-Q-based revenue-driver read and directly speak to revenue-drivers' WHAT-TO-READ (alt-data panels, cloud growth decomposition).",
+          "confidence": 0.8
+        },
+        {
+          "module": "business-model",
+          "agent": "moat",
+          "why": "The AI-token-share swing (AWS 16%->51%, Azure 53%->27% y/y) and multi-cloud share gains are competitive-economics evidence bearing on moat's AWS-vs-Azure-vs-GCP competitive-position read.",
+          "confidence": 0.55
+        }
+      ]
+    },
+    {
+      "path": "data/AMZN/screener_event_EVT-dcc5aa8f071a.md",
+      "sha256": "3c0f02647fa43524ad41e4418e82fbc8a6f8f19312908af9dd3366d13e5fda2c",
+      "provider": "Fortune (via screener wire)",
+      "source_type": "screener_wire_event",
+      "tier": 10,
+      "as_of": "2026-07-31",
+      "claims_summary": "Reports Amazon's Q2 2026 print (not yet in the pool as a filing/transcript): AWS revenue $42.2B (+37% y/y, fastest in 18 quarters), AWS operating margin 39.4% (up from 32.9%), AWS backlog $496B, consolidated net sales $200.6B (+20%), net income $62.6B (incl. $53.4B non-operating Anthropic-investment gain), FCF flipped to -$7.6B (from +$18.2B) on a $66.1B y/y rise in equipment purchases, and CEO Jassy guiding 2026 capex to $220B.",
+      "materiality_score": 78,
+      "impact_direction": "mixed",
+      "entry_orbs": [
+        {
+          "module": "earnings",
+          "agent": "guidance-consensus",
+          "why": "The $220B 2026 capex guidance is a raise from the $200B figure already reflected in the thesis (Q1 2026 call) and is corroborated by a second, independent tier-10 source (Nasdaq, EVT-2e98811c91a7) reporting the same raise -- clears INTAKE.md §5's corroboration bar for the guidance figure specifically.",
+          "confidence": 0.6
+        }
+      ]
+    },
+    {
+      "path": "data/AMZN/screener_event_EVT-2e98811c91a7.md",
+      "sha256": "4dc45509b7e760f760b68267d59bd7709ac905a20b6c19a547db1593fa396d47",
+      "provider": "Nasdaq (via screener wire)",
+      "source_type": "screener_wire_event",
+      "tier": 10,
+      "as_of": "2026-08-12",
+      "claims_summary": "Headline-level confirmation, from an independent origin, of the same $220B 2026 AI-capex guidance raise reported by Fortune (EVT-dcc5aa8f071a) -- the second independent source that corroborates the raise.",
+      "materiality_score": 55,
+      "impact_direction": "mixed",
+      "entry_orbs": [
+        {
+          "module": "earnings",
+          "agent": "guidance-consensus",
+          "why": "Independent-origin corroboration of the $220B capex guidance raise; paired with EVT-dcc5aa8f071a this clears the tier-10 corroboration bar (INTAKE.md §5).",
+          "confidence": 0.5
+        }
+      ]
+    },
+    {
+      "path": "data/AMZN/screener_event_EVT-b41550fff1a0.md",
+      "sha256": "0c64b12676037b45947c33af5c0261462b6ae1bd6eb1a190c6292a4b5edc7977",
+      "provider": "Yahoo Finance (via screener wire)",
+      "source_type": "screener_wire_event",
+      "tier": 10,
+      "as_of": "2026-08-02",
+      "claims_summary": "Headline-only claim that Amazon's debt nearly doubled to $129B over 6 months, tied to CEO Jassy defending $220B data-center spending. No verbatim figures or breakdown beyond the headline.",
+      "materiality_score": 75,
+      "impact_direction": "negative",
+      "entry_orbs": []
+    },
+    {
+      "path": "data/AMZN/screener_event_EVT-f28b09ba4feb.md",
+      "sha256": "4dbc9b5458dec05f1c6759b4afb5cab03c32f7b5838443919fc45e6fb34654e1",
+      "provider": "The Motley Fool (via screener wire)",
+      "source_type": "screener_wire_event",
+      "tier": 10,
+      "as_of": "2026-07-29",
+      "claims_summary": "Amazon CEO Andy Jassy reportedly sold $25B in bonds to finance AI data-center build-out, alongside the (pre-raise) $200B 2026 capex commitment. Same item already carried note_only in the 2026-07-31 plan; still no confirming 8-K/prospectus filing or second independent source in the pool.",
+      "materiality_score": 58,
+      "impact_direction": "negative",
+      "entry_orbs": []
+    },
+    {
+      "path": "data/AMZN/screener_event_EVT-22ff50244475.md",
+      "sha256": "69c108dd52b1165454902894923aa5afbf720f9ff4032ce2cad0ed5afbbd741f",
+      "provider": "Tom's Hardware (via screener wire, citing NYT)",
+      "source_type": "screener_wire_event",
+      "tier": 10,
+      "as_of": "2026-08-09",
+      "claims_summary": "A new 7.65GW, 35-turbine gas plant in Pecos County, TX built to power an Amazon AI data center is authorized to emit 33M tons of CO2 annually, in tension with Amazon's 2040 net-zero pledge (The Climate Pledge).",
+      "materiality_score": 35,
+      "impact_direction": "negative",
+      "entry_orbs": []
+    },
+    {
+      "path": "data/AMZN/screener_event_EVT-c393a2977beb.md",
+      "sha256": "a662e32dd8b194dc783663147d06fcf2a8e43d74f15229d895474cb9f9ea39d1",
+      "provider": "The Loadstar (via screener wire)",
+      "source_type": "screener_wire_event",
+      "tier": 10,
+      "as_of": "2026-08-05",
+      "claims_summary": "New Jersey's Attorney General filed a first-of-its-kind monopsony antitrust suit targeting Amazon's Delivery Service Partner (DSP) last-mile model.",
+      "materiality_score": 42,
+      "impact_direction": "negative",
+      "entry_orbs": []
+    },
+    {
+      "path": "data/AMZN/screener_event_EVT-919f9649b43b.md",
+      "sha256": "4d1c36b988899f89a7ad179c40a477e8f3cfced081868a524808a91090ea50fe",
+      "provider": "Tom's Hardware (via screener wire, citing WSJ)",
+      "source_type": "screener_wire_event",
+      "tier": 10,
+      "as_of": "2026-08-08",
+      "claims_summary": "WSJ reports Amazon's Gilroy, CA AI data center avoided a fresh community-comment window by relying on 45-year-old zoning rules; local pushback over water/power use.",
+      "materiality_score": 22,
+      "impact_direction": "negative",
+      "entry_orbs": []
+    },
+    {
+      "path": "data/AMZN/screener_event_EVT-61fe30f402c4.md",
+      "sha256": "237a8ad38c247ae6985f68262eead15d7c3a9a93fc92cf1c79001d08ebd99479",
+      "provider": "LiveMint (via screener wire)",
+      "source_type": "screener_wire_event",
+      "tier": 10,
+      "as_of": "2026-08-01",
+      "claims_summary": "Amazon received a ~₹5,724 crore (~₹5,250 crore net) tariff refund after the Supreme Court struck down Trump-era tariffs; eligible customers will get automatic refunds.",
+      "materiality_score": 18,
+      "impact_direction": "neutral",
+      "entry_orbs": []
+    },
+    {
+      "path": "data/AMZN/screener_event_EVT-bd42f71c12ab.md",
+      "sha256": "d20f8c9c1010e93fdf2bd02d69bef8fd900bc9af04c8b8f82a06d91da7630206",
+      "provider": "TheStreet (via screener wire)",
+      "source_type": "screener_wire_event",
+      "tier": 10,
+      "as_of": "2026-07-19",
+      "claims_summary": "WARN notice: Amazon closing its Port St. Lucie, FL fulfillment facility (~494 jobs), the second Florida closure after Homestead (~616 jobs), combined ~1,110 employees. Same item carried note_only in the 2026-07-31 plan.",
+      "materiality_score": 28,
+      "impact_direction": "negative",
+      "entry_orbs": []
+    },
+    {
+      "path": "data/AMZN/screener_event_EVT-14cd12418d3f.md",
+      "sha256": "eba445c0beea2dcd06eb1f1e0eec54542f9a5ba97219560dbf118065d9c0dd85",
+      "provider": "Nasdaq (via screener wire)",
+      "source_type": "screener_wire_event",
+      "tier": 10,
+      "as_of": "2026-07-17",
+      "claims_summary": "CEO Jassy: Amazon's Trainium chip business has $225B in commitments and a >$20B annualized revenue run rate. Already cited in the current thesis (business-model/02_business-identity.md) from the Q1 2026 earnings call transcript already in the pool -- no incremental information.",
+      "materiality_score": 15,
+      "impact_direction": "neutral",
+      "entry_orbs": []
+    },
+    {
+      "path": "data/AMZN/screener_event_EVT-d91208d97714.md",
+      "sha256": "6cf6fc8b21e3227aa7d1bfdc9e50949a4128a3dc0afec6f0f5bc57a9f286e3cd",
+      "provider": "Nasdaq (via screener wire)",
+      "source_type": "screener_wire_event",
+      "tier": 10,
+      "as_of": "2026-07-13",
+      "claims_summary": "Amazon 'reportedly' exploring external third-party sales of Trainium/Inferentia chips -- a potential new revenue stream and Nvidia challenge. No verbatim quote or figures beyond the headline. Same item carried note_only in the 2026-07-31 plan; still no filing or second independent source.",
+      "materiality_score": 40,
+      "impact_direction": "positive",
+      "entry_orbs": []
+    },
+    {
+      "path": "data/AMZN/screener_event_EVT-2d34da3d048c.md",
+      "sha256": "571b4f7f88c0b6f757e22f443d8886da9e5b1f59f3ab5905a8e92045e129238e",
+      "provider": "The Economic Times (via screener wire)",
+      "source_type": "screener_wire_event",
+      "tier": 10,
+      "as_of": "2026-08-22",
+      "claims_summary": "Amazon Prime Video to invest $2B in Latin America through 2030. Same underlying corporate announcement is syndicated across 3 other outlets in this scan (Reuters EN, Reuters ES, Forbes) -- one origin, not independent corroboration -- and is immaterial at Amazon's scale (~$500M/yr against >$700B revenue).",
+      "materiality_score": 12,
+      "impact_direction": "neutral",
+      "entry_orbs": []
+    },
+    {
+      "path": "data/AMZN/screener_event_EVT-37e5de5f8645.md",
+      "sha256": "0ea523fe7afa7d161f33b81ac22a32445bb2b03966a84c005c989605d9f77309",
+      "provider": "Reuters (Spanish, via screener wire)",
+      "source_type": "screener_wire_event",
+      "tier": 10,
+      "as_of": "2026-08-22",
+      "claims_summary": "Syndicated coverage of the same Prime Video Latin America $2B/through-2030 announcement as EVT-2d34da3d048c/EVT-5370b437d2f4/EVT-64f5e0a583de -- one origin.",
+      "materiality_score": 12,
+      "impact_direction": "neutral",
+      "entry_orbs": []
+    },
+    {
+      "path": "data/AMZN/screener_event_EVT-5370b437d2f4.md",
+      "sha256": "66033570f1d2e0fbf462d937233182ecb40e2cdb76213c29e19e900b77e60407",
+      "provider": "Forbes (via screener wire)",
+      "source_type": "screener_wire_event",
+      "tier": 10,
+      "as_of": "2026-08-22",
+      "claims_summary": "Syndicated coverage of the same Prime Video Latin America $2B/through-2030 announcement as EVT-2d34da3d048c/EVT-37e5de5f8645/EVT-64f5e0a583de -- one origin.",
+      "materiality_score": 12,
+      "impact_direction": "neutral",
+      "entry_orbs": []
+    },
+    {
+      "path": "data/AMZN/screener_event_EVT-64f5e0a583de.md",
+      "sha256": "978738d0ef9a78cb5bca4efa414ab46d14ef60df536a634ef90c807a5358206b",
+      "provider": "Reuters (via screener wire)",
+      "source_type": "screener_wire_event",
+      "tier": 10,
+      "as_of": "2026-08-22",
+      "claims_summary": "Syndicated coverage of the same Prime Video Latin America $2B/through-2030 announcement as EVT-2d34da3d048c/EVT-37e5de5f8645/EVT-5370b437d2f4 -- one origin.",
+      "materiality_score": 12,
+      "impact_direction": "neutral",
+      "entry_orbs": []
+    },
+    {
+      "path": "data/AMZN/screener_event_EVT-57517f14fb69.md",
+      "sha256": "c347cc058ed6a3e85038f8146866d4289fe42a2c84c31b5ac233daf5844f077a",
+      "provider": "NDTV Profit (via screener wire)",
+      "source_type": "screener_wire_event",
+      "tier": 10,
+      "as_of": "2026-08-22",
+      "claims_summary": "OpenAI's GPT-5.6 now available on AWS in India at up to 80% lower cost -- an AWS-hosting commercial item, no Amazon-specific financial figure.",
+      "materiality_score": 20,
+      "impact_direction": "neutral",
+      "entry_orbs": []
+    },
+    {
+      "path": "data/AMZN/screener_event_EVT-5769ba23c0c0.md",
+      "sha256": "dd5cbafa272862e31bd326239fc1fbf32150837ed7fbf8fd6a3c41a033f1ebaa",
+      "provider": "South China Morning Post (via screener wire)",
+      "source_type": "screener_wire_event",
+      "tier": 10,
+      "as_of": "2026-08-08",
+      "claims_summary": "Amazon to finance a large US gas plant for data centres -- headline-level, overlaps with the Texas gas-plant story (EVT-22ff50244475); no new quantified figure.",
+      "materiality_score": 25,
+      "impact_direction": "negative",
+      "entry_orbs": []
+    },
+    {
+      "path": "data/AMZN/screener_event_EVT-5ac6598e603e.md",
+      "sha256": "6acabb491e383c7bec15a64cf76ad8d7d32dd0d78f790be18b0db6a820b0d5ab",
+      "provider": "Nasdaq (via screener wire)",
+      "source_type": "screener_wire_event",
+      "tier": 10,
+      "as_of": "2026-08-22",
+      "claims_summary": "Anthropic's revenue run rate hit $65B; article frames Amazon (an Anthropic investor) as a possible beneficiary. Headline-level, no quantified read-through to Amazon's own financials.",
+      "materiality_score": 22,
+      "impact_direction": "positive",
+      "entry_orbs": []
+    },
+    {
+      "path": "data/AMZN/screener_event_EVT-cae54875f8e0.md",
+      "sha256": "a8c4a0a75422e85dc48e64ed361f39c81740b46bfed0e1b9ec67f48ad0408907",
+      "provider": "Business Today (via screener wire)",
+      "source_type": "screener_wire_event",
+      "tier": 10,
+      "as_of": "2026-08-08",
+      "claims_summary": "AWS plans to use treated sewage water for cooling at future India data centres -- operational/ESG detail, no financial figure.",
+      "materiality_score": 15,
+      "impact_direction": "neutral",
+      "entry_orbs": []
+    },
+    {
+      "path": "data/AMZN/screener_event_EVT-02bba423db7f.md",
+      "sha256": "7100fb959b73cf7bf07ff93356a37730b4eb6ab942c6938d669af54ca9a3ac2e",
+      "provider": "Supply Chain Dive (via screener wire)",
+      "source_type": "screener_wire_event",
+      "tier": 10,
+      "as_of": "2026-08-22",
+      "claims_summary": "Amazon and fulfillment-tech company AutoStore signed a global supply deal -- unsized commercial partnership.",
+      "materiality_score": 15,
+      "impact_direction": "neutral",
+      "entry_orbs": []
+    },
+    {
+      "path": "data/AMZN/screener_event_EVT-35cc3175572e.md",
+      "sha256": "436b5420fa648c0e9f5289312b7fa3bfb5e58b7dfcebd7ef53f06977a6e54ecb",
+      "provider": "Nasdaq (via screener wire)",
+      "source_type": "screener_wire_event",
+      "tier": 10,
+      "as_of": "2026-07-31",
+      "claims_summary": "Generic multi-name earnings-season roundup ('Amazon & Apple Beat Earnings') -- no quantified Amazon-specific figure beyond headline. Same item carried note_only in the 2026-07-31 plan.",
+      "materiality_score": 15,
+      "impact_direction": "neutral",
+      "entry_orbs": []
+    },
+    {
+      "path": "data/AMZN/screener_event_EVT-37c9b5f64b76.md",
+      "sha256": "d7f727e90d1d8fb1467c86441b3a3dd26a4e7a55dd67c95d9d759b8814c249e8",
+      "provider": "Yahoo Finance (via screener wire)",
+      "source_type": "screener_wire_event",
+      "tier": 10,
+      "as_of": "2026-07-19",
+      "claims_summary": "Headline-only comparison piece contrasting Amazon's capex spending with Shopify's profitability strategy. Same item carried note_only in the 2026-07-31 plan.",
+      "materiality_score": 15,
+      "impact_direction": "neutral",
+      "entry_orbs": []
+    },
+    {
+      "path": "data/AMZN/screener_event_EVT-7d9dc3fd4f31.md",
+      "sha256": "b33c0fb711bf0ef32f72ddac4bc99668c552654814e6af131f9d6e16e71360c5",
+      "provider": "TheStreet (via screener wire)",
+      "source_type": "screener_wire_event",
+      "tier": 10,
+      "as_of": "2026-07-21",
+      "claims_summary": "Cites a third-party ICSC consumer survey (not Amazon-specific data) framed as a risk to Amazon's speed-based moat. Screener itself scored this 'irrelevant' (31, drop band). Same item carried note_only in the 2026-07-31 plan.",
+      "materiality_score": 25,
+      "impact_direction": "negative",
+      "entry_orbs": []
+    },
+    {
+      "path": "data/AMZN/screener_event_EVT-98028fc2bd68.md",
+      "sha256": "602eb46acd209bcb98468f9472e4a16d1db41e607e43e51a4e87ee92efb1f5f5",
+      "provider": "24/7 Wall St. (via screener wire)",
+      "source_type": "screener_wire_event",
+      "tier": 10,
+      "as_of": "2026-07-21",
+      "claims_summary": "Opinion/bull-case piece repeating Q1 2026 earnings-call figures already in the pool (AWS backlog $364B, Trainium $225B, 28% AWS growth). Screener scored this 'irrelevant' (22, drop band). Same item carried note_only in the 2026-07-31 plan.",
+      "materiality_score": 12,
+      "impact_direction": "neutral",
+      "entry_orbs": []
+    },
+    {
+      "path": "data/AMZN/screener_event_EVT-d70fc1fc7894.md",
+      "sha256": "3d90e6fad1a4f397a0d94c4c0d6b93e7a66dc9cc2ec49356391072c05074cc5f",
+      "provider": "The Motley Fool (via screener wire)",
+      "source_type": "screener_wire_event",
+      "tier": 10,
+      "as_of": "2026-07-19",
+      "claims_summary": "Repeats Jassy's Q1 2026 call remarks ($200B capex, $20B Trainium run rate, $225B commitments) already reflected in the thesis. Screener scored this 'irrelevant' (28, drop band). Same item carried note_only in the 2026-07-31 plan.",
+      "materiality_score": 12,
+      "impact_direction": "neutral",
+      "entry_orbs": []
+    },
+    {
+      "path": "data/AMZN/screener_event_EVT-f9b6b15b50ff.md",
+      "sha256": "fb8f617c308078622c1e8fc7403e46528536c6d0210fa5d61804818263afba34",
+      "provider": "The Motley Fool (via screener wire)",
+      "source_type": "screener_wire_event",
+      "tier": 10,
+      "as_of": "2026-07-25",
+      "claims_summary": "Generic 'is now a good time to buy' listicle; no new quantified fact. Same item carried note_only in the 2026-07-31 plan.",
+      "materiality_score": 10,
+      "impact_direction": "neutral",
+      "entry_orbs": []
+    }
+  ],
+  "rerun_plan": {
+    "materiality_gate": 60,
+    "entry_orbs": [
+      { "module": "earnings", "agent": "guidance-consensus" },
+      { "module": "earnings", "agent": "revenue-drivers" },
+      { "module": "business-model", "agent": "moat" }
+    ],
+    "commands": [
+      {
+        "command": "/research:rerun earnings guidance-consensus AMZN",
+        "module": "earnings",
+        "agent": "guidance-consensus",
+        "cascade_modules": ["earnings", "balance-sheet-survival", "management-governance", "valuation", "catalyst"],
+        "triggered_by": [
+          "data/AMZN/external/yipitdata/Cloud (AWS, Azure, GCP) _ Mar-26 Update.pdf",
+          "data/AMZN/screener_event_EVT-dcc5aa8f071a.md",
+          "data/AMZN/screener_event_EVT-2e98811c91a7.md"
+        ]
+      },
+      {
+        "command": "/research:rerun earnings revenue-drivers AMZN",
+        "module": "earnings",
+        "agent": "revenue-drivers",
+        "cascade_modules": ["earnings", "balance-sheet-survival", "management-governance", "valuation", "catalyst"],
+        "triggered_by": [
+          "data/AMZN/external/yipitdata/Cloud (AWS, Azure, GCP) _ Mar-26 Update.pdf"
+        ]
+      },
+      {
+        "command": "/research:rerun business-model moat AMZN",
+        "module": "business-model",
+        "agent": "moat",
+        "cascade_modules": ["business-model", "earnings", "balance-sheet-survival", "management-governance", "valuation", "catalyst"],
+        "triggered_by": [
+          "data/AMZN/external/yipitdata/Cloud (AWS, Azure, GCP) _ Mar-26 Update.pdf"
+        ]
+      }
+    ],
+    "note_only": [
+      { "path": "data/AMZN/screener_event_EVT-b41550fff1a0.md", "reason": "Single tier-10 source (Yahoo Finance), headline-only claim that debt nearly doubled to $129B in 6 months -- no filing or second independent source in the pool corroborates the figure. Highest-priority item to watch: materiality 75 if confirmed, would bear directly on balance-sheet-survival/capital-structure-and-leverage and downside-stress-test. A confirming 10-Q/8-K or second independent source would clear the gate immediately." },
+      { "path": "data/AMZN/screener_event_EVT-f28b09ba4feb.md", "reason": "Single tier-10 source ($25B bond issuance) -- still no confirming filing or second independent source since the 2026-07-31 plan; materiality 58 < gate." },
+      { "path": "data/AMZN/screener_event_EVT-22ff50244475.md", "reason": "Single tier-10 source (Tom's Hardware citing NYT); ESG/regulatory colour on already-known capex buildout, materiality 35 < gate." },
+      { "path": "data/AMZN/screener_event_EVT-c393a2977beb.md", "reason": "Single tier-10 source (The Loadstar); early-stage state AG antitrust suit, no financial exposure yet quantified, materiality 42 < gate." },
+      { "path": "data/AMZN/screener_event_EVT-919f9649b43b.md", "reason": "Single tier-10 source (Tom's Hardware citing WSJ); local zoning/community friction, materiality 22 < gate." },
+      { "path": "data/AMZN/screener_event_EVT-61fe30f402c4.md", "reason": "Single tier-10 source; modest tariff-refund amount, materiality 18 < gate." },
+      { "path": "data/AMZN/screener_event_EVT-bd42f71c12ab.md", "reason": "Real, dated WARN-notice closure but immaterial at Amazon's scale (~1,110 employees vs >1.5M global headcount); materiality 28 < gate. Repeat from 2026-07-31 plan." },
+      { "path": "data/AMZN/screener_event_EVT-14cd12418d3f.md", "reason": "Already cited in the current thesis via the Q1 2026 earnings-call transcript; no incremental information. Repeat from 2026-07-31 plan." },
+      { "path": "data/AMZN/screener_event_EVT-d91208d97714.md", "reason": "Single tier-10 source, 'reportedly', no filing or second independent source corroborates an external Trainium/Inferentia chip-sales plan; per INTAKE.md §5 defaults to note_only regardless of materiality (40). Repeat from 2026-07-31 plan." },
+      { "path": "data/AMZN/screener_event_EVT-2d34da3d048c.md", "reason": "Syndicated coverage of a single corporate announcement (Prime Video Latin America $2B/through-2030) shared with EVT-37e5de5f8645/EVT-5370b437d2f4/EVT-64f5e0a583de -- one origin, and immaterial at Amazon's scale; materiality 12 < gate." },
+      { "path": "data/AMZN/screener_event_EVT-37e5de5f8645.md", "reason": "Same origin as EVT-2d34da3d048c; materiality 12 < gate." },
+      { "path": "data/AMZN/screener_event_EVT-5370b437d2f4.md", "reason": "Same origin as EVT-2d34da3d048c; materiality 12 < gate." },
+      { "path": "data/AMZN/screener_event_EVT-64f5e0a583de.md", "reason": "Same origin as EVT-2d34da3d048c; materiality 12 < gate." },
+      { "path": "data/AMZN/screener_event_EVT-57517f14fb69.md", "reason": "Single tier-10 source; commercial AWS-hosting item, no financial figure, materiality 20 < gate." },
+      { "path": "data/AMZN/screener_event_EVT-5769ba23c0c0.md", "reason": "Single tier-10 source overlapping the Texas gas-plant story; materiality 25 < gate." },
+      { "path": "data/AMZN/screener_event_EVT-5ac6598e603e.md", "reason": "Single tier-10 source about Anthropic, not Amazon directly; materiality 22 < gate." },
+      { "path": "data/AMZN/screener_event_EVT-cae54875f8e0.md", "reason": "Single tier-10 source; operational/ESG detail, no financial figure, materiality 15 < gate." },
+      { "path": "data/AMZN/screener_event_EVT-02bba423db7f.md", "reason": "Single tier-10 source; unsized commercial partnership, materiality 15 < gate." },
+      { "path": "data/AMZN/screener_event_EVT-35cc3175572e.md", "reason": "Generic multi-name earnings-season roundup; no quantified Amazon-specific claim; materiality 15 < gate. Repeat from 2026-07-31 plan." },
+      { "path": "data/AMZN/screener_event_EVT-37c9b5f64b76.md", "reason": "No quantified Amazon-specific claim beyond the headline; materiality 15 < gate. Repeat from 2026-07-31 plan." },
+      { "path": "data/AMZN/screener_event_EVT-7d9dc3fd4f31.md", "reason": "Third-party industry survey, not Amazon-specific data; screener itself scored 'irrelevant'; materiality 25 < gate. Repeat from 2026-07-31 plan." },
+      { "path": "data/AMZN/screener_event_EVT-98028fc2bd68.md", "reason": "Opinion piece repeating figures already in the thesis; screener itself scored 'irrelevant'; materiality 12 < gate. Repeat from 2026-07-31 plan." },
+      { "path": "data/AMZN/screener_event_EVT-d70fc1fc7894.md", "reason": "Repeats Q1 2026 earnings-call figures already reflected in the thesis; screener itself scored 'irrelevant'; materiality 12 < gate. Repeat from 2026-07-31 plan." },
+      { "path": "data/AMZN/screener_event_EVT-f9b6b15b50ff.md", "reason": "Generic bull-case listicle with no new quantified fact; materiality 10 < gate. Repeat from 2026-07-31 plan." }
+    ]
+  },
+  "verdict": "scoped_rerun",
+  "summary": "Twenty-seven documents have landed since the run's watermark: one tier-5 YipitData cloud-spend panel (unaddressed since 2026-07-23, still unactioned) and 26 tier-10 screener wire events. The YipitData panel still clears the materiality gate (68) and, newly, two independent-origin wire reports (Fortune, Nasdaq) corroborate a 2026 AI-capex guidance raise from $200B to $220B disclosed on Amazon's Q2 2026 earnings call -- a call not yet reflected as a primary filing/transcript in the pool. Together these justify the same three-orb scoped rerun as the prior plan (earnings/guidance-consensus, earnings/revenue-drivers, business-model/moat) plus their module-synthesis cascade. The single highest-priority unconfirmed item is a headline-only Yahoo Finance claim that Amazon's debt nearly doubled to $129B in six months (materiality 75 if true) -- no filing or second independent source corroborates it, so it stays note_only pending the actual Q2 2026 10-Q or a second source. All other new documents (a $25B bond-sale report, ESG/regulatory colour on AI data-center buildout, a New Jersey antitrust suit, a Florida facility closure, and a syndicated Prime Video Latin America investment) are single-sourced and/or below the materiality gate."
+}

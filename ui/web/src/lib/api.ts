@@ -17,7 +17,17 @@ export const DATA_NEEDS_CLIENT_TIMEOUT_MS = 20_000
 // A cold Memory read runs two sequential, independently bounded 30s Python commands (project + query).
 // The browser must outlast that complete server window; later reads are stale-while-revalidate and fast.
 export const MEMORY_CLIENT_TIMEOUT_MS = 65_000
+export const REEL_TRANSCRIPT_CLIENT_TIMEOUT_MS = 150_000
 export const EXACT_DECISION_LAUNCH_CONTRACT = 'exact-decision-launch/1' as const
+
+export interface ReelTranscriptRead {
+  transcript: string
+  sourceUrl: string
+  title: string | null
+  author: string | null
+  durationSeconds: number | null
+  language: string | null
+}
 
 // ---- live/static mode detection ----
 // Local dev (Fastify backend up) -> live. Cloudflare Pages (no backend) -> static snapshot, read-only.
@@ -81,7 +91,7 @@ async function get<T>(url: string, timeoutMs = 15_000): Promise<T> {
   if (!r.ok) throw Object.assign(new Error(`${r.status} ${url}`), { status: r.status })
   return r.json() as Promise<T>
 }
-async function post<T>(url: string, body?: any): Promise<T> {
+async function post<T>(url: string, body?: any, timeoutMs?: number, signal?: AbortSignal): Promise<T> {
   // Only set the JSON content-type when there's actually a body. A bodyless POST (cancel, credit-check)
   // sent WITH content-type: application/json makes Fastify reject it 400 FST_ERR_CTP_EMPTY_JSON_BODY
   // before the route even runs — the real cause of the "cancel didn't work" bug.
@@ -89,6 +99,9 @@ async function post<T>(url: string, body?: any): Promise<T> {
     method: 'POST',
     headers: body !== undefined ? { 'content-type': 'application/json' } : undefined,
     body: body !== undefined ? JSON.stringify(body) : undefined,
+    signal: timeoutMs && signal
+      ? AbortSignal.any([signal, AbortSignal.timeout(timeoutMs)])
+      : signal || (timeoutMs ? AbortSignal.timeout(timeoutMs) : undefined),
   })
   const j = await r.json().catch(() => ({}))
   if (!r.ok) throw Object.assign(new Error((j as any)?.message || (j as any)?.error || `${r.status}`), { status: r.status, body: j })
@@ -375,6 +388,10 @@ export const api = {
     const read = parseMemoryRead(await get<unknown>('/api/memory', MEMORY_CLIENT_TIMEOUT_MS))
     if (!read) throw Object.assign(new Error('The live engine returned an unsupported memory view.'), { code: 'memory-contract-invalid' })
     return read
+  },
+  reelTranscript: async (url: string, signal?: AbortSignal): Promise<ReelTranscriptRead> => {
+    if ((await ensureMode()) === 'static') throw STATIC_ERR()
+    return post<ReelTranscriptRead>('/api/tools/reel-transcript', { url }, REEL_TRANSCRIPT_CLIENT_TIMEOUT_MS, signal)
   },
   swarm: async (ticker?: string): Promise<SwarmGraph> => {
     if ((await ensureMode()) === 'static') return snap.swarmGraph

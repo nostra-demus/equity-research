@@ -69,9 +69,18 @@ a { color: inherit; }
    scoped to .brand__title on purpose: the app name may truncate, the swarm switcher must not). */
 .swarmswitch { flex-shrink: 0; }
 @media (max-width: 1240px) { .brand__sub { display: none; } }
-/* Tighter still: drop the switcher's text labels (the colour-coded orbs + their titles still identify each
-   swarm) so the left cluster stops crowding the right-hand tools before anything can collide. */
-@media (max-width: 1160px) { .swarmswitch__label { display: none; } .swarmswitch__item { padding: 0 8px; } }
+/* Adding shared workspaces must not create a narrow clipping band. At tighter desktop widths the marks
+   still identify Nostra and each titled swarm while their text yields room to the actions. */
+@media (max-width: 1700px) {
+  .brand__name, .swarmswitch__label { display: none; }
+  .swarmswitch__item { padding: 0 6px; }
+  .topbar { gap: 8px; }
+  .topbar .btn { padding-inline: 10px; }
+}
+@media (max-width: 1300px) {
+  .topbar { gap: 5px; padding-inline: 10px; }
+  .topbar .btn { padding-inline: 8px; }
+}
 
 /* ticker picker */
 .tickerpick { position: relative; }

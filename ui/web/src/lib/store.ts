@@ -583,6 +583,8 @@ interface State {
   dataLibraryOpen: boolean
   // ---- Memory (one read-only, cross-swarm overlay; deliberately survives a swarm switch) ----
   memoryOpen: boolean
+  // ---- Tools (small cross-swarm utilities; one workspace, many future mini-apps) ----
+  toolsOpen: boolean
   dlSelectedId: string | null // THE list<->detail field: null = list, an id = that pipeline's detail
   pipelines: PipelinesRead | null // null until /api/pipelines answers (the Data button gates on this, §5)
   pipelinesError: string | null
@@ -687,6 +689,8 @@ interface State {
   closeDataLibrary: () => void
   openMemory: () => void
   closeMemory: () => void
+  openTools: () => void
+  closeTools: () => void
   setDlSelected: (id: string | null) => void
   setDlFilters: (f: DlFilterState) => void
   // "What changed since the last version" — the server-computed git delta for the run on screen.
@@ -1403,6 +1407,7 @@ export const useStore = create<State>((set, get) => ({
   dataPoolExpandRequest: 0,
   dataLibraryOpen: false,
   memoryOpen: false,
+  toolsOpen: false,
   dlSelectedId: null,
   pipelines: null,
   pipelinesError: null,
@@ -3283,12 +3288,12 @@ export const useStore = create<State>((set, get) => ({
   closeScoring: () => set({ scoringOpen: false }),
   openValuationPlayground: () => set({ valuationPlaygroundOpen: true }),
   closeValuationPlayground: () => set({ valuationPlaygroundOpen: false }),
-  openCalls: () => set({ callsOpen: true, memoryOpen: false }),
+  openCalls: () => set({ callsOpen: true, memoryOpen: false, toolsOpen: false }),
   closeCalls: () => set({ callsOpen: false }),
 
   // ---- Data Library (cross-swarm overlay; one overlay at a time, the openPipeline idiom) ----
   openDataLibrary: () => {
-    set({ dataLibraryOpen: true, memoryOpen: false, newsFeedOpen: false, pipelineOpen: false, callsOpen: false, diagnosticsOpen: false })
+    set({ dataLibraryOpen: true, memoryOpen: false, toolsOpen: false, newsFeedOpen: false, pipelineOpen: false, callsOpen: false, diagnosticsOpen: false })
     void get().refreshPipelines()
   },
   closeDataLibrary: () => set({ dataLibraryOpen: false, dlSelectedId: null }),
@@ -3301,6 +3306,7 @@ export const useStore = create<State>((set, get) => ({
     if (get().newsChatOpen || get().newsChatStreaming) get().closeNewsChat()
     set({
       memoryOpen: true,
+      toolsOpen: false,
       openOutput: null,
       chatHistoryOpen: false,
       watchComposer: null,
@@ -3322,6 +3328,36 @@ export const useStore = create<State>((set, get) => ({
     })
   },
   closeMemory: () => set({ memoryOpen: false }),
+  // Tools follows the same destination semantics as Memory: opening it stops/hides competing reading
+  // surfaces, but it is not a swarm mode and therefore stays open across a swarm switch.
+  openTools: () => {
+    if (get().chatOpen || get().chatStreaming) get().closeChat()
+    if (get().newsChatOpen || get().newsChatStreaming) get().closeNewsChat()
+    set({
+      toolsOpen: true,
+      activityOpen: false,
+      memoryOpen: false,
+      openOutput: null,
+      chatHistoryOpen: false,
+      watchComposer: null,
+      dataLibraryOpen: false,
+      dataPipelineOpen: false,
+      newsFeedOpen: false,
+      pipelineOpen: false,
+      callsOpen: false,
+      diagnosticsOpen: false,
+      sourcesOpen: false,
+      scoringOpen: false,
+      valuationPlaygroundOpen: false,
+      reviewOpen: false,
+      cockpitFeedbackOpen: false,
+      signalIntakeOpen: false,
+      thesisPlanOpen: false,
+      whatChangedOpen: false,
+      addCompanyOpen: false,
+    })
+  },
+  closeTools: () => set({ toolsOpen: false }),
   setDlSelected: (id) => set({ dlSelectedId: id }),
   setDlFilters: (f) => set({ dlFilters: f }),
   refreshPipelines: async () => {
