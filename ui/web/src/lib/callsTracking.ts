@@ -95,8 +95,9 @@ function completedReviews(timeline: CallTimelineEntry[]): CallTimelineEntry[] {
 const ACTIONS = new Set<CallActionNow>(['Hold', 'Add', 'Exit', 'Stay away', 'Keep watching'])
 function actionNow(call: CallSummary, row: CallTimelineEntry | null): CallTrackingSnapshot['actionNow'] {
   const explicit = row?.action_now?.label
-  if (explicit && ACTIONS.has(explicit)) {
-    return { label: explicit, detail: row?.action_now?.reason || 'Recorded in the latest review.', tone: explicit === 'Exit' || explicit === 'Stay away' ? 'bad' : explicit === 'Add' ? 'good' : 'neutral' }
+  const explicitReason = (row?.action_now?.reason || '').trim()
+  if (explicit && ACTIONS.has(explicit) && explicitReason) {
+    return { label: explicit, detail: explicitReason, tone: explicit === 'Exit' || explicit === 'Stay away' ? 'bad' : explicit === 'Add' ? 'good' : 'neutral' }
   }
   const decision = (call.decision || '').trim().toLowerCase()
   const basket = (call.basket || '').trim().toLowerCase()
@@ -142,13 +143,17 @@ function resultFor(call: CallSummary, row: CallTimelineEntry | null): CallTracki
 }
 
 function confidenceFor(call: CallSummary, row: CallTimelineEntry | null): CallTrackingSnapshot['confidence'] {
-  const before = finite(row?.confidence_update?.before) ? row!.confidence_update!.before
-    : finite(call.frozen_call?.confidence) ? call.frozen_call!.confidence
-      : finite(call.confidence) ? call.confidence : null
+  const before = finite(call.frozen_call?.confidence) ? call.frozen_call!.confidence
+    : finite(call.confidence) ? call.confidence : null
+  const copiedBefore = finite(row?.confidence_update?.before) ? row!.confidence_update!.before : null
   const after = finite(row?.confidence_update?.after) ? row!.confidence_update!.after : null
   const label = `${before == null ? 'Not recorded' : before} → ${after == null ? 'not re-scored' : after}`
   const tone: TrackingTone = after == null || before == null ? 'neutral' : after > before ? 'good' : after < before ? 'bad' : 'neutral'
-  return { label, detail: row?.confidence_update?.change_reason || (row ? 'This review did not record a new confidence score.' : 'No review has re-scored confidence yet.'), tone }
+  const reason = row?.confidence_update?.change_reason
+    || (after != null ? 'This review did not explain the confidence change.' : row ? 'This review did not record a new confidence score.' : 'No review has re-scored confidence yet.')
+  const mismatch = copiedBefore != null && before != null && copiedBefore !== before
+    ? ` Review copied ${copiedBefore} as the prior score; frozen original ${before} is authoritative.` : ''
+  return { label, detail: `${reason}${mismatch}`, tone }
 }
 
 function namedWatchItem(row: CallTimelineEntry | null): string | null {

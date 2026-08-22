@@ -330,7 +330,7 @@ check('news prompt carries exact prior-call learning into Screener wire chat wit
   const assembled = { present: true, context: 'CURRENT EVIDENCE:\n[N1] Amazon filed results', evidence: [], receipt: { window: '24h' as const, label: 'last 24 hours', itemsSearched: 1, itemsMatched: 1, sourceCount: 1, evidenceCount: 1, historicalEvidenceCount: 0, coverageStart: '2026-08-02', coverageEnd: '2026-08-02', queryTerms: [], queryTermHits: {}, retrievalTermHits: {}, expandedTerms: {}, retrievalMode: 'hybrid' as const, retrievalChannels: [], dataStores: ['live wire'], coverageWarnings: [], sourceHealth: null, semantic: null, rerank: null, relationships: [], tradeCandidates: [] } }
   const calls = [{
     ticker: 'AMZN', company: 'Amazon.com, Inc.', decision_date: '2026-07-10', original_decision: 'Watchlist',
-    original_confidence: 72, original_price: 238.34, currency: 'USD', latest_review_date: '2026-08-09', latest_price: 274.48,
+    original_confidence: 72, original_price: 238.34, currency: 'USD', exchange: 'NASDAQ', latest_review_date: '2026-08-09', latest_price: 274.48,
     price_change_pct: 15.16, benchmark_relative_pct: 11.49, thesis_status: 'broken', decision_quality: 'genuine miss',
     action_now: 'Keep watching' as const, action_reason: 'Re-run earnings before acting.', confidence_after: 45,
     confidence_reason: 'AWS margin expanded.', why_right_or_wrong: 'Nostra underestimated AWS growth.', error_taxonomy: ['bad base rate'],

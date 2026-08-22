@@ -27,7 +27,14 @@ const rows = currentCalls([
 assert.deepEqual(rows.map((row) => row.run_root), [
   'analyses/ACME_2026-08-10',
   'analyses/BETA_2026-08-03_v2',
-], 'Current keeps the newest dated published call per normalized ticker')
+], 'Current keeps the newest dated published call per normalized issuer/listing')
+const venueA = call('DUP', '2026-08-11', 'analyses/DUP_NYSE_2026-08-11')
+venueA.company = 'Duplicate America Inc.'
+venueA.exchange = 'NYSE'
+const venueB = call('DUP', '2026-08-12', 'analyses/DUP_LSE_2026-08-12')
+venueB.company = 'Duplicate Britain plc'
+venueB.exchange = 'LSE'
+assert.equal(currentCalls([venueA, venueB]).length, 2, 'same ticker on different issuer/listings stays separate')
 assert.equal(currentCalls([call('', '2026-08-11')]).length, 0, 'a nameless row cannot become a current call')
 assert.equal(currentCalls(null).length, 0, 'a missing calls field fails closed')
 assert.equal(currentCalls([

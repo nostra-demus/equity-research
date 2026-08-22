@@ -80,7 +80,7 @@ import { chatTurnsInFlight, runChatTurn } from './chat-llm'
 import { computePlan, computedContextBlock, detectWhatIf, isNumberlessTargetFollowUp, loadSidecar, parseWhatIf, recordedList, repriceFromMetric, resolveAuthenticatedPriorScenario, validateIntents } from './chat-whatif'
 import { ChatTurnReservationError, deleteConversation, findCompletedTurnForUser, getConversation, isValidConversationId, isValidTurnId, listConversations, recordAssistantMessageForPending, recordPendingUserMessage, rollbackUserMessage, searchConversationMemory, type UserMessageRollback } from './chat-store'
 import { askMemoryMeta, compactNewsEvidence, routeAskMemory, type AskMemoryPromptContext } from './ask-memory'
-import { selectCallMemories } from './call-learning'
+import { isEquityCallMemorySwarm, selectCallMemories } from './call-learning'
 import { dataPoolPresent, deriveSignalState, readCandidates, readConviction, readConvictionCalibration, readHandoffs, readScreenerMarkdown, readThesis, screenerBoard, screenerRunManifest, screenerSubjectLabels } from './screener'
 import { listSwarms, RESEARCH_SWARM_ID, swarmById } from './swarms'
 import { getNewsDiagnostics, getNewsStatus, newsProviderSpendingAllowed, startNewsIngester } from './news/scheduler'
@@ -4248,7 +4248,9 @@ app.post('/api/chat', async (req, reply) => {
       // the receipt simply omits that shelf instead of pretending it was used.
     }
   }
-  if (!ac.signal.aborted) {
+  // The Calls ledger is equity-only. Commodity and future swarms own separate decision ledgers, so a
+  // shared symbol such as GOLD must never inject a Barrick equity call into a commodity answer.
+  if (!ac.signal.aborted && isEquityCallMemorySwarm(swarmId)) {
     try {
       const projection = await listAllCalls()
       const identifiers = [subject, signalMemoryAnchor || '']
@@ -4742,7 +4744,9 @@ app.post('/api/news/chat', { config: { rateLimit: { max: NEWS.chatRateLimitPerMi
         const pending = pendingSavedQuestion
         let completionSafe = true
         if (pending) {
-          const memory = { kind: 'news-wire', window, receipt: assembled.receipt, evidence: compactNewsEvidence(assembled.evidence), calls: callMemories }
+          // Replay needs the compact wire receipt/evidence, not the optional call prompt shelf. Keeping
+          // calls here could push the whole memory object over clampMemory's bound and lose paid replay.
+          const memory = { kind: 'news-wire', window, receipt: assembled.receipt, evidence: compactNewsEvidence(assembled.evidence) }
           const committed = await recordAssistantMessageForPending(
             pending,
             answer,

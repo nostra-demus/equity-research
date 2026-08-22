@@ -564,22 +564,23 @@ const cleanStringArray = (value: unknown): string[] => Array.isArray(value)
   ? value.map(cleanString).filter((row): row is string => !!row).slice(0, 30)
   : []
 
-function structuredReviewFields(j: any, md: any): Pick<ReviewFile, 'action_now' | 'confidence_update' | 'next_check' | 'learning' | 'lessons' | 'error_taxonomy' | 'watch_items'> {
+export function structuredReviewFields(j: any, md: any): Pick<ReviewFile, 'action_now' | 'confidence_update' | 'next_check' | 'learning' | 'lessons' | 'error_taxonomy' | 'watch_items'> {
   const action = j?.action_now && typeof j.action_now === 'object' ? j.action_now : null
   const actionLabel = cleanString(action?.label)
+  const actionReason = cleanString(action?.reason)
   const confidence = j?.confidence_update && typeof j.confidence_update === 'object' ? j.confidence_update : null
   const next = j?.next_check && typeof j.next_check === 'object' ? j.next_check : null
   const learning = j?.learning && typeof j.learning === 'object' ? j.learning : null
   return {
-    action_now: actionLabel && ACTION_NOW_LABELS.has(actionLabel as ActionNowLabel)
-      ? { label: actionLabel as ActionNowLabel, reason: cleanString(action?.reason) || 'Recorded in the latest review.', recorded: true }
+    action_now: actionLabel && actionReason && ACTION_NOW_LABELS.has(actionLabel as ActionNowLabel)
+      ? { label: actionLabel as ActionNowLabel, reason: actionReason, recorded: true }
       : null,
     confidence_update: confidence ? {
       before: confidenceScore(confidence.before), after: confidenceScore(confidence.after),
       change_reason: cleanString(confidence.change_reason),
     } : null,
     next_check: next ? {
-      date: isISODate(next.date) ? next.date : null,
+      date: isValidCalendarISODate(next.date) ? next.date : null,
       label: cleanString(next.label), trigger: cleanString(next.trigger),
     } : null,
     learning: learning ? {

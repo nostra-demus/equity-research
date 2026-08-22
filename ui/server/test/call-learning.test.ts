@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict'
 import {
-  actionNowForCall, buildCallsScorecard, decisionMemoryBlock, directionAdjusted, latestDoneReview, selectCallMemories,
+  actionNowForCall, buildCallsScorecard, decisionMemoryBlock, directionAdjusted, isEquityCallMemorySwarm,
+  latestDoneReview, selectCallMemories,
 } from '../src/call-learning'
 
 const reviewed = (ticker: string, decisionQuality: string, confidence: number, rel: number, basket = 'Selected') => ({
@@ -17,6 +18,9 @@ assert.equal(directionAdjusted('Short', -12), 12)
 assert.equal(directionAdjusted('Rejected', -8), null)
 assert.equal(directionAdjusted('Watchlist', 15), null)
 assert.equal(directionAdjusted('Selected', -8), -8)
+assert.equal(isEquityCallMemorySwarm('research'), true)
+assert.equal(isEquityCallMemorySwarm('screener'), true)
+assert.equal(isEquityCallMemorySwarm('commodity'), false, 'commodity symbols cannot read the equity Calls ledger')
 
 const selectedAtRisk = reviewed('RISK', '', 70, 0)
 selectedAtRisk.timeline[0].thesis_status = 'at-risk'
@@ -43,6 +47,14 @@ assert.equal(score.mixed, 1)
 assert.equal(score.horizons.find((row) => row.window === '30d')?.reviewed, 10)
 assert.equal(score.confidence_check.status, 'aligned')
 assert.ok((score.average_vs_benchmark_pct || 0) > 0, 'short returns are direction-adjusted in aggregate')
+const repeatedTickerScore = buildCallsScorecard(Array.from({ length: 8 }, (_, index) => ({
+  ...reviewed('REPEAT', index % 2 ? 'skill' : 'genuine miss', index < 4 ? 60 : 80, index),
+  decision_date: `2026-07-${String(index + 1).padStart(2, '0')}`,
+  run_root: `analyses/REPEAT_2026-07-${String(index + 1).padStart(2, '0')}`,
+})))
+assert.equal(repeatedTickerScore.confidence_check.status, 'too_little_data')
+assert.equal(repeatedTickerScore.confidence_check.scored_calls, 1,
+  'repeat runs on one ticker count as one independent confidence-calibration observation')
 const withProvisional = buildCallsScorecard([...calls, { ...reviewed('PROVISIONAL', 'skill', 99, 90), integrity_status: 'provisional' }])
 assert.equal(withProvisional.excluded_provisional, 1)
 assert.equal(withProvisional.worked, score.worked)
@@ -64,8 +76,8 @@ assert.deepEqual(buildCallsScorecard([sameDayCall]), buildCallsScorecard([{ ...s
 
 const memoryCall = {
   ticker: 'AMZN', company: 'Amazon.com, Inc.', decision_date: '2026-07-10', decision: 'Watchlist', basket: 'Watchlist',
-  confidence: 72, entry_price: 238.34, currency: 'USD', final_thesis_path: 'analyses/AMZN_2026-07-10/final_thesis.md',
-  run_root: 'analyses/AMZN_2026-07-10', frozen_call: { source_path: 'analyses/AMZN_2026-07-10/decision_record.json' },
+  confidence: 52, entry_price: 238.34, currency: 'USD', exchange: 'NASDAQ', final_thesis_path: 'analyses/AMZN_2026-07-10/final_thesis.md',
+  run_root: 'analyses/AMZN_2026-07-10', frozen_call: { confidence: 72, source_path: 'analyses/AMZN_2026-07-10/decision_record.json' },
   timeline: [{
     window: '30d', status: 'done', review_date: '2026-08-09', review_price: 274.48,
     absolute_return_pct: 15.16, benchmark_relative_return_pct: 11.49, thesis_status: 'broken', decision_quality: 'genuine miss',
@@ -79,6 +91,7 @@ const memoryCall = {
 const matched = selectCallMemories([memoryCall, reviewed('MSFT', 'skill', 70, 5)], ['Amazon.com, Inc.'])
 assert.equal(matched.length, 1)
 assert.equal(matched[0].ticker, 'AMZN')
+assert.equal(matched[0].original_confidence, 72, 'frozen confidence beats a drifted projected copy')
 assert.equal(selectCallMemories([memoryCall], ['Amazon']).length, 1, 'structured short issuer names match the same legal-form-normalized company')
 assert.equal(selectCallMemories([memoryCall], ['Amazonian rainforest']).length, 0, 'company matching is exact, not fuzzy')
 const oracleCall = { ...memoryCall, ticker: 'ORCL', company: 'Oracle Corporation', decision_date: '2026-08-20' }
@@ -93,6 +106,14 @@ const currentAndLesson = selectCallMemories([memoryCall, freshCall], ['AMZN'])
 assert.deepEqual(currentAndLesson.map((row) => row.decision_date), ['2026-08-20', '2026-07-10'])
 assert.equal(currentAndLesson[1].why_right_or_wrong, 'Nostra underestimated AWS growth.',
   'a fresh unreviewed call cannot erase the newest reviewed same-ticker lesson')
+const unsupportedAdd = { ...memoryCall, decision: 'Buy', basket: 'Selected', timeline: [{
+  ...memoryCall.timeline[0], thesis_status: 'confirmed', decision_quality: 'skill',
+  action_now: { label: 'Add', reason: '', recorded: true },
+}] }
+assert.equal(actionNowForCall(unsupportedAdd).label, 'Hold', 'an action without an evidence reason is ignored')
+const venueTwin = { ...memoryCall, company: 'Amazon Europe plc', exchange: 'LSE', run_root: 'analyses/AMZN_LSE_2026-07-10' }
+assert.deepEqual(selectCallMemories([venueTwin, memoryCall], ['AMZN']).map((row) => row.exchange), ['LSE', 'NASDAQ'],
+  'same ticker on different venues remains two issuer/listing memories')
 const nowCall = { ...memoryCall, ticker: 'NOW', company: 'ServiceNow, Inc.' }
 assert.equal(selectCallMemories([nowCall], [], 3, 'What should I do now?').length, 0,
   'a lowercase common word cannot be mistaken for a ticker in a free-form question')
@@ -101,6 +122,7 @@ assert.equal(selectCallMemories([nowCall], [], 3, 'What changed at $now?').lengt
   'uppercase and cashtag ticker syntax remain explicit question matches')
 const block = decisionMemoryBlock(matched)
 assert.match(block, /FROZEN ORIGINAL: Nostra rated it Watchlist/)
+assert.match(block, /AMZN @ NASDAQ — Amazon\.com, Inc\./)
 assert.doesNotMatch(block, /said enter/i)
 assert.match(block, /RECHECK NOW: Recheck AWS growth and margin/)
 assert.match(block, /72 → 45\/100/)

@@ -337,7 +337,7 @@ function CallCard({ c, historical, busy, staticMode, onUpdate, onFileDue, onOpen
           )}
           {historical && <span className="flag flag--past" title="A newer dated call for this company is shown in Current">PAST CALL</span>}
           <span className="callcard__name" title={dash(c.company)}>{dash(c.company)}</span>
-          <span className="callcard__tkr">{c.ticker}</span>
+          <span className="callcard__tkr">{c.ticker}{c.exchange ? ` · ${c.exchange}` : ''}</span>
         </div>
         <div className="callcard__when">{dash(c.decision_date)}<br />{dash(c.time_horizon)} horizon</div>
       </div>

@@ -38,10 +38,19 @@ interface CallLike {
   confidence?: number | null
   entry_price?: number | null
   currency?: string | null
+  exchange?: string | null
   run_root?: string
   final_thesis_path?: string | null
   integrity_status?: string | null
-  frozen_call?: { source_path?: string | null } | null
+  frozen_call?: {
+    decision?: string | null
+    basket?: string | null
+    confidence?: number | null
+    decision_date?: string | null
+    entry_price?: number | null
+    currency?: string | null
+    source_path?: string | null
+  } | null
   timeline?: ReviewLike[]
   next_checkpoint?: { window?: string | null; due_date?: string | null; status?: string | null } | null
 }
@@ -83,6 +92,7 @@ export interface CallMemoryItem {
   original_confidence: number | null
   original_price: number | null
   currency: string | null
+  exchange: string | null
   latest_review_date: string | null
   latest_price: number | null
   price_change_pct: number | null
@@ -108,6 +118,11 @@ const normalized = (value: unknown): string => String(value ?? '').trim().toLowe
 const enumValue = (value: unknown): string => String(value ?? '').trim().toLowerCase()
 const companyCore = (value: unknown): string => normalized(value)
   .split(' ').filter((word) => !['the', 'com', 'inc', 'incorporated', 'corp', 'corporation', 'company', 'co', 'ltd', 'limited', 'plc', 'pjsc', 'sa', 'ag', 'nv'].includes(word)).join(' ')
+const EQUITY_CALL_MEMORY_SWARMS = new Set(['research', 'screener'])
+
+export function isEquityCallMemorySwarm(swarmId: string): boolean {
+  return EQUITY_CALL_MEMORY_SWARMS.has(String(swarmId || '').trim().toLowerCase())
+}
 
 export function directionAdjusted(basket: string | null | undefined, value: number | null | undefined): number | null {
   if (!finite(value)) return null
@@ -150,8 +165,22 @@ function average(values: Array<number | null>): number | null {
 }
 
 function confidenceCheck(calls: CallLike[]): CallsScorecard['confidence_check'] {
-  const scored = calls.map((call) => ({ call, outcome: classifyDecisionQuality(latestDoneReview(call.timeline)?.decision_quality) }))
+  const candidates = calls.map((call) => ({ call, outcome: classifyDecisionQuality(latestDoneReview(call.timeline)?.decision_quality) }))
     .filter((row) => (row.outcome === 'worked' || row.outcome === 'failed') && finite(row.call.confidence))
+  // Repeat runs on one name share the same company thesis and are not independent calibration evidence.
+  // Keep only the newest scored run per ticker before applying the eight-name sufficiency floor or bands.
+  const byTicker = new Map<string, (typeof candidates)[number]>()
+  for (const row of candidates) {
+    const key = normalized(row.call.ticker)
+    if (!key) continue
+    const prior = byTicker.get(key)
+    const rowDate = String(row.call.decision_date || '')
+    const priorDate = String(prior?.call.decision_date || '')
+    const rowRoot = String(row.call.run_root || '')
+    const priorRoot = String(prior?.call.run_root || '')
+    if (!prior || rowDate > priorDate || (rowDate === priorDate && rowRoot > priorRoot)) byTicker.set(key, row)
+  }
+  const scored = [...byTicker.values()]
   const ranges = [
     { label: 'Below 50', min: 0, max: 49.999 },
     { label: '50–69', min: 50, max: 69.999 },
@@ -167,7 +196,7 @@ function confidenceCheck(calls: CallLike[]): CallsScorecard['confidence_check'] 
   if (scored.length < 8 || usable.length < 2) {
     return {
       status: 'too_little_data', scored_calls: scored.length, bands,
-      detail: `Too little data: ${scored.length} scored call${scored.length === 1 ? '' : 's'}. Conviction is not a probability; this check starts after 8 scored calls across at least 2 confidence bands.`,
+      detail: `Too little data: ${scored.length} independently scored ticker${scored.length === 1 ? '' : 's'}. Conviction is not a probability; this check starts after 8 tickers across at least 2 confidence bands.`,
     }
   }
   const aligned = usable.every((band, index) => index === 0 || band.worked_pct! + 10 >= usable[index - 1].worked_pct!)
@@ -212,8 +241,9 @@ const ACTIONS = new Set<ActionNowLabel>(['Hold', 'Add', 'Exit', 'Stay away', 'Ke
 
 export function actionNowForCall(call: CallLike, review = latestDoneReview(call.timeline)): { label: ActionNowLabel; reason: string } {
   const explicit = review?.action_now?.label
-  if (explicit && ACTIONS.has(explicit as ActionNowLabel)) {
-    return { label: explicit as ActionNowLabel, reason: review?.action_now?.reason || 'Recorded in the latest review.' }
+  const explicitReason = String(review?.action_now?.reason || '').trim()
+  if (explicit && ACTIONS.has(explicit as ActionNowLabel) && explicitReason) {
+    return { label: explicit as ActionNowLabel, reason: explicitReason }
   }
   const decision = normalized(call.decision)
   const basket = normalized(call.basket)
@@ -281,17 +311,17 @@ function namedWatchItem(review: ReviewLike | null): string | null {
 }
 
 export function selectCallMemories(calls: CallLike[], identifiers: string[], cap = 3, question?: string): CallMemoryItem[] {
-  const byTicker = new Map<string, Array<{ call: CallLike; matchRank: number }>>()
+  const byListing = new Map<string, Array<{ call: CallLike; matchRank: number }>>()
   for (const call of calls) {
     if (!call?.ticker) continue
     const matchRank = exactEntityMatchIndex(call, identifiers, question)
     if (matchRank < 0) continue
-    const key = normalized(call.ticker)
-    const group = byTicker.get(key) || []
+    const key = [normalized(call.ticker), normalized(call.exchange) || 'exchange-unknown', companyCore(call.company) || 'issuer-unknown'].join('|')
+    const group = byListing.get(key) || []
     group.push({ call, matchRank })
-    byTicker.set(key, group)
+    byListing.set(key, group)
   }
-  const selected = [...byTicker.entries()].map(([ticker, matches]) => {
+  const selected = [...byListing.entries()].map(([listing, matches]) => {
     const ordered = matches.sort((a, b) => {
       const ad = String(a.call.decision_date || '')
       const bd = String(b.call.decision_date || '')
@@ -305,11 +335,11 @@ export function selectCallMemories(calls: CallLike[], identifiers: string[], cap
       const reviewedPrior = ordered.slice(1).find((row) => latestDoneReview(row.call.timeline))
       if (reviewedPrior) keep.push(reviewedPrior)
     }
-    return { ticker, matchRank: Math.min(...matches.map((row) => row.matchRank)), calls: keep }
+    return { listing, matchRank: Math.min(...matches.map((row) => row.matchRank)), calls: keep }
   })
     .sort((a, b) => {
       if (a.matchRank !== b.matchRank) return a.matchRank - b.matchRank
-      return a.ticker.localeCompare(b.ticker)
+      return a.listing.localeCompare(b.listing)
     })
     .flatMap((group) => group.calls)
   return selected.slice(0, cap).map(({ call }) => {
@@ -318,10 +348,14 @@ export function selectCallMemories(calls: CallLike[], identifiers: string[], cap
     const why = latest?.learning?.why_right_or_wrong || latest?.lessons?.[0] || latest?.memo_delta_summary || null
     const watch = namedWatchItem(latest)
     const future = latest?.learning?.future_research_check || latest?.learning?.rule_for_future || watch || null
+    const frozen = call.frozen_call
     return {
-      ticker: call.ticker, company: call.company || null, decision_date: call.decision_date || null,
-      original_decision: call.decision || null, original_confidence: finite(call.confidence) ? call.confidence : null,
-      original_price: finite(call.entry_price) ? call.entry_price : null, currency: call.currency || null,
+      ticker: call.ticker, company: call.company || null, exchange: call.exchange || null,
+      decision_date: frozen?.decision_date || call.decision_date || null,
+      original_decision: frozen?.decision || call.decision || null,
+      original_confidence: finite(frozen?.confidence) ? frozen!.confidence! : finite(call.confidence) ? call.confidence : null,
+      original_price: finite(frozen?.entry_price) ? frozen!.entry_price! : finite(call.entry_price) ? call.entry_price : null,
+      currency: frozen?.currency || call.currency || null,
       latest_review_date: latest?.review_date || null, latest_price: finite(latest?.review_price) ? latest!.review_price! : null,
       price_change_pct: finite(latest?.absolute_return_pct) ? latest!.absolute_return_pct! : null,
       benchmark_relative_pct: finite(latest?.benchmark_relative_return_pct) ? latest!.benchmark_relative_return_pct! : null,
@@ -353,7 +387,7 @@ function fmtPrice(currency: string | null, value: number | null): string {
 
 export function decisionMemoryBlock(memories: CallMemoryItem[]): string {
   return memories.map((memory, index) => [
-    `[M${index + 1}] ${memory.ticker}${memory.company ? ` — ${memory.company}` : ''}`,
+    `[M${index + 1}] ${memory.ticker}${memory.exchange ? ` @ ${memory.exchange}` : ' @ exchange not recorded'}${memory.company ? ` — ${memory.company}` : ''}`,
     `FROZEN ORIGINAL: Nostra rated it ${memory.original_decision || 'Not recorded'} on ${memory.decision_date || 'date not recorded'} at ${fmtPrice(memory.currency, memory.original_price)}. Original conviction: ${finite(memory.original_confidence) ? `${memory.original_confidence}/100` : 'not recorded'}.`,
     `LATEST OUTCOME: reviewed ${memory.latest_review_date || 'not yet'}; price ${fmtPrice(memory.currency, memory.latest_price)}; price change since call ${fmtPct(memory.price_change_pct)}; versus benchmark ${fmtPct(memory.benchmark_relative_pct)}; thesis ${memory.thesis_status || 'not scored'}; decision quality ${memory.decision_quality || 'not scored'}.`,
     `ACTION NOW: ${memory.action_now}. ${memory.action_reason}`,

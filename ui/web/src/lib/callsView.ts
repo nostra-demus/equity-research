@@ -55,7 +55,7 @@ function isCallSummary(value: unknown): value is CallSummary {
   if (!isRecord(value) || typeof value.ticker !== 'string' || !value.ticker.trim()) return false
   if (typeof value.run_root !== 'string' || !value.run_root || typeof value.final_thesis_path !== 'string' || !value.final_thesis_path) return false
   if (!nullableString(value.company) || !nullableString(value.decision_date) || !nullableString(value.decision)) return false
-  if (!nullableString(value.time_horizon) || !nullableString(value.currency) || !nullableString(value.latest_thesis_status)) return false
+  if (!nullableString(value.time_horizon) || !nullableString(value.currency) || !optionalString(value.exchange) || !nullableString(value.latest_thesis_status)) return false
   if (!optionalString(value.latest_review_summary) || !optionalString(value.latest_review_date)) return false
   if (![value.confidence, value.entry_price, value.expected_return_pct, value.implied_target, value.downside_risk_pct]
     .every(optionalNumber)) return false
@@ -140,13 +140,18 @@ function newestFirst(a: CallRow, b: CallRow): number {
   return br.localeCompare(ar)
 }
 
-/** One current published call per ticker; the complete dated ledger remains available as History. */
+function callListingKey(call: CallSummary): string {
+  const clean = (value: string | null | undefined) => String(value || '').trim().toUpperCase().replace(/[^A-Z0-9]+/g, ' ')
+  return [clean(call.ticker), clean(call.exchange) || 'EXCHANGE UNKNOWN', clean(call.company) || 'ISSUER UNKNOWN'].join('|')
+}
+
+/** One current published call per issuer/listing; the complete dated ledger remains available as History. */
 export function currentCalls(calls: unknown): CallSummary[] {
   const newest = new Map<string, CallSummary>()
   for (const call of publishedCalls(calls)) {
-    const ticker = call.ticker.trim().toUpperCase()
-    const prior = newest.get(ticker)
-    if (!prior || newestFirst(call, prior) < 0) newest.set(ticker, call)
+    const listing = callListingKey(call)
+    const prior = newest.get(listing)
+    if (!prior || newestFirst(call, prior) < 0) newest.set(listing, call)
   }
   return [...newest.values()].sort(newestFirst)
 }

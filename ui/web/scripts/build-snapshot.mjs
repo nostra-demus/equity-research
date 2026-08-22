@@ -460,6 +460,13 @@ function copyPrompts() {
 // review_due.py (local date, lexical ISO compare, *_<window>_decision_review*.json glob). Walks ALL
 // run folders (not just the latest per ticker) and copies every file the tracker can open.
 function isISODateJ(s) { return typeof s === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(s) }
+function isValidCalendarISODateJ(s) {
+  if (!isISODateJ(s)) return false
+  const y = Number(s.slice(0, 4)), mo = Number(s.slice(5, 7)), da = Number(s.slice(8, 10))
+  if (mo < 1 || mo > 12) return false
+  const leap = y % 4 === 0 && (y % 100 !== 0 || y % 400 === 0)
+  return da >= 1 && da <= [31, leap ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][mo - 1]
+}
 function loadJSON(p) { try { return JSON.parse(fs.readFileSync(p, 'utf8')) } catch { return null } }
 function todayISOJ() { const d = new Date(); return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}` }
 function finiteNumberJ(v) { return typeof v === 'number' && Number.isFinite(v) ? v : null }
@@ -474,8 +481,9 @@ function reviewsForRun(runDirAbs, runRoot) {
     const fals = fr.filter((r) => String((r && r.status) || '').toLowerCase() === 'falsified').length
     const md = j.memo_delta && typeof j.memo_delta === 'object' ? j.memo_delta : null
     const actionLabels = new Set(['Hold', 'Add', 'Exit', 'Stay away', 'Keep watching'])
-    const action = j.action_now && typeof j.action_now === 'object' && actionLabels.has(j.action_now.label)
-      ? { label: j.action_now.label, reason: typeof j.action_now.reason === 'string' && j.action_now.reason.trim() ? j.action_now.reason.trim() : 'Recorded in the latest review.', recorded: true }
+    const actionReason = typeof j.action_now?.reason === 'string' ? j.action_now.reason.trim() : ''
+    const action = j.action_now && typeof j.action_now === 'object' && actionLabels.has(j.action_now.label) && actionReason
+      ? { label: j.action_now.label, reason: actionReason, recorded: true }
       : null
     const boundedConfidence = (value) => { const n = finiteNumberJ(value); return n != null && n >= 0 && n <= 100 ? n : null }
     const confidence = j.confidence_update && typeof j.confidence_update === 'object' ? {
@@ -483,7 +491,7 @@ function reviewsForRun(runDirAbs, runRoot) {
       change_reason: typeof j.confidence_update.change_reason === 'string' && j.confidence_update.change_reason.trim() ? j.confidence_update.change_reason.trim() : null,
     } : null
     const next = j.next_check && typeof j.next_check === 'object' ? {
-      date: isISODateJ(j.next_check.date) ? j.next_check.date : null,
+      date: isValidCalendarISODateJ(j.next_check.date) ? j.next_check.date : null,
       label: typeof j.next_check.label === 'string' && j.next_check.label.trim() ? j.next_check.label.trim() : null,
       trigger: typeof j.next_check.trigger === 'string' && j.next_check.trigger.trim() ? j.next_check.trigger.trim() : null,
     } : null
@@ -766,6 +774,7 @@ function buildCalls() {
       frozen_call: { locked: true, decision: frozenDecision, basket: frozenBasket, confidence: frozenConfidence, decision_date: d.decision_date, entry_price: entry, currency: d.currency ?? null, source_path: `${runRoot}/decision_record.json` },
       integrity_status: integrity.status, integrity_verdict: integrity.verdict, integrity_banner: integrity.banner,
       time_horizon: d.time_horizon ?? null, entry_price: entry, currency: d.currency ?? null,
+      exchange: typeof d.exchange === 'string' && d.exchange ? d.exchange : null,
       expected_return_pct: exp, implied_target: entry != null && exp != null ? Math.round(entry * (1 + exp / 100) * 100) / 100 : null,
       downside_risk_pct: typeof d.downside_risk_pct === 'number' ? d.downside_risk_pct : null, kill_criteria_count: Array.isArray(d.kill_criteria) ? d.kill_criteria.length : 0,
       forecasts: fc, run_root: runRoot, final_thesis_path: finalThesisPath, latest_thesis_status: latest ? latest.thesis_status : null,
@@ -817,7 +826,17 @@ function buildCalls() {
       average_return_pct: avg(wr.map(({ call, review }) => adjusted(call, review.absolute_return_pct))),
       average_vs_benchmark_pct: avg(wr.map(({ call, review }) => adjusted(call, review.benchmark_relative_return_pct))) }
   })
-  const scoredConfidence = rows.filter(({ call, review }) => (quality(review) === 'worked' || quality(review) === 'failed') && Number.isFinite(call.confidence))
+  const scoredCandidates = rows.filter(({ call, review }) => (quality(review) === 'worked' || quality(review) === 'failed') && Number.isFinite(call.confidence))
+  const scoredByTicker = new Map()
+  for (const row of scoredCandidates) {
+    const key = String(row.call.ticker || '').trim().toUpperCase()
+    if (!key) continue
+    const prior = scoredByTicker.get(key)
+    const rowDate = String(row.call.decision_date || ''), priorDate = String(prior?.call.decision_date || '')
+    const rowRoot = String(row.call.run_root || ''), priorRoot = String(prior?.call.run_root || '')
+    if (!prior || rowDate > priorDate || (rowDate === priorDate && rowRoot > priorRoot)) scoredByTicker.set(key, row)
+  }
+  const scoredConfidence = [...scoredByTicker.values()]
   const ranges = [{ label: 'Below 50', min: 0, max: 49.999 }, { label: '50–69', min: 50, max: 69.999 }, { label: '70–84', min: 70, max: 84.999 }, { label: '85+', min: 85, max: 100 }]
   const bands = ranges.map((range) => {
     const bandRows = scoredConfidence.filter(({ call }) => call.confidence >= range.min && call.confidence <= range.max)
@@ -829,7 +848,7 @@ function buildCalls() {
   const confidenceAligned = enoughConfidenceData && usableBands.every((band, index) => index === 0 || band.worked_pct + 10 >= usableBands[index - 1].worked_pct)
   const confidenceStatus = !enoughConfidenceData ? 'too_little_data' : confidenceAligned ? 'aligned' : 'not_aligned'
   const confidenceDetail = !enoughConfidenceData
-    ? `Too little data: ${scoredConfidence.length} scored call${scoredConfidence.length === 1 ? '' : 's'}. Conviction is not a probability; this check starts after 8 scored calls across at least 2 confidence bands.`
+    ? `Too little data: ${scoredConfidence.length} independently scored ticker${scoredConfidence.length === 1 ? '' : 's'}. Conviction is not a probability; this check starts after 8 tickers across at least 2 confidence bands.`
     : confidenceAligned
       ? 'Higher-confidence calls have generally worked more often. This is a ranking check, not a probability claim.'
       : 'Higher-confidence calls have not worked more often. Nostra should lower or rework its conviction rules.'

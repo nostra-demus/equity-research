@@ -75,13 +75,20 @@ const publishedText = (rel: string): string => execFileSync(
 )
 
 const {
-  isPublishedCallsArtifactPath, listAllCalls, publishedIntegrityStatus, readPublishedCallsMarkdown,
+  isPublishedCallsArtifactPath, listAllCalls, publishedIntegrityStatus, readPublishedCallsMarkdown, structuredReviewFields,
 } = await import('../src/outputs')
 const { publishedTreeAuthority, publishedTreePaths } = await import('../src/published-git')
 
 assert.doesNotMatch(fs.readFileSync(new URL('../src/published-git.ts', import.meta.url), 'utf8'),
   /\b(?:execFileSync|execSync|spawnSync)\b/,
   'published Calls Git reads must never block the server event loop with a synchronous child process')
+
+const malformedStructured = structuredReviewFields({
+  action_now: { label: 'Add', reason: ' ' },
+  next_check: { date: '2026-02-30', label: 'Impossible calendar check' },
+}, {})
+assert.equal(malformedStructured.action_now, null, 'an action without an evidence reason is not published')
+assert.equal(malformedStructured.next_check?.date, null, 'an impossible regex-shaped date remains unproven')
 
 // Poison mutable disk after the commit: replace a shared decision, remove its review, and add a private call.
 fs.rmSync(path.join(repo, 'analyses'), { recursive: true, force: true })

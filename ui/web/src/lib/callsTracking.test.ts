@@ -7,6 +7,7 @@ const baseCall = (): CallSummary => ({
   basket: 'Watchlist', decision_is_post_mortem_capped: false, confidence: 52,
   confidence_is_post_review: false, integrity_status: 'verified', integrity_verdict: null,
   integrity_banner: false, time_horizon: '12 months', entry_price: 12.2, currency: 'AED',
+  exchange: 'DFM',
   expected_return_pct: 17.7, implied_target: 14.36, downside_risk_pct: null, kill_criteria_count: 3,
   forecasts: { open: 4, confirmed: 1, falsified: 1, expired: 0, other: 0 },
   run_root: 'analyses/EMAAR_2026-07-10',
@@ -140,6 +141,21 @@ assert.deepEqual(learned.actionNow, { label: 'Keep watching', detail: 'Wait for 
 assert.deepEqual(learned.confidence, { label: '72 → 54', detail: 'Sales missed expectations.', tone: 'bad' })
 assert.deepEqual(learned.nextCheck, { date: '8 Oct 2026', detail: 'Q3 results and pre-sales check', tone: 'neutral' })
 assert.equal(learned.learning, 'The caution was right because the named warning appeared.')
+
+const confidenceMismatch = baseCall()
+confidenceMismatch.frozen_call = { ...fullyLearned.frozen_call }
+confidenceMismatch.timeline[0].confidence_update = { before: 99, after: 54, change_reason: 'Sales missed expectations.' }
+assert.deepEqual(callTrackingSnapshot(confidenceMismatch).confidence, {
+  label: '72 → 54',
+  detail: 'Sales missed expectations. Review copied 99 as the prior score; frozen original 72 is authoritative.',
+  tone: 'bad',
+}, 'review-authored confidence cannot rewrite the frozen original')
+
+const unsupportedAdd = baseCall()
+unsupportedAdd.decision = 'Buy'
+unsupportedAdd.basket = 'Selected'
+unsupportedAdd.timeline[0].action_now = { label: 'Add', reason: '', recorded: true }
+assert.equal(callTrackingSnapshot(unsupportedAdd).actionNow.label, 'Hold', 'an Add without a reason is ignored')
 
 const undatedNextCheck = baseCall()
 undatedNextCheck.timeline[0].next_check = { date: null, label: 'Q3 results and pre-sales check', trigger: 'Pre-sales above 16%' }

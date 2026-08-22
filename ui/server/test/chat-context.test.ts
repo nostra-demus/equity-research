@@ -131,7 +131,7 @@ check('research and selected-signal chat begins with immutable decision memory w
       route: { mode: 'auto', useNews: false, useHistory: true, historyIntent: false, reason: 'Auto.' }, priorChats: [],
       calls: [{
         ticker: 'AMZN', company: 'Amazon.com, Inc.', decision_date: '2026-07-10', original_decision: 'Watchlist', original_confidence: 72,
-        original_price: 238.34, currency: 'USD', latest_review_date: '2026-08-09', latest_price: 274.48, price_change_pct: 15.16,
+        original_price: 238.34, currency: 'USD', exchange: 'NASDAQ', latest_review_date: '2026-08-09', latest_price: 274.48, price_change_pct: 15.16,
         benchmark_relative_pct: 11.49, thesis_status: 'broken', decision_quality: 'genuine miss', action_now: 'Keep watching',
         action_reason: 'Re-run earnings before acting.', confidence_after: 45, confidence_reason: 'AWS margin expanded.',
         why_right_or_wrong: 'Nostra underestimated AWS growth.', error_taxonomy: ['bad base rate'], future_research_check: 'Recheck AWS growth and margin.',

@@ -2364,7 +2364,6 @@ export interface NewsWireMemory {
   window: NewsChatWindow
   receipt: NewsChatReceipt
   evidence: NewsChatEvidence[]
-  calls?: unknown[]
 }
 export interface NewsChatRequest {
   window: NewsChatWindow
@@ -2438,6 +2437,7 @@ export interface CallSummary {
   time_horizon: string | null
   entry_price: number | null
   currency: string | null
+  exchange?: string | null
   expected_return_pct: number | null
   implied_target: number | null
   downside_risk_pct: number | null
