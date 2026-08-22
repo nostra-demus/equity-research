@@ -171,9 +171,10 @@ function BacklogGauge({
   // from the deferred file: it survives exactly the failure that branch reports, and an unreadable
   // waiting list is when an operator most needs to know items were being retired.
   const retired = b.retiredToday ?? 0
+  const maxAgeHours = b.maxAgeHours ?? 48
   const retiredAlert = retired > 0 ? (
     <div className="diagbacklog__lost" role="alert">
-      {dailyLossTotalsLowerBound ? 'At least ' : ''}{retired.toLocaleString()} item{retired === 1 ? '' : 's'} were missed today because they waited too long to be checked. The scanner fell behind.
+      {dailyLossTotalsLowerBound ? 'At least ' : ''}{retired.toLocaleString()} item{retired === 1 ? '' : 's'} were never scored because they waited more than {maxAgeHours} hours. The scanner fell behind.
     </div>
   ) : null
   const lossProofAlert = dailyLossTotalsUnverified ? (
@@ -220,6 +221,7 @@ function BacklogGauge({
             ? 'All caught up.'
             : 'These items are saved for the next check.'}
       </div>
+      <div className="diag__hint">Waiting items expire after {maxAgeHours} hours so old work cannot permanently block newer news. An expired item is still counted as a real miss.</div>
       {/* PERSISTENT legacy loss alert: rolling-deploy summaries may still report rows dropped by the old
           cap-slicing worker. Keyed on the cumulative daily count so later recovery cannot hide prior loss. */}
       {b.lostToday > 0 && (
@@ -395,9 +397,19 @@ export function PipelineDiagnostics() {
             </section>
           )}
 
-      {/* backlog gauge — durable retry depth vs the active work window */}
+          {/* backlog gauge — durable retry depth vs the active work window */}
           <section className="diag__sec">
             <div className="diag__sechead">Is anything waiting or missed?</div>
+            <div className="diagwhy" role="status">
+              <ul className="diagwhy__list">
+                <li><b>{diag.today.newArrivals == null ? '—' : diag.today.newArrivals.toLocaleString()}</b> new items found today{diag.today.newArrivals == null ? ' — older records cannot prove the unique total.' : '.'}</li>
+                <li><b>{diag.today.read.toLocaleString()}</b> items fully scored.</li>
+                <li><b>{diag.backlog.count.toLocaleString()}</b> items currently waiting for a first score.</li>
+                <li><b>{diag.today.dropped.toLocaleString()}</b> items scored but not sent to the main inbox.</li>
+                <li><b>{diag.backlog.lostToday.toLocaleString()}</b> items never scored because the daily results file was full.</li>
+                <li><b>{(diag.backlog.retiredToday ?? 0).toLocaleString()}</b> items never scored because they waited too long.</li>
+              </ul>
+            </div>
             <BacklogGauge
               b={diag.backlog}
               dailyLossTotalsLowerBound={diag.today.totalsLowerBound === true && diag.today.durablyCommitted === true}
@@ -405,6 +417,25 @@ export function PipelineDiagnostics() {
               storageEmergency={storageEmergency}
             />
           </section>
+
+          {diag.rescue && (
+            <section className="diag__sec">
+              <div className="diag__sechead">Second look <span className="diag__count">{diag.rescue.mode === 'shadow' ? 'testing only' : 'off'}</span></div>
+              <div className={`diagwhy${diag.rescue.status === 'directory_paused' || diag.rescue.status === 'audit_unavailable' ? ' is-alert' : ''}`} role="status">
+                <div className="diagwhy__head"><span aria-hidden>↻</span><span>{diag.rescue.reason}</span></div>
+                <ul className="diagwhy__list">
+                  <li>{diag.rescue.candidatesFound.toLocaleString()} items looked worth checking again.</li>
+                  <li>{diag.rescue.identityChecks.toLocaleString()} of {diag.rescue.dailyCap.toLocaleString()} daily company checks used · {diag.rescue.verified.toLocaleString()} matched to a listed stock.</li>
+                  {diag.rescue.identityUnresolved > 0 && <li>{diag.rescue.identityUnresolved.toLocaleString()} could not be matched to one listed stock.</li>}
+                  {diag.rescue.directoryUnavailable > 0 && <li>{diag.rescue.directoryUnavailable.toLocaleString()} checks failed because the stock-listing lookup was unavailable.</li>}
+                  {diag.rescue.capacityMisses > 0 && <li>{diag.rescue.capacityMisses.toLocaleString()} were not reviewed: the daily second-look limit was reached.</li>}
+                  {diag.rescue.queuedForLater > 0 && diag.rescue.capacityMisses === 0 && <li>{diag.rescue.queuedForLater.toLocaleString()} are waiting for a paced slot later today.</li>}
+                  <li>{diag.rescue.articleReads.toLocaleString()} articles read · {diag.rescue.ideasCreated.toLocaleString()} ideas created. Shadow mode keeps both at zero.</li>
+                </ul>
+                <div className="diagwhy__foot">Not selected does not mean an item was proven wrong. It means it did not pass the evidence and capacity rules used that day.</div>
+              </div>
+            </section>
+          )}
 
           {/* the fallback ladder — Groq → overflow → Gemini → Haiku */}
           <details className="diagdetails">

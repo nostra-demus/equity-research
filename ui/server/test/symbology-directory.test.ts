@@ -9,7 +9,7 @@
 // Each assertion is red on the pre-fix code and green after. Run: npx tsx test/symbology-directory.test.ts
 process.env.ENGINE_ACTIVITY_LOG_DISABLED = '1'
 import assert from 'node:assert/strict'
-import { coreCompanyName, invalidateSymbolCache, searchSymbolsEnriched, verifyEquityListing } from '../src/news/symbology'
+import { coreCompanyName, invalidateSymbolCache, searchSymbolsChecked, searchSymbolsEnriched, verifyEquityListing } from '../src/news/symbology'
 
 let passed = 0
 async function check(name: string, fn: () => Promise<void> | void) {
@@ -19,7 +19,7 @@ async function check(name: string, fn: () => Promise<void> | void) {
 
 // A Response-like stub: only the .ok flag and .json() are used by searchSymbols().
 type Q = { quoteType: string; symbol: string; longname?: string; shortname?: string; exchDisp?: string }
-const resp = (ok: boolean, quotes: Q[] = []) => ({ ok, json: async () => ({ quotes }) }) as any
+const resp = (ok: boolean, quotes: Q[] = [], status = ok ? 200 : 503) => ({ ok, status, json: async () => ({ quotes }) }) as any
 
 async function main() {
   // #3 — dotted legal-form normalisation. Expected value pinned to the rule the code documents:
@@ -75,6 +75,38 @@ async function main() {
     ])) as any
     assert.equal(await verifyEquityListing('ACME.L', 'Acme UK', fetchImpl).then((x) => x?.exchange), 'LSE')
     assert.equal(await verifyEquityListing('ACME', 'Acme UK', fetchImpl), null, 'same base/alias cannot borrow the sibling listing venue')
+  })
+
+  await check('checked search distinguishes a healthy empty result from directory failure', async () => {
+    const empty = await searchSymbolsChecked('nothing', (async () => resp(true, [])) as any)
+    assert.deepEqual(empty, { status: 'ok', groups: [] })
+    const limited = await searchSymbolsChecked('limited', (async () => resp(false, [], 429)) as any)
+    assert.deepEqual(limited, { status: 'unavailable', groups: [], reason: 'http_error', httpStatus: 429 })
+    const offline = await searchSymbolsChecked('offline', (async () => { throw new Error('offline') }) as any)
+    assert.deepEqual(offline, { status: 'unavailable', groups: [], reason: 'timeout_or_network' })
+  })
+
+  await check('checked search makes exactly one raw request and never performs sibling enrichment', async () => {
+    invalidateSymbolCache()
+    let calls = 0
+    const result = await searchSymbolsChecked('NHYDY', (async () => {
+      calls++
+      return resp(true, [{ quoteType: 'EQUITY', symbol: 'NHYDY', longname: 'Norsk Hydro ASA', exchDisp: 'OTC' }])
+    }) as any)
+    assert.equal(result.status, 'ok')
+    assert.equal(calls, 1)
+  })
+
+  await check('checked search reuses a healthy cache result without another raw request', async () => {
+    invalidateSymbolCache()
+    let calls = 0
+    const fetchImpl = (async () => {
+      calls++
+      return resp(true, [{ quoteType: 'EQUITY', symbol: 'CACHE', longname: 'Cache Holdings', exchDisp: 'NYSE' }])
+    }) as any
+    assert.equal((await searchSymbolsChecked('CACHE', fetchImpl, { useCache: true })).status, 'ok')
+    assert.equal((await searchSymbolsChecked('cache', fetchImpl, { useCache: true })).status, 'ok')
+    assert.equal(calls, 1)
   })
 }
 

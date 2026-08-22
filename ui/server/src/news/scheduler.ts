@@ -12,7 +12,7 @@ import path from 'node:path'
 import { NEWS, REPO_ROOT, STATE_DIR, buildOmniRouteProvider } from '../config'
 import { acquireSingletonLock, releaseSingletonLock } from '../singleton-lock'
 import { refreshBoard } from './write-inbox'
-import { DEFERRED_CAP, inspectDeferredBacklog, loadDeferred, runIngestCycle, triageGroqTokenBound, triagePaceTokenBound } from './runCycle'
+import { DEFERRED_CAP, DEFERRED_MAX_AGE_MS, inspectDeferredBacklog, loadDeferred, runIngestCycle, triageGroqTokenBound, triagePaceTokenBound } from './runCycle'
 import { healEnrichCache } from './enrich-heal'
 import { runIdeaPass } from './ideas/run-idea-pass'
 import { publishPendingIdeas } from './ideas/ideas-publisher'
@@ -27,6 +27,9 @@ import { preTriagePriority } from './rank'
 import { buildPipelineFlowRates, readPipelineFlowCycles, type PipelineFlowHistory, type PipelineFlowRates } from './pipeline-flow'
 import { omniRouteDisabledReason } from './omniroute-provision-status'
 import { credentialRejected, evaluateProviderRouting, type ProviderRouterMetadata, type ProviderRoutingCandidate } from './provider-routing'
+import { getRescueDiagnostics, runRescueShadowPass, type RescueDiagnostics, type RescueShadowConfig } from './rescue/shadow'
+import { runNormalIdeasThenSecondLook } from './rescue/order'
+import { readInboxHumanActions } from './inbox-actions'
 import type { CycleSummary, DeferReason, LastResortState } from './types'
 
 // The news-lead skim config, assembled once from NEWS. It reuses the ingester's canonical OpenAI-compatible
@@ -65,6 +68,16 @@ const IDEA_PASS_CONFIG = {
   geminiRpm: NEWS.geminiRpm,
   geminiTpm: NEWS.geminiTpm,
   limiterWaitMs: 4000, // give up a busy tier's minute window quickly, then try the next one
+}
+
+const RESCUE_SHADOW_CONFIG: RescueShadowConfig = {
+  mode: NEWS.rescueMode,
+  maxAgeHrs: NEWS.rescueMaxAgeHrs,
+  dailyChecks: NEWS.rescueDailyChecks,
+  perCycle: NEWS.rescuePerCycle,
+  nameDailyCap: NEWS.rescueNameDailyCap,
+  paceFloorFraction: NEWS.rescuePaceFloorFrac,
+  auditMaxBytes: NEWS.rescueAuditMaxBytes,
 }
 
 /** One configured lead-skim pass shared by both runtime topologies (in-process scheduler and the
@@ -118,6 +131,40 @@ export async function runConfiguredIdeaPass(log: (m: string) => void = () => {})
 export async function runConfiguredQualifiedIdeaOutcomes(log: (m: string) => void = () => {}) {
   try { return await runQualifiedIdeaOutcomePass(REPO_ROOT, Date.now(), STATE_DIR) }
   catch (e: any) { log(`qualified idea outcome pass error: ${e?.message || e}`); return null }
+}
+
+function rescueCoreReady(status: NewsStatus): boolean {
+  return status.readOnly !== true
+    && status.backlog.unavailable !== true
+    && status.backlog.count === 0
+    && status.today.durablyCommitted === true
+    && status.today.incompleteCycles === 0
+    && status.today.totalsLowerBound === false
+    && status.today.historyStatus === 'complete'
+}
+
+function rescueHumanBlocks(): { complete: boolean; ids: Set<string> } {
+  const actions = readInboxHumanActions(REPO_ROOT)
+  const ids = new Set<string>()
+  for (const action of actions.rows) {
+    for (const value of [action.observation_id, action.event_id, action.dedup_group]) {
+      if (typeof value === 'string' && value.trim()) ids.add(value.trim())
+    }
+  }
+  return { complete: actions.complete, ids }
+}
+
+/** Shadow work always runs after the normal Ideas pass and never performs a body read. */
+export async function runConfiguredRescueShadow(log: (m: string) => void = () => {}) {
+  const status = getNewsStatus()
+  const humanBlocks = rescueHumanBlocks()
+  return runRescueShadowPass({
+    stateDir: STATE_DIR,
+    config: RESCUE_SHADOW_CONFIG,
+    coreReady: rescueCoreReady(status) && humanBlocks.complete,
+    blockedEventIds: humanBlocks.ids,
+    log,
+  })
 }
 
 const PACE = { targetTokens: NEWS.groqDailyTokenTarget, floorFrac: NEWS.groqPaceFloorFrac }
@@ -532,6 +579,8 @@ export interface NewsStatus {
   // A first-class field so the cockpit can show the backlog depth without the heavier diagnostics call.
   backlog: { count: number; cap: number; unavailable?: boolean }
   today: {
+    /** Sum of cycle-level unique arrivals; null when any included legacy cycle cannot prove it. */
+    newArrivals: number | null
     read: number
     kept: number
     dropped: number
@@ -590,6 +639,7 @@ export function getNewsStatus(
     : []
   const spendingAllowed = providerDiagnosticsActiveForState(NEWS.enabled, readOnlyMode, providerSpendingOwner)
   const today: NewsStatus['today'] = {
+    newArrivals: null,
     read: 0, kept: 0, dropped: 0, cycles: 0,
     durablyCommitted: false,
     incompleteCycles: 0,
@@ -621,6 +671,10 @@ export function getNewsStatus(
       today.dropped += c.dropped || 0
       today.read += (c.picked || 0) + (c.watched || 0) + (c.dropped || 0)
     }
+    today.newArrivals = dailyHistory?.todayHistoryStatus === 'complete'
+      && cyclesToday.every((cycle) => typeof cycle.new_arrivals === 'number')
+      ? cyclesToday.reduce((sum, cycle) => sum + Math.max(0, Number(cycle.new_arrivals) || 0), 0)
+      : null
     today.durablyCommitted = cyclesToday.every(cycleHasDurableFeedCommit)
     today.incompleteCycles = dailyHistory?.todayIncompleteCycles ?? 0
     today.totalsLowerBound = dailyHistory?.todayTotalsLowerBound !== false
@@ -846,6 +900,7 @@ export interface NewsDiagnostics {
   flow: PipelineFlowRates
   router: ProviderRouterMetadata
   tiers: TierDiagnostics[] // ordered primary → overflow → gemini → last-resort
+  rescue: RescueDiagnostics
   backlog: {
     unavailable?: boolean // the saved waiting list could not be read; count and percentage are unknown
     count: number // queued items, including unscored and projection-recovery work
@@ -855,8 +910,11 @@ export interface NewsDiagnostics {
     trend: 'growing' | 'shrinking' | 'flat' | null // over today's recent cycles (null = too few to tell)
     lostToday: number // legacy items actually dropped by pre-overflow workers today (sum of cycle dropped_at_cap)
     retiredToday: number // items retired UNSCORED so far today for waiting longer than the backlog age bound (sum of cycle backlog_expired) — the OTHER real loss; a gauge that showed only the cap would read 0 while thousands aged out
+    maxAgeHours: number // configured residence limit; expired rows were never scored and are real misses
   }
   today: {
+    /** Sum of cycle-level unique arrivals; null when any included legacy cycle cannot prove it. */
+    newArrivals: number | null
     read: number
     kept: number
     dropped: number
@@ -1378,6 +1436,7 @@ export function getNewsDiagnostics(options: { omniRouteHomeDir?: string } = {}):
     trend: (status.backlog.unavailable ?? false) ? null : backlogTrend(cyclesToday),
     lostToday,
     retiredToday,
+    maxAgeHours: Math.round(DEFERRED_MAX_AGE_MS / 3_600_000),
   }
 
   const aggregateIds = new Set(aggregateOverflow.map((provider) => provider.id))
@@ -1513,9 +1572,18 @@ export function getNewsDiagnostics(options: { omniRouteHomeDir?: string } = {}):
     flow,
     router: routing.router,
     tiers,
+    rescue: (() => {
+      const humanBlocks = rescueHumanBlocks()
+      return getRescueDiagnostics(
+        STATE_DIR, RESCUE_SHADOW_CONFIG, now,
+        rescueCoreReady(status) && humanBlocks.complete,
+        humanBlocks.ids,
+      )
+    })(),
     backlog,
     today: {
       ...status.today,
+      newArrivals: status.today.newArrivals,
       // A mixed deploy-day total may contain both contracts. Label the whole aggregate unverified rather
       // than presenting the legacy component as if it crossed the newer durable feed boundary.
       durablyCommitted: cyclesToday.every(cycleHasDurableFeedCommit),
@@ -1612,7 +1680,12 @@ export function startNewsIngester(): void {
       nextCycleAt = new Date(Date.now() + NEWS.pollIntervalMin * 60_000).toISOString().replace(/\.\d{3}Z$/, 'Z')
       if (running) return
       running = true
-      try { await runConfiguredIdeaPass(log) }
+      try {
+        await runNormalIdeasThenSecondLook({
+          ideas: () => runConfiguredIdeaPass(log),
+          secondLook: () => runConfiguredRescueShadow(log),
+        })
+      }
       catch (e: any) { log(`idea pass error: ${e?.message || e}`) }
       finally {
         running = false
@@ -1656,7 +1729,10 @@ export function startNewsIngester(): void {
       // This is deliberately outside the ingest try. runIdeaPass applies its own sweep + found_at age
       // ceiling, so a transient source failure does not suppress a safe pass over still-current inputs.
       // Outcome settlement has one owner: its independent interval above.
-      await runConfiguredIdeaPass(log)
+      await runNormalIdeasThenSecondLook({
+        ideas: () => runConfiguredIdeaPass(log),
+        secondLook: () => runConfiguredRescueShadow(log),
+      })
     } catch (e: any) {
       // runConfiguredIdeaPass is fail-soft, but keep a final boundary so an unexpected regression cannot
       // wedge the scheduler lock.

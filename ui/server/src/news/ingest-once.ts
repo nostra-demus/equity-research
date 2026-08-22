@@ -9,9 +9,11 @@
 import { runIngestCycle } from './runCycle'
 import {
   acquireIngesterLock, releaseIngesterLock, runConfiguredIdeaPass, runConfiguredQualifiedIdeaOutcomes,
+  runConfiguredRescueShadow,
 } from './scheduler'
 import { NEWS, STATE_DIR } from '../config'
 import { pathToFileURL } from 'node:url'
+import { runNormalIdeasThenSecondLook } from './rescue/order'
 
 const log = (m: string) => console.log(`[news] ${m}`) // eslint-disable-line no-console
 
@@ -57,10 +59,13 @@ async function main(): Promise<void> {
     }
     process.once('exit', () => releaseIngesterLock(STATE_DIR))
     try {
-      const ideaPass = await runConfiguredIdeaPass(log)
+      const { ideaPass, secondLook } = await runNormalIdeasThenSecondLook({
+        ideas: () => runConfiguredIdeaPass(log),
+        secondLook: () => runConfiguredRescueShadow(log),
+      })
       const qualifiedOutcomes = await runConfiguredQualifiedIdeaOutcomes(log)
       log('news ingestion is disabled; skipped fetching and ran only independent outcome settlement')
-      console.log(JSON.stringify({ ok: true, skipped: 'news_disabled', idea_pass: ideaPass, qualified_idea_outcomes: qualifiedOutcomes })) // eslint-disable-line no-console
+      console.log(JSON.stringify({ ok: true, skipped: 'news_disabled', idea_pass: ideaPass, second_look: secondLook, qualified_idea_outcomes: qualifiedOutcomes })) // eslint-disable-line no-console
     } finally {
       releaseIngesterLock(STATE_DIR)
     }
@@ -83,7 +88,13 @@ async function main(): Promise<void> {
   try {
     const result = await runStandalonePasses({
       ingest: () => runIngestCycle({ log }),
-      ideas: () => runConfiguredIdeaPass(log),
+      ideas: async () => {
+        const result = await runNormalIdeasThenSecondLook({
+          ideas: () => runConfiguredIdeaPass(log),
+          secondLook: () => runConfiguredRescueShadow(log),
+        })
+        return result.ideaPass
+      },
       outcomes: () => runConfiguredQualifiedIdeaOutcomes(log),
     })
     if (result.error) console.error('[news] fatal', result.error) // eslint-disable-line no-console

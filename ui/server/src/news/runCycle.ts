@@ -52,6 +52,8 @@ import { runThemesCycle, bumpCycleCounter, themesConfigFromNews } from './themes
 import { makeThemeNamer } from './themes/llm'
 import type { ThemeItemView } from './themes/types'
 import type { CycleSummary, FeedItem, NewsItem, RawArticle, TriagedItem } from './types'
+import { withInitialRescueDecision } from './rescue/selector'
+import { recordRescueRows } from './rescue/store'
 import { updateSemanticIndex } from '../retrieval/semantic'
 import fs from 'node:fs'
 
@@ -2370,7 +2372,7 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
     if (t.pending_feed_item) return t.pending_feed_item
     const clocks = revisionClocksByEvent.get(t.event_id)
     const sourceIsEnglish = clocks ? clocks.sourceIsEnglish : t.source_is_english === true
-    return {
+    return withInitialRescueDecision({
       kind: 'item',
       ts: t.feed_triaged_at || ts,
       // Exact kept revisions use the pair mergeInbox persisted. Dropped rows have no inbox lane and retain
@@ -2417,7 +2419,7 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
       dedup_group: t.dedup_group, // story-cluster id (news/dedup.ts) — the live wire collapses on it
       inboxed: t.band !== 'drop',
       caution: t.caution, // caution_only social — preserved so the display re-rank (feed.ts) re-applies the lowest cap
-    }
+    })
   })
   // Persist the exact post-inbox payload BEFORE append. This is the crash-replay authority for every field,
   // including original triage time and durable inbox clocks. If this journal cannot land, do not start a
@@ -2443,6 +2445,12 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
   const persistedRows = feedCandidates.slice(0, feedAppend.written)
   const feedUnwrittenRows = feedCandidates.slice(feedAppend.written)
   const feedUnwritten = feedAppend.unwritten
+  // A tiny rolling queue lets the post-Ideas shadow pass rank only durably-persisted rows without
+  // re-reading up to 160 MB of firehose files every 15 minutes. Failure closes the second-look lane but
+  // never holds the core feed hostage; diagnostics name the audit fault and no identity checks run.
+  if (persistedFeedItems.length && !recordRescueRows(stateDir, persistedFeedItems, now().getTime(), NEWS.rescueMaxAgeHrs)) {
+    log('second look shadow paused — its saved candidate queue could not be updated')
+  }
   const feedWriteFailed = feedAppend.status === 'io_failure' || feedPreflightFailed
   const preflightCapKind = feedCapacity.status === 'available'
     ? feedCapacity.remainingBytes <= 0 || byteGuaranteedSlots < unscoredItems.length

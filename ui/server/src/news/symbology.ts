@@ -183,28 +183,60 @@ export function groupQuotes(quotes: SymbolQuote[]): SymbolGroup[] {
 const SEARCH_URL = 'https://query1.finance.yahoo.com/v1/finance/search'
 export type FetchLike = typeof fetch
 
-/** One raw directory query → grouped companies. Equities only; any failure/timeouts → []. */
-export async function searchSymbols(q: string, fetchImpl: FetchLike = fetch): Promise<SymbolGroup[]> {
-  const url = `${SEARCH_URL}?q=${encodeURIComponent(q)}&quotesCount=12&newsCount=0&listsCount=0`
-  const r = await fetchImpl(url, {
-    signal: AbortSignal.timeout(4500),
-    headers: { accept: 'application/json', 'user-agent': 'Mozilla/5.0 (compatible; equity-research-cockpit)' },
-  })
-  if (!r.ok) return []
-  const j: any = await r.json().catch(() => null)
-  const quotes: SymbolQuote[] = Array.isArray(j?.quotes)
-    ? j.quotes
-        .filter((x: any) => x && x.quoteType === 'EQUITY' && typeof x.symbol === 'string' && x.symbol && (x.longname || x.shortname))
-        .map((x: any) => ({ symbol: String(x.symbol), name: String(x.longname || x.shortname), exchange: String(x.exchDisp || x.exchange || '') }))
-    : []
-  return groupQuotes(quotes)
-}
-
-// TTL cache: symbol lookups are keystroke-driven but debounced client-side; a small map with a long TTL
-// makes repeat queries free and keeps us a polite consumer of the free endpoint.
+// Shared with the existing enriched UI search. A rescue cache hit still consumes its already-reserved
+// daily review slot, but it avoids another request to the free directory.
 const CACHE_TTL_MS = 6 * 60 * 60 * 1000
 const CACHE_MAX = 500
 const symCache = new Map<string, { at: number; groups: SymbolGroup[] }>()
+
+export type SymbolSearchUnavailableReason = 'timeout_or_network' | 'http_error' | 'invalid_response'
+export type SymbolSearchCheckedResult =
+  | { status: 'ok'; groups: SymbolGroup[] }
+  | { status: 'unavailable'; groups: []; reason: SymbolSearchUnavailableReason; httpStatus?: number }
+
+/** One raw directory query with an honest availability result. A healthy empty result is NOT the same
+ * as a timeout/429/5xx. The second-look lane uses this seam so an upstream outage can never render as
+ * "nothing qualified". At most one request is made; sibling enrichment belongs to the existing UI path. */
+export async function searchSymbolsChecked(
+  q: string,
+  fetchImpl: FetchLike = fetch,
+  options: { useCache?: boolean } = {},
+): Promise<SymbolSearchCheckedResult> {
+  const key = q.trim().toLowerCase()
+  const now = Date.now()
+  const cached = options.useCache ? symCache.get(key) : undefined
+  if (cached && now - cached.at < CACHE_TTL_MS) return { status: 'ok', groups: cached.groups }
+  try {
+    const url = `${SEARCH_URL}?q=${encodeURIComponent(q)}&quotesCount=12&newsCount=0&listsCount=0`
+    const r = await fetchImpl(url, {
+      signal: AbortSignal.timeout(4500),
+      headers: { accept: 'application/json', 'user-agent': 'Mozilla/5.0 (compatible; equity-research-cockpit)' },
+    })
+    if (!r.ok) return { status: 'unavailable', groups: [], reason: 'http_error', ...(typeof r.status === 'number' ? { httpStatus: r.status } : {}) }
+    const j: any = await r.json().catch(() => null)
+    if (!j || typeof j !== 'object') return { status: 'unavailable', groups: [], reason: 'invalid_response' }
+    const quotes: SymbolQuote[] = Array.isArray(j?.quotes)
+      ? j.quotes
+          .filter((x: any) => x && x.quoteType === 'EQUITY' && typeof x.symbol === 'string' && x.symbol && (x.longname || x.shortname))
+          .map((x: any) => ({ symbol: String(x.symbol), name: String(x.longname || x.shortname), exchange: String(x.exchDisp || x.exchange || '') }))
+      : []
+    const groups = groupQuotes(quotes)
+    // As before, never cache an empty result: the legacy facade cannot distinguish a healthy empty
+    // result from an outage, so pinning [] would preserve a transient failure for six hours.
+    if (options.useCache && groups.length > 0) {
+      if (symCache.size >= CACHE_MAX) symCache.delete(symCache.keys().next().value as string)
+      symCache.set(key, { at: now, groups })
+    }
+    return { status: 'ok', groups }
+  } catch {
+    return { status: 'unavailable', groups: [], reason: 'timeout_or_network' }
+  }
+}
+
+/** Back-compatible facade for existing callers: any failure still collapses to []. */
+export async function searchSymbols(q: string, fetchImpl: FetchLike = fetch): Promise<SymbolGroup[]> {
+  return (await searchSymbolsChecked(q, fetchImpl)).groups
+}
 
 async function cachedSearch(q: string, fetchImpl: FetchLike): Promise<SymbolGroup[]> {
   const key = q.trim().toLowerCase()
@@ -212,11 +244,6 @@ async function cachedSearch(q: string, fetchImpl: FetchLike): Promise<SymbolGrou
   const now = Date.now()
   if (hit && now - hit.at < CACHE_TTL_MS) return hit.groups
   const groups = await searchSymbols(q, fetchImpl)
-  // Cache only a NON-EMPTY result. searchSymbols() collapses a transient upstream failure (a non-OK
-  // response — 429 / 5xx) to [] the same as a legitimately-empty search; caching that [] for the full
-  // 6 h TTL would lock every later lookup of this query out of the directory even after the endpoint
-  // recovers. An empty result is cheap to recompute (queries are debounced client-side) — retry it next
-  // time instead of pinning a transient failure for hours.
   if (groups.length > 0) {
     if (symCache.size >= CACHE_MAX) symCache.delete(symCache.keys().next().value as string)
     symCache.set(key, { at: now, groups })
