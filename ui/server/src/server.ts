@@ -4676,7 +4676,7 @@ app.post('/api/news/chat', { config: { rateLimit: { max: NEWS.chatRateLimitPerMi
     try {
       const evidenceIdentifiers = assembled.evidence.flatMap((row) => Array.isArray(row?.item?.companies)
         ? row.item.companies.flatMap((company) => [company?.ticker || '', company?.name || ''])
-        : [])
+        : []).filter(Boolean)
       // Prefer an issuer named exactly in the question, then the structured issuer identities from the
       // ranked evidence. Matching remains exact, so an incidental word cannot pull in another company.
       callMemories = selectCallMemories((await listAllCalls()).calls, evidenceIdentifiers, 3, last.content)
