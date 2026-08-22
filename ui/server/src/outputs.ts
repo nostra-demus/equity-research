@@ -2,7 +2,7 @@ import fs from 'node:fs'
 import { createHash, randomUUID } from 'node:crypto'
 import path from 'node:path'
 import { ANALYSES_DIR, REPO_ROOT } from './config'
-import { resolveInsideAnalyses, resolveInsidePrompts, resolveInsideRuns } from './sandbox'
+import { resolveInsideAnalyses, resolveInsidePrompts } from './sandbox'
 import { extractVerdict } from './verdict'
 import {
   applyErrata, CORRECTIONS_SCHEMA, resolveDisplayFields, supersededTarget,
@@ -11,18 +11,34 @@ import { diffDecisionRecords } from './run-diff'
 import { publishedGitCommit, publishedTreeAuthority, type PublishedTreeAuthority } from './published-git'
 import { listSwarms } from './swarms'
 
-// Keep the containment resolver immediately adjacent to the filesystem sink. Besides making the trust
-// boundary explicit to reviewers/static analysis, this prevents a future caller from injecting a weaker
-// resolver through a generic callback.
+// Output markdown is always an engine-authored repo-relative artifact. The strict segment allowlist makes
+// the public request boundary explicit; the realpath containment check immediately beside the read defeats
+// aliases and symlink escapes as well. Keep both checks here so static analysis can prove the sink safe.
+const SAFE_OUTPUT_MARKDOWN_RE = /^(?:[A-Za-z0-9][A-Za-z0-9._-]*\/)+[A-Za-z0-9][A-Za-z0-9._-]*\.md$/
+
 export function readMarkdown(relPath: string): { path: string; markdown: string } {
-  const real = resolveInsideAnalyses(relPath)
+  if (!SAFE_OUTPUT_MARKDOWN_RE.test(relPath)) throw new Error('Invalid output markdown path')
+  const real = fs.realpathSync(path.resolve(REPO_ROOT, relPath))
+  const baseReal = fs.realpathSync(ANALYSES_DIR)
+  if (real !== baseReal && !real.startsWith(`${baseReal}${path.sep}`)) {
+    throw new Error('Path escapes the analyses sandbox')
+  }
   const markdown = fs.readFileSync(real, 'utf8')
   return { path: relPath, markdown }
 }
 
 /** Read markdown confined to any discovered swarm run tree. */
 export function readRunsMarkdown(relPath: string): { path: string; markdown: string } {
-  const real = resolveInsideRuns(relPath)
+  if (!SAFE_OUTPUT_MARKDOWN_RE.test(relPath)) throw new Error('Invalid output markdown path')
+  const real = fs.realpathSync(path.resolve(REPO_ROOT, relPath))
+  const roots = new Set<string>()
+  try { roots.add(fs.realpathSync(ANALYSES_DIR)) } catch { /* analyses/ may not exist yet */ }
+  for (const swarm of listSwarms()) {
+    try { roots.add(fs.realpathSync(path.join(REPO_ROOT, swarm.runsRoot))) } catch { /* not created yet */ }
+  }
+  if (![...roots].some((baseReal) => real === baseReal || real.startsWith(`${baseReal}${path.sep}`))) {
+    throw new Error('Path escapes the runs sandbox')
+  }
   const markdown = fs.readFileSync(real, 'utf8')
   return { path: relPath, markdown }
 }

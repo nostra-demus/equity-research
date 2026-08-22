@@ -5,10 +5,12 @@ import path from 'node:path'
 import { ANALYSES_DIR, REPO_ROOT } from '../src/config'
 import { readMarkdown, readRunsMarkdown } from '../src/outputs'
 
-const runDir = fs.mkdtempSync(path.join(ANALYSES_DIR, 'OUTPUTS-SAFETY-'))
-const outsideDir = fs.mkdtempSync(path.join(os.tmpdir(), 'outputs-safety-outside-'))
+let runDir = ''
+let outsideDir = ''
 
 try {
+  runDir = fs.mkdtempSync(path.join(ANALYSES_DIR, 'OUTPUTS-SAFETY-'))
+  outsideDir = fs.mkdtempSync(path.join(os.tmpdir(), 'outputs-safety-outside-'))
   const report = path.join(runDir, 'report.md')
   fs.writeFileSync(report, '# Contained\n')
   const relReport = path.relative(REPO_ROOT, report)
@@ -16,8 +18,9 @@ try {
   assert.equal(readMarkdown(relReport).markdown, '# Contained\n')
   assert.equal(readRunsMarkdown(relReport).markdown, '# Contained\n')
 
-  assert.throws(() => readMarkdown('AGENTS.md'), /Path escapes the analyses sandbox/)
-  assert.throws(() => readRunsMarkdown('AGENTS.md'), /Path escapes the runs sandbox/)
+  assert.throws(() => readMarkdown('analyses/../AGENTS.md'), /Invalid output markdown path/)
+  assert.throws(() => readRunsMarkdown('commodity/runs/../../AGENTS.md'), /Invalid output markdown path/)
+  assert.throws(() => readMarkdown('/etc/passwd.md'), /Invalid output markdown path/)
 
   const outside = path.join(outsideDir, 'outside.md')
   fs.writeFileSync(outside, '# Secret\n')
@@ -28,8 +31,8 @@ try {
   assert.throws(() => readMarkdown(relLinked), /Path escapes the analyses sandbox/)
   assert.throws(() => readRunsMarkdown(relLinked), /Path escapes the runs sandbox/)
 } finally {
-  fs.rmSync(runDir, { recursive: true, force: true })
-  fs.rmSync(outsideDir, { recursive: true, force: true })
+  if (runDir) try { fs.rmSync(runDir, { recursive: true, force: true }) } catch {}
+  if (outsideDir) try { fs.rmSync(outsideDir, { recursive: true, force: true }) } catch {}
 }
 
 console.log('output readers: valid markdown + traversal/symlink containment passed')
