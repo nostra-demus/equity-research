@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-22T16:55:23Z",
+  "generated_at": "2026-08-22T17:08:44Z",
   "inbox": [
     {
       "inbox_id": "INB-20260822-2434",
@@ -502,6 +502,61 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260822-2443",
+      "headline": "Broadcom eyes $80 billion debt deal to fuel Anthropic’s AI chip ambitions",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/news/broadcom-eyes-80-billion-debt-deal-to-fuel-anthropic-s-ai-chip-ambitions-11787405998684.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-22T16:59:33Z",
+      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
+      "prelim_note": "Broadcom is reportedly planning an $80 billion debt issuance to fund AI-related infrastructure and expansion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Broadcom is reportedly planning an $80 billion debt issuance to fund AI-related infrastructure and expansion.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "debt_credit",
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Broadcom",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Anthropic",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1879,65 +1934,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260822-1390",
-      "headline": "Mps lancia Ops su Banco Bpm e Banca Generali contro scalata Intesa",
-      "headline_en": "MPS launches exchange offer on Banco Bpm and Banca Generali against Intesa takeover",
-      "url": "https://www.reuters.com/it/azienda/mps-lancia-ops-su-banco-bpm-e-banca-generali-contro-scalata-intesa-2026-08-21/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-21T12:17:45Z",
-      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
-      "prelim_note": "MPS launches a public exchange offer on Banco BPM and Banca Generali against Intesa's takeover bid, a named multi-bank deal.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "MPS launches a public exchange offer on Banco BPM and Banca Generali against Intesa's takeover bid, a named multi-bank deal.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Monte dei Paschi di Siena",
-          "ticker": null,
-          "listing_country": "IT"
-        },
-        {
-          "name": "Banco BPM",
-          "ticker": null,
-          "listing_country": "IT"
-        },
-        {
-          "name": "Banca Generali",
-          "ticker": null,
-          "listing_country": "IT"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -78350,9 +78346,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 299110,
-    "news_picked_today": 4710,
-    "news_dropped_today": 10323
+    "news_seen_today": 299161,
+    "news_picked_today": 4729,
+    "news_dropped_today": 10355
   },
   "book_momentum": {
     "live_count": 8,
