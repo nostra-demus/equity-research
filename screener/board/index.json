@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-22T09:20:50Z",
+  "generated_at": "2026-08-22T09:25:36Z",
   "inbox": [
     {
       "inbox_id": "INB-20260822-2341",
@@ -252,6 +252,98 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260822-2364",
+      "headline": "Ukrainian drones kill several, hit warehouse of Russian online retailer Ozon",
+      "headline_en": null,
+      "url": "https://www.reuters.com/world/ukrainian-drones-hit-warehouse-russian-online-retailer-ozon-overnight-strikes-2026-08-22/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-22T09:18:16Z",
+      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
+      "prelim_note": "A drone strike on a major retailer's warehouse is a direct operational and physical asset impact.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A drone strike on a major retailer's warehouse is a direct operational and physical asset impact.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ozon",
+          "ticker": null,
+          "listing_country": "RU"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260822-2362",
+      "headline": "Myanmar airstrike on monastery kills 14",
+      "headline_en": null,
+      "url": "https://gulfnews.com/world/asia/myanmar-airstrike-on-monastery-kills-14-1.500648777",
+      "source_name": "Gulf News",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-22T09:08:59Z",
+      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
+      "prelim_note": "A military airstrike resulting in civilian casualties represents a significant escalation of conflict in the region.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A military airstrike resulting in civilian casualties represents a significant escalation of conflict in the region.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 9,
+        "event": 1,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "geopolitical",
+        "source_tier_id": "news",
+        "event_id": "macro_sector",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1922,99 +2014,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260822-2334",
-      "headline": "Walmart stock tumbles 9% after outlook disappoints Wall Street",
-      "headline_en": null,
-      "url": "https://www.cnbc.com/2026/08/20/walmart-wmt-q2-2027-earnings.html",
-      "source_name": "CNBC",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-20T20:01:49Z",
-      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
-      "prelim_note": "Walmart shares fell 9% after a disappointing outlook, a clear single-company guidance miss.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Walmart shares fell 9% after a disappointing outlook, a clear single-company guidance miss.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Walmart",
-          "ticker": "WMT",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260822-1990",
-      "headline": "US Wages Economic War on Iran | Radio Balance of Power: Early Edition 8/20/2026",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/videos/2026-08-20/radio-balance-of-power-early-edition-8-20-2026-video",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-20T19:28:04Z",
-      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
-      "prelim_note": "US launching economic war on Iran is a geopolitical escalation that can move oil, sanctions exposure and whole markets.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "US launching economic war on Iran is a geopolitical escalation that can move oil, sanctions exposure and whole markets.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 9,
-        "event": 6,
-        "size": 0,
-        "recency": 0,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "geopolitical",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector",
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -78770,9 +78769,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 296500,
-    "news_picked_today": 4147,
-    "news_dropped_today": 8475
+    "news_seen_today": 296558,
+    "news_picked_today": 4165,
+    "news_dropped_today": 8515
   },
   "book_momentum": {
     "live_count": 8,
