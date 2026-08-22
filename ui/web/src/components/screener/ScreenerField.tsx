@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState, type CSSProperties } from 'react'
 import { computeLayout, type PlacedNode } from '../../lib/layout'
 import { collectSamples, expectedDurations, expectedFor, fmtClock, fmtEtaLeft, orbClass, scopeTiming, type ScopeOrb } from '../../lib/eta'
 import { displayHeadline, originalHeadline, plainRoute, plainStage } from '../../lib/plain'
@@ -21,9 +21,9 @@ function ScreenerFieldLoading() {
         <strong>Loading the screening workspace…</strong>
         <span>Connecting the live wire and your latest checks.</span>
       </div>
-      <div className="scboot__flow" aria-hidden>
+      <div className="scboot__flow" aria-hidden="true">
         {[0, 1, 2, 3, 4].map((i) => (
-          <div key={i} className="scboot__step" style={{ ['--boot-step' as string]: i }}>
+          <div key={i} className="scboot__step" style={{ '--boot-step': i } as CSSProperties}>
             <span className="scboot__label" />
             <span className="scboot__orb" />
             <span className="scboot__meta" />
