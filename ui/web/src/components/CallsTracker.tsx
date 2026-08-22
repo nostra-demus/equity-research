@@ -59,7 +59,10 @@ export function CallsTracker() {
   useEffect(() => { mounted.current = true; return () => { mounted.current = false } }, [])
   const load = useCallback(async (showLoading = false) => {
     const gen = ++reqGen.current
-    if (showLoading && mounted.current) setLoading(true)
+    if (mounted.current) {
+      if (showLoading) setLoading(true)
+      setError(null)
+    }
     try {
       const res = await api.calls()
       if (mounted.current && gen === reqGen.current) {
@@ -150,7 +153,8 @@ export function CallsTracker() {
             {view === 'current' && needsAttention.length > 0 && <NeedsAttentionPanel rows={needsAttention} onOpen={openCallFile} />}
             {view === 'updates' ? (
               <CallsUpdates rows={updates} staticMode={staticMode} onOpen={openCallFile} />
-            ) : visibleCalls.map((c) => (
+            ) : (
+              visibleCalls.map((c) => (
                 <CallCard
                   key={c.run_root}
                   c={c}
@@ -162,7 +166,8 @@ export function CallsTracker() {
                   onOpen={openCallFile}
                   onCopyNote={copyStageOne}
                 />
-              ))}
+              ))
+            )}
           </>
         )}
       </div>
