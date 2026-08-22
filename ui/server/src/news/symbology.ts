@@ -192,6 +192,7 @@ export function tickerHitAny(tagTicker: unknown, picks: string[]): boolean {
 // ---- the global symbol directory (free, keyless; fail-closed) ----
 
 export interface SymbolQuote { symbol: string; name: string; exchange: string }
+export interface SymbolListing { symbol: string; name: string; exchange: string }
 // One company across its listings: the primary symbol (the best match for what was typed) + every
 // sibling listing as an alias — what the autofill offers and what the pick carries into the filter.
 export interface SymbolGroup {
@@ -201,6 +202,8 @@ export interface SymbolGroup {
   aliases: string[]
   /** Venue provenance for each alias returned by the same raw directory query. */
   aliasExchanges?: Record<string, string>
+  /** Every distinct raw equity listing retained even when normalized company names collapse. */
+  listings?: SymbolListing[]
 }
 
 /** Fold raw search quotes into one group per company (keyed by core name), preserving relevance order.
@@ -216,10 +219,18 @@ export function groupQuotes(quotes: SymbolQuote[]): SymbolGroup[] {
     if (!g) groups.set(key, {
       name: q.name, symbol: normalized, exchange: q.exchange, aliases: [normalized],
       aliasExchanges: { [normalized]: q.exchange },
+      listings: [{ name: q.name, symbol: normalized, exchange: q.exchange }],
     })
-    else if (!g.aliases.includes(normalized)) {
-      g.aliases.push(normalized)
-      g.aliasExchanges = { ...g.aliasExchanges, [normalized]: q.exchange }
+    else {
+      if (!g.aliases.includes(normalized)) {
+        g.aliases.push(normalized)
+        g.aliasExchanges = { ...g.aliasExchanges, [normalized]: q.exchange }
+      }
+      const listingKey = `${normalized}|${String(q.exchange).trim().toLowerCase()}|${String(q.name).trim().toLowerCase()}`
+      if (!(g.listings || []).some((listing) =>
+        `${listing.symbol}|${listing.exchange.trim().toLowerCase()}|${listing.name.trim().toLowerCase()}` === listingKey)) {
+        g.listings = [...(g.listings || []), { name: q.name, symbol: normalized, exchange: q.exchange }]
+      }
     }
   }
   return [...groups.values()]
@@ -304,6 +315,7 @@ export async function searchSymbolsEnriched(q: string, fetchImpl: FetchLike = fe
   try {
     groups = (await cachedSearch(q, fetchImpl)).map((g) => ({
       ...g, aliases: [...g.aliases], ...(g.aliasExchanges ? { aliasExchanges: { ...g.aliasExchanges } } : {}),
+      ...(g.listings ? { listings: g.listings.map((listing) => ({ ...listing })) } : {}),
     }))
   } catch {
     return [] // primary search offline / blocked / slow — the filter degrades to archive-facet + free-typed matching
@@ -319,6 +331,10 @@ export async function searchSymbolsEnriched(q: string, fetchImpl: FetchLike = fe
           top.aliases.push(a)
           const exchange = sib?.aliasExchanges?.[a]
           if (exchange) top.aliasExchanges = { ...top.aliasExchanges, [a]: exchange }
+        }
+        for (const listing of sib?.listings || []) if (!(top.listings || []).some((existing) =>
+          existing.symbol === listing.symbol && existing.exchange === listing.exchange && existing.name === listing.name)) {
+          top.listings = [...(top.listings || []), { ...listing }]
         }
       } catch {
         // Sibling-enrichment failed (transient) — keep the successfully-fetched primary groups rather

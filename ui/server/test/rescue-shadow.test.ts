@@ -134,6 +134,34 @@ function responseForUrl(url: string): any {
 }
 
 {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'rescue-shadow-health-write-'))
+  const rename = fs.renameSync
+  try {
+    invalidateSymbolCache()
+    assert.equal(recordRescueRows(root, [row(1), row(2), row(3)], START), true)
+    let calls = 0
+    let healthWrites = 0
+    ;(fs as any).renameSync = (from: fs.PathLike, to: fs.PathLike) => {
+      if (String(to).endsWith('/news-rescue/health.json') && ++healthWrites >= 2) {
+        throw new Error('injected health write failure')
+      }
+      return rename(from, to)
+    }
+    const unavailable = (async () => { calls++; return { ok: false, status: 503, json: async () => ({}) } }) as any
+    const failed = await runRescueShadowPass({ stateDir: root, config: baseConfig, coreReady: true, fetchImpl: unavailable, now: () => START })
+    assert.equal(calls, 1, 'a failed directory-health write stops the pass immediately')
+    assert.equal(failed.status, 'audit_unavailable')
+    assert.equal(failed.auditHealthy, false)
+    const stillFailed = await runRescueShadowPass({ stateDir: root, config: baseConfig, coreReady: true, fetchImpl: unavailable, now: () => START })
+    assert.equal(stillFailed.checkedThisCycle, 0)
+    assert.equal(calls, 1, 'a persistently unwritable health authority blocks before another network call')
+  } finally {
+    ;(fs as any).renameSync = rename
+    fs.rmSync(root, { recursive: true, force: true })
+  }
+}
+
+{
   const root = fs.mkdtempSync(path.join(os.tmpdir(), 'rescue-shadow-empty-'))
   try {
     invalidateSymbolCache()
@@ -180,6 +208,40 @@ function responseForUrl(url: string): any {
     assert.equal(check.ticker, 'C1')
     assert.equal(check.exchange, 'NYSE', 'an exact alias keeps its own listing venue, not the group primary venue')
   } finally { fs.rmSync(root, { recursive: true, force: true }) }
+}
+
+{
+  const ambiguousRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'rescue-shadow-name-ambiguous-'))
+  const countryRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'rescue-shadow-name-country-'))
+  const directory = (async () => ({
+    ok: true, status: 200, json: async () => ({ quotes: [
+      { quoteType: 'EQUITY', symbol: 'C100', longname: 'Company 100 Inc', exchDisp: 'NYSE' },
+      { quoteType: 'EQUITY', symbol: 'C100.AX', longname: 'Company 100 Corp', exchDisp: 'ASX' },
+    ] }),
+  })) as any
+  try {
+    invalidateSymbolCache()
+    const noCountry = withInitialRescueDecision({
+      ...row(100, true), companies: [{ name: 'Company 100', ticker: null, listing_country: null }],
+    })
+    assert.equal(recordRescueRows(ambiguousRoot, [noCountry], START), true)
+    const ambiguous = await runRescueShadowPass({
+      stateDir: ambiguousRoot, config: { ...baseConfig, perCycle: 1 }, coreReady: true, fetchImpl: directory, now: () => START,
+    })
+    assert.equal(ambiguous.identityUnresolved, 1,
+      'two same-core issuers remain ambiguous when the saved item has no listing country')
+
+    invalidateSymbolCache()
+    assert.equal(recordRescueRows(countryRoot, [row(100, true)], START), true)
+    const countryMatched = await runRescueShadowPass({
+      stateDir: countryRoot, config: { ...baseConfig, perCycle: 1 }, coreReady: true, fetchImpl: directory, now: () => START,
+    })
+    assert.equal(countryMatched.verified, 1, 'a saved country may select exactly one compatible issuer listing')
+    assert.equal(loadRescueDay(countryRoot, '2026-08-22').ledger.checks[0].exchange, 'NYSE')
+  } finally {
+    fs.rmSync(ambiguousRoot, { recursive: true, force: true })
+    fs.rmSync(countryRoot, { recursive: true, force: true })
+  }
 }
 
 {
@@ -433,6 +495,33 @@ function responseForUrl(url: string): any {
     const restarted = await runRescueShadowPass({ stateDir: root, config: baseConfig, coreReady: true, fetchImpl, now: () => afterMidnight })
     assert.equal(restarted.checkedThisCycle, 0)
     assert.equal(calls, 0, 'a UTC date rollover cannot repeat a reserved review after restart')
+  } finally { fs.rmSync(root, { recursive: true, force: true }) }
+}
+
+{
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'rescue-shadow-live-midnight-'))
+  const beforeMidnight = Date.parse('2026-08-22T23:59:59Z')
+  const afterMidnight = Date.parse('2026-08-23T00:00:01Z')
+  let clock = beforeMidnight
+  try {
+    invalidateSymbolCache()
+    const lateRows = [row(1), row(2)].map((item, index) => withInitialRescueDecision({
+      ...item, ts: `2026-08-22T23:59:5${index}Z`, found_at: `2026-08-22T23:59:5${index}Z`,
+    }))
+    assert.equal(recordRescueRows(root, lateRows, beforeMidnight), true)
+    let calls = 0
+    const fetchImpl = (async (url: string) => {
+      calls++
+      clock = afterMidnight
+      return responseForUrl(url)
+    }) as any
+    const result = await runRescueShadowPass({ stateDir: root, config: baseConfig, coreReady: true, fetchImpl, now: () => clock })
+    assert.equal(calls, 1, 'a pass stops before reserving another check after UTC midnight')
+    assert.equal(result.checkedThisCycle, 1)
+    assert.equal(result.identityChecks, 1, 'the crossing pass reports the day ledger it actually charged')
+    assert.equal(loadRescueDay(root, '2026-08-22').ledger.checks.length, 1)
+    assert.equal(loadRescueDay(root, '2026-08-23').ledger.checks.length, 0,
+      'the new UTC day receives no hidden reservation from the prior pass')
   } finally { fs.rmSync(root, { recursive: true, force: true }) }
 }
 

@@ -2,6 +2,7 @@
 // of identity checks, and never reads an article or creates an idea. Live work is a later rollout stage.
 
 import { dailyQuotaAdmission } from '../triage/budget'
+import { countryFromExchange } from '../equity-quote'
 import {
   cleanTicker, companyNameMatches, coreCompanyName, directoryTickerMatches, searchSymbolsChecked, type FetchLike,
 } from '../symbology'
@@ -99,12 +100,40 @@ async function verifyCandidate(
       : { status: 'identity_unresolved' }
   }
   const expected = coreCompanyName(candidate.company_name)
-  const matches = result.groups.filter((group) => expected && coreCompanyName(group.name) === expected
-    && !!cleanTicker(group.symbol) && !!String(group.exchange || '').trim())
+  const wantedCountry = String(candidate.listing_country || '').trim().toUpperCase()
+  const matches = result.groups.flatMap((group) => {
+    if (!expected || coreCompanyName(group.name) !== expected) return []
+    const listings = group.listings || [{ symbol: group.symbol, name: group.name, exchange: group.exchange }]
+    return listings.filter((listing) => {
+      if (!cleanTicker(listing.symbol) || !String(listing.exchange || '').trim()) return false
+      return !wantedCountry || countryFromExchange(listing.exchange) === wantedCountry
+    })
+  })
   if (matches.length !== 1) return { status: 'identity_unresolved' }
   return {
     status: 'verified', ticker: cleanTicker(matches[0].symbol),
     companyName: matches[0].name, exchange: matches[0].exchange,
+  }
+}
+
+function directoryHealthPatch(checks: readonly RescueCheckRecord[], now: number): Partial<{
+  consecutive_directory_failures: number
+  directory_pause_until: string | null
+  last_directory_status: RescueIdentityStatus | null
+}> {
+  const completed = checks.filter((check): check is RescueCheckRecord & { identity_status: RescueIdentityStatus } =>
+    !!check.identity_status && Number.isFinite(Date.parse(check.completed_at || check.reserved_at)))
+    .sort((left, right) => Date.parse(left.completed_at || left.reserved_at)
+      - Date.parse(right.completed_at || right.reserved_at) || left.key.localeCompare(right.key))
+  const last = completed.at(-1)
+  let failures = 0
+  for (let index = completed.length - 1; index >= 0 && completed[index].identity_status === 'directory_unavailable'; index--) failures++
+  const lastAt = last ? Date.parse(last.completed_at || last.reserved_at) : 0
+  const pauseUntilMs = failures >= 3 ? lastAt + 30 * 60_000 : 0
+  return {
+    consecutive_directory_failures: failures,
+    directory_pause_until: pauseUntilMs > now ? new Date(pauseUntilMs).toISOString() : null,
+    last_directory_status: last?.identity_status || null,
   }
 }
 
@@ -243,9 +272,18 @@ export async function runRescueShadowPass(deps: {
       }, now)
     }
   }
+  const directoryHealthSaved = deps.config.mode !== 'shadow' || !repairHistory?.available
+    || updateRescueHealth(deps.stateDir, directoryHealthPatch(repairHistory.checks, now), now)
   let diagnostic = diagnosticsFromState(
     deps.stateDir, deps.config, now, deps.coreReady, blockedEventIds, humanActionsReady, normalIdeasReady,
   )
+  if (!directoryHealthSaved) return {
+    ...diagnostic,
+    status: 'audit_unavailable',
+    reason: 'The second-look health record could not be saved. No stock-listing checks were made.',
+    auditHealthy: false,
+    checkedThisCycle: 0,
+  }
   if (diagnostic.status !== 'ready') return { ...diagnostic, checkedThisCycle: 0 }
   if (!reconcileRescueDayLedgers(deps.stateDir, now, deps.config.auditMaxBytes)) {
     updateRescueHealth(deps.stateDir, {
@@ -287,16 +325,18 @@ export async function runRescueShadowPass(deps: {
   let checkedThisCycle = 0
 
   while (checkedThisCycle < deps.config.perCycle) {
+    const loopNow = deps.now?.() ?? Date.now()
+    if (utcDate(loopNow) !== date) break
     const admission = dailyQuotaAdmission({
       id: 'news-rescue-shadow', meter: 'requests', used, cap: deps.config.dailyChecks,
       cost: 1, paceCost: 1, floorFraction: deps.config.paceFloorFraction,
-    }, now)
+    }, loopNow)
     if (!admission.pacedFit) break
-    if (!rescueAuditCanAccept(deps.stateDir, now, deps.config.auditMaxBytes)) {
+    if (!rescueAuditCanAccept(deps.stateDir, loopNow, deps.config.auditMaxBytes)) {
       updateRescueHealth(deps.stateDir, {
         audit_healthy: false,
         audit_error: 'The detailed second-look record is full or cannot accept another result.',
-      }, now)
+      }, loopNow)
       break
     }
     const wantName = (used + 1) % 5 === 0 && nameUsed < deps.config.nameDailyCap
@@ -305,9 +345,9 @@ export async function runRescueShadowPass(deps: {
     if (!candidate && nameUsed < deps.config.nameDailyCap) candidate = name.shift()
     if (!candidate) break
 
-    const reservation = reserveRescueCheck(deps.stateDir, date, candidate, RESCUE_SELECTOR_VERSION, now)
+    const reservation = reserveRescueCheck(deps.stateDir, date, candidate, RESCUE_SELECTOR_VERSION, loopNow)
     if (!reservation) {
-      updateRescueHealth(deps.stateDir, { audit_healthy: false, audit_error: RESCUE_RESERVATION_WRITE_ERROR }, now)
+      updateRescueHealth(deps.stateDir, { audit_healthy: false, audit_error: RESCUE_RESERVATION_WRITE_ERROR }, loopNow)
       break
     }
     used++
@@ -321,12 +361,27 @@ export async function runRescueShadowPass(deps: {
       }, deps.now?.() ?? Date.now())
       break
     }
-    const health = noteDirectoryResult(deps.stateDir, result.status, deps.now?.() ?? Date.now())
+    const noted = noteDirectoryResult(deps.stateDir, result.status, deps.now?.() ?? Date.now())
     log(`second look shadow: ${candidate.event_id} → ${result.status}`)
-    if (directoryPaused(health.directory_pause_until, deps.now?.() ?? Date.now())) break
+    if (!noted.saved) {
+      const failedAt = deps.now?.() ?? Date.now()
+      diagnostic = diagnosticsFromState(
+        deps.stateDir, deps.config, utcDate(failedAt) === date ? failedAt : now, deps.coreReady,
+        blockedEventIds, humanActionsReady, normalIdeasReady,
+      )
+      return {
+        ...diagnostic,
+        status: 'audit_unavailable',
+        reason: 'The second-look health record could not be saved. Further stock-listing checks were stopped.',
+        auditHealthy: false,
+        checkedThisCycle,
+      }
+    }
+    if (directoryPaused(noted.health.directory_pause_until, deps.now?.() ?? Date.now())) break
   }
+  const finalNow = deps.now?.() ?? Date.now()
   diagnostic = diagnosticsFromState(
-    deps.stateDir, deps.config, deps.now?.() ?? Date.now(), deps.coreReady,
+    deps.stateDir, deps.config, utcDate(finalNow) === date ? finalNow : now, deps.coreReady,
     blockedEventIds, humanActionsReady, normalIdeasReady,
   )
   return { ...diagnostic, checkedThisCycle }

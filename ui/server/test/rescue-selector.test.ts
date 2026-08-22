@@ -214,6 +214,33 @@ function row(id: string, fields: Partial<FeedItem> = {}): FeedItem {
   assert.deepEqual(new Set(result.candidates.map((candidate) => candidate.identity_key)).size, 2)
 }
 
+{
+  const unknown = row('EVT-country-unknown', {
+    event_types: ['commercial'], dedup_group: 'STORY-country-enrichment',
+    companies: [{ name: 'Global Industries Inc', ticker: 'GLBI', listing_country: null }],
+  })
+  const known = row('EVT-country-known', {
+    event_types: ['commercial'], dedup_group: 'STORY-country-enrichment',
+    domain: 'ft.com', source_name: 'Financial Times', url: 'https://ft.com/global-industries-country',
+    companies: [{ name: 'Global Industries Inc', ticker: 'GLBI', listing_country: 'US' }],
+  })
+  const unknownKey = selectRescueCandidates([unknown], NOW).candidates[0].identity_key
+  const knownKey = selectRescueCandidates([known], NOW).candidates[0].identity_key
+  const enriched = selectRescueCandidates([unknown, known], NOW)
+  assert.equal(unknownKey, knownKey, 'adding one known country cannot change an otherwise exact ticker identity')
+  assert.equal(enriched.candidates.length, 1, 'unknown country joins the one matching exact-ticker identity')
+  assert.equal(enriched.candidates[0].listing_country, 'US', 'the known country is retained for directory verification')
+
+  const conflicting = row('EVT-country-conflict', {
+    event_types: ['commercial'], dedup_group: 'STORY-country-enrichment',
+    domain: 'moneycontrol.com', source_name: 'Moneycontrol', url: 'https://moneycontrol.com/global-industries-country',
+    companies: [{ name: 'Global Industries Inc', ticker: 'GLBI', listing_country: 'IN' }],
+  })
+  const split = selectRescueCandidates([known, conflicting], NOW)
+  assert.equal(split.candidates.length, 2, 'the same ticker stays separate when two known countries conflict')
+  assert.equal(new Set(split.candidates.map((candidate) => candidate.identity_key)).size, 2)
+}
+
 // Historical replay gate. These committed files are the real partial-day samples used to size the rule.
 // The selector must stay in the approved 150–250 daily band and every row must reconcile exactly once.
 const repoRoot = path.resolve(import.meta.dirname, '../../..')

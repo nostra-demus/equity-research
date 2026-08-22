@@ -91,6 +91,9 @@ check('groupQuotes folds cross-listings of one company into a single group with 
   assert.equal(groups.length, 2)
   assert.equal(groups[0].symbol, 'NHYDY', 'primary = first (most relevant) quote')
   assert.deepEqual(groups[0].aliases, ['NHYDY', 'NHY.OL', 'NHYKF'])
+  assert.deepEqual(groups[0].listings?.map((listing) => [listing.symbol, listing.exchange]), [
+    ['NHYDY', 'OTC Markets'], ['NHY.OL', 'Oslo'], ['NHYKF', 'OTC Markets'],
+  ], 'each raw listing keeps its own venue for ambiguity checks')
   assert.equal(groups[1].symbol, 'AA')
 })
 check('groupQuotes drops junk symbols instead of grouping them', () => {

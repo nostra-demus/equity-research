@@ -278,6 +278,7 @@ export function selectRescueCandidates(
     identity: NonNullable<ReturnType<typeof identity>>
     foundMs: number
     duplicate: boolean
+    companyKey?: string
   }
   const clusterRows: ClusterRow[] = []
 
@@ -304,12 +305,16 @@ export function selectRescueCandidates(
     clusterRows.push({ item, identity: id, foundMs: found, duplicate })
   }
 
-  const identitySignatures = new Map<string, Set<string>>()
+  const tickerCountries = new Map<string, Map<string, Set<string>>>()
   for (const row of clusterRows) {
     if (!row.identity.ticker) continue
     const base = `${coreCompanyName(row.identity.name)}|${eventFamily(row.item)}|${eventFingerprint(row.item)}`
-    const signature = `${row.identity.key}|country:${String(row.identity.country || '').trim().toUpperCase()}`
-    identitySignatures.set(base, new Set([...(identitySignatures.get(base) || []), signature]))
+    const byTicker = tickerCountries.get(base) || new Map<string, Set<string>>()
+    const countries = byTicker.get(row.identity.key) || new Set<string>()
+    const country = String(row.identity.country || '').trim().toUpperCase()
+    countries.add(country)
+    byTicker.set(row.identity.key, countries)
+    tickerCountries.set(base, byTicker)
   }
 
   const families = new Map<string, ClusterRow[]>()
@@ -322,11 +327,24 @@ export function selectRescueCandidates(
     const country = String(row.identity.country || '').trim().toUpperCase()
     const base = `${coreCompanyName(row.identity.name)}|${family}|${event}`
     const savedIdentity = `${row.identity.key}|country:${country}`
-    const compatibleTickerIdentities = [...(identitySignatures.get(base) || [])].filter((signature) =>
-      !country || signature.endsWith(`country:${country}`))
-    const companyKey = row.identity.ticker || compatibleTickerIdentities.length !== 1
-      ? savedIdentity
-      : compatibleTickerIdentities[0]
+    const tickerOptions = [...(tickerCountries.get(base) || new Map())].flatMap(([tickerKey, countries]) => {
+      const known = [...countries].filter(Boolean).sort()
+      const hasUnknown = countries.has('')
+      if (known.length <= 1) return [{ key: tickerKey, country: known[0] || '' }]
+      return [
+        ...known.map((knownCountry) => ({ key: `${tickerKey}|country:${knownCountry}`, country: knownCountry })),
+        ...(hasUnknown ? [{ key: `${tickerKey}|country:`, country: '' }] : []),
+      ]
+    })
+    const ownCountries = row.identity.ticker ? tickerCountries.get(base)?.get(row.identity.key) : null
+    const ownKnownCountries = [...(ownCountries || [])].filter(Boolean)
+    const companyKey = row.identity.ticker
+      ? (ownKnownCountries.length > 1 ? savedIdentity : row.identity.key)
+      : (() => {
+          const compatible = tickerOptions.filter((option) => !country || !option.country || option.country === country)
+          return compatible.length === 1 ? compatible[0].key : savedIdentity
+        })()
+    row.companyKey = companyKey
     const key = `${companyKey}|${family}|${event}`
     families.set(key, [...(families.get(key) || []), row])
   }
@@ -390,12 +408,14 @@ export function selectRescueCandidates(
     const strongCount = representative.rank.strong_signal_count
     // The best article remains the representative, while an independently saved ticker on another
     // non-duplicate copy can supply the cheaper exact identity query for the shared company/event.
-    const identityOwner = rankedMembers.find((member) => member.identity.ticker) || representative
+    const identityOwner = rankedMembers.find((member) => member.identity.ticker && member.identity.country)
+      || rankedMembers.find((member) => member.identity.ticker)
+      || representative
     const pool: RescuePool = identityOwner.identity.ticker ? 'ticker' : 'name'
     if (strongCount < (pool === 'ticker' ? 1 : 2)) { counts.no_signal++; continue }
     candidates.push({
       event_id: representative.item.event_id,
-      identity_key: `${pool}:${identityOwner.identity.ticker
+      identity_key: identityOwner.companyKey || `${pool}:${identityOwner.identity.ticker
         ? normTicker(identityOwner.identity.ticker)
         : coreCompanyName(identityOwner.identity.name)}:${identityOwner.identity.country || ''}`,
       pool,

@@ -571,21 +571,26 @@ export function noteNormalIdeasReadiness(
   }, now)
 }
 
-export function noteDirectoryResult(stateDir: string, status: RescueIdentityStatus, now = Date.now()): RescueRuntimeHealth {
+export function noteDirectoryResult(
+  stateDir: string,
+  status: RescueIdentityStatus,
+  now = Date.now(),
+): { saved: boolean; health: RescueRuntimeHealth } {
   const current = readRescueHealth(stateDir)
+  let saved: boolean
   if (status === 'directory_unavailable') {
     const failures = current.consecutive_directory_failures + 1
-    updateRescueHealth(stateDir, {
+    saved = updateRescueHealth(stateDir, {
       consecutive_directory_failures: failures,
       last_directory_status: status,
       ...(failures >= 3 ? { directory_pause_until: new Date(now + 30 * 60_000).toISOString() } : {}),
     }, now)
   } else {
-    updateRescueHealth(stateDir, {
+    saved = updateRescueHealth(stateDir, {
       consecutive_directory_failures: 0,
       directory_pause_until: null,
       last_directory_status: status,
     }, now)
   }
-  return readRescueHealth(stateDir)
+  return { saved, health: saved ? readRescueHealth(stateDir) : current }
 }
