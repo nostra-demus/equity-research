@@ -130,7 +130,7 @@ import { AGENT_RE, EVENT_ID_RE, FEEDBACK_ID_RE, MODULE_RE, SIG_RE, THESIS_RE, TI
 import type { RunKind, RunStatus } from './types'
 import { MANIFEST_SUBJECT_RE, normalizeDataSubject } from './data-subject'
 import { createMemoryReader } from './memory'
-import { purgeReelTempDirs, ReelTranscriptError, transcribeInstagramReel } from './reel-transcript'
+import { purgeReelTempDirs, ReelTranscriptError, transcribeInstagramReel, type ReelTranscriptProgressEvent } from './reel-transcript'
 import { getProviderAdapter, isProviderEnabled, isRunProvider, listProviderAdapters, providerDisabledReason } from './providers/registry'
 import type { RunProvider } from './providers/types'
 
@@ -276,6 +276,10 @@ app.post('/api/tools/reel-transcript', { config: { rateLimit: { max: 10, timeWin
   if (!parsed.success) return reply.code(400).send({ error: 'Paste an Instagram Reel link.', code: 'invalid-reel-url' })
   if (reelTranscriptsInFlight >= 2) return reply.code(429).send({ error: 'Two Reels are already being transcribed. Try again shortly.', code: 'transcription-busy' })
   reelTranscriptsInFlight += 1
+  const accepts = Array.isArray(req.headers.accept) ? req.headers.accept.join(',') : req.headers.accept
+  const wantsProgressStream = typeof accepts === 'string' && accepts.toLowerCase().includes('text/event-stream')
+  const requestStartedAt = Date.now()
+  reply.header('cache-control', 'no-store')
   const disconnected = new AbortController()
   let handlerFinished = false
   const cancelDisconnected = () => {
@@ -286,24 +290,48 @@ app.post('/api/tools/reel-transcript', { config: { rateLimit: { max: 10, timeWin
   req.raw.once('aborted', cancelDisconnected)
   reply.raw.once('close', cancelDisconnected)
   const signal = AbortSignal.any([disconnected.signal, AbortSignal.timeout(135_000)])
+  let stream: ReturnType<typeof startSSE> | null = null
   try {
-    reply.header('cache-control', 'no-store')
-    return await transcribeInstagramReel(parsed.data.url, {
+    if (wantsProgressStream) stream = startSSE(reply)
+    const progressStream = stream
+    const result = await transcribeInstagramReel(parsed.data.url, {
       stateDir: STATE_DIR,
       ...TOOLS.reelTranscript,
-    }, { signal })
+    }, {
+      signal,
+      ...(progressStream ? { onProgress: (progress: ReelTranscriptProgressEvent) => {
+        progressStream.send({ type: 'reel-progress', ...progress })
+      } } : {}),
+    })
+    if (stream) {
+      stream.send({ type: 'reel-result', result, elapsedMs: Date.now() - requestStartedAt })
+      return reply
+    }
+    return result
   } catch (cause) {
     if (disconnected.signal.aborted && reply.raw.destroyed) return reply
     if (cause instanceof ReelTranscriptError) {
+      if (stream) {
+        stream.send({ type: 'reel-error', error: cause.message, code: cause.code, status: cause.statusCode, elapsedMs: Date.now() - requestStartedAt })
+        return reply
+      }
       return reply.code(cause.statusCode).send({ error: cause.message, code: cause.code })
     }
     console.error('[reel-transcript] unexpected failure', cause)
+    if (stream) {
+      stream.send({ type: 'reel-error', error: 'The Reel could not be transcribed. Try again.', code: 'transcription-failed', status: 500, elapsedMs: Date.now() - requestStartedAt })
+      return reply
+    }
     return reply.code(500).send({ error: 'The Reel could not be transcribed. Try again.', code: 'transcription-failed' })
   } finally {
     handlerFinished = true
     req.raw.off('aborted', cancelDisconnected)
     reply.raw.off('close', cancelDisconnected)
     reelTranscriptsInFlight -= 1
+    if (stream) {
+      clearInterval(stream.ping)
+      try { stream.res.end() } catch { /* already closed */ }
+    }
   }
 })
 

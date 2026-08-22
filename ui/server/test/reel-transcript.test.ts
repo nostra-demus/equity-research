@@ -10,6 +10,7 @@ import {
   normalizeInstagramReelUrl,
   transcribeInstagramReel,
   type ReelTranscriptConfig,
+  type ReelTranscriptProgressEvent,
 } from '../src/reel-transcript'
 
 const config = (): ReelTranscriptConfig => ({
@@ -62,10 +63,12 @@ const fetchFn = (async (input: string | URL | Request, init?: RequestInit) => {
   })
 }) as typeof fetch
 
+const progress: ReelTranscriptProgressEvent[] = []
 const result = await transcribeInstagramReel('https://instagram.com/reel/Test_123/', config(), {
   run,
   fetchFn,
   ensureBinary: async () => '/fake/yt-dlp',
+  onProgress: (event) => progress.push(event),
 })
 assert.deepEqual(result, {
   transcript: 'The complete spoken transcript.',
@@ -77,6 +80,28 @@ assert.deepEqual(result, {
 })
 assert.equal(calls.length, 2)
 assert.equal(fs.existsSync(downloadedPath), false, 'temporary Reel media is deleted before the call returns')
+const expectedSteps = [
+  'validate-link',
+  'prepare-runtime',
+  'inspect-reel',
+  'download-media',
+  'check-media',
+  'transcribe-speech',
+  'prepare-output',
+  'clean-up',
+]
+assert.deepEqual(progress.filter((event) => event.status === 'running').map((event) => event.step), expectedSteps,
+  'every real backend stage becomes visible in execution order')
+assert.deepEqual(progress.filter((event) => event.status === 'complete').map((event) => event.step), expectedSteps,
+  'the result waits for every stage, including temporary-media cleanup, to complete')
+assert.equal(progress.find((event) => event.step === 'download-media' && event.status === 'complete')?.detail?.bytes, 14)
+assert.deepEqual(
+  progress.find((event) => event.step === 'check-media' && event.status === 'complete')?.detail,
+  { bytes: 14, durationSeconds: 42.4, maxSeconds: 180, maxBytes: 1024 * 1024 },
+  'the live safety check reports the configured limits instead of hard-coding UI copy',
+)
+assert.equal(progress.find((event) => event.step === 'prepare-output' && event.status === 'complete')?.detail?.transcriptCharacters, 31)
+assert.equal(progress.at(-1)?.detail?.mediaRemoved, true, 'the last live event truthfully confirms media deletion')
 
 let publicAttempts = 0
 await expectCode(transcribeInstagramReel('https://instagram.com/reel/NeedsLogin/', config(), {

@@ -51,6 +51,35 @@ export interface ReelTranscriptResult {
   language: string | null
 }
 
+export type ReelTranscriptProgressStep =
+  | 'validate-link'
+  | 'prepare-runtime'
+  | 'inspect-reel'
+  | 'download-media'
+  | 'check-media'
+  | 'transcribe-speech'
+  | 'prepare-output'
+  | 'clean-up'
+
+export interface ReelTranscriptProgressEvent {
+  step: ReelTranscriptProgressStep
+  status: 'running' | 'complete' | 'failed' | 'warning'
+  elapsedMs: number
+  stepElapsedMs?: number
+  detail?: {
+    sourceUrl?: string
+    title?: string | null
+    author?: string | null
+    durationSeconds?: number | null
+    bytes?: number
+    maxSeconds?: number
+    maxBytes?: number
+    language?: string | null
+    transcriptCharacters?: number
+    mediaRemoved?: boolean
+  }
+}
+
 export interface ReelTranscriptConfig {
   stateDir: string
   groqApiKey: string
@@ -72,6 +101,7 @@ export interface ReelTranscriptDeps {
   run?: (binary: string, args: string[], signal?: AbortSignal) => Promise<CommandResult>
   ensureBinary?: (config: ReelTranscriptConfig, fetchFn: typeof fetch, signal?: AbortSignal) => Promise<string>
   signal?: AbortSignal
+  onProgress?: (event: ReelTranscriptProgressEvent) => void
 }
 
 let binaryInstall: Promise<string> | null = null
@@ -409,17 +439,18 @@ export async function purgeReelTempDirs(maxAgeMs = STALE_TEMP_AGE_MS): Promise<v
     }))
 }
 
-async function cleanupTempDir(tempDir: string): Promise<void> {
+async function cleanupTempDir(tempDir: string): Promise<boolean> {
   for (let attempt = 1; attempt <= 3; attempt += 1) {
     try {
       await fs.promises.rm(tempDir, { recursive: true, force: true })
-      return
+      return true
     } catch (cause) {
       if (attempt === 3) {
         console.error('[reel-transcript] temporary media cleanup failed', tempDir, cause)
       }
     }
   }
+  return false
 }
 
 export async function transcribeInstagramReel(
@@ -427,24 +458,59 @@ export async function transcribeInstagramReel(
   config: ReelTranscriptConfig,
   deps: ReelTranscriptDeps = {},
 ): Promise<ReelTranscriptResult> {
-  const sourceUrl = normalizeInstagramReelUrl(input)
-  checkAbort(deps.signal)
-  if (!config.groqApiKey) {
-    throw new ReelTranscriptError('Reel transcription is not configured on this engine.', 'transcription-unavailable', 503)
+  const runStartedAt = Date.now()
+  const stepStartedAt = new Map<ReelTranscriptProgressStep, number>()
+  let activeStep: ReelTranscriptProgressStep | null = null
+  let tempDir: string | null = null
+  const emit = (
+    step: ReelTranscriptProgressStep,
+    status: ReelTranscriptProgressEvent['status'],
+    detail?: ReelTranscriptProgressEvent['detail'],
+  ) => {
+    const now = Date.now()
+    if (status === 'running') {
+      stepStartedAt.set(step, now)
+      activeStep = step
+    } else if (activeStep === step) {
+      activeStep = null
+    }
+    const started = stepStartedAt.get(step)
+    try {
+      deps.onProgress?.({
+        step,
+        status,
+        elapsedMs: Math.max(0, now - runStartedAt),
+        ...(started === undefined || status === 'running' ? {} : { stepElapsedMs: Math.max(0, now - started) }),
+        ...(detail ? { detail } : {}),
+      })
+    } catch {
+      // Progress visibility is observational. A disconnected or buggy listener must never break the work.
+    }
   }
 
-  const fetchFn = deps.fetchFn ?? fetch
-  const run = deps.run ?? defaultRun
-  const binary = await (deps.ensureBinary ?? ensureYtDlpBinary)(config, fetchFn, deps.signal)
-  checkAbort(deps.signal)
-  const maxSeconds = config.maxSeconds ?? DEFAULT_MAX_SECONDS
-  const maxBytes = config.maxBytes ?? DEFAULT_MAX_BYTES
-  staleTempPurge ||= purgeReelTempDirs().finally(() => { staleTempPurge = null })
-  await staleTempPurge
-  const tempDir = await fs.promises.mkdtemp(path.join(os.tmpdir(), 'nostra-reel-'))
-
   try {
+    emit('validate-link', 'running')
+    const sourceUrl = normalizeInstagramReelUrl(input)
+    checkAbort(deps.signal)
+    emit('validate-link', 'complete', { sourceUrl })
+
+    emit('prepare-runtime', 'running')
+    if (!config.groqApiKey) {
+      throw new ReelTranscriptError('Reel transcription is not configured on this engine.', 'transcription-unavailable', 503)
+    }
+    const fetchFn = deps.fetchFn ?? fetch
+    const run = deps.run ?? defaultRun
+    const binary = await (deps.ensureBinary ?? ensureYtDlpBinary)(config, fetchFn, deps.signal)
+    checkAbort(deps.signal)
+    const maxSeconds = config.maxSeconds ?? DEFAULT_MAX_SECONDS
+    const maxBytes = config.maxBytes ?? DEFAULT_MAX_BYTES
+    staleTempPurge ||= purgeReelTempDirs().finally(() => { staleTempPurge = null })
+    await staleTempPurge
+    tempDir = await fs.promises.mkdtemp(path.join(os.tmpdir(), 'nostra-reel-'))
+    emit('prepare-runtime', 'complete')
+
     const common = ['--ignore-config', '--no-plugin-dirs', '--no-playlist', '--no-warnings', '--no-progress']
+    emit('inspect-reel', 'running')
     const infoRead = await runInstagram(
       run,
       binary,
@@ -467,9 +533,13 @@ export async function transcribeInstagramReel(
     if (duration !== null && duration > maxSeconds) {
       throw new ReelTranscriptError(`This Reel is longer than the ${Math.round(maxSeconds / 60)} minute tool limit.`, 'reel-too-long', 422)
     }
+    const title = cleanMeta(metadata.title || metadata.description)
+    const author = cleanMeta(metadata.uploader || metadata.channel)
+    emit('inspect-reel', 'complete', { title, author, durationSeconds: duration })
 
     const outputTemplate = path.join(tempDir, 'reel.%(ext)s')
     const sizeLimitMiB = Math.max(1, Math.floor(maxBytes / (1024 * 1024)))
+    emit('download-media', 'running')
     const download = await run(binary, [
       ...common,
       '--max-filesize', String(maxBytes),
@@ -496,7 +566,9 @@ export async function transcribeInstagramReel(
     if (stat.size <= 0 || stat.size > maxBytes) {
       throw new ReelTranscriptError('The Reel is too large to transcribe.', 'reel-too-large', 422)
     }
+    emit('download-media', 'complete', { bytes: stat.size })
 
+    emit('check-media', 'running')
     checkAbort(deps.signal)
     const media = await fs.promises.readFile(mediaPath)
     if (duration === null) duration = mp4DurationSeconds(media)
@@ -506,6 +578,7 @@ export async function transcribeInstagramReel(
     if (duration > maxSeconds) {
       throw new ReelTranscriptError(`This Reel is longer than the ${Math.round(maxSeconds / 60)} minute tool limit.`, 'reel-too-long', 422)
     }
+    emit('check-media', 'complete', { bytes: stat.size, durationSeconds: duration, maxSeconds, maxBytes })
 
     const form = new FormData()
     form.append('file', new Blob([media], { type: mediaMime(mediaName) }), mediaName)
@@ -514,7 +587,8 @@ export async function transcribeInstagramReel(
     form.append('temperature', '0')
 
     let response: Response
-    let body: Record<string, unknown>
+    let rawProviderBody: Buffer
+    emit('transcribe-speech', 'running')
     try {
       const providerSignal = deps.signal
         ? AbortSignal.any([deps.signal, AbortSignal.timeout(120_000)])
@@ -525,14 +599,7 @@ export async function transcribeInstagramReel(
         body: form,
         signal: providerSignal,
       })
-      const raw = await readLimited(response, PROVIDER_MAX_BYTES, 'The transcription service', 'transcription-failed', 502)
-      try {
-        const parsed = JSON.parse(raw.toString('utf8')) as unknown
-        if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) throw new Error('provider body is not an object')
-        body = parsed as Record<string, unknown>
-      } catch {
-        throw new ReelTranscriptError('The transcription service returned an unreadable response.', 'transcription-failed', 502)
-      }
+      rawProviderBody = await readLimited(response, PROVIDER_MAX_BYTES, 'The transcription service', 'transcription-failed', 502)
     } catch (cause) {
       if (cause instanceof ReelTranscriptError) throw cause
       if (deps.signal?.aborted) throw abortFailure(deps.signal)
@@ -550,21 +617,41 @@ export async function transcribeInstagramReel(
           : 'The Reel could not be transcribed. Try again.'
       throw new ReelTranscriptError(message, 'transcription-failed', response.status === 429 ? 429 : 502)
     }
+    emit('transcribe-speech', 'complete')
+
+    emit('prepare-output', 'running')
+    let body: Record<string, unknown>
+    try {
+      const parsed = JSON.parse(rawProviderBody.toString('utf8')) as unknown
+      if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) throw new Error('provider body is not an object')
+      body = parsed as Record<string, unknown>
+    } catch {
+      throw new ReelTranscriptError('The transcription service returned an unreadable response.', 'transcription-failed', 502)
+    }
     if (typeof body.text !== 'string') {
       throw new ReelTranscriptError('The transcription service returned an incomplete response.', 'transcription-failed', 502)
     }
     const transcript = body.text.trim()
     if (!transcript) throw new ReelTranscriptError('No spoken words were found in this Reel.', 'empty-transcript', 422)
+    const language = cleanMeta(body.language)
+    emit('prepare-output', 'complete', { transcriptCharacters: transcript.length, language })
 
     return {
       transcript,
       sourceUrl,
-      title: cleanMeta(metadata.title || metadata.description),
-      author: cleanMeta(metadata.uploader || metadata.channel),
+      title,
+      author,
       durationSeconds: duration,
-      language: cleanMeta(body.language),
+      language,
     }
+  } catch (cause) {
+    if (activeStep) emit(activeStep, 'failed')
+    throw cause
   } finally {
-    await cleanupTempDir(tempDir)
+    if (tempDir) {
+      emit('clean-up', 'running')
+      const mediaRemoved = await cleanupTempDir(tempDir)
+      emit('clean-up', mediaRemoved ? 'complete' : 'warning', { mediaRemoved })
+    }
   }
 }

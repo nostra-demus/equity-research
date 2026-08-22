@@ -484,7 +484,7 @@ interface State {
    *  opening them" setting turns any inline PDF into a download no header can override — whereas an
    *  embedded frame still renders. So a PDF thesis opens in the cockpit rather than depending on how the
    *  reader's browser happens to be configured. */
-  openOutput: { path?: string; title: string; verdict?: string | null; nodeKey?: string; pending?: boolean; body?: string; embedUrl?: string } | null
+  openOutput: { path?: string; title: string; verdict?: string | null; nodeKey?: string; pending?: boolean; body?: string; embedUrl?: string; publishedCalls?: boolean } | null
   // ---- chat with your data (closed-book Q&A over a scope's synthesized output) ----
   chatOpen: boolean
   chatScope: ChatScope
@@ -3662,8 +3662,9 @@ export const useStore = create<State>((set, get) => ({
       set({ pipelinesError: e?.message ? String(e.message) : 'could not load the pipelines read' }) // KEEP prior data
     }
   },
-  // open any analyses/ file (review JSON / thesis md / dashboard md) in the OutputReader (renders text).
-  openCallFile: (path, title) => set({ openOutput: { path, title } }),
+  // Open only the published artifact advertised by Calls. OutputReader routes the marker through the
+  // narrow Git-backed endpoint, so a dirty local checkout cannot show different bytes from the card.
+  openCallFile: (path, title) => set({ openOutput: { path, title, publishedCalls: true } }),
   openInlineDoc: (title, body) => set({ openOutput: { title, body } }),
   openEmbeddedDoc: (title, embedUrl) => set({ openOutput: { title, embedUrl } }),
 
