@@ -555,7 +555,7 @@ const failureNote = (reason: string, stderr: string): string =>
 
 function publicationFailureMessage(run: RunState, reason: string): string {
   if (!run.lastProviderMessage || reason.includes('Provider final message:')) return reason
-  return `${reason}\n\nProvider final message:\n${run.lastProviderMessage}`
+  return `${reason}\n\nProvider final message:\n${redactSecrets(run.lastProviderMessage)}`
 }
 
 const streamResultErrors = new WeakMap<RunState, { reason: string; message: string }>()

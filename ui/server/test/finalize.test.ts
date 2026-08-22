@@ -112,7 +112,7 @@ try {
     fs.writeFileSync(path.join(root, 'decision_record.json'), '{}\n')
     const { run, events } = mkRun('full', 'ZZPUB')
     run.publicationCompleted = false
-    run.lastProviderMessage = 'I stopped before requesting publication because the canonical commit step was unavailable.'
+    run.lastProviderMessage = 'I stopped before requesting publication because the canonical commit step was unavailable. token=super-secret-value'
     finalizeRunOnClose(run, { exitCode: 0 }, '')
     assert.equal(run.status, 'error')
     assert.equal((events.find((event) => event.type === 'run-error') as any)?.reason, 'publication_failed')
@@ -120,6 +120,7 @@ try {
       String((events.find((event) => event.type === 'run-error') as any)?.message),
       /Provider final message:[\s\S]*canonical commit step was unavailable/,
     )
+    assert.doesNotMatch(String((events.find((event) => event.type === 'run-error') as any)?.message), /super-secret-value/)
     assert.ok(fs.existsSync(path.join(root, 'final_thesis.md')), 'failed publication retains authored artifacts')
     assert.match(fs.readFileSync(path.join(root, 'RUN_FAILURE.md'), 'utf8'), /canonical commit step was unavailable/)
     assert.equal(readRunMarker(`analyses/ZZPUB_${DATE}`, '.interrupted')?.reason, 'publication_failed')
