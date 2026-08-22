@@ -53,6 +53,27 @@ export const STATE_DIR = process.env.ENGINE_STATE_DIR
   ? path.resolve(process.env.ENGINE_STATE_DIR)
   : path.resolve(__dirname, '..', '.state')
 export const ACTIVITY_LOG_PATH = path.join(STATE_DIR, 'activity-log.jsonl')
+
+// Small operator utilities exposed through the cockpit's Tools workspace. Reel transcription reuses the
+// existing Groq credential but has its own model/runtime knobs. The downloader path is optional: when it
+// is absent, the server installs a pinned, hash-verified yt-dlp release under STATE_DIR on first use. Reel
+// reads are deliberately logged-out: this endpoint never touches the host user's browser cookies.
+export const TOOLS = {
+  reelTranscript: {
+    groqApiKey: process.env.GROQ_API_KEY || '',
+    groqBaseUrl: process.env.GROQ_BASE_URL || 'https://api.groq.com/openai/v1',
+    model: process.env.REEL_TRANSCRIPT_MODEL || 'whisper-large-v3-turbo',
+    ytDlpPath: process.env.REEL_TRANSCRIPT_YTDLP_PATH || '',
+    maxSeconds: (() => {
+      const value = Number(process.env.REEL_TRANSCRIPT_MAX_SECONDS || 20 * 60)
+      return Number.isFinite(value) ? Math.min(60 * 60, Math.max(10, value)) : 20 * 60
+    })(),
+    maxBytes: (() => {
+      const value = Number(process.env.REEL_TRANSCRIPT_MAX_BYTES || 23 * 1024 * 1024)
+      return Number.isFinite(value) ? Math.min(23 * 1024 * 1024, Math.max(1024 * 1024, value)) : 23 * 1024 * 1024
+    })(),
+  },
+}
 // Saved "chat with your data" conversations — one JSON file per conversation, so the full history of
 // every Ask conversation (who asked, when, about which company) survives restarts and can be reopened
 // and continued. Gitignored (lives under .state/). Override the parent with ENGINE_STATE_DIR.

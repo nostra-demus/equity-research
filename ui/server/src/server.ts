@@ -14,7 +14,7 @@ import { z } from 'zod'
 import { readActivity, ACTIVITY_FILTER_KINDS } from './activity-log'
 import { recordDataChange, syncingState, SYNC_WINDOW_MS } from './data-activity'
 import { buildReportHtml, parseMeta, safeName } from './export'
-import { ARTICLE_READ_PROVIDERS, CHAT, DATA_DIR, FILING_READ_PROVIDERS, GDRIVE, HOST, NEWS, PORT, REPO_ROOT, STATE_DIR, WEB_DIST, connectorDispatchReady, feedbackDispatchReady, feedbackEmailReady, isDispatchAdmin, isReservedDataFolder, pipelineScanReady } from './config'
+import { ARTICLE_READ_PROVIDERS, CHAT, DATA_DIR, FILING_READ_PROVIDERS, GDRIVE, HOST, NEWS, PORT, REPO_ROOT, STATE_DIR, TOOLS, WEB_DIST, connectorDispatchReady, feedbackDispatchReady, feedbackEmailReady, isDispatchAdmin, isReservedDataFolder, pipelineScanReady } from './config'
 import { getCreditStatus } from './credit'
 import { analyzeTicker, listTickers } from './data-status'
 import { ensureCompanyFolder, uploadToCompany, deleteDriveFile, deleteDriveFileStrict, companyFolderExists, driveErrorMessage, GDRIVE_ENABLED, readWatchlistFile, uploadToWatchlist } from './drive'
@@ -121,6 +121,7 @@ import { AGENT_RE, EVENT_ID_RE, FEEDBACK_ID_RE, MODULE_RE, SIG_RE, THESIS_RE, TI
 import type { RunKind, RunStatus } from './types'
 import { MANIFEST_SUBJECT_RE, normalizeDataSubject } from './data-subject'
 import { createMemoryReader } from './memory'
+import { purgeReelTempDirs, ReelTranscriptError, transcribeInstagramReel } from './reel-transcript'
 
 // async execFile (never execFileSync in a request handler — a python board rebuild takes seconds and
 // execFileSync would freeze the single event loop, stalling every other request incl. SSE pings; see
@@ -251,6 +252,48 @@ app.get('/api/memory', { config: { rateLimit: { max: 60, timeWindow: '1 minute' 
   // Unavailability is part of memory-ui/1, not a transport failure. Keep it a parseable 200 so the
   // cockpit can explain that state; an actual missing route/network failure remains distinguishable.
   return memoryReader.read()
+})
+
+// ---------- Tools: Reel to Transcript ----------
+// One narrow media utility: validate an Instagram Reel URL, fetch that one media item into a temporary
+// directory, transcribe its speech, then delete the media before replying. The route never accepts a
+// caller-controlled host or output path. A low route budget also keeps repeated media/model work bounded.
+let reelTranscriptsInFlight = 0
+app.post('/api/tools/reel-transcript', { config: { rateLimit: { max: 10, timeWindow: '1 minute' } } }, async (req, reply) => {
+  if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request rejected' })
+  const parsed = z.object({ url: z.string().trim().min(1).max(2_000) }).safeParse(req.body)
+  if (!parsed.success) return reply.code(400).send({ error: 'Paste an Instagram Reel link.', code: 'invalid-reel-url' })
+  if (reelTranscriptsInFlight >= 2) return reply.code(429).send({ error: 'Two Reels are already being transcribed. Try again shortly.', code: 'transcription-busy' })
+  reelTranscriptsInFlight += 1
+  const disconnected = new AbortController()
+  let handlerFinished = false
+  const cancelDisconnected = () => {
+    if (!handlerFinished && !disconnected.signal.aborted) {
+      disconnected.abort(new ReelTranscriptError('Reel transcription was cancelled.', 'transcription-cancelled', 499))
+    }
+  }
+  req.raw.once('aborted', cancelDisconnected)
+  reply.raw.once('close', cancelDisconnected)
+  const signal = AbortSignal.any([disconnected.signal, AbortSignal.timeout(135_000)])
+  try {
+    reply.header('cache-control', 'no-store')
+    return await transcribeInstagramReel(parsed.data.url, {
+      stateDir: STATE_DIR,
+      ...TOOLS.reelTranscript,
+    }, { signal })
+  } catch (cause) {
+    if (disconnected.signal.aborted && reply.raw.destroyed) return reply
+    if (cause instanceof ReelTranscriptError) {
+      return reply.code(cause.statusCode).send({ error: cause.message, code: cause.code })
+    }
+    console.error('[reel-transcript] unexpected failure', cause)
+    return reply.code(500).send({ error: 'The Reel could not be transcribed. Try again.', code: 'transcription-failed' })
+  } finally {
+    handlerFinished = true
+    req.raw.off('aborted', cancelDisconnected)
+    reply.raw.off('close', cancelDisconnected)
+    reelTranscriptsInFlight -= 1
+  }
 })
 
 // ---------- swarms (manifest list for the cockpit's swarm switcher) ----------
@@ -5556,8 +5599,10 @@ process.on('unhandledRejection', (reason) => {
   console.error('[swarm-cockpit] unhandledRejection (continuing)', reason)
 })
 
-app
-  .listen({ host: HOST, port: PORT })
+// A process crash can leave private media behind. Before accepting any request on a restart, remove every
+// abandoned Reel temp directory; there cannot be a live transcription owned by this new process yet.
+purgeReelTempDirs(0)
+  .then(() => app.listen({ host: HOST, port: PORT }))
   .then(() => {
     const g = buildSwarmGraph()
     // eslint-disable-next-line no-console
