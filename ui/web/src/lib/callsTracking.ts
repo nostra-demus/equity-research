@@ -66,7 +66,7 @@ export function callReturnValue(call: CallSummary, value: number | null | undefi
 export function latestCompletedReview(timeline: CallTimelineEntry[]): CallTimelineEntry | null {
   const completed = timeline.filter((row) => row.status === 'done')
   if (!completed.length) return null
-  return [...completed].sort((a, b) => {
+  return completed.sort((a, b) => {
     const ad = a.review_date || ''
     const bd = b.review_date || ''
     if (ad !== bd) return ad < bd ? 1 : -1
