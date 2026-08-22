@@ -30,6 +30,11 @@ assert.equal(
   'https://www.instagram.com/reel/DcUMpKAC-Xd/',
 )
 assert.equal(
+  normalizeInstagramReelUrl('https://www.instagram.com/reels/DcUMpKAC-Xd/'),
+  'https://www.instagram.com/reel/DcUMpKAC-Xd/',
+  'Instagram desktop /reels/ URLs resolve to the same canonical Reel as /reel/ share links',
+)
+assert.equal(
   normalizeInstagramReelUrl('https://m.instagram.com/reel/Ab_c-123/'),
   'https://www.instagram.com/reel/Ab_c-123/',
 )
@@ -64,7 +69,7 @@ const fetchFn = (async (input: string | URL | Request, init?: RequestInit) => {
 }) as typeof fetch
 
 const progress: ReelTranscriptProgressEvent[] = []
-const result = await transcribeInstagramReel('https://instagram.com/reel/Test_123/', config(), {
+const result = await transcribeInstagramReel('https://instagram.com/reels/Test_123/', config(), {
   run,
   fetchFn,
   ensureBinary: async () => '/fake/yt-dlp',
