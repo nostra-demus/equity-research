@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { motion } from 'framer-motion'
 import { useStore } from '../lib/store'
 import { api, isStatic } from '../lib/api'
-import { currentCalls } from '../lib/callsView'
+import { currentCalls, publishedCalls, publishedCallUpdates, publishedNeedsAttention } from '../lib/callsView'
 import { decisionColor } from '../lib/format'
 import type { CallSummary, CallTimelineEntry, CallsResult, CallUpdate, NeedsAttentionRow } from '../lib/types'
 import './CallsTracker.css'
@@ -87,13 +87,13 @@ export function CallsTracker() {
 
   // The published endpoint is versioned independently from the browser bundle. Fail closed if an old or
   // partial deploy sends a non-array field instead of letting one malformed payload take down the panel.
-  const calls = Array.isArray(data?.calls) ? data.calls : []
+  const calls = useMemo(() => publishedCalls(data?.calls), [data?.calls])
   const current = useMemo(() => currentCalls(calls), [calls])
   const currentRoots = useMemo(() => new Set(current
     .map((call) => call?.run_root)
     .filter((root): root is string => typeof root === 'string' && root.length > 0)), [current])
-  const updates = Array.isArray(data?.updates) ? data.updates : []
-  const needsAttention = Array.isArray(data?.needs_attention) ? data.needs_attention : []
+  const updates = useMemo(() => publishedCallUpdates(data?.updates), [data?.updates])
+  const needsAttention = useMemo(() => publishedNeedsAttention(data?.needs_attention), [data?.needs_attention])
   const visibleCalls = view === 'current' ? current : calls
 
   return (

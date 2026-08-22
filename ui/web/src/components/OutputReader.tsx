@@ -62,7 +62,8 @@ export function OutputReader({ output }: { output: { path?: string; title: strin
     // folder, which api.output deliberately cannot read) renders directly — same pipeline, no fetch.
     if (output.embedUrl) { setMd(''); setLoading(false); return } // rendered by the viewer, not fetched
     if (output.body != null) { setMd(output.body); setLoading(false); return }
-    if (!output.path) { setMd(''); setLoading(false); return } // pending (not-yet-run) node — nothing to fetch
+    const path = output.path
+    if (!path) { setMd(''); setLoading(false); return } // pending (not-yet-run) node — nothing to fetch
     setLoading(true)
     setMd('')
     // A fetch already in flight when the panel switches documents must not land on the NEW one. Without
@@ -71,7 +72,7 @@ export function OutputReader({ output }: { output: { path?: string; title: strin
     // document. The guard is per-effect-run, so only the newest fetch may write.
     let live = true
     const read = output.publishedCalls ? api.callArtifact : api.output
-    read(output.path)
+    read(path)
       .then((r) => { if (live) setMd(r.markdown) })
       .catch(() => { if (live) setMd('*Could not load this output.*') })
       .finally(() => { if (live) setLoading(false) })
