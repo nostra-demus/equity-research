@@ -206,6 +206,10 @@ function eventFingerprint(item: FeedItem): string {
   return group ? `story:${group}` : `event:${item.event_id}`
 }
 
+function readableHeadline(item: FeedItem): string {
+  return String(item.headline_en || item.headline || '')
+}
+
 function rankInputs(item: FeedItem, independentReports = 1): RescueRankInputs {
   const score = Number.isFinite(item.triage_score) ? Math.round(item.triage_score) : 0
   return {
@@ -215,7 +219,7 @@ function rankInputs(item: FeedItem, independentReports = 1): RescueRankInputs {
     quantified: quantified(item),
     independent_reports: independentReports,
     original_score: score,
-    specific_date: FULL_DATE_RE.test(String(item.headline || '')),
+    specific_date: FULL_DATE_RE.test(readableHeadline(item)),
     found_at: String(item.found_at || item.ts || ''),
     ticker_present: !!identity(item)?.ticker,
   }
@@ -229,7 +233,7 @@ export function classifyInitialRescueDecision(item: FeedItem): RescueInitialDeci
   if (item.inboxed) reason = 'sent_to_main_inbox'
   else if (!Number.isFinite(rawScore) || score < 10 || score > 39) reason = 'score_outside_second_look'
   else if (itemSourceTier(item) === 'social' || item.caution === true || item.via === 'reddit') reason = 'social_low_quality_source'
-  else if (isRoutineFiling(item.headline, itemSourceTier(item))) reason = 'routine_filing'
+  else if (isRoutineFiling(readableHeadline(item), itemSourceTier(item))) reason = 'routine_filing'
   else if (item.dedup_status === 'possible_duplicate') reason = 'duplicate_story'
   else if (!identity(item)) reason = 'no_company_identity'
   else if (!decisionEvent(item) && !quantified(item)) reason = 'no_strong_company_event'
@@ -286,7 +290,7 @@ export function selectRescueCandidates(
       counts.outside_score++; continue
     }
     if (itemSourceTier(item) === 'social' || item.caution === true || item.via === 'reddit') { counts.social++; continue }
-    if (isRoutineFiling(item.headline, itemSourceTier(item))) { counts.routine_filing++; continue }
+    if (isRoutineFiling(readableHeadline(item), itemSourceTier(item))) { counts.routine_filing++; continue }
     if (blockedEventIds.has(item.event_id) || (!!item.dedup_group && blockedEventIds.has(item.dedup_group))) {
       counts.manually_blocked++; continue
     }

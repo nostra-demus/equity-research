@@ -71,6 +71,8 @@ export interface RescueRuntimeHealth {
   consecutive_directory_failures: number
   directory_pause_until: string | null
   last_directory_status: RescueIdentityStatus | null
+  normal_ideas_ready: boolean
+  normal_ideas_reason: string | null
 }
 
 const stateRoot = (stateDir: string): string => path.join(stateDir, ROOT)
@@ -155,6 +157,33 @@ function isRescueQueueItem(item: unknown): item is FeedItem {
   if (row.decision_reason_codes != null
     && (!Array.isArray(row.decision_reason_codes) || !row.decision_reason_codes.every((value) => typeof value === 'string'))) return false
   return typeof row.decision_rule_version === 'string' && row.decision_rule_version.length > 0
+}
+
+function isRescueRankInputs(value: unknown): value is RescueRankInputs {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) return false
+  const rank = value as Record<string, unknown>
+  return ['strong_signal_count', 'event_priority', 'source_rank', 'independent_reports', 'original_score']
+    .every((key) => typeof rank[key] === 'number' && Number.isFinite(rank[key]))
+    && typeof rank.quantified === 'boolean'
+    && typeof rank.specific_date === 'boolean'
+    && typeof rank.found_at === 'string'
+    && typeof rank.ticker_present === 'boolean'
+}
+
+function isRescueCheckRecord(value: unknown): value is RescueCheckRecord {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) return false
+  const check = value as Record<string, unknown>
+  if (typeof check.key !== 'string' || !check.key || typeof check.event_id !== 'string' || !check.event_id) return false
+  if (typeof check.identity_key !== 'string' || !check.identity_key || !Number.isInteger(check.attempt) || Number(check.attempt) < 1) return false
+  if (check.pool !== 'ticker' && check.pool !== 'name') return false
+  if (typeof check.reserved_at !== 'string' || typeof check.company_name !== 'string') return false
+  if (typeof check.selector_version !== 'string' || !check.selector_version || !isRescueRankInputs(check.rank_inputs)) return false
+  if (check.completed_at != null && typeof check.completed_at !== 'string') return false
+  if (check.identity_status != null && !['verified', 'identity_unresolved', 'directory_unavailable'].includes(String(check.identity_status))) return false
+  if (check.reason_code != null && !Object.hasOwn(RESCUE_REVIEW_REASON_LABELS, String(check.reason_code))) return false
+  if (check.audit_pending != null && typeof check.audit_pending !== 'boolean') return false
+  if (check.audit_offset != null && (!Number.isSafeInteger(check.audit_offset) || Number(check.audit_offset) < 0)) return false
+  return true
 }
 
 function loadQueueSnapshot(file: string): RescueQueueSnapshot {
@@ -251,7 +280,8 @@ export function loadRescueDay(stateDir: string, date: string): { available: bool
     const stat = fs.statSync(file)
     if (!stat.isFile() || stat.size < 2 || stat.size > DAILY_MAX_BYTES) throw new Error('day size')
     const raw = JSON.parse(fs.readFileSync(file, 'utf8'))
-    if (raw?.v !== 1 || raw.date !== date || !Array.isArray(raw.checks) || raw.checks.length > DAILY_MAX_ITEMS) throw new Error('day shape')
+    if (raw?.v !== 1 || raw.date !== date || !Array.isArray(raw.checks) || raw.checks.length > DAILY_MAX_ITEMS
+      || !raw.checks.every(isRescueCheckRecord)) throw new Error('day shape')
     return { available: true, ledger: raw as RescueDayLedger }
   } catch {
     return { available: false, ledger: empty }
@@ -341,6 +371,23 @@ function auditRowAtOffset(file: string, offset: number): string | null {
   }
 }
 
+function syncParentDirectory(file: string): boolean {
+  // Sync the ledger directory for the new monthly file, then its parent for the ledger directory entry
+  // itself. The news-rescue parent already exists before a result can be reserved.
+  for (const dir of [path.dirname(file), path.dirname(path.dirname(file))]) {
+    let fd: number | undefined
+    try {
+      fd = fs.openSync(dir, 'r')
+      fs.fsyncSync(fd)
+    } catch {
+      return false
+    } finally {
+      if (fd !== undefined) try { fs.closeSync(fd) } catch { /* no-op */ }
+    }
+  }
+  return true
+}
+
 function appendAudit(stateDir: string, record: RescueCheckRecord, maxBytes: number, checkExisting = false): boolean {
   const month = record.reserved_at.slice(0, 7)
   const file = auditFile(stateDir, month)
@@ -355,13 +402,19 @@ function appendAudit(stateDir: string, record: RescueCheckRecord, maxBytes: numb
     const size = fs.existsSync(file) ? fs.statSync(file).size : 0
     // Crash repair reads one bounded row at the offset saved before the append. It never reparses the
     // monthly file, and a different row at that byte closes the lane instead of guessing about order.
-    if (checkExisting && size > expectedOffset) return auditRowAtOffset(file, expectedOffset) === record.key
+    if (checkExisting && size > expectedOffset) {
+      return auditRowAtOffset(file, expectedOffset) === record.key && syncParentDirectory(file)
+    }
     if (size !== expectedOffset) return false
     if (size + line.length > maxBytes) return false
     fd = fs.openSync(file, 'a', 0o600)
     fs.writeFileSync(fd, line)
     fs.fsyncSync(fd)
-    return true
+    fs.closeSync(fd)
+    fd = undefined
+    // The file bytes alone are not enough for a newly created monthly ledger. Make its directory entry
+    // durable before the caller is allowed to clear audit_pending from the short-lived daily authority.
+    return syncParentDirectory(file)
   } catch {
     return false
   } finally {
@@ -473,6 +526,7 @@ export function readRescueHealth(stateDir: string): RescueRuntimeHealth {
   const fallback: RescueRuntimeHealth = {
     v: 1, updated_at: new Date(0).toISOString(), audit_healthy: true, audit_error: null,
     consecutive_directory_failures: 0, directory_pause_until: null, last_directory_status: null,
+    normal_ideas_ready: true, normal_ideas_reason: null,
   }
   const file = healthFile(stateDir)
   if (!fs.existsSync(file)) return fallback
@@ -487,6 +541,8 @@ export function readRescueHealth(stateDir: string): RescueRuntimeHealth {
       consecutive_directory_failures: Math.max(0, Number(raw.consecutive_directory_failures) || 0),
       directory_pause_until: typeof raw.directory_pause_until === 'string' ? raw.directory_pause_until : null,
       last_directory_status: ['verified', 'identity_unresolved', 'directory_unavailable'].includes(raw.last_directory_status) ? raw.last_directory_status : null,
+      normal_ideas_ready: raw.normal_ideas_ready == null ? true : raw.normal_ideas_ready === true,
+      normal_ideas_reason: typeof raw.normal_ideas_reason === 'string' ? raw.normal_ideas_reason : null,
     }
   } catch {
     return { ...fallback, audit_healthy: false, audit_error: 'The second-look health record cannot be read.' }
@@ -501,6 +557,18 @@ export function updateRescueHealth(
   const current = readRescueHealth(stateDir)
   const next: RescueRuntimeHealth = { ...current, ...patch, v: 1, updated_at: new Date(now).toISOString() }
   return atomicWriteJson(healthFile(stateDir), next, 64 * 1024)
+}
+
+export function noteNormalIdeasReadiness(
+  stateDir: string,
+  ready: boolean,
+  reason: string | null,
+  now = Date.now(),
+): boolean {
+  return updateRescueHealth(stateDir, {
+    normal_ideas_ready: ready,
+    normal_ideas_reason: ready ? null : String(reason || 'Normal Ideas work did not finish.').slice(0, 240),
+  }, now)
 }
 
 export function noteDirectoryResult(stateDir: string, status: RescueIdentityStatus, now = Date.now()): RescueRuntimeHealth {

@@ -80,16 +80,22 @@ async function verifyCandidate(
   const result = await searchSymbolsChecked(candidate.query, fetchImpl, { useCache: true })
   if (result.status === 'unavailable') return { status: 'directory_unavailable' }
   if (candidate.ticker) {
-    const hit = result.groups.find((group) => {
-      if (!directoryTickerMatches(candidate.ticker, group.symbol, candidate.listing_country)
-        || !String(group.exchange || '').trim()) return false
-      if (!candidate.company_name) return true
-      const actual = String(group.name || '').toLowerCase()
-      const expected = candidate.company_name.toLowerCase()
-      return companyNameMatches(actual, expected) || companyNameMatches(expected, actual)
-    })
+    const hit = result.groups.flatMap((group) => {
+      const matchingSymbol = [group.symbol, ...group.aliases]
+        .find((symbol) => directoryTickerMatches(candidate.ticker, symbol, candidate.listing_country))
+      const exchange = matchingSymbol
+        ? String(group.aliasExchanges?.[matchingSymbol] || (matchingSymbol === group.symbol ? group.exchange : '')).trim()
+        : ''
+      if (!matchingSymbol || !exchange) return []
+      if (candidate.company_name) {
+        const actual = String(group.name || '').toLowerCase()
+        const expected = candidate.company_name.toLowerCase()
+        if (!companyNameMatches(actual, expected) && !companyNameMatches(expected, actual)) return []
+      }
+      return [{ group, matchingSymbol, exchange }]
+    })[0]
     return hit
-      ? { status: 'verified', ticker: cleanTicker(hit.symbol), companyName: hit.name, exchange: hit.exchange }
+      ? { status: 'verified', ticker: cleanTicker(hit.matchingSymbol), companyName: hit.group.name, exchange: hit.exchange }
       : { status: 'identity_unresolved' }
   }
   const expected = coreCompanyName(candidate.company_name)
@@ -109,6 +115,7 @@ function diagnosticsFromState(
   coreReady: boolean,
   blockedEventIds: ReadonlySet<string>,
   humanActionsReady: boolean,
+  normalIdeasReady: boolean,
 ): RescueDiagnostics {
   const health = readRescueHealth(stateDir)
   const queue = loadRescueQueue(stateDir)
@@ -143,6 +150,7 @@ function diagnosticsFromState(
   const queuedForLater = dailyCapReached ? 0 : Math.max(0, remaining.length - nameCapBlocked)
   const rescueStateHealthy = health.audit_healthy && queue.available && day.available && history.available
   const auditHealthy = rescueStateHealthy && humanActionsReady
+  const ideasReady = normalIdeasReady && health.normal_ideas_ready
   let status: RescueDiagnostics['status'] = 'ready'
   let reason = 'The second look is running in shadow mode. It checks company identity but reads no articles and creates no ideas.'
   if (config.mode === 'off') { status = 'disabled'; reason = 'The second look is turned off.' }
@@ -150,6 +158,10 @@ function diagnosticsFromState(
   else if (!humanActionsReady) {
     status = 'audit_unavailable'
     reason = 'Saved dismissals and manual blocks cannot be read safely, so the second look is paused until that record is repaired.'
+  }
+  else if (!ideasReady) {
+    status = 'paused_core_work'
+    reason = health.normal_ideas_reason || 'Normal Ideas work did not finish, so the second look did no work.'
   }
   else if (!coreReady) { status = 'paused_core_work'; reason = 'Normal news or Ideas work is still waiting, so the second look did no work.' }
   else if (directoryPaused(health.directory_pause_until, now)) {
@@ -188,8 +200,9 @@ export function getRescueDiagnostics(
   coreReady = true,
   blockedEventIds: ReadonlySet<string> = new Set(),
   humanActionsReady = true,
+  normalIdeasReady = true,
 ): RescueDiagnostics {
-  return diagnosticsFromState(stateDir, config, now, coreReady, blockedEventIds, humanActionsReady)
+  return diagnosticsFromState(stateDir, config, now, coreReady, blockedEventIds, humanActionsReady, normalIdeasReady)
 }
 
 export async function runRescueShadowPass(deps: {
@@ -201,11 +214,13 @@ export async function runRescueShadowPass(deps: {
   log?: (message: string) => void
   blockedEventIds?: ReadonlySet<string>
   humanActionsReady?: boolean
+  normalIdeasReady?: boolean
 }): Promise<RescueShadowResult> {
   const now = deps.now?.() ?? Date.now()
   const log = deps.log || (() => {})
   const blockedEventIds = deps.blockedEventIds || new Set<string>()
   const humanActionsReady = deps.humanActionsReady !== false
+  const normalIdeasReady = deps.normalIdeasReady !== false
   const date = utcDate(now)
   const initialHealth = readRescueHealth(deps.stateDir)
   if (deps.config.mode === 'shadow' && initialHealth.audit_error === RESCUE_RESERVATION_WRITE_ERROR
@@ -228,14 +243,18 @@ export async function runRescueShadowPass(deps: {
       }, now)
     }
   }
-  let diagnostic = diagnosticsFromState(deps.stateDir, deps.config, now, deps.coreReady, blockedEventIds, humanActionsReady)
+  let diagnostic = diagnosticsFromState(
+    deps.stateDir, deps.config, now, deps.coreReady, blockedEventIds, humanActionsReady, normalIdeasReady,
+  )
   if (diagnostic.status !== 'ready') return { ...diagnostic, checkedThisCycle: 0 }
   if (!reconcileRescueDayLedgers(deps.stateDir, now, deps.config.auditMaxBytes)) {
     updateRescueHealth(deps.stateDir, {
       audit_healthy: false,
       audit_error: 'The detailed second-look record is full or could not be saved.',
     }, now)
-    diagnostic = diagnosticsFromState(deps.stateDir, deps.config, now, deps.coreReady, blockedEventIds, humanActionsReady)
+    diagnostic = diagnosticsFromState(
+      deps.stateDir, deps.config, now, deps.coreReady, blockedEventIds, humanActionsReady, normalIdeasReady,
+    )
     return { ...diagnostic, checkedThisCycle: 0 }
   }
 
@@ -243,7 +262,9 @@ export async function runRescueShadowPass(deps: {
   const day = loadRescueDay(deps.stateDir, date)
   const history = recentChecks(deps.stateDir, now)
   if (!queue.available || !day.available || !history.available) return {
-    ...diagnosticsFromState(deps.stateDir, deps.config, now, deps.coreReady, blockedEventIds, humanActionsReady), checkedThisCycle: 0,
+    ...diagnosticsFromState(
+      deps.stateDir, deps.config, now, deps.coreReady, blockedEventIds, humanActionsReady, normalIdeasReady,
+    ), checkedThisCycle: 0,
   }
   const selection = selectRescueCandidates(queue.items, now, deps.config.maxAgeHrs, blockedEventIds)
   const checks = [...day.ledger.checks]
@@ -305,7 +326,8 @@ export async function runRescueShadowPass(deps: {
     if (directoryPaused(health.directory_pause_until, deps.now?.() ?? Date.now())) break
   }
   diagnostic = diagnosticsFromState(
-    deps.stateDir, deps.config, deps.now?.() ?? Date.now(), deps.coreReady, blockedEventIds, humanActionsReady,
+    deps.stateDir, deps.config, deps.now?.() ?? Date.now(), deps.coreReady,
+    blockedEventIds, humanActionsReady, normalIdeasReady,
   )
   return { ...diagnostic, checkedThisCycle }
 }

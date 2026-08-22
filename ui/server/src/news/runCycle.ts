@@ -2369,7 +2369,9 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
   // per-item feed records — for KEPT and DROPPED alike, so the live wire shows everything the
   // scanner read and why; then stream each to live listeners
   const feedItems: FeedItem[] = feedCandidates.map((t) => {
-    if (t.pending_feed_item) return t.pending_feed_item
+    // A prior-version row can cross the durable feed boundary only after a restart. Add the current
+    // decision annotation here too so recovered scored work remains part of shadow reconciliation.
+    if (t.pending_feed_item) return withInitialRescueDecision(t.pending_feed_item)
     const clocks = revisionClocksByEvent.get(t.event_id)
     const sourceIsEnglish = clocks ? clocks.sourceIsEnglish : t.source_is_english === true
     return withInitialRescueDecision({

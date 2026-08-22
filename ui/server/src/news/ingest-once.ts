@@ -33,7 +33,7 @@ export interface StandalonePassResult<TSummary, TIdea, TSecondLook, TOutcomes> {
  * due 3–6-month research forecast from being graded. */
 export async function runStandalonePasses<TSummary, TIdea, TSecondLook, TOutcomes>(deps: {
   ingest: () => Promise<TSummary>
-  ideas: () => Promise<{ ideaPass: TIdea; secondLook: TSecondLook }>
+  ideas: () => Promise<{ ideaPass: TIdea; secondLook: TSecondLook | null }>
   outcomes: () => Promise<TOutcomes>
 }): Promise<StandalonePassResult<TSummary, TIdea, TSecondLook, TOutcomes>> {
   let summary: TSummary | null = null
@@ -67,7 +67,9 @@ async function main(): Promise<void> {
     try {
       const { ideaPass, secondLook } = await runNormalIdeasThenSecondLook({
         ideas: () => runConfiguredIdeaPass(log),
-        secondLook: () => runConfiguredRescueShadow(log),
+        secondLook: () => runConfiguredRescueShadow(log, true),
+        onSecondLookBlocked: () =>
+          runConfiguredRescueShadow(log, false, 'The normal Ideas scan did not finish, so the second look waited.'),
       })
       const qualifiedOutcomes = await runConfiguredQualifiedIdeaOutcomes(log)
       log('news ingestion is disabled; skipped fetching and ran only independent outcome settlement')
@@ -97,7 +99,9 @@ async function main(): Promise<void> {
       ideas: async () => {
         return runNormalIdeasThenSecondLook({
           ideas: () => runConfiguredIdeaPass(log),
-          secondLook: () => runConfiguredRescueShadow(log),
+          secondLook: () => runConfiguredRescueShadow(log, true),
+          onSecondLookBlocked: () =>
+            runConfiguredRescueShadow(log, false, 'The normal Ideas scan did not finish, so the second look waited.'),
         })
       },
       outcomes: () => runConfiguredQualifiedIdeaOutcomes(log),

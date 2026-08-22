@@ -290,6 +290,7 @@ export function PipelineDiagnostics() {
   const todayCopy = diag ? todayOutcomeCopy(diag.today, diag.flow?.history?.gapMarkerUnreadable === true) : null
   const deferReasons = diag ? diagnosticDeferReasons(diag.defer) : []
   const storageEmergency = deferReasons.includes('storage-emergency')
+  const dailyScoringTotalsKnown = diag?.today.totalsLowerBound === false && diag?.today.durablyCommitted === true
   // Tiers the provider is refusing the key for. Read off the per-tier flag rather than the defer group so this
   // still renders against an engine that has the flag but not yet the group (rolling deploy).
   const credentialBlocked = (diag?.tiers || []).filter((t) => t.enabled && t.spendingAllowed !== false && t.credentialRejected === true)
@@ -403,10 +404,10 @@ export function PipelineDiagnostics() {
             <div className="diagwhy" role="status">
               <ul className="diagwhy__list">
                 <li><b>{diag.today.newArrivals == null ? '—' : diag.today.newArrivals.toLocaleString()}</b> new items found today{diag.today.newArrivals == null ? ' — older records cannot prove the unique total.' : '.'}</li>
-                <li><b>{diag.today.read.toLocaleString()}</b> items fully scored.</li>
+                <li><b>{dailyScoringTotalsKnown ? diag.today.read.toLocaleString() : '—'}</b> items fully scored{dailyScoringTotalsKnown ? '.' : ' — saved cycle records cannot prove the full total.'}</li>
                 <li><b>{diag.backlog.unavailable ? '—' : (diag.backlog.unscoredCount ?? diag.backlog.count).toLocaleString()}</b> items currently waiting for a first score{diag.backlog.unavailable ? ' — the saved waiting list could not be read.' : '.'}</li>
                 {(diag.backlog.projectionRecoveryCount ?? 0) > 0 && <li><b>{diag.backlog.projectionRecoveryCount!.toLocaleString()}</b> items already scored and waiting to be safely saved.</li>}
-                <li><b>{diag.today.dropped.toLocaleString()}</b> items scored but not sent to the main inbox.</li>
+                <li><b>{dailyScoringTotalsKnown ? diag.today.dropped.toLocaleString() : '—'}</b> items scored but not sent to the main inbox{dailyScoringTotalsKnown ? '.' : ' — saved cycle records cannot prove the full total.'}</li>
                 <li><b>{diag.backlog.lostToday.toLocaleString()}</b> items never scored by older scanner versions because the active waiting list was full.</li>
                 <li><b>{(diag.backlog.retiredToday ?? 0).toLocaleString()}</b> items never scored because they waited too long.</li>
               </ul>

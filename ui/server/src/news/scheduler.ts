@@ -29,6 +29,7 @@ import { omniRouteDisabledReason } from './omniroute-provision-status'
 import { credentialRejected, evaluateProviderRouting, type ProviderRouterMetadata, type ProviderRoutingCandidate } from './provider-routing'
 import { getRescueDiagnostics, runRescueShadowPass, type RescueDiagnostics, type RescueShadowConfig } from './rescue/shadow'
 import { runNormalIdeasThenSecondLook } from './rescue/order'
+import { noteNormalIdeasReadiness } from './rescue/store'
 import { readInboxHumanActions } from './inbox-actions'
 import type { CycleSummary, DeferReason, LastResortState } from './types'
 
@@ -157,14 +158,20 @@ function rescueHumanBlocks(): { complete: boolean; ids: Set<string> } {
 }
 
 /** Shadow work always runs after the normal Ideas pass and never performs a body read. */
-export async function runConfiguredRescueShadow(log: (m: string) => void = () => {}) {
+export async function runConfiguredRescueShadow(
+  log: (m: string) => void = () => {},
+  normalIdeasReady = true,
+  normalIdeasReason: string | null = null,
+) {
   const status = getNewsStatus()
   const humanBlocks = rescueHumanBlocks()
+  const ideasReadinessRecorded = noteNormalIdeasReadiness(STATE_DIR, normalIdeasReady, normalIdeasReason)
   return runRescueShadowPass({
     stateDir: STATE_DIR,
     config: RESCUE_SHADOW_CONFIG,
     coreReady: rescueCoreReady(status),
     humanActionsReady: humanBlocks.complete,
+    normalIdeasReady: normalIdeasReady && ideasReadinessRecorded,
     blockedEventIds: humanBlocks.ids,
     log,
   })
@@ -1702,7 +1709,9 @@ export function startNewsIngester(): void {
       try {
         await runNormalIdeasThenSecondLook({
           ideas: () => runConfiguredIdeaPass(log),
-          secondLook: () => runConfiguredRescueShadow(log),
+          secondLook: () => runConfiguredRescueShadow(log, true),
+          onSecondLookBlocked: () =>
+            runConfiguredRescueShadow(log, false, 'The normal Ideas scan did not finish, so the second look waited.'),
         })
       }
       catch (e: any) { log(`idea pass error: ${e?.message || e}`) }
@@ -1750,7 +1759,9 @@ export function startNewsIngester(): void {
       // Outcome settlement has one owner: its independent interval above.
       await runNormalIdeasThenSecondLook({
         ideas: () => runConfiguredIdeaPass(log),
-        secondLook: () => runConfiguredRescueShadow(log),
+        secondLook: () => runConfiguredRescueShadow(log, true),
+        onSecondLookBlocked: () =>
+          runConfiguredRescueShadow(log, false, 'The normal Ideas scan did not finish, so the second look waited.'),
       })
     } catch (e: any) {
       // runConfiguredIdeaPass is fail-soft, but keep a final boundary so an unexpected regression cannot

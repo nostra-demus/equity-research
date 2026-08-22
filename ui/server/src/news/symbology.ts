@@ -194,7 +194,14 @@ export function tickerHitAny(tagTicker: unknown, picks: string[]): boolean {
 export interface SymbolQuote { symbol: string; name: string; exchange: string }
 // One company across its listings: the primary symbol (the best match for what was typed) + every
 // sibling listing as an alias — what the autofill offers and what the pick carries into the filter.
-export interface SymbolGroup { name: string; symbol: string; exchange: string; aliases: string[] }
+export interface SymbolGroup {
+  name: string
+  symbol: string
+  exchange: string
+  aliases: string[]
+  /** Venue provenance for each alias returned by the same raw directory query. */
+  aliasExchanges?: Record<string, string>
+}
 
 /** Fold raw search quotes into one group per company (keyed by core name), preserving relevance order.
  *  Pure — unit-tested without network. */
@@ -205,8 +212,15 @@ export function groupQuotes(quotes: SymbolQuote[]): SymbolGroup[] {
     if (!sym) continue
     const key = coreCompanyName(q.name) || baseTicker(sym)
     const g = groups.get(key)
-    if (!g) groups.set(key, { name: q.name, symbol: normTicker(sym), exchange: q.exchange, aliases: [normTicker(sym)] })
-    else if (!g.aliases.includes(normTicker(sym))) g.aliases.push(normTicker(sym))
+    const normalized = normTicker(sym)
+    if (!g) groups.set(key, {
+      name: q.name, symbol: normalized, exchange: q.exchange, aliases: [normalized],
+      aliasExchanges: { [normalized]: q.exchange },
+    })
+    else if (!g.aliases.includes(normalized)) {
+      g.aliases.push(normalized)
+      g.aliasExchanges = { ...g.aliasExchanges, [normalized]: q.exchange }
+    }
   }
   return [...groups.values()]
 }
@@ -288,7 +302,9 @@ async function cachedSearch(q: string, fetchImpl: FetchLike): Promise<SymbolGrou
 export async function searchSymbolsEnriched(q: string, fetchImpl: FetchLike = fetch): Promise<SymbolGroup[]> {
   let groups: SymbolGroup[]
   try {
-    groups = (await cachedSearch(q, fetchImpl)).map((g) => ({ ...g, aliases: [...g.aliases] }))
+    groups = (await cachedSearch(q, fetchImpl)).map((g) => ({
+      ...g, aliases: [...g.aliases], ...(g.aliasExchanges ? { aliasExchanges: { ...g.aliasExchanges } } : {}),
+    }))
   } catch {
     return [] // primary search offline / blocked / slow — the filter degrades to archive-facet + free-typed matching
   }
@@ -299,7 +315,11 @@ export async function searchSymbolsEnriched(q: string, fetchImpl: FetchLike = fe
       try {
         const byName = await cachedSearch(core, fetchImpl)
         const sib = byName.find((g) => coreCompanyName(g.name) === core)
-        for (const a of sib?.aliases || []) if (!top.aliases.includes(a)) top.aliases.push(a)
+        for (const a of sib?.aliases || []) if (!top.aliases.includes(a)) {
+          top.aliases.push(a)
+          const exchange = sib?.aliasExchanges?.[a]
+          if (exchange) top.aliasExchanges = { ...top.aliasExchanges, [a]: exchange }
+        }
       } catch {
         // Sibling-enrichment failed (transient) — keep the successfully-fetched primary groups rather
         // than discarding them; the pick just carries fewer cross-listing aliases this time.

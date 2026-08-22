@@ -68,6 +68,12 @@ check('an unreadable saved backlog is shown as unknown, never as a proven zero',
   assert.match(panel, /the saved waiting list could not be read/)
 })
 
+check('incomplete daily cycle history cannot publish scored and rejected totals as exact', () => {
+  assert.match(panel, /dailyScoringTotalsKnown/)
+  assert.match(panel, /dailyScoringTotalsKnown \? diag\.today\.read\.toLocaleString\(\) : '—'/)
+  assert.match(panel, /dailyScoringTotalsKnown \? diag\.today\.dropped\.toLocaleString\(\) : '—'/)
+})
+
 check('pool-cap misses do not hide candidates that still have a paced slot later today', () => {
   assert.match(panel, /diag\.rescue\.queuedForLater > 0/)
   assert.doesNotMatch(panel, /queuedForLater > 0 && diag\.rescue\.capacityMisses/)

@@ -6,7 +6,7 @@ import { RESCUE_SELECTOR_VERSION, selectRescueCandidates, withInitialRescueDecis
 import { getRescueDiagnostics, runRescueShadowPass, type RescueShadowConfig } from '../src/news/rescue/shadow'
 import { runNormalIdeasThenSecondLook } from '../src/news/rescue/order'
 import {
-  completeRescueCheck, loadRescueDay, loadRescueQueue, readRescueHealth,
+  completeRescueCheck, flushPendingRescueAudit, loadRescueDay, loadRescueQueue, readRescueHealth,
   recordRescueRows, reserveRescueCheck, updateRescueHealth,
 } from '../src/news/rescue/store'
 import { invalidateSymbolCache } from '../src/news/symbology'
@@ -19,12 +19,54 @@ const baseConfig: RescueShadowConfig = {
 }
 
 {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'rescue-shadow-audit-directory-sync-'))
+  const open = fs.openSync
+  try {
+    const candidate = selectRescueCandidates([row(1)], START).candidates[0]
+    const reservation = reserveRescueCheck(root, '2026-08-22', candidate, RESCUE_SELECTOR_VERSION, START)
+    assert.ok(reservation)
+    const auditDir = path.join(root, 'news-rescue', 'ledger')
+    ;(fs as any).openSync = (target: fs.PathLike, flags: string | number, mode?: number) => {
+      if (String(target) === auditDir && flags === 'r') throw new Error('injected directory fsync failure')
+      return open(target, flags as any, mode)
+    }
+    assert.equal(completeRescueCheck(root, '2026-08-22', reservation.key, {
+      status: 'verified', ticker: 'C1', companyName: 'Company 1 Inc', exchange: 'NYSE',
+    }, baseConfig.auditMaxBytes, START), false,
+    'a result cannot finalize when the monthly audit directory entry is not proven durable')
+    assert.equal(loadRescueDay(root, '2026-08-22').ledger.checks[0].audit_pending, true)
+    ;(fs as any).openSync = open
+    assert.equal(flushPendingRescueAudit(root, '2026-08-22', baseConfig.auditMaxBytes), true)
+    assert.equal(loadRescueDay(root, '2026-08-22').ledger.checks[0].audit_pending, false)
+  } finally {
+    ;(fs as any).openSync = open
+    fs.rmSync(root, { recursive: true, force: true })
+  }
+}
+
+{
   const order: string[] = []
   await runNormalIdeasThenSecondLook({
-    ideas: async () => { order.push('normal-start'); await Promise.resolve(); order.push('normal-finish') },
+    ideas: async () => {
+      order.push('normal-start'); await Promise.resolve(); order.push('normal-finish')
+      return { coverage_complete: true }
+    },
     secondLook: async () => { order.push('second-look') },
   })
   assert.deepEqual(order, ['normal-start', 'normal-finish', 'second-look'], 'normal Ideas always finishes first')
+}
+
+{
+  let secondLookRan = false
+  let blockedRecorded = false
+  const result = await runNormalIdeasThenSecondLook({
+    ideas: async () => ({ coverage_complete: false, ran: false, note: 'provider failed softly' }),
+    secondLook: async () => { secondLookRan = true; return 'ran' },
+    onSecondLookBlocked: async () => { blockedRecorded = true; return 'paused' },
+  })
+  assert.equal(secondLookRan, false, 'a fail-soft normal Ideas result cannot start second-look work')
+  assert.equal(blockedRecorded, true)
+  assert.equal(result.secondLook, 'paused')
 }
 
 function row(index: number, nameOnly = false): FeedItem {
@@ -116,6 +158,27 @@ function responseForUrl(url: string): any {
     const retried = await runRescueShadowPass({ stateDir: root, config: { ...baseConfig, perCycle: 1 }, coreReady: true, fetchImpl: changedFetch, now: () => START })
     assert.equal(retried.checkedThisCycle, 1, 'an unresolved item may be retried when its saved identity changes')
     assert.equal(changedCalls, 1)
+  } finally { fs.rmSync(root, { recursive: true, force: true }) }
+}
+
+{
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'rescue-shadow-directory-alias-'))
+  try {
+    invalidateSymbolCache()
+    assert.equal(recordRescueRows(root, [row(1)], START), true)
+    const aliases = (async () => ({
+      ok: true, status: 200, json: async () => ({ quotes: [
+        { quoteType: 'EQUITY', symbol: 'C1.L', longname: 'Company 1 Inc', exchDisp: 'LSE' },
+        { quoteType: 'EQUITY', symbol: 'C1', longname: 'Company 1 Inc', exchDisp: 'NYSE' },
+      ] }),
+    })) as any
+    const result = await runRescueShadowPass({
+      stateDir: root, config: { ...baseConfig, perCycle: 1 }, coreReady: true, fetchImpl: aliases, now: () => START,
+    })
+    assert.equal(result.verified, 1)
+    const check = loadRescueDay(root, '2026-08-22').ledger.checks[0]
+    assert.equal(check.ticker, 'C1')
+    assert.equal(check.exchange, 'NYSE', 'an exact alias keeps its own listing venue, not the group primary venue')
   } finally { fs.rmSync(root, { recursive: true, force: true }) }
 }
 
@@ -261,6 +324,20 @@ function responseForUrl(url: string): any {
     })}\n`)
     assert.equal(loadRescueQueue(root).available, false,
       'a JSON-valid row with selector-unsafe shapes closes the durable queue instead of throwing later')
+  } finally { fs.rmSync(root, { recursive: true, force: true }) }
+}
+
+{
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'rescue-shadow-malformed-day-'))
+  try {
+    const dir = path.join(root, 'news-rescue', 'days')
+    fs.mkdirSync(dir, { recursive: true })
+    fs.writeFileSync(path.join(dir, '2026-08-22.json'), `${JSON.stringify({
+      v: 1, date: '2026-08-22', checks: [null],
+    })}\n`)
+    assert.equal(loadRescueDay(root, '2026-08-22').available, false)
+    assert.equal(getRescueDiagnostics(root, baseConfig, START).status, 'audit_unavailable',
+      'a malformed durable check closes diagnostics instead of throwing')
   } finally { fs.rmSync(root, { recursive: true, force: true }) }
 }
 
@@ -412,6 +489,11 @@ function responseForUrl(url: string): any {
     assert.match(humanLedgerPaused.reason, /dismissals and manual blocks/i,
       'a damaged human-action authority is not mislabeled as ordinary queued work')
     assert.equal(calls, 0)
+    const ideasPaused = await runRescueShadowPass({
+      stateDir: root, config: baseConfig, coreReady: true, normalIdeasReady: false, fetchImpl, now: () => START,
+    })
+    assert.equal(ideasPaused.status, 'paused_core_work')
+    assert.equal(calls, 0, 'unfinished normal Ideas work always wins over the second look')
   } finally { fs.rmSync(root, { recursive: true, force: true }) }
 }
 

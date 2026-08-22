@@ -57,6 +57,20 @@ function row(id: string, fields: Partial<FeedItem> = {}): FeedItem {
 }
 
 {
+  const translatedRoutine = row('EVT-translated-routine', {
+    headline: '公司公告', headline_en: 'Acme Ltd - Board Meeting Intimation for quarterly results',
+    source_tier: 'primary_filing', event_types: ['earnings_revenue_margin'],
+  })
+  assert.equal(selectRescueCandidates([translatedRoutine], NOW).reconciled.routine_filing, 1,
+    'routine-filing gates use the saved English translation when the source headline is non-English')
+  const translatedDate = row('EVT-translated-date', {
+    headline: '公司签署合同', headline_en: 'Acme signs a contract on August 22, 2026', event_types: ['commercial'],
+  })
+  assert.equal(selectRescueCandidates([translatedDate], NOW).candidates[0].rank_inputs.specific_date, true,
+    'date priority uses the readable translated headline too')
+}
+
+{
   const multiCompany = row('EVT-roundup', {
     headline: 'Acme and Beta announce commercial updates', event_types: ['commercial'],
     companies: [
