@@ -1,0 +1,73 @@
+{
+  "idea_id": "IDEA-0ac5d784c64f",
+  "idea_version": "IDEAV-4baa810c8a8e6979",
+  "idea_version_started_at": "2026-08-22T22:06:30Z",
+  "ticker": "TSLA",
+  "company": "Tesla",
+  "exchange": "NASDAQ",
+  "ticker_verified": true,
+  "listing_verified": true,
+  "liquidity_verified": false,
+  "listing_verification_source": "yahoo_symbol_directory",
+  "direction": "short",
+  "pair_with": null,
+  "reason": "Chinese regulators forced Tesla to lead a 4 million-vehicle recall, creating direct cost and reputational drag on its largest overseas market.",
+  "why_now": "Recall announced 2026-08-22, a live regulatory action in China.",
+  "conviction": 60,
+  "conviction_basis": "pre_edge_proxy",
+  "trade_score": 60,
+  "trade_score_basis": "evidence_gate_v2",
+  "trade_score_breakdown": {
+    "evidence": 14,
+    "impact": 19,
+    "specificity": 15,
+    "timing": 10,
+    "expression": 6,
+    "corroboration": 0,
+    "learning_adjustment": 0
+  },
+  "trade_readiness": "needs_data",
+  "missing_checks": [
+    "live liquidity",
+    "dated catalyst",
+    "price and market expectations",
+    "independent confirmation",
+    "live price, liquidity, and consensus"
+  ],
+  "learning": {
+    "resolved": 0,
+    "positive": 0,
+    "negative": 0,
+    "neutral": 0,
+    "adjustment": 0,
+    "basis": "not_enough_outcomes",
+    "evidenceIds": []
+  },
+  "priced_in": "unknown",
+  "thesis_type": "company_specific",
+  "origin_type": "wire",
+  "source_themes": [],
+  "source_event_ids": [
+    "EVT-33e42602a963"
+  ],
+  "primary_source_event_id": "EVT-33e42602a963",
+  "source_headlines": [
+    "Tesla leads China’s 4 mn vehicle recall"
+  ],
+  "source_headline": "Tesla leads China’s 4 mn vehicle recall",
+  "source_url": "https://www.qatar-tribune.com/article/249971/business/tesla-leads-chinas-4-mn-vehicle-recall",
+  "source_name": "Qatar Tribune — Business",
+  "materiality_max": 100,
+  "newest_source_at": "2026-08-22T21:00:00Z",
+  "prior_coverage": {
+    "has_run": true,
+    "latest_run": "analyses/TSLA_2026-07-25",
+    "latest_decision": "Short Candidate",
+    "data_pool_present": true
+  },
+  "surfaced_at": "2026-08-22T22:06:30Z",
+  "updated_at": "2026-08-22T22:06:30Z",
+  "decay_at": "2026-08-24T09:00:00Z",
+  "status": "live",
+  "promoted_signal_id": null
+}
