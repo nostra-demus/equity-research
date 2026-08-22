@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Focused tests for the fail-closed OmniRoute private config and no-body key contract."""
+"""Focused tests for fail-closed private provider config and the OmniRoute no-body key contract."""
 
 from __future__ import annotations
 
@@ -31,10 +31,12 @@ class PrivateEnvTest(unittest.TestCase):
     def tearDown(self) -> None:
         self.temp.cleanup()
 
-    def run_setter(self, action: str, value: str = "1") -> subprocess.CompletedProcess[str]:
+    def run_setter(
+        self, action: str, value: str = "1", key: str = "NEWS_OMNIROUTE_ENABLED",
+    ) -> subprocess.CompletedProcess[str]:
         return subprocess.run(
             [sys.executable, "-I", str(SETTER), action, "--file", str(self.env),
-             "--key", "NEWS_OMNIROUTE_ENABLED", "--value", value],
+             "--key", key, "--value", value],
             stdin=subprocess.DEVNULL,
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
@@ -123,6 +125,34 @@ class PrivateEnvTest(unittest.TestCase):
         self.assertEqual(stat.S_IMODE(self.env.stat().st_mode), 0o600)
         self.assertEqual(self.run_setter("matches", "0").returncode, 0)
         self.assertEqual(self.run_setter("matches", "1").returncode, 1)
+
+    def test_provider_rollout_flags_use_the_same_private_atomic_setter(self) -> None:
+        secret = "CLAUDE_CODE_OAUTH_TOKEN=must-stay-byte-for-byte-secret"
+        self.write_env(
+            f"{secret}\n"
+            "NEWS_OMNIROUTE_ENABLED=1\n"
+            "ENGINE_CODEX_ENABLED=0\n",
+        )
+
+        parity = self.run_setter("set", "1", "ENGINE_PROVIDER_PARITY_ENABLED")
+        self.assertEqual(parity.returncode, 0, parity.stderr)
+        self.assertEqual(parity.stdout, "updated\n")
+        payload = self.env.read_text(encoding="utf-8")
+        self.assertIn(f"{secret}\n", payload)
+        self.assertIn("NEWS_OMNIROUTE_ENABLED=1\n", payload)
+        self.assertIn("ENGINE_PROVIDER_PARITY_ENABLED=1\n", payload)
+        self.assertIn("ENGINE_CODEX_ENABLED=0\n", payload)
+        self.assertEqual(
+            self.run_setter("matches", "1", "ENGINE_PROVIDER_PARITY_ENABLED").returncode, 0,
+        )
+
+        codex = self.run_setter("set", "1", "ENGINE_CODEX_ENABLED")
+        self.assertEqual(codex.returncode, 0, codex.stderr)
+        self.assertIn("ENGINE_CODEX_ENABLED=1\n", self.env.read_text(encoding="utf-8"))
+
+        unknown = self.run_setter("set", "1", "ENGINE_UNREVIEWED_FLAG")
+        self.assertEqual(unknown.returncode, 2)
+        self.assertNotIn("ENGINE_UNREVIEWED_FLAG", self.env.read_text(encoding="utf-8"))
 
     def test_set_collapses_duplicate_flag_but_matches_rejects_ambiguity(self) -> None:
         self.write_env(
