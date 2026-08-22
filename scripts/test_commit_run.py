@@ -20,12 +20,16 @@ this asserts and validates that fix stays in place.
 Run: python3 scripts/test_commit_run.py   (exit 0 = all pass)
 """
 import json
+import hashlib
 import os
 import shlex
 import shutil
 import subprocess
 import sys
 import tempfile
+import threading
+from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
+from pathlib import Path
 
 REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 COMMIT_RUN = os.path.join(REPO_ROOT, "scripts", "commit-run.sh")
@@ -75,9 +79,8 @@ def setup_stale_local_main_scenario(tmp):
 
     seed = os.path.join(tmp, "seed")
     run(["git", "clone", "-q", origin, seed], cwd=tmp, env=env)
-    with open(os.path.join(seed, "a.txt"), "w") as f:
-        f.write("A\n")
-    run(["git", "add", "a.txt"], cwd=seed, env=env)
+    write_text(seed, "analyses/base/a.txt", "A\n")
+    run(["git", "add", "analyses/base/a.txt"], cwd=seed, env=env)
     run(["git", "commit", "-q", "-m", "commit A"], cwd=seed, env=env)
     run(["git", "push", "-q", "origin", "main"], cwd=seed, env=env)
 
@@ -116,12 +119,27 @@ def install_prewrite_fixture(agent):
         f.write("# Fixture synthesis\n")
 
 
+def install_provenance_fixture(agent):
+    scripts = os.path.join(agent, "scripts")
+    os.makedirs(scripts, exist_ok=True)
+    shutil.copy2(os.path.join(REPO_ROOT, "scripts", "execution_provenance.py"),
+                 os.path.join(scripts, "execution_provenance.py"))
+
+
 def write_json(repo, relative_path, body):
     absolute = os.path.join(repo, relative_path)
     os.makedirs(os.path.dirname(absolute), exist_ok=True)
     with open(absolute, "w") as f:
         json.dump(body, f)
         f.write("\n")
+    return absolute
+
+
+def write_text(repo, relative_path, body):
+    absolute = os.path.join(repo, relative_path)
+    os.makedirs(os.path.dirname(absolute), exist_ok=True)
+    with open(absolute, "w") as handle:
+        handle.write(body)
     return absolute
 
 
@@ -137,11 +155,11 @@ def test_fast_forward_push_from_non_main_branch_with_stale_local_main():
 
         # The actual change under test: write a new file and commit it via commit-run.sh,
         # exactly as /research:review-decisions (or any module) does.
-        with open(os.path.join(agent, "review.txt"), "w") as f:
-            f.write("new decision review\n")
+        review_path = "analyses/reviews/review.txt"
+        write_text(agent, review_path, "new decision review\n")
 
         result = run(
-            ["bash", COMMIT_RUN, "test: decision review commit", "--", "review.txt"],
+            ["bash", COMMIT_RUN, "test: decision review commit", "--", review_path],
             cwd=agent, env=env, check_rc=False,
         )
 
@@ -163,10 +181,10 @@ def test_fast_forward_push_from_non_main_branch_with_stale_local_main():
 
         # The decisive assertion: the new file actually landed on origin's main — not just
         # committed locally on the agent's `session` branch.
-        show = run(["git", "show", "origin/main:review.txt"], cwd=agent, env=env, check_rc=False)
+        show = run(["git", "show", f"origin/main:{review_path}"], cwd=agent, env=env, check_rc=False)
         # local origin/main tracking ref may be stale until we re-fetch
         run(["git", "fetch", "-q", "origin", "main"], cwd=agent, env=env)
-        show = run(["git", "show", "origin/main:review.txt"], cwd=agent, env=env, check_rc=False)
+        show = run(["git", "show", f"origin/main:{review_path}"], cwd=agent, env=env, check_rc=False)
         check(
             "review.txt is present on origin's main branch after the push",
             show.returncode == 0 and "new decision review" in show.stdout,
@@ -176,7 +194,7 @@ def test_fast_forward_push_from_non_main_branch_with_stale_local_main():
         # And local `main` is untouched — commit-run.sh must not silently mutate branches it
         # isn't asked to touch.
         local_main_after = run(["git", "rev-parse", "main"], cwd=agent, env=env).stdout.strip()
-        with open(os.path.join(agent, "a.txt")) as f:
+        with open(os.path.join(agent, "analyses/base/a.txt")) as f:
             pass  # commit A's file must still be all local main has, i.e. main is untouched
         check(
             "local `main` branch ref is left untouched (commit-run.sh never checks it out or advances it)",
@@ -189,7 +207,7 @@ def test_no_op_when_no_matching_pathspec():
     with tempfile.TemporaryDirectory(prefix="commit-run-test-noop-") as tmp:
         origin, agent, env = setup_stale_local_main_scenario(tmp)
         result = run(
-            ["bash", COMMIT_RUN, "test: noop", "--", "a.txt"],
+            ["bash", COMMIT_RUN, "test: noop", "--", "analyses/base/a.txt"],
             cwd=agent, env=env, check_rc=False,
         )
         check("NOOP path exits 0 when nothing matches the given pathspec", result.returncode == 0, result.stdout)
@@ -203,7 +221,7 @@ def test_git_add_failure_is_not_a_noop():
             ["bash", COMMIT_RUN, "test: bad pathspec", "--", "../outside-repository"],
             cwd=agent, env=env, check_rc=False,
         )
-        check("git add failure exits 5 instead of reporting a successful no-op", result.returncode == 5,
+        check("unsafe path is rejected before git add", result.returncode == 2,
               f"rc={result.returncode} stdout={result.stdout!r} stderr={result.stderr!r}")
         check("git add failure never emits NOOP or COMMIT_SHA",
               "NOOP=1" not in result.stdout and "COMMIT_SHA=" not in result.stdout, result.stdout)
@@ -214,15 +232,15 @@ def test_git_add_failure_is_not_a_noop():
 def test_commit_hook_rejection_is_never_pushed_as_old_head():
     with tempfile.TemporaryDirectory(prefix="commit-run-test-commit-fail-") as tmp:
         _, agent, env = setup_stale_local_main_scenario(tmp)
-        with open(os.path.join(agent, "rejected.txt"), "w") as f:
-            f.write("must not land\n")
+        rejected_path = "analyses/rejected/rejected.txt"
+        write_text(agent, rejected_path, "must not land\n")
         hook = os.path.join(agent, ".git", "hooks", "pre-commit")
         with open(hook, "w") as f:
             f.write("#!/bin/sh\nexit 1\n")
         os.chmod(hook, 0o755)
         before = run(["git", "rev-parse", "HEAD"], cwd=agent, env=env).stdout.strip()
         result = run(
-            ["bash", COMMIT_RUN, "test: rejected commit", "--", "rejected.txt"],
+            ["bash", COMMIT_RUN, "test: rejected commit", "--", rejected_path],
             cwd=agent, env=env, check_rc=False,
         )
         after = run(["git", "rev-parse", "HEAD"], cwd=agent, env=env).stdout.strip()
@@ -230,7 +248,7 @@ def test_commit_hook_rejection_is_never_pushed_as_old_head():
               f"rc={result.returncode} stdout={result.stdout!r} stderr={result.stderr!r}")
         check("rejected commit leaves HEAD unchanged and emits no success SHA",
               before == after and "COMMIT_SHA=" not in result.stdout, result.stdout)
-        remote = run(["git", "show", "origin/main:rejected.txt"], cwd=agent, env=env, check_rc=False)
+        remote = run(["git", "show", f"origin/main:{rejected_path}"], cwd=agent, env=env, check_rc=False)
         check("rejected content is absent from origin/main", remote.returncode != 0, remote.stdout)
         cached = run(["git", "diff", "--cached", "--quiet"], cwd=agent, env=env, check_rc=False)
         check("commit-hook rejection unstages this run's paths", cached.returncode == 0)
@@ -244,9 +262,9 @@ def test_conflicting_rebase_is_aborted_cleanly():
         run(["git", "init", "--bare", "-q", "-b", "main", origin], cwd=tmp, env=env)
         seed = os.path.join(tmp, "seed")
         run(["git", "clone", "-q", origin, seed], cwd=tmp, env=env)
-        with open(os.path.join(seed, "shared.ndjson"), "w") as f:
-            f.write('{"side":"base"}\n')
-        run(["git", "add", "shared.ndjson"], cwd=seed, env=env)
+        shared_path = "analyses/shared/shared.ndjson"
+        write_text(seed, shared_path, '{"side":"base"}\n')
+        run(["git", "add", shared_path], cwd=seed, env=env)
         run(["git", "commit", "-q", "-m", "base"], cwd=seed, env=env)
         run(["git", "push", "-q", "origin", "main"], cwd=seed, env=env)
 
@@ -254,16 +272,14 @@ def test_conflicting_rebase_is_aborted_cleanly():
         run(["git", "clone", "-q", origin, agent], cwd=tmp, env=env)
         run(["git", "checkout", "-q", "-b", "session"], cwd=agent, env=env)
 
-        with open(os.path.join(seed, "shared.ndjson"), "w") as f:
-            f.write('{"side":"remote"}\n')
-        run(["git", "add", "shared.ndjson"], cwd=seed, env=env)
+        write_text(seed, shared_path, '{"side":"remote"}\n')
+        run(["git", "add", shared_path], cwd=seed, env=env)
         run(["git", "commit", "-q", "-m", "remote conflict"], cwd=seed, env=env)
         run(["git", "push", "-q", "origin", "main"], cwd=seed, env=env)
 
-        with open(os.path.join(agent, "shared.ndjson"), "w") as f:
-            f.write('{"side":"local"}\n')
+        write_text(agent, shared_path, '{"side":"local"}\n')
         result = run(
-            ["bash", COMMIT_RUN, "test: local conflict", "--", "shared.ndjson"],
+            ["bash", COMMIT_RUN, "test: local conflict", "--", shared_path],
             cwd=agent, env=env, check_rc=False,
         )
         head = run(["git", "rev-parse", "HEAD"], cwd=agent, env=env).stdout.strip()
@@ -279,7 +295,7 @@ def test_conflicting_rebase_is_aborted_cleanly():
               and not os.path.exists(git_internal_path(agent, "rebase-apply", env)))
         unmerged = run(["git", "ls-files", "-u"], cwd=agent, env=env)
         cached = run(["git", "diff", "--cached", "--quiet"], cwd=agent, env=env, check_rc=False)
-        local_blob = run(["git", "show", "HEAD:shared.ndjson"], cwd=agent, env=env)
+        local_blob = run(["git", "show", f"HEAD:{shared_path}"], cwd=agent, env=env)
         check("abort restores a clean index with no unmerged entries",
               unmerged.stdout == "" and cached.returncode == 0,
               f"unmerged={unmerged.stdout!r}")
@@ -305,10 +321,10 @@ def test_clean_rebase_second_push_race_retains_rebased_commit():
         with open(hook, "w") as f:
             f.write("#!/bin/sh\nexit 1\n")
         os.chmod(hook, 0o755)
-        with open(os.path.join(agent, "local-race.txt"), "w") as f:
-            f.write("local survives\n")
+        local_race_path = "analyses/local/local-race.txt"
+        write_text(agent, local_race_path, "local survives\n")
         result = run(
-            ["bash", COMMIT_RUN, "test: second push race", "--", "local-race.txt"],
+            ["bash", COMMIT_RUN, "test: second push race", "--", local_race_path],
             cwd=agent, env=env, check_rc=False,
         )
         head = run(["git", "rev-parse", "HEAD"], cwd=agent, env=env).stdout.strip()
@@ -316,7 +332,7 @@ def test_clean_rebase_second_push_race_retains_rebased_commit():
                          if line.startswith("COMMIT_SHA=")), "")
         ancestor = run(["git", "merge-base", "--is-ancestor", "origin/main", "HEAD"],
                        cwd=agent, env=env, check_rc=False)
-        local_blob = run(["git", "show", "HEAD:local-race.txt"], cwd=agent, env=env, check_rc=False)
+        local_blob = run(["git", "show", f"HEAD:{local_race_path}"], cwd=agent, env=env, check_rc=False)
         remote_blob = run(["git", "show", "HEAD:remote-race.txt"], cwd=agent, env=env, check_rc=False)
         check("clean rebase plus second push rejection exits 4 with the rebased SHA",
               result.returncode == 4 and reported == head and "rebase succeeded" in result.stderr,
@@ -467,9 +483,9 @@ def test_retry_push_is_exact_main_only_and_serialized():
         run(["git", "add", "base.txt"], cwd=agent, env=env)
         run(["git", "commit", "-q", "-m", "base"], cwd=agent, env=env)
         run(["git", "push", "-q", "origin", "main"], cwd=agent, env=env)
-        with open(os.path.join(agent, "pending.txt"), "w") as f:
-            f.write("pending\n")
-        run(["git", "add", "pending.txt"], cwd=agent, env=env)
+        pending_path = "analyses/pending/pending.txt"
+        write_text(agent, pending_path, "pending\n")
+        run(["git", "add", pending_path], cwd=agent, env=env)
         run(["git", "commit", "-q", "-m", "pending"], cwd=agent, env=env)
         sha = run(["git", "rev-parse", "HEAD"], cwd=agent, env=env).stdout.strip()
 
@@ -645,6 +661,124 @@ def test_non_terminal_outputs_and_commodity_archive_bypass_creation_gate():
               result.stdout + result.stderr)
 
 
+def test_cockpit_publication_delegates_to_supervisor_and_never_trusts_child_manifest():
+    """Cockpit mode is an untrusted request client; only the live supervisor may stamp/commit."""
+    with tempfile.TemporaryDirectory(prefix="commit-run-test-supervisor-") as tmp:
+        _, agent, env = setup_stale_local_main_scenario(tmp)
+        data_path = "analyses/PROV_2099-01-01/module.json"
+        write_json(agent, data_path, {"fixture": True})
+        fake_manifest = write_text(
+            agent, "analyses/PROV_2099-01-01/.execution-provenance.jsonl",
+            '{"provider":"codex","model":"forged","decision_author":true}\n',
+        )
+        requests = []
+        token = "supervisor-only-fixture-token"
+
+        class Handler(BaseHTTPRequestHandler):
+            def do_POST(self):
+                body = self.rfile.read(int(self.headers.get("Content-Length", "0")))
+                requests.append({"path": self.path, "token": self.headers.get("X-Nostra-Publication-Token"),
+                                 "body": json.loads(body)})
+                if requests[-1]["token"] != token:
+                    self.send_response(403); self.end_headers(); return
+                rendered = json.dumps({"ok": True, "output": "COMMIT_SHA=supervisor-fixture"}).encode()
+                self.send_response(200)
+                self.send_header("Content-Type", "application/json")
+                self.send_header("Content-Length", str(len(rendered)))
+                self.end_headers()
+                self.wfile.write(rendered)
+
+            def log_message(self, *_args):
+                return
+
+        server = ThreadingHTTPServer(("127.0.0.1", 0), Handler)
+        thread = threading.Thread(target=server.serve_forever, daemon=True)
+        thread.start()
+        try:
+            cockpit = no_push_env(env)
+            cockpit.update({
+                "NOSTRA_COCKPIT_RUN": "1",
+                "NOSTRA_PUBLICATION_ENDPOINT": f"http://127.0.0.1:{server.server_port}/publication",
+                "NOSTRA_PUBLICATION_TOKEN": token,
+                # The retired child-writable contract must have no influence on the request or bytes.
+                "NOSTRA_PROVENANCE_MANIFEST": fake_manifest,
+            })
+            before = run(["git", "rev-parse", "HEAD"], cwd=agent, env=env).stdout.strip()
+            result = run(
+                ["bash", COMMIT_RUN, "test: supervisor publication", "--", data_path],
+                cwd=agent, env=cockpit, check_rc=False,
+            )
+            after = run(["git", "rev-parse", "HEAD"], cwd=agent, env=env).stdout.strip()
+            cached = run(["git", "diff", "--cached", "--quiet"], cwd=agent, env=env, check_rc=False)
+            check("cockpit child delegates one exact publication request to the supervisor",
+                  result.returncode == 0 and "COMMIT_SHA=supervisor-fixture" in result.stdout
+                  and len(requests) == 1 and requests[0]["body"] == {
+                      "phase": "commit", "message": "test: supervisor publication", "pathspecs": [data_path]},
+                  f"rc={result.returncode} requests={requests!r} stderr={result.stderr!r}")
+            check("delegation never stages, commits, or reads a child-forged provenance manifest",
+                  before == after and cached.returncode == 0 and "forged" in Path(fake_manifest).read_text())
+
+            request_count = len(requests)
+            refused = run(
+                ["bash", COMMIT_RUN, "test: refuse code", "--", "ui/server/src/server.ts"],
+                cwd=agent, env=cockpit, check_rc=False,
+            )
+            check("a cockpit command cannot request a code path",
+                  refused.returncode == 2 and len(requests) == request_count
+                  and "refused non-data pathspec" in refused.stderr,
+                  f"rc={refused.returncode} stderr={refused.stderr!r}")
+        finally:
+            server.shutdown()
+            server.server_close()
+
+        missing_env = no_push_env(env)
+        missing_env["NOSTRA_COCKPIT_RUN"] = "1"
+        missing = run(
+            ["bash", COMMIT_RUN, "test: missing supervisor", "--", data_path],
+            cwd=agent, env=missing_env, check_rc=False,
+        )
+        check("cockpit publication without a supervisor capability fails closed",
+              missing.returncode == 5 and "has no supervisor capability" in missing.stderr,
+              f"rc={missing.returncode} stdout={missing.stdout!r} stderr={missing.stderr!r}")
+
+
+def test_supervisor_snapshot_stages_fixed_bytes_not_mutable_worktree():
+    with tempfile.TemporaryDirectory(prefix="commit-run-test-snapshot-") as tmp:
+        _, agent, env = setup_stale_local_main_scenario(tmp)
+        relative = "analyses/SNAPSHOT_2099-01-01/module.txt"
+        write_text(agent, relative, "A: supervisor-stamped\n")
+        snapshot_dir = Path(tmp) / "protected-snapshot"
+        snapshot_dir.mkdir(mode=0o700)
+        snapshot = snapshot_dir / "0"
+        snapshot.write_text("A: supervisor-stamped\n")
+        snapshot.chmod(0o600)
+        manifest = snapshot_dir / "manifest.json"
+        manifest.write_text(json.dumps({
+            "schema_version": "cockpit-publication-snapshot/1.0",
+            "run_id": "fixture",
+            "requested_pathspecs": [relative],
+            "entries": [{
+                "path": relative,
+                "snapshot": str(snapshot.resolve()),
+                "sha256": "sha256:" + hashlib.sha256(snapshot.read_bytes()).hexdigest(),
+            }],
+        }) + "\n")
+        manifest.chmod(0o600)
+        # A provider descendant swaps the worktree after supervisor stamping. The index must still get A.
+        write_text(agent, relative, "B: provider race\n")
+        fixed_env = no_push_env(env)
+        fixed_env["NOSTRA_SUPERVISOR_SNAPSHOT_MANIFEST"] = str(manifest.resolve())
+        result = run(
+            ["bash", COMMIT_RUN, "test: fixed supervisor snapshot", "--", relative],
+            cwd=agent, env=fixed_env, check_rc=False,
+        )
+        committed = run(["git", "show", f"HEAD:{relative}"], cwd=agent, env=env).stdout
+        check("protected snapshot stages A even after worktree changes to B",
+              result.returncode == 0 and committed == "A: supervisor-stamped\n"
+              and Path(agent, relative).read_text() == "B: provider race\n",
+              f"rc={result.returncode} committed={committed!r} stderr={result.stderr!r}")
+
+
 if __name__ == "__main__":
     print("== test_commit_run.py ==")
     test_fast_forward_push_from_non_main_branch_with_stale_local_main()
@@ -661,6 +795,8 @@ if __name__ == "__main__":
     test_valid_decision_commits_staged_snapshot_not_later_worktree_bytes()
     test_unchanged_historical_decision_is_not_regraded()
     test_non_terminal_outputs_and_commodity_archive_bypass_creation_gate()
+    test_cockpit_publication_delegates_to_supervisor_and_never_trusts_child_manifest()
+    test_supervisor_snapshot_stages_fixed_bytes_not_mutable_worktree()
     if _fails:
         print(f"\n{len(_fails)} FAILURE(S): {_fails}")
         sys.exit(1)

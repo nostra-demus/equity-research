@@ -2,20 +2,25 @@
 // a real CLI (deferredSpawn is stubbed): a blocked run can't proceed, a degraded run can, cancel/404/409.
 import assert from 'node:assert'
 import fs from 'node:fs'
-import os from 'node:os'
 import path from 'node:path'
 import { IN_FLIGHT_STATUSES, createRun, inFlightRunsForTicker, setActiveTickerRun, type RunState } from '../src/registry'
 import { cancel, decideReadiness, finalizeRunOnClose } from '../src/launcher'
 import { REPO_ROOT } from '../src/config'
 import type { ReadinessReport } from '../src/types'
 
-// Every fixture this test writes (the readiness_override.json traces) lands in a private os.tmpdir()
-// sandbox, never under the repo's analyses/. writeReadinessOverride() builds its path as
-// path.join(REPO_ROOT, run.runRoot), so a run's runRoot is expressed as a path RELATIVE to REPO_ROOT that
-// escapes out to the temp dir — path.join(REPO_ROOT, runRootFor(sub)) round-trips to path.join(TMP_ROOT,
-// sub). Removed in teardown, so a failed check can never leave an untracked analyses/TEST_X/ behind.
-const TMP_ROOT = fs.mkdtempSync(path.join(os.tmpdir(), 'readiness-gate-'))
-const runRootFor = (sub: string) => path.relative(REPO_ROOT, path.join(TMP_ROOT, sub))
+// Supervisor-owned files deliberately refuse roots outside a discovered run store. Keep each fixture in a
+// unique research run root and remove it in teardown; an os.tmpdir escape would be testing a boundary the
+// production writer correctly rejects.
+const ROOT_PREFIX = `ZZRDY${String(process.pid).slice(-6)}`
+const fixtureRoots = new Set<string>()
+const runRootFor = (sub: string) => {
+  const ticker = `${ROOT_PREFIX}${sub.toUpperCase().replace(/[^A-Z0-9]/g, '')}`.slice(0, 15)
+  const relative = `analyses/${ticker}_2099-01-01`
+  const absolute = path.join(REPO_ROOT, relative)
+  fs.mkdirSync(absolute, { recursive: true })
+  fixtureRoots.add(absolute)
+  return relative
+}
 
 let pass = 0
 function ok(cond: boolean, msg: string) {
@@ -36,7 +41,10 @@ function report(overall: ReadinessReport['overall'], blocker = false): Readiness
 function mkAwaiting(rep: ReadinessReport): { run: RunState; spawned: () => boolean } {
   let spawned = false
   const run = createRun({
-    kind: 'full', ticker: 'TEST', model: 'haiku', prompt: 'x', user: 'local', userVia: 'local',
+    kind: 'full', ticker: 'TEST', provider: 'claude', model: 'haiku', reasoningLevel: 'default',
+    profileKey: 'claude:haiku:default',
+    executionProfile: { key: 'claude:haiku:default', parentModel: 'haiku', parentReasoning: 'default' },
+    prompt: 'x', user: 'local', userVia: 'local',
     runRoot: runRootFor('TEST_X'), willCommitToMain: true, writeTargetsAbs: [], coveredModules: [], readDepsAbs: [],
   })
   run.status = 'awaiting-readiness-decision'
@@ -78,7 +86,7 @@ async function main() {
   }
 
   // ---- A.4: override (typed-ack) + the indelible trace sidecar ----
-  const traceFile = (sub: string) => path.join(TMP_ROOT, sub, 'readiness_override.json')
+  const traceFile = (sub: string) => path.join(REPO_ROOT, runRootFor(sub), 'readiness_override.json')
 
   // 7. override a BLOCKER without the typed ticker -> 412; not spawned; no trace
   {
@@ -210,5 +218,9 @@ async function main() {
   console.log(`\n  ${pass} checks passed`)
 }
 main()
-  .then(() => fs.rmSync(TMP_ROOT, { recursive: true, force: true }))
-  .catch((e) => { fs.rmSync(TMP_ROOT, { recursive: true, force: true }); console.error(e); process.exit(1) })
+  .then(() => { for (const root of fixtureRoots) fs.rmSync(root, { recursive: true, force: true }) })
+  .catch((e) => {
+    for (const root of fixtureRoots) fs.rmSync(root, { recursive: true, force: true })
+    console.error(e)
+    process.exit(1)
+  })

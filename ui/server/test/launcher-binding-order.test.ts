@@ -63,16 +63,23 @@ const fullRelaunchReset = launchBody.indexOf('resetAdmittedFullRelaunch(runRoot)
 assert.ok(fullRelaunchReset > admission,
   'a monolithic full clears the exact-only aborted pause only after successful admission')
 
-// The same two bindings are checked after buildArgs' potentially slow CLI capability probe and directly
-// before the paid child process is created.
+// The same two bindings are checked after the provider adapter's potentially slow launch/preflight probe
+// and directly before provenance is recorded and the paid child process is created.
 const spawnStart = source.indexOf('async function spawnEngine(run: RunState)')
 const spawnEnd = source.indexOf('\n// Kill the run', spawnStart)
 assert.ok(spawnStart >= 0 && spawnEnd > spawnStart, 'spawnEngine() source boundary must remain discoverable')
 const spawnBody = source.slice(spawnStart, spawnEnd)
-const buildArgs = spawnBody.indexOf('const args = await buildArgs(')
-const finalCas = spawnBody.indexOf('const beforeSpawn = changedLaunchBinding()', buildArgs)
-const paidSpawn = spawnBody.indexOf('child = execa(CLAUDE_BIN', finalCas)
-assert.ok(buildArgs >= 0 && buildArgs < finalCas && finalCas < paidSpawn, 'final CAS must sit after buildArgs and before paid execa')
+const buildLaunch = spawnBody.indexOf('launchSpec = await adapter.buildLaunch(')
+const finalCas = spawnBody.indexOf('const beforeSpawn = changedLaunchBinding()', buildLaunch)
+const provenanceAppend = spawnBody.indexOf('appendExecutionAttempt(run)', finalCas)
+const paidSpawn = spawnBody.indexOf('child = execa(launchSpec.command', finalCas)
+assert.ok(
+  buildLaunch >= 0
+    && buildLaunch < finalCas
+    && finalCas < provenanceAppend
+    && provenanceAppend < paidSpawn,
+  'final CAS must sit after provider buildLaunch and before provenance or paid execa',
+)
 assert.match(spawnBody, /intakeReceiptByRun\.get\(run\)[\s\S]*intakeReceiptIntentStillActionable/,
   'the immediately-pre-execa CAS re-reads the exact plan/orb and stops duplicate spend')
 

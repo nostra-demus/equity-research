@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "frameworks/provider_parity_run_binding.schema.json",
+  "title": "Immutable pre-launch provider-parity run binding",
+  "type": "object",
+  "required": ["schema_version", "receipt_path", "receipt_sha256", "created_at", "subject", "decision_date", "data_snapshot_sha256", "price_anchor_sha256", "label", "provider", "run_root", "expected_model", "expected_reasoning_level", "expected_profile_key"],
+  "properties": {
+    "schema_version": { "const": "provider-parity-run-binding/1.0" },
+    "receipt_path": { "type": "string", "minLength": 1 },
+    "receipt_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+    "created_at": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$" },
+    "subject": { "type": "string", "minLength": 1 },
+    "decision_date": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$" },
+    "data_snapshot_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+    "price_anchor_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+    "label": { "type": "string", "enum": ["run_a", "run_b"] },
+    "provider": { "type": "string", "enum": ["claude", "codex"] },
+    "run_root": { "type": "string", "minLength": 1 },
+    "expected_model": { "type": "string", "minLength": 1 },
+    "expected_reasoning_level": { "type": "string", "minLength": 1 },
+    "expected_profile_key": { "type": "string", "minLength": 1 }
+  },
+  "additionalProperties": false
+}

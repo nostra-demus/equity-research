@@ -35,12 +35,16 @@ You DO NOT:
 3. Compute the blend and PRINT it: `blended_calculation: "0.40 × {VPQ} + 0.30 × {MRS} + 0.30 × {CTC} = {result}"`. `final_score` = rounded integer. No analyst override in an engine run (`analyst_override: false`).
 4. Route: `< 60 → watchlist_no_edge`; `60–80 → provisional`; `> 80 → full_machine`. Write `routing_logic` (one sentence: score → band) and `routing_reason` (the substantive driver). Write the two justification sentences.
 5. **Complete and LOCK `{RUN_ROOT}/thesis_record.json`:**
+   - Do not write or guess `execution_provenance`. If a resumed draft carries an older runtime stamp,
+     leave its identity to the deterministic publication hook; never copy provider/model/account/session
+     claims into an analytical block. The orchestrator updates only this runtime-owned top-level metadata
+     after the analytical record is locked and before publication.
    - Append `M0_6_1` … `M0_6_6` blocks, transcribing the specialists' fields faithfully (consensus block incl. analyst rating distribution + missing_reasons — no estimate dispersion in the consensus block, that lives in M0_6_2; the five market blocks, incl. estimate dispersion; variant block; mispricing block; trigger block; your scoring block with the printed formula).
    - Update `meta`: `status` = the routing outcome; `status_reason`; `next_action` (e.g. "surface candidates" / "monitor falsifiers, no deep work"); `phase1_completed_at` = now; `next_module` = `candidate-surfacing` for provisional/full_machine, else null; **`locked: true`**.
    - Update `M0_5`: `locked_after_m0_complete: true`, `locked_at` = now.
    - Merge the module's new source rows into the top-level `sources` packet (dedupe by URL).
    - Validate JSON parses; spot-check required M0_6 fields against `frameworks/screener/thesis_record.schema.json`.
-6. **File the record:** copy to `screener/ledger/theses/THS-{SIG_ID}-v1.json` (`cp`), append the status update line to the events ledger (`bash scripts/append-ndjson.sh screener/ledger/events.ndjson '<line: signal_id, ts, status=<routing>, status_reason, thesis_id, run_root, materiality + novelty carried>'`), and refresh the board (`python3 scripts/update_board_index.py`).
+6. **File the event:** append the status update line to the events ledger (`bash scripts/append-ndjson.sh screener/ledger/events.ndjson '<line: signal_id, ts, status=<routing>, status_reason, thesis_id, run_root, materiality + novelty carried>'`). Do not copy the thesis or refresh the board here: the cockpit supervisor derives the immutable ledger thesis from the fresh run-local record and rebuilds the board at publication.
 7. Use the Write tool to save your report (REPORT STRUCTURE below) to `OUTPUT_PATH`. The file must contain ONLY the report. Then return only the CHAT CONFIRMATION block.
 
 # REPORT STRUCTURE
@@ -84,7 +88,7 @@ blended_calculation: 0.40 × {VPQ} + 0.30 × {MRS} + 0.30 × {CTC} = **{result} 
 ## Machine Output
 
 Wrote: `screener/runs/{SIG_ID}/thesis_record.json` (complete, LOCKED, validates against frameworks/screener/thesis_record.schema.json)
-Filed: `screener/ledger/theses/THS-{SIG_ID}-v1.json`; events ledger status line appended; board index refreshed.
+Filed: events ledger status line appended; immutable thesis + board publication delegated to the cockpit supervisor.
 
 ## Routing
 
@@ -98,7 +102,7 @@ Next module: candidate-surfacing | none
 - [ ] The printed formula re-computes to the stated final_score (do the arithmetic).
 - [ ] Each sub-score's rationale cites specialist evidence — no score floats free.
 - [ ] The routing matches the bands exactly; no rounding a 59 into provisional.
-- [ ] thesis_record.json parses, is locked, and was copied to the ledger; the board was refreshed.
+- [ ] thesis_record.json parses and is locked; the immutable ledger copy is left to the cockpit supervisor.
 - [ ] The Routing block carries SINGLE values.
 
 # CHAT CONFIRMATION

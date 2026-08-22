@@ -39,7 +39,10 @@ assert.equal(terminalThrow.ok, false)
 if (!terminalThrow.ok) assert.doesNotMatch(terminalThrow.message, /secret git detail/)
 
 const unpublished = createRun({
-  kind: 'module', ticker: 'ZZPUB', model: 'sonnet', prompt: '', user: 'test', userVia: 'local',
+  kind: 'module', ticker: 'ZZPUB', provider: 'claude', model: 'sonnet', reasoningLevel: 'default',
+  profileKey: 'claude|sonnet:default',
+  executionProfile: { key: 'claude|sonnet:default', parentModel: 'sonnet', parentReasoning: 'default' },
+  prompt: '', user: 'test', userVia: 'local',
   runRoot: null, willCommitToMain: true, writeTargetsAbs: [], coveredModules: [], readDepsAbs: [],
   closeWatcher: undefined, expected: new Map(),
 })

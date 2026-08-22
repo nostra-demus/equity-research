@@ -12,6 +12,7 @@ import { finalizeRunOnClose, __setFailureNoteCommitter } from '../src/launcher'
 import { readRunMarker } from '../src/outputs'
 import { createRun, finishRun, inFlightRunsForSubject, setActiveSubjectRun, type RunState } from '../src/registry'
 import { handleStreamLine } from '../src/stream-parser'
+import { admitRun } from '../src/admission'
 import type { SseEvent } from '../src/types'
 
 const DATE = '2099-01-01'
@@ -28,13 +29,17 @@ function check(name: string, fn: () => void) {
   }
 }
 
-function mkRun(kind: 'full' | 'module', ticker: string): { run: RunState; events: SseEvent[] } {
+function mkRun(kind: 'full' | 'module' | 'parity', ticker: string): { run: RunState; events: SseEvent[] } {
   const run = createRun({
-    kind, ticker, model: 'sonnet', prompt: '', user: 'test', userVia: 'local',
+    kind, ticker, provider: 'claude', model: 'sonnet', reasoningLevel: 'default',
+    profileKey: 'claude:sonnet:default',
+    executionProfile: { key: 'claude:sonnet:default', parentModel: 'sonnet', parentReasoning: 'default' },
+    prompt: '', user: 'test', userVia: 'local',
     runRoot: `analyses/${ticker}_${DATE}`, willCommitToMain: true,
     writeTargetsAbs: [], coveredModules: [], readDepsAbs: [], closeWatcher: undefined, expected: new Map(),
   })
   run.status = 'running'
+  run.publicationCompleted = true
   setActiveSubjectRun(run.runId, ticker)
   const events: SseEvent[] = []
   run.subscribers.add({ id: 'finalize-test', send: (e) => events.push(e) })
@@ -99,6 +104,21 @@ try {
     assert.ok(!events.find((e) => e.type === 'run-done'), 'an unpublished thesis must never emit run-done')
   })
 
+  check('fresh terminal artifacts cannot report success before supervisor publication', () => {
+    const root = path.join(ANALYSES_DIR, `ZZPUB_${DATE}`)
+    cleanupDirs.push(root)
+    fs.mkdirSync(root, { recursive: true })
+    fs.writeFileSync(path.join(root, 'final_thesis.md'), '# retained thesis\n')
+    fs.writeFileSync(path.join(root, 'decision_record.json'), '{}\n')
+    const { run, events } = mkRun('full', 'ZZPUB')
+    run.publicationCompleted = false
+    finalizeRunOnClose(run, { exitCode: 0 }, '')
+    assert.equal(run.status, 'error')
+    assert.equal((events.find((event) => event.type === 'run-error') as any)?.reason, 'publication_failed')
+    assert.ok(fs.existsSync(path.join(root, 'final_thesis.md')), 'failed publication retains authored artifacts')
+    assert.equal(readRunMarker(`analyses/ZZPUB_${DATE}`, '.interrupted')?.reason, 'publication_failed')
+  })
+
   // 3. a cancel() sets status='cancelled' directly — close must STILL finalize and release the
   //    subject (the old status-gated close handler skipped it, leaking the subject until restart).
   check('cancelled run is finalized on close and releases its subject', () => {
@@ -122,17 +142,62 @@ try {
     assert.equal(inFlightRunsForSubject('ZZFINE').length, 0)
   })
 
-  // 5. an error result is visible immediately but retains its writer claim until process close.
-  check('error result waits for close before finalizing and releasing its claim', () => {
+  // 5. A provider can emit a structured error while its detached Task processes are still alive. Keep
+  //    admission held until process close; otherwise an overlapping writer can start into the same root.
+  check('stream error holds admission until process close finalizes the run', () => {
     const { run } = mkRun('module', 'ZZFIND')
+    handleStreamLine(run, '{malformed provider noise')
+    assert.equal(run.status, 'running', 'a malformed line is non-terminal')
     handleStreamLine(run, errorResult)
-    assert.equal(run.status, 'running', 'the streamed error does not prove detached descendants are gone')
+    assert.equal(run.status, 'running', 'structured failure must not release a still-live process tree')
     assert.equal(run.endedAt, undefined)
     assert.equal(inFlightRunsForSubject('ZZFIND').length, 1)
+    const overlap = admitRun({
+      ticker: 'ZZFIND', kind: 'full', coveredModules: [], writeTargetsAbs: [], readDepsAbs: [],
+    })
+    assert.equal(overlap.ok, false, 'a second overlapping launch stays blocked before close')
+    assert.equal((overlap as any).code, 'exclusivity')
     finalizeRunOnClose(run, { exitCode: 1 }, 'boom')
     assert.equal(run.status, 'error')
     assert.ok(run.endedAt !== undefined)
     assert.equal(inFlightRunsForSubject('ZZFIND').length, 0)
+  })
+
+  check('parity adjudication cannot report success before terminal supervisor verification', () => {
+    const { run, events } = mkRun('parity', 'ZZPARITY')
+    run.willCommitToMain = false
+    run.publicationCompleted = false
+    finalizeRunOnClose(run, { exitCode: 0 }, '')
+    assert.equal(run.status, 'error')
+    assert.equal((events.find((event) => event.type === 'run-error') as any)?.reason, 'parity_verification_missing')
+  })
+
+  check('stable commodity quota failure remains resumable despite an older decision record', () => {
+    const runRoot = 'commodity/runs/ZZCOMQ'
+    const root = path.join(REPO_ROOT, runRoot)
+    cleanupDirs.push(root)
+    fs.mkdirSync(root, { recursive: true })
+    fs.writeFileSync(path.join(root, 'decision_record.json'), '{"action":"Hold","old":true}\n')
+    const run = createRun({
+      kind: 'full', ticker: 'ZZCOMQ', subjectId: 'ZZCOMQ', swarmId: 'commodity', unit: 'commodity',
+      provider: 'claude', model: 'sonnet', reasoningLevel: 'default', profileKey: 'claude:sonnet:default',
+      executionProfile: { key: 'claude:sonnet:default', parentModel: 'sonnet', parentReasoning: 'default' },
+      prompt: '', user: 'test', userVia: 'local', runRoot, willCommitToMain: true,
+      writeTargetsAbs: [], coveredModules: [], readDepsAbs: [], closeWatcher: undefined, expected: new Map(),
+    })
+    run.status = 'running'
+    run.provenanceEpoch = run.runId
+    run.publicationCompleted = false
+    setActiveSubjectRun(run.runId, run.subjectId, run.swarmId)
+    handleStreamLine(run, JSON.stringify({
+      type: 'result', subtype: 'out_of_credits', is_error: true, result: 'plan limit reached',
+    }))
+    finalizeRunOnClose(run, { exitCode: 1 }, 'plan limit reached')
+    assert.equal(run.status, 'error')
+    const marker = readRunMarker(runRoot, '.interrupted')
+    assert.equal(marker?.reason, 'out_of_credits')
+    assert.equal(marker?.executionEpoch, run.runId)
+    assert.ok(fs.existsSync(path.join(root, 'decision_record.json')), 'the prior terminal record remains retained')
   })
 
   // 6. A1+A2+A3: a broken chained/full run enriches the .interrupted marker (module + stderr tail), writes
@@ -232,8 +297,7 @@ try {
     }
   })
 
-  // 9. A structured stream error records its durable diagnostic immediately, but close retains sole claim
-  //    release authority so a detached descendant cannot outlive endedAt.
+  // 9. Persist the structured failure immediately, but finalize only after the process-group-safe close boundary.
   check('a stream-result error (error_max_turns) records the SAME failure note as a close-time error', () => {
     const root = path.join(ANALYSES_DIR, `ZZFINI_${DATE}`)
     cleanupDirs.push(root)
@@ -244,7 +308,7 @@ try {
       const { run } = mkRun('full', 'ZZFINI')
       const streamError = JSON.stringify({ type: 'result', subtype: 'error_max_turns', is_error: true, result: 'ran out of turns mid-valuation' })
       handleStreamLine(run, streamError)
-      assert.equal(run.status, 'running', 'the streamed error waits for process-group-safe close')
+      assert.equal(run.status, 'running', 'the stream result keeps admission until process close')
       assert.equal(run.endedAt, undefined)
       const md = fs.readFileSync(path.join(root, 'RUN_FAILURE.md'), 'utf8')
       assert.match(md, /reason: error_max_turns/)

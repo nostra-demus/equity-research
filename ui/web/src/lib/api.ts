@@ -5,8 +5,9 @@ import { QUOTE_CLIENT_TIMEOUT_MS } from './quoteTimeout'
 import type { ValuationLeversResponse, ValuationOverride } from './valuationLevers'
 import type { AutotuneState, RankWeightChanges, WeightChange } from './types'
 import type { BridgeStatus } from './types'
-import type { ActivityQuery, ActivityResult, AddPipelineSourceInput, BuildStep, CallsResult, ChatComputed, ChatConversationDetail, ChatListQuery, ChatListResult, ChatRequest, ChatScopes, CockpitFeedbackCategory, CockpitFeedbackStatus, CockpitFeedbackView, CompletedChatTurn, CoverageGroup, DataNeedsRead, DataNeedUploadRead, DataStatus, DiscoveredFeed, EventEnrichment, EventResearchLink, FeedbackRecord, FeedbackSubmitInput, FeedbackSummary, FeedbackType, FeedItem, IntakePlan, IntensityStats, IntensityWindow, LaunchPreflight, MemoryRead, NewsChatEvidence, NewsChatReceipt, NewsChatRequest, NewsCycle, NewsDiagnostics, NewsStatus, PipelineAuditEvent, PipelineTrend, PipelineView, QuoteRead, ResumableRunInfo, RunHistoryEntry, ScanVerdict, ScreenerBoard, SignalIntakeInput, SignalState, SourcesReport, SwarmGraph, SwarmMeta, SwarmSubjectSummary, ThesisPlan, TickerSummary, UploadResult, Usage, WhatChangedRead, Whoami } from './types'
 import { parseMemoryRead, unavailableMemoryRead } from './memoryView'
+import { normalizeProvidersRead, normalizeProviderStatus, providerCatalogForError, providerCatalogUnknown, providerLaunchFields, type FrozenProviderLaunch, type ProviderExecutionProfile, type ProvidersRead, type RunProvider } from './provider'
+import type { ActivityQuery, ActivityResult, AddPipelineSourceInput, BuildStep, CallsResult, ChatComputed, ChatConversationDetail, ChatListQuery, ChatListResult, ChatRequest, ChatScopes, CockpitFeedbackCategory, CockpitFeedbackStatus, CockpitFeedbackView, CompletedChatTurn, CoverageGroup, DataNeedsRead, DataNeedUploadRead, DataStatus, DiscoveredFeed, EventEnrichment, EventResearchLink, FeedbackRecord, FeedbackSubmitInput, FeedbackSummary, FeedbackType, FeedItem, IntakePlan, IntensityStats, IntensityWindow, LaunchableRunKind, LaunchPreflight, MemoryRead, NewsChatEvidence, NewsChatReceipt, NewsChatRequest, NewsCycle, NewsDiagnostics, NewsStatus, PipelineAuditEvent, PipelineTrend, PipelineView, QuoteRead, ResumableRunInfo, RunHistoryEntry, RunKind, ScanVerdict, ScreenerBoard, SignalIntakeInput, SignalState, SourcesReport, SwarmGraph, SwarmMeta, SwarmSubjectSummary, ThesisPlan, TickerSummary, UploadResult, Usage, WhatChangedRead, Whoami } from './types'
 
 // Vite supplies `import.meta.env` in the app; standalone tsx regression tests do not.
 const BASE = import.meta.env?.BASE_URL || '/'
@@ -19,6 +20,14 @@ export const DATA_NEEDS_CLIENT_TIMEOUT_MS = 20_000
 export const MEMORY_CLIENT_TIMEOUT_MS = 65_000
 export const REEL_TRANSCRIPT_CLIENT_TIMEOUT_MS = 150_000
 export const EXACT_DECISION_LAUNCH_CONTRACT = 'exact-decision-launch/1' as const
+export interface ProviderReceiptFields {
+  provider?: RunProvider
+  executionProfile?: ProviderExecutionProfile
+  profileKey?: string
+  model?: string
+  reasoningLevel?: string
+}
+export type LaunchResponse = ProviderReceiptFields & { runId: string; preflight: LaunchPreflight; chained?: boolean; skipped?: string[]; planned?: string[]; resumed?: boolean }
 
 export interface ReelTranscriptRead {
   transcript: string
@@ -454,19 +463,19 @@ export const api = {
     if ((await ensureMode()) === 'static') return snap.screenerCandidates?.[thesisId] || null
     return get(`/api/screener/candidates/${encodeURIComponent(thesisId)}`)
   },
-  launchSignal: async (body: { sigId?: string; intake?: SignalIntakeInput; inboxId?: string; until?: string; override?: boolean }): Promise<{ runId: string; preflight: LaunchPreflight }> => {
+  launchSignal: async (selection: FrozenProviderLaunch, body: { sigId?: string; intake?: SignalIntakeInput; inboxId?: string; until?: string; override?: boolean }): Promise<{ runId: string; preflight: LaunchPreflight }> => {
     if ((await ensureMode()) === 'static') throw STATIC_ERR()
-    return post(`/api/launch`, { kind: 'signal', ...body })
+    return post(`/api/launch`, { kind: 'signal', ...body, ...providerLaunchFields(selection) })
   },
-  launchSweep: async (): Promise<{ runId: string; preflight: LaunchPreflight }> => {
+  launchSweep: async (selection: FrozenProviderLaunch): Promise<{ runId: string; preflight: LaunchPreflight }> => {
     if ((await ensureMode()) === 'static') throw STATIC_ERR()
-    return post(`/api/launch`, { kind: 'sweep' })
+    return post(`/api/launch`, { kind: 'sweep', ...providerLaunchFields(selection) })
   },
   // Escalate a PM-skim idea into the paid gauntlet ("Run the full machine"). The server maps the idea to a
   // signal intake and launches it through the normal signal path.
-  promoteIdea: async (ideaId: string): Promise<{ sigId: string; runId: string }> => {
+  promoteIdea: async (ideaId: string, selection: FrozenProviderLaunch): Promise<ProviderReceiptFields & { sigId: string; runId: string | null; alreadyPromoted?: boolean; preflight?: LaunchPreflight }> => {
     if ((await ensureMode()) === 'static') throw STATIC_ERR()
-    return post(`/api/screener/ideas/${encodeURIComponent(ideaId)}/promote`, {})
+    return post(`/api/screener/ideas/${encodeURIComponent(ideaId)}/promote`, providerLaunchFields(selection))
   },
   // 👍/👎 a surfaced idea (self-grading loop). 'clear' un-votes.
   rateIdea: async (ideaId: string, polarity: 'up' | 'down' | 'clear', reason?: string): Promise<{ ok: boolean }> => {
@@ -600,9 +609,10 @@ export const api = {
   runIntakePlan: async (
     ticker: string, swarm: string, runRoot: string, decisionFingerprint: string,
     plan: { planPath: string; planSha256: string; sourceDecisionFingerprint: string },
-  ): Promise<{ runId: string; carried: { module: string; from: string }[]; scoped: { module: string; omittedOrbs: string[]; synthesisOnly: boolean }[]; staleModules: string[]; chained?: boolean }> => {
+    selection: FrozenProviderLaunch,
+  ): Promise<{ runId: string; preflight: LaunchPreflight; carried: { module: string; from: string }[]; scoped: { module: string; omittedOrbs: string[]; synthesisOnly: boolean }[]; staleModules: string[]; chained?: boolean }> => {
     if ((await ensureMode()) === 'static') throw STATIC_ERR()
-    return post(`/api/intake-plan/run-exact`, { ticker, swarm, runRoot, decisionFingerprint, ...plan })
+    return post(`/api/intake-plan/run-exact`, { ticker, swarm, runRoot, decisionFingerprint, ...plan, ...providerLaunchFields(selection) })
   },
   // the living themes the firehose is bucketed into (ranked index + one theme's deep-dive). An optional
   // geography (country ISO alpha-2 and/or continent) slices the SAME themes to that geography's news flow —
@@ -746,9 +756,9 @@ export const api = {
     if ((await ensureMode()) === 'static') return { ok: true, cancelled: [] }
     return post(`/api/runs/cancel-all`)
   },
-  handoff: async (thesisId: string, ticker: string): Promise<{ alreadyHandedOff: boolean; runId?: string; handoff?: any }> => {
+  handoff: async (thesisId: string, ticker: string, selection: FrozenProviderLaunch): Promise<ProviderReceiptFields & { alreadyHandedOff: boolean; runId?: string; handoff?: any; preflight?: LaunchPreflight }> => {
     if ((await ensureMode()) === 'static') throw STATIC_ERR()
-    return post(`/api/screener/handoff`, { thesisId, ticker })
+    return post(`/api/screener/handoff`, { thesisId, ticker, ...providerLaunchFields(selection) })
   },
   // ---- wire event → research data bridge (event-level twin of the thesis handoff above) ----
   // Which tracked subjects this event was already routed to. Fail-closed to [] (old server / static).
@@ -765,9 +775,9 @@ export const api = {
   // wire record (never client fields), dedupes syndicated copies of the same story (duplicateOf), and
   // — for a fresh send — launches the advisory intake analysis (analyzing) so the quality gate runs
   // before anything re-runs.
-  sendEventToResearch: async (eventId: string, ticker: string): Promise<{ ok: boolean; path: string; already: boolean; duplicateOf?: string; analyzing?: boolean; swarm?: string | null }> => {
+  sendEventToResearch: async (eventId: string, ticker: string, selection: FrozenProviderLaunch): Promise<ProviderReceiptFields & { ok: boolean; path: string; already: boolean; duplicateOf?: string; analyzing?: boolean; swarm?: string | null; launch?: ProviderReceiptFields & { runId: string; preflight: LaunchPreflight } }> => {
     if ((await ensureMode()) === 'static') throw STATIC_ERR()
-    return post(`/api/screener/event/${encodeURIComponent(eventId)}/send-to-research`, { ticker })
+    return post(`/api/screener/event/${encodeURIComponent(eventId)}/send-to-research`, { ticker, ...providerLaunchFields(selection) })
   },
   tickers: async (): Promise<{ tickers: TickerSummary[]; emptyState: boolean; dataDir?: string; driveEnabled?: boolean; coverage?: CoverageGroup[] }> => {
     if ((await ensureMode()) === 'static') return { tickers: snap.tickers, emptyState: snap.emptyState, dataDir: snap.dataDir, driveEnabled: false, coverage: snap.defaultCoverage || [] }
@@ -817,9 +827,27 @@ export const api = {
     if ((await ensureMode()) === 'static') return { ok: true, checked: false }
     return post(`/api/credit-check`)
   },
+  providers: async (): Promise<ProvidersRead> => {
+    if ((await ensureMode()) === 'static') return providerCatalogUnknown('Provider launches are unavailable in the read-only showcase.')
+    try {
+      const read = await get<unknown>(`/api/providers`, 8_000)
+      return normalizeProvidersRead(read)
+        || providerCatalogUnknown('The provider catalogue response was malformed. Check again after the server is updated.')
+    } catch (error) {
+      return providerCatalogForError(error)
+    }
+  },
+  providerCheck: async (provider: RunProvider): Promise<ProvidersRead[RunProvider]> => {
+    if ((await ensureMode()) === 'static') throw STATIC_ERR()
+    const raw = await post<unknown>(`/api/providers/${provider}/check`)
+    const status = normalizeProviderStatus(raw, provider)
+    if (!status) throw new Error(`Invalid ${provider} provider status`)
+    return status
+  },
   estimate: async (
-    kind: string,
+    kind: LaunchableRunKind,
     ticker: string,
+    selection: FrozenProviderLaunch,
     module?: string,
     agent?: string,
     swarm?: string,
@@ -832,7 +860,11 @@ export const api = {
     },
   ): Promise<LaunchPreflight> => {
     if ((await ensureMode()) === 'static') throw STATIC_ERR()
-    const qs = new URLSearchParams({ kind, ticker })
+    const fields = providerLaunchFields(selection)
+    const qs = new URLSearchParams({ kind, ticker, provider: fields.provider })
+    if (fields.expectedProfileKey) qs.set('expectedProfileKey', fields.expectedProfileKey)
+    if (fields.model) qs.set('model', fields.model)
+    if (fields.reasoningLevel) qs.set('reasoningLevel', fields.reasoningLevel)
     if (module) qs.set('module', module)
     if (agent) qs.set('agent', agent)
     if (swarm) qs.set('swarm', swarm)
@@ -845,16 +877,18 @@ export const api = {
     }
     return get(`/api/launch/estimate?${qs.toString()}`)
   },
-  launch: async (body: { kind: string; ticker: string; module?: string; agent?: string; window?: string; model?: string; confirmTicker?: string; force?: boolean; swarm?: string; runRoot?: string; decisionFingerprint?: string }): Promise<{ runId: string; preflight: LaunchPreflight; chained?: boolean; skipped?: string[]; planned?: string[]; resumed?: boolean }> => {
+  launch: async (body: { selection: FrozenProviderLaunch; kind: LaunchableRunKind; ticker: string; module?: string; agent?: string; window?: string; confirmTicker?: string; force?: boolean; swarm?: string; runRoot?: string; decisionFingerprint?: string }): Promise<LaunchResponse> => {
     if ((await ensureMode()) === 'static') throw STATIC_ERR()
     if (body.kind === 'rerun') throw new Error('exact reruns require the versioned launch endpoint')
-    return post(`/api/launch`, body)
+    const { selection, ...request } = body
+    return post(`/api/launch`, { ...request, ...providerLaunchFields(selection) })
   },
   // Versioned exact-rerun path. Never fall back to /api/launch: an older server must 404 rather than
   // ignore runRoot/fingerprint and spend against a different current call during rolling deploy skew.
-  launchExact: async (body: { kind: 'rerun'; ticker: string; module: string; agent: string; model?: string; force?: boolean; swarm?: string; runRoot: string; decisionFingerprint: string; planPath?: string; planSha256?: string; sourceDecisionFingerprint?: string }): Promise<{ runId: string; preflight: LaunchPreflight; chained?: boolean; skipped?: string[]; planned?: string[]; resumed?: boolean }> => {
+  launchExact: async (body: { selection: FrozenProviderLaunch; kind: 'rerun'; ticker: string; module: string; agent: string; force?: boolean; swarm?: string; runRoot: string; decisionFingerprint: string; planPath?: string; planSha256?: string; sourceDecisionFingerprint?: string }): Promise<LaunchResponse> => {
     if ((await ensureMode()) === 'static') throw STATIC_ERR()
-    return post(`/api/launch/exact`, body)
+    const { selection, ...request } = body
+    return post(`/api/launch/exact`, { ...request, ...providerLaunchFields(selection) })
   },
   cancel: async (runId: string) => {
     if ((await ensureMode()) === 'static') return {}
@@ -926,7 +960,7 @@ export const api = {
     if ((await ensureMode()) === 'static') return { history: [] }
     return get(`/api/runs?ticker=${encodeURIComponent(ticker)}`)
   },
-  activeRuns: async (): Promise<{ active: { runId: string; kind: string; ticker: string; module?: string; status: string; swarmId?: string; unit?: string; startedAt?: number }[] }> => {
+  activeRuns: async (): Promise<{ active: import('./types').ActiveRunLite[] }> => {
     if ((await ensureMode()) === 'static') return { active: [] }
     return get(`/api/runs`)
   },
@@ -946,9 +980,14 @@ export const api = {
   // `reuse` re-prices the plan for a chosen selection. Omit it for the safe default (reuse what is finished
   // AND current). The server prices every selection — the client never does its own cost math, so the number
   // on the button is always the number the launcher will charge.
-  thesisPlan: async (ticker: string, swarm?: string, reuse?: string[], module?: string): Promise<ThesisPlan> => {
+  thesisPlan: async (ticker: string, selection: FrozenProviderLaunch, swarm?: string, reuse?: string[], module?: string): Promise<ThesisPlan> => {
     if ((await ensureMode()) === 'static') throw STATIC_ERR()
     const q = new URLSearchParams({ ticker })
+    const fields = providerLaunchFields(selection)
+    q.set('provider', fields.provider)
+    if (fields.expectedProfileKey) q.set('expectedProfileKey', fields.expectedProfileKey)
+    if (fields.model) q.set('model', fields.model)
+    if (fields.reasoningLevel) q.set('reasoningLevel', fields.reasoningLevel)
     if (swarm && swarm !== 'research') q.set('swarm', swarm)
     if (reuse) q.set('reuse', reuse.join(',')) // '' is meaningful: reuse nothing, run everything
     // A module heading asks the server for its exact, server-owned saved-input scope. This is distinct from
@@ -963,11 +1002,12 @@ export const api = {
     ticker: string,
     reuse: string[],
     swarm: string,
+    selection: FrozenProviderLaunch,
   ): Promise<{ runId: string; preflight: LaunchPreflight; carried: { module: string; from: string }[]; reused: string[]; willRun: string[]; chained?: boolean; skipped?: string[]; planned?: string[] }> => {
     if ((await ensureMode()) === 'static') throw STATIC_ERR()
     // `swarm` is ALWAYS sent (never omitted for research), so the server can match positively on it rather
     // than treat an absent field as permission to dispatch a research pipeline at another swarm's subject.
-    return post(`/api/thesis-plan/run`, { ticker, reuse, swarm })
+    return post(`/api/thesis-plan/run`, { ticker, reuse, swarm, ...providerLaunchFields(selection) })
   },
   // Launch ONE module of the plan (the RUN pill), resuming from the orbs on disk. `reuse` governs which
   // ancestors get carried into the target root first. Returns the done/planned orb split so the cockpit
@@ -982,6 +1022,7 @@ export const api = {
     expectedTargetRunRoot: string,
     poolFiles: number,
     poolNewestMs: number,
+    selection: FrozenProviderLaunch,
   ): Promise<{ runId: string; preflight: LaunchPreflight; module: string; willRun: number; doneOrbKeys: string[]; carried: { module: string; from: string }[]; resumed?: boolean; ranClean?: boolean }> => {
     if ((await ensureMode()) === 'static') throw STATIC_ERR()
     return post(`/api/thesis-plan/module`, {
@@ -995,6 +1036,7 @@ export const api = {
       expectedTargetRunRoot,
       poolFiles,
       poolNewestMs,
+      ...providerLaunchFields(selection),
     })
   },
 
@@ -1035,12 +1077,12 @@ export const api = {
   },
   // Trigger the cheap, advisory analysis that (re)writes the scoped plan. Launches NO rerun (reruns stay a
   // human one-click). Returns the run id of the doc-intake run.
-  analyzeIntake: async (ticker: string, swarm: string, runRoot?: string, decisionFingerprint?: string): Promise<{ runId: string }> => {
+  analyzeIntake: async (ticker: string, swarm: string, selection: FrozenProviderLaunch, runRoot?: string, decisionFingerprint?: string): Promise<{ runId: string; preflight: LaunchPreflight }> => {
     if ((await ensureMode()) === 'static') throw STATIC_ERR()
     const qs = new URLSearchParams({ swarm })
     if (runRoot) qs.set('runRoot', runRoot)
     if (decisionFingerprint) qs.set('decisionFingerprint', decisionFingerprint)
-    return post(`/api/intake/${encodeURIComponent(ticker)}/analyze-exact?${qs}`)
+    return post(`/api/intake/${encodeURIComponent(ticker)}/analyze-exact?${qs}`, providerLaunchFields(selection))
   },
 
   // ---- data needs (the "surface a data gap → build a durable connector → re-score" loop) ----

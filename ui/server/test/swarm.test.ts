@@ -43,6 +43,7 @@ check('screener swarm is discovered from its SWARM.md manifest with a routing co
   assert.ok(sc, 'screener manifest missing')
   assert.equal(sc.unit, 'signal')
   assert.equal(sc.runRootTemplate, 'screener/runs/{SIG_ID}')
+  assert.deepEqual(sc.decisionArtifacts, ['thesis_record.json'])
   assert.ok(sc.routing && sc.routing.terminal.includes('watchlist_no_edge') && sc.routing.continue.includes('PROMOTE'))
 })
 
@@ -195,21 +196,25 @@ try {
     }
   })
 
-  // ---- admission: subjects are independent; signal runs are exclusive per subject ----
-  check('admission: a live research run does not block a screener signal (different subjects)', () => {
-    const d = admitRun({ ticker: SIG, kind: 'signal', swarmId: 'screener', coveredModules: buildSwarmGraph('screener').modules.map((m) => m.name), writeTargetsAbs: [], readDepsAbs: [] })
+  // ---- admission: signal subjects are distinct, but their shared ledger/board publication is serialized ----
+  check('admission: same-signal exclusivity and cross-signal shared-store serialization both hold', () => {
+    const sharedLedger = path.join(REPO_ROOT, 'screener', 'ledger')
+    run.writeTargetsAbs = [sharedLedger]
+    run2.writeTargetsAbs = [sharedLedger]
+    const d = admitRun({ ticker: SIG, kind: 'signal', swarmId: 'screener', coveredModules: buildSwarmGraph('screener').modules.map((m) => m.name), writeTargetsAbs: [sharedLedger], readDepsAbs: [] })
     // run/run2 above are live on SIG — exclusivity must reject a second signal on the SAME subject
     assert.equal(d.ok, false)
     if (!d.ok) assert.equal(d.code, 'exclusivity')
-    const other = admitRun({ ticker: 'SIG-20991231-0000beef', kind: 'signal', swarmId: 'screener', coveredModules: [], writeTargetsAbs: [], readDepsAbs: [] })
-    assert.equal(other.ok, true)
+    const other = admitRun({ ticker: 'SIG-20991231-0000beef', kind: 'signal', swarmId: 'screener', coveredModules: [], writeTargetsAbs: [path.join(sharedLedger, 'events.ndjson')], readDepsAbs: [] })
+    assert.equal(other.ok, false)
+    if (!other.ok) assert.equal(other.code, 'target_conflict')
   })
 
   // ---- admission: sweep/handoff are exclusive per subject (duplicates rejected, not raced) ----
   // A sweep merges today's inbox + rebuilds the board; a handoff appends the ledger + seeds the data
   // pool. Both used to carry zero write targets and no exclusivity, so two concurrent launches could
   // silently interleave (one sweep dropping the other's inbox rows; a duplicate paid handoff CLI).
-  check('admission: duplicate sweep and identical handoff are rejected; a different handoff target is admitted', () => {
+  check('admission: duplicate sweep/handoff and cross-target shared-store writes are serialized', () => {
     // release the SIG fixture runs from the earlier checks (not used below) so this check exercises
     // the subject rules, not the D5 global concurrency cap (default 3)
     finishRun(run, 'done')
@@ -239,12 +244,12 @@ try {
       const dup = admitRun({ ticker: 'TH-20990101-ZZZZ::AAA', kind: 'handoff', swarmId: 'screener', coveredModules: [], writeTargetsAbs: [boardAbs], readDepsAbs: [] })
       assert.equal(dup.ok, false)
       if (!dup.ok) assert.equal(dup.code, 'exclusivity')
-      // a DIFFERENT target of the same thesis is a different subject — still concurrent BY DESIGN,
-      // even though both declare the board index: admission is subject-scoped, and cross-subject
-      // board safety lives at the writer layer (per-process temp + atomic rename in
-      // update_board_index.py; lock + idempotency key in append-ndjson.sh)
+      // A different target is a different subject, but both handoffs rewrite the shared board/ledger.
+      // Admission must serialize that overlap across subjects so one terminal projection cannot stage
+      // another paid run's in-flight artifacts.
       const other = admitRun({ ticker: 'TH-20990101-ZZZZ::BBB', kind: 'handoff', swarmId: 'screener', coveredModules: [], writeTargetsAbs: [boardAbs], readDepsAbs: [] })
-      assert.equal(other.ok, true)
+      assert.equal(other.ok, false)
+      if (!other.ok) assert.equal(other.code, 'target_conflict')
     } finally {
       finishRun(handoff, 'done')
     }

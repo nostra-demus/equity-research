@@ -2,6 +2,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { ACTIVITY_LOG_PATH, STATE_DIR } from './config'
 import type { RunKind, RunStatus } from './types'
+import type { ProviderExecutionProfile, RunProvider } from './providers/types'
 
 // Perpetual, append-only audit log of who ran what, when, on which company. One JSON object per line
 // (JSONL). Never rotated or truncated, so the full history is always recoverable. A run writes a
@@ -30,10 +31,17 @@ export interface ActivityEvent {
   ticker: string
   swarm?: string // swarm id ('research' default, or a SWARM.md id like 'commodity') — lets Resume route the relaunch
   chained?: boolean // this run is a step of a chained full run — Resume continues the WHOLE pipeline, not just this step
+  chainId?: string
+  executionEpoch?: string
   runRoot?: string // repo-relative run folder (launched event) — lets the activity row open the run's reports
   module?: string
   agent?: string
+  provider?: RunProvider // absent on legacy v1 rows; historical rows were all Claude
+  executionProfile?: ProviderExecutionProfile
+  profileKey?: string
   model?: string
+  reasoningLevel?: string
+  cliVersion?: string
   // finished-only
   status?: RunStatus
   costUsd?: number
@@ -62,10 +70,17 @@ export interface ActivityRow {
   // concerns, or the target ticker of a handoff. Absent when the raw ticker is already the best label.
   swarm?: string // swarm id (from the launched event) — routes a Resume relaunch to the right swarm
   chained?: boolean // this run was a step of a chained full run — Resume continues the whole pipeline
+  chainId?: string
+  executionEpoch?: string
   runRoot?: string // repo-relative run folder (from the launched event) — drives the row's "open reports" menu
   module?: string
   agent?: string
+  provider: RunProvider
+  executionProfile?: ProviderExecutionProfile
+  profileKey?: string
   model?: string
+  reasoningLevel?: string
+  cliVersion?: string
   launchedAt: number
   finishedAt?: number
   status: RunStatus // from the finished event; 'running' if none yet
@@ -104,6 +119,7 @@ export interface ActivityQuery {
   kind?: RunKind
   user?: string
   status?: RunStatus
+  provider?: RunProvider
   q?: string // free-text across user/ticker/module/agent
   /** Rows returned (default 500). `null` is an internal no-truncation sentinel used only after a
    * narrowly scoped ticker filter; HTTP callers never receive this capability. */
@@ -152,6 +168,16 @@ function canonicalIdentity(value: unknown): value is string {
   return typeof value === 'string' && value.length > 0 && value === value.trim()
 }
 
+function validExecutionProfile(value: unknown): value is ProviderExecutionProfile {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) return false
+  const profile = value as Record<string, unknown>
+  const allowed = new Set(['key', 'parentModel', 'parentReasoning', 'specialistModel', 'specialistReasoning'])
+  if (Object.keys(profile).some((key) => !allowed.has(key))) return false
+  if (!canonicalIdentity(profile.key)) return false
+  return [profile.parentModel, profile.parentReasoning, profile.specialistModel, profile.specialistReasoning]
+    .every((field) => field === undefined || canonicalIdentity(field))
+}
+
 function activityRunIdentityMatches(event: Record<string, unknown>): boolean {
   if (event.runRoot === undefined) return true
   const runRoot = event.runRoot as string
@@ -184,7 +210,10 @@ function isActivityEvent(value: unknown): value is ActivityEvent {
   if (!canonicalIdentity(event.ticker)) return false
   if (event.status !== undefined && !ACTIVITY_RUN_STATUSES.has(event.status as RunStatus)) return false
   if (event.chained !== undefined && typeof event.chained !== 'boolean') return false
-  if (![event.swarm, event.runRoot, event.module, event.agent, event.model, event.note].every(validOptionalString)) return false
+  if (![event.swarm, event.runRoot, event.module, event.agent, event.profileKey, event.model, event.reasoningLevel,
+    event.cliVersion, event.note, event.chainId, event.executionEpoch].every(validOptionalString)) return false
+  if (event.executionProfile !== undefined && !validExecutionProfile(event.executionProfile)) return false
+  if (event.provider !== undefined && event.provider !== 'claude' && event.provider !== 'codex') return false
   if (event.swarm !== undefined && !canonicalIdentity(event.swarm)) return false
   if (event.runRoot !== undefined && !canonicalIdentity(event.runRoot)) return false
   if (!activityRunIdentityMatches(event)) return false
@@ -230,10 +259,17 @@ function foldRows(events: ActivityEvent[]): ActivityRow[] {
         ticker: ev.ticker,
         swarm: ev.swarm,
         chained: ev.chained,
+        chainId: ev.chainId,
+        executionEpoch: ev.executionEpoch,
         runRoot: ev.runRoot,
         module: ev.module,
         agent: ev.agent,
+        provider: ev.provider ?? 'claude',
+        executionProfile: ev.executionProfile,
+        profileKey: ev.profileKey,
         model: ev.model,
+        reasoningLevel: ev.reasoningLevel,
+        cliVersion: ev.cliVersion,
         launchedAt: ev.ts,
         status: 'running',
       }
@@ -248,14 +284,23 @@ function foldRows(events: ActivityEvent[]): ActivityRow[] {
       row.ticker = ev.ticker
       row.swarm = ev.swarm
       row.chained = ev.chained
+      row.chainId = ev.chainId
+      row.executionEpoch = ev.executionEpoch
       row.runRoot = ev.runRoot
       row.module = ev.module
       row.agent = ev.agent
+      row.provider = ev.provider ?? row.provider ?? 'claude'
+      row.executionProfile = ev.executionProfile ?? row.executionProfile
+      row.profileKey = ev.profileKey
       row.model = ev.model
+      row.reasoningLevel = ev.reasoningLevel
+      row.cliVersion = ev.cliVersion
     } else if (ev.event === 'finished') {
       row.finishedAt = ev.ts
       row.status = ev.status ?? 'done'
       if (ev.runRoot && !row.runRoot) row.runRoot = ev.runRoot // fallback only — launched stays authoritative
+      if (ev.chainId && !row.chainId) row.chainId = ev.chainId
+      if (ev.executionEpoch && !row.executionEpoch) row.executionEpoch = ev.executionEpoch
       if (ev.costUsd != null) row.costUsd = ev.costUsd
       if (ev.durationMs != null) row.durationMs = ev.durationMs
       if (ev.numTurns != null) row.numTurns = ev.numTurns
@@ -307,8 +352,9 @@ export function readActivity(query: ActivityQuery = {}, sigLabels?: Map<string, 
     if (query.kind && r.kind !== query.kind) return false
     if (query.user && r.user !== query.user) return false
     if (query.status && r.status !== query.status) return false
+    if (query.provider && r.provider !== query.provider) return false
     if (q) {
-      const hay = `${r.user} ${r.ticker} ${r.subjectLabel ?? ''} ${r.module ?? ''} ${r.agent ?? ''} ${r.kind}`.toLowerCase()
+      const hay = `${r.user} ${r.ticker} ${r.subjectLabel ?? ''} ${r.module ?? ''} ${r.agent ?? ''} ${r.kind} ${r.provider} ${r.model ?? ''} ${r.reasoningLevel ?? ''}`.toLowerCase()
       if (!hay.includes(q)) return false
     }
     return true

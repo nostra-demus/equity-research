@@ -5,6 +5,8 @@ import { api, isStatic } from '../lib/api'
 import { fmtAbsolute, fmtAgo, fmtCost, fmtDuration, moduleLabel } from '../lib/format'
 import type { ActivityResult, ActivityRow, ResumableRunInfo, RunKind, Whoami } from '../lib/types'
 import { ActivityReportMenu, type ReportMenuAnchor } from './ActivityReportMenu'
+import { providerLabel } from '../lib/provider'
+import { buildActivityUnits, exactResumableForActivity, type ActivityRunGroup as RunGroup } from '../lib/activityGroups'
 
 type RangeKey = 'all' | '24h' | '7d' | '30d' | 'custom'
 const RANGES: { key: RangeKey; label: string }[] = [
@@ -16,7 +18,7 @@ const RANGES: { key: RangeKey; label: string }[] = [
 ]
 const DAY = 86_400_000
 
-const KIND_LABEL: Record<RunKind, string> = { full: 'Full run', module: 'Module', agent: 'Orb', rerun: 'Re-run', review: 'Update', track: 'Dashboard', 'doc-intake': 'New-data read', signal: 'Event check', sweep: 'News scan', 'screener-agent': 'Screener orb', handoff: 'Send to research' }
+const KIND_LABEL: Record<RunKind, string> = { full: 'Full run', module: 'Module', agent: 'Orb', rerun: 'Re-run', review: 'Update', track: 'Dashboard', 'doc-intake': 'New-data read', signal: 'Event check', sweep: 'News scan', 'screener-agent': 'Screener orb', handoff: 'Send to research', conviction: 'Conviction audit', parity: 'Provider parity' }
 function targetOf(r: ActivityRow): string {
   // the cheap advisory read over newly-landed documents — it writes the scoped re-run plan the
   // "New data" panel shows; it re-runs nothing itself
@@ -29,6 +31,8 @@ function targetOf(r: ActivityRow): string {
   if (r.kind === 'signal') return 'one event, all checks'
   if (r.kind === 'sweep') return 'fills the inbox'
   if (r.kind === 'handoff') return 'idea memo → company data folder'
+  if (r.kind === 'conviction') return 'decision conviction audit'
+  if (r.kind === 'parity') return 'provider parity adjudication'
   return `${moduleLabel(r.module || '')} › ${r.agent || '?'}`
 }
 // The Company column: research runs carry a real ticker; swarm runs carry an opaque subject id that
@@ -67,66 +71,10 @@ function hasReport(r: ActivityRow): boolean {
 // A chained-full step (or a full row) resumes the WHOLE pipeline; a module row resumes just that module
 // in its exact folder; a signal row resumes its gauntlet. Anything else (agent/rerun, or a folder that's
 // finished / not today's / currently live) has no matching entry and shows no Resume affordance.
-function matchResumable(r: ActivityRow, entries: ResumableRunInfo[]): ResumableRunInfo | undefined {
-  if (!entries.length) return undefined
-  if (r.kind === 'signal') return entries.find((e) => e.kind === 'signal' && e.subject === r.ticker)
-  if (r.chained || r.kind === 'full') return entries.find((e) => e.kind === 'full' && e.subject === r.ticker)
-  if (r.kind === 'module') return entries.find((e) => e.kind === 'module' && e.subject === r.ticker && e.module === r.module && e.runRoot === r.runRoot)
-  return undefined
-}
 // The plain-English "N/total done" hint for a resume — modules for a full/signal, checks for a module.
 function resumeHint(info: ResumableRunInfo): string {
   const noun = info.unit === 'agent' ? 'check' : 'module'
-  return `Resume — ${info.doneCount}/${info.totalCount} ${noun}${info.totalCount === 1 ? '' : 's'} done, runs only the rest`
-}
-
-// ---- run grouping ----------------------------------------------------------------------------------
-// One RUN is many rows: a chained full run fires a separate row for every module + the master step (all
-// marked chained), and a user can also run modules one at a time into the same folder. Every one of those
-// rows writes into the SAME run folder (runRoot = analyses/<TICKER>_<date>, or a swarm's SIG folder), so
-// runRoot is the join key that turns the scatter of rows back into one run. We club a folder's rows under a
-// single expandable parent that shows the run completing — each module a dot that fills as it finishes —
-// instead of showing the pieces disjointedly. A folder holding a single row stays a plain row.
-//
-// Grouping is restricted to the kinds whose runRoot is a genuine per-run folder — the analysis-building
-// steps (full / module / rerun / agent) and the screener SIG folder (signal / screener-agent). The
-// cross-cutting kinds are deliberately NOT grouped even though the launcher stamps them a runRoot: a
-// `sweep` shares the constant `screener/inbox`, a `handoff` shares `screener/ledger`, and a `track`
-// dashboard rebuild reuses `analyses/<ticker>_<date>` — grouping those would clump unrelated runs and fold
-// a dashboard rebuild into a real research run as a phantom step. They render as plain rows, same as a row
-// with no runRoot at all.
-const GROUPABLE_KINDS = new Set<RunKind>(['full', 'module', 'rerun', 'agent', 'signal', 'screener-agent'])
-interface RunGroup {
-  key: string // the runRoot (the group's stable id)
-  runRoot: string
-  subjectId: string // the ticker / subject id
-  subjectLabel?: string // readable Company label when the subject id is opaque
-  swarm?: string
-  children: ActivityRow[] // in pipeline order (oldest launch first) — reads as the run building up
-  startedAt: number // earliest launch — when the run began
-  lastAt: number // newest launch — how fresh the run is (drives ordering)
-  isFull: boolean // holds a monolithic full OR any chained step → this is a whole-pipeline run
-  running: boolean // at least one step still in flight
-  status: string // rolled-up status
-  doneCount: number
-  totalCount: number
-  costUsd?: number // Σ of the steps' cost
-  durationMs?: number // wall-clock span (earliest launch → latest finish, or now if live)
-  users: string[] // distinct launchers (usually one)
-}
-type Unit = { kind: 'group'; group: RunGroup } | { kind: 'row'; row: ActivityRow }
-
-// Severity ranking for the rolled-up status: an in-flight step wins (the run is still going); otherwise the
-// worst terminal outcome surfaces so a failed/incomplete step is never hidden behind its done siblings.
-const STATUS_SEVERITY: Record<string, number> = { starting: 6, running: 6, error: 5, incomplete: 4, cancelled: 3, done: 2 }
-function rollupStatus(children: ActivityRow[]): { status: string; running: boolean } {
-  let worst = 'done'
-  let running = false
-  for (const c of children) {
-    if (c.status === 'running' || c.status === 'starting') running = true
-    if ((STATUS_SEVERITY[c.status] ?? 0) > (STATUS_SEVERITY[worst] ?? 0)) worst = c.status
-  }
-  return { status: running ? 'running' : worst, running }
+  return `Resume with the currently selected provider — ${info.doneCount}/${info.totalCount} ${noun}${info.totalCount === 1 ? '' : 's'} done, runs only the rest${info.provider ? ` (originally ${providerLabel(info.provider)})` : ''}`
 }
 
 // The label a step shows on its progress dot and in its child row's Target — the module it ran (the
@@ -146,95 +94,8 @@ function dotState(s: string): 'done' | 'run' | 'bad' | 'idle' {
   return 'idle'
 }
 
-function makeGroup(runRoot: string, membersNewestFirst: ActivityRow[]): RunGroup {
-  const children = [...membersNewestFirst].sort((a, b) => a.launchedAt - b.launchedAt) // oldest first = pipeline order
-  const startedAt = children[0].launchedAt
-  const lastAt = children[children.length - 1].launchedAt
-  const { status, running } = rollupStatus(children)
-  // UNION of the children's active intervals — not the raw first-launch-to-last-finish span, and not the
-  // sum of their durations. A chained run's modules overlap, so summing would double-count them; but a
-  // run folder is also REUSED across sessions days apart, and the raw span then swallows all the dead
-  // time in between (that is how a group read "3655m 38s" — 2.5 days of mostly nothing). Merging the
-  // intervals is correct for both: overlapping modules collapse into one interval, and an idle gap
-  // between sessions is simply not counted.
-  const now = Date.now()
-  const intervals = children
-    .map((c) => [c.launchedAt, c.finishedAt ?? (c.finishedAt == null && running ? now : c.launchedAt)] as const)
-    .filter(([a, b]) => b >= a)
-    .sort((x, y) => x[0] - y[0])
-  let durationMs = 0
-  let curStart: number | null = null
-  let curEnd = 0
-  for (const [a, b] of intervals) {
-    if (curStart === null) { curStart = a; curEnd = b; continue }
-    if (a <= curEnd) { curEnd = Math.max(curEnd, b); continue }
-    durationMs += curEnd - curStart
-    curStart = a; curEnd = b
-  }
-  if (curStart !== null) durationMs += curEnd - curStart
-  durationMs = Math.max(0, durationMs)
-  const costTotal = children.reduce((s, c) => s + (c.costUsd ?? 0), 0)
-  return {
-    key: runRoot,
-    runRoot,
-    subjectId: children[0].ticker,
-    subjectLabel: children.find((c) => c.subjectLabel)?.subjectLabel,
-    swarm: children.find((c) => c.swarm)?.swarm,
-    children,
-    startedAt,
-    lastAt,
-    // "Full run" when it's a real whole-pipeline run: a monolithic full, any chained step, OR a run that
-    // reached the master synthesis (a final thesis was produced). A loose set of modules with no master
-    // stays the neutral "Run".
-    isFull: children.some((c) => c.kind === 'full' || c.chained || c.module === 'master' || c.agent === 'synthesizer'),
-    running,
-    status,
-    doneCount: children.filter((c) => c.status === 'done').length,
-    totalCount: children.length,
-    costUsd: children.some((c) => c.costUsd != null) ? costTotal : undefined,
-    durationMs,
-    users: [...new Set(children.map((c) => c.user))],
-  }
-}
-
-// Fold the flat, newest-first rows into render units: a group where a run folder holds ≥2 groupable rows,
-// a plain row otherwise. Emitted in the rows' own order — a group takes the slot of its newest row — so the
-// newest run stays on top. runCount is the number of logical runs shown (a group counts once).
-//
-// `canGroup` is false whenever a filter that can partition a run's rows by outcome or type is active
-// (status / kind / text search): the server applies those filters BEFORE the client groups, so a group
-// built from the surviving subset would assert false completeness (e.g. a "done" filter hides a run's
-// failed step, leaving a bogus "done N/N"). Under those filters we show flat rows only — an honest subset,
-// not a run rollup. Range / ticker / user filters keep a run's rows together, so grouping stays on.
-function buildUnits(rows: ActivityRow[], canGroup: boolean): { units: Unit[]; runCount: number } {
-  const groupable = (r: ActivityRow) => canGroup && !!r.runRoot && GROUPABLE_KINDS.has(r.kind)
-  const byRoot = new Map<string, ActivityRow[]>()
-  for (const r of rows) {
-    if (!groupable(r)) continue
-    const b = byRoot.get(r.runRoot!)
-    if (b) b.push(r)
-    else byRoot.set(r.runRoot!, [r])
-  }
-  const emitted = new Set<string>()
-  const units: Unit[] = []
-  let runCount = 0
-  for (const r of rows) {
-    const bucket = groupable(r) ? byRoot.get(r.runRoot!) : undefined
-    if (!bucket || bucket.length < 2) {
-      units.push({ kind: 'row', row: r })
-      runCount++
-      continue
-    }
-    if (emitted.has(r.runRoot!)) continue // this run's group was already emitted at its newest row
-    emitted.add(r.runRoot!)
-    units.push({ kind: 'group', group: makeGroup(r.runRoot!, bucket) })
-    runCount++
-  }
-  return { units, runCount }
-}
-
 // A synthetic row that stands in for the whole group when driving the run-level Resume / reports menu. Its
-// kind decides the routing: a research run poses as a chained 'full' (matchResumable finds the whole-
+// kind decides the routing: a research run poses as a chained 'full' (the exact resume join finds the whole-
 // pipeline resume; the reports menu opens the run's final thesis / memo / every module synthesis under the
 // runRoot). A screener run (its steps are signal / screener-agent) poses as 'signal' instead, so the resume
 // matches the signal entry and the reports menu takes its screener branch (api.screenerRun) rather than
@@ -255,6 +116,8 @@ function groupProxyRow(g: RunGroup): ActivityRow {
     status: g.status as ActivityRow['status'],
     costUsd: g.costUsd,
     durationMs: g.durationMs,
+    provider: g.provider === 'claude' || g.provider === 'codex' ? g.provider : undefined,
+    profileKey: g.profileKey !== 'mixed' && g.profileKey !== 'unknown' ? g.profileKey : undefined,
   }
 }
 
@@ -373,7 +236,7 @@ export function ActivityHistory({ onLoaded }: { onLoaded?: (s: { runCount: numbe
   // search) — those are applied server-side, so a group over the surviving subset would misreport
   // completeness. Range / ticker / user keep a run's rows together, so they don't disable grouping.
   const canGroup = !status && !kind && !qDebounced
-  const { units, runCount } = useMemo(() => buildUnits(rows, canGroup), [rows, canGroup])
+  const { units, runCount } = useMemo(() => buildActivityUnits(rows, canGroup), [rows, canGroup])
   const isOpen = (g: RunGroup) => openGroups[g.key] ?? g.running
   const toggleGroup = (g: RunGroup) => setOpenGroups((m) => ({ ...m, [g.key]: !isOpen(g) }))
   // Pin a run open the first time we see it in flight, so it STAYS open when it finishes (you keep watching
@@ -419,7 +282,7 @@ export function ActivityHistory({ onLoaded }: { onLoaded?: (s: { runCount: numbe
   // One flat row — a standalone run, or a single step inside a group (inGroup: indented under its run, with
   // the whole-pipeline Resume left to the parent so it isn't repeated on every module).
   const renderRow = (r: ActivityRow, inGroup = false) => {
-    const raw = matchResumable(r, resumableRuns)
+    const raw = exactResumableForActivity(r, resumableRuns)
     // inside a group the whole-pipeline / signal resume lives on the parent — a child only offers a
     // module-level resume, so it isn't repeated on every step.
     const resumable = inGroup && (raw?.kind === 'full' || raw?.kind === 'signal') ? undefined : raw
@@ -433,7 +296,8 @@ export function ActivityHistory({ onLoaded }: { onLoaded?: (s: { runCount: numbe
         </td>
         <td style={{ color: 'var(--text-muted)' }}>{inGroup ? stepLabel(r) : targetOf(r)}</td>
         <td title={r.note || undefined}>{statusPill(r.status, r.note ? ' ⚠' : undefined)}</td>
-        <td className="atable__num">{fmtCost(r.costUsd)}</td>
+        <td>{r.provider ? `${providerLabel(r.provider)} · ${r.profileKey || r.executionProfile?.key || (r.model ? `${r.model}${r.reasoningLevel ? `:${r.reasoningLevel}` : ''}` : 'profile unknown')}` : 'Provider/profile unknown'}</td>
+        <td className="atable__num">{r.provider === 'codex' ? 'Plan' : fmtCost(r.costUsd)}</td>
         <td className="atable__num">{fmtDuration(r.durationMs)}</td>
         <td className="atable__num">{actionCell(r, resumable, hasReport(r), 'Open reports for this run')}</td>
       </tr>
@@ -445,7 +309,7 @@ export function ActivityHistory({ onLoaded }: { onLoaded?: (s: { runCount: numbe
   const renderGroupBody = (g: RunGroup) => {
     const open = isOpen(g)
     const proxy = groupProxyRow(g)
-    const resumable = matchResumable(proxy, resumableRuns)
+    const resumable = exactResumableForActivity(proxy, resumableRuns)
     // Reconcile the rolled-up status with disk truth: a run that still has a whole-pipeline resume on disk
     // is NOT finished, even when every row present reads 'done' (e.g. all modules done but the master step
     // hasn't run yet) — show it as 'incomplete' so the pill never contradicts the Resume button beside it.
@@ -477,7 +341,8 @@ export function ActivityHistory({ onLoaded }: { onLoaded?: (s: { runCount: numbe
             </div>
           </td>
           <td title={g.running ? 'a step is still running' : displayStatus}>{statusPill(displayStatus)}</td>
-          <td className="atable__num">{fmtCost(g.costUsd)}</td>
+          <td>{g.provider === 'mixed' ? `Mixed · ${g.profileKey === 'mixed' ? 'mixed profiles' : g.profileKey}` : g.provider === 'unknown' ? 'Provider/profile unknown' : `${providerLabel(g.provider)} · ${g.profileKey === 'unknown' ? 'profile unknown' : g.profileKey === 'mixed' ? 'mixed profiles' : g.profileKey}`}</td>
+          <td className="atable__num">{g.provider === 'mixed' ? 'Mixed' : g.provider === 'codex' ? 'Plan' : fmtCost(g.costUsd)}</td>
           <td className="atable__num" title="wall-clock: first launch → last finish">{fmtDuration(g.durationMs)}</td>
           <td className="atable__num" onClick={(e) => e.stopPropagation()}>{actionCell(proxy, resumable, hasReport(proxy), 'Open this run’s reports')}</td>
         </tr>
@@ -563,7 +428,7 @@ export function ActivityHistory({ onLoaded }: { onLoaded?: (s: { runCount: numbe
               <table className="atable">
                 <thead>
                   <tr>
-                    <th>When</th><th>Who</th><th>Action</th><th>Company</th><th>Target</th><th>Status</th><th className="atable__num">Cost</th><th className="atable__num">Duration</th><th className="atable__num">Reports</th>
+                    <th>When</th><th>Who</th><th>Action</th><th>Company</th><th>Target</th><th>Status</th><th>Provider</th><th className="atable__num">Cost</th><th className="atable__num">Duration</th><th className="atable__num">Reports</th>
                   </tr>
                 </thead>
                 {units.map((u) => (u.kind === 'group' ? renderGroupBody(u.group) : <tbody key={u.row.runId}>{renderRow(u.row)}</tbody>))}

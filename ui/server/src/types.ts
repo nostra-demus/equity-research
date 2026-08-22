@@ -1,3 +1,5 @@
+import type { ProviderExecutionProfile, RunProvider } from './providers/types'
+
 export type Sufficiency = 'Sufficient' | 'Partial' | 'Insufficient'
 
 export interface AgentNode {
@@ -75,10 +77,19 @@ export interface SwarmManifest {
   runsRoot: string // repo-relative folder that holds run folders (e.g. 'screener/runs' / 'analyses')
   runRootTemplate: string // e.g. 'screener/runs/{SIG_ID}' / 'analyses/{TICKER}_{DATE}'
   placeholder: string // the subject token inside the template (e.g. 'SIG_ID' / 'TICKER')
+  // Run-root-relative JSON artifacts whose terminal author owns the published decision. The runtime
+  // stamps provenance into every declared file, so a newly discovered swarm needs no engine wiring.
+  decisionArtifacts?: string[]
   ledgerRoot?: string
   boardIndex?: string
   inboxRoot?: string
   schemasRoot?: string
+  /** Optional slash-command basename for one tracked outcome review (for example `review`). */
+  reviewCommand?: string
+  /** Trusted repo-relative deterministic calibration script run by the supervisor after review publication. */
+  calibrator?: string
+  /** Exact research-data directory owned by that calibrator's generated summaries. */
+  calibrationRoot?: string
   // repo-relative markdown whose `## <NAME>` headings enumerate this swarm's subjects (so the cockpit
   // subject picker can list a not-yet-run subject). Generic: the engine reads it from the manifest, so
   // no subject/swarm name is hardcoded (CLAUDE.md §26). Absent for research/screener.
@@ -279,7 +290,8 @@ export interface SwarmSubjectSummary {
 // a ticker's data pool from a locked thesis (idempotent; never launches the research run itself).
 // 'doc-intake' is an advisory research kind (like 'review'/'track'): it reads the docs that landed
 // since the last run and writes a SCOPED rerun plan (frameworks/INTAKE.md) — it launches no run.
-export type RunKind = 'full' | 'module' | 'agent' | 'rerun' | 'review' | 'track' | 'doc-intake' | 'signal' | 'sweep' | 'screener-agent' | 'handoff'
+export type RunKind = 'full' | 'module' | 'agent' | 'rerun' | 'review' | 'track' | 'doc-intake'
+  | 'signal' | 'sweep' | 'screener-agent' | 'handoff' | 'conviction' | 'parity'
 // 'incomplete' = the process exited cleanly but a full/rerun didn't produce its final deliverables
 // (thesis/decision) — almost always budget/turn truncation. Distinct from 'error' (a real failure).
 // 'readiness-checking' / 'awaiting-readiness-decision' are PRE-SPAWN states: the deterministic
@@ -362,8 +374,8 @@ export interface RunActivity {
   ts: number
 }
 
-export type SseEvent =
-  | { type: 'run-started'; runId: string; kind: RunKind; ticker: string; runRoot: string | null; sessionId?: string; willCommitToMain: boolean; swarm?: string; ts: number }
+export type SseEvent = (
+  | { type: 'run-started'; runId: string; kind: RunKind; ticker: string; runRoot: string | null; sessionId?: string; willCommitToMain: boolean; swarm?: string; provider: RunProvider; executionProfile: ProviderExecutionProfile; profileKey: string; model: string; reasoningLevel?: string; cliVersion?: string; ts: number }
   | { type: 'agent-started'; runId: string; module: string; agentKey: string; name: string; layer: number; ts: number }
   | { type: 'agent-done'; runId: string; agentKey: string; module: string; name: string; layer: number; outputPath: string; verdict: string | null; bytes: number; ts: number }
   | { type: 'agent-failed'; runId: string; agentKey: string; module: string; name: string; layer: number; reason: string; ts: number }
@@ -384,13 +396,19 @@ export type SseEvent =
   // agent events never look like a hang. Emitted via emitTransient (NOT recorded in eventLog, never
   // replayed): it is ambient state, not history. lastStdoutAt = when the engine child last produced
   // output; lastActivity = the orchestrator's most recent tool call (what the system is DOING now).
-  | { type: 'run-heartbeat'; runId: string; status: RunStatus; elapsedMs: number; agentsDone: number; agentsTotal: number; costUsd?: number; lastStdoutAt?: number; lastActivity?: RunActivity; ts: number }
+  | { type: 'run-heartbeat'; runId: string; status: RunStatus; elapsedMs: number; agentsDone: number; agentsTotal: number; provider: RunProvider; executionProfile: ProviderExecutionProfile; profileKey: string; model: string; reasoningLevel?: string; costUsd?: number; lastStdoutAt?: number; lastActivity?: RunActivity; ts: number }
   // TRANSIENT, one per orchestrator tool call — the step-by-step "what is it reading RIGHT NOW" feed.
   // The 3s heartbeat carries only the LATEST call, so a run that reads five documents between two
   // pulses shows four of them to nobody; this event is what makes the feed complete. Not recorded in
   // eventLog (a long run would bloat every new subscriber's replay) — registry keeps a bounded ring
   // and replays THAT on subscribe, so a client attaching mid-run still sees the steps it missed.
-  | { type: 'run-activity'; runId: string; tool: string; target?: string; ts: number }
+  | { type: 'run-activity'; runId: string; tool: string; target?: string; provider: RunProvider; executionProfile: ProviderExecutionProfile; ts: number }
+) & {
+  provider?: RunProvider
+  executionProfile?: ProviderExecutionProfile
+  chainId?: string
+  executionEpoch?: string
+}
 
 export interface CreditPreflight {
   ok: boolean
@@ -407,6 +425,11 @@ export interface CreditPreflight {
 export interface LaunchPreflight {
   kind: RunKind
   ticker: string // research: the ticker; swarm runs: the subject id (SIG-… / sweep / handoff key)
+  provider: RunProvider
+  executionProfile: ProviderExecutionProfile
+  profileKey: string
+  model: string
+  reasoningLevel?: string
   swarm?: string // omitted for research
   module?: string
   agent?: string

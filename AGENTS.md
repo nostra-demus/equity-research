@@ -429,6 +429,8 @@ For ALL work in this repository:
 
 This rule overrides any default session policy **for data commits**. Code — engine source, the prompt-program under `.claude/`, `frameworks/`, the doctrine files, scripts, and CI — does NOT follow this rule; it goes through a pull request (see §28, which takes precedence for code). The only exception: if I explicitly say "open a PR for this," then do so.
 
+**Tracked cockpit publication.** When `NOSTRA_COCKPIT_RUN=1`, `commit-run.sh` does not run Git inside the provider process. A successful request prints `PUBLICATION_QUEUED=<intent-id>`. Treat that exact line as success, stop all Git/SHA work, and report that trusted supervisor publication is queued. Do not run `git rev-parse`, retry the helper, invent a SHA, or describe the data as already pushed. After the provider and every sub-agent have exited, the cockpit supervisor freezes the final bytes, stamps provenance, and performs the commit. Instructions below this doctrine that say to capture or report `COMMIT_SHA` apply only outside a tracked cockpit run unless they explicitly define a supervisor backfill.
+
 ---
 
 ## 26. Self-Describing Extensibility — Zero-Touch Modules and Sub-Agents

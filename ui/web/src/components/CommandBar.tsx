@@ -1,12 +1,13 @@
 import { useEffect, useRef, useState } from 'react'
 import { useStore } from '../lib/store'
 import { captureAskOpener } from '../lib/askFocus'
-import { decisionColor, fmtAgo, fmtMinutes, nextSweepLabel, resetIn, resolveVerdict, usageColor, usageLabel, usagePct } from '../lib/format'
+import { decisionColor, fmtAgo, fmtMinutes, nextSweepLabel, resetIn, resolveVerdict, usageColor, usageLabel } from '../lib/format'
 import { plainKind } from '../lib/plain'
 import { EngineStatusPill } from './EngineStatus'
 import { todayOutcomeCopy } from './screener/pipelineDiagnosticsView'
 import { ThemeToggle } from './ThemeToggle'
 import { RunHistory } from './RunHistory'
+import { executionProfileLabel, providerBlockedReason, providerIsBlocked, providerLabel, providerNeedsCheck, providerUsagePercentText, type RunProvider } from '../lib/provider'
 
 function BrandMark() {
   return (
@@ -491,68 +492,101 @@ function ReadinessStrip() {
 
 const windowOrder = (t: string) => (t === 'five_hour' ? 0 : t.startsWith('seven_day') && !t.includes('opus') ? 1 : t.includes('opus') ? 2 : 3)
 
-function CreditBadge() {
-  const credit = useStore((s) => s.credit)
-  const checking = useStore((s) => s.creditChecking)
-  const check = useStore((s) => s.checkCredit)
+function ProviderSelector() {
+  const selected = useStore((s) => s.runProvider)
+  const setSelected = useStore((s) => s.setRunProvider)
+  const providers = useStore((s) => s.providers)
+  const checking = useStore((s) => s.providersChecking)
+  const check = useStore((s) => s.refreshProviders)
   const staticMode = useStore((s) => s.staticMode)
   const [open, setOpen] = useState(false)
 
   // static showcase has no Claude usage to report — the "read-only showcase" chip already says so
   if (staticMode) return null
 
+  const current = providers[selected]
+  const currentProblem = providerBlockedReason(current)
+  const credit = current.usage
   const windows = credit?.windows ? Object.entries(credit.windows).sort((a, b) => windowOrder(a[0]) - windowOrder(b[0])) : []
   // headline a real window if we have one (binding window preferred, else highest utilization)
   const headline = windows.find(([t]) => t === credit?.rateLimitType) || [...windows].sort((a, b) => (b[1].utilization ?? 0) - (a[1].utilization ?? 0))[0]
-  let label = 'usage'
   let dotColor = 'var(--text-faint)'
-  if (headline) {
-    const [type, w] = headline
-    label = `${usageLabel(type)} ${usagePct(w.utilization) ?? 0}%`
-    dotColor = usageColor(w.status, w.utilization)
-  } else if (credit?.checked) {
-    if (credit.status === 'rejected' || credit.status === 'blocked') {
-      label = 'rate limited'
-      dotColor = 'var(--bad)'
-    } else if (credit.ok) {
-      label = 'usage ok'
-      dotColor = 'var(--accent)'
-    }
+  if (currentProblem) {
+    dotColor = 'var(--bad)'
+  } else if (headline) {
+    const [, w] = headline
+    const pct = providerUsagePercentText(w.utilization)
+    dotColor = pct === null ? 'var(--text-faint)' : usageColor(w.status, w.utilization)
+  } else if (credit?.checked && (credit.status === 'rejected' || credit.status === 'blocked')) {
+    dotColor = 'var(--bad)'
+  } else if (current.available) {
+    dotColor = 'var(--accent)'
+  }
+
+  const compact = (provider: RunProvider): string => {
+    const status = providers[provider]
+    if (status.checking) return 'checking'
+    if (providerNeedsCheck(status)) return 'check'
+    if (providerBlockedReason(status)) return 'off'
+    const providerWindows = Object.values(status.usage?.windows || {})
+    const utilization = providerWindows.map((w) => w.utilization).filter((v): v is number => typeof v === 'number')
+    if (utilization.length) return `${Math.round(Math.max(...utilization) * 100)}%`
+    return status.available ? 'ready' : 'unknown'
   }
 
   return (
-    <div className="tickerpick">
-      <button className="creditbadge" onClick={() => { setOpen((o) => !o); if (!credit?.checked && !checking) check() }} title="Claude plan usage — 5-hour / weekly limits">
-        <span className="creditbadge__dot" style={{ background: dotColor }} />
-        {checking ? 'checking…' : label}
+    <div className="tickerpick providerpick">
+      <div className="providerseg providerseg--top" role="radiogroup" aria-label="Run new work with">
+        {(['claude', 'codex'] as RunProvider[]).map((provider) => {
+          const status = providers[provider]
+          const problem = providerBlockedReason(status)
+          return <button key={provider} role="radio" aria-checked={selected === provider} className={`providerseg__btn${selected === provider ? ' providerseg__btn--on' : ''}`} disabled={providerIsBlocked(status)} title={problem || (providerNeedsCheck(status) ? `Check ${providerLabel(provider)} status` : `Run new work with ${providerLabel(provider)}`)} onClick={() => { setSelected(provider); if (providerNeedsCheck(status) && !status.checking) void check(provider) }}>
+            <span>{providerLabel(provider)}</span><small>{compact(provider)}</small>
+          </button>
+        })}
+      </div>
+      <button className="creditbadge creditbadge--details" aria-label="Provider status details" aria-expanded={open} onClick={() => { setOpen((o) => !o); if (providerNeedsCheck(current) && !current.checking) void check(selected) }} title={currentProblem || `Details for ${providerLabel(selected)}`}>
+        <span className="creditbadge__dot" style={{ background: dotColor }} />{checking ? '…' : 'Usage'}<span aria-hidden>▾</span>
       </button>
       {open && (
         <>
           <div style={{ position: 'fixed', inset: 0, zIndex: 39 }} onClick={() => setOpen(false)} />
           <div className="tickerpick__menu" style={{ minWidth: 320, padding: '10px 12px' }}>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 6 }}>
-              <span style={{ fontSize: 11, letterSpacing: '0.4px', textTransform: 'uppercase', color: 'var(--text-muted)' }}>Plan usage</span>
-              <button className="btn btn--ghost" style={{ height: 24, padding: '0 8px', fontSize: 11 }} onClick={check}>{checking ? 'checking…' : 'refresh'}</button>
+              <span style={{ fontSize: 11, letterSpacing: '0.4px', textTransform: 'uppercase', color: 'var(--text-muted)' }}>Run new work with</span>
+              <button className="btn btn--ghost" style={{ height: 24, padding: '0 8px', fontSize: 11 }} onClick={() => void check(selected)}>{checking ? 'checking…' : 'refresh'}</button>
+            </div>
+            <div className="providerseg" role="radiogroup" aria-label="Run provider">
+              {(['claude', 'codex'] as RunProvider[]).map((provider) => {
+                const status = providers[provider]
+                const problem = providerBlockedReason(status)
+                return <button key={provider} role="radio" aria-checked={selected === provider} className={`providerseg__btn${selected === provider ? ' providerseg__btn--on' : ''}`} disabled={providerIsBlocked(status)} title={problem || (providerNeedsCheck(status) ? `Check ${providerLabel(provider)} status` : `Run new work with ${providerLabel(provider)}`)} onClick={() => { setSelected(provider); if (providerNeedsCheck(status) && !status.checking) void check(provider) }}>
+                  <span className="creditbadge__dot" style={{ background: status.available ? 'var(--good)' : providerNeedsCheck(status) ? 'var(--text-faint)' : 'var(--bad)' }} />{status.checking ? 'checking…' : providerLabel(provider)}
+                </button>
+              })}
+            </div>
+            <div style={{ margin: '8px 2px', fontSize: 11, color: current.available ? 'var(--text-muted)' : 'var(--bad)' }}>
+              {current.available ? executionProfileLabel(current) : currentProblem || (providerNeedsCheck(current) ? current.reason || 'Status unknown — choose the provider to check again' : 'Unavailable')}
             </div>
             {windows.length ? (
               windows.map(([type, w]) => {
-                const pct = usagePct(w.utilization) ?? 0
+                const pct = providerUsagePercentText(w.utilization)
                 const reset = resetIn(w.resetsAt)
                 return (
                   <div key={type} className="usagerow">
                     <div className="usagerow__top">
                       <span>{usageLabel(type)}</span>
-                      <span style={{ color: 'var(--text-muted)', fontFamily: 'var(--font-mono)', fontSize: 11 }}>{pct}%{reset ? ` · resets ${reset}` : ''}</span>
+                      <span style={{ color: 'var(--text-muted)', fontFamily: 'var(--font-mono)', fontSize: 11 }}>{pct ?? 'Usage unavailable'}{reset ? ` · resets ${reset}` : ''}</span>
                     </div>
-                    <div className="usagebar"><div className="usagebar__fill" style={{ width: `${Math.min(100, pct)}%`, background: usageColor(w.status, w.utilization) }} /></div>
+                    {pct !== null && <div className="usagebar"><div className="usagebar__fill" style={{ width: pct, background: usageColor(w.status, w.utilization) }} /></div>}
                   </div>
                 )
               })
             ) : (
-              <div style={{ padding: '8px 2px', fontSize: 12, color: 'var(--text-faint)' }}>{checking ? 'checking…' : 'No usage data yet — click refresh.'}</div>
+              <div style={{ padding: '8px 2px', fontSize: 12, color: 'var(--text-faint)' }}>{checking ? 'checking…' : 'Usage unavailable'}</div>
             )}
             <div style={{ marginTop: 8, fontSize: 10.5, color: 'var(--text-faint)', lineHeight: 1.5 }}>
-              Live from the Claude CLI this cockpit runs. Each check reports the currently binding window; others fill in as runs report them.
+              The choice is remembered for new work. A run already in progress keeps its original provider.
               {credit?.isUsingOverage && <div style={{ color: 'var(--accent-bright)', marginTop: 3 }}>Currently using paid overage.</div>}
             </div>
           </div>
@@ -648,7 +682,7 @@ export function CommandBar() {
           <AutoScanChip />
           <PipelineChip />
           <EngineStatusPill />
-          <CreditBadge />
+          <ProviderSelector />
           <button className="btn btn--ghost" onClick={openScoring} title="Scoring weights — tune how every event is scored, for the whole wire">Scoring</button>
           <button className="btn btn--ghost" onClick={openActivity} title="Activity — what is running now, and everything that has ever run">Activity</button>
           <button className="btn btn--ghost" onClick={openReview} title="Batch review — flag a day's worth of items fast, with keyboard shortcuts">Review</button>
@@ -670,7 +704,7 @@ export function CommandBar() {
               only in the research swarm") */}
           {activeSwarm === 'research' && <BridgeChip />}
           <EngineStatusPill />
-          <CreditBadge />
+          <ProviderSelector />
           <button className="btn btn--ghost" onClick={openCalls} title="Calls tracker — every call the engine made and what's happened since">Calls</button>
           <button className="btn btn--ghost" onClick={openActivity} title="Activity — what is running now, and everything that has ever run">Activity</button>
           <button className="btn btn--ghost" onClick={openChatHistory} title="Chat history — reopen and continue any past Ask conversation">Chats</button>

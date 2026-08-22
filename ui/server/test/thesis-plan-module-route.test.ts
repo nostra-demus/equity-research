@@ -38,12 +38,12 @@ const lock = route.indexOf('withSubjectLock(subjectMutationLockKey(RESEARCH_SWAR
 const activeChain = route.indexOf('subjectChainActive(ticker, RESEARCH_SWARM_ID)', lock)
 const reap = route.indexOf('reapDeadSubjectRuns(ticker, RESEARCH_SWARM_ID)', activeChain)
 const busy = route.indexOf('const busy = listRuns()', reap)
-const freshPlan = route.indexOf('let plan = thesisPlan(ticker, undefined, exactResume ? undefined : reuse, exactResume ? module : undefined)', busy)
+const freshPlan = route.indexOf('let plan = thesisPlan(ticker, undefined, exactResume ? undefined : reuse, exactResume ? module : undefined, providerSelection)', busy)
 const targetRootCas = route.indexOf('plan.targetRunRoot !== expectedTargetRunRoot', freshPlan)
 const poolCas = route.indexOf('plan.dataPool.files !== poolFiles || plan.dataPool.newestMs !== poolNewestMs', freshPlan)
 const sealed = route.indexOf('if (plan.complete || isSealedResearchRun(plan.targetRunRoot))', poolCas)
 const scopeCas = route.indexOf('const exactScopeChanged', sealed)
-const cli = route.indexOf('await assertClaudeCli()', scopeCas)
+const cli = route.indexOf('await assertProviderAvailable(provider)', scopeCas)
 const afterCliCas = route.indexOf('const scopeAfterCli = readCurrentScope()', cli)
 const stage = route.indexOf('prepareModuleResume(ticker, module, undefined, plan)', afterCliCas)
 const stagedScopeCas = route.indexOf('const preparedScopeChanged', stage)
@@ -95,10 +95,11 @@ assert.match(route, /deferModuleMemo: exactResume,[\s\S]*exactModuleResume: exac
   'only an exact-capable child receives the staged inputs, immutable target root, and final paid-boundary guard')
 assert.match(route, /exactLaunchArtifacts = preparedExactArtifacts[\s\S]*exactModuleWritableOrbs: exactLaunchArtifacts\?\.writableOrbs,[\s\S]*exactModuleSynthesisOrbs: exactLaunchArtifacts\?\.synthesisOrbs/,
   'the launch-private receipt contains only planned non-reused specialists plus the current 99')
-assert.match(route, /const terminalGuard = exactResume[\s\S]*publishModuleResumeCheckpoint\(ticker, expectedTargetRunRoot, module, \[\]\)[\s\S]*reason: 'module_publish_failed'[\s\S]*terminalGuard,/,
-  'a clean exact child is not reported done until its completed target module is published and origin-proven')
-assert.match(route, /captureCompletedModuleFingerprint\([\s\S]*writePendingModulePublication\([\s\S]*const completed = await publishModuleResumeCheckpoint\([\s\S]*clearPendingModulePublication\(/,
-  'terminal publication durably records the exact completed bytes before Git starts and clears only after proof')
+const terminalGuardBody = route.slice(route.indexOf('const terminalGuard = exactResume'), route.indexOf('const out = await launch({'))
+assert.match(terminalGuardBody, /active\?\.publicationCompleted === true[\s\S]*active\.runRoot === expectedTargetRunRoot[\s\S]*active\.module === module/,
+  'a clean exact child is not reported done until the trusted supervisor published its exact target module')
+assert.doesNotMatch(terminalGuardBody, /publishModuleResumeCheckpoint|writePendingModulePublication|clearPendingModulePublication/,
+  'the post-publication guard cannot start a second direct Git publication after supervisor intent drain')
 assert.match(route, /beginExactModuleSupervisorPause\(expectedTargetRunRoot, module\)[\s\S]*settleExactModuleSupervisorPause\(supervisorPause, status, paidChildStarted\)[\s\S]*const exactOnTerminal[\s\S]*onTerminal: exactOnTerminal/,
   'exact admission consumes a stale full-resume marker; Stop/paid children keep suppression and no-child failures roll it back')
 assert.match(supervisorPause, /O_NOFOLLOW[\s\S]*renameSync/,
@@ -174,19 +175,19 @@ assert.match(launcher, /exactModuleRunRootByRun\.set\(run, exactResumeBinding\.r
   'the smart launch binds its immutable target root to only its admitted RunState')
 assert.match(launcher, /exactModuleArtifactScopeByRun\.set\(run,[\s\S]*module: exactResumeBinding\.module[\s\S]*writableOrbs: exactModuleWritableOrbs[\s\S]*synthesisOrbs: exactModuleSynthesisOrbs/,
   'the admitted exact artifact receipt is launch-private and bound to that RunState')
-assert.match(launcher, /childEnv\(\{[\s\S]*deferModuleMemo: deferredModuleMemoRuns\.has\(run\),[\s\S]*exactModuleResume: exactModuleResumeRuns\.has\(run\),[\s\S]*exactModuleInputs: exactModuleInputsByRun\.get\(run\),[\s\S]*exactModuleRunRoot: exactModuleRunRootByRun\.get\(run\),[\s\S]*\}\)/,
+assert.match(launcher, /applyRunPolicyEnv[\s\S]*deferModuleMemo: deferredModuleMemoRuns\.has\(run\),[\s\S]*exactModuleResume: exactModuleResumeRuns\.has\(run\),[\s\S]*exactModuleInputs: exactModuleInputsByRun\.get\(run\),[\s\S]*exactModuleRunRoot: exactModuleRunRootByRun\.get\(run\)/,
   'only that RunState passes memo deferral, exact-input policy, and immutable root to its paid child')
-assert.match(launcher, /exactModuleName: exactModuleArtifactScopeByRun\.get\(run\)\?\.module,[\s\S]*exactModuleWritableOrbs: exactModuleArtifactScopeByRun\.get\(run\)\?\.writableOrbs,[\s\S]*exactModuleSynthesisOrbs: exactModuleArtifactScopeByRun\.get\(run\)\?\.synthesisOrbs/,
+assert.match(launcher, /exactModuleName: scope\?\.module,[\s\S]*exactModuleWritableOrbs: scope\?\.writableOrbs,[\s\S]*exactModuleSynthesisOrbs: scope\?\.synthesisOrbs/,
   'the real paid child receives module, specialist, and synthesis receipts from its admitted RunState')
-assert.match(launcher, /delete e\[DEFER_MODULE_MEMO_ENV\][\s\S]*if \(options\.deferModuleMemo\) e\[DEFER_MODULE_MEMO_ENV\] = '1'/,
+assert.match(launcher, /delete env\[key\][\s\S]*if \(options\.deferModuleMemo\) env\[DEFER_MODULE_MEMO_ENV\] = '1'/,
   'ordinary children strip an ambient flag and only an explicit smart launch adds it back')
-assert.match(launcher, /delete e\[EXACT_MODULE_RESUME_ENV\][\s\S]*if \(options\.exactModuleResume\) \{[\s\S]*e\[EXACT_MODULE_RESUME_ENV\] = '1'/,
+assert.match(launcher, /if \(!options\.exactModuleResume\) return env[\s\S]*env\[EXACT_MODULE_RESUME_ENV\] = '1'/,
   'ordinary children cannot fall back to an unstaged historical optional input')
-assert.match(launcher, /delete e\[EXACT_MODULE_INPUTS_ENV\][\s\S]*rawInputs !== undefined[\s\S]*Array\.isArray\(rawInputs\)[\s\S]*e\[EXACT_MODULE_INPUTS_ENV\] = inputs\.join\(','\)/,
+assert.match(launcher, /const rawInputs = options\.exactModuleInputs[\s\S]*validStrings\(rawInputs,[\s\S]*env\[EXACT_MODULE_INPUTS_ENV\] = \[\.\.\.new Set\(rawInputs\)\]\.sort\(\)\.join\(','\)/,
   'the paid child receives only the sorted, checkpointed module-input allowlist')
-assert.match(launcher, /delete e\[EXACT_MODULE_RUN_ROOT_ENV\][\s\S]*e\[EXACT_MODULE_RUN_ROOT_ENV\] = root/,
+assert.match(launcher, /const root = typeof options\.exactModuleRunRoot[\s\S]*env\[EXACT_MODULE_RUN_ROOT_ENV\] = root/,
   'an ambient run-root binding is stripped and only the reviewed immutable root reaches the child')
-assert.match(launcher, /delete e\[EXACT_MODULE_NAME_ENV\][\s\S]*delete e\[EXACT_MODULE_WRITABLE_ORBS_ENV\][\s\S]*delete e\[EXACT_MODULE_SYNTHESIS_ORBS_ENV\][\s\S]*e\[EXACT_MODULE_NAME_ENV\] = module[\s\S]*e\[EXACT_MODULE_WRITABLE_ORBS_ENV\][\s\S]*e\[EXACT_MODULE_SYNTHESIS_ORBS_ENV\]/,
+assert.match(launcher, /const module = typeof options\.exactModuleName[\s\S]*env\[EXACT_MODULE_NAME_ENV\] = module[\s\S]*env\[EXACT_MODULE_WRITABLE_ORBS_ENV\][\s\S]*env\[EXACT_MODULE_SYNTHESIS_ORBS_ENV\]/,
   'ambient destructive receipts are scrubbed and only the reviewed exact artifacts are restored')
 assert.match(launcher, /exactModuleRunRootBinding\(subjectId, exactModuleRunRoot, runRoot\) === null[\s\S]*code: 'module_scope_changed'/,
   'a midnight rollover before admission cannot replace the route-reviewed target root')
@@ -194,11 +195,11 @@ assert.match(launcher, /if \(params\.preSpawnGuard\) preSpawnGuards\.set\(run, p
   'the route callback is bound only to its admitted RunState')
 assert.match(launcher, /params\.exactModuleResume[\s\S]*exactModuleInputs\.map\(\(name\) => path\.join\(REPO_ROOT, runRoot, name\)\)/,
   'every checkpointed input folder is held as a directory read claim for the full paid run')
-const argsBuilt = launcher.indexOf('const args = await buildArgs(run.prompt, run.kind, run.model)')
-const finalGuard = launcher.indexOf('const guarded = evaluatePreSpawnGuard(preSpawnGuards.get(run))', argsBuilt)
-const paidSpawn = launcher.indexOf('child = execa(CLAUDE_BIN, args, {', finalGuard)
-assert.ok(argsBuilt > 0 && finalGuard > argsBuilt && paidSpawn > finalGuard,
-  'the scope callback executes after delayed buildArgs and immediately before the paid child')
+const launchSpecBuilt = launcher.indexOf('launchSpec = await adapter.buildLaunch({')
+const finalGuard = launcher.indexOf('const guarded = evaluatePreSpawnGuard(preSpawnGuards.get(run))', launchSpecBuilt)
+const paidSpawn = launcher.indexOf('child = execa(launchSpec.command, launchSpec.args, {', finalGuard)
+assert.ok(launchSpecBuilt > 0 && finalGuard > launchSpecBuilt && paidSpawn > finalGuard,
+  'the scope callback executes after delayed provider launch construction and immediately before the paid child')
 assert.match(launcher.slice(finalGuard, paidSpawn), /if \(!guarded\.ok\)[\s\S]*finishRun\(run, 'error'\)[\s\S]*return/,
   'a final-boundary mismatch finalizes without reaching execa')
 

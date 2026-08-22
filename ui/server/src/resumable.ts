@@ -18,13 +18,16 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { ANALYSES_DIR, REPO_ROOT } from './config'
-import { runManifest } from './outputs'
+import { readRunMarker, runManifest } from './outputs'
 import { IN_FLIGHT_STATUSES, listRuns } from './registry'
 import { buildSwarmGraph } from './roster'
 import { resolveInsideAnalyses, resolveInsideRuns } from './sandbox'
 import { listResumableSignals } from './screener'
 import { listSwarms, RESEARCH_SWARM_ID, runRootForSubject } from './swarms'
 import type { RunKind, SwarmManifest } from './types'
+import type { ProviderExecutionProfile, RunProvider } from './providers/types'
+import { hasProvenLegacyClaudeLineage, readLastProviderSelection } from './execution-provenance'
+import { autoResumeDue } from './resume-policy'
 
 // One resumable unit the cockpit can re-launch. A row in the Activity log (or an orb-view subject) is
 // "resumable" when it matches one of these by (runRoot, kind, module). `unit` says what the counts mean.
@@ -38,6 +41,20 @@ export interface ResumableRunInfo {
   totalCount: number
   unit: 'module' | 'agent' // whether the counts are modules-done (full/signal) or agents-done (module)
   label?: string // human label (e.g. the signal headline) when the raw subject id isn't the best name
+  reason?: string
+  resetsAt?: number
+  autoResumeDue?: boolean
+  provider?: RunProvider
+  executionProfile?: ProviderExecutionProfile
+}
+
+function recordedExecution(runRoot: string): { provider?: RunProvider; executionProfile?: ProviderExecutionProfile } {
+  const selected = readLastProviderSelection(runRoot)
+  if (!selected) return hasProvenLegacyClaudeLineage(runRoot) ? { provider: 'claude' } : {}
+  return {
+    provider: selected.provider,
+    executionProfile: selected.executionProfile,
+  }
 }
 
 function todayDate(): string {
@@ -116,13 +133,23 @@ function collectSwarmResumable(swarm: SwarmManifest, live: Set<string>, out: Res
     // Complete = the run reached its terminal deliverable. Research ends on final_thesis.md — key on that
     // (NOT the last module's synthesis, or an all-modules-done-but-master-pending run would look finished
     // and never offer resume). A constellation swarm (commodity) ends on decision_record.json.
-    const complete = isResearch ? manifest.finalThesis : manifest.decisionRecord
+    const interrupted = readRunMarker(runRoot, '.interrupted')
+    // A stable constellation root may retain last month's decision while this month's refresh is paused.
+    // Any current-epoch interruption marker therefore outranks old terminal-file presence.
+    const complete = (isResearch ? manifest.finalThesis : manifest.decisionRecord) && !interrupted
     if (complete) continue // finished — nothing to resume
 
     // Full-level entry (matches a `full` row, and a chained module/agent row that must resume the whole
     // pipeline). Counts are modules-done / total modules.
     const doneModules = moduleNames.filter(synthesisOf).length
-    out.push({ swarm: swarm.id, subject, runRoot, kind: 'full', doneCount: doneModules, totalCount: moduleNames.length, unit: 'module' })
+    const execution = recordedExecution(runRoot)
+    const reason = typeof interrupted?.reason === 'string' ? interrupted.reason : undefined
+    const resetsAt = typeof interrupted?.resetsAt === 'number' ? interrupted.resetsAt : undefined
+    out.push({
+      swarm: swarm.id, subject, runRoot, kind: 'full', doneCount: doneModules,
+      totalCount: moduleNames.length, unit: 'module', reason, resetsAt,
+      autoResumeDue: Boolean(interrupted) && autoResumeDue(reason, resetsAt), ...execution,
+    })
 
     // Module-level entries — one per module folder that has partial work (≥1 agent output) but no
     // synthesis yet. This is the granularity that makes the cancelled-solo-module case resumable.
@@ -131,7 +158,7 @@ function collectSwarmResumable(swarm: SwarmManifest, live: Set<string>, out: Res
       if (!files || files.length === 0) continue // never started — the full entry already covers it
       if (synthesisOf(mod)) continue // this module finished
       const doneAgents = files.filter((f) => !baseOf(f.agentKey).startsWith('99_')).length
-      out.push({ swarm: swarm.id, subject, runRoot, kind: 'module', module: mod, doneCount: doneAgents, totalCount: agentCountOf.get(mod) ?? doneAgents, unit: 'agent' })
+      out.push({ swarm: swarm.id, subject, runRoot, kind: 'module', module: mod, doneCount: doneAgents, totalCount: agentCountOf.get(mod) ?? doneAgents, unit: 'agent', ...execution })
     }
   }
 }
@@ -147,7 +174,7 @@ export function listResumableRuns(): ResumableRunInfo[] {
       for (const s of listResumableSignals(live)) {
         const runRoot = runRootForSubject(swarm, s.sigId)
         if (!runRoot) continue
-        out.push({ swarm: swarm.id, subject: s.sigId, runRoot, kind: 'signal', doneCount: s.doneCount, totalCount: s.totalCount, unit: 'module', label: s.headline })
+        out.push({ swarm: swarm.id, subject: s.sigId, runRoot, kind: 'signal', doneCount: s.doneCount, totalCount: s.totalCount, unit: 'module', label: s.headline, reason: s.reason, resetsAt: s.resetsAt, autoResumeDue: s.autoResumeDue, ...recordedExecution(runRoot) })
       }
       continue
     }

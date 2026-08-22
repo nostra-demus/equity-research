@@ -33,6 +33,8 @@ import { summarizeIdeasSurface } from '../../lib/ideasView'
 import { useWireConfig } from '../wire/WireContext'
 import { SubjectChips } from '../wire/SubjectChips'
 import { CompanyFilter } from './CompanyFilter'
+import { ProviderMiniSelector } from '../ProviderMiniSelector'
+import { providerLaunchBlockedReason } from '../../lib/provider'
 
 // a multi-select dropdown for a broad scope with dynamic sub-values (Sector, Commodity). "All X" =
 // the whole scope; specific picks narrow to those. Closes on outside-click / Escape.
@@ -278,6 +280,10 @@ export function EventRail() {
   const openSources = useStore((s) => s.openSources)
   const runSweep = useStore((s) => s.runSweep)
   const staticMode = useStore((s) => s.staticMode)
+  const runProvider = useStore((s) => s.runProvider)
+  const providers = useStore((s) => s.providers)
+  const scGraph = useStore((s) => s.scGraph)
+  const providerProblem = providerLaunchBlockedReason(providers[runProvider], providers.catalogState)
   // archive search — the whole-history, server-filtered read the rail switches to when a filter is set
   const archiveResults = useStore((s) => s.scArchiveResults)
   const archiveLoading = useStore((s) => s.scArchiveLoading)
@@ -590,6 +596,7 @@ export function EventRail() {
           </div>
         )}
         {status?.enabled && <ScanStatus variant="rail" />}
+        {!staticMode && ownsScreenerActions && <ProviderMiniSelector agentCount={scGraph?.totals.agents} duration="duration shown live" />}
         {status?.enabled && (
           <div className="evrail__scan">
             <button type="button" className="evrail__scanbtn" onClick={() => void openNewsFeed()} title="The live wire — everything the scanner read today, kept and dropped, with the reason for each">
@@ -605,6 +612,7 @@ export function EventRail() {
               <button
                 type="button"
                 className={`evrail__scanbtn evrail__scanbtn--primary${armScan ? ' evrail__scanbtn--armed' : ''}`}
+                disabled={sweepStarting || !!providerProblem}
                 onClick={() => {
                   if (!armScan) {
                     setArmScan(true)
@@ -614,9 +622,9 @@ export function EventRail() {
                   setArmScan(false)
                   void runSweep()
                 }}
-                title="A manual top-up scan by the paid engine (~$2–12). Usually unnecessary — the free auto-scan already runs every few minutes. Click once to confirm the cost, again to start."
+                title={providerProblem || (runProvider === 'codex' ? 'A manual top-up scan using the selected Codex plan. Click once to confirm, again to start.' : 'A manual top-up scan by the paid engine (~$2–12). Usually unnecessary — the free auto-scan already runs every few minutes. Click once to confirm the cost, again to start.')}
               >
-                {sweepStarting ? 'Starting the scan…' : armScan ? 'Confirm · scan now (~$2–12)' : 'Scan now · ~$2–12'}
+                {sweepStarting ? 'Starting the scan…' : armScan ? `Confirm · scan now${runProvider === 'codex' ? ' · Codex plan' : ' (~$2–12)'}` : `Scan now · ${runProvider === 'codex' ? 'Codex plan' : '~$2–12'}`}
               </button>
             )}
           </div>

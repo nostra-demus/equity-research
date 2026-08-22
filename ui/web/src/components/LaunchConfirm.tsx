@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { useStore } from '../lib/store'
 import { resetIn, usageColor, usageLabel, usagePct } from '../lib/format'
@@ -6,15 +6,18 @@ import { cascadeLabel } from '../lib/cascade'
 import { moduleRunConfirmation } from '../lib/moduleRun'
 import { Spin } from './Spin'
 import type { Usage } from '../lib/types'
+import { executionProfileLabel, providerBlockedReason, providerIsBlocked, providerLabel, providerLaunchBlockedReason, providerNeedsCheck, providerUsageUnavailableText, type RunProvider } from '../lib/provider'
 
 function usageText(credit: Usage | null): string {
-  if (!credit?.checked) return 'not checked'
+  const unavailable = providerUsageUnavailableText(credit)
+  if (unavailable) return unavailable
+  if (!credit) return 'Usage unavailable'
   const pct = usagePct(credit.utilization)
   if (pct != null) {
     const reset = resetIn(credit.resetsAt)
     return `${usageLabel(credit.rateLimitType)} ${pct}%${reset ? ` · resets ${reset}` : ''}`
   }
-  return credit.ok ? 'available' : 'rate limited'
+  return 'Usage unavailable'
 }
 
 export function LaunchConfirm() {
@@ -25,8 +28,15 @@ export function LaunchConfirm() {
   const confirmRerun = useStore((s) => s.confirmRerun)
   const cancel = useStore((s) => s.cancelLaunch)
   const credit = useStore((s) => s.credit)
+  const providers = useStore((s) => s.providers)
+  const changeProvider = useStore((s) => s.changeLaunchProvider)
   const launchPending = useStore((s) => s.launchPending)
   const [typed, setTyped] = useState('')
+  useEffect(() => {
+    // A typed spend confirmation belongs to one exact provider/profile price. Re-pricing the modal must
+    // require a fresh acknowledgement even when the ticker itself did not change.
+    setTyped('')
+  }, [lc?.selection.provider, lc?.selection.expectedProfileKey, lc?.selection.model, lc?.selection.reasoningLevel])
   if (!lc) return null
   if (lc.kind === 'module') {
     const copy = moduleRunConfirmation(lc.module, lc.unfinishedSpecialists, lc.inputModules)
@@ -71,6 +81,10 @@ export function LaunchConfirm() {
   // the confirm was clicked and the server hasn't acked yet — the modal stays up, its button spins
   const starting = launchPending?.key === 'confirm'
   const p = lc.preflight
+  const provider = lc.selection.provider
+  const providerStatus = providers[provider]
+  const providerProblem = providerLaunchBlockedReason(providerStatus, providers.catalogState)
+  const providerUsage = providerStatus.usage || (provider === 'claude' ? credit : null)
   const isRerun = lc.kind === 'rerun'
   const orbLabel = lc.node?.module === 'master' ? 'the Memo' : (lc.node?.name || 'orb').replace(/-/g, ' ')
   // full needs typed-ticker confirmation; a re-run does not
@@ -86,11 +100,21 @@ export function LaunchConfirm() {
           <div className="modal__sub">{isRerun ? 'Re-runs the orb, then every synthesis its output flows into — to the Memo. Reuses every other output.' : 'Launches the engine for real — every module, then the master synthesizer.'}</div>
         </div>
         <div className="modal__body">
+          <div className="modal__row"><span className="modal__k">Run with</span><span className="modal__v">
+            <span className="providerseg" role="radiogroup" aria-label="Run provider">
+              {(['claude', 'codex'] as RunProvider[]).map((choice) => {
+                const status = providers[choice]
+                const problem = providerBlockedReason(status)
+                return <button key={choice} role="radio" aria-checked={provider === choice} className={`providerseg__btn${provider === choice ? ' providerseg__btn--on' : ''}`} disabled={starting || providerIsBlocked(status)} title={problem || (providerNeedsCheck(status) ? `Check ${providerLabel(choice)} status` : `Run with ${providerLabel(choice)}`)} onClick={() => void changeProvider(choice)}>{status.checking ? 'checking…' : providerLabel(choice)}</button>
+              })}
+            </span>
+          </span></div>
+          <div className="modal__row"><span className="modal__k">Profile</span><span className="modal__v">{executionProfileLabel(providerStatus)}</span></div>
           <div className="modal__row"><span className="modal__k">{isRerun ? 'Orbs re-run' : 'Agents'}</span><span className="modal__v">{p.agentCount}</span></div>
-          <div className="modal__row"><span className="modal__k">Est. cost</span><span className="modal__v">${p.estCostUsdRange[0]}–{p.estCostUsdRange[1]}</span></div>
+          {provider === 'claude' ? <div className="modal__row"><span className="modal__k">Est. cost</span><span className="modal__v">${p.estCostUsdRange[0]}–{p.estCostUsdRange[1]}</span></div> : <div className="modal__row"><span className="modal__k">Plan billing</span><span className="modal__v">Codex subscription allowance</span></div>}
           <div className="modal__row"><span className="modal__k">Est. time</span><span className="modal__v">{p.estMinutesRange[0]}–{p.estMinutesRange[1]} min</span></div>
           <div className="modal__row"><span className="modal__k">Writes to main</span><span className="modal__v warn">{p.estCommits} commit{p.estCommits === 1 ? '' : 's'} · pushed</span></div>
-          <div className="modal__row"><span className="modal__k">Plan usage</span><span className="modal__v" style={{ color: credit?.checked ? usageColor(credit.status, credit.utilization) : 'var(--text-faint)' }}>{usageText(credit)}</span></div>
+          <div className="modal__row"><span className="modal__k">Plan usage</span><span className="modal__v" style={{ color: providerUsage?.checked ? usageColor(providerUsage.status, providerUsage.utilization) : 'var(--text-faint)' }}>{providerUsage ? usageText(providerUsage) : 'Usage unavailable'}</span></div>
         </div>
         {isRerun && lc.cascade && lc.cascade.length > 0 && (
           <div style={{ padding: '0 20px 12px' }}>
@@ -105,18 +129,21 @@ export function LaunchConfirm() {
             </div>
           </div>
         )}
-        {credit?.checked && !credit.ok && (
+        {providerUsage?.checked && !providerUsage.ok && (
           <div style={{ padding: '0 20px 8px', fontSize: 12, color: 'var(--bad)' }}>This window is rate-limited right now — the run will wait or fail until it resets.</div>
+        )}
+        {providerProblem && (
+          <div style={{ padding: '0 20px 8px', fontSize: 12, color: 'var(--bad)' }}>{providerProblem}. Choose an available provider to continue.</div>
         )}
         {needsTyped && (
           <div className="modal__confirm">
             <div style={{ fontSize: 12.5, color: 'var(--text-muted)' }}>Type <b style={{ color: 'var(--text)' }}>{ticker}</b> to confirm</div>
-            <input className="modal__input" autoFocus value={typed} onChange={(e) => setTyped(e.target.value)} placeholder={ticker || ''} onKeyDown={(e) => { if (e.key === 'Enter' && ok && !starting) confirm() }} />
+            <input className="modal__input" autoFocus value={typed} onChange={(e) => setTyped(e.target.value)} placeholder={ticker || ''} onKeyDown={(e) => { if (e.key === 'Enter' && ok && !starting && !providerProblem) confirm() }} />
           </div>
         )}
         <div className="modal__actions">
           <button className="btn btn--ghost" disabled={starting} onClick={cancel}>Cancel</button>
-          <button className="btn btn--amber" disabled={!ok || starting} onClick={confirm}>
+          <button className="btn btn--amber" disabled={!ok || starting || !!providerProblem} title={providerProblem || undefined} onClick={confirm}>
             {starting ? <><Spin /> Starting…</> : isRerun ? 'Re-run ↻' : 'Launch full run'}
           </button>
         </div>

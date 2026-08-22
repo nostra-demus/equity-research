@@ -3,6 +3,15 @@ import type { AgentNode, DataNeedsRead, IntakePlan, LaunchPreflight, SwarmGraph,
 
 const previousWindow = (globalThis as any).window
 const previousDocument = (globalThis as any).document
+const previousEventSource = (globalThis as any).EventSource
+
+class FakeEventSource {
+  static OPEN = 1
+  readyState = FakeEventSource.OPEN
+  constructor(_url: string) {}
+  addEventListener(_event: string, _listener: (...args: any[]) => void): void {}
+  close(): void { this.readyState = 2 }
+}
 
 ;(globalThis as any).window = {
   __ENGINE_LIVE__: true,
@@ -15,9 +24,14 @@ const previousDocument = (globalThis as any).document
   addEventListener: () => {},
   createElement: () => ({ getContext: () => null }),
 }
+;(globalThis as any).EventSource = FakeEventSource
 
 const { api } = await import('./api')
+const { providerCatalogFallback } = await import('./provider')
 const { useStore } = await import('./store')
+const CLAUDE_SELECTION = { provider: 'claude' as const, legacyClaudeFallback: true as const }
+const CODEX_PROFILE = { key: 'codex|gpt-5.6-sol:max|gpt-5.6-terra:xhigh', parentModel: 'gpt-5.6-sol', parentReasoning: 'max', specialistModel: 'gpt-5.6-terra', specialistReasoning: 'xhigh' }
+const CODEX_SELECTION = { provider: 'codex' as const, expectedProfileKey: CODEX_PROFILE.key, model: CODEX_PROFILE.parentModel, reasoningLevel: CODEX_PROFILE.parentReasoning, executionProfile: CODEX_PROFILE }
 
 const original = {
   estimate: api.estimate,
@@ -52,6 +66,7 @@ const preflight = (
   planOrigin?: { planPath: string; planSha256: string; sourceDecisionFingerprint: string },
 ): LaunchPreflight => ({
   kind, ticker, ...(swarm && swarm !== 'research' ? { swarm } : {}),
+  provider: 'claude',
   ...(kind === 'rerun' ? { module: orb.module, agent: orb.name } : {}),
   ...(kind === 'rerun' && exact ? { exactDecisionBinding: {
     contractVersion: 'exact-decision-launch/1',
@@ -81,22 +96,36 @@ try {
     staticMode: false, health: 'online', swarms: [research, commodity], activeSwarm: 'research',
     constellationSwarm: 'research', selectedTicker: 'AAA', selectToken: 101, warp: null,
     graph, nodesByKey: new Map([[orb.key, orb]]), activeRuns: {}, launchConfirm: null, launchPending: null,
-    runRoot: exactAAA.run_root, dataNeeds: null,
+    runRoot: exactAAA.run_root, dataNeeds: null, providers: providerCatalogFallback(), runProvider: 'claude',
   })
 
   const fullEstimate = deferred<LaunchPreflight>()
   api.estimate = async () => fullEstimate.promise
   const staleFull = useStore.getState().requestFull()
-  assert.deepEqual(useStore.getState().launchPending?.selection, { subject: 'AAA', swarm: 'research', selectToken: 101 })
+  assert.deepEqual(useStore.getState().launchPending?.selection, { subject: 'AAA', swarm: 'research', selectToken: 101, ...CLAUDE_SELECTION })
   useStore.setState({ selectedTicker: 'BBB', selectToken: 102, launchConfirm: null, launchPending: null })
   fullEstimate.resolve(preflight('full', 'AAA'))
   await staleFull
   assert.equal(useStore.getState().launchConfirm, null, 'a full estimate cannot cross a selection change')
 
+  const olderPrice = deferred<LaunchPreflight>()
+  const newerPrice = deferred<LaunchPreflight>()
+  let priceCall = 0
+  api.estimate = async () => (++priceCall === 1 ? olderPrice.promise : newerPrice.promise)
+  useStore.setState({ selectedTicker: 'AAA', activeSwarm: 'research', constellationSwarm: 'research', selectToken: 1021, warp: null, launchConfirm: null, launchPending: null })
+  const olderRequest = useStore.getState().requestFull()
+  const newerRequest = useStore.getState().requestFull()
+  newerPrice.resolve({ ...preflight('full', 'AAA'), agentCount: 22 })
+  await newerRequest
+  olderPrice.resolve({ ...preflight('full', 'AAA'), agentCount: 11 })
+  await olderRequest
+  const latestConfirm = useStore.getState().launchConfirm
+  assert.equal(latestConfirm?.kind === 'full' ? latestConfirm.preflight.agentCount : undefined, 22, 'last launch-plan request wins when estimates resolve out of order')
+
   api.estimate = async () => preflight('full', 'AAA')
   useStore.setState({ selectedTicker: 'AAA', activeSwarm: 'research', selectToken: 103, warp: null, launchConfirm: null, runRoot: exactAAA.run_root, dataNeeds: null })
   await useStore.getState().requestFull()
-  assert.deepEqual(useStore.getState().launchConfirm?.selection, { subject: 'AAA', swarm: 'research', selectToken: 103 })
+  assert.deepEqual(useStore.getState().launchConfirm?.selection, { subject: 'AAA', swarm: 'research', selectToken: 103, ...CLAUDE_SELECTION })
   assert.equal(useStore.getState().launchConfirm?.kind, 'full', 'a missing exact-call fingerprint must not disable a new full run')
 
   let launchCalls = 0
@@ -120,7 +149,7 @@ try {
   })
   const staleRerun = useStore.getState().launchRerun({ module: orb.module, name: orb.name, key: orb.key })
   assert.deepEqual(useStore.getState().launchPending?.selection, {
-    subject: 'AAA', swarm: 'research', selectToken: 105,
+    subject: 'AAA', swarm: 'research', selectToken: 105, ...CLAUDE_SELECTION,
     runRoot: exactAAA.run_root, decisionFingerprint: exactAAA.decision_fingerprint,
   })
   const rerunPending = useStore.getState().launchPending
@@ -149,7 +178,7 @@ try {
   assert.equal(useStore.getState().launchConfirm, null)
   useStore.setState({
     launchConfirm: {
-      kind: 'rerun', selection: { subject: 'AAA', swarm: 'research', selectToken: 1051 },
+      kind: 'rerun', selection: { subject: 'AAA', swarm: 'research', selectToken: 1051, ...CLAUDE_SELECTION },
       preflight: preflight('rerun', 'AAA'),
       cascade: [{ key: orb.key, module: orb.module, name: orb.name, layer: orb.layer, isSynthesis: false, kind: 'agent' }],
       node: { module: orb.module, name: orb.name, key: orb.key },
@@ -169,7 +198,7 @@ try {
     launchConfirm: null, launchPending: null,
   })
   await useStore.getState().launchRerun({ module: orb.module, name: orb.name, key: orb.key })
-  assert.deepEqual(legacyEstimateArgs?.[5], {
+  assert.deepEqual(legacyEstimateArgs?.[6], {
     runRoot: exactAAA.run_root,
     decisionFingerprint: exactAAA.decision_fingerprint,
   }, 'the estimate request carries the exact selected-call identity')
@@ -195,7 +224,7 @@ try {
     launchConfirm: null, launchPending: null,
   })
   await useStore.getState().launchRerun({ module: orb.module, name: orb.name, key: orb.key }, planOrigin)
-  assert.deepEqual(planEstimateArgs?.[5], {
+  assert.deepEqual(planEstimateArgs?.[6], {
     runRoot: exactAAA.run_root, decisionFingerprint: exactAAA.decision_fingerprint, ...planOrigin,
   })
   assert.deepEqual(useStore.getState().launchConfirm?.selection.planOrigin, planOrigin)
@@ -220,7 +249,7 @@ try {
   })
   await useStore.getState().launchRerun({ module: orb.module, name: orb.name, key: orb.key })
   assert.deepEqual(useStore.getState().launchConfirm?.selection, {
-    subject: 'GOLD', swarm: 'commodity', selectToken: 106,
+    subject: 'GOLD', swarm: 'commodity', selectToken: 106, ...CLAUDE_SELECTION,
     runRoot: exactGold.run_root, decisionFingerprint: exactGold.decision_fingerprint,
   })
   let submitted: any = null
@@ -239,7 +268,7 @@ try {
   useStore.setState({
     launchConfirm: {
       kind: 'rerun',
-      selection: { subject: 'GOLD', swarm: 'commodity', selectToken: 106,
+      selection: { subject: 'GOLD', swarm: 'commodity', selectToken: 106, ...CLAUDE_SELECTION,
         runRoot: exactGold.run_root, decisionFingerprint: exactGold.decision_fingerprint },
       preflight: preflight('rerun', 'GOLD', 'commodity'),
       cascade: [{ key: orb.key, module: orb.module, name: orb.name, layer: orb.layer, isSynthesis: false, kind: 'agent' }],
@@ -283,7 +312,10 @@ try {
   }
   api.estimate = async () => preflight('rerun', 'AAA', undefined, exactAAA, scopedPlanOrigin)
   await useStore.getState().runScopedRerun()
-  assert.deepEqual(scopedArgs, ['AAA', 'research', exactAAA.run_root, exactAAA.decision_fingerprint, scopedPlanOrigin])
+  assert.ok(scopedArgs)
+  const scopedCall = scopedArgs as unknown as any[]
+  assert.deepEqual(scopedCall.slice(0, 5), ['AAA', 'research', exactAAA.run_root, exactAAA.decision_fingerprint, scopedPlanOrigin])
+  assert.deepEqual(scopedCall[5], { subject: 'AAA', swarm: 'research', selectToken: 1061, ...CLAUDE_SELECTION, runRoot: exactAAA.run_root, decisionFingerprint: exactAAA.decision_fingerprint })
 
   // A subject label is only unique inside its swarm. A research GOLD run must remain visible in global
   // Activity, but it cannot block, reconnect to, or paint the commodity GOLD cockpit.
@@ -310,6 +342,41 @@ try {
   assert.equal(useStore.getState().activeRunsByTicker.has('GOLD'), false, 'picker dots are scoped to the active swarm')
   assert.equal(useStore.getState().globalActive.length, 1, 'global Activity remains complete')
 
+  // Screener orb keys repeat for every signal. A late/background SSE frame is owned by the run's frozen
+  // subject, never by whichever signal happens to be selected when it arrives.
+  useStore.setState({
+    activeSwarm: 'screener', constellationSwarm: 'screener', selectedTicker: null, scSelectedSignal: 'SIG-B',
+    scRuntime: {}, runStream: [],
+    activeRuns: { 'signal-a-run': { runId: 'signal-a-run', kind: 'signal', ticker: 'SIG-A', status: 'running', swarmId: 'screener' } },
+  })
+  useStore.getState()._handleScreenerEvent({
+    type: 'agent-started', runId: 'signal-a-run', agentKey: orb.key, name: orb.name,
+    module: orb.module, layer: orb.layer, ts: Date.now(),
+  })
+  assert.equal(useStore.getState().scRuntime[orb.key], undefined, 'background signal SSE cannot paint the selected signal')
+  useStore.setState({
+    // Even if a later mutable snapshot is wrong, the first learned subject remains immutable.
+    activeRuns: { 'signal-a-run': { runId: 'signal-a-run', kind: 'signal', ticker: 'SIG-B', status: 'running', swarmId: 'screener' } },
+  })
+  useStore.getState()._handleScreenerEvent({
+    type: 'agent-started', runId: 'signal-a-run', agentKey: orb.key, name: orb.name,
+    module: orb.module, layer: orb.layer, ts: Date.now(),
+  })
+  assert.equal(useStore.getState().scRuntime[orb.key], undefined, 'a run subject cannot drift after its first SSE ownership binding')
+
+  api.activeRuns = async () => ({ active: [{ runId: 'commodity-epoch', kind: 'module', ticker: 'GOLD', status: 'running', swarmId: 'commodity', chainId: 'chain-7', executionEpoch: 'epoch-7' }] })
+  api.runSnapshot = async () => ({
+    runId: 'commodity-epoch', kind: 'module', ticker: 'GOLD', module: 'demand', status: 'running', swarmId: 'commodity',
+    agents: [], expected: [], chainId: 'chain-7', executionEpoch: 'epoch-7', provider: 'claude',
+    executionProfile: { key: 'claude:opus:default', parentModel: 'opus', parentReasoning: 'default' },
+    profileKey: 'claude:opus:default', model: 'opus', reasoningLevel: 'default',
+  })
+  useStore.setState({ activeRuns: {}, activeSwarm: 'commodity', constellationSwarm: 'commodity', selectedTicker: 'GOLD', selectToken: 1062 })
+  await useStore.getState().refreshActiveRuns()
+  await new Promise((resolve) => setTimeout(resolve, 0))
+  assert.equal(useStore.getState().activeRuns['commodity-epoch']?.chainId, 'chain-7')
+  assert.equal(useStore.getState().activeRuns['commodity-epoch']?.executionEpoch, 'epoch-7', 'snapshot reconnect preserves execution-scoped grouping identity')
+
   useStore.setState({
     selectedTicker: 'GOLD', activeSwarm: 'commodity', constellationSwarm: 'commodity', selectToken: 1063,
     runRoot: exactGold.run_root, dataNeeds: exactGold, activeRuns: {}, globalActive: [],
@@ -329,15 +396,74 @@ try {
   let analyzeArgs: any[] | null = null
   api.analyzeIntake = async (...args: any[]) => { analyzeArgs = args; throw new Error('fixture stop before polling') }
   await useStore.getState().analyzeIntake()
-  assert.deepEqual(analyzeArgs, ['GOLD', 'commodity', exactGold.run_root, exactGold.decision_fingerprint])
+  assert.deepEqual(analyzeArgs, ['GOLD', 'commodity', CLAUDE_SELECTION, exactGold.run_root, exactGold.decision_fingerprint])
+
+  api.launch = async () => ({ runId: 'wrong-provider-run', preflight: preflight('full', 'AAA') })
+  useStore.setState({
+    activeSwarm: 'research', constellationSwarm: 'research', selectedTicker: 'AAA', selectToken: 1061,
+    graph, nodesByKey: new Map([[orb.key, orb]]), warp: null, activeRuns: {}, runProvider: 'codex',
+    providers: {
+      claude: { provider: 'claude', enabled: true, available: true, checked: true, status: 'available', profile: { key: 'claude:opus:default', parentModel: 'opus', parentReasoning: 'default' } },
+      codex: { provider: 'codex', enabled: true, available: true, checked: true, profile: CODEX_PROFILE },
+      catalogState: 'valid',
+    },
+    launchConfirm: {
+      kind: 'full', selection: { subject: 'AAA', swarm: 'research', selectToken: 1061, ...CODEX_SELECTION },
+      preflight: { ...preflight('full', 'AAA'), provider: 'codex', profileKey: CODEX_SELECTION.expectedProfileKey, model: CODEX_SELECTION.model, reasoningLevel: CODEX_SELECTION.reasoningLevel, executionProfile: CODEX_SELECTION.executionProfile },
+    },
+  })
+  await useStore.getState().confirmFull()
+  assert.equal(useStore.getState().activeRuns['wrong-provider-run'], undefined, 'a mismatched provider receipt never paints the run as Codex')
+  assert.match(useStore.getState().toast?.msg || '', /receipt did not match/i)
+
+  const codexPreflight = { ...preflight('full', 'AAA'), provider: 'codex' as const, profileKey: CODEX_SELECTION.expectedProfileKey, model: CODEX_SELECTION.model, reasoningLevel: CODEX_SELECTION.reasoningLevel, executionProfile: CODEX_SELECTION.executionProfile }
+  api.launch = async () => ({
+    runId: 'contradictory-top-level', provider: 'claude', profileKey: CODEX_SELECTION.expectedProfileKey,
+    model: CODEX_SELECTION.model, reasoningLevel: CODEX_SELECTION.reasoningLevel,
+    executionProfile: CODEX_SELECTION.executionProfile, preflight: codexPreflight,
+  } as any)
+  useStore.setState({
+    launchConfirm: { kind: 'full', selection: { subject: 'AAA', swarm: 'research', selectToken: 1061, ...CODEX_SELECTION }, preflight: codexPreflight },
+    launchPending: null, activeRuns: {},
+  })
+  await useStore.getState().confirmFull()
+  assert.equal(useStore.getState().activeRuns['contradictory-top-level'], undefined,
+    'an exact nested receipt cannot launder a contradictory top-level response')
+
+  api.launch = async () => ({ runId: '', provider: 'codex', profileKey: CODEX_SELECTION.expectedProfileKey,
+    model: CODEX_SELECTION.model, reasoningLevel: CODEX_SELECTION.reasoningLevel,
+    executionProfile: CODEX_SELECTION.executionProfile, preflight: codexPreflight } as any)
+  useStore.setState({
+    launchConfirm: { kind: 'full', selection: { subject: 'AAA', swarm: 'research', selectToken: 1061, ...CODEX_SELECTION }, preflight: codexPreflight },
+    launchPending: null, activeRuns: {},
+  })
+  await useStore.getState().confirmFull()
+  assert.equal(Object.keys(useStore.getState().activeRuns).length, 0, 'an empty run id never adopts a paid launch')
+
+  const delayedAgent = deferred<any>()
+  api.launch = async () => delayedAgent.promise
+  api.activeRuns = async () => ({ active: [] })
+  useStore.setState({
+    activeSwarm: 'research', constellationSwarm: 'research', selectedTicker: 'AAA', selectToken: 1064,
+    graph, nodesByKey: new Map([[orb.key, orb]]), nodeRuntime: {}, activeRuns: {}, runProvider: 'claude',
+    providers: providerCatalogFallback(), launchPending: null,
+  })
+  const agentLaunch = useStore.getState().launchAgent(orb)
+  useStore.setState({ activeSwarm: 'commodity', constellationSwarm: 'commodity', selectedTicker: 'GOLD', nodeRuntime: {} })
+  delayedAgent.resolve({ runId: 'frozen-agent-run', preflight: {} })
+  await agentLaunch
+  assert.equal(useStore.getState().activeRuns['frozen-agent-run']?.ticker, 'AAA', 'post-await registration keeps the frozen subject')
+  assert.equal(useStore.getState().activeRuns['frozen-agent-run']?.swarmId, 'research', 'post-await registration keeps the frozen swarm')
+  assert.equal(useStore.getState().activeRuns['frozen-agent-run']?.provider, 'claude', 'post-await registration keeps the frozen provider receipt')
+  assert.equal(useStore.getState().nodeRuntime[orb.key], undefined, 'a background launch cannot queue orbs on the newly selected graph')
 
   // Navigation clears both the modal and selection-bound estimate feedback synchronously, before any
   // graph/network read can complete.
   useStore.setState({
     activeSwarm: 'research', constellationSwarm: 'research', selectedTicker: 'AAA', selectToken: 107,
     swarms: [research, commodity], warp: null,
-    launchConfirm: { kind: 'full', selection: { subject: 'AAA', swarm: 'research', selectToken: 107 }, preflight: preflight('full', 'AAA') },
-    launchPending: { key: 'full:request', label: 'Preparing…', ticker: 'AAA', selection: { subject: 'AAA', swarm: 'research', selectToken: 107 } },
+    launchConfirm: { kind: 'full', selection: { subject: 'AAA', swarm: 'research', selectToken: 107, ...CLAUDE_SELECTION }, preflight: preflight('full', 'AAA') },
+    launchPending: { key: 'full:request', label: 'Preparing…', ticker: 'AAA', selection: { subject: 'AAA', swarm: 'research', selectToken: 107, ...CLAUDE_SELECTION } },
   })
   api.swarmSubjects = async () => ({ subjects: [], summaries: [] })
   useStore.getState().switchSwarm('commodity')
@@ -348,8 +474,8 @@ try {
   api.swarm = async () => never
   useStore.setState({
     activeSwarm: 'research', constellationSwarm: 'research', selectedTicker: 'AAA', selectToken: 108, warp: null,
-    launchConfirm: { kind: 'full', selection: { subject: 'AAA', swarm: 'research', selectToken: 108 }, preflight: preflight('full', 'AAA') },
-    launchPending: { key: 'full:request', label: 'Preparing…', ticker: 'AAA', selection: { subject: 'AAA', swarm: 'research', selectToken: 108 } },
+    launchConfirm: { kind: 'full', selection: { subject: 'AAA', swarm: 'research', selectToken: 108, ...CLAUDE_SELECTION }, preflight: preflight('full', 'AAA') },
+    launchPending: { key: 'full:request', label: 'Preparing…', ticker: 'AAA', selection: { subject: 'AAA', swarm: 'research', selectToken: 108, ...CLAUDE_SELECTION } },
   })
   void useStore.getState().selectTicker('BBB')
   assert.equal(useStore.getState().launchConfirm, null)
@@ -370,4 +496,5 @@ try {
   api.swarmSubjects = original.swarmSubjects
   ;(globalThis as any).window = previousWindow
   ;(globalThis as any).document = previousDocument
+  ;(globalThis as any).EventSource = previousEventSource
 }

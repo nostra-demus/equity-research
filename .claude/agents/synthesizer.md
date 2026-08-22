@@ -1124,6 +1124,11 @@ The `decision_record.json` must be written **in addition to** `final_thesis.md`,
 
 **Schema (canonical).** Follow the schema in `frameworks/DECISION_LEDGER.md` §5 exactly — read that file (it is listed in INPUTS YOU MUST READ). Do not invent a conflicting schema, do not rename fields, and do not omit required fields unless the data is genuinely unavailable. The values must be **consistent with `final_thesis.md`**: the `decision`, scores, `basket`, `kill_criteria`, and `forecast_ledger` in the JSON must match the memo you just wrote — the JSON is a structured extract of the Pre-Write Gate, Part I, and the ledgers, not a second opinion.
 
+**One runtime-owned exception:** do NOT write, guess, copy, or preserve an `execution_provenance` field.
+The cockpit supervisor owns that separately versioned object and deterministically stamps it from its
+private canonical attempt state after this record is complete but before validation/publication. A model-written
+provider, model, account, or session claim is not provenance and would make the publication gate fail.
+
 **Unavailable-data conventions** (never fabricate a value):
 - `null` for numeric fields,
 - empty string `""` for unavailable string fields,

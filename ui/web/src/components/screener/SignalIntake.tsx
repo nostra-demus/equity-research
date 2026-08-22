@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useStore } from '../../lib/store'
 import { Spin } from '../Spin'
+import { providerBlockedReason, providerIsBlocked, providerLabel, providerLaunchBlockedReason, providerNeedsCheck, type RunProvider } from '../../lib/provider'
 
 // The Phase 0.1 intake doc's input_nature enum — kept verbatim so the agent-side schema validates.
 const NATURES = [
@@ -31,6 +32,11 @@ export function SignalIntake() {
   const submit = useStore((s) => s.submitSignal)
   const starting = useStore((s) => s.launchPending?.key === 'signal:intake')
   const seed = useStore((s) => s.signalIntakeSeed)
+  const provider = useStore((s) => s.runProvider)
+  const setProvider = useStore((s) => s.setRunProvider)
+  const providers = useStore((s) => s.providers)
+  const checkProvider = useStore((s) => s.refreshProviders)
+  const providerProblem = providerLaunchBlockedReason(providers[provider], providers.catalogState)
   const [nature, setNature] = useState<string>('news_headline')
   const [headline, setHeadline] = useState('')
   const [url, setUrl] = useState('')
@@ -51,7 +57,7 @@ export function SignalIntake() {
   }, [open, seed])
 
   const onSubmit = () => {
-    if (!valid) return
+    if (!valid || providerProblem) return
     void submit({
       headline: headline.trim(),
       input_nature: nature,
@@ -76,6 +82,16 @@ export function SignalIntake() {
           >
             <div className="intake__title">Check a news event</div>
             <div className="intake__sub">Paste one event. The system checks it step by step, then decides: drop it, watch it, or turn it into an investment idea. Most events get dropped — that is normal, and it is cheap.</div>
+
+            <label className="intake__label">Run with</label>
+            <div className="providerseg" role="radiogroup" aria-label="Run provider">
+              {(['claude', 'codex'] as RunProvider[]).map((choice) => {
+                const problem = providerBlockedReason(providers[choice])
+                const status = providers[choice]
+                return <button key={choice} role="radio" aria-checked={provider === choice} className={`providerseg__btn${provider === choice ? ' providerseg__btn--on' : ''}`} disabled={providerIsBlocked(status)} title={problem || (providerNeedsCheck(status) ? `Check ${providerLabel(choice)} status` : `Run with ${providerLabel(choice)}`)} onClick={() => { setProvider(choice); if (providerNeedsCheck(status) && !status.checking) void checkProvider(choice) }}>{status.checking ? 'checking…' : providerLabel(choice)}</button>
+              })}
+            </div>
+            {providerProblem && <div className="intake__hint" style={{ color: 'var(--bad)' }}>{providerProblem}. Choose an available provider to continue.</div>}
 
             <label className="intake__label">What kind of event is this?</label>
             <div className="intake__natures">
@@ -107,9 +123,9 @@ export function SignalIntake() {
             <textarea className="intake__input" rows={3} value={note} onChange={(e) => setNote(e.target.value)} placeholder="Optional" />
 
             <div className="intake__actions">
-              <span className="intake__est">costs about $8–45 · stops early (and cheaper) if a check says no</span>
+              <span className="intake__est">{provider === 'codex' ? 'uses your Codex plan · stops early when a check says no' : 'costs about $8–45 · stops early (and cheaper) if a check says no'}</span>
               <button className="btn btn--ghost" onClick={close}>Cancel</button>
-              <button className="btn btn--amber" disabled={!valid || starting} onClick={onSubmit}>{starting ? <><Spin /> Starting…</> : <>Start the checks ▸</>}</button>
+              <button className="btn btn--amber" disabled={!valid || starting || !!providerProblem} title={providerProblem || undefined} onClick={onSubmit}>{starting ? <><Spin /> Starting…</> : <>Start the checks ▸</>}</button>
             </div>
           </motion.div>
         </motion.div>

@@ -43,7 +43,78 @@ if [ -n "$RETRY_SHA" ] && [ "${ENGINE_NO_PUSH:-}" = "1" ]; then
   exit 4
 fi
 
+# The engine identity is a DATA-lane bypass actor. Enforce that boundary here rather than trusting every
+# caller/prompt forever. Globs are allowed below an admitted root; absolute/upward/code paths are not.
+is_data_pathspec() {
+  case "$1" in
+    analyses/*|screener/*|commodity/*|watchlist/*) return 0 ;;
+    *) return 1 ;;
+  esac
+}
+
+# A tracked child cannot inspect Git: both provider sandboxes deliberately deny the worktree Git pointer,
+# resolved gitdir/common-dir, and credentials. Delegate before *any* git discovery. This branch validates
+# only its untrusted data-path request; the supervisor independently derives the exact allowed artifacts.
+if [ "${NOSTRA_COCKPIT_RUN:-}" = "1" ]; then
+  if [ -n "$RETRY_SHA" ]; then
+    echo "commit-run: a cockpit child cannot retry a supervisor publication" >&2
+    exit 5
+  fi
+  for DATA_PATHSPEC in "$@"; do
+    case "$DATA_PATHSPEC" in
+      /*|../*|*/../*|*/..|..|*\\*|.git|.git/*|-*)
+        echo "commit-run: refused unsafe/non-data pathspec: $DATA_PATHSPEC" >&2
+        exit 2
+        ;;
+    esac
+    if ! is_data_pathspec "$DATA_PATHSPEC"; then
+      echo "commit-run: refused non-data pathspec: $DATA_PATHSPEC" >&2
+      exit 2
+    fi
+  done
+  [ -n "${NOSTRA_PUBLICATION_ENDPOINT:-}" ] && [ -n "${NOSTRA_PUBLICATION_TOKEN:-}" ] || {
+    echo "commit-run: cockpit publication has no supervisor capability — nothing was committed or pushed" >&2
+    exit 5
+  }
+  PUBLICATION_HELPER_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd -P)" || exit 5
+  python3 - "$PUBLICATION_HELPER_DIR" "$MSG" "$@" <<'PYREQUEST'
+import json
+import sys
+
+helper_dir, message, *paths = sys.argv[1:]
+sys.path.insert(0, helper_dir)
+from supervisor_publication import SupervisorPublicationError, post
+
+try:
+    result = post({"phase": "commit", "message": message, "pathspecs": paths}, timeout=20 * 60)
+except SupervisorPublicationError as error:
+    print(f"commit-run: supervisor publication failed: {error}", file=sys.stderr)
+    raise SystemExit(5)
+output = result.get("output")
+if output:
+    print(output)
+else:
+    print("NOOP=1")
+PYREQUEST
+  exit $?
+fi
+
 TOP="$(git rev-parse --show-toplevel 2>/dev/null)" || { echo "commit-run: not a git repo" >&2; exit 2; }
+
+if [ -z "$RETRY_SHA" ]; then
+  for DATA_PATHSPEC in "$@"; do
+    case "$DATA_PATHSPEC" in
+      /*|../*|*/../*|*/..|..|*\\*|.git|.git/*|-*)
+        echo "commit-run: refused unsafe/non-data pathspec: $DATA_PATHSPEC" >&2
+        exit 2
+        ;;
+    esac
+    if ! is_data_pathspec "$DATA_PATHSPEC"; then
+      echo "commit-run: refused non-data pathspec: $DATA_PATHSPEC" >&2
+      exit 2
+    fi
+  done
+fi
 
 # ---- engine push identity: authenticate as the GitHub App, if wired ----
 # §28 two-lane contract: the engine publishes research DATA straight to `main` as
@@ -106,6 +177,21 @@ if [ -n "$RETRY_SHA" ]; then
     echo "COMMIT_SHA=$CURRENT_SHA"
     exit 0
   fi
+  # A retry may push more than RETRY_SHA itself when local HEAD has ancestry not present on origin/main.
+  # Audit that whole range exactly like a fresh data commit; an expected SHA is not code-review approval.
+  AHEAD_PATHS="$(git log --format= --name-only origin/main..HEAD 2>/dev/null)" || {
+    echo "commit-run: cannot inspect retry ancestry — nothing was pushed" >&2
+    exit 4
+  }
+  while IFS= read -r AHEAD_PATH; do
+    [ -z "$AHEAD_PATH" ] && continue
+    if ! is_data_pathspec "$AHEAD_PATH"; then
+      echo "commit-run: retry ancestry contains unreviewed non-data path ($AHEAD_PATH) — refusing data-lane push" >&2
+      exit 4
+    fi
+  done <<EOF
+$AHEAD_PATHS
+EOF
   # Continue into the same authenticated, serialized push/rebase path below. No staging or commit is
   # allowed in retry mode; the expected SHA proves exactly which ambiguous local commit is being retried.
   SHA="$CURRENT_SHA"
@@ -116,6 +202,29 @@ if ! git diff --cached --quiet; then
   exit 3
 fi
 
+# A valid data pathspec is not enough when HEAD itself sits atop an unreviewed code commit: pushing the
+# new data commit would push that whole ancestry to main. Audit every commit ahead of origin/main before
+# staging. A missing tracking ref is refreshed once; no remote/ref means fail closed for a push-capable run.
+if [ "${ENGINE_NO_PUSH:-}" != "1" ]; then
+  git fetch -q origin main 2>/dev/null || {
+    echo "commit-run: cannot verify origin/main ancestry — nothing was committed or pushed" >&2
+    exit 4
+  }
+  AHEAD_PATHS="$(git log --format= --name-only origin/main..HEAD 2>/dev/null)" || {
+    echo "commit-run: cannot inspect HEAD ancestry — nothing was committed or pushed" >&2
+    exit 4
+  }
+  while IFS= read -r AHEAD_PATH; do
+    [ -z "$AHEAD_PATH" ] && continue
+    if ! is_data_pathspec "$AHEAD_PATH"; then
+      echo "commit-run: HEAD contains unreviewed non-data ancestry ($AHEAD_PATH) — refusing data-lane push" >&2
+      exit 4
+    fi
+  done <<EOF
+$AHEAD_PATHS
+EOF
+fi
+
 # The index was proven empty while the repository lease is held, so anything staged below belongs
 # to this invocation. If add/commit fails, remove only these pathspecs from the index while keeping
 # every worktree byte. Otherwise one rejecting hook can wedge all later autonomous commits forever.
@@ -124,7 +233,86 @@ unstage_own_paths() {
   for p in "$@"; do git reset -q HEAD -- "$p" 2>/dev/null || true; done
 }
 
-if ! git add -- "$@"; then
+if [ -n "${NOSTRA_SUPERVISOR_SNAPSHOT_MANIFEST:-}" ]; then
+  if ! python3 - "$TOP" "$NOSTRA_SUPERVISOR_SNAPSHOT_MANIFEST" "$@" <<'PYSNAPSHOT'
+import hashlib
+import json
+import os
+import pathlib
+import stat
+import subprocess
+import sys
+
+top = pathlib.Path(sys.argv[1]).resolve()
+manifest_path = pathlib.Path(sys.argv[2])
+requested = sys.argv[3:]
+
+def protected_file(candidate, label, max_bytes):
+    path = pathlib.Path(candidate)
+    info = path.lstat()
+    if (not stat.S_ISREG(info.st_mode) or path.is_symlink() or path.resolve() != path
+            or info.st_uid != os.getuid() or info.st_mode & 0o077 or info.st_size > max_bytes):
+        raise RuntimeError(f"unsafe {label}")
+    return path
+
+manifest_path = protected_file(manifest_path, "snapshot manifest", 1024 * 1024)
+parent = manifest_path.parent
+parent_info = parent.lstat()
+if (not stat.S_ISDIR(parent_info.st_mode) or parent.is_symlink() or parent.resolve() != parent
+        or parent_info.st_uid != os.getuid() or parent_info.st_mode & 0o077):
+    raise RuntimeError("unsafe snapshot directory")
+value = json.loads(manifest_path.read_text(encoding="utf-8"))
+entries = value.get("entries")
+if (value.get("schema_version") != "cockpit-publication-snapshot/1.0" or not isinstance(entries, list)
+        or not entries or len(entries) > 512 or value.get("requested_pathspecs") != requested):
+    raise RuntimeError("snapshot manifest contract disagrees with publication request")
+if [entry.get("path") for entry in entries] != requested or len(set(requested)) != len(requested):
+    raise RuntimeError("snapshot entries are not the exact requested path list")
+expected_oids = {}
+for entry in entries:
+    relative = entry.get("path")
+    snapshot_raw = entry.get("snapshot")
+    digest = entry.get("sha256")
+    if (not isinstance(relative, str) or relative.startswith(("/", "-")) or "\\" in relative
+            or ".." in pathlib.PurePosixPath(relative).parts
+            or relative.split("/", 1)[0] not in {"analyses", "screener", "commodity", "watchlist"}):
+        raise RuntimeError(f"unsafe snapshot data path: {relative!r}")
+    snapshot = protected_file(snapshot_raw, "snapshot file", 128 * 1024 * 1024)
+    if snapshot.parent != parent or not snapshot.name.isdigit():
+        raise RuntimeError("snapshot file escaped its protected directory")
+    payload = snapshot.read_bytes()
+    actual = "sha256:" + hashlib.sha256(payload).hexdigest()
+    if actual != digest:
+        raise RuntimeError(f"snapshot digest mismatch: {relative}")
+    oid = subprocess.check_output(["git", "-C", str(top), "hash-object", "-w", "--", str(snapshot)], text=True).strip()
+    subprocess.run(["git", "-C", str(top), "update-index", "--add", "--cacheinfo", "100644", oid, relative], check=True)
+    expected_oids[relative] = oid
+staged = subprocess.check_output(
+    ["git", "-C", str(top), "diff", "--cached", "--name-only", "-z", "--diff-filter=ACMRT"],
+).decode().split("\0")
+staged = [item for item in staged if item]
+expected_changed = []
+for relative, oid in expected_oids.items():
+    prior = subprocess.run(
+        ["git", "-C", str(top), "rev-parse", f"HEAD:{relative}"], text=True,
+        stdout=subprocess.PIPE, stderr=subprocess.DEVNULL,
+    )
+    if prior.returncode != 0 or prior.stdout.strip() != oid:
+        expected_changed.append(relative)
+    indexed = subprocess.check_output(
+        ["git", "-C", str(top), "rev-parse", f":{relative}"], text=True,
+    ).strip()
+    if indexed != oid:
+        raise RuntimeError(f"staged OID differs from protected snapshot: {relative}")
+if sorted(staged) != sorted(expected_changed):
+    raise RuntimeError("staged path set differs from protected snapshot delta")
+PYSNAPSHOT
+  then
+    unstage_own_paths "$@"
+    echo "commit-run: protected supervisor snapshot staging failed — nothing was committed or pushed" >&2
+    exit 5
+  fi
+elif ! git add -- "$@"; then
   unstage_own_paths "$@"
   echo "commit-run: git add failed — nothing was committed or pushed" >&2
   exit 5
@@ -184,12 +372,41 @@ done <"$PREWRITE_TMP/staged-paths"
 # The index was empty before this invocation and now contains only this run's staged snapshot. Commit
 # that snapshot directly: passing pathspecs to `git commit` would read mutable worktree bytes again and
 # reopen the validation-to-commit race closed above.
+PARENT_SHA="$(git rev-parse HEAD)"
 if ! git commit -q -m "$MSG"; then
   unstage_own_paths "$@"
   echo "commit-run: git commit failed — nothing was pushed" >&2
   exit 5
 fi
 SHA="$(git rev-parse HEAD)"
+if [ -n "${NOSTRA_SUPERVISOR_SNAPSHOT_MANIFEST:-}" ]; then
+  if ! python3 - "$TOP" "$NOSTRA_SUPERVISOR_SNAPSHOT_MANIFEST" "$PARENT_SHA" "$SHA" <<'PYCOMMITVERIFY'
+import hashlib, json, pathlib, subprocess, sys
+top, manifest_path, parent, commit = sys.argv[1:]
+value = json.loads(pathlib.Path(manifest_path).read_text(encoding="utf-8"))
+entries = value["entries"]
+expected_changed = []
+for entry in entries:
+    relative, digest = entry["path"], entry["sha256"]
+    blob = subprocess.check_output(["git", "-C", top, "show", f"{commit}:{relative}"])
+    if "sha256:" + hashlib.sha256(blob).hexdigest() != digest:
+        raise RuntimeError(f"committed blob differs from protected snapshot: {relative}")
+    prior = subprocess.run(["git", "-C", top, "show", f"{parent}:{relative}"],
+                           stdout=subprocess.PIPE, stderr=subprocess.DEVNULL)
+    if prior.returncode != 0 or prior.stdout != blob:
+        expected_changed.append(relative)
+actual = subprocess.check_output(
+    ["git", "-C", top, "diff-tree", "--no-commit-id", "--name-only", "-r", "-z", parent, commit]
+).decode().split("\0")
+actual = [item for item in actual if item]
+if sorted(actual) != sorted(expected_changed):
+    raise RuntimeError("commit delta contains paths outside the protected supervisor snapshot")
+PYCOMMITVERIFY
+  then
+    echo "commit-run: committed tree disagrees with protected supervisor snapshot — nothing was pushed" >&2
+    exit 5
+  fi
+fi
 fi
 
 # Validation / dry-run: commit locally but DO NOT push to origin/main. Lets the cheap real validations
@@ -207,7 +424,7 @@ fi
 # all — can be arbitrarily stale. `HEAD:main` is the only spelling that means what this script
 # actually intends ("land what I just committed on remote main"), independent of which branch is
 # checked out or whether a local `main` ref exists or is current.
-if git push -q origin HEAD:main 2>/dev/null; then
+if git push -q origin "$SHA:main" 2>/dev/null; then
   echo "COMMIT_SHA=$SHA"
   exit 0
 fi
@@ -295,8 +512,37 @@ if ! git rebase -q origin/main 2>/dev/null; then
   exit 4
 fi
 REBASED_SHA="$(git rev-parse HEAD)"
-if git push -q origin HEAD:main 2>/dev/null; then
-  echo "COMMIT_SHA=$(git rev-parse HEAD)"
+if [ -n "${NOSTRA_SUPERVISOR_SNAPSHOT_MANIFEST:-}" ]; then
+  REBASED_PARENT="$(git rev-parse "$REBASED_SHA^")"
+  if ! python3 - "$TOP" "$NOSTRA_SUPERVISOR_SNAPSHOT_MANIFEST" "$REBASED_PARENT" "$REBASED_SHA" <<'PYREBASEVERIFY'
+import hashlib, json, pathlib, subprocess, sys
+top, manifest_path, parent, commit = sys.argv[1:]
+entries = json.loads(pathlib.Path(manifest_path).read_text(encoding="utf-8"))["entries"]
+expected_changed = []
+for entry in entries:
+    relative, digest = entry["path"], entry["sha256"]
+    blob = subprocess.check_output(["git", "-C", top, "show", f"{commit}:{relative}"])
+    if "sha256:" + hashlib.sha256(blob).hexdigest() != digest:
+        raise RuntimeError(f"rebased blob differs from protected snapshot: {relative}")
+    prior = subprocess.run(["git", "-C", top, "show", f"{parent}:{relative}"],
+                           stdout=subprocess.PIPE, stderr=subprocess.DEVNULL)
+    if prior.returncode != 0 or prior.stdout != blob:
+        expected_changed.append(relative)
+actual = subprocess.check_output(
+    ["git", "-C", top, "diff-tree", "--no-commit-id", "--name-only", "-r", "-z", parent, commit]
+).decode().split("\0")
+actual = [item for item in actual if item]
+if sorted(actual) != sorted(expected_changed):
+    raise RuntimeError("rebased commit delta contains paths outside the protected supervisor snapshot")
+PYREBASEVERIFY
+  then
+    echo "commit-run: rebased tree disagrees with protected supervisor snapshot — nothing was pushed" >&2
+    echo "COMMIT_SHA=$REBASED_SHA"
+    exit 4
+  fi
+fi
+if git push -q origin "$REBASED_SHA:main" 2>/dev/null; then
+  echo "COMMIT_SHA=$REBASED_SHA"
   exit 0
 fi
 echo "commit-run: rebase succeeded but the push retry lost another remote race; rebased commit $REBASED_SHA remains local — push manually" >&2

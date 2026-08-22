@@ -7,6 +7,7 @@ import copy
 import datetime as dt
 import hashlib
 import json
+import os
 import re
 import subprocess
 import sys
@@ -17,7 +18,16 @@ from typing import Any
 from commodity_forecast_contract import production_coverage_resolver, validate_decision_record
 from commodity_evidence_links import validate_signal_projection
 from commodity_profile_coverage import PROFILE_PATH, profile_family, structured_profile
+from execution_provenance import (
+    MANIFEST_BASENAME,
+    ProvenanceError,
+    prior_projections,
+    project,
+    read_manifest,
+    stamp_artifact,
+)
 from repo_mutation import atomic_write_json, atomic_write_text
+from supervisor_publication import SupervisorPublicationError, post as supervisor_post
 
 
 class ArchiveError(RuntimeError):
@@ -25,6 +35,53 @@ class ArchiveError(RuntimeError):
 
 
 COMMODITY_ID_RE = re.compile(r"^[A-Z0-9]+(?:[-_][A-Z0-9]+)*$")
+
+
+def _stamp_runtime_provenance(run_root: Path) -> str | None:
+    """Stamp runtime provenance before validation and content-addressed hashing.
+
+    Direct standalone historical/maintenance invocations may explicitly use a local manifest they own.
+    A cockpit process never presents a manifest: it asks the live supervisor to project private canonical
+    attempt rows into the current decision before archive hashing. A missing/invalid supervisor capability
+    is a publication failure rather than an unattributed commodity decision.
+    """
+    configured = os.environ.get("NOSTRA_PROVENANCE_MANIFEST")
+    default = run_root / MANIFEST_BASENAME
+    if not configured and not default.exists():
+        return None
+    manifest = Path(configured).resolve() if configured else default.resolve()
+    if manifest != default.resolve():
+        raise ArchiveError("standalone runtime provenance manifest is not the run-local manifest")
+    try:
+        attempts = read_manifest(manifest)
+        stamp_artifact(
+            run_root / "decision_record.json",
+            project(attempts),
+            prior_projections(attempts),
+        )
+        return None
+    except ProvenanceError as error:
+        raise ArchiveError(f"runtime provenance failed before archive hashing: {error}") from error
+
+
+def _request_supervisor_archive(run_root: Path) -> tuple[str, Path, bool]:
+    """Ask the live cockpit supervisor to stamp and create the immutable archive itself."""
+    try:
+        result = supervisor_post({"phase": "archive", "pathspecs": []}, timeout=5 * 60)
+        archive = result.get("archiveDecision") if isinstance(result, dict) else None
+        if result.get("ok") is not True or result.get("phase") != "archive" or not isinstance(archive, dict):
+            raise ArchiveError("supervisor did not authorize one immutable commodity archive")
+        decision_id = archive.get("decisionId")
+        raw_path = archive.get("path")
+        if not isinstance(decision_id, str) or not isinstance(raw_path, str):
+            raise ArchiveError("supervisor returned no immutable commodity decision identity")
+        archive_path = Path(raw_path).resolve()
+        expected_parent = (run_root / "decisions" / decision_id).resolve()
+        if archive_path != expected_parent / "decision_record.json":
+            raise ArchiveError("supervisor commodity archive path does not match the requested run root")
+        return decision_id, archive_path, archive.get("created") is True
+    except (SupervisorPublicationError, OSError, ValueError) as error:
+        raise ArchiveError(f"supervisor commodity archive request failed: {error}") from error
 
 
 def _validate_prearchive(record: dict[str, Any], *, enforce_live_roster: bool) -> None:
@@ -118,9 +175,17 @@ def _create_or_verify_text(path: Path, value: str, label: str) -> bool:
 def archive_decision(run_root: Path) -> tuple[str, Path, bool]:
     """Create the immutable snapshot before replacing the current UI projection."""
     run_root = run_root.resolve()
+    if os.environ.get("NOSTRA_COCKPIT_RUN") == "1":
+        return _request_supervisor_archive(run_root)
+    stamped_digest = _stamp_runtime_provenance(run_root)
     current = run_root / "decision_record.json"
     try:
-        record = json.loads(current.read_text(encoding="utf-8"))
+        current_bytes = current.read_bytes()
+        if stamped_digest is not None:
+            actual = "sha256:" + hashlib.sha256(current_bytes).hexdigest()
+            if actual != stamped_digest:
+                raise ArchiveError("commodity decision changed after supervisor provenance stamping")
+        record = json.loads(current_bytes.decode("utf-8"))
     except FileNotFoundError:
         raise ArchiveError(f"missing current decision record: {current}") from None
     except (OSError, json.JSONDecodeError) as error:
@@ -221,6 +286,7 @@ def archive_decision(run_root: Path) -> tuple[str, Path, bool]:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--json", action="store_true", help="print one machine-readable result")
     parser.add_argument("run_root", type=Path)
     args = parser.parse_args()
     try:
@@ -228,10 +294,13 @@ def main() -> int:
     except ArchiveError as error:
         print(f"ARCHIVE-FAIL: {error}")
         return 1
-    print(
-        f"DECISION-ARCHIVE: id={decision_id} path={path} "
-        f"status={'created' if created else 'already-identical'}"
-    )
+    if args.json:
+        print(json.dumps({"decision_id": decision_id, "path": str(path), "created": created}, sort_keys=True))
+    else:
+        print(
+            f"DECISION-ARCHIVE: id={decision_id} path={path} "
+            f"status={'created' if created else 'already-identical'}"
+        )
     return 0
 
 

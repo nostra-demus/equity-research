@@ -24,6 +24,20 @@ const fm = (name: string, layer: number, extra = '') => `---\nname: ${name}\nlay
 write('.claude/agents/alpha/01_alpha-thing.md', fm('alpha-thing', 1))
 write('.claude/agents/alpha/99_alpha-synthesis.md', fm('alpha-synthesis', 99, 'depends_on: []\n'))
 write('.claude/agents/beta/99_beta-synthesis.md', fm('beta-synthesis', 99, 'depends_on: []\n'))
+write('.claude/agents/commodity/SWARM.md', `---
+id: commodity
+label: Commodities
+unit: commodity
+layout: constellation
+command_ns: commodity
+run_root_template: commodity/runs/{COMMODITY}
+placeholder: COMMODITY
+runs_root: commodity/runs
+decision_artifacts: [decision_record.json]
+---
+# Commodity
+`)
+write('.claude/agents/commodity/thesis/99_thesis-synthesis.md', fm('thesis-synthesis', 99, 'depends_on: []\n'))
 
 // today's date, matching resumable.ts's own todayDate()
 const d = new Date()
@@ -49,6 +63,11 @@ write(`analyses/ABRT_${TODAY}/.aborted`, JSON.stringify({ reason: 'cancelled' })
 // offering resume before it exits would let a second engine write the SAME folder (the double-write race).
 write(`analyses/DYING_${TODAY}/alpha/01_alpha-thing.md`, '# a\n')
 write(`analyses/DYING_${TODAY}/.aborted`, JSON.stringify({ reason: 'cancelled' }))
+// GOLD: an old standing decision remains, but a newer provider attempt hit quota. The interruption
+// marker is the current-epoch truth and must keep the stable root resumable.
+write('commodity/runs/GOLD/decision_record.json', '{"action":"Hold","old":true}\n')
+write('commodity/runs/GOLD/thesis/01_partial.md', '# retained partial refresh\n')
+write('commodity/runs/GOLD/.interrupted', JSON.stringify({ reason: 'out_of_credits', resetsAt: 4102444800 }))
 
 const { listResumableRuns } = await import('../src/resumable')
 const { createRun, setActiveSubjectRun } = await import('../src/registry')
@@ -87,6 +106,14 @@ check('a finished run (final_thesis present) is excluded', () => {
 
 check('a prior-day folder is excluded (same-day scope)', () => {
   assert.equal(listResumableRuns().some((r) => r.subject === 'OLD'), false)
+})
+
+check('a stable commodity root with an old decision and a newer quota interruption remains resumable', () => {
+  const item = listResumableRuns().find((r) => r.swarm === 'commodity' && r.subject === 'GOLD' && r.kind === 'full')
+  assert.ok(item, 'the old decision must not hide the failed refresh epoch')
+  assert.equal(item!.reason, 'out_of_credits')
+  assert.equal(item!.resetsAt, 4102444800)
+  assert.equal(item!.autoResumeDue, false)
 })
 
 check('a deliberately-aborted run (.aborted) is STILL offered for manual resume (Cancel = pause)', () => {

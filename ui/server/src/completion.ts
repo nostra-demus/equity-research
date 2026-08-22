@@ -38,7 +38,7 @@ import { createHash } from 'node:crypto'
 import fs from 'node:fs'
 import path from 'node:path'
 import { ANALYSES_DIR, DATA_DIR, REPO_ROOT } from './config'
-import { chainedResumePreflight, estimate } from './launcher'
+import { chainedResumePreflight, estimate, type RunProviderSelection } from './launcher'
 import { runManifest } from './outputs'
 import { buildSwarmGraph, findRunRootForSubject, moduleAncestors, terminalModuleName, transitiveDownstreamModules } from './roster'
 import { resolveInsideAnalyses, resolveInsideRuns, safeSubjectSegment } from './sandbox'
@@ -673,6 +673,7 @@ export function thesisPlan(
   swarmId: string = RESEARCH_SWARM_ID,
   reuseOverride?: string[],
   exactModule?: string,
+  selection: RunProviderSelection = { provider: 'claude' },
 ): ThesisPlan {
   const swarm = swarmById(swarmId)
   const graph = buildSwarmGraph(swarmId)
@@ -1030,8 +1031,11 @@ export function thesisPlan(
     // returns a single band calibrated on one research run, with no swarm branch. So for a non-research swarm
     // these are research-derived numbers scaled by orb count — which is why the panel does not show a price
     // for a swarm it cannot launch (canCarry === false). Do not present them as that swarm's cost.
-    preflight: chainedResumePreflight(safe, run, swarmId),
-    fullPreflight: estimate('full', safe, undefined, undefined, isResearch ? undefined : swarmId),
+    preflight: chainedResumePreflight(safe, run, selection, swarmId),
+    fullPreflight: estimate(
+      'full', safe, selection.provider, undefined, undefined,
+      isResearch ? undefined : swarmId, selection.model, selection.reasoningLevel,
+    ),
     canCarry,
   }
 }

@@ -17,6 +17,28 @@ const PLAN_SHA = `sha256:${'c'.repeat(64)}`
 // research already routed doc-intake correctly — baseline, must stay.
 assert.equal(buildPrompt('research', 'doc-intake', 'AAPL'), '/research:intake AAPL')
 assert.equal(buildPrompt('research', 'full', 'AAPL'), '/research:full AAPL')
+assert.equal(
+  buildPrompt('research', 'full', 'AAPL', undefined, undefined, undefined, {
+    parityCanary: {
+      runRoot: 'analyses/AAPL_2026-08-21',
+      freezeReceipt: 'analyses/provider-parity/freeze.json',
+    },
+  }),
+  '/research:full-canary AAPL analyses/AAPL_2026-08-21 analyses/provider-parity/freeze.json',
+  'a frozen full canary must target its exact isolated root instead of the normal dated root',
+)
+assert.equal(
+  buildPrompt('research', 'parity', 'pair', undefined, undefined, undefined, {
+    parity: {
+      claudeRunRoot: 'analyses/parity/claude',
+      codexRunRoot: 'analyses/parity/codex',
+      freezeReceipt: 'analyses/parity/freeze.json',
+      outputDir: 'analyses/parity/output',
+    },
+  }),
+  '/research:provider-parity analyses/parity/claude analyses/parity/codex analyses/parity/freeze.json analyses/parity/output',
+  'the adjudicator command must receive the exact frozen pair and create-only output scope',
+)
 
 // THE FIX: a constellation swarm's doc-intake routes to the cheap `:intake`, NEVER to `:full`.
 // Cover both a real swarm id and an unregistered one (which falls back to the id as the namespace),
@@ -29,6 +51,7 @@ for (const sw of ['commodity', 'zztest-swarm']) {
 
 // The other generic-swarm kinds are unchanged.
 assert.match(buildPrompt('commodity', 'full', 'WHEAT'), /:full WHEAT$/)
+assert.equal(buildPrompt('commodity', 'review', 'GOLD', undefined, undefined, 'tactical'), '/commodity:review GOLD tactical')
 assert.match(buildPrompt('commodity', 'module', 'WHEAT', 'market-structure'), /:market-structure WHEAT$/)
 assert.match(buildPrompt('commodity', 'rerun', 'WHEAT', 'market-structure'), /:rerun market-structure WHEAT$/)
 const commodityRerunCommand = await import('node:fs').then(({ readFileSync }) =>
