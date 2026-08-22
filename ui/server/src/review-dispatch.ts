@@ -69,11 +69,11 @@ function rollbackFired(key: string): void {
 // the bare ticker): listAllCalls() emits one row per run folder, and next_checkpoint is THAT run's earliest
 // pending window. A superseded run never appears. Reviewing by ticker would resolve to the latest run and
 // silently skip an older still-due run of the same ticker.
-export function dueReviews(): { runRoot: string; window: string }[] {
+export async function dueReviews(): Promise<{ runRoot: string; window: string }[]> {
   const out: { runRoot: string; window: string }[] = []
   let calls: any[] = []
   try {
-    calls = listAllCalls().calls
+    calls = (await listAllCalls()).calls
   } catch {
     return out
   }
@@ -115,9 +115,9 @@ export function spawnReview(runRoot: string, window: string): boolean {
 }
 
 /** The due reconciler — one pass. Crash-safe: re-running fires anything still due and unfired. */
-export function dispatchDueReviews(): void {
+export async function dispatchDueReviews(): Promise<void> {
   if (!ENABLED) return
-  for (const { runRoot, window } of dueReviews()) {
+  for (const { runRoot, window } of await dueReviews()) {
     if (inflightRuns.size >= MAX_CONCURRENT) break
     spawnReview(runRoot, window)
   }
@@ -128,8 +128,8 @@ export function startReviewLoop(): void {
     log('loop idle — set REVIEW_DISPATCH_ENABLED=1 to auto-fire due decision reviews from the server (the macOS hk-review timer, if installed, still fires them; you can also run /research:review-decisions by hand)')
     return
   }
-  setTimeout(() => dispatchDueReviews(), 12_000)
-  const t = setInterval(() => dispatchDueReviews(), TICK_MS)
+  setTimeout(() => void dispatchDueReviews(), 12_000)
+  const t = setInterval(() => void dispatchDueReviews(), TICK_MS)
   t.unref?.()
   log(`loop on — due reconciler every ${Math.round(TICK_MS / 1000)}s · max ${MAX_CONCURRENT} concurrent, ${DAILY_CAP}/day, ~$${BUDGET_USD}/review`)
 }

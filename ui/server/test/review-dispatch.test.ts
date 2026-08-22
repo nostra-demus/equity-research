@@ -7,9 +7,9 @@ import assert from 'node:assert/strict'
 import { dispatchDueReviews, dueReviews } from '../src/review-dispatch'
 
 let passed = 0
-function check(name: string, fn: () => void) {
+async function check(name: string, fn: () => void | Promise<void>) {
   try {
-    fn()
+    await fn()
     passed++
     console.log(`  ok  ${name}`)
   } catch (e: any) {
@@ -18,8 +18,8 @@ function check(name: string, fn: () => void) {
   }
 }
 
-check('dueReviews() returns only DUE/OVERDUE {runRoot, window} rows (keyed on the run, not the ticker) and never throws', () => {
-  const rows = dueReviews()
+await check('dueReviews() returns only DUE/OVERDUE {runRoot, window} rows (keyed on the run, not the ticker) and never throws', async () => {
+  const rows = await dueReviews()
   assert.ok(Array.isArray(rows), 'must return an array')
   for (const r of rows) {
     assert.equal(typeof r.runRoot, 'string')
@@ -31,9 +31,9 @@ check('dueReviews() returns only DUE/OVERDUE {runRoot, window} rows (keyed on th
   assert.equal(new Set(keys).size, keys.length, 'run+window keys must be unique')
 })
 
-check('dispatchDueReviews() is a no-op when disabled (never spawns a paid review)', () => {
+await check('dispatchDueReviews() is a no-op when disabled (never spawns a paid review)', async () => {
   // ENABLED is read at import time from REVIEW_DISPATCH_ENABLED (unset here) — the pass must be inert.
-  assert.doesNotThrow(() => dispatchDueReviews())
+  await assert.doesNotReject(() => dispatchDueReviews())
 })
 
 console.log(`\n${passed} checks passed`)
