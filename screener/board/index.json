@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-22T22:19:03Z",
+  "generated_at": "2026-08-22T22:33:45Z",
   "inbox": [
     {
       "inbox_id": "INB-20260822-2434",
@@ -502,6 +502,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260822-2460",
+      "headline": "Apple Announced Its Largest-Ever Stock Buyback Under Tim Cook's Leadership. Here's Why the Size of the Repurchase Program Matters for Shareholders.",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/apple-announced-its-largest-ever-stock-buyback-under-tim-cooks-leadership-heres-why-size",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-22T22:20:00Z",
+      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
+      "prelim_note": "Apple announced its largest-ever stock buyback program, which directly impacts capital structure and shareholder value.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Apple announced its largest-ever stock buyback program, which directly impacts capital structure and shareholder value.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capital_actions",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Apple",
+          "ticker": "AAPL",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1880,61 +1929,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260822-554",
-      "headline": "Genentech invests $750M in new factory; Bavarian Nordic delays Lyme trial",
-      "headline_en": null,
-      "url": "https://endpoints.news/genentech-invests-750m-in-new-factory-bavarian-nordic-delays-lyme-trial/",
-      "source_name": "Endpoints News",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-21T14:52:26Z",
-      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
-      "prelim_note": "Genentech announced a $750M new factory (capex) while Bavarian Nordic delayed a Lyme trial (setback).",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Genentech announced a $750M new factory (capex) while Bavarian Nordic delayed a Lyme trial (setback).",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 6,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 15,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capex",
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Genentech",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Bavarian Nordic",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -79663,9 +79657,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 300099,
-    "news_picked_today": 4908,
-    "news_dropped_today": 11037
+    "news_seen_today": 300143,
+    "news_picked_today": 4909,
+    "news_dropped_today": 11080
   },
   "book_momentum": {
     "live_count": 8,
