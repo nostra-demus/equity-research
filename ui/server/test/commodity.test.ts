@@ -11,7 +11,7 @@ import { handleFile } from '../src/fs-watcher'
 import { estimate, truncatedBeforeFinal } from '../src/launcher'
 import { agentNameIndexAllSwarms, buildSwarmGraph, downstreamCascade, graphForSubject, swarmSubjectSummaries, swarmSubjects, terminalModuleName } from '../src/roster'
 import { listSwarms, swarmById } from '../src/swarms'
-import { readMarkdown, runManifest } from '../src/outputs'
+import { readRunsMarkdown, runManifest } from '../src/outputs'
 import { resolveInsideRuns } from '../src/sandbox'
 import { assembleContext, scopeAvailability } from '../src/chat-context'
 import type { SseEvent } from '../src/types'
@@ -175,7 +175,7 @@ check('runManifest(GOLD) surfaces the dossier as finalReport (no final_thesis.md
 
 check('the finalReport path reads back through the runs sandbox (what /api/output/thesis serves)', () => {
   const m = runManifest('commodity/runs/GOLD', resolveInsideRuns, terminalModuleName('commodity'))
-  const doc = readMarkdown(m.finalReport!.path, resolveInsideRuns)
+  const doc = readRunsMarkdown(m.finalReport!.path)
   assert.ok(/Commodity Dossier/.test(doc.markdown), 'dossier heading missing')
   assert.ok(/Action:\s*Hold/.test(doc.markdown), 'Action verdict missing from the dossier')
 })

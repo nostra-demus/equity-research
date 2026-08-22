@@ -2,7 +2,7 @@ import fs from 'node:fs'
 import { createHash, randomUUID } from 'node:crypto'
 import path from 'node:path'
 import { ANALYSES_DIR, REPO_ROOT } from './config'
-import { resolveInsideAnalyses, resolveInsidePrompts } from './sandbox'
+import { resolveInsideAnalyses, resolveInsidePrompts, resolveInsideRuns } from './sandbox'
 import { extractVerdict } from './verdict'
 import {
   applyErrata, CORRECTIONS_SCHEMA, resolveDisplayFields, supersededTarget,
@@ -11,15 +11,23 @@ import { diffDecisionRecords } from './run-diff'
 import { publishedGitCommit, publishedTreeAuthority, type PublishedTreeAuthority } from './published-git'
 import { listSwarms } from './swarms'
 
-// `resolve` defaults to the analyses/ sandbox (research). The chat reader passes resolveInsideRuns so it
-// can ground on any swarm's run folder; every other caller keeps the analyses-only default unchanged.
-export function readMarkdown(relPath: string, resolve: (p: string) => string = resolveInsideAnalyses): { path: string; markdown: string } {
-  const real = resolve(relPath)
+// Keep the containment resolver immediately adjacent to the filesystem sink. Besides making the trust
+// boundary explicit to reviewers/static analysis, this prevents a future caller from injecting a weaker
+// resolver through a generic callback.
+export function readMarkdown(relPath: string): { path: string; markdown: string } {
+  const real = resolveInsideAnalyses(relPath)
   const markdown = fs.readFileSync(real, 'utf8')
   return { path: relPath, markdown }
 }
 
-// Calls advertises only these published artifacts. General run output remains owned by readMarkdown();
+/** Read markdown confined to any discovered swarm run tree. */
+export function readRunsMarkdown(relPath: string): { path: string; markdown: string } {
+  const real = resolveInsideRuns(relPath)
+  const markdown = fs.readFileSync(real, 'utf8')
+  return { path: relPath, markdown }
+}
+
+// Calls advertises only these published artifacts. General run output remains owned by the scoped readers;
 // this narrow reader exists so a dirty doer and a fresh/static host open the same bytes the Calls row used.
 const PUBLISHED_CALLS_ARTIFACT_RE = /^(?:analyses\/[A-Z0-9.\-]{1,40}_\d{4}-\d{2}-\d{2}\/final_thesis\.md|analyses\/[A-Z0-9.\-]{1,40}_\d{4}-\d{2}-\d{2}\/reviews\/\d{4}-\d{2}-\d{2}_[A-Za-z0-9-]{1,20}_(?:decision_review(?:_v\d+)?\.json|memo_delta(?:_v\d+)?\.md)|analyses\/tracking\/\d{4}-\d{2}-\d{2}_calls_tracker(?:_v\d+)?\.md)$/
 const PUBLISHED_DECISION_REVIEW_BASENAME_RE = /^\d{4}-\d{2}-\d{2}_[A-Za-z0-9-]{1,20}_decision_review(?:_v\d+)?\.json$/

@@ -10,7 +10,7 @@
 // roster (buildSwarmGraph) — no module name is ever hardcoded (CLAUDE.md §26).
 import path from 'node:path'
 import { CHAT, REPO_ROOT } from './config'
-import { readDecision, readMarkdown, runManifest } from './outputs'
+import { readDecision, readRunsMarkdown, runManifest } from './outputs'
 import { loadRetrievalConcepts } from './retrieval/concepts'
 import { buildHybridQuery, HybridCollector } from './retrieval/hybrid'
 import { buildSwarmGraph, findRunRootForSubject, swarmSubjects } from './roster'
@@ -71,7 +71,7 @@ export interface AssembledContext {
 function tryRead(relPath: string): string | null {
   try {
     // swarm-agnostic: confine to ANY swarm's runs tree (analyses/, screener/runs, commodity/runs, …)
-    return readMarkdown(relPath, resolveInsideRuns).markdown
+    return readRunsMarkdown(relPath).markdown
   } catch {
     return null
   }
