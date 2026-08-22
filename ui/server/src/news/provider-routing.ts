@@ -283,6 +283,9 @@ function writeFileFully(fd: number, bytes: Buffer): void {
 }
 
 function fsyncParent(file: string): void {
+  // Windows cannot open or fsync directory handles through Node. The file itself is still fsynced above;
+  // POSIX hosts additionally persist the directory entry before acknowledging a new ledger/cache file.
+  if (process.platform === 'win32') return
   const fd = fs.openSync(path.dirname(file), 'r')
   try { fs.fsyncSync(fd) } finally { fs.closeSync(fd) }
 }
@@ -1057,7 +1060,15 @@ export function readPipelineTrend(repoRoot: string, archiveDir: string, from: nu
     releasedCapacityUtilization: total.urgencyN > 0 ? round(total.urgency / total.urgencyN) : null,
     failures: total.failures,
     currentRank: total.rank,
-  })).sort((left, right) => (left.currentRank || Infinity) - (right.currentRank || Infinity) || right.contributionShare - left.contributionShare)
+  })).sort((left, right) => {
+    const leftRank = typeof left.currentRank === 'number' && Number.isFinite(left.currentRank) ? left.currentRank : null
+    const rightRank = typeof right.currentRank === 'number' && Number.isFinite(right.currentRank) ? right.currentRank : null
+    if (leftRank != null && rightRank != null && leftRank !== rightRank) return leftRank < rightRank ? -1 : 1
+    if (leftRank != null) return -1
+    if (rightRank != null) return 1
+    if (left.contributionShare !== right.contributionShare) return right.contributionShare - left.contributionShare
+    return left.id.localeCompare(right.id)
+  })
   return {
     from: new Date(from).toISOString(),
     to: new Date(to).toISOString(),

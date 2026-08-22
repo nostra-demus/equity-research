@@ -250,6 +250,18 @@ check('trend validates 90 days, caps buckets, preserves legacy gaps, and paginat
   ].join('\n') + '\n')
   const archivePage = readPipelineTrendEvents(archived.root, archived.archive, Date.parse('2026-08-22T09:00:00Z'), Date.parse('2026-08-22T12:00:00Z'), 'alpha', '', 10)
   assert.equal(archivePage.events.length, 2, 'a pruned local day reads its permanent archive copy')
+
+  const ranklessForward = workspace()
+  const ranklessReverse = workspace()
+  const sameTime = '2026-08-22T10:30:00Z'
+  seed(ranklessForward.root, [outcome(sameTime, 50, 'zeta'), outcome(sameTime, 51, 'alpha')])
+  seed(ranklessReverse.root, [outcome(sameTime, 51, 'alpha'), outcome(sameTime, 50, 'zeta')])
+  const rangeStart = Date.parse('2026-08-22T10:00:00Z')
+  const rangeEnd = Date.parse('2026-08-22T11:00:00Z')
+  const forwardOrder = readPipelineTrend(ranklessForward.root, ranklessForward.archive, rangeStart, rangeEnd).providers.map((provider) => provider.id)
+  const reverseOrder = readPipelineTrend(ranklessReverse.root, ranklessReverse.archive, rangeStart, rangeEnd).providers.map((provider) => provider.id)
+  assert.deepEqual(forwardOrder, ['alpha', 'zeta'])
+  assert.deepEqual(reverseOrder, forwardOrder, 'rankless equal contributors sort deterministically regardless of ledger insertion order')
 })
 
 check('archive service mirrors and safely prunes pipeline telemetry under the firehose contract', () => {

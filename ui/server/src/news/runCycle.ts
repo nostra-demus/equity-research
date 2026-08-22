@@ -1405,10 +1405,10 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
     }
     if (providerId.startsWith('gemini:')) {
       const model = providerId.slice('gemini:'.length)
-      const index = geminiPool.findIndex((entry) => entry.model === model)
-      if (index >= 0) {
-        const entry = geminiPool[index]
-        const cap = cfg.geminiModels[index].dailyReqCap
+      const entry = geminiPool.find((candidate) => candidate.model === model)
+      const modelConfig = cfg.geminiModels.find((candidate) => candidate.model === model)
+      if (entry && modelConfig) {
+        const cap = modelConfig.dailyReqCap
         const admission = dailyQuotaAdmission({ id: providerId, meter: 'requests', used: entry.budget.requests, cap, cost: 1, resetTimeZone: cfg.geminiDayTz, floorFraction: cfg.freeProviderPaceFloorFrac }, at)
         return { allowanceUsed: entry.budget.requests, allowanceReleased: admission.released, allowanceCap: cap }
       }
@@ -1505,13 +1505,14 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
       const reason = candidateReason({ enabled: true, ledger: ov.budget.ledgerAvailable, exhausted: ov.budget.providerDayExhausted, held, rejected: credentialRejectedFor(ov.p.id), hard: admission.hardCapFit && ov.budget.canSpend(perAttemptTokens, 1), paced: admission.pacedFit })
       routingCandidates.push({ id: ov.p.id, label: ov.p.label, order: configuredOrder++, band: 'direct', eligible: reason === 'eligible', eligibilityReason: reason, releasedCapacityUrgency: admission.normalizedDeficit, consecutiveFailures: cooldownInfo(stateDir, ov.p.id).fails })
     }
-    for (let index = 0; index < geminiPool.length; index++) {
-      const gem = geminiPool[index]
+    for (const gem of geminiPool) {
+      const modelConfig = cfg.geminiModels.find((candidate) => candidate.model === gem.model)
+      const cap = modelConfig?.dailyReqCap ?? 0
       const options: TriageOptions = { model: gem.model, baseUrl: cfg.geminiBaseUrl, apiKey: cfg.geminiApiKey, maxTokens: cfg.geminiMaxTokens, maxAttempts: 1 }
       const perAttemptTokens = triageGroqTokenBound(batch, options)
-      const admission = dailyQuotaAdmission({ id: `gemini:${gem.model}`, meter: 'requests', used: gem.budget.requests, cap: cfg.geminiModels[index].dailyReqCap, cost: 1, resetTimeZone: cfg.geminiDayTz, floorFraction: cfg.freeProviderPaceFloorFrac }, candidateAt)
+      const admission = dailyQuotaAdmission({ id: `gemini:${gem.model}`, meter: 'requests', used: gem.budget.requests, cap, cost: 1, resetTimeZone: cfg.geminiDayTz, floorFraction: cfg.freeProviderPaceFloorFrac }, candidateAt)
       const held = gem.failed || triageIsHeld(stateDir, `gemini:${gem.model}`, candidateAt)
-      const reason = candidateReason({ enabled: geminiOn, ledger: gem.budget.ledgerAvailable, exhausted: gem.budget.providerDayExhausted, held, rejected: credentialRejectedFor(`gemini:${gem.model}`), hard: admission.hardCapFit && gem.budget.canSpend(perAttemptTokens, 1), paced: admission.pacedFit })
+      const reason = candidateReason({ enabled: geminiOn && !!modelConfig, ledger: gem.budget.ledgerAvailable, exhausted: gem.budget.providerDayExhausted, held, rejected: credentialRejectedFor(`gemini:${gem.model}`), hard: admission.hardCapFit && gem.budget.canSpend(perAttemptTokens, 1), paced: admission.pacedFit })
       routingCandidates.push({ id: `gemini:${gem.model}`, label: gem.model, order: configuredOrder++, band: 'direct', eligible: reason === 'eligible', eligibilityReason: reason, releasedCapacityUrgency: admission.normalizedDeficit, consecutiveFailures: cooldownInfo(stateDir, `gemini:${gem.model}`).fails })
     }
     for (const ov of overflowAggregate) {
@@ -1804,13 +1805,14 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
     const freePoolRoutes = (): FreePoolRoute[] => {
       const routes: FreePoolRoute[] = overflowDirect.map(overflowQuotaRoute)
       if (geminiOn) {
-        for (let index = 0; index < geminiPool.length; index++) {
-          const gem = geminiPool[index]
+        for (const [index, gem] of geminiPool.entries()) {
+          const modelConfig = cfg.geminiModels.find((candidate) => candidate.model === gem.model)
+          if (!modelConfig) continue
           const options: TriageOptions = { model: gem.model, baseUrl: cfg.geminiBaseUrl, apiKey: cfg.geminiApiKey, maxTokens: cfg.geminiMaxTokens, maxAttempts: 1 }
           const perAttemptTokens = triageGroqTokenBound(batch, options)
           routes.push({
             kind: 'gemini', id: `gemini:${gem.model}`, meter: 'requests',
-            used: gem.budget.requests, cap: cfg.geminiModels[index].dailyReqCap, cost: 1,
+            used: gem.budget.requests, cap: modelConfig.dailyReqCap, cost: 1,
             resetTimeZone: cfg.geminiDayTz, floorFraction: cfg.freeProviderPaceFloorFrac,
             priority: overflowDirect.length + index, gem, options, perAttemptTokens,
             otherHardFit: gem.budget.canSpend(perAttemptTokens, 1),
