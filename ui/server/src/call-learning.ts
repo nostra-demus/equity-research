@@ -141,8 +141,8 @@ export function classifyDecisionQuality(value: string | null | undefined): Outco
   }
 }
 
-function reviewDate(row: ReviewLike): string {
-  return row.review_date || row.due_date || ''
+function reviewDate(row: ReviewLike | null | undefined): string {
+  return row?.review_date || row?.due_date || ''
 }
 
 function compareNewestReview(a: ReviewLike, b: ReviewLike): number {
@@ -217,7 +217,7 @@ export function buildCallsScorecard(calls: CallLike[]): CallsScorecard {
   const benchmarkReturns = rows.map(({ call, review }) => directionAdjusted(call.basket, review?.benchmark_relative_return_pct))
   const horizons = (['30d', '90d', '180d', '365d'] as const).map((window) => {
     const windowRows = eligibleCalls.flatMap((call) => {
-      const review = (call.timeline || []).filter((row) => row.status === 'done' && normalized(row.window) === window).sort(compareNewestReview)[0]
+      const review = (Array.isArray(call.timeline) ? call.timeline : []).filter((row) => row?.status === 'done' && normalized(row?.window) === window).sort(compareNewestReview)[0]
       return review ? [{ call, review }] : []
     })
     const windowClasses = windowRows.map(({ review }) => classifyDecisionQuality(review.decision_quality))

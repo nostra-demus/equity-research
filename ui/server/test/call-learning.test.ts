@@ -70,9 +70,13 @@ const sameDayReviews = [
 assert.equal(latestDoneReview(sameDayReviews)?.review_file, 'reviews/b.json')
 assert.equal(latestDoneReview([...sameDayReviews].reverse())?.review_file, 'reviews/b.json',
   'same-day review selection is independent of input order')
+assert.equal(latestDoneReview([null as never, undefined as never, ...sameDayReviews])?.review_file, 'reviews/b.json',
+  'legacy null timeline rows cannot crash review selection')
 const sameDayCall = { ...reviewed('TIE', 'skill', 70, 1), timeline: sameDayReviews }
 assert.deepEqual(buildCallsScorecard([sameDayCall]), buildCallsScorecard([{ ...sameDayCall, timeline: [...sameDayReviews].reverse() }]),
   'aggregate and horizon scorecards use the same deterministic review winner')
+assert.doesNotThrow(() => buildCallsScorecard([{ ...sameDayCall, timeline: {} as never }]),
+  'schema-less non-array timelines degrade safely instead of crashing the Calls dashboard')
 
 const memoryCall = {
   ticker: 'AMZN', company: 'Amazon.com, Inc.', decision_date: '2026-07-10', decision: 'Watchlist', basket: 'Watchlist',

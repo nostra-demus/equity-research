@@ -807,9 +807,9 @@ function buildCalls() {
     return null
   }
   const quality = (row) => row?.decision_quality === 'skill' ? 'worked' : row?.decision_quality === 'genuine miss' ? 'failed' : row?.decision_quality === 'luck' ? 'mixed' : 'unscored'
-  const latestDone = (call) => [...call.timeline].filter((row) => row.status === 'done').sort((a, b) => {
-    const ad = String(a.review_date || a.due_date || '')
-    const bd = String(b.review_date || b.due_date || '')
+  const latestDone = (call) => [...(Array.isArray(call?.timeline) ? call.timeline : [])].filter((row) => row?.status === 'done').sort((a, b) => {
+    const ad = String(a?.review_date || a?.due_date || '')
+    const bd = String(b?.review_date || b?.due_date || '')
     if (ad < bd) return 1
     if (ad > bd) return -1
     return String(b.review_file || '').localeCompare(String(a.review_file || ''))
@@ -820,7 +820,7 @@ function buildCalls() {
   const classes = rows.map((row) => quality(row.review))
   const count = (kind) => classes.filter((x) => x === kind).length
   const horizons = ['30d', '90d', '180d', '365d'].map((window) => {
-    const wr = eligibleCalls.flatMap((call) => { const review = latestDone({ timeline: call.timeline.filter((row) => row.status === 'done' && String(row.window).toLowerCase() === window) }); return review ? [{ call, review }] : [] })
+    const wr = eligibleCalls.flatMap((call) => { const review = latestDone({ timeline: (Array.isArray(call.timeline) ? call.timeline : []).filter((row) => row?.status === 'done' && String(row?.window || '').toLowerCase() === window) }); return review ? [{ call, review }] : [] })
     const cls = wr.map((row) => quality(row.review)), n = (kind) => cls.filter((x) => x === kind).length
     return { window, reviewed: wr.length, worked: n('worked'), failed: n('failed'), mixed: n('mixed'), unscored: n('unscored'),
       average_return_pct: avg(wr.map(({ call, review }) => adjusted(call, review.absolute_return_pct))),
