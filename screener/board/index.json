@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-22T14:57:59Z",
+  "generated_at": "2026-08-22T15:03:47Z",
   "inbox": [
     {
       "inbox_id": "INB-20260822-2369",
@@ -347,6 +347,55 @@
           "name": "Skanska",
           "ticker": null,
           "listing_country": "SE"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260822-2424",
+      "headline": "Uber fined ₹9,226 crore over driver account suspensions without human review: 'Serious infringements'",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/news/uber-fined-9-226-crore-over-driver-account-suspensions-without-human-review-serious-infringements-11787408386581.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-22T14:56:13Z",
+      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
+      "prelim_note": "Regulatory fine of ₹9,226 crore is a material enforcement action.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Regulatory fine of ₹9,226 crore is a material enforcement action.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Uber",
+          "ticker": null,
+          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -1910,65 +1959,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260822-1147",
-      "headline": "MPS launches all-share offers for Banco BPM, Banca Generali",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/finance/mps-launches-all-share-offers-banco-bpm-banca-generali-2026-08-21/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-21T07:58:58Z",
-      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
-      "prelim_note": "MPS launched all-share offers for Banco BPM and Banca Generali, a named M&A event with multiple banks involved.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "MPS launched all-share offers for Banco BPM and Banca Generali, a named M&A event with multiple banks involved.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "MPS",
-          "ticker": null,
-          "listing_country": "IT"
-        },
-        {
-          "name": "Banco BPM",
-          "ticker": null,
-          "listing_country": "IT"
-        },
-        {
-          "name": "Banca Generali",
-          "ticker": null,
-          "listing_country": "IT"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -78381,9 +78371,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 298639,
-    "news_picked_today": 4566,
-    "news_dropped_today": 10028
+    "news_seen_today": 298655,
+    "news_picked_today": 4570,
+    "news_dropped_today": 10040
   },
   "book_momentum": {
     "live_count": 8,
