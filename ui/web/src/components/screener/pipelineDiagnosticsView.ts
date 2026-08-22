@@ -256,6 +256,13 @@ export function retryReasonLabel(reason?: string): string {
     // key that was fine.
     case 'provider-credits': return 'the account ran out of credit'
     case 'provider-endpoint': return 'the chosen model is no longer available'
+    case 'theme-rate_limit': return 'the Themes service asked it to wait'
+    case 'theme-availability': return 'a Themes service or internet error'
+    // Persisted markers from older engines used theme-access for 401/402/403/404. Keep its public
+    // wording conservative; new engines write the precise credits/endpoint tags below.
+    case 'theme-access': return 'a Themes access error'
+    case 'theme-credits': return 'the Themes account ran out of credit'
+    case 'theme-endpoint': return 'the Themes model is no longer available'
     case 'triage-contract': return 'an answer it could not use'
     case 'triage-request': return 'a rejected request'
     case 'auth-expired': return 'an expired sign-in'

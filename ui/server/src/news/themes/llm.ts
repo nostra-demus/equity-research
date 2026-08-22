@@ -373,14 +373,12 @@ interface OpenAiCallResult {
 }
 
 type ThemeFailureScope = 'provider' | 'workload'
-type ThemeFailureKind = 'rate_limit' | 'availability' | 'access' | 'request' | 'contract' | 'timeout'
+type ThemeFailureKind = 'rate_limit' | 'availability' | 'access' | 'credits' | 'endpoint' | 'request' | 'contract' | 'timeout'
 
 interface ThemeFailureClass {
   scope: ThemeFailureScope
   kind: ThemeFailureKind
 }
-
-const PROVIDER_ACCESS_STATUSES = new Set([401, 402, 403, 404])
 
 /** Scope is a routing fact, not a prose guess. Only failures that say the provider itself cannot serve
  * other work may close the shared provider circuit. A bad Themes request/contract (including a large
@@ -388,7 +386,9 @@ const PROVIDER_ACCESS_STATUSES = new Set([401, 402, 403, 404])
 function classifyThemeHttpFailure(status: number): ThemeFailureClass {
   if (status === 429) return { scope: 'provider', kind: 'rate_limit' }
   if (status >= 500) return { scope: 'provider', kind: 'availability' }
-  if (PROVIDER_ACCESS_STATUSES.has(status)) return { scope: 'provider', kind: 'access' }
+  if (status === 401 || status === 403) return { scope: 'provider', kind: 'access' }
+  if (status === 402) return { scope: 'provider', kind: 'credits' }
+  if (status === 404) return { scope: 'provider', kind: 'endpoint' }
   return { scope: 'workload', kind: 'request' }
 }
 
