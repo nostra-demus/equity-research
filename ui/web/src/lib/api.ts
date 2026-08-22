@@ -1393,7 +1393,7 @@ export const api = {
   chatStream: async (
     body: ChatRequest,
     cb: {
-      onMeta?: (m: { conversationId?: string; scopeResolved: string; sourcePath?: string; degraded?: boolean; degradeNote?: string }) => void
+      onMeta?: (m: { conversationId?: string; scopeResolved: string; sourcePath?: string; degraded?: boolean; degradeNote?: string; memory?: import('./types').AskMemoryMeta }) => void
       onStatus?: (s: { stage?: string; model?: string }) => void
       onThinking?: (t: string) => void
       onComputed?: (c: ChatComputed) => void
@@ -1485,7 +1485,7 @@ export const api = {
   newsChatStream: async (
     body: NewsChatRequest,
     cb: {
-      onMeta: (m: { receipt: NewsChatReceipt; evidence: NewsChatEvidence[] }) => void
+      onMeta: (m: { conversationId?: string; receipt: NewsChatReceipt; evidence: NewsChatEvidence[]; recovered?: boolean }) => void
       onToken: (t: string) => void
       onDone: (d: { costUsd?: number }) => void
       onError: (msg: string) => void

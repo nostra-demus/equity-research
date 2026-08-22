@@ -18,7 +18,7 @@ import { CHATS_DIR } from './config'
 import { acquireRetainedFlock, acquireRetainedFlockSync, releaseRetainedFlock } from './singleton-lock'
 
 export type ChatRole = 'user' | 'assistant'
-export type ChatScope = 'run' | 'module' | 'orb'
+export type ChatScope = 'run' | 'module' | 'orb' | 'wire'
 export type UserVia = 'cf-access' | 'local'
 
 export interface StoredChatMessage {
@@ -32,6 +32,7 @@ export interface StoredChatMessage {
   costUsd?: number // assistant turns: the metered cost of that turn, when known
   thinking?: string // assistant turns: the model's extended-thinking reasoning for this answer, when captured
   computed?: unknown[] // assistant turns: bounded deterministic what-if cards streamed before the prose
+  memory?: unknown // bounded retrieval receipt: which Ask shelves were used for this answer
 }
 
 // The identity + scope of a conversation — everything needed to reopen it against the right run and to
@@ -248,6 +249,17 @@ function clampComputed(computed: unknown[] | undefined): unknown[] | undefined {
     }
   }
   return kept.length ? kept : undefined
+}
+
+function clampMemory(memory: unknown): unknown | undefined {
+  if (memory === undefined) return undefined
+  try {
+    const encoded = JSON.stringify(memory)
+    if (encoded === undefined || encoded.length > MAX_COMPUTED_JSON_CHARS) return undefined
+    return JSON.parse(encoded)
+  } catch {
+    return undefined
+  }
 }
 
 function readConvoFile(file: string): ChatConversation | null {
@@ -1035,7 +1047,7 @@ export function rollbackUserMessage(token: UserMessageRollback): Promise<boolean
 // Atomically commit the pending user question and its assistant answer. Keeping both mutations under the
 // same per-conversation lock means History can never observe a committed orphan question. Older turns may
 // finish after newer ones; their transcript still lands, but their presentation metadata cannot win.
-export function recordAssistantMessageForPending(token: UserMessageRollback, content: string, extra?: { sourcePath?: string; costUsd?: number; thinking?: string; computed?: unknown[] }, shouldCommit: () => boolean = () => true): Promise<boolean> {
+export function recordAssistantMessageForPending(token: UserMessageRollback, content: string, extra?: { sourcePath?: string; costUsd?: number; thinking?: string; computed?: unknown[]; memory?: unknown }, shouldCommit: () => boolean = () => true): Promise<boolean> {
   if (!isValidConversationId(token?.id) || typeof token?.pendingId !== 'string' || !token.pendingId || !isValidTurnId(token?.turnId)) return Promise.resolve(false)
   return withLock(token.id, () => withDurableConversationMutation(token.id, () => {
     // Evaluated inside the per-id lock. If another write held the lock while the response disconnected,
@@ -1082,7 +1094,7 @@ export function recordAssistantMessageForPending(token: UserMessageRollback, con
       : active.messageTs
     const now = nextConversationMessageTs(active.id, convo, questionTs)
     const userMessage: StoredChatMessage = { role: 'user', content: active.content, ts: questionTs, turnId: active.turnId }
-    const assistantMessage: StoredChatMessage = { role: 'assistant', content: clampContent(content), ts: now, turnId: active.turnId, sourcePath: extra?.sourcePath, costUsd: extra?.costUsd, thinking: extra?.thinking ? clampContent(extra.thinking) : undefined, computed: clampComputed(extra?.computed) }
+    const assistantMessage: StoredChatMessage = { role: 'assistant', content: clampContent(content), ts: now, turnId: active.turnId, sourcePath: extra?.sourcePath, costUsd: extra?.costUsd, thinking: extra?.thinking ? clampContent(extra.thinking) : undefined, computed: clampComputed(extra?.computed), memory: clampMemory(extra?.memory) }
     // Completion time can differ from question order. Insert the atomic pair among whole turns using the
     // question's monotonic arrival timestamp; never sort the two messages away from each other.
     insertCompletedTurn(convo, userMessage, assistantMessage)
@@ -1238,27 +1250,138 @@ export interface ConversationListResult {
   earliest: number | null
 }
 
-// List conversations as summaries, newest-updated first, with the same filter surface as the activity log.
-export function listConversations(query: ConversationQuery = {}): ConversationListResult {
+export interface ConversationMemoryMatch {
+  id: string
+  title: string
+  subject: string
+  swarm: string
+  updatedAt: number
+  score: number
+  snippet: string
+}
+
+export interface ConversationMemoryQuery {
+  user: string
+  question: string
+  subject?: string
+  swarm?: string
+  excludeId?: string
+  limit?: number
+  allowSubjectOnly?: boolean
+}
+
+const MEMORY_STOP = new Set([
+  'a', 'about', 'all', 'also', 'an', 'and', 'any', 'are', 'as', 'at', 'be', 'been', 'but', 'by',
+  'can', 'could', 'did', 'do', 'does', 'for', 'from', 'had', 'has', 'have', 'how', 'i', 'if', 'in',
+  'is', 'it', 'me', 'my', 'not', 'of', 'on', 'or', 'our', 'please', 'should', 'so', 'that', 'the',
+  'their', 'them', 'then', 'there', 'these', 'they', 'this', 'to', 'us', 'was', 'we', 'were', 'what',
+  'when', 'where', 'which', 'who', 'why', 'will', 'with', 'would', 'you', 'your',
+])
+
+function memoryTokens(value: string): string[] {
+  return [...new Set(String(value || '').toLowerCase().match(/[\p{L}\p{N}][\p{L}\p{N}._-]*/gu) || [])]
+    .filter((token) => token.length > 1 && !MEMORY_STOP.has(token))
+    .slice(0, 24)
+}
+
+function safeConversationTimestamp(value: unknown): number {
+  return typeof value === 'number' && Number.isFinite(value) && value >= 0 && value <= 8.64e15 ? value : 0
+}
+
+function recentConversations(): { conversations: ChatConversation[]; fileCount: number } {
   let files: string[]
   try {
-    files = fs.readdirSync(CHATS_DIR).filter((f) => f.endsWith('.json'))
+    files = fs.readdirSync(CHATS_DIR).filter((file) => file.endsWith('.json'))
   } catch {
+    return { conversations: [], fileCount: 0 }
+  }
+  const byMtime = files
+    .map((file) => {
+      let mtime = 0
+      try { mtime = fs.statSync(path.join(CHATS_DIR, file)).mtimeMs } catch { /* vanished mid-scan */ }
+      return { file, mtime }
+    })
+    .sort((a, b) => b.mtime - a.mtime)
+  const conversations: ChatConversation[] = []
+  for (const { file } of byMtime.slice(0, LIST_MAX_SCAN)) {
+    const conversation = readConvoFile(path.join(CHATS_DIR, file))
+    if (conversation && !isConversationRevoked(conversation.user, conversation.id)) conversations.push(conversation)
+  }
+  conversations.sort((a, b) => {
+    const aUpdated = safeConversationTimestamp(a.updatedAt)
+    const bUpdated = safeConversationTimestamp(b.updatedAt)
+    return bUpdated - aUpdated || a.id.localeCompare(b.id)
+  })
+  return { conversations, fileCount: files.length }
+}
+
+// Search the transcript files that already power History. This is deliberately user-scoped and read-only:
+// every durable conversation becomes useful memory immediately, with no migration job or second index that
+// can drift from the transcript the user can reopen. Chat text is working memory, never evidence; the prompt
+// layer labels it accordingly and forbids using it as proof of a financial fact.
+export function searchConversationMemory(query: ConversationMemoryQuery): ConversationMemoryMatch[] {
+  if (!query.user || !query.question.trim()) return []
+  const tokens = memoryTokens(query.question)
+  const now = Date.now()
+  const candidates: ConversationMemoryMatch[] = []
+  for (const conversation of recentConversations().conversations) {
+    if (conversation.user !== query.user || conversation.id === query.excludeId) continue
+    const sameSubject = Boolean(query.subject && conversation.subject === query.subject)
+    const sameSwarm = Boolean(query.swarm && conversation.swarm === query.swarm)
+    const titleHaystack = `${conversation.subject} ${conversation.title}`.toLowerCase()
+    const messages = Array.isArray(conversation.messages) ? conversation.messages : []
+    const transcriptHaystack = messages.map((message) => message.content).join('\n').toLowerCase()
+    let score = sameSubject ? 18 : 0
+    if (sameSwarm) score += 3
+    let matchedTerms = 0
+    for (const token of tokens) {
+      if (titleHaystack.includes(token)) { score += 5; matchedTerms++ }
+      else if (transcriptHaystack.includes(token)) { score += 2; matchedTerms++ }
+    }
+    // A generic follow-up about the same subject is useful. A cross-subject chat needs at least one real
+    // lexical connection; recency alone must never inject an unrelated company into the answer.
+    if (matchedTerms === 0 && !(sameSubject && query.allowSubjectOnly)) continue
+    if (tokens.length >= 2 && matchedTerms >= Math.min(3, tokens.length)) score += 5
+    const updatedAt = safeConversationTimestamp(conversation.updatedAt)
+    const ageDays = Math.max(0, (now - updatedAt) / 86_400_000)
+    score += Math.max(0, 4 - Math.log2(ageDays + 1))
+
+    let bestStart = Math.max(0, messages.length - 2)
+    let bestScore = -1
+    for (let i = 0; i < messages.length; i++) {
+      const pair = messages.slice(i, i + 2).map((message) => message.content).join(' ').toLowerCase()
+      const pairScore = tokens.reduce((sum, token) => sum + (pair.includes(token) ? 1 : 0), 0)
+      if (pairScore > bestScore) { bestScore = pairScore; bestStart = i }
+    }
+    const snippet = messages.slice(bestStart, bestStart + 2)
+      .map((message) => `${message.role === 'user' ? 'User' : 'Assistant'}: ${trim(message.content, 520)}`)
+      .join('\n')
+    candidates.push({
+      id: conversation.id,
+      title: conversation.title,
+      subject: conversation.subject,
+      swarm: conversation.swarm,
+      updatedAt,
+      score,
+      snippet,
+    })
+  }
+  const limit = Math.max(1, Math.min(8, query.limit || 4))
+  return candidates.sort((a, b) => {
+    const aScore = Number.isFinite(a.score) ? a.score : 0
+    const bScore = Number.isFinite(b.score) ? b.score : 0
+    const aUpdated = safeConversationTimestamp(a.updatedAt)
+    const bUpdated = safeConversationTimestamp(b.updatedAt)
+    return bScore - aScore || bUpdated - aUpdated || a.id.localeCompare(b.id)
+  }).slice(0, limit)
+}
+
+// List conversations as summaries, newest-updated first, with the same filter surface as the activity log.
+export function listConversations(query: ConversationQuery = {}): ConversationListResult {
+  const { conversations: all, fileCount } = recentConversations()
+  if (!fileCount) {
     return { conversations: [], total: 0, allTime: 0, users: [], subjects: [], earliest: null }
   }
-  // Order by file mtime FIRST (a cheap stat, no read), so when there are more conversations than we're
-  // willing to read (LIST_MAX_SCAN) we keep the NEWEST ones — not an arbitrary readdir/inode-order subset,
-  // which would silently drop the most recent conversations. mtime tracks the last write closely enough to
-  // pick the right set; the exact newest-first order is fixed by the updatedAt sort just below.
-  const byMtime = files
-    .map((f) => { let m = 0; try { m = fs.statSync(path.join(CHATS_DIR, f)).mtimeMs } catch { /* vanished mid-scan */ } return { f, m } })
-    .sort((a, b) => b.m - a.m)
-  const all: ChatConversation[] = []
-  for (const { f } of byMtime.slice(0, LIST_MAX_SCAN)) {
-    const c = readConvoFile(path.join(CHATS_DIR, f))
-    if (c && !isConversationRevoked(c.user, c.id)) all.push(c)
-  }
-  all.sort((a, b) => b.updatedAt - a.updatedAt)
 
   const users = [...new Set(all.map((c) => c.user))].sort()
   const subjects = [...new Set(all.map((c) => c.subject))].sort()
@@ -1285,7 +1408,7 @@ export function listConversations(query: ConversationQuery = {}): ConversationLi
   return {
     conversations: matched.slice(0, limit).map(toSummary),
     total: matched.length,
-    allTime: files.length, // true total on disk (not just the read subset)
+    allTime: fileCount, // true total on disk (not just the read subset)
     users,
     subjects,
     earliest,
