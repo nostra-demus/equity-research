@@ -98,6 +98,7 @@ export interface ProviderCliResult {
 /** Provider JSONL normalized before it reaches the common run-state/event machinery. */
 export type ProviderStreamEvent =
   | { type: 'session'; sessionId: string }
+  | { type: 'assistant-message'; message: string }
   | { type: 'tool-use'; tool: string; toolUseId?: string; input?: unknown }
   | { type: 'tool-result'; toolUseId?: string; isError: boolean }
   | { type: 'usage'; usage: CreditPreflight }

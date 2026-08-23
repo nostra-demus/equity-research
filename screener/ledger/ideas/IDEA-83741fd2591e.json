@@ -1,27 +1,27 @@
 {
-  "idea_id": "IDEA-7124724b5aaa",
-  "idea_version": "IDEAV-cdc6277c3874c478",
-  "idea_version_started_at": "2026-08-22T02:12:31Z",
-  "ticker": "HOLN",
-  "company": "Holcim",
-  "exchange": "SIX",
+  "idea_id": "IDEA-83741fd2591e",
+  "idea_version": "IDEAV-c6b66d0e8c72d50a",
+  "idea_version_started_at": "2026-08-23T04:34:35Z",
+  "ticker": "9001",
+  "company": "Tobu Railway",
+  "exchange": "TSE",
   "ticker_verified": false,
   "listing_verified": false,
   "liquidity_verified": false,
   "listing_verification_source": null,
-  "direction": "long",
+  "direction": "short",
   "pair_with": null,
-  "reason": "Holcim is acquiring part of James Hardie's European business, which should expand its market presence and revenue in the region.",
-  "why_now": "The acquisition was reported on August 20, 2026.",
-  "conviction": 70,
+  "reason": "A police search following a fatal express train accident creates significant operational and legal risk, likely leading to increased costs and reputational damage.",
+  "why_now": "The police search was reported on 2026-08-23.",
+  "conviction": 65,
   "conviction_basis": "pre_edge_proxy",
   "trade_score": 45,
   "trade_score_basis": "evidence_gate_v2",
   "trade_score_breakdown": {
     "evidence": 14,
-    "impact": 19,
+    "impact": 15,
     "specificity": 7,
-    "timing": 6,
+    "timing": 10,
     "expression": 0,
     "corroboration": 0,
     "learning_adjustment": 0
@@ -45,30 +45,30 @@
     "evidenceIds": []
   },
   "priced_in": "room",
-  "thesis_type": "pair_trade",
+  "thesis_type": "company_specific",
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-9799efc4c03f"
+    "EVT-9555495034fb"
   ],
-  "primary_source_event_id": "EVT-9799efc4c03f",
+  "primary_source_event_id": "EVT-9555495034fb",
   "source_headlines": [
-    "Holcim Is Acquiring Part of James Hardie’s European Business"
+    "Police search Tobu Railway group company over fatal express train accident"
   ],
-  "source_headline": "Holcim Is Acquiring Part of James Hardie’s European Business",
-  "source_url": "https://www.bloomberg.com/news/articles/2026-08-20/holcim-said-to-acquire-part-of-james-hardie-s-european-business",
-  "source_name": "Bloomberg",
-  "materiality_max": 100,
-  "newest_source_at": "2026-08-20T20:27:53Z",
+  "source_headline": "Police search Tobu Railway group company over fatal express train accident",
+  "source_url": "https://english.kyodonews.net/articles/-/82857",
+  "source_name": "Kyodo News (Japan Wire)",
+  "materiality_max": 89,
+  "newest_source_at": "2026-08-23T02:01:00Z",
   "prior_coverage": {
     "has_run": false,
     "latest_run": null,
     "latest_decision": null,
     "data_pool_present": false
   },
-  "surfaced_at": "2026-08-21T00:36:04Z",
-  "updated_at": "2026-08-22T02:12:31Z",
-  "decay_at": "2026-08-22T08:27:53Z",
+  "surfaced_at": "2026-08-23T04:34:35Z",
+  "updated_at": "2026-08-23T04:34:35Z",
+  "decay_at": "2026-08-24T14:01:00Z",
   "status": "live",
   "promoted_signal_id": null
 }
