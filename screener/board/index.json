@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-23T01:31:18Z",
+  "generated_at": "2026-08-23T01:36:59Z",
   "inbox": [
     {
       "inbox_id": "INB-20260823-041",
@@ -1379,6 +1379,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260823-050",
+      "headline": "Beyond the blue: Levi’s broadens its India bet",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/news/levis-india-looks-beyond-jeans-as-denim-market-gets-bigger-more-competitive-11787293460868.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-23T01:31:01Z",
+      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
+      "prelim_note": "General expansion plans in India are strategic but lack specific financial commitments or scale.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 61,
+      "triage_reason": "General expansion plans in India are strategic but lack specific financial commitments or scale.",
+      "region": "IN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 30,
+      "rank_factors": {
+        "materiality": 30,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 3,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "commercial",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Levi Strauss & Co.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260823-015",
       "headline": "₹15 charge after 4 withdrawals: SBI changes rules for basic savings accounts",
       "headline_en": null,
@@ -1799,49 +1848,6 @@
         "macro_sector"
       ],
       "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260823-028",
-      "headline": "Australia news live: One Nation MP gives ‘hat tip’ to Albanese for rice factory rescue plan; Liberals flag radical redesign of Victorian appeals court",
-      "headline_en": null,
-      "url": "https://www.theguardian.com/australia-news/live/2026/aug/23/australia-news-live-anthony-albanese-sydney-swans-police-investigation-alan-jones-antisemitism-inquiry-icac-nsw-liberals-ntwnfb",
-      "source_name": "The Guardian — World news",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-23T00:53:25Z",
-      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
-      "prelim_note": "The headline mentions a rice factory rescue plan and a redesign of the Victorian appeals court, which are general political and economic news.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 53,
-      "triage_reason": "The headline mentions a rice factory rescue plan and a redesign of the Victorian appeals court, which are general political and economic news.",
-      "region": "OTHER",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 1,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "macro_sector",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
@@ -82615,9 +82621,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 284,
-    "news_picked_today": 49,
-    "news_dropped_today": 235
+    "news_seen_today": 300,
+    "news_picked_today": 52,
+    "news_dropped_today": 248
   },
   "book_momentum": {
     "live_count": 8,
