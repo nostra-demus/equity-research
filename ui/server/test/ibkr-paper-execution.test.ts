@@ -91,4 +91,19 @@ const concurrent = await Promise.all([
 assert.equal(concurrentPlacements, 1, 'the full snapshot-to-order transaction is serialized')
 assert.equal(concurrent.reduce((sum, row) => sum + row.orders.length, 0), 1)
 
-console.log('\nibkr-paper-execution.test.ts: 6 passed')
+let retryReads = 0
+const retryService = createIbkrPaperExecutionService({
+  enabled: true, allowedAccountId: accountId,
+  snapshotReader: async () => {
+    retryReads++
+    if (retryReads === 1) throw new Error('temporary paper snapshot failure')
+    return snapshot()
+  },
+  callsReader: async () => ({ calls: [] }),
+})
+const retryKey = '88888888-8888-4888-8888-888888888888'
+await assert.rejects(() => retryService.sync(retryKey), /temporary paper snapshot failure/)
+assert.equal((await retryService.sync(retryKey)).ok, true, 'a failed idempotent command can be retried with the same receipt')
+assert.equal(retryReads, 2)
+
+console.log('\nibkr-paper-execution.test.ts: 7 passed')

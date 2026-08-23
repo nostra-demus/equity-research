@@ -306,6 +306,11 @@ export function createIbkrPaperExecutionService(options: ExecutionOptions = {}) 
     if (prior) return prior
     const pending = run()
     idempotent.set(key, pending)
+    pending.catch(() => {
+      // A failed command has not changed broker state and must remain retryable with the same browser
+      // receipt. Successful receipts stay cached so a double-click cannot submit twice.
+      if (idempotent.get(key) === pending) idempotent.delete(key)
+    })
     setTimeout(() => idempotent.delete(key), 10 * 60_000).unref?.()
     return pending
   }

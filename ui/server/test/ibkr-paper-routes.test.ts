@@ -16,7 +16,7 @@ assert.match(routes, /can_execute:\s*portfolio\.execution\.status === 'ready' &&
   'GET exposes request-specific execution capability instead of global broker readiness')
 assert.match(routes, /ENGINE_IBKR_PAPER_OPERATORS/,
   'remote execution uses a dedicated paper-operator allow-list')
-assert.match(routes, /actor\.userVia === 'cf-access'[\s\S]*operators\.includes\(actor\.user\)/,
+assert.match(routes, /actor\.userVia === 'cf-access'[\s\S]*operators\.includes\(actor\.user\.toLowerCase\(\)\)/,
   'a signed-in remote user must be explicitly allow-listed')
 assert.match(routes, /ENGINE_IBKR_PAPER_LOCAL_OPERATOR === '1'/,
   'an unidentified local user is disabled unless separately opted in')

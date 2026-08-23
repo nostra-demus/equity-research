@@ -97,7 +97,17 @@ export interface CallPolicyTarget {
   detail: string
 }
 
-type LooseCall = Record<string, any>
+type LooseCall = Record<string, unknown>
+
+function looseObject(value: unknown): LooseCall | null {
+  return value !== null && typeof value === 'object' && !Array.isArray(value) ? value as LooseCall : null
+}
+
+function looseRows(value: unknown): LooseCall[] {
+  return Array.isArray(value)
+    ? value.map(looseObject).filter((row): row is LooseCall => row !== null)
+    : []
+}
 
 function positive(value: unknown): number | null {
   const n = Number(value)
@@ -127,8 +137,9 @@ function policyDate(now: Date): string {
   }).format(now)
 }
 
-function frozen(call: LooseCall): Record<string, any> | null {
-  return call?.frozen_call && call.frozen_call.locked === true ? call.frozen_call : null
+function frozen(call: LooseCall): LooseCall | null {
+  const value = looseObject(call.frozen_call)
+  return value?.locked === true ? value : null
 }
 
 function decisionDate(call: LooseCall): string | null {
@@ -149,16 +160,16 @@ function sizing(confidence: number): { conviction: PaperConviction; weight: 5 | 
 }
 
 function latestDoneReview(call: LooseCall): LooseCall | null {
-  const rows = Array.isArray(call?.timeline) ? call.timeline
-    .filter((row: any) => row?.status === 'done' && isoDate(row?.review_date))
-    .sort((a: any, b: any) => String(a.review_date).localeCompare(String(b.review_date))) : []
+  const rows = looseRows(call.timeline)
+    .filter((row) => row.status === 'done' && isoDate(row.review_date))
+    .sort((a, b) => String(a.review_date).localeCompare(String(b.review_date)))
   return rows.at(-1) ?? null
 }
 
 function latestReviewMark(call: LooseCall): { price: number; date: string } | null {
-  const rows = Array.isArray(call?.timeline) ? call.timeline
-    .filter((row: any) => row?.status === 'done' && positive(row?.review_price) !== null && isoDate(row?.review_date))
-    .sort((a: any, b: any) => String(a.review_date).localeCompare(String(b.review_date))) : []
+  const rows = looseRows(call.timeline)
+    .filter((row) => row.status === 'done' && positive(row.review_price) !== null && isoDate(row.review_date))
+    .sort((a, b) => String(a.review_date).localeCompare(String(b.review_date)))
   const row = rows.at(-1)
   return row ? { price: positive(row.review_price)!, date: isoDate(row.review_date)! } : null
 }
@@ -212,7 +223,7 @@ function listingKey(call: LooseCall): string {
 
 /** Replay every append-only published call without hindsight-changing its decision or confidence. */
 export function buildHistoricalPaperPortfolio(rawCalls: unknown, now: Date = new Date()): HistoricalPaperPortfolio {
-  const calls = Array.isArray(rawCalls) ? datedCalls(rawCalls.filter((row) => row && typeof row === 'object') as LooseCall[]) : []
+  const calls = datedCalls(looseRows(rawCalls))
   const today = policyDate(now)
   let cash = 100
   let nonTradeCalls = 0
@@ -302,15 +313,19 @@ export function buildHistoricalPaperPortfolio(rawCalls: unknown, now: Date = new
 
 function currentReview(call: LooseCall): { action: string | null; reason: string | null; confidence: number | null; thesisStatus: string | null } {
   const timeline = latestDoneReview(call)
-  const action = text(call?.latest_action_now?.label) || text(timeline?.action_now?.label)
-  const reason = text(call?.latest_action_now?.reason) || text(timeline?.action_now?.reason)
-  const confidence = score(call?.latest_confidence_update?.after) ?? score(timeline?.confidence_update?.after)
+  const latestAction = looseObject(call.latest_action_now)
+  const timelineAction = looseObject(timeline?.action_now)
+  const latestConfidence = looseObject(call.latest_confidence_update)
+  const timelineConfidence = looseObject(timeline?.confidence_update)
+  const action = text(latestAction?.label) || text(timelineAction?.label)
+  const reason = text(latestAction?.reason) || text(timelineAction?.reason)
+  const confidence = score(latestConfidence?.after) ?? score(timelineConfidence?.after)
   return { action, reason, confidence, thesisStatus: text(call?.latest_thesis_status)?.toLowerCase() || text(timeline?.thesis_status)?.toLowerCase() || null }
 }
 
 /** The latest trusted call per exact listing becomes today's broker target. */
 export function buildCallPolicyTarget(rawCalls: unknown, now: Date = new Date()): CallPolicyTarget {
-  const calls = Array.isArray(rawCalls) ? datedCalls(rawCalls.filter((row) => row && typeof row === 'object') as LooseCall[]) : []
+  const calls = datedCalls(looseRows(rawCalls))
   const today = policyDate(now)
   const latestTrusted = new Map<string, LooseCall>()
   const blocked: PaperCallBlock[] = []

@@ -4923,7 +4923,7 @@ function paperOperatorAllowed(req: FastifyRequest): boolean {
   const actor = identify(req)
   const operators = (process.env.ENGINE_IBKR_PAPER_OPERATORS || '')
     .split(',').map((value) => value.trim().toLowerCase()).filter(Boolean)
-  if (actor.userVia === 'cf-access') return operators.includes(actor.user)
+  if (actor.userVia === 'cf-access') return operators.includes(actor.user.toLowerCase())
   return process.env.ENGINE_IBKR_PAPER_LOCAL_OPERATOR === '1'
 }
 function paperCommandError(error: any, reply: FastifyReply) {
