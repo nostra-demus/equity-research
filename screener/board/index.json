@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-08-23T04:02:53Z",
+  "generated_at": "2026-08-23T04:07:22Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260823-107",
+      "headline": "Nvidia customers notified about AI-related price hikes above 15%",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/business/nvidia-customers-notified-about-ai-related-price-hikes-above-15-pc-19975038.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-23T03:53:08Z",
+      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
+      "prelim_note": "Nvidia is implementing price hikes of over 15% for AI-related products, which directly impacts revenue and margins.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nvidia is implementing price hikes of over 15% for AI-related products, which directly impacts revenue and margins.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 3,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "commercial",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260823-092",
       "headline": "FireFly Metals readies $180m equity raising; hires broker",
@@ -433,6 +482,49 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260823-108",
+      "headline": "US set to remove Syria from 'sponsors of terrorism' list",
+      "headline_en": null,
+      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/us-set-remove-syria-sponsor-terrorism-list",
+      "source_name": "Middle East Eye",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-23T04:03:55Z",
+      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
+      "prelim_note": "A change in US foreign policy regarding Syria's status as a state sponsor of terrorism is a significant geopolitical event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "A change in US foreign policy regarding Syria's status as a state sponsor of terrorism is a significant geopolitical event.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1760,92 +1852,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260823-049",
-      "headline": "US-Iran war news LIVE: Iranian President Pezeshkian says Tehran has not compromised on any clause of MoU signed with US",
-      "headline_en": null,
-      "url": "https://www.livemint.com/news/us-news/us-iran-war-news-live-latest-updates-donald-trump-mohsen-rezaei-economic-war-nuclear-security-hormuz-oil-routes-11787441888172.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-23T00:15:27Z",
-      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
-      "prelim_note": "Iranian president says Tehran has not compromised on any clause of US MoU, signaling escalation risk in US-Iran conflict.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "Iranian president says Tehran has not compromised on any clause of US MoU, signaling escalation risk in US-Iran conflict.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": -4,
-        "event": 1,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "macro",
-        "source_tier_id": "news",
-        "event_id": "macro_sector",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260823-036",
-      "headline": "India Launches Rescue Operation As Bulk Carrier Sinks Off East Coast",
-      "headline_en": null,
-      "url": "https://gcaptain.com/india-launches-rescue-operation-as-bulk-carrier-sinks-off-east-coast/",
-      "source_name": "gCaptain",
-      "input_nature": "shipping_rate_move",
-      "found_at": "2026-08-22T23:50:15Z",
-      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
-      "prelim_note": "The sinking of a bulk carrier represents a maritime operational incident that may impact shipping insurance rates and regional logistics.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "The sinking of a bulk carrier represents a maritime operational incident that may impact shipping insurance rates and regional logistics.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 5,
-        "scope": 4,
-        "event": 2,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "commodity",
-        "source_tier_id": "official_data",
-        "event_id": "operations",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -83053,9 +83059,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 604,
-    "news_picked_today": 131,
-    "news_dropped_today": 473
+    "news_seen_today": 613,
+    "news_picked_today": 134,
+    "news_dropped_today": 479
   },
   "book_momentum": {
     "live_count": 8,
