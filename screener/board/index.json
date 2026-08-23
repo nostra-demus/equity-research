@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-23T06:02:53Z",
+  "generated_at": "2026-08-23T06:07:44Z",
   "inbox": [
     {
       "inbox_id": "INB-20260823-160",
@@ -94,28 +94,28 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260823-135",
-      "headline": "Nvidia customers notified about AI-related price hikes above 15%",
+      "inbox_id": "INB-20260823-163",
+      "headline": "Nvidia Customers Notified About AI-Related Price Hikes Above 15%",
       "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/info-tech/nvidia-customers-notified-about-ai-related-price-hikes-above-15/article71380141.ece",
-      "source_name": "The Hindu BusinessLine",
+      "url": "https://www.ndtvprofit.com/business/nvidia-customers-notified-about-ai-related-price-hikes-above-15-11946899#publisher=newsstand",
+      "source_name": "NDTV Profit",
       "input_nature": "news_headline",
-      "found_at": "2026-08-23T04:48:24Z",
+      "found_at": "2026-08-23T05:23:08Z",
       "sweep_file": "screener/inbox/2026-08-23_sweep.json",
-      "prelim_note": "Nvidia is implementing price hikes of over 15% for its AI-related products, which will directly impact revenue and margins.",
+      "prelim_note": "Nvidia is increasing prices for AI-related products by over 15%, which will directly impact revenue and margins.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 100,
-      "triage_reason": "Nvidia is implementing price hikes of over 15% for its AI-related products, which will directly impact revenue and margins.",
-      "region": "GLOBAL",
+      "triage_reason": "Nvidia is increasing prices for AI-related products by over 15%, which will directly impact revenue and margins.",
+      "region": "US",
       "relevance": "material",
       "materiality_pre_score": 75,
       "rank_factors": {
         "materiality": 75,
         "source_tier": 0,
         "scope": 6,
-        "event": 3,
+        "event": 5,
         "size": 2,
         "recency": 5,
         "materiality_label_floor": 10,
@@ -123,17 +123,17 @@
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "news",
-        "event_id": "commercial",
+        "event_id": "earnings_revenue_margin",
         "size_bucket": "mega"
       },
       "event_types": [
-        "commercial"
+        "earnings_revenue_margin"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
           "name": "Nvidia",
-          "ticker": "NVDA",
+          "ticker": null,
           "listing_country": "US"
         }
       ],
@@ -83244,9 +83244,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 879,
-    "news_picked_today": 233,
-    "news_dropped_today": 646
+    "news_seen_today": 905,
+    "news_picked_today": 242,
+    "news_dropped_today": 663
   },
   "book_momentum": {
     "live_count": 8,
