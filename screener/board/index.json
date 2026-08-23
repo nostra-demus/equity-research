@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-23T07:49:02Z",
+  "generated_at": "2026-08-23T07:54:34Z",
   "inbox": [
     {
       "inbox_id": "INB-20260823-192",
@@ -1756,6 +1756,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260823-194",
+      "headline": "‎ADNOC Distribution sells Shell Downstream stake",
+      "headline_en": null,
+      "url": "https://www.argaam.com/en/article/articledetail/id/1931187",
+      "source_name": "Argaam — UAE Main News (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-23T11:49:00Z",
+      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
+      "prelim_note": "ADNOC Distribution sold its Shell Downstream stake, a confirmed disposal by a listed company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "ADNOC Distribution sold its Shell Downstream stake, a confirmed disposal by a listed company.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ADNOC Distribution",
+          "ticker": null,
+          "listing_country": "AE"
+        },
+        {
+          "name": "Shell",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260823-152",
       "headline": "Rescue recap in the works for Qantas-backed Alliance Aviation",
       "headline_en": null,
@@ -1805,60 +1859,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260823-141",
-      "headline": "Paramount and California to hold preliminary talks on Warner Bros deal",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/news/paramount-and-california-to-hold-preliminary-talks-on-warner-bros-deal/article71380136.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-23T05:02:36Z",
-      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
-      "prelim_note": "Paramount and Warner Bros are in preliminary talks for a potential merger deal.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "Paramount and Warner Bros are in preliminary talks for a potential merger deal.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Paramount Global",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Warner Bros. Discovery",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -83211,9 +83211,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1159,
-    "news_picked_today": 339,
-    "news_dropped_today": 820
+    "news_seen_today": 1175,
+    "news_picked_today": 343,
+    "news_dropped_today": 832
   },
   "book_momentum": {
     "live_count": 8,
