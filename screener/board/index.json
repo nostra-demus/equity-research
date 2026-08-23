@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-23T04:44:11Z",
+  "generated_at": "2026-08-23T04:50:07Z",
   "inbox": [
     {
       "inbox_id": "INB-20260823-107",
@@ -1588,6 +1588,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260823-125",
+      "headline": "‎BILDCO appeals AED20M counterclaim ruling",
+      "headline_en": null,
+      "url": "https://www.argaam.com/en/article/articledetail/id/1931112",
+      "source_name": "Argaam — UAE Main News (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-23T08:45:00Z",
+      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
+      "prelim_note": "The company is appealing a 20M AED counterclaim ruling, which represents a potential financial liability.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "The company is appealing a 20M AED counterclaim ruling, which represents a potential financial liability.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BILDCO",
+          "ticker": null,
+          "listing_country": "AE"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260823-112",
       "headline": "World News Today Live Updates on August 23, 2026 : US-Iran War: ‘Not going to bow our heads,’ says Pezeshkian; Iran has not compromised on any MoU clause",
       "headline_en": null,
@@ -1797,49 +1846,6 @@
         "size": 0,
         "recency": 5,
         "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "macro",
-        "source_tier_id": "news",
-        "event_id": "macro_sector",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260823-105",
-      "headline": "US-Iran war: 5 things UAE residents need to know today",
-      "headline_en": null,
-      "url": "https://gulfnews.com/uae/us-iran-war-5-things-uae-residents-need-to-know-today-1.500649365",
-      "source_name": "Gulf News",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-23T03:37:11Z",
-      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
-      "prelim_note": "Escalation of geopolitical conflict between the US and Iran represents a major risk to global markets and regional stability.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Escalation of geopolitical conflict between the US and Iran represents a major risk to global markets and regional stability.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": -4,
-        "event": 1,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "macro",
@@ -83132,9 +83138,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 686,
-    "news_picked_today": 163,
-    "news_dropped_today": 523
+    "news_seen_today": 697,
+    "news_picked_today": 166,
+    "news_dropped_today": 531
   },
   "book_momentum": {
     "live_count": 8,
