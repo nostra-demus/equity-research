@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-23T01:08:11Z",
+  "generated_at": "2026-08-23T01:13:44Z",
   "inbox": [
     {
       "inbox_id": "INB-20260823-025",
@@ -524,6 +524,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260823-038",
+      "headline": "Israel's deadly Gaza strikes cast doubt on ceasefire progress days after Kushner visit",
+      "headline_en": null,
+      "url": "https://mainichi.jp/english/articles/20260823/p2g/00m/0in/005000c",
+      "source_name": "The Mainichi",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-23T01:06:16Z",
+      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
+      "prelim_note": "The escalation of military conflict and the breakdown of ceasefire negotiations represent a major geopolitical risk event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "The escalation of military conflict and the breakdown of ceasefire negotiations represent a major geopolitical risk event.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": -4,
+        "event": 1,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
+        "source_tier_id": "news",
+        "event_id": "macro_sector",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260823-023",
       "headline": "Trump’s economic isolation plan risks Iran strikes across Gulf",
       "headline_en": null,
@@ -703,6 +746,93 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260823-036",
+      "headline": "India Launches Rescue Operation As Bulk Carrier Sinks Off East Coast",
+      "headline_en": null,
+      "url": "https://gcaptain.com/india-launches-rescue-operation-as-bulk-carrier-sinks-off-east-coast/",
+      "source_name": "gCaptain",
+      "input_nature": "shipping_rate_move",
+      "found_at": "2026-08-22T23:50:15Z",
+      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
+      "prelim_note": "The sinking of a bulk carrier represents a maritime operational incident that may impact shipping insurance rates and regional logistics.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "The sinking of a bulk carrier represents a maritime operational incident that may impact shipping insurance rates and regional logistics.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 5,
+        "scope": 4,
+        "event": 2,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "commodity",
+        "source_tier_id": "official_data",
+        "event_id": "operations",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260823-037",
+      "headline": "Australia and China squeeze Chinese property money from both ends",
+      "headline_en": null,
+      "url": "https://www.afr.com/world/asia/australia-and-china-squeeze-chinese-property-money-from-both-ends-20260820-p60q2w?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-23T01:09:06Z",
+      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
+      "prelim_note": "Increased regulatory scrutiny on Chinese property capital flows by both Australia and China creates significant headwinds for the real estate sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 81,
+      "triage_reason": "Increased regulatory scrutiny on Chinese property capital flows by both Australia and China creates significant headwinds for the real estate sector.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -82265,7 +82395,7 @@
     "resolved": 1
   },
   "counts": {
-    "inbox_unconsumed": 1536,
+    "inbox_unconsumed": 1539,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -82274,9 +82404,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 206,
-    "news_picked_today": 35,
-    "news_dropped_today": 171
+    "news_seen_today": 223,
+    "news_picked_today": 38,
+    "news_dropped_today": 185
   },
   "book_momentum": {
     "live_count": 8,
