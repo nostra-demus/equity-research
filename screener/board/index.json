@@ -1,6 +1,49 @@
 {
-  "generated_at": "2026-08-23T01:50:42Z",
+  "generated_at": "2026-08-23T01:57:18Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260823-060",
+      "headline": "Tear gas shelling, detentions, property theft reported during West Bank raids",
+      "headline_en": null,
+      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/tear-gas-shelling-detentions-property-theft-reported-during-west-bank",
+      "source_name": "Middle East Eye",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-23T01:50:54Z",
+      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
+      "prelim_note": "Reports of military raids and violence in the West Bank represent a geopolitical escalation in the Middle East, which can impact regional stability and global energy markets.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Reports of military raids and violence in the West Bank represent a geopolitical escalation in the Middle East, which can impact regional stability and global energy markets.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 9,
+        "event": 1,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "geopolitical",
+        "source_tier_id": "news",
+        "event_id": "macro_sector",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260823-053",
       "headline": "Nebius Just Raised $5 Billion in Convertible Notes Against a $1.4 Billion Revenue Base. Are We In a Bubble?",
@@ -1805,55 +1848,6 @@
           "name": "Cerebras",
           "ticker": null,
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260823-042",
-      "headline": "하나은행, 청년기업에 2000억원 규모 보증 대출",
-      "headline_en": "Hana Bank provides 200 billion KRW in guaranteed loans to youth-led enterprises",
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=275299",
-      "source_name": "Business Korea — All Articles (CDN)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-22T23:30:00Z",
-      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
-      "prelim_note": "Hana Bank is providing 200 billion KRW in guaranteed loans to youth-led enterprises, which is a standard banking product offering.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 60,
-      "triage_reason": "Hana Bank is providing 200 billion KRW in guaranteed loans to youth-led enterprises, which is a standard banking product offering.",
-      "region": "KR",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 3,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "commercial",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Hana Bank",
-          "ticker": null,
-          "listing_country": "KR"
         }
       ],
       "size_bucket": "large",
@@ -82628,9 +82622,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 330,
-    "news_picked_today": 62,
-    "news_dropped_today": 268
+    "news_seen_today": 344,
+    "news_picked_today": 63,
+    "news_dropped_today": 281
   },
   "book_momentum": {
     "live_count": 8,
