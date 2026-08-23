@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-23T00:10:33Z",
+  "generated_at": "2026-08-23T00:15:48Z",
   "inbox": [
     {
       "inbox_id": "INB-20260823-003",
@@ -75720,77 +75720,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-5ad1780c26cb",
-      "idea_version": "IDEAV-81bf3212a1e82bad",
-      "idea_version_started_at": "2026-08-20T18:25:35Z",
-      "ticker": "00608",
-      "company": "High Fashion International",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company issued a profit warning, indicating a deterioration in earnings performance that is likely to lead to downward revisions in analyst estimates.",
-      "why_now": "The profit warning was filed on 2026-08-20.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 18,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-038cf2122d14"
-      ],
-      "primary_source_event_id": "EVT-038cf2122d14",
-      "source_headlines": [
-        "HIGH FASHION (00608): PROFIT WARNING"
-      ],
-      "source_headline": "HIGH FASHION (00608): PROFIT WARNING",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0820/2026082000051.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 97,
-      "newest_source_at": "2026-08-20T00:10:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-20T01:31:55Z",
-      "updated_at": "2026-08-20T18:25:35Z",
-      "decay_at": "2026-08-21T12:10:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-20ce0852f442",
       "idea_version": "IDEAV-1cd1e2e7d196bd93",
       "idea_version_started_at": "2026-08-21T00:59:07Z",
@@ -76007,7 +75936,7 @@
     "schema_version": "ideas-archive/v1",
     "health": {
       "status": "ok",
-      "file_count": 24,
+      "file_count": 25,
       "suppression_count": 0,
       "corrupt_count": 0,
       "invalid_count": 0,
@@ -79075,8 +79004,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-08-21T12:10:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-08-23T00:15:41Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -80875,9 +80804,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 32,
+    "news_seen_today": 45,
     "news_picked_today": 4,
-    "news_dropped_today": 28
+    "news_dropped_today": 41
   },
   "book_momentum": {
     "live_count": 8,
