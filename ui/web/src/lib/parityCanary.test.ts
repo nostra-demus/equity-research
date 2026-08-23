@@ -1,10 +1,12 @@
 import assert from 'node:assert/strict'
 import { CODEX_EXECUTION_PROFILE } from './provider'
-import { CODEX_PARITY_CANARY_SELECTION, providerParityCanaryPrefill, providerParityCanaryResponseMatches, providerParityCanarySubject } from './parityCanary'
+import { CODEX_PARITY_CANARY_SELECTION, providerParityCanaryPrefill, providerParityCanaryResponseMatches, providerParityCanaryRunRootIsValid, providerParityCanarySubject } from './parityCanary'
 
 const runRoot = 'analyses/provider-parity/2026-08-23/codex/AMZN_2026-08-23'
 const freezeReceipt = 'analyses/provider-parity/2026-08-23/freeze/AMZN_2026-08-23.json'
 assert.equal(providerParityCanarySubject(runRoot), 'AMZN')
+assert.equal(providerParityCanaryRunRootIsValid(runRoot), true)
+assert.equal(providerParityCanaryRunRootIsValid('analyses/provider-parity/2026-08-23/codex/AMZN_2026-08-23/extra'), false)
 assert.equal(providerParityCanarySubject('analyses/provider-parity/codex/not-a-bound-root'), null)
 assert.deepEqual(providerParityCanaryPrefill(`?parityCanary=codex&runRoot=${encodeURIComponent(runRoot)}&freezeReceipt=${encodeURIComponent(freezeReceipt)}`), { runRoot, freezeReceipt })
 assert.equal(providerParityCanaryPrefill(`?parityCanary=claude&runRoot=${encodeURIComponent(runRoot)}&freezeReceipt=${encodeURIComponent(freezeReceipt)}`), null)

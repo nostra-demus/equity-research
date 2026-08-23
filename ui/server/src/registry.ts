@@ -50,6 +50,8 @@ export interface RunState {
   priorExecutionUnobserved?: boolean
   /** Supervisor-verified provider-parity binding captured before this process was spawned. */
   parityPrelaunchBinding?: Record<string, unknown>
+  /** Admission came through the operator-only frozen canary route; set before readiness/spawn begins. */
+  parityCanary?: boolean
   /** Set only after the live supervisor verifies the terminal parity receipt and bound canaries. */
   parityVerificationCompleted?: boolean
   parityVerificationReceiptPath?: string

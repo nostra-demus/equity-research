@@ -2578,7 +2578,7 @@ export interface IbkrPaperPortfolioRead {
 export type RunKind = 'full' | 'module' | 'agent' | 'rerun' | 'review' | 'track' | 'doc-intake' | 'signal' | 'sweep' | 'screener-agent' | 'handoff' | 'conviction' | 'parity'
 /** Server-internal adjudication kinds are visible in Activity/SSE but have no user launch surface. */
 export type LaunchableRunKind = Exclude<RunKind, 'conviction' | 'parity'>
-export interface Whoami { user: string; userVia: 'cf-access' | 'local'; canDispatch?: boolean; canScanPipeline?: boolean; canBuildConnector?: boolean; canLaunchProviderParity?: boolean; emailEnabled?: boolean }
+export interface Whoami { user: string; userVia: 'cf-access' | 'local'; canDispatch?: boolean; canScanPipeline?: boolean; canBuildConnector?: boolean; canInspectProviderParity?: boolean; canLaunchProviderParity?: boolean; emailEnabled?: boolean }
 
 // ---- cockpit-wide product feedback (server: feedback-store.ts) ----
 export type CockpitFeedbackCategory = 'bug' | 'ui' | 'idea' | 'research_quality' | 'other'

@@ -6,21 +6,27 @@ const { api } = await import('./api')
 const originalFetch = globalThis.fetch
 
 try {
-  let request: { url: string; method: string; body: any } | null = null
+  const requests: Array<{ url: string; method: string; body: any }> = []
   globalThis.fetch = (async (input, init) => {
-    request = {
+    const request = {
       url: String(input),
       method: init?.method || 'GET',
       body: init?.body ? JSON.parse(String(init.body)) : null,
     }
-    return new Response(JSON.stringify({
+    requests.push(request)
+    const payload = request.url.startsWith('/api/internal/provider-parity/canary-status?') ? {
+      runRoot: 'analyses/provider-parity/2026-08-23/codex/AMZN_2026-08-23', runId: 'run-canary',
+      status: 'error', startedAt: 1, endedAt: 2, provider: 'codex', profileKey: CODEX_EXECUTION_PROFILE.key,
+      message: 'terminal failure', failureNote: '# Run failed', interruption: null, artifacts: {},
+    } : {
       runId: 'run-canary',
       preflight: {
         kind: 'full', ticker: 'AMZN', provider: 'codex', profileKey: CODEX_EXECUTION_PROFILE.key,
         model: CODEX_EXECUTION_PROFILE.parentModel, reasoningLevel: CODEX_EXECUTION_PROFILE.parentReasoning,
         executionProfile: CODEX_EXECUTION_PROFILE,
       },
-    }), { status: 200, headers: { 'content-type': 'application/json' } })
+    }
+    return new Response(JSON.stringify(payload), { status: 200, headers: { 'content-type': 'application/json' } })
   }) as typeof fetch
 
   const body = {
@@ -33,8 +39,13 @@ try {
   }
   const response = await api.providerParityCanary(body)
   assert.equal(response.runId, 'run-canary')
-  assert.deepEqual(request, { url: '/api/internal/provider-parity/canary', method: 'POST', body })
-  console.log('parityCanaryApi.test.ts: authenticated same-origin canary contract passed')
+  const status = await api.providerParityCanaryStatus(body.runRoot)
+  assert.equal(status.status, 'error')
+  assert.deepEqual(requests, [
+    { url: '/api/internal/provider-parity/canary', method: 'POST', body },
+    { url: `/api/internal/provider-parity/canary-status?runRoot=${encodeURIComponent(body.runRoot)}`, method: 'GET', body: null },
+  ])
+  console.log('parityCanaryApi.test.ts: authenticated same-origin launch + status contracts passed')
 } finally {
   globalThis.fetch = originalFetch
 }

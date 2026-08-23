@@ -36,6 +36,19 @@ export interface ProviderParityCanaryRequest {
   runRoot: string
   freezeReceipt: string
 }
+export interface ProviderParityCanaryStatus {
+  runRoot: string
+  runId: string | null
+  status: 'starting' | 'readiness-checking' | 'awaiting-readiness-decision' | 'running' | 'done' | 'error' | 'cancelled' | 'incomplete' | 'unknown'
+  startedAt: number | null
+  endedAt: number | null
+  provider: RunProvider | null
+  profileKey: string | null
+  message: string | null
+  failureNote: string | null
+  interruption: Record<string, unknown> | null
+  artifacts: Record<string, boolean>
+}
 
 export interface ReelTranscriptRead {
   transcript: string
@@ -1758,6 +1771,11 @@ export const api = {
   providerParityCanary: async (body: ProviderParityCanaryRequest): Promise<LaunchResponse> => {
     if ((await ensureMode()) === 'static') throw STATIC_ERR()
     return post(`/api/internal/provider-parity/canary`, body, 30_000)
+  },
+  providerParityCanaryStatus: async (runRoot: string): Promise<ProviderParityCanaryStatus> => {
+    if ((await ensureMode()) === 'static') throw STATIC_ERR()
+    const query = new URLSearchParams({ runRoot })
+    return get(`/api/internal/provider-parity/canary-status?${query.toString()}`)
   },
   // perpetual activity/audit log with filters — live only (the static showcase has no run history)
   activity: async (query: ActivityQuery = {}): Promise<ActivityResult> => {

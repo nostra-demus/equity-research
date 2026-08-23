@@ -3085,6 +3085,7 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
     chained: params.chained,
     chainId: params.chainId,
     onTerminal: params.onTerminal,
+    parityCanary: Boolean(params.parityCanary),
   })
   run.publicationToken = randomUUID()
   run.provenanceEpoch = params.chainId || run.runId
