@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-23T06:08:03Z",
+  "generated_at": "2026-08-23T06:12:21Z",
   "inbox": [
     {
       "inbox_id": "INB-20260823-160",
@@ -1027,6 +1027,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260823-164",
+      "headline": "US-Iran war: Crude oil price is key | Is Tehran writing the obituary of Turkey-Pakistan-Saudi Arabia's defence pack?",
+      "headline_en": null,
+      "url": "https://www.livemint.com/market/commodities/usiran-war-crude-oil-price-is-key-is-tehran-writing-the-obituary-of-turkey-pakistan-saudi-arabias-defence-pack-11787455149964.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-23T06:04:03Z",
+      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
+      "prelim_note": "Geopolitical escalation involving Iran and potential impact on global crude oil prices is a major market-moving event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Geopolitical escalation involving Iran and potential impact on global crude oil prices is a major market-moving event.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 4,
+        "event": 1,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "commodity",
+        "source_tier_id": "news",
+        "event_id": "macro_sector",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260823-097",
       "headline": "'No Oil Will Leave Hormuz': Iran Warns Nations Joining US Economic Siege",
       "headline_en": null,
@@ -1848,50 +1891,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260823-055",
-      "headline": "Great Hormuz escape: 80% of traffic goes ‘dark’ as US flips Iran’s playbook",
-      "headline_en": null,
-      "url": "https://gulfnews.com/world/mena/80-of-hormuz-traffic-goes-dark-and-keeps-oil-prices-in-check-1.500649281",
-      "source_name": "Gulf News",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-23T01:17:00Z",
-      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
-      "prelim_note": "80% of Gulf of Hormuz shipping traffic is going 'dark', signaling a major supply-chain/disruption risk in a key oil transit chokepoint.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "80% of Gulf of Hormuz shipping traffic is going 'dark', signaling a major supply-chain/disruption risk in a key oil transit chokepoint.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": -4,
-        "event": 2,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "macro",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector",
-        "operations"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -83244,9 +83243,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 905,
-    "news_picked_today": 242,
-    "news_dropped_today": 663
+    "news_seen_today": 917,
+    "news_picked_today": 248,
+    "news_dropped_today": 669
   },
   "book_momentum": {
     "live_count": 8,
