@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-23T14:27:49Z",
+  "generated_at": "2026-08-23T14:32:51Z",
   "inbox": [
     {
       "inbox_id": "INB-20260823-237",
@@ -187,6 +187,56 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260823-263",
+      "headline": "Volkswagen chief warns company’s situation ‘more than critical’",
+      "headline_en": null,
+      "url": "https://www.straitstimes.com/business/vw-chief-warns-companys-situation-more-than-critical",
+      "source_name": "The Straits Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-23T14:25:00Z",
+      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
+      "prelim_note": "Volkswagen CEO warns the company's situation is critical, signaling potential major restructuring or financial distress.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Volkswagen CEO warns the company's situation is critical, signaling potential major restructuring or financial distress.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "management",
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Volkswagen",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1870,55 +1920,6 @@
         {
           "name": "Alibaba Group",
           "ticker": "BABA",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260823-048",
-      "headline": "Nvidia reportedly warns some of its biggest customers about upcoming price hike of AI servers by 15%: Details",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/news/nvidia-reportedly-warns-some-of-its-biggest-customers-about-upcoming-price-hike-of-ai-servers-by-15-details-11787447183614.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-23T01:19:20Z",
-      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
-      "prelim_note": "Nvidia is reportedly increasing prices for its AI servers by 15%, which could positively impact revenue and margins.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "Nvidia is reportedly increasing prices for its AI servers by 15%, which could positively impact revenue and margins.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 3,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "commercial",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": "NVDA",
           "listing_country": "US"
         }
       ],
@@ -83276,9 +83277,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3734,
-    "news_picked_today": 728,
-    "news_dropped_today": 2308
+    "news_seen_today": 3742,
+    "news_picked_today": 731,
+    "news_dropped_today": 2313
   },
   "book_momentum": {
     "live_count": 8,
