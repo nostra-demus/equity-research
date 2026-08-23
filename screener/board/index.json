@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-23T04:34:49Z",
+  "generated_at": "2026-08-23T04:39:09Z",
   "inbox": [
     {
       "inbox_id": "INB-20260823-107",
@@ -429,6 +429,55 @@
         {
           "name": "Nvidia",
           "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260823-119",
+      "headline": "Alibaba Group Announced Proposed Placing of New Shares in Hong Kong | BABA Stock News",
+      "headline_en": null,
+      "url": "https://www.stocktitan.net/news/BABA/alibaba-group-announced-proposed-placing-of-new-shares-in-hong-wxndgohy3q05.html",
+      "source_name": "Stock Titan — Latest News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-08-23T04:30:00Z",
+      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
+      "prelim_note": "Alibaba Group announced a proposed placing of new shares, which can dilute existing shareholders and impact the stock price.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "Alibaba Group announced a proposed placing of new shares, which can dilute existing shareholders and impact the stock price.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 3,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "capital_actions",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Alibaba Group",
+          "ticker": "BABA",
           "listing_country": "US"
         }
       ],
@@ -1008,6 +1057,50 @@
         "macro_sector"
       ],
       "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260823-121",
+      "headline": "Australia Reports First Bird Flu Case in a Mammal as Seal Dies",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-08-23/australia-reports-first-bird-flu-case-in-a-mammal-as-seal-dies",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-23T04:21:40Z",
+      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
+      "prelim_note": "The first reported case of bird flu in a mammal in Australia could signal a potential spread of the disease, impacting the agricultural and potentially the broader economy.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "The first reported case of bird flu in a mammal in Australia could signal a potential spread of the disease, impacting the agricultural and potentially the broader economy.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 0,
+        "event": 2,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "sector",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector",
+        "operations"
+      ],
+      "issuer_linkage": "sector",
       "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
@@ -1731,92 +1824,6 @@
       "triage_score": 87,
       "triage_reason": "Ongoing military conflict in Sudan represents a significant geopolitical risk and humanitarian crisis.",
       "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": -4,
-        "event": 1,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "macro",
-        "source_tier_id": "news",
-        "event_id": "macro_sector",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260823-038",
-      "headline": "Israel's deadly Gaza strikes cast doubt on ceasefire progress days after Kushner visit",
-      "headline_en": null,
-      "url": "https://mainichi.jp/english/articles/20260823/p2g/00m/0in/005000c",
-      "source_name": "The Mainichi",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-23T01:06:16Z",
-      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
-      "prelim_note": "The escalation of military conflict and the breakdown of ceasefire negotiations represent a major geopolitical risk event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "The escalation of military conflict and the breakdown of ceasefire negotiations represent a major geopolitical risk event.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": -4,
-        "event": 1,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "macro",
-        "source_tier_id": "news",
-        "event_id": "macro_sector",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260823-023",
-      "headline": "Trump’s economic isolation plan risks Iran strikes across Gulf",
-      "headline_en": null,
-      "url": "https://www.japantimes.co.jp/news/2026/08/23/world/trump-economic-isolation-iran-strikes-gulf/",
-      "source_name": "The Japan Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-23T00:05:00Z",
-      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
-      "prelim_note": "Geopolitical risk analysis regarding potential military escalation in the Gulf region.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Geopolitical risk analysis regarding potential military escalation in the Gulf region.",
-      "region": "GLOBAL",
       "relevance": "material",
       "materiality_pre_score": 75,
       "rank_factors": {
@@ -83119,9 +83126,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 654,
-    "news_picked_today": 147,
-    "news_dropped_today": 507
+    "news_seen_today": 665,
+    "news_picked_today": 154,
+    "news_dropped_today": 511
   },
   "book_momentum": {
     "live_count": 8,
