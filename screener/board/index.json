@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-23T04:24:13Z",
+  "generated_at": "2026-08-23T04:28:54Z",
   "inbox": [
     {
       "inbox_id": "INB-20260823-107",
@@ -1538,6 +1538,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260823-116",
+      "headline": "Donald Trump again claims Hormuz as ‘US territory’; Iran refuses to reopen strait",
+      "headline_en": null,
+      "url": "https://www.deccanherald.com/world/us/donald-trump-again-claims-hormuz-as-us-territory-iran-refuses-to-reopen-strait-4121048",
+      "source_name": "Deccan Herald",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-23T04:05:42Z",
+      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
+      "prelim_note": "Geopolitical escalation regarding the Strait of Hormuz, a critical global energy transit point.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Geopolitical escalation regarding the Strait of Hormuz, a critical global energy transit point.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": -4,
+        "event": 1,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
+        "source_tier_id": "news",
+        "event_id": "macro_sector",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260823-098",
       "headline": "Coffee chain Blank Street raises funds from General Atlantic to fuel expansion",
       "headline_en": null,
@@ -1773,49 +1816,6 @@
       "launched_signal_id": null,
       "triage_score": 87,
       "triage_reason": "Geopolitical risk analysis regarding potential military escalation in the Gulf region.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": -4,
-        "event": 1,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "macro",
-        "source_tier_id": "news",
-        "event_id": "macro_sector",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260823-007",
-      "headline": "Iran war live: Tehran warns neighbours against joining US economic war",
-      "headline_en": null,
-      "url": "https://www.aljazeera.com/news/liveblog/2026/8/23/iran-war-live-tehran-warns-neighbours-against-joining-us-economic-war?traffic_source=rss",
-      "source_name": "Al Jazeera — All news",
-      "input_nature": "geopolitical_event",
-      "found_at": "2026-08-23T00:00:00Z",
-      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
-      "prelim_note": "Geopolitical escalation involving Iran and the US increases regional conflict risk and potential supply chain disruption.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Geopolitical escalation involving Iran and the US increases regional conflict risk and potential supply chain disruption.",
       "region": "GLOBAL",
       "relevance": "material",
       "materiality_pre_score": 75,
@@ -83047,9 +83047,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 633,
-    "news_picked_today": 141,
-    "news_dropped_today": 492
+    "news_seen_today": 649,
+    "news_picked_today": 146,
+    "news_dropped_today": 503
   },
   "book_momentum": {
     "live_count": 8,
