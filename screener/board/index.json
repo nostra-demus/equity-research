@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-23T00:20:27Z",
+  "generated_at": "2026-08-23T00:25:25Z",
   "inbox": [
     {
       "inbox_id": "INB-20260823-003",
@@ -46,6 +46,49 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260823-006",
+      "headline": "US-Iran war news LIVE: Iran warns neighbours against joining Trump's economic war, threatens action over oil routes",
+      "headline_en": null,
+      "url": "https://www.livemint.com/news/us-news/us-iran-war-news-live-latest-updates-donald-trump-mohsen-rezaei-economic-war-nuclear-security-hormuz-oil-routes-11787441888172.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-23T00:15:27Z",
+      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
+      "prelim_note": "Geopolitical escalation involving threats to oil routes and economic conflict between the US and Iran poses a significant risk to global energy markets.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Geopolitical escalation involving threats to oil routes and economic conflict between the US and Iran poses a significant risk to global energy markets.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 4,
+        "event": 1,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "commodity",
+        "source_tier_id": "news",
+        "event_id": "macro_sector",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -80842,7 +80885,7 @@
     "resolved": 1
   },
   "counts": {
-    "inbox_unconsumed": 1507,
+    "inbox_unconsumed": 1508,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -80851,9 +80894,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 57,
-    "news_picked_today": 5,
-    "news_dropped_today": 52
+    "news_seen_today": 65,
+    "news_picked_today": 6,
+    "news_dropped_today": 59
   },
   "book_momentum": {
     "live_count": 8,
