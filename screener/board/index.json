@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-23T20:50:25Z",
+  "generated_at": "2026-08-23T21:04:22Z",
   "inbox": [
     {
       "inbox_id": "INB-20260823-237",
@@ -144,6 +144,103 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260823-334",
+      "headline": "Russia-Ukraine Clashes Paralyze Grain Exports… Global Wheat Prices Up About 30% YoY",
+      "headline_en": null,
+      "url": "https://www.hellenicshippingnews.com/russia-ukraine-clashes-paralyze-grain-exports-global-wheat-prices-up-about-30-yoy/",
+      "source_name": "Hellenic Shipping News Worldwide",
+      "input_nature": "shipping_rate_move",
+      "found_at": "2026-08-23T21:00:00Z",
+      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
+      "prelim_note": "Geopolitical conflict is disrupting grain exports, causing a 30% YoY price increase.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Geopolitical conflict is disrupting grain exports, causing a 30% YoY price increase.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 5,
+        "scope": 4,
+        "event": 1,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "commodity",
+        "source_tier_id": "official_data",
+        "event_id": "macro_sector",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260823-320",
+      "headline": "Acquisition of Ocean Yield by A.P. Moller Holding is completed",
+      "headline_en": null,
+      "url": "https://www.hellenicshippingnews.com/acquisition-of-ocean-yield-by-a-p-moller-holding-is-completed/",
+      "source_name": "Hellenic Shipping News Worldwide",
+      "input_nature": "shipping_rate_move",
+      "found_at": "2026-08-23T21:00:00Z",
+      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
+      "prelim_note": "Completion of a corporate acquisition.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Completion of a corporate acquisition.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 5,
+        "scope": 4,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "commodity",
+        "source_tier_id": "official_data",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ocean Yield",
+          "ticker": null,
+          "listing_country": "NO"
+        },
+        {
+          "name": "A.P. Moller Holding",
+          "ticker": null,
+          "listing_country": "DK"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1835,105 +1932,6 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260823-188",
-      "headline": "Pride Hotels steps up expansion, plans ₹1,000-crore IPO by December",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/companies/pride-hotels-steps-up-expansion-plans-1000-crore-ipo-by-december/article71380296.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-23T07:02:53Z",
-      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
-      "prelim_note": "Pride Hotels plans to launch a major Rs 1,000-crore IPO by December to fund its expansion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Pride Hotels plans to launch a major Rs 1,000-crore IPO by December to fund its expansion.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 72,
-      "rank_factors": {
-        "materiality": 72,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 13,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capital_actions",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Pride Hotels",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260823-171",
-      "headline": "Alibaba plans $10 billion Hong Kong share placement to fund AI spending",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/retail-consumer/alibaba-proposes-hong-kong-share-placement-worth-10-billion-2026-08-23/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-23T06:28:29Z",
-      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
-      "prelim_note": "Alibaba plans $10 billion Hong Kong share placement to fund AI spending, diluting existing shares but funding growth.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Alibaba plans $10 billion Hong Kong share placement to fund AI spending, diluting existing shares but funding growth.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capital_actions",
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Alibaba",
-          "ticker": null,
-          "listing_country": "HK"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -82936,9 +82934,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4778,
-    "news_picked_today": 1065,
-    "news_dropped_today": 2983
+    "news_seen_today": 4823,
+    "news_picked_today": 1086,
+    "news_dropped_today": 3007
   },
   "book_momentum": {
     "live_count": 8,
