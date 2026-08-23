@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-23T22:53:03Z",
+  "generated_at": "2026-08-23T22:57:48Z",
   "inbox": [
     {
       "inbox_id": "INB-20260823-470",
@@ -1277,6 +1277,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260823-478",
+      "headline": "Russia Launches Oniks Cruise Missile from Disputed Kuril Islands",
+      "headline_en": null,
+      "url": "https://maritime-executive.com/article/russia-launches-oniks-cruise-missile-from-disputed-kuril-islands",
+      "source_name": "Maritime Executive",
+      "input_nature": "shipping_rate_move",
+      "found_at": "2026-08-23T22:38:17Z",
+      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
+      "prelim_note": "Geopolitical escalation involving a missile launch in a disputed territory.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Geopolitical escalation involving a missile launch in a disputed territory.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 5,
+        "scope": 4,
+        "event": 1,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "commodity",
+        "source_tier_id": "official_data",
+        "event_id": "macro_sector",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260823-444",
       "headline": "Stepping Stones to Security: Pacifying the Iranian-Held Tunb Islands",
       "headline_en": null,
@@ -1895,55 +1938,6 @@
       "companies": [
         {
           "name": "Alibaba Group",
-          "ticker": null,
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260823-315",
-      "headline": "Alibaba lança oferta de ações de US$10 bi em Hong Kong para financiar gastos com IA",
-      "headline_en": "Alibaba launches $10 billion share offering in Hong Kong to fund AI spending",
-      "url": "https://www.reuters.com/pt/negocio/T6WQFQPEBBK3RDLTMZZBP7LA3A-2026-08-23/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-23T18:07:44Z",
-      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
-      "prelim_note": "Alibaba is launching a $10 billion share offering to fund AI investments, which is a major capital action.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Alibaba is launching a $10 billion share offering to fund AI investments, which is a major capital action.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capital_actions",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Alibaba",
           "ticker": null,
           "listing_country": "CN"
         }
@@ -82951,9 +82945,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5410,
-    "news_picked_today": 1367,
-    "news_dropped_today": 3313
+    "news_seen_today": 5430,
+    "news_picked_today": 1379,
+    "news_dropped_today": 3321
   },
   "book_momentum": {
     "live_count": 8,
