@@ -1865,6 +1865,9 @@ export function parseCodexStreamLine(line: string): ProviderStreamEvent[] {
     return normalized ? [{ type: 'tool-use', ...normalized, toolUseId: typeof event.item?.id === 'string' ? event.item.id : undefined }] : []
   }
   if (event.type === 'item.completed') {
+    if (event.item?.type === 'agent_message' && typeof event.item.text === 'string' && event.item.text.trim()) {
+      return [{ type: 'assistant-message', message: event.item.text }]
+    }
     const normalized = toolEvent(event.item)
     return normalized ? [{ type: 'tool-result', toolUseId: typeof event.item?.id === 'string' ? event.item.id : undefined, isError: itemFailed(event.item) }] : []
   }

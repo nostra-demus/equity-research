@@ -553,6 +553,11 @@ export function resetAdmittedFullRelaunch(runRoot: string): void {
 const failureNote = (reason: string, stderr: string): string =>
   reason + (stderr?.trim() ? `: ${redactSecrets(stderr.slice(-300)).replace(/\s+/g, ' ').trim()}` : '')
 
+function publicationFailureMessage(run: RunState, reason: string): string {
+  if (!run.lastProviderMessage || reason.includes('Provider final message:')) return reason
+  return `${reason}\n\nProvider final message:\n${redactSecrets(run.lastProviderMessage)}`
+}
+
 const streamResultErrors = new WeakMap<RunState, { reason: string; message: string }>()
 
 function interruptionMarker(run: RunState, reason: string, message?: string, resetsAt?: number) {
@@ -689,7 +694,10 @@ export function finalizeRunOnClose(run: RunState, res: any, stderr: string, term
     classified = {
       outcome: 'error',
       reason: 'publication_failed',
-      message: run.publicationError || 'the provider exited without a supervisor-owned publication request',
+      message: publicationFailureMessage(
+        run,
+        run.publicationError || 'the provider exited without a supervisor-owned publication request',
+      ),
     }
   }
   if ((run.status as string) === 'cancelled' || run.cancelRequested) {
@@ -741,10 +749,13 @@ export function finalizeRunOnClose(run: RunState, res: any, stderr: string, term
     // a provider/quota failure before any publication request keeps its provider reason; missing a
     // request must not rewrite `out_of_credits` to `publication_failed` and lose its reset hold.
     const publicationFailure = classified.reason === 'publication_failed'
-      ? (classified.message || run.publicationError || 'the provider exited without a supervisor-owned publication request')
+      ? publicationFailureMessage(
+          run,
+          classified.message || run.publicationError || 'the provider exited without a supervisor-owned publication request',
+        )
       : run.willCommitToMain && run.publicationRequested === true
           && !run.publicationCompleted && run.publicationError
-        ? run.publicationError
+        ? publicationFailureMessage(run, run.publicationError)
         : null
     const reason = publicationFailure ? 'publication_failed' : classified.reason
     const errorMessage = publicationFailure || classified.message || stderr
@@ -5327,8 +5338,7 @@ async function spawnEngine(run: RunState): Promise<void> {
         const reason = run.publicationError || 'the provider exited without a supervisor-owned publication request'
         run.publicationError = reason
         run.note = `publication failed: ${reason}`
-        stderr = `${stderr}\nSupervisor publication failed: ${reason}`.trim()
-        finalResult = { ...res, failed: true, exitCode: 5, shortMessage: reason }
+        stderr = `${stderr}\nSupervisor publication failed: ${publicationFailureMessage(run, reason)}`.trim()
       }
       await awaitProviderProcessGroupExit(run)
       finalizeRunOnClose(run, finalResult, stderr, terminalProof)

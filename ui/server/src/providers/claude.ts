@@ -572,9 +572,15 @@ function parseStreamLine(line: string): ProviderStreamEvent[] {
     return [{ type: 'session', sessionId: value.session_id }]
   }
   if (value.type === 'assistant' && Array.isArray(value.message?.content)) {
-    return value.message.content
-      .filter((block: any) => block?.type === 'tool_use' && typeof block.name === 'string')
-      .map((block: any) => ({ type: 'tool-use' as const, tool: block.name, toolUseId: typeof block.id === 'string' ? block.id : undefined, input: block.input }))
+    return value.message.content.flatMap((block: any): ProviderStreamEvent[] => {
+      if (block?.type === 'text' && typeof block.text === 'string' && block.text.trim()) {
+        return [{ type: 'assistant-message', message: block.text }]
+      }
+      if (block?.type === 'tool_use' && typeof block.name === 'string') {
+        return [{ type: 'tool-use', tool: block.name, toolUseId: typeof block.id === 'string' ? block.id : undefined, input: block.input }]
+      }
+      return []
+    })
   }
   if (value.type === 'user' && Array.isArray(value.message?.content)) {
     return value.message.content
