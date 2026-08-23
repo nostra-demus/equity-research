@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-23T02:00:43Z",
+  "generated_at": "2026-08-23T02:05:43Z",
   "inbox": [
     {
       "inbox_id": "INB-20260823-060",
@@ -1693,6 +1693,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260823-066",
+      "headline": "Xero chief says price rises ‘less than a cup of coffee’ amid backlash",
+      "headline_en": null,
+      "url": "https://www.afr.com/technology/xero-chief-says-price-rises-less-than-a-cup-of-coffee-amid-backlash-20260821-p60qba?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-23T02:00:00Z",
+      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
+      "prelim_note": "Management commentary on pricing strategy and customer sentiment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 61,
+      "triage_reason": "Management commentary on pricing strategy and customer sentiment.",
+      "region": "OTHER",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 3,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "commercial",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Xero",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260823-050",
       "headline": "Beyond the blue: Levi’s broadens its India bet",
       "headline_en": null,
@@ -1783,60 +1832,6 @@
           "name": "State Bank of India",
           "ticker": "SBIN",
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260823-018",
-      "headline": "Cisco & Cerebras Orders Up, Stocks Down",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/cisco-cerebras-orders-stocks-down",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-23T00:33:43Z",
-      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
-      "prelim_note": "Market commentary on stock price movement following order news is generic market color.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 60,
-      "triage_reason": "Market commentary on stock price movement following order news is generic market color.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 30,
-      "rank_factors": {
-        "materiality": 30,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 3,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "commercial",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Cisco Systems",
-          "ticker": "CSCO",
-          "listing_country": "US"
-        },
-        {
-          "name": "Cerebras Systems",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -82611,9 +82606,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 356,
-    "news_picked_today": 66,
-    "news_dropped_today": 290
+    "news_seen_today": 374,
+    "news_picked_today": 69,
+    "news_dropped_today": 305
   },
   "book_momentum": {
     "live_count": 8,
