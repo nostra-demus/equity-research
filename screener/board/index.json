@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-08-23T10:04:07Z",
+  "generated_at": "2026-08-23T10:09:04Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260823-217",
+      "headline": "BABA-W BABA-WR (09988 89988): VOLUNTARY ANNOUNCEMENT AND OVERSEAS REGULATORY ANNOUNCEMENT PROPOSED PLACING OF NEW SHARES UNDER GENERAL MANDATE",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0823/2026082300007.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-23T10:06:00Z",
+      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
+      "prelim_note": "Alibaba announced a proposed placing of new shares, which is dilutive to existing shareholders.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Alibaba announced a proposed placing of new shares, which is dilutive to existing shareholders.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capital_actions",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Alibaba",
+          "ticker": "09988",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260823-214",
       "headline": "Russian and Ukrainian attacks kill 10 people, a day after deadly shopping mall drone strike",
@@ -1820,49 +1869,6 @@
         "size": 0,
         "recency": 5,
         "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "commodity",
-        "source_tier_id": "news",
-        "event_id": "macro_sector",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260823-097",
-      "headline": "'No Oil Will Leave Hormuz': Iran Warns Nations Joining US Economic Siege",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/world/no-oil-will-leave-hormuz-iran-warns-nations-joining-us-economic-siege",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-23T03:12:36Z",
-      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
-      "prelim_note": "Threats to block the Strait of Hormuz represent a major geopolitical supply shock for global oil markets.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Threats to block the Strait of Hormuz represent a major geopolitical supply shock for global oil markets.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 4,
-        "event": 1,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "commodity",
@@ -83157,9 +83163,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1501,
-    "news_picked_today": 455,
-    "news_dropped_today": 1046
+    "news_seen_today": 1515,
+    "news_picked_today": 466,
+    "news_dropped_today": 1049
   },
   "book_momentum": {
     "live_count": 8,
