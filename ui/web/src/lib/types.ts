@@ -2513,6 +2513,7 @@ export interface CallsResult {
 }
 
 export interface PaperPortfolioPosition {
+  contract_id: number
   symbol: string
   local_symbol: string | null
   security_type: string | null
@@ -2528,8 +2529,60 @@ export interface PaperPortfolioPosition {
 }
 export interface PaperPortfolioTargetPosition {
   ticker: string
-  decision: string | null
+  decision: string
   model_weight_pct: number
+  side: 'long' | 'short'
+  conviction: 'low' | 'high'
+  confidence: number
+  currency: string
+  exchange: string | null
+  call_id: string
+  decision_date: string
+}
+export interface PaperCallBlock {
+  ticker: string
+  decision: string
+  decision_date: string | null
+  reason: 'provisional' | 'unverified' | 'missing_frozen_call' | 'invalid_decision_date' | 'future_call'
+    | 'superseded' | 'missing_confidence' | 'missing_price' | 'missing_currency' | 'review_exit'
+    | 'review_action_missing' | 'insufficient_cash' | 'ambiguous_listing'
+  detail: string
+}
+export interface HistoricalPaperTrade {
+  trade_id: string
+  ticker: string
+  decision: string
+  side: 'long' | 'short'
+  conviction: 'low' | 'high'
+  confidence: number
+  target_weight_pct: number
+  decision_date: string
+  entry_price: number
+  currency: string
+  status: 'open' | 'closed'
+  exit_date: string | null
+  exit_price: number | null
+  price_as_of: string
+  current_price: number
+  position_return_pct: number
+  allocated_units: number
+  current_value_units: number
+  mark_source: 'decision' | 'review' | 'later_call'
+  detail: string
+}
+export interface PaperOpenOrder {
+  order_id: number
+  contract_id: number
+  symbol: string
+  action: string | null
+  total_quantity: number | null
+  order_type: string | null
+  status: string
+  filled: number
+  remaining: number
+  average_fill_price: number | null
+  nostra_managed: boolean
+  can_cancel: boolean
 }
 export interface PaperPortfolioDifference {
   kind: 'missing_position' | 'unexpected_position' | 'weight_mismatch'
@@ -2539,11 +2592,11 @@ export interface PaperPortfolioDifference {
   detail: string
 }
 export interface IbkrPaperPortfolioRead {
-  schema_version: 'ibkr-paper-portfolio/v1'
+  schema_version: 'ibkr-paper-portfolio/v2'
   broker: 'IBKR'
   mode: 'paper'
   status: 'connected' | 'disconnected' | 'disabled' | 'error'
-  read_only: true
+  paper_only: true
   as_of: string
   connection: { host: 'localhost'; port: 7497; detail: string }
   account: {
@@ -2557,13 +2610,40 @@ export interface IbkrPaperPortfolioRead {
     realized_pnl: number | null
     positions: PaperPortfolioPosition[]
   } | null
+  open_orders: PaperOpenOrder[]
+  history: {
+    schema_version: 'nostra-paper-history/v1'
+    available: boolean
+    unit: 'normalized_nav'
+    starting_value: 100
+    present_value: number
+    cash_value: number
+    invested_value: number
+    total_return_pct: number
+    calls_examined: number
+    non_trade_calls: number
+    trade_calls: number
+    open_trades: number
+    closed_trades: number
+    rules: {
+      low_conviction_weight_pct: 5
+      high_conviction_weight_pct: 10
+      high_conviction_min_confidence: 75
+      eligible_baskets: ['Selected', 'Short']
+      provisional_calls_trade: false
+    }
+    trades: HistoricalPaperTrade[]
+    blocked_calls: PaperCallBlock[]
+    detail: string
+  }
   target: {
     valid: boolean
-    source_path: string | null
-    generated_at: string | null
+    source_path: 'published Calls history' | null
+    generated_at: string
     gross_pct: number | null
     cash_pct: number | null
     positions: PaperPortfolioTargetPosition[]
+    blocked_calls: PaperCallBlock[]
     detail: string
   }
   reconciliation: {
@@ -2571,7 +2651,22 @@ export interface IbkrPaperPortfolioRead {
     differences: PaperPortfolioDifference[]
     detail: string
   }
-  execution: { status: 'locked'; detail: string }
+  execution: {
+    status: 'locked' | 'ready'
+    can_execute: boolean
+    low_conviction_weight_pct: 5
+    high_conviction_weight_pct: 10
+    high_conviction_min_confidence: 75
+    detail: string
+  }
+}
+export interface PaperExecutionResult {
+  ok: true
+  paper_only: true
+  action: 'sync' | 'cancel' | 'close'
+  detail: string
+  orders: { order_id: number; ticker: string; action: 'BUY' | 'SELL'; quantity: number; status: string; detail: string }[]
+  skipped: { ticker: string; reason: string }[]
 }
 
 // ---- activity / audit log ----

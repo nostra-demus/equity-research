@@ -1,17 +1,18 @@
-// Read-only IBKR Paper portfolio projection for the Calls dashboard.
-//
-// This module deliberately has NO order-submission function. The first release proves that the engine
-// can connect to the expected paper TWS port, read one account, and reconcile it with the latest
-// whole-book sizing artifact before any execution authority is introduced. Keeping the broker read on a
-// separate endpoint means a closed/restarting TWS can never take down the immutable Calls ledger.
+// IBKR Paper portfolio projection for the Calls dashboard. Reads remain isolated here; the narrow,
+// explicitly confirmed order boundary lives in ibkr-paper-execution.ts. Keeping broker I/O on a separate
+// endpoint means a closed/restarting TWS can never take down the immutable Calls ledger.
 import fs from 'node:fs'
 import path from 'node:path'
-import { IBApi, EventName, isNonFatalError, type Contract } from '@stoqey/ib'
+import { IBApi, EventName, isNonFatalError, type Contract, type Order, type OrderState, type OrderStatus } from '@stoqey/ib'
 import { REPO_ROOT, STATE_DIR } from './config'
+import { listAllCalls } from './outputs'
+import { buildCallPolicyTarget, buildHistoricalPaperPortfolio, type HistoricalPaperPortfolio, type PaperCallBlock } from './paper-call-ledger'
 
 export const IBKR_PAPER_HOST = '127.0.0.1' as const
 export const IBKR_PAPER_PORT = 7497 as const
-const DEFAULT_CLIENT_ID = 192
+// Client 0 can bind current/future manual TWS orders, so the safety snapshot can see them before Sync
+// or Close decides whether another order is safe. This is a dedicated paper account only.
+const DEFAULT_CLIENT_ID = 0
 const DEFAULT_TIMEOUT_MS = 6_000
 const DEFAULT_CACHE_MS = 10_000
 const TARGET_WEIGHT_TOLERANCE_PCT = 0.25
@@ -19,6 +20,7 @@ const TARGET_WEIGHT_TOLERANCE_PCT = 0.25
 export type IbkrPaperStatus = 'connected' | 'disconnected' | 'disabled' | 'error'
 
 export interface IbkrPaperPosition {
+  contract_id: number
   symbol: string
   local_symbol: string | null
   security_type: string | null
@@ -31,6 +33,21 @@ export interface IbkrPaperPosition {
   unrealized_pnl: number | null
   realized_pnl: number | null
   portfolio_weight_pct: number | null
+}
+
+export interface IbkrPaperOpenOrder {
+  order_id: number
+  contract_id: number
+  symbol: string
+  action: string | null
+  total_quantity: number | null
+  order_type: string | null
+  status: string
+  filled: number
+  remaining: number
+  average_fill_price: number | null
+  nostra_managed: boolean
+  can_cancel: boolean
 }
 
 export interface IbkrPaperAccount {
@@ -58,6 +75,7 @@ export interface PaperPortfolioTarget {
   gross_pct: number | null
   cash_pct: number | null
   positions: PaperTargetPosition[]
+  blocked_calls?: PaperCallBlock[]
   detail: string
 }
 
@@ -75,11 +93,11 @@ export interface PaperPortfolioDifference {
 }
 
 export interface IbkrPaperPortfolioRead {
-  schema_version: 'ibkr-paper-portfolio/v1'
+  schema_version: 'ibkr-paper-portfolio/v2'
   broker: 'IBKR'
   mode: 'paper'
   status: IbkrPaperStatus
-  read_only: true
+  paper_only: true
   as_of: string
   connection: {
     host: 'localhost'
@@ -87,6 +105,8 @@ export interface IbkrPaperPortfolioRead {
     detail: string
   }
   account: IbkrPaperAccount | null
+  open_orders: IbkrPaperOpenOrder[]
+  history: HistoricalPaperPortfolio
   target: PaperPortfolioTarget
   reconciliation: {
     status: 'aligned' | 'differences' | 'unavailable' | 'blocked'
@@ -94,17 +114,25 @@ export interface IbkrPaperPortfolioRead {
     detail: string
   }
   execution: {
-    status: 'locked'
+    status: 'locked' | 'ready'
+    can_execute: boolean
+    low_conviction_weight_pct: 5
+    high_conviction_weight_pct: 10
+    high_conviction_min_confidence: 75
     detail: string
   }
 }
 
-interface BrokerPosition extends Omit<IbkrPaperPosition, 'portfolio_weight_pct'> {}
-interface BrokerSnapshot {
+export interface BrokerPosition extends Omit<IbkrPaperPosition, 'portfolio_weight_pct'> {}
+interface BrokerOpenOrder extends Omit<IbkrPaperOpenOrder, 'nostra_managed' | 'can_cancel'> {
+  order_ref: string | null
+}
+export interface BrokerSnapshot {
   accountId: string
   asOf: string
   values: Map<string, { value: number; currency: string | null }>
   positions: BrokerPosition[]
+  openOrders?: BrokerOpenOrder[]
 }
 
 interface PaperPortfolioServiceOptions {
@@ -116,6 +144,9 @@ interface PaperPortfolioServiceOptions {
   cacheMs?: number
   now?: () => Date
   brokerReader?: () => Promise<BrokerSnapshot>
+  callsReader?: () => Promise<{ calls: unknown[]; history_calls?: unknown[] }>
+  executionEnabled?: boolean
+  allowedAccountId?: string
 }
 
 function finiteNumber(value: unknown): number | null {
@@ -244,6 +275,13 @@ function accountFromSnapshot(snapshot: BrokerSnapshot): IbkrPaperAccount {
   }
 }
 
+function publicOpenOrders(snapshot: BrokerSnapshot): IbkrPaperOpenOrder[] {
+  return (snapshot.openOrders ?? []).map((row) => {
+    const nostraManaged = Boolean(row.order_ref?.startsWith('NOSTRA_PAPER:'))
+    return { ...row, nostra_managed: nostraManaged, can_cancel: nostraManaged && !['Filled', 'Cancelled', 'ApiCancelled', 'Inactive'].includes(row.status) }
+  }).sort((a, b) => a.order_id - b.order_id)
+}
+
 export function reconcilePaperPortfolio(target: PaperPortfolioTarget, account: IbkrPaperAccount | null): IbkrPaperPortfolioRead['reconciliation'] {
   if (!target.valid) return { status: 'blocked', differences: [], detail: target.detail }
   if (!account) return { status: 'unavailable', differences: [], detail: 'Connect TWS Paper to compare actual holdings with Nostra’s approved target.' }
@@ -287,8 +325,17 @@ export function reconcilePaperPortfolio(target: PaperPortfolioTarget, account: I
     : { status: 'aligned', differences: [], detail: target.positions.length ? 'IBKR Paper matches Nostra’s latest sized book.' : 'IBKR Paper is empty and Nostra’s approved target is 100% cash.' }
 }
 
-export async function readIbkrPaperBrokerSnapshot(options: { clientId?: number; timeoutMs?: number; now?: () => Date } = {}): Promise<BrokerSnapshot> {
-  const clientId = Number.isInteger(options.clientId) && Number(options.clientId) > 0 ? Number(options.clientId) : DEFAULT_CLIENT_ID
+let paperApiTail: Promise<void> = Promise.resolve()
+/** TWS rejects two sockets that reuse one client id. Serialize the short-lived read/order sessions so
+ * dashboard polling cannot collide with a confirmed order command. */
+export function withIbkrPaperApiLock<T>(run: () => Promise<T>): Promise<T> {
+  const result = paperApiTail.then(run, run)
+  paperApiTail = result.then(() => undefined, () => undefined)
+  return result
+}
+
+async function readIbkrPaperBrokerSnapshotUnlocked(options: { clientId?: number; timeoutMs?: number; now?: () => Date } = {}): Promise<BrokerSnapshot> {
+  const clientId = Number.isInteger(options.clientId) && Number(options.clientId) >= 0 ? Number(options.clientId) : DEFAULT_CLIENT_ID
   const timeoutMs = Number.isFinite(options.timeoutMs) ? Math.min(15_000, Math.max(1_000, Number(options.timeoutMs))) : DEFAULT_TIMEOUT_MS
   const now = options.now ?? (() => new Date())
 
@@ -297,7 +344,11 @@ export async function readIbkrPaperBrokerSnapshot(options: { clientId?: number; 
     const accounts = new Set<string>()
     const values = new Map<string, { value: number; currency: string | null }>()
     const positions = new Map<string, BrokerPosition>()
+    const orders = new Map<number, BrokerOpenOrder>()
     let subscribedAccount: string | null = null
+    let accountEnded = false
+    let ordersEnded = false
+    let orderPass: 'same-client' | 'all-clients' = clientId === 0 ? 'same-client' : 'all-clients'
     let settled = false
 
     const finish = (error?: Error) => {
@@ -310,8 +361,10 @@ export async function readIbkrPaperBrokerSnapshot(options: { clientId?: number; 
       try { ib.disconnect() } catch { /* already disconnected */ }
       if (error) return reject(error)
       if (accounts.size !== 1 || !subscribedAccount) return reject(new Error('paper_account_ambiguous'))
-      resolve({ accountId: subscribedAccount, asOf: now().toISOString(), values, positions: [...positions.values()] })
+      resolve({ accountId: subscribedAccount, asOf: now().toISOString(), values, positions: [...positions.values()], openOrders: [...orders.values()] })
     }
+
+    const maybeFinish = () => { if (accountEnded && ordersEnded) finish() }
 
     const timer = setTimeout(() => finish(new Error('paper_snapshot_timeout')), timeoutMs)
     ib.on(EventName.managedAccounts, (raw: string) => {
@@ -324,6 +377,18 @@ export async function readIbkrPaperBrokerSnapshot(options: { clientId?: number; 
       subscribedAccount = [...accounts][0]
       ib.reqAccountUpdates(true, subscribedAccount)
     })
+      .once(EventName.nextValidId, () => {
+        try {
+          if (clientId === 0) {
+            // reqOpenOrders binds current manual TWS orders for client 0; reqAutoOpenOrders covers any
+            // manual order arriving during this snapshot. The second pass adds every API client's order.
+            ib.reqAutoOpenOrders(true)
+            ib.reqOpenOrders()
+          } else {
+            ib.reqAllOpenOrders()
+          }
+        } catch { finish(new Error('paper_open_orders_failed')) }
+      })
       .on(EventName.updateAccountValue, (key: string, raw: string, currency: string, accountName: string) => {
         if (!subscribedAccount || accountName !== subscribedAccount) return
         const value = finiteNumber(raw)
@@ -348,6 +413,7 @@ export async function readIbkrPaperBrokerSnapshot(options: { clientId?: number; 
           ? String(conId)
           : `${symbol}|${contract?.localSymbol ?? ''}|${contract?.currency ?? ''}|${contract?.primaryExch || contract?.exchange || ''}`
         positions.set(key, {
+          contract_id: conId !== null && conId > 0 ? conId : 0,
           symbol,
           local_symbol: nullableText(contract?.localSymbol),
           security_type: nullableText(contract?.secType),
@@ -361,8 +427,37 @@ export async function readIbkrPaperBrokerSnapshot(options: { clientId?: number; 
           realized_pnl: finiteNumber(rawRealized),
         })
       })
+      .on(EventName.openOrder, (orderId: number, contract: Contract, order: Order, orderState: OrderState) => {
+        const prior = orders.get(orderId)
+        orders.set(orderId, {
+          order_id: orderId,
+          contract_id: finiteNumber(contract?.conId) ?? 0,
+          symbol: normalizedSymbol(contract?.symbol || contract?.localSymbol) || 'UNKNOWN',
+          action: nullableText(order?.action), total_quantity: finiteNumber(order?.totalQuantity),
+          order_type: nullableText(order?.orderType), status: nullableText(orderState?.status) || prior?.status || 'Unknown',
+          filled: prior?.filled ?? 0, remaining: prior?.remaining ?? (finiteNumber(order?.totalQuantity) ?? 0),
+          average_fill_price: prior?.average_fill_price ?? null, order_ref: nullableText(order?.orderRef),
+        })
+      })
+      .on(EventName.orderStatus, (orderId: number, status: OrderStatus, rawFilled: number, rawRemaining: number, rawAverageFillPrice: number) => {
+        const prior = orders.get(orderId)
+        if (!prior) return
+        orders.set(orderId, {
+          ...prior, status: nullableText(status) || 'Unknown', filled: finiteNumber(rawFilled) ?? 0,
+          remaining: finiteNumber(rawRemaining) ?? 0, average_fill_price: finiteNumber(rawAverageFillPrice),
+        })
+      })
+      .on(EventName.openOrderEnd, () => {
+        if (clientId === 0 && orderPass === 'same-client') {
+          orderPass = 'all-clients'
+          try { ib.reqAllOpenOrders() } catch { finish(new Error('paper_all_open_orders_failed')) }
+          return
+        }
+        ordersEnded = true
+        maybeFinish()
+      })
       .once(EventName.accountDownloadEnd, (accountName: string) => {
-        if (subscribedAccount && accountName === subscribedAccount) finish()
+        if (subscribedAccount && accountName === subscribedAccount) { accountEnded = true; maybeFinish() }
       })
       .on(EventName.error, (error: Error, code: number) => {
         if (!isNonFatalError(code, error)) finish(new Error(`paper_api_error_${Number(code) || 'unknown'}`))
@@ -375,6 +470,10 @@ export async function readIbkrPaperBrokerSnapshot(options: { clientId?: number; 
   })
 }
 
+export async function readIbkrPaperBrokerSnapshot(options: { clientId?: number; timeoutMs?: number; now?: () => Date } = {}): Promise<BrokerSnapshot> {
+  return withIbkrPaperApiLock(() => readIbkrPaperBrokerSnapshotUnlocked(options))
+}
+
 function appendConnectionTransition(stateDir: string, previous: IbkrPaperStatus | null, next: IbkrPaperStatus, at: string, positionCount: number, targetCount: number): void {
   if (previous === next) return
   const dir = path.join(stateDir, 'ibkr-paper')
@@ -384,11 +483,30 @@ function appendConnectionTransition(stateDir: string, previous: IbkrPaperStatus 
     fs.appendFileSync(file, `${JSON.stringify({ schema_version: 'ibkr-paper-event/v1', at, event: 'connection-status', status: next, position_count: positionCount, target_position_count: targetCount })}\n`, { encoding: 'utf8', mode: 0o600 })
     try { fs.chmodSync(file, 0o600) } catch { /* best effort on filesystems without POSIX modes */ }
   } catch {
-    // Observability must never make the read-only broker projection unavailable.
+    // Observability must never make the broker projection unavailable.
   }
 }
 
-export function createIbkrPaperPortfolioService(options: PaperPortfolioServiceOptions = {}): () => Promise<IbkrPaperPortfolioRead> {
+function callsUnavailable(at: Date): { target: PaperPortfolioTarget; history: HistoricalPaperPortfolio } {
+  const detail = 'Published Calls history is unavailable. Cash is not inferred and every paper control is locked.'
+  return {
+    target: { valid: false, source_path: null, generated_at: at.toISOString(), gross_pct: null, cash_pct: null, positions: [], blocked_calls: [], detail },
+    history: {
+      schema_version: 'nostra-paper-history/v1', available: false, unit: 'normalized_nav', starting_value: 100,
+      present_value: 100, cash_value: 100, invested_value: 0, total_return_pct: 0,
+      calls_examined: 0, non_trade_calls: 0, trade_calls: 0, open_trades: 0, closed_trades: 0,
+      rules: { low_conviction_weight_pct: 5, high_conviction_weight_pct: 10, high_conviction_min_confidence: 75, eligible_baskets: ['Selected', 'Short'], provisional_calls_trade: false },
+      trades: [], blocked_calls: [], detail,
+    },
+  }
+}
+
+export interface IbkrPaperPortfolioReader {
+  (): Promise<IbkrPaperPortfolioRead>
+  invalidate(): void
+}
+
+export function createIbkrPaperPortfolioService(options: PaperPortfolioServiceOptions = {}): IbkrPaperPortfolioReader {
   const repoRoot = path.resolve(options.repoRoot ?? REPO_ROOT)
   const stateDir = path.resolve(options.stateDir ?? STATE_DIR)
   const enabled = options.enabled ?? process.env.ENGINE_IBKR_PAPER_DISABLED !== '1'
@@ -397,19 +515,37 @@ export function createIbkrPaperPortfolioService(options: PaperPortfolioServiceOp
   const cacheMs = Number.isFinite(options.cacheMs) ? Math.max(0, Number(options.cacheMs)) : DEFAULT_CACHE_MS
   const now = options.now ?? (() => new Date())
   const brokerReader = options.brokerReader ?? (() => readIbkrPaperBrokerSnapshot({ clientId, timeoutMs, now }))
+  const callsReader = options.callsReader ?? listAllCalls
+  const executionEnabled = options.executionEnabled ?? process.env.ENGINE_IBKR_PAPER_EXECUTION === '1'
+  const allowedAccountId = String(options.allowedAccountId ?? process.env.ENGINE_IBKR_PAPER_ACCOUNT_ID ?? '').trim()
   let cached: { at: number; value: IbkrPaperPortfolioRead } | null = null
   let pending: Promise<IbkrPaperPortfolioRead> | null = null
   let lastRecordedStatus: IbkrPaperStatus | null = null
 
   const read = async (): Promise<IbkrPaperPortfolioRead> => {
     const at = now()
-    const target = readPaperPortfolioTarget(repoRoot)
+    let callsAvailable = true
+    let calls: unknown[] = []
+    let historyCalls: unknown[] = []
+    try {
+      const projection = await callsReader()
+      calls = projection.calls ?? []
+      historyCalls = projection.history_calls ?? calls
+    } catch { callsAvailable = false }
+    const unavailable = callsUnavailable(at)
+    const target = callsAvailable ? buildCallPolicyTarget(calls, at) : unavailable.target
+    const history = callsAvailable ? buildHistoricalPaperPortfolio(historyCalls, at) : unavailable.history
+    const executionPolicy = {
+      low_conviction_weight_pct: 5 as const,
+      high_conviction_weight_pct: 10 as const,
+      high_conviction_min_confidence: 75 as const,
+    }
     if (!enabled) {
       const disabled: IbkrPaperPortfolioRead = {
-        schema_version: 'ibkr-paper-portfolio/v1', broker: 'IBKR', mode: 'paper', status: 'disabled', read_only: true, as_of: at.toISOString(),
+        schema_version: 'ibkr-paper-portfolio/v2', broker: 'IBKR', mode: 'paper', status: 'disabled', paper_only: true, as_of: at.toISOString(),
         connection: { host: 'localhost', port: IBKR_PAPER_PORT, detail: 'IBKR Paper reading is disabled by the local engine configuration.' },
-        account: null, target, reconciliation: reconcilePaperPortfolio(target, null),
-        execution: { status: 'locked', detail: 'Order submission is not installed. This release is read-only.' },
+        account: null, open_orders: [], history, target, reconciliation: reconcilePaperPortfolio(target, null),
+        execution: { status: 'locked', can_execute: false, ...executionPolicy, detail: 'Paper execution is disabled in the local engine configuration.' },
       }
       appendConnectionTransition(stateDir, lastRecordedStatus, disabled.status, disabled.as_of, 0, target.positions.length)
       lastRecordedStatus = disabled.status
@@ -419,11 +555,19 @@ export function createIbkrPaperPortfolioService(options: PaperPortfolioServiceOp
     try {
       const snapshot = await brokerReader()
       const account = accountFromSnapshot(snapshot)
+      const paperAccount = snapshot.accountId.startsWith('DU')
+      const accountAllowed = Boolean(allowedAccountId) && snapshot.accountId === allowedAccountId
+      const executionReady = executionEnabled && paperAccount && accountAllowed && target.valid
       const connected: IbkrPaperPortfolioRead = {
-        schema_version: 'ibkr-paper-portfolio/v1', broker: 'IBKR', mode: 'paper', status: 'connected', read_only: true, as_of: snapshot.asOf,
+        schema_version: 'ibkr-paper-portfolio/v2', broker: 'IBKR', mode: 'paper', status: 'connected', paper_only: true, as_of: snapshot.asOf,
         connection: { host: 'localhost', port: IBKR_PAPER_PORT, detail: 'Connected to TWS on the standard paper-trading port.' },
-        account, target, reconciliation: reconcilePaperPortfolio(target, account),
-        execution: { status: 'locked', detail: 'Order submission is not installed. First verify this read-only portfolio and reconciliation.' },
+        account, open_orders: publicOpenOrders(snapshot), history, target, reconciliation: reconcilePaperPortfolio(target, account),
+        execution: { status: executionReady ? 'ready' : 'locked', can_execute: false, ...executionPolicy, detail: executionReady
+          ? 'Paper-only controls are ready. New orders still require an explicit Sync click; closes and cancels require their own confirmation.'
+          : !executionEnabled ? 'Paper execution is off. Enable it only after checking this account and target.'
+            : !target.valid ? target.detail
+              : !paperAccount ? 'The connected account did not identify as a paper account. Execution is locked.'
+              : 'The connected paper account does not match the private execution allow-list. Execution is locked.' },
       }
       appendConnectionTransition(stateDir, lastRecordedStatus, connected.status, connected.as_of, account.positions.length, target.positions.length)
       lastRecordedStatus = connected.status
@@ -431,12 +575,12 @@ export function createIbkrPaperPortfolioService(options: PaperPortfolioServiceOp
     } catch (error: any) {
       const disconnected = ['paper_connect_failed', 'paper_disconnected'].includes(String(error?.message))
       const failed: IbkrPaperPortfolioRead = {
-        schema_version: 'ibkr-paper-portfolio/v1', broker: 'IBKR', mode: 'paper', status: disconnected ? 'disconnected' : 'error', read_only: true, as_of: at.toISOString(),
+        schema_version: 'ibkr-paper-portfolio/v2', broker: 'IBKR', mode: 'paper', status: disconnected ? 'disconnected' : 'error', paper_only: true, as_of: at.toISOString(),
         connection: { host: 'localhost', port: IBKR_PAPER_PORT, detail: disconnected
           ? 'TWS Paper is not reachable. Keep TWS open, logged into Paper, with Socket Clients enabled on port 7497.'
           : 'TWS Paper did not return a safe single-account snapshot. Execution remains locked.' },
-        account: null, target, reconciliation: reconcilePaperPortfolio(target, null),
-        execution: { status: 'locked', detail: 'Order submission is not installed. This release is read-only.' },
+        account: null, open_orders: [], history, target, reconciliation: reconcilePaperPortfolio(target, null),
+        execution: { status: 'locked', can_execute: false, ...executionPolicy, detail: 'TWS Paper must be connected and verified before an order can be sent.' },
       }
       appendConnectionTransition(stateDir, lastRecordedStatus, failed.status, failed.as_of, 0, target.positions.length)
       lastRecordedStatus = failed.status
@@ -444,7 +588,7 @@ export function createIbkrPaperPortfolioService(options: PaperPortfolioServiceOp
     }
   }
 
-  return async () => {
+  const cachedRead = async () => {
     const currentMs = now().getTime()
     if (cached && currentMs - cached.at < cacheMs) return cached.value
     if (pending) return pending
@@ -454,6 +598,11 @@ export function createIbkrPaperPortfolioService(options: PaperPortfolioServiceOp
     }).finally(() => { pending = null })
     return pending
   }
+  cachedRead.invalidate = () => { cached = null }
+  return cachedRead
 }
 
 export const readIbkrPaperPortfolio = createIbkrPaperPortfolioService()
+export function invalidateIbkrPaperPortfolioCache(): void {
+  readIbkrPaperPortfolio.invalidate()
+}

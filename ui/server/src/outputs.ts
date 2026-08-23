@@ -1043,6 +1043,7 @@ async function projectAllCalls(authority: PublishedTreeAuthority) {
 
   const today = todayISO()
   const calls: any[] = []
+  const historyCalls: any[] = []
   const updateRows: CallUpdateInput[] = []
   for (const runRoot of runRoots) {
     const name = runRoot.slice('analyses/'.length)
@@ -1050,7 +1051,7 @@ async function projectAllCalls(authority: PublishedTreeAuthority) {
     // append-only corrections.json is not a live call — this is what de-double-counts EMAAR here and
     // in the cockpit Calls view, matching scripts/ledger_records.py's standing set.
     const corrections = publishedCorrections(runRoot, authority)
-    if (supersededTarget(corrections)) continue
+    const supersededBy = supersededTarget(corrections)
     const d = applyErrata(requiredPublishedJsonObject(authority, `${runRoot}/decision_record.json`), corrections)
     const reviews = listReviewFiles(runRoot, authority)
     const timeline = buildTimeline(d?.review_schedule || {}, reviews, today)
@@ -1075,6 +1076,11 @@ async function projectAllCalls(authority: PublishedTreeAuthority) {
     // was the one ledger consumer still showing the synthesizer's original, unflagged, uncapped call.
     const integrity = publishedIntegrityStatus(runRoot, authority)
     const disp = resolveDisplayFields(d)
+    // Execution/backtests use the confidence that existed when the call was published. The in-path
+    // pre-mortem haircut happened before publication and therefore wins; later outcome-review confidence
+    // lives only in the timeline and cannot resize history with hindsight.
+    const frozenConfidence = confidenceScore(d?.post_review_confidence_score)
+      ?? confidenceScore(d?.confidence_score) ?? confidenceScore(d?.confidence)
     // checks AS / AW (scripts/eval.py) ported live — see the block above `isISODate`.
     const forecastsDue = forecastsOverdue(d?.forecast_ledger, today)
     const killCriteriaDue = killCriteriaOverdue(d?.kill_criteria, today)
@@ -1093,7 +1099,7 @@ async function projectAllCalls(authority: PublishedTreeAuthority) {
         locked: true,
         decision: disp.decision,
         basket: disp.basket,
-        confidence: disp.confidence,
+        confidence: frozenConfidence,
         decision_date: d?.decision_date ?? null,
         entry_price: entry,
         currency: d?.currency ?? null,
@@ -1117,13 +1123,19 @@ async function projectAllCalls(authority: PublishedTreeAuthority) {
       latest_review_summary: latest?.memo_delta_summary ?? null,
       latest_review_verdict: latest?.thesis_delta_verdict ?? null,
       latest_review_date: latest?.review_date || null,
+      latest_action_now: latest?.action_now ?? null,
+      latest_confidence_update: latest?.confidence_update ?? null,
       next_checkpoint: pending ? { window: pending.window, due_date: pending.due_date, status: pending.status } : null,
       review_count: reviews.length,
       timeline,
       // AS_forecast_overdue / AW_kill_criteria_overdue, live — same two checks eval.py otherwise only
       // reports when someone runs `/research:eval` by hand.
       needs_attention: { forecasts_overdue: forecastsDue, kill_criteria_overdue: killCriteriaDue },
+      superseded: Boolean(supersededBy),
+      superseded_by: supersededBy,
     }
+    historyCalls.push(call)
+    if (supersededBy) continue
     calls.push(call)
     updateRows.push({ call, record: d, reviews })
   }
@@ -1149,6 +1161,7 @@ async function projectAllCalls(authority: PublishedTreeAuthority) {
     .sort((a, b) => (a.due_date < b.due_date ? -1 : a.due_date > b.due_date ? 1 : a.ticker < b.ticker ? -1 : a.ticker > b.ticker ? 1 : 0))
   return {
     calls,
+    history_calls: historyCalls,
     scorecard: buildCallsScorecard(calls),
     dashboard: newestDashboard(publishedPaths),
     needs_attention: needsAttention,

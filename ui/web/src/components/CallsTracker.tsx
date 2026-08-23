@@ -133,7 +133,7 @@ export function CallsTracker() {
             <button className="btn btn--ghost btn--mini" onClick={() => load(true)}>Try again</button>
           </div>
         )}
-        <PaperPortfolioPanel portfolio={paperData} loading={paperLoading} staticMode={staticMode} />
+        <PaperPortfolioPanel portfolio={paperData} loading={paperLoading} staticMode={staticMode} onRefresh={loadPaper} />
         {calls.length === 0 ? (
           <div className="calls__empty">{loading ? 'Loading…' : "No calls yet. Run the full pipeline on a company and its verdict appears here to track over time."}</div>
         ) : (
@@ -201,10 +201,15 @@ function portfolioMoney(currency: string | null | undefined, value: number | nul
   }
 }
 
-function PaperPortfolioPanel({ portfolio, loading, staticMode }: { portfolio: IbkrPaperPortfolioRead | null; loading: boolean; staticMode: boolean }) {
+function PaperPortfolioPanel({ portfolio, loading, staticMode, onRefresh }: { portfolio: IbkrPaperPortfolioRead | null; loading: boolean; staticMode: boolean; onRefresh: () => Promise<void> }) {
+  const setToast = useStore((s) => s.setToast)
+  const [busy, setBusy] = useState<string | null>(null)
   const account = portfolio?.account
   const targetPositions = portfolio?.target.positions ?? []
   const actualPositions = account?.positions ?? []
+  const openOrders = portfolio?.open_orders ?? []
+  const history = portfolio?.history
+  const historyAvailable = history?.available === true
   const status = portfolio?.status ?? (loading ? 'loading' : 'unavailable')
   const statusLabel = status === 'connected' ? 'Connected' : status === 'loading' ? 'Connecting…' : status === 'disabled' && staticMode ? 'Live only' : 'Disconnected'
   const targetLabel = portfolio?.target.valid
@@ -212,16 +217,50 @@ function PaperPortfolioPanel({ portfolio, loading, staticMode }: { portfolio: Ib
       ? `${targetPositions.length} sized target${targetPositions.length === 1 ? '' : 's'}`
       : '100% cash · no trade'
     : 'Target blocked'
+  const ready = portfolio?.execution.status === 'ready' && portfolio.execution.can_execute && !staticMode
+
+  const act = async (key: string, question: string, run: () => Promise<{ detail: string; skipped: { ticker: string; reason: string }[] }>) => {
+    if (!window.confirm(question)) return
+    setBusy(key)
+    try {
+      const result = await run()
+      const skipped = result.skipped.length ? ` ${result.skipped.map((row) => `${row.ticker}: ${row.reason}`).join(' ')}` : ''
+      setToast({ msg: `${result.detail}${skipped}`, tone: result.skipped.length ? 'info' : 'good' })
+      await onRefresh()
+    } catch (error: any) {
+      setToast({ msg: String(error?.message || 'IBKR Paper action failed'), tone: 'info' })
+    } finally { setBusy(null) }
+  }
 
   return (
-    <section className={`paperport paperport--${status}`} aria-label="IBKR simulated paper portfolio">
+    <section className={`paperport paperport--${status}`} aria-label="IBKR simulated paper portfolio" aria-busy={busy !== null}>
       <div className="paperport__head">
         <div>
-          <span className="paperport__eyebrow">Simulated · read-only</span>
-          <strong>IBKR Paper portfolio</strong>
+          <span className="paperport__eyebrow">Simulated · paper only</span>
+          <strong>Nostra automated portfolio</strong>
           <small>{portfolio?.connection.detail || (loading ? 'Reading the local TWS paper account…' : 'IBKR Paper is temporarily unavailable.')}</small>
         </div>
-        <span className="paperport__status"><i />{statusLabel}</span>
+        <span className="paperport__status" role="status" aria-live="polite"><i />{statusLabel}</span>
+      </div>
+      <div className="paperport__model">
+        <div className="paperport__modelhead">
+          <div><span>Historical replay</span><strong>{historyAvailable ? `${history!.present_value.toFixed(2)} NAV` : '—'}</strong><small>{history?.detail || 'Reading all published calls…'}</small></div>
+          <div><span>Result</span><strong className={(history?.total_return_pct ?? 0) < 0 ? 'tone--bad' : 'tone--good'}>{historyAvailable ? ret(history!.total_return_pct) : '—'}</strong><small>{historyAvailable ? `${history!.cash_value.toFixed(2)} cash · ${history!.invested_value.toFixed(2)} invested` : 'Unavailable'}</small></div>
+          <div><span>Calls checked</span><strong>{historyAvailable ? history!.calls_examined : '—'}</strong><small>{historyAvailable ? `${history!.trade_calls} trades · ${history!.non_trade_calls} Watchlist/Avoid` : 'No cash signal inferred'}</small></div>
+        </div>
+        {history?.trades.map((trade) => (
+          <div className="paperport__row" key={trade.trade_id} title={trade.detail}>
+            <span><b>{trade.ticker}</b> {trade.decision}</span>
+            <span>{trade.side} · {trade.conviction} {trade.confidence} · {trade.target_weight_pct}%</span>
+            <span>{trade.currency} {trade.entry_price} → {trade.current_price} · {ret(trade.position_return_pct)}</span>
+            <span>{trade.status} · marked {trade.price_as_of}</span>
+          </div>
+        ))}
+        {history?.blocked_calls.map((row) => (
+          <div className="paperport__row paperport__row--blocked" key={`${row.ticker}-${row.decision_date}-${row.reason}`}>
+            <span><b>{row.ticker}</b> not traded</span><span>{row.reason}</span><span className="paperport__wide">{row.detail}</span>
+          </div>
+        ))}
       </div>
       <div className="paperport__metrics">
         <div><span>Portfolio value</span><strong>{portfolioMoney(account?.currency, account?.net_liquidation)}</strong></div>
@@ -233,7 +272,7 @@ function PaperPortfolioPanel({ portfolio, loading, staticMode }: { portfolio: Ib
         <div>
           <span>Nostra target</span>
           <strong>{targetLabel}</strong>
-          <small>{portfolio?.target.detail || 'Waiting for the latest whole-book sizing file.'}{portfolio?.target.generated_at ? ` · ${portfolio.target.generated_at}` : ''}</small>
+          <small>{portfolio?.target.detail || 'Building the current target from published Calls history.'}{portfolio?.target.generated_at ? ` · ${portfolio.target.generated_at}` : ''}</small>
         </div>
         <div>
           <span>IBKR Paper now</span>
@@ -243,11 +282,30 @@ function PaperPortfolioPanel({ portfolio, loading, staticMode }: { portfolio: Ib
       </div>
       {(targetPositions.length > 0 || actualPositions.length > 0) && (
         <div className="paperport__positions">
-          {targetPositions.map((row) => <span key={`target-${row.ticker}`}><b>{row.ticker}</b> target {ret(row.model_weight_pct)}</span>)}
-          {actualPositions.map((row) => <span key={`actual-${row.symbol}-${row.local_symbol || ''}-${row.exchange || ''}`}><b>{row.symbol}</b> actual {ret(row.portfolio_weight_pct)}</span>)}
+          {targetPositions.map((row) => <span key={`target-${row.ticker}`}><b>{row.ticker}</b> {row.decision} · target {ret(row.model_weight_pct)} · {row.conviction} {row.confidence}</span>)}
         </div>
       )}
-      <div className="paperport__lock"><span>Execution locked</span><small>{portfolio?.execution.detail || 'No order can be sent from this release.'}</small></div>
+      {(openOrders.length > 0 || actualPositions.length > 0) && (
+        <div className="paperport__brokerrows">
+          {openOrders.map((row) => (
+            <div className="paperport__brokerrow" key={`order-${row.order_id}`}>
+              <span><b>{row.symbol}</b> {row.action} {row.total_quantity ?? '—'} · {row.status} · {row.nostra_managed ? 'Nostra' : 'manual/other'}</span>
+              {row.can_cancel && <button className="btn btn--ghost btn--mini" disabled={!ready || busy !== null} onClick={() => act(`cancel-${row.order_id}`, `Cancel this unfilled ${row.symbol} PAPER order?`, () => api.paperOrderCancel(row.order_id))}>{busy === `cancel-${row.order_id}` ? 'Cancelling…' : 'Cancel order'}</button>}
+            </div>
+          ))}
+          {actualPositions.map((row) => (
+            <div className="paperport__brokerrow" key={`position-${row.contract_id}`}>
+              <span><b>{row.symbol}</b> {row.quantity} shares · {ret(row.portfolio_weight_pct)} · P&amp;L {portfolioMoney(row.currency, row.unrealized_pnl)}</span>
+              <button className="btn btn--ghost btn--mini" disabled={!ready || busy !== null} onClick={() => act(`close-${row.contract_id}`, `Close the entire ${row.symbol} PAPER position at market? Its value returns to cash after the fill.`, () => api.paperPositionClose(row.contract_id))}>{busy === `close-${row.contract_id}` ? 'Closing…' : 'Close to cash'}</button>
+            </div>
+          ))}
+        </div>
+      )}
+      <div className={`paperport__lock${ready ? ' paperport__lock--ready' : ''}`} role="status" aria-live="polite">
+        <span>{ready ? 'Paper execution ready' : portfolio?.execution.status === 'ready' ? 'View only · operator controls locked' : 'Execution locked'}</span>
+        <small>{portfolio?.execution.detail || 'No order can be sent.'} Low conviction = 5%. High conviction = 10% at confidence 75+.</small>
+        {ready && <button className="btn btn--amber btn--mini" disabled={busy !== null || targetPositions.length === 0} onClick={() => act('sync', `Send the ${targetPositions.length} verified current Nostra target${targetPositions.length === 1 ? '' : 's'} to IBKR PAPER? Historical calls will not be backdated.`, () => api.paperPortfolioSync())}>{busy === 'sync' ? 'Sending…' : targetPositions.length ? 'Sync calls to Paper' : 'No trade now'}</button>}
+      </div>
     </section>
   )
 }

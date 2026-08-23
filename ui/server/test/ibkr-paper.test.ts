@@ -88,8 +88,8 @@ await check('missing, unexpected, and wrong-weight holdings are named separately
     positions: [{ ticker: 'AMZN', decision: 'Buy', model_weight_pct: 4 }, { ticker: 'MSFT', decision: 'Buy', model_weight_pct: 2 }], detail: 'two',
   }
   const got = reconcilePaperPortfolio(target, account([
-    { symbol: 'AMZN', local_symbol: null, security_type: 'STK', currency: 'USD', exchange: 'SMART', quantity: 10, average_cost: 100, market_price: 110, market_value: 30_000, unrealized_pnl: 100, realized_pnl: 0, portfolio_weight_pct: 3 },
-    { symbol: 'TSLA', local_symbol: null, security_type: 'STK', currency: 'USD', exchange: 'SMART', quantity: 2, average_cost: 100, market_price: 100, market_value: 1_000, unrealized_pnl: 0, realized_pnl: 0, portfolio_weight_pct: 0.1 },
+    { contract_id: 1, symbol: 'AMZN', local_symbol: null, security_type: 'STK', currency: 'USD', exchange: 'SMART', quantity: 10, average_cost: 100, market_price: 110, market_value: 30_000, unrealized_pnl: 100, realized_pnl: 0, portfolio_weight_pct: 3 },
+    { contract_id: 2, symbol: 'TSLA', local_symbol: null, security_type: 'STK', currency: 'USD', exchange: 'SMART', quantity: 2, average_cost: 100, market_price: 100, market_value: 1_000, unrealized_pnl: 0, realized_pnl: 0, portfolio_weight_pct: 0.1 },
   ]))
   assert.equal(got.status, 'differences')
   assert.deepEqual(got.differences.map((row) => row.kind).sort(), ['missing_position', 'unexpected_position', 'weight_mismatch'])
@@ -101,19 +101,20 @@ await check('duplicate broker rows for one symbol are combined instead of silent
     positions: [{ ticker: 'AMZN', decision: 'Buy', model_weight_pct: 4 }], detail: 'one',
   }
   const got = reconcilePaperPortfolio(target, account([
-    { symbol: 'AMZN', local_symbol: 'AMZN', security_type: 'STK', currency: 'USD', exchange: 'NASDAQ', quantity: 10, average_cost: 100, market_price: 110, market_value: 20_000, unrealized_pnl: 100, realized_pnl: 0, portfolio_weight_pct: 2 },
-    { symbol: 'AMZN', local_symbol: 'AMZN', security_type: 'STK', currency: 'USD', exchange: 'LSE', quantity: 5, average_cost: 100, market_price: 110, market_value: 20_000, unrealized_pnl: 100, realized_pnl: 0, portfolio_weight_pct: 2 },
+    { contract_id: 1, symbol: 'AMZN', local_symbol: 'AMZN', security_type: 'STK', currency: 'USD', exchange: 'NASDAQ', quantity: 10, average_cost: 100, market_price: 110, market_value: 20_000, unrealized_pnl: 100, realized_pnl: 0, portfolio_weight_pct: 2 },
+    { contract_id: 2, symbol: 'AMZN', local_symbol: 'AMZN', security_type: 'STK', currency: 'USD', exchange: 'LSE', quantity: 5, average_cost: 100, market_price: 110, market_value: 20_000, unrealized_pnl: 100, realized_pnl: 0, portfolio_weight_pct: 2 },
   ]))
   assert.equal(got.status, 'aligned')
 })
 
-await check('the public service projection omits the IBKR account identifier and caches broker reads', async () => {
+await check('the public paper-only projection omits the IBKR account identifier and caches broker reads', async () => {
   const root = tmp()
   const state = path.join(root, '.state')
   writeSizing(root, '2026-08-22_sizing.json', cashBook())
   let reads = 0
   const service = createIbkrPaperPortfolioService({
     repoRoot: root, stateDir: state, cacheMs: 60_000, now: () => new Date('2026-08-23T10:00:00Z'),
+    callsReader: async () => ({ calls: [] }),
     brokerReader: async () => {
       reads++
       return { accountId: 'PRIVATE-PAPER-ID', asOf: '2026-08-23T10:00:00Z', values: new Map([
@@ -126,19 +127,49 @@ await check('the public service projection omits the IBKR account identifier and
   const first = await service()
   const second = await service()
   assert.equal(first.status, 'connected')
+  assert.equal(first.paper_only, true)
   assert.equal(first.reconciliation.status, 'aligned')
   assert.equal(reads, 1)
   assert.ok(!JSON.stringify(first).includes('PRIVATE-PAPER-ID'))
   assert.deepEqual(second, first)
+  service.invalidate()
+  await service()
+  assert.equal(reads, 2, 'an explicit mutation invalidation must bypass the ten-second broker cache')
   const audit = fs.readFileSync(path.join(state, 'ibkr-paper', 'events.jsonl'), 'utf8')
   assert.ok(!audit.includes('PRIVATE-PAPER-ID'))
 })
 
-await check('a connection failure stays a read-only panel result', async () => {
+await check('a Calls-authority outage cannot become an intentional 100%-cash target', async () => {
+  const root = tmp()
+  const service = createIbkrPaperPortfolioService({
+    repoRoot: root, stateDir: path.join(root, '.state'), cacheMs: 0,
+    executionEnabled: true, allowedAccountId: 'DU-TEST',
+    callsReader: async () => { throw new Error('published calls unavailable') },
+    brokerReader: async () => ({
+      accountId: 'DU-TEST', asOf: '2026-08-23T10:00:00Z', values: new Map([
+        ['NetLiquidation', { value: 1_000_000, currency: 'USD' }],
+        ['TotalCashValue', { value: 1_000_000, currency: 'USD' }],
+        ['GrossPositionValue', { value: 0, currency: 'USD' }],
+      ]), positions: [], openOrders: [],
+    }),
+  })
+  const got = await service()
+  assert.equal(got.status, 'connected')
+  assert.equal(got.history.available, false)
+  assert.equal(got.target.valid, false)
+  assert.equal(got.target.cash_pct, null)
+  assert.equal(got.execution.status, 'locked')
+  assert.equal(got.execution.can_execute, false)
+  assert.equal(got.reconciliation.status, 'blocked')
+  assert.match(got.target.detail, /history is unavailable/i)
+})
+
+await check('a connection failure stays an isolated paper-panel result', async () => {
   const root = tmp()
   writeSizing(root, '2026-08-22_sizing.json', cashBook())
   const service = createIbkrPaperPortfolioService({
     repoRoot: root, stateDir: path.join(root, '.state'), cacheMs: 0,
+    callsReader: async () => ({ calls: [] }),
     brokerReader: async () => { throw new Error('paper_connect_failed') },
   })
   const got = await service()
