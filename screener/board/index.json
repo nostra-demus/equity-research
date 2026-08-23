@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-23T02:05:43Z",
+  "generated_at": "2026-08-23T02:11:16Z",
   "inbox": [
     {
       "inbox_id": "INB-20260823-060",
@@ -747,6 +747,49 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260823-067",
+      "headline": "Thousands flee Sudan’s Kordofan fighting for relative safety of El Obeid",
+      "headline_en": null,
+      "url": "https://www.aljazeera.com/video/newsfeed/2026/8/23/thousands-flee-sudans-kordofan-fighting-for-relative-safety-of-el-obeid?traffic_source=rss",
+      "source_name": "Al Jazeera — All news",
+      "input_nature": "geopolitical_event",
+      "found_at": "2026-08-23T01:51:47Z",
+      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
+      "prelim_note": "Ongoing military conflict in Sudan represents a significant geopolitical risk and humanitarian crisis.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Ongoing military conflict in Sudan represents a significant geopolitical risk and humanitarian crisis.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": -4,
+        "event": 1,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
+        "source_tier_id": "news",
+        "event_id": "macro_sector",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1693,6 +1736,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260823-068",
+      "headline": "Fiat ‘little mouse’ micro car nibbles at US golf-cart market",
+      "headline_en": null,
+      "url": "https://www.moneyweb.co.za/news/international/weekend-fiat-little-mouse-micro-car-nibbles-at-us-golf-cart-market/",
+      "source_name": "South Africa JSE / SENS — via Sharenet or Moneyweb (Africa completeness)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-23T02:00:26Z",
+      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
+      "prelim_note": "Fiat is entering a niche market segment, but the impact is likely immaterial to the overall business.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 61,
+      "triage_reason": "Fiat is entering a niche market segment, but the impact is likely immaterial to the overall business.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 30,
+      "rank_factors": {
+        "materiality": 30,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 3,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "commercial",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Fiat",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260823-066",
       "headline": "Xero chief says price rises ‘less than a cup of coffee’ amid backlash",
       "headline_en": null,
@@ -1734,104 +1826,6 @@
           "name": "Xero",
           "ticker": null,
           "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260823-050",
-      "headline": "Beyond the blue: Levi’s broadens its India bet",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/news/levis-india-looks-beyond-jeans-as-denim-market-gets-bigger-more-competitive-11787293460868.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-23T01:31:01Z",
-      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
-      "prelim_note": "General expansion plans in India are strategic but lack specific financial commitments or scale.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 61,
-      "triage_reason": "General expansion plans in India are strategic but lack specific financial commitments or scale.",
-      "region": "IN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 30,
-      "rank_factors": {
-        "materiality": 30,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 3,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "commercial",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Levi Strauss & Co.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260823-015",
-      "headline": "₹15 charge after 4 withdrawals: SBI changes rules for basic savings accounts",
-      "headline_en": null,
-      "url": "https://www.businesstoday.in/latest/trends/photo/rs15-charge-after-4-withdrawals-sbi-changes-rules-for-basic-savings-accounts-550401-2026-08-23?utm_source=rssfeed",
-      "source_name": "Business Today",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-23T00:30:04Z",
-      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
-      "prelim_note": "SBI is implementing a new fee structure for basic savings accounts, which may marginally impact fee-based revenue.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 61,
-      "triage_reason": "SBI is implementing a new fee structure for basic savings accounts, which may marginally impact fee-based revenue.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 3,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "commercial",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "State Bank of India",
-          "ticker": "SBIN",
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "large",
@@ -74320,77 +74314,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-5965b36c8542",
-      "idea_version": "IDEAV-ecf49e7124126690",
-      "idea_version_started_at": "2026-08-22T00:54:27Z",
-      "ticker": "03377",
-      "company": "Sino-Ocean Group",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "A profit warning from a major property developer in the current Chinese real estate environment indicates continued liquidity and operational stress.",
-      "why_now": "The filing occurred on August 21, 2026, and reflects ongoing sector-wide headwinds.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-9fc34a0b2df9"
-      ],
-      "primary_source_event_id": "EVT-9fc34a0b2df9",
-      "source_headlines": [
-        "SINO-OCEAN GP (03377): INSIDE INFORMATION - PROFIT WARNING"
-      ],
-      "source_headline": "SINO-OCEAN GP (03377): INSIDE INFORMATION - PROFIT WARNING",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0821/2026082102001.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-21T14:06:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-22T00:54:27Z",
-      "updated_at": "2026-08-22T00:54:27Z",
-      "decay_at": "2026-08-23T02:06:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-c0e0415b3323",
       "idea_version": "IDEAV-65c1073d51c3e264",
       "idea_version_started_at": "2026-08-22T00:54:27Z",
@@ -75939,6 +75862,77 @@
       "surfaced_at": "2026-08-21T14:23:00Z",
       "updated_at": "2026-08-22T02:12:31Z",
       "decay_at": "2026-08-22T21:56:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-5965b36c8542",
+      "idea_version": "IDEAV-ecf49e7124126690",
+      "idea_version_started_at": "2026-08-22T00:54:27Z",
+      "ticker": "03377",
+      "company": "Sino-Ocean Group",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "A profit warning from a major property developer in the current Chinese real estate environment indicates continued liquidity and operational stress.",
+      "why_now": "The filing occurred on August 21, 2026, and reflects ongoing sector-wide headwinds.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-9fc34a0b2df9"
+      ],
+      "primary_source_event_id": "EVT-9fc34a0b2df9",
+      "source_headlines": [
+        "SINO-OCEAN GP (03377): INSIDE INFORMATION - PROFIT WARNING"
+      ],
+      "source_headline": "SINO-OCEAN GP (03377): INSIDE INFORMATION - PROFIT WARNING",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0821/2026082102001.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-21T14:06:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-22T00:54:27Z",
+      "updated_at": "2026-08-22T00:54:27Z",
+      "decay_at": "2026-08-23T02:06:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -77596,8 +77590,8 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 67,
-    "shown_count": 67,
+    "total_count": 68,
+    "shown_count": 68,
     "hidden_count": 0,
     "side_counts": {
       "long": {
@@ -77606,8 +77600,8 @@
         "hidden_count": 0
       },
       "short": {
-        "total_count": 46,
-        "shown_count": 46,
+        "total_count": 47,
+        "shown_count": 47,
         "hidden_count": 0
       }
     },
@@ -77627,6 +77621,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-5965b36c8542",
+        "idea_version": "IDEAV-ecf49e7124126690",
+        "idea_version_started_at": "2026-08-22T00:54:27Z",
+        "ticker": "03377",
+        "company": "Sino-Ocean Group",
+        "exchange": "HKEX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "A profit warning from a major property developer in the current Chinese real estate environment indicates continued liquidity and operational stress.",
+        "why_now": "The filing occurred on August 21, 2026, and reflects ongoing sector-wide headwinds.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 20,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-9fc34a0b2df9"
+        ],
+        "primary_source_event_id": "EVT-9fc34a0b2df9",
+        "source_headlines": [
+          "SINO-OCEAN GP (03377): INSIDE INFORMATION - PROFIT WARNING"
+        ],
+        "source_headline": "SINO-OCEAN GP (03377): INSIDE INFORMATION - PROFIT WARNING",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0821/2026082102001.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-21T14:06:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-22T00:54:27Z",
+        "updated_at": "2026-08-22T00:54:27Z",
+        "decay_at": "2026-08-23T02:06:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-23T02:06:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-a07dde7840d4",
         "idea_version": "IDEAV-45bbd09f276c93cf",
@@ -82587,7 +82655,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 83,
-    "live_count": 15,
+    "live_count": 14,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -82606,9 +82674,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 374,
-    "news_picked_today": 69,
-    "news_dropped_today": 305
+    "news_seen_today": 390,
+    "news_picked_today": 74,
+    "news_dropped_today": 316
   },
   "book_momentum": {
     "live_count": 8,
