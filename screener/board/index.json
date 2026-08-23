@@ -1,6 +1,60 @@
 {
-  "generated_at": "2026-08-23T08:44:49Z",
+  "generated_at": "2026-08-23T08:49:08Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260823-199",
+      "headline": "Thoma Bravo lobs knockout offer for HR software biz Tanda",
+      "headline_en": null,
+      "url": "https://www.afr.com/street-talk/thoma-bravo-lobs-knockout-offer-for-hr-software-biz-tanda-20260823-p60qrx?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-23T08:46:15Z",
+      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
+      "prelim_note": "Thoma Bravo has made a takeover offer for Tanda, representing a significant M&A event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Thoma Bravo has made a takeover offer for Tanda, representing a significant M&A event.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Thoma Bravo",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Tanda",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260823-196",
       "headline": "Alibaba to raise $10bn via new Hong Kong shares to fund AI investments",
@@ -28,6 +82,55 @@
         "recency": 5,
         "materiality_label_floor": 0,
         "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capital_actions",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Alibaba",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260823-198",
+      "headline": "Alibaba announces $10.2bn share placement as Chinese companies expand AI investment",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/e4ab027e-ed41-48b7-89ac-8250d3054ae6?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-23T08:33:27Z",
+      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
+      "prelim_note": "Alibaba announced a $10.2bn share placement, which is a significant capital event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Alibaba announced a $10.2bn share placement, which is a significant capital event.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "news",
@@ -1757,103 +1860,6 @@
       "issuer_linkage": "sector",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260823-027",
-      "headline": "Första slutliga utdelningen för räkenskapsåret 2026 har fastställts och återköp av egna aktier på marknaden har godkänts",
-      "headline_en": "First final dividend for fiscal year 2026 has been set and repurchase of own shares on the market has been approved",
-      "url": "https://www.globenewswire.com/news-release/2026/08/23/3349403/0/sv/f%C3%B6rsta-slutliga-utdelningen-f%C3%B6r-r%C3%A4kenskaps%C3%A5ret-2026-har-fastst%C3%A4llts-och-%C3%A5terk%C3%B6p-av-egna-aktier-p%C3%A5-marknaden-har-godk%C3%A4nts.html",
-      "source_name": "GlobeNewswire — News about Public Companies",
-      "input_nature": "company_press_release",
-      "found_at": "2026-08-23T00:56:00Z",
-      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
-      "prelim_note": "The headline states that the first final dividend for fiscal year 2026 has been set and share repurchases have been approved.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "The headline states that the first final dividend for fiscal year 2026 has been set and share repurchases have been approved.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 3,
-        "scope": 2,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "company",
-        "event_id": "capital_actions",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260823-194",
-      "headline": "‎ADNOC Distribution sells Shell Downstream stake",
-      "headline_en": null,
-      "url": "https://www.argaam.com/en/article/articledetail/id/1931187",
-      "source_name": "Argaam — UAE Main News (English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-23T11:49:00Z",
-      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
-      "prelim_note": "ADNOC Distribution sold its Shell Downstream stake, a confirmed disposal by a listed company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "ADNOC Distribution sold its Shell Downstream stake, a confirmed disposal by a listed company.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ADNOC Distribution",
-          "ticker": null,
-          "listing_country": "AE"
-        },
-        {
-          "name": "Shell",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -83206,9 +83212,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1301,
-    "news_picked_today": 384,
-    "news_dropped_today": 917
+    "news_seen_today": 1310,
+    "news_picked_today": 389,
+    "news_dropped_today": 921
   },
   "book_momentum": {
     "live_count": 8,
