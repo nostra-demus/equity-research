@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-08-23T23:35:54Z",
+  "generated_at": "2026-08-23T23:40:34Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260823-526",
+      "headline": "KGN: FY26 Appendix 4E and Financial Statements [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.KGN?key=2924-03124813-3A699567",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-23T23:34:25Z",
+      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
+      "prelim_note": "The release of annual financial statements is a primary disclosure event for investors.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The release of annual financial statements is a primary disclosure event for investors.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Kogan.com",
+          "ticker": "KGN",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260823-525",
       "headline": "CCG: Comms Group Delivers Record Revenue and Profit in FY26 [price-sensitive]",
@@ -1887,55 +1936,6 @@
           "name": "Alibaba Group",
           "ticker": "BABA",
           "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260823-516",
-      "headline": "Shein seeks up to $2.3 billion in long-awaited Hong Kong IPO",
-      "headline_en": null,
-      "url": "https://www.straitstimes.com/business/shein-seeks-up-to-2-3-billion-in-long-awaited-hong-kong-ipo",
-      "source_name": "The Straits Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-23T23:15:00Z",
-      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
-      "prelim_note": "Shein is seeking up to $2.3 billion in a major upcoming IPO.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Shein is seeking up to $2.3 billion in a major upcoming IPO.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capital_actions",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Shein",
-          "ticker": null,
-          "listing_country": null
         }
       ],
       "size_bucket": "large",
@@ -83013,9 +83013,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5650,
-    "news_picked_today": 1505,
-    "news_dropped_today": 3415
+    "news_seen_today": 5668,
+    "news_picked_today": 1515,
+    "news_dropped_today": 3423
   },
   "book_momentum": {
     "live_count": 8,
