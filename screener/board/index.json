@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-08-23T01:13:44Z",
+  "generated_at": "2026-08-23T01:17:41Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260823-041",
+      "headline": "Nebius Just Raised $5 Billion in Convertible Notes Against a $1.4 Billion Revenue Base. Are We In a Bubble?",
+      "headline_en": null,
+      "url": "https://www.fool.com/investing/2026/08/22/nebius-just-raised-usd5-billion-in-convertible-notes-against-a-usd1-4-billion-revenue-base-are-we-in-a-bubble/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-23T00:47:01Z",
+      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
+      "prelim_note": "Nebius raised $5 billion in convertible notes, significantly impacting capital structure relative to its $1.4 billion revenue base.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nebius raised $5 billion in convertible notes, significantly impacting capital structure relative to its $1.4 billion revenue base.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nebius Group",
+          "ticker": "NBIS",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260823-025",
       "headline": "PNB Fraud Case: ED Makes Fifth Attempt To Declare Mehul Choksi Fugitive Economic Offender",
@@ -1309,20 +1358,69 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260823-022",
+      "inbox_id": "INB-20260823-042",
+      "headline": "하나은행, 청년기업에 2000억원 규모 보증 대출",
+      "headline_en": "Hana Bank provides 200 billion KRW in guaranteed loans to youth-led enterprises",
+      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=275299",
+      "source_name": "Business Korea — All Articles (CDN)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-22T23:30:00Z",
+      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
+      "prelim_note": "Hana Bank is providing 200 billion KRW in guaranteed loans to youth-led enterprises, which is a standard banking product offering.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 60,
+      "triage_reason": "Hana Bank is providing 200 billion KRW in guaranteed loans to youth-led enterprises, which is a standard banking product offering.",
+      "region": "KR",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 3,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "commercial",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Hana Bank",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260823-039",
       "headline": "Red Cat CEO Jeffrey Thompson Sells 150,000 Shares for $1.6 Million as the Stock Soars 24%",
       "headline_en": null,
-      "url": "https://www.fool.com/coverage/filings/2026/08/22/red-cat-ceo-jeffrey-thompson-sells-150-000-shares-for-usd1-6-million-as-the-stock-soars-24/?source=iedfolrf0000001",
-      "source_name": "The Motley Fool",
+      "url": "https://www.nasdaq.com/articles/red-cat-ceo-jeffrey-thompson-sells-150000-shares-16-million-stock-soars-24",
+      "source_name": "Nasdaq",
       "input_nature": "news_headline",
-      "found_at": "2026-08-23T00:25:44Z",
+      "found_at": "2026-08-23T00:45:44Z",
       "sweep_file": "screener/inbox/2026-08-23_sweep.json",
-      "prelim_note": "CEO Jeffrey Thompson sold 150,000 shares of Red Cat Holdings for $1.6 million.",
+      "prelim_note": "CEO Jeffrey Thompson sold 150,000 shares of Red Cat for $1.6 million.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 57,
-      "triage_reason": "CEO Jeffrey Thompson sold 150,000 shares of Red Cat Holdings for $1.6 million.",
+      "triage_reason": "CEO Jeffrey Thompson sold 150,000 shares of Red Cat for $1.6 million.",
       "region": "US",
       "relevance": "material",
       "materiality_pre_score": 40,
@@ -1353,6 +1451,49 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260823-040",
+      "headline": "Senators Plan a Clarity Act Vote on Sept. 15. What Happens Next for Crypto?",
+      "headline_en": null,
+      "url": "https://www.fool.com/investing/2026/08/22/senators-plan-a-clarity-act-vote-on-sept-15/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-23T00:51:00Z",
+      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
+      "prelim_note": "Upcoming legislative vote on crypto regulation is a sector-level event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 56,
+      "triage_reason": "Upcoming legislative vote on crypto regulation is a sector-level event.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 30,
+      "rank_factors": {
+        "materiality": 30,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -82395,7 +82536,7 @@
     "resolved": 1
   },
   "counts": {
-    "inbox_unconsumed": 1539,
+    "inbox_unconsumed": 1542,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -82404,9 +82545,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 223,
-    "news_picked_today": 38,
-    "news_dropped_today": 185
+    "news_seen_today": 245,
+    "news_picked_today": 42,
+    "news_dropped_today": 203
   },
   "book_momentum": {
     "live_count": 8,
