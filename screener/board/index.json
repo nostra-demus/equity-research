@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-23T04:58:55Z",
+  "generated_at": "2026-08-23T05:03:55Z",
   "inbox": [
     {
       "inbox_id": "INB-20260823-135",
@@ -1735,6 +1735,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260823-139",
+      "headline": "Strait Of Hormuz Will Not Open Until US 'Corrects Its Behaviour': Iran's Mohsen Rezaei",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/world/strait-of-hormuz-will-not-open-until-us-corrects-its-behaviour-irans-mohsen-rezaei-11946617#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-23T04:31:16Z",
+      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
+      "prelim_note": "Threats to the Strait of Hormuz represent a major geopolitical risk to global energy supply chains.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Threats to the Strait of Hormuz represent a major geopolitical risk to global energy supply chains.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": -4,
+        "event": 1,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
+        "source_tier_id": "news",
+        "event_id": "macro_sector",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260823-112",
       "headline": "World News Today Live Updates on August 23, 2026 : US-Iran War: ‘Not going to bow our heads,’ says Pezeshkian; Iran has not compromised on any MoU clause",
       "headline_en": null,
@@ -1822,49 +1865,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260823-116",
-      "headline": "Donald Trump again claims Hormuz as ‘US territory’; Iran refuses to reopen strait",
-      "headline_en": null,
-      "url": "https://www.deccanherald.com/world/us/donald-trump-again-claims-hormuz-as-us-territory-iran-refuses-to-reopen-strait-4121048",
-      "source_name": "Deccan Herald",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-23T04:05:42Z",
-      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
-      "prelim_note": "Geopolitical escalation regarding the Strait of Hormuz, a critical global energy transit point.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Geopolitical escalation regarding the Strait of Hormuz, a critical global energy transit point.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": -4,
-        "event": 1,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "macro",
-        "source_tier_id": "news",
-        "event_id": "macro_sector",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -83144,9 +83144,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 729,
-    "news_picked_today": 177,
-    "news_dropped_today": 552
+    "news_seen_today": 747,
+    "news_picked_today": 181,
+    "news_dropped_today": 566
   },
   "book_momentum": {
     "live_count": 8,
