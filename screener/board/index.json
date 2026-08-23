@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-23T03:48:52Z",
+  "generated_at": "2026-08-23T03:53:55Z",
   "inbox": [
     {
       "inbox_id": "INB-20260823-092",
@@ -696,6 +696,55 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260823-096",
+      "headline": "Apple Cut Its Standard EU App Store Commission From 30% to 26%",
+      "headline_en": null,
+      "url": "https://www.fool.com/investing/2026/08/22/apple-cut-its-standard-eu-app-store-commission-from-30-to-26/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-23T03:23:01Z",
+      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
+      "prelim_note": "A reduction in commission rates from 30% to 26% directly impacts the company's service revenue margins in the EU region.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "A reduction in commission rates from 30% to 26% directly impacts the company's service revenue margins in the EU region.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Apple",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1622,6 +1671,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260823-095",
+      "headline": "FSSAI issued 150 notices to food companies in recent months over misleading advertisements",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/news/fssai-issued-150-notices-to-food-companies-in-recent-months-over-misleading-advertisements/article71380098.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-23T03:47:11Z",
+      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
+      "prelim_note": "Regulatory scrutiny of 150 food companies regarding advertising practices increases operational and legal risk for the sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 81,
+      "triage_reason": "Regulatory scrutiny of 150 food companies regarding advertising practices increases operational and legal risk for the sector.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260823-072",
       "headline": "Iran warns any country joining US sanctions considered 'enemy'",
       "headline_en": null,
@@ -1744,92 +1836,6 @@
       },
       "event_types": [
         "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260823-081",
-      "headline": "New Zealand Opposition Vows to Restore RBNZ Dual Mandate",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-08-23/new-zealand-labour-opposition-vows-to-restore-rbnz-dual-mandate",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-23T01:59:47Z",
-      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
-      "prelim_note": "A proposed change to the central bank's mandate is a significant policy shift that could impact interest rate expectations and currency valuation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 80,
-      "triage_reason": "A proposed change to the central bank's mandate is a significant policy shift that could impact interest rate expectations and currency valuation.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260823-047",
-      "headline": "Putin acknowledges economic impact from Ukraine’s refinery strikes",
-      "headline_en": null,
-      "url": "https://www.japantimes.co.jp/news/2026/08/23/world/politics/putin-economic-impact-ukraine-strikes/",
-      "source_name": "The Japan Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-23T01:19:00Z",
-      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
-      "prelim_note": "Official acknowledgment of economic damage from refinery strikes confirms the efficacy of attacks on energy infrastructure, a key supply shock risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 77,
-      "triage_reason": "Official acknowledgment of economic damage from refinery strikes confirms the efficacy of attacks on energy infrastructure, a key supply shock risk.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": -4,
-        "event": 1,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "macro",
-        "source_tier_id": "news",
-        "event_id": "macro_sector",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
       ],
       "issuer_linkage": "macro",
       "companies": [],
@@ -83041,9 +83047,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 563,
-    "news_picked_today": 118,
-    "news_dropped_today": 445
+    "news_seen_today": 570,
+    "news_picked_today": 121,
+    "news_dropped_today": 449
   },
   "book_momentum": {
     "live_count": 8,
