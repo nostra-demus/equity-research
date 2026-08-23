@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-23T05:09:24Z",
+  "generated_at": "2026-08-23T05:14:13Z",
   "inbox": [
     {
       "inbox_id": "INB-20260823-135",
@@ -1249,6 +1249,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260823-141",
+      "headline": "Paramount and California to hold preliminary talks on Warner Bros deal",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/news/paramount-and-california-to-hold-preliminary-talks-on-warner-bros-deal/article71380136.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-23T05:02:36Z",
+      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
+      "prelim_note": "Paramount and Warner Bros are in preliminary talks for a potential merger deal.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "Paramount and Warner Bros are in preliminary talks for a potential merger deal.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Paramount Global",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Warner Bros. Discovery",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260823-008",
       "headline": "Paramount and California to hold preliminary talks on Monday over Warner Bros deal: Report",
       "headline_en": null,
@@ -1439,6 +1493,61 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260823-140",
+      "headline": "Harvey Nicks suppliers fear being 'screwed' by Mike Ashley's takeover",
+      "headline_en": null,
+      "url": "https://www.thisismoney.co.uk/money/markets/article-16071879/Harvey-Nicks-suppliers-fear-screwed-Mike-Ashleys-takeover.html?ns_mchannel=rss&ns_campaign=1490&ito=1490",
+      "source_name": "This is Money (Daily Mail) — Markets",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-23T05:01:05Z",
+      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
+      "prelim_note": "Mike Ashley's takeover of Harvey Nichols creates operational and credit risk for existing suppliers.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "Mike Ashley's takeover of Harvey Nichols creates operational and credit risk for existing suppliers.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna",
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Harvey Nichols",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Frasers Group",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1773,98 +1882,6 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260823-112",
-      "headline": "World News Today Live Updates on August 23, 2026 : US-Iran War: ‘Not going to bow our heads,’ says Pezeshkian; Iran has not compromised on any MoU clause",
-      "headline_en": null,
-      "url": "https://www.livemint.com/news/world/total-world-latest-news-on-august-23-2026-live-updates-11787458346935.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-23T04:12:26Z",
-      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
-      "prelim_note": "Escalation of geopolitical conflict between the US and Iran represents a major risk to global markets and energy supply.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Escalation of geopolitical conflict between the US and Iran represents a major risk to global markets and energy supply.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": -4,
-        "event": 1,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "macro",
-        "source_tier_id": "news",
-        "event_id": "macro_sector",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260823-110",
-      "headline": "Vingroup among Vietnam stocks to debut on FTSE’s EM Index",
-      "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/companies-markets/vingroup-among-vietnam-stocks-debut-ftses-em-index",
-      "source_name": "The Business Times (Singapore)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-23T04:07:24Z",
-      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
-      "prelim_note": "Inclusion in an emerging markets index typically triggers passive fund inflows for the named company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Inclusion in an emerging markets index typically triggers passive fund inflows for the named company.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "index_rebalance",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "index_rebalance"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Vingroup",
-          "ticker": null,
-          "listing_country": "VN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -83358,9 +83375,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 757,
-    "news_picked_today": 183,
-    "news_dropped_today": 574
+    "news_seen_today": 768,
+    "news_picked_today": 189,
+    "news_dropped_today": 579
   },
   "book_momentum": {
     "live_count": 8,
