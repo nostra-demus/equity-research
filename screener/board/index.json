@@ -1,45 +1,51 @@
 {
-  "generated_at": "2026-08-23T02:49:12Z",
+  "generated_at": "2026-08-23T02:54:07Z",
   "inbox": [
     {
-      "inbox_id": "INB-20260823-069",
-      "headline": "Malaysia Rules Out $1.9 Billion Takeover of Passport Supplier",
+      "inbox_id": "INB-20260823-073",
+      "headline": "Malaysia rules out US$1.9 billion takeover of passport supplier",
       "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-08-23/malaysia-rules-out-1-9-billion-takeover-of-passport-supplier",
-      "source_name": "Bloomberg",
+      "url": "https://www.businesstimes.com.sg/international/malaysia-rules-out-us1-9-billion-takeover-passport-supplier",
+      "source_name": "The Business Times (Singapore)",
       "input_nature": "news_headline",
-      "found_at": "2026-08-23T01:51:38Z",
+      "found_at": "2026-08-23T02:48:38Z",
       "sweep_file": "screener/inbox/2026-08-23_sweep.json",
-      "prelim_note": "The Malaysian government officially ruled out a $1.9 billion takeover, ending a significant potential transaction.",
+      "prelim_note": "The Malaysian government officially rejected a US$1.9 billion takeover bid for a passport supplier.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 100,
-      "triage_reason": "The Malaysian government officially ruled out a $1.9 billion takeover, ending a significant potential transaction.",
+      "triage_reason": "The Malaysian government officially rejected a US$1.9 billion takeover bid for a passport supplier.",
       "region": "OTHER",
       "relevance": "material",
       "materiality_pre_score": 75,
       "rank_factors": {
         "materiality": 75,
         "source_tier": 0,
-        "scope": 6,
+        "scope": 5,
         "event": 9,
-        "size": 0,
+        "size": 1,
         "recency": 5,
-        "materiality_label_floor": 10,
+        "materiality_label_floor": 0,
         "quantified": 6,
         "boost_weight": 1,
-        "scope_id": "single_name",
+        "scope_id": "multi_name",
         "source_tier_id": "news",
         "event_id": "mna",
-        "size_bucket": "unknown"
+        "size_bucket": "mid"
       },
       "event_types": [
         "mna"
       ],
       "issuer_linkage": "primary",
-      "companies": [],
-      "size_bucket": "unknown",
+      "companies": [
+        {
+          "name": "Datasonic Group",
+          "ticker": null,
+          "listing_country": "MY"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -378,6 +384,50 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260823-074",
+      "headline": "Canada to hit US with retaliatory tariffs as trade war escalates",
+      "headline_en": null,
+      "url": "https://www.aljazeera.com/news/2026/8/23/canada-to-hit-us-with-retaliatory-tariffs-as-trade-war-escalates?traffic_source=rss",
+      "source_name": "Al Jazeera — All news",
+      "input_nature": "geopolitical_event",
+      "found_at": "2026-08-23T02:34:49Z",
+      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
+      "prelim_note": "Escalating trade tensions and retaliatory tariffs between Canada and the US represent a significant geopolitical and economic risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Escalating trade tensions and retaliatory tariffs between Canada and the US represent a significant geopolitical and economic risk.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector",
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260823-014",
       "headline": "Canada to apply dollar-for-dollar U.S. countertariffs as trade feud escalates",
       "headline_en": null,
@@ -648,20 +698,20 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260823-021",
-      "headline": "BREAKING NEWS: Police search Tobu Railway group company over fatal express train accident",
+      "inbox_id": "INB-20260823-075",
+      "headline": "Police search Tobu Railway group company over fatal express train accident",
       "headline_en": null,
       "url": "https://english.kyodonews.net/articles/-/82857",
       "source_name": "Kyodo News (Japan Wire)",
       "input_nature": "news_headline",
-      "found_at": "2026-08-23T00:27:19Z",
+      "found_at": "2026-08-23T02:01:00Z",
       "sweep_file": "screener/inbox/2026-08-23_sweep.json",
-      "prelim_note": "A police investigation into a fatal accident at a subsidiary creates significant operational and legal risk for the parent company.",
+      "prelim_note": "A police investigation into a fatal accident at a subsidiary creates operational and legal risk for the parent company.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 89,
-      "triage_reason": "A police investigation into a fatal accident at a subsidiary creates significant operational and legal risk for the parent company.",
+      "triage_reason": "A police investigation into a fatal accident at a subsidiary creates operational and legal risk for the parent company.",
       "region": "JP",
       "relevance": "material",
       "materiality_pre_score": 60,
@@ -681,7 +731,8 @@
         "size_bucket": "large"
       },
       "event_types": [
-        "litigation_enforcement"
+        "litigation_enforcement",
+        "operations"
       ],
       "issuer_linkage": "primary",
       "companies": [
@@ -1764,55 +1815,6 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260823-056",
-      "headline": "Transition at the Tatas",
-      "headline_en": null,
-      "url": "https://www.deccanherald.com/opinion/transition-at-the-tatas-4120940",
-      "source_name": "Deccan Herald",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-23T01:35:42Z",
-      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
-      "prelim_note": "Discusses leadership transition at Tata Group, but lacks specific details on material impact.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 62,
-      "triage_reason": "Discusses leadership transition at Tata Group, but lacks specific details on material impact.",
-      "region": "IN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 30,
-      "rank_factors": {
-        "materiality": 30,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tata Group",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -82877,9 +82879,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 453,
-    "news_picked_today": 86,
-    "news_dropped_today": 367
+    "news_seen_today": 461,
+    "news_picked_today": 89,
+    "news_dropped_today": 372
   },
   "book_momentum": {
     "live_count": 8,
