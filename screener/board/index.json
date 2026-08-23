@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-23T03:34:05Z",
+  "generated_at": "2026-08-23T03:38:53Z",
   "inbox": [
     {
       "inbox_id": "INB-20260823-073",
@@ -335,6 +335,50 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260823-091",
+      "headline": "US, Iran remains at odds; Tehran reacts to Trump announcement of economic sanctions",
+      "headline_en": null,
+      "url": "https://www.khaleejtimes.com/world/mena/us-iran-israel-lebanon-war-august-23-2026-live-updates",
+      "source_name": "Khaleej Times — Top / General",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-23T03:32:12Z",
+      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
+      "prelim_note": "The announcement of economic sanctions by the US against Iran represents a significant geopolitical escalation affecting global energy and trade markets.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "The announcement of economic sanctions by the US against Iran represents a significant geopolitical escalation affecting global energy and trade markets.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1755,49 +1799,6 @@
       "triage_score": 72,
       "triage_reason": "A natural disaster causing injuries in a major economic hub like Tokyo creates short-term operational and sentiment risk.",
       "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": -4,
-        "event": 1,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "macro",
-        "source_tier_id": "news",
-        "event_id": "macro_sector",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260823-058",
-      "headline": "Canada’s Carney refuses to take Trump’s ‘bait’, confronting US in trade war",
-      "headline_en": null,
-      "url": "https://www.scmp.com/news/world/united-states-canada/article/3364948/canadas-carney-refuses-take-trumps-bait-confronting-us-trade-war?utm_source=rss_feed",
-      "source_name": "South China Morning Post",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-23T01:46:24Z",
-      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
-      "prelim_note": "Escalating trade tensions between the US and Canada represent a material risk to cross-border trade and economic policy.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 72,
-      "triage_reason": "Escalating trade tensions between the US and Canada represent a material risk to cross-border trade and economic policy.",
-      "region": "GLOBAL",
       "relevance": "material",
       "materiality_pre_score": 50,
       "rank_factors": {
@@ -83028,9 +83029,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 545,
-    "news_picked_today": 110,
-    "news_dropped_today": 435
+    "news_seen_today": 551,
+    "news_picked_today": 112,
+    "news_dropped_today": 439
   },
   "book_momentum": {
     "live_count": 8,
