@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-23T04:07:22Z",
+  "generated_at": "2026-08-23T04:12:24Z",
   "inbox": [
     {
       "inbox_id": "INB-20260823-107",
@@ -1446,6 +1446,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260823-110",
+      "headline": "Vingroup among Vietnam stocks to debut on FTSE’s EM Index",
+      "headline_en": null,
+      "url": "https://www.businesstimes.com.sg/companies-markets/vingroup-among-vietnam-stocks-debut-ftses-em-index",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-23T04:07:24Z",
+      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
+      "prelim_note": "Inclusion in an emerging markets index typically triggers passive fund inflows for the named company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Inclusion in an emerging markets index typically triggers passive fund inflows for the named company.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "index_rebalance",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "index_rebalance"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Vingroup",
+          "ticker": null,
+          "listing_country": "VN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260823-098",
       "headline": "Coffee chain Blank Street raises funds from General Atlantic to fuel expansion",
       "headline_en": null,
@@ -1784,55 +1833,6 @@
         "size": 2,
         "recency": 5,
         "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "product",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tesla",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260823-033",
-      "headline": "Tesla teases imminent launch of Cybercab ‘robotaxi’",
-      "headline_en": null,
-      "url": "https://www.straitstimes.com/business/tesla-teases-imminent-launch-of-cybercab-robotaxi",
-      "source_name": "The Straits Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-23T01:00:00Z",
-      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
-      "prelim_note": "Tesla is teasing a new product launch, which is a key driver for future growth expectations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "Tesla is teasing a new product launch, which is a key driver for future growth expectations.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 3,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 20,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
@@ -83059,9 +83059,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 613,
-    "news_picked_today": 134,
-    "news_dropped_today": 479
+    "news_seen_today": 620,
+    "news_picked_today": 136,
+    "news_dropped_today": 484
   },
   "book_momentum": {
     "live_count": 8,
