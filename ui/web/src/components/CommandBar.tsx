@@ -250,8 +250,8 @@ export function ScreenerAskButton() {
       className="btn cmdbar__ask"
       onClick={openAsk}
       title={selectedSignal
-        ? 'Ask normally — Auto chooses from this signal, saved news, and your earlier chats'
-        : 'Ask the saved news wire; open a signal to add its research automatically'}
+        ? 'Ask normally — Auto chooses from this signal, matching past calls, saved news, and your earlier chats'
+        : 'Ask the saved news wire; matching past calls and lessons are added automatically'}
     >
       Ask
     </button>

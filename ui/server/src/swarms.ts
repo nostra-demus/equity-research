@@ -53,6 +53,7 @@ function researchManifest(): SwarmManifest {
     decisionArtifacts: ['decision_record.json'],
     reviewCommand: 'review-decisions',
     calibrator: 'scripts/calibrate.py',
+    decisionMemory: 'equity_calls',
   }
 }
 
@@ -135,6 +136,7 @@ function parseManifest(file: string): SwarmManifest | null {
     subjectsSource: str(data.subjects_source) || undefined,
     routing: parseRouting(data.routing),
     wire: parseWire(data.wire),
+    decisionMemory: str(data.decision_memory) || undefined,
   }
 }
 

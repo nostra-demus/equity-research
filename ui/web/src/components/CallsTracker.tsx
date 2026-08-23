@@ -2,10 +2,10 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { motion } from 'framer-motion'
 import { useStore } from '../lib/store'
 import { api, isStatic } from '../lib/api'
-import { currentCalls, publishedCalls, publishedCallUpdates, publishedNeedsAttention } from '../lib/callsView'
+import { currentCalls, publishedCalls, publishedCallsScorecard, publishedCallUpdates, publishedNeedsAttention } from '../lib/callsView'
 import { callReturnValue, callTrackingSnapshot, latestCompletedReview } from '../lib/callsTracking'
 import { decisionColor } from '../lib/format'
-import type { CallSummary, CallTimelineEntry, CallsResult, CallUpdate, NeedsAttentionRow } from '../lib/types'
+import type { CallSummary, CallsScorecard, CallTimelineEntry, CallsResult, CallUpdate, NeedsAttentionRow } from '../lib/types'
 import './CallsTracker.css'
 
 // every call the engine has made + what's happened since — a card per call with a visual timeline
@@ -90,6 +90,7 @@ export function CallsTracker() {
     .filter((root): root is string => typeof root === 'string' && root.length > 0)), [current])
   const updates = useMemo(() => publishedCallUpdates(data?.updates), [data?.updates])
   const needsAttention = useMemo(() => publishedNeedsAttention(data?.needs_attention), [data?.needs_attention])
+  const scorecard = useMemo(() => publishedCallsScorecard(data?.scorecard), [data?.scorecard])
   const visibleCalls = view === 'current' ? current : calls
 
   return (
@@ -118,6 +119,7 @@ export function CallsTracker() {
           <div className="calls__empty">{loading ? 'Loading…' : "No calls yet. Run the full pipeline on a company and its verdict appears here to track over time."}</div>
         ) : (
           <>
+            {scorecard && <CallsScorecardPanel scorecard={scorecard} />}
             <div className="calls__viewbar">
               <div className="seg calls__tabs" role="tablist" aria-label="Calls view">
                 {([
@@ -165,6 +167,35 @@ export function CallsTracker() {
         )}
       </div>
     </motion.div>
+  )
+}
+
+function CallsScorecardPanel({ scorecard }: { scorecard: CallsScorecard }) {
+  return (
+    <section className="callscore" aria-label="Overall Nostra call scorecard">
+      <div className="callscore__head">
+        <div><strong>Nostra scorecard</strong><span>One latest outcome per non-provisional call. Returns use Selected and Short calls only.</span></div>
+        <span>{scorecard.assessed_calls} scored · {scorecard.mixed} mixed · {scorecard.unscored} unscored / not assessable{scorecard.excluded_provisional ? ` · ${scorecard.excluded_provisional} provisional excluded` : ''}</span>
+      </div>
+      <div className="callscore__metrics">
+        <div><span>Calls worked</span><strong className="tone--good">{scorecard.worked}</strong></div>
+        <div><span>Calls failed</span><strong className="tone--bad">{scorecard.failed}</strong></div>
+        <div><span>Average position result</span><strong>{ret(scorecard.average_return_pct)}</strong></div>
+        <div><span>Versus benchmark</span><strong>{ret(scorecard.average_vs_benchmark_pct)}</strong></div>
+      </div>
+      <div className="callscore__horizons">
+        {scorecard.horizons.map((row) => (
+          <div key={row.window}>
+            <span>{row.window.toUpperCase()}</span>
+            <strong>{ret(row.average_return_pct)}</strong>
+            <small>{row.reviewed ? `${ret(row.average_vs_benchmark_pct)} vs benchmark · ${row.worked} worked · ${row.failed} failed · ${row.reviewed} reviewed` : 'No reviews yet'}</small>
+          </div>
+        ))}
+      </div>
+      <div className={`callscore__confidence callscore__confidence--${scorecard.confidence_check.status}`}>
+        <strong>Confidence check</strong><span>{scorecard.confidence_check.detail}</span>
+      </div>
+    </section>
   )
 }
 
@@ -306,13 +337,25 @@ function CallCard({ c, historical, busy, staticMode, onUpdate, onFileDue, onOpen
           )}
           {historical && <span className="flag flag--past" title="A newer dated call for this company is shown in Current">PAST CALL</span>}
           <span className="callcard__name" title={dash(c.company)}>{dash(c.company)}</span>
-          <span className="callcard__tkr">{c.ticker}</span>
+          <span className="callcard__tkr">{c.ticker}{c.exchange ? ` · ${c.exchange}` : ''}</span>
         </div>
         <div className="callcard__when">{dash(c.decision_date)}<br />{dash(c.time_horizon)} horizon</div>
       </div>
 
       <div className="calltrack">
         <p className="calltrack__original">{tracking.originalSentence}</p>
+        <div className="calltrack__action">
+          <span>Action now</span>
+          <strong className={`tone--${tracking.actionNow.tone}`}>{tracking.actionNow.label}</strong>
+          <small>{tracking.actionNow.detail}</small>
+        </div>
+        {tracking.result && (
+          <div className="calltrack__result">
+            <span>Price result versus thesis result</span>
+            <strong className={`tone--${tracking.result.tone}`}>{tracking.result.headline}</strong>
+            <small>{tracking.result.thesis}</small>
+          </div>
+        )}
         <div className="calltrack__grid">
           <div className="calltrack__cell">
             <span className="calltrack__label">{tracking.checkpoint?.label || 'Latest check'}</span>
@@ -321,11 +364,12 @@ function CallCard({ c, historical, busy, staticMode, onUpdate, onFileDue, onOpen
               {tracking.checkpoint?.returnLabel || 'Return at check'}: {tracking.checkpoint?.returnFromCall || 'not available yet'}
             </span>
             {tracking.checkpoint?.benchmarkDelta && <small>{tracking.checkpoint.benchmarkDelta}</small>}
+            {tracking.checkpoint?.sincePrevious && <small>{tracking.checkpoint.sincePrevious}</small>}
           </div>
           <div className="calltrack__cell">
-            <span className="calltrack__label">Where we stand</span>
-            <strong className={`tone--${tracking.situation.tone}`}>{tracking.situation.headline}</strong>
-            <small>{tracking.situation.detail}</small>
+            <span className="calltrack__label">Confidence change</span>
+            <strong className={`tone--${tracking.confidence.tone}`}>{tracking.confidence.label}</strong>
+            <small>{tracking.confidence.detail}</small>
           </div>
           <div className="calltrack__cell">
             <span className="calltrack__label">Next check</span>
@@ -339,6 +383,12 @@ function CallCard({ c, historical, busy, staticMode, onUpdate, onFileDue, onOpen
           <div className="calltrack__evidence" title={tracking.evidence}>
             <span>What is going right / wrong</span>
             <p>{tracking.evidence}</p>
+          </div>
+        )}
+        {tracking.learning && (
+          <div className="calltrack__learning" title={tracking.learning}>
+            <span>Why we were right / wrong · lesson carried forward</span>
+            <p>{tracking.learning}</p>
           </div>
         )}
       </div>

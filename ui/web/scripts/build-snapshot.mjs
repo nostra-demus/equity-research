@@ -460,6 +460,13 @@ function copyPrompts() {
 // review_due.py (local date, lexical ISO compare, *_<window>_decision_review*.json glob). Walks ALL
 // run folders (not just the latest per ticker) and copies every file the tracker can open.
 function isISODateJ(s) { return typeof s === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(s) }
+function isValidCalendarISODateJ(s) {
+  if (!isISODateJ(s)) return false
+  const y = Number(s.slice(0, 4)), mo = Number(s.slice(5, 7)), da = Number(s.slice(8, 10))
+  if (mo < 1 || mo > 12) return false
+  const leap = y % 4 === 0 && (y % 100 !== 0 || y % 400 === 0)
+  return da >= 1 && da <= [31, leap ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][mo - 1]
+}
 function loadJSON(p) { try { return JSON.parse(fs.readFileSync(p, 'utf8')) } catch { return null } }
 function todayISOJ() { const d = new Date(); return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}` }
 function finiteNumberJ(v) { return typeof v === 'number' && Number.isFinite(v) ? v : null }
@@ -473,6 +480,24 @@ function reviewsForRun(runDirAbs, runRoot) {
     const conf = fr.filter((r) => String((r && r.status) || '').toLowerCase() === 'confirmed').length
     const fals = fr.filter((r) => String((r && r.status) || '').toLowerCase() === 'falsified').length
     const md = j.memo_delta && typeof j.memo_delta === 'object' ? j.memo_delta : null
+    const actionLabels = new Set(['Hold', 'Add', 'Exit', 'Stay away', 'Keep watching'])
+    const actionReason = typeof j.action_now?.reason === 'string' ? j.action_now.reason.trim() : ''
+    const action = j.action_now && typeof j.action_now === 'object' && actionLabels.has(j.action_now.label) && actionReason
+      ? { label: j.action_now.label, reason: actionReason, recorded: true }
+      : null
+    const boundedConfidence = (value) => { const n = finiteNumberJ(value); return n != null && n >= 0 && n <= 100 ? n : null }
+    const confidence = j.confidence_update && typeof j.confidence_update === 'object' ? {
+      before: boundedConfidence(j.confidence_update.before), after: boundedConfidence(j.confidence_update.after),
+      change_reason: typeof j.confidence_update.change_reason === 'string' && j.confidence_update.change_reason.trim() ? j.confidence_update.change_reason.trim() : null,
+    } : null
+    const next = j.next_check && typeof j.next_check === 'object' ? {
+      date: isValidCalendarISODateJ(j.next_check.date) ? j.next_check.date : null,
+      label: typeof j.next_check.label === 'string' && j.next_check.label.trim() ? j.next_check.label.trim() : null,
+      trigger: typeof j.next_check.trigger === 'string' && j.next_check.trigger.trim() ? j.next_check.trigger.trim() : null,
+    } : null
+    const learning = j.learning && typeof j.learning === 'object' ? Object.fromEntries(
+      ['why_right_or_wrong', 'error_source', 'rule_for_future', 'future_research_check'].map((key) => [key, typeof j.learning[key] === 'string' && j.learning[key].trim() ? j.learning[key].trim() : null]),
+    ) : null
     out.push({ file: `${runRoot}/reviews/${n}`, basename: n, review_window: j.review_window || '', review_date: j.review_date || '',
       review_price: finiteNumberJ(j.review_price), absolute_return_pct: finiteNumberJ(j.absolute_return_pct),
       benchmark_relative_return_pct: finiteNumberJ(j.benchmark_relative_return_pct),
@@ -483,11 +508,20 @@ function reviewsForRun(runDirAbs, runRoot) {
       stage_one_comment: typeof md?.stage_one_comment === 'string' && md.stage_one_comment ? md.stage_one_comment : null,
       memo_delta_summary: typeof md?.summary === 'string' && md.summary.trim() ? md.summary.trim() : null,
       thesis_delta_verdict: typeof md?.thesis_delta_verdict === 'string' && md.thesis_delta_verdict.trim()
-        ? md.thesis_delta_verdict.trim().toLowerCase() : null })
+        ? md.thesis_delta_verdict.trim().toLowerCase() : null,
+      action_now: action, confidence_update: confidence, next_check: next, learning,
+      lessons: Array.isArray(j.lessons) ? j.lessons.filter((x) => typeof x === 'string' && x.trim()).slice(0, 30) : [],
+      error_taxonomy: Array.isArray(j.error_taxonomy) ? j.error_taxonomy.filter((x) => typeof x === 'string' && x.trim()).slice(0, 30) : [],
+      watch_items: Array.isArray(md?.watch_items) ? md.watch_items.filter((x) => typeof x === 'string' && x.trim()).slice(0, 30) : [] })
   }
   return out
 }
-function winnerJ(files) { return files.length ? [...files].sort((a, b) => (a.review_date < b.review_date ? 1 : a.review_date > b.review_date ? -1 : a.basename < b.basename ? 1 : -1))[0] : null }
+function winnerJ(files) { return files.length ? [...files].sort((a, b) => {
+  if (a.review_date !== b.review_date) return a.review_date < b.review_date ? 1 : -1
+  const version = (row) => { const m = /_v(\d+)\.json$/i.exec(String(row?.basename || '')); return m ? Number(m[1]) : 1 }
+  const av = version(a), bv = version(b)
+  return av !== bv ? bv - av : String(b.basename || '').localeCompare(String(a.basename || ''))
+})[0] : null }
 function buildTimelineJ(schedule, reviews, today) {
   const out = [], keys = Object.keys(schedule || {})
   for (const w of keys) {
@@ -498,7 +532,9 @@ function buildTimelineJ(schedule, reviews, today) {
       benchmark_relative_return_pct: win.benchmark_relative_return_pct, thesis_status: win.thesis_status, decision_quality: win.decision_quality,
       forecasts_confirmed: win.forecasts_confirmed, forecasts_falsified: win.forecasts_falsified, review_file: win.file, review_count: matches.length,
       memo_delta_file: win.memo_delta_file, stage_one_comment: win.stage_one_comment,
-      memo_delta_summary: win.memo_delta_summary, thesis_delta_verdict: win.thesis_delta_verdict })
+      memo_delta_summary: win.memo_delta_summary, thesis_delta_verdict: win.thesis_delta_verdict,
+      action_now: win.action_now, confidence_update: win.confidence_update, next_check: win.next_check, learning: win.learning,
+      lessons: win.lessons, error_taxonomy: win.error_taxonomy, watch_items: win.watch_items })
     else out.push({ window: w, due_date: dt, status: dt < today ? 'overdue' : dt === today ? 'due' : 'upcoming' })
   }
   for (const r of reviews) {
@@ -507,10 +543,30 @@ function buildTimelineJ(schedule, reviews, today) {
       benchmark_relative_return_pct: r.benchmark_relative_return_pct, thesis_status: r.thesis_status, decision_quality: r.decision_quality,
       forecasts_confirmed: r.forecasts_confirmed, forecasts_falsified: r.forecasts_falsified, review_file: r.file,
       memo_delta_file: r.memo_delta_file, stage_one_comment: r.stage_one_comment,
-      memo_delta_summary: r.memo_delta_summary, thesis_delta_verdict: r.thesis_delta_verdict })
+      memo_delta_summary: r.memo_delta_summary, thesis_delta_verdict: r.thesis_delta_verdict,
+      action_now: r.action_now, confidence_update: r.confidence_update, next_check: r.next_check, learning: r.learning,
+      lessons: r.lessons, error_taxonomy: r.error_taxonomy, watch_items: r.watch_items })
   }
   out.sort((a, b) => { const da = a.due_date || '9999-99-99', db = b.due_date || '9999-99-99'; return da < db ? -1 : da > db ? 1 : 0 })
   return out
+}
+
+const PROVISIONAL_MARK_J = 'PROVISIONAL — the automated finish-gate'
+const CLEAN_INTEGRITY_VERDICTS_J = new Set(['Clean', 'Minor issues'])
+function integrityStatusJ(runDirAbs) {
+  let banner = false
+  try { banner = fs.readFileSync(path.join(runDirAbs, 'final_thesis.md'), 'utf8').slice(0, 2000).includes(PROVISIONAL_MARK_J) } catch { /* honest unaudited fallback below */ }
+  const reports = isDir(runDirAbs) ? fs.readdirSync(runDirAbs)
+    .map((name) => ({ name, match: /^verification_report(?:_v(\d+))?\.json$/.exec(name) }))
+    .filter((row) => row.match)
+    .sort((a, b) => Number(a.match[1] || 1) - Number(b.match[1] || 1)) : []
+  let verdict = null
+  if (reports.length) {
+    const report = loadJSON(path.join(runDirAbs, reports[reports.length - 1].name))
+    verdict = typeof report?.verdict === 'string' && report.verdict.trim() ? report.verdict.trim() : null
+  }
+  const status = banner ? 'provisional' : reports.length ? (verdict && CLEAN_INTEGRITY_VERDICTS_J.has(verdict) ? 'verified' : 'provisional') : 'unaudited'
+  return { status, verdict, banner }
 }
 /**
  * The watchlist, for the read-only showcase.
@@ -702,6 +758,8 @@ function buildCalls() {
     const runDirAbs = path.join(ANALYSES, name), runRoot = `analyses/${name}`
     const d = loadJSON(path.join(runDirAbs, 'decision_record.json')); if (!d) continue
     if (!(d.ticker && d.decision && d.decision_date)) continue
+    const corrections = loadJSON(path.join(runDirAbs, 'corrections.json'))
+    if (corrections?.schema === 'corrections/v1' && typeof corrections?.superseded_by?.run_root === 'string' && corrections.superseded_by.run_root) continue
     const reviews = reviewsForRun(runDirAbs, runRoot)
     const timeline = buildTimelineJ(d.review_schedule || {}, reviews, today)
     const latest = winnerJ(reviews)
@@ -711,8 +769,17 @@ function buildCalls() {
     for (const f of (Array.isArray(d.forecast_ledger) ? d.forecast_ledger : [])) { const s = String((f && f.status) || 'open').toLowerCase(); if (s in fc) fc[s]++; else fc.other++ }
     const pending = timeline.find((t) => t.status === 'overdue') || timeline.find((t) => t.status === 'due') || timeline.find((t) => t.status === 'upcoming') || null
     const finalThesisPath = (typeof d.final_thesis_path === 'string' && d.final_thesis_path) ? d.final_thesis_path : `${runRoot}/final_thesis.md`
-    calls.push({ ticker: d.ticker, company: d.company_name ?? null, decision_date: d.decision_date, decision: d.decision, basket: d.basket ?? null,
-      confidence: typeof d.confidence_score === 'number' ? d.confidence_score : null, time_horizon: d.time_horizon ?? null, entry_price: entry, currency: d.currency ?? null,
+    const disp = resolveDisplayFields(d, 'decision')
+    const integrity = integrityStatusJ(runDirAbs)
+    const frozenDecision = disp.decision
+    const frozenBasket = (typeof d.post_mortem_basket === 'string' && d.post_mortem_basket) ? d.post_mortem_basket : (d.basket ?? null)
+    const frozenConfidence = disp.confidence
+    calls.push({ ticker: d.ticker, company: d.company_name ?? null, decision_date: d.decision_date, decision: frozenDecision, basket: frozenBasket,
+      decision_is_post_mortem_capped: disp.decisionIsPostMortemCapped, confidence: frozenConfidence, confidence_is_post_review: disp.confidenceIsPostReview,
+      frozen_call: { locked: true, decision: frozenDecision, basket: frozenBasket, confidence: frozenConfidence, decision_date: d.decision_date, entry_price: entry, currency: d.currency ?? null, source_path: `${runRoot}/decision_record.json` },
+      integrity_status: integrity.status, integrity_verdict: integrity.verdict, integrity_banner: integrity.banner,
+      time_horizon: d.time_horizon ?? null, entry_price: entry, currency: d.currency ?? null,
+      exchange: typeof d.exchange === 'string' && d.exchange ? d.exchange : null,
       expected_return_pct: exp, implied_target: entry != null && exp != null ? Math.round(entry * (1 + exp / 100) * 100) / 100 : null,
       downside_risk_pct: typeof d.downside_risk_pct === 'number' ? d.downside_risk_pct : null, kill_criteria_count: Array.isArray(d.kill_criteria) ? d.kill_criteria.length : 0,
       forecasts: fc, run_root: runRoot, final_thesis_path: finalThesisPath, latest_thesis_status: latest ? latest.thesis_status : null,
@@ -737,7 +804,83 @@ function buildCalls() {
     const mds = fs.readdirSync(tdir).filter((f) => /_calls_tracker\.md$/.test(f)).sort()
     if (mds.length) { dashboard = `analyses/tracking/${mds[mds.length - 1]}`; copyInto(path.join(tdir, mds[mds.length - 1]), dashboard) }
   }
-  return { calls, dashboard }
+  const adjusted = (call, value) => {
+    if (typeof value !== 'number' || !Number.isFinite(value)) return null
+    const basket = String(call.basket || '').trim().toLowerCase()
+    if (basket === 'short') return -value
+    if (basket === 'selected') return value
+    return null
+  }
+  const quality = (row) => row?.decision_quality === 'skill' ? 'worked' : row?.decision_quality === 'genuine miss' ? 'failed' : row?.decision_quality === 'luck' ? 'mixed' : 'unscored'
+  const reviewWindowRank = (row) => ({ '30d': 30, '90d': 90, '180d': 180, '365d': 365, '24m': 730, '36m': 1095, 'ad-hoc': 100000, 'post-mortem': 200000 }[String(row?.window || '').trim().toLowerCase()] ?? 50000)
+  const reviewVersion = (row) => { const m = /_v(\d+)\.json$/i.exec(String(row?.review_file || '')); return m ? Number(m[1]) : 1 }
+  const compareNewest = (a, b) => {
+    const ad = String(a?.review_date || a?.due_date || '')
+    const bd = String(b?.review_date || b?.due_date || '')
+    if (ad < bd) return 1
+    if (ad > bd) return -1
+    const aw = reviewWindowRank(a), bw = reviewWindowRank(b)
+    if (aw !== bw) return bw - aw
+    const av = reviewVersion(a), bv = reviewVersion(b)
+    if (av !== bv) return bv - av
+    return String(b.review_file || '').localeCompare(String(a.review_file || ''))
+  }
+  const standingDone = (call) => {
+    const byCheckpoint = new Map()
+    for (const row of Array.isArray(call?.timeline) ? call.timeline : []) {
+      if (row?.status !== 'done') continue
+      const key = `${String(row.review_date || row.due_date || '').trim().toLowerCase()}|${String(row.window || '').trim().toLowerCase()}`
+      const prior = byCheckpoint.get(key)
+      if (!prior || reviewVersion(row) > reviewVersion(prior)
+        || (reviewVersion(row) === reviewVersion(prior) && String(row.review_file || '') > String(prior.review_file || ''))) byCheckpoint.set(key, row)
+    }
+    return [...byCheckpoint.values()].sort(compareNewest)
+  }
+  const latestDone = (call) => standingDone(call)[0] || null
+  const latestMetric = (call, field, window) => standingDone(call).find((row) => (!window || String(row.window || '').trim().toLowerCase() === window) && typeof row[field] === 'number' && Number.isFinite(row[field])) || null
+  const avg = (values) => { const kept = values.filter((x) => typeof x === 'number' && Number.isFinite(x)); return kept.length ? Math.round((kept.reduce((a, b) => a + b, 0) / kept.length) * 100) / 100 : null }
+  const eligibleCalls = calls.filter((call) => String(call.integrity_status || '').trim().toLowerCase() !== 'provisional')
+  const rows = eligibleCalls.map((call) => ({ call, review: latestDone(call), absoluteReview: latestMetric(call, 'absolute_return_pct'), benchmarkReview: latestMetric(call, 'benchmark_relative_return_pct') }))
+  const classes = rows.map((row) => quality(row.review))
+  const count = (kind) => classes.filter((x) => x === kind).length
+  const horizons = ['30d', '90d', '180d', '365d'].map((window) => {
+    const wr = eligibleCalls.flatMap((call) => { const review = standingDone(call).find((row) => String(row.window || '').trim().toLowerCase() === window); return review ? [{ call, review, absoluteReview: latestMetric(call, 'absolute_return_pct', window), benchmarkReview: latestMetric(call, 'benchmark_relative_return_pct', window) }] : [] })
+    const cls = wr.map((row) => quality(row.review)), n = (kind) => cls.filter((x) => x === kind).length
+    return { window, reviewed: wr.length, worked: n('worked'), failed: n('failed'), mixed: n('mixed'), unscored: n('unscored'),
+      average_return_pct: avg(wr.map(({ call, absoluteReview }) => adjusted(call, absoluteReview?.absolute_return_pct))),
+      average_vs_benchmark_pct: avg(wr.map(({ call, benchmarkReview }) => adjusted(call, benchmarkReview?.benchmark_relative_return_pct))) }
+  })
+  const scoredCandidates = rows.filter(({ call, review }) => (quality(review) === 'worked' || quality(review) === 'failed') && Number.isFinite(call.confidence))
+  const scoredByTicker = new Map()
+  for (const row of scoredCandidates) {
+    const key = String(row.call.ticker || '').trim().toUpperCase()
+    if (!key) continue
+    const prior = scoredByTicker.get(key)
+    const rowDate = String(row.call.decision_date || ''), priorDate = String(prior?.call.decision_date || '')
+    const rowRoot = String(row.call.run_root || ''), priorRoot = String(prior?.call.run_root || '')
+    if (!prior || rowDate > priorDate || (rowDate === priorDate && rowRoot > priorRoot)) scoredByTicker.set(key, row)
+  }
+  const scoredConfidence = [...scoredByTicker.values()]
+  const ranges = [{ label: 'Below 50', min: 0, max: 49.999 }, { label: '50–69', min: 50, max: 69.999 }, { label: '70–84', min: 70, max: 84.999 }, { label: '85+', min: 85, max: 100 }]
+  const bands = ranges.map((range) => {
+    const bandRows = scoredConfidence.filter(({ call }) => call.confidence >= range.min && call.confidence <= range.max)
+    const worked = bandRows.filter(({ review }) => quality(review) === 'worked').length
+    return { label: range.label, calls: bandRows.length, worked_pct: bandRows.length ? Math.round((worked / bandRows.length) * 1000) / 10 : null }
+  })
+  const usableBands = bands.filter((band) => band.calls >= 2 && band.worked_pct != null)
+  const enoughConfidenceData = scoredConfidence.length >= 8 && usableBands.length >= 2
+  const confidenceAligned = enoughConfidenceData && usableBands.every((band, index) => index === 0 || band.worked_pct + 10 >= usableBands[index - 1].worked_pct)
+  const confidenceStatus = !enoughConfidenceData ? 'too_little_data' : confidenceAligned ? 'aligned' : 'not_aligned'
+  const confidenceDetail = !enoughConfidenceData
+    ? `Too little data: ${scoredConfidence.length} independently scored ticker${scoredConfidence.length === 1 ? '' : 's'}. Conviction is not a probability; this check starts after 8 tickers across at least 2 confidence bands.`
+    : confidenceAligned
+      ? 'Higher-confidence calls have generally worked more often. This is a ranking check, not a probability claim.'
+      : 'Higher-confidence calls have not worked more often. Nostra should lower or rework its conviction rules.'
+  const scorecard = { assessed_calls: count('worked') + count('failed'), excluded_provisional: calls.length - eligibleCalls.length, worked: count('worked'), failed: count('failed'), mixed: count('mixed'), unscored: count('unscored'),
+    average_return_pct: avg(rows.map(({ call, absoluteReview }) => adjusted(call, absoluteReview?.absolute_return_pct))),
+    average_vs_benchmark_pct: avg(rows.map(({ call, benchmarkReview }) => adjusted(call, benchmarkReview?.benchmark_relative_return_pct))), horizons,
+    confidence_check: { status: confidenceStatus, scored_calls: scoredConfidence.length, bands, detail: confidenceDetail } }
+  return { calls, dashboard, scorecard }
 }
 
 // ---- main ----
@@ -770,7 +913,7 @@ const callsData = buildCalls()
 const { swarms, swarmGraphs, swarmSubjects, swarmSubjectSummaries } = buildSwarms()
 fs.rmSync(path.join(DEST, 'screener'), { recursive: true, force: true })
 const screenerStatic = buildScreenerStatic()
-const snapshot = { static: true, swarmGraph, swarms, swarmGraphs, swarmSubjects, swarmSubjectSummaries, tickers, emptyState: tickers.length === 0, dataDir: 'bundled snapshot (static deploy)', dataStatus, runs, decisions, finalThesis, calls: callsData.calls, dashboard: callsData.dashboard, watchlist: buildWatchlist(callsData.calls), ...(screenerStatic || {}), generatedAt: new Date().toISOString() }
+const snapshot = { static: true, swarmGraph, swarms, swarmGraphs, swarmSubjects, swarmSubjectSummaries, tickers, emptyState: tickers.length === 0, dataDir: 'bundled snapshot (static deploy)', dataStatus, runs, decisions, finalThesis, calls: callsData.calls, scorecard: callsData.scorecard, dashboard: callsData.dashboard, watchlist: buildWatchlist(callsData.calls), ...(screenerStatic || {}), generatedAt: new Date().toISOString() }
 fs.writeFileSync(path.join(DEST, 'snapshot.json'), JSON.stringify(snapshot))
 const swarmSummary = swarms.filter((s) => s.id !== 'research').map((s) => `${s.id} (${swarmGraphs[s.id]?.totals.modules ?? 0}m / ${(swarmSubjects[s.id] || []).length} subj)`).join(', ')
 console.log(`[build-snapshot] swarm: ${swarmGraph.totals.modules} modules / ${swarmGraph.totals.agents} agents · ${promptCount} prompts · ${callsData.calls.length} calls · tickers: ${tickers.map((t) => t.ticker).join(', ')}${swarmSummary ? ` · swarms: ${swarmSummary}` : ''}${screenerStatic ? ` · screener runs: ${Object.keys(screenerStatic.screenerRuns).length}` : ''} -> ui/web/public/data/`)
