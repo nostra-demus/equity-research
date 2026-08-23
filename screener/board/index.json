@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-23T16:16:36Z",
+  "generated_at": "2026-08-23T16:21:30Z",
   "inbox": [
     {
       "inbox_id": "INB-20260823-237",
@@ -431,6 +431,56 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260823-303",
+      "headline": "Profit Crashes 75%, But Alibaba Doubles Down On AI With $10 Billion Raise",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/business/profit-crashes-75-but-alibaba-doubles-down-on-ai-with-10-billion-raise-11948061#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-23T14:54:39Z",
+      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
+      "prelim_note": "Alibaba profit fell 75% but it raised $10 billion to fund AI, a quantified profit crash with a large capital raise.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Alibaba profit fell 75% but it raised $10 billion to fund AI, a quantified profit crash with a large capital raise.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capital_actions",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Alibaba",
+          "ticker": "BABA",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1879,55 +1929,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260823-073",
-      "headline": "Malaysia rules out US$1.9 billion takeover of passport supplier",
-      "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/international/malaysia-rules-out-us1-9-billion-takeover-passport-supplier",
-      "source_name": "The Business Times (Singapore)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-23T02:48:38Z",
-      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
-      "prelim_note": "The Malaysian government officially rejected a US$1.9 billion takeover bid for a passport supplier.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "The Malaysian government officially rejected a US$1.9 billion takeover bid for a passport supplier.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Datasonic Group",
-          "ticker": null,
-          "listing_country": "MY"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -83281,9 +83282,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4088,
-    "news_picked_today": 850,
-    "news_dropped_today": 2540
+    "news_seen_today": 4111,
+    "news_picked_today": 857,
+    "news_dropped_today": 2556
   },
   "book_momentum": {
     "live_count": 8,
