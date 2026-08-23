@@ -19,6 +19,7 @@ import { createThemesIndexReader } from './themes/api-index'
 import { scoreTradeCluster, type TradeScoreBreakdown } from './trade-score'
 import type { FeedItem } from './types'
 import { appendNewsChatFinalQuestion } from './chat-provider'
+import { decisionMemoryBlock, type CallMemoryItem } from '../call-learning'
 
 const canonicalThemeReaders = new Map<string, ReturnType<typeof createThemesIndexReader>>()
 function readCanonicalThemes(repoRoot: string) {
@@ -924,12 +925,13 @@ export function applyNewsRerank(assembled: NewsChatContext, result: RerankResult
 export function buildNewsChatPrompts(args: {
   assembled: NewsChatContext
   messages: NewsChatMessage[]
+  calls?: CallMemoryItem[]
 }): { system: string; user: string } {
   const last = args.messages[args.messages.length - 1]
   const prior = args.messages.slice(0, -1)
   const system = [
     'You are the news desk inside an institutional stock screener.',
-    'Use only the NEWS CONTEXT below. You cannot browse. Do not use facts from memory.',
+    'Use only the NEWS CONTEXT and optional DECISION MEMORY below. You cannot browse. Do not use outside facts.',
     '',
     'Rules:',
     '1. Use very simple words and short sentences. Lead with the answer.',
@@ -948,6 +950,9 @@ export function buildNewsChatPrompts(args: {
     '14. A CITED CONNECTION marked co-mentioned is a search path, not proof that one thing caused another. Say "connection" or "read-across", not "caused", unless the cited source states the mechanism.',
     '15. STRICT TRADE-CANDIDATE RANKING is a queue for Signal Check. It is not expected return. Keep every listed missing check and never call a candidate tradable until those checks are done.',
     '16. Neural search and reranking may change which saved items are read first. They never turn similarity into a fact; every answer still needs the cited source text.',
+    ...(args.calls?.length ? [
+      '17. DECISION MEMORY is the immutable original call plus append-only reviews. Begin with one short paragraph labelled "Memory check:". Repeat the original rating exactly, state what happened, name the prior mistake or success, and say which assumption this answer rechecks. If two [M] rows share a ticker, distinguish the current unreviewed call from the older reviewed lesson. Never call Watchlist, Avoid, or Stay away an entry call. Never rewrite the frozen original after seeing the outcome. Cite original fields from ORIGINAL SOURCE and outcome fields from REVIEW SOURCE, with the matching [M] marker. New event facts still require [N]/[H] news citations.',
+    ] : []),
   ].join('\n')
   const transcript = prior.length
     ? `CONVERSATION SO FAR:\n${prior.map((m) => `${m.role === 'user' ? 'User' : 'Assistant'}: ${m.content}`).join('\n\n')}\n\n`
@@ -956,6 +961,13 @@ export function buildNewsChatPrompts(args: {
     'NEWS CONTEXT',
     '============',
     args.assembled.context,
+    ...(args.calls?.length ? [
+      '',
+      '============',
+      'DECISION MEMORY',
+      '===============',
+      decisionMemoryBlock(args.calls),
+    ] : []),
     '',
     '============',
     transcript,

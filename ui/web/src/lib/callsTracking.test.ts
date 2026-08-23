@@ -7,6 +7,7 @@ const baseCall = (): CallSummary => ({
   basket: 'Watchlist', decision_is_post_mortem_capped: false, confidence: 52,
   confidence_is_post_review: false, integrity_status: 'verified', integrity_verdict: null,
   integrity_banner: false, time_horizon: '12 months', entry_price: 12.2, currency: 'AED',
+  exchange: 'DFM',
   expected_return_pct: 17.7, implied_target: 14.36, downside_risk_pct: null, kill_criteria_count: 3,
   forecasts: { open: 4, confirmed: 1, falsified: 1, expired: 0, other: 0 },
   run_root: 'analyses/EMAAR_2026-07-10',
@@ -27,10 +28,17 @@ assert.equal(humanDate('2026-07-10'), '10 Jul 2026')
 assert.equal(humanDate('2026-02-30'), 'date not recorded')
 const tracked = callTrackingSnapshot(baseCall())
 assert.equal(tracked.originalSentence,
-  'Nostra said Watchlist on 10 Jul 2026 at AED 12.2. Target: AED 14.36.')
+  'Nostra rated it Watchlist on 10 Jul 2026 at AED 12.2. Target: AED 14.36.')
 assert.deepEqual(tracked.checkpoint, {
   label: '30-day check · 9 Aug 2026', price: 'AED 11.5', returnLabel: 'Delta from call', returnFromCall: '−5.7%',
-  returnTone: 'bad', benchmarkDelta: '5.1pp behind benchmark',
+  returnTone: 'neutral', benchmarkDelta: '5.1pp behind benchmark', sincePrevious: 'First review — no previous-review delta yet',
+})
+assert.deepEqual(tracked.actionNow, {
+  label: 'Stay away', detail: 'Conservative read of the latest review; no separate action was recorded.', tone: 'bad',
+})
+assert.equal(tracked.result?.headline, 'Price fell 5.7%. The Watchlist call worked.')
+assert.deepEqual(tracked.confidence, {
+  label: '52 → not re-scored', detail: 'This review did not record a new confidence score.', tone: 'neutral',
 })
 assert.deepEqual(tracked.situation, {
   headline: 'Call working as intended', detail: 'Thesis confirmed · delta strengthened', tone: 'good',
@@ -49,7 +57,7 @@ unreviewed.latest_review_summary = null
 unreviewed.next_checkpoint = null
 const awaiting = callTrackingSnapshot(unreviewed)
 assert.equal(awaiting.originalSentence,
-  'Nostra said Watchlist on 10 Jul 2026 with no recorded entry price.')
+  'Nostra rated it Watchlist on 10 Jul 2026 with no recorded entry price.')
 assert.equal(awaiting.checkpoint, null)
 assert.equal(awaiting.situation.headline, 'Awaiting first review')
 assert.equal(awaiting.situation.detail, 'No reviews recorded yet')
@@ -72,7 +80,7 @@ shortCall.timeline[0].absolute_return_pct = -12.34
 shortCall.timeline[0].benchmark_relative_return_pct = -10.25
 assert.deepEqual(callTrackingSnapshot(shortCall).checkpoint, {
   label: '30-day check · 9 Aug 2026', price: 'AED 11.5', returnLabel: 'Delta from call', returnFromCall: '+12.3%',
-  returnTone: 'good', benchmarkDelta: '10.3pp ahead of benchmark',
+  returnTone: 'neutral', benchmarkDelta: '10.3pp ahead of benchmark', sincePrevious: 'First review — no previous-review delta yet',
 })
 
 const rejectedCall = baseCall()
@@ -82,7 +90,7 @@ rejectedCall.timeline[0].absolute_return_pct = -8.4
 rejectedCall.timeline[0].benchmark_relative_return_pct = -4.2
 assert.deepEqual(callTrackingSnapshot(rejectedCall).checkpoint, {
   label: '30-day check · 9 Aug 2026', price: 'AED 11.5', returnLabel: 'Delta from call', returnFromCall: '+8.4%',
-  returnTone: 'good', benchmarkDelta: '4.2pp ahead of benchmark',
+  returnTone: 'neutral', benchmarkDelta: '4.2pp ahead of benchmark', sincePrevious: 'First review — no previous-review delta yet',
 })
 
 const roundedZero = baseCall()
@@ -102,7 +110,7 @@ smallPrice.implied_target = 0.0065
 smallPrice.timeline[0].review_price = 0.0045
 const smallPriceTracked = callTrackingSnapshot(smallPrice)
 assert.equal(smallPriceTracked.originalSentence,
-  'Nostra said Watchlist on 10 Jul 2026 at AED 0.004. Target: AED 0.0065.')
+  'Nostra rated it Watchlist on 10 Jul 2026 at AED 0.004. Target: AED 0.0065.')
 assert.equal(smallPriceTracked.checkpoint?.price, 'AED 0.0045')
 
 const lateScheduled = baseCall()
@@ -113,6 +121,63 @@ lateScheduled.timeline = [
 const lateTracked = callTrackingSnapshot(lateScheduled)
 assert.equal(lateTracked.checkpoint?.label, '30-day check · 20 Aug 2026')
 assert.equal(lateTracked.evidence, 'Newest evidence.')
+assert.equal(lateTracked.checkpoint?.sincePrevious, '0.0% since previous review')
+
+const correctedTimeline = baseCall()
+correctedTimeline.timeline = [
+  { ...correctedTimeline.timeline[0], review_date: '2026-08-01', review_price: 10, review_file: 'reviews/2026-08-01_30d_decision_review.json' },
+  { ...correctedTimeline.timeline[0], window: 'ad-hoc', review_date: '2026-08-20', review_price: 11, review_file: 'reviews/2026-08-20_ad-hoc_decision_review_v2.json' },
+  { ...correctedTimeline.timeline[0], window: 'ad-hoc', review_date: '2026-08-20', review_price: 12, review_file: 'reviews/2026-08-20_ad-hoc_decision_review_v10.json' },
+]
+const correctedTracked = callTrackingSnapshot(correctedTimeline)
+assert.equal(correctedTracked.checkpoint?.price, 'AED 12', 'the highest numeric correction version owns the checkpoint')
+assert.equal(correctedTracked.checkpoint?.sincePrevious, '+20.0% since previous review',
+  'a correction version is not mistaken for the previous checkpoint')
+
+const fullyLearned = baseCall()
+fullyLearned.frozen_call = {
+  locked: true, decision: 'Watchlist', basket: 'Watchlist', confidence: 72, decision_date: '2026-07-10',
+  entry_price: 12.2, currency: 'AED', source_path: 'analyses/EMAAR_2026-07-10/decision_record.json',
+}
+fullyLearned.timeline[0].action_now = { label: 'Keep watching', reason: 'Wait for Q3 evidence.', recorded: true }
+fullyLearned.timeline[0].confidence_update = { before: 72, after: 54, change_reason: 'Sales missed expectations.' }
+fullyLearned.timeline[0].next_check = { date: '2026-10-08', label: 'Q3 results and pre-sales check', trigger: 'Pre-sales above 16%' }
+fullyLearned.timeline[0].learning = {
+  why_right_or_wrong: 'The caution was right because the named warning appeared.', error_source: null,
+  rule_for_future: 'Wait for the pre-sales test.', future_research_check: 'Recheck Q3 pre-sales.',
+}
+const learned = callTrackingSnapshot(fullyLearned)
+assert.match(learned.originalSentence, /^Nostra rated it Watchlist/, 'a frozen Watchlist is never rewritten as an entry call')
+assert.deepEqual(learned.actionNow, { label: 'Keep watching', detail: 'Wait for Q3 evidence.', tone: 'neutral' })
+assert.deepEqual(learned.confidence, { label: '72 → 54', detail: 'Sales missed expectations.', tone: 'bad' })
+assert.deepEqual(learned.nextCheck, { date: '8 Oct 2026', detail: 'Q3 results and pre-sales check', tone: 'neutral' })
+assert.equal(learned.learning, 'The caution was right because the named warning appeared.')
+
+const confidenceMismatch = baseCall()
+confidenceMismatch.frozen_call = { ...fullyLearned.frozen_call }
+confidenceMismatch.timeline[0].confidence_update = { before: 99, after: 54, change_reason: 'Sales missed expectations.' }
+assert.deepEqual(callTrackingSnapshot(confidenceMismatch).confidence, {
+  label: '72 → 54',
+  detail: 'Sales missed expectations. Review copied 99 as the prior score; frozen original 72 is authoritative.',
+  tone: 'bad',
+}, 'review-authored confidence cannot rewrite the frozen original')
+
+const unsupportedAdd = baseCall()
+unsupportedAdd.decision = 'Buy'
+unsupportedAdd.basket = 'Selected'
+unsupportedAdd.timeline[0].action_now = { label: 'Add', reason: '', recorded: true }
+assert.equal(callTrackingSnapshot(unsupportedAdd).actionNow.label, 'Hold', 'an Add without a reason is ignored')
+
+const undatedNextCheck = baseCall()
+undatedNextCheck.timeline[0].next_check = { date: null, label: 'Q3 results and pre-sales check', trigger: 'Pre-sales above 16%' }
+assert.deepEqual(callTrackingSnapshot(undatedNextCheck).nextCheck, {
+  date: 'Date not proven', detail: 'Q3 results and pre-sales check', tone: 'neutral',
+}, 'an explicitly undated event never borrows the scheduled 90-day checkpoint date')
+
+const marginWatch = baseCall()
+marginWatch.timeline[0].watch_items = ['Watch financing', 'Margin normalization']
+assert.equal(callTrackingSnapshot(marginWatch).nextCheck?.detail, '90-day review · Watch: Margin normalization',
+  'client and server rank a named margin check the same way')
 
 const expired = baseCall()
 expired.timeline[0].decision_quality = null

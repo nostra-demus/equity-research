@@ -96,6 +96,8 @@ export interface SwarmManifest {
   subjectsSource?: string
   routing?: SwarmRoutingContract // absent for research (it uses triage Sufficiency semantics)
   wire?: SwarmWireDecl // absent unless the swarm declares a news-wire capability (see SwarmWireDecl)
+  /** Optional server-side decision-memory shelf. A swarm opts in from its manifest; absent means none. */
+  decisionMemory?: string
 }
 
 // ---- data-status ----
