@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-23T00:51:23Z",
+  "generated_at": "2026-08-23T00:55:34Z",
   "inbox": [
     {
       "inbox_id": "INB-20260823-003",
@@ -431,6 +431,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260823-023",
+      "headline": "Trump’s economic isolation plan risks Iran strikes across Gulf",
+      "headline_en": null,
+      "url": "https://www.japantimes.co.jp/news/2026/08/23/world/trump-economic-isolation-iran-strikes-gulf/",
+      "source_name": "The Japan Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-23T00:05:00Z",
+      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
+      "prelim_note": "Geopolitical risk analysis regarding potential military escalation in the Gulf region.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Geopolitical risk analysis regarding potential military escalation in the Gulf region.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": -4,
+        "event": 1,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
+        "source_tier_id": "news",
+        "event_id": "macro_sector",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260823-007",
       "headline": "Iran war live: Tehran warns neighbours against joining US economic war",
       "headline_en": null,
@@ -836,6 +879,109 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260823-024",
+      "headline": "Cisco & Cerebras Orders Up, Stocks Down",
+      "headline_en": null,
+      "url": "https://www.fool.com/investing/2026/08/22/cisco-cerebras-orders-up-stocks-down/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-23T00:13:43Z",
+      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
+      "prelim_note": "Market commentary on stock price movement following order news.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 60,
+      "triage_reason": "Market commentary on stock price movement following order news.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 30,
+      "rank_factors": {
+        "materiality": 30,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 3,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "commercial",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Cisco",
+          "ticker": "CSCO",
+          "listing_country": "US"
+        },
+        {
+          "name": "Cerebras",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260823-022",
+      "headline": "Red Cat CEO Jeffrey Thompson Sells 150,000 Shares for $1.6 Million as the Stock Soars 24%",
+      "headline_en": null,
+      "url": "https://www.fool.com/coverage/filings/2026/08/22/red-cat-ceo-jeffrey-thompson-sells-150-000-shares-for-usd1-6-million-as-the-stock-soars-24/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-23T00:25:44Z",
+      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
+      "prelim_note": "CEO Jeffrey Thompson sold 150,000 shares of Red Cat Holdings for $1.6 million.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 57,
+      "triage_reason": "CEO Jeffrey Thompson sold 150,000 shares of Red Cat Holdings for $1.6 million.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "insider_transaction",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "insider_transaction"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Red Cat Holdings",
+          "ticker": "RCAT",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -81583,7 +81729,7 @@
     "resolved": 1
   },
   "counts": {
-    "inbox_unconsumed": 1523,
+    "inbox_unconsumed": 1526,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -81592,9 +81738,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 136,
-    "news_picked_today": 21,
-    "news_dropped_today": 115
+    "news_seen_today": 148,
+    "news_picked_today": 24,
+    "news_dropped_today": 124
   },
   "book_momentum": {
     "live_count": 8,
