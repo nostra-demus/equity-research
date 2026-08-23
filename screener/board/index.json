@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-08-23T23:02:49Z",
+  "generated_at": "2026-08-23T23:09:16Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260823-491",
+      "headline": "KBC: Lodgement of FY2025 Annual Report and ASX delisting [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.KBC?key=2924-03124717-3A699532",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-23T22:57:55Z",
+      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
+      "prelim_note": "Delisting from an exchange is a major event affecting liquidity and shareholder access.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Delisting from an exchange is a major event affecting liquidity and shareholder access.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "KBC",
+          "ticker": "KBC",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260823-482",
       "headline": "KBC: Removal from Official List",
@@ -1890,60 +1939,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260823-361",
-      "headline": "Timberwolves, Lynx sold for $4.5 billion",
-      "headline_en": null,
-      "url": "https://www.qatar-tribune.com/article/250167/business/timberwolves-lynx-sold-for-45-billion",
-      "source_name": "Qatar Tribune — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-23T21:00:00Z",
-      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
-      "prelim_note": "The sale of the Timberwolves and Lynx for $4.5 billion is a major M&A transaction in the sports sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "The sale of the Timberwolves and Lynx for $4.5 billion is a major M&A transaction in the sports sector.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Minnesota Timberwolves",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Minnesota Lynx",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -82946,9 +82941,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5450,
-    "news_picked_today": 1388,
-    "news_dropped_today": 3332
+    "news_seen_today": 5478,
+    "news_picked_today": 1406,
+    "news_dropped_today": 3342
   },
   "book_momentum": {
     "live_count": 8,
