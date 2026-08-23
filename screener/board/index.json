@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-23T03:19:58Z",
+  "generated_at": "2026-08-23T03:23:56Z",
   "inbox": [
     {
       "inbox_id": "INB-20260823-073",
@@ -1556,6 +1556,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260823-083",
+      "headline": "Australia confirms first H5N1 bird flu case in local mammal",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/healthcare-pharmaceuticals/australia-confirms-first-h5n1-bird-flu-case-local-mammal-2026-08-23/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-23T03:15:15Z",
+      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
+      "prelim_note": "First confirmed H5N1 case in an Australian mammal poses potential biosecurity and agricultural sector risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 76,
+      "triage_reason": "First confirmed H5N1 case in an Australian mammal poses potential biosecurity and agricultural sector risk.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 0,
+        "event": 1,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "sector",
+        "source_tier_id": "news",
+        "event_id": "macro_sector",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260823-080",
       "headline": "Quake Rocks Tokyo, Nearby Areas; 37 Injured",
       "headline_en": null,
@@ -1742,49 +1785,6 @@
       "launched_signal_id": null,
       "triage_score": 72,
       "triage_reason": "The headline suggests a significant geopolitical provocation regarding the Strait of Hormuz, which poses a risk to global oil supply chains.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": -4,
-        "event": 1,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "macro",
-        "source_tier_id": "news",
-        "event_id": "macro_sector",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260823-002",
-      "headline": "Iran threatens countries that join US ‘economic D-Day’",
-      "headline_en": null,
-      "url": "https://www.aljazeera.com/video/newsfeed/2026/8/22/iran-threatens-countries-that-join-us-economic-d?traffic_source=rss",
-      "source_name": "Al Jazeera — All news",
-      "input_nature": "geopolitical_event",
-      "found_at": "2026-08-22T23:56:32Z",
-      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
-      "prelim_note": "Geopolitical rhetoric regarding economic sanctions and threats can impact global market sentiment and energy prices.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 72,
-      "triage_reason": "Geopolitical rhetoric regarding economic sanctions and threats can impact global market sentiment and energy prices.",
       "region": "GLOBAL",
       "relevance": "material",
       "materiality_pre_score": 60,
@@ -83016,9 +83016,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 506,
-    "news_picked_today": 99,
-    "news_dropped_today": 407
+    "news_seen_today": 517,
+    "news_picked_today": 101,
+    "news_dropped_today": 416
   },
   "book_momentum": {
     "live_count": 8,
