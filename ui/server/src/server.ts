@@ -68,6 +68,7 @@ import { IN_FLIGHT_STATUSES, getRun, listRuns, subscribe, unsubscribe, type SseC
 import { agentNamesForModule, buildSwarmGraph, findRunRootForSubject, graphForSubject, graphForTicker, listModuleNames, swarmSubjects, swarmSubjectSummaries, terminalModuleName } from './roster'
 import { isValidCalendarISODate, listAllCalls, listRunsForTicker, readDecision, readMarkdown, readPrompt, readPublishedCallsMarkdown, readRunsMarkdown, resolveRunRoot, runManifest, todayISO } from './outputs'
 import { readIbkrPaperPortfolio } from './ibkr-paper'
+import { ibkrPaperExecution } from './ibkr-paper-execution'
 import {
   WATCHLIST_ENTRIES_DIR, WATCHLIST_MAX_ATTACHMENTS, WATCHLIST_MAX_ROWS, WATCHLIST_MAX_TAGS, WATCHLIST_MAX_TRIGGERS,
   deleteEntry, fingerprintEngineRow, isWatchId, listingKey, makeListing, mergeWatchlist, newEntryId,
@@ -4899,9 +4900,74 @@ app.get('/api/calls', async (_req, reply) => {
   }
 })
 
-// Live, read-only broker state is deliberately separate from /api/calls. Published call history remains
-// available even while TWS is closed, restarting, or waiting for its daily login.
-app.get('/api/calls/paper-portfolio', async () => readIbkrPaperPortfolio())
+// Live broker state is deliberately separate from /api/calls. Published call history remains available
+// even while TWS is closed, restarting, or waiting for its daily login.
+app.get('/api/calls/paper-portfolio', async (req) => {
+  const portfolio = await readIbkrPaperPortfolio()
+  return {
+    ...portfolio,
+    execution: {
+      ...portfolio.execution,
+      can_execute: portfolio.execution.status === 'ready' && paperOperatorAllowed(req),
+    },
+  }
+})
+
+const PaperCommandBody = z.object({
+  confirmation: z.enum(['SYNC PAPER', 'CANCEL PAPER', 'CLOSE PAPER']),
+  idempotency_key: z.string().uuid(),
+}).strict()
+const PaperOrderParams = z.object({ orderId: z.coerce.number().int().positive() }).strict()
+const PaperPositionParams = z.object({ contractId: z.coerce.number().int().positive() }).strict()
+function paperOperatorAllowed(req: FastifyRequest): boolean {
+  const actor = identify(req)
+  const operators = (process.env.ENGINE_IBKR_PAPER_OPERATORS || '')
+    .split(',').map((value) => value.trim().toLowerCase()).filter(Boolean)
+  if (actor.userVia === 'cf-access') return operators.includes(actor.user.toLowerCase())
+  return process.env.ENGINE_IBKR_PAPER_LOCAL_OPERATOR === '1'
+}
+function paperCommandError(error: any, reply: FastifyReply) {
+  const allowedStatuses = new Set([400, 403, 404, 409, 422, 423, 503])
+  const rawStatus = Number(error?.statusCode)
+  const status = allowedStatuses.has(rawStatus) ? rawStatus : 409
+  const rawCode = String(error?.code || '')
+  const code = /^PAPER_[A-Z0-9_]{1,56}$/.test(rawCode) ? rawCode : 'PAPER_COMMAND_FAILED'
+  const known = new Map<string, string>([
+    ['PAPER_EXECUTION_DISABLED', 'Paper execution is disabled.'],
+    ['PAPER_ACCOUNT_NOT_ALLOWED', 'The connected account is not allowed for paper execution.'],
+    ['PAPER_TARGET_BLOCKED', 'The current published Calls target is blocked. No order was sent.'],
+  ])
+  return reply.code(status).send({ error: known.get(code) || 'IBKR Paper could not safely complete that command.', code })
+}
+
+// No call automatically crosses this boundary. Sync is an explicit paper-only action, cancel affects
+// only an unfilled NOSTRA_PAPER order owned by this API client, and close submits the opposite side for
+// the exact position currently returned by IBKR Paper.
+app.post('/api/calls/paper-portfolio/sync', async (req, reply) => {
+  if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request blocked' })
+  if (!paperOperatorAllowed(req)) return reply.code(403).send({ error: 'not authorized for paper execution' })
+  const body = PaperCommandBody.safeParse(req.body)
+  if (!body.success || body.data.confirmation !== 'SYNC PAPER') return reply.code(400).send({ error: 'Type SYNC PAPER to confirm.' })
+  try { return await ibkrPaperExecution.sync(body.data.idempotency_key) } catch (error) { return paperCommandError(error, reply) }
+})
+
+app.post('/api/calls/paper-orders/:orderId/cancel', async (req, reply) => {
+  if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request blocked' })
+  if (!paperOperatorAllowed(req)) return reply.code(403).send({ error: 'not authorized for paper execution' })
+  const params = PaperOrderParams.safeParse(req.params)
+  const body = PaperCommandBody.safeParse(req.body)
+  if (!params.success || !body.success || body.data.confirmation !== 'CANCEL PAPER') return reply.code(400).send({ error: 'Invalid paper-order cancellation.' })
+  try { return await ibkrPaperExecution.cancel(params.data.orderId, body.data.idempotency_key) } catch (error) { return paperCommandError(error, reply) }
+})
+
+app.post('/api/calls/paper-positions/:contractId/close', async (req, reply) => {
+  if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request blocked' })
+  if (!paperOperatorAllowed(req)) return reply.code(403).send({ error: 'not authorized for paper execution' })
+  const params = PaperPositionParams.safeParse(req.params)
+  const body = PaperCommandBody.safeParse(req.body)
+  if (!params.success || !body.success || body.data.confirmation !== 'CLOSE PAPER') return reply.code(400).send({ error: 'Invalid paper-position close.' })
+  try { return await ibkrPaperExecution.close(params.data.contractId, body.data.idempotency_key) } catch (error) { return paperCommandError(error, reply) }
+})
 
 // Narrow click-through for artifacts advertised by /api/calls. Reading through the same published Git
 // authority prevents a dirty doer checkout from showing different bytes from the row the user clicked.

@@ -26,6 +26,19 @@
 .paperport__eyebrow { color: var(--accent-bright); font-size: 8.5px; font-weight: 750; letter-spacing: 0.55px; text-transform: uppercase; }
 .paperport__head strong { font-size: 13px; }
 .paperport__head small { color: var(--text-faint); font-size: 10.5px; line-height: 1.4; }
+.paperport__model { border-bottom: 1px solid var(--hairline); background: var(--surface-1); }
+.paperport__modelhead { display: grid; grid-template-columns: repeat(3, 1fr); }
+.paperport__modelhead > div { min-width: 0; display: flex; flex-direction: column; gap: 3px; padding: 10px 13px; border-left: 1px solid var(--hairline); }
+.paperport__modelhead > div:first-child { border-left: none; }
+.paperport__modelhead span { color: var(--text-faint); font-size: 9px; font-weight: 700; letter-spacing: 0.35px; text-transform: uppercase; }
+.paperport__modelhead strong { font-size: 13px; font-variant-numeric: tabular-nums; }
+.paperport__modelhead small { color: var(--text-faint); font-size: 9.5px; line-height: 1.35; }
+.paperport__model .tone--good { color: var(--accent-bright); }
+.paperport__model .tone--bad { color: var(--bad); }
+.paperport__row { display: grid; grid-template-columns: 1.2fr 1fr 1.35fr 1fr; gap: 8px; padding: 8px 13px; border-top: 1px solid var(--hairline); color: var(--text-muted); font-size: 9.5px; line-height: 1.35; }
+.paperport__row b { color: var(--text); font-family: var(--font-mono); }
+.paperport__row--blocked { grid-template-columns: 1fr 0.7fr 2.6fr; color: var(--bad); background: color-mix(in srgb, var(--bad) 5%, transparent); }
+.paperport__wide { min-width: 0; }
 .paperport__status { flex-shrink: 0; display: flex; align-items: center; gap: 6px; padding: 3px 8px; border: 1px solid var(--hairline-strong); border-radius: var(--r-pill); color: var(--text-muted); font-size: 9.5px; font-weight: 700; }
 .paperport__status i { width: 6px; height: 6px; border-radius: 50%; background: var(--text-faint); }
 .paperport--connected .paperport__status { color: var(--accent-bright); border-color: color-mix(in srgb, var(--accent-bright) 42%, var(--hairline)); }
@@ -44,9 +57,15 @@
 .paperport__truth small { color: var(--text-faint); font-size: 10px; line-height: 1.4; }
 .paperport__positions { display: flex; flex-wrap: wrap; gap: 6px 12px; padding: 9px 13px; border-top: 1px solid var(--hairline); color: var(--text-muted); font-size: 10.5px; }
 .paperport__positions b { color: var(--text); font-family: var(--font-mono); }
+.paperport__brokerrows { border-top: 1px solid var(--hairline); }
+.paperport__brokerrow { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 8px 13px; border-top: 1px solid var(--hairline); color: var(--text-muted); font-size: 10.5px; }
+.paperport__brokerrow:first-child { border-top: none; }
+.paperport__brokerrow b { color: var(--text); font-family: var(--font-mono); }
 .paperport__lock { display: flex; align-items: baseline; gap: 9px; padding: 9px 13px; border-top: 1px solid var(--hairline); background: var(--surface-1); }
 .paperport__lock span { flex-shrink: 0; color: var(--text-faint); font-size: 9px; font-weight: 750; letter-spacing: 0.4px; text-transform: uppercase; }
 .paperport__lock small { color: var(--text-faint); font-size: 10px; line-height: 1.4; }
+.paperport__lock--ready span { color: var(--accent-bright); }
+.paperport__lock button { flex-shrink: 0; margin-left: auto; }
 
 /* Aggregate accuracy stays compact and explicitly separates assessed, mixed, and too-early calls. */
 .callscore { flex-shrink: 0; border: 1px solid var(--hairline-strong); border-radius: var(--r-lg); background: var(--surface-2); overflow: hidden; }
@@ -192,6 +211,12 @@
   .paperport__truth { grid-template-columns: 1fr; }
   .paperport__truth > div { border-left: none; border-top: 1px solid var(--hairline); }
   .paperport__truth > div:first-child { border-top: none; }
+  .paperport__modelhead { grid-template-columns: 1fr; }
+  .paperport__modelhead > div { border-left: none; border-top: 1px solid var(--hairline); }
+  .paperport__modelhead > div:first-child { border-top: none; }
+  .paperport__row, .paperport__row--blocked { grid-template-columns: 1fr; }
+  .paperport__brokerrow, .paperport__lock { align-items: flex-start; flex-direction: column; }
+  .paperport__lock button { margin-left: 0; }
   .callscore__metrics > div:nth-child(3), .callscore__horizons > div:nth-child(3) { border-left: none; border-top: 1px solid var(--hairline); }
   .callscore__metrics > div:nth-child(4), .callscore__horizons > div:nth-child(4) { border-top: 1px solid var(--hairline); }
   .callscore__head, .callscore__confidence { align-items: flex-start; flex-direction: column; }

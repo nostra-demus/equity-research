@@ -31,13 +31,22 @@ const olderDecision = {
 }
 const newerDecision = {
   ticker: 'ACME', company_name: 'Acme Corp', decision_date: '2026-08-10', decision: 'Buy',
-  confidence_score: 72, expected_return_pct: 18, review_schedule: {},
+  confidence_score: 72, post_review_confidence_score: 76, expected_return_pct: 18, review_schedule: {},
 }
 write(`${olderRoot}/decision_record.json`, JSON.stringify(olderDecision, null, 2) + '\n')
 write(`${olderRoot}/final_thesis.md`, '# ACME — original published thesis\n')
 write(`${olderRoot}/verification_report_v2.json`, '{"verdict":"Clean","integrity_score":1e400}\n')
 write(`${newerRoot}/decision_record.json`, JSON.stringify(newerDecision, null, 2) + '\n')
 write(`${newerRoot}/final_thesis.md`, '# ACME — newer published thesis\n')
+const supersededRoot = 'analyses/DUP_2026-08-05'
+write(`${supersededRoot}/decision_record.json`, JSON.stringify({
+  ticker: 'DUP', decision_date: '2026-08-05', decision: 'Buy', basket: 'Selected',
+  confidence_score: 82, entry_price: 100, currency: 'USD', review_schedule: {},
+}, null, 2) + '\n')
+write(`${supersededRoot}/final_thesis.md`, '# DUP — corrected-away call retained for audit\n')
+write(`${supersededRoot}/corrections.json`, JSON.stringify({
+  schema: 'corrections/v1', superseded_by: { run_root: newerRoot, reason: 'Test correction', date: '2026-08-11' }, errata: [],
+}, null, 2) + '\n')
 
 const reviewName = '2026-08-13_30d_decision_review.json'
 const memoName = '2026-08-13_30d_memo_delta.md'
@@ -109,6 +118,12 @@ assert.deepEqual(dirty.calls.map((call: any) => call.run_root), [newerRoot, olde
   'only complete calls in published Git are enumerated; unrelated unsafe names are skipped')
 assert.equal(dirty.calls.find((call: any) => call.run_root === olderRoot)?.decision, 'Watchlist',
   'the decision comes from published Git, not dirty disk')
+assert.equal(dirty.calls.find((call: any) => call.run_root === newerRoot)?.frozen_call.confidence, 76,
+  'the decision-time pre-mortem confidence haircut is frozen ahead of the mutable display confidence')
+assert.ok(!dirty.calls.some((call: any) => call.run_root === supersededRoot),
+  'a corrected-away call is not part of the standing Calls set')
+assert.equal(dirty.history_calls.find((call: any) => call.run_root === supersededRoot)?.superseded, true,
+  'a corrected-away call remains in append-only history so the replay cannot erase what Nostra said')
 assert.deepEqual(dirty.calls.find((call: any) => call.run_root === olderRoot)?.frozen_call, {
   locked: true, decision: 'Watchlist', basket: null, confidence: 58, decision_date: '2026-08-01',
   entry_price: null, currency: null, source_path: `${olderRoot}/decision_record.json`,
