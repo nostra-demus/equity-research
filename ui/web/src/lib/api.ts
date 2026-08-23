@@ -7,7 +7,7 @@ import type { AutotuneState, RankWeightChanges, WeightChange } from './types'
 import type { BridgeStatus } from './types'
 import { parseMemoryRead, unavailableMemoryRead } from './memoryView'
 import { normalizeProvidersRead, normalizeProviderStatus, providerCatalogForError, providerCatalogUnknown, providerLaunchFields, type FrozenProviderLaunch, type ProviderExecutionProfile, type ProvidersRead, type RunProvider } from './provider'
-import type { ActivityQuery, ActivityResult, AddPipelineSourceInput, BuildStep, CallsResult, ChatComputed, ChatConversationDetail, ChatListQuery, ChatListResult, ChatRequest, ChatScopes, CockpitFeedbackCategory, CockpitFeedbackStatus, CockpitFeedbackView, CompletedChatTurn, CoverageGroup, DataNeedsRead, DataNeedUploadRead, DataStatus, DiscoveredFeed, EventEnrichment, EventResearchLink, FeedbackRecord, FeedbackSubmitInput, FeedbackSummary, FeedbackType, FeedItem, IntakePlan, IntensityStats, IntensityWindow, LaunchableRunKind, LaunchPreflight, MemoryRead, NewsChatEvidence, NewsChatReceipt, NewsChatRequest, NewsCycle, NewsDiagnostics, NewsStatus, PipelineAuditEvent, PipelineTrend, PipelineView, QuoteRead, ResumableRunInfo, RunHistoryEntry, RunKind, ScanVerdict, ScreenerBoard, SignalIntakeInput, SignalState, SourcesReport, SwarmGraph, SwarmMeta, SwarmSubjectSummary, ThesisPlan, TickerSummary, UploadResult, Usage, WhatChangedRead, Whoami } from './types'
+import type { ActivityQuery, ActivityResult, AddPipelineSourceInput, BuildStep, CallsResult, ChatComputed, ChatConversationDetail, ChatListQuery, ChatListResult, ChatRequest, ChatScopes, CockpitFeedbackCategory, CockpitFeedbackStatus, CockpitFeedbackView, CompletedChatTurn, CoverageGroup, DataNeedsRead, DataNeedUploadRead, DataStatus, DiscoveredFeed, EventEnrichment, EventResearchLink, FeedbackRecord, FeedbackSubmitInput, FeedbackSummary, FeedbackType, FeedItem, IbkrPaperPortfolioRead, IntakePlan, IntensityStats, IntensityWindow, LaunchableRunKind, LaunchPreflight, MemoryRead, NewsChatEvidence, NewsChatReceipt, NewsChatRequest, NewsCycle, NewsDiagnostics, NewsStatus, PipelineAuditEvent, PipelineTrend, PipelineView, QuoteRead, ResumableRunInfo, RunHistoryEntry, RunKind, ScanVerdict, ScreenerBoard, SignalIntakeInput, SignalState, SourcesReport, SwarmGraph, SwarmMeta, SwarmSubjectSummary, ThesisPlan, TickerSummary, UploadResult, Usage, WhatChangedRead, Whoami } from './types'
 
 // Vite supplies `import.meta.env` in the app; standalone tsx regression tests do not.
 const BASE = import.meta.env?.BASE_URL || '/'
@@ -1094,6 +1094,17 @@ export const api = {
       needs_attention: snap.needsAttention || [], updates: snap.callUpdates || [],
     }
     return get(`/api/calls`)
+  },
+  paperPortfolio: async (): Promise<IbkrPaperPortfolioRead> => {
+    if ((await ensureMode()) === 'static') return {
+      schema_version: 'ibkr-paper-portfolio/v1', broker: 'IBKR', mode: 'paper', status: 'disabled', read_only: true,
+      as_of: new Date(0).toISOString(), connection: { host: 'localhost', port: 7497, detail: 'IBKR Paper is available only in the live cockpit.' },
+      account: null,
+      target: { valid: false, source_path: null, generated_at: null, gross_pct: null, cash_pct: null, positions: [], detail: 'The static showcase cannot read the local paper account.' },
+      reconciliation: { status: 'unavailable', differences: [], detail: 'Open the live cockpit to compare IBKR Paper with Nostra’s sized book.' },
+      execution: { status: 'locked', detail: 'Order submission is not installed. This release is read-only.' },
+    }
+    return get('/api/calls/paper-portfolio')
   },
   history: async (ticker: string): Promise<{ history: RunHistoryEntry[] }> => {
     if ((await ensureMode()) === 'static') return { history: [] }

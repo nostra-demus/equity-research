@@ -67,6 +67,7 @@ import { runReadiness } from './readiness'
 import { IN_FLIGHT_STATUSES, getRun, listRuns, subscribe, unsubscribe, type SseClient } from './registry'
 import { agentNamesForModule, buildSwarmGraph, findRunRootForSubject, graphForSubject, graphForTicker, listModuleNames, swarmSubjects, swarmSubjectSummaries, terminalModuleName } from './roster'
 import { isValidCalendarISODate, listAllCalls, listRunsForTicker, readDecision, readMarkdown, readPrompt, readPublishedCallsMarkdown, readRunsMarkdown, resolveRunRoot, runManifest, todayISO } from './outputs'
+import { readIbkrPaperPortfolio } from './ibkr-paper'
 import {
   WATCHLIST_ENTRIES_DIR, WATCHLIST_MAX_ATTACHMENTS, WATCHLIST_MAX_ROWS, WATCHLIST_MAX_TAGS, WATCHLIST_MAX_TRIGGERS,
   deleteEntry, fingerprintEngineRow, isWatchId, listingKey, makeListing, mergeWatchlist, newEntryId,
@@ -4800,6 +4801,10 @@ app.get('/api/calls', async (_req, reply) => {
     throw e
   }
 })
+
+// Live, read-only broker state is deliberately separate from /api/calls. Published call history remains
+// available even while TWS is closed, restarting, or waiting for its daily login.
+app.get('/api/calls/paper-portfolio', async () => readIbkrPaperPortfolio())
 
 // Narrow click-through for artifacts advertised by /api/calls. Reading through the same published Git
 // authority prevents a dirty doer checkout from showing different bytes from the row the user clicked.

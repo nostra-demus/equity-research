@@ -34,6 +34,23 @@ npm --prefix ui/server run dev     # control plane on :8787
 npm --prefix ui/web    run dev     # UI on :5173
 ```
 
+## IBKR Paper portfolio
+
+The live **Calls** drawer can read one local IBKR Paper account and compare its holdings with the
+newest whole-book file in `analyses/portfolio/*_sizing.json`.
+
+1. Sign in to **Paper Trading** in Trader Workstation (TWS).
+2. Open **Global Configuration → API → Settings**.
+3. Enable **ActiveX and Socket Clients**, leave **Read-Only API** unchecked, and use paper port
+   **7497**.
+4. Keep TWS open, then open **Calls** in the cockpit. The paper portfolio refreshes every 15 seconds.
+
+This first release is deliberately read-only: it contains no order-submission function or route and
+always displays **Execution locked**. The connector is fixed to localhost and paper port 7497, exposes
+no account identifier to the browser, and refuses an ambiguous multi-account response. A TWS outage
+only makes this optional panel unavailable; it cannot take down the Calls history. Set
+`ENGINE_IBKR_PAPER_DISABLED=1` to disable the local read entirely.
+
 ## How launch works (and what it costs)
 
 Clicking launches the **real** engine via the Claude Code CLI in headless mode, with the repo as the

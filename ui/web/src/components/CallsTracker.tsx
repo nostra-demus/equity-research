@@ -4,8 +4,9 @@ import { useStore } from '../lib/store'
 import { api, isStatic } from '../lib/api'
 import { currentCalls, publishedCalls, publishedCallsScorecard, publishedCallUpdates, publishedNeedsAttention } from '../lib/callsView'
 import { callReturnValue, callTrackingSnapshot, latestCompletedReview } from '../lib/callsTracking'
+import { publishedPaperPortfolio } from '../lib/paperPortfolioView'
 import { decisionColor } from '../lib/format'
-import type { CallSummary, CallsScorecard, CallTimelineEntry, CallsResult, CallUpdate, NeedsAttentionRow } from '../lib/types'
+import type { CallSummary, CallsScorecard, CallTimelineEntry, CallsResult, CallUpdate, IbkrPaperPortfolioRead, NeedsAttentionRow } from '../lib/types'
 import './CallsTracker.css'
 
 // every call the engine has made + what's happened since — a card per call with a visual timeline
@@ -42,6 +43,8 @@ export function CallsTracker() {
   const anyRunForTicker = useStore((s) => s.anyRunForTicker)
   const launchPending = useStore((s) => s.launchPending)
   const [data, setData] = useState<CallsResult | null>(null)
+  const [paperData, setPaperData] = useState<IbkrPaperPortfolioRead | null>(null)
+  const [paperLoading, setPaperLoading] = useState(true)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [view, setView] = useState<CallsView>('current')
@@ -75,6 +78,21 @@ export function CallsTracker() {
     const id = setInterval(load, 15_000) // settle in newly-filed reviews / dashboards
     return () => clearInterval(id)
   }, [load])
+  const loadPaper = useCallback(async () => {
+    try {
+      const read = publishedPaperPortfolio(await api.paperPortfolio())
+      if (mounted.current) setPaperData(read)
+    } catch {
+      if (mounted.current) setPaperData(null)
+    } finally {
+      if (mounted.current) setPaperLoading(false)
+    }
+  }, [])
+  useEffect(() => {
+    loadPaper()
+    const id = setInterval(loadPaper, 15_000)
+    return () => clearInterval(id)
+  }, [loadPaper])
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => e.key === 'Escape' && close()
     window.addEventListener('keydown', onKey)
@@ -103,7 +121,7 @@ export function CallsTracker() {
         <div className="calls__tools">
           {!staticMode && <button className="btn btn--ghost btn--mini" onClick={() => refreshDashboard()} title="Rebuild the downloadable dashboard (/research:track)">Rebuild</button>}
           <button className="btn btn--ghost btn--mini" onClick={() => data?.dashboard ? openCallFile(data.dashboard, 'Calls dashboard') : setToast({ msg: 'No dashboard yet — Rebuild to generate one', tone: 'info' })} title="Open the latest markdown dashboard">Dashboard ↧</button>
-          <button className="btn btn--ghost btn--mini" onClick={() => load(true)} disabled={loading} title="Read the latest published Calls history">{loading ? 'Loading…' : 'Refresh ↻'}</button>
+          <button className="btn btn--ghost btn--mini" onClick={() => { load(true); loadPaper() }} disabled={loading} title="Read the latest Calls history and IBKR Paper portfolio">{loading ? 'Loading…' : 'Refresh ↻'}</button>
           <button className="btn btn--ghost" style={{ height: 30 }} onClick={close} aria-label="Close">✕</button>
         </div>
       </div>
@@ -115,6 +133,7 @@ export function CallsTracker() {
             <button className="btn btn--ghost btn--mini" onClick={() => load(true)}>Try again</button>
           </div>
         )}
+        <PaperPortfolioPanel portfolio={paperData} loading={paperLoading} staticMode={staticMode} />
         {calls.length === 0 ? (
           <div className="calls__empty">{loading ? 'Loading…' : "No calls yet. Run the full pipeline on a company and its verdict appears here to track over time."}</div>
         ) : (
@@ -167,6 +186,69 @@ export function CallsTracker() {
         )}
       </div>
     </motion.div>
+  )
+}
+
+function portfolioMoney(currency: string | null | undefined, value: number | null | undefined): string {
+  if (typeof value !== 'number' || !Number.isFinite(value)) return '—'
+  try {
+    return new Intl.NumberFormat(undefined, {
+      style: currency ? 'currency' : 'decimal', currency: currency || undefined,
+      maximumFractionDigits: Math.abs(value) >= 1_000 ? 0 : 2,
+    }).format(value)
+  } catch {
+    return `${currency || ''} ${value.toLocaleString()}`.trim()
+  }
+}
+
+function PaperPortfolioPanel({ portfolio, loading, staticMode }: { portfolio: IbkrPaperPortfolioRead | null; loading: boolean; staticMode: boolean }) {
+  const account = portfolio?.account
+  const targetPositions = portfolio?.target.positions ?? []
+  const actualPositions = account?.positions ?? []
+  const status = portfolio?.status ?? (loading ? 'loading' : 'unavailable')
+  const statusLabel = status === 'connected' ? 'Connected' : status === 'loading' ? 'Connecting…' : status === 'disabled' && staticMode ? 'Live only' : 'Disconnected'
+  const targetLabel = portfolio?.target.valid
+    ? targetPositions.length
+      ? `${targetPositions.length} sized target${targetPositions.length === 1 ? '' : 's'}`
+      : '100% cash · no trade'
+    : 'Target blocked'
+
+  return (
+    <section className={`paperport paperport--${status}`} aria-label="IBKR simulated paper portfolio">
+      <div className="paperport__head">
+        <div>
+          <span className="paperport__eyebrow">Simulated · read-only</span>
+          <strong>IBKR Paper portfolio</strong>
+          <small>{portfolio?.connection.detail || (loading ? 'Reading the local TWS paper account…' : 'IBKR Paper is temporarily unavailable.')}</small>
+        </div>
+        <span className="paperport__status"><i />{statusLabel}</span>
+      </div>
+      <div className="paperport__metrics">
+        <div><span>Portfolio value</span><strong>{portfolioMoney(account?.currency, account?.net_liquidation)}</strong></div>
+        <div><span>Cash</span><strong>{portfolioMoney(account?.currency, account?.total_cash)}</strong></div>
+        <div><span>Invested</span><strong>{portfolioMoney(account?.currency, account?.gross_position_value)}</strong></div>
+        <div><span>Unrealized P&amp;L</span><strong>{portfolioMoney(account?.currency, account?.unrealized_pnl)}</strong></div>
+      </div>
+      <div className="paperport__truth">
+        <div>
+          <span>Nostra target</span>
+          <strong>{targetLabel}</strong>
+          <small>{portfolio?.target.detail || 'Waiting for the latest whole-book sizing file.'}{portfolio?.target.generated_at ? ` · ${portfolio.target.generated_at}` : ''}</small>
+        </div>
+        <div>
+          <span>IBKR Paper now</span>
+          <strong>{actualPositions.length ? `${actualPositions.length} holding${actualPositions.length === 1 ? '' : 's'}` : account ? '100% cash · no holdings' : 'Not available'}</strong>
+          <small>{portfolio?.reconciliation.detail || 'Open TWS in Paper mode on port 7497 to compare.'}</small>
+        </div>
+      </div>
+      {(targetPositions.length > 0 || actualPositions.length > 0) && (
+        <div className="paperport__positions">
+          {targetPositions.map((row) => <span key={`target-${row.ticker}`}><b>{row.ticker}</b> target {ret(row.model_weight_pct)}</span>)}
+          {actualPositions.map((row) => <span key={`actual-${row.symbol}-${row.local_symbol || ''}-${row.exchange || ''}`}><b>{row.symbol}</b> actual {ret(row.portfolio_weight_pct)}</span>)}
+        </div>
+      )}
+      <div className="paperport__lock"><span>Execution locked</span><small>{portfolio?.execution.detail || 'No order can be sent from this release.'}</small></div>
+    </section>
   )
 }
 

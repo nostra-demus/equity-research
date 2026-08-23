@@ -18,7 +18,16 @@ try {
   const url = new URL(requested, 'https://fixture.test')
   assert.equal(url.pathname, '/api/calls/artifact')
   assert.equal(url.searchParams.get('path'), path)
+
+  globalThis.fetch = (async (input) => {
+    requested = String(input)
+    return new Response(JSON.stringify({ schema_version: 'ibkr-paper-portfolio/v1' }), {
+      status: 200, headers: { 'content-type': 'application/json' },
+    })
+  }) as typeof fetch
+  await api.paperPortfolio()
+  assert.equal(new URL(requested, 'https://fixture.test').pathname, '/api/calls/paper-portfolio')
 } finally {
   globalThis.fetch = originalFetch
 }
-console.log('ok  Calls artifacts use the published Git endpoint')
+console.log('ok  Calls artifacts and IBKR Paper use separate published/live endpoints')

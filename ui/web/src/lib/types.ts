@@ -2512,6 +2512,68 @@ export interface CallsResult {
   authority_commit?: string
 }
 
+export interface PaperPortfolioPosition {
+  symbol: string
+  local_symbol: string | null
+  security_type: string | null
+  currency: string | null
+  exchange: string | null
+  quantity: number
+  average_cost: number | null
+  market_price: number | null
+  market_value: number | null
+  unrealized_pnl: number | null
+  realized_pnl: number | null
+  portfolio_weight_pct: number | null
+}
+export interface PaperPortfolioTargetPosition {
+  ticker: string
+  decision: string | null
+  model_weight_pct: number
+}
+export interface PaperPortfolioDifference {
+  kind: 'missing_position' | 'unexpected_position' | 'weight_mismatch'
+  ticker: string
+  target_weight_pct: number | null
+  actual_weight_pct: number | null
+  detail: string
+}
+export interface IbkrPaperPortfolioRead {
+  schema_version: 'ibkr-paper-portfolio/v1'
+  broker: 'IBKR'
+  mode: 'paper'
+  status: 'connected' | 'disconnected' | 'disabled' | 'error'
+  read_only: true
+  as_of: string
+  connection: { host: 'localhost'; port: 7497; detail: string }
+  account: {
+    currency: string | null
+    net_liquidation: number | null
+    total_cash: number | null
+    gross_position_value: number | null
+    available_funds: number | null
+    buying_power: number | null
+    unrealized_pnl: number | null
+    realized_pnl: number | null
+    positions: PaperPortfolioPosition[]
+  } | null
+  target: {
+    valid: boolean
+    source_path: string | null
+    generated_at: string | null
+    gross_pct: number | null
+    cash_pct: number | null
+    positions: PaperPortfolioTargetPosition[]
+    detail: string
+  }
+  reconciliation: {
+    status: 'aligned' | 'differences' | 'unavailable' | 'blocked'
+    differences: PaperPortfolioDifference[]
+    detail: string
+  }
+  execution: { status: 'locked'; detail: string }
+}
+
 // ---- activity / audit log ----
 export type RunKind = 'full' | 'module' | 'agent' | 'rerun' | 'review' | 'track' | 'doc-intake' | 'signal' | 'sweep' | 'screener-agent' | 'handoff' | 'conviction' | 'parity'
 /** Server-internal adjudication kinds are visible in Activity/SSE but have no user launch surface. */
