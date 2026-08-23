@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-23T01:40:47Z",
+  "generated_at": "2026-08-23T01:45:55Z",
   "inbox": [
     {
       "inbox_id": "INB-20260823-053",
@@ -1423,6 +1423,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260823-056",
+      "headline": "Transition at the Tatas",
+      "headline_en": null,
+      "url": "https://www.deccanherald.com/opinion/transition-at-the-tatas-4120940",
+      "source_name": "Deccan Herald",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-23T01:35:42Z",
+      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
+      "prelim_note": "Discusses leadership transition at Tata Group, but lacks specific details on material impact.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 62,
+      "triage_reason": "Discusses leadership transition at Tata Group, but lacks specific details on material impact.",
+      "region": "IN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 30,
+      "rank_factors": {
+        "materiality": 30,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Group",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260823-034",
       "headline": "How Opatra’s ‘coercive’ tactics in Hong Kong echo global ‘Dead Sea sales scams’",
       "headline_en": null,
@@ -1814,49 +1863,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260823-046",
-      "headline": "India seeks to pool chipmakers’ demand for better foundry terms: Meity secretary S. Krishnan",
-      "headline_en": null,
-      "url": "https://www.livemint.com/industry/india-chipmakers-pool-demand-global-foundries-meity-11787072624535.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-23T01:16:00Z",
-      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
-      "prelim_note": "India is attempting to aggregate demand to improve bargaining power for semiconductor foundry investment, which could impact sector-wide supply chain costs.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 56,
-      "triage_reason": "India is attempting to aggregate demand to improve bargaining power for semiconductor foundry investment, which could impact sector-wide supply chain costs.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 0,
-        "event": 1,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "sector",
-        "source_tier_id": "news",
-        "event_id": "macro_sector",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -82628,9 +82634,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 313,
-    "news_picked_today": 57,
-    "news_dropped_today": 256
+    "news_seen_today": 322,
+    "news_picked_today": 59,
+    "news_dropped_today": 263
   },
   "book_momentum": {
     "live_count": 8,
