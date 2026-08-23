@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-08-23T23:25:44Z",
+  "generated_at": "2026-08-23T23:30:59Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260823-525",
+      "headline": "CCG: Comms Group Delivers Record Revenue and Profit in FY26 [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.CCG?key=2924-03124792-3A699563",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-23T23:21:45Z",
+      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
+      "prelim_note": "The company reported record revenue and profit for FY26.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company reported record revenue and profit for FY26.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Comms Group",
+          "ticker": "CCG",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260823-498",
       "headline": "TD1: TALi Acquires Datasphere and Launches $3.3m Raise [price-sensitive]",
@@ -1887,56 +1936,6 @@
           "name": "Shein",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260823-486",
-      "headline": "53,000 Fukushima nuclear plant workers receive high radiation doses",
-      "headline_en": null,
-      "url": "https://www.japantimes.co.jp/news/2026/08/24/japan/tepco-fukushima-radiation-exposure/",
-      "source_name": "The Japan Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-23T22:45:00Z",
-      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
-      "prelim_note": "Reports of 53,000 workers receiving high radiation doses at a nuclear plant represent a major operational and regulatory risk for TEPCO.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Reports of 53,000 workers receiving high radiation doses at a nuclear plant represent a major operational and regulatory risk for TEPCO.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "litigation_enforcement",
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tokyo Electric Power Company",
-          "ticker": null,
-          "listing_country": "JP"
         }
       ],
       "size_bucket": "large",
@@ -83014,9 +83013,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5593,
-    "news_picked_today": 1473,
-    "news_dropped_today": 3390
+    "news_seen_today": 5632,
+    "news_picked_today": 1496,
+    "news_dropped_today": 3406
   },
   "book_momentum": {
     "live_count": 8,
