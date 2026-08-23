@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-23T09:04:21Z",
+  "generated_at": "2026-08-23T09:09:31Z",
   "inbox": [
     {
       "inbox_id": "INB-20260823-199",
@@ -1643,6 +1643,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260823-202",
+      "headline": "UK energy companies on alert after ‘Iran-linked hackers’ shut down power plant",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/bae67bb7-ebf8-44fc-8d55-bbfaada47eb7?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-23T08:49:36Z",
+      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
+      "prelim_note": "Report of a cyberattack on critical infrastructure (power plant) poses significant operational and security risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Report of a cyberattack on critical infrastructure (power plant) poses significant operational and security risk.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 0,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "sector",
+        "source_tier_id": "news",
+        "event_id": "cybersecurity",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "cybersecurity"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260823-165",
       "headline": "Iran condemns looming US sanctions as Hormuz standoff deepens",
       "headline_en": null,
@@ -1814,50 +1857,6 @@
         "macro_sector"
       ],
       "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260823-121",
-      "headline": "Australia Reports First Bird Flu Case in a Mammal as Seal Dies",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-08-23/australia-reports-first-bird-flu-case-in-a-mammal-as-seal-dies",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-23T04:21:40Z",
-      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
-      "prelim_note": "The first reported case of bird flu in a mammal in Australia could signal a potential spread of the disease, impacting the agricultural and potentially the broader economy.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "The first reported case of bird flu in a mammal in Australia could signal a potential spread of the disease, impacting the agricultural and potentially the broader economy.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 0,
-        "event": 2,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "sector",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector",
-        "operations"
-      ],
-      "issuer_linkage": "sector",
       "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
@@ -83070,9 +83069,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1351,
-    "news_picked_today": 408,
-    "news_dropped_today": 943
+    "news_seen_today": 1369,
+    "news_picked_today": 413,
+    "news_dropped_today": 956
   },
   "book_momentum": {
     "live_count": 8,
