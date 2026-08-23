@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-23T15:27:57Z",
+  "generated_at": "2026-08-23T15:32:50Z",
   "inbox": [
     {
       "inbox_id": "INB-20260823-237",
@@ -236,6 +236,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260823-288",
+      "headline": "Alibaba plans $10 billion Hong Kong share placement to fund AI spending",
+      "headline_en": null,
+      "url": "https://www.khaleejtimes.com/business/alibaba-plans-10-billion-hong-kong-share-placement-to-fund-ai-spending",
+      "source_name": "Khaleej Times — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-23T15:26:02Z",
+      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
+      "prelim_note": "Alibaba plans a $10 billion Hong Kong share placement to fund AI spending, a large dilutive capital action with a named deal size.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Alibaba plans a $10 billion Hong Kong share placement to fund AI spending, a large dilutive capital action with a named deal size.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capital_actions",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Alibaba Group Holding Ltd",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1868,56 +1917,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260823-025",
-      "headline": "PNB Fraud Case: ED Makes Fifth Attempt To Declare Mehul Choksi Fugitive Economic Offender",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/mumbai/pnb-fraud-case-ed-makes-fifth-attempt-to-declare-mehul-choksi-fugitive-economic-offender",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-23T00:26:25Z",
-      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
-      "prelim_note": "The ED is making a fifth attempt to declare Mehul Choksi a Fugitive Economic Offender, indicating significant legal and financial distress related to a fraud case.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "The ED is making a fifth attempt to declare Mehul Choksi a Fugitive Economic Offender, indicating significant legal and financial distress related to a fraud case.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "default_distress",
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Mehul Choksi",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -83271,9 +83270,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3932,
-    "news_picked_today": 794,
-    "news_dropped_today": 2440
+    "news_seen_today": 3954,
+    "news_picked_today": 805,
+    "news_dropped_today": 2451
   },
   "book_momentum": {
     "live_count": 8,
