@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-23T13:29:26Z",
+  "generated_at": "2026-08-23T13:35:30Z",
   "inbox": [
     {
       "inbox_id": "INB-20260823-237",
@@ -144,6 +144,49 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260823-260",
+      "headline": "Zelenskyy Says Putin Rejected Black Sea Shipping Truce Offer",
+      "headline_en": null,
+      "url": "https://gcaptain.com/zelenskyy-says-putin-rejected-black-sea-shipping-truce-offer/",
+      "source_name": "gCaptain",
+      "input_nature": "shipping_rate_move",
+      "found_at": "2026-08-23T13:10:12Z",
+      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
+      "prelim_note": "The rejection of a Black Sea shipping truce poses a significant risk to global commodity supply chains and shipping costs.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The rejection of a Black Sea shipping truce poses a significant risk to global commodity supply chains and shipping costs.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 5,
+        "scope": 4,
+        "event": 1,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "commodity",
+        "source_tier_id": "official_data",
+        "event_id": "macro_sector",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1886,50 +1929,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260823-170",
-      "headline": "‎UAE suspends trade, financial transactions with Iran",
-      "headline_en": null,
-      "url": "https://www.argaam.com/en/article/articledetail/id/1931162",
-      "source_name": "Argaam — UAE Main News (English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-23T10:33:00Z",
-      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
-      "prelim_note": "UAE suspending trade and financial transactions with Iran is a geopolitical/regulatory escalation affecting cross-border commerce.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "UAE suspending trade and financial transactions with Iran is a geopolitical/regulatory escalation affecting cross-border commerce.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 72,
-      "rank_factors": {
-        "materiality": 72,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 13,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory",
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -83283,9 +83282,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3572,
-    "news_picked_today": 670,
-    "news_dropped_today": 2204
+    "news_seen_today": 3586,
+    "news_picked_today": 674,
+    "news_dropped_today": 2214
   },
   "book_momentum": {
     "live_count": 8,
