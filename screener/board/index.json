@@ -1,6 +1,153 @@
 {
-  "generated_at": "2026-08-23T22:16:46Z",
+  "generated_at": "2026-08-23T22:22:44Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260823-434",
+      "headline": "BEN: BEN FY26 Appendix 4E [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.BEN?key=2924-03124626-3A699509",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-23T22:17:05Z",
+      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
+      "prelim_note": "The company released its FY26 financial results.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company released its FY26 financial results.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bendigo and Adelaide Bank",
+          "ticker": "BEN",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260823-429",
+      "headline": "CCX: FY26 Results Presentation [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.CCX?key=2924-03124625-2A1691248",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-23T22:16:45Z",
+      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
+      "prelim_note": "The company released its FY26 financial results presentation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company released its FY26 financial results presentation.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "City Chic Collective",
+          "ticker": "CCX",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260823-437",
+      "headline": "GLF: 1H26 Appendix 4D and Interim Financial Reports [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.GLF?key=2924-03124618-2A1691258",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-23T22:13:40Z",
+      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
+      "prelim_note": "The company released its 1H26 interim financial reports.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company released its 1H26 interim financial reports.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "GLF",
+          "ticker": "GLF",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260823-421",
       "headline": "VNT: HY26 results - Presentation [price-sensitive]",
@@ -1802,155 +1949,6 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260823-303",
-      "headline": "Profit Crashes 75%, But Alibaba Doubles Down On AI With $10 Billion Raise",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/business/profit-crashes-75-but-alibaba-doubles-down-on-ai-with-10-billion-raise-11948061#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-23T14:54:39Z",
-      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
-      "prelim_note": "Alibaba profit fell 75% but it raised $10 billion to fund AI, a quantified profit crash with a large capital raise.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Alibaba profit fell 75% but it raised $10 billion to fund AI, a quantified profit crash with a large capital raise.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capital_actions",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Alibaba",
-          "ticker": "BABA",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260823-273",
-      "headline": "Amazon's Free Cash Flow Went Negative by $7.6 Billion Even as Operating Cash Flow Rose 33%. Here's the Gap AI Capex Is Actually Creating.",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/amazons-free-cash-flow-went-negative-76-billion-even-operating-cash-flow-rose-33-heres-gap",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-23T14:35:00Z",
-      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
-      "prelim_note": "Amazon reported a $7.6 billion negative free cash flow impact due to AI-related capital expenditure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Amazon reported a $7.6 billion negative free cash flow impact due to AI-related capital expenditure.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Amazon",
-          "ticker": "AMZN",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260823-263",
-      "headline": "Volkswagen chief warns company’s situation ‘more than critical’",
-      "headline_en": null,
-      "url": "https://www.straitstimes.com/business/vw-chief-warns-companys-situation-more-than-critical",
-      "source_name": "The Straits Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-23T14:25:00Z",
-      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
-      "prelim_note": "Volkswagen CEO warns the company's situation is critical, signaling potential major restructuring or financial distress.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Volkswagen CEO warns the company's situation is critical, signaling potential major restructuring or financial distress.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "management",
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Volkswagen",
-          "ticker": null,
-          "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -82953,9 +82951,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5238,
-    "news_picked_today": 1288,
-    "news_dropped_today": 3220
+    "news_seen_today": 5259,
+    "news_picked_today": 1300,
+    "news_dropped_today": 3229
   },
   "book_momentum": {
     "live_count": 8,
