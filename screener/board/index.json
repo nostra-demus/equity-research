@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-23T01:57:18Z",
+  "generated_at": "2026-08-23T02:00:43Z",
   "inbox": [
     {
       "inbox_id": "INB-20260823-060",
@@ -363,6 +363,49 @@
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "commodity",
+        "source_tier_id": "news",
+        "event_id": "macro_sector",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260823-063",
+      "headline": "Canada to retaliate for US tariffs, worsening ties after talks fail",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/carney-says-new-canadian-tariffs-us-goods-will-come-into-effect-september-8-2026-08-22/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-23T01:54:02Z",
+      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
+      "prelim_note": "Escalating trade tensions and retaliatory tariffs between major economies represent a significant risk to global trade and supply chains.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "Escalating trade tensions and retaliatory tariffs between major economies represent a significant risk to global trade and supply chains.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 1,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
         "source_tier_id": "news",
         "event_id": "macro_sector",
         "size_bucket": "unknown"
@@ -1792,60 +1835,6 @@
         },
         {
           "name": "Cerebras Systems",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260823-024",
-      "headline": "Cisco & Cerebras Orders Up, Stocks Down",
-      "headline_en": null,
-      "url": "https://www.fool.com/investing/2026/08/22/cisco-cerebras-orders-up-stocks-down/?source=iedfolrf0000001",
-      "source_name": "The Motley Fool",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-23T00:13:43Z",
-      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
-      "prelim_note": "Market commentary on stock price movement following order news.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 60,
-      "triage_reason": "Market commentary on stock price movement following order news.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 30,
-      "rank_factors": {
-        "materiality": 30,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 3,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "commercial",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Cisco",
-          "ticker": "CSCO",
-          "listing_country": "US"
-        },
-        {
-          "name": "Cerebras",
           "ticker": null,
           "listing_country": "US"
         }
@@ -82622,9 +82611,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 344,
-    "news_picked_today": 63,
-    "news_dropped_today": 281
+    "news_seen_today": 356,
+    "news_picked_today": 66,
+    "news_dropped_today": 290
   },
   "book_momentum": {
     "live_count": 8,
