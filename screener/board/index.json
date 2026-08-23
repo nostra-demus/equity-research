@@ -1,21 +1,70 @@
 {
-  "generated_at": "2026-08-23T21:46:42Z",
+  "generated_at": "2026-08-23T21:51:27Z",
   "inbox": [
     {
-      "inbox_id": "INB-20260823-362",
-      "headline": "NHF: FY2026 Full Year Results ASX Announcement [price-sensitive]",
+      "inbox_id": "INB-20260823-368",
+      "headline": "PLS: FY26 Full Year Results Presentation [price-sensitive]",
       "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.NHF?key=2924-03124493-2A1691219",
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.PLS?key=2924-03124504-6A1339771",
       "source_name": "ASX (Australia Exchange Filing)",
       "input_nature": "exchange_announcement",
-      "found_at": "2026-08-23T21:42:49Z",
+      "found_at": "2026-08-23T21:45:59Z",
       "sweep_file": "screener/inbox/2026-08-23_sweep.json",
-      "prelim_note": "The company released its FY2026 full year financial results.",
+      "prelim_note": "The company released its FY26 full year financial results presentation.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 100,
-      "triage_reason": "The company released its FY2026 full year financial results.",
+      "triage_reason": "The company released its FY26 full year financial results presentation.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Pilbara Minerals",
+          "ticker": "PLS",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260823-371",
+      "headline": "NHF: FY2026 Full Year Results Investor Presentation [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.NHF?key=2924-03124494-2A1691220",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-23T21:43:24Z",
+      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
+      "prelim_note": "The company released its FY2026 full year financial results presentation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company released its FY2026 full year financial results presentation.",
       "region": "OTHER",
       "relevance": "material",
       "materiality_pre_score": 80,
@@ -26,7 +75,7 @@
         "event": 5,
         "size": 1,
         "recency": 5,
-        "materiality_label_floor": 5,
+        "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
@@ -1899,55 +1948,6 @@
           "name": "Alibaba",
           "ticker": "BABA",
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260823-226",
-      "headline": "Sinopec's half-year profit grew 19.3% on year despite Iran war, falling demand",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/energy/sinopecs-half-year-profit-grew-193-year-despite-iran-war-falling-demand-2026-08-23/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-23T10:07:44Z",
-      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
-      "prelim_note": "Sinopec reported a 19.3% year-on-year profit growth for the half-year, demonstrating resilience despite challenging macro conditions.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Sinopec reported a 19.3% year-on-year profit growth for the half-year, demonstrating resilience despite challenging macro conditions.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Sinopec",
-          "ticker": null,
-          "listing_country": "CN"
         }
       ],
       "size_bucket": "mega",
@@ -82953,9 +82953,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5044,
-    "news_picked_today": 1170,
-    "news_dropped_today": 3144
+    "news_seen_today": 5069,
+    "news_picked_today": 1182,
+    "news_dropped_today": 3157
   },
   "book_momentum": {
     "live_count": 8,
