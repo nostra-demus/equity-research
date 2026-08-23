@@ -1,21 +1,21 @@
 {
-  "generated_at": "2026-08-23T01:36:59Z",
+  "generated_at": "2026-08-23T01:40:47Z",
   "inbox": [
     {
-      "inbox_id": "INB-20260823-041",
+      "inbox_id": "INB-20260823-053",
       "headline": "Nebius Just Raised $5 Billion in Convertible Notes Against a $1.4 Billion Revenue Base. Are We In a Bubble?",
       "headline_en": null,
-      "url": "https://www.fool.com/investing/2026/08/22/nebius-just-raised-usd5-billion-in-convertible-notes-against-a-usd1-4-billion-revenue-base-are-we-in-a-bubble/?source=iedfolrf0000001",
-      "source_name": "The Motley Fool",
+      "url": "https://www.nasdaq.com/articles/nebius-just-raised-5-billion-convertible-notes-against-14-billion-revenue-base-are-we",
+      "source_name": "Nasdaq",
       "input_nature": "news_headline",
-      "found_at": "2026-08-23T00:47:01Z",
+      "found_at": "2026-08-23T01:07:01Z",
       "sweep_file": "screener/inbox/2026-08-23_sweep.json",
-      "prelim_note": "Nebius raised $5 billion in convertible notes, significantly impacting capital structure relative to its $1.4 billion revenue base.",
+      "prelim_note": "Company raised $5 billion in debt against $1.4 billion in revenue, indicating significant leverage risk.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 100,
-      "triage_reason": "Nebius raised $5 billion in convertible notes, significantly impacting capital structure relative to its $1.4 billion revenue base.",
+      "triage_reason": "Company raised $5 billion in debt against $1.4 billion in revenue, indicating significant leverage risk.",
       "region": "US",
       "relevance": "material",
       "materiality_pre_score": 75,
@@ -24,7 +24,7 @@
         "source_tier": 0,
         "scope": 6,
         "event": 7,
-        "size": 2,
+        "size": 1,
         "recency": 5,
         "materiality_label_floor": 0,
         "quantified": 6,
@@ -32,7 +32,7 @@
         "scope_id": "single_name",
         "source_tier_id": "news",
         "event_id": "debt_credit",
-        "size_bucket": "large"
+        "size_bucket": "mid"
       },
       "event_types": [
         "debt_credit"
@@ -40,12 +40,12 @@
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Nebius Group",
-          "ticker": "NBIS",
+          "name": "Nebius",
+          "ticker": null,
           "listing_country": "US"
         }
       ],
-      "size_bucket": "large",
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -524,6 +524,50 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260823-055",
+      "headline": "Great Hormuz escape: 80% of traffic goes ‘dark’ as US flips Iran’s playbook",
+      "headline_en": null,
+      "url": "https://gulfnews.com/world/mena/80-of-hormuz-traffic-goes-dark-and-keeps-oil-prices-in-check-1.500649281",
+      "source_name": "Gulf News",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-23T01:17:00Z",
+      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
+      "prelim_note": "80% of Gulf of Hormuz shipping traffic is going 'dark', signaling a major supply-chain/disruption risk in a key oil transit chokepoint.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "80% of Gulf of Hormuz shipping traffic is going 'dark', signaling a major supply-chain/disruption risk in a key oil transit chokepoint.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": -4,
+        "event": 2,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector",
+        "operations"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260823-020",
       "headline": "Potentia Capital goes to war with Soprano founder over $330m stake",
       "headline_en": null,
@@ -795,6 +839,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260823-054",
+      "headline": "Elon Musk’s Tesla gives up on its Solar Roof tiles as EV maker 'leans into fossil fuels': Report",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/news/elon-musk-s-tesla-gives-up-on-its-solar-roof-tiles-as-ev-maker-leans-into-fossil-fuels-report-11787448321014.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-23T01:34:00Z",
+      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
+      "prelim_note": "Tesla is discontinuing its solar roof tile product line.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "Tesla is discontinuing its solar roof tile product line.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 3,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "product",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tesla",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1754,92 +1847,6 @@
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "sector",
-        "source_tier_id": "news",
-        "event_id": "macro_sector",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260823-040",
-      "headline": "Senators Plan a Clarity Act Vote on Sept. 15. What Happens Next for Crypto?",
-      "headline_en": null,
-      "url": "https://www.fool.com/investing/2026/08/22/senators-plan-a-clarity-act-vote-on-sept-15/?source=iedfolrf0000001",
-      "source_name": "The Motley Fool",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-23T00:51:00Z",
-      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
-      "prelim_note": "Upcoming legislative vote on crypto regulation is a sector-level event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 56,
-      "triage_reason": "Upcoming legislative vote on crypto regulation is a sector-level event.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 30,
-      "rank_factors": {
-        "materiality": 30,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260823-012",
-      "headline": "MCX gold rallies for fifth straight week; gains ₹19,000 per 10 grams in August",
-      "headline_en": null,
-      "url": "https://www.livemint.com/market/commodities/mcx-gold-rallies-for-fifth-straight-week-gains-rs-19-000-per-10-grams-in-august-11787380646821.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-23T00:31:00Z",
-      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
-      "prelim_note": "Gold price movement is a market indicator but not a company-specific event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 55,
-      "triage_reason": "Gold price movement is a market indicator but not a company-specific event.",
-      "region": "IN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 30,
-      "rank_factors": {
-        "materiality": 30,
-        "source_tier": 0,
-        "scope": 4,
-        "event": 1,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "commodity",
         "source_tier_id": "news",
         "event_id": "macro_sector",
         "size_bucket": "unknown"
@@ -82621,9 +82628,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 300,
-    "news_picked_today": 52,
-    "news_dropped_today": 248
+    "news_seen_today": 313,
+    "news_picked_today": 57,
+    "news_dropped_today": 256
   },
   "book_momentum": {
     "live_count": 8,
