@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-23T21:04:22Z",
+  "generated_at": "2026-08-23T21:08:30Z",
   "inbox": [
     {
       "inbox_id": "INB-20260823-237",
@@ -144,6 +144,49 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260823-336",
+      "headline": "European gas touches highest since March conflict peak as Hormuz freeze drags on",
+      "headline_en": null,
+      "url": "https://www.hellenicshippingnews.com/european-gas-touches-highest-since-march-conflict-peak-as-hormuz-freeze-drags-on-2/",
+      "source_name": "Hellenic Shipping News Worldwide",
+      "input_nature": "shipping_rate_move",
+      "found_at": "2026-08-23T21:00:27Z",
+      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
+      "prelim_note": "European gas prices reached a multi-year high due to supply chain disruptions in the Strait of Hormuz.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "European gas prices reached a multi-year high due to supply chain disruptions in the Strait of Hormuz.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 5,
+        "scope": 4,
+        "event": 1,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "commodity",
+        "source_tier_id": "official_data",
+        "event_id": "macro_sector",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1889,49 +1932,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260823-192",
-      "headline": "Bombardement israélien dans le sud de la Syrie, Damas condamne",
-      "headline_en": "Israeli bombardment in southern Syria, Damascus condemns",
-      "url": "https://www.reuters.com/fr/international/bombardement-isralien-dans-le-sud-de-la-syrie-damas-condamne-2026-08-23/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-23T07:14:14Z",
-      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
-      "prelim_note": "Israeli bombardment in southern Syria condemned by Damascus is a military escalation with regional market risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Israeli bombardment in southern Syria condemned by Damascus is a military escalation with regional market risk.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 9,
-        "event": 1,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "geopolitical",
-        "source_tier_id": "news",
-        "event_id": "macro_sector",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -82934,9 +82934,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4823,
-    "news_picked_today": 1086,
-    "news_dropped_today": 3007
+    "news_seen_today": 4854,
+    "news_picked_today": 1101,
+    "news_dropped_today": 3023
   },
   "book_momentum": {
     "live_count": 8,
