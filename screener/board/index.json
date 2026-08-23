@@ -1,6 +1,56 @@
 {
-  "generated_at": "2026-08-23T21:36:33Z",
+  "generated_at": "2026-08-23T21:41:48Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260823-341",
+      "headline": "ANN: FY26 Full Year Results & Buyback ASX Announcement [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ANN?key=2924-03124474-3A699482",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-23T21:34:14Z",
+      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
+      "prelim_note": "Ansell announced FY26 full year results and a share buyback program.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Ansell announced FY26 full year results and a share buyback program.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capital_actions",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ansell",
+          "ticker": "ANN",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260823-337",
       "headline": "PRN: FY26 Results Presentation [price-sensitive]",
@@ -528,6 +578,60 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260823-361",
+      "headline": "Timberwolves, Lynx sold for $4.5 billion",
+      "headline_en": null,
+      "url": "https://www.qatar-tribune.com/article/250167/business/timberwolves-lynx-sold-for-45-billion",
+      "source_name": "Qatar Tribune — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-23T21:00:00Z",
+      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
+      "prelim_note": "The sale of the Timberwolves and Lynx for $4.5 billion is a major M&A transaction in the sports sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The sale of the Timberwolves and Lynx for $4.5 billion is a major M&A transaction in the sports sector.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Minnesota Timberwolves",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Minnesota Lynx",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1834,103 +1938,6 @@
       ],
       "issuer_linkage": "macro",
       "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260823-205",
-      "headline": "Israeli air strike in central Gaza kills one, wounds two",
-      "headline_en": null,
-      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/israeli-air-strike-central-gaza-kills-one-wounds-two",
-      "source_name": "Middle East Eye",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-23T09:38:32Z",
-      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
-      "prelim_note": "An Israeli air strike in Gaza represents a military escalation in a conflict zone, which carries significant geopolitical risk for regional markets.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "An Israeli air strike in Gaza represents a military escalation in a conflict zone, which carries significant geopolitical risk for regional markets.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 9,
-        "event": 1,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "geopolitical",
-        "source_tier_id": "news",
-        "event_id": "macro_sector",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260823-199",
-      "headline": "Thoma Bravo lobs knockout offer for HR software biz Tanda",
-      "headline_en": null,
-      "url": "https://www.afr.com/street-talk/thoma-bravo-lobs-knockout-offer-for-hr-software-biz-tanda-20260823-p60qrx?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-23T08:46:15Z",
-      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
-      "prelim_note": "Thoma Bravo has made a takeover offer for Tanda, representing a significant M&A event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Thoma Bravo has made a takeover offer for Tanda, representing a significant M&A event.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Thoma Bravo",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Tanda",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -82934,9 +82941,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4986,
-    "news_picked_today": 1135,
-    "news_dropped_today": 3121
+    "news_seen_today": 5023,
+    "news_picked_today": 1158,
+    "news_dropped_today": 3135
   },
   "book_momentum": {
     "live_count": 8,
