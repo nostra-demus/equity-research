@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-23T05:19:29Z",
+  "generated_at": "2026-08-23T05:23:53Z",
   "inbox": [
     {
       "inbox_id": "INB-20260823-135",
@@ -629,6 +629,49 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260823-143",
+      "headline": "Trump shares Hormuz image as 'US territory' as Iran faces new sanctions",
+      "headline_en": null,
+      "url": "https://gulfnews.com/world/trump-shares-hormuz-image-as-us-territory-as-iran-faces-new-sanctions-1.500649361",
+      "source_name": "Gulf News",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-23T04:53:12Z",
+      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
+      "prelim_note": "New sanctions on Iran and geopolitical tensions in the Strait of Hormuz represent a significant risk to global energy supply chains.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "New sanctions on Iran and geopolitical tensions in the Strait of Hormuz represent a significant risk to global energy supply chains.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1838,49 +1881,6 @@
           "listing_country": "AE"
         }
       ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260823-139",
-      "headline": "Strait Of Hormuz Will Not Open Until US 'Corrects Its Behaviour': Iran's Mohsen Rezaei",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/world/strait-of-hormuz-will-not-open-until-us-corrects-its-behaviour-irans-mohsen-rezaei-11946617#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-23T04:31:16Z",
-      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
-      "prelim_note": "Threats to the Strait of Hormuz represent a major geopolitical risk to global energy supply chains.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Threats to the Strait of Hormuz represent a major geopolitical risk to global energy supply chains.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": -4,
-        "event": 1,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "macro",
-        "source_tier_id": "news",
-        "event_id": "macro_sector",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -83375,9 +83375,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 786,
-    "news_picked_today": 195,
-    "news_dropped_today": 591
+    "news_seen_today": 796,
+    "news_picked_today": 197,
+    "news_dropped_today": 599
   },
   "book_momentum": {
     "live_count": 8,
