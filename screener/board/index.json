@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-23T03:53:55Z",
+  "generated_at": "2026-08-23T03:57:35Z",
   "inbox": [
     {
       "inbox_id": "INB-20260823-092",
@@ -649,6 +649,49 @@
       "event_types": [
         "macro_sector",
         "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260823-097",
+      "headline": "'No Oil Will Leave Hormuz': Iran Warns Nations Joining US Economic Siege",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/world/no-oil-will-leave-hormuz-iran-warns-nations-joining-us-economic-siege",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-23T03:12:36Z",
+      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
+      "prelim_note": "Threats to block the Strait of Hormuz represent a major geopolitical supply shock for global oil markets.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Threats to block the Strait of Hormuz represent a major geopolitical supply shock for global oil markets.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 4,
+        "event": 1,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "commodity",
+        "source_tier_id": "news",
+        "event_id": "macro_sector",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
       ],
       "issuer_linkage": "macro",
       "companies": [],
@@ -1793,49 +1836,6 @@
       "event_types": [
         "regulatory",
         "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260823-017",
-      "headline": "Iran condemns U.S. plans to announce new sanctions",
-      "headline_en": null,
-      "url": "https://www.japantimes.co.jp/news/2026/08/23/world/iran-denounces-us-sanctions/",
-      "source_name": "The Japan Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-23T00:03:00Z",
-      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
-      "prelim_note": "New U.S. sanctions on Iran represent a geopolitical escalation that can impact global oil supply and regional stability.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "New U.S. sanctions on Iran represent a geopolitical escalation that can impact global oil supply and regional stability.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
       ],
       "issuer_linkage": "macro",
       "companies": [],
@@ -83047,9 +83047,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 570,
-    "news_picked_today": 121,
-    "news_dropped_today": 449
+    "news_seen_today": 584,
+    "news_picked_today": 123,
+    "news_dropped_today": 461
   },
   "book_momentum": {
     "live_count": 8,
