@@ -1,26 +1,26 @@
 {
-  "generated_at": "2026-08-23T22:23:01Z",
+  "generated_at": "2026-08-23T22:27:54Z",
   "inbox": [
     {
-      "inbox_id": "INB-20260823-434",
-      "headline": "BEN: BEN FY26 Appendix 4E [price-sensitive]",
+      "inbox_id": "INB-20260823-438",
+      "headline": "BEN: BEN FY26 Results Presentation [price-sensitive]",
       "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.BEN?key=2924-03124626-3A699509",
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.BEN?key=2924-03124637-3A699511",
       "source_name": "ASX (Australia Exchange Filing)",
       "input_nature": "exchange_announcement",
-      "found_at": "2026-08-23T22:17:05Z",
+      "found_at": "2026-08-23T22:22:45Z",
       "sweep_file": "screener/inbox/2026-08-23_sweep.json",
-      "prelim_note": "The company released its FY26 financial results.",
+      "prelim_note": "The company released its FY26 financial results presentation.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 100,
-      "triage_reason": "The company released its FY26 financial results.",
+      "triage_reason": "The company released its FY26 financial results presentation.",
       "region": "OTHER",
       "relevance": "material",
-      "materiality_pre_score": 80,
+      "materiality_pre_score": 75,
       "rank_factors": {
-        "materiality": 80,
+        "materiality": 75,
         "source_tier": 8,
         "scope": 6,
         "event": 5,
@@ -42,6 +42,55 @@
         {
           "name": "Bendigo and Adelaide Bank",
           "ticker": "BEN",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260823-439",
+      "headline": "ALD: 2026 Half Year Results Presentation [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ALD?key=2924-03124634-2A1691266",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-23T22:21:00Z",
+      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
+      "prelim_note": "The company released its 2026 half-year results presentation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company released its 2026 half-year results presentation.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ampol",
+          "ticker": "ALD",
           "listing_country": "AU"
         }
       ],
@@ -1906,49 +1955,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260823-279",
-      "headline": "Israeli drone strike north of Khan Younis wounds six",
-      "headline_en": null,
-      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/israeli-drone-strike-north-khan-younis-wounds-six",
-      "source_name": "Middle East Eye",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-23T15:09:43Z",
-      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
-      "prelim_note": "Military escalation involving a drone strike in the conflict zone.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Military escalation involving a drone strike in the conflict zone.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 9,
-        "event": 1,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "geopolitical",
-        "source_tier_id": "news",
-        "event_id": "macro_sector",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -82951,9 +82957,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5259,
-    "news_picked_today": 1300,
-    "news_dropped_today": 3229
+    "news_seen_today": 5290,
+    "news_picked_today": 1314,
+    "news_dropped_today": 3246
   },
   "book_momentum": {
     "live_count": 8,
