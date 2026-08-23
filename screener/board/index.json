@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-23T13:14:17Z",
+  "generated_at": "2026-08-23T13:19:25Z",
   "inbox": [
     {
       "inbox_id": "INB-20260823-237",
@@ -144,6 +144,55 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260823-258",
+      "headline": "Senco Gold Targets 25% Revenue Growth To Rs 10,500-11,000 Crore For Current Fiscal",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/business/senco-gold-targets-25-revenue-growth-to-rs-10-500-11-000-crore-for-current-fiscal-11948199#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-23T13:04:29Z",
+      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
+      "prelim_note": "The company provided specific revenue growth guidance of 25% for the current fiscal year.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company provided specific revenue growth guidance of 25% for the current fiscal year.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Senco Gold",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1881,60 +1930,6 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260823-203",
-      "headline": "Adnoc Distribution signs South Africa empowerment deal for Shell acquisition",
-      "headline_en": null,
-      "url": "https://www.khaleejtimes.com/business/adnoc-distribution-signs-south-africa-empowerment-deal-for-shell-acquisition",
-      "source_name": "Khaleej Times — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-23T09:11:06Z",
-      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
-      "prelim_note": "Adnoc Distribution is expanding its footprint through a strategic acquisition of Shell assets in South Africa.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Adnoc Distribution is expanding its footprint through a strategic acquisition of Shell assets in South Africa.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Adnoc Distribution",
-          "ticker": null,
-          "listing_country": "AE"
-        },
-        {
-          "name": "Shell",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -83288,9 +83283,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3521,
-    "news_picked_today": 643,
-    "news_dropped_today": 2180
+    "news_seen_today": 3542,
+    "news_picked_today": 653,
+    "news_dropped_today": 2191
   },
   "book_momentum": {
     "live_count": 8,
