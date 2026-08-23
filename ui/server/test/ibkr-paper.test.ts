@@ -95,6 +95,18 @@ await check('missing, unexpected, and wrong-weight holdings are named separately
   assert.deepEqual(got.differences.map((row) => row.kind).sort(), ['missing_position', 'unexpected_position', 'weight_mismatch'])
 })
 
+await check('duplicate broker rows for one symbol are combined instead of silently overwritten', () => {
+  const target = {
+    valid: true, source_path: 'analyses/portfolio/x.json', generated_at: '2026-08-22', gross_pct: 4, cash_pct: 96,
+    positions: [{ ticker: 'AMZN', decision: 'Buy', model_weight_pct: 4 }], detail: 'one',
+  }
+  const got = reconcilePaperPortfolio(target, account([
+    { symbol: 'AMZN', local_symbol: 'AMZN', security_type: 'STK', currency: 'USD', exchange: 'NASDAQ', quantity: 10, average_cost: 100, market_price: 110, market_value: 20_000, unrealized_pnl: 100, realized_pnl: 0, portfolio_weight_pct: 2 },
+    { symbol: 'AMZN', local_symbol: 'AMZN', security_type: 'STK', currency: 'USD', exchange: 'LSE', quantity: 5, average_cost: 100, market_price: 110, market_value: 20_000, unrealized_pnl: 100, realized_pnl: 0, portfolio_weight_pct: 2 },
+  ]))
+  assert.equal(got.status, 'aligned')
+})
+
 await check('the public service projection omits the IBKR account identifier and caches broker reads', async () => {
   const root = tmp()
   const state = path.join(root, '.state')

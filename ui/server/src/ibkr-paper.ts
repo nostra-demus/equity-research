@@ -225,7 +225,8 @@ function accountFromSnapshot(snapshot: BrokerSnapshot): IbkrPaperAccount {
     .filter((row) => row.quantity !== 0)
     .map((row) => ({
       ...row,
-      portfolio_weight_pct: netLiquidation && row.market_value !== null
+      portfolio_weight_pct: netLiquidation !== null && Number.isFinite(netLiquidation) && netLiquidation > 0
+        && row.market_value !== null && Number.isFinite(row.market_value)
         ? (row.market_value / netLiquidation) * 100
         : null,
     }))
@@ -248,7 +249,19 @@ export function reconcilePaperPortfolio(target: PaperPortfolioTarget, account: I
   if (!account) return { status: 'unavailable', differences: [], detail: 'Connect TWS Paper to compare actual holdings with Nostra’s approved target.' }
 
   const targets = new Map(target.positions.map((row) => [normalizedSymbol(row.ticker), row]))
-  const actual = new Map(account.positions.map((row) => [normalizedSymbol(row.symbol), row]))
+  const actual = new Map<string, { portfolio_weight_pct: number | null }>()
+  for (const row of account.positions) {
+    const ticker = normalizedSymbol(row.symbol)
+    if (!ticker) continue
+    const prior = actual.get(ticker)
+    if (!prior) {
+      actual.set(ticker, { portfolio_weight_pct: row.portfolio_weight_pct })
+      continue
+    }
+    prior.portfolio_weight_pct = prior.portfolio_weight_pct === null || row.portfolio_weight_pct === null
+      ? null
+      : prior.portfolio_weight_pct + row.portfolio_weight_pct
+  }
   const differences: PaperPortfolioDifference[] = []
 
   for (const [ticker, wanted] of targets) {
@@ -303,6 +316,10 @@ export async function readIbkrPaperBrokerSnapshot(options: { clientId?: number; 
     const timer = setTimeout(() => finish(new Error('paper_snapshot_timeout')), timeoutMs)
     ib.on(EventName.managedAccounts, (raw: string) => {
       for (const account of String(raw ?? '').split(',').map((value) => value.trim()).filter(Boolean)) accounts.add(account)
+      if (accounts.size > 1) {
+        finish(new Error('paper_account_ambiguous'))
+        return
+      }
       if (accounts.size !== 1 || subscribedAccount) return
       subscribedAccount = [...accounts][0]
       ib.reqAccountUpdates(true, subscribedAccount)
