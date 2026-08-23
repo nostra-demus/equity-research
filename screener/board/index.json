@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-23T07:14:28Z",
+  "generated_at": "2026-08-23T07:19:26Z",
   "inbox": [
     {
       "inbox_id": "INB-20260823-188",
@@ -723,6 +723,55 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260823-189",
+      "headline": "Omega Seiki raises ₹100 crore in back-to-back rounds in under a month as IPO plans take shape",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/companies/omega-seiki-raises-100-crore-in-back-to-back-rounds-in-under-a-month-as-ipo-plans-take-shape/article71375328.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-23T07:11:44Z",
+      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
+      "prelim_note": "Omega Seiki raised ₹100 crore in funding rounds as it prepares for an IPO.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Omega Seiki raised ₹100 crore in funding rounds as it prepares for an IPO.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capital_actions",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Omega Seiki",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1817,55 +1866,6 @@
           "name": "State Bank of India",
           "ticker": null,
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260823-182",
-      "headline": "Nvidia Alerts Customers Of Over 15% AI Server Price Increase",
-      "headline_en": null,
-      "url": "https://www.outlookbusiness.com/deeptech/nvidia-alerts-customers-of-over-15-ai-server-price-increase",
-      "source_name": "Outlook Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-23T05:35:57Z",
-      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
-      "prelim_note": "Nvidia alerted customers of over a 15% price increase for AI servers.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Nvidia alerted customers of over a 15% price increase for AI servers.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 3,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "commercial",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": null
         }
       ],
       "size_bucket": "mega",
@@ -83221,9 +83221,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1073,
-    "news_picked_today": 307,
-    "news_dropped_today": 766
+    "news_seen_today": 1099,
+    "news_picked_today": 319,
+    "news_dropped_today": 780
   },
   "book_momentum": {
     "live_count": 8,
