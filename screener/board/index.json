@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-23T13:39:11Z",
+  "generated_at": "2026-08-23T13:44:21Z",
   "inbox": [
     {
       "inbox_id": "INB-20260823-237",
@@ -178,6 +178,49 @@
         "boost_weight": 1,
         "scope_id": "commodity",
         "source_tier_id": "official_data",
+        "event_id": "macro_sector",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260823-262",
+      "headline": "Heavy Israeli air strike hits warehouse in central Gaza",
+      "headline_en": null,
+      "url": "https://www.aljazeera.com/video/newsfeed/2026/8/23/heavy-israeli-air-strike-hits-warehouse-in-central-gaza?traffic_source=rss",
+      "source_name": "Al Jazeera — All news",
+      "input_nature": "geopolitical_event",
+      "found_at": "2026-08-23T13:20:57Z",
+      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
+      "prelim_note": "Military escalation in the Middle East is a material geopolitical event that impacts global market sentiment and commodity prices.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Military escalation in the Middle East is a material geopolitical event that impacts global market sentiment and commodity prices.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 9,
+        "event": 1,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "geopolitical",
+        "source_tier_id": "news",
         "event_id": "macro_sector",
         "size_bucket": "unknown"
       },
@@ -1880,55 +1923,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260823-204",
-      "headline": "IRB InvIT Fund: board meeting 26-Aug-2026 — Fund Raising",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/IRBINVIT_23082026145104_Board_meeting_Intimation_IM_Sd.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-23T09:22:49Z",
-      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
-      "prelim_note": "Announcement of a board meeting to discuss fund raising, which is a material capital event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Announcement of a board meeting to discuss fund raising, which is a material capital event.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "capital_actions",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "IRB InvIT Fund",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -83282,9 +83276,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3596,
-    "news_picked_today": 678,
-    "news_dropped_today": 2220
+    "news_seen_today": 3608,
+    "news_picked_today": 686,
+    "news_dropped_today": 2224
   },
   "book_momentum": {
     "live_count": 8,
