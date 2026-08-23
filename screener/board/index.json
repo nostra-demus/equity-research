@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-23T04:39:09Z",
+  "generated_at": "2026-08-23T04:44:11Z",
   "inbox": [
     {
       "inbox_id": "INB-20260823-107",
@@ -1297,6 +1297,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260823-123",
+      "headline": "‎Borouge board approves H1 2026 cash dividend of 8.1 fils per share",
+      "headline_en": null,
+      "url": "https://www.argaam.com/en/article/articledetail/id/1931109",
+      "source_name": "Argaam — Company Disclosures (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-23T08:40:00Z",
+      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
+      "prelim_note": "The company announced a specific cash dividend of 8.1 fils per share.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "The company announced a specific cash dividend of 8.1 fils per share.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capital_actions",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Borouge",
+          "ticker": null,
+          "listing_country": "AE"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260823-075",
       "headline": "Police search Tobu Railway group company over fatal express train accident",
       "headline_en": null,
@@ -1791,49 +1840,6 @@
         "size": 0,
         "recency": 5,
         "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "macro",
-        "source_tier_id": "news",
-        "event_id": "macro_sector",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260823-067",
-      "headline": "Thousands flee Sudan’s Kordofan fighting for relative safety of El Obeid",
-      "headline_en": null,
-      "url": "https://www.aljazeera.com/video/newsfeed/2026/8/23/thousands-flee-sudans-kordofan-fighting-for-relative-safety-of-el-obeid?traffic_source=rss",
-      "source_name": "Al Jazeera — All news",
-      "input_nature": "geopolitical_event",
-      "found_at": "2026-08-23T01:51:47Z",
-      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
-      "prelim_note": "Ongoing military conflict in Sudan represents a significant geopolitical risk and humanitarian crisis.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Ongoing military conflict in Sudan represents a significant geopolitical risk and humanitarian crisis.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": -4,
-        "event": 1,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "macro",
@@ -83126,9 +83132,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 665,
-    "news_picked_today": 154,
-    "news_dropped_today": 511
+    "news_seen_today": 686,
+    "news_picked_today": 163,
+    "news_dropped_today": 523
   },
   "book_momentum": {
     "live_count": 8,
