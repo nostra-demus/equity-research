@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-23T18:02:41Z",
+  "generated_at": "2026-08-23T18:07:54Z",
   "inbox": [
     {
       "inbox_id": "INB-20260823-237",
@@ -186,6 +186,60 @@
       ],
       "issuer_linkage": "macro",
       "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260823-312",
+      "headline": "Uttalande från styrelsen i C100 AB (publ) med anledning av budpliktserbjudande från Hunter Capital AB (publ)",
+      "headline_en": "Statement from the board of C100 AB (publ) regarding a mandatory takeover bid from Hunter Capital AB (publ)",
+      "url": "https://news.cision.com/se/c100-ab--publ-/r/uttalande-fran-styrelsen-i-c100-ab--publ--med-anledning-av-budpliktserbjudande-fran-hunter-capital-a,c4386696",
+      "source_name": "Cision — Sweden Regulatory & Company News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-08-23T18:00:00Z",
+      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
+      "prelim_note": "The board of C100 AB has issued a statement regarding a mandatory takeover bid from Hunter Capital AB.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The board of C100 AB has issued a statement regarding a mandatory takeover bid from Hunter Capital AB.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 3,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "company",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "C100 AB",
+          "ticker": null,
+          "listing_country": "SE"
+        },
+        {
+          "name": "Hunter Capital AB",
+          "ticker": null,
+          "listing_country": "SE"
+        }
+      ],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -1875,55 +1929,6 @@
       "issuer_linkage": "primary",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260823-163",
-      "headline": "Nvidia Customers Notified About AI-Related Price Hikes Above 15%",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/business/nvidia-customers-notified-about-ai-related-price-hikes-above-15-11946899#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-23T05:23:08Z",
-      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
-      "prelim_note": "Nvidia is increasing prices for AI-related products by over 15%, which will directly impact revenue and margins.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Nvidia is increasing prices for AI-related products by over 15%, which will directly impact revenue and margins.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -83349,9 +83354,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4336,
-    "news_picked_today": 930,
-    "news_dropped_today": 2708
+    "news_seen_today": 4347,
+    "news_picked_today": 936,
+    "news_dropped_today": 2713
   },
   "book_momentum": {
     "live_count": 8,
