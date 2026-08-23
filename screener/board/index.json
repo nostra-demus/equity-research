@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-23T17:21:18Z",
+  "generated_at": "2026-08-23T17:27:57Z",
   "inbox": [
     {
       "inbox_id": "INB-20260823-237",
@@ -282,6 +282,55 @@
           "name": "Maaden",
           "ticker": null,
           "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260823-309",
+      "headline": "Bill Ackman's Pershing Square invests $1.1B in fintech giant",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/markets/stocks/articles/bill-ackmans-pershing-square-invests-170700368.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-23T17:07:00Z",
+      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
+      "prelim_note": "A $1.1B investment by a major activist investor is a significant capital event for the target company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A $1.1B investment by a major activist investor is a significant capital event for the target company.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "ownership_activist",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Pershing Square",
+          "ticker": null,
+          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -1874,55 +1923,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260823-092",
-      "headline": "FireFly Metals readies $180m equity raising; hires broker",
-      "headline_en": null,
-      "url": "https://www.afr.com/street-talk/firefly-metals-readies-180m-equity-raising-hires-broker-20260823-p60qqe?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-23T03:39:37Z",
-      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
-      "prelim_note": "FireFly Metals is planning a $180 million equity raising, which will dilute existing shareholders.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "FireFly Metals is planning a $180 million equity raising, which will dilute existing shareholders.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capital_actions",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "FireFly Metals",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -74190,76 +74190,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-ce5a3da6047f",
-      "idea_version": "IDEAV-1189938ab48fac87",
-      "idea_version_started_at": "2026-08-22T07:11:14Z",
-      "ticker": "SSEA",
-      "company": "Starry Sea Acquisition Corp",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Starry Sea Acquisition Corp has entered into a definitive merger agreement with SuperiorMed Holdings Limited, which typically drives immediate speculative upside to the SPAC's shares.",
-      "why_now": "The merger agreement was officially announced on August 22, 2026, creating an immediate trading catalyst.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 18,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-53dc51597abf"
-      ],
-      "primary_source_event_id": "EVT-53dc51597abf",
-      "source_headlines": [
-        "SuperiorMed Holdings Limited Announces Entering into an Agreement and Plan of Merger with Starry Sea Acquisition Corp | SSEA Stock News"
-      ],
-      "source_headline": "SuperiorMed Holdings Limited Announces Entering into an Agreement and Plan of Merger with Starry Sea Acquisition Corp | SSEA Stock News",
-      "source_url": "https://www.stocktitan.net/news/SSEA/superior-med-holdings-limited-announces-entering-into-an-agreement-box9i5nrtf5h.html",
-      "source_name": "Stock Titan — Latest News",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-22T05:24:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-22T07:11:14Z",
-      "updated_at": "2026-08-22T07:11:14Z",
-      "decay_at": "2026-08-23T17:24:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-af31c2e0f9bf",
       "idea_version": "IDEAV-8a3955213e634ef6",
       "idea_version_started_at": "2026-08-22T22:34:43Z",
@@ -75042,6 +74972,76 @@
       "surfaced_at": "2026-08-22T14:49:39Z",
       "updated_at": "2026-08-22T14:49:39Z",
       "decay_at": "2026-08-23T03:00:56Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-ce5a3da6047f",
+      "idea_version": "IDEAV-1189938ab48fac87",
+      "idea_version_started_at": "2026-08-22T07:11:14Z",
+      "ticker": "SSEA",
+      "company": "Starry Sea Acquisition Corp",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Starry Sea Acquisition Corp has entered into a definitive merger agreement with SuperiorMed Holdings Limited, which typically drives immediate speculative upside to the SPAC's shares.",
+      "why_now": "The merger agreement was officially announced on August 22, 2026, creating an immediate trading catalyst.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 18,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-53dc51597abf"
+      ],
+      "primary_source_event_id": "EVT-53dc51597abf",
+      "source_headlines": [
+        "SuperiorMed Holdings Limited Announces Entering into an Agreement and Plan of Merger with Starry Sea Acquisition Corp | SSEA Stock News"
+      ],
+      "source_headline": "SuperiorMed Holdings Limited Announces Entering into an Agreement and Plan of Merger with Starry Sea Acquisition Corp | SSEA Stock News",
+      "source_url": "https://www.stocktitan.net/news/SSEA/superior-med-holdings-limited-announces-entering-into-an-agreement-box9i5nrtf5h.html",
+      "source_name": "Stock Titan — Latest News",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-22T05:24:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-22T07:11:14Z",
+      "updated_at": "2026-08-22T07:11:14Z",
+      "decay_at": "2026-08-23T17:24:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -78041,13 +78041,13 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 71,
-    "shown_count": 71,
+    "total_count": 72,
+    "shown_count": 72,
     "hidden_count": 0,
     "side_counts": {
       "long": {
-        "total_count": 23,
-        "shown_count": 23,
+        "total_count": 24,
+        "shown_count": 24,
         "hidden_count": 0
       },
       "short": {
@@ -78072,6 +78072,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-ce5a3da6047f",
+        "idea_version": "IDEAV-1189938ab48fac87",
+        "idea_version_started_at": "2026-08-22T07:11:14Z",
+        "ticker": "SSEA",
+        "company": "Starry Sea Acquisition Corp",
+        "exchange": "NASDAQ",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Starry Sea Acquisition Corp has entered into a definitive merger agreement with SuperiorMed Holdings Limited, which typically drives immediate speculative upside to the SPAC's shares.",
+        "why_now": "The merger agreement was officially announced on August 22, 2026, creating an immediate trading catalyst.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 62,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 18,
+          "impact": 21,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-53dc51597abf"
+        ],
+        "primary_source_event_id": "EVT-53dc51597abf",
+        "source_headlines": [
+          "SuperiorMed Holdings Limited Announces Entering into an Agreement and Plan of Merger with Starry Sea Acquisition Corp | SSEA Stock News"
+        ],
+        "source_headline": "SuperiorMed Holdings Limited Announces Entering into an Agreement and Plan of Merger with Starry Sea Acquisition Corp | SSEA Stock News",
+        "source_url": "https://www.stocktitan.net/news/SSEA/superior-med-holdings-limited-announces-entering-into-an-agreement-box9i5nrtf5h.html",
+        "source_name": "Stock Titan — Latest News",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-22T05:24:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-22T07:11:14Z",
+        "updated_at": "2026-08-22T07:11:14Z",
+        "decay_at": "2026-08-23T17:24:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-23T17:24:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-07f356ae2f72",
         "idea_version": "IDEAV-8aebf28cfbbfd2ee",
@@ -83327,7 +83400,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 92,
-    "live_count": 20,
+    "live_count": 19,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -83346,9 +83419,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4239,
-    "news_picked_today": 901,
-    "news_dropped_today": 2640
+    "news_seen_today": 4253,
+    "news_picked_today": 905,
+    "news_dropped_today": 2650
   },
   "book_momentum": {
     "live_count": 8,
