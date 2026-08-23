@@ -1,25 +1,25 @@
 {
-  "idea_id": "IDEA-21c21ede9213",
-  "idea_version": "IDEAV-28bd6904c7b57388",
-  "idea_version_started_at": "2026-08-21T00:59:07Z",
-  "ticker": "PPT",
-  "company": "Perpetual Limited",
+  "idea_id": "IDEA-d0f443774a32",
+  "idea_version": "IDEAV-53a39543bc7bbc87",
+  "idea_version_started_at": "2026-08-23T23:13:49Z",
+  "ticker": "ALD",
+  "company": "Ampol",
   "exchange": "ASX",
   "ticker_verified": false,
   "listing_verified": false,
   "liquidity_verified": false,
   "listing_verification_source": null,
-  "direction": "short",
+  "direction": "long",
   "pair_with": null,
-  "reason": "The company announced a non-cash impairment, which signals a downward revision in the carrying value of assets and potential pressure on future earnings.",
-  "why_now": "The impairment was disclosed in an official ASX filing on 2026-08-20.",
-  "conviction": 70,
+  "reason": "The company reported a record half-year profit with a four-fold increase in earnings, signaling significant margin expansion and operational efficiency.",
+  "why_now": "The results were released on 2026-08-23.",
+  "conviction": 80,
   "conviction_basis": "pre_edge_proxy",
   "trade_score": 45,
   "trade_score_basis": "evidence_gate_v2",
   "trade_score_breakdown": {
-    "evidence": 25,
-    "impact": 19,
+    "evidence": 14,
+    "impact": 21,
     "specificity": 7,
     "timing": 10,
     "expression": 0,
@@ -32,6 +32,7 @@
     "verified listing",
     "live liquidity",
     "dated catalyst",
+    "independent confirmation",
     "live price, liquidity, and consensus"
   ],
   "learning": {
@@ -48,26 +49,26 @@
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-6e97008807f9"
+    "EVT-05195c47ea86"
   ],
-  "primary_source_event_id": "EVT-6e97008807f9",
+  "primary_source_event_id": "EVT-05195c47ea86",
   "source_headlines": [
-    "PPT: Non-cash impairment [price-sensitive]"
+    "Australia's Ampol logs record half-year profit with more than four-fold rise"
   ],
-  "source_headline": "PPT: Non-cash impairment [price-sensitive]",
-  "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.PPT?key=2924-03124062-2A1690988",
-  "source_name": "ASX (Australia Exchange Filing)",
+  "source_headline": "Australia's Ampol logs record half-year profit with more than four-fold rise",
+  "source_url": "https://www.reuters.com/business/energy/australias-ampol-logs-record-half-year-profit-with-more-than-four-fold-rise-2026-08-23/",
+  "source_name": "Reuters — Latest (news sitemap)",
   "materiality_max": 100,
-  "newest_source_at": "2026-08-20T23:06:06Z",
+  "newest_source_at": "2026-08-23T22:42:24Z",
   "prior_coverage": {
     "has_run": false,
     "latest_run": null,
     "latest_decision": null,
     "data_pool_present": false
   },
-  "surfaced_at": "2026-08-21T00:59:07Z",
-  "updated_at": "2026-08-21T00:59:07Z",
-  "decay_at": "2026-08-22T11:06:06Z",
+  "surfaced_at": "2026-08-23T23:13:49Z",
+  "updated_at": "2026-08-23T23:13:49Z",
+  "decay_at": "2026-08-25T10:42:24Z",
   "status": "live",
   "promoted_signal_id": null
 }
