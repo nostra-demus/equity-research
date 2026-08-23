@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-08-23T07:05:45Z",
+  "generated_at": "2026-08-23T07:14:28Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260823-188",
+      "headline": "Pride Hotels steps up expansion, plans ₹1,000-crore IPO by December",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/companies/pride-hotels-steps-up-expansion-plans-1000-crore-ipo-by-december/article71380296.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-23T07:02:53Z",
+      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
+      "prelim_note": "Pride Hotels plans to launch a major Rs 1,000-crore IPO by December to fund its expansion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Pride Hotels plans to launch a major Rs 1,000-crore IPO by December to fund its expansion.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 13,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capital_actions",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Pride Hotels",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260823-171",
       "headline": "Alibaba plans $10 billion Hong Kong share placement to fund AI spending",
@@ -1820,55 +1869,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260823-085",
-      "headline": "A91 Partners set to cash out ₹445 crore from Atomberg ahead of IPO",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/companies/a91-partners-set-to-cash-out-445-crore-from-atomberg-ahead-of-ipo/article71378754.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-23T03:18:54Z",
-      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
-      "prelim_note": "A451 crore exit by A91 Partners from Atomberg ahead of an IPO indicates a significant liquidity event and potential valuation for Atomberg, which could influence investor decisions regarding the IPO.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "A451 crore exit by A91 Partners from Atomberg ahead of an IPO indicates a significant liquidity event and potential valuation for Atomberg, which could influence investor decisions regarding the IPO.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Atomberg",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -83221,9 +83221,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1048,
-    "news_picked_today": 295,
-    "news_dropped_today": 753
+    "news_seen_today": 1073,
+    "news_picked_today": 307,
+    "news_dropped_today": 766
   },
   "book_momentum": {
     "live_count": 8,
