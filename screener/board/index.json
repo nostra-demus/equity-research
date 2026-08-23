@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-23T09:09:31Z",
+  "generated_at": "2026-08-23T09:15:31Z",
   "inbox": [
     {
       "inbox_id": "INB-20260823-199",
@@ -1114,6 +1114,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260823-203",
+      "headline": "Adnoc Distribution signs South Africa empowerment deal for Shell acquisition",
+      "headline_en": null,
+      "url": "https://www.khaleejtimes.com/business/adnoc-distribution-signs-south-africa-empowerment-deal-for-shell-acquisition",
+      "source_name": "Khaleej Times — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-23T09:11:06Z",
+      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
+      "prelim_note": "Adnoc Distribution is expanding its footprint through a strategic acquisition of Shell assets in South Africa.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Adnoc Distribution is expanding its footprint through a strategic acquisition of Shell assets in South Africa.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Adnoc Distribution",
+          "ticker": null,
+          "listing_country": "AE"
+        },
+        {
+          "name": "Shell",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260823-143",
       "headline": "Trump shares Hormuz image as 'US territory' as Iran faces new sanctions",
       "headline_en": null,
@@ -1792,49 +1846,6 @@
       "launched_signal_id": null,
       "triage_score": 93,
       "triage_reason": "Canada's response to new US tariffs signifies a significant escalation in trade tensions, which can materially impact the revenue, margins, and operations of companies in both countries and potentially disrupt supply chains.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 1,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "macro_sector",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260823-063",
-      "headline": "Canada to retaliate for US tariffs, worsening ties after talks fail",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/carney-says-new-canadian-tariffs-us-goods-will-come-into-effect-september-8-2026-08-22/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-23T01:54:02Z",
-      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
-      "prelim_note": "Escalating trade tensions and retaliatory tariffs between major economies represent a significant risk to global trade and supply chains.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "Escalating trade tensions and retaliatory tariffs between major economies represent a significant risk to global trade and supply chains.",
       "region": "GLOBAL",
       "relevance": "material",
       "materiality_pre_score": 75,
@@ -83069,9 +83080,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1369,
-    "news_picked_today": 413,
-    "news_dropped_today": 956
+    "news_seen_today": 1379,
+    "news_picked_today": 419,
+    "news_dropped_today": 960
   },
   "book_momentum": {
     "live_count": 8,
