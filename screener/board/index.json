@@ -1,6 +1,49 @@
 {
-  "generated_at": "2026-08-23T05:33:52Z",
+  "generated_at": "2026-08-23T05:38:50Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260823-147",
+      "headline": "Iranian hackers shut down UK power plant for four days, The Telegraph reports",
+      "headline_en": null,
+      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/iranian-hackers-shut-down-uk-power-plant-four-days-telegraph-reports",
+      "source_name": "Middle East Eye",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-23T05:35:00Z",
+      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
+      "prelim_note": "A successful cyberattack shutting down critical infrastructure like a power plant represents a major operational and national security risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A successful cyberattack shutting down critical infrastructure like a power plant represents a major operational and national security risk.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "cybersecurity",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "cybersecurity"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260823-135",
       "headline": "Nvidia customers notified about AI-related price hikes above 15%",
@@ -1449,49 +1492,6 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260823-010",
-      "headline": "Iranian hackers shut down UK power plant",
-      "headline_en": null,
-      "url": "https://www.afr.com/world/europe/iranian-hackers-shut-down-uk-power-plant-20260823-p60qop?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-23T00:22:53Z",
-      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
-      "prelim_note": "A cyberattack by Iranian hackers on a UK power plant represents a significant operational and national security risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "A cyberattack by Iranian hackers on a UK power plant represents a significant operational and national security risk.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": -4,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "macro",
-        "source_tier_id": "news",
-        "event_id": "cybersecurity",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "cybersecurity"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
       "inbox_id": "INB-20260823-123",
       "headline": "‎Borouge board approves H1 2026 cash dividend of 8.1 fils per share",
       "headline_en": null,
@@ -1536,6 +1536,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260823-145",
+      "headline": "Rescue recap in the works for Qantas Airways-backed Alliance Aviation",
+      "headline_en": null,
+      "url": "https://www.afr.com/street-talk/rescue-recap-in-the-works-for-qantas-airways-backed-alliance-aviation-20260823-p60qqd?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-23T05:33:43Z",
+      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
+      "prelim_note": "Alliance Aviation is facing potential financial distress requiring a rescue recapitalization, which signals significant operational or liquidity risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "Alliance Aviation is facing potential financial distress requiring a rescue recapitalization, which signals significant operational or liquidity risk.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Alliance Aviation Services",
+          "ticker": "AQZ",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1833,55 +1882,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260823-125",
-      "headline": "‎BILDCO appeals AED20M counterclaim ruling",
-      "headline_en": null,
-      "url": "https://www.argaam.com/en/article/articledetail/id/1931112",
-      "source_name": "Argaam — UAE Main News (English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-23T08:45:00Z",
-      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
-      "prelim_note": "The company is appealing a 20M AED counterclaim ruling, which represents a potential financial liability.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "The company is appealing a 20M AED counterclaim ruling, which represents a potential financial liability.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "BILDCO",
-          "ticker": null,
-          "listing_country": "AE"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -83234,8 +83234,8 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 827,
-    "news_picked_today": 208,
+    "news_seen_today": 832,
+    "news_picked_today": 213,
     "news_dropped_today": 619
   },
   "book_momentum": {
