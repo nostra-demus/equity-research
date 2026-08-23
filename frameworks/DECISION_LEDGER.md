@@ -624,12 +624,52 @@ Each references the original decision; the original decision record is never edi
   "error_taxonomy": [],
   "lessons": [],
   "module_calibration_notes": {},
+  "action_now": {},
+  "confidence_update": {},
+  "next_check": {},
+  "learning": {},
   "memo_delta": {},
   "pre_mortem_check": {}
 }
 ```
 
 `review_window` ∈ {30d, 90d, 180d, 365d, 24m, 36m, ad-hoc, post-mortem}. `thesis_status` ∈ {on-track, at-risk, confirmed, broken, expired}. `decision_quality` records the §10 luck-vs-skill verdict. `error_taxonomy` is populated only when the call went wrong (§12).
+
+### Decision-memory fields — what to do and what the engine must learn (additive; required for reviews filed on/after 2026-08-23)
+
+These fields turn an outcome review into a usable next decision without changing the frozen original:
+
+```json
+"action_now": {
+  "label": "Keep watching",
+  "reason": "The original Watchlist caution was confirmed; no new evidence clears the entry bar."
+},
+"confidence_update": {
+  "before": 72,
+  "after": 54,
+  "change_reason": "Sales missed the dated threshold and the thesis weakened."
+},
+"next_check": {
+  "date": "2026-10-08",
+  "label": "Q3 results and pre-sales check",
+  "trigger": "Test whether pre-sales growth recovers above the original threshold."
+},
+"learning": {
+  "why_right_or_wrong": "The Watchlist call was right because the exact warning sign appeared.",
+  "error_source": "",
+  "rule_for_future": "Do not upgrade a property-cycle call before its dated pre-sales test clears.",
+  "future_research_check": "Recheck pre-sales growth and backlog before discussing entry."
+}
+```
+
+Rules:
+
+- `action_now.label` is exactly one of `Hold`, `Add`, `Exit`, `Stay away`, `Keep watching`. It is the action **at review time**, not a rewrite of the original call. `Add` requires positive new evidence and a still-valid valuation/risk bar; never infer it from a rising price alone.
+- `confidence_update.before` is the frozen decision-time conviction shown by the final published call (including a decision-time pre-mortem haircut). `after` is the review-time conviction that the **current action/thesis read** is correct. Both are 0–100 or `null`; never manufacture a number when the review lacks enough evidence. `change_reason` names the evidence that moved it.
+- `next_check` names the event, metric, or filing — never only a date. `date` is ISO when proven, else `null`; `label` remains specific even if timing is unknown.
+- `learning.why_right_or_wrong` separates price result from thesis result. `error_source` uses the §12 taxonomy when there was a miss, otherwise `""`. `rule_for_future` is a reusable process lesson. `future_research_check` is the exact assumption the next Research or Screener chat must recheck before answering.
+- The information partition still applies. Outcome explanation may use post-decision facts. A claim that the original process was bad, and every `rule_for_future` based on that claim, must be supported only by evidence knowable on or before `decision_date`. Never teach the engine a hindsight lesson.
+- The original `decision_record.json` remains immutable. These fields are append-only review evidence. Consumers must repeat the frozen original rating exactly; a `Watchlist`, `Avoid`, or `Stay away` call must never be described as “Nostra said enter.”
 
 `tracking_price` (additive; review-file-only, never written to the frozen decision record) — the return anchor for a call whose `entry_price` is `null` (§4 barred a web/indicative price from populating the frozen record, so an entry-based return is otherwise impossible). It is a block `{ price, source, as_of, currency, established_at_window }`, source- and date-labelled (indicative/unverified is acceptable). The **first** review that finds a usable price establishes it; **every later window reuses that earliest block verbatim** so all windows measure from one fixed anchor, not a moving one. When `tracking_price` carries the return, `absolute_return_pct` = (review_price − tracking_price.price) / tracking_price.price × 100 and every `entry_price`-derived field stays `null`. `null` whenever `entry_price` exists or no usable price was found. `/research:calibrate` reads it so a null-entry call still enters the hit-rate and cohort math instead of being silently dropped.
 

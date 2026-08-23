@@ -326,5 +326,26 @@ check('news prompt is closed-book, simple, cited, and allowed to reject a trade'
   assert.match(p.user, /NEWS_CHAT_FINAL_QUESTION_CHARS:/)
 })
 
+check('news prompt carries exact prior-call learning into Screener wire chat without rewriting it', () => {
+  const assembled = { present: true, context: 'CURRENT EVIDENCE:\n[N1] Amazon filed results', evidence: [], receipt: { window: '24h' as const, label: 'last 24 hours', itemsSearched: 1, itemsMatched: 1, sourceCount: 1, evidenceCount: 1, historicalEvidenceCount: 0, coverageStart: '2026-08-02', coverageEnd: '2026-08-02', queryTerms: [], queryTermHits: {}, retrievalTermHits: {}, expandedTerms: {}, retrievalMode: 'hybrid' as const, retrievalChannels: [], dataStores: ['live wire'], coverageWarnings: [], sourceHealth: null, semantic: null, rerank: null, relationships: [], tradeCandidates: [] } }
+  const calls = [{
+    ticker: 'AMZN', company: 'Amazon.com, Inc.', decision_date: '2026-07-10', original_decision: 'Watchlist',
+    original_confidence: 72, original_price: 238.34, currency: 'USD', exchange: 'NASDAQ', latest_review_date: '2026-08-09', latest_price: 274.48,
+    price_change_pct: 15.16, benchmark_relative_pct: 11.49, thesis_status: 'broken', decision_quality: 'genuine miss',
+    action_now: 'Keep watching' as const, action_reason: 'Re-run earnings before acting.', confidence_after: 45,
+    confidence_reason: 'AWS margin expanded.', why_right_or_wrong: 'Nostra underestimated AWS growth.', error_taxonomy: ['bad base rate'],
+    future_research_check: 'Recheck AWS growth and margin.', next_check_date: '2026-10-30', next_check_label: 'Q3 AWS check',
+    original_source_path: 'analyses/AMZN_2026-07-10/decision_record.json',
+    review_source_path: 'analyses/AMZN_2026-07-10/reviews/2026-08-09_30d_decision_review.json', memo_source_path: null,
+  }]
+  const p = buildNewsChatPrompts({ assembled, messages: [{ role: 'user', content: 'What changed?' }], calls })
+  assert.match(p.system, /Begin with one short paragraph labelled "Memory check:"/)
+  assert.match(p.system, /Never call Watchlist, Avoid, or Stay away an entry call/)
+  assert.match(p.user, /FROZEN ORIGINAL: Nostra rated it Watchlist/)
+  assert.match(p.user, /RECHECK NOW: Recheck AWS growth and margin/)
+  assert.match(p.user, /ORIGINAL SOURCE: analyses\/AMZN_2026-07-10\/decision_record\.json/)
+  assert.match(p.user, /REVIEW SOURCE: analyses\/AMZN_2026-07-10\/reviews\/2026-08-09_30d_decision_review\.json/)
+})
+
 await checks
 console.log(`\n${passed} checks passed`)

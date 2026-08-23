@@ -18,6 +18,28 @@
 .calls__empty { color: var(--text-faint); font-size: 13px; padding: 56px 28px; text-align: center; line-height: 1.7; }
 .calls__error { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 12px; border: 1px solid var(--bad); border-radius: var(--r-md); background: color-mix(in srgb, var(--bad) 7%, var(--surface-2)); color: var(--text-muted); font-size: 11.5px; line-height: 1.45; }
 
+/* Aggregate accuracy stays compact and explicitly separates assessed, mixed, and too-early calls. */
+.callscore { flex-shrink: 0; border: 1px solid var(--hairline-strong); border-radius: var(--r-lg); background: var(--surface-2); overflow: hidden; }
+.callscore__head { display: flex; align-items: flex-start; justify-content: space-between; gap: 14px; padding: 13px 14px; border-bottom: 1px solid var(--hairline); }
+.callscore__head > div { display: flex; flex-direction: column; gap: 3px; }
+.callscore__head strong { font-size: 13px; }
+.callscore__head span { color: var(--text-faint); font-size: 10.5px; line-height: 1.35; }
+.callscore__metrics { display: grid; grid-template-columns: repeat(4, 1fr); border-bottom: 1px solid var(--hairline); }
+.callscore__metrics > div { display: flex; flex-direction: column; gap: 4px; padding: 11px 13px; border-left: 1px solid var(--hairline); }
+.callscore__metrics > div:first-child { border-left: none; }
+.callscore__metrics span, .callscore__horizons span { color: var(--text-faint); font-size: 9px; font-weight: 700; letter-spacing: 0.35px; text-transform: uppercase; }
+.callscore__metrics strong { font-size: 17px; font-variant-numeric: tabular-nums; }
+.callscore__horizons { display: grid; grid-template-columns: repeat(4, 1fr); border-bottom: 1px solid var(--hairline); }
+.callscore__horizons > div { min-width: 0; display: flex; flex-direction: column; gap: 3px; padding: 10px 13px; border-left: 1px solid var(--hairline); }
+.callscore__horizons > div:first-child { border-left: none; }
+.callscore__horizons strong { font-size: 12px; font-variant-numeric: tabular-nums; }
+.callscore__horizons small { color: var(--text-faint); font-size: 9.5px; line-height: 1.35; }
+.callscore__confidence { display: flex; align-items: baseline; gap: 9px; padding: 10px 13px; color: var(--text-muted); }
+.callscore__confidence strong { flex-shrink: 0; font-size: 10.5px; }
+.callscore__confidence span { font-size: 10.5px; line-height: 1.4; }
+.callscore__confidence--aligned strong { color: var(--accent-bright); }
+.callscore__confidence--not_aligned strong { color: var(--bad); }
+
 /* Plain-English stream built from immutable dated calls + append-only outcome reviews. */
 .callupdates { display: flex; flex-direction: column; gap: 9px; }
 .callupdate { appearance: none; width: 100%; min-width: 0; display: flex; align-items: stretch; gap: 12px; padding: 0; text-align: left; color: var(--text); background: var(--surface-2); border: 1px solid var(--hairline); border-radius: var(--r-lg); overflow: hidden; cursor: pointer; transition: border-color var(--dur-fast), background var(--dur-fast); }
@@ -73,6 +95,13 @@
 .calltrack { margin-top: 13px; border: 1px solid var(--hairline); border-radius: var(--r-md); background: var(--surface-1); overflow: hidden; }
 .calltrack__original { margin: 0; padding: 10px 12px; color: var(--text); font-size: 12.5px; line-height: 1.45; border-bottom: 1px solid var(--hairline); }
 .calltrack__original::before { content: 'Original call'; display: block; margin-bottom: 2px; color: var(--text-faint); font-size: 9px; font-weight: 700; letter-spacing: 0.45px; text-transform: uppercase; }
+.calltrack__action { display: grid; grid-template-columns: auto auto 1fr; align-items: baseline; gap: 8px 12px; padding: 10px 12px; border-bottom: 1px solid var(--hairline); background: var(--accent-wash-soft); }
+.calltrack__action > span, .calltrack__result > span, .calltrack__learning > span { color: var(--text-faint); font-size: 9px; font-weight: 700; letter-spacing: 0.4px; text-transform: uppercase; }
+.calltrack__action strong { font-size: 14px; }
+.calltrack__action small { color: var(--text-muted); font-size: 10.5px; line-height: 1.35; }
+.calltrack__result { display: flex; flex-direction: column; gap: 4px; padding: 10px 12px; border-bottom: 1px solid var(--hairline); }
+.calltrack__result strong { font-size: 12px; line-height: 1.4; }
+.calltrack__result small { color: var(--text-muted); font-size: 10.5px; line-height: 1.4; }
 .calltrack__grid { display: grid; grid-template-columns: 1.15fr 1.35fr 1fr; }
 .calltrack__cell { min-width: 0; display: flex; flex-direction: column; gap: 4px; padding: 11px 12px; border-left: 1px solid var(--hairline); }
 .calltrack__cell:first-child { border-left: none; }
@@ -85,6 +114,8 @@
 .calltrack .tone--neutral { color: var(--text-muted); }
 .calltrack__evidence { padding: 10px 12px 11px; border-top: 1px solid var(--hairline); }
 .calltrack__evidence p { display: -webkit-box; margin: 4px 0 0; overflow: hidden; -webkit-box-orient: vertical; -webkit-line-clamp: 4; color: var(--text-muted); font-size: 11.5px; line-height: 1.48; }
+.calltrack__learning { padding: 10px 12px 11px; border-top: 1px solid var(--hairline); }
+.calltrack__learning p { display: -webkit-box; margin: 4px 0 0; overflow: hidden; -webkit-box-orient: vertical; -webkit-line-clamp: 3; color: var(--text-muted); font-size: 11.5px; line-height: 1.48; }
 
 /* timeline: a base line + an amber fill that reaches "now", with a dot per checkpoint */
 .tl { position: relative; margin-top: 18px; }
@@ -118,10 +149,17 @@
   .calls__tabs { width: 100%; }
   .calls__tabs .seg__btn { flex: 1; padding: 0 7px; }
   .calls__count { text-align: left; }
-  .callcard__top { align-items: flex-start; }
-  .callcard__id { flex-wrap: wrap; }
+  .callcard__top { align-items: flex-start; flex-direction: column; }
+  .callcard__id { width: 100%; flex-wrap: wrap; }
+  .callcard__when { max-width: 100%; text-align: left; white-space: normal; }
   .calltrack__grid { grid-template-columns: 1fr; }
   .calltrack__cell { border-left: none; border-top: 1px solid var(--hairline); }
   .calltrack__cell:first-child { border-top: none; }
+  .callscore__metrics, .callscore__horizons { grid-template-columns: repeat(2, 1fr); }
+  .callscore__metrics > div:nth-child(3), .callscore__horizons > div:nth-child(3) { border-left: none; border-top: 1px solid var(--hairline); }
+  .callscore__metrics > div:nth-child(4), .callscore__horizons > div:nth-child(4) { border-top: 1px solid var(--hairline); }
+  .callscore__head, .callscore__confidence { align-items: flex-start; flex-direction: column; }
+  .calltrack__action { grid-template-columns: auto 1fr; }
+  .calltrack__action small { grid-column: 1 / -1; }
   .callcard__hint { width: 100%; margin-left: 0; white-space: normal; }
 }

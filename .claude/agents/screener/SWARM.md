@@ -17,6 +17,7 @@ inbox_root: screener/inbox
 schemas_root: frameworks/screener
 calibrator: scripts/screener_calibrate.py
 calibration_root: screener/ledger/conviction
+decision_memory: equity_calls
 routing:
   verdict_field: "Routing"
   terminal:

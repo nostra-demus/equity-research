@@ -232,6 +232,15 @@ Each review also answers: **"what changed since the original memo, and does it m
 
 ## 12. Write the review JSON
 
+Before writing, build the four decision-memory blocks from `DECISION_LEDGER.md` §8:
+
+- `action_now`: choose exactly one of `Hold`, `Add`, `Exit`, `Stay away`, `Keep watching`, with a one-sentence evidence-based reason. Repeat the original rating exactly in the reason when relevant. A Watchlist was not an entry call. Never use `Add` merely because price rose.
+- `confidence_update`: `before` is the frozen final decision-time conviction (including any pre-mortem haircut); `after` is today's 0–100 confidence in the current action/thesis read; `change_reason` names the fact that moved it. Use `null` rather than false precision when the evidence cannot carry a score.
+- `next_check`: use the next scheduled checkpoint and name the real event/metric (`Q3 results and pre-sales check`, not just `90d review`). `date` is ISO when proven, else `null`; include the exact trigger.
+- `learning`: plainly state why the original call was right or wrong, the error source if any, one reusable rule, and the exact assumption future Research/Screener chat must recheck. Apply the Step-10 information partition: post-decision facts may explain the outcome, but cannot retroactively prove the original process was bad.
+
+These blocks change the current action and future behavior only. They never rewrite `original_decision`, `decision_record.json`, or the original memo.
+
 Use the **exact** outcome-review schema from `DECISION_LEDGER.md` §8 (do not drift; extra fields only if clearly useful):
 
 ```
@@ -259,12 +268,16 @@ Use the **exact** outcome-review schema from `DECISION_LEDGER.md` §8 (do not dr
   "error_taxonomy": [],
   "lessons": [],
   "module_calibration_notes": {},
+  "action_now": {},
+  "confidence_update": {},
+  "next_check": {},
+  "learning": {},
   "pre_mortem_check": {},
   "memo_delta": {}
 }
 ```
 
-Fill: `ticker`, `original_decision_date` (= record `decision_date`), `review_date` (= `<TODAY>`), `review_window`, `original_decision` (= record `decision`), `basket` (= record `basket`), `entry_price` (= record `entry_price`, unchanged), `tracking_price` (the Step-5 review-side anchor block for a null-entry call — carried forward verbatim from the earliest prior review that established it, or newly established here; `null` when `entry_price` exists or no usable price was found), the fields produced in Steps 5–10, `pre_mortem_check` = the full §8 block built in Step 7A (required for reviews filed on/after 2026-07-17), and `memo_delta` = the full §8 block built in Step 11 (required for reviews filed on/after 2026-06-10). `lessons` is an array of short strings (the §7 answers, web-source labels, and the single most important takeaway).
+Fill: `ticker`, `original_decision_date` (= record `decision_date`), `review_date` (= `<TODAY>`), `review_window`, `original_decision` (= the final frozen published call, including a decision-time post-mortem cap when present), `basket` (= the matching final frozen basket), `entry_price` (= record `entry_price`, unchanged), `tracking_price` (the Step-5 review-side anchor block for a null-entry call — carried forward verbatim from the earliest prior review that established it, or newly established here; `null` when `entry_price` exists or no usable price was found), the fields produced in Steps 5–10, all four decision-memory blocks above, `pre_mortem_check` = the full §8 block built in Step 7A (required for reviews filed on/after 2026-07-17), and `memo_delta` = the full §8 block built in Step 11 (required for reviews filed on/after 2026-06-10). `lessons` is an array of short strings (the §7 answers, web-source labels, and the single most important takeaway).
 
 Conventions (must hold): valid JSON; no markdown fences; no comments; no trailing commas; `null` for unknown numbers; `""` for unknown strings; `[]` for empty arrays; `{}` for empty objects. Never fabricate a value.
 

@@ -10,6 +10,7 @@ import {
 import { diffDecisionRecords } from './run-diff'
 import { publishedGitCommit, publishedTreeAuthority, type PublishedTreeAuthority } from './published-git'
 import { listSwarms } from './swarms'
+import { buildCallsScorecard, type ActionNowLabel } from './call-learning'
 
 // Output markdown is always an engine-authored repo-relative artifact. The strict segment allowlist makes
 // the public request boundary explicit; filesystem enumeration and canonical containment below prevent the
@@ -534,10 +535,64 @@ export interface ReviewFile {
   stage_one_comment: string | null
   memo_delta_summary: string | null
   thesis_delta_verdict: string | null
+  action_now: { label: ActionNowLabel; reason: string; recorded: true } | null
+  confidence_update: { before: number | null; after: number | null; change_reason: string | null } | null
+  next_check: { date: string | null; label: string | null; trigger: string | null } | null
+  learning: {
+    why_right_or_wrong: string | null
+    error_source: string | null
+    rule_for_future: string | null
+    future_research_check: string | null
+  } | null
+  lessons: string[]
+  error_taxonomy: string[]
+  watch_items: string[]
 }
 
 function finiteNumber(value: unknown): number | null {
   return typeof value === 'number' && Number.isFinite(value) ? value : null
+}
+
+function confidenceScore(value: unknown): number | null {
+  const score = finiteNumber(value)
+  return score !== null && score >= 0 && score <= 100 ? score : null
+}
+
+const ACTION_NOW_LABELS = new Set<ActionNowLabel>(['Hold', 'Add', 'Exit', 'Stay away', 'Keep watching'])
+const cleanString = (value: unknown): string | null => typeof value === 'string' && value.trim() ? value.trim() : null
+const cleanStringArray = (value: unknown): string[] => Array.isArray(value)
+  ? value.map(cleanString).filter((row): row is string => !!row).slice(0, 30)
+  : []
+
+export function structuredReviewFields(j: any, md: any): Pick<ReviewFile, 'action_now' | 'confidence_update' | 'next_check' | 'learning' | 'lessons' | 'error_taxonomy' | 'watch_items'> {
+  const action = j?.action_now && typeof j.action_now === 'object' ? j.action_now : null
+  const actionLabel = cleanString(action?.label)
+  const actionReason = cleanString(action?.reason)
+  const confidence = j?.confidence_update && typeof j.confidence_update === 'object' ? j.confidence_update : null
+  const next = j?.next_check && typeof j.next_check === 'object' ? j.next_check : null
+  const learning = j?.learning && typeof j.learning === 'object' ? j.learning : null
+  return {
+    action_now: actionLabel && actionReason && ACTION_NOW_LABELS.has(actionLabel as ActionNowLabel)
+      ? { label: actionLabel as ActionNowLabel, reason: actionReason, recorded: true }
+      : null,
+    confidence_update: confidence ? {
+      before: confidenceScore(confidence.before), after: confidenceScore(confidence.after),
+      change_reason: cleanString(confidence.change_reason),
+    } : null,
+    next_check: next ? {
+      date: isValidCalendarISODate(next.date) ? next.date : null,
+      label: cleanString(next.label), trigger: cleanString(next.trigger),
+    } : null,
+    learning: learning ? {
+      why_right_or_wrong: cleanString(learning.why_right_or_wrong),
+      error_source: cleanString(learning.error_source),
+      rule_for_future: cleanString(learning.rule_for_future),
+      future_research_check: cleanString(learning.future_research_check),
+    } : null,
+    lessons: cleanStringArray(j?.lessons),
+    error_taxonomy: cleanStringArray(j?.error_taxonomy),
+    watch_items: cleanStringArray(md?.watch_items),
+  }
 }
 
 // normalize forecast_results[].status (lowercase, unknown-safe) and count the resolved ones.
@@ -584,6 +639,7 @@ function listReviewFiles(runRoot: string, authority: PublishedTreeAuthority): Re
     }
     const fc = countForecastResults(j?.forecast_results)
     const md = j?.memo_delta && typeof j.memo_delta === 'object' ? j.memo_delta : null
+    const structured = structuredReviewFields(j, md)
     out.push({
       file: `${runRoot}/reviews/${n}`,
       basename: n,
@@ -602,17 +658,37 @@ function listReviewFiles(runRoot: string, authority: PublishedTreeAuthority): Re
       thesis_delta_verdict: typeof md?.thesis_delta_verdict === 'string' && md.thesis_delta_verdict.trim()
         ? md.thesis_delta_verdict.trim().toLowerCase()
         : null,
+      ...structured,
     })
   }
   return out
 }
 
-// deterministic winner among reviews: latest review_date, tie-break lexically-newest basename.
+function reviewFileVersion(file: ReviewFile): number {
+  const match = /_v(\d+)\.json$/i.exec(file.basename)
+  return match ? Number(match[1]) : 1
+}
+
+// Deterministic standing winner: latest review date, then highest numeric append-only correction.
 function pickWinner(files: ReviewFile[]): ReviewFile | null {
   if (!files.length) return null
-  return [...files].sort((a, b) =>
-    a.review_date < b.review_date ? 1 : a.review_date > b.review_date ? -1 : a.basename < b.basename ? 1 : -1,
-  )[0]
+  return [...files].sort((a, b) => {
+    if (a.review_date !== b.review_date) return a.review_date < b.review_date ? 1 : -1
+    const av = reviewFileVersion(a)
+    const bv = reviewFileVersion(b)
+    if (av !== bv) return bv - av
+    return b.basename.localeCompare(a.basename)
+  })[0]
+}
+
+function standingReviewFiles(files: ReviewFile[]): ReviewFile[] {
+  const byCheckpoint = new Map<string, ReviewFile>()
+  for (const file of files) {
+    const key = `${file.review_date.trim().toLowerCase()}|${file.review_window.trim().toLowerCase()}`
+    const winner = pickWinner(byCheckpoint.has(key) ? [byCheckpoint.get(key)!, file] : [file])
+    if (winner) byCheckpoint.set(key, winner)
+  }
+  return [...byCheckpoint.values()]
 }
 
 interface TimelineEntry {
@@ -633,6 +709,25 @@ interface TimelineEntry {
   stage_one_comment?: string
   memo_delta_summary?: string
   thesis_delta_verdict?: string
+  action_now?: ReviewFile['action_now']
+  confidence_update?: ReviewFile['confidence_update']
+  next_check?: ReviewFile['next_check']
+  learning?: ReviewFile['learning']
+  lessons?: string[]
+  error_taxonomy?: string[]
+  watch_items?: string[]
+}
+
+function reviewLearningFields(review: ReviewFile) {
+  return {
+    ...(review.action_now ? { action_now: review.action_now } : {}),
+    ...(review.confidence_update ? { confidence_update: review.confidence_update } : {}),
+    ...(review.next_check ? { next_check: review.next_check } : {}),
+    ...(review.learning ? { learning: review.learning } : {}),
+    ...(review.lessons.length ? { lessons: review.lessons } : {}),
+    ...(review.error_taxonomy.length ? { error_taxonomy: review.error_taxonomy } : {}),
+    ...(review.watch_items.length ? { watch_items: review.watch_items } : {}),
+  }
 }
 
 function buildTimeline(schedule: Record<string, any>, reviews: ReviewFile[], today: string): TimelineEntry[] {
@@ -664,6 +759,7 @@ function buildTimeline(schedule: Record<string, any>, reviews: ReviewFile[], tod
         ...(win.stage_one_comment ? { stage_one_comment: win.stage_one_comment } : {}),
         ...(win.memo_delta_summary ? { memo_delta_summary: win.memo_delta_summary } : {}),
         ...(win.thesis_delta_verdict ? { thesis_delta_verdict: win.thesis_delta_verdict } : {}),
+        ...reviewLearningFields(win),
       })
     } else {
       out.push({ window, due_date: dt, status: dt < today ? 'overdue' : dt === today ? 'due' : 'upcoming' })
@@ -690,6 +786,7 @@ function buildTimeline(schedule: Record<string, any>, reviews: ReviewFile[], tod
       ...(r.stage_one_comment ? { stage_one_comment: r.stage_one_comment } : {}),
       ...(r.memo_delta_summary ? { memo_delta_summary: r.memo_delta_summary } : {}),
       ...(r.thesis_delta_verdict ? { thesis_delta_verdict: r.thesis_delta_verdict } : {}),
+      ...reviewLearningFields(r),
     })
   }
   // order by effective date (scheduled due_date or ad-hoc review_date); undated last
@@ -904,7 +1001,7 @@ export function buildCallUpdates(rows: CallUpdateInput[]): CallUpdate[] {
         })
       }
 
-      for (const review of row.reviews) {
+      for (const review of standingReviewFiles(row.reviews)) {
         const display = reviewHeadline(ticker, review.thesis_delta_verdict || review.thesis_status)
         updates.push({
           id: updateId('review', review.file), ticker, company: call.company ?? null,
@@ -990,6 +1087,18 @@ async function projectAllCalls(authority: PublishedTreeAuthority) {
       decision_is_post_mortem_capped: disp.decisionIsPostMortemCapped,
       confidence: disp.confidence,
       confidence_is_post_review: disp.confidenceIsPostReview,
+      // The decision-time state is immutable. Outcome reviews may explain or supersede the action now,
+      // but they can never rewrite these fields after seeing the result.
+      frozen_call: {
+        locked: true,
+        decision: disp.decision,
+        basket: disp.basket,
+        confidence: disp.confidence,
+        decision_date: d?.decision_date ?? null,
+        entry_price: entry,
+        currency: d?.currency ?? null,
+        source_path: `${runRoot}/decision_record.json`,
+      },
       integrity_status: integrity.status,
       integrity_verdict: integrity.verdict,
       integrity_banner: integrity.banner,
@@ -1040,6 +1149,7 @@ async function projectAllCalls(authority: PublishedTreeAuthority) {
     .sort((a, b) => (a.due_date < b.due_date ? -1 : a.due_date > b.due_date ? 1 : a.ticker < b.ticker ? -1 : a.ticker > b.ticker ? 1 : 0))
   return {
     calls,
+    scorecard: buildCallsScorecard(calls),
     dashboard: newestDashboard(publishedPaths),
     needs_attention: needsAttention,
     updates: buildCallUpdates(updateRows).slice(0, 100),
