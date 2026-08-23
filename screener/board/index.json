@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-08-23T09:45:46Z",
+  "generated_at": "2026-08-23T09:51:14Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260823-208",
+      "headline": "Alibaba proposes $10 billion share placement to fund global AI drive",
+      "headline_en": null,
+      "url": "http://thepeninsulaqatar.com/article/23/08/2026/alibaba-proposes-10-billion-share-placement-to-fund-global-ai-drive",
+      "source_name": "The Peninsula Qatar — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-23T09:45:17Z",
+      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
+      "prelim_note": "Alibaba is proposing a $10 billion share placement, which is a significant capital action that will dilute existing shareholders.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Alibaba is proposing a $10 billion share placement, which is a significant capital action that will dilute existing shareholders.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capital_actions",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Alibaba",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260823-205",
       "headline": "Israeli air strike in central Gaza kills one, wounds two",
@@ -1825,49 +1874,6 @@
         "cybersecurity"
       ],
       "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260823-165",
-      "headline": "Iran condemns looming US sanctions as Hormuz standoff deepens",
-      "headline_en": null,
-      "url": "https://www.thenationalnews.com/news/gulf/2026/08/23/iran-condemns-looming-us-sanctions-as-hormuz-standoff-deepens/",
-      "source_name": "The National — All News",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-23T06:11:23Z",
-      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
-      "prelim_note": "Geopolitical escalation in the Strait of Hormuz threatens global oil supply chains.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "Geopolitical escalation in the Strait of Hormuz threatens global oil supply chains.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 1,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "macro_sector",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
@@ -83151,9 +83157,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1446,
-    "news_picked_today": 443,
-    "news_dropped_today": 1003
+    "news_seen_today": 1464,
+    "news_picked_today": 446,
+    "news_dropped_today": 1018
   },
   "book_momentum": {
     "live_count": 8,
