@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-08-23T04:53:53Z",
+  "generated_at": "2026-08-23T04:58:55Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260823-135",
+      "headline": "Nvidia customers notified about AI-related price hikes above 15%",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/info-tech/nvidia-customers-notified-about-ai-related-price-hikes-above-15/article71380141.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-23T04:48:24Z",
+      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
+      "prelim_note": "Nvidia is implementing price hikes of over 15% for its AI-related products, which will directly impact revenue and margins.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nvidia is implementing price hikes of over 15% for its AI-related products, which will directly impact revenue and margins.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 3,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "commercial",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": "NVDA",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260823-131",
       "headline": "Alibaba proposes Hong Kong share placement worth $10 billion",
@@ -1815,55 +1864,6 @@
       ],
       "issuer_linkage": "macro",
       "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260823-098",
-      "headline": "Coffee chain Blank Street raises funds from General Atlantic to fuel expansion",
-      "headline_en": null,
-      "url": "https://www.ft.com/content/c202d7aa-481a-466b-b34f-2c4451f787a5?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-23T04:00:15Z",
-      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
-      "prelim_note": "Blank Street raised private capital to fund expansion, indicating growth plans.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Blank Street raised private capital to fund expansion, indicating growth plans.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Blank Street",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -83144,9 +83144,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 710,
-    "news_picked_today": 172,
-    "news_dropped_today": 538
+    "news_seen_today": 729,
+    "news_picked_today": 177,
+    "news_dropped_today": 552
   },
   "book_momentum": {
     "live_count": 8,
