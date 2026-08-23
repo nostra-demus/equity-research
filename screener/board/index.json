@@ -1,6 +1,56 @@
 {
-  "generated_at": "2026-08-23T06:33:59Z",
+  "generated_at": "2026-08-23T06:38:59Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260823-171",
+      "headline": "Alibaba plans $10 billion Hong Kong share placement to fund AI spending",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/retail-consumer/alibaba-proposes-hong-kong-share-placement-worth-10-billion-2026-08-23/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-23T06:28:29Z",
+      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
+      "prelim_note": "Alibaba plans $10 billion Hong Kong share placement to fund AI spending, diluting existing shares but funding growth.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Alibaba plans $10 billion Hong Kong share placement to fund AI spending, diluting existing shares but funding growth.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capital_actions",
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Alibaba",
+          "ticker": null,
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260823-167",
       "headline": "Alibaba to Raise $10 Billion by Selling Shares for AI Expansion",
@@ -722,6 +772,50 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260823-170",
+      "headline": "‎UAE suspends trade, financial transactions with Iran",
+      "headline_en": null,
+      "url": "https://www.argaam.com/en/article/articledetail/id/1931162",
+      "source_name": "Argaam — UAE Main News (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-23T10:33:00Z",
+      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
+      "prelim_note": "UAE suspending trade and financial transactions with Iran is a geopolitical/regulatory escalation affecting cross-border commerce.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "UAE suspending trade and financial transactions with Iran is a geopolitical/regulatory escalation affecting cross-border commerce.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 13,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1772,111 +1866,6 @@
           "name": "Borouge",
           "ticker": null,
           "listing_country": "AE"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260823-140",
-      "headline": "Harvey Nicks suppliers fear being 'screwed' by Mike Ashley's takeover",
-      "headline_en": null,
-      "url": "https://www.thisismoney.co.uk/money/markets/article-16071879/Harvey-Nicks-suppliers-fear-screwed-Mike-Ashleys-takeover.html?ns_mchannel=rss&ns_campaign=1490&ito=1490",
-      "source_name": "This is Money (Daily Mail) — Markets",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-23T05:01:05Z",
-      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
-      "prelim_note": "Mike Ashley's takeover of Harvey Nichols creates operational and credit risk for existing suppliers.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Mike Ashley's takeover of Harvey Nichols creates operational and credit risk for existing suppliers.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna",
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Harvey Nichols",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Frasers Group",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260823-075",
-      "headline": "Police search Tobu Railway group company over fatal express train accident",
-      "headline_en": null,
-      "url": "https://english.kyodonews.net/articles/-/82857",
-      "source_name": "Kyodo News (Japan Wire)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-23T02:01:00Z",
-      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
-      "prelim_note": "A police investigation into a fatal accident at a subsidiary creates operational and legal risk for the parent company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "A police investigation into a fatal accident at a subsidiary creates operational and legal risk for the parent company.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "litigation_enforcement",
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tobu Railway",
-          "ticker": null,
-          "listing_country": "JP"
         }
       ],
       "size_bucket": "large",
@@ -83232,9 +83221,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 973,
-    "news_picked_today": 265,
-    "news_dropped_today": 708
+    "news_seen_today": 982,
+    "news_picked_today": 269,
+    "news_dropped_today": 713
   },
   "book_momentum": {
     "live_count": 8,
