@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-23T14:52:47Z",
+  "generated_at": "2026-08-23T14:56:02Z",
   "inbox": [
     {
       "inbox_id": "INB-20260823-237",
@@ -187,6 +187,55 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260823-268",
+      "headline": "‎Maaden secures first $1B international syndicated loan facilities",
+      "headline_en": null,
+      "url": "https://www.argaam.com/en/article/articledetail/id/1931290",
+      "source_name": "Argaam — Main News (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-23T17:51:00Z",
+      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
+      "prelim_note": "Maaden secured $1 billion in international syndicated loan facilities, impacting its capital structure and liquidity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Maaden secured $1 billion in international syndicated loan facilities, impacting its capital structure and liquidity.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Maaden",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1875,55 +1924,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260823-119",
-      "headline": "Alibaba Group Announced Proposed Placing of New Shares in Hong Kong | BABA Stock News",
-      "headline_en": null,
-      "url": "https://www.stocktitan.net/news/BABA/alibaba-group-announced-proposed-placing-of-new-shares-in-hong-wxndgohy3q05.html",
-      "source_name": "Stock Titan — Latest News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-08-23T04:30:00Z",
-      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
-      "prelim_note": "Alibaba Group announced a proposed placing of new shares, which can dilute existing shareholders and impact the stock price.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "Alibaba Group announced a proposed placing of new shares, which can dilute existing shareholders and impact the stock price.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 3,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "capital_actions",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Alibaba Group",
-          "ticker": "BABA",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -83277,9 +83277,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3812,
-    "news_picked_today": 756,
-    "news_dropped_today": 2358
+    "news_seen_today": 3823,
+    "news_picked_today": 761,
+    "news_dropped_today": 2364
   },
   "book_momentum": {
     "live_count": 8,
