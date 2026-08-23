@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-23T04:12:24Z",
+  "generated_at": "2026-08-23T04:17:47Z",
   "inbox": [
     {
       "inbox_id": "INB-20260823-107",
@@ -880,31 +880,31 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260823-096",
+      "inbox_id": "INB-20260823-111",
       "headline": "Apple Cut Its Standard EU App Store Commission From 30% to 26%",
       "headline_en": null,
-      "url": "https://www.fool.com/investing/2026/08/22/apple-cut-its-standard-eu-app-store-commission-from-30-to-26/?source=iedfolrf0000001",
-      "source_name": "The Motley Fool",
+      "url": "https://www.nasdaq.com/articles/apple-cut-its-standard-eu-app-store-commission-30-26",
+      "source_name": "Nasdaq.com (per-symbol RSS)",
       "input_nature": "news_headline",
-      "found_at": "2026-08-23T03:23:01Z",
+      "found_at": "2026-08-23T03:43:01Z",
       "sweep_file": "screener/inbox/2026-08-23_sweep.json",
-      "prelim_note": "A reduction in commission rates from 30% to 26% directly impacts the company's service revenue margins in the EU region.",
+      "prelim_note": "Apple is reducing its EU App Store commission from 30% to 26%, which impacts revenue margins for its services segment.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 93,
-      "triage_reason": "A reduction in commission rates from 30% to 26% directly impacts the company's service revenue margins in the EU region.",
-      "region": "GLOBAL",
+      "triage_reason": "Apple is reducing its EU App Store commission from 30% to 26%, which impacts revenue margins for its services segment.",
+      "region": "US",
       "relevance": "material",
-      "materiality_pre_score": 60,
+      "materiality_pre_score": 55,
       "rank_factors": {
-        "materiality": 60,
+        "materiality": 55,
         "source_tier": 0,
         "scope": 6,
         "event": 4,
         "size": 2,
         "recency": 5,
-        "materiality_label_floor": 10,
+        "materiality_label_floor": 15,
         "quantified": 6,
         "boost_weight": 1,
         "scope_id": "single_name",
@@ -1446,6 +1446,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260823-112",
+      "headline": "World News Today Live Updates on August 23, 2026 : US-Iran War: ‘Not going to bow our heads,’ says Pezeshkian; Iran has not compromised on any MoU clause",
+      "headline_en": null,
+      "url": "https://www.livemint.com/news/world/total-world-latest-news-on-august-23-2026-live-updates-11787458346935.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-23T04:12:26Z",
+      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
+      "prelim_note": "Escalation of geopolitical conflict between the US and Iran represents a major risk to global markets and energy supply.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Escalation of geopolitical conflict between the US and Iran represents a major risk to global markets and energy supply.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": -4,
+        "event": 1,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
+        "source_tier_id": "news",
+        "event_id": "macro_sector",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260823-110",
       "headline": "Vingroup among Vietnam stocks to debut on FTSE’s EM Index",
       "headline_en": null,
@@ -1803,55 +1846,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260823-054",
-      "headline": "Elon Musk’s Tesla gives up on its Solar Roof tiles as EV maker 'leans into fossil fuels': Report",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/news/elon-musk-s-tesla-gives-up-on-its-solar-roof-tiles-as-ev-maker-leans-into-fossil-fuels-report-11787448321014.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-23T01:34:00Z",
-      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
-      "prelim_note": "Tesla is discontinuing its solar roof tile product line.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "Tesla is discontinuing its solar roof tile product line.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 3,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "product",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tesla",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -83059,9 +83053,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 620,
-    "news_picked_today": 136,
-    "news_dropped_today": 484
+    "news_seen_today": 631,
+    "news_picked_today": 140,
+    "news_dropped_today": 491
   },
   "book_momentum": {
     "live_count": 8,
