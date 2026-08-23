@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-23T15:52:35Z",
+  "generated_at": "2026-08-23T15:57:43Z",
   "inbox": [
     {
       "inbox_id": "INB-20260823-237",
@@ -236,6 +236,60 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260823-293",
+      "headline": "AMD Is Investing More Than $10 Billion in Taiwan to Build Advanced Chip Packaging With TSMC. Here's What Lisa Su Is Actually Buying With That Money.",
+      "headline_en": null,
+      "url": "https://www.fool.com/investing/2026/08/23/amd-is-investing-more-than-xx-billion-in-taiwan-to/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-23T15:30:00Z",
+      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
+      "prelim_note": "AMD is committing over $10 billion in capital expenditure for advanced chip packaging, a major capacity expansion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "AMD is committing over $10 billion in capital expenditure for advanced chip packaging, a major capacity expansion.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Advanced Micro Devices",
+          "ticker": "AMD",
+          "listing_country": "US"
+        },
+        {
+          "name": "Taiwan Semiconductor Manufacturing Company",
+          "ticker": "TSM",
+          "listing_country": "TW"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1868,55 +1922,6 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260823-053",
-      "headline": "Nebius Just Raised $5 Billion in Convertible Notes Against a $1.4 Billion Revenue Base. Are We In a Bubble?",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/nebius-just-raised-5-billion-convertible-notes-against-14-billion-revenue-base-are-we",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-23T01:07:01Z",
-      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
-      "prelim_note": "Company raised $5 billion in debt against $1.4 billion in revenue, indicating significant leverage risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Company raised $5 billion in debt against $1.4 billion in revenue, indicating significant leverage risk.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nebius",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -83270,9 +83275,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4003,
-    "news_picked_today": 821,
-    "news_dropped_today": 2484
+    "news_seen_today": 4029,
+    "news_picked_today": 827,
+    "news_dropped_today": 2504
   },
   "book_momentum": {
     "live_count": 8,
