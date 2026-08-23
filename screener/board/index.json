@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-08-23T10:09:04Z",
+  "generated_at": "2026-08-23T10:14:21Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260823-218",
+      "headline": "ZHENGWEI GROUP (02147): (1) PROPOSED INCREASE IN AUTHORISED SHARE CAPITAL; (2) PROPOSED RIGHTS ISSUE ON THE BASIS OF SIX (6) RIGHTS SHARES FOR EVERY ONE (1) EXISTING SHARE HELD ON RECORD DATE ON A NON-UNDERWRITTEN BASIS; AND (3) NOTICE OF EXTRAORDINARY GENERAL MEETING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0823/2026082300015.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-23T10:11:00Z",
+      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
+      "prelim_note": "The company announced a significant rights issue on a 6-for-1 basis, which is highly dilutive to existing shareholders.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company announced a significant rights issue on a 6-for-1 basis, which is highly dilutive to existing shareholders.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capital_actions",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Zhengwei Group",
+          "ticker": "02147",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260823-217",
       "headline": "BABA-W BABA-WR (09988 89988): VOLUNTARY ANNOUNCEMENT AND OVERSEAS REGULATORY ANNOUNCEMENT PROPOSED PLACING OF NEW SHARES UNDER GENERAL MANDATE",
@@ -42,6 +91,55 @@
         {
           "name": "Alibaba",
           "ticker": "09988",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260823-226",
+      "headline": "Sinopec's half-year profit grew 19.3% on year despite Iran war, falling demand",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/energy/sinopecs-half-year-profit-grew-193-year-despite-iran-war-falling-demand-2026-08-23/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-23T10:07:44Z",
+      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
+      "prelim_note": "Sinopec reported a 19.3% year-on-year profit growth for the half-year, demonstrating resilience despite challenging macro conditions.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Sinopec reported a 19.3% year-on-year profit growth for the half-year, demonstrating resilience despite challenging macro conditions.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Sinopec",
+          "ticker": null,
           "listing_country": "CN"
         }
       ],
@@ -1785,99 +1883,6 @@
       "event_types": [
         "macro_sector",
         "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260823-191",
-      "headline": "‎Saudi Energy agreement for 3 battery energy storage projects valued at SAR 3.25B, 35.1% stake in each",
-      "headline_en": null,
-      "url": "https://www.argaam.com/en/article/articledetail/id/1931181",
-      "source_name": "Argaam — Company Disclosures (English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-23T11:21:00Z",
-      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
-      "prelim_note": "Saudi Energy agreed to 3 battery storage projects worth SAR 3.25B with a 35.1% stake in each.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Saudi Energy agreed to 3 battery storage projects worth SAR 3.25B with a 35.1% stake in each.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capex",
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Saudi Energy",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260823-164",
-      "headline": "US-Iran war: Crude oil price is key | Is Tehran writing the obituary of Turkey-Pakistan-Saudi Arabia's defence pack?",
-      "headline_en": null,
-      "url": "https://www.livemint.com/market/commodities/usiran-war-crude-oil-price-is-key-is-tehran-writing-the-obituary-of-turkey-pakistan-saudi-arabias-defence-pack-11787455149964.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-23T06:04:03Z",
-      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
-      "prelim_note": "Geopolitical escalation involving Iran and potential impact on global crude oil prices is a major market-moving event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Geopolitical escalation involving Iran and potential impact on global crude oil prices is a major market-moving event.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 4,
-        "event": 1,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "commodity",
-        "source_tier_id": "news",
-        "event_id": "macro_sector",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
       ],
       "issuer_linkage": "macro",
       "companies": [],
@@ -83163,9 +83168,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1515,
-    "news_picked_today": 466,
-    "news_dropped_today": 1049
+    "news_seen_today": 1531,
+    "news_picked_today": 475,
+    "news_dropped_today": 1056
   },
   "book_momentum": {
     "live_count": 8,
