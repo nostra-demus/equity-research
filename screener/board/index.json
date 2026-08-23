@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-23T01:02:36Z",
+  "generated_at": "2026-08-23T01:07:53Z",
   "inbox": [
     {
       "inbox_id": "INB-20260823-025",
@@ -659,6 +659,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260823-033",
+      "headline": "Tesla teases imminent launch of Cybercab ‘robotaxi’",
+      "headline_en": null,
+      "url": "https://www.straitstimes.com/business/tesla-teases-imminent-launch-of-cybercab-robotaxi",
+      "source_name": "The Straits Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-23T01:00:00Z",
+      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
+      "prelim_note": "Tesla is teasing a new product launch, which is a key driver for future growth expectations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "Tesla is teasing a new product launch, which is a key driver for future growth expectations.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 3,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "product",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tesla",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260823-017",
       "headline": "Iran condemns U.S. plans to announce new sanctions",
       "headline_en": null,
@@ -918,6 +967,55 @@
       ],
       "issuer_linkage": "macro",
       "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260823-034",
+      "headline": "How Opatra’s ‘coercive’ tactics in Hong Kong echo global ‘Dead Sea sales scams’",
+      "headline_en": null,
+      "url": "https://www.scmp.com/news/hong-kong/article/3364938/how-opatras-coercive-tactics-hong-kong-echo-global-dead-sea-sales-scams?utm_source=rss_feed",
+      "source_name": "South China Morning Post",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-23T01:00:12Z",
+      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
+      "prelim_note": "Report on alleged coercive sales tactics by a private company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 62,
+      "triage_reason": "Report on alleged coercive sales tactics by a private company.",
+      "region": "CN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 30,
+      "rank_factors": {
+        "materiality": 30,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Opatra",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -1252,6 +1350,98 @@
         "operations"
       ],
       "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260823-032",
+      "headline": "Heirs to the Jack Daniel’s Fortune Are Fending Off a Takeover—and a Rogue Cousin",
+      "headline_en": null,
+      "url": "https://www.wsj.com/business/retail/brown-forman-heirs-feud-jack-daniels-takeover-4ecdfba9?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-23T01:00:00Z",
+      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
+      "prelim_note": "Family dispute regarding private ownership of Brown-Forman shares is unlikely to impact public market operations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 49,
+      "triage_reason": "Family dispute regarding private ownership of Brown-Forman shares is unlikely to impact public market operations.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 30,
+      "rank_factors": {
+        "materiality": 30,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "ownership_activist",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Brown-Forman",
+          "ticker": "BF.B",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260823-035",
+      "headline": "'Palestinian state already a reality', says Arab Israeli leader Mansour Abbas",
+      "headline_en": null,
+      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/palestinian-state-already-reality-says-arab-israeli-leader-mansour-abbas",
+      "source_name": "Middle East Eye",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-23T00:59:32Z",
+      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
+      "prelim_note": "This is a political statement regarding the Palestinian state, which is a geopolitical opinion rather than a market-moving event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 47,
+      "triage_reason": "This is a political statement regarding the Palestinian state, which is a geopolitical opinion rather than a market-moving event.",
+      "region": "OTHER",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 30,
+      "rank_factors": {
+        "materiality": 30,
+        "source_tier": 0,
+        "scope": -4,
+        "event": 1,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
+        "source_tier_id": "news",
+        "event_id": "macro_sector",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
@@ -82075,7 +82265,7 @@
     "resolved": 1
   },
   "counts": {
-    "inbox_unconsumed": 1532,
+    "inbox_unconsumed": 1536,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -82084,9 +82274,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 177,
-    "news_picked_today": 31,
-    "news_dropped_today": 146
+    "news_seen_today": 206,
+    "news_picked_today": 35,
+    "news_dropped_today": 171
   },
   "book_momentum": {
     "live_count": 8,
