@@ -1,6 +1,56 @@
 {
-  "generated_at": "2026-08-23T00:55:34Z",
+  "generated_at": "2026-08-23T01:02:36Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260823-025",
+      "headline": "PNB Fraud Case: ED Makes Fifth Attempt To Declare Mehul Choksi Fugitive Economic Offender",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/mumbai/pnb-fraud-case-ed-makes-fifth-attempt-to-declare-mehul-choksi-fugitive-economic-offender",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-23T00:26:25Z",
+      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
+      "prelim_note": "The ED is making a fifth attempt to declare Mehul Choksi a Fugitive Economic Offender, indicating significant legal and financial distress related to a fraud case.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The ED is making a fifth attempt to declare Mehul Choksi a Fugitive Economic Offender, indicating significant legal and financial distress related to a fraud case.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress",
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Mehul Choksi",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260823-003",
       "headline": "Nvidia Is Spending $6 Billion to Build a Powerful U.S. Alternative to Chinese AI",
@@ -180,6 +230,49 @@
         "macro_sector"
       ],
       "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260823-027",
+      "headline": "Första slutliga utdelningen för räkenskapsåret 2026 har fastställts och återköp av egna aktier på marknaden har godkänts",
+      "headline_en": "First final dividend for fiscal year 2026 has been set and repurchase of own shares on the market has been approved",
+      "url": "https://www.globenewswire.com/news-release/2026/08/23/3349403/0/sv/f%C3%B6rsta-slutliga-utdelningen-f%C3%B6r-r%C3%A4kenskaps%C3%A5ret-2026-har-fastst%C3%A4llts-och-%C3%A5terk%C3%B6p-av-egna-aktier-p%C3%A5-marknaden-har-godk%C3%A4nts.html",
+      "source_name": "GlobeNewswire — News about Public Companies",
+      "input_nature": "company_press_release",
+      "found_at": "2026-08-23T00:56:00Z",
+      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
+      "prelim_note": "The headline states that the first final dividend for fiscal year 2026 has been set and share repurchases have been approved.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "The headline states that the first final dividend for fiscal year 2026 has been set and share repurchases have been approved.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 3,
+        "scope": 2,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "company",
+        "event_id": "capital_actions",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
       "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
@@ -738,6 +831,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260823-026",
+      "headline": "Thane Sessions Court Rejects DFCCIL Plea, Upholds Acquisition Of Farmer’s Residual Land For Freight Corridor",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/mumbai/thane-sessions-court-rejects-dfccil-plea-upholds-acquisition-of-farmers-residual-land-for-freight-corridor",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-23T00:10:04Z",
+      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
+      "prelim_note": "The court upheld the acquisition of a farmer's land for the freight corridor, which could impact the project's timeline and costs, and potentially lead to further legal challenges.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 67,
+      "triage_reason": "The court upheld the acquisition of a farmer's land for the freight corridor, which could impact the project's timeline and costs, and potentially lead to further legal challenges.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "operations",
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "DFCCIL",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260823-019",
       "headline": "US-India trade deal nearly final, Rubio to visit India in October: Sergio Gor",
       "headline_en": null,
@@ -1023,6 +1166,135 @@
         "macro_sector"
       ],
       "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260823-028",
+      "headline": "Australia news live: One Nation MP gives ‘hat tip’ to Albanese for rice factory rescue plan; Liberals flag radical redesign of Victorian appeals court",
+      "headline_en": null,
+      "url": "https://www.theguardian.com/australia-news/live/2026/aug/23/australia-news-live-anthony-albanese-sydney-swans-police-investigation-alan-jones-antisemitism-inquiry-icac-nsw-liberals-ntwnfb",
+      "source_name": "The Guardian — World news",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-23T00:53:25Z",
+      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
+      "prelim_note": "The headline mentions a rice factory rescue plan and a redesign of the Victorian appeals court, which are general political and economic news.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 53,
+      "triage_reason": "The headline mentions a rice factory rescue plan and a redesign of the Victorian appeals court, which are general political and economic news.",
+      "region": "OTHER",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 1,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "macro_sector",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260823-031",
+      "headline": "Mumbai Infra Update: Metro 4 Pit Line Clears CMRS Inspection; MMRDA Awaits Safety Report Ahead Of Diwali Launch",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/mumbai/mumbai-infra-update-metro-4-pit-line-clears-cmrs-inspection-mmrda-awaits-safety-report-ahead-of-diwali-launch",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-23T00:36:25Z",
+      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
+      "prelim_note": "The Mumbai Metro 4 Pit Line has cleared inspection, awaiting a safety report for a Diwali launch.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 52,
+      "triage_reason": "The Mumbai Metro 4 Pit Line has cleared inspection, awaiting a safety report for a Diwali launch.",
+      "region": "IN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 0,
+        "scope": 0,
+        "event": 2,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "sector",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260823-029",
+      "headline": "Fur seal‘s death marks first Australian mainland mammal fatality from spreading H5 bird flu strain",
+      "headline_en": null,
+      "url": "https://www.theguardian.com/world/2026/aug/23/fur-seal-death-first-australian-mainland-mammal-h5-bird-flu",
+      "source_name": "The Guardian — World news",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-23T00:42:49Z",
+      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
+      "prelim_note": "The headline reports the first Australian mainland mammal fatality from H5 bird flu, indicating a spreading health concern.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 47,
+      "triage_reason": "The headline reports the first Australian mainland mammal fatality from H5 bird flu, indicating a spreading health concern.",
+      "region": "OTHER",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 0,
+        "scope": -4,
+        "event": 1,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
+        "source_tier_id": "news",
+        "event_id": "macro_sector",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
@@ -73454,77 +73726,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-5d42b81c604f",
-      "idea_version": "IDEAV-f8f5a096395b43ca",
-      "idea_version_started_at": "2026-08-22T19:15:06Z",
-      "ticker": "02772",
-      "company": "Zhongliang Holdings",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company issued a profit warning, reflecting ongoing operational or margin pressures.",
-      "why_now": "The filing was released on 2026-08-21.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 18,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-1e97fe54bf0f"
-      ],
-      "primary_source_event_id": "EVT-1e97fe54bf0f",
-      "source_headlines": [
-        "ZHONGLIANG HLDG (02772): INSIDE INFORMATION - PROFIT WARNING"
-      ],
-      "source_headline": "ZHONGLIANG HLDG (02772): INSIDE INFORMATION - PROFIT WARNING",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0821/2026082101481.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-21T13:00:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-21T23:28:47Z",
-      "updated_at": "2026-08-22T19:15:06Z",
-      "decay_at": "2026-08-23T01:00:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-3edae567ff62",
       "idea_version": "IDEAV-50f47939c649acd3",
       "idea_version_started_at": "2026-08-22T17:48:11Z",
@@ -74721,6 +74922,77 @@
       "surfaced_at": "2026-08-21T14:23:00Z",
       "updated_at": "2026-08-22T19:15:06Z",
       "decay_at": "2026-08-22T22:45:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-5d42b81c604f",
+      "idea_version": "IDEAV-f8f5a096395b43ca",
+      "idea_version_started_at": "2026-08-22T19:15:06Z",
+      "ticker": "02772",
+      "company": "Zhongliang Holdings",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company issued a profit warning, reflecting ongoing operational or margin pressures.",
+      "why_now": "The filing was released on 2026-08-21.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 18,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-1e97fe54bf0f"
+      ],
+      "primary_source_event_id": "EVT-1e97fe54bf0f",
+      "source_headlines": [
+        "ZHONGLIANG HLDG (02772): INSIDE INFORMATION - PROFIT WARNING"
+      ],
+      "source_headline": "ZHONGLIANG HLDG (02772): INSIDE INFORMATION - PROFIT WARNING",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0821/2026082101481.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-21T13:00:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-21T23:28:47Z",
+      "updated_at": "2026-08-22T19:15:06Z",
+      "decay_at": "2026-08-23T01:00:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -76876,8 +77148,8 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 65,
-    "shown_count": 65,
+    "total_count": 66,
+    "shown_count": 66,
     "hidden_count": 0,
     "side_counts": {
       "long": {
@@ -76886,8 +77158,8 @@
         "hidden_count": 0
       },
       "short": {
-        "total_count": 44,
-        "shown_count": 44,
+        "total_count": 45,
+        "shown_count": 45,
         "hidden_count": 0
       }
     },
@@ -76907,6 +77179,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-5d42b81c604f",
+        "idea_version": "IDEAV-f8f5a096395b43ca",
+        "idea_version_started_at": "2026-08-22T19:15:06Z",
+        "ticker": "02772",
+        "company": "Zhongliang Holdings",
+        "exchange": "HKEX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company issued a profit warning, reflecting ongoing operational or margin pressures.",
+        "why_now": "The filing was released on 2026-08-21.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 18,
+          "specificity": 7,
+          "timing": 6,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-1e97fe54bf0f"
+        ],
+        "primary_source_event_id": "EVT-1e97fe54bf0f",
+        "source_headlines": [
+          "ZHONGLIANG HLDG (02772): INSIDE INFORMATION - PROFIT WARNING"
+        ],
+        "source_headline": "ZHONGLIANG HLDG (02772): INSIDE INFORMATION - PROFIT WARNING",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0821/2026082101481.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-21T13:00:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-21T23:28:47Z",
+        "updated_at": "2026-08-22T19:15:06Z",
+        "decay_at": "2026-08-23T01:00:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-23T01:00:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-f49f3da3af4d",
         "idea_version": "IDEAV-68328d9d257b0892",
@@ -81719,7 +82065,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 83,
-    "live_count": 17,
+    "live_count": 16,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -81729,7 +82075,7 @@
     "resolved": 1
   },
   "counts": {
-    "inbox_unconsumed": 1526,
+    "inbox_unconsumed": 1532,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -81738,9 +82084,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 148,
-    "news_picked_today": 24,
-    "news_dropped_today": 124
+    "news_seen_today": 177,
+    "news_picked_today": 31,
+    "news_dropped_today": 146
   },
   "book_momentum": {
     "live_count": 8,
