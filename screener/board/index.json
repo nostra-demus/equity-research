@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-08-23T04:50:23Z",
+  "generated_at": "2026-08-23T04:53:53Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260823-131",
+      "headline": "Alibaba proposes Hong Kong share placement worth $10 billion",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/retail-consumer/alibaba-proposes-hong-kong-share-placement-worth-10-billion-2026-08-23/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-23T04:47:53Z",
+      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
+      "prelim_note": "Alibaba is proposing a $10 billion share placement, which represents a significant dilution event for existing shareholders.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Alibaba is proposing a $10 billion share placement, which represents a significant dilution event for existing shareholders.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capital_actions",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Alibaba",
+          "ticker": "9988",
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260823-107",
       "headline": "Nvidia customers notified about AI-related price hikes above 15%",
@@ -1815,49 +1864,6 @@
           "listing_country": null
         }
       ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260823-113",
-      "headline": "Japan earthquake injures dozens",
-      "headline_en": null,
-      "url": "https://gulfnews.com/world/japan-earthquake-injures-dozens-1.500649359",
-      "source_name": "Gulf News",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-23T03:54:24Z",
-      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
-      "prelim_note": "A significant earthquake in Japan represents a major natural disaster event that can impact regional supply chains, infrastructure, and market stability.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "A significant earthquake in Japan represents a major natural disaster event that can impact regional supply chains, infrastructure, and market stability.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": -4,
-        "event": 1,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "macro",
-        "source_tier_id": "news",
-        "event_id": "macro_sector",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -83138,9 +83144,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 697,
-    "news_picked_today": 166,
-    "news_dropped_today": 531
+    "news_seen_today": 710,
+    "news_picked_today": 172,
+    "news_dropped_today": 538
   },
   "book_momentum": {
     "live_count": 8,
