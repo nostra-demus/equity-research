@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-08-23T08:39:10Z",
+  "generated_at": "2026-08-23T08:44:30Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260823-196",
+      "headline": "Alibaba to raise $10bn via new Hong Kong shares to fund AI investments",
+      "headline_en": null,
+      "url": "https://asia.nikkei.com/business/technology/alibaba-to-raise-10bn-via-new-hong-kong-shares-to-fund-ai-investments",
+      "source_name": "Nikkei Asia",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-23T08:42:55Z",
+      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
+      "prelim_note": "Alibaba plans to raise $10 billion to fund AI investments, which is a significant capital-raising event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Alibaba plans to raise $10 billion to fund AI investments, which is a significant capital-raising event.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capital_actions",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Alibaba",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260823-192",
       "headline": "Bombardement israélien dans le sud de la Syrie, Damas condamne",
@@ -1805,60 +1854,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260823-152",
-      "headline": "Rescue recap in the works for Qantas-backed Alliance Aviation",
-      "headline_en": null,
-      "url": "https://www.afr.com/street-talk/rescue-recap-in-the-works-for-qantas-airways-backed-alliance-aviation-20260823-p60qqd?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-23T05:33:43Z",
-      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
-      "prelim_note": "Alliance Aviation, backed by Qantas, is reportedly working on a rescue recapitalization.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "Alliance Aviation, backed by Qantas, is reportedly working on a rescue recapitalization.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "capital_actions",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Alliance Aviation",
-          "ticker": null,
-          "listing_country": "AU"
-        },
-        {
-          "name": "Qantas",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -83211,9 +83206,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1291,
-    "news_picked_today": 379,
-    "news_dropped_today": 912
+    "news_seen_today": 1301,
+    "news_picked_today": 384,
+    "news_dropped_today": 917
   },
   "book_momentum": {
     "live_count": 8,
