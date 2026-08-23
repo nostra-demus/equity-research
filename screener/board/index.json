@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-23T05:43:55Z",
+  "generated_at": "2026-08-23T05:50:04Z",
   "inbox": [
     {
       "inbox_id": "INB-20260823-147",
@@ -1335,6 +1335,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260823-152",
+      "headline": "Rescue recap in the works for Qantas-backed Alliance Aviation",
+      "headline_en": null,
+      "url": "https://www.afr.com/street-talk/rescue-recap-in-the-works-for-qantas-airways-backed-alliance-aviation-20260823-p60qqd?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-23T05:33:43Z",
+      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
+      "prelim_note": "Alliance Aviation, backed by Qantas, is reportedly working on a rescue recapitalization.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "Alliance Aviation, backed by Qantas, is reportedly working on a rescue recapitalization.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "capital_actions",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Alliance Aviation",
+          "ticker": null,
+          "listing_country": "AU"
+        },
+        {
+          "name": "Qantas",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260823-141",
       "headline": "Paramount and California to hold preliminary talks on Warner Bros deal",
       "headline_en": null,
@@ -1541,55 +1595,6 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260823-145",
-      "headline": "Rescue recap in the works for Qantas Airways-backed Alliance Aviation",
-      "headline_en": null,
-      "url": "https://www.afr.com/street-talk/rescue-recap-in-the-works-for-qantas-airways-backed-alliance-aviation-20260823-p60qqd?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-23T05:33:43Z",
-      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
-      "prelim_note": "Alliance Aviation is facing potential financial distress requiring a rescue recapitalization, which signals significant operational or liquidity risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Alliance Aviation is facing potential financial distress requiring a rescue recapitalization, which signals significant operational or liquidity risk.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Alliance Aviation Services",
-          "ticker": "AQZ",
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
       "inbox_id": "INB-20260823-140",
       "headline": "Harvey Nicks suppliers fear being 'screwed' by Mike Ashley's takeover",
       "headline_en": null,
@@ -1690,6 +1695,60 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260823-155",
+      "headline": "‎IHR signs SAR 55.6M contract with NWC",
+      "headline_en": null,
+      "url": "https://www.argaam.com/en/article/articledetail/id/1931145",
+      "source_name": "Argaam — Main News (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-23T08:41:00Z",
+      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
+      "prelim_note": "IHR signed a SAR 55.6 million contract with NWC.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "IHR signed a SAR 55.6 million contract with NWC.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 3,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "commercial",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "IHR",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "NWC",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1830,55 +1889,6 @@
           "name": "Soprano Design",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260823-011",
-      "headline": "ED Dossier Triggers Fresh Charges In ₹1,000-Crore Yes Bank-Linked Case Against Suraksha ARC",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/mumbai/ed-dossier-triggers-fresh-charges-in-1000-crore-yes-bank-linked-case-against-suraksha-arc",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-23T00:04:59Z",
-      "sweep_file": "screener/inbox/2026-08-23_sweep.json",
-      "prelim_note": "New charges have been filed in a 1,000-crore rupee case involving Yes Bank and Suraksha ARC.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "New charges have been filed in a 1,000-crore rupee case involving Yes Bank and Suraksha ARC.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Yes Bank",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "mid",
@@ -83234,9 +83244,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 839,
-    "news_picked_today": 215,
-    "news_dropped_today": 624
+    "news_seen_today": 850,
+    "news_picked_today": 223,
+    "news_dropped_today": 627
   },
   "book_momentum": {
     "live_count": 8,
