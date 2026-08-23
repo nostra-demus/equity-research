@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-23T02:23:45Z",
+  "generated_at": "2026-08-23T02:24:10Z",
   "inbox": [
     {
       "inbox_id": "INB-20260823-060",
@@ -73465,6 +73465,76 @@
   "handoffs": [],
   "ideas": [
     {
+      "idea_id": "IDEA-90b902d53889",
+      "idea_version": "IDEAV-d973ffda90feccc6",
+      "idea_version_started_at": "2026-08-23T02:23:58Z",
+      "ticker": "NVDA",
+      "company": "Nvidia",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Nvidia is implementing price hikes of over 15% for its AI products, which will directly expand its gross margins and revenue per unit.",
+      "why_now": "Customers were notified of the price increases as of August 22, 2026, creating an immediate catalyst for margin expansion.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-d7cc14edbc35"
+      ],
+      "primary_source_event_id": "EVT-d7cc14edbc35",
+      "source_headlines": [
+        "Nvidia customers notified about AI-related price hikes above 15%"
+      ],
+      "source_headline": "Nvidia customers notified about AI-related price hikes above 15%",
+      "source_url": "https://www.straitstimes.com/business/nvidia-customers-notified-about-ai-related-price-hikes-above-15-bloomberg",
+      "source_name": "The Straits Times",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-22T23:55:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-22T22:06:30Z",
+      "updated_at": "2026-08-23T02:23:58Z",
+      "decay_at": "2026-08-24T11:55:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-7c6921220f81",
       "idea_version": "IDEAV-05138e449ee4ffd8",
       "idea_version_started_at": "2026-08-22T18:11:10Z",
@@ -74097,77 +74167,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-90b902d53889",
-      "idea_version": "IDEAV-b640f5f95d51a562",
-      "idea_version_started_at": "2026-08-22T22:06:30Z",
-      "ticker": "NVDA",
-      "company": "Nvidia",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Nvidia notified customers of AI-related price hikes above 15%, which should lift its revenue per unit and expand margins if volumes hold.",
-      "why_now": "Customers were notified on 2026-08-22, a fresh pricing action.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 60,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-1c863cf2a242"
-      ],
-      "primary_source_event_id": "EVT-1c863cf2a242",
-      "source_headlines": [
-        "Nvidia customers notified about AI-related price hikes above 15%"
-      ],
-      "source_headline": "Nvidia customers notified about AI-related price hikes above 15%",
-      "source_url": "https://fortune.com/2026/08/22/nvidia-customers-ai-related-price-hikes-15-percent-vera-rubin-grace-blackwell-chips/",
-      "source_name": "Fortune",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-22T20:27:38Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-22T22:06:30Z",
-      "updated_at": "2026-08-22T22:06:30Z",
-      "decay_at": "2026-08-24T08:27:38Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-3edae567ff62",
       "idea_version": "IDEAV-50f47939c649acd3",
       "idea_version_started_at": "2026-08-22T17:48:11Z",
@@ -74308,6 +74307,78 @@
       "surfaced_at": "2026-08-22T14:49:39Z",
       "updated_at": "2026-08-22T14:49:39Z",
       "decay_at": "2026-08-24T00:54:09Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-70b8068a4e51",
+      "idea_version": "IDEAV-e5fe083e1712ff14",
+      "idea_version_started_at": "2026-08-23T02:23:58Z",
+      "ticker": "PARA",
+      "company": "Paramount Global",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Preliminary talks regarding a potential deal between Paramount and Warner Bros. Discovery create a merger arbitrage opportunity where Paramount is the likely target.",
+      "why_now": "Preliminary talks are scheduled to begin on Monday, August 24, 2026.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 16,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "pair_trade",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-c19a7d1d8eac"
+      ],
+      "primary_source_event_id": "EVT-c19a7d1d8eac",
+      "source_headlines": [
+        "Paramount and California to hold preliminary talks on Monday over Warner Bros deal: Report"
+      ],
+      "source_headline": "Paramount and California to hold preliminary talks on Monday over Warner Bros deal: Report",
+      "source_url": "https://www.livemint.com/companies/news/paramount-and-california-to-hold-preliminary-talks-on-monday-over-warner-bros-deal-report-11787444046114.html",
+      "source_name": "Mint",
+      "materiality_max": 91,
+      "newest_source_at": "2026-08-23T00:22:45Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-23T02:23:58Z",
+      "updated_at": "2026-08-23T02:23:58Z",
+      "decay_at": "2026-08-24T12:22:45Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -82802,8 +82873,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 83,
-    "live_count": 12,
+    "surfaced_total": 84,
+    "live_count": 13,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
