@@ -240,6 +240,15 @@ def _relative(path: Path, parent: Path) -> str:
         return str(path)
 
 
+def _repo_relative_or_absolute(path: Path) -> str:
+    """Keep in-repo bindings relocatable while retaining absolute paths for external fixtures."""
+    resolved = path.resolve()
+    try:
+        return resolved.relative_to(REPO_ROOT.resolve()).as_posix()
+    except ValueError:
+        return str(resolved)
+
+
 def _empty_run_root(value: str | Path) -> Path:
     path = Path(value).expanduser()
     if path.is_symlink():
@@ -271,12 +280,14 @@ def _text(value: Any, field: str) -> str:
 
 def binding_payload(receipt: Mapping[str, Any], row: Mapping[str, Any], receipt_path: Path) -> dict[str, Any]:
     return {
-        "schema_version": RUN_BINDING_SCHEMA_VERSION, "receipt_path": str(receipt_path.resolve()),
+        "schema_version": RUN_BINDING_SCHEMA_VERSION,
+        "receipt_path": _repo_relative_or_absolute(receipt_path),
         "receipt_sha256": receipt["receipt_sha256"], "created_at": receipt["created_at"],
         "subject": receipt["subject"], "decision_date": receipt["decision_date"],
         "data_snapshot_sha256": receipt["data_snapshot"]["sha256"],
         "price_anchor_sha256": digest_json(receipt["price_anchor"]), "label": row["label"],
-        "provider": row["provider"], "run_root": str(Path(row["resolved_run_root"]).resolve()),
+        "provider": row["provider"],
+        "run_root": _repo_relative_or_absolute(Path(row["resolved_run_root"])),
         "expected_model": row["expected_model"], "expected_reasoning_level": row["expected_reasoning_level"],
         "expected_profile_key": row["expected_profile_key"],
     }
