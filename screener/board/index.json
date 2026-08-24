@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-24T07:51:58Z",
+  "generated_at": "2026-08-24T07:52:50Z",
   "inbox": [
     {
       "inbox_id": "INB-20260824-441",
@@ -79072,81 +79072,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-318e05ced228",
-      "idea_version": "IDEAV-1825e56fde8390d8",
-      "idea_version_started_at": "2026-08-21T09:27:03Z",
-      "ticker": "BAMI",
-      "company": "Banco BPM",
-      "exchange": "BIT",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Monte dei Paschi has launched a takeover bid for Banco BPM, which typically forces a price adjustment toward the offer premium.",
-      "why_now": "The bid was announced on 2026-08-21.",
-      "conviction": 80,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 6,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-1ecb8effa2e5",
-        "EVT-97180be91d07",
-        "EVT-68c6551e9e85"
-      ],
-      "primary_source_event_id": "EVT-1ecb8effa2e5",
-      "source_headlines": [
-        "Monte dei Paschi Makes $40 Billion Move to Buy Italian Peers Banco BPM, Banca Generali",
-        "Italy’s Monte dei Paschi Makes $40 Billion Move to Buy Rival Banks",
-        "Monte dei Paschi launches twin takeover bids for Banca Generali and Banco BPM"
-      ],
-      "source_headline": "Monte dei Paschi Makes $40 Billion Move to Buy Italian Peers Banco BPM, Banca Generali",
-      "source_url": "https://www.wsj.com/business/deals/monte-dei-paschi-makes-40-billion-move-to-buy-italian-peers-banco-bpm-banca-generali-711620fd?mod=rss_markets_main",
-      "source_name": "The Wall Street Journal",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-21T07:30:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-21T09:27:03Z",
-      "updated_at": "2026-08-21T09:27:03Z",
-      "decay_at": "2026-08-22T19:30:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": "up",
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-94850b800657",
       "idea_version": "IDEAV-b29f8abf702c9bea",
       "idea_version_started_at": "2026-08-21T09:27:03Z",
@@ -79292,7 +79217,7 @@
     "schema_version": "ideas-archive/v1",
     "health": {
       "status": "ok",
-      "file_count": 43,
+      "file_count": 44,
       "suppression_count": 0,
       "corrupt_count": 0,
       "invalid_count": 0,
@@ -81991,8 +81916,8 @@
         "promoted_signal_id": null,
         "feedback": "up",
         "stale": true,
-        "archived_at": "2026-08-22T19:30:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-08-24T07:52:43Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -85179,7 +85104,7 @@
     "machine_confirmed": 0,
     "machine_passed": 1,
     "machine_pending": 0,
-    "up_votes": 2,
+    "up_votes": 1,
     "down_votes": 0,
     "resolved": 1
   },
