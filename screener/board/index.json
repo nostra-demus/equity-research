@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-08-24T10:40:23Z",
+  "generated_at": "2026-08-24T10:48:21Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260824-727",
+      "headline": "LAPCO HOLDINGS (08472): PROFIT WARNING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/0824/2026082401017.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-24T10:22:00Z",
+      "sweep_file": "screener/inbox/2026-08-24_sweep.json",
+      "prelim_note": "A profit warning indicates a material deviation from expected financial performance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A profit warning indicates a material deviation from expected financial performance.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "guidance_change",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Lapco Holdings",
+          "ticker": "08472",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260824-661",
       "headline": "AEON STORES (00984): Documents on display - Very Substantial Acquisition",
@@ -1282,6 +1331,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260824-731",
+      "headline": "nVent to Acquire Maverick Power",
+      "headline_en": null,
+      "url": "https://www.globenewswire.com/news-release/2026/08/24/3349571/0/en/nvent-to-acquire-maverick-power.html",
+      "source_name": "GlobeNewswire — News about Public Companies",
+      "input_nature": "company_press_release",
+      "found_at": "2026-08-24T10:30:00Z",
+      "sweep_file": "screener/inbox/2026-08-24_sweep.json",
+      "prelim_note": "Acquisition of a company is a material event affecting capital structure and operations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Acquisition of a company is a material event affecting capital structure and operations.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 3,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "company",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "nVent",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260824-665",
       "headline": "XPENG robotics business raises over US$900 million at a post-money valuation of over US$6.3 billion, accelerating physical AI deployment",
       "headline_en": null,
@@ -1889,109 +1987,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260824-724",
-      "headline": "Vox, Frogfoot raise R14.4bn in SA broadband push",
-      "headline_en": null,
-      "url": "https://www.moneyweb.co.za/news/companies-and-deals/vox-frogfoot-raise-900m-in-sa-broadband-push/",
-      "source_name": "South Africa JSE / SENS — via Sharenet or Moneyweb (Africa completeness)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-24T07:54:20Z",
-      "sweep_file": "screener/inbox/2026-08-24_sweep.json",
-      "prelim_note": "Vox and Frogfoot have raised R14.4 billion for a major broadband infrastructure expansion in South Africa.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Vox and Frogfoot have raised R14.4 billion for a major broadband infrastructure expansion in South Africa.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 6,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Vox",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Frogfoot",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260824-485",
-      "headline": "Alibaba Raises $10 Bln in Record Hong Kong Share Sale",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/videos/2026-08-24/alibaba-raises-10-bln-in-record-hong-kong-share-sale-video",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-24T06:43:52Z",
-      "sweep_file": "screener/inbox/2026-08-24_sweep.json",
-      "prelim_note": "Alibaba raised $10 billion in a record Hong Kong share sale, altering its capital structure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Alibaba raised $10 billion in a record Hong Kong share sale, altering its capital structure.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capital_actions",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Alibaba Group",
-          "ticker": "BABA",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -85389,9 +85384,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 114661,
-    "news_picked_today": 1486,
-    "news_dropped_today": 10778
+    "news_seen_today": 120658,
+    "news_picked_today": 1514,
+    "news_dropped_today": 10786
   },
   "book_momentum": {
     "live_count": 8,
