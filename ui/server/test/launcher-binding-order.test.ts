@@ -17,6 +17,11 @@ assert.equal(
 )
 assert.equal(resolveParityBindingPath('../outside.json'), null, 'relative parity bindings cannot traverse the repository')
 assert.equal(resolveParityBindingPath('analyses\\outside.json'), null, 'parity bindings reject cross-platform separators')
+assert.equal(
+  resolveParityBindingPath(path.join(path.dirname(repoRoot), 'outside.json')),
+  null,
+  'legacy absolute parity bindings cannot escape the deployed repository',
+)
 
 const ownerA = {
   swarm: 'research',
