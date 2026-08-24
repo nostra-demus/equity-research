@@ -10,7 +10,7 @@ const call = (ticker: string, date: string, basket: string, confidence: number, 
 const calls = [
   call('LOW', '2026-01-01', 'Selected', 74, 100, { timeline: [{ status: 'done', review_date: '2026-02-01', review_price: 110 }] }),
   call('HIGH', '2026-01-02', 'Short', 75, 200, { timeline: [{ status: 'done', review_date: '2026-02-02', review_price: 180 }] }),
-  call('NOPE', '2026-01-03', 'Watchlist', 99, 50),
+  call('NOPE', '2026-01-03', 'Watchlist', 99, 50, { next_checkpoint: { window: '30d', due_date: '2026-02-02' } }),
 ]
 const history = buildHistoricalPaperPortfolio(calls)
 assert.equal(history.trade_calls, 2)
@@ -20,12 +20,22 @@ assert.equal(history.trades[0].position_return_pct, 10)
 assert.equal(history.trades[1].target_weight_pct, 10)
 assert.equal(history.trades[1].position_return_pct, 10, 'a falling short position has a positive return')
 assert.equal(history.present_value, 101.5)
+assert.equal(history.call_states.length, 3, 'every old call has a visible state, including intentional no-trades')
+assert.deepEqual(history.call_states.map((row) => [row.ticker, row.state, row.allocation_pct]), [
+  ['LOW', 'open', 5],
+  ['HIGH', 'open', 10],
+  ['NOPE', 'no_position', null],
+])
+assert.equal(history.call_states[2].price_move_pct, null, 'the call price is not repeated as a fake later result')
+assert.deepEqual([history.call_states[2].next_check_label, history.call_states[2].next_check_date], ['30d', '2026-02-02'])
+assert.match(history.call_states[2].detail, /not an instruction to buy or short/)
 
 const provisional = call('BLOCK', '2026-01-04', 'Selected', 90, 100, { integrity_status: 'provisional' })
 const blocked = buildHistoricalPaperPortfolio([provisional])
 assert.equal(blocked.trade_calls, 0)
 assert.equal(blocked.cash_value, 100)
 assert.equal(blocked.blocked_calls[0].reason, 'provisional')
+assert.deepEqual([blocked.call_states[0].decision, blocked.call_states[0].state, blocked.call_states[0].block_reason], ['Buy', 'blocked', 'provisional'])
 
 const unverified = call('UNVERIFIED', '2026-01-05', 'Selected', 90, 100, { integrity_status: 'unknown' })
 const unverifiedTarget = buildCallPolicyTarget([unverified])
@@ -47,6 +57,17 @@ const crossCurrency = buildHistoricalPaperPortfolio([
 ])
 assert.equal(crossCurrency.present_value, 100, 'same ticker in two currencies cannot overwrite an open lot')
 assert.equal(crossCurrency.open_trades, 2)
+
+const closedHistory = buildHistoricalPaperPortfolio([
+  call('CLOSE', '2026-01-01', 'Selected', 80, 100),
+  call('CLOSE', '2026-02-01', 'Watchlist', 80, 120),
+])
+assert.deepEqual([
+  closedHistory.call_states[0].state,
+  closedHistory.call_states[0].position_return_pct,
+  closedHistory.call_states[0].mark_source,
+  closedHistory.call_states[1].state,
+], ['closed', 20, 'later_call', 'no_position'])
 
 const trustedSurvives = buildCallPolicyTarget([
   call('TRUST', '2026-01-01', 'Selected', 80, 100),

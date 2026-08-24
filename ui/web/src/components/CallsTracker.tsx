@@ -201,6 +201,19 @@ function portfolioMoney(currency: string | null | undefined, value: number | nul
   }
 }
 
+function historicalStateLabel(state: NonNullable<IbkrPaperPortfolioRead['history']['call_states']>[number]): string {
+  if (state.state === 'blocked') return `Blocked · ${String(state.block_reason || 'safety check').replaceAll('_', ' ')}`
+  if (state.state === 'no_position') return 'No position'
+  return `${state.state === 'open' ? 'Open' : 'Closed'} · ${state.allocation_pct}% ${state.side}`
+}
+
+function historicalMarkLabel(state: NonNullable<IbkrPaperPortfolioRead['history']['call_states']>[number]): string {
+  if (!state.price_as_of) return 'No price check available'
+  if (state.mark_source === 'review') return `Review ${state.price_as_of}`
+  if (state.mark_source === 'later_call') return `Closed ${state.price_as_of}`
+  return `Call date ${state.price_as_of} · no later price check`
+}
+
 function PaperPortfolioPanel({ portfolio, loading, staticMode, onRefresh }: { portfolio: IbkrPaperPortfolioRead | null; loading: boolean; staticMode: boolean; onRefresh: () => Promise<void> }) {
   const setToast = useStore((s) => s.setToast)
   const [busy, setBusy] = useState<string | null>(null)
@@ -244,21 +257,17 @@ function PaperPortfolioPanel({ portfolio, loading, staticMode, onRefresh }: { po
       </div>
       <div className="paperport__model">
         <div className="paperport__modelhead">
-          <div><span>Historical replay</span><strong>{historyAvailable ? `${history!.present_value.toFixed(2)} NAV` : '—'}</strong><small>{history?.detail || 'Reading all published calls…'}</small></div>
+          <div><span>Historical model portfolio</span><strong>{historyAvailable ? `${history!.present_value.toFixed(2)} NAV` : '—'}</strong><small>{history?.detail || 'Reading all published calls…'}</small></div>
           <div><span>Result</span><strong className={(history?.total_return_pct ?? 0) < 0 ? 'tone--bad' : 'tone--good'}>{historyAvailable ? ret(history!.total_return_pct) : '—'}</strong><small>{historyAvailable ? `${history!.cash_value.toFixed(2)} cash · ${history!.invested_value.toFixed(2)} invested` : 'Unavailable'}</small></div>
-          <div><span>Calls checked</span><strong>{historyAvailable ? history!.calls_examined : '—'}</strong><small>{historyAvailable ? `${history!.trade_calls} trades · ${history!.non_trade_calls} Watchlist/Avoid` : 'No cash signal inferred'}</small></div>
+          <div><span>Old calls shown</span><strong>{historyAvailable ? history!.calls_examined : '—'}</strong><small>{historyAvailable ? `${history!.trade_calls} model trades · ${history!.non_trade_calls} intentional no-trades` : 'No cash signal inferred'}</small></div>
         </div>
-        {history?.trades.map((trade) => (
-          <div className="paperport__row" key={trade.trade_id} title={trade.detail}>
-            <span><b>{trade.ticker}</b> {trade.decision}</span>
-            <span>{trade.side} · {trade.conviction} {trade.confidence} · {trade.target_weight_pct}%</span>
-            <span>{trade.currency} {trade.entry_price} → {trade.current_price} · {ret(trade.position_return_pct)}</span>
-            <span>{trade.status} · marked {trade.price_as_of}</span>
-          </div>
-        ))}
-        {history?.blocked_calls.map((row) => (
-          <div className="paperport__row paperport__row--blocked" key={`${row.ticker}-${row.decision_date}-${row.reason}`}>
-            <span><b>{row.ticker}</b> not traded</span><span>{row.reason}</span><span className="paperport__wide">{row.detail}</span>
+        {[...(history?.call_states ?? [])].reverse().map((state) => (
+          <div className={`paperport__callstate paperport__callstate--${state.state}`} key={state.call_id} title={state.detail}>
+            <span><b>{state.ticker}</b> {state.decision}<small>{state.decision_date || 'date unavailable'} · confidence {state.confidence ?? '—'}</small></span>
+            <span><b>{historicalStateLabel(state)}</b><small>{state.allocation_pct ? `${state.conviction} conviction sizing` : 'No model cash used'}</small></span>
+            <span><b>{state.entry_price === null ? 'Price unavailable' : `${state.currency || ''} ${state.entry_price}${state.mark_source === 'decision' || state.current_price === null ? '' : ` → ${state.current_price}`}`}</b><small>{state.position_return_pct !== null && state.mark_source !== 'decision' ? `Position result ${ret(state.position_return_pct)} · value ${state.current_value_units?.toFixed(2)} from ${state.allocation_pct?.toFixed(2)}` : state.price_move_pct !== null ? `Price move ${ret(state.price_move_pct)} · not portfolio P&L` : 'No later result yet'}</small></span>
+            <span><b>{state.current_action || 'Not reviewed yet'}</b><small>{historicalMarkLabel(state)}{state.next_check_date ? ` · Next ${state.next_check_label || 'check'} ${state.next_check_date}` : ''}</small></span>
+            <small className="paperport__callstate-detail">{state.detail}{state.current_action_reason ? ` Current review: ${state.current_action_reason}` : ''}</small>
           </div>
         ))}
       </div>

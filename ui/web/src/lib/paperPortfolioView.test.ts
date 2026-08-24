@@ -10,10 +10,18 @@ const valid = {
   },
   open_orders: [],
   history: {
-    schema_version: 'nostra-paper-history/v1', available: true, unit: 'normalized_nav', starting_value: 100, present_value: 100,
+    schema_version: 'nostra-paper-history/v2', available: true, unit: 'normalized_nav', starting_value: 100, present_value: 100,
     cash_value: 100, invested_value: 0, total_return_pct: 0, calls_examined: 1, non_trade_calls: 1,
     trade_calls: 0, open_trades: 0, closed_trades: 0,
     rules: { low_conviction_weight_pct: 5, high_conviction_weight_pct: 10, high_conviction_min_confidence: 75, eligible_baskets: ['Selected', 'Short'], provisional_calls_trade: false },
+    call_states: [{
+      call_id: 'analyses/ACME_2026-01-01', ticker: 'ACME', decision: 'Watchlist', decision_date: '2026-01-01',
+      confidence: 60, side: null, conviction: null, allocation_pct: null, state: 'no_position', block_reason: null,
+      entry_price: 100, currency: 'USD', price_as_of: '2026-01-31', current_price: 110, price_move_pct: 10,
+      position_return_pct: null, current_value_units: null, mark_source: 'review', current_action: 'Keep watching',
+      current_action_reason: 'The evidence is unchanged.', next_check_date: '2026-04-01', next_check_label: '90d',
+      detail: 'Watchlist opened no model position.',
+    }],
     trades: [], blocked_calls: [], detail: 'cash',
   },
   target: { valid: true, source_path: 'published Calls history', generated_at: '2026-08-22', gross_pct: 0, cash_pct: 100, positions: [], blocked_calls: [], detail: 'cash' },
@@ -30,6 +38,8 @@ assert.equal(publishedPaperPortfolio({ ...valid, target: { ...valid.target, gros
 const { account: _account, ...missingAccount } = valid
 assert.equal(publishedPaperPortfolio(missingAccount), null, 'a partial v2 response cannot throw or imply an account')
 assert.equal(publishedPaperPortfolio({ ...valid, history: { ...valid.history, rules: { ...valid.history.rules, eligible_baskets: ['Watchlist', 'Short'] } } }), null, 'only Selected and Short are executable')
+assert.equal(publishedPaperPortfolio({ ...valid, history: { ...valid.history, call_states: [] } }), null, 'every historical call needs one visible state row')
+assert.equal(publishedPaperPortfolio({ ...valid, history: { ...valid.history, call_states: [{ ...valid.history.call_states[0], state: 'blocked', block_reason: null }] } }), null, 'a blocked state must name the safety reason')
 assert.equal(publishedPaperPortfolio({ ...valid, status: 'disconnected', execution: { ...valid.execution, status: 'ready' } }), null, 'ready requires a connected account')
 assert.equal(publishedPaperPortfolio({ ...valid, open_orders: [{ order_id: 1, contract_id: 1, symbol: 'ACME', action: 'BUY', total_quantity: 1, order_type: 'LMT', status: 'Submitted', filled: 0, remaining: 1, average_fill_price: null, nostra_managed: false, can_cancel: true }] }), null, 'a manual order can never claim Nostra cancellation authority')
 const wrongWeight = { ticker: 'ACME', decision: 'Buy', side: 'long', conviction: 'low', confidence: 50, model_weight_pct: 7, currency: 'USD', exchange: 'NASDAQ', call_id: 'x', decision_date: '2026-08-23' }

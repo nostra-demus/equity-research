@@ -100,6 +100,10 @@ const scrubbed = codexChildEnv({
   ANTHROPIC_API_KEY: 'must-not-leak',
   GITHUB_ACTIONS: 'must-not-leak',
 })
+assert.equal(scrubbed.PATH?.split(path.delimiter)[0], path.dirname(process.execPath),
+  'the scrubbed launchd child PATH starts with the exact Node runtime directory')
+assert.equal(scrubbed.PATH?.split(path.delimiter).includes('/bin'), true,
+  'the source PATH remains available after the pinned runtime directory')
 assert.equal(scrubbed.OPENAI_API_KEY, undefined)
 assert.equal(scrubbed.CODEX_API_KEY, undefined)
 assert.equal(scrubbed.OPENAI_BASE_URL, undefined)
@@ -119,6 +123,18 @@ assert.deepEqual(Object.keys(scrubbed).sort(), [
   'CODEX_HOME', 'NO_COLOR', 'NOSTRA_COCKPIT_RUN', 'NOSTRA_PUBLICATION_ENDPOINT',
   'NOSTRA_PUBLICATION_SOCKET', 'NOSTRA_PUBLICATION_TOKEN', 'PATH',
 ].sort())
+
+const npmShimFixture = fs.mkdtempSync(path.join(os.tmpdir(), 'nostra-codex-node-shim-'))
+try {
+  const shim = path.join(npmShimFixture, 'codex-shim')
+  fs.writeFileSync(shim, '#!/usr/bin/env node\nprocess.stdout.write("codex-cli fixture\\n")\n', { mode: 0o755 })
+  const output = execFileSync(shim, [], {
+    encoding: 'utf8',
+    env: codexChildEnv({ PATH: '/usr/bin:/bin' }),
+  })
+  assert.equal(output.trim(), 'codex-cli fixture',
+    'an npm-style Codex shim resolves Node under the launchd-scrubbed child environment')
+} finally { fs.rmSync(npmShimFixture, { recursive: true, force: true }) }
 
 const sourceCodexHome = fs.mkdtempSync(path.join(os.tmpdir(), 'nostra-codex-source-home-'))
 try {
@@ -595,7 +611,7 @@ try {
   assert.ok(spec.args.includes('shell_environment_policy.inherit="none"'), 'model-issued Bash inherits no parent/auth environment')
   assert.ok(!spec.args.some((arg) => arg.startsWith('shell_environment_policy.set.CODEX_HOME=')))
   assert.ok(!spec.args.some((arg) => arg.startsWith('shell_environment_policy.set.HOME=')))
-  assert.ok(spec.args.some((arg) => arg === 'shell_environment_policy.set.PATH="/bin"'))
+  assert.ok(spec.args.some((arg) => arg === `shell_environment_policy.set.PATH=${JSON.stringify(spec.env.PATH)}`))
   assert.ok(spec.args.some((arg) => arg === `shell_environment_policy.set.TMPDIR=${JSON.stringify(spec.env.TMPDIR)}`))
   assert.ok(spec.args.some((arg) => arg === 'shell_environment_policy.set.NOSTRA_PUBLICATION_ENDPOINT="http://localhost/publication"'))
   assert.ok(spec.args.some((arg) => arg === `shell_environment_policy.set.NOSTRA_PUBLICATION_SOCKET=${JSON.stringify(publicationSocketPath)}`))

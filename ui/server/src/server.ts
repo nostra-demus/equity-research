@@ -65,7 +65,7 @@ import { dryRunFeedbackDispatch, startFeedbackDispatch } from './feedback-dispat
 import { notifyFeedbackResolved } from './feedback-email'
 import { runReadiness } from './readiness'
 import { IN_FLIGHT_STATUSES, getRun, listRuns, subscribe, unsubscribe, type SseClient } from './registry'
-import { agentNamesForModule, buildSwarmGraph, findRunRootForSubject, graphForSubject, graphForTicker, listModuleNames, swarmSubjects, swarmSubjectSummaries, terminalModuleName } from './roster'
+import { agentNamesForModule, buildSwarmGraph, findRunRootForSubject, graphForSubject, graphForTicker, listModuleNames, swarmSubjects, swarmSubjectSummaries, terminalModuleName, warmSwarmGraphs } from './roster'
 import { isValidCalendarISODate, listAllCalls, listRunsForTicker, readDecision, readMarkdown, readPrompt, readPublishedCallsMarkdown, readRunsMarkdown, resolveRunRoot, runManifest, todayISO } from './outputs'
 import { readIbkrPaperPortfolio } from './ibkr-paper'
 import { ibkrPaperExecution } from './ibkr-paper-execution'
@@ -6276,12 +6276,16 @@ purgeReelTempDirs(0)
     if (count) console.log(`[swarm-cockpit] reconciled ${count} orphaned provider process group(s) before admission`) // eslint-disable-line no-console
     const recovered = await recoverReadyPublications()
     if (recovered) console.log(`[swarm-cockpit] recovered ${recovered} post-extinction publication(s) before admission`) // eslint-disable-line no-console
-    return app.listen({ host: HOST, port: PORT })
+    // Readiness means the first workspace request is warm. Graph discovery/parsing is synchronous, so if
+    // it ran after listen() it could block the event loop while the browser waited on its startup graph.
+    const graphs = warmSwarmGraphs()
+    await app.listen({ host: HOST, port: PORT })
+    return graphs
   })
-  .then(() => {
-    const g = buildSwarmGraph()
+  .then((graphs) => {
+    const g = graphs[0]
     // eslint-disable-next-line no-console
-    console.log(`[swarm-cockpit] control plane on http://${HOST}:${PORT}  (${g.totals.modules} modules, ${g.totals.agents} agents)`)
+    console.log(`[swarm-cockpit] control plane on http://${HOST}:${PORT}  (${g.totals.modules} modules, ${g.totals.agents} agents; ${graphs.length} swarm graphs warm)`)
     // warm the once-per-process claude CLI probes so the FIRST launch click doesn't pay them (~1-4s)
     void warmLaunchProbes()
     // autonomous news ingester (screener swarm): fills a ranked inbox 24/7 at ~$0 when GROQ_API_KEY
