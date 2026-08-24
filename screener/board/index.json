@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-08-24T16:19:20Z",
+  "generated_at": "2026-08-24T16:24:26Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260824-942",
+      "headline": "DPSC Limited: DPSC Limited has informed the Exchange about Corporate Insolvency Resolution Process-Post facto intimation of the 5th (Fifth) Meeting of the Committee of Creditors (CoC) of India Power Corporation Limited (IPCL)",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/DPSCLTD_24082026213702_Intimationofpostponmentof5thCOCMeetingtoSE24082026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-24T16:07:24Z",
+      "sweep_file": "screener/inbox/2026-08-24_sweep.json",
+      "prelim_note": "India Power Corporation Limited is undergoing a Corporate Insolvency Resolution Process, which is a critical distress event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "India Power Corporation Limited is undergoing a Corporate Insolvency Resolution Process, which is a critical distress event.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "India Power Corporation Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260824-941",
       "headline": "Shrenik Limited: Shrenik Limited has informed the Exchange about Corporate Insolvency Resolution Process",
@@ -1910,55 +1959,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260824-488",
-      "headline": "Jatalia Global Ventures Ltd: The Resolution Plan of the Corporate Debtor has been approved by the Hon'ble NCLT order dated 09.07.2026. The Monitoring Committee has been constituted pursuant the approved Resolution ....",
-      "headline_en": null,
-      "url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/4cfaba35-4d82-4531-83aa-edc8f1358e04.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-24T08:35:02Z",
-      "sweep_file": "screener/inbox/2026-08-24_sweep.json",
-      "prelim_note": "The company has undergone a formal insolvency resolution process under NCLT, indicating a major restructuring or change in control.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "The company has undergone a formal insolvency resolution process under NCLT, indicating a major restructuring or change in control.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "default_distress",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Jatalia Global Ventures Ltd",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -85025,9 +85025,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 532359,
-    "news_picked_today": 2151,
-    "news_dropped_today": 11541
+    "news_seen_today": 540414,
+    "news_picked_today": 2159,
+    "news_dropped_today": 11545
   },
   "book_momentum": {
     "live_count": 8,
