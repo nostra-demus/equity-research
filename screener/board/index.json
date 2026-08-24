@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-24T05:22:58Z",
+  "generated_at": "2026-08-24T05:32:09Z",
   "inbox": [
     {
       "inbox_id": "INB-20260824-423",
@@ -796,6 +796,60 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260824-437",
+      "headline": "Oriental Hotels shares surge 6% as Indian Hotels announces merger; check swap ratio",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/oriental-hotels-shares-surge-as-indian-hotels-announces-merger-check-swap-ratio-19975434.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-24T05:17:31Z",
+      "sweep_file": "screener/inbox/2026-08-24_sweep.json",
+      "prelim_note": "Indian Hotels announced a merger with Oriental Hotels with a stated swap ratio, a confirmed deal event moving both stocks.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Indian Hotels announced a merger with Oriental Hotels with a stated swap ratio, a confirmed deal event moving both stocks.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Oriental Hotels",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "Indian Hotels",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1940,55 +1994,6 @@
           "name": "Shein",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260824-223",
-      "headline": "Fast fashion giant Shein valued at up to $27 billion in Hong Kong IPO",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/fast-fashion-giant-shein-valued-at-up-to-27-billion-in-hong-kong-ipo-19975289.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-24T01:43:26Z",
-      "sweep_file": "screener/inbox/2026-08-24_sweep.json",
-      "prelim_note": "Major IPO valuation of $27 billion for a significant market player.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Major IPO valuation of $27 billion for a significant market player.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capital_actions",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Shein",
-          "ticker": null,
-          "listing_country": "CN"
         }
       ],
       "size_bucket": "large",
@@ -85386,9 +85391,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2066,
-    "news_picked_today": 724,
-    "news_dropped_today": 1279
+    "news_seen_today": 2787,
+    "news_picked_today": 726,
+    "news_dropped_today": 1481
   },
   "book_momentum": {
     "live_count": 8,
