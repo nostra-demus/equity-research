@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-08-24T00:42:22Z",
+  "generated_at": "2026-08-24T00:50:48Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260824-133",
+      "headline": "COASTAL GL (01124): EXCHANGE NOTICE - TRADING HALT",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0824/2026082400227.htm",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-24T00:46:00Z",
+      "sweep_file": "screener/inbox/2026-08-24_sweep.json",
+      "prelim_note": "A trading halt on an exchange filing often indicates significant corporate distress or pending material news.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A trading halt on an exchange filing often indicates significant corporate distress or pending material news.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "COASTAL GL",
+          "ticker": "01124",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260824-054",
       "headline": "KEEP (03650): INTERIM RESULTS ANNOUNCEMENT FOR THE SIX MONTHS ENDED JUNE 30, 2026",
@@ -141,6 +190,55 @@
           "name": "High Fashion International",
           "ticker": "00608",
           "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260824-138",
+      "headline": "OUE unit proposes to privatise OUE Healthcare in S$0.05 per share scheme deal",
+      "headline_en": null,
+      "url": "https://www.businesstimes.com.sg/companies-markets/oue-unit-proposes-privatise-oue-healthcare-s0-05-share-scheme-deal",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-24T00:39:45Z",
+      "sweep_file": "screener/inbox/2026-08-24_sweep.json",
+      "prelim_note": "OUE has proposed to privatize OUE Healthcare at S$0.05 per share.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "OUE has proposed to privatize OUE Healthcare at S$0.05 per share.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "OUE Healthcare",
+          "ticker": null,
+          "listing_country": "SG"
         }
       ],
       "size_bucket": "small",
@@ -440,6 +538,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260824-134",
+      "headline": "WIN: Radio Gold Project Re-Start Study [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.WIN?key=2924-03124891-6A1339883",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-24T00:41:35Z",
+      "sweep_file": "screener/inbox/2026-08-24_sweep.json",
+      "prelim_note": "The company is initiating a restart study for a gold project, which is a material operational development.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "The company is initiating a restart study for a gold project, which is a material operational development.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "WIN",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260824-005",
       "headline": "SINOPHARM (01099): ANNOUNCEMENT ON 2026 INTERIM RESULTS",
       "headline_en": null,
@@ -543,31 +690,31 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260824-130",
+      "inbox_id": "INB-20260824-147",
       "headline": "US vows 'economic D-Day' as Iran threatens to halt all oil exports",
       "headline_en": null,
-      "url": "https://www.reuters.com/business/energy/iran-says-it-discovered-over-75-trillion-cubic-feet-gas-2026-08-23/",
-      "source_name": "Reuters — Latest (news sitemap)",
+      "url": "https://www.al-monitor.com/originals/2026/08/us-vows-economic-d-day-iran-threatens-halt-all-oil-exports",
+      "source_name": "Al-Monitor",
       "input_nature": "news_headline",
-      "found_at": "2026-08-24T00:32:50Z",
+      "found_at": "2026-08-24T00:46:30Z",
       "sweep_file": "screener/inbox/2026-08-24_sweep.json",
-      "prelim_note": "US threatens 'economic D-Day' and Iran threatens to halt all oil exports, a major commodity supply shock risk moving global markets.",
+      "prelim_note": "Geopolitical escalation as Iran threatens to halt oil exports, posing a major supply shock risk.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 95,
-      "triage_reason": "US threatens 'economic D-Day' and Iran threatens to halt all oil exports, a major commodity supply shock risk moving global markets.",
+      "triage_reason": "Geopolitical escalation as Iran threatens to halt oil exports, posing a major supply shock risk.",
       "region": "GLOBAL",
       "relevance": "material",
-      "materiality_pre_score": 75,
+      "materiality_pre_score": 85,
       "rank_factors": {
-        "materiality": 75,
+        "materiality": 85,
         "source_tier": 0,
         "scope": 4,
         "event": 1,
         "size": 0,
         "recency": 5,
-        "materiality_label_floor": 10,
+        "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "commodity",
@@ -1256,6 +1403,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260824-139",
+      "headline": "Ukraine-Krieg: London will die Produktion von Langstreckenraketen unterstützen",
+      "headline_en": "Ukraine War: London wants to support the production of long-range missiles",
+      "url": "https://www.handelsblatt.com/politik/international/ukraine-krieg-london-will-die-produktion-von-langstreckenraketen-unterstuetzen/100249158.html",
+      "source_name": "Handelsblatt",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-24T00:41:50Z",
+      "sweep_file": "screener/inbox/2026-08-24_sweep.json",
+      "prelim_note": "UK support for long-range missile production represents a geopolitical escalation in the Ukraine conflict.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "UK support for long-range missile production represents a geopolitical escalation in the Ukraine conflict.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": -4,
+        "event": 1,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
+        "source_tier_id": "news",
+        "event_id": "macro_sector",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260824-072",
       "headline": "Yemeni army claims attacks on Houthis",
       "headline_en": null,
@@ -1314,6 +1504,49 @@
       "triage_score": 87,
       "triage_reason": "Escalation of geopolitical tensions in the Strait of Hormuz poses a direct threat to global energy supply chains.",
       "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": -4,
+        "event": 1,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
+        "source_tier_id": "news",
+        "event_id": "macro_sector",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260824-146",
+      "headline": "Iran currency plunges to record low as US dollar breaks 2 million rials on open market",
+      "headline_en": null,
+      "url": "https://gulfnews.com/world/mena/iran-currency-plunges-to-record-low-as-us-dollar-breaks-2-million-rials-on-open-market-1.500650041",
+      "source_name": "Gulf News",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-24T00:17:15Z",
+      "sweep_file": "screener/inbox/2026-08-24_sweep.json",
+      "prelim_note": "Iranian currency collapse to a record low of 2 million rials per USD indicates severe economic distress.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Iranian currency collapse to a record low of 2 million rials per USD indicates severe economic distress.",
+      "region": "OTHER",
       "relevance": "material",
       "materiality_pre_score": 75,
       "rank_factors": {
@@ -1434,6 +1667,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260824-144",
+      "headline": "오토노머스에이투지, 글로벌 팁스 선정… “66억 투입해 무인 자율주행 수출 박차”",
+      "headline_en": "Autonomous A2Z selected for Global TIPS... 'Investing 6.6 billion KRW to accelerate unmanned autonomous driving exports'",
+      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=275324",
+      "source_name": "Business Korea — All Articles (CDN)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-24T00:27:00Z",
+      "sweep_file": "screener/inbox/2026-08-24_sweep.json",
+      "prelim_note": "Autonomous A2Z selected for Global TIPS program with a 6.6 billion KRW investment to boost autonomous driving exports.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "Autonomous A2Z selected for Global TIPS program with a 6.6 billion KRW investment to boost autonomous driving exports.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Autonomous A2Z",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260824-058",
       "headline": "New High-Grade Domain Discovered at Cuffley | ALKEF Stock News",
       "headline_en": null,
@@ -1532,6 +1814,65 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260824-142",
+      "headline": "Memory Crunch Forces Nvidia to Raise Server Prices, Boosting Samsung and SK hynix",
+      "headline_en": null,
+      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=275323",
+      "source_name": "Business Korea — All English Articles",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-24T03:53:18Z",
+      "sweep_file": "screener/inbox/2026-08-24_sweep.json",
+      "prelim_note": "Nvidia's server price increases due to memory shortages are expected to benefit memory suppliers Samsung and SK Hynix.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "Nvidia's server price increases due to memory shortages are expected to benefit memory suppliers Samsung and SK Hynix.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 3,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "commercial",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "secondary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Samsung Electronics",
+          "ticker": null,
+          "listing_country": "KR"
+        },
+        {
+          "name": "SK Hynix",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260824-059",
       "headline": "The $100-mn West Asia nightmare giving sleepless nights to HDFC Bank's NRI customers",
       "headline_en": null,
@@ -1576,331 +1917,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260824-079",
-      "headline": "ASV: FY26 Results and Investor Webinar",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ASV?key=2924-03124890-3A699588",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-24T00:33:50Z",
-      "sweep_file": "screener/inbox/2026-08-24_sweep.json",
-      "prelim_note": "The company is releasing its FY26 financial results and hosting an investor webinar.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 84,
-      "triage_reason": "The company is releasing its FY26 financial results and hosting an investor webinar.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ASV",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260824-018",
-      "headline": "WMX: Overwhelming demand for WMX Entitlement Offer and Placement [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.WMX?key=2924-03124876-2A1691363",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-23T23:57:30Z",
-      "sweep_file": "screener/inbox/2026-08-24_sweep.json",
-      "prelim_note": "Overwhelming demand for entitlement offer and placement indicates strong capital-market appetite though no amount is given.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 80,
-      "triage_reason": "Overwhelming demand for entitlement offer and placement indicates strong capital-market appetite though no amount is given.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "capital_actions",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "WMX",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260824-020",
-      "headline": "SHEIN-W (00625): GLOBAL OFFERING",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0824/2026082400019.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-23T22:17:00Z",
-      "sweep_file": "screener/inbox/2026-08-24_sweep.json",
-      "prelim_note": "Global offering is a capital-raising event that affects share supply and capital structure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 79,
-      "triage_reason": "Global offering is a capital-raising event that affects share supply and capital structure.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "capital_actions",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SHEIN-W",
-          "ticker": "00625",
-          "listing_country": "HK"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260824-021",
-      "headline": "MECH-MIND ROBOT (09615): GLOBAL OFFERING",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0824/2026082400017.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-23T22:16:00Z",
-      "sweep_file": "screener/inbox/2026-08-24_sweep.json",
-      "prelim_note": "Global offering is a capital-raising event that affects share supply and capital structure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 79,
-      "triage_reason": "Global offering is a capital-raising event that affects share supply and capital structure.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "capital_actions",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "MECH-MIND ROBOT",
-          "ticker": "09615",
-          "listing_country": "HK"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260824-069",
-      "headline": "Oil Falls on Possible Position Adjustments Before Potential U.S. Sanctions on Iran",
-      "headline_en": null,
-      "url": "https://www.wsj.com/finance/commodities-futures/oil-falls-on-possible-position-adjustments-before-potential-u-s-sanctions-on-iran-6d0d22c3?mod=rss_markets_main",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-24T00:22:00Z",
-      "sweep_file": "screener/inbox/2026-08-24_sweep.json",
-      "prelim_note": "Potential U.S. sanctions on Iran could disrupt global oil supply, impacting energy prices.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 78,
-      "triage_reason": "Potential U.S. sanctions on Iran could disrupt global oil supply, impacting energy prices.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 1,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "macro_sector",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260824-061",
-      "headline": "MPC's rate hike signals add to war-driven risks for rupee and bonds",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/stocks/news/mpcs-rate-hike-signals-add-to-war-driven-risks-for-rupee-and-bonds/articleshow/133448587.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-24T00:20:40Z",
-      "sweep_file": "screener/inbox/2026-08-24_sweep.json",
-      "prelim_note": "Monetary policy tightening combined with geopolitical risk creates significant headwinds for Indian currency and debt markets.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 78,
-      "triage_reason": "Monetary policy tightening combined with geopolitical risk creates significant headwinds for Indian currency and debt markets.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 1,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "macro_sector",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260824-047",
-      "headline": "BOJ Set to Offer Clues as Markets Bet Heavily on September Hike",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-08-23/boj-set-to-offer-clues-as-markets-bet-heavily-on-september-hike",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-23T23:50:00Z",
-      "sweep_file": "screener/inbox/2026-08-24_sweep.json",
-      "prelim_note": "Market expectations for a Bank of Japan rate hike in September are shifting, impacting global currency and bond markets.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 78,
-      "triage_reason": "Market expectations for a Bank of Japan rate hike in September are shifting, impacting global currency and bond markets.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 1,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "macro_sector",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -84778,9 +84794,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 234,
-    "news_picked_today": 134,
-    "news_dropped_today": 100
+    "news_seen_today": 269,
+    "news_picked_today": 149,
+    "news_dropped_today": 120
   },
   "book_momentum": {
     "live_count": 8,
