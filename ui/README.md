@@ -63,7 +63,8 @@ Automatic execution follows these rules:
 - **Safe rotation:** Nostra reads the exact publication commit, cancels superseded Nostra orders, and re-reads
   TWS before sizing. It closes the old holding first and waits for a later snapshot to confirm the fill before
   opening the replacement.
-- **Manual retry:** **Sync now** runs the same full reconciliation, including a 100%-cash target.
+- **Manual retry:** **Sync now** runs the same full reconciliation against the current published policy,
+  which becomes a 100%-cash target when no calls are active.
 
 The connector is fixed to localhost and paper port 7497, exposes no account identifier to the browser,
 refuses live/non-allow-listed or ambiguous accounts, and uses guarded limit entries plus duplicate-order
