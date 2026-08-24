@@ -6,7 +6,16 @@ import assert from 'node:assert/strict'
 import fs from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { intakeOwnerBindingMatches } from '../src/launcher'
+import { intakeOwnerBindingMatches, resolveParityBindingPath } from '../src/launcher'
+
+const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../..')
+assert.equal(
+  resolveParityBindingPath('analyses/provider-parity/freeze/AMZN_2026-08-24.json'),
+  path.join(repoRoot, 'analyses/provider-parity/freeze/AMZN_2026-08-24.json'),
+  'repository-relative parity bindings relocate with the deployed worktree',
+)
+assert.equal(resolveParityBindingPath('../outside.json'), null, 'relative parity bindings cannot traverse the repository')
+assert.equal(resolveParityBindingPath('analyses\\outside.json'), null, 'parity bindings reject cross-platform separators')
 
 const ownerA = {
   swarm: 'research',
