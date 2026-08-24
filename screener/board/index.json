@@ -1,6 +1,60 @@
 {
-  "generated_at": "2026-08-24T04:42:15Z",
+  "generated_at": "2026-08-24T04:47:38Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260824-383",
+      "headline": "Indian Hotels Company Ltd: Please find enclosed the investor presentation on merger of The Indian Hotels Company Limited with Oriental Hotels Limited.",
+      "headline_en": null,
+      "url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/4afc8793-d744-41db-bb49-8b93c05a5056.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-24T04:43:10Z",
+      "sweep_file": "screener/inbox/2026-08-24_sweep.json",
+      "prelim_note": "Indian Hotels Company Ltd announced a merger with Oriental Hotels Limited.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Indian Hotels Company Ltd announced a merger with Oriental Hotels Limited.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Indian Hotels Company Ltd",
+          "ticker": "500850",
+          "listing_country": "IN"
+        },
+        {
+          "name": "Oriental Hotels Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260824-359",
       "headline": "SDHG (00412): VERY SUBSTANTIAL DISPOSAL IN RELATION TO THE DISPOSAL OF SHARES IN VNET GROUP, INC. - CHOICE FAITH CLOSING",
@@ -1772,60 +1826,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260824-315",
-      "headline": "Indian Hotels Company Ltd: Please find enclosed the press release for the scheme of arrangement between The Indian Hotels Company Limited and Oriental Hotels Limited.",
-      "headline_en": null,
-      "url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/e438ae07-fddc-4979-925e-f1adc252ed8a.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-24T03:36:49Z",
-      "sweep_file": "screener/inbox/2026-08-24_sweep.json",
-      "prelim_note": "Indian Hotels Company announced a scheme of arrangement with Oriental Hotels, indicating a corporate restructuring or consolidation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Indian Hotels Company announced a scheme of arrangement with Oriental Hotels, indicating a corporate restructuring or consolidation.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Indian Hotels Company Ltd",
-          "ticker": "500850",
-          "listing_country": "IN"
-        },
-        {
-          "name": "Oriental Hotels Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -85289,9 +85289,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1699,
-    "news_picked_today": 594,
-    "news_dropped_today": 1042
+    "news_seen_today": 1745,
+    "news_picked_today": 612,
+    "news_dropped_today": 1070
   },
   "book_momentum": {
     "live_count": 8,
