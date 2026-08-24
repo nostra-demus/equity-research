@@ -2,6 +2,7 @@ import assert from 'node:assert/strict'
 import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
+import { spawnSync } from 'node:child_process'
 import { paperTargetFingerprint, runLocalPaperBridge } from '../src/ibkr-paper-local-bridge'
 import type { PaperExecutionResult } from '../src/ibkr-paper-execution'
 import type { CallPolicyTarget } from '../src/paper-call-ledger'
@@ -22,7 +23,16 @@ const aligned: PaperExecutionResult = {
   ok: true, paper_only: true, action: 'sync', detail: 'aligned', orders: [], skipped: [],
 }
 
-const root = fs.mkdtempSync(path.join(os.tmpdir(), 'ibkr-local-bridge-'))
+const suiteRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'ibkr-local-bridge-suite-'))
+const cleanup = () => fs.rmSync(suiteRoot, { recursive: true, force: true })
+process.once('exit', cleanup)
+const stateDir = (name: string) => {
+  const directory = path.join(suiteRoot, name)
+  fs.mkdirSync(directory, { recursive: true })
+  return directory
+}
+
+const root = stateDir('phase-retry')
 let syncs = 0
 let result: PaperExecutionResult = {
   ok: true, paper_only: true, action: 'sync', detail: 'phase one',
@@ -51,7 +61,7 @@ assert.equal(syncs, 2)
 assert.equal((await run())?.outcome, 'aligned')
 assert.equal(syncs, 2, 'an aligned target stays untouched so a manual close remains cash')
 
-const submittedRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'ibkr-local-bridge-submitted-'))
+const submittedRoot = stateDir('submitted')
 let submittedSyncs = 0
 for (let index = 0; index < 2; index++) {
   const submittedAttempt = await runLocalPaperBridge({
@@ -76,7 +86,7 @@ assert.equal(syncs, 3, 'a target-changing published review or call reconciles ag
 assert.equal(paperTargetFingerprint({ ...baseTarget, generated_at: '2099-01-01T00:00:00.000Z' }), paperTargetFingerprint(baseTarget),
   'volatile projection timestamps do not create trades')
 
-const blockedRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'ibkr-local-bridge-blocked-'))
+const blockedRoot = stateDir('blocked')
 let blockedSyncs = 0
 const blockedResult: PaperExecutionResult = {
   ok: true, paper_only: true, action: 'sync', detail: 'waiting', orders: [],
@@ -93,7 +103,7 @@ for (let index = 0; index < 2; index++) {
 }
 assert.equal(blockedSyncs, 2, 'a waiting phase is retried from a fresh broker snapshot')
 
-const errorRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'ibkr-local-bridge-error-'))
+const errorRoot = stateDir('error')
 const errorAttempt = await runLocalPaperBridge({
   enabled: true, operatorAuthorized: true, stateDir: errorRoot,
   revision: () => revisionA, target: async () => baseTarget,
@@ -105,7 +115,7 @@ assert.match(errorAttempt?.detail || '', /\[PATH\]/)
 
 let unauthorizedSyncs = 0
 const unauthorized = await runLocalPaperBridge({
-  enabled: true, operatorAuthorized: false, stateDir: fs.mkdtempSync(path.join(os.tmpdir(), 'ibkr-local-bridge-auth-')),
+  enabled: true, operatorAuthorized: false, stateDir: stateDir('unauthorized'),
   revision: () => revisionA, target: async () => baseTarget,
   sync: async () => { unauthorizedSyncs++; return aligned },
 })
@@ -118,4 +128,33 @@ assert.equal(await runLocalPaperBridge({
 }), null)
 
 assert.equal(fs.statSync(path.join(root, 'latest.json')).mode & 0o777, 0o600)
-console.log('ibkr-paper-local-bridge.test.ts: 13 passed')
+
+const fakeHome = stateDir('stale-lock-home')
+const fakeProd = stateDir('stale-lock-prod')
+const fakeServer = path.join(fakeProd, 'ui/server')
+const fakeTsx = path.join(fakeServer, 'node_modules/.bin/tsx')
+const fakeDeploy = path.join(fakeHome, '.nostra-ops/deploy.sh')
+const fakeConfig = path.join(fakeHome, '.config/nostra-engine/paper.env')
+const fakeNode = path.join(suiteRoot, 'fake-node.sh')
+const marker = path.join(suiteRoot, 'bridge-ran')
+const staleLock = path.join(fakeHome, 'Library/Application Support/nostradamus/ibkr-paper-local-bridge/run.lock')
+fs.mkdirSync(path.dirname(fakeTsx), { recursive: true })
+fs.mkdirSync(path.dirname(fakeDeploy), { recursive: true })
+fs.mkdirSync(path.dirname(fakeConfig), { recursive: true })
+fs.mkdirSync(staleLock, { recursive: true })
+fs.writeFileSync(fakeTsx, '#!/bin/bash\nexit 0\n', { mode: 0o700 })
+fs.writeFileSync(fakeDeploy, '#!/bin/bash\nexit 0\n', { mode: 0o700 })
+fs.writeFileSync(fakeConfig, 'ENGINE_IBKR_PAPER_EXECUTION=1\nENGINE_IBKR_PAPER_AUTO_SYNC=1\n', { mode: 0o600 })
+fs.writeFileSync(fakeNode, '#!/bin/bash\n: > "$BRIDGE_TEST_MARKER"\n', { mode: 0o700 })
+fs.writeFileSync(path.join(staleLock, 'owner'), '99999999\nMon Jan  1 00:00:00 2001\n/stale/bridge.sh\n')
+const wrapper = path.resolve(process.cwd(), '../../scripts/ops/ibkr-paper-bridge.sh')
+const staleRecovery = spawnSync('/bin/bash', [wrapper], {
+  encoding: 'utf8',
+  env: { ...process.env, HOME: fakeHome, ENGINE_REPO_ROOT: fakeProd, NODE_BIN: fakeNode, BRIDGE_TEST_MARKER: marker },
+})
+assert.equal(staleRecovery.status, 0, staleRecovery.stderr)
+assert.equal(fs.existsSync(marker), true, 'a stale crash lock does not permanently stop the bridge')
+assert.equal(fs.existsSync(staleLock), false, 'the replacement lock is released after the run')
+
+cleanup()
+console.log('ibkr-paper-local-bridge.test.ts: 15 passed')
