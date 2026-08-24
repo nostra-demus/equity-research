@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-24T01:55:45Z",
+  "generated_at": "2026-08-24T02:01:10Z",
   "inbox": [
     {
       "inbox_id": "INB-20260824-198",
@@ -1549,6 +1549,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260824-229",
+      "headline": "Alibaba shares fall 8% after $10 billion Hong Kong share sale",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/retail-consumer/alibaba-shares-fall-8-after-10-billion-hong-kong-share-sale-2026-08-24/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-24T01:53:32Z",
+      "sweep_file": "screener/inbox/2026-08-24_sweep.json",
+      "prelim_note": "Alibaba shares fell 8% after a $10 billion Hong Kong share sale, a large dilutive capital action from a primary source.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Alibaba shares fell 8% after a $10 billion Hong Kong share sale, a large dilutive capital action from a primary source.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capital_actions",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Alibaba",
+          "ticker": "BABA",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260824-211",
       "headline": "Alibaba set to open down 8% in Hong Kong after $10.2 billion share placement plan",
       "headline_en": null,
@@ -1882,55 +1931,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260824-010",
-      "headline": "TOP EDUCATION (01752): INSIDE INFORMATION ANNOUNCEMENT - UPDATE ON DATA SECURITY INCIDENT",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0824/2026082400165.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-23T23:38:00Z",
-      "sweep_file": "screener/inbox/2026-08-24_sweep.json",
-      "prelim_note": "Update on a data security incident indicates ongoing operational risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "Update on a data security incident indicates ongoing operational risk.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "cybersecurity",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "cybersecurity"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Top Education",
-          "ticker": "01752",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -84885,9 +84885,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 515,
-    "news_picked_today": 253,
-    "news_dropped_today": 262
+    "news_seen_today": 536,
+    "news_picked_today": 258,
+    "news_dropped_today": 278
   },
   "book_momentum": {
     "live_count": 8,
