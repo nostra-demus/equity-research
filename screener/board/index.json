@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-08-24T12:08:35Z",
+  "generated_at": "2026-08-24T12:13:45Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260824-800",
+      "headline": "Pavna Industries Ltd: Approved the Acquisition of equity shares of 52.38% Pavna Electric Systems Private Limited thus making it a subsidiary of Pavna Industries Limited",
+      "headline_en": null,
+      "url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/8abf21df-7b2b-4234-bcf3-d4df9d89e161.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-24T12:03:57Z",
+      "sweep_file": "screener/inbox/2026-08-24_sweep.json",
+      "prelim_note": "Pavna Industries acquired a 52.38% stake in Pavna Electric Systems, making it a subsidiary.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Pavna Industries acquired a 52.38% stake in Pavna Electric Systems, making it a subsidiary.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Pavna Industries Ltd",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260824-784",
       "headline": "CH TREASURES NM (02439): PROFIT WARNING DECREASE IN PROFIT FOR THE SIX MONTHS ENDED 30 JUNE 2026",
@@ -1915,55 +1964,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260824-747",
-      "headline": "Gogoro Releases Second Quarter Financial Results, Gogoro Continues to Focus on Sustainable Growth",
-      "headline_en": null,
-      "url": "https://www.globenewswire.com/news-release/2026/08/24/3349591/0/en/gogoro-releases-second-quarter-financial-results-gogoro-continues-to-focus-on-sustainable-growth.html",
-      "source_name": "GlobeNewswire — News about Public Companies",
-      "input_nature": "company_press_release",
-      "found_at": "2026-08-24T10:51:00Z",
-      "sweep_file": "screener/inbox/2026-08-24_sweep.json",
-      "prelim_note": "Gogoro released its Q2 financial results.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Gogoro released its Q2 financial results.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 3,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Gogoro",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -85434,9 +85434,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 187315,
-    "news_picked_today": 1701,
-    "news_dropped_today": 10971
+    "news_seen_today": 193863,
+    "news_picked_today": 1707,
+    "news_dropped_today": 10977
   },
   "book_momentum": {
     "live_count": 8,
