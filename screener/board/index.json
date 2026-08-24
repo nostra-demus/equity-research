@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-24T03:27:33Z",
+  "generated_at": "2026-08-24T03:32:20Z",
   "inbox": [
     {
       "inbox_id": "INB-20260824-242",
@@ -1472,6 +1472,50 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260824-303",
+      "headline": "US 'Economic D-Day' Begins As Trump Administration Enters 'Endgame' Against Iran, Vows To Sever Tehran's Financial Lifelines | Video",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/world/us-economic-d-day-begins-as-trump-administration-enters-endgame-against-iran-vows-to-sever-tehrans-financial-lifelines-video",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-24T03:12:03Z",
+      "sweep_file": "screener/inbox/2026-08-24_sweep.json",
+      "prelim_note": "US administration entering endgame against Iran vowing to sever Tehran's financial lifelines is a geopolitical escalation with market-wide impact.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "US administration entering endgame against Iran vowing to sever Tehran's financial lifelines is a geopolitical escalation with market-wide impact.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector",
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260824-009",
       "headline": "SDHG (00412): MAJOR TRANSACTIONS IN RELATION TO THE EPC CONTRACT AND NOTICE OF SPECIAL GENERAL MEETING",
       "headline_en": null,
@@ -1567,6 +1611,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260824-298",
+      "headline": "Oriental Hotels Limited: Oriental Hotels Limited has informed the Exchange about Amalgamation/Merger",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/TAJORIENTAL_24082026085709_SEReg30.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-24T03:27:56Z",
+      "sweep_file": "screener/inbox/2026-08-24_sweep.json",
+      "prelim_note": "The company announced an amalgamation or merger, which is a significant corporate event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "The company announced an amalgamation or merger, which is a significant corporate event.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Oriental Hotels Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1796,69 +1889,20 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260824-290",
-      "headline": "WAG: Preliminary Final Report [price-sensitive]",
+      "inbox_id": "INB-20260824-301",
+      "headline": "WSI: Placement and Cleansing Notice",
       "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.WAG?key=2924-03124932-2A1691396",
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.WSI?key=2924-03124944-6A1339905",
       "source_name": "ASX (Australia Exchange Filing)",
       "input_nature": "exchange_announcement",
-      "found_at": "2026-08-24T03:02:21Z",
+      "found_at": "2026-08-24T03:22:41Z",
       "sweep_file": "screener/inbox/2026-08-24_sweep.json",
-      "prelim_note": "Preliminary final reports are price-sensitive financial disclosures.",
+      "prelim_note": "A placement and cleansing notice indicates a capital raise or share issuance.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 95,
-      "triage_reason": "Preliminary final reports are price-sensitive financial disclosures.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Wagners Holding Company",
-          "ticker": "WGN",
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260824-184",
-      "headline": "CLA: Disbarment application filed against Attorney Sarmiento [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.CLA?key=2924-03124907-6A1339891",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-24T01:19:20Z",
-      "sweep_file": "screener/inbox/2026-08-24_sweep.json",
-      "prelim_note": "A disbarment application against a key officer or representative is a material legal risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "A disbarment application against a key officer or representative is a material legal risk.",
+      "triage_reason": "A placement and cleansing notice indicates a capital raise or share issuance.",
       "region": "OTHER",
       "relevance": "material",
       "materiality_pre_score": 50,
@@ -1874,67 +1918,18 @@
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "primary_filing",
-        "event_id": "litigation_enforcement",
+        "event_id": "capital_actions",
         "size_bucket": "unknown"
       },
       "event_types": [
-        "litigation_enforcement"
+        "capital_actions"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "CLA",
+          "name": "WSI",
           "ticker": null,
           "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260824-134",
-      "headline": "WIN: Radio Gold Project Re-Start Study [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.WIN?key=2924-03124891-6A1339883",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-24T00:41:35Z",
-      "sweep_file": "screener/inbox/2026-08-24_sweep.json",
-      "prelim_note": "The company is initiating a restart study for a gold project, which is a material operational development.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "The company is initiating a restart study for a gold project, which is a material operational development.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "capex",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "WIN",
-          "ticker": null,
-          "listing_country": null
         }
       ],
       "size_bucket": "unknown",
@@ -85038,9 +85033,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 947,
-    "news_picked_today": 425,
-    "news_dropped_today": 522
+    "news_seen_today": 973,
+    "news_picked_today": 433,
+    "news_dropped_today": 540
   },
   "book_momentum": {
     "live_count": 8,
