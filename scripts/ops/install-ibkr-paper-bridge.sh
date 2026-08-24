@@ -31,9 +31,11 @@ for required in "$PROD/scripts/ops/ibkr-paper-bridge.sh" "$PROD/ui/server/src/ib
 done
 [ -f "$CONFIG_FILE" ] && [ ! -L "$CONFIG_FILE" ] \
   || { echo "ERROR: private paper.env is missing or unsafe" >&2; exit 1; }
-config_meta="$(stat -f '%u %Lp' "$CONFIG_FILE" 2>/dev/null \
-  || stat -c '%u %a' "$CONFIG_FILE" 2>/dev/null \
-  || true)"
+if config_meta="$(stat -f '%u %Lp' "$CONFIG_FILE" 2>/dev/null)"; then
+  :
+else
+  config_meta="$(stat -c '%u %a' "$CONFIG_FILE" 2>/dev/null || true)"
+fi
 [ "$config_meta" = "$(id -u) 600" ] \
   || { echo "ERROR: private paper.env must be owned by this user with mode 600" >&2; exit 1; }
 (

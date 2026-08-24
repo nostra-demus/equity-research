@@ -53,9 +53,11 @@ if [ ! -f "$CONFIG_FILE" ] || [ -L "$CONFIG_FILE" ]; then
   echo "paper bridge waiting: private paper.env is missing or unsafe" >&2
   exit 0
 fi
-config_meta="$(stat -f '%u %Lp' "$CONFIG_FILE" 2>/dev/null \
-  || stat -c '%u %a' "$CONFIG_FILE" 2>/dev/null \
-  || true)"
+if config_meta="$(stat -f '%u %Lp' "$CONFIG_FILE" 2>/dev/null)"; then
+  :
+else
+  config_meta="$(stat -c '%u %a' "$CONFIG_FILE" 2>/dev/null || true)"
+fi
 if [ "$config_meta" != "$(id -u) 600" ]; then
   echo "paper bridge waiting: private paper.env must be owned by this user with mode 600" >&2
   exit 0

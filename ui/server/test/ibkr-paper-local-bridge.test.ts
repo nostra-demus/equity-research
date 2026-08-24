@@ -167,21 +167,28 @@ const fakeTsx = path.join(fakeServer, 'node_modules/.bin/tsx')
 const fakeDeploy = path.join(fakeHome, '.nostra-ops/deploy.sh')
 const fakeConfig = path.join(fakeHome, '.config/nostra-engine/paper.env')
 const fakeNode = path.join(suiteRoot, 'fake-node.sh')
+const fakeBin = path.join(suiteRoot, 'fake-bin')
+const fakeStat = path.join(fakeBin, 'stat')
 const marker = path.join(suiteRoot, 'bridge-ran')
 const staleLock = path.join(fakeHome, 'Library/Application Support/nostradamus/ibkr-paper-local-bridge/run.lock')
 fs.mkdirSync(path.dirname(fakeTsx), { recursive: true })
 fs.mkdirSync(path.dirname(fakeDeploy), { recursive: true })
 fs.mkdirSync(path.dirname(fakeConfig), { recursive: true })
+fs.mkdirSync(fakeBin, { recursive: true })
 fs.mkdirSync(staleLock, { recursive: true })
 fs.writeFileSync(fakeTsx, '#!/bin/bash\n: > "$BRIDGE_TEST_MARKER"\n', { mode: 0o700 })
 fs.writeFileSync(fakeDeploy, '#!/bin/bash\nexit 0\n', { mode: 0o700 })
 fs.writeFileSync(fakeConfig, 'ENGINE_IBKR_PAPER_EXECUTION=1\nENGINE_IBKR_PAPER_AUTO_SYNC=1\n', { mode: 0o600 })
 fs.writeFileSync(fakeNode, '#!/bin/bash\nexit 0\n', { mode: 0o700 })
+fs.writeFileSync(fakeStat, '#!/bin/bash\nif [ "$1" = "-f" ]; then echo noisy-failed-output; exit 1; fi\nprintf "%s 600\\n" "$(id -u)"\n', { mode: 0o700 })
 fs.writeFileSync(path.join(staleLock, 'owner'), '99999999\nMon Jan  1 00:00:00 2001\n/stale/bridge.sh\n')
 const wrapper = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../../scripts/ops/ibkr-paper-bridge.sh')
 const staleRecovery = spawnSync('/bin/bash', [wrapper], {
   encoding: 'utf8',
-  env: { ...process.env, HOME: fakeHome, ENGINE_REPO_ROOT: fakeProd, NODE_BIN: fakeNode, BRIDGE_TEST_MARKER: marker },
+  env: {
+    ...process.env, HOME: fakeHome, ENGINE_REPO_ROOT: fakeProd, NODE_BIN: fakeNode,
+    BRIDGE_TEST_MARKER: marker, PATH: `${fakeBin}:${process.env.PATH || ''}`,
+  },
 })
 assert.equal(staleRecovery.status, 0, staleRecovery.stderr)
 assert.equal(fs.existsSync(marker), true, 'a stale crash lock does not permanently stop the bridge')
