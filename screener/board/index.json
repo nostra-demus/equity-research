@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-24T11:08:27Z",
+  "generated_at": "2026-08-24T11:13:20Z",
   "inbox": [
     {
       "inbox_id": "INB-20260824-732",
@@ -1478,6 +1478,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260824-757",
+      "headline": "Otovo Enters Agreements for $11 Million Green Panel Acquisition, Expanding its Behind-the-Meter Energy Services Business",
+      "headline_en": null,
+      "url": "http://www.businesswire.com/news/home/20260824060905/en/Otovo-Enters-Agreements-for-11-Million-Green-Panel-Acquisition-Expanding-its-Behind-the-Meter-Energy-Services-Business/?feedref=JjAwJuNHiystnCoBq_hl-Rc4vIAVcHHkbDcwJimU8QtrtlakeQ9hNboBqTAWIjTge3KWq9s9jif-UkBjBsFRyYAbRTSLTc1mgvhPlnaBA55M-oupQnbXnhKsYk8RmHF_kAy2gZikaX3QWV6xOvgFlA==",
+      "source_name": "Business Wire — Merger/Acquisition News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-08-24T11:00:00Z",
+      "sweep_file": "screener/inbox/2026-08-24_sweep.json",
+      "prelim_note": "Company is acquiring assets for $11 million to expand its business.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company is acquiring assets for $11 million to expand its business.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 3,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "company",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Otovo",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260824-743",
       "headline": "Silver Bow Mining Signs Definitive Agreement to Acquire the Jefferson County Metallurgical Complex in Montana",
       "headline_en": null,
@@ -1927,55 +1976,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260824-630",
-      "headline": "Skanska to build datacenter near Prague, Czechia, for CZK 2.1 billion, about SEK 930M",
-      "headline_en": null,
-      "url": "https://www.prnewswire.com/news-releases/skanska-to-build-datacenter-near-prague-czechia-for-czk-2-1-billion-about-sek-930m-302858068.html",
-      "source_name": "PR Newswire — General Business",
-      "input_nature": "company_press_release",
-      "found_at": "2026-08-24T05:48:00Z",
-      "sweep_file": "screener/inbox/2026-08-24_sweep.json",
-      "prelim_note": "Skanska announced a CZK 2.1 billion (about SEK 930M) datacenter construction contract, a confirmed major capex commitment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Skanska announced a CZK 2.1 billion (about SEK 930M) datacenter construction contract, a confirmed major capex commitment.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 3,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Skanska AB",
-          "ticker": null,
-          "listing_country": "SE"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -85373,9 +85373,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 129807,
-    "news_picked_today": 1554,
-    "news_dropped_today": 10818
+    "news_seen_today": 131980,
+    "news_picked_today": 1559,
+    "news_dropped_today": 10825
   },
   "book_momentum": {
     "live_count": 8,
