@@ -85,6 +85,10 @@ function writeAttempt(stateDir: string, attempt: LocalPaperBridgeAttempt): void 
   }
 }
 
+function asciiCompare(left: string, right: string): number {
+  return left < right ? -1 : left > right ? 1 : 0
+}
+
 export function paperTargetFingerprint(target: CallPolicyTarget): string {
   const positions = target.positions.map((row) => ({
     ticker: row.ticker,
@@ -96,13 +100,16 @@ export function paperTargetFingerprint(target: CallPolicyTarget): string {
     exchange: row.exchange,
     call_id: row.call_id,
     decision_date: row.decision_date,
-  })).sort((a, b) => `${a.ticker}:${a.call_id}`.localeCompare(`${b.ticker}:${b.call_id}`))
+  })).sort((a, b) => asciiCompare(`${a.ticker}:${a.call_id}`, `${b.ticker}:${b.call_id}`))
   const blocked = target.blocked_calls.map((row) => ({
     ticker: row.ticker,
     decision: row.decision,
     decision_date: row.decision_date,
     reason: row.reason,
-  })).sort((a, b) => `${a.ticker}:${a.decision_date}:${a.reason}`.localeCompare(`${b.ticker}:${b.decision_date}:${b.reason}`))
+  })).sort((a, b) => asciiCompare(
+    `${a.ticker}:${a.decision_date}:${a.reason}`,
+    `${b.ticker}:${b.decision_date}:${b.reason}`,
+  ))
   return crypto.createHash('sha256').update(JSON.stringify({ valid: target.valid, positions, blocked })).digest('hex')
 }
 

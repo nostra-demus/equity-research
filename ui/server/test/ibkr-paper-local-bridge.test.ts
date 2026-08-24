@@ -85,6 +85,21 @@ assert.equal(syncs, 3, 'a target-changing published review or call reconciles ag
 
 assert.equal(paperTargetFingerprint({ ...baseTarget, generated_at: '2099-01-01T00:00:00.000Z' }), paperTargetFingerprint(baseTarget),
   'volatile projection timestamps do not create trades')
+const alternatePosition = {
+  ...baseTarget.positions[0], ticker: 'MSFT', call_id: 'call-msft', decision_date: '2026-08-24',
+}
+const blockedA = { ticker: 'NVDA', decision: 'Watchlist', decision_date: '2026-08-23', reason: 'not actionable' }
+const blockedB = { ticker: 'TSLA', decision: 'Avoid', decision_date: '2026-08-22', reason: 'risk cap' }
+const orderedTarget = {
+  ...baseTarget,
+  positions: [baseTarget.positions[0], alternatePosition],
+  blocked_calls: [blockedA, blockedB],
+}
+assert.equal(
+  paperTargetFingerprint(orderedTarget),
+  paperTargetFingerprint({ ...orderedTarget, positions: [...orderedTarget.positions].reverse(), blocked_calls: [...orderedTarget.blocked_calls].reverse() }),
+  'position and blocked-call input order cannot change the cross-machine fingerprint',
+)
 
 const blockedRoot = stateDir('blocked')
 let blockedSyncs = 0
