@@ -90,11 +90,16 @@ function writeAttempt(stateDir: string, attempt: LocalPaperBridgeAttempt): void 
   }
 }
 
-function asciiCompare(left: string, right: string): number {
-  return left < right ? -1 : left > right ? 1 : 0
+function asciiCompare(left: string | null | undefined, right: string | null | undefined): number {
+  const safeLeft = left ?? ''
+  const safeRight = right ?? ''
+  return safeLeft < safeRight ? -1 : safeLeft > safeRight ? 1 : 0
 }
 
 export function paperTargetFingerprint(target: CallPolicyTarget): string {
+  if (!target || !Array.isArray(target.positions) || !Array.isArray(target.blocked_calls)) {
+    throw new Error('The published Calls target has malformed position lists.')
+  }
   const positions = target.positions.map((row) => ({
     ticker: row.ticker,
     decision: row.decision,

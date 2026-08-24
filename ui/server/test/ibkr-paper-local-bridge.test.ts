@@ -152,6 +152,15 @@ const nullTarget = await runLocalPaperBridge({
 assert.equal(nullTarget?.outcome, 'error')
 assert.match(nullTarget?.detail || '', /published Calls target is invalid/)
 assert.equal(nullTargetSyncs, 0)
+const malformedTarget = await runLocalPaperBridge({
+  enabled: true, operatorAuthorized: true, stateDir: stateDir('malformed-target'),
+  revision: () => revisionA,
+  target: async () => ({ ...baseTarget, positions: null } as unknown as CallPolicyTarget),
+  sync: async () => { nullTargetSyncs++; return aligned },
+})
+assert.equal(malformedTarget?.outcome, 'error')
+assert.match(malformedTarget?.detail || '', /malformed position lists/)
+assert.equal(nullTargetSyncs, 0)
 assert.equal(await runLocalPaperBridge({
   enabled: false, operatorAuthorized: true, stateDir: root,
   revision: () => { throw new Error('must not run') }, target: async () => baseTarget,

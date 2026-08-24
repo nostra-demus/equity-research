@@ -31,7 +31,7 @@ for required in "$PROD/scripts/ops/ibkr-paper-bridge.sh" "$PROD/ui/server/src/ib
 done
 [ -f "$CONFIG_FILE" ] && [ ! -L "$CONFIG_FILE" ] \
   || { echo "ERROR: private paper.env is missing or unsafe" >&2; exit 1; }
-if config_meta="$(stat -f '%u %Lp' "$CONFIG_FILE" 2>/dev/null)"; then
+if config_meta="$(stat -f '%u %A' "$CONFIG_FILE" 2>/dev/null)"; then
   :
 else
   config_meta="$(stat -c '%u %a' "$CONFIG_FILE" 2>/dev/null || true)"
