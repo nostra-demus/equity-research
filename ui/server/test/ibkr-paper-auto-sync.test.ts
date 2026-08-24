@@ -117,7 +117,7 @@ await drainable.drain()
 const scheduledFailure = createIbkrPaperAutoSync({
   enabled: true, stateDir: fs.mkdtempSync(path.join(os.tmpdir(), 'paper-auto-scheduled-failure-')),
   now: () => { throw new Error('scheduled_clock_failed') },
-  sync: async () => executionResult(),
+  sync: async () => ({ ok: true, paper_only: true, action: 'sync', detail: 'done', orders: [], skipped: [] }),
 })
 assert.equal(scheduledFailure.scheduleAfterPublishedRun(published({ runId: 'run-scheduled-failure' })), undefined)
 await scheduledFailure.drain()
