@@ -1,6 +1,60 @@
 {
-  "generated_at": "2026-08-24T03:47:18Z",
+  "generated_at": "2026-08-24T03:53:00Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260824-318",
+      "headline": "Oriental Hotels Limited: Oriental Hotels Limited has informed the Exchange regarding a press release dated August 24, 2026, titled \"IHCL AND ORIENTAL HOTELS LIMITED ANNOUNCE MERGER\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/TAJORIENTAL_24082026091305_SEPressRelease.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-24T03:43:48Z",
+      "sweep_file": "screener/inbox/2026-08-24_sweep.json",
+      "prelim_note": "Oriental Hotels Limited and IHCL have announced a merger, which is a significant corporate consolidation event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Oriental Hotels Limited and IHCL have announced a merger, which is a significant corporate consolidation event.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Oriental Hotels Limited",
+          "ticker": "500314",
+          "listing_country": "IN"
+        },
+        {
+          "name": "Indian Hotels Company Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260824-316",
       "headline": "Veranda Learning Solutions Limited: Veranda Learning Solutions Limited has informed the Exchange regarding a press release dated August 24, 2026, titled \"Veranda Learning Receives NCLT Approval for Commerce Vertical Demerger\".",
@@ -46,60 +100,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260824-317",
-      "headline": "The Indian Hotels Company Limited: The Indian Hotels Company Limited has informed the Exchange regarding a press release dated August 24, 2026, titled IHCL and Oriental Hotels Limited announce Merger\".",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/bakhtawar_irani_tajhotels_com_24082026090803_Press_Release_FINAL.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-24T03:38:11Z",
-      "sweep_file": "screener/inbox/2026-08-24_sweep.json",
-      "prelim_note": "The Indian Hotels Company Limited and Oriental Hotels Limited announced a merger, a major corporate consolidation event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "The Indian Hotels Company Limited and Oriental Hotels Limited announced a merger, a major corporate consolidation event.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "The Indian Hotels Company Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "Oriental Hotels Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -85133,9 +85133,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1046,
-    "news_picked_today": 468,
-    "news_dropped_today": 578
+    "news_seen_today": 1071,
+    "news_picked_today": 475,
+    "news_dropped_today": 596
   },
   "book_momentum": {
     "live_count": 8,
