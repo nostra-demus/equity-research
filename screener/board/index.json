@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-08-24T04:57:35Z",
+  "generated_at": "2026-08-24T05:02:19Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260824-409",
+      "headline": "Garden Reach Shipbuilders & Engineers Limited: In terms of Regulation 30 and other applicable provisions of the Securities and Exchange Board of India (Listing Obligations and Disclosure Requirements) Regulations, 2015, as amended, we wish to inform you that the Company is undertaking capacity expansion initiatives at Raichak, Timber Pond facility -Shalimar and Damodar facility Khidderpore Docks to strengthen its indigenous shipbuilding capabilities, support future growth and enhance the ability",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/GRSE_24082026102244_Corp_Ann__Press_Release_regarding_3_new_facilities.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-24T04:53:20Z",
+      "sweep_file": "screener/inbox/2026-08-24_sweep.json",
+      "prelim_note": "The company announced capacity expansion initiatives at multiple facilities to strengthen shipbuilding capabilities.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company announced capacity expansion initiatives at multiple facilities to strengthen shipbuilding capabilities.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capex",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Garden Reach Shipbuilders & Engineers Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260824-388",
       "headline": "Indian Hotels Company Ltd: Please find enclosed the investor presentation on merger of The Indian Hotels Company Limited with Oriental Hotels Limited.",
@@ -644,6 +693,65 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260824-413",
+      "headline": "Exxon, Lyondell among suitors for Shell's US chemical assets, could fetch $8 billion, FT reports",
+      "headline_en": null,
+      "url": "https://www.reuters.com/legal/litigation/shell-draws-interest-bidders-including-exxon-8-billion-us-chemical-assets-ft-2026-08-24/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-24T04:55:16Z",
+      "sweep_file": "screener/inbox/2026-08-24_sweep.json",
+      "prelim_note": "Shell's US chemical assets sale could fetch $8 billion with Exxon and Lyondell as suitors, a named deal value M&A process.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Shell's US chemical assets sale could fetch $8 billion with Exxon and Lyondell as suitors, a named deal value M&A process.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [
+        {
+          "name": "Shell",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Exxon",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Lyondell",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1885,104 +1993,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260824-074",
-      "headline": "DP World wants longer contracts at its five terminals, to invest $700-800 mn more, says CEO Yuvraj Narayan",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/dp-world-india-bet-new-ports-700-800-million-investment-long-term-jvs-global-ceo-yuvraj-narayan-interview-11787474386391.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-24T00:26:00Z",
-      "sweep_file": "screener/inbox/2026-08-24_sweep.json",
-      "prelim_note": "DP World announced a planned capital expenditure of $700-800 million for terminal expansion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "DP World announced a planned capital expenditure of $700-800 million for terminal expansion.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "DP World",
-          "ticker": null,
-          "listing_country": "AE"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260824-224",
-      "headline": "SoftBank Plans $6.3 Billion Retail Bond Sale in Japan",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-08-24/softbank-plans-record-1-trillion-retail-bond-offering-in-japan",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-24T00:16:25Z",
-      "sweep_file": "screener/inbox/2026-08-24_sweep.json",
-      "prelim_note": "SoftBank is planning a significant $6.3 billion retail bond sale in Japan, which impacts its capital structure and debt profile.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "SoftBank is planning a significant $6.3 billion retail bond sale in Japan, which impacts its capital structure and debt profile.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SoftBank Group",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -75843,76 +75853,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-7c6921220f81",
-      "idea_version": "IDEAV-05138e449ee4ffd8",
-      "idea_version_started_at": "2026-08-22T18:11:10Z",
-      "ticker": "AVGO",
-      "company": "Broadcom Inc.",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Broadcom is positioning itself to capture significant AI infrastructure spending by financing chip development for Anthropic, which secures long-term revenue streams in the high-growth AI accelerator market.",
-      "why_now": "The $80 billion debt deal is a fresh, large-scale capital commitment announced today that signals aggressive expansion into AI-specific hardware.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-48eec72d4700"
-      ],
-      "primary_source_event_id": "EVT-48eec72d4700",
-      "source_headlines": [
-        "Broadcom eyes $80 billion debt deal to fuel Anthropic’s AI chip ambitions"
-      ],
-      "source_headline": "Broadcom eyes $80 billion debt deal to fuel Anthropic’s AI chip ambitions",
-      "source_url": "https://www.livemint.com/companies/news/broadcom-eyes-80-billion-debt-deal-to-fuel-anthropic-s-ai-chip-ambitions-11787405998684.html",
-      "source_name": "Mint",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-22T16:59:33Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-22T18:11:10Z",
-      "updated_at": "2026-08-22T18:11:10Z",
-      "decay_at": "2026-08-24T04:59:33Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-af31c2e0f9bf",
       "idea_version": "IDEAV-8a3955213e634ef6",
       "idea_version_started_at": "2026-08-22T22:34:43Z",
@@ -76697,6 +76637,76 @@
       "promoted_signal_id": null,
       "feedback": null,
       "stale": false
+    },
+    {
+      "idea_id": "IDEA-7c6921220f81",
+      "idea_version": "IDEAV-05138e449ee4ffd8",
+      "idea_version_started_at": "2026-08-22T18:11:10Z",
+      "ticker": "AVGO",
+      "company": "Broadcom Inc.",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Broadcom is positioning itself to capture significant AI infrastructure spending by financing chip development for Anthropic, which secures long-term revenue streams in the high-growth AI accelerator market.",
+      "why_now": "The $80 billion debt deal is a fresh, large-scale capital commitment announced today that signals aggressive expansion into AI-specific hardware.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-48eec72d4700"
+      ],
+      "primary_source_event_id": "EVT-48eec72d4700",
+      "source_headlines": [
+        "Broadcom eyes $80 billion debt deal to fuel Anthropic’s AI chip ambitions"
+      ],
+      "source_headline": "Broadcom eyes $80 billion debt deal to fuel Anthropic’s AI chip ambitions",
+      "source_url": "https://www.livemint.com/companies/news/broadcom-eyes-80-billion-debt-deal-to-fuel-anthropic-s-ai-chip-ambitions-11787405998684.html",
+      "source_name": "Mint",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-22T16:59:33Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-22T18:11:10Z",
+      "updated_at": "2026-08-22T18:11:10Z",
+      "decay_at": "2026-08-24T04:59:33Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
     },
     {
       "idea_id": "IDEA-28c6fa2c0111",
@@ -79482,13 +79492,13 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 78,
-    "shown_count": 78,
+    "total_count": 79,
+    "shown_count": 79,
     "hidden_count": 0,
     "side_counts": {
       "long": {
-        "total_count": 26,
-        "shown_count": 26,
+        "total_count": 27,
+        "shown_count": 27,
         "hidden_count": 0
       },
       "short": {
@@ -79513,6 +79523,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-7c6921220f81",
+        "idea_version": "IDEAV-05138e449ee4ffd8",
+        "idea_version_started_at": "2026-08-22T18:11:10Z",
+        "ticker": "AVGO",
+        "company": "Broadcom Inc.",
+        "exchange": "NASDAQ",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Broadcom is positioning itself to capture significant AI infrastructure spending by financing chip development for Anthropic, which secures long-term revenue streams in the high-growth AI accelerator market.",
+        "why_now": "The $80 billion debt deal is a fresh, large-scale capital commitment announced today that signals aggressive expansion into AI-specific hardware.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 62,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-48eec72d4700"
+        ],
+        "primary_source_event_id": "EVT-48eec72d4700",
+        "source_headlines": [
+          "Broadcom eyes $80 billion debt deal to fuel Anthropic’s AI chip ambitions"
+        ],
+        "source_headline": "Broadcom eyes $80 billion debt deal to fuel Anthropic’s AI chip ambitions",
+        "source_url": "https://www.livemint.com/companies/news/broadcom-eyes-80-billion-debt-deal-to-fuel-anthropic-s-ai-chip-ambitions-11787405998684.html",
+        "source_name": "Mint",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-22T16:59:33Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-22T18:11:10Z",
+        "updated_at": "2026-08-22T18:11:10Z",
+        "decay_at": "2026-08-24T04:59:33Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-24T04:59:33Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-28c6fa2c0111",
         "idea_version": "IDEAV-fea05ced41d4a423",
@@ -85285,7 +85368,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 95,
-    "live_count": 16,
+    "live_count": 15,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -85304,9 +85387,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1847,
-    "news_picked_today": 647,
-    "news_dropped_today": 1137
+    "news_seen_today": 1875,
+    "news_picked_today": 654,
+    "news_dropped_today": 1158
   },
   "book_momentum": {
     "live_count": 8,
