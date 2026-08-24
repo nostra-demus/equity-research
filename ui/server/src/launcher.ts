@@ -553,6 +553,11 @@ export function resetAdmittedFullRelaunch(runRoot: string): void {
 const failureNote = (reason: string, stderr: string): string =>
   reason + (stderr?.trim() ? `: ${redactSecrets(stderr.slice(-300)).replace(/\s+/g, ' ').trim()}` : '')
 
+function publicationFailureMessage(run: RunState, reason: string): string {
+  if (!run.lastProviderMessage || reason.includes('Provider final message:')) return reason
+  return `${reason}\n\nProvider final message:\n${redactSecrets(run.lastProviderMessage)}`
+}
+
 const streamResultErrors = new WeakMap<RunState, { reason: string; message: string }>()
 
 function interruptionMarker(run: RunState, reason: string, message?: string, resetsAt?: number) {
@@ -689,7 +694,10 @@ export function finalizeRunOnClose(run: RunState, res: any, stderr: string, term
     classified = {
       outcome: 'error',
       reason: 'publication_failed',
-      message: run.publicationError || 'the provider exited without a supervisor-owned publication request',
+      message: publicationFailureMessage(
+        run,
+        run.publicationError || 'the provider exited without a supervisor-owned publication request',
+      ),
     }
   }
   if ((run.status as string) === 'cancelled' || run.cancelRequested) {
@@ -741,10 +749,13 @@ export function finalizeRunOnClose(run: RunState, res: any, stderr: string, term
     // a provider/quota failure before any publication request keeps its provider reason; missing a
     // request must not rewrite `out_of_credits` to `publication_failed` and lose its reset hold.
     const publicationFailure = classified.reason === 'publication_failed'
-      ? (classified.message || run.publicationError || 'the provider exited without a supervisor-owned publication request')
+      ? publicationFailureMessage(
+          run,
+          classified.message || run.publicationError || 'the provider exited without a supervisor-owned publication request',
+        )
       : run.willCommitToMain && run.publicationRequested === true
           && !run.publicationCompleted && run.publicationError
-        ? run.publicationError
+        ? publicationFailureMessage(run, run.publicationError)
         : null
     const reason = publicationFailure ? 'publication_failed' : classified.reason
     const errorMessage = publicationFailure || classified.message || stderr
@@ -2694,7 +2705,7 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
       throw Object.assign(new Error('parity canary root basename must be <SUBJECT>_<FROZEN_DECISION_DATE>'), { statusCode: 400 })
     }
     const snapshotRoot = path.resolve(path.dirname(freezeAbsolute), String(freeze.data_snapshot?.root || ''))
-    if (snapshotRoot !== path.resolve(DATA_DIR, subjectId)) {
+    if (!paritySnapshotRootMatchesDataSubject(snapshotRoot, DATA_DIR, subjectId)) {
       throw Object.assign(new Error('equity full canary must bind the exact data/<SUBJECT> frozen snapshot'), { statusCode: 400 })
     }
     const unexpected = fs.readdirSync(rootAbsolute).filter((name) => name !== '.provider-parity-input.json')
@@ -3074,6 +3085,7 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
     chained: params.chained,
     chainId: params.chainId,
     onTerminal: params.onTerminal,
+    parityCanary: Boolean(params.parityCanary),
   })
   run.publicationToken = randomUUID()
   run.provenanceEpoch = params.chainId || run.runId
@@ -3176,6 +3188,24 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
   } finally {
     releaseTargetPoolClaim()
     releasePoolClaim()
+  }
+}
+
+/**
+ * The production `data/` directory may be a parent symlink to the mounted Drive pool. The freeze builder
+ * deliberately stores the canonical snapshot root, so compare real directory identities rather than the
+ * two lexical spellings. A symlink at the subject itself, a missing path, or any sibling remains invalid.
+ */
+export function paritySnapshotRootMatchesDataSubject(snapshotRoot: string, dataDir: string, subjectId: string): boolean {
+  try {
+    const boundInfo = fs.lstatSync(snapshotRoot)
+    const expected = path.resolve(dataDir, subjectId)
+    const expectedInfo = fs.lstatSync(expected)
+    if (!boundInfo.isDirectory() || boundInfo.isSymbolicLink()
+        || !expectedInfo.isDirectory() || expectedInfo.isSymbolicLink()) return false
+    return fs.realpathSync(snapshotRoot) === fs.realpathSync(expected)
+  } catch {
+    return false
   }
 }
 
@@ -5309,8 +5339,7 @@ async function spawnEngine(run: RunState): Promise<void> {
         const reason = run.publicationError || 'the provider exited without a supervisor-owned publication request'
         run.publicationError = reason
         run.note = `publication failed: ${reason}`
-        stderr = `${stderr}\nSupervisor publication failed: ${reason}`.trim()
-        finalResult = { ...res, failed: true, exitCode: 5, shortMessage: reason }
+        stderr = `${stderr}\nSupervisor publication failed: ${publicationFailureMessage(run, reason)}`.trim()
       }
       await awaitProviderProcessGroupExit(run)
       finalizeRunOnClose(run, finalResult, stderr, terminalProof)

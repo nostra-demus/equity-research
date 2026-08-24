@@ -941,7 +941,13 @@ function reasoningEfforts(model: CatalogModel): string[] {
     .filter(Boolean)
 }
 
-export function assertRequiredCodexModels(models: CatalogModel[]): void {
+// Codex CLI 0.149.0 stopped serializing `supports_parallel_tool_calls` in `debug models`, even though the
+// same account catalogue still advertises v2 multi-agent + search and the GPT-5.6 contract supports
+// parallel tool calls. Keep this exception exact and temporary: `false` always fails, an omitted field
+// fails on every other CLI version, and all remaining live catalogue gates remain mandatory.
+const CODEX_PARALLEL_CAPABILITY_OMISSION_VERSION = /^codex-cli\s+0\.149\.0$/i
+
+export function assertRequiredCodexModels(models: CatalogModel[], cliVersion = ''): void {
   for (const required of CODEX_MODEL_CONTRACTS) {
     const matches = models.filter((candidate) => candidate.slug === required.model)
     if (matches.length !== 1) throw new Error(`Codex live model catalogue must contain exactly one ${required.model} entry; found ${matches.length}.`)
@@ -958,7 +964,10 @@ export function assertRequiredCodexModels(models: CatalogModel[]): void {
     if (model.supports_search_tool !== true) {
       throw new Error(`${required.model} does not advertise the required search-tool capability.`)
     }
-    if (model.supports_parallel_tool_calls !== true) {
+    const parallelCapabilityAdvertised = model.supports_parallel_tool_calls === true
+    const knownCliOmission = model.supports_parallel_tool_calls === undefined
+      && CODEX_PARALLEL_CAPABILITY_OMISSION_VERSION.test(cliVersion)
+    if (!parallelCapabilityAdvertised && !knownCliOmission) {
       throw new Error(`${required.model} does not advertise the required parallel-tool capability.`)
     }
   }
@@ -1307,7 +1316,7 @@ async function probeCodex(
         30_000,
       )
       models = parseCodexCatalog(modelsResult.stdout, modelsResult.stderr)
-      assertRequiredCodexModels(models)
+      assertRequiredCodexModels(models, version)
       assertFreshCodexCatalogueReceipt(isolatedHome.home, models, refreshStartedAt)
     } catch (error) {
       catalogueUnknown(error)
@@ -1856,6 +1865,9 @@ export function parseCodexStreamLine(line: string): ProviderStreamEvent[] {
     return normalized ? [{ type: 'tool-use', ...normalized, toolUseId: typeof event.item?.id === 'string' ? event.item.id : undefined }] : []
   }
   if (event.type === 'item.completed') {
+    if (event.item?.type === 'agent_message' && typeof event.item.text === 'string' && event.item.text.trim()) {
+      return [{ type: 'assistant-message', message: event.item.text }]
+    }
     const normalized = toolEvent(event.item)
     return normalized ? [{ type: 'tool-result', toolUseId: typeof event.item?.id === 'string' ? event.item.id : undefined, isError: itemFailed(event.item) }] : []
   }

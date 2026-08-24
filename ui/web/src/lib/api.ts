@@ -6,8 +6,9 @@ import type { ValuationLeversResponse, ValuationOverride } from './valuationLeve
 import type { AutotuneState, RankWeightChanges, WeightChange } from './types'
 import type { BridgeStatus } from './types'
 import { parseMemoryRead, unavailableMemoryRead } from './memoryView'
+import { publishedPaperExecutionResult } from './paperPortfolioView'
 import { normalizeProvidersRead, normalizeProviderStatus, providerCatalogForError, providerCatalogUnknown, providerLaunchFields, type FrozenProviderLaunch, type ProviderExecutionProfile, type ProvidersRead, type RunProvider } from './provider'
-import type { ActivityQuery, ActivityResult, AddPipelineSourceInput, BuildStep, CallsResult, ChatComputed, ChatConversationDetail, ChatListQuery, ChatListResult, ChatRequest, ChatScopes, CockpitFeedbackCategory, CockpitFeedbackStatus, CockpitFeedbackView, CompletedChatTurn, CoverageGroup, DataNeedsRead, DataNeedUploadRead, DataStatus, DiscoveredFeed, EventEnrichment, EventResearchLink, FeedbackRecord, FeedbackSubmitInput, FeedbackSummary, FeedbackType, FeedItem, IntakePlan, IntensityStats, IntensityWindow, LaunchableRunKind, LaunchPreflight, MemoryRead, NewsChatEvidence, NewsChatReceipt, NewsChatRequest, NewsCycle, NewsDiagnostics, NewsStatus, PipelineAuditEvent, PipelineTrend, PipelineView, QuoteRead, ResumableRunInfo, RunHistoryEntry, RunKind, ScanVerdict, ScreenerBoard, SignalIntakeInput, SignalState, SourcesReport, SwarmGraph, SwarmMeta, SwarmSubjectSummary, ThesisPlan, TickerSummary, UploadResult, Usage, WhatChangedRead, Whoami } from './types'
+import type { ActivityQuery, ActivityResult, AddPipelineSourceInput, BuildStep, CallsResult, ChatComputed, ChatConversationDetail, ChatListQuery, ChatListResult, ChatRequest, ChatScopes, CockpitFeedbackCategory, CockpitFeedbackStatus, CockpitFeedbackView, CompletedChatTurn, CoverageGroup, DataNeedsRead, DataNeedUploadRead, DataStatus, DiscoveredFeed, EventEnrichment, EventResearchLink, FeedbackRecord, FeedbackSubmitInput, FeedbackSummary, FeedbackType, FeedItem, IbkrPaperPortfolioRead, IntakePlan, IntensityStats, IntensityWindow, LaunchableRunKind, LaunchPreflight, MemoryRead, NewsChatEvidence, NewsChatReceipt, NewsChatRequest, NewsCycle, NewsDiagnostics, NewsStatus, PaperExecutionResult, PipelineAuditEvent, PipelineTrend, PipelineView, QuoteRead, ResumableRunInfo, RunHistoryEntry, RunKind, ScanVerdict, ScreenerBoard, SignalIntakeInput, SignalState, SourcesReport, SwarmGraph, SwarmMeta, SwarmSubjectSummary, ThesisPlan, TickerSummary, UploadResult, Usage, WhatChangedRead, Whoami } from './types'
 
 // Vite supplies `import.meta.env` in the app; standalone tsx regression tests do not.
 const BASE = import.meta.env?.BASE_URL || '/'
@@ -28,6 +29,27 @@ export interface ProviderReceiptFields {
   reasoningLevel?: string
 }
 export type LaunchResponse = ProviderReceiptFields & { runId: string; preflight: LaunchPreflight; chained?: boolean; skipped?: string[]; planned?: string[]; resumed?: boolean }
+export interface ProviderParityCanaryRequest {
+  provider: RunProvider
+  model: string
+  reasoningLevel: string
+  expectedProfileKey: string
+  runRoot: string
+  freezeReceipt: string
+}
+export interface ProviderParityCanaryStatus {
+  runRoot: string
+  runId: string | null
+  status: 'starting' | 'readiness-checking' | 'awaiting-readiness-decision' | 'running' | 'done' | 'error' | 'cancelled' | 'incomplete' | 'unknown'
+  startedAt: number | null
+  endedAt: number | null
+  provider: RunProvider | null
+  profileKey: string | null
+  message: string | null
+  failureNote: string | null
+  interruption: Record<string, unknown> | null
+  artifacts: Record<string, boolean>
+}
 
 export interface ReelTranscriptRead {
   transcript: string
@@ -188,6 +210,13 @@ async function post<T>(url: string, body?: any, timeoutMs?: number, signal?: Abo
   const j = await r.json().catch(() => ({}))
   if (!r.ok) throw Object.assign(new Error((j as any)?.message || (j as any)?.error || `${r.status}`), { status: r.status, body: j })
   return j as T
+}
+
+async function paperCommand(url: string, confirmation: 'SYNC PAPER' | 'CANCEL PAPER' | 'CLOSE PAPER', action: PaperExecutionResult['action']): Promise<PaperExecutionResult> {
+  const raw = await post<unknown>(url, { confirmation, idempotency_key: crypto.randomUUID() }, 30_000)
+  const result = publishedPaperExecutionResult(raw, action)
+  if (!result) throw new Error('IBKR Paper returned an incomplete command receipt. Refresh the portfolio before trying anything else.')
+  return result
 }
 
 async function put<T>(url: string, body?: any): Promise<T> {
@@ -1082,11 +1111,32 @@ export const api = {
   // cross-ticker call ledger + since-the-call timelines (the Calls Tracker). Static -> bundled snapshot.
   calls: async (): Promise<CallsResult> => {
     if ((await ensureMode()) === 'static') return {
-      calls: snap.calls || [], dashboard: snap.dashboard || null,
+      calls: snap.calls || [], scorecard: snap.scorecard, dashboard: snap.dashboard || null,
       needs_attention: snap.needsAttention || [], updates: snap.callUpdates || [],
     }
     return get(`/api/calls`)
   },
+  paperPortfolio: async (): Promise<IbkrPaperPortfolioRead> => {
+    if ((await ensureMode()) === 'static') return {
+      schema_version: 'ibkr-paper-portfolio/v2', broker: 'IBKR', mode: 'paper', status: 'disabled', paper_only: true,
+      as_of: new Date(0).toISOString(), connection: { host: 'localhost', port: 7497, detail: 'IBKR Paper is available only in the live cockpit.' },
+      account: null, open_orders: [],
+      history: {
+        schema_version: 'nostra-paper-history/v1', available: false, unit: 'normalized_nav', starting_value: 100, present_value: 100,
+        cash_value: 100, invested_value: 0, total_return_pct: 0, calls_examined: 0, non_trade_calls: 0,
+        trade_calls: 0, open_trades: 0, closed_trades: 0,
+        rules: { low_conviction_weight_pct: 5, high_conviction_weight_pct: 10, high_conviction_min_confidence: 75, eligible_baskets: ['Selected', 'Short'], provisional_calls_trade: false },
+        trades: [], blocked_calls: [], detail: 'Open the live cockpit to replay published calls.',
+      },
+      target: { valid: false, source_path: null, generated_at: new Date(0).toISOString(), gross_pct: null, cash_pct: null, positions: [], blocked_calls: [], detail: 'The static showcase cannot build a broker target.' },
+      reconciliation: { status: 'unavailable', differences: [], detail: 'Open the live cockpit to compare IBKR Paper with Nostra’s sized book.' },
+      execution: { status: 'locked', can_execute: false, low_conviction_weight_pct: 5, high_conviction_weight_pct: 10, high_conviction_min_confidence: 75, detail: 'Paper execution is available only in the live cockpit.' },
+    }
+    return get('/api/calls/paper-portfolio')
+  },
+  paperPortfolioSync: async (): Promise<PaperExecutionResult> => paperCommand('/api/calls/paper-portfolio/sync', 'SYNC PAPER', 'sync'),
+  paperOrderCancel: async (orderId: number): Promise<PaperExecutionResult> => paperCommand(`/api/calls/paper-orders/${encodeURIComponent(orderId)}/cancel`, 'CANCEL PAPER', 'cancel'),
+  paperPositionClose: async (contractId: number): Promise<PaperExecutionResult> => paperCommand(`/api/calls/paper-positions/${encodeURIComponent(contractId)}/close`, 'CLOSE PAPER', 'close'),
   history: async (ticker: string): Promise<{ history: RunHistoryEntry[] }> => {
     if ((await ensureMode()) === 'static') return { history: [] }
     return get(`/api/runs?ticker=${encodeURIComponent(ticker)}`)
@@ -1733,6 +1783,17 @@ export const api = {
   whoami: async (): Promise<Whoami> => {
     if ((await ensureMode()) === 'static') return { user: 'local', userVia: 'local' }
     return get(`/api/whoami`)
+  },
+  // Admin-only release canary. The browser contributes no privileged header: Cloudflare Access identity
+  // on this same-origin request is the authority, and the server repeats both admin + feature gates.
+  providerParityCanary: async (body: ProviderParityCanaryRequest): Promise<LaunchResponse> => {
+    if ((await ensureMode()) === 'static') throw STATIC_ERR()
+    return post(`/api/internal/provider-parity/canary`, body, 30_000)
+  },
+  providerParityCanaryStatus: async (runRoot: string): Promise<ProviderParityCanaryStatus> => {
+    if ((await ensureMode()) === 'static') throw STATIC_ERR()
+    const query = new URLSearchParams({ runRoot })
+    return get(`/api/internal/provider-parity/canary-status?${query.toString()}`)
   },
   // perpetual activity/audit log with filters — live only (the static showcase has no run history)
   activity: async (query: ActivityQuery = {}): Promise<ActivityResult> => {

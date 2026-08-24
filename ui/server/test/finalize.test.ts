@@ -112,10 +112,17 @@ try {
     fs.writeFileSync(path.join(root, 'decision_record.json'), '{}\n')
     const { run, events } = mkRun('full', 'ZZPUB')
     run.publicationCompleted = false
+    run.lastProviderMessage = 'I stopped before requesting publication because the canonical commit step was unavailable. token=super-secret-value'
     finalizeRunOnClose(run, { exitCode: 0 }, '')
     assert.equal(run.status, 'error')
     assert.equal((events.find((event) => event.type === 'run-error') as any)?.reason, 'publication_failed')
+    assert.match(
+      String((events.find((event) => event.type === 'run-error') as any)?.message),
+      /Provider final message:[\s\S]*canonical commit step was unavailable/,
+    )
+    assert.doesNotMatch(String((events.find((event) => event.type === 'run-error') as any)?.message), /super-secret-value/)
     assert.ok(fs.existsSync(path.join(root, 'final_thesis.md')), 'failed publication retains authored artifacts')
+    assert.match(fs.readFileSync(path.join(root, 'RUN_FAILURE.md'), 'utf8'), /canonical commit step was unavailable/)
     assert.equal(readRunMarker(`analyses/ZZPUB_${DATE}`, '.interrupted')?.reason, 'publication_failed')
   })
 
@@ -161,6 +168,16 @@ try {
     assert.equal(run.status, 'error')
     assert.ok(run.endedAt !== undefined)
     assert.equal(inFlightRunsForSubject('ZZFIND').length, 0)
+  })
+
+  check('provider final text is retained as a bounded terminal diagnostic', () => {
+    const { run } = mkRun('module', 'ZZPROVIDERMSG')
+    run.provider = 'codex'
+    handleStreamLine(run, JSON.stringify({
+      type: 'item.completed', item: { type: 'agent_message', text: `  ${'x'.repeat(4_100)}  ` },
+    }))
+    assert.equal(run.lastProviderMessage?.length, 4_000)
+    assert.equal(run.lastProviderMessage, 'x'.repeat(4_000))
   })
 
   check('parity adjudication cannot report success before terminal supervisor verification', () => {

@@ -1,0 +1,79 @@
+{
+  "schema_version": "idea-archive/v1",
+  "archived_at": "2026-08-23T20:30:25Z",
+  "archive_reason": "expired_pruned",
+  "snapshot": {
+    "idea_id": "IDEA-7124724b5aaa",
+    "idea_version": "IDEAV-cdc6277c3874c478",
+    "idea_version_started_at": "2026-08-22T02:12:31Z",
+    "ticker": "HOLN",
+    "company": "Holcim",
+    "exchange": "SIX",
+    "ticker_verified": false,
+    "listing_verified": false,
+    "liquidity_verified": false,
+    "listing_verification_source": null,
+    "direction": "long",
+    "pair_with": null,
+    "reason": "Holcim is acquiring part of James Hardie's European business, which should expand its market presence and revenue in the region.",
+    "why_now": "The acquisition was reported on August 20, 2026.",
+    "conviction": 70,
+    "conviction_basis": "pre_edge_proxy",
+    "trade_score": 45,
+    "trade_score_basis": "evidence_gate_v2",
+    "trade_score_breakdown": {
+      "evidence": 14,
+      "impact": 19,
+      "specificity": 7,
+      "timing": 6,
+      "expression": 0,
+      "corroboration": 0,
+      "learning_adjustment": 0
+    },
+    "trade_readiness": "watch_only",
+    "missing_checks": [
+      "verified listed ticker",
+      "verified listing",
+      "live liquidity",
+      "dated catalyst",
+      "independent confirmation",
+      "live price, liquidity, and consensus"
+    ],
+    "learning": {
+      "resolved": 0,
+      "positive": 0,
+      "negative": 0,
+      "neutral": 0,
+      "adjustment": 0,
+      "basis": "not_enough_outcomes",
+      "evidenceIds": []
+    },
+    "priced_in": "room",
+    "thesis_type": "pair_trade",
+    "origin_type": "wire",
+    "source_themes": [],
+    "source_event_ids": [
+      "EVT-9799efc4c03f"
+    ],
+    "primary_source_event_id": "EVT-9799efc4c03f",
+    "source_headlines": [
+      "Holcim Is Acquiring Part of James Hardie’s European Business"
+    ],
+    "source_headline": "Holcim Is Acquiring Part of James Hardie’s European Business",
+    "source_url": "https://www.bloomberg.com/news/articles/2026-08-20/holcim-said-to-acquire-part-of-james-hardie-s-european-business",
+    "source_name": "Bloomberg",
+    "materiality_max": 100,
+    "newest_source_at": "2026-08-20T20:27:53Z",
+    "prior_coverage": {
+      "has_run": false,
+      "latest_run": null,
+      "latest_decision": null,
+      "data_pool_present": false
+    },
+    "surfaced_at": "2026-08-21T00:36:04Z",
+    "updated_at": "2026-08-22T02:12:31Z",
+    "decay_at": "2026-08-22T08:27:53Z",
+    "status": "live",
+    "promoted_signal_id": null
+  }
+}

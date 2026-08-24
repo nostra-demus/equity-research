@@ -67,6 +67,8 @@ import { runReadiness } from './readiness'
 import { IN_FLIGHT_STATUSES, getRun, listRuns, subscribe, unsubscribe, type SseClient } from './registry'
 import { agentNamesForModule, buildSwarmGraph, findRunRootForSubject, graphForSubject, graphForTicker, listModuleNames, swarmSubjects, swarmSubjectSummaries, terminalModuleName } from './roster'
 import { isValidCalendarISODate, listAllCalls, listRunsForTicker, readDecision, readMarkdown, readPrompt, readPublishedCallsMarkdown, readRunsMarkdown, resolveRunRoot, runManifest, todayISO } from './outputs'
+import { readIbkrPaperPortfolio } from './ibkr-paper'
+import { ibkrPaperExecution } from './ibkr-paper-execution'
 import {
   WATCHLIST_ENTRIES_DIR, WATCHLIST_MAX_ATTACHMENTS, WATCHLIST_MAX_ROWS, WATCHLIST_MAX_TAGS, WATCHLIST_MAX_TRIGGERS,
   deleteEntry, fingerprintEngineRow, isWatchId, listingKey, makeListing, mergeWatchlist, newEntryId,
@@ -80,6 +82,7 @@ import { chatTurnsInFlight, runChatTurn } from './chat-llm'
 import { computePlan, computedContextBlock, detectWhatIf, isNumberlessTargetFollowUp, loadSidecar, parseWhatIf, recordedList, repriceFromMetric, resolveAuthenticatedPriorScenario, validateIntents } from './chat-whatif'
 import { ChatTurnReservationError, deleteConversation, findCompletedTurnForUser, getConversation, isValidConversationId, isValidTurnId, listConversations, recordAssistantMessageForPending, recordPendingUserMessage, rollbackUserMessage, searchConversationMemory, type UserMessageRollback } from './chat-store'
 import { askMemoryMeta, compactNewsEvidence, routeAskMemory, type AskMemoryPromptContext } from './ask-memory'
+import { selectCallMemories } from './call-learning'
 import { dataPoolPresent, deriveSignalState, readCandidates, readConviction, readConvictionCalibration, readHandoffs, readScreenerMarkdown, readThesis, screenerBoard, screenerRunManifest, screenerSubjectLabels } from './screener'
 import { listSwarms, RESEARCH_SWARM_ID, swarmById } from './swarms'
 import { getNewsDiagnostics, getNewsStatus, newsProviderSpendingAllowed, startNewsIngester } from './news/scheduler'
@@ -614,6 +617,12 @@ app.get('/api/whoami', async (req) => {
     canDispatch: admin && feedbackDispatchReady(),
     canScanPipeline: admin && pipelineScanReady(),
     canBuildConnector: admin && connectorDispatchReady(),
+    // The release canary is intentionally exposed only through an authenticated cockpit session.
+    // Inspection remains available after the launch gate is turned off: an already-spent canary must
+    // never disappear merely because the operator safely disabled new parity launches.
+    canInspectProviderParity: admin && who.userVia === 'cf-access',
+    // This is a capability hint for rendering; the POST route repeats the admin + feature gates.
+    canLaunchProviderParity: admin && process.env.ENGINE_PROVIDER_PARITY_ENABLED === '1',
     emailEnabled: feedbackEmailReady(),
   }
 })
@@ -928,14 +937,47 @@ const ParityLaunchBody = z.object({
   outputDir: z.string().regex(/^[A-Za-z0-9._/-]{1,500}$/),
 }).strict()
 
+const PARITY_CANARY_RUN_ROOT_RE = /^analyses\/provider-parity\/\d{4}-\d{2}-\d{2}\/(?:claude|codex)\/[A-Z0-9.\-]{1,12}_\d{4}-\d{2}-\d{2}$/
+
 const ParityCanaryLaunchBody = z.object({
   provider: z.enum(['claude', 'codex']),
   model: z.string().regex(/^[a-z0-9.\-]{1,40}$/i),
   reasoningLevel: z.string().regex(/^[a-z0-9_-]{1,24}$/i),
   expectedProfileKey: z.string().min(1).max(240),
-  runRoot: z.string().regex(/^[A-Za-z0-9._/-]{1,500}$/),
+  runRoot: z.string().regex(PARITY_CANARY_RUN_ROOT_RE),
   freezeReceipt: z.string().regex(/^[A-Za-z0-9._/-]{1,500}$/),
 }).strict()
+
+const ParityCanaryStatusQuery = z.object({
+  runRoot: z.string().regex(PARITY_CANARY_RUN_ROOT_RE),
+}).strict()
+
+function readCanaryRunFile(rootAbs: string, name: string): string | null {
+  const target = path.join(rootAbs, name)
+  let fd: number | null = null
+  try {
+    fd = fs.openSync(target, fs.constants.O_RDONLY | fs.constants.O_NOFOLLOW | fs.constants.O_NONBLOCK)
+    const stat = fs.fstatSync(fd)
+    if (!stat.isFile() || stat.size > 64 * 1024) return null
+    return fs.readFileSync(fd, 'utf8')
+  } catch {
+    return null
+  } finally {
+    if (fd !== null) try { fs.closeSync(fd) } catch { /* already closed */ }
+  }
+}
+
+function canaryRunFileExists(rootAbs: string, name: string): boolean {
+  let fd: number | null = null
+  try {
+    fd = fs.openSync(path.join(rootAbs, name), fs.constants.O_RDONLY | fs.constants.O_NOFOLLOW | fs.constants.O_NONBLOCK)
+    return fs.fstatSync(fd).isFile()
+  } catch {
+    return false
+  } finally {
+    if (fd !== null) try { fs.closeSync(fd) } catch { /* already closed */ }
+  }
+}
 
 // A generic constellation swarm (e.g. commodity) REUSES full/module/agent, scoped by an explicit
 // `swarm`; `ticker` carries the subject id (a commodity like GOLD). Validated against the discovered
@@ -1050,6 +1092,67 @@ app.post('/api/internal/provider-parity/canary', { config: { rateLimit: { max: 4
   } catch (error: any) {
     const body = error?.body && typeof error.body === 'object' ? error.body : null
     return reply.code(error?.statusCode || 500).send({ error: error?.message || 'parity canary launch failed', ...(body || {}) })
+  }
+})
+
+// The ordinary Activity ledger intentionally excludes release canaries. Give the authenticated operator
+// a narrow, read-only status surface so a terminal failure cannot disappear with the live-run chip.
+app.get('/api/internal/provider-parity/canary-status', { config: { rateLimit: { max: 120, timeWindow: '1 minute' } } }, async (req, reply) => {
+  if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request blocked' })
+  const { user, userVia } = identify(req)
+  if (userVia !== 'cf-access' || !isDispatchAdmin(user)) return reply.code(403).send({ error: 'not authorized to inspect provider parity (admin only)' })
+  const parsed = ParityCanaryStatusQuery.safeParse(req.query)
+  if (!parsed.success) return reply.code(400).send({ error: 'invalid parity canary status query' })
+
+  const lexicalRoot = path.join(REPO_ROOT, parsed.data.runRoot)
+  let lexicalStat: fs.Stats
+  try { lexicalStat = fs.lstatSync(lexicalRoot) } catch { return reply.code(404).send({ error: 'canary run root not found' }) }
+  if (!lexicalStat.isDirectory() || lexicalStat.isSymbolicLink()) return reply.code(400).send({ error: 'invalid canary run root' })
+  let rootAbs: string
+  try {
+    rootAbs = resolveInsideAnalyses(lexicalRoot)
+  } catch (error: any) {
+    return reply.code(error?.code === 'ENOENT' ? 404 : 400).send({ error: error?.code === 'ENOENT' ? 'canary run root not found' : 'invalid canary run root' })
+  }
+
+  const run = listRuns()
+    .filter((candidate) => candidate.runRoot === parsed.data.runRoot && candidate.parityCanary === true)
+    .sort((a, b) => b.startedAt - a.startedAt)[0]
+  const terminalEvent = run && [...run.eventLog].reverse().find((event) => event.type === 'run-error' || event.type === 'run-done')
+  const failureNote = readCanaryRunFile(rootAbs, 'RUN_FAILURE.md')
+  const interruptedRaw = readCanaryRunFile(rootAbs, '.interrupted')
+  const abortedRaw = readCanaryRunFile(rootAbs, '.aborted')
+  let interruption: Record<string, unknown> | null = null
+  try {
+    const value = interruptedRaw ? JSON.parse(interruptedRaw) : null
+    if (value && typeof value === 'object' && !Array.isArray(value)) interruption = value
+  } catch { /* malformed marker is reported by its presence below */ }
+  const artifacts = Object.fromEntries([
+    'final_thesis.md', 'decision_record.json', 'audit_dossier.md', 'execution_provenance.receipt.json',
+  ].map((name) => [name, canaryRunFileExists(rootAbs, name)]))
+  const diskComplete = artifacts['final_thesis.md'] && artifacts['decision_record.json'] && artifacts['execution_provenance.receipt.json']
+  const diskFailure = failureNote !== null || interruptedRaw !== null
+  // A supervisor-written failure marker wins over any child-created terminal-looking files. Successful
+  // post-restart recovery still requires all three terminal artifacts, including the supervisor receipt.
+  const status = abortedRaw !== null ? 'cancelled'
+    : diskFailure ? 'error'
+      : run?.status ?? (diskComplete ? 'done' : 'unknown')
+  const eventMessage = abortedRaw !== null ? 'Canary cancelled by the operator.'
+    : terminalEvent?.type === 'run-error'
+    ? terminalEvent.message || terminalEvent.reason
+    : terminalEvent?.type === 'run-done' ? 'Canary completed.' : null
+  return {
+    runRoot: parsed.data.runRoot,
+    runId: run?.runId ?? null,
+    status,
+    startedAt: run?.startedAt ?? null,
+    endedAt: run?.endedAt ?? null,
+    provider: run?.provider ?? null,
+    profileKey: run?.profileKey ?? null,
+    message: eventMessage,
+    failureNote,
+    interruption,
+    artifacts,
   }
 })
 
@@ -4244,6 +4347,19 @@ app.post('/api/chat', async (req, reply) => {
       // the receipt simply omits that shelf instead of pretending it was used.
     }
   }
+  // The Calls ledger is equity-only. Commodity and future swarms own separate decision ledgers, so a
+  // shared symbol such as GOLD must never inject a Barrick equity call into a commodity answer.
+  if (!ac.signal.aborted && swarmById(swarmId)?.decisionMemory === 'equity_calls') {
+    try {
+      const projection = await listAllCalls()
+      const identifiers = [subject, signalMemoryAnchor || '']
+      const matched = selectCallMemories(projection.calls, identifiers)
+      if (matched.length) memory.calls = matched
+    } catch {
+      // The call ledger is an additive shelf. If its published Git authority is briefly unavailable,
+      // the existing research/news answer still works and the receipt honestly omits decision memory.
+    }
+  }
   if (closed || ac.signal.aborted) { requestAbort.dispose(); return }
 
   // Reserve this turn under the authoritative identity (from Cloudflare Access, NOT the body). The resolved
@@ -4657,8 +4773,19 @@ app.post('/api/news/chat', { config: { rateLimit: { max: NEWS.chatRateLimitPerMi
 
     const { res, send, ping } = startSSE(reply)
     res.on('close', () => { closed = true; clearInterval(ping) })
-    send({ type: 'news-chat-meta', conversationId, receipt: assembled.receipt, evidence: assembled.evidence })
-    const { system, user } = buildNewsChatPrompts({ assembled, messages })
+    let callMemories = [] as ReturnType<typeof selectCallMemories>
+    try {
+      const evidenceIdentifiers = assembled.evidence.flatMap((row) => Array.isArray(row?.item?.companies)
+        ? row.item.companies.flatMap((company) => [company?.ticker || '', company?.name || ''])
+        : []).filter(Boolean)
+      // Prefer an issuer named exactly in the question, then the structured issuer identities from the
+      // ranked evidence. Matching remains exact, so an incidental word cannot pull in another company.
+      callMemories = selectCallMemories((await listAllCalls()).calls, evidenceIdentifiers, 3, last.content, { requireIdentifierMatch: true })
+    } catch {
+      callMemories = []
+    }
+    send({ type: 'news-chat-meta', conversationId, receipt: assembled.receipt, evidence: assembled.evidence, decisionMemoryCount: callMemories.length })
+    const { system, user } = buildNewsChatPrompts({ assembled, messages, calls: callMemories })
     try {
       // Hold primary text until the turn succeeds. If the primary emits a partial answer and then reports
       // a quota/timeout error, the fallback starts from a clean response rather than being concatenated to
@@ -4716,6 +4843,8 @@ app.post('/api/news/chat', { config: { rateLimit: { max: NEWS.chatRateLimitPerMi
         const pending = pendingSavedQuestion
         let completionSafe = true
         if (pending) {
+          // Replay needs the compact wire receipt/evidence, not the optional call prompt shelf. Keeping
+          // calls here could push the whole memory object over clampMemory's bound and lose paid replay.
           const memory = { kind: 'news-wire', window, receipt: assembled.receipt, evidence: compactNewsEvidence(assembled.evidence) }
           const committed = await recordAssistantMessageForPending(
             pending,
@@ -4769,6 +4898,75 @@ app.get('/api/calls', async (_req, reply) => {
     }
     throw e
   }
+})
+
+// Live broker state is deliberately separate from /api/calls. Published call history remains available
+// even while TWS is closed, restarting, or waiting for its daily login.
+app.get('/api/calls/paper-portfolio', async (req) => {
+  const portfolio = await readIbkrPaperPortfolio()
+  return {
+    ...portfolio,
+    execution: {
+      ...portfolio.execution,
+      can_execute: portfolio.execution.status === 'ready' && paperOperatorAllowed(req),
+    },
+  }
+})
+
+const PaperCommandBody = z.object({
+  confirmation: z.enum(['SYNC PAPER', 'CANCEL PAPER', 'CLOSE PAPER']),
+  idempotency_key: z.string().uuid(),
+}).strict()
+const PaperOrderParams = z.object({ orderId: z.coerce.number().int().positive() }).strict()
+const PaperPositionParams = z.object({ contractId: z.coerce.number().int().positive() }).strict()
+function paperOperatorAllowed(req: FastifyRequest): boolean {
+  const actor = identify(req)
+  const operators = (process.env.ENGINE_IBKR_PAPER_OPERATORS || '')
+    .split(',').map((value) => value.trim().toLowerCase()).filter(Boolean)
+  if (actor.userVia === 'cf-access') return operators.includes(actor.user.toLowerCase())
+  return process.env.ENGINE_IBKR_PAPER_LOCAL_OPERATOR === '1'
+}
+function paperCommandError(error: any, reply: FastifyReply) {
+  const allowedStatuses = new Set([400, 403, 404, 409, 422, 423, 503])
+  const rawStatus = Number(error?.statusCode)
+  const status = allowedStatuses.has(rawStatus) ? rawStatus : 409
+  const rawCode = String(error?.code || '')
+  const code = /^PAPER_[A-Z0-9_]{1,56}$/.test(rawCode) ? rawCode : 'PAPER_COMMAND_FAILED'
+  const known = new Map<string, string>([
+    ['PAPER_EXECUTION_DISABLED', 'Paper execution is disabled.'],
+    ['PAPER_ACCOUNT_NOT_ALLOWED', 'The connected account is not allowed for paper execution.'],
+    ['PAPER_TARGET_BLOCKED', 'The current published Calls target is blocked. No order was sent.'],
+  ])
+  return reply.code(status).send({ error: known.get(code) || 'IBKR Paper could not safely complete that command.', code })
+}
+
+// No call automatically crosses this boundary. Sync is an explicit paper-only action, cancel affects
+// only an unfilled NOSTRA_PAPER order owned by this API client, and close submits the opposite side for
+// the exact position currently returned by IBKR Paper.
+app.post('/api/calls/paper-portfolio/sync', async (req, reply) => {
+  if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request blocked' })
+  if (!paperOperatorAllowed(req)) return reply.code(403).send({ error: 'not authorized for paper execution' })
+  const body = PaperCommandBody.safeParse(req.body)
+  if (!body.success || body.data.confirmation !== 'SYNC PAPER') return reply.code(400).send({ error: 'Type SYNC PAPER to confirm.' })
+  try { return await ibkrPaperExecution.sync(body.data.idempotency_key) } catch (error) { return paperCommandError(error, reply) }
+})
+
+app.post('/api/calls/paper-orders/:orderId/cancel', async (req, reply) => {
+  if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request blocked' })
+  if (!paperOperatorAllowed(req)) return reply.code(403).send({ error: 'not authorized for paper execution' })
+  const params = PaperOrderParams.safeParse(req.params)
+  const body = PaperCommandBody.safeParse(req.body)
+  if (!params.success || !body.success || body.data.confirmation !== 'CANCEL PAPER') return reply.code(400).send({ error: 'Invalid paper-order cancellation.' })
+  try { return await ibkrPaperExecution.cancel(params.data.orderId, body.data.idempotency_key) } catch (error) { return paperCommandError(error, reply) }
+})
+
+app.post('/api/calls/paper-positions/:contractId/close', async (req, reply) => {
+  if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request blocked' })
+  if (!paperOperatorAllowed(req)) return reply.code(403).send({ error: 'not authorized for paper execution' })
+  const params = PaperPositionParams.safeParse(req.params)
+  const body = PaperCommandBody.safeParse(req.body)
+  if (!params.success || !body.success || body.data.confirmation !== 'CLOSE PAPER') return reply.code(400).send({ error: 'Invalid paper-position close.' })
+  try { return await ibkrPaperExecution.close(params.data.contractId, body.data.idempotency_key) } catch (error) { return paperCommandError(error, reply) }
 })
 
 // Narrow click-through for artifacts advertised by /api/calls. Reading through the same published Git

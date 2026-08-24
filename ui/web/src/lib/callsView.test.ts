@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict'
-import { currentCalls, publishedCalls, publishedCallUpdates, publishedNeedsAttention } from './callsView'
+import { currentCalls, publishedCalls, publishedCallsScorecard, publishedCallUpdates, publishedNeedsAttention } from './callsView'
 import type { CallSummary, CallUpdate, NeedsAttentionRow } from './types'
 
 const call = (ticker: string, date: string, requestedRunRoot?: string): CallSummary => {
@@ -27,7 +27,22 @@ const rows = currentCalls([
 assert.deepEqual(rows.map((row) => row.run_root), [
   'analyses/ACME_2026-08-10',
   'analyses/BETA_2026-08-03_v2',
-], 'Current keeps the newest dated published call per normalized ticker')
+], 'Current keeps the newest dated published call per normalized issuer/listing')
+const venueA = call('DUP', '2026-08-11', 'analyses/DUP_NYSE_2026-08-11')
+venueA.company = 'Duplicate America Inc.'
+venueA.exchange = 'NYSE'
+const venueB = call('DUP', '2026-08-12', 'analyses/DUP_LSE_2026-08-12')
+venueB.company = 'Duplicate Britain plc'
+venueB.exchange = 'LSE'
+assert.equal(currentCalls([venueA, venueB]).length, 2, 'same ticker on different issuer/listings stays separate')
+const punctuatedIssuer = call('AAPL', '2026-08-11', 'analyses/AAPL_2026-08-11')
+punctuatedIssuer.company = 'Apple Inc.'
+punctuatedIssuer.exchange = 'NASDAQ'
+const plainIssuer = call('AAPL', '2026-08-12', 'analyses/AAPL_2026-08-12')
+plainIssuer.company = 'Apple Inc'
+plainIssuer.exchange = 'NASDAQ'
+assert.deepEqual(currentCalls([punctuatedIssuer, plainIssuer]).map((row) => row.run_root), ['analyses/AAPL_2026-08-12'],
+  'trailing issuer punctuation cannot split one listing into duplicate Current cards')
 assert.equal(currentCalls([call('', '2026-08-11')]).length, 0, 'a nameless row cannot become a current call')
 assert.equal(currentCalls(null).length, 0, 'a missing calls field fails closed')
 assert.equal(currentCalls([
@@ -51,6 +66,27 @@ assert.equal(publishedCalls([{
   expected_return_pct: undefined,
   implied_target: undefined,
 }]).length, 1, 'omitted optional call numbers survive deploy skew')
+const invalidTimelineNumber = call('BAD-TIMELINE', '2026-08-12')
+invalidTimelineNumber.timeline = [{
+  window: '30d', due_date: '2026-09-11', status: 'done',
+  benchmark_relative_return_pct: Number.NaN,
+}]
+assert.equal(publishedCalls([invalidTimelineNumber]).length, 0,
+  'non-finite scorecard numbers fail closed')
+const invalidConfidence = call('BAD-CONFIDENCE', '2026-08-12')
+invalidConfidence.timeline = [{
+  window: '30d', due_date: '2026-09-11', status: 'done',
+  confidence_update: { before: 72, after: 140, change_reason: 'invalid' },
+}]
+assert.equal(publishedCalls([invalidConfidence]).length, 0,
+  'confidence changes outside 0–100 fail closed')
+for (const field of ['forecasts_confirmed', 'forecasts_falsified', 'review_count'] as const) {
+  const invalid = call(`BAD-TIMELINE-${field}`, '2026-08-12')
+  invalid.timeline = [{
+    window: '30d', due_date: '2026-09-11', status: 'done', [field]: Number.NaN,
+  }]
+  assert.equal(publishedCalls([invalid]).length, 0, `non-finite timeline ${field} fails closed`)
+}
 
 const update: CallUpdate = {
   id: 'review:SAFE:2026-08-12', ticker: 'SAFE', company: null, at: '2026-08-12', kind: 'review',
@@ -72,5 +108,16 @@ const attention: NeedsAttentionRow = {
 assert.deepEqual(publishedNeedsAttention([undefined, { type: 'forecast' }, attention]), [attention], 'Needs Attention skips malformed rows')
 assert.equal(publishedNeedsAttention([{ ...attention, company: undefined }]).length, 1,
   'an omitted optional company survives deploy skew')
+
+const scorecard = {
+  assessed_calls: 2, excluded_provisional: 0, worked: 1, failed: 1, mixed: 0, unscored: 3,
+  average_return_pct: 2.5, average_vs_benchmark_pct: 1.2,
+  horizons: ['30d', '90d', '180d', '365d'].map((window) => ({ window, reviewed: 1, worked: 1, failed: 0, mixed: 0, unscored: 0, average_return_pct: 2, average_vs_benchmark_pct: 1 })),
+  confidence_check: { status: 'too_little_data', scored_calls: 2, detail: 'Too little data.', bands: [] },
+}
+assert.deepEqual(publishedCallsScorecard(scorecard), scorecard)
+assert.equal(publishedCallsScorecard({ ...scorecard, worked: Number.NaN }), null, 'malformed scorecards fail closed during deploy skew')
+assert.equal(publishedCallsScorecard({ ...scorecard, confidence_check: { ...scorecard.confidence_check, bands: [{ label: '85+', calls: 2, worked_pct: 140 }] } }), null,
+  'malformed confidence bands fail closed during deploy skew')
 
 console.log('ok  Calls Current view is one newest published record per ticker')

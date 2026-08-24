@@ -2163,7 +2163,7 @@ export interface AskMemoryMeta {
   kind: 'ask-memory'
   mode: AskMemoryMode
   reason: string
-  shelves: { kind: 'run' | 'news' | 'chats'; label: string; count: number }[]
+  shelves: { kind: 'run' | 'news' | 'chats' | 'calls'; label: string; count: number }[]
   newsEvidence?: NewsChatEvidence[]
 }
 export type ChatStyle = 'simple' | 'analyst' | 'detailed' // narration style — HOW the answer is phrased
@@ -2431,14 +2431,31 @@ export interface CallTimelineEntry {
   review_date?: string
   review_price?: number | null
   absolute_return_pct?: number | null
+  benchmark_relative_return_pct?: number | null
   thesis_status?: string | null
+  decision_quality?: string | null
+  thesis_delta_verdict?: string | null
+  memo_delta_summary?: string | null
   forecasts_confirmed?: number
   forecasts_falsified?: number
   review_file?: string
   review_count?: number
   memo_delta_file?: string // §8 memo delta — the "what changed since the memo" markdown, when the review filed one
   stage_one_comment?: string // paste-ready 100–200-word Stage-One sheet note from the same block
+  action_now?: { label: CallActionNow; reason: string; recorded: true } | null
+  confidence_update?: { before: number | null; after: number | null; change_reason: string | null } | null
+  next_check?: { date: string | null; label: string | null; trigger: string | null } | null
+  learning?: {
+    why_right_or_wrong: string | null
+    error_source: string | null
+    rule_for_future: string | null
+    future_research_check: string | null
+  } | null
+  lessons?: string[]
+  error_taxonomy?: string[]
+  watch_items?: string[]
 }
+export type CallActionNow = 'Hold' | 'Add' | 'Exit' | 'Stay away' | 'Keep watching'
 // AS_forecast_overdue / AW_kill_criteria_overdue (scripts/eval.py), surfaced live — see outputs.ts.
 export interface OverdueItem {
   due_date: string
@@ -2453,12 +2470,23 @@ export interface CallSummary {
   decision_is_post_mortem_capped: boolean // true when a terminal pre-mortem verdict downgraded the original call
   confidence: number | null // prefers post-red-team confidence when present (fix F28)
   confidence_is_post_review: boolean
+  frozen_call?: {
+    locked: true
+    decision: string | null
+    basket: string | null
+    confidence: number | null
+    decision_date: string | null
+    entry_price: number | null
+    currency: string | null
+    source_path: string
+  }
   integrity_status: 'verified' | 'provisional' | 'unaudited' // DECISION_LEDGER.md §18a truth-integrity status
   integrity_verdict: string | null // the verify-evidence report's own verdict string, when one exists
   integrity_banner: boolean // true when the finish-gate stamped final_thesis.md PROVISIONAL
   time_horizon: string | null
   entry_price: number | null
   currency: string | null
+  exchange?: string | null
   expected_return_pct: number | null
   implied_target: number | null
   downside_risk_pct: number | null
@@ -2474,6 +2502,33 @@ export interface CallSummary {
   review_count: number
   timeline: CallTimelineEntry[]
   needs_attention: { forecasts_overdue: OverdueItem[]; kill_criteria_overdue: OverdueItem[] }
+}
+export interface CallsScorecardHorizon {
+  window: '30d' | '90d' | '180d' | '365d'
+  reviewed: number
+  worked: number
+  failed: number
+  mixed: number
+  unscored: number
+  average_return_pct: number | null
+  average_vs_benchmark_pct: number | null
+}
+export interface CallsScorecard {
+  assessed_calls: number
+  excluded_provisional: number
+  worked: number
+  failed: number
+  mixed: number
+  unscored: number
+  average_return_pct: number | null
+  average_vs_benchmark_pct: number | null
+  horizons: CallsScorecardHorizon[]
+  confidence_check: {
+    status: 'too_little_data' | 'aligned' | 'not_aligned'
+    scored_calls: number
+    detail: string
+    bands: { label: string; calls: number; worked_pct: number | null }[]
+  }
 }
 // ranked across ALL calls, oldest due_date first — the flattened, actionable form of every call's
 // needs_attention block, for the top-of-dashboard "needs attention now" panel.
@@ -2499,17 +2554,175 @@ export interface CallUpdate {
 }
 export interface CallsResult {
   calls: CallSummary[]
+  scorecard?: CallsScorecard
   dashboard: string | null
   needs_attention: NeedsAttentionRow[]
   updates: CallUpdate[]
   authority_commit?: string
 }
 
+export interface PaperPortfolioPosition {
+  contract_id: number
+  symbol: string
+  local_symbol: string | null
+  security_type: string | null
+  currency: string | null
+  exchange: string | null
+  quantity: number
+  average_cost: number | null
+  market_price: number | null
+  market_value: number | null
+  unrealized_pnl: number | null
+  realized_pnl: number | null
+  portfolio_weight_pct: number | null
+}
+export interface PaperPortfolioTargetPosition {
+  ticker: string
+  decision: string
+  model_weight_pct: number
+  side: 'long' | 'short'
+  conviction: 'low' | 'high'
+  confidence: number
+  currency: string
+  exchange: string | null
+  call_id: string
+  decision_date: string
+}
+export interface PaperCallBlock {
+  ticker: string
+  decision: string
+  decision_date: string | null
+  reason: 'provisional' | 'unverified' | 'missing_frozen_call' | 'invalid_decision_date' | 'future_call'
+    | 'superseded' | 'missing_confidence' | 'missing_price' | 'missing_currency' | 'review_exit'
+    | 'review_action_missing' | 'insufficient_cash' | 'ambiguous_listing'
+  detail: string
+}
+export interface HistoricalPaperTrade {
+  trade_id: string
+  ticker: string
+  decision: string
+  side: 'long' | 'short'
+  conviction: 'low' | 'high'
+  confidence: number
+  target_weight_pct: number
+  decision_date: string
+  entry_price: number
+  currency: string
+  status: 'open' | 'closed'
+  exit_date: string | null
+  exit_price: number | null
+  price_as_of: string
+  current_price: number
+  position_return_pct: number
+  allocated_units: number
+  current_value_units: number
+  mark_source: 'decision' | 'review' | 'later_call'
+  detail: string
+}
+export interface PaperOpenOrder {
+  order_id: number
+  contract_id: number
+  symbol: string
+  action: string | null
+  total_quantity: number | null
+  order_type: string | null
+  status: string
+  filled: number
+  remaining: number
+  average_fill_price: number | null
+  nostra_managed: boolean
+  can_cancel: boolean
+}
+export interface PaperPortfolioDifference {
+  kind: 'missing_position' | 'unexpected_position' | 'weight_mismatch'
+  ticker: string
+  target_weight_pct: number | null
+  actual_weight_pct: number | null
+  detail: string
+}
+export interface IbkrPaperPortfolioRead {
+  schema_version: 'ibkr-paper-portfolio/v2'
+  broker: 'IBKR'
+  mode: 'paper'
+  status: 'connected' | 'disconnected' | 'disabled' | 'error'
+  paper_only: true
+  as_of: string
+  connection: { host: 'localhost'; port: 7497; detail: string }
+  account: {
+    currency: string | null
+    net_liquidation: number | null
+    total_cash: number | null
+    gross_position_value: number | null
+    available_funds: number | null
+    buying_power: number | null
+    unrealized_pnl: number | null
+    realized_pnl: number | null
+    positions: PaperPortfolioPosition[]
+  } | null
+  open_orders: PaperOpenOrder[]
+  history: {
+    schema_version: 'nostra-paper-history/v1'
+    available: boolean
+    unit: 'normalized_nav'
+    starting_value: 100
+    present_value: number
+    cash_value: number
+    invested_value: number
+    total_return_pct: number
+    calls_examined: number
+    non_trade_calls: number
+    trade_calls: number
+    open_trades: number
+    closed_trades: number
+    rules: {
+      low_conviction_weight_pct: 5
+      high_conviction_weight_pct: 10
+      high_conviction_min_confidence: 75
+      eligible_baskets: ['Selected', 'Short']
+      provisional_calls_trade: false
+    }
+    trades: HistoricalPaperTrade[]
+    blocked_calls: PaperCallBlock[]
+    detail: string
+  }
+  target: {
+    valid: boolean
+    source_path: 'published Calls history' | null
+    generated_at: string
+    gross_pct: number | null
+    cash_pct: number | null
+    positions: PaperPortfolioTargetPosition[]
+    blocked_calls: PaperCallBlock[]
+    detail: string
+  }
+  reconciliation: {
+    status: 'aligned' | 'differences' | 'unavailable' | 'blocked'
+    differences: PaperPortfolioDifference[]
+    detail: string
+  }
+  execution: {
+    status: 'locked' | 'ready'
+    can_execute: boolean
+    low_conviction_weight_pct: 5
+    high_conviction_weight_pct: 10
+    high_conviction_min_confidence: 75
+    detail: string
+  }
+}
+export interface PaperExecutionResult {
+  ok: true
+  paper_only: true
+  action: 'sync' | 'cancel' | 'close'
+  detail: string
+  orders: { order_id: number; ticker: string; action: 'BUY' | 'SELL'; quantity: number; status: string; detail: string }[]
+  skipped: { ticker: string; reason: string }[]
+}
+
 // ---- activity / audit log ----
 export type RunKind = 'full' | 'module' | 'agent' | 'rerun' | 'review' | 'track' | 'doc-intake' | 'signal' | 'sweep' | 'screener-agent' | 'handoff' | 'conviction' | 'parity'
 /** Server-internal adjudication kinds are visible in Activity/SSE but have no user launch surface. */
 export type LaunchableRunKind = Exclude<RunKind, 'conviction' | 'parity'>
-export interface Whoami { user: string; userVia: 'cf-access' | 'local'; canDispatch?: boolean; canScanPipeline?: boolean; canBuildConnector?: boolean; emailEnabled?: boolean }
+export interface Whoami { user: string; userVia: 'cf-access' | 'local'; canDispatch?: boolean; canScanPipeline?: boolean; canBuildConnector?: boolean; canInspectProviderParity?: boolean; canLaunchProviderParity?: boolean; emailEnabled?: boolean }
 
 // ---- cockpit-wide product feedback (server: feedback-store.ts) ----
 export type CockpitFeedbackCategory = 'bug' | 'ui' | 'idea' | 'research_quality' | 'other'

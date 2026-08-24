@@ -2,9 +2,11 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { motion } from 'framer-motion'
 import { useStore } from '../lib/store'
 import { api, isStatic } from '../lib/api'
-import { currentCalls, publishedCalls, publishedCallUpdates, publishedNeedsAttention } from '../lib/callsView'
+import { currentCalls, publishedCalls, publishedCallsScorecard, publishedCallUpdates, publishedNeedsAttention } from '../lib/callsView'
+import { callReturnValue, callTrackingSnapshot, latestCompletedReview } from '../lib/callsTracking'
+import { publishedPaperPortfolio } from '../lib/paperPortfolioView'
 import { decisionColor } from '../lib/format'
-import type { CallSummary, CallTimelineEntry, CallsResult, CallUpdate, NeedsAttentionRow } from '../lib/types'
+import type { CallSummary, CallsScorecard, CallTimelineEntry, CallsResult, CallUpdate, IbkrPaperPortfolioRead, NeedsAttentionRow } from '../lib/types'
 import './CallsTracker.css'
 
 // every call the engine has made + what's happened since — a card per call with a visual timeline
@@ -13,14 +15,6 @@ import './CallsTracker.css'
 const dash = (v: unknown) => (v === null || v === undefined || v === '' ? '—' : String(v))
 function ret(v?: number | null): string {
   return typeof v !== 'number' ? '—' : v >= 0 ? `+${v.toFixed(1)}%` : `${v.toFixed(1)}%`
-}
-function thesisColor(s?: string | null): string {
-  switch ((s || '').toLowerCase()) {
-    case 'confirmed': case 'on-track': return 'var(--accent-bright)'
-    case 'at-risk': return 'var(--accent-bright)'
-    case 'broken': return 'var(--bad)'
-    default: return 'var(--text-faint)'
-  }
 }
 function money(cur?: string | null, v?: number | null): string {
   if (v === null || v === undefined) return '—'
@@ -49,6 +43,8 @@ export function CallsTracker() {
   const anyRunForTicker = useStore((s) => s.anyRunForTicker)
   const launchPending = useStore((s) => s.launchPending)
   const [data, setData] = useState<CallsResult | null>(null)
+  const [paperData, setPaperData] = useState<IbkrPaperPortfolioRead | null>(null)
+  const [paperLoading, setPaperLoading] = useState(true)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [view, setView] = useState<CallsView>('current')
@@ -82,6 +78,21 @@ export function CallsTracker() {
     const id = setInterval(load, 15_000) // settle in newly-filed reviews / dashboards
     return () => clearInterval(id)
   }, [load])
+  const loadPaper = useCallback(async () => {
+    try {
+      const read = publishedPaperPortfolio(await api.paperPortfolio())
+      if (mounted.current) setPaperData(read)
+    } catch {
+      if (mounted.current) setPaperData(null)
+    } finally {
+      if (mounted.current) setPaperLoading(false)
+    }
+  }, [])
+  useEffect(() => {
+    loadPaper()
+    const id = setInterval(loadPaper, 15_000)
+    return () => clearInterval(id)
+  }, [loadPaper])
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => e.key === 'Escape' && close()
     window.addEventListener('keydown', onKey)
@@ -97,6 +108,7 @@ export function CallsTracker() {
     .filter((root): root is string => typeof root === 'string' && root.length > 0)), [current])
   const updates = useMemo(() => publishedCallUpdates(data?.updates), [data?.updates])
   const needsAttention = useMemo(() => publishedNeedsAttention(data?.needs_attention), [data?.needs_attention])
+  const scorecard = useMemo(() => publishedCallsScorecard(data?.scorecard), [data?.scorecard])
   const visibleCalls = view === 'current' ? current : calls
 
   return (
@@ -109,7 +121,7 @@ export function CallsTracker() {
         <div className="calls__tools">
           {!staticMode && <button className="btn btn--ghost btn--mini" onClick={() => refreshDashboard()} title="Rebuild the downloadable dashboard (/research:track)">Rebuild</button>}
           <button className="btn btn--ghost btn--mini" onClick={() => data?.dashboard ? openCallFile(data.dashboard, 'Calls dashboard') : setToast({ msg: 'No dashboard yet — Rebuild to generate one', tone: 'info' })} title="Open the latest markdown dashboard">Dashboard ↧</button>
-          <button className="btn btn--ghost btn--mini" onClick={() => load(true)} disabled={loading} title="Read the latest published Calls history">{loading ? 'Loading…' : 'Refresh ↻'}</button>
+          <button className="btn btn--ghost btn--mini" onClick={() => { load(true); loadPaper() }} disabled={loading} title="Read the latest Calls history and IBKR Paper portfolio">{loading ? 'Loading…' : 'Refresh ↻'}</button>
           <button className="btn btn--ghost" style={{ height: 30 }} onClick={close} aria-label="Close">✕</button>
         </div>
       </div>
@@ -121,10 +133,12 @@ export function CallsTracker() {
             <button className="btn btn--ghost btn--mini" onClick={() => load(true)}>Try again</button>
           </div>
         )}
+        <PaperPortfolioPanel portfolio={paperData} loading={paperLoading} staticMode={staticMode} onRefresh={loadPaper} />
         {calls.length === 0 ? (
           <div className="calls__empty">{loading ? 'Loading…' : "No calls yet. Run the full pipeline on a company and its verdict appears here to track over time."}</div>
         ) : (
           <>
+            {scorecard && <CallsScorecardPanel scorecard={scorecard} />}
             <div className="calls__viewbar">
               <div className="seg calls__tabs" role="tablist" aria-label="Calls view">
                 {([
@@ -172,6 +186,156 @@ export function CallsTracker() {
         )}
       </div>
     </motion.div>
+  )
+}
+
+function portfolioMoney(currency: string | null | undefined, value: number | null | undefined): string {
+  if (typeof value !== 'number' || !Number.isFinite(value)) return '—'
+  try {
+    return new Intl.NumberFormat(undefined, {
+      style: currency ? 'currency' : 'decimal', currency: currency || undefined,
+      maximumFractionDigits: Math.abs(value) >= 1_000 ? 0 : 2,
+    }).format(value)
+  } catch {
+    return `${currency || ''} ${value.toLocaleString()}`.trim()
+  }
+}
+
+function PaperPortfolioPanel({ portfolio, loading, staticMode, onRefresh }: { portfolio: IbkrPaperPortfolioRead | null; loading: boolean; staticMode: boolean; onRefresh: () => Promise<void> }) {
+  const setToast = useStore((s) => s.setToast)
+  const [busy, setBusy] = useState<string | null>(null)
+  const account = portfolio?.account
+  const targetPositions = portfolio?.target.positions ?? []
+  const actualPositions = account?.positions ?? []
+  const openOrders = portfolio?.open_orders ?? []
+  const history = portfolio?.history
+  const historyAvailable = history?.available === true
+  const status = portfolio?.status ?? (loading ? 'loading' : 'unavailable')
+  const statusLabel = status === 'connected' ? 'Connected' : status === 'loading' ? 'Connecting…' : status === 'disabled' && staticMode ? 'Live only' : 'Disconnected'
+  const targetLabel = portfolio?.target.valid
+    ? targetPositions.length
+      ? `${targetPositions.length} sized target${targetPositions.length === 1 ? '' : 's'}`
+      : '100% cash · no trade'
+    : 'Target blocked'
+  const ready = portfolio?.execution.status === 'ready' && portfolio.execution.can_execute && !staticMode
+
+  const act = async (key: string, question: string, run: () => Promise<{ detail: string; skipped: { ticker: string; reason: string }[] }>) => {
+    if (!window.confirm(question)) return
+    setBusy(key)
+    try {
+      const result = await run()
+      const skipped = result.skipped.length ? ` ${result.skipped.map((row) => `${row.ticker}: ${row.reason}`).join(' ')}` : ''
+      setToast({ msg: `${result.detail}${skipped}`, tone: result.skipped.length ? 'info' : 'good' })
+      await onRefresh()
+    } catch (error: any) {
+      setToast({ msg: String(error?.message || 'IBKR Paper action failed'), tone: 'info' })
+    } finally { setBusy(null) }
+  }
+
+  return (
+    <section className={`paperport paperport--${status}`} aria-label="IBKR simulated paper portfolio" aria-busy={busy !== null}>
+      <div className="paperport__head">
+        <div>
+          <span className="paperport__eyebrow">Simulated · paper only</span>
+          <strong>Nostra automated portfolio</strong>
+          <small>{portfolio?.connection.detail || (loading ? 'Reading the local TWS paper account…' : 'IBKR Paper is temporarily unavailable.')}</small>
+        </div>
+        <span className="paperport__status" role="status" aria-live="polite"><i />{statusLabel}</span>
+      </div>
+      <div className="paperport__model">
+        <div className="paperport__modelhead">
+          <div><span>Historical replay</span><strong>{historyAvailable ? `${history!.present_value.toFixed(2)} NAV` : '—'}</strong><small>{history?.detail || 'Reading all published calls…'}</small></div>
+          <div><span>Result</span><strong className={(history?.total_return_pct ?? 0) < 0 ? 'tone--bad' : 'tone--good'}>{historyAvailable ? ret(history!.total_return_pct) : '—'}</strong><small>{historyAvailable ? `${history!.cash_value.toFixed(2)} cash · ${history!.invested_value.toFixed(2)} invested` : 'Unavailable'}</small></div>
+          <div><span>Calls checked</span><strong>{historyAvailable ? history!.calls_examined : '—'}</strong><small>{historyAvailable ? `${history!.trade_calls} trades · ${history!.non_trade_calls} Watchlist/Avoid` : 'No cash signal inferred'}</small></div>
+        </div>
+        {history?.trades.map((trade) => (
+          <div className="paperport__row" key={trade.trade_id} title={trade.detail}>
+            <span><b>{trade.ticker}</b> {trade.decision}</span>
+            <span>{trade.side} · {trade.conviction} {trade.confidence} · {trade.target_weight_pct}%</span>
+            <span>{trade.currency} {trade.entry_price} → {trade.current_price} · {ret(trade.position_return_pct)}</span>
+            <span>{trade.status} · marked {trade.price_as_of}</span>
+          </div>
+        ))}
+        {history?.blocked_calls.map((row) => (
+          <div className="paperport__row paperport__row--blocked" key={`${row.ticker}-${row.decision_date}-${row.reason}`}>
+            <span><b>{row.ticker}</b> not traded</span><span>{row.reason}</span><span className="paperport__wide">{row.detail}</span>
+          </div>
+        ))}
+      </div>
+      <div className="paperport__metrics">
+        <div><span>Portfolio value</span><strong>{portfolioMoney(account?.currency, account?.net_liquidation)}</strong></div>
+        <div><span>Cash</span><strong>{portfolioMoney(account?.currency, account?.total_cash)}</strong></div>
+        <div><span>Invested</span><strong>{portfolioMoney(account?.currency, account?.gross_position_value)}</strong></div>
+        <div><span>Unrealized P&amp;L</span><strong>{portfolioMoney(account?.currency, account?.unrealized_pnl)}</strong></div>
+      </div>
+      <div className="paperport__truth">
+        <div>
+          <span>Nostra target</span>
+          <strong>{targetLabel}</strong>
+          <small>{portfolio?.target.detail || 'Building the current target from published Calls history.'}{portfolio?.target.generated_at ? ` · ${portfolio.target.generated_at}` : ''}</small>
+        </div>
+        <div>
+          <span>IBKR Paper now</span>
+          <strong>{actualPositions.length ? `${actualPositions.length} holding${actualPositions.length === 1 ? '' : 's'}` : account ? '100% cash · no holdings' : 'Not available'}</strong>
+          <small>{portfolio?.reconciliation.detail || 'Open TWS in Paper mode on port 7497 to compare.'}</small>
+        </div>
+      </div>
+      {(targetPositions.length > 0 || actualPositions.length > 0) && (
+        <div className="paperport__positions">
+          {targetPositions.map((row) => <span key={`target-${row.ticker}`}><b>{row.ticker}</b> {row.decision} · target {ret(row.model_weight_pct)} · {row.conviction} {row.confidence}</span>)}
+        </div>
+      )}
+      {(openOrders.length > 0 || actualPositions.length > 0) && (
+        <div className="paperport__brokerrows">
+          {openOrders.map((row) => (
+            <div className="paperport__brokerrow" key={`order-${row.order_id}`}>
+              <span><b>{row.symbol}</b> {row.action} {row.total_quantity ?? '—'} · {row.status} · {row.nostra_managed ? 'Nostra' : 'manual/other'}</span>
+              {row.can_cancel && <button className="btn btn--ghost btn--mini" disabled={!ready || busy !== null} onClick={() => act(`cancel-${row.order_id}`, `Cancel this unfilled ${row.symbol} PAPER order?`, () => api.paperOrderCancel(row.order_id))}>{busy === `cancel-${row.order_id}` ? 'Cancelling…' : 'Cancel order'}</button>}
+            </div>
+          ))}
+          {actualPositions.map((row) => (
+            <div className="paperport__brokerrow" key={`position-${row.contract_id}`}>
+              <span><b>{row.symbol}</b> {row.quantity} shares · {ret(row.portfolio_weight_pct)} · P&amp;L {portfolioMoney(row.currency, row.unrealized_pnl)}</span>
+              <button className="btn btn--ghost btn--mini" disabled={!ready || busy !== null} onClick={() => act(`close-${row.contract_id}`, `Close the entire ${row.symbol} PAPER position at market? Its value returns to cash after the fill.`, () => api.paperPositionClose(row.contract_id))}>{busy === `close-${row.contract_id}` ? 'Closing…' : 'Close to cash'}</button>
+            </div>
+          ))}
+        </div>
+      )}
+      <div className={`paperport__lock${ready ? ' paperport__lock--ready' : ''}`} role="status" aria-live="polite">
+        <span>{ready ? 'Paper execution ready' : portfolio?.execution.status === 'ready' ? 'View only · operator controls locked' : 'Execution locked'}</span>
+        <small>{portfolio?.execution.detail || 'No order can be sent.'} Low conviction = 5%. High conviction = 10% at confidence 75+.</small>
+        {ready && <button className="btn btn--amber btn--mini" disabled={busy !== null || targetPositions.length === 0} onClick={() => act('sync', `Send the ${targetPositions.length} verified current Nostra target${targetPositions.length === 1 ? '' : 's'} to IBKR PAPER? Historical calls will not be backdated.`, () => api.paperPortfolioSync())}>{busy === 'sync' ? 'Sending…' : targetPositions.length ? 'Sync calls to Paper' : 'No trade now'}</button>}
+      </div>
+    </section>
+  )
+}
+
+function CallsScorecardPanel({ scorecard }: { scorecard: CallsScorecard }) {
+  return (
+    <section className="callscore" aria-label="Overall Nostra call scorecard">
+      <div className="callscore__head">
+        <div><strong>Nostra scorecard</strong><span>One latest outcome per non-provisional call. Returns use Selected and Short calls only.</span></div>
+        <span>{scorecard.assessed_calls} scored · {scorecard.mixed} mixed · {scorecard.unscored} unscored / not assessable{scorecard.excluded_provisional ? ` · ${scorecard.excluded_provisional} provisional excluded` : ''}</span>
+      </div>
+      <div className="callscore__metrics">
+        <div><span>Calls worked</span><strong className="tone--good">{scorecard.worked}</strong></div>
+        <div><span>Calls failed</span><strong className="tone--bad">{scorecard.failed}</strong></div>
+        <div><span>Average position result</span><strong>{ret(scorecard.average_return_pct)}</strong></div>
+        <div><span>Versus benchmark</span><strong>{ret(scorecard.average_vs_benchmark_pct)}</strong></div>
+      </div>
+      <div className="callscore__horizons">
+        {scorecard.horizons.map((row) => (
+          <div key={row.window}>
+            <span>{row.window.toUpperCase()}</span>
+            <strong>{ret(row.average_return_pct)}</strong>
+            <small>{row.reviewed ? `${ret(row.average_vs_benchmark_pct)} vs benchmark · ${row.worked} worked · ${row.failed} failed · ${row.reviewed} reviewed` : 'No reviews yet'}</small>
+          </div>
+        ))}
+      </div>
+      <div className={`callscore__confidence callscore__confidence--${scorecard.confidence_check.status}`}>
+        <strong>Confidence check</strong><span>{scorecard.confidence_check.detail}</span>
+      </div>
+    </section>
   )
 }
 
@@ -264,11 +428,12 @@ function CallCard({ c, historical, busy, staticMode, onUpdate, onFileDue, onOpen
   }]
   for (const t of c.timeline) {
     const reached = t.status === 'done' || t.status === 'due' || t.status === 'overdue'
-    const sub = t.status === 'done' ? ret(t.absolute_return_pct) : dash(t.due_date)
+    const callReturn = callReturnValue(c, t.absolute_return_pct)
+    const sub = t.status === 'done' ? ret(callReturn) : dash(t.due_date)
     const detail = t.status === 'done'
-      ? `Reviewed ${dash(t.review_date)} · price ${dash(t.review_price)} · ${ret(t.absolute_return_pct)} · thesis ${dash(t.thesis_status)} · forecasts ${dash(t.forecasts_confirmed)}✓/${dash(t.forecasts_falsified)}✗${t.memo_delta_file ? ' · click: memo delta' : t.review_file ? ' · click: review JSON' : ''}`
+      ? `Reviewed ${dash(t.review_date)} · price ${dash(t.review_price)} · ${ret(callReturn)} · thesis ${dash(t.thesis_status)} · forecasts ${dash(t.forecasts_confirmed)}✓/${dash(t.forecasts_falsified)}✗${t.memo_delta_file ? ' · click: memo delta' : t.review_file ? ' · click: review JSON' : ''}`
       : `${t.window} review ${t.status} — due ${dash(t.due_date)}`
-    const subTone = t.status === 'done' && typeof t.absolute_return_pct === 'number' ? (t.absolute_return_pct >= 0 ? 'pos' : 'neg') : undefined
+    const subTone = t.status === 'done' && callReturn != null ? (callReturn >= 0 ? 'pos' : 'neg') : undefined
     // a done checkpoint opens its human-readable memo delta when the review filed one; else the raw review JSON
     const onClick = t.memo_delta_file
       ? () => onOpen(t.memo_delta_file!, `${c.ticker} ${t.window} memo delta`)
@@ -277,8 +442,8 @@ function CallCard({ c, historical, busy, staticMode, onUpdate, onFileDue, onOpen
         : undefined
     nodes.push({ kind: t.status, label: t.window, sub, subTone, reached, title: detail, onClick })
   }
-  // latest filed delta artifacts (timeline is in time order; take the last done entry that carries them)
-  const lastDelta = [...c.timeline].reverse().find((t) => t.status === 'done' && (t.memo_delta_file || t.stage_one_comment))
+  // Use the actual review date: a scheduled review can be filed after a newer-due ad-hoc checkpoint.
+  const lastDelta = latestCompletedReview(c.timeline.filter((t) => t.memo_delta_file || t.stage_one_comment))
   // amber fill reaches the furthest checkpoint time has passed (done/due/overdue)
   let reachedIdx = 0
   nodes.forEach((n, i) => { if (n.reached) reachedIdx = i })
@@ -289,8 +454,8 @@ function CallCard({ c, historical, busy, staticMode, onUpdate, onFileDue, onOpen
 
   const nc = c.next_checkpoint
   const dueNow = nc && (nc.status === 'due' || nc.status === 'overdue')
-  const statusLabel = c.latest_thesis_status || 'awaiting first review'
   const forecastsTotal = c.forecasts.open + c.forecasts.confirmed + c.forecasts.falsified + c.forecasts.expired + c.forecasts.other
+  const tracking = callTrackingSnapshot(c)
 
   return (
     <div className="callcard">
@@ -312,24 +477,61 @@ function CallCard({ c, historical, busy, staticMode, onUpdate, onFileDue, onOpen
           )}
           {historical && <span className="flag flag--past" title="A newer dated call for this company is shown in Current">PAST CALL</span>}
           <span className="callcard__name" title={dash(c.company)}>{dash(c.company)}</span>
-          <span className="callcard__tkr">{c.ticker}</span>
+          <span className="callcard__tkr">{c.ticker}{c.exchange ? ` · ${c.exchange}` : ''}</span>
         </div>
         <div className="callcard__when">{dash(c.decision_date)}<br />{dash(c.time_horizon)} horizon</div>
       </div>
 
-      <div className="callcard__meta">
-        <span>entry <b>{money(c.currency, c.entry_price)}</b>{c.implied_target != null && <> → target <b>{money(c.currency, c.implied_target)}</b></>}</span>
-        <span>expected <b className={typeof c.expected_return_pct === 'number' ? (c.expected_return_pct >= 0 ? 'pos' : 'neg') : ''}>{ret(c.expected_return_pct)}</b></span>
-        <span className="statuschip" style={{ color: thesisColor(c.latest_thesis_status) }}>
-          <span className="dot" />{statusLabel}
-        </span>
-      </div>
-      {!historical && c.latest_review_summary && (
-        <div className="callcard__latest">
-          <span>Latest review{c.latest_review_date ? ` · ${c.latest_review_date}` : ''}</span>
-          {c.latest_review_summary}
+      <div className="calltrack">
+        <p className="calltrack__original">{tracking.originalSentence}</p>
+        <div className="calltrack__action">
+          <span>Action now</span>
+          <strong className={`tone--${tracking.actionNow.tone}`}>{tracking.actionNow.label}</strong>
+          <small>{tracking.actionNow.detail}</small>
         </div>
-      )}
+        {tracking.result && (
+          <div className="calltrack__result">
+            <span>Price result versus thesis result</span>
+            <strong className={`tone--${tracking.result.tone}`}>{tracking.result.headline}</strong>
+            <small>{tracking.result.thesis}</small>
+          </div>
+        )}
+        <div className="calltrack__grid">
+          <div className="calltrack__cell">
+            <span className="calltrack__label">{tracking.checkpoint?.label || 'Latest check'}</span>
+            <strong>{tracking.checkpoint?.price || 'Not reviewed yet'}</strong>
+            <span className={`calltrack__metric tone--${tracking.checkpoint?.returnTone || 'neutral'}`}>
+              {tracking.checkpoint?.returnLabel || 'Return at check'}: {tracking.checkpoint?.returnFromCall || 'not available yet'}
+            </span>
+            {tracking.checkpoint?.benchmarkDelta && <small>{tracking.checkpoint.benchmarkDelta}</small>}
+            {tracking.checkpoint?.sincePrevious && <small>{tracking.checkpoint.sincePrevious}</small>}
+          </div>
+          <div className="calltrack__cell">
+            <span className="calltrack__label">Confidence change</span>
+            <strong className={`tone--${tracking.confidence.tone}`}>{tracking.confidence.label}</strong>
+            <small>{tracking.confidence.detail}</small>
+          </div>
+          <div className="calltrack__cell">
+            <span className="calltrack__label">Next check</span>
+            <strong className={`tone--${tracking.nextCheck?.tone || 'neutral'}`}>
+              {tracking.nextCheck?.date || 'Not scheduled'}
+            </strong>
+            <small>{tracking.nextCheck?.detail || 'No future checkpoint recorded'}</small>
+          </div>
+        </div>
+        {tracking.evidence && (
+          <div className="calltrack__evidence" title={tracking.evidence}>
+            <span>What is going right / wrong</span>
+            <p>{tracking.evidence}</p>
+          </div>
+        )}
+        {tracking.learning && (
+          <div className="calltrack__learning" title={tracking.learning}>
+            <span>Why we were right / wrong · lesson carried forward</span>
+            <p>{tracking.learning}</p>
+          </div>
+        )}
+      </div>
 
       <div className="tl">
         <div className="tl__base" style={{ left: `${inset}%`, width: `${span}%` }} />

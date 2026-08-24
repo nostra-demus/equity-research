@@ -53,3 +53,6 @@ function loadEnvFile(name: string): void {
 loadEnvFile('providers.env')
 loadEnvFile('code-pr.env')
 loadEnvFile('drive.env')
+// Paper-only IBKR execution switch + private account allow-list. Kept separate so moving or revoking
+// the broker connection never touches provider, GitHub, or Drive credentials.
+loadEnvFile('paper.env')

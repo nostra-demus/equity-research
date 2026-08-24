@@ -18,9 +18,9 @@ const SUGGESTIONS: Record<ChatScope, string[]> = {
 }
 
 const MEMORY_MODES: { id: AskMemoryMode; label: string; sub: string }[] = [
-  { id: 'auto', label: 'Auto sources', sub: 'Ask decides when to use the run, saved news, and earlier chats' },
-  { id: 'run', label: 'This run only', sub: 'Optional override: ignore news and earlier chats' },
-  { id: 'news', label: 'Include news', sub: 'Optional override: search saved news and earlier chats too' },
+  { id: 'auto', label: 'Auto sources', sub: 'Ask uses the run, matching past calls, saved news, and earlier chats when useful' },
+  { id: 'run', label: 'This run only', sub: 'Use this run plus any exact matching past call; ignore news and earlier chats' },
+  { id: 'news', label: 'Include news', sub: 'Use the run, matching past calls, saved news, and earlier chats' },
 ]
 
 const MODELS: { id: string; label: string; sub: string }[] = [
@@ -196,7 +196,7 @@ export function ChatPanel() {
           <div className="chatpanel__source" title={memory?.reason || source || undefined}>
             {memory
               ? `Used: ${memory.shelves.map((shelf) => `${shelf.label}${shelf.count > 1 ? ` (${shelf.count})` : ''}`).join(' · ')}`
-              : memoryMode === 'auto' ? 'Auto will choose from this run, saved news, and your earlier chats.' : memoryMode === 'run' ? 'Using this run only.' : 'Will include saved news and earlier chats.'}
+              : memoryMode === 'auto' ? 'Auto will choose from this run, matching past calls, saved news, and your earlier chats.' : memoryMode === 'run' ? 'Using this run and an exact matching past call.' : 'Will include matching past calls, saved news, and earlier chats.'}
             {messages.some((m) => m.role === 'assistant' && m.computed?.some((c) => c.kind === 'scenario')) && <span className="chatpanel__source-modeled"> · modeled with the sensitivity engine</span>}
           </div>
         </div>
@@ -310,7 +310,7 @@ export function ChatPanel() {
           </div>
         ) : messages.length === 0 && !error ? (
           <div className="chatpanel__empty">
-            <div className="chatpanel__greet">Ask anything about <b>{title.replace(/^Ask · /, '')}</b>.<br />Auto chooses the useful shelves: this run, saved news when freshness matters, and your relevant earlier chats. The line above shows what it used.</div>
+            <div className="chatpanel__greet">Ask anything about <b>{title.replace(/^Ask · /, '')}</b>.<br />Auto chooses the useful shelves: this run, matching past calls and lessons, saved news when freshness matters, and your relevant earlier chats. The line above shows what it used.</div>
             <div className="chatpanel__stylepick">
               <div className="chatpanel__picklabel">How should I explain it?</div>
               <div className="chatpanel__suggest">
