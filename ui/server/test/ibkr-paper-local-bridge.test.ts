@@ -203,5 +203,24 @@ assert.equal(staleRecovery.status, 0, staleRecovery.stderr)
 assert.equal(fs.existsSync(marker), true, 'a stale crash lock does not permanently stop the bridge')
 assert.equal(fs.existsSync(staleLock), false, 'the replacement lock is released after the run')
 
+fs.unlinkSync(marker)
+const statArgs = path.join(suiteRoot, 'mac-stat-args')
+fs.writeFileSync(fakeStat, `#!/bin/bash
+printf '%s\\n' "$*" > "$BRIDGE_TEST_STAT_ARGS"
+if [ "$1" = "-f" ] && [ "$2" = "%u %Lp" ]; then printf '%s 600\\n' "$(id -u)"; exit 0; fi
+exit 1
+`, { mode: 0o700 })
+const macStatProbe = spawnSync('/bin/bash', [wrapper], {
+  encoding: 'utf8',
+  env: {
+    ...process.env, HOME: fakeHome, ENGINE_REPO_ROOT: fakeProd, NODE_BIN: fakeNode,
+    BRIDGE_TEST_MARKER: marker, BRIDGE_TEST_STAT_ARGS: statArgs,
+    PATH: `${fakeBin}:${process.env.PATH || ''}`,
+  },
+})
+assert.equal(macStatProbe.status, 0, macStatProbe.stderr)
+assert.equal(fs.existsSync(marker), true, 'the canonical macOS stat probe permits the bridge to run')
+assert.match(fs.readFileSync(statArgs, 'utf8'), /^-f %u %Lp /)
+
 cleanup()
-console.log('ibkr-paper-local-bridge.test.ts: 15 passed')
+console.log('ibkr-paper-local-bridge.test.ts: 16 passed')
