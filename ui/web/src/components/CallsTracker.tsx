@@ -231,6 +231,8 @@ function PaperPortfolioPanel({ portfolio, loading, staticMode, onRefresh }: { po
       : '100% cash · no trade'
     : 'Target blocked'
   const ready = portfolio?.execution.status === 'ready' && portfolio.execution.can_execute && !staticMode
+  const automatic = portfolio?.execution.automatic
+  const lastAutomatic = automatic?.last_attempt
 
   const act = async (key: string, question: string, run: () => Promise<{ detail: string; skipped: { ticker: string; reason: string }[] }>) => {
     if (!window.confirm(question)) return
@@ -311,9 +313,9 @@ function PaperPortfolioPanel({ portfolio, loading, staticMode, onRefresh }: { po
         </div>
       )}
       <div className={`paperport__lock${ready ? ' paperport__lock--ready' : ''}`} role="status" aria-live="polite">
-        <span>{ready ? 'Paper execution ready' : portfolio?.execution.status === 'ready' ? 'View only · operator controls locked' : 'Execution locked'}</span>
-        <small>{portfolio?.execution.detail || 'No order can be sent.'} Low conviction = 5%. High conviction = 10% at confidence 75+.</small>
-        {ready && <button className="btn btn--amber btn--mini" disabled={busy !== null || targetPositions.length === 0} onClick={() => act('sync', `Send the ${targetPositions.length} verified current Nostra target${targetPositions.length === 1 ? '' : 's'} to IBKR PAPER? Historical calls will not be backdated.`, () => api.paperPortfolioSync())}>{busy === 'sync' ? 'Sending…' : targetPositions.length ? 'Sync calls to Paper' : 'No trade now'}</button>}
+        <span>{automatic?.enabled ? 'Automatic paper execution on' : ready ? 'Paper execution ready' : portfolio?.execution.status === 'ready' ? 'View only · operator controls locked' : 'Execution locked'}</span>
+        <small>{portfolio?.execution.detail || 'No order can be sent.'} Low conviction = 5%. High conviction = 10% at confidence 75+.{lastAutomatic ? ` Last automatic result: ${lastAutomatic.outcome.replaceAll('_', ' ')} at ${lastAutomatic.at}${lastAutomatic.ticker ? ` after ${lastAutomatic.ticker} research` : ''} — ${lastAutomatic.detail}` : automatic?.enabled ? ' Waiting for the next verified published Research call.' : ''}</small>
+        {ready && <button className="btn btn--amber btn--mini" disabled={busy !== null || targetPositions.length === 0} onClick={() => act('sync', `Send the ${targetPositions.length} verified current Nostra target${targetPositions.length === 1 ? '' : 's'} to IBKR PAPER now? Historical calls will not be backdated.`, () => api.paperPortfolioSync())}>{busy === 'sync' ? 'Sending…' : targetPositions.length ? 'Sync now' : 'No trade now'}</button>}
       </div>
     </section>
   )

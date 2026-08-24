@@ -1,4 +1,4 @@
-// Explicit, paper-only IBKR order controls. Every command re-checks the private account allow-list,
+// Paper-only IBKR order controls. Every automatic or explicit command re-checks the private account allow-list,
 // the DU paper-account prefix, localhost, and port 7497 before touching an order.
 import fs from 'node:fs'
 import path from 'node:path'
@@ -20,6 +20,10 @@ const ORDER_REF_PREFIX = 'NOSTRA_PAPER:'
 const PRICE_TICK = { BID: 1, ASK: 2, LAST: 4, CLOSE: 9, MARK: 37, DELAYED_BID: 66, DELAYED_ASK: 67, DELAYED_LAST: 68, DELAYED_CLOSE: 75 } as const
 
 export type PaperExecutionAction = 'sync' | 'cancel' | 'close'
+export interface PaperSyncOptions {
+  /** Automatic publication sync owns the dedicated Nostra paper account and reconciles its positions. */
+  reconcilePositions?: boolean
+}
 export interface PaperExecutionOrderResult {
   order_id: number
   ticker: string
@@ -315,23 +319,126 @@ export function createIbkrPaperExecutionService(options: ExecutionOptions = {}) 
     return pending
   }
 
-  const sync = async (idempotencyKey: string): Promise<PaperExecutionResult> => once(`sync:${idempotencyKey}`, () => withPaperCommandLock(async () => {
+  const sync = async (idempotencyKey: string, command: PaperSyncOptions = {}): Promise<PaperExecutionResult> => once(`sync:${idempotencyKey}`, () => withPaperCommandLock(async () => {
     const snapshot = await snapshotReader()
     safePaperAccount(snapshot, enabled, allowedAccountId)
     const calls = (await callsReader()).calls ?? []
     const target: CallPolicyTarget = buildCallPolicyTarget(calls, now())
     if (!target.valid) throw Object.assign(new Error(target.detail), { statusCode: 409, code: 'PAPER_TARGET_BLOCKED' })
     const activePositions = snapshot.positions.filter((row) => row.quantity !== 0)
-    const pending = new Set((snapshot.openOrders ?? []).map((row) => normalized(row.symbol)))
-    const targetSymbols = new Set(target.positions.map((row) => normalized(row.ticker)))
+    const openOrders = snapshot.openOrders ?? []
+    const pending = new Set(openOrders.map((row) => normalized(row.symbol)))
+    const targetBySymbol = new Map(target.positions.map((row) => [normalized(row.ticker), row]))
+    const targetSymbols = new Set(targetBySymbol.keys())
     const minimumOrderId = Math.max(0, ...(snapshot.openOrders ?? []).map((row) => row.order_id)) + 1
-    const unexpectedHeld = activePositions.filter((row) => !targetSymbols.has(normalized(row.symbol))).map((row) => normalized(row.symbol))
     const orders: PaperExecutionOrderResult[] = []
     const skipped: { ticker: string; reason: string }[] = []
+    const processedTargets = new Set<string>()
+    const closingSymbols = new Set<string>()
     const nav = snapshotValue(snapshot, 'NetLiquidation')
     const baseCurrency = accountCurrency(snapshot)
     if (nav === null || nav <= 0 || !baseCurrency) throw Object.assign(new Error('IBKR Paper did not provide a usable portfolio value.'), { statusCode: 409 })
+
+    if (command.reconcilePositions) {
+      // A newly published call supersedes an unfilled Nostra entry from an older call. Cancel only the
+      // entry orders carrying Nostra's own orderRef; manual orders and close/rebalance orders are never
+      // touched here.
+      for (const open of openOrders) {
+        const symbol = normalized(open.symbol)
+        const orderRef = String(open.order_ref || '')
+        if (!orderRef.startsWith(ORDER_REF_PREFIX)
+            || orderRef.startsWith(`${ORDER_REF_PREFIX}CLOSE:`)
+            || orderRef.startsWith(`${ORDER_REF_PREFIX}AUTO:`)) continue
+        const wanted = targetBySymbol.get(symbol)
+        const wantedAction = wanted?.side === 'short' ? 'SELL' : wanted ? 'BUY' : null
+        const wantedRef = wanted ? `${ORDER_REF_PREFIX}${wanted.call_id}`.slice(0, 100) : null
+        if (wantedAction === normalized(open.action) && wantedRef === orderRef) continue
+        const rawAction = normalized(open.action)
+        const quantity = finite(open.total_quantity)
+        if (!['BUY', 'SELL'].includes(rawAction) || quantity === null || quantity <= 0) {
+          skipped.push({ ticker: symbol, reason: 'An older Nostra order could not be safely cancelled because its side or quantity is missing.' })
+          continue
+        }
+        try {
+          orders.push(await orderCanceller(open.order_id, snapshot.accountId, symbol, rawAction as 'BUY' | 'SELL', quantity))
+          pending.delete(symbol)
+        } catch (error: any) {
+          skipped.push({ ticker: symbol, reason: `The superseded Nostra order could not be cancelled: ${String(error?.message || error)}` })
+        }
+      }
+
+      // Automatic mode treats this allow-listed DU account as Nostra's dedicated paper portfolio. It
+      // closes holdings removed by the new call and adjusts an existing holding to the exact 5%/10%
+      // target. Manual Sync retains the older, conservative "show the difference" behaviour.
+      for (const held of activePositions) {
+        const symbol = normalized(held.symbol)
+        if (held.security_type !== 'STK') {
+          skipped.push({ ticker: symbol, reason: 'Automatic reconciliation manages stock positions only and left this instrument untouched.' })
+          if (targetBySymbol.has(symbol)) processedTargets.add(symbol)
+          continue
+        }
+        const heldRows = activePositions.filter((row) => normalized(row.symbol) === symbol)
+        if (heldRows.length > 1) {
+          skipped.push({ ticker: symbol, reason: 'More than one broker position maps to this ticker, so automatic reconciliation left it untouched.' })
+          if (targetBySymbol.has(symbol)) processedTargets.add(symbol)
+          continue
+        }
+        if (pending.has(symbol)) {
+          skipped.push({ ticker: symbol, reason: 'An open TWS/API order already affects this holding, so automatic reconciliation waited.' })
+          if (targetBySymbol.has(symbol)) processedTargets.add(symbol)
+          continue
+        }
+        const wanted = targetBySymbol.get(symbol)
+        if (!wanted) {
+          const action: 'BUY' | 'SELL' = held.quantity < 0 ? 'BUY' : 'SELL'
+          const contract: Contract = {
+            conId: held.contract_id, symbol: held.symbol, localSymbol: held.local_symbol ?? undefined,
+            secType: SecType.STK, exchange: held.exchange || 'SMART', currency: held.currency ?? undefined,
+          }
+          try {
+            orders.push(await orderPlacer({
+              accountId: snapshot.accountId, contract, ticker: symbol, action, quantity: Math.abs(held.quantity), minimumOrderId,
+              orderRef: `${ORDER_REF_PREFIX}AUTO:CLOSE:${held.contract_id}:${now().toISOString()}`.slice(0, 100),
+            }))
+            closingSymbols.add(symbol)
+          } catch (error: any) {
+            skipped.push({ ticker: symbol, reason: `The holding is no longer in Nostra's target but its paper close was not sent: ${String(error?.message || error)}` })
+          }
+          continue
+        }
+        processedTargets.add(symbol)
+        if (normalized(wanted.currency) !== normalized(baseCurrency)) {
+          skipped.push({ ticker: symbol, reason: `Sizing needs ${wanted.currency}/${baseCurrency} FX support; automatic reconciliation left this holding untouched.` })
+          continue
+        }
+        try {
+          const quote = await quoteResolver(wanted)
+          const notional = nav * Math.abs(wanted.model_weight_pct) / 100
+          const absoluteTarget = Math.floor(notional / (quote.price * 1.01))
+          if (absoluteTarget < 1) { skipped.push({ ticker: symbol, reason: 'The 5%/10% target is smaller than one whole share.' }); continue }
+          const signedTarget = wanted.side === 'short' ? -absoluteTarget : absoluteTarget
+          const delta = signedTarget - held.quantity
+          if (Math.abs(delta) < 1e-9) {
+            skipped.push({ ticker: symbol, reason: 'The paper holding already has the correct whole-share 5%/10% size.' })
+            continue
+          }
+          const action: 'BUY' | 'SELL' = delta > 0 ? 'BUY' : 'SELL'
+          const limitPrice = guardedLimit(quote.price, quote.min_tick, action)
+          orders.push(await orderPlacer({
+            accountId: snapshot.accountId, contract: quote.contract, ticker: symbol, action, quantity: Math.abs(delta), limitPrice, minimumOrderId,
+            orderRef: `${ORDER_REF_PREFIX}AUTO:REBALANCE:${wanted.call_id}`.slice(0, 100),
+          }))
+        } catch (error: any) {
+          skipped.push({ ticker: symbol, reason: `The automatic 5%/10% rebalance was not sent: ${String(error?.message || error)}` })
+        }
+      }
+    }
+
+    const unexpectedHeld = activePositions
+      .filter((row) => !targetSymbols.has(normalized(row.symbol)) && !closingSymbols.has(normalized(row.symbol)))
+      .map((row) => normalized(row.symbol))
     for (const row of target.positions) {
+      if (processedTargets.has(normalized(row.ticker))) continue
       if (unexpectedHeld.length) {
         skipped.push({ ticker: row.ticker, reason: `Close the non-target position${unexpectedHeld.length === 1 ? '' : 's'} (${unexpectedHeld.join(', ')}) before Sync adds a new trade.` })
         continue
@@ -370,7 +477,7 @@ export function createIbkrPaperExecutionService(options: ExecutionOptions = {}) 
     if (orders.length) invalidateIbkrPaperPortfolioCache()
     const result: PaperExecutionResult = {
       ok: true, paper_only: true, action: 'sync', orders, skipped,
-      detail: orders.length ? `${orders.length} paper order${orders.length === 1 ? '' : 's'} accepted by TWS.`
+      detail: orders.length ? `${orders.length} paper order action${orders.length === 1 ? '' : 's'} accepted by TWS.`
         : unexpectedHeld.length && target.positions.length ? 'No order was sent while IBKR Paper contains a position outside the current Nostra target.'
           : target.positions.length ? 'No new order was needed or safe to send.' : target.detail,
     }

@@ -1130,7 +1130,7 @@ export const api = {
       },
       target: { valid: false, source_path: null, generated_at: new Date(0).toISOString(), gross_pct: null, cash_pct: null, positions: [], blocked_calls: [], detail: 'The static showcase cannot build a broker target.' },
       reconciliation: { status: 'unavailable', differences: [], detail: 'Open the live cockpit to compare IBKR Paper with Nostra’s sized book.' },
-      execution: { status: 'locked', can_execute: false, low_conviction_weight_pct: 5, high_conviction_weight_pct: 10, high_conviction_min_confidence: 75, detail: 'Paper execution is available only in the live cockpit.' },
+      execution: { status: 'locked', can_execute: false, automatic: { enabled: false, last_attempt: null }, low_conviction_weight_pct: 5, high_conviction_weight_pct: 10, high_conviction_min_confidence: 75, detail: 'Paper execution is available only in the live cockpit.' },
     }
     return get('/api/calls/paper-portfolio')
   },

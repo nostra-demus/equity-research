@@ -51,6 +51,7 @@ import {
   recordRecoveredPublicationAuthority, releaseExecutionEpochAfterPublication,
   releaseParityRegistration, resolveParityBindingPath, writeExecutionReceipt,
 } from './execution-provenance'
+import { scheduleIbkrPaperAutoSyncAfterPublication } from './ibkr-paper-auto-sync'
 
 // Provider adapters may issue a short-lived auth/binary lease while building a launch spec. Keep the
 // disposer supervisor-owned and keyed by the in-memory RunState: it is never exported to the child env.
@@ -641,6 +642,7 @@ export function finalizeRunOnClose(run: RunState, res: any, stderr: string, term
   if (run.endedAt !== undefined) return // already finalized (stream-parser error path)
   const finishClose = (status: RunStatus) => {
     finishRun(run, status)
+    if (status === 'done') scheduleIbkrPaperAutoSyncAfterPublication(run)
     // Clear the crash-recovery lease last. If the supervisor dies anywhere before the durable terminal
     // status/marker/publication above, startup still sees the lease and holds the root for recovery.
     if (!runProcessTreeAlive(run)) clearProviderProcessLease(run.runId)

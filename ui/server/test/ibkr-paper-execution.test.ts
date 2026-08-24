@@ -70,6 +70,41 @@ assert.equal(unexpectedBlocked.orders.length, 0)
 assert.equal(unsafePlacement, 0)
 assert.match(unexpectedBlocked.detail, /outside the current Nostra target/)
 
+const automaticCloseOrders: any[] = []
+const automaticClose = createIbkrPaperExecutionService({
+  enabled: true, allowedAccountId: accountId,
+  snapshotReader: async () => snapshot([{ contract_id: 790, symbol: 'OLD', local_symbol: 'OLD', security_type: 'STK', currency: 'USD', exchange: 'SMART', quantity: 20, average_cost: 50, market_price: 50, market_value: 1_000, unrealized_pnl: 0, realized_pnl: 0 }]),
+  callsReader: async () => ({ calls: [] }),
+  orderPlacer: async (input) => { automaticCloseOrders.push(input); return { order_id: 50, ticker: input.ticker, action: input.action, quantity: input.quantity, status: 'Submitted', detail: 'accepted' } },
+})
+const autoClosed = await automaticClose.sync('99999999-9999-4999-8999-999999999999', { reconcilePositions: true })
+assert.equal(autoClosed.orders[0].action, 'SELL', 'a published 100%-cash target closes a long in the dedicated paper account')
+assert.equal(automaticCloseOrders[0].limitPrice, undefined, 'removing a holding uses an exact market close')
+assert.match(automaticCloseOrders[0].orderRef, /^NOSTRA_PAPER:AUTO:CLOSE:/)
+
+const rebalanceOrders: any[] = []
+const automaticRebalance = createIbkrPaperExecutionService({
+  enabled: true, allowedAccountId: accountId,
+  snapshotReader: async () => snapshot([{ contract_id: 123, symbol: 'ACME', local_symbol: 'ACME', security_type: 'STK', currency: 'USD', exchange: 'SMART', quantity: 50, average_cost: 100, market_price: 100, market_value: 5_000, unrealized_pnl: 0, realized_pnl: 0 }]),
+  callsReader: async () => ({ calls: [selectedCall] }),
+  quoteResolver: async () => ({ contract: { conId: 123, symbol: 'ACME', secType: 'STK' as any, exchange: 'SMART', currency: 'USD' }, price: 100, min_tick: 0.01 }),
+  orderPlacer: async (input) => { rebalanceOrders.push(input); return { order_id: 51, ticker: input.ticker, action: input.action, quantity: input.quantity, status: 'Submitted', detail: 'accepted' } },
+})
+await automaticRebalance.sync('aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa', { reconcilePositions: true })
+assert.equal(rebalanceOrders[0].action, 'BUY')
+assert.equal(rebalanceOrders[0].quantity, 49, '50 held shares are adjusted to the 99-share high-conviction target')
+assert.match(rebalanceOrders[0].orderRef, /^NOSTRA_PAPER:AUTO:REBALANCE:/)
+
+let staleCancelled = 0
+const staleOrder = createIbkrPaperExecutionService({
+  enabled: true, allowedAccountId: accountId,
+  snapshotReader: async () => snapshot([], [{ order_id: 52, contract_id: 123, symbol: 'OLD', action: 'BUY', total_quantity: 20, order_type: 'LMT', status: 'Submitted', filled: 0, remaining: 20, average_fill_price: null, order_ref: 'NOSTRA_PAPER:analyses/OLD_2026-08-01' }]),
+  callsReader: async () => ({ calls: [] }),
+  orderCanceller: async (id) => { staleCancelled = id; return { order_id: id, ticker: 'OLD', action: 'BUY', quantity: 20, status: 'Cancelled', detail: 'cancelled' } },
+})
+await staleOrder.sync('bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb', { reconcilePositions: true })
+assert.equal(staleCancelled, 52, 'a superseded unfilled Nostra entry is cancelled before it can fill')
+
 let pendingAfterFirst = false
 let concurrentPlacements = 0
 const serializedService = createIbkrPaperExecutionService({
@@ -106,4 +141,4 @@ await assert.rejects(() => retryService.sync(retryKey), /temporary paper snapsho
 assert.equal((await retryService.sync(retryKey)).ok, true, 'a failed idempotent command can be retried with the same receipt')
 assert.equal(retryReads, 2)
 
-console.log('\nibkr-paper-execution.test.ts: 7 passed')
+console.log('\nibkr-paper-execution.test.ts: 10 passed')

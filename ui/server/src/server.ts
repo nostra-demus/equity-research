@@ -4940,9 +4940,9 @@ function paperCommandError(error: any, reply: FastifyReply) {
   return reply.code(status).send({ error: known.get(code) || 'IBKR Paper could not safely complete that command.', code })
 }
 
-// No call automatically crosses this boundary. Sync is an explicit paper-only action, cancel affects
+// Manual fallback for the same paper-only boundary used by the post-publication auto-sync. Cancel affects
 // only an unfilled NOSTRA_PAPER order owned by this API client, and close submits the opposite side for
-// the exact position currently returned by IBKR Paper.
+// the exact position currently returned by the allow-listed DU account.
 app.post('/api/calls/paper-portfolio/sync', async (req, reply) => {
   if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request blocked' })
   if (!paperOperatorAllowed(req)) return reply.code(403).send({ error: 'not authorized for paper execution' })
