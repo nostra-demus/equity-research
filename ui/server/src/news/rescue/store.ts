@@ -23,17 +23,30 @@ export const RESCUE_QUEUE_PENDING_WRITE_ERROR = 'The app could not retain rows o
 export const RESCUE_RESERVATION_WRITE_ERROR = 'The app could not reserve a second-look check.'
 export const RESCUE_QUEUE_OVERFLOW_ERROR = 'The saved second-look queue reached its safety limit.'
 export const RESCUE_MODE_WRITE_ERROR = 'The app could not save second-look coverage mode.'
+export const RESCUE_DIAGNOSTICS_WRITE_ERROR = 'The app could not save the second-look diagnostics snapshot.'
 
 export type RescueIdentityStatus = 'verified' | 'identity_unresolved' | 'directory_unavailable'
 export type RescueReviewReasonCode =
   | 'identity_verified_shadow'
   | 'could_not_match_listed_stock'
   | 'listing_lookup_temporarily_unavailable'
+  | 'review_interrupted_unknown'
+
+export type RescueHealthErrorCode =
+  | 'queue_transient'
+  | 'queue_overflow'
+  | 'mode_write'
+  | 'reservation_write'
+  | 'audit_preflight'
+  | 'audit_result'
+  | 'health_record'
+  | 'diagnostics_snapshot'
 
 export const RESCUE_REVIEW_REASON_LABELS: Record<RescueReviewReasonCode, string> = {
   identity_verified_shadow: 'Company matched to a listed stock. Shadow mode stopped before reading the article.',
   could_not_match_listed_stock: 'Could not match the company to a listed stock.',
   listing_lookup_temporarily_unavailable: 'Stock-listing lookup temporarily unavailable.',
+  review_interrupted_unknown: 'The app restarted before it could safely record the stock-listing result.',
 }
 
 export interface RescueQueueSnapshot {
@@ -63,6 +76,9 @@ export interface RescueCheckRecord {
   reserved_at: string
   completed_at?: string
   identity_status?: RescueIdentityStatus
+  /** False only when the typed directory result came entirely from the in-memory cache. */
+  network_attempted?: boolean
+  review_status?: 'interrupted_unknown'
   reason_code?: RescueReviewReasonCode
   ticker?: string | null
   company_name: string
@@ -86,6 +102,7 @@ export interface RescueRuntimeHealth {
   updated_at: string
   audit_healthy: boolean
   audit_error: string | null
+  audit_error_code: RescueHealthErrorCode | null
   consecutive_directory_failures: number
   directory_pause_until: string | null
   last_directory_status: RescueIdentityStatus | null
@@ -302,6 +319,8 @@ function isRescueQueueItem(item: unknown): item is FeedItem {
   if (row.kind !== 'item' || typeof row.event_id !== 'string' || !row.event_id) return false
   if (typeof row.headline !== 'string' || typeof row.url !== 'string') return false
   if (typeof row.ts !== 'string' || typeof row.inboxed !== 'boolean') return false
+  if (row.found_at != null && typeof row.found_at !== 'string') return false
+  if (!Number.isFinite(Date.parse(String(row.found_at || row.ts)))) return false
   if (typeof row.triage_score !== 'number' || !Number.isFinite(row.triage_score)) return false
   if (!Array.isArray(row.event_types) || !row.event_types.every((value) => typeof value === 'string')) return false
   if (!Array.isArray(row.companies) || !row.companies.every((company) => {
@@ -341,12 +360,22 @@ function isRescueCheckRecord(value: unknown): value is RescueCheckRecord {
   if (check.ticker != null && (typeof check.ticker !== 'string' || !check.ticker.trim())) return false
   if (check.exchange != null && typeof check.exchange !== 'string') return false
   if (check.source != null && check.source !== 'yahoo_symbol_directory') return false
+  if (check.network_attempted != null && typeof check.network_attempted !== 'boolean') return false
 
   const status = check.identity_status
   if (status == null) {
+    if (check.review_status === 'interrupted_unknown') {
+      return typeof check.completed_at === 'string' && Number.isFinite(Date.parse(check.completed_at))
+        && check.reason_code === 'review_interrupted_unknown'
+        && typeof check.audit_pending === 'boolean'
+        && Number.isSafeInteger(check.audit_offset) && Number(check.audit_offset) >= 0
+        && check.exchange == null && check.source == null
+    }
     return check.completed_at == null && check.reason_code == null && check.exchange == null
-      && check.source == null && check.audit_pending == null && check.audit_offset == null
+      && check.source == null && check.review_status == null
+      && check.network_attempted == null && check.audit_pending == null && check.audit_offset == null
   }
+  if (check.review_status != null) return false
   if (!['verified', 'identity_unresolved', 'directory_unavailable'].includes(String(status))) return false
   if (typeof check.completed_at !== 'string' || !Number.isFinite(Date.parse(check.completed_at))) return false
   if (typeof check.audit_pending !== 'boolean'
@@ -608,8 +637,8 @@ export function flushStagedRescueRows(
   if (!retireRescueFeedStage(stateDir)) return fail('The applied second-look feed marker could not be retired.')
   runtimeQueueFailures.delete(runtimeQueueKey(stateDir))
   const health = readRescueHealth(stateDir)
-  if (!health.audit_healthy && health.audit_error === RESCUE_QUEUE_PENDING_WRITE_ERROR) {
-    updateRescueHealth(stateDir, { audit_healthy: true, audit_error: null }, now)
+  if (!health.audit_healthy && health.audit_error_code === 'queue_transient') {
+    updateRescueHealth(stateDir, { audit_healthy: true, audit_error: null, audit_error_code: null }, now)
   }
   return true
 }
@@ -746,11 +775,11 @@ export function recordRescueRows(
     const overflowWindowRetired = health.audit_error === RESCUE_QUEUE_OVERFLOW_ERROR
       && overflowAt > 0
       && now - overflowAt > normalizedMaxAgeHrs * 3_600_000 + 5 * 60_000
-    if (!health.audit_healthy && ([RESCUE_QUEUE_WRITE_ERROR, RESCUE_QUEUE_PENDING_WRITE_ERROR]
-      .includes(String(health.audit_error)) || overflowWindowRetired)) {
+    if (!health.audit_healthy && (health.audit_error_code === 'queue_transient' || overflowWindowRetired)) {
       updateRescueHealth(stateDir, {
         audit_healthy: true,
         audit_error: null,
+        audit_error_code: null,
         ...(overflowWindowRetired ? { queue_overflow_at: null } : {}),
       }, now)
     }
@@ -764,7 +793,7 @@ export function recordRescueRows(
     }
     const modeHealth = readRescueHealth(stateDir)
     if (!modeHealth.audit_healthy && modeHealth.audit_error === RESCUE_MODE_WRITE_ERROR) {
-      updateRescueHealth(stateDir, { audit_healthy: true, audit_error: null }, now)
+      updateRescueHealth(stateDir, { audit_healthy: true, audit_error: null, audit_error_code: null }, now)
     }
     runtimeQueueFailures.delete(runtimeQueueKey(stateDir))
   }
@@ -973,7 +1002,13 @@ export function completeRescueCheck(
   stateDir: string,
   date: string,
   key: string,
-  result: { status: RescueIdentityStatus; ticker?: string | null; companyName?: string | null; exchange?: string | null },
+  result: {
+    status: RescueIdentityStatus
+    networkAttempted?: boolean
+    ticker?: string | null
+    companyName?: string | null
+    exchange?: string | null
+  },
   auditMaxBytes: number,
   now = Date.now(),
 ): boolean {
@@ -987,6 +1022,9 @@ export function completeRescueCheck(
     ...loaded.ledger.checks[index],
     completed_at: new Date(now).toISOString(),
     identity_status: result.status,
+    ...(typeof result.networkAttempted === 'boolean'
+      ? { network_attempted: result.networkAttempted }
+      : {}),
     reason_code: result.status === 'verified'
       ? 'identity_verified_shadow'
       : result.status === 'identity_unresolved'
@@ -1013,13 +1051,49 @@ export function flushPendingRescueAudit(stateDir: string, date: string, auditMax
   if (!loaded.available) return false
   let changed = false
   const checks = loaded.ledger.checks.map((record) => {
-    if (!record.audit_pending || !record.identity_status) return record
+    if (!record.audit_pending || (!record.identity_status && record.review_status !== 'interrupted_unknown')) return record
     if (!appendAudit(stateDir, record, auditMaxBytes, true)) return record
     changed = true
     return { ...record, audit_pending: false }
   })
   if (checks.some((record) => record.audit_pending)) return false
   return !changed || atomicWriteJson(stateDir, dayFile(stateDir, date), { ...loaded.ledger, checks }, DAILY_MAX_BYTES)
+}
+
+/** A reservation is written before the directory request, so after a crash its result is unknowable.
+ * Preserve that fact in the long-lived audit before the short daily ledger is retired. */
+function finalizeInterruptedReservations(
+  stateDir: string,
+  date: string,
+  auditMaxBytes: number,
+  now: number,
+): boolean {
+  const loaded = loadRescueDay(stateDir, date)
+  if (!loaded.available) return false
+  const checks = [...loaded.ledger.checks]
+  for (let index = 0; index < checks.length; index++) {
+    const record = checks[index]
+    if (record.identity_status || record.review_status) continue
+    const auditOffset = currentAuditOffset(stateDir, record.reserved_at, auditMaxBytes)
+    if (auditOffset === null) return false
+    const interrupted: RescueCheckRecord = {
+      ...record,
+      completed_at: new Date(now).toISOString(),
+      review_status: 'interrupted_unknown',
+      reason_code: 'review_interrupted_unknown',
+      audit_pending: true,
+      audit_offset: auditOffset,
+    }
+    if (!isRescueCheckRecord(interrupted)) return false
+    // Save the exact append offset before touching the monthly file. A crash after its fsync can then
+    // recognize the existing row and clear audit_pending without appending a duplicate.
+    checks[index] = interrupted
+    if (!atomicWriteJson(stateDir, dayFile(stateDir, date), { ...loaded.ledger, checks }, DAILY_MAX_BYTES)) return false
+    if (!appendAudit(stateDir, interrupted, auditMaxBytes)) return false
+    checks[index] = { ...interrupted, audit_pending: false }
+    if (!atomicWriteJson(stateDir, dayFile(stateDir, date), { ...loaded.ledger, checks }, DAILY_MAX_BYTES)) return false
+  }
+  return true
 }
 
 /** Repair every crash-pending daily record before admission, then keep only the three UTC ledgers that
@@ -1047,15 +1121,42 @@ export function reconcileRescueDayLedgers(
   for (const date of dates) {
     if (!flushPendingRescueAudit(stateDir, date, auditMaxBytes)) return false
     if (!keep.has(date)) {
+      if (!finalizeInterruptedReservations(stateDir, date, auditMaxBytes, now)) return false
       try { fs.unlinkSync(dayFile(stateDir, date)) } catch { return false }
     }
   }
   return true
 }
 
+function rescueHealthErrorCode(code: unknown, error: unknown): RescueHealthErrorCode | null {
+  const allowed: RescueHealthErrorCode[] = [
+    'queue_transient', 'queue_overflow', 'mode_write', 'reservation_write',
+    'audit_preflight', 'audit_result', 'health_record', 'diagnostics_snapshot',
+  ]
+  if (typeof code === 'string' && allowed.includes(code as RescueHealthErrorCode)) {
+    return code as RescueHealthErrorCode
+  }
+  const message = typeof error === 'string' ? error : ''
+  if (!message) return null
+  if (message === RESCUE_QUEUE_OVERFLOW_ERROR) return 'queue_overflow'
+  if (message === RESCUE_MODE_WRITE_ERROR) return 'mode_write'
+  if (message === RESCUE_RESERVATION_WRITE_ERROR) return 'reservation_write'
+  if (message === RESCUE_DIAGNOSTICS_WRITE_ERROR) return 'diagnostics_snapshot'
+  if (message.startsWith('The detailed second-look record')) {
+    return message.includes('accept another result') ? 'audit_preflight' : 'audit_result'
+  }
+  if (message.includes('health record')) return 'health_record'
+  if (message.includes('second-look queue') || message.includes('second-look feed')
+    || message.includes('second-look feed marker') || message.includes('second-look feed range')) {
+    return 'queue_transient'
+  }
+  return 'audit_result'
+}
+
 export function readRescueHealth(stateDir: string): RescueRuntimeHealth {
   const fallback: RescueRuntimeHealth = {
     v: 1, updated_at: new Date(0).toISOString(), audit_healthy: true, audit_error: null,
+    audit_error_code: null,
     consecutive_directory_failures: 0, directory_pause_until: null, last_directory_status: null,
     normal_ideas_ready: true, normal_ideas_reason: null, queue_overflow_at: null,
   }
@@ -1069,6 +1170,7 @@ export function readRescueHealth(stateDir: string): RescueRuntimeHealth {
       ...raw,
       audit_healthy: raw.audit_healthy === true,
       audit_error: typeof raw.audit_error === 'string' ? raw.audit_error : null,
+      audit_error_code: rescueHealthErrorCode(raw.audit_error_code, raw.audit_error),
       consecutive_directory_failures: Math.max(0, Number(raw.consecutive_directory_failures) || 0),
       directory_pause_until: typeof raw.directory_pause_until === 'string' ? raw.directory_pause_until : null,
       last_directory_status: ['verified', 'identity_unresolved', 'directory_unavailable'].includes(raw.last_directory_status) ? raw.last_directory_status : null,
@@ -1088,7 +1190,11 @@ export function updateRescueHealth(
   now = Date.now(),
 ): boolean {
   const current = readRescueHealth(stateDir)
-  const next: RescueRuntimeHealth = { ...current, ...patch, v: 1, updated_at: new Date(now).toISOString() }
+  const normalizedPatch = Object.prototype.hasOwnProperty.call(patch, 'audit_error')
+    && !Object.prototype.hasOwnProperty.call(patch, 'audit_error_code')
+    ? { ...patch, audit_error_code: rescueHealthErrorCode(undefined, patch.audit_error) }
+    : patch
+  const next: RescueRuntimeHealth = { ...current, ...normalizedPatch, v: 1, updated_at: new Date(now).toISOString() }
   return atomicWriteJson(stateDir, healthFile(stateDir), next, 64 * 1024)
 }
 

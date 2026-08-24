@@ -82,18 +82,28 @@ async function main() {
 
   await check('checked search distinguishes a healthy empty result from directory failure', async () => {
     const empty = await searchSymbolsChecked('nothing', (async () => resp(true, [])) as any)
-    assert.deepEqual(empty, { status: 'ok', groups: [] })
+    assert.deepEqual(empty, { status: 'ok', groups: [], issuerGroups: [], networkAttempted: true })
     const limited = await searchSymbolsChecked('limited', (async () => resp(false, [], 429)) as any)
-    assert.deepEqual(limited, { status: 'unavailable', groups: [], reason: 'http_error', httpStatus: 429 })
+    assert.deepEqual(limited, { status: 'unavailable', groups: [], reason: 'http_error', networkAttempted: true, httpStatus: 429 })
     const offline = await searchSymbolsChecked('offline', (async () => { throw new Error('offline') }) as any)
-    assert.deepEqual(offline, { status: 'unavailable', groups: [], reason: 'timeout_or_network' })
+    assert.deepEqual(offline, { status: 'unavailable', groups: [], reason: 'timeout_or_network', networkAttempted: true })
   })
 
   await check('checked search treats a 200 response without quotes as unavailable', async () => {
     const malformed = await searchSymbolsChecked('challenge', (async () => ({
       ok: true, status: 200, json: async () => ({ error: 'challenge' }),
     })) as any)
-    assert.deepEqual(malformed, { status: 'unavailable', groups: [], reason: 'invalid_response' })
+    assert.deepEqual(malformed, { status: 'unavailable', groups: [], reason: 'invalid_response', networkAttempted: true })
+    const malformedRow = await searchSymbolsChecked('challenge-row', (async () => ({
+      ok: true, status: 200, json: async () => ({ quotes: [null] }),
+    })) as any)
+    assert.deepEqual(malformedRow, {
+      status: 'unavailable', groups: [], reason: 'invalid_response', networkAttempted: true,
+    })
+    const healthyNonEquity = await searchSymbolsChecked('index', (async () => ({
+      ok: true, status: 200, json: async () => ({ quotes: [{ quoteType: 'INDEX', symbol: '^GSPC' }] }),
+    })) as any)
+    assert.equal(healthyNonEquity.status, 'ok', 'a well-formed non-equity row is a healthy empty equity result')
   })
 
   await check('directory ticker matching accepts only country-proven local venue suffixes', () => {
@@ -124,7 +134,9 @@ async function main() {
       return resp(true, [{ quoteType: 'EQUITY', symbol: 'CACHE', longname: 'Cache Holdings', exchDisp: 'NYSE' }])
     }) as any
     assert.equal((await searchSymbolsChecked('CACHE', fetchImpl, { useCache: true })).status, 'ok')
-    assert.equal((await searchSymbolsChecked('cache', fetchImpl, { useCache: true })).status, 'ok')
+    const cached = await searchSymbolsChecked('cache', fetchImpl, { useCache: true })
+    assert.equal(cached.status, 'ok')
+    assert.equal(cached.networkAttempted, false, 'cache provenance lets circuit health ignore non-network results')
     assert.equal(calls, 1)
   })
 }

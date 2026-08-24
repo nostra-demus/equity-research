@@ -27,7 +27,10 @@ import { preTriagePriority } from './rank'
 import { buildPipelineFlowRates, readPipelineFlowCycles, type PipelineFlowHistory, type PipelineFlowRates } from './pipeline-flow'
 import { omniRouteDisabledReason } from './omniroute-provision-status'
 import { credentialRejected, evaluateProviderRouting, type ProviderRouterMetadata, type ProviderRoutingCandidate } from './provider-routing'
-import { getRescueDiagnostics, runRescueShadowPass, type RescueDiagnostics, type RescueShadowConfig } from './rescue/shadow'
+import {
+  getRescueDiagnostics, runRescueShadowPass, setRescueNormalIdeasRuntimePause,
+  type RescueDiagnostics, type RescueShadowConfig,
+} from './rescue/shadow'
 import { runNormalIdeasThenSecondLook } from './rescue/order'
 import { captureRescueFeedCheckpoint, flushStagedRescueRows, noteNormalIdeasReadiness } from './rescue/store'
 import { readInboxHumanActions } from './inbox-actions'
@@ -164,6 +167,15 @@ export async function runConfiguredRescueShadow(
   normalIdeasReason: string | null = null,
 ) {
   const now = Date.now()
+  if (!normalIdeasReady) {
+    const readinessSaved = noteNormalIdeasReadiness(STATE_DIR, false, normalIdeasReason, now)
+    setRescueNormalIdeasRuntimePause(STATE_DIR, readinessSaved ? null
+      : normalIdeasReason
+        || 'Normal Ideas did not finish, and that pause could not be saved. The second look remains paused.')
+    return getRescueDiagnostics(
+      STATE_DIR, RESCUE_SHADOW_CONFIG, now, false, new Set(), true, false,
+    )
+  }
   // Ingest saved only a tiny firehose range marker. The potentially large rolling-queue update happens
   // here, after the caller has awaited normal Ideas, so second-look bookkeeping cannot delay core work.
   if (!flushStagedRescueRows(
@@ -174,6 +186,8 @@ export async function runConfiguredRescueShadow(
   const status = getNewsStatus()
   const humanBlocks = rescueHumanBlocks()
   const ideasReadinessRecorded = noteNormalIdeasReadiness(STATE_DIR, normalIdeasReady, normalIdeasReason)
+  setRescueNormalIdeasRuntimePause(STATE_DIR, ideasReadinessRecorded ? null
+    : 'Normal Ideas readiness could not be saved, so the second look remains paused.')
   return runRescueShadowPass({
     stateDir: STATE_DIR,
     config: RESCUE_SHADOW_CONFIG,
@@ -1614,7 +1628,6 @@ export function getNewsDiagnostics(options: { omniRouteHomeDir?: string } = {}):
         humanBlocks.ids,
         humanBlocks.complete,
         true,
-        captureRescueFeedCheckpoint(REPO_ROOT, now, RESCUE_SHADOW_CONFIG.maxAgeHrs),
       )
     })(),
     backlog,

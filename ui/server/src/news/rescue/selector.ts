@@ -150,7 +150,14 @@ function quantified(item: FeedItem): boolean {
   return Number(item.rank_factors?.quantified || 0) > 0
 }
 
-function identity(item: FeedItem): { ticker: string | null; name: string; country: string | null; key: string } | null {
+interface ResolvedIdentity {
+  ticker: string | null
+  name: string
+  country: string | null
+  key: string
+}
+
+function identity(item: FeedItem): ResolvedIdentity | null {
   const companies = (item.companies || [])
     .map((company) => ({
       ticker: cleanTicker(company?.ticker),
@@ -180,9 +187,16 @@ function identity(item: FeedItem): { ticker: string | null; name: string; countr
   const [tickerKey, selectedTicker] = [...tickers.entries()][0] || []
   const compatibleAliases = onlyNamed.filter((company) => company.ticker
     && directoryTickerIdentityKey(company.ticker, company.country) === tickerKey)
+  const tickerCountries = new Set(compatibleAliases
+    .map((company) => String(company.country || '').trim().toUpperCase())
+    .filter(Boolean))
+  // A bare ticker can exist in several markets. Never let input order choose which country's listing
+  // is verified when saved aliases disagree; unknown plus one known country remains usable.
+  if (tickerCountries.size > 1) return null
   // The query spelling and its listing metadata have separate jobs. Prefer the shorter native query,
   // but keep a known country from any equivalent alias so the directory can license its venue suffix.
-  const withTicker = compatibleAliases.find((company) => !!String(company.country || '').trim())
+  const withTicker = compatibleAliases.find((company) =>
+    String(company.country || '').trim().toUpperCase() === [...tickerCountries][0])
     || compatibleAliases[0]
   if (withTicker?.ticker && selectedTicker && tickerKey) {
     return {
@@ -207,9 +221,23 @@ function identity(item: FeedItem): { ticker: string | null; name: string; countr
 
 function publisherIdentity(item: FeedItem): string {
   const domain = normalizeDomain(String(item.domain || item.url || ''))
-  const source = lookupSource(domain)?.source_name || String(item.source_name || '').trim()
+  // Canonical approved-source ownership collapses known sibling/subdomains. For an unknown domain,
+  // the domain itself wins over a free-form label so one publisher cannot be split by inconsistent text.
+  const approvedSource = lookupSource(domain)?.source_name || ''
+  const normalizedApproved = approvedSource.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim()
+  if (normalizedApproved) return `source:${normalizedApproved}`
+  if (domain) return `domain:${domain}`
+  const source = String(item.source_name || '').trim()
   const normalizedSource = source.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim()
-  return normalizedSource ? `source:${normalizedSource}` : domain ? `domain:${domain}` : ''
+  return normalizedSource ? `source:${normalizedSource}` : ''
+}
+
+function verificationIdentityKey(resolved: ResolvedIdentity): string {
+  const company = coreCompanyName(resolved.name)
+  const country = String(resolved.country || '').trim().toUpperCase()
+  return resolved.ticker
+    ? `ticker:${directoryTickerIdentityKey(resolved.ticker, resolved.country)}|company:${company}|country:${country}`
+    : `name:${company}|country:${country}`
 }
 
 function eventFamily(item: FeedItem): string {
@@ -438,9 +466,7 @@ export function selectRescueCandidates(
     candidates.push({
       event_id: representative.item.event_id,
       story_key: eventFingerprint(representative.item),
-      identity_key: identityOwner.companyKey || `${pool}:${identityOwner.identity.ticker
-        ? normTicker(identityOwner.identity.ticker)
-        : coreCompanyName(identityOwner.identity.name)}:${identityOwner.identity.country || ''}`,
+      identity_key: verificationIdentityKey(identityOwner.identity),
       pool,
       query: identityOwner.identity.ticker || identityOwner.identity.name,
       ticker: identityOwner.identity.ticker,

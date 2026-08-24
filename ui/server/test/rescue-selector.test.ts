@@ -101,7 +101,7 @@ function row(id: string, fields: Partial<FeedItem> = {}): FeedItem {
   const result = selectRescueCandidates([native, yahoo], NOW)
   assert.equal(result.candidates.length, 1,
     'country-proven native and Yahoo ticker spellings corroborate one local listing')
-  assert.equal(result.candidates[0].identity_key, 'ticker:NHY')
+  assert.equal(result.candidates[0].identity_key, 'ticker:NHY|company:norsk hydro|country:NO')
   assert.equal(result.candidates[0].rank_inputs.independent_reports, 2)
 
   const mixedMetadata = row('EVT-nhy-alias-metadata', {
@@ -198,6 +198,36 @@ function row(id: string, fields: Partial<FeedItem> = {}): FeedItem {
 }
 
 {
+  const first = row('EVT-free-label-a', {
+    companies: [{ name: 'Acme Corp', ticker: null, listing_country: 'US' }],
+    event_types: ['commercial'], domain: 'example.com', source_name: 'First Wire',
+    url: 'https://example.com/acme-one', dedup_group: 'STORY-free-label-copy',
+  })
+  const second = row('EVT-free-label-b', {
+    companies: [{ name: 'Acme Corp', ticker: null, listing_country: 'US' }],
+    event_types: ['commercial'], domain: 'example.com', source_name: 'Second Wire',
+    url: 'https://example.com/acme-two', dedup_group: 'STORY-free-label-copy',
+  })
+  assert.equal(selectRescueCandidates([first, second], NOW).candidates.length, 0,
+    'different free-form labels on one domain are never independent reports')
+}
+
+{
+  const first = row('EVT-ft-domain-a', {
+    companies: [{ name: 'Acme Corp', ticker: null, listing_country: 'US' }],
+    event_types: ['commercial'], domain: 'ft.com', source_name: 'Financial Times',
+    url: 'https://ft.com/acme-one', dedup_group: 'STORY-ft-domain-copy',
+  })
+  const second = row('EVT-ft-domain-b', {
+    companies: [{ name: 'Acme Corp', ticker: null, listing_country: 'US' }],
+    event_types: ['commercial'], domain: 'markets.ft.com', source_name: 'FT Markets',
+    url: 'https://markets.ft.com/acme-two', dedup_group: 'STORY-ft-domain-copy',
+  })
+  assert.equal(selectRescueCandidates([first, second], NOW).candidates.length, 0,
+    'approved subdomains owned by one publisher are never independent reports')
+}
+
+{
   const tickerCopy = row('EVT-ticker-copy', { event_types: ['commercial'], dedup_group: 'STORY-ticker-name-copy' })
   const nameCopy = row('EVT-name-copy', {
     companies: [{ name: 'Acme Corporation', ticker: null, listing_country: 'US' }],
@@ -255,7 +285,8 @@ function row(id: string, fields: Partial<FeedItem> = {}): FeedItem {
   const unknownKey = selectRescueCandidates([unknown], NOW).candidates[0].identity_key
   const knownKey = selectRescueCandidates([known], NOW).candidates[0].identity_key
   const enriched = selectRescueCandidates([unknown, known], NOW)
-  assert.equal(unknownKey, knownKey, 'adding one known country cannot change an otherwise exact ticker identity')
+  assert.notEqual(unknownKey, knownKey,
+    'adding a known country changes the verification identity so an unresolved lookup may be retried')
   assert.equal(enriched.candidates.length, 1, 'unknown country joins the one matching exact-ticker identity')
   assert.equal(enriched.candidates[0].listing_country, 'US', 'the known country is retained for directory verification')
 
@@ -281,6 +312,21 @@ function row(id: string, fields: Partial<FeedItem> = {}): FeedItem {
   assert.equal(result.candidates.length, 0,
     'same-core tickerless companies with conflicting known countries are not assigned by input order')
   assert.equal(result.reconciled.no_identity, 1)
+}
+
+{
+  const companies = [
+    { name: 'Global Industries Inc', ticker: 'GLBI', listing_country: 'US' },
+    { name: 'Global Industries Corporation', ticker: 'GLBI', listing_country: 'GB' },
+  ]
+  const forward = row('EVT-ticker-country-conflict-a', { event_types: ['commercial'], companies })
+  const reversed = row('EVT-ticker-country-conflict-b', { event_types: ['commercial'], companies: [...companies].reverse() })
+  for (const item of [forward, reversed]) {
+    const result = selectRescueCandidates([item], NOW)
+    assert.equal(result.candidates.length, 0,
+      'conflicting countries on one bare ticker stay ambiguous regardless of saved alias order')
+    assert.equal(result.reconciled.no_identity, 1)
+  }
 }
 
 // Historical replay gate. These committed files are the real partial-day samples used to size the rule.

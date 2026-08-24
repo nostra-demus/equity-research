@@ -250,6 +250,21 @@ export function groupQuotes(quotes: SymbolQuote[]): SymbolGroup[] {
   return [...groups.values()]
 }
 
+/** Keep exact normalized company names separate for name-only rescue verification. The broader UI
+ * grouping above intentionally folds legal suffixes, but that would merge two distinct same-name
+ * issuers and make an ambiguous directory result look unique. */
+function groupIssuerQuotes(quotes: SymbolQuote[]): SymbolGroup[] {
+  const buckets = new Map<string, SymbolQuote[]>()
+  for (const quote of quotes) {
+    const key = String(quote.name || '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim()
+      .replace(/\s+(?:sponsored\s+)?adr(?:s)?$/, '')
+      .replace(/\s+american\s+depositary\s+(?:receipt|share)s?$/, '')
+    if (!key) continue
+    buckets.set(key, [...(buckets.get(key) || []), quote])
+  }
+  return [...buckets.values()].flatMap((bucket) => groupQuotes(bucket))
+}
+
 const SEARCH_URL = 'https://query1.finance.yahoo.com/v1/finance/search'
 export type FetchLike = typeof fetch
 
@@ -257,12 +272,12 @@ export type FetchLike = typeof fetch
 // daily review slot, but it avoids another request to the free directory.
 const CACHE_TTL_MS = 6 * 60 * 60 * 1000
 const CACHE_MAX = 500
-const symCache = new Map<string, { at: number; groups: SymbolGroup[] }>()
+const symCache = new Map<string, { at: number; groups: SymbolGroup[]; issuerGroups: SymbolGroup[] }>()
 
 export type SymbolSearchUnavailableReason = 'timeout_or_network' | 'http_error' | 'invalid_response'
 export type SymbolSearchCheckedResult =
-  | { status: 'ok'; groups: SymbolGroup[] }
-  | { status: 'unavailable'; groups: []; reason: SymbolSearchUnavailableReason; httpStatus?: number }
+  | { status: 'ok'; groups: SymbolGroup[]; issuerGroups: SymbolGroup[]; networkAttempted: boolean }
+  | { status: 'unavailable'; groups: []; reason: SymbolSearchUnavailableReason; networkAttempted: true; httpStatus?: number }
 
 /** One raw directory query with an honest availability result. A healthy empty result is NOT the same
  * as a timeout/429/5xx. The second-look lane uses this seam so an upstream outage can never render as
@@ -275,31 +290,46 @@ export async function searchSymbolsChecked(
   const key = q.trim().toLowerCase()
   const now = Date.now()
   const cached = options.useCache ? symCache.get(key) : undefined
-  if (cached && now - cached.at < CACHE_TTL_MS) return { status: 'ok', groups: cached.groups }
+  if (cached && now - cached.at < CACHE_TTL_MS) {
+    return { status: 'ok', groups: cached.groups, issuerGroups: cached.issuerGroups, networkAttempted: false }
+  }
   try {
     const url = `${SEARCH_URL}?q=${encodeURIComponent(q)}&quotesCount=12&newsCount=0&listsCount=0`
     const r = await fetchImpl(url, {
       signal: AbortSignal.timeout(4500),
       headers: { accept: 'application/json', 'user-agent': 'Mozilla/5.0 (compatible; equity-research-cockpit)' },
     })
-    if (!r.ok) return { status: 'unavailable', groups: [], reason: 'http_error', ...(typeof r.status === 'number' ? { httpStatus: r.status } : {}) }
+    if (!r.ok) return { status: 'unavailable', groups: [], reason: 'http_error', networkAttempted: true, ...(typeof r.status === 'number' ? { httpStatus: r.status } : {}) }
     const j: any = await r.json().catch(() => null)
     if (!j || typeof j !== 'object' || !Array.isArray(j.quotes)) {
-      return { status: 'unavailable', groups: [], reason: 'invalid_response' }
+      return { status: 'unavailable', groups: [], reason: 'invalid_response', networkAttempted: true }
+    }
+    const rowsValid = j.quotes.every((value: unknown) => {
+      if (!value || typeof value !== 'object' || Array.isArray(value)) return false
+      const row = value as Record<string, unknown>
+      if (typeof row.quoteType !== 'string' || !row.quoteType) return false
+      if (row.quoteType !== 'EQUITY') return true
+      return typeof row.symbol === 'string' && !!row.symbol.trim()
+        && ((typeof row.longname === 'string' && !!row.longname.trim())
+          || (typeof row.shortname === 'string' && !!row.shortname.trim()))
+    })
+    if (!rowsValid) {
+      return { status: 'unavailable', groups: [], reason: 'invalid_response', networkAttempted: true }
     }
     const quotes: SymbolQuote[] = j.quotes
       .filter((x: any) => x && x.quoteType === 'EQUITY' && typeof x.symbol === 'string' && x.symbol && (x.longname || x.shortname))
       .map((x: any) => ({ symbol: String(x.symbol), name: String(x.longname || x.shortname), exchange: String(x.exchDisp || x.exchange || '') }))
     const groups = groupQuotes(quotes)
+    const issuerGroups = groupIssuerQuotes(quotes)
     // As before, never cache an empty result: the legacy facade cannot distinguish a healthy empty
     // result from an outage, so pinning [] would preserve a transient failure for six hours.
     if (options.useCache && groups.length > 0) {
       if (symCache.size >= CACHE_MAX) symCache.delete(symCache.keys().next().value as string)
-      symCache.set(key, { at: now, groups })
+      symCache.set(key, { at: now, groups, issuerGroups })
     }
-    return { status: 'ok', groups }
+    return { status: 'ok', groups, issuerGroups, networkAttempted: true }
   } catch {
-    return { status: 'unavailable', groups: [], reason: 'timeout_or_network' }
+    return { status: 'unavailable', groups: [], reason: 'timeout_or_network', networkAttempted: true }
   }
 }
 
@@ -313,10 +343,15 @@ async function cachedSearch(q: string, fetchImpl: FetchLike): Promise<SymbolGrou
   const hit = symCache.get(key)
   const now = Date.now()
   if (hit && now - hit.at < CACHE_TTL_MS) return hit.groups
-  const groups = await searchSymbols(q, fetchImpl)
+  const checked = await searchSymbolsChecked(q, fetchImpl)
+  const groups = checked.groups
   if (groups.length > 0) {
     if (symCache.size >= CACHE_MAX) symCache.delete(symCache.keys().next().value as string)
-    symCache.set(key, { at: now, groups })
+    symCache.set(key, {
+      at: now,
+      groups,
+      issuerGroups: checked.status === 'ok' ? checked.issuerGroups : [],
+    })
   }
   return groups
 }
