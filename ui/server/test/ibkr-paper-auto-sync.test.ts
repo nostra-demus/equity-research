@@ -56,6 +56,15 @@ const attempt = await failure.afterPublishedRun(published({ runId: 'run-2', kind
 assert.equal(attempt?.outcome, 'error')
 assert.match(String(attempt?.detail), /paper_connect_failed/)
 
+const redactedState = fs.mkdtempSync(path.join(os.tmpdir(), 'paper-auto-sync-redacted-'))
+const redacted = createIbkrPaperAutoSync({
+  enabled: true, stateDir: redactedState,
+  sync: async () => { throw new Error('failed while reading /Users/operator/private/paper.env') },
+})
+const redactedAttempt = await redacted.afterPublishedRun(published({ runId: 'run-redacted' }))
+assert.doesNotMatch(String(redactedAttempt?.detail), /Users|paper\.env/)
+assert.match(String(redactedAttempt?.detail), /\[PATH\]/)
+
 const partialState = fs.mkdtempSync(path.join(os.tmpdir(), 'paper-auto-sync-partial-'))
 const partial = createIbkrPaperAutoSync({
   enabled: true, stateDir: partialState,
@@ -90,5 +99,6 @@ assert.match(server, /ibkrPaperExecution\.sync\(body\.data\.idempotency_key, \{ 
 
 fs.rmSync(stateDir, { recursive: true, force: true })
 fs.rmSync(failureState, { recursive: true, force: true })
+fs.rmSync(redactedState, { recursive: true, force: true })
 fs.rmSync(partialState, { recursive: true, force: true })
 console.log('ok  only terminally published Research calls automatically reconcile IBKR Paper once')

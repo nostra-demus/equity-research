@@ -89,6 +89,13 @@ function writeAttempt(stateDir: string, attempt: PaperAutoSyncAttempt): void {
   }
 }
 
+function safeErrorMessage(error: unknown): string {
+  const raw = String(error instanceof Error ? error.message : error)
+  return raw
+    .replace(/(^|[\s("'`])\/(?:[^/\s"'`]+\/)*[^/\s"'`]+/g, '$1[PATH]')
+    .replace(/(^|[\s("'`])[A-Za-z]:\\(?:[^\\\s"'`]+\\)*[^\\\s"'`]+/g, '$1[PATH]')
+}
+
 export function isAutomaticPaperSyncRun(run: PublishedResearchRun): boolean {
   return run.swarmId === 'research'
     && ['full', 'rerun', 'review'].includes(run.kind)
@@ -129,11 +136,11 @@ export function createIbkrPaperAutoSync(options: AutoSyncOptions = {}) {
           outcome: partial ? 'partial' : result.orders.length ? 'orders_sent' : result.skipped.length ? 'no_order' : 'aligned',
           order_count: result.orders.length, skipped_count: result.skipped.length, detail,
         }
-      } catch (error: any) {
+      } catch (error: unknown) {
         attempt = {
           schema_version: 'ibkr-paper-auto-sync/v1', at: now().toISOString(), trigger: 'publication', ...identity,
           outcome: 'error', order_count: 0, skipped_count: 0,
-          detail: `Automatic paper sync could not run safely: ${String(error?.message || error)}`,
+          detail: `Automatic paper sync could not run safely: ${safeErrorMessage(error)}`,
         }
       }
       writeAttempt(stateDir, attempt)

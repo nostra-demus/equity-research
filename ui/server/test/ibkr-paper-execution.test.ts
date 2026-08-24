@@ -301,6 +301,19 @@ const invalidQuoteResult = await invalidQuoteService.sync(
 assert.equal(invalidQuotePlacements, 0, 'a non-finite market quote cannot reach order sizing')
 assert.match(invalidQuoteResult.skipped[0]?.reason || '', /paper_quote_price_invalid/)
 
+let invalidTickPlacements = 0
+const invalidTickService = createIbkrPaperExecutionService({
+  enabled: true, allowedAccountId: accountId, snapshotReader: async () => snapshot(),
+  callsReader: async () => ({ calls: [selectedCall] }),
+  quoteResolver: async () => ({ ...(await quote()), min_tick: Number.NaN }),
+  orderPlacer: async () => { invalidTickPlacements++; throw new Error('order should not run') },
+})
+const invalidTickResult = await invalidTickService.sync(
+  'c7888888-7777-4777-8777-777777777777', { reconcilePositions: true },
+)
+assert.equal(invalidTickPlacements, 0, 'a non-finite minimum tick cannot reach limit-price construction')
+assert.match(invalidTickResult.skipped[0]?.reason || '', /paper_quote_min_tick_invalid/)
+
 const independentOrders: any[] = []
 const unsupportedInstrument = createIbkrPaperExecutionService({
   enabled: true, allowedAccountId: accountId,
@@ -319,4 +332,4 @@ await unsupportedInstrument.sync('c8888888-8888-4888-8888-888888888888', { recon
 assert.deepEqual(independentOrders.map((row) => row.ticker), ['ACME'],
   'an unsupported instrument stays untouched without permanently freezing an independent stock target')
 
-console.log('\nibkr-paper-execution.test.ts: 19 passed')
+console.log('\nibkr-paper-execution.test.ts: 20 passed')

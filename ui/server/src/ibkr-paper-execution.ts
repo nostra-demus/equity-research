@@ -430,6 +430,7 @@ export function createIbkrPaperExecutionService(options: ExecutionOptions = {}) 
           const quote = await quoteResolver(row)
           if (contractIdOf(quote.contract) === null) throw new Error('paper_contract_has_no_exact_id')
           if (!Number.isFinite(quote.price) || quote.price <= 0) throw new Error('paper_quote_price_invalid')
+          if (!Number.isFinite(quote.min_tick) || quote.min_tick <= 0) throw new Error('paper_quote_min_tick_invalid')
           if (!Number.isFinite(row.model_weight_pct)) throw new Error('paper_model_weight_invalid')
           const notional = nav * Math.abs(row.model_weight_pct) / 100
           const absoluteTarget = Math.floor(notional / (quote.price * SIZING_PRICE_RESERVE))
