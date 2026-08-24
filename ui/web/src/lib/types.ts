@@ -2570,6 +2570,31 @@ export interface HistoricalPaperTrade {
   mark_source: 'decision' | 'review' | 'later_call'
   detail: string
 }
+export interface HistoricalCallState {
+  call_id: string
+  ticker: string
+  decision: string
+  decision_date: string | null
+  confidence: number | null
+  side: 'long' | 'short' | null
+  conviction: 'low' | 'high' | null
+  allocation_pct: number | null
+  state: 'open' | 'closed' | 'no_position' | 'blocked'
+  block_reason: PaperCallBlock['reason'] | null
+  entry_price: number | null
+  currency: string | null
+  price_as_of: string | null
+  current_price: number | null
+  price_move_pct: number | null
+  position_return_pct: number | null
+  current_value_units: number | null
+  mark_source: 'decision' | 'review' | 'later_call' | null
+  current_action: string | null
+  current_action_reason: string | null
+  next_check_date: string | null
+  next_check_label: string | null
+  detail: string
+}
 export interface PaperOpenOrder {
   order_id: number
   contract_id: number
@@ -2612,7 +2637,7 @@ export interface IbkrPaperPortfolioRead {
   } | null
   open_orders: PaperOpenOrder[]
   history: {
-    schema_version: 'nostra-paper-history/v1'
+    schema_version: 'nostra-paper-history/v2'
     available: boolean
     unit: 'normalized_nav'
     starting_value: 100
@@ -2632,6 +2657,7 @@ export interface IbkrPaperPortfolioRead {
       eligible_baskets: ['Selected', 'Short']
       provisional_calls_trade: false
     }
+    call_states: HistoricalCallState[]
     trades: HistoricalPaperTrade[]
     blocked_calls: PaperCallBlock[]
     detail: string

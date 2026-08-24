@@ -39,6 +39,32 @@ export interface HistoricalPaperTrade {
   detail: string
 }
 
+export interface HistoricalCallState {
+  call_id: string
+  ticker: string
+  decision: string
+  decision_date: string | null
+  confidence: number | null
+  side: PaperCallSide | null
+  conviction: PaperConviction | null
+  allocation_pct: number | null
+  state: 'open' | 'closed' | 'no_position' | 'blocked'
+  block_reason: PaperCallBlockReason | null
+  entry_price: number | null
+  currency: string | null
+  price_as_of: string | null
+  current_price: number | null
+  price_move_pct: number | null
+  position_return_pct: number | null
+  current_value_units: number | null
+  mark_source: 'decision' | 'review' | 'later_call' | null
+  current_action: string | null
+  current_action_reason: string | null
+  next_check_date: string | null
+  next_check_label: string | null
+  detail: string
+}
+
 export interface PaperCallBlock {
   ticker: string
   decision: string
@@ -48,7 +74,7 @@ export interface PaperCallBlock {
 }
 
 export interface HistoricalPaperPortfolio {
-  schema_version: 'nostra-paper-history/v1'
+  schema_version: 'nostra-paper-history/v2'
   available: boolean
   unit: 'normalized_nav'
   starting_value: 100
@@ -68,6 +94,7 @@ export interface HistoricalPaperPortfolio {
     eligible_baskets: ['Selected', 'Short']
     provisional_calls_trade: false
   }
+  call_states: HistoricalCallState[]
   trades: HistoricalPaperTrade[]
   blocked_calls: PaperCallBlock[]
   detail: string
@@ -228,73 +255,133 @@ export function buildHistoricalPaperPortfolio(rawCalls: unknown, now: Date = new
   let cash = 100
   let nonTradeCalls = 0
   const trades: HistoricalPaperTrade[] = []
+  const callStates: HistoricalCallState[] = []
   const openByListing = new Map<string, HistoricalPaperTrade>()
+  const openStateByListing = new Map<string, HistoricalCallState>()
   const blocked: PaperCallBlock[] = []
 
   for (const call of calls) {
-    const authority = authorityBlock(call, today)
-    if (authority) { blocked.push(authority); continue }
-    const f = frozen(call)!
+    const f = frozen(call)
     const ticker = text(call.ticker)!.toUpperCase()
-    const date = decisionDate(call)!
-    const currency = text(f.currency) || ''
+    const date = decisionDate(call)
+    const decision = text(f?.decision) || text(call.decision) || 'Unknown'
+    const confidence = score(f?.confidence)
+    const entry = positive(f?.entry_price)
+    const currency = text(f?.currency)
+    const side = sideFor(call)
+    const mark = latestReviewMark(call)
+    const currentPrice = mark?.price ?? entry
+    const priceMove = mark && entry !== null
+      ? ((mark.price - entry) / entry) * 100
+      : null
+    const review = currentReview(call)
+    const checkpoint = looseObject(call.next_checkpoint)
+    const callId = text(call.run_root) || `${ticker}-${date || 'undated'}`
+    const baseState = (): HistoricalCallState => ({
+      call_id: callId, ticker, decision, decision_date: date, confidence, side,
+      conviction: null, allocation_pct: null, state: 'blocked', block_reason: null,
+      entry_price: entry, currency, price_as_of: mark?.date ?? date,
+      current_price: currentPrice, price_move_pct: priceMove, position_return_pct: null,
+      current_value_units: null, mark_source: mark ? 'review' : entry !== null ? 'decision' : null,
+      current_action: review.action, current_action_reason: review.reason,
+      next_check_date: isoDate(checkpoint?.due_date), next_check_label: text(checkpoint?.window),
+      detail: '',
+    })
+    const authority = authorityBlock(call, today)
+    if (authority) {
+      blocked.push(authority)
+      callStates.push({ ...baseState(), block_reason: authority.reason, detail: authority.detail })
+      continue
+    }
+    const trusted = f!
+    const trustedDate = date!
+    const trustedCurrency = currency || ''
     const key = listingKey(call)
-    const entry = positive(f.entry_price)
     const prior = openByListing.get(key)
     // Only a later verified call for the same listing may close the earlier lot. Provisional, future,
     // superseded, or cross-currency rows never cancel a valid position.
-    if (prior && entry !== null && currency === prior.currency) {
+    if (prior && entry !== null && trustedCurrency === prior.currency) {
       const rawReturn = ((entry - prior.entry_price) / prior.entry_price) * 100
       const signedReturn = prior.side === 'short' ? -rawReturn : rawReturn
       prior.status = 'closed'
-      prior.exit_date = date
+      prior.exit_date = trustedDate
       prior.exit_price = entry
-      prior.price_as_of = date
+      prior.price_as_of = trustedDate
       prior.current_price = entry
       prior.position_return_pct = signedReturn
       prior.current_value_units = prior.allocated_units * (1 + signedReturn / 100)
       prior.mark_source = 'later_call'
-      prior.detail = `Closed when Nostra published its next verified ${ticker} listing call on ${date}.`
+      prior.detail = `Closed when Nostra published its next verified ${ticker} listing call on ${trustedDate}.`
+      const priorState = openStateByListing.get(key)
+      if (priorState) {
+        priorState.state = 'closed'
+        priorState.price_as_of = trustedDate
+        priorState.current_price = entry
+        priorState.price_move_pct = rawReturn
+        priorState.position_return_pct = signedReturn
+        priorState.current_value_units = prior.current_value_units
+        priorState.mark_source = 'later_call'
+        priorState.detail = prior.detail
+      }
       cash += prior.current_value_units
       openByListing.delete(key)
+      openStateByListing.delete(key)
     }
 
-    const side = sideFor(call)
-    if (!side) { nonTradeCalls++; continue }
+    if (!side) {
+      nonTradeCalls++
+      callStates.push({
+        ...baseState(), state: 'no_position',
+        detail: `${decision} was an observation, not an instruction to buy or short. Nostra opened no model position.`,
+      })
+      continue
+    }
     const reason = tradeBlock(call, today)
-    if (reason) { blocked.push(reason); continue }
-    const confidence = score(f.confidence)!
-    const { conviction, weight } = sizing(confidence)
+    if (reason) {
+      blocked.push(reason)
+      callStates.push({ ...baseState(), block_reason: reason.reason, detail: reason.detail })
+      continue
+    }
+    const trustedConfidence = score(trusted.confidence)!
+    const { conviction, weight } = sizing(trustedConfidence)
     // A synchronized event-time NAV does not exist for every currency/listing. Fixed initial-capital
     // units avoid leaking a later review mark backwards into an earlier sizing decision.
     const allocation = weight
     if (allocation > cash + 1e-9) {
-      blocked.push({ ticker, decision: text(f.decision) || 'Unknown', decision_date: date, reason: 'insufficient_cash', detail: `${ticker} needed ${weight} initial-capital units but the replay had insufficient free cash.` })
+      const cashBlock: PaperCallBlock = { ticker, decision, decision_date: trustedDate, reason: 'insufficient_cash', detail: `${ticker} needed ${weight} initial-capital units but the replay had insufficient free cash.` }
+      blocked.push(cashBlock)
+      callStates.push({ ...baseState(), conviction, block_reason: cashBlock.reason, detail: cashBlock.detail })
       continue
     }
     cash -= allocation
-    const mark = latestReviewMark(call)
-    const currentPrice = mark?.price ?? positive(f.entry_price)!
-    const rawReturn = ((currentPrice - positive(f.entry_price)!) / positive(f.entry_price)!) * 100
+    const tradeCurrentPrice = currentPrice!
+    const rawReturn = ((tradeCurrentPrice - entry!) / entry!) * 100
     const signedReturn = side === 'short' ? -rawReturn : rawReturn
     const trade: HistoricalPaperTrade = {
-      trade_id: text(call.run_root) || `${ticker}-${date}`,
-      ticker, decision: text(f.decision) || text(call.decision) || 'Unknown', side, conviction,
-      confidence, target_weight_pct: weight, decision_date: date, entry_price: positive(f.entry_price)!,
-      currency, status: 'open', exit_date: null, exit_price: null,
-      price_as_of: mark?.date ?? date, current_price: currentPrice, position_return_pct: signedReturn,
+      trade_id: callId,
+      ticker, decision, side, conviction,
+      confidence: trustedConfidence, target_weight_pct: weight, decision_date: trustedDate, entry_price: entry!,
+      currency: trustedCurrency, status: 'open', exit_date: null, exit_price: null,
+      price_as_of: mark?.date ?? trustedDate, current_price: tradeCurrentPrice, position_return_pct: signedReturn,
       allocated_units: allocation, current_value_units: allocation * (1 + signedReturn / 100),
       mark_source: mark ? 'review' : 'decision',
       detail: mark ? `Marked to the latest completed review on ${mark.date}.` : 'No completed review price yet; value remains at the recorded call price.',
     }
     trades.push(trade)
     openByListing.set(key, trade)
+    const state: HistoricalCallState = {
+      ...baseState(), confidence: trustedConfidence, conviction, allocation_pct: weight,
+      state: 'open', block_reason: null, position_return_pct: signedReturn,
+      current_value_units: trade.current_value_units, detail: trade.detail,
+    }
+    callStates.push(state)
+    openStateByListing.set(key, state)
   }
 
   const invested = [...openByListing.values()].reduce((sum, row) => sum + row.current_value_units, 0)
   const present = cash + invested
   return {
-    schema_version: 'nostra-paper-history/v1', available: true, unit: 'normalized_nav', starting_value: 100,
+    schema_version: 'nostra-paper-history/v2', available: true, unit: 'normalized_nav', starting_value: 100,
     present_value: present, cash_value: cash, invested_value: invested, total_return_pct: present - 100,
     calls_examined: calls.length, non_trade_calls: nonTradeCalls, trade_calls: trades.length,
     open_trades: openByListing.size, closed_trades: trades.length - openByListing.size,
@@ -304,10 +391,10 @@ export function buildHistoricalPaperPortfolio(rawCalls: unknown, now: Date = new
       high_conviction_min_confidence: HIGH_CONVICTION_MIN,
       eligible_baskets: ['Selected', 'Short'], provisional_calls_trade: false,
     },
-    trades, blocked_calls: blocked,
+    call_states: callStates, trades, blocked_calls: blocked,
     detail: trades.length
       ? 'Historical calls use fixed 5/10 units of initial capital and their own latest dated review marks. This currency-neutral replay is not a backdated IBKR statement or one same-date live NAV.'
-      : 'No published call clears the historical trade rules. The normalized replay remains in cash.',
+      : 'Every old call is listed below. None clears the historical trade rules, so the normalized replay remains in cash.',
   }
 }
 

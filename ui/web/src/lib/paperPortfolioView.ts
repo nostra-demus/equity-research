@@ -1,11 +1,12 @@
 import type {
-  HistoricalPaperTrade, IbkrPaperPortfolioRead, PaperCallBlock, PaperOpenOrder,
+  HistoricalCallState, HistoricalPaperTrade, IbkrPaperPortfolioRead, PaperCallBlock, PaperOpenOrder,
   PaperExecutionResult, PaperPortfolioDifference, PaperPortfolioPosition, PaperPortfolioTargetPosition,
 } from './types'
 
 const finiteOrNull = (value: unknown): boolean => value === null || (typeof value === 'number' && Number.isFinite(value))
 const finite = (value: unknown): value is number => typeof value === 'number' && Number.isFinite(value)
 const stringOrNull = (value: unknown): boolean => value === null || typeof value === 'string'
+const dateOrNull = (value: unknown): boolean => value === null || (typeof value === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(value))
 
 function targetPosition(value: unknown): value is PaperPortfolioTargetPosition {
   if (!value || typeof value !== 'object' || Array.isArray(value)) return false
@@ -65,6 +66,33 @@ function historicalTrade(value: unknown): value is HistoricalPaperTrade {
     && (confidence >= 75 ? 'high' : 'low') === row.conviction
 }
 
+function historicalCallState(value: unknown): value is HistoricalCallState {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) return false
+  const row = value as Record<string, unknown>
+  const shape = typeof row.call_id === 'string' && typeof row.ticker === 'string' && typeof row.decision === 'string'
+    && stringOrNull(row.decision_date) && finiteOrNull(row.confidence) && stringOrNull(row.side)
+    && stringOrNull(row.conviction) && finiteOrNull(row.allocation_pct)
+    && ['open', 'closed', 'no_position', 'blocked'].includes(String(row.state))
+    && (row.block_reason === null || blockedCall({ ticker: row.ticker, decision: row.decision, decision_date: row.decision_date, reason: row.block_reason, detail: '' }))
+    && finiteOrNull(row.entry_price) && stringOrNull(row.currency) && stringOrNull(row.price_as_of)
+    && finiteOrNull(row.current_price) && finiteOrNull(row.price_move_pct) && finiteOrNull(row.position_return_pct)
+    && finiteOrNull(row.current_value_units) && stringOrNull(row.mark_source)
+    && stringOrNull(row.current_action) && stringOrNull(row.current_action_reason)
+    && dateOrNull(row.next_check_date) && stringOrNull(row.next_check_label) && typeof row.detail === 'string'
+  if (!shape) return false
+  if (row.side !== null && !['long', 'short'].includes(String(row.side))) return false
+  if (row.conviction !== null && !['low', 'high'].includes(String(row.conviction))) return false
+  if (row.mark_source !== null && !['decision', 'review', 'later_call'].includes(String(row.mark_source))) return false
+  if (row.confidence !== null && ((row.confidence as number) < 0 || (row.confidence as number) > 100)) return false
+  if (row.allocation_pct !== null && ![5, 10].includes(row.allocation_pct as number)) return false
+  if (['open', 'closed'].includes(String(row.state))) {
+    if (row.confidence === null || row.side === null || row.conviction === null || row.allocation_pct === null || row.position_return_pct === null || row.current_value_units === null || row.block_reason !== null) return false
+    if (((row.confidence as number) >= 75 ? 'high' : 'low') !== row.conviction) return false
+  } else if (row.allocation_pct !== null || row.position_return_pct !== null || row.current_value_units !== null) return false
+  if ((row.state === 'blocked') !== (row.block_reason !== null)) return false
+  return true
+}
+
 function openOrder(value: unknown): value is PaperOpenOrder {
   if (!value || typeof value !== 'object' || Array.isArray(value)) return false
   const row = value as Record<string, unknown>
@@ -92,10 +120,12 @@ export function publishedPaperPortfolio(value: unknown): IbkrPaperPortfolioRead 
       || Math.abs(read.target.positions.reduce((sum: number, row: PaperPortfolioTargetPosition) => sum + Math.abs(row.model_weight_pct), 0) - read.target.gross_pct) > 0.001) return null
   } else if (!['published Calls history', null].includes(read.target.source_path) || read.target.gross_pct !== null
     || read.target.cash_pct !== null || read.target.positions.length !== 0) return null
-  if (!read.history || read.history.schema_version !== 'nostra-paper-history/v1' || typeof read.history.available !== 'boolean' || read.history.unit !== 'normalized_nav'
+  if (!read.history || read.history.schema_version !== 'nostra-paper-history/v2' || typeof read.history.available !== 'boolean' || read.history.unit !== 'normalized_nav'
     || read.history.starting_value !== 100 || !finite(read.history.present_value) || !finite(read.history.cash_value)
     || !finite(read.history.invested_value) || !finite(read.history.total_return_pct)
     || !['calls_examined', 'non_trade_calls', 'trade_calls', 'open_trades', 'closed_trades'].every((key) => Number.isInteger(read.history[key]) && read.history[key] >= 0)
+    || !Array.isArray(read.history.call_states) || !read.history.call_states.every(historicalCallState)
+    || read.history.call_states.length !== read.history.calls_examined
     || !Array.isArray(read.history.trades) || !read.history.trades.every(historicalTrade)
     || !Array.isArray(read.history.blocked_calls) || !read.history.blocked_calls.every(blockedCall)
     || !read.history.rules || read.history.rules.low_conviction_weight_pct !== 5 || read.history.rules.high_conviction_weight_pct !== 10
@@ -103,7 +133,7 @@ export function publishedPaperPortfolio(value: unknown): IbkrPaperPortfolioRead 
     || !Array.isArray(read.history.rules.eligible_baskets) || read.history.rules.eligible_baskets.length !== 2
     || read.history.rules.eligible_baskets[0] !== 'Selected' || read.history.rules.eligible_baskets[1] !== 'Short'
     || typeof read.history.detail !== 'string') return null
-  if (!read.history.available && (read.history.calls_examined !== 0 || read.history.trades.length !== 0 || read.history.blocked_calls.length !== 0)) return null
+  if (!read.history.available && (read.history.calls_examined !== 0 || read.history.call_states.length !== 0 || read.history.trades.length !== 0 || read.history.blocked_calls.length !== 0)) return null
   if (!read.reconciliation || !['aligned', 'differences', 'unavailable', 'blocked'].includes(read.reconciliation.status)
     || !Array.isArray(read.reconciliation.differences) || !read.reconciliation.differences.every(difference)
     || typeof read.reconciliation.detail !== 'string') return null
