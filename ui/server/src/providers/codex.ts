@@ -85,13 +85,15 @@ interface CodexRateLimitWindow {
   windowDurationMins?: number
 }
 
-function resolveCodexBin(env: NodeJS.ProcessEnv = process.env): string {
+export function resolveCodexBin(env: NodeJS.ProcessEnv = process.env, homeDir = os.homedir()): string {
   if (env.CODEX_BIN) return env.CODEX_BIN
   const candidates = [
-    '/Applications/ChatGPT.app/Contents/Resources/codex',
-    path.join(os.homedir(), '.local', 'bin', 'codex'),
+    path.join(homeDir, '.local', 'bin', 'codex'),
     '/opt/homebrew/bin/codex',
     '/usr/local/bin/codex',
+    // The desktop bundle can exist with the wrong CPU architecture on an Intel/Apple-Silicon host.
+    // Prefer the explicitly installed, logged-in CLI and retain the bundle only as a last fallback.
+    '/Applications/ChatGPT.app/Contents/Resources/codex',
   ]
   for (const candidate of candidates) {
     try { if (fs.existsSync(candidate)) return candidate } catch { /* keep looking */ }
