@@ -1,6 +1,104 @@
 {
-  "generated_at": "2026-08-24T14:35:41Z",
+  "generated_at": "2026-08-24T14:58:54Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260824-915",
+      "headline": "REMEGEN (09995): INTERIM RESULTS ANNOUNCEMENT FOR THE SIX MONTHS ENDED JUNE 30, 2026",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0824/2026082401967.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-24T14:41:00Z",
+      "sweep_file": "screener/inbox/2026-08-24_sweep.json",
+      "prelim_note": "Official interim results announcement for a publicly traded company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Official interim results announcement for a publicly traded company.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "REMEGEN",
+          "ticker": "09995",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260824-918",
+      "headline": "HOPSON DEV HOLD (00754): (1) FURTHER DELAY IN PUBLICATION OF THE 2025 ANNUAL RESULTS AND DESPATCH OF THE 2025 ANNUAL REPORT; (2) DELAY IN PUBLICATION OF THE 2026 INTERIM RESULTS AND DESPATCH OF THE 2026 INTERIM REPORT; (3) FURTHER POSTPONEMENT OF BOARD MEETINGS; AND (4) CONTINUED SUSPENSION OF TRADING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0824/2026082401905.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-24T14:29:00Z",
+      "sweep_file": "screener/inbox/2026-08-24_sweep.json",
+      "prelim_note": "Multiple delays in financial reporting and continued trading suspension indicate severe governance or financial distress.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Multiple delays in financial reporting and continued trading suspension indicate severe governance or financial distress.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "accounting_restatement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "accounting_restatement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Hopson Development Holdings",
+          "ticker": "00754",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260824-898",
       "headline": "CANOPY SKYFIRE (08245): MAJOR TRANSACTION - ACQUISITION OF THE SALE SHARES IN THE TARGET COMPANIES",
@@ -1861,109 +1959,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260824-409",
-      "headline": "Garden Reach Shipbuilders & Engineers Limited: In terms of Regulation 30 and other applicable provisions of the Securities and Exchange Board of India (Listing Obligations and Disclosure Requirements) Regulations, 2015, as amended, we wish to inform you that the Company is undertaking capacity expansion initiatives at Raichak, Timber Pond facility -Shalimar and Damodar facility Khidderpore Docks to strengthen its indigenous shipbuilding capabilities, support future growth and enhance the ability",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/GRSE_24082026102244_Corp_Ann__Press_Release_regarding_3_new_facilities.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-24T04:53:20Z",
-      "sweep_file": "screener/inbox/2026-08-24_sweep.json",
-      "prelim_note": "The company announced capacity expansion initiatives at multiple facilities to strengthen shipbuilding capabilities.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "The company announced capacity expansion initiatives at multiple facilities to strengthen shipbuilding capabilities.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "capex",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Garden Reach Shipbuilders & Engineers Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260824-388",
-      "headline": "Indian Hotels Company Ltd: Please find enclosed the investor presentation on merger of The Indian Hotels Company Limited with Oriental Hotels Limited.",
-      "headline_en": null,
-      "url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/e6560230-d461-4a3d-9b27-47c59c368a6d.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-24T04:43:54Z",
-      "sweep_file": "screener/inbox/2026-08-24_sweep.json",
-      "prelim_note": "Formal announcement of a merger between Indian Hotels Company and Oriental Hotels.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Formal announcement of a merger between Indian Hotels Company and Oriental Hotels.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Indian Hotels Company Ltd",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "Oriental Hotels Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -75754,6 +75749,148 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-6eca4f13ca43",
+      "idea_version": "IDEAV-bfdfa19aee0854a9",
+      "idea_version_started_at": "2026-08-24T14:45:11Z",
+      "ticker": "00655",
+      "company": "HK CHINESE LTD",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company issued a profit warning, indicating deteriorating earnings performance for the period.",
+      "why_now": "The announcement was released on 2026-08-24.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-6232e9536276"
+      ],
+      "primary_source_event_id": "EVT-6232e9536276",
+      "source_headlines": [
+        "HK CHINESE LTD (00655): INSIDE INFORMATION ANNOUNCEMENT / PROFIT WARNING"
+      ],
+      "source_headline": "HK CHINESE LTD (00655): INSIDE INFORMATION ANNOUNCEMENT / PROFIT WARNING",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0824/2026082401277.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-24T11:40:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-24T14:45:11Z",
+      "updated_at": "2026-08-24T14:45:11Z",
+      "decay_at": "2026-08-25T23:40:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-aeee8baa02be",
+      "idea_version": "IDEAV-d4a281323a968b8c",
+      "idea_version_started_at": "2026-08-24T14:45:11Z",
+      "ticker": "02439",
+      "company": "CH TREASURES NM",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company reported a decrease in profit for the six months ended 30 June 2026, signaling operational headwinds.",
+      "why_now": "The profit warning was filed on 2026-08-24.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-ebad0a5538d4"
+      ],
+      "primary_source_event_id": "EVT-ebad0a5538d4",
+      "source_headlines": [
+        "CH TREASURES NM (02439): PROFIT WARNING DECREASE IN PROFIT FOR THE SIX MONTHS ENDED 30 JUNE 2026"
+      ],
+      "source_headline": "CH TREASURES NM (02439): PROFIT WARNING DECREASE IN PROFIT FOR THE SIX MONTHS ENDED 30 JUNE 2026",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0824/2026082401291.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-24T11:44:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-24T14:45:11Z",
+      "updated_at": "2026-08-24T14:45:11Z",
+      "decay_at": "2026-08-25T23:44:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-6857baeec631",
       "idea_version": "IDEAV-3a8093446de16731",
       "idea_version_started_at": "2026-08-24T13:46:18Z",
@@ -84928,8 +85065,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 110,
-    "live_count": 24,
+    "surfaced_total": 112,
+    "live_count": 26,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -84948,9 +85085,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 391595,
-    "news_picked_today": 2020,
-    "news_dropped_today": 11288
+    "news_seen_today": 412010,
+    "news_picked_today": 2047,
+    "news_dropped_today": 11321
   },
   "book_momentum": {
     "live_count": 8,
