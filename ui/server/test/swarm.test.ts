@@ -10,7 +10,7 @@ import { REPO_ROOT } from '../src/config'
 import { createRun, finishRun, setActiveSubjectRun, type RunState } from '../src/registry'
 import { handleFile } from '../src/fs-watcher'
 import { sigIdFor } from '../src/launcher'
-import { buildSwarmGraph, graphForSubject } from '../src/roster'
+import { buildSwarmGraph, graphForSubject, warmSwarmGraphs } from '../src/roster'
 import { listSwarms, swarmById } from '../src/swarms'
 import { admitRun } from '../src/admission'
 import type { SseEvent } from '../src/types'
@@ -34,6 +34,16 @@ check('research graph does NOT contain any screener module (one-level glob isola
   const researchNames = new Set(research.modules.map((m) => m.name))
   for (const m of screener.modules) assert.ok(!researchNames.has(m.name), `${m.name} leaked into research`)
   assert.equal(research.swarm, undefined) // default payload stays byte-stable (no swarm descriptor)
+})
+
+check('startup warming builds every discovered swarm graph generically', () => {
+  const manifests = listSwarms(true)
+  const graphs = warmSwarmGraphs()
+  assert.deepEqual(
+    graphs.map((graph) => graph.swarm?.id || 'research'),
+    manifests.map((swarm) => swarm.id),
+  )
+  assert.ok(graphs.every((graph) => graph.totals.modules > 0), 'every admitted swarm must have a ready graph')
 })
 
 check('screener swarm is discovered from its SWARM.md manifest with a routing contract', () => {

@@ -10,7 +10,7 @@
 // into ONE row (server dedup) with a "+N · also …" expander; multi-source corroboration nudges its rank.
 // Click a row to read the whole event; set aside the ones not worth a check.
 
-import { useEffect, useMemo, useRef, useState, type FocusEvent as ReactFocusEvent, type MouseEvent as ReactMouseEvent } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState, type FocusEvent as ReactFocusEvent, type MouseEvent as ReactMouseEvent } from 'react'
 import { createPortal } from 'react-dom'
 import { groupByDedup, type StoryGroup } from '../../lib/dedup'
 import { displayHeadline, originalHeadline, plainSize, plainTheme } from '../../lib/plain'
@@ -294,6 +294,7 @@ export function EventRail() {
   const archiveError = useStore((s) => s.scArchiveError)
   const activeArchiveQuery = useStore((s) => s.scArchiveQuery)
   const facets = useStore((s) => s.scFacets)
+  const facetsLoading = useStore((s) => s.scFacetsLoading)
   const runArchiveSearch = useStore((s) => s.scRunArchiveSearch)
   const loadMoreArchive = useStore((s) => s.scLoadMoreArchive)
   const loadFacets = useStore((s) => s.scLoadFacets)
@@ -318,7 +319,20 @@ export function EventRail() {
   const [filters, setFilters] = useState<FeedFilterState>(emptyFilters())
   // collapse toggle for the secondary filters — COLLAPSED by default; opens only if you've opened it before (per browser)
   const [filtersOpen, setFiltersOpen] = useState<boolean>(() => { try { return localStorage.getItem('nsw.filtersOpen') === '1' } catch { return false } })
-  const toggleFilters = () => setFiltersOpen((v) => { const n = !v; try { localStorage.setItem('nsw.filtersOpen', n ? '1' : '0') } catch {} return n })
+  // Facets scan the whole archive and are expensive. Fetch them only when the reader first reaches for a
+  // filter; active archive searches still refresh them in context through scRunArchiveSearch.
+  const facetRequestRef = useRef(false)
+  const ensureFacets = useCallback(() => {
+    if (facets || facetsLoading || facetRequestRef.current) return
+    facetRequestRef.current = true
+    void loadFacets({}).finally(() => { facetRequestRef.current = false })
+  }, [facets, facetsLoading, loadFacets])
+  const toggleFilters = () => {
+    const n = !filtersOpen
+    if (n) ensureFacets()
+    setFiltersOpen(n)
+    try { localStorage.setItem('nsw.filtersOpen', n ? '1' : '0') } catch {}
+  }
   const refineCount = filters.themes.size + (filters.size ? 1 : 0) + (filters.gicsSector ? 1 : 0) + (filters.gicsSubSector ? 1 : 0) + (filters.text.trim() ? 1 : 0)
   const clearRefinements = () => setFilters(clearSecondaryFilters)
   // Sector & Commodity drill into specific sub-values (dynamic multi-select); openDrop = which menu is open
@@ -409,10 +423,6 @@ export function EventRail() {
     const id = setTimeout(() => { void runArchiveSearch(archiveMode ? archiveQueryRef.current : {}) }, 220)
     return () => clearTimeout(id)
   }, [archiveKey, archiveMode, runArchiveSearch])
-  // populate the Geography dropdown from the ARCHIVE (every country that has any archived match), not the
-  // loaded window — so "United Arab Emirates" appears even when nothing is in the last two days.
-  useEffect(() => { void loadFacets({}) }, [loadFacets])
-
   // the rendered set: the archive matches in archive mode, the live wire otherwise
   const items = archiveMode ? archiveResults : liveItems
 
@@ -706,7 +716,7 @@ export function EventRail() {
         {/* GEOGRAPHY — country-level, Continent → Country, fed by the ARCHIVE facets (every country with any
             archived match, with counts), NOT the loaded window. Picking either flips the rail to a
             whole-history search, so "Aerospace & Defense in the United Arab Emirates" actually returns. */}
-        <div className="evscope evscope--geo" role="group" aria-label="Filter by geography — the country the event is about">
+        <div className="evscope evscope--geo" role="group" aria-label="Filter by geography — the country the event is about" onFocusCapture={ensureFacets} onPointerDown={ensureFacets}>
           <span className="evscope__dim" aria-hidden>Where</span>
           <select
             className="ffilters__sel"
@@ -723,8 +733,8 @@ export function EventRail() {
             className="ffilters__sel"
             value={filters.country}
             onChange={(e) => { const cc = e.target.value; setGeo({ country: cc, geoRegion: cc ? countryParent(cc) || filters.geoRegion : filters.geoRegion }) }}
-            disabled={!facets}
-            title={facets ? 'Country — every country that has any archived match' : 'loading the archive’s countries…'}
+            disabled={facetsLoading}
+            title={facets ? 'Country — every country that has any archived match' : facetsLoading ? 'Loading the archive’s countries…' : 'Open to load every country in the archive'}
           >
             <option value="">{filters.geoRegion ? `all of ${filters.geoRegion}` : 'any country'}</option>
             {countryOptions.map((c) => (
@@ -735,7 +745,7 @@ export function EventRail() {
         {/* COMPANY — a primary question alongside Where, not an advanced refinement. The autocomplete's
             matching contract is unchanged; only its placement is promoted so it never disappears behind
             the Filters disclosure. */}
-        <div className="evscope evscope--company-filter" role="group" aria-label="Filter by company or ticker">
+        <div className="evscope evscope--company-filter" role="group" aria-label="Filter by company or ticker" onFocusCapture={ensureFacets} onPointerDown={ensureFacets}>
           <span className="evscope__dim" aria-hidden>Company</span>
           <CompanyFilter
             value={filters.company}

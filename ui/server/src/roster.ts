@@ -204,6 +204,13 @@ export function buildSwarmGraph(swarmId: string = RESEARCH_SWARM_ID, force = fal
   return graph
 }
 
+// Build every discovered graph during process startup, before the server announces readiness. The graph
+// builder is synchronous and cached, so doing this once keeps the first request to any swarm off the cold
+// discovery/parsing path without hardcoding today's swarm ids (§26 zero-touch discovery).
+export function warmSwarmGraphs(): SwarmGraph[] {
+  return listSwarms().map((swarm) => buildSwarmGraph(swarm.id))
+}
+
 // The terminal module of a swarm's DAG — the sink no other module depends on (topo-last tiebreak).
 // A constellation swarm's final deliverable is this module's 99 synthesis (e.g. the commodity
 // dossier); research's is the master synthesizer's final_thesis.md, which is not a module, so
