@@ -1034,6 +1034,10 @@ function withWireClause(s: { swarms: SwarmMeta[]; activeSwarm: string; swarmSubj
   const cfg = activeWireConfig(s)
   return cfg && !cfg.flow && cfg.eventScope && !q.commodities?.length ? { ...q, wireScope: cfg.eventScope } : q
 }
+
+function archiveQueryActive(q: ArchiveQuery): boolean {
+  return !!(q.themes?.length || q.country || q.geoRegion || q.source || q.band || q.size || q.linkage || q.gicsSector || q.gicsSubSector || q.companyTicker || q.companyName || q.companyAliases?.length || q.companyTickerAliases?.length || q.commodities?.length || (q.text && q.text.trim()))
+}
 // is the active swarm the flow stage? (layout-driven, mirroring App.tsx's first-frame fallback — the
 // board/gauntlet are flow-stage features, not tied to a hardcoded swarm id beyond that grandfathered default)
 export function isFlowActive(s: { swarms: SwarmMeta[]; activeSwarm: string }): boolean {
@@ -5626,14 +5630,18 @@ export const useStore = create<State>((set, get) => ({
   // different questions (what matched vs what the dropdowns should offer); a failure of one must never be
   // able to erase or contradict the other.
   scRunArchiveSearch: async (q: ArchiveQuery) => {
-    const active = !!(q.themes?.length || q.country || q.geoRegion || q.source || q.band || q.size || q.linkage || q.gicsSector || q.gicsSubSector || q.companyTicker || q.companyName || q.companyAliases?.length || q.companyTickerAliases?.length || q.commodities?.length || (q.text && q.text.trim()))
+    const active = archiveQueryActive(q)
     if (!active) { // back to LIVE mode — drop the archive snapshot, keep the live wire
+      const previous = get().scArchiveQuery
+      const wasActive = archiveQueryActive(previous)
       archiveToken++
       set({ scArchiveQuery: {}, scArchiveResults: [], scArchiveCursor: null, scArchiveLoading: false, scArchiveLoadingMore: false, scArchiveScannedThrough: null, scArchiveExhausted: false, scArchiveError: null })
       // Restore the FULL-archive facets so the Geography (and other) dropdowns show every option again.
       // A prior active search overwrote scFacets with filter-narrowed facets; without this reload, clearing
       // a non-geo filter (e.g. a sector) would leave the country dropdown stuck on that sector's subset.
-      void get().scLoadFacets({})
+      // The rail also calls this empty path on mount; that is not a user filter and must not trigger the
+      // expensive whole-archive scan during startup.
+      if (wasActive) void get().scLoadFacets({})
       return
     }
     const token = ++archiveToken

@@ -176,6 +176,7 @@ export function FeedFilters({
   searchSymbols,
   compact = false,
   showCompany = true,
+  onTextIntent,
   showClear,
   onClear,
 }: {
@@ -186,6 +187,7 @@ export function FeedFilters({
   searchSymbols?: (q: string) => Promise<SymbolGroup[]> // the global "any ticker, any country" directory (api.symbolSearch) — injected by the live surfaces
   compact?: boolean // the rail variant: themes + text + size (no band/source/linkage; region lives in the rail's own Geography dropdown)
   showCompany?: boolean // false when the surface promotes CompanyFilter into its always-visible primary controls
+  onTextIntent?: () => void // lets a lazy surface load ticker→company knowledge before keyword search
   showClear?: boolean // lets a surface scope the clear affordance to only the filters rendered in this panel
   onClear?: () => void
 }) {
@@ -215,7 +217,10 @@ export function FeedFilters({
           value={value.text}
           placeholder={showCompany ? 'search headline, company or ticker…' : 'search headlines or keywords…'}
           title="Search the words in a headline. Type a ticker (AMZN) and it is read as that company, so you get its news however the headline spells it."
-          onChange={(e) => set({ text: e.target.value })}
+          onFocus={onTextIntent}
+          onPointerDown={onTextIntent}
+          onClick={onTextIntent}
+          onChange={(e) => { onTextIntent?.(); set({ text: e.target.value }) }}
         />
         {!compact && (
           <select className="ffilters__sel" value={value.band} onChange={(e) => set({ band: e.target.value })} title="Kept or dropped">
