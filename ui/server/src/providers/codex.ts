@@ -269,6 +269,13 @@ function codexProbeRuntimeKey(
 export function codexChildEnv(source: NodeJS.ProcessEnv = process.env): NodeJS.ProcessEnv {
   const env: NodeJS.ProcessEnv = {}
   for (const key of CODEX_CHILD_ENV_ALLOWLIST) if (source[key] !== undefined) env[key] = source[key]
+  // launchd starts the engine with an absolute Node executable, but npm-installed CLI shims use
+  // `#!/usr/bin/env node`. Preserve that exact runtime directory in the scrubbed child PATH so the
+  // pinned Codex shim can start even when Node lives outside launchd's static Homebrew/local paths.
+  const runtimeBin = path.dirname(process.execPath)
+  env.PATH = [runtimeBin, ...String(env.PATH || '').split(path.delimiter)]
+    .filter((entry, index, entries) => Boolean(entry) && entries.indexOf(entry) === index)
+    .join(path.delimiter)
   env.NOSTRA_COCKPIT_RUN = '1'
   env.NO_COLOR = '1'
   for (const key of CODEX_COCKPIT_ENV_ALLOWLIST) if (source[key]) env[key] = source[key]
@@ -1257,7 +1264,8 @@ async function probeCodex(
       throw new Error(`${label} failed: ${String(error?.shortMessage || error?.message || error)}`)
     }
     if (result.exitCode !== 0 || result.failed) {
-      const detail = String(result.stderr || result.stdout || '').trim().split(/\r?\n/)[0]
+      const detail = String(result.stderr || result.stdout || result.shortMessage || result.message || '')
+        .trim().split(/\r?\n/)[0]
       throw new Error(`${label} failed${detail ? `: ${detail.slice(0, 240)}` : ` (exit ${result.exitCode})`}`)
     }
     return { stdout: String(result.stdout || ''), stderr: String(result.stderr || '') }
