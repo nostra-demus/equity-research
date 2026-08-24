@@ -602,7 +602,12 @@ export function createIbkrPaperExecutionService(options: ExecutionOptions = {}) 
       const delta = plan.signedQuantity - currentQuantity
       if (Math.abs(delta) < 1e-9) continue
       if (closePhaseActive) {
-        skipped.push({ ticker: symbol, reason: 'Reconciliation will add or resize this target only after a fresh broker snapshot confirms all prior holdings are closed.' })
+        skipped.push({
+          ticker: symbol,
+          reason: command.reconcilePositions
+            ? 'Reconciliation will add or resize this target only after a fresh broker snapshot confirms all prior holdings are closed.'
+            : 'Close the non-target paper positions before Sync adds a new trade.',
+        })
         continue
       }
       if (riskReductionPhaseActive && !riskReducingSymbols.has(symbol)) {

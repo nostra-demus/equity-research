@@ -62,13 +62,17 @@ const unexpectedHoldingService = createIbkrPaperExecutionService({
   enabled: true, allowedAccountId: accountId,
   snapshotReader: async () => snapshot([{ contract_id: 789, symbol: 'OTHER', local_symbol: 'OTHER', security_type: 'STK', currency: 'USD', exchange: 'SMART', quantity: 20, average_cost: 50, market_price: 50, market_value: 1_000, unrealized_pnl: 0, realized_pnl: 0 }]),
   callsReader: async () => ({ calls: [selectedCall] }),
-  quoteResolver: async () => { throw new Error('quote should not run') },
+  quoteResolver: async () => ({
+    contract: { conId: 123, symbol: 'ACME', secType: 'STK' as any, exchange: 'SMART', primaryExch: 'NASDAQ', currency: 'USD' },
+    price: 100, min_tick: 0.01,
+  }),
   orderPlacer: async () => { unsafePlacement++; throw new Error('order should not run') },
 })
 const unexpectedBlocked = await unexpectedHoldingService.sync('55555555-5555-4555-8555-555555555555')
 assert.equal(unexpectedBlocked.orders.length, 0)
 assert.equal(unsafePlacement, 0)
 assert.match(unexpectedBlocked.detail, /waiting or blocked/)
+assert.match(unexpectedBlocked.skipped.find((row) => row.ticker === 'ACME')?.reason || '', /Close the non-target paper positions/)
 
 const automaticCloseOrders: any[] = []
 const automaticClose = createIbkrPaperExecutionService({
