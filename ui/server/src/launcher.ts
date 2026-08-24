@@ -2695,8 +2695,8 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
     if (!/^[A-Z0-9.\-]{1,12}$/.test(subjectId) || params.ticker && params.ticker.toUpperCase() !== subjectId
         || binding.provider !== profile.provider || binding.expected_model !== profile.model
         || binding.expected_reasoning_level !== profile.reasoningLevel || binding.expected_profile_key !== profile.profileKey
-        || path.resolve(String(binding.run_root || '')) !== rootAbsolute
-        || path.resolve(String(binding.receipt_path || '')) !== freezeAbsolute
+        || resolveParityBindingPath(String(binding.run_root || '')) !== rootAbsolute
+        || resolveParityBindingPath(String(binding.receipt_path || '')) !== freezeAbsolute
         || binding.receipt_sha256 !== freeze.receipt_sha256) {
       throw Object.assign(new Error('parity canary binding does not match the requested provider/profile/root'), { statusCode: 409 })
     }
@@ -3207,6 +3207,12 @@ export function paritySnapshotRootMatchesDataSubject(snapshotRoot: string, dataD
   } catch {
     return false
   }
+}
+
+/** Resolve immutable parity binding paths across deployed worktrees without admitting traversal. */
+export function resolveParityBindingPath(value: string): string | null {
+  if (!value || value.includes('\\') || (!path.isAbsolute(value) && value.split('/').includes('..'))) return null
+  return path.resolve(path.isAbsolute(value) ? value : path.join(REPO_ROOT, value))
 }
 
 // The post-ack half of launch(): readiness gate, then spawn (or park at the gate for a human decision).

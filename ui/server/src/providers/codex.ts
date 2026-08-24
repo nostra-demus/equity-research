@@ -273,8 +273,7 @@ export function codexChildEnv(source: NodeJS.ProcessEnv = process.env): NodeJS.P
   // `#!/usr/bin/env node`. Preserve that exact runtime directory in the scrubbed child PATH so the
   // pinned Codex shim can start even when Node lives outside launchd's static Homebrew/local paths.
   const runtimeBin = path.dirname(process.execPath)
-  env.PATH = [runtimeBin, ...String(env.PATH || '').split(path.delimiter)]
-    .filter((entry, index, entries) => Boolean(entry) && entries.indexOf(entry) === index)
+  env.PATH = [...new Set([runtimeBin, ...String(env.PATH || '').split(path.delimiter).filter(Boolean)])]
     .join(path.delimiter)
   env.NOSTRA_COCKPIT_RUN = '1'
   env.NO_COLOR = '1'
@@ -1264,8 +1263,9 @@ async function probeCodex(
       throw new Error(`${label} failed: ${String(error?.shortMessage || error?.message || error)}`)
     }
     if (result.exitCode !== 0 || result.failed) {
-      const detail = String(result.stderr || result.stdout || result.shortMessage || result.message || '')
-        .trim().split(/\r?\n/)[0]
+      const detail = [result.stderr, result.stdout, result.shortMessage, result.message]
+        .map((value) => String(value || '').trim())
+        .find(Boolean)?.split(/\r?\n/)[0] || ''
       throw new Error(`${label} failed${detail ? `: ${detail.slice(0, 240)}` : ` (exit ${result.exitCode})`}`)
     }
     return { stdout: String(result.stdout || ''), stderr: String(result.stderr || '') }

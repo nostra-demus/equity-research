@@ -16,7 +16,7 @@ from compare_provider_runs import EXIT_PASS, compare_run_roots  # noqa: E402
 from provider_parity_freeze import (  # noqa: E402
     FREEZE_SCHEMA_PATH, RUN_BINDING_BASENAME, RUN_BINDING_SCHEMA_PATH,
     FreezeError, SCHEMA_VERSION, build_freeze_manifest, digest_file, digest_json, receipt_digest,
-    snapshot_receipt, validate_against_schema,
+    snapshot_receipt, validate_against_schema, _repo_relative_or_absolute,
 )
 
 SCRIPT = Path(__file__).with_name("provider_parity_freeze.py")
@@ -113,6 +113,15 @@ class Fixture:
 
 
 class FreezeTest(unittest.TestCase):
+    def test_in_repo_binding_paths_are_relocatable(self):
+        repo_root = Path(__file__).resolve().parent.parent
+        self.assertEqual(
+            _repo_relative_or_absolute(repo_root / "analyses/provider-parity/freeze/example.json"),
+            "analyses/provider-parity/freeze/example.json",
+        )
+        external = Path(tempfile.gettempdir()).resolve() / "nostra-parity-external.json"
+        self.assertEqual(_repo_relative_or_absolute(external), str(external))
+
     def test_prelaunch_receipt_and_bindings_validate_then_release_passes(self):
         with tempfile.TemporaryDirectory() as temporary:
             fixture = Fixture(Path(temporary)); receipt = fixture.build()
