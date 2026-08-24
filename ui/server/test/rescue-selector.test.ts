@@ -269,6 +269,20 @@ function row(id: string, fields: Partial<FeedItem> = {}): FeedItem {
   assert.equal(new Set(split.candidates.map((candidate) => candidate.identity_key)).size, 2)
 }
 
+{
+  const ambiguousNameOnly = row('EVT-name-country-conflict', {
+    event_types: ['commercial'],
+    companies: [
+      { name: 'Global Industries Inc', ticker: null, listing_country: 'US' },
+      { name: 'Global Industries Corporation', ticker: null, listing_country: 'IN' },
+    ],
+  })
+  const result = selectRescueCandidates([ambiguousNameOnly], NOW)
+  assert.equal(result.candidates.length, 0,
+    'same-core tickerless companies with conflicting known countries are not assigned by input order')
+  assert.equal(result.reconciled.no_identity, 1)
+}
+
 // Historical replay gate. These committed files are the real partial-day samples used to size the rule.
 // The selector must stay in the approved 150–250 daily band and every row must reconcile exactly once.
 const repoRoot = path.resolve(import.meta.dirname, '../../..')

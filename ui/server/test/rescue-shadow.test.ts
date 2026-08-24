@@ -139,6 +139,33 @@ function recordRescueRows(stateDir: string, rows: readonly FeedItem[], now = STA
 }
 
 {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'rescue-shadow-audit-directory-unsupported-'))
+  const open = fs.openSync
+  try {
+    const candidate = selectRescueCandidates([row(1)], START).candidates[0]
+    const reservation = reserveRescueCheck(root, '2026-08-22', candidate, RESCUE_SELECTOR_VERSION, START)
+    assert.ok(reservation)
+    const auditDir = path.join(root, 'news-rescue', 'ledger')
+    ;(fs as any).openSync = (target: fs.PathLike, flags: string | number, mode?: number) => {
+      if (String(target) === auditDir && flags === 'r') {
+        const error = new Error('directory fsync unsupported') as NodeJS.ErrnoException
+        error.code = 'ENOTSUP'
+        throw error
+      }
+      return open(target, flags as any, mode)
+    }
+    assert.equal(completeRescueCheck(root, '2026-08-22', reservation.key, {
+      status: 'verified', ticker: 'C1', companyName: 'Company 1 Inc', exchange: 'NYSE',
+    }, baseConfig.auditMaxBytes, START), true,
+    'an unsupported audit-directory fsync does not wedge a platform that cannot provide it')
+    assert.equal(loadRescueDay(root, '2026-08-22').ledger.checks[0].audit_pending, false)
+  } finally {
+    ;(fs as any).openSync = open
+    fs.rmSync(root, { recursive: true, force: true })
+  }
+}
+
+{
   const order: string[] = []
   await runNormalIdeasThenSecondLook({
     ideas: async () => {
@@ -209,6 +236,12 @@ function responseForUrl(url: string): any {
     assert.equal(loadRescueQueue(root).committed, false,
       'a staged feed range blocks lookups until the post-Ideas queue update lands')
 
+    assert.equal(recordRescueMode(root, 'off', START), true)
+    assert.equal(flushStagedRescueRows(root, root, START, 36, 'off'), true)
+    assert.deepEqual(fs.readFileSync(queuePath), queueBeforeIngest,
+      'off mode leaves the staged marker in place without rewriting the rolling queue')
+    assert.equal(readRescueMode(root).mode, 'off', 'off-mode flushing cannot silently turn shadow mode back on')
+
     const order: string[] = []
     await runNormalIdeasThenSecondLook({
       ideas: async () => { order.push('normal-ideas'); return { coverage_complete: true } },
@@ -222,6 +255,36 @@ function responseForUrl(url: string): any {
     const queue = loadRescueQueue(root)
     assert.equal(queue.committed, true)
     assert.ok(queue.items.some((saved) => saved.event_id === item.event_id))
+  } finally { fs.rmSync(root, { recursive: true, force: true }) }
+}
+
+{
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'rescue-shadow-retention-growth-'))
+  try {
+    const shortWindowHrs = 12
+    const matureStart = START - shortWindowHrs * 3_600_000 - 5 * 60_000 - 1
+    assert.equal(recordRescueRowsProduction(root, [], matureStart, shortWindowHrs), true)
+    assert.equal(recordRescueRowsProduction(root, [row(1)], START, shortWindowHrs), true)
+    assert.equal(loadRescueQueue(root).max_age_hrs, shortWindowHrs)
+
+    const grewAt = START + 60_000
+    const fresh = withInitialRescueDecision({
+      ...row(2), ts: new Date(grewAt).toISOString(), found_at: new Date(grewAt).toISOString(),
+    })
+    assert.equal(recordRescueRowsProduction(root, [fresh], grewAt, 36), true)
+    const queue = loadRescueQueue(root)
+    assert.equal(queue.max_age_hrs, 36)
+    assert.equal(queue.coverage_started_at, new Date(grewAt).toISOString(),
+      'growing the retention window starts a new proof clock for the newly included history')
+    let calls = 0
+    const result = await runRescueShadowPass({
+      stateDir: root, config: baseConfig, coreReady: true,
+      fetchImpl: (async (url: string) => { calls++; return responseForUrl(url) }) as any,
+      now: () => grewAt,
+    })
+    assert.equal(result.status, 'warming')
+    assert.equal(result.candidatesFound, null)
+    assert.equal(calls, 0)
   } finally { fs.rmSync(root, { recursive: true, force: true }) }
 }
 

@@ -194,8 +194,15 @@ function identity(item: FeedItem): { ticker: string | null; name: string; countr
   }
   if (named.size !== 1) return null
   const [core, matches] = [...named.entries()][0]
-  const company = matches[0]
-  return { ticker: null, name: company.name, country: company.country, key: `name:${core}` }
+  const knownCountries = new Set(matches
+    .map((company) => String(company.country || '').trim().toUpperCase())
+    .filter(Boolean))
+  // Two tickerless rows can normalize to the same company core while still naming different listed
+  // issuers. Never let input order choose a country for the one external directory query.
+  if (knownCountries.size > 1) return null
+  const country = [...knownCountries][0] || null
+  const company = matches.find((match) => String(match.country || '').trim()) || matches[0]
+  return { ticker: null, name: company.name, country, key: `name:${core}` }
 }
 
 function publisherIdentity(item: FeedItem): string {

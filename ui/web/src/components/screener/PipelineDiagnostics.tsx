@@ -12,7 +12,7 @@ import { motion } from 'framer-motion'
 import { useStore } from '../../lib/store'
 import type { DeferReason, LastResortState, NewsDiagnostics, TierDiagnostics, TierHealth } from '../../lib/types'
 import { tierMeter } from './pipelineMeter'
-import { diagnosticDeferReasons, fmtFailingFor, lastCycleArrivalCopy, pipelineFlowPresentation, tierStatusCopy, todayOutcomeCopy } from './pipelineDiagnosticsView'
+import { dailyLossTotalsAvailable, diagnosticDeferReasons, fmtFailingFor, lastCycleArrivalCopy, pipelineFlowPresentation, tierStatusCopy, todayOutcomeCopy } from './pipelineDiagnosticsView'
 import { PipelineTrendView } from './PipelineTrend'
 import './PipelineDiagnostics.css'
 
@@ -291,6 +291,7 @@ export function PipelineDiagnostics() {
   const deferReasons = diag ? diagnosticDeferReasons(diag.defer) : []
   const storageEmergency = deferReasons.includes('storage-emergency')
   const dailyScoringTotalsKnown = diag?.today.totalsLowerBound === false && diag?.today.durablyCommitted === true
+  const dailyLossTotalsKnown = !!diag && dailyLossTotalsAvailable(diag.today, diag.backlog)
   // Tiers the provider is refusing the key for. Read off the per-tier flag rather than the defer group so this
   // still renders against an engine that has the flag but not yet the group (rolling deploy).
   const credentialBlocked = (diag?.tiers || []).filter((t) => t.enabled && t.spendingAllowed !== false && t.credentialRejected === true)
@@ -408,14 +409,14 @@ export function PipelineDiagnostics() {
                 <li><b>{diag.backlog.unavailable ? '—' : (diag.backlog.unscoredCount ?? diag.backlog.count).toLocaleString()}</b> items currently waiting for a first score{diag.backlog.unavailable ? ' — the saved waiting list could not be read.' : '.'}</li>
                 {(diag.backlog.projectionRecoveryCount ?? 0) > 0 && <li><b>{diag.backlog.projectionRecoveryCount!.toLocaleString()}</b> items already scored and waiting to be safely saved.</li>}
                 <li><b>{dailyScoringTotalsKnown ? diag.today.dropped.toLocaleString() : '—'}</b> items scored but not sent to the main inbox{dailyScoringTotalsKnown ? '.' : ' — saved cycle records cannot prove the full total.'}</li>
-                <li><b>{diag.backlog.lostToday.toLocaleString()}</b> items never scored by older scanner versions because the active waiting list was full.</li>
-                <li><b>{(diag.backlog.retiredToday ?? 0).toLocaleString()}</b> items never scored because they waited too long.</li>
+                <li><b>{dailyLossTotalsKnown ? diag.backlog.lostToday.toLocaleString() : '—'}</b> items never scored by older scanner versions because the active waiting list was full{dailyLossTotalsKnown ? '.' : ' — saved cycle records cannot prove the full total.'}</li>
+                <li><b>{dailyLossTotalsKnown ? diag.backlog.retiredToday!.toLocaleString() : '—'}</b> items never scored because they waited too long{dailyLossTotalsKnown ? '.' : ' — saved cycle records cannot prove the full total.'}</li>
               </ul>
             </div>
             <BacklogGauge
               b={diag.backlog}
               dailyLossTotalsLowerBound={diag.today.totalsLowerBound === true && diag.today.durablyCommitted === true}
-              dailyLossTotalsUnverified={diag.today.totalsLowerBound !== false || diag.today.durablyCommitted !== true}
+              dailyLossTotalsUnverified={!dailyLossTotalsKnown}
               storageEmergency={storageEmergency}
             />
           </section>

@@ -41,6 +41,8 @@ export interface RescueQueueSnapshot {
   items: FeedItem[]
   updated_at: string | null
   coverage_started_at: string | null
+  /** Retention window whose complete coverage the saved clock proves. */
+  max_age_hrs: number | null
   /** Exact active firehose file sizes after the queue last committed. Summary lines are included. */
   feed_checkpoint: RescueFeedCheckpoint | null
   /** Queue and staged batch agree before applying the process-local failure witness. */
@@ -372,6 +374,7 @@ export function rescueQueueEnabled(mode: unknown): boolean {
 function loadQueueSnapshot(file: string): RescueQueueSnapshot {
   const empty = (): RescueQueueSnapshot => ({
     available: true, items: [], updated_at: null, coverage_started_at: null,
+    max_age_hrs: null,
     feed_checkpoint: null, durable_committed: true, committed: true, incomplete_since: null,
   })
   if (!fs.existsSync(file)) return empty()
@@ -384,6 +387,10 @@ function loadQueueSnapshot(file: string): RescueQueueSnapshot {
     if (raw.coverage_started_at != null
       && (typeof raw.coverage_started_at !== 'string' || !Number.isFinite(Date.parse(raw.coverage_started_at)))) {
       throw new Error('queue coverage clock')
+    }
+    if (raw.max_age_hrs != null
+      && (typeof raw.max_age_hrs !== 'number' || !Number.isFinite(raw.max_age_hrs) || raw.max_age_hrs < 1)) {
+      throw new Error('queue retention window')
     }
     if (raw.incomplete_since != null
       && (typeof raw.incomplete_since !== 'string' || !Number.isFinite(Date.parse(raw.incomplete_since)))) {
@@ -402,6 +409,7 @@ function loadQueueSnapshot(file: string): RescueQueueSnapshot {
       items: raw.items,
       updated_at: updatedAt,
       coverage_started_at: coverageStartedAt,
+      max_age_hrs: typeof raw.max_age_hrs === 'number' ? raw.max_age_hrs : null,
       feed_checkpoint: isRescueFeedCheckpoint(raw.feed_checkpoint) ? raw.feed_checkpoint : null,
       durable_committed: !incompleteSince,
       committed: !incompleteSince,
@@ -418,6 +426,7 @@ export function loadRescueQueue(stateDir: string): RescueQueueSnapshot {
   const staged = loadRescueFeedStage(stateDir)
   if (!main.available || !pending.available || !staged.available) return {
     available: false, items: [], updated_at: null, coverage_started_at: null,
+    max_age_hrs: pending.max_age_hrs ?? main.max_age_hrs,
     feed_checkpoint: pending.feed_checkpoint || main.feed_checkpoint,
     durable_committed: false, committed: false, incomplete_since: pending.incomplete_since, error: 'unreadable',
   }
@@ -431,6 +440,7 @@ export function loadRescueQueue(stateDir: string): RescueQueueSnapshot {
   const items = [...byId.values()]
   if (items.length > RESCUE_QUEUE_MAX_ITEMS) return {
     available: false, items: [], updated_at: null, coverage_started_at: null,
+    max_age_hrs: pending.max_age_hrs ?? main.max_age_hrs,
     feed_checkpoint: pending.feed_checkpoint || main.feed_checkpoint,
     durable_committed: false, committed: false, incomplete_since: pending.incomplete_since, error: 'overflow',
   }
@@ -452,6 +462,7 @@ export function loadRescueQueue(stateDir: string): RescueQueueSnapshot {
     items,
     updated_at: times.sort().at(-1) || null,
     coverage_started_at: starts.sort()[0] || null,
+    max_age_hrs: pending.max_age_hrs ?? main.max_age_hrs,
     feed_checkpoint: savedCheckpoint,
     durable_committed: pendingCommitted && !stagePending,
     committed: pendingCommitted && !stagePending && runtimeFailureAt == null,
@@ -568,7 +579,11 @@ export function flushStagedRescueRows(
   stateDir: string,
   now = Date.now(),
   maxAgeHrs = 36,
+  mode: 'off' | 'shadow' = 'shadow',
 ): boolean {
+  // Off mode preserves the tiny marker without parsing firehose rows or rewriting the rolling queue.
+  // If shadow mode is enabled later, the normal post-Ideas path can safely apply the saved range then.
+  if (!rescueQueueEnabled(mode)) return true
   const loaded = loadRescueFeedStage(stateDir)
   const fail = (message = RESCUE_QUEUE_PENDING_WRITE_ERROR): false => {
     noteRuntimeQueueFailure(stateDir, now)
@@ -613,12 +628,18 @@ export function recordRescueRows(
     updateRescueHealth(stateDir, { audit_healthy: false, audit_error: 'The saved second-look queue cannot be read.' }, now)
     return false
   }
-  const minTime = now - Math.max(1, maxAgeHrs) * 3_600_000
+  const normalizedMaxAgeHrs = Number.isFinite(maxAgeHrs) ? Math.max(1, maxAgeHrs) : 36
+  const minTime = now - normalizedMaxAgeHrs * 3_600_000
   const runtimeFailureAt = rescueRuntimeQueueFailureAt(stateDir)
   const mode = readRescueMode(stateDir)
   const savedFeedCheckpoint = pending.feed_checkpoint || prior.feed_checkpoint
   const continuityBroken = continuity ? !rescueFeedCheckpointMatches(savedFeedCheckpoint, continuity.before) : false
-  const coverageStartedAt = !mode.available || mode.mode !== 'shadow' || runtimeFailureAt != null || continuityBroken
+  const savedMaxAgeHrs = pending.max_age_hrs ?? prior.max_age_hrs
+  const retentionWindowGrew = savedMaxAgeHrs == null
+    ? !!(prior.coverage_started_at || pending.coverage_started_at)
+    : normalizedMaxAgeHrs > savedMaxAgeHrs
+  const coverageStartedAt = !mode.available || mode.mode !== 'shadow' || runtimeFailureAt != null
+    || continuityBroken || retentionWindowGrew
     ? new Date(now).toISOString()
     : prior.coverage_started_at || pending.coverage_started_at || new Date(now).toISOString()
   const nextFeedCheckpoint = continuity?.after || savedFeedCheckpoint
@@ -631,6 +652,7 @@ export function recordRescueRows(
       v: 1,
       updated_at: incompleteSince,
       coverage_started_at: coverageStartedAt,
+      max_age_hrs: normalizedMaxAgeHrs,
       ...(nextFeedCheckpoint ? { feed_checkpoint: nextFeedCheckpoint } : {}),
       incomplete_since: incompleteSince,
       items: pendingItems,
@@ -665,6 +687,7 @@ export function recordRescueRows(
     v: 1,
     updated_at: new Date(now).toISOString(),
     coverage_started_at: coverageStartedAt,
+    max_age_hrs: normalizedMaxAgeHrs,
     ...(nextFeedCheckpoint ? { feed_checkpoint: nextFeedCheckpoint } : {}),
     ...(pending.incomplete_since ? { incomplete_since: pending.incomplete_since } : {}),
     items: retained,
@@ -690,6 +713,7 @@ export function recordRescueRows(
   }
   const ok = atomicWriteJson(stateDir, queueFile(stateDir), {
     v: 1, updated_at: new Date(now).toISOString(), coverage_started_at: coverageStartedAt,
+    max_age_hrs: normalizedMaxAgeHrs,
     ...(nextFeedCheckpoint ? { feed_checkpoint: nextFeedCheckpoint } : {}), items,
   }, RESCUE_QUEUE_MAX_BYTES)
   // A healthy queue write cannot clear an unrelated day-ledger/monthly-audit failure. Those failures
@@ -706,7 +730,7 @@ export function recordRescueRows(
   else {
     const incompleteAt = Date.parse(pending.incomplete_since || '')
     const incompleteWindowRetired = Number.isFinite(incompleteAt)
-      && now - incompleteAt > Math.max(1, maxAgeHrs) * 3_600_000 + 5 * 60_000
+      && now - incompleteAt > normalizedMaxAgeHrs * 3_600_000 + 5 * 60_000
     // A staged batch is removable once the main queue contains it. An overflow marker stays until every
     // possibly omitted row has aged out and this bounded rewrite proves the current window is complete.
     if (!pending.incomplete_since || incompleteWindowRetired) {
@@ -721,7 +745,7 @@ export function recordRescueRows(
     )
     const overflowWindowRetired = health.audit_error === RESCUE_QUEUE_OVERFLOW_ERROR
       && overflowAt > 0
-      && now - overflowAt > Math.max(1, maxAgeHrs) * 3_600_000 + 5 * 60_000
+      && now - overflowAt > normalizedMaxAgeHrs * 3_600_000 + 5 * 60_000
     if (!health.audit_healthy && ([RESCUE_QUEUE_WRITE_ERROR, RESCUE_QUEUE_PENDING_WRITE_ERROR]
       .includes(String(health.audit_error)) || overflowWindowRetired)) {
       updateRescueHealth(stateDir, {
@@ -875,14 +899,10 @@ function syncParentDirectory(file: string): boolean {
   // Sync the ledger directory for the new monthly file, then its parent for the ledger directory entry
   // itself. The news-rescue parent already exists before a result can be reserved.
   for (const dir of [path.dirname(file), path.dirname(path.dirname(file))]) {
-    let fd: number | undefined
     try {
-      fd = fs.openSync(dir, 'r')
-      fs.fsyncSync(fd)
+      syncDirectory(dir)
     } catch {
       return false
-    } finally {
-      if (fd !== undefined) try { fs.closeSync(fd) } catch { /* no-op */ }
     }
   }
   return true

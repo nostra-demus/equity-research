@@ -166,7 +166,9 @@ export async function runConfiguredRescueShadow(
   const now = Date.now()
   // Ingest saved only a tiny firehose range marker. The potentially large rolling-queue update happens
   // here, after the caller has awaited normal Ideas, so second-look bookkeeping cannot delay core work.
-  if (!flushStagedRescueRows(REPO_ROOT, STATE_DIR, now, RESCUE_SHADOW_CONFIG.maxAgeHrs)) {
+  if (!flushStagedRescueRows(
+    REPO_ROOT, STATE_DIR, now, RESCUE_SHADOW_CONFIG.maxAgeHrs, RESCUE_SHADOW_CONFIG.mode,
+  )) {
     log('second look shadow paused — its post-Ideas queue update could not be completed')
   }
   const status = getNewsStatus()
