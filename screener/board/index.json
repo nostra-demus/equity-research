@@ -1,6 +1,50 @@
 {
-  "generated_at": "2026-08-24T18:15:41Z",
+  "generated_at": "2026-08-24T18:19:15Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260824-944",
+      "headline": "OFAC SDN List Update: Removal of Syria's designation as a State Sponsor of Terrorism and Associated Sanctions List Updates; Iran-related Designations; Updates to Iran-related General Licenses",
+      "headline_en": null,
+      "url": "https://content.govdelivery.com/accounts/USTREAS/bulletins/42685e2",
+      "source_name": "U.S. Treasury / OFAC — Recent Actions & Sanctions (SDN, GLs, enforcement)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-08-24T18:09:36Z",
+      "sweep_file": "screener/inbox/2026-08-24_sweep.json",
+      "prelim_note": "Major update to OFAC sanctions list regarding Iran and Syria, impacting global trade compliance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Major update to OFAC sanctions list regarding Iran and Syria, impacting global trade compliance.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 2,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "primary_filing",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260824-942",
       "headline": "DPSC Limited: DPSC Limited has informed the Exchange about Corporate Insolvency Resolution Process-Post facto intimation of the 5th (Fifth) Meeting of the Committee of Creditors (CoC) of India Power Corporation Limited (IPCL)",
@@ -1909,56 +1953,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260824-535",
-      "headline": "AQC: Appointment of Voluntary Administrators [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.AQC?key=2924-03125162-2A1691540",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-24T08:56:22Z",
-      "sweep_file": "screener/inbox/2026-08-24_sweep.json",
-      "prelim_note": "AQC appoints voluntary administrators, a formal insolvency/survival event for the company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "AQC appoints voluntary administrators, a formal insolvency/survival event for the company.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "default_distress",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "default_distress",
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "AQC",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -85313,9 +85307,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 770801,
-    "news_picked_today": 2281,
-    "news_dropped_today": 11939
+    "news_seen_today": 779847,
+    "news_picked_today": 2286,
+    "news_dropped_today": 11946
   },
   "book_momentum": {
     "live_count": 8,
