@@ -1,6 +1,104 @@
 {
-  "generated_at": "2026-08-24T12:44:44Z",
+  "generated_at": "2026-08-24T12:48:29Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260824-841",
+      "headline": "R&F PROPERTIES (02777): Profit Warning",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0824/2026082401423.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-24T12:40:00Z",
+      "sweep_file": "screener/inbox/2026-08-24_sweep.json",
+      "prelim_note": "Company issued a profit warning, indicating deteriorating financial performance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company issued a profit warning, indicating deteriorating financial performance.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "guidance_change",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "R&F Properties",
+          "ticker": "02777",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260824-842",
+      "headline": "HXTL (01085): VERY SUBSTANTIAL ACQUISITION IN RELATION TO DELINGHA 350 MW SOLAR THERMAL PROJECT AND NOTICE OF EGM",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0824/2026082401421.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-24T12:39:00Z",
+      "sweep_file": "screener/inbox/2026-08-24_sweep.json",
+      "prelim_note": "Company announced a very substantial acquisition of a 350 MW solar thermal project.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company announced a very substantial acquisition of a 350 MW solar thermal project.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HXTL",
+          "ticker": "01085",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260824-819",
       "headline": "NEW CONCEPTS (02221): DISCLOSEABLE TRANSACTION IN RELATION TO THE ACQUISITION OF A 12% EQUITY INTEREST IN THE TARGET COMPANY TERMINATION OF THE EQUITY TRANSFER AGREEMENT",
@@ -1871,99 +1969,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260824-666",
-      "headline": "Escalating ship attacks at Russian Black Sea ports stall wheat trade",
-      "headline_en": null,
-      "url": "https://www.hellenicshippingnews.com/escalating-ship-attacks-at-russian-black-sea-ports-stall-wheat-trade/",
-      "source_name": "Hellenic Shipping News Worldwide",
-      "input_nature": "shipping_rate_move",
-      "found_at": "2026-08-24T10:00:45Z",
-      "sweep_file": "screener/inbox/2026-08-24_sweep.json",
-      "prelim_note": "Escalating attacks at Russian Black Sea ports are stalling wheat trade, a supply shock for global grain markets.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Escalating attacks at Russian Black Sea ports are stalling wheat trade, a supply shock for global grain markets.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 5,
-        "scope": 4,
-        "event": 2,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "commodity",
-        "source_tier_id": "official_data",
-        "event_id": "operations",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector",
-        "operations"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260824-825",
-      "headline": "Booz Allen Completes Acquisition of Ultra I&C Mission Solutions Business | BAH Stock News",
-      "headline_en": null,
-      "url": "https://www.stocktitan.net/news/BAH/booz-allen-completes-acquisition-of-ultra-i-c-mission-solutions-nz6tvhplwxwi.html",
-      "source_name": "Stock Titan — Latest News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-08-24T12:30:00Z",
-      "sweep_file": "screener/inbox/2026-08-24_sweep.json",
-      "prelim_note": "Booz Allen completed the acquisition of the Ultra I&C Mission Solutions business.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Booz Allen completed the acquisition of the Ultra I&C Mission Solutions business.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 3,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "company",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Booz Allen",
-          "ticker": "BAH",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -84800,9 +84805,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 231714,
-    "news_picked_today": 1780,
-    "news_dropped_today": 11012
+    "news_seen_today": 235979,
+    "news_picked_today": 1785,
+    "news_dropped_today": 11019
   },
   "book_momentum": {
     "live_count": 8,
