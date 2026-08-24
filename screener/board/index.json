@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-24T01:46:03Z",
+  "generated_at": "2026-08-24T01:50:27Z",
   "inbox": [
     {
       "inbox_id": "INB-20260824-198",
@@ -345,6 +345,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260824-223",
+      "headline": "Fast fashion giant Shein valued at up to $27 billion in Hong Kong IPO",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/fast-fashion-giant-shein-valued-at-up-to-27-billion-in-hong-kong-ipo-19975289.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-24T01:43:26Z",
+      "sweep_file": "screener/inbox/2026-08-24_sweep.json",
+      "prelim_note": "Major IPO valuation of $27 billion for a significant market player.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Major IPO valuation of $27 billion for a significant market player.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capital_actions",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Shein",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260824-218",
       "headline": "Israeli drone strike kills two in central Gaza",
       "headline_en": null,
@@ -429,55 +478,6 @@
           "name": "Santos",
           "ticker": "STO",
           "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260824-197",
-      "headline": "Shein seeks to raise up to US$1.76 billion in Hong Kong initial public offering",
-      "headline_en": null,
-      "url": "https://www.scmp.com/business/markets/article/3365001/shein-seeks-raise-us176-billion-hong-kong-initial-public-offering?utm_source=rss_feed",
-      "source_name": "South China Morning Post",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-24T01:24:52Z",
-      "sweep_file": "screener/inbox/2026-08-24_sweep.json",
-      "prelim_note": "Shein is seeking to raise US$1.76 billion in a major IPO, which is a significant capital event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Shein is seeking to raise US$1.76 billion in a major IPO, which is a significant capital event.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capital_actions",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Shein",
-          "ticker": null,
-          "listing_country": "CN"
         }
       ],
       "size_bucket": "large",
@@ -732,6 +732,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260824-224",
+      "headline": "SoftBank Plans $6.3 Billion Retail Bond Sale in Japan",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-08-24/softbank-plans-record-1-trillion-retail-bond-offering-in-japan",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-24T00:16:25Z",
+      "sweep_file": "screener/inbox/2026-08-24_sweep.json",
+      "prelim_note": "SoftBank is planning a significant $6.3 billion retail bond sale in Japan, which impacts its capital structure and debt profile.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "SoftBank is planning a significant $6.3 billion retail bond sale in Japan, which impacts its capital structure and debt profile.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SoftBank Group",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1691,6 +1740,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260824-221",
+      "headline": "KAT: Preliminary Final Report [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.KAT?key=2924-03124914-6A1339893",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-24T01:41:45Z",
+      "sweep_file": "screener/inbox/2026-08-24_sweep.json",
+      "prelim_note": "Preliminary final reports contain material financial results for the fiscal year.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "Preliminary final reports contain material financial results for the fiscal year.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Kina Securities Ltd",
+          "ticker": "KSL",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260824-008",
       "headline": "AIM VACCINE (06660): VOLUNTARY ANNOUNCEMENT SUBMISSION OF THE APPLICATION FOR MARKETING REGISTRATION OF THE ITERATIVE PROCESS HIGH-POTENCY HUMAN DIPLOID CELL RABIES VACCINE",
       "headline_en": null,
@@ -1832,92 +1930,6 @@
           "listing_country": "CN"
         }
       ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260824-181",
-      "headline": "US-Iran War Live Updates: Bessent to unveil ‘toughest sanctions in history’; Pak army chief heads to Tehran",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/world/us-iran-war-live-updates-bessent-to-unveil-toughest-sanctions-in-history-oil-falls-pakistan-army-chief-heads-to-tehran-liveblog-19974045.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-24T01:22:11Z",
-      "sweep_file": "screener/inbox/2026-08-24_sweep.json",
-      "prelim_note": "Geopolitical escalation involving potential war and major sanctions on Iran represents a significant global risk event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "Geopolitical escalation involving potential war and major sanctions on Iran represents a significant global risk event.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 1,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "macro_sector",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260824-174",
-      "headline": "Iran war news LIVE Updates: Bessent to announce new US sanctions on Monday; Tehran threatens to halt all oil exports",
-      "headline_en": null,
-      "url": "https://www.livemint.com/news/us-news/iran-war-us-news-live-updates-warns-strait-of-hormuz-fee-fines-confiscation-donald-trump-israel-us-economic-pressure-11787530557974.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-24T00:22:08Z",
-      "sweep_file": "screener/inbox/2026-08-24_sweep.json",
-      "prelim_note": "Geopolitical escalation involving potential oil export halts and new sanctions poses a significant supply shock risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "Geopolitical escalation involving potential oil export halts and new sanctions poses a significant supply shock risk.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 1,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "macro_sector",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -84873,9 +84885,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 477,
-    "news_picked_today": 243,
-    "news_dropped_today": 234
+    "news_seen_today": 492,
+    "news_picked_today": 249,
+    "news_dropped_today": 243
   },
   "book_momentum": {
     "live_count": 8,
