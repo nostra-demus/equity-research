@@ -7,7 +7,8 @@ import type { CallPolicyTarget } from './paper-call-ledger'
 const REVISION_RE = /^[0-9a-f]{40}(?:[0-9a-f]{24})?$/
 const FINGERPRINT_RE = /^[0-9a-f]{64}$/
 
-export type LocalPaperBridgeOutcome = 'aligned' | 'submitted' | 'pending' | 'blocked' | 'error'
+export const LOCAL_PAPER_BRIDGE_OUTCOMES = ['aligned', 'submitted', 'pending', 'blocked', 'error'] as const
+export type LocalPaperBridgeOutcome = typeof LOCAL_PAPER_BRIDGE_OUTCOMES[number]
 
 export interface LocalPaperBridgeAttempt {
   schema_version: 'ibkr-paper-local-bridge/v1'
@@ -47,7 +48,8 @@ function validAttempt(value: unknown): value is LocalPaperBridgeAttempt {
   const row = value as Record<string, unknown>
   return row.schema_version === 'ibkr-paper-local-bridge/v1'
     && typeof row.at === 'string'
-    && typeof row.outcome === 'string' && ['aligned', 'submitted', 'pending', 'blocked', 'error'].includes(row.outcome)
+    && typeof row.outcome === 'string'
+    && (LOCAL_PAPER_BRIDGE_OUTCOMES as readonly string[]).includes(row.outcome)
     && (row.publication_revision === null
       || typeof row.publication_revision === 'string' && REVISION_RE.test(row.publication_revision))
     && (row.target_fingerprint === null
@@ -110,7 +112,15 @@ export function paperTargetFingerprint(target: CallPolicyTarget): string {
     exchange: row.exchange,
     call_id: row.call_id,
     decision_date: row.decision_date,
-  })).sort((a, b) => asciiCompare(a.ticker, b.ticker) || asciiCompare(a.call_id, b.call_id))
+  })).sort((a, b) => asciiCompare(a.ticker, b.ticker)
+    || asciiCompare(a.call_id, b.call_id)
+    || asciiCompare(a.decision, b.decision)
+    || asciiCompare(a.side, b.side)
+    || asciiCompare(String(a.confidence ?? ''), String(b.confidence ?? ''))
+    || asciiCompare(String(a.model_weight_pct ?? ''), String(b.model_weight_pct ?? ''))
+    || asciiCompare(a.currency, b.currency)
+    || asciiCompare(a.exchange, b.exchange)
+    || asciiCompare(a.decision_date, b.decision_date))
   const blocked = target.blocked_calls.map((row) => ({
     ticker: row.ticker,
     decision: row.decision,
@@ -118,7 +128,8 @@ export function paperTargetFingerprint(target: CallPolicyTarget): string {
     reason: row.reason,
   })).sort((a, b) => asciiCompare(a.ticker, b.ticker)
     || asciiCompare(a.decision_date || '', b.decision_date || '')
-    || asciiCompare(a.reason, b.reason))
+    || asciiCompare(a.reason, b.reason)
+    || asciiCompare(a.decision, b.decision))
   return crypto.createHash('sha256').update(JSON.stringify({ valid: target.valid, positions, blocked })).digest('hex')
 }
 
@@ -165,6 +176,16 @@ export async function runLocalPaperBridge(deps: LocalPaperBridgeDependencies): P
       detail: `Local IBKR Paper bridge is waiting safely: ${safeErrorMessage(error)}`,
     }
   }
-  writeAttempt(deps.stateDir, attempt)
-  return attempt
+  try {
+    writeAttempt(deps.stateDir, attempt)
+    return attempt
+  } catch {
+    // Broker state remains authoritative. Never expose a local path or raw stack if private
+    // observability storage fails; the next pass re-reads TWS before considering another order.
+    return {
+      ...attempt,
+      outcome: 'error',
+      detail: 'Local IBKR Paper bridge could not save its private status. Check TWS; the next pass will re-check broker positions and orders safely.',
+    }
+  }
 }

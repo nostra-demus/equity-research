@@ -91,10 +91,12 @@ const alternatePosition = {
 }
 const blockedA = { ticker: 'NVDA', decision: 'Watchlist', decision_date: '2026-08-23', reason: 'not actionable' }
 const blockedB = { ticker: 'TSLA', decision: 'Avoid', decision_date: '2026-08-22', reason: 'risk cap' }
+const blockedC = { ticker: 'META', decision: 'Watchlist', decision_date: '2026-08-21', reason: 'same reason' }
+const blockedD = { ...blockedC, decision: 'Avoid' }
 const orderedTarget = {
   ...baseTarget,
   positions: [baseTarget.positions[0], alternatePosition],
-  blocked_calls: [blockedA, blockedB],
+  blocked_calls: [blockedA, blockedB, blockedC, blockedD],
 }
 assert.equal(
   paperTargetFingerprint(orderedTarget),
@@ -222,5 +224,14 @@ assert.equal(macStatProbe.status, 0, macStatProbe.stderr)
 assert.equal(fs.existsSync(marker), true, 'the canonical macOS stat probe permits the bridge to run')
 assert.match(fs.readFileSync(statArgs, 'utf8'), /^-f %u %Lp /)
 
+const unwritableState = path.join(root, 'latest.json', 'child')
+const persistenceFailure = await runLocalPaperBridge({
+  enabled: true, operatorAuthorized: true, stateDir: unwritableState,
+  revision: () => revisionA, target: async () => baseTarget, sync: async () => aligned,
+})
+assert.equal(persistenceFailure?.outcome, 'error')
+assert.match(persistenceFailure?.detail || '', /could not save its private status/)
+assert.doesNotMatch(persistenceFailure?.detail || '', new RegExp(suiteRoot.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')))
+
 cleanup()
-console.log('ibkr-paper-local-bridge.test.ts: 16 passed')
+console.log('ibkr-paper-local-bridge.test.ts: 18 passed')
