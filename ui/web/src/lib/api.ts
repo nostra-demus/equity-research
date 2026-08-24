@@ -1122,11 +1122,11 @@ export const api = {
       as_of: new Date(0).toISOString(), connection: { host: 'localhost', port: 7497, detail: 'IBKR Paper is available only in the live cockpit.' },
       account: null, open_orders: [],
       history: {
-        schema_version: 'nostra-paper-history/v1', available: false, unit: 'normalized_nav', starting_value: 100, present_value: 100,
+        schema_version: 'nostra-paper-history/v2', available: false, unit: 'normalized_nav', starting_value: 100, present_value: 100,
         cash_value: 100, invested_value: 0, total_return_pct: 0, calls_examined: 0, non_trade_calls: 0,
         trade_calls: 0, open_trades: 0, closed_trades: 0,
         rules: { low_conviction_weight_pct: 5, high_conviction_weight_pct: 10, high_conviction_min_confidence: 75, eligible_baskets: ['Selected', 'Short'], provisional_calls_trade: false },
-        trades: [], blocked_calls: [], detail: 'Open the live cockpit to replay published calls.',
+        call_states: [], trades: [], blocked_calls: [], detail: 'Open the live cockpit to replay published calls.',
       },
       target: { valid: false, source_path: null, generated_at: new Date(0).toISOString(), gross_pct: null, cash_pct: null, positions: [], blocked_calls: [], detail: 'The static showcase cannot build a broker target.' },
       reconciliation: { status: 'unavailable', differences: [], detail: 'Open the live cockpit to compare IBKR Paper with Nostra’s sized book.' },
