@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-08-24T04:02:01Z",
+  "generated_at": "2026-08-24T04:07:38Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260824-320",
+      "headline": "JIAHUA STORES H (00602): FORECASTED INTERIM RESULTS - INCREASE IN NET LOSS",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0824/2026082400293.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-24T04:01:00Z",
+      "sweep_file": "screener/inbox/2026-08-24_sweep.json",
+      "prelim_note": "The company issued a profit warning indicating an increase in net loss for the interim period.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company issued a profit warning indicating an increase in net loss for the interim period.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Jiahua Stores Holdings Ltd",
+          "ticker": "00602",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260824-318",
       "headline": "Oriental Hotels Limited: Oriental Hotels Limited has informed the Exchange regarding a press release dated August 24, 2026, titled \"IHCL AND ORIENTAL HOTELS LIMITED ANNOUNCE MERGER\".",
@@ -492,6 +541,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260824-330",
+      "headline": "Alibaba to Raise $10.20 Billion for AI Investment With Share Placement",
+      "headline_en": null,
+      "url": "https://www.wsj.com/tech/alibaba-to-bulk-up-ai-investment-via-10-20-billion-share-placement-72b9bdac?mod=rss_Technology",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-24T03:58:00Z",
+      "sweep_file": "screener/inbox/2026-08-24_sweep.json",
+      "prelim_note": "Alibaba will raise $10.20 billion via share placement to fund AI investment, a large capital action.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Alibaba will raise $10.20 billion via share placement to fund AI investment, a large capital action.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capital_actions",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Alibaba",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1275,55 +1373,6 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260824-178",
-      "headline": "Alibaba to Bulk Up AI Investment via $10.20 Billion Share Placement",
-      "headline_en": null,
-      "url": "https://www.wsj.com/tech/alibaba-to-bulk-up-ai-investment-via-10-20-billion-share-placement-72b9bdac?mod=rss_Technology",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-24T01:07:00Z",
-      "sweep_file": "screener/inbox/2026-08-24_sweep.json",
-      "prelim_note": "Alibaba is committing $10.20 billion to AI investment via a share placement.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Alibaba is committing $10.20 billion to AI investment via a share placement.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Alibaba",
-          "ticker": null,
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
       "inbox_id": "INB-20260824-189",
       "headline": "Adani Rival GMR Plans $2 Billion Expansion at Two India Airports",
       "headline_en": null,
@@ -1912,55 +1961,6 @@
           "name": "Oriental Hotels Limited",
           "ticker": null,
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260824-006",
-      "headline": "TIANJUDIHE (02479): DISCLOSEABLE AND CONNECTED TRANSACTION IN RELATION TO DISPOSAL OF NOTES",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0824/2026082400193.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-24T00:02:00Z",
-      "sweep_file": "screener/inbox/2026-08-24_sweep.json",
-      "prelim_note": "Discloseable transaction regarding the disposal of notes.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Discloseable transaction regarding the disposal of notes.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tianjudihe",
-          "ticker": "02479",
-          "listing_country": "CN"
         }
       ],
       "size_bucket": "small",
@@ -75964,76 +75964,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-fbb98074a072",
-      "idea_version": "IDEAV-e7adf77ab9f48ad7",
-      "idea_version_started_at": "2026-08-22T17:48:11Z",
-      "ticker": "GM",
-      "company": "General Motors Company",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "General Motors reached a tentative deal with Unifor for 4,600 auto workers, reducing the risk of a strike and ensuring continued production and sales.",
-      "why_now": "The tentative deal was reached on August 22, 2026, removing immediate labor uncertainty for GM.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-d7e048c998be"
-      ],
-      "primary_source_event_id": "EVT-d7e048c998be",
-      "source_headlines": [
-        "Unifor and GM reach tentative deal for 4,600 auto workers"
-      ],
-      "source_headline": "Unifor and GM reach tentative deal for 4,600 auto workers",
-      "source_url": "https://www.theglobeandmail.com/business/article-unifor-and-gm-reach-tentative-deal-for-4600-auto-workers/",
-      "source_name": "The Globe and Mail",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-22T16:04:06Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-22T17:48:11Z",
-      "updated_at": "2026-08-22T17:48:11Z",
-      "decay_at": "2026-08-24T04:04:06Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-af31c2e0f9bf",
       "idea_version": "IDEAV-8a3955213e634ef6",
       "idea_version_started_at": "2026-08-22T22:34:43Z",
@@ -76954,6 +76884,76 @@
       "surfaced_at": "2026-08-22T17:48:11Z",
       "updated_at": "2026-08-22T17:48:11Z",
       "decay_at": "2026-08-24T02:13:50Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-fbb98074a072",
+      "idea_version": "IDEAV-e7adf77ab9f48ad7",
+      "idea_version_started_at": "2026-08-22T17:48:11Z",
+      "ticker": "GM",
+      "company": "General Motors Company",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "General Motors reached a tentative deal with Unifor for 4,600 auto workers, reducing the risk of a strike and ensuring continued production and sales.",
+      "why_now": "The tentative deal was reached on August 22, 2026, removing immediate labor uncertainty for GM.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-d7e048c998be"
+      ],
+      "primary_source_event_id": "EVT-d7e048c998be",
+      "source_headlines": [
+        "Unifor and GM reach tentative deal for 4,600 auto workers"
+      ],
+      "source_headline": "Unifor and GM reach tentative deal for 4,600 auto workers",
+      "source_url": "https://www.theglobeandmail.com/business/article-unifor-and-gm-reach-tentative-deal-for-4600-auto-workers/",
+      "source_name": "The Globe and Mail",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-22T16:04:06Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-22T17:48:11Z",
+      "updated_at": "2026-08-22T17:48:11Z",
+      "decay_at": "2026-08-24T04:04:06Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -79463,13 +79463,13 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 76,
-    "shown_count": 76,
+    "total_count": 77,
+    "shown_count": 77,
     "hidden_count": 0,
     "side_counts": {
       "long": {
-        "total_count": 25,
-        "shown_count": 25,
+        "total_count": 26,
+        "shown_count": 26,
         "hidden_count": 0
       },
       "short": {
@@ -79494,6 +79494,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-fbb98074a072",
+        "idea_version": "IDEAV-e7adf77ab9f48ad7",
+        "idea_version_started_at": "2026-08-22T17:48:11Z",
+        "ticker": "GM",
+        "company": "General Motors Company",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "General Motors reached a tentative deal with Unifor for 4,600 auto workers, reducing the risk of a strike and ensuring continued production and sales.",
+        "why_now": "The tentative deal was reached on August 22, 2026, removing immediate labor uncertainty for GM.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 62,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-d7e048c998be"
+        ],
+        "primary_source_event_id": "EVT-d7e048c998be",
+        "source_headlines": [
+          "Unifor and GM reach tentative deal for 4,600 auto workers"
+        ],
+        "source_headline": "Unifor and GM reach tentative deal for 4,600 auto workers",
+        "source_url": "https://www.theglobeandmail.com/business/article-unifor-and-gm-reach-tentative-deal-for-4600-auto-workers/",
+        "source_name": "The Globe and Mail",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-22T16:04:06Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-22T17:48:11Z",
+        "updated_at": "2026-08-22T17:48:11Z",
+        "decay_at": "2026-08-24T04:04:06Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-24T04:04:06Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-3edae567ff62",
         "idea_version": "IDEAV-50f47939c649acd3",
@@ -85120,7 +85193,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 95,
-    "live_count": 18,
+    "live_count": 17,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -85139,9 +85212,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1127,
-    "news_picked_today": 496,
-    "news_dropped_today": 631
+    "news_seen_today": 1168,
+    "news_picked_today": 508,
+    "news_dropped_today": 660
   },
   "book_momentum": {
     "live_count": 8,
