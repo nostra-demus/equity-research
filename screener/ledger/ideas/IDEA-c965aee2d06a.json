@@ -1,9 +1,9 @@
 {
-  "idea_id": "IDEA-033c53ba90ad",
-  "idea_version": "IDEAV-d10eb13132fea90e",
-  "idea_version_started_at": "2026-08-21T10:31:43Z",
-  "ticker": "08659",
-  "company": "Yik Wo International",
+  "idea_id": "IDEA-c965aee2d06a",
+  "idea_version": "IDEAV-3f87f0dae61817dd",
+  "idea_version_started_at": "2026-08-24T09:24:19Z",
+  "ticker": "1831",
+  "company": "SHIFANG HLDG",
   "exchange": "HKEX",
   "ticker_verified": false,
   "listing_verified": false,
@@ -11,15 +11,15 @@
   "listing_verification_source": null,
   "direction": "short",
   "pair_with": null,
-  "reason": "The company issued a profit warning, signaling a significant decline in earnings.",
-  "why_now": "The filing was released on 2026-08-21, making the news live for immediate market pricing.",
-  "conviction": 60,
+  "reason": "The company's shares have been halted from trading, indicating significant operational issues.",
+  "why_now": "The trading halt notice was issued on August 24, 2026.",
+  "conviction": 55,
   "conviction_basis": "pre_edge_proxy",
   "trade_score": 45,
   "trade_score_basis": "evidence_gate_v2",
   "trade_score_breakdown": {
     "evidence": 25,
-    "impact": 21,
+    "impact": 19,
     "specificity": 7,
     "timing": 10,
     "expression": 0,
@@ -32,6 +32,7 @@
     "verified listing",
     "live liquidity",
     "dated catalyst",
+    "price and market expectations",
     "live price, liquidity, and consensus"
   ],
   "learning": {
@@ -43,31 +44,31 @@
     "basis": "not_enough_outcomes",
     "evidenceIds": []
   },
-  "priced_in": "room",
+  "priced_in": "unknown",
   "thesis_type": "company_specific",
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-4d9ea5bccd01"
+    "EVT-d15287d05a24"
   ],
-  "primary_source_event_id": "EVT-4d9ea5bccd01",
+  "primary_source_event_id": "EVT-d15287d05a24",
   "source_headlines": [
-    "YIK WO INTL (08659): PROFIT WARNING"
+    "SHIFANG HLDG (01831): EXCHANGE NOTICE - TRADING HALT"
   ],
-  "source_headline": "YIK WO INTL (08659): PROFIT WARNING",
-  "source_url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/0821/2026082100496.pdf",
+  "source_headline": "SHIFANG HLDG (01831): EXCHANGE NOTICE - TRADING HALT",
+  "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0824/2026082400281.htm",
   "source_name": "HKEXnews (HK Exchange Filing)",
   "materiality_max": 100,
-  "newest_source_at": "2026-08-21T09:08:00Z",
+  "newest_source_at": "2026-08-24T02:09:00Z",
   "prior_coverage": {
     "has_run": false,
     "latest_run": null,
     "latest_decision": null,
     "data_pool_present": false
   },
-  "surfaced_at": "2026-08-21T10:31:43Z",
-  "updated_at": "2026-08-21T10:31:43Z",
-  "decay_at": "2026-08-22T21:08:00Z",
+  "surfaced_at": "2026-08-24T09:24:19Z",
+  "updated_at": "2026-08-24T09:24:19Z",
+  "decay_at": "2026-08-25T14:09:00Z",
   "status": "live",
   "promoted_signal_id": null
 }
