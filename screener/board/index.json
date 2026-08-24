@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-24T03:37:03Z",
+  "generated_at": "2026-08-24T03:42:12Z",
   "inbox": [
     {
       "inbox_id": "INB-20260824-242",
@@ -1423,6 +1423,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260824-315",
+      "headline": "Indian Hotels Company Ltd: Please find enclosed the press release for the scheme of arrangement between The Indian Hotels Company Limited and Oriental Hotels Limited.",
+      "headline_en": null,
+      "url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/e438ae07-fddc-4979-925e-f1adc252ed8a.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-24T03:36:49Z",
+      "sweep_file": "screener/inbox/2026-08-24_sweep.json",
+      "prelim_note": "Indian Hotels Company announced a scheme of arrangement with Oriental Hotels, indicating a corporate restructuring or consolidation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Indian Hotels Company announced a scheme of arrangement with Oriental Hotels, indicating a corporate restructuring or consolidation.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Indian Hotels Company Ltd",
+          "ticker": "500850",
+          "listing_country": "IN"
+        },
+        {
+          "name": "Oriental Hotels Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260824-310",
       "headline": "Indian Hotels Company Ltd: Pursuant to Regulation 30 we wish to inform you that Board of Directors of The Indian Hotels Company Limited at its meeting held on August 24, 2026 approved the scheme of arrangement between ....",
       "headline_en": null,
@@ -1462,60 +1516,6 @@
       "companies": [
         {
           "name": "The Indian Hotels Company Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260824-309",
-      "headline": "The Indian Hotels Company Limited: The Indian Hotels Company Limited has informed the Exchange about Scheme of Arrangement between Oriental Hotels Limited and The Indian Hotels Company Limited and their respective shareholders",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/bakhtawar_irani_tajhotels_com_24082026085942_Reg_30_IHCL_FINAL.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-24T03:29:52Z",
-      "sweep_file": "screener/inbox/2026-08-24_sweep.json",
-      "prelim_note": "The company announced a scheme of arrangement with Oriental Hotels, indicating a corporate restructuring or merger.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "The company announced a scheme of arrangement with Oriental Hotels, indicating a corporate restructuring or merger.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "The Indian Hotels Company Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "Oriental Hotels Limited",
           "ticker": null,
           "listing_country": "IN"
         }
@@ -85043,9 +85043,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 995,
-    "news_picked_today": 447,
-    "news_dropped_today": 548
+    "news_seen_today": 1024,
+    "news_picked_today": 460,
+    "news_dropped_today": 564
   },
   "book_momentum": {
     "live_count": 8,
