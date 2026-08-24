@@ -1,38 +1,38 @@
 {
-  "generated_at": "2026-08-24T23:02:24Z",
+  "generated_at": "2026-08-24T23:07:20Z",
   "inbox": [
     {
-      "inbox_id": "INB-20260824-1007",
-      "headline": "TYR: Tyro FY26 Results ASX Release [price-sensitive]",
+      "inbox_id": "INB-20260824-1023",
+      "headline": "TYR: Tyro FY26 Results Investor Presentation [price-sensitive]",
       "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.TYR?key=2924-03125406-2A1691633",
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.TYR?key=2924-03125412-2A1691635",
       "source_name": "ASX (Australia Exchange Filing)",
       "input_nature": "exchange_announcement",
-      "found_at": "2026-08-24T22:51:10Z",
+      "found_at": "2026-08-24T22:52:25Z",
       "sweep_file": "screener/inbox/2026-08-24_sweep.json",
-      "prelim_note": "The company released its FY26 financial results.",
+      "prelim_note": "The company released its FY26 full-year financial results.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 100,
-      "triage_reason": "The company released its FY26 financial results.",
+      "triage_reason": "The company released its FY26 full-year financial results.",
       "region": "OTHER",
       "relevance": "material",
-      "materiality_pre_score": 80,
+      "materiality_pre_score": 75,
       "rank_factors": {
-        "materiality": 80,
+        "materiality": 75,
         "source_tier": 8,
         "scope": 6,
         "event": 5,
-        "size": -1,
+        "size": 1,
         "recency": 5,
-        "materiality_label_floor": 5,
+        "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "primary_filing",
         "event_id": "earnings_revenue_margin",
-        "size_bucket": "small"
+        "size_bucket": "mid"
       },
       "event_types": [
         "earnings_revenue_margin"
@@ -45,7 +45,56 @@
           "listing_country": "AU"
         }
       ],
-      "size_bucket": "small",
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260824-1025",
+      "headline": "MYS: MYS FY26 Full Year Results Investor Presentation [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.MYS?key=2924-03125408-3A699685",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-24T22:51:40Z",
+      "sweep_file": "screener/inbox/2026-08-24_sweep.json",
+      "prelim_note": "The company released its FY26 full-year financial results.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company released its FY26 full-year financial results.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "MyState",
+          "ticker": "MYS",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -439,55 +488,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260824-976",
-      "headline": "ACE: Acusensus FY26 Results Release [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ACE?key=2924-03125338-2A1691640",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-24T22:29:25Z",
-      "sweep_file": "screener/inbox/2026-08-24_sweep.json",
-      "prelim_note": "Acusensus released its FY26 financial results.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Acusensus released its FY26 financial results.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Acusensus",
-          "ticker": "ACE",
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -86171,9 +86171,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1530334,
-    "news_picked_today": 2720,
-    "news_dropped_today": 12796
+    "news_seen_today": 1543745,
+    "news_picked_today": 2726,
+    "news_dropped_today": 12802
   },
   "book_momentum": {
     "live_count": 8,
