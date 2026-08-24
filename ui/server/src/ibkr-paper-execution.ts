@@ -184,9 +184,16 @@ function safePaperAccount(snapshot: BrokerSnapshot, enabled: boolean, allowedAcc
 }
 
 function safeBrokerOrderState(snapshot: BrokerSnapshot): void {
-  const invalidPosition = snapshot.positions.some((row) => !Number.isFinite(row.quantity)
+  const positions = Array.isArray(snapshot.positions) ? snapshot.positions : null
+  const openOrders = snapshot.openOrders === undefined
+    ? []
+    : Array.isArray(snapshot.openOrders) ? snapshot.openOrders : null
+  const invalidPosition = positions === null || positions.some((row) => !row
+    || !Number.isFinite(row.quantity)
     || !Number.isSafeInteger(row.contract_id) || row.contract_id <= 0)
-  const invalidOrder = (snapshot.openOrders ?? []).some((row) => !Number.isSafeInteger(row.order_id) || row.order_id < 0)
+  const invalidOrder = openOrders === null || openOrders.some((row) => !row
+    || !Number.isSafeInteger(row.order_id) || row.order_id < 0
+    || !Number.isSafeInteger(row.contract_id) || row.contract_id <= 0)
   if (invalidPosition || invalidOrder) {
     throw Object.assign(new Error('IBKR Paper returned an unusable position or order identity.'), {
       statusCode: 409, code: 'PAPER_BROKER_STATE_INVALID',

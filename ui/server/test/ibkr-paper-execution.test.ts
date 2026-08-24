@@ -363,6 +363,21 @@ await assert.rejects(
 )
 assert.equal(invalidPositionPlacements, 0, 'a non-finite TWS position quantity fails the broker boundary closed')
 
+for (const [index, malformedSnapshot] of [
+  { ...snapshot(), positions: {} as any },
+  { ...snapshot(), openOrders: [null as any] },
+].entries()) {
+  const malformedBrokerService = createIbkrPaperExecutionService({
+    enabled: true, allowedAccountId: accountId, snapshotReader: async () => malformedSnapshot,
+    callsReader: async () => ({ calls: [] }),
+  })
+  await assert.rejects(
+    () => malformedBrokerService.sync(`c900000${index}-8888-4888-8888-888888888888`, { reconcilePositions: true }),
+    /unusable position or order identity/,
+    'malformed broker collections and rows fail closed at the execution boundary',
+  )
+}
+
 let ambiguousPlacements = 0
 const ambiguousListingService = createIbkrPaperExecutionService({
   enabled: true, allowedAccountId: accountId,
