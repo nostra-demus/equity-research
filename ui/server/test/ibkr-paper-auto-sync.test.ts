@@ -16,6 +16,16 @@ assert.equal(isAutomaticPaperSyncRun(published({ swarmId: 'screener' })), false)
 assert.equal(isAutomaticPaperSyncRun(published({ publicationPhase: 'terminal-in-progress' })), false)
 assert.equal(isAutomaticPaperSyncRun(published({ publicationRevision: undefined })), false, 'a moving or unknown publication revision cannot trade')
 
+const invalidRevisionState = fs.mkdtempSync(path.join(os.tmpdir(), 'paper-auto-sync-invalid-revision-'))
+fs.mkdirSync(path.join(invalidRevisionState, 'ibkr-paper'), { recursive: true })
+fs.writeFileSync(path.join(invalidRevisionState, 'ibkr-paper', 'automatic-sync.json'), JSON.stringify({
+  schema_version: 'ibkr-paper-auto-sync/v1', at: '2026-08-24T12:00:00.000Z', outcome: 'aligned',
+  trigger: 'publication', run_id: 'poisoned', run_kind: 'full', ticker: 'ACME',
+  publication_revision: '--upload-pack=malicious', order_count: 0, skipped_count: 0, detail: 'poisoned',
+}))
+assert.equal(createIbkrPaperAutoSync({ enabled: false, stateDir: invalidRevisionState }).read().last_attempt, null,
+  'an invalid persisted revision is rejected before it can reach a git subprocess')
+
 let syncs = 0
 let reconciled = false
 let syncedRevision = ''

@@ -95,6 +95,13 @@ function normalized(value: unknown): string {
   return String(value ?? '').trim().toUpperCase()
 }
 
+function safeErrorMessage(error: unknown): string {
+  const raw = String(error instanceof Error ? error.message : error)
+  const containsAbsolutePath = /(^|[\s("'`])\/(?=[^/\s])/u.test(raw)
+    || /(^|[\s("'`])[A-Za-z]:\\(?=[^\\\s])/u.test(raw)
+  return containsAbsolutePath ? '[PATH]' : raw
+}
+
 /** Map only known published-market labels to IBKR primary-exchange identifiers. */
 function brokerExchangeId(value: unknown): string {
   const raw = normalized(value)
@@ -116,9 +123,11 @@ function orderQuantityRemaining(order: BrokerOpenOrder): number | null {
   return derived !== null && derived > 0 ? derived : null
 }
 
-function contractIdOf(contract: Contract): number | null {
-  const value = finite(contract.conId)
-  return value !== null && Number.isInteger(value) && value > 0 ? value : null
+function contractIdOf(contract: Contract | null | undefined): number | null {
+  const value = contract?.conId
+  return typeof value === 'number' && Number.isFinite(value) && Number.isSafeInteger(value) && value > 0
+    ? value
+    : null
 }
 
 function positionMatchesPlan(position: BrokerPosition, plan: ResolvedTargetPlan): boolean {
@@ -140,37 +149,45 @@ function currentTargetOrderRef(orderRef: string, target: CallPolicyTargetPositio
     || orderRef === `${ORDER_REF_PREFIX}AUTO:REBALANCE:${target.call_id}`.slice(0, 100)
 }
 
-function automaticCloseMatches(
+interface ExpectedPendingIntent {
+  key: string
+  action: 'BUY' | 'SELL'
+  quantity: number
+}
+
+function expectedAutomaticCloseIntent(
   order: BrokerOpenOrder,
   positions: BrokerPosition[],
   targetExists: boolean,
   targetPlan: ResolvedTargetPlan | undefined,
-): boolean {
+): ExpectedPendingIntent | null {
   const orderRef = String(order.order_ref || '')
   const held = positions.find((row) => row.contract_id === order.contract_id
     && normalized(row.symbol) === normalized(order.symbol) && row.quantity !== 0)
-  if (!held || !orderRef.startsWith(`${ORDER_REF_PREFIX}AUTO:CLOSE:${held.contract_id}:`)) return false
-  if (targetExists && !targetPlan) return false
+  if (!held || !orderRef.startsWith(`${ORDER_REF_PREFIX}AUTO:CLOSE:${held.contract_id}:`)) return null
+  if (targetExists && !targetPlan) return null
   if (targetPlan && positionMatchesPlan(held, targetPlan)
-      && Math.sign(held.quantity) === Math.sign(targetPlan.signedQuantity)) return false
-  const action = held.quantity < 0 ? 'BUY' : 'SELL'
-  return normalized(order.action) === action && orderQuantityRemaining(order) === Math.abs(held.quantity)
+      && Math.sign(held.quantity) === Math.sign(targetPlan.signedQuantity)) return null
+  const action: 'BUY' | 'SELL' = held.quantity < 0 ? 'BUY' : 'SELL'
+  if (normalized(order.action) !== action) return null
+  return { key: `close:${held.contract_id}:${action}`, action, quantity: Math.abs(held.quantity) }
 }
 
-function currentTargetOrderMatches(
+function expectedTargetIntent(
   order: BrokerOpenOrder,
   positions: BrokerPosition[],
   plan: ResolvedTargetPlan,
-): boolean {
+): ExpectedPendingIntent | null {
   const contractId = contractIdOf(plan.quote.contract)
   if (contractId === null || order.contract_id !== contractId
-      || !currentTargetOrderRef(String(order.order_ref || ''), plan.target)) return false
+      || !currentTargetOrderRef(String(order.order_ref || ''), plan.target)) return null
   const held = positions.filter((row) => positionMatchesPlan(row, plan))
-  if (held.length > 1) return false
+  if (held.length > 1) return null
   const delta = plan.signedQuantity - (held[0]?.quantity ?? 0)
-  if (Math.abs(delta) < 1e-9) return false
-  const action = delta > 0 ? 'BUY' : 'SELL'
-  return normalized(order.action) === action && orderQuantityRemaining(order) === Math.abs(delta)
+  if (Math.abs(delta) < 1e-9) return null
+  const action: 'BUY' | 'SELL' = delta > 0 ? 'BUY' : 'SELL'
+  if (normalized(order.action) !== action) return null
+  return { key: `target:${contractId}:${plan.target.call_id}:${action}`, action, quantity: Math.abs(delta) }
 }
 
 function safePaperAccount(snapshot: BrokerSnapshot, enabled: boolean, allowedAccountId: string): void {
@@ -479,7 +496,7 @@ export function createIbkrPaperExecutionService(options: ExecutionOptions = {}) 
         }
         try {
           const quote = await quoteResolver(row)
-          if (contractIdOf(quote.contract) === null) throw new Error('paper_contract_has_no_exact_id')
+          if (!quote || contractIdOf(quote.contract) === null) throw new Error('paper_contract_has_no_exact_id')
           if (!Number.isFinite(quote.price) || quote.price <= 0) throw new Error('paper_quote_price_invalid')
           if (!Number.isFinite(quote.min_tick) || quote.min_tick <= 0) throw new Error('paper_quote_min_tick_invalid')
           if (!Number.isFinite(row.model_weight_pct)) throw new Error('paper_model_weight_invalid')
@@ -490,8 +507,8 @@ export function createIbkrPaperExecutionService(options: ExecutionOptions = {}) 
             continue
           }
           plans.set(symbol, { target: row, quote, signedQuantity: row.side === 'short' ? -absoluteTarget : absoluteTarget })
-        } catch (error: any) {
-          errors.set(symbol, `The exact paper contract or quote could not be resolved: ${String(error?.message || error)}`)
+        } catch (error: unknown) {
+          errors.set(symbol, `The exact paper contract or quote could not be resolved: ${safeErrorMessage(error)}`)
         }
       }
       return { plans, errors }
@@ -504,15 +521,38 @@ export function createIbkrPaperExecutionService(options: ExecutionOptions = {}) 
       // If any cancellation is attempted, a fresh broker snapshot is mandatory before another order.
       let cancellationAttempted = false
       const active = snapshot.positions.filter((row) => row.quantity !== 0)
-      for (const open of snapshot.openOrders ?? []) {
+      const managedOrders = (snapshot.openOrders ?? []).filter((open) => {
+        const orderRef = String(open.order_ref || '')
+        return orderRef.startsWith(ORDER_REF_PREFIX) && !orderRef.startsWith(`${ORDER_REF_PREFIX}CLOSE:`)
+      })
+      const intentGroups = new Map<string, { expected: ExpectedPendingIntent; orders: BrokerOpenOrder[] }>()
+      for (const open of managedOrders) {
         const symbol = normalized(open.symbol)
         const orderRef = String(open.order_ref || '')
-        if (!orderRef.startsWith(ORDER_REF_PREFIX) || orderRef.startsWith(`${ORDER_REF_PREFIX}CLOSE:`)) continue
         const plan = resolved.plans.get(symbol)
-        const current = orderRef.startsWith(`${ORDER_REF_PREFIX}AUTO:CLOSE:`)
-          ? automaticCloseMatches(open, active, protectedTargetSymbols.has(symbol), plan)
-          : !!plan && currentTargetOrderMatches(open, active, plan)
-        if (current) continue
+        const expected = orderRef.startsWith(`${ORDER_REF_PREFIX}AUTO:CLOSE:`)
+          ? expectedAutomaticCloseIntent(open, active, protectedTargetSymbols.has(symbol), plan)
+          : plan ? expectedTargetIntent(open, active, plan) : null
+        if (!expected) continue
+        const group = intentGroups.get(expected.key)
+        if (group) group.orders.push(open)
+        else intentGroups.set(expected.key, { expected, orders: [open] })
+      }
+      const currentOrderIds = new Set<number>()
+      for (const { expected, orders: candidates } of intentGroups.values()) {
+        const remaining = candidates.map(orderQuantityRemaining)
+        const aggregateRemaining = remaining.every((quantity) => quantity !== null)
+          ? remaining.reduce<number>((sum, quantity) => sum + (quantity ?? 0), 0)
+          : null
+        // Ambiguous retries can leave two otherwise identical orders open. Never retain more than one:
+        // duplicate orders are all cancelled and the exact remaining delta is rebuilt from a fresh snapshot.
+        if (candidates.length === 1 && aggregateRemaining === expected.quantity) {
+          currentOrderIds.add(candidates[0].order_id)
+        }
+      }
+      for (const open of managedOrders) {
+        if (currentOrderIds.has(open.order_id)) continue
+        const symbol = normalized(open.symbol)
         const rawAction = normalized(open.action)
         const quantity = orderQuantityRemaining(open)
         if (!['BUY', 'SELL'].includes(rawAction) || quantity === null) {
@@ -522,8 +562,8 @@ export function createIbkrPaperExecutionService(options: ExecutionOptions = {}) 
         cancellationAttempted = true
         try {
           orders.push(await orderCanceller(open.order_id, snapshot.accountId, symbol, rawAction as 'BUY' | 'SELL', quantity))
-        } catch (error: any) {
-          skipped.push({ ticker: symbol, reason: `The superseded Nostra order could not be cancelled: ${String(error?.message || error)}` })
+        } catch (error: unknown) {
+          skipped.push({ ticker: symbol, reason: `The superseded Nostra order could not be cancelled: ${safeErrorMessage(error)}` })
         }
       }
       if (cancellationAttempted) {
@@ -588,8 +628,8 @@ export function createIbkrPaperExecutionService(options: ExecutionOptions = {}) 
             orderRef: `${ORDER_REF_PREFIX}AUTO:CLOSE:${held.contract_id}:${now().toISOString()}`.slice(0, 100),
           }))
           pending.add(symbol)
-        } catch (error: any) {
-          skipped.push({ ticker: symbol, reason: `The paper close was not sent: ${String(error?.message || error)}` })
+        } catch (error: unknown) {
+          skipped.push({ ticker: symbol, reason: `The paper close was not sent: ${safeErrorMessage(error)}` })
         }
       }
     } else {
@@ -659,8 +699,8 @@ export function createIbkrPaperExecutionService(options: ExecutionOptions = {}) 
             : `${ORDER_REF_PREFIX}AUTO:REBALANCE:${row.call_id}`.slice(0, 100),
         }))
         pending.add(symbol)
-      } catch (error: any) {
-        skipped.push({ ticker: symbol, reason: `The 5%/10% paper order was not sent: ${String(error?.message || error)}` })
+      } catch (error: unknown) {
+        skipped.push({ ticker: symbol, reason: `The 5%/10% paper order was not sent: ${safeErrorMessage(error)}` })
       }
     }
 
@@ -680,6 +720,7 @@ export function createIbkrPaperExecutionService(options: ExecutionOptions = {}) 
   const cancel = async (orderId: number, idempotencyKey: string): Promise<PaperExecutionResult> => once(`cancel:${orderId}:${idempotencyKey}`, () => withPaperCommandLock(async () => {
     const snapshot = await snapshotReader()
     safePaperAccount(snapshot, enabled, allowedAccountId)
+    safeBrokerOrderState(snapshot)
     const order = (snapshot.openOrders ?? []).find((row) => row.order_id === orderId)
     if (!order || !order.order_ref?.startsWith(ORDER_REF_PREFIX)) throw Object.assign(new Error('Only an open order created by Nostra can be cancelled here.'), { statusCode: 404 })
     const rawAction = normalized(order.action)
@@ -697,6 +738,7 @@ export function createIbkrPaperExecutionService(options: ExecutionOptions = {}) 
   const close = async (contractId: number, idempotencyKey: string): Promise<PaperExecutionResult> => once(`close:${contractId}:${idempotencyKey}`, () => withPaperCommandLock(async () => {
     const snapshot = await snapshotReader()
     safePaperAccount(snapshot, enabled, allowedAccountId)
+    safeBrokerOrderState(snapshot)
     const position: BrokerPosition | undefined = snapshot.positions.find((row) => row.contract_id === contractId && row.quantity !== 0)
     if (!position || position.security_type !== 'STK') throw Object.assign(new Error('That open stock position was not found in the latest paper snapshot.'), { statusCode: 404 })
     if ((snapshot.openOrders ?? []).some((row) => row.contract_id === contractId || normalized(row.symbol) === normalized(position.symbol))) {

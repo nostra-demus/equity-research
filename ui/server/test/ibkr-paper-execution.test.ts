@@ -123,6 +123,37 @@ const staleOrder = createIbkrPaperExecutionService({
 await staleOrder.sync('bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb', { reconcilePositions: true })
 assert.equal(staleCancelled, 52, 'a superseded unfilled Nostra entry is cancelled before it can fill')
 
+let duplicateReads = 0
+const duplicateCancelled: number[] = []
+const duplicateReplacements: any[] = []
+const duplicateTargetOrders = createIbkrPaperExecutionService({
+  enabled: true, allowedAccountId: accountId,
+  snapshotReader: async () => {
+    duplicateReads++
+    return snapshot([], duplicateReads === 1 ? [70, 71].map((orderId) => ({
+      order_id: orderId, contract_id: 123, symbol: 'ACME', action: 'BUY', total_quantity: 99,
+      order_type: 'LMT', status: 'Submitted', filled: 0, remaining: 99, average_fill_price: null,
+      order_ref: 'NOSTRA_PAPER:analyses/ACME_2026-08-24',
+    })) : [])
+  },
+  callsReader: async () => ({ calls: [selectedCall] }), quoteResolver: async () => ({
+    contract: { conId: 123, symbol: 'ACME', secType: 'STK' as any, exchange: 'SMART', currency: 'USD' },
+    price: 100, min_tick: 0.01,
+  }),
+  orderCanceller: async (orderId, _account, ticker, action, quantity) => {
+    duplicateCancelled.push(orderId)
+    return { order_id: orderId, ticker, action, quantity, status: 'Cancelled', detail: 'cancelled duplicate' }
+  },
+  orderPlacer: async (input) => {
+    duplicateReplacements.push(input)
+    return { order_id: 72, ticker: input.ticker, action: input.action, quantity: input.quantity, status: 'Submitted', detail: 'replacement accepted' }
+  },
+})
+await duplicateTargetOrders.sync('bc111111-1111-4111-8111-111111111111', { reconcilePositions: true })
+assert.deepEqual(duplicateCancelled, [70, 71], 'duplicate current-intent orders are both cancelled before either can overfill the target')
+assert.equal(duplicateReads, 2, 'duplicate cancellation is followed by a fresh authoritative broker snapshot')
+assert.equal(duplicateReplacements[0].quantity, 99, 'one exact replacement is rebuilt from the fresh position delta')
+
 let pendingAfterFirst = false
 let concurrentPlacements = 0
 const serializedService = createIbkrPaperExecutionService({
@@ -318,6 +349,33 @@ const invalidQuoteResult = await invalidQuoteService.sync(
 )
 assert.equal(invalidQuotePlacements, 0, 'a non-finite market quote cannot reach order sizing')
 assert.match(invalidQuoteResult.skipped[0]?.reason || '', /paper_quote_price_invalid/)
+
+for (const [index, badQuote] of [
+  null,
+  { ...(await quote()), contract: { ...(await quote()).contract, conId: Number.NaN } },
+].entries()) {
+  const missingQuoteService = createIbkrPaperExecutionService({
+    enabled: true, allowedAccountId: accountId, snapshotReader: async () => snapshot(),
+    callsReader: async () => ({ calls: [selectedCall] }), quoteResolver: async () => badQuote as any,
+  })
+  const missingQuoteResult = await missingQuoteService.sync(
+    `c780000${index}-7777-4777-8777-777777777777`, { reconcilePositions: true },
+  )
+  assert.match(missingQuoteResult.skipped[0]?.reason || '', /paper_contract_has_no_exact_id/,
+    'a missing quote or non-finite external contract id fails closed')
+}
+
+const privateQuoteErrorService = createIbkrPaperExecutionService({
+  enabled: true, allowedAccountId: accountId, snapshotReader: async () => snapshot(),
+  callsReader: async () => ({ calls: [selectedCall] }),
+  quoteResolver: async () => { throw new Error('failed in /Users/operator/My Folder/private/quote-cache.json') },
+})
+const privateQuoteError = await privateQuoteErrorService.sync(
+  'c7899999-7777-4777-8777-777777777777', { reconcilePositions: true },
+)
+assert.doesNotMatch(privateQuoteError.skipped[0]?.reason || '', /Users|My Folder|quote-cache/)
+assert.match(privateQuoteError.skipped[0]?.reason || '', /\[PATH\]/,
+  'broker execution errors cannot expose private absolute filesystem paths')
 
 let invalidTickPlacements = 0
 const invalidTickService = createIbkrPaperExecutionService({

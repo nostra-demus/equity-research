@@ -10,6 +10,7 @@ import { REPO_ROOT, STATE_DIR } from './config'
 import type { PaperExecutionResult } from './ibkr-paper-execution'
 
 const AUTO_SYNC_FILE = 'automatic-sync.json'
+const PUBLISHED_REVISION_RE = /^[0-9a-f]{40}(?:[0-9a-f]{24})?$/
 const execFileAsync = promisify(execFile)
 
 export interface PaperAutoSyncAttempt {
@@ -65,7 +66,8 @@ function validAttempt(value: unknown): value is PaperAutoSyncAttempt {
     && (row.run_id === null || typeof row.run_id === 'string')
     && (row.run_kind === null || typeof row.run_kind === 'string')
     && (row.ticker === null || typeof row.ticker === 'string')
-    && (row.publication_revision === undefined || row.publication_revision === null || typeof row.publication_revision === 'string')
+    && (row.publication_revision === undefined || row.publication_revision === null
+      || (typeof row.publication_revision === 'string' && PUBLISHED_REVISION_RE.test(row.publication_revision)))
     && typeof row.order_count === 'number' && Number.isInteger(row.order_count) && row.order_count >= 0
     && typeof row.skipped_count === 'number' && Number.isInteger(row.skipped_count) && row.skipped_count >= 0
     && typeof row.detail === 'string'
@@ -123,7 +125,7 @@ export function isAutomaticPaperSyncRun(run: PublishedResearchRun): boolean {
     && run.willCommitToMain
     && run.publicationCompleted === true
     && run.publicationPhase === 'terminal-complete'
-    && /^[0-9a-f]{40}(?:[0-9a-f]{24})?$/.test(run.publicationRevision || '')
+    && PUBLISHED_REVISION_RE.test(run.publicationRevision || '')
 }
 
 export function createIbkrPaperAutoSync(options: AutoSyncOptions = {}) {
