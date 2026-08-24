@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-24T12:03:27Z",
+  "generated_at": "2026-08-24T12:08:35Z",
   "inbox": [
     {
       "inbox_id": "INB-20260824-784",
@@ -1724,6 +1724,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260824-794",
+      "headline": "Peijia Medical Announces 2026 Interim Results, Achieving First-Ever Profit Before Tax on Strong TAVR Growth",
+      "headline_en": null,
+      "url": "https://www.prnewswire.com/news-releases/peijia-medical-announces-2026-interim-results-achieving-first-ever-profit-before-tax-on-strong-tavr-growth-302858077.html",
+      "source_name": "PR Newswire — Earnings",
+      "input_nature": "company_press_release",
+      "found_at": "2026-08-24T12:00:00Z",
+      "sweep_file": "screener/inbox/2026-08-24_sweep.json",
+      "prelim_note": "Achieving a first-ever profit before tax is a significant milestone for a growth-stage medical device company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Achieving a first-ever profit before tax is a significant milestone for a growth-stage medical device company.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 3,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Peijia Medical",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260824-776",
       "headline": "Arbutus Commences US$230 Million Modified “Dutch Auction” Tender Offer of its Common Shares at a Price Not Greater Than US$5.75 Nor Less Than US$5.00 Per Share",
       "headline_en": null,
@@ -1915,55 +1964,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260824-754",
-      "headline": "XPENG Reports Second Quarter 2026 Unaudited Financial Results",
-      "headline_en": null,
-      "url": "https://www.prnewswire.com/news-releases/xpeng-reports-second-quarter-2026-unaudited-financial-results-302858198.html",
-      "source_name": "PR Newswire — Earnings",
-      "input_nature": "company_press_release",
-      "found_at": "2026-08-24T10:30:00Z",
-      "sweep_file": "screener/inbox/2026-08-24_sweep.json",
-      "prelim_note": "Quarterly earnings release is a primary event for assessing company performance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Quarterly earnings release is a primary event for assessing company performance.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 3,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "XPENG",
-          "ticker": null,
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -85434,9 +85434,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 181044,
-    "news_picked_today": 1694,
-    "news_dropped_today": 10954
+    "news_seen_today": 187315,
+    "news_picked_today": 1701,
+    "news_dropped_today": 10971
   },
   "book_momentum": {
     "live_count": 8,
