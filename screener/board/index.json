@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-24T12:18:29Z",
+  "generated_at": "2026-08-24T12:29:10Z",
   "inbox": [
     {
       "inbox_id": "INB-20260824-800",
@@ -1822,6 +1822,110 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260824-807",
+      "headline": "Mackay Gold & Silver Completes Acquisition of Comstock Inc.'s Nevada Mining Assets to Further Consolidate the Comstock District | MKGSF Stock News",
+      "headline_en": null,
+      "url": "https://www.stocktitan.net/news/MKGSF/mackay-gold-silver-completes-acquisition-of-comstock-inc-s-nevada-fattd77dvvf1.html",
+      "source_name": "Stock Titan — Latest News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-08-24T12:12:00Z",
+      "sweep_file": "screener/inbox/2026-08-24_sweep.json",
+      "prelim_note": "The company completed a strategic acquisition of mining assets to consolidate its district.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company completed a strategic acquisition of mining assets to consolidate its district.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 3,
+        "scope": 4,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "commodity",
+        "source_tier_id": "company",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Mackay Gold & Silver",
+          "ticker": "MKGSF",
+          "listing_country": "US"
+        },
+        {
+          "name": "Comstock Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260824-810",
+      "headline": "Cyber Enviro-Tech Announces Definitive Agreement With Air Power USA to Advance Global Clean Energy Commercialization As $45M Funding MOU Emerges Pending Consolidation of the Companies | CETI Stock News",
+      "headline_en": null,
+      "url": "https://www.stocktitan.net/news/CETI/cyber-enviro-tech-announces-definitive-agreement-with-air-power-usa-77cdxdhx01pu.html",
+      "source_name": "Stock Titan — Latest News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-08-24T12:00:00Z",
+      "sweep_file": "screener/inbox/2026-08-24_sweep.json",
+      "prelim_note": "The company announced a definitive agreement and a $45M funding MOU, which is a material capital and strategic event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company announced a definitive agreement and a $45M funding MOU, which is a material capital and strategic event.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 3,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "company",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna",
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Cyber Enviro-Tech",
+          "ticker": "CETI",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260824-794",
       "headline": "Peijia Medical Announces 2026 Interim Results, Achieving First-Ever Profit Before Tax on Strong TAVR Growth",
       "headline_en": null,
@@ -1866,104 +1970,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260824-776",
-      "headline": "Arbutus Commences US$230 Million Modified “Dutch Auction” Tender Offer of its Common Shares at a Price Not Greater Than US$5.75 Nor Less Than US$5.00 Per Share",
-      "headline_en": null,
-      "url": "https://www.globenewswire.com/news-release/2026/08/24/3349641/14025/en/arbutus-commences-us-230-million-modified-dutch-auction-tender-offer-of-its-common-shares-at-a-price-not-greater-than-us-5-75-nor-less-than-us-5-00-per-share.html",
-      "source_name": "GlobeNewswire — News about Public Companies",
-      "input_nature": "company_press_release",
-      "found_at": "2026-08-24T11:30:00Z",
-      "sweep_file": "screener/inbox/2026-08-24_sweep.json",
-      "prelim_note": "The company announced a $230 million share tender offer, which is a significant capital allocation event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "The company announced a $230 million share tender offer, which is a significant capital allocation event.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 3,
-        "scope": 6,
-        "event": 6,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "capital_actions",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Arbutus Biopharma",
-          "ticker": "ABUS",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260824-757",
-      "headline": "Otovo Enters Agreements for $11 Million Green Panel Acquisition, Expanding its Behind-the-Meter Energy Services Business",
-      "headline_en": null,
-      "url": "http://www.businesswire.com/news/home/20260824060905/en/Otovo-Enters-Agreements-for-11-Million-Green-Panel-Acquisition-Expanding-its-Behind-the-Meter-Energy-Services-Business/?feedref=JjAwJuNHiystnCoBq_hl-Rc4vIAVcHHkbDcwJimU8QtrtlakeQ9hNboBqTAWIjTge3KWq9s9jif-UkBjBsFRyYAbRTSLTc1mgvhPlnaBA55M-oupQnbXnhKsYk8RmHF_kAy2gZikaX3QWV6xOvgFlA==",
-      "source_name": "Business Wire — Merger/Acquisition News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-08-24T11:00:00Z",
-      "sweep_file": "screener/inbox/2026-08-24_sweep.json",
-      "prelim_note": "Company is acquiring assets for $11 million to expand its business.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Company is acquiring assets for $11 million to expand its business.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 3,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "company",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Otovo",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -77182,78 +77188,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-70b8068a4e51",
-      "idea_version": "IDEAV-e5fe083e1712ff14",
-      "idea_version_started_at": "2026-08-23T02:23:58Z",
-      "ticker": "PARA",
-      "company": "Paramount Global",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Preliminary talks regarding a potential deal between Paramount and Warner Bros. Discovery create a merger arbitrage opportunity where Paramount is the likely target.",
-      "why_now": "Preliminary talks are scheduled to begin on Monday, August 24, 2026.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 16,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "pair_trade",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-c19a7d1d8eac"
-      ],
-      "primary_source_event_id": "EVT-c19a7d1d8eac",
-      "source_headlines": [
-        "Paramount and California to hold preliminary talks on Monday over Warner Bros deal: Report"
-      ],
-      "source_headline": "Paramount and California to hold preliminary talks on Monday over Warner Bros deal: Report",
-      "source_url": "https://www.livemint.com/companies/news/paramount-and-california-to-hold-preliminary-talks-on-monday-over-warner-bros-deal-report-11787444046114.html",
-      "source_name": "Mint",
-      "materiality_max": 91,
-      "newest_source_at": "2026-08-23T00:22:45Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-23T02:23:58Z",
-      "updated_at": "2026-08-23T02:23:58Z",
-      "decay_at": "2026-08-24T12:22:45Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-83741fd2591e",
       "idea_version": "IDEAV-c6b66d0e8c72d50a",
       "idea_version_started_at": "2026-08-23T04:34:35Z",
@@ -78529,6 +78463,78 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-70b8068a4e51",
+      "idea_version": "IDEAV-e5fe083e1712ff14",
+      "idea_version_started_at": "2026-08-23T02:23:58Z",
+      "ticker": "PARA",
+      "company": "Paramount Global",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Preliminary talks regarding a potential deal between Paramount and Warner Bros. Discovery create a merger arbitrage opportunity where Paramount is the likely target.",
+      "why_now": "Preliminary talks are scheduled to begin on Monday, August 24, 2026.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 16,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "pair_trade",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-c19a7d1d8eac"
+      ],
+      "primary_source_event_id": "EVT-c19a7d1d8eac",
+      "source_headlines": [
+        "Paramount and California to hold preliminary talks on Monday over Warner Bros deal: Report"
+      ],
+      "source_headline": "Paramount and California to hold preliminary talks on Monday over Warner Bros deal: Report",
+      "source_url": "https://www.livemint.com/companies/news/paramount-and-california-to-hold-preliminary-talks-on-monday-over-warner-bros-deal-report-11787444046114.html",
+      "source_name": "Mint",
+      "materiality_max": 91,
+      "newest_source_at": "2026-08-23T00:22:45Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-23T02:23:58Z",
+      "updated_at": "2026-08-23T02:23:58Z",
+      "decay_at": "2026-08-24T12:22:45Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-d704446fee63",
       "idea_version": "IDEAV-2fea4607e2989a34",
       "idea_version_started_at": "2026-08-04T08:40:40Z",
@@ -78609,13 +78615,13 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 82,
-    "shown_count": 82,
+    "total_count": 83,
+    "shown_count": 83,
     "hidden_count": 0,
     "side_counts": {
       "long": {
-        "total_count": 29,
-        "shown_count": 29,
+        "total_count": 30,
+        "shown_count": 30,
         "hidden_count": 0
       },
       "short": {
@@ -78640,6 +78646,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-70b8068a4e51",
+        "idea_version": "IDEAV-e5fe083e1712ff14",
+        "idea_version_started_at": "2026-08-23T02:23:58Z",
+        "ticker": "PARA",
+        "company": "Paramount Global",
+        "exchange": "NASDAQ",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Preliminary talks regarding a potential deal between Paramount and Warner Bros. Discovery create a merger arbitrage opportunity where Paramount is the likely target.",
+        "why_now": "Preliminary talks are scheduled to begin on Monday, August 24, 2026.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 16,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "pair_trade",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-c19a7d1d8eac"
+        ],
+        "primary_source_event_id": "EVT-c19a7d1d8eac",
+        "source_headlines": [
+          "Paramount and California to hold preliminary talks on Monday over Warner Bros deal: Report"
+        ],
+        "source_headline": "Paramount and California to hold preliminary talks on Monday over Warner Bros deal: Report",
+        "source_url": "https://www.livemint.com/companies/news/paramount-and-california-to-hold-preliminary-talks-on-monday-over-warner-bros-deal-report-11787444046114.html",
+        "source_name": "Mint",
+        "materiality_max": 91,
+        "newest_source_at": "2026-08-23T00:22:45Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-23T02:23:58Z",
+        "updated_at": "2026-08-23T02:23:58Z",
+        "decay_at": "2026-08-24T12:22:45Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-24T12:22:45Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-90b902d53889",
         "idea_version": "IDEAV-d973ffda90feccc6",
@@ -84706,7 +84787,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 108,
-    "live_count": 25,
+    "live_count": 24,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -84725,9 +84806,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 197266,
-    "news_picked_today": 1713,
-    "news_dropped_today": 10983
+    "news_seen_today": 211712,
+    "news_picked_today": 1741,
+    "news_dropped_today": 10991
   },
   "book_momentum": {
     "live_count": 8,
