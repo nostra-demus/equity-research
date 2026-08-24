@@ -4,10 +4,13 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { randomUUID } from 'node:crypto'
-import { STATE_DIR } from './config'
+import { execFile } from 'node:child_process'
+import { promisify } from 'node:util'
+import { REPO_ROOT, STATE_DIR } from './config'
 import type { PaperExecutionResult } from './ibkr-paper-execution'
 
 const AUTO_SYNC_FILE = 'automatic-sync.json'
+const execFileAsync = promisify(execFile)
 
 export interface PaperAutoSyncAttempt {
   schema_version: 'ibkr-paper-auto-sync/v1'
@@ -43,6 +46,7 @@ interface AutoSyncOptions {
   stateDir?: string
   now?: () => Date
   sync?: (idempotencyKey: string, options: { reconcilePositions: true; publishedRevision: string }) => Promise<PaperExecutionResult>
+  isRevisionAncestor?: (ancestor: string, descendant: string) => Promise<boolean>
 }
 
 function statusPath(stateDir: string): string {
@@ -96,6 +100,18 @@ function safeErrorMessage(error: unknown): string {
     .replace(/(^|[\s("'`])[A-Za-z]:\\(?:[^\\\s"'`]+\\)*[^\\\s"'`]+/g, '$1[PATH]')
 }
 
+async function gitRevisionIsAncestor(ancestor: string, descendant: string): Promise<boolean> {
+  try {
+    await execFileAsync('git', ['-C', REPO_ROOT, 'merge-base', '--is-ancestor', ancestor, descendant], {
+      windowsHide: true, timeout: 15_000, maxBuffer: 1024 * 1024,
+    })
+    return true
+  } catch (error: any) {
+    if (error?.code === 1 || error?.code === '1') return false
+    throw new Error('Published revision ordering could not be verified safely.')
+  }
+}
+
 export function isAutomaticPaperSyncRun(run: PublishedResearchRun): boolean {
   return run.swarmId === 'research'
     && ['full', 'rerun', 'review'].includes(run.kind)
@@ -116,8 +132,10 @@ export function createIbkrPaperAutoSync(options: AutoSyncOptions = {}) {
     const { ibkrPaperExecution } = await import('./ibkr-paper-execution')
     return ibkrPaperExecution.sync(idempotencyKey, command)
   })
+  const isRevisionAncestor = options.isRevisionAncestor ?? gitRevisionIsAncestor
   let tail: Promise<PaperAutoSyncAttempt | null> = Promise.resolve(null)
   const publishedRuns = new Set<string>()
+  let newestPublicationRevision: string | null = null
 
   const afterPublishedRun = (run: PublishedResearchRun): Promise<PaperAutoSyncAttempt | null> => {
     if (!enabled || !isAutomaticPaperSyncRun(run) || publishedRuns.has(run.runId)) return Promise.resolve(null)
@@ -126,7 +144,27 @@ export function createIbkrPaperAutoSync(options: AutoSyncOptions = {}) {
       const identity = { run_id: run.runId, run_kind: run.kind, ticker: run.ticker }
       let attempt: PaperAutoSyncAttempt
       try {
-        const result = await sync(randomUUID(), { reconcilePositions: true, publishedRevision: run.publicationRevision! })
+        const revision = run.publicationRevision!
+        if (newestPublicationRevision) {
+          const stale = revision === newestPublicationRevision
+            || await isRevisionAncestor(revision, newestPublicationRevision)
+          if (stale) {
+            attempt = {
+              schema_version: 'ibkr-paper-auto-sync/v1', at: now().toISOString(), trigger: 'publication', ...identity,
+              outcome: 'no_order', order_count: 0, skipped_count: 1,
+              detail: 'This older publication was skipped because a newer published portfolio is already authoritative.',
+            }
+            writeAttempt(stateDir, attempt)
+            return attempt
+          }
+          if (!await isRevisionAncestor(newestPublicationRevision, revision)) {
+            throw new Error('Published revisions do not have one safe portfolio order.')
+          }
+        }
+        // Claim the newer authority before broker I/O. Even if its sync fails, an older publication
+        // must never run afterward and roll the dedicated account back.
+        newestPublicationRevision = revision
+        const result = await sync(randomUUID(), { reconcilePositions: true, publishedRevision: revision })
         const partial = result.orders.length > 0 && result.skipped.length > 0
         const detail = partial
           ? `${result.detail} ${result.skipped.slice(0, 3).map((row) => `${row.ticker}: ${row.reason}`).join(' ')}`

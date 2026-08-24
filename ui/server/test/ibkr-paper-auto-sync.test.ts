@@ -86,6 +86,23 @@ const drainable = createIbkrPaperAutoSync({
 await assert.rejects(() => drainable.afterPublishedRun(published({ runId: 'run-4' })), /clock_failed/)
 await drainable.drain()
 
+const olderRevision = 'a'.repeat(40)
+const newerRevision = 'b'.repeat(40)
+const orderedRevisions: string[] = []
+const ordered = createIbkrPaperAutoSync({
+  enabled: true,
+  isRevisionAncestor: async (ancestor, descendant) => ancestor === olderRevision && descendant === newerRevision,
+  sync: async (_key, command) => {
+    orderedRevisions.push(command.publishedRevision)
+    return { ok: true, paper_only: true, action: 'sync', detail: 'aligned', orders: [], skipped: [] }
+  },
+})
+await ordered.afterPublishedRun(published({ runId: 'run-newer', publicationRevision: newerRevision }))
+const staleAttempt = await ordered.afterPublishedRun(published({ runId: 'run-older', publicationRevision: olderRevision }))
+assert.deepEqual(orderedRevisions, [newerRevision], 'a late older publication cannot roll back a newer paper portfolio')
+assert.equal(staleAttempt?.outcome, 'no_order')
+assert.match(String(staleAttempt?.detail), /older publication was skipped/)
+
 const launcher = fs.readFileSync(new URL('../src/launcher.ts', import.meta.url), 'utf8')
 assert.match(launcher, /if \(status === 'done'\) scheduleIbkrPaperAutoSyncAfterPublication\(run\)/,
   'the single close-time success finalizer must own the automatic broker trigger')

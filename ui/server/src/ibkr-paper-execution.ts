@@ -117,6 +117,12 @@ function positionMatchesPlan(position: BrokerPosition, plan: ResolvedTargetPlan)
     && normalized(position.currency) === normalized(plan.target.currency)
 }
 
+function isRiskReducingTarget(currentQuantity: number, targetQuantity: number): boolean {
+  return currentQuantity !== 0
+    && Math.sign(currentQuantity) === Math.sign(targetQuantity)
+    && Math.abs(targetQuantity) < Math.abs(currentQuantity)
+}
+
 function currentTargetOrderRef(orderRef: string, target: CallPolicyTargetPosition): boolean {
   return orderRef === `${ORDER_REF_PREFIX}${target.call_id}`.slice(0, 100)
     || orderRef === `${ORDER_REF_PREFIX}AUTO:REBALANCE:${target.call_id}`.slice(0, 100)
@@ -162,6 +168,17 @@ function safePaperAccount(snapshot: BrokerSnapshot, enabled: boolean, allowedAcc
   }
   if (!snapshot.accountId.startsWith('DU')) {
     throw Object.assign(new Error('The connected account is not identified as an IBKR paper account.'), { statusCode: 403, code: 'LIVE_ACCOUNT_REFUSED' })
+  }
+}
+
+function safeBrokerOrderState(snapshot: BrokerSnapshot): void {
+  const invalidPosition = snapshot.positions.some((row) => !Number.isFinite(row.quantity)
+    || !Number.isSafeInteger(row.contract_id) || row.contract_id <= 0)
+  const invalidOrder = (snapshot.openOrders ?? []).some((row) => !Number.isSafeInteger(row.order_id) || row.order_id < 0)
+  if (invalidPosition || invalidOrder) {
+    throw Object.assign(new Error('IBKR Paper returned an unusable position or order identity.'), {
+      statusCode: 409, code: 'PAPER_BROKER_STATE_INVALID',
+    })
   }
 }
 
@@ -402,10 +419,15 @@ export function createIbkrPaperExecutionService(options: ExecutionOptions = {}) 
     }
     let snapshot = await snapshotReader()
     safePaperAccount(snapshot, enabled, allowedAccountId)
+    safeBrokerOrderState(snapshot)
     const calls = (await callsReader(command.publishedRevision)).calls ?? []
     const target: CallPolicyTarget = buildCallPolicyTarget(calls, now())
     if (!target.valid) throw Object.assign(new Error(target.detail), { statusCode: 409, code: 'PAPER_TARGET_BLOCKED' })
     const targetBySymbol = new Map(target.positions.map((row) => [normalized(row.ticker), row]))
+    const blockedListingSymbols = new Set(target.blocked_calls
+      .filter((row) => row.reason === 'ambiguous_listing')
+      .map((row) => normalized(row.ticker)))
+    const protectedTargetSymbols = new Set([...targetBySymbol.keys(), ...blockedListingSymbols])
     const orders: PaperExecutionOrderResult[] = []
     const skipped: { ticker: string; reason: string }[] = []
 
@@ -459,7 +481,7 @@ export function createIbkrPaperExecutionService(options: ExecutionOptions = {}) 
         if (!orderRef.startsWith(ORDER_REF_PREFIX) || orderRef.startsWith(`${ORDER_REF_PREFIX}CLOSE:`)) continue
         const plan = resolved.plans.get(symbol)
         const current = orderRef.startsWith(`${ORDER_REF_PREFIX}AUTO:CLOSE:`)
-          ? automaticCloseMatches(open, active, targetBySymbol.has(symbol), plan)
+          ? automaticCloseMatches(open, active, protectedTargetSymbols.has(symbol), plan)
           : !!plan && currentTargetOrderMatches(open, active, plan)
         if (current) continue
         const rawAction = normalized(open.action)
@@ -478,6 +500,7 @@ export function createIbkrPaperExecutionService(options: ExecutionOptions = {}) 
       if (cancellationAttempted) {
         snapshot = await snapshotReader()
         safePaperAccount(snapshot, enabled, allowedAccountId)
+        safeBrokerOrderState(snapshot)
         resolved = await resolvePlans(snapshot)
       }
     }
@@ -500,9 +523,13 @@ export function createIbkrPaperExecutionService(options: ExecutionOptions = {}) 
           continue
         }
         const plan = resolved.plans.get(symbol)
-        if (!plan && targetBySymbol.has(symbol)) {
-          // A quote/FX failure is not authority to liquidate a holding that may be the intended line.
+        if (!plan && protectedTargetSymbols.has(symbol)) {
+          // A quote/FX failure or ambiguous listing is not authority to liquidate a holding that may
+          // be the intended line.
           protectedBlockers.push(symbol)
+          if (blockedListingSymbols.has(symbol)) {
+            skipped.push({ ticker: symbol, reason: 'The published call has an ambiguous listing identity, so this holding was left untouched.' })
+          }
           continue
         }
         if (plan && positionMatchesPlan(held, plan)) {
@@ -552,6 +579,16 @@ export function createIbkrPaperExecutionService(options: ExecutionOptions = {}) 
     // those blockers must not freeze independent stock targets forever. The legacy entry-only seam
     // remains conservative when it encounters a holding it does not own.
     const closePhaseActive = positionsToClose.length > 0 || (!command.reconcilePositions && protectedBlockers.length > 0)
+    const riskReducingSymbols = new Set<string>()
+    for (const row of target.positions) {
+      const symbol = normalized(row.ticker)
+      const plan = resolved.plans.get(symbol)
+      const heldRows = exactBySymbol.get(symbol) ?? []
+      if (plan && heldRows.length === 1 && isRiskReducingTarget(heldRows[0].quantity, plan.signedQuantity)) {
+        riskReducingSymbols.add(symbol)
+      }
+    }
+    const riskReductionPhaseActive = command.reconcilePositions && riskReducingSymbols.size > 0
     for (const row of target.positions) {
       const symbol = normalized(row.ticker)
       const plan = resolved.plans.get(symbol)
@@ -566,6 +603,10 @@ export function createIbkrPaperExecutionService(options: ExecutionOptions = {}) 
       if (Math.abs(delta) < 1e-9) continue
       if (closePhaseActive) {
         skipped.push({ ticker: symbol, reason: 'Reconciliation will add or resize this target only after a fresh broker snapshot confirms all prior holdings are closed.' })
+        continue
+      }
+      if (riskReductionPhaseActive && !riskReducingSymbols.has(symbol)) {
+        skipped.push({ ticker: symbol, reason: 'Reconciliation will add or enlarge this target only after a fresh broker snapshot confirms all required exposure reductions.' })
         continue
       }
       if (pending.has(symbol)) {

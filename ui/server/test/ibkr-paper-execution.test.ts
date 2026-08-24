@@ -332,4 +332,61 @@ await unsupportedInstrument.sync('c8888888-8888-4888-8888-888888888888', { recon
 assert.deepEqual(independentOrders.map((row) => row.ticker), ['ACME'],
   'an unsupported instrument stays untouched without permanently freezing an independent stock target')
 
-console.log('\nibkr-paper-execution.test.ts: 20 passed')
+let invalidPositionPlacements = 0
+const invalidPositionService = createIbkrPaperExecutionService({
+  enabled: true, allowedAccountId: accountId,
+  snapshotReader: async () => snapshot([acmePosition(123, Number.NaN)]),
+  callsReader: async () => ({ calls: [selectedCall] }), quoteResolver: quote,
+  orderPlacer: async () => { invalidPositionPlacements++; throw new Error('order should not run') },
+})
+await assert.rejects(
+  () => invalidPositionService.sync('c8999999-8888-4888-8888-888888888888', { reconcilePositions: true }),
+  /unusable position or order identity/,
+)
+assert.equal(invalidPositionPlacements, 0, 'a non-finite TWS position quantity fails the broker boundary closed')
+
+let ambiguousPlacements = 0
+const ambiguousListingService = createIbkrPaperExecutionService({
+  enabled: true, allowedAccountId: accountId,
+  snapshotReader: async () => snapshot([acmePosition(123, 20)]),
+  callsReader: async () => ({ calls: [
+    selectedCall,
+    { ...selectedCall, exchange: 'NYSE', run_root: 'analyses/ACME_2026-08-23' },
+  ] }),
+  quoteResolver: async () => { throw new Error('ambiguous target must not resolve a contract') },
+  orderPlacer: async () => { ambiguousPlacements++; throw new Error('order should not run') },
+})
+const ambiguousResult = await ambiguousListingService.sync(
+  'c9111111-8888-4888-8888-888888888888', { reconcilePositions: true },
+)
+assert.equal(ambiguousPlacements, 0, 'an ambiguous published listing cannot liquidate either possible holding')
+assert.match(ambiguousResult.skipped[0]?.reason || '', /ambiguous listing identity/)
+
+const reductionOrders: any[] = []
+const reductionFirstService = createIbkrPaperExecutionService({
+  enabled: true, allowedAccountId: accountId,
+  snapshotReader: async () => snapshot([acmePosition(123, 99)]),
+  callsReader: async () => ({ calls: [
+    { ...selectedCall, frozen_call: { ...selectedCall.frozen_call, confidence: 60 } },
+    {
+      ...selectedCall, ticker: 'BETA', run_root: 'analyses/BETA_2026-08-24',
+      frozen_call: { ...selectedCall.frozen_call, confidence: 80 },
+    },
+  ] }),
+  quoteResolver: async (target) => ({
+    contract: { conId: target.ticker === 'ACME' ? 123 : 321, symbol: target.ticker, secType: 'STK' as any, exchange: 'SMART', currency: 'USD' },
+    price: 100, min_tick: 0.01,
+  }),
+  orderPlacer: async (input) => {
+    reductionOrders.push(input)
+    return { order_id: 69, ticker: input.ticker, action: input.action, quantity: input.quantity, status: 'Submitted', detail: 'accepted' }
+  },
+})
+const reductionResult = await reductionFirstService.sync(
+  'c9222222-8888-4888-8888-888888888888', { reconcilePositions: true },
+)
+assert.deepEqual(reductionOrders.map((row) => [row.ticker, row.action, row.quantity]), [['ACME', 'SELL', 50]],
+  'the 10%-to-5% reduction is submitted before a new target may consume that exposure')
+assert.match(reductionResult.skipped.find((row) => row.ticker === 'BETA')?.reason || '', /exposure reductions/)
+
+console.log('\nibkr-paper-execution.test.ts: 23 passed')
