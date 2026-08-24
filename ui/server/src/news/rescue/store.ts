@@ -634,12 +634,20 @@ export function flushStagedRescueRows(
       after: stage.after,
     })) return fail()
   }
+  // The queue may have committed before recordRescueRows failed to persist an off -> shadow mode
+  // transition. An idempotent retry must restore that small authority before retiring its only marker.
+  const savedMode = readRescueMode(stateDir)
+  if ((!savedMode.available || savedMode.mode !== 'shadow')
+    && !recordRescueMode(stateDir, 'shadow', now)) return fail(RESCUE_MODE_WRITE_ERROR)
+  const preRetireHealth = readRescueHealth(stateDir)
+  if (!preRetireHealth.audit_healthy && (preRetireHealth.audit_error_code === 'queue_transient'
+    || preRetireHealth.audit_error_code === 'mode_write')
+    && !updateRescueHealth(stateDir, { audit_healthy: true, audit_error: null, audit_error_code: null }, now)) {
+    noteRuntimeQueueFailure(stateDir, now)
+    return false
+  }
   if (!retireRescueFeedStage(stateDir)) return fail('The applied second-look feed marker could not be retired.')
   runtimeQueueFailures.delete(runtimeQueueKey(stateDir))
-  const health = readRescueHealth(stateDir)
-  if (!health.audit_healthy && health.audit_error_code === 'queue_transient') {
-    updateRescueHealth(stateDir, { audit_healthy: true, audit_error: null, audit_error_code: null }, now)
-  }
   return true
 }
 
@@ -1067,12 +1075,14 @@ function finalizeInterruptedReservations(
   date: string,
   auditMaxBytes: number,
   now: number,
+  onlyKey?: string,
 ): boolean {
   const loaded = loadRescueDay(stateDir, date)
   if (!loaded.available) return false
   const checks = [...loaded.ledger.checks]
   for (let index = 0; index < checks.length; index++) {
     const record = checks[index]
+    if (onlyKey && record.key !== onlyKey) continue
     if (record.identity_status || record.review_status) continue
     const auditOffset = currentAuditOffset(stateDir, record.reserved_at, auditMaxBytes)
     if (auditOffset === null) return false
@@ -1094,6 +1104,24 @@ function finalizeInterruptedReservations(
     if (!atomicWriteJson(stateDir, dayFile(stateDir, date), { ...loaded.ledger, checks }, DAILY_MAX_BYTES)) return false
   }
   return true
+}
+
+/** Recover the exact result boundary whose durable completion failed in this process. A completed
+ * pending row is appended/cleared; a still-bare reservation is finalized as explicitly interrupted. */
+export function repairFailedRescueResult(
+  stateDir: string,
+  date: string,
+  key: string,
+  auditMaxBytes: number,
+  now = Date.now(),
+): boolean {
+  if (!flushPendingRescueAudit(stateDir, date, auditMaxBytes)) return false
+  const loaded = loadRescueDay(stateDir, date)
+  if (!loaded.available) return false
+  const record = loaded.ledger.checks.find((check) => check.key === key)
+  if (!record) return false
+  if (record.identity_status || record.review_status) return record.audit_pending !== true
+  return finalizeInterruptedReservations(stateDir, date, auditMaxBytes, now, key)
 }
 
 /** Repair every crash-pending daily record before admission, then keep only the three UTC ledgers that
@@ -1120,8 +1148,10 @@ export function reconcileRescueDayLedgers(
     new Date(now - daysAgo * 24 * 3_600_000).toISOString().slice(0, 10)))
   for (const date of dates) {
     if (!flushPendingRescueAudit(stateDir, date, auditMaxBytes)) return false
+    // At the start of a new pass, any bare reservation belongs to a stopped/crashed prior pass. Give it
+    // an explicit permanent interrupted record before another network check can be admitted.
+    if (!finalizeInterruptedReservations(stateDir, date, auditMaxBytes, now)) return false
     if (!keep.has(date)) {
-      if (!finalizeInterruptedReservations(stateDir, date, auditMaxBytes, now)) return false
       try { fs.unlinkSync(dayFile(stateDir, date)) } catch { return false }
     }
   }

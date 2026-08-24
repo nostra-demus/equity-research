@@ -253,16 +253,48 @@ export function groupQuotes(quotes: SymbolQuote[]): SymbolGroup[] {
 /** Keep exact normalized company names separate for name-only rescue verification. The broader UI
  * grouping above intentionally folds legal suffixes, but that would merge two distinct same-name
  * issuers and make an ambiguous directory result look unique. */
+function groupOneIssuerQuotes(quotes: readonly SymbolQuote[]): SymbolGroup[] {
+  const listings = quotes.flatMap((quote) => {
+    const symbol = cleanTicker(quote.symbol)
+    return symbol ? [{ name: quote.name, symbol: normTicker(symbol), exchange: quote.exchange }] : []
+  })
+  if (!listings.length) return []
+  const first = listings[0]
+  const aliases = [...new Set(listings.map((listing) => listing.symbol))]
+  return [{
+    name: first.name,
+    symbol: first.symbol,
+    exchange: first.exchange,
+    aliases,
+    aliasExchanges: Object.fromEntries(listings.map((listing) => [listing.symbol, listing.exchange])),
+    listings,
+  }]
+}
+
 function groupIssuerQuotes(quotes: SymbolQuote[]): SymbolGroup[] {
   const buckets = new Map<string, SymbolQuote[]>()
   for (const quote of quotes) {
-    const key = String(quote.name || '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim()
+    const normalized = String(quote.name || '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim()
+    const key = normalized
       .replace(/\s+(?:sponsored\s+)?adr(?:s)?$/, '')
       .replace(/\s+american\s+depositary\s+(?:receipt|share)s?$/, '')
     if (!key) continue
     buckets.set(key, [...(buckets.get(key) || []), quote])
   }
-  return [...buckets.values()].flatMap((bucket) => groupQuotes(bucket))
+  return [...buckets.entries()].flatMap(([key, bucket]) => {
+    const unique = [...new Map(bucket.map((quote) => [
+      `${normTicker(quote.symbol)}|${String(quote.exchange).trim().toLowerCase()}|${String(quote.name).trim().toLowerCase()}`,
+      quote,
+    ])).values()]
+    const ordinary = unique.filter((quote) =>
+      String(quote.name || '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim() === key)
+    const depositary = unique.filter((quote) => !ordinary.includes(quote))
+    // Exact-name rows are not proof of one issuer: two companies can share a legal name in different
+    // markets. Only an explicit ADR/depositary label may join one unambiguous ordinary listing.
+    if (ordinary.length === 1) return groupOneIssuerQuotes([...ordinary, ...depositary])
+    return [...ordinary.map((quote) => [quote]), ...depositary.map((quote) => [quote])]
+      .flatMap((issuer) => groupOneIssuerQuotes(issuer))
+  })
 }
 
 const SEARCH_URL = 'https://query1.finance.yahoo.com/v1/finance/search'

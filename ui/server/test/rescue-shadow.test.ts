@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict'
+import { spawnSync } from 'node:child_process'
 import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
@@ -305,6 +306,55 @@ function responseForUrl(url: string): any {
 }
 
 {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'rescue-shadow-stage-mode-recovery-'))
+  const rename = fs.renameSync
+  try {
+    assert.equal(recordRescueRows(root, [], START), true)
+    assert.equal(recordRescueMode(root, 'off', START), true)
+    const firehose = path.join(root, 'screener', 'inbox', '2026-08-22_firehose.ndjson')
+    fs.mkdirSync(path.dirname(firehose), { recursive: true })
+    fs.writeFileSync(firehose, `${JSON.stringify(row(89))}\n`)
+    const after = { '2026-08-22': fs.statSync(firehose).size }
+    assert.equal(stageRescueFeedRange(root, START, { before: { '2026-08-22': 0 }, after }), true)
+    let modeFailed = false
+    ;(fs as any).renameSync = (from: fs.PathLike, to: fs.PathLike) => {
+      if (!modeFailed && String(to).endsWith('/news-rescue/mode.json')) {
+        modeFailed = true
+        throw new Error('injected shadow-mode write failure')
+      }
+      return rename(from, to)
+    }
+    assert.equal(flushStagedRescueRows(root, root, START), false)
+    assert.equal(loadRescueQueue(root).items.some((item) => item.event_id === 'EVT-89'), true,
+      'the queue may commit before its shadow-mode authority')
+    assert.equal(readRescueMode(root).mode, 'off')
+    assert.equal(fs.existsSync(path.join(root, 'news-rescue', 'queue-stage.json')), true)
+
+    let healthFailed = false
+    ;(fs as any).renameSync = (from: fs.PathLike, to: fs.PathLike) => {
+      if (!healthFailed && String(to).endsWith('/news-rescue/health.json')) {
+        healthFailed = true
+        throw new Error('injected mode-health recovery failure')
+      }
+      return rename(from, to)
+    }
+    assert.equal(flushStagedRescueRows(root, root, START), false)
+    assert.equal(fs.existsSync(path.join(root, 'news-rescue', 'queue-stage.json')), true,
+      'the retry marker remains until both mode and health recovery are durable')
+
+    ;(fs as any).renameSync = rename
+    assert.equal(flushStagedRescueRows(root, root, START), true)
+    assert.equal(readRescueMode(root).mode, 'shadow',
+      'an already-applied stage restores shadow mode before retiring its only retry marker')
+    assert.equal(fs.existsSync(path.join(root, 'news-rescue', 'queue-stage.json')), false)
+    assert.equal(readRescueHealth(root).audit_healthy, true)
+  } finally {
+    ;(fs as any).renameSync = rename
+    fs.rmSync(root, { recursive: true, force: true })
+  }
+}
+
+{
   const root = fs.mkdtempSync(path.join(os.tmpdir(), 'rescue-shadow-retention-growth-'))
   try {
     const shortWindowHrs = 12
@@ -542,6 +592,179 @@ function responseForUrl(url: string): any {
     const stillFailed = await runRescueShadowPass({ stateDir: root, config: baseConfig, coreReady: true, fetchImpl: unavailable, now: () => START })
     assert.equal(stillFailed.checkedThisCycle, 0)
     assert.equal(calls, 1, 'a persistently unwritable health authority blocks before another network call')
+  } finally {
+    ;(fs as any).renameSync = rename
+    fs.rmSync(root, { recursive: true, force: true })
+  }
+}
+
+{
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'rescue-shadow-result-and-health-write-'))
+  const rename = fs.renameSync
+  try {
+    invalidateSymbolCache()
+    assert.equal(recordRescueRows(root, [row(1)], START), true)
+    let dayWrites = 0
+    let resultWriteFailed = false
+    ;(fs as any).renameSync = (from: fs.PathLike, to: fs.PathLike) => {
+      const destination = String(to)
+      if (destination.endsWith('/news-rescue/days/2026-08-22.json') && ++dayWrites >= 2) {
+        resultWriteFailed = true
+        throw new Error('injected completed-result write failure')
+      }
+      if (resultWriteFailed && destination.endsWith('/news-rescue/health.json')) {
+        throw new Error('injected result-health witness failure')
+      }
+      return rename(from, to)
+    }
+    const failed = await runRescueShadowPass({
+      stateDir: root, config: { ...baseConfig, perCycle: 1 }, coreReady: true,
+      fetchImpl: (async (url: string) => responseForUrl(url)) as any,
+      now: () => START,
+    })
+    assert.equal(failed.status, 'audit_unavailable')
+    assert.equal(readRescueHealth(root).audit_healthy, true,
+      'the injected health failure leaves the older durable health record unchanged')
+    const witnessed = getRescueDiagnostics(root, baseConfig, START)
+    assert.equal(witnessed.status, 'audit_unavailable')
+    assert.equal(witnessed.identityChecks, null,
+      'the process-local result witness closes diagnostics even when its health write also fails')
+
+    ;(fs as any).renameSync = rename
+    const repaired = await runRescueShadowPass({
+      stateDir: root, config: { ...baseConfig, perCycle: 0 }, coreReady: true, now: () => START,
+    })
+    assert.notEqual(repaired.status, 'audit_unavailable')
+    const audit = fs.readFileSync(path.join(root, 'news-rescue', 'ledger', '2026-08.ndjson'), 'utf8')
+      .trim().split('\n').map((line) => JSON.parse(line))
+    assert.equal(audit[0]?.review_status, 'interrupted_unknown',
+      'a bare result boundary is explicitly finalized before later candidates may run')
+  } finally {
+    ;(fs as any).renameSync = rename
+    fs.rmSync(root, { recursive: true, force: true })
+  }
+}
+
+{
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'rescue-shadow-result-restart-repair-'))
+  const rename = fs.renameSync
+  try {
+    invalidateSymbolCache()
+    assert.equal(recordRescueRows(root, [row(1)], START), true)
+    let dayWrites = 0
+    let resultWriteFailed = false
+    ;(fs as any).renameSync = (from: fs.PathLike, to: fs.PathLike) => {
+      const destination = String(to)
+      if (destination.endsWith('/news-rescue/days/2026-08-22.json') && ++dayWrites >= 2) {
+        resultWriteFailed = true
+        throw new Error('injected completed-result write failure before restart')
+      }
+      if (resultWriteFailed && destination.endsWith('/news-rescue/health.json')) {
+        throw new Error('injected result-health failure before restart')
+      }
+      return rename(from, to)
+    }
+    const failed = await runRescueShadowPass({
+      stateDir: root, config: { ...baseConfig, perCycle: 1 }, coreReady: true,
+      fetchImpl: (async (url: string) => responseForUrl(url)) as any,
+      now: () => START,
+    })
+    assert.equal(failed.status, 'audit_unavailable')
+    ;(fs as any).renameSync = rename
+
+    const childCode = `import('./src/news/rescue/shadow.ts').then(async ({ runRescueShadowPass }) => {
+      const result = await runRescueShadowPass({
+        stateDir: ${JSON.stringify(root)}, config: ${JSON.stringify(baseConfig)}, coreReady: true,
+        fetchImpl: async () => { throw new Error('a repaired reservation must not be looked up again') },
+        now: () => ${START}
+      });
+      process.stdout.write('RESULT=' + JSON.stringify({ status: result.status, checked: result.checkedThisCycle }) + '\\n');
+    }).catch((error) => { console.error(error); process.exitCode = 1 })`
+    const child = spawnSync(process.execPath, ['--import', 'tsx', '--input-type=module', '-e', childCode], {
+      cwd: process.cwd(), encoding: 'utf8', timeout: 30_000,
+    })
+    assert.equal(child.status, 0, child.stderr)
+    const resultLine = child.stdout.split(/\r?\n/).find((line) => line.startsWith('RESULT='))
+    assert.ok(resultLine, child.stdout)
+    assert.equal(JSON.parse(resultLine.slice('RESULT='.length)).checked, 0,
+      'a fresh process repairs the durable bare reservation before admitting another lookup')
+    const audit = fs.readFileSync(path.join(root, 'news-rescue', 'ledger', '2026-08.ndjson'), 'utf8')
+      .trim().split('\n').map((line) => JSON.parse(line))
+    assert.equal(audit[0]?.review_status, 'interrupted_unknown')
+  } finally {
+    ;(fs as any).renameSync = rename
+    fs.rmSync(root, { recursive: true, force: true })
+  }
+}
+
+{
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'rescue-shadow-reconcile-and-health-failure-'))
+  const rename = fs.renameSync
+  try {
+    invalidateSymbolCache()
+    assert.equal(recordRescueRows(root, [row(1), row(2)], START), true)
+    const candidate = selectRescueCandidates(loadRescueQueue(root).items, START).candidates[0]
+    assert.ok(reserveRescueCheck(root, '2026-08-22', candidate, RESCUE_SELECTOR_VERSION, START))
+    ;(fs as any).renameSync = (from: fs.PathLike, to: fs.PathLike) => {
+      if (String(to).endsWith('/news-rescue/health.json')) {
+        throw new Error('injected reconciliation-health write failure')
+      }
+      return rename(from, to)
+    }
+    let calls = 0
+    const failed = await runRescueShadowPass({
+      stateDir: root, config: { ...baseConfig, auditMaxBytes: 1 }, coreReady: true,
+      fetchImpl: (async (url: string) => { calls++; return responseForUrl(url) }) as any,
+      now: () => START,
+    })
+    assert.equal(failed.status, 'audit_unavailable')
+    assert.equal(calls, 0,
+      'a locally known reconciliation failure blocks admission even when its health write also fails')
+    assert.equal(readRescueHealth(root).audit_healthy, true,
+      'the injected write failure leaves the earlier healthy record unchanged')
+    assert.equal(getRescueDiagnostics(root, { ...baseConfig, auditMaxBytes: 1 }, START).status, 'audit_unavailable')
+  } finally {
+    ;(fs as any).renameSync = rename
+    fs.rmSync(root, { recursive: true, force: true })
+  }
+}
+
+{
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'rescue-shadow-result-late-repair-'))
+  const rename = fs.renameSync
+  try {
+    invalidateSymbolCache()
+    assert.equal(recordRescueRows(root, [row(1)], START), true)
+    let dayWrites = 0
+    let resultWriteFailed = false
+    ;(fs as any).renameSync = (from: fs.PathLike, to: fs.PathLike) => {
+      const destination = String(to)
+      if (destination.endsWith('/news-rescue/days/2026-08-22.json') && ++dayWrites >= 2) {
+        resultWriteFailed = true
+        throw new Error('injected completed-result write failure before late retry')
+      }
+      if (resultWriteFailed && destination.endsWith('/news-rescue/health.json')) {
+        throw new Error('injected result-health failure before late retry')
+      }
+      return rename(from, to)
+    }
+    assert.equal((await runRescueShadowPass({
+      stateDir: root, config: { ...baseConfig, perCycle: 1 }, coreReady: true,
+      fetchImpl: (async (url: string) => responseForUrl(url)) as any,
+      now: () => START,
+    })).status, 'audit_unavailable')
+    ;(fs as any).renameSync = rename
+
+    const fourDaysLater = START + 4 * 24 * 3_600_000
+    const repaired = await runRescueShadowPass({
+      stateDir: root, config: { ...baseConfig, perCycle: 0 }, coreReady: true, now: () => fourDaysLater,
+    })
+    assert.notEqual(repaired.status, 'audit_unavailable',
+      'the exact failed result repairs before retention removes its four-day-old ledger')
+    assert.equal(fs.existsSync(path.join(root, 'news-rescue', 'days', '2026-08-22.json')), false)
+    const audit = fs.readFileSync(path.join(root, 'news-rescue', 'ledger', '2026-08.ndjson'), 'utf8')
+      .trim().split('\n').map((line) => JSON.parse(line))
+    assert.equal(audit[0]?.review_status, 'interrupted_unknown')
   } finally {
     ;(fs as any).renameSync = rename
     fs.rmSync(root, { recursive: true, force: true })
@@ -1188,6 +1411,10 @@ function responseForUrl(url: string): any {
     assert.equal(loadRescueDay(root, '2026-08-22').ledger.checks.length, 1)
     assert.equal(loadRescueDay(root, '2026-08-23').ledger.checks.length, 0,
       'the new UTC day receives no hidden reservation from the prior pass')
+    const afterCrossing = getRescueDiagnostics(root, baseConfig, afterMidnight)
+    assert.equal(afterCrossing.status, 'warming')
+    assert.equal(afterCrossing.identityChecks, null,
+      'a post-midnight snapshot cannot stamp the prior day\'s counts as current')
   } finally { fs.rmSync(root, { recursive: true, force: true }) }
 }
 
@@ -1245,6 +1472,30 @@ function responseForUrl(url: string): any {
     assert.equal(result.verified, 5,
       'one matched company with a primary listing and an ADR remains one unambiguous issuer')
     assert.equal(loadRescueDay(root, '2026-08-22').ledger.checks.find((check) => check.pool === 'name')?.ticker, 'C100')
+  } finally { fs.rmSync(root, { recursive: true, force: true }) }
+}
+
+{
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'rescue-shadow-name-identical-issuers-'))
+  try {
+    invalidateSymbolCache()
+    const ambiguousName = withInitialRescueDecision({
+      ...row(100, true),
+      companies: [{ name: 'Company 100 Inc', ticker: null, listing_country: null }],
+    })
+    assert.equal(recordRescueRows(root, [row(1), row(2), row(3), row(4), ambiguousName], START), true)
+    const fetchImpl = (async (url: string) => new URL(url).searchParams.get('q')?.includes('Company 100') ? ({
+      ok: true, status: 200, json: async () => ({ quotes: [
+        { quoteType: 'EQUITY', symbol: 'C100', longname: 'Company 100 Inc', exchDisp: 'NYSE' },
+        { quoteType: 'EQUITY', symbol: 'CO100', longname: 'Company 100 Inc', exchDisp: 'LSE' },
+      ] }),
+    }) : responseForUrl(url)) as any
+    const result = await runRescueShadowPass({
+      stateDir: root, config: { ...baseConfig, perCycle: 5 }, coreReady: true, fetchImpl, now: () => START,
+    })
+    assert.equal(result.verified, 4)
+    assert.equal(result.identityUnresolved, 1,
+      'two identical-name issuers in different markets remain ambiguous for a name-only candidate')
   } finally { fs.rmSync(root, { recursive: true, force: true }) }
 }
 

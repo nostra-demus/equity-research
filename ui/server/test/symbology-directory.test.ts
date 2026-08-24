@@ -139,6 +139,30 @@ async function main() {
     assert.equal(cached.networkAttempted, false, 'cache provenance lets circuit health ignore non-network results')
     assert.equal(calls, 1)
   })
+
+  await check('name-only issuer groups keep identical legal names in different markets ambiguous', async () => {
+    invalidateSymbolCache()
+    const result = await searchSymbolsChecked('Same Name Holdings', (async () => resp(true, [
+      { quoteType: 'EQUITY', symbol: 'SNH', longname: 'Same Name Holdings Inc', exchDisp: 'NYSE' },
+      { quoteType: 'EQUITY', symbol: 'SAME', longname: 'Same Name Holdings Inc', exchDisp: 'LSE' },
+    ])) as any)
+    assert.equal(result.status, 'ok')
+    if (result.status !== 'ok') return
+    assert.equal(result.issuerGroups.length, 2,
+      'an identical display name alone does not prove that two listings belong to one issuer')
+  })
+
+  await check('an explicit ADR label may join one unambiguous ordinary listing', async () => {
+    invalidateSymbolCache()
+    const result = await searchSymbolsChecked('Company 100', (async () => resp(true, [
+      { quoteType: 'EQUITY', symbol: 'C100', longname: 'Company 100 Inc', exchDisp: 'NYSE' },
+      { quoteType: 'EQUITY', symbol: 'C100Y', longname: 'Company 100 Inc Sponsored ADR', exchDisp: 'OTC Markets' },
+    ])) as any)
+    assert.equal(result.status, 'ok')
+    if (result.status !== 'ok') return
+    assert.equal(result.issuerGroups.length, 1)
+    assert.equal(result.issuerGroups[0].listings?.length, 2)
+  })
 }
 
 main().then(() => console.log(`\nsymbology-directory.test.ts: ${passed} passed`))

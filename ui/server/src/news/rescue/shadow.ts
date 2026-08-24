@@ -12,7 +12,8 @@ import {
 import { RESCUE_SELECTOR_VERSION, selectRescueCandidates, type RescueCandidate } from './selector'
 import {
   completeRescueCheck, loadRecentRescueChecks, loadRescueDay, loadRescueQueue, noteDirectoryResult,
-  readRescueHealth, readRescueMode, reconcileRescueDayLedgers, repairRescueReservationAuthority,
+  readRescueHealth, readRescueMode, reconcileRescueDayLedgers, repairFailedRescueResult,
+  repairRescueReservationAuthority,
   RESCUE_DIAGNOSTICS_WRITE_ERROR, RESCUE_RESERVATION_WRITE_ERROR, rescueAuditCanAccept, rescueCheckMatchesCandidate,
   rescueFeedCheckpointMatches, reserveRescueCheck, updateRescueHealth,
   type RescueCheckRecord, type RescueFeedCheckpointSnapshot, type RescueIdentityStatus,
@@ -68,6 +69,7 @@ function utcDate(now: number): string { return new Date(now).toISOString().slice
 
 const diagnosticsFile = (stateDir: string): string => path.join(stateDir, 'news-rescue', 'diagnostics.json')
 const runtimeDiagnosticsFailures = new Set<string>()
+const runtimeResultFailures = new Map<string, { date: string; key: string }>()
 const runtimeNormalIdeasPauses = new Map<string, string>()
 const diagnosticsRuntimeKey = (stateDir: string): string => path.resolve(stateDir)
 
@@ -411,6 +413,15 @@ export function getRescueDiagnostics(
     auditHealthy: false,
     circuitOpenUntil: health.directory_pause_until,
   }
+  if (runtimeResultFailures.has(diagnosticsRuntimeKey(stateDir))) return {
+    ...(saved && saved.mode === config.mode && saved.selectorVersion === RESCUE_SELECTOR_VERSION
+      ? withoutSnapshotMetrics(saved)
+      : emptyDiagnostics(config, 'audit_unavailable', '')),
+    status: 'audit_unavailable',
+    reason: 'A second-look result could not be saved. Further checks stay paused until its audit record is repaired.',
+    auditHealthy: false,
+    circuitOpenUntil: health.directory_pause_until,
+  }
   if (!humanActionsReady) return {
     ...(saved && saved.mode === config.mode && saved.selectorVersion === RESCUE_SELECTOR_VERSION
       ? saved
@@ -516,8 +527,8 @@ export async function runRescueShadowPass(deps: {
       auditHealthy: false,
     }
   }
-  const finish = (result: RescueShadowResult): RescueShadowResult => {
-    return saveDiagnosticsSnapshot(deps.stateDir, result, deps.now?.() ?? Date.now())
+  const finish = (result: RescueShadowResult, snapshotAt = now): RescueShadowResult => {
+    return saveDiagnosticsSnapshot(deps.stateDir, result, snapshotAt)
       ? result
       : snapshotFailure(result)
   }
@@ -568,8 +579,18 @@ export async function runRescueShadowPass(deps: {
   // for several days finish a pending monthly append, and turns retiring crash reservations into explicit
   // interrupted records instead of silently deleting them.
   const beforeReconcile = readRescueHealth(deps.stateDir)
-  const reconciledLedgers = reconcileRescueDayLedgers(deps.stateDir, now, deps.config.auditMaxBytes)
-  if (!reconciledLedgers) {
+  const resultFailure = runtimeResultFailures.get(diagnosticsRuntimeKey(deps.stateDir))
+  // Repair the exact in-process failure before retention can retire its old day ledger. Global
+  // reconciliation then finalizes any other bare reservation left by a prior process crash.
+  const resultAuthorityRepaired = !resultFailure || repairFailedRescueResult(
+    deps.stateDir, resultFailure.date, resultFailure.key, deps.config.auditMaxBytes, now,
+  )
+  const reconciledLedgers = resultAuthorityRepaired
+    && reconcileRescueDayLedgers(deps.stateDir, now, deps.config.auditMaxBytes)
+  if (resultAuthorityRepaired && resultFailure) {
+    runtimeResultFailures.delete(diagnosticsRuntimeKey(deps.stateDir))
+  }
+  if (!reconciledLedgers || !resultAuthorityRepaired) {
     updateRescueHealth(deps.stateDir, {
       audit_healthy: false,
       audit_error: 'The detailed second-look record is full or could not be saved.',
@@ -577,6 +598,16 @@ export async function runRescueShadowPass(deps: {
   } else if (!beforeReconcile.audit_healthy && beforeReconcile.audit_error_code === 'audit_result') {
     updateRescueHealth(deps.stateDir, { audit_healthy: true, audit_error: null, audit_error_code: null }, now)
   }
+  if (!reconciledLedgers || !resultAuthorityRepaired) return finish({
+    ...withoutSnapshotMetrics(diagnosticsFromState(
+      deps.stateDir, deps.config, now, deps.coreReady, blockedEventIds, humanActionsReady,
+      normalIdeasReady, deps.feedCheckpoint,
+    )),
+    status: 'audit_unavailable',
+    reason: 'A second-look result could not be saved. Further checks stay paused until its audit record is repaired.',
+    auditHealthy: false,
+    checkedThisCycle: 0,
+  })
   const repairHistory = deps.config.mode === 'shadow' ? recentChecks(deps.stateDir, now) : null
   const directoryHealthSaved = deps.config.mode !== 'shadow' || !repairHistory?.available
     || updateRescueHealth(deps.stateDir, directoryHealthPatch(repairHistory.checks, now), now)
@@ -654,12 +685,24 @@ export async function runRescueShadowPass(deps: {
     if (candidate.pool === 'name') nameUsed++
     checkedThisCycle++
     const result = await verifyCandidate(candidate, deps.fetchImpl || fetch)
-    if (!completeRescueCheck(deps.stateDir, date, reservation.key, result, deps.config.auditMaxBytes, deps.now?.() ?? Date.now())) {
+    const completedAt = deps.now?.() ?? Date.now()
+    if (!completeRescueCheck(deps.stateDir, date, reservation.key, result, deps.config.auditMaxBytes, completedAt)) {
+      runtimeResultFailures.set(diagnosticsRuntimeKey(deps.stateDir), { date, key: reservation.key })
       updateRescueHealth(deps.stateDir, {
         audit_healthy: false,
         audit_error: 'The detailed second-look result could not be saved. Further checks are stopped.',
-      }, deps.now?.() ?? Date.now())
-      break
+      }, completedAt)
+      const diagnosticAt = utcDate(completedAt) === date ? completedAt : now
+      return finish({
+        ...withoutSnapshotMetrics(diagnosticsFromState(
+          deps.stateDir, deps.config, diagnosticAt, deps.coreReady, blockedEventIds,
+          humanActionsReady, normalIdeasReady, deps.feedCheckpoint,
+        )),
+        status: 'audit_unavailable',
+        reason: 'The detailed second-look result could not be saved. Further checks are paused until it is repaired.',
+        auditHealthy: false,
+        checkedThisCycle,
+      }, diagnosticAt)
     }
     const noted = result.networkAttempted
       ? noteDirectoryResult(deps.stateDir, result.status, deps.now?.() ?? Date.now())
@@ -667,8 +710,9 @@ export async function runRescueShadowPass(deps: {
     log(`second look shadow: ${candidate.event_id} → ${result.status}`)
     if (!noted.saved) {
       const failedAt = deps.now?.() ?? Date.now()
+      const diagnosticAt = utcDate(failedAt) === date ? failedAt : now
       diagnostic = diagnosticsFromState(
-        deps.stateDir, deps.config, utcDate(failedAt) === date ? failedAt : now, deps.coreReady,
+        deps.stateDir, deps.config, diagnosticAt, deps.coreReady,
         blockedEventIds, humanActionsReady, normalIdeasReady, deps.feedCheckpoint,
       )
       return finish({
@@ -677,14 +721,15 @@ export async function runRescueShadowPass(deps: {
         reason: 'The second-look health record could not be saved. Further stock-listing checks were stopped.',
         auditHealthy: false,
         checkedThisCycle,
-      })
+      }, diagnosticAt)
     }
     if (directoryPaused(noted.health.directory_pause_until, deps.now?.() ?? Date.now())) break
   }
   const finalNow = deps.now?.() ?? Date.now()
+  const diagnosticAt = utcDate(finalNow) === date ? finalNow : now
   diagnostic = diagnosticsFromState(
-    deps.stateDir, deps.config, utcDate(finalNow) === date ? finalNow : now, deps.coreReady,
+    deps.stateDir, deps.config, diagnosticAt, deps.coreReady,
     blockedEventIds, humanActionsReady, normalIdeasReady, deps.feedCheckpoint,
   )
-  return finish({ ...diagnostic, checkedThisCycle })
+  return finish({ ...diagnostic, checkedThisCycle }, diagnosticAt)
 }
