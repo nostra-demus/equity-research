@@ -20,6 +20,8 @@ export interface PaperAutoSyncAttempt {
   run_id: string | null
   run_kind: string | null
   ticker: string | null
+  /** The newest publication that remains authoritative after this attempt. */
+  publication_revision?: string | null
   order_count: number
   skipped_count: number
   detail: string
@@ -63,6 +65,7 @@ function validAttempt(value: unknown): value is PaperAutoSyncAttempt {
     && (row.run_id === null || typeof row.run_id === 'string')
     && (row.run_kind === null || typeof row.run_kind === 'string')
     && (row.ticker === null || typeof row.ticker === 'string')
+    && (row.publication_revision === undefined || row.publication_revision === null || typeof row.publication_revision === 'string')
     && typeof row.order_count === 'number' && Number.isInteger(row.order_count) && row.order_count >= 0
     && typeof row.skipped_count === 'number' && Number.isInteger(row.skipped_count) && row.skipped_count >= 0
     && typeof row.detail === 'string'
@@ -135,7 +138,9 @@ export function createIbkrPaperAutoSync(options: AutoSyncOptions = {}) {
   const isRevisionAncestor = options.isRevisionAncestor ?? gitRevisionIsAncestor
   let tail: Promise<PaperAutoSyncAttempt | null> = Promise.resolve(null)
   const publishedRuns = new Set<string>()
-  let newestPublicationRevision: string | null = null
+  // The latest attempt persists the authoritative revision so restart recovery cannot replay an older
+  // publication and roll the dedicated paper account backward. Old v1 files remain readable.
+  let newestPublicationRevision: string | null = readAttempt(stateDir)?.publication_revision ?? null
 
   const afterPublishedRun = (run: PublishedResearchRun): Promise<PaperAutoSyncAttempt | null> => {
     if (!enabled || !isAutomaticPaperSyncRun(run) || publishedRuns.has(run.runId)) return Promise.resolve(null)
@@ -151,6 +156,7 @@ export function createIbkrPaperAutoSync(options: AutoSyncOptions = {}) {
           if (stale) {
             attempt = {
               schema_version: 'ibkr-paper-auto-sync/v1', at: now().toISOString(), trigger: 'publication', ...identity,
+              publication_revision: newestPublicationRevision,
               outcome: 'no_order', order_count: 0, skipped_count: 1,
               detail: 'This older publication was skipped because a newer published portfolio is already authoritative.',
             }
@@ -171,12 +177,14 @@ export function createIbkrPaperAutoSync(options: AutoSyncOptions = {}) {
           : result.detail
         attempt = {
           schema_version: 'ibkr-paper-auto-sync/v1', at: now().toISOString(), trigger: 'publication', ...identity,
+          publication_revision: revision,
           outcome: partial ? 'partial' : result.orders.length ? 'orders_sent' : result.skipped.length ? 'no_order' : 'aligned',
           order_count: result.orders.length, skipped_count: result.skipped.length, detail,
         }
       } catch (error: unknown) {
         attempt = {
           schema_version: 'ibkr-paper-auto-sync/v1', at: now().toISOString(), trigger: 'publication', ...identity,
+          publication_revision: newestPublicationRevision ?? run.publicationRevision ?? null,
           outcome: 'error', order_count: 0, skipped_count: 0,
           detail: `Automatic paper sync could not run safely: ${safeErrorMessage(error)}`,
         }

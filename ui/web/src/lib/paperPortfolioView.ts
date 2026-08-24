@@ -115,6 +115,7 @@ function automaticExecution(value: unknown): boolean {
     && typeof attempt.outcome === 'string' && ['orders_sent', 'partial', 'aligned', 'no_order', 'error'].includes(attempt.outcome)
     && attempt.trigger === 'publication'
     && stringOrNull(attempt.run_id) && stringOrNull(attempt.run_kind) && stringOrNull(attempt.ticker)
+    && (attempt.publication_revision === undefined || stringOrNull(attempt.publication_revision))
     && typeof attempt.order_count === 'number' && Number.isInteger(attempt.order_count) && attempt.order_count >= 0
     && typeof attempt.skipped_count === 'number' && Number.isInteger(attempt.skipped_count) && attempt.skipped_count >= 0
     && typeof attempt.detail === 'string'

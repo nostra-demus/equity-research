@@ -41,7 +41,8 @@ assert.deepEqual(controller.read(), {
   enabled: true,
   last_attempt: {
     schema_version: 'ibkr-paper-auto-sync/v1', at: '2026-08-24T12:00:00.000Z', outcome: 'orders_sent', trigger: 'publication',
-    run_id: 'run-1', run_kind: 'full', ticker: 'ACME', order_count: 1, skipped_count: 0, detail: 'one accepted',
+    run_id: 'run-1', run_kind: 'full', ticker: 'ACME', publication_revision: 'a'.repeat(40),
+    order_count: 1, skipped_count: 0, detail: 'one accepted',
   },
 })
 assert.equal(fs.readFileSync(path.join(stateDir, 'ibkr-paper', 'automatic-sync.jsonl'), 'utf8').trim().split('\n').length, 1,
@@ -101,8 +102,9 @@ await drainable.drain()
 const olderRevision = 'a'.repeat(40)
 const newerRevision = 'b'.repeat(40)
 const orderedRevisions: string[] = []
+const restartState = fs.mkdtempSync(path.join(os.tmpdir(), 'paper-auto-sync-restart-'))
 const ordered = createIbkrPaperAutoSync({
-  enabled: true,
+  enabled: true, stateDir: restartState,
   isRevisionAncestor: async (ancestor, descendant) => ancestor === olderRevision && descendant === newerRevision,
   sync: async (_key, command) => {
     orderedRevisions.push(command.publishedRevision)
@@ -114,6 +116,21 @@ const staleAttempt = await ordered.afterPublishedRun(published({ runId: 'run-old
 assert.deepEqual(orderedRevisions, [newerRevision], 'a late older publication cannot roll back a newer paper portfolio')
 assert.equal(staleAttempt?.outcome, 'no_order')
 assert.match(String(staleAttempt?.detail), /older publication was skipped/)
+assert.equal(staleAttempt?.publication_revision, newerRevision,
+  'a stale attempt keeps the newer authoritative revision in durable state')
+
+const afterRestartRevisions: string[] = []
+const afterRestart = createIbkrPaperAutoSync({
+  enabled: true, stateDir: restartState,
+  isRevisionAncestor: async (ancestor, descendant) => ancestor === olderRevision && descendant === newerRevision,
+  sync: async (_key, command) => {
+    afterRestartRevisions.push(command.publishedRevision)
+    return { ok: true, paper_only: true, action: 'sync', detail: 'aligned', orders: [], skipped: [] }
+  },
+})
+const restartStaleAttempt = await afterRestart.afterPublishedRun(published({ runId: 'run-older-after-restart', publicationRevision: olderRevision }))
+assert.deepEqual(afterRestartRevisions, [], 'restart recovery cannot roll the paper portfolio back to an older publication')
+assert.equal(restartStaleAttempt?.publication_revision, newerRevision)
 
 const launcher = fs.readFileSync(new URL('../src/launcher.ts', import.meta.url), 'utf8')
 assert.match(launcher, /if \(status === 'done'\) scheduleIbkrPaperAutoSyncAfterPublication\(run\)/,
@@ -131,4 +148,5 @@ fs.rmSync(failureState, { recursive: true, force: true })
 fs.rmSync(redactedState, { recursive: true, force: true })
 fs.rmSync(partialState, { recursive: true, force: true })
 fs.rmSync(blockedState, { recursive: true, force: true })
+fs.rmSync(restartState, { recursive: true, force: true })
 console.log('ok  only terminally published Research calls automatically reconcile IBKR Paper once')

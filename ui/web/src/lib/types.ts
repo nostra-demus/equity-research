@@ -2739,6 +2739,7 @@ export interface IbkrPaperPortfolioRead {
         run_id: string | null
         run_kind: string | null
         ticker: string | null
+        publication_revision?: string | null
         order_count: number
         skipped_count: number
         detail: string
