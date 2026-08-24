@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-24T02:01:10Z",
+  "generated_at": "2026-08-24T02:06:07Z",
   "inbox": [
     {
       "inbox_id": "INB-20260824-198",
@@ -340,6 +340,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260824-238",
+      "headline": "Alibaba sets price in US$10.2 billion new share offer to fuel AI expansion",
+      "headline_en": null,
+      "url": "https://www.scmp.com/tech/big-tech/article/3365003/alibaba-sets-price-us102-billion-new-share-offer-fuel-ai-expansion?utm_source=rss_feed",
+      "source_name": "South China Morning Post",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-24T01:59:29Z",
+      "sweep_file": "screener/inbox/2026-08-24_sweep.json",
+      "prelim_note": "Alibaba announced a US$10.2 billion new share offer to fund AI expansion, diluting existing shareholders while building capacity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Alibaba announced a US$10.2 billion new share offer to fund AI expansion, diluting existing shareholders while building capacity.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capital_actions",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Alibaba Group",
+          "ticker": "BABA",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1882,55 +1931,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260824-002",
-      "headline": "HIGH FASHION (00608): INTERIM RESULTS FOR THE SIX MONTHS ENDED 30 JUNE 2026",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0824/2026082400183.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-23T23:59:00Z",
-      "sweep_file": "screener/inbox/2026-08-24_sweep.json",
-      "prelim_note": "Release of interim financial results for the six months ended 30 June 2026.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "Release of interim financial results for the six months ended 30 June 2026.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "High Fashion International",
-          "ticker": "00608",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -84885,9 +84885,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 536,
-    "news_picked_today": 258,
-    "news_dropped_today": 278
+    "news_seen_today": 572,
+    "news_picked_today": 268,
+    "news_dropped_today": 304
   },
   "book_momentum": {
     "live_count": 8,
