@@ -63,6 +63,35 @@ check('the static showcase fails closed to empty legacy history instead of fabri
   assert.match(api, /buckets: \[\], providers: \[\]/)
 })
 
+check('an unreadable saved backlog is shown as unknown, never as a proven zero', () => {
+  assert.match(panel, /diag\.backlog\.unavailable \? '—'/)
+  assert.match(panel, /the saved waiting list could not be read/)
+})
+
+check('incomplete daily cycle history cannot publish scored and rejected totals as exact', () => {
+  assert.match(panel, /dailyScoringTotalsKnown/)
+  assert.match(panel, /dailyScoringTotalsKnown \? diag\.today\.read\.toLocaleString\(\) : '—'/)
+  assert.match(panel, /dailyScoringTotalsKnown \? diag\.today\.dropped\.toLocaleString\(\) : '—'/)
+})
+
+check('unreadable second-look ledgers are shown as unavailable, never as zero activity', () => {
+  assert.match(panel, /diag\.rescue\.candidatesFound == null/)
+  assert.match(panel, /Second-look counts are unavailable because the saved second-look record could not be read/)
+  assert.match(panel, /Second-look counts will appear after the first complete history window is built/)
+  assert.match(panel, /Second-look checks and counts are turned off/,
+    'an explicit kill switch is not mislabeled as a storage failure')
+})
+
+check('pool-cap misses do not hide candidates that still have a paced slot later today', () => {
+  assert.match(panel, /\(diag\.rescue\.queuedForLater \?\? 0\) > 0/)
+  assert.doesNotMatch(panel, /queuedForLater > 0 && diag\.rescue\.capacityMisses/)
+})
+
+check('retry cooldown is named separately from paced capacity', () => {
+  assert.match(panel, /diag\.rescue\.retryCooling/)
+  assert.match(panel, /waiting 30 minutes before another stock-listing lookup/)
+})
+
 check('reduced motion and narrow-screen layouts remain supported', () => {
   assert.match(css, /prefers-reduced-motion: reduce/)
   assert.match(css, /\.diag \{ transition: none; \}/)

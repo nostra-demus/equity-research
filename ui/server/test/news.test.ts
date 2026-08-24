@@ -24,6 +24,7 @@ import { buildOverflowProviders, NEWS, STATE_DIR } from '../src/config'
 import { createTheme } from '../src/news/themes/discover'
 import { appendThemeMutations, loadThemes } from '../src/news/themes/store'
 import { themeStoryFamilyKey, themeStoryKey } from '../src/news/themes/story-key'
+import { flushStagedRescueRows, loadRescueQueue } from '../src/news/rescue/store'
 import type { ThemeItemView } from '../src/news/themes/types'
 import type { CycleSummary, FeedItem, NewsItem, RawArticle, TriagedItem } from '../src/news/types'
 import { attachValidNarrative } from './themes-fixtures'
@@ -3332,6 +3333,12 @@ await check('a pick awaiting feed may be visible in inbox but is uncounted/unsee
   })
   assert.equal(second.picked, 1)
   assert.equal(loadDeferred(state).length, 0)
+  assert.equal(loadRescueQueue(state).committed, false,
+    'ingest leaves only a small staged range until normal Ideas has had priority')
+  assert.equal(flushStagedRescueRows(root, state, Date.parse('2026-08-22T00:01:00Z')), true)
+  const rescued = loadRescueQueue(state).items.find((item) => item.event_id === row.event_id)
+  assert.equal(rescued?.decision_rule_version, 'second-look-v1',
+    'a recovered prior-version feed payload is annotated before entering shadow reconciliation')
   const originalSweep = JSON.parse(fs.readFileSync(path.join(root, 'screener', 'inbox', `${date}_sweep.json`), 'utf8'))
   assert.equal(originalSweep.rows.length, 1)
   assert.equal(fs.existsSync(path.join(root, 'screener', 'inbox', '2026-08-22_sweep.json')), false)

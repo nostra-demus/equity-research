@@ -109,7 +109,14 @@ export interface IdeaPassDeps {
   markProviderDispatch?: (providerId: string, at: number) => void
 }
 
-export interface IdeaPassResult { ran: boolean; produced: number; note?: string; reason_code?: IdeasHealthReasonCode }
+export interface IdeaPassResult {
+  ran: boolean
+  produced: number
+  note?: string
+  reason_code?: IdeasHealthReasonCode
+  /** True only when no current normal Ideas input remains unprocessed or uncertain. */
+  coverage_complete?: boolean
+}
 interface ProviderDecision {
   result: SurfaceIdeasResult | null
   reason_code: IdeasHealthReasonCode | null
@@ -921,7 +928,11 @@ export async function runIdeaPass(deps: IdeaPassDeps): Promise<IdeaPassResult> {
         input_count: inputCount,
         produced_count: 0,
       }, inputAt)
-      return { ran: false, produced: 0, note: reason, reason_code: staleInput ? 'stale_inputs' : 'insufficient_inputs' }
+      return {
+        ran: false, produced: 0, note: reason,
+        reason_code: staleInput ? 'stale_inputs' : 'insufficient_inputs',
+        ...(staleInput ? {} : { coverage_complete: true }),
+      }
     }
 
     // Reconcile Theme-only snapshots only after the complete input set clears every integrity/freshness
@@ -1053,6 +1064,11 @@ export async function runIdeaPass(deps: IdeaPassDeps): Promise<IdeaPassResult> {
     const priorFailed = !priorResultPersisted
       && (recoveredAmbiguousDispatch || priorHealthRead.status === 'corrupt'
         || (priorHealth?.outcome === 'failed' && !uncertaintyOnlyFailure) || priorUnfinished)
+    const priorCompletedInputs = new Set(prev?.completed_input_keys || [])
+    const reusableCompleteCoverage = !priorFailed && !priorUnfinished && !uncertaintyReason
+      && !prev?.in_flight && prev?.hash === hash && prev?.effect_hash === effectHash
+      && prev.completed_input_keys !== undefined
+      && rankedInputKeys.every((key) => priorCompletedInputs.has(key))
     const elapsed = Number.isFinite(intervalAnchor) ? now() - intervalAnchor : Number.POSITIVE_INFINITY
     if (elapsed < c.minIntervalSec * 1000) {
       const next = intervalAnchor + c.minIntervalSec * 1000
@@ -1093,7 +1109,10 @@ export async function runIdeaPass(deps: IdeaPassDeps): Promise<IdeaPassResult> {
         ? { ran: false, produced: 0, note: uncertaintyReason, reason_code: 'stale_running' }
         : priorUnfinished
         ? { ran: false, produced: 0, note: 'prior provider attempt unfinished', reason_code: 'stale_running' }
-        : { ran: false, produced: 0, note: 'within min interval', reason_code: 'min_interval' }
+        : {
+            ran: false, produced: 0, note: 'within min interval', reason_code: 'min_interval',
+            ...(reusableCompleteCoverage ? { coverage_complete: true } : {}),
+          }
     }
     // Prompt spend and persistence effects are separate. A Theme revision/evidence edge can change while
     // the model-visible rows stay byte-identical; that still needs one minimal rerun so saved lineage and
@@ -1209,7 +1228,10 @@ export async function runIdeaPass(deps: IdeaPassDeps): Promise<IdeaPassResult> {
       }
       const next = prev!.ran_at_ms + c.refreshSec * 1000
       health({ enabled: true, status: 'waiting', outcome: 'skipped', reason_code: 'inputs_unchanged', reason: 'Every current ranked-input chunk has a completed provider result.', next_eligible_at: new Date(next).toISOString(), input_count: inputCount, produced_count: 0 })
-      return { ran: false, produced: 0, note: 'all current chunks complete', reason_code: 'inputs_unchanged' }
+      return {
+        ran: false, produced: 0, note: 'all current chunks complete',
+        reason_code: 'inputs_unchanged', coverage_complete: true,
+      }
     }
 
     const rows = chunks[pendingChunkIndex]
@@ -1611,7 +1633,10 @@ export async function runIdeaPass(deps: IdeaPassDeps): Promise<IdeaPassResult> {
       input_count: inputCount, produced_count: produced,
     }, finishedAt)
     log(`idea pass: ${providerName} surfaced ${produced} idea${produced === 1 ? '' : 's'} from chunk ${pendingChunkIndex + 1}/${chunks.length} (${rows.length} of ${inputCount} ranked items)`)
-    return { ran: true, produced, note: persistenceFailed ? reason : undefined, reason_code: reasonCode || undefined }
+    return {
+      ran: true, produced, note: persistenceFailed ? reason : undefined, reason_code: reasonCode || undefined,
+      coverage_complete: !persistenceFailed && !uncertaintyReason && remainingChunks === 0,
+    }
   } catch (e: any) {
     log(`idea pass error: ${e?.message || e}`)
     const at = now()

@@ -52,6 +52,10 @@ import { runThemesCycle, bumpCycleCounter, themesConfigFromNews } from './themes
 import { makeThemeNamer } from './themes/llm'
 import type { ThemeItemView } from './themes/types'
 import type { CycleSummary, FeedItem, NewsItem, RawArticle, TriagedItem } from './types'
+import { withInitialRescueDecision } from './rescue/selector'
+import {
+  captureRescueFeedCheckpoint, recordRescueMode, rescueQueueEnabled, stageRescueFeedRange,
+} from './rescue/store'
 import { updateSemanticIndex } from '../retrieval/semantic'
 import fs from 'node:fs'
 
@@ -888,6 +892,11 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
   const persistCycleSummary = deps.appendFirehoseSummaryFn || appendFirehoseSummary
   const ts = now().toISOString().replace(/\.\d{3}Z$/, 'Z')
   const date = ts.slice(0, 10)
+  const cycleStartedAt = Date.parse(ts)
+  const rescueCheckpointBefore = captureRescueFeedCheckpoint(repoRoot, cycleStartedAt, cfg.rescueMaxAgeHrs)
+  if (!rescueQueueEnabled(cfg.rescueMode) && !recordRescueMode(stateDir, 'off', cycleStartedAt)) {
+    log('second look disabled, but its small off-mode marker could not be saved')
+  }
   const routingCycleId = deterministicCycleId(ts)
   const routingOptions = (): ProviderRoutingOptions => ({
     repoRoot,
@@ -960,6 +969,17 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
     summary.feed_commit_version = 1
     const summaryDurable = persistCycleSummary(repoRoot, date, summary)
     if (summaryDurable) completePipelineFlowCycle(stateDir, ts)
+    if (rescueQueueEnabled(cfg.rescueMode)) {
+      const checkpointAt = Date.parse(summary.completed_at || summary.ts)
+      const checkpointAfter = captureRescueFeedCheckpoint(repoRoot, checkpointAt, cfg.rescueMaxAgeHrs)
+      if (!rescueCheckpointBefore.available || !checkpointAfter.available
+        || !stageRescueFeedRange(stateDir, checkpointAt, {
+          before: rescueCheckpointBefore.checkpoint,
+          after: checkpointAfter.checkpoint,
+        })) {
+        log('second look shadow paused — its small post-Ideas feed marker could not be saved')
+      }
+    }
     newsBus.emit({ type: 'news-cycle', summary })
   }
   if (!hasScoringProvider && !hasDrainablePending) {
@@ -2367,10 +2387,12 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
   // per-item feed records — for KEPT and DROPPED alike, so the live wire shows everything the
   // scanner read and why; then stream each to live listeners
   const feedItems: FeedItem[] = feedCandidates.map((t) => {
-    if (t.pending_feed_item) return t.pending_feed_item
+    // A prior-version row can cross the durable feed boundary only after a restart. Add the current
+    // decision annotation here too so recovered scored work remains part of shadow reconciliation.
+    if (t.pending_feed_item) return withInitialRescueDecision(t.pending_feed_item)
     const clocks = revisionClocksByEvent.get(t.event_id)
     const sourceIsEnglish = clocks ? clocks.sourceIsEnglish : t.source_is_english === true
-    return {
+    return withInitialRescueDecision({
       kind: 'item',
       ts: t.feed_triaged_at || ts,
       // Exact kept revisions use the pair mergeInbox persisted. Dropped rows have no inbox lane and retain
@@ -2417,7 +2439,7 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
       dedup_group: t.dedup_group, // story-cluster id (news/dedup.ts) — the live wire collapses on it
       inboxed: t.band !== 'drop',
       caution: t.caution, // caution_only social — preserved so the display re-rank (feed.ts) re-applies the lowest cap
-    }
+    })
   })
   // Persist the exact post-inbox payload BEFORE append. This is the crash-replay authority for every field,
   // including original triage time and durable inbox clocks. If this journal cannot land, do not start a

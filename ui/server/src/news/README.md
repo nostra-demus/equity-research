@@ -87,6 +87,10 @@ row or relabel an already-scored item as expired.
 `IDEAS_REFRESH_SEC` · `IDEAS_SHELF_LIFE_HRS` · `IDEAS_INPUT_MAX_AGE_HRS` (default 36; both the
 sweep heartbeat and every contributing `found_at` must be inside this ceiling; it may tighten but
 never widen the shelf-life limit) ·
+`IDEAS_RESCUE_MODE` (`shadow` by default; `off` disables it, and this rollout cannot read articles) ·
+`IDEAS_RESCUE_MAX_AGE_HRS` (36) · `IDEAS_RESCUE_DAILY_CHECKS` (200) ·
+`IDEAS_RESCUE_PER_CYCLE` (8) · `IDEAS_RESCUE_NAME_DAILY_CAP` (40) ·
+`IDEAS_RESCUE_PACE_FLOOR_FRAC` (0.04) · `IDEAS_RESCUE_AUDIT_MAX_BYTES` (15 MB per month) ·
 `NEWS_GROQ_DAILY_REQ_CAP` · `NEWS_GROQ_DAILY_TOKEN_CAP` · `NEWS_GROQ_RPM` · `NEWS_TRIAGE_BATCH` ·
 `NEWS_GDELT_LOOKBACK_MIN` · `NEWS_INBOX_MAX_ROWS` · `NEWS_PICK_THRESHOLD` · `NEWS_WATCH_THRESHOLD` ·
 `NEWS_RSS_ENABLED` · `NEWS_RSS_FEEDS_PATH` · `NEWS_RSS_USER_AGENT` · `NEWS_RSS_CONCURRENCY` ·

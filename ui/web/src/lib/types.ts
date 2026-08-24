@@ -731,6 +731,21 @@ export interface FeedItem {
   dedup_status: string
   dedup_group?: string // story-cluster id (news/dedup.ts) — the wire shows one row per group
   inboxed: boolean // eligible for the inbox projection (band is pick/watch), not proof it remains in today's capped snapshot
+  decision_rule_version?: string
+  decision_kept?: boolean
+  decision_reason_codes?: string[]
+  original_triage_score?: number
+  decision_rank_inputs?: {
+    strong_signal_count: number
+    event_priority: number
+    source_rank: number
+    quantified: boolean
+    independent_reports: number
+    original_score: number
+    specific_date: boolean
+    found_at: string
+    ticker_present: boolean
+  }
 }
 
 // ---- on-demand event enrichment (GET /api/news/enrich) ----
@@ -1030,6 +1045,8 @@ export interface NewsStatus {
   readOnly?: boolean // another engine owns the ingester → this one serves but never scans (optional: deploy-skew)
   backlog?: { count: number; cap: number; unavailable?: boolean } // durable retry depth + active work-window size; unavailable means the queue authority needs attention
   today: {
+    /** Optional for rolling deploys. Unique arrivals; null when legacy cycle data cannot prove them. */
+    newArrivals?: number | null
     read: number
     kept: number
     dropped: number
@@ -1187,9 +1204,41 @@ export interface NewsDiagnostics {
     coverageComplete: boolean
   }
   tiers: TierDiagnostics[]
+  rescue?: {
+    mode: 'off' | 'shadow'
+    selectorVersion: string
+    status: 'disabled' | 'warming' | 'ready' | 'paused_core_work' | 'directory_paused' | 'audit_unavailable'
+    reason: string
+    candidatesFound: number | null
+    primaryCandidates: number | null
+    nameCandidates: number | null
+    identityChecks: number | null
+    checksReleased: number | null
+    verified: number | null
+    identityUnresolved: number | null
+    directoryUnavailable: number | null
+    articleReads: number
+    ideasCreated: number
+    capacityMisses: number | null
+    queuedForLater: number | null
+    retryCooling?: number | null
+    retryExhausted?: number | null
+    auditHealthy: boolean
+    circuitOpenUntil: string | null
+    dailyCap: number
+    reconciliation: {
+      total: number; inboxed: number; outside_score: number; social: number; routine_filing: number
+      duplicate: number; manually_blocked?: number; no_identity: number; no_signal: number; candidates: number
+    } | null
+  }
   // retiredToday is optional so a cockpit talking to an older server degrades cleanly (reads as absent, not 0-with-confidence)
-  backlog: { unavailable?: boolean; count: number; cap: number; pctOfCap: number; nearLimit: boolean; trend: 'growing' | 'shrinking' | 'flat' | null; lostToday: number; retiredToday?: number }
+  backlog: {
+    unavailable?: boolean; count: number; unscoredCount?: number; projectionRecoveryCount?: number
+    cap: number; pctOfCap: number; nearLimit: boolean; trend: 'growing' | 'shrinking' | 'flat' | null
+    lostToday: number; retiredToday?: number; maxAgeHours?: number
+  }
   today: {
+    newArrivals?: number | null
     read: number
     kept: number
     dropped: number

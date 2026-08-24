@@ -66,7 +66,7 @@ const EXCHANGE_SUFFIXES = new Set([
   'AX', 'NZ', // Oceania
   'TO', 'V', 'CN', 'NE', // Canada
   'MX', 'SA', 'BA', 'SN', // Latin America
-  'JO', 'TA', 'QA', 'SR', 'CA', 'ME', // Africa / Middle East / Moscow
+  'JO', 'TA', 'QA', 'SR', 'CA', 'AD', 'ME', // Africa / Middle East / Moscow
 ])
 
 /** The listing-agnostic base of a symbol: "NHY.OL" → "NHY", "500325.BO" → "500325" — but "BRK.A" stays
@@ -76,6 +76,51 @@ export function baseTicker(t: unknown): string {
   const i = n.lastIndexOf('.')
   if (i > 0 && EXCHANGE_SUFFIXES.has(n.slice(i + 1))) return n.slice(0, i)
   return n
+}
+
+// A saved title-only ticker is often exchange-native while Yahoo returns its venue-qualified spelling.
+// Treat that as the same exact local listing only when the saved listing country explicitly licenses the
+// returned suffix. A saved suffix remains exact-only, and an unknown country never enables base matching.
+const DIRECTORY_SUFFIXES_BY_COUNTRY: Record<string, ReadonlySet<string>> = {
+  NO: new Set(['OL']), SE: new Set(['ST']), DK: new Set(['CO']), FI: new Set(['HE']), IS: new Set(['IC']),
+  GB: new Set(['L', 'IL']), FR: new Set(['PA']), NL: new Set(['AS']), BE: new Set(['BR']), PT: new Set(['LS']),
+  IT: new Set(['MI']), ES: new Set(['MC']), DE: new Set(['DE', 'BE', 'DU', 'HM', 'HA', 'MU', 'F']),
+  CH: new Set(['SW']), AT: new Set(['VI']), PL: new Set(['WA']), CZ: new Set(['PR']), HU: new Set(['BD']),
+  TR: new Set(['IS']), IN: new Set(['NS', 'BO']), HK: new Set(['HK']), JP: new Set(['T']),
+  CN: new Set(['SS', 'SZ']), TW: new Set(['TW', 'TWO']), KR: new Set(['KS', 'KQ']), SG: new Set(['SI']),
+  MY: new Set(['KL']), ID: new Set(['JK']), TH: new Set(['BK']), AU: new Set(['AX']), NZ: new Set(['NZ']),
+  CA: new Set(['TO', 'V', 'CN', 'NE']), MX: new Set(['MX']), BR: new Set(['SA']), AR: new Set(['BA']),
+  CL: new Set(['SN']), ZA: new Set(['JO']), IL: new Set(['TA']), QA: new Set(['QA']), SA: new Set(['SR']),
+  EG: new Set(['CA']), AE: new Set(['DU', 'AD']),
+}
+
+/** Stable identity for one saved local listing. A country-proven Yahoo suffix is only a directory
+ * spelling, so `NHY` and `NHY.OL` both become `NHY` when the saved country is Norway. Unknown or
+ * conflicting countries keep the full spelling, and share-class dots such as `BRK.A` are untouched. */
+export function directoryTickerIdentityKey(ticker: unknown, listingCountry?: string | null): string {
+  const cleaned = cleanTicker(ticker)
+  if (!cleaned) return ''
+  const normalized = normTicker(cleaned)
+  const base = baseTicker(normalized)
+  if (base === normalized) return normalized
+  const dot = normalized.lastIndexOf('.')
+  const allowed = DIRECTORY_SUFFIXES_BY_COUNTRY[String(listingCountry || '').trim().toUpperCase()]
+  return dot > 0 && allowed?.has(normalized.slice(dot + 1)) ? base : normalized
+}
+
+/** Exact directory symbol match, allowing only the country-proven Yahoo suffix for a saved bare symbol. */
+export function directoryTickerMatches(saved: unknown, returned: unknown, listingCountry?: string | null): boolean {
+  const wanted = cleanTicker(saved)
+  const actual = cleanTicker(returned)
+  if (!wanted || !actual) return false
+  const wantedNorm = normTicker(wanted)
+  const actualNorm = normTicker(actual)
+  if (wantedNorm === actualNorm) return true
+  if (baseTicker(wantedNorm) !== wantedNorm || baseTicker(actualNorm) !== wantedNorm) return false
+  const dot = actualNorm.lastIndexOf('.')
+  if (dot <= 0) return false
+  const allowed = DIRECTORY_SUFFIXES_BY_COUNTRY[String(listingCountry || '').trim().toUpperCase()]
+  return allowed?.has(actualNorm.slice(dot + 1)) === true
 }
 
 // ---- company-name normalisation ----
@@ -161,9 +206,19 @@ export function tickerHitAny(tagTicker: unknown, picks: string[]): boolean {
 // ---- the global symbol directory (free, keyless; fail-closed) ----
 
 export interface SymbolQuote { symbol: string; name: string; exchange: string }
+export interface SymbolListing { symbol: string; name: string; exchange: string }
 // One company across its listings: the primary symbol (the best match for what was typed) + every
 // sibling listing as an alias — what the autofill offers and what the pick carries into the filter.
-export interface SymbolGroup { name: string; symbol: string; exchange: string; aliases: string[] }
+export interface SymbolGroup {
+  name: string
+  symbol: string
+  exchange: string
+  aliases: string[]
+  /** Venue provenance for each alias returned by the same raw directory query. */
+  aliasExchanges?: Record<string, string>
+  /** Every distinct raw equity listing retained even when normalized company names collapse. */
+  listings?: SymbolListing[]
+}
 
 /** Fold raw search quotes into one group per company (keyed by core name), preserving relevance order.
  *  Pure — unit-tested without network. */
@@ -174,52 +229,161 @@ export function groupQuotes(quotes: SymbolQuote[]): SymbolGroup[] {
     if (!sym) continue
     const key = coreCompanyName(q.name) || baseTicker(sym)
     const g = groups.get(key)
-    if (!g) groups.set(key, { name: q.name, symbol: normTicker(sym), exchange: q.exchange, aliases: [normTicker(sym)] })
-    else if (!g.aliases.includes(normTicker(sym))) g.aliases.push(normTicker(sym))
+    const normalized = normTicker(sym)
+    if (!g) groups.set(key, {
+      name: q.name, symbol: normalized, exchange: q.exchange, aliases: [normalized],
+      aliasExchanges: { [normalized]: q.exchange },
+      listings: [{ name: q.name, symbol: normalized, exchange: q.exchange }],
+    })
+    else {
+      if (!g.aliases.includes(normalized)) {
+        g.aliases.push(normalized)
+        g.aliasExchanges = { ...g.aliasExchanges, [normalized]: q.exchange }
+      }
+      const listingKey = `${normalized}|${String(q.exchange).trim().toLowerCase()}|${String(q.name).trim().toLowerCase()}`
+      if (!(g.listings || []).some((listing) =>
+        `${listing.symbol}|${listing.exchange.trim().toLowerCase()}|${listing.name.trim().toLowerCase()}` === listingKey)) {
+        g.listings = [...(g.listings || []), { name: q.name, symbol: normalized, exchange: q.exchange }]
+      }
+    }
   }
   return [...groups.values()]
+}
+
+/** Keep exact normalized company names separate for name-only rescue verification. The broader UI
+ * grouping above intentionally folds legal suffixes, but that would merge two distinct same-name
+ * issuers and make an ambiguous directory result look unique. */
+function groupOneIssuerQuotes(quotes: readonly SymbolQuote[]): SymbolGroup[] {
+  const listings = quotes.flatMap((quote) => {
+    const symbol = cleanTicker(quote.symbol)
+    return symbol ? [{ name: quote.name, symbol: normTicker(symbol), exchange: quote.exchange }] : []
+  })
+  if (!listings.length) return []
+  const first = listings[0]
+  const aliases = [...new Set(listings.map((listing) => listing.symbol))]
+  return [{
+    name: first.name,
+    symbol: first.symbol,
+    exchange: first.exchange,
+    aliases,
+    aliasExchanges: Object.fromEntries(listings.map((listing) => [listing.symbol, listing.exchange])),
+    listings,
+  }]
+}
+
+function groupIssuerQuotes(quotes: SymbolQuote[]): SymbolGroup[] {
+  const buckets = new Map<string, SymbolQuote[]>()
+  for (const quote of quotes) {
+    const normalized = String(quote.name || '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim()
+    const key = normalized
+      .replace(/\s+(?:sponsored\s+)?adr(?:s)?$/, '')
+      .replace(/\s+american\s+depositary\s+(?:receipt|share)s?$/, '')
+    if (!key) continue
+    buckets.set(key, [...(buckets.get(key) || []), quote])
+  }
+  return [...buckets.entries()].flatMap(([key, bucket]) => {
+    const unique = [...new Map(bucket.map((quote) => [
+      `${normTicker(quote.symbol)}|${String(quote.exchange).trim().toLowerCase()}|${String(quote.name).trim().toLowerCase()}`,
+      quote,
+    ])).values()]
+    const ordinary = unique.filter((quote) =>
+      String(quote.name || '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim() === key)
+    const depositary = unique.filter((quote) => !ordinary.includes(quote))
+    // Exact-name rows are not proof of one issuer: two companies can share a legal name in different
+    // markets. Only an explicit ADR/depositary label may join one unambiguous ordinary listing.
+    if (ordinary.length === 1) return groupOneIssuerQuotes([...ordinary, ...depositary])
+    return [...ordinary.map((quote) => [quote]), ...depositary.map((quote) => [quote])]
+      .flatMap((issuer) => groupOneIssuerQuotes(issuer))
+  })
 }
 
 const SEARCH_URL = 'https://query1.finance.yahoo.com/v1/finance/search'
 export type FetchLike = typeof fetch
 
-/** One raw directory query → grouped companies. Equities only; any failure/timeouts → []. */
-export async function searchSymbols(q: string, fetchImpl: FetchLike = fetch): Promise<SymbolGroup[]> {
-  const url = `${SEARCH_URL}?q=${encodeURIComponent(q)}&quotesCount=12&newsCount=0&listsCount=0`
-  const r = await fetchImpl(url, {
-    signal: AbortSignal.timeout(4500),
-    headers: { accept: 'application/json', 'user-agent': 'Mozilla/5.0 (compatible; equity-research-cockpit)' },
-  })
-  if (!r.ok) return []
-  const j: any = await r.json().catch(() => null)
-  const quotes: SymbolQuote[] = Array.isArray(j?.quotes)
-    ? j.quotes
-        .filter((x: any) => x && x.quoteType === 'EQUITY' && typeof x.symbol === 'string' && x.symbol && (x.longname || x.shortname))
-        .map((x: any) => ({ symbol: String(x.symbol), name: String(x.longname || x.shortname), exchange: String(x.exchDisp || x.exchange || '') }))
-    : []
-  return groupQuotes(quotes)
-}
-
-// TTL cache: symbol lookups are keystroke-driven but debounced client-side; a small map with a long TTL
-// makes repeat queries free and keeps us a polite consumer of the free endpoint.
+// Shared with the existing enriched UI search. A rescue cache hit still consumes its already-reserved
+// daily review slot, but it avoids another request to the free directory.
 const CACHE_TTL_MS = 6 * 60 * 60 * 1000
 const CACHE_MAX = 500
-const symCache = new Map<string, { at: number; groups: SymbolGroup[] }>()
+const symCache = new Map<string, { at: number; groups: SymbolGroup[]; issuerGroups: SymbolGroup[] }>()
+
+export type SymbolSearchUnavailableReason = 'timeout_or_network' | 'http_error' | 'invalid_response'
+export type SymbolSearchCheckedResult =
+  | { status: 'ok'; groups: SymbolGroup[]; issuerGroups: SymbolGroup[]; networkAttempted: boolean }
+  | { status: 'unavailable'; groups: []; reason: SymbolSearchUnavailableReason; networkAttempted: true; httpStatus?: number }
+
+/** One raw directory query with an honest availability result. A healthy empty result is NOT the same
+ * as a timeout/429/5xx. The second-look lane uses this seam so an upstream outage can never render as
+ * "nothing qualified". At most one request is made; sibling enrichment belongs to the existing UI path. */
+export async function searchSymbolsChecked(
+  q: string,
+  fetchImpl: FetchLike = fetch,
+  options: { useCache?: boolean } = {},
+): Promise<SymbolSearchCheckedResult> {
+  const key = q.trim().toLowerCase()
+  const now = Date.now()
+  const cached = options.useCache ? symCache.get(key) : undefined
+  if (cached && now - cached.at < CACHE_TTL_MS) {
+    return { status: 'ok', groups: cached.groups, issuerGroups: cached.issuerGroups, networkAttempted: false }
+  }
+  try {
+    const url = `${SEARCH_URL}?q=${encodeURIComponent(q)}&quotesCount=12&newsCount=0&listsCount=0`
+    const r = await fetchImpl(url, {
+      signal: AbortSignal.timeout(4500),
+      headers: { accept: 'application/json', 'user-agent': 'Mozilla/5.0 (compatible; equity-research-cockpit)' },
+    })
+    if (!r.ok) return { status: 'unavailable', groups: [], reason: 'http_error', networkAttempted: true, ...(typeof r.status === 'number' ? { httpStatus: r.status } : {}) }
+    const j: any = await r.json().catch(() => null)
+    if (!j || typeof j !== 'object' || !Array.isArray(j.quotes)) {
+      return { status: 'unavailable', groups: [], reason: 'invalid_response', networkAttempted: true }
+    }
+    const rowsValid = j.quotes.every((value: unknown) => {
+      if (!value || typeof value !== 'object' || Array.isArray(value)) return false
+      const row = value as Record<string, unknown>
+      if (typeof row.quoteType !== 'string' || !row.quoteType) return false
+      if (row.quoteType !== 'EQUITY') return true
+      return typeof row.symbol === 'string' && !!row.symbol.trim()
+        && ((typeof row.longname === 'string' && !!row.longname.trim())
+          || (typeof row.shortname === 'string' && !!row.shortname.trim()))
+    })
+    if (!rowsValid) {
+      return { status: 'unavailable', groups: [], reason: 'invalid_response', networkAttempted: true }
+    }
+    const quotes: SymbolQuote[] = j.quotes
+      .filter((x: any) => x && x.quoteType === 'EQUITY' && typeof x.symbol === 'string' && x.symbol && (x.longname || x.shortname))
+      .map((x: any) => ({ symbol: String(x.symbol), name: String(x.longname || x.shortname), exchange: String(x.exchDisp || x.exchange || '') }))
+    const groups = groupQuotes(quotes)
+    const issuerGroups = groupIssuerQuotes(quotes)
+    // As before, never cache an empty result: the legacy facade cannot distinguish a healthy empty
+    // result from an outage, so pinning [] would preserve a transient failure for six hours.
+    if (options.useCache && groups.length > 0) {
+      if (symCache.size >= CACHE_MAX) symCache.delete(symCache.keys().next().value as string)
+      symCache.set(key, { at: now, groups, issuerGroups })
+    }
+    return { status: 'ok', groups, issuerGroups, networkAttempted: true }
+  } catch {
+    return { status: 'unavailable', groups: [], reason: 'timeout_or_network', networkAttempted: true }
+  }
+}
+
+/** Back-compatible facade for existing callers: any failure still collapses to []. */
+export async function searchSymbols(q: string, fetchImpl: FetchLike = fetch): Promise<SymbolGroup[]> {
+  return (await searchSymbolsChecked(q, fetchImpl)).groups
+}
 
 async function cachedSearch(q: string, fetchImpl: FetchLike): Promise<SymbolGroup[]> {
   const key = q.trim().toLowerCase()
   const hit = symCache.get(key)
   const now = Date.now()
   if (hit && now - hit.at < CACHE_TTL_MS) return hit.groups
-  const groups = await searchSymbols(q, fetchImpl)
-  // Cache only a NON-EMPTY result. searchSymbols() collapses a transient upstream failure (a non-OK
-  // response — 429 / 5xx) to [] the same as a legitimately-empty search; caching that [] for the full
-  // 6 h TTL would lock every later lookup of this query out of the directory even after the endpoint
-  // recovers. An empty result is cheap to recompute (queries are debounced client-side) — retry it next
-  // time instead of pinning a transient failure for hours.
+  const checked = await searchSymbolsChecked(q, fetchImpl)
+  const groups = checked.groups
   if (groups.length > 0) {
     if (symCache.size >= CACHE_MAX) symCache.delete(symCache.keys().next().value as string)
-    symCache.set(key, { at: now, groups })
+    symCache.set(key, {
+      at: now,
+      groups,
+      issuerGroups: checked.status === 'ok' ? checked.issuerGroups : [],
+    })
   }
   return groups
 }
@@ -230,7 +394,10 @@ async function cachedSearch(q: string, fetchImpl: FetchLike): Promise<SymbolGrou
 export async function searchSymbolsEnriched(q: string, fetchImpl: FetchLike = fetch): Promise<SymbolGroup[]> {
   let groups: SymbolGroup[]
   try {
-    groups = (await cachedSearch(q, fetchImpl)).map((g) => ({ ...g, aliases: [...g.aliases] }))
+    groups = (await cachedSearch(q, fetchImpl)).map((g) => ({
+      ...g, aliases: [...g.aliases], ...(g.aliasExchanges ? { aliasExchanges: { ...g.aliasExchanges } } : {}),
+      ...(g.listings ? { listings: g.listings.map((listing) => ({ ...listing })) } : {}),
+    }))
   } catch {
     return [] // primary search offline / blocked / slow — the filter degrades to archive-facet + free-typed matching
   }
@@ -241,7 +408,15 @@ export async function searchSymbolsEnriched(q: string, fetchImpl: FetchLike = fe
       try {
         const byName = await cachedSearch(core, fetchImpl)
         const sib = byName.find((g) => coreCompanyName(g.name) === core)
-        for (const a of sib?.aliases || []) if (!top.aliases.includes(a)) top.aliases.push(a)
+        for (const a of sib?.aliases || []) if (!top.aliases.includes(a)) {
+          top.aliases.push(a)
+          const exchange = sib?.aliasExchanges?.[a]
+          if (exchange) top.aliasExchanges = { ...top.aliasExchanges, [a]: exchange }
+        }
+        for (const listing of sib?.listings || []) if (!(top.listings || []).some((existing) =>
+          existing.symbol === listing.symbol && existing.exchange === listing.exchange && existing.name === listing.name)) {
+          top.listings = [...(top.listings || []), { ...listing }]
+        }
       } catch {
         // Sibling-enrichment failed (transient) — keep the successfully-fetched primary groups rather
         // than discarding them; the pick just carries fewer cross-listing aliases this time.

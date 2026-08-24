@@ -862,6 +862,19 @@ export const NEWS = {
   ideasRefreshSec: capNum(process.env.IDEAS_REFRESH_SEC, 3600), // heartbeat: re-skim at least this often even when the top-N is unchanged
   ideasMaxTokens: capNum(process.env.IDEAS_MAX_TOKENS, 2500), // output ceiling — a few ideas of JSON, never a truncation
   ideasDownvoteGraceHrs: capNum(process.env.IDEAS_DOWNVOTE_GRACE_HRS, 2), // a 👎 on a surfaced idea cools it this fast (idea-scoped, no global lever)
+  // SECOND LOOK — shadow-only in this rollout. It ranks saved score-10–39 rows after the normal Ideas
+  // pass and performs only a paced stock-listing identity check. No article read or idea creation is
+  // possible in this stage. An accidental `live` value therefore fails safely back to shadow.
+  rescueMode: String(process.env.IDEAS_RESCUE_MODE || 'shadow').trim().toLowerCase() === 'off' ? 'off' as const : 'shadow' as const,
+  rescueMaxAgeHrs: Math.min(36, capNum(process.env.IDEAS_RESCUE_MAX_AGE_HRS, 36)),
+  rescueDailyChecks: Math.min(200, capNum(process.env.IDEAS_RESCUE_DAILY_CHECKS, 200)),
+  rescuePerCycle: Math.min(8, capNum(process.env.IDEAS_RESCUE_PER_CYCLE, 8)),
+  rescueNameDailyCap: Math.min(40, capNum(process.env.IDEAS_RESCUE_NAME_DAILY_CAP, 40)),
+  rescuePaceFloorFrac: (() => {
+    const value = Number(process.env.IDEAS_RESCUE_PACE_FLOOR_FRAC)
+    return Number.isFinite(value) ? Math.max(0, Math.min(0.04, value)) : 0.04
+  })(),
+  rescueAuditMaxBytes: Math.min(15 * 1024 * 1024, capNum(process.env.IDEAS_RESCUE_AUDIT_MAX_BYTES, 15 * 1024 * 1024)),
   // OPTIONAL stronger model for FILING reads only (exchange PDFs / regulatory docs) — see
   // buildFilingReadProviders. OpenAI-compatible endpoint: point it at any capable model you hold a key for
   // (a larger OpenRouter model, an Anthropic/OpenAI-compatible gateway, …). Unset (no model) => filings use
