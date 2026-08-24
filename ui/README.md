@@ -46,15 +46,24 @@ published Calls policy, and can execute only in that simulated account.
 4. Keep TWS open, then open **Calls** in the cockpit. The paper portfolio refreshes every 15 seconds.
 
 Paper execution is opt-in through the out-of-repo `paper.env` loaded from the Nostra engine config
-directory. `ENGINE_IBKR_PAPER_EXECUTION=1` enables the explicit controls; the exact DU account must be
-allow-listed with `ENGINE_IBKR_PAPER_ACCOUNT_ID`. Set `ENGINE_IBKR_PAPER_AUTO_SYNC=1` to reconcile the
-dedicated paper account immediately after a verified `full`, `rerun`, or decision `review` publication.
-Selected/Buy calls are long, Short calls are short, low conviction is 5%, and confidence 75+ is 10%.
-Watchlist/Avoid creates no position; a later published exit closes the simulated holding. Automatic mode
-owns the whole dedicated paper account, so do not mix unrelated manual paper positions into it. It reads
-the exact verified publication commit, cancels superseded Nostra orders, and re-reads TWS before sizing a
-replacement. A rotation closes the old holding first; the replacement is sent only after a later snapshot
-confirms that close filled. **Sync now** runs this same full reconciliation, including a 100%-cash target.
+directory:
+
+1. Set `ENGINE_IBKR_PAPER_EXECUTION=1` to enable execution controls.
+2. Allow-list the exact DU account with `ENGINE_IBKR_PAPER_ACCOUNT_ID`.
+3. Set `ENGINE_IBKR_PAPER_AUTO_SYNC=1` to reconcile immediately after a verified `full`, `rerun`, or
+   decision `review` publication.
+
+Automatic execution follows these rules:
+
+- **Sizing:** Selected/Buy calls are long and Short calls are short. Low conviction is 5%; confidence 75+
+  is 10%.
+- **No-trade calls:** Watchlist/Avoid opens no position. A later published exit closes the simulated holding.
+- **Account ownership:** Automatic mode owns the whole dedicated paper account. Do not mix unrelated manual
+  paper positions into it.
+- **Safe rotation:** Nostra reads the exact publication commit, cancels superseded Nostra orders, and re-reads
+  TWS before sizing. It closes the old holding first and waits for a later snapshot to confirm the fill before
+  opening the replacement.
+- **Manual retry:** **Sync now** runs the same full reconciliation, including a 100%-cash target.
 
 The connector is fixed to localhost and paper port 7497, exposes no account identifier to the browser,
 refuses live/non-allow-listed or ambiguous accounts, and uses guarded limit entries plus duplicate-order
