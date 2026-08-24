@@ -1,0 +1,73 @@
+{
+  "idea_id": "IDEA-33be1fdd6647",
+  "idea_version": "IDEAV-2b62a45ebc1796dd",
+  "idea_version_started_at": "2026-08-24T21:01:02Z",
+  "ticker": "02266",
+  "company": "LAI SI ENT",
+  "exchange": "HKEX",
+  "ticker_verified": false,
+  "listing_verified": false,
+  "liquidity_verified": false,
+  "listing_verification_source": null,
+  "direction": "short",
+  "pair_with": null,
+  "reason": "The profit warning indicates a negative trend in the company's financial results.",
+  "why_now": "The announcement was made on 2026-08-24.",
+  "conviction": 70,
+  "conviction_basis": "pre_edge_proxy",
+  "trade_score": 45,
+  "trade_score_basis": "evidence_gate_v2",
+  "trade_score_breakdown": {
+    "evidence": 25,
+    "impact": 19,
+    "specificity": 7,
+    "timing": 10,
+    "expression": 0,
+    "corroboration": 0,
+    "learning_adjustment": 0
+  },
+  "trade_readiness": "watch_only",
+  "missing_checks": [
+    "verified listed ticker",
+    "verified listing",
+    "live liquidity",
+    "dated catalyst",
+    "live price, liquidity, and consensus"
+  ],
+  "learning": {
+    "resolved": 0,
+    "positive": 0,
+    "negative": 0,
+    "neutral": 0,
+    "adjustment": 0,
+    "basis": "not_enough_outcomes",
+    "evidenceIds": []
+  },
+  "priced_in": "room",
+  "thesis_type": "company_specific",
+  "origin_type": "wire",
+  "source_themes": [],
+  "source_event_ids": [
+    "EVT-4c88decf78bd"
+  ],
+  "primary_source_event_id": "EVT-4c88decf78bd",
+  "source_headlines": [
+    "LAI SI ENT (02266): PROFIT WARNING"
+  ],
+  "source_headline": "LAI SI ENT (02266): PROFIT WARNING",
+  "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0824/2026082401187.pdf",
+  "source_name": "HKEXnews (HK Exchange Filing)",
+  "materiality_max": 100,
+  "newest_source_at": "2026-08-24T11:14:00Z",
+  "prior_coverage": {
+    "has_run": false,
+    "latest_run": null,
+    "latest_decision": null,
+    "data_pool_present": false
+  },
+  "surfaced_at": "2026-08-24T21:01:02Z",
+  "updated_at": "2026-08-24T21:01:02Z",
+  "decay_at": "2026-08-25T23:14:00Z",
+  "status": "live",
+  "promoted_signal_id": null
+}
