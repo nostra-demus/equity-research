@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-24T12:14:47Z",
+  "generated_at": "2026-08-24T12:18:29Z",
   "inbox": [
     {
       "inbox_id": "INB-20260824-800",
@@ -46,6 +46,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260824-806",
+      "headline": "SUNAC (01918): SHARE TRANSACTION - ISSUANCE OF CONSIDERATION SHARES UNDER GENERAL MANDATE - ACQUISITION OF 100% EQUITY INTEREST IN ERJIN MANAGEMENT",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0824/2026082401335.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-24T12:01:00Z",
+      "sweep_file": "screener/inbox/2026-08-24_sweep.json",
+      "prelim_note": "Sunac is acquiring 100% of Erjin Management via share issuance, a clear M&A event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Sunac is acquiring 100% of Erjin Management via share issuance, a clear M&A event.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SUNAC",
+          "ticker": "01918",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1915,55 +1964,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260824-743",
-      "headline": "Silver Bow Mining Signs Definitive Agreement to Acquire the Jefferson County Metallurgical Complex in Montana",
-      "headline_en": null,
-      "url": "http://www.businesswire.com/news/home/20260824129889/en/Silver-Bow-Mining-Signs-Definitive-Agreement-to-Acquire-the-Jefferson-County-Metallurgical-Complex-in-Montana/?feedref=JjAwJuNHiystnCoBq_hl-Rc4vIAVcHHkbDcwJimU8QtrtlakeQ9hNboBqTAWIjTge3KWq9s9jif-UkBjBsFRyYAbRTSLTc1mgvhPlnaBA55M-oupQnbXnhKsYk8RmHF_kAy2gZikaX3QWV6xOvgFlA==",
-      "source_name": "Business Wire — Merger/Acquisition News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-08-24T10:54:00Z",
-      "sweep_file": "screener/inbox/2026-08-24_sweep.json",
-      "prelim_note": "Silver Bow Mining has signed a definitive agreement to acquire the Jefferson County Metallurgical Complex.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Silver Bow Mining has signed a definitive agreement to acquire the Jefferson County Metallurgical Complex.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 3,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "company",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Silver Bow Mining",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -84725,9 +84725,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 193863,
-    "news_picked_today": 1707,
-    "news_dropped_today": 10977
+    "news_seen_today": 197266,
+    "news_picked_today": 1713,
+    "news_dropped_today": 10983
   },
   "book_momentum": {
     "live_count": 8,
