@@ -51,6 +51,7 @@ import {
   recordRecoveredPublicationAuthority, releaseExecutionEpochAfterPublication,
   releaseParityRegistration, resolveParityBindingPath, writeExecutionReceipt,
 } from './execution-provenance'
+import { runIbkrPaperAutoSyncAfterPublication, scheduleIbkrPaperAutoSyncAfterPublication } from './ibkr-paper-auto-sync'
 
 // Provider adapters may issue a short-lived auth/binary lease while building a launch spec. Keep the
 // disposer supervisor-owned and keyed by the in-memory RunState: it is never exported to the child env.
@@ -641,6 +642,7 @@ export function finalizeRunOnClose(run: RunState, res: any, stderr: string, term
   if (run.endedAt !== undefined) return // already finalized (stream-parser error path)
   const finishClose = (status: RunStatus) => {
     finishRun(run, status)
+    if (status === 'done') scheduleIbkrPaperAutoSyncAfterPublication(run)
     // Clear the crash-recovery lease last. If the supervisor dies anywhere before the durable terminal
     // status/marker/publication above, startup still sees the lease and holds the root for recovery.
     if (!runProcessTreeAlive(run)) clearProviderProcessLease(run.runId)
@@ -4886,6 +4888,7 @@ export async function supervisePublication(
       } finally { /* a failed backfill deliberately retains its protected ready snapshot */ }
     }
   }
+  run.publicationRevision = verifiedPublishedRevision(output)
   if (ready) clearReadyPublication(ready)
   run.publicationArtifactHashes = finalHashes
   run.publicationCompleted = true
@@ -4936,6 +4939,7 @@ export async function recoverReadyPublications(): Promise<number> {
     const output = await supervisorCommitter(record.message, record.paths, env)
     const snapshotHashes = Object.fromEntries(readySnapshotEntries(record).map((item) => [item.path, item.sha256]))
     await supervisorCommitVerifier(output, record.paths, snapshotHashes)
+    let recoveredRevision = verifiedPublishedRevision(output)
 
     if (record.stage === 'primary-ready' && record.kind === 'full' && record.swarm === RESEARCH_SWARM_ID) {
       const primarySha = verifiedPublishedRevision(output)
@@ -4962,6 +4966,7 @@ export async function recoverReadyPublications(): Promise<number> {
         const backfillOutput = await supervisorCommitter(record.message, record.paths, backfillEnv)
         await supervisorCommitVerifier(backfillOutput, record.paths, backfill.hashes)
         await supervisorCommitVerifier(backfillOutput, Object.keys(record.artifact_hashes), record.artifact_hashes)
+        recoveredRevision = verifiedPublishedRevision(backfillOutput)
       }
     } else {
       await supervisorCommitVerifier(output, Object.keys(record.artifact_hashes), record.artifact_hashes)
@@ -4972,6 +4977,11 @@ export async function recoverReadyPublications(): Promise<number> {
       model: record.model, reasoningLevel: record.reasoning_level, profileKey: record.profile_key,
       executionProfile: record.execution_profile,
     }, record.artifact_hashes)
+    await runIbkrPaperAutoSyncAfterPublication({
+      runId: record.run_id, kind: record.kind, ticker: record.subject, swarmId: record.swarm,
+      willCommitToMain: true, publicationCompleted: true, publicationPhase: 'terminal-complete',
+      publicationRevision: recoveredRevision,
+    })
     clearReadyPublication(record)
     recovered++
   }

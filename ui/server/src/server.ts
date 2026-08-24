@@ -69,6 +69,7 @@ import { agentNamesForModule, buildSwarmGraph, findRunRootForSubject, graphForSu
 import { isValidCalendarISODate, listAllCalls, listRunsForTicker, readDecision, readMarkdown, readPrompt, readPublishedCallsMarkdown, readRunsMarkdown, resolveRunRoot, runManifest, todayISO } from './outputs'
 import { readIbkrPaperPortfolio } from './ibkr-paper'
 import { ibkrPaperExecution } from './ibkr-paper-execution'
+import { drainIbkrPaperAutoSync } from './ibkr-paper-auto-sync'
 import {
   WATCHLIST_ENTRIES_DIR, WATCHLIST_MAX_ATTACHMENTS, WATCHLIST_MAX_ROWS, WATCHLIST_MAX_TAGS, WATCHLIST_MAX_TRIGGERS,
   deleteEntry, fingerprintEngineRow, isWatchId, listingKey, makeListing, mergeWatchlist, newEntryId,
@@ -4940,15 +4941,15 @@ function paperCommandError(error: any, reply: FastifyReply) {
   return reply.code(status).send({ error: known.get(code) || 'IBKR Paper could not safely complete that command.', code })
 }
 
-// No call automatically crosses this boundary. Sync is an explicit paper-only action, cancel affects
+// Manual fallback for the same paper-only boundary used by the post-publication auto-sync. Cancel affects
 // only an unfilled NOSTRA_PAPER order owned by this API client, and close submits the opposite side for
-// the exact position currently returned by IBKR Paper.
+// the exact position currently returned by the allow-listed DU account.
 app.post('/api/calls/paper-portfolio/sync', async (req, reply) => {
   if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request blocked' })
   if (!paperOperatorAllowed(req)) return reply.code(403).send({ error: 'not authorized for paper execution' })
   const body = PaperCommandBody.safeParse(req.body)
   if (!body.success || body.data.confirmation !== 'SYNC PAPER') return reply.code(400).send({ error: 'Type SYNC PAPER to confirm.' })
-  try { return await ibkrPaperExecution.sync(body.data.idempotency_key) } catch (error) { return paperCommandError(error, reply) }
+  try { return await ibkrPaperExecution.sync(body.data.idempotency_key, { reconcilePositions: true }) } catch (error) { return paperCommandError(error, reply) }
 })
 
 app.post('/api/calls/paper-orders/:orderId/cancel', async (req, reply) => {
@@ -6244,10 +6245,11 @@ async function shutdown(signal: string, code = 0) {
   try { await app.close() } catch {} // stop accepting, drain in-flight HTTP, close keep-alive sockets (clean FIN)
   try {
     await drainProviderRunsForShutdown()
+    await drainIbkrPaperAutoSync()
   } catch (error) {
     // Fail closed: never release the process-wide lock while a detached writer may still be alive.
     // eslint-disable-next-line no-console
-    console.error('[swarm-cockpit] provider drain failed; refusing to exit unsafely', error)
+    console.error('[swarm-cockpit] provider or paper-sync drain failed; refusing to exit unsafely', error)
     return
   } finally {
     clearTimeout(slowDrainWarning)

@@ -2729,6 +2729,22 @@ export interface IbkrPaperPortfolioRead {
   execution: {
     status: 'locked' | 'ready'
     can_execute: boolean
+    automatic: {
+      enabled: boolean
+      last_attempt: null | {
+        schema_version: 'ibkr-paper-auto-sync/v1'
+        at: string
+        outcome: 'orders_sent' | 'partial' | 'aligned' | 'no_order' | 'error'
+        trigger: 'publication'
+        run_id: string | null
+        run_kind: string | null
+        ticker: string | null
+        publication_revision?: string | null
+        order_count: number
+        skipped_count: number
+        detail: string
+      }
+    }
     low_conviction_weight_pct: 5
     high_conviction_weight_pct: 10
     high_conviction_min_confidence: 75

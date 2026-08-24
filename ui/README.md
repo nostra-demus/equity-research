@@ -36,8 +36,8 @@ npm --prefix ui/web    run dev     # UI on :5173
 
 ## IBKR Paper portfolio
 
-The live **Calls** drawer can read one local IBKR Paper account and compare its holdings with the
-newest whole-book file in `analyses/portfolio/*_sizing.json`.
+The live **Calls** drawer reads one dedicated local IBKR Paper account, compares it with the current
+published Calls policy, and can execute only in that simulated account.
 
 1. Sign in to **Paper Trading** in Trader Workstation (TWS).
 2. Open **Global Configuration → API → Settings**.
@@ -45,10 +45,31 @@ newest whole-book file in `analyses/portfolio/*_sizing.json`.
    **7497**.
 4. Keep TWS open, then open **Calls** in the cockpit. The paper portfolio refreshes every 15 seconds.
 
-This first release is deliberately read-only: it contains no order-submission function or route and
-always displays **Execution locked**. The connector is fixed to localhost and paper port 7497, exposes
-no account identifier to the browser, and refuses an ambiguous multi-account response. A TWS outage
-only makes this optional panel unavailable; it cannot take down the Calls history. Set
+Paper execution is opt-in through the out-of-repo `paper.env` loaded from the Nostra engine config
+directory:
+
+1. Set `ENGINE_IBKR_PAPER_EXECUTION=1` to enable execution controls.
+2. Allow-list the exact DU account with `ENGINE_IBKR_PAPER_ACCOUNT_ID`.
+3. Set `ENGINE_IBKR_PAPER_AUTO_SYNC=1` to reconcile immediately after a verified `full`, `rerun`, or
+   decision `review` publication.
+
+Automatic execution follows these rules:
+
+- **Sizing:** Selected/Buy calls are long and Short calls are short. Low conviction is 5%; confidence 75+
+  is 10%.
+- **No-trade calls:** Watchlist/Avoid opens no position. A later published exit closes the simulated holding.
+- **Account ownership:** Automatic mode owns the whole dedicated paper account. Do not mix unrelated manual
+  paper positions into it.
+- **Safe rotation:** Nostra reads the exact publication commit, cancels superseded Nostra orders, and re-reads
+  TWS before sizing. It closes the old holding first and waits for a later snapshot to confirm the fill before
+  opening the replacement.
+- **Manual retry:** **Sync now** runs the same full reconciliation against the current published policy,
+  which becomes a 100%-cash target when no calls are active.
+
+The connector is fixed to localhost and paper port 7497, exposes no account identifier to the browser,
+refuses live/non-allow-listed or ambiguous accounts, and uses guarded limit entries plus duplicate-order
+checks. TWS must be open when publication completes; a failed automatic attempt is shown in Calls and can
+be retried with **Sync now**. A TWS outage cannot take down Calls history. Set
 `ENGINE_IBKR_PAPER_DISABLED=1` to disable the local read entirely.
 
 ## How launch works (and what it costs)

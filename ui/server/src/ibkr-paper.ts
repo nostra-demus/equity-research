@@ -7,6 +7,7 @@ import { IBApi, EventName, isNonFatalError, type Contract, type Order, type Orde
 import { REPO_ROOT, STATE_DIR } from './config'
 import { listAllCalls } from './outputs'
 import { buildCallPolicyTarget, buildHistoricalPaperPortfolio, type HistoricalPaperPortfolio, type PaperCallBlock } from './paper-call-ledger'
+import { readIbkrPaperAutoSync, type PaperAutoSyncRead } from './ibkr-paper-auto-sync'
 
 export const IBKR_PAPER_HOST = '127.0.0.1' as const
 export const IBKR_PAPER_PORT = 7497 as const
@@ -116,6 +117,7 @@ export interface IbkrPaperPortfolioRead {
   execution: {
     status: 'locked' | 'ready'
     can_execute: boolean
+    automatic: PaperAutoSyncRead
     low_conviction_weight_pct: 5
     high_conviction_weight_pct: 10
     high_conviction_min_confidence: 75
@@ -536,6 +538,7 @@ export function createIbkrPaperPortfolioService(options: PaperPortfolioServiceOp
     const target = callsAvailable ? buildCallPolicyTarget(calls, at) : unavailable.target
     const history = callsAvailable ? buildHistoricalPaperPortfolio(historyCalls, at) : unavailable.history
     const executionPolicy = {
+      automatic: readIbkrPaperAutoSync(),
       low_conviction_weight_pct: 5 as const,
       high_conviction_weight_pct: 10 as const,
       high_conviction_min_confidence: 75 as const,
@@ -563,7 +566,9 @@ export function createIbkrPaperPortfolioService(options: PaperPortfolioServiceOp
         connection: { host: 'localhost', port: IBKR_PAPER_PORT, detail: 'Connected to TWS on the standard paper-trading port.' },
         account, open_orders: publicOpenOrders(snapshot), history, target, reconciliation: reconcilePaperPortfolio(target, account),
         execution: { status: executionReady ? 'ready' : 'locked', can_execute: false, ...executionPolicy, detail: executionReady
-          ? 'Paper-only controls are ready. New orders still require an explicit Sync click; closes and cancels require their own confirmation.'
+          ? executionPolicy.automatic.enabled
+            ? 'Automatic paper execution is on. Every verified published Research call reconciles this dedicated DU account; manual close and cancel controls remain available.'
+            : 'Paper-only controls are ready. New orders require an explicit Sync click; closes and cancels require their own confirmation.'
           : !executionEnabled ? 'Paper execution is off. Enable it only after checking this account and target.'
             : !target.valid ? target.detail
               : !paperAccount ? 'The connected account did not identify as a paper account. Execution is locked.'

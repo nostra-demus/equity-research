@@ -26,7 +26,7 @@ const valid = {
   },
   target: { valid: true, source_path: 'published Calls history', generated_at: '2026-08-22', gross_pct: 0, cash_pct: 100, positions: [], blocked_calls: [], detail: 'cash' },
   reconciliation: { status: 'aligned', differences: [], detail: 'aligned' },
-  execution: { status: 'locked', can_execute: false, low_conviction_weight_pct: 5, high_conviction_weight_pct: 10, high_conviction_min_confidence: 75, detail: 'locked' },
+  execution: { status: 'locked', can_execute: false, automatic: { enabled: false, last_attempt: null }, low_conviction_weight_pct: 5, high_conviction_weight_pct: 10, high_conviction_min_confidence: 75, detail: 'locked' },
 }
 
 assert.deepEqual(publishedPaperPortfolio(valid), valid)
