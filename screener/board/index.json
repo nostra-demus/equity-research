@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-24T01:36:46Z",
+  "generated_at": "2026-08-24T01:40:38Z",
   "inbox": [
     {
       "inbox_id": "INB-20260824-198",
@@ -340,6 +340,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260824-205",
+      "headline": "ASX gains; Santos’ GLNG in $600m deal to buy Meridian gas",
+      "headline_en": null,
+      "url": "https://www.afr.com/markets/equity-markets/asx-to-rise-investors-brace-for-inflation-data-jackson-hole-20260823-p60qq8?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-24T01:34:11Z",
+      "sweep_file": "screener/inbox/2026-08-24_sweep.json",
+      "prelim_note": "Santos announced a $600 million deal to acquire gas assets, which is a significant capital allocation event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Santos announced a $600 million deal to acquire gas assets, which is a significant capital allocation event.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Santos",
+          "ticker": "STO",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1408,6 +1457,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260824-211",
+      "headline": "Alibaba set to open down 8% in Hong Kong after $10.2 billion share placement plan",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/retail-consumer/alibaba-set-open-down-8-hong-kong-after-102-billion-share-placement-plan-2026-08-24/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-24T01:33:43Z",
+      "sweep_file": "screener/inbox/2026-08-24_sweep.json",
+      "prelim_note": "Alibaba plans a $10.2 billion share placement and is set to open down 8% in Hong Kong, diluting holders.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Alibaba plans a $10.2 billion share placement and is set to open down 8% in Hong Kong, diluting holders.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capital_actions",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Alibaba",
+          "ticker": null,
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260824-170",
       "headline": "Shein launches IPO at valuation of up to $27bn, far below past figure",
       "headline_en": null,
@@ -1820,104 +1918,6 @@
       ],
       "issuer_linkage": "macro",
       "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260824-039",
-      "headline": "ANAP HOLDINGS INC. (3189)",
-      "headline_en": null,
-      "url": "https://www.jpx.co.jp/english/markets/equities/suspended/index.html",
-      "source_name": "Japan Exchange Group (JPX) — Trading Halts (Equities)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-24T00:00:00Z",
-      "sweep_file": "screener/inbox/2026-08-24_sweep.json",
-      "prelim_note": "A trading halt was issued for ANAP Holdings Inc. on the Japan Exchange.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "A trading halt was issued for ANAP Holdings Inc. on the Japan Exchange.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ANAP HOLDINGS INC.",
-          "ticker": "3189",
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260824-172",
-      "headline": "KPMG Australia plans to cut 5% of jobs, warns soft conditions to persist",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/world-at-work/kpmg-australia-plans-cut-5-jobs-warns-soft-conditions-persist-2026-08-24/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-24T01:03:43Z",
-      "sweep_file": "screener/inbox/2026-08-24_sweep.json",
-      "prelim_note": "KPMG Australia is cutting 5% of its workforce due to persistent soft economic conditions.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "KPMG Australia is cutting 5% of its workforce due to persistent soft economic conditions.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "KPMG Australia",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -84873,9 +84873,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 443,
-    "news_picked_today": 229,
-    "news_dropped_today": 214
+    "news_seen_today": 462,
+    "news_picked_today": 236,
+    "news_dropped_today": 226
   },
   "book_momentum": {
     "live_count": 8,
