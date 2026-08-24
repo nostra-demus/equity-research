@@ -3,6 +3,7 @@ import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
 import { spawnSync } from 'node:child_process'
+import { fileURLToPath } from 'node:url'
 import { paperTargetFingerprint, runLocalPaperBridge } from '../src/ibkr-paper-local-bridge'
 import type { PaperExecutionResult } from '../src/ibkr-paper-execution'
 import type { CallPolicyTarget } from '../src/paper-call-ledger'
@@ -162,7 +163,7 @@ fs.writeFileSync(fakeDeploy, '#!/bin/bash\nexit 0\n', { mode: 0o700 })
 fs.writeFileSync(fakeConfig, 'ENGINE_IBKR_PAPER_EXECUTION=1\nENGINE_IBKR_PAPER_AUTO_SYNC=1\n', { mode: 0o600 })
 fs.writeFileSync(fakeNode, '#!/bin/bash\n: > "$BRIDGE_TEST_MARKER"\n', { mode: 0o700 })
 fs.writeFileSync(path.join(staleLock, 'owner'), '99999999\nMon Jan  1 00:00:00 2001\n/stale/bridge.sh\n')
-const wrapper = path.resolve(process.cwd(), '../../scripts/ops/ibkr-paper-bridge.sh')
+const wrapper = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../../scripts/ops/ibkr-paper-bridge.sh')
 const staleRecovery = spawnSync('/bin/bash', [wrapper], {
   encoding: 'utf8',
   env: { ...process.env, HOME: fakeHome, ENGINE_REPO_ROOT: fakeProd, NODE_BIN: fakeNode, BRIDGE_TEST_MARKER: marker },
