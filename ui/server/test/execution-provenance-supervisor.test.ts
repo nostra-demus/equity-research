@@ -385,7 +385,7 @@ try {
   const priorCommitter = __setSupervisorCommitter(async (_message, pathspecs) => {
     commits++
     assert.deepEqual(pathspecs, [reviewRelative])
-    return 'COMMIT_SHA=review-fixture'
+    return `COMMIT_SHA=${'4'.repeat(40)}`
   })
   const priorCalibration = __setPostReviewCalibration(async () => { calibrations++ })
   const priorVerifier = __setSupervisorCommitVerifier(async (_output, requiredPaths) => {
@@ -395,7 +395,7 @@ try {
     const reviewPublication = await supervisePublication(reviewRun.runId, reviewRun.publicationToken, {
       phase: 'commit', message: 'fixture review', pathspecs: [reviewRelative],
     })
-    assert.equal(reviewPublication.output, 'COMMIT_SHA=review-fixture')
+    assert.equal(reviewPublication.output, `COMMIT_SHA=${'4'.repeat(40)}`)
     assert.equal(commits, 1)
     assert.equal(calibrations, 1, 'deterministic calibration runs exactly once after review publication')
   } finally {

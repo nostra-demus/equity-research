@@ -2734,7 +2734,7 @@ export interface IbkrPaperPortfolioRead {
       last_attempt: null | {
         schema_version: 'ibkr-paper-auto-sync/v1'
         at: string
-        outcome: 'orders_sent' | 'aligned' | 'no_order' | 'error'
+        outcome: 'orders_sent' | 'partial' | 'aligned' | 'no_order' | 'error'
         trigger: 'publication'
         run_id: string | null
         run_kind: string | null

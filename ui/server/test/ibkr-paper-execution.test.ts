@@ -68,7 +68,7 @@ const unexpectedHoldingService = createIbkrPaperExecutionService({
 const unexpectedBlocked = await unexpectedHoldingService.sync('55555555-5555-4555-8555-555555555555')
 assert.equal(unexpectedBlocked.orders.length, 0)
 assert.equal(unsafePlacement, 0)
-assert.match(unexpectedBlocked.detail, /outside the current Nostra target/)
+assert.match(unexpectedBlocked.detail, /waiting or blocked/)
 
 const automaticCloseOrders: any[] = []
 const automaticClose = createIbkrPaperExecutionService({
@@ -141,4 +141,137 @@ await assert.rejects(() => retryService.sync(retryKey), /temporary paper snapsho
 assert.equal((await retryService.sync(retryKey)).ok, true, 'a failed idempotent command can be retried with the same receipt')
 assert.equal(retryReads, 2)
 
-console.log('\nibkr-paper-execution.test.ts: 10 passed')
+const acmePosition = (contractId: number, quantity: number, exchange = 'NASDAQ'): BrokerSnapshot['positions'][number] => ({
+  contract_id: contractId, symbol: 'ACME', local_symbol: 'ACME', security_type: 'STK', currency: 'USD', exchange,
+  quantity, average_cost: 100, market_price: 100, market_value: quantity * 100, unrealized_pnl: 0, realized_pnl: 0,
+})
+const quote = async () => ({
+  contract: { conId: 123, symbol: 'ACME', secType: 'STK' as any, exchange: 'SMART', primaryExch: 'NASDAQ', currency: 'USD' },
+  price: 100, min_tick: 0.01,
+})
+
+let replacementReads = 0
+let replacementCancelled = 0
+const replacementOrders: any[] = []
+const supersededAutomatic = createIbkrPaperExecutionService({
+  enabled: true, allowedAccountId: accountId,
+  snapshotReader: async () => {
+    replacementReads++
+    return snapshot([acmePosition(123, 5)], replacementReads === 1 ? [{
+      order_id: 60, contract_id: 123, symbol: 'ACME', action: 'SELL', total_quantity: 5, order_type: 'MKT',
+      status: 'Submitted', filled: 0, remaining: 5, average_fill_price: null,
+      order_ref: 'NOSTRA_PAPER:AUTO:CLOSE:123:old-publication',
+    }] : [])
+  },
+  callsReader: async () => ({ calls: [selectedCall] }), quoteResolver: quote,
+  orderCanceller: async (id) => {
+    replacementCancelled = id
+    return { order_id: id, ticker: 'ACME', action: 'SELL', quantity: 5, status: 'Cancelled', detail: 'cancelled' }
+  },
+  orderPlacer: async (input) => {
+    replacementOrders.push(input)
+    return { order_id: 61, ticker: input.ticker, action: input.action, quantity: input.quantity, status: 'Submitted', detail: 'accepted' }
+  },
+})
+await supersededAutomatic.sync('c1111111-1111-4111-8111-111111111111', { reconcilePositions: true })
+assert.equal(replacementCancelled, 60, 'an obsolete automatic close is cancelled when a later call keeps the holding')
+assert.equal(replacementReads, 2, 'the broker is re-read after a cancellation before replacement sizing')
+assert.equal(replacementOrders[0].quantity, 94, 'the replacement uses the fresh five-share holding, not the pre-cancel order state')
+
+let wrongSizeReads = 0
+let wrongSizeCancelled = 0
+const correctedSizeOrders: any[] = []
+const wrongPendingSize = createIbkrPaperExecutionService({
+  enabled: true, allowedAccountId: accountId,
+  snapshotReader: async () => {
+    wrongSizeReads++
+    return snapshot([], wrongSizeReads === 1 ? [{
+      order_id: 62, contract_id: 123, symbol: 'ACME', action: 'BUY', total_quantity: 49, order_type: 'LMT',
+      status: 'Submitted', filled: 0, remaining: 49, average_fill_price: null,
+      order_ref: 'NOSTRA_PAPER:analyses/ACME_2026-08-24',
+    }] : [])
+  },
+  callsReader: async () => ({ calls: [selectedCall] }), quoteResolver: quote,
+  orderCanceller: async (id) => {
+    wrongSizeCancelled = id
+    return { order_id: id, ticker: 'ACME', action: 'BUY', quantity: 49, status: 'Cancelled', detail: 'cancelled' }
+  },
+  orderPlacer: async (input) => {
+    correctedSizeOrders.push(input)
+    return { order_id: 63, ticker: input.ticker, action: input.action, quantity: input.quantity, status: 'Submitted', detail: 'accepted' }
+  },
+})
+await wrongPendingSize.sync('c2222222-2222-4222-8222-222222222222', { reconcilePositions: true })
+assert.equal(wrongSizeCancelled, 62, 'same call and side are not enough when the pending order has the old 5% size')
+assert.equal(correctedSizeOrders[0].quantity, 99, 'the stale 5% order is replaced by the current 10% whole-share target')
+
+let staleRebalanceReads = 0
+let staleRebalanceCancelled = 0
+const freshRebalanceOrders: any[] = []
+const staleRebalance = createIbkrPaperExecutionService({
+  enabled: true, allowedAccountId: accountId,
+  snapshotReader: async () => {
+    staleRebalanceReads++
+    return snapshot([acmePosition(123, staleRebalanceReads === 1 ? 50 : 55)], staleRebalanceReads === 1 ? [{
+      order_id: 66, contract_id: 123, symbol: 'ACME', action: 'BUY', total_quantity: 10, order_type: 'LMT',
+      status: 'Submitted', filled: 0, remaining: 10, average_fill_price: null,
+      order_ref: 'NOSTRA_PAPER:AUTO:REBALANCE:analyses/ACME_2026-08-24',
+    }] : [])
+  },
+  callsReader: async () => ({ calls: [selectedCall] }), quoteResolver: quote,
+  orderCanceller: async (id) => {
+    staleRebalanceCancelled = id
+    return { order_id: id, ticker: 'ACME', action: 'BUY', quantity: 10, status: 'Cancelled', detail: 'cancelled' }
+  },
+  orderPlacer: async (input) => {
+    freshRebalanceOrders.push(input)
+    return { order_id: 67, ticker: input.ticker, action: input.action, quantity: input.quantity, status: 'Submitted', detail: 'accepted' }
+  },
+})
+await staleRebalance.sync('c2555555-2222-4222-8222-222222222222', { reconcilePositions: true })
+assert.equal(staleRebalanceCancelled, 66, 'an automatic rebalance with obsolete remaining size is superseded')
+assert.equal(freshRebalanceOrders[0].quantity, 44, 'a partial fill observed after cancellation reduces the replacement quantity')
+
+const rotationOrders: any[] = []
+const rotation = createIbkrPaperExecutionService({
+  enabled: true, allowedAccountId: accountId,
+  snapshotReader: async () => snapshot([{
+    contract_id: 700, symbol: 'OLD', local_symbol: 'OLD', security_type: 'STK', currency: 'USD', exchange: 'NYSE',
+    quantity: 20, average_cost: 50, market_price: 50, market_value: 1_000, unrealized_pnl: 0, realized_pnl: 0,
+  }]),
+  callsReader: async () => ({ calls: [selectedCall] }), quoteResolver: quote,
+  orderPlacer: async (input) => {
+    rotationOrders.push(input)
+    return { order_id: 64, ticker: input.ticker, action: input.action, quantity: input.quantity, status: 'Submitted', detail: 'accepted' }
+  },
+})
+const rotationResult = await rotation.sync('c3333333-3333-4333-8333-333333333333', { reconcilePositions: true })
+assert.deepEqual(rotationOrders.map((row) => row.ticker), ['OLD'], 'a replacement cannot open until the old holding close is confirmed filled')
+assert.match(rotationResult.skipped.find((row) => row.ticker === 'ACME')?.reason || '', /fresh broker snapshot confirms/)
+
+const listingOrders: any[] = []
+const exactListing = createIbkrPaperExecutionService({
+  enabled: true, allowedAccountId: accountId,
+  snapshotReader: async () => snapshot([acmePosition(999, 20, 'NYSE')]),
+  callsReader: async () => ({ calls: [selectedCall] }), quoteResolver: quote,
+  orderPlacer: async (input) => {
+    listingOrders.push(input)
+    return { order_id: 65, ticker: input.ticker, action: input.action, quantity: input.quantity, status: 'Submitted', detail: 'accepted' }
+  },
+})
+await exactListing.sync('c4444444-4444-4444-8444-444444444444', { reconcilePositions: true })
+assert.equal(listingOrders.length, 1)
+assert.equal(listingOrders[0].contract.conId, 999, 'a same-symbol holding on another tradable line is closed, never netted against the target')
+assert.equal(listingOrders[0].limitPrice, undefined, 'the exact wrong listing closes before the correct listing may open')
+
+let authorityRevision = ''
+const exactAuthority = createIbkrPaperExecutionService({
+  enabled: true, allowedAccountId: accountId, snapshotReader: async () => snapshot(),
+  callsReader: async (revision) => { authorityRevision = revision || ''; return { calls: [] } },
+})
+await exactAuthority.sync('c5555555-5555-4555-8555-555555555555', {
+  reconcilePositions: true, publishedRevision: 'd'.repeat(40),
+})
+assert.equal(authorityRevision, 'd'.repeat(40), 'execution projects Calls through the verified publication revision')
+
+console.log('\nibkr-paper-execution.test.ts: 16 passed')

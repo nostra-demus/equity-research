@@ -12,7 +12,7 @@ const AUTO_SYNC_FILE = 'automatic-sync.json'
 export interface PaperAutoSyncAttempt {
   schema_version: 'ibkr-paper-auto-sync/v1'
   at: string
-  outcome: 'orders_sent' | 'aligned' | 'no_order' | 'error'
+  outcome: 'orders_sent' | 'partial' | 'aligned' | 'no_order' | 'error'
   trigger: 'publication'
   run_id: string | null
   run_kind: string | null
@@ -35,13 +35,14 @@ export interface PublishedResearchRun {
   willCommitToMain: boolean
   publicationCompleted?: boolean
   publicationPhase?: string
+  publicationRevision?: string
 }
 
 interface AutoSyncOptions {
   enabled?: boolean
   stateDir?: string
   now?: () => Date
-  sync?: (idempotencyKey: string, options: { reconcilePositions: true }) => Promise<PaperExecutionResult>
+  sync?: (idempotencyKey: string, options: { reconcilePositions: true; publishedRevision: string }) => Promise<PaperExecutionResult>
 }
 
 function statusPath(stateDir: string): string {
@@ -53,7 +54,7 @@ function validAttempt(value: unknown): value is PaperAutoSyncAttempt {
   const row = value as Record<string, unknown>
   return row.schema_version === 'ibkr-paper-auto-sync/v1'
     && typeof row.at === 'string'
-    && typeof row.outcome === 'string' && ['orders_sent', 'aligned', 'no_order', 'error'].includes(row.outcome)
+    && typeof row.outcome === 'string' && ['orders_sent', 'partial', 'aligned', 'no_order', 'error'].includes(row.outcome)
     && row.trigger === 'publication'
     && (row.run_id === null || typeof row.run_id === 'string')
     && (row.run_kind === null || typeof row.run_kind === 'string')
@@ -94,6 +95,7 @@ export function isAutomaticPaperSyncRun(run: PublishedResearchRun): boolean {
     && run.willCommitToMain
     && run.publicationCompleted === true
     && run.publicationPhase === 'terminal-complete'
+    && /^[0-9a-f]{40}(?:[0-9a-f]{24})?$/.test(run.publicationRevision || '')
 }
 
 export function createIbkrPaperAutoSync(options: AutoSyncOptions = {}) {
@@ -103,7 +105,7 @@ export function createIbkrPaperAutoSync(options: AutoSyncOptions = {}) {
     && process.env.ENGINE_IBKR_PAPER_EXECUTION === '1'
   )
   const now = options.now ?? (() => new Date())
-  const sync = options.sync ?? (async (idempotencyKey: string, command: { reconcilePositions: true }) => {
+  const sync = options.sync ?? (async (idempotencyKey: string, command: { reconcilePositions: true; publishedRevision: string }) => {
     const { ibkrPaperExecution } = await import('./ibkr-paper-execution')
     return ibkrPaperExecution.sync(idempotencyKey, command)
   })
@@ -117,11 +119,15 @@ export function createIbkrPaperAutoSync(options: AutoSyncOptions = {}) {
       const identity = { run_id: run.runId, run_kind: run.kind, ticker: run.ticker }
       let attempt: PaperAutoSyncAttempt
       try {
-        const result = await sync(randomUUID(), { reconcilePositions: true })
+        const result = await sync(randomUUID(), { reconcilePositions: true, publishedRevision: run.publicationRevision! })
+        const partial = result.orders.length > 0 && result.skipped.length > 0
+        const detail = partial
+          ? `${result.detail} ${result.skipped.slice(0, 3).map((row) => `${row.ticker}: ${row.reason}`).join(' ')}`
+          : result.detail
         attempt = {
           schema_version: 'ibkr-paper-auto-sync/v1', at: now().toISOString(), trigger: 'publication', ...identity,
-          outcome: result.orders.length ? 'orders_sent' : result.skipped.length ? 'no_order' : 'aligned',
-          order_count: result.orders.length, skipped_count: result.skipped.length, detail: result.detail,
+          outcome: partial ? 'partial' : result.orders.length ? 'orders_sent' : result.skipped.length ? 'no_order' : 'aligned',
+          order_count: result.orders.length, skipped_count: result.skipped.length, detail,
         }
       } catch (error: any) {
         attempt = {
@@ -148,4 +154,6 @@ export function createIbkrPaperAutoSync(options: AutoSyncOptions = {}) {
 
 export const ibkrPaperAutoSync = createIbkrPaperAutoSync()
 export const scheduleIbkrPaperAutoSyncAfterPublication = (run: PublishedResearchRun): void => ibkrPaperAutoSync.scheduleAfterPublishedRun(run)
+export const runIbkrPaperAutoSyncAfterPublication = (run: PublishedResearchRun): Promise<PaperAutoSyncAttempt | null> => ibkrPaperAutoSync.afterPublishedRun(run)
 export const readIbkrPaperAutoSync = (): PaperAutoSyncRead => ibkrPaperAutoSync.read()
+export const drainIbkrPaperAutoSync = (): Promise<void> => ibkrPaperAutoSync.drain()

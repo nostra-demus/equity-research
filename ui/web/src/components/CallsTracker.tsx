@@ -231,6 +231,7 @@ function PaperPortfolioPanel({ portfolio, loading, staticMode, onRefresh }: { po
       : '100% cash · no trade'
     : 'Target blocked'
   const ready = portfolio?.execution.status === 'ready' && portfolio.execution.can_execute && !staticMode
+  const syncNeeded = targetPositions.length > 0 || actualPositions.length > 0 || openOrders.some((row) => row.nostra_managed)
   const automatic = portfolio?.execution.automatic
   const lastAutomatic = automatic?.last_attempt
 
@@ -315,7 +316,7 @@ function PaperPortfolioPanel({ portfolio, loading, staticMode, onRefresh }: { po
       <div className={`paperport__lock${ready ? ' paperport__lock--ready' : ''}`} role="status" aria-live="polite">
         <span>{automatic?.enabled ? 'Automatic paper execution on' : ready ? 'Paper execution ready' : portfolio?.execution.status === 'ready' ? 'View only · operator controls locked' : 'Execution locked'}</span>
         <small>{portfolio?.execution.detail || 'No order can be sent.'} Low conviction = 5%. High conviction = 10% at confidence 75+.{lastAutomatic ? ` Last automatic result: ${lastAutomatic.outcome.replaceAll('_', ' ')} at ${lastAutomatic.at}${lastAutomatic.ticker ? ` after ${lastAutomatic.ticker} research` : ''} — ${lastAutomatic.detail}` : automatic?.enabled ? ' Waiting for the next verified published Research call.' : ''}</small>
-        {ready && <button className="btn btn--amber btn--mini" disabled={busy !== null || targetPositions.length === 0} onClick={() => act('sync', `Send the ${targetPositions.length} verified current Nostra target${targetPositions.length === 1 ? '' : 's'} to IBKR PAPER now? Historical calls will not be backdated.`, () => api.paperPortfolioSync())}>{busy === 'sync' ? 'Sending…' : targetPositions.length ? 'Sync now' : 'No trade now'}</button>}
+        {ready && <button className="btn btn--amber btn--mini" disabled={busy !== null || !portfolio?.target.valid || !syncNeeded} onClick={() => act('sync', `Reconcile IBKR PAPER to the verified current Nostra target now${targetPositions.length ? ` (${targetPositions.length} position${targetPositions.length === 1 ? '' : 's'})` : ' (100% cash)'}? Any required close must fill before a replacement opens. Historical calls will not be backdated.`, () => api.paperPortfolioSync())}>{busy === 'sync' ? 'Sending…' : syncNeeded ? 'Sync now' : 'No trade now'}</button>}
       </div>
     </section>
   )

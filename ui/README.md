@@ -51,7 +51,10 @@ allow-listed with `ENGINE_IBKR_PAPER_ACCOUNT_ID`. Set `ENGINE_IBKR_PAPER_AUTO_SY
 dedicated paper account immediately after a verified `full`, `rerun`, or decision `review` publication.
 Selected/Buy calls are long, Short calls are short, low conviction is 5%, and confidence 75+ is 10%.
 Watchlist/Avoid creates no position; a later published exit closes the simulated holding. Automatic mode
-owns the whole dedicated paper account, so do not mix unrelated manual paper positions into it.
+owns the whole dedicated paper account, so do not mix unrelated manual paper positions into it. It reads
+the exact verified publication commit, cancels superseded Nostra orders, and re-reads TWS before sizing a
+replacement. A rotation closes the old holding first; the replacement is sent only after a later snapshot
+confirms that close filled. **Sync now** runs this same full reconciliation, including a 100%-cash target.
 
 The connector is fixed to localhost and paper port 7497, exposes no account identifier to the browser,
 refuses live/non-allow-listed or ambiguous accounts, and uses guarded limit entries plus duplicate-order

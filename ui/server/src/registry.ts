@@ -60,6 +60,8 @@ export interface RunState {
   publicationCompleted?: boolean
   publicationError?: string
   publicationPhase?: 'open' | 'archive-in-progress' | 'archive-sealed' | 'terminal-in-progress' | 'terminal-complete' | 'terminal-failed' | 'parity-attested'
+  /** Exact supervisor-verified commit containing the decision used by post-publication consumers. */
+  publicationRevision?: string
   /** Synchronous supervisor-owned integrity check for the per-run publication capability transport. */
   publicationTransportVerify?: () => void
   /** Exact supervisor-stamped terminal bytes; close/adjudication fail if the child changes them later. */
