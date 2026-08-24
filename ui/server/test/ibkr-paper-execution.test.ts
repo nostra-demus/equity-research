@@ -377,6 +377,18 @@ assert.doesNotMatch(privateQuoteError.skipped[0]?.reason || '', /Users|My Folder
 assert.match(privateQuoteError.skipped[0]?.reason || '', /\[PATH\]/,
   'broker execution errors cannot expose private absolute filesystem paths')
 
+const windowsSlashQuoteErrorService = createIbkrPaperExecutionService({
+  enabled: true, allowedAccountId: accountId, snapshotReader: async () => snapshot(),
+  callsReader: async () => ({ calls: [selectedCall] }),
+  quoteResolver: async () => { throw new Error('failed in C:/Program Files/Nostra/private/quote-cache.json') },
+})
+const windowsSlashQuoteError = await windowsSlashQuoteErrorService.sync(
+  'c7899998-7777-4777-8777-777777777777', { reconcilePositions: true },
+)
+assert.doesNotMatch(windowsSlashQuoteError.skipped[0]?.reason || '', /Program Files|Nostra|quote-cache/)
+assert.match(windowsSlashQuoteError.skipped[0]?.reason || '', /\[PATH\]/,
+  'broker execution errors redact Windows absolute paths that use forward slashes')
+
 let invalidTickPlacements = 0
 const invalidTickService = createIbkrPaperExecutionService({
   enabled: true, allowedAccountId: accountId, snapshotReader: async () => snapshot(),

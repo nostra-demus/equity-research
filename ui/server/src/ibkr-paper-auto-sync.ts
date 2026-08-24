@@ -103,7 +103,7 @@ function safeErrorMessage(error: unknown): string {
   // Do not attempt to keep the surrounding message when it contains a filesystem path: unquoted
   // paths may contain spaces, so partial replacement can disclose the remainder of the private path.
   const containsAbsolutePath = /(^|[\s("'`])\/(?=[^/\s])/u.test(raw)
-    || /(^|[\s("'`])[A-Za-z]:\\(?=[^\\\s])/u.test(raw)
+    || /(^|[\s("'`])[A-Za-z]:[\/\\](?=[^\/\\\s])/u.test(raw)
   return containsAbsolutePath ? '[PATH]' : raw
 }
 

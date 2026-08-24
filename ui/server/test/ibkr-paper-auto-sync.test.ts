@@ -99,6 +99,14 @@ const windowsRedactedAttempt = await windowsRedacted.afterPublishedRun(published
 assert.doesNotMatch(String(windowsRedactedAttempt?.detail), /Program Files|Nostra|paper\.env/)
 assert.match(String(windowsRedactedAttempt?.detail), /\[PATH\]/)
 
+const windowsSlashRedacted = createIbkrPaperAutoSync({
+  enabled: true, stateDir: fs.mkdtempSync(path.join(os.tmpdir(), 'paper-auto-sync-windows-slash-redacted-')),
+  sync: async () => { throw new Error('failed while reading C:/Program Files/Nostra/paper.env') },
+})
+const windowsSlashAttempt = await windowsSlashRedacted.afterPublishedRun(published({ runId: 'run-windows-slash-redacted' }))
+assert.doesNotMatch(String(windowsSlashAttempt?.detail), /Program Files|Nostra|paper\.env/)
+assert.match(String(windowsSlashAttempt?.detail), /\[PATH\]/)
+
 const partialState = fs.mkdtempSync(path.join(os.tmpdir(), 'paper-auto-sync-partial-'))
 const partial = createIbkrPaperAutoSync({
   enabled: true, stateDir: partialState,

@@ -98,7 +98,7 @@ function normalized(value: unknown): string {
 function safeErrorMessage(error: unknown): string {
   const raw = String(error instanceof Error ? error.message : error)
   const containsAbsolutePath = /(^|[\s("'`])\/(?=[^/\s])/u.test(raw)
-    || /(^|[\s("'`])[A-Za-z]:\\(?=[^\\\s])/u.test(raw)
+    || /(^|[\s("'`])[A-Za-z]:[\/\\](?=[^\/\\\s])/u.test(raw)
   return containsAbsolutePath ? '[PATH]' : raw
 }
 
