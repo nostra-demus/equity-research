@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-24T02:57:07Z",
+  "generated_at": "2026-08-24T03:02:26Z",
   "inbox": [
     {
       "inbox_id": "INB-20260824-242",
@@ -389,6 +389,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260824-287",
+      "headline": "Alibaba plunges after announcing $10.2 billion share placement to fund AI push",
+      "headline_en": null,
+      "url": "https://www.cnbc.com/2026/08/24/alibaba-share-placement-drop-ai-hong-kong.html",
+      "source_name": "CNBC",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-24T02:55:22Z",
+      "sweep_file": "screener/inbox/2026-08-24_sweep.json",
+      "prelim_note": "Alibaba announced a $10.2 billion share placement, which is dilutive to existing shareholders.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Alibaba announced a $10.2 billion share placement, which is dilutive to existing shareholders.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capital_actions",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Alibaba",
+          "ticker": "BABA",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1886,49 +1935,6 @@
         "macro_sector"
       ],
       "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260824-285",
-      "headline": "US vows 'economic D-Day' as Iran threatens to halt all oil exports",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/world/us-vows-economic-d-day-as-iran-threatens-to-halt-all-oil-exports-19975334.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-24T02:46:29Z",
-      "sweep_file": "screener/inbox/2026-08-24_sweep.json",
-      "prelim_note": "US-Iran escalation with threat to halt all oil exports is a global commodity supply shock risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "US-Iran escalation with threat to halt all oil exports is a global commodity supply shock risk.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 4,
-        "event": 1,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "commodity",
-        "source_tier_id": "news",
-        "event_id": "macro_sector",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
@@ -85031,9 +85037,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 816,
-    "news_picked_today": 371,
-    "news_dropped_today": 445
+    "news_seen_today": 842,
+    "news_picked_today": 380,
+    "news_dropped_today": 462
   },
   "book_momentum": {
     "live_count": 8,
