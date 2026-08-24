@@ -95,6 +95,18 @@ function normalized(value: unknown): string {
   return String(value ?? '').trim().toUpperCase()
 }
 
+/** Map only known published-market labels to IBKR primary-exchange identifiers. */
+function brokerExchangeId(value: unknown): string {
+  const raw = normalized(value)
+  if (!raw) return ''
+  const head = raw.split(/[(:]/, 1)[0].trim()
+  if (/^NASDAQ(?:GS|GM|CM)?$/.test(head)) return 'NASDAQ'
+  if (['XTRA', 'XETRA'].includes(head)) return 'IBIS'
+  if (['NYSE AMERICAN', 'NYSEAMERICAN'].includes(head)) return 'AMEX'
+  if (['OSLO BØRS', 'OSLO BORS', 'OB'].includes(head)) return 'OSE'
+  return head
+}
+
 function orderQuantityRemaining(order: BrokerOpenOrder): number | null {
   const remaining = finite(order.remaining)
   if (remaining !== null && remaining > 0) return remaining
@@ -192,12 +204,27 @@ function accountCurrency(snapshot: BrokerSnapshot): string | null {
 
 function stockRequest(target: CallPolicyTargetPosition): Contract {
   const currency = normalized(target.currency)
-  const statedExchange = normalized(target.exchange)
+  const statedExchange = brokerExchangeId(target.exchange)
   if (currency === 'USD') return {
     symbol: target.ticker, secType: SecType.STK, exchange: 'SMART', currency,
     ...(statedExchange ? { primaryExch: statedExchange } : {}),
   }
   return { symbol: target.ticker, secType: SecType.STK, exchange: statedExchange || 'SMART', currency }
+}
+
+export function selectExactPaperContractDetail(
+  details: ContractDetails[],
+  target: Pick<CallPolicyTargetPosition, 'ticker' | 'currency' | 'exchange'>,
+): ContractDetails | null {
+  const wantedCurrency = normalized(target.currency)
+  const wantedExchange = brokerExchangeId(target.exchange)
+  const matches = details.filter((row) => normalized(row.contract?.currency) === wantedCurrency
+    && normalized(row.contract?.symbol || row.contract?.localSymbol) === normalized(target.ticker))
+  const candidates = wantedExchange
+    ? matches.filter((row) => [row.contract?.primaryExch, row.contract?.exchange]
+      .some((value) => brokerExchangeId(value) === wantedExchange))
+    : matches
+  return candidates.length === 1 && finite(candidates[0]?.contract?.conId) !== null ? candidates[0] : null
 }
 
 function orderError(args: unknown[]): { error: Error; code: number; reqId: number } {
@@ -335,15 +362,10 @@ async function resolveContractAndPrice(target: CallPolicyTargetPosition, options
       .on(EventName.contractDetails, (reqId: number, row: ContractDetails) => { if (reqId === contractReqId) details.push(row) })
       .on(EventName.contractDetailsEnd, (reqId: number) => {
         if (reqId !== contractReqId) return
-        const wantedCurrency = normalized(target.currency)
-        const wantedExchange = normalized(target.exchange)
-        const matches = details.filter((row) => normalized(row.contract?.currency) === wantedCurrency
-          && normalized(row.contract?.symbol || row.contract?.localSymbol) === normalized(target.ticker))
-        const exact = wantedExchange ? matches.filter((row) => [row.contract?.primaryExch, row.contract?.exchange].some((value) => normalized(value) === wantedExchange)) : matches
-        const candidates = exact.length ? exact : matches
-        if (candidates.length !== 1 || !finite(candidates[0]?.contract?.conId)) return finish(new Error('paper_contract_ambiguous'))
-        selectedContract = candidates[0].contract
-        const minTick = finite(candidates[0].minTick)
+        const selected = selectExactPaperContractDetail(details, target)
+        if (!selected) return finish(new Error('paper_contract_ambiguous'))
+        selectedContract = selected.contract
+        const minTick = finite(selected.minTick)
         selectedMinTick = minTick !== null && minTick > 0 ? minTick : 0.01
         try {
           ib.reqMarketDataType(MarketDataType.DELAYED)

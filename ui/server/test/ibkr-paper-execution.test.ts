@@ -2,7 +2,7 @@ import assert from 'node:assert/strict'
 import os from 'node:os'
 import path from 'node:path'
 import fs from 'node:fs'
-import { createIbkrPaperExecutionService } from '../src/ibkr-paper-execution'
+import { createIbkrPaperExecutionService, selectExactPaperContractDetail } from '../src/ibkr-paper-execution'
 import type { BrokerSnapshot } from '../src/ibkr-paper'
 
 const accountId = 'DU-TEST-PAPER'
@@ -16,6 +16,20 @@ const selectedCall = {
   ticker: 'ACME', run_root: 'analyses/ACME_2026-08-24', integrity_status: 'verified', exchange: 'NASDAQ', timeline: [],
   frozen_call: { locked: true, decision: 'Buy', basket: 'Selected', confidence: 80, decision_date: '2026-08-24', entry_price: 100, currency: 'USD', source_path: 'x' },
 }
+const nasdaqContract = {
+  contract: { conId: 1_001, symbol: 'ACME', currency: 'USD', exchange: 'SMART', primaryExch: 'NASDAQ' },
+  minTick: 0.01,
+} as any
+const nyseContract = {
+  contract: { conId: 1_002, symbol: 'ACME', currency: 'USD', exchange: 'SMART', primaryExch: 'NYSE' },
+  minTick: 0.01,
+} as any
+assert.equal(selectExactPaperContractDetail([nasdaqContract, nyseContract], {
+  ticker: 'ACME', currency: 'USD', exchange: 'NasdaqGS',
+})?.contract.conId, 1_001, 'a published Nasdaq label resolves only the Nasdaq IBKR listing')
+assert.equal(selectExactPaperContractDetail([nasdaqContract], {
+  ticker: 'ACME', currency: 'USD', exchange: 'NYSE',
+}), null, 'a same-ticker same-currency listing on the wrong exchange fails closed')
 const stateDir = fs.mkdtempSync(path.join(os.tmpdir(), 'paper-execution-'))
 const placed: any[] = []
 const service = createIbkrPaperExecutionService({
