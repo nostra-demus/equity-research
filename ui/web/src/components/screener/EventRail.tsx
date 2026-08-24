@@ -798,6 +798,7 @@ export function EventRail() {
               searchSymbols={api.symbolSearch}
               compact
               showCompany={false}
+              onTextIntent={ensureFacets}
               showClear={refineCount > 0}
               onClear={clearRefinements}
             />

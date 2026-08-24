@@ -37,6 +37,11 @@ try {
   assert.equal((railSource.match(/onPointerDown=\{ensureFacets\}/g) || []).length, 2, 'pointer use must demand-load both primary facet controls')
   assert.equal((railSource.match(/onClick=\{ensureFacets\}/g) || []).length, 2, 'keyboard activation must retry both primary facet controls')
   assert.doesNotMatch(railSource, /if \(n\) ensureFacets\(\)/, 'opening static secondary Filters must not start a redundant facet scan')
+  assert.match(railSource, /onTextIntent=\{ensureFacets\}/, 'using the keyword input must demand-load ticker-to-company facets')
+
+  const filterSource = readFileSync(fileURLToPath(new URL('../components/screener/FeedFilters.tsx', import.meta.url)), 'utf8')
+  assert.match(filterSource, /onFocus=\{onTextIntent\}/, 'keyboard entry into the keyword input must signal filter intent')
+  assert.match(filterSource, /onChange=\{\(e\) => \{ onTextIntent\?\.\(\); set\(\{ text: e\.target\.value \}\) \}\}/, 'typing must signal intent even when focus was set programmatically')
 
   useStore.setState({ scArchiveQuery: {}, scFacets: null, scFacetsLoading: false })
   await useStore.getState().scRunArchiveSearch({})
@@ -47,7 +52,7 @@ try {
   await useStore.getState().scRunArchiveSearch({})
   await Promise.resolve()
   assert.equal(facetCalls, 1, 'clearing a used filter must restore full-archive facets')
-  console.log('\narchiveFacetsLazy.test.ts: 7 passed')
+  console.log('\narchiveFacetsLazy.test.ts: 10 passed')
 } finally {
   api.newsFacets = originalNewsFacets
   ;(globalThis as any).window = previousWindow
