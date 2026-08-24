@@ -17,6 +17,7 @@ import {
 const DEFAULT_CLIENT_ID = 0
 const DEFAULT_TIMEOUT_MS = 10_000
 const ORDER_REF_PREFIX = 'NOSTRA_PAPER:'
+const SIZING_PRICE_RESERVE = 1.01
 const PRICE_TICK = { BID: 1, ASK: 2, LAST: 4, CLOSE: 9, MARK: 37, DELAYED_BID: 66, DELAYED_ASK: 67, DELAYED_LAST: 68, DELAYED_CLOSE: 75 } as const
 
 export type PaperExecutionAction = 'sync' | 'cancel' | 'close'
@@ -414,7 +415,7 @@ export function createIbkrPaperExecutionService(options: ExecutionOptions = {}) 
         try {
           const quote = await quoteResolver(wanted)
           const notional = nav * Math.abs(wanted.model_weight_pct) / 100
-          const absoluteTarget = Math.floor(notional / (quote.price * 1.01))
+          const absoluteTarget = Math.floor(notional / (quote.price * SIZING_PRICE_RESERVE))
           if (absoluteTarget < 1) { skipped.push({ ticker: symbol, reason: 'The 5%/10% target is smaller than one whole share.' }); continue }
           const signedTarget = wanted.side === 'short' ? -absoluteTarget : absoluteTarget
           const delta = signedTarget - held.quantity
@@ -461,7 +462,7 @@ export function createIbkrPaperExecutionService(options: ExecutionOptions = {}) 
         const notional = nav * Math.abs(row.model_weight_pct) / 100
         // Reserve 1% inside the requested ceiling, then use a 0.5%-guarded limit order. This prevents
         // a stale/delayed snapshot from becoming an unbounded market entry.
-        const quantity = Math.floor(notional / (quote.price * 1.01))
+        const quantity = Math.floor(notional / (quote.price * SIZING_PRICE_RESERVE))
         if (quantity < 1) { skipped.push({ ticker: row.ticker, reason: 'The 5%/10% target is smaller than one whole share.' }); continue }
         const action: 'BUY' | 'SELL' = row.side === 'short' ? 'SELL' : 'BUY'
         const limitPrice = guardedLimit(quote.price, quote.min_tick, action)

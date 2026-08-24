@@ -105,17 +105,18 @@ function openOrder(value: unknown): value is PaperOpenOrder {
 
 function automaticExecution(value: unknown): boolean {
   if (!value || typeof value !== 'object' || Array.isArray(value)) return false
-  const row = value as any
+  const row = value as Record<string, unknown>
   if (typeof row.enabled !== 'boolean') return false
   if (row.last_attempt === null) return true
-  const attempt = row.last_attempt
+  if (!row.last_attempt || typeof row.last_attempt !== 'object' || Array.isArray(row.last_attempt)) return false
+  const attempt = row.last_attempt as Record<string, unknown>
   return attempt && typeof attempt === 'object' && !Array.isArray(attempt)
     && attempt.schema_version === 'ibkr-paper-auto-sync/v1' && typeof attempt.at === 'string'
-    && ['orders_sent', 'aligned', 'no_order', 'error'].includes(attempt.outcome)
+    && typeof attempt.outcome === 'string' && ['orders_sent', 'aligned', 'no_order', 'error'].includes(attempt.outcome)
     && attempt.trigger === 'publication'
     && stringOrNull(attempt.run_id) && stringOrNull(attempt.run_kind) && stringOrNull(attempt.ticker)
-    && Number.isInteger(attempt.order_count) && attempt.order_count >= 0
-    && Number.isInteger(attempt.skipped_count) && attempt.skipped_count >= 0
+    && typeof attempt.order_count === 'number' && Number.isInteger(attempt.order_count) && attempt.order_count >= 0
+    && typeof attempt.skipped_count === 'number' && Number.isInteger(attempt.skipped_count) && attempt.skipped_count >= 0
     && typeof attempt.detail === 'string'
 }
 

@@ -50,16 +50,16 @@ function statusPath(stateDir: string): string {
 
 function validAttempt(value: unknown): value is PaperAutoSyncAttempt {
   if (!value || typeof value !== 'object' || Array.isArray(value)) return false
-  const row = value as any
+  const row = value as Record<string, unknown>
   return row.schema_version === 'ibkr-paper-auto-sync/v1'
     && typeof row.at === 'string'
-    && ['orders_sent', 'aligned', 'no_order', 'error'].includes(row.outcome)
+    && typeof row.outcome === 'string' && ['orders_sent', 'aligned', 'no_order', 'error'].includes(row.outcome)
     && row.trigger === 'publication'
     && (row.run_id === null || typeof row.run_id === 'string')
     && (row.run_kind === null || typeof row.run_kind === 'string')
     && (row.ticker === null || typeof row.ticker === 'string')
-    && Number.isInteger(row.order_count) && row.order_count >= 0
-    && Number.isInteger(row.skipped_count) && row.skipped_count >= 0
+    && typeof row.order_count === 'number' && Number.isInteger(row.order_count) && row.order_count >= 0
+    && typeof row.skipped_count === 'number' && Number.isInteger(row.skipped_count) && row.skipped_count >= 0
     && typeof row.detail === 'string'
 }
 
