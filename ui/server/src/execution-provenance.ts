@@ -39,6 +39,15 @@ const parityReceiptByPair = new Map<string, {
 }>()
 const PARITY_WATCH_TTL_MS = 7 * 24 * 60 * 60_000
 
+/** Resolve immutable parity binding paths across deployed worktrees without admitting traversal. */
+export function resolveParityBindingPath(value: string): string | null {
+  if (!value || value.includes('\\') || (!path.isAbsolute(value) && value.split('/').includes('..'))) return null
+  const repo = path.resolve(REPO_ROOT)
+  const resolved = path.resolve(path.isAbsolute(value) ? value : path.join(REPO_ROOT, value))
+  if (resolved !== repo && !resolved.startsWith(`${repo}${path.sep}`)) return null
+  return resolved
+}
+
 function supervisorManifestForRunRoot(runRoot: string): string {
   const key = createHash('sha256').update(runRoot).digest('hex')
   return path.join(STATE_DIR, 'execution-provenance', 'run-roots', `${key}.jsonl`)
@@ -253,7 +262,6 @@ function parityPrelaunchBinding(run: RunState): Record<string, unknown> | null {
   const expectedRoot = path.resolve(REPO_ROOT, run.runRoot)
   const expected = {
     provider: run.provider,
-    run_root: expectedRoot,
     expected_model: run.model,
     expected_reasoning_level: run.reasoningLevel,
     expected_profile_key: run.profileKey,
@@ -261,12 +269,13 @@ function parityPrelaunchBinding(run: RunState): Record<string, unknown> | null {
   for (const [key, value] of Object.entries(expected)) {
     if (binding[key] !== value) throw new Error(`provider-parity binding ${key} does not match this launch`)
   }
+  if (resolveParityBindingPath(String(binding.run_root || '')) !== expectedRoot) {
+    throw new Error('provider-parity binding run_root does not match this launch')
+  }
   if (binding.subject !== run.subjectId) throw new Error('provider-parity binding subject does not match this launch')
   if (!['run_a', 'run_b'].includes(binding.label)) throw new Error('provider-parity binding has an invalid run label')
-  if (typeof binding.receipt_path !== 'string' || !path.isAbsolute(binding.receipt_path)) {
-    throw new Error('provider-parity binding receipt_path must be absolute')
-  }
-  const receiptAbsolute = path.resolve(binding.receipt_path)
+  const receiptAbsolute = resolveParityBindingPath(String(binding.receipt_path || ''))
+  if (!receiptAbsolute) throw new Error('provider-parity binding receipt_path is invalid')
   const receiptBytes = readStableRegularFile(receiptAbsolute, 'provider-parity freeze receipt')
   const receipt = jsonObject(receiptBytes, 'provider-parity freeze receipt')
   validateParityContracts(bindingBytes, receiptBytes)
@@ -351,10 +360,11 @@ export function attestParitySnapshotAtPublication(run: RunState): void {
   if (!isDeepStrictEqual(snapshotFingerprint(monitor.root), monitor.fingerprint)) {
     throw new Error('provider-parity snapshot inode/stat fingerprint changed during execution')
   }
-  const receiptAbsolute = path.isAbsolute(binding.freeze_receipt_path)
-    ? binding.freeze_receipt_path : path.join(REPO_ROOT, binding.freeze_receipt_path)
-  const bindingAbsolute = path.isAbsolute(binding.binding_path)
-    ? binding.binding_path : path.join(REPO_ROOT, binding.binding_path)
+  const receiptAbsolute = resolveParityBindingPath(String(binding.freeze_receipt_path || ''))
+  const bindingAbsolute = resolveParityBindingPath(String(binding.binding_path || ''))
+  if (!receiptAbsolute || !bindingAbsolute) {
+    throw new Error('provider-parity supervisor binding contains an invalid path')
+  }
   if (sha256Bytes(readStableRegularFile(receiptAbsolute, 'provider-parity freeze receipt'))
       !== binding.freeze_receipt_file_sha256
       || sha256Bytes(readStableRegularFile(bindingAbsolute, 'provider-parity run binding'))
