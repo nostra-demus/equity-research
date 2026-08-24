@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-24T02:47:38Z",
+  "generated_at": "2026-08-24T02:52:27Z",
   "inbox": [
     {
       "inbox_id": "INB-20260824-242",
@@ -1474,6 +1474,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260824-280",
+      "headline": "Special counsel wraps up 180-day probe after indicting Yoon, 57 others",
+      "headline_en": null,
+      "url": "https://en.yna.co.kr/view/AEN20260824003800315",
+      "source_name": "Yonhap News Agency — All News (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-24T02:46:02Z",
+      "sweep_file": "screener/inbox/2026-08-24_sweep.json",
+      "prelim_note": "The indictment of a sitting president and 57 others represents a major political and institutional crisis in South Korea.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "The indictment of a sitting president and 57 others represents a major political and institutional crisis in South Korea.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260824-278",
       "headline": "Oil falls ahead of US announcement on new Iran sanctions",
       "headline_en": null,
@@ -1875,49 +1918,6 @@
         "size": 0,
         "recency": 5,
         "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "commodity",
-        "source_tier_id": "news",
-        "event_id": "macro_sector",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260824-147",
-      "headline": "US vows 'economic D-Day' as Iran threatens to halt all oil exports",
-      "headline_en": null,
-      "url": "https://www.al-monitor.com/originals/2026/08/us-vows-economic-d-day-iran-threatens-halt-all-oil-exports",
-      "source_name": "Al-Monitor",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-24T00:46:30Z",
-      "sweep_file": "screener/inbox/2026-08-24_sweep.json",
-      "prelim_note": "Geopolitical escalation as Iran threatens to halt oil exports, posing a major supply shock risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Geopolitical escalation as Iran threatens to halt oil exports, posing a major supply shock risk.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 4,
-        "event": 1,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "commodity",
@@ -84958,9 +84958,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 769,
-    "news_picked_today": 353,
-    "news_dropped_today": 416
+    "news_seen_today": 799,
+    "news_picked_today": 366,
+    "news_dropped_today": 433
   },
   "book_momentum": {
     "live_count": 8,
