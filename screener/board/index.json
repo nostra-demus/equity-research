@@ -1,6 +1,104 @@
 {
-  "generated_at": "2026-08-24T14:04:56Z",
+  "generated_at": "2026-08-24T14:09:52Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260824-880",
+      "headline": "JIMU GROUP (08187): INSIDE INFORMATION PROFIT WARNING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/0824/2026082401723.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-24T13:58:00Z",
+      "sweep_file": "screener/inbox/2026-08-24_sweep.json",
+      "prelim_note": "A profit warning is a direct indicator of deteriorating financial performance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A profit warning is a direct indicator of deteriorating financial performance.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "guidance_change",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Jimu Group",
+          "ticker": "08187",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260824-882",
+      "headline": "REDCO GROUP (01622): PROFIT WARNING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0824/2026082401707.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-24T13:52:00Z",
+      "sweep_file": "screener/inbox/2026-08-24_sweep.json",
+      "prelim_note": "Redco Group issued a profit warning, indicating a decline in financial performance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Redco Group issued a profit warning, indicating a decline in financial performance.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Redco Group",
+          "ticker": "01622",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260824-877",
       "headline": "HUAYUEXPRESSWAY (01823): PROFIT WARNING",
@@ -1871,104 +1969,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260824-316",
-      "headline": "Veranda Learning Solutions Limited: Veranda Learning Solutions Limited has informed the Exchange regarding a press release dated August 24, 2026, titled \"Veranda Learning Receives NCLT Approval for Commerce Vertical Demerger\".",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/Verandaipo_24082026091037_REG30PR.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-24T03:40:47Z",
-      "sweep_file": "screener/inbox/2026-08-24_sweep.json",
-      "prelim_note": "Veranda Learning Solutions received NCLT approval for the demerger of its commerce vertical, a significant corporate restructuring event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Veranda Learning Solutions received NCLT approval for the demerger of its commerce vertical, a significant corporate restructuring event.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Veranda Learning Solutions Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260824-242",
-      "headline": "SHIFANG HLDG (01831): EXCHANGE NOTICE - TRADING HALT",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0824/2026082400281.htm",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-24T02:09:00Z",
-      "sweep_file": "screener/inbox/2026-08-24_sweep.json",
-      "prelim_note": "A trading halt typically indicates a significant event or uncertainty that requires investigation, potentially impacting the company's operations or financial standing.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "A trading halt typically indicates a significant event or uncertainty that requires investigation, potentially impacting the company's operations or financial standing.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 2,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "operations",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SHIFANG HLDG",
-          "ticker": "01831",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -84953,9 +84953,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 359761,
-    "news_picked_today": 1949,
-    "news_dropped_today": 11203
+    "news_seen_today": 365956,
+    "news_picked_today": 1959,
+    "news_dropped_today": 11217
   },
   "book_momentum": {
     "live_count": 8,
