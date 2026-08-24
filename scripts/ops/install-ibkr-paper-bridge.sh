@@ -85,7 +85,7 @@ if [ -f "$DST" ] && cmp -s "$staged" "$DST" && launchctl print "$DOMAIN/$LABEL" 
 fi
 
 launchctl bootout "$DOMAIN/$LABEL" 2>/dev/null || true
-for _ in $(seq 1 40); do
+for _ in {1..40}; do
   launchctl print "$DOMAIN/$LABEL" >/dev/null 2>&1 || break
   sleep 0.25
 done

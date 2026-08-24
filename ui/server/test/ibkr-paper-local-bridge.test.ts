@@ -123,11 +123,17 @@ const errorRoot = stateDir('error')
 const errorAttempt = await runLocalPaperBridge({
   enabled: true, operatorAuthorized: true, stateDir: errorRoot,
   revision: () => revisionA, target: async () => baseTarget,
-  sync: async () => { throw new Error('failed at C:/Program Files/Nostra/private/paper.env') },
+  sync: async () => { throw { message: '  failed at C:/Program Files/Nostra/private/paper.env  ' } },
 })
 assert.equal(errorAttempt?.outcome, 'error')
 assert.doesNotMatch(errorAttempt?.detail || '', /Program Files|Nostra|paper\.env/)
 assert.match(errorAttempt?.detail || '', /\[PATH\]/)
+const blankErrorAttempt = await runLocalPaperBridge({
+  enabled: true, operatorAuthorized: true, stateDir: errorRoot,
+  revision: () => revisionA, target: async () => baseTarget,
+  sync: async () => { throw new Error('   ') },
+})
+assert.match(blankErrorAttempt?.detail || '', /Unknown paper bridge error\.$/)
 
 let unauthorizedSyncs = 0
 const unauthorized = await runLocalPaperBridge({

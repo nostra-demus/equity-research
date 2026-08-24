@@ -64,7 +64,8 @@ if [ ! -x "$DEPLOY" ] || ! "$DEPLOY"; then
   echo "paper bridge waiting: the verified main deployment could not be refreshed" >&2
   exit 0
 fi
-if [ -z "$NODE_BIN" ] || [ ! -x "$PROD/ui/server/node_modules/.bin/tsx" ]; then
+if [ -z "$NODE_BIN" ] || [ "${NODE_BIN#/}" = "$NODE_BIN" ] \
+  || [ ! -x "$NODE_BIN" ] || [ ! -x "$PROD/ui/server/node_modules/.bin/tsx" ]; then
   echo "paper bridge waiting: the deployed Node/tsx runtime is unavailable" >&2
   exit 0
 fi

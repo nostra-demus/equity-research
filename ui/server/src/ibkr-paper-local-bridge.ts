@@ -31,7 +31,12 @@ interface LocalPaperBridgeDependencies {
 }
 
 function safeErrorMessage(error: unknown): string {
-  const raw = String(error instanceof Error ? error.message : error)
+  const candidate = error instanceof Error
+    ? error.message
+    : error && typeof error === 'object' && 'message' in error
+      ? String((error as Record<string, unknown>).message)
+      : String(error)
+  const raw = candidate.trim() || 'Unknown paper bridge error.'
   const containsAbsolutePath = /(^|[\s("'`])\/(?=[^/\s])/u.test(raw)
     || /(^|[\s("'`])[A-Za-z]:[\/\\](?=[^\/\\\s])/u.test(raw)
   return containsAbsolutePath ? '[PATH]' : raw
