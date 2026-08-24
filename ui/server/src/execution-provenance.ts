@@ -42,9 +42,9 @@ const PARITY_WATCH_TTL_MS = 7 * 24 * 60 * 60_000
 /** Resolve immutable parity binding paths across deployed worktrees without admitting traversal. */
 export function resolveParityBindingPath(value: string): string | null {
   if (!value || value.includes('\\') || (!path.isAbsolute(value) && value.split('/').includes('..'))) return null
+  const repo = path.resolve(REPO_ROOT)
   const resolved = path.resolve(path.isAbsolute(value) ? value : path.join(REPO_ROOT, value))
-  const relative = path.relative(REPO_ROOT, resolved)
-  if (relative === '..' || relative.startsWith(`..${path.sep}`) || path.isAbsolute(relative)) return null
+  if (resolved !== repo && !resolved.startsWith(`${repo}${path.sep}`)) return null
   return resolved
 }
 
