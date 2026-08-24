@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-24T00:50:48Z",
+  "generated_at": "2026-08-24T00:55:17Z",
   "inbox": [
     {
       "inbox_id": "INB-20260824-133",
@@ -494,6 +494,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260824-151",
+      "headline": "Oil falls ahead of US announcement on new Iran sanctions",
+      "headline_en": null,
+      "url": "https://www.reuters.com/world/asia-pacific/oil-falls-1-ahead-us-announcement-impose-further-sanctions-iran-2026-08-23/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-24T00:46:16Z",
+      "sweep_file": "screener/inbox/2026-08-24_sweep.json",
+      "prelim_note": "New sanctions on Iran represent a geopolitical supply shock risk for oil markets.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "New sanctions on Iran represent a geopolitical supply shock risk for oil markets.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260824-075",
       "headline": "Iran war news LIVE Updates: Bessent to announce new US sanctions against Iran on Monday",
       "headline_en": null,
@@ -728,6 +771,55 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260824-154",
+      "headline": "SCP: Trading Halt [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.SCP?key=2924-03124893-3A699589",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-24T00:46:25Z",
+      "sweep_file": "screener/inbox/2026-08-24_sweep.json",
+      "prelim_note": "Trading halt pending announcement is a material event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Trading halt pending announcement is a material event.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SCP",
+          "ticker": "SCP",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1106,6 +1198,55 @@
           "name": "ANAP HOLDINGS INC.",
           "ticker": "3189",
           "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260824-153",
+      "headline": "NSM: DRILLING EXTENDS HIGH-GRADE GOLD SYSTEM AT DARLINGTON [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.NSM?key=2924-03124894-6A1339884",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-24T00:46:50Z",
+      "sweep_file": "screener/inbox/2026-08-24_sweep.json",
+      "prelim_note": "Positive exploration results can materially impact valuation for small-cap miners.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "Positive exploration results can materially impact valuation for small-cap miners.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 2,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "operations",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "NSM",
+          "ticker": "NSM",
+          "listing_country": "AU"
         }
       ],
       "size_bucket": "small",
@@ -1760,163 +1901,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260824-057",
-      "headline": "New High-Grade Domain Discovered at Cuffley",
-      "headline_en": null,
-      "url": "https://www.globenewswire.com/news-release/2026/08/24/3349432/0/en/new-high-grade-domain-discovered-at-cuffley.html",
-      "source_name": "GlobeNewswire — News about Public Companies",
-      "input_nature": "company_press_release",
-      "found_at": "2026-08-24T00:12:00Z",
-      "sweep_file": "screener/inbox/2026-08-24_sweep.json",
-      "prelim_note": "Discovery of a new high-grade domain is a positive operational development for a mining or exploration company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "Discovery of a new high-grade domain is a positive operational development for a mining or exploration company.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 3,
-        "scope": 6,
-        "event": 2,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "operations",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Cuffley",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260824-142",
-      "headline": "Memory Crunch Forces Nvidia to Raise Server Prices, Boosting Samsung and SK hynix",
-      "headline_en": null,
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=275323",
-      "source_name": "Business Korea — All English Articles",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-24T03:53:18Z",
-      "sweep_file": "screener/inbox/2026-08-24_sweep.json",
-      "prelim_note": "Nvidia's server price increases due to memory shortages are expected to benefit memory suppliers Samsung and SK Hynix.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "Nvidia's server price increases due to memory shortages are expected to benefit memory suppliers Samsung and SK Hynix.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 3,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "commercial",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "secondary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Samsung Electronics",
-          "ticker": null,
-          "listing_country": "KR"
-        },
-        {
-          "name": "SK Hynix",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260824-059",
-      "headline": "The $100-mn West Asia nightmare giving sleepless nights to HDFC Bank's NRI customers",
-      "headline_en": null,
-      "url": "https://www.livemint.com/news/hdfcs-nri-customers-miffed-as-carlisle-fund-with-100-mn-stops-redemptions-11787465857690.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-24T00:10:00Z",
-      "sweep_file": "screener/inbox/2026-08-24_sweep.json",
-      "prelim_note": "Operational issues affecting NRI customers and a $100 million exposure represent a reputational and potential financial risk for HDFC Bank.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "Operational issues affecting NRI customers and a $100 million exposure represent a reputational and potential financial risk for HDFC Bank.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "HDFC Bank",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -76841,80 +76825,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-81a62aef2e6f",
-      "idea_version": "IDEAV-2665b10497d2ccd5",
-      "idea_version_started_at": "2026-08-22T14:49:39Z",
-      "ticker": "OZON",
-      "company": "Ozon Holdings",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Ukrainian drone strikes on a major warehouse facility disrupt logistics and inventory, likely leading to immediate operational losses and increased insurance/security costs.",
-      "why_now": "The attack occurred on 2026-08-22, creating immediate operational uncertainty.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-9d6e67a3e3ac",
-        "EVT-a948f56b9aa2"
-      ],
-      "primary_source_event_id": "EVT-9d6e67a3e3ac",
-      "source_headlines": [
-        "Ukrainian drones kill several, hit warehouse of Russian online retailer Ozon",
-        "Russia: A warehouse of the distributor Ozon targeted by Ukrainian drones"
-      ],
-      "source_headline": "Ukrainian drones kill several, hit warehouse of Russian online retailer Ozon",
-      "source_url": "https://www.reuters.com/world/ukrainian-drones-hit-warehouse-russian-online-retailer-ozon-overnight-strikes-2026-08-22/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-22T12:54:09Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-22T14:49:39Z",
-      "updated_at": "2026-08-22T14:49:39Z",
-      "decay_at": "2026-08-24T00:54:09Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-70b8068a4e51",
       "idea_version": "IDEAV-e5fe083e1712ff14",
       "idea_version_started_at": "2026-08-23T02:23:58Z",
@@ -77689,6 +77599,80 @@
       "surfaced_at": "2026-08-21T23:28:47Z",
       "updated_at": "2026-08-22T19:15:06Z",
       "decay_at": "2026-08-23T00:08:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-81a62aef2e6f",
+      "idea_version": "IDEAV-2665b10497d2ccd5",
+      "idea_version_started_at": "2026-08-22T14:49:39Z",
+      "ticker": "OZON",
+      "company": "Ozon Holdings",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Ukrainian drone strikes on a major warehouse facility disrupt logistics and inventory, likely leading to immediate operational losses and increased insurance/security costs.",
+      "why_now": "The attack occurred on 2026-08-22, creating immediate operational uncertainty.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-9d6e67a3e3ac",
+        "EVT-a948f56b9aa2"
+      ],
+      "primary_source_event_id": "EVT-9d6e67a3e3ac",
+      "source_headlines": [
+        "Ukrainian drones kill several, hit warehouse of Russian online retailer Ozon",
+        "Russia: A warehouse of the distributor Ozon targeted by Ukrainian drones"
+      ],
+      "source_headline": "Ukrainian drones kill several, hit warehouse of Russian online retailer Ozon",
+      "source_url": "https://www.reuters.com/world/ukrainian-drones-hit-warehouse-russian-online-retailer-ozon-overnight-strikes-2026-08-22/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-22T12:54:09Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-22T14:49:39Z",
+      "updated_at": "2026-08-22T14:49:39Z",
+      "decay_at": "2026-08-24T00:54:09Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -79416,8 +79400,8 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 72,
-    "shown_count": 72,
+    "total_count": 73,
+    "shown_count": 73,
     "hidden_count": 0,
     "side_counts": {
       "long": {
@@ -79426,8 +79410,8 @@
         "hidden_count": 0
       },
       "short": {
-        "total_count": 48,
-        "shown_count": 48,
+        "total_count": 49,
+        "shown_count": 49,
         "hidden_count": 0
       }
     },
@@ -79447,6 +79431,83 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-81a62aef2e6f",
+        "idea_version": "IDEAV-2665b10497d2ccd5",
+        "idea_version_started_at": "2026-08-22T14:49:39Z",
+        "ticker": "OZON",
+        "company": "Ozon Holdings",
+        "exchange": "NASDAQ",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "Ukrainian drone strikes on a major warehouse facility disrupt logistics and inventory, likely leading to immediate operational losses and increased insurance/security costs.",
+        "why_now": "The attack occurred on 2026-08-22, creating immediate operational uncertainty.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-9d6e67a3e3ac",
+          "EVT-a948f56b9aa2"
+        ],
+        "primary_source_event_id": "EVT-9d6e67a3e3ac",
+        "source_headlines": [
+          "Ukrainian drones kill several, hit warehouse of Russian online retailer Ozon",
+          "Russia: A warehouse of the distributor Ozon targeted by Ukrainian drones"
+        ],
+        "source_headline": "Ukrainian drones kill several, hit warehouse of Russian online retailer Ozon",
+        "source_url": "https://www.reuters.com/world/ukrainian-drones-hit-warehouse-russian-online-retailer-ozon-overnight-strikes-2026-08-22/",
+        "source_name": "Reuters — Latest (news sitemap)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-22T12:54:09Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-22T14:49:39Z",
+        "updated_at": "2026-08-22T14:49:39Z",
+        "decay_at": "2026-08-24T00:54:09Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-24T00:54:09Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-ce5a3da6047f",
         "idea_version": "IDEAV-1189938ab48fac87",
@@ -84775,7 +84836,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 95,
-    "live_count": 22,
+    "live_count": 21,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -84794,9 +84855,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 269,
-    "news_picked_today": 149,
-    "news_dropped_today": 120
+    "news_seen_today": 282,
+    "news_picked_today": 157,
+    "news_dropped_today": 125
   },
   "book_momentum": {
     "live_count": 8,
