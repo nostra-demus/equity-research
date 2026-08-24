@@ -147,7 +147,11 @@ export function createIbkrPaperAutoSync(options: AutoSyncOptions = {}) {
 
   const scheduleAfterPublishedRun = (run: PublishedResearchRun): void => { void afterPublishedRun(run) }
   const read = (): PaperAutoSyncRead => ({ enabled, last_attempt: readAttempt(stateDir) })
-  const drain = async (): Promise<void> => { await tail }
+  const drain = async (): Promise<void> => {
+    // Shutdown waits for broker work to finish, but an observability/runtime failure must not leave
+    // the process alive forever after the broker transaction has already ended.
+    try { await tail } catch {}
+  }
 
   return { afterPublishedRun, scheduleAfterPublishedRun, read, drain }
 }

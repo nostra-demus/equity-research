@@ -274,4 +274,49 @@ await exactAuthority.sync('c5555555-5555-4555-8555-555555555555', {
 })
 assert.equal(authorityRevision, 'd'.repeat(40), 'execution projects Calls through the verified publication revision')
 
-console.log('\nibkr-paper-execution.test.ts: 16 passed')
+let invalidNavPlacements = 0
+const invalidNav = snapshot()
+invalidNav.values.set('NetLiquidation', { value: Number.NaN, currency: 'USD' })
+const invalidNavService = createIbkrPaperExecutionService({
+  enabled: true, allowedAccountId: accountId, snapshotReader: async () => invalidNav,
+  callsReader: async () => ({ calls: [selectedCall] }), quoteResolver: quote,
+  orderPlacer: async () => { invalidNavPlacements++; throw new Error('order should not run') },
+})
+await assert.rejects(
+  () => invalidNavService.sync('c6666666-6666-4666-8666-666666666666', { reconcilePositions: true }),
+  /usable portfolio value/,
+)
+assert.equal(invalidNavPlacements, 0, 'a non-finite broker NAV cannot reach order sizing')
+
+let invalidQuotePlacements = 0
+const invalidQuoteService = createIbkrPaperExecutionService({
+  enabled: true, allowedAccountId: accountId, snapshotReader: async () => snapshot(),
+  callsReader: async () => ({ calls: [selectedCall] }),
+  quoteResolver: async () => ({ ...(await quote()), price: Number.NaN }),
+  orderPlacer: async () => { invalidQuotePlacements++; throw new Error('order should not run') },
+})
+const invalidQuoteResult = await invalidQuoteService.sync(
+  'c7777777-7777-4777-8777-777777777777', { reconcilePositions: true },
+)
+assert.equal(invalidQuotePlacements, 0, 'a non-finite market quote cannot reach order sizing')
+assert.match(invalidQuoteResult.skipped[0]?.reason || '', /paper_quote_price_invalid/)
+
+const independentOrders: any[] = []
+const unsupportedInstrument = createIbkrPaperExecutionService({
+  enabled: true, allowedAccountId: accountId,
+  snapshotReader: async () => snapshot([{
+    contract_id: 888, symbol: 'ACME CALL', local_symbol: 'ACME  260918C00100000', security_type: 'OPT',
+    currency: 'USD', exchange: 'SMART', quantity: 1, average_cost: 5, market_price: 5,
+    market_value: 500, unrealized_pnl: 0, realized_pnl: 0,
+  }]),
+  callsReader: async () => ({ calls: [selectedCall] }), quoteResolver: quote,
+  orderPlacer: async (input) => {
+    independentOrders.push(input)
+    return { order_id: 68, ticker: input.ticker, action: input.action, quantity: input.quantity, status: 'Submitted', detail: 'accepted' }
+  },
+})
+await unsupportedInstrument.sync('c8888888-8888-4888-8888-888888888888', { reconcilePositions: true })
+assert.deepEqual(independentOrders.map((row) => row.ticker), ['ACME'],
+  'an unsupported instrument stays untouched without permanently freezing an independent stock target')
+
+console.log('\nibkr-paper-execution.test.ts: 19 passed')

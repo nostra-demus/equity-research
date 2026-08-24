@@ -415,7 +415,7 @@ export function createIbkrPaperExecutionService(options: ExecutionOptions = {}) 
     }> => {
       const nav = snapshotValue(broker, 'NetLiquidation')
       const baseCurrency = accountCurrency(broker)
-      if (nav === null || nav <= 0 || !baseCurrency) {
+      if (nav === null || !Number.isFinite(nav) || nav <= 0 || !baseCurrency) {
         throw Object.assign(new Error('IBKR Paper did not provide a usable portfolio value.'), { statusCode: 409 })
       }
       const plans = new Map<string, ResolvedTargetPlan>()
@@ -429,6 +429,8 @@ export function createIbkrPaperExecutionService(options: ExecutionOptions = {}) 
         try {
           const quote = await quoteResolver(row)
           if (contractIdOf(quote.contract) === null) throw new Error('paper_contract_has_no_exact_id')
+          if (!Number.isFinite(quote.price) || quote.price <= 0) throw new Error('paper_quote_price_invalid')
+          if (!Number.isFinite(row.model_weight_pct)) throw new Error('paper_model_weight_invalid')
           const notional = nav * Math.abs(row.model_weight_pct) / 100
           const absoluteTarget = Math.floor(notional / (quote.price * SIZING_PRICE_RESERVE))
           if (absoluteTarget < 1) {
@@ -545,7 +547,10 @@ export function createIbkrPaperExecutionService(options: ExecutionOptions = {}) 
       }
     }
 
-    const closePhaseActive = positionsToClose.length > 0 || protectedBlockers.length > 0
+    // Full reconciliation may leave unsupported instruments or one unresolved target untouched, but
+    // those blockers must not freeze independent stock targets forever. The legacy entry-only seam
+    // remains conservative when it encounters a holding it does not own.
+    const closePhaseActive = positionsToClose.length > 0 || (!command.reconcilePositions && protectedBlockers.length > 0)
     for (const row of target.positions) {
       const symbol = normalized(row.ticker)
       const plan = resolved.plans.get(symbol)

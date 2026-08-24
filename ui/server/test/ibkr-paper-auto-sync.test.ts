@@ -69,6 +69,14 @@ const partialAttempt = await partial.afterPublishedRun(published({ runId: 'run-3
 assert.equal(partialAttempt?.outcome, 'partial')
 assert.match(String(partialAttempt?.detail), /ACME: waiting for the close fill/)
 
+const drainable = createIbkrPaperAutoSync({
+  enabled: true,
+  now: () => { throw new Error('clock_failed') },
+  sync: async () => ({ ok: true, paper_only: true, action: 'sync', detail: 'done', orders: [], skipped: [] }),
+})
+await assert.rejects(() => drainable.afterPublishedRun(published({ runId: 'run-4' })), /clock_failed/)
+await drainable.drain()
+
 const launcher = fs.readFileSync(new URL('../src/launcher.ts', import.meta.url), 'utf8')
 assert.match(launcher, /if \(status === 'done'\) scheduleIbkrPaperAutoSyncAfterPublication\(run\)/,
   'the single close-time success finalizer must own the automatic broker trigger')
