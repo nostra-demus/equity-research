@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-08-24T07:52:50Z",
+  "generated_at": "2026-08-24T08:13:12Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260824-487",
+      "headline": "Osia Hyper Retail Limited: Osia Hyper Retail Limited has informed the Exchange about Corporate Insolvency Resolution Process",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/OSIAHYPER_24082026130206_Outcome_of_the_5th_CoC_Meeting_18-08-26_.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-24T07:32:28Z",
+      "sweep_file": "screener/inbox/2026-08-24_sweep.json",
+      "prelim_note": "Company informed exchange it is under Corporate Insolvency Resolution Process, a survival-level distress event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company informed exchange it is under Corporate Insolvency Resolution Process, a survival-level distress event.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Osia Hyper Retail Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260824-441",
       "headline": "DGH: FY26 Results Guidance [price-sensitive]",
@@ -1965,55 +2014,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260824-273",
-      "headline": "Alibaba stock slumps in Hong Kong after $10.2 billion share placement to fund AI",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/alibaba-stock-slumps-in-hong-kong-after-10-2-billion-share-placement-to-fund-ai-11787537726865.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-24T02:15:26Z",
-      "sweep_file": "screener/inbox/2026-08-24_sweep.json",
-      "prelim_note": "Alibaba is conducting a $10.2 billion share placement, which is a significant capital event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Alibaba is conducting a $10.2 billion share placement, which is a significant capital event.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capital_actions",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Alibaba",
-          "ticker": null,
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -85118,9 +85118,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 43669,
-    "news_picked_today": 876,
-    "news_dropped_today": 7152
+    "news_seen_today": 54849,
+    "news_picked_today": 890,
+    "news_dropped_today": 7498
   },
   "book_momentum": {
     "live_count": 8,
