@@ -44,9 +44,9 @@ try {
   const installed = path.join(codexBinHome, '.local', 'bin', 'codex')
   fs.mkdirSync(path.dirname(installed), { recursive: true })
   fs.writeFileSync(installed, '#!/bin/sh\nexit 0\n', { mode: 0o755 })
-  assert.equal(resolveCodexBin({}, codexBinHome), installed,
+  assert.equal(resolveCodexBin({ HOME: codexBinHome }), installed,
     'the user-installed CLI wins over the potentially architecture-incompatible desktop bundle')
-  assert.equal(resolveCodexBin({ CODEX_BIN: '/explicit/codex' }, codexBinHome), '/explicit/codex',
+  assert.equal(resolveCodexBin({ CODEX_BIN: '/explicit/codex', HOME: codexBinHome }), '/explicit/codex',
     'an explicit operator override remains authoritative')
 } finally { fs.rmSync(codexBinHome, { recursive: true, force: true }) }
 

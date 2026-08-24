@@ -85,10 +85,10 @@ interface CodexRateLimitWindow {
   windowDurationMins?: number
 }
 
-export function resolveCodexBin(env: NodeJS.ProcessEnv = process.env, homeDir = os.homedir()): string {
+export function resolveCodexBin(env: NodeJS.ProcessEnv = process.env): string {
   if (env.CODEX_BIN) return env.CODEX_BIN
   const candidates = [
-    path.join(homeDir, '.local', 'bin', 'codex'),
+    path.join(env.HOME || os.homedir(), '.local', 'bin', 'codex'),
     '/opt/homebrew/bin/codex',
     '/usr/local/bin/codex',
     // The desktop bundle can exist with the wrong CPU architecture on an Intel/Apple-Silicon host.
