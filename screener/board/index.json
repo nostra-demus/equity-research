@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-24T12:39:03Z",
+  "generated_at": "2026-08-24T12:44:44Z",
   "inbox": [
     {
       "inbox_id": "INB-20260824-819",
@@ -144,6 +144,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260824-837",
+      "headline": "25-NSE - Hashdex Commodities Trust (0001985840) (Subject)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1985840/000114336226000320/0001143362-26-000320-index.htm",
+      "source_name": "SEC EDGAR — Latest 25-NSE (Delisting Notification)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-08-24T11:47:54Z",
+      "sweep_file": "screener/inbox/2026-08-24_sweep.json",
+      "prelim_note": "Delisting notification indicates a significant event for the trust, often associated with liquidation or distress.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Delisting notification indicates a significant event for the trust, often associated with liquidation or distress.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Hashdex Commodities Trust",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1871,37 +1920,37 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260824-807",
-      "headline": "Mackay Gold & Silver Completes Acquisition of Comstock Inc.'s Nevada Mining Assets to Further Consolidate the Comstock District | MKGSF Stock News",
+      "inbox_id": "INB-20260824-825",
+      "headline": "Booz Allen Completes Acquisition of Ultra I&C Mission Solutions Business | BAH Stock News",
       "headline_en": null,
-      "url": "https://www.stocktitan.net/news/MKGSF/mackay-gold-silver-completes-acquisition-of-comstock-inc-s-nevada-fattd77dvvf1.html",
+      "url": "https://www.stocktitan.net/news/BAH/booz-allen-completes-acquisition-of-ultra-i-c-mission-solutions-nz6tvhplwxwi.html",
       "source_name": "Stock Titan — Latest News",
       "input_nature": "company_press_release",
-      "found_at": "2026-08-24T12:12:00Z",
+      "found_at": "2026-08-24T12:30:00Z",
       "sweep_file": "screener/inbox/2026-08-24_sweep.json",
-      "prelim_note": "The company completed a strategic acquisition of mining assets to consolidate its district.",
+      "prelim_note": "Booz Allen completed the acquisition of the Ultra I&C Mission Solutions business.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 100,
-      "triage_reason": "The company completed a strategic acquisition of mining assets to consolidate its district.",
+      "triage_reason": "Booz Allen completed the acquisition of the Ultra I&C Mission Solutions business.",
       "region": "US",
       "relevance": "material",
       "materiality_pre_score": 75,
       "rank_factors": {
         "materiality": 75,
         "source_tier": 3,
-        "scope": 4,
+        "scope": 5,
         "event": 9,
-        "size": -1,
+        "size": 2,
         "recency": 5,
         "materiality_label_floor": 10,
         "quantified": 0,
         "boost_weight": 1,
-        "scope_id": "commodity",
+        "scope_id": "multi_name",
         "source_tier_id": "company",
         "event_id": "mna",
-        "size_bucket": "small"
+        "size_bucket": "large"
       },
       "event_types": [
         "mna"
@@ -1909,67 +1958,12 @@
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Mackay Gold & Silver",
-          "ticker": "MKGSF",
-          "listing_country": "US"
-        },
-        {
-          "name": "Comstock Inc.",
-          "ticker": null,
+          "name": "Booz Allen",
+          "ticker": "BAH",
           "listing_country": "US"
         }
       ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260824-810",
-      "headline": "Cyber Enviro-Tech Announces Definitive Agreement With Air Power USA to Advance Global Clean Energy Commercialization As $45M Funding MOU Emerges Pending Consolidation of the Companies | CETI Stock News",
-      "headline_en": null,
-      "url": "https://www.stocktitan.net/news/CETI/cyber-enviro-tech-announces-definitive-agreement-with-air-power-usa-77cdxdhx01pu.html",
-      "source_name": "Stock Titan — Latest News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-08-24T12:00:00Z",
-      "sweep_file": "screener/inbox/2026-08-24_sweep.json",
-      "prelim_note": "The company announced a definitive agreement and a $45M funding MOU, which is a material capital and strategic event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "The company announced a definitive agreement and a $45M funding MOU, which is a material capital and strategic event.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 3,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "company",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "mna",
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Cyber Enviro-Tech",
-          "ticker": "CETI",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -84806,9 +84800,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 223527,
-    "news_picked_today": 1761,
-    "news_dropped_today": 11007
+    "news_seen_today": 231714,
+    "news_picked_today": 1780,
+    "news_dropped_today": 11012
   },
   "book_momentum": {
     "live_count": 8,
