@@ -6,7 +6,8 @@ import assert from 'node:assert/strict'
 import fs from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { intakeOwnerBindingMatches, resolveParityBindingPath } from '../src/launcher'
+import { resolveParityBindingPath } from '../src/execution-provenance'
+import { intakeOwnerBindingMatches } from '../src/launcher'
 
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../..')
 assert.equal(
