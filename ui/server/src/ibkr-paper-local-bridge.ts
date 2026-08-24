@@ -127,7 +127,7 @@ export function paperTargetFingerprint(target: CallPolicyTarget): string {
     decision_date: row.decision_date,
     reason: row.reason,
   })).sort((a, b) => asciiCompare(a.ticker, b.ticker)
-    || asciiCompare(a.decision_date || '', b.decision_date || '')
+    || asciiCompare(a.decision_date, b.decision_date)
     || asciiCompare(a.reason, b.reason)
     || asciiCompare(a.decision, b.decision))
   return crypto.createHash('sha256').update(JSON.stringify({ valid: target.valid, positions, blocked })).digest('hex')
