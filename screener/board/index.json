@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-24T08:34:54Z",
+  "generated_at": "2026-08-24T08:35:50Z",
   "inbox": [
     {
       "inbox_id": "INB-20260824-487",
@@ -75593,6 +75593,77 @@
   "handoffs": [],
   "ideas": [
     {
+      "idea_id": "IDEA-69441c9f6035",
+      "idea_version": "IDEAV-9c1860334765f3b7",
+      "idea_version_started_at": "2026-08-24T08:35:35Z",
+      "ticker": "BABA",
+      "company": "Alibaba Group",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "A $10.2 billion share placement represents significant equity dilution for existing shareholders to fund capital-intensive AI initiatives.",
+      "why_now": "The announcement occurred on August 24, 2026, and the market is currently reacting to the dilutive impact.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 6,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-efb1958a37f3",
+        "EVT-e2a751b0bff4"
+      ],
+      "primary_source_event_id": "EVT-efb1958a37f3",
+      "source_headlines": [
+        "Alibaba shares plunge after $10bn new share placement to fund AI spending",
+        "Alibaba plunges after announcing $10.2 billion share placement to fund AI push"
+      ],
+      "source_headline": "Alibaba shares plunge after $10bn new share placement to fund AI spending",
+      "source_url": "https://asia.nikkei.com/business/technology/alibaba-shares-plunge-after-10bn-new-share-placement-to-fund-ai-spending",
+      "source_name": "Nikkei Asia",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-24T02:55:22Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-23T09:21:12Z",
+      "updated_at": "2026-08-24T08:35:35Z",
+      "decay_at": "2026-08-25T14:55:22Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-4b467da5d4b8",
       "idea_version": "IDEAV-f852604dee153321",
       "idea_version_started_at": "2026-08-23T16:33:16Z",
@@ -75657,77 +75728,6 @@
       "surfaced_at": "2026-08-23T16:33:16Z",
       "updated_at": "2026-08-23T16:33:16Z",
       "decay_at": "2026-08-25T03:50:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-69441c9f6035",
-      "idea_version": "IDEAV-353849db2aa99390",
-      "idea_version_started_at": "2026-08-23T09:21:12Z",
-      "ticker": "BABA",
-      "company": "Alibaba Group Holding",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "A $10.2 billion share placement represents significant equity dilution for existing shareholders to fund capital-intensive AI infrastructure.",
-      "why_now": "The capital raise was announced on 2026-08-23, creating immediate downward pressure on share price due to the dilution effect.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 6,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-b3ba1f05b400",
-        "EVT-66064cae3540"
-      ],
-      "primary_source_event_id": "EVT-b3ba1f05b400",
-      "source_headlines": [
-        "Alibaba to raise $10bn via new Hong Kong shares to fund AI investments",
-        "Alibaba announces $10.2bn share placement as Chinese companies expand AI investment"
-      ],
-      "source_headline": "Alibaba to raise $10bn via new Hong Kong shares to fund AI investments",
-      "source_url": "https://asia.nikkei.com/business/technology/alibaba-to-raise-10bn-via-new-hong-kong-shares-to-fund-ai-investments",
-      "source_name": "Nikkei Asia",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-23T08:42:55Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-23T09:21:12Z",
-      "updated_at": "2026-08-23T09:21:12Z",
-      "decay_at": "2026-08-24T20:42:55Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -76080,6 +76080,221 @@
       "surfaced_at": "2026-08-23T05:09:09Z",
       "updated_at": "2026-08-23T05:09:09Z",
       "decay_at": "2026-08-24T15:43:01Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-31bf7321c8e2",
+      "idea_version": "IDEAV-78bdd634f2ab1951",
+      "idea_version_started_at": "2026-08-24T08:35:35Z",
+      "ticker": "IHCL",
+      "company": "Indian Hotels Company Limited",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The merger with Oriental Hotels Limited allows IHCL to consolidate its market position and capture operational synergies in the hospitality sector.",
+      "why_now": "The merger announcement was filed on August 24, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-76b34f47c6b8"
+      ],
+      "primary_source_event_id": "EVT-76b34f47c6b8",
+      "source_headlines": [
+        "Oriental Hotels Limited: Oriental Hotels Limited has informed the Exchange regarding a press release dated August 24, 2026, titled \"IHCL AND ORIENTAL HOTELS LIMITED ANNOUNCE MERGER\"."
+      ],
+      "source_headline": "Oriental Hotels Limited: Oriental Hotels Limited has informed the Exchange regarding a press release dated August 24, 2026, titled \"IHCL AND ORIENTAL HOTELS LIMITED ANNOUNCE MERGER\".",
+      "source_url": "https://nsearchives.nseindia.com/corporate/TAJORIENTAL_24082026091305_SEPressRelease.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-24T03:43:48Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-24T08:35:35Z",
+      "updated_at": "2026-08-24T08:35:35Z",
+      "decay_at": "2026-08-25T15:43:48Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-6ae80c60359d",
+      "idea_version": "IDEAV-7df99974729aad2c",
+      "idea_version_started_at": "2026-08-24T08:35:35Z",
+      "ticker": "PARADEEP",
+      "company": "Paradeep Phosphates",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company faces a penalty and confiscation exceeding its quarterly profit, which will severely impact net income and cash reserves.",
+      "why_now": "The news of the penalty was reported on August 24, 2026, creating an immediate negative earnings shock.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-05110ac39a20"
+      ],
+      "primary_source_event_id": "EVT-05110ac39a20",
+      "source_headlines": [
+        "Paradeep Phosphates faces penalty and confiscation worth more than its quarterly profit"
+      ],
+      "source_headline": "Paradeep Phosphates faces penalty and confiscation worth more than its quarterly profit",
+      "source_url": "https://www.cnbctv18.com/market/stocks/paradeep-phosphates-faces-penalty-and-confiscation-worth-more-than-its-quarterly-profit-19975301.htm",
+      "source_name": "CNBC-TV18",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-24T03:05:01Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-24T08:35:35Z",
+      "updated_at": "2026-08-24T08:35:35Z",
+      "decay_at": "2026-08-25T15:05:01Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-8d2029e4bf90",
+      "idea_version": "IDEAV-a18491000407de79",
+      "idea_version_started_at": "2026-08-24T08:35:35Z",
+      "ticker": "009540",
+      "company": "HD Korea Shipbuilding & Offshore Engineering",
+      "exchange": "KRX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Securing a 515.4 billion won contract for 4 LPG carriers provides immediate revenue visibility and confirms strong demand in the high-value shipbuilding segment.",
+      "why_now": "The contract was announced on August 24, 2026, providing a fresh catalyst for order book growth.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-00cc246f4c39"
+      ],
+      "primary_source_event_id": "EVT-00cc246f4c39",
+      "source_headlines": [
+        "HD KSOE secures 515.4 bln-won contract for 4 LPG carriers"
+      ],
+      "source_headline": "HD KSOE secures 515.4 bln-won contract for 4 LPG carriers",
+      "source_url": "https://en.yna.co.kr/view/AEN20260824003300320",
+      "source_name": "Yonhap News Agency — All News (English)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-24T02:15:35Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-24T08:35:35Z",
+      "updated_at": "2026-08-24T08:35:35Z",
+      "decay_at": "2026-08-25T14:15:35Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -79072,77 +79287,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-94850b800657",
-      "idea_version": "IDEAV-b29f8abf702c9bea",
-      "idea_version_started_at": "2026-08-21T09:27:03Z",
-      "ticker": "2098",
-      "company": "Zall Smart Commerce Group",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company issued a profit warning, signaling deteriorating earnings visibility.",
-      "why_now": "The filing was released on 2026-08-21.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-0173131337d0"
-      ],
-      "primary_source_event_id": "EVT-0173131337d0",
-      "source_headlines": [
-        "ZALL SMARTCOM (02098): PROFIT WARNING"
-      ],
-      "source_headline": "ZALL SMARTCOM (02098): PROFIT WARNING",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0821/2026082100290.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-21T08:33:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-21T09:27:03Z",
-      "updated_at": "2026-08-21T09:27:03Z",
-      "decay_at": "2026-08-22T20:33:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-d704446fee63",
       "idea_version": "IDEAV-2fea4607e2989a34",
       "idea_version_started_at": "2026-08-04T08:40:40Z",
@@ -79217,7 +79361,7 @@
     "schema_version": "ideas-archive/v1",
     "health": {
       "status": "ok",
-      "file_count": 44,
+      "file_count": 45,
       "suppression_count": 0,
       "corrupt_count": 0,
       "invalid_count": 0,
@@ -81838,8 +81982,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-08-22T20:33:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-08-24T08:35:43Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -85098,8 +85242,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 95,
-    "live_count": 15,
+    "surfaced_total": 98,
+    "live_count": 18,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
