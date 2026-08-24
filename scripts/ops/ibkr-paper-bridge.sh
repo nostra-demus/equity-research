@@ -46,7 +46,8 @@ umask 077
   ps -p "$$" -o lstart= | sed 's/^[[:space:]]*//;s/[[:space:]]*$//'
   printf '%s\n' "$0"
 } > "$LOCK_OWNER"
-trap release_lock EXIT INT TERM
+trap 'exit 1' INT TERM
+trap release_lock EXIT
 
 if [ ! -f "$CONFIG_FILE" ] || [ -L "$CONFIG_FILE" ]; then
   echo "paper bridge waiting: private paper.env is missing or unsafe" >&2
@@ -74,4 +75,5 @@ export ENGINE_REPO_ROOT="$PROD"
 export ENGINE_STATE_DIR="${ENGINE_STATE_DIR:-$BRIDGE_HOME/Library/Application Support/nostradamus}"
 
 cd "$PROD/ui/server" || exit 0
-"$NODE_BIN" --import tsx src/ibkr-paper-bridge-once.ts
+export PATH="$(dirname "$NODE_BIN"):$PATH"
+./node_modules/.bin/tsx src/ibkr-paper-bridge-once.ts

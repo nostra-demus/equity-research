@@ -11,6 +11,14 @@ DST="$AGENTS/$LABEL.plist"
 LOG="$BRIDGE_HOME/Library/Logs/nostra-ibkr-paper-bridge.log"
 CONFIG_FILE="${NOSTRA_ENGINE_CONFIG_DIR:-$BRIDGE_HOME/.config/nostra-engine}/paper.env"
 
+xml_escape() {
+  local value="$1"
+  value="${value//&/&amp;}"
+  value="${value//</&lt;}"
+  value="${value//>/&gt;}"
+  printf '%s' "$value"
+}
+
 if [ "${1:-}" = "--uninstall" ]; then
   launchctl bootout "$DOMAIN/$LABEL" 2>/dev/null || true
   [ ! -f "$DST" ] || mv "$DST" "$DST.disabled.$(date +%Y%m%d%H%M%S)"
@@ -31,27 +39,42 @@ grep -qx 'ENGINE_IBKR_PAPER_AUTO_SYNC=1' "$CONFIG_FILE" \
 mkdir -p "$AGENTS" "$(dirname "$LOG")"
 staged="$(mktemp "$AGENTS/.$LABEL.XXXXXX")" || exit 1
 trap 'rm -f "$staged" 2>/dev/null || true' EXIT
-/usr/bin/python3 - "$staged" "$LABEL" "$PROD/scripts/ops/ibkr-paper-bridge.sh" "$PROD" "$BRIDGE_HOME" "$LOG" <<'PY'
-import plistlib, sys
-dst, label, program, repo, home, log = sys.argv[1:]
-payload = {
-    'Label': label,
-    'ProgramArguments': ['/bin/bash', program],
-    'EnvironmentVariables': {
-        'HOME': home,
-        'ENGINE_REPO_ROOT': repo,
-        'PATH': '/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin',
-    },
-    'RunAtLoad': True,
-    'StartInterval': 120,
-    'ThrottleInterval': 30,
-    'MaterializeDatalessFiles': True,
-    'StandardOutPath': log,
-    'StandardErrorPath': log,
-}
-with open(dst, 'wb') as handle:
-    plistlib.dump(payload, handle, sort_keys=False)
-PY
+/bin/cat > "$staged" <<EOF
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>$(xml_escape "$LABEL")</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/bin/bash</string>
+    <string>$(xml_escape "$PROD/scripts/ops/ibkr-paper-bridge.sh")</string>
+  </array>
+  <key>EnvironmentVariables</key>
+  <dict>
+    <key>HOME</key>
+    <string>$(xml_escape "$BRIDGE_HOME")</string>
+    <key>ENGINE_REPO_ROOT</key>
+    <string>$(xml_escape "$PROD")</string>
+    <key>PATH</key>
+    <string>/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin</string>
+  </dict>
+  <key>RunAtLoad</key>
+  <true/>
+  <key>StartInterval</key>
+  <integer>120</integer>
+  <key>ThrottleInterval</key>
+  <integer>30</integer>
+  <key>MaterializeDatalessFiles</key>
+  <true/>
+  <key>StandardOutPath</key>
+  <string>$(xml_escape "$LOG")</string>
+  <key>StandardErrorPath</key>
+  <string>$(xml_escape "$LOG")</string>
+</dict>
+</plist>
+EOF
 chmod 600 "$staged"
 plutil -lint "$staged" >/dev/null || { echo "ERROR: generated bridge plist is invalid" >&2; exit 1; }
 
@@ -76,4 +99,3 @@ launchctl kickstart -k "$DOMAIN/$LABEL" 2>/dev/null || true
 launchctl print "$DOMAIN/$LABEL" >/dev/null 2>&1 \
   || { echo "ERROR: $LABEL did not load" >&2; exit 1; }
 echo "installed $LABEL — paper only, every 120 seconds, public failover untouched"
-

@@ -22,7 +22,7 @@ const attempt = await runLocalPaperBridge({
   operatorAuthorized: configuredOperatorAuthorized(),
   stateDir: path.join(STATE_DIR, 'ibkr-paper-local-bridge'),
   revision: async () => (await execFile('git', ['-C', REPO_ROOT, 'rev-parse', 'HEAD'], {
-    encoding: 'utf8', maxBuffer: 64 * 1024,
+    encoding: 'utf8', maxBuffer: 64 * 1024, timeout: 10_000,
   })).stdout.trim(),
   target: async () => buildCallPolicyTarget((await listAllCalls()).calls, new Date()),
   sync: (idempotencyKey, command) => ibkrPaperExecution.sync(idempotencyKey, command),
