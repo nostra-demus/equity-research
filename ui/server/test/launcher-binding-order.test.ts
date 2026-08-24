@@ -6,7 +6,8 @@ import assert from 'node:assert/strict'
 import fs from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { intakeOwnerBindingMatches, resolveParityBindingPath } from '../src/launcher'
+import { resolveParityBindingPath } from '../src/execution-provenance'
+import { intakeOwnerBindingMatches } from '../src/launcher'
 
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../..')
 assert.equal(
@@ -16,6 +17,11 @@ assert.equal(
 )
 assert.equal(resolveParityBindingPath('../outside.json'), null, 'relative parity bindings cannot traverse the repository')
 assert.equal(resolveParityBindingPath('analyses\\outside.json'), null, 'parity bindings reject cross-platform separators')
+assert.equal(
+  resolveParityBindingPath(path.join(path.dirname(repoRoot), 'outside.json')),
+  null,
+  'legacy absolute parity bindings cannot escape the deployed repository',
+)
 
 const ownerA = {
   swarm: 'research',

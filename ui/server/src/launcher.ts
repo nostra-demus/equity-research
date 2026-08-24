@@ -49,7 +49,7 @@ import {
   canonicalManifestJsonl, canonicalManifestPath, decisionArtifacts,
   receiptPath, recordAdmittedProviderSelection, recordProviderInterruptionAuthority,
   recordRecoveredPublicationAuthority, releaseExecutionEpochAfterPublication,
-  releaseParityRegistration, writeExecutionReceipt,
+  releaseParityRegistration, resolveParityBindingPath, writeExecutionReceipt,
 } from './execution-provenance'
 
 // Provider adapters may issue a short-lived auth/binary lease while building a launch spec. Keep the
@@ -3207,12 +3207,6 @@ export function paritySnapshotRootMatchesDataSubject(snapshotRoot: string, dataD
   } catch {
     return false
   }
-}
-
-/** Resolve immutable parity binding paths across deployed worktrees without admitting traversal. */
-export function resolveParityBindingPath(value: string): string | null {
-  if (!value || value.includes('\\') || (!path.isAbsolute(value) && value.split('/').includes('..'))) return null
-  return path.resolve(path.isAbsolute(value) ? value : path.join(REPO_ROOT, value))
 }
 
 // The post-ack half of launch(): readiness gate, then spawn (or park at the gate for a human decision).
