@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-08-24T11:18:21Z",
+  "generated_at": "2026-08-24T11:23:19Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260824-764",
+      "headline": "LAI SI ENT (02266): PROFIT WARNING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0824/2026082401187.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-24T11:14:00Z",
+      "sweep_file": "screener/inbox/2026-08-24_sweep.json",
+      "prelim_note": "Profit warning indicates a material negative impact on earnings expectations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Profit warning indicates a material negative impact on earnings expectations.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "guidance_change",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "LAI SI ENT",
+          "ticker": "02266",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260824-732",
       "headline": "FULLSHARE (00607): PROFIT WARNING",
@@ -1896,61 +1945,6 @@
         "size": -1,
         "recency": 4,
         "materiality_label_floor": 15,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "company",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "mna",
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Valerio Therapeutics",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Etherna Immunotherapies",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260824-475",
-      "headline": "Valerio Therapeutics Announces Signing of Definitive Agreements for the Acquisition of Etherna Immunotherapies, Building a Leading Platform in Targeted RNA, and €40.25 Million PIPE Financing From New and Existing Investors",
-      "headline_en": null,
-      "url": "http://www.businesswire.com/news/home/20260823746971/en/Valerio-Therapeutics-Announces-Signing-of-Definitive-Agreements-for-the-Acquisition-of-Etherna-Immunotherapies-Building-a-Leading-Platform-in-Targeted-RNA-and-%E2%82%AC40.25-Million-PIPE-Financing-From-New-and-Existing-Investors%C2%A0/?feedref=JjAwJuNHiystnCoBq_hl-Rc4vIAVcHHkbDcwJimU8QtrtlakeQ9hNboBqTAWIjTge3KWq9s9jif-UkBjBsFRyYAbRTSLTc1mgvhPlnaBA55M-oupQnbXnhKsYk8RmHF_kAy2gZikaX3QWV6xOvgFlA==",
-      "source_name": "Business Wire — Merger/Acquisition News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-08-24T06:00:00Z",
-      "sweep_file": "screener/inbox/2026-08-24_sweep.json",
-      "prelim_note": "Valerio Therapeutics signed a definitive agreement to acquire Etherna Immunotherapies and raised €40.25M PIPE financing.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Valerio Therapeutics signed a definitive agreement to acquire Etherna Immunotherapies and raised €40.25M PIPE financing.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 3,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 4,
-        "materiality_label_floor": 10,
         "quantified": 6,
         "boost_weight": 1,
         "scope_id": "multi_name",
@@ -85373,9 +85367,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 136398,
-    "news_picked_today": 1576,
-    "news_dropped_today": 10832
+    "news_seen_today": 140953,
+    "news_picked_today": 1590,
+    "news_dropped_today": 10842
   },
   "book_momentum": {
     "live_count": 8,
