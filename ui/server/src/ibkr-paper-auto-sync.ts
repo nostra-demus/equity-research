@@ -140,7 +140,8 @@ export function createIbkrPaperAutoSync(options: AutoSyncOptions = {}) {
   const publishedRuns = new Set<string>()
   // The latest attempt persists the authoritative revision so restart recovery cannot replay an older
   // publication and roll the dedicated paper account backward. Old v1 files remain readable.
-  let newestPublicationRevision: string | null = readAttempt(stateDir)?.publication_revision ?? null
+  let cachedLastAttempt: PaperAutoSyncAttempt | null = readAttempt(stateDir)
+  let newestPublicationRevision: string | null = cachedLastAttempt?.publication_revision ?? null
 
   const afterPublishedRun = (run: PublishedResearchRun): Promise<PaperAutoSyncAttempt | null> => {
     if (!enabled || !isAutomaticPaperSyncRun(run) || publishedRuns.has(run.runId)) return Promise.resolve(null)
@@ -152,7 +153,7 @@ export function createIbkrPaperAutoSync(options: AutoSyncOptions = {}) {
         const revision = run.publicationRevision!
         if (newestPublicationRevision) {
           const sameRevision = revision === newestPublicationRevision
-          const lastAttempt = readAttempt(stateDir)
+          const lastAttempt = cachedLastAttempt
           const sameRevisionFailed = sameRevision
             && lastAttempt?.outcome === 'error'
             && lastAttempt.publication_revision === revision
@@ -170,6 +171,7 @@ export function createIbkrPaperAutoSync(options: AutoSyncOptions = {}) {
               detail: 'This older publication was skipped because a newer published portfolio is already authoritative.',
             }
             writeAttempt(stateDir, attempt)
+            cachedLastAttempt = attempt
             return attempt
           }
           if (!sameRevision && !await isRevisionAncestor(newestPublicationRevision, revision)) {
@@ -199,6 +201,7 @@ export function createIbkrPaperAutoSync(options: AutoSyncOptions = {}) {
         }
       }
       writeAttempt(stateDir, attempt)
+      cachedLastAttempt = attempt
       // A failed broker connection/state read changed no target authority and remains safe to retry.
       // The execution service independently de-duplicates any accepted Nostra order intent.
       if (attempt.outcome === 'error') publishedRuns.delete(run.runId)
@@ -211,7 +214,7 @@ export function createIbkrPaperAutoSync(options: AutoSyncOptions = {}) {
   }
 
   const scheduleAfterPublishedRun = (run: PublishedResearchRun): void => { void afterPublishedRun(run) }
-  const read = (): PaperAutoSyncRead => ({ enabled, last_attempt: readAttempt(stateDir) })
+  const read = (): PaperAutoSyncRead => ({ enabled, last_attempt: cachedLastAttempt })
   const drain = async (): Promise<void> => {
     // Shutdown waits for broker work to finish, but an observability/runtime failure must not leave
     // the process alive forever after the broker transaction has already ended.
