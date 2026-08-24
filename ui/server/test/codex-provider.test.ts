@@ -31,12 +31,24 @@ import {
   parseCodexCatalog,
   parseCodexStreamLine,
   queryCodexRateLimits,
+  resolveCodexBin,
   sweepStaleCodexProbeHomes,
 } from '../src/providers/codex'
 import type { ProviderLaunchContext } from '../src/providers/types'
 
 const here = path.dirname(fileURLToPath(import.meta.url))
 const repoRoot = path.resolve(here, '../../..')
+
+const codexBinHome = fs.mkdtempSync(path.join(os.tmpdir(), 'nostra-codex-bin-home-'))
+try {
+  const installed = path.join(codexBinHome, '.local', 'bin', 'codex')
+  fs.mkdirSync(path.dirname(installed), { recursive: true })
+  fs.writeFileSync(installed, '#!/bin/sh\nexit 0\n', { mode: 0o755 })
+  assert.equal(resolveCodexBin({ HOME: codexBinHome }), installed,
+    'the user-installed CLI wins over the potentially architecture-incompatible desktop bundle')
+  assert.equal(resolveCodexBin({ CODEX_BIN: '/explicit/codex', HOME: codexBinHome }), '/explicit/codex',
+    'an explicit operator override remains authoritative')
+} finally { fs.rmSync(codexBinHome, { recursive: true, force: true }) }
 
 async function createTestPublicationTransport(
   template = path.join(os.homedir(), '.nostra-publication-test-'),
@@ -148,9 +160,10 @@ try {
     assert.equal(fs.existsSync(path.join(isolated.home, 'models_cache.json')), false, 'cached catalogue must not enter live probe')
     const installedCodex = [
       process.env.CODEX_BIN,
-      '/Applications/ChatGPT.app/Contents/Resources/codex',
+      path.join(os.homedir(), '.local', 'bin', 'codex'),
       '/opt/homebrew/bin/codex',
       '/usr/local/bin/codex',
+      '/Applications/ChatGPT.app/Contents/Resources/codex',
     ].find((candidate): candidate is string => Boolean(candidate && fs.existsSync(candidate)))
     if (installedCodex) {
       await assertCodexCredentialSandboxBoundary({
