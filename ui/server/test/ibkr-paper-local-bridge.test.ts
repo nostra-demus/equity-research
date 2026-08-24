@@ -143,6 +143,15 @@ const unauthorized = await runLocalPaperBridge({
 })
 assert.equal(unauthorized?.outcome, 'error')
 assert.equal(unauthorizedSyncs, 0)
+let nullTargetSyncs = 0
+const nullTarget = await runLocalPaperBridge({
+  enabled: true, operatorAuthorized: true, stateDir: stateDir('null-target'),
+  revision: () => revisionA, target: async () => null as unknown as CallPolicyTarget,
+  sync: async () => { nullTargetSyncs++; return aligned },
+})
+assert.equal(nullTarget?.outcome, 'error')
+assert.match(nullTarget?.detail || '', /published Calls target is invalid/)
+assert.equal(nullTargetSyncs, 0)
 assert.equal(await runLocalPaperBridge({
   enabled: false, operatorAuthorized: true, stateDir: root,
   revision: () => { throw new Error('must not run') }, target: async () => baseTarget,

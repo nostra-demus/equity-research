@@ -128,7 +128,7 @@ export async function runLocalPaperBridge(deps: LocalPaperBridgeDependencies): P
     revision = String(await deps.revision()).trim().toLowerCase()
     if (!REVISION_RE.test(revision)) throw new Error('The deployed publication revision is invalid.')
     const target = await deps.target()
-    if (!target.valid) throw new Error(target.detail || 'The published Calls target is invalid.')
+    if (!target || !target.valid) throw new Error(target?.detail || 'The published Calls target is invalid.')
     fingerprint = paperTargetFingerprint(target)
     const prior = readAttempt(deps.stateDir)
     // This is also the manual-exit lock: after the exact target was aligned, a TWS close/cancel stays

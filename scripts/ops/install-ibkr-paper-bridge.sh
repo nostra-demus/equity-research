@@ -31,10 +31,17 @@ for required in "$PROD/scripts/ops/ibkr-paper-bridge.sh" "$PROD/ui/server/src/ib
 done
 [ -f "$CONFIG_FILE" ] && [ ! -L "$CONFIG_FILE" ] \
   || { echo "ERROR: private paper.env is missing or unsafe" >&2; exit 1; }
-grep -qx 'ENGINE_IBKR_PAPER_EXECUTION=1' "$CONFIG_FILE" \
-  || { echo "ERROR: ENGINE_IBKR_PAPER_EXECUTION=1 is required" >&2; exit 1; }
-grep -qx 'ENGINE_IBKR_PAPER_AUTO_SYNC=1' "$CONFIG_FILE" \
-  || { echo "ERROR: ENGINE_IBKR_PAPER_AUTO_SYNC=1 is required" >&2; exit 1; }
+config_meta="$(stat -f '%u %Lp' "$CONFIG_FILE" 2>/dev/null \
+  || stat -c '%u %a' "$CONFIG_FILE" 2>/dev/null \
+  || true)"
+[ "$config_meta" = "$(id -u) 600" ] \
+  || { echo "ERROR: private paper.env must be owned by this user with mode 600" >&2; exit 1; }
+(
+  # shellcheck disable=SC1090
+  . "$CONFIG_FILE"
+  [ "${ENGINE_IBKR_PAPER_EXECUTION:-}" = "1" ] \
+    && [ "${ENGINE_IBKR_PAPER_AUTO_SYNC:-}" = "1" ]
+) || { echo "ERROR: paper execution and automatic sync must both be enabled" >&2; exit 1; }
 
 mkdir -p "$AGENTS" "$(dirname "$LOG")"
 staged="$(mktemp "$AGENTS/.$LABEL.XXXXXX")" || exit 1
