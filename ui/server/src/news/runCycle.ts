@@ -54,7 +54,7 @@ import type { ThemeItemView } from './themes/types'
 import type { CycleSummary, FeedItem, NewsItem, RawArticle, TriagedItem } from './types'
 import { withInitialRescueDecision } from './rescue/selector'
 import {
-  captureRescueFeedCheckpoint, recordRescueMode, recordRescueRows, rescueQueueEnabled,
+  captureRescueFeedCheckpoint, recordRescueMode, rescueQueueEnabled, stageRescueFeedRange,
 } from './rescue/store'
 import { updateSemanticIndex } from '../retrieval/semantic'
 import fs from 'node:fs'
@@ -894,7 +894,6 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
   const date = ts.slice(0, 10)
   const cycleStartedAt = Date.parse(ts)
   const rescueCheckpointBefore = captureRescueFeedCheckpoint(repoRoot, cycleStartedAt, cfg.rescueMaxAgeHrs)
-  let rescueQueueRowsForCycle: FeedItem[] = []
   if (!rescueQueueEnabled(cfg.rescueMode) && !recordRescueMode(stateDir, 'off', cycleStartedAt)) {
     log('second look disabled, but its small off-mode marker could not be saved')
   }
@@ -974,13 +973,11 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
       const checkpointAt = Date.parse(summary.completed_at || summary.ts)
       const checkpointAfter = captureRescueFeedCheckpoint(repoRoot, checkpointAt, cfg.rescueMaxAgeHrs)
       if (!rescueCheckpointBefore.available || !checkpointAfter.available
-        || !recordRescueRows(
-          stateDir, rescueQueueRowsForCycle, checkpointAt, cfg.rescueMaxAgeHrs,
-          rescueCheckpointBefore.available && checkpointAfter.available
-            ? { before: rescueCheckpointBefore.checkpoint, after: checkpointAfter.checkpoint }
-            : undefined,
-        )) {
-        log('second look shadow paused — its saved candidate queue or feed checkpoint could not be updated')
+        || !stageRescueFeedRange(stateDir, checkpointAt, {
+          before: rescueCheckpointBefore.checkpoint,
+          after: checkpointAfter.checkpoint,
+        })) {
+        log('second look shadow paused — its small post-Ideas feed marker could not be saved')
       }
     }
     newsBus.emit({ type: 'news-cycle', summary })
@@ -2468,9 +2465,6 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
   const persistedRows = feedCandidates.slice(0, feedAppend.written)
   const feedUnwrittenRows = feedCandidates.slice(feedAppend.written)
   const feedUnwritten = feedAppend.unwritten
-  // publishCycleSummary runs after the firehose summary append. Carry these rows there so one queue write
-  // can atomically bind them to the exact before/after firehose-size checkpoint. Off mode never copies them.
-  rescueQueueRowsForCycle = persistedFeedItems
   const feedWriteFailed = feedAppend.status === 'io_failure' || feedPreflightFailed
   const preflightCapKind = feedCapacity.status === 'available'
     ? feedCapacity.remainingBytes <= 0 || byteGuaranteedSlots < unscoredItems.length

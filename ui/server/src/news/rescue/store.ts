@@ -96,6 +96,7 @@ export interface RescueRuntimeHealth {
 const stateRoot = (stateDir: string): string => path.join(stateDir, ROOT)
 const queueFile = (stateDir: string): string => path.join(stateRoot(stateDir), 'queue.json')
 const queuePendingFile = (stateDir: string): string => path.join(stateRoot(stateDir), 'queue-pending.json')
+const queueStageFile = (stateDir: string): string => path.join(stateRoot(stateDir), 'queue-stage.json')
 const modeFile = (stateDir: string): string => path.join(stateRoot(stateDir), 'mode.json')
 const healthFile = (stateDir: string): string => path.join(stateRoot(stateDir), 'health.json')
 const dayFile = (stateDir: string, date: string): string => path.join(stateRoot(stateDir), 'days', `${date}.json`)
@@ -118,6 +119,13 @@ export type RescueFeedCheckpoint = Record<string, number>
 export interface RescueFeedCheckpointSnapshot {
   available: boolean
   checkpoint: RescueFeedCheckpoint
+}
+
+interface RescueFeedStage {
+  v: 1
+  staged_at: string
+  before: RescueFeedCheckpoint
+  after: RescueFeedCheckpoint
 }
 
 function rescueCheckpointDates(now: number, maxAgeHrs: number): string[] {
@@ -158,6 +166,21 @@ function isRescueFeedCheckpoint(value: unknown): value is RescueFeedCheckpoint {
   const entries = Object.entries(value as Record<string, unknown>)
   return entries.length > 0 && entries.length <= 4 && entries.every(([date, bytes]) =>
     /^\d{4}-\d{2}-\d{2}$/.test(date) && Number.isSafeInteger(bytes) && Number(bytes) >= 0)
+}
+
+function loadRescueFeedStage(stateDir: string): { available: boolean; stage: RescueFeedStage | null } {
+  const file = queueStageFile(stateDir)
+  if (!fs.existsSync(file)) return { available: true, stage: null }
+  try {
+    const stat = fs.statSync(file)
+    if (!stat.isFile() || stat.size < 2 || stat.size > 4096) throw new Error('stage size')
+    const raw = JSON.parse(fs.readFileSync(file, 'utf8'))
+    if (raw?.v !== 1 || typeof raw.staged_at !== 'string' || !Number.isFinite(Date.parse(raw.staged_at))
+      || !isRescueFeedCheckpoint(raw.before) || !isRescueFeedCheckpoint(raw.after)) throw new Error('stage shape')
+    return { available: true, stage: raw as RescueFeedStage }
+  } catch {
+    return { available: false, stage: null }
+  }
 }
 
 export function rescueFeedCheckpointMatches(
@@ -392,7 +415,8 @@ function loadQueueSnapshot(file: string): RescueQueueSnapshot {
 export function loadRescueQueue(stateDir: string): RescueQueueSnapshot {
   const main = loadQueueSnapshot(queueFile(stateDir))
   const pending = loadQueueSnapshot(queuePendingFile(stateDir))
-  if (!main.available || !pending.available) return {
+  const staged = loadRescueFeedStage(stateDir)
+  if (!main.available || !pending.available || !staged.available) return {
     available: false, items: [], updated_at: null, coverage_started_at: null,
     feed_checkpoint: pending.feed_checkpoint || main.feed_checkpoint,
     durable_committed: false, committed: false, incomplete_since: pending.incomplete_since, error: 'unreadable',
@@ -414,18 +438,165 @@ export function loadRescueQueue(stateDir: string): RescueQueueSnapshot {
   const starts = [main.coverage_started_at, pending.coverage_started_at]
     .filter((value): value is string => !!value)
   const runtimeFailureAt = rescueRuntimeQueueFailureAt(stateDir)
+  const savedCheckpoint = pending.feed_checkpoint || main.feed_checkpoint
+  // The ingest path writes only this tiny byte-range marker. Until the post-Ideas flush has copied those
+  // exact firehose bytes into the rolling queue, the queue is intentionally not eligible for lookups.
+  const stagePending = !!staged.stage && !rescueFeedCheckpointMatches(savedCheckpoint, staged.stage.after)
+  const incompleteTimes = [
+    pending.incomplete_since,
+    stagePending ? staged.stage?.staged_at : null,
+    runtimeFailureAt == null ? null : new Date(runtimeFailureAt).toISOString(),
+  ].filter((value): value is string => !!value)
   return {
     available: true,
     items,
     updated_at: times.sort().at(-1) || null,
     coverage_started_at: starts.sort()[0] || null,
-    feed_checkpoint: pending.feed_checkpoint || main.feed_checkpoint,
-    durable_committed: pendingCommitted,
-    committed: pendingCommitted && runtimeFailureAt == null,
-    incomplete_since: runtimeFailureAt == null
-      ? pending.incomplete_since
-      : new Date(Math.max(runtimeFailureAt, Date.parse(pending.incomplete_since || '') || 0)).toISOString(),
+    feed_checkpoint: savedCheckpoint,
+    durable_committed: pendingCommitted && !stagePending,
+    committed: pendingCommitted && !stagePending && runtimeFailureAt == null,
+    incomplete_since: incompleteTimes.sort().at(-1) || null,
   }
+}
+
+/** Save only the exact firehose byte range produced by ingest. This marker is deliberately tiny: the
+ * potentially large queue parse/rewrite is deferred until normal Ideas has finished. Multiple delayed
+ * cycles coalesce into one range, so an Ideas outage never makes ingest rewrite an accumulating queue. */
+export function stageRescueFeedRange(
+  stateDir: string,
+  now: number,
+  continuity: { before: RescueFeedCheckpoint; after: RescueFeedCheckpoint },
+): boolean {
+  const loaded = loadRescueFeedStage(stateDir)
+  const fail = (): false => {
+    noteRuntimeQueueFailure(stateDir, now)
+    updateRescueHealth(stateDir, { audit_healthy: false, audit_error: RESCUE_QUEUE_PENDING_WRITE_ERROR }, now)
+    return false
+  }
+  if (!loaded.available || !isRescueFeedCheckpoint(continuity.before)
+    || !isRescueFeedCheckpoint(continuity.after)) return fail()
+
+  const prior = loaded.stage
+  for (const [date, end] of Object.entries(continuity.after)) {
+    if (end < (continuity.before[date] ?? 0)) return fail()
+  }
+  if (prior) {
+    // A larger current start is harmless: the combined range below includes those externally-appended
+    // bytes too. A smaller start proves truncation/replacement, so the old offsets are no longer safe.
+    for (const [date, priorEnd] of Object.entries(prior.after)) {
+      const currentStart = continuity.before[date]
+      if (currentStart !== undefined && currentStart < priorEnd) return fail()
+    }
+  }
+
+  const before: RescueFeedCheckpoint = {}
+  for (const date of Object.keys(continuity.after)) {
+    before[date] = prior ? (prior.before[date] ?? 0) : (continuity.before[date] ?? 0)
+    if (continuity.after[date] < before[date]) return fail()
+  }
+  const stage: RescueFeedStage = {
+    v: 1,
+    staged_at: prior?.staged_at || new Date(now).toISOString(),
+    before,
+    after: continuity.after,
+  }
+  if (!atomicWriteJson(stateDir, queueStageFile(stateDir), stage, 4096)) return fail()
+  return true
+}
+
+function retireRescueFeedStage(stateDir: string): boolean {
+  const file = queueStageFile(stateDir)
+  try {
+    fs.unlinkSync(file)
+    syncDirectory(path.dirname(file))
+    return true
+  } catch (error) {
+    return (error as NodeJS.ErrnoException)?.code === 'ENOENT'
+  }
+}
+
+function readStagedFeedRows(repoRoot: string, stage: RescueFeedStage): FeedItem[] | null {
+  const rows: FeedItem[] = []
+  let totalBytes = 0
+  for (const [date, end] of Object.entries(stage.after)) {
+    const start = stage.before[date] ?? 0
+    const length = end - start
+    if (!Number.isSafeInteger(length) || length < 0) return null
+    totalBytes += length
+    if (totalBytes > RESCUE_QUEUE_MAX_BYTES || length === 0) {
+      if (totalBytes > RESCUE_QUEUE_MAX_BYTES) return null
+      continue
+    }
+    const file = path.join(repoRoot, 'screener', 'inbox', `${date}_firehose.ndjson`)
+    let fd: number | undefined
+    try {
+      fd = fs.openSync(file, 'r')
+      const stat = fs.fstatSync(fd)
+      if (!stat.isFile() || stat.size < end) return null
+      if (start > 0) {
+        const boundary = Buffer.allocUnsafe(1)
+        if (fs.readSync(fd, boundary, 0, 1, start - 1) !== 1 || boundary[0] !== 0x0a) return null
+      }
+      const bytes = Buffer.allocUnsafe(length)
+      let offset = 0
+      while (offset < length) {
+        const read = fs.readSync(fd, bytes, offset, length - offset, start + offset)
+        if (read <= 0) return null
+        offset += read
+      }
+      if (bytes[length - 1] !== 0x0a) return null
+      for (const line of bytes.toString('utf8').split('\n')) {
+        if (!line.trim()) continue
+        const parsed = JSON.parse(line)
+        if (parsed?.kind === 'cycle_summary') continue
+        if (parsed?.kind !== 'item' || !queueRelevant(parsed as FeedItem)) return null
+        rows.push(parsed as FeedItem)
+      }
+    } catch {
+      return null
+    } finally {
+      if (fd !== undefined) try { fs.closeSync(fd) } catch { /* no-op */ }
+    }
+  }
+  return rows
+}
+
+/** Apply the staged firehose range after normal Ideas. A crash after the queue commit but before marker
+ * deletion is idempotent: the saved after-checkpoint proves the range already landed. */
+export function flushStagedRescueRows(
+  repoRoot: string,
+  stateDir: string,
+  now = Date.now(),
+  maxAgeHrs = 36,
+): boolean {
+  const loaded = loadRescueFeedStage(stateDir)
+  const fail = (message = RESCUE_QUEUE_PENDING_WRITE_ERROR): false => {
+    noteRuntimeQueueFailure(stateDir, now)
+    updateRescueHealth(stateDir, { audit_healthy: false, audit_error: message }, now)
+    return false
+  }
+  if (!loaded.available) return fail('The pending second-look feed range cannot be read.')
+  if (!loaded.stage) return true
+  const stage = loaded.stage
+  const main = loadQueueSnapshot(queueFile(stateDir))
+  const pending = loadQueueSnapshot(queuePendingFile(stateDir))
+  if (!main.available || !pending.available) return fail('The saved second-look queue cannot be read.')
+  const savedCheckpoint = pending.feed_checkpoint || main.feed_checkpoint
+  const alreadyApplied = !pending.incomplete_since && rescueFeedCheckpointMatches(savedCheckpoint, stage.after)
+  if (!alreadyApplied) {
+    const rows = readStagedFeedRows(repoRoot, stage)
+    if (!rows || !recordRescueRows(stateDir, rows, now, maxAgeHrs, {
+      before: stage.before,
+      after: stage.after,
+    })) return fail()
+  }
+  if (!retireRescueFeedStage(stateDir)) return fail('The applied second-look feed marker could not be retired.')
+  runtimeQueueFailures.delete(runtimeQueueKey(stateDir))
+  const health = readRescueHealth(stateDir)
+  if (!health.audit_healthy && health.audit_error === RESCUE_QUEUE_PENDING_WRITE_ERROR) {
+    updateRescueHealth(stateDir, { audit_healthy: true, audit_error: null }, now)
+  }
+  return true
 }
 
 export function recordRescueRows(

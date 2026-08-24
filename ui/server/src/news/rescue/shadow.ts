@@ -421,10 +421,12 @@ export async function runRescueShadowPass(deps: {
       }, loopNow)
       break
     }
-    const wantName = (used + 1) % 5 === 0 && nameUsed < deps.config.nameDailyCap
-    let candidate = wantName ? name.shift() : ticker.shift()
-    if (!candidate) candidate = ticker.shift()
-    if (!candidate && nameUsed < deps.config.nameDailyCap) candidate = name.shift()
+    // A name-only lookup is earned only after four ticker checks. An unused name slot may pass to a
+    // ticker, but an empty ticker slot never passes to a name: that one-way spillover keeps the promised
+    // 4:1 daily mix even when the candidate pools are badly imbalanced.
+    const earnedNameSlots = Math.min(deps.config.nameDailyCap, Math.floor((used + 1) / 5))
+    const wantName = nameUsed < earnedNameSlots
+    const candidate = wantName ? (name.shift() || ticker.shift()) : ticker.shift()
     if (!candidate) break
 
     const reservation = reserveRescueCheck(deps.stateDir, date, candidate, RESCUE_SELECTOR_VERSION, loopNow)

@@ -6,10 +6,10 @@ import { RESCUE_SELECTOR_VERSION, selectRescueCandidates, withInitialRescueDecis
 import { getRescueDiagnostics, runRescueShadowPass, type RescueShadowConfig } from '../src/news/rescue/shadow'
 import { runNormalIdeasThenSecondLook } from '../src/news/rescue/order'
 import {
-  completeRescueCheck, flushPendingRescueAudit, loadRescueDay, loadRescueQueue, readRescueHealth,
+  completeRescueCheck, flushPendingRescueAudit, flushStagedRescueRows, loadRescueDay, loadRescueQueue, readRescueHealth,
   recordRescueRows as recordRescueRowsProduction,
   RESCUE_QUEUE_MAX_BYTES, RESCUE_QUEUE_MAX_ITEMS, RESCUE_QUEUE_OVERFLOW_ERROR,
-  readRescueMode, recordRescueMode, reserveRescueCheck, rescueQueueEnabled, updateRescueHealth,
+  readRescueMode, recordRescueMode, reserveRescueCheck, rescueQueueEnabled, stageRescueFeedRange, updateRescueHealth,
 } from '../src/news/rescue/store'
 import { invalidateSymbolCache } from '../src/news/symbology'
 import type { FeedItem } from '../src/news/types'
@@ -87,13 +87,15 @@ function recordRescueRows(stateDir: string, rows: readonly FeedItem[], now = STA
   const root = fs.mkdtempSync(path.join(os.tmpdir(), 'rescue-shadow-name-to-ticker-'))
   try {
     invalidateSymbolCache()
-    assert.equal(recordRescueRows(root, [row(100, true)], START), true)
+    assert.equal(recordRescueRows(root, [
+      row(1), row(2), row(3), row(4), row(100, true),
+    ], START), true)
     let calls = 0
     const fetchImpl = (async (url: string) => { calls++; return responseForUrl(url) }) as any
     const first = await runRescueShadowPass({
-      stateDir: root, config: { ...baseConfig, perCycle: 1 }, coreReady: true, fetchImpl, now: () => START,
+      stateDir: root, config: { ...baseConfig, perCycle: 5 }, coreReady: true, fetchImpl, now: () => START,
     })
-    assert.equal(first.checkedThisCycle, 1)
+    assert.equal(first.checkedThisCycle, 5)
     const enriched = withInitialRescueDecision({
       ...row(100),
       companies: [{ name: 'Company 100 Inc', ticker: 'C100', listing_country: 'US' }],
@@ -105,8 +107,8 @@ function recordRescueRows(stateDir: string, rows: readonly FeedItem[], now = STA
     })
     assert.equal(second.checkedThisCycle, 0,
       'a verified name-only check follows the same story after exact ticker enrichment')
-    assert.equal(calls, 1)
-    assert.equal(loadRescueDay(root, '2026-08-22').ledger.checks.length, 1)
+    assert.equal(calls, 5)
+    assert.equal(loadRescueDay(root, '2026-08-22').ledger.checks.length, 5)
   } finally { fs.rmSync(root, { recursive: true, force: true }) }
 }
 
@@ -187,6 +189,40 @@ function responseForUrl(url: string): any {
     ok: true, status: 200,
     json: async () => ({ quotes: [{ quoteType: 'EQUITY', symbol: `C${index}`, longname: `Company ${index} Inc`, exchDisp: 'NYSE' }] }),
   }
+}
+
+{
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'rescue-shadow-post-ideas-queue-'))
+  try {
+    assert.equal(recordRescueRows(root, [], START), true)
+    const queuePath = path.join(root, 'news-rescue', 'queue.json')
+    const queueBeforeIngest = fs.readFileSync(queuePath)
+    const firehose = path.join(root, 'screener', 'inbox', '2026-08-22_firehose.ndjson')
+    fs.mkdirSync(path.dirname(firehose), { recursive: true })
+    const item = row(77)
+    fs.writeFileSync(firehose, `${JSON.stringify(item)}\n`)
+    const before = { '2026-08-22': 0, '2026-08-21': 0, '2026-08-20': 0 }
+    const after = { ...before, '2026-08-22': fs.statSync(firehose).size }
+    assert.equal(stageRescueFeedRange(root, START, { before, after }), true)
+    assert.deepEqual(fs.readFileSync(queuePath), queueBeforeIngest,
+      'ingest writes only a tiny feed marker and never rewrites the rolling queue before Ideas')
+    assert.equal(loadRescueQueue(root).committed, false,
+      'a staged feed range blocks lookups until the post-Ideas queue update lands')
+
+    const order: string[] = []
+    await runNormalIdeasThenSecondLook({
+      ideas: async () => { order.push('normal-ideas'); return { coverage_complete: true } },
+      secondLook: async () => {
+        order.push('queue-flush')
+        assert.equal(flushStagedRescueRows(root, root, START), true)
+        order.push('second-look')
+      },
+    })
+    assert.deepEqual(order, ['normal-ideas', 'queue-flush', 'second-look'])
+    const queue = loadRescueQueue(root)
+    assert.equal(queue.committed, true)
+    assert.ok(queue.items.some((saved) => saved.event_id === item.event_id))
+  } finally { fs.rmSync(root, { recursive: true, force: true }) }
 }
 
 {
@@ -339,6 +375,27 @@ function responseForUrl(url: string): any {
 }
 
 {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'rescue-shadow-ticker-shortage-'))
+  try {
+    invalidateSymbolCache()
+    const rows = [
+      ...Array.from({ length: 4 }, (_, index) => row(index + 1)),
+      ...Array.from({ length: 5 }, (_, index) => row(index + 100, true)),
+    ]
+    assert.equal(recordRescueRows(root, rows, START), true)
+    let calls = 0
+    const fetchImpl = (async (url: string) => { calls++; return responseForUrl(url) }) as any
+    const result = await runRescueShadowPass({ stateDir: root, config: baseConfig, coreReady: true, fetchImpl, now: () => START })
+    assert.equal(result.checkedThisCycle, 5, 'four ticker checks earn exactly one name-only check')
+    assert.equal(calls, 5)
+    const checks = loadRescueDay(root, '2026-08-22').ledger.checks
+    assert.equal(checks.filter((check) => check.pool === 'ticker').length, 4)
+    assert.equal(checks.filter((check) => check.pool === 'name').length, 1,
+      'empty ticker slots never spill over to extra name-only searches')
+  } finally { fs.rmSync(root, { recursive: true, force: true }) }
+}
+
+{
   const root = fs.mkdtempSync(path.join(os.tmpdir(), 'rescue-shadow-outage-'))
   try {
     invalidateSymbolCache()
@@ -458,31 +515,34 @@ function responseForUrl(url: string): any {
 {
   const ambiguousRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'rescue-shadow-name-ambiguous-'))
   const countryRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'rescue-shadow-name-country-'))
-  const directory = (async () => ({
-    ok: true, status: 200, json: async () => ({ quotes: [
-      { quoteType: 'EQUITY', symbol: 'C100', longname: 'Company 100 Inc', exchDisp: 'NYSE' },
-      { quoteType: 'EQUITY', symbol: 'C100.AX', longname: 'Company 100 Corp', exchDisp: 'ASX' },
-    ] }),
-  })) as any
+  const directory = (async (url: string) => {
+    if (!new URL(url).searchParams.get('q')?.includes('Company 100')) return responseForUrl(url)
+    return {
+      ok: true, status: 200, json: async () => ({ quotes: [
+        { quoteType: 'EQUITY', symbol: 'C100', longname: 'Company 100 Inc', exchDisp: 'NYSE' },
+        { quoteType: 'EQUITY', symbol: 'C100.AX', longname: 'Company 100 Corp', exchDisp: 'ASX' },
+      ] }),
+    }
+  }) as any
   try {
     invalidateSymbolCache()
     const noCountry = withInitialRescueDecision({
       ...row(100, true), companies: [{ name: 'Company 100', ticker: null, listing_country: null }],
     })
-    assert.equal(recordRescueRows(ambiguousRoot, [noCountry], START), true)
+    assert.equal(recordRescueRows(ambiguousRoot, [row(1), row(2), row(3), row(4), noCountry], START), true)
     const ambiguous = await runRescueShadowPass({
-      stateDir: ambiguousRoot, config: { ...baseConfig, perCycle: 1 }, coreReady: true, fetchImpl: directory, now: () => START,
+      stateDir: ambiguousRoot, config: { ...baseConfig, perCycle: 5 }, coreReady: true, fetchImpl: directory, now: () => START,
     })
     assert.equal(ambiguous.identityUnresolved, 1,
       'two same-core issuers remain ambiguous when the saved item has no listing country')
 
     invalidateSymbolCache()
-    assert.equal(recordRescueRows(countryRoot, [row(100, true)], START), true)
+    assert.equal(recordRescueRows(countryRoot, [row(1), row(2), row(3), row(4), row(100, true)], START), true)
     const countryMatched = await runRescueShadowPass({
-      stateDir: countryRoot, config: { ...baseConfig, perCycle: 1 }, coreReady: true, fetchImpl: directory, now: () => START,
+      stateDir: countryRoot, config: { ...baseConfig, perCycle: 5 }, coreReady: true, fetchImpl: directory, now: () => START,
     })
-    assert.equal(countryMatched.verified, 1, 'a saved country may select exactly one compatible issuer listing')
-    assert.equal(loadRescueDay(countryRoot, '2026-08-22').ledger.checks[0].exchange, 'NYSE')
+    assert.equal(countryMatched.verified, 5, 'a saved country may select exactly one compatible issuer listing')
+    assert.equal(loadRescueDay(countryRoot, '2026-08-22').ledger.checks.find((check) => check.pool === 'name')?.exchange, 'NYSE')
   } finally {
     fs.rmSync(ambiguousRoot, { recursive: true, force: true })
     fs.rmSync(countryRoot, { recursive: true, force: true })

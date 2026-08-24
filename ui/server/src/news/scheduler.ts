@@ -29,7 +29,7 @@ import { omniRouteDisabledReason } from './omniroute-provision-status'
 import { credentialRejected, evaluateProviderRouting, type ProviderRouterMetadata, type ProviderRoutingCandidate } from './provider-routing'
 import { getRescueDiagnostics, runRescueShadowPass, type RescueDiagnostics, type RescueShadowConfig } from './rescue/shadow'
 import { runNormalIdeasThenSecondLook } from './rescue/order'
-import { captureRescueFeedCheckpoint, noteNormalIdeasReadiness } from './rescue/store'
+import { captureRescueFeedCheckpoint, flushStagedRescueRows, noteNormalIdeasReadiness } from './rescue/store'
 import { readInboxHumanActions } from './inbox-actions'
 import type { CycleSummary, DeferReason, LastResortState } from './types'
 
@@ -163,6 +163,12 @@ export async function runConfiguredRescueShadow(
   normalIdeasReady = true,
   normalIdeasReason: string | null = null,
 ) {
+  const now = Date.now()
+  // Ingest saved only a tiny firehose range marker. The potentially large rolling-queue update happens
+  // here, after the caller has awaited normal Ideas, so second-look bookkeeping cannot delay core work.
+  if (!flushStagedRescueRows(REPO_ROOT, STATE_DIR, now, RESCUE_SHADOW_CONFIG.maxAgeHrs)) {
+    log('second look shadow paused — its post-Ideas queue update could not be completed')
+  }
   const status = getNewsStatus()
   const humanBlocks = rescueHumanBlocks()
   const ideasReadinessRecorded = noteNormalIdeasReadiness(STATE_DIR, normalIdeasReady, normalIdeasReason)
@@ -172,7 +178,7 @@ export async function runConfiguredRescueShadow(
     coreReady: rescueCoreReady(status),
     humanActionsReady: humanBlocks.complete,
     normalIdeasReady: normalIdeasReady && ideasReadinessRecorded,
-    feedCheckpoint: captureRescueFeedCheckpoint(REPO_ROOT, Date.now(), RESCUE_SHADOW_CONFIG.maxAgeHrs),
+    feedCheckpoint: captureRescueFeedCheckpoint(REPO_ROOT, now, RESCUE_SHADOW_CONFIG.maxAgeHrs),
     blockedEventIds: humanBlocks.ids,
     log,
   })
