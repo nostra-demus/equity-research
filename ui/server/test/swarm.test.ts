@@ -46,6 +46,13 @@ check('startup warming builds every discovered swarm graph generically', () => {
   assert.ok(graphs.every((graph) => graph.totals.modules > 0), 'every admitted swarm must have a ready graph')
 })
 
+check('server startup warms graphs before opening the listener', () => {
+  const source = fs.readFileSync(path.join(REPO_ROOT, 'ui', 'server', 'src', 'server.ts'), 'utf8')
+  const warmAt = source.indexOf('const graphs = warmSwarmGraphs()')
+  const listenAt = source.indexOf('await app.listen({ host: HOST, port: PORT })')
+  assert.ok(warmAt >= 0 && listenAt > warmAt, 'graph warming must remain before listen/readiness')
+})
+
 check('screener swarm is discovered from its SWARM.md manifest with a routing contract', () => {
   const swarms = listSwarms(true)
   assert.equal(swarms[0].id, 'research')

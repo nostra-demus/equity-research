@@ -1,6 +1,8 @@
 // Archive facets are intentionally demand-loaded: the rail's mount-time empty search must stay cheap,
 // while clearing a filter must restore the full facet universe. Run: npx tsx src/lib/archiveFacetsLazy.test.ts
 import assert from 'node:assert/strict'
+import { readFileSync } from 'node:fs'
+import { fileURLToPath } from 'node:url'
 
 const previousWindow = (globalThis as any).window
 const previousDocument = (globalThis as any).document
@@ -29,6 +31,13 @@ api.newsFacets = async () => {
 }
 
 try {
+  const railSource = readFileSync(fileURLToPath(new URL('../components/screener/EventRail.tsx', import.meta.url)), 'utf8')
+  assert.doesNotMatch(railSource, /useEffect\(\(\) => \{ void loadFacets\(\{\}\)/, 'the rail must not restore a mount-time facet scan')
+  assert.equal((railSource.match(/onFocusCapture=\{ensureFacets\}/g) || []).length, 2, 'keyboard focus must demand-load both primary facet controls')
+  assert.equal((railSource.match(/onPointerDown=\{ensureFacets\}/g) || []).length, 2, 'pointer use must demand-load both primary facet controls')
+  assert.equal((railSource.match(/onClick=\{ensureFacets\}/g) || []).length, 2, 'keyboard activation must retry both primary facet controls')
+  assert.doesNotMatch(railSource, /if \(n\) ensureFacets\(\)/, 'opening static secondary Filters must not start a redundant facet scan')
+
   useStore.setState({ scArchiveQuery: {}, scFacets: null, scFacetsLoading: false })
   await useStore.getState().scRunArchiveSearch({})
   await Promise.resolve()
@@ -38,7 +47,7 @@ try {
   await useStore.getState().scRunArchiveSearch({})
   await Promise.resolve()
   assert.equal(facetCalls, 1, 'clearing a used filter must restore full-archive facets')
-  console.log('\narchiveFacetsLazy.test.ts: 2 passed')
+  console.log('\narchiveFacetsLazy.test.ts: 7 passed')
 } finally {
   api.newsFacets = originalNewsFacets
   ;(globalThis as any).window = previousWindow

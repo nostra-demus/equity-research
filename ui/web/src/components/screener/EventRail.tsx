@@ -329,7 +329,6 @@ export function EventRail() {
   }, [facets, facetsLoading, loadFacets])
   const toggleFilters = () => {
     const n = !filtersOpen
-    if (n) ensureFacets()
     setFiltersOpen(n)
     try { localStorage.setItem('nsw.filtersOpen', n ? '1' : '0') } catch {}
   }
@@ -716,7 +715,7 @@ export function EventRail() {
         {/* GEOGRAPHY — country-level, Continent → Country, fed by the ARCHIVE facets (every country with any
             archived match, with counts), NOT the loaded window. Picking either flips the rail to a
             whole-history search, so "Aerospace & Defense in the United Arab Emirates" actually returns. */}
-        <div className="evscope evscope--geo" role="group" aria-label="Filter by geography — the country the event is about" onFocusCapture={ensureFacets} onPointerDown={ensureFacets}>
+        <div className="evscope evscope--geo" role="group" aria-label="Filter by geography — the country the event is about" aria-busy={facetsLoading || undefined} onFocusCapture={ensureFacets} onPointerDown={ensureFacets} onClick={ensureFacets}>
           <span className="evscope__dim" aria-hidden>Where</span>
           <select
             className="ffilters__sel"
@@ -733,10 +732,9 @@ export function EventRail() {
             className="ffilters__sel"
             value={filters.country}
             onChange={(e) => { const cc = e.target.value; setGeo({ country: cc, geoRegion: cc ? countryParent(cc) || filters.geoRegion : filters.geoRegion }) }}
-            disabled={facetsLoading}
             title={facets ? 'Country — every country that has any archived match' : facetsLoading ? 'Loading the archive’s countries…' : 'Open to load every country in the archive'}
           >
-            <option value="">{filters.geoRegion ? `all of ${filters.geoRegion}` : 'any country'}</option>
+            <option value="">{facetsLoading ? 'loading countries…' : filters.geoRegion ? `all of ${filters.geoRegion}` : 'any country'}</option>
             {countryOptions.map((c) => (
               <option key={c.key} value={c.key}>{c.label} · {c.count}</option>
             ))}
@@ -745,7 +743,7 @@ export function EventRail() {
         {/* COMPANY — a primary question alongside Where, not an advanced refinement. The autocomplete's
             matching contract is unchanged; only its placement is promoted so it never disappears behind
             the Filters disclosure. */}
-        <div className="evscope evscope--company-filter" role="group" aria-label="Filter by company or ticker" onFocusCapture={ensureFacets} onPointerDown={ensureFacets}>
+        <div className="evscope evscope--company-filter" role="group" aria-label="Filter by company or ticker" aria-busy={facetsLoading || undefined} onFocusCapture={ensureFacets} onPointerDown={ensureFacets} onClick={ensureFacets}>
           <span className="evscope__dim" aria-hidden>Company</span>
           <CompanyFilter
             value={filters.company}
@@ -754,6 +752,7 @@ export function EventRail() {
             searchSymbols={api.symbolSearch}
           />
         </div>
+        {facetsLoading && !facets && <div className="evscope__meaning" role="status">Loading filter choices from the archive…</div>}
         {/* honest scope line: in archive mode say plainly that we are reading ALL history, and how far back.
             A search that FAILED says so here first — it never gets to claim a horizon it never reached. */}
         {archiveMode && (
