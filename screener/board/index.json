@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-24T01:05:42Z",
+  "generated_at": "2026-08-24T01:10:19Z",
   "inbox": [
     {
       "inbox_id": "INB-20260824-156",
@@ -1397,6 +1397,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260824-172",
+      "headline": "KPMG Australia plans to cut 5% of jobs, warns soft conditions to persist",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/world-at-work/kpmg-australia-plans-cut-5-jobs-warns-soft-conditions-persist-2026-08-24/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-24T01:03:43Z",
+      "sweep_file": "screener/inbox/2026-08-24_sweep.json",
+      "prelim_note": "KPMG Australia is cutting 5% of its workforce due to persistent soft economic conditions.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "KPMG Australia is cutting 5% of its workforce due to persistent soft economic conditions.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "KPMG Australia",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260824-161",
       "headline": "Shein’s Purchase of Everlane Faces US National Security Review",
       "headline_en": null,
@@ -1878,55 +1927,6 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260824-078",
-      "headline": "Nvidia Notifies Customers About AI-Related Price Hikes",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/videos/2026-08-24/nvidia-notifies-customers-about-ai-related-price-hikes-video",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-24T00:28:26Z",
-      "sweep_file": "screener/inbox/2026-08-24_sweep.json",
-      "prelim_note": "Nvidia is raising prices on AI products, which directly impacts revenue and margin expectations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Nvidia is raising prices on AI products, which directly impacts revenue and margin expectations.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -84881,9 +84881,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 332,
-    "news_picked_today": 178,
-    "news_dropped_today": 154
+    "news_seen_today": 347,
+    "news_picked_today": 183,
+    "news_dropped_today": 164
   },
   "book_momentum": {
     "live_count": 8,
