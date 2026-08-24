@@ -77,6 +77,9 @@ set +a
 export ENGINE_REPO_ROOT="$PROD"
 export ENGINE_STATE_DIR="${ENGINE_STATE_DIR:-$BRIDGE_HOME/Library/Application Support/nostradamus}"
 
-cd "$PROD/ui/server" || exit 0
+cd "$PROD/ui/server" || {
+  echo "paper bridge error: the deployed server directory is missing or inaccessible" >&2
+  exit 1
+}
 export PATH="$(dirname "$NODE_BIN"):$PATH"
 ./node_modules/.bin/tsx src/ibkr-paper-bridge-once.ts

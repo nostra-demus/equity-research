@@ -105,16 +105,15 @@ export function paperTargetFingerprint(target: CallPolicyTarget): string {
     exchange: row.exchange,
     call_id: row.call_id,
     decision_date: row.decision_date,
-  })).sort((a, b) => asciiCompare(`${a.ticker}:${a.call_id}`, `${b.ticker}:${b.call_id}`))
+  })).sort((a, b) => asciiCompare(a.ticker, b.ticker) || asciiCompare(a.call_id, b.call_id))
   const blocked = target.blocked_calls.map((row) => ({
     ticker: row.ticker,
     decision: row.decision,
     decision_date: row.decision_date,
     reason: row.reason,
-  })).sort((a, b) => asciiCompare(
-    `${a.ticker}:${a.decision_date}:${a.reason}`,
-    `${b.ticker}:${b.decision_date}:${b.reason}`,
-  ))
+  })).sort((a, b) => asciiCompare(a.ticker, b.ticker)
+    || asciiCompare(a.decision_date || '', b.decision_date || '')
+    || asciiCompare(a.reason, b.reason))
   return crypto.createHash('sha256').update(JSON.stringify({ valid: target.valid, positions, blocked })).digest('hex')
 }
 
