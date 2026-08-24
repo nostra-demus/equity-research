@@ -160,6 +160,9 @@ export function createIbkrPaperAutoSync(options: AutoSyncOptions = {}) {
             ? !sameRevisionFailed
             : await isRevisionAncestor(revision, newestPublicationRevision)
           if (stale) {
+            // A replay of the exact successful publication is already reconciled. Preserve the
+            // original result in the dashboard/audit rather than replacing it with a skip record.
+            if (sameRevision && lastAttempt) return lastAttempt
             attempt = {
               schema_version: 'ibkr-paper-auto-sync/v1', at: now().toISOString(), trigger: 'publication', ...identity,
               publication_revision: newestPublicationRevision,

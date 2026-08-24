@@ -36,7 +36,9 @@ const controller = createIbkrPaperAutoSync({
 await controller.afterPublishedRun(published({ kind: 'module' }))
 await controller.afterPublishedRun(published())
 await controller.afterPublishedRun(published())
+const replayedAttempt = await controller.afterPublishedRun(published({ runId: 'run-1-replay' }))
 assert.equal(syncs, 1, 'one publication can schedule only one broker reconciliation')
+assert.equal(replayedAttempt?.outcome, 'orders_sent', 'an exact replay preserves the original successful status')
 assert.equal(reconciled, true)
 assert.equal(syncedRevision, 'a'.repeat(40), 'automatic execution reads the exact verified publication, not a cached moving ref')
 assert.equal(syncKey, `publication-${'a'.repeat(40)}`, 'one publication has one deterministic broker receipt')
@@ -49,7 +51,7 @@ assert.deepEqual(controller.read(), {
   },
 })
 assert.equal(fs.readFileSync(path.join(stateDir, 'ibkr-paper', 'automatic-sync.jsonl'), 'utf8').trim().split('\n').length, 1,
-  'automatic executions keep an append-only local audit in addition to the latest dashboard state')
+  'automatic executions keep an append-only local audit without duplicating an exact replay')
 
 const failureState = fs.mkdtempSync(path.join(os.tmpdir(), 'paper-auto-sync-failure-'))
 const failure = createIbkrPaperAutoSync({
