@@ -75,11 +75,19 @@ assert.equal(retrySyncs, 1, 'a failed revision remains retryable after restart')
 const redactedState = fs.mkdtempSync(path.join(os.tmpdir(), 'paper-auto-sync-redacted-'))
 const redacted = createIbkrPaperAutoSync({
   enabled: true, stateDir: redactedState,
-  sync: async () => { throw new Error('failed while reading /Users/operator/private/paper.env') },
+  sync: async () => { throw new Error('failed while reading /Users/operator/My Folder/private/paper.env') },
 })
 const redactedAttempt = await redacted.afterPublishedRun(published({ runId: 'run-redacted' }))
-assert.doesNotMatch(String(redactedAttempt?.detail), /Users|paper\.env/)
+assert.doesNotMatch(String(redactedAttempt?.detail), /Users|My Folder|paper\.env/)
 assert.match(String(redactedAttempt?.detail), /\[PATH\]/)
+
+const windowsRedacted = createIbkrPaperAutoSync({
+  enabled: true, stateDir: fs.mkdtempSync(path.join(os.tmpdir(), 'paper-auto-sync-windows-redacted-')),
+  sync: async () => { throw new Error('failed while reading C:\\Program Files\\Nostra\\paper.env') },
+})
+const windowsRedactedAttempt = await windowsRedacted.afterPublishedRun(published({ runId: 'run-windows-redacted' }))
+assert.doesNotMatch(String(windowsRedactedAttempt?.detail), /Program Files|Nostra|paper\.env/)
+assert.match(String(windowsRedactedAttempt?.detail), /\[PATH\]/)
 
 const partialState = fs.mkdtempSync(path.join(os.tmpdir(), 'paper-auto-sync-partial-'))
 const partial = createIbkrPaperAutoSync({
