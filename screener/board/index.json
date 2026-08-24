@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-08-24T15:16:48Z",
+  "generated_at": "2026-08-24T15:26:48Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260824-939",
+      "headline": "Viji Finance Ltd: DISCLOSURE PERTAINING TO SEBI REGULATION 30 OF THE SEBI LODR REGULATIONS, 2015 IN RESPECT OF RESIGNATION OF STATUTORY AUDITOR OF THE COMPANY",
+      "headline_en": null,
+      "url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/9507d9b0-0437-419e-8469-23d0b101a8bd.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-24T15:14:22Z",
+      "sweep_file": "screener/inbox/2026-08-24_sweep.json",
+      "prelim_note": "The resignation of a statutory auditor is a significant red flag that can indicate potential accounting irregularities or financial distress, warranting a critical review of the company's financial health.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The resignation of a statutory auditor is a significant red flag that can indicate potential accounting irregularities or financial distress, warranting a critical review of the company's financial health.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "accounting_restatement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "accounting_restatement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Viji Finance Ltd",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260824-935",
       "headline": "DFZQ (03958): (1) MAJOR TRANSACTION - THE PROPOSED ACQUISITION OF 100% EQUITY INTERESTS IN SHANGHAI SECURITIES BY WAY OF ISSUE OF CONSIDERATION A SHARES UNDER SPECIFIC MANDATE AND PAYMENT OF CASH AND (2) APPLICATION FOR WHITEWASH WAIVER POLL RESULTS OF THE EXTRAORDINARY GENERAL MEETING, A SHAREHOLDERS' CLASS MEETING AND H SHAREHOLDERS' CLASS MEETING HELD ON AUGUST 24, 2026 AND GRANT OF THE WHITEWASH WAIVER",
@@ -1907,55 +1956,6 @@
           "name": "Ying Hai Group",
           "ticker": "08668",
           "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260824-487",
-      "headline": "Osia Hyper Retail Limited: Osia Hyper Retail Limited has informed the Exchange about Corporate Insolvency Resolution Process",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/OSIAHYPER_24082026130206_Outcome_of_the_5th_CoC_Meeting_18-08-26_.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-24T07:32:28Z",
-      "sweep_file": "screener/inbox/2026-08-24_sweep.json",
-      "prelim_note": "Company informed exchange it is under Corporate Insolvency Resolution Process, a survival-level distress event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Company informed exchange it is under Corporate Insolvency Resolution Process, a survival-level distress event.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "default_distress",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Osia Hyper Retail Limited",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "small",
@@ -85085,9 +85085,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 447551,
-    "news_picked_today": 2093,
-    "news_dropped_today": 11347
+    "news_seen_today": 455008,
+    "news_picked_today": 2112,
+    "news_dropped_today": 11388
   },
   "book_momentum": {
     "live_count": 8,
