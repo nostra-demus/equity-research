@@ -151,8 +151,14 @@ export function createIbkrPaperAutoSync(options: AutoSyncOptions = {}) {
       try {
         const revision = run.publicationRevision!
         if (newestPublicationRevision) {
-          const stale = revision === newestPublicationRevision
-            || await isRevisionAncestor(revision, newestPublicationRevision)
+          const sameRevision = revision === newestPublicationRevision
+          const lastAttempt = readAttempt(stateDir)
+          const sameRevisionFailed = sameRevision
+            && lastAttempt?.outcome === 'error'
+            && lastAttempt.publication_revision === revision
+          const stale = sameRevision
+            ? !sameRevisionFailed
+            : await isRevisionAncestor(revision, newestPublicationRevision)
           if (stale) {
             attempt = {
               schema_version: 'ibkr-paper-auto-sync/v1', at: now().toISOString(), trigger: 'publication', ...identity,
@@ -163,14 +169,14 @@ export function createIbkrPaperAutoSync(options: AutoSyncOptions = {}) {
             writeAttempt(stateDir, attempt)
             return attempt
           }
-          if (!await isRevisionAncestor(newestPublicationRevision, revision)) {
+          if (!sameRevision && !await isRevisionAncestor(newestPublicationRevision, revision)) {
             throw new Error('Published revisions do not have one safe portfolio order.')
           }
         }
         // Claim the newer authority before broker I/O. Even if its sync fails, an older publication
         // must never run afterward and roll the dedicated account back.
         newestPublicationRevision = revision
-        const result = await sync(randomUUID(), { reconcilePositions: true, publishedRevision: revision })
+        const result = await sync(`publication-${revision}`, { reconcilePositions: true, publishedRevision: revision })
         const partial = result.orders.length > 0 && result.skipped.length > 0
         const detail = result.skipped.length > 0
           ? `${result.detail} ${result.skipped.slice(0, 3).map((row) => `${row.ticker}: ${row.reason}`).join(' ')}`
@@ -190,6 +196,9 @@ export function createIbkrPaperAutoSync(options: AutoSyncOptions = {}) {
         }
       }
       writeAttempt(stateDir, attempt)
+      // A failed broker connection/state read changed no target authority and remains safe to retry.
+      // The execution service independently de-duplicates any accepted Nostra order intent.
+      if (attempt.outcome === 'error') publishedRuns.delete(run.runId)
       return attempt
     }
     // One broker snapshot-to-order transaction at a time, including coincident publication and timer

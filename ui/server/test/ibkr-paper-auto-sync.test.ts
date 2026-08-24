@@ -19,10 +19,12 @@ assert.equal(isAutomaticPaperSyncRun(published({ publicationRevision: undefined 
 let syncs = 0
 let reconciled = false
 let syncedRevision = ''
+let syncKey = ''
 const controller = createIbkrPaperAutoSync({
   enabled: true, stateDir, now: () => new Date('2026-08-24T12:00:00Z'),
-  sync: async (_key, command) => {
+  sync: async (key, command) => {
     syncs++
+    syncKey = key
     reconciled = command.reconcilePositions
     syncedRevision = command.publishedRevision
     return { ok: true, paper_only: true, action: 'sync', detail: 'one accepted', orders: [
@@ -37,6 +39,7 @@ await controller.afterPublishedRun(published())
 assert.equal(syncs, 1, 'one publication can schedule only one broker reconciliation')
 assert.equal(reconciled, true)
 assert.equal(syncedRevision, 'a'.repeat(40), 'automatic execution reads the exact verified publication, not a cached moving ref')
+assert.equal(syncKey, `publication-${'a'.repeat(40)}`, 'one publication has one deterministic broker receipt')
 assert.deepEqual(controller.read(), {
   enabled: true,
   last_attempt: {
@@ -56,6 +59,16 @@ const failure = createIbkrPaperAutoSync({
 const attempt = await failure.afterPublishedRun(published({ runId: 'run-2', kind: 'review' }))
 assert.equal(attempt?.outcome, 'error')
 assert.match(String(attempt?.detail), /paper_connect_failed/)
+let retrySyncs = 0
+const retryAfterRestart = createIbkrPaperAutoSync({
+  enabled: true, stateDir: failureState,
+  sync: async () => {
+    retrySyncs++
+    return { ok: true, paper_only: true, action: 'sync', detail: 'recovered', orders: [], skipped: [] }
+  },
+})
+assert.equal((await retryAfterRestart.afterPublishedRun(published({ runId: 'run-2', kind: 'review' })))?.outcome, 'aligned')
+assert.equal(retrySyncs, 1, 'a failed revision remains retryable after restart')
 
 const redactedState = fs.mkdtempSync(path.join(os.tmpdir(), 'paper-auto-sync-redacted-'))
 const redacted = createIbkrPaperAutoSync({
