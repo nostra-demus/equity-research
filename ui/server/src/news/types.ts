@@ -250,6 +250,13 @@ export interface FeedItem {
   dedup_group?: string // story-cluster id (news/dedup.ts) — earliest member's event_id; one row per story
   inboxed: boolean // band !== 'drop'
   caution?: boolean // caution_only social item (r/wallstreetbets): weighted lowest, capped to drop on the display re-rank too (feed.ts)
+  // First-pass decision audit. These compact fields explain why a scored item did or did not reach the
+  // main inbox, and capture the exact deterministic inputs used by the second-look shadow selector.
+  decision_rule_version?: string
+  decision_kept?: boolean
+  decision_reason_codes?: import('./rescue/selector').RescueDecisionReasonCode[]
+  original_triage_score?: number
+  decision_rank_inputs?: import('./rescue/selector').RescueRankInputs
 }
 
 // The structured reason a cycle deferred items — mirrors the human `note` so the cockpit can reason about

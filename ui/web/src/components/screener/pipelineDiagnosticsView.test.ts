@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict'
 import type { NewsDiagnostics, PipelineFlowRates, TierDiagnostics } from '../../lib/types'
-import { diagnosticBlockers, diagnosticDeferReasons, fmtPipelineRate, lastCycleArrivalCopy, pipelineFlowPresentation, retryReasonLabel, tierStatusCopy, todayOutcomeCopy } from './pipelineDiagnosticsView'
+import { dailyLossTotalsAvailable, diagnosticBlockers, diagnosticDeferReasons, fmtPipelineRate, lastCycleArrivalCopy, pipelineFlowPresentation, retryReasonLabel, tierStatusCopy, todayOutcomeCopy } from './pipelineDiagnosticsView'
 
 let passed = 0
 function check(name: string, fn: () => void) {
@@ -260,6 +260,18 @@ check('daily outcome copy names partition and corrupt-row debt instead of presen
     }),
     'at least 7 checked · at least 5 kept · at least 2 ignored · some totals may be missing: 1 saved check record cannot be read',
   )
+})
+
+check('missed-item totals stay unavailable when history is partial or an older server omitted retirements', () => {
+  const exactToday = {
+    read: 7, kept: 5, dropped: 2, cycles: 3, durablyCommitted: true,
+    incompleteCycles: 0, totalsLowerBound: false,
+  }
+  const exactBacklog = { ...diagnostics([]).backlog, retiredToday: 4 }
+  assert.equal(dailyLossTotalsAvailable(exactToday, exactBacklog), true)
+  assert.equal(dailyLossTotalsAvailable({ ...exactToday, totalsLowerBound: true }, exactBacklog), false)
+  assert.equal(dailyLossTotalsAvailable(exactToday, { ...exactBacklog, retiredToday: undefined }), false,
+    'missing rolling-deploy fields never become an exact zero')
 })
 
 check('flow copy names ahead, equal headroom, and falling-behind gaps in items/hour', () => {

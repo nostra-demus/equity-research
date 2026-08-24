@@ -20,6 +20,17 @@ function countCopy(value: number): string {
   return Number.isSafeInteger(value) && value >= 0 ? value.toLocaleString('en-US') : '—'
 }
 
+/** Loss totals come from the same saved cycle history as scoring totals. An older server can omit the
+ * retirement field, so exact zero is available only when both the history and the field are proven. */
+export function dailyLossTotalsAvailable(
+  today: NewsDiagnostics['today'],
+  backlog: NewsDiagnostics['backlog'],
+): boolean {
+  return today.totalsLowerBound === false
+    && today.durablyCommitted === true
+    && backlog.retiredToday != null
+}
+
 /** Keep the daily line readable while preserving whether the totals are exact, minimums, or older reports. */
 export function todayOutcomeCopy(
   today: NewsDiagnostics['today'],

@@ -3,7 +3,7 @@ import { spawnSync } from 'node:child_process'
 import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
-import { cycleHasDurableFeedCommit, persistedDeferReasons } from '../src/news/scheduler'
+import { cycleHasDurableFeedCommit, persistedDeferReasons, rescueCoreReady } from '../src/news/scheduler'
 import type { CycleSummary } from '../src/news/types'
 
 function cycle(fields: Partial<CycleSummary> & Record<string, unknown> = {}): CycleSummary {
@@ -47,17 +47,33 @@ assert.deepEqual(
 assert.equal(cycleHasDurableFeedCommit(cycle({ feed_commit_version: 1 })), true)
 assert.equal(cycleHasDurableFeedCommit(cycle()), false, 'legacy pick/watch/drop counts do not prove feed durability')
 
+assert.equal(rescueCoreReady({
+  readOnly: false,
+  backlog: { count: 0, unscoredCount: 0, projectionRecoveryCount: 0, cap: 5_000 },
+  today: {
+    newArrivals: 1, read: 1, kept: 0, dropped: 1, cycles: 1,
+    durablyCommitted: true, incompleteCycles: 0, totalsLowerBound: false,
+    historyStatus: 'complete', corruptCycleRows: 0,
+  },
+}), true, 'a complete durable day allows shadow work once normal backlog work is finished')
+
 const root = fs.mkdtempSync(path.join(os.tmpdir(), 'scheduler-diagnostics-shape-'))
 const state = path.join(root, '.state')
 const inbox = path.join(root, 'screener', 'inbox')
 fs.mkdirSync(state, { recursive: true })
 fs.mkdirSync(inbox, { recursive: true })
+fs.mkdirSync(path.join(root, 'screener', 'ledger'), { recursive: true })
+fs.writeFileSync(path.join(root, 'screener', 'ledger', 'inbox-human-actions.ndjson'), 'not-json\n')
 const now = new Date()
 const date = now.toISOString().slice(0, 10)
 const started = new Date(now.getTime() - 30_000).toISOString()
-fs.writeFileSync(path.join(state, 'news-deferred.json'), `${JSON.stringify([{
-  event_id: 'EVT-waiting', headline: 'Waiting diagnostic fixture', url: 'https://reuters.com/waiting',
-}])}\n`)
+fs.writeFileSync(path.join(state, 'news-deferred.json'), `${JSON.stringify([
+  { event_id: 'EVT-waiting', headline: 'Waiting diagnostic fixture', url: 'https://reuters.com/waiting' },
+  {
+    event_id: 'EVT-projection', headline: 'Already scored projection fixture',
+    url: 'https://reuters.com/projection', feed_pending: 'uncommitted',
+  },
+])}\n`)
 fs.writeFileSync(path.join(state, 'news-pipeline-flow-gaps.json'), `${JSON.stringify({
   v: 1, starts: [new Date(now.getTime() - 10_000).toISOString()],
 })}\n`)
@@ -75,6 +91,8 @@ const childCode = `import('./src/news/scheduler.ts').then((scheduler) => {
     lastCycle: result.lastCycle,
     today: result.today,
     statusToday: status.today,
+    backlog: result.backlog,
+    rescue: result.rescue,
   }) + '\\n')
 })`
 const childEnv = {
@@ -105,9 +123,16 @@ assert.equal(result.lastCycle.durablyCommitted, true)
 assert.equal(result.today.durablyCommitted, true)
 assert.equal(result.today.incompleteCycles, 1, 'the diagnostics day carries missing-summary debt beyond the rate object')
 assert.equal(result.today.totalsLowerBound, true, 'summary-derived daily counters cannot appear complete')
+assert.equal(result.today.newArrivals, null, 'incomplete cycle authority cannot publish a lower bound as a proven arrival total')
 assert.equal(result.today.historyStatus, 'complete', 'the readable current partition is distinguished from its missing-summary debt')
 assert.equal(result.today.corruptCycleRows, 0)
 assert.deepEqual(result.statusToday, result.today, '/api/news/status carries the same durability and missing-summary proof as diagnostics')
+assert.equal(result.backlog.count, 2)
+assert.equal(result.backlog.unscoredCount, 1, 'unscored work is separated from feed projection recovery')
+assert.equal(result.backlog.projectionRecoveryCount, 1)
+assert.equal(result.rescue.status, 'audit_unavailable')
+assert.match(result.rescue.reason, /dismissals and manual blocks/i,
+  'an unreadable human-action ledger is reported as damaged authority, not ordinary queued work')
 fs.rmSync(root, { recursive: true, force: true })
 
 console.log('scheduler diagnostics shape checks passed')

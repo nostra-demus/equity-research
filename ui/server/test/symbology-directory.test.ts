@@ -9,7 +9,10 @@
 // Each assertion is red on the pre-fix code and green after. Run: npx tsx test/symbology-directory.test.ts
 process.env.ENGINE_ACTIVITY_LOG_DISABLED = '1'
 import assert from 'node:assert/strict'
-import { coreCompanyName, invalidateSymbolCache, searchSymbolsEnriched, verifyEquityListing } from '../src/news/symbology'
+import {
+  coreCompanyName, directoryTickerMatches, invalidateSymbolCache,
+  searchSymbolsChecked, searchSymbolsEnriched, verifyEquityListing,
+} from '../src/news/symbology'
 
 let passed = 0
 async function check(name: string, fn: () => Promise<void> | void) {
@@ -19,7 +22,7 @@ async function check(name: string, fn: () => Promise<void> | void) {
 
 // A Response-like stub: only the .ok flag and .json() are used by searchSymbols().
 type Q = { quoteType: string; symbol: string; longname?: string; shortname?: string; exchDisp?: string }
-const resp = (ok: boolean, quotes: Q[] = []) => ({ ok, json: async () => ({ quotes }) }) as any
+const resp = (ok: boolean, quotes: Q[] = [], status = ok ? 200 : 503) => ({ ok, status, json: async () => ({ quotes }) }) as any
 
 async function main() {
   // #3 — dotted legal-form normalisation. Expected value pinned to the rule the code documents:
@@ -75,6 +78,90 @@ async function main() {
     ])) as any
     assert.equal(await verifyEquityListing('ACME.L', 'Acme UK', fetchImpl).then((x) => x?.exchange), 'LSE')
     assert.equal(await verifyEquityListing('ACME', 'Acme UK', fetchImpl), null, 'same base/alias cannot borrow the sibling listing venue')
+  })
+
+  await check('checked search distinguishes a healthy empty result from directory failure', async () => {
+    const empty = await searchSymbolsChecked('nothing', (async () => resp(true, [])) as any)
+    assert.deepEqual(empty, { status: 'ok', groups: [], issuerGroups: [], networkAttempted: true })
+    const limited = await searchSymbolsChecked('limited', (async () => resp(false, [], 429)) as any)
+    assert.deepEqual(limited, { status: 'unavailable', groups: [], reason: 'http_error', networkAttempted: true, httpStatus: 429 })
+    const offline = await searchSymbolsChecked('offline', (async () => { throw new Error('offline') }) as any)
+    assert.deepEqual(offline, { status: 'unavailable', groups: [], reason: 'timeout_or_network', networkAttempted: true })
+  })
+
+  await check('checked search treats a 200 response without quotes as unavailable', async () => {
+    const malformed = await searchSymbolsChecked('challenge', (async () => ({
+      ok: true, status: 200, json: async () => ({ error: 'challenge' }),
+    })) as any)
+    assert.deepEqual(malformed, { status: 'unavailable', groups: [], reason: 'invalid_response', networkAttempted: true })
+    const malformedRow = await searchSymbolsChecked('challenge-row', (async () => ({
+      ok: true, status: 200, json: async () => ({ quotes: [null] }),
+    })) as any)
+    assert.deepEqual(malformedRow, {
+      status: 'unavailable', groups: [], reason: 'invalid_response', networkAttempted: true,
+    })
+    const healthyNonEquity = await searchSymbolsChecked('index', (async () => ({
+      ok: true, status: 200, json: async () => ({ quotes: [{ quoteType: 'INDEX', symbol: '^GSPC' }] }),
+    })) as any)
+    assert.equal(healthyNonEquity.status, 'ok', 'a well-formed non-equity row is a healthy empty equity result')
+  })
+
+  await check('directory ticker matching accepts only country-proven local venue suffixes', () => {
+    assert.equal(directoryTickerMatches('HEROMOTOCO', 'HEROMOTOCO.NS', 'IN'), true)
+    assert.equal(directoryTickerMatches('500325', '500325.BO', 'IN'), true)
+    assert.equal(directoryTickerMatches('0005', '0005.HK', 'HK'), true)
+    assert.equal(directoryTickerMatches('HEROMOTOCO', 'HEROMOTOCO.L', 'IN'), false)
+    assert.equal(directoryTickerMatches('ACME.L', 'ACME', 'GB'), false, 'a saved suffix remains exact-only')
+    assert.equal(directoryTickerMatches('ACME', 'ACME.L', null), false, 'unknown country cannot license a suffix')
+  })
+
+  await check('checked search makes exactly one raw request and never performs sibling enrichment', async () => {
+    invalidateSymbolCache()
+    let calls = 0
+    const result = await searchSymbolsChecked('NHYDY', (async () => {
+      calls++
+      return resp(true, [{ quoteType: 'EQUITY', symbol: 'NHYDY', longname: 'Norsk Hydro ASA', exchDisp: 'OTC' }])
+    }) as any)
+    assert.equal(result.status, 'ok')
+    assert.equal(calls, 1)
+  })
+
+  await check('checked search reuses a healthy cache result without another raw request', async () => {
+    invalidateSymbolCache()
+    let calls = 0
+    const fetchImpl = (async () => {
+      calls++
+      return resp(true, [{ quoteType: 'EQUITY', symbol: 'CACHE', longname: 'Cache Holdings', exchDisp: 'NYSE' }])
+    }) as any
+    assert.equal((await searchSymbolsChecked('CACHE', fetchImpl, { useCache: true })).status, 'ok')
+    const cached = await searchSymbolsChecked('cache', fetchImpl, { useCache: true })
+    assert.equal(cached.status, 'ok')
+    assert.equal(cached.networkAttempted, false, 'cache provenance lets circuit health ignore non-network results')
+    assert.equal(calls, 1)
+  })
+
+  await check('name-only issuer groups keep identical legal names in different markets ambiguous', async () => {
+    invalidateSymbolCache()
+    const result = await searchSymbolsChecked('Same Name Holdings', (async () => resp(true, [
+      { quoteType: 'EQUITY', symbol: 'SNH', longname: 'Same Name Holdings Inc', exchDisp: 'NYSE' },
+      { quoteType: 'EQUITY', symbol: 'SAME', longname: 'Same Name Holdings Inc', exchDisp: 'LSE' },
+    ])) as any)
+    assert.equal(result.status, 'ok')
+    if (result.status !== 'ok') return
+    assert.equal(result.issuerGroups.length, 2,
+      'an identical display name alone does not prove that two listings belong to one issuer')
+  })
+
+  await check('an explicit ADR label may join one unambiguous ordinary listing', async () => {
+    invalidateSymbolCache()
+    const result = await searchSymbolsChecked('Company 100', (async () => resp(true, [
+      { quoteType: 'EQUITY', symbol: 'C100', longname: 'Company 100 Inc', exchDisp: 'NYSE' },
+      { quoteType: 'EQUITY', symbol: 'C100Y', longname: 'Company 100 Inc Sponsored ADR', exchDisp: 'OTC Markets' },
+    ])) as any)
+    assert.equal(result.status, 'ok')
+    if (result.status !== 'ok') return
+    assert.equal(result.issuerGroups.length, 1)
+    assert.equal(result.issuerGroups[0].listings?.length, 2)
   })
 }
 

@@ -12,7 +12,7 @@ import { motion } from 'framer-motion'
 import { useStore } from '../../lib/store'
 import type { DeferReason, LastResortState, NewsDiagnostics, TierDiagnostics, TierHealth } from '../../lib/types'
 import { tierMeter } from './pipelineMeter'
-import { diagnosticDeferReasons, fmtFailingFor, lastCycleArrivalCopy, pipelineFlowPresentation, tierStatusCopy, todayOutcomeCopy } from './pipelineDiagnosticsView'
+import { dailyLossTotalsAvailable, diagnosticDeferReasons, fmtFailingFor, lastCycleArrivalCopy, pipelineFlowPresentation, tierStatusCopy, todayOutcomeCopy } from './pipelineDiagnosticsView'
 import { PipelineTrendView } from './PipelineTrend'
 import './PipelineDiagnostics.css'
 
@@ -171,9 +171,10 @@ function BacklogGauge({
   // from the deferred file: it survives exactly the failure that branch reports, and an unreadable
   // waiting list is when an operator most needs to know items were being retired.
   const retired = b.retiredToday ?? 0
+  const maxAgeHours = b.maxAgeHours ?? 48
   const retiredAlert = retired > 0 ? (
     <div className="diagbacklog__lost" role="alert">
-      {dailyLossTotalsLowerBound ? 'At least ' : ''}{retired.toLocaleString()} item{retired === 1 ? '' : 's'} were missed today because they waited too long to be checked. The scanner fell behind.
+      {dailyLossTotalsLowerBound ? 'At least ' : ''}{retired.toLocaleString()} item{retired === 1 ? '' : 's'} were never scored because they waited more than {maxAgeHours} hours. The scanner fell behind.
     </div>
   ) : null
   const lossProofAlert = dailyLossTotalsUnverified ? (
@@ -220,6 +221,7 @@ function BacklogGauge({
             ? 'All caught up.'
             : 'These items are saved for the next check.'}
       </div>
+      <div className="diag__hint">Waiting items expire after {maxAgeHours} hours so old work cannot permanently block newer news. An expired item is still counted as a real miss.</div>
       {/* PERSISTENT legacy loss alert: rolling-deploy summaries may still report rows dropped by the old
           cap-slicing worker. Keyed on the cumulative daily count so later recovery cannot hide prior loss. */}
       {b.lostToday > 0 && (
@@ -288,6 +290,8 @@ export function PipelineDiagnostics() {
   const todayCopy = diag ? todayOutcomeCopy(diag.today, diag.flow?.history?.gapMarkerUnreadable === true) : null
   const deferReasons = diag ? diagnosticDeferReasons(diag.defer) : []
   const storageEmergency = deferReasons.includes('storage-emergency')
+  const dailyScoringTotalsKnown = diag?.today.totalsLowerBound === false && diag?.today.durablyCommitted === true
+  const dailyLossTotalsKnown = !!diag && dailyLossTotalsAvailable(diag.today, diag.backlog)
   // Tiers the provider is refusing the key for. Read off the per-tier flag rather than the defer group so this
   // still renders against an engine that has the flag but not yet the group (rolling deploy).
   const credentialBlocked = (diag?.tiers || []).filter((t) => t.enabled && t.spendingAllowed !== false && t.credentialRejected === true)
@@ -395,16 +399,56 @@ export function PipelineDiagnostics() {
             </section>
           )}
 
-      {/* backlog gauge — durable retry depth vs the active work window */}
+          {/* backlog gauge — durable retry depth vs the active work window */}
           <section className="diag__sec">
             <div className="diag__sechead">Is anything waiting or missed?</div>
+            <div className="diagwhy" role="status">
+              <ul className="diagwhy__list">
+                <li><b>{diag.today.newArrivals == null ? '—' : diag.today.newArrivals.toLocaleString()}</b> new items found today{diag.today.newArrivals == null ? ' — older records cannot prove the unique total.' : '.'}</li>
+                <li><b>{dailyScoringTotalsKnown ? diag.today.read.toLocaleString() : '—'}</b> items fully scored{dailyScoringTotalsKnown ? '.' : ' — saved cycle records cannot prove the full total.'}</li>
+                <li><b>{diag.backlog.unavailable ? '—' : (diag.backlog.unscoredCount ?? diag.backlog.count).toLocaleString()}</b> items currently waiting for a first score{diag.backlog.unavailable ? ' — the saved waiting list could not be read.' : '.'}</li>
+                {(diag.backlog.projectionRecoveryCount ?? 0) > 0 && <li><b>{diag.backlog.projectionRecoveryCount!.toLocaleString()}</b> items already scored and waiting to be safely saved.</li>}
+                <li><b>{dailyScoringTotalsKnown ? diag.today.dropped.toLocaleString() : '—'}</b> items scored but not sent to the main inbox{dailyScoringTotalsKnown ? '.' : ' — saved cycle records cannot prove the full total.'}</li>
+                <li><b>{dailyLossTotalsKnown ? diag.backlog.lostToday.toLocaleString() : '—'}</b> items never scored by older scanner versions because the active waiting list was full{dailyLossTotalsKnown ? '.' : ' — saved cycle records cannot prove the full total.'}</li>
+                <li><b>{dailyLossTotalsKnown ? diag.backlog.retiredToday!.toLocaleString() : '—'}</b> items never scored because they waited too long{dailyLossTotalsKnown ? '.' : ' — saved cycle records cannot prove the full total.'}</li>
+              </ul>
+            </div>
             <BacklogGauge
               b={diag.backlog}
               dailyLossTotalsLowerBound={diag.today.totalsLowerBound === true && diag.today.durablyCommitted === true}
-              dailyLossTotalsUnverified={diag.today.totalsLowerBound !== false || diag.today.durablyCommitted !== true}
+              dailyLossTotalsUnverified={!dailyLossTotalsKnown}
               storageEmergency={storageEmergency}
             />
           </section>
+
+          {diag.rescue && (
+            <section className="diag__sec">
+              <div className="diag__sechead">Second look <span className="diag__count">{diag.rescue.mode === 'shadow' ? 'testing only' : 'off'}</span></div>
+              <div className={`diagwhy${diag.rescue.status === 'directory_paused' || diag.rescue.status === 'audit_unavailable' ? ' is-alert' : ''}`} role="status">
+                <div className="diagwhy__head"><span aria-hidden>↻</span><span>{diag.rescue.reason}</span></div>
+                <ul className="diagwhy__list">
+                  {diag.rescue.candidatesFound == null
+                    ? <li>{diag.rescue.status === 'disabled'
+                        ? 'Second-look checks and counts are turned off.'
+                        : diag.rescue.status === 'warming'
+                          ? 'Second-look counts will appear after the first complete history window is built.'
+                          : 'Second-look counts are unavailable because the saved second-look record could not be read.'}</li>
+                    : <li>{diag.rescue.candidatesFound.toLocaleString()} items looked worth checking again.</li>}
+                  {diag.rescue.identityChecks != null && diag.rescue.verified != null && (
+                    <li>{diag.rescue.identityChecks.toLocaleString()} of {diag.rescue.dailyCap.toLocaleString()} daily company checks used · {diag.rescue.verified.toLocaleString()} matched to a listed stock.</li>
+                  )}
+                  {(diag.rescue.identityUnresolved ?? 0) > 0 && <li>{diag.rescue.identityUnresolved!.toLocaleString()} could not be matched to one listed stock.</li>}
+                  {(diag.rescue.directoryUnavailable ?? 0) > 0 && <li>{diag.rescue.directoryUnavailable!.toLocaleString()} checks failed because the stock-listing lookup was unavailable.</li>}
+                  {(diag.rescue.retryCooling ?? 0) > 0 && <li>{diag.rescue.retryCooling!.toLocaleString()} are waiting 30 minutes before another stock-listing lookup.</li>}
+                  {(diag.rescue.retryExhausted ?? 0) > 0 && <li>{diag.rescue.retryExhausted!.toLocaleString()} could not be checked after two temporary listing-service failures.</li>}
+                  {(diag.rescue.capacityMisses ?? 0) > 0 && <li>{diag.rescue.capacityMisses!.toLocaleString()} were not reviewed: their daily second-look limit was reached.</li>}
+                  {(diag.rescue.queuedForLater ?? 0) > 0 && <li>{diag.rescue.queuedForLater!.toLocaleString()} are waiting for a paced slot later today.</li>}
+                  <li>{diag.rescue.articleReads.toLocaleString()} articles read · {diag.rescue.ideasCreated.toLocaleString()} ideas created. Shadow mode keeps both at zero.</li>
+                </ul>
+                <div className="diagwhy__foot">Not selected does not mean an item was proven wrong. It means it did not pass the evidence and capacity rules used that day.</div>
+              </div>
+            </section>
+          )}
 
           {/* the fallback ladder — Groq → overflow → Gemini → Haiku */}
           <details className="diagdetails">
