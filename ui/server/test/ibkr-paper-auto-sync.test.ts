@@ -114,6 +114,14 @@ const drainable = createIbkrPaperAutoSync({
 await assert.rejects(() => drainable.afterPublishedRun(published({ runId: 'run-4' })), /clock_failed/)
 await drainable.drain()
 
+const scheduledFailure = createIbkrPaperAutoSync({
+  enabled: true, stateDir: fs.mkdtempSync(path.join(os.tmpdir(), 'paper-auto-scheduled-failure-')),
+  now: () => { throw new Error('scheduled_clock_failed') },
+  sync: async () => executionResult(),
+})
+assert.equal(scheduledFailure.scheduleAfterPublishedRun(published({ runId: 'run-scheduled-failure' })), undefined)
+await scheduledFailure.drain()
+
 const olderRevision = 'a'.repeat(40)
 const newerRevision = 'b'.repeat(40)
 const orderedRevisions: string[] = []

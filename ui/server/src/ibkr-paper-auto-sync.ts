@@ -218,7 +218,11 @@ export function createIbkrPaperAutoSync(options: AutoSyncOptions = {}) {
     return tail
   }
 
-  const scheduleAfterPublishedRun = (run: PublishedResearchRun): void => { void afterPublishedRun(run) }
+  const scheduleAfterPublishedRun = (run: PublishedResearchRun): void => {
+    // Fire-and-forget callers cannot observe this promise. The normal broker path records failures as
+    // attempts; contain any unexpected scheduler/runtime rejection so it cannot terminate the server.
+    void afterPublishedRun(run).catch(() => {})
+  }
   const read = (): PaperAutoSyncRead => ({ enabled, last_attempt: cachedLastAttempt })
   const drain = async (): Promise<void> => {
     // Shutdown waits for broker work to finish, but an observability/runtime failure must not leave
