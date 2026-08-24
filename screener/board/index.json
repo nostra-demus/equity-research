@@ -1,6 +1,105 @@
 {
-  "generated_at": "2026-08-24T11:38:19Z",
+  "generated_at": "2026-08-24T11:49:16Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260824-767",
+      "headline": "SINO LAND (00083): Formation of the Joint Ventures and Award of the Tender for the Acquisition and Development of the Sites in Hong Kong",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0824/2026082401241.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-24T11:30:00Z",
+      "sweep_file": "screener/inbox/2026-08-24_sweep.json",
+      "prelim_note": "Formation of joint ventures and acquisition of development sites represents a significant capital commitment and growth initiative.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Formation of joint ventures and acquisition of development sites represents a significant capital commitment and growth initiative.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna",
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SINO LAND",
+          "ticker": "00083",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260824-773",
+      "headline": "CHINA ITS (01900): PROFIT WARNING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0824/2026082401223.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-24T11:24:00Z",
+      "sweep_file": "screener/inbox/2026-08-24_sweep.json",
+      "prelim_note": "Profit warning indicates a material deterioration in financial performance expectations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Profit warning indicates a material deterioration in financial performance expectations.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "guidance_change",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CHINA ITS",
+          "ticker": "01900",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260824-764",
       "headline": "LAI SI ENT (02266): PROFIT WARNING",
@@ -1527,6 +1626,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260824-776",
+      "headline": "Arbutus Commences US$230 Million Modified “Dutch Auction” Tender Offer of its Common Shares at a Price Not Greater Than US$5.75 Nor Less Than US$5.00 Per Share",
+      "headline_en": null,
+      "url": "https://www.globenewswire.com/news-release/2026/08/24/3349641/14025/en/arbutus-commences-us-230-million-modified-dutch-auction-tender-offer-of-its-common-shares-at-a-price-not-greater-than-us-5-75-nor-less-than-us-5-00-per-share.html",
+      "source_name": "GlobeNewswire — News about Public Companies",
+      "input_nature": "company_press_release",
+      "found_at": "2026-08-24T11:30:00Z",
+      "sweep_file": "screener/inbox/2026-08-24_sweep.json",
+      "prelim_note": "The company announced a $230 million share tender offer, which is a significant capital allocation event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company announced a $230 million share tender offer, which is a significant capital allocation event.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 3,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "capital_actions",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Arbutus Biopharma",
+          "ticker": "ABUS",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260824-757",
       "headline": "Otovo Enters Agreements for $11 Million Green Panel Acquisition, Expanding its Behind-the-Meter Energy Services Business",
       "headline_en": null,
@@ -1816,160 +1964,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260824-700",
-      "headline": "Western Potash Corp. Obtains Initial Order under the Companies' Creditors Arrangement Act | WTRNF Stock News",
-      "headline_en": null,
-      "url": "https://www.stocktitan.net/news/WTRNF/western-potash-corp-obtains-initial-order-under-the-companies-kksg2peqvz00.html",
-      "source_name": "Stock Titan — Latest News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-08-24T10:00:00Z",
-      "sweep_file": "screener/inbox/2026-08-24_sweep.json",
-      "prelim_note": "Western Potash obtained a CCAA initial order, a creditor-protection insolvency filing.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Western Potash obtained a CCAA initial order, a creditor-protection insolvency filing.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 3,
-        "scope": 6,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "default_distress",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "default_distress",
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Western Potash Corp.",
-          "ticker": "WTRNF",
-          "listing_country": "CA"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260824-496",
-      "headline": "Hengdian Group Acquires Jiali Industry in Largest M&A in Company’s History",
-      "headline_en": null,
-      "url": "https://www.globenewswire.com/news-release/2026/08/24/3349512/0/en/hengdian-group-acquires-jiali-industry-in-largest-m-a-in-company-s-history.html",
-      "source_name": "GlobeNewswire — Mergers & Acquisitions",
-      "input_nature": "company_press_release",
-      "found_at": "2026-08-24T08:35:00Z",
-      "sweep_file": "screener/inbox/2026-08-24_sweep.json",
-      "prelim_note": "A record-sized M&A transaction is a material event for the acquirer.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "A record-sized M&A transaction is a material event for the acquirer.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 3,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "company",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Hengdian Group",
-          "ticker": null,
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260824-476",
-      "headline": "Valerio Therapeutics annonce la signature d’accords définitifs en vue de l’acquisition d’Etherna Immunotherapies, créant ainsi un leader mondial des médicaments à base d’ARN ciblés et d’un financement de 40,25 millions d’euros auprès...",
-      "headline_en": "Valerio Therapeutics announces signing of definitive agreements for the acquisition of Etherna Immunotherapies, creating a global leader in targeted RNA medicines and a financing of €40.25 million fro",
-      "url": "http://www.businesswire.com/news/home/20260823775404/fr/?feedref=JjAwJuNHiystnCoBq_hl-Rc4vIAVcHHkbDcwJimU8QtrtlakeQ9hNboBqTAWIjTge3KWq9s9jif-UkBjBsFRyYAbRTSLTc1mgvhPlnaBA55M-oupQnbXnhKsYk8RmHF_kAy2gZikaX3QWV6xOvgFlA==",
-      "source_name": "Business Wire — Merger/Acquisition News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-08-24T06:00:00Z",
-      "sweep_file": "screener/inbox/2026-08-24_sweep.json",
-      "prelim_note": "Valerio Therapeutics signed definitive agreements to acquire Etherna Immunotherapies with €40.25M PIPE financing.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Valerio Therapeutics signed definitive agreements to acquire Etherna Immunotherapies with €40.25M PIPE financing.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 3,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 4,
-        "materiality_label_floor": 15,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "company",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "mna",
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Valerio Therapeutics",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Etherna Immunotherapies",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -85367,9 +85361,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 150918,
-    "news_picked_today": 1606,
-    "news_dropped_today": 10874
+    "news_seen_today": 166592,
+    "news_picked_today": 1660,
+    "news_dropped_today": 10928
   },
   "book_momentum": {
     "live_count": 8,
