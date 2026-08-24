@@ -166,7 +166,7 @@ export function createIbkrPaperAutoSync(options: AutoSyncOptions = {}) {
         newestPublicationRevision = revision
         const result = await sync(randomUUID(), { reconcilePositions: true, publishedRevision: revision })
         const partial = result.orders.length > 0 && result.skipped.length > 0
-        const detail = partial
+        const detail = result.skipped.length > 0
           ? `${result.detail} ${result.skipped.slice(0, 3).map((row) => `${row.ticker}: ${row.reason}`).join(' ')}`
           : result.detail
         attempt = {

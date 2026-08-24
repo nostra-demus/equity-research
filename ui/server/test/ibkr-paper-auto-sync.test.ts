@@ -78,6 +78,18 @@ const partialAttempt = await partial.afterPublishedRun(published({ runId: 'run-3
 assert.equal(partialAttempt?.outcome, 'partial')
 assert.match(String(partialAttempt?.detail), /ACME: waiting for the close fill/)
 
+const blockedState = fs.mkdtempSync(path.join(os.tmpdir(), 'paper-auto-sync-blocked-'))
+const blocked = createIbkrPaperAutoSync({
+  enabled: true, stateDir: blockedState,
+  sync: async () => ({
+    ok: true, paper_only: true, action: 'sync', detail: 'no order was safe', orders: [],
+    skipped: [{ ticker: 'ACME', reason: 'waiting for a reduction fill' }],
+  }),
+})
+const blockedAttempt = await blocked.afterPublishedRun(published({ runId: 'run-blocked' }))
+assert.equal(blockedAttempt?.outcome, 'no_order')
+assert.match(String(blockedAttempt?.detail), /ACME: waiting for a reduction fill/)
+
 const drainable = createIbkrPaperAutoSync({
   enabled: true,
   now: () => { throw new Error('clock_failed') },
@@ -118,4 +130,5 @@ fs.rmSync(stateDir, { recursive: true, force: true })
 fs.rmSync(failureState, { recursive: true, force: true })
 fs.rmSync(redactedState, { recursive: true, force: true })
 fs.rmSync(partialState, { recursive: true, force: true })
+fs.rmSync(blockedState, { recursive: true, force: true })
 console.log('ok  only terminally published Research calls automatically reconcile IBKR Paper once')
