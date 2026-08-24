@@ -44,10 +44,14 @@ try {
   const installed = path.join(codexBinHome, '.local', 'bin', 'codex')
   fs.mkdirSync(path.dirname(installed), { recursive: true })
   fs.writeFileSync(installed, '#!/bin/sh\nexit 0\n', { mode: 0o755 })
-  assert.equal(resolveCodexBin({ HOME: codexBinHome }), installed,
+  assert.equal(resolveCodexBin({ HOME: codexBinHome }), fs.realpathSync(installed),
     'the user-installed CLI wins over the potentially architecture-incompatible desktop bundle')
   assert.equal(resolveCodexBin({ CODEX_BIN: '/explicit/codex', HOME: codexBinHome }), '/explicit/codex',
     'an explicit operator override remains authoritative')
+  fs.rmSync(installed)
+  fs.mkdirSync(installed)
+  assert.notEqual(resolveCodexBin({ HOME: codexBinHome }), installed,
+    'an interrupted install directory is skipped in favor of the next usable CLI candidate')
 } finally { fs.rmSync(codexBinHome, { recursive: true, force: true }) }
 
 async function createTestPublicationTransport(

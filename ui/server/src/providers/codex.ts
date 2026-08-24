@@ -96,7 +96,7 @@ export function resolveCodexBin(env: NodeJS.ProcessEnv = process.env): string {
     '/Applications/ChatGPT.app/Contents/Resources/codex',
   ]
   for (const candidate of candidates) {
-    try { if (fs.existsSync(candidate)) return candidate } catch { /* keep looking */ }
+    try { return resolveExecutablePath(candidate, env) } catch { /* keep looking */ }
   }
   return 'codex'
 }
