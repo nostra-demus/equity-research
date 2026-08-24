@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-24T11:03:20Z",
+  "generated_at": "2026-08-24T11:08:27Z",
   "inbox": [
     {
       "inbox_id": "INB-20260824-732",
@@ -1576,6 +1576,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260824-754",
+      "headline": "XPENG Reports Second Quarter 2026 Unaudited Financial Results",
+      "headline_en": null,
+      "url": "https://www.prnewswire.com/news-releases/xpeng-reports-second-quarter-2026-unaudited-financial-results-302858198.html",
+      "source_name": "PR Newswire — Earnings",
+      "input_nature": "company_press_release",
+      "found_at": "2026-08-24T10:30:00Z",
+      "sweep_file": "screener/inbox/2026-08-24_sweep.json",
+      "prelim_note": "Quarterly earnings release is a primary event for assessing company performance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Quarterly earnings release is a primary event for assessing company performance.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 3,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "XPENG",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260824-731",
       "headline": "nVent to Acquire Maverick Power",
       "headline_en": null,
@@ -1890,55 +1939,6 @@
       "source_name": "PR Newswire — General Business",
       "input_nature": "company_press_release",
       "found_at": "2026-08-24T05:48:00Z",
-      "sweep_file": "screener/inbox/2026-08-24_sweep.json",
-      "prelim_note": "Skanska announced a CZK 2.1 billion (about SEK 930M) datacenter construction contract, a confirmed major capex commitment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Skanska announced a CZK 2.1 billion (about SEK 930M) datacenter construction contract, a confirmed major capex commitment.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 3,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Skanska AB",
-          "ticker": null,
-          "listing_country": "SE"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260824-631",
-      "headline": "Skanska bygger datacenter utanför Prag, Tjeckien, för CZK 2,1 miljarder, cirka 930 miljoner kronor",
-      "headline_en": "Skanska builds datacenter outside Prague, Czechia, for CZK 2.1 billion, about SEK 930 million",
-      "url": "https://news.cision.com/se/skanska/r/skanska-bygger-datacenter-utanfor-prag--tjeckien--for-czk-2-1-miljarder--cirka-930-miljoner-kronor,c4386682",
-      "source_name": "Cision — Sweden Regulatory & Company News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-08-24T05:30:00Z",
       "sweep_file": "screener/inbox/2026-08-24_sweep.json",
       "prelim_note": "Skanska announced a CZK 2.1 billion (about SEK 930M) datacenter construction contract, a confirmed major capex commitment.",
       "dedup_status": "new",
@@ -85373,9 +85373,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 127732,
-    "news_picked_today": 1545,
-    "news_dropped_today": 10803
+    "news_seen_today": 129807,
+    "news_picked_today": 1554,
+    "news_dropped_today": 10818
   },
   "book_momentum": {
     "live_count": 8,
