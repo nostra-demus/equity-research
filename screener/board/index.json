@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-08-24T04:22:18Z",
+  "generated_at": "2026-08-24T04:33:27Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260824-359",
+      "headline": "SDHG (00412): VERY SUBSTANTIAL DISPOSAL IN RELATION TO THE DISPOSAL OF SHARES IN VNET GROUP, INC. - CHOICE FAITH CLOSING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0824/2026082400369.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-24T04:21:00Z",
+      "sweep_file": "screener/inbox/2026-08-24_sweep.json",
+      "prelim_note": "Very substantial disposal of assets indicates a major shift in capital structure or strategy.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Very substantial disposal of assets indicates a major shift in capital structure or strategy.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SDHG",
+          "ticker": "00412",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260824-320",
       "headline": "JIAHUA STORES H (00602): FORECASTED INTERIM RESULTS - INCREASE IN NET LOSS",
@@ -541,6 +590,110 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260824-380",
+      "headline": "Shipping giant loses $600 million in three months due to Middle East conflict",
+      "headline_en": null,
+      "url": "https://www.arabianbusiness.com/business/shipping-giant-loses-600-million",
+      "source_name": "Arabian Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-24T04:28:51Z",
+      "sweep_file": "screener/inbox/2026-08-24_sweep.json",
+      "prelim_note": "A shipping company lost $600 million in three months due to Middle East conflict, a quantified loss from a geopolitical shock.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A shipping company lost $600 million in three months due to Middle East conflict, a quantified loss from a geopolitical shock.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "guidance_change",
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Shipping giant (unnamed)",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260824-381",
+      "headline": "Shell draws interest from bidders including Exxon for $8 billion US chemical assets, FT reports",
+      "headline_en": null,
+      "url": "https://www.reuters.com/legal/litigation/shell-draws-interest-bidders-including-exxon-8-billion-us-chemical-assets-ft-2026-08-24/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-24T04:12:21Z",
+      "sweep_file": "screener/inbox/2026-08-24_sweep.json",
+      "prelim_note": "Shell is drawing bidders including Exxon for $8 billion US chemical assets sale per FT report.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Shell is drawing bidders including Exxon for $8 billion US chemical assets sale per FT report.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "secondary",
+      "companies": [
+        {
+          "name": "Shell",
+          "ticker": "SHEL",
+          "listing_country": "GB"
+        },
+        {
+          "name": "Exxon",
+          "ticker": "XOM",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1814,150 +1967,6 @@
       ],
       "issuer_linkage": "macro",
       "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260824-303",
-      "headline": "US 'Economic D-Day' Begins As Trump Administration Enters 'Endgame' Against Iran, Vows To Sever Tehran's Financial Lifelines | Video",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/world/us-economic-d-day-begins-as-trump-administration-enters-endgame-against-iran-vows-to-sever-tehrans-financial-lifelines-video",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-24T03:12:03Z",
-      "sweep_file": "screener/inbox/2026-08-24_sweep.json",
-      "prelim_note": "US administration entering endgame against Iran vowing to sever Tehran's financial lifelines is a geopolitical escalation with market-wide impact.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "US administration entering endgame against Iran vowing to sever Tehran's financial lifelines is a geopolitical escalation with market-wide impact.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector",
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260824-009",
-      "headline": "SDHG (00412): MAJOR TRANSACTIONS IN RELATION TO THE EPC CONTRACT AND NOTICE OF SPECIAL GENERAL MEETING",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0824/2026082400169.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-23T23:40:00Z",
-      "sweep_file": "screener/inbox/2026-08-24_sweep.json",
-      "prelim_note": "Company announced a major EPC contract transaction requiring shareholder approval.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "Company announced a major EPC contract transaction requiring shareholder approval.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna",
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SDHG",
-          "ticker": "00412",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260824-012",
-      "headline": "SDHS NEW ENERGY (01250): MAJOR TRANSACTIONS IN RELATION TO THE EPC CONTRACT",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0824/2026082400157.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-23T23:32:00Z",
-      "sweep_file": "screener/inbox/2026-08-24_sweep.json",
-      "prelim_note": "Company announced a major EPC contract transaction.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "Company announced a major EPC contract transaction.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna",
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SDHS New Energy",
-          "ticker": "01250",
-          "listing_country": "CN"
-        }
-      ],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -75889,76 +75898,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-28c6fa2c0111",
-      "idea_version": "IDEAV-fea05ced41d4a423",
-      "idea_version_started_at": "2026-08-22T17:48:11Z",
-      "ticker": "PNR",
-      "company": "Pentair plc",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Pentair plc is facing a securities fraud lawsuit, which could lead to significant legal costs, settlements, and reputational damage.",
-      "why_now": "The opportunity for investors to lead the lawsuit was announced on August 22, 2026, indicating an active and ongoing legal challenge.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 18,
-        "impact": 18,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-0d1bd8726691"
-      ],
-      "primary_source_event_id": "EVT-0d1bd8726691",
-      "source_headlines": [
-        "PNR Investors Have Opportunity to Lead Pentair plc Securities Fraud Lawsuit"
-      ],
-      "source_headline": "PNR Investors Have Opportunity to Lead Pentair plc Securities Fraud Lawsuit",
-      "source_url": "https://www.prnewswire.com/news-releases/pnr-investors-have-opportunity-to-lead-pentair-plc-securities-fraud-lawsuit-302854974.html",
-      "source_name": "PR Newswire — All News Releases",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-22T16:32:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-22T17:48:11Z",
-      "updated_at": "2026-08-22T17:48:11Z",
-      "decay_at": "2026-08-24T04:32:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-af31c2e0f9bf",
       "idea_version": "IDEAV-8a3955213e634ef6",
       "idea_version_started_at": "2026-08-22T22:34:43Z",
@@ -76743,6 +76682,76 @@
       "promoted_signal_id": null,
       "feedback": null,
       "stale": false
+    },
+    {
+      "idea_id": "IDEA-28c6fa2c0111",
+      "idea_version": "IDEAV-fea05ced41d4a423",
+      "idea_version_started_at": "2026-08-22T17:48:11Z",
+      "ticker": "PNR",
+      "company": "Pentair plc",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Pentair plc is facing a securities fraud lawsuit, which could lead to significant legal costs, settlements, and reputational damage.",
+      "why_now": "The opportunity for investors to lead the lawsuit was announced on August 22, 2026, indicating an active and ongoing legal challenge.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 18,
+        "impact": 18,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-0d1bd8726691"
+      ],
+      "primary_source_event_id": "EVT-0d1bd8726691",
+      "source_headlines": [
+        "PNR Investors Have Opportunity to Lead Pentair plc Securities Fraud Lawsuit"
+      ],
+      "source_headline": "PNR Investors Have Opportunity to Lead Pentair plc Securities Fraud Lawsuit",
+      "source_url": "https://www.prnewswire.com/news-releases/pnr-investors-have-opportunity-to-lead-pentair-plc-securities-fraud-lawsuit-302854974.html",
+      "source_name": "PR Newswire — All News Releases",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-22T16:32:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-22T17:48:11Z",
+      "updated_at": "2026-08-22T17:48:11Z",
+      "decay_at": "2026-08-24T04:32:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
     },
     {
       "idea_id": "IDEA-373f07b62282",
@@ -79458,8 +79467,8 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 77,
-    "shown_count": 77,
+    "total_count": 78,
+    "shown_count": 78,
     "hidden_count": 0,
     "side_counts": {
       "long": {
@@ -79468,8 +79477,8 @@
         "hidden_count": 0
       },
       "short": {
-        "total_count": 51,
-        "shown_count": 51,
+        "total_count": 52,
+        "shown_count": 52,
         "hidden_count": 0
       }
     },
@@ -79489,6 +79498,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-28c6fa2c0111",
+        "idea_version": "IDEAV-fea05ced41d4a423",
+        "idea_version_started_at": "2026-08-22T17:48:11Z",
+        "ticker": "PNR",
+        "company": "Pentair plc",
+        "exchange": "NYSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "Pentair plc is facing a securities fraud lawsuit, which could lead to significant legal costs, settlements, and reputational damage.",
+        "why_now": "The opportunity for investors to lead the lawsuit was announced on August 22, 2026, indicating an active and ongoing legal challenge.",
+        "conviction": 55,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 62,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 18,
+          "impact": 18,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-0d1bd8726691"
+        ],
+        "primary_source_event_id": "EVT-0d1bd8726691",
+        "source_headlines": [
+          "PNR Investors Have Opportunity to Lead Pentair plc Securities Fraud Lawsuit"
+        ],
+        "source_headline": "PNR Investors Have Opportunity to Lead Pentair plc Securities Fraud Lawsuit",
+        "source_url": "https://www.prnewswire.com/news-releases/pnr-investors-have-opportunity-to-lead-pentair-plc-securities-fraud-lawsuit-302854974.html",
+        "source_name": "PR Newswire — All News Releases",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-22T16:32:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-22T17:48:11Z",
+        "updated_at": "2026-08-22T17:48:11Z",
+        "decay_at": "2026-08-24T04:32:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-24T04:32:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-fbb98074a072",
         "idea_version": "IDEAV-e7adf77ab9f48ad7",
@@ -85188,7 +85270,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 95,
-    "live_count": 17,
+    "live_count": 16,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -85207,9 +85289,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1501,
-    "news_picked_today": 533,
-    "news_dropped_today": 905
+    "news_seen_today": 1643,
+    "news_picked_today": 574,
+    "news_dropped_today": 1006
   },
   "book_momentum": {
     "live_count": 8,
