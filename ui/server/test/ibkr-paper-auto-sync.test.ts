@@ -147,6 +147,27 @@ const restartStaleAttempt = await afterRestart.afterPublishedRun(published({ run
 assert.deepEqual(afterRestartRevisions, [], 'restart recovery cannot roll the paper portfolio back to an older publication')
 assert.equal(restartStaleAttempt?.publication_revision, newerRevision)
 
+const failedNewerState = fs.mkdtempSync(path.join(os.tmpdir(), 'paper-auto-sync-failed-newer-'))
+const failedNewer = createIbkrPaperAutoSync({
+  enabled: true, stateDir: failedNewerState,
+  isRevisionAncestor: async (ancestor, descendant) => ancestor === olderRevision && descendant === newerRevision,
+  sync: async () => { throw new Error('temporary_tws_failure') },
+})
+assert.equal((await failedNewer.afterPublishedRun(published({ runId: 'failed-newer', publicationRevision: newerRevision })))?.outcome, 'error')
+const olderAfterFailure = await failedNewer.afterPublishedRun(published({ runId: 'older-after-failure', publicationRevision: olderRevision }))
+assert.equal(olderAfterFailure?.outcome, 'error', 'an older skip cannot hide a newer failed authority')
+assert.equal(failedNewer.read().last_attempt?.publication_revision, newerRevision)
+let failedNewerRetries = 0
+const failedNewerRestart = createIbkrPaperAutoSync({
+  enabled: true, stateDir: failedNewerState,
+  sync: async () => {
+    failedNewerRetries++
+    return { ok: true, paper_only: true, action: 'sync', detail: 'recovered', orders: [], skipped: [] }
+  },
+})
+assert.equal((await failedNewerRestart.afterPublishedRun(published({ runId: 'failed-newer-retry', publicationRevision: newerRevision })))?.outcome, 'aligned')
+assert.equal(failedNewerRetries, 1, 'the newer failed authority remains retryable after an older event and restart')
+
 const launcher = fs.readFileSync(new URL('../src/launcher.ts', import.meta.url), 'utf8')
 assert.match(launcher, /if \(status === 'done'\) scheduleIbkrPaperAutoSyncAfterPublication\(run\)/,
   'the single close-time success finalizer must own the automatic broker trigger')
@@ -164,4 +185,5 @@ fs.rmSync(redactedState, { recursive: true, force: true })
 fs.rmSync(partialState, { recursive: true, force: true })
 fs.rmSync(blockedState, { recursive: true, force: true })
 fs.rmSync(restartState, { recursive: true, force: true })
+fs.rmSync(failedNewerState, { recursive: true, force: true })
 console.log('ok  only terminally published Research calls automatically reconcile IBKR Paper once')
