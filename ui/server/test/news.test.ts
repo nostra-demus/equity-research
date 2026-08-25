@@ -3430,6 +3430,75 @@ await check('triage falls back to OVERFLOW when Groq fails — the batch is scor
   assert.equal(JSON.parse(fs.readFileSync(path.join(state, 'news-deferred.json'), 'utf8')).length, 0, 'nothing deferred — overflow handled it')
 })
 
+await check('a terminal Groq key fault is quarantined once while overflow keeps every later batch moving', async () => {
+  const root = tmp()
+  const state = tmp()
+  const goodTriage = { usage: { total_tokens: 200 }, choices: [{ message: { content: JSON.stringify({ items: [
+    { i: 0, relevance: 'material', materiality_pre_score: 84, event_types: ['macro_sector'], issuer_linkage: 'macro', why: 'A policy surprise changes funding costs.', companies: [], size_bucket: 'unknown' },
+  ] }) } }] }
+  let groqHits = 0, overflowHits = 0, sourceServed = false, sourceRound = 0
+  const fetchFn = (async (url: string) => {
+    const u = String(url)
+    if (u.includes('groq')) {
+      groqHits++
+      return res({ error: { type: 'invalid_request_error', code: 'invalid_api_key', message: 'private account details' } }, 401)
+    }
+    if (u.includes('overflow.test')) { overflowHits++; return res(goodTriage) }
+    if (u.includes('gdelt') && !sourceServed) {
+      sourceServed = true
+      sourceRound++
+      return res({ articles: [{ url: `https://reuters.com/quarantine-${sourceRound}`, title: `RBI policy surprise changes funding costs round ${sourceRound}`, domain: 'reuters.com', seendate: '20260612T090000Z' }] })
+    }
+    return res({ articles: [] })
+  }) as unknown as typeof fetch
+  const cfg = {
+    groqApiKey: 'bad-key', groqModel: 'openai/gpt-oss-20b', gdeltBaseUrl: 'https://gdelt.test/doc',
+    groqBaseUrl: 'https://groq.test', groqRpm: 6000, gdeltLookbackMin: 40, rssEnabled: false,
+    overflowProviders: [{ id: 'ovf', label: 'OVF', color: '--x', apiKey: 'k', baseUrl: 'https://overflow.test/v1', model: 'm', maxTokens: 900, rpm: 6000, tpm: 0, dailyReqCap: 100, dailyTokenCap: 1e9, budgetFile: 'ovf-budget.json' }],
+  } as any
+  const first = await runIngestCycle({ repoRoot: root, stateDir: state, config: cfg, fetchFn, sleep: noSleep, now: () => new Date('2026-06-12T09:30:00Z') })
+  assert.equal(first.picked, 1)
+  assert.equal(groqHits, 1)
+  assert.equal(overflowHits, 1)
+  assert.equal(JSON.parse(fs.readFileSync(path.join(state, 'provider-groq-quarantine.json'), 'utf8')).failureCode, 'auth')
+
+  sourceServed = false
+  const second = await runIngestCycle({ repoRoot: root, stateDir: state, config: cfg, fetchFn, sleep: noSleep, now: () => new Date('2026-06-12T09:35:00Z') })
+  assert.equal(second.picked, 1, 'the healthy fallback continues scoring new work')
+  assert.equal(groqHits, 1, 'the unchanged terminal fault spends no second Groq request')
+  assert.equal(overflowHits, 2, 'the second batch falls through without delay')
+})
+
+await check('a repaired Groq configuration is not trapped behind an old un-fingerprinted access marker', async () => {
+  resetCooldownMemory(); resetBudgetMemory(); resetSharedLimiters()
+  const root = tmp()
+  const state = tmp()
+  const at = Date.parse('2026-06-12T09:30:00Z')
+  for (let i = 0; i < 3; i++) armCooldown(state, at - 60_000 + i, 3_600_000, 'groq', 3_600_000, 'provider-access')
+  assert.ok(readCooldownUntil(state, 'groq') > at, 'fixture carries the old live access marker')
+
+  const goodTriage = { usage: { total_tokens: 200 }, choices: [{ message: { content: JSON.stringify({ items: [
+    { i: 0, relevance: 'material', materiality_pre_score: 84, event_types: ['macro_sector'], issuer_linkage: 'macro', why: 'A policy surprise changes funding costs.', companies: [], size_bucket: 'unknown' },
+  ] }) } }] }
+  let groqHits = 0, sourceServed = false
+  const fetchFn = (async (url: string) => {
+    const target = String(url)
+    if (target.includes('groq')) { groqHits++; return res(goodTriage) }
+    if (target.includes('gdelt') && !sourceServed) {
+      sourceServed = true
+      return res({ articles: [{ url: 'https://reuters.com/repaired-groq', title: 'RBI policy surprise changes funding costs', domain: 'reuters.com', seendate: '20260612T090000Z' }] })
+    }
+    return res({ articles: [] })
+  }) as unknown as typeof fetch
+  const summary = await runIngestCycle({
+    repoRoot: root, stateDir: state, fetchFn, sleep: noSleep, now: () => new Date(at),
+    config: { groqApiKey: 'repaired-key', groqModel: 'openai/gpt-oss-20b', groqBaseUrl: 'https://groq.test', groqRpm: 6000, gdeltBaseUrl: 'https://gdelt.test/doc', gdeltLookbackMin: 40, rssEnabled: false, overflowProviders: [] } as any,
+  })
+  assert.equal(groqHits, 1, 'the repaired fingerprint gets one real classified attempt immediately')
+  assert.equal(summary.picked, 1)
+  assert.equal(fs.existsSync(path.join(state, 'groq-health.json')), false, 'success removes the obsolete marker')
+})
+
 // ---- LOCAL primary brain: unlimited, $0, tried FIRST — Groq + every cloud/paid tier is fallback ----
 const localCfg = () => ({ id: 'local', label: 'Local', color: '--provider-local', apiKey: 'local', baseUrl: 'https://local.test/v1', model: 'qwen2.5:7b-instruct', dailyReqCap: 100_000_000, rpm: 0, timeoutMs: 120_000, maxAttempts: 1, skipArticleRead: true, maxTokens: 3500, budgetFile: 'local-budget.json' })
 
@@ -4224,13 +4293,13 @@ await check('readArticleBrief rechecks a provider hold after its limiter wait', 
   }
 })
 
-await check('readArticleBrief: request/contract/short-timeout failures stay article-scoped; service failures stay shared', async () => {
+await check('readArticleBrief: terminal faults quarantine; retryable request/contract/timeout failures stay article-scoped; service failures stay shared', async () => {
   const body = 'The central bank cut rates by 50 basis points in a surprise off-cycle move, citing softer inflation and slowing growth across the economy.'
   const at = Date.parse('2026-06-12T09:30:00Z')
   const cases: Array<{
     id: string
     fetchFn: typeof fetch
-    expectedScope: 'article' | 'shared'
+    expectedScope: 'article' | 'shared' | 'quarantine-provider' | 'quarantine-article'
   }> = [
     {
       id: 'request-shape', expectedScope: 'article',
@@ -4240,7 +4309,11 @@ await check('readArticleBrief: request/contract/short-timeout failures stay arti
       })) as unknown as typeof fetch,
     },
     {
-      id: 'access', expectedScope: 'shared',
+      id: 'request-terminal', expectedScope: 'quarantine-article',
+      fetchFn: (async () => res('private account invalid request details', 400)) as unknown as typeof fetch,
+    },
+    {
+      id: 'access', expectedScope: 'quarantine-provider',
       fetchFn: (async () => res('private account access details', 401)) as unknown as typeof fetch,
     },
     {
@@ -4278,8 +4351,14 @@ await check('readArticleBrief: request/contract/short-timeout failures stay arti
     const articleId = `article:${c.id}/model-a`
     assert.equal(readCooldownUntil(state, articleId) > at, c.expectedScope === 'article', `${c.id}: article circuit scope`)
     assert.equal(readCooldownUntil(state, c.id) > at, c.expectedScope === 'shared', `${c.id}: shared circuit scope`)
+    if (c.expectedScope === 'quarantine-provider') {
+      assert.ok(fs.existsSync(path.join(state, `provider-${c.id}-quarantine.json`)), `${c.id}: provider quarantine is durable`)
+    }
+    if (c.expectedScope === 'quarantine-article') {
+      assert.ok(fs.existsSync(path.join(state, `provider-${c.id}-article-quarantine.json`)), `${c.id}: article-only quarantine is durable`)
+    }
     if (c.id === 'request-shape') assert.equal(readCooldownUntil(state, articleId), at + 25_000, 'request Retry-After stays exact on the article circuit')
-    assert.doesNotMatch(result.note || '', /acct-request|deployment id|DNS host|socket detail/, `${c.id}: public note is sanitized`)
+    assert.doesNotMatch(result.note || '', /acct-request|invalid request details|account access details|deployment id|DNS host|socket detail/, `${c.id}: public note is sanitized`)
     const saved = JSON.parse(fs.readFileSync(path.join(state, `${c.id}-budget.json`), 'utf8'))
     assert.equal(Boolean(saved.exhausted), false, `${c.id}: only an explicit daily-limit signal may exhaust the shared provider day`)
   }
