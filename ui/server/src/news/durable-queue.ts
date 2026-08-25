@@ -6,6 +6,7 @@ import type { NewsItem } from './types'
 
 const DATABASE_FILE = 'news-queue.sqlite'
 const ESTABLISHED_FILE = 'news-queue.sqlite.established'
+const DOWNGRADE_BARRIER_FILE = 'news-deferred-pending.json'
 const SCHEMA_VERSION = '2'
 
 export type QueueLane = 'barrier' | 'hot' | 'overflow'
@@ -47,14 +48,12 @@ function pathExists(file: string): boolean {
   }
 }
 
-function persistEstablishedMarker(stateDir: string): void {
-  const target = establishedPath(stateDir)
-  if (pathExists(target)) return
+function writeAtomicFile(stateDir: string, target: string, bytes: string): void {
   const tmp = `${target}.${process.pid}.${Math.random().toString(16).slice(2)}.tmp`
   let fd: number | undefined
   try {
     fd = fs.openSync(tmp, 'wx', 0o600)
-    fs.writeFileSync(fd, `schema=${SCHEMA_VERSION}\n`)
+    fs.writeFileSync(fd, bytes)
     fs.fsyncSync(fd)
     fs.closeSync(fd)
     fd = undefined
@@ -65,6 +64,29 @@ function persistEstablishedMarker(stateDir: string): void {
     try { if (fd != null) fs.closeSync(fd) } catch { /* best effort */ }
     try { fs.rmSync(tmp, { force: true }) } catch { /* best effort */ }
   }
+}
+
+function persistDowngradeBarrier(stateDir: string): void {
+  const target = path.join(stateDir, DOWNGRADE_BARRIER_FILE)
+  let items: unknown[] = []
+  try {
+    const value = JSON.parse(fs.readFileSync(target, 'utf8'))
+    if (value?.v === 2 && Array.isArray(value.items)) return
+    if (!Array.isArray(value)) throw new Error('invalid downgrade barrier')
+    items = value
+  } catch (error: any) {
+    if (error?.code !== 'ENOENT') throw error
+  }
+  // Pre-SQLite workers inspect this pathname and reject the object wrapper. Preserve any legacy pending
+  // rows while forcing a downgrade to pause instead of completing work outside the canonical database.
+  writeAtomicFile(stateDir, target, `${JSON.stringify({ v: 2, items })}\n`)
+}
+
+function persistEstablishedMarker(stateDir: string): void {
+  persistDowngradeBarrier(stateDir)
+  const target = establishedPath(stateDir)
+  if (pathExists(target)) return
+  writeAtomicFile(stateDir, target, `schema=${SCHEMA_VERSION}\n`)
 }
 
 function meta(db: DatabaseSync, key: string): string | null {

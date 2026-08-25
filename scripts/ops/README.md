@@ -437,9 +437,10 @@ leave newer sidecars or journals beside an older restored database: SQLite could
 while startup could re-import journal rows whose completion tombstones exist only in the displaced database.
 
 ```bash
-launchctl bootout "gui/$(id -u)/com.nostradamus.engine"
+set -euo pipefail
+launchctl bootout "gui/$(id -u)/com.nostradamus.engine" 2>/dev/null || true
 QUEUE_STATE="$HOME/nostra-prod/ui/server/.state"
-QUEUE_BACKUP="$NEWS_ARCHIVE_DIR/news-queue-latest.sqlite.gz"
+QUEUE_BACKUP="${NEWS_ARCHIVE_DIR:?set NEWS_ARCHIVE_DIR}/news-queue-latest.sqlite.gz"
 RESTORE_WORK="$(mktemp -d)"
 (cd "$(dirname "$QUEUE_BACKUP")" && shasum -a 256 -c "$(basename "$QUEUE_BACKUP").sha256")
 gzip -dc "$QUEUE_BACKUP" > "$RESTORE_WORK/news-queue.sqlite"

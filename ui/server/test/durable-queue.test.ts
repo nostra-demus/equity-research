@@ -66,6 +66,8 @@ check('legacy JSON migrates once and SQLite remains authoritative when that proj
   const afterCorruption = inspectDeferredBacklog(state)
   assert.equal(afterCorruption.available, true, 'a broken compatibility file cannot take the canonical database down')
   assert.deepEqual(afterCorruption.items.map((row) => row.event_id), migrated.items.map((row) => row.event_id))
+  const rollbackBarrier = JSON.parse(fs.readFileSync(path.join(state, 'news-deferred-pending.json'), 'utf8'))
+  assert.deepEqual(rollbackBarrier, { v: 2, items: [] }, 'an established SQLite queue forces old workers to pause')
 })
 
 check('an unchanged compatibility projection is read without waiting for a SQLite writer', () => {
@@ -284,17 +286,16 @@ check('the Drive archive uses verified atomic copies, prunes only matching old f
   fs.utimesSync(source, old, old)
 
   const script = path.join(REPO_ROOT, 'scripts/ops/news-archive.sh')
-  execFileSync('/bin/bash', [script], {
-    env: {
-      ...process.env,
-      REPO: root,
-      ENGINE_STATE_DIR: state,
-      NEWS_ARCHIVE_DIR: archive,
-      NEWS_LOCAL_RETENTION_DAYS: '30',
-      ARCHIVE_LOG: log,
-      NODE_BIN: process.execPath,
-    },
-  })
+  const archiveEnv = {
+    ...process.env,
+    REPO: root,
+    ENGINE_STATE_DIR: state,
+    NEWS_ARCHIVE_DIR: archive,
+    NEWS_LOCAL_RETENTION_DAYS: '30',
+    ARCHIVE_LOG: log,
+    NODE_BIN: process.execPath,
+  }
+  execFileSync('/bin/bash', [script], { env: archiveEnv })
   const archivedFirehose = path.join(archive, path.basename(source))
   assert.equal(fs.existsSync(source), false, 'local data is pruned only after the archive bytes match')
   assert.equal(fs.readFileSync(archivedFirehose, 'utf8'), '{"kind":"item","event_id":"EVT-archive"}\n')
@@ -308,6 +309,15 @@ check('the Drive archive uses verified atomic copies, prunes only matching old f
     assert.equal((db.prepare('PRAGMA quick_check').get() as any).quick_check, 'ok')
     assert.equal((db.prepare("SELECT COUNT(*) AS count FROM news_queue WHERE state = 'active'").get() as any).count, 1)
   } finally { db.close() }
+
+  const failed = spawnSync('/bin/bash', [script], {
+    env: { ...archiveEnv, NODE_BIN: path.join(tmp(), 'missing-node') },
+  })
+  assert.equal(failed.status, 1, 'an existing queue without both snapshots is a service failure')
+  const failureMarker = path.join(state, 'news-archive.failed')
+  assert.equal(fs.existsSync(failureMarker), true)
+  execFileSync('/bin/bash', [script], { env: archiveEnv })
+  assert.equal(fs.existsSync(failureMarker), false, 'a later verified pair clears the monitored failure')
 })
 
 console.log(`durable queue tests: ${passed} passed`)

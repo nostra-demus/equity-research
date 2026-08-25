@@ -678,18 +678,21 @@ function saveCanonicalInputWindow(stateDir: string, items: readonly NewsItem[], 
 
 function clearInputBarrier(stateDir: string, log: (m: string) => void): boolean {
   const target = path.join(stateDir, DEFERRED_PENDING_FILE)
+  const tmp = `${target}.clear.tmp`
   try {
     const outstanding = durableQueueLaneCount(stateDir, 'barrier')
     if (outstanding == null || outstanding > 0) {
       throw new Error(`SQLite input barrier still contains ${outstanding == null ? 'unknown' : outstanding} item(s)`)
     }
-    fs.rmSync(target, { force: true })
-    fsyncDirectory(stateDir)
+    // Keep an empty v2 rollback barrier permanently. A pre-SQLite worker rejects this wrapper and pauses,
+    // so it can never consume a plain-array projection without updating the canonical database.
+    writeAtomicDurably(tmp, target, `${JSON.stringify({ v: 2, items: [] })}\n`)
     // Do not purge here. A scored checkpoint or overflow projection may still exist and could resurrect a
     // completed row after a crash. saveDeferred owns the single purge boundary after every projection is gone.
     return true
   } catch (e: any) {
     log(`clearInputBarrier failed (${e?.message || e}) — full pending barrier remains authoritative`)
+    try { fs.rmSync(tmp, { force: true }) } catch { /* best effort */ }
     return false
   }
 }
@@ -777,7 +780,9 @@ export function saveDeferred(
     writeAtomicDurably(tmp, target, bytes)
     let compatibilityJournalsCleared = false
     try {
-      fs.rmSync(pending, { force: true })
+      // Replace the write-ahead rows with a permanent empty v2 downgrade barrier. Old workers reject it;
+      // current readers treat it as an empty compatibility projection.
+      writeAtomicDurably(pendingTmp, pending, `${JSON.stringify({ v: 2, items: [] })}\n`)
       fs.rmSync(scoredCheckpoint, { force: true })
       fsyncDirectory(stateDir)
       compatibilityJournalsCleared = true

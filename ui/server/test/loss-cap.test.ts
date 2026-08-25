@@ -127,13 +127,15 @@ await check('every rolling handoff crash boundary pauses an array-only worker an
     const cfg = { groqApiKey: 'k', gdeltBaseUrl: 'https://gdelt.test/doc', groqBaseUrl: 'https://groq.test', groqRpm: 6000, gdeltLookbackMin: 40, rssEnabled: false, themesEnabled: false, overflowProviders: [], geminiEnabled: false, geminiApiKey: '', anthropicFallbackEnabled: false } as any
     const origRename = fs.renameSync
     const origRm = fs.rmSync
+    let pendingRenames = 0
     ;(fs as any).renameSync = (from: string, to: string) => {
       if (boundary.fail === 'canonical' && String(to) === path.join(state, 'news-deferred.json')) throw new Error('simulated crash before canonical rename')
       if (boundary.fail === 'overflow' && String(to) === path.join(state, 'news-input-overflow.json')) throw new Error('simulated crash before overflow rename')
+      if (boundary.fail === 'barrier-remove' && String(to) === path.join(state, 'news-deferred-pending.json')
+        && ++pendingRenames === 2) throw new Error('simulated crash before empty rollback barrier')
       return (origRename as any)(from, to)
     }
     ;(fs as any).rmSync = (target: string, options?: any) => {
-      if (boundary.fail === 'barrier-remove' && String(target) === path.join(state, 'news-deferred-pending.json')) throw new Error('simulated crash before barrier removal')
       return (origRm as any)(target, options)
     }
     let summary: any

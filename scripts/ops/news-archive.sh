@@ -13,7 +13,8 @@
 #   - SNAPSHOT the live SQLite queue through SQLite's online backup API; never copy the open WAL database.
 #   - PRUNE local firehose and pipeline-audit files older than RETENTION_DAYS, but ONLY when every byte matches
 #     the Drive copy (never delete data that isn't safely mirrored).
-#   - No-ops cleanly if the Drive folder isn't reachable (Drive app off) — logs and exits 0, prunes nothing.
+#   - If a canonical queue exists, an unreachable Drive or incomplete snapshot pair exits non-zero and leaves
+#     a watchdog-visible failure marker. Without a queue yet, an unreachable archive remains a clean no-op.
 # ---------------------------------------------------------------------------------------------------
 
 REPO="${REPO:-$HOME/nostra-prod}"
@@ -23,15 +24,32 @@ LOG="${ARCHIVE_LOG:-$HOME/Library/Logs/nostradamus-news-archive.log}"
 SRC="$REPO/screener/inbox"
 STATE_DIR="${ENGINE_STATE_DIR:-$REPO/ui/server/.state}"
 NODE_BIN="${NODE_BIN:-$(command -v node 2>/dev/null)}"
+QUEUE_DB="$STATE_DIR/news-queue.sqlite"
+QUEUE_FAILURE_MARKER="$STATE_DIR/news-archive.failed"
 ts() { date "+%Y-%m-%dT%H:%M:%S"; }
 mkdir -p "$(dirname "$LOG")" 2>/dev/null
 
+mark_queue_failure() {
+  mkdir -p "$STATE_DIR" 2>/dev/null || true
+  marker_tmp="$QUEUE_FAILURE_MARKER.$$.tmp"
+  printf '%s queue-snapshot-failed\n' "$(ts)" > "$marker_tmp" 2>/dev/null \
+    && mv -f "$marker_tmp" "$QUEUE_FAILURE_MARKER" 2>/dev/null || true
+}
+
 if [ -z "$ARCH" ]; then
+  if [ -f "$QUEUE_DB" ]; then
+    mark_queue_failure
+    echo "$(ts) [error] NEWS_ARCHIVE_DIR not set — canonical SQLite queue has no cloud restore point" >> "$LOG"
+    exit 1
+  fi
   echo "$(ts) [skip] NEWS_ARCHIVE_DIR not set — no cloud archive configured" >> "$LOG"; exit 0
 fi
 # the Drive folder must exist + be writable (Drive app running + mounted), else don't prune anything
 if ! mkdir -p "$ARCH" 2>/dev/null || [ ! -w "$ARCH" ]; then
-  echo "$(ts) [waiting] Drive folder not reachable ($ARCH) — is Google Drive running? (no prune this run)" >> "$LOG"; exit 0
+  [ ! -f "$QUEUE_DB" ] || mark_queue_failure
+  echo "$(ts) [waiting] Drive folder not reachable ($ARCH) — is Google Drive running? (no prune this run)" >> "$LOG"
+  [ ! -f "$QUEUE_DB" ] || exit 1
+  exit 0
 fi
 
 echo "$(ts) [start] mirror raw news → $ARCH" >> "$LOG"
@@ -58,7 +76,6 @@ echo "$(ts) [up] $up file(s) copied/updated to Drive" >> "$LOG"
 # ingestion continues. Keep one dated restore point per UTC day and a stable latest name; neither limits the
 # raw Drive archive or removes the live local queue.
 queue_snapshots=0
-QUEUE_DB="$STATE_DIR/news-queue.sqlite"
 if [ -f "$QUEUE_DB" ]; then
   if [ -z "$NODE_BIN" ] || [ ! -x "$NODE_BIN" ]; then
     echo "$(ts) [warn] node is unavailable — SQLite queue snapshot skipped (raw archive still copied)" >> "$LOG"
@@ -109,5 +126,11 @@ while IFS= read -r f; do
   fi
 done < <(find "$SRC" \( -name '*_firehose.ndjson' -o -name '*_pipeline.ndjson' \) -type f -mtime +"$RETENTION_DAYS" 2>/dev/null)
 
+if [ -f "$QUEUE_DB" ] && [ "$queue_snapshots" -ne 2 ]; then
+  mark_queue_failure
+  echo "$(ts) [error] archive incomplete · uploaded $up · queue snapshots $queue_snapshots/2 · pruned $pruned" >> "$LOG"
+  exit 1
+fi
+rm -f "$QUEUE_FAILURE_MARKER" 2>/dev/null || true
 echo "$(ts) [ok] archive complete · uploaded $up · queue snapshots $queue_snapshots · pruned $pruned (local retention ${RETENTION_DAYS}d)" >> "$LOG"
 exit 0
