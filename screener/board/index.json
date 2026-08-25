@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-25T00:17:28Z",
+  "generated_at": "2026-08-25T00:26:52Z",
   "inbox": [
     {
       "inbox_id": "INB-20260825-001",
@@ -342,6 +342,50 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260825-118",
+      "headline": "Iran war live: US slaps new sanctions on Iran, warns Tehran trade partners",
+      "headline_en": null,
+      "url": "https://www.aljazeera.com/news/liveblog/2026/8/25/iran-war-live-drat?traffic_source=rss",
+      "source_name": "Al Jazeera — All news",
+      "input_nature": "geopolitical_event",
+      "found_at": "2026-08-25T00:00:00Z",
+      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
+      "prelim_note": "Geopolitical escalation involving new US sanctions on Iran, impacting global trade and energy markets.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Geopolitical escalation involving new US sanctions on Iran, impacting global trade and energy markets.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260825-018",
       "headline": "FFM: Green Bay PEA confirms Scale, Long Life and Strong Returns [price-sensitive]",
       "headline_en": null,
@@ -435,6 +479,56 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260825-157",
+      "headline": "TCL ELECTRONICS (01070): (1) MAJOR AND CONNECTED TRANSACTION; AND (2) CONTINUING CONNECTED TRANSACTIONS",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0824/2026082401938.htm",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-24T14:41:00Z",
+      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
+      "prelim_note": "Announcement of major and connected transactions requires review for potential impact on capital structure or related-party risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Announcement of major and connected transactions requires review for potential impact on capital structure or related-party risk.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 2,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna",
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "TCL Electronics",
+          "ticker": "01070",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -728,6 +822,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260825-160",
+      "headline": "LUXSHARE ICT (02475): PROPOSED AMENDMENTS TO THE ARTICLES OF ASSOCIATION; PROPOSED AMENDMENTS TO THE RULES FOR MANAGEMENT OF RELATED TRANSACTIONS; PROPOSED REGISTRATION AND ISSUANCE OF BONDS; AND NOTICE OF EXTRAORDINARY GENERAL MEETING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0824/2026082401931.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-24T14:39:00Z",
+      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
+      "prelim_note": "Luxshare ICT proposes bond issuance and governance amendments with EGM, no size stated.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 80,
+      "triage_reason": "Luxshare ICT proposes bond issuance and governance amendments with EGM, no size stated.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "debt_credit",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capital_actions",
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "LUXSHARE ICT",
+          "ticker": "02475",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260825-106",
       "headline": "IIFL Finance Limited: IIFL Finance Limited has informed the Exchange regarding Initiation of Tax Litigation w.r.t. Material Subsidiary of the Company and Update on Tax Litigation of the Company.",
       "headline_en": null,
@@ -772,6 +916,60 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260825-147",
+      "headline": "GANFENGLITHIUM (01772): DISCLOSEABLE AND CONNECTED TRANSACTIONS - SUBSCRIPTION FOR CONVERTIBLE DEBENTURE OF LAR BY GFL INTERNATIONAL",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0824/2026082402097.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-24T14:55:00Z",
+      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
+      "prelim_note": "Connected subscription for convertible debenture of Lithium Americas by GFL International is a discloseable related-party debt transaction with no size stated.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 79,
+      "triage_reason": "Connected subscription for convertible debenture of Lithium Americas by GFL International is a discloseable related-party debt transaction with no size stated.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 7,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "debt_credit",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "GANFENGLITHIUM",
+          "ticker": "01772",
+          "listing_country": "HK"
+        },
+        {
+          "name": "Lithium Americas",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -974,6 +1172,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260825-145",
+      "headline": "CNGR (02579): CONTINUING CONNECTED TRANSACTIONS ENTERING INTO THE SECOND SUPPLEMENTAL AGREEMENT TO THE JINNENG GROUP COMPREHENSIVE PRODUCTS SUPPLY FRAMEWORK AGREEMENT AND REVISION OF 2026 ANNUAL CAP",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0824/2026082402111.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-24T14:56:00Z",
+      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
+      "prelim_note": "CNGR entered a second supplemental agreement to a comprehensive products supply framework with Jinneng Group and revised its 2026 annual cap, a related-party commercial update.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 75,
+      "triage_reason": "CNGR entered a second supplemental agreement to a comprehensive products supply framework with Jinneng Group and revised its 2026 annual cap, a related-party commercial update.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 3,
+        "size": 1,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "commercial",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CNGR",
+          "ticker": "02579",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260825-155",
+      "headline": "SDMC (00901): VOLUNTARY ANNOUNCEMENT SELECTED FOR INCLUSION AS A CONSTITUENT OF HANG SENG COMPOSITE INDEX",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0824/2026082401975.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-24T14:43:00Z",
+      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
+      "prelim_note": "Voluntary announcement of selection as a Hang Seng Composite Index constituent triggers passive fund inflows.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 75,
+      "triage_reason": "Voluntary announcement of selection as a Hang Seng Composite Index constituent triggers passive fund inflows.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "index_rebalance",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "index_rebalance"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SDMC",
+          "ticker": "00901",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260825-074",
       "headline": "TVN: Tivan to commence drilling at Walshy's Wall [price-sensitive]",
       "headline_en": null,
@@ -1166,6 +1462,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260825-136",
+      "headline": "HGH: Update on proposed TSB transaction",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.HGH?key=2924-03125184-2A1691569",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-24T21:31:45Z",
+      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
+      "prelim_note": "Update on a proposed transaction (TSB) for HGH with no deal terms or confirmation in headline.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 71,
+      "triage_reason": "Update on a proposed transaction (TSB) for HGH with no deal terms or confirmation in headline.",
+      "region": "OTHER",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HGH",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1367,6 +1712,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260825-146",
+      "headline": "CNGR (02579): PROPOSED CHANGES IN USE OF RAISED FUNDS FROM THE H SHARE GLOBAL OFFERING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0824/2026082402103.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-24T14:55:00Z",
+      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
+      "prelim_note": "Proposed change in use of IPO raised funds is a governance/capital allocation update with no quantified impact stated.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 68,
+      "triage_reason": "Proposed change in use of IPO raised funds is a governance/capital allocation update with no quantified impact stated.",
+      "region": "CN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 2,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capital_actions",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CNGR",
+          "ticker": "02579",
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260825-008",
       "headline": "Trinity Place Holdings Inc. Reports Second Quarter Financial Results | TPHS Stock News",
       "headline_en": null,
@@ -1514,435 +1908,50 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260825-116",
-      "headline": "Zenith Steel Pipes & Industries Limited: Zenith Steel Pipes & Industries Limited has informed the Exchange about change in Management",
+      "inbox_id": "INB-20260825-158",
+      "headline": "ANJOY FOOD (02648): Overseas Regulatory Announcement - Interim Evaluation Report on the 2026 Corporate Value and Return Enhancement Action Plan",
       "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/ZENITHSTL_24082026234303_Intimation.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0824/2026082401935.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
       "input_nature": "exchange_announcement",
-      "found_at": "2026-08-24T18:13:58Z",
+      "found_at": "2026-08-24T14:40:00Z",
       "sweep_file": "screener/inbox/2026-08-25_sweep.json",
-      "prelim_note": "Zenith Steel informed exchange about change in management, no name or reason disclosed.",
+      "prelim_note": "Interim evaluation report on corporate value and return enhancement is a governance-related disclosure.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 65,
-      "triage_reason": "Zenith Steel informed exchange about change in management, no name or reason disclosed.",
-      "region": "IN",
+      "triage_score": 66,
+      "triage_reason": "Interim evaluation report on corporate value and return enhancement is a governance-related disclosure.",
+      "region": "CN",
       "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
+      "materiality_pre_score": 35,
       "rank_factors": {
-        "materiality": 40,
+        "materiality": 35,
         "source_tier": 8,
         "scope": 6,
         "event": 4,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "management",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Zenith Steel Pipes & Industries Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260825-031",
-      "headline": "Cotton Rally into Monday’s Close as USDA Cuts Ratings",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/cotton-rally-mondays-close-usda-cuts-ratings",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-24T23:49:21Z",
-      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
-      "prelim_note": "Cotton rallied as USDA cut crop ratings, a supply-side move affecting commodity prices and related issuers.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 65,
-      "triage_reason": "Cotton rallied as USDA cut crop ratings, a supply-side move affecting commodity prices and related issuers.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 4,
-        "event": 1,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "commodity",
-        "source_tier_id": "news",
-        "event_id": "macro_sector",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260825-103",
-      "headline": "Geekay Wires Limited: Geekay Wires Limited has informed regarding Disclosure of material issue",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/GEEKAYWIRE_25082026010732_final_nse_formc.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-24T19:37:46Z",
-      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
-      "prelim_note": "Geekay Wires disclosed a material issue but the headline gives no detail on nature or financial impact.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 63,
-      "triage_reason": "Geekay Wires disclosed a material issue but the headline gives no detail on nature or financial impact.",
-      "region": "IN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 35,
-      "rank_factors": {
-        "materiality": 35,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 2,
-        "size": -1,
-        "recency": 3,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "operations",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Geekay Wires Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260825-117",
-      "headline": "Nitco Limited: Nitco Limited has informed the Exchange about Execution of Memorandum of Understanding ( MOU ) with M/s HOABL Impactum Land Private Limited",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/NITCO_24082026234313_StockExchIntimation_HOABL.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-24T18:13:20Z",
-      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
-      "prelim_note": "Nitco executed an MOU with HOABL Impactum Land, no value or commercial terms disclosed.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 63,
-      "triage_reason": "Nitco executed an MOU with HOABL Impactum Land, no value or commercial terms disclosed.",
-      "region": "IN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 35,
-      "rank_factors": {
-        "materiality": 35,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 3,
-        "size": 0,
+        "size": 1,
         "recency": 2,
         "materiality_label_floor": 10,
         "quantified": 0,
         "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "commercial",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nitco Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "HOABL Impactum Land Private Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260825-030",
-      "headline": "Halmont Properties Corporation Second Quarter Results",
-      "headline_en": null,
-      "url": "https://www.globenewswire.com/news-release/2026/08/24/3350161/0/en/halmont-properties-corporation-second-quarter-results.html",
-      "source_name": "GlobeNewswire — News about Public Companies",
-      "input_nature": "company_press_release",
-      "found_at": "2026-08-24T23:58:00Z",
-      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
-      "prelim_note": "Halmont Properties reports Q2 results, a scheduled earnings release with no flagged number in headline.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 63,
-      "triage_reason": "Halmont Properties reports Q2 results, a scheduled earnings release with no flagged number in headline.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 3,
-        "scope": 6,
-        "event": 5,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Halmont Properties Corporation",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260825-057",
-      "headline": "SCHEDULE 13D/A - Chernett Jorey (0002042077) (Filed by)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/2042077/000092189526002299/0000921895-26-002299-index.htm",
-      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-08-25T00:03:10Z",
-      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
-      "prelim_note": "Amended Schedule 13D by Chernett Jorey shows >5% stake activity but names no issuer in headline.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 62,
-      "triage_reason": "Amended Schedule 13D by Chernett Jorey shows >5% stake activity but names no issuer in headline.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 8,
-        "scope": -2,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "unknown",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "secondary",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260825-064",
-      "headline": "HSBC HOLDINGS (00005): PUBLICATION OF DRAWDOWN PROSPECTUS",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0825/2026082500109.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-24T23:20:00Z",
-      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
-      "prelim_note": "Publication of drawdown prospectus is a routine debt or equity issuance procedural step.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 62,
-      "triage_reason": "Publication of drawdown prospectus is a routine debt or equity issuance procedural step.",
-      "region": "CN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 35,
-      "rank_factors": {
-        "materiality": 35,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "primary_filing",
-        "event_id": "capital_actions",
-        "size_bucket": "mega"
+        "event_id": "regulatory",
+        "size_bucket": "mid"
       },
       "event_types": [
-        "capital_actions"
+        "regulatory"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "HSBC Holdings",
-          "ticker": "00005",
+          "name": "Anjoy Food",
+          "ticker": "02648",
           "listing_country": "CN"
         }
       ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260825-063",
-      "headline": "HSBC HOLDINGS (00005): Transaction in own shares",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0825/2026082500111.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-24T23:21:00Z",
-      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
-      "prelim_note": "Routine daily share buyback disclosure by HSBC, no size or surprise given.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 57,
-      "triage_reason": "Routine daily share buyback disclosure by HSBC, no size or surprise given.",
-      "region": "CN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 30,
-      "rank_factors": {
-        "materiality": 30,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "capital_actions",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "HSBC Holdings",
-          "ticker": "00005",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260825-002",
-      "headline": "PR2: Results of Entitlement Offer",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.PR2?key=2924-03125572-6A1340097",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-24T23:49:00Z",
-      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
-      "prelim_note": "Routine disclosure of entitlement offer results without specific financial impact details.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 54,
-      "triage_reason": "Routine disclosure of entitlement offer results without specific financial impact details.",
-      "region": "OTHER",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 30,
-      "rank_factors": {
-        "materiality": 30,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "capital_actions",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Prospech Ltd",
-          "ticker": "PR2",
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "small",
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -88259,9 +88268,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 27412,
-    "news_picked_today": 118,
-    "news_dropped_today": 158
+    "news_seen_today": 40939,
+    "news_picked_today": 170,
+    "news_dropped_today": 322
   },
   "book_momentum": {
     "live_count": 8,
