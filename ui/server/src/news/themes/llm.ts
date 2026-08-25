@@ -1217,7 +1217,11 @@ export function makeThemeNamer(
                 clearCooldown(stateDir, provider.id, attemptStartedAt)
               }
               if (!explicitDailyLimit && failure.action === 'quarantine') {
-                quarantineProviderFailure(stateDir, providerIdentity, failure, Date.now())
+                // Stamp when the failure became known, not when its request began. A different request may
+                // start after this one and succeed before this response arrives; backdating the later failure
+                // to `attemptStartedAt` would let that success erase evidence it could not have observed.
+                const failureObservedAt = Date.now()
+                quarantineProviderFailure(stateDir, providerIdentity, failure, failureObservedAt)
               } else if (!explicitDailyLimit) {
                 const kind: ThemeFailureKind = failure.code === 'rate_limited' ? 'rate_limit'
                   : failure.code === 'timeout' ? 'timeout'
