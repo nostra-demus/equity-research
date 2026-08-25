@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-08-25T14:33:20Z",
+  "generated_at": "2026-08-25T14:38:27Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260825-1848",
+      "headline": "ZT HN GROUP (02433): PROFIT WARNING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0825/2026082502165.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-25T14:29:00Z",
+      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
+      "prelim_note": "Profit warning issued by ZT HN Group.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Profit warning issued by ZT HN Group.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "guidance_change",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ZT HN GROUP",
+          "ticker": "02433",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260825-1835",
       "headline": "Prataap Snacks Ltd: Intimation under Regulation 30 of the SEBI (LODR) Regulations, 2015- Update on Acquisition of 99.95% of Equity Share Capital of RLOP Food Processing Private Limited.",
@@ -1917,56 +1966,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260825-523",
-      "headline": "Department of War Announces a $750 Million Investment as Part of a $1.55 Billion Initiative to Secure Critical Rare-Earth Elements From Serre Verde",
-      "headline_en": null,
-      "url": "https://www.war.gov/News/Releases/Release/Article/4581110/department-of-war-announces-a-750-million-investment-as-part-of-a-155-billion-i/",
-      "source_name": "U.S. Department of War (formerly DoD) — News Releases",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-08-24T14:00:00Z",
-      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
-      "prelim_note": "US Department of War announces a $750M investment within a $1.55B initiative for rare-earth elements from Serre Verde.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "US Department of War announces a $750M investment within a $1.55B initiative for rare-earth elements from Serre Verde.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
-        "scope": 0,
-        "event": 6,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "sector",
-        "source_tier_id": "primary_filing",
-        "event_id": "capex",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capex",
-        "macro_sector"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [
-        {
-          "name": "Serre Verde",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -90168,9 +90167,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1858929,
-    "news_picked_today": 3377,
-    "news_dropped_today": 11251
+    "news_seen_today": 1878289,
+    "news_picked_today": 3392,
+    "news_dropped_today": 11260
   },
   "book_momentum": {
     "live_count": 8,
