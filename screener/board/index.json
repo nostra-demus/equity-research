@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-25T12:13:05Z",
+  "generated_at": "2026-08-25T12:17:59Z",
   "inbox": [
     {
       "inbox_id": "INB-20260825-1679",
@@ -1698,6 +1698,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260825-1692",
+      "headline": "Nasdaq-listed Ohmyhome shareholders approve 50-to-1 share consolidation as troubled firm faces delisting",
+      "headline_en": null,
+      "url": "https://www.businesstimes.com.sg/property/nasdaq-listed-ohmyhome-shareholders-approve-50-1-share-consolidation-troubled-firm-faces-delisting",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-25T11:46:37Z",
+      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
+      "prelim_note": "Share consolidation to avoid delisting indicates severe financial distress.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Share consolidation to avoid delisting indicates severe financial distress.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ohmyhome Ltd",
+          "ticker": "OMH",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260825-1684",
+      "headline": "Inorbit Malls completes acquisition of 2 malls for Rs 1242.5 cr",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/digital-real-estate/realty-news/inorbit-malls-completes-acquisition-of-2-malls-for-rs-1242-5-cr/articleshow/133508534.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-25T11:38:24Z",
+      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
+      "prelim_note": "Inorbit Malls acquired 2 malls for Rs 1242.5 cr, representing a significant capital deployment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Inorbit Malls acquired 2 malls for Rs 1242.5 cr, representing a significant capital deployment.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Inorbit Malls",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260825-1648",
       "headline": "KKR To Acquire Japan's Ci Flavors For Undisclosed Terms",
       "headline_en": null,
@@ -1888,104 +1986,6 @@
       "issuer_linkage": "primary",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260825-1503",
-      "headline": "TotalEnergies backs UAE plan to double Fujairah oil export capacity outside Hormuz",
-      "headline_en": null,
-      "url": "https://economymiddleeast.com/news/totalenergies-backs-uae-plan-to-double-fujairah-oil-export-capacity-outside-hormuz/?utm_source=rss&utm_medium=rss&utm_campaign=totalenergies-backs-uae-plan-to-double-fujairah-oil-export-capacity-outside-hormuz",
-      "source_name": "Economy Middle East",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-25T05:49:46Z",
-      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
-      "prelim_note": "TotalEnergies is supporting a major infrastructure project to double oil export capacity in the UAE, which is a significant strategic development.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "TotalEnergies is supporting a major infrastructure project to double oil export capacity in the UAE, which is a significant strategic development.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "TotalEnergies",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260825-1302",
-      "headline": "Milliardendeal: Siemens Energy bereitet Verkauf von Dampfturbinen-Geschäft vor",
-      "headline_en": "Billion-euro deal: Siemens Energy prepares sale of steam turbine business",
-      "url": "https://www.handelsblatt.com/unternehmen/industrie/milliardendeal-siemens-energy-bereitet-verkauf-von-dampfturbinen-geschaeft-vor/100249453.html",
-      "source_name": "Handelsblatt",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-25T05:17:38Z",
-      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
-      "prelim_note": "Siemens Energy is preparing to sell its steam turbine business in a billion-euro deal.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Siemens Energy is preparing to sell its steam turbine business in a billion-euro deal.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Siemens Energy",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -89963,9 +89963,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1255779,
-    "news_picked_today": 2984,
-    "news_dropped_today": 10996
+    "news_seen_today": 1270280,
+    "news_picked_today": 3000,
+    "news_dropped_today": 11004
   },
   "book_momentum": {
     "live_count": 8,
