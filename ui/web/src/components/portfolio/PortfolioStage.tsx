@@ -85,7 +85,10 @@ export function PortfolioStage() {
     } catch (e: any) {
       setNotes([{ tone: 'bad', text: e?.message || 'upload failed' }])
     } finally { setBusy(false); setProgress(0) }
-  }, [busy])
+    // `read` IS a dependency: the delta panel measures against the book as it stood immediately before
+    // the upload, and a callback frozen at mount compares against whatever was loaded then — so after a
+    // statement delete or a hand-logged trade it reported deltas that never happened.
+  }, [busy, read])
 
   const book = read?.book ?? null
   const manual = read?.manual ?? EMPTY_MANUAL
@@ -460,7 +463,14 @@ function Performance({ perf }: { perf: PortfolioPerformance }) {
           </div>
           {perf.periods.map((p) => (
             <div key={p.label} className="fundbook__row fundbook__row--periods">
-              <span>{p.label}<small className="fundbook__since">{p.from} → {p.to}</small></span>
+              <span>
+                {p.label}
+                {/* The book has no valued day at this period's own start, so the figure covers less than
+                    the label claims. Said out loud — otherwise two rows show the same number under two
+                    period names and the reader has to guess which one is the real one. */}
+                {p.partial && <em className="fundbook__partial" title={`The book has no valued day before this period began — measured from ${p.from}`}>from inception</em>}
+                <small className="fundbook__since">{p.from} → {p.to}</small>
+              </span>
               <strong className="num" style={{ color: toneOf(p.twr) }}>{fmtPct(p.twr, 2)}</strong>
               {/* The benchmark is only meaningful over the same window, so it appears on the inception
                   row alone rather than repeated against periods it was never measured over. */}

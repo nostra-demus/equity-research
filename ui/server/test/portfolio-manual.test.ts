@@ -203,7 +203,7 @@ check('removing a statement makes the entries it answered live again', () => {
 
 // ---------- the provisional effect ----------
 check('live entries roll up per symbol against what the book actually holds', () => {
-  const held = [{ symbol: 'AMZN', quantity: 100 }, { symbol: 'CANE', quantity: 50 }]
+  const held = [{ symbol: 'AMZN', currency: 'USD', quantity: 100 }, { symbol: 'CANE', currency: 'USD', quantity: 50 }]
   const read = provisionalRead([
     make({ tradeDate: '2026-08-20', symbol: 'AMZN', side: 'buy', quantity: 10, price: 200, commission: 1 }),
     make({ tradeDate: '2026-08-21', symbol: 'AMZN', side: 'sell', quantity: 4, price: 210, commission: 1 }),
@@ -238,16 +238,35 @@ check('a hand-entered sell bigger than the holding is flagged, not refused', () 
   // argue with it — so this is a flag the screen can show, never a rejection.
   const read = provisionalRead(
     [make({ tradeDate: '2026-08-20', symbol: 'AMZN', side: 'sell', quantity: 130, price: 200 })],
-    COVER, [{ symbol: 'AMZN', quantity: 100 }],
+    COVER, [{ symbol: 'AMZN', currency: 'USD', quantity: 100 }],
   )
   const e = read.effects[0]!
   assert.equal(e.provisionalQuantity, -30)
   assert.equal(e.crossesZero, true)
   const fine = provisionalRead(
     [make({ tradeDate: '2026-08-20', symbol: 'AMZN', side: 'sell', quantity: 30, price: 200 })],
-    COVER, [{ symbol: 'AMZN', quantity: 100 }],
+    COVER, [{ symbol: 'AMZN', currency: 'USD', quantity: 100 }],
   )
   assert.equal(fine.effects[0]!.crossesZero, false)
+})
+
+check('a dual-listed name compares each listing against its OWN holding', () => {
+  // Summing held quantity by symbol alone hands BOTH currency rows the combined position: each listing
+  // claims to hold what the two hold together. It overstates what is held, and it hides the crossesZero
+  // warning on a sell that really does take one listing short.
+  const held = [
+    { symbol: 'RIO', currency: 'USD', quantity: 100 },
+    { symbol: 'RIO', currency: 'GBP', quantity: 40 },
+  ]
+  const read = provisionalRead([
+    make({ tradeDate: '2026-08-20', symbol: 'RIO', currency: 'gbp', side: 'sell', quantity: 60, price: 47 }),
+  ], COVER, held)
+
+  const gbp = read.effects.find((e) => e.currency === 'GBP')!
+  assert.equal(gbp.bookQuantity, 40, 'only the GBP listing counts, not 140')
+  assert.equal(gbp.provisionalQuantity, -20)
+  assert.equal(gbp.crossesZero, true, 'selling 60 of a 40 holding goes short — the warning must fire')
+  assert.equal(read.effects.length, 1, 'the USD listing has no entries, so it has no provisional row')
 })
 
 try { fs.rmSync(TMP, { recursive: true, force: true }) } catch { /* best effort */ }

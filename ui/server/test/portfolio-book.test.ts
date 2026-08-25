@@ -310,7 +310,9 @@ check('a foreign amount is never counted as base currency without a rate', () =>
   assert.equal(noRates.income.dividendsGross, 0, 'an unvaluable dividend must not enter income')
   assert.ok(noRates.warnings.some((w) => /could not be valued/.test(w)), 'the exclusion must be reported')
   // with the statement's own rate grid present, it converts
-  const withRates = buildBook([{ ...doc, cashTransactions: [eur], conversionRates: [{ reportDate: '2026-02-15', fromCurrency: 'EUR', toCurrency: 'USD', rate: 1.1 }] }])
+  // The grid must be dated on or before the row it values — a rate from after the fact is refused, see
+  // the "never taken from AFTER the date it is valuing" case below.
+  const withRates = buildBook([{ ...doc, cashTransactions: [eur], conversionRates: [{ reportDate: '2026-01-02', fromCurrency: 'EUR', toCurrency: 'USD', rate: 1.1 }] }])
   assert.ok(near(withRates.income.dividendsGross, 1100), `1000 EUR at 1.1 = 1100, got ${withRates.income.dividendsGross}`)
 })
 
@@ -410,6 +412,81 @@ check('a rate is never taken from AFTER the date it is valuing', () => {
   }])
   assert.equal(built.income.dividendsGross, 0, 'a June rate cannot value a January dividend')
   assert.ok(built.warnings.some((w) => /could not be valued/.test(w)), 'the exclusion must be reported')
+})
+
+// ---------- review fixes ----------
+check('a CLOSED_LOT row sharing a tradeID never evicts the execution it belongs to', () => {
+  // IBKR can emit CLOSED_LOT and SUMMARY rows alongside the EXECUTION they came from, ALL carrying the
+  // same tradeID. On an id-only dedupe key the last one written wins — and since both the FIFO run and
+  // the realised-P&L check keep only EXECUTION rows, a lot row winning makes the fill vanish from the
+  // book AND from the check that exists to catch a missing fill.
+  const execution = doc.trades.find((t) => t.tradeID)!
+  const lot = { ...execution, levelOfDetail: 'CLOSED_LOT', quantity: 1, fifoPnlRealized: 0 }
+  const built = buildBook([{ ...doc, trades: [...doc.trades, lot] }])
+  const plain = buildBook([doc])
+  assert.equal(built.closures.length, plain.closures.length, 'the lot row must not change the round trips')
+  assert.deepEqual(
+    built.positions.map((p) => p.symbol).sort(), plain.positions.map((p) => p.symbol).sort(),
+    'nor the positions',
+  )
+  assert.equal(built.reconciliation.ok, true, 'and the book must still reconcile')
+})
+
+check('two contracts that differ only by expiry keep separate FIFO queues', () => {
+  // Without conid, a bare symbol merges instruments that merely share a ticker. Expiry was already
+  // NAMED in the fallback key, but trade rows never carried it — so it always resolved to '' on the
+  // trade side, merging two futures expiries and mismatching against the position-side key that had it.
+  const base = doc.trades.find((t) => t.tradeID)!
+  const mar = {
+    ...base, tradeID: 'FUTM', conid: null, symbol: 'ESZ', assetCategory: 'FUT', expiry: '2026-03-20',
+    quantity: 2, tradePrice: 5000, multiplier: 50, buySell: 'BUY', openCloseIndicator: 'O',
+    fifoPnlRealized: 0, origTradeID: null, origTransactionID: null, transactionID: 'FUTM',
+  }
+  // DIFFERENT PRICES are what make this test discriminate. Same-priced lots leave the same quantity open
+  // either way, so a merged queue would pass. March at 5,000 and June at 5,200 do not:
+  //   separate queues -> the June sell closes JUNE (entry 5,200, a loss) and March stays open at 5,000
+  //   one merged queue -> FIFO closes MARCH first (entry 5,000, a gain) and June stays open at 5,200
+  const jun = { ...mar, tradeID: 'FUTJ', transactionID: 'FUTJ', expiry: '2026-06-19', tradePrice: 5200 }
+  const junClose = {
+    ...jun, tradeID: 'FUTJC', transactionID: 'FUTJC', quantity: -2, tradePrice: 5100,
+    buySell: 'SELL', openCloseIndicator: 'C',
+  }
+  const { lots, closures } = runFifo([mar, jun, junClose])
+  assert.equal(closures.length, 1, 'the June sell closes exactly one lot')
+  assert.equal(closures[0]!.entryPrice, 5200, 'it must close the JUNE lot, not the older March one')
+  assert.ok(closures[0]!.grossLocal < 0, 'closing June at 5,100 against 5,200 is a loss')
+  assert.equal(lots.length, 1)
+  assert.equal(lots[0]!.price, 5000, 'and March is what is left open')
+})
+
+check('dividend and withholding checks still run when the book spans several exports', () => {
+  // They used to be switched off whenever more than one export was loaded — the NORMAL state of a book
+  // assembled a year per query. Two checks silently vanished while the badge still read "Reconciled".
+  const first = { ...doc, whenGenerated: '2026-01-05T00:00:00' }
+  const second = { ...doc, whenGenerated: '2026-01-06T00:00:00' }
+  const built = buildBook([first, second])
+  const names = built.reconciliation.checks.map((c) => c.name)
+  assert.ok(names.includes('Dividends'), 'the dividend check must survive a second document')
+  assert.ok(names.includes('Withholding tax'), 'and so must withholding')
+  assert.equal(built.reconciliation.ok, true, 'and both must pass on a coherent pair')
+})
+
+check('the windowed income check compares the statement\u2019s own window, not every document', () => {
+  // An older export whose income falls OUTSIDE the newest statement's window must not be added to the
+  // side being compared against that statement's own total.
+  const older = {
+    ...doc,
+    fromDate: '2025-12-01', toDate: '2025-12-31', whenGenerated: '2026-01-01T00:00:00',
+    changeInNav: null,
+    trades: [], openPositions: [], equitySummary: [],
+    cashTransactions: doc.cashTransactions.map((c) => ({
+      ...c, transactionID: `OLD-${c.transactionID}`, dateTime: '2025-12-15;202500', settleDate: '2025-12-15',
+    })),
+  }
+  const built = buildBook([older, { ...doc, whenGenerated: '2026-01-06T00:00:00' }])
+  const dividends = built.reconciliation.checks.find((c) => c.name === 'Dividends')!
+  assert.equal(dividends.ok, true, 'December income must not be counted against a January statement')
+  assert.ok(built.income.dividendsGross > dividends.ours!, 'while the all-documents total does include it')
 })
 
 console.log(`\n${passed} passed, ${fails.length} failed`)

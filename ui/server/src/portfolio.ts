@@ -168,9 +168,17 @@ export interface Book {
 function positionKey(row: {
   conid: string | null; symbol: string | null; assetCategory?: string | null
   currency?: string | null; multiplier?: number | null; expiry?: string | null
+  strike?: number | null; putCall?: string | null
 }): string {
   if (row.conid) return `conid:${row.conid}`
-  return `sym:${row.symbol ?? 'UNKNOWN'}|${row.assetCategory ?? ''}|${row.currency ?? ''}|${row.multiplier ?? ''}|${row.expiry ?? ''}`
+  return [
+    `sym:${row.symbol ?? 'UNKNOWN'}`, row.assetCategory ?? '', row.currency ?? '', row.multiplier ?? '',
+    // Expiry, strike and right are what separate one derivative contract from the next. They were named
+    // in this key before the trade rows carried them, so they always resolved to '' on one side —
+    // silently merging two futures expiries into one FIFO queue, and mismatching the trade-side key
+    // against the position-side key that DID have them.
+    row.expiry ?? '', row.strike ?? '', (row.putCall ?? '').toUpperCase(),
+  ].join('|')
 }
 
 /** Later documents win on a key collision: a re-export of the same range carries the CURRENT truth,
@@ -480,7 +488,14 @@ export function buildBook(documents: FlexDocument[]): Book {
   docs.sort((a, b) =>
     (a.toDate ?? '').localeCompare(b.toDate ?? '') || (a.whenGenerated ?? '').localeCompare(b.whenGenerated ?? ''))
 
-  const trades = dropSupersededTrades(dedupeBy(docs.flatMap((d) => d.trades), (t) => t.tradeID ?? t.transactionID))
+  // The key carries levelOfDetail. IBKR can emit CLOSED_LOT and SUMMARY rows alongside the EXECUTION
+  // they belong to, all sharing one tradeID — and on an id-only key the last one written wins. Both the
+  // FIFO run and the realised-P&L check then filter to EXECUTION, so if a lot row won, the fill
+  // disappears from the book AND from the check that exists to catch a missing fill.
+  const trades = dropSupersededTrades(dedupeBy(docs.flatMap((d) => d.trades), (t) => {
+    const id = t.tradeID ?? t.transactionID
+    return id === null ? null : `${(t.levelOfDetail ?? '').toUpperCase()}|${id}`
+  }))
   const cash = dedupeBy(docs.flatMap((d) => d.cashTransactions), (c) => c.transactionID)
   const corporateActions = dedupeBy(docs.flatMap((d) => d.corporateActions), (c) => c.transactionID ?? c.actionID)
 
@@ -533,11 +548,16 @@ export function buildBook(documents: FlexDocument[]): Book {
     })
 
   const income: BookIncome = { dividendsGross: 0, withholdingTax: 0, paymentInLieu: 0, interest: 0, fees: 0, net: 0 }
+  // Kept per row, with its date, so the reconciliation can take the SAME window the statement it is
+  // checking against covers. Without this the dividend and withholding checks could only run on a
+  // single-document book — see incomeBetween below.
+  const incomeRows: { date: string | null; bucket: keyof BookIncome; base: number }[] = []
   for (const c of cash) {
     if (isCapitalFlow(c.type)) continue
     const bucket = classifyIncome(c.type, c.description)
     if (!bucket || c.amount === null) continue
-    const rate = rateFor(c.currency, c.fxRateToBase, c.dateTime ? c.dateTime.slice(0, 10) : c.settleDate)
+    const date = c.dateTime ? c.dateTime.slice(0, 10) : c.settleDate
+    const rate = rateFor(c.currency, c.fxRateToBase, date)
     if (rate === null) {
       // Adding a foreign amount straight into a base-currency total is how a EUR 1,000 dividend becomes
       // USD 1,000. Excluding it and saying so is the only honest option.
@@ -545,8 +565,24 @@ export function buildBook(documents: FlexDocument[]): Book {
       continue
     }
     income[bucket] += c.amount * rate
+    incomeRows.push({ date, bucket, base: c.amount * rate })
   }
   income.net = income.dividendsGross + income.paymentInLieu + income.interest + income.withholdingTax + income.fees
+
+  /** Income restricted to one statement's own window. A row with no usable date is EXCLUDED rather than
+   *  assumed inside it: a check that quietly counts undated rows on one side is worse than one that
+   *  reports it could not be evaluated. */
+  const incomeBetween = (from: string | null, to: string | null): BookIncome | null => {
+    if (!from || !to) return null
+    const out: BookIncome = { dividendsGross: 0, withholdingTax: 0, paymentInLieu: 0, interest: 0, fees: 0, net: 0 }
+    for (const r of incomeRows) {
+      if (!r.date) return null // an undated income row makes any windowed total unprovable
+      if (r.date < from || r.date > to) continue
+      out[r.bucket] += r.base
+    }
+    out.net = out.dividendsGross + out.paymentInLieu + out.interest + out.withholdingTax + out.fees
+    return out
+  }
 
   const positions: BookPosition[] = newest.openPositions
     .filter((p) => !p.levelOfDetail || p.levelOfDetail.toUpperCase() === 'SUMMARY')
@@ -589,7 +625,7 @@ export function buildBook(documents: FlexDocument[]): Book {
     navSeries,
     twr,
     corporateActions,
-    reconciliation: reconcile({ docs, navSeries, twr, closures, trades, flows, income, positions, openLots: lots, flowsByDate, fx }),
+    reconciliation: reconcile({ docs, navSeries, twr, closures, trades, flows, income, incomeBetween, positions, openLots: lots, flowsByDate, fx }),
     warnings,
   }
 }
@@ -624,13 +660,15 @@ export function reconcile(ctx: {
   trades: FlexTrade[]
   flows: BookFlow[]
   income: BookIncome
+  /** Income over one statement's window, or null when it cannot be established. */
+  incomeBetween: (from: string | null, to: string | null) => BookIncome | null
   positions: BookPosition[]
   openLots: BookLot[]
   flowsByDate: Map<string, number>
   fx: (currency: string | null, date: string | null) => number | null
 }): Reconciliation {
   const checks: ReconciliationCheck[] = []
-  const { docs, navSeries, closures, trades, flows, income, positions, openLots, fx } = ctx
+  const { docs, navSeries, closures, trades, flows, income, incomeBetween, positions, openLots, fx } = ctx
   // docs arrive chronologically ordered from buildBook, so the last statement is the newest.
   const withNav = docs.filter((d) => d.changeInNav !== null)
   const latestNav = withNav.length ? withNav[withNav.length - 1]!.changeInNav! : null
@@ -737,15 +775,21 @@ export function reconcile(ctx: {
     cmp('Capital flows', Number.isFinite(ours) ? ours : null, latestNav.depositsWithdrawals, 1,
       'Deposits and withdrawals we classified against the statement\u2019s own total')
   }
-  if (latestNav?.dividends != null && docs.length === 1) {
+  // The statement's own dividend and withholding totals cover ITS window, while `income` spans every
+  // document — so these two checks compare like with like by taking the same window, exactly as the
+  // capital-flows check above already does. They used to be switched off whenever more than one export
+  // was loaded, which is the NORMAL state of a book assembled a year at a time: two of the checks
+  // silently vanished while the badge still read "Reconciled".
+  const windowIncome = incomeBetween(latestNav?.fromDate ?? null, latestNav?.toDate ?? null)
+  if (latestNav?.dividends != null) {
     // Gross dividends only. Payment-in-lieu is a separate statement line, and folding it in here would
     // make the check disagree with a perfectly correct statement.
-    cmp('Dividends', income.dividendsGross, latestNav.dividends, 1,
-      'Dividend income we classified against the statement\u2019s own total')
+    cmp('Dividends', windowIncome ? windowIncome.dividendsGross : null, latestNav.dividends, 1,
+      'Dividend income we classified against the statement\u2019s own total, over that statement\u2019s window')
   }
-  if (latestNav?.withholdingTax != null && docs.length === 1) {
-    cmp('Withholding tax', income.withholdingTax, latestNav.withholdingTax, 1,
-      'Withholding we classified against the statement\u2019s own total')
+  if (latestNav?.withholdingTax != null) {
+    cmp('Withholding tax', windowIncome ? windowIncome.withholdingTax : null, latestNav.withholdingTax, 1,
+      'Withholding we classified against the statement\u2019s own total, over that statement\u2019s window')
   }
 
   return { ok: checks.length > 0 && checks.every((c) => c.ok), checks }

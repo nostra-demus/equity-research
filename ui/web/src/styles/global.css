@@ -5003,5 +5003,8 @@ a { color: inherit; }
 .fundbook__cards--tight .fundbook__cardvalue { font-size: 15px; }
 .fundbook__card.is-moved { background: var(--accent-wash-soft); }
 .fundbook__card.is-moved .fundbook__cardvalue { color: var(--accent-bright); }
+.fundbook__partial { display: inline-block; margin-left: 6px; padding: 1px 5px; border-radius: var(--r-pill);
+  border: 1px dashed var(--hairline-strong); color: var(--text-faint); font-size: 8px; font-style: normal;
+  letter-spacing: 0.2px; text-transform: uppercase; vertical-align: middle; }
 .fundbook__since { display: block; color: var(--text-faint); font-size: 9px; font-variant-numeric: tabular-nums; }
 .fundbook__cards--inset { border: none; border-radius: 0; border-top: 1px solid var(--hairline); }

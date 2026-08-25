@@ -38,6 +38,9 @@ export interface PeriodReturn {
    *  yardstick: beating an index while trailing a deposit account is not a result. */
   hurdle: number | null
   overHurdle: number | null
+  /** True when the book has no valued day at or before this period's start, so the window is shorter
+   *  than the label implies — a "year to date" on a book that only began in April. */
+  partial: boolean
 }
 
 export interface DrawdownRead {
@@ -158,9 +161,10 @@ export function returnsByPeriod(
     // The window must OPEN on the last point at or before `from`: a return measured from the first
     // point inside the window silently discards that window's first day of performance.
     let startIndex = 0
+    let reachesBoundary = false
     for (let i = 0; i < navSeries.length; i++) {
-      if (navSeries[i]!.date < from) startIndex = i
-      else break
+      if (navSeries[i]!.date < from) { startIndex = i; reachesBoundary = true }
+      else { if (navSeries[i]!.date === from) reachesBoundary = true; break }
     }
     const slice = navSeries.slice(startIndex)
     const twr = computeTwr(slice, flowsByDate)
@@ -177,6 +181,11 @@ export function returnsByPeriod(
       days: Math.max(0, slice.length - 1),
       hurdle,
       overHurdle: twr === null || hurdle === null ? null : twr - hurdle,
+      // No valued day at or before this period's own start, so the figure covers less than its name
+      // claims. Kept — the return is real and the window is printed beside it — but MARKED, because
+      // four rows showing the same number under four period names is how a reader concludes that one of
+      // them must mean something else.
+      partial: !reachesBoundary && label !== 'Since inception',
     }
   })
 }
@@ -292,7 +301,7 @@ export function betaAlpha(
  *  occasionally explodes is worse than one that takes a few more iterations. */
 export function moneyWeightedReturn(
   navSeries: NavPoint[],
-  flows: { date: string | null; amountBase: number | null }[],
+  flowsByDate: Map<string, number>,
 ): number | null {
   if (navSeries.length < 2) return null
   const start = navSeries[0]!
@@ -301,20 +310,37 @@ export function moneyWeightedReturn(
   const years = (d: string) => (Date.parse(`${d}T00:00:00Z`) - t0) / (365 * 86_400_000)
 
   // Opening value is money already in; every flow is money in or out; closing value is money returned.
+  //
+  // THE FLOWS MUST BE THE ALIGNED MAP, not the raw dated list — the same one every other figure here
+  // uses. Two reasons, and each on its own gives a wrong answer:
+  //  · A NAV row is the END-of-day value, so it ALREADY contains a flow dated that day. Counting a
+  //    deposit on the opening row as a separate contribution charges the book for that money twice.
+  //  · A flow on a day with no NAV row (a weekend deposit) is not in the opening value at all, and its
+  //    own date can sit outside the series entirely — raw dates dropped it silently. Alignment moves it
+  //    to the next valued day, which is exactly the NAV that absorbs it.
   const cash: { t: number; amount: number }[] = [{ t: 0, amount: -start.total }]
-  for (const f of flows) {
-    if (!f.date || f.amountBase === null) continue
-    if (f.date < start.date || f.date > end.date) continue
-    cash.push({ t: years(f.date), amount: -f.amountBase })
+  for (const [date, amount] of flowsByDate) {
+    if (date <= start.date || date > end.date) continue // on or before the opening row: already inside it
+    cash.push({ t: years(date), amount: -amount })
   }
   cash.push({ t: years(end.date), amount: end.total })
 
   const npv = (rate: number) => cash.reduce((a, c) => a + c.amount / (1 + rate) ** c.t, 0)
   let lo = -0.9999
-  let hi = 10
   let fLo = npv(lo)
+  if (!Number.isFinite(fLo)) return null
+  // WIDEN THE BRACKET UNTIL IT ACTUALLY BRACKETS. A fixed ceiling of 1,000%/yr returns null for exactly
+  // the case this figure exists to describe — a young book with a strong return annualises enormously
+  // (+50% over three weeks is several thousand percent a year) — and the screen renders that as "no
+  // money-weighted return exists" rather than a big number. Doubling is bounded (40 rounds reach ~10^13)
+  // and bisection still cannot diverge.
+  let hi = 10
   let fHi = npv(hi)
-  if (!Number.isFinite(fLo) || !Number.isFinite(fHi) || fLo * fHi > 0) return null // no sign change: no solution to find
+  for (let i = 0; i < 40 && Number.isFinite(fHi) && fLo * fHi > 0; i++) {
+    hi *= 2
+    fHi = npv(hi)
+  }
+  if (!Number.isFinite(fHi) || fLo * fHi > 0) return null // genuinely no sign change: no solution to find
   for (let i = 0; i < 200; i++) {
     const mid = (lo + hi) / 2
     const fMid = npv(mid)
@@ -429,6 +455,16 @@ export function benchmarkCompare(
   }
   const first = inWindow[0]!
   const last = inWindow[inWindow.length - 1]!
+  // COUNTING CLOSES IS NOT COVERAGE. A feed holding two months of an eight-month window passes a count
+  // test with dozens of rows, and the excess column then subtracts a two-month index return from an
+  // eight-month book return and calls the difference outperformance. Both ENDS have to be reached.
+  const apart = (a: string, b: string) => Math.abs(Date.parse(`${b}T00:00:00Z`) - Date.parse(`${a}T00:00:00Z`)) / 86_400_000
+  if (apart(from, first.date) > MAX_FEED_GAP_DAYS || apart(last.date, to) > MAX_FEED_GAP_DAYS) {
+    return {
+      ...base, from, to,
+      unavailable: `the ${symbol} history covers ${first.date} to ${last.date}, not the book\u2019s ${from} to ${to}`,
+    }
+  }
   if (first.close <= 0) return { ...base, from, to, unavailable: `${symbol} has no usable opening price` }
   const benchmarkTwr = (last.close / first.close - 1) * 100
   return {

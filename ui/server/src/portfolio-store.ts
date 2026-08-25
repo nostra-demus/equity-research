@@ -250,7 +250,7 @@ export function performanceOf(book: Book): PortfolioPerformance {
     betaAlpha: betaAlpha(returns, closes, RISK_FREE_ANNUAL_PCT),
     growth,
     underwater,
-    moneyWeightedAnnualisedPct: moneyWeightedReturn(book.navSeries, book.flows),
+    moneyWeightedAnnualisedPct: moneyWeightedReturn(book.navSeries, flowsByDate),
     risk: riskMetrics(book.navSeries, flowsByDate, RISK_FREE_ANNUAL_PCT),
     benchmark: benchmarkCompare(BENCHMARK_SYMBOL, book.twr, window, closes),
     riskFreeAnnualPct: RISK_FREE_ANNUAL_PCT,

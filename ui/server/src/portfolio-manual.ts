@@ -233,8 +233,16 @@ function supersededBy(trade: ManualTrade, coverage: StatementCoverage[]): Supers
   return null
 }
 
-/** What the book holds today, for the crossing check. Only symbol and quantity are needed. */
-export interface HeldQuantity { symbol: string | null; quantity: number | null }
+/** What the book holds today, for the crossing check. Currency is part of the identity, not decoration:
+ *  the same ticker on two listings is two positions. */
+export interface HeldQuantity { symbol: string | null; currency: string | null; quantity: number | null }
+
+/** One identity for a provisional row and for the position it is compared against. Both sides MUST use
+ *  this — keying held quantity by symbol alone while keying the rows by symbol+currency is what let a
+ *  dual-listed name report its combined position under each listing. */
+function effectKey(symbol: string | null, currency: string | null): string {
+  return `${(symbol ?? '').toUpperCase()} ${(currency ?? '').toUpperCase()}`
+}
 
 /** Mark each entry against statement coverage and roll the LIVE ones up per symbol. */
 export function provisionalRead(
@@ -253,10 +261,14 @@ export function provisionalRead(
     }
   })
 
+  // Keyed by symbol AND currency — the SAME identity the effect rows below use. Summing a dual-listed
+  // name across its listings hands both currency rows the combined position: it overstates what is
+  // held, and it suppresses the crossesZero warning on a sell that really does take one listing short.
   const bookQty = new Map<string, number>()
   for (const p of held) {
     if (!p.symbol || p.quantity === null) continue
-    bookQty.set(p.symbol.toUpperCase(), (bookQty.get(p.symbol.toUpperCase()) ?? 0) + p.quantity)
+    const k = effectKey(p.symbol, p.currency)
+    bookQty.set(k, (bookQty.get(k) ?? 0) + p.quantity)
   }
 
   const byKey = new Map<string, ProvisionalEffect>()
@@ -264,8 +276,8 @@ export function provisionalRead(
     if (t.supersededBy) continue // answered by a statement — it no longer changes what is held
     // Keyed by symbol AND currency: the same ticker on two listings is two positions, and summing their
     // cash across currencies would produce a number in no currency at all.
-    const key = `${t.symbol} ${t.currency}`
-    const held0 = bookQty.has(t.symbol) ? bookQty.get(t.symbol)! : null
+    const key = effectKey(t.symbol, t.currency)
+    const held0 = bookQty.has(key) ? bookQty.get(key)! : null
     const e = byKey.get(key) ?? {
       symbol: t.symbol, currency: t.currency, bookQuantity: held0,
       delta: 0, provisionalQuantity: held0 ?? 0, cashEffect: 0, trades: 0, crossesZero: false,

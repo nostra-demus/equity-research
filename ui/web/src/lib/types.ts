@@ -2114,6 +2114,9 @@ export interface PortfolioPeriodReturn {
   label: string; from: string | null; to: string | null; twr: number | null; days: number
   /** What cash would have returned over the same window, and the book's margin over it. */
   hurdle: number | null; overHurdle: number | null
+  /** The book has no valued day at or before this period's start, so the window is shorter than the
+   *  label implies — a "year to date" on a book that only began in April. */
+  partial: boolean
 }
 export interface PortfolioMonthRow { month: string; book: number | null; benchmark: number | null }
 export interface PortfolioBetaAlpha { beta: number | null; alpha: number | null; pairedDays: number }

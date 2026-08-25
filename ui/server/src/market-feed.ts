@@ -21,7 +21,14 @@ export interface Close { date: string; close: number }
 function isIsoDate(s: string): boolean { return /^\d{4}-\d{2}-\d{2}$/.test(s) }
 
 /** Every daily close the feed holds for one symbol, oldest first, de-duplicated by date.
- *  Symbol matching is case-insensitive: a feed may write SPY, spy or ^GSPC casing. */
+ *  Symbol matching is case-insensitive: a feed may write SPY, spy or ^GSPC casing.
+ *
+ *  ONE PROVIDER ANSWERS, NEVER A BLEND. Two providers can both carry SPY on different bases — one
+ *  adjusted for dividends and splits, one not — and merging them into a single date→close map produces
+ *  a series that steps between the two whenever their dates interleave. Every return computed from it
+ *  is then partly a switch of source, and which source wins on any given day is decided by the order
+ *  the filesystem happened to list the folders. So the provider with the widest date span is used
+ *  ALONE; the others are ignored rather than averaged or interleaved. */
 export function readCloses(symbol: string): Close[] {
   const want = symbol.trim().toUpperCase()
   if (!want) return []
@@ -32,8 +39,9 @@ export function readCloses(symbol: string): Close[] {
       .map((e) => e.name)
   } catch { return [] } // no feed at all — the normal state before one is dropped in
 
-  const byDate = new Map<string, number>()
-  for (const provider of providers) {
+  const perProvider = new Map<string, Map<string, number>>()
+  for (const provider of providers.slice().sort()) {
+    const byDate = new Map<string, number>()
     const dir = path.join(MARKET_FEED_DIR, provider)
     let files: string[] = []
     try { files = fs.readdirSync(dir).filter((n) => n.toLowerCase().endsWith('.csv')) } catch { continue }
@@ -57,8 +65,20 @@ export function readCloses(symbol: string): Close[] {
         byDate.set(date, close)
       }
     }
+    if (byDate.size > 0) perProvider.set(provider, byDate)
   }
-  return [...byDate.entries()].map(([date, close]) => ({ date, close })).sort((a, b) => a.date.localeCompare(b.date))
+  if (perProvider.size === 0) return []
+
+  // Widest span wins, and the provider name breaks a tie so the answer is stable across runs rather
+  // than depending on directory order.
+  let chosen: Map<string, number> | null = null
+  let bestSpan = -1
+  for (const [, byDate] of [...perProvider.entries()].sort((a, b) => a[0].localeCompare(b[0]))) {
+    const dates = [...byDate.keys()].sort()
+    const span = Date.parse(`${dates[dates.length - 1]!}T00:00:00Z`) - Date.parse(`${dates[0]!}T00:00:00Z`)
+    if (span > bestSpan) { bestSpan = span; chosen = byDate }
+  }
+  return [...chosen!.entries()].map(([date, close]) => ({ date, close })).sort((a, b) => a.date.localeCompare(b.date))
 }
 
 /** Whether any feed folder exists at all — lets the UI distinguish "no feed configured" from

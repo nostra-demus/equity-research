@@ -64,22 +64,22 @@ check('since inception spans the whole series', () => {
 // ---------- money-weighted ----------
 check('IRR of a simple doubling over one year is ~100%', () => {
   const nav: NavPoint[] = [{ date: '2026-01-01', total: 1000 }, { date: '2027-01-01', total: 2000 }]
-  const irr = moneyWeightedReturn(nav, [])
+  const irr = moneyWeightedReturn(nav, new Map())
   assert.ok(irr !== null && Math.abs(irr - 100) < 0.5, `expected ~100%, got ${irr}`)
 })
 
 check('IRR rises when capital arrives before the good stretch — the point of reporting it', () => {
   // Same time-weighted path either way; only the timing of the contribution differs.
   const nav: NavPoint[] = [{ date: '2026-01-01', total: 1000 }, { date: '2026-07-01', total: 2100 }, { date: '2027-01-01', total: 4200 }]
-  const early = moneyWeightedReturn(nav, [{ date: '2026-07-01', amountBase: 1000 }])
-  const none = moneyWeightedReturn(nav, [])
+  const early = moneyWeightedReturn(nav, new Map([['2026-07-01', 1000]]))
+  const none = moneyWeightedReturn(nav, new Map())
   assert.ok(early !== null && none !== null)
   assert.ok(early < none, 'adding capital that must also be earned back lowers the money-weighted rate')
 })
 
 check('IRR says null rather than guessing when there is no solution', () => {
-  assert.equal(moneyWeightedReturn([{ date: '2026-01-01', total: 100 }], []), null)
-  assert.equal(moneyWeightedReturn([], []), null)
+  assert.equal(moneyWeightedReturn([{ date: '2026-01-01', total: 100 }], new Map()), null)
+  assert.equal(moneyWeightedReturn([], new Map()), null)
 })
 
 // ---------- drawdown ----------
@@ -370,6 +370,78 @@ check('a day only one side traded is dropped, not treated as flat', () => {
   const { beta, pairedDays } = betaAlpha(book, closes, 0)
   assert.equal(pairedDays, 29, 'only the days the index actually moved are paired')
   assert.equal(beta, null, 'under the minimum sample it states nothing rather than a number')
+})
+
+// ---------- review fixes ----------
+check('a deposit already inside the opening NAV is not charged twice', () => {
+  // A NAV row is the END-of-day value, so a flow dated on the first row is ALREADY in it. Counting it
+  // again as a separate contribution says the investor put in twice the money for the same result.
+  const nav: NavPoint[] = [{ date: '2026-01-01', total: 1000 }, { date: '2027-01-01', total: 1100 }]
+  const onOpening = moneyWeightedReturn(nav, new Map([['2026-01-01', 1000]]))
+  const none = moneyWeightedReturn(nav, new Map())
+  assert.ok(near(none!, 10, 1e-6), `1000 -> 1100 over a year is 10%, got ${none}`)
+  assert.ok(near(onOpening!, none!, 1e-9), 'a same-day opening flow must not change the answer')
+})
+
+check('a flow after the opening row still counts', () => {
+  const nav: NavPoint[] = [{ date: '2026-01-01', total: 1000 }, { date: '2027-01-01', total: 2100 }]
+  const withFlow = moneyWeightedReturn(nav, new Map([['2026-07-01', 1000]]))
+  const none = moneyWeightedReturn(nav, new Map())
+  assert.ok(withFlow !== null && none !== null && withFlow < none, 'capital added mid-year lowers the rate')
+})
+
+check('a young book with a huge annualised rate reports it rather than reporting nothing', () => {
+  // +50% in three weeks annualises past 1,000%/yr. A fixed bracket returned null, which the screen
+  // renders as "no money-weighted return exists" — the worst possible answer for the best possible run.
+  const nav: NavPoint[] = [{ date: '2026-01-01', total: 1000 }, { date: '2026-01-22', total: 1500 }]
+  const irr = moneyWeightedReturn(nav, new Map())
+  assert.ok(irr !== null, 'a solution exists and must be found')
+  assert.ok(irr > 1000, `expected a very large annualised rate, got ${irr}`)
+  // Cross-check against the closed form: (1.5)^(365/21) - 1.
+  assert.ok(near(irr, ((1.5 ** (365 / 21)) - 1) * 100, 1e-3), `got ${irr}`)
+})
+
+check('a benchmark that covers only part of the window is refused, not silently compared', () => {
+  // Counting closes is not coverage: two months of feed inside an eight-month window passes a count
+  // test with dozens of rows, and "excess" then subtracts a two-month index return from an eight-month
+  // book return.
+  const nav = series(240, 0.0005, 1000)
+  const to = nav[nav.length - 1]!.date
+  const short = nav.slice(0, 60).map((p, i) => ({ date: p.date, close: 100 + i }))
+  const partial = benchmarkCompare('SPY', 12, nav, short)
+  assert.equal(partial.benchmarkTwr, null)
+  assert.equal(partial.excess, null)
+  assert.match(partial.unavailable ?? '', /covers .* not the book/)
+
+  // The same feed extended to both ends is compared normally.
+  const full = nav.map((p, i) => ({ date: p.date, close: 100 + i }))
+  const ok = benchmarkCompare('SPY', 12, nav, full)
+  assert.equal(ok.unavailable, null)
+  assert.ok(ok.benchmarkTwr !== null && ok.excess !== null)
+})
+
+check('a weekend or holiday gap at the edges is still coverage', () => {
+  // The rule has to tolerate a market that simply was not open on the book's first or last day.
+  const nav = series(200, 0.0005, 1000)
+  const to = nav[nav.length - 1]!.date
+  const trimmed = nav.slice(2, nav.length - 2).map((p, i) => ({ date: p.date, close: 100 + i }))
+  const read = benchmarkCompare('SPY', 10, nav, trimmed)
+  assert.equal(read.unavailable, null, `a 2-day gap at each end must not refuse the comparison (to ${to})`)
+})
+
+check('a period that cannot reach its own boundary is marked partial', () => {
+  // A book that began in April has no January NAV, so its "year to date" is not a year to date — and
+  // printing the same number under two period names without saying so invites the reader to believe one
+  // of them means something else.
+  const nav = Array.from({ length: 40 }, (_, i) => ({
+    date: new Date(Date.UTC(2026, 3, 9 + i)).toISOString().slice(0, 10), total: 1000 * 1.0002 ** i,
+  }))
+  const periods = returnsByPeriod(nav, new Map())
+  const byLabel = Object.fromEntries(periods.map((p) => [p.label, p]))
+  assert.equal(byLabel['Year to date']!.partial, true, 'no NAV before 1 January')
+  assert.equal(byLabel['Quarter to date']!.partial, true, 'no NAV before 1 April')
+  assert.equal(byLabel['Month to date']!.partial, false, 'April data exists before 1 May')
+  assert.equal(byLabel['Since inception']!.partial, false, 'inception is never partial — it IS the start')
 })
 
 console.log(`\n${passed} passed, ${fails.length} failed`)
