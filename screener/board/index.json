@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-08-25T11:45:40Z",
+  "generated_at": "2026-08-25T11:51:27Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260825-1679",
+      "headline": "SHUANGHUA H (01241): PROFIT WARNING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0825/2026082501391.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-25T11:39:00Z",
+      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
+      "prelim_note": "The headline indicates a profit warning, suggesting a potential negative impact on the company's financial outlook.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The headline indicates a profit warning, suggesting a potential negative impact on the company's financial outlook.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "guidance_change",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SHUANGHUA H",
+          "ticker": "01241",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260825-1674",
       "headline": "HEG Limited: HEG Limited has informed the Exchange regarding a press release dated August 25, 2026, titled \"HEG Demerger to Take Effect from September 1, 2026; Record Date Fixed for September 7, 2026; and Changes in leadership pursuant to the Scheme becoming effective from September 1, 2026\".",
@@ -1937,55 +1986,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260825-1534",
-      "headline": "Suzlon Share Price Falls Despite Torrent Partnership, Rs 10,000 Cr Andhra Pradesh Plan",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/markets/suzlon-share-price-falls-despite-torrent-partnership-rs-10-000-cr-andhra-pradesh-plan-11954855#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-25T05:08:54Z",
-      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
-      "prelim_note": "Suzlon announced a major Rs 10,000 crore investment plan in Andhra Pradesh.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Suzlon announced a major Rs 10,000 crore investment plan in Andhra Pradesh.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Suzlon",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -89963,9 +89963,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1172762,
-    "news_picked_today": 2941,
-    "news_dropped_today": 10895
+    "news_seen_today": 1186409,
+    "news_picked_today": 2959,
+    "news_dropped_today": 10937
   },
   "book_momentum": {
     "live_count": 8,
