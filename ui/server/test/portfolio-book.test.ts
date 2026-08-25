@@ -156,7 +156,7 @@ check('withholding tax is its own line, not folded into dividends', () => {
 
 // ---------- positions ----------
 check('positions come through with the broker’s own weight', () => {
-  assert.equal(book.positions.length, 3)
+  assert.equal(book.positions.length, 4)
   const aaa = book.positions.find((p) => p.symbol === 'AAA')!
   assert.equal(aaa.percentOfNAV, 0.69)
   assert.equal(aaa.unrealizedLocal, 200)
@@ -174,14 +174,39 @@ check('every reconciliation check passes on a coherent statement', () => {
   const failed = book.reconciliation.checks.filter((c) => !c.ok)
   assert.equal(failed.length, 0, `failing: ${failed.map((f) => `${f.name} break=${f.break}`).join('; ')}`)
   assert.equal(book.reconciliation.ok, true)
-  assert.equal(book.reconciliation.checks.length, 4)
+  assert.equal(book.reconciliation.checks.length, 8)
 })
 
-check('NAV, the NAV bridge, TWR and realised P&L are each checked', () => {
+check('the book verifies NAV, return, realised P&L, positions and cash', () => {
   const names = book.reconciliation.checks.map((c) => c.name)
-  for (const n of ['Net asset value', 'NAV bridge', 'Time-weighted return', 'Realised P&L']) {
+  for (const n of ['Net asset value', 'NAV bridge', 'Time-weighted return', 'Realised P&L',
+                   'Open positions', 'Capital flows', 'Dividends', 'Withholding tax']) {
     assert.ok(names.includes(n), `missing check: ${n}`)
   }
+})
+
+check('derived lots are checked against the broker position snapshot', () => {
+  // Catches a history that starts after a position was opened, which nothing else would notice.
+  const short = buildBook([{ ...doc, trades: doc.trades.filter((t) => t.symbol !== 'EEE') }])
+  const positions = short.reconciliation.checks.find((c) => c.name === 'Open positions')!
+  assert.equal(positions.ok, false, 'a position with no opening trade must break the check')
+  assert.ok(near(positions.break!, 200), `the missing 200 shares should be the break, got ${positions.break}`)
+})
+
+check('a check that cannot be evaluated fails the book rather than being skipped', () => {
+  // Every close missing its opening lot leaves no realised P&L of our own; certifying on the other
+  // checks would let "reconciles" mean "the checks we happened to run passed".
+  const closesOnly = doc.trades.filter((t) => (t.openCloseIndicator ?? '').includes('C'))
+  const b = buildBook([{ ...doc, trades: closesOnly, openPositions: [] }])
+  const realised = b.reconciliation.checks.find((c) => c.name === 'Realised P&L')!
+  assert.equal(realised.ok, false)
+  assert.match(realised.detail, /starts too late|could not be evaluated/)
+  assert.equal(b.reconciliation.ok, false)
+})
+
+check('a book may not mix two accounts', () => {
+  const other = { ...doc, accountId: 'U9999999', accountIds: ['U9999999'] }
+  assert.throws(() => buildBook([doc, other]), /span 2 accounts/)
 })
 
 check('our FIFO total agrees with the statement’s own realised P&L', () => {
@@ -285,7 +310,8 @@ check('the book reports what the query actually contained', () => {
   assert.equal(book.baseCurrency, 'USD')
   assert.equal(book.asOf, '2026-01-04')
   assert.equal(book.coverage.documents, 1)
-  assert.equal(book.sectionsPresent.length, 8)
+  assert.equal(book.sectionsPresent.length, 7)
+  assert.ok(book.sectionsUnmodelled.includes('SecuritiesInfo'), 'an unread section must be reported')
   assert.equal(book.corporateActions.length, 1)
   assert.equal(book.warnings.length, 0)
 })

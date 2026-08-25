@@ -27,9 +27,9 @@ function main(argv: string[]): number {
   }
 
   const docs = paths.map((p) => {
-    const xml = fs.readFileSync(p, 'utf8')
+    // The read is inside the try too, so a missing or unreadable file reports WHICH file failed.
     try {
-      return parseFlexXml(xml)
+      return parseFlexXml(fs.readFileSync(p, 'utf8'))
     } catch (e: any) {
       throw new Error(`${p}: ${e?.message || e}`)
     }
@@ -42,6 +42,11 @@ function main(argv: string[]): number {
   console.log(`ACCOUNT   ${book.accountId ?? '(none)'}   base ${ccy ?? '?'}`)
   console.log(`COVERAGE  ${book.coverage.from ?? '?'} → ${book.coverage.to ?? '?'}   ${book.coverage.documents} document(s)   as of ${book.asOf ?? '?'}`)
   console.log(`SECTIONS  ${book.sectionsPresent.join(', ') || '(none)'}`)
+  if (book.sectionsUnmodelled.length) {
+    // The operator must see what the statement carried but the book did not read — otherwise a
+    // BOOK RECONCILES verdict reads as "everything was accounted for".
+    console.log(`NOT READ  ${book.sectionsUnmodelled.join(', ')}  <- present in the statement, not modelled here`)
+  }
   console.log('')
   console.log(`POSITIONS ${book.positions.length}   (${book.positions.filter((p) => p.isDerivative).length} derivative — notional is exposure, not a NAV weight)`)
   console.log(`OPEN LOTS ${book.openLots.length}`)

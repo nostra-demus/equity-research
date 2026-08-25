@@ -101,10 +101,13 @@ export function parseXml(src: string): XmlNode {
       const e = src.indexOf('>', i)
       if (e < 0) throw new Error('unterminated closing tag')
       const name = src.slice(i + 1, e).trim()
-      // Tolerate a stray close (a truncated download) rather than losing everything parsed so far.
-      for (let d = stack.length - 1; d > 0; d--) {
-        if (stack[d]!.tag === name) { stack.length = d; break }
+      // A mismatched close means the document is not what it claims to be. Financial input must fail
+      // loudly: a partial tree parses into a plausible book that is quietly missing whole sections.
+      const top = stack[stack.length - 1]
+      if (!top || top.tag !== name) {
+        throw new Error(`malformed XML: </${name}> closes <${top?.tag ?? 'nothing'}> — the download may be truncated`)
       }
+      stack.pop()
       i = e + 1
       continue
     }
@@ -113,6 +116,10 @@ export function parseXml(src: string): XmlNode {
     stack[stack.length - 1]!.children.push(node)
     if (!selfClosing) stack.push(node)
     i = end
+  }
+  // Reaching the end with elements still open is the signature of a truncated download.
+  if (stack.length > 1) {
+    throw new Error(`malformed XML: <${stack[stack.length - 1]!.tag}> is never closed — the download may be truncated`)
   }
   return root
 }
@@ -341,9 +348,12 @@ export interface FlexDocument {
   conversionRates: FlexConversionRate[]
 }
 
+// Sections this importer actually READS. SecuritiesInfo is deliberately absent: its contract metadata
+// is not parsed, so listing it here would hide it from sectionsUnmodelled and quietly claim coverage
+// the importer does not have.
 const KNOWN_SECTIONS = [
   'EquitySummaryInBase', 'ChangeInNAV', 'OpenPositions', 'Trades',
-  'CorporateActions', 'CashTransactions', 'SecuritiesInfo', 'ConversionRates',
+  'CorporateActions', 'CashTransactions', 'ConversionRates',
 ]
 
 export function parseFlexXml(xml: string): FlexDocument {

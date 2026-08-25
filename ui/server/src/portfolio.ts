@@ -152,10 +152,17 @@ export interface Book {
 
 // ---------- merge (idempotent) ----------
 
-/** Position identity. `conid` is IBKR's stable contract id and survives a ticker rename; symbol is the
- *  fallback for rows that carry no conid. */
-function positionKey(row: { conid: string | null; symbol: string | null }): string {
-  return row.conid ? `conid:${row.conid}` : `sym:${row.symbol ?? 'UNKNOWN'}`
+/** Position identity. `conid` is IBKR's stable contract id and survives a ticker rename, so it is used
+ *  alone whenever present. Without it, a bare symbol would merge instruments that merely share a
+ *  ticker — a stock and its option, two listings in different currencies, two futures expiries — and a
+ *  close in one could then consume the other's lot and manufacture P&L. The fallback therefore pins
+ *  every field that distinguishes a contract. */
+function positionKey(row: {
+  conid: string | null; symbol: string | null; assetCategory?: string | null
+  currency?: string | null; multiplier?: number | null; expiry?: string | null
+}): string {
+  if (row.conid) return `conid:${row.conid}`
+  return `sym:${row.symbol ?? 'UNKNOWN'}|${row.assetCategory ?? ''}|${row.currency ?? ''}|${row.multiplier ?? ''}|${row.expiry ?? ''}`
 }
 
 /** Later documents win on a key collision: a re-export of the same range carries the CURRENT truth,
@@ -198,12 +205,18 @@ export function runFifo(trades: FlexTrade[]): { lots: BookLot[]; closures: BookC
   const open = new Map<string, BookLot[]>()
   const closures: BookClosure[] = []
 
-  const ordered = [...trades].sort((a, b) => {
-    const at = a.dateTime ?? a.tradeDate ?? ''
-    const bt = b.dateTime ?? b.tradeDate ?? ''
-    if (at !== bt) return at < bt ? -1 : 1
-    return (a.tradeID ?? '').localeCompare(b.tradeID ?? '')
-  })
+  // Timestamp first; for fills sharing a second, keep the order the statement listed them in. Sorting
+  // ids lexicographically would put "10" before "9" and could flip an open ahead of the close it
+  // belongs to — file order is the only execution order actually available at second resolution.
+  const ordered = trades
+    .map((trade, index) => ({ trade, index }))
+    .sort((a, b) => {
+      const at = a.trade.dateTime ?? a.trade.tradeDate ?? ''
+      const bt = b.trade.dateTime ?? b.trade.tradeDate ?? ''
+      const byTime = at.localeCompare(bt)
+      return byTime !== 0 ? byTime : a.index - b.index
+    })
+    .map((x) => x.trade)
 
   for (const t of ordered) {
     // Only EXECUTION rows are real fills; a SUMMARY row is the same fills aggregated, and counting both
@@ -214,7 +227,6 @@ export function runFifo(trades: FlexTrade[]): { lots: BookLot[]; closures: BookC
     if (qty === null || qty === 0 || price === null) continue
 
     const key = positionKey(t)
-    const multiplier = t.multiplier ?? 1
     const indicator = (t.openCloseIndicator ?? '').toUpperCase()
     // IBKR leaves the indicator EMPTY for several asset classes. Treating that as "open" turns a sell
     // against a long into a phantom short lot, with no closure and no warning. A blank indicator is
@@ -234,13 +246,19 @@ export function runFifo(trades: FlexTrade[]): { lots: BookLot[]; closures: BookC
         if (Math.sign(lot.quantity) === Math.sign(remaining)) break
         const matched = Math.min(Math.abs(lot.quantity), Math.abs(remaining))
         const signedMatched = matched * Math.sign(lot.quantity)
-        const grossLocal = (price - lot.price) * signedMatched * multiplier
+        // The LOT's multiplier wins: a closing row that omits it would otherwise value a 100x contract
+        // at 1x and report one hundredth of the real P&L.
+        const contract = lot.multiplier || t.multiplier || 1
+        const grossLocal = (price - lot.price) * signedMatched * contract
         // COMMISSION IS CHARGED ON BOTH LEGS. The broker's fifoPnlRealized is net of the closing
         // commission AND of the opening lot's commission apportioned to the quantity being closed —
         // verified against a real statement, where gross-only left a break of exactly the two shares
         // combined. Commissions arrive negative, so they simply add.
         const openShare = lot.openedQuantityAbs > 0 ? lot.commission * (matched / lot.openedQuantityAbs) : 0
-        const closeShare = Math.abs(qty) > 0 ? (t.ibCommission ?? 0) * (matched / Math.abs(qty)) : 0
+        // Transaction taxes (stamp duty and the like) are an execution cost exactly as commission is,
+        // and the broker's cost basis includes them — omitting them leaves realised P&L overstated.
+        const closeCost = (t.ibCommission ?? 0) + (t.taxes ?? 0)
+        const closeShare = Math.abs(qty) > 0 ? closeCost * (matched / Math.abs(qty)) : 0
         const commissionLocal = openShare + closeShare
         const realizedLocal = grossLocal + commissionLocal
         closures.push({
@@ -279,11 +297,11 @@ export function runFifo(trades: FlexTrade[]): { lots: BookLot[]; closures: BookC
         currency: t.currency,
         quantity: remaining,
         price,
-        multiplier,
+        multiplier: t.multiplier ?? 1,
         openedAt: t.dateTime ?? t.tradeDate,
         tradeID: t.tradeID,
         // Only the share of the opening commission belonging to the quantity that actually stays open.
-        commission: (t.ibCommission ?? 0) * (Math.abs(remaining) / Math.abs(qty)),
+        commission: ((t.ibCommission ?? 0) + (t.taxes ?? 0)) * (Math.abs(remaining) / Math.abs(qty)),
         openedQuantityAbs: Math.abs(remaining),
       })
     }
@@ -416,17 +434,25 @@ export function buildBook(documents: FlexDocument[]): Book {
   if (docs.length === 0) throw new Error('no Flex documents to build a book from')
 
   const warnings: string[] = []
-  const accountIds = new Set(docs.map((d) => d.accountId).filter((a): a is string => !!a))
+
+  // A book is ONE account. Merging two accounts' trades, cash and NAV produces neither account's book —
+  // and it can still reconcile by coincidence, which is worse than failing. Refuse rather than warn.
+  const accountIds = new Set(docs.flatMap((d) => d.accountIds.length ? d.accountIds : [d.accountId]).filter((a): a is string => !!a))
   if (accountIds.size > 1) {
-    warnings.push(`documents span ${accountIds.size} accounts (${[...accountIds].join(', ')}) — a book must be one account`)
+    throw new Error(`these exports span ${accountIds.size} accounts (${[...accountIds].sort().join(', ')}) — build one book per account`)
   }
+
+  // ORDER ONCE, HERE. Dedup keeps the LAST row for a key and the NAV map keeps the last value for a
+  // date, so "newest wins" is only true if the documents are in chronological order. Relying on the
+  // caller's argument order let a stale export overwrite a newer one.
+  docs.sort((a, b) => (a.toDate ?? '').localeCompare(b.toDate ?? ''))
 
   const trades = dropSupersededTrades(dedupeBy(docs.flatMap((d) => d.trades), (t) => t.tradeID ?? t.transactionID))
   const cash = dedupeBy(docs.flatMap((d) => d.cashTransactions), (c) => c.transactionID)
   const corporateActions = dedupeBy(docs.flatMap((d) => d.corporateActions), (c) => c.transactionID ?? c.actionID)
 
   // The newest document wins for point-in-time state (positions are a snapshot, not a history).
-  const newest = [...docs].sort((a, b) => (a.toDate ?? '') < (b.toDate ?? '') ? -1 : 1)[docs.length - 1]!
+  const newest = docs[docs.length - 1]!
 
   // Daily NAV: one row per day across every document, deduped on date, oldest first.
   const navByDate = new Map<string, number>()
@@ -437,7 +463,7 @@ export function buildBook(documents: FlexDocument[]): Book {
   }
   const navSeries: NavPoint[] = [...navByDate.entries()]
     .map(([date, total]) => ({ date, total }))
-    .sort((a, b) => (a.date < b.date ? -1 : 1))
+    .sort((a, b) => a.date.localeCompare(b.date))
 
   const { lots, closures, warnings: fifoWarnings } = runFifo(trades)
   warnings.push(...fifoWarnings)
@@ -514,8 +540,8 @@ export function buildBook(documents: FlexDocument[]): Book {
     baseCurrency,
     asOf: navSeries.length ? navSeries[navSeries.length - 1]!.date : newest.toDate,
     coverage: {
-      from: docs.map((d) => d.fromDate).filter(Boolean).sort()[0] ?? null,
-      to: docs.map((d) => d.toDate).filter(Boolean).sort().reverse()[0] ?? null,
+      from: docs.map((d) => d.fromDate).filter((x): x is string => !!x).sort()[0] ?? null,
+      to: docs.map((d) => d.toDate).filter((x): x is string => !!x).sort().reverse()[0] ?? null,
       documents: docs.length,
     },
     sectionsPresent: [...new Set(docs.flatMap((d) => d.sectionsPresent))].sort(),
@@ -528,7 +554,7 @@ export function buildBook(documents: FlexDocument[]): Book {
     navSeries,
     twr,
     corporateActions,
-    reconciliation: reconcile(docs, navSeries, twr, closures, trades),
+    reconciliation: reconcile({ docs, navSeries, twr, closures, trades, flows, income, positions, openLots: lots, flowsByDate, fx }),
     warnings,
   }
 }
@@ -543,39 +569,47 @@ function isDerivativeCategory(assetCategory: string | null): boolean {
 // ---------- reconciliation ----------
 
 /** The trust anchor. Every number in the book is derived; these checks are what prove the derivation.
- *  A break is reported, never hidden — and any failing check makes the whole book un-reconciled. */
-export function reconcile(
-  docs: FlexDocument[],
-  navSeries: NavPoint[],
-  ourTwr: number | null,
-  closures: BookClosure[],
-  /** The DEDUPED, superseded-dropped trades the closures were actually built from. Summing the raw
-   *  union instead doubles the broker side on any overlapping re-import, so a book that reconciles
-   *  from one file reports a huge break from two — the exact case dedup exists to make safe. */
-  tradesForRealized: FlexTrade[],
-): Reconciliation {
+ *  A break is reported, never hidden — and any failing check makes the whole book un-reconciled.
+ *
+ *  Two rules keep the verdict honest rather than merely green:
+ *   · A check that CANNOT be evaluated is recorded as un-evaluated and fails the book. Silently
+ *     dropping it lets "reconciles" mean "the checks we happened to run passed".
+ *   · Money is compared in the BASE currency. Summing realised P&L across trade currencies adds
+ *     unlike units, so it can only agree by coincidence. */
+export function reconcile(ctx: {
+  docs: FlexDocument[]
+  navSeries: NavPoint[]
+  twr: number | null
+  closures: BookClosure[]
+  trades: FlexTrade[]
+  flows: BookFlow[]
+  income: BookIncome
+  positions: BookPosition[]
+  openLots: BookLot[]
+  flowsByDate: Map<string, number>
+  fx: (currency: string | null, date: string | null) => number | null
+}): Reconciliation {
   const checks: ReconciliationCheck[] = []
-  // Newest by toDate, NOT by argument order — callers may pass documents in any order, and picking the
-  // last argument produced spurious NAV breaks on perfectly consistent data.
-  const nav = [...docs]
-    .filter((d) => d.changeInNav !== null)
-    .sort((a, b) => ((a.toDate ?? '') < (b.toDate ?? '') ? -1 : 1))
-    .map((d) => d.changeInNav!)
-  const latestNav = nav.length ? nav[nav.length - 1]! : null
+  const { docs, navSeries, closures, trades, flows, income, positions, openLots, fx } = ctx
+  // docs arrive chronologically ordered from buildBook, so the last statement is the newest.
+  const withNav = docs.filter((d) => d.changeInNav !== null)
+  const latestNav = withNav.length ? withNav[withNav.length - 1]!.changeInNav! : null
+
+  const add = (c: ReconciliationCheck) => checks.push(c)
+  const cmp = (name: string, ours: number | null, broker: number | null, tolerance: number, detail: string) => {
+    if (ours === null || broker === null) {
+      add({ name, ours, broker, break: null, tolerance, ok: false, detail: `${detail} — could not be evaluated` })
+      return
+    }
+    const diff = ours - broker
+    add({ name, ours, broker, break: diff, tolerance, ok: Math.abs(diff) <= tolerance, detail })
+  }
 
   // 1. NAV: the statement's ending value against the last day of its own daily series.
   const lastPoint = navSeries.length ? navSeries[navSeries.length - 1]! : null
   if (latestNav?.endingValue != null && lastPoint) {
-    const diff = lastPoint.total - latestNav.endingValue
-    checks.push({
-      name: 'Net asset value',
-      ours: lastPoint.total,
-      broker: latestNav.endingValue,
-      break: diff,
-      tolerance: 1,
-      ok: Math.abs(diff) <= 1,
-      detail: 'Last day of the daily series against the statement’s ending value',
-    })
+    cmp('Net asset value', lastPoint.total, latestNav.endingValue, 1,
+      'Last day of the daily series against the statement\u2019s ending value')
   }
 
   // 2. The NAV bridge identity: starting value plus every component must equal the ending value.
@@ -586,52 +620,80 @@ export function reconcile(
       latestNav.depositsWithdrawals, latestNav.fxTranslation,
       latestNav.changeInDividendAccruals, latestNav.changeInInterestAccruals,
     ].filter((v): v is number => v !== null)
-    const rebuilt = latestNav.startingValue + components.reduce((a, b) => a + b, 0)
-    const diff = rebuilt - latestNav.endingValue
-    checks.push({
-      name: 'NAV bridge',
-      ours: rebuilt,
-      broker: latestNav.endingValue,
-      break: diff,
-      tolerance: 1,
-      ok: Math.abs(diff) <= 1,
-      detail: 'Starting value plus every stated component should rebuild the ending value',
-    })
+    cmp('NAV bridge', latestNav.startingValue + components.reduce((a, b) => a + b, 0), latestNav.endingValue, 1,
+      'Starting value plus every stated component should rebuild the ending value')
   }
 
-  // 3. Return: ours against the statement's own time-weighted return.
-  if (latestNav?.twr != null && ourTwr !== null && docs.length === 1) {
-    const diff = ourTwr - latestNav.twr
-    checks.push({
-      name: 'Time-weighted return',
-      ours: ourTwr,
-      broker: latestNav.twr,
-      break: diff,
-      tolerance: 0.05,
-      ok: Math.abs(diff) <= 0.05,
-      detail: 'Daily-chained return with flows removed, against the statement’s twr (percentage points)',
-    })
+  // 3. Return. With several overlapping exports the merged series spans more than the newest
+  //    statement's window, so the comparison is made over THAT window rather than skipped — a
+  //    multi-file import must not be certified on the other checks alone.
+  if (latestNav?.twr != null) {
+    const from = latestNav.fromDate, to = latestNav.toDate
+    const windowed = from && to ? navSeries.filter((p) => p.date >= from && p.date <= to) : navSeries
+    const ourWindowTwr = windowed.length === navSeries.length ? ctx.twr : computeTwr(windowed, ctx.flowsByDate)
+    cmp('Time-weighted return', ourWindowTwr, latestNav.twr, 0.05,
+      'Daily-chained return with flows removed, over the statement\u2019s own window (percentage points)')
   }
 
-  // 4. Realised P&L: our FIFO matching against the broker's own per-trade figure.
-  const brokerRealized = tradesForRealized
-    .filter((t) => !t.levelOfDetail || t.levelOfDetail.toUpperCase() === 'EXECUTION')
-    .map((t) => t.fifoPnlRealized)
-    .filter((v): v is number => v !== null)
-  if (brokerRealized.length > 0 && closures.length > 0) {
-    const theirs = brokerRealized.reduce((a, b) => a + b, 0)
-    const ours = closures.reduce((a, c) => a + c.realizedLocal, 0)
-    const diff = ours - theirs
-    const tolerance = Math.max(1, Math.abs(theirs) * 0.001)
-    checks.push({
-      name: 'Realised P&L',
-      ours,
-      broker: theirs,
-      break: diff,
-      tolerance,
-      ok: Math.abs(diff) <= tolerance,
-      detail: 'Our FIFO matching against the statement’s own fifoPnlRealized',
-    })
+  // 4. Realised P&L, IN BASE CURRENCY on both sides.
+  const executions = trades.filter((t) => !t.levelOfDetail || t.levelOfDetail.toUpperCase() === 'EXECUTION')
+  const brokerRows = executions.filter((t) => t.fifoPnlRealized !== null)
+  const rate = (t: FlexTrade) => t.fxRateToBase ?? fx(t.currency, t.tradeDate)
+  const unconvertible = brokerRows.filter((t) => rate(t) === null).length
+    + closures.filter((c) => c.realizedBase === null).length
+  if (brokerRows.length > 0 || closures.length > 0) {
+    if (unconvertible > 0) {
+      add({ name: 'Realised P&L', ours: null, broker: null, break: null, tolerance: 0, ok: false,
+        detail: `${unconvertible} row(s) could not be valued in the base currency, so realised P&L cannot be compared` })
+    } else if (brokerRows.length > 0 && closures.length === 0) {
+      // Every close failed to match an opening lot (history starting mid-position). The book has no
+      // realised P&L of its own, so skipping the check would certify a book that never verified one.
+      add({ name: 'Realised P&L', ours: 0, broker: brokerRows.reduce((a, t) => a + t.fifoPnlRealized! * rate(t)!, 0),
+        break: null, tolerance: 0, ok: false,
+        detail: 'the statement reports realised trades but no close matched an opening lot — the imported history starts too late' })
+    } else {
+      const theirs = brokerRows.reduce((a, t) => a + t.fifoPnlRealized! * rate(t)!, 0)
+      const ours = closures.reduce((a, c) => a + c.realizedBase!, 0)
+      cmp('Realised P&L', ours, theirs, Math.max(1, Math.abs(theirs) * 0.001),
+        'Our FIFO matching against the statement\u2019s own fifoPnlRealized, both in the base currency')
+    }
+  }
+
+  // 5. Our derived lots against the broker's position snapshot. This is what catches a history that
+  //    starts after a position was opened, or an opening execution the query never returned.
+  if (positions.length > 0) {
+    const held = new Map<string, number>()
+    for (const p of positions) if (p.quantity !== null) held.set(positionKey(p), p.quantity)
+    const derived = new Map<string, number>()
+    for (const l of openLots) derived.set(l.key, (derived.get(l.key) ?? 0) + l.quantity)
+    let worst = 0
+    for (const key of new Set([...held.keys(), ...derived.keys()])) {
+      worst = Math.max(worst, Math.abs((derived.get(key) ?? 0) - (held.get(key) ?? 0)))
+    }
+    add({ name: 'Open positions', ours: derived.size, broker: held.size, break: worst, tolerance: EPS,
+      ok: worst <= EPS,
+      detail: 'Lots rebuilt from trades against the statement\u2019s position snapshot (largest quantity difference)' })
+  }
+
+  // 6. Cash we derived against the cash the statement states. A missed type or a duplicate row corrupts
+  //    the TWR inputs without touching NAV, so nothing else would notice.
+  if (latestNav?.depositsWithdrawals != null) {
+    const inWindow = latestNav.fromDate && latestNav.toDate
+      ? flows.filter((f) => f.date && f.date >= latestNav.fromDate! && f.date <= latestNav.toDate!)
+      : flows
+    const ours = inWindow.reduce((a, f) => a + (f.amountBase ?? Number.NaN), 0)
+    cmp('Capital flows', Number.isFinite(ours) ? ours : null, latestNav.depositsWithdrawals, 1,
+      'Deposits and withdrawals we classified against the statement\u2019s own total')
+  }
+  if (latestNav?.dividends != null && docs.length === 1) {
+    // Gross dividends only. Payment-in-lieu is a separate statement line, and folding it in here would
+    // make the check disagree with a perfectly correct statement.
+    cmp('Dividends', income.dividendsGross, latestNav.dividends, 1,
+      'Dividend income we classified against the statement\u2019s own total')
+  }
+  if (latestNav?.withholdingTax != null && docs.length === 1) {
+    cmp('Withholding tax', income.withholdingTax, latestNav.withholdingTax, 1,
+      'Withholding we classified against the statement\u2019s own total')
   }
 
   return { ok: checks.length > 0 && checks.every((c) => c.ok), checks }

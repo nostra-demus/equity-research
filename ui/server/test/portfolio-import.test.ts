@@ -80,12 +80,25 @@ check('statement header parsed', () => {
   assert.equal(doc.whenGenerated, '2026-01-05T12:00:00')
 })
 
-check('all eight sections detected', () => {
-  assert.equal(doc.sectionsPresent.length, 8)
+check('every section the importer READS is detected', () => {
+  assert.equal(doc.sectionsPresent.length, 7)
   for (const s of ['Trades', 'OpenPositions', 'CashTransactions', 'CorporateActions',
-                   'ChangeInNAV', 'EquitySummaryInBase', 'SecuritiesInfo', 'ConversionRates']) {
+                   'ChangeInNAV', 'EquitySummaryInBase', 'ConversionRates']) {
     assert.ok(doc.sectionsPresent.includes(s), `missing ${s}`)
   }
+})
+
+check('a section the statement carries but the importer does not read is reported', () => {
+  // SecuritiesInfo is present in the file and deliberately NOT modelled. Claiming it as covered would
+  // let a "reconciles" verdict imply the whole statement was accounted for.
+  assert.ok(doc.sectionsUnmodelled.includes('SecuritiesInfo'))
+  assert.ok(!doc.sectionsPresent.includes('SecuritiesInfo'))
+})
+
+check('a truncated download is rejected rather than parsed into a partial book', () => {
+  const truncated = xml.slice(0, xml.indexOf('</Trades>'))
+  assert.throws(() => parseFlexXml(truncated), /truncated/)
+  assert.throws(() => parseXml('<A><B></C></A>'), /closes <B>/)
 })
 
 check('row counts', () => {
