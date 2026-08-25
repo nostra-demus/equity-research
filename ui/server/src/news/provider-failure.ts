@@ -270,6 +270,35 @@ export function publicProviderFailureNote(provider: string, failure: ProviderFai
   return `${prefix} — provider request failed for an unknown reason`
 }
 
+/** Rehydrate only the bounded public classification carried by a durable marker. */
+export function providerFailureFromQuarantine(marker: ProviderQuarantine): ProviderFailureClassification {
+  return {
+    code: marker.failureCode,
+    scope: marker.scope,
+    action: 'quarantine',
+    providerWide: marker.scope === 'provider',
+    ...(marker.httpStatus != null ? { httpStatus: marker.httpStatus } : {}),
+    ...(marker.evidenceType ? { evidenceType: marker.evidenceType } : {}),
+    ...(marker.evidenceCode ? { evidenceCode: marker.evidenceCode } : {}),
+  }
+}
+
+/** An explicit Retry-After can make a request rejection self-clearing. Auth, billing, entitlement, and
+ * explicit model-retirement evidence remain terminal regardless of a retry header. */
+export function honorProviderRetryAfter(
+  failure: ProviderFailureClassification,
+  retryAfterMs: number | null | undefined,
+): ProviderFailureClassification {
+  return failure.code === 'request_invalid'
+    && retryAfterMs != null && Number.isFinite(retryAfterMs) && retryAfterMs > 0
+    ? { ...failure, action: 'cooldown' }
+    : failure
+}
+
+export function publicProviderQuarantineNote(provider: string, marker: ProviderQuarantine): string {
+  return `${publicProviderFailureNote(provider, providerFailureFromQuarantine(marker))}; waiting will not repair this configuration`
+}
+
 function quarantineFile(stateDir: string, identity: ProviderRequestIdentity, scope: ProviderFailureScope): string {
   const suffix = scope === 'provider' ? '' : `-${safeWorkload(identity.workload)}`
   return path.join(stateDir, `provider-${safeProviderId(identity.providerId)}${suffix}-quarantine.json`)
