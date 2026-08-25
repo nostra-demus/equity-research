@@ -12,6 +12,8 @@ import {
   classifyProviderHttpFailure,
   classifyProviderLocalStateFailure,
   clearProviderQuarantine,
+  honorProviderRetryAfter,
+  providerFailureFromQuarantine,
   providerRequestIdentity,
   publicProviderFailureNote,
   quarantineProviderFailure,
@@ -241,12 +243,6 @@ function clearDurableFailure(opts: TriageOptions, identity: ProviderRequestIdent
 /** An explicit Retry-After can make an otherwise deterministic request rejection self-clearing. Preserve
  * its exact scope and class, but honor the provider's reopening clock. It never overrides auth, billing,
  * entitlement, or explicit model-retirement evidence. */
-function honorRequestRetryAfter(failure: ProviderFailureClassification, rate: RateInfo): ProviderFailureClassification {
-  return failure.code === 'request_invalid' && rate.retryAfterMs != null && Number.isFinite(rate.retryAfterMs) && rate.retryAfterMs > 0
-    ? { ...failure, action: 'cooldown' }
-    : failure
-}
-
 /** `elapsedMs` (when the caller measured one) is NAMED in the note, not just carried as metadata: the operator
  *  reads the note, and "timed out after 30.0s (our 30.0s ceiling)" is actionable where "request timed out" is
  *  a dead end. `limitMs` is the deadline that was in force, so the note can say whether we cut the call off. */
@@ -414,12 +410,7 @@ export async function triageBatch(
   }
   const existing = opts.stateDir ? readProviderQuarantine(opts.stateDir, identity) : null
   if (existing) {
-    const failure: ProviderFailureClassification = {
-      code: existing.failureCode, scope: existing.scope, action: 'quarantine', providerWide: existing.scope === 'provider',
-      ...(existing.httpStatus != null ? { httpStatus: existing.httpStatus } : {}),
-      ...(existing.evidenceType ? { evidenceType: existing.evidenceType } : {}),
-      ...(existing.evidenceCode ? { evidenceCode: existing.evidenceCode } : {}),
-    }
+    const failure = providerFailureFromQuarantine(existing)
     return {
       byIndex, requests: 0, tokens: 0, ok: false, quarantined: true, failure,
       providerIdentity: identity, failureKind: legacyFailureKind(failure),
@@ -463,7 +454,7 @@ export async function triageBatch(
         // Read only to classify safe error type/code fields. The body/message is never returned or stored.
         const rawBody = await res.text().catch(() => '')
         const dailyLimit = opts.requestRemainingHeaderIsDaily === true && res.status === 429 && rate.rpdRemaining === 0
-        const failure = honorRequestRetryAfter(classifyProviderHttpFailure(res.status, rawBody), rate)
+        const failure = honorProviderRetryAfter(classifyProviderHttpFailure(res.status, rawBody), rate.retryAfterMs)
         const failureKind = legacyFailureKind(failure)
         const note = publicProviderFailureNote(provider, failure, dailyLimit)
         const transient = (failure.code === 'rate_limited' && !dailyLimit) || failure.code === 'transient_upstream'
@@ -781,10 +772,7 @@ export async function analyzeArticle(
   if (!isArticleBodyEligible(body)) return { brief: null, tokens: 0, note: 'body too thin to read', attempted: false, failureKind: 'request' }
   const existing = opts.stateDir ? readProviderQuarantine(opts.stateDir, identity) : null
   if (existing) {
-    const failure: ProviderFailureClassification = {
-      code: existing.failureCode, scope: existing.scope, action: 'quarantine', providerWide: existing.scope === 'provider',
-      ...(existing.httpStatus != null ? { httpStatus: existing.httpStatus } : {}),
-    }
+    const failure = providerFailureFromQuarantine(existing)
     return { brief: null, tokens: 0, note: `${provider}: quarantined after ${failure.code}; waiting will not repair this configuration`, attempted: false, quarantined: true, failureKind: legacyFailureKind(failure), failure, providerIdentity: identity }
   }
   const user = buildArticleUserMessage(body, headline)
@@ -825,7 +813,7 @@ export async function analyzeArticle(
       if (!res.ok) {
         const rawBody = await res.text().catch(() => '')
         const dailyLimit = opts.requestRemainingHeaderIsDaily === true && res.status === 429 && rate.rpdRemaining === 0
-        const failure = honorRequestRetryAfter(classifyProviderHttpFailure(res.status, rawBody), rate)
+        const failure = honorProviderRetryAfter(classifyProviderHttpFailure(res.status, rawBody), rate.retryAfterMs)
         const failureKind = legacyFailureKind(failure)
         const note = publicProviderFailureNote(provider, failure, dailyLimit)
         if (((failure.code === 'rate_limited' && !dailyLimit) || failure.code === 'transient_upstream') && attempt < maxAttempts) { await sleep(rate.retryAfterMs || 1200 * attempt); continue }

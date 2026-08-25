@@ -314,6 +314,31 @@ await check('buildThemeBrief: model HTTP error degrades to deterministic + a not
   assert.equal(calls, 1, 'the next brief respects the shared Groq cooldown instead of probing again')
 })
 
+await check('buildThemeBrief quarantines a retired model with zero repeat calls and reopens on model change', async () => {
+  resetBudgetMemory(); resetCooldownMemory(); resetSharedLimiters()
+  const dir = tmpState()
+  let calls = 0
+  const retired = (async () => {
+    calls++
+    return new Response(JSON.stringify({ error: { code: 'model_not_found', message: 'configured model is retired' } }), { status: 404 })
+  }) as typeof fetch
+  const first = await buildThemeBrief(theme({ theme_id: 'THM-retired-1' }), GROQ_CFG, dir, retired)
+  assert.equal(first.generation, 'deterministic')
+  assert.equal(readCooldownUntil(dir, 'groq'), 0)
+  assert.equal(readCooldownUntil(dir, 'theme-brief:groq'), 0)
+  assert.equal(fs.existsSync(path.join(dir, 'provider-groq-quarantine.json')), true)
+
+  await buildThemeBrief(theme({ theme_id: 'THM-retired-2', name: 'Second retired theme' }), GROQ_CFG, dir, retired)
+  assert.equal(calls, 1, 'the matching retired model is rejected before budget, limiter, or fetch')
+
+  const repaired = await buildThemeBrief(
+    theme({ theme_id: 'THM-repaired-model', name: 'Repaired theme' }),
+    { ...GROQ_CFG, groqModel: 'replacement-model' }, dir,
+    fakeFetch(JSON.stringify({ brief: 'The replacement model produced a complete theme brief that safely clears the acceptance length.' })),
+  )
+  assert.equal(repaired.generation, 'groq', 'changing the model changes the fingerprint and reopens the route')
+})
+
 await check('buildThemeBrief: request errors use an exact workload-only Retry-After and are not re-probed', async () => {
   resetBudgetMemory(); resetCooldownMemory(); resetSharedLimiters()
   const dir = tmpState()
