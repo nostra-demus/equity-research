@@ -400,7 +400,13 @@ export interface ArchiveQuery {
   // replacing it. Structurally a CompanyPick; typed inline so lib/ never imports from components/.
   textAs?: { ticker: string | null; name: string; aliases?: string[]; listingCountry?: string | null }[]
 }
-export interface SearchCursor { ts: string; id: string }
+export interface SearchCursor {
+  ts: string
+  id: string
+  scanDate?: string
+  scanShard?: number
+  scanLine?: number
+}
 export interface FeedSearchResponse {
   items: FeedItem[]
   nextCursor: SearchCursor | null
@@ -685,11 +691,17 @@ export const api = {
     return get(`/api/news/feed?${p.toString()}`)
   },
   // Archive-spanning, server-filtered search over the WHOLE since-inception archive (not the 2-day wire).
-  // Recency-ordered, (ts,event_id) cursor paging. Empty in static showcase mode (no engine).
+  // Recency-ordered, loss-free cursor paging. Empty in static showcase mode (no engine).
   newsSearch: async (q: ArchiveQuery, opts: { cursor?: SearchCursor | null; limit?: number } = {}): Promise<FeedSearchResponse> => {
     if ((await ensureMode()) === 'static') return { items: [], nextCursor: null, scannedThroughDate: null, exhausted: true }
     const p = archiveQueryParams(q)
-    if (opts.cursor) { p.set('cursorTs', opts.cursor.ts); p.set('cursorId', opts.cursor.id) }
+    if (opts.cursor) {
+      p.set('cursorTs', opts.cursor.ts)
+      p.set('cursorId', opts.cursor.id)
+      if (opts.cursor.scanDate !== undefined) p.set('cursorScanDate', opts.cursor.scanDate)
+      if (opts.cursor.scanShard !== undefined) p.set('cursorScanShard', String(opts.cursor.scanShard))
+      if (opts.cursor.scanLine !== undefined) p.set('cursorScanLine', String(opts.cursor.scanLine))
+    }
     if (opts.limit) p.set('limit', String(opts.limit))
     return get(`/api/news/search?${p.toString()}`)
   },

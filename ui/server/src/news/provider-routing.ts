@@ -2,6 +2,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { createHash } from 'node:crypto'
 import { acquireRetainedFlockSync, releaseRetainedFlock } from '../singleton-lock'
+import { resolvedFirehoseFiles } from './firehose-files'
 
 const DAY_MS = 86_400_000
 const HALF_LIFE_MS = DAY_MS
@@ -925,25 +926,26 @@ interface FirehoseSummaryRow { ts: string; completed_at?: string; new_arrivals?:
 function readCycleSummaries(repoRoot: string, archiveDir: string, from: number, to: number): { rows: FirehoseSummaryRow[]; missing: string[]; corrupt: number; corruptDays: string[]; unreadable: string[] } {
   const out = { rows: [] as FirehoseSummaryRow[], missing: [] as string[], corrupt: 0, corruptDays: [] as string[], unreadable: [] as string[] }
   for (const date of eachUtcDay(from, to)) {
-    const files = [path.join(repoRoot, 'screener', 'inbox', `${date}_firehose.ndjson`), ...(archiveDir ? [path.join(archiveDir, `${date}_firehose.ndjson`)] : [])]
-    let text: string | null = null
-    let found = false
+    let files: ReturnType<typeof resolvedFirehoseFiles>
+    try { files = resolvedFirehoseFiles(repoRoot, date, archiveDir) }
+    catch { out.unreadable.push(date); continue }
+    if (!files.length) { out.missing.push(date); continue }
     for (const file of files) {
+      let text: string
       try {
-        const stat = fs.statSync(file); found = true
-        if (stat.size > 100 * 1024 * 1024) { out.unreadable.push(date); break }
-        text = fs.readFileSync(file, 'utf8'); break
-      } catch { /* try archive */ }
-    }
-    if (text == null) { if (!found && !out.unreadable.includes(date)) out.missing.push(date); continue }
-    for (const line of text.split('\n')) {
-      if (!line.includes('"kind":"cycle_summary"')) continue
-      try {
-        const row = JSON.parse(line) as FirehoseSummaryRow & { kind?: string }
-        if (row.kind !== 'cycle_summary' || !validIso(row.ts)) { out.corrupt++; out.corruptDays.push(date); continue }
-        const time = Date.parse(row.completed_at || row.ts)
-        if (time >= from && time < to) out.rows.push(row)
-      } catch { out.corrupt++; out.corruptDays.push(date) }
+        const stat = fs.statSync(file.file)
+        if (stat.size > 100 * 1024 * 1024) throw new Error('oversized firehose shard')
+        text = fs.readFileSync(file.file, 'utf8')
+      } catch { out.unreadable.push(date); break }
+      for (const line of text.split('\n')) {
+        if (!line.includes('"kind":"cycle_summary"')) continue
+        try {
+          const row = JSON.parse(line) as FirehoseSummaryRow & { kind?: string }
+          if (row.kind !== 'cycle_summary' || !validIso(row.ts)) { out.corrupt++; out.corruptDays.push(date); continue }
+          const time = Date.parse(row.completed_at || row.ts)
+          if (time >= from && time < to) out.rows.push(row)
+        } catch { out.corrupt++; out.corruptDays.push(date) }
+      }
     }
   }
   return out

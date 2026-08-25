@@ -54,7 +54,7 @@ fi
 
 echo "$(ts) [start] mirror raw news → $ARCH" >> "$LOG"
 up=0
-for f in "$SRC"/*_firehose.ndjson "$SRC"/*_pipeline.ndjson "$SRC"/*_sweep.json; do
+for f in "$SRC"/*_firehose*.ndjson "$SRC"/*_pipeline.ndjson "$SRC"/*_sweep.json; do
   [ -e "$f" ] || continue
   dest="$ARCH/$(basename "$f")"
   if [ ! -e "$dest" ] || [ "$f" -nt "$dest" ]; then
@@ -124,7 +124,7 @@ while IFS= read -r f; do
   if [ -e "$dest" ] && cmp -s "$f" "$dest"; then
     rm -f "$f" && pruned=$((pruned+1)) && echo "$(ts) [prune] $(basename "$f") (safe in Drive)" >> "$LOG"
   fi
-done < <(find "$SRC" \( -name '*_firehose.ndjson' -o -name '*_pipeline.ndjson' \) -type f -mtime +"$RETENTION_DAYS" 2>/dev/null)
+done < <(find "$SRC" \( -name '*_firehose*.ndjson' -o -name '*_pipeline.ndjson' \) -type f -mtime +"$RETENTION_DAYS" 2>/dev/null)
 
 if [ -f "$QUEUE_DB" ] && [ "$queue_snapshots" -ne 2 ]; then
   mark_queue_failure

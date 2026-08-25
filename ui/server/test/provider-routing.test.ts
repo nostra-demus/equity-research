@@ -226,6 +226,8 @@ check('trend validates 90 days, caps buckets, preserves legacy gaps, and paginat
   const firehose = path.join(root, 'screener', 'inbox', '2026-08-22_firehose.ndjson')
   fs.writeFileSync(firehose, [
     JSON.stringify({ kind: 'cycle_summary', ts: '2026-08-22T10:00:00Z', completed_at: '2026-08-22T10:01:00Z', feed_commit_version: 1, new_arrivals: 12, picked: 5, watched: 4, dropped: 3, backlog: 20, backlog_expired: 2 }),
+  ].join('\n') + '\n')
+  fs.writeFileSync(path.join(root, 'screener', 'inbox', '2026-08-22_firehose.000001.ndjson'), [
     JSON.stringify({ kind: 'cycle_summary', ts: '2026-08-22T11:00:00Z', completed_at: '2026-08-22T11:01:00Z', picked: 1, watched: 1, dropped: 1, backlog: 18 }),
   ].join('\n') + '\n')
   seed(root, [
@@ -268,6 +270,7 @@ check('archive service mirrors and safely prunes pipeline telemetry under the fi
   const here = path.dirname(fileURLToPath(import.meta.url))
   const script = fs.readFileSync(path.resolve(here, '../../..', 'scripts/ops/news-archive.sh'), 'utf8')
   assert.match(script, /\*_pipeline\.ndjson/)
+  assert.match(script, /\*_firehose\*\.ndjson/)
   assert.match(script, /-name '\*_pipeline\.ndjson'/)
   assert.match(script, /cmp -s "\$f" "\$dest"/)
   assert.match(script, /news-queue-snapshot\.mjs/)

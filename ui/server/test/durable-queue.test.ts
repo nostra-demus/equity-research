@@ -281,9 +281,12 @@ check('the Drive archive uses verified atomic copies, prunes only matching old f
   fs.symlinkSync(path.join(REPO_ROOT, 'scripts/ops'), path.join(root, 'scripts/ops'), 'dir')
   assert.equal(saveDeferred(state, [item(50)]), true)
   const source = path.join(inbox, '2026-06-01_firehose.ndjson')
+  const sourceShard = path.join(inbox, '2026-06-01_firehose.000001.ndjson')
   fs.writeFileSync(source, '{"kind":"item","event_id":"EVT-archive"}\n')
+  fs.writeFileSync(sourceShard, '{"kind":"item","event_id":"EVT-archive-shard"}\n')
   const old = new Date(Date.now() - 45 * 86_400_000)
   fs.utimesSync(source, old, old)
+  fs.utimesSync(sourceShard, old, old)
 
   const script = path.join(REPO_ROOT, 'scripts/ops/news-archive.sh')
   const archiveEnv = {
@@ -297,8 +300,11 @@ check('the Drive archive uses verified atomic copies, prunes only matching old f
   }
   execFileSync('/bin/bash', [script], { env: archiveEnv })
   const archivedFirehose = path.join(archive, path.basename(source))
+  const archivedShard = path.join(archive, path.basename(sourceShard))
   assert.equal(fs.existsSync(source), false, 'local data is pruned only after the archive bytes match')
+  assert.equal(fs.existsSync(sourceShard), false, 'every verified shard follows the same retention rule')
   assert.equal(fs.readFileSync(archivedFirehose, 'utf8'), '{"kind":"item","event_id":"EVT-archive"}\n')
+  assert.equal(fs.readFileSync(archivedShard, 'utf8'), '{"kind":"item","event_id":"EVT-archive-shard"}\n')
   const latest = path.join(archive, 'news-queue-latest.sqlite.gz')
   assert.equal(fs.existsSync(latest), true)
   assert.equal(fs.existsSync(`${latest}.sha256`), true)

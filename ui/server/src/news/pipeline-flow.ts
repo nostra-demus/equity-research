@@ -1,6 +1,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import type { CycleSummary } from './types'
+import { contiguousFirehoseFiles, parseFirehoseName, resolvedFirehoseFiles } from './firehose-files'
 
 export const PIPELINE_FLOW_WINDOW_MINUTES = 60 as const
 export const PIPELINE_FLOW_WINDOW_MS = PIPELINE_FLOW_WINDOW_MINUTES * 60_000
@@ -262,22 +263,18 @@ function malformedSummaryPotentiallyRelevant(text: string, fromMs: number, nowMs
   return started === null || (started <= nowMs && started + maximumCycleDurationMs(cycleTimeoutMs, true) >= fromMs)
 }
 
-function partitionCandidates(repoRoot: string, archiveDir: string, date: string): string[] {
-  return [
-    path.join(repoRoot, 'screener', 'inbox', `${date}_firehose.ndjson`),
-    ...(archiveDir ? [path.join(archiveDir, `${date}_firehose.ndjson`)] : []),
-  ]
-}
-
-function readPartition(repoRoot: string, archiveDir: string, date: string): { status: 'read'; text: string } | { status: 'missing' | 'unreadable' } {
-  let unreadable = false
-  for (const file of [...new Set(partitionCandidates(repoRoot, archiveDir, date))]) {
-    try { return { status: 'read', text: fs.readFileSync(file, 'utf8') } }
-    catch (error: any) {
-      if (error?.code !== 'ENOENT') unreadable = true
-    }
+function readPartition(repoRoot: string, archiveDir: string, date: string): { status: 'read'; texts: string[] } | { status: 'missing' | 'unreadable' } {
+  let files: ReturnType<typeof resolvedFirehoseFiles>
+  try { files = resolvedFirehoseFiles(repoRoot, date, archiveDir) }
+  catch { return { status: 'unreadable' } }
+  if (!files.length) return { status: 'missing' }
+  if (!contiguousFirehoseFiles(files)) return { status: 'unreadable' }
+  const texts: string[] = []
+  for (const row of files) {
+    try { texts.push(fs.readFileSync(row.file, 'utf8')) }
+    catch { return { status: 'unreadable' } }
   }
-  return { status: unreadable ? 'unreadable' : 'missing' }
+  return { status: 'read', texts }
 }
 
 // The diagnostics endpoint polls every 10 seconds. Retain exactly one operational row per storage target so
@@ -302,10 +299,10 @@ function availablePartitionDates(repoRoot: string, archiveDir: string, throughDa
     try { names = fs.readdirSync(dir) }
     catch { continue }
     for (const name of names) {
-      const match = name.match(/^(\d{4}-\d{2}-\d{2})_firehose\.ndjson$/)
-      if (!match || match[1] > throughDate) continue
-      const at = Date.parse(`${match[1]}T00:00:00Z`)
-      if (Number.isFinite(at) && isoDay(at) === match[1]) dates.add(match[1])
+      const match = parseFirehoseName(name)
+      if (!match || match.date > throughDate) continue
+      const at = Date.parse(`${match.date}T00:00:00Z`)
+      if (Number.isFinite(at) && isoDay(at) === match.date) dates.add(match.date)
     }
   }
   return [...dates].sort().reverse()
@@ -315,13 +312,15 @@ function latestCycleInPartition(repoRoot: string, archiveDir: string, date: stri
   const partition = readPartition(repoRoot, archiveDir, date)
   if (partition.status !== 'read') return null
   const cycles: CycleSummary[] = []
-  for (const line of partition.text.split('\n')) {
-    const text = line.trim()
-    if (!text || !/"kind"\s*:\s*"cycle_summary"/.test(text)) continue
-    try {
-      const row = JSON.parse(text)
-      if (row?.kind === 'cycle_summary') cycles.push(row as CycleSummary)
-    } catch { /* Last look is best-effort; rate coverage accounts for relevant corruption separately. */ }
+  for (const partitionText of partition.texts) {
+    for (const line of partitionText.split('\n')) {
+      const text = line.trim()
+      if (!text || !/"kind"\s*:\s*"cycle_summary"/.test(text)) continue
+      try {
+        const row = JSON.parse(text)
+        if (row?.kind === 'cycle_summary') cycles.push(row as CycleSummary)
+      } catch { /* Last look is best-effort; rate coverage accounts for relevant corruption separately. */ }
+    }
   }
   return latestPipelineCycle(cycles, cycleTimeoutMs)
 }
@@ -411,21 +410,23 @@ export function readPipelineFlowCycles(
     if (partition.status === 'unreadable') { unreadableDates.push(date); continue }
     if (partition.status !== 'read') continue
     readDates.push(date)
-    for (const line of partition.text.split('\n')) {
-      const text = line.trim()
-      // Item rows dominate the file. Avoid even JSON.parse for them; no item hydration is needed here.
-      // Match the prefix too: a torn `"cycle_summ...` record is missing flow authority, not an item row that
-      // can be skipped. Valid non-summary `cycle_*` records still parse and are ignored by the kind check.
-      if (!text || !/"kind"\s*:\s*"cycle/.test(text)) continue
-      try {
-        const row = JSON.parse(text)
-        if (row?.kind !== 'cycle_summary') continue
-        // Preserve it even if its completion field is bad: loss/provider/Last-look diagnostics still need
-        // every other parseable field. buildPipelineFlowRates applies strict chronology only to rate math.
-        cycles.push(row as CycleSummary)
-      } catch {
-        if (date === today) todayCorruptCycleRows++
-        if (malformedSummaryPotentiallyRelevant(text, fromMs, nowMs, cycleTimeoutMs)) corruptCycleRows++
+    for (const partitionText of partition.texts) {
+      for (const line of partitionText.split('\n')) {
+        const text = line.trim()
+        // Item rows dominate the file. Avoid even JSON.parse for them; no item hydration is needed here.
+        // Match the prefix too: a torn `"cycle_summ...` record is missing flow authority, not an item row that
+        // can be skipped. Valid non-summary `cycle_*` records still parse and are ignored by the kind check.
+        if (!text || !/"kind"\s*:\s*"cycle/.test(text)) continue
+        try {
+          const row = JSON.parse(text)
+          if (row?.kind !== 'cycle_summary') continue
+          // Preserve it even if its completion field is bad: loss/provider/Last-look diagnostics still need
+          // every other parseable field. buildPipelineFlowRates applies strict chronology only to rate math.
+          cycles.push(row as CycleSummary)
+        } catch {
+          if (date === today) todayCorruptCycleRows++
+          if (malformedSummaryPotentiallyRelevant(text, fromMs, nowMs, cycleTimeoutMs)) corruptCycleRows++
+        }
       }
     }
   }

@@ -14,7 +14,7 @@ import { Budget, RateLimiter, UsdBudget, armCooldown, clearCooldown, cooldownInf
 import { articleReadTokenBound, readArticleBrief } from '../src/news/triage/article-read'
 import { analyzeArticle, coerceTriage, estimateTokens, parseRate, scoreToBand, triageBatch, triageMaxOutputTokens } from '../src/news/triage/groq'
 import { analyzeArticleGemini, geminiSchemaEnabled, TRIAGE_RESPONSE_SCHEMA, triageBatchGemini } from '../src/news/triage/gemini'
-import { appendFeedItems, readFeed } from '../src/news/feed'
+import { appendFeedItems, inspectFeedCapacity, readFeed } from '../src/news/feed'
 import { newsBus } from '../src/news/bus'
 import { appendFirehoseSummary, FIREHOSE_HARD_MAX_BYTES, mergeInbox, revisionClockRegistryDiagnostics } from '../src/news/write-inbox'
 import { appendScoredCheckpoint, backlogDurablyCleared, buildTriageQueue, expireBacklog, inspectDeferredBacklog, loadDeferred, MAX_FEED_ITEM_BYTES, migrateDeferred, preserveResidence, recentMissingFeedTargetIsRetryable, runIngestCycle, saveDeferred, scoringJournalSlots, stampDeferred, triageGroqTokenBound } from '../src/news/runCycle'
@@ -28,6 +28,8 @@ import { flushStagedRescueRows, loadRescueQueue } from '../src/news/rescue/store
 import type { ThemeItemView } from '../src/news/themes/types'
 import type { CycleSummary, FeedItem, NewsItem, RawArticle, TriagedItem } from '../src/news/types'
 import { attachValidNarrative } from './themes-fixtures'
+import { firehoseLockPath } from '../src/news/firehose-files'
+import { acquireRetainedFlockSync, releaseRetainedFlock } from '../src/singleton-lock'
 
 let passed = 0
 async function check(name: string, fn: () => void | Promise<void>) {
@@ -2427,7 +2429,7 @@ await check('runIngestCycle keeps exact revision clocks across daily partitions 
   fs.rmSync(state, { recursive: true, force: true })
 })
 
-await check('appendFeedItems honors the daily cap; readFeed skips corrupt lines', () => {
+await check('appendFeedItems rolls row-bounded shards without a daily cap; readFeed skips corrupt lines', () => {
   const root = tmp()
   const mk = (n: number): FeedItem => ({
     kind: 'item', ts: `2026-06-12T09:0${n}:00Z`, event_id: `EVT-${n}`, headline: `h${n}`, url: `https://reuters.com/${n}`,
@@ -2437,19 +2439,21 @@ await check('appendFeedItems honors the daily cap; readFeed skips corrupt lines'
   })
   assert.deepEqual(
     appendFeedItems(root, '2026-06-12', [mk(1), mk(2), mk(3)], 2),
-    { status: 'cap', cap: 'items', written: 2, unwritten: 1, appendedEventIds: ['EVT-1', 'EVT-2'] },
-  ) // partial cap: exact confirmed prefix
+    { status: 'complete', written: 3, unwritten: 0, appendedEventIds: ['EVT-1', 'EVT-2', 'EVT-3'] },
+  )
   assert.deepEqual(
     appendFeedItems(root, '2026-06-12', [mk(4)], 2),
-    { status: 'cap', cap: 'items', written: 0, unwritten: 1, appendedEventIds: [] },
-  ) // full cap: nothing is claimed durable
+    { status: 'complete', written: 1, unwritten: 0, appendedEventIds: ['EVT-4'] },
+  )
   assert.deepEqual(
     appendFeedItems(root, '2026-06-13', [mk(4)], 2),
     { status: 'complete', written: 1, unwritten: 0, appendedEventIds: ['EVT-4'] },
   ) // complete: the whole batch is durably acknowledged
+  assert.equal(fs.readFileSync(path.join(root, 'screener/inbox/2026-06-12_firehose.ndjson'), 'utf8').trim().split('\n').length, 2)
+  assert.equal(fs.readFileSync(path.join(root, 'screener/inbox/2026-06-12_firehose.000001.ndjson'), 'utf8').trim().split('\n').length, 2)
   fs.appendFileSync(path.join(root, 'screener/inbox/2026-06-12_firehose.ndjson'), 'NOT JSON\n')
   const { items } = readFeed(root, 1, { now: () => new Date('2026-06-12T10:00:00Z') })
-  assert.equal(items.length, 2) // corrupt line skipped, capped writes honored
+  assert.equal(items.length, 4) // corrupt line skipped, every shard read
 })
 
 await check('appendFeedItems reports a deterministic I/O failure instead of masquerading as a cap', () => {
@@ -2543,7 +2547,7 @@ await check('appendFeedItems fsyncs before acknowledgement and recovers when a f
   }
 })
 
-await check('appendFeedItems byte cap counts the whole file and reports the byte boundary', () => {
+await check('appendFeedItems byte cap counts summaries and rolls the next item to a new shard', () => {
   const root = tmp()
   const date = '2026-08-21'
   const fp = path.join(root, 'screener', 'inbox', `${date}_firehose.ndjson`)
@@ -2555,8 +2559,42 @@ await check('appendFeedItems byte cap counts the whole file and reports the byte
   const exactOneByteRoom = Buffer.byteLength(summary) + Buffer.byteLength(`${JSON.stringify(one)}\n`)
   assert.deepEqual(
     appendFeedItems(root, date, [one, two], 10, exactOneByteRoom),
-    { status: 'cap', cap: 'bytes', written: 1, unwritten: 1, appendedEventIds: ['EVT-byte-1'] },
+    { status: 'complete', written: 2, unwritten: 0, appendedEventIds: ['EVT-byte-1', 'EVT-byte-2'] },
   )
+  assert.equal(fs.statSync(fp).size, exactOneByteRoom)
+  assert.equal(fs.existsSync(path.join(root, 'screener', 'inbox', `${date}_firehose.000001.ndjson`)), true)
+})
+
+await check('appendFeedItems retries cleanly after crashing on the first row of a new shard', () => {
+  const root = tmp()
+  const date = '2026-08-21'
+  const one = boundaryFeedItem('EVT-roll-crash-1')
+  const two = boundaryFeedItem('EVT-roll-crash-2')
+  assert.equal(appendFeedItems(root, date, [one], 1, 1_000_000).status, 'complete')
+  const failed = appendFeedItems(root, date, [two], 1, 1_000_000, {
+    writeLine: (fd, line) => {
+      fs.writeSync(fd, line.subarray(0, Math.floor(line.length / 2)))
+      throw new Error('injected rollover crash')
+    },
+  })
+  assert.deepEqual(failed, { status: 'io_failure', written: 0, unwritten: 1, appendedEventIds: [] })
+  assert.deepEqual(appendFeedItems(root, date, [two], 1, 1_000_000), {
+    status: 'complete', written: 1, unwritten: 0, appendedEventIds: [two.event_id],
+  })
+  const ids = readFeed(root, 1, { now: () => new Date(`${date}T23:59:59Z`), applyActiveWeights: false }).items.map((row) => row.event_id)
+  assert.deepEqual(ids.sort(), [one.event_id, two.event_id].sort())
+})
+
+await check('readFeed combines local and Drive copies shard-by-shard after a partial archive prune', () => {
+  const root = tmp()
+  const archive = tmp()
+  const date = '2026-08-21'
+  const local = path.join(root, 'screener', 'inbox')
+  fs.mkdirSync(local, { recursive: true })
+  fs.writeFileSync(path.join(local, `${date}_firehose.ndjson`), `${JSON.stringify(boundaryFeedItem('EVT-mixed-local'))}\n`)
+  fs.writeFileSync(path.join(archive, `${date}_firehose.000001.ndjson`), `${JSON.stringify(boundaryFeedItem('EVT-mixed-archive'))}\n`)
+  const ids = readFeed(root, 1, { now: () => new Date(`${date}T23:59:59Z`), archiveDir: archive, applyActiveWeights: false }).items.map((row) => row.event_id)
+  assert.deepEqual(ids.sort(), ['EVT-mixed-archive', 'EVT-mixed-local'])
 })
 
 await check('appendFeedItems preserves a complete delimiterless row but truncates a torn JSON tail', () => {
@@ -2582,6 +2620,24 @@ await check('appendFeedItems preserves a complete delimiterless row but truncate
 const firehoseSummary = (ts = '2026-08-21T12:00:00Z'): CycleSummary => ({
   ts, completed_at: ts, ok: true, fetched: 3, candidates: 3, picked: 1, watched: 1, dropped: 1,
   inboxed: 2, groq_requests: 1, groq_tokens: 100, new_arrivals: 3, phase: 'fetch', feed_commit_version: 1,
+})
+
+await check('one per-day flock serializes capacity repair, item writes, and summary writes', () => {
+  const root = tmp()
+  const date = '2026-06-12'
+  const lock = acquireRetainedFlockSync(firehoseLockPath(root, date), {
+    waitMs: 0,
+    busyMessage: 'test unexpectedly busy',
+  })
+  try {
+    assert.equal(inspectFeedCapacity(root, date, 10, 1_000_000).status, 'io_failure')
+    assert.equal(appendFeedItems(root, date, [boundaryFeedItem('EVT-busy')], 10, 1_000_000).status, 'io_failure')
+    assert.equal(appendFirehoseSummary(root, date, firehoseSummary()), false)
+  } finally {
+    releaseRetainedFlock(lock)
+  }
+  assert.equal(appendFeedItems(root, date, [boundaryFeedItem('EVT-after-lock')], 10, 1_000_000).status, 'complete')
+  assert.equal(appendFirehoseSummary(root, date, firehoseSummary()), true)
 })
 
 await check('appendFirehoseSummary rolls back and fsyncs a partial row before a clean retry', () => {
@@ -2652,7 +2708,7 @@ await check('appendFirehoseSummary fsyncs the file before its new directory entr
   fs.rmSync(root, { recursive: true, force: true })
 })
 
-await check('appendFirehoseSummary accepts the 99 MB boundary and refuses boundary plus one unchanged', () => {
+await check('appendFirehoseSummary accepts the 99 MB boundary and rolls boundary plus one', () => {
   const date = '2026-08-21'
   const summary = firehoseSummary()
   const lineBytes = Buffer.byteLength(`${JSON.stringify({ kind: 'cycle_summary', ...summary })}\n`)
@@ -2675,8 +2731,9 @@ await check('appendFirehoseSummary accepts the 99 MB boundary and refuses bounda
   const overRoot = tmp()
   const overSize = FIREHOSE_HARD_MAX_BYTES - lineBytes + 1
   const overPath = makeSparseFirehose(overRoot, overSize)
-  assert.equal(appendFirehoseSummary(overRoot, date, summary), false)
-  assert.equal(fs.statSync(overPath).size, overSize, 'a rejected append cannot change the file')
+  assert.equal(appendFirehoseSummary(overRoot, date, summary), true)
+  assert.equal(fs.statSync(overPath).size, overSize, 'rollover never changes the sealed shard')
+  assert.equal(fs.statSync(path.join(overRoot, 'screener', 'inbox', `${date}_firehose.000001.ndjson`)).size, lineBytes)
   fs.rmSync(exactRoot, { recursive: true, force: true })
   fs.rmSync(overRoot, { recursive: true, force: true })
 })
@@ -2768,7 +2825,7 @@ await check('runIngestCycle partial feed cap publishes/counts only the prefix an
   assert.deepEqual(summary.defer_reasons, ['feed-cap'])
   assert.equal(summary.deferred, 2)
   assert.equal(summary.backlog, 2)
-  assert.match(String(summary.note), /daily feed items cap reached/)
+  assert.match(String(summary.note), /feed shard items limit could not accept work/)
   assert.equal(providerCalls, 1, 'only the exact writable prefix spends provider capacity')
   assert.equal(itemRows.length, 1, 'only the confirmed prefix is in the durable wire')
   assert.deepEqual(emitted, itemRows.map((item) => item.event_id), 'SSE emits exactly the persisted prefix')
@@ -3182,7 +3239,7 @@ await check('unknown or unstamped feed-pending state fails closed without model 
   }
 })
 
-await check('feed cap and provider failure retain both structured and human explanations', async () => {
+await check('a concurrent shard fill rolls cleanly while a separate provider failure remains explicit', async () => {
   resetSharedLimiters(); resetBudgetMemory(); resetCooldownMemory()
   const root = tmp()
   const state = tmp()
@@ -3204,8 +3261,8 @@ await check('feed cap and provider failure retain both structured and human expl
     if (!String(url).includes('groq')) return res({ articles: [] })
     calls++
     if (calls === 1) {
-      // Admission honestly reserves two worst-case rows. Simulate a concurrent writer consuming the
-      // remaining day after that snapshot so feed-cap and a second-batch provider failure coexist.
+      // Admission honestly reserves two worst-case rows. Simulate another writer consuming the active
+      // shard after that snapshot; the completed batch must roll instead of becoming feed-pending.
       const filler = Math.max(0, maxBytes - fs.statSync(fp).size - 1)
       fs.appendFileSync(fp, `${' '.repeat(Math.max(0, filler - 1))}\n`)
     }
@@ -3221,10 +3278,11 @@ await check('feed cap and provider failure retain both structured and human expl
       triageBatch: 1, feedItemsDailyCap: 10, feedItemsDailyMaxBytes: maxBytes,
     },
   })
-  assert.deepEqual(summary.defer_reasons, ['feed-cap', 'batch-failed'])
-  assert.equal(summary.defer_reason, 'feed-cap')
-  assert.match(String(summary.note), /daily feed bytes cap reached/)
+  assert.deepEqual(summary.defer_reasons, ['batch-failed'])
+  assert.equal(summary.defer_reason, 'batch-failed')
+  assert.doesNotMatch(String(summary.note), /feed bytes cap reached/)
   assert.match(String(summary.note), /not scored \(LLM hiccup\)/)
+  assert.equal(fs.existsSync(path.join(root, 'screener', 'inbox', `${date}_firehose.000001.ndjson`)), true)
 })
 
 await check('a byte remainder below one provable row spends zero provider calls', async () => {
@@ -3287,7 +3345,7 @@ await check('no durable scored retry marker escalates storage-emergency and clai
   assert.equal(loadDeferred(state)[0].feed_pending, undefined, 'stale raw authority is not mistaken for a scored retry marker')
 })
 
-await check('a pick awaiting feed may be visible in inbox but is uncounted/unseen and retries idempotently', async () => {
+await check('a pick whose active shard fills during scoring rolls, completes, and is never retried', async () => {
   resetSharedLimiters(); resetBudgetMemory(); resetCooldownMemory()
   const root = tmp()
   const state = tmp()
@@ -3320,20 +3378,21 @@ await check('a pick awaiting feed may be visible in inbox but is uncounted/unsee
       feedItemsDailyMaxBytes: maxBytes,
     },
   })
-  assert.equal(first.picked, 0, 'inbox projection is not firehose completion')
+  assert.equal(first.picked, 1, 'the scored pick commits to the next shard in the same cycle')
   assert.equal(first.inboxed, 1)
-  assert.equal(first.inbox_feed_pending, 1)
-  assert.equal(first.feed_unwritten, 1)
-  assert.equal(loadDeferred(state)[0].pending_feed_item?.band, 'pick')
+  assert.equal(first.inbox_feed_pending ?? 0, 0)
+  assert.equal(first.feed_unwritten ?? 0, 0)
+  assert.equal(loadDeferred(state).length, 0)
+  assert.equal(fs.existsSync(path.join(root, 'screener', 'inbox', `${date}_firehose.000001.ndjson`)), true)
   const seen = JSON.parse(fs.readFileSync(path.join(state, 'news-seen.json'), 'utf8')) as Record<string, unknown>
-  assert.equal(Object.hasOwn(seen, row.event_id), false)
+  assert.equal(Object.hasOwn(seen, row.event_id), true)
 
   const second = await runIngestCycle({
     repoRoot: root, stateDir: state, skipFetch: true, now: () => new Date('2026-08-22T00:01:00Z'),
-    fetchFn: (async () => { throw new Error('pending retry needs no provider') }) as unknown as typeof fetch,
+    fetchFn: (async () => { throw new Error('no network expected') }) as unknown as typeof fetch,
     sleep: noSleep, config: noProviderConfig,
   })
-  assert.equal(second.picked, 1)
+  assert.equal(second.picked, 0)
   assert.equal(loadDeferred(state).length, 0)
   assert.equal(loadRescueQueue(state).committed, false,
     'ingest leaves only a small staged range until normal Ideas has had priority')
