@@ -294,7 +294,8 @@ export function PipelineDiagnostics() {
   const dailyLossTotalsKnown = !!diag && dailyLossTotalsAvailable(diag.today, diag.backlog)
   // Tiers the provider is refusing the key for. Read off the per-tier flag rather than the defer group so this
   // still renders against an engine that has the flag but not yet the group (rolling deploy).
-  const credentialBlocked = (diag?.tiers || []).filter((t) => t.enabled && t.spendingAllowed !== false && t.credentialRejected === true)
+  const quarantinedBlocked = (diag?.tiers || []).filter((t) => t.enabled && t.spendingAllowed !== false && t.quarantined === true)
+  const credentialBlocked = (diag?.tiers || []).filter((t) => t.enabled && t.spendingAllowed !== false && t.credentialRejected === true && t.quarantined !== true)
   return (
     <motion.div className={`diag${trendMode ? ' is-trend' : ''}`} initial={{ x: '100%' }} animate={{ x: 0 }} transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}>
       <div className="diag__head">
@@ -352,7 +353,27 @@ export function PipelineDiagnostics() {
             </div>
           </section>
 
-          {/* A REJECTED CREDENTIAL, ABOVE EVERYTHING ELSE. Every other state on this panel resolves itself
+          {/* A STANDING PROVIDER FAULT, ABOVE EVERYTHING ELSE. A timer cannot repair a rejected key, missing
+              entitlement/credits, or retired model. Keep it outside defer.active: fallbacks may keep the
+              cycle moving while a large provider silently remains dark. */}
+          {quarantinedBlocked.length > 0 && (
+            <section className="diag__sec">
+              <div className="diagwhy is-alert" role="alert">
+                <div className="diagwhy__head">
+                  <span aria-hidden>⚠</span>
+                  <span>{quarantinedBlocked.map((t) => t.label).join(', ')} needs repair</span>
+                </div>
+                <ul className="diagwhy__list">
+                  {quarantinedBlocked.map((t) => (
+                    <li key={t.id}>{t.label}: {tierStatusCopy(t, 0)}</li>
+                  ))}
+                </ul>
+                <div className="diagwhy__foot">The scanner has stopped spending calls here and is using fallbacks until the configuration changes or a canary succeeds.</div>
+              </div>
+            </section>
+          )}
+
+          {/* A REJECTED LEGACY CREDENTIAL, ABOVE EVERYTHING ELSE. Every other state on this panel resolves itself
               given time — a quota resets, a rate limit lapses, an outage ends. This one never does, and it is
               the only one that needs a human. It is drawn here, outside `defer.active`, because a dead tier
               does not necessarily make the CYCLE defer: with other providers coping, the panel would look
