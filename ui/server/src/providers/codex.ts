@@ -3,6 +3,7 @@ import crypto from 'node:crypto'
 import http from 'node:http'
 import os from 'node:os'
 import path from 'node:path'
+import { spawnSync } from 'node:child_process'
 import { execa } from 'execa'
 import { REPO_ROOT } from '../config'
 import { registerProviderAdapter } from './registry'
@@ -44,6 +45,20 @@ const CODEX_COCKPIT_ENV_ALLOWLIST = [
   'NOSTRA_PUBLICATION_SOCKET',
   'NOSTRA_PUBLICATION_TOKEN',
 ] as const
+
+// Homebrew's versioned Python formulae deliberately keep the unversioned `python3` shim out of
+// /usr/local/bin and /opt/homebrew/bin. LaunchAgents therefore see Apple's older /usr/bin/python3 even
+// when a current Python is installed. Put only an already-installed formula's libexec directory on the
+// isolated child PATH; this never installs or links software and works on Intel and Apple Silicon.
+const CODEX_PYTHON_FORMULAE = ['python@3.13', 'python@3.12', 'python@3.11', 'python'] as const
+const CODEX_HOMEBREW_PREFIXES = process.arch === 'arm64'
+  ? ['/opt/homebrew', '/usr/local'] as const
+  : ['/usr/local', '/opt/homebrew'] as const
+
+function defaultCodexPythonToolDirs(): string[] {
+  return CODEX_PYTHON_FORMULAE.flatMap((formula) => CODEX_HOMEBREW_PREFIXES
+    .map((prefix) => path.join(prefix, 'opt', formula, 'libexec', 'bin')))
+}
 
 interface CatalogReasoningLevel { effort?: unknown }
 interface CatalogModel {
@@ -268,19 +283,43 @@ function codexProbeRuntimeKey(
   })
 }
 
-export function codexChildEnv(source: NodeJS.ProcessEnv = process.env): NodeJS.ProcessEnv {
+export function codexChildEnv(
+  source: NodeJS.ProcessEnv = process.env,
+  options: { pythonToolDirs?: readonly string[] } = {},
+): NodeJS.ProcessEnv {
   const env: NodeJS.ProcessEnv = {}
   for (const key of CODEX_CHILD_ENV_ALLOWLIST) if (source[key] !== undefined) env[key] = source[key]
   // launchd starts the engine with an absolute Node executable, but npm-installed CLI shims use
   // `#!/usr/bin/env node`. Preserve that exact runtime directory in the scrubbed child PATH so the
   // pinned Codex shim can start even when Node lives outside launchd's static Homebrew/local paths.
   const runtimeBin = path.dirname(process.execPath)
-  env.PATH = [...new Set([runtimeBin, ...String(env.PATH || '').split(path.delimiter).filter(Boolean)])]
+  const pythonToolDirs = (options.pythonToolDirs ?? defaultCodexPythonToolDirs()).filter((directory) => {
+    try {
+      fs.accessSync(path.join(directory, 'python3'), fs.constants.X_OK)
+      return true
+    } catch { return false }
+  })
+  env.PATH = [...new Set([
+    runtimeBin,
+    ...pythonToolDirs,
+    ...String(env.PATH || '').split(path.delimiter).filter(Boolean),
+  ])]
     .join(path.delimiter)
   env.NOSTRA_COCKPIT_RUN = '1'
   env.NO_COLOR = '1'
   for (const key of CODEX_COCKPIT_ENV_ALLOWLIST) if (source[key]) env[key] = source[key]
   return env
+}
+
+/** Refuse before inference when the canonical prompt program cannot execute its deterministic Python gates. */
+export function assertCodexPythonRuntime(env: NodeJS.ProcessEnv): void {
+  const result = spawnSync('python3', [
+    '-c',
+    'import sys; raise SystemExit(0 if sys.version_info >= (3, 10) else 1)',
+  ], { env, encoding: 'utf8', timeout: 5_000 })
+  if (result.status !== 0 || result.error) {
+    throw new Error('Codex launch requires an executable Python 3.10+ runtime on the isolated child PATH.')
+  }
 }
 
 interface LeaseDirectorySnapshot {
@@ -1999,6 +2038,8 @@ export const codexProviderAdapter: ProviderAdapter = {
       throw new Error('Codex launch profile does not match the pinned runtime contract.')
     }
     if (!context.availabilityProofId) throw new Error('Codex launch is missing its fresh availability proof id.')
+    // This deterministic program dependency must clear before credential/catalogue work and paid inference.
+    assertCodexPythonRuntime(codexChildEnv(context.env))
     const probe = await codexProbeCoordinator.probeForLaunch(
       context.env, context.cwd, profile.profileKey, context.availabilityProofId,
     )

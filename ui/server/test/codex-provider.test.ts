@@ -11,6 +11,7 @@ import {
   assertCodexCapabilities,
   assertFreshCodexCatalogueReceipt,
   assertCodexPromptInput,
+  assertCodexPythonRuntime,
   assertChatGptLogin,
   assertCodexCredentialSandboxBoundary,
   assertRequiredCodexModels,
@@ -121,6 +122,24 @@ assert.equal(scrubbed.PATH?.split(path.delimiter)[0], path.dirname(process.execP
   'the scrubbed launchd child PATH starts with the exact Node runtime directory')
 assert.equal(scrubbed.PATH?.split(path.delimiter).includes('/bin'), true,
   'the source PATH remains available after the pinned runtime directory')
+
+const pythonPathFixture = fs.mkdtempSync(path.join(os.tmpdir(), 'nostra-codex-python-path-'))
+try {
+  const pythonToolDir = path.join(pythonPathFixture, 'python@3.12', 'libexec', 'bin')
+  fs.mkdirSync(pythonToolDir, { recursive: true })
+  fs.writeFileSync(path.join(pythonToolDir, 'python3'), '#!/bin/sh\nexit 0\n', { mode: 0o755 })
+  const withVersionedPython = codexChildEnv({ PATH: '/usr/bin:/bin' }, { pythonToolDirs: [pythonToolDir] })
+  assert.equal(withVersionedPython.PATH?.split(path.delimiter)[1], pythonToolDir,
+    'an installed versioned Homebrew Python wins over the older launchd/system python')
+  assert.doesNotThrow(() => assertCodexPythonRuntime(withVersionedPython),
+    'the launch preflight accepts an executable supported runtime from the isolated child PATH')
+  fs.chmodSync(path.join(pythonToolDir, 'python3'), 0o644)
+  const withoutBrokenPython = codexChildEnv({ PATH: '/usr/bin:/bin' }, { pythonToolDirs: [pythonToolDir] })
+  assert.equal(withoutBrokenPython.PATH?.split(path.delimiter).includes(pythonToolDir), false,
+    'a non-executable Python candidate never enters model-visible PATH')
+  assert.throws(() => assertCodexPythonRuntime({ PATH: pythonToolDir }), /requires an executable Python 3\.10\+/,
+    'the launch fails closed before inference when no supported Python can execute')
+} finally { fs.rmSync(pythonPathFixture, { recursive: true, force: true }) }
 assert.equal(scrubbed.OPENAI_API_KEY, undefined)
 assert.equal(scrubbed.CODEX_API_KEY, undefined)
 assert.equal(scrubbed.OPENAI_BASE_URL, undefined)
@@ -187,7 +206,9 @@ try {
         'model-equivalent sandbox probing cannot read or mutate the original credential')
     }
   } finally { isolated.cleanup() }
-} finally { fs.rmSync(sourceCodexHome, { recursive: true, force: true }) }
+} finally {
+  fs.rmSync(sourceCodexHome, { recursive: true, force: true })
+}
 
 const hardLinkedAuthHome = fs.mkdtempSync(path.join(os.tmpdir(), 'nostra-codex-hardlink-auth-'))
 try {
