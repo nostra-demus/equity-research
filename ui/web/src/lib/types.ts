@@ -2041,6 +2041,9 @@ export interface PortfolioStatement {
   fromDate: string | null
   toDate: string | null
   trades: number
+  /** Row count per section, so the import screen can show WHICH reports the query returned. */
+  sections: Record<string, number>
+  unmodelled: string[]
 }
 export interface PortfolioCheck {
   name: string
@@ -2083,6 +2086,9 @@ export interface PortfolioClosure {
   grossLocal: number
   commissionLocal: number
   realizedBase: number | null
+  /** Rates at each end, so the result can be split into what the STOCK did and what the CURRENCY did. */
+  openFxRateToBase: number | null
+  closeFxRateToBase: number | null
 }
 
 export interface PortfolioBook {
@@ -2104,7 +2110,13 @@ export interface PortfolioBook {
   reconciliation: { ok: boolean; checks: PortfolioCheck[] }
   warnings: string[]
 }
-export interface PortfolioPeriodReturn { label: string; from: string | null; to: string | null; twr: number | null; days: number }
+export interface PortfolioPeriodReturn {
+  label: string; from: string | null; to: string | null; twr: number | null; days: number
+  /** What cash would have returned over the same window, and the book's margin over it. */
+  hurdle: number | null; overHurdle: number | null
+}
+export interface PortfolioMonthRow { month: string; book: number | null; benchmark: number | null }
+export interface PortfolioBetaAlpha { beta: number | null; alpha: number | null; pairedDays: number }
 export interface PortfolioDrawdown {
   depth: number | null; peakDate: string | null; troughDate: string | null; recoveredDate: string | null
   toTroughDays: number | null; underWaterDays: number | null; episodesOver3pct: number
@@ -2124,6 +2136,12 @@ export interface PortfolioBenchmark {
 }
 export interface PortfolioPerformance {
   periods: PortfolioPeriodReturn[]
+  months: PortfolioMonthRow[]
+  betaAlpha: PortfolioBetaAlpha
+  /** Both curves rebased to 100 at the first funded day — NAV itself cannot be plotted against an
+   *  index, because a deposit would draw as performance. */
+  growth: { date: string; book: number; benchmark: number | null }[]
+  underwater: { date: string; depth: number }[]
   /** ANNUALISED (XIRR) — not comparable with the cumulative period returns, and labelled as such. */
   moneyWeightedAnnualisedPct: number | null
   risk: PortfolioRisk

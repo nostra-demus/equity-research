@@ -108,6 +108,43 @@ check('one unreadable statement refuses the whole book rather than building a pa
   for (const s of store.listStatements()) store.deleteStatement(s.id)
 })
 
+check('a sidecar from an older build gains its section counts on the next read', () => {
+  // The store predates section counts, so every statement already on disk carries a sidecar without
+  // them. Listing must not fail on those, and must not leave the operator staring at "no sections
+  // recorded" forever when the file itself can answer the question.
+  for (const s of store.listStatements()) store.deleteStatement(s.id)
+  const { statement } = store.saveStatement(xml, 'older.xml')
+  const meta = path.join(TMP, 'portfolio', 'statements', `${statement.id}.json`)
+  const older = JSON.parse(fs.readFileSync(meta, 'utf8'))
+  delete older.sections
+  delete older.unmodelled
+  fs.writeFileSync(meta, JSON.stringify(older, null, 2))
+
+  const listed = store.listStatements()[0]!
+  assert.equal(listed.sections.Trades, 11, 're-derived from the statement itself')
+  assert.ok(Array.isArray(listed.unmodelled))
+  // Written back, so the work happens once rather than on every read.
+  assert.equal(JSON.parse(fs.readFileSync(meta, 'utf8')).sections.Trades, 11)
+  for (const s of store.listStatements()) store.deleteStatement(s.id)
+})
+
+check('a sidecar whose statement has become unreadable still lists, with empty counts', () => {
+  // This row is the only way to REMOVE the bad file — refusing to list it would strand the operator.
+  const { statement } = store.saveStatement(xml, 'doomed.xml')
+  const meta = path.join(TMP, 'portfolio', 'statements', `${statement.id}.json`)
+  const older = JSON.parse(fs.readFileSync(meta, 'utf8'))
+  delete older.sections
+  delete older.unmodelled
+  fs.writeFileSync(meta, JSON.stringify(older, null, 2))
+  fs.writeFileSync(path.join(TMP, 'portfolio', 'statements', `${statement.id}.xml`), '<FlexQueryResponse><Trades>')
+
+  const listed = store.listStatements()
+  assert.equal(listed.length, 1)
+  assert.deepEqual(listed[0]!.sections, {})
+  assert.deepEqual(listed[0]!.unmodelled, [])
+  for (const s of store.listStatements()) store.deleteStatement(s.id)
+})
+
 try { fs.rmSync(TMP, { recursive: true, force: true }) } catch { /* best effort */ }
 console.log(`\n${passed} passed, ${fails.length} failed`)
 if (fails.length) { console.error('FAILED: ' + fails.join(', ')); process.exit(1) }

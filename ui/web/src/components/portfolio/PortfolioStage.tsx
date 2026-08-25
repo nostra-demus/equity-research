@@ -4,6 +4,7 @@ import { api } from '../../lib/api'
 import type {
   PortfolioBook, PortfolioClosure, PortfolioPerformance, PortfolioPosition, PortfolioRead,
 } from '../../lib/types'
+import { GrowthChart, UnderwaterChart } from './charts'
 
 // The fund book: what the fund ACTUALLY owns, fed by IBKR Flex exports.
 //
@@ -49,6 +50,7 @@ export function PortfolioStage() {
   const [notes, setNotes] = useState<{ tone: 'ok' | 'bad'; text: string }[]>([])
   const [dragging, setDragging] = useState(false)
   const [tab, setTab] = useState<Tab>('holdings')
+  const [changed, setChanged] = useState<ImportDelta | null>(null)
 
   const load = useCallback(async () => {
     setLoading(true)
@@ -62,8 +64,14 @@ export function PortfolioStage() {
     if (!files.length || busy) return
     setBusy(true); setProgress(0); setNotes([])
     try {
+      const before = snapshot(read)
       const result = await api.uploadStatements(files, setProgress)
-      setRead({ statements: result.statements, book: result.book, performance: result.performance, error: result.error })
+      const after: PortfolioRead = { statements: result.statements, book: result.book, performance: result.performance, error: result.error }
+      setRead(after)
+      // What the import actually did to the book, measured rather than asserted: a "12 statements
+      // imported" message that leaves every total unchanged is exactly the case an operator needs to
+      // notice, and only a before/after comparison can show it.
+      setChanged(diffBooks(before, snapshot(after)))
       const next: { tone: 'ok' | 'bad'; text: string }[] = []
       if (result.saved.length) next.push({ tone: 'ok', text: `${result.saved.length} statement${result.saved.length === 1 ? '' : 's'} imported` })
       // A duplicate is a normal outcome, not a failure: overlapping exports are how full history is
@@ -147,7 +155,7 @@ export function PortfolioStage() {
           <ImportTab
             read={read ?? { statements: [], book: null, performance: null, error: null }}
             onFiles={upload} onChanged={setRead} busy={busy} progress={progress} notes={notes}
-            firstRun={!hasStatements}
+            firstRun={!hasStatements} changed={changed}
           />
         ) : tab === 'holdings' ? (
           <Holdings book={book} perf={read?.performance ?? null} />
@@ -158,7 +166,7 @@ export function PortfolioStage() {
         ) : tab === 'trades' ? (
           <Trades book={book} />
         ) : (
-          <ImportTab read={read!} onFiles={upload} onChanged={setRead} busy={busy} progress={progress} notes={notes} />
+          <ImportTab read={read!} onFiles={upload} onChanged={setRead} busy={busy} progress={progress} notes={notes} changed={changed} />
         )}
       </div>
     </motion.div>
@@ -176,6 +184,42 @@ function ReconcileBadge({ book, onInspect }: { book: PortfolioBook; onInspect: (
       {ok ? `Reconciled · ${book.reconciliation.checks.length} checks` : `${failed.length} of ${book.reconciliation.checks.length} checks failing`}
     </button>
   )
+}
+
+// ---------- what an import changed ----------
+
+interface Snapshot {
+  statements: number; trades: number; closures: number; positions: number
+  navPoints: number; nav: number | null; realised: number | null; from: string | null; to: string | null
+}
+export interface ImportDelta { before: Snapshot; after: Snapshot; nothingMoved: boolean }
+
+function snapshot(read: PortfolioRead | null): Snapshot {
+  const b = read?.book ?? null
+  const dates = (read?.statements ?? []).flatMap((s) => [s.fromDate, s.toDate]).filter((d): d is string => !!d).sort()
+  return {
+    statements: read?.statements.length ?? 0,
+    trades: (read?.statements ?? []).reduce((a, s) => a + s.trades, 0),
+    closures: b?.closures.length ?? 0,
+    positions: b?.positions.length ?? 0,
+    navPoints: b?.navSeries.length ?? 0,
+    nav: b && b.navSeries.length ? b.navSeries[b.navSeries.length - 1]!.total : null,
+    realised: b ? b.closures.reduce((a, c) => a + (c.realizedBase ?? c.realizedLocal), 0) : null,
+    from: dates[0] ?? null,
+    to: dates[dates.length - 1] ?? null,
+  }
+}
+
+function diffBooks(before: Snapshot, after: Snapshot): ImportDelta {
+  const same = (a: number | null, b: number | null) =>
+    a === null || b === null ? a === b : Math.abs(a - b) < 0.005
+  return {
+    before,
+    after,
+    nothingMoved: before.statements === after.statements && before.trades === after.trades
+      && before.closures === after.closures && before.navPoints === after.navPoints
+      && same(before.nav, after.nav) && same(before.realised, after.realised),
+  }
 }
 
 function Card({ label, value, sub, tone }: { label: string; value: string; sub?: string; tone?: string }) {
@@ -221,6 +265,18 @@ function Holdings({ book, perf }: { book: PortfolioBook; perf: PortfolioPerforma
         <Card label="Income" value={fmtMoney(book.income.net, ccy)} sub={`Dividends ${fmtMoney(book.income.dividendsGross, ccy)} · withholding ${fmtMoney(book.income.withholdingTax, ccy)}`} tone={toneOf(book.income.net)} />
       </div>
 
+      {perf && perf.growth.length > 1 && (
+        <div className="fundbook__panel">
+          <div className="fundbook__panelhead">
+            <div>
+              <strong>Growth of capital</strong>
+              <small>Time-weighted, flows removed — so this is the decisions, not when the capital arrived</small>
+            </div>
+          </div>
+          <GrowthChart series={perf.growth} benchmarkSymbol={perf.benchmark.symbol} />
+        </div>
+      )}
+
       <div className="fundbook__split">
         <div className="fundbook__panel">
           <div className="fundbook__panelhead">
@@ -258,6 +314,20 @@ function Holdings({ book, perf }: { book: PortfolioBook; perf: PortfolioPerforma
           <div className="fundbook__bridge is-total"><span>Net asset value</span><strong>{fmtMoney(nav, ccy)}</strong></div>
         </div>
       </div>
+
+      {book.flows.length > 0 && (
+        <div className="fundbook__panel">
+          <div className="fundbook__panelhead">
+            <div><strong>Capital flows</strong><small>Every contribution and withdrawal — removed from the return, so they never read as performance</small></div>
+          </div>
+          {[...book.flows].sort((a, b) => (b.date ?? '').localeCompare(a.date ?? '')).map((f, i) => (
+            <div key={`${f.date}-${i}`} className="fundbook__bridge">
+              <span><span className="mono dim">{f.date ?? '—'}</span> · {f.description ?? (f.amount >= 0 ? 'Contribution' : 'Withdrawal')}</span>
+              <strong style={{ color: toneOf(f.amountBase ?? f.amount) }}>{fmtMoney(f.amountBase ?? f.amount, ccy)}</strong>
+            </div>
+          ))}
+        </div>
+      )}
 
       <div className="fundbook__panel">
         <div className="fundbook__panelhead">
@@ -297,6 +367,24 @@ function BridgeRow({ label, value, tone }: { label: string; value: string; tone?
   return <div className="fundbook__bridge"><span>{label}</span><strong style={tone ? { color: tone } : undefined}>{value}</strong></div>
 }
 
+function Delta({ label, before, after, beforeText, afterText }: {
+  label: string; before?: number; after?: number; beforeText?: string; afterText?: string
+}) {
+  const moved = beforeText !== undefined ? beforeText !== afterText : before !== after
+  const shift = before !== undefined && after !== undefined ? after - before : null
+  return (
+    <div className={`fundbook__card${moved ? ' is-moved' : ''}`}>
+      <span className="fundbook__cardlabel">{label}</span>
+      <strong className="fundbook__cardvalue">{afterText ?? after}</strong>
+      <small className="fundbook__cardsub">
+        {moved
+          ? <>was {beforeText ?? before}{shift !== null && shift !== 0 && <> · {shift > 0 ? '+' : '−'}{Math.abs(shift)}</>}</>
+          : 'unchanged'}
+      </small>
+    </div>
+  )
+}
+
 function PositionRow({ p, derivative }: { p: PortfolioPosition; derivative?: boolean }) {
   return (
     <div className="fundbook__row">
@@ -328,7 +416,8 @@ function Performance({ perf }: { perf: PortfolioPerformance }) {
         </div>
         <div className="fundbook__scroll">
           <div className="fundbook__row fundbook__row--periods fundbook__row--head">
-            <span>Period</span><span className="num">Return</span><span className="num">{bm.symbol}</span><span className="num">Excess</span><span className="num">Days</span>
+            <span>Period</span><span className="num">Return</span><span className="num">{bm.symbol}</span><span className="num">Excess</span>
+            <span className="num">Cash</span><span className="num">Over cash</span><span className="num">Days</span>
           </div>
           {perf.periods.map((p) => (
             <div key={p.label} className="fundbook__row fundbook__row--periods">
@@ -339,6 +428,11 @@ function Performance({ perf }: { perf: PortfolioPerformance }) {
               <span className="num dim">{p.label === 'Since inception' ? fmtPct(bm.benchmarkTwr, 2) : '—'}</span>
               <span className="num" style={{ color: p.label === 'Since inception' ? toneOf(bm.excess) : undefined }}>
                 {p.label === 'Since inception' && bm.excess !== null ? `${bm.excess >= 0 ? '+' : '−'}${Math.abs(bm.excess).toFixed(2)}pp` : '—'}
+              </span>
+              {/* The second yardstick: beating an index while trailing a deposit account is not a result. */}
+              <span className="num dim">{fmtPct(p.hurdle, 2)}</span>
+              <span className="num" style={{ color: toneOf(p.overHurdle) }}>
+                {p.overHurdle === null ? '—' : `${p.overHurdle >= 0 ? '+' : '−'}${Math.abs(p.overHurdle).toFixed(2)}pp`}
               </span>
               <span className="num dim">{p.days}</span>
             </div>
@@ -351,6 +445,21 @@ function Performance({ perf }: { perf: PortfolioPerformance }) {
           </div>
         )}
       </div>
+
+      {perf.underwater.length > 1 && (
+        <div className="fundbook__panel">
+          <div className="fundbook__panelhead">
+            <div>
+              <strong>Drawdown</strong>
+              <small>
+                Distance below the previous high — the honest picture of what holding it felt like
+                {risk.drawdown.underWaterDays !== null && ` · the deepest took ${risk.drawdown.underWaterDays} days to recover`}
+              </small>
+            </div>
+          </div>
+          <UnderwaterChart series={perf.underwater} />
+        </div>
+      )}
 
       <div className="fundbook__cards">
         <Card label="Volatility" value={risk.volatility === null || !risk.sufficient ? '—' : `${risk.volatility.toFixed(1)}%`} sub="Annualised, daily NAV" />
@@ -370,7 +479,46 @@ function Performance({ perf }: { perf: PortfolioPerformance }) {
           sub="ANNUALISED (IRR) — not comparable with the cumulative returns above"
           tone={toneOf(perf.moneyWeightedAnnualisedPct)}
         />
+        <Card
+          label={`Beta to ${bm.symbol}`}
+          value={perf.betaAlpha.beta === null ? '—' : perf.betaAlpha.beta.toFixed(2)}
+          sub={perf.betaAlpha.pairedDays > 0
+            ? `From ${perf.betaAlpha.pairedDays} days both series moved`
+            : `Needs ${bm.symbol} price history`}
+        />
+        <Card
+          label="Alpha"
+          value={perf.betaAlpha.alpha === null ? '—' : fmtPct(perf.betaAlpha.alpha)}
+          sub="Annualised, beyond what beta explains"
+          tone={perf.betaAlpha.alpha === null ? undefined : toneOf(perf.betaAlpha.alpha)}
+        />
       </div>
+
+      {perf.months.length > 0 && (
+        <div className="fundbook__panel">
+          <div className="fundbook__panelhead">
+            <div><strong>Month by month</strong><small>Compounded from the same daily returns, so a month can never disagree with the period that contains it</small></div>
+          </div>
+          <div className="fundbook__scroll">
+            <div className="fundbook__months">
+              <div className="fundbook__monthrow fundbook__monthrow--head">
+                <span>&nbsp;</span>
+                {perf.months.map((m) => <span key={m.month} className="num">{m.month.slice(2)}</span>)}
+              </div>
+              <div className="fundbook__monthrow">
+                <span>Book</span>
+                {perf.months.map((m) => (
+                  <span key={m.month} className="num" style={{ color: toneOf(m.book) }}>{fmtPct(m.book, 1)}</span>
+                ))}
+              </div>
+              <div className="fundbook__monthrow">
+                <span className="dim">{bm.symbol}</span>
+                {perf.months.map((m) => <span key={m.month} className="num dim">{fmtPct(m.benchmark, 1)}</span>)}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       {!risk.sufficient && (
         <div className="fundbook__panel"><div className="fundbook__foot">
@@ -416,6 +564,55 @@ function Trades({ book }: { book: PortfolioBook }) {
     }
   }, [rows])
 
+  // Attribution: what each NAME contributed, biggest absolute mover first. A fund's realised result is
+  // almost never spread evenly, and the names that carried it are the ones worth reviewing.
+  const { attribution, attributionMax, topShare } = useMemo(() => {
+    const by = new Map<string, { value: number; trades: number }>()
+    for (const c of rows) {
+      const k = c.symbol ?? '—'
+      const cur = by.get(k) ?? { value: 0, trades: 0 }
+      cur.value += c.realizedBase ?? c.realizedLocal
+      cur.trades += 1
+      by.set(k, cur)
+    }
+    const all = [...by.entries()].map(([symbol, v]) => ({ symbol, ...v }))
+      .sort((a, b) => Math.abs(b.value) - Math.abs(a.value))
+    const list = all.slice(0, 12)
+    const max = Math.max(...list.map((a) => Math.abs(a.value)), 1)
+    const winners = all.filter((a) => a.value > 0).sort((a, b) => b.value - a.value)
+    const grossWin = winners.reduce((a, b) => a + b.value, 0)
+    const top3 = winners.slice(0, 3).reduce((a, b) => a + b.value, 0)
+    return {
+      attribution: list,
+      attributionMax: max,
+      topShare: winners.length > 3 && grossWin > 0 ? (top3 / grossWin) * 100 : null,
+    }
+  }, [rows])
+
+  // Splitting the realised result into what the STOCK did and what the RATE did. Exact by construction:
+  //   realised(base) = gross×openFx  +  gross×(closeFx − openFx)  +  costs×closeFx
+  // Only the FX move on the GAIN can appear here — the move on the capital itself never enters the
+  // broker's realised P&L, which is why the note under the table says where it does land.
+  const { currencyEffect, allBase } = useMemo(() => {
+    const by = new Map<string, { trades: number; security: number; currencyEffect: number; costs: number; realised: number }>()
+    for (const c of rows) {
+      const open = c.openFxRateToBase
+      const close = c.closeFxRateToBase
+      if (open === null || close === null) continue // no rate pair — excluded rather than assumed 1
+      const k = c.currency ?? '—'
+      const cur = by.get(k) ?? { trades: 0, security: 0, currencyEffect: 0, costs: 0, realised: 0 }
+      cur.trades += 1
+      cur.security += c.grossLocal * open
+      cur.currencyEffect += c.grossLocal * (close - open)
+      cur.costs += c.commissionLocal * close
+      cur.realised += c.realizedBase ?? c.realizedLocal
+      by.set(k, cur)
+    }
+    const list = [...by.entries()].map(([currency, v]) => ({ currency, ...v }))
+      .sort((a, b) => Math.abs(b.realised) - Math.abs(a.realised))
+    return { currencyEffect: list, allBase: list.every((r) => Math.abs(r.currencyEffect) < 0.005) }
+  }, [rows])
+
   if (rows.length === 0) {
     return (
       <div className="fundbook__empty">
@@ -437,6 +634,73 @@ function Trades({ book }: { book: PortfolioBook }) {
         />
         <Card label="Avg hold" value={stats.avgHold === null ? '—' : `${Math.round(stats.avgHold)}d`} sub="Open to close" />
         <Card label="Largest loss" value={fmtMoney(stats.worst, ccy)} sub="Single round trip" tone={stats.worst === null ? undefined : 'var(--bad)'} />
+      </div>
+
+      <div className="fundbook__split">
+        <div className="fundbook__panel">
+          <div className="fundbook__panelhead">
+            <div><strong>Where the money came from</strong><small>Realised result by name — the few positions that actually made the difference</small></div>
+          </div>
+          {attribution.length === 0
+            ? <div className="fundbook__none">Nothing closed yet.</div>
+            : attribution.map((a) => (
+              <div key={a.symbol} className="fundbook__contrib">
+                <span className="fundbook__contrib-label mono">{a.symbol}</span>
+                {/* Diverging from a centre line: losers read as losers at a glance, which a
+                    left-anchored bar cannot do. */}
+                <span className="fundbook__contrib-track">
+                  <i className="fundbook__contrib-zero" aria-hidden />
+                  <i
+                    className="fundbook__contrib-fill"
+                    style={{
+                      left: a.value >= 0 ? '50%' : `${50 - (Math.abs(a.value) / attributionMax) * 50}%`,
+                      width: `${(Math.abs(a.value) / attributionMax) * 50}%`,
+                      background: a.value < 0 ? 'var(--bad)' : 'var(--accent)',
+                    }}
+                  />
+                </span>
+                <span className="fundbook__contrib-value num" style={{ color: toneOf(a.value) }}>{fmtMoney(a.value, ccy)}</span>
+                <span className="fundbook__contrib-n num dim">{a.trades}</span>
+              </div>
+            ))}
+          {attribution.length > 0 && (
+            <div className="fundbook__foot">
+              {topShare === null
+                ? 'Every closed name is shown.'
+                : `The best three names carry ${topShare.toFixed(0)}% of the gross winnings — concentration in the result, not in the book.`}
+            </div>
+          )}
+        </div>
+
+        <div className="fundbook__panel">
+          <div className="fundbook__panelhead">
+            <div><strong>Stock or currency?</strong><small>How much of the realised result was the position, and how much was the exchange rate moving under it</small></div>
+          </div>
+          {currencyEffect.length === 0 ? (
+            <div className="fundbook__none">No closed trade carries both an opening and a closing rate yet.</div>
+          ) : (
+            <>
+              <div className="fundbook__row fundbook__row--fx fundbook__row--head">
+                <span>Ccy</span><span className="num">Trades</span><span className="num">Stock</span><span className="num">Currency</span><span className="num">Costs</span><span className="num">Realised</span>
+              </div>
+              {currencyEffect.map((r) => (
+                <div key={r.currency} className="fundbook__row fundbook__row--fx">
+                  <strong className="mono">{r.currency}</strong>
+                  <span className="num dim">{r.trades}</span>
+                  <span className="num" style={{ color: toneOf(r.security) }}>{fmtMoney(r.security, ccy)}</span>
+                  <span className="num" style={{ color: toneOf(r.currencyEffect) }}>{fmtMoney(r.currencyEffect, ccy)}</span>
+                  <span className="num dim">{fmtMoney(r.costs, ccy)}</span>
+                  <strong className="num" style={{ color: toneOf(r.realised) }}>{fmtMoney(r.realised, ccy)}</strong>
+                </div>
+              ))}
+              <div className="fundbook__foot">
+                {allBase
+                  ? `Every closed trade settled in ${ccy ?? 'the base currency'}, so there is no currency effect to separate.`
+                  : `The currency column is the rate moving between opening and closing the trade. The rate moving on the CAPITAL itself is not realised P&L — it sits in the cash balance and reaches the return through NAV.`}
+              </div>
+            </>
+          )}
+        </div>
       </div>
 
       <div className="fundbook__panel">
@@ -477,7 +741,7 @@ function TradeRow({ c }: { c: PortfolioClosure }) {
 
 // ---------- import ----------
 
-function ImportTab({ read, onFiles, onChanged, busy, progress, notes, firstRun }: {
+function ImportTab({ read, onFiles, onChanged, busy, progress, notes, firstRun, changed }: {
   read: PortfolioRead
   onFiles: (f: File[]) => void
   onChanged: (r: PortfolioRead) => void
@@ -485,6 +749,7 @@ function ImportTab({ read, onFiles, onChanged, busy, progress, notes, firstRun }
   progress: number
   notes: { tone: 'ok' | 'bad'; text: string }[]
   firstRun?: boolean
+  changed: ImportDelta | null
 }) {
   const [removing, setRemoving] = useState<string | null>(null)
   const [removeError, setRemoveError] = useState<string | null>(null)
@@ -512,6 +777,33 @@ function ImportTab({ read, onFiles, onChanged, busy, progress, notes, firstRun }
           {notes.map((n, i) => <span key={i} className={`fundbook__note fundbook__note--${n.tone}`}>{n.text}</span>)}
         </div>
       )}
+      {changed && (
+        <div className="fundbook__panel">
+          <div className="fundbook__panelhead">
+            <div>
+              <strong>What this import changed</strong>
+              <small>Measured against the book as it stood before the file was read</small>
+            </div>
+          </div>
+          {changed.nothingMoved ? (
+            <div className="fundbook__foot">
+              Nothing in the book moved. That is the expected outcome when the file only repeats a range
+              already imported — but if you meant to add new activity, the export&rsquo;s date range is
+              the first thing to check.
+            </div>
+          ) : (
+            <div className="fundbook__cards fundbook__cards--tight">
+              <Delta label="Statements" before={changed.before.statements} after={changed.after.statements} />
+              <Delta label="Trades read" before={changed.before.trades} after={changed.after.trades} />
+              <Delta label="Closed round trips" before={changed.before.closures} after={changed.after.closures} />
+              <Delta label="Open positions" before={changed.before.positions} after={changed.after.positions} />
+              <Delta label="Valued days" before={changed.before.navPoints} after={changed.after.navPoints} />
+              <Delta label="Covered through" beforeText={changed.before.to ?? '—'} afterText={changed.after.to ?? '—'} />
+            </div>
+          )}
+        </div>
+      )}
+
       {read.error && <div className="fundbook__error"><span>{read.error}</span></div>}
       {removeError && <div className="fundbook__error"><span>{removeError}</span></div>}
 
@@ -551,6 +843,25 @@ function ImportTab({ read, onFiles, onChanged, busy, progress, notes, firstRun }
               <span className="mono">{s.filename}</span>
               <span className="dim">{s.fromDate ?? '?'} → {s.toDate ?? '?'}</span>
               <span className="dim num">{s.trades} trades</span>
+              {/* What the file actually CARRIED. A Flex query with a section left unticked imports
+                  cleanly and reconciles green while silently missing dividends or NAV — the only way to
+                  catch that is to show what came in the box. */}
+              <span className="fundbook__chips">
+                {Object.entries(s.sections ?? {}).sort((a, b) => b[1] - a[1]).map(([name, n]) => (
+                  <i key={name} className={`fundbook__chip${n === 0 ? ' is-unread' : ''}`}
+                    title={n === 0
+                      ? `${name} carried no rows. Normal if none occurred — but it is also what an unticked section looks like, so check the Flex query if you expected some.`
+                      : `${n} row${n === 1 ? '' : 's'} read from ${name}`}>
+                    {name} <b>{n}</b>
+                  </i>
+                ))}
+                {(s.unmodelled ?? []).map((name) => (
+                  <i key={`u-${name}`} className="fundbook__chip is-unread" title={`${name} is present in the file but not read by the importer`}>
+                    {name} <b>not read</b>
+                  </i>
+                ))}
+                {Object.keys(s.sections ?? {}).length === 0 && <i className="fundbook__chip is-unread">no sections recorded</i>}
+              </span>
               <button
                 className="fundbook__remove"
                 disabled={removing === s.id}
