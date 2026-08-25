@@ -22,7 +22,7 @@ import { attachmentExists, attachmentPath, deleteAttachment, readAttachment, sav
 import {
   assertClaudeCli, assertProviderAvailable, cancel, cancelAll, cancelSubject, checkProviderUsage,
   creditCheck, decideReadiness, drainProviderRunsForShutdown, estimate, isSealedResearchRun, launch,
-  queuePublicationIntent, reapDeadSubjectRuns, reconcileOrphanedProviderGroups, recoverReadyPublications, sigIdFor,
+  getParityCanaryChainStatus, queuePublicationIntent, reapDeadSubjectRuns, reconcileOrphanedProviderGroups, recoverReadyPublications, sigIdFor,
   subjectChainActive, todayDate, warmLaunchProbes,
   type RunProviderSelection,
 } from './launcher'
@@ -1123,8 +1123,18 @@ app.get('/api/internal/provider-parity/canary-status', { config: { rateLimit: { 
     return reply.code(error?.code === 'ENOENT' ? 404 : 400).send({ error: error?.code === 'ENOENT' ? 'canary run root not found' : 'invalid canary run root' })
   }
 
-  const run = listRuns()
-    .filter((candidate) => candidate.runRoot === parsed.data.runRoot && candidate.parityCanary === true)
+  const logicalChain = getParityCanaryChainStatus(parsed.data.runRoot)
+  const chainRuns = listRuns()
+    .filter((candidate) => candidate.runRoot === parsed.data.runRoot && candidate.parityCanary === true
+      && (!logicalChain || candidate.chainId === logicalChain.chainId))
+  const run = chainRuns
+    .sort((a, b) => b.startedAt - a.startedAt)[0]
+  // The aggregate deliberately stays `running` across child transitions, but a child parked at the
+  // readiness gate is actionable operator state, not an ordinary transition. Surface that exact child
+  // and run id so the canary UI can open the shared readiness-decision workflow instead of polling a
+  // logical chain that can never advance by itself.
+  const pausedRun = chainRuns
+    .filter((candidate) => candidate.status === 'awaiting-readiness-decision')
     .sort((a, b) => b.startedAt - a.startedAt)[0]
   const terminalEvent = run && [...run.eventLog].reverse().find((event) => event.type === 'run-error' || event.type === 'run-done')
   const failureNote = readCanaryRunFile(rootAbs, 'RUN_FAILURE.md')
@@ -1142,21 +1152,28 @@ app.get('/api/internal/provider-parity/canary-status', { config: { rateLimit: { 
   const diskFailure = failureNote !== null || interruptedRaw !== null
   // A supervisor-written failure marker wins over any child-created terminal-looking files. Successful
   // post-restart recovery still requires all three terminal artifacts, including the supervisor receipt.
-  const status = abortedRaw !== null ? 'cancelled'
-    : diskFailure ? 'error'
-      : run?.status ?? (diskComplete ? 'done' : 'unknown')
-  const eventMessage = abortedRaw !== null ? 'Canary cancelled by the operator.'
-    : terminalEvent?.type === 'run-error'
-    ? terminalEvent.message || terminalEvent.reason
-    : terminalEvent?.type === 'run-done' ? 'Canary completed.' : null
+  const logicalInFlight = logicalChain?.status === 'starting' || logicalChain?.status === 'running'
+  const status = logicalInFlight && pausedRun ? pausedRun.status
+    : logicalInFlight ? logicalChain.status
+    : abortedRaw !== null ? 'cancelled'
+      : diskFailure ? 'error'
+        : logicalChain?.status ?? run?.status ?? (diskComplete ? 'done' : 'unknown')
+  const eventMessage = logicalInFlight && pausedRun
+    ? 'Canary paused for a data-readiness decision.'
+    : logicalInFlight ? logicalChain.message
+    : abortedRaw !== null ? 'Canary cancelled by the operator.'
+      : logicalChain?.message
+        ?? (terminalEvent?.type === 'run-error'
+          ? terminalEvent.message || terminalEvent.reason
+          : terminalEvent?.type === 'run-done' ? 'Canary completed.' : null)
   return {
     runRoot: parsed.data.runRoot,
-    runId: run?.runId ?? null,
+    runId: pausedRun?.runId ?? logicalChain?.runId ?? run?.runId ?? null,
     status,
-    startedAt: run?.startedAt ?? null,
-    endedAt: run?.endedAt ?? null,
-    provider: run?.provider ?? null,
-    profileKey: run?.profileKey ?? null,
+    startedAt: logicalChain?.startedAt ?? pausedRun?.startedAt ?? run?.startedAt ?? null,
+    endedAt: logicalChain?.endedAt ?? run?.endedAt ?? null,
+    provider: logicalChain?.provider ?? pausedRun?.provider ?? run?.provider ?? null,
+    profileKey: logicalChain?.profileKey ?? pausedRun?.profileKey ?? run?.profileKey ?? null,
     message: eventMessage,
     failureNote,
     interruption,
