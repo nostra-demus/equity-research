@@ -108,7 +108,8 @@ def publish_readiness(
     projection_doctor: str | None = None, store_doctor: str | None = None,
     controlled_write: str | None = None, performance: str | None = None,
     restore_drill: str | None = None, access_audit: str | None = None,
-    schema_review: str | None = None, scale_comparisons: Sequence[str] = (),
+    schema_review: str | None = None, rebuild_observation: str | None = None,
+    shadow_evaluation: str | None = None, scale_comparisons: Sequence[str] = (),
 ) -> Path:
     root = _safe_directory(Path(state_root), create=True)
     report = build_operational_readiness_report(
@@ -123,6 +124,8 @@ def publish_readiness(
         restore_drill_observation=_optional(restore_drill),
         access_audit_observation=_optional(access_audit),
         schema_review_observation=_optional(schema_review),
+        rebuild_observation=_optional(rebuild_observation),
+        shadow_evaluation_report=_optional(shadow_evaluation),
         scale_comparisons=[load_json_read_only(path) for path in scale_comparisons],
     )
     path = root / "operations" / "readiness-report.json"
@@ -143,6 +146,7 @@ def _parser() -> argparse.ArgumentParser:
     for name in (
         "phase0-candidate", "phase3-synthetic", "projection-doctor", "store-doctor",
         "controlled-write", "performance", "restore-drill", "access-audit", "schema-review",
+        "rebuild-observation", "shadow-evaluation",
     ):
         report.add_argument(f"--{name}")
     report.add_argument("--scale-comparison", action="append", default=[])
@@ -163,6 +167,7 @@ def main(argv: Sequence[str] | None = None) -> int:
                 store_doctor=args.store_doctor, controlled_write=args.controlled_write,
                 performance=args.performance, restore_drill=args.restore_drill,
                 access_audit=args.access_audit, schema_review=args.schema_review,
+                rebuild_observation=args.rebuild_observation, shadow_evaluation=args.shadow_evaluation,
                 scale_comparisons=args.scale_comparison,
             )
     except (ObservabilityError, OSError, TypeError, ValueError) as exc:

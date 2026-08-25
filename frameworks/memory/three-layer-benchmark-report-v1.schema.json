@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "frameworks/memory/three-layer-benchmark-report-v1.schema.json",
+  "title": "Three-layer held-out memory benchmark report v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "benchmark_sha256", "evaluation_mode", "case_count", "cases", "category_metrics", "aggregate", "gate", "report_sha256"],
+  "properties": {
+    "schema": {"const": "memory-three-layer-benchmark-report/v1"},
+    "benchmark_sha256": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+    "evaluation_mode": {"enum": ["synthetic-ci", "runtime-held-out"]},
+    "case_count": {"const": 40},
+    "cases": {
+      "type": "array", "minItems": 40, "maxItems": 40,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["id", "category", "record_recall", "action_correct", "forbidden_hit_count", "serious_failure", "passed"],
+        "properties": {
+          "id": {"type": "string", "pattern": "^[a-z]+-[0-9]{3}$"},
+          "category": {"type": "string"},
+          "record_recall": {"type": "number", "minimum": 0, "maximum": 1},
+          "action_correct": {"type": "boolean"},
+          "forbidden_hit_count": {"type": "integer", "minimum": 0},
+          "serious_failure": {"type": "boolean"},
+          "passed": {"type": "boolean"}
+        }
+      }
+    },
+    "category_metrics": {
+      "type": "array", "minItems": 8, "maxItems": 8,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["category", "case_count", "pass_rate"],
+        "properties": {
+          "category": {"type": "string"},
+          "case_count": {"const": 5},
+          "pass_rate": {"type": "number", "minimum": 0, "maximum": 1}
+        }
+      }
+    },
+    "aggregate": {
+      "type": "object", "additionalProperties": false,
+      "required": ["pass_rate", "record_recall", "action_accuracy", "forbidden_hit_count", "serious_failure_count"],
+      "properties": {
+        "pass_rate": {"type": "number", "minimum": 0, "maximum": 1},
+        "record_recall": {"type": "number", "minimum": 0, "maximum": 1},
+        "action_accuracy": {"type": "number", "minimum": 0, "maximum": 1},
+        "forbidden_hit_count": {"type": "integer", "minimum": 0},
+        "serious_failure_count": {"type": "integer", "minimum": 0}
+      }
+    },
+    "gate": {
+      "type": "object", "additionalProperties": false,
+      "required": ["passed", "counts_as_production_evidence", "blocking_case_ids"],
+      "properties": {
+        "passed": {"type": "boolean"},
+        "counts_as_production_evidence": {"type": "boolean"},
+        "blocking_case_ids": {"type": "array", "uniqueItems": true, "items": {"type": "string"}}
+      }
+    },
+    "report_sha256": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"}
+  }
+}

@@ -188,6 +188,33 @@ with zero protected-path intrusion and zero post-cutoff facts. `three-layer-benc
 restore, and operational-readiness gates are defined by the delivery plan and remain blocking until
 measured.
 
+`scripts/memory_phase0_candidate.py` is the production-candidate ranker for the exact frozen Phase 0
+corpus. It sees only the question, declared roots, and corpus bytes. Its current deterministic result
+non-regresses every retrieval measure, strictly improves recall and reciprocal rank, and removes all
+seven temporal forbidden-path hits without a protected-path intrusion. The reviewed baseline remains
+immutable; readiness compares a freshly generated candidate report with that baseline.
+
+The 40-case scorer accepts only a complete, closed runtime result set before it reads the scoring
+fields. Synthetic CI can prove the scorer but cannot satisfy release evidence. A production result
+must declare `runtime-held-out`, pass every case, and contain no forbidden record, false-current-
+evidence use, qualifier loss, temporal leak, protected leak, or non-applicable procedure execution.
+
+Live A/B release evidence is pre-registered with fixed thresholds. Every observation binds the exact
+preregistration, prompt program, source pool, memory snapshot, access scope, canonical packet bytes,
+provider/model, outputs, costs, and independent adjudicator. Baseline and memory outputs must have
+the same contradiction, prior-defense, and abstention opportunity counts. Provider approval is
+limited to Claude/Codex model pairs that received byte-equivalent packets in complete parity groups.
+The preregistration also freezes the self-discovered analytical-agent roster. Global enforcement
+cannot activate until every current specialist, module synthesizer, and master synthesizer appears
+in the shadow sample; adding a new profiled agent invalidates an older activation until it is tested.
+
+Enforced mode requires a current Ed25519-signed `memory-enforcement-activation/v1`. The activation
+binds a fully met operational-readiness report, the passing runtime 40-case report, the passing
+production-shadow report, and its exact approved provider/model set. It lives for at most 30 days.
+The supervisor verifies it before snapshot work and again immediately before every paid dispatch;
+missing, expired, tampered, synthetic, stale, or provider-mismatched evidence stops before spend.
+Shadow mode never treats the activation as a pass and remains non-blocking.
+
 ## Production projection and lifecycle implementation
 
 `scripts/memory_runtime.py` is the production read boundary. It reuses the reviewed repository

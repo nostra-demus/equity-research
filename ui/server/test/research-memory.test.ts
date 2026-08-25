@@ -47,6 +47,12 @@ const configured = {
   NOSTRA_MEMORY_CONTRACT_KEY_ID: 'contract', NOSTRA_MEMORY_PROVIDER_POLICY: '/tmp/policy',
   NOSTRA_MEMORY_POLICY_PUBLIC_KEY: '/tmp/ppub', NOSTRA_MEMORY_POLICY_KEY_ID: 'policy',
   NOSTRA_MEMORY_SERVICE_IDENTITY: 'supervisor',
+  NOSTRA_MEMORY_ENFORCEMENT_ACTIVATION: '/tmp/enforcement-activation.json',
+  NOSTRA_MEMORY_ENFORCEMENT_READINESS: '/tmp/readiness-report.json',
+  NOSTRA_MEMORY_ENFORCEMENT_THREE_LAYER: '/tmp/three-layer-report.json',
+  NOSTRA_MEMORY_ENFORCEMENT_SHADOW: '/tmp/shadow-report.json',
+  NOSTRA_MEMORY_ENFORCEMENT_PUBLIC_KEY: '/tmp/enforcement-public-key',
+  NOSTRA_MEMORY_ENFORCEMENT_KEY_ID: 'memory-enforcement-release',
 } as NodeJS.ProcessEnv
 
 assert.equal(researchMemoryMode({}), 'off')
@@ -56,6 +62,12 @@ clearResearchMemoryPreparationForTests()
 const calls: string[][] = []
 const executor = async (args: string[]) => {
   calls.push(args)
+  if (args[0] === 'verify-enforcement') return {
+    schema: 'memory-enforcement-verification/v1', ok: true,
+    activation_id: 'memory-enforcement-release-1', activation_sha256: `sha256:${'c'.repeat(64)}`,
+    provider_model: `${args[args.indexOf('--provider') + 1]}/${args[args.indexOf('--model') + 1]}`,
+    expires_at: '2099-01-01T00:00:00.000000Z',
+  }
   if (args[0] === 'prepare') return {
     ok: true, reused: false, receipt_id: 'run-receipt_00000000-0000-5000-8000-000000000001',
     receipt_path: '/tmp/receipt.json', projection_path: '/tmp/projection.sqlite',
@@ -74,13 +86,15 @@ const executor = async (args: string[]) => {
 const prepared = run()
 await prepareResearchMemory(prepared, executor, configured)
 assert.equal(prepared.memoryRuntime?.status, 'verified')
-assert.equal(calls[0][0], 'prepare')
-assert.ok(calls[0].includes('--legal-name'))
+assert.equal(calls[0][0], 'verify-enforcement')
+assert.equal(calls[1][0], 'prepare')
+assert.ok(calls[1].includes('--legal-name'))
 await verifyResearchMemoryBeforeSpawn(prepared, executor, configured)
-assert.equal(calls[1][0], 'verify')
+assert.equal(calls[2][0], 'verify-enforcement')
+assert.equal(calls[3][0], 'verify')
 await compileResearchMemoryPacket(prepared, 'earnings/01_historical-financials', executor, configured)
-assert.equal(calls[2][0], 'compile')
-assert.ok(calls[2].includes('--authorization'))
+assert.equal(calls[4][0], 'compile')
+assert.ok(calls[4].includes('--authorization'))
 await assert.rejects(() => compileResearchMemoryPacket(
   prepared, 'valuation/01_price-and-capital-structure', executor, configured,
 ))
@@ -97,6 +111,27 @@ assert.equal(
   calls.filter((args) => args[0] === 'prepare').length, 3,
   'switching back to the original provider requires another authorization decision',
 )
+
+clearResearchMemoryPreparationForTests()
+const blockedCalls: string[][] = []
+const blockedByReleaseGate = run()
+await assert.rejects(
+  () => prepareResearchMemory(blockedByReleaseGate, async (args) => {
+    blockedCalls.push(args)
+    throw new Error('enforcement activation expired')
+  }, configured),
+  /memory snapshot blocked before spend: enforcement activation expired/,
+)
+assert.deepEqual(blockedCalls.map((args) => args[0]), ['verify-enforcement'])
+assert.equal(blockedByReleaseGate.memoryRuntime?.status, 'blocked')
+
+const shadowGateCalls: string[][] = []
+const shadowWithConfig = run()
+await prepareResearchMemory(shadowWithConfig, async (args) => {
+  shadowGateCalls.push(args)
+  return executor(args)
+}, { ...configured, NOSTRA_MEMORY_MODE: 'shadow' })
+assert.equal(shadowGateCalls.some((args) => args[0] === 'verify-enforcement'), false)
 
 const statusRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'memory-status-'))
 const statusConfig = { ...configured, NOSTRA_MEMORY_STATE_ROOT: statusRoot }
