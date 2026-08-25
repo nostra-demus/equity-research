@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-25T03:44:58Z",
+  "generated_at": "2026-08-25T03:52:43Z",
   "inbox": [
     {
       "inbox_id": "INB-20260825-658",
@@ -789,6 +789,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260825-688",
+      "headline": "Netweb Technologies India Ltd: Press release regarding QIP",
+      "headline_en": null,
+      "url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/306c6bb0-a49a-4a94-89ec-8bfa4045c9c1.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-25T03:30:29Z",
+      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
+      "prelim_note": "Netweb Technologies is initiating a Qualified Institutional Placement (QIP) to raise capital.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Netweb Technologies is initiating a Qualified Institutional Placement (QIP) to raise capital.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capital_actions",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Netweb Technologies India Ltd",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260825-004",
       "headline": "FFM: FireFly Bolsters Funding for Project Development and Growth [price-sensitive]",
       "headline_en": null,
@@ -1264,6 +1313,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260825-690",
+      "headline": "Stocks stagger and oil rises as traders eye Iran threat, Nvidia results",
+      "headline_en": null,
+      "url": "https://www.straitstimes.com/business/stocks-stagger-and-oil-rises-as-traders-eye-iran-threat-nvidia-results",
+      "source_name": "The Straits Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-25T03:32:00Z",
+      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
+      "prelim_note": "Geopolitical tensions involving Iran are causing market volatility and rising oil prices.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Geopolitical tensions involving Iran are causing market volatility and rising oil prices.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 4,
+        "event": 1,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "commodity",
+        "source_tier_id": "news",
+        "event_id": "macro_sector",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260825-637",
       "headline": "Oil price today: Brent crude stays above $90 as Middle East standoff intensifies",
       "headline_en": null,
@@ -1646,6 +1738,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260825-693",
+      "headline": "Iran war live: US expands Iran sanctions in ‘economic D-Day’",
+      "headline_en": null,
+      "url": "https://www.arabianbusiness.com/abnews/iran-us-israel-war-live-latest-updates",
+      "source_name": "Arabian Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-25T03:35:49Z",
+      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
+      "prelim_note": "Escalating conflict and new US sanctions on Iran represent a major geopolitical shock.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "Escalating conflict and new US sanctions on Iran represent a major geopolitical shock.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 1,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "macro_sector",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260825-624",
       "headline": "Oil Price Today (August 25): Crude oil at $92 as investors digest US economic sanctions on Iran. What’s next for investors?",
       "headline_en": null,
@@ -1770,154 +1905,6 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260825-681",
-      "headline": "FDA Approves Imaavy (nipocalimab-aahu) as First-Ever Treatment for Warm Autoimmune Hemolytic Anemia",
-      "headline_en": null,
-      "url": "https://www.drugs.com/newdrugs/fda-approves-imaavy-nipocalimab-aahu-first-ever-warm-autoimmune-hemolytic-anemia-6862.html",
-      "source_name": "Drugs.com — New Drug Approvals",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-08-25T02:08:05Z",
-      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
-      "prelim_note": "FDA approved Imaavy (nipocalimab-aahu) as first-ever treatment for warm autoimmune hemolytic anemia, a new product approval.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "FDA approved Imaavy (nipocalimab-aahu) as first-ever treatment for warm autoimmune hemolytic anemia, a new product approval.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "product",
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Imaavy (nipocalimab-aahu)",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260825-525",
-      "headline": "ZHONG JIA GX (00899): PLACING OF NEW SHARES UNDER GENERAL MANDATE",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0824/2026082401847.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-24T14:17:00Z",
-      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
-      "prelim_note": "Placing of new shares is dilutive to existing shareholders.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "Placing of new shares is dilutive to existing shareholders.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "capital_actions",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Zhong Jia",
-          "ticker": "00899",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260825-585",
-      "headline": "Digital Realty Selected to Develop 50 Megawatts of New Data Center Capacity in Singapore",
-      "headline_en": null,
-      "url": "https://www.globenewswire.com/news-release/2026/08/25/3350172/0/en/digital-realty-selected-to-develop-50-megawatts-of-new-data-center-capacity-in-singapore.html",
-      "source_name": "GlobeNewswire — News about Public Companies",
-      "input_nature": "company_press_release",
-      "found_at": "2026-08-25T01:30:00Z",
-      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
-      "prelim_note": "Digital Realty to develop 50 MW of new data center capacity in Singapore, a committed expansion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "Digital Realty to develop 50 MW of new data center capacity in Singapore, a committed expansion.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 3,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Digital Realty",
-          "ticker": "DLR",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -77524,76 +77511,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-4b467da5d4b8",
-      "idea_version": "IDEAV-f852604dee153321",
-      "idea_version_started_at": "2026-08-23T16:33:16Z",
-      "ticker": "TSM",
-      "company": "Taiwan Semiconductor Manufacturing Company",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "AMD's $10 billion investment in advanced chip packaging directly secures and expands TSMC's high-margin foundry and packaging revenue stream.",
-      "why_now": "The capital expenditure commitment was announced on 2026-08-23, signaling immediate long-term capacity utilization for TSMC.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-e6b4ede32e87"
-      ],
-      "primary_source_event_id": "EVT-e6b4ede32e87",
-      "source_headlines": [
-        "AMD Is Investing More Than $10 Billion in Taiwan to Build Advanced Chip Packaging With TSMC. Here's What Lisa Su Is Actually Buying With That Money."
-      ],
-      "source_headline": "AMD Is Investing More Than $10 Billion in Taiwan to Build Advanced Chip Packaging With TSMC. Here's What Lisa Su Is Actually Buying With That Money.",
-      "source_url": "https://finance.yahoo.com/technology/articles/amd-investing-more-10-billion-155000045.html",
-      "source_name": "Yahoo Finance",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-23T15:50:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-23T16:33:16Z",
-      "updated_at": "2026-08-23T16:33:16Z",
-      "decay_at": "2026-08-25T03:50:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-bb6c79ef8ffe",
       "idea_version": "IDEAV-b5b37f571dad8a76",
       "idea_version_started_at": "2026-08-25T03:44:44Z",
@@ -80162,6 +80079,76 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-4b467da5d4b8",
+      "idea_version": "IDEAV-f852604dee153321",
+      "idea_version_started_at": "2026-08-23T16:33:16Z",
+      "ticker": "TSM",
+      "company": "Taiwan Semiconductor Manufacturing Company",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "AMD's $10 billion investment in advanced chip packaging directly secures and expands TSMC's high-margin foundry and packaging revenue stream.",
+      "why_now": "The capital expenditure commitment was announced on 2026-08-23, signaling immediate long-term capacity utilization for TSMC.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-e6b4ede32e87"
+      ],
+      "primary_source_event_id": "EVT-e6b4ede32e87",
+      "source_headlines": [
+        "AMD Is Investing More Than $10 Billion in Taiwan to Build Advanced Chip Packaging With TSMC. Here's What Lisa Su Is Actually Buying With That Money."
+      ],
+      "source_headline": "AMD Is Investing More Than $10 Billion in Taiwan to Build Advanced Chip Packaging With TSMC. Here's What Lisa Su Is Actually Buying With That Money.",
+      "source_url": "https://finance.yahoo.com/technology/articles/amd-investing-more-10-billion-155000045.html",
+      "source_name": "Yahoo Finance",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-23T15:50:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-23T16:33:16Z",
+      "updated_at": "2026-08-23T16:33:16Z",
+      "decay_at": "2026-08-25T03:50:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-382bab862a11",
       "idea_version": "IDEAV-547a3504d4c078c1",
       "idea_version_started_at": "2026-08-23T03:19:48Z",
@@ -81592,13 +81579,13 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 90,
-    "shown_count": 90,
+    "total_count": 91,
+    "shown_count": 91,
     "hidden_count": 0,
     "side_counts": {
       "long": {
-        "total_count": 32,
-        "shown_count": 32,
+        "total_count": 33,
+        "shown_count": 33,
         "hidden_count": 0
       },
       "short": {
@@ -81623,6 +81610,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-4b467da5d4b8",
+        "idea_version": "IDEAV-f852604dee153321",
+        "idea_version_started_at": "2026-08-23T16:33:16Z",
+        "ticker": "TSM",
+        "company": "Taiwan Semiconductor Manufacturing Company",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "AMD's $10 billion investment in advanced chip packaging directly secures and expands TSMC's high-margin foundry and packaging revenue stream.",
+        "why_now": "The capital expenditure commitment was announced on 2026-08-23, signaling immediate long-term capacity utilization for TSMC.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 62,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-e6b4ede32e87"
+        ],
+        "primary_source_event_id": "EVT-e6b4ede32e87",
+        "source_headlines": [
+          "AMD Is Investing More Than $10 Billion in Taiwan to Build Advanced Chip Packaging With TSMC. Here's What Lisa Su Is Actually Buying With That Money."
+        ],
+        "source_headline": "AMD Is Investing More Than $10 Billion in Taiwan to Build Advanced Chip Packaging With TSMC. Here's What Lisa Su Is Actually Buying With That Money.",
+        "source_url": "https://finance.yahoo.com/technology/articles/amd-investing-more-10-billion-155000045.html",
+        "source_name": "Yahoo Finance",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-23T15:50:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-23T16:33:16Z",
+        "updated_at": "2026-08-23T16:33:16Z",
+        "decay_at": "2026-08-25T03:50:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-25T03:50:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-c09be92dcb5d",
         "idea_version": "IDEAV-3f94933415bec6c9",
@@ -88285,7 +88345,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 129,
-    "live_count": 38,
+    "live_count": 37,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -88304,9 +88364,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 395052,
-    "news_picked_today": 1056,
-    "news_dropped_today": 5232
+    "news_seen_today": 412007,
+    "news_picked_today": 1072,
+    "news_dropped_today": 5300
   },
   "book_momentum": {
     "live_count": 8,
