@@ -15,8 +15,13 @@ repository-relative arguments: `<TICKER> <RUN_ROOT> <FREEZE_RECEIPT>`. Fail befo
 Read all of `.claude/commands/research/full.md`, the exact `<RUN_ROOT>/.provider-parity-input.json`, and
 `<FREEZE_RECEIPT>`. Validate both JSON contracts with `scripts/provider_parity_freeze.py`'s checked-in
 schemas. Require the binding to name this exact ticker, run root, freeze receipt, provider runtime profile,
-and frozen decision date. Require `<RUN_ROOT>` to contain only the binding before starting. The snapshot
-root in the receipt must be the exact `data/<TICKER>` directory.
+and frozen decision date. The supervisor already proved that `<RUN_ROOT>` contained only the binding at
+admission. By provider start it will also have written its required `.requires_idea_publication` marker and
+the deterministic `_pool_extracts/` readiness cache; a human-approved degraded-data launch may additionally
+have `readiness_override.json`. Treat those exact supervisor-owned launch-support paths as expected, not as
+prior research or contamination. Fail if any module folder, terminal artifact, failure/interruption marker,
+or other unexpected top-level entry already exists. The snapshot root in the receipt must be the exact
+`data/<TICKER>` directory.
 
 Then execute the complete `/research:full` workflow, with these narrow substitutions taking precedence:
 
