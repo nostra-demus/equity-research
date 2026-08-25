@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-08-25T21:28:50Z",
+  "generated_at": "2026-08-25T21:42:44Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260825-1971",
+      "headline": "SC TO-T/A - SELECTIS HEALTH, INC. (0000727346) (Subject)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/727346/000092189526002309/0000921895-26-002309-index.htm",
+      "source_name": "SEC EDGAR — Latest SC TO-T (Third-Party Tender Offer)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-08-25T20:35:14Z",
+      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
+      "prelim_note": "A third-party tender offer for Selectis Health, Inc. indicates a potential acquisition or change in control.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A third-party tender offer for Selectis Health, Inc. indicates a potential acquisition or change in control.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Selectis Health, Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260825-1851",
       "headline": "BFB HEALTH (00205): POSITIVE PROFIT ALERT",
@@ -1911,60 +1960,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260825-586",
-      "headline": "SIGMA ADVANCED SYSTEMS LIMITED: SIGMA ADVANCED SYSTEMS LIMITED has informed the Exchange regarding a press release dated August 25, 2026, titled \"Pursuant to Regulation 30 of the SEBI (Listing Obligations and Disclosure Requirement) Regulations, 2015 - Defence and Aerospace major, Sigma Advance Systems, deepens Rolls-Royce Aerospace UK partnership with £125m additional long-term agreement following strategic Bromford acquisition\".",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/MEGASOFT_25082026073445_Disclosure_Reg_30_-_20260825-signed.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-25T02:05:01Z",
-      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
-      "prelim_note": "Sigma Advanced Systems secured a £125m long-term agreement with Rolls-Royce Aerospace.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Sigma Advanced Systems secured a £125m long-term agreement with Rolls-Royce Aerospace.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 8,
-        "scope": 2,
-        "event": 3,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "primary_filing",
-        "event_id": "commercial",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Sigma Advanced Systems Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "Rolls-Royce",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -90416,9 +90411,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3091680,
-    "news_picked_today": 3677,
-    "news_dropped_today": 12199
+    "news_seen_today": 3162828,
+    "news_picked_today": 3808,
+    "news_dropped_today": 12596
   },
   "book_momentum": {
     "live_count": 8,
