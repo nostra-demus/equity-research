@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- SYNTHETIC IBKR Activity Flex export. Real schema, invented values — no real account data is ever
+     committed to this repo. Built so every number below is hand-computable, and so it exercises the
+     cases that silently break an importer:
+       · FIFO across TWO open lots (AAA: buy 100, buy 100, sell 150)
+       · a futures contract with a multiplier (CCC: 2 lots x 100 = 20,000 realised)
+       · a SHORT round trip (DDD: sell to open, buy to close)
+       · a non-base currency with fxRateToBase (BBB in EUR)
+       · a corporate action restating a trade (EEE 2:1 split, origTradeID present)
+       · withholding tax as its own cash type, NOT folded into dividends
+       · an EMPTY attribute that must read as null, never 0 (ibCommission on T4)
+       · both date formats (compact 20260105 and dashed 2026-01-10 on T4)
+       · XML entities and a '>' INSIDE an attribute value, which a naive tag splitter mis-reads
+       · a SUMMARY-level trade row that must be ignored so fills are not double counted -->
+<FlexQueryResponse queryName="Fund Book" type="AF">
+<FlexStatements count="1">
+<FlexStatement accountId="U0000000" fromDate="20260101" toDate="20260104" period="Custom" whenGenerated="20260105;120000">
+
+<EquitySummaryInBase>
+<EquitySummaryByReportDateInBase accountId="U0000000" currency="USD" reportDate="20260101" cash="100000" stock="0" commodities="0" options="0" bonds="0" funds="0" crypto="0" dividendAccruals="0" interestAccruals="0" total="100000" />
+<EquitySummaryByReportDateInBase accountId="U0000000" currency="USD" reportDate="20260102" cash="60000" stock="50000" commodities="0" options="0" bonds="0" funds="0" crypto="0" dividendAccruals="0" interestAccruals="0" total="110000" />
+<EquitySummaryByReportDateInBase accountId="U0000000" currency="USD" reportDate="20260103" cash="60000" stock="61000" commodities="0" options="0" bonds="0" funds="0" crypto="0" dividendAccruals="0" interestAccruals="0" total="121000" />
+<EquitySummaryByReportDateInBase accountId="U0000000" currency="USD" reportDate="20260104" cash="55000" stock="61000" commodities="0" options="0" bonds="0" funds="0" crypto="0" dividendAccruals="0" interestAccruals="0" total="116000" />
+</EquitySummaryInBase>
+
+<ChangeInNAV accountId="U0000000" currency="USD" fromDate="20260101" toDate="20260104" startingValue="100000" endingValue="116000" twr="10" realized="20800" changeInUnrealized="-10675" mtm="0" dividends="1000" withholdingTax="-150" interest="200" commissions="-50" otherFees="-25" depositsWithdrawals="5000" fxTranslation="-100" changeInDividendAccruals="0" changeInInterestAccruals="0" />
+
+<OpenPositions>
+<OpenPosition accountId="U0000000" currency="USD" symbol="AAA" conid="1001" assetCategory="STK" subCategory="COMMON" position="50" markPrice="16" positionValue="800" costBasisPrice="12" costBasisMoney="600" fifoPnlUnrealized="200" percentOfNAV="0.69" fxRateToBase="1" multiplier="1" openDateTime="20260205;100000" reportDate="20260104" levelOfDetail="SUMMARY" expiry="" />
+<OpenPosition accountId="U0000000" currency="EUR" symbol="BBB" conid="1002" assetCategory="STK" subCategory="COMMON" position="50" markPrice="22" positionValue="1100" costBasisPrice="20" costBasisMoney="1000" fifoPnlUnrealized="100" percentOfNAV="1.04" fxRateToBase="1.1" multiplier="1" openDateTime="2026-01-10 10:00:00" reportDate="20260104" levelOfDetail="SUMMARY" expiry="" />
+<OpenPosition accountId="U0000000" currency="USD" symbol="FFF" conid="1006" assetCategory="FUT" subCategory="" position="1" markPrice="2150" positionValue="215000" costBasisPrice="2100" costBasisMoney="210000" fifoPnlUnrealized="5000" percentOfNAV="185.34" fxRateToBase="1" multiplier="100" openDateTime="20260103;100000" reportDate="20260104" levelOfDetail="SUMMARY" expiry="20261230" />
+</OpenPositions>
+
+<Trades>
+<Trade accountId="U0000000" currency="USD" symbol="AAA" conid="1001" assetCategory="STK" subCategory="COMMON" tradeID="T1" transactionID="X1" quantity="100" tradePrice="10" tradeDate="20260105" dateTime="20260105;100000" proceeds="-1000" ibCommission="-1" taxes="0" netCash="-1001" cost="1001" buySell="BUY" openCloseIndicator="O" fifoPnlRealized="0" mtmPnl="0" multiplier="1" exchange="NASDAQ" transactionType="ExchTrade" levelOfDetail="EXECUTION" fxRateToBase="1" origTradeID="" origTradePrice="" origTransactionID="" />
+<Trade accountId="U0000000" currency="USD" symbol="AAA" conid="1001" assetCategory="STK" subCategory="COMMON" tradeID="T2" transactionID="X2" quantity="100" tradePrice="12" tradeDate="20260205" dateTime="20260205;100000" proceeds="-1200" ibCommission="-1" taxes="0" netCash="-1201" cost="1201" buySell="BUY" openCloseIndicator="O" fifoPnlRealized="0" mtmPnl="0" multiplier="1" exchange="NASDAQ" transactionType="ExchTrade" levelOfDetail="EXECUTION" fxRateToBase="1" origTradeID="" origTradePrice="" origTransactionID="" />
+<Trade accountId="U0000000" currency="USD" symbol="AAA" conid="1001" assetCategory="STK" subCategory="COMMON" tradeID="T3" transactionID="X3" quantity="-150" tradePrice="15" tradeDate="20260305" dateTime="20260305;100000" proceeds="2250" ibCommission="-2" taxes="0" netCash="2248" cost="-1500" buySell="SELL" openCloseIndicator="C" fifoPnlRealized="650" mtmPnl="0" multiplier="1" exchange="NASDAQ" transactionType="ExchTrade" levelOfDetail="EXECUTION" fxRateToBase="1" origTradeID="" origTradePrice="" origTransactionID="" />
+<Trade accountId="U0000000" currency="EUR" symbol="BBB" conid="1002" assetCategory="STK" subCategory="COMMON" description="BRAUN &amp; CO &gt; EUROPE" tradeID="T4" transactionID="X4" quantity="50" tradePrice="20" tradeDate="2026-01-10" dateTime="2026-01-10 10:00:00" proceeds="-1000" ibCommission="" taxes="0" netCash="-1000" cost="1000" buySell="BUY" openCloseIndicator="O" fifoPnlRealized="0" mtmPnl="0" multiplier="1" exchange="IBIS" transactionType="ExchTrade" levelOfDetail="EXECUTION" fxRateToBase="1.1" origTradeID="" origTradePrice="" origTransactionID="" />
+<Trade accountId="U0000000" currency="USD" symbol="CCC" conid="1003" assetCategory="FUT" subCategory="" tradeID="T5" transactionID="X5" quantity="2" tradePrice="2000" tradeDate="20260210" dateTime="20260210;100000" proceeds="0" ibCommission="-4" taxes="0" netCash="-4" cost="4" buySell="BUY" openCloseIndicator="O" fifoPnlRealized="0" mtmPnl="0" multiplier="100" exchange="COMEX" transactionType="ExchTrade" levelOfDetail="EXECUTION" fxRateToBase="1" origTradeID="" origTradePrice="" origTransactionID="" />
+<Trade accountId="U0000000" currency="USD" symbol="CCC" conid="1003" assetCategory="FUT" subCategory="" tradeID="T6" transactionID="X6" quantity="-2" tradePrice="2100" tradeDate="20260410" dateTime="20260410;100000" proceeds="0" ibCommission="-4" taxes="0" netCash="19996" cost="0" buySell="SELL" openCloseIndicator="C" fifoPnlRealized="20000" mtmPnl="0" multiplier="100" exchange="COMEX" transactionType="ExchTrade" levelOfDetail="EXECUTION" fxRateToBase="1" origTradeID="" origTradePrice="" origTransactionID="" />
+<Trade accountId="U0000000" currency="USD" symbol="DDD" conid="1004" assetCategory="STK" subCategory="COMMON" tradeID="T7" transactionID="X7" quantity="-30" tradePrice="50" tradeDate="20260212" dateTime="20260212;100000" proceeds="1500" ibCommission="-1" taxes="0" netCash="1499" cost="-1500" buySell="SELL" openCloseIndicator="O" fifoPnlRealized="0" mtmPnl="0" multiplier="1" exchange="NYSE" transactionType="ExchTrade" levelOfDetail="EXECUTION" fxRateToBase="1" origTradeID="" origTradePrice="" origTransactionID="" />
+<Trade accountId="U0000000" currency="USD" symbol="DDD" conid="1004" assetCategory="STK" subCategory="COMMON" tradeID="T8" transactionID="X8" quantity="30" tradePrice="45" tradeDate="20260312" dateTime="20260312;100000" proceeds="-1350" ibCommission="-1" taxes="0" netCash="-1351" cost="1350" buySell="BUY" openCloseIndicator="C" fifoPnlRealized="150" mtmPnl="0" multiplier="1" exchange="NYSE" transactionType="ExchTrade" levelOfDetail="EXECUTION" fxRateToBase="1" origTradeID="" origTradePrice="" origTransactionID="" />
+<Trade accountId="U0000000" currency="USD" symbol="EEE" conid="1005" assetCategory="STK" subCategory="COMMON" tradeID="T9" transactionID="X9" quantity="200" tradePrice="25" tradeDate="20260220" dateTime="20260220;100000" proceeds="-5000" ibCommission="-2" taxes="0" netCash="-5002" cost="5002" buySell="BUY" openCloseIndicator="O" fifoPnlRealized="0" mtmPnl="0" multiplier="1" exchange="NYSE" transactionType="ExchTrade" levelOfDetail="EXECUTION" fxRateToBase="1" origTradeID="T9-PRE" origTradePrice="50" origTransactionID="X9-PRE" />
+<Trade accountId="U0000000" currency="USD" symbol="AAA" conid="1001" assetCategory="STK" subCategory="COMMON" tradeID="T-SUM" transactionID="X-SUM" quantity="50" tradePrice="12" tradeDate="20260305" dateTime="20260305;100000" proceeds="0" ibCommission="0" taxes="0" netCash="0" cost="0" buySell="BUY" openCloseIndicator="O" fifoPnlRealized="0" mtmPnl="0" multiplier="1" exchange="NASDAQ" transactionType="ExchTrade" levelOfDetail="SUMMARY" fxRateToBase="1" origTradeID="" origTradePrice="" origTransactionID="" />
+</Trades>
+
+<CorporateActions>
+<CorporateAction accountId="U0000000" currency="USD" symbol="EEE" conid="1005" assetCategory="STK" transactionID="CA1" actionID="A1" type="FS" code="" actionDescription="EEE(US0000000005) SPLIT 2 FOR 1" quantity="100" proceeds="0" value="5000" costBasis="5000" fifoPnlRealized="0" dateTime="20260218;202500" reportDate="20260218" fxRateToBase="1" />
+</CorporateActions>
+
+<CashTransactions>
+<CashTransaction accountId="U0000000" currency="USD" symbol="AAA" assetCategory="STK" transactionID="C1" type="Dividends" amount="1000" dateTime="20260215;202500" settleDate="20260215" description="AAA CASH DIVIDEND USD 0.50 PER SHARE" fxRateToBase="1" />
+<CashTransaction accountId="U0000000" currency="USD" symbol="AAA" assetCategory="STK" transactionID="C2" type="Withholding Tax" amount="-150" dateTime="20260215;202500" settleDate="20260215" description="AAA CASH DIVIDEND - US TAX" fxRateToBase="1" />
+<CashTransaction accountId="U0000000" currency="USD" symbol="DDD" assetCategory="STK" transactionID="C3" type="Payment In Lieu Of Dividends" amount="50" dateTime="20260216;202500" settleDate="20260216" description="DDD PAYMENT IN LIEU OF DIVIDEND" fxRateToBase="1" />
+<CashTransaction accountId="U0000000" currency="USD" symbol="" assetCategory="" transactionID="C4" type="Broker Interest Received" amount="200" dateTime="20260228;202500" settleDate="20260228" description="CREDIT INTEREST FOR FEB-2026" fxRateToBase="1" />
+<CashTransaction accountId="U0000000" currency="USD" symbol="" assetCategory="" transactionID="C5" type="Other Fees" amount="-25" dateTime="20260228;202500" settleDate="20260228" description="MONTHLY MARKET DATA FEE" fxRateToBase="1" />
+<CashTransaction accountId="U0000000" currency="USD" symbol="" assetCategory="" transactionID="C6" type="Deposits/Withdrawals" amount="10000" dateTime="20260102;202500" settleDate="20260102" description="CASH RECEIPT" fxRateToBase="1" />
+<CashTransaction accountId="U0000000" currency="USD" symbol="" assetCategory="" transactionID="C7" type="Deposits/Withdrawals" amount="-5000" dateTime="20260104;202500" settleDate="20260104" description="CASH DISBURSEMENT" fxRateToBase="1" />
+</CashTransactions>
+
+<SecuritiesInfo>
+<SecurityInfo conid="1001" symbol="AAA" assetCategory="STK" subCategory="COMMON" description="AAA CORP" currency="USD" listingExchange="NASDAQ" multiplier="1" issuerCountryCode="US" />
+<SecurityInfo conid="1003" symbol="CCC" assetCategory="FUT" subCategory="" description="GOLD FUTURE" currency="USD" listingExchange="COMEX" multiplier="100" issuerCountryCode="US" />
+</SecuritiesInfo>
+
+<ConversionRates>
+<ConversionRate reportDate="20260104" fromCurrency="EUR" toCurrency="USD" rate="1.1" />
+<ConversionRate reportDate="20260104" fromCurrency="USD" toCurrency="USD" rate="1" />
+</ConversionRates>
+
+</FlexStatement>
+</FlexStatements>
+</FlexQueryResponse>
