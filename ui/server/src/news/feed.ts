@@ -520,15 +520,17 @@ export function appendFeedItems(
       if (fd === undefined) {
         fd = fs.openSync(fp, currentExists ? 'a' : 'ax+')
         currentExists = true
+        // The partition flock prevents another writer from changing the shard set while this descriptor
+        // is open. Validate once per shard instead of rescanning the directory for every appended item.
+        const currentFiles = localFirehoseFiles(repoRoot, date)
+        if (!contiguousFirehoseFiles(currentFiles) || currentFiles.at(-1)?.index !== currentIndex) {
+          return { status: 'io_failure', written, unwritten: items.length - written, appendedEventIds }
+        }
       }
       const preOffset = fs.fstatSync(fd).size
       // A second writer would invalidate both cap arithmetic and rollback ownership. Fail closed instead
       // of truncating bytes we did not write.
       if (preOffset !== fileSize) return { status: 'io_failure', written, unwritten: items.length - written, appendedEventIds }
-      const currentFiles = localFirehoseFiles(repoRoot, date)
-      if (!contiguousFirehoseFiles(currentFiles) || currentFiles.at(-1)?.index !== currentIndex) {
-        return { status: 'io_failure', written, unwritten: items.length - written, appendedEventIds }
-      }
       try {
         writeLine(fd, line)
         if (fs.fstatSync(fd).size !== preOffset + line.length) throw new Error('feed append was short')
