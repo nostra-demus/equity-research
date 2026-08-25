@@ -115,6 +115,50 @@ export function activityTarget(tool: string, input: any): string | undefined {
 // provider-specific shape reaches the shared run registry, activity feed, or finalizer.
 export function handleStreamLine(run: RunState, line: string) {
   const events = getProviderAdapter(run.provider).parseStreamLine(line)
+  const observeTask = (event: { tool?: string; toolUseId?: string; input?: unknown }, ts: number) => {
+    if (event.tool !== 'Task') return undefined
+    const input = event.input as any
+    const sub = typeof input?.subagent_type === 'string' ? input.subagent_type : undefined
+    const idx = sub ? getNameIndex().get(sub) : undefined
+    let key = event.toolUseId ? run.toolUseToAgent.get(event.toolUseId) : undefined
+    if (idx) {
+      key = idx.key
+      if (event.toolUseId) run.toolUseToAgent.set(event.toolUseId, key)
+      const a = run.agents.get(key) || {
+        key, module: idx.module, name: idx.name, layer: idx.layer, status: 'queued' as const,
+      }
+      if (a.status !== 'done' && a.status !== 'failed') {
+        const newlyRunning = a.status !== 'running'
+        a.status = 'running'
+        run.agents.set(key, a)
+        if (newlyRunning) {
+          emit(run, {
+            type: 'agent-started', runId: run.runId, module: idx.module, agentKey: idx.key,
+            name: idx.name, layer: idx.layer, ts,
+          })
+        }
+      }
+    }
+    const receiverThreadIds = Array.isArray(input?.receiverThreadIds)
+      ? input.receiverThreadIds.filter((value: unknown): value is string => typeof value === 'string' && !!value)
+      : []
+    if (key) for (const threadId of receiverThreadIds) run.nativeThreadToAgent.set(threadId, key)
+    const states = input?.agentStates && typeof input.agentStates === 'object' ? input.agentStates : {}
+    for (const [threadId, state] of Object.entries(states as Record<string, any>)) {
+      const status = typeof state?.status === 'string' ? state.status : undefined
+      if (status) run.nativeAgentStates.set(threadId, status)
+      const stateKey = run.nativeThreadToAgent.get(threadId) || key
+      const a = stateKey ? run.agents.get(stateKey) : undefined
+      if (a && a.status !== 'done' && ['interrupted', 'errored', 'shutdown', 'not_found'].includes(status || '')) {
+        a.status = 'failed'
+        emit(run, {
+          type: 'agent-failed', runId: run.runId, agentKey: a.key, module: a.module, name: a.name,
+          layer: a.layer, reason: `native_${status}`, ts,
+        })
+      }
+    }
+    return key
+  }
   for (const event of events) {
     const ts = Date.now()
     if (event.type === 'session') {
@@ -136,26 +180,20 @@ export function handleStreamLine(run: RunState, line: string) {
         provider: run.provider, executionProfile: run.executionProfile, ts,
       })
       if (event.tool === 'Task') {
-        const input = event.input as any
-        const sub = input?.subagent_type
-        const idx = sub ? getNameIndex().get(sub) : undefined
-        if (idx) {
-          if (event.toolUseId) run.toolUseToAgent.set(event.toolUseId, idx.key)
-          const a = run.agents.get(idx.key) || { key: idx.key, module: idx.module, name: idx.name, layer: idx.layer, status: 'queued' as const }
-          if (a.status !== 'done') {
-            a.status = 'running'
-            run.agents.set(idx.key, a)
-            emit(run, { type: 'agent-started', runId: run.runId, module: idx.module, agentKey: idx.key, name: idx.name, layer: idx.layer, ts })
-          }
-        }
+        observeTask(event, ts)
       }
       continue
     }
+    if (event.type === 'tool-progress') {
+      observeTask(event, ts)
+      continue
+    }
     if (event.type === 'tool-result') {
+      const observedKey = observeTask(event, ts)
       if (!event.isError) continue
-      const key = event.toolUseId ? run.toolUseToAgent.get(event.toolUseId) : undefined
+      const key = observedKey || (event.toolUseId ? run.toolUseToAgent.get(event.toolUseId) : undefined)
       const a = key ? run.agents.get(key) : undefined
-      if (a && a.status !== 'done') {
+      if (a && a.status !== 'done' && a.status !== 'failed') {
         a.status = 'failed'
         emit(run, { type: 'agent-failed', runId: run.runId, agentKey: a.key, module: a.module, name: a.name, layer: a.layer, reason: 'tool_result_error', ts })
       }

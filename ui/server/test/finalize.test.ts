@@ -126,6 +126,53 @@ try {
     assert.equal(readRunMarker(`analyses/ZZPUB_${DATE}`, '.interrupted')?.reason, 'publication_failed')
   })
 
+  check('Codex clean exit without turn.completed names every unresolved canonical output', () => {
+    const root = path.join(ANALYSES_DIR, `ZZCODEX_${DATE}`)
+    cleanupDirs.push(root)
+    fs.mkdirSync(path.join(root, 'business-model'), { recursive: true })
+    const { run, events } = mkRun('module', 'ZZCODEX')
+    run.provider = 'codex'
+    run.model = 'gpt-5.6-sol'
+    run.reasoningLevel = 'max'
+    run.profileKey = 'codex|gpt-5.6-sol:max|gpt-5.6-terra:xhigh'
+    run.executionProfile = {
+      key: run.profileKey,
+      parentModel: 'gpt-5.6-sol',
+      parentReasoning: 'max',
+      specialistModel: 'gpt-5.6-terra',
+      specialistReasoning: 'xhigh',
+    }
+    run.module = 'business-model'
+    run.expected = new Map([
+      ['business-model/09_moat', {
+        key: 'business-model/09_moat', module: 'business-model', name: 'moat', layer: 3,
+        outputRel: 'business-model/09_moat.md',
+      }],
+      ['business-model/99_business-model-synthesis', {
+        key: 'business-model/99_business-model-synthesis', module: 'business-model',
+        name: 'business-model-synthesizer', layer: 4,
+        outputRel: 'business-model/99_business-model-synthesis.md',
+      }],
+    ])
+    run.agents.set('business-model/09_moat', {
+      key: 'business-model/09_moat', module: 'business-model', name: 'moat', layer: 3, status: 'running',
+    })
+    run.nativeThreadToAgent.set('native-moat', 'business-model/09_moat')
+    run.nativeAgentStates.set('native-moat', 'running')
+    run.lastProviderMessage = 'Neither moat nor synthesis has been accepted. Both remain in flight.'
+
+    finalizeRunOnClose(run, { exitCode: 0 }, '')
+
+    assert.equal(run.status, 'error')
+    const failed = events.find((event) => event.type === 'run-error') as any
+    assert.equal(failed?.reason, 'codex_incomplete_orchestration')
+    assert.match(String(failed?.message), /business-model\/09_moat/)
+    assert.match(String(failed?.message), /business-model\/99_business-model-synthesis/)
+    assert.match(String(failed?.message), /native=running/)
+    assert.match(String(failed?.message), /Both remain in flight/)
+    assert.ok(!events.find((event) => event.type === 'run-done'))
+  })
+
   // 3. a cancel() sets status='cancelled' directly — close must STILL finalize and release the
   //    subject (the old status-gated close handler skipped it, leaking the subject until restart).
   check('cancelled run is finalized on close and releases its subject', () => {

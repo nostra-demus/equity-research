@@ -701,6 +701,9 @@ try {
   const expandedPrompt = spec.input || ''
   assert.ok(!spec.args.some((arg) => arg.includes('CANONICAL COMMAND SOURCE')), 'canonical prompt must never enter argv')
   assert.match(expandedPrompt, /CANONICAL COMMAND SOURCE: \.claude\/commands\/research\/full\.md/)
+  assert.match(expandedPrompt, /SUBAGENT COMPLETION BARRIER — MANDATORY/)
+  assert.match(expandedPrompt, /zero live\/unresolved children/)
+  assert.match(expandedPrompt, /never say that work is "still in flight" and then end the turn/)
   assert.match(expandedPrompt, /The ticker is `AAPL`\./)
   assert.doesNotMatch(
     expandedPrompt.split('BEGIN CANONICAL COMMAND (expanded verbatim)')[1] || '',
@@ -1082,7 +1085,7 @@ assert.deepEqual(parseCodexStreamLine(JSON.stringify({
 })), [{ type: 'tool-use', tool: 'Bash', input: { command: 'rg --files', cwd: undefined }, toolUseId: 'item-1' }])
 assert.deepEqual(parseCodexStreamLine(JSON.stringify({
   type: 'item.completed', item: { id: 'item-1', type: 'command_execution', command: 'rg --files', status: 'completed' },
-})), [{ type: 'tool-result', toolUseId: 'item-1', isError: false }])
+})), [{ type: 'tool-result', tool: 'Bash', input: { command: 'rg --files', cwd: undefined }, toolUseId: 'item-1', isError: false }])
 assert.deepEqual(parseCodexStreamLine(JSON.stringify({
   type: 'item.completed', item: { id: 'message-1', type: 'agent_message', text: 'Stopped because the canonical command was unavailable.' },
 })), [{ type: 'assistant-message', message: 'Stopped because the canonical command was unavailable.' }])
@@ -1104,6 +1107,49 @@ assert.deepEqual(parseCodexStreamLine(JSON.stringify({
     description: 'Dispatch memo-writer',
   },
   toolUseId: 'item-2',
+}])
+assert.deepEqual(parseCodexStreamLine(JSON.stringify({
+  type: 'item.updated',
+  item: {
+    id: 'item-2', type: 'collab_tool_call', tool: 'spawn_agent', status: 'in_progress',
+    prompt: 'NOSTRA_SUBAGENT_TYPE: memo-writer\nCanonical path: .claude/agents/memo-writer.md',
+    receiver_thread_ids: ['thread-child'],
+    agents_states: { 'thread-child': { status: 'running', message: null } },
+  },
+})), [{
+  type: 'tool-progress',
+  tool: 'Task',
+  input: {
+    tool: 'spawn_agent',
+    prompt: 'NOSTRA_SUBAGENT_TYPE: memo-writer\nCanonical path: .claude/agents/memo-writer.md',
+    receiverThreadIds: ['thread-child'],
+    agentStates: { 'thread-child': { status: 'running', message: null } },
+    subagent_type: 'memo-writer',
+    description: 'Dispatch memo-writer',
+  },
+  toolUseId: 'item-2',
+}])
+assert.deepEqual(parseCodexStreamLine(JSON.stringify({
+  type: 'item.completed',
+  item: {
+    id: 'item-3', type: 'collab_tool_call', tool: 'spawn_agent', status: 'completed',
+    prompt: 'NOSTRA_SUBAGENT_TYPE: memo-writer\nCanonical path: .claude/agents/memo-writer.md',
+    receiver_thread_ids: ['thread-child'],
+    agents_states: { 'thread-child': { status: 'running', message: null } },
+  },
+})), [{
+  type: 'tool-result',
+  tool: 'Task',
+  input: {
+    tool: 'spawn_agent',
+    prompt: 'NOSTRA_SUBAGENT_TYPE: memo-writer\nCanonical path: .claude/agents/memo-writer.md',
+    receiverThreadIds: ['thread-child'],
+    agentStates: { 'thread-child': { status: 'running', message: null } },
+    subagent_type: 'memo-writer',
+    description: 'Dispatch memo-writer',
+  },
+  toolUseId: 'item-3',
+  isError: false,
 }])
 assert.deepEqual(parseCodexStreamLine('{"type":"turn.completed","usage":{"input_tokens":10}}'), [
   { type: 'result', cliResult: { subtype: 'success', isError: false }, numTurns: 1 },
