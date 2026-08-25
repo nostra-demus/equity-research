@@ -15,6 +15,11 @@ interface MemoryConfig {
   checkpoint: string
   writerOwner: string
   writerHead: string
+  canonicalLedger: string
+  protectedStore: string
+  protectedMasterKey: string
+  protectedKeyId: string
+  projectionServiceIdentity: string
   checkpointPrivateKey: string
   checkpointPublicKey: string
   checkpointKeyId: string
@@ -61,6 +66,11 @@ function memoryConfig(env: NodeJS.ProcessEnv = process.env): MemoryConfig {
     checkpoint: read('NOSTRA_MEMORY_CHECKPOINT'),
     writerOwner: read('NOSTRA_MEMORY_WRITER_OWNER'),
     writerHead: read('NOSTRA_MEMORY_WRITER_HEAD'),
+    canonicalLedger: read('NOSTRA_MEMORY_CANONICAL_LEDGER'),
+    protectedStore: read('NOSTRA_MEMORY_PROTECTED_STORE'),
+    protectedMasterKey: read('NOSTRA_MEMORY_PROTECTED_MASTER_KEY'),
+    protectedKeyId: read('NOSTRA_MEMORY_PROTECTED_KEY_ID'),
+    projectionServiceIdentity: read('NOSTRA_MEMORY_PROJECTION_SERVICE_IDENTITY'),
     checkpointPrivateKey: read('NOSTRA_MEMORY_CHECKPOINT_PRIVATE_KEY'),
     checkpointPublicKey: read('NOSTRA_MEMORY_CHECKPOINT_PUBLIC_KEY'),
     checkpointKeyId: read('NOSTRA_MEMORY_CHECKPOINT_KEY_ID'),
@@ -191,6 +201,11 @@ export async function prepareResearchMemory(
         'prepare', ...commonArgs(config, logical), '--reuse',
         '--checkpoint', config.checkpoint, '--writer-owner', config.writerOwner,
         '--writer-head', config.writerHead,
+        '--canonical-ledger', config.canonicalLedger,
+        '--protected-store', config.protectedStore,
+        '--protected-master-key', config.protectedMasterKey,
+        '--protected-key-id', config.protectedKeyId,
+        '--projection-service-identity', config.projectionServiceIdentity,
         '--checkpoint-private-key', config.checkpointPrivateKey,
         '--checkpoint-public-key', config.checkpointPublicKey,
         '--checkpoint-key-id', config.checkpointKeyId,

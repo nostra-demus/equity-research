@@ -28,12 +28,18 @@ try:
     from memory_adapters import adapt_repository
     from memory_projection import ProjectionError, ProjectionResult, build_projection, verify_projection
     from memory_crypto import ed25519_sign, ed25519_verify, load_master_key_file
+    from memory_crypto import AESGCMSIVEnvelopeCipher
+    from memory_contract import validate_event
+    from memory_store import AccessRequest, MemoryStore, MemoryStoreError
     from memory_three_layer_contract import validate_contract
 except ImportError:  # pragma: no cover - package-style imports
     from scripts.canonical_json import canonical_json_bytes, canonical_sha256
     from scripts.memory_adapters import adapt_repository
     from scripts.memory_projection import ProjectionError, ProjectionResult, build_projection, verify_projection
     from scripts.memory_crypto import ed25519_sign, ed25519_verify, load_master_key_file
+    from scripts.memory_crypto import AESGCMSIVEnvelopeCipher
+    from scripts.memory_contract import validate_event
+    from scripts.memory_store import AccessRequest, MemoryStore, MemoryStoreError
     from scripts.memory_three_layer_contract import validate_contract
 
 
@@ -548,6 +554,70 @@ def load_production_events(repo_root: Path) -> tuple[list[dict[str, Any]], list[
     return events, diagnostics
 
 
+def load_controlled_ledger_events(
+    ledger_path: str | Path, *, writer_head_path: str | Path,
+) -> list[dict[str, Any]]:
+    """Read the owner-only canonical operational ledger bound by the durable writer head."""
+
+    raw = _safe_regular(Path(ledger_path))
+    if raw and not raw.endswith(b"\n"):
+        raise MemoryRuntimeError("controlled-ledger-unterminated-record")
+    events: list[dict[str, Any]] = []
+    for number, line in enumerate(raw.splitlines(), 1):
+        try:
+            value = json.loads(line)
+        except (UnicodeError, json.JSONDecodeError) as exc:
+            raise MemoryRuntimeError("controlled-ledger-invalid-json") from exc
+        if not isinstance(value, dict) or canonical_json_bytes(value) != line:
+            raise MemoryRuntimeError(f"controlled-ledger-noncanonical-record-{number}")
+        if validate_event(value):
+            raise MemoryRuntimeError(f"controlled-ledger-invalid-event-{number}")
+        events.append(value)
+    head_raw = _safe_regular(Path(writer_head_path))
+    try:
+        head = json.loads(head_raw)
+    except (UnicodeError, json.JSONDecodeError) as exc:
+        raise MemoryRuntimeError("controlled-writer head is invalid") from exc
+    controlled_writer_head_sha256(writer_head_path)
+    if head.get("canonical_ledger_sha256") != "sha256:" + canonical_sha256(events):
+        raise MemoryRuntimeError("controlled-ledger-head-commitment-mismatch")
+    if head.get("sequence") < len(events):
+        raise MemoryRuntimeError("controlled-ledger-sequence-mismatch")
+    if len({event["event_id"] for event in events}) != len(events):
+        raise MemoryRuntimeError("controlled-ledger-duplicate-event")
+    return events
+
+
+def load_protected_store_events(
+    store_root: str | Path, *, master_key_path: str | Path, key_id: str,
+    service_identity: str,
+) -> list[dict[str, Any]]:
+    """Decrypt the protected canonical lane only for the named projection identity."""
+
+    if re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9._/-]{0,127}", service_identity) is None:
+        raise MemoryRuntimeError("protected-projection-service-identity-invalid")
+
+    def authorize(request: AccessRequest) -> bool:
+        return (
+            request.principal == service_identity
+            and request.action in {"projection", "read", "resolve"}
+        )
+
+    try:
+        store = MemoryStore.open_existing(
+            store_root,
+            authorize=authorize,
+            source_policy=authorize,
+            cipher=AESGCMSIVEnvelopeCipher(
+                load_master_key_file(master_key_path), key_id=key_id,
+            ),
+        )
+        refs = store.list_event_refs(principal=service_identity)
+        return [store.read_event(ref, principal=service_identity) for ref in refs]
+    except (MemoryStoreError, OSError, ValueError) as exc:
+        raise MemoryRuntimeError("protected-projection-read-failed") from exc
+
+
 def ed25519_checkpoint_signer(key_path: str | Path, *, key_id: str) -> CheckpointSigner:
     """Load a private 0600 raw seed for each signature; never retain it in runtime state."""
     if not isinstance(key_id, str) or re.fullmatch(r"[a-z0-9][a-z0-9._-]{0,127}", key_id) is None:
@@ -668,6 +738,11 @@ class ProjectionManager:
         writer_owner_path: str | Path, writer_head_path: str | Path,
         signer: CheckpointSigner, verifier: CheckpointVerifier,
         event_loader: RepositoryEventLoader = load_production_events,
+        canonical_ledger_path: str | Path | None = None,
+        protected_store_root: str | Path | None = None,
+        protected_master_key_path: str | Path | None = None,
+        protected_key_id: str | None = None,
+        projection_service_identity: str | None = None,
     ) -> None:
         self.repo_root = Path(repo_root).resolve()
         self.state_root = _safe_directory(Path(state_root), create=True)
@@ -683,6 +758,24 @@ class ProjectionManager:
         if not callable(event_loader):
             raise MemoryRuntimeError("repository event loader must be callable")
         self.event_loader = event_loader
+        self.canonical_ledger_path = (
+            Path(canonical_ledger_path).resolve() if canonical_ledger_path is not None else None
+        )
+        protected = (
+            protected_store_root, protected_master_key_path,
+            protected_key_id, projection_service_identity,
+        )
+        if any(value is not None for value in protected) and not all(value is not None for value in protected):
+            raise MemoryRuntimeError("protected-projection-configuration-incomplete")
+        self.protected_store_root = (
+            Path(protected_store_root).resolve() if protected_store_root is not None else None
+        )
+        self.protected_master_key_path = (
+            Path(protected_master_key_path).resolve()
+            if protected_master_key_path is not None else None
+        )
+        self.protected_key_id = protected_key_id
+        self.projection_service_identity = projection_service_identity
 
     def _identity(self, as_of: str) -> dict[str, Any]:
         registry = build_identity_registry(self.repo_root, as_of_system_time=as_of)
@@ -711,6 +804,29 @@ class ProjectionManager:
             source = "production-projection"
         except (OSError, sqlite3.Error, ProjectionError, MemoryRuntimeError):
             events, adapter_diagnostics = self.event_loader(self.repo_root)
+            if self.canonical_ledger_path is not None:
+                operational = load_controlled_ledger_events(
+                    self.canonical_ledger_path, writer_head_path=self.writer_head_path,
+                )
+                duplicate_ids = {event["event_id"] for event in events}.intersection(
+                    event["event_id"] for event in operational
+                )
+                if duplicate_ids:
+                    raise MemoryRuntimeError("operational-ledger-duplicates-repository-event")
+                events.extend(operational)
+            if self.protected_store_root is not None:
+                protected_events = load_protected_store_events(
+                    self.protected_store_root,
+                    master_key_path=self.protected_master_key_path,
+                    key_id=str(self.protected_key_id),
+                    service_identity=str(self.projection_service_identity),
+                )
+                duplicate_ids = {event["event_id"] for event in events}.intersection(
+                    event["event_id"] for event in protected_events
+                )
+                if duplicate_ids:
+                    raise MemoryRuntimeError("protected-store-duplicates-another-event-lane")
+                events.extend(protected_events)
             hard_errors = [item for item in adapter_diagnostics if item.get("severity") == "error"]
             if hard_errors:
                 raise MemoryRuntimeError("deterministic-rebuild-adapter-failed")

@@ -131,6 +131,8 @@ def write_request(
         "store_bindings": copy.deepcopy(store_bindings or []),
         "shadow_feedback_sha256": None,
         "shadow_feedback_canonical_json": None,
+        "promotion_manifest_sha256": None,
+        "promotion_manifest_canonical_json": None,
     }
 
 

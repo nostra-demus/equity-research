@@ -568,6 +568,85 @@ def _is_mandatory_episode(event: Mapping[str, Any]) -> bool:
     )
 
 
+_MIC_JURISDICTION = {
+    "XNAS": "US", "XNYS": "US", "ARCX": "US", "XNSE": "IN", "XBOM": "IN",
+    "XLON": "GB", "XETR": "DE", "XPAR": "FR", "XAMS": "NL", "XOSL": "NO",
+    "XDFM": "AE", "XADS": "AE", "XJPX": "JP", "XTSE": "CA", "XHKG": "HK",
+    "XASX": "AU",
+}
+
+
+def _active_semantic_match(
+    event: Mapping[str, Any], *, query: Mapping[str, Any], profile: Mapping[str, Any],
+    agent_id: str, listing: Mapping[str, Any],
+) -> tuple[bool, bool]:
+    """Return (applicable, mandatory) for one canonical active lesson."""
+
+    payload = event.get("payload")
+    if not isinstance(payload, Mapping) or payload.get("schema") != "memory-semantic-lesson/v1":
+        return False, False
+    if payload.get("status") != "active":
+        return False, False
+    try:
+        if _time_sort(event.get("system_time")) > _time_sort(query.get("as_of_system_time")):
+            return False, False
+        valid_date = dt.date.fromisoformat(str(query["valid_time"]["from"])[:10])
+        valid_from = dt.date.fromisoformat(str(payload["semantic"]["valid_time"]["from"])[:10])
+        valid_to_raw = payload["semantic"]["valid_time"].get("to")
+        valid_to = (
+            dt.date.fromisoformat(str(valid_to_raw)[:10]) if valid_to_raw is not None else None
+        )
+        if valid_date < valid_from or (valid_to is not None and valid_date > valid_to):
+            return False, False
+        if dt.date.fromisoformat(str(payload["semantic"]["review_due"])) < valid_date:
+            return False, False
+        retain_until = payload["policy"].get("retain_until")
+        if retain_until is not None and _time_sort(retain_until) <= _time_sort(
+            query.get("as_of_system_time")
+        ):
+            return False, False
+    except (KeyError, TypeError, ValueError):
+        return False, False
+    semantic = payload["semantic"]
+    applicability = semantic.get("applicability")
+    if not isinstance(applicability, Mapping):
+        return False, False
+    module = agent_id.split("/", 1)[0]
+    leaf = agent_id.rsplit("/", 1)[-1]
+    agent_names = {agent_id, leaf, leaf.replace("_", "-")}
+    if applicability.get("agents") and not agent_names.intersection(applicability["agents"]):
+        return False, False
+    if applicability.get("modules") and module not in applicability["modules"]:
+        return False, False
+    subjects = {listing["issuer_id"], listing["listing_id"]}
+    if applicability.get("issuer_ids") and not subjects.intersection(applicability["issuer_ids"]):
+        return False, False
+    if applicability.get("listing_ids") and listing["listing_id"] not in applicability["listing_ids"]:
+        return False, False
+    tags = {
+        str(item).casefold()
+        for item in (
+            list(profile.get("semantic_topics", []))
+            + list(profile.get("procedure_tags", []))
+            + str(profile.get("task", "")).replace(".", "-").split("-")
+        )
+    }
+    jurisdiction = _MIC_JURISDICTION.get(str(listing.get("mic")))
+    if jurisdiction:
+        tags.add(jurisdiction.casefold())
+    for field in (
+        "sectors", "jurisdictions", "accounting_standards", "metrics", "source_types",
+    ):
+        constraints = applicability.get(field, [])
+        if constraints and not tags.intersection(str(item).casefold() for item in constraints):
+            return False, False
+    exact = semantic.get("lesson_kind") == "exact-issuer"
+    mandatory = exact and semantic.get("effect") in {
+        "current-check-required", "reviewed-negative-policy",
+    }
+    return True, mandatory
+
+
 def compile_agent_packet(
     database_path: str | Path, *, receipt: Mapping[str, Any], profile: Mapping[str, Any],
     agent_id: str, role: str, valid_date: str,
@@ -575,6 +654,8 @@ def compile_agent_packet(
     active_playbooks: Sequence[Mapping[str, Any]] = (),
 ) -> tuple[dict[str, Any], dict[str, Any], str]:
     started = time.monotonic_ns()
+    if active_semantics or active_playbooks:
+        raise ResearchMemoryError("external-active-memory-bypasses-frozen-projection")
     query = build_query(
         profile=profile, agent_id=agent_id, role=role, receipt=receipt, valid_date=valid_date,
     )
@@ -587,6 +668,13 @@ def compile_agent_packet(
         and (run_root := _event_run_root(event)) is not None
     }
     candidates: list[tuple[int, str, bool, Mapping[str, Any]]] = []
+    superseded_semantics = {
+        target
+        for successor in events
+        if successor.get("event_type") == "semantic.activated"
+        for target in successor.get("supersedes", [])
+        if isinstance(target, str)
+    }
     for event in events:
         event_type = event.get("event_type")
         if event_type in _EPISODE_TYPES and _exact_listing_event(
@@ -597,18 +685,19 @@ def compile_agent_packet(
             candidates.append((priority, "episodic", mandatory, event))
         elif event_type == _CALIBRATION_TYPE and profile.get("cross_company") is True:
             candidates.append((5, "semantic", False, event))
-    # Active records are already independently promoted. Re-wrap them as event-like packet
-    # candidates without treating their prose as evidence.
-    for record in active_semantics:
-        candidates.append((4, "semantic", False, _active_event(record, "semantic")))
-    for record in active_playbooks:
-        candidates.append((2, "procedural", True, _active_event(record, "procedural")))
+        elif event_type == "semantic.activated" and event.get("event_id") not in superseded_semantics:
+            applicable, mandatory = _active_semantic_match(
+                event, query=query, profile=profile, agent_id=agent_id, listing=listing,
+            )
+            if applicable:
+                candidates.append((1 if mandatory else 4, "semantic", mandatory, event))
     candidates.sort(key=lambda item: (
         item[0], -_time_sort(item[3].get("system_time")), str(item[3].get("event_id")),
     ))
     layer_names = {"episodic": "episodes", "semantic": "semantics", "procedural": "procedures"}
     entries: dict[str, list[dict[str, Any]]] = {name: [] for name in layer_names}
     omissions: list[dict[str, Any]] = []
+    omission_keys: set[tuple[str, str]] = set()
     used_tokens = {name: 0 for name in layer_names}
     layer_budgets = query["per_layer_budgets"]
     optional_truncated = False
@@ -622,13 +711,19 @@ def compile_agent_packet(
         ):
             if mandatory:
                 raise ResearchMemoryError("mandatory-memory-authorization-denied")
-            omissions.append({"layer": layer, "reason": "authorization", "mandatory": False})
+            key = (layer, "authorization")
+            if key not in omission_keys:
+                omissions.append({"layer": layer, "reason": "authorization", "mandatory": False})
+                omission_keys.add(key)
             continue
         tokens = (len(canonical_json_bytes(entry)) + 3) // 4
         if used_tokens[layer] + tokens > layer_budgets[layer]:
             if mandatory:
                 raise ResearchMemoryError("mandatory-memory-overflow")
-            omissions.append({"layer": layer, "reason": "budget", "mandatory": False})
+            key = (layer, "budget")
+            if key not in omission_keys:
+                omissions.append({"layer": layer, "reason": "budget", "mandatory": False})
+                omission_keys.add(key)
             optional_truncated = True
             continue
         entries[layer].append(entry)
@@ -680,26 +775,6 @@ def _time_sort(value: Any) -> int:
         return int(dt.datetime.fromisoformat(value.replace("Z", "+00:00")).timestamp())
     except ValueError:
         return 0
-
-
-def _active_event(record: Mapping[str, Any], layer: str) -> dict[str, Any]:
-    record_id = record.get("lesson_id") if layer == "semantic" else record.get("playbook_id")
-    content = record.get("lesson_sha256") if layer == "semantic" else record.get("playbook_sha256")
-    if not isinstance(record_id, str) or not isinstance(content, str):
-        raise ResearchMemoryError("active-memory-record-missing-identity")
-    return {
-        "event_id": record_id,
-        "event_type": f"memory.{layer}-activated",
-        "subject_ids": [],
-        "valid_time": record.get("semantic", record.get("playbook", {})).get(
-            "valid_time", {"from": str(record.get("activated_at", "1970-01-01"))[:10], "to": None},
-        ),
-        "system_time": record.get("activated_at"),
-        "policy": {"classification": record.get("classification", "internal")},
-        "payload": dict(record),
-        "evidence_refs": record.get("semantic", record.get("playbook", {})).get("supporting_evidence_refs", []),
-        "_content_sha256": content,
-    }
 
 
 def store_packet(

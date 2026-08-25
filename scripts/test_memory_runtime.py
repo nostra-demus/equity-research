@@ -21,6 +21,8 @@ SCRIPTS = Path(__file__).resolve().parent
 sys.path.insert(0, str(SCRIPTS))
 
 from canonical_json import canonical_json_bytes, canonical_sha256  # noqa: E402
+from memory_crypto import AESGCMSIVEnvelopeCipher  # noqa: E402
+from memory_store import MemoryStore  # noqa: E402
 from memory_adapters import adapt_repository  # noqa: E402
 from memory_runtime import (  # noqa: E402
     IdentityResolutionError,
@@ -32,6 +34,8 @@ from memory_runtime import (  # noqa: E402
     build_identity_registry,
     ed25519_checkpoint_signer,
     ed25519_checkpoint_verifier,
+    load_controlled_ledger_events,
+    load_protected_store_events,
     resolve_identity,
 )
 
@@ -153,6 +157,48 @@ def _resign_policy(policy: dict) -> dict:
 
 
 class MemoryRuntimeTests(unittest.TestCase):
+    def test_protected_projection_reader_opens_owner_only_encrypted_store(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            key = root / "protected.key"
+            key.write_bytes(b"k" * 32)
+            key.chmod(0o600)
+            store_root = root / "protected"
+            MemoryStore(
+                store_root,
+                authorize=lambda _request: True,
+                source_policy=lambda _request: True,
+                cipher=AESGCMSIVEnvelopeCipher(b"k" * 32, key_id="key:projection-test"),
+            )
+            self.assertEqual([], load_protected_store_events(
+                store_root, master_key_path=key, key_id="key:projection-test",
+                service_identity="projection-reader",
+            ))
+
+    def test_controlled_operational_ledger_is_bound_to_writer_head(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            repo = root / "source"
+            repo.mkdir()
+            _git_fixture(repo, (("analyses/TEST_2026-08-25/decision_record.json", _decision()),))
+            events, diagnostics = adapt_repository(repo)
+            self.assertEqual([], diagnostics)
+            ledger = root / "canonical.ndjson"
+            ledger.write_bytes(b"".join(canonical_json_bytes(event) + b"\n" for event in events))
+            ledger.chmod(0o600)
+            head = root / "canonical.ndjson.controlled-writer-head.json"
+            head.write_bytes(canonical_json_bytes({
+                "schema": "memory-controlled-sink-head/v1", "coordinator_id": H,
+                "configuration_sha256": H, "sequence": len(events), "head": H,
+                "canonical_ledger_sha256": "sha256:" + canonical_sha256(events),
+                "transition": {} if events else None,
+            }))
+            head.chmod(0o600)
+            self.assertEqual(events, load_controlled_ledger_events(ledger, writer_head_path=head))
+            ledger.write_bytes(ledger.read_bytes() + b"{}\n")
+            with self.assertRaisesRegex(MemoryRuntimeError, "noncanonical|invalid"):
+                load_controlled_ledger_events(ledger, writer_head_path=head)
+
     def test_owner_only_ed25519_checkpoint_signing_boundary(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
