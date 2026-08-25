@@ -1,8 +1,10 @@
 import assert from 'node:assert/strict'
 import fs from 'node:fs'
 import path from 'node:path'
+import { fileURLToPath } from 'node:url'
 
-const command = fs.readFileSync(path.resolve('../../.claude/commands/research/full-canary.md'), 'utf8')
+const testDir = path.dirname(fileURLToPath(import.meta.url))
+const command = fs.readFileSync(path.resolve(testDir, '../../../.claude/commands/research/full-canary.md'), 'utf8')
 
 assert.doesNotMatch(
   command,
