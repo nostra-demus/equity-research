@@ -396,6 +396,30 @@ class ProceduralMemoryTests(unittest.TestCase):
         )
         self.assertEqual([], packet["sections"]["procedures"]["entries"])
 
+    def test_local_quarantine_and_version_pin_are_enforced_during_compilation(self) -> None:
+        database = self.root / "controlled-active.sqlite"
+        projection = build_projection([self.event], database)
+        playbook_id = self.playbook["playbook_id"]
+        version = self.playbook["version"]
+        with self.assertRaisesRegex(ResearchMemoryError, "mandatory-procedural-memory-disabled"):
+            compile_agent_packet(
+                database, receipt=receipt(projection.digest), profile=profile(),
+                agent_id="earnings/01_historical-financials", role="specialist",
+                valid_date="2026-08-25", disabled_playbooks=[(playbook_id, version)],
+            )
+        _query, packet, _rendered = compile_agent_packet(
+            database, receipt=receipt(projection.digest), profile=profile(),
+            agent_id="earnings/01_historical-financials", role="specialist",
+            valid_date="2026-08-25", pinned_playbooks={playbook_id: version},
+        )
+        self.assertEqual(1, len(packet["sections"]["procedures"]["entries"]))
+        with self.assertRaisesRegex(ResearchMemoryError, "pinned-playbook-version-unavailable"):
+            compile_agent_packet(
+                database, receipt=receipt(projection.digest), profile=profile(),
+                agent_id="earnings/01_historical-financials", role="specialist",
+                valid_date="2026-08-25", pinned_playbooks={playbook_id: version + 1},
+            )
+
     def test_specificity_wins_and_equal_specificity_conflict_abstains(self) -> None:
         specific_candidate = build_candidate(
             playbook=core(issuer_specific=True),

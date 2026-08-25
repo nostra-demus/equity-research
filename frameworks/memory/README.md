@@ -209,3 +209,7 @@ The production authority, provider, security, promotion, retention, and release 
 `THREE_LAYER_MEMORY.md`. Public schema aliases resolve into
 `three-layer-contracts.schema.json`; `scripts/memory_three_layer_contract.py` adds the cross-document
 and temporal checks JSON Schema alone cannot express.
+
+Production service identities, incident switches, metadata-only cockpit routes, monthly clean
+rebuilds, and quarterly disposable restore/purge drills are operated through
+`scripts/ops/MEMORY_RUNBOOK.md`.

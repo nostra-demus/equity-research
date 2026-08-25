@@ -10,6 +10,7 @@ from pathlib import Path
 
 from canonical_json import canonical_sha256
 from memory_crypto import AESGCMSIVEnvelopeCipher
+from memory_incident_control import candidate_intake_guard
 from memory_procedural import (
     ProceduralMemoryError,
     ProceduralState,
@@ -117,7 +118,8 @@ def candidate_command(args: argparse.Namespace) -> int:
         created_by={"kind": args.creator_kind, "id": args.creator_id},
         policy=load(args.policy), now=moment(args.now),
     )
-    path = state(args).put_candidate(value)
+    with candidate_intake_guard(args.state_root):
+        path = state(args).put_candidate(value)
     emit_artifact(
         schema="memory-playbook-candidate-intake-result/v1", value=value,
         path=path, hash_field="candidate_sha256", policy=value["policy"],
@@ -130,7 +132,8 @@ def seed_command(args: argparse.Namespace) -> int:
     values = seed_initial_candidates(
         created_by={"kind": args.creator_kind, "id": args.creator_id}, now=moment(args.now),
     )
-    paths = [store.put_candidate(value) for value in values]
+    with candidate_intake_guard(args.state_root):
+        paths = [store.put_candidate(value) for value in values]
     dump({
         "schema": "memory-playbook-seed-result/v1", "candidate_count": len(paths),
         "paths": [str(path) for path in paths],

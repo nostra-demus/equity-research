@@ -134,17 +134,23 @@ def _hash_id(prefix: str, value: str) -> str:
 
 def _safe_directory(path: Path, *, create: bool) -> Path:
     raw = Path(os.path.abspath(os.fspath(path)))
-    if raw.exists() or raw.is_symlink():
-        info = raw.lstat()
-        if stat.S_ISLNK(info.st_mode) or not stat.S_ISDIR(info.st_mode):
-            raise MemoryRuntimeError("runtime state root must be a real directory")
-    elif create:
-        raw.mkdir(parents=True, mode=0o700)
-        if os.name == "posix":
-            os.chmod(raw, 0o700)
-    else:
+    created = False
+    if not raw.exists() and not raw.is_symlink() and create:
+        try:
+            raw.mkdir(parents=True, mode=0o700)
+            created = True
+        except FileExistsError:
+            # Another owner-local process may have created the state root concurrently.  The
+            # lstat/ownership/mode checks below still decide whether that path is trustworthy.
+            pass
+    if not raw.exists() and not raw.is_symlink():
         raise MemoryRuntimeError("runtime state root is absent")
-    info = raw.stat()
+    info = raw.lstat()
+    if stat.S_ISLNK(info.st_mode) or not stat.S_ISDIR(info.st_mode):
+        raise MemoryRuntimeError("runtime state root must be a real directory")
+    if created and os.name == "posix":
+        os.chmod(raw, 0o700)
+        info = raw.lstat()
     if hasattr(os, "geteuid") and info.st_uid != os.geteuid():
         raise MemoryRuntimeError("runtime state root has the wrong owner")
     if os.name == "posix" and stat.S_IMODE(info.st_mode) & 0o077:

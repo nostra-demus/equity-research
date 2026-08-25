@@ -14,7 +14,7 @@ import {
   type MemoryTab,
 } from '../../lib/memoryView'
 import { useStore } from '../../lib/store'
-import type { MemoryCockpit, MemoryItem, MemoryRead } from '../../lib/types'
+import type { MemoryCockpit, MemoryItem, MemoryRead, MemoryRuntimeRead } from '../../lib/types'
 import './MemoryExplorer.css'
 
 const COCKPIT_LABEL: Record<MemoryCockpit, string> = {
@@ -37,7 +37,7 @@ function Skeletons() {
   )
 }
 
-function SummaryStrip({ read }: { read: MemoryRead }) {
+function SummaryStrip({ read, runtime }: { read: MemoryRead; runtime: MemoryRuntimeRead | null }) {
   const count = read.counts
   return (
     <div className="memory__summary" aria-label="Memory counts">
@@ -47,7 +47,7 @@ function SummaryStrip({ read }: { read: MemoryRead }) {
           <strong>{read.status.state === 'healthy' ? 'Memory is ready' : read.status.state === 'degraded' ? 'Memory needs attention' : 'Memory unavailable'}</strong>
           {read.status.state !== 'healthy' && <span>{read.status.message}</span>}
         </div>
-        <span className="memory__mode">Read-only · live use not measured yet</span>
+        <span className="memory__mode">Read-only · {runtime ? `${runtime.effective_mode} · readiness ${runtime.readiness.status}` : 'runtime metadata unavailable'}</span>
       </div>
       {read.available && (
         <div className="memory__counts">
@@ -59,6 +59,60 @@ function SummaryStrip({ read }: { read: MemoryRead }) {
         </div>
       )}
     </div>
+  )
+}
+
+function OperationsPanel({ runtime }: { runtime: MemoryRuntimeRead }) {
+  const count = runtime.counts
+  const configuredServices = runtime.services.filter((item) => item.configured).length
+  return (
+    <section className="memory__operations" aria-label="Three-layer memory operations">
+      <div className="memory__operationshead">
+        <div>
+          <strong>Three-layer runtime</strong>
+          <span>{runtime.mode} configured · {runtime.effective_mode} effective · {runtime.readiness.status} readiness</span>
+        </div>
+        <span className="chip">{runtime.state}</span>
+      </div>
+      <div className="memory__layercounts">
+        <div><strong>{count.task_episodes}</strong><span>Episodic · task receipts</span></div>
+        <div><strong>{count.lessons}</strong><span>Semantic · active lessons</span></div>
+        <div><strong>{count.playbooks}</strong><span>Procedural · playbooks</span></div>
+        <div><strong>{count.packets}</strong><span>Frozen packets</span></div>
+        <div><strong>{count.used_items}</strong><span>Used items</span></div>
+        <div><strong>{count.rejected_items}</strong><span>Checked and rejected</span></div>
+        <div><strong>{count.executions}</strong><span>Playbook executions</span></div>
+        <div><strong>{count.deviations}</strong><span>Deviations</span></div>
+        <div><strong>{count.candidates}</strong><span>Candidates</span></div>
+        <div><strong>{count.promotions}</strong><span>Promotions</span></div>
+        <div><strong>{count.quarantines}</strong><span>Quarantines</span></div>
+        <div><strong>{configuredServices}/{runtime.services.length}</strong><span>Service identities</span></div>
+      </div>
+      {(runtime.controls.global_disabled || runtime.controls.disabled_layers.length > 0 || runtime.controls.disabled_playbooks.length > 0) && (
+        <div className="memory__switches" role="status">
+          {runtime.controls.global_disabled && <span>Global kill switch active</span>}
+          {runtime.controls.disabled_layers.map((layer) => <span key={layer}>{layer} disabled</span>)}
+          {runtime.controls.disabled_playbooks.map((playbook) => (
+            <span key={`${playbook.playbook_id}-${playbook.version ?? 'all'}`}>{playbook.playbook_id}{playbook.version ? ` v${playbook.version}` : ''} quarantined</span>
+          ))}
+        </div>
+      )}
+      {(runtime.alerts.length > 0 || runtime.slos.length > 0) && (
+        <details className="memory__opsdetail">
+          <summary>{runtime.alerts.length} alerts · {runtime.slos.filter((item) => item.status === 'met').length}/{runtime.slos.length} SLOs met</summary>
+          <div className="memory__opsdetailgrid">
+            <div>
+              <strong>Alerts</strong>
+              {runtime.alerts.length ? runtime.alerts.map((alert) => <p data-severity={alert.severity} key={alert.code}>{alert.message}</p>) : <p>No active alerts.</p>}
+            </div>
+            <div>
+              <strong>SLO evidence</strong>
+              {runtime.slos.length ? runtime.slos.map((slo) => <p key={slo.name}><span>{slo.name}</span> · {slo.status} · {slo.target}</p>) : <p>No SLO evidence has been recorded.</p>}
+            </div>
+          </div>
+        </details>
+      )}
+    </section>
   )
 }
 
@@ -194,6 +248,7 @@ export function MemoryExplorer() {
   const staticMode = useStore((state) => state.staticMode)
   const reducedMotion = useReducedMotion()
   const [read, setRead] = useState<MemoryRead | null>(null)
+  const [runtime, setRuntime] = useState<MemoryRuntimeRead | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(true)
   const [refreshing, setRefreshing] = useState(false)
@@ -218,8 +273,10 @@ export function MemoryExplorer() {
     else setLoading(true)
     setError(null)
     try {
-      const next = await api.memory()
-      if (generation === requestGeneration.current) setRead(next)
+      const [next, runtimeNext] = await Promise.all([
+        api.memory(), api.memoryRuntime().catch(() => null),
+      ])
+      if (generation === requestGeneration.current) { setRead(next); setRuntime(runtimeNext) }
     } catch (cause: any) {
       if (generation !== requestGeneration.current) return
       const message = cause?.status === 404 || cause?.code === 'memory-contract-invalid'
@@ -340,7 +397,7 @@ export function MemoryExplorer() {
         </div>
       </div>
 
-      {read && <SummaryStrip read={read} />}
+      {read && <SummaryStrip read={read} runtime={runtime} />}
 
       <div ref={bodyRef} className="memory__body">
         <div className="memory__column">
@@ -372,6 +429,7 @@ export function MemoryExplorer() {
           {read?.available && selected && <MemoryDetail group={selected} backRef={detailBackRef} onBack={() => setSelectedGroupKey(null)} />}
           {read?.available && !selected && (
             <>
+              {runtime && <OperationsPanel runtime={runtime} />}
               <div className="memory__intro">
                 <strong>One shared memory.</strong>
                 <span>It keeps the conclusion, when it was known, what changed, and the source behind it.</span>

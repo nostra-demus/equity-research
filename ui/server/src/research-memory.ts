@@ -5,6 +5,7 @@ import { execa } from 'execa'
 import { DATA_DIR, REPO_ROOT, STATE_DIR } from './config'
 import type { RunState } from './registry'
 import { buildSwarmGraph } from './roster'
+import { canonicalJsonText } from './canonical-json'
 import type { ResearchMemoryIdentity, ResearchMemoryRuntimeBinding } from './types'
 
 export type ResearchMemoryMode = 'off' | 'shadow' | 'enforced'
@@ -44,6 +45,13 @@ interface PrepareResult {
   authorization_sha256: string
 }
 
+interface RuntimeControls {
+  globalDisabled: boolean
+  disabledLayers: string[]
+  disabledPlaybooks: Array<{ playbookId: string; version: number | null }>
+  pinnedPlaybooks: Array<{ playbookId: string; version: number }>
+}
+
 type MemoryExecutor = (args: string[]) => Promise<Record<string, any>>
 
 const HASH = /^sha256:[a-f0-9]{64}$/
@@ -55,6 +63,80 @@ export function researchMemoryMode(env: NodeJS.ProcessEnv = process.env): Resear
   const value = String(env.NOSTRA_MEMORY_MODE || 'off').trim().toLowerCase()
   if (value === 'off' || value === 'shadow' || value === 'enforced') return value
   throw new Error(`invalid NOSTRA_MEMORY_MODE '${value}'`)
+}
+
+function runtimeControls(stateRoot: string): RuntimeControls {
+  const file = path.join(stateRoot, 'controls', 'runtime-controls.json')
+  if (!fs.existsSync(file)) return { globalDisabled: false, disabledLayers: [], disabledPlaybooks: [], pinnedPlaybooks: [] }
+  let descriptor: number | null = null
+  let raw: string
+  try {
+    const before = fs.lstatSync(file)
+    if (!before.isFile() || before.isSymbolicLink() || before.nlink !== 1
+        || before.size <= 0 || before.size > 1024 * 1024
+        || (process.getuid && before.uid !== process.getuid()) || (before.mode & 0o077) !== 0) {
+      throw new Error('memory runtime controls are not an owner-only regular file')
+    }
+    descriptor = fs.openSync(file, fs.constants.O_RDONLY | (fs.constants.O_NOFOLLOW || 0))
+    const opened = fs.fstatSync(descriptor)
+    if (!opened.isFile() || opened.nlink !== 1 || opened.dev !== before.dev || opened.ino !== before.ino
+        || opened.size !== before.size || (process.getuid && opened.uid !== process.getuid())
+        || (opened.mode & 0o077) !== 0) throw new Error('memory runtime controls changed during open')
+    raw = fs.readFileSync(descriptor, 'utf8')
+  } finally {
+    if (descriptor !== null) fs.closeSync(descriptor)
+  }
+  const value: unknown = JSON.parse(raw)
+  if (!value || typeof value !== 'object' || Array.isArray(value)) throw new Error('memory runtime controls are invalid')
+  const row = value as Record<string, unknown>
+  const fields = [
+    'schema', 'revision', 'updated_at', 'updated_by', 'global_disabled', 'disabled_layers',
+    'disabled_playbooks', 'pinned_playbooks', 'candidate_intake_disabled', 'control_sha256',
+  ]
+  if (Object.keys(row).sort().join('\0') !== fields.sort().join('\0')
+      || row.schema !== 'memory-runtime-controls/v1'
+      || !Number.isSafeInteger(row.revision) || Number(row.revision) < 0
+      || typeof row.updated_at !== 'string' || !Number.isFinite(Date.parse(row.updated_at))
+      || typeof row.updated_by !== 'string' || !/^[A-Za-z0-9][A-Za-z0-9._\/-]{0,127}$/.test(row.updated_by)
+      || typeof row.global_disabled !== 'boolean'
+      || !Array.isArray(row.disabled_layers) || !Array.isArray(row.disabled_playbooks)
+      || !Array.isArray(row.pinned_playbooks)
+      || typeof row.candidate_intake_disabled !== 'boolean'
+      || typeof row.control_sha256 !== 'string' || !/^sha256:[a-f0-9]{64}$/.test(row.control_sha256)) {
+    throw new Error('memory runtime controls are invalid')
+  }
+  const body = { ...row }
+  delete body.control_sha256
+  const actual = `sha256:${createHash('sha256').update(canonicalJsonText(body)).digest('hex')}`
+  if (actual !== row.control_sha256) throw new Error('memory runtime controls failed integrity verification')
+  const disabledLayers = row.disabled_layers.map((item) => String(item))
+  if (new Set(disabledLayers).size !== disabledLayers.length
+      || disabledLayers.some((item) => !['episodic', 'semantic', 'procedural'].includes(item))) {
+    throw new Error('memory runtime layer controls are invalid')
+  }
+  const disabledPlaybooks = row.disabled_playbooks.map((item) => {
+    if (!item || typeof item !== 'object' || Array.isArray(item)) throw new Error('memory runtime playbook control is invalid')
+    const entry = item as Record<string, unknown>
+    const playbookId = String(entry.playbook_id || '')
+    const version = entry.version === null ? null : Number(entry.version)
+    if (Object.keys(entry).sort().join('\0') !== ['disabled_at', 'playbook_id', 'reason', 'version'].join('\0')
+        || !/^[A-Za-z0-9][A-Za-z0-9._\/-]{0,127}$/.test(playbookId)
+        || (version !== null && (!Number.isSafeInteger(version) || version < 1))) {
+      throw new Error('memory runtime playbook control is invalid')
+    }
+    return { playbookId, version }
+  })
+  const pinnedPlaybooks = row.pinned_playbooks.map((item) => {
+    if (!item || typeof item !== 'object' || Array.isArray(item)) throw new Error('memory runtime playbook pin is invalid')
+    const entry = item as Record<string, unknown>
+    const playbookId = String(entry.playbook_id || '')
+    const version = Number(entry.version)
+    if (Object.keys(entry).sort().join('\0') !== ['pinned_at', 'playbook_id', 'version'].join('\0')
+        || !/^[A-Za-z0-9][A-Za-z0-9._\/-]{0,127}$/.test(playbookId)
+        || !Number.isSafeInteger(version) || version < 1) throw new Error('memory runtime playbook pin is invalid')
+    return { playbookId, version }
+  })
+  return { globalDisabled: row.global_disabled, disabledLayers, disabledPlaybooks, pinnedPlaybooks }
 }
 
 function memoryConfig(env: NodeJS.ProcessEnv = process.env): MemoryConfig {
@@ -179,7 +261,14 @@ function commonArgs(config: MemoryConfig, logical: string): string[] {
 export async function prepareResearchMemory(
   run: RunState, executor: MemoryExecutor = defaultExecutor, env: NodeJS.ProcessEnv = process.env,
 ): Promise<ResearchMemoryRuntimeBinding> {
-  const mode = researchMemoryMode(env)
+  const configuredMode = researchMemoryMode(env)
+  const controlRoot = path.resolve(String(env.NOSTRA_MEMORY_STATE_ROOT || path.join(STATE_DIR, 'memory-runtime')))
+  let controls: RuntimeControls
+  try { controls = runtimeControls(controlRoot) } catch (error: any) {
+    if (configuredMode === 'enforced') throw new Error(`memory snapshot blocked before spend: ${String(error?.message || error)}`)
+    controls = { globalDisabled: true, disabledLayers: [], disabledPlaybooks: [], pinnedPlaybooks: [] }
+  }
+  const mode: ResearchMemoryMode = controls.globalDisabled ? 'off' : configuredMode
   const logical = logicalRunId(run)
   const binding: ResearchMemoryRuntimeBinding = {
     mode, logicalRunId: logical, status: mode === 'off' || !eligible(run) ? 'off' : 'preparing',
@@ -263,6 +352,9 @@ export async function verifyResearchMemoryBeforeSpawn(
     throw new Error('memory snapshot or provider authorization is not verified')
   }
   const config = memoryConfig(env)
+  if (runtimeControls(config.stateRoot).globalDisabled) {
+    throw new Error('global memory kill switch activated after the run snapshot was frozen')
+  }
   const result = await executor([
     'verify', ...commonArgs(config, binding.logicalRunId),
     '--authorization', binding.authorizationPath,
@@ -291,11 +383,18 @@ export async function compileResearchMemoryPacket(
     : run.expected.has(agentKey)
   if (!expected) throw new Error('memory packet agent is outside the supervisor roster')
   const config = memoryConfig(env)
+  const controls = runtimeControls(config.stateRoot)
+  if (controls.globalDisabled) throw new Error('global memory kill switch is active')
   return executor([
     'compile', ...commonArgs(config, binding.logicalRunId),
     '--authorization', binding.authorizationPath,
     '--authorization-sha256', binding.authorizationSha256, '--agent-key', agentKey,
     '--valid-date', new Date(run.startedAt).toISOString().slice(0, 10),
+    ...controls.disabledLayers.flatMap((item) => ['--disable-layer', item]),
+    ...controls.disabledPlaybooks.flatMap((item) => [
+      '--disable-playbook', `${item.playbookId}${item.version === null ? '' : `@${item.version}`}`,
+    ]),
+    ...controls.pinnedPlaybooks.flatMap((item) => ['--pin-playbook', `${item.playbookId}@${item.version}`]),
   ])
 }
 

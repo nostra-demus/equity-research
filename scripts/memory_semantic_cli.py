@@ -10,6 +10,7 @@ from pathlib import Path
 
 from canonical_json import canonical_sha256
 from memory_crypto import AESGCMSIVEnvelopeCipher
+from memory_incident_control import candidate_intake_guard
 from memory_runtime import _atomic_private_write, _safe_regular, load_master_key_file
 from memory_semantic import (
     SemanticMemoryError,
@@ -80,7 +81,8 @@ def candidate_command(args: argparse.Namespace) -> int:
         created_by={"kind": args.creator_kind, "id": args.creator_id},
         policy=load(args.policy), now=now(args.now),
     )
-    path = state(args).put_candidate(value)
+    with candidate_intake_guard(args.state_root):
+        path = state(args).put_candidate(value)
     result = {
         "schema": "memory-semantic-candidate-intake-result/v1",
         "candidate_sha256": value["candidate_sha256"],
@@ -114,10 +116,11 @@ def verify_command(args: argparse.Namespace) -> int:
 
 def seed_command(args: argparse.Namespace) -> int:
     store = state(args)
-    paths = seed_reviewed_candidates(
-        database_path=args.projection, projection_digest=args.projection_digest,
-        state=store, now=now(args.now),
-    )
+    with candidate_intake_guard(args.state_root):
+        paths = seed_reviewed_candidates(
+            database_path=args.projection, projection_digest=args.projection_digest,
+            state=store, now=now(args.now),
+        )
     dump({"schema": "memory-semantic-seed-result/v1", "candidate_count": len(paths), "paths": [str(path) for path in paths]})
     return 0
 
