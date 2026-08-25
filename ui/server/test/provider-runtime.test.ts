@@ -11,7 +11,7 @@ import { REPO_ROOT } from '../src/config'
 import { getCreditStatus, setCreditStatus } from '../src/credit'
 import {
   beginExecutionAttempt, canonicalManifestJsonl, canonicalManifestPath,
-  hasLegacyPriorUnattributed, readLastProviderSelection,
+  hasLegacyPriorUnattributed, readLastProviderSelection, supersedeIncompleteDecisionAuthorAttempt,
 } from '../src/execution-provenance'
 import {
   applySupervisorPublicationEnv, paritySnapshotRootMatchesDataSubject, providerWritablePaths,
@@ -79,6 +79,20 @@ try {
     assert.equal(specialist.reasoning_level, 'xhigh')
     assert.equal(specialist.decision_author, false)
     assert.equal(project(canonicalManifestPath(run)).provider_mode, 'single_provider')
+  })
+
+  check('a same-run provider continuation retains a distinct process attempt id', () => {
+    const priorAttemptId = (run.currentExecutionAttempts ?? [])[0]?.attempt_id
+    supersedeIncompleteDecisionAuthorAttempt(run)
+    run.providerAttemptId = randomUUID()
+    beginExecutionAttempt(run)
+    const nextAttemptId = (run.currentExecutionAttempts ?? [])[0]?.attempt_id
+    assert.equal(nextAttemptId, run.providerAttemptId)
+    assert.notEqual(nextAttemptId, priorAttemptId)
+    const recorded = (run.executionAttempts ?? []).filter((row) => row.attribution === 'recorded')
+    assert.deepEqual(new Set(recorded.map((row) => row.attempt_id)), new Set([priorAttemptId, nextAttemptId]))
+    assert.equal(recorded.filter((row) => row.decision_author === true).length, 1)
+    assert.equal(recorded.find((row) => row.attempt_id === priorAttemptId)?.decision_author, false)
   })
 
   check('canonical projector input is supervisor memory, not the child-visible path', () => {
