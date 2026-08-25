@@ -1,11 +1,18 @@
 import assert from 'node:assert/strict'
 import { CODEX_EXECUTION_PROFILE } from './provider'
+import { providerParityCanaryRunRootIsValid, providerParityCanarySubject } from './parityCanary'
 
 ;(globalThis as any).window = { __ENGINE_LIVE__: true }
 const { api } = await import('./api')
 const originalFetch = globalThis.fetch
 
 try {
+  const retryRoot = 'analyses/provider-parity/2026-08-25/codex/AMZN_2026-08-25__attempt-a3182d01'
+  assert.equal(providerParityCanaryRunRootIsValid(retryRoot), true)
+  assert.equal(providerParityCanarySubject(retryRoot), 'AMZN')
+  assert.equal(providerParityCanaryRunRootIsValid(`${retryRoot}__attempt-2`), false)
+  assert.equal(providerParityCanarySubject(`${retryRoot}__attempt-2`), null)
+
   const requests: Array<{ url: string; method: string; body: any }> = []
   globalThis.fetch = (async (input, init) => {
     const request = {

@@ -13,7 +13,14 @@ export interface ProviderParityCanaryPrefill {
   freezeReceipt: string
 }
 
-export const PROVIDER_PARITY_CANARY_RUN_ROOT_RE = /^analyses\/provider-parity\/\d{4}-\d{2}-\d{2}\/(?:claude|codex)\/[A-Z0-9.\-]{1,12}_\d{4}-\d{2}-\d{2}$/
+const PROVIDER_PARITY_CANARY_ATTEMPT_SUFFIX = String.raw`(?:__attempt-[a-f0-9]{8,32})?`
+
+export const PROVIDER_PARITY_CANARY_RUN_ROOT_RE = new RegExp(
+  String.raw`^analyses/provider-parity/\d{4}-\d{2}-\d{2}/(?:claude|codex)/[A-Z0-9.\-]{1,12}_\d{4}-\d{2}-\d{2}${PROVIDER_PARITY_CANARY_ATTEMPT_SUFFIX}$`,
+)
+const PROVIDER_PARITY_CANARY_BASENAME_RE = new RegExp(
+  String.raw`^([A-Z0-9.\-]{1,12})_(\d{4}-\d{2}-\d{2})${PROVIDER_PARITY_CANARY_ATTEMPT_SUFFIX}$`,
+)
 
 export function providerParityCanaryRunRootIsValid(runRoot: string): boolean {
   return PROVIDER_PARITY_CANARY_RUN_ROOT_RE.test(runRoot.trim())
@@ -30,7 +37,7 @@ export function providerParityCanaryPrefill(search: string): ProviderParityCanar
 
 export function providerParityCanarySubject(runRoot: string): string | null {
   const basename = runRoot.trim().replace(/\/+$/, '').split('/').pop() || ''
-  const match = /^([A-Z0-9.\-]{1,12})_(\d{4}-\d{2}-\d{2})$/.exec(basename)
+  const match = PROVIDER_PARITY_CANARY_BASENAME_RE.exec(basename)
   return match?.[1] || null
 }
 
