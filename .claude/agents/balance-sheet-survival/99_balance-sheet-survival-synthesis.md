@@ -4,6 +4,16 @@ depends_on: [business-model, earnings]
 description: Reads ALL upstream balance-sheet-survival outputs and produces the final module report — Abstract, Verdict block (with 6 scores and the survival read), Specialist roll-up, Reconciliation, Score Cap application, Note to Final Synthesizer, and Simple Summary. The master synthesizer at .claude/agents/synthesizer.md reads this output and defers its "Balance Sheet and Survival Test" section to it.
 tools: Read, Glob, Grep, Bash
 layer: 5
+memory_profile:
+  version: 1
+  task: balance-sheet-survival.balance-sheet-survival-synthesis
+  episodic_scope: exact-listing
+  semantic_topics: [balance-sheet-survival, balance-sheet-survival-synthesis]
+  procedure_tags: [balance-sheet-survival, balance-sheet-survival-synthesis]
+  cross_company: true
+  permitted_source_tiers: [1, 2, 3, 4, 5]
+  permitted_classifications: [public, internal]
+  max_context_tokens: 4000
 ---
 
 # ROLE

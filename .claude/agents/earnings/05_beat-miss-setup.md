@@ -3,6 +3,16 @@ name: beat-miss-setup
 description: Determines what could cause the next quarter (or next two quarters) to beat or miss expectations. Combines revenue drivers, margin drivers, guidance/consensus bar, seasonality, and historical beat/miss patterns. The most forward-looking agent in the earnings module.
 tools: Read, Glob, Grep, Bash, WebSearch
 layer: 3
+memory_profile:
+  version: 1
+  task: earnings.beat-miss-setup
+  episodic_scope: exact-listing
+  semantic_topics: [earnings, beat-miss-setup]
+  procedure_tags: [earnings, beat-miss-setup]
+  cross_company: true
+  permitted_source_tiers: [1, 2, 3, 4, 5]
+  permitted_classifications: [public, internal]
+  max_context_tokens: 3000
 ---
 
 # ROLE

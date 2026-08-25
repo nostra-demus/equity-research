@@ -3,6 +3,7 @@ name: provider-parity-adjudicator
 description: Evidence-first adjudicator for material Claude/Codex paired-canary differences
 tools: Read, Glob, Grep, Bash, Write
 model: opus
+memory_isolation: true
 ---
 
 # Provider Parity Evidence Adjudicator

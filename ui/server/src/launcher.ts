@@ -37,7 +37,7 @@ import {
   recoverNonCleanExactModulePublication,
   type NonCleanExactModuleRecovery,
 } from './module-publication'
-import type { LaunchPreflight, ReadinessDecision, ReadinessReport, RunKind, RunStatus } from './types'
+import type { LaunchPreflight, ReadinessDecision, ReadinessReport, ResearchMemoryIdentity, RunKind, RunStatus } from './types'
 import { validateAgentOutputFile } from '../../../scripts/agent-output-validity.mjs'
 import './providers/claude'
 import './providers/codex'
@@ -53,6 +53,14 @@ import {
 } from './execution-provenance'
 import { runIbkrPaperAutoSyncAfterPublication, scheduleIbkrPaperAutoSyncAfterPublication } from './ibkr-paper-auto-sync'
 import { parityCanaryRootBasenameMatches } from './provider-parity-path'
+import {
+  attestResearchMemoryUse,
+  compileResearchMemoryPacket,
+  finalizeResearchMemory,
+  prepareResearchMemory,
+  researchMemoryTaskStatus,
+  verifyResearchMemoryBeforeSpawn,
+} from './research-memory'
 
 // Provider adapters may issue a short-lived auth/binary lease while building a launch spec. Keep the
 // disposer supervisor-owned and keyed by the in-memory RunState: it is never exported to the child env.
@@ -1671,6 +1679,8 @@ export interface LaunchParams {
   reasoningLevel?: string
   /** Optional estimate-to-launch CAS. Missing remains the legacy-client compatibility path. */
   expectedProfileKey?: string
+  /** Full legal listing tuple for a first run; the runtime still resolves it against its frozen registry. */
+  memoryIdentity?: ResearchMemoryIdentity
   resumeSessionId?: string
   intake?: SignalIntakeInput // kind 'signal' (new signal): materialized into <runRoot>/intake.json
   inboxId?: string // kind 'signal' launched from an Inbox card — recorded as the intake's provenance
@@ -2354,6 +2364,7 @@ export async function launchFullChained(
   selection: RunProviderSelection,
   deps: FullChainDeps = defaultFullChainDeps,
   decisionBinding?: { decisionRunRoot: string; decisionFingerprint: string },
+  memoryIdentity?: ResearchMemoryIdentity,
 ): Promise<{ runId: string; preflight: LaunchPreflight; chained?: boolean; skipped?: string[]; planned?: string[]; resumed?: boolean }> {
   const chainId = randomUUID()
   const datedRoot = `analyses/${ticker}_${todayDate()}`
@@ -2447,7 +2458,7 @@ export async function launchFullChained(
     if (masterLaunched) return null
     masterLaunched = true
     const launched = deps.launchAndWire(
-      { kind: 'rerun', ticker, module: 'master', agent: 'synthesizer', user, userVia, chained: true, chainId, ...selection, ...decisionBinding },
+      { kind: 'rerun', ticker, module: 'master', agent: 'synthesizer', user, userVia, chained: true, chainId, memoryIdentity, ...selection, ...decisionBinding },
       (status) => {
         deps.clearMarker(ticker) // always clear the defer-memo marker once master exits — success path: rerun.md Step 9B also rm -f's it (idempotent); this is the safety net for an abnormal 'done' before Step 9B ran, or any failure
         releaseChainPool()
@@ -2496,7 +2507,7 @@ export async function launchFullChained(
     started.add(name)
     inflight.add(name) // reserve the slot synchronously so the cap holds within one pump() pass
     void deps.launchAndWire(
-      { kind: 'module', ticker, module: name, user, userVia, chained: true, chainId, ...selection, ...decisionBinding },
+      { kind: 'module', ticker, module: name, user, userVia, chained: true, chainId, memoryIdentity, ...selection, ...decisionBinding },
       (status) => onModuleFinish(name, status),
     )
       .then((out) => {
@@ -2952,6 +2963,7 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
             expectedProfileKey: profile.profileKey },
           defaultFullChainDeps,
           binding,
+          params.memoryIdentity,
         )
       } finally {
         releasePoolClaim()
@@ -3151,6 +3163,7 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
     chainId: params.chainId,
     onTerminal: params.onTerminal,
     parityCanary: Boolean(params.parityCanary),
+    memoryIdentity: params.memoryIdentity,
   })
   run.publicationToken = randomUUID()
   run.provenanceEpoch = params.chainId || run.runId
@@ -3384,7 +3397,7 @@ export function applySupervisorPublicationEnv(
 
 function applyRunPolicyEnv(source: NodeJS.ProcessEnv, run: RunState): NodeJS.ProcessEnv {
   const scope = exactModuleArtifactScopeByRun.get(run)
-  return applyRunPolicyOptions(source, {
+  const env = applyRunPolicyOptions(source, {
     deferModuleMemo: deferredModuleMemoRuns.has(run),
     exactModuleResume: exactModuleResumeRuns.has(run),
     exactModuleInputs: exactModuleInputsByRun.get(run),
@@ -3393,6 +3406,11 @@ function applyRunPolicyEnv(source: NodeJS.ProcessEnv, run: RunState): NodeJS.Pro
     exactModuleWritableOrbs: scope?.writableOrbs,
     exactModuleSynthesisOrbs: scope?.synthesisOrbs,
   })
+  delete env.NOSTRA_MEMORY_MODE
+  if (run.memoryRuntime && run.memoryRuntime.mode !== 'off') {
+    env.NOSTRA_MEMORY_MODE = run.memoryRuntime.mode
+  }
+  return env
 }
 
 const PUBLICATION_SOCKET_MAX_BODY = 64 * 1024
@@ -3421,6 +3439,30 @@ function validSupervisorPublicationRequest(value: unknown): value is SupervisorP
       && (typeof record.executedAgainstDecisionFingerprint !== 'string'
         || !/^sha256:[a-f0-9]{64}$/.test(record.executedAgainstDecisionFingerprint))) return false
   return true
+}
+
+function validMemoryCompileRequest(value: unknown): value is { agentKey: string } {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) return false
+  const record = value as Record<string, unknown>
+  return Object.keys(record).length === 1 && typeof record.agentKey === 'string'
+    && /^(?:[a-z][a-z0-9-]*\/[0-9]{2}_[a-z0-9-]+|master\/synthesizer)$/.test(record.agentKey)
+}
+
+function validMemoryUseRequest(value: unknown): value is { agentKey: string; outputRel: string; use: Record<string, unknown> } {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) return false
+  const record = value as Record<string, unknown>
+  return Object.keys(record).length === 3 && typeof record.agentKey === 'string'
+    && /^(?:[a-z][a-z0-9-]*\/[0-9]{2}_[a-z0-9-]+|master\/synthesizer)$/.test(record.agentKey)
+    && typeof record.outputRel === 'string' && record.outputRel.length <= 500
+    && Boolean(record.use) && typeof record.use === 'object' && !Array.isArray(record.use)
+}
+
+function validMemoryStatusRequest(value: unknown): value is { agentKey: string; outputRel: string } {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) return false
+  const record = value as Record<string, unknown>
+  return Object.keys(record).length === 2 && typeof record.agentKey === 'string'
+    && /^(?:[a-z][a-z0-9-]*\/[0-9]{2}_[a-z0-9-]+|master\/synthesizer)$/.test(record.agentKey)
+    && typeof record.outputRel === 'string' && record.outputRel.length <= 500
 }
 
 export interface SupervisorPublicationSocket {
@@ -3489,10 +3531,11 @@ export async function startSupervisorPublicationSocket(run: RunState): Promise<S
       request.resume()
       return
     }
-    if (request.method !== 'POST' || request.url !== '/publication') {
+    const route = request.url
+    if (request.method !== 'POST' || !['/publication', '/memory/compile', '/memory/use', '/memory/status'].includes(route || '')) {
       response.statusCode = 405
       response.setHeader('Allow', 'POST')
-      response.end(JSON.stringify({ error: 'publication socket accepts POST /publication only' }))
+      response.end(JSON.stringify({ error: 'supervisor socket route is not allowed' }))
       request.resume()
       return
     }
@@ -3522,9 +3565,16 @@ export async function startSupervisorPublicationSocket(run: RunState): Promise<S
       if (rejected) return
       let body: unknown
       try { body = JSON.parse(Buffer.concat(chunks).toString('utf8')) } catch { body = null }
-      if (!validSupervisorPublicationRequest(body)) {
+      const valid = route === '/publication'
+        ? validSupervisorPublicationRequest(body)
+        : route === '/memory/compile'
+          ? validMemoryCompileRequest(body)
+          : route === '/memory/use'
+            ? validMemoryUseRequest(body)
+            : validMemoryStatusRequest(body)
+      if (!valid) {
         response.statusCode = 400
-        response.end(JSON.stringify({ error: 'invalid publication request' }))
+        response.end(JSON.stringify({ error: 'invalid supervisor request' }))
         return
       }
       try { verify() } catch (error: any) {
@@ -3532,13 +3582,29 @@ export async function startSupervisorPublicationSocket(run: RunState): Promise<S
         response.end(JSON.stringify({ error: 'publication transport rejected' }))
         return
       }
-      void queuePublicationIntent(run.runId, token, body).then((result) => {
+      const operation = route === '/publication'
+        ? queuePublicationIntent(run.runId, token, body as SupervisorPublicationRequest)
+        : route === '/memory/compile'
+          ? compileResearchMemoryPacket(run, (body as { agentKey: string }).agentKey)
+          : route === '/memory/use'
+            ? attestResearchMemoryUse(
+              run,
+              (body as { agentKey: string }).agentKey,
+              (body as { outputRel: string }).outputRel,
+              (body as { use: Record<string, unknown> }).use,
+            )
+            : Promise.resolve(researchMemoryTaskStatus(
+                run,
+                (body as { agentKey: string }).agentKey,
+                (body as { outputRel: string }).outputRel,
+              ))
+      void operation.then((result) => {
         if (!response.writableEnded) response.end(JSON.stringify(result))
       }, (error: any) => {
-        run.publicationError = String(error?.message || error).slice(0, 1000)
+        if (route === '/publication') run.publicationError = String(error?.message || error).slice(0, 1000)
         if (!response.writableEnded) {
           response.statusCode = error?.statusCode || 409
-          response.end(JSON.stringify({ error: 'publication request rejected' }))
+          response.end(JSON.stringify({ error: route === '/publication' ? 'publication request rejected' : 'memory request rejected' }))
         }
       })
     })
@@ -5128,6 +5194,9 @@ async function spawnEngine(run: RunState): Promise<void> {
     stopForChangedBinding(beforeArgs)
     return
   }
+  // Freeze and verify memory before any paid provider process exists. In shadow mode an
+  // unavailable snapshot is recorded but baseline execution continues; enforced mode throws here.
+  await prepareResearchMemory(run)
   const adapter = getProviderAdapter(run.provider)
   const publicationSocket = await startSupervisorPublicationSocket(run)
   const publicationBinding = {
@@ -5203,6 +5272,14 @@ async function spawnEngine(run: RunState): Promise<void> {
     emit(run, { type: 'run-error', runId: run.runId, status: 'error', reason: guarded.reason, message: guarded.message, ts: Date.now() })
     finishRun(run, 'error')
     return
+  }
+  // buildLaunch may cold-probe provider binaries. Revalidate the pinned receipt and immutable
+  // per-run projection after that await, immediately before the final synchronous spawn boundary.
+  try {
+    await verifyResearchMemoryBeforeSpawn(run)
+  } catch (error) {
+    releaseProviderLaunchResources(run)
+    throw error
   }
   let child: ResultPromise
   try {
@@ -5336,7 +5413,7 @@ async function spawnEngine(run: RunState): Promise<void> {
     // A clean exact-resume module is not done until its completed module directory is proven on origin/main.
     // Keep the subject/write claims live while this awaits, so no second run can race the terminal commit.
     // Failed/cancelled/truncated children retain their ordinary outcome and do not attempt publication.
-    const childCouldReportDone = childCouldReportDoneOnClose(run, res)
+    let childCouldReportDone = childCouldReportDoneOnClose(run, res)
     if (childCouldReportDone && run.willCommitToMain && run.runRoot) {
       const metrics = await writeAgentMetrics(run)
       if (metrics) {
@@ -5346,6 +5423,14 @@ async function spawnEngine(run: RunState): Promise<void> {
       }
     }
     let publicationDrainError: string | null = null
+    const memoryResult = await finalizeResearchMemory(run, childCouldReportDone)
+    if (childCouldReportDone && !memoryResult.ok) {
+      childCouldReportDone = false
+      publicationDrainError = `memory contract failed: ${memoryResult.error || 'coverage/attestation invalid'}`
+      run.note = publicationDrainError
+      publicationIntentsByRun.delete(run)
+      run.publicationToken = undefined
+    }
     if (childCouldReportDone && (run.publicationRequested || run.willCommitToMain)) {
       try {
         await drainPublicationIntents(run)

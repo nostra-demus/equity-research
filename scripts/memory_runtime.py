@@ -45,6 +45,10 @@ CLASSIFICATIONS = ("public", "internal", "licensed", "confidential", "restricted
 _HASH_RE = re.compile(r"^sha256:[0-9a-f]{64}$")
 _GIT_RE = re.compile(r"^[0-9a-f]{40}(?:[0-9a-f]{24})?$")
 _SAFE_EVENT_RE = re.compile(r"^evt_[0-9a-f-]{36}$")
+_IDENTIFIER_RE = re.compile(
+    r"^(?:issuer:lei:[A-Z0-9]{20}|security:figi:[A-Z0-9]{12}|"
+    r"security:isin:[A-Z]{2}[A-Z0-9]{9}[0-9])$"
+)
 _SAFE_LANES = frozenset(
     {"projection", "packet-cache", "candidates", "resumes", "execution-receipts", "backups"}
 )
@@ -311,23 +315,80 @@ def resolve_identity(
     registry: Mapping[str, Any], *, legal_name: str, venue: str, currency: str,
     ticker: str, identifiers: Sequence[str] = (),
 ) -> dict[str, Any]:
-    """Resolve an exact listing; ticker-only matching is intentionally impossible."""
-    required_ids = {item.strip() for item in identifiers if isinstance(item, str) and item.strip()}
+    """Resolve an existing listing or bind an unambiguous explicit first-run legal tuple."""
+    normalized_name = " ".join(legal_name.split()) if isinstance(legal_name, str) else ""
+    normalized_ticker = ticker.upper() if isinstance(ticker, str) else ""
+    normalized_currency = currency.upper() if isinstance(currency, str) else ""
+    if (
+        not normalized_name or len(normalized_name) > 256
+        or re.fullmatch(r"[A-Z0-9][A-Z0-9.-]{0,31}", normalized_ticker) is None
+        or re.fullmatch(r"[A-Z]{3}", normalized_currency) is None
+    ):
+        raise IdentityResolutionError("identity-unresolved")
+    required_ids = {
+        ":".join(
+            [part.lower() for part in item.strip().split(":")[:-1]]
+            + [item.strip().split(":")[-1].upper()]
+        )
+        for item in identifiers if isinstance(item, str) and item.strip()
+    }
+    if any(_IDENTIFIER_RE.fullmatch(item) is None for item in required_ids):
+        raise IdentityResolutionError("identity-unresolved")
     mic = EXCHANGE_MICS.get(venue)
     if mic is None:
         raise IdentityResolutionError("identity-unresolved")
+    listings = registry.get("listings", [])
+    if not isinstance(listings, list):
+        raise IdentityResolutionError("identity-unresolved")
     matches = [
-        item for item in registry.get("listings", [])
+        item for item in listings
         if isinstance(item, Mapping)
-        and item.get("legal_name_key") == _normal_name(legal_name)
+        and item.get("legal_name_key") == _normal_name(normalized_name)
         and item.get("mic") == mic
-        and item.get("currency") == currency.upper()
-        and item.get("ticker") == ticker.upper()
+        and item.get("currency") == normalized_currency
+        and item.get("ticker") == normalized_ticker
         and required_ids.issubset(set(item.get("identifiers", [])))
     ]
-    if len(matches) != 1:
-        raise IdentityResolutionError("identity-ambiguous" if matches else "identity-unresolved")
-    item = matches[0]
+    if len(matches) > 1:
+        raise IdentityResolutionError("identity-ambiguous")
+    if len(matches) == 1:
+        item = matches[0]
+    else:
+        same_listing = [
+            item for item in listings
+            if isinstance(item, Mapping)
+            and item.get("mic") == mic and item.get("ticker") == normalized_ticker
+        ]
+        security_ids = {item for item in required_ids if item.startswith("security:")}
+        reused_security = [
+            item for item in listings
+            if isinstance(item, Mapping)
+            and security_ids.intersection(set(item.get("identifiers", [])))
+        ]
+        lei_ids = {item for item in required_ids if item.startswith("issuer:lei:")}
+        lei_listings = [
+            item for item in listings
+            if isinstance(item, Mapping)
+            and lei_ids.intersection(set(item.get("identifiers", [])))
+        ]
+        if (
+            same_listing or reused_security
+            or any(item.get("legal_name_key") != _normal_name(normalized_name) for item in lei_listings)
+        ):
+            raise IdentityResolutionError("identity-ambiguous")
+        lei = next((item.removeprefix("issuer:lei:") for item in required_ids if item.startswith("issuer:lei:")), None)
+        item = {
+            "legal_name": normalized_name,
+            "issuer_id": (
+                str(lei_listings[0]["issuer_id"]) if lei_listings
+                else f"issuer:lei:{lei}" if lei
+                else "entity:internal:" + _hash_id("issuer", _normal_name(normalized_name))
+            ),
+            "listing_id": f"security:mic-ticker:{mic}:{normalized_ticker}",
+            "mic": mic,
+            "ticker": normalized_ticker,
+            "currency": normalized_currency,
+        }
     return {
         "legal_name": item["legal_name"],
         "issuer_id": item["issuer_id"],

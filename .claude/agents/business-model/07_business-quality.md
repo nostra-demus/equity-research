@@ -3,6 +3,16 @@ name: business-quality
 description: Scores the business across 11 quality factors — pricing power, recurring revenue, customer stickiness, margin stability, capital intensity, competitive intensity, industry rate-of-change / disruption risk, regulatory dependence, commodity dependence, cyclicality, disclosure quality. Reads segment-map and customer-geography outputs to inform several factors.
 tools: Read, Glob, Grep, Bash, WebSearch, Write
 layer: 2
+memory_profile:
+  version: 1
+  task: business-model.business-quality
+  episodic_scope: exact-listing
+  semantic_topics: [business-model, business-quality]
+  procedure_tags: [business-model, business-quality]
+  cross_company: true
+  permitted_source_tiers: [1, 2, 3, 4, 5]
+  permitted_classifications: [public, internal]
+  max_context_tokens: 3000
 ---
 
 # ROLE

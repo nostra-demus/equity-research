@@ -86,9 +86,12 @@ For each matched file:
    - `emits_signal_evidence` — boolean; default `false` if absent
    - `signal_families` — inline JSON string array; REQUIRED and non-empty when
      `emits_signal_evidence: true`. Ownership is generic frontmatter, never a central module list.
+   - `memory_profile` — the closed profile required by `frameworks/MEMORY_RUNTIME.md` for research
+     analytical agents. Preserve it generically; do not maintain a central memory-agent list.
 
 Keep an in-memory list of discovered agents:
-`{file_path, NN, name, subagent_type, layer, fail_fast, emits_signal_evidence, signal_families}`.
+`{file_path, NN, name, subagent_type, layer, fail_fast, emits_signal_evidence, signal_families,
+memory_profile, agent_key}` where `agent_key` is `<MODULE>/<NN>_<filename-slug>`.
 
 If the glob returns zero matches, STOP this module and report to the caller: "No agents found at `.claude/agents/<MODULE>/[0-9][0-9]_*.md`."
 
@@ -126,7 +129,7 @@ that agent failed rather than trying to extract JSON from the inline markdown re
 
 Self-persistence (A or B) is preferred for scalability: a large run (dozens of agents in one pass) must not depend on the orchestrator capturing every full report inline and re-writing it. Mode C is the always-available fallback. In every mode the saved file is identical in shape and lands at the same path; the module synthesizer still reads sibling output files from disk, and the master synthesizer still reads the completed run folder from disk.
 
-**Resume — skip agents already completed on disk (idempotent re-dispatch).** Before dispatching this layer, run `node scripts/agent-output-validity.mjs "<OUTPUT_PATH>"`. Exit 0 is the **single mechanical authority** to reuse the markdown file: it is a real non-empty file, starts with one top-level `#` header, has no NUL byte or unclosed fenced block, and has no stray `Agent: <name>` confirmation line in its last 20 lines. If it passes, the agent finished in a prior attempt — **REUSE it and do NOT re-dispatch it**. Do not add a subjective second “looks truncated” test at resume time: prose quality is adjudicated by the synthesis, and a hidden judgment here can widen a cockpit-approved exact paid scope after launch. For an emitting agent, reuse additionally requires `<SIGNAL_OUTPUT_PATH>` to exist, be non-empty, parse as a JSON object, carry `schema_version: 1`, and match the agent's frontmatter `name` in `owner_orb`; otherwise re-dispatch it. Dispatch only agents whose required output set is missing or fails those checks. The cockpit imports this same validator when it counts reusable orbs, so “N will run” and the pipeline's skip decision cannot diverge. This makes a module that broke partway through — a crash, a machine restart, a cancelled run — continue from where it stopped instead of redoing every specialist. It is the agent-level twin of `/research:full` step 8's module-level skip ("a module whose `99_*-synthesis.md` is present is reused"), and it applies identically in every swarm (research / screener / commodity) because it is keyed only on the `<RUN_ROOT>/<MODULE>/<NN>_<slug>.md` filename pattern — no agent or module name is ever hardcoded (CLAUDE.md §26).
+**Resume — skip agents already completed on disk (idempotent re-dispatch).** Before dispatching this layer, run `node scripts/agent-output-validity.mjs "<OUTPUT_PATH>"`. Exit 0 is the **single mechanical authority** to reuse the markdown file: it is a real non-empty file, starts with one top-level `#` header, has no NUL byte or unclosed fenced block, and has no stray `Agent: <name>` confirmation line in its last 20 lines. If it passes, the agent finished in a prior attempt — **REUSE it and do NOT re-dispatch it**. Do not add a subjective second “looks truncated” test at resume time: prose quality is adjudicated by the synthesis, and a hidden judgment here can widen a cockpit-approved exact paid scope after launch. For an emitting agent, reuse additionally requires `<SIGNAL_OUTPUT_PATH>` to exist, be non-empty, parse as a JSON object, carry `schema_version: 1`, and match the agent's frontmatter `name` in `owner_orb`; otherwise re-dispatch it. When `NOSTRA_MEMORY_MODE=enforced`, reuse additionally requires `frameworks/MEMORY_RUNTIME.md` Step 4 to return `attested: true` for the exact `agent_key` and run-root-relative output; otherwise re-dispatch it. In `shadow`, record an unattested reuse but do not widen the paid scope. Dispatch only agents whose required output set is missing or fails those checks. The cockpit imports this same validator when it counts reusable orbs, so “N will run” and the pipeline's skip decision cannot diverge. This makes a module that broke partway through — a crash, a machine restart, a cancelled run — continue from where it stopped instead of redoing every specialist. It is the agent-level twin of `/research:full` step 8's module-level skip ("a module whose `99_*-synthesis.md` is present is reused"), and it applies identically in every swarm (research / screener / commodity) because it is keyed only on the `<RUN_ROOT>/<MODULE>/<NN>_<slug>.md` filename pattern — no agent or module name is ever hardcoded (CLAUDE.md §26).
 
 Two invariants keep this safe:
 - **A fresh run is unaffected.** A first run has an empty module folder, so nothing matches and every agent runs. The check bites ONLY on a re-dispatch into an already-populated folder — i.e. a resume.
@@ -135,6 +138,11 @@ Two invariants keep this safe:
 To force a clean re-run of one agent (a deliberate refresh, not a resume), use `/research:rerun <MODULE> <AGENT> <TICKER>` — it dispatches its target agent directly and does NOT pass through this step, so it regenerates unconditionally — or delete that agent's `<OUTPUT_PATH>` before re-launching the module. A reused agent still counts as present for Step 4B verification (its file already passed) and for Step 4C fail-fast (which reads the triage file from disk regardless of whether it was just written or reused).
 
 For every agent in this layer that was NOT reused above, dispatch a Task tool call with:
+
+Before issuing any Task call, follow `frameworks/MEMORY_RUNTIME.md` Step 1 for each non-reused research
+agent. Compile packets before paid dispatch, in parallel where possible. In `enforced`, a compilation
+failure stops that Task before spend. Append the exact rendered packet plus the Step-2 obligations to the
+Task message below. Commodity and screener agents do not use this equity runtime yet.
 
 When `NOSTRA_EXACT_MODULE_RESUME=1` and the non-reused agent is a **specialist** (never the `99`
 synthesis), first clear only that agent's exact
@@ -208,6 +216,13 @@ PY
 The deterministic run-level compiler performs the deeper ownership, provenance, expiry, correlation,
 contradiction and validation-registry checks. This local check only proves the expected sidecar landed
 and is structurally readable.
+
+**2A. Mandatory memory-use verification for research analytical agents.** After the markdown and any
+signal sidecar pass, extract the agent's closed `memory-use-draft/v1` block and follow
+`frameworks/MEMORY_RUNTIME.md` Step 3. Do not save the draft in the run folder. In `enforced`, a missing
+or invalid attestation makes the analytical output invalid and sends it through this step's existing
+retry/quarantine policy; it cannot be counted as a successful orb. In `shadow`, preserve the report and
+record the receipt failure. Audit, parity, memo, and dossier roles never receive or attest memory.
 
 **3. Recovery — do not advance to the next layer until every expected file passes.**
 

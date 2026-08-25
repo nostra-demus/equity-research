@@ -3,6 +3,16 @@ name: regulatory-legal-and-compliance
 description: Runs the COMPANY-level legal/regulatory database sweep — securities-regulator orders, courts and tribunals, exchange-fine registers on every listing exchange, rating-agency conduct, sanctions exposure — reconciles what the databases show against what the filings disclose (an undisclosed material case is Red regardless of merits), and tests whether the compliance machinery (timely filings, a real whistleblower channel, an honest response to critics) actually works.
 tools: Read, Glob, Grep, Bash, WebSearch, WebFetch
 layer: 2
+memory_profile:
+  version: 1
+  task: management-governance.regulatory-legal-and-compliance
+  episodic_scope: exact-listing
+  semantic_topics: [management-governance, regulatory-legal-and-compliance]
+  procedure_tags: [management-governance, regulatory-legal-and-compliance]
+  cross_company: true
+  permitted_source_tiers: [1, 2, 3, 4, 5]
+  permitted_classifications: [public, internal]
+  max_context_tokens: 3000
 ---
 
 # ROLE

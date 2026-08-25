@@ -836,6 +836,13 @@ const ResearchLaunchBody = z.object({
   force: z.boolean().optional(),
   runRoot: z.string().min(1).max(300).optional(),
   decisionFingerprint: z.string().regex(/^sha256:[a-f0-9]{64}$/).optional(),
+  memoryIdentity: z.object({
+    legalName: z.string().trim().min(1).max(256),
+    venue: z.string().trim().min(1).max(80),
+    currency: z.string().regex(/^[A-Z]{3}$/),
+    ticker: z.string().regex(TICKER_RE),
+    identifiers: z.array(z.string().trim().min(1).max(128)).max(16).default([]),
+  }).strict().optional(),
 })
 
 const INB_RE = /^INB-\d{8}-\d{3,}$/
@@ -1323,6 +1330,9 @@ app.post('/api/launch', { config: { rateLimit: { max: 60, timeWindow: '1 minute'
   if (!parsed.success) return reply.code(400).send({ error: 'invalid body', detail: parsed.error.flatten() })
   const { ticker, module, agent, provider, reasoningLevel, model, expectedProfileKey, confirmTicker, runRoot, decisionFingerprint } = parsed.data
   const rkind = parsed.data.kind
+  if (parsed.data.memoryIdentity && parsed.data.memoryIdentity.ticker !== ticker) {
+    return reply.code(400).send({ error: 'memory identity ticker does not match the research subject' })
+  }
   // review (file an outcome review) and track (rebuild the calls dashboard) need no upstream deps and
   // ignore module/agent — they follow the dep-free `full` admission path. review defaults to ad-hoc.
   const window = rkind === 'review' ? (parsed.data.window ?? 'ad-hoc') : undefined
@@ -1360,6 +1370,7 @@ app.post('/api/launch', { config: { rateLimit: { max: 60, timeWindow: '1 minute'
   try {
     return await withSubjectLock(subjectMutationLockKey(RESEARCH_SWARM_ID, ticker), async () => {
       const out = await launch({ kind: rkind, ticker, module, agent, window, provider, reasoningLevel, model, expectedProfileKey, user, userVia, force: parsed.data.force,
+        memoryIdentity: parsed.data.memoryIdentity,
         ...(exactBinding ? { ...exactBinding, decisionRunRoot: exactBinding.runRoot } : {}) })
       return exactBinding
         ? { ...out, preflight: { ...out.preflight, exactDecisionBinding: exactDecisionLaunchReceipt(exactBinding) } }
