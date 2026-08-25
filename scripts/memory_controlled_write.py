@@ -1185,6 +1185,8 @@ class ControlledWriter:
         review_authorizer: Authorizer | None = None,
         promotion_manifest_verifier: Callable[[Mapping[str, Any], object | None], bool] | None = None,
         promotion_manifest_verifier_id: str | None = None,
+        quarantine_authorizer: Authorizer | None = None,
+        quarantine_authorizer_id: str | None = None,
         authorize_retirement: Authorizer | None = None,
         retirement_proof_verifier: RetirementProofVerifier | None = None,
         retirement_proof_verifier_id: str | None = None,
@@ -1231,6 +1233,16 @@ class ControlledWriter:
             or _VERIFIER_ID_RE.fullmatch(promotion_manifest_verifier_id) is None
         ):
             raise ControlledWriteCorruption("promotion manifest verifier configuration is invalid")
+        if (quarantine_authorizer is None) != (quarantine_authorizer_id is None):
+            raise ControlledWriteCorruption(
+                "quarantine authorizer and identity must be configured together"
+            )
+        if quarantine_authorizer is not None and (
+            not callable(quarantine_authorizer)
+            or not isinstance(quarantine_authorizer_id, str)
+            or _VERIFIER_ID_RE.fullmatch(quarantine_authorizer_id) is None
+        ):
+            raise ControlledWriteCorruption("quarantine authorizer configuration is invalid")
         retirement_options = (
             authorize_retirement,
             retirement_proof_verifier,
@@ -1313,6 +1325,8 @@ class ControlledWriter:
         }
         if promotion_manifest_verifier_id is not None:
             configuration["promotion_manifest_verifier_id"] = promotion_manifest_verifier_id
+        if quarantine_authorizer_id is not None:
+            configuration["quarantine_authorizer_id"] = quarantine_authorizer_id
         helper = Path(append_script) if append_script else Path(__file__).with_name("append-ndjson.sh")
         self._state = _PrivateState(
             state_root,
@@ -1335,6 +1349,8 @@ class ControlledWriter:
         self._authoritative_event_resolver_id = authoritative_event_resolver_id
         self._promotion_manifest_verifier = promotion_manifest_verifier
         self._promotion_manifest_verifier_id = promotion_manifest_verifier_id
+        self._quarantine_authorizer = quarantine_authorizer
+        self._quarantine_authorizer_id = quarantine_authorizer_id
         self._clock = clock
         self._fault_injector = fault_injector
         self._canonical_sink.bind_coordinator(
@@ -1404,6 +1420,18 @@ class ControlledWriter:
             return False
         try:
             return self._review_authorizer(request, principal) is True
+        except Exception:
+            return False
+
+    def _quarantine_authorized(
+        self, request: Mapping[str, Any], principal: object | None
+    ) -> bool:
+        if request.get("operation") != "playbook-quarantine":
+            return True
+        if self._quarantine_authorizer is None:
+            return False
+        try:
+            return self._quarantine_authorizer(request, principal) is True
         except Exception:
             return False
 
@@ -2406,6 +2434,8 @@ class ControlledWriter:
             "operation": operation if operation in {
                 "claim-append", "claim-correction", "feedback-promotion", "feedback-correction",
                 "semantic-promotion", "semantic-supersession",
+                "playbook-promotion", "playbook-supersession", "playbook-quarantine",
+                "playbook-deprecation",
             } else "unknown",
             "disposition": disposition,
             "route": route,
@@ -3265,7 +3295,10 @@ class ControlledWriter:
         event: Mapping[str, Any] | None = None
         route = "unknown"
         local_errors = validate_write_request(request)
-        if request.get("operation") in {"semantic-promotion", "semantic-supersession"}:
+        if request.get("operation") in {
+            "semantic-promotion", "semantic-supersession", "playbook-promotion",
+            "playbook-supersession", "playbook-deprecation",
+        }:
             try:
                 manifest = request_promotion_manifest(request)
                 verified = (
@@ -3287,8 +3320,10 @@ class ControlledWriter:
 
         # Both gates run before state, coordinator, sink, or store access. A denial is
         # deliberately ephemeral and returns a non-authoritative genesis descriptor.
-        if not self._authorized(request, principal) or not self._review_authorized(
-            request, principal
+        if (
+            not self._authorized(request, principal)
+            or not self._review_authorized(request, principal)
+            or not self._quarantine_authorized(request, principal)
         ):
             return self._denied_result(
                 request,

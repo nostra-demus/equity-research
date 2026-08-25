@@ -176,3 +176,44 @@ Active semantics have only two effects: `current-check-required` and
 `reviewed-negative-policy`. Exact-issuer required checks are mandatory packet items; if they cannot fit
 or the provider lacks authority, compilation stops before dispatch. Expired, quarantined, superseded,
 future, inapplicable, or unauthorized lessons are not rendered.
+
+## 7. Procedural candidate, execution, and retirement lane
+
+`scripts/memory_procedural_cli.py` is the governed operator surface for playbooks. Procedure content is
+kept in owner-only policy-partitioned state outside Git. Git stores only signed activation commitments
+and prompt authority references; a candidate remains inert until the exact commitment PR is merged and
+the controlled writer accepts the corresponding activation request.
+
+- `seed-initial` creates four inert candidates: exact-listing prior-miss recheck, governance dossier
+  delta refresh, filing-versus-vendor reconciliation, and calibration leading-error defense.
+- `review` creates a protocol-separated signed approval over the exact candidate and replay-case hash.
+  Each reviewer uses its own trust-listed key. `evaluate` verifies exactly three independent evidence,
+  applicability, and security attestations before it records a passing evaluation. A
+  mechanical playbook must pass its origin, two held-out cases, and its declared non-applicable
+  counterexample. Cross-company playbooks need applicable cases from at least two issuers. Citation,
+  qualifier, temporal, abstention, serious-error, metric, and security regressions fail promotion.
+- `open-promotion-pr` creates a `codex/memory-promotion-*` PR. It adds the signed content-free
+  commitment and an ID/version-only `playbook_refs` entry to each applicable analytical agent. It never
+  merges and cannot push to `main`.
+- `activation-request` verifies the signature, exact merged commitment bytes, and ancestry on
+  `origin/main`, then emits a closed controlled-writer request. Only a current, non-superseded
+  `playbook.activated` event can enter a packet.
+- `execution-receipt` binds every ordered step, input, output, current evidence, deviation, incident,
+  packet/query/projection commitment, and the canonical playbook hash verified both before and after
+  execution. `verify-execution` fails if the playbook changed or left active status during the task.
+- `quarantine-request` converts one policy leak, stale-fact use, prompt-injection incident, or serious
+  evidence error into an immediate no-PR status transition. The controlled writer additionally requires
+  the dedicated emergency-quarantine authority.
+- `open-deprecation-pr` is required after two ordinary failed, deviated, or abstained executions for one
+  exact playbook version. It removes prompt authority only through the reviewed PR. `status-request`
+  verifies that merged commitment before asking the controlled writer to deprecate the version.
+
+Specificity is issuer, jurisdiction, sector, then global. Only the highest specificity for a procedure
+key is rendered. Equally specific conflicting active versions cause compilation to abstain. Required
+playbooks are mandatory packet items and cannot be hidden by truncation or provider omission.
+
+Run `python3 scripts/memory_playbook_drift.py --root .` for the repository doctrine gate. In an
+operational environment also pass `--projection`, `--projection-digest`, and the frozen `--as-of` time.
+The gate validates profile coverage, memory-isolated agents, active ID/version references, stale
+references, exact duplicated step text, and claims that memory can serve as current evidence or create
+a positive rating/confidence lift.

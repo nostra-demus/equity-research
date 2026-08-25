@@ -253,6 +253,8 @@ def _check_events(events: Sequence[dict]) -> None:
                     if event["event_type"] != target_event["event_type"] and transition not in {
                         ("claim.corrected", "claim.asserted"),
                         ("feedback.corrected", "feedback.reviewed"),
+                        ("playbook.status-changed", "playbook.activated"),
+                        ("playbook.activated", "playbook.status-changed"),
                     }:
                         errors.append(
                             f"{event_id}: supersedes target {target} is outside the allowlisted typed transition"
