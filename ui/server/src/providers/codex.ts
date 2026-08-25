@@ -306,8 +306,11 @@ export function clearCodexCatalogueReceiptForRefresh(home: string): void {
   // cache. Anything non-regular fails closed instead of being followed or recursively removed.
   const requestedRoot = path.resolve(home)
   let requestedStat: fs.Stats
-  try { requestedStat = fs.lstatSync(requestedRoot) } catch {
-    throw new Error('Codex isolated catalogue home is missing.')
+  try { requestedStat = fs.lstatSync(requestedRoot) } catch (error: any) {
+    if (error?.code === 'ENOENT') {
+      throw new Error('Codex isolated catalogue home is missing.')
+    }
+    throw new Error('Codex isolated catalogue home could not be inspected.')
   }
   if (!requestedStat.isDirectory() || requestedStat.isSymbolicLink()) {
     throw new Error('Codex isolated catalogue home changed or traverses a symlink.')
