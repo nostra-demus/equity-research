@@ -162,6 +162,25 @@ await check('buildThemeBrief: model "off" returns deterministic, then serves the
   assert.equal(second.generated_at, first.generated_at, 'not regenerated')
 })
 
+await check('buildThemeBrief rejects a missing endpoint or model before provider accounting', async () => {
+  for (const missing of ['base', 'model'] as const) {
+    resetBudgetMemory(); resetCooldownMemory(); resetSharedLimiters()
+    const dir = tmpState()
+    let calls = 0
+    const cfg: BriefConfig = {
+      ...GROQ_CFG,
+      ...(missing === 'base' ? { groqBaseUrl: undefined } : { groqModel: undefined }),
+    }
+    const out = await buildThemeBrief(
+      theme({ theme_id: `THM-missing-${missing}` }), cfg, dir,
+      (async () => { calls++; throw new Error('must not fetch') }) as typeof fetch,
+    )
+    assert.equal(out.generation, 'deterministic')
+    assert.equal(calls, 0)
+    assert.equal(fs.existsSync(path.join(dir, 'groq-budget.json')), false)
+  }
+})
+
 // ---- a changed TOP-SCORED headline busts the signature; steady low-score flow does not ----
 await check('buildThemeBrief: a new top-scored headline changes the signature → fresh brief', async () => {
   const dir = tmpState()
@@ -303,7 +322,7 @@ await check('buildThemeBrief: model HTTP error degrades to deterministic + a not
   const dir = tmpState()
   const cfg = { ...GROQ_CFG, groqDailyReqCap: 10, groqDailyTokenCap: 10_000, llmCooldownMs: 60_000, llmCooldownMaxMs: 60_000 }
   let calls = 0
-  const limited = (async () => { calls++; return { ok: false, status: 429, json: async () => ({}) } }) as unknown as typeof fetch
+  const limited = (async () => { calls++; return new Response('{}', { status: 429 }) }) as typeof fetch
   const out = await buildThemeBrief(theme(), cfg, dir, limited)
   assert.equal(out.generation, 'deterministic')
   assert.ok(out.note && /model/.test(out.note), 'explains the degrade')
@@ -347,8 +366,8 @@ await check('buildThemeBrief: request errors use an exact workload-only Retry-Af
   const started = Date.now()
   const requestError = (async () => {
     calls++
-    return { ok: false, status: 400, headers: new Headers({ 'retry-after': '7' }), json: async () => ({ secret: 'must-not-surface' }) }
-  }) as unknown as typeof fetch
+    return new Response(JSON.stringify({ secret: 'must-not-surface' }), { status: 400, headers: { 'retry-after': '7' } })
+  }) as typeof fetch
   await buildThemeBrief(theme({ theme_id: 'THM-brief-request' }), cfg, dir, requestError)
   const scopedUntil = readCooldownUntil(dir, 'theme-brief:groq')
   assert.ok(scopedUntil >= started + 7_000 && scopedUntil <= Date.now() + 7_100, 'the workload hold follows the provider clock without exponential widening')
@@ -364,8 +383,8 @@ await check('buildThemeBrief: a 503 Retry-After is exact and shared across Groq 
   const started = Date.now()
   const outage = (async () => {
     calls++
-    return { ok: false, status: 503, headers: new Headers({ 'retry-after': '9' }), json: async () => ({ secret: 'must-not-surface' }) }
-  }) as unknown as typeof fetch
+    return new Response(JSON.stringify({ secret: 'must-not-surface' }), { status: 503, headers: { 'retry-after': '9' } })
+  }) as typeof fetch
   await buildThemeBrief(theme({ theme_id: 'THM-brief-outage' }), GROQ_CFG, dir, outage)
   const sharedUntil = readCooldownUntil(dir, 'groq')
   assert.ok(sharedUntil >= started + 9_000 && sharedUntil <= Date.now() + 9_100, 'the shared outage hold follows Retry-After exactly')

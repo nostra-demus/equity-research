@@ -297,7 +297,7 @@ async function callGroq(cfg: BriefConfig, user: string, fetchFn: typeof fetch): 
   const rate = parseRate(res)
   if (!res.ok) {
     // Read only for in-memory model/endpoint evidence. Raw provider text is never returned or persisted.
-    const rawBody = typeof res.text === 'function' ? await res.text().catch(() => '') : ''
+    const rawBody = await res.text().catch(() => '')
     const failure = honorProviderRetryAfter(
       classifyProviderHttpFailure(res.status, rawBody),
       rate.retryAfterMs,
@@ -315,6 +315,7 @@ async function callGroq(cfg: BriefConfig, user: string, fetchFn: typeof fetch): 
  *  too short. Never throws. Provider failures arm the shared cooldown; this non-essential read never
  *  exhausts the shared daily ledger, especially not on a transient per-minute 429. */
 async function tryGroqBrief(theme: Theme, cfg: BriefConfig, stateDir: string, fetchFn: typeof fetch): Promise<string | null> {
+  if (!cfg.groqApiKey || !cfg.groqBaseUrl || !cfg.groqModel) return null
   const now = Date.now()
   const identity = providerRequestIdentity({
     providerId: 'groq', baseUrl: cfg.groqBaseUrl || '', model: cfg.groqModel || '', apiKey: cfg.groqApiKey,
