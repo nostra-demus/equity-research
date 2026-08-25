@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-08-25T14:03:20Z",
+  "generated_at": "2026-08-25T14:10:26Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260825-1817",
+      "headline": "KWUNGS AROMA (01925): Profit warning",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0825/2026082501917.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-25T13:53:00Z",
+      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
+      "prelim_note": "Profit warning indicates a material miss in earnings expectations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Profit warning indicates a material miss in earnings expectations.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "guidance_change",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Kwungs Aroma",
+          "ticker": "01925",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260825-1811",
       "headline": "Sadbhav Engineering Ltd: Please find enclosed Deed of accession to Master Restructuring Agreement executed on August 25, 2026",
@@ -1918,60 +1967,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260825-802",
-      "headline": "KKR Acquires Leading Japanese Beauty Platform Ci FLAVORS",
-      "headline_en": null,
-      "url": "http://www.businesswire.com/news/home/20260824338897/en/KKR-Acquires-Leading-Japanese-Beauty-Platform-Ci-FLAVORS/?feedref=JjAwJuNHiystnCoBq_hl-Rc4vIAVcHHkbDcwJimU8QtrtlakeQ9hNboBqTAWIjTge3KWq9s9jif-UkBjBsFRyYAbRTSLTc1mgvhPlnaBA55M-oupQnbXnhKsYk8RmHF_kAy2gZikaX3QWV6xOvgFlA==",
-      "source_name": "Business Wire — Merger/Acquisition News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-08-25T04:03:00Z",
-      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
-      "prelim_note": "KKR acquires Ci FLAVORS, a named Japanese beauty platform, a confirmed M&A deal with a leading acquirer.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "KKR acquires Ci FLAVORS, a named Japanese beauty platform, a confirmed M&A deal with a leading acquirer.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 3,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "company",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "KKR",
-          "ticker": "KKR",
-          "listing_country": "US"
-        },
-        {
-          "name": "Ci FLAVORS",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -80431,78 +80426,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-c965aee2d06a",
-      "idea_version": "IDEAV-3f87f0dae61817dd",
-      "idea_version_started_at": "2026-08-24T09:24:19Z",
-      "ticker": "1831",
-      "company": "SHIFANG HLDG",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company's shares have been halted from trading, indicating significant operational issues.",
-      "why_now": "The trading halt notice was issued on August 24, 2026.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-d15287d05a24"
-      ],
-      "primary_source_event_id": "EVT-d15287d05a24",
-      "source_headlines": [
-        "SHIFANG HLDG (01831): EXCHANGE NOTICE - TRADING HALT"
-      ],
-      "source_headline": "SHIFANG HLDG (01831): EXCHANGE NOTICE - TRADING HALT",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0824/2026082400281.htm",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-24T02:09:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-24T09:24:19Z",
-      "updated_at": "2026-08-24T09:24:19Z",
-      "decay_at": "2026-08-25T14:09:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-f35e5ebaba95",
       "idea_version": "IDEAV-9ea68c94d1a6172e",
       "idea_version_started_at": "2026-08-24T09:24:19Z",
@@ -81989,6 +81912,78 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-c965aee2d06a",
+      "idea_version": "IDEAV-3f87f0dae61817dd",
+      "idea_version_started_at": "2026-08-24T09:24:19Z",
+      "ticker": "1831",
+      "company": "SHIFANG HLDG",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company's shares have been halted from trading, indicating significant operational issues.",
+      "why_now": "The trading halt notice was issued on August 24, 2026.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "price and market expectations",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "unknown",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-d15287d05a24"
+      ],
+      "primary_source_event_id": "EVT-d15287d05a24",
+      "source_headlines": [
+        "SHIFANG HLDG (01831): EXCHANGE NOTICE - TRADING HALT"
+      ],
+      "source_headline": "SHIFANG HLDG (01831): EXCHANGE NOTICE - TRADING HALT",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0824/2026082400281.htm",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-24T02:09:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-24T09:24:19Z",
+      "updated_at": "2026-08-24T09:24:19Z",
+      "decay_at": "2026-08-25T14:09:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-2e725375ef3a",
       "idea_version": "IDEAV-8cc2ddb3ec0a22da",
       "idea_version_started_at": "2026-08-23T23:13:49Z",
@@ -82718,8 +82713,8 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 98,
-    "shown_count": 98,
+    "total_count": 99,
+    "shown_count": 99,
     "hidden_count": 0,
     "side_counts": {
       "long": {
@@ -82728,8 +82723,8 @@
         "hidden_count": 0
       },
       "short": {
-        "total_count": 58,
-        "shown_count": 58,
+        "total_count": 59,
+        "shown_count": 59,
         "hidden_count": 0
       }
     },
@@ -82749,6 +82744,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-c965aee2d06a",
+        "idea_version": "IDEAV-3f87f0dae61817dd",
+        "idea_version_started_at": "2026-08-24T09:24:19Z",
+        "ticker": "1831",
+        "company": "SHIFANG HLDG",
+        "exchange": "HKEX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company's shares have been halted from trading, indicating significant operational issues.",
+        "why_now": "The trading halt notice was issued on August 24, 2026.",
+        "conviction": 55,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "price and market expectations",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "unknown",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-d15287d05a24"
+        ],
+        "primary_source_event_id": "EVT-d15287d05a24",
+        "source_headlines": [
+          "SHIFANG HLDG (01831): EXCHANGE NOTICE - TRADING HALT"
+        ],
+        "source_headline": "SHIFANG HLDG (01831): EXCHANGE NOTICE - TRADING HALT",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0824/2026082400281.htm",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-24T02:09:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-24T09:24:19Z",
+        "updated_at": "2026-08-24T09:24:19Z",
+        "decay_at": "2026-08-25T14:09:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-25T14:09:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-14770c0627c1",
         "idea_version": "IDEAV-35c8d2ad8208e5f3",
@@ -90004,7 +90074,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 145,
-    "live_count": 46,
+    "live_count": 45,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -90023,9 +90093,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1691953,
-    "news_picked_today": 3283,
-    "news_dropped_today": 11177
+    "news_seen_today": 1727194,
+    "news_picked_today": 3305,
+    "news_dropped_today": 11191
   },
   "book_momentum": {
     "live_count": 8,
