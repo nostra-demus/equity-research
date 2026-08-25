@@ -1115,9 +1115,14 @@ export interface TierDiagnostics {
   retryScope?: 'shared' | 'triage'
   nextEligibleAt?: string
   consecutiveFailures?: number
-  // the provider is rejecting this tier's CREDENTIAL (repeated 401/402/403/404) — waiting cannot fix it
+  // rolling-deploy compatibility for legacy, un-fingerprinted provider-access markers
   credentialRejected?: boolean
   keyEnvVar?: string // the env-var NAME holding that credential (never the value)
+  quarantined?: boolean // standing key/account/model/config fault; no retry timer can repair it
+  quarantineReason?: string
+  quarantineScope?: 'provider' | 'workload'
+  quarantinedAt?: string
+  quarantineObservations?: number
   disabledReason?: string // actionable explanation for an optional tier shown while disabled
   failingForMs?: number // how long the current unbroken failure streak has run (the backoff window pins flat and stops telling you)
   lastFailureMs?: number // how long the last failing call ran — at the deadline means WE cut it off
@@ -1290,6 +1295,7 @@ export interface NewsDiagnostics {
     unavailableTiers?: string[]
     pacedTiers?: string[]
     needsCredentialTiers?: string[] // optional while an older engine is still serving
+    quarantinedTiers?: string[] // optional while an older engine is still serving
   }
 }
 
