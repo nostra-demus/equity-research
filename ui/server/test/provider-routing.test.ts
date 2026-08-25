@@ -269,7 +269,9 @@ check('archive service mirrors and safely prunes pipeline telemetry under the fi
   const script = fs.readFileSync(path.resolve(here, '../../..', 'scripts/ops/news-archive.sh'), 'utf8')
   assert.match(script, /\*_pipeline\.ndjson/)
   assert.match(script, /-name '\*_pipeline\.ndjson'/)
-  assert.match(script, /stat -f%z/)
+  assert.match(script, /cmp -s "\$f" "\$dest"/)
+  assert.match(script, /news-queue-snapshot\.mjs/)
+  assert.match(script, /news-queue-latest\.sqlite\.gz/)
   assert.match(script, /NEWS_LOCAL_RETENTION_DAYS:-30/)
 })
 

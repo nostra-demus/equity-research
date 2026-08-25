@@ -162,6 +162,12 @@ for ag in com.nostradamus.deploy com.nostradamus.news-archive; do
     || { launchctl bootstrap "gui/$UID_NUM" "$AGENTS_DIR/$ag.plist" 2>/dev/null && log "RECOVERED $ag (was booted out)"; }
 done
 
+QUEUE_ARCHIVE_FAILURE="$REPO/ui/server/.state/news-archive.failed"
+if [ -s "$QUEUE_ARCHIVE_FAILURE" ]; then
+  connector_note_hourly news-archive-failed \
+    "NEWS ARCHIVE failed — canonical SQLite queue does not have both current Drive restore points"
+fi
+
 # Reconcile the complete connector scheduler, not merely an already-installed process.  The independent
 # supervisor owns the fail-closed chain role -> stable pool identity -> plist contract -> launchd -> fresh
 # post-activation heartbeat.  It takes the deploy lease first and then calls the exact connector-only

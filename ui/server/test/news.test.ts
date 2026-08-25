@@ -2836,7 +2836,7 @@ await check('feed-pending rows are exempt from unscored expiry and pending journ
   assert.equal(expired.live[0].deferred_at, '2026-08-19T00:00:00Z', 'the original residence clock remains auditable')
 })
 
-await check('saveDeferred prioritizes scored pending recovery inside the bounded active work window', () => {
+await check('saveDeferred prioritizes scored recovery without losing the row beyond the hot file window', () => {
   const state = tmp()
   const raw: NewsItem[] = Array.from({ length: 5_000 }, (_, i) => ({
     event_id: `EVT-raw-cap-${i}`, headline: `Raw backlog row ${i} long enough for validation`,
@@ -2846,9 +2846,11 @@ await check('saveDeferred prioritizes scored pending recovery inside the bounded
   const pending = exactPending('EVT-pending-at-tail', { state: 'cap' })
   assert.equal(saveDeferred(state, [...raw, pending], () => {}, 5_000), true)
   const saved = loadDeferred(state)
-  assert.equal(saved.length, 5_000)
+  assert.equal(saved.length, 5_001, 'SQLite keeps the complete queue; the cap bounds only the compatibility hot file')
   assert.equal(saved[0].event_id, pending.event_id)
-  assert.equal(saved.some((row) => row.event_id === raw[raw.length - 1].event_id), false)
+  assert.equal(saved.some((row) => row.event_id === raw[raw.length - 1].event_id), true)
+  const hotProjection = JSON.parse(fs.readFileSync(path.join(state, 'news-deferred.json'), 'utf8'))
+  assert.equal((Array.isArray(hotProjection) ? hotProjection : hotProjection.items).length, 5_000)
 })
 
 await check('feed-recovery backlog uses a v2 wrapper that makes an older worker pause safely', () => {
@@ -5929,6 +5931,35 @@ await check('runIngestCycle: a backlog that waited past the age bound is retired
   assert.equal(s.carryover, 0, 'a retired item never competes for a triage slot again')
   assert.match(String(s.note), /RETIRED unscored/, 'the loss is named in the note, never silent')
   assert.equal(loadDeferred(state).length, 0, 'the retired backlog is gone from disk — it cannot regrow the wall')
+})
+
+await check('an expired retirement cannot hide another active row when empty-queue cleanup fails', async () => {
+  resetSharedLimiters(); resetBudgetMemory(); resetCooldownMemory()
+  const root = tmp(), state = tmp()
+  const expired = queueItem({ event_id: 'EVT-expired-among-seen' })
+  expired.deferred_at = '2026-08-13T00:00:00Z'
+  const seenActive = queueItem({ event_id: 'EVT-seen-still-active' })
+  seenActive.deferred_at = '2026-08-16T09:30:00Z'
+  assert.equal(saveDeferred(state, [expired, seenActive]), true)
+  fs.writeFileSync(path.join(state, 'news-seen.json'), `${JSON.stringify({
+    [seenActive.event_id]: { score: 80, ts: Date.now() },
+  })}\n`)
+
+  const summary = await runIngestCycle({
+    repoRoot: root,
+    stateDir: state,
+    skipFetch: true,
+    now: () => new Date('2026-08-16T10:00:00Z'),
+    fetchFn: (async () => { throw new Error('no network expected') }) as unknown as typeof fetch,
+    sleep: noSleep,
+    config: { ...noProviderConfig, groqApiKey: 'test-key' },
+    saveDeferredFn: () => false,
+  })
+  assert.equal(summary.backlog, 1, `the post-write SQLite queue, not partial retirement, owns the gauge: ${JSON.stringify({ summary, active: loadDeferred(state).map((row) => row.event_id) })}`)
+  assert.equal(summary.backlog_expired, 1, 'a durable retirement is counted even while unrelated work remains')
+  assert.match(String(summary.note), /RETIRED unscored/)
+  assert.equal(summary.deferred_write_failed, true)
+  assert.deepEqual(loadDeferred(state).map((row) => row.event_id), [seenActive.event_id])
 })
 
 await check('backlogDurablyCleared: either backlog write succeeding is enough — the LAST write is not the only one that counts', () => {
