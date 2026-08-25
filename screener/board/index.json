@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-25T06:23:19Z",
+  "generated_at": "2026-08-25T06:32:58Z",
   "inbox": [
     {
       "inbox_id": "INB-20260825-1448",
@@ -46,6 +46,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260825-1504",
+      "headline": "BBL: Half Yearly Report and Accounts [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.BBL?key=2924-03125732-2A1691866",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-25T05:24:11Z",
+      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
+      "prelim_note": "Half-yearly financial results are a primary source of performance data.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Half-yearly financial results are a primary source of performance data.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BBL",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1940,50 +1989,6 @@
         "regulatory"
       ],
       "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260825-945",
-      "headline": "+++ Iran-Krieg +++: USA streichen Syrien von Liste der Terrorunterstützer",
-      "headline_en": "+++ Iran war +++: USA removes Syria from list of state sponsors of terrorism",
-      "url": "https://www.handelsblatt.com/politik/international/iran-krieg-usa-streichen-syrien-von-liste-der-terrorunterstuetzer/100136895.html",
-      "source_name": "Handelsblatt",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-25T04:21:25Z",
-      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
-      "prelim_note": "US removes Syria from state sponsors of terrorism list during Iran war, a geopolitical escalation signal affecting sanctions and markets.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "US removes Syria from state sponsors of terrorism list during Iran war, a geopolitical escalation signal affecting sanctions and markets.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector",
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
@@ -88731,9 +88736,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 523813,
-    "news_picked_today": 2495,
-    "news_dropped_today": 9793
+    "news_seen_today": 537947,
+    "news_picked_today": 2534,
+    "news_dropped_today": 9970
   },
   "book_momentum": {
     "live_count": 8,
