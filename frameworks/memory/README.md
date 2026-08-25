@@ -13,7 +13,7 @@ production dispatch stays off until its shadow and enforcement gates pass.
   non-content tombstones.
 - Semantic validation for IDs, bitemporal clocks, hashes, policies, evidence, and supersession.
 - Lossless deterministic adapters for the current decision, review, correction, commodity, screener,
-  idea, thesis, and conviction stores.
+  idea, thesis, conviction, and structured calibration-summary stores.
 - Deterministic loading of clean, tracked Git-lane events under `memory/events/`; dirty, untracked,
   symlinked, or policy-ineligible files fail closed.
 - A deterministic SQLite + FTS5 projection with explicit event, identity, claim, relationship,
@@ -51,6 +51,9 @@ production dispatch stays off until its shadow and enforcement gates pass.
 - A frozen 40-case three-layer acceptance corpus covering prior misses, corrections, semantic
   applicability, cross-company isolation, playbook match/conflict, qualifier survival, and
   abstention. It supplements rather than replaces the pinned 63-case Phase 0 benchmark.
+- A production projection manager that binds a clean SQLite rebuild to an exact repository SHA,
+  conservative issuer/listing registry, controlled-writer owner, and owner-signed external
+  checkpoint; exact provider-policy narrowing; and registry-backed transitive runtime purge hooks.
 
 These are bounded reference components, not a production deployment. The Phase 3 synthetic fixture
 gate passes, but the exact 63-case Phase 0 production-candidate benchmark has not been run. Phase 4
@@ -151,6 +154,18 @@ PYTHONPATH=scripts python3 scripts/test_memory_store_preflight.py
 PYTHONPATH=scripts python3 scripts/test_memory_store_orphan_recovery.py
 PYTHONPATH=scripts python3 scripts/test_memory_operations.py
 PYTHONPATH=scripts python3 scripts/test_memory_three_layer_contract.py
+PYTHONPATH=scripts python3 scripts/test_memory_runtime.py
+
+# Prepare the production projection. The Ed25519 seed and public key are raw 32-byte,
+# owner-only files; the signed checkpoint must live outside the mutable state root.
+python3 scripts/memory_runtime_cli.py prepare \
+  --root . --state-root <private-runtime-state> \
+  --checkpoint <external-checkpoint.json> \
+  --writer-owner <controlled-writer-owner.json> \
+  --writer-head <controlled-writer-head.json> \
+  --private-key <owner-only-ed25519-seed> \
+  --public-key <owner-only-ed25519-public-key> \
+  --key-id research-memory-checkpoint-v1
 
 # Install the exact cryptographic runtime and prove exact-byte resolution twice.
 python3 -m pip install --require-hashes -r scripts/requirements-memory.txt

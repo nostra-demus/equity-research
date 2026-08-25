@@ -86,6 +86,11 @@ def _fixture_repository(root: Path) -> None:
         },
         "errata": [],
     })
+    _write_json(root, "analyses/performance/2026-01-05_calibration_summary.json", {
+        "schema_version": "1.0", "generated_at": "2026-01-05", "scope": "all",
+        "n_decisions": 2, "n_reviews": 1, "n_resolved_forecasts": 0,
+        "calibration_by_module": {}, "calibration_by_forecast_type": {},
+    })
 
     _write_json(root, "commodity/runs/GOLD/decision_record.json", {
         "swarm": "commodity", "commodity": "GOLD", "decision_date": "2026-02-01",
@@ -180,6 +185,7 @@ class MemoryAdapterTests(unittest.TestCase):
                 "equity_decision_correction": 1,
                 "equity_decision_record": 2,
                 "equity_decision_review": 1,
+                "equity_calibration_summary": 1,
                 "commodity_decision_record": 1,
                 "commodity_signal_evidence": 1,
                 "screener_event": 2,

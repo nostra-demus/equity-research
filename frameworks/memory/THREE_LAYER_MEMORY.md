@@ -187,3 +187,29 @@ with zero protected-path intrusion and zero post-cutoff facts. `three-layer-benc
 40 additional cases. Provider parity, live paired-shadow, cost/latency, long-term calibration, purge,
 restore, and operational-readiness gates are defined by the delivery plan and remain blocking until
 measured.
+
+## Production projection and lifecycle implementation
+
+`scripts/memory_runtime.py` is the production read boundary. It reuses the reviewed repository
+loader and deterministic SQLite projection; it is not a second canonical store. It accepts a
+production projection only when the SQLite logical digest, current repository SHA, conservative
+identity-registry digest, controlled-writer owner commitment, and an Ed25519 checkpoint held outside
+writer-mutable state all agree. The checkpoint also commits the controlled head, which is reread
+after preparation so a concurrent write cannot enter the frozen snapshot halfway through. Otherwise
+it makes one clean rebuild attempt, signs and rereads the
+new external checkpoint, and fails before dispatch if that cannot be proved. Runtime directories,
+key files, owner records, checkpoints, and derived files are owner-only and no-follow.
+
+The identity backfill reads only structured decision fields. Legal name, exact venue-to-MIC mapping,
+currency, ticker, and any available LEI/FIGI/ISIN must agree. Unknown prose venues and listing
+collisions remain excluded with diagnostics; ticker-only lookup is not exposed. The legacy adapter
+now includes each structured `analyses/performance/*_calibration_summary.json` byte-for-byte as an
+`equity_calibration_summary` episode.
+
+Provider authorization validates `memory-provider-policy/v1`, requires one exact
+provider/model/service match, and permits only a narrower classification/source-tier scope. Failure
+codes reveal no protected record IDs or hidden counts. `RuntimeLifecycle` registers every runtime
+derivative under an allowlisted lane and supplies the purge/absence hooks used by the existing
+policy-partitioned store. A retirement deletes every registered projection, packet-cache, candidate,
+resume, execution-receipt, and runtime-backup path and permanently blocks re-registration for that
+event. Content-free path commitments may remain in the tombstone.
