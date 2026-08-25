@@ -139,7 +139,7 @@ case "${0##*/}" in
       http://127.0.0.1:8787/)
         # Current Vite names the entry `main-*`. The watchdog must discover the served script path rather
         # than hard-code an old bundler basename (`index-*`) and restart a healthy engine forever.
-        printf '<script type="module" crossorigin src="/assets/main-test.js"></script>\n'
+        printf "<script type='module' crossorigin src = './assets/main-test.js'></script>\n"
         ;;
       http://127.0.0.1:8787/assets/main-test.js)
         printf '200:application/javascript'
@@ -213,7 +213,8 @@ count_kickstarts() {
 
 mkdir -p "$TEST_TMP/repo"
 run_watchdog 200 up
-if [ "$(cat "$TEST_HOME/Library/Application Support/nostradamus/watchdog.fails" 2>/dev/null || echo 0)" != 0 ] \
+fails_count="$(cat "$TEST_HOME/Library/Application Support/nostradamus/watchdog.fails" 2>/dev/null)"
+if [ "${fails_count:-0}" != 0 ] \
     || grep -q 'no-bundle-ref' "$TEST_HOME/Library/Logs/nostradamus-watchdog.log" 2>/dev/null; then
   echo "  FAIL current Vite main-* entry was rejected as a missing bundle"
   failures=$((failures + 1))

@@ -199,7 +199,7 @@ else
   # loop when the bundler changes that implementation detail. Read the actual script entry from the served
   # HTML, while keeping the captured path to one safe `assets/` segment before requesting it below.
   ref="$(curl -fsS --max-time 5 "http://127.0.0.1:$PORT/" 2>/dev/null \
-    | grep -oE '<script[^>]*src="/?assets/[A-Za-z0-9._-]+\.js"' \
+    | grep -oE "<script[^>]*src[[:space:]]*=[[:space:]]*['\"](\./|/)?assets/[A-Za-z0-9._-]+\.js['\"]" \
     | grep -oE 'assets/[A-Za-z0-9._-]+\.js' | head -1)"
   if [ -z "$ref" ]; then
     problem="no-bundle-ref"
