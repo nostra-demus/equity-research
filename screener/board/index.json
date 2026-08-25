@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-25T09:14:49Z",
+  "generated_at": "2026-08-25T09:19:46Z",
   "inbox": [
     {
       "inbox_id": "INB-20260825-1633",
@@ -42,6 +42,55 @@
         {
           "name": "Longhui International Holdings",
           "ticker": "01007",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260825-1641",
+      "headline": "FSM HOLDINGS (01721): INSIDE INFORMATION (1) FURTHER DELAY IN PUBLICATION OF 2025 ANNUAL RESULTS AND DESPATCH OF 2025 ANNUAL REPORT; (2) DELAY IN PUBLICATION OF 2026 INTERIM RESULTS AND DESPATCH OF 2026 INTERIM REPORT; AND (3) CONTINUED SUSPENSION OF TRADING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0825/2026082500566.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-25T08:55:00Z",
+      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
+      "prelim_note": "The company announced a further delay in filing 2025 annual and 2026 interim results, with continued trading suspension, indicating significant governance or accounting issues.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company announced a further delay in filing 2025 annual and 2026 interim results, with continued trading suspension, indicating significant governance or accounting issues.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "accounting_restatement",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "accounting_restatement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "FSM Holdings Limited",
+          "ticker": "01721",
           "listing_country": "CN"
         }
       ],
@@ -1954,55 +2003,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260825-1429",
-      "headline": "Coles profit surge dulled by $235m to fix staff underpayment scandal",
-      "headline_en": null,
-      "url": "https://www.afr.com/companies/retail/coles-profit-surge-dulled-by-235m-to-fix-staff-underpayment-scandal-20260819-p60ptp?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-24T23:35:36Z",
-      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
-      "prelim_note": "Coles reported a $235 million charge to address a staff underpayment scandal, which directly impacts earnings.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Coles reported a $235 million charge to address a staff underpayment scandal, which directly impacts earnings.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Coles",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -88889,9 +88889,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 749419,
-    "news_picked_today": 2748,
-    "news_dropped_today": 10452
+    "news_seen_today": 770606,
+    "news_picked_today": 2764,
+    "news_dropped_today": 10460
   },
   "book_momentum": {
     "live_count": 8,
