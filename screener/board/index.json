@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-08-25T13:53:20Z",
+  "generated_at": "2026-08-25T13:58:27Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260825-1811",
+      "headline": "Sadbhav Engineering Ltd: Please find enclosed Deed of accession to Master Restructuring Agreement executed on August 25, 2026",
+      "headline_en": null,
+      "url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/ab647415-3e19-4cc9-b73f-6dfec9bf0b14.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-25T13:48:58Z",
+      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
+      "prelim_note": "The company is formalizing a debt restructuring agreement, indicating significant financial distress.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company is formalizing a debt restructuring agreement, indicating significant financial distress.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Sadbhav Engineering Ltd",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260825-1804",
       "headline": "HYBRID KINETIC (01188): INSIDE INFORMATION (1) DELAY IN PUBLICATION OF THE 2026 INTERIM RESULTS AND 2026 INTERIM REPORT; (2) POSTPONEMENT OF THE BOARD MEETING; AND (3) CONTINUED SUSPENSION OF TRADING",
@@ -44,55 +93,6 @@
           "name": "Hybrid Kinetic",
           "ticker": "01188",
           "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260825-1799",
-      "headline": "Sadbhav Engineering Limited: Sadbhav Engineering Limited has informed the Exchange about Corporate Debt Restructuring- update as to the signing of Deed of Accession to Master Restructuring Agreement",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/SADBHAV_25082026191154_SELAccessiontoMRASigningAnnouncement25082026.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-25T13:42:40Z",
-      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
-      "prelim_note": "The company has signed a Master Restructuring Agreement, indicating significant financial distress and debt restructuring.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "The company has signed a Master Restructuring Agreement, indicating significant financial distress and debt restructuring.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "default_distress",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Sadbhav Engineering Limited",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "small",
@@ -90023,9 +90023,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1639536,
-    "news_picked_today": 3264,
-    "news_dropped_today": 11160
+    "news_seen_today": 1656980,
+    "news_picked_today": 3279,
+    "news_dropped_today": 11169
   },
   "book_momentum": {
     "live_count": 8,
