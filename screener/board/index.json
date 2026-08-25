@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-08-25T09:10:05Z",
+  "generated_at": "2026-08-25T09:14:49Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260825-1633",
+      "headline": "LONGHUI INTL (01007): (1) MAJOR AND CONNECTED TRANSACTION: PROPOSED ACQUISITION OF 51% EQUITY INTERESTS IN THE TARGET COMPANY AND (2) NOTICE OF EXTRAORDINARY GENERAL MEETING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0825/2026082500576.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-25T08:56:00Z",
+      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
+      "prelim_note": "The company announced a major acquisition of a 51% equity interest in a target company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company announced a major acquisition of a 51% equity interest in a target company.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Longhui International Holdings",
+          "ticker": "01007",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260825-1622",
       "headline": "MINERVA GROUP (00397): SUPPLEMENTAL ANNOUNCEMENT IN RELATION TO THE PROFIT WARNING ANNOUNCEMENT FOR THE SIX MONTHS ENDED 30 JUNE 2026",
@@ -1954,55 +2003,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260825-1561",
-      "headline": "‎Qiddiya signs €6B deal to develop 3 entertainment cities in France",
-      "headline_en": null,
-      "url": "https://www.argaam.com/en/article/articledetail/id/1931561",
-      "source_name": "Argaam — Main News (English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-24T23:14:00Z",
-      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
-      "prelim_note": "Qiddiya Investment Company signed a €6 billion deal for entertainment development.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Qiddiya Investment Company signed a €6 billion deal for entertainment development.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Qiddiya Investment Company",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -88889,9 +88889,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 728372,
-    "news_picked_today": 2741,
-    "news_dropped_today": 10447
+    "news_seen_today": 749419,
+    "news_picked_today": 2748,
+    "news_dropped_today": 10452
   },
   "book_momentum": {
     "live_count": 8,
