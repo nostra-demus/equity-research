@@ -2068,6 +2068,23 @@ export interface PortfolioPosition {
   /** Futures and options carry NOTIONAL, not a NAV allocation — never weight them like equity. */
   isDerivative: boolean
 }
+export interface PortfolioClosure {
+  symbol: string | null
+  currency: string | null
+  quantity: number
+  entryPrice: number
+  exitPrice: number
+  openedAt: string | null
+  closedAt: string | null
+  holdingDays: number | null
+  /** Net of commission on both legs, as the broker states it. */
+  realizedLocal: number
+  /** The price difference before costs, kept so the two can be shown apart. */
+  grossLocal: number
+  commissionLocal: number
+  realizedBase: number | null
+}
+
 export interface PortfolioBook {
   accountId: string | null
   baseCurrency: string | null
@@ -2076,7 +2093,10 @@ export interface PortfolioBook {
   sectionsPresent: string[]
   sectionsUnmodelled: string[]
   positions: PortfolioPosition[]
-  closures: unknown[]
+  /** Closed round trips, recovered by FIFO matching — the trade history. */
+  closures: PortfolioClosure[]
+  openLots: { symbol: string | null; quantity: number; price: number; openedAt: string | null }[]
+  corporateActions: { type: string | null; symbol: string | null; actionDescription: string | null; dateTime: string | null }[]
   flows: { date: string | null; currency: string | null; amount: number; amountBase: number | null; description: string | null }[]
   income: { dividendsGross: number; withholdingTax: number; paymentInLieu: number; interest: number; fees: number; net: number }
   navSeries: { date: string; total: number }[]
