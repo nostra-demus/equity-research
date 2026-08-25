@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-08-25T14:28:24Z",
+  "generated_at": "2026-08-25T14:33:20Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260825-1835",
+      "headline": "Prataap Snacks Ltd: Intimation under Regulation 30 of the SEBI (LODR) Regulations, 2015- Update on Acquisition of 99.95% of Equity Share Capital of RLOP Food Processing Private Limited.",
+      "headline_en": null,
+      "url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/f43ed871-2c8f-4c1c-9cc7-2d274646a534.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-25T14:24:48Z",
+      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
+      "prelim_note": "Update on the acquisition of a 99.95% stake in a food processing company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Update on the acquisition of a 99.95% stake in a food processing company.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Prataap Snacks Ltd",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260825-1826",
       "headline": "GUAN CHAO HLDGS (01872): PROFIT WARNING",
@@ -1918,55 +1967,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260825-771",
-      "headline": "SFK (01447): SUPPLEMENTAL ANNOUNCEMENT - MAJOR TRANSACTION - DISPOSAL OF A SUBSIDIARY AND THE GRANT OF THE PUT OPTION",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0824/2026082401519.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-24T13:07:00Z",
-      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
-      "prelim_note": "Announces a major transaction to dispose of a subsidiary and grant a put option, a confirmed deal-level event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Announces a major transaction to dispose of a subsidiary and grant a put option, a confirmed deal-level event.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 1,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SFK",
-          "ticker": "01447",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -90168,9 +90168,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1820680,
-    "news_picked_today": 3370,
-    "news_dropped_today": 11234
+    "news_seen_today": 1858929,
+    "news_picked_today": 3377,
+    "news_dropped_today": 11251
   },
   "book_momentum": {
     "live_count": 8,
