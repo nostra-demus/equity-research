@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-25T06:38:05Z",
+  "generated_at": "2026-08-25T06:43:09Z",
   "inbox": [
     {
       "inbox_id": "INB-20260825-1448",
@@ -956,6 +956,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260825-1518",
+      "headline": "Hindustan Copper Shares Fall 6% As Govt Announces 6% Stake Sale Via OFS At 10% Discount",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/hindustan-copper-shares-fall-6-as-govt-announces-6-stake-sale-via-ofs-at-10-discount",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-25T06:20:46Z",
+      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
+      "prelim_note": "Government is selling a 6% stake in Hindustan Copper via an offer for sale at a 10% discount to market price.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Government is selling a 6% stake in Hindustan Copper via an offer for sale at a 10% discount to market price.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capital_actions",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Hindustan Copper",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1939,56 +1988,6 @@
       ],
       "issuer_linkage": "macro",
       "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260825-1299",
-      "headline": "China robot maker Unitree’s shares slump 45% after fivefold IPO surge, sparking bubble fears in sector",
-      "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/companies-markets/telcos-media-tech/china-robot-maker-unitrees-shares-slump-45-after-fivefold-ipo-surge-sparking-bubble-fears-sector",
-      "source_name": "The Business Times (Singapore)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-25T05:01:52Z",
-      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
-      "prelim_note": "Unitree's shares slumping 45% after a significant IPO surge, coupled with sector-wide bubble fears, indicates a major event for the company and potentially the robotics sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Unitree's shares slumping 45% after a significant IPO surge, coupled with sector-wide bubble fears, indicates a major event for the company and potentially the robotics sector.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "operations",
-        "macro_sector"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Unitree",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -88735,9 +88734,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 548975,
-    "news_picked_today": 2548,
-    "news_dropped_today": 9980
+    "news_seen_today": 555278,
+    "news_picked_today": 2553,
+    "news_dropped_today": 9999
   },
   "book_momentum": {
     "live_count": 8,
