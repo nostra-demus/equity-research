@@ -505,14 +505,19 @@ function readInputOverflow(stateDir: string): { status: 'missing' | 'unavailable
 }
 
 function inputOverflowPresence(stateDir: string): 'present' | 'missing' | 'unavailable' {
-  const durableCount = durableQueueLaneCount(stateDir, 'overflow')
-  if (durableCount != null) return durableCount > 0 ? 'present' : 'missing'
+  let projection: 'present' | 'missing' | 'unavailable'
   try {
     const stat = fs.statSync(path.join(stateDir, INPUT_OVERFLOW_FILE))
-    return stat.isFile() ? 'present' : 'unavailable'
+    projection = stat.isFile() ? 'present' : 'unavailable'
   } catch (error: any) {
-    return error?.code === 'ENOENT' ? 'missing' : 'unavailable'
+    projection = error?.code === 'ENOENT' ? 'missing' : 'unavailable'
   }
+  if (projection === 'unavailable') return projection
+  const durableCount = durableQueueLaneCount(stateDir, 'overflow')
+  if (durableCount == null) return projection
+  // A failed legacy-projection delete still matters when SQLite has already completed the lane. Keep the
+  // projection visible until it is actually gone so its tombstones cannot be purged and resurrected.
+  return durableCount > 0 || projection === 'present' ? 'present' : 'missing'
 }
 
 function readScoredCheckpoints(stateDir: string): { status: 'missing' | 'unavailable' } | { status: 'ok'; items: NewsItem[] } {
@@ -778,7 +783,10 @@ export function saveDeferred(
       fsyncDirectory(stateDir)
       compatibilityJournalsCleared = true
     } catch { /* duplicate journal is harmless; reads dedupe ids */ }
-    if (compatibilityJournalsCleared && !purgeCompletedDurableQueueItems(stateDir)) {
+    // An old overflow projection can still name completed rows after its delete failed. Preserve their
+    // tombstones until the file is really gone; otherwise the next legacy merge could resurrect them.
+    if (compatibilityJournalsCleared && overflowPresence === 'missing'
+      && !purgeCompletedDurableQueueItems(stateDir)) {
       log('saveDeferred: SQLite completion tombstones remain for a later cleanup')
     }
     return true

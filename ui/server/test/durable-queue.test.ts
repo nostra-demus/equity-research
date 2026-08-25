@@ -127,6 +127,25 @@ check('a completed row cannot block retirement of another row, and completed tom
   assert.equal(inspectDurableQueueCounts(state)?.completed, 0)
 })
 
+check('a stale overflow projection keeps its tombstone until the old file is actually removed', () => {
+  const state = tmp()
+  const stale = { ...item(24), input_pending: true as const }
+  assert.equal(saveDeferred(state, [stale]), true)
+  assert.equal(replaceDurableQueueLane(state, 'hot', [], 'test-consumed'), true)
+  assert.equal(inspectDurableQueueCounts(state)?.completed, 1)
+
+  const overflowFile = path.join(state, 'news-input-overflow.json')
+  // This is the state left when SQLite completion commits but deleting the old JSON projection fails.
+  fs.writeFileSync(overflowFile, `${JSON.stringify({ v: 2, items: [stale] })}\n`)
+  assert.equal(saveDeferred(state, []), true)
+  assert.equal(inspectDurableQueueCounts(state)?.completed, 1, 'the stale file remains blocked by its tombstone')
+  assert.deepEqual(inspectDeferredBacklog(state).items, [], 'the completed row cannot be resurrected')
+
+  fs.rmSync(overflowFile)
+  assert.equal(saveDeferred(state, []), true)
+  assert.equal(inspectDurableQueueCounts(state)?.completed, 0, 'cleanup resumes only after projection removal')
+})
+
 check('a killed process cannot expose half a SQLite queue transaction', () => {
   const state = tmp()
   assert.equal(saveDeferred(state, [item(30)]), true)
