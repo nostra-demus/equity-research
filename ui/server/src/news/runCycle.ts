@@ -51,6 +51,7 @@ import { appendFirehoseSummary, mergeInbox, refreshBoard, type InboxRevisionCloc
 import { runThemesCycle, bumpCycleCounter, themesConfigFromNews } from './themes/engine'
 import { makeThemeNamer } from './themes/llm'
 import type { ThemeItemView } from './themes/types'
+import { verifyEquityListing } from './symbology'
 import type { CycleSummary, FeedItem, NewsItem, RawArticle, TriagedItem } from './types'
 import { withInitialRescueDecision } from './rescue/selector'
 import {
@@ -924,6 +925,7 @@ async function runThemesStage(input: {
         now,
         cfg: themesConfigFromNews(cfg),
         llmNamer: makeThemeNamer(cfg, fetchFn, stateDir, log, signal),
+        verifyListing: (ticker, companyName) => verifyEquityListing(ticker, companyName, fetchFn),
       }),
       new Promise<never>((_, reject) => {
         themesTimeout = setTimeout(() => reject(new Error('themes stage exceeded 90s — skipped')), 90_000)

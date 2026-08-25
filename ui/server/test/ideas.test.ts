@@ -30,7 +30,7 @@ import { classifyHumanVetoStoryState, humanVetoStoryStates, mergeInbox } from '.
 import { setDismissed } from '../src/news/inbox-actions'
 import { createTheme } from '../src/news/themes/discover'
 import { appendThemeMutations, buildThemesIndex } from '../src/news/themes/store'
-import type { ThemeItemView } from '../src/news/themes/types'
+import type { Theme, ThemeItemView } from '../src/news/themes/types'
 import { validIdeaSnapshot } from './ideas-fixture'
 import { attachValidNarrative } from './themes-fixtures'
 
@@ -91,18 +91,42 @@ const actionableTheme = (
 ) => ({
   theme_id,
   rev,
+  idea_ready: true,
   description: 'A current causal change is affecting the named listed-company exposure.',
   activity: 'reinforced',
-  assessment: { status: 'actionable', activity: 'reinforced' },
+  assessment: { status: 'actionable', activity: 'reinforced', metrics: { narrative_support_count: 2, narrative_coherence_pct: 100, recurring_narrative_token_count: 2 } },
   narrative: {
     thesis: 'The cited change can alter revenue, costs or capacity for the evidence-bound expression.',
     why_now: 'The designated current source shows that the causal change is active now.',
     why_now_event_id: evidence.find((row) => row.stance === 'supports')?.event_id,
   },
-  evidence,
+  evidence: evidence.map((row) => ({
+    headline: `Exact evidence ${row.event_id}`, source_name: 'Fixture source',
+    url: `https://fixture.test/${encodeURIComponent(row.event_id)}`, ...row,
+  })),
   qualified_expressions,
   ...patch,
 })
+
+const attachVerifiedPlayerContract = (theme: Theme): Theme => {
+  const expression = theme.narrative?.expressions[0]
+  const proofId = expression?.evidence_event_ids[0]
+  const member = theme.members.find((row) => row.event_id === proofId)
+  const company = theme.companies.find((row) => row.name_key === expression?.name_key)
+  if (!expression || !member || !company?.ticker || !member.url || !member.source_name) throw new Error('fixture has no exact player proof')
+  theme.player_contract_version = 1
+  theme.players = [{
+    name: company.name, ticker: company.ticker, listing_status: 'verified_public', order: 1,
+    side: expression.side, relationship: 'direct_subject', mechanism: expression.mechanism,
+    mechanism_basis: 'engine_inference', idea_eligible: true,
+    evidence: [{
+      kind: 'news', event_id: member.event_id, headline: member.headline_en || member.headline,
+      publisher: member.source_name, url: member.url, published_at: member.found_at,
+      source_ref: null, source_file: null,
+    }],
+  }]
+  return theme
+}
 
 const exactThemeExpression = (
   themeId: string,
@@ -2485,6 +2509,7 @@ check('an actionable Theme carries a same-URL correction first-seen clock into I
   )
   theme.name = 'Capacity Expansion Approval Reversal'
   theme.description = 'A withdrawn approval changes the economics of Acme capacity expansion.'
+  attachVerifiedPlayerContract(theme)
   appendThemeMutations(dir, [theme], () => new Date('2026-08-04T00:08:00Z'))
   const publicTheme = buildThemesIndex([theme], () => new Date('2026-08-04T00:09:00Z')).themes[0]
   assert.equal(publicTheme.assessment.status, 'actionable', 'control fixture reaches Ideas only as a complete Theme package')
@@ -2717,6 +2742,7 @@ check('Theme-to-Ideas resolves historical challenge state: equal-quality restora
     })
     theme.name = 'Transformer Backlog Extends Grid Buildout'
     theme.description = 'Transformer backlog changes grid capacity and supplier economics.'
+    attachVerifiedPlayerContract(theme)
     appendThemeMutations(dir, [theme], () => new Date('2026-08-03T11:58:00Z'))
     fs.writeFileSync(path.join(inbox, '2026-08-03_sweep.json'), JSON.stringify({
       updated_at: '2026-08-03T11:55:00Z', rows: [1, 2, 3, 4].map((index) => ({
@@ -2963,6 +2989,7 @@ check('ledger content is reprojected without forging a newer last-successful The
   )
   theme.name = 'AI Data-Center Chip Capacity'
   theme.description = 'Nvidia is expanding chip capacity for AI data centers.'
+  attachVerifiedPlayerContract(theme)
   appendThemeMutations(dir, [theme], () => new Date('2026-08-03T11:30:00Z'))
   const feed = themeViews.map((row, index) => ({
     kind: 'item', ts: row.found_at, found_at: row.found_at, event_id: row.event_id,

@@ -157,6 +157,14 @@ check('commodity + Where preserves a cross-border listed beneficiary named by th
     member('xb1', { commodities: ['GOLD'], country: 'IN', companies: [nvidia], headline: 'India gold market AI data center capacity raises Nvidia demand' }),
     member('xb2', { commodities: ['GOLD'], country: 'IN', companies: [nvidia], headline: 'India gold market AI data center capacity expands Nvidia demand' }),
   ], { companies: [{ ...nvidia, order: 1, side: 'beneficiary' } as any] })
+  const proof = crossBorder.members.find((member) => member.event_id === crossBorder.narrative!.expressions[0].evidence_event_ids[0])!
+  crossBorder.player_contract_version = 1
+  crossBorder.players = [{
+    name: 'Nvidia', ticker: 'NVDA', listing_status: 'verified_public', order: 1, side: 'beneficiary',
+    relationship: 'direct_subject', mechanism: crossBorder.narrative!.expressions[0].mechanism,
+    mechanism_basis: 'engine_inference', idea_eligible: true,
+    evidence: [{ kind: 'news', event_id: proof.event_id, headline: proof.headline, publisher: proof.source_name!, url: proof.url!, published_at: proof.found_at, source_ref: null, source_file: null }],
+  }]
   const summary = buildCommodityThemesIndex([crossBorder], { commodity: 'GOLD', geo: { country: 'IN' } }, now).themes[0]
   assert.equal(summary.assessment.status, 'actionable')
   assert.deepEqual(summary.qualified_expressions.map((expression) => expression.ticker), ['NVDA'])

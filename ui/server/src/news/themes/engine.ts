@@ -19,6 +19,8 @@ import { buildGenericSet, loadTokenDf, saveTokenDf, updateTokenDf, DEFAULT_TOKEN
 import type { Theme, ThemeCompilerAttempt, ThemeItemView, ThemeRemoval, ThemeSummary } from './types'
 import { boundThemeFamilyHistory, themeStoryFamilyKey, themeStoryObservationKey } from './story-key'
 import { sourcePriority } from './evidence'
+import { buildSupplyChainBoard } from '../../supply-chain'
+import { rebuildThemePlayers, themePlayerEvidenceFingerprint, type ThemeListingVerifier } from './players'
 
 export interface ThemesConfig {
   score: ThemeScoreConfig
@@ -74,6 +76,7 @@ export interface StepInput {
   cfg?: ThemesConfig
   llmNamer?: LlmNamer
   generic?: Set<string> // corpus-generic tokens this cycle (token-df.ts) — suppressed by themeTokens everywhere
+  playerEvidenceFingerprints?: ReadonlyMap<string, string>
 }
 
 export interface StepResult {
@@ -94,6 +97,24 @@ export async function stepThemes(input: StepInput): Promise<StepResult> {
   const themes = input.themes
   const changedIds = new Set<string>()
   const notSocial = (v: ThemeItemView) => (v.source_tier || '') !== 'social'
+
+  // Migrate at most two legacy narratives per cycle. A cached body read or relationship export changing
+  // its exact evidence fingerprint uses this same normal validator queue; it is never patched directly.
+  let legacyPlayerMigrations = 0
+  for (const theme of input.playerEvidenceFingerprints ? themes : []) {
+    if (theme.status !== 'live' || !theme.narrative) continue
+    const fingerprint = input.playerEvidenceFingerprints?.get(theme.theme_id)
+    const legacy = theme.player_contract_version !== 1
+    const changedEvidence = theme.player_contract_version === 1 && fingerprint !== undefined
+      && fingerprint !== theme.player_evidence_fingerprint
+    if ((!legacy || legacyPlayerMigrations >= 2) && !changedEvidence) continue
+    if (legacy) legacyPlayerMigrations++
+    if (theme.needs_player_revalidation) continue
+    theme.needs_player_revalidation = true
+    theme.validation_queued_at ||= now.toISOString().replace(/\.\d{3}Z$/, 'Z')
+    theme.rev++
+    changedIds.add(theme.theme_id)
+  }
 
   // An overflowed theme is a tombstone, not a sink. Preserve its bounded audit as discovery input before
   // retiring it, and also reclaim any current-cycle row the cap evicted. The firehose cold-start repairs
@@ -287,7 +308,7 @@ export async function stepThemes(input: StepInput): Promise<StepResult> {
   const updates = themes
     // Overflow means the missing row cannot be classified from this bounded record. Retrying the model
     // would spend money without a path to truth; keep the thesis quarantined until its evidence is rebuilt.
-    .filter((t) => t.status === 'live' && t.narrative && t.needs_narrative_update
+    .filter((t) => t.status === 'live' && t.narrative && (t.needs_narrative_update || t.needs_player_revalidation)
       && !t.narrative_update_overflow && !t.needs_rename)
     .sort(byDebt)
   const pendingValidations = themes
@@ -493,6 +514,7 @@ export interface RunThemesInput {
   now?: () => Date
   cfg?: ThemesConfig
   llmNamer?: LlmNamer
+  verifyListing?: ThemeListingVerifier
 }
 
 /** Full cycle with persistence. Returns the changed theme summaries (for the SSE bus) and the
@@ -502,6 +524,10 @@ export async function runThemesCycle(input: RunThemesInput): Promise<{ changed: 
   const cycleNow = now()
   const cfg = input.cfg || DEFAULT_THEMES_CONFIG
   const themes = loadThemes(input.repoRoot)
+  const relationshipBoard = buildSupplyChainBoard(input.repoRoot)
+  const playerEvidenceFingerprints = input.verifyListing ? new Map(themes
+    .filter((theme) => theme.status === 'live' && !!theme.narrative)
+    .map((theme) => [theme.theme_id, themePlayerEvidenceFingerprint(theme, input.stateDir, relationshipBoard)])) : undefined
   // The index is the exact projection open clients last received. Keep it only as a comparison baseline;
   // absent/legacy rows with no assessment are ignored so an upgrade does not emit every theme at once.
   const priorIndex = readThemesIndex(input.repoRoot)
@@ -536,7 +562,21 @@ export async function runThemesCycle(input: RunThemesInput): Promise<{ changed: 
       priority: (item) => sourcePriority(item.source_tier),
     })
   }
-  const res = await stepThemes({ themes, pool, items: input.items, runDiscovery: input.runDiscovery, now: cycleNow, cfg, llmNamer: input.llmNamer, generic })
+  const playerAwareNamer: LlmNamer | undefined = input.llmNamer ? async (batch, at, currentGeneric) => {
+    const result = await input.llmNamer!(batch, at, currentGeneric)
+    for (const theme of batch) {
+      if (theme.status !== 'live' || !theme.narrative || theme.player_contract_version !== 1 || theme.needs_player_revalidation) continue
+      const before = JSON.stringify({ players: theme.players, fingerprint: theme.player_evidence_fingerprint })
+      theme.players = await rebuildThemePlayers(theme, input.repoRoot, input.stateDir, input.verifyListing, relationshipBoard)
+      theme.player_evidence_fingerprint = themePlayerEvidenceFingerprint(theme, input.stateDir, relationshipBoard)
+      if (before !== JSON.stringify({ players: theme.players, fingerprint: theme.player_evidence_fingerprint })) theme.rev++
+    }
+    return result
+  } : undefined
+  const res = await stepThemes({
+    themes, pool, items: input.items, runDiscovery: input.runDiscovery, now: cycleNow, cfg,
+    llmNamer: playerAwareNamer, generic, playerEvidenceFingerprints,
+  })
   // A theme can cross the 6h qualification boundary while its persisted Theme record and heat tier remain
   // unchanged. Compare the new assessment with the prior index and emit only genuine projection changes.
   // These time-only summaries must NOT become ledger mutations: no Theme field/revision changed.
