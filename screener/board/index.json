@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-25T09:25:43Z",
+  "generated_at": "2026-08-25T09:30:08Z",
   "inbox": [
     {
       "inbox_id": "INB-20260825-1633",
@@ -1206,6 +1206,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260825-1648",
+      "headline": "KKR To Acquire Japan's Ci Flavors For Undisclosed Terms",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/kkr-acquire-japans-ci-flavors-undisclosed-terms",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-25T07:42:24Z",
+      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
+      "prelim_note": "KKR is acquiring Ci Flavors, representing a confirmed M&A transaction.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "KKR is acquiring Ci Flavors, representing a confirmed M&A transaction.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "KKR",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Ci Flavors",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260825-1527",
       "headline": "Milliardendeal: Siemens Energy bereitet möglichen Verkauf von Dampfturbinen-Geschäft vor",
       "headline_en": "Billion-euro deal: Siemens Energy prepares for potential sale of steam turbine business",
@@ -1954,55 +2008,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260825-1392",
-      "headline": "Heavily indebted real estate giant Bathla falls into administration",
-      "headline_en": null,
-      "url": "https://www.afr.com/property/residential/indebted-bathla-s-construction-division-falls-into-administration-20260825-p60r9u?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-25T01:21:55Z",
-      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
-      "prelim_note": "Bathla, a heavily indebted real estate giant, fell into administration, a survival-threatening insolvency event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Bathla, a heavily indebted real estate giant, fell into administration, a survival-threatening insolvency event.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 0,
-        "recency": 3,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bathla",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -88889,9 +88894,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 791913,
-    "news_picked_today": 2783,
-    "news_dropped_today": 10513
+    "news_seen_today": 802601,
+    "news_picked_today": 2790,
+    "news_dropped_today": 10530
   },
   "book_momentum": {
     "live_count": 8,
