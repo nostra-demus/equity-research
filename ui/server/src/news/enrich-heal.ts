@@ -141,7 +141,12 @@ export function themePlayerReadCandidates(
     const priorities = [
       theme.narrative.why_now_event_id,
       ...theme.narrative.expressions.flatMap((expression) => expression.evidence_event_ids),
-      ...theme.members.slice().sort((a, b) => Date.parse(b.found_at) - Date.parse(a.found_at)).map((member) => member.event_id),
+      ...theme.members.slice().sort((a, b) => {
+        const aTime = Date.parse(a.found_at)
+        const bTime = Date.parse(b.found_at)
+        const byTime = (Number.isFinite(bTime) ? bTime : 0) - (Number.isFinite(aTime) ? aTime : 0)
+        return byTime || a.event_id.localeCompare(b.event_id)
+      }).map((member) => member.event_id),
     ]
     let picked = 0
     for (const eventId of priorities) {

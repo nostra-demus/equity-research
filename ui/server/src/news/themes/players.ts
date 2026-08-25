@@ -30,7 +30,7 @@ function relationshipFromParty(party: ArticleParty): ThemePlayerRelationship | n
 }
 
 function relationshipFromLead(lead: SupplyChainLead): ThemePlayerRelationship {
-  const role = `${lead.role} ${lead.mechanism}`.toLowerCase()
+  const role = `${lead.role || ''} ${lead.mechanism || ''}`.toLowerCase()
   if (/supplier|vendor|sells? (?:to|into)/.test(role)) return 'supplier'
   if (/customer|buyer|purchases? from/.test(role)) return 'customer'
   if (/competitor/.test(role)) return 'competitor'
@@ -79,7 +79,7 @@ function articleCandidates(theme: Theme, stateDir: string): Candidate[] {
     if (!enrichment) continue
     const add = (party: ArticleParty, side: 'beneficiary' | 'harmed') => {
       const relationship = relationshipFromParty(party)
-      if (!party.named_in_article || !party.mechanism?.trim() || !party.order || !relationship) return
+      if (party.named_in_article === false || !party.mechanism?.trim() || !party.order || !relationship) return
       if (party.order === 'second' && relationship === 'other') return
       const evidence = exactNewsEvidence(member)
       if (!hasExactNewsLocator(evidence)) return
@@ -231,7 +231,7 @@ export function themePlayerEvidenceFingerprint(theme: Theme, stateDir: string, b
     .filter((company) => expressionKeys.has(company.name_key))
     .flatMap((company) => cleanTicker(company.ticker) ? [normTicker(company.ticker!)] : []))
   for (const lead of board.leads) {
-    if (tickers.has(normTicker(lead.anchor_ticker))) rows.push(`${lead.lead_id}|${lead.source_file || ''}|${lead.source_ref || ''}`)
+    if (lead.anchor_ticker && tickers.has(normTicker(lead.anchor_ticker))) rows.push(`${lead.lead_id}|${lead.source_file || ''}|${lead.source_ref || ''}`)
   }
   return createHash('sha256').update(rows.sort().join('\n')).digest('hex').slice(0, 20)
 }

@@ -901,7 +901,12 @@ export function buildThemeDetail(repoRoot: string, theme: Theme, projection: The
   const evidenceNews = [
     ...qualified.supporting_members.map((member) => ({ member, stance: 'supports' as const })),
     ...qualified.challenging_members.map((member) => ({ member, stance: 'challenges' as const })),
-  ].sort((a, b) => Date.parse(b.member.found_at) - Date.parse(a.member.found_at)).map(({ member, stance }) => ({
+  ].sort((a, b) => {
+    const aTime = Date.parse(a.member.found_at)
+    const bTime = Date.parse(b.member.found_at)
+    const byTime = (Number.isFinite(bTime) ? bTime : 0) - (Number.isFinite(aTime) ? aTime : 0)
+    return byTime || a.member.event_id.localeCompare(b.member.event_id)
+  }).map(({ member, stance }) => ({
     event_id: member.event_id,
     headline: (member.headline_en || member.headline || '').trim(),
     publisher: member.source_name?.trim() || null,

@@ -3,6 +3,7 @@ import assert from 'node:assert/strict'
 import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
+import { fileURLToPath } from 'node:url'
 import { createTheme } from '../src/news/themes/discover'
 import { themePlayerReadCandidates } from '../src/news/enrich-heal'
 import { admitThemeToIdeas } from '../src/news/themes/idea-admission'
@@ -15,6 +16,7 @@ import type { Theme, ThemePlayer } from '../src/news/themes/types'
 import { attachValidNarrative } from './themes-fixtures'
 
 const NOW = new Date('2026-08-25T06:00:00Z')
+const REPO_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../..')
 const emptyBoard = (): SupplyChainBoard => ({ leads: [], anchors: [], health: {}, schema_version: 'supply-chain-board/v1', generated_at: NOW.toISOString(), score_basis: 'chain_evidence_v1' } as SupplyChainBoard)
 
 function theme(): Theme {
@@ -67,13 +69,13 @@ async function check(name: string, fn: () => void | Promise<void>) {
 await check('a first-order expression without an exact naming event is rejected', async () => {
   const value = theme()
   value.narrative!.expressions[0].evidence_event_ids = ['evt-why']
-  const players = await rebuildThemePlayers(value, process.cwd(), fs.mkdtempSync(path.join(os.tmpdir(), 'theme-player-')), async () => ({ ticker: 'VRT', exchange: 'NYSE', companyName: 'Vertiv', source: 'yahoo_symbol_directory' }), emptyBoard())
+  const players = await rebuildThemePlayers(value, REPO_ROOT, fs.mkdtempSync(path.join(os.tmpdir(), 'theme-player-')), async () => ({ ticker: 'VRT', exchange: 'NYSE', companyName: 'Vertiv', source: 'yahoo_symbol_directory' }), emptyBoard())
   assert.deepEqual(players, [])
 })
 
 await check('a verified direct player with separate exact proof creates the same Ideas-ready package', async () => {
   const value = theme()
-  const players = await rebuildThemePlayers(value, process.cwd(), fs.mkdtempSync(path.join(os.tmpdir(), 'theme-player-')), async () => ({ ticker: 'VRT', exchange: 'NYSE', companyName: 'Vertiv Holdings', source: 'yahoo_symbol_directory' }), emptyBoard())
+  const players = await rebuildThemePlayers(value, REPO_ROOT, fs.mkdtempSync(path.join(os.tmpdir(), 'theme-player-')), async () => ({ ticker: 'VRT', exchange: 'NYSE', companyName: 'Vertiv Holdings', source: 'yahoo_symbol_directory' }), emptyBoard())
   assert.equal(players.length, 1)
   assert.equal(players[0].listing_status, 'verified_public')
   assert.equal(players[0].idea_eligible, true)
@@ -86,7 +88,7 @@ await check('a verified direct player with separate exact proof creates the same
 })
 
 await check('an unverified ticker stays visible as No verified listing and cannot seed Ideas', async () => {
-  const players = await rebuildThemePlayers(theme(), process.cwd(), fs.mkdtempSync(path.join(os.tmpdir(), 'theme-player-')), async () => null, emptyBoard())
+  const players = await rebuildThemePlayers(theme(), REPO_ROOT, fs.mkdtempSync(path.join(os.tmpdir(), 'theme-player-')), async () => null, emptyBoard())
   assert.equal(players.length, 1)
   assert.equal(players[0].listing_status, 'no_verified_listing')
   assert.equal(players[0].ticker, null)
@@ -106,7 +108,7 @@ await check('model-only inferred names and second-order rows without a sourced r
       ], exposed: [],
     },
   }))
-  const players = await rebuildThemePlayers(value, process.cwd(), stateDir, async () => ({ ticker: 'LINK', exchange: 'NYSE', companyName: 'Named But Unproven Link', source: 'yahoo_symbol_directory' }), emptyBoard())
+  const players = await rebuildThemePlayers(value, REPO_ROOT, stateDir, async () => ({ ticker: 'LINK', exchange: 'NYSE', companyName: 'Named But Unproven Link', source: 'yahoo_symbol_directory' }), emptyBoard())
   assert.deepEqual(players, [])
 })
 
@@ -121,7 +123,7 @@ await check('article-named second-order relationship proof is eligible, but expo
   }))
   const board = emptyBoard()
   board.leads = [{ lead_id: 'lead-1', anchor_ticker: 'VRT', order: 2, name: 'Export Customer', symbol: 'EXPT', role: 'customer', mechanism: 'The export identifies it as a customer.', source_ref: 'Capital IQ row 8', source_file: '/data/relationships.json' } as any]
-  const players = await rebuildThemePlayers(value, process.cwd(), stateDir, async (ticker, name) => ({ ticker, exchange: 'NYSE', companyName: name, source: 'yahoo_symbol_directory' }), board)
+  const players = await rebuildThemePlayers(value, REPO_ROOT, stateDir, async (ticker, name) => ({ ticker, exchange: 'NYSE', companyName: name, source: 'yahoo_symbol_directory' }), board)
   const article = players.find((row) => row.name === 'Cooling Supplier')!
   const exported = players.find((row) => row.name === 'Export Customer')!
   assert.equal(article.idea_eligible, true)
@@ -162,6 +164,25 @@ await check('background player reads reuse complete cache rows and enforce four 
   }
 })
 
+await check('background player candidate ordering is stable with malformed or tied source clocks', () => {
+  const value = prefixedTheme('stable01')
+  const extras = ['stable-extra-b', 'stable-extra-a'].map((eventId) => ({
+    ...value.members[0], event_id: eventId, dedup_group: `STORY-${eventId}`,
+    headline: `Grid delays constrain ${eventId} AI data center capacity`, found_at: 'not-a-date',
+    url: `https://example.test/${eventId}`,
+  }))
+  value.members.push(...extras)
+  value.narrative!.evidence.push(...extras.map((member) => ({ event_id: member.event_id, stance: 'supports' as const })))
+  const cache = Object.fromEntries([value.narrative!.why_now_event_id, ...value.narrative!.expressions[0].evidence_event_ids].map((eventId) => [eventId, {
+    event_id: eventId, ok: true, complete: true, fetched_at: NOW.toISOString(), prior_coverage: [], related: [], gist: ['Cached body read'],
+  }]))
+  const forward = themePlayerReadCandidates([value], cache, 4, 4)
+  value.members.reverse()
+  const reversed = themePlayerReadCandidates([value], cache, 4, 4)
+  assert.deepEqual(reversed, forward)
+  assert.deepEqual(forward, ['stable-extra-a', 'stable-extra-b'])
+})
+
 await check('legacy player contracts drain through normal revalidation two themes at a time', async () => {
   const themes = [prefixedTheme('legacy01'), prefixedTheme('legacy02'), prefixedTheme('legacy03')]
   for (const value of themes) delete value.player_contract_version
@@ -185,7 +206,7 @@ await check('new cached player evidence queues the current contract for normal r
 
 await check('a sliced detail never borrows evidence or players from outside its exact member projection', async () => {
   const value = theme()
-  value.players = await rebuildThemePlayers(value, process.cwd(), fs.mkdtempSync(path.join(os.tmpdir(), 'theme-player-')), async () => ({ ticker: 'VRT', exchange: 'NYSE', companyName: 'Vertiv Holdings', source: 'yahoo_symbol_directory' }), emptyBoard())
+  value.players = await rebuildThemePlayers(value, REPO_ROOT, fs.mkdtempSync(path.join(os.tmpdir(), 'theme-player-')), async () => ({ ticker: 'VRT', exchange: 'NYSE', companyName: 'Vertiv Holdings', source: 'yahoo_symbol_directory' }), emptyBoard())
   const whyNowMember = value.members.find((member) => member.event_id === 'evt-why')!
   const sameSliceSupport = {
     ...whyNowMember,
@@ -205,7 +226,7 @@ await check('a sliced detail never borrows evidence or players from outside its 
 
 await check('a player whose exact proof is no longer active support cannot remain idea-eligible', async () => {
   const value = theme()
-  value.players = await rebuildThemePlayers(value, process.cwd(), fs.mkdtempSync(path.join(os.tmpdir(), 'theme-player-')), async () => ({ ticker: 'VRT', exchange: 'NYSE', companyName: 'Vertiv Holdings', source: 'yahoo_symbol_directory' }), emptyBoard())
+  value.players = await rebuildThemePlayers(value, REPO_ROOT, fs.mkdtempSync(path.join(os.tmpdir(), 'theme-player-')), async () => ({ ticker: 'VRT', exchange: 'NYSE', companyName: 'Vertiv Holdings', source: 'yahoo_symbol_directory' }), emptyBoard())
   const whyNowMember = value.members.find((member) => member.event_id === 'evt-why')!
   const replacementSupport = {
     ...whyNowMember,
