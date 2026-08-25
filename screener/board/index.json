@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-25T01:52:45Z",
+  "generated_at": "2026-08-25T01:57:57Z",
   "inbox": [
     {
       "inbox_id": "INB-20260825-001",
@@ -921,6 +921,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260825-528",
+      "headline": "Iran vows to retaliate after US widens sanctions",
+      "headline_en": null,
+      "url": "https://www.al-monitor.com/originals/2026/08/iran-vows-retaliate-after-us-widens-sanctions",
+      "source_name": "Al-Monitor",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-25T01:46:28Z",
+      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
+      "prelim_note": "Escalating geopolitical tensions and threats of retaliation between Iran and the US pose significant risks to global markets and energy supply.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "Escalating geopolitical tensions and threats of retaliation between Iran and the US pose significant risks to global markets and energy supply.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 1,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "macro_sector",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260825-330",
       "headline": "US-Canada trade war escalates as Trump threatens tariff hike on autos after Carney vows to retaliate",
       "headline_en": null,
@@ -1057,6 +1100,49 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260825-532",
+      "headline": "US-Iran war LIVE: Iran warns of a harsh response after US announces sanctions, FM spox says 'our hands are not tied'",
+      "headline_en": null,
+      "url": "https://www.livemint.com/news/us-news/us-iran-war-latest-news-live-updates-ukmto-projectile-strait-of-hormuz-donald-trump-economic-sanctions-tariffs-bessent-11787615238248.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-25T00:08:47Z",
+      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
+      "prelim_note": "Iran warns of harsh response after US announces sanctions, escalating US-Iran conflict risk with no truce in place.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "Iran warns of harsh response after US announces sanctions, escalating US-Iran conflict risk with no truce in place.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 1,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 13,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "macro_sector",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1210,45 +1296,50 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260825-452",
-      "headline": "Iran vows to retaliate after US widens sanctions",
+      "inbox_id": "INB-20260825-527",
+      "headline": "Fortescue suspends executive in sexual harassment probe",
       "headline_en": null,
-      "url": "https://www.reuters.com/world/china/iran-vows-retaliate-after-us-widens-sanctions-2026-08-25/",
-      "source_name": "Reuters — Latest (news sitemap)",
+      "url": "https://www.afr.com/companies/mining/fortescue-suspends-executive-in-sexual-harassment-probe-20260825-p60rbu?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
       "input_nature": "news_headline",
-      "found_at": "2026-08-25T01:04:19Z",
+      "found_at": "2026-08-25T01:33:13Z",
       "sweep_file": "screener/inbox/2026-08-25_sweep.json",
-      "prelim_note": "US widens Iran sanctions and Iran vows retaliation, raising geopolitical and supply-chain risk across markets.",
+      "prelim_note": "The suspension of a senior executive due to a misconduct probe creates management and reputational risk.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "US widens Iran sanctions and Iran vows retaliation, raising geopolitical and supply-chain risk across markets.",
-      "region": "GLOBAL",
+      "triage_score": 87,
+      "triage_reason": "The suspension of a senior executive due to a misconduct probe creates management and reputational risk.",
+      "region": "OTHER",
       "relevance": "material",
-      "materiality_pre_score": 75,
+      "materiality_pre_score": 55,
       "rank_factors": {
-        "materiality": 75,
+        "materiality": 55,
         "source_tier": 0,
-        "scope": 2,
-        "event": 6,
-        "size": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
         "recency": 5,
-        "materiality_label_floor": 0,
+        "materiality_label_floor": 15,
         "quantified": 0,
         "boost_weight": 1,
-        "scope_id": "policy",
+        "scope_id": "single_name",
         "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
+        "event_id": "management",
+        "size_bucket": "large"
       },
       "event_types": [
-        "macro_sector",
-        "litigation_enforcement"
+        "management"
       ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Fortescue",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1839,104 +1930,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260825-524",
-      "headline": "Piramal Finance Ltd: Committee Meeting held on 24th August, 2026 for approving Qualified Institutional Placement.",
-      "headline_en": null,
-      "url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/334f9eab-8c38-4497-be3a-1ced9b0dacc3.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-24T13:57:16Z",
-      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
-      "prelim_note": "Committee to approve a Qualified Institutional Placement, a capital raise, with no size stated.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 79,
-      "triage_reason": "Committee to approve a Qualified Institutional Placement, a capital raise, with no size stated.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "capital_actions",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Piramal Finance Ltd",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260825-220",
-      "headline": "WCN: Danvers 1 Copper System Expanded by 480% [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.WCN?key=2924-03125370-6A1340040",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-24T22:38:55Z",
-      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
-      "prelim_note": "WCN announced its Danvers 1 copper system was expanded by 480%, a major resource increase flagged price-sensitive.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 78,
-      "triage_reason": "WCN announced its Danvers 1 copper system was expanded by 480%, a major resource increase flagged price-sensitive.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": -1,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "capex",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "WCN",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -88253,9 +88246,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 209243,
-    "news_picked_today": 637,
-    "news_dropped_today": 2687
+    "news_seen_today": 220196,
+    "news_picked_today": 651,
+    "news_dropped_today": 2733
   },
   "book_momentum": {
     "live_count": 8,
