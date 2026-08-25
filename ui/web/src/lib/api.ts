@@ -785,9 +785,15 @@ export const api = {
     const qs = p.toString()
     return get(`/api/news/themes${qs ? `?${qs}` : ''}`)
   },
-  newsTheme: async (id: string): Promise<import('./themes').ThemeDetail | null> => {
+  newsTheme: async (id: string, geo?: { country?: string; geoRegion?: string }, slice?: { scope?: string; commodity?: string }): Promise<import('./themes').ThemeDetail | null> => {
     if ((await ensureMode()) === 'static') return null
-    return get(`/api/news/themes/${encodeURIComponent(id)}`)
+    const p = new URLSearchParams()
+    if (geo?.country) p.set('country', geo.country)
+    if (geo?.geoRegion) p.set('geoRegion', geo.geoRegion)
+    if (slice?.scope) p.set('scope', slice.scope)
+    if (slice?.commodity) p.set('commodity', slice.commodity)
+    const qs = p.toString()
+    return get(`/api/news/themes/${encodeURIComponent(id)}${qs ? `?${qs}` : ''}`)
   },
   // The opened theme's plain-English brief — a few sentences on what it's about and what's happening.
   // Generated on the host by one free Groq pass (cached, degrading to a headline synthesis); the static
