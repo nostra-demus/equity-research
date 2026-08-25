@@ -141,6 +141,22 @@ check('daytime rate history does not require yesterday after the earliest possib
   }
 })
 
+check('rate history reads cycle summaries from every shard in the UTC partition', () => {
+  const midday = Date.parse('2026-08-21T12:00:00Z')
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'pipeline-flow-shards-'))
+  try {
+    const inbox = path.join(root, 'screener', 'inbox')
+    fs.mkdirSync(inbox, { recursive: true })
+    const first = cycle(Date.parse('2026-08-21T11:00:00Z'), { new_arrivals: 1, picked: 1 })
+    const second = cycle(Date.parse('2026-08-21T11:30:00Z'), { new_arrivals: 2, picked: 2 })
+    fs.writeFileSync(path.join(inbox, '2026-08-21_firehose.ndjson'), `${JSON.stringify({ kind: 'cycle_summary', ...first })}\n`)
+    fs.writeFileSync(path.join(inbox, '2026-08-21_firehose.000001.ndjson'), `${JSON.stringify({ kind: 'cycle_summary', ...second })}\n`)
+    const read = readPipelineFlowCycles(root, '', midday, CYCLE_TIMEOUT_MS)
+    assert.equal(read.cycles.length, 2)
+    assert.equal(buildPipelineFlowRates(read.cycles, midday, CYCLE_TIMEOUT_MS, read.history).inflow.items, 3)
+  } finally { fs.rmSync(root, { recursive: true, force: true }) }
+})
+
 check('impossible completion chronology fails the rate closed when the cycle could affect the window', () => {
   const started = NOW - 20 * 60_000
   for (const completed_at of [

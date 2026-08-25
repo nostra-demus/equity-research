@@ -427,8 +427,9 @@ source of truth and their hot-window cap is not a data cap.
 
 Every archive run uses SQLite's online backup API, verifies the snapshot, compresses it, and writes both
 `YYYY-MM-DD_news-queue.sqlite.gz` and `news-queue-latest.sqlite.gz` to `NEWS_ARCHIVE_DIR`, each with a
-SHA-256 sidecar. It never copies the live WAL file directly. Raw firehose files remain the permanent record
-of completed items; retired-unscored items keep their complete payload and reason in the SQLite snapshots.
+SHA-256 sidecar. It never copies the live WAL file directly. Raw firehose shards remain the permanent,
+uncapped Drive record of completed items; retired-unscored items keep their complete payload and reason in
+the SQLite snapshots.
 
 For a restore, stop the engine first, verify the `.sha256` sidecar, decompress the chosen snapshot to a
 temporary local path, and run `PRAGMA quick_check`. Move the old database, its `-wal` and `-shm` sidecars,

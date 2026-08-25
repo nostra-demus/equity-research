@@ -401,7 +401,7 @@ export function buildTriageQueue(
 ): NewsItem[] {
   const byPriority = (a: NewsItem, b: NewsItem) => preTriagePriority(b, now) - preTriagePriority(a, now)
   // Scored rows awaiting the firehose are a commit-recovery queue, not fresh scoring work. Put them first
-  // (oldest residence first) so the next UTC file drains them before spending provider capacity on new rows.
+  // (oldest residence first) so the next successful shard append drains them before new provider work.
   const pending = [...requeued, ...fresh]
     .filter((it) => !!it.feed_pending)
     .sort((a, b) => String(a.deferred_at || '').localeCompare(String(b.deferred_at || '')) || a.event_id.localeCompare(b.event_id))
@@ -1420,9 +1420,8 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
   const pendingNeedingRows = feedCapacity.status === 'available'
     ? pendingTriaged.filter((item) => !acknowledgedEventIds.has(item.event_id)).length
     : pendingTriaged.length
-  // Never spend a provider call after today's firehose is already full. When only row capacity remains,
-  // bound new scoring to that exact remainder after pending recovery rows; the byte boundary remains the
-  // final authority and can create at most this explicitly bounded suffix for later UTC rollover.
+  // Never spend a provider call without one shard's guaranteed durable room. A full/near-full shard is
+  // represented as the next empty shard, so capacity protection no longer pauses scoring until UTC midnight.
   const byteGuaranteedSlots = feedCapacity.status === 'available'
     ? Math.floor(feedCapacity.remainingBytes / MAX_FEED_ITEM_BYTES)
     : 0
@@ -2457,7 +2456,7 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
     inboxed = Array.isArray(current?.rows) ? current.rows.length : 0
   } catch { inboxed = 0 }
   // A row is only a candidate to land until its firehose item is durably appended below. Inbox-withheld
-  // rows never reach that boundary. A daily feed cap or I/O failure can still refuse a suffix, and that
+  // rows never reach that boundary. An unusable shard limit or I/O failure can still refuse a suffix, and that
   // suffix must remain uncounted, unseen, and queued until a later cycle actually persists it.
   const eligibleFeedCandidates = triaged.filter((t) => !withheldEventIds.has(t.event_id))
   // append reports an ordered prefix. Put already-durable acknowledgements first so a new row blocked by
@@ -2781,7 +2780,7 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
   const feedNote = feedIoReason
     ? `feed persistence unavailable — ${feedUnwritten} scored and ${heldUnscored} unscored item${feedUnwritten + heldUnscored === 1 ? '' : 's'} stayed queued; no unproved rows count as complete`
     : feedCapReason
-      ? `daily feed ${feedCapKind || 'item'} cap reached — ${feedUnwritten} scored and ${heldUnscored} unscored item${feedUnwritten + heldUnscored === 1 ? '' : 's'} stayed queued; provider calls stop at known capacity`
+      ? `feed shard ${feedCapKind || 'item'} limit could not accept work — ${feedUnwritten} scored and ${heldUnscored} unscored item${feedUnwritten + heldUnscored === 1 ? '' : 's'} stayed queued; provider calls stop at known capacity`
       : pendingRecoveryHeld
         ? `feed recovery drained first — ${heldUnscored} unscored item${heldUnscored === 1 ? '' : 's'} stayed queued without a provider call`
         : ''

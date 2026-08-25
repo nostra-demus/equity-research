@@ -1011,17 +1011,13 @@ export const NEWS = {
   redditBackoffCyclesOn429: capNum(process.env.NEWS_REDDIT_BACKOFF_CYCLES, 4), // cycles to skip Reddit after a 429
   redditMirrorTemplate: process.env.NEWS_REDDIT_MIRROR_TEMPLATE || 'https://rsshub.app/reddit/subreddit/{sub}/new', // {sub} placeholder; public-mirror fallback (overridable / self-hostable)
   redditOverallBudgetMs: capNum(process.env.NEWS_REDDIT_OVERALL_BUDGET_MS, 45_000), // wall-clock cap on the whole social layer so a Reddit outage can't stall the cycle (low-trust layer; next cycle resumes)
-  // Live-feed per-item records (firehose kind:"item") — the item cap is an operating target, while the
-  // BYTE cap is the authoritative GitHub safety boundary. Recent rows average ~1.64 KB: 40,000 is ~65.6 MB,
-  // enough for the observed ~32k high-inflow day plus ~8k of backlog drain. The 80 MB hard boundary leaves
-  // 20 MB below GitHub's 100 MB single-file limit for cycle summaries and row-size variance. Both boundaries
-  // fail closed: anything they refuse remains queued and unseen until a later UTC file can accept it; a
-  // known-full preflight stops provider calls, while any already-scored suffix keeps its exact result.
-  feedItemsDailyCap: capNum(process.env.NEWS_FEED_ITEMS_DAILY_CAP, 40_000),
-  // Hard-clamped even when the env is unsafe: 90 MB always reserves at least 10 MB for summaries below
-  // GitHub's 100 MB rejection boundary. Summaries have their own 99 MB whole-file stop; the lower 80 MB
-  // default keeps the normal operating reserve wider.
-  feedItemsDailyMaxBytes: Math.min(capNum(process.env.NEWS_FEED_ITEMS_DAILY_MAX_BYTES, 80_000_000), 90_000_000),
+  // Live-feed per-item records (firehose kind:"item") roll to another physical shard when either boundary
+  // is reached. These are PER-FILE Git-hosting guards, not daily retention caps; the logical day is uncapped.
+  // The old DAILY env names remain aliases so an existing launchd setup keeps exactly the same shard size.
+  feedItemsDailyCap: capNum(process.env.NEWS_FEED_SHARD_MAX_ITEMS || process.env.NEWS_FEED_ITEMS_DAILY_CAP, 40_000),
+  // Hard-clamped even when the env is unsafe: 90 MB reserves at least 10 MB below GitHub's 100 MB single-file
+  // rejection boundary. Cycle summaries may use that reserve up to their own 99 MB hard stop, then roll too.
+  feedItemsDailyMaxBytes: Math.min(capNum(process.env.NEWS_FEED_SHARD_MAX_BYTES || process.env.NEWS_FEED_ITEMS_DAILY_MAX_BYTES, 80_000_000), 90_000_000),
   // PULSE (news/commodity-pulse.ts) — the per-subject structured snapshot (price / CFTC COT /
   // next scheduled reports) behind /api/swarm/pulse, for swarms whose manifest declares `wire.pulse`.
   // Plain keyless HTTP + date math — zero LLM load. Lazy on request; cached under STATE_DIR.

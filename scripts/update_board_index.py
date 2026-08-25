@@ -910,7 +910,15 @@ def firehose_translations(max_files: int = 5) -> dict[str, str]:
     aged-out event simply has no entry and the UI falls back to the original headline. Newest file
     wins (reverse-sorted + setdefault)."""
     xlate: dict[str, str] = {}
-    files = sorted(glob.glob(os.path.join(INBOX, "*_firehose.ndjson")), reverse=True)[:max_files]
+    def firehose_key(fp: str) -> tuple[str, int]:
+        match = re.match(r"^(\d{4}-\d{2}-\d{2})_firehose(?:\.(\d{6}))?\.ndjson$", os.path.basename(fp))
+        return (match.group(1), int(match.group(2) or 0)) if match else ("", -1)
+
+    files = sorted(
+        (fp for fp in glob.glob(os.path.join(INBOX, "*_firehose*.ndjson")) if firehose_key(fp)[1] >= 0),
+        key=firehose_key,
+        reverse=True,
+    )[:max_files]
     for fp in files:
         for o in read_ndjson(fp):
             if o.get("kind") != "item":
@@ -937,18 +945,21 @@ def conviction_resolved_ids() -> set[str]:
 def firehose_counts(today: str) -> tuple[int, int, int]:
     """Sum today's autonomous-ingester cycle summaries → (seen, picked-into-inbox, dropped).
 
-    The ingester logs one compact `cycle_summary` line per run to <DATE>_firehose.ndjson (per-item
+    The ingester logs one compact `cycle_summary` line per run to the date's firehose shards (per-item
     `kind:"item"` lines are filtered out here); dropped items are counted but never written to the
     inbox. NOTE: seen can exceed picked + dropped — a cycle that hits the daily Groq budget or a
     transient Groq failure defers the unscored tail to the next cycle.
     """
     seen = picked = dropped = 0
-    for o in read_ndjson(os.path.join(INBOX, f"{today}_firehose.ndjson")):
-        if o.get("kind") != "cycle_summary":
-            continue
-        seen += int(o.get("candidates") or 0)
-        picked += int(o.get("picked") or 0) + int(o.get("watched") or 0)
-        dropped += int(o.get("dropped") or 0)
+    files = [os.path.join(INBOX, f"{today}_firehose.ndjson")]
+    files.extend(sorted(glob.glob(os.path.join(INBOX, f"{today}_firehose.[0-9]*.ndjson"))))
+    for fp in files:
+        for o in read_ndjson(fp):
+            if o.get("kind") != "cycle_summary":
+                continue
+            seen += int(o.get("candidates") or 0)
+            picked += int(o.get("picked") or 0) + int(o.get("watched") or 0)
+            dropped += int(o.get("dropped") or 0)
     return seen, picked, dropped
 
 
