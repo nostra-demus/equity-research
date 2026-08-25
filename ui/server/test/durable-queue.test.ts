@@ -10,6 +10,8 @@ import {
   durableQueueDatabasePath,
   inspectDurableQueueCounts,
   loadDurableQueueHistory,
+  purgeCompletedDurableQueueItems,
+  replaceDurableQueueLane,
   retireDurableQueueItems,
 } from '../src/news/durable-queue'
 import { inspectDeferredBacklog, loadDeferred, saveDeferred } from '../src/news/runCycle'
@@ -74,6 +76,26 @@ check('the hot-file cap is not a data cap: every excess item stays active in SQL
   })
 })
 
+check('hot-window replacement and overflow spill roll back together if either write fails', () => {
+  const state = tmp()
+  const original = [item(15), item(16)]
+  assert.equal(saveDeferred(state, original, () => {}, 2), true)
+  const db = new DatabaseSync(durableQueueDatabasePath(state))
+  try {
+    db.exec(`
+      CREATE TRIGGER reject_test_overflow BEFORE INSERT ON news_queue
+      WHEN NEW.event_id = '${item(17).event_id}' AND NEW.lane = 'overflow'
+      BEGIN SELECT RAISE(ABORT, 'test overflow failure'); END;
+    `)
+  } finally { db.close() }
+
+  assert.equal(saveDeferred(state, [item(15), item(17)], () => {}, 1), false)
+  assert.deepEqual(loadDeferred(state).map((row) => row.event_id), original.map((row) => row.event_id))
+  assert.deepEqual(inspectDurableQueueCounts(state), {
+    active: 2, completed: 0, retired: 0, barrier: 0, hot: 2, overflow: 0,
+  })
+})
+
 check('age retirement removes scheduling pressure but preserves every full payload and reason in SQLite', () => {
   const state = tmp()
   const rows = [item(20), item(21)]
@@ -89,6 +111,20 @@ check('age retirement removes scheduling pressure but preserves every full paylo
     const reasons = db.prepare("SELECT DISTINCT terminal_reason FROM news_queue WHERE state = 'retired'").all() as Array<{ terminal_reason: string }>
     assert.deepEqual(reasons.map((row) => row.terminal_reason), ['waited-longer-than-48h'])
   } finally { db.close() }
+})
+
+check('a completed row cannot block retirement of another row, and completed tombstones are purged', () => {
+  const state = tmp()
+  const rows = [item(22), item(23)]
+  assert.equal(saveDeferred(state, rows), true)
+  assert.equal(replaceDurableQueueLane(state, 'hot', [rows[1]], 'test-completed'), true)
+  assert.equal(inspectDurableQueueCounts(state)?.completed, 1)
+
+  assert.equal(retireDurableQueueItems(state, rows, 'test-retirement', new Date('2026-08-28T10:00:00Z')), true)
+  assert.deepEqual(loadDurableQueueHistory(state, 'retired').map((row) => row.event_id), [rows[1].event_id])
+  assert.equal(inspectDurableQueueCounts(state)?.completed, 1)
+  assert.equal(purgeCompletedDurableQueueItems(state), true)
+  assert.equal(inspectDurableQueueCounts(state)?.completed, 0)
 })
 
 check('a killed process cannot expose half a SQLite queue transaction', () => {

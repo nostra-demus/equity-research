@@ -62,10 +62,10 @@ import {
   checkpointDurableQueueItems,
   durableQueueLaneCount,
   inspectDurableQueue,
-  mergeDurableQueueItems,
   purgeCompletedDurableQueueItems,
   replaceAllDurableQueueItems,
   replaceDurableQueueLane,
+  replaceDurableQueueWindow,
   retireDurableQueueItems,
   type LegacyQueueRow,
 } from './durable-queue'
@@ -757,8 +757,7 @@ export function saveDeferred(
   const safeCap = Math.max(0, Math.floor(Number.isFinite(cap) ? cap : 0))
   const retained = prioritized.slice(0, safeCap)
   const excess = prioritized.slice(safeCap)
-  if (!replaceDurableQueueLane(stateDir, 'hot', retained, 'removed-from-active-work-window')
-    || (excess.length > 0 && !mergeDurableQueueItems(stateDir, excess, 'overflow'))) {
+  if (!replaceDurableQueueWindow(stateDir, retained, excess, 'removed-from-active-work-window')) {
     log(`saveDeferred failed (SQLite transaction refused) — ${items.length} item(s) remain in the last committed queue`)
     return false
   }

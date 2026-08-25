@@ -235,6 +235,29 @@ export function replaceDurableQueueLane(
   })
 }
 
+/**
+ * Replace the bounded hot window and spill its tail into overflow as one commit. Existing overflow
+ * remains active: callers use this while progressively draining a larger provider backlog.
+ */
+export function replaceDurableQueueWindow(
+  stateDir: string,
+  hotItems: readonly NewsItem[],
+  overflowItems: readonly NewsItem[],
+  terminalReason: string,
+): boolean {
+  return writeRows(stateDir, (db) => {
+    const generation = `${Date.now()}-${process.pid}-${Math.random().toString(16).slice(2)}`
+    insertActiveRows(db, hotItems.map((item) => ({ item, lane: 'hot' })), generation, true)
+    insertActiveRows(db, overflowItems.map((item) => ({ item, lane: 'overflow' })), generation, true)
+    const now = new Date().toISOString()
+    db.prepare(`
+      UPDATE news_queue
+      SET state = 'completed', payload_json = NULL, terminal_at = ?, terminal_reason = ?, updated_at = ?
+      WHERE state = 'active' AND lane = 'hot' AND generation <> ?
+    `).run(now, terminalReason, now, generation)
+  })
+}
+
 /** Full raw-input barrier: the supplied set becomes the exact active queue in one transaction. */
 export function replaceAllDurableQueueItems(
   stateDir: string,
@@ -314,7 +337,11 @@ export function retireDurableQueueItems(
         )
         if (Number(inserted.changes) === 0) {
           const existing = db.prepare('SELECT state FROM news_queue WHERE event_id = ?').get(item.item.event_id) as { state?: string } | undefined
-          if (existing?.state !== 'retired') throw new Error(`cannot preserve retirement payload for ${item.item.event_id}`)
+          // A concurrently completed item is already safe in the fsynced firehose. It must not roll back
+          // retirement of the other active rows in this batch.
+          if (existing?.state !== 'retired' && existing?.state !== 'completed') {
+            throw new Error(`cannot preserve retirement payload for ${item.item.event_id}`)
+          }
         }
       }
     }
@@ -340,10 +367,22 @@ export function durableQueueLaneCount(stateDir: string, lane: QueueLane): number
  * forever. Retired-unscored payloads are never purged here.
  */
 export function purgeCompletedDurableQueueItems(stateDir: string): boolean {
-  return writeRows(stateDir, (db) => {
-    db.prepare("DELETE FROM news_queue WHERE state = 'completed'").run()
-    db.exec('PRAGMA wal_checkpoint(PASSIVE)')
-  })
+  let db: DatabaseSync | undefined
+  try {
+    db = openQueue(stateDir)
+    if (meta(db, 'bootstrap_complete') !== '1') return false
+    transaction(db, () => {
+      db!.prepare("DELETE FROM news_queue WHERE state = 'completed'").run()
+    })
+    // Checkpoints cannot run inside the write transaction. Reclaiming WAL pages is useful but not part
+    // of the deletion's durability boundary, so a busy reader may safely defer it to a later cleanup.
+    try { db.exec('PRAGMA wal_checkpoint(PASSIVE)') } catch { /* non-fatal maintenance */ }
+    return true
+  } catch {
+    return false
+  } finally {
+    try { db?.close() } catch { /* best effort */ }
+  }
 }
 
 export function inspectDurableQueueCounts(stateDir: string): DurableQueueCounts | null {
