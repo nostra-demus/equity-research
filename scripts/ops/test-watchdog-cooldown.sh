@@ -139,7 +139,9 @@ case "${0##*/}" in
       http://127.0.0.1:8787/)
         # Current Vite names the entry `main-*`. The watchdog must discover the served script path rather
         # than hard-code an old bundler basename (`index-*`) and restart a healthy engine forever.
-        printf "<script type='module' crossorigin src = './assets/main-test.js'></script>\n"
+        # Custom elements and misleading JavaScript-looking attributes must not outrank the active src entry.
+        printf "<script-loader src='assets/decoy.js'></script-loader>\n"
+        printf "<script type='module' data-fallback='assets/fallback.js' data-src='/assets/lazy.js' src = './assets/main-test.js'></script>\n"
         ;;
       http://127.0.0.1:8787/assets/main-test.js)
         printf '200:application/javascript'
