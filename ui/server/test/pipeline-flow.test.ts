@@ -157,6 +157,23 @@ check('rate history reads cycle summaries from every shard in the UTC partition'
   } finally { fs.rmSync(root, { recursive: true, force: true }) }
 })
 
+check('a missing physical shard makes pipeline-flow coverage unreadable instead of undercounted', () => {
+  const midday = Date.parse('2026-08-21T12:00:00Z')
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'pipeline-flow-shard-gap-'))
+  try {
+    const inbox = path.join(root, 'screener', 'inbox')
+    fs.mkdirSync(inbox, { recursive: true })
+    fs.writeFileSync(path.join(inbox, '2026-08-21_firehose.ndjson'), '')
+    fs.writeFileSync(path.join(inbox, '2026-08-21_firehose.000002.ndjson'), `${JSON.stringify({
+      kind: 'cycle_summary', ...cycle(midday - 60_000, { new_arrivals: 99, picked: 99 }),
+    })}\n`)
+    const read = readPipelineFlowCycles(root, '', midday, CYCLE_TIMEOUT_MS)
+    assert.deepEqual(read.history.unreadableDates, ['2026-08-21'])
+    assert.notEqual(read.history.coverage, 'complete', 'the missing shard cannot produce measured coverage')
+    assert.equal(buildPipelineFlowRates(read.cycles, midday, CYCLE_TIMEOUT_MS, read.history).comparison.status, 'unavailable')
+  } finally { fs.rmSync(root, { recursive: true, force: true }) }
+})
+
 check('impossible completion chronology fails the rate closed when the cycle could affect the window', () => {
   const started = NOW - 20 * 60_000
   for (const completed_at of [

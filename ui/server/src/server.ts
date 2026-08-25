@@ -27,7 +27,7 @@ import {
   type RunProviderSelection,
 } from './launcher'
 import { newsBus } from './news/bus'
-import { readFeed, searchFeed, applyActiveWeightsTo } from './news/feed'
+import { readFeed, searchFeed, applyActiveWeightsTo, type SearchCursor } from './news/feed'
 import { getPulse } from './news/commodity-pulse'
 import { callVsLive, getQuotes, resolveUnits, symbolCandidates } from './news/equity-quote'
 import { getCalendar } from './news/events-calendar'
@@ -5185,7 +5185,8 @@ app.get('/api/news/feed', async (req) => {
 // (newest-N-in-window, no filtering), this applies every filter SERVER-SIDE and keeps scanning older days
 // until it fills a page of MATCHES or hits the archive floor — so a sparse filter (Aerospace & Defense in
 // the UAE) finds matches buried deep in history instead of falsely reading "nothing". Recency-ordered,
-// (ts,event_id) cursor paging. Rate-limited (the fs-read DoS guard) like the other filesystem routes.
+// loss-free cursor paging with an exact storage resume point. Rate-limited (the fs-read DoS guard) like
+// the other filesystem routes.
 app.get('/api/news/search', { config: { rateLimit: { max: 600, timeWindow: '1 minute' } } }, async (req) => {
   const q = req.query as any
   const filters = parseFeedFilterQuery(q || {})
@@ -5195,9 +5196,22 @@ app.get('/api/news/search', { config: { rateLimit: { max: 600, timeWindow: '1 mi
   // (an unhandled 500 + raw-error leak — there is no global error handler). searchFeed now also guards this,
   // but dropping malformed optional inputs here keeps results sane (an ignored filter, not a silent "today").
   const realDate = (s: any): s is string => typeof s === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(s) && !Number.isNaN(Date.parse(`${s}T00:00:00Z`))
-  const cursor = typeof q?.cursorTs === 'string' && q.cursorTs && !Number.isNaN(Date.parse(q.cursorTs)) ? { ts: String(q.cursorTs), id: String(q?.cursorId || '') } : null
   const from = realDate(q?.from) ? q.from : undefined
   const to = realDate(q?.to) ? q.to : undefined
+  const cursor = typeof q?.cursorTs === 'string' && q.cursorTs && !Number.isNaN(Date.parse(q.cursorTs))
+    ? { ts: String(q.cursorTs), id: String(q?.cursorId || '') } as SearchCursor
+    : null
+  // Budgeted search also returns an exact physical resume point. Older clients only send the stable
+  // (ts,id) pair; accept the storage cursor only when all three fields are present and bounded.
+  const cursorShard = typeof q?.cursorScanShard === 'string' && /^\d+$/.test(q.cursorScanShard) ? Number(q.cursorScanShard) : NaN
+  const cursorLine = typeof q?.cursorScanLine === 'string' && /^-?\d+$/.test(q.cursorScanLine) ? Number(q.cursorScanLine) : NaN
+  if (cursor && realDate(q?.cursorScanDate)
+    && Number.isSafeInteger(cursorShard) && cursorShard >= 0 && cursorShard <= 999_999
+    && Number.isSafeInteger(cursorLine) && cursorLine >= -1) {
+    cursor.scanDate = q.cursorScanDate
+    cursor.scanShard = cursorShard
+    cursor.scanLine = cursorLine
+  }
   const snap = searchFeed(REPO_ROOT, {
     predicate: (it) => matchesFeedFilters(it, filters),
     archiveDir: NEWS.newsArchiveDir, limit, cursor, fromDate: from, toDate: to,

@@ -1,7 +1,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import type { CycleSummary } from './types'
-import { parseFirehoseName, resolvedFirehoseFiles } from './firehose-files'
+import { contiguousFirehoseFiles, parseFirehoseName, resolvedFirehoseFiles } from './firehose-files'
 
 export const PIPELINE_FLOW_WINDOW_MINUTES = 60 as const
 export const PIPELINE_FLOW_WINDOW_MS = PIPELINE_FLOW_WINDOW_MINUTES * 60_000
@@ -268,6 +268,7 @@ function readPartition(repoRoot: string, archiveDir: string, date: string): { st
   try { files = resolvedFirehoseFiles(repoRoot, date, archiveDir) }
   catch { return { status: 'unreadable' } }
   if (!files.length) return { status: 'missing' }
+  if (!contiguousFirehoseFiles(files)) return { status: 'unreadable' }
   const texts: string[] = []
   for (const row of files) {
     try { texts.push(fs.readFileSync(row.file, 'utf8')) }
