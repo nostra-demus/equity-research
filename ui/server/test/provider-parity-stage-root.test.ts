@@ -23,6 +23,11 @@ try {
 
   fs.writeFileSync(path.join(root, '.provider-parity-input.json'), '{}\n')
   assert.doesNotThrow(() => assertParityCanaryStageRoot(root, 'chain'))
+  fs.writeFileSync(path.join(root, '.DS_Store'), 'Finder metadata\n')
+  assert.doesNotThrow(
+    () => assertParityCanaryStageRoot(root, 'chain'),
+    'macOS Finder metadata is not research evidence and does not contaminate a pristine root',
+  )
 
   fs.writeFileSync(path.join(root, '.defer_module_memos'), '')
   assert.throws(
@@ -90,6 +95,13 @@ try {
     'a non-Insufficient triage cannot masquerade as a completed fail-fast outcome',
   )
   fs.rmSync(failFastTriagePath)
+  fs.mkdirSync(failFastTriagePath)
+  assert.throws(
+    () => assertParityCanaryStageRoot(root, 'final'),
+    /not complete|before every module is complete/,
+    'an unreadable or wrong-type triage fails closed as incomplete instead of escaping as an I/O error',
+  )
+  fs.rmSync(failFastTriagePath, { recursive: true })
   fs.writeFileSync(failFastSynthesisPath, `# ${failFastModule.name} synthesis\n\nVerdict: mechanically valid test artifact.\n`)
 
   fs.writeFileSync(path.join(root, 'untrusted.txt'), 'unexpected\n')

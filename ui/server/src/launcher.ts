@@ -3539,7 +3539,10 @@ export function assertParityCanaryStageRoot(rootAbsolute: string, stage: ParityC
     '.provider-parity-input.json', '.defer_module_memos', IDEA_PUBLICATION_MARKER,
     'readiness_override.json', '_pool_extracts',
   ])
+  // Finder may create this metadata file merely by displaying the directory. It carries no research
+  // evidence and is never passed to a provider, so ignore it without widening the support-file contract.
   const entries = fs.readdirSync(rootAbsolute, { withFileTypes: true })
+    .filter((entry) => entry.name !== '.DS_Store')
   const names = new Set(entries.map((entry) => entry.name))
   if (!names.has('.provider-parity-input.json')) {
     throw Object.assign(new Error('parity canary root has no immutable provider binding'), { statusCode: 409 })
@@ -3610,8 +3613,13 @@ function hasValidParityModuleOutcome(
   if (hasValidParitySynthesis(moduleAbsolute, synthesisFiles)) return true
   return failFastTriageFiles.some((file) => {
     const candidate = path.join(moduleAbsolute, file)
-    if (!validateAgentOutputFile(candidate).valid) return false
-    try { return extractTriageStatus(fs.readFileSync(candidate, 'utf8')) === 'Insufficient' } catch { return false }
+    try {
+      const info = fs.lstatSync(candidate)
+      if (!info.isFile() || info.isSymbolicLink() || !validateAgentOutputFile(candidate).valid) return false
+      return extractTriageStatus(fs.readFileSync(candidate, 'utf8')) === 'Insufficient'
+    } catch {
+      return false
+    }
   })
 }
 
