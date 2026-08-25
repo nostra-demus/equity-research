@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-25T06:58:24Z",
+  "generated_at": "2026-08-25T07:07:41Z",
   "inbox": [
     {
       "inbox_id": "INB-20260825-1448",
@@ -961,6 +961,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260825-1527",
+      "headline": "Milliardendeal: Siemens Energy bereitet möglichen Verkauf von Dampfturbinen-Geschäft vor",
+      "headline_en": "Billion-euro deal: Siemens Energy prepares for potential sale of steam turbine business",
+      "url": "https://www.handelsblatt.com/unternehmen/industrie/milliardendeal-siemens-energy-bereitet-moeglichen-verkauf-von-dampfturbinen-geschaeft-vor/100249453.html",
+      "source_name": "Handelsblatt",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-25T06:37:23Z",
+      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
+      "prelim_note": "Siemens Energy is preparing for a potential sale of its steam turbine business, a significant strategic move.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Siemens Energy is preparing for a potential sale of its steam turbine business, a significant strategic move.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "strategic_review",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "strategic_review"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Siemens Energy",
+          "ticker": "ENR",
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260825-1518",
       "headline": "Hindustan Copper Shares Fall 6% As Govt Announces 6% Stake Sale Via OFS At 10% Discount",
       "headline_en": null,
@@ -1146,6 +1195,104 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260825-1534",
+      "headline": "Suzlon Share Price Falls Despite Torrent Partnership, Rs 10,000 Cr Andhra Pradesh Plan",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/markets/suzlon-share-price-falls-despite-torrent-partnership-rs-10-000-cr-andhra-pradesh-plan-11954855#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-25T05:08:54Z",
+      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
+      "prelim_note": "Suzlon announced a major Rs 10,000 crore investment plan in Andhra Pradesh.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Suzlon announced a major Rs 10,000 crore investment plan in Andhra Pradesh.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Suzlon",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260825-1535",
+      "headline": "IIFL Finance Share Price Falls Over 8% After Rs 963 Crore Tax Demand From I-T Authority",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/markets/iifl-finance-share-price-falls-7-after-rs-963-crore-tax-demand-from-it-authority-11954657#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-25T04:54:28Z",
+      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
+      "prelim_note": "IIFL Finance faces a significant Rs 963 crore tax demand, impacting cash flow and regulatory risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "IIFL Finance faces a significant Rs 963 crore tax demand, impacting cash flow and regulatory risk.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "IIFL Finance",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1665,6 +1812,153 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260825-1561",
+      "headline": "‎Qiddiya signs €6B deal to develop 3 entertainment cities in France",
+      "headline_en": null,
+      "url": "https://www.argaam.com/en/article/articledetail/id/1931561",
+      "source_name": "Argaam — Main News (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-24T23:14:00Z",
+      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
+      "prelim_note": "Qiddiya Investment Company signed a €6 billion deal for entertainment development.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Qiddiya Investment Company signed a €6 billion deal for entertainment development.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 2,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Qiddiya Investment Company",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260825-1577",
+      "headline": "Luxembourg-based iPC proposes ₹83,480 crore investment in Karnataka in three phases",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/news/national/luxembourg-based-ipc-proposes-83480-crore-investment-in-karnataka-in-three-phases/article71386328.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-24T22:58:34Z",
+      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
+      "prelim_note": "Major capital investment announcement of ₹83,480 crore in Karnataka.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Major capital investment announcement of ₹83,480 crore in Karnataka.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 2,
+        "materiality_label_floor": 15,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "iPC",
+          "ticker": null,
+          "listing_country": "LU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260825-1614",
+      "headline": "UPS To Invest More Than $2 Bln In International, Healthcare And Supply Chain Businesses",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/ups-invest-more-2-bln-international-healthcare-and-supply-chain-businesses",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-24T22:25:37Z",
+      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
+      "prelim_note": "UPS announced a major $2 billion capital investment plan to expand international, healthcare, and supply chain operations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "UPS announced a major $2 billion capital investment plan to expand international, healthcare, and supply chain operations.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "United Parcel Service",
+          "ticker": "UPS",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260825-1419",
       "headline": "Hugging Face Explores $13 Billion Sale a Month After a Rogue OpenAI Agent Hacked It",
       "headline_en": null,
@@ -1709,286 +2003,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260825-687",
-      "headline": "Ship's Cook Survives Drone Attack, Then Dies in Attack on Rescue Vessel",
-      "headline_en": null,
-      "url": "https://maritime-executive.com/article/ship-s-cook-survives-drone-attack-then-dies-in-attack-on-rescue-vessel",
-      "source_name": "Maritime Executive",
-      "input_nature": "shipping_rate_move",
-      "found_at": "2026-08-25T02:11:54Z",
-      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
-      "prelim_note": "Escalation of maritime conflict involving lethal attacks on vessels represents a significant geopolitical risk to global shipping and supply chains.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Escalation of maritime conflict involving lethal attacks on vessels represents a significant geopolitical risk to global shipping and supply chains.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 5,
-        "scope": 4,
-        "event": 1,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "commodity",
-        "source_tier_id": "official_data",
-        "event_id": "macro_sector",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260825-854",
-      "headline": "Bahri VLCC Struck as Houthis Continue Attacks Against Saudi Interests",
-      "headline_en": null,
-      "url": "https://maritime-executive.com/article/bahri-vlcc-struck-as-houthis-continue-attacks-against-saudi-interests",
-      "source_name": "Maritime Executive",
-      "input_nature": "shipping_rate_move",
-      "found_at": "2026-08-24T16:44:30Z",
-      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
-      "prelim_note": "Houthi attack on a Bahri VLCC is a military escalation against Saudi shipping interests, raising war-risk and supply disruption.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Houthi attack on a Bahri VLCC is a military escalation against Saudi shipping interests, raising war-risk and supply disruption.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 5,
-        "scope": 4,
-        "event": 2,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "commodity",
-        "source_tier_id": "official_data",
-        "event_id": "operations",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "operations",
-        "macro_sector"
-      ],
-      "issuer_linkage": "secondary",
-      "companies": [
-        {
-          "name": "Bahri",
-          "ticker": null,
-          "listing_country": "SA"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260825-859",
-      "headline": "Houthis Escalate Saudi Shipping Campaign With VLCC Strike",
-      "headline_en": null,
-      "url": "https://gcaptain.com/houthis-escalate-saudi-shipping-campaign-with-vlcc-strike/",
-      "source_name": "gCaptain",
-      "input_nature": "shipping_rate_move",
-      "found_at": "2026-08-24T16:06:28Z",
-      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
-      "prelim_note": "Houthis escalated their Saudi shipping campaign with a VLCC strike, a clear military escalation raising supply risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Houthis escalated their Saudi shipping campaign with a VLCC strike, a clear military escalation raising supply risk.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 78,
-      "rank_factors": {
-        "materiality": 78,
-        "source_tier": 5,
-        "scope": 4,
-        "event": 2,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 7,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "commodity",
-        "source_tier_id": "official_data",
-        "event_id": "operations",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "operations",
-        "macro_sector"
-      ],
-      "issuer_linkage": "secondary",
-      "companies": [
-        {
-          "name": "Bahri",
-          "ticker": null,
-          "listing_country": "SA"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260825-1438",
-      "headline": "AI Cloud Provider Lambda in Talks for $3 Billion Pre-IPO Round",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-08-24/ai-cloud-provider-lambda-in-talks-for-3-billion-pre-ipo-round",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-24T23:36:55Z",
-      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
-      "prelim_note": "Lambda is in talks to raise a $3 billion pre-IPO round, representing a significant capital injection for the AI infrastructure provider.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Lambda is in talks to raise a $3 billion pre-IPO round, representing a significant capital injection for the AI infrastructure provider.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capital_actions",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Lambda",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260825-793",
-      "headline": "Iran threatens to fine, detain vessels violating Hormuz transit rules",
-      "headline_en": null,
-      "url": "https://www.hellenicshippingnews.com/iran-threatens-to-fine-detain-vessels-violating-hormuz-transit-rules/",
-      "source_name": "Hellenic Shipping News Worldwide",
-      "input_nature": "shipping_rate_move",
-      "found_at": "2026-08-24T21:00:51Z",
-      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
-      "prelim_note": "Iran threatens to fine and detain vessels in Hormuz, a key chokepoint, raising supply and operational risk for global shipping.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Iran threatens to fine and detain vessels in Hormuz, a key chokepoint, raising supply and operational risk for global shipping.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 72,
-      "rank_factors": {
-        "materiality": 72,
-        "source_tier": 5,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 13,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "official_data",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector",
-        "regulatory"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260825-1473",
-      "headline": "Iran Threatens Retaliation as U.S. Widens Sanctions",
-      "headline_en": null,
-      "url": "https://oilprice.com/Latest-Energy-News/World-News/Iran-Threatens-Retaliation-as-US-Widens-Sanctions.html",
-      "source_name": "OilPrice.com",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-25T06:00:00Z",
-      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
-      "prelim_note": "Iran threatened retaliation as the US widened sanctions, a geopolitical escalation with broad market impact.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Iran threatened retaliation as the US widened sanctions, a geopolitical escalation with broad market impact.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 72,
-      "rank_factors": {
-        "materiality": 72,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 13,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector",
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -88734,9 +88748,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 596896,
-    "news_picked_today": 2578,
-    "news_dropped_today": 10034
+    "news_seen_today": 606463,
+    "news_picked_today": 2693,
+    "news_dropped_today": 10351
   },
   "book_momentum": {
     "live_count": 8,
