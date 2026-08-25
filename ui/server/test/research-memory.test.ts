@@ -35,7 +35,12 @@ function run(): RunState {
 const configured = {
   NOSTRA_MEMORY_MODE: 'enforced', NOSTRA_MEMORY_STATE_ROOT: '/tmp/memory-state',
   NOSTRA_MEMORY_CHECKPOINT: '/tmp/checkpoint', NOSTRA_MEMORY_WRITER_OWNER: '/tmp/owner',
-  NOSTRA_MEMORY_WRITER_HEAD: '/tmp/head', NOSTRA_MEMORY_CHECKPOINT_PRIVATE_KEY: '/tmp/cpk',
+  NOSTRA_MEMORY_WRITER_HEAD: '/tmp/head', NOSTRA_MEMORY_CANONICAL_LEDGER: '/tmp/memory.ndjson',
+  NOSTRA_MEMORY_PROTECTED_STORE: '/tmp/protected-memory',
+  NOSTRA_MEMORY_PROTECTED_MASTER_KEY: '/tmp/protected-key',
+  NOSTRA_MEMORY_PROTECTED_KEY_ID: 'key:memory-projection',
+  NOSTRA_MEMORY_PROJECTION_SERVICE_IDENTITY: 'memory-projection-reader',
+  NOSTRA_MEMORY_CHECKPOINT_PRIVATE_KEY: '/tmp/cpk',
   NOSTRA_MEMORY_CHECKPOINT_PUBLIC_KEY: '/tmp/cpub', NOSTRA_MEMORY_CHECKPOINT_KEY_ID: 'checkpoint',
   NOSTRA_MEMORY_CONTRACT_PRIVATE_KEY: '/tmp/rpk', NOSTRA_MEMORY_CONTRACT_PUBLIC_KEY: '/tmp/rpub',
   NOSTRA_MEMORY_CONTRACT_KEY_ID: 'contract', NOSTRA_MEMORY_PROVIDER_POLICY: '/tmp/policy',

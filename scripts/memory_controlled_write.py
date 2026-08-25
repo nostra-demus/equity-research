@@ -36,6 +36,7 @@ try:
         Phase5ContractError,
         effective_phase5_event,
         request_event,
+        request_promotion_manifest,
         validate_dead_letter,
         validate_write_request,
         validate_write_result,
@@ -64,6 +65,7 @@ except ImportError:  # pragma: no cover - package-style imports
         Phase5ContractError,
         effective_phase5_event,
         request_event,
+        request_promotion_manifest,
         validate_dead_letter,
         validate_write_request,
         validate_write_result,
@@ -1181,6 +1183,8 @@ class ControlledWriter:
         memory_store: MemoryStore | None = None,
         journal_cipher: AuthenticatedCipher | None = None,
         review_authorizer: Authorizer | None = None,
+        promotion_manifest_verifier: Callable[[Mapping[str, Any], object | None], bool] | None = None,
+        promotion_manifest_verifier_id: str | None = None,
         authorize_retirement: Authorizer | None = None,
         retirement_proof_verifier: RetirementProofVerifier | None = None,
         retirement_proof_verifier_id: str | None = None,
@@ -1217,6 +1221,16 @@ class ControlledWriter:
             )
         if review_authorizer is not None and not callable(review_authorizer):
             raise ControlledWriteCorruption("review_authorizer must be callable")
+        if (promotion_manifest_verifier is None) != (promotion_manifest_verifier_id is None):
+            raise ControlledWriteCorruption(
+                "promotion manifest verifier and verifier ID must be configured together"
+            )
+        if promotion_manifest_verifier is not None and (
+            not callable(promotion_manifest_verifier)
+            or not isinstance(promotion_manifest_verifier_id, str)
+            or _VERIFIER_ID_RE.fullmatch(promotion_manifest_verifier_id) is None
+        ):
+            raise ControlledWriteCorruption("promotion manifest verifier configuration is invalid")
         retirement_options = (
             authorize_retirement,
             retirement_proof_verifier,
@@ -1297,6 +1311,8 @@ class ControlledWriter:
             "authoritative_event_resolver_id": authoritative_event_resolver_id,
             "retirement_proof_verifier_id": retirement_proof_verifier_id,
         }
+        if promotion_manifest_verifier_id is not None:
+            configuration["promotion_manifest_verifier_id"] = promotion_manifest_verifier_id
         helper = Path(append_script) if append_script else Path(__file__).with_name("append-ndjson.sh")
         self._state = _PrivateState(
             state_root,
@@ -1317,6 +1333,8 @@ class ControlledWriter:
         self._candidate_provenance_verifier_id = candidate_provenance_verifier_id
         self._authoritative_event_resolver = authoritative_event_resolver
         self._authoritative_event_resolver_id = authoritative_event_resolver_id
+        self._promotion_manifest_verifier = promotion_manifest_verifier
+        self._promotion_manifest_verifier_id = promotion_manifest_verifier_id
         self._clock = clock
         self._fault_injector = fault_injector
         self._canonical_sink.bind_coordinator(
@@ -2386,7 +2404,8 @@ class ControlledWriter:
             ),
             "request_sha256": request_sha256,
             "operation": operation if operation in {
-                "claim-append", "claim-correction", "feedback-promotion", "feedback-correction"
+                "claim-append", "claim-correction", "feedback-promotion", "feedback-correction",
+                "semantic-promotion", "semantic-supersession",
             } else "unknown",
             "disposition": disposition,
             "route": route,
@@ -3246,6 +3265,18 @@ class ControlledWriter:
         event: Mapping[str, Any] | None = None
         route = "unknown"
         local_errors = validate_write_request(request)
+        if request.get("operation") in {"semantic-promotion", "semantic-supersession"}:
+            try:
+                manifest = request_promotion_manifest(request)
+                verified = (
+                    manifest is not None
+                    and self._promotion_manifest_verifier is not None
+                    and self._promotion_manifest_verifier(manifest, principal) is True
+                )
+            except Exception:
+                verified = False
+            if not verified:
+                local_errors.append("promotion-manifest-signature-or-merge-verification-failed")
         if not local_errors:
             try:
                 event = request_event(request)

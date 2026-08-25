@@ -249,6 +249,20 @@
     },
     {
       "if": {
+        "properties": { "event_type": { "const": "semantic.activated" } },
+        "required": ["event_type"]
+      },
+      "then": {
+        "properties": {
+          "payload": {
+            "properties": { "schema": { "const": "memory-semantic-lesson/v1" } },
+            "required": ["schema"]
+          }
+        }
+      }
+    },
+    {
+      "if": {
         "properties": {
           "payload": {
             "properties": { "schema": { "const": "memory-evidence-span/v2" } },
@@ -293,6 +307,20 @@
       },
       "then": {
         "properties": { "event_type": { "const": "feedback.reviewed" } }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "payload": {
+            "properties": { "schema": { "const": "memory-semantic-lesson/v1" } },
+            "required": ["schema"]
+          }
+        },
+        "required": ["payload"]
+      },
+      "then": {
+        "properties": { "event_type": { "const": "semantic.activated" } }
       }
     },
     {

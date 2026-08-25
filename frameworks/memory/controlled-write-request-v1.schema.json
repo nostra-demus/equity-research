@@ -15,7 +15,9 @@
     "event_canonical_json",
     "store_bindings",
     "shadow_feedback_sha256",
-    "shadow_feedback_canonical_json"
+    "shadow_feedback_canonical_json",
+    "promotion_manifest_sha256",
+    "promotion_manifest_canonical_json"
   ],
   "properties": {
     "schema": { "const": "memory-controlled-write-request/v1" },
@@ -36,7 +38,9 @@
         "claim-append",
         "claim-correction",
         "feedback-promotion",
-        "feedback-correction"
+        "feedback-correction",
+        "semantic-promotion",
+        "semantic-supersession"
       ]
     },
     "event_sha256": { "$ref": "#/$defs/hashRef" },
@@ -61,30 +65,63 @@
         { "type": "null" },
         { "type": "string", "minLength": 2, "maxLength": 4194304 }
       ]
+    },
+    "promotion_manifest_sha256": {
+      "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/hashRef" }]
+    },
+    "promotion_manifest_canonical_json": {
+      "oneOf": [
+        { "type": "null" },
+        { "type": "string", "minLength": 2, "maxLength": 4194304 }
+      ]
     }
   },
   "allOf": [
     {
       "if": {
         "properties": {
-          "operation": { "enum": ["claim-append", "claim-correction"] }
+          "operation": { "enum": ["feedback-promotion", "feedback-correction"] }
         },
+        "required": ["operation"]
+      },
+      "then": {
+        "properties": {
+          "shadow_feedback_sha256": { "$ref": "#/$defs/hashRef" },
+          "shadow_feedback_canonical_json": { "type": "string", "minLength": 2, "maxLength": 4194304 },
+          "promotion_manifest_sha256": { "type": "null" },
+          "promotion_manifest_canonical_json": { "type": "null" }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": { "operation": { "enum": ["semantic-promotion", "semantic-supersession"] } },
+        "required": ["operation"]
+      },
+      "then": {
+        "properties": {
+          "shadow_feedback_sha256": { "type": "null" },
+          "shadow_feedback_canonical_json": { "type": "null" },
+          "promotion_manifest_sha256": { "$ref": "#/$defs/hashRef" },
+          "promotion_manifest_canonical_json": { "type": "string", "minLength": 2, "maxLength": 4194304 }
+        }
+      },
+      "else": {
+        "properties": {
+          "promotion_manifest_sha256": { "type": "null" },
+          "promotion_manifest_canonical_json": { "type": "null" }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": { "operation": { "enum": ["claim-append", "claim-correction"] } },
         "required": ["operation"]
       },
       "then": {
         "properties": {
           "shadow_feedback_sha256": { "type": "null" },
           "shadow_feedback_canonical_json": { "type": "null" }
-        }
-      },
-      "else": {
-        "properties": {
-          "shadow_feedback_sha256": { "$ref": "#/$defs/hashRef" },
-          "shadow_feedback_canonical_json": {
-            "type": "string",
-            "minLength": 2,
-            "maxLength": 4194304
-          }
         }
       }
     }
