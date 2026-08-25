@@ -2084,9 +2084,38 @@ export interface PortfolioBook {
   reconciliation: { ok: boolean; checks: PortfolioCheck[] }
   warnings: string[]
 }
+export interface PortfolioPeriodReturn { label: string; from: string | null; to: string | null; twr: number | null; days: number }
+export interface PortfolioDrawdown {
+  depth: number | null; peakDate: string | null; troughDate: string | null; recoveredDate: string | null
+  toTroughDays: number | null; underWaterDays: number | null; episodesOver3pct: number
+}
+export interface PortfolioRisk {
+  sampleDays: number
+  /** False when the sample is too short to state ratios — show blanks, not numbers. */
+  sufficient: boolean
+  volatility: number | null; sharpe: number | null; sortino: number | null; calmar: number | null
+  drawdown: PortfolioDrawdown
+}
+export interface PortfolioBenchmark {
+  symbol: string; benchmarkTwr: number | null; excess: number | null
+  from: string | null; to: string | null
+  /** Why the comparison is unavailable, when it is — never a silent blank. */
+  unavailable: string | null
+}
+export interface PortfolioPerformance {
+  periods: PortfolioPeriodReturn[]
+  /** ANNUALISED (XIRR) — not comparable with the cumulative period returns, and labelled as such. */
+  moneyWeightedAnnualisedPct: number | null
+  risk: PortfolioRisk
+  benchmark: PortfolioBenchmark
+  riskFreeAnnualPct: number
+  feedPresent: boolean
+}
+
 export interface PortfolioRead {
   statements: PortfolioStatement[]
   book: PortfolioBook | null
+  performance: PortfolioPerformance | null
   error: string | null
 }
 export interface PortfolioUploadResult extends PortfolioRead {

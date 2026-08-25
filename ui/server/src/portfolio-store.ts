@@ -15,8 +15,10 @@ import crypto from 'node:crypto'
 import fs from 'node:fs'
 import path from 'node:path'
 import { STATE_DIR } from './config'
+import { feedPresent, readCloses } from './market-feed'
 import { buildBook, type Book } from './portfolio'
 import { parseFlexXml, type FlexDocument } from './portfolio-import'
+import { benchmarkCompare, moneyWeightedReturn, returnsByPeriod, riskMetrics, type BenchmarkRead, type PeriodReturn, type RiskRead } from './portfolio-metrics'
 
 export const PORTFOLIO_DIR = path.join(STATE_DIR, 'portfolio')
 export const STATEMENTS_DIR = path.join(PORTFOLIO_DIR, 'statements')
@@ -106,19 +108,63 @@ function currentKey(statements: StoredStatement[]): string {
   return statements.map((s) => s.id).sort().join(',')
 }
 
+/** The benchmark and the cash hurdle the book is measured against. Both are stated on screen so the
+ *  comparison can never be read as against something else. */
+export const BENCHMARK_SYMBOL = 'SPY'
+export const RISK_FREE_ANNUAL_PCT = 4.3
+
+export interface PortfolioPerformance {
+  periods: PeriodReturn[]
+  /** The LP's lived return — reported alongside the time-weighted figure, never instead of it.
+   *  ANNUALISED (XIRR), unlike the cumulative period returns above: the UI must label it as such. */
+  moneyWeightedAnnualisedPct: number | null
+  risk: RiskRead
+  benchmark: BenchmarkRead
+  riskFreeAnnualPct: number
+  /** Whether any market feed exists at all, so the UI can tell "none configured" from "does not cover
+   *  this window" — different problems with different fixes. */
+  feedPresent: boolean
+}
+
 export interface PortfolioRead {
   statements: StoredStatement[]
   book: Book | null
+  /** Null whenever there is no book to measure. */
+  performance: PortfolioPerformance | null
   /** Present when the stored statements cannot currently produce a book — two accounts, say. The
    *  statements are still listed, so the operator can see what to remove. */
   error: string | null
 }
 
+/** Returns, risk and the benchmark comparison for a built book. Derived on read like the book itself —
+ *  nothing here is persisted, so improving the maths improves every past figure. */
+export function performanceOf(book: Book): PortfolioPerformance {
+  // The same flow map the book's own TWR uses, so every figure on the screen rests on one series.
+  const flowsByDate = new Map<string, number>()
+  const dates = book.navSeries.map((p) => p.date)
+  for (const f of book.flows) {
+    if (!f.date) continue
+    const landing = dates.find((d) => d >= f.date!)
+    if (landing === undefined) continue
+    flowsByDate.set(landing, (flowsByDate.get(landing) ?? 0) + (f.amountBase ?? f.amount))
+  }
+  return {
+    periods: returnsByPeriod(book.navSeries, flowsByDate),
+    moneyWeightedAnnualisedPct: moneyWeightedReturn(book.navSeries, book.flows),
+    risk: riskMetrics(book.navSeries, flowsByDate, RISK_FREE_ANNUAL_PCT),
+    benchmark: benchmarkCompare(BENCHMARK_SYMBOL, book.twr, book.navSeries, readCloses(BENCHMARK_SYMBOL)),
+    riskFreeAnnualPct: RISK_FREE_ANNUAL_PCT,
+    feedPresent: feedPresent(),
+  }
+}
+
 export function readPortfolio(): PortfolioRead {
   const statements = listStatements()
-  if (statements.length === 0) return { statements, book: null, error: null }
+  if (statements.length === 0) return { statements, book: null, performance: null, error: null }
   const key = currentKey(statements)
-  if (cache && cache.key === key) return { statements, book: cache.book, error: cache.error }
+  if (cache && cache.key === key) {
+    return { statements, book: cache.book, performance: cache.book ? performanceOf(cache.book) : null, error: cache.error }
+  }
 
   // EVERY listed statement must load, or there is no book. Skipping an unreadable one and building from
   // the rest returns a green, complete-looking book that is silently missing whole months of trades and
@@ -142,5 +188,5 @@ export function readPortfolio(): PortfolioRead {
     }
   }
   cache = { key, book, error }
-  return { statements, book, error }
+  return { statements, book, performance: book ? performanceOf(book) : null, error }
 }

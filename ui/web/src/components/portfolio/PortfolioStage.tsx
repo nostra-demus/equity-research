@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 import { api } from '../../lib/api'
-import type { PortfolioBook, PortfolioPosition, PortfolioRead } from '../../lib/types'
+import type { PortfolioBook, PortfolioPerformance, PortfolioPosition, PortfolioRead } from '../../lib/types'
 
 // The fund book: what the fund ACTUALLY owns, fed by IBKR Flex exports.
 //
@@ -54,7 +54,7 @@ export function PortfolioStage() {
     setBusy(true); setProgress(0); setNotes([])
     try {
       const result = await api.uploadStatements(files, setProgress)
-      setRead({ statements: result.statements, book: result.book, error: result.error })
+      setRead({ statements: result.statements, book: result.book, performance: result.performance, error: result.error })
       const next: { tone: 'ok' | 'bad'; text: string }[] = []
       if (result.saved.length) next.push({ tone: 'ok', text: `${result.saved.length} statement${result.saved.length === 1 ? '' : 's'} imported` })
       // A duplicate is a normal outcome, not a failure: overlapping exports are how full history is
@@ -138,6 +138,7 @@ export function PortfolioStage() {
           {book && (
             <>
               <Summary book={book} />
+              {read?.performance && <Performance perf={read.performance} />}
               <Positions book={book} />
             </>
           )}
@@ -205,6 +206,86 @@ function Card({ label, value, sub, tone }: { label: string; value: string; sub?:
       <span className="fundbook__cardlabel">{label}</span>
       <strong className="fundbook__cardvalue" style={tone ? { color: tone } : undefined}>{value}</strong>
       {sub && <small className="fundbook__cardsub">{sub}</small>}
+    </div>
+  )
+}
+
+/** Returns and risk. Every figure here states the basis it is measured on, because the two most common
+ *  ways to mislead with these numbers are annualising a short history and comparing an annualised rate
+ *  against a cumulative one. */
+function Performance({ perf }: { perf: PortfolioPerformance }) {
+  const { risk, benchmark: bm } = perf
+  const ratio = (v: number | null) => (risk.sufficient && v !== null ? v.toFixed(2) : '—')
+  return (
+    <div className="fundbook__panel">
+      <div className="fundbook__panelhead">
+        <div>
+          <strong>Returns and risk</strong>
+          <small>
+            Time-weighted, flows removed · cash hurdle {perf.riskFreeAnnualPct}% · ratios from {risk.sampleDays} days
+            {risk.sampleDays > 0 && ' with capital in the book'}
+          </small>
+        </div>
+      </div>
+
+      <div className="fundbook__row fundbook__row--head fundbook__row--periods">
+        <span>Period</span><span className="num">Return</span><span className="num">{bm.symbol}</span>
+        <span className="num">Excess</span><span className="num">Days</span>
+      </div>
+      {perf.periods.map((p) => (
+        <div key={p.label} className="fundbook__row fundbook__row--periods">
+          <span>{p.label}<small className="fundbook__since">{p.from} → {p.to}</small></span>
+          <strong className="num" style={{ color: toneOf(p.twr) }}>{fmtPct(p.twr, 2)}</strong>
+          {/* The benchmark is only meaningful over the same window, so it is shown on the inception row
+              alone rather than repeated against periods it was never measured over. */}
+          <span className="num dim">{p.label === 'Since inception' ? fmtPct(bm.benchmarkTwr, 2) : '—'}</span>
+          <span className="num" style={{ color: p.label === 'Since inception' ? toneOf(bm.excess) : undefined }}>
+            {p.label === 'Since inception' && bm.excess !== null ? `${bm.excess >= 0 ? '+' : '−'}${Math.abs(bm.excess).toFixed(2)}pp` : '—'}
+          </span>
+          <span className="num dim">{p.days}</span>
+        </div>
+      ))}
+
+      {bm.unavailable && (
+        <div className="fundbook__foot">
+          No benchmark comparison: {bm.unavailable}. Drop daily closes for <b>{bm.symbol}</b> into
+          <b> data/_market/&lt;provider&gt;/</b> as <b>date,symbol,close</b> and it appears here.
+        </div>
+      )}
+
+      <div className="fundbook__cards fundbook__cards--inset">
+        <Card label="Volatility" value={risk.volatility === null || !risk.sufficient ? '—' : `${risk.volatility.toFixed(1)}%`} sub="Annualised, daily NAV" />
+        <Card label="Sharpe" value={ratio(risk.sharpe)} sub="Excess return per unit of swing" />
+        <Card label="Sortino" value={ratio(risk.sortino)} sub="Counts only downside swing" />
+        <Card label="Calmar" value={ratio(risk.calmar)} sub="Period return ÷ worst fall" />
+        <Card
+          label="Max drawdown"
+          value={risk.drawdown.depth === null ? '—' : `${risk.drawdown.depth.toFixed(2)}%`}
+          sub={risk.drawdown.depth === null ? 'No fall from a high yet'
+            : `${risk.drawdown.peakDate} → ${risk.drawdown.troughDate}${risk.drawdown.recoveredDate ? ` · back ${risk.drawdown.recoveredDate}` : ' · still under water'}`}
+          tone={risk.drawdown.depth === null ? undefined : 'var(--bad)'}
+        />
+        <Card
+          label="Money-weighted"
+          value={perf.moneyWeightedAnnualisedPct === null ? '—' : `${perf.moneyWeightedAnnualisedPct >= 0 ? '+' : '−'}${Math.abs(perf.moneyWeightedAnnualisedPct).toFixed(1)}%`}
+          sub="ANNUALISED (IRR) — not comparable with the cumulative returns above"
+          tone={toneOf(perf.moneyWeightedAnnualisedPct)}
+        />
+      </div>
+
+      {!risk.sufficient && (
+        <div className="fundbook__foot">
+          {risk.sampleDays} days of valued history — too few to state Sharpe, Sortino or volatility
+          honestly, so they are left blank rather than guessed. They appear once the book has about a
+          quarter of daily data.
+        </div>
+      )}
+      {risk.drawdown.episodesOver3pct > 0 && (
+        <div className="fundbook__foot">
+          {risk.drawdown.episodesOver3pct} fall{risk.drawdown.episodesOver3pct === 1 ? '' : 's'} of more than 3% since inception
+          {risk.drawdown.underWaterDays !== null && ` · deepest took ${risk.drawdown.underWaterDays} days to recover`}.
+        </div>
+      )}
     </div>
   )
 }
