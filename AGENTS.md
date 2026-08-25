@@ -503,8 +503,6 @@ Two different kinds of commit reach `main`, and they follow opposite rules. Tell
 
 **Precedence.** When §25 and this section appear to conflict, **§28 wins for code and §25 wins for data.** §25's "commit directly to `main`" is the data contract; it does not authorise pushing code to `main`.
 
-**The twins must match.** This doctrine is maintained as two files — this one (`AGENTS.md`) and its counterpart read by the other assistant — and they must stay identical except for each file's own name. Derive one from the other instead of hand-editing both; drift between them is a defect, and a CI check may enforce that they match.
-
 ---
 
 ## 29. Three-Layer Research Memory
@@ -560,3 +558,5 @@ The complete contracts, promotion floors, token/cost/latency budgets, purge and 
 runtime modes (`off`, `shadow`, `enforced`), benchmarks, and release gates live in
 `frameworks/memory/THREE_LAYER_MEMORY.md`. Where it and this doctrine differ, this doctrine and the
 more conservative research rule win (§23).
+
+**The twins must match.** This doctrine is maintained as two files — this one (`AGENTS.md`) and its counterpart read by the other assistant — and they must stay identical except for each file's own name. Derive one from the other instead of hand-editing both; drift between them is a defect, and a CI check may enforce that they match.
