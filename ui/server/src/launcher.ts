@@ -2812,7 +2812,9 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
       throw Object.assign(new Error('equity full canary must bind the exact data/<SUBJECT> frozen snapshot'), { statusCode: 400 })
     }
     const stage = params.parityCanary.stage ?? 'chain'
-    if ((stage === 'module') !== (kind === 'module') || (stage !== 'module') !== (kind === 'full')) {
+    const stageMatchesKind = (stage === 'module' && kind === 'module')
+      || (stage !== 'module' && kind === 'full')
+    if (!stageMatchesKind) {
       throw Object.assign(new Error('parity canary stage does not match its launch kind'), { statusCode: 400 })
     }
     assertParityCanaryStageRoot(rootAbsolute, stage)
@@ -3341,6 +3343,17 @@ export function paritySnapshotRootMatchesDataSubject(snapshotRoot: string, dataD
  * trusted parity evidence while still allowing one logical canary to advance module by module.
  */
 export function assertParityCanaryStageRoot(rootAbsolute: string, stage: ParityCanaryStage): void {
+  let rootInfo: fs.Stats
+  let rootReal: string
+  try {
+    rootInfo = fs.lstatSync(rootAbsolute)
+    rootReal = fs.realpathSync(rootAbsolute)
+  } catch {
+    throw Object.assign(new Error('parity canary root no longer exists'), { statusCode: 409 })
+  }
+  if (!rootInfo.isDirectory() || rootInfo.isSymbolicLink()) {
+    throw Object.assign(new Error('parity canary root is not a real directory'), { statusCode: 409 })
+  }
   const graph = buildSwarmGraph(RESEARCH_SWARM_ID)
   const syntheses = new Map(graph.modules.map((module) => [
     module.name,
@@ -3352,7 +3365,6 @@ export function assertParityCanaryStageRoot(rootAbsolute: string, stage: ParityC
     '.provider-parity-input.json', '.defer_module_memos', IDEA_PUBLICATION_MARKER,
     'readiness_override.json', '_pool_extracts',
   ])
-  const rootReal = fs.realpathSync(rootAbsolute)
   const entries = fs.readdirSync(rootAbsolute, { withFileTypes: true })
   const names = new Set(entries.map((entry) => entry.name))
   if (!names.has('.provider-parity-input.json')) {
@@ -3382,19 +3394,31 @@ export function assertParityCanaryStageRoot(rootAbsolute: string, stage: ParityC
     if (!expectedSyntheses || !info.isDirectory()) {
       throw Object.assign(new Error(`parity canary stage contains an unexpected top-level path: ${entry.name}`), { statusCode: 409 })
     }
-    if (stage === 'final' && !expectedSyntheses.some((file) =>
-      validateAgentOutputFile(path.join(absolute, file)).valid)) {
+    if (stage === 'final' && !hasValidParitySynthesis(absolute, expectedSyntheses)) {
       throw Object.assign(new Error(`parity canary module is not complete: ${entry.name}`), { statusCode: 409 })
     }
   }
   if (stage === 'final') {
     const missing = [...syntheses].filter(([module, files]) =>
-      !files.some((file) => validateAgentOutputFile(path.join(rootAbsolute, module, file)).valid))
+      !hasValidParitySynthesis(path.join(rootAbsolute, module), files))
       .map(([module]) => module)
     if (missing.length) {
       throw Object.assign(new Error(`parity canary cannot adjudicate before every module is complete: ${missing.join(', ')}`), { statusCode: 409 })
     }
   }
+}
+
+function hasValidParitySynthesis(moduleAbsolute: string, files: string[]): boolean {
+  if (!files.length) return false
+  return files.some((file) => {
+    const candidate = path.join(moduleAbsolute, file)
+    try {
+      const info = fs.lstatSync(candidate)
+      return info.isFile() && !info.isSymbolicLink() && validateAgentOutputFile(candidate).valid
+    } catch {
+      return false
+    }
+  })
 }
 
 // The post-ack half of launch(): readiness gate, then spawn (or park at the gate for a human decision).

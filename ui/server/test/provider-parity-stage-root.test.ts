@@ -9,6 +9,18 @@ import { buildSwarmGraph } from '../src/roster'
 
 const root = fs.mkdtempSync(path.join(os.tmpdir(), 'nostra-parity-stage-'))
 try {
+  const missingRoot = path.join(root, 'does-not-exist')
+  let missingError: (Error & { statusCode?: number }) | undefined
+  try {
+    assertParityCanaryStageRoot(missingRoot, 'chain')
+  } catch (error) {
+    missingError = error as Error & { statusCode?: number }
+  }
+  assert.match(missingError?.message ?? '', /no longer exists/,
+    'a root that disappears before the stage check is a controlled conflict')
+  assert.ok(missingError)
+  assert.equal(missingError.statusCode, 409)
+
   fs.writeFileSync(path.join(root, '.provider-parity-input.json'), '{}\n')
   assert.doesNotThrow(() => assertParityCanaryStageRoot(root, 'chain'))
 
@@ -42,6 +54,21 @@ try {
     }
   }
   assert.doesNotThrow(() => assertParityCanaryStageRoot(root, 'final'))
+
+  const businessSynthesis = buildSwarmGraph().modules
+    .find((module) => module.name === 'business-model')!
+  const businessSynthesisAgent = Object.values(businessSynthesis.layers).flat()
+    .find((agent) => agent.isSynthesis)!
+  const synthesisPath = path.join(root, 'business-model', `${businessSynthesisAgent.key.split('/').at(-1)}.md`)
+  fs.rmSync(synthesisPath)
+  fs.mkdirSync(synthesisPath)
+  assert.throws(
+    () => assertParityCanaryStageRoot(root, 'final'),
+    /not complete/,
+    'a directory named like the synthesis is never accepted as a terminal artifact',
+  )
+  fs.rmSync(synthesisPath, { recursive: true })
+  fs.writeFileSync(synthesisPath, '# business-model synthesis\n\nVerdict: mechanically valid test artifact.\n')
 
   fs.writeFileSync(path.join(root, 'untrusted.txt'), 'unexpected\n')
   assert.throws(
