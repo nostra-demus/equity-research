@@ -176,7 +176,11 @@ await check('access and network failures are shared; malformed/timeout failures 
     assert.equal(out.via, 'keyword')
     const shared = readCooldownUntil(stateDir, 'groq')
     const scoped = readCooldownUntil(stateDir, 'reason-router:groq')
-    if (scenario === 'access' || scenario === 'network') {
+    if (scenario === 'access') {
+      assert.equal(shared, 0, 'terminal access faults use quarantine, never a retry timer')
+      assert.equal(scoped, 0)
+      assert.equal(fs.existsSync(path.join(stateDir, 'provider-groq-quarantine.json')), true)
+    } else if (scenario === 'network') {
       assert.ok(shared > AT, `${scenario} must hold the provider`)
       assert.equal(scoped, 0)
     } else {
@@ -184,6 +188,24 @@ await check('access and network failures are shared; malformed/timeout failures 
       assert.ok(scoped > AT, `${scenario} must hold only this workload`)
     }
   }
+})
+
+await check('terminal access faults make the next route zero-call and a changed key reopens it', async () => {
+  reset()
+  const stateDir = dir()
+  let calls = 0
+  const rejected = (async () => {
+    calls++
+    return new Response(JSON.stringify({ error: { type: 'auth_error', message: 'secret account detail' } }), { status: 401 })
+  }) as typeof fetch
+  await routeReason('some vague note', rejected, opts(stateDir))
+  await routeReason('another vague note', rejected, opts(stateDir))
+  assert.equal(calls, 1, 'the matching standing fault is rejected before limiter, budget, or fetch')
+  assert.equal(readCooldownUntil(stateDir, 'groq'), 0)
+
+  const repaired = await routeReason('the central bank raised rates', (async () => { calls++; return success() }) as typeof fetch, opts(stateDir, { groqApiKey: 'rotated-key' }))
+  assert.equal(repaired.via, 'llm', 'key rotation changes the exact provider fingerprint and reopens the route')
+  assert.equal(calls, 2)
 })
 
 await check('only an explicit Groq day-limit signal closes the daily ledger', async () => {
