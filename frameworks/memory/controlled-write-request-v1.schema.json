@@ -40,7 +40,11 @@
         "feedback-promotion",
         "feedback-correction",
         "semantic-promotion",
-        "semantic-supersession"
+        "semantic-supersession",
+        "playbook-promotion",
+        "playbook-supersession",
+        "playbook-quarantine",
+        "playbook-deprecation"
       ]
     },
     "event_sha256": { "$ref": "#/$defs/hashRef" },
@@ -95,7 +99,7 @@
     },
     {
       "if": {
-        "properties": { "operation": { "enum": ["semantic-promotion", "semantic-supersession"] } },
+        "properties": { "operation": { "enum": ["semantic-promotion", "semantic-supersession", "playbook-promotion", "playbook-supersession", "playbook-deprecation"] } },
         "required": ["operation"]
       },
       "then": {

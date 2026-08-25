@@ -7,6 +7,7 @@ import json
 import unittest
 from pathlib import Path
 
+from canonical_json import canonical_sha256
 from memory_three_layer_contract import (
     PUBLIC_SCHEMA_FILES,
     SCHEMA_DEFINITIONS,
@@ -109,6 +110,8 @@ def semantic_core(kind: str = "exact-issuer") -> dict:
 
 def playbook_core() -> dict:
     return {
+        "procedure_key": "filing-vendor-number-reconciliation",
+        "required": True,
         "owner": "research-methods",
         "risk_class": "analytical",
         "applicability": applicability(),
@@ -247,6 +250,7 @@ def candidate_playbook() -> dict:
         "candidate_id": MID,
         "playbook": playbook_core(),
         "created_by": producer("originating-agent", "agent"),
+        "policy": {"classification": "internal", "retention": "permanent", "retain_until": None},
         "status": "candidate",
         "created_at": NOW,
         "candidate_sha256": H,
@@ -255,23 +259,64 @@ def candidate_playbook() -> dict:
 
 def evaluation() -> dict:
     case_kinds = ["origin", "held-out", "held-out", "counterexample", "outcome-review"]
+    rows = [
+        {
+            "case_id": f"case-{index}",
+            "kind": kind,
+            "issuer_id": f"entity:internal:test-issuer-{index}",
+            "source_episode_id": (
+                playbook_core()["originating_episode_ids"][0]
+                if kind == "origin"
+                else f"episode_00000000-0000-5{index:03x}-8000-{index:012x}"
+            ),
+            "output_sha256": H,
+            "integrity_gate_sha256": H1,
+            "integrity_status": "passed",
+            "outcome_review_sha256": H if kind == "outcome-review" else None,
+            "applicable": kind != "counterexample",
+            "passed": True,
+            "citation_error": False,
+            "qualifier_loss": False,
+            "temporal_error": False,
+            "abstention_error": False,
+            "serious_error": False,
+            "metrics_sha256": H,
+        }
+        for index, kind in enumerate(case_kinds)
+    ]
+    reviewers = [
+        reviewer("evidence", "evidence-reviewer"),
+        reviewer("applicability", "applicability-reviewer"),
+        reviewer("security", "security-reviewer"),
+    ]
+    attestations = []
+    for item in reviewers:
+        attestation = {
+            "schema": "memory-playbook-review-attestation/v1",
+            "role": item["role"],
+            "identity": item["identity"],
+            "candidate_sha256": H,
+            "cases_sha256": "sha256:" + canonical_sha256(rows),
+            "decision": "approved",
+            "decided_at": NOW,
+            "attestation_sha256": H,
+            "signature": signature(),
+        }
+        attestation["signature"]["key_id"] = f"{item['role']}-review-key"
+        unsigned = {
+            key: value for key, value in attestation.items()
+            if key not in {"attestation_sha256", "signature"}
+        }
+        attestation["attestation_sha256"] = "sha256:" + canonical_sha256(unsigned)
+        attestations.append(attestation)
     return {
         "schema": "memory-playbook-evaluation/v1",
         "evaluation_id": MID,
         "candidate_sha256": H,
         "risk_class": "analytical",
-        "cases": [
-            {
-                "case_id": f"case-{index}",
-                "kind": kind,
-                "issuer_id": f"entity:internal:test-issuer-{index}",
-                "applicable": kind != "counterexample",
-                "passed": True,
-                "metrics_sha256": H,
-            }
-            for index, kind in enumerate(case_kinds)
-        ],
-        "reviewers": [reviewer("evidence", "evidence-reviewer"), reviewer("applicability", "applicability-reviewer"), reviewer("security", "security-reviewer")],
+        "cases": rows,
+        "reviewers": reviewers,
+        "review_attestations": attestations,
         "metric_regressions": [],
         "security_failures": [],
         "passed": True,
@@ -280,13 +325,28 @@ def evaluation() -> dict:
     }
 
 
+def rebind_evaluation_attestations(value: dict) -> None:
+    cases_sha = "sha256:" + canonical_sha256(value["cases"])
+    for attestation in value["review_attestations"]:
+        attestation["candidate_sha256"] = value["candidate_sha256"]
+        attestation["cases_sha256"] = cases_sha
+        unsigned = {
+            key: item for key, item in attestation.items()
+            if key not in {"attestation_sha256", "signature"}
+        }
+        attestation["attestation_sha256"] = "sha256:" + canonical_sha256(unsigned)
+
+
 def active_playbook() -> dict:
     return {
         "schema": "memory-playbook/v1",
         "playbook_id": MID,
         "version": 1,
         "playbook": playbook_core(),
+        "source_candidate_sha256": H,
+        "policy": {"classification": "internal", "retention": "permanent", "retain_until": None},
         "status": "active",
+        "status_reason": None,
         "expires_at": LATER,
         "prior_version": None,
         "verified_by": [reviewer("evidence", "evidence-reviewer"), reviewer("applicability", "applicability-reviewer"), reviewer("security", "security-reviewer")],
@@ -416,12 +476,19 @@ def all_valid_contracts() -> list[dict]:
         "execution_id": MID,
         "run_id": "TEST_2026-08-25",
         "task_id": "earnings.historical-financials",
+        "packet_id": MID2,
+        "packet_sha256": H,
+        "query_sha256": H1,
+        "projection_digest": H,
         "playbook_id": MID2,
         "version": 1,
         "playbook_sha256": H,
+        "canonical_hash_verified_before": True,
+        "canonical_hash_verified_after": True,
         "steps": [{"step_id": "reconcile", "status": "completed", "tool_id": "research.filing-reconciler", "input_sha256": H, "output_sha256": H1, "evidence_refs": [EVIDENCE], "deviation_code": None}],
         "status": "completed",
         "deviation_codes": [],
+        "incident_codes": [],
         "started_at": NOW,
         "completed_at": LATER,
         "execution_sha256": H,
@@ -626,6 +693,7 @@ class ThreeLayerContractTests(unittest.TestCase):
         reviewed = evaluation()
         for case in reviewed["cases"]:
             case["issuer_id"] = "entity:internal:one-issuer"
+        rebind_evaluation_attestations(reviewed)
         errors = validate_promotion_bundle(candidate, active_playbook(), promotion_manifest("playbook"), reviewed)
         self.assertTrue(any("at least two issuers" in error for error in errors))
 
@@ -638,6 +706,7 @@ class ThreeLayerContractTests(unittest.TestCase):
         reviewed = evaluation()
         reviewed["candidate_sha256"] = "sha256:" + "9" * 64
         reviewed["risk_class"] = "mechanical"
+        rebind_evaluation_attestations(reviewed)
         errors = validate_promotion_bundle(candidate, promoted, manifest, reviewed)
         self.assertTrue(any("supplied candidate" in error for error in errors))
         self.assertTrue(any("candidate playbook" in error for error in errors))
