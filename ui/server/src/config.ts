@@ -262,11 +262,9 @@ export interface OverflowProvider {
   label: string // human label for status/log
   color: string // CSS var for the cockpit chip (defined in tokens.css)
   apiKey: string
-  // The NAME of the environment variable this provider's key comes from — never the key itself. Exists so a
-  // repeated provider-access rejection (HTTP 401/402/403/404) can tell the operator WHICH credential to go and
-  // fix. Without it the cockpit can only show a countdown, which reads as patience over a fault that will
-  // never clear on its own: a dead key was retried on a timer for 46 consecutive failures and 42+ hours while
-  // the panel said "try again in ~43m". Safe to display — it is a variable name, not a secret.
+  // The NAME of the environment variable this provider's key comes from — never the key itself. Authentication
+  // and entitlement faults use it to name the credential to repair; billing and model/endpoint faults name their
+  // own root cause instead. Safe to persist/display because it is a variable name, not a secret.
   keyEnvVar?: string
   baseUrl: string // OpenAI-compatible base (…/v1)
   model: string // primary model
@@ -710,8 +708,9 @@ export const NEWS = {
   // date the primary triage tier 404'd on every call — the cockpit's "waiting after a retired model or
   // endpoint", 71 consecutive failures and 0 batches scored, while the backlog climbed toward the 100k
   // loss boundary. Groq's own named replacement for it is `openai/gpt-oss-20b`. A retired model id is a
-  // silent, dated cliff: nothing in the engine expires with the provider, so pin the id here and treat a
-  // `provider-endpoint` (404) cooldown on the FIRST-CHOICE tier as "the model name died", not an outage.
+  // silent, dated cliff: nothing in the engine expires with the provider. The shared classifier now quarantines
+  // an evidenced model/endpoint 404 without a retry timer; a changed model fingerprint or successful canary
+  // reopens it. An ambiguous 404 is kept separate as request/configuration failure and never blamed on the key.
   groqModel: process.env.GROQ_MODEL || 'openai/gpt-oss-20b',
   groqBaseUrl: process.env.GROQ_BASE_URL || 'https://api.groq.com/openai/v1',
   // Public-news chat stays on the stronger subscription model first. If that provider is temporarily
@@ -1216,7 +1215,7 @@ export const NEWS = {
 export function buildArticleReadProviders(cfg: typeof NEWS = NEWS): ArticleReadProvider[] {
   const out: ArticleReadProvider[] = []
   if (cfg.groqApiKey) {
-    out.push({ id: 'groq', kind: 'openai', apiKey: cfg.groqApiKey, baseUrl: cfg.groqBaseUrl, model: cfg.groqModel, maxTokens: 3000, rpm: cfg.groqRpm, tpm: cfg.groqTpm, dailyReqCap: cfg.groqDailyReqCap, dailyTokenCap: cfg.groqDailyTokenCap, budgetFile: 'groq-budget.json', limiter: 'groq', paceMeter: 'tokens', paceCap: cfg.groqDailyTokenTarget, paceFloorFrac: cfg.groqPaceFloorFrac })
+    out.push({ id: 'groq', kind: 'openai', apiKey: cfg.groqApiKey, keyEnvVar: 'GROQ_API_KEY', baseUrl: cfg.groqBaseUrl, model: cfg.groqModel, maxTokens: 3000, rpm: cfg.groqRpm, tpm: cfg.groqTpm, dailyReqCap: cfg.groqDailyReqCap, dailyTokenCap: cfg.groqDailyTokenCap, budgetFile: 'groq-budget.json', limiter: 'groq', paceMeter: 'tokens', paceCap: cfg.groqDailyTokenTarget, paceFloorFrac: cfg.groqPaceFloorFrac })
   }
   if (cfg.geminiEnabled && cfg.geminiApiKey && cfg.geminiModels.length) {
     out.push({ id: 'gemini', kind: 'gemini', apiKey: cfg.geminiApiKey, baseUrl: cfg.geminiBaseUrl, model: cfg.geminiModel, pool: cfg.geminiModels, maxTokens: cfg.geminiMaxTokens, rpm: cfg.geminiRpm, tpm: cfg.geminiTpm, dailyReqCap: cfg.geminiDailyReqCap, dailyTokenCap: cfg.geminiDailyTokenCap, budgetFile: 'gemini-budget-{model}.json', dayTz: cfg.geminiDayTz, limiter: 'gemini', paceMeter: 'requests', paceFloorFrac: cfg.freeProviderPaceFloorFrac })
@@ -1230,7 +1229,7 @@ export function buildArticleReadProviders(cfg: typeof NEWS = NEWS): ArticleReadP
     // TOKEN-gated provider (Cerebras) carries its own tpm + daily token cap, so the read paces on the SAME
     // binding limit as the ingester (they share the budget file + limiter); request-gated providers
     // (OpenRouter/NVIDIA) omit them → tpm 0 + a non-binding token cap, the prior behaviour byte-for-byte.
-    out.push({ id: p.id, kind: 'openai', apiKey: p.apiKey, baseUrl: p.baseUrl, model: p.model, models: p.models, maxTokens: p.maxTokens, rpm: p.rpm, tpm: p.tpm ?? 0, dailyReqCap: p.dailyReqCap, dailyTokenCap: p.dailyTokenCap ?? NON_BINDING_DAILY_TOKEN_CAP, budgetFile: p.budgetFile, dayTz: p.dayTz, headers: p.headers, extraBody: p.extraBody, limiter: p.id, paceMeter: p.dailyTokenCap != null ? 'tokens' : 'requests', paceCap: p.dailyTokenCap ?? p.dailyReqCap, paceFloorFrac: p.paceFloorFrac ?? cfg.freeProviderPaceFloorFrac, requestRemainingHeaderIsDaily: p.requestRemainingHeaderIsDaily })
+    out.push({ id: p.id, kind: 'openai', apiKey: p.apiKey, keyEnvVar: p.keyEnvVar, baseUrl: p.baseUrl, model: p.model, models: p.models, maxTokens: p.maxTokens, rpm: p.rpm, tpm: p.tpm ?? 0, dailyReqCap: p.dailyReqCap, dailyTokenCap: p.dailyTokenCap ?? NON_BINDING_DAILY_TOKEN_CAP, budgetFile: p.budgetFile, dayTz: p.dayTz, headers: p.headers, extraBody: p.extraBody, limiter: p.id, paceMeter: p.dailyTokenCap != null ? 'tokens' : 'requests', paceCap: p.dailyTokenCap ?? p.dailyReqCap, paceFloorFrac: p.paceFloorFrac ?? cfg.freeProviderPaceFloorFrac, requestRemainingHeaderIsDaily: p.requestRemainingHeaderIsDaily })
   }
   return out
 }

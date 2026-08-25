@@ -190,12 +190,16 @@ nothing; and a failure moves the same batch to the next tier **in the same pass*
 
 On top of that:
 
-- **A rejected credential is named, not waited out.** HTTP 401/402/403/404 (`provider-access`) is an answer about
-  the account — a revoked key, an unpaid balance, a missing entitlement, a wrong model id. None of it clears by
-  retrying, and there is no give-up state in the backoff. After `CREDENTIAL_DEAD_AFTER_FAILS` (3) consecutive
-  such failures the tier reports `credentialRejected` plus the **name** of the env var holding its key
-  (`keyEnvVar` — never the value), and the cockpit leads with *"Key rejected … check `X_API_KEY`"* instead of a
-  countdown. Three, not one, so a rotated key or a one-off gateway 403 isn't blamed.
+- **Standing faults are quarantined, not waited out.** The shared classifier keeps authentication (401), billing
+  (402), entitlement (403), retired model/endpoint (an evidenced 404), invalid request, rate limit, upstream
+  failure, timeout and invalid response-contract failures separate. Authentication, billing, entitlement,
+  model/endpoint and configuration faults write an atomic, durable quarantine keyed to the provider, safe base
+  URL, model chain, credential fingerprint and request contract. Every process checks it before network I/O, so
+  one terminal response costs one call, healthy fallbacks take the same batch immediately, and restarts do not
+  start wasting requests again. There is deliberately no retry timer: a newer successful canary clears the
+  marker, while a changed key/model/endpoint/contract has a new fingerprint and gets a fresh attempt. The marker
+  stores only bounded error codes/types and the **name** of the key environment variable — never the key or the
+  provider's response body. An ambiguous 404 is treated as request/configuration failure, never blamed on a key.
 - **Failures are timed.** Every failing call records `elapsedMs`, and the cooldown marker carries it. A timeout
   *at* the configured deadline means the engine cut the call off and a longer one may work; far below it means
   the provider refused and the deadline is irrelevant. Read it in the tier row: *"a request timeout at 30.0s"*.

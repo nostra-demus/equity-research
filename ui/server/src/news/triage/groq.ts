@@ -6,6 +6,19 @@
 
 import { isRegion } from '../geo'
 import type { Band, CompanyGuess, NewsItem, SizeBucket, Triage } from '../types'
+import {
+  classifyProviderCaughtFailure,
+  classifyProviderContractFailure,
+  classifyProviderHttpFailure,
+  classifyProviderLocalStateFailure,
+  clearProviderQuarantine,
+  providerRequestIdentity,
+  publicProviderFailureNote,
+  quarantineProviderFailure,
+  readProviderQuarantine,
+  type ProviderFailureClassification,
+  type ProviderRequestIdentity,
+} from '../provider-failure'
 import { conservativeChatTokenBound, credibleTokenUsage, type RateInfo } from './budget'
 
 /** Parse reset/retry values to ms. Retry-After permits either delta-seconds or an RFC HTTP-date; provider
@@ -108,6 +121,14 @@ export interface TriageOptions {
   model: string
   baseUrl: string
   apiKey: string
+  // Production callers provide these so standing faults are keyed to the exact secret/model/request
+  // contract without ever writing the secret. Tests may omit them and keep the adapter file-system free.
+  providerId?: string
+  providerLabel?: string
+  keyEnvVar?: string
+  stateDir?: string
+  workload?: string
+  contractVersion?: string
   maxTokens?: number
   // OpenAI-compatible extras for OpenRouter (ignored by Groq, which never sets them):
   models?: string[] // OpenRouter fallback chain — auto-routes to the first available free model
@@ -145,6 +166,9 @@ export interface TriageResult {
   // provider and a longer deadline would change nothing. Nothing recorded it before, so the question was
   // unanswerable from the outside and the honest answer was always "measure it first".
   elapsedMs?: number
+  failure?: ProviderFailureClassification
+  providerIdentity?: ProviderRequestIdentity
+  quarantined?: boolean
 }
 
 // Machine-readable failure metadata is the routing contract. Public notes intentionally contain only the
@@ -158,6 +182,9 @@ export interface ProviderFailureMetadata {
   timedOut?: boolean
   dailyLimit?: boolean
   elapsedMs?: number
+  failure?: ProviderFailureClassification
+  providerIdentity?: ProviderRequestIdentity
+  quarantined?: boolean
 }
 
 export interface ArticleAnalysisResult extends ProviderFailureMetadata {
@@ -184,18 +211,56 @@ export function publicHttpFailureNote(provider: string, status: number, dailyLim
   return `${provider} HTTP ${status} — request rejected`
 }
 
+function legacyFailureKind(failure: ProviderFailureClassification): ProviderFailureKind {
+  if (failure.code === 'rate_limited') return 'rate_limit'
+  if (failure.code === 'transient_upstream' || failure.code === 'timeout') return 'availability'
+  if (failure.code === 'contract_invalid') return 'contract'
+  return 'request'
+}
+
+export function openAiRequestIdentity(opts: TriageOptions, workload: string, contractVersion: string): ProviderRequestIdentity {
+  return providerRequestIdentity({
+    providerId: opts.providerId || 'groq', baseUrl: opts.baseUrl, model: opts.model, models: opts.models,
+    apiKey: opts.apiKey, keyEnvVar: opts.keyEnvVar, transport: 'openai',
+    workload: opts.workload || workload, contractVersion: opts.contractVersion || contractVersion,
+    request: {
+      responseFormat: 'json_object', temperature: 0.1,
+      configuredMaxTokens: opts.maxTokens ?? null, extraBody: opts.extraBody || {},
+    },
+  })
+}
+
+function durableFailure(opts: TriageOptions, identity: ProviderRequestIdentity, failure: ProviderFailureClassification, at: number): void {
+  if (opts.stateDir) quarantineProviderFailure(opts.stateDir, identity, failure, at)
+}
+
+function clearDurableFailure(opts: TriageOptions, identity: ProviderRequestIdentity, attemptStartedAt: number): void {
+  if (opts.stateDir) clearProviderQuarantine(opts.stateDir, identity, attemptStartedAt)
+}
+
+/** An explicit Retry-After can make an otherwise deterministic request rejection self-clearing. Preserve
+ * its exact scope and class, but honor the provider's reopening clock. It never overrides auth, billing,
+ * entitlement, or explicit model-retirement evidence. */
+function honorRequestRetryAfter(failure: ProviderFailureClassification, rate: RateInfo): ProviderFailureClassification {
+  return failure.code === 'request_invalid' && rate.retryAfterMs != null && Number.isFinite(rate.retryAfterMs) && rate.retryAfterMs > 0
+    ? { ...failure, action: 'cooldown' }
+    : failure
+}
+
 /** `elapsedMs` (when the caller measured one) is NAMED in the note, not just carried as metadata: the operator
  *  reads the note, and "timed out after 30.0s (our 30.0s ceiling)" is actionable where "request timed out" is
  *  a dead end. `limitMs` is the deadline that was in force, so the note can say whether we cut the call off. */
-export function caughtFailure(e: any, provider: string, elapsedMs?: number, limitMs?: number): { note: string; failureKind: ProviderFailureKind; timedOut?: boolean; elapsedMs?: number } {
+export function caughtFailure(e: any, provider: string, elapsedMs?: number, limitMs?: number): { note: string; failureKind: ProviderFailureKind; failure: ProviderFailureClassification; timedOut?: boolean; elapsedMs?: number } {
+  const failure = classifyProviderCaughtFailure(e)
   const timedOut = e?.name === 'TimeoutError' || e?.name === 'AbortError'
   const ms = Number.isFinite(elapsedMs as number) && (elapsedMs as number) >= 0 ? Math.round(elapsedMs as number) : undefined
   const took = ms != null ? ` after ${(ms / 1000).toFixed(1)}s` : ''
   const ceiling = ms != null && limitMs != null ? ` (our ${(limitMs / 1000).toFixed(1)}s ceiling)` : ''
   const carry = ms != null ? { elapsedMs: ms } : {}
-  if (timedOut) return { note: `${provider}: request timed out${took}${ceiling}`, failureKind: 'availability', timedOut: true, ...carry }
-  if (e instanceof SyntaxError) return { note: `${provider}: malformed response${took}`, failureKind: 'contract', ...carry }
-  return { note: `${provider}: network unavailable${took}`, failureKind: 'availability', ...carry }
+  if (timedOut) return { note: `${provider}: request timed out${took}${ceiling}`, failureKind: 'availability', failure, timedOut: true, ...carry }
+  if (e instanceof SyntaxError) return { note: `${provider}: malformed response${took}`, failureKind: 'contract', failure, ...carry }
+  if (failure.action === 'quarantine') return { note: publicProviderFailureNote(provider, failure), failureKind: legacyFailureKind(failure), failure, ...carry }
+  return { note: `${provider}: network unavailable${took}`, failureKind: 'availability', failure, ...carry }
 }
 
 /** Token estimate for the budget pre-check + per-minute pacer reservation (input titles + structured
@@ -341,12 +406,32 @@ export async function triageBatch(
 ): Promise<TriageResult> {
   const byIndex = new Map<number, Triage>()
   if (!items.length) return { byIndex, requests: 0, tokens: 0, ok: true }
-  if (!opts.apiKey) return { byIndex, requests: 0, tokens: 0, ok: false, note: 'groq: provider not configured', failureKind: 'request' }
+  const provider = opts.providerLabel || opts.providerId || 'groq'
+  const identity = openAiRequestIdentity(opts, 'triage', 'news-triage-json-v1')
+  if (!opts.apiKey) {
+    const failure = classifyProviderLocalStateFailure()
+    return { byIndex, requests: 0, tokens: 0, ok: false, note: `${provider}: provider not configured`, failureKind: 'request', failure, providerIdentity: identity }
+  }
+  const existing = opts.stateDir ? readProviderQuarantine(opts.stateDir, identity) : null
+  if (existing) {
+    const failure: ProviderFailureClassification = {
+      code: existing.failureCode, scope: existing.scope, action: 'quarantine', providerWide: existing.scope === 'provider',
+      ...(existing.httpStatus != null ? { httpStatus: existing.httpStatus } : {}),
+      ...(existing.evidenceType ? { evidenceType: existing.evidenceType } : {}),
+      ...(existing.evidenceCode ? { evidenceCode: existing.evidenceCode } : {}),
+    }
+    return {
+      byIndex, requests: 0, tokens: 0, ok: false, quarantined: true, failure,
+      providerIdentity: identity, failureKind: legacyFailureKind(failure),
+      note: `${provider}: quarantined after ${failure.code}; waiting will not repair this configuration`,
+    }
+  }
 
   let requests = 0
   let tokens = 0
-  let lastFailure: Required<Pick<TriageResult, 'note' | 'failureKind'>> & Pick<TriageResult, 'timedOut' | 'elapsedMs'> = {
-    note: 'groq: network unavailable', failureKind: 'availability',
+  let lastFailure: Required<Pick<TriageResult, 'note' | 'failureKind' | 'failure'>> & Pick<TriageResult, 'timedOut' | 'elapsedMs'> = {
+    note: `${provider}: network unavailable`, failureKind: 'availability',
+    failure: { code: 'transient_upstream', scope: 'provider', action: 'cooldown', providerWide: true },
   }
   const maxAttempts = opts.maxAttempts ?? 2
   const clock = opts.nowMs ?? (() => Date.now())
@@ -375,17 +460,19 @@ export async function triageBatch(
       })
       const rate = parseRate(res)
       if (!res.ok) {
-        // Drain the body so the connection can be reused, but never copy it into a public note.
-        await res.text().catch(() => '')
+        // Read only to classify safe error type/code fields. The body/message is never returned or stored.
+        const rawBody = await res.text().catch(() => '')
         const dailyLimit = opts.requestRemainingHeaderIsDaily === true && res.status === 429 && rate.rpdRemaining === 0
-        const failureKind = httpFailureKind(res.status)
-        const note = publicHttpFailureNote('groq', res.status, dailyLimit)
-        const transient = (res.status === 429 && !dailyLimit) || res.status >= 500
+        const failure = honorRequestRetryAfter(classifyProviderHttpFailure(res.status, rawBody), rate)
+        const failureKind = legacyFailureKind(failure)
+        const note = publicProviderFailureNote(provider, failure, dailyLimit)
+        const transient = (failure.code === 'rate_limited' && !dailyLimit) || failure.code === 'transient_upstream'
         if (transient && attempt < maxAttempts) {
           await sleep(rate.retryAfterMs || 1500 * attempt)
           continue
         }
-        return { byIndex, requests, tokens, ok: false, note, rate, failureKind, httpStatus: res.status, elapsedMs: Math.max(0, clock() - startedAt), ...(dailyLimit ? { dailyLimit: true } : {}) }
+        durableFailure(opts, identity, failure, clock())
+        return { byIndex, requests, tokens, ok: false, note, rate, failureKind, failure, providerIdentity: identity, httpStatus: res.status, elapsedMs: Math.max(0, clock() - startedAt), ...(dailyLimit ? { dailyLimit: true } : {}) }
       }
       const data: any = await res.json()
       const used = credibleTokenUsage(
@@ -396,23 +483,30 @@ export async function triageBatch(
       // a max_tokens truncation is deterministic — report it loudly instead of half-parsing. It names the
       // ceiling actually in force, which is now batch-sized (triageMaxOutputTokens), not the raw config value.
       if (data?.choices?.[0]?.finish_reason === 'length') {
-        return { byIndex, requests, tokens, ok: false, note: `groq: output truncated at max_tokens (${maxOut} for ${items.length} items) — lower NEWS_TRIAGE_BATCH or raise this provider's max-tokens`, rate, failureKind: 'contract', elapsedMs: Math.max(0, clock() - startedAt) }
+        const failure = classifyProviderContractFailure()
+        return { byIndex, requests, tokens, ok: false, note: `${provider}: output truncated at max_tokens (${maxOut} for ${items.length} items) — lower NEWS_TRIAGE_BATCH or raise this provider's max-tokens`, rate, failureKind: 'contract', failure, providerIdentity: identity, elapsedMs: Math.max(0, clock() - startedAt) }
       }
       const took = { elapsedMs: Math.max(0, clock() - startedAt) }
       const content = data?.choices?.[0]?.message?.content
-      if (typeof content !== 'string') return { byIndex, requests, tokens, ok: false, note: 'groq: empty content', rate, failureKind: 'contract', ...took }
+      const contractFailure = classifyProviderContractFailure()
+      if (typeof content !== 'string') return { byIndex, requests, tokens, ok: false, note: `${provider}: empty content`, rate, failureKind: 'contract', failure: contractFailure, providerIdentity: identity, ...took }
       let parsed: any
-      try { parsed = JSON.parse(content) } catch { return { byIndex, requests, tokens, ok: false, note: 'groq: non-JSON content', rate, failureKind: 'contract', ...took } }
+      try { parsed = JSON.parse(content) } catch { return { byIndex, requests, tokens, ok: false, note: `${provider}: non-JSON content`, rate, failureKind: 'contract', failure: contractFailure, providerIdentity: identity, ...took } }
       const arr: any[] = Array.isArray(parsed) ? parsed : Array.isArray(parsed?.items) ? parsed.items : []
       const complete = coerceCompleteTriageRows(arr, items.length)
-      if (!complete) return { byIndex, requests, tokens, ok: false, note: `groq: incomplete batch response (expected ${items.length} rows, got ${arr.length})`, rate, failureKind: 'contract', ...took }
-      return { byIndex: complete, requests, tokens, ok: true, rate }
+      if (!complete) return { byIndex, requests, tokens, ok: false, note: `${provider}: incomplete batch response (expected ${items.length} rows, got ${arr.length})`, rate, failureKind: 'contract', failure: contractFailure, providerIdentity: identity, ...took }
+      clearDurableFailure(opts, identity, startedAt)
+      return { byIndex: complete, requests, tokens, ok: true, rate, providerIdentity: identity }
     } catch (e: any) {
-      lastFailure = caughtFailure(e, 'groq', Math.max(0, clock() - startedAt), timeoutMs)
+      lastFailure = caughtFailure(e, provider, Math.max(0, clock() - startedAt), timeoutMs)
+      if (lastFailure.failure.action === 'quarantine') {
+        durableFailure(opts, identity, lastFailure.failure, clock())
+        break
+      }
       if (attempt < maxAttempts) await sleep(1500 * attempt)
     }
   }
-  return { byIndex, requests, tokens, ok: false, ...lastFailure }
+  return { byIndex, requests, tokens, ok: false, providerIdentity: identity, ...lastFailure }
 }
 
 // ============================================================================
@@ -681,20 +775,34 @@ export async function analyzeArticle(
   fetchFn: typeof fetch = fetch,
   sleep: (ms: number) => Promise<void> = (ms) => new Promise((r) => setTimeout(r, ms)),
 ): Promise<ArticleAnalysisResult> {
-  if (!opts.apiKey) return { brief: null, tokens: 0, note: 'groq: provider not configured', attempted: false, failureKind: 'request' }
+  const provider = opts.providerLabel || opts.providerId || 'groq'
+  const identity = openAiRequestIdentity(opts, 'article', 'news-article-json-v1')
+  if (!opts.apiKey) return { brief: null, tokens: 0, note: `${provider}: provider not configured`, attempted: false, failureKind: 'request', failure: classifyProviderLocalStateFailure(), providerIdentity: identity }
   if (!isArticleBodyEligible(body)) return { brief: null, tokens: 0, note: 'body too thin to read', attempted: false, failureKind: 'request' }
+  const existing = opts.stateDir ? readProviderQuarantine(opts.stateDir, identity) : null
+  if (existing) {
+    const failure: ProviderFailureClassification = {
+      code: existing.failureCode, scope: existing.scope, action: 'quarantine', providerWide: existing.scope === 'provider',
+      ...(existing.httpStatus != null ? { httpStatus: existing.httpStatus } : {}),
+    }
+    return { brief: null, tokens: 0, note: `${provider}: quarantined after ${failure.code}; waiting will not repair this configuration`, attempted: false, quarantined: true, failureKind: legacyFailureKind(failure), failure, providerIdentity: identity }
+  }
   const user = buildArticleUserMessage(body, headline)
   let tokens = 0
-  let lastFailure: Required<Pick<ArticleAnalysisResult, 'note' | 'failureKind'>> & Pick<ArticleAnalysisResult, 'timedOut'> = {
-    note: 'groq: network unavailable', failureKind: 'availability',
+  let lastFailure: Required<Pick<ArticleAnalysisResult, 'note' | 'failureKind' | 'failure'>> & Pick<ArticleAnalysisResult, 'timedOut' | 'elapsedMs'> = {
+    note: `${provider}: network unavailable`, failureKind: 'availability',
+    failure: { code: 'transient_upstream', scope: 'provider', action: 'cooldown', providerWide: true },
   }
   const maxAttempts = opts.maxAttempts ?? 2
+  const timeoutMs = opts.timeoutMs ?? 30_000
+  const clock = opts.nowMs ?? (() => Date.now())
   for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+    const startedAt = clock()
     try {
       const res = await fetchFn(`${opts.baseUrl}/chat/completions`, {
         method: 'POST',
         headers: { 'content-type': 'application/json', authorization: `Bearer ${opts.apiKey}`, ...(opts.headers || {}) },
-        signal: AbortSignal.timeout(opts.timeoutMs ?? 30_000), // a hung provider must never block the reader
+        signal: AbortSignal.timeout(timeoutMs), // a hung provider must never block the reader
         body: JSON.stringify({
           model: opts.model,
           ...(opts.models?.length ? { models: opts.models } : {}), // OpenRouter fallback chain (Groq omits)
@@ -715,25 +823,33 @@ export async function analyzeArticle(
       })
       const rate = parseRate(res)
       if (!res.ok) {
-        await res.text().catch(() => '')
+        const rawBody = await res.text().catch(() => '')
         const dailyLimit = opts.requestRemainingHeaderIsDaily === true && res.status === 429 && rate.rpdRemaining === 0
-        const failureKind = httpFailureKind(res.status)
-        const note = publicHttpFailureNote('groq', res.status, dailyLimit)
-        if (((res.status === 429 && !dailyLimit) || res.status >= 500) && attempt < maxAttempts) { await sleep(rate.retryAfterMs || 1200 * attempt); continue }
-        return { brief: null, tokens, note, rate, failureKind, httpStatus: res.status, ...(dailyLimit ? { dailyLimit: true } : {}) }
+        const failure = honorRequestRetryAfter(classifyProviderHttpFailure(res.status, rawBody), rate)
+        const failureKind = legacyFailureKind(failure)
+        const note = publicProviderFailureNote(provider, failure, dailyLimit)
+        if (((failure.code === 'rate_limited' && !dailyLimit) || failure.code === 'transient_upstream') && attempt < maxAttempts) { await sleep(rate.retryAfterMs || 1200 * attempt); continue }
+        durableFailure(opts, identity, failure, clock())
+        return { brief: null, tokens, note, rate, failureKind, failure, providerIdentity: identity, httpStatus: res.status, elapsedMs: Math.max(0, clock() - startedAt), ...(dailyLimit ? { dailyLimit: true } : {}) }
       }
       const data: any = await res.json()
       tokens += credibleTokenUsage(data?.usage?.total_tokens, 0)
-      if (data?.choices?.[0]?.finish_reason === 'length') return { brief: null, tokens, note: 'groq: output truncated', rate, failureKind: 'contract' }
+      const contractFailure = classifyProviderContractFailure()
+      if (data?.choices?.[0]?.finish_reason === 'length') return { brief: null, tokens, note: `${provider}: output truncated`, rate, failureKind: 'contract', failure: contractFailure, providerIdentity: identity }
       const content = data?.choices?.[0]?.message?.content
-      if (typeof content !== 'string') return { brief: null, tokens, note: 'groq: empty content', rate, failureKind: 'contract' }
+      if (typeof content !== 'string') return { brief: null, tokens, note: `${provider}: empty content`, rate, failureKind: 'contract', failure: contractFailure, providerIdentity: identity }
       let parsed: any
-      try { parsed = JSON.parse(content) } catch { return { brief: null, tokens, note: 'groq: non-JSON content', rate, failureKind: 'contract' } }
-      return { brief: coerceArticleBrief(parsed), tokens, rate }
+      try { parsed = JSON.parse(content) } catch { return { brief: null, tokens, note: `${provider}: non-JSON content`, rate, failureKind: 'contract', failure: contractFailure, providerIdentity: identity } }
+      clearDurableFailure(opts, identity, startedAt)
+      return { brief: coerceArticleBrief(parsed), tokens, rate, providerIdentity: identity }
     } catch (e: any) {
-      lastFailure = caughtFailure(e, 'groq')
+      lastFailure = caughtFailure(e, provider, Math.max(0, clock() - startedAt), timeoutMs)
+      if (lastFailure.failure.action === 'quarantine') {
+        durableFailure(opts, identity, lastFailure.failure, clock())
+        break
+      }
       if (attempt < maxAttempts) await sleep(1200 * attempt)
     }
   }
-  return { brief: null, tokens, ...lastFailure }
+  return { brief: null, tokens, providerIdentity: identity, ...lastFailure }
 }
