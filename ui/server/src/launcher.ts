@@ -2786,19 +2786,21 @@ async function stopSubjectForForce(subjectId: string, swarmId: string): Promise<
     // No RunState exists to drain, so the old scheduler still owns a pending retry/launch callback which
     // may clear the shared defer marker. Stop it, but do not admit a replacement into that callback race;
     // its bounded callback observes the halted epoch and cleans up, after which one retry is safe.
-    const error: any = new Error(`The old full-run chain on ${subjectId} is between stages and is stopping. Try again shortly.`)
-    error.statusCode = 409
-    throw error
+    throw Object.assign(
+      new Error(`The old full-run chain on ${subjectId} is between stages and is stopping. Try again shortly.`),
+      { statusCode: 409 },
+    )
   }
   for (const run of stopping) {
     try { await cancel(run.runId) } catch { /* keep stopping the rest */ }
   }
   if (!(await awaitRunsExited(stopping))) {
-    const error: any = new Error(
-      `Could not stop the run(s) holding the lock on ${subjectId} — still alive after ${FORCE_STOP_WAIT_MS}ms. Try again shortly.`,
+    throw Object.assign(
+      new Error(
+        `Could not stop the run(s) holding the lock on ${subjectId} — still alive after ${FORCE_STOP_WAIT_MS}ms. Try again shortly.`,
+      ),
+      { statusCode: 409 },
     )
-    error.statusCode = 409
-    throw error
   }
   finalizeConfirmedSubjectCancellation(stopping)
 }
