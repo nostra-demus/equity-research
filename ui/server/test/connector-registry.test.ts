@@ -138,7 +138,9 @@ try {
   check('Python and TypeScript both reject a symlinked connector bundle root',
     tsSymlinkHash === '' && pythonSymlinkHash === '')
 } finally {
-  fs.rmSync(symlinkFingerprintRoot, { force: true })
+  // unlinkSync, not rmSync: the root is a symlink to a DIRECTORY, and rmSync resolves the target and
+  // throws EISDIR. unlink removes the link itself and never touches what it points at.
+  try { fs.unlinkSync(symlinkFingerprintRoot) } catch { /* never created */ }
   fs.rmSync(symlinkFingerprintTarget, { recursive: true, force: true })
 }
 
