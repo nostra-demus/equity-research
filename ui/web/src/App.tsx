@@ -92,6 +92,11 @@ function ResearchStage() {
   const effective = effectiveResearchView(view, isResearch)
   const onWatchlist = effective === 'watchlist'
   const onPortfolio = effective === 'portfolio'
+  // The company-scoped furniture — upload prompts, the document rail, the decision banner — belongs to
+  // the company on the stage. A CROSS-COMPANY view has no such subject, so every one of these must sit
+  // out: with an empty pool the upload empty-state renders straight over the portfolio, and there is no
+  // way to dismiss it because it is not a dialog.
+  const onCrossCompany = onWatchlist || onPortfolio
   const onGlobe = webglOK && effective === 'globe'
   const ease = [0.23, 1, 0.32, 1] as const
   const W = GLOBE.WRAP_SECONDS // wrap/unwrap duration, shared with GlobeScene's morph
@@ -159,20 +164,20 @@ function ResearchStage() {
           cross-company list they would be stale-but-plausible at best, and a verdict banner under a list
           of names it does not describe is a provenance failure. Not rendering the rail's children also
           releases the stage's reserved left column, so the list gets full width with no extra CSS. */}
-      {!onWatchlist && <DataUploadEmptyState />}
+      {!onCrossCompany && <DataUploadEmptyState />}
       {/* The left rail. These two docks are about the SAME subject — this company's documents — and
           share the left edge. They used to be two independent absolute overlays anchored to OPPOSITE
           edges (the pool at bottom:18px, intake at top:70px): expand both and they grew into each
           other until z-index picked a winner. One flex column cannot overlap itself. Intake sits on
           top (it is the transient, "look at this now" surface); the pool keeps its bottom anchor. */}
-      {!onWatchlist && (
+      {!onCrossCompany && (
         <div className="stagerail">
           <IntakeDock />
           <DataFilesPanel />
         </div>
       )}
-      {!onWatchlist && <DataNeedsDock />}
-      {!onWatchlist && <DecisionBanner />}
+      {!onCrossCompany && <DataNeedsDock />}
+      {!onCrossCompany && <DecisionBanner />}
     </>
   )
   // A constellation swarm whose manifest DECLARES a wire (SWARM.md `wire:` → /api/swarms) renders the
