@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-25T02:02:04Z",
+  "generated_at": "2026-08-25T02:30:06Z",
   "inbox": [
     {
       "inbox_id": "INB-20260825-001",
@@ -872,6 +872,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260825-568",
+      "headline": "Shrenik Limited: Shrenik Limited has informed the Exchange about Prior Intimation of the 1st (First) Meeting of the Committee of Creditors (CoC) of Shrenik Limited (In CIRP).",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/SHRENIK_24082026205154_Disclosure_of_the_First_CoC_Meeting.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-24T15:22:36Z",
+      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
+      "prelim_note": "Shrenik Limited is in CIRP (corporate insolvency resolution process) and held its first Committee of Creditors meeting, a distress event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Shrenik Limited is in CIRP (corporate insolvency resolution process) and held its first Committee of Creditors meeting, a distress event.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 2,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress",
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Shrenik Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260825-069",
       "headline": "MRD: Trading Halt [price-sensitive]",
       "headline_en": null,
@@ -916,6 +966,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260825-569",
+      "headline": "Kirloskar Brothers Limited: Kirloskar Brothers Limited has informed the Exchange regarding Order of Hon'ble Supreme Court of India dated August 11, 2026",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/KIRLOSBROS_24082026220310_Reg_30_Disclosure_Supreme_Court_Order_Final_Signed.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-24T16:35:40Z",
+      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
+      "prelim_note": "Supreme Court order involving Kirloskar Brothers Limited may impact legal or operational risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "Supreme Court order involving Kirloskar Brothers Limited may impact legal or operational risk.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 2,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Kirloskar Brothers Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1051,6 +1150,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260825-585",
+      "headline": "Digital Realty Selected to Develop 50 Megawatts of New Data Center Capacity in Singapore",
+      "headline_en": null,
+      "url": "https://www.globenewswire.com/news-release/2026/08/25/3350172/0/en/digital-realty-selected-to-develop-50-megawatts-of-new-data-center-capacity-in-singapore.html",
+      "source_name": "GlobeNewswire — News about Public Companies",
+      "input_nature": "company_press_release",
+      "found_at": "2026-08-25T01:30:00Z",
+      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
+      "prelim_note": "Digital Realty to develop 50 MW of new data center capacity in Singapore, a committed expansion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "Digital Realty to develop 50 MW of new data center capacity in Singapore, a committed expansion.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 3,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Digital Realty",
+          "ticker": "DLR",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1590,6 +1738,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260825-547",
+      "headline": "Fujiyama Power Systems Ltd: Fujiyama Power Systems Limited has informed the Exchange about enhancement of Lithium Batteries manufacturing capacities by 1 GWh at the Ratlam Plant, Madhya Pradesh",
+      "headline_en": null,
+      "url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/ef758127-a25b-4718-b4ff-92be93adcd64.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-24T14:26:23Z",
+      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
+      "prelim_note": "Fujiyama Power Systems announced 1 GWh lithium battery capacity enhancement at Ratlam plant.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 81,
+      "triage_reason": "Fujiyama Power Systems announced 1 GWh lithium battery capacity enhancement at Ratlam plant.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capex",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Fujiyama Power Systems Ltd",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260825-160",
       "headline": "LUXSHARE ICT (02475): PROPOSED AMENDMENTS TO THE ARTICLES OF ASSOCIATION; PROPOSED AMENDMENTS TO THE RULES FOR MANAGEMENT OF RELATED TRANSACTIONS; PROPOSED REGISTRATION AND ISSUANCE OF BONDS; AND NOTICE OF EXTRAORDINARY GENERAL MEETING",
       "headline_en": null,
@@ -1729,207 +1926,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260825-365",
-      "headline": "SCHEDULE 13D/A - BILL Holdings, Inc. (0001786352) (Subject)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1786352/000092189526002296/0000921895-26-002296-index.htm",
-      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-08-24T21:00:19Z",
-      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
-      "prelim_note": "Amended Schedule 13D for BILL Holdings indicates an activist or >5% holder updating a stake disclosure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 79,
-      "triage_reason": "Amended Schedule 13D for BILL Holdings indicates an activist or >5% holder updating a stake disclosure.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 3,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "BILL Holdings, Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260825-106",
-      "headline": "IIFL Finance Limited: IIFL Finance Limited has informed the Exchange regarding Initiation of Tax Litigation w.r.t. Material Subsidiary of the Company and Update on Tax Litigation of the Company.",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/IIFL_25082026004858_SEintimation_of_Stay_Finance_24082026.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-24T19:22:40Z",
-      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
-      "prelim_note": "IIFL Finance disclosed initiation of tax litigation for a material subsidiary plus an update on existing tax litigation, raising legal/regulatory risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 79,
-      "triage_reason": "IIFL Finance disclosed initiation of tax litigation for a material subsidiary plus an update on existing tax litigation, raising legal/regulatory risk.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 3,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "IIFL Finance Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260825-237",
-      "headline": "NT 10-Q - ZRCN Inc. (0001901297) (Filer)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1901297/000149315226039844/0001493152-26-039844-index.htm",
-      "source_name": "SEC EDGAR — Latest NT 10-Q (Late Quarterly Filing Notice)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-08-24T19:01:10Z",
-      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
-      "prelim_note": "NT 10-Q late quarterly filing notice for ZRCN Inc indicates a delayed statutory filing.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 79,
-      "triage_reason": "NT 10-Q late quarterly filing notice for ZRCN Inc indicates a delayed statutory filing.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": 0,
-        "recency": 3,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "accounting_restatement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "accounting_restatement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ZRCN Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260825-147",
-      "headline": "GANFENGLITHIUM (01772): DISCLOSEABLE AND CONNECTED TRANSACTIONS - SUBSCRIPTION FOR CONVERTIBLE DEBENTURE OF LAR BY GFL INTERNATIONAL",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0824/2026082402097.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-24T14:55:00Z",
-      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
-      "prelim_note": "Connected subscription for convertible debenture of Lithium Americas by GFL International is a discloseable related-party debt transaction with no size stated.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 79,
-      "triage_reason": "Connected subscription for convertible debenture of Lithium Americas by GFL International is a discloseable related-party debt transaction with no size stated.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 7,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "debt_credit",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "GANFENGLITHIUM",
-          "ticker": "01772",
-          "listing_country": "HK"
-        },
-        {
-          "name": "Lithium Americas",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -88246,9 +88242,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 231124,
-    "news_picked_today": 652,
-    "news_dropped_today": 2744
+    "news_seen_today": 283229,
+    "news_picked_today": 782,
+    "news_dropped_today": 3502
   },
   "book_momentum": {
     "live_count": 8,
