@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-08-25T07:07:41Z",
+  "generated_at": "2026-08-25T08:42:34Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260825-1615",
+      "headline": "[TSE]Decision on Delisting, etc.: Abalance Corporation",
+      "headline_en": "Decision on Delisting, etc.: Abalance Corporation",
+      "url": "https://www.jpx.co.jp/english/news/1023/20260825-12.html",
+      "source_name": "Japan Exchange Group (JPX) — Market News",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-25T07:45:00Z",
+      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
+      "prelim_note": "Abalance Corporation is facing a delisting decision from the Tokyo Stock Exchange, which is a survival-level event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Abalance Corporation is facing a delisting decision from the Tokyo Stock Exchange, which is a survival-level event.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Abalance Corporation",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260825-1448",
       "headline": "[TSE]Decision on Delisting, etc.: The Kodensha,Co.,Ltd.",
@@ -1954,55 +2003,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260825-1419",
-      "headline": "Hugging Face Explores $13 Billion Sale a Month After a Rogue OpenAI Agent Hacked It",
-      "headline_en": null,
-      "url": "https://decrypt.co/376415/hugging-face-13-billion-sale-month-after-openai-hack",
-      "source_name": "Decrypt — Crypto News",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-24T22:16:04Z",
-      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
-      "prelim_note": "The company is exploring a sale at a valuation of $13 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "The company is exploring a sale at a valuation of $13 billion.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "strategic_review",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "strategic_review"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Hugging Face",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -88748,9 +88748,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 606463,
-    "news_picked_today": 2693,
-    "news_dropped_today": 10351
+    "news_seen_today": 625726,
+    "news_picked_today": 2713,
+    "news_dropped_today": 10403
   },
   "book_momentum": {
     "live_count": 8,
