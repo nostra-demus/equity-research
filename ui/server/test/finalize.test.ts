@@ -310,6 +310,31 @@ try {
     }
   })
 
+  check('a failed frozen module keeps local diagnostics but never invokes Git publication', () => {
+    const root = path.join(ANALYSES_DIR, `ZZPARMOD_${DATE}`)
+    cleanupDirs.push(root)
+    fs.mkdirSync(root, { recursive: true })
+    const committed: unknown[] = []
+    const prev = __setFailureNoteCommitter((...args) => committed.push(args))
+    try {
+      const { run } = mkRun('module', 'ZZPARMOD')
+      run.module = 'valuation'
+      run.chained = true
+      run.parityCanary = true
+      run.parityCanaryStage = 'module'
+      finalizeRunOnClose(run, { exitCode: 1 }, 'frozen valuation child failed')
+      assert.equal(run.status, 'error')
+      assert.ok(fs.existsSync(path.join(root, 'RUN_FAILURE.md')),
+        'the bounded diagnostic remains available to the canary status surface')
+      assert.ok(readRunMarker(`analyses/ZZPARMOD_${DATE}`, '.interrupted'),
+        'the immutable interruption authority remains on disk')
+      assert.equal(committed.length, 0,
+        'an intermediate parity failure cannot mutate HEAD while siblings drain')
+    } finally {
+      __setFailureNoteCommitter(prev)
+    }
+  })
+
   // 7. THE audit fix: a run that SHIPPED its terminal deliverables but whose process then exits nonzero
   //    must NOT be stamped failed — it finalizes DONE (the research succeeded; a trailing nonzero on the
   //    final commit does not un-ship it): no RUN_FAILURE.md, no .interrupted marker, no commit, and — the

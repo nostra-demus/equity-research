@@ -8,7 +8,10 @@ process.env.ENGINE_ACTIVITY_LOG_DISABLED = '1'
 import assert from 'node:assert/strict'
 import fs from 'node:fs'
 import path from 'node:path'
-import { cancelSubject, type FullChainDeps, haltAllChains, launchFullChained, subjectChainActive } from '../src/launcher'
+import {
+  cancelSubject, type FullChainDeps, getParityCanaryChainStatus, haltAllChains,
+  launchFullChained, subjectChainActive,
+} from '../src/launcher'
 import { FULL_PER_MODULE, REPO_ROOT } from '../src/config'
 import { sharedDataPoolConflict } from '../src/intake-owner'
 import { buildSwarmGraph } from '../src/roster'
@@ -214,6 +217,8 @@ const sorted = (a: string[]) => [...a].sort()
     await launchFullChained('TESTCANARY', 'tester', 'local', selection, f.deps, undefined, undefined, {
       runRoot, parityCanary: { runRoot, freezeReceipt },
     })
+    assert.equal(getParityCanaryChainStatus(runRoot)?.status, 'running',
+      'the logical canary stays live while its bounded children advance')
     assert.equal(f.getMarkerRoot(), runRoot, 'the scheduler marker is bound to the isolated canary root')
     f.finish('business-model')
     f.finish('earnings')
@@ -240,6 +245,28 @@ const sorted = (a: string[]) => [...a].sort()
     }
     f.finish('master')
     assert.equal(f.wasMarkerCleared(), true, 'terminal completion clears the isolated defer marker')
+    assert.equal(getParityCanaryChainStatus(runRoot)?.status, 'done',
+      'only the terminal adjudicator can complete the logical canary')
+  })
+
+  await check('a frozen canary stays non-terminal until every active sibling drains after a failure', async () => {
+    const f = makeFake()
+    const runRoot = 'analyses/provider-parity/2026-08-26/codex/TESTCHAINSTATUS_2026-08-26__attempt-1234abcd'
+    const freezeReceipt = 'analyses/provider-parity/2026-08-26/freeze/TESTCHAINSTATUS_2026-08-26.json'
+    await launchFullChained('TESTCHAINSTATUS', 'tester', 'local', {
+      provider: 'codex', model: 'gpt-5.6-sol', reasoningLevel: 'max', expectedProfileKey: 'codex:test',
+    }, f.deps, undefined, { runRoot, parityCanary: { runRoot, freezeReceipt } })
+    f.finish('business-model')
+    f.finish('earnings')
+    f.finish('management-governance', 'incomplete')
+    assert.equal(getParityCanaryChainStatus(runRoot)?.status, 'running',
+      'one failed child cannot publish a terminal status while siblings still write')
+    f.finish('balance-sheet-survival')
+    assert.equal(getParityCanaryChainStatus(runRoot)?.status, 'running')
+    f.finish('competitive-intel')
+    const terminal = getParityCanaryChainStatus(runRoot)
+    assert.equal(terminal?.status, 'incomplete')
+    assert.ok(terminal?.endedAt, 'the logical chain becomes terminal only after the last sibling drains')
   })
 
   await check('a failed module stops the chain — no further modules, no master', async () => {

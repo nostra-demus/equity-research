@@ -514,7 +514,11 @@ function recordRunFailure(run: RunState, reason: string, stderr: string): void {
       'This run broke before the master synthesis. The machine reason (and any plan-reset time) is in the `.interrupted` marker. Re-run to continue — a same-day relaunch resumes from the finished modules; an older run is re-run fresh. This note is auto-removed if the run later completes.', '',
     ].join('\n')
     writeSupervisorRunFile(runRoot, FAILURE_NOTE, md)
-    commitRunFile(runRoot, FAILURE_NOTE, `Run failure note: ${run.ticker} (stopped at ${stoppedAt})`)
+    // A frozen intermediate stage must leave HEAD unchanged for the paired-provider comparison. Retain the
+    // local diagnostic and interruption authority, but never invoke the Git publisher from a module child.
+    if (!(run.parityCanary && run.parityCanaryStage === 'module')) {
+      commitRunFile(runRoot, FAILURE_NOTE, `Run failure note: ${run.ticker} (stopped at ${stoppedAt})`)
+    }
   } catch { /* best-effort: recording a failure must never itself fail the run */ }
 }
 
@@ -1774,7 +1778,14 @@ export interface LaunchParams {
   sharedPoolTarget?: { swarm: string; subject: string }
 }
 
-type ParityCanaryStage = 'chain' | 'module' | 'final'
+export type ParityCanaryStage = 'chain' | 'module' | 'final'
+
+/** A model child is allowed to finish successfully only after this supervisor-owned publication phase. */
+export function requiresSupervisorPublication(kind: RunKind, parityStage?: ParityCanaryStage): boolean {
+  if (kind === 'agent' || kind === 'screener-agent' || kind === 'parity') return false
+  if (!parityStage) return true
+  return kind === 'full' && parityStage === 'final'
+}
 
 export type PreSpawnGuardResult =
   | { ok: true }
@@ -2233,6 +2244,27 @@ const subjectChainKey = (subjectId: string, swarmId: string) => `${swarmId}\u000
 const activeSubjectChains = new Map<string, symbol>()
 const cancelledChainIds = new Set<string>()
 
+export interface ParityCanaryChainStatus {
+  chainId: string
+  runRoot: string
+  runId: string | null
+  provider: RunProvider
+  profileKey: string | null
+  status: 'starting' | 'running' | 'done' | 'error' | 'cancelled' | 'incomplete'
+  startedAt: number
+  endedAt: number | null
+  message: string | null
+}
+
+// The canary endpoint admits one logical chain but the registry contains bounded child RunStates. Keep a
+// supervisor-owned aggregate so polling cannot mistake a completed child or a capacity gap for completion.
+const parityCanaryChainsByRoot = new Map<string, ParityCanaryChainStatus>()
+
+export function getParityCanaryChainStatus(runRoot: string): ParityCanaryChainStatus | null {
+  const state = parityCanaryChainsByRoot.get(runRoot)
+  return state ? { ...state } : null
+}
+
 export function subjectChainActive(subjectId: string, swarmId = RESEARCH_SWARM_ID): boolean {
   return activeSubjectChains.has(subjectChainKey(subjectId, swarmId))
 }
@@ -2413,6 +2445,30 @@ export async function launchFullChained(
     poolReleased = true
     try { releasePool() } finally { releaseSubjectChain() }
   }
+  const logicalCanary: ParityCanaryChainStatus | null = scope.parityCanary ? {
+    chainId,
+    runRoot: datedRoot,
+    runId: null,
+    provider: selection.provider,
+    profileKey: selection.expectedProfileKey ?? null,
+    status: 'starting',
+    startedAt: Date.now(),
+    endedAt: null,
+    message: null,
+  } : null
+  if (logicalCanary) parityCanaryChainsByRoot.set(datedRoot, logicalCanary)
+  const markLogicalRunning = (runId?: string) => {
+    if (!logicalCanary || logicalCanary.endedAt !== null) return
+    if (runId) logicalCanary.runId = runId
+    logicalCanary.status = 'running'
+  }
+  const finishLogicalCanary = (status: RunStatus, message: string) => {
+    if (!logicalCanary || logicalCanary.endedAt !== null) return
+    logicalCanary.status = status === 'done' || status === 'cancelled' || status === 'incomplete'
+      ? status : 'error'
+    logicalCanary.endedAt = Date.now()
+    logicalCanary.message = message
+  }
 
   // Drop a marker in the shared run root so each per-module run SKIPS its inline memo (MODULE_PIPELINE
   // Step 4.9A); the master step regenerates all module memos in ONE batch at the end (rerun.md Step 9B)
@@ -2421,6 +2477,7 @@ export async function launchFullChained(
   try {
     deps.writeMarker(ticker, datedRoot)
   } catch (error) {
+    finishLogicalCanary('error', `The canary could not establish its supervisor markers: ${String((error as any)?.message || error)}`)
     releaseChainPool()
     throw error
   }
@@ -2458,6 +2515,8 @@ export async function launchFullChained(
     ? chainedResumePreflight(ticker, plannedModules, selection)
     : estimate('full', ticker, selection.provider, undefined, undefined, undefined, selection.model, selection.reasoningLevel)
   let stopped = false
+  let stoppedOutcome: RunStatus | null = null
+  let stoppedMessage = ''
   let masterLaunched = false
   let retryScheduled = false
   // Global stop halts every chain; a subject stop halts only this ticker's scheduler.
@@ -2484,13 +2543,17 @@ export async function launchFullChained(
       (status) => {
         deps.clearMarker(ticker, datedRoot) // always clear the defer-memo marker once master exits — success path: rerun.md Step 9B also rm -f's it (idempotent); this is the safety net for an abnormal 'done' before Step 9B ran, or any failure
         releaseChainPool()
+        finishLogicalCanary(status, status === 'done'
+          ? 'Canary pipeline completed.' : `Canary stopped at terminal adjudication — ${status}.`)
         // eslint-disable-next-line no-console
         console.log(`[full-chain] ${ticker}: ${status === 'done' ? 'pipeline complete' : `stopped at master — ${status}`}`)
       },
     )
+    void launched.then((out) => markLogicalRunning(out.runId))
     void launched.catch((e) => {
       deps.clearMarker(ticker, datedRoot)
       releaseChainPool()
+      finishLogicalCanary('error', `Canary terminal adjudicator could not launch: ${String((e as any)?.message || e)}`)
       // eslint-disable-next-line no-console
       console.error(`[full-chain] ${ticker}: failed to launch master synthesizer`, (e as any)?.message || e)
     })
@@ -2499,11 +2562,27 @@ export async function launchFullChained(
 
   const onModuleFinish = (name: string, status: RunStatus) => {
     inflight.delete(name)
-    if (!chainAlive()) { stopped = true; deps.clearMarker(ticker, datedRoot); releaseChainPool(); return } // stop-everything halted the chain — clear the defer-memo marker (no orphan) + launch nothing further
+    if (stopped) {
+      if (inflight.size === 0 && stoppedOutcome) finishLogicalCanary(stoppedOutcome, stoppedMessage)
+      return
+    }
+    if (!chainAlive()) {
+      stopped = true
+      stoppedOutcome = 'cancelled'
+      stoppedMessage = 'Canary chain was stopped by the operator.'
+      deps.clearMarker(ticker, datedRoot)
+      releaseChainPool()
+      if (inflight.size === 0) finishLogicalCanary(stoppedOutcome, stoppedMessage)
+      return
+    } // stop-everything halted the chain — clear the defer-memo marker (no orphan) + launch nothing further
     if (status !== 'done') {
       stopped = true
+      stoppedOutcome = status
+      stoppedMessage = `Canary stopped at module ${name} — ${status}.`
+      if (logicalCanary) logicalCanary.message = `${stoppedMessage} Waiting for ${inflight.size} active sibling(s) to drain.`
       deps.clearMarker(ticker, datedRoot) // failed pipeline — don't leave an orphaned defer-memo marker
       releaseChainPool()
+      if (inflight.size === 0) finishLogicalCanary(stoppedOutcome, stoppedMessage)
       // eslint-disable-next-line no-console
       console.log(`[full-chain] ${ticker}: stopped at module ${name} — ${status} (in-flight modules still finish)`)
       return
@@ -2520,7 +2599,15 @@ export async function launchFullChained(
     retryScheduled = true
     deps.scheduleRetry(() => {
       retryScheduled = false
-      if (!chainAlive()) { stopped = true; deps.clearMarker(ticker, datedRoot); releaseChainPool(); return }
+      if (!chainAlive()) {
+        stopped = true
+        stoppedOutcome = 'cancelled'
+        stoppedMessage = 'Canary chain was stopped by the operator.'
+        deps.clearMarker(ticker, datedRoot)
+        releaseChainPool()
+        if (inflight.size === 0) finishLogicalCanary(stoppedOutcome, stoppedMessage)
+        return
+      }
       pump()
     })
   }
@@ -2538,6 +2625,7 @@ export async function launchFullChained(
       (status) => onModuleFinish(name, status),
     )
       .then((out) => {
+        markLogicalRunning(out.runId)
         if (firstRunId === null) { firstRunId = out.runId; settleFirst({ runId: out.runId, preflight: out.preflight }) }
       })
       .catch((e) => {
@@ -2555,8 +2643,11 @@ export async function launchFullChained(
           return
         }
         stopped = true
+        stoppedOutcome = 'error'
+        stoppedMessage = `Canary module ${name} could not launch: ${String((e as any)?.message || e)}`
         deps.clearMarker(ticker, datedRoot)
         releaseChainPool()
+        if (inflight.size === 0) finishLogicalCanary(stoppedOutcome, stoppedMessage)
         // eslint-disable-next-line no-console
         console.error(`[full-chain] ${ticker}: failed to launch module ${name}`, (e as any)?.message || e)
         if (firstRunId === null) rejectFirst(e)
@@ -2565,7 +2656,15 @@ export async function launchFullChained(
 
   function pump() {
     if (stopped) return
-    if (!chainAlive()) { stopped = true; deps.clearMarker(ticker, datedRoot); releaseChainPool(); return }
+    if (!chainAlive()) {
+      stopped = true
+      stoppedOutcome = 'cancelled'
+      stoppedMessage = 'Canary chain was stopped by the operator.'
+      deps.clearMarker(ticker, datedRoot)
+      releaseChainPool()
+      if (inflight.size === 0) finishLogicalCanary(stoppedOutcome, stoppedMessage)
+      return
+    }
     for (const name of readyNow()) {
       if (inflight.size >= MAX_CONCURRENT_RUNS) break
       launchModule(name)
@@ -2591,7 +2690,12 @@ export async function launchFullChained(
   pump()
   // business-model has no deps, so something is always runnable; if not, the graph has a cycle — fail loud
   // rather than hang on the firstReady promise below.
-  if (started.size === 0) { deps.clearMarker(ticker, datedRoot); releaseChainPool(); throw new Error(`[full-chain] ${ticker}: no module is runnable at start (depends_on cycle?)`) }
+  if (started.size === 0) {
+    deps.clearMarker(ticker, datedRoot)
+    releaseChainPool()
+    finishLogicalCanary('error', 'Canary graph has no runnable module at start.')
+    throw new Error(`[full-chain] ${ticker}: no module is runnable at start (depends_on cycle?)`)
+  }
   // `chained: true` -> the cockpit live-follows the WHOLE pipeline (each module + master), celebrating only
   // when the master finishes — not after each module.
   const first = await firstReady
@@ -3200,7 +3304,9 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
     runRoot,
     selectedDecisionRunRoot: params.decisionRunRoot,
     selectedDecisionFingerprint: params.decisionFingerprint,
-    willCommitToMain: !params.parityCanary && kind !== 'agent' && kind !== 'screener-agent' && kind !== 'parity',
+    // `willCommitToMain` is the historical name for the mandatory terminal publication protocol. A frozen
+    // terminal canary performs a stamp+receipt without Git, but must still fail if that protocol is skipped.
+    willCommitToMain: requiresSupervisorPublication(kind, params.parityCanary?.stage),
     writeTargetsAbs,
     coveredModules,
     readDepsAbs,
@@ -3211,6 +3317,8 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
     onTerminal: params.onTerminal,
     parityCanary: Boolean(params.parityCanary),
     memoryIdentity: params.memoryIdentity,
+    parityCanaryStage: params.parityCanary?.stage === 'module' || params.parityCanary?.stage === 'final'
+      ? params.parityCanary.stage : undefined,
   })
   run.publicationToken = randomUUID()
   run.provenanceEpoch = params.chainId || run.runId
@@ -3434,7 +3542,7 @@ async function continueLaunch(run: RunState): Promise<void> {
     // cancel() can finalize the run DURING the gate's async check (it yields the loop while the check
     // runs). A finalized run is never revived or spawned — mirrors finalizeRunOnClose's endedAt guard.
     if (run.endedAt !== undefined) return
-    if (run.readiness && run.readiness.overall !== 'clean') {
+    if (run.readiness && readinessNeedsDecision(run, run.readiness)) {
       run.status = 'awaiting-readiness-decision'
       run.deferredSpawn = () => spawnEngine(run)
       emit(run, { type: 'readiness-blocked', runId: run.runId, report: run.readiness, ts: Date.now() })
@@ -5776,7 +5884,8 @@ export async function cancel(runId: string): Promise<boolean> {
 // just-fixed pool. A check that itself THROWS fails SAFE — it returns a blocker, never a silent proceed.
 async function checkReadiness(run: RunState, force: boolean): Promise<ReadinessReport> {
   try {
-    const report = await runReadiness(run.ticker, run.kind, run.module, { outDir: path.join(REPO_ROOT, run.runRoot!, '_pool_extracts'), force })
+    const scope = readinessScopeForRun(run)
+    const report = await runReadiness(run.ticker, scope.kind, scope.module, { outDir: path.join(REPO_ROOT, run.runRoot!, '_pool_extracts'), force })
     run.readiness = report
     emit(run, { type: 'readiness-report', runId: run.runId, report, ts: Date.now() })
     return report
@@ -5794,6 +5903,27 @@ async function checkReadiness(run: RunState, force: boolean): Promise<ReadinessR
   }
 }
 
+/** Chained module children are pieces of one full decision, not standalone module requests. */
+export function readinessScopeForRun(
+  run: Pick<RunState, 'kind' | 'module' | 'chained'>,
+): { kind: RunKind; module?: string } {
+  return run.chained && run.kind === 'module'
+    ? { kind: 'full' }
+    : { kind: run.kind, module: run.module }
+}
+
+/** Full-chain module insufficiency is carried as a cap; unrelated degraded/blocker states still pause. */
+export function readinessNeedsDecision(
+  run: Pick<RunState, 'kind' | 'chained'>,
+  report: ReadinessReport,
+): boolean {
+  if (report.overall === 'clean') return false
+  const onlyFullChainModuleCaps = run.chained && run.kind === 'module'
+    && report.overall === 'degraded' && report.issues.length > 0
+    && report.issues.every((issue) => issue.code === 'module_insufficient' && issue.severity === 'degrade')
+  return !onlyFullChainModuleCaps
+}
+
 // Pre-spawn data-readiness gate. Research data-consuming kinds only (swarm kinds skip it); sets
 // readiness-checking, then runs the check.
 async function runReadinessGate(run: RunState): Promise<void> {
@@ -5802,6 +5932,10 @@ async function runReadinessGate(run: RunState): Promise<void> {
   // (and reads live public sources, not a company data pool), so it skips this research readiness gate.
   if (run.swarmId !== 'research') return
   if (!run.runRoot || !['full', 'module', 'agent', 'rerun'].includes(run.kind)) return
+  // The terminal canary follows a completed, readiness-scoped module DAG. Re-running the full gate here
+  // could park the one terminal adjudicator after every module already finished, with no logical parent
+  // RunState for the operator to resolve. Child gates remain authoritative for the frozen chain.
+  if (run.parityCanary && run.parityCanaryStage === 'final') return
   run.status = 'readiness-checking'
   emit(run, { type: 'readiness-checking', runId: run.runId, ticker: run.ticker, kind: run.kind, ts: Date.now() })
   await checkReadiness(run, false)
@@ -5847,7 +5981,7 @@ export async function decideReadiness(
     void (async () => {
       const report = await checkReadiness(run, true)
       if (run.endedAt !== undefined) return // cancelled mid-recheck
-      if (report.overall !== 'clean') {
+      if (readinessNeedsDecision(run, report)) {
         run.status = 'awaiting-readiness-decision' // still gated — re-open for another decision
         return
       }

@@ -11,8 +11,20 @@ import {
 import { createRun, finishRun } from '../src/registry'
 import {
   __setPostReviewCalibration, __setSupervisorCommitter, __setSupervisorCommitVerifier,
-  drainPublicationIntents, queuePublicationIntent, recoverReadyPublications, supervisePublication,
+  drainPublicationIntents, queuePublicationIntent, recoverReadyPublications, requiresSupervisorPublication,
+  supervisePublication,
 } from '../src/launcher'
+
+assert.equal(requiresSupervisorPublication('full'), true)
+assert.equal(requiresSupervisorPublication('module'), true)
+assert.equal(requiresSupervisorPublication('rerun'), true)
+assert.equal(requiresSupervisorPublication('agent'), false)
+assert.equal(requiresSupervisorPublication('screener-agent'), false)
+assert.equal(requiresSupervisorPublication('parity'), false)
+assert.equal(requiresSupervisorPublication('module', 'module'), false,
+  'a frozen intermediate child must not enter the terminal publication protocol')
+assert.equal(requiresSupervisorPublication('full', 'final'), true,
+  'the frozen terminal adjudicator must stamp and verify its decision before success')
 
 const root = `analyses/ZZPROVSUP_${Date.now()}`
 const absolute = path.join(REPO_ROOT, root)
