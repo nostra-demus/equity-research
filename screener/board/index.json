@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-08-25T09:51:23Z",
+  "generated_at": "2026-08-25T10:03:47Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260825-1656",
+      "headline": "CHINAHEALTHWISE (00348): INSIDE INFORMATION PROFIT WARNING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0825/2026082500909.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-25T09:42:00Z",
+      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
+      "prelim_note": "Profit warning indicates a material decline in expected earnings.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Profit warning indicates a material decline in expected earnings.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "guidance_change",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "China Healthwise",
+          "ticker": "00348",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260825-1633",
       "headline": "LONGHUI INTL (01007): (1) MAJOR AND CONNECTED TRANSACTION: PROPOSED ACQUISITION OF 51% EQUITY INTERESTS IN THE TARGET COMPANY AND (2) NOTICE OF EXTRAORDINARY GENERAL MEETING",
@@ -1954,60 +2003,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260825-1364",
-      "headline": "Roche pens $2.5B pact for Hanmi’s clinical-stage obesity drug targeting less-explored mechanism",
-      "headline_en": null,
-      "url": "https://www.fiercebiotech.com/biotech/roche-pens-25b-pact-hanmis-clinical-stage-obesity-drug-targeting-less-used-mechanism",
-      "source_name": "FierceBiotech",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-25T01:59:07Z",
-      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
-      "prelim_note": "Roche signed a $2.5B pact for Hanmi's clinical-stage obesity drug.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Roche signed a $2.5B pact for Hanmi's clinical-stage obesity drug.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Roche",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Hanmi",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -78749,78 +78744,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-385f3be837d6",
-      "idea_version": "IDEAV-97a36208cf226312",
-      "idea_version_started_at": "2026-08-24T19:00:25Z",
-      "ticker": "TGN",
-      "company": "TGN",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Appointment of a debt advisor signals progress in the company's funding strategy, potentially improving its financial stability.",
-      "why_now": "The announcement regarding the debt advisor was made on August 23, 2026.",
-      "conviction": 50,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-0765f1ca8137"
-      ],
-      "primary_source_event_id": "EVT-0765f1ca8137",
-      "source_headlines": [
-        "TGN: Watershed Funding Strategy Advances - Debt Advisor Appointed [price-sensitive]"
-      ],
-      "source_headline": "TGN: Watershed Funding Strategy Advances - Debt Advisor Appointed [price-sensitive]",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.TGN?key=2924-03124531-6A1339746",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-23T22:01:09Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-24T19:00:25Z",
-      "updated_at": "2026-08-24T19:00:25Z",
-      "decay_at": "2026-08-25T10:01:09Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-5eb83f28e809",
       "idea_version": "IDEAV-edc735557a877cff",
       "idea_version_started_at": "2026-08-24T19:00:25Z",
@@ -81523,6 +81446,78 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-385f3be837d6",
+      "idea_version": "IDEAV-97a36208cf226312",
+      "idea_version_started_at": "2026-08-24T19:00:25Z",
+      "ticker": "TGN",
+      "company": "TGN",
+      "exchange": "ASX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Appointment of a debt advisor signals progress in the company's funding strategy, potentially improving its financial stability.",
+      "why_now": "The announcement regarding the debt advisor was made on August 23, 2026.",
+      "conviction": 50,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "price and market expectations",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "unknown",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-0765f1ca8137"
+      ],
+      "primary_source_event_id": "EVT-0765f1ca8137",
+      "source_headlines": [
+        "TGN: Watershed Funding Strategy Advances - Debt Advisor Appointed [price-sensitive]"
+      ],
+      "source_headline": "TGN: Watershed Funding Strategy Advances - Debt Advisor Appointed [price-sensitive]",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.TGN?key=2924-03124531-6A1339746",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-23T22:01:09Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-24T19:00:25Z",
+      "updated_at": "2026-08-24T19:00:25Z",
+      "decay_at": "2026-08-25T10:01:09Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-c09be92dcb5d",
       "idea_version": "IDEAV-3f94933415bec6c9",
       "idea_version_started_at": "2026-08-23T11:45:28Z",
@@ -82109,13 +82104,13 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 92,
-    "shown_count": 92,
+    "total_count": 93,
+    "shown_count": 93,
     "hidden_count": 0,
     "side_counts": {
       "long": {
-        "total_count": 34,
-        "shown_count": 34,
+        "total_count": 35,
+        "shown_count": 35,
         "hidden_count": 0
       },
       "short": {
@@ -82140,6 +82135,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-385f3be837d6",
+        "idea_version": "IDEAV-97a36208cf226312",
+        "idea_version_started_at": "2026-08-24T19:00:25Z",
+        "ticker": "TGN",
+        "company": "TGN",
+        "exchange": "ASX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Appointment of a debt advisor signals progress in the company's funding strategy, potentially improving its financial stability.",
+        "why_now": "The announcement regarding the debt advisor was made on August 23, 2026.",
+        "conviction": 50,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "price and market expectations",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "unknown",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-0765f1ca8137"
+        ],
+        "primary_source_event_id": "EVT-0765f1ca8137",
+        "source_headlines": [
+          "TGN: Watershed Funding Strategy Advances - Debt Advisor Appointed [price-sensitive]"
+        ],
+        "source_headline": "TGN: Watershed Funding Strategy Advances - Debt Advisor Appointed [price-sensitive]",
+        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.TGN?key=2924-03124531-6A1339746",
+        "source_name": "ASX (Australia Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-23T22:01:09Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-24T19:00:25Z",
+        "updated_at": "2026-08-24T19:00:25Z",
+        "decay_at": "2026-08-25T10:01:09Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-25T10:01:09Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-fc282053abf5",
         "idea_version": "IDEAV-5a3ae5d61bb05c09",
@@ -88949,7 +89019,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 136,
-    "live_count": 43,
+    "live_count": 42,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -88968,9 +89038,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 824399,
-    "news_picked_today": 2794,
-    "news_dropped_today": 10562
+    "news_seen_today": 835551,
+    "news_picked_today": 2809,
+    "news_dropped_today": 10595
   },
   "book_momentum": {
     "live_count": 8,
