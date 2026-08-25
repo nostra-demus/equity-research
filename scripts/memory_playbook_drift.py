@@ -64,7 +64,9 @@ def _refs(path: Path) -> set[str]:
 def _events_from_projection(path: Path, *, digest: str, as_of: str) -> list[dict]:
     expected = digest.removeprefix("sha256:")
     verify_projection(path, expected_digest=expected)
-    connection = sqlite3.connect(f"file:{path.resolve()}?mode=ro&immutable=1", uri=True)
+    connection = sqlite3.connect(
+        f"{path.resolve().as_uri()}?mode=ro&immutable=1", uri=True,
+    )
     try:
         rows = connection.execute(
             "SELECT canonical_event FROM events WHERE system_time <= ? "

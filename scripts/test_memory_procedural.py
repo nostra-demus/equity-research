@@ -30,6 +30,7 @@ from memory_procedural import (
     open_promotion_pull_request,
     procedural_signer,
     procedural_verifier,
+    playbook_prompt_files,
     seed_initial_candidates,
     verify_execution,
 )
@@ -527,8 +528,10 @@ class ProceduralMemoryTests(unittest.TestCase):
             return execution
         serious = failed("policy-leak", "01")
         self.assertEqual("quarantine-immediately", failure_action([serious]))
+        malformed = copy.deepcopy(serious)
+        malformed["incident_codes"] = None
         quarantined, event, request = build_quarantine_request(
-            self.event, [serious], expected_head=H,
+            self.event, [serious, malformed], expected_head=H,
             service_id="quarantine-service", now=QUARANTINED,
         )
         self.assertEqual("quarantined", quarantined["status"])
@@ -546,7 +549,7 @@ class ProceduralMemoryTests(unittest.TestCase):
         def runner(args: list[str], cwd: Path) -> str:
             commands.append(list(args))
             if args[:3] == ["git", "rev-parse", "--show-toplevel"]:
-                return str(repository.resolve())
+                return str(repository.resolve()) + "\n"
             if args[:3] == ["git", "worktree", "add"]:
                 shutil.copytree(repository, Path(args[-2]), dirs_exist_ok=True)
                 return ""
@@ -624,6 +627,17 @@ class ProceduralMemoryTests(unittest.TestCase):
         self.assertTrue(url.endswith("/125"))
         self.assertFalse(any(command[:3] == ["gh", "pr", "merge"] for command in commands))
         self.assertFalse(any(command[:3] == ["git", "push", "origin/main"] for command in commands))
+
+    def test_prompt_matching_treats_null_applicability_arrays_as_empty(self) -> None:
+        promotion_repository(self.root)
+        malformed = copy.deepcopy(self.playbook)
+        malformed["playbook"]["applicability"]["agents"] = None
+        malformed["playbook"]["applicability"]["modules"] = None
+        selected = playbook_prompt_files(self.root, malformed)
+        self.assertEqual(
+            [self.root / ".claude/agents/earnings/01_historical-financials.md"],
+            selected,
+        )
 
 
 if __name__ == "__main__":

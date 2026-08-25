@@ -99,6 +99,12 @@ class ProceduralMemoryError(ValueError):
     """The requested procedural-memory transition is not authorized or valid."""
 
 
+def _json_list(value: Any) -> list[Any]:
+    """Return only JSON arrays; nulls and scalar impostors are always inert."""
+
+    return value if isinstance(value, list) else []
+
+
 def _text_values(value: Any) -> list[str]:
     if isinstance(value, str):
         return [value]
@@ -423,11 +429,19 @@ def build_playbook(
     activated_at = utc_now(now)
     activated = dt.datetime.fromisoformat(activated_at.replace("Z", "+00:00"))
     try:
-        evaluated = dt.datetime.fromisoformat(str(evaluation["evaluated_at"]).replace("Z", "+00:00"))
-        created = dt.datetime.fromisoformat(str(candidate["created_at"]).replace("Z", "+00:00"))
+        evaluated = dt.datetime.fromisoformat(
+            str(evaluation["evaluated_at"]).replace("Z", "+00:00"),
+        )
+        created = dt.datetime.fromisoformat(
+            str(candidate["created_at"]).replace("Z", "+00:00"),
+        )
+        if not created <= evaluated <= activated:
+            raise ProceduralMemoryError("playbook-review-or-expiry-window-invalid")
+    except ProceduralMemoryError:
+        raise
     except (KeyError, TypeError, ValueError) as exc:
         raise ProceduralMemoryError("playbook-review-time-invalid") from exc
-    if not created <= evaluated <= activated or expires_days < 1 or expires_days > 365:
+    if expires_days < 1 or expires_days > 365:
         raise ProceduralMemoryError("playbook-review-or-expiry-window-invalid")
     identity = playbook_id or _memory_id("playbook", candidate["candidate_sha256"])
     value: dict[str, Any] = {
@@ -503,8 +517,10 @@ def build_promotion_manifest(
 
 def playbook_prompt_files(root: Path, playbook: Mapping[str, Any]) -> list[Path]:
     applicability = playbook.get("playbook", {}).get("applicability", {})
-    agents = set(applicability.get("agents", [])) if isinstance(applicability, Mapping) else set()
-    modules = set(applicability.get("modules", [])) if isinstance(applicability, Mapping) else set()
+    agents_raw = applicability.get("agents") if isinstance(applicability, Mapping) else None
+    agents = set(_json_list(agents_raw))
+    modules_raw = applicability.get("modules") if isinstance(applicability, Mapping) else None
+    modules = set(_json_list(modules_raw))
     selected: list[Path] = []
     for path in research_agent_files(root):
         relative = path.relative_to(root).as_posix()
@@ -584,7 +600,8 @@ def _open_playbook_pull_request(
         raise ProceduralMemoryError("playbook-deprecation-record-invalid")
     root = Path(repository_root).resolve()
     try:
-        if runner(["git", "rev-parse", "--show-toplevel"], root) != str(root):
+        top_level_raw = runner(["git", "rev-parse", "--show-toplevel"], root).strip()
+        if not top_level_raw or Path(top_level_raw).resolve() != root:
             raise ProceduralMemoryError("playbook-promotion-repository-root-invalid")
         with tempfile.TemporaryDirectory(prefix="memory-playbook-promotion-") as temporary:
             worktree = Path(temporary) / "worktree"
@@ -728,10 +745,14 @@ def _playbook_event(
     supersedes: Sequence[str], event_type: str, seed: str,
 ) -> dict[str, Any]:
     applicability = playbook["playbook"]["applicability"]
-    subjects = sorted(set([
+    subjects_list = [
         "entity:internal:memory-playbook-" + playbook["playbook_id"].rsplit("_", 1)[-1],
-        *applicability.get("issuer_ids", []), *applicability.get("listing_ids", []),
-    ]))
+    ]
+    issuer_ids = applicability.get("issuer_ids")
+    listing_ids = applicability.get("listing_ids")
+    subjects_list.extend(_json_list(issuer_ids))
+    subjects_list.extend(_json_list(listing_ids))
+    subjects = sorted(set(subjects_list))
     origins = [
         item for item in playbook["playbook"]["originating_episode_ids"]
         if EVENT_RE.fullmatch(str(item))
@@ -984,11 +1005,11 @@ def failure_action(executions: Sequence[Mapping[str, Any]]) -> str:
         elif identity != current:
             raise ProceduralMemoryError("mixed-playbook-execution-cohort")
         valid.append(execution)
-    if any(SERIOUS_INCIDENTS.intersection(item.get("incident_codes", [])) for item in valid):
+    if any(SERIOUS_INCIDENTS.intersection(_json_list(item.get("incident_codes"))) for item in valid):
         return "quarantine-immediately"
     ordinary = sum(
         item.get("status") in {"failed", "deviated", "abstained"}
-        and "ordinary-failure" in item.get("incident_codes", [])
+        and "ordinary-failure" in _json_list(item.get("incident_codes"))
         for item in valid
     )
     return "open-deprecation-pr" if ordinary >= 2 else "retain-active"
@@ -1007,7 +1028,7 @@ def build_quarantine_request(
     if not isinstance(active, Mapping):
         raise ProceduralMemoryError("playbook-quarantine-active-event-invalid")
     reasons = sorted({
-        code for execution in executions for code in execution.get("incident_codes", [])
+        code for execution in executions for code in _json_list(execution.get("incident_codes"))
         if code in SERIOUS_INCIDENTS
     })
     status_playbook = build_status_playbook(
