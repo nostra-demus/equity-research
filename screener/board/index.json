@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-25T09:04:56Z",
+  "generated_at": "2026-08-25T09:10:05Z",
   "inbox": [
     {
       "inbox_id": "INB-20260825-1622",
@@ -77538,6 +77538,76 @@
   "handoffs": [],
   "ideas": [
     {
+      "idea_id": "IDEA-eec9cd9f6717",
+      "idea_version": "IDEAV-7caad8a89b95b482",
+      "idea_version_started_at": "2026-08-25T09:09:48Z",
+      "ticker": "GH",
+      "company": "Guardant Health",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company faces a $245.2 million judgment for patent infringement, which will negatively impact cash reserves and potentially force changes to their product commercialization strategy.",
+      "why_now": "The final judgment was announced on 2026-08-24, creating immediate balance sheet pressure.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 18,
+        "impact": 18,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-12fec20cb36e"
+      ],
+      "primary_source_event_id": "EVT-12fec20cb36e",
+      "source_headlines": [
+        "TwinStrand Biosciences Announces Final Judgment in Patent Infringement Suit Against Guardant Health, Awarding TwinStrand and the University of Washington More Than $245.2 Million in Damages, Accrued Royalties and Interest | GH Stock News"
+      ],
+      "source_headline": "TwinStrand Biosciences Announces Final Judgment in Patent Infringement Suit Against Guardant Health, Awarding TwinStrand and the University of Washington More Than $245.2 Million in Damages, Accrued Royalties and Interest | GH Stock News",
+      "source_url": "https://www.stocktitan.net/news/GH/twin-strand-biosciences-announces-final-judgment-in-patent-fmua2oc5pmut.html",
+      "source_name": "Stock Titan — Latest News",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-24T11:00:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-25T09:09:48Z",
+      "updated_at": "2026-08-25T09:09:48Z",
+      "decay_at": "2026-08-25T23:00:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-4b8102f69455",
       "idea_version": "IDEAV-ff99366965afb179",
       "idea_version_started_at": "2026-08-25T06:14:06Z",
@@ -77813,6 +77883,77 @@
       "surfaced_at": "2026-08-25T03:44:44Z",
       "updated_at": "2026-08-25T03:44:44Z",
       "decay_at": "2026-08-26T12:50:10Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-1be35230099d",
+      "idea_version": "IDEAV-2a98c38e12921db5",
+      "idea_version_started_at": "2026-08-25T09:09:48Z",
+      "ticker": "HUM",
+      "company": "Humana AB",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Ambea AB has published a formal offer document for a recommended takeover of Humana AB, creating a merger arbitrage opportunity.",
+      "why_now": "The offer document and prospectus were published on 2026-08-24, initiating the formal tender period.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 55,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 18,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-780976145b26"
+      ],
+      "primary_source_event_id": "EVT-780976145b26",
+      "source_headlines": [
+        "AMBEA AB (PUBL) PUBLISHES OFFER DOCUMENT AND PROSPECTUS REGARDING THE RECOMMENDED PUBLIC TAKEOVER OFFER TO THE SHAREHOLDERS OF HUMANA AB"
+      ],
+      "source_headline": "AMBEA AB ( PUBL ) OFFENTLIGGÖR ERBJUDANDEHANDLING OCH PROSPEKT AVSEENDE DET REKOMMENDERADE OFFENTLIGA UPPKÖPSERBJUDANDET TILL AKTIEÄGARNA I HUMANA AB",
+      "source_url": "https://news.cision.com/se/ambea/r/ambea-ab---publ---offentliggor-erbjudandehandling-och-prospekt-avseende-det-rekommenderade-offentlig,c4386956",
+      "source_name": "Cision — Sweden Regulatory & Company News",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-24T13:30:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-25T09:09:48Z",
+      "updated_at": "2026-08-25T09:09:48Z",
+      "decay_at": "2026-08-26T01:30:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -88728,8 +88869,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 134,
-    "live_count": 42,
+    "surfaced_total": 136,
+    "live_count": 44,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -88748,7 +88889,7 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 707522,
+    "news_seen_today": 728372,
     "news_picked_today": 2741,
     "news_dropped_today": 10447
   },
