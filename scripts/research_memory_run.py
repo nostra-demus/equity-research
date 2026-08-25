@@ -649,6 +649,83 @@ def _active_semantic_match(
         return False, False
 
 
+def _active_playbook_match(
+    event: Mapping[str, Any], *, query: Mapping[str, Any], profile: Mapping[str, Any],
+    agent_id: str, listing: Mapping[str, Any],
+) -> tuple[bool, bool, int, str]:
+    """Return applicability, mandatory status, specificity, and exclusive procedure key."""
+
+    try:
+        payload = event.get("payload")
+        if (
+            not isinstance(payload, Mapping)
+            or payload.get("schema") != "memory-playbook/v1"
+            or payload.get("status") != "active"
+        ):
+            return False, False, 0, ""
+        if _time_sort(event.get("system_time")) > _time_sort(query.get("as_of_system_time")):
+            return False, False, 0, ""
+        if _time_sort(payload.get("expires_at")) <= _time_sort(query.get("as_of_system_time")):
+            return False, False, 0, ""
+        policy = payload.get("policy")
+        if not isinstance(policy, Mapping) or policy != event.get("policy"):
+            return False, False, 0, ""
+        retain_until = policy.get("retain_until")
+        if retain_until is not None and _time_sort(retain_until) <= _time_sort(
+            query.get("as_of_system_time")
+        ):
+            return False, False, 0, ""
+        core = payload.get("playbook")
+        applicability = core.get("applicability") if isinstance(core, Mapping) else None
+        if not isinstance(core, Mapping) or not isinstance(applicability, Mapping):
+            return False, False, 0, ""
+        module = agent_id.split("/", 1)[0]
+        leaf = agent_id.rsplit("/", 1)[-1]
+        agent_names = {agent_id, leaf, leaf.replace("_", "-")}
+        agents = applicability.get("agents")
+        modules = applicability.get("modules")
+        if agents and not agent_names.intersection(agents):
+            return False, False, 0, ""
+        if modules and module not in modules:
+            return False, False, 0, ""
+        issuer_ids = applicability.get("issuer_ids") or []
+        listing_ids = applicability.get("listing_ids") or []
+        if issuer_ids and listing.get("issuer_id") not in issuer_ids:
+            return False, False, 0, ""
+        if listing_ids and listing.get("listing_id") not in listing_ids:
+            return False, False, 0, ""
+        tags = {
+            str(item).casefold()
+            for item in (
+                list(profile.get("semantic_topics", []))
+                + list(profile.get("procedure_tags", []))
+                + str(profile.get("task", "")).replace(".", "-").split("-")
+            )
+        }
+        jurisdiction = _MIC_JURISDICTION.get(str(listing.get("mic")))
+        if jurisdiction:
+            tags.add(jurisdiction.casefold())
+        for field in (
+            "sectors", "jurisdictions", "accounting_standards", "metrics", "source_types",
+        ):
+            constraints = applicability.get(field, [])
+            if constraints and not tags.intersection(str(item).casefold() for item in constraints):
+                return False, False, 0, ""
+        specificity = 4 if (issuer_ids or listing_ids) else (
+            3 if applicability.get("jurisdictions") else (
+                2 if applicability.get("sectors") else 1
+            )
+        )
+        procedure_key = str(core.get("procedure_key", ""))
+        if not procedure_key:
+            return False, False, 0, ""
+        return True, core.get("required") is True, specificity, procedure_key
+    except Exception:
+        # Frozen projection records are validated before use. A damaged local projection is data,
+        # never authority: refuse the playbook instead of letting it crash or widen a run.
+        return False, False, 0, ""
+
+
 def compile_agent_packet(
     database_path: str | Path, *, receipt: Mapping[str, Any], profile: Mapping[str, Any],
     agent_id: str, role: str, valid_date: str,
@@ -677,6 +754,14 @@ def compile_agent_packet(
         for target in successor.get("supersedes", [])
         if isinstance(target, str)
     }
+    superseded_playbooks = {
+        target
+        for successor in events
+        if successor.get("event_type") in {"playbook.activated", "playbook.status-changed"}
+        for target in successor.get("supersedes", [])
+        if isinstance(target, str)
+    }
+    matching_playbooks: dict[str, list[tuple[int, bool, Mapping[str, Any]]]] = {}
     for event in events:
         event_type = event.get("event_type")
         if event_type in _EPISODE_TYPES and _exact_listing_event(
@@ -692,7 +777,34 @@ def compile_agent_packet(
                 event, query=query, profile=profile, agent_id=agent_id, listing=listing,
             )
             if applicable:
-                candidates.append((1 if mandatory else 4, "semantic", mandatory, event))
+                candidates.append((4, "semantic", mandatory, event))
+        elif event_type == "playbook.activated" and event.get("event_id") not in superseded_playbooks:
+            applicable, mandatory, specificity, procedure_key = _active_playbook_match(
+                event, query=query, profile=profile, agent_id=agent_id, listing=listing,
+            )
+            if applicable:
+                matching_playbooks.setdefault(procedure_key, []).append(
+                    (specificity, mandatory, event)
+                )
+    for procedure_key, matches in sorted(matching_playbooks.items()):
+        best_specificity = max(item[0] for item in matches)
+        winners = [item for item in matches if item[0] == best_specificity]
+        identities = {
+            (
+                item[2].get("payload", {}).get("playbook_id"),
+                item[2].get("payload", {}).get("version"),
+                item[2].get("payload", {}).get("playbook_sha256"),
+            )
+            for item in winners
+        }
+        if len(identities) != 1:
+            raise ResearchMemoryError(f"playbook-conflict-abstain:{procedure_key}")
+        _specificity, mandatory, event = sorted(
+            winners, key=lambda item: (
+                -_time_sort(item[2].get("system_time")), str(item[2].get("event_id")),
+            ),
+        )[0]
+        candidates.append((2, "procedural", mandatory, event))
     candidates.sort(key=lambda item: (
         item[0], -_time_sort(item[3].get("system_time")), str(item[3].get("event_id")),
     ))

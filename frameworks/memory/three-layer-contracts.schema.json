@@ -598,8 +598,10 @@
     "playbookCore": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["owner", "risk_class", "applicability", "required_inputs", "steps", "required_evidence", "expected_output", "prohibited_shortcuts", "fallback", "abstention_behavior", "permitted_tools", "originating_episode_ids", "counterexample_ids", "validation_case_ids", "measured_effect"],
+      "required": ["procedure_key", "required", "owner", "risk_class", "applicability", "required_inputs", "steps", "required_evidence", "expected_output", "prohibited_shortcuts", "fallback", "abstention_behavior", "permitted_tools", "originating_episode_ids", "counterexample_ids", "validation_case_ids", "measured_effect"],
       "properties": {
+        "procedure_key": { "type": "string", "pattern": "^[a-z][a-z0-9.-]{0,127}$" },
+        "required": { "type": "boolean" },
         "owner": { "$ref": "#/$defs/boundedName" },
         "risk_class": { "enum": ["mechanical", "analytical", "high-risk"] },
         "applicability": { "$ref": "#/$defs/applicability" },
@@ -631,12 +633,13 @@
     "memoryPlaybookCandidateV1": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["schema", "candidate_id", "playbook", "created_by", "status", "created_at", "candidate_sha256"],
+      "required": ["schema", "candidate_id", "playbook", "created_by", "policy", "status", "created_at", "candidate_sha256"],
       "properties": {
         "schema": { "const": "memory-playbook-candidate/v1" },
         "candidate_id": { "$ref": "#/$defs/memoryId" },
         "playbook": { "$ref": "#/$defs/playbookCore" },
         "created_by": { "$ref": "#/$defs/producer" },
+        "policy": { "$ref": "#/$defs/policy" },
         "status": { "const": "candidate" },
         "created_at": { "$ref": "#/$defs/awareDateTime" },
         "candidate_sha256": { "$ref": "#/$defs/hashRef" }
@@ -645,13 +648,21 @@
     "memoryPlaybookV1": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["schema", "playbook_id", "version", "playbook", "status", "expires_at", "prior_version", "verified_by", "evaluation_sha256", "promotion_manifest_sha256", "activated_at", "playbook_sha256"],
+      "required": ["schema", "playbook_id", "version", "playbook", "source_candidate_sha256", "policy", "status", "status_reason", "expires_at", "prior_version", "verified_by", "evaluation_sha256", "activated_at", "playbook_sha256"],
       "properties": {
         "schema": { "const": "memory-playbook/v1" },
         "playbook_id": { "$ref": "#/$defs/memoryId" },
         "version": { "type": "integer", "minimum": 1 },
         "playbook": { "$ref": "#/$defs/playbookCore" },
+        "source_candidate_sha256": { "$ref": "#/$defs/hashRef" },
+        "policy": { "$ref": "#/$defs/policy" },
         "status": { "enum": ["active", "quarantined", "deprecated", "expired"] },
+        "status_reason": {
+          "oneOf": [
+            { "type": "null" },
+            { "enum": ["policy-leak", "stale-fact", "prompt-injection", "serious-evidence-error", "two-ordinary-failures", "expired", "manual-emergency"] }
+          ]
+        },
         "expires_at": { "$ref": "#/$defs/awareDateTime" },
         "prior_version": { "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/canonicalRef" }] },
         "verified_by": { "type": "array", "minItems": 3, "maxItems": 8, "items": { "$ref": "#/$defs/reviewer" } },
@@ -664,20 +675,48 @@
     "evaluationCase": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["case_id", "kind", "issuer_id", "applicable", "passed", "metrics_sha256"],
+      "required": ["case_id", "kind", "issuer_id", "source_episode_id", "output_sha256", "integrity_gate_sha256", "integrity_status", "outcome_review_sha256", "applicable", "passed", "citation_error", "qualifier_loss", "temporal_error", "abstention_error", "serious_error", "metrics_sha256"],
       "properties": {
         "case_id": { "type": "string", "minLength": 1, "maxLength": 128 },
         "kind": { "enum": ["origin", "held-out", "counterexample", "outcome-review"] },
         "issuer_id": { "$ref": "#/$defs/subjectId" },
+        "source_episode_id": { "$ref": "#/$defs/episodeRef" },
+        "output_sha256": { "$ref": "#/$defs/hashRef" },
+        "integrity_gate_sha256": { "$ref": "#/$defs/hashRef" },
+        "integrity_status": { "const": "passed" },
+        "outcome_review_sha256": {
+          "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/hashRef" }]
+        },
         "applicable": { "type": "boolean" },
         "passed": { "type": "boolean" },
+        "citation_error": { "type": "boolean" },
+        "qualifier_loss": { "type": "boolean" },
+        "temporal_error": { "type": "boolean" },
+        "abstention_error": { "type": "boolean" },
+        "serious_error": { "type": "boolean" },
         "metrics_sha256": { "$ref": "#/$defs/hashRef" }
+      }
+    },
+    "playbookReviewAttestation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schema", "role", "identity", "candidate_sha256", "cases_sha256", "decision", "decided_at", "attestation_sha256", "signature"],
+      "properties": {
+        "schema": { "const": "memory-playbook-review-attestation/v1" },
+        "role": { "enum": ["evidence", "applicability", "security"] },
+        "identity": { "$ref": "#/$defs/producer" },
+        "candidate_sha256": { "$ref": "#/$defs/hashRef" },
+        "cases_sha256": { "$ref": "#/$defs/hashRef" },
+        "decision": { "const": "approved" },
+        "decided_at": { "$ref": "#/$defs/awareDateTime" },
+        "attestation_sha256": { "$ref": "#/$defs/hashRef" },
+        "signature": { "$ref": "#/$defs/signature" }
       }
     },
     "memoryPlaybookEvaluationV1": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["schema", "evaluation_id", "candidate_sha256", "risk_class", "cases", "reviewers", "metric_regressions", "security_failures", "passed", "evaluated_at", "evaluation_sha256"],
+      "required": ["schema", "evaluation_id", "candidate_sha256", "risk_class", "cases", "reviewers", "review_attestations", "metric_regressions", "security_failures", "passed", "evaluated_at", "evaluation_sha256"],
       "properties": {
         "schema": { "const": "memory-playbook-evaluation/v1" },
         "evaluation_id": { "$ref": "#/$defs/memoryId" },
@@ -685,6 +724,7 @@
         "risk_class": { "enum": ["mechanical", "analytical", "high-risk"] },
         "cases": { "type": "array", "minItems": 4, "maxItems": 128, "items": { "$ref": "#/$defs/evaluationCase" } },
         "reviewers": { "type": "array", "minItems": 3, "maxItems": 8, "items": { "$ref": "#/$defs/reviewer" } },
+        "review_attestations": { "type": "array", "minItems": 3, "maxItems": 3, "items": { "$ref": "#/$defs/playbookReviewAttestation" } },
         "metric_regressions": { "$ref": "#/$defs/stringList" },
         "security_failures": { "$ref": "#/$defs/stringList" },
         "passed": { "type": "boolean" },
@@ -709,18 +749,30 @@
     "memoryPlaybookExecutionV1": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["schema", "execution_id", "run_id", "task_id", "playbook_id", "version", "playbook_sha256", "steps", "status", "deviation_codes", "started_at", "completed_at", "execution_sha256"],
+      "required": ["schema", "execution_id", "run_id", "task_id", "packet_id", "packet_sha256", "query_sha256", "projection_digest", "playbook_id", "version", "playbook_sha256", "canonical_hash_verified_before", "canonical_hash_verified_after", "steps", "status", "deviation_codes", "incident_codes", "started_at", "completed_at", "execution_sha256"],
       "properties": {
         "schema": { "const": "memory-playbook-execution/v1" },
         "execution_id": { "$ref": "#/$defs/memoryId" },
         "run_id": { "$ref": "#/$defs/boundedName" },
         "task_id": { "$ref": "#/$defs/boundedName" },
+        "packet_id": { "$ref": "#/$defs/memoryId" },
+        "packet_sha256": { "$ref": "#/$defs/hashRef" },
+        "query_sha256": { "$ref": "#/$defs/hashRef" },
+        "projection_digest": { "$ref": "#/$defs/hashRef" },
         "playbook_id": { "$ref": "#/$defs/memoryId" },
         "version": { "type": "integer", "minimum": 1 },
         "playbook_sha256": { "$ref": "#/$defs/hashRef" },
+        "canonical_hash_verified_before": { "type": "boolean" },
+        "canonical_hash_verified_after": { "type": "boolean" },
         "steps": { "type": "array", "minItems": 1, "maxItems": 64, "items": { "$ref": "#/$defs/stepExecution" } },
         "status": { "enum": ["completed", "failed", "deviated", "abstained"] },
         "deviation_codes": { "$ref": "#/$defs/stringList" },
+        "incident_codes": {
+          "type": "array",
+          "maxItems": 16,
+          "uniqueItems": true,
+          "items": { "enum": ["policy-leak", "stale-fact", "prompt-injection", "serious-evidence-error", "ordinary-failure"] }
+        },
         "started_at": { "$ref": "#/$defs/awareDateTime" },
         "completed_at": { "$ref": "#/$defs/awareDateTime" },
         "execution_sha256": { "$ref": "#/$defs/hashRef" }

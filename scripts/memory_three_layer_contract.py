@@ -18,8 +18,10 @@ from pathlib import Path
 from typing import Any, Iterable, Mapping
 
 try:
+    from canonical_json import canonical_sha256
     from validate_screener_json import Checker
 except ImportError:  # pragma: no cover - package import in server-side tests
+    from scripts.canonical_json import canonical_sha256
     from scripts.validate_screener_json import Checker
 
 
@@ -298,13 +300,22 @@ def _playbook_core(value: Mapping[str, Any]) -> Mapping[str, Any]:
 
 def _validate_playbook(value: Mapping[str, Any], errors: list[str]) -> None:
     core = _playbook_core(value)
-    if core.get("measured_effect", {}).get("serious_error_regression") is True:
+    measured = core.get("measured_effect")
+    if not isinstance(measured, Mapping):
+        measured = {}
+    if measured.get("serious_error_regression") is True:
         _err(errors, "playbook.measured_effect.serious_error_regression", "a serious-error regression blocks activation")
-    permitted = set(core.get("permitted_tools", []))
+    permitted_raw = core.get("permitted_tools")
+    permitted = set(permitted_raw) if isinstance(permitted_raw, list) else set()
     forbidden = sorted(permitted - PERMITTED_DETERMINISTIC_TOOLS)
     if forbidden:
         _err(errors, "playbook.permitted_tools", f"contains non-allowlisted tools: {forbidden}")
-    for index, step in enumerate(core.get("steps", [])):
+    steps = core.get("steps")
+    if not isinstance(steps, list):
+        steps = []
+    for index, step in enumerate(steps):
+        if not isinstance(step, Mapping):
+            continue
         tool_id = step.get("tool_id")
         if tool_id is not None and tool_id not in permitted:
             _err(errors, f"playbook.steps[{index}].tool_id", "step tool is not declared by this playbook")
@@ -314,6 +325,10 @@ def _validate_playbook(value: Mapping[str, Any], errors: list[str]) -> None:
             _err(errors, "verified_by", "evidence, applicability, and security reviewers must be independent identities")
         if not {"evidence", "applicability", "security"}.issubset(_reviewer_roles(value.get("verified_by", []))):
             _err(errors, "verified_by", "active playbooks require evidence, applicability, and security review")
+        status = value.get("status")
+        reason = value.get("status_reason")
+        if (status == "active") is not (reason is None):
+            _err(errors, "status_reason", "must be null only while the playbook is active")
         activated = value.get("activated_at")
         expires = value.get("expires_at")
         if isinstance(activated, str) and isinstance(expires, str):
@@ -322,18 +337,27 @@ def _validate_playbook(value: Mapping[str, Any], errors: list[str]) -> None:
                     _err(errors, "expires_at", "active playbook must expire after activation")
             except ValueError as exc:  # schema validation should catch this first; keep the boundary total
                 _err(errors, "expires_at", f"invalid timestamp: {exc}")
+    policy = value.get("policy")
+    if not isinstance(policy, Mapping):
+        policy = {}
+    if policy.get("classification") in {"licensed", "confidential", "restricted"} and policy.get("retention") == "permanent":
+        _err(errors, "policy.retention", "protected playbooks and candidates must remain purgeable outside Git")
 
 
 def _validate_evaluation(value: Mapping[str, Any], errors: list[str]) -> None:
-    cases = value.get("cases", [])
-    kinds = [case.get("kind") for case in cases]
+    cases = value.get("cases")
+    if not isinstance(cases, list):
+        cases = []
+    kinds = [case.get("kind") for case in cases if isinstance(case, Mapping)]
     if kinds.count("origin") < 1 or kinds.count("held-out") < 2 or kinds.count("counterexample") < 1:
         _err(errors, "cases", "evaluation requires the origin, two held-out cases, and one counterexample")
     if value.get("risk_class") in {"analytical", "high-risk"} and kinds.count("outcome-review") < 1:
         _err(errors, "cases", "thesis-affecting procedures require a resolved outcome review")
-    if any(case.get("passed") is not True for case in cases):
+    if any(not isinstance(case, Mapping) or case.get("passed") is not True for case in cases):
         _err(errors, "cases", "every promotion case must pass")
     for index, case in enumerate(cases):
+        if not isinstance(case, Mapping):
+            continue
         expected_applicability = case.get("kind") != "counterexample"
         if case.get("applicable") is not expected_applicability:
             _err(
@@ -341,6 +365,15 @@ def _validate_evaluation(value: Mapping[str, Any], errors: list[str]) -> None:
                 f"cases[{index}].applicable",
                 "origin, held-out, and outcome-review cases must apply; counterexamples must not apply",
             )
+        if any(case.get(field) is True for field in (
+            "citation_error", "qualifier_loss", "temporal_error", "abstention_error", "serious_error",
+        )):
+            _err(errors, f"cases[{index}]", "citation, qualifier, temporal, abstention, and serious-error metrics must not regress")
+        if case.get("integrity_status") != "passed":
+            _err(errors, f"cases[{index}].integrity_status", "every replay output must pass its existing integrity gate")
+        outcome_sha = case.get("outcome_review_sha256")
+        if (case.get("kind") == "outcome-review") is not isinstance(outcome_sha, str):
+            _err(errors, f"cases[{index}].outcome_review_sha256", "must be set only for a resolved outcome-review case")
     if value.get("metric_regressions") or value.get("security_failures"):
         _err(errors, "passed", "a regression or security failure blocks promotion")
     if value.get("passed") is not True:
@@ -350,6 +383,43 @@ def _validate_evaluation(value: Mapping[str, Any], errors: list[str]) -> None:
         _err(errors, "reviewers", "evaluation reviewers must be independent identities")
     if not {"evidence", "applicability", "security"}.issubset(_reviewer_roles(value.get("reviewers", []))):
         _err(errors, "reviewers", "evaluation requires evidence, applicability, and security review")
+    attestations = value.get("review_attestations")
+    if not isinstance(attestations, list):
+        attestations = []
+    attested_reviewers = []
+    cases_sha = "sha256:" + canonical_sha256(cases)
+    for index, attestation in enumerate(attestations):
+        if not isinstance(attestation, Mapping):
+            continue
+        attested_reviewers.append({
+            "role": attestation.get("role"), "identity": attestation.get("identity"),
+        })
+        if attestation.get("candidate_sha256") != value.get("candidate_sha256"):
+            _err(errors, f"review_attestations[{index}].candidate_sha256", "does not bind the evaluated candidate")
+        if attestation.get("cases_sha256") != cases_sha:
+            _err(errors, f"review_attestations[{index}].cases_sha256", "does not bind the exact replay cases")
+        unsigned = {
+            key: item for key, item in attestation.items()
+            if key not in {"attestation_sha256", "signature"}
+        }
+        if attestation.get("attestation_sha256") != "sha256:" + canonical_sha256(unsigned):
+            _err(errors, f"review_attestations[{index}].attestation_sha256", "does not bind the closed approval")
+        decided = attestation.get("decided_at")
+        evaluated = value.get("evaluated_at")
+        if isinstance(decided, str) and isinstance(evaluated, str):
+            try:
+                if _parse_time(decided) > _parse_time(evaluated):
+                    _err(errors, f"review_attestations[{index}].decided_at", "cannot postdate evaluation")
+            except ValueError as exc:
+                _err(errors, f"review_attestations[{index}].decided_at", f"invalid timestamp: {exc}")
+    if attested_reviewers != value.get("reviewers"):
+        _err(errors, "reviewers", "must exactly equal the independently signed review attestations")
+    review_key_ids = [
+        item.get("signature", {}).get("key_id") for item in attestations
+        if isinstance(item, Mapping) and isinstance(item.get("signature"), Mapping)
+    ]
+    if len(review_key_ids) != 3 or len(set(review_key_ids)) != 3:
+        _err(errors, "review_attestations", "evidence, applicability, and security approvals require distinct signing keys")
 
 
 def _validate_promotion(value: Mapping[str, Any], errors: list[str]) -> None:
@@ -396,8 +466,12 @@ def _validate_attestation(value: Mapping[str, Any], errors: list[str]) -> None:
 
 
 def _validate_execution(value: Mapping[str, Any], errors: list[str]) -> None:
-    steps = value.get("steps", [])
+    steps = value.get("steps")
+    if not isinstance(steps, list):
+        steps = []
     for index, step in enumerate(steps):
+        if not isinstance(step, Mapping):
+            continue
         tool_id = step.get("tool_id")
         if tool_id is not None and tool_id not in PERMITTED_DETERMINISTIC_TOOLS:
             _err(errors, f"steps[{index}].tool_id", "execution used a non-allowlisted tool")
@@ -410,6 +484,18 @@ def _validate_execution(value: Mapping[str, Any], errors: list[str]) -> None:
             _err(errors, "steps", "every completed step must record current evidence")
         if any(step.get("deviation_code") is not None for step in steps) or value.get("deviation_codes"):
             _err(errors, "deviation_codes", "a completed execution cannot carry deviations")
+        if value.get("incident_codes"):
+            _err(errors, "incident_codes", "a completed execution cannot carry incidents")
+    if value.get("canonical_hash_verified_before") is not True:
+        _err(errors, "canonical_hash_verified_before", "the active canonical hash must verify before execution")
+    if value.get("canonical_hash_verified_after") is not True:
+        _err(errors, "canonical_hash_verified_after", "the active canonical hash must verify after execution")
+    incidents = value.get("incident_codes")
+    if isinstance(incidents, list) and any(
+        code in {"policy-leak", "stale-fact", "prompt-injection", "serious-evidence-error"}
+        for code in incidents
+    ) and value.get("status") not in {"failed", "abstained"}:
+        _err(errors, "status", "a serious policy/evidence incident must fail or abstain")
 
 
 def _validate_memory_use(value: Mapping[str, Any], errors: list[str]) -> None:
@@ -564,6 +650,13 @@ def validate_promotion_bundle(
             }
             if len(evaluated_issuers) < 2:
                 _err(errors, "evaluation.cases", "cross-company playbooks require applicable cases from at least two issuers")
+        candidate_origins = set(candidate.get("playbook", {}).get("originating_episode_ids", []))
+        evaluated_origins = {
+            case.get("source_episode_id") for case in evaluation.get("cases", [])
+            if case.get("kind") == "origin"
+        }
+        if candidate_origins != evaluated_origins:
+            _err(errors, "evaluation.cases", "origin replay rows must exactly bind every originating episode")
     return errors
 
 
