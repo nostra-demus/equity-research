@@ -4789,7 +4789,8 @@ a { color: inherit; }
    to fit (scrollHeight === clientHeight) and the page simply lost its bottom with no scrollbar. The
    header and tabs are now fixed-height (flex-shrink: 0) and ONE region scrolls — which also keeps the
    reconciliation state on screen instead of letting it scroll away. */
-.fundbook__head, .fundbook__tabs, .fundbook__dropnote { flex-shrink: 0; }
+.fundbook__head, .fundbook__toolbar, .fundbook__tabs, .fundbook__dropnote { flex-shrink: 0; }
+.fundbook__toolbar { display: flex; align-items: center; justify-content: space-between; gap: 12px 16px; flex-wrap: wrap; }
 .fundbook__body { flex: 1 1 auto; min-height: 0; overflow-y: auto; overscroll-behavior: contain;
   display: flex; flex-direction: column; gap: 12px; padding-bottom: 28px; }
 .fundbook__body > * { flex-shrink: 0; }
@@ -4805,7 +4806,7 @@ a { color: inherit; }
 .fundbook__recon.is-break { color: var(--bad); border-color: color-mix(in srgb, var(--bad) 40%, transparent); background: color-mix(in srgb, var(--bad) 8%, transparent); }
 .fundbook__recon.is-break i { background: var(--bad); }
 
-.fundbook__tabs { display: flex; gap: 2px; padding: 3px; border: 1px solid var(--hairline-strong); border-radius: var(--r-pill); background: var(--surface-2); align-self: flex-start; }
+.fundbook__tabs { display: flex; gap: 2px; min-width: 0; padding: 3px; border: 1px solid var(--hairline-strong); border-radius: var(--r-pill); background: var(--surface-2); align-self: flex-start; }
 .fundbook__tab { display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border: none; background: transparent;
   border-radius: var(--r-pill); color: var(--text-muted); font-size: 11.5px; font-weight: 600; cursor: pointer;
   transition: background var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease); }
@@ -4943,6 +4944,59 @@ a { color: inherit; }
    deliberately NOT red: in this cockpit red means a loss or a broken check, and a statement with no
    corporate actions is a normal statement. The tooltip carries the distinction. */
 .fundbook__chip.is-unread { border-style: dashed; opacity: 0.72; }
+
+/* hand-logged trades -------------------------------------------------------- */
+.fundbook__badges { display: flex; align-items: center; gap: 6px; flex-shrink: 0; margin-left: auto; }
+/* Not a break and not a pass — a third state: real activity the broker has not confirmed yet. Dashed,
+   like the section chips, because it marks something PENDING rather than something wrong. */
+.fundbook__recon.is-provisional { border-style: dashed; color: var(--text-muted); cursor: pointer; }
+.fundbook__recon.is-provisional i { background: var(--text-muted); }
+@media (hover: hover) and (pointer: fine) { .fundbook__recon.is-provisional:hover { color: var(--text); border-color: var(--text-faint); } }
+.fundbook__panel.is-provisional { border-style: dashed; }
+
+.fundbook__btn { flex-shrink: 0; font-size: 10.5px; font-weight: 600; color: var(--text-muted); border: 1px solid var(--hairline-strong);
+  background: transparent; border-radius: var(--r-sm); padding: 4px 12px; cursor: pointer;
+  transition: background var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease); }
+.fundbook__btn.is-primary { color: var(--accent-bright); border-color: color-mix(in srgb, var(--accent) 42%, transparent); background: var(--accent-wash); }
+.fundbook__btn:disabled { opacity: 0.55; cursor: progress; }
+@media (hover: hover) and (pointer: fine) {
+  .fundbook__btn:hover:not(:disabled) { color: var(--text); border-color: var(--text-faint); }
+  .fundbook__btn.is-primary:hover:not(:disabled) { color: var(--accent-ink); background: var(--accent); border-color: var(--accent); }
+}
+
+.fundbook__form { display: flex; flex-direction: column; gap: 10px; padding: 13px 14px; border-bottom: 1px solid var(--hairline); background: var(--surface-1); }
+.fundbook__formrow { display: flex; flex-wrap: wrap; gap: 10px; }
+.fundbook__field { display: flex; flex-direction: column; gap: 4px; flex: 1 1 108px; min-width: 92px; }
+.fundbook__field--wide { flex: 3 1 240px; }
+.fundbook__field--ccy { flex: 0 0 72px; min-width: 72px; }
+.fundbook__field--side { flex: 0 0 auto; }
+.fundbook__field > span { color: var(--text-faint); font-size: 9px; font-weight: 700; letter-spacing: 0.35px; text-transform: uppercase; }
+.fundbook__field > span i { font-style: normal; font-weight: 500; opacity: 0.7; letter-spacing: 0; text-transform: none; }
+.fundbook__field input { width: 100%; padding: 6px 9px; border: 1px solid var(--hairline-strong); border-radius: var(--r-sm);
+  background: var(--surface-2); color: var(--text); font-size: 12px; font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+.fundbook__field input:focus-visible { outline: none; border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent-wash); }
+.fundbook__sides { display: flex; gap: 2px; padding: 2px; border: 1px solid var(--hairline-strong); border-radius: var(--r-sm); background: var(--surface-2); }
+.fundbook__side { padding: 4px 12px; border: none; background: transparent; border-radius: 4px; color: var(--text-muted); font-size: 11px; font-weight: 600; cursor: pointer; }
+.fundbook__side.is-on.is-buy { color: var(--accent-bright); background: var(--accent-wash); }
+.fundbook__side.is-on.is-sell { color: var(--bad); background: var(--bad-wash); }
+.fundbook__formerror { padding: 8px 14px; color: var(--bad); font-size: 11.5px; background: color-mix(in srgb, var(--bad) 7%, transparent); border-bottom: 1px solid var(--hairline); }
+.fundbook__formfoot { display: flex; align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap; }
+.fundbook__formfoot > span { color: var(--text-faint); font-size: 10.5px; line-height: 1.5; max-width: 62ch; }
+.fundbook__formfoot b { color: var(--text-muted); }
+.fundbook__formbtns { display: flex; gap: 6px; margin-left: auto; }
+
+.fundbook__row--manual { grid-template-columns: 88px 84px 66px 74px 92px 92px 104px 1fr; }
+.fundbook__row--manual.is-answered { opacity: 0.55; }
+.fundbook__row--effect { grid-template-columns: minmax(120px, 1.4fr) 1fr 1fr 1fr 1.2fr; }
+.fundbook__bought { color: var(--accent-bright); font-size: 10.5px; }
+.fundbook__sold { color: var(--bad); font-size: 10.5px; }
+.fundbook__manualend { display: flex; align-items: center; justify-content: flex-end; gap: 8px; }
+.fundbook__manualend small { color: var(--text-faint); font-size: 9px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+/* The note is a second grid row spanning every column, so a long one never squeezes the numbers. */
+.fundbook__manualnote { grid-column: 1 / -1; color: var(--text-faint); font-size: 10px; line-height: 1.45; }
+.fundbook__warnflag { display: block; color: var(--bad); font-size: 8.5px; font-weight: 600; letter-spacing: 0.2px; }
+.fundbook__subhead--split { display: flex; align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap; }
+.fundbook__subhead--split > span { max-width: 72ch; }
 
 /* import delta -------------------------------------------------------------- */
 .fundbook__cards--tight { border: none; border-radius: 0; grid-template-columns: repeat(auto-fit, minmax(132px, 1fr)); }

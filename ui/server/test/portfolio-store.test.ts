@@ -145,6 +145,50 @@ check('a sidecar whose statement has become unreadable still lists, with empty c
   for (const s of store.listStatements()) store.deleteStatement(s.id)
 })
 
+check('a hand-logged fill is answered by the statement that covers its date, end to end', () => {
+  // The whole point of the feature, exercised through the store rather than the pure functions: log a
+  // fill inside the fixture's window and one after it, then check what the read payload says.
+  for (const s of store.listStatements()) store.deleteStatement(s.id)
+  const inWindow = { symbol: 'ACME', side: 'buy', quantity: 5, price: 12.5, currency: 'USD', tradeDate: '2026-01-03' }
+  const after = { symbol: 'ACME', side: 'buy', quantity: 7, price: 13, currency: 'USD', tradeDate: '2026-01-20' }
+  store.logManualTrade(inWindow)
+  store.logManualTrade(after)
+
+  // With no statement at all, nothing can be superseded — both are live and both move the position.
+  let read = store.readPortfolio()
+  assert.equal(read.book, null)
+  assert.equal(read.manual.live, 2)
+  assert.equal(read.manual.effects[0]!.delta, 12)
+
+  store.saveStatement(xml, 'jan.xml') // covers 2026-01-01 → 2026-01-04
+  read = store.readPortfolio()
+  assert.ok(read.book, 'the book still builds — manual entries never enter it')
+  assert.equal(read.book!.reconciliation.ok, true, 'and they never touch the reconciliation checks')
+  assert.equal(read.manual.live, 1)
+  assert.equal(read.manual.superseded, 1)
+  assert.equal(read.manual.trades.find((t) => t.tradeDate === '2026-01-03')!.supersededBy!.filename, 'jan.xml')
+  assert.equal(read.manual.effects[0]!.delta, 7, 'only the live entry still moves the position')
+
+  // Nothing was thrown away: both are still on disk until the operator clears them.
+  assert.equal(read.manual.trades.length, 2)
+  assert.equal(store.clearSupersededManual(), 1)
+  read = store.readPortfolio()
+  assert.equal(read.manual.trades.length, 1)
+  assert.equal(read.manual.trades[0]!.tradeDate, '2026-01-20')
+
+  assert.equal(store.removeManualTrade(read.manual.trades[0]!.id), true)
+  assert.equal(store.readPortfolio().manual.trades.length, 0)
+  for (const s of store.listStatements()) store.deleteStatement(s.id)
+})
+
+check('a rejected entry is never stored, and says why', () => {
+  assert.throws(
+    () => store.logManualTrade({ symbol: 'ACME', side: 'buy', quantity: -1, price: 10, currency: 'USD', tradeDate: '2026-01-03' }),
+    /quantity/,
+  )
+  assert.equal(store.readPortfolio().manual.trades.length, 0)
+})
+
 try { fs.rmSync(TMP, { recursive: true, force: true }) } catch { /* best effort */ }
 console.log(`\n${passed} passed, ${fails.length} failed`)
 if (fails.length) { console.error('FAILED: ' + fails.join(', ')); process.exit(1) }
