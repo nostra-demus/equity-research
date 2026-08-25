@@ -1,6 +1,104 @@
 {
-  "generated_at": "2026-08-25T23:21:46Z",
+  "generated_at": "2026-08-25T23:26:56Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260825-2009",
+      "headline": "MYE: FY2026 Results Presentation [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.MYE?key=2924-03126201-2A1692129",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-25T23:14:15Z",
+      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
+      "prelim_note": "The company is releasing its annual financial results, which is a primary driver of valuation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company is releasing its annual financial results, which is a primary driver of valuation.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "MYE",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260825-2011",
+      "headline": "CTT: FY26 Results Presentation [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.CTT?key=2924-03126197-3A699829",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-25T23:13:10Z",
+      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
+      "prelim_note": "The company is releasing its annual financial results, which is a primary driver of valuation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company is releasing its annual financial results, which is a primary driver of valuation.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CTT",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260825-2008",
       "headline": "ABV: FY26 Results Record Revenue and Strong Earnings Growth [price-sensitive]",
@@ -390,55 +488,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260825-1984",
-      "headline": "HMC: FY26 Results Presentation [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.HMC?key=2924-03126048-2A1692027",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-25T22:30:45Z",
-      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
-      "prelim_note": "HMC Capital released its FY26 results presentation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "HMC Capital released its FY26 results presentation.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "HMC Capital",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1908,55 +1957,6 @@
         {
           "name": "Tai United Holdings",
           "ticker": "00718",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260825-1670",
-      "headline": "ETERNITY INV (00764): INSIDE INFORMATION PROFIT WARNING",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0825/2026082501229.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-25T10:59:00Z",
-      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
-      "prelim_note": "Profit warning indicates a material decline in expected earnings.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Profit warning indicates a material decline in expected earnings.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "guidance_change",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Eternity Investment",
-          "ticker": "00764",
           "listing_country": "CN"
         }
       ],
@@ -78780,77 +78780,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-8ebbe2edbfcb",
-      "idea_version": "IDEAV-fd3fed37ef7b0da3",
-      "idea_version_started_at": "2026-08-24T21:01:02Z",
-      "ticker": "01900",
-      "company": "CHINA ITS",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company issued a profit warning, indicating significant deterioration in earnings performance.",
-      "why_now": "The filing was released on 2026-08-24, making the negative outlook immediate news.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-3a8f593bfac2"
-      ],
-      "primary_source_event_id": "EVT-3a8f593bfac2",
-      "source_headlines": [
-        "CHINA ITS (01900): PROFIT WARNING"
-      ],
-      "source_headline": "CHINA ITS (01900): PROFIT WARNING",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0824/2026082401223.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-24T11:24:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-24T21:01:02Z",
-      "updated_at": "2026-08-24T21:01:02Z",
-      "decay_at": "2026-08-25T23:24:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-5eb83f28e809",
       "idea_version": "IDEAV-edc735557a877cff",
       "idea_version_started_at": "2026-08-24T19:00:25Z",
@@ -80337,6 +80266,77 @@
       "surfaced_at": "2026-08-24T21:01:02Z",
       "updated_at": "2026-08-24T21:01:02Z",
       "decay_at": "2026-08-25T22:40:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-8ebbe2edbfcb",
+      "idea_version": "IDEAV-fd3fed37ef7b0da3",
+      "idea_version_started_at": "2026-08-24T21:01:02Z",
+      "ticker": "01900",
+      "company": "CHINA ITS",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company issued a profit warning, indicating significant deterioration in earnings performance.",
+      "why_now": "The filing was released on 2026-08-24, making the negative outlook immediate news.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-3a8f593bfac2"
+      ],
+      "primary_source_event_id": "EVT-3a8f593bfac2",
+      "source_headlines": [
+        "CHINA ITS (01900): PROFIT WARNING"
+      ],
+      "source_headline": "CHINA ITS (01900): PROFIT WARNING",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0824/2026082401223.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-24T11:24:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-24T21:01:02Z",
+      "updated_at": "2026-08-24T21:01:02Z",
+      "decay_at": "2026-08-25T23:24:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -82069,8 +82069,8 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 115,
-    "shown_count": 115,
+    "total_count": 116,
+    "shown_count": 116,
     "hidden_count": 0,
     "side_counts": {
       "long": {
@@ -82079,8 +82079,8 @@
         "hidden_count": 0
       },
       "short": {
-        "total_count": 69,
-        "shown_count": 69,
+        "total_count": 70,
+        "shown_count": 70,
         "hidden_count": 0
       }
     },
@@ -82100,6 +82100,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-8ebbe2edbfcb",
+        "idea_version": "IDEAV-fd3fed37ef7b0da3",
+        "idea_version_started_at": "2026-08-24T21:01:02Z",
+        "ticker": "01900",
+        "company": "CHINA ITS",
+        "exchange": "HKEX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company issued a profit warning, indicating significant deterioration in earnings performance.",
+        "why_now": "The filing was released on 2026-08-24, making the negative outlook immediate news.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-3a8f593bfac2"
+        ],
+        "primary_source_event_id": "EVT-3a8f593bfac2",
+        "source_headlines": [
+          "CHINA ITS (01900): PROFIT WARNING"
+        ],
+        "source_headline": "CHINA ITS (01900): PROFIT WARNING",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0824/2026082401223.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-24T11:24:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-24T21:01:02Z",
+        "updated_at": "2026-08-24T21:01:02Z",
+        "decay_at": "2026-08-25T23:24:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-25T23:24:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-33be1fdd6647",
         "idea_version": "IDEAV-2b62a45ebc1796dd",
@@ -90617,7 +90691,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 145,
-    "live_count": 29,
+    "live_count": 28,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -90636,9 +90710,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3617977,
-    "news_picked_today": 4023,
-    "news_dropped_today": 12801
+    "news_seen_today": 3666248,
+    "news_picked_today": 4035,
+    "news_dropped_today": 12813
   },
   "book_momentum": {
     "live_count": 8,
