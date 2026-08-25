@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-25T12:23:01Z",
+  "generated_at": "2026-08-25T12:27:57Z",
   "inbox": [
     {
       "inbox_id": "INB-20260825-1701",
@@ -1747,6 +1747,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260825-1702",
+      "headline": "Dick's Sporting Goods cuts annual forecasts as athleticwear demand weakens",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/dicks-sporting-goods-cuts-annual-forecasts-athleticwear-demand-weakens-2026-08-25/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-25T11:58:36Z",
+      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
+      "prelim_note": "Company issued a formal cut to annual guidance due to demand weakness.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company issued a formal cut to annual guidance due to demand weakness.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Dick's Sporting Goods",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260825-1698",
       "headline": "Earnings live updates: Dick's Sporting Goods stock tanks after retailer slashes outlook amid 'challenging conditions'",
       "headline_en": null,
@@ -1894,21 +1943,21 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260825-1648",
-      "headline": "KKR To Acquire Japan's Ci Flavors For Undisclosed Terms",
+      "inbox_id": "INB-20260825-1703",
+      "headline": "Accenture To Acquire McCoy",
       "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/kkr-acquire-japans-ci-flavors-undisclosed-terms",
+      "url": "https://www.nasdaq.com/articles/accenture-acquire-mccoy",
       "source_name": "Nasdaq",
       "input_nature": "news_headline",
-      "found_at": "2026-08-25T07:42:24Z",
+      "found_at": "2026-08-25T10:43:57Z",
       "sweep_file": "screener/inbox/2026-08-25_sweep.json",
-      "prelim_note": "KKR is acquiring Ci Flavors, representing a confirmed M&A transaction.",
+      "prelim_note": "Definitive acquisition announcement.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 100,
-      "triage_reason": "KKR is acquiring Ci Flavors, representing a confirmed M&A transaction.",
-      "region": "JP",
+      "triage_reason": "Definitive acquisition announcement.",
+      "region": "US",
       "relevance": "material",
       "materiality_pre_score": 75,
       "rank_factors": {
@@ -1924,7 +1973,7 @@
         "scope_id": "multi_name",
         "source_tier_id": "news",
         "event_id": "mna",
-        "size_bucket": "large"
+        "size_bucket": "mega"
       },
       "event_types": [
         "mna"
@@ -1932,66 +1981,17 @@
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "KKR",
+          "name": "Accenture",
           "ticker": null,
           "listing_country": "US"
         },
         {
-          "name": "Ci Flavors",
+          "name": "McCoy",
           "ticker": null,
-          "listing_country": "JP"
+          "listing_country": "US"
         }
       ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260825-1527",
-      "headline": "Milliardendeal: Siemens Energy bereitet möglichen Verkauf von Dampfturbinen-Geschäft vor",
-      "headline_en": "Billion-euro deal: Siemens Energy prepares for potential sale of steam turbine business",
-      "url": "https://www.handelsblatt.com/unternehmen/industrie/milliardendeal-siemens-energy-bereitet-moeglichen-verkauf-von-dampfturbinen-geschaeft-vor/100249453.html",
-      "source_name": "Handelsblatt",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-25T06:37:23Z",
-      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
-      "prelim_note": "Siemens Energy is preparing for a potential sale of its steam turbine business, a significant strategic move.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Siemens Energy is preparing for a potential sale of its steam turbine business, a significant strategic move.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "strategic_review",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "strategic_review"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Siemens Energy",
-          "ticker": "ENR",
-          "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "large",
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -89969,9 +89969,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1284877,
-    "news_picked_today": 3014,
-    "news_dropped_today": 11014
+    "news_seen_today": 1299556,
+    "news_picked_today": 3020,
+    "news_dropped_today": 11020
   },
   "book_momentum": {
     "live_count": 8,
