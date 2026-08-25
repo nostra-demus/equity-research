@@ -1911,6 +1911,9 @@ function toolEvent(item: any): { tool: string; input?: unknown } | null {
           tool: item.tool,
           prompt,
           receiverThreadIds: item.receiver_thread_ids,
+          ...(item.agents_states && typeof item.agents_states === 'object'
+            ? { agentStates: item.agents_states }
+            : {}),
           ...(canonicalType ? { subagent_type: canonicalType, description: `Dispatch ${canonicalType}` } : {}),
         },
       }
@@ -1951,12 +1954,20 @@ export function parseCodexStreamLine(line: string): ProviderStreamEvent[] {
     const normalized = toolEvent(event.item)
     return normalized ? [{ type: 'tool-use', ...normalized, toolUseId: typeof event.item?.id === 'string' ? event.item.id : undefined }] : []
   }
+  if (event.type === 'item.updated') {
+    const normalized = toolEvent(event.item)
+    return normalized ? [{ type: 'tool-progress', ...normalized, toolUseId: typeof event.item?.id === 'string' ? event.item.id : undefined }] : []
+  }
   if (event.type === 'item.completed') {
     if (event.item?.type === 'agent_message' && typeof event.item.text === 'string' && event.item.text.trim()) {
       return [{ type: 'assistant-message', message: event.item.text }]
     }
     const normalized = toolEvent(event.item)
-    return normalized ? [{ type: 'tool-result', toolUseId: typeof event.item?.id === 'string' ? event.item.id : undefined, isError: itemFailed(event.item) }] : []
+    return normalized ? [{
+      type: 'tool-result', ...normalized,
+      toolUseId: typeof event.item?.id === 'string' ? event.item.id : undefined,
+      isError: itemFailed(event.item),
+    }] : []
   }
   if (event.type === 'turn.failed') {
     const message = typeof event.error?.message === 'string' ? event.error.message : 'Codex turn failed.'

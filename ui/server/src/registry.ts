@@ -127,6 +127,10 @@ export interface RunState {
   agents: Map<string, AgentRunState>
   expected: Map<string, ExpectedAgent>
   toolUseToAgent: Map<string, string> // tool_use_id -> agentKey
+  /** Native Codex child-thread identity -> canonical orb. Telemetry is advisory; files remain truth. */
+  nativeThreadToAgent: Map<string, string>
+  /** Last native child status when Codex exposes it (the public exec stream may omit lifecycle rows). */
+  nativeAgentStates: Map<string, string>
   eventLog: SseEvent[]
   subscribers: Set<SseClient>
   closeWatcher?: () => Promise<void> | void
@@ -188,7 +192,7 @@ export function setActiveTickerRun(runId: string, ticker: string) {
 }
 
 export function createRun(
-  init: Omit<RunState, 'runId' | 'eventLog' | 'subscribers' | 'agents' | 'expected' | 'toolUseToAgent' | 'child' | 'status' | 'startedAt' | 'subjectId' | 'swarmId' | 'unit' | 'activity'> &
+  init: Omit<RunState, 'runId' | 'eventLog' | 'subscribers' | 'agents' | 'expected' | 'toolUseToAgent' | 'nativeThreadToAgent' | 'nativeAgentStates' | 'child' | 'status' | 'startedAt' | 'subjectId' | 'swarmId' | 'unit' | 'activity'> &
     Partial<Pick<RunState, 'expected' | 'agents' | 'subjectId' | 'swarmId' | 'unit'>>,
 ): RunState {
   const runId = randomUUID()
@@ -200,6 +204,8 @@ export function createRun(
     agents: init.agents ?? new Map(),
     expected: init.expected ?? new Map(),
     toolUseToAgent: new Map(),
+    nativeThreadToAgent: new Map(),
+    nativeAgentStates: new Map(),
     eventLog: [],
     activity: [],
     subscribers: new Set(),

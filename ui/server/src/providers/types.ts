@@ -100,7 +100,8 @@ export type ProviderStreamEvent =
   | { type: 'session'; sessionId: string }
   | { type: 'assistant-message'; message: string }
   | { type: 'tool-use'; tool: string; toolUseId?: string; input?: unknown }
-  | { type: 'tool-result'; toolUseId?: string; isError: boolean }
+  | { type: 'tool-progress'; tool: string; toolUseId?: string; input?: unknown }
+  | { type: 'tool-result'; tool?: string; toolUseId?: string; input?: unknown; isError: boolean }
   | { type: 'usage'; usage: CreditPreflight }
   | {
       type: 'result'

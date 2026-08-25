@@ -560,6 +560,51 @@ function publicationFailureMessage(run: RunState, reason: string): string {
   return `${reason}\n\nProvider final message:\n${redactSecrets(run.lastProviderMessage)}`
 }
 
+interface UnresolvedExpectedArtifact {
+  key: string
+  outputRel: string
+  cockpitStatus: string
+  nativeStatuses: string[]
+}
+
+/**
+ * Codex's public exec JSONL is useful telemetry, but it is not a complete child-thread ledger on every
+ * CLI version. Build the terminal diagnosis from the canonical expected set plus filesystem-authoritative
+ * watcher state; attach any native statuses that were observable without ever treating their absence as
+ * proof that no child exists.
+ */
+export function unresolvedExpectedArtifacts(run: RunState): UnresolvedExpectedArtifact[] {
+  return [...run.expected.values()].flatMap((expected) => {
+    const agent = run.agents.get(expected.key)
+    if (agent?.status === 'done') return []
+    const nativeStatuses = [...run.nativeThreadToAgent.entries()]
+      .filter(([, key]) => key === expected.key)
+      .map(([threadId]) => run.nativeAgentStates.get(threadId) || 'observed_without_status')
+    return [{
+      key: expected.key,
+      outputRel: expected.outputRel,
+      cockpitStatus: agent?.status || 'queued',
+      nativeStatuses: [...new Set(nativeStatuses)].sort(),
+    }]
+  })
+}
+
+function codexIncompleteOrchestrationMessage(run: RunState): string {
+  const unresolved = unresolvedExpectedArtifacts(run)
+  const shown = unresolved.slice(0, 20).map((item) => {
+    const native = item.nativeStatuses.length ? item.nativeStatuses.join(',') : 'unobserved'
+    return `- ${item.key}: missing ${item.outputRel} (cockpit=${item.cockpitStatus}; native=${native})`
+  })
+  const more = unresolved.length > shown.length ? `\n- ...and ${unresolved.length - shown.length} more` : ''
+  const inventory = shown.length
+    ? `\n\nUnresolved canonical outputs (${unresolved.length}):\n${shown.join('\n')}${more}`
+    : '\n\nThe command stopped before its terminal deliverable was accepted.'
+  return publicationFailureMessage(
+    run,
+    'Codex ended its parent orchestration before the canonical completion barrier passed.' + inventory,
+  )
+}
+
 const streamResultErrors = new WeakMap<RunState, { reason: string; message: string }>()
 
 function interruptionMarker(run: RunState, reason: string, message?: string, resetsAt?: number) {
@@ -671,6 +716,22 @@ export function finalizeRunOnClose(run: RunState, res: any, stderr: string, term
   }
   if (publicationTransportFailure && (run.status as string) !== 'cancelled') {
     classified = { outcome: 'error', reason: 'publication_transport_changed', message: publicationTransportFailure }
+  }
+  // Never downgrade this into a generic missing-turn or publication error. A Codex parent can emit an
+  // assistant message while native children are still working, and some CLI versions then exit zero without
+  // `turn.completed`. The expected-artifact graph is the durable contract: when its terminal deliverable is
+  // absent, report the exact unresolved orbs and retain everything already written for same-provider resume.
+  // Explicit provider errors/quota stops keep their own reason; this refinement applies only to a claimed
+  // success or the clean-exit/missing-terminal silhouette seen in the AMZN parity canary.
+  if (run.provider === 'codex'
+      && truncatedBeforeFinal(run)
+      && (classified.outcome === 'success'
+        || (classified.outcome === 'error' && classified.reason === 'codex_missing_turn_completed'))) {
+    classified = {
+      outcome: 'error',
+      reason: 'codex_incomplete_orchestration',
+      message: codexIncompleteOrchestrationMessage(run),
+    }
   }
   if (classified.outcome === 'success' && run.kind === 'parity') {
     let verified = run.parityVerificationCompleted === true

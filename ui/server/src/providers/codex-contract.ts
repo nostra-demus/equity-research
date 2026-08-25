@@ -11,7 +11,7 @@ export const CODEX_TOOL_MAP = {
   Bash: 'Run shell commands in the workspace-write sandbox.',
   WebSearch: 'Use the native live web-search tool.',
   WebFetch: 'Open and read the requested web source with the native web tool.',
-  Task: 'Spawn and wait for Codex subagents through the convention-selected canonical-agent loader.',
+  Task: 'Spawn, repeatedly wait for, and join Codex subagents through the convention-selected canonical-agent loader.',
 } as const
 
 export type CanonicalClaudeTool = keyof typeof CODEX_TOOL_MAP
@@ -156,6 +156,22 @@ Task compatibility is dynamic and path-based. When the program requests Task(sub
    canonical agent body into the spawn message.
 5. Preserve the command's requested parallelism, wait/join behavior, output path, verification, fail-fast,
    and no-git/commit contract exactly. A Task result is not complete until its required artifact is on disk.
+
+SUBAGENT COMPLETION BARRIER — MANDATORY:
+- Keep an explicit ledger of every native subagent you spawn in the current layer. A successful spawn call
+  means only that the child was admitted; it does not mean the Task finished.
+- Join every ledger entry to a terminal state. The native agent wait operation can return after only one
+  child finishes or after a timeout, so call the collaboration wait/list operation again until every spawned
+  child is terminal. Never use the unrelated exec-cell wait tool, a shell placeholder, or an assistant message
+  as a substitute for the native collaboration wait operation.
+- After each child reports completion, verify its exact required artifact exists, is non-placeholder, and passes
+  the canonical post-write validation. A completed child with a missing or invalid artifact is a failed Task.
+- Do not start a dependent layer or synthesis until the current layer has zero live/unresolved children and all
+  required artifacts for that layer have passed validation. Preserve fail_fast exactly when a child fails.
+- Before requesting publication or emitting any final assistant response, perform the barrier once more across
+  the whole command: zero live/unresolved children, every required artifact present and valid, and every required
+  synthesis/terminal record present. If a wait times out, wait again. If collaboration status is unavailable,
+  fail explicitly and leave the run resumable; never say that work is "still in flight" and then end the turn.
 
 Canonical agent frontmatter model alias opus means gpt-5.6-sol at max reasoning without a role exception.
 An absent model follows the path-based role policy above.
