@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-25T03:52:43Z",
+  "generated_at": "2026-08-25T03:56:47Z",
   "inbox": [
     {
       "inbox_id": "INB-20260825-658",
@@ -298,6 +298,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260825-696",
+      "headline": "Navitas To Acquire Claros, Advancing AI Infrastructure with VPD & IVR Technology for Grid-to-xPU | NVTS Stock News",
+      "headline_en": null,
+      "url": "https://www.stocktitan.net/news/NVTS/navitas-to-acquire-claros-advancing-ai-infrastructure-with-vpd-ivr-21gfpxxmkfpe.html",
+      "source_name": "Stock Titan — Latest News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-08-25T03:42:00Z",
+      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
+      "prelim_note": "Navitas announced the acquisition of Claros to expand AI infrastructure capabilities.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Navitas announced the acquisition of Claros to expand AI infrastructure capabilities.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 3,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "company",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Navitas Semiconductor",
+          "ticker": "NVTS",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -977,6 +1026,56 @@
           "name": "Rocket Lab Corp",
           "ticker": null,
           "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260825-698",
+      "headline": "ETMarkets Management Talk| EPL’s growth story enters next gear: High-teens guidance, 20% margins and Indovida merger, explains CEO Hemant Bakshi",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/expert-view/etmarkets-management-talk-epls-growth-story-enters-next-gear-high-teens-guidance-20-margins-and-indovida-merger-explains-ceo-hemant-bakshi/articleshow/133488935.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-25T03:16:58Z",
+      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
+      "prelim_note": "CEO provided high-teens growth guidance and confirmed a merger.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "CEO provided high-teens growth guidance and confirmed a merger.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "guidance_change",
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "EPL Ltd",
+          "ticker": null,
+          "listing_country": "IN"
         }
       ],
       "size_bucket": "mid",
@@ -1806,92 +1905,6 @@
         "size": 0,
         "recency": 5,
         "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "macro_sector",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260825-528",
-      "headline": "Iran vows to retaliate after US widens sanctions",
-      "headline_en": null,
-      "url": "https://www.al-monitor.com/originals/2026/08/iran-vows-retaliate-after-us-widens-sanctions",
-      "source_name": "Al-Monitor",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-25T01:46:28Z",
-      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
-      "prelim_note": "Escalating geopolitical tensions and threats of retaliation between Iran and the US pose significant risks to global markets and energy supply.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "Escalating geopolitical tensions and threats of retaliation between Iran and the US pose significant risks to global markets and energy supply.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 1,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "macro_sector",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260825-330",
-      "headline": "US-Canada trade war escalates as Trump threatens tariff hike on autos after Carney vows to retaliate",
-      "headline_en": null,
-      "url": "https://www.bbc.co.uk/news/articles/c93vpd60654o?at_medium=RSS&at_campaign=rss",
-      "source_name": "BBC News — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-25T00:25:52Z",
-      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
-      "prelim_note": "A major escalation in US-Canada trade relations as Trump threatens tariff hikes on autos following retaliatory vows from Canada.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "A major escalation in US-Canada trade relations as Trump threatens tariff hikes on autos following retaliatory vows from Canada.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 1,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "policy",
@@ -88364,9 +88377,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 412007,
-    "news_picked_today": 1072,
-    "news_dropped_today": 5300
+    "news_seen_today": 420454,
+    "news_picked_today": 1078,
+    "news_dropped_today": 5318
   },
   "book_momentum": {
     "live_count": 8,
