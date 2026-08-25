@@ -292,10 +292,11 @@ function atomicPrivateJson(file: string, value: unknown): void {
   try {
     fs.writeFileSync(descriptor, JSON.stringify(value))
     fs.fsyncSync(descriptor)
+    fs.renameSync(temporary, file)
   } finally {
-    fs.closeSync(descriptor)
+    try { fs.closeSync(descriptor) } catch {}
+    try { fs.unlinkSync(temporary) } catch {}
   }
-  fs.renameSync(temporary, file)
 }
 
 export async function attestResearchMemoryUse(

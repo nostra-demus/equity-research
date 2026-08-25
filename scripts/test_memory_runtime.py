@@ -247,6 +247,18 @@ class MemoryRuntimeTests(unittest.TestCase):
         )
         self.assertEqual(resolved["issuer_id"], dual["issuer_id"])
         self.assertEqual("security:mic-ticker:XNYS:FRST", dual["listing_id"])
+        malformed = {
+            **empty_registry,
+            "listings": [{
+                "legal_name": "Broken Issuer", "legal_name_key": "broken issuer",
+                "issuer_id": "entity:internal:broken", "listing_id": "security:mic-ticker:XLON:BAD",
+                "mic": "XLON", "ticker": "BAD", "currency": "GBP", "identifiers": None,
+            }],
+        }
+        with self.assertRaises(IdentityResolutionError):
+            resolve_identity(
+                malformed, legal_name="Broken Issuer", venue="LSE", currency="GBP", ticker="BAD",
+            )
         with self.assertRaises(IdentityResolutionError):
             resolve_identity(
                 empty_registry, legal_name="First Run PLC", venue="LSE", currency="GBP", ticker="FIRST",

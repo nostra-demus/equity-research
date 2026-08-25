@@ -115,6 +115,13 @@ def _normal_name(value: str) -> str:
     return " ".join(value.casefold().split())
 
 
+def _identity_identifier_set(value: Mapping[str, Any]) -> set[str] | None:
+    identifiers = value.get("identifiers")
+    if not isinstance(identifiers, list) or any(not isinstance(item, str) for item in identifiers):
+        return None
+    return set(identifiers)
+
+
 def _hash_id(prefix: str, value: str) -> str:
     return f"{prefix}-{hashlib.sha256(value.encode('utf-8')).hexdigest()[:24]}"
 
@@ -347,7 +354,8 @@ def resolve_identity(
         and item.get("mic") == mic
         and item.get("currency") == normalized_currency
         and item.get("ticker") == normalized_ticker
-        and required_ids.issubset(set(item.get("identifiers", [])))
+        and (stored_ids := _identity_identifier_set(item)) is not None
+        and required_ids.issubset(stored_ids)
     ]
     if len(matches) > 1:
         raise IdentityResolutionError("identity-ambiguous")
@@ -363,13 +371,15 @@ def resolve_identity(
         reused_security = [
             item for item in listings
             if isinstance(item, Mapping)
-            and security_ids.intersection(set(item.get("identifiers", [])))
+            and (stored_ids := _identity_identifier_set(item)) is not None
+            and security_ids.intersection(stored_ids)
         ]
         lei_ids = {item for item in required_ids if item.startswith("issuer:lei:")}
         lei_listings = [
             item for item in listings
             if isinstance(item, Mapping)
-            and lei_ids.intersection(set(item.get("identifiers", [])))
+            and (stored_ids := _identity_identifier_set(item)) is not None
+            and lei_ids.intersection(stored_ids)
         ]
         if (
             same_listing or reused_security

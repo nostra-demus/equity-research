@@ -490,7 +490,7 @@ def _safe_value(value: Any, *, depth: int = 0) -> Any:
     if isinstance(value, Mapping):
         return {
             str(key): _safe_value(item, depth=depth + 1)
-            for key, item in list(sorted(value.items(), key=lambda pair: str(pair[0])))[:64]
+            for key, item in sorted(value.items(), key=lambda pair: str(pair[0]))[:64]
             if str(key) not in {"command", "commands", "instructions", "tool", "tools", "rerun_command"}
         }
     return str(value)[:1000]
@@ -743,7 +743,10 @@ def _atomic_private_text(path: Path, value: str) -> None:
                 os.close(directory)
     finally:
         if descriptor >= 0:
-            os.close(descriptor)
+            try:
+                os.close(descriptor)
+            except OSError:
+                pass
         if temporary.exists():
             temporary.unlink()
 

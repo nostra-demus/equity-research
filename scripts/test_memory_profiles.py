@@ -32,6 +32,12 @@ memory_profile:
         with self.assertRaises(ProfileError):
             parse_profile(text, Path("test.md"))
 
+    def test_missing_agent_directory_fails_closed_without_throwing(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            errors = validate_repository(Path(directory))
+            self.assertEqual(1, len(errors))
+            self.assertIn("agent directory is missing", errors[0])
+
     def test_new_unprofiled_agent_fails_closed(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

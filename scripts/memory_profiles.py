@@ -35,6 +35,8 @@ class ProfileError(ValueError):
 
 def research_agent_files(root: Path) -> list[Path]:
     agents = root / ".claude" / "agents"
+    if not agents.is_dir():
+        return []
     files: list[Path] = []
     for module in sorted(path for path in agents.iterdir() if path.is_dir()):
         if not (module / "MODULE_RULES.md").is_file() or (module / "SWARM.md").exists():
@@ -171,6 +173,8 @@ def stamp_profile(path: Path) -> bool:
 
 
 def validate_repository(root: Path) -> list[str]:
+    if not (root / ".claude" / "agents").is_dir():
+        return [f"{root / '.claude' / 'agents'}: analytical agent directory is missing"]
     errors: list[str] = []
     for path in research_agent_files(root):
         try:
