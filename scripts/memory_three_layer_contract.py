@@ -202,20 +202,29 @@ def _semantic(value: Mapping[str, Any]) -> Mapping[str, Any]:
 
 
 def _validate_semantic(value: Mapping[str, Any], errors: list[str]) -> None:
-    semantic = _semantic(value)
+    raw_semantic = value.get("semantic")
+    if not isinstance(raw_semantic, Mapping):
+        _err(errors, "semantic", "must be an object")
+        return
+    semantic = raw_semantic
     statement = semantic.get("statement")
     if isinstance(statement, str) and _INSTRUCTION_LIKE.search(statement):
         _err(errors, "semantic.statement", "instruction-like content is forbidden in semantic memory")
     kind = semantic.get("lesson_kind")
-    applicability = semantic.get("applicability", {})
-    observations = semantic.get("observations", [])
+    applicability = semantic.get("applicability")
+    if not isinstance(applicability, Mapping):
+        applicability = {}
+    observations = semantic.get("observations")
+    if not isinstance(observations, list):
+        observations = []
     observation_issuers = {
         item.get("issuer_id") for item in observations if isinstance(item, Mapping)
     }
     observation_evidence = {
         item.get("evidence_ref") for item in observations if isinstance(item, Mapping)
     }
-    supporting = set(semantic.get("supporting_evidence", []))
+    supporting_raw = semantic.get("supporting_evidence")
+    supporting = set(supporting_raw) if isinstance(supporting_raw, list) else set()
     if semantic.get("effective_observation_count") != len(observations):
         _err(errors, "semantic.effective_observation_count", "must equal the exact observation rows")
     if semantic.get("distinct_issuer_count") != len(observation_issuers):
@@ -275,7 +284,9 @@ def _validate_semantic(value: Mapping[str, Any], errors: list[str]) -> None:
                 or supersedes.get("record_id") != value.get("lesson_id")
             ):
                 _err(errors, "supersedes", "semantic supersession must retain the logical lesson ID and schema")
-        policy = value.get("policy", {})
+        policy = value.get("policy")
+        if not isinstance(policy, Mapping):
+            policy = {}
         if policy.get("classification") in {"licensed", "confidential", "restricted"} and policy.get("retention") == "permanent":
             _err(errors, "policy.retention", "protected semantic content must remain purgeable outside Git")
 

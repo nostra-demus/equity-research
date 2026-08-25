@@ -10,6 +10,7 @@ from pathlib import Path
 from memory_three_layer_contract import (
     PUBLIC_SCHEMA_FILES,
     SCHEMA_DEFINITIONS,
+    _validate_semantic,
     render_untrusted_packet,
     validate_contract,
     validate_promotion_bundle,
@@ -556,6 +557,24 @@ class ThreeLayerContractTests(unittest.TestCase):
         errors = validate_contract(lesson)
         self.assertTrue(any("five distinct issuers" in error for error in errors))
         self.assertTrue(any("180 days" in error for error in errors))
+
+    def test_semantic_cross_field_validation_refuses_malformed_nested_shapes(self) -> None:
+        for malformed in (None, [], "not-an-object", 7):
+            with self.subTest(field="semantic", malformed=malformed):
+                errors: list[str] = []
+                _validate_semantic({"semantic": malformed}, errors)
+                self.assertTrue(any("semantic — must be an object" in error for error in errors))
+        for field in ("applicability", "observations", "supporting_evidence"):
+            value = candidate_semantic()
+            value["semantic"][field] = None
+            errors = []
+            _validate_semantic(value, errors)
+            self.assertTrue(errors, (field, errors))
+        lesson = active_lesson()
+        lesson["policy"] = None
+        errors = []
+        _validate_semantic(lesson, errors)
+        self.assertIsInstance(errors, list)
 
     def test_non_allowlisted_playbook_tool_is_rejected(self) -> None:
         value = candidate_playbook()

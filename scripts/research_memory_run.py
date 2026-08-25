@@ -582,12 +582,12 @@ def _active_semantic_match(
 ) -> tuple[bool, bool]:
     """Return (applicable, mandatory) for one canonical active lesson."""
 
-    payload = event.get("payload")
-    if not isinstance(payload, Mapping) or payload.get("schema") != "memory-semantic-lesson/v1":
-        return False, False
-    if payload.get("status") != "active":
-        return False, False
     try:
+        payload = event.get("payload")
+        if not isinstance(payload, Mapping) or payload.get("schema") != "memory-semantic-lesson/v1":
+            return False, False
+        if payload.get("status") != "active":
+            return False, False
         if _time_sort(event.get("system_time")) > _time_sort(query.get("as_of_system_time")):
             return False, False
         valid_date = dt.date.fromisoformat(str(query["valid_time"]["from"])[:10])
@@ -605,46 +605,48 @@ def _active_semantic_match(
             query.get("as_of_system_time")
         ):
             return False, False
-    except (KeyError, TypeError, ValueError):
-        return False, False
-    semantic = payload["semantic"]
-    applicability = semantic.get("applicability")
-    if not isinstance(applicability, Mapping):
-        return False, False
-    module = agent_id.split("/", 1)[0]
-    leaf = agent_id.rsplit("/", 1)[-1]
-    agent_names = {agent_id, leaf, leaf.replace("_", "-")}
-    if applicability.get("agents") and not agent_names.intersection(applicability["agents"]):
-        return False, False
-    if applicability.get("modules") and module not in applicability["modules"]:
-        return False, False
-    subjects = {listing["issuer_id"], listing["listing_id"]}
-    if applicability.get("issuer_ids") and not subjects.intersection(applicability["issuer_ids"]):
-        return False, False
-    if applicability.get("listing_ids") and listing["listing_id"] not in applicability["listing_ids"]:
-        return False, False
-    tags = {
-        str(item).casefold()
-        for item in (
-            list(profile.get("semantic_topics", []))
-            + list(profile.get("procedure_tags", []))
-            + str(profile.get("task", "")).replace(".", "-").split("-")
-        )
-    }
-    jurisdiction = _MIC_JURISDICTION.get(str(listing.get("mic")))
-    if jurisdiction:
-        tags.add(jurisdiction.casefold())
-    for field in (
-        "sectors", "jurisdictions", "accounting_standards", "metrics", "source_types",
-    ):
-        constraints = applicability.get(field, [])
-        if constraints and not tags.intersection(str(item).casefold() for item in constraints):
+        semantic = payload["semantic"]
+        applicability = semantic.get("applicability")
+        if not isinstance(applicability, Mapping):
             return False, False
-    exact = semantic.get("lesson_kind") == "exact-issuer"
-    mandatory = exact and semantic.get("effect") in {
-        "current-check-required", "reviewed-negative-policy",
-    }
-    return True, mandatory
+        module = agent_id.split("/", 1)[0]
+        leaf = agent_id.rsplit("/", 1)[-1]
+        agent_names = {agent_id, leaf, leaf.replace("_", "-")}
+        if applicability.get("agents") and not agent_names.intersection(applicability["agents"]):
+            return False, False
+        if applicability.get("modules") and module not in applicability["modules"]:
+            return False, False
+        subjects = {listing["issuer_id"], listing["listing_id"]}
+        if applicability.get("issuer_ids") and not subjects.intersection(applicability["issuer_ids"]):
+            return False, False
+        if applicability.get("listing_ids") and listing["listing_id"] not in applicability["listing_ids"]:
+            return False, False
+        tags = {
+            str(item).casefold()
+            for item in (
+                list(profile.get("semantic_topics", []))
+                + list(profile.get("procedure_tags", []))
+                + str(profile.get("task", "")).replace(".", "-").split("-")
+            )
+        }
+        jurisdiction = _MIC_JURISDICTION.get(str(listing.get("mic")))
+        if jurisdiction:
+            tags.add(jurisdiction.casefold())
+        for field in (
+            "sectors", "jurisdictions", "accounting_standards", "metrics", "source_types",
+        ):
+            constraints = applicability.get(field, [])
+            if constraints and not tags.intersection(str(item).casefold() for item in constraints):
+                return False, False
+        exact = semantic.get("lesson_kind") == "exact-issuer"
+        mandatory = exact and semantic.get("effect") in {
+            "current-check-required", "reviewed-negative-policy",
+        }
+        return True, mandatory
+    except Exception:
+        # Canonical records are validated before projection. This final boundary keeps
+        # a damaged or hand-edited projection fail-closed instead of crashing a run.
+        return False, False
 
 
 def compile_agent_packet(

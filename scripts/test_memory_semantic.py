@@ -27,7 +27,7 @@ from memory_semantic import (
     verify_merged_promotion,
 )
 from memory_phase5_contract import validate_write_request
-from research_memory_run import compile_agent_packet, sha
+from research_memory_run import _active_semantic_match, compile_agent_packet, sha
 
 
 NOW = dt.datetime(2026, 8, 25, 12, tzinfo=dt.timezone.utc)
@@ -298,6 +298,25 @@ class SemanticMemoryTests(unittest.TestCase):
             agent_id="earnings/01_historical-financials", role="specialist", valid_date="2026-08-26",
         )
         self.assertEqual([], expired_packet["sections"]["semantics"]["entries"])
+
+    def test_active_lesson_matcher_fails_closed_for_malformed_inputs(self) -> None:
+        malformed_events = (
+            {"payload": None},
+            {"payload": {"schema": "memory-semantic-lesson/v1", "status": "active"}},
+            {"payload": {"schema": "memory-semantic-lesson/v1", "status": "active", "semantic": None}},
+        )
+        for malformed in malformed_events:
+            with self.subTest(event=malformed):
+                self.assertEqual(
+                    (False, False),
+                    _active_semantic_match(
+                        malformed,
+                        query={"as_of_system_time": NOW_TEXT, "valid_time": {"from": "2026-08-26"}},
+                        profile=profile(),
+                        agent_id="earnings/01_historical-financials",
+                        listing=receipt("0" * 64)["issuer_listing"],
+                    ),
+                )
 
     def test_candidate_queue_is_owner_only_and_outside_git(self) -> None:
         repository = self.root / "repo"
