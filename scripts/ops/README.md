@@ -431,9 +431,10 @@ SHA-256 sidecar. It never copies the live WAL file directly. Raw firehose files 
 of completed items; retired-unscored items keep their complete payload and reason in the SQLite snapshots.
 
 For a restore, stop the engine first, verify the `.sha256` sidecar, decompress the chosen snapshot to a
-temporary local path, and run `PRAGMA quick_check`. Move the old database **and its `-wal` and `-shm`
-sidecars** into a separate rollback directory before installing the snapshot. Never leave old sidecars next
-to a restored database: SQLite could replay their newer state over the chosen restore point.
+temporary local path, and run `PRAGMA quick_check`. Move the old database, its `-wal` and `-shm` sidecars,
+and every compatibility journal into a separate rollback directory before installing the snapshot. Never
+leave newer sidecars or journals beside an older restored database: SQLite could replay newer WAL state,
+while startup could re-import journal rows whose completion tombstones exist only in the displaced database.
 
 ```bash
 launchctl bootout "gui/$(id -u)/com.nostradamus.engine"
@@ -445,8 +446,11 @@ gzip -dc "$QUEUE_BACKUP" > "$RESTORE_WORK/news-queue.sqlite"
 test "$(sqlite3 "$RESTORE_WORK/news-queue.sqlite" 'PRAGMA quick_check;')" = "ok"
 QUEUE_ROLLBACK="$QUEUE_STATE/restore-rollback-$(date -u +%Y%m%dT%H%M%SZ)"
 mkdir -p "$QUEUE_ROLLBACK"
-for suffix in "" "-wal" "-shm"; do
-  old="$QUEUE_STATE/news-queue.sqlite$suffix"
+for name in \
+  news-queue.sqlite news-queue.sqlite-wal news-queue.sqlite-shm \
+  news-deferred.json news-deferred-pending.json \
+  news-scored-checkpoints.ndjson news-input-overflow.json; do
+  old="$QUEUE_STATE/$name"
   test ! -e "$old" || mv "$old" "$QUEUE_ROLLBACK/"
 done
 mv "$RESTORE_WORK/news-queue.sqlite" "$QUEUE_STATE/news-queue.sqlite"
