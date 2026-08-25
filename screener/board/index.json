@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-25T03:56:47Z",
+  "generated_at": "2026-08-25T04:41:39Z",
   "inbox": [
     {
       "inbox_id": "INB-20260825-658",
@@ -298,6 +298,104 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260825-771",
+      "headline": "SFK (01447): SUPPLEMENTAL ANNOUNCEMENT - MAJOR TRANSACTION - DISPOSAL OF A SUBSIDIARY AND THE GRANT OF THE PUT OPTION",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0824/2026082401519.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-24T13:07:00Z",
+      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
+      "prelim_note": "Announces a major transaction to dispose of a subsidiary and grant a put option, a confirmed deal-level event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Announces a major transaction to dispose of a subsidiary and grant a put option, a confirmed deal-level event.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 1,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SFK",
+          "ticker": "01447",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260825-739",
+      "headline": "UCO Bank: Approval of Foreign Currency Fund Raising to the extent of USD 1.0 Billion through MTN",
+      "headline_en": null,
+      "url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/9cf8b4c1-5825-4f18-bd60-0ac5358b3c1b.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-24T12:18:35Z",
+      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
+      "prelim_note": "The bank is seeking approval to raise USD 1.0 billion in foreign currency debt.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The bank is seeking approval to raise USD 1.0 billion in foreign currency debt.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "debt_credit",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "UCO Bank",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -644,6 +742,50 @@
         "macro_sector"
       ],
       "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260825-793",
+      "headline": "Iran threatens to fine, detain vessels violating Hormuz transit rules",
+      "headline_en": null,
+      "url": "https://www.hellenicshippingnews.com/iran-threatens-to-fine-detain-vessels-violating-hormuz-transit-rules/",
+      "source_name": "Hellenic Shipping News Worldwide",
+      "input_nature": "shipping_rate_move",
+      "found_at": "2026-08-24T21:00:51Z",
+      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
+      "prelim_note": "Iran threatens to fine and detain vessels in Hormuz, a key chokepoint, raising supply and operational risk for global shipping.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Iran threatens to fine and detain vessels in Hormuz, a key chokepoint, raising supply and operational risk for global shipping.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": 5,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 2,
+        "materiality_label_floor": 13,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "official_data",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector",
+        "regulatory"
+      ],
+      "issuer_linkage": "sector",
       "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
@@ -1034,6 +1176,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260825-774",
+      "headline": "Aegis Vopak Terminals Limited: Aegis Vopak Terminals Limited has informed the Exchange about Capacity addition at Pipavav by Aegis Terminal (Pipavav) Limited (ATPL), subsidiary company.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/AVTL_24082026183613_AVTL_Amnomia_Terminal_BTA_Exceution_S.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-24T13:07:24Z",
+      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
+      "prelim_note": "Capacity addition at a subsidiary level represents a significant investment and expansion of operations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Capacity addition at a subsidiary level represents a significant investment and expansion of operations.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Aegis Vopak Terminals Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260825-698",
       "headline": "ETMarkets Management Talk| EPL’s growth story enters next gear: High-teens guidance, 20% margins and Indovida merger, explains CEO Hemant Bakshi",
       "headline_en": null,
@@ -1412,6 +1603,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260825-709",
+      "headline": "SF HOLDING (06936): CONNECTED TRANSACTION - SUBSCRIPTION OF CLASS A ORDINARY SHARES OF HIVE BOX",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0824/2026082401703.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-24T13:49:00Z",
+      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
+      "prelim_note": "SF Holding is subscribing to shares of Hive Box, representing a connected transaction.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "SF Holding is subscribing to shares of Hive Box, representing a connected transaction.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SF Holding",
+          "ticker": "06936",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260825-690",
       "headline": "Stocks stagger and oil rises as traders eye Iran threat, Nvidia results",
       "headline_en": null,
@@ -1685,239 +1925,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260825-675",
-      "headline": "VA Tech Wabag Ltd: From Award to Action : WABAG Inks the 'Mega' Doha SWRO II Contract, Launching Its Kuwait Debut",
-      "headline_en": null,
-      "url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/f3ab2ec6-56b7-4bd0-b9a3-a3555ea9c23f.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-25T02:45:47Z",
-      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
-      "prelim_note": "WABAG signed a 'mega' Doha SWRO II contract and entered Kuwait, a new revenue win with no value disclosed.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "WABAG signed a 'mega' Doha SWRO II contract and entered Kuwait, a new revenue win with no value disclosed.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 3,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "commercial",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "VA Tech Wabag Ltd",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260825-069",
-      "headline": "MRD: Trading Halt [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.MRD?key=2924-03125596-6A1340100",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-24T23:58:35Z",
-      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
-      "prelim_note": "Trading halt indicates pending material news for the company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "Trading halt indicates pending material news for the company.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "MRD",
-          "ticker": "MRD",
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260825-569",
-      "headline": "Kirloskar Brothers Limited: Kirloskar Brothers Limited has informed the Exchange regarding Order of Hon'ble Supreme Court of India dated August 11, 2026",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/KIRLOSBROS_24082026220310_Reg_30_Disclosure_Supreme_Court_Order_Final_Signed.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-24T16:35:40Z",
-      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
-      "prelim_note": "Supreme Court order involving Kirloskar Brothers Limited may impact legal or operational risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "Supreme Court order involving Kirloskar Brothers Limited may impact legal or operational risk.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 2,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Kirloskar Brothers Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260825-693",
-      "headline": "Iran war live: US expands Iran sanctions in ‘economic D-Day’",
-      "headline_en": null,
-      "url": "https://www.arabianbusiness.com/abnews/iran-us-israel-war-live-latest-updates",
-      "source_name": "Arabian Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-25T03:35:49Z",
-      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
-      "prelim_note": "Escalating conflict and new US sanctions on Iran represent a major geopolitical shock.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "Escalating conflict and new US sanctions on Iran represent a major geopolitical shock.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 1,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "macro_sector",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260825-624",
-      "headline": "Oil Price Today (August 25): Crude oil at $92 as investors digest US economic sanctions on Iran. What’s next for investors?",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/commodities/news/oil-price-today-august-25-crude-oil-at-92-as-investors-digest-us-economic-sanctions-on-iran-whats-next-for-investors/articleshow/133487237.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-25T02:08:39Z",
-      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
-      "prelim_note": "Geopolitical sanctions on Iran and the resulting oil price impact represent a significant supply-side risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "Geopolitical sanctions on Iran and the resulting oil price impact represent a significant supply-side risk.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 1,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "macro_sector",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -88377,9 +88384,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 420454,
-    "news_picked_today": 1078,
-    "news_dropped_today": 5318
+    "news_seen_today": 459061,
+    "news_picked_today": 1244,
+    "news_dropped_today": 7096
   },
   "book_momentum": {
     "live_count": 8,
