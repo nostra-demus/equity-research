@@ -1,6 +1,104 @@
 {
-  "generated_at": "2026-08-25T03:27:41Z",
+  "generated_at": "2026-08-25T03:34:08Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260825-658",
+      "headline": "Capitalnumbers Infotech Ltd: Press Release dated August 25, 2026, regarding the Acquisition of 100% stake in Epitome Cloud Inc. - \"Capital Numbers Strengthens Global Enterprise Technology Capabilities with Acquisition ....",
+      "headline_en": null,
+      "url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/57e6196f-6962-420c-828a-3b396fef0a45.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-25T03:07:21Z",
+      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
+      "prelim_note": "Capitalnumbers Infotech Ltd acquired 100% of Epitome Cloud Inc. to expand enterprise technology capabilities.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Capitalnumbers Infotech Ltd acquired 100% of Epitome Cloud Inc. to expand enterprise technology capabilities.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Capitalnumbers Infotech Ltd",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260825-657",
+      "headline": "PVR INOX Limited: board meeting 31-Aug-2026 — Buyback",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/PVRINOXLTD_25082026082934_PVRINOXBoardmeetingintimation.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-25T03:00:29Z",
+      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
+      "prelim_note": "PVR INOX Limited announced a board meeting to consider a share buyback.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "PVR INOX Limited announced a board meeting to consider a share buyback.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capital_actions",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "PVR INOX Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260825-586",
       "headline": "SIGMA ADVANCED SYSTEMS LIMITED: SIGMA ADVANCED SYSTEMS LIMITED has informed the Exchange regarding a press release dated August 25, 2026, titled \"Pursuant to Regulation 30 of the SEBI (Listing Obligations and Disclosure Requirement) Regulations, 2015 - Defence and Aerospace major, Sigma Advance Systems, deepens Rolls-Royce Aerospace UK partnership with £125m additional long-term agreement following strategic Bromford acquisition\".",
@@ -254,6 +352,109 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260825-686",
+      "headline": "Porsche inks $1.5 billion deal for AI deployment with India’s largest IT services firm Tata Consultancy",
+      "headline_en": null,
+      "url": "https://www.cnbc.com/2026/08/25/porsche-inks-billion-ai-deal-india-it-tcs.html",
+      "source_name": "CNBC",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-25T03:01:16Z",
+      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
+      "prelim_note": "Porsche signed a $1.5 billion AI deployment deal with Tata Consultancy, a named deal value.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Porsche signed a $1.5 billion AI deployment deal with Tata Consultancy, a named deal value.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Porsche",
+          "ticker": null,
+          "listing_country": "DE"
+        },
+        {
+          "name": "Tata Consultancy Services",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260825-660",
+      "headline": "Piramal Finance shares in focus as it launches QIP to raise up to ₹2,100 crore",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/piramal-finance-share-price-qip-launch-raise-up-to-rs-2100-crore-issue-price-sources-19976156.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-25T02:40:57Z",
+      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
+      "prelim_note": "Piramal Finance is launching a QIP to raise up to ₹2,100 crore, which is dilutive.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Piramal Finance is launching a QIP to raise up to ₹2,100 crore, which is dilutive.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capital_actions",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Piramal Finance",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1255,6 +1456,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260825-675",
+      "headline": "VA Tech Wabag Ltd: From Award to Action : WABAG Inks the 'Mega' Doha SWRO II Contract, Launching Its Kuwait Debut",
+      "headline_en": null,
+      "url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/f3ab2ec6-56b7-4bd0-b9a3-a3555ea9c23f.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-25T02:45:47Z",
+      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
+      "prelim_note": "WABAG signed a 'mega' Doha SWRO II contract and entered Kuwait, a new revenue win with no value disclosed.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "WABAG signed a 'mega' Doha SWRO II contract and entered Kuwait, a new revenue win with no value disclosed.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 3,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "commercial",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "VA Tech Wabag Ltd",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260825-069",
       "headline": "MRD: Trading Halt [price-sensitive]",
       "headline_en": null,
@@ -1482,6 +1732,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260825-681",
+      "headline": "FDA Approves Imaavy (nipocalimab-aahu) as First-Ever Treatment for Warm Autoimmune Hemolytic Anemia",
+      "headline_en": null,
+      "url": "https://www.drugs.com/newdrugs/fda-approves-imaavy-nipocalimab-aahu-first-ever-warm-autoimmune-hemolytic-anemia-6862.html",
+      "source_name": "Drugs.com — New Drug Approvals",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-08-25T02:08:05Z",
+      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
+      "prelim_note": "FDA approved Imaavy (nipocalimab-aahu) as first-ever treatment for warm autoimmune hemolytic anemia, a new product approval.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "FDA approved Imaavy (nipocalimab-aahu) as first-ever treatment for warm autoimmune hemolytic anemia, a new product approval.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "product",
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Imaavy (nipocalimab-aahu)",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260825-525",
       "headline": "ZHONG JIA GX (00899): PLACING OF NEW SHARES UNDER GENERAL MANDATE",
       "headline_en": null,
@@ -1624,301 +1924,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260825-532",
-      "headline": "US-Iran war LIVE: Iran warns of a harsh response after US announces sanctions, FM spox says 'our hands are not tied'",
-      "headline_en": null,
-      "url": "https://www.livemint.com/news/us-news/us-iran-war-latest-news-live-updates-ukmto-projectile-strait-of-hormuz-donald-trump-economic-sanctions-tariffs-bessent-11787615238248.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-25T00:08:47Z",
-      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
-      "prelim_note": "Iran warns of harsh response after US announces sanctions, escalating US-Iran conflict risk with no truce in place.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "Iran warns of harsh response after US announces sanctions, escalating US-Iran conflict risk with no truce in place.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 72,
-      "rank_factors": {
-        "materiality": 72,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 1,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 13,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "macro_sector",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260825-005",
-      "headline": "CBL: NeuroStrip secures MHRA registration [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.CBL?key=2924-03125575-2A1691777",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-24T23:49:35Z",
-      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
-      "prelim_note": "Regulatory registration of a product in the UK market is a positive commercial milestone.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "Regulatory registration of a product in the UK market is a positive commercial milestone.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 3,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "product",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "CBL",
-          "ticker": "CBL",
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260825-594",
-      "headline": "Japan's Tokio Marine eyes insurer Suncorp as preferred takeover target, FT reports",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/retail-consumer/japans-tokio-marine-eyes-insurer-suncorp-preferred-takeover-target-ft-reports-2026-08-25/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-25T01:58:13Z",
-      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
-      "prelim_note": "Reported interest in a takeover target is a material M&A development.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "Reported interest in a takeover target is a material M&A development.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tokio Marine",
-          "ticker": null,
-          "listing_country": "JP"
-        },
-        {
-          "name": "Suncorp",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260825-656",
-      "headline": "Patel Integrated Logistics Ltd-$: The Board of Directors at its meeting held on August 24, 2026, after taking consideration of funds utilized towards the recent Buy-back of equity shares has revised its earlier recommendation ....",
-      "headline_en": null,
-      "url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/710b8546-25da-4b97-8abd-89a39d08d0b5.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-24T11:45:14Z",
-      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
-      "prelim_note": "Patel Integrated Logistics Ltd revised its board recommendation regarding capital allocation following a recent share buy-back.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Patel Integrated Logistics Ltd revised its board recommendation regarding capital allocation following a recent share buy-back.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": -1,
-        "recency": 1,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "capital_actions",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Patel Integrated Logistics Ltd",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260825-622",
-      "headline": "Surgeons Choice Medical Center Data Breach: Edelson Lechtzin LLP Launches Investigation Into Exposure of Personal Information",
-      "headline_en": null,
-      "url": "https://www.prnewswire.com/news-releases/surgeons-choice-medical-center-data-breach-edelson-lechtzin-llp-launches-investigation-into-exposure-of-personal-information-302858856.html",
-      "source_name": "PR Newswire — All News Releases",
-      "input_nature": "company_press_release",
-      "found_at": "2026-08-25T02:29:00Z",
-      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
-      "prelim_note": "A data breach investigation into a medical center indicates potential legal and operational risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "A data breach investigation into a medical center indicates potential legal and operational risk.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 3,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 25,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "litigation_enforcement",
-        "cybersecurity"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Surgeons Choice Medical Center",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260825-589",
-      "headline": "Turner Construction Company Data Breach: Edelson Lechtzin LLP Launches Investigation Into Exposure of Personal Information",
-      "headline_en": null,
-      "url": "https://www.prnewswire.com/news-releases/turner-construction-company-data-breach-edelson-lechtzin-llp-launches-investigation-into-exposure-of-personal-information-302858847.html",
-      "source_name": "PR Newswire — All News Releases",
-      "input_nature": "company_press_release",
-      "found_at": "2026-08-25T02:13:00Z",
-      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
-      "prelim_note": "Data breach investigation poses potential legal and reputational risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Data breach investigation poses potential legal and reputational risk.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 3,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 25,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "cybersecurity",
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Turner Construction Company",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -88235,9 +88240,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 369437,
-    "news_picked_today": 1005,
-    "news_dropped_today": 5067
+    "news_seen_today": 378058,
+    "news_picked_today": 1044,
+    "news_dropped_today": 5172
   },
   "book_momentum": {
     "live_count": 8,
