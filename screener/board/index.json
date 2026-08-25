@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-25T00:26:52Z",
+  "generated_at": "2026-08-25T00:52:04Z",
   "inbox": [
     {
       "inbox_id": "INB-20260825-001",
@@ -96,6 +96,60 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260825-167",
+      "headline": "Greenberg Traurig Advises Global Net Lease on $535M Modiv Industrial Acquisition",
+      "headline_en": null,
+      "url": "https://www.prnewswire.com/news-releases/greenberg-traurig-advises-global-net-lease-on-535m-modiv-industrial-acquisition-302858807.html",
+      "source_name": "PR Newswire — All News Releases",
+      "input_nature": "company_press_release",
+      "found_at": "2026-08-25T00:10:00Z",
+      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
+      "prelim_note": "Global Net Lease is acquiring Modiv Industrial for $535M, a named deal value M&A event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Global Net Lease is acquiring Modiv Industrial for $535M, a named deal value M&A event.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": 3,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 13,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "company",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Global Net Lease",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Modiv Industrial",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -921,6 +975,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260825-237",
+      "headline": "NT 10-Q - ZRCN Inc. (0001901297) (Filer)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1901297/000149315226039844/0001493152-26-039844-index.htm",
+      "source_name": "SEC EDGAR — Latest NT 10-Q (Late Quarterly Filing Notice)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-08-24T19:01:10Z",
+      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
+      "prelim_note": "NT 10-Q late quarterly filing notice for ZRCN Inc indicates a delayed statutory filing.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 79,
+      "triage_reason": "NT 10-Q late quarterly filing notice for ZRCN Inc indicates a delayed statutory filing.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 3,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "accounting_restatement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "accounting_restatement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ZRCN Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260825-147",
       "headline": "GANFENGLITHIUM (01772): DISCLOSEABLE AND CONNECTED TRANSACTIONS - SUBSCRIPTION FOR CONVERTIBLE DEBENTURE OF LAR BY GFL INTERNATIONAL",
       "headline_en": null,
@@ -970,6 +1073,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260825-220",
+      "headline": "WCN: Danvers 1 Copper System Expanded by 480% [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.WCN?key=2924-03125370-6A1340040",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-24T22:38:55Z",
+      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
+      "prelim_note": "WCN announced its Danvers 1 copper system was expanded by 480%, a major resource increase flagged price-sensitive.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 78,
+      "triage_reason": "WCN announced its Danvers 1 copper system was expanded by 480%, a major resource increase flagged price-sensitive.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capex",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "WCN",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1118,6 +1270,104 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260825-161",
+      "headline": "IPT: Renounceable Rights Issue Notice To Ineligible Shareholders",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.IPT?key=2924-03125624-6A1340105",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-25T00:14:50Z",
+      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
+      "prelim_note": "Rights issue notice to ineligible shareholders is a capital-raising action by IPT affecting its capital structure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 75,
+      "triage_reason": "Rights issue notice to ineligible shareholders is a capital-raising action by IPT affecting its capital structure.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capital_actions",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "IPT",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260825-163",
+      "headline": "IPT: Renounceable Rights Issue - Dispatch of Prospectus",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.IPT?key=2924-03125621-6A1340102",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-25T00:13:35Z",
+      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
+      "prelim_note": "Dispatch of prospectus for renounceable rights issue is a capital-raising step by IPT affecting its capital structure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 75,
+      "triage_reason": "Dispatch of prospectus for renounceable rights issue is a capital-raising step by IPT affecting its capital structure.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capital_actions",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "IPT",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1516,341 +1766,96 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260825-017",
-      "headline": "WOT: Dividend/Distribution - WOT",
+      "inbox_id": "INB-20260825-290",
+      "headline": "424B2 - GS Finance Corp. (0001419828) (Filer)",
       "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.WOT?key=2924-03125589-2A1691795",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-24T23:56:35Z",
+      "url": "https://www.sec.gov/Archives/edgar/data/1419828/000119312526363640/0001193125-26-363640-index.htm",
+      "source_name": "SEC EDGAR — Latest 424B2 (Prospectus, shelf takedown)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-08-24T20:24:41Z",
       "sweep_file": "screener/inbox/2026-08-25_sweep.json",
-      "prelim_note": "Routine dividend announcement for WOT.",
+      "prelim_note": "Routine shelf takedown prospectus filing for GS Finance Corp.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 70,
-      "triage_reason": "Routine dividend announcement for WOT.",
-      "region": "OTHER",
+      "triage_score": 71,
+      "triage_reason": "Routine shelf takedown prospectus filing for GS Finance Corp.",
+      "region": "US",
       "relevance": "relevant_non_material",
       "materiality_pre_score": 30,
       "rank_factors": {
         "materiality": 30,
         "source_tier": 8,
         "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "capital_actions",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "WOT",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260825-012",
-      "headline": "FSA: Update - Notification of buy-back - FSA",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.FSA?key=2924-03125570-2A1691778",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-24T23:48:20Z",
-      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
-      "prelim_note": "Update on an existing share buy-back program.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 70,
-      "triage_reason": "Update on an existing share buy-back program.",
-      "region": "OTHER",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 35,
-      "rank_factors": {
-        "materiality": 35,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "capital_actions",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "FSA",
-          "ticker": "FSA",
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260825-059",
-      "headline": "SCHEDULE 13D/A - Neuronetics, Inc. (0001227636) (Subject)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1227636/000092189526002299/0000921895-26-002299-index.htm",
-      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-08-25T00:03:10Z",
-      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
-      "prelim_note": "Amended Schedule 13D with Neuronetics as subject indicates activist or >5% holder filing, no number given.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 69,
-      "triage_reason": "Amended Schedule 13D with Neuronetics as subject indicates activist or >5% holder filing, no number given.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Neuronetics, Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260825-062",
-      "headline": "SCHEDULE 13D - CVRx, Inc. (0001235912) (Subject)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1235912/000092189526002298/0000921895-26-002298-index.htm",
-      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-08-25T00:00:18Z",
-      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
-      "prelim_note": "Initial Schedule 13D with CVRx as subject indicates activist or >5% holder filing, no number given.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 69,
-      "triage_reason": "Initial Schedule 13D with CVRx as subject indicates activist or >5% holder filing, no number given.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "CVRx, Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260825-146",
-      "headline": "CNGR (02579): PROPOSED CHANGES IN USE OF RAISED FUNDS FROM THE H SHARE GLOBAL OFFERING",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0824/2026082402103.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-24T14:55:00Z",
-      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
-      "prelim_note": "Proposed change in use of IPO raised funds is a governance/capital allocation update with no quantified impact stated.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 68,
-      "triage_reason": "Proposed change in use of IPO raised funds is a governance/capital allocation update with no quantified impact stated.",
-      "region": "CN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 2,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "capital_actions",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "CNGR",
-          "ticker": "02579",
-          "listing_country": "HK"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260825-008",
-      "headline": "Trinity Place Holdings Inc. Reports Second Quarter Financial Results | TPHS Stock News",
-      "headline_en": null,
-      "url": "https://www.stocktitan.net/news/TPHS/trinity-place-holdings-inc-reports-second-quarter-financial-estwe9smpz5n.html",
-      "source_name": "Stock Titan — Latest News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-08-25T00:00:00Z",
-      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
-      "prelim_note": "Routine quarterly financial results release.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 68,
-      "triage_reason": "Routine quarterly financial results release.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 3,
-        "scope": 6,
-        "event": 5,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Trinity Place Holdings Inc.",
-          "ticker": "TPHS",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260825-104",
-      "headline": "IIFL Finance Limited: IIFL Finance Limited has informed the Exchange regarding Outcome of Board Meeting held on August 24, 2026.",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/IIFL_25082026004819_SEintimation_of_Stay_Finance_24082026.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-24T19:22:40Z",
-      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
-      "prelim_note": "IIFL Finance reported an outcome of board meeting but the headline gives no decision or number.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 67,
-      "triage_reason": "IIFL Finance reported an outcome of board meeting but the headline gives no decision or number.",
-      "region": "IN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 30,
-      "rank_factors": {
-        "materiality": 30,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 1,
+        "event": 7,
+        "size": 2,
         "recency": 3,
         "materiality_label_floor": 15,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "primary_filing",
-        "event_id": "management",
-        "size_bucket": "mid"
+        "event_id": "debt_credit",
+        "size_bucket": "large"
       },
       "event_types": [
-        "management"
+        "debt_credit"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "IIFL Finance Limited",
+          "name": "GS Finance Corp.",
           "ticker": null,
-          "listing_country": "IN"
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260825-236",
+      "headline": "425 - HELIX ENERGY SOLUTIONS GROUP INC (0000866829) (Subject)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/866829/000114036126034175/0001140361-26-034175-index.htm",
+      "source_name": "SEC EDGAR — Latest 425 (M&A Business-Combination Communications)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-08-24T19:04:35Z",
+      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
+      "prelim_note": "Form 425 M&A communication for Helix Energy Solutions with no deal terms disclosed.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 71,
+      "triage_reason": "Form 425 M&A communication for Helix Energy Solutions with no deal terms disclosed.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 30,
+      "rank_factors": {
+        "materiality": 30,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 3,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Helix Energy Solutions Group Inc",
+          "ticker": null,
+          "listing_country": "US"
         }
       ],
       "size_bucket": "mid",
@@ -1859,45 +1864,45 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260825-066",
-      "headline": "FFM: Green Bay PEA and Mineral Resource Update Presentation",
+      "inbox_id": "INB-20260825-164",
+      "headline": "GNP: Dividend/Distribution - GNP",
       "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.FFM?key=2924-03125605-6A1340101",
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.GNP?key=2924-03125617-6A1340106",
       "source_name": "ASX (Australia Exchange Filing)",
       "input_nature": "exchange_announcement",
-      "found_at": "2026-08-25T00:02:15Z",
+      "found_at": "2026-08-25T00:12:35Z",
       "sweep_file": "screener/inbox/2026-08-25_sweep.json",
-      "prelim_note": "FFM filed a PEA and mineral resource update presentation, routine technical disclosure with no new production or financial commitment stated.",
+      "prelim_note": "GNP announced a dividend/distribution, a routine capital return with no cut or surprise indicated.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 66,
-      "triage_reason": "FFM filed a PEA and mineral resource update presentation, routine technical disclosure with no new production or financial commitment stated.",
+      "triage_score": 70,
+      "triage_reason": "GNP announced a dividend/distribution, a routine capital return with no cut or surprise indicated.",
       "region": "OTHER",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 35,
+      "relevance": "material",
+      "materiality_pre_score": 45,
       "rank_factors": {
-        "materiality": 35,
+        "materiality": 45,
         "source_tier": 8,
         "scope": 6,
-        "event": 2,
+        "event": 6,
         "size": 0,
         "recency": 5,
-        "materiality_label_floor": 10,
+        "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "primary_filing",
-        "event_id": "operations",
+        "event_id": "capital_actions",
         "size_bucket": "unknown"
       },
       "event_types": [
-        "operations"
+        "capital_actions"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "FFM",
+          "name": "GNP",
           "ticker": null,
           "listing_country": "AU"
         }
@@ -1908,50 +1913,50 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260825-158",
-      "headline": "ANJOY FOOD (02648): Overseas Regulatory Announcement - Interim Evaluation Report on the 2026 Corporate Value and Return Enhancement Action Plan",
+      "inbox_id": "INB-20260825-182",
+      "headline": "AGR: Cancel - Proposed issue of securities - AGR",
       "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0824/2026082401935.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.AGR?key=2924-03125612-2A1691809",
+      "source_name": "ASX (Australia Exchange Filing)",
       "input_nature": "exchange_announcement",
-      "found_at": "2026-08-24T14:40:00Z",
+      "found_at": "2026-08-25T00:09:50Z",
       "sweep_file": "screener/inbox/2026-08-25_sweep.json",
-      "prelim_note": "Interim evaluation report on corporate value and return enhancement is a governance-related disclosure.",
+      "prelim_note": "Cancellation of a proposed securities issue.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 66,
-      "triage_reason": "Interim evaluation report on corporate value and return enhancement is a governance-related disclosure.",
-      "region": "CN",
+      "triage_score": 70,
+      "triage_reason": "Cancellation of a proposed securities issue.",
+      "region": "OTHER",
       "relevance": "relevant_non_material",
-      "materiality_pre_score": 35,
+      "materiality_pre_score": 30,
       "rank_factors": {
-        "materiality": 35,
+        "materiality": 30,
         "source_tier": 8,
         "scope": 6,
-        "event": 4,
-        "size": 1,
-        "recency": 2,
-        "materiality_label_floor": 10,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "mid"
+        "event_id": "capital_actions",
+        "size_bucket": "unknown"
       },
       "event_types": [
-        "regulatory"
+        "capital_actions"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Anjoy Food",
-          "ticker": "02648",
-          "listing_country": "CN"
+          "name": "AGR",
+          "ticker": null,
+          "listing_country": "AU"
         }
       ],
-      "size_bucket": "mid",
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -88268,9 +88273,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 40939,
-    "news_picked_today": 170,
-    "news_dropped_today": 322
+    "news_seen_today": 92335,
+    "news_picked_today": 339,
+    "news_dropped_today": 1041
   },
   "book_momentum": {
     "live_count": 8,
