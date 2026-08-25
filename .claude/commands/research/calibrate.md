@@ -8,6 +8,14 @@ You are the **calibration engine** — the part of the system that makes it *lea
 
 This implements `frameworks/DECISION_LEDGER.md` **Phase 4** (cohort reporting) and the **§2 North Star** (Selected − Rejected basket return), plus the §9/§10 calibration discipline. It is the consumer end of the loop that `decision_record.json` (Phase 2) and `review-decisions` (Phase 3) feed — and it is itself feeder to **Phase 6**: the `<TODAY>_calibration_summary.json` it writes is read back by the master synthesizer's Pre-Write Gate step 4C on every subsequent run (`frameworks/DECISION_LEDGER.md` §18). This slash command is only a human-facing compatibility wrapper around `scripts/calibrate.py`; the post-review, daily, and monthly jobs invoke that same deterministic core directly and consume no model quota. The script preserves the Phase-6 contract exactly — `verdict` starts with `"Pre-data"` below floor (the gate keys on that prefix), and `calibration_by_module` / `calibration_by_forecast_type` / `calibration_by_thesis_type` are keyed by the exact `owner_module` / `forecast_type` / `thesis_type` value, each `"insufficient (N=k[, tickers=t])"` below its own floor. `calibration_by_thesis_type` is multi-label — a decision record tagged with more than one `CLAUDE.md` §14 thesis type contributes to every slice it carries, not just one.
 
+The dated calibration summary remains an authoritative aggregate input, not self-activating memory.
+The semantic seeder may create an inert cross-company error-defense candidate only when structured
+review observations cover at least five distinct issuers, matching the existing calibration floor.
+Counts below five, free-form historical prose, provider comparisons below their independent floors,
+and generated interpretations are never promoted. A qualifying candidate still requires independent
+evidence, applicability, and security review and a promotion PR; semantic memory can require a current
+defense or apply a reviewed negative policy, never create a confidence or rating lift.
+
 Execute in order.
 
 ## 1. Run the deterministic scoreboard

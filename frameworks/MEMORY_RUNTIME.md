@@ -137,3 +137,42 @@ receipt is recorded and cannot count toward enforced readiness.
 Agents cannot write canonical memory, activate lessons or playbooks, sign receipts, or call controlled
 promotion. They can only author the bounded report and the inert draft above. The run-scoped supervisor
 holds the signing keys, exact roster, output bindings, frozen projection, and canonical episode writer.
+
+## 6. Semantic candidate and activation lane
+
+The operational canonical ledger configured by `NOSTRA_MEMORY_CANONICAL_LEDGER` is outside Git,
+owner-only, and hash-bound to the controlled-writer head. Snapshot preparation merges that verified
+ledger and the independently authorized encrypted store configured by
+`NOSTRA_MEMORY_PROTECTED_STORE` with the reviewed legacy adapters before calculating the frozen
+projection digest. The protected master key is read from its owner-only file only by the dedicated
+`NOSTRA_MEMORY_PROJECTION_SERVICE_IDENTITY`; packet authorization still filters the resulting local
+projection by provider, model, classification, tier, and entitlement. Supplying an
+active lesson or playbook directly to packet compilation is forbidden; active memory must be a current,
+non-superseded canonical event in the pinned projection.
+
+`scripts/memory_semantic_cli.py` exposes the governed semantic lifecycle:
+
+- `seed-reviewed` maps legacy run identities to the canonical legal issuer, creates inert
+  exact-issuer candidates from structured correction rows and the closed
+  `learning.future_research_check` block, and creates cross-company error candidates only at five
+  distinct issuers. Historical `lessons` prose remains episodic.
+- `verify` resolves every evidence digest and locator against the frozen projection and records one
+  independently signed evidence, applicability, security, or extraction receipt. Factual candidates
+  require an exact typed evidence span and extraction review.
+- `open-promotion-pr` creates a `codex/memory-promotion-*` draft PR, adds only a signed content-free
+  activation commitment, and marks the PR ready. It has no merge operation.
+- `activation-request` verifies the manifest signature, proves the exact manifest bytes are present in
+  the named PR's merge commit and that the commit is an ancestor of `origin/main`, then emits a closed
+  request for the controlled writer. It does not append canonical bytes itself. The controlled writer
+  independently repeats the signature-and-merge verification before accepting semantic operations.
+
+Candidate, review, promotion, and activation state is owner-only and outside Git. Licensed,
+confidential, and restricted records require the protected-state key options: their content and wrapped
+data key are stored in separate encrypted files, and CLI results expose only content-free commitments.
+Removing the separate key record makes retained ciphertext unreadable and lets the lifecycle purge lane
+retire queues and backups without leaving a plaintext copy.
+
+Active semantics have only two effects: `current-check-required` and
+`reviewed-negative-policy`. Exact-issuer required checks are mandatory packet items; if they cannot fit
+or the provider lacks authority, compilation stops before dispatch. Expired, quarantined, superseded,
+future, inapplicable, or unauthorized lessons are not rendered.

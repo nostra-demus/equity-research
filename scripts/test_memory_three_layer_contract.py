@@ -10,6 +10,7 @@ from pathlib import Path
 from memory_three_layer_contract import (
     PUBLIC_SCHEMA_FILES,
     SCHEMA_DEFINITIONS,
+    _validate_semantic,
     render_untrusted_packet,
     validate_contract,
     validate_promotion_bundle,
@@ -70,6 +71,7 @@ def applicability(issuer_ids: list[str] | None = None) -> dict:
         "agents": ["earnings-historical-financials"],
         "modules": ["earnings"],
         "issuer_ids": issuer_ids if issuer_ids is not None else ["entity:internal:test-issuer"],
+        "listing_ids": ["security:mic-ticker:XNAS:TEST"] if issuer_ids is None else [],
         "sectors": ["technology"],
         "jurisdictions": ["US"],
         "accounting_standards": ["US-GAAP"],
@@ -80,12 +82,24 @@ def applicability(issuer_ids: list[str] | None = None) -> dict:
 
 def semantic_core(kind: str = "exact-issuer") -> dict:
     count = 5 if kind == "cross-company-empirical" else 1
+    issuers = (
+        [f"entity:internal:test-issuer-{index}" for index in range(count)]
+        if kind == "cross-company-empirical"
+        else ["entity:internal:test-issuer"]
+    )
     return {
         "lesson_kind": kind,
+        "effect": "current-check-required",
         "statement": "Recheck the reported and vendor revenue definitions before using either figure.",
-        "applicability": applicability([] if kind == "official-policy" else None),
+        "applicability": applicability(
+            [] if kind == "official-policy" else issuers if kind == "cross-company-empirical" else None
+        ),
         "supporting_evidence": [EVIDENCE],
         "contradicting_evidence": [],
+        "observations": [
+            {"issuer_id": issuer_id, "effective_at": NOW, "evidence_ref": EVIDENCE}
+            for issuer_id in issuers
+        ],
         "effective_observation_count": count,
         "distinct_issuer_count": count,
         "valid_time": {"from": "2026-08-25", "to": None},
@@ -199,9 +213,11 @@ def candidate_semantic() -> dict:
         "schema": "memory-semantic-candidate/v1",
         "candidate_id": MID,
         "candidate_type": "lesson",
+        "source_basis": "structured-correction",
         "semantic": semantic_core(),
         "originating_episode_ids": [MID2],
         "created_by": producer("originating-agent", "agent"),
+        "policy": {"classification": "internal", "retention": "permanent", "retain_until": None},
         "status": "candidate",
         "created_at": NOW,
         "candidate_sha256": H,
@@ -217,6 +233,7 @@ def active_lesson() -> dict:
         "owner": "research-methods",
         "verified_by": [reviewer("evidence", "evidence-reviewer"), reviewer("applicability", "applicability-reviewer")],
         "source_candidate_sha256": H,
+        "policy": {"classification": "internal", "retention": "permanent", "retain_until": None},
         "status": "active",
         "supersedes": None,
         "activated_at": NOW,
@@ -541,6 +558,24 @@ class ThreeLayerContractTests(unittest.TestCase):
         self.assertTrue(any("five distinct issuers" in error for error in errors))
         self.assertTrue(any("180 days" in error for error in errors))
 
+    def test_semantic_cross_field_validation_refuses_malformed_nested_shapes(self) -> None:
+        for malformed in (None, [], "not-an-object", 7):
+            with self.subTest(field="semantic", malformed=malformed):
+                errors: list[str] = []
+                _validate_semantic({"semantic": malformed}, errors)
+                self.assertTrue(any("semantic — must be an object" in error for error in errors))
+        for field in ("applicability", "observations", "supporting_evidence"):
+            value = candidate_semantic()
+            value["semantic"][field] = None
+            errors = []
+            _validate_semantic(value, errors)
+            self.assertTrue(errors, (field, errors))
+        lesson = active_lesson()
+        lesson["policy"] = None
+        errors = []
+        _validate_semantic(lesson, errors)
+        self.assertIsInstance(errors, list)
+
     def test_non_allowlisted_playbook_tool_is_rejected(self) -> None:
         value = candidate_playbook()
         value["playbook"]["permitted_tools"] = ["shell.exec"]
@@ -573,13 +608,14 @@ class ThreeLayerContractTests(unittest.TestCase):
         errors = validate_promotion_bundle(candidate, promoted, manifest)
         self.assertTrue(any("cannot verify, promote" in error for error in errors))
         manifest = promotion_manifest()
-        manifest["author"] = producer("originating-agent", "agent")
+        manifest["author"] = producer("originating-agent", "service")
         errors = validate_promotion_bundle(candidate_semantic(), active_lesson(), manifest)
         self.assertTrue(any("cannot verify, promote" in error for error in errors))
 
     def test_factual_promotion_requires_extraction_verifier(self) -> None:
         candidate = candidate_semantic()
         candidate["candidate_type"] = "fact"
+        candidate["source_basis"] = "current-evidence-extraction"
         errors = validate_promotion_bundle(candidate, active_lesson(), promotion_manifest())
         self.assertTrue(any("extraction verifier" in error for error in errors))
 

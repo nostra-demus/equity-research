@@ -12,6 +12,7 @@ from __future__ import annotations
 
 import datetime as dt
 import json
+import re
 from functools import lru_cache
 from pathlib import Path
 from typing import Any, Iterable, Mapping
@@ -85,6 +86,12 @@ SECTION_DELIMITERS = {
     "semantics": "MEMORY_DATA_SEMANTICS",
     "procedures": "MEMORY_DATA_PROCEDURES",
 }
+
+_INSTRUCTION_LIKE = re.compile(
+    r"(?is)(ignore\s+(?:all\s+)?(?:previous|prior)|system\s+prompt|<\s*/?\s*system|"
+    r"(?:run|execute|call)\s+(?:the\s+)?(?:shell|command|tool)|curl\s+https?://|"
+    r"rm\s+-rf|BEGIN\s+(?:SYSTEM|INSTRUCTIONS))"
+)
 
 
 @lru_cache(maxsize=1)
@@ -195,11 +202,41 @@ def _semantic(value: Mapping[str, Any]) -> Mapping[str, Any]:
 
 
 def _validate_semantic(value: Mapping[str, Any], errors: list[str]) -> None:
-    semantic = _semantic(value)
+    raw_semantic = value.get("semantic")
+    if not isinstance(raw_semantic, Mapping):
+        _err(errors, "semantic", "must be an object")
+        return
+    semantic = raw_semantic
+    statement = semantic.get("statement")
+    if isinstance(statement, str) and _INSTRUCTION_LIKE.search(statement):
+        _err(errors, "semantic.statement", "instruction-like content is forbidden in semantic memory")
     kind = semantic.get("lesson_kind")
-    applicability = semantic.get("applicability", {})
-    if kind == "exact-issuer" and not applicability.get("issuer_ids"):
-        _err(errors, "semantic.applicability.issuer_ids", "exact-issuer learning must remain issuer-scoped")
+    applicability = semantic.get("applicability")
+    if not isinstance(applicability, Mapping):
+        applicability = {}
+    observations = semantic.get("observations")
+    if not isinstance(observations, list):
+        observations = []
+    observation_issuers = {
+        item.get("issuer_id") for item in observations if isinstance(item, Mapping)
+    }
+    observation_evidence = {
+        item.get("evidence_ref") for item in observations if isinstance(item, Mapping)
+    }
+    supporting_raw = semantic.get("supporting_evidence")
+    supporting = set(supporting_raw) if isinstance(supporting_raw, list) else set()
+    if semantic.get("effective_observation_count") != len(observations):
+        _err(errors, "semantic.effective_observation_count", "must equal the exact observation rows")
+    if semantic.get("distinct_issuer_count") != len(observation_issuers):
+        _err(errors, "semantic.distinct_issuer_count", "must equal the distinct observation issuers")
+    if not observation_evidence.issubset(supporting):
+        _err(errors, "semantic.observations", "every observation must bind supporting evidence")
+    if kind == "exact-issuer" and len(applicability.get("issuer_ids", [])) != 1:
+        _err(errors, "semantic.applicability.issuer_ids", "exact-issuer learning requires one exact issuer")
+    if kind == "exact-issuer" and len(applicability.get("listing_ids", [])) != 1:
+        _err(errors, "semantic.applicability.listing_ids", "exact-issuer learning requires one exact listing")
+    if kind == "exact-issuer" and observation_issuers != set(applicability.get("issuer_ids", [])):
+        _err(errors, "semantic.observations", "exact-issuer observations must match the issuer applicability exactly")
     if kind == "official-policy" and not applicability.get("jurisdictions"):
         _err(errors, "semantic.applicability.jurisdictions", "official policy learning must remain jurisdiction-scoped")
     if kind == "cross-company-empirical":
@@ -207,6 +244,18 @@ def _validate_semantic(value: Mapping[str, Any], errors: list[str]) -> None:
             _err(errors, "semantic.effective_observation_count", "cross-company learning requires at least five effective observations")
         if semantic.get("distinct_issuer_count", 0) < 5:
             _err(errors, "semantic.distinct_issuer_count", "cross-company learning requires at least five distinct issuers")
+    if semantic.get("effect") not in {"current-check-required", "reviewed-negative-policy"}:
+        _err(errors, "semantic.effect", "semantic learning cannot create a positive research lift")
+    if value.get("schema") == "memory-semantic-candidate/v1":
+        expected_basis = {
+            "exact-issuer": {"structured-correction", "reviewed-outcome", "current-evidence-extraction"},
+            "official-policy": {"authoritative-policy"},
+            "cross-company-empirical": {"empirical-observations"},
+        }.get(kind, set())
+        if value.get("source_basis") not in expected_basis:
+            _err(errors, "source_basis", f"is not authoritative for {kind!r} learning")
+        if value.get("candidate_type") == "fact" and value.get("source_basis") != "current-evidence-extraction":
+            _err(errors, "source_basis", "factual candidates require current exact-span extraction")
     anchor = value.get("activated_at") or value.get("created_at")
     review_due = semantic.get("review_due")
     if isinstance(anchor, str) and isinstance(review_due, str):
@@ -223,6 +272,23 @@ def _validate_semantic(value: Mapping[str, Any], errors: list[str]) -> None:
         verifier_ids = _ids(reviewers)
         if len(verifier_ids) != len(set(verifier_ids)):
             _err(errors, "verified_by", "semantic reviewers must be independent identities")
+        version = value.get("version")
+        supersedes = value.get("supersedes")
+        if version == 1 and supersedes is not None:
+            _err(errors, "supersedes", "a first semantic version cannot supersede another record")
+        if isinstance(version, int) and version > 1:
+            if not isinstance(supersedes, Mapping):
+                _err(errors, "supersedes", "a later semantic version must bind the prior canonical record")
+            elif (
+                supersedes.get("schema") != "memory-semantic-lesson/v1"
+                or supersedes.get("record_id") != value.get("lesson_id")
+            ):
+                _err(errors, "supersedes", "semantic supersession must retain the logical lesson ID and schema")
+        policy = value.get("policy")
+        if not isinstance(policy, Mapping):
+            policy = {}
+        if policy.get("classification") in {"licensed", "confidential", "restricted"} and policy.get("retention") == "permanent":
+            _err(errors, "policy.retention", "protected semantic content must remain purgeable outside Git")
 
 
 def _playbook_core(value: Mapping[str, Any]) -> Mapping[str, Any]:
@@ -289,6 +355,8 @@ def _validate_evaluation(value: Mapping[str, Any], errors: list[str]) -> None:
 def _validate_promotion(value: Mapping[str, Any], errors: list[str]) -> None:
     author = value.get("author", {})
     author_id = author.get("id") if isinstance(author, Mapping) else None
+    if not isinstance(author, Mapping) or author.get("kind") != "service":
+        _err(errors, "author.kind", "only the promotion service may author an activation manifest")
     reviewer_ids = _ids(value.get("reviewers", []))
     if author_id in reviewer_ids:
         _err(errors, "reviewers", "an author cannot verify or promote its own learning")

@@ -239,6 +239,13 @@ Before writing, build the four decision-memory blocks from `DECISION_LEDGER.md` 
 - `next_check`: use the next scheduled checkpoint and name the real event/metric (`Q3 results and pre-sales check`, not just `90d review`). `date` is ISO when proven, else `null`; include the exact trigger.
 - `learning`: plainly state why the original call was right or wrong, the error source if any, one reusable rule, and the exact assumption future Research/Screener chat must recheck. Apply the Step-10 information partition: post-decision facts may explain the outcome, but cannot retroactively prove the original process was bad.
 
+**Semantic-memory boundary.** This closed `learning.future_research_check` field is the only part of
+the review eligible for deterministic exact-issuer semantic candidate seeding. The review's free-form
+`lessons` prose remains episodic and is never auto-promoted. The review command does not activate a
+lesson: after this authoritative review is committed and the production projection rebuilds, the
+independent semantic seeder may create an inert candidate. Evidence, applicability, and security
+reviewers plus a `codex/memory-promotion-*` PR are still required before controlled activation.
+
 These blocks change the current action and future behavior only. They never rewrite `original_decision`, `decision_record.json`, or the original memo.
 
 Use the **exact** outcome-review schema from `DECISION_LEDGER.md` §8 (do not drift; extra fields only if clearly useful):

@@ -3042,6 +3042,16 @@ class MemoryStore:
         return json.loads(self.read_event_bytes(ref, principal=principal))
 
     @_transactional
+    def list_event_refs(self, *, principal: object | None = None) -> tuple[EventRef, ...]:
+        """List exact live event references for an independently authorized projection reader."""
+
+        refs = tuple(self._event_refs(verify=True))
+        for ref in refs:
+            self._assert_not_retired(ref)
+            self._authorize("projection", ref, principal)
+        return refs
+
+    @_transactional
     def find_event(self, event_id: str, *, principal: object | None = None) -> EventRef:
         if not isinstance(event_id, str) or _EVENT_ID_RE.fullmatch(event_id) is None:
             raise InvalidStoreInput("event_id must be canonical")

@@ -45,6 +45,10 @@ _TYPED_RECORD_ID_FIELDS = {
     "memory-claim/v1": "claim_id",
     "memory-relationship/v1": "relationship_id",
     "memory-identity-registry/v1": "registry_id",
+    "memory-task-episode/v1": "episode_id",
+    "memory-run-episode/v1": "episode_id",
+    "memory-semantic-lesson/v1": "lesson_id",
+    "memory-playbook/v1": "playbook_id",
 }
 
 

@@ -42,6 +42,11 @@ def _prepare(args: argparse.Namespace) -> int:
         checkpoint_path=args.checkpoint,
         writer_owner_path=args.writer_owner,
         writer_head_path=args.writer_head,
+        canonical_ledger_path=args.canonical_ledger,
+        protected_store_root=args.protected_store,
+        protected_master_key_path=args.protected_master_key,
+        protected_key_id=args.protected_key_id,
+        projection_service_identity=args.projection_service_identity,
         signer=ed25519_checkpoint_signer(args.private_key, key_id=args.key_id),
         verifier=ed25519_checkpoint_verifier(args.public_key, key_id=args.key_id),
     )
@@ -91,6 +96,11 @@ def parser() -> argparse.ArgumentParser:
     prepare.add_argument("--checkpoint", required=True)
     prepare.add_argument("--writer-owner", required=True)
     prepare.add_argument("--writer-head", required=True)
+    prepare.add_argument("--canonical-ledger", required=True)
+    prepare.add_argument("--protected-store", required=True)
+    prepare.add_argument("--protected-master-key", required=True)
+    prepare.add_argument("--protected-key-id", required=True)
+    prepare.add_argument("--projection-service-identity", required=True)
     prepare.add_argument("--private-key", required=True)
     prepare.add_argument("--public-key", required=True)
     prepare.add_argument("--key-id", required=True)
