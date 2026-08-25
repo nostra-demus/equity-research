@@ -1,7 +1,7 @@
 import { randomUUID } from 'node:crypto'
 import type { ResultPromise } from 'execa'
 import { logFinish } from './activity-log'
-import type { AgentRunState, ReadinessDecision, ReadinessReport, RunActivity, RunKind, RunStatus, SseEvent } from './types'
+import type { AgentRunState, ReadinessDecision, ReadinessReport, ResearchMemoryIdentity, ResearchMemoryRuntimeBinding, RunActivity, RunKind, RunStatus, SseEvent } from './types'
 import type { ProviderExecutionProfile, RunProvider } from './providers/types'
 
 export interface SseClient {
@@ -56,6 +56,10 @@ export interface RunState {
   parityVerificationCompleted?: boolean
   parityVerificationReceiptPath?: string
   parityVerificationReceiptSha256?: string
+  /** Supervisor-owned three-layer memory snapshot. Raw packet content never enters public run state. */
+  memoryRuntime?: ResearchMemoryRuntimeBinding
+  /** Exact launch identity; absent in enforced mode blocks before provider spend. */
+  memoryIdentity?: ResearchMemoryIdentity
   publicationRequested?: boolean
   publicationCompleted?: boolean
   publicationError?: string

@@ -3,6 +3,16 @@ name: reverse-dcf
 description: Backs out what the current price implies. Holds the discount rate and horizon fixed and solves for the growth/margin the market is pricing in, then judges whether those implied expectations are achievable against earnings-module evidence and the company's own history.
 tools: Read, Glob, Grep, Bash, WebSearch, WebFetch
 layer: 3
+memory_profile:
+  version: 1
+  task: valuation.reverse-dcf
+  episodic_scope: exact-listing
+  semantic_topics: [valuation, reverse-dcf]
+  procedure_tags: [valuation, reverse-dcf]
+  cross_company: true
+  permitted_source_tiers: [1, 2, 3, 4, 5]
+  permitted_classifications: [public, internal]
+  max_context_tokens: 3000
 ---
 
 # ROLE

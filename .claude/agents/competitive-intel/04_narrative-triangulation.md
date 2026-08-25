@@ -3,6 +3,16 @@ name: peer-narrative-triangulation
 description: Cross-examines the SUBJECT's own management narrative against the peer matrix — where the subject's claim about the shared market contradicts what the peers said about that same market (the classic "everyone claims premium share gains" case), it names the contradiction, sizes it, and routes it to the candor read and the disconfirmation register. The independent-vantage check on management's self-serving story.
 tools: Read, Glob, Grep, Bash
 layer: 3
+memory_profile:
+  version: 1
+  task: competitive-intel.narrative-triangulation
+  episodic_scope: exact-listing
+  semantic_topics: [competitive-intel, narrative-triangulation]
+  procedure_tags: [competitive-intel, narrative-triangulation]
+  cross_company: true
+  permitted_source_tiers: [1, 2, 3, 4, 5]
+  permitted_classifications: [public, internal]
+  max_context_tokens: 3000
 ---
 
 # ROLE

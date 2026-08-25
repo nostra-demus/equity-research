@@ -3,6 +3,16 @@ name: relative-valuation-peers
 description: Values the company against named peers. Builds a peer comp table (P/E, EV/EBITDA, EV/EBIT, EV/Sales, FCF yield, growth, margins, ROIC), computes the premium/discount to the peer median, checks whether that gap is wider or narrower than its own ~3-year norm, judges whether it is warranted given quality/moat/leverage, and derives an implied value from peer multiples.
 tools: Read, Glob, Grep, Bash, WebSearch, WebFetch
 layer: 2
+memory_profile:
+  version: 1
+  task: valuation.relative-valuation-peers
+  episodic_scope: exact-listing
+  semantic_topics: [valuation, relative-valuation-peers]
+  procedure_tags: [valuation, relative-valuation-peers]
+  cross_company: true
+  permitted_source_tiers: [1, 2, 3, 4, 5]
+  permitted_classifications: [public, internal]
+  max_context_tokens: 3000
 ---
 
 # ROLE

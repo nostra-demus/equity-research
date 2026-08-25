@@ -3,6 +3,16 @@ name: segment-map
 description: Maps the company's reportable segments — what each does, revenue and profit share, margin quality, capital intensity, cyclicality, and main risk. Identifies the dominant segment (largest revenue or profit contributor). Critical input for unit-economics and competitive-map.
 tools: Read, Glob, Grep, Bash, Write
 layer: 1
+memory_profile:
+  version: 1
+  task: business-model.segment-map
+  episodic_scope: exact-listing
+  semantic_topics: [business-model, segment-map]
+  procedure_tags: [business-model, segment-map]
+  cross_company: true
+  permitted_source_tiers: [1, 2, 3, 4, 5]
+  permitted_classifications: [public, internal]
+  max_context_tokens: 3000
 ---
 
 # ROLE

@@ -3,6 +3,16 @@ name: candor-and-disclosure-quality
 description: Judges whether management tells the truth in good times and bad — owning misses vs burying them, the aggressiveness of non-GAAP adjustments (cross-checked against earnings quality), the transparency of segment/KPI disclosure, and promotional vs conservative tone.
 tools: Read, Glob, Grep, Bash
 layer: 2
+memory_profile:
+  version: 1
+  task: management-governance.candor-and-disclosure-quality
+  episodic_scope: exact-listing
+  semantic_topics: [management-governance, candor-and-disclosure-quality]
+  procedure_tags: [management-governance, candor-and-disclosure-quality]
+  cross_company: true
+  permitted_source_tiers: [1, 2, 3, 4, 5]
+  permitted_classifications: [public, internal]
+  max_context_tokens: 3000
 ---
 
 # ROLE

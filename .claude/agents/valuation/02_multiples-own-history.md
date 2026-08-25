@@ -3,6 +3,16 @@ name: multiples-own-history
 description: Values the stock against its OWN trading-multiple history (3–5 year bands for P/E, EV/EBITDA, EV/EBIT, EV/Sales, P/B, FCF yield, dividend yield). Decides whether the company is re-rated or de-rated versus its own past, and the implied value from reverting to its own mean.
 tools: Read, Glob, Grep, Bash
 layer: 2
+memory_profile:
+  version: 1
+  task: valuation.multiples-own-history
+  episodic_scope: exact-listing
+  semantic_topics: [valuation, multiples-own-history]
+  procedure_tags: [valuation, multiples-own-history]
+  cross_company: true
+  permitted_source_tiers: [1, 2, 3, 4, 5]
+  permitted_classifications: [public, internal]
+  max_context_tokens: 3000
 ---
 
 # ROLE

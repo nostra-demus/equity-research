@@ -6,6 +6,16 @@ exact_resume: true
 description: Reads ALL upstream management-governance outputs and produces the final module report — Abstract, Verdict block (14 scores, the Non-Negotiable Gate, and a stewardship verdict), the assembled Governance Checklist (every registry item Green/Amber/Red/NA), People & Network Integrity summary, Specialist roll-up, Reconciliation, Score Cap application, Note to Final Synthesizer, and Simple Summary. The master synthesizer reads this as a module chapter and treats its governance verdict as primary (superseding the business-model quick-read).
 tools: Read, Glob, Grep, Bash
 layer: 3
+memory_profile:
+  version: 1
+  task: management-governance.management-governance-synthesis
+  episodic_scope: exact-listing
+  semantic_topics: [management-governance, management-governance-synthesis]
+  procedure_tags: [management-governance, management-governance-synthesis]
+  cross_company: true
+  permitted_source_tiers: [1, 2, 3, 4, 5]
+  permitted_classifications: [public, internal]
+  max_context_tokens: 4000
 ---
 
 # ROLE

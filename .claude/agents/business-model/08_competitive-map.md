@@ -3,6 +3,16 @@ name: competitive-map
 description: Identifies 2–3 of the most credible competitors for the company's dominant segment and profiles each. Provides the named-competitor anchor that the moat agent uses for its competitive economics comparison.
 tools: Read, Glob, Grep, Bash, WebSearch, WebFetch, Write
 layer: 2
+memory_profile:
+  version: 1
+  task: business-model.competitive-map
+  episodic_scope: exact-listing
+  semantic_topics: [business-model, competitive-map]
+  procedure_tags: [business-model, competitive-map]
+  cross_company: true
+  permitted_source_tiers: [1, 2, 3, 4, 5]
+  permitted_classifications: [public, internal]
+  max_context_tokens: 3000
 ---
 
 # ROLE

@@ -223,6 +223,48 @@ class MemoryRuntimeTests(unittest.TestCase):
                 sorted((item["code"] for item in registry["diagnostics"]), reverse=True),
             )
 
+    def test_first_run_binds_an_explicit_legal_tuple_but_not_a_collision(self) -> None:
+        empty_registry = {"schema": "research-identity-registry/v1", "listings": [], "diagnostics": []}
+        resolved = resolve_identity(
+            empty_registry, legal_name="First Run PLC", venue="LSE", currency="GBP", ticker="FIRST",
+            identifiers=["issuer:lei:5493001KJTIIGC8Y1R12"],
+        )
+        self.assertEqual("issuer:lei:5493001KJTIIGC8Y1R12", resolved["issuer_id"])
+        self.assertEqual("security:mic-ticker:XLON:FIRST", resolved["listing_id"])
+        dual_registry = {
+            **empty_registry,
+            "listings": [{
+                "legal_name": "First Run PLC", "legal_name_key": "first run plc",
+                "issuer_id": "issuer:lei:5493001KJTIIGC8Y1R12",
+                "listing_id": "security:mic-ticker:XLON:FIRST", "mic": "XLON",
+                "ticker": "FIRST", "currency": "GBP",
+                "identifiers": ["issuer:lei:5493001KJTIIGC8Y1R12"],
+            }],
+        }
+        dual = resolve_identity(
+            dual_registry, legal_name="First Run PLC", venue="NYSE", currency="USD", ticker="FRST",
+            identifiers=["issuer:lei:5493001KJTIIGC8Y1R12"],
+        )
+        self.assertEqual(resolved["issuer_id"], dual["issuer_id"])
+        self.assertEqual("security:mic-ticker:XNYS:FRST", dual["listing_id"])
+        malformed = {
+            **empty_registry,
+            "listings": [{
+                "legal_name": "Broken Issuer", "legal_name_key": "broken issuer",
+                "issuer_id": "entity:internal:broken", "listing_id": "security:mic-ticker:XLON:BAD",
+                "mic": "XLON", "ticker": "BAD", "currency": "GBP", "identifiers": None,
+            }],
+        }
+        with self.assertRaises(IdentityResolutionError):
+            resolve_identity(
+                malformed, legal_name="Broken Issuer", venue="LSE", currency="GBP", ticker="BAD",
+            )
+        with self.assertRaises(IdentityResolutionError):
+            resolve_identity(
+                empty_registry, legal_name="First Run PLC", venue="LSE", currency="GBP", ticker="FIRST",
+                identifiers=["not-a-reviewed-identifier"],
+            )
+
     def test_provider_scope_can_narrow_but_never_expand(self) -> None:
         scope = authorize_provider(
             _provider_policy(), provider="openai", model="gpt-5", service_identity="research-runtime",

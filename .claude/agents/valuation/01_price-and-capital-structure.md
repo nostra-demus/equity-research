@@ -3,6 +3,16 @@ name: price-and-capital-structure
 description: Establishes the valuation anchor — current price, diluted share count, market cap, and the full market-cap → enterprise-value bridge (debt, cash, minority interest, preferred). Solves the recurring "no current price" gap or flags it hard. Foundation that every other valuation agent uses.
 tools: Read, Glob, Grep, Bash, WebSearch, WebFetch
 layer: 1
+memory_profile:
+  version: 1
+  task: valuation.price-and-capital-structure
+  episodic_scope: exact-listing
+  semantic_topics: [valuation, price-and-capital-structure]
+  procedure_tags: [valuation, price-and-capital-structure]
+  cross_company: true
+  permitted_source_tiers: [1, 2, 3, 4, 5]
+  permitted_classifications: [public, internal]
+  max_context_tokens: 3000
 ---
 
 # ROLE
