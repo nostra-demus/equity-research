@@ -221,7 +221,7 @@ const canonicalContractValue = (value: unknown): unknown => {
 }
 
 // Only fields that determine the PM thesis belong here. Slice-specific flow/member counts and read-time
-// heat can legitimately differ between the index and the global detail endpoint; narrative truth cannot.
+// heat can legitimately differ; the index and detail now use the same evidence projection.
 const themeDetailContractKey = (theme: Theme | null | undefined): string | null => theme
   ? JSON.stringify(canonicalContractValue({
       theme_id: theme.theme_id,
@@ -234,6 +234,9 @@ const themeDetailContractKey = (theme: Theme | null | undefined): string | null 
       assessment: theme.assessment || theme.opportunity || null,
       evidence: theme.evidence || [],
       qualified_expressions: theme.qualified_expressions || [],
+      idea_ready: theme.idea_ready === true,
+      idea_blockers: theme.idea_blockers || [],
+      player_counts: theme.player_counts || null,
     }))
   : null
 
@@ -4557,19 +4560,19 @@ export const useStore = create<State>((set, get) => ({
     const requestState = get()
     const summaryAtRequest = requestState.themes.find((theme) => theme.theme_id === id)
     const cfg = activeWireConfig(requestState)
-    const sliced = !!(
-      requestState.themesGeo.country
-      || requestState.themesGeo.geoRegion
-      || requestState.themesSubject
-      || (cfg && !cfg.flow && cfg.eventScope)
-    )
-    const expectedContract = sliced ? null : themeDetailContractKey(summaryAtRequest)
+    const expectedContract = themeDetailContractKey(summaryAtRequest)
+    const geo = requestState.themesGeo.country || requestState.themesGeo.geoRegion
+      ? { country: requestState.themesGeo.country || undefined, geoRegion: requestState.themesGeo.geoRegion || undefined }
+      : undefined
+    const slice = cfg && !cfg.flow && cfg.eventScope
+      ? { scope: cfg.eventScope, commodity: requestState.themesSubject || undefined }
+      : undefined
     set({ selectedTheme: id, themeDetail: null, themeDetailError: null, themeBrief: null, themesLoading: true, themeBriefLoading: false })
     // The detail payload already carries the canonical narrative dossier. Do not launch the retired
     // headline-only brief synthesizer on every open; it could disagree with the contract and spend budget
     // for output this UI no longer renders.
     try {
-      const detail = await api.newsTheme(id)
+      const detail = await api.newsTheme(id, geo, slice)
       if (requestSeq !== themeDetailRequestSeq || get().selectedTheme !== id) return
       if (!detail) {
         set({ themeDetail: null, themeDetailError: 'The theme detail endpoint returned no current dossier.', themesLoading: false })
@@ -4582,9 +4585,9 @@ export const useStore = create<State>((set, get) => ({
         && Number.isFinite(currentSummary.rev)
         && Number.isFinite(detail.theme.rev)
         && currentSummary.rev === detail.theme.rev
-      const contractMatches = sliced
-        ? revisionMatches
-        : revisionMatches && !!expectedContract && expectedContract === currentContract && currentContract === responseContract
+      const contractMatches = revisionMatches && !!expectedContract
+        && expectedContract === currentContract
+        && currentContract === responseContract
       if (!currentSummary || themeSurfaceStatus(currentSummary) === 'context' || detail.theme.theme_id !== id || !contractMatches) {
         set({ themeDetail: null, themeDetailError: 'The theme changed while its detail was loading. Retry from the current Themes screen.', themesLoading: false })
         return
