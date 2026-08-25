@@ -1,6 +1,104 @@
 {
-  "generated_at": "2026-08-25T11:05:31Z",
+  "generated_at": "2026-08-25T11:20:42Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260825-1669",
+      "headline": "TAI UNITED HOLD (00718): PROFIT WARNING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0825/2026082501233.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-25T11:01:00Z",
+      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
+      "prelim_note": "Profit warning indicates a material decline in expected earnings.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Profit warning indicates a material decline in expected earnings.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "guidance_change",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tai United Holdings",
+          "ticker": "00718",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260825-1670",
+      "headline": "ETERNITY INV (00764): INSIDE INFORMATION PROFIT WARNING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0825/2026082501229.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-25T10:59:00Z",
+      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
+      "prelim_note": "Profit warning indicates a material decline in expected earnings.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Profit warning indicates a material decline in expected earnings.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "guidance_change",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Eternity Investment",
+          "ticker": "00764",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260825-1666",
       "headline": "HAIDILAO (06862): ANNOUNCEMENT OF INTERIM RESULTS FOR THE SIX MONTHS ENDED JUNE 30, 2026 AND INTERIM DIVIDEND AND CLOSURE OF REGISTER OF MEMBERS",
@@ -1889,120 +1987,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260825-909",
-      "headline": "Alibaba Is Selling $10.2 Billion of Stock to Fund AI. Alphabet and Intel Went First.",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/alibaba-selling-102-billion-stock-fund-ai-alphabet-and-intel-went-first",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-25T03:58:01Z",
-      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
-      "prelim_note": "Alibaba is selling $10.2 billion of stock to fund AI, a large confirmed equity issuance with a named deal value.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Alibaba is selling $10.2 billion of stock to fund AI, a large confirmed equity issuance with a named deal value.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capital_actions",
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Alibaba",
-          "ticker": "BABA",
-          "listing_country": "US"
-        },
-        {
-          "name": "Alphabet",
-          "ticker": "GOOGL",
-          "listing_country": "US"
-        },
-        {
-          "name": "Intel",
-          "ticker": "INTC",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260825-686",
-      "headline": "Porsche inks $1.5 billion deal for AI deployment with India’s largest IT services firm Tata Consultancy",
-      "headline_en": null,
-      "url": "https://www.cnbc.com/2026/08/25/porsche-inks-billion-ai-deal-india-it-tcs.html",
-      "source_name": "CNBC",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-25T03:01:16Z",
-      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
-      "prelim_note": "Porsche signed a $1.5 billion AI deployment deal with Tata Consultancy, a named deal value.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Porsche signed a $1.5 billion AI deployment deal with Tata Consultancy, a named deal value.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Porsche",
-          "ticker": null,
-          "listing_country": "DE"
-        },
-        {
-          "name": "Tata Consultancy Services",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -89980,9 +89964,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1040127,
-    "news_picked_today": 2890,
-    "news_dropped_today": 10778
+    "news_seen_today": 1065948,
+    "news_picked_today": 2909,
+    "news_dropped_today": 10819
   },
   "book_momentum": {
     "live_count": 8,
