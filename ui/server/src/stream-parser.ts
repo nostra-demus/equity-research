@@ -123,11 +123,29 @@ export function handleStreamLine(run: RunState, line: string) {
     let key = event.toolUseId ? run.toolUseToAgent.get(event.toolUseId) : undefined
     if (idx) {
       key = idx.key
+      const isNewSpawnAttempt = input?.tool === 'spawn_agent'
+        && !!event.toolUseId
+        && !run.toolUseToAgent.has(event.toolUseId)
       if (event.toolUseId) run.toolUseToAgent.set(event.toolUseId, key)
       const a = run.agents.get(key) || {
         key, module: idx.module, name: idx.name, layer: idx.layer, status: 'queued' as const,
       }
-      if (a.status !== 'done' && a.status !== 'failed') {
+      // A failed canonical specialist may be explicitly retried with a new native spawn call. Retire
+      // the old thread bindings before reopening its orb so a late update from the failed child cannot
+      // poison the new attempt. Repeated rows for one tool-use id remain idempotent.
+      if (a.status === 'failed' && isNewSpawnAttempt) {
+        for (const [threadId, agentKey] of run.nativeThreadToAgent) {
+          if (agentKey !== key) continue
+          run.nativeThreadToAgent.delete(threadId)
+          run.nativeAgentStates.delete(threadId)
+        }
+        a.status = 'running'
+        run.agents.set(key, a)
+        emit(run, {
+          type: 'agent-started', runId: run.runId, module: idx.module, agentKey: idx.key,
+          name: idx.name, layer: idx.layer, ts,
+        })
+      } else if (a.status !== 'done' && a.status !== 'failed') {
         const newlyRunning = a.status !== 'running'
         a.status = 'running'
         run.agents.set(key, a)
@@ -149,7 +167,8 @@ export function handleStreamLine(run: RunState, line: string) {
       if (status) run.nativeAgentStates.set(threadId, status)
       const stateKey = run.nativeThreadToAgent.get(threadId) || key
       const a = stateKey ? run.agents.get(stateKey) : undefined
-      if (a && a.status !== 'done' && ['interrupted', 'errored', 'shutdown', 'not_found'].includes(status || '')) {
+      if (a && a.status !== 'done' && a.status !== 'failed'
+          && ['interrupted', 'errored', 'shutdown', 'not_found'].includes(status || '')) {
         a.status = 'failed'
         emit(run, {
           type: 'agent-failed', runId: run.runId, agentKey: a.key, module: a.module, name: a.name,

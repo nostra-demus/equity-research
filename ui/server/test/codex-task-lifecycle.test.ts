@@ -98,4 +98,56 @@ assert.equal(run.nativeAgentStates.get('child-moat'), 'errored')
 assert.equal(events.filter((event) => event.type === 'agent-started').length, 1)
 assert.equal(events.filter((event) => event.type === 'agent-failed').length, 1)
 
-console.log('codex-task-lifecycle.test.ts: completion-only attribution and native failure tracking pass')
+// Replayed terminal rows are idempotent. A deliberate retry is a new spawn tool-use id: it reopens
+// the canonical orb, retires the failed child's binding, and cannot be poisoned by a late old update.
+handleStreamLine(run, JSON.stringify({
+  type: 'item.updated',
+  item: {
+    id: 'wait-moat-replayed',
+    type: 'collab_tool_call',
+    tool: 'wait',
+    sender_thread_id: 'parent',
+    receiver_thread_ids: ['child-moat'],
+    prompt: null,
+    agents_states: { 'child-moat': { status: 'errored', message: 'child failed' } },
+    status: 'in_progress',
+  },
+}))
+assert.equal(events.filter((event) => event.type === 'agent-failed').length, 1)
+
+handleStreamLine(run, JSON.stringify({
+  type: 'item.started',
+  item: {
+    id: 'spawn-moat-retry',
+    type: 'collab_tool_call',
+    tool: 'spawn_agent',
+    sender_thread_id: 'parent',
+    receiver_thread_ids: ['child-moat-retry'],
+    prompt: 'NOSTRA_SUBAGENT_TYPE: moat\nCanonical path: .claude/agents/business-model/09_moat.md',
+    agents_states: { 'child-moat-retry': { status: 'running', message: null } },
+    status: 'in_progress',
+  },
+}))
+assert.equal(run.agents.get(key)?.status, 'running')
+assert.equal(run.nativeThreadToAgent.has('child-moat'), false)
+assert.equal(run.nativeAgentStates.has('child-moat'), false)
+assert.equal(run.nativeThreadToAgent.get('child-moat-retry'), key)
+assert.equal(events.filter((event) => event.type === 'agent-started').length, 2)
+
+handleStreamLine(run, JSON.stringify({
+  type: 'item.updated',
+  item: {
+    id: 'late-old-wait',
+    type: 'collab_tool_call',
+    tool: 'wait',
+    sender_thread_id: 'parent',
+    receiver_thread_ids: ['child-moat'],
+    prompt: null,
+    agents_states: { 'child-moat': { status: 'errored', message: 'late old update' } },
+    status: 'in_progress',
+  },
+}))
+assert.equal(run.agents.get(key)?.status, 'running')
+assert.equal(events.filter((event) => event.type === 'agent-failed').length, 1)
+
+console.log('codex-task-lifecycle.test.ts: completion-only attribution, deduplication, and retry isolation pass')
