@@ -137,9 +137,11 @@ case "${0##*/}" in
         [ "${WATCHDOG_TEST_LOCAL_HEALTH:-up}" = up ]
         ;;
       http://127.0.0.1:8787/)
-        printf '<script src="/assets/index-test.js"></script>\n'
+        # Current Vite names the entry `main-*`. The watchdog must discover the served script path rather
+        # than hard-code an old bundler basename (`index-*`) and restart a healthy engine forever.
+        printf '<script type="module" crossorigin src="/assets/main-test.js"></script>\n'
         ;;
-      http://127.0.0.1:8787/assets/index-test.js)
+      http://127.0.0.1:8787/assets/main-test.js)
         printf '200:application/javascript'
         ;;
       https://app.nostra-demus.com/api/health)
@@ -211,7 +213,11 @@ count_kickstarts() {
 
 mkdir -p "$TEST_TMP/repo"
 run_watchdog 200 up
-if [ "$(cat "$TEST_HOME/.nostra-ops/supervisor-test.calls" 2>/dev/null || echo 0)" != 1 ]; then
+if [ "$(cat "$TEST_HOME/Library/Application Support/nostradamus/watchdog.fails" 2>/dev/null || echo 0)" != 0 ] \
+    || grep -q 'no-bundle-ref' "$TEST_HOME/Library/Logs/nostradamus-watchdog.log" 2>/dev/null; then
+  echo "  FAIL current Vite main-* entry was rejected as a missing bundle"
+  failures=$((failures + 1))
+elif [ "$(cat "$TEST_HOME/.nostra-ops/supervisor-test.calls" 2>/dev/null || echo 0)" != 1 ]; then
   echo "  FAIL watchdog did not invoke the installed connector supervisor exactly once"
   failures=$((failures + 1))
 elif grep -q 'com.nostradamus.connectors' "$LAUNCHCTL_LOG"; then
