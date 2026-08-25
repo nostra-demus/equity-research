@@ -92,6 +92,28 @@ export function dailyReturns(navSeries: NavPoint[], flowsByDate: Map<string, num
   return out
 }
 
+/** The stretch of the series the return is ACTUALLY measured over: from the last point before the first
+ *  day that had capital, to the end.
+ *
+ *  This exists for the benchmark. A Flex export carries a NAV row for every calendar day of the query,
+ *  including the months before the account was funded — on a real book, 262 points of which only 98 were
+ *  valued. `computeTwr` correctly skips the unfunded days, so the book's return covers the 98. Handing
+ *  the benchmark the full 262 would measure the index over eight months and the book over three and call
+ *  the difference "excess", which is exactly the mismatched-window comparison the module refuses to make
+ *  when the FEED is short. The rule has to hold in both directions. */
+export function measuredWindow(navSeries: NavPoint[], flowsByDate: Map<string, number>): NavPoint[] {
+  for (let i = 1; i < navSeries.length; i++) {
+    const prev = navSeries[i - 1]!
+    if (prev.total + (flowsByDate.get(navSeries[i]!.date) ?? 0) <= 0) continue
+    // Where the capital was ALREADY there, the window opens on that prior close — its move to the next
+    // day is real performance. Where the day only became measurable because money arrived that morning,
+    // it opens on the funding day itself: that day's own return is zero by construction (money in, no
+    // time), so charging the index with it would compare the book against a day it did not trade.
+    return navSeries.slice(prev.total > 0 ? i - 1 : i)
+  }
+  return []
+}
+
 function mean(xs: number[]): number { return xs.reduce((a, b) => a + b, 0) / xs.length }
 
 function stdev(xs: number[]): number | null {

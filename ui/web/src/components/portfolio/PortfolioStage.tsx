@@ -238,7 +238,9 @@ function Performance({ perf }: { perf: PortfolioPerformance }) {
           <strong className="num" style={{ color: toneOf(p.twr) }}>{fmtPct(p.twr, 2)}</strong>
           {/* The benchmark is only meaningful over the same window, so it is shown on the inception row
               alone rather than repeated against periods it was never measured over. */}
-          <span className="num dim">{p.label === 'Since inception' ? fmtPct(bm.benchmarkTwr, 2) : '—'}</span>
+          <span className="num dim" title={p.label === 'Since inception' && bm.from ? `${bm.symbol} measured ${bm.from} → ${bm.to} — the same days the book had capital in it` : undefined}>
+            {p.label === 'Since inception' ? fmtPct(bm.benchmarkTwr, 2) : '—'}
+          </span>
           <span className="num" style={{ color: p.label === 'Since inception' ? toneOf(bm.excess) : undefined }}>
             {p.label === 'Since inception' && bm.excess !== null ? `${bm.excess >= 0 ? '+' : '−'}${Math.abs(bm.excess).toFixed(2)}pp` : '—'}
           </span>

@@ -4,7 +4,7 @@
 // Run: npx tsx test/portfolio-metrics.test.ts
 import assert from 'node:assert/strict'
 import {
-  benchmarkCompare, dailyReturns, drawdown, moneyWeightedReturn, returnsByPeriod, riskMetrics, MIN_RATIO_DAYS,
+  benchmarkCompare, dailyReturns, drawdown, measuredWindow, moneyWeightedReturn, returnsByPeriod, riskMetrics, MIN_RATIO_DAYS,
 } from '../src/portfolio-metrics'
 import type { NavPoint } from '../src/portfolio'
 
@@ -216,6 +216,39 @@ check('a missing benchmark says WHY, and never quietly computes a shorter window
   const partial = benchmarkCompare('SPY', 8, nav, [{ date: '2026-01-03', close: 100 }])
   assert.equal(partial.benchmarkTwr, null)
   assert.match(partial.unavailable ?? '', /does not cover/)
+})
+
+check('the benchmark window is the funded window, not every calendar row in the export', () => {
+  // A Flex export carries a NAV row for every day of the query, including the months before the account
+  // was funded. computeTwr skips those days, so the book's return covers only the funded stretch —
+  // measuring the index over the whole export would compare eight months against three and call the
+  // difference "excess". On the real book that was 262 calendar points against 98 valued days.
+  const unfunded = [
+    { date: '2026-01-01', total: 0 },
+    { date: '2026-01-02', total: 0 },
+    { date: '2026-01-03', total: 0 },
+  ]
+  const nav = [...unfunded, ...series(3, 0.01, 1000).map((p, i) => ({ ...p, date: ['2026-01-04', '2026-01-05', '2026-01-06'][i]! }))]
+  const flows = new Map([['2026-01-04', 1000]])
+  const window = measuredWindow(nav, flows)
+  assert.equal(window[0]!.date, '2026-01-04', 'the window opens on the first day that had capital')
+  assert.equal(window.length, 3)
+
+  const closes = [
+    { date: '2026-01-01', close: 100 }, // the unfunded run — must not set the benchmark's start
+    { date: '2026-01-04', close: 200 },
+    { date: '2026-01-06', close: 210 },
+  ]
+  const b = benchmarkCompare('SPY', 2, window, closes)
+  assert.equal(b.from, '2026-01-04')
+  assert.ok(near(b.benchmarkTwr!, 5, 1e-9), `200 → 210 is +5%, got ${b.benchmarkTwr}`)
+})
+
+check('a book that was never funded has no window to compare over', () => {
+  const nav = [{ date: '2026-01-01', total: 0 }, { date: '2026-01-02', total: 0 }]
+  assert.deepEqual(measuredWindow(nav, new Map()), [])
+  const b = benchmarkCompare('SPY', null, measuredWindow(nav, new Map()), [{ date: '2026-01-01', close: 1 }])
+  assert.match(b.unavailable ?? '', /no measurable window/)
 })
 
 console.log(`\n${passed} passed, ${fails.length} failed`)
