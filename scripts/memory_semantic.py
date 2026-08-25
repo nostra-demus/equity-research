@@ -436,14 +436,22 @@ def seed_reviewed_candidates(
         for error_code, by_issuer in sorted(empirical_errors.items()):
             if len(by_issuer) < 5:
                 continue
-            selected = [by_issuer[issuer_id] for issuer_id in sorted(by_issuer)]
+            selected_items = sorted(
+                by_issuer.items(),
+                key=lambda item: (
+                    str(item[1][0].get("system_time", "")), item[0],
+                ),
+                reverse=True,
+            )[:128]
+            selected_items.sort(key=lambda item: item[0])
+            selected = [value for _issuer_id, value in selected_items]
             evidence = list(dict.fromkeys(ref for _event, ref in selected))
             observations = [
                 {
                     "issuer_id": issuer_id,
                     "effective_at": source_event["system_time"], "evidence_ref": evidence_ref,
                 }
-                for issuer_id, (source_event, evidence_ref) in sorted(by_issuer.items())
+                for issuer_id, (source_event, evidence_ref) in selected_items
             ]
             semantic = {
                 "lesson_kind": "cross-company-empirical", "effect": "current-check-required",
@@ -460,7 +468,7 @@ def seed_reviewed_candidates(
                 "supporting_evidence": evidence, "contradicting_evidence": [],
                 "observations": observations,
                 "effective_observation_count": len(observations),
-                "distinct_issuer_count": len(by_issuer),
+                "distinct_issuer_count": len(selected_items),
                 "valid_time": {"from": created.date().isoformat(), "to": None},
                 "review_due": review_due,
             }
