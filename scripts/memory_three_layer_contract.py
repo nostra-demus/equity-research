@@ -438,7 +438,13 @@ def validate_promotion_bundle(
     errors: list[str] = []
     for label, item in (("candidate", candidate), ("promoted", promoted), ("manifest", manifest)):
         errors.extend(f"{label}.{error}" for error in validate_contract(item))
-    playbook_candidate = candidate.get("schema") == "memory-playbook-candidate/v1"
+    # A document that is not an object cannot be read from, and every check below reads.  Guarding the
+    # first dereference is what keeps this function failing CLOSED — returning the errors it already
+    # found — rather than raising AttributeError out of a validator.  `promoted` and `manifest` were
+    # already safe because nothing touches them before the early return; only the candidate was read.
+    playbook_candidate = (
+        isinstance(candidate, Mapping) and candidate.get("schema") == "memory-playbook-candidate/v1"
+    )
     if playbook_candidate and evaluation is None:
         errors.append("evaluation — playbook promotion requires a candidate-bound evaluation")
     if evaluation is not None:

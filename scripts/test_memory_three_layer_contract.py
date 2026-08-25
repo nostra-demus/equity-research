@@ -659,6 +659,22 @@ class ThreeLayerContractTests(unittest.TestCase):
         )
         self.assertTrue(errors)
 
+    def test_a_bundle_document_that_is_not_an_object_fails_closed(self) -> None:
+        # The candidate was read for its schema BEFORE the early return, so a document that arrived as
+        # null, a list or a string raised AttributeError out of the validator instead of being refused
+        # by it — the exact opposite of failing closed.  Every slot must answer with errors.
+        for position in range(3):
+            for malformed in (None, [], "not-an-object", 7):
+                documents = [
+                    {"schema": "memory-semantic-candidate/v1"},
+                    {"schema": "memory-semantic-lesson/v1"},
+                    {"schema": "memory-promotion-manifest/v1"},
+                ]
+                documents[position] = malformed
+                with self.subTest(position=position, malformed=malformed):
+                    errors = validate_promotion_bundle(*documents)
+                    self.assertTrue(any("expected an object" in error for error in errors), errors)
+
 
 if __name__ == "__main__":
     unittest.main()
