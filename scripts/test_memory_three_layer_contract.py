@@ -572,6 +572,14 @@ class ThreeLayerContractTests(unittest.TestCase):
     def test_unknown_contract_fails_closed(self) -> None:
         self.assertTrue(validate_contract({"schema": "memory-claim/v999"}))
 
+    def test_malformed_promotion_bundle_returns_errors_without_cross_field_access(self) -> None:
+        errors = validate_promotion_bundle(
+            {"schema": "memory-semantic-candidate/v1"},
+            {"schema": "memory-semantic-lesson/v1"},
+            {"schema": "memory-promotion-manifest/v1"},
+        )
+        self.assertTrue(errors)
+
 
 if __name__ == "__main__":
     unittest.main()

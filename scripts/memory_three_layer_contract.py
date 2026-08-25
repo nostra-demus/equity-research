@@ -12,6 +12,7 @@ from __future__ import annotations
 
 import datetime as dt
 import json
+from functools import lru_cache
 from pathlib import Path
 from typing import Any, Iterable, Mapping
 
@@ -86,6 +87,7 @@ SECTION_DELIMITERS = {
 }
 
 
+@lru_cache(maxsize=1)
 def _bundle() -> dict[str, Any]:
     value = json.loads(BUNDLE_PATH.read_text(encoding="utf-8"))
     if not isinstance(value, dict) or not isinstance(value.get("$defs"), dict):
@@ -194,9 +196,12 @@ def _validate_semantic(value: Mapping[str, Any], errors: list[str]) -> None:
     anchor = value.get("activated_at") or value.get("created_at")
     review_due = semantic.get("review_due")
     if isinstance(anchor, str) and isinstance(review_due, str):
-        review_days = (_parse_date(review_due) - _parse_time(anchor).date()).days
-        if review_days < 0 or review_days > 180:
-            _err(errors, "semantic.review_due", "active learning must be reviewed between activation and 180 days")
+        try:
+            review_days = (_parse_date(review_due) - _parse_time(anchor).date()).days
+            if review_days < 0 or review_days > 180:
+                _err(errors, "semantic.review_due", "active learning must be reviewed between activation and 180 days")
+        except ValueError as exc:  # schema validation should catch this first; keep the boundary total
+            _err(errors, "semantic.review_due", f"invalid date or timestamp: {exc}")
     if value.get("schema") == "memory-semantic-lesson/v1":
         reviewers = value.get("verified_by", [])
         if not {"evidence", "applicability"}.issubset(_reviewer_roles(reviewers)):
@@ -229,8 +234,12 @@ def _validate_playbook(value: Mapping[str, Any], errors: list[str]) -> None:
             _err(errors, "verified_by", "active playbooks require evidence, applicability, and security review")
         activated = value.get("activated_at")
         expires = value.get("expires_at")
-        if isinstance(activated, str) and isinstance(expires, str) and _parse_time(expires) <= _parse_time(activated):
-            _err(errors, "expires_at", "active playbook must expire after activation")
+        if isinstance(activated, str) and isinstance(expires, str):
+            try:
+                if _parse_time(expires) <= _parse_time(activated):
+                    _err(errors, "expires_at", "active playbook must expire after activation")
+            except ValueError as exc:  # schema validation should catch this first; keep the boundary total
+                _err(errors, "expires_at", f"invalid timestamp: {exc}")
 
 
 def _validate_evaluation(value: Mapping[str, Any], errors: list[str]) -> None:
@@ -332,6 +341,8 @@ def validate_promotion_bundle(
         errors.extend(f"{label}.{error}" for error in validate_contract(item))
     if evaluation is not None:
         errors.extend(f"evaluation.{error}" for error in validate_contract(evaluation))
+    if errors:
+        return errors
     created_by = candidate.get("created_by", {})
     creator_id = created_by.get("id") if isinstance(created_by, Mapping) else None
     promoted_verifiers = promoted.get("verified_by", [])
