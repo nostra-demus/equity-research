@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-25T12:59:10Z",
+  "generated_at": "2026-08-25T13:06:10Z",
   "inbox": [
     {
       "inbox_id": "INB-20260825-1726",
@@ -1943,50 +1943,50 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260825-1702",
-      "headline": "Dick's Sporting Goods cuts annual forecasts as athleticwear demand weakens",
+      "inbox_id": "INB-20260825-1761",
+      "headline": "Cerebras shares plummet 16% after results fail to impress investors (August 12)",
       "headline_en": null,
-      "url": "https://www.reuters.com/business/dicks-sporting-goods-cuts-annual-forecasts-athleticwear-demand-weakens-2026-08-25/",
+      "url": "https://www.reuters.com/business/cerebras-raises-annual-targets-strong-ai-chip-demand-2026-08-12/",
       "source_name": "Reuters — Latest (news sitemap)",
       "input_nature": "news_headline",
-      "found_at": "2026-08-25T11:58:36Z",
+      "found_at": "2026-08-25T12:47:21Z",
       "sweep_file": "screener/inbox/2026-08-25_sweep.json",
-      "prelim_note": "Company issued a formal cut to annual guidance due to demand weakness.",
+      "prelim_note": "A 16% share price drop following earnings results is a material event for the company.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 100,
-      "triage_reason": "Company issued a formal cut to annual guidance due to demand weakness.",
-      "region": "US",
+      "triage_reason": "A 16% share price drop following earnings results is a material event for the company.",
+      "region": "GLOBAL",
       "relevance": "material",
-      "materiality_pre_score": 85,
+      "materiality_pre_score": 75,
       "rank_factors": {
-        "materiality": 85,
+        "materiality": 75,
         "source_tier": 0,
         "scope": 6,
-        "event": 7,
-        "size": 2,
+        "event": 5,
+        "size": 0,
         "recency": 5,
-        "materiality_label_floor": 0,
+        "materiality_label_floor": 10,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
       },
       "event_types": [
-        "guidance_change"
+        "earnings_revenue_margin"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Dick's Sporting Goods",
+          "name": "Cerebras",
           "ticker": null,
-          "listing_country": "US"
+          "listing_country": null
         }
       ],
-      "size_bucket": "large",
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -89964,9 +89964,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1422510,
-    "news_picked_today": 3108,
-    "news_dropped_today": 11064
+    "news_seen_today": 1438447,
+    "news_picked_today": 3154,
+    "news_dropped_today": 11090
   },
   "book_momentum": {
     "live_count": 8,
