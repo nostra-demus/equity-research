@@ -45,6 +45,10 @@ export interface BookLot {
   multiplier: number
   openedAt: string | null
   tradeID: string | null
+  /** The opening trade's commission, and the quantity it was charged on. A close nets the SHARE of it
+   *  belonging to the quantity being closed — see the commission note in runFifo. */
+  commission: number
+  openedQuantityAbs: number
 }
 
 export interface BookClosure {
@@ -58,9 +62,13 @@ export interface BookClosure {
   openedAt: string | null
   closedAt: string | null
   holdingDays: number | null
-  /** Our own FIFO arithmetic, in the instrument's currency, before commission. */
+  /** NET of commission on both legs, matching how the broker states realised P&L. */
   realizedLocal: number
-  /** Approximate USD value using the closing trade's own `fxRateToBase`. */
+  /** The gross price difference before commission, kept so the two can be shown apart. */
+  grossLocal: number
+  /** Commission attributed to this closure: the closing leg's share plus the opening lot's share. */
+  commissionLocal: number
+  /** Approximate base-currency value using the closing trade's own `fxRateToBase`. */
   realizedBase: number | null
   closeTradeID: string | null
 }
@@ -129,6 +137,7 @@ export interface Book {
   asOf: string | null
   coverage: { from: string | null; to: string | null; documents: number }
   sectionsPresent: string[]
+  sectionsUnmodelled: string[]
   positions: BookPosition[]
   openLots: BookLot[]
   closures: BookClosure[]
@@ -203,7 +212,15 @@ export function runFifo(trades: FlexTrade[]): { lots: BookLot[]; closures: BookC
         if (Math.sign(lot.quantity) === Math.sign(remaining)) break
         const matched = Math.min(Math.abs(lot.quantity), Math.abs(remaining))
         const signedMatched = matched * Math.sign(lot.quantity)
-        const realizedLocal = (price - lot.price) * signedMatched * multiplier
+        const grossLocal = (price - lot.price) * signedMatched * multiplier
+        // COMMISSION IS CHARGED ON BOTH LEGS. The broker's fifoPnlRealized is net of the closing
+        // commission AND of the opening lot's commission apportioned to the quantity being closed —
+        // verified against a real statement, where gross-only left a break of exactly the two shares
+        // combined. Commissions arrive negative, so they simply add.
+        const openShare = lot.openedQuantityAbs > 0 ? lot.commission * (matched / lot.openedQuantityAbs) : 0
+        const closeShare = Math.abs(qty) > 0 ? (t.ibCommission ?? 0) * (matched / Math.abs(qty)) : 0
+        const commissionLocal = openShare + closeShare
+        const realizedLocal = grossLocal + commissionLocal
         closures.push({
           key,
           symbol: t.symbol ?? lot.symbol,
@@ -216,6 +233,8 @@ export function runFifo(trades: FlexTrade[]): { lots: BookLot[]; closures: BookC
           closedAt: t.dateTime ?? t.tradeDate,
           holdingDays: daysBetween(lot.openedAt, t.dateTime ?? t.tradeDate),
           realizedLocal,
+          grossLocal,
+          commissionLocal,
           realizedBase: t.fxRateToBase === null ? null : realizedLocal * t.fxRateToBase,
           closeTradeID: t.tradeID,
         })
@@ -241,6 +260,9 @@ export function runFifo(trades: FlexTrade[]): { lots: BookLot[]; closures: BookC
         multiplier,
         openedAt: t.dateTime ?? t.tradeDate,
         tradeID: t.tradeID,
+        // Only the share of the opening commission belonging to the quantity that actually stays open.
+        commission: (t.ibCommission ?? 0) * (Math.abs(remaining) / Math.abs(qty)),
+        openedQuantityAbs: Math.abs(remaining),
       })
     }
     open.set(key, lots)
@@ -269,6 +291,23 @@ function daysBetween(a: string | null, b: string | null): number | null {
  *
  *  This is THE number that makes a track record comparable to an index: it strips out when capital
  *  arrived, so it measures decisions rather than the LP's timing. */
+/** A capital flow dated on a weekend or a market holiday has no NAV row of its own, so it must be
+ *  carried to the NEXT valued day — the day the money actually shows up in the series. Dropping it
+ *  instead (the naive same-date lookup) makes that day's NAV jump read as performance: on a real
+ *  statement a Saturday deposit produced a phantom +99% day and threw the whole chained return out by
+ *  over 100 percentage points. A flow after the last NAV date has nowhere to land and is ignored. */
+export function alignFlowsToNavDates(flows: { date: string | null; amount: number; amountBase: number | null }[], navSeries: NavPoint[]): Map<string, number> {
+  const byDate = new Map<string, number>()
+  const dates = navSeries.map((p) => p.date)
+  for (const f of flows) {
+    if (!f.date) continue
+    const landing = dates.find((d) => d >= f.date!)
+    if (landing === undefined) continue
+    byDate.set(landing, (byDate.get(landing) ?? 0) + (f.amountBase ?? f.amount))
+  }
+  return byDate
+}
+
 export function computeTwr(navSeries: NavPoint[], flowsByDate: Map<string, number>): number | null {
   if (navSeries.length < 2) return null
   let chain = 1
@@ -382,11 +421,7 @@ export function buildBook(documents: FlexDocument[]): Book {
       isDerivative: isDerivativeCategory(p.assetCategory),
     }))
 
-  const flowsByDate = new Map<string, number>()
-  for (const f of flows) {
-    if (!f.date) continue
-    flowsByDate.set(f.date, (flowsByDate.get(f.date) ?? 0) + (f.amountBase ?? f.amount))
-  }
+  const flowsByDate = alignFlowsToNavDates(flows, navSeries)
   const twr = computeTwr(navSeries, flowsByDate)
 
   const baseCurrency =
@@ -404,6 +439,7 @@ export function buildBook(documents: FlexDocument[]): Book {
       documents: docs.length,
     },
     sectionsPresent: [...new Set(docs.flatMap((d) => d.sectionsPresent))].sort(),
+    sectionsUnmodelled: [...new Set(docs.flatMap((d) => d.sectionsUnmodelled))].sort(),
     positions,
     openLots: lots,
     closures,

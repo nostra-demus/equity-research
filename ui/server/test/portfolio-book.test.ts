@@ -7,7 +7,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { parseFlexXml } from '../src/portfolio-import'
-import { buildBook, computeTwr, runFifo } from '../src/portfolio'
+import { alignFlowsToNavDates, buildBook, computeTwr, runFifo } from '../src/portfolio'
 
 const here = path.dirname(fileURLToPath(import.meta.url))
 const xml = fs.readFileSync(path.join(here, 'fixtures', 'flex-sample.xml'), 'utf8')
@@ -28,10 +28,14 @@ check('a sell across two lots produces two closures, oldest lot first', () => {
   assert.equal(aaa.length, 2)
   assert.equal(aaa[0]!.quantity, 100)
   assert.equal(aaa[0]!.entryPrice, 10)
-  assert.ok(near(aaa[0]!.realizedLocal, 500), `expected 500, got ${aaa[0]!.realizedLocal}`)
+  assert.ok(near(aaa[0]!.grossLocal, 500), `gross 500, got ${aaa[0]!.grossLocal}`)
+  // net of this lot's whole opening commission (-1) plus 100/150 of the closing commission (-2)
+  assert.ok(near(aaa[0]!.realizedLocal, 497.666666, 1e-4), `expected 497.6667, got ${aaa[0]!.realizedLocal}`)
   assert.equal(aaa[1]!.quantity, 50)
   assert.equal(aaa[1]!.entryPrice, 12)
-  assert.ok(near(aaa[1]!.realizedLocal, 150), `expected 150, got ${aaa[1]!.realizedLocal}`)
+  assert.ok(near(aaa[1]!.grossLocal, 150), `gross 150, got ${aaa[1]!.grossLocal}`)
+  // half the second lot's opening commission (-0.5) plus 50/150 of the closing commission (-0.6667)
+  assert.ok(near(aaa[1]!.realizedLocal, 148.833333, 1e-4), `expected 148.8333, got ${aaa[1]!.realizedLocal}`)
 })
 
 check('the unclosed remainder stays open as a lot', () => {
@@ -43,14 +47,16 @@ check('the unclosed remainder stays open as a lot', () => {
 
 check('a futures closure applies the contract multiplier', () => {
   const ccc = book.closures.find((c) => c.symbol === 'CCC')!
-  assert.ok(near(ccc.realizedLocal, 20000), `2 lots x 100 x $100 = 20000, got ${ccc.realizedLocal}`)
+  assert.ok(near(ccc.grossLocal, 20000), `2 lots x 100 x $100 = 20000 gross, got ${ccc.grossLocal}`)
+  assert.ok(near(ccc.realizedLocal, 19992), `net of -4 each leg = 19992, got ${ccc.realizedLocal}`)
 })
 
 check('a SHORT round trip realises a gain when it is bought back lower', () => {
   const ddd = book.closures.find((c) => c.symbol === 'DDD')!
   assert.equal(ddd.entryPrice, 50)
   assert.equal(ddd.exitPrice, 45)
-  assert.ok(near(ddd.realizedLocal, 150), `sold 50 bought 45 on 30 = +150, got ${ddd.realizedLocal}`)
+  assert.ok(near(ddd.grossLocal, 150), `sold 50 bought 45 on 30 = +150 gross, got ${ddd.grossLocal}`)
+  assert.ok(near(ddd.realizedLocal, 148), `net of -1 each leg = 148, got ${ddd.realizedLocal}`)
 })
 
 check('holding period is measured open to close', () => {
@@ -70,8 +76,9 @@ check('a non-base closure converts at the closing trade’s own fx rate', () => 
     { ...doc.trades[0]!, tradeID: 'E2', symbol: 'EUX', conid: '9', currency: 'EUR', quantity: -10, tradePrice: 110, openCloseIndicator: 'C', fxRateToBase: 1.2, dateTime: '2026-02-01T10:00:00', multiplier: 1, levelOfDetail: 'EXECUTION' },
   ])
   assert.equal(closures.length, 1)
-  assert.ok(near(closures[0]!.realizedLocal, 100), 'local gain is 10 x 10 = 100')
-  assert.ok(near(closures[0]!.realizedBase!, 120), 'base gain uses the CLOSING rate: 100 x 1.2 = 120')
+  assert.ok(near(closures[0]!.grossLocal, 100), 'local gross gain is 10 x 10 = 100')
+  assert.ok(near(closures[0]!.realizedLocal, 98), 'net of -1 commission on each leg')
+  assert.ok(near(closures[0]!.realizedBase!, 117.6), 'base uses the CLOSING rate: 98 x 1.2 = 117.6')
 })
 
 check('a close with no matching lot warns instead of inventing a position', () => {
@@ -101,6 +108,34 @@ check('TWR ignores a day whose opening base is zero rather than returning Infini
 check('a series too short to have a return says so instead of guessing', () => {
   assert.equal(computeTwr([{ date: '2026-01-01', total: 100 }], new Map()), null)
   assert.equal(computeTwr([], new Map()), null)
+})
+
+check('commission is netted on BOTH legs, matching how the broker states realised P&L', () => {
+  // Found on a real statement: gross-only left a break of exactly the closing commission plus the
+  // opening lot's apportioned share. Each closure now carries the split so it can be shown apart.
+  for (const c of book.closures) {
+    assert.ok(near(c.realizedLocal, c.grossLocal + c.commissionLocal, 1e-6), `${c.symbol} does not split cleanly`)
+    assert.ok(c.commissionLocal <= 0, 'commission is a cost, never a credit')
+  }
+  const totalComm = book.closures.reduce((a, c) => a + c.commissionLocal, 0)
+  assert.ok(near(totalComm, -13.5, 1e-4), `-2.3333 -1.1667 -8 -2 = -13.5, got ${totalComm}`)
+})
+
+check('a flow on a non-trading day lands on the next valued day, not the floor', () => {
+  // The real-statement bug: a Saturday deposit matched no NAV row, was silently dropped, and Monday's
+  // jump then read as a +99% day — over 100 percentage points of phantom return.
+  const nav = [{ date: '2026-05-08', total: 1000 }, { date: '2026-05-11', total: 2000 }]
+  const aligned = alignFlowsToNavDates([{ date: '2026-05-09', amount: 1000, amountBase: null }], nav)
+  assert.equal(aligned.get('2026-05-11'), 1000, 'the Saturday flow must land on Monday')
+  assert.equal(aligned.size, 1)
+  // and with it aligned, the day is flat rather than a doubling
+  assert.ok(near(computeTwr(nav, aligned)!, 0, 1e-9), 'a pure deposit is not performance')
+})
+
+check('a flow after the last valued day has nowhere to land and is ignored', () => {
+  const nav = [{ date: '2026-05-08', total: 1000 }, { date: '2026-05-11', total: 2000 }]
+  const aligned = alignFlowsToNavDates([{ date: '2026-06-01', amount: 500, amountBase: null }], nav)
+  assert.equal(aligned.size, 0)
 })
 
 // ---------- flows and income ----------
@@ -151,8 +186,8 @@ check('NAV, the NAV bridge, TWR and realised P&L are each checked', () => {
 
 check('our FIFO total agrees with the statement’s own realised P&L', () => {
   const realised = book.reconciliation.checks.find((c) => c.name === 'Realised P&L')!
-  assert.ok(near(realised.ours!, 20800), `500 + 150 + 20000 + 150 = 20800, got ${realised.ours}`)
-  assert.ok(near(realised.broker!, 20800))
+  assert.ok(near(realised.ours!, 20786.5, 1e-4), `net of commission on both legs = 20786.50, got ${realised.ours}`)
+  assert.ok(near(realised.broker!, 20786.5, 1e-4))
   assert.ok(near(realised.break!, 0))
 })
 

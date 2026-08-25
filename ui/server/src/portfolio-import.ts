@@ -312,9 +312,13 @@ export interface FlexDocument {
   fromDate: string | null
   toDate: string | null
   whenGenerated: string | null
-  /** Which sections the query actually emitted — an absent section is a query-configuration fact the
-   *  importer must be able to report, not silently treat as "nothing happened". */
+  /** Which sections the query emitted that this importer models — an absent section is a
+   *  query-configuration fact the importer must report, not silently treat as "nothing happened". */
   sectionsPresent: string[]
+  /** Sections the statement carries that this importer does NOT model yet (the accrual sections, for
+   *  example). Surfaced rather than dropped: silently ignoring part of a statement is how a book ends
+   *  up confidently missing something the broker actually sent. */
+  sectionsUnmodelled: string[]
   trades: FlexTrade[]
   openPositions: FlexOpenPosition[]
   cashTransactions: FlexCashTransaction[]
@@ -339,6 +343,9 @@ export function parseFlexXml(xml: string): FlexDocument {
 
   const nav = findFirst(statement, 'ChangeInNAV')
   const sectionsPresent = KNOWN_SECTIONS.filter((s) => findFirst(statement, s) !== null)
+  const sectionsUnmodelled = statement.children
+    .map((c) => c.tag)
+    .filter((tag, i, all) => !KNOWN_SECTIONS.includes(tag) && all.indexOf(tag) === i)
 
   return {
     accountId: str(statement.attrs.accountId),
@@ -346,6 +353,7 @@ export function parseFlexXml(xml: string): FlexDocument {
     toDate: isoDate(statement.attrs.toDate),
     whenGenerated: isoDateTime(statement.attrs.whenGenerated),
     sectionsPresent,
+    sectionsUnmodelled,
 
     trades: rowsOf(statement, 'Trades').map((a) => ({
       tradeID: str(a.tradeID),
