@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-08-25T14:44:23Z",
+  "generated_at": "2026-08-25T14:48:24Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260825-1849",
+      "headline": "Gandhi Special Tubes Limited: Gandhi Special Tubes Limited has informed the Exchange about Buyback- Update regarding the Buyback Offer of up to 8,68,100 fully paid-up Equity Shares of Face Value of Rs. 5/- each of Gandhi Special Tubes Limited ( the Company ) at a price of INR 900/- per Equity Share through tender offer route ( Buyback Offer ) -Copy of Letter of Offer and Tender Form",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/GANDHITUBE_25082026200827_LOF.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-25T14:38:44Z",
+      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
+      "prelim_note": "The company is executing a buyback of 868,100 shares at a price of INR 900 per share.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company is executing a buyback of 868,100 shares at a price of INR 900 per share.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Gandhi Special Tubes Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260825-1848",
       "headline": "ZT HN GROUP (02433): PROFIT WARNING",
@@ -1913,56 +1962,6 @@
           "name": "WAM Income Maximiser",
           "ticker": "WMX",
           "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260825-007",
-      "headline": "CHINA CBS INTL (00989): DESPATCH OF CIRCULAR RELATING TO (i) RESTRUCTURING FRAMEWORK AGREEMENT IN RELATION TO THE PROPOSED RESTRUCTURING INVOLVING THE SUBSCRIPTION AND THE SCHEME; (ii) CONNECTED TRANSACTION - SUBSCRIPTION AND ISSUE OF SCHEME SHARES UNDER SPECIFIC MANDATE; AND (iii) SPECIAL DEAL",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0825/2026082500113.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-24T23:27:00Z",
-      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
-      "prelim_note": "The company is moving forward with a formal restructuring framework and connected subscription transaction.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "The company is moving forward with a formal restructuring framework and connected subscription transaction.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "restructuring_layoffs",
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "China CBS International",
-          "ticker": "00989",
-          "listing_country": "CN"
         }
       ],
       "size_bucket": "small",
@@ -90023,9 +90022,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1897724,
-    "news_picked_today": 3399,
-    "news_dropped_today": 11265
+    "news_seen_today": 1917263,
+    "news_picked_today": 3402,
+    "news_dropped_today": 11274
   },
   "book_momentum": {
     "live_count": 8,
