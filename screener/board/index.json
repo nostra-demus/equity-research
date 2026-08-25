@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-08-25T15:18:32Z",
+  "generated_at": "2026-08-25T15:33:18Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260825-1851",
+      "headline": "BFB HEALTH (00205): POSITIVE PROFIT ALERT",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0825/2026082502225.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-25T14:40:00Z",
+      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
+      "prelim_note": "A positive profit alert indicates better-than-expected financial performance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A positive profit alert indicates better-than-expected financial performance.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BFB Health",
+          "ticker": "00205",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260825-1849",
       "headline": "Gandhi Special Tubes Limited: Gandhi Special Tubes Limited has informed the Exchange about Buyback- Update regarding the Buyback Offer of up to 8,68,100 fully paid-up Equity Shares of Face Value of Rs. 5/- each of Gandhi Special Tubes Limited ( the Company ) at a price of INR 900/- per Equity Share through tender offer route ( Buyback Offer ) -Copy of Letter of Offer and Tender Form",
@@ -1916,55 +1965,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260825-001",
-      "headline": "WMX: WAM Income Maximiser Entitlement Offer raises $172.4m [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.WMX?key=2924-03125574-2A1691774",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-24T23:49:35Z",
-      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
-      "prelim_note": "WAM Income Maximiser raised 172.4 million AUD through an entitlement offer.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "WAM Income Maximiser raised 172.4 million AUD through an entitlement offer.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "capital_actions",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "WAM Income Maximiser",
-          "ticker": "WMX",
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -90171,9 +90171,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2075393,
-    "news_picked_today": 3463,
-    "news_dropped_today": 11345
+    "news_seen_today": 2175631,
+    "news_picked_today": 3479,
+    "news_dropped_today": 11425
   },
   "book_momentum": {
     "live_count": 8,
