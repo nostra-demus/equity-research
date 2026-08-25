@@ -102,8 +102,8 @@ check('a truncated download is rejected rather than parsed into a partial book',
 })
 
 check('row counts', () => {
-  assert.equal(doc.trades.length, 10)
-  assert.equal(doc.openPositions.length, 3)
+  assert.equal(doc.trades.length, 11)
+  assert.equal(doc.openPositions.length, 4)
   assert.equal(doc.cashTransactions.length, 7)
   assert.equal(doc.corporateActions.length, 1)
   assert.equal(doc.equitySummary.length, 4)
