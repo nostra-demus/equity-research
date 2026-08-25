@@ -43,6 +43,7 @@ import { buildSourcesReport } from './news/source-health'
 import { loadTheme, buildThemeDetail } from './news/themes/store'
 import type { ThemeGeo } from './news/themes/geo-index'
 import { createThemesIndexReader } from './news/themes/api-index'
+import { deleteStatement, readPortfolio, saveStatement, STATEMENT_MAX_BYTES } from './portfolio-store'
 import { buildThemeBrief } from './news/themes/brief'
 import { enrichEvent, listCoveredTickers, peekCachedEnrichment } from './news/enrich'
 import { verdictOf } from './news/impact-floor'
@@ -3365,6 +3366,77 @@ app.get('/api/quote', { config: { rateLimit: { max: 600, timeWindow: '1 minute' 
       })
     : null
   return { ticker, quote: o.quote, call, reason: o.reason }
+})
+
+// ---------- fund book (portfolio-store.ts) ----------
+// The REAL book, fed by IBKR Flex exports. Distinct from the engine's model paper-portfolio
+// (/research:size), which answers what the research SAID to own; this answers what is actually held.
+//
+// Statements are the source of truth and the book is rebuilt from them on read, so these routes never
+// write a derived number anywhere. Everything lands under STATE_DIR, which is git-ignored: the book is
+// private financial data, not research output.
+
+app.get('/api/portfolio', async (_req, reply) => {
+  try {
+    return readPortfolio()
+  } catch (e: any) {
+    return reply.code(500).send({ error: 'cannot read the fund book', detail: String(e?.message || e) })
+  }
+})
+
+app.post('/api/portfolio/statements', { config: { rateLimit: { max: 30, timeWindow: '1 minute' } } }, async (req, reply) => {
+  if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request rejected' })
+  if (!req.isMultipart()) return reply.code(400).send({ error: 'expected multipart' })
+
+  const saved: unknown[] = []
+  const duplicates: string[] = []
+  const fileErrors: { filename: string; reason: string }[] = []
+  // The whole iteration is wrapped: req.parts() can throw mid-stream, and losing that would discard
+  // statements already accepted in an earlier turn of the loop.
+  try {
+    for await (const part of req.parts()) {
+      if (part.type !== 'file') continue
+      const filename = part.filename || 'statement.xml'
+      const chunks: Buffer[] = []
+      let bytes = 0
+      let tooBig = false
+      for await (const c of part.file as any) {
+        const chunk = c as Buffer
+        bytes += chunk.length
+        // Over the cap: stop accumulating but KEEP DRAINING. Breaking out of a `for await` destroys the
+        // part stream, and req.parts() cannot advance past a destroyed file — the request would hang
+        // with no response at all instead of a clean rejection.
+        if (bytes > STATEMENT_MAX_BYTES) { tooBig = true; chunks.length = 0; continue }
+        chunks.push(chunk)
+      }
+      if (tooBig || (part.file as any).truncated) {
+        fileErrors.push({ filename, reason: `larger than ${Math.round(STATEMENT_MAX_BYTES / 1024 / 1024)}MB` })
+        continue
+      }
+      try {
+        // saveStatement parses before it writes, so an unreadable file never reaches the store.
+        const result = saveStatement(Buffer.concat(chunks).toString('utf8'), filename)
+        if (result.status === 'duplicate') duplicates.push(filename)
+        else saved.push(result.statement)
+      } catch (e: any) {
+        fileErrors.push({ filename, reason: String(e?.message || e) })
+      }
+    }
+  } catch (e: any) {
+    fileErrors.push({ filename: '(request)', reason: String(e?.message || e) })
+  }
+
+  if (!saved.length && !duplicates.length) {
+    return reply.code(400).send({ error: 'no statement was accepted', fileErrors })
+  }
+  return { saved, duplicates, fileErrors, ...readPortfolio() }
+})
+
+app.delete('/api/portfolio/statements/:id', async (req, reply) => {
+  if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request rejected' })
+  const id = String((req.params as any).id ?? '')
+  if (!deleteStatement(id)) return reply.code(404).send({ error: 'not found' })
+  return readPortfolio()
 })
 
 // ---------- watchlist (watchlist.ts) ----------

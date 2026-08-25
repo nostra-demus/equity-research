@@ -8,7 +8,7 @@ import type { BridgeStatus } from './types'
 import { parseMemoryRead, unavailableMemoryRead } from './memoryView'
 import { publishedPaperExecutionResult } from './paperPortfolioView'
 import { normalizeProvidersRead, normalizeProviderStatus, providerCatalogForError, providerCatalogUnknown, providerLaunchFields, type FrozenProviderLaunch, type ProviderExecutionProfile, type ProvidersRead, type RunProvider } from './provider'
-import type { ActivityQuery, ActivityResult, AddPipelineSourceInput, BuildStep, CallsResult, ChatComputed, ChatConversationDetail, ChatListQuery, ChatListResult, ChatRequest, ChatScopes, CockpitFeedbackCategory, CockpitFeedbackStatus, CockpitFeedbackView, CompletedChatTurn, CoverageGroup, DataNeedsRead, DataNeedUploadRead, DataStatus, DiscoveredFeed, EventEnrichment, EventResearchLink, FeedbackRecord, FeedbackSubmitInput, FeedbackSummary, FeedbackType, FeedItem, IbkrPaperPortfolioRead, IntakePlan, IntensityStats, IntensityWindow, LaunchableRunKind, LaunchPreflight, MemoryRead, NewsChatEvidence, NewsChatReceipt, NewsChatRequest, NewsCycle, NewsDiagnostics, NewsStatus, PaperExecutionResult, PipelineAuditEvent, PipelineTrend, PipelineView, QuoteRead, ResumableRunInfo, RunHistoryEntry, RunKind, ScanVerdict, ScreenerBoard, SignalIntakeInput, SignalState, SourcesReport, SwarmGraph, SwarmMeta, SwarmSubjectSummary, ThesisPlan, TickerSummary, UploadResult, Usage, WhatChangedRead, Whoami } from './types'
+import type { ActivityQuery, ActivityResult, AddPipelineSourceInput, BuildStep, CallsResult, ChatComputed, ChatConversationDetail, ChatListQuery, ChatListResult, ChatRequest, ChatScopes, CockpitFeedbackCategory, CockpitFeedbackStatus, CockpitFeedbackView, CompletedChatTurn, CoverageGroup, DataNeedsRead, DataNeedUploadRead, DataStatus, DiscoveredFeed, EventEnrichment, EventResearchLink, FeedbackRecord, FeedbackSubmitInput, FeedbackSummary, FeedbackType, FeedItem, IbkrPaperPortfolioRead, IntakePlan, IntensityStats, IntensityWindow, LaunchableRunKind, LaunchPreflight, MemoryRead, NewsChatEvidence, NewsChatReceipt, NewsChatRequest, NewsCycle, NewsDiagnostics, NewsStatus, PaperExecutionResult, PipelineAuditEvent, PipelineTrend, PipelineView, QuoteRead, PortfolioRead, PortfolioUploadResult, ResumableRunInfo, RunHistoryEntry, RunKind, ScanVerdict, ScreenerBoard, SignalIntakeInput, SignalState, SourcesReport, SwarmGraph, SwarmMeta, SwarmSubjectSummary, ThesisPlan, TickerSummary, UploadResult, Usage, WhatChangedRead, Whoami } from './types'
 
 // Vite supplies `import.meta.env` in the app; standalone tsx regression tests do not.
 const BASE = import.meta.env?.BASE_URL || '/'
@@ -1137,6 +1137,36 @@ export const api = {
   paperPortfolioSync: async (): Promise<PaperExecutionResult> => paperCommand('/api/calls/paper-portfolio/sync', 'SYNC PAPER', 'sync'),
   paperOrderCancel: async (orderId: number): Promise<PaperExecutionResult> => paperCommand(`/api/calls/paper-orders/${encodeURIComponent(orderId)}/cancel`, 'CANCEL PAPER', 'cancel'),
   paperPositionClose: async (contractId: number): Promise<PaperExecutionResult> => paperCommand(`/api/calls/paper-positions/${encodeURIComponent(contractId)}/close`, 'CLOSE PAPER', 'close'),
+  // ---- fund book (the REAL portfolio, fed by IBKR Flex exports) ----
+  portfolio: async (): Promise<PortfolioRead> => {
+    if ((await ensureMode()) === 'static') return { statements: [], book: null, error: null }
+    return get('/api/portfolio')
+  },
+  uploadStatements: async (files: File[], onProgress?: (frac: number) => void): Promise<PortfolioUploadResult> => {
+    if ((await ensureMode()) === 'static') throw STATIC_ERR()
+    const fd = new FormData()
+    for (const f of files) fd.append('file', f, f.name)
+    // XHR rather than fetch: a year of statement is megabytes, and upload progress is the difference
+    // between "is it working?" and a visible bar.
+    return new Promise((resolve, reject) => {
+      const xhr = new XMLHttpRequest()
+      xhr.open('POST', '/api/portfolio/statements')
+      if (onProgress) xhr.upload.onprogress = (e) => { if (e.lengthComputable) onProgress(e.loaded / e.total) }
+      xhr.onload = () => {
+        let j: any = {}
+        try { j = JSON.parse(xhr.responseText) } catch { /* non-JSON error body */ }
+        if (xhr.status >= 200 && xhr.status < 300) resolve(j as PortfolioUploadResult)
+        else reject(Object.assign(new Error(j?.error || `upload failed (${xhr.status})`), { status: xhr.status, body: j }))
+      }
+      xhr.onerror = () => reject(new Error('upload failed — the engine did not respond'))
+      xhr.send(fd)
+    })
+  },
+  deleteStatement: async (id: string): Promise<PortfolioRead> => {
+    if ((await ensureMode()) === 'static') throw STATIC_ERR()
+    return del(`/api/portfolio/statements/${encodeURIComponent(id)}`)
+  },
+
   history: async (ticker: string): Promise<{ history: RunHistoryEntry[] }> => {
     if ((await ensureMode()) === 'static') return { history: [] }
     return get(`/api/runs?ticker=${encodeURIComponent(ticker)}`)

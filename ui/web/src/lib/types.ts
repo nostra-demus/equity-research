@@ -2029,6 +2029,72 @@ export interface SwarmSubjectSummary {
 
 // One row of a ticker's run history (GET /api/runs?ticker=…). Newest-first; a run with no decision record
 // is a partial / single-module re-run that never became the standing verdict.
+// ---- fund book (the REAL portfolio, fed by IBKR Flex exports) ----
+// Deliberately separate from the engine's MODEL paper-portfolio: that answers what the research said to
+// own, this answers what is actually held.
+export interface PortfolioStatement {
+  id: string
+  filename: string
+  bytes: number
+  uploadedAt: string
+  accountId: string | null
+  fromDate: string | null
+  toDate: string | null
+  trades: number
+}
+export interface PortfolioCheck {
+  name: string
+  ours: number | null
+  broker: number | null
+  break: number | null
+  tolerance: number
+  ok: boolean
+  detail: string
+}
+export interface PortfolioPosition {
+  symbol: string | null
+  conid: string | null
+  assetCategory: string | null
+  currency: string | null
+  quantity: number | null
+  markPrice: number | null
+  costBasisPrice: number | null
+  costBasisMoney: number | null
+  positionValue: number | null
+  percentOfNAV: number | null
+  unrealizedLocal: number | null
+  fxRateToBase: number | null
+  multiplier: number | null
+  /** Futures and options carry NOTIONAL, not a NAV allocation — never weight them like equity. */
+  isDerivative: boolean
+}
+export interface PortfolioBook {
+  accountId: string | null
+  baseCurrency: string | null
+  asOf: string | null
+  coverage: { from: string | null; to: string | null; documents: number }
+  sectionsPresent: string[]
+  sectionsUnmodelled: string[]
+  positions: PortfolioPosition[]
+  closures: unknown[]
+  flows: { date: string | null; currency: string | null; amount: number; amountBase: number | null; description: string | null }[]
+  income: { dividendsGross: number; withholdingTax: number; paymentInLieu: number; interest: number; fees: number; net: number }
+  navSeries: { date: string; total: number }[]
+  twr: number | null
+  reconciliation: { ok: boolean; checks: PortfolioCheck[] }
+  warnings: string[]
+}
+export interface PortfolioRead {
+  statements: PortfolioStatement[]
+  book: PortfolioBook | null
+  error: string | null
+}
+export interface PortfolioUploadResult extends PortfolioRead {
+  saved: PortfolioStatement[]
+  duplicates: string[]
+  fileErrors: { filename: string; reason: string }[]
+}
+
 export interface RunHistoryEntry {
   runRoot: string
   date: string
