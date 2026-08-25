@@ -9,9 +9,9 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { readFeed } from '../feed'
 import { deriveSourceTier } from '../scope'
-import { companyKeys } from '../text-match'
+import { companyKeys, normName } from '../text-match'
 import type { FeedItem } from '../types'
-import type { Theme, ThemeSummary, ThemesIndex, ThemeMutation, ThemeTier, ThemeDetail, CompaniesByOrder, ThemeItemView, ThemeCompany, ThemeEvidence, ThemeMember, ThemeQualifiedExpression, ThemeNarrative, ThemeCompilerAttempt } from './types'
+import type { Theme, ThemeSummary, ThemesIndex, ThemeMutation, ThemeTier, ThemeDetail, CompaniesByOrder, ThemeItemView, ThemeCompany, ThemeEvidence, ThemeMember, ThemeQualifiedExpression, ThemeNarrative, ThemeCompilerAttempt, ThemePlayer } from './types'
 import { buildWhyIndex, buildCompanyWhy } from './why'
 import { compareThemeSummaries, companiesForMembers, firstSeenForMembers, qualifyTheme, uniqueThemeMembers } from './qualification'
 import { cleanTicker } from '../symbology'
@@ -153,6 +153,62 @@ function normalizeNarrative(v: unknown, members: ThemeMember[]): ThemeNarrative 
   }
 }
 
+function normalizePlayers(v: unknown, members: ThemeMember[]): ThemePlayer[] {
+  if (!Array.isArray(v)) return []
+  const memberIds = new Set(members.map((member) => member.event_id))
+  const relationships = new Set(['direct_subject', 'parent', 'supplier', 'customer', 'competitor', 'substitute', 'other'])
+  return v.flatMap((value: unknown) => {
+    const row = object(value)
+    if (!row || typeof row.name !== 'string' || !row.name.trim() || ![1, 2].includes(row.order)
+      || !['beneficiary', 'harmed', 'unclear'].includes(row.side)
+      || !relationships.has(row.relationship)
+      || typeof row.mechanism !== 'string' || !row.mechanism.trim()
+      || !['source_statement', 'engine_inference'].includes(row.mechanism_basis)) return []
+    const evidence = (Array.isArray(row.evidence) ? row.evidence : []).reduce<ThemePlayer['evidence']>((out, rawEvidence: unknown) => {
+      const e = object(rawEvidence)
+      if (!e || (e.kind !== 'news' && e.kind !== 'relationship_export')) return out
+      if (e.kind === 'news') {
+        const eventId = typeof e.event_id === 'string' && memberIds.has(e.event_id) ? e.event_id : ''
+        const publishedAt = iso(e.published_at)
+        const url = exactThemeEvidenceUrl(e.url)
+        if (!eventId || !publishedAt || !url || typeof e.headline !== 'string' || !e.headline.trim()
+          || typeof e.publisher !== 'string' || !e.publisher.trim()) return out
+        out.push({
+          kind: 'news' as const, event_id: eventId, headline: e.headline.trim().slice(0, 500),
+          publisher: e.publisher.trim().slice(0, 160), url, published_at: publishedAt,
+          source_ref: null, source_file: null,
+        })
+        return out
+      }
+      const sourceRef = typeof e.source_ref === 'string' && e.source_ref.trim() ? e.source_ref.trim().slice(0, 500) : null
+      const sourceFile = typeof e.source_file === 'string' && e.source_file.trim() ? e.source_file.trim().slice(0, 1000) : null
+      if (!sourceRef && !sourceFile) return out
+      out.push({
+        kind: 'relationship_export' as const, event_id: null, headline: null, publisher: null, url: null,
+        published_at: null, source_ref: sourceRef, source_file: sourceFile,
+      })
+      return out
+    }, [])
+    if (!evidence.length) return []
+    const ticker = row.listing_status === 'verified_public' ? cleanTicker(row.ticker) : null
+    const exactNews = evidence.some((e) => e.kind === 'news')
+    const articleSecondOrder = row.order === 2 && exactNews && row.relationship !== 'direct_subject' && row.relationship !== 'other'
+    const ideaEligible = Boolean(row.idea_eligible && ticker && exactNews && row.side !== 'unclear'
+      && (row.order === 1 || articleSecondOrder))
+    return [{
+      name: row.name.trim().slice(0, 160), ticker,
+      listing_status: ticker ? 'verified_public' as const : 'no_verified_listing' as const,
+      order: row.order as 1 | 2,
+      side: row.side as ThemePlayer['side'],
+      relationship: row.relationship as ThemePlayer['relationship'],
+      mechanism: row.mechanism.trim().slice(0, 400),
+      mechanism_basis: row.mechanism_basis as ThemePlayer['mechanism_basis'],
+      evidence,
+      idea_eligible: ideaEligible,
+    }]
+  }).slice(0, 30)
+}
+
 /** Normalize the untrusted append-only runtime boundary. A valid-JSON but partial newest mutation must not
  * replace a prior good row and crash every index read/cycle. Irrecoverable rows return null, so loadThemes
  * keeps the last valid mutation for that id; compatible missing optional fields get conservative defaults. */
@@ -234,6 +290,8 @@ function normalizeTheme(v: unknown): Theme | null {
   const flowSeries = Array.isArray(raw.flow_series) ? raw.flow_series.map((n: unknown) => Math.max(0, Math.floor(finite(n)))).slice(-48) : []
   const flowDaily = Array.isArray(raw.flow_daily) ? raw.flow_daily.map((n: unknown) => Math.max(0, Math.floor(finite(n)))).slice(-120) : undefined
   const narrative = normalizeNarrative(raw.narrative, members)
+  const playerContractVersion = raw.player_contract_version === 1 && narrative ? 1 as const : undefined
+  const players = playerContractVersion ? normalizePlayers(raw.players, members) : []
   // Before the versioned narrative contract, successful Claude/Groq naming produced model-labelled live
   // rows with no migration flags. Queue their complete retained audit for a fresh contract pass instead of
   // letting a rollout report an empty board and no compiler debt. Invalid generic-LLM provenance follows
@@ -293,10 +351,14 @@ function normalizeTheme(v: unknown): Theme | null {
     generation,
     ...(generation === 'llm' && validatorProvider ? { validator_provider: validatorProvider } : {}),
     ...(narrative ? { narrative } : {}),
+    ...(playerContractVersion ? { player_contract_version: playerContractVersion, players } : {}),
+    ...(playerContractVersion && typeof raw.player_evidence_fingerprint === 'string' && raw.player_evidence_fingerprint.trim()
+      ? { player_evidence_fingerprint: raw.player_evidence_fingerprint.trim().slice(0, 64) } : {}),
     rev: Math.max(0, Math.floor(finite(raw.rev))),
     ...(raw.needs_rename === true || migrationNeedsRename ? { needs_rename: true } : {}),
     ...(generation === 'deterministic' && raw.needs_validation === true ? { needs_validation: true } : {}),
     ...(narrativeUpdateOverflow || (Boolean(narrative) && raw.needs_narrative_update === true) ? { needs_narrative_update: true } : {}),
+    ...(narrative && raw.needs_player_revalidation === true ? { needs_player_revalidation: true } : {}),
     ...(tracksNarrativeDebt ? { pending_narrative_event_ids: pendingNarrativeIds } : {}),
     ...(narrativeUpdateOverflow ? { narrative_update_overflow: true } : {}),
     ...(iso(raw.validation_queued_at) ? { validation_queued_at: iso(raw.validation_queued_at) } : {}),
@@ -482,34 +544,37 @@ const MAX_QUALIFIED_EXPRESSIONS = 4
 function qualifiedExpressions(
   theme: Theme,
   companies: ThemeCompany[],
-  members: ThemeMember[],
+  players: ThemePlayer[],
   evidence: ThemeEvidence[],
   actionable: boolean,
 ): ThemeQualifiedExpression[] {
   if (!actionable || !theme.narrative) return []
-  const memberById = new Map(members.map((member) => [member.event_id, member]))
   const companyByKey = new Map(companies.map((company) => [company.name_key, company]))
   const visibleEvidence = new Set(evidence.filter((row) => row.stance === 'supports').map((row) => row.event_id))
   const out: ThemeQualifiedExpression[] = []
-  for (const expression of theme.narrative.expressions) {
-    const company = companyByKey.get(expression.name_key)
-    if (!company) continue
-    const ticker = cleanTicker(company.ticker)
-    if (!ticker || !expression.mechanism?.trim()) continue
-    const proofIds = expression.evidence_event_ids.filter((eventId) => {
-      if (!visibleEvidence.has(eventId)) return false
-      const memberCompanies = memberById.get(eventId)?.companies
-      return companyKeys(Array.isArray(memberCompanies) ? memberCompanies : []).has(company.name_key)
-    })
+  for (const player of players) {
+    if (!player.idea_eligible || player.listing_status !== 'verified_public' || player.side === 'unclear') continue
+    const ticker = cleanTicker(player.ticker)
+    if (!ticker || !player.mechanism?.trim()) continue
+    const nameKey = normName(player.name)
+    const company = companyByKey.get(nameKey)
+    const proofIds = player.evidence.flatMap((row) => row.kind === 'news' && row.event_id && visibleEvidence.has(row.event_id) ? [row.event_id] : [])
     if (!proofIds.length) continue
+    const role: ThemeQualifiedExpression['role'] = player.side === 'harmed'
+      ? 'harmed'
+      : player.relationship === 'direct_subject'
+        ? 'direct'
+        : player.relationship === 'competitor' || player.relationship === 'substitute'
+          ? 'hedge'
+          : 'enabler'
     out.push({
-      name: company.name,
-      name_key: company.name_key,
+      name: player.name,
+      name_key: nameKey,
       ticker,
-      listing_country: company.listing_country ?? null,
-      side: expression.side,
-      role: expression.role,
-      mechanism: expression.mechanism,
+      listing_country: company?.listing_country ?? null,
+      side: player.side === 'harmed' ? 'harmed' : 'beneficiary',
+      role,
+      mechanism: player.mechanism,
       evidence_event_ids: [...new Set(proofIds)].slice(0, 3),
     })
     if (out.length >= MAX_QUALIFIED_EXPRESSIONS) break
@@ -538,6 +603,7 @@ export function buildSummary(t: Theme, now: Date = new Date(), companyProjection
     ? rebuiltCompanies.filter((company) => admittedCompanyKeys.has(company.name_key))
     : rebuiltCompanies
   const qualified = qualifyTheme(t, now, members, companies, scoped)
+  const players = qualified.players
   const coreFirstSeen = firstSeenForMembers(coreMembers, t.first_seen)
   // Heat and every time-window series are evidence projections too. Reusing the persisted all-member
   // score here let hundreds of explicitly excluded rows make a two-row thesis the largest/hottest node.
@@ -548,7 +614,7 @@ export function buildSummary(t: Theme, now: Date = new Date(), companyProjection
   const expressions = qualifiedExpressions(
     t,
     companies,
-    qualified.supporting_members,
+    players,
     qualified.evidence,
     qualified.assessment.status === 'actionable',
   )
@@ -585,6 +651,14 @@ export function buildSummary(t: Theme, now: Date = new Date(), companyProjection
     conviction: qualified.assessment.conviction,
     off_core_member_count: qualified.off_core_members.length,
     qualified_expressions: expressions,
+    idea_ready: qualified.idea_admission.admitted,
+    idea_blockers: [...qualified.idea_admission.blockers],
+    player_counts: {
+      first_order: players.filter((player) => player.order === 1).length,
+      second_order: players.filter((player) => player.order === 2).length,
+      verified_public: players.filter((player) => player.listing_status === 'verified_public').length,
+      idea_eligible: players.filter((player) => player.idea_eligible).length,
+    },
     top_companies: visibleCompanies.map((c) => ({
       name: c.name,
       ticker: cleanTicker(c.ticker),
@@ -759,7 +833,12 @@ export function loadTheme(repoRoot: string, themeId: string): Theme | null {
 /** The deep-dive payload: resolve the theme's member event_ids → full FeedItems (newest/best first),
  *  and group its companies by order tier. Members not found in the recent feed fall back to a minimal
  *  row built from the stored member record, so the deep-dive is never empty for a live theme. */
-export function buildThemeDetail(repoRoot: string, theme: Theme): ThemeDetail {
+export interface ThemeDetailProjection {
+  members?: ThemeMember[]
+  now?: Date
+}
+
+export function buildThemeDetail(repoRoot: string, theme: Theme, projection: ThemeDetailProjection = {}): ThemeDetail {
   let feedById = new Map<string, FeedItem>()
   try {
     const feed = readFeed(repoRoot, 2)
@@ -770,10 +849,12 @@ export function buildThemeDetail(repoRoot: string, theme: Theme): ThemeDetail {
   // The detail uses the same unique-story proof as the first-look summary. Otherwise opening a clean
   // briefing row could bring back ten syndicated copies and copy-inflated company placement from a
   // legacy ledger row.
-  const rawMembers = Array.isArray(theme.members) ? theme.members : []
+  const allMembers = Array.isArray(theme.members) ? theme.members : []
+  const rawMembers = Array.isArray(projection.members) ? projection.members : allMembers
+  const scoped = Array.isArray(projection.members)
   const uniqueMembers = uniqueThemeMembers(rawMembers)
   const initialCompanies = companiesForMembers(theme, uniqueMembers)
-  const qualified = qualifyTheme(theme, new Date(), rawMembers, initialCompanies)
+  const qualified = qualifyTheme(theme, projection.now || new Date(), rawMembers, initialCompanies, scoped)
   // Detail, summary and brief share the exact same thesis evidence. The hundreds of excluded rows in a
   // polluted legacy bag are diagnostics only and never reappear as “news in this theme”.
   const proofMembers = [...qualified.supporting_members, ...qualified.challenging_members]
@@ -813,7 +894,26 @@ export function buildThemeDetail(repoRoot: string, theme: Theme): ThemeDetail {
   // Default the array pass-throughs so a malformed theme degrades gracefully on the CLIENT too: the deep
   // dive dereferences `detail.related_themes.length` (and maps sectors/keywords), so a missing/non-array
   // field here would crash `ThemeDeepDive` even though the server got past buildSummary.
-  const summary = buildSummary(theme)
+  const summary = buildSummary(theme, projection.now || new Date(), scoped ? initialCompanies : undefined, scoped ? rawMembers : undefined)
+  const players = qualified.players
+  const playerProofIds = new Set(players.flatMap((player) => player.evidence.flatMap((row) => row.event_id ? [row.event_id] : [])))
+  const whyNowId = theme.narrative?.why_now_event_id
+  const evidenceNews = [
+    ...qualified.supporting_members.map((member) => ({ member, stance: 'supports' as const })),
+    ...qualified.challenging_members.map((member) => ({ member, stance: 'challenges' as const })),
+  ].sort((a, b) => Date.parse(b.member.found_at) - Date.parse(a.member.found_at)).map(({ member, stance }) => ({
+    event_id: member.event_id,
+    headline: (member.headline_en || member.headline || '').trim(),
+    publisher: member.source_name?.trim() || null,
+    url: exactThemeEvidenceUrl(member.url),
+    published_at: member.found_at,
+    stance,
+    roles: [
+      ...(member.event_id === whyNowId ? ['why_now' as const] : []),
+      stance === 'supports' ? 'support' as const : 'challenge' as const,
+      ...(playerProofIds.has(member.event_id) ? ['player_proof' as const] : []),
+    ],
+  }))
   return {
     theme: summary,
     // Keep the compatibility field, but derive it from the same core-only projection as the header.
@@ -821,6 +921,21 @@ export function buildThemeDetail(repoRoot: string, theme: Theme): ThemeDetail {
     scores: summary.score_components,
     members,
     companies_by_order: byOrder,
+    formation: {
+      shared_narrative_anchors: theme.narrative?.anchor_terms || ['', ''],
+      distinct_news_count: evidenceNews.length,
+      publisher_count: new Set(evidenceNews.map((row) => row.publisher).filter(Boolean)).size,
+      supporting_count: evidenceNews.filter((row) => row.stance === 'supports').length,
+      challenging_count: evidenceNews.filter((row) => row.stance === 'challenges').length,
+      excluded_off_theme_count: qualified.off_core_members.length,
+      first_seen: firstSeenForMembers(proofMembers, theme.first_seen),
+      validated_at: theme.narrative?.validated_at || '',
+    },
+    players: {
+      first_order: players.filter((player) => player.order === 1),
+      second_order: players.filter((player) => player.order === 2),
+    },
+    evidence_news: evidenceNews,
     sectors: Array.isArray(theme.sectors) ? theme.sectors : [],
     related_themes: Array.isArray(theme.related_themes) ? theme.related_themes : [],
     keywords: Array.isArray(theme.keywords) ? theme.keywords : [],

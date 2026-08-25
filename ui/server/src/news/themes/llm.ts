@@ -605,7 +605,9 @@ function applyProposals(
       const nameKey = text(value?.name_key, 160)
       const company = companyByKey.get(nameKey)
       const mechanism = text(value?.mechanism, 300)
-      if (!company || !cleanTicker(company.ticker) || !mechanism || seenExpressions.has(nameKey)) continue
+      // Keep an evidence-bound named company even when it has no ticker guess. Listing verification is a
+      // separate authority; dropping it here made “no verified listing” indistinguishable from no player.
+      if (!company || !mechanism || seenExpressions.has(nameKey)) continue
       if (!roles.has(value?.role) || (value?.side !== 'beneficiary' && value?.side !== 'harmed')) continue
       if (value.role === 'harmed' && value.side !== 'harmed') return
       const evidenceIds: string[] = (Array.isArray(value?.evidence_event_ids) ? value.evidence_event_ids as unknown[] : [])
@@ -696,6 +698,8 @@ function applyProposals(
       expressions,
       validated_at: now.toISOString().replace(/\.\d{3}Z$/, 'Z'),
     }
+    t.player_contract_version = 1
+    delete t.needs_player_revalidation
     t.generation = generation
     if (generation === 'llm' && validatorProvider) t.validator_provider = validatorProvider
     else delete t.validator_provider

@@ -41,7 +41,8 @@ import { getIntensity, INTENSITY_WINDOWS, type IntensityWindow } from './news/in
 import { getRankWeights, defaultRankWeights, saveRankWeights, resetRankWeights, rankWeightsCustomised, type RankWeights } from './news/rank-weights'
 import { buildSourcesReport } from './news/source-health'
 import { loadTheme, buildThemeDetail } from './news/themes/store'
-import type { ThemeGeo } from './news/themes/geo-index'
+import { memberMatchesGeo, type ThemeGeo } from './news/themes/geo-index'
+import { memberMatchesCommodity } from './news/themes/commodity-index'
 import { createThemesIndexReader } from './news/themes/api-index'
 import { buildThemeBrief } from './news/themes/brief'
 import { enrichEvent, listCoveredTickers, peekCachedEnrichment } from './news/enrich'
@@ -5318,7 +5319,19 @@ app.get('/api/news/themes/:id', async (req, reply) => {
   if (!THEME_RE.test(id)) return reply.code(400).send({ error: 'bad theme id' })
   const theme = loadTheme(REPO_ROOT, id)
   if (!theme) return reply.code(404).send({ error: 'theme not found' })
-  return buildThemeDetail(REPO_ROOT, theme)
+  const q = (req.query as any) || {}
+  const geo: ThemeGeo = {
+    country: typeof q.country === 'string' && q.country.trim() ? q.country.trim().toUpperCase() : undefined,
+    geoRegion: typeof q.geoRegion === 'string' && q.geoRegion.trim() ? q.geoRegion.trim() : undefined,
+  }
+  const subject = typeof q.commodity === 'string' && q.commodity.trim() ? q.commodity.trim().toUpperCase() : undefined
+  const commodityScoped = subject !== undefined || (typeof q.scope === 'string' && q.scope.trim() === 'commodity')
+  const scoped = Boolean(geo.country || geo.geoRegion || commodityScoped)
+  const members = scoped ? theme.members.filter((member) => {
+    if ((geo.country || geo.geoRegion) && !memberMatchesGeo(member, geo)) return false
+    return !commodityScoped || memberMatchesCommodity(member, { commodity: subject, geo: null })
+  }) : undefined
+  return buildThemeDetail(REPO_ROOT, theme, members ? { members } : {})
 })
 // On-demand BRIEF for ONE opened theme — the few-sentence plain-English explainer of what the theme is
 // about and what's happening. Built from the theme's own member headlines by one free Groq pass, cached

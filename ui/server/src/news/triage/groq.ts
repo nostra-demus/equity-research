@@ -444,6 +444,7 @@ export interface ArticleParty {
   magnitude?: string | null // rough size ONLY where the body supports it ("~12% of revenue", "₹1,800cr"), else null
   horizon?: string | null // when it bites ("this quarter", "12-18m"), else null
   order?: PartyOrder | null // first = directly hit/named; second = downstream/supplier/substitute
+  relationship?: 'direct_subject' | 'parent' | 'supplier' | 'customer' | 'competitor' | 'substitute' | 'other' | null
 }
 // Does this event move earnings / guidance / valuation / the thesis / risk / a portfolio decision — the
 // structured, quantified sibling of GIST (which just states what happened). Every enum defaults safely
@@ -490,7 +491,7 @@ export interface ArticleBrief {
 export const ARTICLE_SYSTEM = `You are a buy-side analyst reading ONE news article for a portfolio manager. You are given the article's BODY TEXT (not just the headline). Produce a sharp, decision-ready brief that thinks in TRANSMISSION: event -> what changes in the real economy or a business -> which LISTED, TRADABLE asset moves, in what direction, by roughly how much, over what horizon. Second-level thinking, never a plain summary.
 
 Return ONLY this JSON (use [] or "" or null whenever the body does not support a field — NEVER invent to fill it):
-{"gist":["...","..."],"story":"...","market_angle":"...","companies":[{"name":"...","ticker":null,"listing_status":"public|private|unknown","listing_country":null,"exchange":null,"role":"subject|acquirer|target|forecaster|mentioned"}],"beneficiaries":[{"name":"...","named_in_article":true,"ticker":null,"listing":null,"mechanism":"...","magnitude":null,"horizon":null,"order":"first|second"}],"exposed":[{"name":"...","named_in_article":true,"ticker":null,"listing":null,"mechanism":"...","magnitude":null,"horizon":null,"order":"first|second"}],"whats_priced":"...","the_edge":"...","watch_item":"...","theme":"<tag>","news_impact":{"impact_direction":"positive|negative|mixed|neutral|unknown","impact_magnitude":"low|medium|high|critical","affected_metric":["<zero or more SEPARATE values, each exactly one of: revenue, ebitda, pat_net_income, eps, cash_flow, debt, capex, commodity_price, valuation_multiple, regulatory_risk, thesis_quality — e.g. [\\"revenue\\",\\"eps\\"]; NEVER a single pipe-joined string>"],"quantified_impact_available":false,"extracted_numbers":["..."],"quick_dirty_calculation":"...","why_it_matters":"...","analyst_takeaway":"...","confidence":0}}
+{"gist":["...","..."],"story":"...","market_angle":"...","companies":[{"name":"...","ticker":null,"listing_status":"public|private|unknown","listing_country":null,"exchange":null,"role":"subject|acquirer|target|forecaster|mentioned"}],"beneficiaries":[{"name":"...","named_in_article":true,"ticker":null,"listing":null,"mechanism":"...","magnitude":null,"horizon":null,"order":"first|second","relationship":"direct_subject|parent|supplier|customer|competitor|substitute|other"}],"exposed":[{"name":"...","named_in_article":true,"ticker":null,"listing":null,"mechanism":"...","magnitude":null,"horizon":null,"order":"first|second","relationship":"direct_subject|parent|supplier|customer|competitor|substitute|other"}],"whats_priced":"...","the_edge":"...","watch_item":"...","theme":"<tag>","news_impact":{"impact_direction":"positive|negative|mixed|neutral|unknown","impact_magnitude":"low|medium|high|critical","affected_metric":["<zero or more SEPARATE values, each exactly one of: revenue, ebitda, pat_net_income, eps, cash_flow, debt, capex, commodity_price, valuation_multiple, regulatory_risk, thesis_quality — e.g. [\\"revenue\\",\\"eps\\"]; NEVER a single pipe-joined string>"],"quantified_impact_available":false,"extracted_numbers":["..."],"quick_dirty_calculation":"...","why_it_matters":"...","analyst_takeaway":"...","confidence":0}}
 
 GIST — 2 to 4 short bullets carrying the REAL crux: the number, threshold, call, or change that is the point. Lead with the punchline, not the setup (e.g. "sees 50-75bp of rate hikes and 5% FY27 CPI", not the CPI sub-components). Plain English, short sentences. Every number you state must appear in the body. No hype words (robust, strong, well-positioned, attractive, best-in-class). If the story is contested or two-sided, state BOTH sides. If the body is boilerplate, a cookie/ad notice, an "about us" page, or a login wall with no story, return gist [] and set theme to your best guess.
 For results, separate reported from adjusted and name any one-off behind a beat/miss (tax credit, disposal gain, customer advance) — lead with the underlying number, not the flattered one; margin moves in basis points.
@@ -506,7 +507,7 @@ BENEFICIARIES / EXPOSED — who GAINS and who is AT RISK, framed as an INVESTMEN
 - INVESTABILITY GATE: every entry must be something a fund can actually hold — a named listed firm, or a tradable sector / group / asset ("oil & gas producers", "Indian private banks", "gold", "US Treasuries"). NEVER list (in EITHER column) a sports team, an individual, a country's citizens, a government, a central bank, a regulator or agency, a market index, or a rate — these are causes or context, not positions. The central bank/regulator is the CAUSE; translate it into the tradable sectors it moves. If only non-tradable parties are affected, return [].
 - DIRECTION DISCIPLINE: a beneficiary's economics IMPROVE; an exposed party's economics WORSEN. A fine, penalty, tax, cost increase, ban, recall, or lost revenue is EXPOSURE — it is NEVER a gain. Check the sign before you place a party in a column. When a rule, tax, tariff, or penalty applies to a WHOLE sector, there is no beneficiary — put the sector under exposed and leave beneficiaries []. Only name a rival as a beneficiary when the action is firm-specific AND share genuinely shifts to that named rival. Never invent a winner just to fill the column.
 - mechanism: ONE clause stating HOW the event reaches that party's revenue / margin / cash flow / cost of capital — a real causal chain, not a label ("higher crude lifts upstream realisations", not "oil").
-- magnitude: a rough size ONLY if the body supports it ("~12% of revenue", "₹1,800cr"), else null. horizon: when it bites ("this quarter", "12-18m"), else null. order: "first" if directly hit/named, "second" if a downstream / supplier / substitute / competitor effect.
+- magnitude: a rough size ONLY if the body supports it ("~12% of revenue", "₹1,800cr"), else null. horizon: when it bites ("this quarter", "12-18m"), else null. order: "first" if directly hit/named, "second" if a downstream effect. relationship must state the body-supported link: direct_subject for first-order, otherwise parent/supplier/customer/competitor/substitute/other. Do not infer a second-order relationship the body does not state.
 - named_in_article=true for a firm the body names; false for an inferred sector/group (still put it in listing as a market where relevant). If the body supports neither side, return []. NEVER invent a named party the body doesn't support (do not guess "Capital One" off a generic consumer-credit piece). A forecaster (ICICI, JPMorgan, Pimco, Goldman) is never a beneficiary.
 
 WHATS_PRICED — one sentence: the obvious read the market has likely already taken (consensus). "" if you can't tell.
@@ -548,6 +549,8 @@ function coerceParty(raw: any): ArticleParty | null {
   if (!name) return null
   const ticker = typeof raw?.ticker === 'string' && TICKER_RE.test(raw.ticker.trim()) ? raw.ticker.trim().toUpperCase() : null
   const order: PartyOrder | null = raw?.order === 'second' ? 'second' : raw?.order === 'first' ? 'first' : null
+  const relationships = new Set(['direct_subject', 'parent', 'supplier', 'customer', 'competitor', 'substitute', 'other'])
+  const relationship = relationships.has(raw?.relationship) ? raw.relationship as ArticleParty['relationship'] : null
   return {
     name,
     named_in_article: raw?.named_in_article !== false,
@@ -559,6 +562,7 @@ function coerceParty(raw: any): ArticleParty | null {
     magnitude: str(raw?.magnitude, 48) || null,
     horizon: str(raw?.horizon, 48) || null,
     order,
+    relationship,
   }
 }
 

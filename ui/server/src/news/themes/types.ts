@@ -13,6 +13,36 @@ export type ThemeActivity = 'new' | 'reinforced' | 'challenged' | 'quiet'
 export type ThemeConviction = 'high' | 'medium' | 'watch'
 export type ThemeHorizon = 'days' | 'weeks' | 'months' | 'years'
 export type ThemeExpressionRole = 'direct' | 'bottleneck' | 'enabler' | 'harmed' | 'hedge'
+export type ThemePlayerListingStatus = 'verified_public' | 'no_verified_listing'
+export type ThemePlayerSide = 'beneficiary' | 'harmed' | 'unclear'
+export type ThemePlayerRelationship = 'direct_subject' | 'parent' | 'supplier' | 'customer' | 'competitor' | 'substitute' | 'other'
+export type ThemePlayerMechanismBasis = 'source_statement' | 'engine_inference'
+
+export interface ThemePlayerEvidence {
+  kind: 'news' | 'relationship_export'
+  event_id: string | null
+  headline: string | null
+  publisher: string | null
+  url: string | null
+  published_at: string | null
+  source_ref: string | null
+  source_file: string | null
+}
+
+/** Authoritative, source-bound player row. `ticker` is populated only after the independent listing
+ * verifier succeeds; a model/company guess that fails that lookup remains visible but non-investable. */
+export interface ThemePlayer {
+  name: string
+  ticker: string | null
+  listing_status: ThemePlayerListingStatus
+  order: 1 | 2
+  side: ThemePlayerSide
+  relationship: ThemePlayerRelationship
+  mechanism: string
+  mechanism_basis: ThemePlayerMechanismBasis
+  evidence: ThemePlayerEvidence[]
+  idea_eligible: boolean
+}
 
 /** Versioned, evidence-bound investment thesis compiled by the existing discovery validator. Raw lexical
  * clusters have no contract and remain internal Context. The model may write the hypothesis, but every
@@ -178,6 +208,12 @@ export interface Theme {
   // compiler. Legacy built-ins retain their historical `claude` / `groq` values for compatibility.
   validator_provider?: string
   narrative?: ThemeNarrative // absent on raw/legacy clusters; those fail closed until revalidated
+  /** Versioned player projection produced only after a normal validator pass. Legacy rows intentionally
+   * have no contract and therefore project empty player sections until gradual revalidation reaches them. */
+  player_contract_version?: 1
+  players?: ThemePlayer[]
+  player_evidence_fingerprint?: string
+  needs_player_revalidation?: boolean
   rev: number // bumped on every mutation (SSE dedup / change detection)
   // server-only: set when a self-heal shifted an LLM-named theme's identity enough that its persisted
   // name/description no longer describe the members (e.g. the strangers were purged). The next discovery
@@ -241,6 +277,14 @@ export interface ThemeSummary {
    * narrative-supporting evidence row that proved it; downstream consumers may narrow this set but
    * must never expand it from model output or from the display ordering of top_companies. */
   qualified_expressions: ThemeQualifiedExpression[]
+  idea_ready: boolean
+  idea_blockers: string[]
+  player_counts: {
+    first_order: number
+    second_order: number
+    verified_public: number
+    idea_eligible: number
+  }
   // The old four fields stay intact; the additive fields expose the actual listing/centrality evidence
   // behind each expression so clients do not infer it from order alone.
   top_companies: {
@@ -279,6 +323,29 @@ export interface ThemeEvidence {
   source_name: string | null
   url: string | null
   stance: ThemeEvidenceStance
+}
+
+export type ThemeEvidenceNewsRole = 'why_now' | 'support' | 'challenge' | 'player_proof'
+
+export interface ThemeEvidenceNews {
+  event_id: string
+  headline: string
+  publisher: string | null
+  url: string | null
+  published_at: string
+  stance: ThemeEvidenceStance
+  roles: ThemeEvidenceNewsRole[]
+}
+
+export interface ThemeFormation {
+  shared_narrative_anchors: [string, string]
+  distinct_news_count: number
+  publisher_count: number
+  supporting_count: number
+  challenging_count: number
+  excluded_off_theme_count: number
+  first_seen: string
+  validated_at: string
 }
 
 /** Formation diagnostics may show the exact new observation that quarantined an existing thesis. Until
@@ -401,6 +468,9 @@ export interface ThemeDetail {
   scores: ThemeScores
   members: FeedItem[]
   companies_by_order: CompaniesByOrder
+  formation: ThemeFormation
+  players: { first_order: ThemePlayer[]; second_order: ThemePlayer[] }
+  evidence_news: ThemeEvidenceNews[]
   sectors: ThemeSector[]
   related_themes: RelatedTheme[]
   keywords: string[]
