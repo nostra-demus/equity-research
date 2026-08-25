@@ -257,7 +257,7 @@ const sorted = (a: string[]) => [...a].sort()
     const freezeReceipt = 'analyses/provider-parity/2026-08-26/freeze/TESTCHAINSTATUS_2026-08-26.json'
     await launchFullChained('TESTCHAINSTATUS', 'tester', 'local', {
       provider: 'codex', model: 'gpt-5.6-sol', reasoningLevel: 'max', expectedProfileKey: 'codex:test',
-    }, f.deps, undefined, { runRoot, parityCanary: { runRoot, freezeReceipt } })
+    }, f.deps, undefined, undefined, { runRoot, parityCanary: { runRoot, freezeReceipt } })
     f.finish('business-model')
     f.finish('earnings')
     f.finish('management-governance', 'incomplete')
