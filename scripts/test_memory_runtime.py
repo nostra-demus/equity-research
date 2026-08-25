@@ -144,6 +144,14 @@ def _provider_policy() -> dict:
     return {**unsigned, "policy_sha256": digest, "signature": signature}
 
 
+def _resign_policy(policy: dict) -> dict:
+    unsigned = {key: value for key, value in policy.items() if key not in {"policy_sha256", "signature"}}
+    digest = "sha256:" + canonical_sha256(unsigned)
+    signature = _signer(b"provider-policy-secret")(canonical_json_bytes(unsigned))
+    signature["signed_sha256"] = digest
+    return {**unsigned, "policy_sha256": digest, "signature": signature}
+
+
 class MemoryRuntimeTests(unittest.TestCase):
     def test_owner_only_ed25519_checkpoint_signing_boundary(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
@@ -244,6 +252,24 @@ class MemoryRuntimeTests(unittest.TestCase):
                 verifier=_verifier(b"provider-policy-secret"),
             )
 
+    def test_provider_scope_rejects_malformed_nested_shapes(self) -> None:
+        malformed_provider = _provider_policy()
+        malformed_provider["providers"] = ["not-an-object"]
+        with self.assertRaises(ProviderAuthorizationError):
+            authorize_provider(
+                _resign_policy(malformed_provider), provider="openai", model="gpt-5",
+                service_identity="research-runtime", requested_classifications=["public"],
+                requested_source_tiers=[1], verifier=_verifier(b"provider-policy-secret"),
+            )
+        malformed_lists = _provider_policy()
+        malformed_lists["providers"][0]["classifications"] = None
+        with self.assertRaises(ProviderAuthorizationError):
+            authorize_provider(
+                _resign_policy(malformed_lists), provider="openai", model="gpt-5",
+                service_identity="research-runtime", requested_classifications=["public"],
+                requested_source_tiers=[1], verifier=_verifier(b"provider-policy-secret"),
+            )
+
     def test_projection_uses_signed_checkpoint_then_one_rebuild_fallback(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
             outer = Path(temporary)
@@ -318,6 +344,24 @@ class MemoryRuntimeTests(unittest.TestCase):
             self.assertTrue(all(not path.exists() for path in paths))
             with self.assertRaisesRegex(MemoryRuntimeError, "cannot be registered"):
                 lifecycle.register(event_id, "resumes", root / "resumes/restored.bin")
+
+    def test_lifecycle_purge_removes_shared_derivative_from_other_events(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary) / "runtime"
+            lifecycle = RuntimeLifecycle(root)
+            first = "evt_" + str(uuid.uuid5(uuid.NAMESPACE_URL, "first-event"))
+            second = "evt_" + str(uuid.uuid5(uuid.NAMESPACE_URL, "second-event"))
+            packet = root / "packet-cache" / "shared.json"
+            packet.parent.mkdir(mode=0o700)
+            packet.write_bytes(b"shared derivative")
+            packet.chmod(0o600)
+            lifecycle.register(first, "packet-cache", packet)
+            lifecycle.register(second, "packet-cache", packet)
+
+            self.assertEqual(("packet-cache/shared.json",), lifecycle.purge_event(first))
+            registry = lifecycle._load()
+            self.assertNotIn(second, registry["entries"])
+            self.assertFalse(packet.exists())
 
 
 if __name__ == "__main__":

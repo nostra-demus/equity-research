@@ -177,7 +177,8 @@ def _atomic_private_write(path: Path, value: Mapping[str, Any]) -> None:
     descriptor, temporary_name = tempfile.mkstemp(prefix=f".{path.name}.", dir=path.parent)
     temporary = Path(temporary_name)
     try:
-        os.fchmod(descriptor, 0o600)
+        if hasattr(os, "fchmod"):
+            os.fchmod(descriptor, 0o600)
         payload = canonical_json_bytes(dict(value))
         view = memoryview(payload)
         while view:
@@ -203,9 +204,12 @@ def _atomic_private_write(path: Path, value: Mapping[str, Any]) -> None:
 
 
 def _git_sha(repo_root: Path) -> str:
-    result = subprocess.run(
-        ["git", "rev-parse", "HEAD"], cwd=repo_root, check=False, capture_output=True, text=True
-    )
+    try:
+        result = subprocess.run(
+            ["git", "rev-parse", "HEAD"], cwd=repo_root, check=False, capture_output=True, text=True
+        )
+    except OSError as exc:
+        raise MemoryRuntimeError("repository HEAD cannot be resolved to an immutable commit") from exc
     value = result.stdout.strip()
     if result.returncode or _GIT_RE.fullmatch(value) is None:
         raise MemoryRuntimeError("repository HEAD cannot be resolved to an immutable commit")
@@ -353,9 +357,13 @@ def authorize_provider(
         or verifier(canonical_json_bytes(unsigned), signature) is not True
     ):
         raise ProviderAuthorizationError("provider-policy-signature-invalid")
+    providers = policy.get("providers")
+    if not isinstance(providers, list):
+        raise ProviderAuthorizationError("provider-policy-invalid")
     matches = [
-        item for item in policy.get("providers", [])
-        if item.get("provider") == provider
+        item for item in providers
+        if isinstance(item, dict)
+        and item.get("provider") == provider
         and item.get("model") == model
         and item.get("service_identity") == service_identity
     ]
@@ -364,14 +372,23 @@ def authorize_provider(
     trusted = matches[0]
     classes = set(requested_classifications)
     tiers = set(requested_source_tiers)
-    if not classes.issubset(set(trusted["classifications"])) or not tiers.issubset(set(trusted["source_tiers"])):
+    classifications = trusted.get("classifications")
+    source_tiers = trusted.get("source_tiers")
+    embedding_classifications = trusted.get("embedding_classifications")
+    if (
+        not isinstance(classifications, list)
+        or not isinstance(source_tiers, list)
+        or not isinstance(embedding_classifications, list)
+        or not classes.issubset(set(classifications))
+        or not tiers.issubset(set(source_tiers))
+    ):
         raise ProviderAuthorizationError("provider-scope-denied")
     return {
         **trusted,
         "classifications": sorted(classes, key=CLASSIFICATIONS.index),
         "source_tiers": sorted(tiers),
         "embedding_classifications": [
-            item for item in trusted["embedding_classifications"] if item in classes
+            item for item in embedding_classifications if item in classes
         ],
     }
 
@@ -713,6 +730,25 @@ class RuntimeLifecycle:
             raise MemoryRuntimeError("runtime lifecycle event ID is invalid")
         value = self._load()
         rows = value["entries"].pop(event_id, [])
+        shared_items = {
+            (row.get("lane"), row.get("path"))
+            for row in rows
+            if isinstance(row, dict)
+        }
+        # A compiled packet can depend on several canonical events. Removing one
+        # invalidates the shared derivative for all of them; no registry entry may
+        # continue to point at the now-absent file.
+        for other_event_id, other_rows in list(value["entries"].items()):
+            if not isinstance(other_rows, list):
+                raise MemoryRuntimeError("runtime lifecycle registry is corrupt")
+            retained = [
+                row for row in other_rows
+                if not isinstance(row, dict) or (row.get("lane"), row.get("path")) not in shared_items
+            ]
+            if retained:
+                value["entries"][other_event_id] = retained
+            else:
+                value["entries"].pop(other_event_id)
         removed: list[str] = []
         for row in rows:
             relative = self._relative(row.get("lane"), self.root / str(row.get("path")))
