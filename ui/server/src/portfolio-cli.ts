@@ -80,4 +80,6 @@ function main(argv: string[]): number {
   return book.reconciliation.ok ? 0 : 1
 }
 
-process.exit(main(process.argv.slice(2)))
+// exitCode, not exit(): process.exit() can truncate piped stdout mid-flush, and the line most likely
+// to be lost is the last one — the reconciliation verdict.
+process.exitCode = main(process.argv.slice(2))

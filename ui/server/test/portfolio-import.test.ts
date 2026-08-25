@@ -139,6 +139,24 @@ check('a non-base position carries its fx rate', () => {
   assert.equal(bbb.fxRateToBase, 1.1)
 })
 
+check('EVERY FlexStatement is read, not only the first', () => {
+  // A two-account export silently dropped half its trades: 10 parsed of 20, with nothing to say so.
+  // NOTE the trailing space: '<FlexStatement' also matches the plural <FlexStatements> wrapper.
+  const one = xml.slice(xml.indexOf('<FlexStatement '), xml.indexOf('</FlexStatement>') + '</FlexStatement>'.length)
+  const two = xml.replace(one, one + '\n' + one.replace('accountId="U0000000"', 'accountId="U1111111"').replace(/tradeID="T/g, 'tradeID="U'))
+  const doc2 = parseFlexXml(two)
+  assert.equal(doc2.trades.length, doc.trades.length * 2, 'trades from the second statement were dropped')
+  assert.equal(doc2.accountIds.length, 2, 'both accounts must be recorded')
+  assert.ok(doc2.accountIds.includes('U1111111'))
+})
+
+check('an out-of-range numeric entity does not abort the import', () => {
+  const root = parseXml('<R><Row a="&#999999999;" b="kept" /></R>')
+  const row = root.children[0]!.children[0]!
+  assert.equal(row.attrs.a, '&#999999999;', 'left as written rather than thrown')
+  assert.equal(row.attrs.b, 'kept')
+})
+
 check('a non-Flex document is refused with a useful message', () => {
   assert.throws(() => parseFlexXml('<html><body>nope</body></html>'), /FlexQueryResponse/)
   assert.throws(() => parseFlexXml(''), /empty Flex document/)

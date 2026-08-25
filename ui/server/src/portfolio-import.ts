@@ -32,17 +32,19 @@ interface XmlNode {
 
 const ENTITIES: Record<string, string> = { amp: '&', lt: '<', gt: '>', quot: '"', apos: "'" }
 
+/** A numeric entity outside the Unicode range is left as written rather than thrown. `&#999999999;`
+ *  in one description must not abort an entire statement — the raw text is strictly better than no
+ *  import at all. */
+function fromCodePoint(code: number, whole: string): string {
+  if (!Number.isFinite(code) || code < 0 || code > 0x10ffff) return whole
+  try { return String.fromCodePoint(code) } catch { return whole }
+}
+
 function decodeEntities(s: string): string {
   if (!s.includes('&')) return s // the overwhelmingly common case — skip the regex entirely
   return s.replace(/&(#x[0-9a-fA-F]+|#[0-9]+|[a-zA-Z]+);/g, (whole, body: string) => {
-    if (body.startsWith('#x') || body.startsWith('#X')) {
-      const code = Number.parseInt(body.slice(2), 16)
-      return Number.isFinite(code) ? String.fromCodePoint(code) : whole
-    }
-    if (body.startsWith('#')) {
-      const code = Number.parseInt(body.slice(1), 10)
-      return Number.isFinite(code) ? String.fromCodePoint(code) : whole
-    }
+    if (body.startsWith('#x') || body.startsWith('#X')) return fromCodePoint(Number.parseInt(body.slice(2), 16), whole)
+    if (body.startsWith('#')) return fromCodePoint(Number.parseInt(body.slice(1), 10), whole)
     const named = ENTITIES[body.toLowerCase()]
     return named === undefined ? whole : named
   })
@@ -115,6 +117,14 @@ export function parseXml(src: string): XmlNode {
   return root
 }
 
+function findAll(node: XmlNode, tag: string, out: XmlNode[] = []): XmlNode[] {
+  for (const child of node.children) {
+    if (child.tag === tag) out.push(child)
+    else findAll(child, tag, out)
+  }
+  return out
+}
+
 function findFirst(node: XmlNode, tag: string): XmlNode | null {
   for (const child of node.children) {
     if (child.tag === tag) return child
@@ -124,11 +134,11 @@ function findFirst(node: XmlNode, tag: string): XmlNode | null {
   return null
 }
 
-/** The attribute maps of a section container's rows, e.g. every <Trade> under <Trades>. */
+/** The attribute maps of a section container's rows, e.g. every <Trade> under <Trades>.
+ *  Aggregates across EVERY matching container: a multi-statement export repeats each section once per
+ *  statement, and reading only the first drops every later account's rows without a word. */
 function rowsOf(root: XmlNode, container: string): Record<string, string>[] {
-  const node = findFirst(root, container)
-  if (!node) return []
-  return node.children.map((c) => c.attrs)
+  return findAll(root, container).flatMap((node) => node.children.map((c) => c.attrs))
 }
 
 // ---------- coercion ----------
@@ -309,6 +319,9 @@ export interface FlexConversionRate {
 
 export interface FlexDocument {
   accountId: string | null
+  /** Every account the file covers. A Flex export may carry more than one <FlexStatement>, and reading
+   *  only the first silently drops the rest — half the trades, with nothing to indicate it happened. */
+  accountIds: string[]
   fromDate: string | null
   toDate: string | null
   whenGenerated: string | null
@@ -338,10 +351,16 @@ export function parseFlexXml(xml: string): FlexDocument {
   const root = parseXml(xml)
   const response = findFirst(root, 'FlexQueryResponse')
   if (!response) throw new Error('not a Flex query response — <FlexQueryResponse> not found')
-  const statement = findFirst(response, 'FlexStatement')
-  if (!statement) throw new Error('Flex response carries no <FlexStatement>')
+  const statements = findAll(response, 'FlexStatement')
+  if (statements.length === 0) throw new Error('Flex response carries no <FlexStatement>')
+  // Rows are read from EVERY statement. A single synthetic root lets the section readers below stay
+  // unchanged while still seeing all of them; per-statement identity is preserved in accountIds.
+  const statement: XmlNode = statements.length === 1
+    ? statements[0]!
+    : { tag: 'FlexStatement', attrs: statements[statements.length - 1]!.attrs, children: statements.flatMap((s) => s.children) }
 
-  const nav = findFirst(statement, 'ChangeInNAV')
+  const navNodes = findAll(statement, 'ChangeInNAV')
+  const nav = navNodes.length ? navNodes[navNodes.length - 1]! : null
   const sectionsPresent = KNOWN_SECTIONS.filter((s) => findFirst(statement, s) !== null)
   const sectionsUnmodelled = statement.children
     .map((c) => c.tag)
@@ -349,8 +368,9 @@ export function parseFlexXml(xml: string): FlexDocument {
 
   return {
     accountId: str(statement.attrs.accountId),
-    fromDate: isoDate(statement.attrs.fromDate),
-    toDate: isoDate(statement.attrs.toDate),
+    accountIds: [...new Set(statements.map((s) => str(s.attrs.accountId)).filter((a): a is string => !!a))],
+    fromDate: statements.map((s) => isoDate(s.attrs.fromDate)).filter((d): d is string => !!d).sort()[0] ?? null,
+    toDate: statements.map((s) => isoDate(s.attrs.toDate)).filter((d): d is string => !!d).sort().reverse()[0] ?? null,
     whenGenerated: isoDateTime(statement.attrs.whenGenerated),
     sectionsPresent,
     sectionsUnmodelled,

@@ -162,13 +162,28 @@ function positionKey(row: { conid: string | null; symbol: string | null }): stri
  *  including any restatement a corporate action applied since the earlier file was generated. */
 function dedupeBy<T>(rows: T[], key: (row: T) => string | null): T[] {
   const byKey = new Map<string, T>()
-  const unkeyed: T[] = []
   for (const row of rows) {
-    const k = key(row)
-    if (k === null) { unkeyed.push(row); continue }
+    // A row with no broker id still must not duplicate on re-import. Falling back to the row's own
+    // content is safe here because these rows ARE their content — two byte-identical cash rows in
+    // overlapping exports are the same event, not two events that happen to match.
+    const k = key(row) ?? `content:${JSON.stringify(row)}`
     byKey.set(k, row)
   }
-  return [...byKey.values(), ...unkeyed]
+  return [...byKey.values()]
+}
+
+/** A corporate action does not edit a trade in place — IBKR emits a NEW row with a new `tradeID` whose
+ *  `origTradeID` names the row it replaces. Dedup by id therefore keeps BOTH across overlapping
+ *  exports, double-counting the position (a 2:1 split leaves 300 shares where 200 are held). Anything
+ *  another row claims as its original is superseded and dropped. */
+function dropSupersededTrades(trades: FlexTrade[]): FlexTrade[] {
+  const superseded = new Set<string>()
+  for (const t of trades) {
+    if (t.origTradeID) superseded.add(t.origTradeID)
+    if (t.origTransactionID) superseded.add(t.origTransactionID)
+  }
+  if (superseded.size === 0) return trades
+  return trades.filter((t) => !(t.tradeID && superseded.has(t.tradeID)) && !(t.transactionID && superseded.has(t.transactionID)))
 }
 
 // ---------- FIFO ----------
@@ -201,11 +216,18 @@ export function runFifo(trades: FlexTrade[]): { lots: BookLot[]; closures: BookC
     const key = positionKey(t)
     const multiplier = t.multiplier ?? 1
     const indicator = (t.openCloseIndicator ?? '').toUpperCase()
+    // IBKR leaves the indicator EMPTY for several asset classes. Treating that as "open" turns a sell
+    // against a long into a phantom short lot, with no closure and no warning. A blank indicator is
+    // therefore inferred from position state: close what it can, open whatever is left — which is what
+    // an explicit `C;O` does, and what the position actually did.
+    const explicit = indicator !== ''
+    const wantsClose = indicator.includes('C') || !explicit
+    const wantsOpen = indicator.includes('O') || !explicit
     const lots = open.get(key) ?? []
     let remaining = qty
 
     // CLOSE first — `C;O` means close the existing side before opening the opposite one.
-    if (indicator.includes('C')) {
+    if (wantsClose) {
       while (Math.abs(remaining) > EPS && lots.length > 0) {
         const lot = lots[0]!
         // A close must oppose the lot's sign. Same-sign means this is really an add, not a close.
@@ -242,14 +264,14 @@ export function runFifo(trades: FlexTrade[]): { lots: BookLot[]; closures: BookC
         remaining += signedMatched
         if (Math.abs(lot.quantity) <= EPS) lots.shift()
       }
-      if (Math.abs(remaining) > EPS && !indicator.includes('O')) {
+      if (Math.abs(remaining) > EPS && !wantsOpen) {
         // A close with nothing left to close against — the history is starting mid-position.
         warnings.push(`close exceeds open quantity for ${t.symbol ?? key} (trade ${t.tradeID ?? '?'}) — history may start after this position was opened`)
         remaining = 0
       }
     }
 
-    if (Math.abs(remaining) > EPS && (indicator.includes('O') || indicator === '')) {
+    if (Math.abs(remaining) > EPS && wantsOpen) {
       lots.push({
         key,
         symbol: t.symbol,
@@ -317,7 +339,9 @@ export function computeTwr(navSeries: NavPoint[], flowsByDate: Map<string, numbe
     const curr = navSeries[i]!
     const flow = flowsByDate.get(curr.date) ?? 0
     const base = prev.total + flow
-    if (Math.abs(base) < EPS) continue
+    // Zero OR negative: a day that opens with no capital has no return to speak of, and dividing by a
+    // negative base produces a large wrong number rather than a meaningful one.
+    if (base <= EPS) continue
     chain *= curr.total / base
     used++
   }
@@ -344,6 +368,43 @@ function classifyIncome(type: string | null, description: string | null): keyof 
   return null
 }
 
+/** Resolve a currency to the base currency using the statement's OWN ConversionRates matrix, which the
+ *  export already ships (a full daily grid). Falls back to the most recent rate on or before the date,
+ *  because a dividend can settle on a day the grid does not price. Returns null when the pair is simply
+ *  unknown — the caller must then EXCLUDE the row and say so, never treat a foreign amount as base. */
+function buildFxResolver(docs: FlexDocument[], base: string | null): (currency: string | null, date: string | null) => number | null {
+  const byPair = new Map<string, { dates: string[]; rates: Map<string, number> }>()
+  for (const doc of docs) {
+    for (const r of doc.conversionRates) {
+      if (!r.reportDate || !r.fromCurrency || !r.toCurrency || r.rate === null) continue
+      const pair = `${r.fromCurrency}|${r.toCurrency}`
+      let entry = byPair.get(pair)
+      if (!entry) { entry = { dates: [], rates: new Map() }; byPair.set(pair, entry) }
+      if (!entry.rates.has(r.reportDate)) entry.dates.push(r.reportDate)
+      entry.rates.set(r.reportDate, r.rate)
+    }
+  }
+  for (const entry of byPair.values()) entry.dates.sort()
+  return (currency, date) => {
+    if (!currency) return null
+    if (base && currency === base) return 1
+    if (!base) return null
+    const entry = byPair.get(`${currency}|${base}`)
+    if (!entry || entry.dates.length === 0) return null
+    if (date) {
+      const exact = entry.rates.get(date)
+      if (exact !== undefined) return exact
+      let lo = 0, hi = entry.dates.length - 1, best: string | null = null
+      while (lo <= hi) {
+        const mid = (lo + hi) >> 1
+        if (entry.dates[mid]! <= date) { best = entry.dates[mid]!; lo = mid + 1 } else hi = mid - 1
+      }
+      if (best) return entry.rates.get(best) ?? null
+    }
+    return entry.rates.get(entry.dates[entry.dates.length - 1]!) ?? null
+  }
+}
+
 function isCapitalFlow(type: string | null): boolean {
   return /deposit|withdraw/i.test(type ?? '')
 }
@@ -360,7 +421,7 @@ export function buildBook(documents: FlexDocument[]): Book {
     warnings.push(`documents span ${accountIds.size} accounts (${[...accountIds].join(', ')}) — a book must be one account`)
   }
 
-  const trades = dedupeBy(docs.flatMap((d) => d.trades), (t) => t.tradeID ?? t.transactionID)
+  const trades = dropSupersededTrades(dedupeBy(docs.flatMap((d) => d.trades), (t) => t.tradeID ?? t.transactionID))
   const cash = dedupeBy(docs.flatMap((d) => d.cashTransactions), (c) => c.transactionID)
   const corporateActions = dedupeBy(docs.flatMap((d) => d.corporateActions), (c) => c.transactionID ?? c.actionID)
 
@@ -381,24 +442,48 @@ export function buildBook(documents: FlexDocument[]): Book {
   const { lots, closures, warnings: fifoWarnings } = runFifo(trades)
   warnings.push(...fifoWarnings)
 
+  const baseCurrency =
+    newest.changeInNav?.currency
+    ?? docs.flatMap((d) => d.equitySummary).find((r) => r.currency !== null)?.currency
+    ?? null
+  const fx = buildFxResolver(docs, baseCurrency)
+
+  /** The row's own rate first (it is the broker's, for that exact fill), then the statement's rate grid.
+   *  Null means we genuinely cannot value it in the base currency. */
+  const rateFor = (currency: string | null, rowRate: number | null, date: string | null): number | null =>
+    rowRate !== null ? rowRate : fx(currency, date)
+
   const flows: BookFlow[] = cash
     .filter((c) => isCapitalFlow(c.type))
-    .map((c) => ({
-      transactionID: c.transactionID,
-      date: c.dateTime ? c.dateTime.slice(0, 10) : c.settleDate,
-      currency: c.currency,
-      amount: c.amount ?? 0,
-      amountBase: c.amount === null || c.fxRateToBase === null ? c.amount : c.amount * c.fxRateToBase,
-      description: c.description,
-    }))
+    .map((c) => {
+      const date = c.dateTime ? c.dateTime.slice(0, 10) : c.settleDate
+      const rate = rateFor(c.currency, c.fxRateToBase, date)
+      if (rate === null && c.amount !== null) {
+        warnings.push(`capital flow in ${c.currency ?? 'an unknown currency'} could not be valued in ${baseCurrency ?? 'the base currency'} — it is excluded from the return calculation`)
+      }
+      return {
+        transactionID: c.transactionID,
+        date,
+        currency: c.currency,
+        amount: c.amount ?? 0,
+        amountBase: c.amount === null || rate === null ? null : c.amount * rate,
+        description: c.description,
+      }
+    })
 
   const income: BookIncome = { dividendsGross: 0, withholdingTax: 0, paymentInLieu: 0, interest: 0, fees: 0, net: 0 }
   for (const c of cash) {
     if (isCapitalFlow(c.type)) continue
     const bucket = classifyIncome(c.type, c.description)
     if (!bucket || c.amount === null) continue
-    const base = c.fxRateToBase === null ? c.amount : c.amount * c.fxRateToBase
-    income[bucket] += base
+    const rate = rateFor(c.currency, c.fxRateToBase, c.dateTime ? c.dateTime.slice(0, 10) : c.settleDate)
+    if (rate === null) {
+      // Adding a foreign amount straight into a base-currency total is how a EUR 1,000 dividend becomes
+      // USD 1,000. Excluding it and saying so is the only honest option.
+      warnings.push(`${c.type ?? 'a cash transaction'} in ${c.currency ?? 'an unknown currency'} could not be valued in ${baseCurrency ?? 'the base currency'} — it is excluded from income`)
+      continue
+    }
+    income[bucket] += c.amount * rate
   }
   income.net = income.dividendsGross + income.paymentInLieu + income.interest + income.withholdingTax + income.fees
 
@@ -424,11 +509,6 @@ export function buildBook(documents: FlexDocument[]): Book {
   const flowsByDate = alignFlowsToNavDates(flows, navSeries)
   const twr = computeTwr(navSeries, flowsByDate)
 
-  const baseCurrency =
-    newest.changeInNav?.currency
-    ?? docs.flatMap((d) => d.equitySummary).find((r) => r.currency !== null)?.currency
-    ?? null
-
   return {
     accountId: newest.accountId,
     baseCurrency,
@@ -448,7 +528,7 @@ export function buildBook(documents: FlexDocument[]): Book {
     navSeries,
     twr,
     corporateActions,
-    reconciliation: reconcile(docs, navSeries, twr, closures),
+    reconciliation: reconcile(docs, navSeries, twr, closures, trades),
     warnings,
   }
 }
@@ -469,9 +549,18 @@ export function reconcile(
   navSeries: NavPoint[],
   ourTwr: number | null,
   closures: BookClosure[],
+  /** The DEDUPED, superseded-dropped trades the closures were actually built from. Summing the raw
+   *  union instead doubles the broker side on any overlapping re-import, so a book that reconciles
+   *  from one file reports a huge break from two — the exact case dedup exists to make safe. */
+  tradesForRealized: FlexTrade[],
 ): Reconciliation {
   const checks: ReconciliationCheck[] = []
-  const nav = docs.map((d) => d.changeInNav).filter((n): n is NonNullable<typeof n> => !!n)
+  // Newest by toDate, NOT by argument order — callers may pass documents in any order, and picking the
+  // last argument produced spurious NAV breaks on perfectly consistent data.
+  const nav = [...docs]
+    .filter((d) => d.changeInNav !== null)
+    .sort((a, b) => ((a.toDate ?? '') < (b.toDate ?? '') ? -1 : 1))
+    .map((d) => d.changeInNav!)
   const latestNav = nav.length ? nav[nav.length - 1]! : null
 
   // 1. NAV: the statement's ending value against the last day of its own daily series.
@@ -525,8 +614,7 @@ export function reconcile(
   }
 
   // 4. Realised P&L: our FIFO matching against the broker's own per-trade figure.
-  const brokerRealized = docs
-    .flatMap((d) => d.trades)
+  const brokerRealized = tradesForRealized
     .filter((t) => !t.levelOfDetail || t.levelOfDetail.toUpperCase() === 'EXECUTION')
     .map((t) => t.fifoPnlRealized)
     .filter((v): v is number => v !== null)

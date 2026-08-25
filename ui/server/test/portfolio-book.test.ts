@@ -212,6 +212,74 @@ check('re-importing an overlapping document changes nothing', () => {
   assert.ok(near(twice.twr!, once.twr!), 'return changed on re-import')
 })
 
+// ---------- regressions from code review ----------
+check('re-importing an overlapping export still RECONCILES (not just equal counts)', () => {
+  // The realised check summed the raw union of trades while closures came from the deduped set, so a
+  // second copy doubled the broker side and a healthy book reported a huge break.
+  const twice = buildBook([doc, parseFlexXml(xml)])
+  assert.equal(twice.reconciliation.ok, true, twice.reconciliation.checks.filter((c) => !c.ok).map((c) => `${c.name} break=${c.break}`).join('; '))
+  const realised = twice.reconciliation.checks.find((c) => c.name === 'Realised P&L')!
+  assert.ok(near(realised.broker!, 20786.5, 1e-4), `broker side must not double, got ${realised.broker}`)
+})
+
+check('a restated trade supersedes the original instead of stacking on it', () => {
+  // A corporate action emits a NEW tradeID whose origTradeID names the row it replaces. Keyed dedup
+  // keeps both, so a 2:1 split left 300 shares where 200 are held.
+  const pre = { ...doc.trades[0]!, tradeID: 'S-PRE', transactionID: 'SX-PRE', symbol: 'SPL', conid: '77', quantity: 100, tradePrice: 50, openCloseIndicator: 'O', dateTime: '2026-02-01T10:00:00', levelOfDetail: 'EXECUTION', origTradeID: null, origTransactionID: null }
+  const post = { ...pre, tradeID: 'S-POST', transactionID: 'SX-POST', quantity: 200, tradePrice: 25, origTradeID: 'S-PRE', origTransactionID: 'SX-PRE' }
+  const book2 = buildBook([{ ...doc, trades: [pre, post], openPositions: [], cashTransactions: [], equitySummary: [], changeInNav: null }])
+  const spl = book2.openLots.filter((l) => l.symbol === 'SPL')
+  assert.equal(spl.length, 1, 'the pre-restatement trade must not survive alongside its replacement')
+  assert.equal(spl[0]!.quantity, 200, `expected the restated 200 shares, got ${spl[0]!.quantity}`)
+})
+
+check('a cash row with no transaction id still dedups on re-import', () => {
+  const anon = { ...doc.cashTransactions[5]!, transactionID: null }
+  const one = buildBook([{ ...doc, cashTransactions: [anon] }])
+  const two = buildBook([{ ...doc, cashTransactions: [anon] }, { ...doc, cashTransactions: [{ ...anon }] }])
+  assert.equal(two.flows.length, one.flows.length, 'an id-less flow duplicated on re-import')
+})
+
+check('the newest statement is chosen by date, not by argument order', () => {
+  const older = parseFlexXml(xml.replace('toDate="20260104"', 'toDate="20260103"'))
+  const newestFirst = buildBook([doc, older])
+  const oldestFirst = buildBook([older, doc])
+  assert.equal(newestFirst.reconciliation.ok, oldestFirst.reconciliation.ok)
+  assert.equal(newestFirst.reconciliation.ok, true, 'argument order must not create a break')
+})
+
+check('a blank open/close indicator is inferred, not assumed to open', () => {
+  // IBKR leaves this empty for several asset classes; assuming "open" turned a sell against a long
+  // into a phantom short lot with no closure and no warning.
+  const buy = { ...doc.trades[0]!, tradeID: 'B1', symbol: 'BLK', conid: '55', quantity: 100, tradePrice: 10, openCloseIndicator: null, dateTime: '2026-01-01T10:00:00', levelOfDetail: 'EXECUTION' }
+  const sell = { ...buy, tradeID: 'B2', quantity: -60, tradePrice: 15, dateTime: '2026-02-01T10:00:00' }
+  const { lots, closures, warnings } = runFifo([buy, sell])
+  assert.equal(closures.length, 1, 'the sell must close against the long, not open a short')
+  assert.equal(closures[0]!.quantity, 60)
+  assert.equal(lots.length, 1)
+  assert.equal(lots[0]!.quantity, 40, 'the unsold remainder stays long')
+  assert.equal(warnings.length, 0)
+})
+
+check('a withdrawal larger than the book does not produce a wild return', () => {
+  const twr = computeTwr(
+    [{ date: '2026-01-01', total: 1000 }, { date: '2026-01-02', total: 100 }],
+    new Map([['2026-01-02', -2000]]), // base goes negative
+  )
+  assert.equal(twr, null, 'a negative opening base has no meaningful return')
+})
+
+check('a foreign amount is never counted as base currency without a rate', () => {
+  const eur = { ...doc.cashTransactions[0]!, transactionID: 'FX1', currency: 'EUR', amount: 1000, fxRateToBase: null, type: 'Dividends' }
+  // no ConversionRates for EUR->USD: the row must be excluded and reported, not added at face value
+  const noRates = buildBook([{ ...doc, cashTransactions: [eur], conversionRates: [] }])
+  assert.equal(noRates.income.dividendsGross, 0, 'an unvaluable dividend must not enter income')
+  assert.ok(noRates.warnings.some((w) => /could not be valued/.test(w)), 'the exclusion must be reported')
+  // with the statement's own rate grid present, it converts
+  const withRates = buildBook([{ ...doc, cashTransactions: [eur], conversionRates: [{ reportDate: '2026-02-15', fromCurrency: 'EUR', toCurrency: 'USD', rate: 1.1 }] }])
+  assert.ok(near(withRates.income.dividendsGross, 1100), `1000 EUR at 1.1 = 1100, got ${withRates.income.dividendsGross}`)
+})
+
 check('the book reports what the query actually contained', () => {
   assert.equal(book.accountId, 'U0000000')
   assert.equal(book.baseCurrency, 'USD')
