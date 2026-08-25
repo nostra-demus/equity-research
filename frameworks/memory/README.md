@@ -1,9 +1,11 @@
 # Permanent memory foundation
 
-This directory contains the vendor-neutral reference components for Phases 0–6 of permanent
-research memory. Historical equity, commodity, and screener ledgers remain authoritative and
-byte-identical. The adapter presents those records through one canonical envelope; SQLite and every
-retrieval index remain disposable projections rather than sole holders of evidence.
+This directory contains the vendor-neutral components for permanent research memory. Historical
+equity, commodity, and screener ledgers remain authoritative and byte-identical. The adapter presents
+those records through one canonical envelope; SQLite and every retrieval index remain disposable
+projections rather than sole holders of evidence. Phases 0–6 remain the bounded reference foundation.
+`THREE_LAYER_MEMORY.md` and the three-layer contract bundle define the staged production upgrade;
+production dispatch stays off until its shadow and enforcement gates pass.
 
 ## Implemented scope
 
@@ -39,6 +41,16 @@ retrieval index remain disposable projections rather than sole holders of eviden
   append-only correction, crash recovery, protected-store preflight, and store-orphan recovery.
 - A closed, read-only operational-readiness report that recomputes benchmark and SLO results from
   supplied observations and keeps missing production evidence explicitly `unmeasured`.
+- Closed production contracts for query v2, separated context packets, frozen run receipts,
+  supervisor-attested memory use, task/run episodes, semantic candidates/lessons, procedural
+  candidates/playbooks/evaluations/executions, provider policy, and PR-bound promotion manifests.
+- Cross-field fail-closed checks for authority narrowing, role token ceilings, mandatory-memory
+  overflow, exact-listing identity, 180-day semantic review, empirical promotion floors,
+  independent promotion, deterministic-tool allowlists, playbook validation cases, and untrusted
+  packet rendering.
+- A frozen 40-case three-layer acceptance corpus covering prior misses, corrections, semantic
+  applicability, cross-company isolation, playbook match/conflict, qualifier survival, and
+  abstention. It supplements rather than replaces the pinned 63-case Phase 0 benchmark.
 
 These are bounded reference components, not a production deployment. The Phase 3 synthetic fixture
 gate passes, but the exact 63-case Phase 0 production-candidate benchmark has not been run. Phase 4
@@ -138,6 +150,7 @@ PYTHONPATH=scripts python3 scripts/test_memory_phase5_projection_retrieval.py
 PYTHONPATH=scripts python3 scripts/test_memory_store_preflight.py
 PYTHONPATH=scripts python3 scripts/test_memory_store_orphan_recovery.py
 PYTHONPATH=scripts python3 scripts/test_memory_operations.py
+PYTHONPATH=scripts python3 scripts/test_memory_three_layer_contract.py
 
 # Install the exact cryptographic runtime and prove exact-byte resolution twice.
 python3 -m pip install --require-hashes -r scripts/requirements-memory.txt
@@ -177,3 +190,7 @@ refresh and re-freeze rules.
 
 The phase-specific trust boundaries and focused verification commands are documented in
 `PHASE2.md`, `PHASE3.md`, `PHASE4.md`, `PHASE5.md`, and `PHASE6.md`.
+The production authority, provider, security, promotion, retention, and release boundaries are in
+`THREE_LAYER_MEMORY.md`. Public schema aliases resolve into
+`three-layer-contracts.schema.json`; `scripts/memory_three_layer_contract.py` adds the cross-document
+and temporal checks JSON Schema alone cannot express.

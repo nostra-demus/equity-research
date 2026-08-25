@@ -1,0 +1,189 @@
+# Production three-layer research memory
+
+## Status
+
+This document is the reviewed authority and security contract for the production upgrade. The
+checked-in schemas and validators are active contract surfaces; production dispatch remains disabled
+until the staged rollout reaches its shadow and enforcement gates. Existing decisions, reviews,
+corrections, forecasts, source files, calibration outputs, and integrity records stay authoritative
+and byte-identical.
+
+The implementation reuses the policy-partitioned store, controlled writer, deterministic adapters,
+SQLite/FTS projection, exact-byte resolver, purge receipts, and operational-readiness report. A
+remote vector, graph, or database service is out of scope unless measured SLO evidence later proves
+the local design inadequate.
+
+## Authority
+
+Memory is subordinate to the research program. Conflicts resolve in this order:
+
+1. `AGENTS.md`, its doctrine twin, module rules, and the canonical source hierarchy.
+2. Deterministic schemas, validators, calculations, score caps, and finish gates.
+3. Active, independently reviewed procedural playbooks.
+4. Active, independently reviewed semantic lessons.
+5. Prior episodes and generated historical narrative.
+
+An episode says what happened; it cannot prove a current fact. A semantic lesson can require a
+current check or impose a reviewed negative policy; it cannot raise data sufficiency, edge,
+confidence, position size, or rating. A playbook organizes work; it cannot relax evidence,
+sufficiency, red-flag, cap, abstention, or source rules. A prior success may focus a run but never
+creates a positive rating lift.
+
+When an active playbook governs a task, the prompt names its ID and version. Detailed steps live in
+the playbook only. General constitutional rules remain in prompts and always outrank the playbook.
+CI rejects duplicated detailed procedures and contradictory authority claims before enforcement.
+
+## Write and promotion authority
+
+Analytical agents may write only bounded task outputs, `memory-use/v1` declarations, and inert
+candidate suggestions. They cannot write canonical memory, activate a lesson or playbook, mutate the
+active set, write Git, or approve their own correction or supersession.
+
+The supervisor validates outputs and use declarations, commits exact output and packet hashes, and
+creates deterministic task/run episodes. Independent verifier identities evaluate semantic and
+procedural candidates. Public/internal activation uses `codex/memory-promotion-*` branches and pull
+requests. The promotion GitHub App may create the branch and PR but cannot push or merge directly to
+`main`. Protected memory stays encrypted outside Git; the PR carries only a signed, content-free
+activation commitment. Required CI and automated review must pass without an admin bypass.
+
+Candidate author, extraction verifier, applicability reviewer, evidence reviewer, security reviewer,
+canonical writer, and promotion author are distinct authority roles. `validate_promotion_bundle`
+rejects an author that appears in the verifier or promotion-review set and binds the manifest to the
+exact candidate, evaluation, target ID, target schema, and target version.
+
+## Frozen run boundary
+
+One receipt governs one run:
+
+1. Resolve the legal issuer and tradable listing from legal name, venue, currency, and available
+   LEI/FIGI/ISIN/MIC+ticker identifiers. A ticker-only or ambiguous match fails.
+2. Freeze repository SHA, projection digest, policy clock, provider/model/service identity,
+   entitlements, embedding permissions, active playbook versions, and `as_of_system_time`.
+3. Verify the production projection, then try one deterministic local rebuild.
+4. Create an owner-signed, content-free `research-memory-run-receipt/v1`.
+5. Store content packets under the policy-partitioned local state root with owner-only permissions.
+6. Stop before paid dispatch if neither snapshot verifies. A verified empty snapshot is valid.
+
+Monolithic, chained, standalone-module, concurrent-sibling, interrupted, and exact-resume paths reuse
+the same receipt. Incomplete sibling tasks never enter memory. A deliberate rerun gets a new receipt
+linked to the earlier run. A provider switch on resume triggers fresh authorization against the same
+pinned snapshot; it cannot change the snapshot.
+
+## Packet and provider boundary
+
+The trusted access scope fixes provider, model, service identity, classifications, source tiers,
+entitlement digest, and embedding permissions. A query can narrow these values but cannot widen them.
+Mandatory content that the provider cannot receive stops dispatch. Optional unauthorized content is
+omitted with a reason that reveals neither protected identifiers nor hidden-corpus counts.
+
+For the same trusted scope, Claude and Codex receive identical canonical packet bytes. Transport
+wrappers may differ, packet content may not. Packets contain separate episode, semantic, and
+procedure sections. They rank mandatory exact-listing corrections and misses first, then required
+playbooks, other exact-listing episodes, semantic lessons, and optional cross-company examples.
+
+Token ceilings are 3,000 for specialists, 4,000 for module synthesizers, and 6,000 for the master.
+Mandatory corrections, unresolved misses, and required playbooks are never truncated. Optional
+cross-company semantics leave first. Mandatory overflow fails before dispatch. Compilation must stay
+below five seconds p95 and median provider/model-matched steady-state cost overhead must not exceed
+25 percent.
+
+## Memory-content security
+
+All retrieved content is untrusted data. `render_untrusted_packet` emits fixed, explicit data
+delimiters and JSON-quoted entries beneath an immutable warning. Episode and semantic contracts are
+closed and reject instruction/tool fields. Raw legacy prose cannot carry an executable tool route.
+Only an active `memory-playbook/v1` may contain ordered procedure steps, and every referenced tool
+must be in the reviewed deterministic allowlist in `memory_three_layer_contract.py`.
+
+Canonical hashes are checked before dispatch and after completion. A packet hash confirms the exact
+bytes the agent saw; it does not make the content evidence. Evidence remains usable only through its
+exact current-run evidence span and the ordinary source hierarchy.
+
+Threats tested at the contract boundary include instruction injection, delimiter spoofing,
+fabricated use receipts, provider authority widening, listing collisions, hidden-corpus oracles,
+stale/superseded facts, playbook conflicts, non-allowlisted commands, self-promotion, hash tampering,
+rollback, and transitive purge failures.
+
+## Layer contracts
+
+### Episodes
+
+`memory-task-episode/v1` records issuer/listing, run/task/agent, provider/model, prompt-program SHA,
+output and packet commitments, status, latency, cost, gates, attestation, procedure execution, and
+machine-readable errors. `memory-run-episode/v1` aggregates only completed task episodes. Generated
+narrative is not canonical truth.
+
+Legacy decisions, reviews, corrections, forecasts, calibration records, and integrity records are
+adapted without rewriting or duplicating their original bytes. The 127 historical module syntheses
+remain searchable episode evidence only. They are never mined automatically into active facts or
+procedures.
+
+### Semantics
+
+`memory-semantic-candidate/v1` is inert. `memory-semantic-lesson/v1` requires supporting and
+contradicting evidence, applicability, valid time, ownership, independent verification,
+supersession, and a review date within 180 days.
+
+- Exact-issuer: one structured correction or reviewed outcome; issuer/listing scope only.
+- Official policy: one authoritative policy source; jurisdiction and valid-time scope required.
+- Cross-company empirical: at least five effective observations and five distinct issuers.
+- New facts: exact evidence-span resolution and an independent extraction verifier.
+- Historical prose: episode search only; never automatic promotion.
+
+### Procedures
+
+`memory-playbook-candidate/v1` is inert. An active `memory-playbook/v1` carries ID/version, owner,
+risk, expiry/prior version, exact applicability, inputs, ordered steps, evidence, outputs, prohibited
+shortcuts, fallback, abstention, deterministic tools, source episodes, counterexamples, validation
+cases, and measured effect.
+
+Mechanical procedures must pass the origin, two held-out cases, and one non-applicable
+counterexample. Analytical/high-risk procedures also need a resolved outcome-review case.
+Cross-company use requires evidence on at least two issuers. Citation, qualifier, temporal,
+abstention, and serious-error metrics cannot regress. Evidence, applicability, and security
+reviewers approve independently.
+
+Applicability chooses issuer, then jurisdiction, then sector, then global specificity. Equally
+specific conflicts cause abstention. One policy leak, stale-fact use, injection vulnerability, or
+serious evidence error quarantines the version immediately. Two ordinary failed executions open a
+review/deprecation PR. A playbook never writes a rating; only existing deterministic policy can cap
+one.
+
+## Usage verification
+
+Every analytical task returns `memory-use/v1`. It distinguishes used, checked/rejected,
+contradicted, and inapplicable records; names current evidence; declares playbook execution or
+deviation; and commits candidate suggestions by hash.
+
+The supervisor creates `memory-use-attestation/v1` only after checking output correspondence,
+current evidence, playbook steps, undeclared memory use, and canonical hashes. `valid` is the
+conjunction of those checks. In enforced mode an invalid declaration invalidates the analytical
+output under the existing retry policy. Any unresolved memory-contract failure blocks final Ideas
+admission.
+
+## Retention, incident, and recovery boundary
+
+Purge and entitlement withdrawal propagate through canonical objects, projections, lexical/vector
+indexes, packet caches, candidate queues, resume directories, backups, and any execution receipt
+that contains content. Only policy-permitted content-free hashes, tombstones, and audit receipts may
+remain. Resume resolves all packet entries again after purge; stale packets and backups cannot
+restore retired data. Controlled-head retirement uses the existing signed reconciliation protocol
+and an external checkpoint outside the writer's mutable state.
+
+Production identities are split across read-only query, candidate intake, independent verification,
+controlled writing, GitHub promotion, emergency quarantine, and restore/retirement. Operations
+provide a global kill switch, per-layer and per-playbook switches, bounded last-known-good fallback,
+immediate quarantine, version-pinned rollback, batching/rate limits, and alerts. Monthly clean
+rebuilds and quarterly restore/purge drills are required evidence, not calendar claims.
+
+## Compatibility and gates
+
+V1 contracts and `GET /api/memory` remain compatible. New runtime/candidate/lesson/playbook views
+expose curated metadata and lineage only. Raw protected text never crosses the UI boundary. Runtime
+modes are `off`, `shadow`, and `enforced`.
+
+The pinned 63-case Phase 0 benchmark must not regress and must improve at least one retrieval metric
+with zero protected-path intrusion and zero post-cutoff facts. `three-layer-benchmark-v1.json` freezes
+40 additional cases. Provider parity, live paired-shadow, cost/latency, long-term calibration, purge,
+restore, and operational-readiness gates are defined by the delivery plan and remain blocking until
+measured.
