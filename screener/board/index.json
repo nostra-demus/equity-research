@@ -1,6 +1,153 @@
 {
-  "generated_at": "2026-08-25T22:51:56Z",
+  "generated_at": "2026-08-25T23:01:56Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260825-1998",
+      "headline": "TAH: Full Year Results - ASX Release [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.TAH?key=2924-03126113-3A699802",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-25T22:47:00Z",
+      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
+      "prelim_note": "Full year financial results are a primary source of performance data for the company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Full year financial results are a primary source of performance data for the company.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tabcorp Holdings",
+          "ticker": "TAH",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260825-1990",
+      "headline": "LOV: FY26 Full Year Results Announcement [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.LOV?key=2924-03126098-3A699799",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-25T22:44:10Z",
+      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
+      "prelim_note": "Official full-year financial results announcement for Lovisa Holdings.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Official full-year financial results announcement for Lovisa Holdings.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Lovisa Holdings",
+          "ticker": "LOV",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260825-1997",
+      "headline": "FPR: Update regarding Non-Binding Indicative Offers [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.FPR?key=2924-03126089-2A1692067",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-25T22:41:50Z",
+      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
+      "prelim_note": "Updates on non-binding indicative offers are material as they indicate potential M&A activity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Updates on non-binding indicative offers are material as they indicate potential M&A activity.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "FPR",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260825-1979",
       "headline": "ATA: FY26 Annual Results Presentation [price-sensitive]",
@@ -1810,153 +1957,6 @@
         {
           "name": "SHEEN TAI",
           "ticker": "01335",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260825-1657",
-      "headline": "NVC INTL (02222): PROFIT WARNING",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0825/2026082501009.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-25T10:07:00Z",
-      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
-      "prelim_note": "Profit warning indicates a material negative impact on earnings expectations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Profit warning indicates a material negative impact on earnings expectations.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "guidance_change",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "NVC INTL",
-          "ticker": "02222",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260825-1656",
-      "headline": "CHINAHEALTHWISE (00348): INSIDE INFORMATION PROFIT WARNING",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0825/2026082500909.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-25T09:42:00Z",
-      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
-      "prelim_note": "Profit warning indicates a material decline in expected earnings.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Profit warning indicates a material decline in expected earnings.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "guidance_change",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "China Healthwise",
-          "ticker": "00348",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260825-1633",
-      "headline": "LONGHUI INTL (01007): (1) MAJOR AND CONNECTED TRANSACTION: PROPOSED ACQUISITION OF 51% EQUITY INTERESTS IN THE TARGET COMPANY AND (2) NOTICE OF EXTRAORDINARY GENERAL MEETING",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0825/2026082500576.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-25T08:56:00Z",
-      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
-      "prelim_note": "The company announced a major acquisition of a 51% equity interest in a target company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "The company announced a major acquisition of a 51% equity interest in a target company.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Longhui International Holdings",
-          "ticker": "01007",
           "listing_country": "CN"
         }
       ],
@@ -77496,76 +77496,6 @@
   "handoffs": [],
   "ideas": [
     {
-      "idea_id": "IDEA-eec9cd9f6717",
-      "idea_version": "IDEAV-7caad8a89b95b482",
-      "idea_version_started_at": "2026-08-25T09:09:48Z",
-      "ticker": "GH",
-      "company": "Guardant Health",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company faces a $245.2 million judgment for patent infringement, which will negatively impact cash reserves and potentially force changes to their product commercialization strategy.",
-      "why_now": "The final judgment was announced on 2026-08-24, creating immediate balance sheet pressure.",
-      "conviction": 80,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 18,
-        "impact": 18,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-12fec20cb36e"
-      ],
-      "primary_source_event_id": "EVT-12fec20cb36e",
-      "source_headlines": [
-        "TwinStrand Biosciences Announces Final Judgment in Patent Infringement Suit Against Guardant Health, Awarding TwinStrand and the University of Washington More Than $245.2 Million in Damages, Accrued Royalties and Interest | GH Stock News"
-      ],
-      "source_headline": "TwinStrand Biosciences Announces Final Judgment in Patent Infringement Suit Against Guardant Health, Awarding TwinStrand and the University of Washington More Than $245.2 Million in Damages, Accrued Royalties and Interest | GH Stock News",
-      "source_url": "https://www.stocktitan.net/news/GH/twin-strand-biosciences-announces-final-judgment-in-patent-fmua2oc5pmut.html",
-      "source_name": "Stock Titan — Latest News",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-24T11:00:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-25T09:09:48Z",
-      "updated_at": "2026-08-25T09:09:48Z",
-      "decay_at": "2026-08-25T23:00:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-4b8102f69455",
       "idea_version": "IDEAV-ff99366965afb179",
       "idea_version_started_at": "2026-08-25T06:14:06Z",
@@ -79706,6 +79636,76 @@
       "promoted_signal_id": null,
       "feedback": null,
       "stale": false
+    },
+    {
+      "idea_id": "IDEA-eec9cd9f6717",
+      "idea_version": "IDEAV-7caad8a89b95b482",
+      "idea_version_started_at": "2026-08-25T09:09:48Z",
+      "ticker": "GH",
+      "company": "Guardant Health",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company faces a $245.2 million judgment for patent infringement, which will negatively impact cash reserves and potentially force changes to their product commercialization strategy.",
+      "why_now": "The final judgment was announced on 2026-08-24, creating immediate balance sheet pressure.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 18,
+        "impact": 18,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-12fec20cb36e"
+      ],
+      "primary_source_event_id": "EVT-12fec20cb36e",
+      "source_headlines": [
+        "TwinStrand Biosciences Announces Final Judgment in Patent Infringement Suit Against Guardant Health, Awarding TwinStrand and the University of Washington More Than $245.2 Million in Damages, Accrued Royalties and Interest | GH Stock News"
+      ],
+      "source_headline": "TwinStrand Biosciences Announces Final Judgment in Patent Infringement Suit Against Guardant Health, Awarding TwinStrand and the University of Washington More Than $245.2 Million in Damages, Accrued Royalties and Interest | GH Stock News",
+      "source_url": "https://www.stocktitan.net/news/GH/twin-strand-biosciences-announces-final-judgment-in-patent-fmua2oc5pmut.html",
+      "source_name": "Stock Titan — Latest News",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-24T11:00:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-25T09:09:48Z",
+      "updated_at": "2026-08-25T09:09:48Z",
+      "decay_at": "2026-08-25T23:00:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
     },
     {
       "idea_id": "IDEA-69441c9f6035",
@@ -82069,8 +82069,8 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 113,
-    "shown_count": 113,
+    "total_count": 114,
+    "shown_count": 114,
     "hidden_count": 0,
     "side_counts": {
       "long": {
@@ -82079,8 +82079,8 @@
         "hidden_count": 0
       },
       "short": {
-        "total_count": 67,
-        "shown_count": 67,
+        "total_count": 68,
+        "shown_count": 68,
         "hidden_count": 0
       }
     },
@@ -82100,6 +82100,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-eec9cd9f6717",
+        "idea_version": "IDEAV-7caad8a89b95b482",
+        "idea_version_started_at": "2026-08-25T09:09:48Z",
+        "ticker": "GH",
+        "company": "Guardant Health",
+        "exchange": "NASDAQ",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company faces a $245.2 million judgment for patent infringement, which will negatively impact cash reserves and potentially force changes to their product commercialization strategy.",
+        "why_now": "The final judgment was announced on 2026-08-24, creating immediate balance sheet pressure.",
+        "conviction": 80,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 62,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 18,
+          "impact": 18,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-12fec20cb36e"
+        ],
+        "primary_source_event_id": "EVT-12fec20cb36e",
+        "source_headlines": [
+          "TwinStrand Biosciences Announces Final Judgment in Patent Infringement Suit Against Guardant Health, Awarding TwinStrand and the University of Washington More Than $245.2 Million in Damages, Accrued Royalties and Interest | GH Stock News"
+        ],
+        "source_headline": "TwinStrand Biosciences Announces Final Judgment in Patent Infringement Suit Against Guardant Health, Awarding TwinStrand and the University of Washington More Than $245.2 Million in Damages, Accrued Royalties and Interest | GH Stock News",
+        "source_url": "https://www.stocktitan.net/news/GH/twin-strand-biosciences-announces-final-judgment-in-patent-fmua2oc5pmut.html",
+        "source_name": "Stock Titan — Latest News",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-24T11:00:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-25T09:09:48Z",
+        "updated_at": "2026-08-25T09:09:48Z",
+        "decay_at": "2026-08-25T23:00:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-25T23:00:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-7ff2215d0d79",
         "idea_version": "IDEAV-30af52caaaec897c",
@@ -90470,7 +90543,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 145,
-    "live_count": 31,
+    "live_count": 30,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -90489,9 +90562,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3449584,
-    "news_picked_today": 3937,
-    "news_dropped_today": 12767
+    "news_seen_today": 3497601,
+    "news_picked_today": 3961,
+    "news_dropped_today": 12779
   },
   "book_momentum": {
     "live_count": 8,
