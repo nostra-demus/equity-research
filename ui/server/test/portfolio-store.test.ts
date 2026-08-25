@@ -88,6 +88,26 @@ check('two accounts are surfaced as an error, with the statements still listed',
   assert.match(read.error ?? '', /span 2 accounts/)
 })
 
+check('one unreadable statement refuses the whole book rather than building a partial one', () => {
+  // The dangerous case: several statements listed, one of them corrupt on disk. Building from the rest
+  // returns a book that looks complete and reconciles green while silently missing whole months of
+  // trades and NAV — and the screen still lists the file that was quietly dropped.
+  for (const s of store.listStatements()) store.deleteStatement(s.id)
+  store.saveStatement(xml, 'good.xml')
+  store.saveStatement(xml.replace('</FlexQueryResponse>', '<SecuritiesInfo/></FlexQueryResponse>'), 'second.xml')
+  const statements = store.listStatements()
+  assert.equal(statements.length, 2)
+  const victim = statements[1]!
+  // Corrupt it exactly as a truncated download or a bad copy would.
+  fs.writeFileSync(path.join(TMP, 'portfolio', 'statements', `${victim.id}.xml`), '<FlexQueryResponse><Trades>')
+  const read = store.readPortfolio()
+  assert.equal(read.statements.length, 2, 'both stay listed so the operator can remove the bad one')
+  assert.equal(read.book, null, 'no partial book')
+  assert.match(read.error ?? '', new RegExp(victim.filename), 'the failing file is named')
+  assert.ok(!(read.error ?? '').includes(TMP), 'the error must not leak state paths')
+  for (const s of store.listStatements()) store.deleteStatement(s.id)
+})
+
 try { fs.rmSync(TMP, { recursive: true, force: true }) } catch { /* best effort */ }
 console.log(`\n${passed} passed, ${fails.length} failed`)
 if (fails.length) { console.error('FAILED: ' + fails.join(', ')); process.exit(1) }

@@ -3376,11 +3376,14 @@ app.get('/api/quote', { config: { rateLimit: { max: 600, timeWindow: '1 minute' 
 // write a derived number anywhere. Everything lands under STATE_DIR, which is git-ignored: the book is
 // private financial data, not research output.
 
-app.get('/api/portfolio', async (_req, reply) => {
+app.get('/api/portfolio', async (req, reply) => {
   try {
     return readPortfolio()
   } catch (e: any) {
-    return reply.code(500).send({ error: 'cannot read the fund book', detail: String(e?.message || e) })
+    // Generic and path-free: the thrown message can carry absolute STATE_DIR paths, and this is the
+    // one fund-book route that answers before any authentication of intent.
+    req.log.error({ err: e }, 'portfolio read failed')
+    return reply.code(500).send({ error: 'cannot read the fund book' })
   }
 })
 
@@ -3394,7 +3397,11 @@ app.post('/api/portfolio/statements', { config: { rateLimit: { max: 30, timeWind
   // The whole iteration is wrapped: req.parts() can throw mid-stream, and losing that would discard
   // statements already accepted in an earlier turn of the loop.
   try {
-    for await (const part of req.parts()) {
+    // Raise the per-part cap for THIS route only. The plugin is registered globally with the Drive
+    // upload limit (40 MB), which is smaller than a statement's own cap — without this override the
+    // parser truncates a 50 MB export and the code below reports it as "larger than 64MB", which is
+    // both a rejection of a valid file and a false reason for it.
+    for await (const part of req.parts({ limits: { fileSize: STATEMENT_MAX_BYTES } })) {
       if (part.type !== 'file') continue
       const filename = part.filename || 'statement.xml'
       const chunks: Buffer[] = []

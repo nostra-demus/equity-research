@@ -135,7 +135,18 @@ export function PortfolioStage() {
 
           {read?.error && <div className="fundbook__error"><span>{read.error}</span></div>}
 
-          {!book ? (
+          {book && (
+            <>
+              <Summary book={book} />
+              <Positions book={book} />
+            </>
+          )}
+          {/* The statement list is rendered whenever statements EXIST, not only when they built a book.
+              When they cannot — two accounts in one import, or a file that has become unreadable — the
+              Remove buttons here are the only way out, and hiding them behind a successful build strands
+              the operator with an error and no control that could clear it. */}
+          {read && read.statements.length > 0 && <Statements read={read} onDeleted={setRead} />}
+          {read && read.statements.length === 0 && (
             <div className="fundbook__empty">
               <strong>No statement imported yet</strong>
               <span>
@@ -143,12 +154,6 @@ export function PortfolioStage() {
                 Transactions, Change in NAV and Corporate Actions, and run it as XML.
               </span>
             </div>
-          ) : (
-            <>
-              <Summary book={book} />
-              <Positions book={book} />
-              <Statements read={read!} onDeleted={setRead} />
-            </>
           )}
         </>
       )}
@@ -219,13 +224,15 @@ function Positions({ book }: { book: PortfolioBook }) {
         <span>Symbol</span><span>Ccy</span><span className="num">Quantity</span><span className="num">Avg cost</span>
         <span className="num">Mark</span><span className="num">Value</span><span className="num">Weight</span><span className="num">Unrealised</span>
       </div>
-      {equities.map((p) => <PositionRow key={p.conid ?? p.symbol} p={p} />)}
+      {/* The index is the last resort, not the first: two rows with neither conid nor symbol would
+          otherwise share the key `null` and React would reconcile them as one row. */}
+      {equities.map((p, i) => <PositionRow key={p.conid ?? p.symbol ?? `row-${i}`} p={p} />)}
       {derivatives.length > 0 && (
         <>
           <div className="fundbook__subhead">
             Derivatives — notional is <b>exposure</b>, not an allocation of NAV, so these carry no weight
           </div>
-          {derivatives.map((p) => <PositionRow key={p.conid ?? p.symbol} p={p} derivative />)}
+          {derivatives.map((p, i) => <PositionRow key={p.conid ?? p.symbol ?? `row-${i}`} p={p} derivative />)}
         </>
       )}
       {book.positions.length === 0 && <div className="fundbook__none">No open positions in this statement.</div>}
@@ -253,6 +260,7 @@ function PositionRow({ p, derivative }: { p: PortfolioPosition; derivative?: boo
 
 function Statements({ read, onDeleted }: { read: PortfolioRead; onDeleted: (r: PortfolioRead) => void }) {
   const [removing, setRemoving] = useState<string | null>(null)
+  const [removeError, setRemoveError] = useState<string | null>(null)
   return (
     <div className="fundbook__panel">
       <div className="fundbook__panelhead">
@@ -271,13 +279,18 @@ function Statements({ read, onDeleted }: { read: PortfolioRead; onDeleted: (r: P
             disabled={removing === s.id}
             onClick={async () => {
               setRemoving(s.id)
-              try { onDeleted(await api.deleteStatement(s.id)) } finally { setRemoving(null) }
+              // A failed delete must SAY so. Without the catch the rejection is unhandled and the button
+              // simply re-enables, which reads as "removed" while the statement is still in the book.
+              try { onDeleted(await api.deleteStatement(s.id)); setRemoveError(null) }
+              catch (e: any) { setRemoveError(`${s.filename}: ${e?.message || 'could not be removed'}`) }
+              finally { setRemoving(null) }
             }}
           >
             {removing === s.id ? 'Removing…' : 'Remove'}
           </button>
         </div>
       ))}
+      {removeError && <div className="fundbook__foot fundbook__foot--warn">{removeError}</div>}
       {read.book && read.book.sectionsUnmodelled.length > 0 && (
         <div className="fundbook__foot">
           Present in the statement but not read by the importer: <b>{read.book.sectionsUnmodelled.join(', ')}</b>

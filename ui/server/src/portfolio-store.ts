@@ -120,17 +120,26 @@ export function readPortfolio(): PortfolioRead {
   const key = currentKey(statements)
   if (cache && cache.key === key) return { statements, book: cache.book, error: cache.error }
 
+  // EVERY listed statement must load, or there is no book. Skipping an unreadable one and building from
+  // the rest returns a green, complete-looking book that is silently missing whole months of trades and
+  // NAV — while the screen still lists the statement that was dropped. A partial book nobody is told
+  // about is the failure this store exists to prevent.
   const docs: FlexDocument[] = []
+  const unreadable: string[] = []
   for (const s of statements) {
-    try { docs.push(parseFlexXml(fs.readFileSync(xmlPath(s.id), 'utf8'))) } catch { /* listed below as an error */ }
+    try { docs.push(parseFlexXml(fs.readFileSync(xmlPath(s.id), 'utf8'))) }
+    catch { unreadable.push(s.filename || s.id) } // names only — the caught error carries absolute paths
   }
   let book: Book | null = null
   let error: string | null = null
-  try {
-    book = docs.length ? buildBook(docs) : null
-    if (!docs.length) error = 'the stored statements could not be read'
-  } catch (e: any) {
-    error = String(e?.message || e)
+  if (unreadable.length) {
+    error = `${unreadable.length} stored statement${unreadable.length === 1 ? '' : 's'} could not be read (${unreadable.join(', ')}) — remove ${unreadable.length === 1 ? 'it' : 'them'} and re-import, because a book built from the rest would be quietly incomplete`
+  } else {
+    try {
+      book = buildBook(docs)
+    } catch (e: any) {
+      error = String(e?.message || e)
+    }
   }
   cache = { key, book, error }
   return { statements, book, error }
