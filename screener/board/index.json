@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-25T03:34:08Z",
+  "generated_at": "2026-08-25T03:43:59Z",
   "inbox": [
     {
       "inbox_id": "INB-20260825-658",
@@ -554,6 +554,49 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260825-687",
+      "headline": "Ship's Cook Survives Drone Attack, Then Dies in Attack on Rescue Vessel",
+      "headline_en": null,
+      "url": "https://maritime-executive.com/article/ship-s-cook-survives-drone-attack-then-dies-in-attack-on-rescue-vessel",
+      "source_name": "Maritime Executive",
+      "input_nature": "shipping_rate_move",
+      "found_at": "2026-08-25T02:11:54Z",
+      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
+      "prelim_note": "Escalation of maritime conflict involving lethal attacks on vessels represents a significant geopolitical risk to global shipping and supply chains.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Escalation of maritime conflict involving lethal attacks on vessels represents a significant geopolitical risk to global shipping and supply chains.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 5,
+        "scope": 4,
+        "event": 1,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "commodity",
+        "source_tier_id": "official_data",
+        "event_id": "macro_sector",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1872,55 +1915,6 @@
           "name": "Digital Realty",
           "ticker": "DLR",
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260825-411",
-      "headline": "Temu-owner PDD revenue misses estimates, profit falls on ‘intense’ China competition",
-      "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/companies-markets/consumer-healthcare/temu-owner-pdd-revenue-misses-estimates-profit-falls-intense-china-competition",
-      "source_name": "The Business Times (Singapore)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-25T00:23:55Z",
-      "sweep_file": "screener/inbox/2026-08-25_sweep.json",
-      "prelim_note": "PDD Holdings reported revenue below estimates and profit fell citing intense China competition.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "PDD Holdings reported revenue below estimates and profit fell citing intense China competition.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "PDD Holdings",
-          "ticker": null,
-          "listing_country": null
         }
       ],
       "size_bucket": "large",
@@ -88240,9 +88234,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 378058,
-    "news_picked_today": 1044,
-    "news_dropped_today": 5172
+    "news_seen_today": 395052,
+    "news_picked_today": 1056,
+    "news_dropped_today": 5232
   },
   "book_momentum": {
     "live_count": 8,
