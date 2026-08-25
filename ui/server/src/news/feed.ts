@@ -1,10 +1,9 @@
 // Per-item live-feed persistence: one `kind:"item"` NDJSON line per TRIAGED article (kept AND
-// dropped) in the same date-rotated firehose file the cycle summaries use. This is what makes the
+// dropped) in the same date-partitioned firehose the cycle summaries use. This is what makes the
 // cockpit's "News wire" restart-proof: the SSE stream covers the live tail, this file covers the
 // backfill. Existing readers (the python board builder's firehose_counts) filter by kind, so these
-// lines are invisible to them. Growth is bounded by construction: items are written only for
-// post-firewall, post-dedupe candidates (single digits per cycle today), the file rotates daily,
-// and a per-day cap is enforced here as a backstop.
+// lines are invisible to them. Each physical shard is bounded below the Git-hosting file limit; a busy
+// UTC day rolls to another shard instead of stopping publication until midnight.
 
 import fs from 'node:fs'
 import path from 'node:path'
@@ -23,6 +22,16 @@ import { cleanTicker } from './symbology'
 import { NEWS, STATE_DIR } from '../config'
 import { bodyVerdicts } from './impact-floor'
 import { isRfc3339 } from '../rfc3339'
+import { acquireRetainedFlockSync, releaseRetainedFlock } from '../singleton-lock'
+import {
+  contiguousFirehoseFiles,
+  firehoseDates,
+  firehoseLockPath,
+  firehoseName,
+  firehosePath,
+  localFirehoseFiles,
+  resolvedFirehoseFiles,
+} from './firehose-files'
 
 /** Hydrate a feed item on read: clean any HTML/markup left in the headline (older firehose lines were
  *  stored before ingest-time cleaning — e.g. "<a href=…>Title</a>"), fill scope/source_tier, and derive
@@ -132,12 +141,8 @@ function withDedup(items: FeedItem[], maxScanOverride?: number): void {
   for (const it of items) it.dedup_group = groups.get(it.event_id) || it.dedup_group || it.event_id
 }
 
-function firehosePath(repoRoot: string, date: string): string {
-  return path.join(repoRoot, 'screener', 'inbox', `${date}_firehose.ndjson`)
-}
-
-/** A cheap identity for one day's firehose FILE: which copy answered (local inbox or the cloud archive),
- *  its size, and its mtime. Two calls returning the same stamp are guaranteed to read the same bytes, so a
+/** A cheap identity for one day's firehose SHARDS: which copies answered (local inbox or cloud archive),
+ *  their sizes, and their mtimes. Two calls returning the same stamp are guaranteed to read the same bytes, so a
  *  caller can cache the PARSED form of a day and re-derive it only when the file actually changes. Null
  *  when the day is on neither disk (a real gap). Never throws — a stat failure just means "no stamp", and
  *  a caller that can't stamp a day simply re-parses it (correct, only slower).
@@ -146,48 +151,123 @@ function firehosePath(repoRoot: string, date: string): string {
  *  day files and re-parses each one from scratch. Only TODAY's file is still being appended to; every older
  *  day is immutable. Stamping lets the expensive consumer (news/facets.ts) skip the immutable 99%. */
 export function firehoseStamp(repoRoot: string, date: string, archiveDir = ''): string | null {
-  const candidates = [firehosePath(repoRoot, date)]
-  if (archiveDir) candidates.push(path.join(archiveDir, `${date}_firehose.ndjson`))
-  for (const fp of candidates) {
-    try {
-      const st = fs.statSync(fp)
+  try {
+    const stamps = resolvedFirehoseFiles(repoRoot, date, archiveDir).map(({ file }) => {
+      const st = fs.statSync(file)
       // POSIX-normalize before it goes into a cache-key string (news/facets.ts) — path.join emits `\` on
       // Windows, and a stamp is compared/prefix-matched as text, not re-resolved as a path.
-      return `${fp.replace(/\\/g, '/')}|${st.size}|${st.mtimeMs}`
-    } catch { /* not this copy — try the archive */ }
-  }
-  return null
+      return `${file.replace(/\\/g, '/')}|${st.size}|${st.mtimeMs}`
+    })
+    return stamps.length ? stamps.join(';') : null
+  } catch { return null }
 }
 
-/** Read one day's firehose text — local inbox first, then the cloud archive (Drive mount) after a local
- *  prune. Returns null when the day is on neither (a real gap, or never ingested). Never throws. */
-function readFirehoseText(repoRoot: string, date: string, archiveDir: string): string | null {
+/** Read one logical day's shards in append order. Local wins per shard; when that copy disappears between
+ * listing and read, retry its Drive mirror. Returns null when no readable shard exists. Never throws. */
+function readFirehoseTexts(repoRoot: string, date: string, archiveDir: string): string[] | null {
   try {
-    return fs.readFileSync(firehosePath(repoRoot, date), 'utf8')
-  } catch {
-    if (archiveDir) {
-      try { return fs.readFileSync(path.join(archiveDir, `${date}_firehose.ndjson`), 'utf8') } catch { /* fall through */ }
+    const texts: string[] = []
+    for (const row of resolvedFirehoseFiles(repoRoot, date, archiveDir)) {
+      try { texts.push(fs.readFileSync(row.file, 'utf8')) }
+      catch {
+        if (!archiveDir) continue
+        try { texts.push(fs.readFileSync(path.join(archiveDir, firehoseName(date, row.index)), 'utf8')) }
+        catch { /* shard unavailable — the display path remains fail-soft */ }
+      }
     }
-    return null
+    return texts.length ? texts : null
+  } catch { return null }
+}
+
+interface DayScanPosition { shard: number; line: number }
+interface DayItemScan {
+  status: 'read' | 'missing' | 'unreadable'
+  lines: number
+  complete: boolean
+  next: DayScanPosition | null
+}
+
+function readResolvedShardText(row: { file: string; index: number }, archiveDir: string, date: string): string | null {
+  try { return fs.readFileSync(row.file, 'utf8') }
+  catch {
+    if (!archiveDir) return null
+    try { return fs.readFileSync(path.join(archiveDir, firehoseName(date, row.index)), 'utf8') }
+    catch { return null }
   }
 }
 
-/** Read + hydrate one day's `kind:"item"` lines (newest-first within the day is NOT guaranteed — the
- *  caller sorts). Returns the items and how many lines were parsed (the scan-budget unit). Corrupt lines
- *  skipped. Shared by searchFeed and the facet index so they read the archive identically to the wire. */
+/** Walk a logical day newest physical row first, loading at most one bounded shard at a time. `next`
+ * identifies the exact first unconsumed storage row, so archive search can stop at a hard line/page budget
+ * and resume without rereading an uncapped logical day. The visitor returns false to stop before consuming
+ * the current item (it will be visited again from `next`). */
+function scanDayItems(
+  repoRoot: string,
+  date: string,
+  archiveDir: string,
+  options: { maxLines?: number; start?: DayScanPosition | null } = {},
+  visit: (item: FeedItem) => boolean = () => true,
+): DayItemScan {
+  let files: ReturnType<typeof resolvedFirehoseFiles>
+  try { files = resolvedFirehoseFiles(repoRoot, date, archiveDir) }
+  catch { return { status: 'unreadable', lines: 0, complete: true, next: null } }
+  if (!files.length) return { status: 'missing', lines: 0, complete: true, next: null }
+  if (!contiguousFirehoseFiles(files)) return { status: 'unreadable', lines: 0, complete: true, next: null }
+
+  const maxLines = Number.isFinite(options.maxLines)
+    ? Math.max(0, Math.floor(options.maxLines!))
+    : Number.MAX_SAFE_INTEGER
+  const requestedShard = options.start?.shard ?? files.at(-1)!.index
+  let shard = Math.min(requestedShard, files.at(-1)!.index)
+  let startLine = options.start?.line ?? -1
+  let lines = 0
+
+  for (; shard >= 0; shard--) {
+    const row = files[shard]
+    const text = readResolvedShardText(row, archiveDir, date)
+    if (text == null) return { status: 'unreadable', lines, complete: true, next: null }
+    const physicalLines = text.split('\n')
+    let line = startLine >= 0 && shard === requestedShard
+      ? Math.min(startLine, physicalLines.length - 1)
+      : physicalLines.length - 1
+    startLine = -1
+    for (; line >= 0; line--) {
+      const raw = physicalLines[line].trim()
+      if (!raw) continue
+      if (lines >= maxLines) return { status: 'read', lines, complete: false, next: { shard, line } }
+      lines++
+      let parsed: any
+      try { parsed = JSON.parse(raw) } catch { continue }
+      if (parsed?.kind !== 'item') continue
+      if (!visit(hydrate(parsed as FeedItem))) {
+        return { status: 'read', lines, complete: false, next: { shard, line } }
+      }
+    }
+  }
+  return { status: 'read', lines, complete: true, next: null }
+}
+
+/** Read + hydrate one day's item lines in durable append order without materializing every shard's text at
+ * once. The facet cache relies on this stable order for deterministic display-name tie breaks; budgeted
+ * archive search uses the reverse/resumable scan above directly. */
 export function readDayItems(repoRoot: string, date: string, archiveDir: string): { items: FeedItem[]; lines: number } {
-  const text = readFirehoseText(repoRoot, date, archiveDir)
-  if (text == null) return { items: [], lines: 0 }
   const items: FeedItem[] = []
   let lines = 0
-  for (const ln of text.split('\n')) {
-    const t = ln.trim()
-    if (!t) continue
-    lines++
-    try {
-      const o = JSON.parse(t)
-      if (o?.kind === 'item') items.push(hydrate(o as FeedItem))
-    } catch { /* corrupt line — skip, never break the scan */ }
+  let files: ReturnType<typeof resolvedFirehoseFiles>
+  try { files = resolvedFirehoseFiles(repoRoot, date, archiveDir) }
+  catch { return { items, lines } }
+  if (!contiguousFirehoseFiles(files)) return { items, lines }
+  for (const row of files) {
+    const text = readResolvedShardText(row, archiveDir, date)
+    if (text == null) break
+    for (const raw of text.split('\n')) {
+      const line = raw.trim()
+      if (!line) continue
+      lines++
+      try {
+        const parsed = JSON.parse(line)
+        if (parsed?.kind === 'item') items.push(hydrate(parsed as FeedItem))
+      } catch { /* corrupt line — skip, never break the logical-day read */ }
+    }
   }
   return { items, lines }
 }
@@ -196,18 +276,8 @@ export function readDayItems(repoRoot: string, date: string, archiveDir: string)
  *  newest-first. The floor for an archive-spanning scan: searchFeed walks these so it knows when there
  *  is genuinely no older data (exhausted) vs when it stopped on a budget. */
 export function listFirehoseDates(repoRoot: string, archiveDir = ''): string[] {
-  const dates = new Set<string>()
-  const scan = (dir: string) => {
-    try {
-      for (const f of fs.readdirSync(dir)) {
-        const m = /^(\d{4}-\d{2}-\d{2})_firehose\.ndjson$/.exec(f)
-        if (m) dates.add(m[1])
-      }
-    } catch { /* dir missing — skip */ }
-  }
-  scan(path.join(repoRoot, 'screener', 'inbox'))
-  if (archiveDir) scan(archiveDir)
-  return [...dates].sort((a, b) => (a < b ? 1 : -1)) // newest-first
+  try { return firehoseDates(repoRoot, archiveDir) }
+  catch { return [] }
 }
 
 /** Find ONE stored wire item by event id — a cheap line-scan (substring match first; JSON.parse only
@@ -224,15 +294,18 @@ export function findFeedItemByEventId(
   const maxDates = Math.max(1, opts.maxDates ?? 400)
   const needle = `"${eventId}"`
   for (const date of listFirehoseDates(repoRoot, archiveDir).slice(0, maxDates)) {
-    const text = readFirehoseText(repoRoot, date, archiveDir)
-    if (text == null || !text.includes(eventId)) continue
-    for (const ln of text.split('\n')) {
-      if (!ln.includes(needle)) continue
-      try {
-        const o = JSON.parse(ln)
-        if (o && typeof o === 'object' && !Array.isArray(o) && o.kind === 'item' && o.event_id === eventId) return hydrate(o as FeedItem)
-      } catch {
-        /* corrupt line — keep scanning */
+    const texts = readFirehoseTexts(repoRoot, date, archiveDir)
+    if (texts == null) continue
+    for (const text of [...texts].reverse()) {
+      if (!text.includes(eventId)) continue
+      for (const ln of text.split('\n')) {
+        if (!ln.includes(needle)) continue
+        try {
+          const o = JSON.parse(ln)
+          if (o && typeof o === 'object' && !Array.isArray(o) && o.kind === 'item' && o.event_id === eventId) return hydrate(o as FeedItem)
+        } catch {
+          /* corrupt line — keep scanning */
+        }
       }
     }
   }
@@ -296,6 +369,94 @@ function scanFirehose(fp: string): FirehoseScan {
   }
 }
 
+interface CachedPartitionRow {
+  file: string
+  stamp: string
+  scan: Extract<FirehoseScan, { ok: true }>
+}
+
+interface CachedPartitionScan {
+  rows: CachedPartitionRow[]
+  eventIds: Set<string>
+}
+
+// Only the active UTC partition is hot in production. Bound this cache so isolated test repositories or
+// a long-running process cannot retain an unbounded number of identity sets. Sealed physical shards are
+// immutable under the partition flock, so their parsed identities are reusable until their inode stamp
+// changes; the active shard remains bounded by the per-shard row/byte limits.
+const partitionScanCache = new Map<string, CachedPartitionScan>()
+const PARTITION_SCAN_CACHE_MAX = 16
+
+function partitionFileStamp(fp: string): string {
+  const st = fs.statSync(fp)
+  return `${st.dev}|${st.ino}|${st.size}|${st.mtimeMs}`
+}
+
+function cachePartitionScan(key: string, value: CachedPartitionScan): void {
+  partitionScanCache.delete(key)
+  partitionScanCache.set(key, value)
+  while (partitionScanCache.size > PARTITION_SCAN_CACHE_MAX) {
+    const oldest = partitionScanCache.keys().next().value
+    if (oldest === undefined) break
+    partitionScanCache.delete(oldest)
+  }
+}
+
+/** Scan only shards whose inode stamp changed. The aggregate identity set grows incrementally for normal
+ * append/rollover; an unexpected rewrite or truncation rebuilds it from the cached per-shard scans. Must
+ * be called while the date's partition flock is held. */
+function scanMutablePartition(
+  repoRoot: string,
+  date: string,
+  files: readonly ReturnType<typeof localFirehoseFiles>[number][],
+): FirehoseScan {
+  const key = `${path.resolve(repoRoot)}\u0000${date}`
+  const previous = partitionScanCache.get(key)
+  const rows: CachedPartitionRow[] = []
+  let rebuild = !previous || files.length < previous.rows.length
+  const eventIds = previous?.eventIds || new Set<string>()
+
+  for (let index = 0; index < files.length; index++) {
+    const row = files[index]
+    let before: string
+    try { before = partitionFileStamp(row.file) }
+    catch { return { ok: false } }
+    const cached = previous?.rows[index]
+    if (cached?.file === row.file && cached.stamp === before) {
+      rows.push(cached)
+      continue
+    }
+
+    const scanned = scanFirehose(row.file)
+    if (!scanned.ok) return scanned
+    let stamp: string
+    try { stamp = partitionFileStamp(row.file) }
+    catch { return { ok: false } }
+    rows.push({ file: row.file, stamp, scan: scanned })
+
+    if (cached?.file === row.file) {
+      // Ordinary mutation is append-only. Any disappeared durable identity means an external rewrite or
+      // truncation occurred, so the shared aggregate cannot be updated by additions alone.
+      for (const eventId of cached.scan.eventIds) {
+        if (!scanned.eventIds.has(eventId)) { rebuild = true; break }
+      }
+    } else if (index < (previous?.rows.length || 0)) {
+      rebuild = true
+    }
+    for (const eventId of scanned.eventIds) eventIds.add(eventId)
+  }
+
+  if (rebuild) {
+    eventIds.clear()
+    for (const row of rows) for (const eventId of row.scan.eventIds) eventIds.add(eventId)
+  }
+  cachePartitionScan(key, { rows, eventIds })
+  const active = rows.at(-1)?.scan
+  return active
+    ? { ok: true, count: active.count, size: active.size, eventIds }
+    : { ok: true, count: 0, size: 0, eventIds }
+}
+
 export type AppendFeedItemsResult =
   | { status: 'complete'; written: number; unwritten: 0; appendedEventIds: string[] }
   | { status: 'cap'; cap: 'items' | 'bytes'; written: number; unwritten: number; appendedEventIds: string[] }
@@ -325,6 +486,25 @@ export type HistoricalFeedIdentitySnapshot =
   | { status: 'missing' }
   | { status: 'io_failure' }
 
+function inspectImmutableFirehose(fp: string): { ok: true; eventIds: Set<string> } | { ok: false } {
+  try {
+    const bytes = fs.readFileSync(fp)
+    if (bytes.length && bytes[bytes.length - 1] !== 0x0a) return { ok: false }
+    const eventIds = new Set<string>()
+    for (const raw of bytes.toString('utf8').split('\n')) {
+      const line = raw.trim()
+      if (!line) continue
+      let row: any
+      try { row = JSON.parse(line) } catch { return { ok: false } }
+      if (row?.kind === 'item') {
+        if (typeof row.event_id !== 'string' || !row.event_id) return { ok: false }
+        eventIds.add(row.event_id)
+      }
+    }
+    return { ok: true, eventIds }
+  } catch { return { ok: false } }
+}
+
 /** Read identity only from an older immutable partition, consulting the archive after local retention
  * prunes its primary copy. A configured-but-unavailable archive fails closed: treating it as an empty day
  * could duplicate an event that was already committed before a long recovery outage. */
@@ -333,63 +513,76 @@ export function inspectHistoricalFeedIdentities(
   date: string,
   archiveDir = '',
 ): HistoricalFeedIdentitySnapshot {
-  const local = firehosePath(repoRoot, date)
+  const localDir = path.resolve(repoRoot, 'screener', 'inbox')
+  let files: ReturnType<typeof resolvedFirehoseFiles>
   try {
-    const stat = fs.statSync(local)
-    if (!stat.isFile()) return { status: 'io_failure' }
-    const scanned = scanFirehose(local)
-    return scanned.ok ? { status: 'available', eventIds: scanned.eventIds } : { status: 'io_failure' }
-  } catch (error: any) {
-    if (error?.code !== 'ENOENT') return { status: 'io_failure' }
-  }
+    const local = localFirehoseFiles(repoRoot, date)
+    // A complete retained local partition is authoritative on its own. A temporarily unavailable Drive
+    // mount must not stop recovery while every required shard is still inside local retention.
+    if (local.length && contiguousFirehoseFiles(local)) {
+      files = local
+    } else {
+      if (archiveDir) {
+        const archive = fs.statSync(archiveDir)
+        if (!archive.isDirectory()) return { status: 'io_failure' }
+      }
+      files = resolvedFirehoseFiles(repoRoot, date, archiveDir)
+    }
+  } catch { return { status: 'io_failure' } }
   // The caller knows whether this target is still inside local retention. Do not invent an empty immutable
   // day here: after retention, no configured archive is just as ambiguous as a missing archive partition.
-  if (!archiveDir) return { status: 'missing' }
-  try {
-    const archiveStat = fs.statSync(archiveDir)
-    if (!archiveStat.isDirectory()) return { status: 'io_failure' }
-  } catch {
-    return { status: 'io_failure' }
+  if (!files.length) return { status: 'missing' }
+  if (!contiguousFirehoseFiles(files)) return { status: 'io_failure' }
+  const eventIds = new Set<string>()
+  for (const row of files) {
+    const isLocal = path.dirname(path.resolve(row.file)) === localDir
+    const scanned = isLocal ? scanFirehose(row.file) : inspectImmutableFirehose(row.file)
+    if (!scanned.ok) return { status: 'io_failure' }
+    for (const eventId of scanned.eventIds) eventIds.add(eventId)
   }
-  try {
-    const bytes = fs.readFileSync(path.join(archiveDir, `${date}_firehose.ndjson`))
-    if (bytes.length && bytes[bytes.length - 1] !== 0x0a) return { status: 'io_failure' }
-    const eventIds = new Set<string>()
-    for (const raw of bytes.toString('utf8').split('\n')) {
-      const line = raw.trim()
-      if (!line) continue
-      let row: any
-      try { row = JSON.parse(line) } catch { return { status: 'io_failure' } }
-      if (row?.kind === 'item') {
-        if (typeof row.event_id !== 'string' || !row.event_id) return { status: 'io_failure' }
-        eventIds.add(row.event_id)
-      }
-    }
-    return { status: 'available', eventIds }
-  } catch (error: any) {
-    return error?.code === 'ENOENT'
-      ? { status: 'missing' }
-      : { status: 'io_failure' }
-  }
+  return { status: 'available', eventIds }
 }
 
-/** Inspect today's authoritative file before spending scarce scoring capacity. This shares append's torn-tail
- * recovery and counts TOTAL file bytes (items plus summaries), so a full item/byte boundary costs zero calls. */
+/** Inspect today's authoritative shards before spending scarce scoring capacity. A full physical shard is
+ * reported as a fresh shard's capacity, so rollover costs zero model calls without imposing a daily cap. */
 export function inspectFeedCapacity(
   repoRoot: string,
   date: string,
   dailyCap = NEWS.feedItemsDailyCap,
   dailyMaxBytes = NEWS.feedItemsDailyMaxBytes,
 ): FeedCapacitySnapshot {
-  const existing = scanFirehose(firehosePath(repoRoot, date))
-  if (!existing.ok) return { status: 'io_failure' }
+  let lock: number | undefined
+  try {
+    lock = acquireRetainedFlockSync(firehoseLockPath(repoRoot, date), {
+      waitMs: 2_000,
+      busyMessage: `firehose partition busy: ${date}`,
+    })
+  } catch { return { status: 'io_failure' } }
+  try {
+  const itemCap = Math.max(0, Math.floor(dailyCap))
+  const byteCap = Math.max(0, Math.floor(dailyMaxBytes))
+  let files: ReturnType<typeof localFirehoseFiles>
+  try { files = localFirehoseFiles(repoRoot, date) }
+  catch { return { status: 'io_failure' } }
+  if (!contiguousFirehoseFiles(files)) return { status: 'io_failure' }
+  const active = scanMutablePartition(repoRoot, date, files)
+  if (!active.ok) return { status: 'io_failure' }
+  // Scoring preflight reserves for the largest accepted row. Once the active shard cannot guarantee one,
+  // advertise the next empty shard now; append will make that rollover atomically for the actual row.
+  const rolls = itemCap > 0 && byteCap > 0
+    && (active.count >= itemCap || (active.size > 0 && byteCap - active.size < 64 * 1024))
+  const itemCount = rolls ? 0 : active.count
+  const bytes = rolls ? 0 : active.size
   return {
     status: 'available',
-    itemCount: existing.count,
-    bytes: existing.size,
-    remainingItems: Math.max(0, Math.floor(dailyCap) - existing.count),
-    remainingBytes: Math.max(0, Math.floor(dailyMaxBytes) - existing.size),
-    eventIds: existing.eventIds,
+    itemCount,
+    bytes,
+    remainingItems: Math.max(0, itemCap - itemCount),
+    remainingBytes: Math.max(0, byteCap - bytes),
+    eventIds: active.eventIds,
+  }
+  } finally {
+    releaseRetainedFlock(lock)
   }
 }
 
@@ -403,7 +596,7 @@ function writeLineFully(fd: number, line: Buffer): void {
 }
 
 /**
- * Append per-item records, honoring both row and byte caps. `written` is the exact ordered INPUT prefix
+ * Append per-item records, honoring per-SHARD row and byte caps. `written` is the exact ordered INPUT prefix
  * now known durable: it includes event ids already present from a prior crash plus rows completed here.
  * Each new row records its pre-offset and rolls back a short/failed write, so a retry never duplicates a
  * confirmed prefix or glues itself behind a torn tail. Never throws.
@@ -417,37 +610,77 @@ export function appendFeedItems(
   options: AppendFeedItemsOptions = {},
 ): AppendFeedItemsResult {
   if (!items.length) return { status: 'complete', written: 0, unwritten: 0, appendedEventIds: [] }
-  const fp = firehosePath(repoRoot, date)
+  let fp = firehosePath(repoRoot, date)
   let fd: number | undefined
-  let parentSynced = false
+  let lock: number | undefined
+  let currentExists = false
   let written = 0
   const appendedEventIds: string[] = []
   try {
     fs.mkdirSync(path.dirname(fp), { recursive: true })
-    const existing = scanFirehose(fp)
-    if (!existing.ok) return { status: 'io_failure', written: 0, unwritten: items.length, appendedEventIds }
+    lock = acquireRetainedFlockSync(firehoseLockPath(repoRoot, date), {
+      waitMs: 2_000,
+      busyMessage: `firehose partition busy: ${date}`,
+    })
     const itemCap = Math.max(0, Math.floor(dailyCap))
     const byteCap = Math.max(0, Math.floor(dailyMaxBytes))
-    let itemCount = existing.count
-    let fileSize = existing.size
+    const files = localFirehoseFiles(repoRoot, date)
+    if (!contiguousFirehoseFiles(files)) return { status: 'io_failure', written: 0, unwritten: items.length, appendedEventIds }
+    let currentIndex = files.at(-1)?.index ?? 0
+    const partition = scanMutablePartition(repoRoot, date, files)
+    if (!partition.ok) return { status: 'io_failure', written: 0, unwritten: items.length, appendedEventIds }
+    const eventIds = partition.eventIds
+    let itemCount = partition.count
+    let fileSize = partition.size
+    if (files.length) {
+      fp = files.at(-1)!.file
+      currentExists = true
+    }
     const writeLine = options.writeLine || writeLineFully
     const acknowledgedEventIds = options.acknowledgedEventIds
+
+    const closeCurrent = () => {
+      if (fd !== undefined) try { fs.closeSync(fd) } catch { /* a synced row is already durable */ }
+      fd = undefined
+    }
+
+    const roll = () => {
+      closeCurrent()
+      currentIndex++
+      fp = firehosePath(repoRoot, date, currentIndex)
+      currentExists = false
+      itemCount = 0
+      fileSize = 0
+    }
 
     for (const item of items) {
       // A process may have crashed after completing this line but before saving seen/backlog cleanup.
       // Event identity makes that completed prefix idempotent: acknowledge it, never append a duplicate.
-      if (existing.eventIds.has(item.event_id) || acknowledgedEventIds?.has(item.event_id)) {
+      if (eventIds.has(item.event_id) || acknowledgedEventIds?.has(item.event_id)) {
         written++
         continue
+      }
+
+      if (itemCap <= 0 || byteCap <= 0) {
+        return { status: 'cap', cap: itemCap <= 0 ? 'items' : 'bytes', written, unwritten: items.length - written, appendedEventIds }
       }
 
       let line: Buffer
       try { line = Buffer.from(`${JSON.stringify(item)}\n`, 'utf8') }
       catch { return { status: 'io_failure', written, unwritten: items.length - written, appendedEventIds } }
-      if (itemCount >= itemCap) return { status: 'cap', cap: 'items', written, unwritten: items.length - written, appendedEventIds }
-      if (fileSize + line.length > byteCap) return { status: 'cap', cap: 'bytes', written, unwritten: items.length - written, appendedEventIds }
+      if (line.length > byteCap) return { status: 'cap', cap: 'bytes', written, unwritten: items.length - written, appendedEventIds }
+      if (itemCount >= itemCap || fileSize + line.length > byteCap) roll()
 
-      if (fd === undefined) fd = fs.openSync(fp, 'a')
+      if (fd === undefined) {
+        fd = fs.openSync(fp, currentExists ? 'a' : 'ax+')
+        currentExists = true
+        // The partition flock prevents another writer from changing the shard set while this descriptor
+        // is open. Validate once per shard instead of rescanning the directory for every appended item.
+        const currentFiles = localFirehoseFiles(repoRoot, date)
+        if (!contiguousFirehoseFiles(currentFiles) || currentFiles.at(-1)?.index !== currentIndex) {
+          return { status: 'io_failure', written, unwritten: items.length - written, appendedEventIds }
+        }
+      }
       const preOffset = fs.fstatSync(fd).size
       // A second writer would invalidate both cap arithmetic and rollback ownership. Fail closed instead
       // of truncating bytes we did not write.
@@ -460,17 +693,14 @@ export function appendFeedItems(
         fs.fsyncSync(fd)
         // File fsync does not guarantee a newly-created directory entry. Sync the parent before the first
         // acknowledgement from this append invocation; harmless for an existing file, essential on day one.
-        if (!parentSynced) {
-          fsyncParent(fp)
-          parentSynced = true
-        }
+        fsyncParent(fp)
       } catch {
         try { fs.ftruncateSync(fd, preOffset) } catch { /* next scan removes only the torn final fragment */ }
         return { status: 'io_failure', written, unwritten: items.length - written, appendedEventIds }
       }
       fileSize += line.length
       itemCount++
-      existing.eventIds.add(item.event_id)
+      eventIds.add(item.event_id)
       appendedEventIds.push(item.event_id)
       written++
     }
@@ -481,6 +711,7 @@ export function appendFeedItems(
     if (fd !== undefined) {
       try { fs.closeSync(fd) } catch { /* the row boundary was already checked; retry remains idempotent */ }
     }
+    if (lock !== undefined) releaseRetainedFlock(lock)
   }
 }
 
@@ -502,7 +733,7 @@ export interface ReadFeedOptions {
 }
 
 /**
- * Read the last `days` firehose files (today first) and split records by kind. Items come back
+ * Read the last `days` logical firehose partitions (today first) and split records by kind. Items come back
  * newest-first, capped, corrupt lines skipped — same tolerance discipline as the ledger readers.
  */
 export function readFeed(repoRoot: string, days = 2, opts: ReadFeedOptions = {}): FeedSnapshot {
@@ -522,22 +753,24 @@ export function readFeed(repoRoot: string, days = 2, opts: ReadFeedOptions = {})
   const cycles: CycleSummary[] = []
   for (let d = 0; d < Math.max(1, days); d++) {
     const date = new Date(now().getTime() - d * 86_400_000).toISOString().slice(0, 10)
-    const text = readFirehoseText(repoRoot, date, archiveDir)
-    if (text == null) continue // not on local disk or in the archive (pruned, gap, or never here)
-    for (const ln of text.split('\n')) {
-      const t = ln.trim()
-      if (!t) continue
-      try {
-        const o = JSON.parse(t)
-        if (o?.kind === 'item') {
-          // filter at the push site (post-hydrate), so the early-stop below counts MATCHES — a sparse
-          // filter (e.g. one commodity) still fills its window instead of stopping at maxItems raw lines
-          const h = hydrate(o as FeedItem)
-          if (weightsForPredicate) applyActiveWeightsTo(h, weightsForPredicate, bodiesForPredicate)
-          if (!opts.predicate || opts.predicate(h)) items.push(h)
-        } else if (o?.kind === 'cycle_summary') cycles.push(o as CycleSummary)
-      } catch {
-        // corrupt line — skip, never break the wire
+    const texts = readFirehoseTexts(repoRoot, date, archiveDir)
+    if (texts == null) continue // not on local disk or in the archive (pruned, gap, or never here)
+    for (const text of texts) {
+      for (const ln of text.split('\n')) {
+        const t = ln.trim()
+        if (!t) continue
+        try {
+          const o = JSON.parse(t)
+          if (o?.kind === 'item') {
+            // filter at the push site (post-hydrate), so the early-stop below counts MATCHES — a sparse
+            // filter (e.g. one commodity) still fills its window instead of stopping at maxItems raw lines
+            const h = hydrate(o as FeedItem)
+            if (weightsForPredicate) applyActiveWeightsTo(h, weightsForPredicate, bodiesForPredicate)
+            if (!opts.predicate || opts.predicate(h)) items.push(h)
+          } else if (o?.kind === 'cycle_summary') cycles.push(o as CycleSummary)
+        } catch {
+          // corrupt line — skip, never break the wire
+        }
       }
     }
     // Days are read NEWEST-first (d=0 is today), so once we have maxItems the older days can only add
@@ -564,12 +797,16 @@ export function readFeed(repoRoot: string, days = 2, opts: ReadFeedOptions = {})
 // of any filter), searchFeed keeps walking OLDER days until it has filled a page of items that actually
 // MATCH the predicate — or it reaches the archive floor / a scan budget. That is what kills the "false
 // nothing": a sparse filter (e.g. Aerospace & Defense in the UAE) finds matches buried deep in history
-// instead of stopping at the newest 6,000 items. Paging is a stable compound (ts, event_id) cursor, so
-// same-minute items are never skipped or duplicated across pages.
+// instead of stopping at the newest 6,000 items. Paging keeps the stable (ts,event_id) identity and, when
+// a request stops on its hard work bound, an exact physical resume point inside the logical day.
 
 export interface SearchCursor {
   ts: string
   id: string // idKey (event_id, url fallback) — breaks ts ties so paging is loss-free at minute granularity
+  /** Exact physical resume point used only when a line/page budget stops inside a sharded logical day. */
+  scanDate?: string
+  scanShard?: number
+  scanLine?: number
 }
 export interface SearchOpts {
   predicate: (it: FeedItem) => boolean
@@ -580,7 +817,7 @@ export interface SearchOpts {
   maxLinesScan?: number // hard ceiling on lines parsed per call (the fs-read DoS guard); default 300k
   fromDate?: string // YYYY-MM-DD inclusive older bound; omit = walk to the archive floor
   toDate?: string // YYYY-MM-DD inclusive newer bound; omit = today
-  cursor?: SearchCursor | null // resume strictly AFTER this (ts,id) in (ts desc, id desc) order
+  cursor?: SearchCursor | null // resume after this page; new cursors also carry an exact storage position
   applyActiveWeights?: boolean // re-score the returned page under current weights (default on, like readFeed)
 }
 export interface SearchSnapshot {
@@ -597,9 +834,6 @@ const dayKey = (now: () => Date) => now().toISOString().slice(0, 10)
 // an empty event_id would collapse to one indistinguishable cursor and silently drop every one past the
 // first across a page boundary (a "false nothing").
 const idKey = (it: FeedItem): string => it.event_id || it.url || ''
-// the calendar day immediately before `d` (YYYY-MM-DD). Used to advance a budget-stop resume cursor
-// strictly past a day already fully scanned, so paging can never stall re-reading the same boundary day.
-const dayBefore = (d: string): string => new Date(new Date(`${d}T00:00:00Z`).getTime() - 86_400_000).toISOString().slice(0, 10)
 // item is strictly AFTER the cursor in (ts desc, idKey desc) order → belongs on a later page
 function afterCursor(it: FeedItem, c: SearchCursor | null | undefined): boolean {
   if (!c) return true
@@ -613,10 +847,17 @@ export function searchFeed(repoRoot: string, opts: SearchOpts): SearchSnapshot {
   const limit = opts.limit && opts.limit > 0 ? opts.limit : 60
   const maxDaysScan = opts.maxDaysScan && opts.maxDaysScan > 0 ? opts.maxDaysScan : 400
   const maxLinesScan = opts.maxLinesScan && opts.maxLinesScan > 0 ? opts.maxLinesScan : 300_000
+  const validDay = (value: unknown): value is string => typeof value === 'string'
+    && /^\d{4}-\d{2}-\d{2}$/.test(value) && !Number.isNaN(Date.parse(`${value}T00:00:00Z`))
+  const storageCursor = opts.cursor && validDay(opts.cursor.scanDate)
+    && Number.isSafeInteger(opts.cursor.scanShard) && opts.cursor.scanShard! >= 0 && opts.cursor.scanShard! <= 999_999
+    && Number.isSafeInteger(opts.cursor.scanLine) && opts.cursor.scanLine! >= -1
+    ? { date: opts.cursor.scanDate, shard: opts.cursor.scanShard!, line: opts.cursor.scanLine! }
+    : null
   // Guard the start day against a malformed cursor.ts / toDate (e.g. "abc", or an impossible "2026-13-45"):
   // it feeds the date arithmetic below, and new Date(NaN).toISOString() THROWS — which would otherwise
   // surface as an unhandled 500 (and a raw-error leak) from the /api/news/search route. Fall back to today.
-  const rawStart = opts.cursor?.ts.slice(0, 10) || opts.toDate || dayKey(now)
+  const rawStart = storageCursor?.date || opts.cursor?.ts.slice(0, 10) || opts.toDate || dayKey(now)
   const startDate = Number.isNaN(Date.parse(`${rawStart}T00:00:00Z`)) ? dayKey(now) : rawStart
   // The real archive floor: the OLDEST day that actually has a firehose file (local or in the cloud
   // archive). Bounding the walk to it makes `exhausted` honest — we know when there is genuinely no older
@@ -629,6 +870,7 @@ export function searchFeed(repoRoot: string, opts: SearchOpts): SearchSnapshot {
   let scannedThroughDate: string | null = null
   let reachedFloor = false
   let budgetStop = false
+  let storageStop: { date: string; position: DayScanPosition } | null = null
   // Re-score under the CURRENTLY-active weights BEFORE the predicate runs — not after, on the page. The
   // wire displays each item's current-weight band (readFeed applies the same weights), and the band filter
   // must match what the wire shows. A persisted ingest-time band can differ from the current-weight band
@@ -643,24 +885,35 @@ export function searchFeed(repoRoot: string, opts: SearchOpts): SearchSnapshot {
   for (let d = 0; d < maxDaysScan; d++) {
     const date = new Date(new Date(`${startDate}T00:00:00Z`).getTime() - d * 86_400_000).toISOString().slice(0, 10)
     if (date < floorDate) { reachedFloor = true; break }
-    const { items, lines } = readDayItems(repoRoot, date, archiveDir)
-    linesScanned += lines
-    if (lines > 0) scannedThroughDate = date // the oldest day we actually parsed
-    for (const it of items) {
+    const storageResume = d === 0 && storageCursor?.date === date
+      ? { shard: storageCursor.shard, line: storageCursor.line }
+      : null
+    let pageStop = false
+    const scanned = scanDayItems(repoRoot, date, archiveDir, {
+      maxLines: Math.max(0, maxLinesScan - linesScanned),
+      start: storageResume,
+    }, (it) => {
       if (weightsForPredicate) applyActiveWeightsTo(it, weightsForPredicate, bodiesForPredicate)
-      if (afterCursor(it, opts.cursor) && opts.predicate(it)) matches.push(it)
+      if ((!storageCursor && !afterCursor(it, opts.cursor)) || !opts.predicate(it)) return true
+      // Stop BEFORE consuming the first match beyond the requested page. The exact storage cursor makes
+      // that row the first candidate on the next call, without parsing the rest of an uncapped day.
+      if (matches.length >= limit) { pageStop = true; return false }
+      matches.push(it)
+      return true
+    })
+    linesScanned += scanned.lines
+    if (scanned.lines > 0) scannedThroughDate = date
+    if (!scanned.complete && scanned.next) {
+      storageStop = { date, position: scanned.next }
+      budgetStop = !pageStop
+      break
     }
-    // Stop AFTER fully parsing a day (never mid-file) so newest-first ordering is exact: older days can
-    // only add items older than everything scanned, so once we have a full page it is complete + correct.
-    // Break on `> limit` (overflow by at least one), NOT `>= limit`: landing EXACTLY on `limit` must keep
-    // walking older days, otherwise a day that brings the running total to exactly `limit` while older
-    // matching days remain would stop here with `matches.length === limit` and report nextCursor=null —
-    // silently hiding the deeper matches (the very "false nothing" this function exists to kill). Overflowing
-    // by one guarantees "more exists ⟺ matches.length > limit"; landing exactly on `limit` instead continues
-    // until the next match (→ overflow → cursor) or the archive floor (→ exhausted).
-    if (matches.length > limit) break
-    if (linesScanned >= maxLinesScan) { budgetStop = true; break }
-    if (d === maxDaysScan - 1) budgetStop = true // walked the whole window without filling a page
+    if (date === floorDate) { reachedFloor = true; break }
+    if (d === maxDaysScan - 1) {
+      budgetStop = true
+      const nextDate = new Date(new Date(`${date}T00:00:00Z`).getTime() - 86_400_000).toISOString().slice(0, 10)
+      storageStop = { date: nextDate, position: { shard: 999_999, line: -1 } }
+    }
   }
 
   // newest-first, ties broken by idKey desc — the same total order the cursor encodes
@@ -669,26 +922,18 @@ export function searchFeed(repoRoot: string, opts: SearchOpts): SearchSnapshot {
   if (opts.applyActiveWeights !== false) withActiveWeights(page)
   withDedup(page)
 
-  const hasMore = matches.length > limit || (budgetStop && !reachedFloor)
+  const hasMore = storageStop !== null || (budgetStop && !reachedFloor)
   const last = page[page.length - 1]
-  const fullPage = page.length >= limit
-  // A PARTIAL page that stopped on budget resumes STRICTLY OLDER than the oldest day we fully scanned — at
-  // the day BEFORE scannedThroughDate, never at scannedThroughDate itself. Resuming at the same day would
-  // re-read (and re-count toward the budget) that day; when one day's line count alone exceeds maxLinesScan,
-  // the budget would trip again at d=0 before advancing, returning an IDENTICAL cursor forever — an infinite
-  // client paging loop that permanently hides every older match (the very "false nothing" this kills). The
-  // day was fully parsed, so all its matches are already in `matches`; skipping it on resume is loss-free.
-  const budgetCursor: SearchCursor | null =
-    budgetStop && page.length < limit && scannedThroughDate
-      ? { ts: `${dayBefore(scannedThroughDate)}T23:59:59Z`, id: '￿' } // high sentinel → includes every item on the resume day
-      : null
-  // A FULL page always resumes strictly AFTER its last (oldest) item — every match beyond the page is by
-  // construction older than it, so this is loss-free. This also covers a full page that stopped on budget
-  // (matches.length === limit exactly): without it, budgetCursor would be null (it requires a partial page)
-  // and the deeper data would be unreachable. A PARTIAL page that stopped on budget resumes from the day
-  // before the oldest scanned day instead.
-  const nextCursor = !hasMore ? null : fullPage && last ? { ts: last.ts, id: idKey(last) } : budgetCursor
-  return { items: page, nextCursor, scannedThroughDate, exhausted: reachedFloor && matches.length <= limit }
+  const nextCursor: SearchCursor | null = !hasMore || !storageStop
+    ? null
+    : {
+        ts: last?.ts || `${storageStop.date}T23:59:59Z`,
+        id: last ? idKey(last) : '￿',
+        scanDate: storageStop.date,
+        scanShard: storageStop.position.shard,
+        scanLine: storageStop.position.line,
+      }
+  return { items: page, nextCursor, scannedThroughDate, exhausted: reachedFloor && storageStop === null }
 }
 
 // ---- targeted single-item lookup -------------------------------------------------------------------

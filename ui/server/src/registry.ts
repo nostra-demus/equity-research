@@ -52,6 +52,8 @@ export interface RunState {
   parityPrelaunchBinding?: Record<string, unknown>
   /** Admission came through the operator-only frozen canary route; set before readiness/spawn begins. */
   parityCanary?: boolean
+  /** Frozen child role. Only `final` is a decision author and must complete supervisor publication. */
+  parityCanaryStage?: 'module' | 'final'
   /** Set only after the live supervisor verifies the terminal parity receipt and bound canaries. */
   parityVerificationCompleted?: boolean
   parityVerificationReceiptPath?: string

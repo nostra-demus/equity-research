@@ -8,12 +8,15 @@ process.env.ENGINE_ACTIVITY_LOG_DISABLED = '1'
 import assert from 'node:assert/strict'
 import fs from 'node:fs'
 import path from 'node:path'
-import { cancelSubject, type FullChainDeps, haltAllChains, launchFullChained, subjectChainActive } from '../src/launcher'
-import { REPO_ROOT } from '../src/config'
+import {
+  cancelSubject, type FullChainDeps, getParityCanaryChainStatus, haltAllChains,
+  launchFullChained, subjectChainActive,
+} from '../src/launcher'
+import { FULL_PER_MODULE, REPO_ROOT } from '../src/config'
 import { sharedDataPoolConflict } from '../src/intake-owner'
 import { buildSwarmGraph } from '../src/roster'
 import { SubjectBusyError, subjectMutationLockKey, withSubjectLock } from '../src/subject-lock'
-import type { LaunchPreflight, RunStatus } from '../src/types'
+import type { LaunchPreflight, RunStatus, SwarmGraph } from '../src/types'
 
 let passed = 0
 async function check(name: string, fn: () => void | Promise<void>) {
@@ -29,10 +32,13 @@ async function check(name: string, fn: () => void | Promise<void>) {
 
 // A fake launcher: records every launch synchronously (so assertions need no awaits) and stashes each
 // run's completion callback so the test can fire it to simulate that run finishing.
-function makeFake(opts?: { fail429Once?: string[] }) {
-  const launches: { kind: string; module?: string; agent?: string; provider: string; model?: string; reasoningLevel?: string }[] = []
+function makeFake(opts?: { fail429Once?: string[]; graph?: SwarmGraph; failMaster?: boolean }) {
+  const launches: { kind: string; module?: string; agent?: string; provider: string; model?: string;
+    reasoningLevel?: string; expectedProfileKey?: string; chainId?: string;
+    parityCanary?: { runRoot: string; freezeReceipt: string; stage?: string } }[] = []
   const onFinish = new Map<string, (s: RunStatus) => void>()
   let marker: string | null = null
+  let markerRoot: string | undefined
   let markerCleared = false
   let poolClaimHeld = false
   let poolClaimReleases = 0
@@ -40,7 +46,9 @@ function makeFake(opts?: { fail429Once?: string[] }) {
   const fail429Once = new Set(opts?.fail429Once ?? [])
   const deps: FullChainDeps = {
     launchAndWire: (params, cb) => {
-      const key = params.kind === 'rerun' ? 'master' : (params.module ?? params.agent ?? '?')
+      const key = params.kind === 'rerun' || (params.kind === 'full' && params.parityCanary?.stage === 'final')
+        ? 'master' : (params.module ?? params.agent ?? '?')
+      if (key === 'master' && opts?.failMaster) return Promise.reject(new Error('master admission failed'))
       // Simulate a transient global-capacity 429 on the FIRST launch attempt for a flagged module.
       if (params.kind === 'module' && fail429Once.has(params.module!)) {
         fail429Once.delete(params.module!)
@@ -50,11 +58,13 @@ function makeFake(opts?: { fail429Once?: string[] }) {
       launches.push({
         kind: params.kind, module: params.module, agent: params.agent,
         provider: params.provider, model: params.model, reasoningLevel: params.reasoningLevel,
+        expectedProfileKey: params.expectedProfileKey, chainId: params.chainId,
+        parityCanary: params.parityCanary,
       })
       onFinish.set(key, cb)
       return Promise.resolve({ runId: `run-${key}`, preflight: {} as LaunchPreflight })
     },
-    writeMarker: (ticker) => { marker = ticker },
+    writeMarker: (ticker, runRoot) => { marker = ticker; markerRoot = runRoot },
     clearMarker: () => { marker = null; markerCleared = true },
     scheduleRetry: (fn) => { retries.push(fn) },
     acquirePoolClaim: () => {
@@ -68,6 +78,7 @@ function makeFake(opts?: { fail429Once?: string[] }) {
         poolClaimReleases++
       }
     },
+    ...(opts?.graph ? { buildGraph: () => opts.graph! } : {}),
   }
   const mods = () => launches.filter((l) => l.kind === 'module').map((l) => l.module!)
   const finish = (key: string, status: RunStatus = 'done') => {
@@ -80,6 +91,7 @@ function makeFake(opts?: { fail429Once?: string[] }) {
   return {
     deps, launches, mods, finish, fireRetries, tick,
     getMarker: () => marker,
+    getMarkerRoot: () => markerRoot,
     wasMarkerCleared: () => markerCleared,
     pendingRetries: () => retries.length,
     poolClaimHeld: () => poolClaimHeld,
@@ -93,6 +105,7 @@ const sorted = (a: string[]) => [...a].sort()
   // sanity: the expected schedule below is written for THIS exact research DAG. If a module is added or a
   // dependency changes, this fails first (loudly) so the schedule assertions get re-checked.
   await check('research DAG is the expected 7-module shape', () => {
+    assert.equal(FULL_PER_MODULE, true, 'per-module orchestration is the safe default when no rollback flag is set')
     const g = buildSwarmGraph()
     assert.deepEqual(
       sorted(g.modules.map((m) => m.name)),
@@ -163,30 +176,99 @@ const sorted = (a: string[]) => [...a].sort()
     assert.equal(masters.length, 1, 'master synthesizer launches exactly once, after every module (incl. competitive-intel) is done')
   })
 
-  await check('the immutable provider profile reaches every chained module and the terminal master', async () => {
-    const f = makeFake()
-    const selection = { provider: 'codex' as const, model: 'gpt-5.6-sol', reasoningLevel: 'max' }
-    await launchFullChained('TESTPROVIDER', 'tester', 'local', selection, f.deps)
-    for (const module of ['business-model', 'earnings', 'balance-sheet-survival', 'management-governance', 'competitive-intel', 'valuation', 'catalyst']) {
-      if (!f.launches.some((launch) => launch.module === module)) {
-        const prerequisite = module === 'earnings' ? 'business-model'
-          : ['balance-sheet-survival', 'management-governance', 'competitive-intel'].includes(module) ? 'earnings'
-          : module === 'valuation' ? 'management-governance'
-          : 'valuation'
-        if (prerequisite === 'management-governance') f.finish('balance-sheet-survival')
-        f.finish(prerequisite)
+  await check('the immutable provider profile reaches every chained module and terminal master for Claude and Codex', async () => {
+    const selections = [
+      { provider: 'claude' as const, model: 'sonnet', reasoningLevel: 'default', expectedProfileKey: 'claude:sonnet:default' },
+      { provider: 'codex' as const, model: 'gpt-5.6-sol', reasoningLevel: 'max', expectedProfileKey: 'codex|gpt-5.6-sol:max|gpt-5.6-terra:xhigh' },
+    ]
+    for (const [index, selection] of selections.entries()) {
+      const f = makeFake()
+      await launchFullChained(`TESTPROVIDER${index}`, 'tester', 'local', selection, f.deps)
+      for (const module of ['business-model', 'earnings', 'balance-sheet-survival', 'management-governance', 'competitive-intel', 'valuation', 'catalyst']) {
+        if (!f.launches.some((launch) => launch.module === module)) {
+          const prerequisite = module === 'earnings' ? 'business-model'
+            : ['balance-sheet-survival', 'management-governance', 'competitive-intel'].includes(module) ? 'earnings'
+            : module === 'valuation' ? 'management-governance'
+            : 'valuation'
+          if (prerequisite === 'management-governance') f.finish('balance-sheet-survival')
+          f.finish(prerequisite)
+        }
+      }
+      f.finish('competitive-intel')
+      f.finish('catalyst')
+      assert.ok(f.launches.some((launch) => launch.kind === 'rerun' && launch.module === 'master'))
+      for (const launch of f.launches) {
+        assert.deepEqual(
+          { provider: launch.provider, model: launch.model, reasoningLevel: launch.reasoningLevel,
+            expectedProfileKey: launch.expectedProfileKey },
+          selection,
+          `${selection.provider} ${launch.module ?? launch.kind} changed provider profile inside the chain`,
+        )
       }
     }
+  })
+
+  await check('a frozen canary uses bounded module stages and exactly one terminal full adjudicator', async () => {
+    const f = makeFake()
+    const runRoot = 'analyses/provider-parity/2026-08-26/codex/TESTCANARY_2026-08-26__attempt-1234abcd'
+    const freezeReceipt = 'analyses/provider-parity/2026-08-26/freeze/TESTCANARY_2026-08-26.json'
+    const selection = {
+      provider: 'codex' as const, model: 'gpt-5.6-sol', reasoningLevel: 'max',
+      expectedProfileKey: 'codex|gpt-5.6-sol:max|gpt-5.6-terra:xhigh',
+    }
+    await launchFullChained('TESTCANARY', 'tester', 'local', selection, f.deps, undefined, undefined, {
+      runRoot, parityCanary: { runRoot, freezeReceipt },
+    })
+    assert.equal(getParityCanaryChainStatus(runRoot)?.status, 'running',
+      'the logical canary stays live while its bounded children advance')
+    assert.equal(f.getMarkerRoot(), runRoot, 'the scheduler marker is bound to the isolated canary root')
+    f.finish('business-model')
+    f.finish('earnings')
+    f.finish('management-governance')
+    f.finish('balance-sheet-survival')
+    f.finish('valuation')
     f.finish('competitive-intel')
     f.finish('catalyst')
-    assert.ok(f.launches.some((launch) => launch.kind === 'rerun' && launch.module === 'master'))
+
+    const modules = f.launches.filter((launch) => launch.kind === 'module')
+    assert.equal(modules.length, buildSwarmGraph().modules.length, 'every discovered module receives one bounded launch')
+    assert.ok(modules.every((launch) => launch.parityCanary?.stage === 'module'
+      && launch.parityCanary.runRoot === runRoot && launch.parityCanary.freezeReceipt === freezeReceipt))
+    const terminal = f.launches.filter((launch) => launch.kind === 'full' && launch.parityCanary?.stage === 'final')
+    assert.equal(terminal.length, 1, 'one and only one terminal full-canary adjudicator is scheduled')
+    assert.equal(new Set(f.launches.map((launch) => launch.chainId)).size, 1, 'all stages share one immutable chain identity')
     for (const launch of f.launches) {
       assert.deepEqual(
-        { provider: launch.provider, model: launch.model, reasoningLevel: launch.reasoningLevel },
+        { provider: launch.provider, model: launch.model, reasoningLevel: launch.reasoningLevel,
+          expectedProfileKey: launch.expectedProfileKey },
         selection,
-        `${launch.module ?? launch.kind} changed provider profile inside the chain`,
+        `${launch.module ?? 'terminal'} changed the frozen canary profile`,
       )
     }
+    f.finish('master')
+    assert.equal(f.wasMarkerCleared(), true, 'terminal completion clears the isolated defer marker')
+    assert.equal(getParityCanaryChainStatus(runRoot)?.status, 'done',
+      'only the terminal adjudicator can complete the logical canary')
+  })
+
+  await check('a frozen canary stays non-terminal until every active sibling drains after a failure', async () => {
+    const f = makeFake()
+    const runRoot = 'analyses/provider-parity/2026-08-26/codex/TESTCHAINSTATUS_2026-08-26__attempt-1234abcd'
+    const freezeReceipt = 'analyses/provider-parity/2026-08-26/freeze/TESTCHAINSTATUS_2026-08-26.json'
+    await launchFullChained('TESTCHAINSTATUS', 'tester', 'local', {
+      provider: 'codex', model: 'gpt-5.6-sol', reasoningLevel: 'max', expectedProfileKey: 'codex:test',
+    }, f.deps, undefined, undefined, { runRoot, parityCanary: { runRoot, freezeReceipt } })
+    f.finish('business-model')
+    f.finish('earnings')
+    f.finish('management-governance', 'incomplete')
+    assert.equal(getParityCanaryChainStatus(runRoot)?.status, 'running',
+      'one failed child cannot publish a terminal status while siblings still write')
+    f.finish('balance-sheet-survival')
+    assert.equal(getParityCanaryChainStatus(runRoot)?.status, 'running')
+    f.finish('competitive-intel')
+    const terminal = getParityCanaryChainStatus(runRoot)
+    assert.equal(terminal?.status, 'incomplete')
+    assert.ok(terminal?.endedAt, 'the logical chain becomes terminal only after the last sibling drains')
   })
 
   await check('a failed module stops the chain — no further modules, no master', async () => {
@@ -199,6 +281,51 @@ const sorted = (a: string[]) => [...a].sort()
     assert.ok(!f.launches.some((l) => l.kind === 'rerun'), 'master is not launched after a failure')
     assert.equal(f.wasMarkerCleared(), true, 'a failed chain clears the defer-memo marker (no orphan poisoning later runs)')
     assert.equal(subjectChainActive('TESTF'), false, 'a failed chain releases its subject reservation')
+  })
+
+  await check('a dependency cycle exposed after an acyclic prefix fails closed and releases the chain', async () => {
+    const base = buildSwarmGraph()
+    const graph: SwarmGraph = {
+      ...base,
+      modules: base.modules.map((module) => {
+        if (module.name === 'balance-sheet-survival') {
+          return { ...module, dependsOn: [...module.dependsOn, 'management-governance'] }
+        }
+        if (module.name === 'management-governance') {
+          return { ...module, dependsOn: [...module.dependsOn, 'balance-sheet-survival'] }
+        }
+        return module
+      }),
+    }
+    const f = makeFake({ graph })
+    await launchFullChained('TESTCYCLE', 'tester', 'local', { provider: 'claude' }, f.deps)
+    f.finish('business-model')
+    f.finish('earnings')
+    assert.deepEqual(sorted(f.mods()), sorted(['business-model', 'earnings', 'competitive-intel']),
+      'the acyclic prefix and independent sink still run before the hidden cycle is exposed')
+    f.finish('competitive-intel')
+    assert.equal(f.wasMarkerCleared(), true, 'the stalled graph clears its defer marker')
+    assert.equal(f.poolClaimHeld(), false, 'the stalled graph releases its stable pool claim')
+    assert.equal(f.poolClaimReleases(), 1, 'the stalled graph releases the pool claim exactly once')
+    assert.equal(subjectChainActive('TESTCYCLE'), false, 'the stalled graph releases its subject reservation')
+    assert.ok(!f.launches.some((launch) => launch.kind === 'rerun'), 'a stalled graph never launches master')
+  })
+
+  await check('a rejected terminal master launch is handled once and releases the chain', async () => {
+    const f = makeFake({ failMaster: true })
+    await launchFullChained('TESTMASTERFAIL', 'tester', 'local', { provider: 'claude' }, f.deps)
+    f.finish('business-model')
+    f.finish('earnings')
+    f.finish('management-governance')
+    f.finish('balance-sheet-survival')
+    f.finish('valuation')
+    f.finish('competitive-intel')
+    f.finish('catalyst')
+    await f.tick()
+    assert.equal(f.wasMarkerCleared(), true, 'a rejected terminal launch clears its defer marker')
+    assert.equal(f.poolClaimHeld(), false, 'a rejected terminal launch releases its stable pool claim')
+    assert.equal(f.poolClaimReleases(), 1, 'a rejected terminal launch releases exactly once')
+    assert.equal(subjectChainActive('TESTMASTERFAIL'), false, 'a rejected terminal launch releases its subject')
   })
 
   await check('an aborted SIBLING stops new scheduling but does not launch the master', async () => {

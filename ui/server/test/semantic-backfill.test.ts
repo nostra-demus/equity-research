@@ -21,11 +21,16 @@ const row = (id: string): FeedItem => ({
 
 fs.writeFileSync(path.join(inbox, '2026-08-02_firehose.ndjson'), `${JSON.stringify(row('EVT-inbox-copy'))}\n`)
 fs.writeFileSync(path.join(archive, '2026-08-02_firehose.ndjson'), `${JSON.stringify(row('EVT-archive-copy'))}\n`)
+fs.writeFileSync(path.join(inbox, '2026-08-02_firehose.000001.ndjson'), `${JSON.stringify(row('EVT-inbox-shard-copy'))}\n`)
+fs.writeFileSync(path.join(archive, '2026-08-02_firehose.000001.ndjson'), `${JSON.stringify(row('EVT-archive-shard-copy'))}\n`)
 const files = firehoseFiles(root, '')
-assert.deepEqual(files, [path.join(archive, '2026-08-02_firehose.ndjson')], 'durable archive wins over the copied live file for the same day')
+assert.deepEqual(files, [
+  path.join(archive, '2026-08-02_firehose.000001.ndjson'),
+  path.join(archive, '2026-08-02_firehose.ndjson'),
+], 'durable archive wins independently for every copied shard')
 const physicalRows: string[] = []
 for await (const item of savedItems(files)) physicalRows.push(item.event_id)
-assert.deepEqual(physicalRows, ['EVT-archive-copy'])
+assert.deepEqual(physicalRows, ['EVT-archive-copy', 'EVT-archive-shard-copy'])
 
 const stateDir = path.join(root, 'state')
 const cfg: EmbeddingConfig = { enabled: true, apiKey: 'test', baseUrl: 'https://embed.test/v1', model: 'scale-test', timeoutMs: 1_000, batchSize: 50, maxItemsPerCycle: 2_000 }

@@ -22,12 +22,12 @@ import { attachmentExists, attachmentPath, deleteAttachment, readAttachment, sav
 import {
   assertClaudeCli, assertProviderAvailable, cancel, cancelAll, cancelSubject, checkProviderUsage,
   creditCheck, decideReadiness, drainProviderRunsForShutdown, estimate, isSealedResearchRun, launch,
-  queuePublicationIntent, reapDeadSubjectRuns, reconcileOrphanedProviderGroups, recoverReadyPublications, sigIdFor,
+  getParityCanaryChainStatus, queuePublicationIntent, reapDeadSubjectRuns, reconcileOrphanedProviderGroups, recoverReadyPublications, sigIdFor,
   subjectChainActive, todayDate, warmLaunchProbes,
   type RunProviderSelection,
 } from './launcher'
 import { newsBus } from './news/bus'
-import { readFeed, searchFeed, applyActiveWeightsTo } from './news/feed'
+import { readFeed, searchFeed, applyActiveWeightsTo, type SearchCursor } from './news/feed'
 import { getPulse } from './news/commodity-pulse'
 import { callVsLive, getQuotes, resolveUnits, symbolCandidates } from './news/equity-quote'
 import { getCalendar } from './news/events-calendar'
@@ -1123,8 +1123,18 @@ app.get('/api/internal/provider-parity/canary-status', { config: { rateLimit: { 
     return reply.code(error?.code === 'ENOENT' ? 404 : 400).send({ error: error?.code === 'ENOENT' ? 'canary run root not found' : 'invalid canary run root' })
   }
 
-  const run = listRuns()
-    .filter((candidate) => candidate.runRoot === parsed.data.runRoot && candidate.parityCanary === true)
+  const logicalChain = getParityCanaryChainStatus(parsed.data.runRoot)
+  const chainRuns = listRuns()
+    .filter((candidate) => candidate.runRoot === parsed.data.runRoot && candidate.parityCanary === true
+      && (!logicalChain || candidate.chainId === logicalChain.chainId))
+  const run = chainRuns
+    .sort((a, b) => b.startedAt - a.startedAt)[0]
+  // The aggregate deliberately stays `running` across child transitions, but a child parked at the
+  // readiness gate is actionable operator state, not an ordinary transition. Surface that exact child
+  // and run id so the canary UI can open the shared readiness-decision workflow instead of polling a
+  // logical chain that can never advance by itself.
+  const pausedRun = chainRuns
+    .filter((candidate) => candidate.status === 'awaiting-readiness-decision')
     .sort((a, b) => b.startedAt - a.startedAt)[0]
   const terminalEvent = run && [...run.eventLog].reverse().find((event) => event.type === 'run-error' || event.type === 'run-done')
   const failureNote = readCanaryRunFile(rootAbs, 'RUN_FAILURE.md')
@@ -1142,21 +1152,28 @@ app.get('/api/internal/provider-parity/canary-status', { config: { rateLimit: { 
   const diskFailure = failureNote !== null || interruptedRaw !== null
   // A supervisor-written failure marker wins over any child-created terminal-looking files. Successful
   // post-restart recovery still requires all three terminal artifacts, including the supervisor receipt.
-  const status = abortedRaw !== null ? 'cancelled'
-    : diskFailure ? 'error'
-      : run?.status ?? (diskComplete ? 'done' : 'unknown')
-  const eventMessage = abortedRaw !== null ? 'Canary cancelled by the operator.'
-    : terminalEvent?.type === 'run-error'
-    ? terminalEvent.message || terminalEvent.reason
-    : terminalEvent?.type === 'run-done' ? 'Canary completed.' : null
+  const logicalInFlight = logicalChain?.status === 'starting' || logicalChain?.status === 'running'
+  const status = logicalInFlight && pausedRun ? pausedRun.status
+    : logicalInFlight ? logicalChain.status
+    : abortedRaw !== null ? 'cancelled'
+      : diskFailure ? 'error'
+        : logicalChain?.status ?? run?.status ?? (diskComplete ? 'done' : 'unknown')
+  const eventMessage = logicalInFlight && pausedRun
+    ? 'Canary paused for a data-readiness decision.'
+    : logicalInFlight ? logicalChain.message
+    : abortedRaw !== null ? 'Canary cancelled by the operator.'
+      : logicalChain?.message
+        ?? (terminalEvent?.type === 'run-error'
+          ? terminalEvent.message || terminalEvent.reason
+          : terminalEvent?.type === 'run-done' ? 'Canary completed.' : null)
   return {
     runRoot: parsed.data.runRoot,
-    runId: run?.runId ?? null,
+    runId: pausedRun?.runId ?? logicalChain?.runId ?? run?.runId ?? null,
     status,
-    startedAt: run?.startedAt ?? null,
-    endedAt: run?.endedAt ?? null,
-    provider: run?.provider ?? null,
-    profileKey: run?.profileKey ?? null,
+    startedAt: logicalChain?.startedAt ?? pausedRun?.startedAt ?? run?.startedAt ?? null,
+    endedAt: logicalChain?.endedAt ?? run?.endedAt ?? null,
+    provider: logicalChain?.provider ?? pausedRun?.provider ?? run?.provider ?? null,
+    profileKey: logicalChain?.profileKey ?? pausedRun?.profileKey ?? run?.profileKey ?? null,
     message: eventMessage,
     failureNote,
     interruption,
@@ -5185,7 +5202,8 @@ app.get('/api/news/feed', async (req) => {
 // (newest-N-in-window, no filtering), this applies every filter SERVER-SIDE and keeps scanning older days
 // until it fills a page of MATCHES or hits the archive floor — so a sparse filter (Aerospace & Defense in
 // the UAE) finds matches buried deep in history instead of falsely reading "nothing". Recency-ordered,
-// (ts,event_id) cursor paging. Rate-limited (the fs-read DoS guard) like the other filesystem routes.
+// loss-free cursor paging with an exact storage resume point. Rate-limited (the fs-read DoS guard) like
+// the other filesystem routes.
 app.get('/api/news/search', { config: { rateLimit: { max: 600, timeWindow: '1 minute' } } }, async (req) => {
   const q = req.query as any
   const filters = parseFeedFilterQuery(q || {})
@@ -5195,9 +5213,22 @@ app.get('/api/news/search', { config: { rateLimit: { max: 600, timeWindow: '1 mi
   // (an unhandled 500 + raw-error leak — there is no global error handler). searchFeed now also guards this,
   // but dropping malformed optional inputs here keeps results sane (an ignored filter, not a silent "today").
   const realDate = (s: any): s is string => typeof s === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(s) && !Number.isNaN(Date.parse(`${s}T00:00:00Z`))
-  const cursor = typeof q?.cursorTs === 'string' && q.cursorTs && !Number.isNaN(Date.parse(q.cursorTs)) ? { ts: String(q.cursorTs), id: String(q?.cursorId || '') } : null
   const from = realDate(q?.from) ? q.from : undefined
   const to = realDate(q?.to) ? q.to : undefined
+  const cursor = typeof q?.cursorTs === 'string' && q.cursorTs && !Number.isNaN(Date.parse(q.cursorTs))
+    ? { ts: String(q.cursorTs), id: String(q?.cursorId || '') } as SearchCursor
+    : null
+  // Budgeted search also returns an exact physical resume point. Older clients only send the stable
+  // (ts,id) pair; accept the storage cursor only when all three fields are present and bounded.
+  const cursorShard = typeof q?.cursorScanShard === 'string' && /^\d+$/.test(q.cursorScanShard) ? Number(q.cursorScanShard) : NaN
+  const cursorLine = typeof q?.cursorScanLine === 'string' && /^-?\d+$/.test(q.cursorScanLine) ? Number(q.cursorScanLine) : NaN
+  if (cursor && realDate(q?.cursorScanDate)
+    && Number.isSafeInteger(cursorShard) && cursorShard >= 0 && cursorShard <= 999_999
+    && Number.isSafeInteger(cursorLine) && cursorLine >= -1) {
+    cursor.scanDate = q.cursorScanDate
+    cursor.scanShard = cursorShard
+    cursor.scanLine = cursorLine
+  }
   const snap = searchFeed(REPO_ROOT, {
     predicate: (it) => matchesFeedFilters(it, filters),
     archiveDir: NEWS.newsArchiveDir, limit, cursor, fromDate: from, toDate: to,

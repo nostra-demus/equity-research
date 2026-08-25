@@ -11,8 +11,20 @@ import {
 import { createRun, finishRun } from '../src/registry'
 import {
   __setPostReviewCalibration, __setSupervisorCommitter, __setSupervisorCommitVerifier,
-  drainPublicationIntents, queuePublicationIntent, recoverReadyPublications, supervisePublication,
+  drainPublicationIntents, queuePublicationIntent, recoverReadyPublications, requiresSupervisorPublication,
+  supervisePublication,
 } from '../src/launcher'
+
+assert.equal(requiresSupervisorPublication('full'), true)
+assert.equal(requiresSupervisorPublication('module'), true)
+assert.equal(requiresSupervisorPublication('rerun'), true)
+assert.equal(requiresSupervisorPublication('agent'), false)
+assert.equal(requiresSupervisorPublication('screener-agent'), false)
+assert.equal(requiresSupervisorPublication('parity'), false)
+assert.equal(requiresSupervisorPublication('module', 'module'), false,
+  'a frozen intermediate child must not enter the terminal publication protocol')
+assert.equal(requiresSupervisorPublication('full', 'final'), true,
+  'the frozen terminal adjudicator must stamp and verify its decision before success')
 
 const root = `analyses/ZZPROVSUP_${Date.now()}`
 const absolute = path.join(REPO_ROOT, root)
@@ -32,6 +44,25 @@ run.publicationToken = 'test-supervisor-capability'
 
 try {
   beginExecutionAttempt(run)
+  const moduleCanary = createRun({
+    kind: 'module', ticker: 'ZZPROVSUP', module: 'business-model', provider: 'codex',
+    executionProfile: { key: 'codex:test', parentModel: 'gpt-test', parentReasoning: 'max' },
+    profileKey: 'codex:test', model: 'gpt-test', reasoningLevel: 'max', prompt: '', user: 'test', userVia: 'local',
+    runRoot: root, willCommitToMain: false, writeTargetsAbs: [absolute], coveredModules: ['business-model'],
+    readDepsAbs: [], closeWatcher: undefined, expected: new Map(), parityCanary: true,
+  })
+  moduleCanary.publicationToken = 'test-module-canary-capability'
+  await assert.rejects(
+    queuePublicationIntent(moduleCanary.runId, moduleCanary.publicationToken, { phase: 'commit', pathspecs: [root] }),
+    /only the terminal full canary may publish/,
+    'an intermediate frozen module cannot queue a Git/publication request',
+  )
+  await assert.rejects(
+    supervisePublication(moduleCanary.runId, moduleCanary.publicationToken, { phase: 'stamp', pathspecs: [root] }),
+    /only the terminal full canary may publish/,
+    'the trusted publication boundary independently rejects an intermediate frozen module',
+  )
+  finishRun(moduleCanary, 'error')
   await assert.rejects(
     supervisePublication(run.runId, run.publicationToken, {
       phase: 'commit', message: 'forged code publication', pathspecs: ['ui/server/src/server.ts'],

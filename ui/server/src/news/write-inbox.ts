@@ -2,7 +2,7 @@
 // the cockpit and the gauntlet pick them up with zero changes. Three jobs:
 //   - mergeInbox: idempotent merge into screener/inbox/<DATE>_sweep.json (by URL + revision lane), PRESERVING any
 //     human state (consumed / launched_signal_id), ranked by triage score and capped;
-//   - appendFirehoseSummary: one compact line per cycle into <DATE>_firehose.ndjson (powers the
+//   - appendFirehoseSummary: one compact line per cycle into the date's sharded firehose (powers the
 //     "seen / picked / dropped" board header without bloating the inbox with dropped items);
 //   - refreshBoard: rebuild screener/board/index.json via the existing python script.
 
@@ -11,18 +11,25 @@ import path from 'node:path'
 import { execFile } from 'node:child_process'
 import { promisify } from 'node:util'
 import { DatabaseSync } from 'node:sqlite'
+import { acquireRetainedFlockSync, releaseRetainedFlock } from '../singleton-lock'
 import type { CycleSummary, InboxRow, TriagedItem } from './types'
 import { deriveScope, deriveSourceTier, SOURCE_TIERS, type SourceTierId } from './scope'
 import { deriveScheduledEventEvidence } from './schedule'
 import { eventIdFor } from './normalize'
 import { readInboxHumanActions } from './inbox-actions'
 import { sameThemeStoryObservation, themeStoryKey, themeStoryObservationKey } from './themes/story-key'
+import {
+  contiguousFirehoseFiles,
+  firehoseLockPath,
+  firehosePath,
+  listFirehoseFilesInDir,
+  localFirehoseFiles,
+  parseFirehoseName,
+  resolvedFirehoseFiles,
+} from './firehose-files'
 
 function inboxPath(repoRoot: string, date: string): string {
   return path.join(repoRoot, 'screener', 'inbox', `${date}_sweep.json`)
-}
-function firehosePath(repoRoot: string, date: string): string {
-  return path.join(repoRoot, 'screener', 'inbox', `${date}_firehose.ndjson`)
 }
 export const FIREHOSE_HARD_MAX_BYTES = 99_000_000
 
@@ -201,22 +208,30 @@ function writeSweepDocumentAtomic(fp: string, doc: SweepWithRevisionClocks): voi
  * uncapped exact-event clock index that the existing archive/failover path already preserves. Legacy
  * partitions are migrated once from retained rows plus their durable local/archive firehose. */
 function revisionPartitionSignature(repoRoot: string, partitionDate: string, archiveDir: string): string {
-  const candidates = [
+  const candidates: string[][] = [
     ['local:sweep', inboxPath(repoRoot, partitionDate)],
-    ['local:firehose', firehosePath(repoRoot, partitionDate)],
     ...(archiveDir ? [
       ['archive:sweep', path.join(archiveDir, `${partitionDate}_sweep.json`)],
-      ['archive:firehose', path.join(archiveDir, `${partitionDate}_firehose.ndjson`)],
     ] : []),
   ]
+  try {
+    for (const row of localFirehoseFiles(repoRoot, partitionDate)) candidates.push([`local:firehose:${row.index}`, row.file])
+  } catch { candidates.push(['local:firehose', firehosePath(repoRoot, partitionDate)]) }
+  if (archiveDir) {
+    try {
+      for (const row of listFirehoseFilesInDir(archiveDir, partitionDate)) candidates.push([`archive:firehose:${row.index}`, row.file])
+    } catch { candidates.push(['archive:firehose', path.join(archiveDir, `${partitionDate}_firehose.ndjson`)]) }
+  }
   return candidates.map(([label, fp]) => `${label}:${fileStamp(fp) || 'missing'}`).join('|')
 }
 
 function firehoseCandidates(repoRoot: string, partitionDate: string, archiveDir: string): string[] {
-  return [
-    firehosePath(repoRoot, partitionDate),
-    ...(archiveDir ? [path.join(archiveDir, `${partitionDate}_firehose.ndjson`)] : []),
-  ]
+  try {
+    if (archiveDir && !fs.statSync(archiveDir).isDirectory()) return []
+    const files = resolvedFirehoseFiles(repoRoot, partitionDate, archiveDir)
+    return contiguousFirehoseFiles(files) ? files.map((row) => row.file) : []
+  }
+  catch { return [] }
 }
 
 /** Stream one legacy NDJSON partition line-by-line. A single huge day never becomes a FeedItem[] or a
@@ -227,12 +242,14 @@ function forEachFirehoseRevision(
   archiveDir: string,
   visit: (record: RevisionClockRecord) => void,
 ): boolean {
-  for (const candidate of firehoseCandidates(repoRoot, partitionDate, archiveDir)) {
+  const candidates = firehoseCandidates(repoRoot, partitionDate, archiveDir)
+  if (!candidates.length) return false
+  let anyValidLine = false
+  for (const candidate of candidates) {
     let fd: number
-    try { fd = fs.openSync(candidate, 'r') } catch { continue }
+    try { fd = fs.openSync(candidate, 'r') } catch { return false }
     const buffer = Buffer.allocUnsafe(64 * 1024)
     let carry = ''
-    let validLines = 0
     let invalidCompleteLine = false
     try {
       for (;;) {
@@ -245,7 +262,7 @@ function forEachFirehoseRevision(
           if (!line.trim()) continue
           try {
             const row = JSON.parse(line)
-            validLines++
+            anyValidLine = true
             if (row?.kind !== 'item') continue
             const record = firehoseRevisionRecord(row)
             if (record) visit(record)
@@ -256,7 +273,7 @@ function forEachFirehoseRevision(
       if (carry.trim()) {
         try {
           const row = JSON.parse(carry)
-          validLines++
+          anyValidLine = true
           // A valid non-newline-terminated last record is complete. Invalid trailing bytes are treated
           // as a torn append, but cannot establish coverage on their own.
           if (row?.kind === 'item') {
@@ -269,9 +286,9 @@ function forEachFirehoseRevision(
     } finally {
       fs.closeSync(fd)
     }
-    if (validLines > 0 && !invalidCompleteLine) return true
+    if (invalidCompleteLine) return false
   }
-  return false
+  return anyValidLine
 }
 
 function revisionPartitionSources(repoRoot: string, archiveDir: string): Map<string, string> {
@@ -279,9 +296,10 @@ function revisionPartitionSources(repoRoot: string, archiveDir: string): Map<str
   const scan = (dir: string) => {
     try {
       for (const file of fs.readdirSync(dir)) {
-        const match = /^(\d{4}-\d{2}-\d{2})_(?:sweep\.json|firehose\.ndjson)$/.exec(file)
-        if (!match) continue
-        dates.add(match[1])
+        const sweep = /^(\d{4}-\d{2}-\d{2})_sweep\.json$/.exec(file)
+        const firehose = parseFirehoseName(file)
+        if (!sweep && !firehose) continue
+        dates.add(sweep?.[1] || firehose!.date)
       }
     } catch { /* missing local/archive directory */ }
   }
@@ -297,8 +315,10 @@ function archiveHasRevisionSource(archiveDir: string, beforeDate: string): boole
   if (!archiveDir) return true
   try {
     for (const file of fs.readdirSync(archiveDir)) {
-      const match = /^(\d{4}-\d{2}-\d{2})_(?:sweep\.json|firehose\.ndjson)$/.exec(file)
-      if (match && match[1] < beforeDate && fileStamp(path.join(archiveDir, file))) return true
+      const sweep = /^(\d{4}-\d{2}-\d{2})_sweep\.json$/.exec(file)
+      const firehose = parseFirehoseName(file)
+      const date = sweep?.[1] || firehose?.date
+      if (date && date < beforeDate && fileStamp(path.join(archiveDir, file))) return true
     }
   } catch { return false }
   return false
@@ -1549,15 +1569,34 @@ export function appendFirehoseSummary(
   // Reject an impossible row before creating the day's file; the hard boundary is inclusive.
   if (line.length > FIREHOSE_HARD_MAX_BYTES) return false
 
-  const fp = firehosePath(repoRoot, date)
+  let fp = firehosePath(repoRoot, date)
   let fd: number | undefined
+  let lock: number | undefined
   let rollbackOffset: number | undefined
   try {
     fs.mkdirSync(path.dirname(fp), { recursive: true })
-    fd = fs.openSync(fp, 'a+')
-    const repairedSize = repairFirehoseTail(fd)
+    lock = acquireRetainedFlockSync(firehoseLockPath(repoRoot, date), {
+      waitMs: 2_000,
+      busyMessage: `firehose partition busy: ${date}`,
+    })
+    const files = localFirehoseFiles(repoRoot, date)
+    if (!contiguousFirehoseFiles(files)) return false
+    let currentIndex = files.at(-1)?.index ?? 0
+    const currentExists = files.length > 0
+    if (currentExists) fp = files.at(-1)!.file
+    fd = fs.openSync(fp, currentExists ? 'a+' : 'ax+')
+    let repairedSize = repairFirehoseTail(fd)
     if (repairedSize === null) return false
-    if (repairedSize + line.length > FIREHOSE_HARD_MAX_BYTES) return false
+    if (repairedSize + line.length > FIREHOSE_HARD_MAX_BYTES) {
+      fs.closeSync(fd)
+      fd = undefined
+      currentIndex++
+      fp = firehosePath(repoRoot, date, currentIndex)
+      fd = fs.openSync(fp, 'ax+')
+      repairedSize = 0
+    }
+    const currentFiles = localFirehoseFiles(repoRoot, date)
+    if (!contiguousFirehoseFiles(currentFiles) || currentFiles.at(-1)?.index !== currentIndex) return false
     // The offset is captured immediately before this row. Any short write or later durability failure
     // truncates back to this exact boundary, so a retry cannot inherit or join onto partial JSON.
     if (fs.fstatSync(fd).size !== repairedSize) return false
@@ -1578,6 +1617,7 @@ export function appendFirehoseSummary(
     return false
   } finally {
     if (fd !== undefined) try { fs.closeSync(fd) } catch { /* best effort */ }
+    if (lock !== undefined) releaseRetainedFlock(lock)
   }
 }
 
