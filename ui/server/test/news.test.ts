@@ -5956,7 +5956,8 @@ await check('an expired retirement cannot hide another active row when empty-que
     saveDeferredFn: () => false,
   })
   assert.equal(summary.backlog, 1, `the post-write SQLite queue, not partial retirement, owns the gauge: ${JSON.stringify({ summary, active: loadDeferred(state).map((row) => row.event_id) })}`)
-  assert.equal(summary.backlog_expired, undefined, 'retirement is not counted as a fully cleared cycle')
+  assert.equal(summary.backlog_expired, 1, 'a durable retirement is counted even while unrelated work remains')
+  assert.match(String(summary.note), /RETIRED unscored/)
   assert.equal(summary.deferred_write_failed, true)
   assert.deepEqual(loadDeferred(state).map((row) => row.event_id), [seenActive.event_id])
 })

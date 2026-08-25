@@ -6,7 +6,7 @@ import type { NewsItem } from './types'
 
 const DATABASE_FILE = 'news-queue.sqlite'
 const ESTABLISHED_FILE = 'news-queue.sqlite.established'
-const SCHEMA_VERSION = '1'
+const SCHEMA_VERSION = '2'
 
 export type QueueLane = 'barrier' | 'hot' | 'overflow'
 export type QueueTerminalState = 'completed' | 'retired'
@@ -120,8 +120,37 @@ function openQueue(stateDir: string): DatabaseSync {
           ON news_queue(state, lane, sequence);
         CREATE INDEX IF NOT EXISTS news_queue_terminal_order
           ON news_queue(state, terminal_at);
+        CREATE TABLE IF NOT EXISTS news_queue_terminal_ids (
+          event_id TEXT PRIMARY KEY,
+          state TEXT NOT NULL CHECK(state IN ('completed', 'retired')),
+          terminal_at TEXT NOT NULL
+        ) WITHOUT ROWID;
       `)
-    const schema = meta(db, 'schema_version')
+    let schema = meta(db, 'schema_version')
+    if (schema === '1') {
+      db.exec('BEGIN IMMEDIATE')
+      try {
+        schema = meta(db, 'schema_version')
+        if (schema === '1') {
+          db.exec(`
+            CREATE TABLE IF NOT EXISTS news_queue_terminal_ids (
+              event_id TEXT PRIMARY KEY,
+              state TEXT NOT NULL CHECK(state IN ('completed', 'retired')),
+              terminal_at TEXT NOT NULL
+            ) WITHOUT ROWID;
+            INSERT OR IGNORE INTO news_queue_terminal_ids(event_id, state, terminal_at)
+              SELECT event_id, state, COALESCE(terminal_at, updated_at)
+              FROM news_queue WHERE state IN ('completed', 'retired');
+          `)
+          saveMeta(db, 'schema_version', SCHEMA_VERSION)
+          schema = SCHEMA_VERSION
+        }
+        db.exec('COMMIT')
+      } catch (error) {
+        try { db.exec('ROLLBACK') } catch { /* preserve the migration error */ }
+        throw error
+      }
+    }
     if (schema && schema !== SCHEMA_VERSION) throw new Error(`unsupported durable news queue schema ${schema}`)
     if (!schema) saveMeta(db, 'schema_version', SCHEMA_VERSION)
     try { fs.chmodSync(file, 0o600) } catch { /* the database still remains usable on restrictive mounts */ }
@@ -172,7 +201,8 @@ function insertActiveRows(
     INSERT INTO news_queue (
       event_id, lane, state, payload_json, sequence, generation, enqueued_at, updated_at,
       terminal_at, terminal_reason
-    ) VALUES (?, ?, 'active', ?, ?, ?, ?, ?, NULL, NULL)
+    ) SELECT ?, ?, 'active', ?, ?, ?, ?, ?, NULL, NULL
+      WHERE NOT EXISTS (SELECT 1 FROM news_queue_terminal_ids WHERE event_id = ?)
     ON CONFLICT(event_id) DO UPDATE SET
       lane = excluded.lane,
       payload_json = excluded.payload_json,
@@ -184,7 +214,8 @@ function insertActiveRows(
     INSERT OR IGNORE INTO news_queue (
       event_id, lane, state, payload_json, sequence, generation, enqueued_at, updated_at,
       terminal_at, terminal_reason
-    ) VALUES (?, ?, 'active', ?, ?, ?, ?, ?, NULL, NULL)
+    ) SELECT ?, ?, 'active', ?, ?, ?, ?, ?, NULL, NULL
+      WHERE NOT EXISTS (SELECT 1 FROM news_queue_terminal_ids WHERE event_id = ?)
   `)
   for (const row of uniqueRows(rows)) {
     insert.run(
@@ -195,6 +226,7 @@ function insertActiveRows(
       generation,
       row.item.deferred_at || now,
       now,
+      row.item.event_id,
     )
   }
 }
@@ -409,6 +441,11 @@ export function retireDurableQueueItems(
           }
         }
       }
+      db.prepare(`
+        INSERT OR IGNORE INTO news_queue_terminal_ids(event_id, state, terminal_at)
+        SELECT event_id, state, COALESCE(terminal_at, updated_at)
+        FROM news_queue WHERE event_id = ? AND state = 'retired'
+      `).run(item.item.event_id)
     }
   })
 }
@@ -437,6 +474,11 @@ export function purgeCompletedDurableQueueItems(stateDir: string): boolean {
     db = openQueue(stateDir)
     if (meta(db, 'bootstrap_complete') !== '1') return false
     transaction(db, () => {
+      db!.exec(`
+        INSERT OR IGNORE INTO news_queue_terminal_ids(event_id, state, terminal_at)
+        SELECT event_id, state, COALESCE(terminal_at, updated_at)
+        FROM news_queue WHERE state = 'completed'
+      `)
       db!.prepare("DELETE FROM news_queue WHERE state = 'completed'").run()
     })
     // Checkpoints cannot run inside the write transaction. Reclaiming WAL pages is useful but not part

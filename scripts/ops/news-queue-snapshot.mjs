@@ -25,7 +25,7 @@ if (!source || !destination) {
     if (sourceCheck?.quick_check !== 'ok') throw new Error(`source quick_check: ${String(sourceCheck?.quick_check)}`)
     const schema = sourceDb.prepare("SELECT value FROM news_queue_meta WHERE key = 'schema_version'").get()
     const bootstrapped = sourceDb.prepare("SELECT value FROM news_queue_meta WHERE key = 'bootstrap_complete'").get()
-    if (schema?.value !== '1' || bootstrapped?.value !== '1') throw new Error('source queue is not bootstrapped schema 1')
+    if (schema?.value !== '2' || bootstrapped?.value !== '1') throw new Error('source queue is not bootstrapped schema 2')
 
     await backup(sourceDb, destination, { rate: 64 })
     snapshotDb = new DatabaseSync(destination, { readOnly: true })
@@ -35,7 +35,7 @@ if (!source || !destination) {
       SELECT state, COUNT(*) AS count FROM news_queue GROUP BY state ORDER BY state
     `).all()
     fs.chmodSync(destination, 0o600)
-    process.stdout.write(`${JSON.stringify({ schema: 1, counts })}\n`)
+    process.stdout.write(`${JSON.stringify({ schema: 2, counts })}\n`)
   } catch (error) {
     try { fs.rmSync(destination, { force: true }) } catch { /* best effort */ }
     fail(error?.message || String(error))

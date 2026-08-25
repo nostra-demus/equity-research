@@ -9,6 +9,7 @@ import { DatabaseSync } from 'node:sqlite'
 import {
   durableQueueDatabasePath,
   durableQueueEstablishedPath,
+  inspectDurableQueue,
   inspectDurableQueueCounts,
   loadDurableQueueHistory,
   purgeCompletedDurableQueueItems,
@@ -163,6 +164,50 @@ check('a stale overflow projection keeps its tombstone until the old file is act
   assert.equal(inspectDurableQueueCounts(state)?.completed, 0, 'cleanup resumes only after projection removal')
 })
 
+check('a stale in-flight legacy reader cannot resurrect an id after its tombstone is purged', () => {
+  const state = tmp()
+  const stale = item(25)
+  assert.equal(saveDeferred(state, [stale]), true)
+  assert.equal(inspectDeferredBacklog(state).available, true)
+  assert.equal(replaceDurableQueueLane(state, 'hot', [], 'test-completed'), true)
+
+  fs.writeFileSync(path.join(state, 'news-deferred.json'), '[]\n')
+  assert.deepEqual(inspectDeferredBacklog(state).items, [], 'the current projection generation is empty')
+  assert.equal(purgeCompletedDurableQueueItems(state), true)
+  assert.equal(inspectDurableQueueCounts(state)?.completed, 0)
+
+  const staleInspection = inspectDurableQueue(state, {
+    available: true,
+    rows: [{ item: stale, lane: 'hot' }],
+  })
+  assert.deepEqual(staleInspection.items, [], 'the compact terminal-id ledger rejects the stale insert')
+})
+
+check('schema 1 upgrades terminal tombstones into the compact replay ledger', () => {
+  const state = tmp()
+  const stale = item(26)
+  assert.equal(saveDeferred(state, [stale]), true)
+  assert.equal(replaceDurableQueueLane(state, 'hot', [], 'pre-upgrade-completed'), true)
+  const database = durableQueueDatabasePath(state)
+  const old = new DatabaseSync(database)
+  try {
+    old.exec('DROP TABLE news_queue_terminal_ids')
+    old.prepare("UPDATE news_queue_meta SET value = '1' WHERE key = 'schema_version'").run()
+  } finally { old.close() }
+
+  assert.deepEqual(inspectDeferredBacklog(state).items, [])
+  const upgraded = new DatabaseSync(database, { readOnly: true })
+  try {
+    assert.equal((upgraded.prepare("SELECT value FROM news_queue_meta WHERE key = 'schema_version'").get() as any).value, '2')
+    assert.equal((upgraded.prepare('SELECT COUNT(*) AS count FROM news_queue_terminal_ids').get() as any).count, 1)
+  } finally { upgraded.close() }
+  assert.equal(purgeCompletedDurableQueueItems(state), true)
+  assert.deepEqual(inspectDurableQueue(state, {
+    available: true,
+    rows: [{ item: stale, lane: 'hot' }],
+  }).items, [])
+})
+
 check('a killed process cannot expose half a SQLite queue transaction', () => {
   const state = tmp()
   assert.equal(saveDeferred(state, [item(30)]), true)
@@ -215,7 +260,7 @@ check('the snapshot helper produces an integrity-checked standalone database fro
   const destination = path.join(tmp(), 'queue-copy.sqlite')
   const script = path.join(REPO_ROOT, 'scripts/ops/news-queue-snapshot.mjs')
   const output = execFileSync(process.execPath, [script, durableQueueDatabasePath(state), destination], { encoding: 'utf8' })
-  assert.match(output, /"schema":1/)
+  assert.match(output, /"schema":2/)
   const db = new DatabaseSync(destination, { readOnly: true })
   try {
     assert.equal((db.prepare('PRAGMA quick_check').get() as any).quick_check, 'ok')

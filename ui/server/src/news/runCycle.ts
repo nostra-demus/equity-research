@@ -1226,10 +1226,10 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
       // Counted only once the clear actually succeeded: if the write failed the rows are still on disk and
       // will be re-loaded, re-expired and re-counted next cycle, so counting them now double-counts the
       // same loss into retiredToday every cycle until the disk recovers.
-      ...(backlogExpired.length && queueCleared ? { backlog_expired: backlogExpired.length } : {}),
+      ...(backlogExpired.length && retirementPersisted ? { backlog_expired: backlogExpired.length } : {}),
       note: !rssHandoffCleared
         ? 'RSS delivery journal needs attention — existing bytes preserved for replay'
-        : backlogExpired.length && queueCleared
+        : backlogExpired.length && retirementPersisted
         ? `no new on-list items · ${backlogExpired.length} backlog item${backlogExpired.length === 1 ? '' : 's'} RETIRED unscored — waited longer than ${Math.round(DEFERRED_MAX_AGE_MS / 3_600_000)}h behind the queue`
         : 'no new on-list items',
       ...(sources ? { sources } : {}),
