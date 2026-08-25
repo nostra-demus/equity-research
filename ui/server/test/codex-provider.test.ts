@@ -16,6 +16,7 @@ import {
   assertRequiredCodexModels,
   buildCodexLaunchSpec,
   classifyCodexExit,
+  clearCodexCatalogueReceiptForRefresh,
   codexAvailabilityFromError,
   codexChildEnv,
   codexSandboxConfig,
@@ -519,6 +520,24 @@ try {
   fs.writeFileSync(path.join(receiptHome, 'models_cache.json'), JSON.stringify({ ...stale, fetched_at: new Date(now).toISOString(), etag: '' }))
   assert.throws(() => assertFreshCodexCatalogueReceipt(receiptHome, models, now - 1_000, now), /account ETag/)
 } finally { fs.rmSync(receiptHome, { recursive: true, force: true }) }
+
+const refreshHome = fs.mkdtempSync(path.join(os.tmpdir(), 'nostra-codex-refresh-'))
+try {
+  const receiptPath = path.join(refreshHome, 'models_cache.json')
+  assert.doesNotThrow(() => clearCodexCatalogueReceiptForRefresh(refreshHome),
+    'a lease with no probe-created receipt is already ready for a live refresh')
+  fs.writeFileSync(receiptPath, JSON.stringify({ fetched_at: new Date(0).toISOString() }))
+  assert.doesNotThrow(() => clearCodexCatalogueReceiptForRefresh(refreshHome))
+  assert.equal(fs.existsSync(receiptPath), false,
+    'the exact regular probe-created receipt is cleared before the live account refresh')
+
+  const outsideReceipt = path.join(refreshHome, 'outside-receipt.json')
+  fs.writeFileSync(outsideReceipt, 'do not follow')
+  fs.symlinkSync(outsideReceipt, receiptPath)
+  assert.throws(() => clearCodexCatalogueReceiptForRefresh(refreshHome), /not a regular file/,
+    'a substituted receipt symlink fails closed')
+  assert.equal(fs.readFileSync(outsideReceipt, 'utf8'), 'do not follow')
+} finally { fs.rmSync(refreshHome, { recursive: true, force: true }) }
 
 const promptInput = JSON.stringify([{ type: 'message', content: [{ type: 'input_text', text: 'The twins must match. NOSTRA_RUNTIME_PROMPT_TAIL_PROBE' }] }])
 assert.doesNotThrow(() => assertCodexPromptInput(promptInput))

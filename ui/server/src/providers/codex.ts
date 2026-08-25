@@ -298,6 +298,39 @@ function clearCodexParentRuntimeArtifacts(home: string): void {
   }
 }
 
+export function clearCodexCatalogueReceiptForRefresh(home: string): void {
+  // Capability probes run before the live catalogue proof and may legitimately populate
+  // models_cache.json. A subsequent non-bundled `debug models` can then receive HTTP 304 and leave
+  // fetched_at unchanged, making a real account refresh indistinguishable from stale cache reuse.
+  // Remove only the exact lease-local regular receipt so the proof must start without a conditional
+  // cache. Anything non-regular fails closed instead of being followed or recursively removed.
+  const requestedRoot = path.resolve(home)
+  let requestedStat: fs.Stats
+  try { requestedStat = fs.lstatSync(requestedRoot) } catch {
+    throw new Error('Codex isolated catalogue home is missing.')
+  }
+  if (!requestedStat.isDirectory() || requestedStat.isSymbolicLink()) {
+    throw new Error('Codex isolated catalogue home changed or traverses a symlink.')
+  }
+  // macOS exposes its temporary directory through a stable /tmp -> /private/tmp ancestor alias. Resolve
+  // that ancestor while still rejecting a lease directory that was itself replaced by a symlink.
+  const root = fs.realpathSync(requestedRoot)
+  const receiptPath = path.join(root, 'models_cache.json')
+  let receiptStat: fs.Stats
+  try {
+    receiptStat = fs.lstatSync(receiptPath)
+  } catch (error: any) {
+    if (error?.code === 'ENOENT') return
+    throw new Error(`Codex isolated catalogue receipt could not be inspected: ${String(error?.message || error)}`)
+  }
+  if (!receiptStat.isFile() || receiptStat.isSymbolicLink()) {
+    throw new Error('Codex isolated catalogue receipt is not a regular file.')
+  }
+  try { fs.unlinkSync(receiptPath) } catch (error: any) {
+    throw new Error(`Codex isolated catalogue receipt could not be cleared: ${String(error?.message || error)}`)
+  }
+}
+
 function snapshotLeaseDirectory(home: string): LeaseDirectorySnapshot {
   const root = path.resolve(home)
   const rootStat = fs.lstatSync(root)
@@ -1315,10 +1348,12 @@ async function probeCodex(
       sourceAuthPath: isolatedHome.sourceAuthPath,
     })
 
-    // The isolated CODEX_HOME started with auth.json only: no user config, static model_catalog_json
-    // override, or pre-existing models_cache.json can green-light this non-bundled refresh.
+    // The isolated CODEX_HOME started with auth.json only, but the capability probes above may have
+    // populated models_cache.json. Clear that exact regular receipt so this proof cannot be satisfied by
+    // a conditional 304 against probe-created cache; the command must write a fresh account receipt.
     let models: CatalogModel[]
     try {
+      clearCodexCatalogueReceiptForRefresh(isolatedHome.home)
       const refreshStartedAt = Date.now()
       const modelsResult = await run(
         ['debug', 'models', '--config', 'model_provider="openai"'],
