@@ -52,6 +52,7 @@ import {
   releaseParityRegistration, resolveParityBindingPath, writeExecutionReceipt,
 } from './execution-provenance'
 import { runIbkrPaperAutoSyncAfterPublication, scheduleIbkrPaperAutoSyncAfterPublication } from './ibkr-paper-auto-sync'
+import { parityCanaryRootBasenameMatches } from './provider-parity-path'
 
 // Provider adapters may issue a short-lived auth/binary lease while building a launch spec. Keep the
 // disposer supervisor-owned and keyed by the in-memory RunState: it is never exported to the child env.
@@ -2703,8 +2704,9 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
       throw Object.assign(new Error('parity canary binding does not match the requested provider/profile/root'), { statusCode: 409 })
     }
     const decisionDate = String(binding.decision_date || '')
-    if (!/^\d{4}-\d{2}-\d{2}$/.test(decisionDate) || path.basename(rootAbsolute) !== `${subjectId}_${decisionDate}`) {
-      throw Object.assign(new Error('parity canary root basename must be <SUBJECT>_<FROZEN_DECISION_DATE>'), { statusCode: 400 })
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(decisionDate)
+        || !parityCanaryRootBasenameMatches(path.basename(rootAbsolute), subjectId, decisionDate)) {
+      throw Object.assign(new Error('parity canary root basename must be <SUBJECT>_<FROZEN_DECISION_DATE> or that name plus an immutable __attempt-<id> suffix'), { statusCode: 400 })
     }
     const snapshotRoot = path.resolve(path.dirname(freezeAbsolute), String(freeze.data_snapshot?.root || ''))
     if (!paritySnapshotRootMatchesDataSubject(snapshotRoot, DATA_DIR, subjectId)) {
