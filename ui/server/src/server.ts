@@ -112,6 +112,7 @@ import { finishedOwnerConflict, listFinishedIntakeOwners, resolveUniqueFinishedI
 import { getBridgeStatus, getBridgeSubjectNames, startBridgeScheduler } from './bridge-scheduler'
 import { readWhatChanged, whatChangedMarkdown, RUN_ROOT_RE } from './what-changed'
 import { readDataNeeds, resolveDataNeedsRunRoot } from './data-needs'
+import { PARITY_CANARY_RUN_ROOT_RE } from './provider-parity-path'
 import {
   DATA_NEED_UPLOAD_MAX_BYTES, commitDataNeedUpload, discardReceivedDataNeedUpload,
   manualDataNeedUploadWriterReady,
@@ -937,8 +938,6 @@ const ParityLaunchBody = z.object({
   freezeReceipt: z.string().regex(/^[A-Za-z0-9._/-]{1,500}$/),
   outputDir: z.string().regex(/^[A-Za-z0-9._/-]{1,500}$/),
 }).strict()
-
-const PARITY_CANARY_RUN_ROOT_RE = /^analyses\/provider-parity\/\d{4}-\d{2}-\d{2}\/(?:claude|codex)\/[A-Z0-9.\-]{1,12}_\d{4}-\d{2}-\d{2}$/
 
 const ParityCanaryLaunchBody = z.object({
   provider: z.enum(['claude', 'codex']),
