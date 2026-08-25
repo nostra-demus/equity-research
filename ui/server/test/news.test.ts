@@ -5933,6 +5933,34 @@ await check('runIngestCycle: a backlog that waited past the age bound is retired
   assert.equal(loadDeferred(state).length, 0, 'the retired backlog is gone from disk — it cannot regrow the wall')
 })
 
+await check('an expired retirement cannot hide another active row when empty-queue cleanup fails', async () => {
+  resetSharedLimiters(); resetBudgetMemory(); resetCooldownMemory()
+  const root = tmp(), state = tmp()
+  const expired = queueItem({ event_id: 'EVT-expired-among-seen' })
+  expired.deferred_at = '2026-08-13T00:00:00Z'
+  const seenActive = queueItem({ event_id: 'EVT-seen-still-active' })
+  seenActive.deferred_at = '2026-08-16T09:30:00Z'
+  assert.equal(saveDeferred(state, [expired, seenActive]), true)
+  fs.writeFileSync(path.join(state, 'news-seen.json'), `${JSON.stringify({
+    [seenActive.event_id]: { score: 80, ts: Date.now() },
+  })}\n`)
+
+  const summary = await runIngestCycle({
+    repoRoot: root,
+    stateDir: state,
+    skipFetch: true,
+    now: () => new Date('2026-08-16T10:00:00Z'),
+    fetchFn: (async () => { throw new Error('no network expected') }) as unknown as typeof fetch,
+    sleep: noSleep,
+    config: { ...noProviderConfig, groqApiKey: 'test-key' },
+    saveDeferredFn: () => false,
+  })
+  assert.equal(summary.backlog, 1, `the post-write SQLite queue, not partial retirement, owns the gauge: ${JSON.stringify({ summary, active: loadDeferred(state).map((row) => row.event_id) })}`)
+  assert.equal(summary.backlog_expired, undefined, 'retirement is not counted as a fully cleared cycle')
+  assert.equal(summary.deferred_write_failed, true)
+  assert.deepEqual(loadDeferred(state).map((row) => row.event_id), [seenActive.event_id])
+})
+
 await check('backlogDurablyCleared: either backlog write succeeding is enough — the LAST write is not the only one that counts', () => {
   // A cycle calls saveDeferred twice against the same file (pre-projection journal, then final cleanup);
   // both already exclude backlogExpired rows, so either one succeeding already durably removed them from

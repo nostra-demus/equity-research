@@ -1210,14 +1210,15 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
     // A crash between those steps leaves v2 (old worker pauses), never a false empty legacy authority.
     const overflowCleared = canonicalCleared && (!hadInputOverflow || saveInputOverflow(stateDir, [], log))
     const cleared = overflowCleared && (!hadInputOverflow || persistDeferred(stateDir, [], log))
-    const queueCleared = cleared || retirementPersisted
+    const queueAfterClear = inspectDeferredBacklog(stateDir)
+    const queueCleared = queueAfterClear.available && queueAfterClear.items.length === 0
     const rssHandoffCleared = cleared && phase === 'fetch' && cfg.rssEnabled
       ? acknowledgeRssDeliveries(stateDir)
       : true
     const summary: CycleSummary = {
       ...blank, completed_at: now().toISOString().replace(/\.\d{3}Z$/, 'Z'),
       ok: true, fetched: raws.length, fresh: freshLive.length, new_arrivals: newArrivals, carryover: requeued.length,
-      backlog: queueCleared ? 0 : carried.length, backlog_cap: DEFERRED_CAP,
+      backlog: queueAfterClear.available ? queueAfterClear.items.length : carried.length, backlog_cap: DEFERRED_CAP,
       ...(cleared ? {} : { deferred_write_failed: true }),
       // A cycle whose whole queue was the expired backlog still has to REPORT the retirement — this is
       // precisely the cycle whose note would otherwise read "no new on-list items" over a missed scoring

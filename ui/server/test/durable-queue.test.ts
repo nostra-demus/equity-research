@@ -67,6 +67,22 @@ check('legacy JSON migrates once and SQLite remains authoritative when that proj
   assert.deepEqual(afterCorruption.items.map((row) => row.event_id), migrated.items.map((row) => row.event_id))
 })
 
+check('an unchanged compatibility projection is read without waiting for a SQLite writer', () => {
+  const state = tmp()
+  fs.writeFileSync(path.join(state, 'news-deferred.json'), `${JSON.stringify([item(3), item(4)])}\n`)
+  assert.equal(inspectDeferredBacklog(state).available, true)
+  const db = new DatabaseSync(durableQueueDatabasePath(state))
+  try {
+    db.exec('BEGIN IMMEDIATE')
+    const inspected = inspectDeferredBacklog(state)
+    assert.equal(inspected.available, true, 'ordinary status reads do not request a competing write lock')
+    assert.deepEqual(inspected.items.map((row) => row.event_id), [item(3).event_id, item(4).event_id])
+  } finally {
+    try { db.exec('ROLLBACK') } catch { /* best effort */ }
+    db.close()
+  }
+})
+
 check('the hot-file cap is not a data cap: every excess item stays active in SQLite overflow', () => {
   const state = tmp()
   const rows = [item(10), item(11), item(12), item(13), item(14)]

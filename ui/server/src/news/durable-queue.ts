@@ -1,5 +1,6 @@
 import fs from 'node:fs'
 import path from 'node:path'
+import { createHash } from 'node:crypto'
 import { DatabaseSync } from 'node:sqlite'
 import type { NewsItem } from './types'
 
@@ -81,42 +82,48 @@ function saveMeta(db: DatabaseSync, key: string, value: string): void {
 function openQueue(stateDir: string): DatabaseSync {
   fs.mkdirSync(stateDir, { recursive: true })
   const file = queuePath(stateDir)
-  if (!pathExists(file) && pathExists(establishedPath(stateDir))) {
+  const databaseExists = pathExists(file)
+  const established = pathExists(establishedPath(stateDir))
+  if (!databaseExists && established) {
     throw new Error('established durable news queue database is missing')
   }
+  const needsSetup = !databaseExists || !established
   const db = new DatabaseSync(file)
   try {
     db.exec(`
-      PRAGMA journal_mode=WAL;
       PRAGMA synchronous=FULL;
       PRAGMA busy_timeout=5000;
       PRAGMA cache_size=-8192;
       PRAGMA temp_store=FILE;
       PRAGMA foreign_keys=ON;
-      CREATE TABLE IF NOT EXISTS news_queue_meta (
-        key TEXT PRIMARY KEY,
-        value TEXT NOT NULL
-      ) WITHOUT ROWID;
-      CREATE TABLE IF NOT EXISTS news_queue (
-        event_id TEXT PRIMARY KEY,
-        lane TEXT NOT NULL CHECK(lane IN ('barrier', 'hot', 'overflow')),
-        state TEXT NOT NULL CHECK(state IN ('active', 'completed', 'retired')),
-        payload_json TEXT,
-        sequence INTEGER NOT NULL,
-        generation TEXT NOT NULL,
-        enqueued_at TEXT NOT NULL,
-        updated_at TEXT NOT NULL,
-        terminal_at TEXT,
-        terminal_reason TEXT
-      ) STRICT;
-      CREATE INDEX IF NOT EXISTS news_queue_active_order
-        ON news_queue(state, lane, sequence);
-      CREATE INDEX IF NOT EXISTS news_queue_terminal_order
-        ON news_queue(state, terminal_at);
     `)
+    const journal = db.prepare('PRAGMA journal_mode').get() as { journal_mode?: unknown } | undefined
+    if (journal?.journal_mode !== 'wal') db.exec('PRAGMA journal_mode=WAL')
+    if (needsSetup) db.exec(`
+        CREATE TABLE IF NOT EXISTS news_queue_meta (
+          key TEXT PRIMARY KEY,
+          value TEXT NOT NULL
+        ) WITHOUT ROWID;
+        CREATE TABLE IF NOT EXISTS news_queue (
+          event_id TEXT PRIMARY KEY,
+          lane TEXT NOT NULL CHECK(lane IN ('barrier', 'hot', 'overflow')),
+          state TEXT NOT NULL CHECK(state IN ('active', 'completed', 'retired')),
+          payload_json TEXT,
+          sequence INTEGER NOT NULL,
+          generation TEXT NOT NULL,
+          enqueued_at TEXT NOT NULL,
+          updated_at TEXT NOT NULL,
+          terminal_at TEXT,
+          terminal_reason TEXT
+        ) STRICT;
+        CREATE INDEX IF NOT EXISTS news_queue_active_order
+          ON news_queue(state, lane, sequence);
+        CREATE INDEX IF NOT EXISTS news_queue_terminal_order
+          ON news_queue(state, terminal_at);
+      `)
     const schema = meta(db, 'schema_version')
     if (schema && schema !== SCHEMA_VERSION) throw new Error(`unsupported durable news queue schema ${schema}`)
-    saveMeta(db, 'schema_version', SCHEMA_VERSION)
+    if (!schema) saveMeta(db, 'schema_version', SCHEMA_VERSION)
     try { fs.chmodSync(file, 0o600) } catch { /* the database still remains usable on restrictive mounts */ }
     return db
   } catch (error) {
@@ -203,6 +210,19 @@ function decodeRows(rows: Array<{ payload_json?: unknown }>): NewsItem[] {
   })
 }
 
+function legacyFingerprint(rows: readonly LegacyQueueRow[]): string {
+  const hash = createHash('sha256')
+  const seen = new Set<string>()
+  for (const row of rows) {
+    const id = row.item?.event_id
+    if (!id || seen.has(id)) continue
+    seen.add(id)
+    hash.update(`${id.length}:`)
+    hash.update(id)
+  }
+  return `${seen.size}:${hash.digest('hex')}`
+}
+
 /**
  * Bootstrap once from the pre-SQLite journals, then treat SQLite as the source of truth. Later legacy
  * readers may still add a previously unseen id during a rolling downgrade, but stale files can never
@@ -217,11 +237,17 @@ export function inspectDurableQueue(
     db = openQueue(stateDir)
     const bootstrapped = meta(db, 'bootstrap_complete') === '1'
     if (!bootstrapped && !legacy.available) return { available: false, items: [], overflow: 0 }
-    transaction(db, () => {
-      const generation = `legacy-${Date.now()}-${process.pid}`
-      insertActiveRows(db!, legacy.available ? legacy.rows : [], generation, !bootstrapped)
-      if (!bootstrapped) saveMeta(db!, 'bootstrap_complete', '1')
-    })
+    const fingerprint = legacy.available ? legacyFingerprint(legacy.rows) : null
+    if (!bootstrapped || (fingerprint != null && meta(db, 'legacy_fingerprint') !== fingerprint)) {
+      transaction(db, () => {
+        // Recheck after taking the lock so two simultaneous inspectors do not both replay a changed file.
+        if (bootstrapped && fingerprint != null && meta(db!, 'legacy_fingerprint') === fingerprint) return
+        const generation = `legacy-${Date.now()}-${process.pid}`
+        insertActiveRows(db!, legacy.available ? legacy.rows : [], generation, !bootstrapped)
+        if (!bootstrapped) saveMeta(db!, 'bootstrap_complete', '1')
+        if (fingerprint != null) saveMeta(db!, 'legacy_fingerprint', fingerprint)
+      })
+    }
     // This fsynced sentinel lives outside SQLite. If the canonical database later disappears, openQueue
     // must fail closed instead of rebuilding an incomplete queue from bounded compatibility projections.
     persistEstablishedMarker(stateDir)
