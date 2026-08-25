@@ -1129,6 +1129,13 @@ app.get('/api/internal/provider-parity/canary-status', { config: { rateLimit: { 
       && (!logicalChain || candidate.chainId === logicalChain.chainId))
   const run = chainRuns
     .sort((a, b) => b.startedAt - a.startedAt)[0]
+  // The aggregate deliberately stays `running` across child transitions, but a child parked at the
+  // readiness gate is actionable operator state, not an ordinary transition. Surface that exact child
+  // and run id so the canary UI can open the shared readiness-decision workflow instead of polling a
+  // logical chain that can never advance by itself.
+  const pausedRun = chainRuns
+    .filter((candidate) => candidate.status === 'awaiting-readiness-decision')
+    .sort((a, b) => b.startedAt - a.startedAt)[0]
   const terminalEvent = run && [...run.eventLog].reverse().find((event) => event.type === 'run-error' || event.type === 'run-done')
   const failureNote = readCanaryRunFile(rootAbs, 'RUN_FAILURE.md')
   const interruptedRaw = readCanaryRunFile(rootAbs, '.interrupted')
@@ -1146,11 +1153,14 @@ app.get('/api/internal/provider-parity/canary-status', { config: { rateLimit: { 
   // A supervisor-written failure marker wins over any child-created terminal-looking files. Successful
   // post-restart recovery still requires all three terminal artifacts, including the supervisor receipt.
   const logicalInFlight = logicalChain?.status === 'starting' || logicalChain?.status === 'running'
-  const status = logicalInFlight ? logicalChain.status
+  const status = logicalInFlight && pausedRun ? pausedRun.status
+    : logicalInFlight ? logicalChain.status
     : abortedRaw !== null ? 'cancelled'
       : diskFailure ? 'error'
         : logicalChain?.status ?? run?.status ?? (diskComplete ? 'done' : 'unknown')
-  const eventMessage = logicalInFlight ? logicalChain.message
+  const eventMessage = logicalInFlight && pausedRun
+    ? 'Canary paused for a data-readiness decision.'
+    : logicalInFlight ? logicalChain.message
     : abortedRaw !== null ? 'Canary cancelled by the operator.'
       : logicalChain?.message
         ?? (terminalEvent?.type === 'run-error'
@@ -1158,12 +1168,12 @@ app.get('/api/internal/provider-parity/canary-status', { config: { rateLimit: { 
           : terminalEvent?.type === 'run-done' ? 'Canary completed.' : null)
   return {
     runRoot: parsed.data.runRoot,
-    runId: logicalChain?.runId ?? run?.runId ?? null,
+    runId: pausedRun?.runId ?? logicalChain?.runId ?? run?.runId ?? null,
     status,
-    startedAt: logicalChain?.startedAt ?? run?.startedAt ?? null,
+    startedAt: logicalChain?.startedAt ?? pausedRun?.startedAt ?? run?.startedAt ?? null,
     endedAt: logicalChain?.endedAt ?? run?.endedAt ?? null,
-    provider: logicalChain?.provider ?? run?.provider ?? null,
-    profileKey: logicalChain?.profileKey ?? run?.profileKey ?? null,
+    provider: logicalChain?.provider ?? pausedRun?.provider ?? run?.provider ?? null,
+    profileKey: logicalChain?.profileKey ?? pausedRun?.profileKey ?? run?.profileKey ?? null,
     message: eventMessage,
     failureNote,
     interruption,

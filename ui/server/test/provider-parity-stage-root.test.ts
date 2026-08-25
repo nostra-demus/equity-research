@@ -70,6 +70,28 @@ try {
   fs.rmSync(synthesisPath, { recursive: true })
   fs.writeFileSync(synthesisPath, '# business-model synthesis\n\nVerdict: mechanically valid test artifact.\n')
 
+  const failFastModule = buildSwarmGraph().modules.find((module) =>
+    Object.values(module.layers).flat().some((agent) => agent.nn === '00' && agent.failFast))!
+  const failFastTriage = Object.values(failFastModule.layers).flat()
+    .find((agent) => agent.nn === '00' && agent.failFast)!
+  const failFastSynthesis = Object.values(failFastModule.layers).flat().find((agent) => agent.isSynthesis)!
+  const failFastSynthesisPath = path.join(root, failFastModule.name, `${failFastSynthesis.key.split('/').at(-1)}.md`)
+  const failFastTriagePath = path.join(root, failFastModule.name, `${failFastTriage.key.split('/').at(-1)}.md`)
+  fs.rmSync(failFastSynthesisPath)
+  fs.writeFileSync(failFastTriagePath, '# Triage\n\nVerdict: Insufficient\n')
+  assert.doesNotThrow(
+    () => assertParityCanaryStageRoot(root, 'final'),
+    'a validated fail-fast Insufficient triage is a completed capped module outcome',
+  )
+  fs.writeFileSync(failFastTriagePath, '# Triage\n\nVerdict: Partial\n')
+  assert.throws(
+    () => assertParityCanaryStageRoot(root, 'final'),
+    /not complete|before every module is complete/,
+    'a non-Insufficient triage cannot masquerade as a completed fail-fast outcome',
+  )
+  fs.rmSync(failFastTriagePath)
+  fs.writeFileSync(failFastSynthesisPath, `# ${failFastModule.name} synthesis\n\nVerdict: mechanically valid test artifact.\n`)
+
   fs.writeFileSync(path.join(root, 'untrusted.txt'), 'unexpected\n')
   assert.throws(
     () => assertParityCanaryStageRoot(root, 'module'),

@@ -2329,6 +2329,9 @@ export interface FullChainDeps {
   // One stable bare-pool claim for the WHOLE chain, including child-transition and capacity-backoff gaps.
   // Optional so existing deterministic fake deps remain source-compatible; production always provides it.
   acquirePoolClaim?: (ticker: string) => () => void
+  // Test seam for malformed discovered DAGs. Production always uses buildSwarmGraph(); keeping graph
+  // discovery injectable lets CI prove that a downstream cycle fails closed after an acyclic prefix.
+  buildGraph?: () => ReturnType<typeof buildSwarmGraph>
 }
 const defaultFullChainDeps: FullChainDeps = {
   launchAndWire: async (params, onFinish) => {
@@ -2418,7 +2421,7 @@ export async function launchFullChained(
   const chainId = randomUUID()
   const datedRoot = scope.runRoot ?? defaultResearchRunRoot(ticker)
   if (isSealedResearchRun(datedRoot)) throw sealedResearchRunError(datedRoot)
-  const g = buildSwarmGraph()
+  const g = deps.buildGraph?.() ?? buildSwarmGraph()
   const names = g.modules.map((m) => m.name)
   const synthesisFiles = new Map(g.modules.map((m) => [
     m.name,
@@ -2549,14 +2552,18 @@ export async function launchFullChained(
         console.log(`[full-chain] ${ticker}: ${status === 'done' ? 'pipeline complete' : `stopped at master — ${status}`}`)
       },
     )
-    void launched.then((out) => markLogicalRunning(out.runId))
-    void launched.catch((e) => {
-      deps.clearMarker(ticker, datedRoot)
-      releaseChainPool()
-      finishLogicalCanary('error', `Canary terminal adjudicator could not launch: ${String((e as any)?.message || e)}`)
-      // eslint-disable-next-line no-console
-      console.error(`[full-chain] ${ticker}: failed to launch master synthesizer`, (e as any)?.message || e)
-    })
+    // One settled branch owns both outcomes. A success-only `.then()` plus a separate catch on the
+    // original promise creates an unhandled rejected *derived* promise when launch fails.
+    void launched.then(
+      (out) => markLogicalRunning(out.runId),
+      (e) => {
+        deps.clearMarker(ticker, datedRoot)
+        releaseChainPool()
+        finishLogicalCanary('error', `Canary terminal adjudicator could not launch: ${String((e as any)?.message || e)}`)
+        // eslint-disable-next-line no-console
+        console.error(`[full-chain] ${ticker}: failed to launch master synthesizer`, (e as any)?.message || e)
+      },
+    )
     return launched
   }
 
@@ -2665,9 +2672,27 @@ export async function launchFullChained(
       if (inflight.size === 0) finishLogicalCanary(stoppedOutcome, stoppedMessage)
       return
     }
-    for (const name of readyNow()) {
+    const ready = readyNow()
+    for (const name of ready) {
       if (inflight.size >= MAX_CONCURRENT_RUNS) break
       launchModule(name)
+    }
+    // A cycle can be hidden behind an acyclic prefix: the first module launches normally, then the
+    // remaining graph becomes impossible once that prefix drains. The old startup-only check never saw
+    // this state, leaving the subject reservation and defer marker pinned forever. Capacity backoff is
+    // not confused with a cycle: a rejected 429 has a scheduled retry, while an admitted wave still has
+    // at least one in-flight child.
+    if (started.size > 0 && done.size < total && inflight.size === 0 && ready.length === 0 && !retryScheduled) {
+      const unresolved = names.filter((name) => !done.has(name))
+      stopped = true
+      stoppedOutcome = 'error'
+      stoppedMessage = `Canary dependency graph stalled with no runnable module: ${unresolved.join(', ')}.`
+      deps.clearMarker(ticker, datedRoot)
+      releaseChainPool()
+      finishLogicalCanary(stoppedOutcome, stoppedMessage)
+      // eslint-disable-next-line no-console
+      console.error(`[full-chain] ${ticker}: no runnable module remains (depends_on cycle?): ${unresolved.join(', ')}`)
+      if (firstRunId === null) rejectFirst(new Error(`[full-chain] ${ticker}: no runnable module remains`))
     }
   }
 
@@ -2746,6 +2771,36 @@ export async function cancelSubject(subjectId: string, swarmId = 'research'): Pr
   await requireSubjectRunsExited(subjectId, stopping)
   finalizeConfirmedSubjectCancellation(stopping)
   return cancelled
+}
+
+/** Force is an explicit replacement of every writer on one subject. Keep the kill/drain/finalize
+ * protocol in one provider-neutral helper so monolithic and default chained full launches cannot drift. */
+async function stopSubjectForForce(subjectId: string, swarmId: string): Promise<void> {
+  const activeChainWithoutChild = subjectChainActive(subjectId, swarmId)
+    && subjectRunsAwaitingExit(subjectId, swarmId).length === 0
+  // This also closes a chained scheduler's between-child admission gap. The token-bound release in the
+  // old scheduler cannot clear a newer reservation when its final callback eventually drains.
+  haltSubjectChains(subjectId, swarmId)
+  const stopping = subjectRunsAwaitingExit(subjectId, swarmId)
+  if (activeChainWithoutChild) {
+    // No RunState exists to drain, so the old scheduler still owns a pending retry/launch callback which
+    // may clear the shared defer marker. Stop it, but do not admit a replacement into that callback race;
+    // its bounded callback observes the halted epoch and cleans up, after which one retry is safe.
+    const error: any = new Error(`The old full-run chain on ${subjectId} is between stages and is stopping. Try again shortly.`)
+    error.statusCode = 409
+    throw error
+  }
+  for (const run of stopping) {
+    try { await cancel(run.runId) } catch { /* keep stopping the rest */ }
+  }
+  if (!(await awaitRunsExited(stopping))) {
+    const error: any = new Error(
+      `Could not stop the run(s) holding the lock on ${subjectId} — still alive after ${FORCE_STOP_WAIT_MS}ms. Try again shortly.`,
+    )
+    error.statusCode = 409
+    throw error
+  }
+  finalizeConfirmedSubjectCancellation(stopping)
 }
 
 export async function launch(params: LaunchParams): Promise<{ runId: string; preflight: LaunchPreflight; chained?: boolean; skipped?: string[]; planned?: string[]; resumed?: boolean }> {
@@ -3071,7 +3126,9 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
     const ticker = params.ticker || ''
     subjectId = ticker
     assertNoModulePublicationInFlight(swarmId, subjectId)
-    assertNoForeignSubjectChain(swarmId, subjectId, params.chained)
+    // Force owns the explicit stop/drain protocol below, so an existing chain must not reject it before
+    // that protocol can run. Every non-force launch keeps the ordinary fail-fast subject-chain guard.
+    assertNoForeignSubjectChain(swarmId, subjectId, params.chained || params.force)
     // opt-in: run a full pipeline as a chain of per-module runs + master (each its own budget)
     const datedRoot = `analyses/${ticker}_${todayDate()}`
     // A sealed full run uses full.md's read-only recovery route. Do not send it through the per-module
@@ -3084,6 +3141,18 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
       const releasePoolClaim = acquireSharedDataPoolClaim(swarmId, ticker, kind)
       try {
         assertLaunchBindingsStillCurrent(swarmId, ticker, params)
+        assertNoModulePublicationInFlight(swarmId, ticker)
+        if (params.force) {
+          // This path returns before ordinary admission below, so it must perform the same force
+          // cancellation itself. Do it before the scheduler writes either chain marker.
+          reapAllDeadRuns()
+          await stopSubjectForForce(ticker, swarmId)
+          const afterForcePoolConflict = currentSharedDataPoolConflict(swarmId, ticker, kind)
+          if (afterForcePoolConflict) throw sharedDataPoolLaunchError(ticker, afterForcePoolConflict)
+          assertLaunchBindingsStillCurrent(swarmId, ticker, params)
+          assertNoModulePublicationInFlight(swarmId, ticker)
+          assertNoForeignSubjectChain(swarmId, ticker, false)
+        }
         const binding = params.decisionRunRoot && params.decisionFingerprint
           ? { decisionRunRoot: params.decisionRunRoot, decisionFingerprint: params.decisionFingerprint }
           : undefined
@@ -3247,16 +3316,7 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
   // window, REFUSE to admit (throw) rather than risk a concurrent double-write. We do NOT touch other
   // tickers' runs, so the global capacity cap (D5) still binds — force overrides a LOCK, never the cost guard.
   if (params.force) {
-    const stopping = subjectRunsAwaitingExit(subjectId, swarmId)
-    for (const r of stopping) {
-      try { await cancel(r.runId) } catch { /* keep stopping the rest — one stuck run must not shield the others */ }
-    }
-    if (!(await awaitRunsExited(stopping))) {
-      const err: any = new Error(`Could not stop the run(s) holding the lock on ${subjectId} — still alive after ${FORCE_STOP_WAIT_MS}ms. Try again shortly.`)
-      err.statusCode = 409
-      throw err
-    }
-    finalizeConfirmedSubjectCancellation(stopping)
+    await stopSubjectForForce(subjectId, swarmId)
   }
 
   // Force-stop can await a process-tree exit. Re-read ownership after that yield and before admission or
@@ -3469,6 +3529,12 @@ export function assertParityCanaryStageRoot(rootAbsolute: string, stage: ParityC
       .filter((agent) => agent.isSynthesis)
       .map((agent) => `${agent.key.split('/').at(-1)}.md`),
   ]))
+  const failFastTriages = new Map(graph.modules.map((module) => [
+    module.name,
+    Object.values(module.layers).flat()
+      .filter((agent) => agent.nn === '00' && agent.failFast)
+      .map((agent) => `${agent.key.split('/').at(-1)}.md`),
+  ]))
   const support = new Set([
     '.provider-parity-input.json', '.defer_module_memos', IDEA_PUBLICATION_MARKER,
     'readiness_override.json', '_pool_extracts',
@@ -3502,13 +3568,17 @@ export function assertParityCanaryStageRoot(rootAbsolute: string, stage: ParityC
     if (!expectedSyntheses || !info.isDirectory()) {
       throw Object.assign(new Error(`parity canary stage contains an unexpected top-level path: ${entry.name}`), { statusCode: 409 })
     }
-    if (stage === 'final' && !hasValidParitySynthesis(absolute, expectedSyntheses)) {
+    if (stage === 'final' && !hasValidParityModuleOutcome(
+      absolute, expectedSyntheses, failFastTriages.get(entry.name) ?? [],
+    )) {
       throw Object.assign(new Error(`parity canary module is not complete: ${entry.name}`), { statusCode: 409 })
     }
   }
   if (stage === 'final') {
     const missing = [...syntheses].filter(([module, files]) =>
-      !hasValidParitySynthesis(path.join(rootAbsolute, module), files))
+      !hasValidParityModuleOutcome(
+        path.join(rootAbsolute, module), files, failFastTriages.get(module) ?? [],
+      ))
       .map(([module]) => module)
     if (missing.length) {
       throw Object.assign(new Error(`parity canary cannot adjudicate before every module is complete: ${missing.join(', ')}`), { statusCode: 409 })
@@ -3526,6 +3596,22 @@ function hasValidParitySynthesis(moduleAbsolute: string, files: string[]): boole
     } catch {
       return false
     }
+  })
+}
+
+/** `/research:full` treats a fail-fast 00 triage verdict of Insufficient as a completed, capped module
+ * outcome. The frozen terminal gate must accept that same deliberate outcome, but only from a discovered
+ * fail-fast triage file that passes the canonical regular-file validator. */
+function hasValidParityModuleOutcome(
+  moduleAbsolute: string,
+  synthesisFiles: string[],
+  failFastTriageFiles: string[],
+): boolean {
+  if (hasValidParitySynthesis(moduleAbsolute, synthesisFiles)) return true
+  return failFastTriageFiles.some((file) => {
+    const candidate = path.join(moduleAbsolute, file)
+    if (!validateAgentOutputFile(candidate).valid) return false
+    try { return extractTriageStatus(fs.readFileSync(candidate, 'utf8')) === 'Insufficient' } catch { return false }
   })
 }
 
