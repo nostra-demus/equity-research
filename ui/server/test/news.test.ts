@@ -2836,7 +2836,7 @@ await check('feed-pending rows are exempt from unscored expiry and pending journ
   assert.equal(expired.live[0].deferred_at, '2026-08-19T00:00:00Z', 'the original residence clock remains auditable')
 })
 
-await check('saveDeferred prioritizes scored pending recovery inside the bounded active work window', () => {
+await check('saveDeferred prioritizes scored recovery without losing the row beyond the hot file window', () => {
   const state = tmp()
   const raw: NewsItem[] = Array.from({ length: 5_000 }, (_, i) => ({
     event_id: `EVT-raw-cap-${i}`, headline: `Raw backlog row ${i} long enough for validation`,
@@ -2846,9 +2846,11 @@ await check('saveDeferred prioritizes scored pending recovery inside the bounded
   const pending = exactPending('EVT-pending-at-tail', { state: 'cap' })
   assert.equal(saveDeferred(state, [...raw, pending], () => {}, 5_000), true)
   const saved = loadDeferred(state)
-  assert.equal(saved.length, 5_000)
+  assert.equal(saved.length, 5_001, 'SQLite keeps the complete queue; the cap bounds only the compatibility hot file')
   assert.equal(saved[0].event_id, pending.event_id)
-  assert.equal(saved.some((row) => row.event_id === raw[raw.length - 1].event_id), false)
+  assert.equal(saved.some((row) => row.event_id === raw[raw.length - 1].event_id), true)
+  const hotProjection = JSON.parse(fs.readFileSync(path.join(state, 'news-deferred.json'), 'utf8'))
+  assert.equal((Array.isArray(hotProjection) ? hotProjection : hotProjection.items).length, 5_000)
 })
 
 await check('feed-recovery backlog uses a v2 wrapper that makes an older worker pause safely', () => {

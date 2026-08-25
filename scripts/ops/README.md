@@ -418,6 +418,22 @@ NEWS_ARCHIVE_DIR="$HOME/Library/CloudStorage/GoogleDrive-<you>/My Drive/equity-r
   bash scripts/ops/install-services.sh --role doer
 ```
 
+### News queue storage and Drive recovery
+
+The live queue is `ui/server/.state/news-queue.sqlite` on the doer Mac. SQLite performs all queue
+transactions locally; Google Drive does not run or lock the database. The older
+`news-deferred*.json` files remain compatibility projections during rollout, but they are no longer the
+source of truth and their hot-window cap is not a data cap.
+
+Every archive run uses SQLite's online backup API, verifies the snapshot, compresses it, and writes both
+`YYYY-MM-DD_news-queue.sqlite.gz` and `news-queue-latest.sqlite.gz` to `NEWS_ARCHIVE_DIR`, each with a
+SHA-256 sidecar. It never copies the live WAL file directly. Raw firehose files remain the permanent record
+of completed items; retired-unscored items keep their complete payload and reason in the SQLite snapshots.
+
+For a restore, stop the engine first, verify the `.sha256` sidecar, decompress the chosen snapshot to a
+temporary local path, run `PRAGMA quick_check`, and only then replace the local database. Keep the prior
+database until the engine has restarted and the queue count has been checked.
+
 ## Operating rules (so it never blanks or dies)
 
 1. **Never run the server manually** (`npm run dev` / `npm start` in a terminal). launchd already owns
