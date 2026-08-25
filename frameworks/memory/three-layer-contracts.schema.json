@@ -311,11 +311,13 @@
     "runReceiptV1": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["schema", "receipt_id", "run_id", "issuer_listing", "repository_sha", "projection_digest", "policy_clock", "as_of_system_time", "provider_access", "active_playbooks", "snapshot_source", "status", "created_at", "receipt_sha256", "signature"],
+      "required": ["schema", "receipt_id", "run_id", "snapshot_reason", "parent_receipt_id", "issuer_listing", "repository_sha", "projection_digest", "policy_clock", "as_of_system_time", "provider_access", "active_playbooks", "snapshot_source", "status", "created_at", "receipt_sha256", "signature"],
       "properties": {
         "schema": { "const": "research-memory-run-receipt/v1" },
         "receipt_id": { "$ref": "#/$defs/memoryId" },
         "run_id": { "$ref": "#/$defs/boundedName" },
+        "snapshot_reason": { "enum": ["new-run", "deliberate-rerun"] },
+        "parent_receipt_id": { "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/memoryId" }] },
         "issuer_listing": { "$ref": "#/$defs/issuerListing" },
         "repository_sha": { "$ref": "#/$defs/gitSha" },
         "projection_digest": { "$ref": "#/$defs/hashRef" },

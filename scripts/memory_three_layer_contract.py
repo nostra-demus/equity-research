@@ -106,6 +106,13 @@ def _parse_date(value: str) -> dt.date:
     return dt.date.fromisoformat(value)
 
 
+def _temporal_value(value: str) -> dt.datetime:
+    """Normalize a contract date/date-time for valid-time ordering checks."""
+    if "T" in value:
+        return _parse_time(value).astimezone(dt.timezone.utc)
+    return dt.datetime.combine(_parse_date(value), dt.time.min, tzinfo=dt.timezone.utc)
+
+
 def _ids(producers: Iterable[Mapping[str, Any]]) -> list[str]:
     identities: list[str] = []
     for item in producers:
@@ -159,6 +166,9 @@ def _validate_query(value: Mapping[str, Any], errors: list[str]) -> None:
 
 def _validate_packet(value: Mapping[str, Any], errors: list[str]) -> None:
     sections = value.get("sections", {})
+    access_scope = value.get("effective_access_scope", {})
+    authorized_classes = set(access_scope.get("classifications", [])) if isinstance(access_scope, Mapping) else set()
+    authorized_tiers = set(access_scope.get("source_tiers", [])) if isinstance(access_scope, Mapping) else set()
     for section_name, delimiter in SECTION_DELIMITERS.items():
         section = sections.get(section_name, {}) if isinstance(sections, Mapping) else {}
         if section.get("delimiter") != delimiter:
@@ -167,6 +177,10 @@ def _validate_packet(value: Mapping[str, Any], errors: list[str]) -> None:
         for index, entry in enumerate(section.get("entries", [])):
             if entry.get("layer") != expected_layer:
                 _err(errors, f"sections.{section_name}.entries[{index}].layer", "does not match packet section")
+            if entry.get("classification") not in authorized_classes:
+                _err(errors, f"sections.{section_name}.entries[{index}].classification", "exceeds the packet effective access scope")
+            if not set(entry.get("source_tiers", [])).issubset(authorized_tiers):
+                _err(errors, f"sections.{section_name}.entries[{index}].source_tiers", "exceed the packet effective access scope")
     for index, omission in enumerate(value.get("omissions", [])):
         if omission.get("mandatory") is True:
             _err(errors, f"omissions[{index}].mandatory", "mandatory memory cannot be omitted; compilation must fail")
@@ -218,6 +232,8 @@ def _playbook_core(value: Mapping[str, Any]) -> Mapping[str, Any]:
 
 def _validate_playbook(value: Mapping[str, Any], errors: list[str]) -> None:
     core = _playbook_core(value)
+    if core.get("measured_effect", {}).get("serious_error_regression") is True:
+        _err(errors, "playbook.measured_effect.serious_error_regression", "a serious-error regression blocks activation")
     permitted = set(core.get("permitted_tools", []))
     forbidden = sorted(permitted - PERMITTED_DETERMINISTIC_TOOLS)
     if forbidden:
@@ -251,8 +267,18 @@ def _validate_evaluation(value: Mapping[str, Any], errors: list[str]) -> None:
         _err(errors, "cases", "thesis-affecting procedures require a resolved outcome review")
     if any(case.get("passed") is not True for case in cases):
         _err(errors, "cases", "every promotion case must pass")
+    for index, case in enumerate(cases):
+        expected_applicability = case.get("kind") != "counterexample"
+        if case.get("applicable") is not expected_applicability:
+            _err(
+                errors,
+                f"cases[{index}].applicable",
+                "origin, held-out, and outcome-review cases must apply; counterexamples must not apply",
+            )
     if value.get("metric_regressions") or value.get("security_failures"):
         _err(errors, "passed", "a regression or security failure blocks promotion")
+    if value.get("passed") is not True:
+        _err(errors, "passed", "an evaluation that records failure cannot authorize promotion")
     reviewer_ids = _ids(value.get("reviewers", []))
     if len(reviewer_ids) != len(set(reviewer_ids)):
         _err(errors, "reviewers", "evaluation reviewers must be independent identities")
@@ -284,6 +310,12 @@ def _validate_receipt(value: Mapping[str, Any], errors: list[str]) -> None:
         _err(errors, "issuer_listing.resolution_status", "a ticker match is insufficient; snapshot requires an exact listing")
     if value.get("policy_clock") != value.get("as_of_system_time"):
         _err(errors, "policy_clock", "policy and retrieval clocks must be frozen to the same instant")
+    reason = value.get("snapshot_reason")
+    parent = value.get("parent_receipt_id")
+    if reason == "deliberate-rerun" and parent is None:
+        _err(errors, "parent_receipt_id", "a deliberate rerun must link to its preceding receipt")
+    if reason == "new-run" and parent is not None:
+        _err(errors, "parent_receipt_id", "a new run cannot claim rerun lineage")
 
 
 def _validate_attestation(value: Mapping[str, Any], errors: list[str]) -> None:
@@ -296,10 +328,72 @@ def _validate_attestation(value: Mapping[str, Any], errors: list[str]) -> None:
 
 
 def _validate_execution(value: Mapping[str, Any], errors: list[str]) -> None:
-    for index, step in enumerate(value.get("steps", [])):
+    steps = value.get("steps", [])
+    for index, step in enumerate(steps):
         tool_id = step.get("tool_id")
         if tool_id is not None and tool_id not in PERMITTED_DETERMINISTIC_TOOLS:
             _err(errors, f"steps[{index}].tool_id", "execution used a non-allowlisted tool")
+    if value.get("status") == "completed":
+        if any(step.get("status") != "completed" for step in steps):
+            _err(errors, "status", "a completed execution cannot contain failed, skipped, or deviated steps")
+        if any(step.get("output_sha256") is None for step in steps):
+            _err(errors, "steps", "every completed step must commit to its output")
+        if any(not step.get("evidence_refs") for step in steps):
+            _err(errors, "steps", "every completed step must record current evidence")
+        if any(step.get("deviation_code") is not None for step in steps) or value.get("deviation_codes"):
+            _err(errors, "deviation_codes", "a completed execution cannot carry deviations")
+
+
+def _validate_memory_use(value: Mapping[str, Any], errors: list[str]) -> None:
+    seen: dict[str, str] = {}
+    for disposition in ("used", "checked_rejected", "contradicted", "not_applicable"):
+        for index, item in enumerate(value.get(disposition, [])):
+            record = item.get("record", {})
+            identity = f"{record.get('record_id')}|{record.get('content_sha256')}"
+            previous = seen.get(identity)
+            if previous is not None:
+                _err(errors, f"{disposition}[{index}].record", f"is already declared under {previous}")
+            else:
+                seen[identity] = disposition
+
+
+def _validate_run_episode(value: Mapping[str, Any], errors: list[str]) -> None:
+    expected = value.get("expected_task_count", 0)
+    completed = value.get("completed_task_count", 0)
+    task_ids = value.get("task_episode_ids", [])
+    if completed != len(task_ids):
+        _err(errors, "completed_task_count", "must equal the number of task episode IDs")
+    if completed > expected:
+        _err(errors, "completed_task_count", "cannot exceed expected_task_count")
+    derived_coverage = 100 if expected == 0 else (completed * 100 / expected)
+    if abs(float(value.get("memory_coverage_pct", 0)) - derived_coverage) > 1e-9:
+        _err(errors, "memory_coverage_pct", "must reconcile to completed_task_count / expected_task_count")
+    if value.get("status") == "completed":
+        if completed != expected or len(task_ids) != expected:
+            _err(errors, "status", "a completed run must contain every expected task episode")
+        if value.get("memory_coverage_pct") != 100:
+            _err(errors, "memory_coverage_pct", "a completed run must have 100% memory coverage")
+        if value.get("completed_at") is None:
+            _err(errors, "completed_at", "a completed run requires a completion timestamp")
+
+
+def _validate_valid_times(value: Any, errors: list[str], path: str = "") -> None:
+    if isinstance(value, Mapping):
+        valid_time = value.get("valid_time")
+        if isinstance(valid_time, Mapping):
+            start = valid_time.get("from")
+            end = valid_time.get("to")
+            if isinstance(start, str) and isinstance(end, str):
+                try:
+                    if _temporal_value(end) < _temporal_value(start):
+                        _err(errors, f"{path + '.' if path else ''}valid_time.to", "cannot precede valid_time.from")
+                except ValueError as exc:
+                    _err(errors, f"{path + '.' if path else ''}valid_time", f"invalid temporal value: {exc}")
+        for key, child in value.items():
+            _validate_valid_times(child, errors, f"{path + '.' if path else ''}{key}")
+    elif isinstance(value, list):
+        for index, child in enumerate(value):
+            _validate_valid_times(child, errors, f"{path}[{index}]")
 
 
 def validate_contract(value: Any) -> list[str]:
@@ -314,6 +408,8 @@ def validate_contract(value: Any) -> list[str]:
         _validate_packet(value, errors)
     elif schema == "research-memory-run-receipt/v1":
         _validate_receipt(value, errors)
+    elif schema == "memory-use/v1":
+        _validate_memory_use(value, errors)
     elif schema == "memory-use-attestation/v1":
         _validate_attestation(value, errors)
     elif schema in {"memory-semantic-candidate/v1", "memory-semantic-lesson/v1"}:
@@ -324,8 +420,11 @@ def validate_contract(value: Any) -> list[str]:
         _validate_evaluation(value, errors)
     elif schema == "memory-playbook-execution/v1":
         _validate_execution(value, errors)
+    elif schema == "memory-run-episode/v1":
+        _validate_run_episode(value, errors)
     elif schema == "memory-promotion-manifest/v1":
         _validate_promotion(value, errors)
+    _validate_valid_times(value, errors)
     return errors
 
 
@@ -339,6 +438,9 @@ def validate_promotion_bundle(
     errors: list[str] = []
     for label, item in (("candidate", candidate), ("promoted", promoted), ("manifest", manifest)):
         errors.extend(f"{label}.{error}" for error in validate_contract(item))
+    playbook_candidate = candidate.get("schema") == "memory-playbook-candidate/v1"
+    if playbook_candidate and evaluation is None:
+        errors.append("evaluation — playbook promotion requires a candidate-bound evaluation")
     if evaluation is not None:
         errors.extend(f"evaluation.{error}" for error in validate_contract(evaluation))
     if errors:
@@ -348,7 +450,9 @@ def validate_promotion_bundle(
     promoted_verifiers = promoted.get("verified_by", [])
     verifier_ids = _ids(promoted_verifiers) if isinstance(promoted_verifiers, list) else []
     manifest_reviewer_ids = _ids(manifest.get("reviewers", []))
-    if creator_id in verifier_ids or creator_id in manifest_reviewer_ids:
+    manifest_author = manifest.get("author", {})
+    manifest_author_id = manifest_author.get("id") if isinstance(manifest_author, Mapping) else None
+    if creator_id in verifier_ids or creator_id in manifest_reviewer_ids or creator_id == manifest_author_id:
         _err(errors, "promotion", "a candidate author cannot verify, promote, correct, or supersede its own record")
     if candidate.get("candidate_sha256") != manifest.get("candidate_sha256"):
         _err(errors, "manifest.candidate_sha256", "does not commit to the supplied candidate")
@@ -359,13 +463,24 @@ def validate_promotion_bundle(
         _err(errors, "manifest.target_id", "does not match the promoted record")
     if promoted.get("version") != manifest.get("target_version"):
         _err(errors, "manifest.target_version", "does not match the promoted record")
+    expected_activation_sha = promoted.get("lesson_sha256") or promoted.get("playbook_sha256")
+    if expected_activation_sha != manifest.get("activation_content_sha256"):
+        _err(errors, "manifest.activation_content_sha256", "does not commit to the promoted record")
+    expected_kind = "semantic" if candidate.get("schema") == "memory-semantic-candidate/v1" else "playbook"
+    if manifest.get("candidate_kind") != expected_kind:
+        _err(errors, "manifest.candidate_kind", "does not match the supplied candidate")
     if evaluation is not None and evaluation.get("evaluation_sha256") != manifest.get("evaluation_sha256"):
         _err(errors, "manifest.evaluation_sha256", "does not commit to the supplied evaluation")
+    if evaluation is not None and evaluation.get("candidate_sha256") != candidate.get("candidate_sha256"):
+        _err(errors, "evaluation.candidate_sha256", "does not commit to the supplied candidate")
     if candidate.get("schema") == "memory-semantic-candidate/v1" and candidate.get("candidate_type") == "fact":
         combined_roles = _reviewer_roles(promoted.get("verified_by", [])) | _reviewer_roles(manifest.get("reviewers", []))
         if "extraction" not in combined_roles:
             _err(errors, "promotion", "a factual semantic candidate requires an independent extraction verifier")
-    if candidate.get("schema") == "memory-playbook-candidate/v1" and evaluation is not None:
+    if playbook_candidate and evaluation is not None:
+        candidate_risk = candidate.get("playbook", {}).get("risk_class")
+        if evaluation.get("risk_class") != candidate_risk:
+            _err(errors, "evaluation.risk_class", "does not match the candidate playbook")
         issuer_ids = candidate.get("playbook", {}).get("applicability", {}).get("issuer_ids", [])
         if len(issuer_ids) != 1:
             evaluated_issuers = {
