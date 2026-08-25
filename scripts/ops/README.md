@@ -1,5 +1,10 @@
 # Keeping `app.nostra-demus.com` alive — forever
 
+> **Dedicated Mac Pro / IBKR Paper:** before connecting to the remote Mac, changing TWS, or
+> diagnosing paper execution, read [`MAC_PRO_RUNBOOK.md`](MAC_PRO_RUNBOOK.md). It records the proven
+> Tailscale/Screen Sharing route, private-secret boundary, bridge checks, IB Gateway constraint, and
+> mistakes that must not be repeated.
+
 The public cockpit URL is a **Cloudflare Tunnel → local engine server** (Fastify on `127.0.0.1:8787`,
 fronted by Cloudflare Access). macOS `launchd` user agents keep it up — **and keep it on `main`** — with
 **no human in the loop**:
