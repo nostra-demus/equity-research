@@ -4791,7 +4791,7 @@ a { color: inherit; }
 .themes-simple__head > span.is-stale { color: var(--bad); }
 .themes-simple__warning, .theme-detail__warning, .theme-detail__scope { display: flex; align-items: flex-start; gap: 14px; padding: 10px 12px; border: 1px solid color-mix(in srgb, var(--bad) 36%, var(--hairline)); border-radius: var(--r-md); background: var(--bad-wash); }
 .themes-simple__warning > div, .theme-detail__warning, .theme-detail__scope { flex-direction: column; gap: 3px; }
-.themes-simple__warning > div { min-width: 0; display: flex; flex: 1; flex-direction: column; gap: 3px; }
+.themes-simple__warning > div { min-width: 0; display: flex; flex: 1; }
 .themes-simple__warning b, .theme-detail__warning b { color: var(--bad); font-size: 11px; }
 .themes-simple__warning span, .theme-detail__warning span, .theme-detail__scope span { color: var(--text-muted); font-size: 10.5px; line-height: 1.5; }
 .themes-simple__warning button, .themes-simple__empty button, .theme-detail__back, .evidence-news__toggle { appearance: none; border: 1px solid var(--accent-deep); border-radius: var(--r-sm); background: var(--accent-wash-soft); color: var(--accent-bright); cursor: pointer; padding: 6px 9px; font: inherit; font-size: 10.5px; font-weight: 650; }
