@@ -4,6 +4,7 @@ import { DatabaseSync } from 'node:sqlite'
 import type { NewsItem } from './types'
 
 const DATABASE_FILE = 'news-queue.sqlite'
+const ESTABLISHED_FILE = 'news-queue.sqlite.established'
 const SCHEMA_VERSION = '1'
 
 export type QueueLane = 'barrier' | 'hot' | 'overflow'
@@ -33,6 +34,38 @@ function queuePath(stateDir: string): string {
   return path.join(stateDir, DATABASE_FILE)
 }
 
+function establishedPath(stateDir: string): string {
+  return path.join(stateDir, ESTABLISHED_FILE)
+}
+
+function pathExists(file: string): boolean {
+  try { fs.statSync(file); return true }
+  catch (error: any) {
+    if (error?.code === 'ENOENT') return false
+    throw error
+  }
+}
+
+function persistEstablishedMarker(stateDir: string): void {
+  const target = establishedPath(stateDir)
+  if (pathExists(target)) return
+  const tmp = `${target}.${process.pid}.${Math.random().toString(16).slice(2)}.tmp`
+  let fd: number | undefined
+  try {
+    fd = fs.openSync(tmp, 'wx', 0o600)
+    fs.writeFileSync(fd, `schema=${SCHEMA_VERSION}\n`)
+    fs.fsyncSync(fd)
+    fs.closeSync(fd)
+    fd = undefined
+    fs.renameSync(tmp, target)
+    const dirFd = fs.openSync(stateDir, 'r')
+    try { fs.fsyncSync(dirFd) } finally { fs.closeSync(dirFd) }
+  } finally {
+    try { if (fd != null) fs.closeSync(fd) } catch { /* best effort */ }
+    try { fs.rmSync(tmp, { force: true }) } catch { /* best effort */ }
+  }
+}
+
 function meta(db: DatabaseSync, key: string): string | null {
   const row = db.prepare('SELECT value FROM news_queue_meta WHERE key = ?').get(key) as { value?: unknown } | undefined
   return typeof row?.value === 'string' ? row.value : null
@@ -48,6 +81,9 @@ function saveMeta(db: DatabaseSync, key: string, value: string): void {
 function openQueue(stateDir: string): DatabaseSync {
   fs.mkdirSync(stateDir, { recursive: true })
   const file = queuePath(stateDir)
+  if (!pathExists(file) && pathExists(establishedPath(stateDir))) {
+    throw new Error('established durable news queue database is missing')
+  }
   const db = new DatabaseSync(file)
   try {
     db.exec(`
@@ -186,6 +222,9 @@ export function inspectDurableQueue(
       insertActiveRows(db!, legacy.available ? legacy.rows : [], generation, !bootstrapped)
       if (!bootstrapped) saveMeta(db!, 'bootstrap_complete', '1')
     })
+    // This fsynced sentinel lives outside SQLite. If the canonical database later disappears, openQueue
+    // must fail closed instead of rebuilding an incomplete queue from bounded compatibility projections.
+    persistEstablishedMarker(stateDir)
     const items = decodeRows(db.prepare(`
       SELECT payload_json FROM news_queue
       WHERE state = 'active'
@@ -423,4 +462,8 @@ export function loadDurableQueueHistory(
 
 export function durableQueueDatabasePath(stateDir: string): string {
   return queuePath(stateDir)
+}
+
+export function durableQueueEstablishedPath(stateDir: string): string {
+  return establishedPath(stateDir)
 }

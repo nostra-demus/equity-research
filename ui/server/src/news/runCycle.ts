@@ -685,9 +685,8 @@ function clearInputBarrier(stateDir: string, log: (m: string) => void): boolean 
     }
     fs.rmSync(target, { force: true })
     fsyncDirectory(stateDir)
-    if (!purgeCompletedDurableQueueItems(stateDir)) {
-      log('clearInputBarrier: SQLite completion tombstones remain for a later cleanup')
-    }
+    // Do not purge here. A scored checkpoint or overflow projection may still exist and could resurrect a
+    // completed row after a crash. saveDeferred owns the single purge boundary after every projection is gone.
     return true
   } catch (e: any) {
     log(`clearInputBarrier failed (${e?.message || e}) — full pending barrier remains authoritative`)

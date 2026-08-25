@@ -8,6 +8,7 @@ import { gunzipSync } from 'node:zlib'
 import { DatabaseSync } from 'node:sqlite'
 import {
   durableQueueDatabasePath,
+  durableQueueEstablishedPath,
   inspectDurableQueueCounts,
   loadDurableQueueHistory,
   purgeCompletedDurableQueueItems,
@@ -176,6 +177,20 @@ check('a corrupt canonical SQLite queue fails closed and is never rebuilt from a
   const inspection = inspectDeferredBacklog(state)
   assert.equal(inspection.available, false)
   assert.deepEqual(inspection.items, [])
+})
+
+check('a missing established SQLite queue fails closed instead of rebuilding from a capped JSON prefix', () => {
+  const state = tmp()
+  const rows = [item(36), item(37), item(38)]
+  assert.equal(saveDeferred(state, rows, () => {}, 1), true)
+  assert.equal(fs.existsSync(durableQueueEstablishedPath(state)), true)
+  const database = durableQueueDatabasePath(state)
+  for (const suffix of ['', '-wal', '-shm']) fs.rmSync(`${database}${suffix}`, { force: true })
+
+  const inspection = inspectDeferredBacklog(state)
+  assert.equal(inspection.available, false)
+  assert.deepEqual(inspection.items, [])
+  assert.equal(fs.existsSync(database), false, 'the missing canonical database is never silently recreated')
 })
 
 check('the snapshot helper produces an integrity-checked standalone database from a live WAL queue', () => {
