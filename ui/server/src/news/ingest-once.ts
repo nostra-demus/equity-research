@@ -12,6 +12,7 @@ import {
   runConfiguredRescueShadow,
 } from './scheduler'
 import { NEWS, STATE_DIR } from '../config'
+import { withProviderRunDeployLease } from '../deploy-barrier'
 import { pathToFileURL } from 'node:url'
 import { runNormalIdeasThenSecondLook } from './rescue/order'
 
@@ -59,21 +60,25 @@ async function main(): Promise<void> {
     // one account. An HTTP-only cockpit never retains this lease; it degrades provider reads instead.
     if (!acquireIngesterLock(STATE_DIR)) {
       log('another standalone news pass owns the provider lease — skipping this cycle')
-      const qualifiedOutcomes = await runConfiguredQualifiedIdeaOutcomes(log)
+      const qualifiedOutcomes = await withProviderRunDeployLease(
+        STATE_DIR, () => runConfiguredQualifiedIdeaOutcomes(log),
+      )
       console.log(JSON.stringify({ ok: true, skipped: 'ingester_lock_held', qualified_idea_outcomes: qualifiedOutcomes })) // eslint-disable-line no-console
       return
     }
     process.once('exit', () => releaseIngesterLock(STATE_DIR))
     try {
-      const { ideaPass, secondLook } = await runNormalIdeasThenSecondLook({
-        ideas: () => runConfiguredIdeaPass(log),
-        secondLook: () => runConfiguredRescueShadow(log, true),
-        onSecondLookBlocked: () =>
-          runConfiguredRescueShadow(log, false, 'The normal Ideas scan did not finish, so the second look waited.'),
+      await withProviderRunDeployLease(STATE_DIR, async () => {
+        const { ideaPass, secondLook } = await runNormalIdeasThenSecondLook({
+          ideas: () => runConfiguredIdeaPass(log),
+          secondLook: () => runConfiguredRescueShadow(log, true),
+          onSecondLookBlocked: () =>
+            runConfiguredRescueShadow(log, false, 'The normal Ideas scan did not finish, so the second look waited.'),
+        })
+        const qualifiedOutcomes = await runConfiguredQualifiedIdeaOutcomes(log)
+        log('news ingestion is disabled; skipped fetching and ran only independent outcome settlement')
+        console.log(JSON.stringify({ ok: true, skipped: 'news_disabled', idea_pass: ideaPass, second_look: secondLook, qualified_idea_outcomes: qualifiedOutcomes })) // eslint-disable-line no-console
       })
-      const qualifiedOutcomes = await runConfiguredQualifiedIdeaOutcomes(log)
-      log('news ingestion is disabled; skipped fetching and ran only independent outcome settlement')
-      console.log(JSON.stringify({ ok: true, skipped: 'news_disabled', idea_pass: ideaPass, second_look: secondLook, qualified_idea_outcomes: qualifiedOutcomes })) // eslint-disable-line no-console
     } finally {
       releaseIngesterLock(STATE_DIR)
     }
@@ -86,7 +91,9 @@ async function main(): Promise<void> {
   // the work); a dead owner's retained kernel lease disappears automatically when its process exits.
   if (!acquireIngesterLock(STATE_DIR)) {
     log('another engine already owns the ingester for this data dir — skipping this cycle (no duplicate fetching)')
-    const qualifiedOutcomes = await runConfiguredQualifiedIdeaOutcomes(log)
+    const qualifiedOutcomes = await withProviderRunDeployLease(
+      STATE_DIR, () => runConfiguredQualifiedIdeaOutcomes(log),
+    )
     console.log(JSON.stringify({ ok: true, skipped: 'ingester_lock_held', qualified_idea_outcomes: qualifiedOutcomes })) // eslint-disable-line no-console
     return
   }
@@ -94,7 +101,7 @@ async function main(): Promise<void> {
   // its stale-reclaim window. The explicit finally below covers normal settle paths.
   process.once('exit', () => releaseIngesterLock(STATE_DIR))
   try {
-    const result = await runStandalonePasses({
+    const result = await withProviderRunDeployLease(STATE_DIR, () => runStandalonePasses({
       ingest: () => runIngestCycle({ log }),
       ideas: async () => {
         return runNormalIdeasThenSecondLook({
@@ -105,7 +112,7 @@ async function main(): Promise<void> {
         })
       },
       outcomes: () => runConfiguredQualifiedIdeaOutcomes(log),
-    })
+    }))
     if (result.error) console.error('[news] fatal', result.error) // eslint-disable-line no-console
     // Keep the machine-readable settlement result visible even on a failed ingest.
     console.log(JSON.stringify(result.summary // eslint-disable-line no-console
