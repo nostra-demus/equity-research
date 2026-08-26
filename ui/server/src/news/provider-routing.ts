@@ -186,7 +186,15 @@ export interface ProviderTransitionEvent extends BaseEvent {
   reason: 'override' | 'shadow-gates-passed' | 'telemetry-unavailable' | 'telemetry-recovered'
 }
 
-export type PipelineAuditEvent = ProviderStateSnapshotEvent | ProviderDecisionEvent | ProviderOutcomeEvent | ProviderTransitionEvent
+/** Permanent proof that a scanner start receipt outlived every valid completion window without a durable
+ * cycle summary. `ts` is when the incident was detected; `startedAt` preserves the missing look's identity. */
+export interface CycleInterruptionEvent extends BaseEvent {
+  kind: 'cycle_interruption'
+  startedAt: string
+  reason: 'missing-summary-after-timeout'
+}
+
+export type PipelineAuditEvent = ProviderStateSnapshotEvent | ProviderDecisionEvent | ProviderOutcomeEvent | ProviderTransitionEvent | CycleInterruptionEvent
 
 const ROUTER_MODES = new Set<ProviderRouterMode>(['static', 'shadow', 'adaptive', 'static-fallback'])
 const ELIGIBILITY_REASONS = new Set<ProviderEligibilityReason>([
@@ -397,6 +405,14 @@ function sanitizeEvent(event: PipelineAuditEvent): PipelineAuditEvent | null {
       elapsedMs: nonnegativeInt(event.elapsedMs),
     }
   }
+  if (event.kind === 'cycle_interruption') {
+    return {
+      ...base,
+      kind: event.kind,
+      startedAt: new Date(event.startedAt).toISOString(),
+      reason: event.reason,
+    }
+  }
   return { ...base, kind: event.kind, from: event.from, to: event.to, reason: event.reason }
 }
 
@@ -483,11 +499,46 @@ function isAuditEvent(value: unknown): value is PipelineAuditEvent {
       && ['batchSize', 'scoredItems', 'networkCalls', 'tokens', 'costUsd', 'elapsedMs']
         .every((key) => typeof row[key] === 'number' && Number.isFinite(row[key]))
   }
+  if (row.kind === 'cycle_interruption') {
+    return validIso(row.startedAt)
+      && Date.parse(row.startedAt) <= Date.parse(row.ts as string)
+      && row.reason === 'missing-summary-after-timeout'
+  }
   if (row.kind === 'router_transition') {
     return ROUTER_MODES.has(row.from as ProviderRouterMode) && ROUTER_MODES.has(row.to as ProviderRouterMode)
       && TRANSITION_REASONS.has(row.reason as ProviderTransitionEvent['reason'])
   }
   return false
+}
+
+export interface CycleInterruptionAuditRead {
+  events: CycleInterruptionEvent[]
+  readable: boolean
+  corruptRows: number
+  unreadableDays: string[]
+  truncated: boolean
+}
+
+/** Read interruption incidents from the same append-only, Drive-archived pipeline authority as provider
+ * routing. Missing partitions mean no pipeline events were recorded; corruption/unreadability fails closed. */
+export function readCycleInterruptionAudit(
+  repoRoot: string,
+  archiveDir: string,
+  from: number,
+  to: number,
+): CycleInterruptionAuditRead {
+  const read = readPipelineEvents(repoRoot, archiveDir, from, to)
+  return {
+    events: read.events.filter((event): event is CycleInterruptionEvent => event.kind === 'cycle_interruption'),
+    readable: read.corruptRows === 0 && read.unreadableDays.length === 0 && !read.truncated,
+    corruptRows: read.corruptRows,
+    unreadableDays: read.unreadableDays,
+    truncated: read.truncated,
+  }
+}
+
+export function recordCycleInterruption(repoRoot: string, event: Omit<CycleInterruptionEvent, 'v'>): boolean {
+  return appendPipelineTelemetry(repoRoot, { ...event, v: 1 })
 }
 
 function readPipelineEvents(
@@ -1063,6 +1114,9 @@ export function readPipelineTrend(repoRoot: string, archiveDir: string, from: nu
     } else if (event.kind === 'router_transition') {
       bucket.routerMode = event.to
       bucket.routerTransition = `${event.from} → ${event.to}`
+    } else if (event.kind === 'cycle_interruption') {
+      const started = Date.parse(event.startedAt)
+      if (started >= from && started < to) bucketAt(started).verified = false
     }
   }
   const gapDays = new Set([

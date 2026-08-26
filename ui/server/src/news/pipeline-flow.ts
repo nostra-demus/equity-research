@@ -2,6 +2,12 @@ import fs from 'node:fs'
 import path from 'node:path'
 import type { CycleSummary } from './types'
 import { contiguousFirehoseFiles, parseFirehoseName, resolvedFirehoseFiles } from './firehose-files'
+import { acquireRetainedFlockSync, releaseRetainedFlock } from '../singleton-lock'
+import {
+  deterministicCycleId,
+  readCycleInterruptionAudit,
+  recordCycleInterruption,
+} from './provider-routing'
 
 export const PIPELINE_FLOW_WINDOW_MINUTES = 60 as const
 export const PIPELINE_FLOW_WINDOW_MS = PIPELINE_FLOW_WINDOW_MINUTES * 60_000
@@ -26,8 +32,12 @@ export interface PipelineFlowHistory {
   corruptCycleRows: number
   /** Started cycles whose durable summary receipt is still absent inside the rate window. */
   incompleteCycles?: number
+  /** Permanently audited missing-summary incidents that still overlap the rate window. */
+  recordedInterruptions?: number
   /** Missing-summary receipts that started during the current UTC day, including ones older than the rate window. */
   todayIncompleteCycles?: number
+  /** Permanently audited missing-summary incidents that started during the current UTC day. */
+  todayRecordedInterruptions?: number
   /** Today's summary-derived counters are lower bounds because a receipt is missing or the receipt file is unreadable. */
   todayTotalsLowerBound?: boolean
   /** Readability of today's summary partition. Missing is explicit: zero rows cannot prove zero completed looks. */
@@ -36,6 +46,8 @@ export interface PipelineFlowHistory {
   todayCorruptCycleRows?: number
   /** The compact completion-gap authority itself could not be trusted. */
   gapMarkerUnreadable?: boolean
+  /** The append-only interruption audit could not be trusted. */
+  interruptionAuditUnreadable?: boolean
 }
 
 export interface PipelineFlowMeasure {
@@ -78,6 +90,7 @@ const PIPELINE_FLOW_GAP_FILE = 'news-pipeline-flow-gaps.json'
 interface PipelineFlowGapFile { v: 1; starts: string[] }
 
 function gapFilePath(stateDir: string): string { return path.join(stateDir, PIPELINE_FLOW_GAP_FILE) }
+function gapLockPath(stateDir: string): string { return `${gapFilePath(stateDir)}.lock` }
 
 function readPipelineFlowGapFile(stateDir: string): { status: 'ok'; starts: string[] } | { status: 'missing' | 'unreadable' } {
   try {
@@ -114,28 +127,45 @@ function writePipelineFlowGapFile(stateDir: string, starts: readonly string[]): 
   }
 }
 
+function withPipelineFlowGapMutation(stateDir: string, action: () => boolean): boolean {
+  let lock: number | undefined
+  try {
+    fs.mkdirSync(stateDir, { recursive: true })
+    lock = acquireRetainedFlockSync(gapLockPath(stateDir), { waitMs: 2_000, busyMessage: 'pipeline flow receipt writer busy' })
+    return action()
+  } catch {
+    return false
+  } finally {
+    if (lock !== undefined) releaseRetainedFlock(lock)
+  }
+}
+
 /** Durable start receipt. If this cannot land, the cycle must not process data: its rate outcome could not
  * be proven later. Retain every receipt through its UTC day; around midnight, also retain any prior-day
  * receipt that can still overlap the trailing rate window. */
 export function beginPipelineFlowCycle(stateDir: string, startedAt: string, nowMs: number, cycleTimeoutMs: number): boolean {
   const started = timestampMs(startedAt)
   if (started === null || !Number.isFinite(nowMs) || !validTimeoutMs(cycleTimeoutMs)) return false
-  const prior = readPipelineFlowGapFile(stateDir)
-  if (prior.status === 'unreadable') return false
-  const rateFloor = nowMs - PIPELINE_FLOW_WINDOW_MS - maximumCycleDurationMs(cycleTimeoutMs, true)
-  const todayFloor = Date.parse(`${isoDay(nowMs)}T00:00:00Z`)
-  const floor = Math.min(rateFloor, todayFloor)
-  const starts = (prior.status === 'ok' ? prior.starts : [])
-    .filter((value) => (timestampMs(value) ?? -Infinity) >= floor)
-  if (!starts.includes(startedAt)) starts.push(startedAt)
-  return starts.length <= 512 && writePipelineFlowGapFile(stateDir, starts)
+  return withPipelineFlowGapMutation(stateDir, () => {
+    const prior = readPipelineFlowGapFile(stateDir)
+    if (prior.status === 'unreadable') return false
+    const rateFloor = nowMs - PIPELINE_FLOW_WINDOW_MS - maximumCycleDurationMs(cycleTimeoutMs, true)
+    const todayFloor = Date.parse(`${isoDay(nowMs)}T00:00:00Z`)
+    const floor = Math.min(rateFloor, todayFloor)
+    const starts = (prior.status === 'ok' ? prior.starts : [])
+      .filter((value) => (timestampMs(value) ?? -Infinity) >= floor)
+    if (!starts.includes(startedAt)) starts.push(startedAt)
+    return starts.length <= 512 && writePipelineFlowGapFile(stateDir, starts)
+  })
 }
 
 /** Clear a start receipt only after its cycle summary is fsynced. Failure leaves a conservative gap. */
 export function completePipelineFlowCycle(stateDir: string, startedAt: string): boolean {
-  const prior = readPipelineFlowGapFile(stateDir)
-  if (prior.status !== 'ok' || !prior.starts.includes(startedAt)) return false
-  return writePipelineFlowGapFile(stateDir, prior.starts.filter((value) => value !== startedAt))
+  return withPipelineFlowGapMutation(stateDir, () => {
+    const prior = readPipelineFlowGapFile(stateDir)
+    if (prior.status !== 'ok' || !prior.starts.includes(startedAt)) return false
+    return writePipelineFlowGapFile(stateDir, prior.starts.filter((value) => value !== startedAt))
+  })
 }
 
 /** Count unique fetched IDs that were not already resident in the saved backlog. */
@@ -277,6 +307,121 @@ function readPartition(repoRoot: string, archiveDir: string, date: string): { st
   return { status: 'read', texts }
 }
 
+function durableSummaryStarts(
+  repoRoot: string,
+  archiveDir: string,
+  date: string,
+): { status: 'read'; starts: Set<number>; ambiguous: Set<number> } | { status: 'missing' | 'unreadable' } {
+  const partition = readPartition(repoRoot, archiveDir, date)
+  if (partition.status !== 'read') return partition
+  const starts = new Set<number>()
+  const ambiguous = new Set<number>()
+  for (const partitionText of partition.texts) {
+    for (const line of partitionText.split('\n')) {
+      const text = line.trim()
+      if (!text || !/"kind"\s*:\s*"cycle/.test(text)) continue
+      try {
+        const row = JSON.parse(text)
+        if (row?.kind !== 'cycle_summary') continue
+        const started = timestampMs(row.ts)
+        if (started === null) continue
+        if (row.feed_commit_version === 1) starts.add(started)
+        else ambiguous.add(started)
+      } catch {
+        const match = text.match(/"ts"\s*:\s*"([^"]+)"/)
+        const started = timestampMs(match?.[1])
+        if (started !== null) ambiguous.add(started)
+      }
+    }
+  }
+  return { status: 'read', starts, ambiguous }
+}
+
+/**
+ * Convert stale start receipts into permanent interruption incidents.
+ *
+ * The append-only audit lands and fsyncs first. Only then is the compact active-incident marker cleared.
+ * A crash between those writes is idempotent: the next pass finds the deterministic cycle ID in the audit
+ * and clears the marker without appending a duplicate. A matching durable summary clears a false marker;
+ * unreadable or ambiguous evidence remains active and visible for manual storage repair.
+ */
+export function reconcilePipelineFlowGaps(
+  repoRoot: string,
+  archiveDir: string,
+  stateDir: string,
+  nowMs: number,
+  cycleTimeoutMs: number,
+): boolean {
+  if (!Number.isFinite(nowMs) || nowMs < 0 || nowMs > 8.64e15 || !validTimeoutMs(cycleTimeoutMs)) return false
+  return withPipelineFlowGapMutation(stateDir, () => {
+    const prior = readPipelineFlowGapFile(stateDir)
+    if (prior.status !== 'ok') return prior.status === 'missing'
+    if (!prior.starts.length) return true
+
+    const byDate = new Map<string, ReturnType<typeof durableSummaryStarts>>()
+    const summaryFor = (date: string) => {
+      const known = byDate.get(date)
+      if (known) return known
+      const read = durableSummaryStarts(repoRoot, archiveDir, date)
+      byDate.set(date, read)
+      return read
+    }
+    const stale = prior.starts.filter((value) => {
+      const started = timestampMs(value)
+      return started !== null && started + maximumCycleDurationMs(cycleTimeoutMs, true) < nowMs
+    })
+    const earliestStale = stale.reduce((min, value) => Math.min(min, timestampMs(value) ?? min), Infinity)
+    const existingAudit = Number.isFinite(earliestStale)
+      ? readCycleInterruptionAudit(repoRoot, archiveDir, earliestStale, nowMs + 1)
+      : { events: [], readable: true, corruptRows: 0, unreadableDays: [], truncated: false }
+    const recorded = new Set(existingAudit.events.map((event) => event.cycleId))
+    const retained: string[] = []
+    let changed = false
+    let unresolved = !existingAudit.readable && stale.length > 0
+    const detectedAt = new Date(nowMs).toISOString()
+
+    for (const startedAt of prior.starts) {
+      const started = timestampMs(startedAt)
+      if (started === null) { retained.push(startedAt); unresolved = true; continue }
+      const summaries = summaryFor(isoDay(started))
+      if (summaries.status === 'read' && summaries.starts.has(started)) {
+        changed = true
+        continue
+      }
+      if (started + maximumCycleDurationMs(cycleTimeoutMs, true) >= nowMs) {
+        retained.push(startedAt)
+        continue
+      }
+      if (summaries.status === 'unreadable'
+        || (summaries.status === 'read' && summaries.ambiguous.has(started))
+        || !existingAudit.readable) {
+        retained.push(startedAt)
+        unresolved = true
+        continue
+      }
+      const cycleId = deterministicCycleId(startedAt)
+      if (!recorded.has(cycleId)) {
+        if (!recordCycleInterruption(repoRoot, {
+          kind: 'cycle_interruption',
+          ts: detectedAt,
+          cycleId,
+          startedAt,
+          reason: 'missing-summary-after-timeout',
+        })) {
+          retained.push(startedAt)
+          unresolved = true
+          continue
+        }
+        recorded.add(cycleId)
+      }
+      changed = true
+    }
+
+    if (changed && !writePipelineFlowGapFile(stateDir, retained)) return false
+    return !unresolved
+  })
+}
+
 // The diagnostics endpoint polls every 10 seconds. Retain exactly one operational row per storage target so
 // a quiet period does not repeatedly reread an item-heavy old partition; a process that starts during an
 // outage discovers the same row once from disk below.
@@ -381,11 +526,15 @@ export function readPipelineFlowCycles(
   const cycles: CycleSummary[] = []
   let corruptCycleRows = 0
   let incompleteCycles = 0
+  let recordedInterruptions = 0
   let todayIncompleteCycles = 0
+  let todayRecordedInterruptions = 0
   let gapMarkerUnreadable = false
   let gapMarkerMissing = false
+  let interruptionAuditUnreadable = false
   let todayCorruptCycleRows = 0
   const today = Number.isFinite(nowMs) ? isoDay(nowMs) : ''
+  const activeCycleIds = new Set<string>()
 
   if (stateDir) {
     const gaps = readPipelineFlowGapFile(stateDir)
@@ -398,9 +547,24 @@ export function readPipelineFlowCycles(
           incompleteCycles++
           continue
         }
+        activeCycleIds.add(deterministicCycleId(value))
         if (started <= nowMs && started + maximumCycleDurationMs(cycleTimeoutMs, true) >= fromMs) incompleteCycles++
         if (started <= nowMs && today && isoDay(started) === today) todayIncompleteCycles++
       }
+    }
+  }
+
+  if (Number.isFinite(nowMs) && validTimeoutMs(cycleTimeoutMs)) {
+    const todayStart = today ? Date.parse(`${today}T00:00:00Z`) : nowMs
+    const auditFrom = Math.min(todayStart, fromMs - maximumCycleDurationMs(cycleTimeoutMs, true))
+    const audit = readCycleInterruptionAudit(repoRoot, archiveDir, auditFrom, nowMs + 1)
+    interruptionAuditUnreadable = !audit.readable
+    for (const event of audit.events) {
+      if (activeCycleIds.has(event.cycleId)) continue
+      const started = timestampMs(event.startedAt)
+      if (started === null || started > nowMs) continue
+      if (started + maximumCycleDurationMs(cycleTimeoutMs, true) >= fromMs) recordedInterruptions++
+      if (today && isoDay(started) === today) todayRecordedInterruptions++
     }
   }
 
@@ -446,13 +610,16 @@ export function readPipelineFlowCycles(
         ? 'missing'
         : 'complete'
   const todayTotalsLowerBound = todayIncompleteCycles > 0
+    || todayRecordedInterruptions > 0
     || gapMarkerUnreadable
+    || interruptionAuditUnreadable
     || todayHistoryStatus !== 'complete'
     || todayCorruptCycleRows > 0
 
   const allDatesRead = readDates.length === requiredDates.length
   const coverage: PipelineFlowCoverage = allDatesRead && corruptCycleRows === 0
-    && incompleteCycles === 0 && !gapMarkerUnreadable
+    && incompleteCycles === 0 && recordedInterruptions === 0
+    && !gapMarkerUnreadable && !interruptionAuditUnreadable
     ? 'complete'
     : readDates.length > 0 ? 'partial' : 'none'
   return {
@@ -460,11 +627,14 @@ export function readPipelineFlowCycles(
     history: {
       coverage, requiredDates, readDates, missingDates, unreadableDates, corruptCycleRows,
       ...(incompleteCycles ? { incompleteCycles } : {}),
+      ...(recordedInterruptions ? { recordedInterruptions } : {}),
       todayIncompleteCycles,
+      todayRecordedInterruptions,
       todayTotalsLowerBound,
       todayHistoryStatus,
       ...(todayCorruptCycleRows ? { todayCorruptCycleRows } : {}),
       ...(gapMarkerUnreadable ? { gapMarkerUnreadable: true } : {}),
+      ...(interruptionAuditUnreadable ? { interruptionAuditUnreadable: true } : {}),
     },
     latestCycle: resolveLatestCycle(repoRoot, archiveDir, requiredDates, cycles, nowMs, cycleTimeoutMs),
   }
@@ -479,7 +649,9 @@ function historyCoverage(history: PipelineFlowHistory, corruptCycleRows = histor
   const read = new Set(history.readDates)
   const everyRequiredDateRead = history.requiredDates.every((date) => read.has(date))
   if (everyRequiredDateRead && history.missingDates.length === 0 && history.unreadableDates.length === 0
-    && corruptCycleRows === 0 && (history.incompleteCycles ?? 0) === 0 && history.gapMarkerUnreadable !== true) return 'complete'
+    && corruptCycleRows === 0 && (history.incompleteCycles ?? 0) === 0
+    && (history.recordedInterruptions ?? 0) === 0
+    && history.gapMarkerUnreadable !== true && history.interruptionAuditUnreadable !== true) return 'complete'
   return history.readDates.length > 0 ? 'partial' : 'none'
 }
 

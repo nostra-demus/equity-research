@@ -146,6 +146,18 @@ check('one live start receipt is allowed only while a cycle is actually running'
   assert.ok(verdict.findings.some((finding) => finding.code === 'cycle-completion-gap'))
 })
 
+check('a permanently recorded interruption is visible but no longer treated as an active crash', () => {
+  const input = fixture()
+  input.today.recordedInterruptions = 2
+  input.today.totalsLowerBound = true
+  const verdict = evaluateScannerHealth(input, NOW, NOW - 60 * 60_000)
+  assert.equal(verdict.status, 'degraded')
+  assert.ok(verdict.findings.some((finding) => finding.code === 'cycle-interruption-recorded'
+    && finding.severity === 'warning' && /permanently recorded/.test(finding.message)))
+  assert.equal(verdict.findings.some((finding) => finding.code === 'cycle-completion-gap'), false)
+  assert.equal(verdict.restartRecommended, false)
+})
+
 check('measured capacity shortfall and queue pressure are explicit capacity findings', () => {
   const input = fixture()
   input.backlog.count = 4_500

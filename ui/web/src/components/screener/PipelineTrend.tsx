@@ -53,12 +53,18 @@ function eventAt(events: PipelineAuditEvent[], bucket: PipelineTrendBucket) {
     ? inside.find((event): event is Extract<PipelineAuditEvent, { kind: 'provider_outcome' }> => event.kind === 'provider_outcome' && event.decisionId === decision.decisionId)
     : undefined
   const snapshot = [...inside].reverse().find((event): event is Extract<PipelineAuditEvent, { kind: 'provider_snapshot' }> => event.kind === 'provider_snapshot')
-  return { decision, outcome, snapshot }
+  const interruption = [...events].reverse().find((event): event is Extract<PipelineAuditEvent, { kind: 'cycle_interruption' }> => {
+    if (event.kind !== 'cycle_interruption') return false
+    const started = Date.parse(event.startedAt)
+    return started >= from && started < to
+  })
+  return { decision, outcome, snapshot, interruption }
 }
 
 function auditEventKey(event: PipelineAuditEvent): string {
   if (event.kind === 'provider_decision' || event.kind === 'provider_outcome') return `${event.kind}:${event.ts}:${event.decisionId}`
   if (event.kind === 'provider_snapshot') return `${event.kind}:${event.ts}:${event.cycleId}:${event.phase}`
+  if (event.kind === 'cycle_interruption') return `${event.kind}:${event.cycleId}:${event.startedAt}`
   return `${event.kind}:${event.ts}:${event.cycleId}:${event.from}:${event.to}`
 }
 
@@ -256,7 +262,9 @@ export function PipelineTrendView({ diagnostics }: { diagnostics: NewsDiagnostic
               {selectedCandidate && <span>Score {nice(selectedCandidate.score, 1)} = yield {nice(selectedCandidate.components.usableBatchYield * 45, 1)} + throughput {nice(selectedCandidate.components.usefulThroughput * 25, 1)} + urgency {nice(selectedCandidate.components.releasedCapacityUrgency * 30, 1)} − failures {nice(selectedCandidate.components.failurePenalty, 0)} − cost {nice(selectedCandidate.components.costPenalty, 0)}</span>}
               {audit.outcome ? <span>Outcome {audit.outcome.outcome}{audit.outcome.failureClass ? ` (${audit.outcome.failureClass})` : ''} · {audit.outcome.scoredItems}/{audit.outcome.batchSize} items · {nice(audit.outcome.elapsedMs / 1000, 2)}s · {audit.outcome.tokens.toLocaleString()} tokens · ${nice(audit.outcome.costUsd, 4)}</span> : <span>Outcome missing — explicit audit gap.</span>}
               {allowance && <span>Allowance {nice(allowance.allowanceUsed ?? null)} used / {nice(allowance.allowanceReleased ?? null)} released / {nice(allowance.allowanceCap ?? null)} cap · {allowance.state}</span>}
-            </> : <span>No exact decision is present in the loaded audit page for this bucket.</span>}
+            </> : audit?.interruption
+              ? <span>Interrupted look started {new Date(audit.interruption.startedAt).toLocaleString()} · no durable completion summary · permanently recorded {new Date(audit.interruption.ts).toLocaleString()}.</span>
+              : <span>No exact decision is present in the loaded audit page for this bucket.</span>}
           </div>}
         </div>
 

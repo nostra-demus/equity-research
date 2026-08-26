@@ -635,6 +635,8 @@ export interface NewsStatus {
     durablyCommitted: boolean
     /** Started looks today whose durable completion summary is absent. */
     incompleteCycles: number
+    /** Missing-summary incidents already preserved in the permanent pipeline audit. */
+    recordedInterruptions: number
     /** Numeric counters omit or cannot verify at least one daily summary. */
     totalsLowerBound: boolean
     /** Readability of today's cycle-summary partition. */
@@ -689,6 +691,7 @@ export function getNewsStatus(
     read: 0, kept: 0, dropped: 0, cycles: 0,
     durablyCommitted: false,
     incompleteCycles: 0,
+    recordedInterruptions: 0,
     totalsLowerBound: true,
     historyStatus: 'unavailable',
     corruptCycleRows: 0,
@@ -719,6 +722,7 @@ export function getNewsStatus(
     }
     today.durablyCommitted = cyclesToday.every(cycleHasDurableFeedCommit)
     today.incompleteCycles = dailyHistory?.todayIncompleteCycles ?? 0
+    today.recordedInterruptions = dailyHistory?.todayRecordedInterruptions ?? 0
     today.totalsLowerBound = dailyHistory?.todayTotalsLowerBound !== false
     today.historyStatus = dailyHistory?.todayHistoryStatus ?? 'unavailable'
     today.corruptCycleRows = dailyHistory?.todayCorruptCycleRows ?? 0
@@ -985,6 +989,8 @@ export interface NewsDiagnostics {
     durablyCommitted: boolean
     /** Started looks today whose durable completion summary is absent. */
     incompleteCycles: number
+    /** Missing-summary incidents already preserved in the permanent pipeline audit. */
+    recordedInterruptions: number
     /** True means the numeric summary totals omit at least one unproved look and are only lower bounds. */
     totalsLowerBound: boolean
     /** Readability of today's cycle-summary partition. */
@@ -1676,6 +1682,7 @@ export function getNewsDiagnostics(options: { omniRouteHomeDir?: string } = {}):
       // than presenting the legacy component as if it crossed the newer durable feed boundary.
       durablyCommitted: cyclesToday.every(cycleHasDurableFeedCommit),
       incompleteCycles: flowRead.history.todayIncompleteCycles ?? 0,
+      recordedInterruptions: flowRead.history.todayRecordedInterruptions ?? 0,
       totalsLowerBound: flowRead.history.todayTotalsLowerBound === true,
       historyStatus: flowRead.history.todayHistoryStatus ?? 'unavailable',
       corruptCycleRows: flowRead.history.todayCorruptCycleRows ?? 0,
