@@ -3754,6 +3754,7 @@ export function paritySnapshotRootMatchesDataSubject(snapshotRoot: string, dataD
 const RECOVERABLE_PARITY_INTERRUPTION_REASONS = new Set([
   'codex_incomplete_orchestration',
   'codex_continuation_failed',
+  'continuation_spawn_failed',
   'terminated_sigterm',
   'supervisor_shutdown',
   'supervisor_restart',
@@ -3920,7 +3921,19 @@ async function continueLaunch(run: RunState): Promise<void> {
   } catch (e: any) {
     // spawnEngine already emitted run-error + finalized on its own throw — only clean up if it didn't
     if (run.endedAt === undefined) {
-      emit(run, { type: 'run-error', runId: run.runId, status: 'error', reason: 'launch_failed', message: String(e?.message || e), ts: Date.now() })
+      let message: string
+      if (e instanceof Error) message = e.message
+      else if (typeof e === 'string') message = e
+      else {
+        try { message = JSON.stringify(e) || String(e) } catch { message = String(e) }
+      }
+      // A frozen same-root recovery may fail in a deterministic pre-spawn guard after its prior marker was
+      // consumed by admission. Re-seal this no-process failure so a later explicitly authorized retry can
+      // recover the same root; ordinary launches and any run with a child remain unchanged.
+      if (run.parityCanaryContinuation && !run.child) {
+        try { writeInterruptionMarker(run, 'continuation_spawn_failed', message) } catch { /* fail closed below */ }
+      }
+      emit(run, { type: 'run-error', runId: run.runId, status: 'error', reason: 'launch_failed', message, ts: Date.now() })
       finishRun(run, 'error')
     }
   }
