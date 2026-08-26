@@ -11,6 +11,7 @@ import multipart from '@fastify/multipart'
 import { execa } from 'execa'
 import Fastify, { type FastifyReply, type FastifyRequest } from 'fastify'
 import { z } from 'zod'
+import { providerDeployPending } from './deploy-barrier'
 import { readActivity, ACTIVITY_FILTER_KINDS } from './activity-log'
 import { recordDataChange, syncingState, SYNC_WINDOW_MS } from './data-activity'
 import { buildReportHtml, parseMeta, safeName } from './export'
@@ -268,7 +269,7 @@ function startSSE(reply: FastifyReply) {
 // no-store so a browser/proxy never serves a stale 200 that would mask an outage from the heartbeat.
 app.get('/api/health', async (_req, reply) => {
   reply.header('cache-control', 'no-store')
-  return { ok: true, repoRoot: REPO_ROOT }
+  return { ok: true, repoRoot: REPO_ROOT, deploymentPending: providerDeployPending(STATE_DIR) }
 })
 
 // One shared, read-only Memory view for research, screener and commodity. The reader owns the fixed

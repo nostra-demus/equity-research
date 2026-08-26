@@ -48,19 +48,18 @@ MARK="$OPS/.deployed.sha"   # the SHA the built ui/dist + running engine were la
 FAILMARK="$OPS/.deploy.failed"                       # "<sha> <epoch>" of the last build/boot that failed (backoff)
 RUN_BARRIER_DIR="${ENGINE_STATE_DIR:-$PROD/ui/server/.state}"
 RUN_BARRIER_LOCK="$RUN_BARRIER_DIR/provider-deploy-barrier.flock"
+DEPLOY_INTENT="$RUN_BARRIER_DIR/provider-deploy-pending"
 FAIL_BACKOFF="${DEPLOY_FAIL_BACKOFF_SECS:-1800}"     # don't re-attempt the SAME failing SHA more often than this
 # After an engine restart, poll /api/health before trusting the new code. A commit that BUILDS but throws at
 # boot/first request otherwise flaps forever under launchd KeepAlive (the build-failure breaker above never
 # sees it). HEALTH_TRIES × HEALTH_INTERVAL ≈ 60s is the boot budget; miss it → auto-rollback to last-good.
 HEALTH_TRIES="${DEPLOY_HEALTH_TRIES:-20}"
 HEALTH_INTERVAL="${DEPLOY_HEALTH_INTERVAL:-3}"
-# Debounce: each engine rebuild/restart is a ~15-30s "offline" blip in every open cockpit. When a burst of
-# code PRs merges in quick succession (a normal build session), deploying each one separately means one blip
-# per commit. Instead, hold the rebuild until the newest ui/ (code) commit has been quiet for DEBOUNCE_SECS,
-# so a burst collapses into ONE rebuild+restart of the whole delta. Liveness cap: never hold a pending code
-# change back longer than MAX_DEFER_SECS even if commits keep trickling in. Data-only deltas never debounce
-# (they don't restart the engine).
-DEBOUNCE_SECS="${DEPLOY_DEBOUNCE_SECS:-180}"
+# The launchd interval already coalesces commits for up to two minutes. Add no further debounce by default:
+# production/main convergence is the release contract, and an extra three-minute quiet window made a healthy
+# watcher deliberately stale. Operators may still opt into a larger burst window, with MAX_DEFER_SECS as its
+# liveness cap. Data-only deltas never debounce (they do not restart the engine).
+DEBOUNCE_SECS="${DEPLOY_DEBOUNCE_SECS:-0}"
 MAX_DEFER_SECS="${DEPLOY_MAX_DEFER_SECS:-1200}"
 HEARTBEAT=3300   # log an "up-to-date" proof-of-life at most ~hourly
 mkdir -p "$OPS" "$(dirname "$LOG")"
@@ -68,6 +67,39 @@ mkdir -p "$OPS" "$(dirname "$LOG")"
 ts()  { date '+%Y-%m-%d %H:%M:%S'; }
 log() { echo "$(ts) $*" >> "$LOG"; }
 loaded() { launchctl print "gui/$UID_NUM/$1" >/dev/null 2>&1; }
+
+valid_git_sha() { [[ "${1:-}" =~ ^[0-9a-f]{40}$ || "${1:-}" =~ ^[0-9a-f]{64}$ ]]; }
+
+# Publish one durable writer-intent before attempting the lifecycle flock. The current provider/scanner
+# lease is allowed to finish, but deploy-barrier.ts refuses every later shared admission while this exact
+# owner-only pathname exists. Keeping the original timestamp across launchd retries makes deployment lag
+# observable instead of resetting its age every two minutes.
+set_deploy_intent() {
+  local target="$1" existing="" existing_epoch="" staged
+  valid_git_sha "$target" || return 1
+  if [ -f "$DEPLOY_INTENT" ] && [ ! -L "$DEPLOY_INTENT" ] && [ -O "$DEPLOY_INTENT" ] \
+      && [ "$(stat -f '%Lp:%l' "$DEPLOY_INTENT" 2>/dev/null || true)" = '600:1' ]; then
+    read -r existing existing_epoch < "$DEPLOY_INTENT" 2>/dev/null || true
+    [ "$existing" = "$target" ] && return 0
+  fi
+  staged="$(mktemp "$RUN_BARRIER_DIR/.provider-deploy-pending.XXXXXX")" || return 1
+  if ! printf '%s %s\n' "$target" "$(date +%s)" > "$staged" \
+      || ! chmod 600 "$staged" \
+      || ! mv -f "$staged" "$DEPLOY_INTENT"; then
+    rm -f "$staged" 2>/dev/null || true
+    return 1
+  fi
+  log "PENDING main ${target:0:9} — draining current provider work; new run admissions are paused"
+}
+
+clear_deploy_intent() {
+  if [ -e "$DEPLOY_INTENT" ] || [ -L "$DEPLOY_INTENT" ]; then
+    rm -f "$DEPLOY_INTENT" 2>/dev/null || {
+      log "WARN could not clear provider deploy intent — new runs remain paused"
+      return 1
+    }
+  fi
+}
 
 legacy_tunnel_contract() {
   "$PYTHON" -I - "$1" <<'PYLEGACYROLE'
@@ -1382,7 +1414,13 @@ reconcile_build() {
     printf '%s %s\n' "$target" "$(date +%s)" > "$FAILMARK.tmp" 2>/dev/null && mv "$FAILMARK.tmp" "$FAILMARK" 2>/dev/null || true
   fi
 }
-trap 'gitlock_release; exec 8>&-' EXIT
+CLEAR_DEPLOY_INTENT_ON_EXIT=0
+deploy_cleanup() {
+  gitlock_release
+  [ "$CLEAR_DEPLOY_INTENT_ON_EXIT" = 1 ] && clear_deploy_intent
+  exec 8>&-
+}
+trap deploy_cleanup EXIT
 
 cd "$PROD" 2>/dev/null || { log "FATAL cannot cd $PROD"; exit 0; }
 
@@ -1403,6 +1441,43 @@ else
   mkdir -p "$RUN_BARRIER_DIR" 2>/dev/null || { log "WARN cannot create provider deploy barrier directory"; exit 0; }
 fi
 chmod 700 "$RUN_BARRIER_DIR" 2>/dev/null || { log "WARN cannot protect provider deploy barrier directory"; exit 0; }
+
+# Writer priority. A non-mutating remote-ref probe tells us whether production or its built marker is behind
+# before we contend with a live scanner. Publish the intent first: the already-admitted lifecycle drains,
+# while every later scanner/drain/Ideas admission sees the marker and returns deployment_in_progress. The
+# next launchd tick therefore gets the exclusive flock instead of racing another one-minute backlog drain.
+# A failed remote probe never clears an existing intent; losing network must not silently re-open admissions
+# ahead of a deployment already known to be pending.
+CURRENT_BRANCH_HINT="$("$GIT" symbolic-ref --quiet --short HEAD 2>/dev/null || true)"
+LOCAL_HINT="$("$GIT" rev-parse HEAD 2>/dev/null || true)"
+MARKER_HINT="$(cat "$MARK" 2>/dev/null || true)"
+REMOTE_HINT="$(GIT_TERMINAL_PROMPT=0 "$GIT" ls-remote --exit-code --refs origin refs/heads/main 2>/dev/null | awk 'NR == 1 { print $1; exit }')"
+if [ "$CURRENT_BRANCH_HINT" != main ]; then
+  clear_deploy_intent
+elif valid_git_sha "$REMOTE_HINT" && valid_git_sha "$LOCAL_HINT"; then
+  intent_needed=0
+  [ "$REMOTE_HINT" != "$LOCAL_HINT" ] && intent_needed=1
+  [ "$MARKER_HINT" != "$LOCAL_HINT" ] && intent_needed=1
+  # A known broken target is deliberately held on last-good during FAIL_BACKOFF. It cannot make progress by
+  # pausing the scanner, so do not publish writer intent for that terminal release state.
+  if [ "$intent_needed" = 1 ] && [ -f "$FAILMARK" ]; then
+    read -r _hint_failed_sha _hint_failed_at < "$FAILMARK" 2>/dev/null || true
+    case "${_hint_failed_at:-}" in
+      ''|*[!0-9]*) ;;
+      *)
+        if [ "${_hint_failed_sha:-}" = "$REMOTE_HINT" ] \
+            && [ "$(( $(date +%s) - _hint_failed_at ))" -lt "$FAIL_BACKOFF" ]; then
+          intent_needed=0
+        fi ;;
+    esac
+  fi
+  if [ "$intent_needed" = 1 ]; then
+    set_deploy_intent "$REMOTE_HINT" \
+      || log "WARN could not publish provider deploy intent — this tick still attempts the lifecycle lock"
+  else
+    clear_deploy_intent
+  fi
+fi
 [ ! -L "$RUN_BARRIER_LOCK" ] || { log "WARN unsafe provider deploy barrier lock"; exit 0; }
 exec 10>>"$RUN_BARRIER_LOCK" || { log "WARN cannot open provider deploy barrier lock"; exit 0; }
 "$PYTHON" -I - "$RUN_BARRIER_LOCK" 10<&10 <<'PYRUNBARRIER'
@@ -1433,12 +1508,20 @@ barrier_rc=$?
 if [ "$barrier_rc" -ne 0 ]; then
   exec 10>&-
   if [ "$barrier_rc" -eq 3 ]; then
-    log "DEFER active cockpit run owns the provider deploy barrier — checkout and engine left unchanged"
+    if [ -e "$DEPLOY_INTENT" ] || [ -L "$DEPLOY_INTENT" ]; then
+      log "DEFER current cockpit lifecycle is draining for pending main — new provider admissions remain paused"
+    else
+      log "DEFER active cockpit run owns the provider deploy barrier — checkout and engine left unchanged"
+    fi
   else
     log "WARN provider deploy barrier could not be proven safe — refusing deployment"
   fi
   exit 0
 fi
+# This invocation now owns the exclusive lifecycle boundary. Clear writer intent on every later exit—success,
+# reviewed rollback, or failure—so a broken release cannot freeze scanning. The exclusive descriptor itself
+# continues to exclude new runs until this process exits.
+CLEAR_DEPLOY_INTENT_ON_EXIT=1
 
 ensure_data_symlink   # re-assert data/ -> Drive pool symlink before any git op / build (defense-in-depth)
 
