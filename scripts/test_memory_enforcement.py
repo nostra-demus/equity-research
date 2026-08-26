@@ -85,6 +85,12 @@ class EnforcementActivationTests(unittest.TestCase):
             provider="codex", model="gpt-5.5", now="2026-08-28T00:00:00.000000Z",
         )
         self.assertTrue(result["ok"])
+        node_clock_result = verify_activation(
+            activation, readiness=self.readiness, three_layer=self.three_layer, shadow=self.shadow,
+            public_key=self.public, key_id="memory-enforcement-release",
+            provider="codex", model="gpt-5.5", now="2026-08-28T00:00:00.000Z",
+        )
+        self.assertTrue(node_clock_result["ok"])
         schema = json.loads((ROOT / "frameworks/memory/enforcement-activation-v1.schema.json").read_text(encoding="utf-8"))
         checker = Checker(schema); checker.check(schema, activation, "")
         self.assertEqual([], checker.errors)
