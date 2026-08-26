@@ -7,7 +7,7 @@
   <!-- Launch node DIRECTLY (not `npm start` → tsx) so launchctl's SIGTERM on `kickstart -k` reaches THIS
        process, whose graceful-shutdown handler (ui/server/src/server.ts) drains SSE + closes keep-alive
        sockets cleanly before exit. Through npm/tsx the signal is not forwarded — node is SIGKILLed, dropping
-       every in-flight connection (a reset cloudflared reports as a 502). `--import tsx` runs the TS source
+       every in-flight connection (a reset cloudflared reports as a 502). Node's import flag runs the TS source
        straight from src/ (the live API == main), resolved from ui/server/node_modules via WorkingDirectory. -->
   <key>ProgramArguments</key><array><string>{{NODE_BIN}}</string><string>--import</string><string>tsx</string><string>src/server.ts</string></array>
   <key>WorkingDirectory</key><string>{{ENGINE_REPO_ROOT}}/ui/server</string>
@@ -17,6 +17,9 @@
     <key>ENGINE_FULL_PER_MODULE</key><string>1</string>
     <key>ENGINE_REPO_ROOT</key><string>{{ENGINE_REPO_ROOT}}</string>
     <key>ENGINE_STATE_DIR</key><string>{{STATE_DIR}}</string>
+    <!-- The archive writer and engine reader share one carried Drive path. This lets API/history reads
+         fall back to the permanent archive after the local 30-day working set is pruned. -->
+    <key>NEWS_ARCHIVE_DIR</key><string>{{NEWS_ARCHIVE_DIR}}</string>
     <key>SCREENER_AUTOTUNE_ENABLED</key><string>1</string>
     <!-- Close the two feedback loops the doer had left OFF. CONVICTION_LOOP_ENABLED turns on the
          screener conviction-check reconciler (conviction-dispatch.ts) so locked theses' checkpoints
