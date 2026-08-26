@@ -233,6 +233,7 @@ if grep -Fq 'OMNIROUTE_BIN="$(command -v omniroute 2>/dev/null || true)"' "$HERE
     && grep -Fq 'n127.0.0.1:20128' "$HERE/deploy.sh" \
     && grep -Fq 'nostra_omniroute_healthz_healthy' "$HERE/deploy.sh" \
     && grep -Fq 'nostra_omniroute_models_healthy' "$HERE/deploy.sh" \
+    && grep -Fq 'migrate-default-model --file "$providers_env"' "$HERE/deploy.sh" \
     && grep -Fq 'NEWS_OMNIROUTE_ENABLED --value "$1"' "$HERE/deploy.sh" \
     && grep -Fq 'NOSTRA_OMNIROUTE_RETRY_SECS:-900' "$HERE/deploy.sh" \
     && grep -Fq 'NOSTRA_OMNIROUTE_REVALIDATE_SECS:-21600' "$HERE/deploy.sh" \

@@ -532,6 +532,12 @@ reconcile_omniroute_launchagent() {
   fi
   # shellcheck disable=SC1090
   source "$contract_helper"
+  # Move only the retired managed default to the reviewed aggregate free route. The private helper is
+  # atomic/fail-closed and deliberately preserves any other operator-owned model or combo unchanged.
+  if ! "$PYTHON" -I "$env_setter" migrate-default-model --file "$providers_env" >/dev/null 2>&1; then
+    log "WARN omniroute-agent could not safely migrate its managed model default"
+    return 1
+  fi
   case "$retry_seconds" in ''|*[!0-9]*) retry_seconds=900 ;; esac
   [ "$retry_seconds" -ge 300 ] 2>/dev/null || retry_seconds=300
   [ "$retry_seconds" -le 86400 ] 2>/dev/null || retry_seconds=86400
