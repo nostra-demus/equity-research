@@ -366,11 +366,11 @@ export function reconcilePipelineFlowGaps(
       byDate.set(date, read)
       return read
     }
-    const stale = prior.starts.filter((value) => {
-      const started = timestampMs(value)
-      return started !== null && started + maximumCycleDurationMs(cycleTimeoutMs, true) < nowMs
+    const parsedStarts = prior.starts.map((value) => ({ value, started: timestampMs(value) }))
+    const stale = parsedStarts.filter((item): item is { value: string; started: number } => {
+      return item.started !== null && item.started + maximumCycleDurationMs(cycleTimeoutMs, true) < nowMs
     })
-    const earliestStale = stale.reduce((min, value) => Math.min(min, timestampMs(value) ?? min), Infinity)
+    const earliestStale = stale.reduce((min, item) => Math.min(min, item.started), Infinity)
     const existingAudit = Number.isFinite(earliestStale)
       ? readCycleInterruptionAudit(repoRoot, archiveDir, earliestStale, nowMs + 1)
       : { events: [], readable: true, corruptRows: 0, unreadableDays: [], truncated: false }
@@ -380,8 +380,7 @@ export function reconcilePipelineFlowGaps(
     let unresolved = !existingAudit.readable && stale.length > 0
     const detectedAt = new Date(nowMs).toISOString()
 
-    for (const startedAt of prior.starts) {
-      const started = timestampMs(startedAt)
+    for (const { value: startedAt, started } of parsedStarts) {
       if (started === null) { retained.push(startedAt); unresolved = true; continue }
       const summaries = summaryFor(isoDay(started))
       if (summaries.status === 'read' && summaries.starts.has(started)) {
