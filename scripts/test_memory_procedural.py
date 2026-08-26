@@ -628,16 +628,19 @@ class ProceduralMemoryTests(unittest.TestCase):
         self.assertFalse(any(command[:3] == ["gh", "pr", "merge"] for command in commands))
         self.assertFalse(any(command[:3] == ["git", "push", "origin/main"] for command in commands))
 
-    def test_prompt_matching_treats_null_applicability_arrays_as_empty(self) -> None:
+    def test_prompt_matching_rejects_null_applicability_arrays(self) -> None:
         promotion_repository(self.root)
         malformed = copy.deepcopy(self.playbook)
         malformed["playbook"]["applicability"]["agents"] = None
         malformed["playbook"]["applicability"]["modules"] = None
-        selected = playbook_prompt_files(self.root, malformed)
-        self.assertEqual(
-            [self.root / ".claude/agents/earnings/01_historical-financials.md"],
-            selected,
-        )
+        with self.assertRaisesRegex(ProceduralMemoryError, "must-be-string-array"):
+            playbook_prompt_files(self.root, malformed)
+
+    def test_execution_container_rejects_non_array_without_type_error(self) -> None:
+        with self.assertRaisesRegex(ProceduralMemoryError, "must-be-array"):
+            failure_action(None)  # type: ignore[arg-type]
+        with self.assertRaisesRegex(ProceduralMemoryError, "must-be-array"):
+            failure_action("not-an-array")  # type: ignore[arg-type]
 
 
 if __name__ == "__main__":

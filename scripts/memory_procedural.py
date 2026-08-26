@@ -105,6 +105,16 @@ def _json_list(value: Any) -> list[Any]:
     return value if isinstance(value, list) else []
 
 
+def _json_string_list(value: Any, *, field: str) -> list[str]:
+    """Accept a JSON string array, including an intentionally empty scoped dimension."""
+
+    if not isinstance(value, list) or any(
+        not isinstance(item, str) or not item for item in value
+    ):
+        raise ProceduralMemoryError(f"{field}-must-be-string-array")
+    return value
+
+
 def _text_values(value: Any) -> list[str]:
     if isinstance(value, str):
         return [value]
@@ -517,10 +527,10 @@ def build_promotion_manifest(
 
 def playbook_prompt_files(root: Path, playbook: Mapping[str, Any]) -> list[Path]:
     applicability = playbook.get("playbook", {}).get("applicability", {})
-    agents_raw = applicability.get("agents") if isinstance(applicability, Mapping) else None
-    agents = set(_json_list(agents_raw))
-    modules_raw = applicability.get("modules") if isinstance(applicability, Mapping) else None
-    modules = set(_json_list(modules_raw))
+    if not isinstance(applicability, Mapping):
+        raise ProceduralMemoryError("playbook-applicability-must-be-object")
+    agents = set(_json_string_list(applicability.get("agents"), field="playbook-agents"))
+    modules = set(_json_string_list(applicability.get("modules"), field="playbook-modules"))
     selected: list[Path] = []
     for path in research_agent_files(root):
         relative = path.relative_to(root).as_posix()
@@ -750,8 +760,8 @@ def _playbook_event(
     ]
     issuer_ids = applicability.get("issuer_ids")
     listing_ids = applicability.get("listing_ids")
-    subjects_list.extend(_json_list(issuer_ids))
-    subjects_list.extend(_json_list(listing_ids))
+    subjects_list.extend(_json_string_list(issuer_ids, field="playbook-issuer-ids"))
+    subjects_list.extend(_json_string_list(listing_ids, field="playbook-listing-ids"))
     subjects = sorted(set(subjects_list))
     origins = [
         item for item in playbook["playbook"]["originating_episode_ids"]
@@ -988,14 +998,21 @@ def verify_execution(
         raise ProceduralMemoryError("playbook-execution-attestation-invalid-or-stale")
 
 
+def _valid_execution_rows(executions: Any) -> list[Mapping[str, Any]]:
+    if not isinstance(executions, list):
+        raise ProceduralMemoryError("playbook-executions-must-be-array")
+    return [
+        execution for execution in executions
+        if isinstance(execution, Mapping) and not validate_contract(execution)
+    ]
+
+
 def failure_action(executions: Sequence[Mapping[str, Any]]) -> str:
     """Return the governed response for one playbook version's execution history."""
 
-    valid: list[Mapping[str, Any]] = []
+    valid = _valid_execution_rows(executions)
     identity: tuple[Any, Any, Any] | None = None
-    for execution in executions:
-        if validate_contract(execution):
-            continue
+    for execution in valid:
         current = (
             execution.get("playbook_id"), execution.get("version"),
             execution.get("playbook_sha256"),
@@ -1004,7 +1021,6 @@ def failure_action(executions: Sequence[Mapping[str, Any]]) -> str:
             identity = current
         elif identity != current:
             raise ProceduralMemoryError("mixed-playbook-execution-cohort")
-        valid.append(execution)
     if any(SERIOUS_INCIDENTS.intersection(_json_list(item.get("incident_codes"))) for item in valid):
         return "quarantine-immediately"
     ordinary = sum(
@@ -1022,13 +1038,14 @@ def build_quarantine_request(
 ) -> tuple[dict[str, Any], dict[str, Any], dict[str, Any]]:
     """Turn a serious execution incident into the dedicated-authority write request."""
 
-    if failure_action(executions) != "quarantine-immediately":
+    valid = _valid_execution_rows(executions)
+    if failure_action(valid) != "quarantine-immediately":
         raise ProceduralMemoryError("playbook-quarantine-requires-serious-incident")
     active = active_event.get("payload") if isinstance(active_event, Mapping) else None
     if not isinstance(active, Mapping):
         raise ProceduralMemoryError("playbook-quarantine-active-event-invalid")
     reasons = sorted({
-        code for execution in executions for code in _json_list(execution.get("incident_codes"))
+        code for execution in valid for code in _json_list(execution.get("incident_codes"))
         if code in SERIOUS_INCIDENTS
     })
     status_playbook = build_status_playbook(
