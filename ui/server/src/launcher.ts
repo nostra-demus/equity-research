@@ -2555,8 +2555,13 @@ const defaultFullChainDeps: FullChainDeps = {
     const run = getRun(out.runId)
     // chained is now passed via params (set on the RunState pre-spawn so the launched-event log is
     // correct); re-assert it here for the fake-launcher test path, and wire onFinish (not a param).
-    if (run) { run.chained = true; run.onFinish = onFinish } // chained:true so cancel()/cancelAll halt the whole chain (parity with the old serial launchChainStep)
-    else onFinish('error') // run vanished before we could wire onFinish — treat as a failure
+    // A provider can fail between createRun()/spawn and launch() returning (for example a fast Codex
+    // bootstrap SIGTERM). In that race finishRun() has already passed the callback site, so merely storing
+    // onFinish would strand the invisible full-chain reservation forever: no active RunState, no Activity
+    // row in "Now", and the production deploy barrier pinned by an owner that can never advance. Replay the
+    // terminal status synchronously when launch() returns an already-finished child; JavaScript's single
+    // turn makes the ended-check vs callback assignment atomic with finishRun().
+    wireChainedRunFinish(run, onFinish)
     return { runId: out.runId, preflight: out.preflight }
   },
   writeMarker: (ticker, requestedRunRoot) => {
@@ -2579,6 +2584,24 @@ const defaultFullChainDeps: FullChainDeps = {
   },
   scheduleRetry: (fn) => { setTimeout(fn, CAPACITY_RETRY_MS) },
   acquirePoolClaim: (ticker) => acquireSharedDataPoolClaim(RESEARCH_SWARM_ID, ticker, 'full'),
+}
+
+/** Attach the full-chain terminal callback without losing a fast provider exit that happened before the
+ * launch acknowledgement returned. Exported only so the zero-spend regression test can pin this race. */
+export function wireChainedRunFinish(
+  run: Pick<RunState, 'chained' | 'endedAt' | 'finishLogged' | 'onFinish' | 'status'> | undefined,
+  onFinish: (status: RunStatus) => void,
+): void {
+  if (!run) {
+    try { onFinish('error') } catch { /* terminal hooks never break the launcher */ }
+    return
+  }
+  run.chained = true
+  if (run.endedAt !== undefined || run.finishLogged) {
+    try { onFinish(run.status) } catch { /* match finishRun's terminal-hook isolation */ }
+    return
+  }
+  run.onFinish = onFinish
 }
 // A resume runs only the modules NOT already on disk (+ the master). Price and time-estimate just that
 // remaining work, not the whole pipeline — otherwise a resume that skips 4 of 6 modules still shows the
