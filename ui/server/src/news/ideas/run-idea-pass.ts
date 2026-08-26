@@ -781,11 +781,11 @@ async function callProviderForIdeaPassDetailed(
   const providerTerminal = r.failureKind === 'request' && [401, 402, 403, 404].includes(r.httpStatus || 0)
   const durableTerminal = r.failure?.action === 'quarantine'
   const ideaDeadlineFailure = r.failureKind === 'availability' && r.timedOut === true
-  const providerWideFailure = r.ok
-    || r.failureKind === 'rate_limit'
-    || (r.failureKind === 'availability' && !ideaDeadlineFailure)
-    || r.failure?.providerWide === true
-    || (!r.failure && providerTerminal)
+  const providerWideFailure = r.ok || (r.failure
+    ? r.failure.providerWide === true
+    : r.failureKind === 'rate_limit'
+      || (r.failureKind === 'availability' && !ideaDeadlineFailure)
+      || providerTerminal)
   limiter.learn(rateInfoForLimiter(r.rate, providerWideFailure), now)
   if (r.ok) {
     clearCooldown(deps.stateDir, p.id, attemptStartedAt)
@@ -824,8 +824,8 @@ async function callProviderForIdeaPassDetailed(
   } else if ((r.failureKind === 'availability' && !ideaDeadlineFailure) || providerTerminal) {
     // Service/network failures use the shared exponential breaker. Provider-wide access failures share it
     // too, but unlike an explicit daily-limit signal they never forge a fully spent allowance.
-    armCooldown(deps.stateDir, failureAt, localCooldown, p.id, localCooldownMax,
-      providerTerminal ? 'provider-access' : r.timedOut ? 'timeout' : 'availability')
+    armCooldown(deps.stateDir, failureAt, localCooldown, providerWideFailure ? p.id : ideaCooldownId, localCooldownMax,
+      providerWideFailure ? (providerTerminal ? 'provider-access' : 'availability') : 'idea-availability')
   } else {
     // HTTP 400/413/422, malformed/truncated/schema-invalid output, and any Ideas request timeout may
     // be specific to this richer nonessential seam. Never poison the provider's shared triage health.

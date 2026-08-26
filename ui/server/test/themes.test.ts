@@ -1964,6 +1964,60 @@ await check('terminal theme HTTP failures quarantine the correct scope without f
   resetBudgetMemory(); resetCooldownMemory(); resetSharedLimiters()
 })
 
+await check('an OpenRouter theme no-route gap cools down and recovers without a standing quarantine', async () => {
+  const { makeThemeNamer } = await import('../src/news/themes/llm')
+  resetBudgetMemory(); resetCooldownMemory(); resetSharedLimiters()
+  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'thm-openrouter-no-route-'))
+  const makeCandidate = (tag: string, at: Date) => createTheme([
+    item(`${tag}-1`, `${tag} Alpha capacity shortage raises orders`, { companies: [co(`${tag} Alpha`, `${tag}A`)] }),
+    item(`${tag}-2`, `${tag} Beta capacity shortage raises orders`, { companies: [co(`${tag} Beta`, `${tag}B`)] }),
+    item(`${tag}-3`, `${tag} Alpha and Beta capacity shortage persists`, { companies: [co(`${tag} Alpha`, `${tag}A`), co(`${tag} Beta`, `${tag}B`)] }),
+  ], at)
+  const provider = {
+    id: 'openrouter', label: 'OpenRouter', color: '--openrouter', apiKey: 'k',
+    baseUrl: 'https://openrouter.ai/api/v1', model: 'openrouter/free', models: ['openrouter/free'],
+    dailyReqCap: 10, rpm: 0, maxTokens: 3000, budgetFile: 'openrouter-budget.json',
+  }
+  const cfg = {
+    themesDiscoverModel: 'groq', overflowProviders: [provider],
+    llmCooldownMs: 60_000, llmCooldownMaxMs: 60_000,
+  }
+  let fetches = 0
+  const unavailable = (async () => {
+    fetches++
+    return new Response(JSON.stringify({
+      error: { code: 404, message: 'No allowed providers are available for the selected model' },
+    }), { status: 404 })
+  }) as typeof fetch
+
+  const first = await makeThemeNamer(cfg, unavailable, tmp)([makeCandidate('Gap', NOW)], NOW)
+  assert.equal(first?.provider, 'openrouter')
+  assert.equal(first?.blocker, 'provider_error')
+  assert.equal(first?.attempted_count, 1)
+  assert.equal(readProviderQuarantine(tmp, themeProviderIdentity(provider)), null)
+  assert.equal(readCooldownUntil(tmp, 'openrouter'), 0, 'a contract-specific pool gap cannot close unrelated workloads')
+  assert.ok(readCooldownUntil(tmp, 'themes:openrouter') > Date.now())
+
+  const recoveredAt = new Date(Date.now() + 60_001)
+  const recoveredCandidate = makeCandidate('Recovered', recoveredAt)
+  const proposal = llmThemeProposal({
+    support: recoveredCandidate.members.map((member) => member.event_id), anchors: ['capacity', 'shortage'],
+  })
+  const available = (async () => {
+    fetches++
+    return new Response(JSON.stringify({
+      choices: [{ message: { content: JSON.stringify({ themes: [proposal] }) } }], usage: { total_tokens: 100 },
+    }), { status: 200, headers: { 'content-type': 'application/json' } })
+  }) as typeof fetch
+  const recovered = await makeThemeNamer(cfg, available, tmp)([recoveredCandidate], recoveredAt)
+  assert.equal(recovered?.state, 'succeeded')
+  assert.equal(fetches, 2, 'the unchanged dynamic route is tried again after its bounded cooldown')
+  assert.equal(readProviderQuarantine(tmp, themeProviderIdentity(provider)), null)
+
+  fs.rmSync(tmp, { recursive: true, force: true })
+  resetBudgetMemory(); resetCooldownMemory(); resetSharedLimiters()
+})
+
 await check('a changed theme model reopens an exact quarantine without deleting the old fault evidence', async () => {
   const { makeThemeNamer } = await import('../src/news/themes/llm')
   resetBudgetMemory(); resetCooldownMemory(); resetSharedLimiters()

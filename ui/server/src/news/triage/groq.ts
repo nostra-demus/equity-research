@@ -454,7 +454,7 @@ export async function triageBatch(
         // Read only to classify safe error type/code fields. The body/message is never returned or stored.
         const rawBody = await res.text().catch(() => '')
         const dailyLimit = opts.requestRemainingHeaderIsDaily === true && res.status === 429 && rate.rpdRemaining === 0
-        const failure = honorProviderRetryAfter(classifyProviderHttpFailure(res.status, rawBody), rate.retryAfterMs)
+        const failure = honorProviderRetryAfter(classifyProviderHttpFailure(res.status, rawBody, opts), rate.retryAfterMs)
         const failureKind = legacyFailureKind(failure)
         const note = publicProviderFailureNote(provider, failure, dailyLimit)
         const transient = (failure.code === 'rate_limited' && !dailyLimit) || failure.code === 'transient_upstream'
@@ -813,7 +813,7 @@ export async function analyzeArticle(
       if (!res.ok) {
         const rawBody = await res.text().catch(() => '')
         const dailyLimit = opts.requestRemainingHeaderIsDaily === true && res.status === 429 && rate.rpdRemaining === 0
-        const failure = honorProviderRetryAfter(classifyProviderHttpFailure(res.status, rawBody), rate.retryAfterMs)
+        const failure = honorProviderRetryAfter(classifyProviderHttpFailure(res.status, rawBody, opts), rate.retryAfterMs)
         const failureKind = legacyFailureKind(failure)
         const note = publicProviderFailureNote(provider, failure, dailyLimit)
         if (((failure.code === 'rate_limited' && !dailyLimit) || failure.code === 'transient_upstream') && attempt < maxAttempts) { await sleep(rate.retryAfterMs || 1200 * attempt); continue }
