@@ -884,6 +884,9 @@ export interface RecordedProviderSelection {
 
 export interface ProviderInterruptionAuthority extends RecordedProviderSelection {
   runId: string
+  model: string
+  profileKey: string
+  executionProfile: ProviderExecutionProfile
 }
 
 type ProviderSelectionStage = 'admitted' | 'spawned' | 'interrupted' | 'published'
@@ -892,12 +895,15 @@ function providerSelectionPath(runRoot: string): string {
   return supervisorManifestForRunRoot(runRoot).replace(/\.jsonl$/, '.selection.json')
 }
 
-type ProviderSelectionRecord = RecordedProviderSelection & {
+type ProviderSelectionRecord = Omit<RecordedProviderSelection, 'model' | 'profileKey' | 'executionProfile'> & {
   schema_version: 'cockpit-provider-selection/3.0'
   stage: ProviderSelectionStage
   run_id: string
   run_root: string
   recorded_at: string
+  model: string
+  profileKey: string
+  executionProfile: ProviderExecutionProfile
   authority: {
     kind: 'protected_admission' | 'protected_manifest' | 'interruption_artifact' | 'published_artifacts'
     artifact_hashes: Record<string, string>
@@ -945,8 +951,12 @@ function readProviderSelectionRecord(runRoot: string): ProviderSelectionRecord |
   return value as ProviderSelectionRecord
 }
 
+type ProviderSelectionInput = Pick<RunState,
+  'runId' | 'providerAttemptId' | 'runRoot' | 'provider' | 'model'
+  | 'reasoningLevel' | 'profileKey' | 'executionProfile'>
+
 function writeProviderSelection(
-  run: RunState,
+  run: ProviderSelectionInput,
   stage: ProviderSelectionStage,
   artifactHashes: Record<string, string> = {},
 ): void {
@@ -994,7 +1004,7 @@ export function recordRecoveredPublicationAuthority(input: {
     runId: input.runId, runRoot: input.runRoot, provider: input.provider, model: input.model,
     reasoningLevel: input.reasoningLevel, profileKey: input.profileKey,
     executionProfile: input.executionProfile,
-  } as RunState, 'published', artifactHashes)
+  }, 'published', artifactHashes)
 }
 
 /** Freeze the selected provider/profile as soon as admission succeeds, before run-root mutation. */
@@ -1056,8 +1066,51 @@ export function readProviderInterruptionAuthority(runRoot: string): ProviderInte
     model: durable.model,
     reasoningLevel: durable.reasoningLevel,
     profileKey: durable.profileKey,
-    executionProfile: durable.executionProfile ? { ...durable.executionProfile } : undefined,
+    executionProfile: { ...durable.executionProfile },
   }
+}
+
+/** A continuation can fail after admission but before `beginExecutionAttempt`/spawn. In that exact state
+ * the protected selection has advanced to `admitted`, while the protected manifest still contains only
+ * older observed rows. That negative proof is safe to re-arm after the launcher defect is corrected; a
+ * spawned/current attempt (or a fresh root with no prior lineage) never qualifies. */
+export function readProviderPreSpawnFailureAuthority(runRoot: string): ProviderInterruptionAuthority | null {
+  const durable = readProviderSelectionRecord(runRoot)
+  if (!durable || durable.stage !== 'admitted') return null
+  const rows = readProtectedManifestRows(runRoot)
+  if (!rows.length || rows.some((row) =>
+    typeof row['attempt_id'] === 'string' && row['attempt_id'] === durable.run_id
+      && typeof row['attribution'] === 'string' && row['attribution'] === 'recorded')) return null
+  return {
+    runId: durable.run_id,
+    provider: durable.provider,
+    model: durable.model,
+    reasoningLevel: durable.reasoningLevel,
+    profileKey: durable.profileKey,
+    executionProfile: { ...durable.executionProfile },
+  }
+}
+
+/** Bind a newly written interruption marker to the exact protected pre-spawn admission above. */
+export function sealProviderPreSpawnFailureAuthority(runRoot: string, expectedRunId: string): void {
+  const durable = readProviderSelectionRecord(runRoot)
+  const authority = readProviderPreSpawnFailureAuthority(runRoot)
+  if (!durable || !authority || authority.runId !== expectedRunId) {
+    throw new Error('provider pre-spawn recovery authority changed before it could be sealed')
+  }
+  const relative = `${runRoot}/.interrupted`
+  const digest = protectedSelectionArtifactHash(relative)
+  if (!digest) throw new Error('provider pre-spawn recovery marker is not a regular file')
+  writeProviderSelection({
+    runId: authority.runId,
+    providerAttemptId: authority.runId,
+    runRoot,
+    provider: authority.provider,
+    model: authority.model,
+    reasoningLevel: authority.reasoningLevel,
+    profileKey: authority.profileKey,
+    executionProfile: authority.executionProfile,
+  }, 'interrupted', { [relative]: digest })
 }
 
 /** Capture canonical interrupted rows before a recovery admission advances the protected selection stage. */
