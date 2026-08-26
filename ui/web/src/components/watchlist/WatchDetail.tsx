@@ -78,6 +78,7 @@ function ScenarioAdopt({ row, onUse }: { row: WatchRow; onUse: (s: Scen, currenc
 
 export function WatchDetail({ row }: { row: WatchRow | null }) {
   const [armed, setArmed] = useState(false)
+  const [assigning, setAssigning] = useState(false)
   const openComposer = useStore((s) => s.openWatchComposer)
   const openCallFile = useStore((s) => s.openCallFile)
   const openInlineDoc = useStore((s) => s.openInlineDoc)
@@ -90,6 +91,8 @@ export function WatchDetail({ row }: { row: WatchRow | null }) {
   const setResearchView = useStore((s) => s.setResearchView)
   const requestFullForSubject = useStore((s) => s.requestFullForSubject)
   const pending = useStore((s) => s.watchlistPending) === row?.ticker
+  const loadWatchlist = useStore((s) => s.loadWatchlist)
+  const setToast = useStore((s) => s.setToast)
 
   const target = row ? nearestTarget(row) : null
   const pool = row ? tickers.find((t) => t.ticker === row.ticker) : undefined
@@ -133,6 +136,17 @@ export function WatchDetail({ row }: { row: WatchRow | null }) {
         why: row.why, conviction: row.conviction, review_date: row.review_date, triggers: row.triggers },
       row.entry_id,
     )
+  const assign = async (assignee: 'AB' | 'NV' | 'CK' | null) => {
+    setAssigning(true)
+    try {
+      const result = await api.watchAssign(row.ticker, row.currency, assignee)
+      await loadWatchlist(true)
+      setToast(result.publish_error
+        ? { msg: `${row.ticker} assigned locally, but did not sync: ${result.publish_error}`, tone: 'bad' }
+        : { msg: assignee ? `${row.ticker} assigned to ${assignee}.` : `${row.ticker} is unassigned.`, tone: 'good' })
+    } catch (error: any) { setToast({ msg: error?.message || `Could not assign ${row.ticker}.`, tone: 'bad' }) }
+    finally { setAssigning(false) }
+  }
 
   return (
     <aside className="wdet" aria-label={`Details for ${row.ticker}`}>
@@ -141,6 +155,17 @@ export function WatchDetail({ row }: { row: WatchRow | null }) {
         {verdict
           ? <span className="wl__verdict" style={{ color: decisionColor(verdict) }}>{verdict}</span>
           : <span className="wl__verdict wl__verdict--none" title="You added this — the engine has not researched it">yours</span>}
+        {!staticMode && (
+          <label className="wdet__owner" title={row.task_id ? 'Shared with this ticker’s Tasks card' : 'Assign this watchlist name'}>
+            <span>{row.assignee ?? '—'}<i aria-hidden>⌄</i></span>
+            <select disabled={assigning} value={row.assignee ?? ''} onChange={(event) => void assign((event.target.value || null) as 'AB' | 'NV' | 'CK' | null)} aria-label={`Assign ${row.ticker}`}>
+              {!row.task_id && <option value="">Unassigned</option>}
+              <option value="AB">AB · Ayush Banka</option>
+              <option value="NV">NV · Noel Vaz</option>
+              <option value="CK">CK · Chiraag Kapil</option>
+            </select>
+          </label>
+        )}
       </div>
       <div className="wdet__co">
         {row.exchange ? `${row.exchange} · ` : ''}{row.currency ?? '—'}

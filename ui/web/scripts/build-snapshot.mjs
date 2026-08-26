@@ -9,6 +9,7 @@ import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { safePublishedMemoDeltaPath } from './calls-snapshot-artifacts.mjs'
 import { normalizeStaticBoardArchive } from './ideas-archive-static.mjs'
+import { buildTasksSnapshot } from './tasks-snapshot.mjs'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const WEB = path.resolve(__dirname, '..')
@@ -714,6 +715,7 @@ function buildWatchlist(calls) {
       conviction: e ? e.conviction : null,
       review_date: (e && e.review_date) || reviewDateFromText(w.next_review) || w.next_review || null,
       tags: e ? e.tags : [], triggers: e ? e.triggers : [], attachments: publicAttachments(e?.attachments),
+      assignee: e?.assignee ?? null, task_id: e?.task_id ?? null,
       engine: { run_root: c.run_root, decision: c.decision ?? null, decision_date: c.decision_date ?? null,
         size_in_trigger: w.size_in_trigger ?? null, next_review: w.next_review ?? null,
         entry_price: c.entry_price ?? null, final_thesis_path: c.final_thesis_path ?? null, fingerprint,
@@ -737,6 +739,7 @@ function buildWatchlist(calls) {
       currency: e.listing.currency, exchange: e.listing.exchange, origin: 'manual', entry_id: e.entry_id,
       why: e.why, conviction: e.conviction, review_date: e.review_date, tags: e.tags, triggers: e.triggers,
       attachments: publicAttachments(e.attachments), engine: null, resurfaced: false, archive: e.archive,
+      assignee: e.assignee ?? null, task_id: e.task_id ?? null,
       quote: null, quote_reason: null,
       evals: manualEvals,
       state: manualEvals.some((x) => x.due) ? 'due' : manualEvals.length ? 'not_evaluable' : 'watching',
@@ -913,7 +916,8 @@ const callsData = buildCalls()
 const { swarms, swarmGraphs, swarmSubjects, swarmSubjectSummaries } = buildSwarms()
 fs.rmSync(path.join(DEST, 'screener'), { recursive: true, force: true })
 const screenerStatic = buildScreenerStatic()
-const snapshot = { static: true, swarmGraph, swarms, swarmGraphs, swarmSubjects, swarmSubjectSummaries, tickers, emptyState: tickers.length === 0, dataDir: 'bundled snapshot (static deploy)', dataStatus, runs, decisions, finalThesis, calls: callsData.calls, scorecard: callsData.scorecard, dashboard: callsData.dashboard, watchlist: buildWatchlist(callsData.calls), ...(screenerStatic || {}), generatedAt: new Date().toISOString() }
+const generatedAt = new Date().toISOString()
+const snapshot = { static: true, swarmGraph, swarms, swarmGraphs, swarmSubjects, swarmSubjectSummaries, tickers, emptyState: tickers.length === 0, dataDir: 'bundled snapshot (static deploy)', dataStatus, runs, decisions, finalThesis, calls: callsData.calls, scorecard: callsData.scorecard, dashboard: callsData.dashboard, watchlist: buildWatchlist(callsData.calls), tasks: buildTasksSnapshot(REPO, generatedAt), ...(screenerStatic || {}), generatedAt }
 fs.writeFileSync(path.join(DEST, 'snapshot.json'), JSON.stringify(snapshot))
 const swarmSummary = swarms.filter((s) => s.id !== 'research').map((s) => `${s.id} (${swarmGraphs[s.id]?.totals.modules ?? 0}m / ${(swarmSubjects[s.id] || []).length} subj)`).join(', ')
 console.log(`[build-snapshot] swarm: ${swarmGraph.totals.modules} modules / ${swarmGraph.totals.agents} agents · ${promptCount} prompts · ${callsData.calls.length} calls · tickers: ${tickers.map((t) => t.ticker).join(', ')}${swarmSummary ? ` · swarms: ${swarmSummary}` : ''}${screenerStatic ? ` · screener runs: ${Object.keys(screenerStatic.screenerRuns).length}` : ''} -> ui/web/public/data/`)
