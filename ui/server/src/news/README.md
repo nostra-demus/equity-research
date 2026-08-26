@@ -155,6 +155,15 @@ workload-scoped, so a bad triage response does not unnecessarily sideline articl
 The cockpit calls these **engine retry holds**, not provider quota resets, and labels the bars as configured
 engine allowances rather than claiming live account-quota knowledge.
 
+The automatic fitness router also verifies backups before an emergency needs them. While its 24-hour
+learning gate is still open, at most one in ten ordinary triage batches is routed through an overdue,
+eligible free backup. This is useful real work—not a duplicate ping—so it uses the same provider lease,
+allowance reservation, limiter, retry hold, quarantine, and durable audit result as every other batch. That
+closes the old catch-22 where automatic activation required two-provider evidence but a healthy first route
+prevented any second route from collecting evidence. Explicit `NEWS_PROVIDER_ROUTER_MODE=shadow` and
+`static` remain observation-only. The cockpit shows when each route last returned the complete scorer
+contract, or says plainly that it has no successful proof in the seven-day routing window.
+
 - **Gemini** (`GEMINI_API_KEY`) — a rotation pool of free models (`generateContent`), each its own
   per-day bucket, resetting midnight Pacific.
 - **Cerebras** (`CEREBRAS_API_KEY`) — the biggest + fastest free pool, on `gpt-oss-120b`

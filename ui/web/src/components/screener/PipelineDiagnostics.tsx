@@ -27,6 +27,19 @@ function until(iso: string | null): string {
   return m < 1 ? 'in under a minute' : m < 60 ? `in ~${m}m` : `in ~${Math.round(m / 60)}h`
 }
 
+/** Plain age of a past proof point. Provider "Ready" is only configuration/allowance state; this text says
+ * when the exact scorer contract last worked, so an untouched backup cannot masquerade as verified. */
+function ago(iso: string, now: number): string {
+  const ms = now - Date.parse(iso)
+  if (!Number.isFinite(ms) || ms < -60_000) return 'at an unknown time'
+  if (ms < 90_000) return 'just now'
+  const minutes = Math.round(ms / 60_000)
+  if (minutes < 60) return `~${minutes}m ago`
+  const hours = Math.round(minutes / 60)
+  if (hours < 48) return `~${hours}h ago`
+  return `~${Math.round(hours / 24)}d ago`
+}
+
 const HEALTH_TONE: Record<TierHealth, string> = {
   healthy: 'live',
   paced: 'warn',
@@ -83,7 +96,7 @@ function lastResortWhy(state: LastResortState): string {
   return LAST_RESORT_WHY[state] || 'The paid Haiku backup is not checking items right now.'
 }
 
-function TierRow({ tier, coolLeftMs, routerMode }: { tier: TierDiagnostics; coolLeftMs: number; routerMode?: NonNullable<NewsDiagnostics['router']>['mode'] }) {
+function TierRow({ tier, coolLeftMs, nowTs, routerMode }: { tier: TierDiagnostics; coolLeftMs: number; nowTs: number; routerMode?: NonNullable<NewsDiagnostics['router']>['mode'] }) {
   const c = `var(${tier.color})`
   const meter = tierMeter(tier)
   const tone = tier.spendingAllowed === false ? 'off' : HEALTH_TONE[tier.health]
@@ -147,7 +160,7 @@ function TierRow({ tier, coolLeftMs, routerMode }: { tier: TierDiagnostics; cool
         </div>
       )}
       {tier.routing && <div className="diagtier__fitness" title={`Yield ${(tier.routing.components.usableBatchYield * 100).toFixed(1)}%; throughput ${(tier.routing.components.usefulThroughput * 100).toFixed(1)}% of peer; released-capacity urgency ${(tier.routing.components.releasedCapacityUrgency * 100).toFixed(1)}%; failure penalty ${tier.routing.components.failurePenalty}; cost penalty ${tier.routing.components.costPenalty}.`}>
-        fitness {tier.routing.fitnessScore.toFixed(1)} · {tier.routing.sampleSize} calls · {tier.routing.eligible ? 'eligible' : tier.routing.eligibilityReason}
+        fitness {tier.routing.fitnessScore.toFixed(1)} · {tier.routing.sampleSize} calls · {tier.routing.eligible ? 'eligible' : tier.routing.eligibilityReason} · {tier.routing.lastSuccessAt ? `last proven ${ago(tier.routing.lastSuccessAt, nowTs)}` : 'not proven in the last 7 days'}
       </div>}
     </div>
   )
@@ -475,7 +488,7 @@ export function PipelineDiagnostics() {
           <details className="diagdetails">
             <summary>Checking services <span className="diag__count">{diag.tiers.length}</span></summary>
             <div className="diag__tiers">
-              {diag.tiers.map((t) => <TierRow key={t.id} tier={t} coolLeftMs={coolLeft(t)} routerMode={diag.router?.mode} />)}
+              {diag.tiers.map((t) => <TierRow key={t.id} tier={t} coolLeftMs={coolLeft(t)} nowTs={nowTs} routerMode={diag.router?.mode} />)}
             </div>
             <div className="diag__hint">The bars show how much of this app’s daily limit has been used.</div>
             {diag.tiers.length === 0 && <div className="diag__hint">No checking service is set up, so the scanner cannot run.</div>}

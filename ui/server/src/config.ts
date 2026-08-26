@@ -741,8 +741,11 @@ export const NEWS = {
   newsArchiveDir: process.env.NEWS_ARCHIVE_DIR || '',
   newsLocalRetentionDays: capNum(process.env.NEWS_LOCAL_RETENTION_DAYS, 30), // days of firehose + pipeline audit telemetry kept locally
   // Scanner-triage provider routing only. `auto` records the current route and its adaptive shadow for a
-  // complete day before it is allowed to change provider order. `shadow` never activates; `static` is the
-  // emergency kill switch. An unreadable audit ledger always overrides auto and keeps the static route.
+  // complete day before it is allowed to change provider order. While learning, one in ten real batches may
+  // verify an overdue eligible backup; that bounded in-band canary is what lets the two-provider evidence
+  // gate complete without extra traffic or separate budget accounting. Explicit `shadow` never changes
+  // order; `static` is the emergency kill switch. An unreadable audit ledger always overrides auto and keeps
+  // the static route.
   providerRouterMode: (() => {
     const raw = String(process.env.NEWS_PROVIDER_ROUTER_MODE || 'auto').trim().toLowerCase()
     return raw === 'static' || raw === 'shadow' ? raw : 'auto'
