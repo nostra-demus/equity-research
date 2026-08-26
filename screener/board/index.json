@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-26T10:21:44Z",
+  "generated_at": "2026-08-26T10:30:34Z",
   "inbox": [
     {
       "inbox_id": "INB-20260826-753",
@@ -802,6 +802,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260826-773",
+      "headline": "McKesson to acquire Precision Medicine Group for $2.25bn",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/healthcare/articles/mckesson-acquire-precision-medicine-group-094614528.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-26T09:46:14Z",
+      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
+      "prelim_note": "McKesson is acquiring Precision Medicine Group for $2.25bn.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "McKesson is acquiring Precision Medicine Group for $2.25bn.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "McKesson",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1967,55 +2016,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260826-616",
-      "headline": "Kesar Enterprises Ltd-$: Please find enclosed herewith details of acceptance of One Time Settlement sanctioned by Sugar Development Fund through IFCI Limited.",
-      "headline_en": null,
-      "url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/06792046-d577-494d-8c7b-f9a6178e4665.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-26T07:01:16Z",
-      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
-      "prelim_note": "Sanction of One Time Settlement by Sugar Development Fund via IFCI Limited for Kesar Enterprises Ltd; specific debt-relief event that improves balance sheet and solvency.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Sanction of One Time Settlement by Sugar Development Fund via IFCI Limited for Kesar Enterprises Ltd; specific debt-relief event that improves balance sheet and solvency.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 72,
-      "rank_factors": {
-        "materiality": 72,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "debt_credit",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Kesar Enterprises Ltd",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -94560,9 +94560,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2033408,
-    "news_picked_today": 1374,
-    "news_dropped_today": 11838
+    "news_seen_today": 2055964,
+    "news_picked_today": 1392,
+    "news_dropped_today": 11856
   },
   "book_momentum": {
     "live_count": 8,

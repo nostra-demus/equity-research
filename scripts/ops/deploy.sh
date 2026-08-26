@@ -159,6 +159,7 @@ import os
 import plistlib
 import stat
 import sys
+from xml.parsers.expat import ExpatError
 
 
 class ContractError(RuntimeError):
@@ -183,7 +184,7 @@ def require_safe(info):
         raise ContractError("unsafe installed plist")
 
 
-def secure_plist(path, allow_missing=False):
+def secure_plist(path, allow_missing=False, allow_legacy_engine_comment=False):
     descriptor = None
     try:
         before = os.lstat(path)
@@ -216,11 +217,21 @@ def secure_plist(path, allow_missing=False):
         require_safe(after_path)
         if identity(after_fd) != identity(before) or identity(after_path) != identity(before):
             raise ContractError("installed plist changed during read")
-        value = plistlib.loads(b"".join(chunks))
+        raw = b"".join(chunks)
+        try:
+            value = plistlib.loads(raw)
+        except (ValueError, plistlib.InvalidFileException, ExpatError):
+            # The historical engine template carried one XML-illegal double hyphen inside a comment.
+            # Accept only that exact, single reviewed defect in memory so deploy can inspect and replace
+            # the legacy file. Never rewrite it in place and never relax parsing for any other damage.
+            legacy = b"`--import tsx`"
+            if not allow_legacy_engine_comment or raw.count(legacy) != 1:
+                raise
+            value = plistlib.loads(raw.replace(legacy, b"`node import flag`"))
         if not isinstance(value, dict):
             raise ContractError("installed plist root is invalid")
         return value
-    except (OSError, ValueError, plistlib.InvalidFileException) as error:
+    except (OSError, ValueError, plistlib.InvalidFileException, ExpatError) as error:
         raise ContractError("cannot read installed plist") from error
     finally:
         if descriptor is not None:
@@ -246,7 +257,7 @@ try:
         or archive_args != ["/bin/bash", os.path.join(repo_root, "scripts", "ops", "news-archive.sh")]
     ):
         raise ContractError("archive service path contract is invalid")
-    engine = secure_plist(sys.argv[2], allow_missing=True)
+    engine = secure_plist(sys.argv[2], allow_missing=True, allow_legacy_engine_comment=True)
     if engine is None:
         print(desired)
         raise SystemExit(10)

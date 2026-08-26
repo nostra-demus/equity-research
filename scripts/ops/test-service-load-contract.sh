@@ -112,7 +112,7 @@ deploy = pathlib.Path(sys.argv[1]).read_text(encoding="utf-8")
 installer = pathlib.Path(sys.argv[2]).read_text(encoding="utf-8")
 contract = deploy.split("engine_archive_contract() {", 1)[1].split("reconcile_engine_archive_launchagent() {", 1)[0]
 reconcile = deploy.split("reconcile_engine_archive_launchagent() {", 1)[1].split("# One-time + continuously", 1)[0]
-for token in ['getattr(os, "O_NOFOLLOW", 0)', "st_nlink != 1", "st_mode & 0o077", "NEWS_ARCHIVE_DIR", "SystemExit(10)"]:
+for token in ['getattr(os, "O_NOFOLLOW", 0)', "st_nlink != 1", "st_mode & 0o077", "NEWS_ARCHIVE_DIR", "SystemExit(10)", "raw.count(legacy) != 1"]:
     assert token in contract
 assert 'NEWS_ARCHIVE_DIR="$desired_archive_dir"' in reconcile
 assert '--role doer --only engine' in reconcile
@@ -186,6 +186,20 @@ PYENGINEARCHIVEDRIFT
 drift_output="$(HOME="$ENGINE_CONTRACT_HOME" ENGINE_REPO_ROOT="$ENGINE_CONTRACT_REPO" \
   /bin/bash "$HERE/deploy.sh" --check-engine-archive 2>/dev/null)"
 drift_rc=$?
+"$PYTHON_BIN" -I - "$ENGINE_CONTRACT_AGENTS/com.nostradamus.engine.plist" <<'PYENGINEARCHIVELEGACY'
+import pathlib
+import sys
+
+path = pathlib.Path(sys.argv[1])
+raw = path.read_bytes()
+needle = b'<plist version="1.0">'
+assert raw.count(needle) == 1
+path.write_bytes(raw.replace(needle, b'<!-- legacy `--import tsx` marker -->\n' + needle))
+path.chmod(0o600)
+PYENGINEARCHIVELEGACY
+legacy_output="$(HOME="$ENGINE_CONTRACT_HOME" ENGINE_REPO_ROOT="$ENGINE_CONTRACT_REPO" \
+  /bin/bash "$HERE/deploy.sh" --check-engine-archive 2>/dev/null)"
+legacy_rc=$?
 archive_plist="$ENGINE_CONTRACT_AGENTS/com.nostradamus.news-archive.plist"
 mv "$archive_plist" "$archive_plist.real"
 ln -s "$archive_plist.real" "$archive_plist"
@@ -200,9 +214,10 @@ public_output="$(HOME="$ENGINE_CONTRACT_HOME" ENGINE_REPO_ROOT="$ENGINE_CONTRACT
 public_rc=$?
 if [ "$exact_rc" = 0 ] && [ -z "$exact_output" ] \
     && [ "$drift_rc" = 10 ] && [ "$drift_output" = "$ENGINE_CONTRACT_DRIVE" ] \
+    && [ "$legacy_rc" = 10 ] && [ "$legacy_output" = "$ENGINE_CONTRACT_DRIVE" ] \
     && [ "$unsafe_rc" = 20 ] && [ -z "$unsafe_output" ] \
     && [ "$public_rc" = 20 ] && [ -z "$public_output" ]; then
-  echo "  ok  installed archive/engine proof accepts exact state and rejects unsafe drift"
+  echo "  ok  installed archive/engine proof accepts exact/legacy state and rejects unsafe drift"
 else
   echo "  FAIL installed archive/engine proof is not fail-closed"
   failures=$((failures + 1))
