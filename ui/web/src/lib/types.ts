@@ -1225,6 +1225,23 @@ export interface PipelineFlowRates {
   }
 }
 
+export interface ScannerHealthFinding {
+  code: string
+  severity: 'warning' | 'critical'
+  message: string
+  action: string
+  restartRecommended: boolean
+}
+
+export interface ScannerHealthVerdict {
+  status: 'healthy' | 'degraded' | 'failing' | 'idle'
+  code: string
+  summary: string
+  action: string
+  restartRecommended: boolean
+  findings: ScannerHealthFinding[]
+}
+
 export interface NewsDiagnostics {
   ts: string
   enabled: boolean
@@ -1233,6 +1250,8 @@ export interface NewsDiagnostics {
   intervalMin: number
   lastCycleAt: string | null
   nextCycleAt: string | null
+  /** Optional only while a new cockpit is talking to an older server during a rolling deploy. */
+  health?: ScannerHealthVerdict
   /** Optional for a new cockpit talking to an older server during a rolling deploy. */
   flow?: PipelineFlowRates
   /** Optional for rolling deploys; absent means the static order remains the only proven route. */

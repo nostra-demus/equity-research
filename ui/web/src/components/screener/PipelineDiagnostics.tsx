@@ -56,6 +56,18 @@ const ROLE_LABEL: Record<TierDiagnostics['role'], string> = {
   'last-resort': 'paid backup',
 }
 
+const SCANNER_ACTION: Record<string, string> = {
+  'restart-engine': 'The watchdog will confirm the fault twice, then restart the engine with a cooldown.',
+  'enable-ingester': 'Turn on incoming-news collection when this host is meant to own it. Restarting alone will not change that setting.',
+  'repair-storage': 'Repair the saved queue or storage connection. Restarting cannot restore missing proof.',
+  'repair-provider': 'Repair the named key, account, model, or provider setup. Restarting will not change it.',
+  'verify-provider': 'Auto routing will verify this backup with bounded real queued work; static or shadow routing leaves it observation-only.',
+  'increase-capacity': 'The scanner needs more working scoring capacity or a smaller inflow. Restarting will not add capacity.',
+  'wait-for-reset': 'The work remains saved while the service allowance or retry hold resets. Restarting will not reset it.',
+  'inspect-cycle-ledger': 'Inspect the scanner lease and saved cycle receipts before changing process state.',
+  none: 'No repair is needed.',
+}
+
 const DEFER_WHY: Record<DeferReason, string> = {
   aborted: 'The last check ran out of time. The rest were saved for another try.',
   'usage-ledger-unavailable': "The app can’t check how much of today’s service limits have been used, so it paused to avoid overspending.",
@@ -344,6 +356,18 @@ export function PipelineDiagnostics() {
               <span className="diag__stripline">{statusLine}</span>
               {todayCopy && <span className="diag__today">Today: {todayCopy}</span>}
             </div>
+            {diag.health && diag.health.status !== 'healthy' && (
+              <div className={`diagwhy${diag.health.status === 'failing' ? ' is-alert' : ''}`} role={diag.health.status === 'failing' ? 'alert' : 'status'} data-testid="scanner-health-verdict">
+                <div className="diagwhy__head">
+                  <span aria-hidden>{diag.health.status === 'failing' ? '⚠' : '●'}</span>
+                  <span>{diag.health.status === 'failing' ? 'Scanner needs attention' : diag.health.status === 'idle' ? 'Scanner is not collecting news' : 'Scanner is working with a problem'}</span>
+                </div>
+                <ul className="diagwhy__list">
+                  {diag.health.findings.map((finding, index) => <li key={`${finding.code}-${index}`}>{finding.message}</li>)}
+                </ul>
+                <div className="diagwhy__foot">{SCANNER_ACTION[diag.health.action] || 'See the root cause above before attempting a repair.'}</div>
+              </div>
+            )}
           </section>
 
           <section className="diag__sec">

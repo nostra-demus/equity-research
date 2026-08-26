@@ -28,6 +28,7 @@ import { preTriagePriority } from './rank'
 import { buildPipelineFlowRates, readPipelineFlowCycles, type PipelineFlowHistory, type PipelineFlowRates } from './pipeline-flow'
 import { omniRouteDisabledReason } from './omniroute-provision-status'
 import { credentialRejected, evaluateProviderRouting, type ProviderRouterMetadata, type ProviderRoutingCandidate } from './provider-routing'
+import { evaluateScannerHealth, type ScannerHealthVerdict } from './scanner-health'
 import {
   getRescueDiagnostics, runRescueShadowPass, setRescueNormalIdeasRuntimePause,
   type RescueDiagnostics, type RescueShadowConfig,
@@ -250,6 +251,9 @@ let running = false
 let lastCycleAt: string | null = null
 let nextCycleAt: string | null = null
 let lastNote: string | null = null
+// Process-local age authority for the health verdict's startup grace. Unlike lastCycleAt/nextCycleAt it is
+// available before startNewsIngester runs, so "still starting" cannot hide a scheduler that never starts.
+const schedulerObservedSinceMs = Date.now()
 // True when another engine owns the ingester lock for this data dir, so THIS process serves the cockpit but
 // never fetches/scores (read-only). Surfaced in status/diagnostics so "why am I not scanning?" is answerable.
 let readOnlyMode = false
@@ -946,6 +950,9 @@ export interface NewsDiagnostics {
   intervalMin: number
   lastCycleAt: string | null
   nextCycleAt: string | null
+  /** One fail-closed answer shared by the cockpit and the Mac watchdog. The detailed provider/queue rows
+   * remain authoritative; this verdict only ranks their remedies and says whether a restart can help. */
+  health: ScannerHealthVerdict
   /** Like-for-like queue flow over a fixed trailing hour. Required UTC partitions are coverage-checked;
    * missing history or partial legacy fields never produce a comparison. */
   flow: PipelineFlowRates
@@ -1638,7 +1645,7 @@ export function getNewsDiagnostics(options: { omniRouteHomeDir?: string } = {}):
   const quarantinedTiers = tiers.filter((t) => t.enabled && t.spendingAllowed !== false && t.quarantined === true).map((t) => t.id)
   const blockingTiers = [...retryHeldTiers, ...providerDayExhaustedTiers, ...allowanceExhaustedTiers, ...unavailableTiers] // rolling-deploy compatibility
 
-  return {
+  const diagnostics: Omit<NewsDiagnostics, 'health'> = {
     ts,
     enabled: status.enabled,
     running: status.running,
@@ -1687,6 +1694,10 @@ export function getNewsDiagnostics(options: { omniRouteHomeDir?: string } = {}):
       quarantinedTiers,
       blockingTiers,
     },
+  }
+  return {
+    ...diagnostics,
+    health: evaluateScannerHealth(diagnostics, now, schedulerObservedSinceMs),
   }
 }
 
