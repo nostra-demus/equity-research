@@ -188,7 +188,7 @@ export function syncTaskWatchlist(
   }
   const ticker = task.ticker
   const otherOwner = entries.find((candidate) => candidate.listing?.ticker === ticker
-    && candidate.task_id && candidate.task_id !== task.task_id && !candidate.archive)
+    && candidate.task_id && candidate.task_id !== task.task_id)
   if (otherOwner) return {
     entry: linked, changed: false, changedEntries,
     problem: `${ticker} already has a Final Decision · Watch task. Keep one owner for the Watchlist row.`,
@@ -201,12 +201,15 @@ export function syncTaskWatchlist(
     entry = pickEntryForListing(entries, engineCandidate.listing.listing_key)
   }
   if (!entry) {
-    const activeSameTicker = entries.filter((candidate) => candidate.listing?.ticker === ticker && !candidate.archive)
-    if (activeSameTicker.length > 1) return {
+    // With no exact engine listing, one archived same-ticker row is still the best identity we have.
+    // Restore it instead of minting a currency-less duplicate that strands its notes and triggers.
+    // More than one listing is ambiguous regardless of archive state; never guess the venue/currency.
+    const sameTicker = entries.filter((candidate) => candidate.listing?.ticker === ticker)
+    if (sameTicker.length > 1) return {
       entry: linked, changed: false, changedEntries,
-      problem: `${ticker} has more than one active listing. Use the exact listing in Watchlist first, then retry.`,
+      problem: `${ticker} has more than one listing. Use the exact listing in Watchlist first, then retry.`,
     }
-    entry = activeSameTicker[0] ?? null
+    entry = sameTicker[0] ?? null
   }
   if (entry?.task_id && entry.task_id !== task.task_id) return {
     entry: linked, changed: false, changedEntries,

@@ -4179,6 +4179,7 @@ app.post('/api/watchlist/assign', { config: { rateLimit: { max: 240, timeWindow:
   const { user } = identify(req)
   const at = new Date().toISOString()
   if (!entry) {
+    if (entries.length >= WATCHLIST_MAX_ROWS) return reply.code(413).send({ error: 'watchlist is full' })
     const engine = readEngineWatch(await standingCalls(), readSizingDecoration()).find((row) => row.listing.listing_key === key)
     if (!engine) return reply.code(404).send({ error: 'watchlist row not found' })
     entry = {
@@ -4520,12 +4521,22 @@ app.delete('/api/watchlist/:id/attachment/:attachmentId', { config: { rateLimit:
       return reply.code(502).send({ error: driveErrorMessage(e) })
     }
   }
-  entry.attachments = entry.attachments.filter((a) => a.attachment_id !== attachmentId)
-  entry.updated_at = new Date().toISOString()
-  entry.history = [...entry.history, { at: entry.updated_at, by: user, action: 'detached', detail: attachmentId }].slice(-50)
-  writeEntry(entry)
-  const pub = await publishWatchlist([watchlistEntryPath(entry.entry_id)], `Watchlist: detach file from ${entry.listing.ticker}`)
-  return { ok: true, entry, publish_error: pub.ok ? undefined : pub.error }
+  // The Drive operation above may take seconds. Re-enter the shared planning lock and re-read the row
+  // before changing metadata so a task assignment completed while Drive was deleting cannot be replaced
+  // by the stale copy captured at the start of this request.
+  return withPlanningMutation(reply, async () => {
+    const fresh = readEntries().entries.find((candidate) => candidate.entry_id === id)
+    if (!fresh) return reply.code(404).send({ error: 'not found' })
+    if (!fresh.attachments.some((attachment) => attachment.attachment_id === attachmentId)) {
+      return { ok: true, entry: fresh }
+    }
+    fresh.attachments = fresh.attachments.filter((attachment) => attachment.attachment_id !== attachmentId)
+    fresh.updated_at = new Date().toISOString()
+    fresh.history = [...fresh.history, { at: fresh.updated_at, by: user, action: 'detached', detail: attachmentId }].slice(-50)
+    writeEntry(fresh)
+    const pub = await publishWatchlist([watchlistEntryPath(fresh.entry_id)], `Watchlist: detach file from ${fresh.listing.ticker}`)
+    return { ok: true, entry: fresh, publish_error: pub.ok ? undefined : pub.error }
+  })
 })
 
 // ---------- Tasks board ----------

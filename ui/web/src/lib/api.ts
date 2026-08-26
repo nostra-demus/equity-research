@@ -990,7 +990,7 @@ export const api = {
         let body: any = {}
         try { body = JSON.parse(xhr.responseText || '{}') } catch {}
         if (xhr.status >= 200 && xhr.status < 300) resolve(body as UploadResult)
-        else reject(Object.assign(new Error(body?.error || `${xhr.status}`), { status: xhr.status, body }))
+        else reject(Object.assign(new Error(body?.error || body?.fileErrors?.[0]?.reason || `${xhr.status}`), { status: xhr.status, body }))
       }
       xhr.onerror = () => reject(new Error('network error during upload'))
       xhr.send(fd)
@@ -1472,7 +1472,7 @@ export const api = {
         let body: any = {}
         try { body = JSON.parse(xhr.responseText) } catch { /* keep empty */ }
         if (xhr.status >= 200 && xhr.status < 300) resolve(body)
-        else reject(Object.assign(new Error(body?.error || `${xhr.status}`), { status: xhr.status, body }))
+        else reject(Object.assign(new Error(body?.error || body?.fileErrors?.[0]?.reason || `${xhr.status}`), { status: xhr.status, body }))
       }
       xhr.onerror = () => reject(new Error('upload failed'))
       xhr.send(fd)
