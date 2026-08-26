@@ -101,7 +101,7 @@ try {
 
   const outsideTarget = path.join(path.dirname(absolute), `outside-${randomUUID()}.json`)
   fs.writeFileSync(outsideTarget, JSON.stringify({ ticker: 'ZZPROVSUP', forged: 'outside-link' }) + '\n')
-  fs.rmSync(path.join(absolute, 'decision_record.json'))
+  fs.unlinkSync(path.join(absolute, 'decision_record.json'))
   fs.symlinkSync(outsideTarget, path.join(absolute, 'decision_record.json'))
   await assert.rejects(
     supervisePublication(run.runId, run.publicationToken, {
@@ -111,7 +111,10 @@ try {
     'a terminal artifact may not redirect outside the repository',
   )
   fs.rmSync(outsideTarget, { force: true })
-  fs.rmSync(path.join(absolute, 'decision_record.json'))
+  // unlinkSync, not rmSync: decision_record.json is now a DANGLING symlink (its target was just
+  // removed), and rmSync resolves the target, finds nothing and returns as if it had succeeded —
+  // leaving the link in place. The surviving symlink then failed the metadata-only assertion below.
+  fs.unlinkSync(path.join(absolute, 'decision_record.json'))
 
   fs.writeFileSync(path.join(absolute, 'decision_record.json'), JSON.stringify({ ticker: 'ZZPROVSUP', version: 2 }) + '\n')
   assert.equal(artifactIsFresh(run, 'decision_record.json'), true, 'only current-attempt artifact bytes are publishable')
