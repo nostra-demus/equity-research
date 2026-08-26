@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-26T09:35:03Z",
+  "generated_at": "2026-08-26T09:35:59Z",
   "inbox": [
     {
       "inbox_id": "INB-20260826-726",
@@ -81306,6 +81306,77 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-15545ed7f8b1",
+      "idea_version": "IDEAV-73067bb8cd7980b7",
+      "idea_version_started_at": "2026-08-26T09:35:45Z",
+      "ticker": "KESARENT",
+      "company": "Kesar Enterprises Ltd",
+      "exchange": "BSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The acceptance of a One Time Settlement (OTS) for debt obligations significantly improves the company's balance sheet and reduces interest burden.",
+      "why_now": "The settlement was confirmed in an exchange filing today, August 26, 2026.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 18,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-77e0651d07e1"
+      ],
+      "primary_source_event_id": "EVT-77e0651d07e1",
+      "source_headlines": [
+        "Kesar Enterprises Ltd-$: Please find enclosed herewith details of acceptance of One Time Settlement sanctioned by Sugar Development Fund through IFCI Limited."
+      ],
+      "source_headline": "Kesar Enterprises Ltd-$: Please find enclosed herewith details of acceptance of One Time Settlement sanctioned by Sugar Development Fund through IFCI Limited.",
+      "source_url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/06792046-d577-494d-8c7b-f9a6178e4665.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 98,
+      "newest_source_at": "2026-08-26T07:01:16Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-26T09:35:45Z",
+      "updated_at": "2026-08-26T09:35:45Z",
+      "decay_at": "2026-08-27T19:01:16Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-45be7ab74aa4",
       "idea_version": "IDEAV-9ece0dbfbc954d63",
       "idea_version_started_at": "2026-08-26T09:18:20Z",
@@ -94254,8 +94325,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 160,
-    "live_count": 30,
+    "surfaced_total": 161,
+    "live_count": 31,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
