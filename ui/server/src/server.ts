@@ -1,4 +1,4 @@
-import { randomUUID, timingSafeEqual } from 'node:crypto'
+import { createHash, randomUUID, timingSafeEqual } from 'node:crypto'
 import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
@@ -289,30 +289,30 @@ app.get('/api/memory', { config: { rateLimit: { max: 60, timeWindow: '1 minute' 
 
 app.get('/api/memory/runtime', { config: { rateLimit: { max: 60, timeWindow: '1 minute' } } }, async (_req, reply) => {
   reply.header('cache-control', 'no-store')
-  return memoryRuntimeReader.runtime()
+  return await memoryRuntimeReader.runtime()
 })
 
 app.get('/api/memory/runs/:runId', { config: { rateLimit: { max: 60, timeWindow: '1 minute' } } }, async (req, reply) => {
   reply.header('cache-control', 'no-store')
   const parsed = z.object({ runId: z.string().regex(/^[A-Za-z0-9][A-Za-z0-9._:-]{0,191}$/) }).safeParse(req.params)
   if (!parsed.success) return reply.code(400).send({ error: 'invalid memory run id' })
-  const run = memoryRuntimeReader.runs(parsed.data.runId)
+  const run = await memoryRuntimeReader.runs(parsed.data.runId)
   return run || reply.code(404).send({ error: 'memory run not found' })
 })
 
 app.get('/api/memory/lessons', { config: { rateLimit: { max: 60, timeWindow: '1 minute' } } }, async (_req, reply) => {
   reply.header('cache-control', 'no-store')
-  return { contract_version: 'memory-lessons-ui/1', read_only: true, items: memoryRuntimeReader.lessons() }
+  return { contract_version: 'memory-lessons-ui/1', read_only: true, items: await memoryRuntimeReader.lessons() }
 })
 
 app.get('/api/memory/playbooks', { config: { rateLimit: { max: 60, timeWindow: '1 minute' } } }, async (_req, reply) => {
   reply.header('cache-control', 'no-store')
-  return { contract_version: 'memory-playbooks-ui/1', read_only: true, items: memoryRuntimeReader.playbooks() }
+  return { contract_version: 'memory-playbooks-ui/1', read_only: true, items: await memoryRuntimeReader.playbooks() }
 })
 
 app.get('/api/memory/candidates', { config: { rateLimit: { max: 30, timeWindow: '1 minute' } } }, async (_req, reply) => {
   reply.header('cache-control', 'no-store')
-  return { contract_version: 'memory-candidates-ui/1', read_only: true, items: memoryRuntimeReader.candidates() }
+  return { contract_version: 'memory-candidates-ui/1', read_only: true, items: await memoryRuntimeReader.candidates() }
 })
 
 function validMemoryQuarantineToken(req: FastifyRequest): boolean {
@@ -320,9 +320,9 @@ function validMemoryQuarantineToken(req: FastifyRequest): boolean {
   const raw = req.headers['x-nostra-memory-quarantine-token']
   const supplied = Array.isArray(raw) ? raw[0] : raw
   if (!configured || typeof supplied !== 'string') return false
-  const left = Buffer.from(configured)
-  const right = Buffer.from(supplied)
-  return left.length === right.length && timingSafeEqual(left, right)
+  const left = createHash('sha256').update(configured).digest()
+  const right = createHash('sha256').update(supplied).digest()
+  return timingSafeEqual(left, right)
 }
 
 app.post('/api/memory/playbooks/quarantine', { config: { rateLimit: { max: 5, timeWindow: '1 minute' } } }, async (req, reply) => {

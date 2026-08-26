@@ -11,7 +11,6 @@ from __future__ import annotations
 import argparse
 import contextlib
 import datetime as dt
-import fcntl
 import json
 import os
 import re
@@ -19,6 +18,11 @@ import stat
 import uuid
 from pathlib import Path
 from typing import Any, Mapping, Sequence
+
+try:
+    import fcntl
+except ImportError:  # pragma: no cover - exercised on non-POSIX hosts
+    fcntl = None  # type: ignore[assignment]
 
 try:
     from canonical_json import canonical_json_bytes, canonical_sha256
@@ -91,6 +95,11 @@ def _atomic_private(path: Path, value: Mapping[str, Any]) -> None:
 
 @contextlib.contextmanager
 def _owner_lock(root: Path, name: str):
+    if (
+        os.name != "posix" or fcntl is None
+        or not all(hasattr(os, capability) for capability in ("fchmod", "getuid"))
+    ):
+        raise IncidentControlError("incident control requires POSIX owner-lock primitives")
     controls = root / "controls"
     controls.mkdir(parents=True, exist_ok=True, mode=0o700)
     if os.name == "posix":

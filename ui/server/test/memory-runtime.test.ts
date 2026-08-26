@@ -92,13 +92,15 @@ function populate(root: string) {
   })
 }
 
-await check('exposes only curated metadata, lineage counts, controls and measured SLO state', () => {
+await check('exposes only curated metadata, lineage counts, controls and measured SLO state', async () => {
   const root = fixtureRoot(); populate(root)
   const reader = createMemoryRuntimeReader({
     repoRoot: '/repo', stateRoot: root, mode: 'enforced', now: () => Date.parse('2026-08-26T01:00:00Z'),
     serviceIdentities: { 'projection-query': 'reader-service', 'emergency-quarantine': '' },
   })
-  const runtime = reader.runtime()
+  const pendingRuntime = reader.runtime()
+  assert.equal(typeof pendingRuntime.then, 'function', 'runtime scans are asynchronous promises')
+  const runtime = await pendingRuntime
   assert.equal(runtime.contract_version, 'memory-runtime-ui/1')
   assert.equal(runtime.readiness.status, 'met')
   assert.equal(runtime.counts.runs, 1)
@@ -106,30 +108,33 @@ await check('exposes only curated metadata, lineage counts, controls and measure
   assert.equal(runtime.counts.playbooks, 1)
   assert.deepEqual(runtime.controls.disabled_layers, ['semantic'])
   assert.equal(runtime.services.find((item) => item.role === 'projection-query')?.configured, true)
-  assert.equal(reader.runs('run-1')?.task_summary.used, 1)
-  assert.equal(reader.runs('run-1')?.task_summary.rejected, 1)
-  assert.equal(reader.lessons()[0].supporting_evidence_count, 1)
-  assert.equal(reader.playbooks()[0].status, 'quarantined-local')
-  assert.equal(reader.playbooks()[0].execution_count, 1)
-  assert.equal(reader.playbooks()[0].deviation_count, 1)
-  assert.equal(reader.candidates().length, 1)
-  const serialized = JSON.stringify({ runtime, lessons: reader.lessons(), playbooks: reader.playbooks(), candidates: reader.candidates() })
+  assert.equal((await reader.runs('run-1'))?.task_summary.used, 1)
+  assert.equal((await reader.runs('run-1'))?.task_summary.rejected, 1)
+  assert.equal((await reader.lessons())[0].supporting_evidence_count, 1)
+  assert.equal((await reader.playbooks())[0].status, 'quarantined-local')
+  assert.equal((await reader.playbooks())[0].execution_count, 1)
+  assert.equal((await reader.playbooks())[0].deviation_count, 1)
+  assert.equal((await reader.candidates()).length, 1)
+  const serialized = JSON.stringify({
+    runtime, lessons: await reader.lessons(), playbooks: await reader.playbooks(),
+    candidates: await reader.candidates(),
+  })
   assert.doesNotMatch(serialized, /SECRET_ISSUER_IDENTIFIER|SECRET_CIPHERTEXT|statement|required_inputs|steps/)
 })
 
-await check('fails closed when enabled runtime state is absent', () => {
+await check('fails closed when enabled runtime state is absent', async () => {
   const reader = createMemoryRuntimeReader({ repoRoot: '/repo', stateRoot: path.join(fixtureRoot(), 'missing'), mode: 'enforced' })
-  const runtime = reader.runtime()
+  const runtime = await reader.runtime()
   assert.equal(runtime.available, false)
   assert.equal(runtime.state, 'unavailable')
   assert.equal(runtime.effective_mode, 'off')
   assert.equal(runtime.alerts[0].severity, 'critical')
 })
 
-await check('fails closed when an existing control or readiness record is unsafe', () => {
+await check('fails closed when an existing control or readiness record is unsafe', async () => {
   const controlRoot = fixtureRoot(); populate(controlRoot)
   fs.chmodSync(path.join(controlRoot, 'controls', 'runtime-controls.json'), 0o644)
-  const controlRuntime = createMemoryRuntimeReader({ repoRoot: '/repo', stateRoot: controlRoot, mode: 'enforced' }).runtime()
+  const controlRuntime = await createMemoryRuntimeReader({ repoRoot: '/repo', stateRoot: controlRoot, mode: 'enforced' }).runtime()
   assert.equal(controlRuntime.available, false)
   assert.equal(controlRuntime.effective_mode, 'off')
 
@@ -137,7 +142,7 @@ await check('fails closed when an existing control or readiness record is unsafe
   const readinessFile = path.join(readinessRoot, 'operations', 'readiness-report.json')
   const value = JSON.parse(fs.readFileSync(readinessFile, 'utf8'))
   fs.writeFileSync(readinessFile, JSON.stringify({ ...value, status: 'failed' }), { mode: 0o600 })
-  const readinessRuntime = createMemoryRuntimeReader({ repoRoot: '/repo', stateRoot: readinessRoot, mode: 'enforced' }).runtime()
+  const readinessRuntime = await createMemoryRuntimeReader({ repoRoot: '/repo', stateRoot: readinessRoot, mode: 'enforced' }).runtime()
   assert.equal(readinessRuntime.available, false)
   assert.equal(readinessRuntime.effective_mode, 'off')
 })
