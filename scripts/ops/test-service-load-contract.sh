@@ -56,6 +56,30 @@ else
   failures=$((failures + 1))
 fi
 
+# The engine must receive the same rendered archive path as the doer-only archive writer. Without this
+# key, local retention works but historical API reads silently lose their Drive fallback after 30 days.
+if "$PYTHON_BIN" -I - "$HERE/com.nostradamus.engine.plist" <<'PYENGINEPLIST'
+import plistlib
+import sys
+
+with open(sys.argv[1], "rb") as handle:
+    contract = plistlib.load(handle)
+env = contract.get("EnvironmentVariables", {})
+assert contract.get("Label") == "com.nostradamus.engine"
+assert contract.get("WorkingDirectory") == "{{ENGINE_REPO_ROOT}}/ui/server"
+assert env.get("ENGINE_REPO_ROOT") == "{{ENGINE_REPO_ROOT}}"
+assert env.get("ENGINE_STATE_DIR") == "{{STATE_DIR}}"
+assert env.get("NEWS_ARCHIVE_DIR") == "{{NEWS_ARCHIVE_DIR}}"
+assert contract.get("RunAtLoad") is True
+assert contract.get("KeepAlive") is True
+PYENGINEPLIST
+then
+  echo "  ok  engine LaunchAgent receives the retained news archive path"
+else
+  echo "  FAIL engine LaunchAgent cannot read the retained news archive"
+  failures=$((failures + 1))
+fi
+
 # The manual installer never guesses an executable. Normal deploy owns exact provisioning, health, scorer
 # proof, private enable, and retry backoff without rerunning unrelated service installation.
 if "$PYTHON_BIN" -I - "$HERE/deploy.sh" <<'PYDEPLOYPATH'
@@ -73,6 +97,114 @@ then
   echo "  ok  deploy runtime exposes Homebrew node/npm/sidecars before tool discovery"
 else
   echo "  FAIL deploy runtime can strand npm behind launchd's minimal PATH"
+  failures=$((failures + 1))
+fi
+
+# The one-time migration runs only after deploy owns the provider barrier and has proved reviewed source.
+# It reads both installed plists through an owner-only/no-follow contract, invokes the engine-only installer,
+# and is present on both the already-current and fast-forward paths. Narrow engine repair must not initialize
+# or mutate connector autonomy.
+if "$PYTHON_BIN" -I - "$HERE/deploy.sh" "$HERE/install-services.sh" <<'PYENGINEARCHIVEDEPLOY'
+import pathlib
+import sys
+
+deploy = pathlib.Path(sys.argv[1]).read_text(encoding="utf-8")
+installer = pathlib.Path(sys.argv[2]).read_text(encoding="utf-8")
+contract = deploy.split("engine_archive_contract() {", 1)[1].split("reconcile_engine_archive_launchagent() {", 1)[0]
+reconcile = deploy.split("reconcile_engine_archive_launchagent() {", 1)[1].split("# One-time + continuously", 1)[0]
+for token in ['getattr(os, "O_NOFOLLOW", 0)', "st_nlink != 1", "st_mode & 0o077", "NEWS_ARCHIVE_DIR", "SystemExit(10)"]:
+    assert token in contract
+assert 'NEWS_ARCHIVE_DIR="$desired_archive_dir"' in reconcile
+assert '--role doer --only engine' in reconcile
+assert "engine_archive_contract >/dev/null 2>&1" in reconcile
+assert "health_gate" in reconcile
+assert deploy.count("if ! reconcile_engine_archive_launchagent; then") == 2
+assert 'connectors|engine|omniroute' in installer
+assert 'elif [ "$ONLY" = engine ]; then' in installer
+assert 'LABELS=(com.nostradamus.engine)' in installer
+assert 'local is_connector=0 is_engine=0 is_omniroute=0' in installer
+assert 'staged="$(mktemp "$AGENTS/.${label}.staged.XXXXXX")"' in installer
+assert 'if [ "$is_engine" = 1 ] || [ "$is_omniroute" = 1 ]; then' in installer
+assert 'if [ "$ROLE" = doer ] && { [ -z "$ONLY" ] || [ "$ONLY" = connectors ]; }; then' in installer
+PYENGINEARCHIVEDEPLOY
+then
+  echo "  ok  Drive archive reader migration is narrow, atomic, and fail-closed"
+else
+  echo "  FAIL Drive archive reader migration can drift or touch unrelated autonomy"
+  failures=$((failures + 1))
+fi
+
+ENGINE_CONTRACT_HOME="$TEST_TMP/engine-archive-home"
+ENGINE_CONTRACT_AGENTS="$ENGINE_CONTRACT_HOME/Library/LaunchAgents"
+ENGINE_CONTRACT_REPO="$TEST_TMP/engine archive repo"
+ENGINE_CONTRACT_DRIVE="$TEST_TMP/Drive Archive"
+mkdir -p "$ENGINE_CONTRACT_AGENTS" "$ENGINE_CONTRACT_REPO" "$ENGINE_CONTRACT_DRIVE"
+"$PYTHON_BIN" -I - "$ENGINE_CONTRACT_AGENTS" "$ENGINE_CONTRACT_REPO" "$ENGINE_CONTRACT_DRIVE" <<'PYENGINEARCHIVEFIXTURE'
+import os
+import pathlib
+import plistlib
+import sys
+
+agents = pathlib.Path(sys.argv[1])
+repo = sys.argv[2]
+drive = sys.argv[3]
+archive = {
+    "Label": "com.nostradamus.news-archive",
+    "EnvironmentVariables": {"REPO": repo, "NEWS_ARCHIVE_DIR": drive},
+    "ProgramArguments": ["/bin/bash", os.path.join(repo, "scripts", "ops", "news-archive.sh")],
+}
+engine = {
+    "Label": "com.nostradamus.engine",
+    "WorkingDirectory": os.path.join(repo, "ui", "server"),
+    "EnvironmentVariables": {"ENGINE_REPO_ROOT": repo, "NEWS_ARCHIVE_DIR": drive},
+}
+for name, value in [
+    ("com.nostradamus.news-archive.plist", archive),
+    ("com.nostradamus.engine.plist", engine),
+]:
+    path = agents / name
+    with path.open("wb") as handle:
+        plistlib.dump(value, handle)
+    path.chmod(0o600)
+PYENGINEARCHIVEFIXTURE
+exact_output="$(HOME="$ENGINE_CONTRACT_HOME" ENGINE_REPO_ROOT="$ENGINE_CONTRACT_REPO" \
+  /bin/bash "$HERE/deploy.sh" --check-engine-archive 2>/dev/null)"
+exact_rc=$?
+"$PYTHON_BIN" -I - "$ENGINE_CONTRACT_AGENTS/com.nostradamus.engine.plist" <<'PYENGINEARCHIVEDRIFT'
+import pathlib
+import plistlib
+import sys
+
+path = pathlib.Path(sys.argv[1])
+with path.open("rb") as handle:
+    value = plistlib.load(handle)
+value["EnvironmentVariables"].pop("NEWS_ARCHIVE_DIR")
+with path.open("wb") as handle:
+    plistlib.dump(value, handle)
+path.chmod(0o600)
+PYENGINEARCHIVEDRIFT
+drift_output="$(HOME="$ENGINE_CONTRACT_HOME" ENGINE_REPO_ROOT="$ENGINE_CONTRACT_REPO" \
+  /bin/bash "$HERE/deploy.sh" --check-engine-archive 2>/dev/null)"
+drift_rc=$?
+archive_plist="$ENGINE_CONTRACT_AGENTS/com.nostradamus.news-archive.plist"
+mv "$archive_plist" "$archive_plist.real"
+ln -s "$archive_plist.real" "$archive_plist"
+unsafe_output="$(HOME="$ENGINE_CONTRACT_HOME" ENGINE_REPO_ROOT="$ENGINE_CONTRACT_REPO" \
+  /bin/bash "$HERE/deploy.sh" --check-engine-archive 2>/dev/null)"
+unsafe_rc=$?
+rm "$archive_plist"
+mv "$archive_plist.real" "$archive_plist"
+chmod 640 "$ENGINE_CONTRACT_AGENTS/com.nostradamus.engine.plist"
+public_output="$(HOME="$ENGINE_CONTRACT_HOME" ENGINE_REPO_ROOT="$ENGINE_CONTRACT_REPO" \
+  /bin/bash "$HERE/deploy.sh" --check-engine-archive 2>/dev/null)"
+public_rc=$?
+if [ "$exact_rc" = 0 ] && [ -z "$exact_output" ] \
+    && [ "$drift_rc" = 10 ] && [ "$drift_output" = "$ENGINE_CONTRACT_DRIVE" ] \
+    && [ "$unsafe_rc" = 20 ] && [ -z "$unsafe_output" ] \
+    && [ "$public_rc" = 20 ] && [ -z "$public_output" ]; then
+  echo "  ok  installed archive/engine proof accepts exact state and rejects unsafe drift"
+else
+  echo "  FAIL installed archive/engine proof is not fail-closed"
   failures=$((failures + 1))
 fi
 
