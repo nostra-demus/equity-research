@@ -208,12 +208,13 @@ export function feedbackEmailReady(): boolean {
   return FEEDBACK_EMAIL.enabled && FEEDBACK_EMAIL.token.length > 0
 }
 
-// OPT-IN (off by default): orchestrate a full run as a CHAIN of separate per-module runs (each its own
-// budget), in dependency order, then the master synthesizer — instead of one monolithic /research:full
-// process. No single budget cap can then truncate the whole pipeline. Enable with ENGINE_FULL_PER_MODULE=1.
-// Each step is its own run + its own activity-log entry (most transparent). Until validated, the default
-// stays the single-process /research:full path.
-export const FULL_PER_MODULE = process.env.ENGINE_FULL_PER_MODULE === '1'
+// Default-on: orchestrate a full run as a CHAIN of separate per-module runs (each its own budget), in
+// dependency order, then the master synthesizer — instead of one monolithic /research:full process. The
+// scheduler is provider-neutral: Claude and Codex receive the same frozen provider/profile on every step.
+// No single parent turn/budget can truncate the whole pipeline. ENGINE_FULL_PER_MODULE=0 is the explicit
+// emergency rollback to the legacy monolithic command; a missing variable must never silently restore the
+// failure-prone path on a new host or launch configuration.
+export const FULL_PER_MODULE = process.env.ENGINE_FULL_PER_MODULE !== '0'
 
 export type LaunchKind = 'full' | 'module' | 'agent' | 'rerun' | 'review' | 'track' | 'doc-intake'
   | 'signal' | 'sweep' | 'screener-agent' | 'handoff' | 'conviction' | 'parity'
@@ -261,11 +262,9 @@ export interface OverflowProvider {
   label: string // human label for status/log
   color: string // CSS var for the cockpit chip (defined in tokens.css)
   apiKey: string
-  // The NAME of the environment variable this provider's key comes from — never the key itself. Exists so a
-  // repeated provider-access rejection (HTTP 401/402/403/404) can tell the operator WHICH credential to go and
-  // fix. Without it the cockpit can only show a countdown, which reads as patience over a fault that will
-  // never clear on its own: a dead key was retried on a timer for 46 consecutive failures and 42+ hours while
-  // the panel said "try again in ~43m". Safe to display — it is a variable name, not a secret.
+  // The NAME of the environment variable this provider's key comes from — never the key itself. Authentication
+  // and entitlement faults use it to name the credential to repair; billing and model/endpoint faults name their
+  // own root cause instead. Safe to persist/display because it is a variable name, not a secret.
   keyEnvVar?: string
   baseUrl: string // OpenAI-compatible base (…/v1)
   model: string // primary model
@@ -412,13 +411,17 @@ export function buildOverflowProviders(): OverflowProvider[] {
   }
   const orKey = process.env.OPENROUTER_API_KEY || ''
   if (orKey && process.env.NEWS_OPENROUTER_ENABLED !== '0') {
-    // OpenRouter: strongest free models (gpt-oss-120b…). Free = ~20 RPM, ~50/day pooled (no credits) →
-    // ~1000/day once $10 is loaded (free models still cost $0). Fallback chain (max 3) routes around 429s.
-    const models = (process.env.NEWS_OPENROUTER_MODELS || 'openai/gpt-oss-120b:free,openai/gpt-oss-20b:free,meta-llama/llama-3.3-70b-instruct:free').split(',').map((s) => s.trim()).filter(Boolean).slice(0, 3)
+    // OpenRouter's official `openrouter/free` router is the durable default: it selects from the free models
+    // that are available NOW and filters for capabilities required by the request (including structured
+    // output). Do not pin the default to dated `:free` slugs: those endpoints retire independently and turn a
+    // healthy gateway into a permanent 404. Operators can still provide up to three deliberate, ordered
+    // choices through NEWS_OPENROUTER_MODELS; OpenRouter applies that array as its server-side fallback chain.
+    // Free = ~20 RPM, ~50/day pooled (no credits) → ~1000/day once $10 is loaded (free models remain $0).
+    const models = (process.env.NEWS_OPENROUTER_MODELS || 'openrouter/free').split(',').map((s) => s.trim()).filter(Boolean).slice(0, 3)
     out.push({
       id: 'openrouter', label: 'OpenRouter', color: '--provider-or',
       apiKey: orKey, keyEnvVar: 'OPENROUTER_API_KEY', baseUrl: process.env.OPENROUTER_BASE_URL || 'https://openrouter.ai/api/v1',
-      model: models[0] || 'openai/gpt-oss-120b:free', models,
+      model: models[0] || 'openrouter/free', models,
       dailyReqCap: capNum(process.env.NEWS_OPENROUTER_DAILY_REQ_CAP, 45),
       rpm: capNum(process.env.NEWS_OPENROUTER_RPM, 18),
       maxTokens: capNum(process.env.NEWS_OPENROUTER_MAX_TOKENS, 3500),
@@ -433,7 +436,9 @@ export function buildOverflowProviders(): OverflowProvider[] {
       // therefore this cooldown marker) with the background scan, so a legitimately-slow provider timing out
       // there would arm the very hold the backlog drain depends on — sidelining it for both workloads.
       skipArticleRead: true,
-      extraBody: { reasoning: { effort: 'low' } }, // gpt-oss is a reasoning model — keep thinking minimal
+      // Reasoning models in the live free pool get a small thinking budget; non-reasoning routes safely ignore
+      // this optional gateway-normalized control. The JSON response contract still decides whether a call won.
+      extraBody: { reasoning: { effort: 'low' } },
       headers: { 'HTTP-Referer': 'https://app.nostra-demus.com', 'X-Title': 'Nostradamus Screener' },
       budgetFile: 'openrouter-budget.json',
     })
@@ -709,8 +714,9 @@ export const NEWS = {
   // date the primary triage tier 404'd on every call — the cockpit's "waiting after a retired model or
   // endpoint", 71 consecutive failures and 0 batches scored, while the backlog climbed toward the 100k
   // loss boundary. Groq's own named replacement for it is `openai/gpt-oss-20b`. A retired model id is a
-  // silent, dated cliff: nothing in the engine expires with the provider, so pin the id here and treat a
-  // `provider-endpoint` (404) cooldown on the FIRST-CHOICE tier as "the model name died", not an outage.
+  // silent, dated cliff: nothing in the engine expires with the provider. The shared classifier now quarantines
+  // an evidenced model/endpoint 404 without a retry timer; a changed model fingerprint or successful canary
+  // reopens it. An ambiguous 404 is kept separate as request/configuration failure and never blamed on the key.
   groqModel: process.env.GROQ_MODEL || 'openai/gpt-oss-20b',
   groqBaseUrl: process.env.GROQ_BASE_URL || 'https://api.groq.com/openai/v1',
   // Public-news chat stays on the stronger subscription model first. If that provider is temporarily
@@ -735,8 +741,11 @@ export const NEWS = {
   newsArchiveDir: process.env.NEWS_ARCHIVE_DIR || '',
   newsLocalRetentionDays: capNum(process.env.NEWS_LOCAL_RETENTION_DAYS, 30), // days of firehose + pipeline audit telemetry kept locally
   // Scanner-triage provider routing only. `auto` records the current route and its adaptive shadow for a
-  // complete day before it is allowed to change provider order. `shadow` never activates; `static` is the
-  // emergency kill switch. An unreadable audit ledger always overrides auto and keeps the static route.
+  // complete day before it is allowed to change provider order. While learning, one in ten real batches may
+  // verify an overdue eligible backup; that bounded in-band canary is what lets the two-provider evidence
+  // gate complete without extra traffic or separate budget accounting. Explicit `shadow` never changes
+  // order; `static` is the emergency kill switch. An unreadable audit ledger always overrides auto and keeps
+  // the static route.
   providerRouterMode: (() => {
     const raw = String(process.env.NEWS_PROVIDER_ROUTER_MODE || 'auto').trim().toLowerCase()
     return raw === 'static' || raw === 'shadow' ? raw : 'auto'
@@ -1011,17 +1020,13 @@ export const NEWS = {
   redditBackoffCyclesOn429: capNum(process.env.NEWS_REDDIT_BACKOFF_CYCLES, 4), // cycles to skip Reddit after a 429
   redditMirrorTemplate: process.env.NEWS_REDDIT_MIRROR_TEMPLATE || 'https://rsshub.app/reddit/subreddit/{sub}/new', // {sub} placeholder; public-mirror fallback (overridable / self-hostable)
   redditOverallBudgetMs: capNum(process.env.NEWS_REDDIT_OVERALL_BUDGET_MS, 45_000), // wall-clock cap on the whole social layer so a Reddit outage can't stall the cycle (low-trust layer; next cycle resumes)
-  // Live-feed per-item records (firehose kind:"item") — the item cap is an operating target, while the
-  // BYTE cap is the authoritative GitHub safety boundary. Recent rows average ~1.64 KB: 40,000 is ~65.6 MB,
-  // enough for the observed ~32k high-inflow day plus ~8k of backlog drain. The 80 MB hard boundary leaves
-  // 20 MB below GitHub's 100 MB single-file limit for cycle summaries and row-size variance. Both boundaries
-  // fail closed: anything they refuse remains queued and unseen until a later UTC file can accept it; a
-  // known-full preflight stops provider calls, while any already-scored suffix keeps its exact result.
-  feedItemsDailyCap: capNum(process.env.NEWS_FEED_ITEMS_DAILY_CAP, 40_000),
-  // Hard-clamped even when the env is unsafe: 90 MB always reserves at least 10 MB for summaries below
-  // GitHub's 100 MB rejection boundary. Summaries have their own 99 MB whole-file stop; the lower 80 MB
-  // default keeps the normal operating reserve wider.
-  feedItemsDailyMaxBytes: Math.min(capNum(process.env.NEWS_FEED_ITEMS_DAILY_MAX_BYTES, 80_000_000), 90_000_000),
+  // Live-feed per-item records (firehose kind:"item") roll to another physical shard when either boundary
+  // is reached. These are PER-FILE Git-hosting guards, not daily retention caps; the logical day is uncapped.
+  // The old DAILY env names remain aliases so an existing launchd setup keeps exactly the same shard size.
+  feedItemsDailyCap: capNum(process.env.NEWS_FEED_SHARD_MAX_ITEMS || process.env.NEWS_FEED_ITEMS_DAILY_CAP, 40_000),
+  // Hard-clamped even when the env is unsafe: 90 MB reserves at least 10 MB below GitHub's 100 MB single-file
+  // rejection boundary. Cycle summaries may use that reserve up to their own 99 MB hard stop, then roll too.
+  feedItemsDailyMaxBytes: Math.min(capNum(process.env.NEWS_FEED_SHARD_MAX_BYTES || process.env.NEWS_FEED_ITEMS_DAILY_MAX_BYTES, 80_000_000), 90_000_000),
   // PULSE (news/commodity-pulse.ts) — the per-subject structured snapshot (price / CFTC COT /
   // next scheduled reports) behind /api/swarm/pulse, for swarms whose manifest declares `wire.pulse`.
   // Plain keyless HTTP + date math — zero LLM load. Lazy on request; cached under STATE_DIR.
@@ -1070,6 +1075,9 @@ export const NEWS = {
   themesDiscoverModel: process.env.NEWS_THEMES_DISCOVER_MODEL || 'claude-haiku', // 'claude-haiku' | 'groq' | 'off'
   themesClaudeModel: process.env.NEWS_THEMES_CLAUDE_MODEL || 'claude-haiku-4-5',
   themesClaudeApiKey: process.env.THEMES_CLAUDE_API_KEY || process.env.ANTHROPIC_API_KEY || '',
+  themesClaudeKeyEnvVar: process.env.THEMES_CLAUDE_API_KEY
+    ? 'THEMES_CLAUDE_API_KEY'
+    : process.env.ANTHROPIC_API_KEY ? 'ANTHROPIC_API_KEY' : undefined,
   themesClaudeBaseUrl: process.env.THEMES_CLAUDE_BASE_URL || 'https://api.anthropic.com',
   themesClaudeDailyCap: capNum(process.env.NEWS_THEMES_CLAUDE_DAILY_CAP, 60), // max Claude discovery calls/day
   // Keep the complete fallback chain inside the outer 90s Themes-stage budget. Each provider receives one
@@ -1219,7 +1227,7 @@ export const NEWS = {
 export function buildArticleReadProviders(cfg: typeof NEWS = NEWS): ArticleReadProvider[] {
   const out: ArticleReadProvider[] = []
   if (cfg.groqApiKey) {
-    out.push({ id: 'groq', kind: 'openai', apiKey: cfg.groqApiKey, baseUrl: cfg.groqBaseUrl, model: cfg.groqModel, maxTokens: 3000, rpm: cfg.groqRpm, tpm: cfg.groqTpm, dailyReqCap: cfg.groqDailyReqCap, dailyTokenCap: cfg.groqDailyTokenCap, budgetFile: 'groq-budget.json', limiter: 'groq', paceMeter: 'tokens', paceCap: cfg.groqDailyTokenTarget, paceFloorFrac: cfg.groqPaceFloorFrac })
+    out.push({ id: 'groq', kind: 'openai', apiKey: cfg.groqApiKey, keyEnvVar: 'GROQ_API_KEY', baseUrl: cfg.groqBaseUrl, model: cfg.groqModel, maxTokens: 3000, rpm: cfg.groqRpm, tpm: cfg.groqTpm, dailyReqCap: cfg.groqDailyReqCap, dailyTokenCap: cfg.groqDailyTokenCap, budgetFile: 'groq-budget.json', limiter: 'groq', paceMeter: 'tokens', paceCap: cfg.groqDailyTokenTarget, paceFloorFrac: cfg.groqPaceFloorFrac })
   }
   if (cfg.geminiEnabled && cfg.geminiApiKey && cfg.geminiModels.length) {
     out.push({ id: 'gemini', kind: 'gemini', apiKey: cfg.geminiApiKey, baseUrl: cfg.geminiBaseUrl, model: cfg.geminiModel, pool: cfg.geminiModels, maxTokens: cfg.geminiMaxTokens, rpm: cfg.geminiRpm, tpm: cfg.geminiTpm, dailyReqCap: cfg.geminiDailyReqCap, dailyTokenCap: cfg.geminiDailyTokenCap, budgetFile: 'gemini-budget-{model}.json', dayTz: cfg.geminiDayTz, limiter: 'gemini', paceMeter: 'requests', paceFloorFrac: cfg.freeProviderPaceFloorFrac })
@@ -1233,7 +1241,7 @@ export function buildArticleReadProviders(cfg: typeof NEWS = NEWS): ArticleReadP
     // TOKEN-gated provider (Cerebras) carries its own tpm + daily token cap, so the read paces on the SAME
     // binding limit as the ingester (they share the budget file + limiter); request-gated providers
     // (OpenRouter/NVIDIA) omit them → tpm 0 + a non-binding token cap, the prior behaviour byte-for-byte.
-    out.push({ id: p.id, kind: 'openai', apiKey: p.apiKey, baseUrl: p.baseUrl, model: p.model, models: p.models, maxTokens: p.maxTokens, rpm: p.rpm, tpm: p.tpm ?? 0, dailyReqCap: p.dailyReqCap, dailyTokenCap: p.dailyTokenCap ?? NON_BINDING_DAILY_TOKEN_CAP, budgetFile: p.budgetFile, dayTz: p.dayTz, headers: p.headers, extraBody: p.extraBody, limiter: p.id, paceMeter: p.dailyTokenCap != null ? 'tokens' : 'requests', paceCap: p.dailyTokenCap ?? p.dailyReqCap, paceFloorFrac: p.paceFloorFrac ?? cfg.freeProviderPaceFloorFrac, requestRemainingHeaderIsDaily: p.requestRemainingHeaderIsDaily })
+    out.push({ id: p.id, kind: 'openai', apiKey: p.apiKey, keyEnvVar: p.keyEnvVar, baseUrl: p.baseUrl, model: p.model, models: p.models, maxTokens: p.maxTokens, rpm: p.rpm, tpm: p.tpm ?? 0, dailyReqCap: p.dailyReqCap, dailyTokenCap: p.dailyTokenCap ?? NON_BINDING_DAILY_TOKEN_CAP, budgetFile: p.budgetFile, dayTz: p.dayTz, headers: p.headers, extraBody: p.extraBody, limiter: p.id, paceMeter: p.dailyTokenCap != null ? 'tokens' : 'requests', paceCap: p.dailyTokenCap ?? p.dailyReqCap, paceFloorFrac: p.paceFloorFrac ?? cfg.freeProviderPaceFloorFrac, requestRemainingHeaderIsDaily: p.requestRemainingHeaderIsDaily })
   }
   return out
 }

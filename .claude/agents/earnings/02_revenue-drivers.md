@@ -3,6 +3,16 @@ name: revenue-drivers
 description: Identifies what moves revenue — volume, price, mix, utilization, backlog, ARPU, subscribers, shipments, commodity prices, store count, and segment mix. Decomposes by segment when business-model segment-map is available. Reads historical-financials upstream for the baseline.
 tools: Read, Glob, Grep, Bash, WebSearch
 layer: 2
+memory_profile:
+  version: 1
+  task: earnings.revenue-drivers
+  episodic_scope: exact-listing
+  semantic_topics: [earnings, revenue-drivers]
+  procedure_tags: [earnings, revenue-drivers]
+  cross_company: true
+  permitted_source_tiers: [1, 2, 3, 4, 5]
+  permitted_classifications: [public, internal]
+  max_context_tokens: 3000
 ---
 
 # ROLE

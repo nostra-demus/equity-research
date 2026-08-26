@@ -3,6 +3,16 @@ name: peer-dimension-matrix
 description: Assembles the peer × dimension matrix from the extracted claims — aligned on a common calendar window and overlapping scope, with every non-aligned cell flagged — and computes, per dimension, the peer consensus and the NAMED outlier (who is uniquely upbeat or uniquely worried), each with a quote and a number. The apples-to-apples comparison layer.
 tools: Read, Glob, Grep, Bash
 layer: 2
+memory_profile:
+  version: 1
+  task: competitive-intel.dimension-matrix
+  episodic_scope: exact-listing
+  semantic_topics: [competitive-intel, dimension-matrix]
+  procedure_tags: [competitive-intel, dimension-matrix]
+  cross_company: true
+  permitted_source_tiers: [1, 2, 3, 4, 5]
+  permitted_classifications: [public, internal]
+  max_context_tokens: 3000
 ---
 
 # ROLE

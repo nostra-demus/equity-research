@@ -2051,6 +2051,24 @@ def _validate_correction_payload(payload: Any) -> list[str]:
     return _phase5_payload_validator("validate_correction_payload", payload)
 
 
+@_fail_closed_validator
+def _validate_semantic_lesson_payload(payload: Any) -> list[str]:
+    try:
+        from memory_three_layer_contract import validate_contract
+    except ImportError:  # pragma: no cover - package-style imports
+        from scripts.memory_three_layer_contract import validate_contract
+    return validate_contract(payload)
+
+
+@_fail_closed_validator
+def _validate_playbook_payload(payload: Any) -> list[str]:
+    try:
+        from memory_three_layer_contract import validate_contract
+    except ImportError:  # pragma: no cover - package-style imports
+        from scripts.memory_three_layer_contract import validate_contract
+    return validate_contract(payload)
+
+
 PAYLOAD_VALIDATORS: dict[str, Callable[[Any], list[str]]] = {
     "memory-source/v1": validate_source,
     "memory-source/v2": _validate_source_v2_payload,
@@ -2063,6 +2081,8 @@ PAYLOAD_VALIDATORS: dict[str, Callable[[Any], list[str]]] = {
     "memory-tombstone/v1": validate_tombstone,
     "memory-feedback-review/v1": _validate_feedback_review_payload,
     "memory-correction/v1": _validate_correction_payload,
+    "memory-semantic-lesson/v1": _validate_semantic_lesson_payload,
+    "memory-playbook/v1": _validate_playbook_payload,
 }
 
 
@@ -2216,6 +2236,8 @@ def validate_event(
                 "memory-relationship/v1": "relationship",
                 "memory-identity-registry/v1": "identity",
                 "memory-feedback-review/v1": "feedback",
+                "memory-semantic-lesson/v1": "semantic",
+                "memory-playbook/v1": "playbook",
             }.get(payload_schema)
             if expected_domain and isinstance(event_type, str) and not event_type.startswith(expected_domain + "."):
                 _err(errors, "event_type", f"must start with {expected_domain + '.'!r} for {payload_schema}")
@@ -2233,6 +2255,8 @@ def validate_event(
                 ),
                 "relationship": frozenset({"memory-relationship/v1"}),
                 "identity": frozenset({"memory-identity-registry/v1"}),
+                "semantic": frozenset({"memory-semantic-lesson/v1"}),
+                "playbook": frozenset({"memory-playbook/v1"}),
             }.get(event_domain)
             if (
                 allowed_payload_schemas
@@ -2263,6 +2287,9 @@ def validate_event(
             "claim.corrected": ("memory-correction/v1", "claim"),
             "feedback.reviewed": ("memory-feedback-review/v1", None),
             "feedback.corrected": ("memory-correction/v1", "feedback-review"),
+            "semantic.activated": ("memory-semantic-lesson/v1", None),
+            "playbook.activated": ("memory-playbook/v1", None),
+            "playbook.status-changed": ("memory-playbook/v1", None),
         }.get(event_type)
         if exact_event_payload is not None and payload_schema != "memory-tombstone/v1":
             required_schema, required_correction_domain = exact_event_payload

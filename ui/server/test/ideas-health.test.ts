@@ -5,10 +5,12 @@ import os from 'node:os'
 import path from 'node:path'
 import { ideasHealthLivenessMs, initializeIdeasHealth, inspectPersistedIdeasHealth, readIdeasHealth, readPersistedIdeasHealth, updateIdeasHealth } from '../src/news/ideas/ideas-health'
 import { callGroqForIdeaPass, chunkIdeaRows, ideaGroqTokenBound, runIdeaPass, type IdeaPassConfig } from '../src/news/ideas/run-idea-pass'
+import { ideaProviderRequestIdentity } from '../src/news/ideas/surface-ideas'
 import { ideaId, readIdeaById, readPassState, readTopSweep, topNEffectHash, topNHash, writePassState } from '../src/news/ideas/ideas-store'
 import { armCooldown, Budget, NON_BINDING_DAILY_TOKEN_CAP, getSharedGeminiLimiter, getSharedLimiter, readCooldownUntil, resetBudgetMemory, resetCooldownMemory, resetSharedLimiters } from '../src/news/triage/budget'
 import type { OverflowProvider } from '../src/config'
 import { validIdeaSnapshot } from './ideas-fixture'
+import { classifyProviderHttpFailure, quarantineProviderFailure, readProviderQuarantine } from '../src/news/provider-failure'
 
 const NOW = Date.parse('2026-08-03T12:00:00Z')
 const cfg: IdeaPassConfig = {
@@ -942,6 +944,45 @@ assert.equal(exhaustedGemini.providerDayExhausted, true)
 assert.equal(exhaustedGemini.requests, 1, 'provider-day closure retains the real call count')
 assert.equal(Budget.load(geminiFallbackState, 10, 5_000_000, geminiAt, 'gemini-budget-gemini-b.json', geminiDayTz).requests, 1)
 
+const geminiQuarantineRoot = rootWithRows(2)
+const geminiQuarantineState = path.join(geminiQuarantineRoot, '.state')
+let geminiQuarantineFetches = 0
+const geminiQuarantineConfig = {
+  ...cfg, groqApiKey: '', overflowProviders: [], geminiEnabled: true, geminiApiKey: 'rejected-key',
+  geminiBaseUrl: 'https://gemini.test/v1beta', geminiModels: [{ model: 'gemini-dead', dailyReqCap: 10 }],
+  geminiMaxTokens: 500, geminiDailyTokenCap: 5_000_000, geminiDayTz, geminiRpm: 0, geminiTpm: 0,
+}
+const geminiRejected = (async () => {
+  geminiQuarantineFetches++
+  return new Response(JSON.stringify({ error: { code: 'API_KEY_INVALID', message: 'private project acct-123' } }), { status: 401 })
+}) as typeof fetch
+const geminiQuarantineFirst = await runIdeaPass({
+  repoRoot: geminiQuarantineRoot, stateDir: geminiQuarantineState, config: geminiQuarantineConfig,
+  refreshBoard: async () => {}, now: () => geminiAt, sleep: async () => {}, persistHealth: true,
+  fetchFn: geminiRejected,
+})
+assert.equal(geminiQuarantineFirst.reason_code, 'provider_error')
+assert.equal(geminiQuarantineFetches, 1)
+assert.equal(readCooldownUntil(geminiQuarantineState, 'gemini:gemini-dead'), 0,
+  'a permanent key fault is not hidden behind a retry timer')
+assert.equal(Budget.load(
+  geminiQuarantineState, 10, 5_000_000, geminiAt, 'gemini-budget-gemini-dead.json', geminiDayTz,
+).requests, 1)
+
+const geminiQuarantineSecondAt = geminiAt + (geminiQuarantineConfig.minIntervalSec + 1) * 1_000
+const geminiQuarantineSecond = await runIdeaPass({
+  repoRoot: geminiQuarantineRoot, stateDir: geminiQuarantineState, config: geminiQuarantineConfig,
+  refreshBoard: async () => {}, now: () => geminiQuarantineSecondAt, sleep: async () => {}, persistHealth: true,
+  fetchFn: geminiRejected,
+})
+assert.equal(geminiQuarantineSecond.reason_code, 'provider_error')
+assert.equal(geminiQuarantineFetches, 1, 'the unchanged Gemini fault is checked before budget and network')
+assert.match(readIdeasHealth(geminiQuarantineState, geminiQuarantineRoot, true, geminiQuarantineSecondAt).reason || '',
+  /waiting will not repair this configuration/)
+assert.equal(Budget.load(
+  geminiQuarantineState, 10, 5_000_000, geminiAt, 'gemini-budget-gemini-dead.json', geminiDayTz,
+).requests, 1, 'the standing quarantine consumes no second daily request')
+
 resetSharedLimiters()
 const geminiLimiterRoot = rootWithRows(2)
 const geminiLimiterState = path.join(geminiLimiterRoot, '.state')
@@ -1017,6 +1058,34 @@ assert.equal(groqFailures, 1, 'the operational chain gives each tier one bounded
 assert.equal(transientFallbackCalls, 1)
 assert.ok(readCooldownUntil(transientState, 'groq') > transientAt, 'availability failure cools shared Groq')
 assert.equal(readIdeasHealth(transientState, transientRoot, true, transientAt).outcome, 'success_empty')
+
+// OpenRouter's dynamic no-provider 404 is request-contract availability, not proof that triage, Themes,
+// or article reads are also down. It must use the Ideas-only circuit and remain automatically retryable.
+const openRouterGapRoot = rootWithRows(2)
+const openRouterGapState = path.join(openRouterGapRoot, '.state')
+const openRouterGapAt = transientAt + 1_000
+const openRouterGap = testProvider('openrouter', 'https://openrouter-gap.test/v1', {
+  label: 'OpenRouter', model: 'openrouter/free', models: ['openrouter/free'],
+})
+let openRouterGapCalls = 0
+await runIdeaPass({
+  repoRoot: openRouterGapRoot, stateDir: openRouterGapState,
+  config: { ...cfg, groqApiKey: '', overflowProviders: [openRouterGap] },
+  refreshBoard: async () => {}, now: () => openRouterGapAt, sleep: async () => {}, persistHealth: true,
+  fetchFn: (async () => {
+    openRouterGapCalls++
+    return new Response(JSON.stringify({
+      error: { code: 404, message: 'No allowed providers are available for the selected model' },
+    }), { status: 404 })
+  }) as typeof fetch,
+})
+assert.equal(openRouterGapCalls, 1)
+assert.equal(readCooldownUntil(openRouterGapState, 'openrouter'), 0, 'the no-route gap does not close shared OpenRouter')
+assert.ok(readCooldownUntil(openRouterGapState, 'ideas:openrouter') > openRouterGapAt)
+assert.equal(readProviderQuarantine(openRouterGapState, ideaProviderRequestIdentity({
+  model: openRouterGap.model, models: openRouterGap.models, baseUrl: openRouterGap.baseUrl,
+  apiKey: openRouterGap.apiKey, providerId: openRouterGap.id, providerLabel: openRouterGap.label,
+})), null)
 
 // Retry-After is an exact provider clock, not an input to the generic exponential breaker. A 503 can carry
 // it too; the same batch must fall through immediately while every workload shares only that exact hold.
@@ -1108,6 +1177,67 @@ try {
   resetBudgetMemory(); resetCooldownMemory(); resetSharedLimiters()
 }
 
+// A standing exact quarantine is checked before limiter/budget use, and again after the limiter to close
+// the cross-workload race. Neither path may create a dispatch marker or spend one provider unit.
+const standingQuarantineRoot = rootWithRows(2)
+const standingQuarantineState = path.join(standingQuarantineRoot, '.state')
+const standingQuarantineRows = readTopSweep(standingQuarantineRoot, cfg.topN, {
+  nowMs: NOW, maxAgeMs: cfg.inputMaxAgeHrs! * 3_600_000,
+}).rows
+const groqIdentity = ideaProviderRequestIdentity({
+  providerId: 'groq', providerLabel: 'Groq', keyEnvVar: 'GROQ_API_KEY', stateDir: standingQuarantineState,
+  model: cfg.groqModel, baseUrl: cfg.groqBaseUrl, apiKey: cfg.groqApiKey, maxTokens: cfg.groqMaxTokens,
+  workload: 'ideas', contractVersion: 'news-ideas-json-v1', requestRemainingHeaderIsDaily: true,
+})
+quarantineProviderFailure(standingQuarantineState, groqIdentity, classifyProviderHttpFailure(401), NOW)
+let standingQuarantineFetches = 0
+const standingQuarantine = await callGroqForIdeaPass(standingQuarantineRows, {
+  repoRoot: standingQuarantineRoot, stateDir: standingQuarantineState, config: cfg, refreshBoard: async () => {},
+  now: () => NOW, fetchFn: (async () => {
+    standingQuarantineFetches++
+    return new Response('{}', { status: 200 })
+  }) as typeof fetch, sleep: async () => {},
+})
+assert.equal(standingQuarantine, null)
+assert.equal(standingQuarantineFetches, 0)
+assert.equal(fs.existsSync(path.join(standingQuarantineState, 'groq-budget.json')), false)
+assert.equal(readCooldownUntil(standingQuarantineState, 'groq'), 0)
+assert.equal(readCooldownUntil(standingQuarantineState, 'ideas:groq'), 0)
+
+resetBudgetMemory(); resetCooldownMemory(); resetSharedLimiters()
+const quarantineRaceRoot = rootWithRows(2)
+const quarantineRaceState = path.join(quarantineRaceRoot, '.state')
+const quarantineRaceRows = readTopSweep(quarantineRaceRoot, cfg.topN, {
+  nowMs: NOW, maxAgeMs: cfg.inputMaxAgeHrs! * 3_600_000,
+}).rows
+const quarantineRaceIdentity = ideaProviderRequestIdentity({
+  providerId: 'groq', providerLabel: 'Groq', keyEnvVar: 'GROQ_API_KEY', stateDir: quarantineRaceState,
+  model: cfg.groqModel, baseUrl: cfg.groqBaseUrl, apiKey: cfg.groqApiKey, maxTokens: cfg.groqMaxTokens,
+  workload: 'ideas', contractVersion: 'news-ideas-json-v1', requestRemainingHeaderIsDaily: true,
+})
+const quarantineRaceLimiter = getSharedLimiter(cfg.groqRpm, cfg.groqTpm)
+const originalQuarantineRaceAcquire = quarantineRaceLimiter.acquire.bind(quarantineRaceLimiter)
+let quarantineRaceFetches = 0
+quarantineRaceLimiter.acquire = (async () => {
+  quarantineProviderFailure(quarantineRaceState, quarantineRaceIdentity, classifyProviderHttpFailure(401), NOW)
+  return true
+}) as typeof quarantineRaceLimiter.acquire
+try {
+  const quarantineRace = await callGroqForIdeaPass(quarantineRaceRows, {
+    repoRoot: quarantineRaceRoot, stateDir: quarantineRaceState, config: cfg, refreshBoard: async () => {},
+    now: () => NOW, fetchFn: (async () => {
+      quarantineRaceFetches++
+      return new Response('{}', { status: 200 })
+    }) as typeof fetch, sleep: async () => {},
+  })
+  assert.equal(quarantineRace, null)
+  assert.equal(quarantineRaceFetches, 0)
+  assert.equal(fs.existsSync(path.join(quarantineRaceState, 'groq-budget.json')), false)
+} finally {
+  quarantineRaceLimiter.acquire = originalQuarantineRaceAcquire
+  resetBudgetMemory(); resetCooldownMemory(); resetSharedLimiters()
+}
+
 // Bad Ideas JSON is workload-specific: charge the real request, then cool only `ideas:<provider>`. It must
 // never exhaust the shared ledger or mark the provider unhealthy for core news triage.
 const contractRoot = rootWithRows(2)
@@ -1141,7 +1271,13 @@ await runIdeaPass({
   sleep: async () => {}, persistHealth: true,
 })
 assert.equal(readCooldownUntil(requestState, 'ideas-request-shape'), 0, 'Ideas HTTP 400 cannot cool shared triage')
-assert.ok(readCooldownUntil(requestState, 'ideas:ideas-request-shape') > requestAt)
+assert.equal(readCooldownUntil(requestState, 'ideas:ideas-request-shape'), 0, 'a permanent request contract is quarantined, not timed')
+const requestIdentity = ideaProviderRequestIdentity({
+  providerId: requestProvider.id, providerLabel: requestProvider.label, stateDir: requestState,
+  model: requestProvider.model, baseUrl: requestProvider.baseUrl, apiKey: requestProvider.apiKey,
+  maxTokens: requestProvider.maxTokens, workload: 'ideas', contractVersion: 'news-ideas-json-v1',
+})
+assert.equal(readProviderQuarantine(requestState, requestIdentity)?.failureCode, 'request_invalid')
 assert.equal(Budget.load(requestState, 10, NON_BINDING_DAILY_TOKEN_CAP, requestAt, requestProvider.budgetFile).remainingRequests, 9)
 
 const requestRetryRoot = rootWithRows(2)
@@ -1518,5 +1654,5 @@ assert.equal(missingProduced.status, 'error')
 assert.equal(missingProduced.outcome, 'failed')
 assert.equal(missingProduced.reason_code, 'snapshot_store_error', 'success_with_ideas must reconcile to an actually projectable snapshot')
 
-for (const root of [thin, noKeyRoot, okRoot, coverageRoot, failedRoot, crashRoot, fallbackRoot, fairRoot, aggregateRouteRoot, geminiRoot, geminiFallbackRoot, geminiLimiterRoot, pacedRoot, transientRoot, retryRoot, adapterGuardRoot, contractRoot, requestRoot, requestRetryRoot, cappedRoot, localRoot, slowLocalRoot, raceRoot, deadlineRoot, staleRoot, staleSweepRoot, staleRowsRoot, localVetoRoot, brokenStoreRoot, invalidStoreRoot, missingProducedRoot]) fs.rmSync(root, { recursive: true, force: true })
+for (const root of [thin, noKeyRoot, okRoot, coverageRoot, failedRoot, crashRoot, fallbackRoot, fairRoot, aggregateRouteRoot, geminiRoot, geminiFallbackRoot, geminiQuarantineRoot, geminiLimiterRoot, pacedRoot, transientRoot, retryRoot, adapterGuardRoot, contractRoot, requestRoot, requestRetryRoot, cappedRoot, localRoot, slowLocalRoot, raceRoot, deadlineRoot, staleRoot, staleSweepRoot, staleRowsRoot, localVetoRoot, brokenStoreRoot, invalidStoreRoot, missingProducedRoot]) fs.rmSync(root, { recursive: true, force: true })
 console.log('\n1 ideas-health test file passed')

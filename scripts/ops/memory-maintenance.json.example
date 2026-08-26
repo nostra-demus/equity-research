@@ -1,0 +1,18 @@
+{
+  "repository_root": "/absolute/path/to/nostra-prod",
+  "state_root": "/absolute/path/to/private/memory-runtime",
+  "checkpoint": "/absolute/path/outside/runtime/checkpoint.json",
+  "writer_owner": "/absolute/path/to/private/writer-owner.json",
+  "writer_head": "/absolute/path/to/private/writer-head.json",
+  "canonical_ledger": "/absolute/path/to/private/canonical-ledger.ndjson",
+  "protected_store": "/absolute/path/to/private/protected-store",
+  "protected_master_key": "/absolute/path/to/private/protected-master-key",
+  "protected_key_id": "key:memory-protected-key",
+  "projection_service_identity": "memory-projection-reader",
+  "checkpoint_private_key": "/absolute/path/to/private/checkpoint-private-key",
+  "checkpoint_public_key": "/absolute/path/to/checkpoint-public-key",
+  "checkpoint_key_id": "memory-checkpoint-key",
+  "backup_root": "/absolute/path/to/externally-managed/backup",
+  "backup_sha256": "sha256:replace-with-external-tree-checkpoint",
+  "store_manifest_sha256": "sha256:replace-with-external-store-manifest-checkpoint"
+}

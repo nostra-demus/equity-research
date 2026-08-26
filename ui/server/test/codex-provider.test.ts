@@ -701,6 +701,9 @@ try {
   const expandedPrompt = spec.input || ''
   assert.ok(!spec.args.some((arg) => arg.includes('CANONICAL COMMAND SOURCE')), 'canonical prompt must never enter argv')
   assert.match(expandedPrompt, /CANONICAL COMMAND SOURCE: \.claude\/commands\/research\/full\.md/)
+  assert.match(expandedPrompt, /SUBAGENT COMPLETION BARRIER — MANDATORY/)
+  assert.match(expandedPrompt, /zero live\/unresolved children/)
+  assert.match(expandedPrompt, /never say that work is "still in flight" and then end the turn/)
   assert.match(expandedPrompt, /The ticker is `AAPL`\./)
   assert.doesNotMatch(
     expandedPrompt.split('BEGIN CANONICAL COMMAND (expanded verbatim)')[1] || '',
@@ -716,12 +719,41 @@ try {
   assert.deepEqual(resumed.args.slice(-3), ['resume', 'thread-existing', '-'])
   assert.equal(resumed.input, expandedPrompt, 'resume bootstrap prompt must also travel on stdin')
   assert.ok(!resumed.args.some((arg) => arg.includes('CANONICAL COMMAND SOURCE')), 'resume prompt must never enter argv')
+  const continuationProbe = launchProbe(launchAuthHome)
+  const continued = buildCodexLaunchSpec({
+    ...context,
+    automaticContinuation: {
+      index: 2,
+      completedOutputs: ['business-model/00_data-triage.md'],
+      unresolvedOutputs: ['business-model/09_moat.md', 'business-model/99_business-model-synthesis.md'],
+    },
+  }, continuationProbe)
+  assert.ok(!continued.args.includes('resume'), 'automatic continuation uses a fresh isolated session')
+  assert.match(continued.input || '', /continuation process 2 of the SAME already-admitted Codex cockpit run/)
+  assert.match(continued.input || '', /Completed canonical outputs \(1\):\n- business-model\/00_data-triage\.md/)
+  assert.match(continued.input || '', /Unresolved canonical outputs \(2\):/)
+  assert.match(continued.input || '', /Do not end the parent turn after announcing future work/)
+  assert.match(continued.input || '', /CANONICAL COMMAND SOURCE: \.claude\/commands\/research\/full\.md/)
+  const invalidContinuationProbe = launchProbe(launchAuthHome)
+  assert.throws(() => buildCodexLaunchSpec({
+    ...context,
+    automaticContinuation: { index: 1, completedOutputs: [], unresolvedOutputs: ['../prompt-injection'] },
+  }, invalidContinuationProbe), /continuation inventory is invalid/)
+  assert.equal(fs.existsSync(invalidContinuationProbe.authLease.home), false)
+  const windowsTraversalProbe = launchProbe(launchAuthHome)
+  assert.throws(() => buildCodexLaunchSpec({
+    ...context,
+    automaticContinuation: { index: 1, completedOutputs: [], unresolvedOutputs: ['business-model\\..\\secret'] },
+  }, windowsTraversalProbe), /continuation inventory is invalid/)
+  assert.equal(fs.existsSync(windowsTraversalProbe.authLease.home), false)
   spec.beforeSpawn?.()
   assert.throws(() => spec.beforeSpawn?.(), /already consumed/, 'a bound auth lease can authorize only one spawn')
   spec.cleanup?.()
   assert.equal(fs.existsSync(probe.authLease.home), false, 'child-close cleanup deletes the verified credential lease')
   resumed.cleanup?.()
   assert.equal(fs.existsSync(resumedProbe.authLease.home), false, 'pre-spawn abort cleanup deletes the credential lease')
+  continued.cleanup?.()
+  assert.equal(fs.existsSync(continuationProbe.authLease.home), false, 'continuation cleanup deletes its credential lease')
 
   for (const [label, override, expected] of [
     ['missing context socket', { publicationSocketPath: undefined }, /requires one matching supervisor socket/],
@@ -1082,7 +1114,7 @@ assert.deepEqual(parseCodexStreamLine(JSON.stringify({
 })), [{ type: 'tool-use', tool: 'Bash', input: { command: 'rg --files', cwd: undefined }, toolUseId: 'item-1' }])
 assert.deepEqual(parseCodexStreamLine(JSON.stringify({
   type: 'item.completed', item: { id: 'item-1', type: 'command_execution', command: 'rg --files', status: 'completed' },
-})), [{ type: 'tool-result', toolUseId: 'item-1', isError: false }])
+})), [{ type: 'tool-result', tool: 'Bash', input: { command: 'rg --files', cwd: undefined }, toolUseId: 'item-1', isError: false }])
 assert.deepEqual(parseCodexStreamLine(JSON.stringify({
   type: 'item.completed', item: { id: 'message-1', type: 'agent_message', text: 'Stopped because the canonical command was unavailable.' },
 })), [{ type: 'assistant-message', message: 'Stopped because the canonical command was unavailable.' }])
@@ -1104,6 +1136,87 @@ assert.deepEqual(parseCodexStreamLine(JSON.stringify({
     description: 'Dispatch memo-writer',
   },
   toolUseId: 'item-2',
+}])
+assert.deepEqual(parseCodexStreamLine(JSON.stringify({
+  type: 'item.updated',
+  item: {
+    id: 'item-2', type: 'collab_tool_call', tool: 'spawn_agent', status: 'in_progress',
+    prompt: 'NOSTRA_SUBAGENT_TYPE: memo-writer\nCanonical path: .claude/agents/memo-writer.md',
+    receiver_thread_ids: ['thread-child'],
+    agents_states: { 'thread-child': { status: 'running', message: null } },
+  },
+})), [{
+  type: 'tool-progress',
+  tool: 'Task',
+  input: {
+    tool: 'spawn_agent',
+    prompt: 'NOSTRA_SUBAGENT_TYPE: memo-writer\nCanonical path: .claude/agents/memo-writer.md',
+    receiverThreadIds: ['thread-child'],
+    agentStates: { 'thread-child': { status: 'running', message: null } },
+    subagent_type: 'memo-writer',
+    description: 'Dispatch memo-writer',
+  },
+  toolUseId: 'item-2',
+}])
+assert.deepEqual(parseCodexStreamLine(JSON.stringify({
+  type: 'item.completed',
+  item: {
+    id: 'item-3', type: 'collab_tool_call', tool: 'spawn_agent', status: 'completed',
+    prompt: 'NOSTRA_SUBAGENT_TYPE: memo-writer\nCanonical path: .claude/agents/memo-writer.md',
+    receiver_thread_ids: ['thread-child'],
+    agents_states: { 'thread-child': { status: 'running', message: null } },
+  },
+})), [{
+  type: 'tool-result',
+  tool: 'Task',
+  input: {
+    tool: 'spawn_agent',
+    prompt: 'NOSTRA_SUBAGENT_TYPE: memo-writer\nCanonical path: .claude/agents/memo-writer.md',
+    receiverThreadIds: ['thread-child'],
+    agentStates: { 'thread-child': { status: 'running', message: null } },
+    subagent_type: 'memo-writer',
+    description: 'Dispatch memo-writer',
+  },
+  toolUseId: 'item-3',
+  isError: false,
+}])
+assert.deepEqual(parseCodexStreamLine(JSON.stringify({
+  type: 'item.started',
+  item: {
+    id: 'native-child-1', type: 'sub_agent_activity', kind: 'started',
+    agent_thread_id: 'thread-native-child', agent_path: '/root/nostra_data_triage',
+  },
+})), [{
+  type: 'tool-use',
+  tool: 'Task',
+  input: {
+    tool: 'spawn_agent',
+    agentPath: '/root/nostra_data_triage',
+    receiverThreadIds: ['thread-native-child'],
+    agentStates: { 'thread-native-child': { status: 'running' } },
+    subagent_type: 'data-triage',
+    description: 'Dispatch data-triage',
+  },
+  toolUseId: 'native-child-1',
+}])
+assert.deepEqual(parseCodexStreamLine(JSON.stringify({
+  type: 'item.updated',
+  item: {
+    id: 'native-child-1', type: 'subAgentActivity', kind: 'interrupted',
+    agentThreadId: 'thread-native-child', agentPath: '/root/nostra_data_triage',
+  },
+})), [{
+  type: 'tool-progress',
+  tool: 'Task',
+  input: {
+    tool: 'subagent_activity',
+    agentPath: '/root/nostra_data_triage',
+    receiverThreadIds: ['thread-native-child'],
+    agentStates: { 'thread-native-child': { status: 'interrupted' } },
+    subagent_type: 'data-triage',
+    description: 'Dispatch data-triage',
+  },
+  toolUseId: 'native-child-1',
 }])
 assert.deepEqual(parseCodexStreamLine('{"type":"turn.completed","usage":{"input_tokens":10}}'), [
   { type: 'result', cliResult: { subtype: 'success', isError: false }, numTurns: 1 },

@@ -3,6 +3,16 @@ name: unit-economics
 description: Identifies the company's natural economic unit (per customer, per store, per ton, per loan, per AUM dollar, etc.) and tables out per-unit revenue, gross margin, contribution margin, acquisition cost, and payback. Reads segment-map output to identify the dominant unit. Decides whether each new unit creates or destroys value.
 tools: Read, Glob, Grep, Bash, Write
 layer: 2
+memory_profile:
+  version: 1
+  task: business-model.unit-economics
+  episodic_scope: exact-listing
+  semantic_topics: [business-model, unit-economics]
+  procedure_tags: [business-model, unit-economics]
+  cross_company: true
+  permitted_source_tiers: [1, 2, 3, 4, 5]
+  permitted_classifications: [public, internal]
+  max_context_tokens: 3000
 ---
 
 # ROLE

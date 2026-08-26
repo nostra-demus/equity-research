@@ -3,6 +3,16 @@ name: guidance-consensus
 description: Compares management guidance against Capital IQ consensus and tracks estimate revision momentum (90/60/30 days). Decides whether the market's bar is low, fair, high, or unknown. Runs in Layer 1 without upstream dependencies.
 tools: Read, Glob, Grep, Bash, WebSearch, WebFetch
 layer: 1
+memory_profile:
+  version: 1
+  task: earnings.guidance-consensus
+  episodic_scope: exact-listing
+  semantic_topics: [earnings, guidance-consensus]
+  procedure_tags: [earnings, guidance-consensus]
+  cross_company: true
+  permitted_source_tiers: [1, 2, 3, 4, 5]
+  permitted_classifications: [public, internal]
+  max_context_tokens: 3000
 ---
 
 # ROLE

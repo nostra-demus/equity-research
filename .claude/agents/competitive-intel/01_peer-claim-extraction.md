@@ -3,6 +3,16 @@ name: peer-claim-extraction
 description: For each competitor in the peer set, extracts the SAME standardised claim set on a fixed list of benchmark dimensions from that peer's earnings-call transcript — each claim carrying scope tags (geography / segment / product tier), the normalised + native period, currency, speaker (management vs analyst-stripped), and a citation. The apples-to-apples raw material the matrix, read-through, and triangulation build on.
 tools: Read, Glob, Grep, Bash
 layer: 1
+memory_profile:
+  version: 1
+  task: competitive-intel.peer-claim-extraction
+  episodic_scope: exact-listing
+  semantic_topics: [competitive-intel, peer-claim-extraction]
+  procedure_tags: [competitive-intel, peer-claim-extraction]
+  cross_company: true
+  permitted_source_tiers: [1, 2, 3, 4, 5]
+  permitted_classifications: [public, internal]
+  max_context_tokens: 3000
 ---
 
 # ROLE

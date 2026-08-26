@@ -32,6 +32,7 @@ import { deriveSourceTier } from './scope'
 import { bodyVerdicts } from './impact-floor'
 import fs from 'node:fs'
 import path from 'node:path'
+import { loadThemes } from './themes/store'
 
 const CACHE_FILE = 'news-enrich-cache.json'
 const CACHE_BACKUP_FILE = 'news-enrich-cache.bak.json'
@@ -123,6 +124,43 @@ export function coldExclusionSet(cache: Record<string, EventEnrichment>, verdict
   )
 }
 
+/** Player verification lane: no more than four article reads per scanner cycle and two per theme. Cached
+ * complete reads cost no slot. Legacy themes are naturally drained in ledger order without hand edits. */
+export function themePlayerReadCandidates(
+  themes: ReturnType<typeof loadThemes>,
+  cache: Record<string, EventEnrichment>,
+  maxPerCycle = 4,
+  maxPerTheme = 2,
+): string[] {
+  const out: string[] = []
+  const seen = new Set<string>()
+  for (const theme of themes) {
+    if (out.length >= maxPerCycle) break
+    if (theme.status !== 'live' || !theme.narrative) continue
+    const support = new Set(theme.narrative.evidence.filter((row) => row.stance === 'supports').map((row) => row.event_id))
+    const priorities = [
+      theme.narrative.why_now_event_id,
+      ...theme.narrative.expressions.flatMap((expression) => expression.evidence_event_ids),
+      ...theme.members.slice().sort((a, b) => {
+        const aTime = Date.parse(a.found_at)
+        const bTime = Date.parse(b.found_at)
+        const byTime = (Number.isFinite(bTime) ? bTime : 0) - (Number.isFinite(aTime) ? aTime : 0)
+        return byTime || a.event_id.localeCompare(b.event_id)
+      }).map((member) => member.event_id),
+    ]
+    let picked = 0
+    for (const eventId of priorities) {
+      if (picked >= maxPerTheme || out.length >= maxPerCycle || seen.has(eventId) || !support.has(eventId)) continue
+      const member = theme.members.find((row) => row.event_id === eventId)
+      if (!member?.url || (cache[eventId] && isEnrichmentComplete(cache[eventId]))) continue
+      seen.add(eventId)
+      out.push(eventId)
+      picked++
+    }
+  }
+  return out
+}
+
 /** Read the enrich cache directly (the live file, then the backup). Never throws. */
 function loadCache(stateDir: string): Record<string, EventEnrichment> {
   for (const file of [CACHE_FILE, CACHE_BACKUP_FILE]) {
@@ -154,7 +192,7 @@ export async function healEnrichCache(deps: HealDeps = {}): Promise<HealSummary>
   // (NEWS_ENRICH_HEAL_MAX_PER_CYCLE / NEWS_ENRICH_COLD_MAX_PER_CYCLE) — an operator disabling one must
   // not silently disable the other (Codex review, PR #350). Only skip the whole pass when BOTH are off,
   // or when there is no provider to read with at all (neither can run without one).
-  if (!ARTICLE_READ_PROVIDERS.length || (maxPerCycle <= 0 && coldMax <= 0)) return { scanned: 0, degraded: 0, attempted: 0, healed: 0, cold: 0, note: 'heal disabled / no LLM provider' }
+  if (!ARTICLE_READ_PROVIDERS.length) return { scanned: 0, degraded: 0, attempted: 0, healed: 0, cold: 0, note: 'no LLM provider' }
   if (deps.hasBudget && !deps.hasBudget()) return { scanned: 0, degraded: 0, attempted: 0, healed: 0, cold: 0, note: 'no free-tier budget — heal deferred' }
 
   const cache = loadCache(stateDir)
@@ -187,11 +225,13 @@ export async function healEnrichCache(deps: HealDeps = {}): Promise<HealSummary>
   // so an operator can tune or switch off discovery — NEWS_ENRICH_COLD_MAX_PER_CYCLE=0 — without touching
   // repair). Both share the one budget gate and the one wall clock already guarding this pass.
   const repairBatch = candidates.slice(0, maxPerCycle).map(([id]) => id)
+  let playerBatch: string[] = []
+  try { playerBatch = themePlayerReadCandidates(loadThemes(repoRoot), cache, 4, 2) } catch { /* fail-soft */ }
   const verdicts = bodyVerdicts(stateDir, () => nowMs)
   const coldBatch = coldMax > 0
     ? coldReadCandidates(wire, { pickThreshold: NEWS.pickThreshold, minScore: NEWS.enrichColdMinScore, enriched: coldExclusionSet(cache, verdicts) }).slice(0, coldMax)
     : []
-  const batch = [...repairBatch, ...coldBatch]
+  const batch = [...new Set([...repairBatch, ...playerBatch, ...coldBatch])]
   const deadline = now().getTime() + totalBudgetMs
   let attempted = 0
   let healed = 0

@@ -8,7 +8,13 @@ import assert from 'node:assert/strict'
 import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
-import { findFeedItemById, readFeed, searchFeed } from '../src/news/feed'
+import {
+  findFeedItemById,
+  inspectFeedCapacity,
+  inspectHistoricalFeedIdentities,
+  readFeed,
+  searchFeed,
+} from '../src/news/feed'
 import { explainFeedFilterMatch, matchesFeedFilters, parseFeedFilterQuery } from '../src/news/feed-filter'
 import { computeFacets, invalidateFacets } from '../src/news/facets'
 import type { FeedItem } from '../src/news/types'
@@ -36,10 +42,14 @@ function item(p: Partial<FeedItem> & { ts: string }): FeedItem {
   }
 }
 function writeDay(repo: string, date: string, items: FeedItem[]) {
+  writeShard(repo, date, 0, items)
+}
+function writeShard(repo: string, date: string, shard: number, items: FeedItem[]) {
   const dir = path.join(repo, 'screener', 'inbox')
   fs.mkdirSync(dir, { recursive: true })
   const lines = items.map((it) => JSON.stringify(it)).join('\n') + '\n'
-  fs.writeFileSync(path.join(dir, `${date}_firehose.ndjson`), lines)
+  const suffix = shard === 0 ? '' : `.${String(shard).padStart(6, '0')}`
+  fs.writeFileSync(path.join(dir, `${date}_firehose${suffix}.ndjson`), lines)
 }
 
 // ---- 1. the false-nothing regression: a sparse match 8 days deep, behind many newer non-matches ----
@@ -183,7 +193,7 @@ check('searchFeed advances the budget cursor past a fat day so deeper matches st
     const snap = searchFeed(repo, { now, predicate: pred, limit: 2, maxLinesScan: 10, cursor })
     for (const it of snap.items) { assert.ok(!seen.has(it.event_id), `no duplicate ${it.event_id}`); seen.add(it.event_id) }
     if (!snap.nextCursor) { assert.equal(snap.exhausted, true, 'final page reports exhausted'); break }
-    const key = `${snap.nextCursor.ts}|${snap.nextCursor.id}`
+    const key = `${snap.nextCursor.ts}|${snap.nextCursor.id}|${snap.nextCursor.scanDate}|${snap.nextCursor.scanShard}|${snap.nextCursor.scanLine}`
     assert.ok(!cursorsSeen.has(key), `cursor must strictly advance, not repeat (${key}) — a repeat is the infinite-loop bug`)
     cursorsSeen.add(key)
     cursor = snap.nextCursor
@@ -193,7 +203,98 @@ check('searchFeed advances the budget cursor past a fat day so deeper matches st
   assert.equal(seen.size, 3, 'all three AE matches returned exactly once')
 })
 
-// ---- 7. malformed cursor.ts / impossible toDate must NOT throw (would be an unhandled route 500 + leak) ----
+// ---- 7. a busy sharded day obeys the physical line budget and resumes at the exact row --------------
+check('searchFeed streams a sharded day within its line budget and resumes without loss', () => {
+  const repo = tmp()
+  const day = dayAgo(0)
+  const target = item({ ts: `${day}T08:00:00Z`, country: 'AE', headline: 'UAE defense target in oldest shard' })
+  writeShard(repo, day, 0, [target, ...Array.from({ length: 3 }, () => item({ ts: `${day}T09:00:00Z`, country: 'US' }))])
+  writeShard(repo, day, 1, Array.from({ length: 4 }, () => item({ ts: `${day}T10:00:00Z`, country: 'US' })))
+  writeShard(repo, day, 2, Array.from({ length: 4 }, () => item({ ts: `${day}T11:00:00Z`, country: 'US' })))
+
+  const base = path.join(repo, 'screener', 'inbox', `${day}_firehose.ndjson`)
+  const originalRead = fs.readFileSync
+  let baseReads = 0
+  ;(fs as any).readFileSync = function (fp: fs.PathOrFileDescriptor, ...args: any[]) {
+    if (String(fp) === base) baseReads++
+    return (originalRead as any).call(fs, fp, ...args)
+  }
+  let first: ReturnType<typeof searchFeed>
+  try {
+    first = searchFeed(repo, { now, predicate: (it) => it.event_id === target.event_id, limit: 1, maxLinesScan: 2 })
+  } finally {
+    ;(fs as any).readFileSync = originalRead
+  }
+  assert.equal(baseReads, 0, 'the first budgeted call never loads an older shard')
+  assert.equal(first.items.length, 0)
+  assert.deepEqual(
+    { date: first.nextCursor?.scanDate, shard: first.nextCursor?.scanShard },
+    { date: day, shard: 2 },
+    'the cursor records the exact unfinished physical shard',
+  )
+
+  const seen = new Set<string>()
+  const cursors = new Set<string>()
+  let cursor = first.nextCursor
+  for (let page = 0; cursor && page < 20; page++) {
+    const key = `${cursor.scanDate}|${cursor.scanShard}|${cursor.scanLine}`
+    assert.ok(!cursors.has(key), `physical cursor advances (${key})`)
+    cursors.add(key)
+    const snap = searchFeed(repo, {
+      now, predicate: (it) => it.event_id === target.event_id, limit: 1, maxLinesScan: 2, cursor,
+    })
+    for (const row of snap.items) {
+      assert.ok(!seen.has(row.event_id), `no duplicate ${row.event_id}`)
+      seen.add(row.event_id)
+    }
+    cursor = snap.nextCursor
+    if (!cursor) assert.equal(snap.exhausted, true)
+  }
+  assert.deepEqual([...seen], [target.event_id], 'the target in the oldest shard remains reachable exactly once')
+  assert.equal(cursor, null, 'paging terminates')
+})
+
+// ---- 8. immutable sealed shards are not reparsed on every hot capacity inspection -------------------
+check('inspectFeedCapacity reuses sealed shard scans and reparses only the changed active shard', () => {
+  const repo = tmp()
+  const day = dayAgo(0)
+  writeShard(repo, day, 0, [item({ ts: `${day}T09:00:00Z` })])
+  writeShard(repo, day, 1, [item({ ts: `${day}T10:00:00Z` })])
+  const base = path.join(repo, 'screener', 'inbox', `${day}_firehose.ndjson`)
+  const active = path.join(repo, 'screener', 'inbox', `${day}_firehose.000001.ndjson`)
+  const originalRead = fs.readFileSync
+  let baseReads = 0
+  let activeReads = 0
+  ;(fs as any).readFileSync = function (fp: fs.PathOrFileDescriptor, ...args: any[]) {
+    if (String(fp) === base) baseReads++
+    if (String(fp) === active) activeReads++
+    return (originalRead as any).call(fs, fp, ...args)
+  }
+  try {
+    assert.equal(inspectFeedCapacity(repo, day, 40_000, 80_000_000).status, 'available')
+    fs.appendFileSync(active, `${JSON.stringify({ kind: 'cycle_summary', ts: `${day}T10:01:00Z` })}\n`)
+    assert.equal(inspectFeedCapacity(repo, day, 40_000, 80_000_000).status, 'available')
+  } finally {
+    ;(fs as any).readFileSync = originalRead
+  }
+  assert.equal(baseReads, 1, 'unchanged sealed shard parsed once')
+  assert.equal(activeReads, 2, 'changed active shard is refreshed')
+})
+
+// ---- 9. a complete local historical partition does not depend on the Drive mount --------------------
+check('historical identities use a complete local shard set while Drive is temporarily unavailable', () => {
+  const repo = tmp()
+  const day = dayAgo(3)
+  const first = item({ ts: `${day}T09:00:00Z` })
+  const second = item({ ts: `${day}T10:00:00Z` })
+  writeShard(repo, day, 0, [first])
+  writeShard(repo, day, 1, [second])
+  const result = inspectHistoricalFeedIdentities(repo, day, path.join(tmp(), 'offline-drive'))
+  assert.equal(result.status, 'available')
+  if (result.status === 'available') assert.deepEqual([...result.eventIds].sort(), [first.event_id, second.event_id].sort())
+})
+
+// ---- 10. malformed cursor.ts / impossible toDate must NOT throw (would be an unhandled route 500 + leak) ----
 // Regression: startDate flowed straight into new Date(`${startDate}T00:00:00Z`) — new Date(NaN).toISOString()
 // throws RangeError, and /api/news/search has no try/catch or global error handler, so "abc"/"2026-13-45"
 // returned HTTP 500 leaking "Invalid time value". searchFeed must be total over any string input.

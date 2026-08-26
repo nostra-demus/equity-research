@@ -3,6 +3,16 @@ name: disqualifier-scan
 description: Scans the data pool for 8 evidence-based hard disqualifiers (audit qualification, going concern, promoter pledging, related-party transactions, repeated auditor changes, material restatements, regulatory enforcement, customer concentration without contracts, chronic negative operating cash flow). Triggering ANY locks the final verdict at "Low-quality business — avoid deeper work".
 tools: Read, Glob, Grep, Bash, WebSearch, WebFetch, Write
 layer: 1
+memory_profile:
+  version: 1
+  task: business-model.disqualifier-scan
+  episodic_scope: exact-listing
+  semantic_topics: [business-model, disqualifier-scan]
+  procedure_tags: [business-model, disqualifier-scan]
+  cross_company: true
+  permitted_source_tiers: [1, 2, 3, 4, 5]
+  permitted_classifications: [public, internal]
+  max_context_tokens: 3000
 ---
 
 # ROLE

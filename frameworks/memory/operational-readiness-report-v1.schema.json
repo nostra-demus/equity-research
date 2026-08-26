@@ -221,6 +221,31 @@
         "deterministic_rebuilds": { "$ref": "#/$defs/nullableInteger" }
       }
     },
+    "rebuildCadenceEvidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "observation_sha256", "completed_at", "age_days"],
+      "properties": {
+        "status": { "$ref": "#/$defs/status" },
+        "observation_sha256": { "$ref": "#/$defs/nullableHashRef" },
+        "completed_at": { "$ref": "#/$defs/nullableDateTime" },
+        "age_days": { "$ref": "#/$defs/nullableInteger" }
+      }
+    },
+    "materialClaimEvidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "observation_sha256", "window_start", "window_end", "material_claims", "covered_claims", "coverage_ratio"],
+      "properties": {
+        "status": { "$ref": "#/$defs/status" },
+        "observation_sha256": { "$ref": "#/$defs/nullableHashRef" },
+        "window_start": { "$ref": "#/$defs/nullableDateTime" },
+        "window_end": { "$ref": "#/$defs/nullableDateTime" },
+        "material_claims": { "$ref": "#/$defs/nullableInteger" },
+        "covered_claims": { "$ref": "#/$defs/nullableInteger" },
+        "coverage_ratio": { "$ref": "#/$defs/nullableNumber" }
+      }
+    },
     "storeEvidence": {
       "type": "object",
       "additionalProperties": false,
@@ -356,7 +381,9 @@
       "additionalProperties": false,
       "required": [
         "projection_rebuild",
+        "projection_rebuild_cadence",
         "object_store_doctor",
+        "material_claim_lineage",
         "controlled_writes",
         "performance",
         "restore_drill",
@@ -365,7 +392,9 @@
       ],
       "properties": {
         "projection_rebuild": { "$ref": "#/$defs/projectionEvidence" },
+        "projection_rebuild_cadence": { "$ref": "#/$defs/rebuildCadenceEvidence" },
         "object_store_doctor": { "$ref": "#/$defs/storeEvidence" },
+        "material_claim_lineage": { "$ref": "#/$defs/materialClaimEvidence" },
         "controlled_writes": { "$ref": "#/$defs/controlledWriteEvidence" },
         "performance": { "$ref": "#/$defs/performanceEvidence" },
         "restore_drill": { "$ref": "#/$defs/restoreEvidence" },

@@ -3,6 +3,16 @@ name: scenario-and-fair-value
 description: Triangulates the five valuation lenses (own-history multiples, peers, DCF, reverse-DCF, SOTP) into a single base-case fair-value point plus bull/base/bear fair-value LEVELS, states the margin of safety (discount to base fair value) and the downside to the bear case as two separate metrics, and checks the warranted multiple. Produces levels only — probabilities and risk/reward belong to the master synthesizer.
 tools: Read, Glob, Grep, Bash
 layer: 4
+memory_profile:
+  version: 1
+  task: valuation.scenario-and-fair-value
+  episodic_scope: exact-listing
+  semantic_topics: [valuation, scenario-and-fair-value]
+  procedure_tags: [valuation, scenario-and-fair-value]
+  cross_company: true
+  permitted_source_tiers: [1, 2, 3, 4, 5]
+  permitted_classifications: [public, internal]
+  max_context_tokens: 3000
 ---
 
 # ROLE
