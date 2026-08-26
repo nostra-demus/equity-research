@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-26T03:31:01Z",
+  "generated_at": "2026-08-26T04:01:08Z",
   "inbox": [
     {
       "inbox_id": "INB-20260826-491",
@@ -1902,6 +1902,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260826-492",
+      "headline": "Sammaan Capital Limited: Brickwork Ratings Upgrades the Company s Long-term Credit Rating to BWR AAA with Stable Outlook. For details refer attached PDF.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/IHFL_26082026085052_SCL_Intimation_BWR_Rating_Upgrades.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-26T03:21:33Z",
+      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
+      "prelim_note": "Brickwork upgraded Sammaan Capital's long-term credit rating to BWR AAA with Stable Outlook.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "Brickwork upgraded Sammaan Capital's long-term credit rating to BWR AAA with Stable Outlook.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "credit_rating_upgrade",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "credit_rating_upgrade"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Sammaan Capital Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260826-490",
       "headline": "HAW: Details of Auditor Appointment/Resignation",
       "headline_en": null,
@@ -1946,55 +1995,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260826-002",
-      "headline": "FEX: FY26 Full Year Results [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.FEX?key=2924-03126307-6A1340345",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-25T23:47:40Z",
-      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
-      "prelim_note": "Fenix Resources released its FY26 full-year financial results.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "Fenix Resources released its FY26 full-year financial results.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Fenix Resources",
-          "ticker": "FEX",
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -93531,9 +93531,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 737831,
-    "news_picked_today": 779,
-    "news_dropped_today": 4717
+    "news_seen_today": 816161,
+    "news_picked_today": 840,
+    "news_dropped_today": 5772
   },
   "book_momentum": {
     "live_count": 8,
