@@ -2856,7 +2856,14 @@ export function updateIdeaSnapshot(
   }
 }
 
-export interface IdeaPromotionReservation { idea_id: string; token: string; started_at: string }
+export interface IdeaPromotionReservation {
+  idea_id: string
+  token: string
+  started_at: string
+  /** Deterministic identity frozen before provider admission. Absent only on rolling-deploy reservations
+   * created before crash-safe promotion recovery existed. */
+  signal_id?: string
+}
 // The reservation path is built INLINE in each function below (never via a shared helper). CodeQL's
 // path-injection sanitizer does not follow a resolve+contain guard across a function-return boundary, so a
 // helper guard is invisible to the scanner at the fs sinks in its callers — two earlier attempts (a callee
@@ -2867,7 +2874,11 @@ export interface IdeaPromotionReservation { idea_id: string; token: string; star
 function readPromotionReservation(fp: string): IdeaPromotionReservation | null {
   try {
     const value = JSON.parse(fs.readFileSync(fp, 'utf8'))
-    return value?.idea_id && value?.token && value?.started_at ? value as IdeaPromotionReservation : null
+    return /^IDEA-[a-f0-9]{12}$/.test(value?.idea_id)
+      && /^[0-9a-f-]{36}$/.test(value?.token)
+      && Number.isFinite(parseRfc3339Ms(value?.started_at))
+      && (value?.signal_id === undefined || /^SIG-[0-9]{8}-[a-f0-9]{8}$/.test(value.signal_id))
+      ? value as IdeaPromotionReservation : null
   } catch { return null }
 }
 
@@ -2917,8 +2928,10 @@ export function reserveIdeaPromotion(
   repoRoot: string,
   ideaId: string,
   nowMs = Date.now(),
+  signalId?: string,
 ): IdeaPromotionReservation | null {
   if (!/^IDEA-[a-f0-9]{12}$/.test(ideaId)) return null
+  if (signalId !== undefined && !/^SIG-[0-9]{8}-[a-f0-9]{8}$/.test(signalId)) return null
   const dir = ideasDir(repoRoot)
   fs.mkdirSync(dir, { recursive: true })
   const fp = path.join(dir, `${ideaId}.json`)
@@ -2937,6 +2950,7 @@ export function reserveIdeaPromotion(
       idea_id: ideaId,
       token: randomUUID(),
       started_at: new Date(nowMs).toISOString().replace(/\.\d{3}Z$/, 'Z'),
+      ...(signalId ? { signal_id: signalId } : {}),
     }
     writePromotionReservationAtomic(repoRoot, reservation)
     return reservation
@@ -2995,6 +3009,87 @@ export function finalizeIdeaPromotion(
   } finally {
     releaseIdeaMutationLease(fp, lease)
   }
+}
+
+export interface IdeaPromotionReconciliation {
+  recovered: number
+  released: number
+  pending: number
+  errors: string[]
+}
+
+/**
+ * Reconcile promotion reservations left by a killed server. A durable, identity-matching signal intake
+ * proves launch admission happened, so the Idea lifecycle can be completed locally without another paid
+ * request. A stale reservation with no intake is released for a clean retry. Legacy reservations without
+ * a frozen signal id remain protected until their normal stale boundary and can never be guessed.
+ */
+export function reconcileIdeaPromotionReservations(
+  repoRoot: string,
+  durableSignalIntakeExists: (signalId: string) => boolean,
+  nowMs = Date.now(),
+): IdeaPromotionReconciliation {
+  const result: IdeaPromotionReconciliation = { recovered: 0, released: 0, pending: 0, errors: [] }
+  const dir = path.resolve(ideasDir(repoRoot))
+  let entries: string[]
+  try {
+    entries = fs.readdirSync(dir).filter((entry) => /^IDEA-[a-f0-9]{12}\.promotion$/.test(entry)).sort()
+  } catch (error: any) {
+    if (error?.code === 'ENOENT') return result
+    result.errors.push(`promotion store cannot be read: ${String(error?.message || error).slice(0, 200)}`)
+    return result
+  }
+  const updatedAt = new Date(nowMs).toISOString().replace(/\.\d{3}Z$/, 'Z')
+  for (const entry of entries) {
+    const ideaId = entry.slice(0, -'.promotion'.length)
+    // The directory entry is regex-gated above. Resolve and contain the exact path before every fs sink.
+    const reservationFile = path.resolve(dir, entry)
+    if (!reservationFile.startsWith(dir + path.sep)) {
+      result.errors.push(`${ideaId}: unsafe promotion reservation path`)
+      continue
+    }
+    const reservation = readPromotionReservation(reservationFile)
+    if (!reservation || reservation.idea_id !== ideaId) {
+      result.errors.push(`${ideaId}: promotion reservation is unreadable`)
+      continue
+    }
+    const current = readIdeaById(repoRoot, ideaId)
+    if (current?.status === 'promoted' && current.promoted_signal_id) {
+      releaseIdeaPromotion(repoRoot, ideaId, reservation.token)
+      if (fs.existsSync(reservationFile)) result.errors.push(`${ideaId}: completed reservation could not be cleared`)
+      else result.released++
+      continue
+    }
+    let signalExists = false
+    if (reservation.signal_id) {
+      try { signalExists = durableSignalIntakeExists(reservation.signal_id) } catch { signalExists = false }
+    }
+    if (reservation.signal_id && signalExists) {
+      if (!current) {
+        result.errors.push(`${ideaId}: admitted signal exists but its Idea snapshot is missing`)
+        continue
+      }
+      try {
+        finalizeIdeaPromotion(
+          repoRoot, ideaId, reservation.token, reservation.signal_id, updatedAt, current,
+        )
+        result.recovered++
+      } catch (error: any) {
+        result.errors.push(`${ideaId}: ${String(error?.message || error).slice(0, 200)}`)
+      }
+      continue
+    }
+    const startedAt = parseRfc3339Ms(reservation.started_at)
+    const stale = !Number.isFinite(startedAt) || nowMs < startedAt || nowMs - startedAt > IDEA_PROMOTION_STALE_MS
+    if (!stale) {
+      result.pending++
+      continue
+    }
+    releaseIdeaPromotion(repoRoot, ideaId, reservation.token)
+    if (fs.existsSync(reservationFile)) result.errors.push(`${ideaId}: stale reservation could not be released`)
+    else result.released++
+  }
+  return result
 }
 
 interface ThemeAdmissionEdge { evidence: Set<string>; whyNow: Set<string>; roles: Set<string> }

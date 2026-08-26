@@ -16,7 +16,7 @@ import { geminiIdeaProviderRequestIdentity, surfaceIdeasBatchGemini } from '../s
 import {
   finalizeIdeaPromotion, ideaDecayAt, ideaId, ideaPromotionEligibility, ideaSnapshotRevision, ideaVersion, pruneExpiredIdeas,
   isSurfacedIdeaSnapshot, readArchivedIdeaSnapshots, readIdeaArchiveStore, readIdeaById, readIdeaSnapshotStore, readTopSweep, readTopSweepRows, releaseIdeaPromotion,
-  recoverBoardIdeaOccurrence, reserveIdeaPromotion, retireUnadmittedThemeIdeas, topNEffectHash, topNHash, updateIdeaSnapshot, writeIdea, writeIdeaIfRevision,
+  reconcileIdeaPromotionReservations, recoverBoardIdeaOccurrence, reserveIdeaPromotion, retireUnadmittedThemeIdeas, topNEffectHash, topNHash, updateIdeaSnapshot, writeIdea, writeIdeaIfRevision,
   type ImportedIdeaArchive,
 } from '../src/news/ideas/ideas-store'
 import { canonicalJsonText } from '../src/canonical-json'
@@ -3593,6 +3593,55 @@ check('only a reservation owner can release a pending promotion', () => {
   assert.equal(reserveIdeaPromotion(dir, id, Date.parse('2026-08-03T10:01:00Z')), null)
   releaseIdeaPromotion(dir, id, reservation.token)
   assert.ok(reserveIdeaPromotion(dir, id, Date.parse('2026-08-03T10:02:00Z')))
+  fs.rmSync(dir, { recursive: true, force: true })
+})
+check('startup recovery finishes an admitted promotion without launching or spending twice', () => {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'ideas-promotion-recovery-'))
+  const id = ideaId('RECOVER', 'long')
+  const now = Date.parse('2026-08-03T10:00:00Z')
+  const signalId = 'SIG-20260803-deadbeef'
+  writeIdea(dir, validIdeaSnapshot('RECOVER', 'long', { decay_at: '2026-08-04T10:00:00Z' }))
+  const reservation = reserveIdeaPromotion(dir, id, now, signalId)
+  assert.equal(reservation?.signal_id, signalId)
+
+  let proofs = 0
+  const recovered = reconcileIdeaPromotionReservations(dir, (candidate) => {
+    proofs++
+    return candidate === signalId
+  }, now + 60_000)
+  assert.deepEqual(recovered, { recovered: 1, released: 0, pending: 0, errors: [] })
+  assert.equal(proofs, 1)
+  assert.equal(readIdeaById(dir, id)?.status, 'promoted')
+  assert.equal(readIdeaById(dir, id)?.promoted_signal_id, signalId)
+  assert.equal(fs.existsSync(path.join(dir, 'screener', 'ledger', 'ideas', `${id}.promotion`)), false)
+  assert.deepEqual(reconcileIdeaPromotionReservations(dir, () => true, now + 120_000), {
+    recovered: 0, released: 0, pending: 0, errors: [],
+  }, 'recovery is idempotent after the reservation is consumed')
+  fs.rmSync(dir, { recursive: true, force: true })
+})
+check('startup recovery releases only a stale reservation with no admitted signal proof', () => {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'ideas-promotion-release-'))
+  const id = ideaId('RETRYSAFE', 'long')
+  const now = Date.parse('2026-08-03T10:00:00Z')
+  const signalId = 'SIG-20260803-1234abcd'
+  writeIdea(dir, validIdeaSnapshot('RETRYSAFE', 'long', { decay_at: '2026-08-04T10:00:00Z' }))
+  assert.ok(reserveIdeaPromotion(dir, id, now, signalId))
+  assert.deepEqual(reconcileIdeaPromotionReservations(dir, () => false, now + 60_000), {
+    recovered: 0, released: 0, pending: 1, errors: [],
+  }, 'a recent launch reservation stays protected while admission may still be in progress')
+  assert.deepEqual(reconcileIdeaPromotionReservations(dir, () => false, now + 30 * 60_000 + 1), {
+    recovered: 0, released: 1, pending: 0, errors: [],
+  })
+  assert.ok(reserveIdeaPromotion(dir, id, now + 30 * 60_000 + 2, signalId), 'a proven non-admitted stale launch can retry')
+  fs.rmSync(dir, { recursive: true, force: true })
+})
+check('promotion reservation rejects a malformed frozen signal identity', () => {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'ideas-promotion-signal-id-'))
+  const id = ideaId('SIGID', 'long')
+  const now = Date.parse('2026-08-03T10:00:00Z')
+  writeIdea(dir, validIdeaSnapshot('SIGID', 'long', { decay_at: '2026-08-04T10:00:00Z' }))
+  assert.equal(reserveIdeaPromotion(dir, id, now, '../SIG-evil'), null)
+  assert.equal(fs.existsSync(path.join(dir, 'screener', 'ledger', 'ideas', `${id}.promotion`)), false)
   fs.rmSync(dir, { recursive: true, force: true })
 })
 
