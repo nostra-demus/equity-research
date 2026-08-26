@@ -118,7 +118,9 @@ export interface IdeaPassDeps {
   /** Internal durable hand-off invoked immediately before provider-budget reservation. */
   markProviderDispatch?: (providerId: string, at: number) => void
   /** Internal test/embedding seam. Omitted uses the fsynced append-only interruption ledger. */
-  appendInterruptedAttempt?: (record: IdeaInterruptedAttemptRecord) => 'appended' | 'duplicate'
+  appendInterruptedAttempt?: (
+    record: IdeaInterruptedAttemptRecord,
+  ) => Promise<'appended' | 'duplicate'> | 'appended' | 'duplicate'
 }
 
 export interface IdeaPassResult {
@@ -1204,7 +1206,7 @@ export async function runIdeaPass(deps: IdeaPassDeps): Promise<IdeaPassResult> {
       markIdeasPublicationPending(deps.stateDir, now())
       const append = deps.appendInterruptedAttempt
         || ((record: IdeaInterruptedAttemptRecord) => appendIdeaInterruptedAttempt(deps.repoRoot, record))
-      for (const record of interruptionRecords) append(record)
+      for (const record of interruptionRecords) await append(record)
       // The temporary progress marker is the final recovery authority. It remains intact until the
       // append-only receipt is committed and pushed, so neither append nor publication failure can
       // silently convert an unknown response into forgotten history.

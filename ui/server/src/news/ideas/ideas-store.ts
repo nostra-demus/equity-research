@@ -3367,31 +3367,39 @@ export const IDEA_INTERRUPTED_ATTEMPTS_PATH = 'screener/ledger/ideas_interrupted
 /** Append-only, fsynced and idempotent evidence for provider requests whose response is unknowable.
  * Publication is deliberately owned by runIdeaPass, which must push this receipt before clearing the
  * transient in-flight marker. */
-export function appendIdeaInterruptedAttempt(
+export async function appendIdeaInterruptedAttempt(
   repoRoot: string,
   record: IdeaInterruptedAttemptRecord,
-): 'appended' | 'duplicate' {
+): Promise<'appended' | 'duplicate'> {
   const helperInRepo = path.join(repoRoot, 'scripts', 'append-ndjson.sh')
   const helper = fs.existsSync(helperInRepo) ? helperInRepo : sourceTreeAppendHelper
   if (!fs.existsSync(helper)) throw new Error(`Ideas interrupted-attempt append helper is missing: ${helper}`)
   const ledger = path.join(repoRoot, IDEA_INTERRUPTED_ATTEMPTS_PATH)
-  const result = spawnSync('bash', [
-    helper, ledger, JSON.stringify(record), 'interruption_id', record.interruption_id,
-  ], {
-    cwd: repoRoot,
-    encoding: 'utf8',
-    timeout: 20_000,
-    maxBuffer: 256_000,
-    env: { ...process.env, NDJSON_REPO_LOCK_WAIT_MS: '15000' },
-  })
-  const stdout = String(result.stdout || '')
-  if (result.status === 0 && /^APPENDED=1\s*$/m.test(stdout)) return 'appended'
-  if (result.status === 0 && /^DUPLICATE=1\s*$/m.test(stdout)) return 'duplicate'
-  const stderr = String(result.stderr || '').trim()
-  const detail = result.error?.message || stderr || stdout.trim() || `exit ${result.status ?? result.signal ?? 'unknown'}`
-  throw Object.assign(new Error(`Ideas interrupted-attempt append failed: ${detail.slice(0, 240)}`), {
-    code: 'EIDEA_INTERRUPTION_APPEND',
-  })
+  try {
+    const result = await execFileAsync('bash', [
+      helper, ledger, JSON.stringify(record), 'interruption_id', record.interruption_id,
+    ], {
+      cwd: repoRoot,
+      encoding: 'utf8',
+      timeout: 20_000,
+      maxBuffer: 256_000,
+      env: { ...process.env, NDJSON_REPO_LOCK_WAIT_MS: '15000' },
+    })
+    const stdout = String(result.stdout || '')
+    if (/^APPENDED=1\s*$/m.test(stdout)) return 'appended'
+    if (/^DUPLICATE=1\s*$/m.test(stdout)) return 'duplicate'
+    const detail = String(result.stderr || '').trim() || stdout.trim() || 'invalid helper output'
+    throw Object.assign(new Error(`Ideas interrupted-attempt append failed: ${detail.slice(0, 240)}`), {
+      code: 'EIDEA_INTERRUPTION_APPEND',
+    })
+  } catch (error: any) {
+    if (error?.code === 'EIDEA_INTERRUPTION_APPEND') throw error
+    const detail = String(error?.stderr || '').trim() || String(error?.stdout || '').trim()
+      || String(error?.message || error || 'unknown')
+    throw Object.assign(new Error(`Ideas interrupted-attempt append failed: ${detail.slice(0, 240)}`), {
+      code: 'EIDEA_INTERRUPTION_APPEND',
+    })
+  }
 }
 
 export function readPassState(stateDir: string, failOnCorrupt = false): IdeaPassState | null {
