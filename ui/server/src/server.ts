@@ -48,6 +48,7 @@ import {
   clearSupersededManual, declareCashEquivalent, deleteStatement, logManualTrade, readPortfolio,
   removeManualTrade, saveStatement, STATEMENT_MAX_BYTES,
 } from './portfolio-store'
+import { liveMark } from './portfolio-live'
 import { buildThemeBrief } from './news/themes/brief'
 import { enrichEvent, listCoveredTickers, peekCachedEnrichment } from './news/enrich'
 import { verdictOf } from './news/impact-floor'
@@ -3679,6 +3680,19 @@ app.post('/api/portfolio/manual/clear-superseded', async (req, reply) => {
   if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request rejected' })
   const cleared = clearSupersededManual()
   return { cleared, ...readPortfolio() }
+})
+
+// The gap between the last statement and today, priced at the market. A SEPARATE read on purpose: the
+// book is synchronous and broker-tied, this needs the network and ties to nothing, and the screen
+// should show the reconciled figures immediately and let the estimate arrive after.
+app.get('/api/portfolio/live', async (req, reply) => {
+  if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request rejected' })
+  try {
+    return await liveMark(readPortfolio().book)
+  } catch (e: any) {
+    req.log.error({ err: e }, 'live mark failed')
+    return reply.code(500).send({ error: 'the live mark could not be computed' })
+  }
 })
 
 // Declare a holding a cash equivalent. The broker cannot answer this — SGOV, CANE and GLDM all arrive

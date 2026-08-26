@@ -2263,6 +2263,34 @@ export interface PortfolioOverrides {
   cashEquivalents: string[]
 }
 
+/** One holding re-priced at the market. */
+export interface PortfolioLiveRow {
+  symbol: string
+  quantity: number
+  statementPrice: number | null
+  price: number
+  value: number
+  movePct: number | null
+}
+/** The gap between the last statement and today, priced at the market. NEVER part of the book: it is
+ *  today's prices against yesterday's share counts, and it ties to nothing. */
+export interface PortfolioLiveMark {
+  asOf: string | null
+  /** True when the prices are a settled close rather than a live tick — the UI must say which. */
+  asOfIsClose: boolean
+  delayed: boolean
+  stale: boolean
+  bookAsOf: string | null
+  staleDays: number | null
+  nav: number | null
+  unrealised: number | null
+  /** Carried from the statement unchanged: the leg this estimate cannot see moving. */
+  cash: number | null
+  priced: PortfolioLiveRow[]
+  unpriced: string[]
+  unavailable: string | null
+}
+
 export interface PortfolioPerformance {
   periods: PortfolioPeriodReturn[]
   months: PortfolioMonthRow[]

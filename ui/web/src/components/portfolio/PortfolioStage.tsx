@@ -2,7 +2,8 @@ import { useCallback, useEffect, useMemo, useState } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 import { api } from '../../lib/api'
 import type {
-  PortfolioBook, PortfolioClosure, PortfolioManualRead, PortfolioPerformance, PortfolioPosition, PortfolioRead,
+  PortfolioBook, PortfolioClosure, PortfolioLiveMark, PortfolioManualRead, PortfolioPerformance,
+  PortfolioPosition, PortfolioRead,
 } from '../../lib/types'
 import { useStore } from '../../lib/store'
 import { GrowthChart, UnderwaterChart } from './charts'
@@ -100,6 +101,9 @@ export function PortfolioStage() {
   // Import and hand-logging are both "put a trade into the book", so they belong on the trade screen as
   // two buttons rather than a tab of their own. This says which of the two surfaces is open.
   const [openImport, setOpenImport] = useState(false)
+  // Loaded AFTER the book and kept apart from it. The reconciled figures must be on screen immediately
+  // and must never wait on — or be altered by — a number that ties to nothing.
+  const [live, setLive] = useState<PortfolioLiveMark | null>(null)
 
   const load = useCallback(async () => {
     setLoading(true)
@@ -108,6 +112,12 @@ export function PortfolioStage() {
     finally { setLoading(false) }
   }, [])
   useEffect(() => { void load() }, [load])
+  useEffect(() => {
+    if (!read?.book) { setLive(null); return }
+    let dropped = false
+    void api.portfolioLive().then((m) => { if (!dropped) setLive(m) }).catch(() => { if (!dropped) setLive(null) })
+    return () => { dropped = true }
+  }, [read?.book?.asOf, read?.statements.length])
 
   const upload = useCallback(async (files: File[]) => {
     if (!files.length || busy) return
@@ -237,7 +247,7 @@ export function PortfolioStage() {
           // decorates it.
           <Holdings
             book={book} perf={read?.performance ?? null} manual={manual}
-            cashEquivalents={read?.overrides?.cashEquivalents ?? []}
+            cashEquivalents={read?.overrides?.cashEquivalents ?? []} live={live}
             onManage={() => setTab('trades')} onChanged={setRead}
           />
         ) : tab === 'performance' ? (
@@ -331,11 +341,33 @@ function cashShare(book: PortfolioBook, cashEquivalents: string[]): number | nul
   return ((nav - risked) / nav) * 100
 }
 
+/** Carry the reconciled index forward to today's prices, as ONE extra point.
+ *
+ *  The index is rebased, not absolute, so the estimate enters as a RATIO: whatever the market has done
+ *  to the holdings since the statement, applied to the last reconciled level. Returns the series
+ *  untouched whenever there is nothing to add — no live mark, no gap, or no reconciled NAV to scale
+ *  from — so the chart never gains a point that says the same thing twice. */
+function withLive(growth: PortfolioPerformance['growth'], live: PortfolioLiveMark | null, nav: number | null) {
+  if (!live || live.unavailable || live.nav === null || live.asOf === null) return growth
+  if (nav === null || nav <= 0 || growth.length === 0) return growth
+  const last = growth[growth.length - 1]!
+  if (live.asOf <= last.date) return growth // the statement already covers the day the prices belong to
+  return [...growth, {
+    date: live.asOf,
+    book: last.book * (live.nav / nav),
+    // No live index level to pair it with — the market feed carries closes, and reading one as "now"
+    // would put a real number beside an estimate and invite the comparison.
+    benchmark: null,
+    provisional: true,
+  }]
+}
+
 // ---------- holdings ----------
 
-function Holdings({ book, perf, manual, cashEquivalents, onManage, onChanged }: {
+function Holdings({ book, perf, manual, cashEquivalents, live, onManage, onChanged }: {
   book: PortfolioBook; perf: PortfolioPerformance | null; manual: PortfolioManualRead
-  cashEquivalents: string[]; onManage: () => void; onChanged: (r: PortfolioRead) => void
+  cashEquivalents: string[]; live: PortfolioLiveMark | null
+  onManage: () => void; onChanged: (r: PortfolioRead) => void
 }) {
   const ccy = book.baseCurrency
   const isCashEq = (sym: string | null) => !!sym && cashEquivalents.includes(sym.toUpperCase())
@@ -397,9 +429,20 @@ function Holdings({ book, perf, manual, cashEquivalents, onManage, onChanged }: 
         />
         <Card label="Unrealised" value={fmtMoney(unrealised, ccy)} sub="On open positions, at the statement's marks" tone={toneOf(unrealised)} />
         <Card label="Net capital in" value={fmtMoney(flows, ccy)} sub="LP contributions less withdrawals" />
+        {live && !live.unavailable && live.nav !== null && live.staleDays !== null && live.staleDays > 0 ? (
+          <Card
+            label="Estimated now"
+            value={fmtMoney(live.nav, ccy)}
+            sub={`${live.asOfIsClose ? 'Last close' : 'Delayed'} ${live.asOf} · ${live.staleDays}d past the statement · cash frozen at ${live.bookAsOf}${live.unpriced.length ? ` · ${live.unpriced.join(', ')} unpriced` : ''}`}
+            tone={nav !== null && live.nav !== nav ? toneOf(live.nav - nav) : undefined}
+          />
+        ) : null}
         <Card label="Income" value={fmtMoney(book.income.net, ccy)} sub={`Dividends ${fmtMoney(book.income.dividendsGross, ccy)} · withholding ${fmtMoney(book.income.withholdingTax, ccy)}`} tone={toneOf(book.income.net)} />
       </div>
 
+      {/* THE ESTIMATE IS APPENDED, NOT MERGED. The reconciled index ends where the statements do; this
+          carries it forward by the ratio the market has moved the holdings since, and the chart draws
+          that last hop dashed. It never touches TWR, the reconciliation, or any figure in the cards. */}
       {/* The curve and the bridge answer the same question from two directions — what the book did, and
           what it is made of — so they sit side by side rather than a screen apart. */}
       <div className="fundbook__split fundbook__split--wide">
@@ -408,7 +451,7 @@ function Holdings({ book, perf, manual, cashEquivalents, onManage, onChanged }: 
             <div className="fundbook__panelhead">
               <div><strong>Growth of capital</strong></div>
             </div>
-            <GrowthChart series={perf.growth} benchmarkSymbol={perf.benchmark.symbol} height={230} />
+            <GrowthChart series={withLive(perf.growth, live, nav)} benchmarkSymbol={perf.benchmark.symbol} height={230} />
           </div>
         )}
 
@@ -889,6 +932,9 @@ function Performance({ perf, cashShare }: { perf: PortfolioPerformance; cashShar
               that index, so deriving it here rather than from a second precomputed field means the two
               charts cannot disagree about the same days — and it is what lets the range and the
               benchmark work at all. */}
+          {/* THE RECONCILED SERIES ONLY. Max drawdown is a risk statistic the cards state as fact; letting
+              an estimate set a new low would put a number nobody can check into a figure people size
+              positions from. */}
           <UnderwaterChart series={perf.growth} benchmarkSymbol={perf.benchmark.symbol} />
         </div>
       )}

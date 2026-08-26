@@ -88,7 +88,14 @@ function buildPath(points: Point[], x: (i: number) => number, y: (v: number) => 
   return d.trim()
 }
 
-export interface GrowthPoint { date: string; book: number; benchmark: number | null }
+export interface GrowthPoint {
+  date: string
+  book: number
+  benchmark: number | null
+  /** Priced at the market rather than taken from a statement. Everything left of the first such point
+   *  is reconciled to the broker; this one is an estimate, and the chart draws it as one. */
+  provisional?: boolean
+}
 
 /** The ranges a broker's chart offers. `5D` is five VALUED points; the rest are calendar windows back
  *  from the last valued day, which is what "six months" means to the person asking. */
@@ -124,8 +131,11 @@ function rebase(points: GrowthPoint[]): GrowthPoint[] {
   const bookBase = points[0]!.book
   const bmBase = points.find((p) => p.benchmark !== null)?.benchmark ?? null
   if (!Number.isFinite(bookBase) || bookBase === 0) return points
+  // SPREAD, do not rebuild. Listing the fields by hand silently dropped `provisional`, so the estimated
+  // point survived into the series but lost the one flag that makes the chart draw it as an estimate —
+  // it was rendered as reconciled data.
   return points.map((p) => ({
-    date: p.date,
+    ...p,
     book: (p.book / bookBase) * 100,
     benchmark: p.benchmark === null || bmBase === null || bmBase === 0 ? null : (p.benchmark / bmBase) * 100,
   }))
@@ -217,12 +227,32 @@ export function GrowthChart({ series: full, benchmarkSymbol, height = 210 }: {
   const y = (v: number) => PAD.t + (1 - (v - min) / (max - min)) * (H - PAD.t - PAD.b)
   geo.current = { count: series.length, W, x }
 
-  const bookPath = buildPath(bookPts, x, y)
-  const area = `${bookPath} L${x(series.length - 1).toFixed(1)} ${y(min).toFixed(1)} L${x(0).toFixed(1)} ${y(min).toFixed(1)} Z`
+  // WHERE THE STATEMENTS STOP. Everything up to this index is reconciled; anything past it is priced at
+  // the market and drawn dashed, because there is no daily history across the gap — a solid line would
+  // be an interpolation wearing the clothes of data.
+  const firstProvisional = series.findIndex((p) => p.provisional)
+  const lastReconciled = firstProvisional === -1 ? series.length - 1 : firstProvisional - 1
+  const reconciledPts = firstProvisional === -1 ? bookPts : bookPts.slice(0, firstProvisional)
+  const bookPath = buildPath(reconciledPts, x, y)
+  // Built against the ORIGINAL indices, so the dashed hop starts exactly on the last reconciled point
+  // rather than at x(0) of a re-indexed slice.
+  const shiftedEstimated = firstProvisional > 0
+    ? bookPts.slice(lastReconciled).map((p, i) => ({ ...p, _i: lastReconciled + i }))
+    : []
+  const estimated = shiftedEstimated.length > 1
+    ? shiftedEstimated.map((p, i) => `${i ? 'L' : 'M'}${x(p._i).toFixed(1)} ${y(p.value as number).toFixed(1)}`).join(' ')
+    : ''
+  const area = `${buildPath(reconciledPts, x, y)} L${x(Math.max(0, lastReconciled)).toFixed(1)} ${y(min).toFixed(1)} L${x(0).toFixed(1)} ${y(min).toFixed(1)} Z`
   const end = series[series.length - 1]!
   // The legend doubles as the readout: hovering replaces "where it ended" with "where it was that day",
   // which is the same three numbers in the same place rather than a floating box that covers the curve.
   const shown = hover.at === null ? end : series[hover.at]!
+  // The estimated point carries no index level, so reading the benchmark off the LAST point made the
+  // comparison vanish from the legend the moment a live mark existed. It falls back to the last point
+  // that actually has one — the day the index is genuinely known to.
+  const shownBm = shown.benchmark !== null
+    ? shown
+    : [...series.slice(0, (hover.at ?? series.length - 1) + 1)].reverse().find((p) => p.benchmark !== null) ?? null
 
   return (
     <div className="fundbook__chart">
@@ -247,6 +277,16 @@ export function GrowthChart({ series: full, benchmarkSymbol, height = 210 }: {
         <path d={area} fill="url(#fbGrowthFill)" />
         {hasBm && <path d={buildPath(bmPts, x, y)} fill="none" stroke="var(--text-faint)" strokeWidth="1.6" vectorEffect="non-scaling-stroke" strokeLinejoin="round" />}
         <path d={bookPath} fill="none" stroke="var(--accent)" strokeWidth="2" vectorEffect="non-scaling-stroke" strokeLinejoin="round" strokeLinecap="round" />
+        {estimated && (
+          <>
+            <line x1={x(lastReconciled)} y1={PAD.t} x2={x(lastReconciled)} y2={H - PAD.b}
+              stroke="var(--hairline-strong)" strokeWidth="1" strokeDasharray="2 3" vectorEffect="non-scaling-stroke" />
+            <path d={estimated} fill="none" stroke="var(--accent)" strokeWidth="2" strokeDasharray="4 3"
+              vectorEffect="non-scaling-stroke" strokeLinejoin="round" strokeLinecap="round" />
+            <circle cx={x(series.length - 1)} cy={y(series[series.length - 1]!.book)} r="3.5"
+              fill="none" stroke="var(--accent)" strokeWidth="2" vectorEffect="non-scaling-stroke" />
+          </>
+        )}
         <DateAxis series={series} x={x} H={H} W={W} />
         {hover.at !== null && (
           <g pointerEvents="none">
@@ -260,11 +300,17 @@ export function GrowthChart({ series: full, benchmarkSymbol, height = 210 }: {
       <div className={`fundbook__legend${hover.at !== null ? ' is-reading' : ''}`}>
         <span><i style={{ background: 'var(--accent)' }} />Book <b>{shown.book.toFixed(1)}</b></span>
         {hasBm
-          ? <span><i style={{ background: 'var(--text-faint)' }} />{benchmarkSymbol} <b>{shown.benchmark === null ? '—' : shown.benchmark.toFixed(1)}</b></span>
+          ? (
+            <span>
+              <i style={{ background: 'var(--text-faint)' }} />{benchmarkSymbol}{' '}
+              <b>{shownBm === null ? '—' : shownBm.benchmark!.toFixed(1)}</b>
+              {shownBm !== null && shownBm.date !== shown.date && <small className="dim"> @ {shownBm.date}</small>}
+            </span>
+          )
           : <span className="dim">{benchmarkSymbol} — no price history loaded</span>}
         <span className="dim">
           {hover.at === null
-            ? <>{series[0]!.date} → {end.date} · rebased to 100 at the start of this range</>
+            ? <>{series[0]!.date} → {end.date}{firstProvisional > 0 ? ` · dashed past ${series[lastReconciled]!.date} is priced at the market, not from a statement` : ' · rebased to 100 at the start of this range'}</>
             : <>{shown.date} · hover to read any day</>}
         </span>
       </div>

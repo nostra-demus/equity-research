@@ -8,7 +8,7 @@ import type { BridgeStatus } from './types'
 import { parseMemoryRead, parseMemoryRuntimeRead, unavailableMemoryRead } from './memoryView'
 import { publishedPaperExecutionResult } from './paperPortfolioView'
 import { normalizeProvidersRead, normalizeProviderStatus, providerCatalogForError, providerCatalogUnknown, providerLaunchFields, type FrozenProviderLaunch, type ProviderExecutionProfile, type ProvidersRead, type RunProvider } from './provider'
-import type { ActivityQuery, ActivityResult, AddPipelineSourceInput, BuildStep, CallsResult, ChatComputed, ChatConversationDetail, ChatListQuery, ChatListResult, ChatRequest, ChatScopes, CockpitFeedbackCategory, CockpitFeedbackStatus, CockpitFeedbackView, CompletedChatTurn, CoverageGroup, DataNeedsRead, DataNeedUploadRead, DataStatus, DiscoveredFeed, EventEnrichment, EventResearchLink, FeedbackRecord, FeedbackSubmitInput, FeedbackSummary, FeedbackType, FeedItem, IbkrPaperPortfolioRead, IntakePlan, IntensityStats, IntensityWindow, LaunchableRunKind, LaunchPreflight, MemoryRead, MemoryRuntimeRead, NewsChatEvidence, NewsChatReceipt, NewsChatRequest, NewsCycle, NewsDiagnostics, NewsStatus, PaperExecutionResult, PipelineAuditEvent, PipelineTrend, PipelineView, QuoteRead, PortfolioManualInput, PortfolioManualRead, PortfolioOverrides, PortfolioRead, PortfolioUploadResult, ResumableRunInfo, RunHistoryEntry, RunKind, ScanVerdict, ScreenerBoard, SignalIntakeInput, SignalState, SourcesReport, SwarmGraph, SwarmMeta, SwarmSubjectSummary, ThesisPlan, TickerSummary, UploadResult, Usage, WhatChangedRead, Whoami } from './types'
+import type { ActivityQuery, ActivityResult, AddPipelineSourceInput, BuildStep, CallsResult, ChatComputed, ChatConversationDetail, ChatListQuery, ChatListResult, ChatRequest, ChatScopes, CockpitFeedbackCategory, CockpitFeedbackStatus, CockpitFeedbackView, CompletedChatTurn, CoverageGroup, DataNeedsRead, DataNeedUploadRead, DataStatus, DiscoveredFeed, EventEnrichment, EventResearchLink, FeedbackRecord, FeedbackSubmitInput, FeedbackSummary, FeedbackType, FeedItem, IbkrPaperPortfolioRead, IntakePlan, IntensityStats, IntensityWindow, LaunchableRunKind, LaunchPreflight, MemoryRead, MemoryRuntimeRead, NewsChatEvidence, NewsChatReceipt, NewsChatRequest, NewsCycle, NewsDiagnostics, NewsStatus, PaperExecutionResult, PipelineAuditEvent, PipelineTrend, PipelineView, QuoteRead, PortfolioManualInput, PortfolioManualRead, PortfolioLiveMark, PortfolioOverrides, PortfolioRead, PortfolioUploadResult, ResumableRunInfo, RunHistoryEntry, RunKind, ScanVerdict, ScreenerBoard, SignalIntakeInput, SignalState, SourcesReport, SwarmGraph, SwarmMeta, SwarmSubjectSummary, ThesisPlan, TickerSummary, UploadResult, Usage, WhatChangedRead, Whoami } from './types'
 
 // Vite supplies `import.meta.env` in the app; standalone tsx regression tests do not.
 const BASE = import.meta.env?.BASE_URL || '/'
@@ -1210,6 +1210,15 @@ export const api = {
   clearSupersededManual: async (): Promise<PortfolioRead & { cleared: number }> => {
     if ((await ensureMode()) === 'static') throw STATIC_ERR()
     return post('/api/portfolio/manual/clear-superseded')
+  },
+  /** The gap between the last statement and today, priced at the market. A SECOND read on purpose —
+   *  the book is broker-tied and synchronous, this needs the network and ties to nothing. */
+  portfolioLive: async (): Promise<PortfolioLiveMark> => {
+    if ((await ensureMode()) === 'static') {
+      return { asOf: null, asOfIsClose: true, delayed: true, stale: false, bookAsOf: null, staleDays: null,
+        nav: null, unrealised: null, cash: null, priced: [], unpriced: [], unavailable: 'not available here' }
+    }
+    return get('/api/portfolio/live')
   },
   /** Declare a holding a cash equivalent (a T-bill ETF is cash with a ticker), or take it back. */
   setCashEquivalent: async (symbol: string, isCash: boolean): Promise<PortfolioRead> => {
