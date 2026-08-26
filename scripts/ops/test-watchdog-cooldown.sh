@@ -11,7 +11,7 @@ failures=0
 expect_decision() {
   local description="$1" expected="$2" expected_remaining="$3" now="$4" last="$5" cooldown="$6"
   local remaining decision
-  if ! remaining="$(tunnel_heal_cooldown_remaining "$now" "$last" "$cooldown")"; then
+  if ! remaining="$(cooldown_remaining "$now" "$last" "$cooldown")"; then
     echo "  FAIL $description rejected valid inputs"
     failures=$((failures + 1))
     return
@@ -32,7 +32,7 @@ expect_decision "last second remains suppressed" suppress 1 1299 1000 300
 expect_decision "cooldown boundary permits another heal" heal 0 1300 1000 300
 expect_decision "zero-second override disables suppression" heal 0 1001 1000 0
 expect_decision "backwards clock step cannot suppress forever" heal 0 900 1000 300
-if tunnel_heal_cooldown_remaining bad 1000 300 >/dev/null 2>&1; then
+if cooldown_remaining bad 1000 300 >/dev/null 2>&1; then
   echo "  FAIL invalid decision input was accepted"
   failures=$((failures + 1))
 else

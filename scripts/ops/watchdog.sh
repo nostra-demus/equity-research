@@ -14,7 +14,7 @@ set -uo pipefail
 
 # Pure decision helper. Keeping this above the source guard lets the test exercise cooldown boundaries
 # without running the watchdog (and therefore without touching launchctl or the network).
-tunnel_heal_cooldown_remaining() {
+cooldown_remaining() {
   local now_raw="${1:-}" last_raw="${2:-}" cooldown_raw="${3:-}"
   local now last cooldown elapsed
   case "$now_raw" in ''|*[!0-9]*) return 2;; esac
@@ -166,7 +166,7 @@ connector_note_hourly() {
   now="$(date +%s)"
   last="$(cat "$marker" 2>/dev/null || true)"
   case "$last" in ''|*[!0-9]*) last=0;; esac
-  remaining="$(tunnel_heal_cooldown_remaining "$now" "$last" 3600 2>/dev/null || echo 0)"
+  remaining="$(cooldown_remaining "$now" "$last" 3600 2>/dev/null || echo 0)"
   [ "${remaining:-0}" -eq 0 ] || return 0
   log "$message"
   printf '%s\n' "$now" > "$marker.tmp" 2>/dev/null && mv "$marker.tmp" "$marker" 2>/dev/null || true
@@ -302,7 +302,7 @@ if [ -n "$problem" ]; then
       tunnel-down|public-offline)
         now="$(date +%s)"
         last_heal="$(get_tunnel_heal_at)"
-        cooldown_remaining="$(tunnel_heal_cooldown_remaining "$now" "$last_heal" "$TUNNEL_HEAL_COOLDOWN_SECONDS")"
+        cooldown_remaining="$(cooldown_remaining "$now" "$last_heal" "$TUNNEL_HEAL_COOLDOWN_SECONDS")"
         if [ "${cooldown_remaining:-0}" -gt 0 ]; then
           log "SUPPRESS HEAL $problem — tunnel convergence cooldown ${cooldown_remaining}s remaining"
           # Tunnel state has its own timestamp. Do not let its persistent failure count make the next
@@ -364,7 +364,7 @@ if [ -z "$problem" ]; then
     printf '%s\t%s\t%s\t%s\n' "$scanner_status" "$scanner_code" "$scanner_action" "$scanner_summary" > "$SCANNER_HEALTH_STATE"
 
     if [ "$scanner_status" = "healthy" ]; then
-      if { [ -n "$prior_status" ] && [ "$prior_status" != "healthy" ]; } || [ -f "$SCANNER_HEALING" ]; then
+      if [[ (-n "$prior_status" && "$prior_status" != "healthy") || -f "$SCANNER_HEALING" ]]; then
         log "SCANNER-RECOVERED — $scanner_summary"
       fi
       set_scanner_fails 0
@@ -389,7 +389,7 @@ if [ -z "$problem" ]; then
         # then keep a separate restart cooldown so a persistent code/config problem cannot cause churn.
         if [ "$scanner_n" -ge 2 ]; then
           scanner_now="$(date +%s)"
-          scanner_remaining="$(tunnel_heal_cooldown_remaining "$scanner_now" "$(get_scanner_heal_at)" "$SCANNER_HEAL_COOLDOWN_SECONDS")"
+          scanner_remaining="$(cooldown_remaining "$scanner_now" "$(get_scanner_heal_at)" "$SCANNER_HEAL_COOLDOWN_SECONDS")"
           if [ "${scanner_remaining:-0}" -gt 0 ]; then
             log "SUPPRESS SCANNER HEAL [$scanner_code] — engine restart cooldown ${scanner_remaining}s remaining"
             set_scanner_fails 0

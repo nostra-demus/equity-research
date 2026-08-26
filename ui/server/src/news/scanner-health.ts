@@ -119,6 +119,10 @@ function names(values: Array<{ label: string }>): string {
   return values.map((value) => value.label).join(', ')
 }
 
+function plural(count: number, singular: string, pluralForm = `${singular}s`): string {
+  return count === 1 ? singular : pluralForm
+}
+
 /** Pure and deterministic. `observedSinceMs` is the process-local moment the scheduler module loaded. */
 export function evaluateScannerHealth(
   input: ScannerHealthInput,
@@ -198,9 +202,10 @@ export function evaluateScannerHealth(
   const retired = Math.max(0, input.backlog.retiredToday || 0)
   if (lost > 0 || retired > 0) {
     const lowerBound = input.today.totalsLowerBound ? 'At least ' : ''
+    const missed = lost + retired
     add({
       code: 'data-loss-recorded', severity: 'critical',
-      message: `${lowerBound}${lost + retired} item${lost + retired === 1 ? '' : 's'} were not scored today (${lost} lost by an older queue limit; ${retired} expired while waiting).`,
+      message: `${lowerBound}${missed} ${plural(missed, 'item')} ${missed === 1 ? 'was' : 'were'} not scored today (${lost} lost by an older queue limit; ${retired} expired while waiting).`,
       action: 'increase-capacity', restartRecommended: false,
     })
   }
@@ -209,7 +214,7 @@ export function evaluateScannerHealth(
     || input.today.corruptCycleRows > 0 || input.flow.history?.gapMarkerUnreadable) {
     add({
       code: 'cycle-ledger-damaged', severity: 'critical',
-      message: `Today's scanner history is damaged or unreadable${input.today.corruptCycleRows > 0 ? ` (${input.today.corruptCycleRows} malformed record${input.today.corruptCycleRows === 1 ? '' : 's'})` : ''}.`,
+      message: `Today's scanner history is damaged or unreadable${input.today.corruptCycleRows > 0 ? ` (${input.today.corruptCycleRows} malformed ${plural(input.today.corruptCycleRows, 'record')})` : ''}.`,
       action: 'inspect-cycle-ledger', restartRecommended: false,
     })
   }
@@ -219,16 +224,17 @@ export function evaluateScannerHealth(
     const unreadable = input.flow.history.unreadableDates?.length || 0
     add({
       code: 'flow-history-incomplete', severity: 'warning',
-      message: `The last-hour capacity check cannot prove complete scanner history${missing || unreadable ? ` (${missing} missing date file${missing === 1 ? '' : 's'}; ${unreadable} unreadable)` : ''}.`,
+      message: `The last-hour capacity check cannot prove complete scanner history${missing || unreadable ? ` (${missing} missing date ${plural(missing, 'file')}; ${unreadable} unreadable)` : ''}.`,
       action: 'repair-storage', restartRecommended: false,
     })
   }
 
   const allowedIncomplete = input.running ? 1 : 0
   if (input.today.incompleteCycles > allowedIncomplete) {
+    const incomplete = input.today.incompleteCycles - allowedIncomplete
     add({
       code: 'cycle-completion-gap', severity: 'critical',
-      message: `${input.today.incompleteCycles - allowedIncomplete} earlier scanner look${input.today.incompleteCycles - allowedIncomplete === 1 ? '' : 's'} started without a durable completion record.`,
+      message: `${incomplete} earlier scanner ${plural(incomplete, 'look')} started without a durable completion record.`,
       action: 'inspect-cycle-ledger', restartRecommended: false,
     })
   }
@@ -243,8 +249,11 @@ export function evaluateScannerHealth(
 
   const configured = input.tiers.filter((tier) => tier.enabled)
   const spendable = configured.filter((tier) => tier.spendingAllowed !== false)
-  const available = spendable.filter((tier) => tier.routing?.eligible === true
-    || (!tier.routing && (tier.health === 'healthy' || tier.health === 'paced') && !tier.quarantined && !tier.credentialRejected))
+  const available = spendable.filter((tier) => {
+    if (tier.routing) return tier.routing.eligible === true
+    const healthyOrPaced = tier.health === 'healthy' || tier.health === 'paced'
+    return healthyOrPaced && !tier.quarantined && !tier.credentialRejected
+  })
   const quarantined = spendable.filter((tier) => tier.quarantined || tier.credentialRejected)
   if (configured.length === 0) {
     add({
@@ -255,7 +264,7 @@ export function evaluateScannerHealth(
   } else if (input.backlog.count > 0 && spendable.length > 0 && available.length === 0) {
     add({
       code: 'providers-blocked', severity: input.backlog.nearLimit ? 'critical' : 'warning',
-      message: `All ${spendable.length} active checking service${spendable.length === 1 ? ' is' : 's are'} blocked while ${input.backlog.count} item${input.backlog.count === 1 ? '' : 's'} wait.`,
+      message: `All ${spendable.length} active checking ${plural(spendable.length, 'service')} ${spendable.length === 1 ? 'is' : 'are'} blocked while ${input.backlog.count} ${plural(input.backlog.count, 'item')} ${input.backlog.count === 1 ? 'waits' : 'wait'}.`,
       action: quarantined.length === spendable.length ? 'repair-provider' : 'wait-for-reset',
       restartRecommended: false,
     })
