@@ -216,7 +216,7 @@ export function PortfolioStage() {
           />
         ) : tab === 'performance' ? (
           read?.performance
-            ? <Performance perf={read.performance} />
+            ? <Performance perf={read.performance} cashShare={cashShare(book, read?.overrides?.cashEquivalents ?? [])} />
             : <div className="fundbook__none">No performance to show yet.</div>
         ) : (
           <Trades
@@ -292,6 +292,17 @@ function Card({ label, value, sub, tone }: { label: string; value: string; sub?:
       {sub && <small className="fundbook__cardsub">{sub}</small>}
     </div>
   )
+}
+
+/** Share of NAV sitting in cash and declared cash equivalents. The risk ratios are computed on total
+ *  NAV, so this is what says whether they describe the picking or mostly the parking. */
+function cashShare(book: PortfolioBook, cashEquivalents: string[]): number | null {
+  const nav = book.navSeries.length ? book.navSeries[book.navSeries.length - 1]!.total : null
+  if (nav === null || nav <= 0) return null
+  const risked = book.positions
+    .filter((p) => !p.isDerivative && !cashEquivalents.includes((p.symbol ?? '').toUpperCase()))
+    .reduce((a, p) => a + (p.positionValue ?? 0) * (p.fxRateToBase ?? 1), 0)
+  return ((nav - risked) / nav) * 100
 }
 
 // ---------- holdings ----------
@@ -650,11 +661,72 @@ function unrealisedPct(p: PortfolioPosition): number | null {
 
 // ---------- performance ----------
 
-function Performance({ perf }: { perf: PortfolioPerformance }) {
+function Performance({ perf, cashShare }: { perf: PortfolioPerformance; cashShare: number | null }) {
   const { risk, benchmark: bm } = perf
   const ratio = (v: number | null) => (risk.sufficient && v !== null ? v.toFixed(2) : '—')
+  const inception = perf.periods.find((p) => p.label === 'Since inception') ?? null
+  // Past about a third in cash, the ratios say more about the parking than the picking.
+  const cashHeavy = cashShare !== null && cashShare >= 33
   return (
     <>
+      {/* ORDER IS THE ARGUMENT: what the book made, then what it made it against, then what that cost in
+          risk, then the risk-adjusted read, and last what the LP actually earned. The comparisons used
+          to be buried in the table below while volatility led the screen. */}
+      <div className="fundbook__cards">
+        <Card
+          label="Return · TWR"
+          value={fmtPct(inception?.twr, 2)}
+          sub={inception ? `Time-weighted, flows removed · ${inception.from} → ${inception.to}` : 'Since inception'}
+          tone={toneOf(inception?.twr)}
+        />
+        <Card
+          label={`vs ${bm.symbol}`}
+          value={bm.excess === null ? '—' : `${bm.excess >= 0 ? '+' : '−'}${Math.abs(bm.excess).toFixed(2)}pp`}
+          sub={bm.unavailable ? bm.unavailable : `${fmtPct(inception?.twr, 2)} against the index's ${fmtPct(bm.benchmarkTwr, 2)}`}
+          tone={toneOf(bm.excess)}
+        />
+        <Card
+          label="vs cash"
+          value={inception?.overHurdle === undefined || inception?.overHurdle === null
+            ? '—'
+            : `${inception.overHurdle >= 0 ? '+' : '−'}${Math.abs(inception.overHurdle).toFixed(2)}pp`}
+          sub={`Over a ${perf.riskFreeAnnualPct}% cash rate, which earned ${fmtPct(inception?.hurdle, 2)} across this window`}
+          tone={toneOf(inception?.overHurdle)}
+        />
+        <Card
+          label="Max drawdown"
+          value={risk.drawdown.depth === null ? '—' : `${fmtNum(risk.drawdown.depth, 2)}%`}
+          sub={risk.drawdown.depth === null ? 'No fall from a high yet'
+            : `${risk.drawdown.peakDate} → ${risk.drawdown.troughDate}${risk.drawdown.recoveredDate ? ` · back ${risk.drawdown.recoveredDate}` : ' · still under water'}`}
+          tone={risk.drawdown.depth === null ? undefined : 'var(--bad)'}
+        />
+        <Card
+          label="Volatility"
+          value={risk.volatility === null || !risk.sufficient ? '—' : `${risk.volatility.toFixed(1)}%`}
+          sub={cashHeavy ? `Annualised on TOTAL NAV, which is ${cashShare!.toFixed(0)}% cash` : 'Annualised from the daily NAV series'}
+        />
+        {/* The cash caveat is on the ratios too, and it is not a nicety: a book mostly in T-bills has
+            little volatility, so its Sharpe reads high for holding cash rather than for picking well.
+            The invested sleeve's own ratio cannot be computed — the statement carries ONE daily NAV for
+            the whole account, not one per sleeve — so the honest move is to say what the figure covers
+            rather than to derive a flattering number from a denominator we do not have. */}
+        <Card label="Sharpe" value={ratio(risk.sharpe)} sub={cashHeavy ? 'Excess per unit of swing — on the whole book, cash included' : 'Excess return per unit of swing'} />
+        <Card label="Sortino" value={ratio(risk.sortino)} sub="Counts only downside swing" />
+        <Card
+          label={`Beta to ${bm.symbol}`}
+          value={perf.betaAlpha.beta === null ? '—' : perf.betaAlpha.beta.toFixed(2)}
+          sub={perf.betaAlpha.beta === null
+            ? `Needs ${bm.symbol} price history`
+            : `Alpha ${fmtPct(perf.betaAlpha.alpha, 1)} annualised${Math.abs(perf.betaAlpha.beta) < 0.2 ? ' — but at this beta that is little more than the excess over cash' : ''}, from ${perf.betaAlpha.pairedDays} paired days`}
+        />
+        <Card
+          label="Money-weighted"
+          value={fmtPct(perf.moneyWeightedAnnualisedPct)}
+          sub="ANNUALISED (IRR) — what the LP earned, not comparable with the cumulative returns"
+          tone={toneOf(perf.moneyWeightedAnnualisedPct)}
+        />
+      </div>
+
       <div className="fundbook__panel">
         <div className="fundbook__panelhead">
           <div>
@@ -715,39 +787,6 @@ function Performance({ perf }: { perf: PortfolioPerformance }) {
           <UnderwaterChart series={perf.underwater} />
         </div>
       )}
-
-      <div className="fundbook__cards">
-        <Card label="Volatility" value={risk.volatility === null || !risk.sufficient ? '—' : `${risk.volatility.toFixed(1)}%`} sub="Annualised, daily NAV" />
-        <Card label="Sharpe" value={ratio(risk.sharpe)} sub="Excess return per unit of swing" />
-        <Card label="Sortino" value={ratio(risk.sortino)} sub="Counts only downside swing" />
-        <Card label="Calmar" value={ratio(risk.calmar)} sub="Period return ÷ worst fall" />
-        <Card
-          label="Max drawdown"
-          value={risk.drawdown.depth === null ? '—' : `${risk.drawdown.depth.toFixed(2)}%`}
-          sub={risk.drawdown.depth === null ? 'No fall from a high yet'
-            : `${risk.drawdown.peakDate} → ${risk.drawdown.troughDate}${risk.drawdown.recoveredDate ? ` · back ${risk.drawdown.recoveredDate}` : ' · still under water'}`}
-          tone={risk.drawdown.depth === null ? undefined : 'var(--bad)'}
-        />
-        <Card
-          label="Money-weighted"
-          value={fmtPct(perf.moneyWeightedAnnualisedPct)}
-          sub="ANNUALISED (IRR) — not comparable with the cumulative returns above"
-          tone={toneOf(perf.moneyWeightedAnnualisedPct)}
-        />
-        <Card
-          label={`Beta to ${bm.symbol}`}
-          value={perf.betaAlpha.beta === null ? '—' : perf.betaAlpha.beta.toFixed(2)}
-          sub={perf.betaAlpha.pairedDays > 0
-            ? `From ${perf.betaAlpha.pairedDays} days both series moved`
-            : `Needs ${bm.symbol} price history`}
-        />
-        <Card
-          label="Alpha"
-          value={perf.betaAlpha.alpha === null ? '—' : fmtPct(perf.betaAlpha.alpha)}
-          sub="Annualised, beyond what beta explains"
-          tone={perf.betaAlpha.alpha === null ? undefined : toneOf(perf.betaAlpha.alpha)}
-        />
-      </div>
 
       {perf.months.length > 0 && (
         <div className="fundbook__panel">
