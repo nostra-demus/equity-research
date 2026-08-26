@@ -164,6 +164,12 @@ prevented any second route from collecting evidence. Explicit `NEWS_PROVIDER_ROU
 `static` remain observation-only. The cockpit shows when each route last returned the complete scorer
 contract, or says plainly that it has no successful proof in the seven-day routing window.
 
+`GET /api/news/diagnostics` also carries one `health` verdict derived from those same durable facts. It
+separates a stalled scheduler (restart can help) from provider allowance/key/model faults, unreadable saved
+state, actual missed items, or insufficient scoring capacity (restart cannot help). The cockpit shows the
+ranked root causes, and the Mac watchdog consumes the same remedy field after two confirmed reads; there is
+no second health process making synthetic provider calls or guessing from log text.
+
 - **Gemini** (`GEMINI_API_KEY`) — a rotation pool of free models (`generateContent`), each its own
   per-day bucket, resetting midnight Pacific.
 - **Cerebras** (`CEREBRAS_API_KEY`) — the biggest + fastest free pool, on `gpt-oss-120b`
