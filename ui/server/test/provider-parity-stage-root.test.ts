@@ -11,6 +11,7 @@ const root = fs.mkdtempSync(path.join(os.tmpdir(), 'nostra-parity-stage-'))
 try {
   for (const reason of [
     'codex_incomplete_orchestration', 'codex_continuation_failed',
+    'continuation_spawn_failed',
     'terminated_sigterm', 'supervisor_shutdown', 'supervisor_restart',
   ]) {
     assert.equal(isRecoverableParityInterruptionReason(reason), true, `${reason} is an exact machine-stop recovery reason`)

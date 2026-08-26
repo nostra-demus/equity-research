@@ -1,9 +1,9 @@
 {
-  "idea_id": "IDEA-137047b4543b",
-  "idea_version": "IDEAV-2d67a2b15ec5b565",
-  "idea_version_started_at": "2026-08-24T19:00:25Z",
-  "ticker": "09988",
-  "company": "Alibaba",
+  "idea_id": "IDEA-1e44ade2951b",
+  "idea_version": "IDEAV-1bcdcec0f4e1ceee",
+  "idea_version_started_at": "2026-08-26T10:48:25Z",
+  "ticker": "00108",
+  "company": "SR Medical",
   "exchange": "HKEX",
   "ticker_verified": false,
   "listing_verified": false,
@@ -11,17 +11,17 @@
   "listing_verification_source": null,
   "direction": "short",
   "pair_with": null,
-  "reason": "Proposed placing of new shares under a general mandate will dilute existing shareholders' ownership and could pressure the stock price.",
-  "why_now": "The company made this announcement on August 23, 2026.",
-  "conviction": 65,
+  "reason": "The company issued a profit warning, indicating a deterioration in earnings and revenue performance.",
+  "why_now": "The profit warning was filed today, August 26, 2026.",
+  "conviction": 70,
   "conviction_basis": "pre_edge_proxy",
   "trade_score": 45,
   "trade_score_basis": "evidence_gate_v2",
   "trade_score_breakdown": {
     "evidence": 25,
-    "impact": 20,
+    "impact": 19,
     "specificity": 7,
-    "timing": 6,
+    "timing": 10,
     "expression": 0,
     "corroboration": 0,
     "learning_adjustment": 0
@@ -32,7 +32,7 @@
     "verified listing",
     "live liquidity",
     "dated catalyst",
-    "price and market expectations",
+    "priced-in risk",
     "live price, liquidity, and consensus"
   ],
   "learning": {
@@ -44,31 +44,31 @@
     "basis": "not_enough_outcomes",
     "evidenceIds": []
   },
-  "priced_in": "unknown",
+  "priced_in": "priced",
   "thesis_type": "company_specific",
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-109b0a908dfe"
+    "EVT-1c40ffea2ea5"
   ],
-  "primary_source_event_id": "EVT-109b0a908dfe",
+  "primary_source_event_id": "EVT-1c40ffea2ea5",
   "source_headlines": [
-    "BABA-W BABA-WR (09988 89988): VOLUNTARY ANNOUNCEMENT AND OVERSEAS REGULATORY ANNOUNCEMENT PROPOSED PLACING OF NEW SHARES UNDER GENERAL MANDATE"
+    "SR MEDICAL (00108): PROFIT WARNING"
   ],
-  "source_headline": "BABA-W BABA-WR (09988 89988): VOLUNTARY ANNOUNCEMENT AND OVERSEAS REGULATORY ANNOUNCEMENT PROPOSED PLACING OF NEW SHARES UNDER GENERAL MANDATE",
-  "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0823/2026082300007.pdf",
+  "source_headline": "SR MEDICAL (00108): PROFIT WARNING",
+  "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0826/2026082600396.pdf",
   "source_name": "HKEXnews (HK Exchange Filing)",
   "materiality_max": 100,
-  "newest_source_at": "2026-08-23T10:06:00Z",
+  "newest_source_at": "2026-08-26T08:43:00Z",
   "prior_coverage": {
     "has_run": false,
     "latest_run": null,
     "latest_decision": null,
     "data_pool_present": false
   },
-  "surfaced_at": "2026-08-24T19:00:25Z",
-  "updated_at": "2026-08-24T19:00:25Z",
-  "decay_at": "2026-08-24T22:06:00Z",
+  "surfaced_at": "2026-08-26T10:48:25Z",
+  "updated_at": "2026-08-26T10:48:25Z",
+  "decay_at": "2026-08-27T20:43:00Z",
   "status": "live",
   "promoted_signal_id": null
 }
