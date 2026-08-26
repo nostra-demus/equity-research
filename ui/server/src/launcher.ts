@@ -48,7 +48,7 @@ import {
   appendExecutionAttempt, artifactIsFresh, attestParitySnapshotAtPublication,
   canonicalManifestJsonl, canonicalManifestPath, decisionArtifacts,
   EXECUTION_PROVENANCE_RECEIPT, receiptPath, recordAdmittedProviderSelection, recordProviderInterruptionAuthority,
-  recordRecoveredPublicationAuthority, releaseExecutionEpochAfterPublication,
+  protectedInterruptedExecutionLineage, recordRecoveredPublicationAuthority, releaseExecutionEpochAfterPublication,
   releaseParityRegistration, resolveParityBindingPath, supersedeIncompleteDecisionAuthorAttempt, writeExecutionReceipt,
 } from './execution-provenance'
 import { runIbkrPaperAutoSyncAfterPublication, scheduleIbkrPaperAutoSyncAfterPublication } from './ibkr-paper-auto-sync'
@@ -1655,7 +1655,9 @@ function agentRequiredUpstream(swarmId: string, module?: string, agent?: string)
 // synchronous with no `await` in between, so two onClose callbacks landing "around the same time" still
 // run to completion one at a time — the second always sees the first's dedup entry and returns before
 // writing. Serialization is real, just done in-process rather than via admission's declared-write model.
-const ROOT_ARTIFACTS_FULL = ['final_thesis.md', 'memo.md', 'audit_dossier.md', 'decision_record.json', 'RUN_METADATA.md']
+const ROOT_ARTIFACTS_FULL = [
+  'final_thesis.md', 'memo.md', 'audit_dossier.md', 'decision_record.json', 'idea_3_6m.json', 'RUN_METADATA.md',
+]
 const ROOT_ARTIFACTS_RERUN = ['final_thesis.md', 'memo.md', 'audit_dossier.md', 'decision_record.json']
 // A screener signal run owns its whole SIG folder; these are its run-root JSON artifacts.
 const ROOT_ARTIFACTS_SIGNAL = ['intake.json', 'signal_payload.json', 'thesis_record.json', 'candidates.json', 'RUN_METADATA.md']
@@ -1911,6 +1913,8 @@ export interface LaunchParams {
     freezeReceipt: string
     /** Internal chain lifecycle. The HTTP body never accepts this field. */
     stage?: ParityCanaryStage
+    /** Supervisor-only marker for the terminal process of an authorized same-root recovery. */
+    continuation?: boolean
   }
   user?: string // who launched it (from Cloudflare Access at the route); defaults to "local"
   userVia?: 'cf-access' | 'local'
@@ -2592,6 +2596,8 @@ interface FullChainScope {
   runRoot?: string
   /** Frozen canaries use per-module loaders, then one terminal full-canary adjudicator. */
   parityCanary?: { runRoot: string; freezeReceipt: string }
+  /** Operator-authorized same-root recovery seeds completed modules even when raw terminal files exist. */
+  continuation?: boolean
 }
 
 export function chainedResumePreflight(
@@ -2706,7 +2712,8 @@ export async function launchFullChained(
   // a complete folder is left alone (this is then a fresh full, not a resume). A module is finished only
   // when its CURRENT discovered synthesis passes the same mechanical validator used by exact planning.
   const resumeRoot = datedRoot
-  if (fs.existsSync(path.join(REPO_ROOT, resumeRoot)) && !finalDeliverablesPresent(resumeRoot)) {
+  if (fs.existsSync(path.join(REPO_ROOT, resumeRoot))
+      && (scope.continuation === true || !finalDeliverablesPresent(resumeRoot))) {
     for (const name of names) {
       try {
         const finished = (synthesisFiles.get(name) ?? []).some((file) =>
@@ -2750,7 +2757,7 @@ export async function launchFullChained(
     masterLaunched = true
     const masterParams: LaunchParams = scope.parityCanary
       ? { kind: 'full', ticker, user, userVia, chained: true, chainId, ...selection,
-        parityCanary: { ...scope.parityCanary, stage: 'final' } }
+        parityCanary: { ...scope.parityCanary, stage: 'final', continuation: scope.continuation === true } }
       : { kind: 'rerun', ticker, module: 'master', agent: 'synthesizer', user, userVia, chained: true,
         chainId, memoryIdentity, ...selection, ...decisionBinding }
     const launched = deps.launchAndWire(
@@ -3196,7 +3203,10 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
     }
     assertParityCanaryStageRoot(rootAbsolute, stage)
     runRoot = rootRelative
-    params.parityCanary = { runRoot: rootRelative, freezeReceipt: freezeRelative, stage }
+    params.parityCanary = {
+      runRoot: rootRelative, freezeReceipt: freezeRelative, stage,
+      continuation: params.parityCanary.continuation === true,
+    }
   } else if (kind === 'parity') {
     const request = params.parity
     if (!request) {
@@ -3448,7 +3458,11 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
       defaultFullChainDeps,
       undefined,
       undefined,
-      { runRoot, parityCanary: { runRoot, freezeReceipt: params.parityCanary.freezeReceipt } },
+      {
+        runRoot,
+        continuation: params.parityCanary.stage === 'continuation',
+        parityCanary: { runRoot, freezeReceipt: params.parityCanary.freezeReceipt },
+      },
     )
   }
 
@@ -3605,6 +3619,11 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
       memoryIdentity: params.memoryIdentity,
       parityCanaryStage: params.parityCanary?.stage === 'module' || params.parityCanary?.stage === 'final'
         ? params.parityCanary.stage : undefined,
+      parityCanaryContinuation: params.parityCanary?.stage === 'final'
+        && params.parityCanary.continuation === true,
+      protectedPriorExecutionAttempts: params.parityCanary?.stage === 'final'
+        && params.parityCanary.continuation === true
+        ? protectedInterruptedExecutionLineage(runRoot) : undefined,
     })
   } catch (error) {
     releaseDeployBarrier()
@@ -3734,13 +3753,14 @@ export function paritySnapshotRootMatchesDataSubject(snapshotRoot: string, dataD
 
 const RECOVERABLE_PARITY_INTERRUPTION_REASONS = new Set([
   'codex_incomplete_orchestration',
+  'codex_continuation_failed',
   'terminated_sigterm',
   'supervisor_shutdown',
   'supervisor_restart',
 ])
 
 /** The route still requires exact supervisor authority, profile/root equality, no abort marker, and no
- * terminal artifact. These are only the machine-stop reasons eligible to enter that existing gate. */
+ * completed supervisor receipt. These are only the machine-stop reasons eligible to enter that gate. */
 export function isRecoverableParityInterruptionReason(value: unknown): boolean {
   return typeof value === 'string' && RECOVERABLE_PARITY_INTERRUPTION_REASONS.has(value)
 }
@@ -3798,18 +3818,16 @@ export function assertParityCanaryStageRoot(rootAbsolute: string, stage: ParityC
     return
   }
   if (stage === 'continuation') {
-    const terminal = ['final_thesis.md', 'decision_record.json', EXECUTION_PROVENANCE_RECEIPT]
-      .filter((name) => names.has(name))
-    if (terminal.length) {
-      throw Object.assign(new Error(`parity canary continuation already has terminal artifacts: ${terminal.join(', ')}`), { statusCode: 409 })
-    }
     if (!names.has('.interrupted') || names.has('.aborted')) {
       throw Object.assign(new Error('parity canary continuation requires an interruption marker and no abort marker'), { statusCode: 409 })
     }
   }
+  if ((stage === 'continuation' || stage === 'final') && names.has(EXECUTION_PROVENANCE_RECEIPT)) {
+    throw Object.assign(new Error('parity canary continuation is already supervisor-published'), { statusCode: 409 })
+  }
   const stageSupport = stage === 'continuation'
-    ? new Set([...support, '.interrupted', FAILURE_NOTE])
-    : support
+    ? new Set([...support, ...ROOT_ARTIFACTS_FULL, '.interrupted', FAILURE_NOTE])
+    : stage === 'final' ? new Set([...support, ...ROOT_ARTIFACTS_FULL]) : support
   for (const entry of entries) {
     const absolute = path.join(rootAbsolute, entry.name)
     const info = fs.lstatSync(absolute)
@@ -3915,6 +3933,7 @@ export const EXACT_MODULE_RUN_ROOT_ENV = 'NOSTRA_EXACT_MODULE_RUN_ROOT'
 export const EXACT_MODULE_NAME_ENV = 'NOSTRA_EXACT_MODULE_NAME'
 export const EXACT_MODULE_WRITABLE_ORBS_ENV = 'NOSTRA_EXACT_MODULE_WRITABLE_ORBS'
 export const EXACT_MODULE_SYNTHESIS_ORBS_ENV = 'NOSTRA_EXACT_MODULE_SYNTHESIS_ORBS'
+export const PARITY_CANARY_CONTINUATION_ENV = 'NOSTRA_PARITY_CANARY_CONTINUATION'
 // Back-compatible helper for the few untracked Claude-only wrappers that import childEnv(). Tracked
 // cockpit processes get their environment from their selected ProviderAdapter.
 interface RunPolicyEnvOptions {
@@ -3999,9 +4018,11 @@ function applyRunPolicyEnv(source: NodeJS.ProcessEnv, run: RunState): NodeJS.Pro
     exactModuleSynthesisOrbs: scope?.synthesisOrbs,
   })
   delete env.NOSTRA_MEMORY_MODE
+  delete env[PARITY_CANARY_CONTINUATION_ENV]
   if (run.memoryRuntime && run.memoryRuntime.mode !== 'off') {
     env.NOSTRA_MEMORY_MODE = run.memoryRuntime.mode
   }
+  if (run.parityCanaryContinuation) env[PARITY_CANARY_CONTINUATION_ENV] = '1'
   return env
 }
 

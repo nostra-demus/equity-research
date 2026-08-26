@@ -140,6 +140,9 @@ const cleanExit = { exitCode: 0 }
     fs.writeFileSync(path.join(absolute, 'decision_record.json'), JSON.stringify({
       schema_version: '1.0', created_by: 'synthesizer', decision: 'Avoid',
     }, null, 2) + '\n')
+    fs.writeFileSync(path.join(absolute, 'idea_3_6m.json'), JSON.stringify({
+      schema_version: 'idea-assessment/1.0', status: 'not_assessable',
+    }, null, 2) + '\n')
     fs.writeFileSync(path.join(absolute, 'RUN_METADATA.md'), '# Staged metadata\n\nNot published.\n')
     fs.writeFileSync(path.join(absolute, '.requires_idea_publication'), '')
 
@@ -150,6 +153,7 @@ const cleanExit = { exitCode: 0 }
     assert.ok(terminalContinuation.checkpoint?.includes('terminal:final_thesis.md'),
       'the canonical finish-gate banner does not make a valid thesis look incomplete')
     assert.ok(terminalContinuation.completedOutputs?.includes('decision_record.json'))
+    assert.ok(terminalContinuation.completedOutputs?.includes('idea_3_6m.json'))
     assert.ok(terminalContinuation.checkpoint?.includes('terminal:decision_record.json'))
     assert.ok(terminalContinuation.unresolvedOutputs?.includes('memo.md'))
     assert.ok(terminalContinuation.unresolvedOutputs?.includes('audit_dossier.md'))

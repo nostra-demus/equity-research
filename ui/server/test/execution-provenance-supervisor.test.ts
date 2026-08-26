@@ -134,6 +134,31 @@ try {
   assert.deepEqual(publicationContinuation?.decision_artifacts, [],
     'a publication-only continuation does not claim the retained decision artifact')
 
+  const protectedRecoveryRoot = `${root}_protected-recovery`
+  const protectedRecoveryAbsolute = path.join(REPO_ROOT, protectedRecoveryRoot)
+  extraCleanup.push(protectedRecoveryAbsolute)
+  fs.mkdirSync(protectedRecoveryAbsolute, { recursive: true })
+  const protectedRecovery = createRun({
+    kind: 'full', ticker: 'ZZPROTECTED', provider: 'codex',
+    executionProfile: { key: 'codex:test', parentModel: 'gpt-test', parentReasoning: 'max' },
+    profileKey: 'codex:test', model: 'gpt-test', reasoningLevel: 'max', prompt: '', user: 'test',
+    userVia: 'local', runRoot: protectedRecoveryRoot, willCommitToMain: false,
+    writeTargetsAbs: [protectedRecoveryAbsolute], coveredModules: [], readDepsAbs: [],
+    closeWatcher: undefined, expected: new Map(),
+    protectedPriorExecutionAttempts: [{ ...originalAuthor! }],
+  })
+  beginExecutionAttempt(protectedRecovery)
+  const importedProtected = protectedRecovery.executionAttempts?.find((row) =>
+    row.attempt_id === originalAuthor?.attempt_id)
+  assert.equal(importedProtected?.attribution, 'recorded')
+  assert.equal(importedProtected?.decision_author, false,
+    'an interrupted prior author is retained as observed lineage but cannot author the replacement verdict')
+  assert.deepEqual(importedProtected?.scope, ['live_prior_attempt'])
+  assert.equal(protectedRecovery.currentExecutionAttempts?.find((row) =>
+    row.attribution === 'recorded')?.decision_author, true,
+    'the recovery terminal process authors the replacement verdict')
+  finishRun(protectedRecovery, 'error')
+
   const imported = projectionLineageRows({ execution_provenance: {
     provider_mode: 'single_provider', profile_key: 'claude:opus:default',
     contributors: [{ provider: 'claude', model: 'opus', reasoning_level: 'default', attribution: 'recorded', scopes: ['modules'] }],

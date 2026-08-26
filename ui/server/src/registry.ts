@@ -46,6 +46,8 @@ export interface RunState {
   /** Canonical supervisor-owned rows. Provider children never receive or mutate this array. */
   executionAttempts?: Array<Record<string, unknown>>
   currentExecutionAttempts?: Array<Record<string, unknown>>
+  /** Protected rows captured before an interrupted selection is replaced by a recovery admission. */
+  protectedPriorExecutionAttempts?: Array<Record<string, unknown>>
   /** Run-root-relative decision artifact hashes captured immediately before the provider starts. */
   publicationBaselines?: Record<string, string | null>
   /** Retained evidence exists but its pre-provider identity cannot be proven. */
@@ -56,6 +58,8 @@ export interface RunState {
   parityCanary?: boolean
   /** Frozen child role. Only `final` is a decision author and must complete supervisor publication. */
   parityCanaryStage?: 'module' | 'final'
+  /** This terminal canary repairs a supervisor-authorized same-root interruption. */
+  parityCanaryContinuation?: boolean
   /** Set only after the live supervisor verifies the terminal parity receipt and bound canaries. */
   parityVerificationCompleted?: boolean
   parityVerificationReceiptPath?: string

@@ -650,6 +650,7 @@ function trustedLineage(run: RunState): Array<Record<string, unknown>> {
   const livePrior = [
     ...(sealedValid ? sealed!.rows : []),
     ...durableUnsealed,
+    ...(run.protectedPriorExecutionAttempts ?? []),
     ...(liveAttemptsByRunRoot.get(run.runRoot) ?? []),
   ]
   const identities = new Set<string>()
@@ -1057,4 +1058,11 @@ export function readProviderInterruptionAuthority(runRoot: string): ProviderInte
     profileKey: durable.profileKey,
     executionProfile: durable.executionProfile ? { ...durable.executionProfile } : undefined,
   }
+}
+
+/** Capture canonical interrupted rows before a recovery admission advances the protected selection stage. */
+export function protectedInterruptedExecutionLineage(runRoot: string): Array<Record<string, unknown>> {
+  const selection = readProviderSelectionRecord(runRoot)
+  if (!selection || selection.stage !== 'interrupted') return []
+  return readProtectedManifestRows(runRoot, selection.run_id).map((row) => ({ ...row }))
 }
