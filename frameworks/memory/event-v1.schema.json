@@ -249,6 +249,34 @@
     },
     {
       "if": {
+        "properties": { "event_type": { "const": "semantic.activated" } },
+        "required": ["event_type"]
+      },
+      "then": {
+        "properties": {
+          "payload": {
+            "properties": { "schema": { "const": "memory-semantic-lesson/v1" } },
+            "required": ["schema"]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": { "event_type": { "enum": ["playbook.activated", "playbook.status-changed"] } },
+        "required": ["event_type"]
+      },
+      "then": {
+        "properties": {
+          "payload": {
+            "properties": { "schema": { "const": "memory-playbook/v1" } },
+            "required": ["schema"]
+          }
+        }
+      }
+    },
+    {
+      "if": {
         "properties": {
           "payload": {
             "properties": { "schema": { "const": "memory-evidence-span/v2" } },
@@ -293,6 +321,34 @@
       },
       "then": {
         "properties": { "event_type": { "const": "feedback.reviewed" } }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "payload": {
+            "properties": { "schema": { "const": "memory-semantic-lesson/v1" } },
+            "required": ["schema"]
+          }
+        },
+        "required": ["payload"]
+      },
+      "then": {
+        "properties": { "event_type": { "const": "semantic.activated" } }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "payload": {
+            "properties": { "schema": { "const": "memory-playbook/v1" } },
+            "required": ["schema"]
+          }
+        },
+        "required": ["payload"]
+      },
+      "then": {
+        "properties": { "event_type": { "enum": ["playbook.activated", "playbook.status-changed"] } }
       }
     },
     {
@@ -421,6 +477,22 @@
                   "memory-tombstone/v1"
                 ]
               }
+            },
+            "required": ["schema"]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": { "event_type": { "pattern": "^playbook\\." } },
+        "required": ["event_type"]
+      },
+      "then": {
+        "properties": {
+          "payload": {
+            "properties": {
+              "schema": { "enum": ["memory-playbook/v1", "memory-tombstone/v1"] }
             },
             "required": ["schema"]
           }

@@ -7,7 +7,7 @@ import { RESEARCH_SWARM_ID, listSwarms, runRootForSubject, swarmById } from './s
 import { normalizeDataSubject, MANIFEST_SUBJECT_RE } from './data-subject'
 import { resolveManifestRunRoot } from './swarm-run-root'
 import { resolveDisplayFields } from './ledger-corrections'
-import type { AgentNode, DataReadinessDecl, ModuleNode, SwarmGraph, SwarmManifest, SwarmSubjectSummary } from './types'
+import type { AgentNode, DataReadinessDecl, MemoryProfile, ModuleNode, SwarmGraph, SwarmManifest, SwarmSubjectSummary } from './types'
 
 function readFrontmatter(filePath: string) {
   const raw = fs.readFileSync(filePath, 'utf8')
@@ -29,6 +29,56 @@ function parseDependsOn(v: any): string[] {
     .split(',')
     .map((s) => s.trim())
     .filter(Boolean)
+}
+
+const MEMORY_PROFILE_KEYS = new Set([
+  'version', 'task', 'episodic_scope', 'semantic_topics', 'procedure_tags', 'cross_company',
+  'permitted_source_tiers', 'permitted_classifications', 'max_context_tokens',
+])
+const MEMORY_PROFILE_TASK = /^[a-z][a-z0-9-]*\.[a-z][a-z0-9-]*$/
+const MEMORY_PROFILE_TAG = /^[a-z][a-z0-9-]*$/
+
+function parseMemoryProfile(value: unknown, source: string, required: boolean): MemoryProfile | undefined {
+  if (value === undefined && !required) return undefined
+  if (!value || typeof value !== 'object' || Array.isArray(value)) {
+    throw new Error(`${source}: analytical agent requires a closed memory_profile`)
+  }
+  const record = value as Record<string, unknown>
+  const keys = Object.keys(record)
+  if (keys.length !== MEMORY_PROFILE_KEYS.size || keys.some((key) => !MEMORY_PROFILE_KEYS.has(key))) {
+    throw new Error(`${source}: memory_profile has missing or unrecognized fields`)
+  }
+  const stringList = (field: string): string[] => {
+    const values = record[field]
+    if (!Array.isArray(values) || values.length === 0
+        || values.some((item) => typeof item !== 'string' || !MEMORY_PROFILE_TAG.test(item))) {
+      throw new Error(`${source}: memory_profile.${field} must be a non-empty safe list`)
+    }
+    return [...new Set(values as string[])]
+  }
+  const tiers = record.permitted_source_tiers
+  const classifications = record.permitted_classifications
+  if (record.version !== 1 || typeof record.task !== 'string' || !MEMORY_PROFILE_TASK.test(record.task)
+      || record.episodic_scope !== 'exact-listing' || typeof record.cross_company !== 'boolean'
+      || !Array.isArray(tiers) || tiers.some((tier) => !Number.isInteger(tier) || Number(tier) < 1 || Number(tier) > 5)
+      || new Set(tiers).size !== tiers.length
+      || !Array.isArray(classifications) || classifications.length === 0
+      || classifications.some((item) => item !== 'public' && item !== 'internal')
+      || typeof record.max_context_tokens !== 'number' || !Number.isInteger(record.max_context_tokens)
+      || record.max_context_tokens < 1) {
+    throw new Error(`${source}: memory_profile contains an invalid authority or budget`)
+  }
+  return {
+    version: 1,
+    task: record.task,
+    episodicScope: 'exact-listing',
+    semanticTopics: stringList('semantic_topics'),
+    procedureTags: stringList('procedure_tags'),
+    crossCompany: record.cross_company,
+    permittedSourceTiers: tiers as number[],
+    permittedClassifications: classifications as Array<'public' | 'internal'>,
+    maxContextTokens: record.max_context_tokens,
+  }
 }
 
 // Parse the agent body's UPSTREAM_INPUTS block for run-root-relative REQUIRED files.
@@ -107,6 +157,8 @@ function topoSort(mods: { name: string; dependsOn: string[] }[]): string[] {
 }
 
 function buildModule(mod: DiscoveredModule, order: number, swarm: SwarmManifest): ModuleNode {
+  const productionMemoryProfiles = swarm.id === RESEARCH_SWARM_ID
+    && fs.existsSync(path.join(REPO_ROOT, 'frameworks', 'MEMORY_RUNTIME.md'))
   const files = fg.sync('[0-9][0-9]_*.md', { cwd: mod.dir, absolute: true }).sort()
   const layers: Record<string, AgentNode[]> = {}
   let count = 0
@@ -133,6 +185,13 @@ function buildModule(mod: DiscoveredModule, order: number, swarm: SwarmManifest)
       requiredUpstream,
       soloRunnable: requiredUpstream.length === 0,
       isSynthesis: nn === '99',
+      memoryProfile: parseMemoryProfile(data.memory_profile, path.relative(REPO_ROOT, f), productionMemoryProfiles),
+    }
+    if (productionMemoryProfiles) {
+      const expectedBudget = nn === '99' ? 4000 : 3000
+      if (node.memoryProfile?.maxContextTokens !== expectedBudget) {
+        throw new Error(`${path.relative(REPO_ROOT, f)}: memory_profile.max_context_tokens must be ${expectedBudget}`)
+      }
     }
     ;(layers[String(layer)] ||= []).push(node)
     count++
@@ -173,12 +232,23 @@ export function buildSwarmGraph(swarmId: string = RESEARCH_SWARM_ID, force = fal
     return buildModule(d, i, swarm)
   })
 
-  let masterSynthesizer = { name: 'synthesizer', description: '' }
+  let masterSynthesizer: SwarmGraph['masterSynthesizer'] = { name: 'synthesizer', description: '' }
   if (swarm.id === RESEARCH_SWARM_ID) {
     const synthFile = path.join(AGENTS_DIR, 'synthesizer.md')
     if (fs.existsSync(synthFile)) {
       const { data } = readFrontmatter(synthFile)
-      masterSynthesizer = { name: String(data.name || 'synthesizer'), description: String(data.description || '') }
+      const productionMemoryProfiles = fs.existsSync(path.join(REPO_ROOT, 'frameworks', 'MEMORY_RUNTIME.md'))
+      const memoryProfile = parseMemoryProfile(
+        data.memory_profile, path.relative(REPO_ROOT, synthFile), productionMemoryProfiles,
+      )
+      if (productionMemoryProfiles && memoryProfile?.maxContextTokens !== 6000) {
+        throw new Error(`${path.relative(REPO_ROOT, synthFile)}: memory_profile.max_context_tokens must be 6000`)
+      }
+      masterSynthesizer = {
+        name: String(data.name || 'synthesizer'),
+        description: String(data.description || ''),
+        memoryProfile,
+      }
     }
   } else {
     // swarms have no master synthesizer orb — their terminal is the routing switchyard

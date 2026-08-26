@@ -30,7 +30,7 @@ from collections import Counter
 from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
-from typing import Any, Iterable, Mapping, Sequence
+from typing import Any, Callable, Iterable, Mapping, Sequence
 
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
@@ -762,6 +762,9 @@ def build_report(
     *,
     benchmark_path: Path = DEFAULT_BENCHMARK,
     corpus: Corpus | None = None,
+    ranker: Callable[..., list[RankedDocument]] | None = None,
+    method: Mapping[str, Any] | None = None,
+    report_version: str = "memory-folder-grep-baseline/v1",
 ) -> dict[str, Any]:
     """Run and score the baseline.  Ranking occurs before any scoring fields are read."""
 
@@ -769,10 +772,11 @@ def build_report(
         corpus = Corpus(load_corpus_manifest())
     if not corpus.manifest.pinned:
         raise FixtureError("the baseline report must be built over the frozen corpus manifest")
+    active_ranker = rank_case if ranker is None else ranker
     top_k = benchmark["top_k"]
     evaluated: list[dict[str, Any]] = []
     for case in benchmark["cases"]:
-        ranked = rank_case(
+        ranked = active_ranker(
             question=case["question"],
             search_roots=case["search_roots"],
             top_k=top_k,
@@ -820,7 +824,7 @@ def build_report(
             "unique_files_considered": len(documents),
         },
         "limitations": list(benchmark["assessment_limits"]),
-        "method": {
+        "method": dict(method) if method is not None else {
             "corpus_manifest_sha256": corpus.manifest.sha256,
             "corpus_pinning": "frozen manifest of repository-relative paths to Git blob ids",
             "description": "Frozen-manifest file selection followed by deterministic literal token and adjacent-token grep scoring.",
@@ -842,7 +846,7 @@ def build_report(
                 sum(bool(result["forbidden_hits"]) for result in temporal), len(temporal)
             ),
         },
-        "report_version": "memory-folder-grep-baseline/v1",
+        "report_version": report_version,
     }
 
 

@@ -332,6 +332,7 @@
       "authority": "append_only_with_content_addressed_snapshots",
       "paths": [
         "screener/ledger/ideas.ndjson",
+        "screener/ledger/ideas_interrupted_attempts.ndjson",
         "screener/ledger/ideas/*.json",
         "screener/ledger/ideas_archive/*.json",
         "screener/ledger/ideas_archive/.retention-required"
@@ -340,9 +341,10 @@
       "observed_count": 33,
       "producer_ids": ["ideas-service", "idea-admission-tools"],
       "reader_ids": ["ideas-service", "screener-api"],
-      "correction_model": "Append lifecycle rows; retain active and archived immutable snapshots under the declared retention contract.",
+      "correction_model": "Append lifecycle and interrupted-attempt audit rows; retain active and archived immutable snapshots under the declared retention contract.",
       "evidence": [
         "screener/ledger/ideas.ndjson",
+        "screener/ledger/ideas_interrupted_attempts.ndjson",
         "screener/ledger/ideas_archive/retention.json",
         "ui/server/src/news/ideas/ideas-publisher.ts"
       ]
@@ -383,7 +385,7 @@
       "id": "screener-inbox-archive",
       "kind": "source_store",
       "authority": "authoritative_ingestion_snapshot",
-      "paths": ["screener/inbox/*_firehose.ndjson", "screener/inbox/*_sweep.json", "screener/inbox/agent_metrics.*.json"],
+      "paths": ["screener/inbox/*_firehose*.ndjson", "screener/inbox/*_sweep.json", "screener/inbox/agent_metrics.*.json"],
       "formats": ["ndjson", "json"],
       "observed_count": 76,
       "producer_ids": ["news-ingestion"],

@@ -99,6 +99,8 @@ def request(envelope: dict, *, ordinal: int = 1) -> dict:
         "store_bindings": [],
         "shadow_feedback_sha256": None,
         "shadow_feedback_canonical_json": None,
+        "promotion_manifest_sha256": None,
+        "promotion_manifest_canonical_json": None,
     }
 
 

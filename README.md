@@ -10,6 +10,9 @@ A self-discovering multi-agent equity research system. Specialists are organised
 - `.claude/commands/research/<module>.md` — per-module standalone orchestrator (e.g. `business-model.md`, `earnings.md`). Useful for re-running just one module.
 - `frameworks/MODULE_PIPELINE.md` — the shared per-module discovery / dispatch / strip / write / fail-fast loop. Every orchestrator (`full.md`, `business-model.md`, `earnings.md`, …) follows this document so the loop is defined in one place.
 - `frameworks/HOW_TO_ADD_AN_AGENT.md` — how to add a new specialist to a module.
+- `frameworks/MEMORY_RUNTIME.md` — the production episodic, semantic, and procedural memory contract.
+- `frameworks/PROCEDURAL_MEMORY.md` — governed playbook promotion, matching, execution, quarantine,
+  and deprecation.
 - `data/` — symlink to a Google Drive folder. Source documents (filings, transcripts, models, notes) live under `data/<TICKER>/`. Not committed.
 - `analyses/<TICKER>_<YYYY-MM-DD>/` — one folder per run. Contains `RUN_METADATA.md`, one subfolder per module with that module's specialist outputs, and the synthesizer's `final_thesis.md`.
 - `watchlist/`, `positions/` — manual notes, separate from automated runs.
@@ -68,6 +71,26 @@ Every `/research:full` run emits **two** artifacts: `final_thesis.md` (the human
 - `/research:eval [run|all]` — deterministic regression harness: assert the schema, contract, and math invariants hold across the committed runs (the fixtures), so a framework/agent/command change cannot silently regress the engine → `analyses/eval/<date>_eval_report.json`.
 
 The phases of the decision-ledger feedback loop and their status are tracked in `frameworks/DECISION_LEDGER.md`.
+
+## Three-layer research memory
+
+Equity analytical tasks can run in `off`, `shadow`, or `enforced` memory mode. One signed run receipt
+freezes the issuer/listing identity, repository and projection digests, policy clock, provider access,
+and active playbook versions before paid tasks begin. Every analytical specialist, module synthesizer,
+and master synthesizer receives a bounded packet with separate episodes, verified semantic lessons,
+and active reviewed procedures. Auditors, red teams, provider adjudicators, and presentation writers
+remain memory-blind.
+
+Episodes tell the agent what happened and what to recheck. Semantic lessons may require a current check
+or apply a reviewed negative policy. Procedures organize a matching edge case. None can serve as
+current evidence, relax doctrine, or raise confidence, rating, data sufficiency, edge, or position size.
+The supervisor verifies every declared use against the saved output and current evidence before writing
+the canonical task/run episodes.
+
+Semantic and procedural candidates live in owner-only policy-partitioned state outside Git. Independent
+verification and a signed `codex/memory-promotion-*` PR are required before activation. Agents cannot
+activate their own learning. See `frameworks/MEMORY_RUNTIME.md` for dispatch and attestation and
+`frameworks/PROCEDURAL_MEMORY.md` for playbook operations.
 
 ## Adding agents and modules
 

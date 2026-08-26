@@ -15,15 +15,20 @@ import {
   rateInfoForLimiter, type DailyQuotaCandidate, type DailyQuotaMeter,
 } from '../triage/budget'
 import {
-  IDEA_SYSTEM, buildIdeaUserMessage, estimateIdeaTokens, surfaceIdeasBatch,
-  type IdeaInputRow, type IdeaOriginType, type IdeaSourceTheme, type IdeaThemeExpression, type RawIdea, type SurfaceIdeasResult,
+  IDEA_SYSTEM, buildIdeaUserMessage, estimateIdeaTokens, ideaProviderRequestIdentity, surfaceIdeasBatch,
+  type IdeaInputRow, type IdeaOriginType, type IdeaSourceTheme, type IdeaThemeExpression, type RawIdea,
+  type SurfaceIdeasOptions, type SurfaceIdeasResult,
 } from './surface-ideas'
-import { surfaceIdeasBatchGemini } from './surface-ideas-gemini'
 import {
-  ideaDecayAt, ideaId, ideaSnapshotRevision, ideaVersion, priorCoverage, pruneExpiredIdeas, readIdeaById,
-  readIdeaSnapshots, readPassState, readTopSweep, retireUnadmittedThemeIdeas, topNEffectHash, topNHash,
-  writeIdeaIfRevision, writePassState,
-  type IdeaPassChunkState, type SurfacedIdea,
+  geminiIdeaProviderRequestIdentity,
+  surfaceIdeasBatchGemini,
+  type GeminiIdeasOptions,
+} from './surface-ideas-gemini'
+import {
+  appendIdeaInterruptedAttempt, ideaDecayAt, ideaId, ideaSnapshotRevision, ideaVersion, priorCoverage,
+  pruneExpiredIdeas, readIdeaById, readIdeaSnapshots, readPassState, readTopSweep, retireUnadmittedThemeIdeas,
+  topNEffectHash, topNHash, writeIdeaIfRevision, writePassState,
+  type IdeaInterruptedAttemptRecord, type IdeaPassChunkState, type SurfacedIdea,
 } from './ideas-store'
 import { IDEA_LEARNING_HORIZON_DAYS, learnIdeaAdjustment } from './idea-learning'
 import { directionMatchesEvidence, scoreTradeCluster, TRADE_SCORE_POLICY_VERSION, type TradeEvidence } from '../trade-score'
@@ -35,7 +40,12 @@ import {
 } from './ideas-health'
 import type { OverflowProvider } from '../../config'
 import { markIdeasPublicationPending, publishPendingIdeas, type IdeasPublishResult } from './ideas-publisher'
-import { randomUUID } from 'node:crypto'
+import { createHash, randomUUID } from 'node:crypto'
+import {
+  publicProviderQuarantineNote,
+  readProviderQuarantine,
+  type ProviderQuarantine,
+} from '../provider-failure'
 
 export interface IdeaPassConfig {
   topN: number
@@ -107,6 +117,10 @@ export interface IdeaPassDeps {
   publishIdeas?: () => Promise<IdeasPublishResult>
   /** Internal durable hand-off invoked immediately before provider-budget reservation. */
   markProviderDispatch?: (providerId: string, at: number) => void
+  /** Internal test/embedding seam. Omitted uses the fsynced append-only interruption ledger. */
+  appendInterruptedAttempt?: (
+    record: IdeaInterruptedAttemptRecord,
+  ) => Promise<'appended' | 'duplicate'> | 'appended' | 'duplicate'
 }
 
 export interface IdeaPassResult {
@@ -122,6 +136,28 @@ interface ProviderDecision {
   reason_code: IdeasHealthReasonCode | null
   note?: string
   provider?: string
+}
+
+function ideaInterruptionId(
+  phase: IdeaInterruptedAttemptRecord['phase'],
+  attemptId: string | null,
+  startedAtMs: number | null,
+  inputKeys: string[],
+): string {
+  const identity = JSON.stringify({
+    phase,
+    attempt_id: attemptId,
+    started_at_ms: startedAtMs,
+    input_keys: [...new Set(inputKeys)].sort(),
+  })
+  return `IDEAI-${createHash('sha256').update(identity).digest('hex')}`
+}
+
+function providerFromIdeaAttemptId(attemptId: string | null): string | null {
+  if (!attemptId) return null
+  const separator = attemptId.lastIndexOf(':')
+  const provider = separator >= 0 ? attemptId.slice(separator + 1) : ''
+  return /^[a-z0-9][a-z0-9_-]{0,63}$/i.test(provider) ? provider : null
 }
 
 /** Worst-case billable tokens for one OpenAI-compatible idea-surfacing attempt. */
@@ -434,9 +470,74 @@ export function ideaLineageForRows(
 function groqProvider(c: IdeaPassConfig): RoutedIdeaProvider {
   return {
     id: 'groq', label: 'Groq', color: '--provider-groq', apiKey: c.groqApiKey, baseUrl: c.groqBaseUrl, model: c.groqModel,
+    keyEnvVar: 'GROQ_API_KEY',
     maxTokens: c.groqMaxTokens, dailyReqCap: c.groqDailyReqCap, dailyTokenCap: c.groqDailyTokenCap,
     rpm: c.groqRpm, tpm: c.groqTpm, budgetFile: 'groq-budget.json',
     pace: { meter: 'tokens', cap: c.groqDailyTokenTarget, floorFraction: c.groqPaceFloorFrac },
+  }
+}
+
+function providerAttemptTimeout(p: RoutedIdeaProvider, deps: IdeaPassDeps, signal?: AbortSignal): number {
+  const providerTimeoutMs = p.timeoutMs ?? 30_000
+  return signal
+    ? Math.min(deps.config.providerAttemptTimeoutMs ?? 30_000, providerTimeoutMs)
+    : providerTimeoutMs
+}
+
+function openAiIdeaOptions(p: RoutedIdeaProvider, deps: IdeaPassDeps, signal?: AbortSignal): SurfaceIdeasOptions {
+  return {
+    providerId: p.id,
+    providerLabel: p.label || p.id,
+    keyEnvVar: p.keyEnvVar,
+    stateDir: deps.stateDir,
+    workload: 'ideas',
+    contractVersion: 'news-ideas-json-v1',
+    model: p.model,
+    models: p.models,
+    baseUrl: p.baseUrl,
+    apiKey: p.apiKey,
+    maxTokens: p.maxTokens,
+    headers: p.headers,
+    extraBody: p.extraBody,
+    timeoutMs: providerAttemptTimeout(p, deps, signal),
+    signal,
+    requestRemainingHeaderIsDaily: p.id === 'groq' || p.requestRemainingHeaderIsDaily === true,
+    nowMs: deps.now,
+  }
+}
+
+function geminiIdeaOptions(p: RoutedIdeaProvider, deps: IdeaPassDeps, signal?: AbortSignal): GeminiIdeasOptions {
+  return {
+    providerId: p.id,
+    providerLabel: p.label || p.id,
+    keyEnvVar: p.keyEnvVar,
+    stateDir: deps.stateDir,
+    workload: 'ideas',
+    contractVersion: 'news-ideas-json-v1',
+    model: p.model,
+    baseUrl: p.baseUrl,
+    apiKey: p.apiKey,
+    maxTokens: p.maxTokens,
+    timeoutMs: providerAttemptTimeout(p, deps, signal),
+    signal,
+    nowMs: deps.now,
+  }
+}
+
+function ideaProviderQuarantine(deps: IdeaPassDeps, p: RoutedIdeaProvider): ProviderQuarantine | null {
+  const identity = p.transport === 'gemini'
+    ? geminiIdeaProviderRequestIdentity(geminiIdeaOptions(p, deps))
+    : ideaProviderRequestIdentity(openAiIdeaOptions(p, deps))
+  return readProviderQuarantine(deps.stateDir, identity)
+}
+
+function quarantinedProviderDecision(p: RoutedIdeaProvider, marker: ProviderQuarantine): ProviderDecision {
+  const label = p.label || p.id
+  return {
+    result: null,
+    reason_code: 'provider_error',
+    note: publicProviderQuarantineNote(label, marker),
+    provider: label,
   }
 }
 
@@ -449,6 +550,7 @@ function geminiIdeaProviders(c: IdeaPassConfig): RoutedIdeaProvider[] {
     id: `gemini:${model}`,
     label: `Gemini · ${model}`,
     color: '--live',
+    keyEnvVar: 'GEMINI_API_KEY',
     apiKey: c.geminiApiKey!,
     baseUrl: c.geminiBaseUrl!,
     model,
@@ -487,7 +589,8 @@ function quotaRoute(
   priority: number,
 ): IdeaQuotaRoute | null {
   const at = (deps.now || (() => Date.now()))()
-  if (!provider.apiKey || isCoolingDown(deps.stateDir, provider.id, at)
+  if (!provider.apiKey || ideaProviderQuarantine(deps, provider)
+    || isCoolingDown(deps.stateDir, provider.id, at)
     || isCoolingDown(deps.stateDir, `ideas:${provider.id}`, at)) return null
   const pace = providerPace(provider, deps.config)
   if (!pace) return null
@@ -522,6 +625,8 @@ function unavailableProviderDecision(
   const at = now()
   const label = p.label || p.id
   if (!p.apiKey) return { result: null, reason_code: 'missing_api_key', note: providerReason('missing_api_key', label), provider: label }
+  const standing = ideaProviderQuarantine(deps, p)
+  if (standing) return quarantinedProviderDecision(p, standing)
   if (isCoolingDown(deps.stateDir, p.id, at)) return { result: null, reason_code: 'provider_cooldown', note: providerReason('provider_cooldown', label), provider: label }
   if (isCoolingDown(deps.stateDir, `ideas:${p.id}`, at)) return { result: null, reason_code: 'provider_cooldown', note: `${label} is cooling down for the Ideas response contract.`, provider: label }
   const perAttemptTokens = ideaGroqTokenBound(rows, p.maxTokens)
@@ -582,6 +687,8 @@ async function callProviderForIdeaPassDetailed(
   const ideaCooldownId = `ideas:${p.id}`
   if (!p.apiKey) return { result: null, reason_code: 'missing_api_key', note: providerReason('missing_api_key', label), provider: label }
   if (chainSignal?.aborted) return { result: null, reason_code: 'provider_error', note: `${label}: provider-chain deadline reached`, provider: label }
+  const standing = ideaProviderQuarantine(deps, p)
+  if (standing) return quarantinedProviderDecision(p, standing)
   if (isCoolingDown(deps.stateDir, p.id, now())) return { result: null, reason_code: 'provider_cooldown', note: providerReason('provider_cooldown', label), provider: label }
   if (isCoolingDown(deps.stateDir, ideaCooldownId, now())) return { result: null, reason_code: 'provider_cooldown', note: `${label} is cooling down for the Ideas response contract.`, provider: label }
   const est = estimateIdeaTokens(rows.length)
@@ -623,6 +730,8 @@ async function callProviderForIdeaPassDetailed(
     || isCoolingDown(deps.stateDir, ideaCooldownId, postLimiterAt)) {
     return { result: null, reason_code: 'provider_cooldown', note: providerReason('provider_cooldown', label), provider: label }
   }
+  const admittedStanding = ideaProviderQuarantine(deps, p)
+  if (admittedStanding) return quarantinedProviderDecision(p, admittedStanding)
   let attempts = Math.min(attemptCap, budget.remainingRequests, Math.floor(budget.remainingTokens / perAttemptTokens))
   const reservationAt = postLimiterAt
   while (attempts > 0 && !pacedCanSpend(p, c, budget, perAttemptTokens, attempts, reservationAt)) attempts--
@@ -652,28 +761,20 @@ async function callProviderForIdeaPassDetailed(
     }, now(), inspectIdeaSnapshots(deps.repoRoot, now()))
   }
   try {
-    const providerTimeoutMs = p.timeoutMs ?? 30_000
-    const ideaTimeoutMs = chainSignal
-      ? Math.min(c.providerAttemptTimeoutMs ?? 30_000, providerTimeoutMs)
-      : providerTimeoutMs
     r = p.transport === 'gemini'
       ? await surfaceIdeasBatchGemini(
           rows,
           {
-            model: p.model, baseUrl: p.baseUrl, apiKey: p.apiKey, maxTokens: p.maxTokens,
-            timeoutMs: ideaTimeoutMs, maxAttempts: attempts, signal: chainSignal,
+            ...geminiIdeaOptions(p, deps, chainSignal),
+            maxAttempts: attempts,
           },
           deps.fetchFn, deps.sleep,
         )
       : await surfaceIdeasBatch(
           rows,
           {
-            model: p.model, models: p.models, baseUrl: p.baseUrl, apiKey: p.apiKey, maxTokens: p.maxTokens,
-            headers: p.headers, extraBody: p.extraBody,
-            timeoutMs: ideaTimeoutMs,
+            ...openAiIdeaOptions(p, deps, chainSignal),
             maxAttempts: attempts,
-            signal: chainSignal,
-            requestRemainingHeaderIsDaily: p.id === 'groq' || p.requestRemainingHeaderIsDaily === true,
           },
           deps.fetchFn, deps.sleep,
         )
@@ -697,12 +798,20 @@ async function callProviderForIdeaPassDetailed(
       : 0
     budget.reconcile(reservation, sentRequests, chargedTokens)
   }
+  if (r.quarantined && r.requests === 0) {
+    const marker = ideaProviderQuarantine(deps, p)
+    return marker
+      ? quarantinedProviderDecision(p, marker)
+      : { result: null, reason_code: 'provider_error', note: r.note, provider: label }
+  }
   const providerTerminal = r.failureKind === 'request' && [401, 402, 403, 404].includes(r.httpStatus || 0)
+  const durableTerminal = r.failure?.action === 'quarantine'
   const ideaDeadlineFailure = r.failureKind === 'availability' && r.timedOut === true
-  const providerWideFailure = r.ok
-    || r.failureKind === 'rate_limit'
-    || (r.failureKind === 'availability' && !ideaDeadlineFailure)
-    || providerTerminal
+  const providerWideFailure = r.ok || (r.failure
+    ? r.failure.providerWide === true
+    : r.failureKind === 'rate_limit'
+      || (r.failureKind === 'availability' && !ideaDeadlineFailure)
+      || providerTerminal)
   limiter.learn(rateInfoForLimiter(r.rate, providerWideFailure), now)
   if (r.ok) {
     clearCooldown(deps.stateDir, p.id, attemptStartedAt)
@@ -717,7 +826,10 @@ async function callProviderForIdeaPassDetailed(
   const localCooldown = p.id === 'local' ? (c.localCooldownMs ?? c.llmCooldownMs) : c.llmCooldownMs
   const localCooldownMax = p.id === 'local' ? localCooldown : c.llmCooldownMaxMs
   const failureAt = now()
-  if (r.dailyLimit) {
+  if (durableTerminal) {
+    // The adapter already recorded the exact standing fault. A timer cannot repair it, and arming one here
+    // would hide the root cause and delay recovery after a key/model/contract change.
+  } else if (r.dailyLimit) {
     // Only an explicit provider-day signal closes the ledger. A generic access or request error did not
     // consume the configured allowance and must not make diagnostics falsely report it as spent.
     budget.exhaust()
@@ -738,8 +850,8 @@ async function callProviderForIdeaPassDetailed(
   } else if ((r.failureKind === 'availability' && !ideaDeadlineFailure) || providerTerminal) {
     // Service/network failures use the shared exponential breaker. Provider-wide access failures share it
     // too, but unlike an explicit daily-limit signal they never forge a fully spent allowance.
-    armCooldown(deps.stateDir, failureAt, localCooldown, p.id, localCooldownMax,
-      providerTerminal ? 'provider-access' : r.timedOut ? 'timeout' : 'availability')
+    armCooldown(deps.stateDir, failureAt, localCooldown, providerWideFailure ? p.id : ideaCooldownId, localCooldownMax,
+      providerWideFailure ? (providerTerminal ? 'provider-access' : 'availability') : 'idea-availability')
   } else {
     // HTTP 400/413/422, malformed/truncated/schema-invalid output, and any Ideas request timeout may
     // be specific to this richer nonessential seam. Never poison the provider's shared triage health.
@@ -834,6 +946,7 @@ async function callIdeaProvidersDetailed(rows: Parameters<typeof surfaceIdeasBat
   if (failed?.result) return { ...failed, result: { ...failed.result, note: notes || failed.result.note } }
   const codes = new Set(skips.map((d) => d.reason_code))
   const code: IdeasHealthReasonCode = codes.has('internal_error') ? 'internal_error'
+    : codes.has('provider_error') ? 'provider_error'
     : codes.has('rate_limiter_busy') ? 'rate_limiter_busy'
     : codes.has('provider_cooldown') ? 'provider_cooldown'
       : codes.has('paced_budget') ? 'paced_budget'
@@ -976,6 +1089,45 @@ export async function runIdeaPass(deps: IdeaPassDeps): Promise<IdeaPassResult> {
     const ambiguousDispatch = priorMarker && priorMarker.phase !== 'prepared'
       && priorMarker.phase !== 'persisted'
     let recoveredAmbiguousDispatch = false
+    const interruptionAuditByInputKey = new Map((prev?.uncertain_input_audits || []).map((audit) => (
+      [audit.input_key, audit.interruption_id]
+    )))
+    const interruptionRecords: IdeaInterruptedAttemptRecord[] = []
+    const detectedAt = new Date(now()).toISOString()
+    const recordInputEvents = (keys: string[], aligned?: string[]): (string | null)[] => (
+      aligned?.length === keys.length
+        ? [...aligned]
+        : keys.map((key) => rowByInputKey.get(key)?.event_id || null)
+    )
+    // Rolling deployments may already have row-scoped quarantines created by the old code. Archive every
+    // such row before it can age out, then retain the ledger receipt beside its temporary live identity.
+    const legacyUnauditedKeys = (prev?.uncertain_input_keys || []).filter((key) => (
+      !interruptionAuditByInputKey.has(key)
+    ))
+    if (prev && legacyUnauditedKeys.length) {
+      const interruptionId = ideaInterruptionId('legacy_unknown', null, prev.ran_at_ms, legacyUnauditedKeys)
+      const legacyKeySet = new Set(legacyUnauditedKeys)
+      interruptionRecords.push({
+        schema_version: 'ideas-interrupted-attempt/v1',
+        interruption_id: interruptionId,
+        detected_at: detectedAt,
+        // Old state retained only a general pass clock, not this request's exact start. Keep the field
+        // honestly unknown; ran_at_ms is used only inside the deterministic recovery identity.
+        started_at: null,
+        phase: 'legacy_unknown',
+        attempt_id: null,
+        provider: null,
+        input_keys: legacyUnauditedKeys,
+        input_event_ids: recordInputEvents(legacyUnauditedKeys),
+        recovered_idea_claims: (prev.completed_idea_claims || []).filter((claim) => (
+          claim.input_keys.some((key) => legacyKeySet.has(key))
+        )),
+        outcome: 'response_unknown',
+        disposition: 'quarantined_at_most_once',
+      })
+      for (const key of legacyUnauditedKeys) interruptionAuditByInputKey.set(key, interruptionId)
+    }
+    let recoveredAmbiguousState: typeof prev = null
     if (ambiguousDispatch && prev) {
       // There is no provider-wide idempotency key for this request. A sent request with no recorded result
       // can neither be retried (duplicate spend) nor called successful (lost rows). Quarantine only its
@@ -1006,16 +1158,75 @@ export async function runIdeaPass(deps: IdeaPassDeps): Promise<IdeaPassResult> {
         ...(prev.uncertain_input_keys || []),
         ...priorMarker.input_keys,
       ])].filter((key) => currentInputKeySet.has(key))
-      const { in_flight: _ambiguous, uncertain_input_keys: _oldUncertain, ...prior } = prev
+      const markerPhase = priorMarker.phase === 'authorized' ? 'authorized' : 'dispatched'
+      const attemptId = priorMarker.attempt_id || null
+      const interruptionId = ideaInterruptionId(
+        markerPhase, attemptId, priorMarker.started_at_ms, priorMarker.input_keys,
+      )
+      const markerKeySet = new Set(priorMarker.input_keys)
+      interruptionRecords.push({
+        schema_version: 'ideas-interrupted-attempt/v1',
+        interruption_id: interruptionId,
+        detected_at: detectedAt,
+        started_at: new Date(priorMarker.started_at_ms).toISOString(),
+        phase: markerPhase,
+        attempt_id: attemptId,
+        provider: providerFromIdeaAttemptId(attemptId),
+        input_keys: [...priorMarker.input_keys],
+        input_event_ids: recordInputEvents(priorMarker.input_keys, priorMarker.input_event_ids),
+        recovered_idea_claims: [...claims].flatMap(([idea_id, input_keys]) => (
+          input_keys.some((key) => markerKeySet.has(key)) ? [{ idea_id, input_keys }] : []
+        )),
+        outcome: 'response_unknown',
+        disposition: 'quarantined_at_most_once',
+      })
+      for (const key of priorMarker.input_keys) interruptionAuditByInputKey.set(key, interruptionId)
+      const uncertainInputAudits = uncertainInputKeys.map((input_key) => ({
+        input_key,
+        interruption_id: interruptionAuditByInputKey.get(input_key)!,
+      }))
+      const {
+        in_flight: _ambiguous,
+        uncertain_input_keys: _oldUncertain,
+        uncertain_input_audits: _oldUncertainAudits,
+        ...prior
+      } = prev
       const recovered = {
         ...prior,
         completed_idea_ids: [...claims.keys()],
         completed_idea_claims: [...claims].map(([idea_id, input_keys]) => ({ idea_id, input_keys })),
         ...(uncertainInputKeys.length ? { uncertain_input_keys: uncertainInputKeys } : {}),
+        ...(uncertainInputAudits.length ? { uncertain_input_audits: uncertainInputAudits } : {}),
       }
-      writePassState(deps.stateDir, recovered)
-      prev = recovered
+      recoveredAmbiguousState = recovered
+    }
+    if (interruptionRecords.length) {
+      // Mark before the first ledger mutation. A crash at any later instruction is recovered by the
+      // ordinary publication bootstrap, while the still-present pass marker prevents another request.
+      markIdeasPublicationPending(deps.stateDir, now())
+      const append = deps.appendInterruptedAttempt
+        || ((record: IdeaInterruptedAttemptRecord) => appendIdeaInterruptedAttempt(deps.repoRoot, record))
+      for (const record of interruptionRecords) await append(record)
+      // The temporary progress marker is the final recovery authority. It remains intact until the
+      // append-only receipt is committed and pushed, so neither append nor publication failure can
+      // silently convert an unknown response into forgotten history.
+      const publication = await publish()
+      if (publication.status === 'failed') return publishFailure(publication)
+    }
+    if (recoveredAmbiguousState) {
+      writePassState(deps.stateDir, recoveredAmbiguousState)
+      prev = recoveredAmbiguousState
       recoveredAmbiguousDispatch = true
+    } else if (prev && legacyUnauditedKeys.length) {
+      const audited = {
+        ...prev,
+        uncertain_input_audits: (prev.uncertain_input_keys || []).map((input_key) => ({
+          input_key,
+          interruption_id: interruptionAuditByInputKey.get(input_key)!,
+        })),
+      }
+      writePassState(deps.stateDir, audited)
+      prev = audited
     }
     const priorResultPersisted = prev?.in_flight?.phase === 'persisted'
     if (priorResultPersisted && prev) {
@@ -1027,14 +1238,25 @@ export async function runIdeaPass(deps: IdeaPassDeps): Promise<IdeaPassResult> {
     }
     const priorUncertainInputKeys = prev?.uncertain_input_keys || []
     const activeUncertainKeys = priorUncertainInputKeys.filter((key) => currentInputKeySet.has(key))
+    const priorUncertainInputAudits = prev?.uncertain_input_audits || []
+    const activeUncertainAudits = activeUncertainKeys.map((input_key) => ({
+      input_key,
+      interruption_id: interruptionAuditByInputKey.get(input_key)!,
+    }))
     if (prev && (activeUncertainKeys.length !== priorUncertainInputKeys.length
-      || activeUncertainKeys.some((key, index) => key !== priorUncertainInputKeys[index]))) {
+      || activeUncertainKeys.some((key, index) => key !== priorUncertainInputKeys[index])
+      || JSON.stringify(activeUncertainAudits) !== JSON.stringify(priorUncertainInputAudits))) {
       // Row identity includes both prompt and persistence effects. A changed/removed row releases only its
       // own old identity; every unrelated uncertain row remains quarantined.
-      const { uncertain_input_keys: _staleUncertain, ...current } = prev
+      const {
+        uncertain_input_keys: _staleUncertain,
+        uncertain_input_audits: _staleUncertainAudits,
+        ...current
+      } = prev
       const reconciled = {
         ...current,
         ...(activeUncertainKeys.length ? { uncertain_input_keys: activeUncertainKeys } : {}),
+        ...(activeUncertainAudits.length ? { uncertain_input_audits: activeUncertainAudits } : {}),
       }
       writePassState(deps.stateDir, reconciled)
       prev = reconciled
@@ -1202,7 +1424,10 @@ export async function runIdeaPass(deps: IdeaPassDeps): Promise<IdeaPassResult> {
     }
     const completedIdeaIds = new Set(completedIdeaClaims.keys())
     const serializedIdeaClaims = () => [...completedIdeaClaims].map(([idea_id, input_keys]) => ({ idea_id, input_keys }))
-    const uncertainState = activeUncertainKeys.length ? { uncertain_input_keys: activeUncertainKeys } : {}
+    const uncertainState = activeUncertainKeys.length ? {
+      uncertain_input_keys: activeUncertainKeys,
+      uncertain_input_audits: activeUncertainAudits,
+    } : {}
     const chunkIsComplete = (index: number): boolean => completedByKey.has(chunkKey(chunkStates[index]))
       || chunkInputKeys[index].every((key) => completedInputKeys.has(key))
     const pendingChunkIndex = chunkStates.findIndex((_chunk, index) => !chunkIsComplete(index))

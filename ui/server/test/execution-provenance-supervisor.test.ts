@@ -11,8 +11,20 @@ import {
 import { createRun, finishRun } from '../src/registry'
 import {
   __setPostReviewCalibration, __setSupervisorCommitter, __setSupervisorCommitVerifier,
-  drainPublicationIntents, queuePublicationIntent, recoverReadyPublications, supervisePublication,
+  drainPublicationIntents, queuePublicationIntent, recoverReadyPublications, requiresSupervisorPublication,
+  supervisePublication,
 } from '../src/launcher'
+
+assert.equal(requiresSupervisorPublication('full'), true)
+assert.equal(requiresSupervisorPublication('module'), true)
+assert.equal(requiresSupervisorPublication('rerun'), true)
+assert.equal(requiresSupervisorPublication('agent'), false)
+assert.equal(requiresSupervisorPublication('screener-agent'), false)
+assert.equal(requiresSupervisorPublication('parity'), false)
+assert.equal(requiresSupervisorPublication('module', 'module'), false,
+  'a frozen intermediate child must not enter the terminal publication protocol')
+assert.equal(requiresSupervisorPublication('full', 'final'), true,
+  'the frozen terminal adjudicator must stamp and verify its decision before success')
 
 const root = `analyses/ZZPROVSUP_${Date.now()}`
 const absolute = path.join(REPO_ROOT, root)
@@ -32,6 +44,25 @@ run.publicationToken = 'test-supervisor-capability'
 
 try {
   beginExecutionAttempt(run)
+  const moduleCanary = createRun({
+    kind: 'module', ticker: 'ZZPROVSUP', module: 'business-model', provider: 'codex',
+    executionProfile: { key: 'codex:test', parentModel: 'gpt-test', parentReasoning: 'max' },
+    profileKey: 'codex:test', model: 'gpt-test', reasoningLevel: 'max', prompt: '', user: 'test', userVia: 'local',
+    runRoot: root, willCommitToMain: false, writeTargetsAbs: [absolute], coveredModules: ['business-model'],
+    readDepsAbs: [], closeWatcher: undefined, expected: new Map(), parityCanary: true,
+  })
+  moduleCanary.publicationToken = 'test-module-canary-capability'
+  await assert.rejects(
+    queuePublicationIntent(moduleCanary.runId, moduleCanary.publicationToken, { phase: 'commit', pathspecs: [root] }),
+    /only the terminal full canary may publish/,
+    'an intermediate frozen module cannot queue a Git/publication request',
+  )
+  await assert.rejects(
+    supervisePublication(moduleCanary.runId, moduleCanary.publicationToken, { phase: 'stamp', pathspecs: [root] }),
+    /only the terminal full canary may publish/,
+    'the trusted publication boundary independently rejects an intermediate frozen module',
+  )
+  finishRun(moduleCanary, 'error')
   await assert.rejects(
     supervisePublication(run.runId, run.publicationToken, {
       phase: 'commit', message: 'forged code publication', pathspecs: ['ui/server/src/server.ts'],
@@ -84,6 +115,52 @@ try {
 
   fs.writeFileSync(path.join(absolute, 'decision_record.json'), JSON.stringify({ ticker: 'ZZPROVSUP', version: 2 }) + '\n')
   assert.equal(artifactIsFresh(run, 'decision_record.json'), true, 'only current-attempt artifact bytes are publishable')
+
+  const originalAuthor = run.currentExecutionAttempts?.find((row) =>
+    row.attribution === 'recorded' && row.decision_author === true)
+  assert.ok(originalAuthor, 'the initial terminal process is the recorded decision author')
+  const originalBaseline = run.publicationBaselines?.['decision_record.json']
+  run.providerAttemptId = randomUUID()
+  run.automaticContinuationRetainsDecisionAuthor = true
+  beginExecutionAttempt(run)
+  assert.equal(run.publicationBaselines?.['decision_record.json'], originalBaseline,
+    'an automatic continuation preserves the logical run freshness baseline')
+  assert.equal(artifactIsFresh(run, 'decision_record.json'), true,
+    'an unchanged decision from the first process remains publishable by its continuation')
+  const retainedAuthor = run.executionAttempts?.find((row) =>
+    row.attempt_id === originalAuthor?.attempt_id && row.attribution === 'recorded')
+  assert.equal(retainedAuthor?.decision_author, true,
+    'the process that authored the verdict retains calibration attribution')
+  const publicationContinuation = run.currentExecutionAttempts?.find((row) => row.attribution === 'recorded')
+  assert.equal(publicationContinuation?.decision_author, false,
+    'a publication-only continuation is a recorded contributor, not the decision author')
+  assert.deepEqual(publicationContinuation?.decision_artifacts, [],
+    'a publication-only continuation does not claim the retained decision artifact')
+
+  const protectedRecoveryRoot = `${root}_protected-recovery`
+  const protectedRecoveryAbsolute = path.join(REPO_ROOT, protectedRecoveryRoot)
+  extraCleanup.push(protectedRecoveryAbsolute)
+  fs.mkdirSync(protectedRecoveryAbsolute, { recursive: true })
+  const protectedRecovery = createRun({
+    kind: 'full', ticker: 'ZZPROTECTED', provider: 'codex',
+    executionProfile: { key: 'codex:test', parentModel: 'gpt-test', parentReasoning: 'max' },
+    profileKey: 'codex:test', model: 'gpt-test', reasoningLevel: 'max', prompt: '', user: 'test',
+    userVia: 'local', runRoot: protectedRecoveryRoot, willCommitToMain: false,
+    writeTargetsAbs: [protectedRecoveryAbsolute], coveredModules: [], readDepsAbs: [],
+    closeWatcher: undefined, expected: new Map(),
+    protectedPriorExecutionAttempts: [{ ...originalAuthor! }],
+  })
+  beginExecutionAttempt(protectedRecovery)
+  const importedProtected = protectedRecovery.executionAttempts?.find((row) =>
+    row.attempt_id === originalAuthor?.attempt_id)
+  assert.equal(importedProtected?.attribution, 'recorded')
+  assert.equal(importedProtected?.decision_author, false,
+    'an interrupted prior author is retained as observed lineage but cannot author the replacement verdict')
+  assert.deepEqual(importedProtected?.scope, ['live_prior_attempt'])
+  assert.equal(protectedRecovery.currentExecutionAttempts?.find((row) =>
+    row.attribution === 'recorded')?.decision_author, true,
+    'the recovery terminal process authors the replacement verdict')
+  finishRun(protectedRecovery, 'error')
 
   const imported = projectionLineageRows({ execution_provenance: {
     provider_mode: 'single_provider', profile_key: 'claude:opus:default',

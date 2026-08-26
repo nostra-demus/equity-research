@@ -137,15 +137,15 @@ fs.writeFileSync(path.join(lineageInbox, '2026-08-03_sweep.json'), JSON.stringif
 fs.writeFileSync(path.join(lineageInbox, '2026-08-03_firehose.ndjson'), `${JSON.stringify(unusedFeed)}\n${JSON.stringify(unusedProof)}\n${JSON.stringify(usedFeed)}\n${JSON.stringify(usedCopy)}\n`)
 fs.writeFileSync(path.join(lineageBoard, 'themes_index.json'), JSON.stringify({ generated_at: '2026-08-03T11:55:00Z', themes: [
   {
-    theme_id: 'THM-aaaaaaaa', rev: 2, activity: 'reinforced', assessment: { status: 'actionable', activity: 'reinforced' },
+    theme_id: 'THM-aaaaaaaa', rev: 2, activity: 'reinforced', idea_ready: true, assessment: { status: 'actionable', activity: 'reinforced', metrics: { narrative_support_count: 2, narrative_coherence_pct: 100, recurring_narrative_token_count: 2 } },
     description: 'The catalyst changes demand for directly exposed issuers.',
     narrative: {
       thesis: 'The fresh catalyst can lift revenue for issuers with proven direct exposure.',
       why_now: 'The catalyst reached the market today.', why_now_event_id: unusedFeed.event_id,
     },
     evidence: [
-      { event_id: unusedFeed.event_id, found_at: unusedFeed.found_at, stance: 'supports' },
-      { event_id: unusedProof.event_id, found_at: unusedProof.found_at, stance: 'supports' },
+      { event_id: unusedFeed.event_id, headline: unusedFeed.headline, source_name: unusedFeed.source_name, url: unusedFeed.url, found_at: unusedFeed.found_at, stance: 'supports' },
+      { event_id: unusedProof.event_id, headline: unusedProof.headline, source_name: unusedProof.source_name, url: unusedProof.url, found_at: unusedProof.found_at, stance: 'supports' },
     ],
     qualified_expressions: [{
       name: 'Unused Co', name_key: 'unused', ticker: 'UNUSED', listing_country: 'US', side: 'beneficiary',
@@ -154,15 +154,15 @@ fs.writeFileSync(path.join(lineageBoard, 'themes_index.json'), JSON.stringify({ 
     }],
   },
   {
-    theme_id: 'THM-bbbbbbbb', rev: 5, activity: 'reinforced', assessment: { status: 'actionable', activity: 'reinforced' },
+    theme_id: 'THM-bbbbbbbb', rev: 5, activity: 'reinforced', idea_ready: true, assessment: { status: 'actionable', activity: 'reinforced', metrics: { narrative_support_count: 2, narrative_coherence_pct: 100, recurring_narrative_token_count: 2 } },
     description: 'Link has filing-backed exposure to the live demand catalyst.',
     narrative: {
       thesis: 'The fresh demand catalyst can lift Link revenue through its proven direct exposure.',
       why_now: 'The demand catalyst was confirmed today.', why_now_event_id: usedFeed.event_id,
     },
     evidence: [
-      { event_id: usedFeed.event_id, found_at: usedFeed.found_at, stance: 'supports' },
-      { event_id: usedCopy.event_id, found_at: usedCopy.found_at, stance: 'supports' },
+      { event_id: usedFeed.event_id, headline: usedFeed.headline, source_name: usedFeed.source_name, url: usedFeed.url, found_at: usedFeed.found_at, stance: 'supports' },
+      { event_id: usedCopy.event_id, headline: usedCopy.headline, source_name: usedCopy.source_name, url: usedCopy.url, found_at: usedCopy.found_at, stance: 'supports' },
     ],
     qualified_expressions: [{
       name: 'Link Corp', name_key: 'link', ticker: 'LINK', listing_country: 'US', side: 'beneficiary',
@@ -275,8 +275,8 @@ fs.writeFileSync(path.join(packageInbox, '2026-08-03_sweep.json'), JSON.stringif
 fs.writeFileSync(path.join(packageBoard, 'themes_index.json'), JSON.stringify({
   generated_at: '2026-08-03T11:59:00Z',
   themes: [{
-    theme_id: 'THM-13da13da', rev: 8, activity: 'reinforced',
-    assessment: { status: 'actionable', activity: 'reinforced' },
+    theme_id: 'THM-13da13da', rev: 8, activity: 'reinforced', idea_ready: true,
+    assessment: { status: 'actionable', activity: 'reinforced', metrics: { narrative_support_count: 2, narrative_coherence_pct: 100, recurring_narrative_token_count: 2 } },
     description: 'A live transformer backlog meets Acme filing-backed capacity exposure.',
     narrative: {
       thesis: 'The live grid backlog can extend pricing for Acme transformer capacity.',
@@ -284,8 +284,8 @@ fs.writeFileSync(path.join(packageBoard, 'themes_index.json'), JSON.stringify({
       why_now_event_id: whyEvent,
     },
     evidence: [
-      { event_id: whyEvent, found_at: freshWhy.found_at, stance: 'supports' },
-      { event_id: expressionEvent, found_at: structuralExpression.found_at, stance: 'supports' },
+      { event_id: whyEvent, headline: freshWhy.headline, source_name: freshWhy.source_name, url: freshWhy.url, found_at: freshWhy.found_at, stance: 'supports' },
+      { event_id: expressionEvent, headline: structuralExpression.headline, source_name: structuralExpression.source_name, url: structuralExpression.url, found_at: structuralExpression.found_at, stance: 'supports' },
     ],
     qualified_expressions: [{
       name: 'Acme Corp', name_key: 'acme', ticker: 'ACME', listing_country: 'US', side: 'beneficiary',

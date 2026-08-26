@@ -1,7 +1,7 @@
 import { randomUUID } from 'node:crypto'
 import type { ResultPromise } from 'execa'
 import { logFinish } from './activity-log'
-import type { AgentRunState, ReadinessDecision, ReadinessReport, RunActivity, RunKind, RunStatus, SseEvent } from './types'
+import type { AgentRunState, ReadinessDecision, ReadinessReport, ResearchMemoryIdentity, ResearchMemoryRuntimeBinding, RunActivity, RunKind, RunStatus, SseEvent } from './types'
 import type { ProviderExecutionProfile, RunProvider } from './providers/types'
 
 export interface SseClient {
@@ -41,9 +41,13 @@ export interface RunState {
   publicationToken?: string
   /** One publication epoch; chained steps share their chain id, stable-root runs never share epochs. */
   provenanceEpoch?: string
+  /** Exact paid provider process inside the logical run. Rotated for each automatic continuation. */
+  providerAttemptId?: string
   /** Canonical supervisor-owned rows. Provider children never receive or mutate this array. */
   executionAttempts?: Array<Record<string, unknown>>
   currentExecutionAttempts?: Array<Record<string, unknown>>
+  /** Protected rows captured before an interrupted selection is replaced by a recovery admission. */
+  protectedPriorExecutionAttempts?: Array<Record<string, unknown>>
   /** Run-root-relative decision artifact hashes captured immediately before the provider starts. */
   publicationBaselines?: Record<string, string | null>
   /** Retained evidence exists but its pre-provider identity cannot be proven. */
@@ -52,10 +56,18 @@ export interface RunState {
   parityPrelaunchBinding?: Record<string, unknown>
   /** Admission came through the operator-only frozen canary route; set before readiness/spawn begins. */
   parityCanary?: boolean
+  /** Frozen child role. Only `final` is a decision author and must complete supervisor publication. */
+  parityCanaryStage?: 'module' | 'final'
+  /** This terminal canary repairs a supervisor-authorized same-root interruption. */
+  parityCanaryContinuation?: boolean
   /** Set only after the live supervisor verifies the terminal parity receipt and bound canaries. */
   parityVerificationCompleted?: boolean
   parityVerificationReceiptPath?: string
   parityVerificationReceiptSha256?: string
+  /** Supervisor-owned three-layer memory snapshot. Raw packet content never enters public run state. */
+  memoryRuntime?: ResearchMemoryRuntimeBinding
+  /** Exact launch identity; absent in enforced mode blocks before provider spend. */
+  memoryIdentity?: ResearchMemoryIdentity
   publicationRequested?: boolean
   publicationCompleted?: boolean
   publicationError?: string
@@ -120,6 +132,18 @@ export interface RunState {
   activity: RunActivity[] // bounded ring of recent tool calls — replayed on subscribe (see ACTIVITY_RING)
   sessionId?: string
   resumeSessionId?: string
+  /** Number of fresh Codex processes added inside this one admitted logical run. Zero/absent is the first. */
+  automaticContinuationCount?: number
+  /** Sorted canonical done-orb keys observed at the prior Codex process boundary. */
+  automaticContinuationCheckpoint?: string
+  /** Pre-first-process hashes for every declared terminal output in this admitted logical Codex run. */
+  automaticContinuationBaselines?: Record<string, string | null>
+  /** Consecutive clean Codex process boundaries with no newly completed canonical output. */
+  automaticContinuationStagnantTurns?: number
+  /** The prior process already authored every declared decision artifact; later processes publish only. */
+  automaticContinuationRetainsDecisionAuthor?: boolean
+  /** Metrics already accumulated before the currently running continuation process. */
+  automaticContinuationMetricBase?: { costUsd: number; numTurns: number; durationMs: number }
   willCommitToMain: boolean
   writeTargetsAbs: string[] // absolute paths this run writes — D2 disjointness
   coveredModules: string[] // modules this run writes into — D2b / D3
@@ -127,9 +151,15 @@ export interface RunState {
   agents: Map<string, AgentRunState>
   expected: Map<string, ExpectedAgent>
   toolUseToAgent: Map<string, string> // tool_use_id -> agentKey
+  /** Native Codex child-thread identity -> canonical orb. Telemetry is advisory; files remain truth. */
+  nativeThreadToAgent: Map<string, string>
+  /** Last native child status when Codex exposes it (the public exec stream may omit lifecycle rows). */
+  nativeAgentStates: Map<string, string>
   eventLog: SseEvent[]
   subscribers: Set<SseClient>
   closeWatcher?: () => Promise<void> | void
+  /** Shared kernel lease that prevents a production deploy/restart during this run. */
+  releaseDeployBarrier?: () => void
 }
 
 const runs = new Map<string, RunState>()
@@ -188,7 +218,7 @@ export function setActiveTickerRun(runId: string, ticker: string) {
 }
 
 export function createRun(
-  init: Omit<RunState, 'runId' | 'eventLog' | 'subscribers' | 'agents' | 'expected' | 'toolUseToAgent' | 'child' | 'status' | 'startedAt' | 'subjectId' | 'swarmId' | 'unit' | 'activity'> &
+  init: Omit<RunState, 'runId' | 'eventLog' | 'subscribers' | 'agents' | 'expected' | 'toolUseToAgent' | 'nativeThreadToAgent' | 'nativeAgentStates' | 'child' | 'status' | 'startedAt' | 'subjectId' | 'swarmId' | 'unit' | 'activity'> &
     Partial<Pick<RunState, 'expected' | 'agents' | 'subjectId' | 'swarmId' | 'unit'>>,
 ): RunState {
   const runId = randomUUID()
@@ -200,10 +230,13 @@ export function createRun(
     agents: init.agents ?? new Map(),
     expected: init.expected ?? new Map(),
     toolUseToAgent: new Map(),
+    nativeThreadToAgent: new Map(),
+    nativeAgentStates: new Map(),
     eventLog: [],
     activity: [],
     subscribers: new Set(),
     ...init,
+    providerAttemptId: init.providerAttemptId ?? runId,
     // RunSubject defaults AFTER the spread so an omitted/undefined field can never shadow them:
     // existing research call sites pass only `ticker` and stay correct.
     subjectId: init.subjectId ?? init.ticker,
@@ -364,5 +397,8 @@ export function finishRun(run: RunState, status: RunStatus) {
       run.onTerminal?.(status)
     } catch {}
   }
+  const releaseDeployBarrier = run.releaseDeployBarrier
+  run.releaseDeployBarrier = undefined
+  try { releaseDeployBarrier?.() } catch {}
   void Promise.resolve(run.closeWatcher?.()).catch(() => {})
 }

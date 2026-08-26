@@ -4,6 +4,16 @@ description: Builds the dated 12-month catalyst calendar across all categories (
 tools: Read, Glob, Grep, Bash, WebSearch, WebFetch
 layer: 1
 fail_fast: false
+memory_profile:
+  version: 1
+  task: catalyst.catalyst-calendar
+  episodic_scope: exact-listing
+  semantic_topics: [catalyst, catalyst-calendar]
+  procedure_tags: [catalyst, catalyst-calendar]
+  cross_company: true
+  permitted_source_tiers: [1, 2, 3, 4, 5]
+  permitted_classifications: [public, internal]
+  max_context_tokens: 3000
 ---
 
 # ROLE

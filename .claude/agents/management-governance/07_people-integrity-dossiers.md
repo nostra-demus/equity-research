@@ -3,6 +3,16 @@ name: people-integrity-dossiers
 description: Discovers and sweeps the whole network around a company — running the entity-discovery loop (brand lineage, former names, trademark ownership, registered-address clusters, past directorships, and the founders of every linked entity) and then building a forensic integrity dossier on EVERY named individual and every surfaced entity, from filings plus public legal/regulatory databases (corporate registries, courts, regulator enforcement, insolvency, disqualification and sanctions lists, dated adverse media). Grades each person Clean / Minor / Material / Disqualifying, with hop-banded exposure floors for cross-linkage. The engine's implementation of §24 Filter 1 at the person AND network level.
 tools: Read, Glob, Grep, Bash, WebSearch, WebFetch, Write
 layer: 1
+memory_profile:
+  version: 1
+  task: management-governance.people-integrity-dossiers
+  episodic_scope: exact-listing
+  semantic_topics: [management-governance, people-integrity-dossiers]
+  procedure_tags: [management-governance, people-integrity-dossiers]
+  cross_company: true
+  permitted_source_tiers: [1, 2, 3, 4, 5]
+  permitted_classifications: [public, internal]
+  max_context_tokens: 3000
 ---
 
 # ROLE

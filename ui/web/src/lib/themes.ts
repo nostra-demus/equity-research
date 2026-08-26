@@ -14,6 +14,31 @@ export type ThemeActivity = 'new' | 'reinforced' | 'challenged' | 'quiet'
 export type ThemeConviction = 'high' | 'medium' | 'watch'
 export type ThemeHorizon = 'days' | 'weeks' | 'months' | 'years'
 export type ThemeExpressionRole = 'direct' | 'bottleneck' | 'enabler' | 'harmed' | 'hedge'
+export type ThemePlayerRelationship = 'direct_subject' | 'parent' | 'supplier' | 'customer' | 'competitor' | 'substitute' | 'other'
+
+export interface ThemePlayerEvidence {
+  kind: 'news' | 'relationship_export'
+  event_id: string | null
+  headline: string | null
+  publisher: string | null
+  url: string | null
+  published_at: string | null
+  source_ref: string | null
+  source_file: string | null
+}
+
+export interface ThemePlayer {
+  name: string
+  ticker: string | null
+  listing_status: 'verified_public' | 'no_verified_listing'
+  order: 1 | 2
+  side: 'beneficiary' | 'harmed' | 'unclear'
+  relationship: ThemePlayerRelationship
+  mechanism: string
+  mechanism_basis: 'source_statement' | 'engine_inference'
+  evidence: ThemePlayerEvidence[]
+  idea_eligible: boolean
+}
 
 /** The PM-facing thesis contract. It is optional on Theme for deploy skew, but a theme cannot reach an
  * actionable/forming surface until every field validates at the client trust boundary. */
@@ -203,6 +228,9 @@ export interface Theme {
   conviction?: ThemeConviction
   off_core_member_count?: number
   qualified_expressions?: ThemeQualifiedExpression[]
+  idea_ready?: boolean
+  idea_blockers?: string[]
+  player_counts?: { first_order: number; second_order: number; verified_public: number; idea_eligible: number }
   // `assessment` is the canonical server field. `opportunity` remains an optional rollout alias so a
   // web deploy cannot mislabel a qualified theme if an earlier server draft briefly serves that name.
   assessment?: ThemeSurfaceAssessment
@@ -236,6 +264,26 @@ export interface ThemeDetail {
   scores: { freshness: number; magnitude: number; breadth: number; persistence: number; composite: number }
   members: FeedItem[]
   companies_by_order: { first: ThemeCompany[]; second: ThemeCompany[]; third: ThemeCompany[] }
+  formation?: {
+    shared_narrative_anchors: [string, string]
+    distinct_news_count: number
+    publisher_count: number
+    supporting_count: number
+    challenging_count: number
+    excluded_off_theme_count: number
+    first_seen: string
+    validated_at: string
+  }
+  players?: { first_order: ThemePlayer[]; second_order: ThemePlayer[] }
+  evidence_news?: Array<{
+    event_id: string
+    headline: string
+    publisher: string | null
+    url: string | null
+    published_at: string
+    stance: ThemeEvidenceStance
+    roles: Array<'why_now' | 'support' | 'challenge' | 'player_proof'>
+  }>
   sectors: { sector: string; order: OrderTier; side: ImpactSide }[]
   related_themes: RelatedThemeLite[]
   keywords: string[]

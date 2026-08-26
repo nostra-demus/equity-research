@@ -31,7 +31,13 @@ set -uo pipefail
 
 PROD="${ENGINE_REPO_ROOT:-$HOME/nostra-prod}"
 UID_NUM="$(id -u)"
-# resolve npm to an absolute path (launchd has a minimal PATH; brew is /opt/homebrew on Apple-Silicon, /usr/local on Intel)
+# launchd supplies only the system directories. npm itself uses `#!/usr/bin/env node`, and a globally
+# installed sidecar is discovered by name after provisioning, so resolving npm to an absolute path alone is
+# insufficient: npm then fails with `env: node: No such file or directory`, and the new binary stays
+# invisible. Keep a caller-supplied custom/virtual-environment path authoritative, then expose both
+# supported Homebrew locations before ANY tool discovery. Use system paths only when no PATH was supplied.
+export PATH="${PATH:-/usr/bin:/bin:/usr/sbin:/sbin}:/opt/homebrew/bin:/usr/local/bin"
+# resolve npm to an absolute path (brew is /opt/homebrew on Apple-Silicon, /usr/local on Intel)
 NPM="$(command -v npm 2>/dev/null || true)"; [ -n "$NPM" ] || for c in /opt/homebrew/bin/npm /usr/local/bin/npm; do [ -x "$c" ] && NPM="$c" && break; done; NPM="${NPM:-/opt/homebrew/bin/npm}"
 GIT="$(command -v git || echo /usr/bin/git)"
 PYTHON="$(command -v python3 || echo /usr/bin/python3)"
@@ -40,6 +46,8 @@ LOG="$HOME/Library/Logs/nostradamus-deploy.log"
 DEPLOY_LOCK="$OPS/.deploy.flock"
 MARK="$OPS/.deployed.sha"   # the SHA the built ui/dist + running engine were last reconciled to
 FAILMARK="$OPS/.deploy.failed"                       # "<sha> <epoch>" of the last build/boot that failed (backoff)
+RUN_BARRIER_DIR="${ENGINE_STATE_DIR:-$PROD/ui/server/.state}"
+RUN_BARRIER_LOCK="$RUN_BARRIER_DIR/provider-deploy-barrier.flock"
 FAIL_BACKOFF="${DEPLOY_FAIL_BACKOFF_SECS:-1800}"     # don't re-attempt the SAME failing SHA more often than this
 # After an engine restart, poll /api/health before trusting the new code. A commit that BUILDS but throws at
 # boot/first request otherwise flaps forever under launchd KeepAlive (the build-failure breaker above never
@@ -136,6 +144,156 @@ is_doer_host() {
     return 1                                                # unsafe/unknown durable truth fails closed as admin
   fi
   legacy_tunnel_contract "$tunnel"
+}
+
+# Prove that the doer's archive writer and engine reader use the same retained Drive directory. The
+# installed plists are treated as authority only after stable, owner-only, no-follow reads. Exit 10 means
+# the archive contract is sound but the engine needs the one-time migration; every other mismatch fails
+# closed without replacing or blanking an installed service. The desired path is captured by the caller and
+# is never written to the deploy log.
+engine_archive_contract() {
+  local archive_plist="$HOME/Library/LaunchAgents/com.nostradamus.news-archive.plist"
+  local engine_plist="$HOME/Library/LaunchAgents/com.nostradamus.engine.plist"
+  "$PYTHON" -I - "$archive_plist" "$engine_plist" <<'PYENGINEARCHIVE'
+import os
+import plistlib
+import stat
+import sys
+
+
+class ContractError(RuntimeError):
+    pass
+
+
+def identity(info):
+    return (
+        info.st_dev, info.st_ino, info.st_size, info.st_mtime_ns, info.st_ctime_ns,
+        info.st_mode, info.st_uid, info.st_nlink,
+    )
+
+
+def require_safe(info):
+    if (
+        not stat.S_ISREG(info.st_mode)
+        or info.st_uid != os.getuid()
+        or info.st_nlink != 1
+        or info.st_mode & 0o077
+        or not 0 < info.st_size <= 1024 * 1024
+    ):
+        raise ContractError("unsafe installed plist")
+
+
+def secure_plist(path, allow_missing=False):
+    descriptor = None
+    try:
+        before = os.lstat(path)
+    except FileNotFoundError:
+        if allow_missing:
+            return None
+        raise ContractError("required installed plist is missing")
+    except OSError as error:
+        raise ContractError("cannot inspect installed plist") from error
+    try:
+        require_safe(before)
+        descriptor = os.open(path, os.O_RDONLY | getattr(os, "O_NOFOLLOW", 0))
+        opened = os.fstat(descriptor)
+        require_safe(opened)
+        if identity(opened) != identity(before):
+            raise ContractError("installed plist changed during open")
+        remaining = opened.st_size
+        chunks = []
+        while remaining:
+            chunk = os.read(descriptor, min(remaining, 64 * 1024))
+            if not chunk:
+                raise ContractError("short installed plist read")
+            chunks.append(chunk)
+            remaining -= len(chunk)
+        if os.read(descriptor, 1):
+            raise ContractError("installed plist grew during read")
+        after_fd = os.fstat(descriptor)
+        after_path = os.lstat(path)
+        require_safe(after_fd)
+        require_safe(after_path)
+        if identity(after_fd) != identity(before) or identity(after_path) != identity(before):
+            raise ContractError("installed plist changed during read")
+        value = plistlib.loads(b"".join(chunks))
+        if not isinstance(value, dict):
+            raise ContractError("installed plist root is invalid")
+        return value
+    except (OSError, ValueError, plistlib.InvalidFileException) as error:
+        raise ContractError("cannot read installed plist") from error
+    finally:
+        if descriptor is not None:
+            os.close(descriptor)
+
+
+try:
+    archive = secure_plist(sys.argv[1])
+    archive_env = archive.get("EnvironmentVariables")
+    archive_args = archive.get("ProgramArguments")
+    if archive.get("Label") != "com.nostradamus.news-archive" or not isinstance(archive_env, dict):
+        raise ContractError("archive service identity is invalid")
+    repo_root = archive_env.get("REPO")
+    desired = archive_env.get("NEWS_ARCHIVE_DIR")
+    if (
+        not isinstance(repo_root, str)
+        or not os.path.isabs(repo_root)
+        or not isinstance(desired, str)
+        or not os.path.isabs(desired)
+        or len(desired) > 4096
+        or "\n" in desired
+        or "\r" in desired
+        or archive_args != ["/bin/bash", os.path.join(repo_root, "scripts", "ops", "news-archive.sh")]
+    ):
+        raise ContractError("archive service path contract is invalid")
+    engine = secure_plist(sys.argv[2], allow_missing=True)
+    if engine is None:
+        print(desired)
+        raise SystemExit(10)
+    engine_env = engine.get("EnvironmentVariables")
+    if (
+        engine.get("Label") != "com.nostradamus.engine"
+        or not isinstance(engine_env, dict)
+        or engine_env.get("ENGINE_REPO_ROOT") != repo_root
+        or engine.get("WorkingDirectory") != os.path.join(repo_root, "ui", "server")
+    ):
+        raise ContractError("engine service identity is invalid")
+    if engine_env.get("NEWS_ARCHIVE_DIR") == desired:
+        raise SystemExit(0)
+    print(desired)
+    raise SystemExit(10)
+except ContractError:
+    raise SystemExit(20)
+PYENGINEARCHIVE
+}
+
+reconcile_engine_archive_launchagent() {
+  local installer="$PROD/scripts/ops/install-services.sh" desired_archive_dir="" contract_rc
+  is_doer_host || return 0
+  desired_archive_dir="$(engine_archive_contract)"
+  contract_rc=$?
+  if [ "$contract_rc" -eq 0 ]; then
+    return 0
+  fi
+  if [ "$contract_rc" -ne 10 ] || [ -z "$desired_archive_dir" ]; then
+    log "WARN engine archive reader reconciliation could not prove the installed archive/engine contract"
+    return 1
+  fi
+  [ -f "$installer" ] && [ ! -L "$installer" ] \
+    || { log "WARN engine archive reader installer is missing or unsafe"; return 1; }
+  log "engine archive reader missing or drifted — reconciling only the engine service"
+  if ! ENGINE_REPO_ROOT="$PROD" NEWS_ARCHIVE_DIR="$desired_archive_dir" NOSTRA_ROLE=doer \
+      /bin/bash "$installer" --role doer --only engine >>"$LOG" 2>&1; then
+    log "WARN engine archive reader service reconciliation failed"
+    return 1
+  fi
+  if ! engine_archive_contract >/dev/null 2>&1; then
+    log "WARN engine archive reader service did not retain the exact archive contract"
+    return 1
+  fi
+  health_gate || { log "WARN engine became unhealthy after archive reader reconciliation"; return 1; }
+  log "engine archive reader active on the retained Drive archive"
+  return 0
 }
 
 # One-time + continuously idempotent connector LaunchAgent migration. PR1 changes the connector scheduler
@@ -1038,6 +1196,9 @@ if [ "${1:-}" = --check-dirty ]; then
   cd "$PROD" 2>/dev/null || exit 0
   has_nondata_dirty
   exit $?
+elif [ "${1:-}" = --check-engine-archive ]; then
+  engine_archive_contract
+  exit $?
 elif [ "$#" -gt 0 ]; then
   exit 2
 fi
@@ -1208,6 +1369,60 @@ trap 'gitlock_release; exec 8>&-' EXIT
 
 cd "$PROD" 2>/dev/null || { log "FATAL cannot cd $PROD"; exit 0; }
 
+# ---- provider-neutral run/deploy barrier -----------------------------------------------------------
+# Every admitted Claude/Codex run and every scanner/Ideas lifecycle holds a SHARED flock on this stable
+# inode; a whole chained run keeps one across the child-transition/capacity gaps too. Deployment takes the
+# EXCLUSIVE side before touching the checkout, dependencies, feature flags, or launchctl. This is an atomic
+# kernel boundary, not a status
+# poll: a run cannot enter after a "no active runs" check but before kickstart. Busy means defer the entire
+# deploy unchanged until the run ends. Unexpected path/ownership state also fails closed.
+case "$RUN_BARRIER_DIR" in /*) ;; *) log "WARN provider deploy barrier requires an absolute state directory"; exit 0 ;; esac
+if [ -e "$RUN_BARRIER_DIR" ] || [ -L "$RUN_BARRIER_DIR" ]; then
+  if [ -L "$RUN_BARRIER_DIR" ] || [ ! -d "$RUN_BARRIER_DIR" ] || [ ! -O "$RUN_BARRIER_DIR" ]; then
+    log "WARN unsafe provider deploy barrier directory — refusing deployment"
+    exit 0
+  fi
+else
+  mkdir -p "$RUN_BARRIER_DIR" 2>/dev/null || { log "WARN cannot create provider deploy barrier directory"; exit 0; }
+fi
+chmod 700 "$RUN_BARRIER_DIR" 2>/dev/null || { log "WARN cannot protect provider deploy barrier directory"; exit 0; }
+[ ! -L "$RUN_BARRIER_LOCK" ] || { log "WARN unsafe provider deploy barrier lock"; exit 0; }
+exec 10>>"$RUN_BARRIER_LOCK" || { log "WARN cannot open provider deploy barrier lock"; exit 0; }
+"$PYTHON" -I - "$RUN_BARRIER_LOCK" 10<&10 <<'PYRUNBARRIER'
+import fcntl
+import os
+import stat
+import sys
+
+try:
+    opened = os.fstat(10); named = os.lstat(sys.argv[1])
+    if (not stat.S_ISREG(opened.st_mode) or opened.st_uid != os.getuid()
+            or opened.st_nlink != 1 or stat.S_ISLNK(named.st_mode)
+            or (opened.st_dev, opened.st_ino) != (named.st_dev, named.st_ino)):
+        raise OSError
+    os.fchmod(10, 0o600)
+    try:
+        fcntl.flock(10, fcntl.LOCK_EX | fcntl.LOCK_NB)
+    except BlockingIOError:
+        raise SystemExit(3)
+    locked = os.fstat(10); named = os.lstat(sys.argv[1])
+    if (locked.st_uid != os.getuid() or locked.st_nlink != 1 or locked.st_mode & 0o077
+            or (locked.st_dev, locked.st_ino) != (named.st_dev, named.st_ino)):
+        raise OSError
+except OSError:
+    raise SystemExit(4)
+PYRUNBARRIER
+barrier_rc=$?
+if [ "$barrier_rc" -ne 0 ]; then
+  exec 10>&-
+  if [ "$barrier_rc" -eq 3 ]; then
+    log "DEFER active cockpit run owns the provider deploy barrier — checkout and engine left unchanged"
+  else
+    log "WARN provider deploy barrier could not be proven safe — refusing deployment"
+  fi
+  exit 0
+fi
+
 ensure_data_symlink   # re-assert data/ -> Drive pool symlink before any git op / build (defense-in-depth)
 
 # One repository lease spans fetch/ref resolution, any fast-forward, the complete source read/build,
@@ -1252,6 +1467,10 @@ if [ "$LOCAL" = "$REMOTE" ]; then
   # activation, even on an otherwise up-to-date deploy tick.
   if has_nondata_dirty; then
     log "SKIP service reconciliation because a dirty non-data (code/ops) file is present (§28)"
+    exit 0
+  fi
+  if ! reconcile_engine_archive_launchagent; then
+    log "WARN engine archive reader remains unreconciled — leaving the deployed marker unchanged for retry"
     exit 0
   fi
   if ! migrate_connector_launchagent_v2; then
@@ -1401,6 +1620,10 @@ fi
 # The fast-forwarded, reviewed source is now immutable under fd 9. Activate
 # its connector service contract before advancing any deployed marker; a
 # failure leaves the old service and marker in place so the next tick retries.
+if ! reconcile_engine_archive_launchagent; then
+  log "WARN engine archive reader reconciliation failed after fast-forward — leaving the deployed marker unchanged for retry"
+  exit 0
+fi
 if ! migrate_connector_launchagent_v2; then
   log "WARN connector-agent reconciliation failed after fast-forward — leaving the deployed marker unchanged for retry"
   exit 0

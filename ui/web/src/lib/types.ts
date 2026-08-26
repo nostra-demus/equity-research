@@ -72,6 +72,45 @@ export interface MemoryRead {
   items: MemoryItem[]
 }
 
+export interface MemoryRuntimeRead {
+  contract_version: 'memory-runtime-ui/1'
+  available: boolean
+  read_only: true
+  generated_at: string
+  state: 'healthy' | 'degraded' | 'unavailable' | 'disabled'
+  mode: 'off' | 'shadow' | 'enforced'
+  effective_mode: 'off' | 'shadow' | 'enforced'
+  controls: {
+    revision: number
+    updated_at: string | null
+    global_disabled: boolean
+    disabled_layers: Array<'episodic' | 'semantic' | 'procedural'>
+    disabled_playbooks: Array<{ playbook_id: string; version: number | null; reason: string; disabled_at: string }>
+    pinned_playbooks: Array<{ playbook_id: string; version: number; pinned_at: string }>
+    candidate_intake_disabled: boolean
+    control_sha256: string | null
+  }
+  counts: {
+    runs: number
+    task_episodes: number
+    lessons: number
+    playbooks: number
+    candidates: number
+    executions: number
+    promotions: number
+    quarantines: number
+    packets: number
+    used_items: number
+    rejected_items: number
+    contradicted_items: number
+    deviations: number
+  }
+  readiness: { status: 'met' | 'failed' | 'unmeasured'; evaluated_at: string | null; report_sha256: string | null }
+  slos: Array<{ name: string; status: string; target: string }>
+  alerts: Array<{ code: string; severity: 'info' | 'warning' | 'critical'; message: string }>
+  services: Array<{ role: string; identity: string | null; configured: boolean }>
+}
+
 // Per-source health for the Sources panel (GET /api/news/sources).
 export type SourceHealth = 'healthy' | 'quiet' | 'failing' | 'idle'
 export interface SourceRow {
@@ -1055,6 +1094,8 @@ export interface NewsStatus {
     durablyCommitted?: boolean
     /** Optional for rolling deploys. Started looks today with no durable completion summary. */
     incompleteCycles?: number
+    /** Optional for rolling deploys. Missing-summary incidents already preserved in permanent audit. */
+    recordedInterruptions?: number
     /** Optional for rolling deploys. Absent is unverified; true means the counters are lower bounds. */
     totalsLowerBound?: boolean
     /** Optional for rolling deploys. Whether today's summary partition itself was readable. */
@@ -1115,9 +1156,14 @@ export interface TierDiagnostics {
   retryScope?: 'shared' | 'triage'
   nextEligibleAt?: string
   consecutiveFailures?: number
-  // the provider is rejecting this tier's CREDENTIAL (repeated 401/402/403/404) — waiting cannot fix it
+  // rolling-deploy compatibility for legacy, un-fingerprinted provider-access markers
   credentialRejected?: boolean
   keyEnvVar?: string // the env-var NAME holding that credential (never the value)
+  quarantined?: boolean // standing key/account/model/config fault; no retry timer can repair it
+  quarantineReason?: string
+  quarantineScope?: 'provider' | 'workload'
+  quarantinedAt?: string
+  quarantineObservations?: number
   disabledReason?: string // actionable explanation for an optional tier shown while disabled
   failingForMs?: number // how long the current unbroken failure streak has run (the backoff window pins flat and stops telling you)
   lastFailureMs?: number // how long the last failing call ran — at the deadline means WE cut it off
@@ -1136,6 +1182,7 @@ export interface TierDiagnostics {
     eligibilityReason: string
     explorationDue: boolean
     lastSelectedAt: string | null
+    lastSuccessAt: string | null
   }
 }
 
@@ -1164,11 +1211,14 @@ export interface PipelineFlowRates {
     unreadableDates: string[]
     corruptCycleRows: number
     incompleteCycles?: number
+    recordedInterruptions?: number
     todayIncompleteCycles?: number
+    todayRecordedInterruptions?: number
     todayTotalsLowerBound?: boolean
     todayHistoryStatus?: 'complete' | 'missing' | 'unreadable'
     todayCorruptCycleRows?: number
     gapMarkerUnreadable?: boolean
+    interruptionAuditUnreadable?: boolean
   }
   inflow: PipelineFlowMeasure
   scanning: PipelineFlowMeasure
@@ -1180,6 +1230,23 @@ export interface PipelineFlowRates {
   }
 }
 
+export interface ScannerHealthFinding {
+  code: string
+  severity: 'warning' | 'critical'
+  message: string
+  action: string
+  restartRecommended: boolean
+}
+
+export interface ScannerHealthVerdict {
+  status: 'healthy' | 'degraded' | 'failing' | 'idle'
+  code: string
+  summary: string
+  action: string
+  restartRecommended: boolean
+  findings: ScannerHealthFinding[]
+}
+
 export interface NewsDiagnostics {
   ts: string
   enabled: boolean
@@ -1188,6 +1255,8 @@ export interface NewsDiagnostics {
   intervalMin: number
   lastCycleAt: string | null
   nextCycleAt: string | null
+  /** Optional only while a new cockpit is talking to an older server during a rolling deploy. */
+  health?: ScannerHealthVerdict
   /** Optional for a new cockpit talking to an older server during a rolling deploy. */
   flow?: PipelineFlowRates
   /** Optional for rolling deploys; absent means the static order remains the only proven route. */
@@ -1247,6 +1316,8 @@ export interface NewsDiagnostics {
     durablyCommitted?: boolean
     /** Optional for deploy skew. Started looks today whose durable completion summary is absent. */
     incompleteCycles?: number
+    /** Optional for deploy skew. Missing-summary incidents already preserved in permanent audit. */
+    recordedInterruptions?: number
     /** Optional for deploy skew. True means the numeric totals are only proven lower bounds. */
     totalsLowerBound?: boolean
     /** Optional for deploy skew. Whether today's cycle-summary partition itself was readable. */
@@ -1290,6 +1361,7 @@ export interface NewsDiagnostics {
     unavailableTiers?: string[]
     pacedTiers?: string[]
     needsCredentialTiers?: string[] // optional while an older engine is still serving
+    quarantinedTiers?: string[] // optional while an older engine is still serving
   }
 }
 
@@ -1322,6 +1394,7 @@ export type PipelineAuditEvent =
   | { v: 1; kind: 'provider_outcome'; ts: string; cycleId: string; decisionId: string; providerId: string; outcome: 'success' | 'failure'; failureClass: string | null; batchSize: number; scoredItems: number; networkCalls: number; tokens: number; costUsd: number; elapsedMs: number }
   | { v: 1; kind: 'provider_snapshot'; ts: string; cycleId: string; phase: string; providers: Array<{ id: string; state: string; eligible: boolean; reason: string; allowanceUsed?: number; allowanceReleased?: number; allowanceCap?: number; consecutiveFailures?: number }> }
   | { v: 1; kind: 'router_transition'; ts: string; cycleId: string; from: string; to: string; reason: string }
+  | { v: 1; kind: 'cycle_interruption'; ts: string; cycleId: string; startedAt: string; reason: 'missing-summary-after-timeout' }
 
 export interface ActiveRunLite {
   runId: string

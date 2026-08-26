@@ -20,6 +20,7 @@ from memory_crypto import (  # noqa: E402
     AESGCMSIVEnvelopeCipher,
     KEY_ENVELOPE_ALGORITHM,
     MemoryCryptoError,
+    ed25519_sign,
     ed25519_verify,
     load_master_key_file,
     receipt_signature_verifier,
@@ -45,6 +46,22 @@ def main() -> None:
     assert not ed25519_verify(public_key, b"", signature[:-1])
     assert receipt_signature_verifier("ed25519", public_key, b"", signature)
     assert not receipt_signature_verifier("rsa", public_key, b"", signature)
+    private_seed = bytes.fromhex(
+        "9d61b19deffd5a60ba844af492ec2cc4"
+        "4449c5697b326919703bac031cae7f60"
+    )
+    checkpoint_message = b"memory-projection-checkpoint/v1\0test"
+    assert ed25519_verify(
+        public_key,
+        checkpoint_message,
+        ed25519_sign(private_seed, checkpoint_message),
+    )
+    try:
+        ed25519_sign(private_seed, b"")
+    except MemoryCryptoError:
+        pass
+    else:
+        raise AssertionError("empty checkpoint signing message was accepted")
 
     master_key = bytes(range(32))
     cipher = AESGCMSIVEnvelopeCipher(master_key, key_id="key:phase2-test")

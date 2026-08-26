@@ -4,6 +4,16 @@ depends_on: []
 description: Reads ALL upstream specialist outputs and composes the final business-model report — Abstract, Verdict block (with disqualifier check, 7 scores), Note to Final Synthesizer, and Simple Summary. Reconciles disagreements, applies the disqualifier verdict-lock rule, and surfaces what the scores MEAN.
 tools: Read, Glob, Grep, Bash, Write
 layer: 4
+memory_profile:
+  version: 1
+  task: business-model.business-model-synthesis
+  episodic_scope: exact-listing
+  semantic_topics: [business-model, business-model-synthesis]
+  procedure_tags: [business-model, business-model-synthesis]
+  cross_company: true
+  permitted_source_tiers: [1, 2, 3, 4, 5]
+  permitted_classifications: [public, internal]
+  max_context_tokens: 4000
 ---
 
 # ROLE

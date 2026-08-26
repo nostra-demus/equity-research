@@ -14,11 +14,12 @@ import { Budget, RateLimiter, UsdBudget, armCooldown, clearCooldown, cooldownInf
 import { articleReadTokenBound, readArticleBrief } from '../src/news/triage/article-read'
 import { analyzeArticle, coerceTriage, estimateTokens, parseRate, scoreToBand, triageBatch, triageMaxOutputTokens } from '../src/news/triage/groq'
 import { analyzeArticleGemini, geminiSchemaEnabled, TRIAGE_RESPONSE_SCHEMA, triageBatchGemini } from '../src/news/triage/gemini'
-import { appendFeedItems, readFeed } from '../src/news/feed'
+import { appendFeedItems, inspectFeedCapacity, readFeed } from '../src/news/feed'
 import { newsBus } from '../src/news/bus'
 import { appendFirehoseSummary, FIREHOSE_HARD_MAX_BYTES, mergeInbox, revisionClockRegistryDiagnostics } from '../src/news/write-inbox'
 import { appendScoredCheckpoint, backlogDurablyCleared, buildTriageQueue, expireBacklog, inspectDeferredBacklog, loadDeferred, MAX_FEED_ITEM_BYTES, migrateDeferred, preserveResidence, recentMissingFeedTargetIsRetryable, runIngestCycle, saveDeferred, scoringJournalSlots, stampDeferred, triageGroqTokenBound } from '../src/news/runCycle'
 import { buildPipelineFlowRates, countUniqueNewArrivals, readPipelineFlowCycles } from '../src/news/pipeline-flow'
+import { appendPipelineTelemetry, readCycleInterruptionAudit } from '../src/news/provider-routing'
 import { anthropicDrainReady, backlogTrend, credentialRejected, CREDENTIAL_DEAD_AFTER_FAILS, drainBatchEst, geminiPoolProviderDayExhausted, getNewsDiagnostics, providerDrainUsable, providerLastCycleMetric, scoredByForLastCycle, tierHealth } from '../src/news/scheduler'
 import { buildOverflowProviders, NEWS, STATE_DIR } from '../src/config'
 import { createTheme } from '../src/news/themes/discover'
@@ -28,6 +29,8 @@ import { flushStagedRescueRows, loadRescueQueue } from '../src/news/rescue/store
 import type { ThemeItemView } from '../src/news/themes/types'
 import type { CycleSummary, FeedItem, NewsItem, RawArticle, TriagedItem } from '../src/news/types'
 import { attachValidNarrative } from './themes-fixtures'
+import { firehoseLockPath } from '../src/news/firehose-files'
+import { acquireRetainedFlockSync, releaseRetainedFlock } from '../src/singleton-lock'
 
 let passed = 0
 async function check(name: string, fn: () => void | Promise<void>) {
@@ -2427,7 +2430,7 @@ await check('runIngestCycle keeps exact revision clocks across daily partitions 
   fs.rmSync(state, { recursive: true, force: true })
 })
 
-await check('appendFeedItems honors the daily cap; readFeed skips corrupt lines', () => {
+await check('appendFeedItems rolls row-bounded shards without a daily cap; readFeed skips corrupt lines', () => {
   const root = tmp()
   const mk = (n: number): FeedItem => ({
     kind: 'item', ts: `2026-06-12T09:0${n}:00Z`, event_id: `EVT-${n}`, headline: `h${n}`, url: `https://reuters.com/${n}`,
@@ -2437,19 +2440,21 @@ await check('appendFeedItems honors the daily cap; readFeed skips corrupt lines'
   })
   assert.deepEqual(
     appendFeedItems(root, '2026-06-12', [mk(1), mk(2), mk(3)], 2),
-    { status: 'cap', cap: 'items', written: 2, unwritten: 1, appendedEventIds: ['EVT-1', 'EVT-2'] },
-  ) // partial cap: exact confirmed prefix
+    { status: 'complete', written: 3, unwritten: 0, appendedEventIds: ['EVT-1', 'EVT-2', 'EVT-3'] },
+  )
   assert.deepEqual(
     appendFeedItems(root, '2026-06-12', [mk(4)], 2),
-    { status: 'cap', cap: 'items', written: 0, unwritten: 1, appendedEventIds: [] },
-  ) // full cap: nothing is claimed durable
+    { status: 'complete', written: 1, unwritten: 0, appendedEventIds: ['EVT-4'] },
+  )
   assert.deepEqual(
     appendFeedItems(root, '2026-06-13', [mk(4)], 2),
     { status: 'complete', written: 1, unwritten: 0, appendedEventIds: ['EVT-4'] },
   ) // complete: the whole batch is durably acknowledged
+  assert.equal(fs.readFileSync(path.join(root, 'screener/inbox/2026-06-12_firehose.ndjson'), 'utf8').trim().split('\n').length, 2)
+  assert.equal(fs.readFileSync(path.join(root, 'screener/inbox/2026-06-12_firehose.000001.ndjson'), 'utf8').trim().split('\n').length, 2)
   fs.appendFileSync(path.join(root, 'screener/inbox/2026-06-12_firehose.ndjson'), 'NOT JSON\n')
   const { items } = readFeed(root, 1, { now: () => new Date('2026-06-12T10:00:00Z') })
-  assert.equal(items.length, 2) // corrupt line skipped, capped writes honored
+  assert.equal(items.length, 4) // corrupt line skipped, every shard read
 })
 
 await check('appendFeedItems reports a deterministic I/O failure instead of masquerading as a cap', () => {
@@ -2543,7 +2548,7 @@ await check('appendFeedItems fsyncs before acknowledgement and recovers when a f
   }
 })
 
-await check('appendFeedItems byte cap counts the whole file and reports the byte boundary', () => {
+await check('appendFeedItems byte cap counts summaries and rolls the next item to a new shard', () => {
   const root = tmp()
   const date = '2026-08-21'
   const fp = path.join(root, 'screener', 'inbox', `${date}_firehose.ndjson`)
@@ -2555,8 +2560,42 @@ await check('appendFeedItems byte cap counts the whole file and reports the byte
   const exactOneByteRoom = Buffer.byteLength(summary) + Buffer.byteLength(`${JSON.stringify(one)}\n`)
   assert.deepEqual(
     appendFeedItems(root, date, [one, two], 10, exactOneByteRoom),
-    { status: 'cap', cap: 'bytes', written: 1, unwritten: 1, appendedEventIds: ['EVT-byte-1'] },
+    { status: 'complete', written: 2, unwritten: 0, appendedEventIds: ['EVT-byte-1', 'EVT-byte-2'] },
   )
+  assert.equal(fs.statSync(fp).size, exactOneByteRoom)
+  assert.equal(fs.existsSync(path.join(root, 'screener', 'inbox', `${date}_firehose.000001.ndjson`)), true)
+})
+
+await check('appendFeedItems retries cleanly after crashing on the first row of a new shard', () => {
+  const root = tmp()
+  const date = '2026-08-21'
+  const one = boundaryFeedItem('EVT-roll-crash-1')
+  const two = boundaryFeedItem('EVT-roll-crash-2')
+  assert.equal(appendFeedItems(root, date, [one], 1, 1_000_000).status, 'complete')
+  const failed = appendFeedItems(root, date, [two], 1, 1_000_000, {
+    writeLine: (fd, line) => {
+      fs.writeSync(fd, line.subarray(0, Math.floor(line.length / 2)))
+      throw new Error('injected rollover crash')
+    },
+  })
+  assert.deepEqual(failed, { status: 'io_failure', written: 0, unwritten: 1, appendedEventIds: [] })
+  assert.deepEqual(appendFeedItems(root, date, [two], 1, 1_000_000), {
+    status: 'complete', written: 1, unwritten: 0, appendedEventIds: [two.event_id],
+  })
+  const ids = readFeed(root, 1, { now: () => new Date(`${date}T23:59:59Z`), applyActiveWeights: false }).items.map((row) => row.event_id)
+  assert.deepEqual(ids.sort(), [one.event_id, two.event_id].sort())
+})
+
+await check('readFeed combines local and Drive copies shard-by-shard after a partial archive prune', () => {
+  const root = tmp()
+  const archive = tmp()
+  const date = '2026-08-21'
+  const local = path.join(root, 'screener', 'inbox')
+  fs.mkdirSync(local, { recursive: true })
+  fs.writeFileSync(path.join(local, `${date}_firehose.ndjson`), `${JSON.stringify(boundaryFeedItem('EVT-mixed-local'))}\n`)
+  fs.writeFileSync(path.join(archive, `${date}_firehose.000001.ndjson`), `${JSON.stringify(boundaryFeedItem('EVT-mixed-archive'))}\n`)
+  const ids = readFeed(root, 1, { now: () => new Date(`${date}T23:59:59Z`), archiveDir: archive, applyActiveWeights: false }).items.map((row) => row.event_id)
+  assert.deepEqual(ids.sort(), ['EVT-mixed-archive', 'EVT-mixed-local'])
 })
 
 await check('appendFeedItems preserves a complete delimiterless row but truncates a torn JSON tail', () => {
@@ -2582,6 +2621,24 @@ await check('appendFeedItems preserves a complete delimiterless row but truncate
 const firehoseSummary = (ts = '2026-08-21T12:00:00Z'): CycleSummary => ({
   ts, completed_at: ts, ok: true, fetched: 3, candidates: 3, picked: 1, watched: 1, dropped: 1,
   inboxed: 2, groq_requests: 1, groq_tokens: 100, new_arrivals: 3, phase: 'fetch', feed_commit_version: 1,
+})
+
+await check('one per-day flock serializes capacity repair, item writes, and summary writes', () => {
+  const root = tmp()
+  const date = '2026-06-12'
+  const lock = acquireRetainedFlockSync(firehoseLockPath(root, date), {
+    waitMs: 0,
+    busyMessage: 'test unexpectedly busy',
+  })
+  try {
+    assert.equal(inspectFeedCapacity(root, date, 10, 1_000_000).status, 'io_failure')
+    assert.equal(appendFeedItems(root, date, [boundaryFeedItem('EVT-busy')], 10, 1_000_000).status, 'io_failure')
+    assert.equal(appendFirehoseSummary(root, date, firehoseSummary()), false)
+  } finally {
+    releaseRetainedFlock(lock)
+  }
+  assert.equal(appendFeedItems(root, date, [boundaryFeedItem('EVT-after-lock')], 10, 1_000_000).status, 'complete')
+  assert.equal(appendFirehoseSummary(root, date, firehoseSummary()), true)
 })
 
 await check('appendFirehoseSummary rolls back and fsyncs a partial row before a clean retry', () => {
@@ -2652,7 +2709,7 @@ await check('appendFirehoseSummary fsyncs the file before its new directory entr
   fs.rmSync(root, { recursive: true, force: true })
 })
 
-await check('appendFirehoseSummary accepts the 99 MB boundary and refuses boundary plus one unchanged', () => {
+await check('appendFirehoseSummary accepts the 99 MB boundary and rolls boundary plus one', () => {
   const date = '2026-08-21'
   const summary = firehoseSummary()
   const lineBytes = Buffer.byteLength(`${JSON.stringify({ kind: 'cycle_summary', ...summary })}\n`)
@@ -2675,8 +2732,9 @@ await check('appendFirehoseSummary accepts the 99 MB boundary and refuses bounda
   const overRoot = tmp()
   const overSize = FIREHOSE_HARD_MAX_BYTES - lineBytes + 1
   const overPath = makeSparseFirehose(overRoot, overSize)
-  assert.equal(appendFirehoseSummary(overRoot, date, summary), false)
-  assert.equal(fs.statSync(overPath).size, overSize, 'a rejected append cannot change the file')
+  assert.equal(appendFirehoseSummary(overRoot, date, summary), true)
+  assert.equal(fs.statSync(overPath).size, overSize, 'rollover never changes the sealed shard')
+  assert.equal(fs.statSync(path.join(overRoot, 'screener', 'inbox', `${date}_firehose.000001.ndjson`)).size, lineBytes)
   fs.rmSync(exactRoot, { recursive: true, force: true })
   fs.rmSync(overRoot, { recursive: true, force: true })
 })
@@ -2768,7 +2826,7 @@ await check('runIngestCycle partial feed cap publishes/counts only the prefix an
   assert.deepEqual(summary.defer_reasons, ['feed-cap'])
   assert.equal(summary.deferred, 2)
   assert.equal(summary.backlog, 2)
-  assert.match(String(summary.note), /daily feed items cap reached/)
+  assert.match(String(summary.note), /feed shard items limit could not accept work/)
   assert.equal(providerCalls, 1, 'only the exact writable prefix spends provider capacity')
   assert.equal(itemRows.length, 1, 'only the confirmed prefix is in the durable wire')
   assert.deepEqual(emitted, itemRows.map((item) => item.event_id), 'SSE emits exactly the persisted prefix')
@@ -2836,7 +2894,7 @@ await check('feed-pending rows are exempt from unscored expiry and pending journ
   assert.equal(expired.live[0].deferred_at, '2026-08-19T00:00:00Z', 'the original residence clock remains auditable')
 })
 
-await check('saveDeferred prioritizes scored pending recovery inside the bounded active work window', () => {
+await check('saveDeferred prioritizes scored recovery without losing the row beyond the hot file window', () => {
   const state = tmp()
   const raw: NewsItem[] = Array.from({ length: 5_000 }, (_, i) => ({
     event_id: `EVT-raw-cap-${i}`, headline: `Raw backlog row ${i} long enough for validation`,
@@ -2846,9 +2904,11 @@ await check('saveDeferred prioritizes scored pending recovery inside the bounded
   const pending = exactPending('EVT-pending-at-tail', { state: 'cap' })
   assert.equal(saveDeferred(state, [...raw, pending], () => {}, 5_000), true)
   const saved = loadDeferred(state)
-  assert.equal(saved.length, 5_000)
+  assert.equal(saved.length, 5_001, 'SQLite keeps the complete queue; the cap bounds only the compatibility hot file')
   assert.equal(saved[0].event_id, pending.event_id)
-  assert.equal(saved.some((row) => row.event_id === raw[raw.length - 1].event_id), false)
+  assert.equal(saved.some((row) => row.event_id === raw[raw.length - 1].event_id), true)
+  const hotProjection = JSON.parse(fs.readFileSync(path.join(state, 'news-deferred.json'), 'utf8'))
+  assert.equal((Array.isArray(hotProjection) ? hotProjection : hotProjection.items).length, 5_000)
 })
 
 await check('feed-recovery backlog uses a v2 wrapper that makes an older worker pause safely', () => {
@@ -3114,6 +3174,22 @@ await check('a refused cycle summary leaves a durable gap and hides the safety-r
   assert.equal(read.history.incompleteCycles, 1)
   assert.equal(read.history.coverage, 'partial')
   assert.equal(buildPipelineFlowRates(read.cycles, now.getTime() + 1_000, NEWS.cycleTimeoutMs, read.history).comparison.status, 'unavailable')
+
+  const recoveredAt = new Date('2026-08-21T12:20:00Z')
+  await runIngestCycle({
+    repoRoot: root, stateDir: state, skipFetch: true, now: () => recoveredAt,
+    fetchFn: (async () => { throw new Error('interruption reconciliation needs no network') }) as unknown as typeof fetch,
+    sleep: noSleep, config: noProviderConfig,
+  })
+  assert.deepEqual(
+    JSON.parse(fs.readFileSync(path.join(state, 'news-pipeline-flow-gaps.json'), 'utf8')).starts,
+    [],
+    'the next pass clears the active marker only after recording the stale incident',
+  )
+  const interruptions = readCycleInterruptionAudit(root, '', now.getTime(), recoveredAt.getTime() + 1)
+  assert.equal(interruptions.readable, true)
+  assert.equal(interruptions.events.length, 1)
+  assert.equal(interruptions.events[0].startedAt, now.toISOString())
 })
 
 await check('an acknowledged row behind a cap-blocked row is completed first and stays silent on SSE', async () => {
@@ -3180,7 +3256,7 @@ await check('unknown or unstamped feed-pending state fails closed without model 
   }
 })
 
-await check('feed cap and provider failure retain both structured and human explanations', async () => {
+await check('a concurrent shard fill rolls cleanly while a separate provider failure remains explicit', async () => {
   resetSharedLimiters(); resetBudgetMemory(); resetCooldownMemory()
   const root = tmp()
   const state = tmp()
@@ -3202,8 +3278,8 @@ await check('feed cap and provider failure retain both structured and human expl
     if (!String(url).includes('groq')) return res({ articles: [] })
     calls++
     if (calls === 1) {
-      // Admission honestly reserves two worst-case rows. Simulate a concurrent writer consuming the
-      // remaining day after that snapshot so feed-cap and a second-batch provider failure coexist.
+      // Admission honestly reserves two worst-case rows. Simulate another writer consuming the active
+      // shard after that snapshot; the completed batch must roll instead of becoming feed-pending.
       const filler = Math.max(0, maxBytes - fs.statSync(fp).size - 1)
       fs.appendFileSync(fp, `${' '.repeat(Math.max(0, filler - 1))}\n`)
     }
@@ -3219,10 +3295,11 @@ await check('feed cap and provider failure retain both structured and human expl
       triageBatch: 1, feedItemsDailyCap: 10, feedItemsDailyMaxBytes: maxBytes,
     },
   })
-  assert.deepEqual(summary.defer_reasons, ['feed-cap', 'batch-failed'])
-  assert.equal(summary.defer_reason, 'feed-cap')
-  assert.match(String(summary.note), /daily feed bytes cap reached/)
+  assert.deepEqual(summary.defer_reasons, ['batch-failed'])
+  assert.equal(summary.defer_reason, 'batch-failed')
+  assert.doesNotMatch(String(summary.note), /feed bytes cap reached/)
   assert.match(String(summary.note), /not scored \(LLM hiccup\)/)
+  assert.equal(fs.existsSync(path.join(root, 'screener', 'inbox', `${date}_firehose.000001.ndjson`)), true)
 })
 
 await check('a byte remainder below one provable row spends zero provider calls', async () => {
@@ -3285,7 +3362,7 @@ await check('no durable scored retry marker escalates storage-emergency and clai
   assert.equal(loadDeferred(state)[0].feed_pending, undefined, 'stale raw authority is not mistaken for a scored retry marker')
 })
 
-await check('a pick awaiting feed may be visible in inbox but is uncounted/unseen and retries idempotently', async () => {
+await check('a pick whose active shard fills during scoring rolls, completes, and is never retried', async () => {
   resetSharedLimiters(); resetBudgetMemory(); resetCooldownMemory()
   const root = tmp()
   const state = tmp()
@@ -3318,20 +3395,21 @@ await check('a pick awaiting feed may be visible in inbox but is uncounted/unsee
       feedItemsDailyMaxBytes: maxBytes,
     },
   })
-  assert.equal(first.picked, 0, 'inbox projection is not firehose completion')
+  assert.equal(first.picked, 1, 'the scored pick commits to the next shard in the same cycle')
   assert.equal(first.inboxed, 1)
-  assert.equal(first.inbox_feed_pending, 1)
-  assert.equal(first.feed_unwritten, 1)
-  assert.equal(loadDeferred(state)[0].pending_feed_item?.band, 'pick')
+  assert.equal(first.inbox_feed_pending ?? 0, 0)
+  assert.equal(first.feed_unwritten ?? 0, 0)
+  assert.equal(loadDeferred(state).length, 0)
+  assert.equal(fs.existsSync(path.join(root, 'screener', 'inbox', `${date}_firehose.000001.ndjson`)), true)
   const seen = JSON.parse(fs.readFileSync(path.join(state, 'news-seen.json'), 'utf8')) as Record<string, unknown>
-  assert.equal(Object.hasOwn(seen, row.event_id), false)
+  assert.equal(Object.hasOwn(seen, row.event_id), true)
 
   const second = await runIngestCycle({
     repoRoot: root, stateDir: state, skipFetch: true, now: () => new Date('2026-08-22T00:01:00Z'),
-    fetchFn: (async () => { throw new Error('pending retry needs no provider') }) as unknown as typeof fetch,
+    fetchFn: (async () => { throw new Error('no network expected') }) as unknown as typeof fetch,
     sleep: noSleep, config: noProviderConfig,
   })
-  assert.equal(second.picked, 1)
+  assert.equal(second.picked, 0)
   assert.equal(loadDeferred(state).length, 0)
   assert.equal(loadRescueQueue(state).committed, false,
     'ingest leaves only a small staged range until normal Ideas has had priority')
@@ -3367,6 +3445,75 @@ await check('triage falls back to OVERFLOW when Groq fails — the batch is scor
   assert.ok(ovHits >= 1, 'overflow provider was tried after Groq failed')
   assert.equal(s.picked, 1, 'the item was SCORED via overflow, not deferred')
   assert.equal(JSON.parse(fs.readFileSync(path.join(state, 'news-deferred.json'), 'utf8')).length, 0, 'nothing deferred — overflow handled it')
+})
+
+await check('a terminal Groq key fault is quarantined once while overflow keeps every later batch moving', async () => {
+  const root = tmp()
+  const state = tmp()
+  const goodTriage = { usage: { total_tokens: 200 }, choices: [{ message: { content: JSON.stringify({ items: [
+    { i: 0, relevance: 'material', materiality_pre_score: 84, event_types: ['macro_sector'], issuer_linkage: 'macro', why: 'A policy surprise changes funding costs.', companies: [], size_bucket: 'unknown' },
+  ] }) } }] }
+  let groqHits = 0, overflowHits = 0, sourceServed = false, sourceRound = 0
+  const fetchFn = (async (url: string) => {
+    const u = String(url)
+    if (u.includes('groq')) {
+      groqHits++
+      return res({ error: { type: 'invalid_request_error', code: 'invalid_api_key', message: 'private account details' } }, 401)
+    }
+    if (u.includes('overflow.test')) { overflowHits++; return res(goodTriage) }
+    if (u.includes('gdelt') && !sourceServed) {
+      sourceServed = true
+      sourceRound++
+      return res({ articles: [{ url: `https://reuters.com/quarantine-${sourceRound}`, title: `RBI policy surprise changes funding costs round ${sourceRound}`, domain: 'reuters.com', seendate: '20260612T090000Z' }] })
+    }
+    return res({ articles: [] })
+  }) as unknown as typeof fetch
+  const cfg = {
+    groqApiKey: 'bad-key', groqModel: 'openai/gpt-oss-20b', gdeltBaseUrl: 'https://gdelt.test/doc',
+    groqBaseUrl: 'https://groq.test', groqRpm: 6000, gdeltLookbackMin: 40, rssEnabled: false,
+    overflowProviders: [{ id: 'ovf', label: 'OVF', color: '--x', apiKey: 'k', baseUrl: 'https://overflow.test/v1', model: 'm', maxTokens: 900, rpm: 6000, tpm: 0, dailyReqCap: 100, dailyTokenCap: 1e9, budgetFile: 'ovf-budget.json' }],
+  } as any
+  const first = await runIngestCycle({ repoRoot: root, stateDir: state, config: cfg, fetchFn, sleep: noSleep, now: () => new Date('2026-06-12T09:30:00Z') })
+  assert.equal(first.picked, 1)
+  assert.equal(groqHits, 1)
+  assert.equal(overflowHits, 1)
+  assert.equal(JSON.parse(fs.readFileSync(path.join(state, 'provider-groq-quarantine.json'), 'utf8')).failureCode, 'auth')
+
+  sourceServed = false
+  const second = await runIngestCycle({ repoRoot: root, stateDir: state, config: cfg, fetchFn, sleep: noSleep, now: () => new Date('2026-06-12T09:35:00Z') })
+  assert.equal(second.picked, 1, 'the healthy fallback continues scoring new work')
+  assert.equal(groqHits, 1, 'the unchanged terminal fault spends no second Groq request')
+  assert.equal(overflowHits, 2, 'the second batch falls through without delay')
+})
+
+await check('a repaired Groq configuration is not trapped behind an old un-fingerprinted access marker', async () => {
+  resetCooldownMemory(); resetBudgetMemory(); resetSharedLimiters()
+  const root = tmp()
+  const state = tmp()
+  const at = Date.parse('2026-06-12T09:30:00Z')
+  for (let i = 0; i < 3; i++) armCooldown(state, at - 60_000 + i, 3_600_000, 'groq', 3_600_000, 'provider-access')
+  assert.ok(readCooldownUntil(state, 'groq') > at, 'fixture carries the old live access marker')
+
+  const goodTriage = { usage: { total_tokens: 200 }, choices: [{ message: { content: JSON.stringify({ items: [
+    { i: 0, relevance: 'material', materiality_pre_score: 84, event_types: ['macro_sector'], issuer_linkage: 'macro', why: 'A policy surprise changes funding costs.', companies: [], size_bucket: 'unknown' },
+  ] }) } }] }
+  let groqHits = 0, sourceServed = false
+  const fetchFn = (async (url: string) => {
+    const target = String(url)
+    if (target.includes('groq')) { groqHits++; return res(goodTriage) }
+    if (target.includes('gdelt') && !sourceServed) {
+      sourceServed = true
+      return res({ articles: [{ url: 'https://reuters.com/repaired-groq', title: 'RBI policy surprise changes funding costs', domain: 'reuters.com', seendate: '20260612T090000Z' }] })
+    }
+    return res({ articles: [] })
+  }) as unknown as typeof fetch
+  const summary = await runIngestCycle({
+    repoRoot: root, stateDir: state, fetchFn, sleep: noSleep, now: () => new Date(at),
+    config: { groqApiKey: 'repaired-key', groqModel: 'openai/gpt-oss-20b', groqBaseUrl: 'https://groq.test', groqRpm: 6000, gdeltBaseUrl: 'https://gdelt.test/doc', gdeltLookbackMin: 40, rssEnabled: false, overflowProviders: [] } as any,
+  })
+  assert.equal(groqHits, 1, 'the repaired fingerprint gets one real classified attempt immediately')
+  assert.equal(summary.picked, 1)
+  assert.equal(fs.existsSync(path.join(state, 'groq-health.json')), false, 'success removes the obsolete marker')
 })
 
 // ---- LOCAL primary brain: unlimited, $0, tried FIRST — Groq + every cloud/paid tier is fallback ----
@@ -3475,6 +3622,74 @@ await check('LOCAL telemetry lock contention cannot throw away an already-scored
 })
 
 // ---- a token-gated overflow provider (Cerebras) paces on its daily TOKEN cap, not just requests ----
+await check('auto learning routes the bounded verification batch through an unproven backup end to end', async () => {
+  resetSharedLimiters(); resetBudgetMemory(); resetCooldownMemory()
+  const root = tmp()
+  const state = tmp()
+  const nowMs = Date.parse('2026-08-22T12:00:00Z')
+  // Nine completed primary outcomes put the next real group on the one-in-ten verification boundary. The
+  // backup has no outcome, which is the exact activation catch-22: auto needs two-provider evidence, but a
+  // healthy configured-first route previously prevented the second provider from ever receiving work.
+  for (let index = 0; index < 9; index++) {
+    const at = new Date(nowMs - 2 * 3_600_000 + index * 60_000).toISOString()
+    const decisionId = `learning-${index}`
+    assert.equal(appendPipelineTelemetry(root, {
+      v: 1, kind: 'provider_decision', ts: at, cycleId: `cycle-${index}`, decisionId,
+      mode: 'shadow', actualProviderId: 'groq', shadowProviderId: 'groq', exploration: false, candidates: [],
+    }), true)
+    assert.equal(appendPipelineTelemetry(root, {
+      v: 1, kind: 'provider_outcome', ts: at, cycleId: `cycle-${index}`, decisionId,
+      providerId: 'groq', outcome: 'success', failureClass: null, batchSize: 1, scoredItems: 1,
+      networkCalls: 1, tokens: 120, costUsd: 0, elapsedMs: 500,
+    }), true)
+  }
+  const good = { usage: { total_tokens: 120 }, choices: [{ message: { content: JSON.stringify({ items: [
+    { i: 0, relevance: 'material', materiality_pre_score: 84, event_types: ['macro_sector'], issuer_linkage: 'macro', why: 'The policy change moves funding costs.', companies: [], size_bucket: 'unknown' },
+  ] }) } }] }
+  let gdeltServed = false
+  let primaryCalls = 0
+  let backupCalls = 0
+  const fetchFn = (async (url: string) => {
+    const target = String(url)
+    if (target.includes('groq.test')) { primaryCalls++; return res(good) }
+    if (target.includes('backup.test')) { backupCalls++; return res(good) }
+    if (target.includes('gdelt') && !gdeltServed) {
+      gdeltServed = true
+      return res({ articles: [{
+        url: 'https://reuters.com/provider-verification',
+        title: 'Central bank policy change materially lowers company funding costs',
+        domain: 'reuters.com', seendate: '20260822T115500Z',
+      }] })
+    }
+    return res({ articles: [] })
+  }) as unknown as typeof fetch
+  const summary = await runIngestCycle({
+    repoRoot: root, stateDir: state, fetchFn, sleep: noSleep, now: () => new Date(nowMs),
+    config: {
+      groqApiKey: 'k', groqBaseUrl: 'https://groq.test', groqRpm: 6000,
+      gdeltBaseUrl: 'https://gdelt.test/doc', gdeltLookbackMin: 40, rssEnabled: false,
+      themesEnabled: false, triageBatch: 1, localProvider: null, geminiEnabled: false,
+      anthropicFallbackEnabled: false, providerRouterMode: 'auto', providerRouterShadowHours: 24,
+      providerRouterMinOutcomes: 20, newsArchiveDir: '',
+      overflowProviders: [{
+        id: 'backup', label: 'Backup', color: '--provider-or', kind: 'openai', apiKey: 'k',
+        baseUrl: 'https://backup.test/v1', model: 'm', maxTokens: 900, rpm: 6000,
+        dailyReqCap: 100, budgetFile: 'backup-budget.json', limiter: 'backup',
+      }],
+    } as any,
+  })
+  assert.equal(summary.picked, 1)
+  assert.equal(backupCalls, 1, 'the overdue backup checked useful real work under the normal reservation path')
+  assert.equal(primaryCalls, 0, 'the verification batch was not also double-spent on the healthy primary')
+  const audit = fs.readFileSync(path.join(root, 'screener/inbox/2026-08-22_pipeline.ndjson'), 'utf8')
+    .trim().split('\n').map((line) => JSON.parse(line))
+  const verification = audit.find((row) => row.kind === 'provider_decision' && row.exploration === true)
+  assert.equal(verification?.mode, 'shadow', 'auto is still learning; one canary does not bypass activation gates')
+  assert.equal(verification?.actualProviderId, 'backup')
+  assert.ok(audit.some((row) => row.kind === 'provider_outcome' && row.decisionId === verification?.decisionId
+    && row.providerId === 'backup' && row.outcome === 'success'), 'the canary result is durable proof, not a fire-and-forget ping')
+})
+
 await check('overflow paces on the daily TOKEN cap, not just requests (token-gated free tier like Cerebras)', async () => {
   const root = tmp()
   const state = tmp()
@@ -3765,6 +3980,57 @@ await check('a configured overflow provider can run the ingester without a Groq 
   assert.equal(overflowCalls, 1)
   assert.equal(summary.picked, 1)
   assert.doesNotMatch(summary.note || '', /idle|GROQ_API_KEY/)
+})
+
+await check('an OpenRouter no-route 404 holds only triage and recovers with unchanged configuration', async () => {
+  resetSharedLimiters(); resetBudgetMemory(); resetCooldownMemory()
+  const root = tmp(), state = tmp()
+  let gdeltServed = false, openRouterCalls = 0, routeAvailable = false
+  const good = { usage: { total_tokens: 120 }, choices: [{ message: { content: JSON.stringify({ items: [
+    { i: 0, relevance: 'material', materiality_pre_score: 84, event_types: ['macro_sector'], issuer_linkage: 'macro', why: 'The policy change moves funding costs.', companies: [], size_bucket: 'unknown' },
+  ] }) } }] }
+  const fetchFn = (async (url: string) => {
+    const u = String(url)
+    if (u.includes('openrouter.test')) {
+      openRouterCalls++
+      return routeAvailable
+        ? res(good)
+        : res({ error: { code: 404, message: 'No allowed providers are available for the selected model' } }, 404)
+    }
+    if (u.includes('gdelt') && !gdeltServed) {
+      gdeltServed = true
+      return res({ articles: [{
+        url: 'https://reuters.com/openrouter-route-gap', title: 'Central bank policy decision materially changes funding costs today',
+        domain: 'reuters.com', seendate: '20260612T120000Z',
+      }] })
+    }
+    return res({ articles: [] })
+  }) as unknown as typeof fetch
+  let at = Date.parse('2026-06-12T12:00:00Z')
+  const config = {
+    groqApiKey: '', gdeltBaseUrl: 'https://gdelt.test/doc', gdeltLookbackMin: 40, rssEnabled: false,
+    themesEnabled: false, triageBatch: 1, geminiEnabled: false, anthropicFallbackEnabled: false,
+    llmCooldownMs: 1_000, llmCooldownMaxMs: 1_000,
+    overflowProviders: [{
+      id: 'openrouter', label: 'OpenRouter', color: '--x', apiKey: 'k', baseUrl: 'https://openrouter.test/v1',
+      model: 'openrouter/free', models: ['openrouter/free'], maxTokens: 900, maxAttempts: 1,
+      rpm: 6000, dailyReqCap: 10, budgetFile: 'openrouter-budget.json',
+    }],
+  } as any
+
+  const failed = await runIngestCycle({ repoRoot: root, stateDir: state, config, fetchFn, sleep: noSleep, now: () => new Date(at) })
+  assert.equal(openRouterCalls, 1)
+  assert.equal(failed.picked + failed.watched + failed.dropped, 0)
+  assert.equal(readCooldownUntil(state, 'openrouter'), 0, 'Themes, Ideas, and article reads remain eligible')
+  assert.equal(readCooldownUntil(state, 'triage:openrouter'), at + 1_000)
+  assert.equal(fs.existsSync(path.join(state, 'provider-openrouter-quarantine.json')), false)
+
+  routeAvailable = true
+  at += 1_001
+  const recovered = await runIngestCycle({ repoRoot: root, stateDir: state, config, fetchFn, sleep: noSleep, now: () => new Date(at) })
+  assert.equal(openRouterCalls, 2)
+  assert.equal(recovered.picked, 1, 'the deferred item drains automatically after the bounded workload cooldown')
+  assert.equal(readCooldownUntil(state, 'triage:openrouter'), 0)
 })
 
 await check('an incomplete triage batch holds only that workload and immediately falls through to a useful provider', async () => {
@@ -4163,13 +4429,15 @@ await check('readArticleBrief rechecks a provider hold after its limiter wait', 
   }
 })
 
-await check('readArticleBrief: request/contract/short-timeout failures stay article-scoped; service failures stay shared', async () => {
+await check('readArticleBrief: terminal faults quarantine; retryable request/contract/timeout failures stay article-scoped; service failures stay shared', async () => {
   const body = 'The central bank cut rates by 50 basis points in a surprise off-cycle move, citing softer inflation and slowing growth across the economy.'
   const at = Date.parse('2026-06-12T09:30:00Z')
   const cases: Array<{
     id: string
+    model?: string
+    models?: string[]
     fetchFn: typeof fetch
-    expectedScope: 'article' | 'shared'
+    expectedScope: 'article' | 'shared' | 'quarantine-provider' | 'quarantine-article'
   }> = [
     {
       id: 'request-shape', expectedScope: 'article',
@@ -4179,7 +4447,11 @@ await check('readArticleBrief: request/contract/short-timeout failures stay arti
       })) as unknown as typeof fetch,
     },
     {
-      id: 'access', expectedScope: 'shared',
+      id: 'request-terminal', expectedScope: 'quarantine-article',
+      fetchFn: (async () => res('private account invalid request details', 400)) as unknown as typeof fetch,
+    },
+    {
+      id: 'access', expectedScope: 'quarantine-provider',
       fetchFn: (async () => res('private account access details', 401)) as unknown as typeof fetch,
     },
     {
@@ -4195,6 +4467,12 @@ await check('readArticleBrief: request/contract/short-timeout failures stay arti
       fetchFn: (async () => res('private upstream deployment id', 503)) as unknown as typeof fetch,
     },
     {
+      id: 'openrouter', model: 'openrouter/free', models: ['openrouter/free'], expectedScope: 'article',
+      fetchFn: (async () => res({
+        error: { code: 404, message: 'No allowed providers are available for the selected model' },
+      }, 404)) as unknown as typeof fetch,
+    },
+    {
       id: 'network', expectedScope: 'shared',
       fetchFn: (async () => { throw new Error('private DNS host detail') }) as unknown as typeof fetch,
     },
@@ -4206,7 +4484,8 @@ await check('readArticleBrief: request/contract/short-timeout failures stay arti
     resetSharedLimiters()
     const state = tmp()
     const provider = {
-      id: c.id, kind: 'openai', apiKey: 'k', baseUrl: `https://${c.id}.test`, model: 'model-a',
+      id: c.id, kind: 'openai', apiKey: 'k', baseUrl: `https://${c.id}.test`,
+      model: c.model || 'model-a', ...(c.models ? { models: c.models } : {}),
       rpm: 6000, tpm: 0, dailyReqCap: 45, dailyTokenCap: 500_000,
       budgetFile: `${c.id}-budget.json`, limiter: c.id,
     }
@@ -4214,11 +4493,17 @@ await check('readArticleBrief: request/contract/short-timeout failures stay arti
       stateDir: state, fetchFn: c.fetchFn, sleep: noSleep, now: () => at,
       deadlineMs: at + 12_000, cooldownMs: 30_000, cooldownMaxMs: 120_000,
     })
-    const articleId = `article:${c.id}/model-a`
+    const articleId = `article:${c.id}/${provider.model}`
     assert.equal(readCooldownUntil(state, articleId) > at, c.expectedScope === 'article', `${c.id}: article circuit scope`)
     assert.equal(readCooldownUntil(state, c.id) > at, c.expectedScope === 'shared', `${c.id}: shared circuit scope`)
+    if (c.expectedScope === 'quarantine-provider') {
+      assert.ok(fs.existsSync(path.join(state, `provider-${c.id}-quarantine.json`)), `${c.id}: provider quarantine is durable`)
+    }
+    if (c.expectedScope === 'quarantine-article') {
+      assert.ok(fs.existsSync(path.join(state, `provider-${c.id}-article-quarantine.json`)), `${c.id}: article-only quarantine is durable`)
+    }
     if (c.id === 'request-shape') assert.equal(readCooldownUntil(state, articleId), at + 25_000, 'request Retry-After stays exact on the article circuit')
-    assert.doesNotMatch(result.note || '', /acct-request|deployment id|DNS host|socket detail/, `${c.id}: public note is sanitized`)
+    assert.doesNotMatch(result.note || '', /acct-request|invalid request details|account access details|deployment id|DNS host|socket detail/, `${c.id}: public note is sanitized`)
     const saved = JSON.parse(fs.readFileSync(path.join(state, `${c.id}-budget.json`), 'utf8'))
     assert.equal(Boolean(saved.exhausted), false, `${c.id}: only an explicit daily-limit signal may exhaust the shared provider day`)
   }
@@ -5929,6 +6214,35 @@ await check('runIngestCycle: a backlog that waited past the age bound is retired
   assert.equal(s.carryover, 0, 'a retired item never competes for a triage slot again')
   assert.match(String(s.note), /RETIRED unscored/, 'the loss is named in the note, never silent')
   assert.equal(loadDeferred(state).length, 0, 'the retired backlog is gone from disk — it cannot regrow the wall')
+})
+
+await check('an expired retirement cannot hide another active row when empty-queue cleanup fails', async () => {
+  resetSharedLimiters(); resetBudgetMemory(); resetCooldownMemory()
+  const root = tmp(), state = tmp()
+  const expired = queueItem({ event_id: 'EVT-expired-among-seen' })
+  expired.deferred_at = '2026-08-13T00:00:00Z'
+  const seenActive = queueItem({ event_id: 'EVT-seen-still-active' })
+  seenActive.deferred_at = '2026-08-16T09:30:00Z'
+  assert.equal(saveDeferred(state, [expired, seenActive]), true)
+  fs.writeFileSync(path.join(state, 'news-seen.json'), `${JSON.stringify({
+    [seenActive.event_id]: { score: 80, ts: Date.now() },
+  })}\n`)
+
+  const summary = await runIngestCycle({
+    repoRoot: root,
+    stateDir: state,
+    skipFetch: true,
+    now: () => new Date('2026-08-16T10:00:00Z'),
+    fetchFn: (async () => { throw new Error('no network expected') }) as unknown as typeof fetch,
+    sleep: noSleep,
+    config: { ...noProviderConfig, groqApiKey: 'test-key' },
+    saveDeferredFn: () => false,
+  })
+  assert.equal(summary.backlog, 1, `the post-write SQLite queue, not partial retirement, owns the gauge: ${JSON.stringify({ summary, active: loadDeferred(state).map((row) => row.event_id) })}`)
+  assert.equal(summary.backlog_expired, 1, 'a durable retirement is counted even while unrelated work remains')
+  assert.match(String(summary.note), /RETIRED unscored/)
+  assert.equal(summary.deferred_write_failed, true)
+  assert.deepEqual(loadDeferred(state).map((row) => row.event_id), [seenActive.event_id])
 })
 
 await check('backlogDurablyCleared: either backlog write succeeding is enough — the LAST write is not the only one that counts', () => {

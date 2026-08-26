@@ -28,6 +28,17 @@ assert.equal(
   'a frozen full canary must target its exact isolated root instead of the normal dated root',
 )
 assert.equal(
+  buildPrompt('research', 'module', 'AAPL', 'valuation', undefined, undefined, {
+    parityCanary: {
+      runRoot: 'analyses/provider-parity/2026-08-26/codex/AAPL_2026-08-26__attempt-1234abcd',
+      freezeReceipt: 'analyses/provider-parity/2026-08-26/freeze/AAPL_2026-08-26.json',
+      stage: 'module',
+    },
+  }),
+  '/research:module-canary valuation AAPL analyses/provider-parity/2026-08-26/codex/AAPL_2026-08-26__attempt-1234abcd analyses/provider-parity/2026-08-26/freeze/AAPL_2026-08-26.json',
+  'a frozen module stage must use the thin exact-root loader, never the ordinary dated module command',
+)
+assert.equal(
   buildPrompt('research', 'parity', 'pair', undefined, undefined, undefined, {
     parity: {
       claudeRunRoot: 'analyses/parity/claude',

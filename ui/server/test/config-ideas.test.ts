@@ -4,13 +4,16 @@ import { spawnSync } from 'node:child_process'
 import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
+import { fileURLToPath } from 'node:url'
+
+const SERVER_DIR = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 
 const code = "import('./src/config.ts').then((m) => process.stdout.write(String(m.NEWS.ideasEnabled)))"
 function read(value: string | undefined): string {
   const env = { ...process.env }
   if (value === undefined) delete env.IDEAS_ENABLED
   else env.IDEAS_ENABLED = value
-  const r = spawnSync(process.execPath, ['--import', 'tsx', '--input-type=module', '-e', code], { cwd: process.cwd(), env, encoding: 'utf8' })
+  const r = spawnSync(process.execPath, ['--import', 'tsx', '--input-type=module', '-e', code], { cwd: SERVER_DIR, env, encoding: 'utf8' })
   assert.equal(r.status, 0, r.stderr)
   return r.stdout
 }
@@ -21,11 +24,12 @@ assert.equal(read('1'), 'true')
 
 const ageCode = "import('./src/config.ts').then((m) => process.stdout.write(String(m.NEWS.ideasInputMaxAgeHrs)))"
 const ageEnv = { ...process.env, IDEAS_INPUT_MAX_AGE_HRS: '18' }
-const age = spawnSync(process.execPath, ['--import', 'tsx', '--input-type=module', '-e', ageCode], { cwd: process.cwd(), env: ageEnv, encoding: 'utf8' })
+const age = spawnSync(process.execPath, ['--import', 'tsx', '--input-type=module', '-e', ageCode], { cwd: SERVER_DIR, env: ageEnv, encoding: 'utf8' })
 assert.equal(age.status, 0, age.stderr)
 assert.equal(age.stdout, '18', 'the source-age ceiling is independently configurable')
 
 const providerCode = "import('./src/config.ts').then((m) => process.stdout.write(JSON.stringify({enabled:m.NEWS.enabled,configured:m.NEWS.providerConfigured,ideaConfigured:m.NEWS.ideaProviderConfigured,overflow:m.NEWS.overflowProviders.map((p)=>p.id)})))"
+const openRouterCode = "import('./src/config.ts').then((m) => { const p=m.NEWS.overflowProviders.find((x)=>x.id==='openrouter'); process.stdout.write(JSON.stringify(p&&{model:p.model,models:p.models})) })"
 const providerEnvKeys = [
   'GROQ_API_KEY', 'CEREBRAS_API_KEY', 'MISTRAL_API_KEY', 'OPENROUTER_API_KEY', 'NVIDIA_API_KEY',
   'GEMINI_API_KEY', 'NEWS_LOCAL_ENABLED', 'NEWS_LOCAL_PRIMARY', 'NEWS_INGEST_ENABLED', 'NEWS_GEMINI_ENABLED',
@@ -40,7 +44,16 @@ function isolatedProviderEnv(patch: Record<string, string> = {}): NodeJS.Process
 }
 function readProviderConfig(patch: Record<string, string> = {}): { enabled: boolean; configured: boolean; ideaConfigured: boolean; overflow: string[] } {
   const env = isolatedProviderEnv(patch)
-  const r = spawnSync(process.execPath, ['--import', 'tsx', '--input-type=module', '-e', providerCode], { cwd: process.cwd(), env, encoding: 'utf8' })
+  const r = spawnSync(process.execPath, ['--import', 'tsx', '--input-type=module', '-e', providerCode], { cwd: SERVER_DIR, env, encoding: 'utf8' })
+  assert.equal(r.status, 0, r.stderr)
+  return JSON.parse(r.stdout)
+}
+
+function readOpenRouterConfig(patch: Record<string, string> = {}): { model: string; models: string[] } {
+  const env = isolatedProviderEnv({ OPENROUTER_API_KEY: 'test-openrouter', ...patch })
+  delete env.NEWS_OPENROUTER_MODELS
+  if (patch.NEWS_OPENROUTER_MODELS !== undefined) env.NEWS_OPENROUTER_MODELS = patch.NEWS_OPENROUTER_MODELS
+  const r = spawnSync(process.execPath, ['--import', 'tsx', '--input-type=module', '-e', openRouterCode], { cwd: SERVER_DIR, env, encoding: 'utf8' })
   assert.equal(r.status, 0, r.stderr)
   return JSON.parse(r.stdout)
 }
@@ -62,6 +75,17 @@ assert.equal(
   'the explicit scheduler kill switch remains authoritative',
 )
 
+assert.deepEqual(
+  readOpenRouterConfig(),
+  { model: 'openrouter/free', models: ['openrouter/free'] },
+  'OpenRouter defaults to the retirement-resistant official free router, not dated free-model slugs',
+)
+assert.deepEqual(
+  readOpenRouterConfig({ NEWS_OPENROUTER_MODELS: 'vendor/primary:free, vendor/fallback:free' }),
+  { model: 'vendor/primary:free', models: ['vendor/primary:free', 'vendor/fallback:free'] },
+  'an explicit ordered OpenRouter model chain remains supported',
+)
+
 // A Groq-less deployment must not treat the absent Groq ledger as fresh capacity. Once its only configured
 // fallback is spent, the frequent backlog drain stays idle instead of churning the same no-progress batch.
 const drainState = fs.mkdtempSync(path.join(os.tmpdir(), 'groqless-drain-'))
@@ -69,7 +93,7 @@ const today = new Date().toISOString().slice(0, 10)
 fs.writeFileSync(path.join(drainState, 'mistral-budget.json'), JSON.stringify({ date: today, requests: 1, tokens: 0 }))
 const drainCode = "import('./src/news/scheduler.ts').then((m) => process.stdout.write(String(m.budgetHasHeadroom(Date.now()))))"
 const drain = spawnSync(process.execPath, ['--import', 'tsx', '--input-type=module', '-e', drainCode], {
-  cwd: process.cwd(),
+  cwd: SERVER_DIR,
   env: isolatedProviderEnv({ MISTRAL_API_KEY: 'test-mistral', NEWS_MISTRAL_DAILY_REQ_CAP: '1', ENGINE_STATE_DIR: drainState }),
   encoding: 'utf8',
 })
@@ -89,7 +113,7 @@ const anthropicDrainCode = `Promise.all([
   process.stdout.write(String(scheduler.anthropicHasHeadroom(now)))
 })`
 const anthropicDrain = spawnSync(process.execPath, ['--import', 'tsx', '--input-type=module', '-e', anthropicDrainCode], {
-  cwd: process.cwd(),
+  cwd: SERVER_DIR,
   env: isolatedProviderEnv({
     ENGINE_STATE_DIR: anthropicDrainState,
     NEWS_ANTHROPIC_FALLBACK_ENABLED: '1',
@@ -119,7 +143,7 @@ const writeFreshSweep = (root: string, prefix: string) => {
 }
 writeFreshSweep(ideasOnlyRoot, 'ideas-only')
 const ideasOnly = spawnSync(process.execPath, ['--import', 'tsx', 'src/news/ingest-once.ts'], {
-  cwd: process.cwd(),
+  cwd: SERVER_DIR,
   env: isolatedProviderEnv({
     ENGINE_REPO_ROOT: ideasOnlyRoot, ENGINE_STATE_DIR: ideasOnlyState,
     NEWS_INGEST_ENABLED: '0', IDEAS_ENABLED: '1', THEMES_ENABLED: '0',
@@ -153,7 +177,7 @@ const serverIdeasCode = `Promise.all([
   process.stdout.write('SERVER_IDEAS=' + JSON.stringify({ reason: record.reason_code, attempted: Boolean(record.last_attempt_at), allowed }) + '\\n')
 })`
 const serverIdeas = spawnSync(process.execPath, ['--import', 'tsx', '--input-type=module', '-e', serverIdeasCode], {
-  cwd: process.cwd(),
+  cwd: SERVER_DIR,
   env: isolatedProviderEnv({
     ENGINE_REPO_ROOT: serverIdeasRoot, ENGINE_STATE_DIR: serverIdeasState,
     NEWS_INGEST_ENABLED: '0', IDEAS_ENABLED: '1', THEMES_ENABLED: '0',

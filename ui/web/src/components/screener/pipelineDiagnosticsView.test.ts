@@ -153,6 +153,16 @@ check('the credential fault is its own blocker group, never filed under needs-at
   assert.deepEqual(diagnosticBlockers(older).needsCredential, ['Mistral'])
 })
 
+check('a durable quarantine names the actual repair and never renders a retry countdown', () => {
+  const billing = { ...tier('cerebras', 'Cerebras', 'cooling'), quarantined: true, quarantineReason: 'billing' }
+  assert.equal(tierStatusCopy(billing, 55 * 60_000), 'Billing or credits are unavailable — repair the provider account')
+  const model = { ...tier('groq', 'Groq', 'cooling'), quarantined: true, quarantineReason: 'model_terminal' }
+  assert.equal(tierStatusCopy(model, 55 * 60_000), 'Configured model is unavailable — change the model or endpoint')
+  const key = { ...tier('groq', 'Groq', 'cooling'), quarantined: true, quarantineReason: 'auth', keyEnvVar: 'GROQ_API_KEY' }
+  assert.equal(tierStatusCopy(key, 55 * 60_000), 'API key rejected (GROQ_API_KEY) — replace it; waiting will not help')
+  assert.deepEqual(diagnosticBlockers(diagnostics([billing], { blockingTiers: ['cerebras'] })).retryHeld, [], 'standing quarantine is never filed under a timer')
+})
+
 check('a timeout names the measured duration, so "is our deadline too short?" is answerable', () => {
   const at30 = { ...tier('openrouter', 'OpenRouter', 'cooling'), cooldownReason: 'timeout', lastFailureMs: 30_000 }
   assert.equal(tierStatusCopy(at30, 50 * 60_000), 'Paused after a request took too long at 30.0s · try again in ~50m')
@@ -230,6 +240,13 @@ check('daily outcome copy marks every counter as a lower bound when a started lo
       incompleteCycles: 2, totalsLowerBound: true,
     }),
     '7 checked · 5 kept · 2 ignored · older report; totals may be incomplete: 2 checks did not finish recording',
+  )
+  assert.equal(
+    todayOutcomeCopy({
+      read: 7, kept: 5, dropped: 2, cycles: 3, durablyCommitted: true,
+      incompleteCycles: 0, recordedInterruptions: 1, totalsLowerBound: true,
+    }),
+    'at least 7 checked · at least 5 kept · at least 2 ignored · some totals may be missing: 1 interrupted check is permanently recorded',
   )
 })
 
@@ -370,6 +387,17 @@ check('started-without-summary and unreadable safety-marker debt are named inste
     '2 recent checks did not finish recording · The record of finished checks cannot be read',
   )
   assert.doesNotMatch(view.coverageCopy, /partition/i)
+
+  incomplete.history = {
+    ...completeHistory,
+    coverage: 'partial',
+    recordedInterruptions: 1,
+    interruptionAuditUnreadable: true,
+  }
+  assert.equal(
+    pipelineFlowPresentation(incomplete, FLOW_TS, FLOW_NOW).coverageCopy,
+    '1 interrupted check permanently recorded · The permanent interrupted-check record cannot be read',
+  )
 })
 
 check('deploy skew without partition coverage fails closed instead of trusting numeric rates', () => {

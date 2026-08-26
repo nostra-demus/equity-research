@@ -22,15 +22,16 @@ import { resolveEventRegion } from './geo'
 import { resolveCountry } from './geography'
 import { invalidateFacets } from './facets'
 import { SeenCache } from './seen-cache'
-import { Budget, NON_BINDING_DAILY_TOKEN_CAP, UsdBudget, armCooldown, clearCooldown, conservativeChatTokenBound, conservativeChatUsdBound, cooldownInfo, dailyQuotaAdmission, getNamedLimiter, getSharedGeminiLimiter, getSharedLimiter, isCoolingDown, rateInfoForLimiter, readCooldownUntil, selectDailyQuotaCandidate, type DailyQuotaCandidate, type PaceCfg } from './triage/budget'
+import { Budget, NON_BINDING_DAILY_TOKEN_CAP, UsdBudget, armCooldown, clearCooldown, conservativeChatTokenBound, conservativeChatUsdBound, cooldownInfo, dailyQuotaAdmission, getNamedLimiter, getSharedGeminiLimiter, getSharedLimiter, rateInfoForLimiter, readCooldownUntil, selectDailyQuotaCandidate, type DailyQuotaCandidate, type PaceCfg } from './triage/budget'
 import { triageBatchGemini } from './triage/gemini'
 import { triageBatchAnthropic } from './triage/anthropic'
 import { isAuthExpiredNote, isPlanQuotaNote, isTerminalApiNote, triageBatchClaudeCli, type ClaudeCliRunner } from './triage/claude-cli'
-import { SYSTEM, buildUserMessage, estimateTokens, scoreToBand, triageBatch, triageMaxOutputTokens, type TriageOptions, type TriageResult } from './triage/groq'
+import { SYSTEM, buildUserMessage, estimateTokens, openAiRequestIdentity, scoreToBand, triageBatch, triageMaxOutputTokens, type TriageOptions, type TriageResult } from './triage/groq'
+import { readProviderQuarantine } from './provider-failure'
 import { rankScore, preTriagePriority, capSocialBand, capSocialScore, deriveMaterialityLabel } from './rank'
 import { deriveScope, deriveSourceTier, toEventScope } from './scope'
 import { deriveCommodities } from './commodities'
-import { beginPipelineFlowCycle, buildPipelineFlowRates, completePipelineFlowCycle, countUniqueNewArrivals, readPipelineFlowCycles } from './pipeline-flow'
+import { beginPipelineFlowCycle, buildPipelineFlowRates, completePipelineFlowCycle, countUniqueNewArrivals, readPipelineFlowCycles, reconcilePipelineFlowGaps } from './pipeline-flow'
 import {
   deterministicCycleId,
   deterministicDecisionId,
@@ -51,6 +52,7 @@ import { appendFirehoseSummary, mergeInbox, refreshBoard, type InboxRevisionCloc
 import { runThemesCycle, bumpCycleCounter, themesConfigFromNews } from './themes/engine'
 import { makeThemeNamer } from './themes/llm'
 import type { ThemeItemView } from './themes/types'
+import { verifyEquityListing } from './symbology'
 import type { CycleSummary, FeedItem, NewsItem, RawArticle, TriagedItem } from './types'
 import { withInitialRescueDecision } from './rescue/selector'
 import {
@@ -58,6 +60,17 @@ import {
 } from './rescue/store'
 import { updateSemanticIndex } from '../retrieval/semantic'
 import fs from 'node:fs'
+import {
+  checkpointDurableQueueItems,
+  durableQueueLaneCount,
+  inspectDurableQueue,
+  purgeCompletedDurableQueueItems,
+  replaceAllDurableQueueItems,
+  replaceDurableQueueLane,
+  replaceDurableQueueWindow,
+  retireDurableQueueItems,
+  type LegacyQueueRow,
+} from './durable-queue'
 
 // Items we could NOT score this cycle (daily budget hit, or a Groq batch that failed even after
 // retry) spill into this file and are re-queued next cycle. Without it they'd be silently lost:
@@ -103,7 +116,9 @@ function addProviderCount(target: Record<string, number>, id: string, value: num
 
 function routingFailureClass(result: TriageResult): ProviderFailureClass {
   if (result.dailyLimit) return 'provider-day-limit'
-  if (result.httpStatus != null && [401, 402, 403, 404].includes(result.httpStatus)) return 'credential'
+  if (result.failure?.code === 'auth' || result.failure?.code === 'entitlement') return 'credential'
+  if (result.failure?.code === 'billing') return 'plan-quota'
+  if (result.failure?.code === 'model_terminal' || result.failure?.code === 'request_invalid') return 'contract'
   if (result.failureKind === 'contract') return 'contract'
   if (result.failureKind === 'rate_limit') return 'rate-limit'
   if (result.timedOut) return 'timeout'
@@ -130,12 +145,19 @@ function clearTriageCooldowns(stateDir: string, providerId: string, attemptStart
 function triageIsHeld(stateDir: string, providerId: string, at: number): boolean {
   const shared = cooldownInfo(stateDir, providerId)
   const workload = cooldownInfo(stateDir, triageCooldownId(providerId))
-  const rejected = [shared, workload].some((marker) => marker.reason === 'provider-access' && (marker.accessFails ?? 0) >= 3)
-  return rejected || isCoolingDown(stateDir, providerId, at) || isCoolingDown(stateDir, triageCooldownId(providerId), at)
+  // Pre-quarantine engines collapsed 401/402/403/404 into an un-fingerprinted provider-access marker. It
+  // cannot prove that a new key/model is still bad and, after three failures, used to block that repair
+  // forever. OpenAI-compatible routes now take one classified attempt instead. Gemini/Anthropic retain the
+  // legacy marker until their adapters migrate to the shared classifier.
+  const canonical = providerId !== 'anthropic-triage' && !providerId.startsWith('gemini:')
+  const held = (marker: ReturnType<typeof cooldownInfo>) => marker.until > at
+    && !(canonical && marker.reason === 'provider-access')
+  return held(shared) || held(workload)
 }
 
 function triageFailureIsProviderWide(result: TriageResult): boolean {
   if (result.ok) return true
+  if (result.failure) return result.failure.providerWide
   const accessFailure = result.httpStatus != null && [401, 402, 403, 404].includes(result.httpStatus)
   return result.failureKind === 'rate_limit'
     || (result.failureKind === 'availability' && !result.timedOut)
@@ -157,7 +179,7 @@ function holdAfterTriageFailure(args: {
   budget?: Budget
 }): void {
   const { stateDir, providerId, result, at, cooldownMs, cooldownMaxMs, aborted, budget } = args
-  if (aborted) return
+  if (aborted || result.quarantined || result.failure?.action === 'quarantine') return
   if (result.dailyLimit) {
     budget?.exhaust()
     return
@@ -173,7 +195,8 @@ function holdAfterTriageFailure(args: {
     : 'provider-access'
   const providerWide = triageFailureIsProviderWide(result)
   const scopedReason = result.timedOut ? 'timeout'
-    : result.failureKind === 'contract' ? 'triage-contract' : 'triage-request'
+    : result.failureKind === 'contract' ? 'triage-contract'
+      : result.failureKind === 'availability' ? 'triage-availability' : 'triage-request'
   // How long the failing call actually ran. Rides onto the marker so a LATER cycle — which sees only the
   // marker, never the failure note — can still tell the operator "timed out at 30.0s" instead of "an error".
   const took = result.elapsedMs
@@ -192,7 +215,10 @@ function holdAfterTriageFailure(args: {
     return
   }
   if (result.failureKind === 'availability') {
-    armCooldown(stateDir, at, cooldownMs, result.timedOut ? scopedId : providerId, cooldownMaxMs, result.timedOut ? 'timeout' : 'availability', took)
+    armCooldown(
+      stateDir, at, cooldownMs, providerWide ? providerId : scopedId, cooldownMaxMs,
+      providerWide ? 'availability' : scopedReason, took,
+    )
     return
   }
   if (accessFailure) {
@@ -389,7 +415,7 @@ export function buildTriageQueue(
 ): NewsItem[] {
   const byPriority = (a: NewsItem, b: NewsItem) => preTriagePriority(b, now) - preTriagePriority(a, now)
   // Scored rows awaiting the firehose are a commit-recovery queue, not fresh scoring work. Put them first
-  // (oldest residence first) so the next UTC file drains them before spending provider capacity on new rows.
+  // (oldest residence first) so the next successful shard append drains them before new provider work.
   const pending = [...requeued, ...fresh]
     .filter((it) => !!it.feed_pending)
     .sort((a, b) => String(a.deferred_at || '').localeCompare(String(b.deferred_at || '')) || a.event_id.localeCompare(b.event_id))
@@ -494,12 +520,19 @@ function readInputOverflow(stateDir: string): { status: 'missing' | 'unavailable
 }
 
 function inputOverflowPresence(stateDir: string): 'present' | 'missing' | 'unavailable' {
+  let projection: 'present' | 'missing' | 'unavailable'
   try {
     const stat = fs.statSync(path.join(stateDir, INPUT_OVERFLOW_FILE))
-    return stat.isFile() ? 'present' : 'unavailable'
+    projection = stat.isFile() ? 'present' : 'unavailable'
   } catch (error: any) {
-    return error?.code === 'ENOENT' ? 'missing' : 'unavailable'
+    projection = error?.code === 'ENOENT' ? 'missing' : 'unavailable'
   }
+  if (projection === 'unavailable') return projection
+  const durableCount = durableQueueLaneCount(stateDir, 'overflow')
+  if (durableCount == null) return projection
+  // A failed legacy-projection delete still matters when SQLite has already completed the lane. Keep the
+  // projection visible until it is actually gone so its tombstones cannot be purged and resurrected.
+  return durableCount > 0 || projection === 'present' ? 'present' : 'missing'
 }
 
 function readScoredCheckpoints(stateDir: string): { status: 'missing' | 'unavailable' } | { status: 'ok'; items: NewsItem[] } {
@@ -540,6 +573,7 @@ function readScoredCheckpoints(stateDir: string): { status: 'missing' | 'unavail
  * a 20k-row raw queue is not reserialized+fsynced after every 12-row model response. */
 export function appendScoredCheckpoint(stateDir: string, items: readonly TriagedItem[]): boolean {
   if (!items.length) return true
+  if (!checkpointDurableQueueItems(stateDir, items)) return false
   const file = path.join(stateDir, SCORED_CHECKPOINT_FILE)
   const line = Buffer.from(`${JSON.stringify({ v: 1, items })}\n`, 'utf8')
   let fd: number | undefined
@@ -574,23 +608,24 @@ export function inspectDeferredBacklog(stateDir: string): DeferredBacklogInspect
   const pending = readDeferredFile(path.join(stateDir, DEFERRED_PENDING_FILE))
   const scored = readScoredCheckpoints(stateDir)
   const overflow = readInputOverflow(stateDir)
-  if (primary.status === 'unavailable' || pending.status === 'unavailable'
-    || scored.status === 'unavailable' || overflow.status === 'unavailable') return { available: false, items: [] }
-  const merged: NewsItem[] = []
+  const legacyAvailable = primary.status !== 'unavailable' && pending.status !== 'unavailable'
+    && scored.status !== 'unavailable' && overflow.status !== 'unavailable'
+  const merged: LegacyQueueRow[] = []
   const seen = new Set<string>()
   // The pending file is the write-ahead journal. If its rename landed but canonical replacement failed,
   // it contains the NEWER typed marker/payload for the same id and must win over stale canonical state.
-  for (const item of [
-    ...(scored.status === 'ok' ? scored.items : []),
-    ...(pending.status === 'ok' ? pending.items : []),
-    ...(primary.status === 'ok' ? primary.items : []),
-    ...(overflow.status === 'ok' ? overflow.items : []),
+  for (const row of [
+    ...(scored.status === 'ok' ? scored.items.map((item) => ({ item, lane: 'hot' as const })) : []),
+    ...(pending.status === 'ok' ? pending.items.map((item) => ({ item, lane: 'barrier' as const })) : []),
+    ...(primary.status === 'ok' ? primary.items.map((item) => ({ item, lane: 'hot' as const })) : []),
+    ...(overflow.status === 'ok' ? overflow.items.map((item) => ({ item, lane: 'overflow' as const })) : []),
   ]) {
-    if (seen.has(item.event_id)) continue
-    seen.add(item.event_id)
-    merged.push(item)
+    if (seen.has(row.item.event_id)) continue
+    seen.add(row.item.event_id)
+    merged.push(row)
   }
-  return { available: true, items: merged }
+  const durable = inspectDurableQueue(stateDir, { available: legacyAvailable, rows: merged })
+  return durable.available ? { available: true, items: durable.items } : { available: false, items: [] }
 }
 
 export function loadDeferred(stateDir: string): NewsItem[] {
@@ -624,6 +659,9 @@ function saveInputBarrier(stateDir: string, items: readonly NewsItem[], log: (m:
   try {
     fs.mkdirSync(stateDir, { recursive: true })
     const retained = items.map((item) => ({ ...item, input_pending: true as const }))
+    if (!replaceAllDurableQueueItems(stateDir, retained, 'barrier')) {
+      throw new Error('SQLite input barrier was not committed')
+    }
     writeAtomicDurably(tmp, target, `${JSON.stringify({ v: 2, items: retained })}\n`)
     return true
   } catch (e: any) {
@@ -641,6 +679,9 @@ function saveCanonicalInputWindow(stateDir: string, items: readonly NewsItem[], 
   try {
     fs.mkdirSync(stateDir, { recursive: true })
     const retained = items.map((item) => ({ ...item, input_pending: true as const }))
+    if (!replaceDurableQueueLane(stateDir, 'hot', retained, 'absent-from-hot-input-window')) {
+      throw new Error('SQLite hot input window was not committed')
+    }
     writeAtomicDurably(tmp, target, `${JSON.stringify({ v: 2, items: retained })}\n`)
     return true
   } catch (e: any) {
@@ -652,12 +693,21 @@ function saveCanonicalInputWindow(stateDir: string, items: readonly NewsItem[], 
 
 function clearInputBarrier(stateDir: string, log: (m: string) => void): boolean {
   const target = path.join(stateDir, DEFERRED_PENDING_FILE)
+  const tmp = `${target}.clear.tmp`
   try {
-    fs.rmSync(target, { force: true })
-    fsyncDirectory(stateDir)
+    const outstanding = durableQueueLaneCount(stateDir, 'barrier')
+    if (outstanding == null || outstanding > 0) {
+      throw new Error(`SQLite input barrier still contains ${outstanding == null ? 'unknown' : outstanding} item(s)`)
+    }
+    // Keep an empty v2 rollback barrier permanently. A pre-SQLite worker rejects this wrapper and pauses,
+    // so it can never consume a plain-array projection without updating the canonical database.
+    writeAtomicDurably(tmp, target, `${JSON.stringify({ v: 2, items: [] })}\n`)
+    // Do not purge here. A scored checkpoint or overflow projection may still exist and could resurrect a
+    // completed row after a crash. saveDeferred owns the single purge boundary after every projection is gone.
     return true
   } catch (e: any) {
     log(`clearInputBarrier failed (${e?.message || e}) — full pending barrier remains authoritative`)
+    try { fs.rmSync(tmp, { force: true }) } catch { /* best effort */ }
     return false
   }
 }
@@ -671,12 +721,15 @@ function saveInputOverflow(stateDir: string, items: readonly NewsItem[], log: (m
   const tmp = `${target}.tmp`
   try {
     fs.mkdirSync(stateDir, { recursive: true })
+    const retained = items.map((item) => ({ ...item, input_pending: true as const }))
+    if (!replaceDurableQueueLane(stateDir, 'overflow', retained, 'removed-from-input-overflow')) {
+      throw new Error('SQLite input overflow was not committed')
+    }
     if (!items.length) {
       fs.rmSync(target, { force: true })
       fsyncDirectory(stateDir)
       return true
     }
-    const retained = items.map((item) => ({ ...item, input_pending: true as const }))
     writeAtomicDurably(tmp, target, `${JSON.stringify({ v: 2, items: retained })}\n`)
     return true
   } catch (e: any) {
@@ -701,6 +754,12 @@ export function saveDeferred(
   log: (m: string) => void = () => {},
   cap: number = DEFERRED_CAP,
 ): boolean {
+  // Direct callers and maintenance commands may enter here before runIngestCycle has loaded the queue.
+  // Bootstrap from the last-good file journals first; every later write can then require SQLite.
+  if (!inspectDeferredBacklog(stateDir).available) {
+    log('saveDeferred failed (durable queue unavailable) — canonical backlog was preserved')
+    return false
+  }
   const target = path.join(stateDir, DEFERRED_FILE)
   const tmp = `${target}.tmp`
   const pending = path.join(stateDir, DEFERRED_PENDING_FILE)
@@ -719,8 +778,13 @@ export function saveDeferred(
   ]
   const safeCap = Math.max(0, Math.floor(Number.isFinite(cap) ? cap : 0))
   const retained = prioritized.slice(0, safeCap)
+  const excess = prioritized.slice(safeCap)
+  if (!replaceDurableQueueWindow(stateDir, retained, excess, 'removed-from-active-work-window')) {
+    log(`saveDeferred failed (SQLite transaction refused) — ${items.length} item(s) remain in the last committed queue`)
+    return false
+  }
   const bytes = JSON.stringify((overflowPresence === 'present'
-    || retained.some((item) => !!item.feed_pending || item.input_pending === true))
+    || excess.length > 0 || retained.some((item) => !!item.feed_pending || item.input_pending === true))
     ? { v: 2, items: retained }
     : retained) + '\n'
   try {
@@ -729,11 +793,21 @@ export function saveDeferred(
     // rows, the next cycle can still merge and retry them instead of losing them with process memory.
     writeAtomicDurably(pendingTmp, pending, bytes)
     writeAtomicDurably(tmp, target, bytes)
+    let compatibilityJournalsCleared = false
     try {
-      fs.rmSync(pending, { force: true })
+      // Replace the write-ahead rows with a permanent empty v2 downgrade barrier. Old workers reject it;
+      // current readers treat it as an empty compatibility projection.
+      writeAtomicDurably(pendingTmp, pending, `${JSON.stringify({ v: 2, items: [] })}\n`)
       fs.rmSync(scoredCheckpoint, { force: true })
       fsyncDirectory(stateDir)
+      compatibilityJournalsCleared = true
     } catch { /* duplicate journal is harmless; reads dedupe ids */ }
+    // An old overflow projection can still name completed rows after its delete failed. Preserve their
+    // tombstones until the file is really gone; otherwise the next legacy merge could resurrect them.
+    if (compatibilityJournalsCleared && overflowPresence === 'missing'
+      && !purgeCompletedDurableQueueItems(stateDir)) {
+      log('saveDeferred: SQLite completion tombstones remain for a later cleanup')
+    }
     return true
   } catch (e: any) {
     log(`saveDeferred failed (${e?.message || e}) — kept the last-good backlog and any completed pending journal; ${items.length} item(s) need a retry`)
@@ -865,6 +939,7 @@ async function runThemesStage(input: {
         now,
         cfg: themesConfigFromNews(cfg),
         llmNamer: makeThemeNamer(cfg, fetchFn, stateDir, log, signal),
+        verifyListing: (ticker, companyName) => verifyEquityListing(ticker, companyName, fetchFn),
       }),
       new Promise<never>((_, reject) => {
         themesTimeout = setTimeout(() => reject(new Error('themes stage exceeded 90s — skipped')), 90_000)
@@ -907,6 +982,13 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
     minOutcomes: cfg.providerRouterMinOutcomes,
     now: now().getTime(),
   })
+
+  // A prior process/host death can leave a start receipt after its maximum completion window. Preserve that
+  // incident in the append-only Drive-archived audit before clearing the compact active marker. Failure is
+  // fail-visible: the marker remains and diagnostics continue to report an unresolved completion gap.
+  if (!reconcilePipelineFlowGaps(repoRoot, cfg.newsArchiveDir, stateDir, cycleStartedAt, cfg.cycleTimeoutMs)) {
+    log('pipeline completion-gap reconciliation deferred — unresolved evidence remains active')
+  }
 
   const phase: 'fetch' | 'drain' = deps.skipFetch ? 'drain' : 'fetch'
   const blank: CycleSummary = { ts, ok: false, fetched: 0, candidates: 0, picked: 0, watched: 0, dropped: 0, inboxed: 0, groq_requests: 0, groq_tokens: 0, phase }
@@ -1101,19 +1183,38 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
     // pending is recovery authority and outranks the optimization cache until this cycle acknowledges it.
     && (!!d.feed_pending || !seen.has(d.event_id)))
   // Retire the part of the backlog that can no longer reach the 2-day wire, BEFORE it competes for a slot.
-  // Reported, never silent: an aged-out item is a real loss, exactly like the dropped_at_cap tail.
-  const { live: requeued, expired: carriedExpired } = expireBacklog(carried, nowDate)
+  // Reported, never silent: it is a missed scoring target, but SQLite keeps the exact payload and reason.
+  let { live: requeued, expired: carriedExpired } = expireBacklog(carried, nowDate)
   // A REDELIVERED aged item is NOT in `carried` — its event_id is in freshIds, so the filter above dropped
   // the carried copy — so it would bypass expiry entirely and live in the fresh pool forever, restarting
   // nothing (preserveResidence kept its clock) but never retiring, consuming a fresh-reserved slot every
   // cycle a source re-serves it. Expire it here too, but ONLY on its preserved deferred_at
   // (requireDeferredStamp) — never found_at — so a genuinely-new item with an old publication date is
   // untouched. (Codex #453 — redelivered rows must be expired before fresh classification.)
-  const { live: freshLive, expired: freshExpired } = expireBacklog(fresh, nowDate, DEFERRED_MAX_AGE_MS, { requireDeferredStamp: true })
+  let { live: freshLive, expired: freshExpired } = expireBacklog(fresh, nowDate, DEFERRED_MAX_AGE_MS, { requireDeferredStamp: true })
   // `freshLive` is a routing pool, not an arrival counter: it also contains a source redelivery of an ID
   // already resident in the backlog. Partition by durable identity before emitting queue inflow telemetry.
   const newArrivals = countUniqueNewArrivals(freshLive, backlogRows)
-  const backlogExpired = [...carriedExpired, ...freshExpired]
+  let backlogExpired = [...carriedExpired, ...freshExpired]
+  let retirementPersisted = false
+  if (backlogExpired.length) {
+    retirementPersisted = retireDurableQueueItems(
+      stateDir,
+      backlogExpired,
+      `waited-longer-than-${Math.round(DEFERRED_MAX_AGE_MS / 3_600_000)}h`,
+      nowDate,
+    )
+    if (!retirementPersisted) {
+      // If the terminal transaction cannot commit, keep every candidate active. Age is a scheduling policy,
+      // never permission to forget bytes when the durable ledger is unavailable.
+      requeued = [...requeued, ...carriedExpired]
+      freshLive = [...freshLive, ...freshExpired]
+      carriedExpired = []
+      freshExpired = []
+      backlogExpired = []
+      log('backlog retirement paused — SQLite could not preserve the terminal payload; all items remain active')
+    }
+  }
   if (backlogExpired.length) {
     log(`backlog: ${backlogExpired.length} item${backlogExpired.length === 1 ? '' : 's'} retired — waited longer than ${Math.round(DEFERRED_MAX_AGE_MS / 3_600_000)}h behind the queue; never scored`)
   }
@@ -1137,23 +1238,26 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
     // A crash between those steps leaves v2 (old worker pauses), never a false empty legacy authority.
     const overflowCleared = canonicalCleared && (!hadInputOverflow || saveInputOverflow(stateDir, [], log))
     const cleared = overflowCleared && (!hadInputOverflow || persistDeferred(stateDir, [], log))
+    const queueAfterClear = inspectDeferredBacklog(stateDir)
+    const queueCleared = queueAfterClear.available && queueAfterClear.items.length === 0
     const rssHandoffCleared = cleared && phase === 'fetch' && cfg.rssEnabled
       ? acknowledgeRssDeliveries(stateDir)
       : true
     const summary: CycleSummary = {
       ...blank, completed_at: now().toISOString().replace(/\.\d{3}Z$/, 'Z'),
       ok: true, fetched: raws.length, fresh: freshLive.length, new_arrivals: newArrivals, carryover: requeued.length,
-      backlog: cleared ? 0 : carried.length, backlog_cap: DEFERRED_CAP,
+      backlog: queueAfterClear.available ? queueAfterClear.items.length : carried.length, backlog_cap: DEFERRED_CAP,
       ...(cleared ? {} : { deferred_write_failed: true }),
-      // a cycle whose whole queue was the expired backlog still has to REPORT the retirement — this is
-      // precisely the cycle whose note would otherwise read "no new on-list items" over a real loss.
+      // A cycle whose whole queue was the expired backlog still has to REPORT the retirement — this is
+      // precisely the cycle whose note would otherwise read "no new on-list items" over a missed scoring
+      // target. The payload itself remains recoverable in SQLite.
       // Counted only once the clear actually succeeded: if the write failed the rows are still on disk and
       // will be re-loaded, re-expired and re-counted next cycle, so counting them now double-counts the
       // same loss into retiredToday every cycle until the disk recovers.
-      ...(backlogExpired.length && cleared ? { backlog_expired: backlogExpired.length } : {}),
+      ...(backlogExpired.length && retirementPersisted ? { backlog_expired: backlogExpired.length } : {}),
       note: !rssHandoffCleared
         ? 'RSS delivery journal needs attention — existing bytes preserved for replay'
-        : backlogExpired.length && cleared
+        : backlogExpired.length && retirementPersisted
         ? `no new on-list items · ${backlogExpired.length} backlog item${backlogExpired.length === 1 ? '' : 's'} RETIRED unscored — waited longer than ${Math.round(DEFERRED_MAX_AGE_MS / 3_600_000)}h behind the queue`
         : 'no new on-list items',
       ...(sources ? { sources } : {}),
@@ -1307,6 +1411,35 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
   let localRequests = 0
   let localTokens = 0
   let localDownThisCycle = false // once the local box fails this cycle, stop poking it and use the cloud fallback
+  const triageIdentityFields = (providerId: string, providerLabel: string, keyEnvVar?: string) => ({
+    providerId, providerLabel, ...(keyEnvVar ? { keyEnvVar } : {}), stateDir,
+    workload: 'triage', contractVersion: 'news-triage-json-v1',
+  })
+  const triageOptionsForProvider = (providerId: string): TriageOptions | null => {
+    if (providerId === 'groq') return {
+      model: cfg.groqModel, baseUrl: cfg.groqBaseUrl, apiKey: cfg.groqApiKey,
+      maxTokens: cfg.triageMaxTokens, requestRemainingHeaderIsDaily: true,
+      ...triageIdentityFields('groq', 'Groq', 'GROQ_API_KEY'),
+    }
+    if (providerId === 'local' && localProvider) return {
+      model: localProvider.model, models: localProvider.models, baseUrl: localProvider.baseUrl,
+      apiKey: localProvider.apiKey, maxTokens: localProvider.maxTokens, headers: localProvider.headers,
+      extraBody: localProvider.extraBody, timeoutMs: localProvider.timeoutMs,
+      ...triageIdentityFields('local', localProvider.label || 'Local', localProvider.keyEnvVar),
+    }
+    const entry = overflow.find((candidate) => candidate.p.id === providerId)?.p
+    if (!entry) return null
+    return {
+      model: entry.model, models: entry.models, baseUrl: entry.baseUrl, apiKey: entry.apiKey,
+      maxTokens: entry.maxTokens, headers: entry.headers, extraBody: entry.extraBody,
+      timeoutMs: entry.timeoutMs, requestRemainingHeaderIsDaily: entry.requestRemainingHeaderIsDaily,
+      ...triageIdentityFields(entry.id, entry.label, entry.keyEnvVar),
+    }
+  }
+  const providerIsQuarantined = (providerId: string): boolean => {
+    const options = triageOptionsForProvider(providerId)
+    return !!(options && readProviderQuarantine(stateDir, openAiRequestIdentity(options, 'triage', 'news-triage-json-v1')))
+  }
   const pendingTriaged = items.filter(isFeedPendingTriaged).map((item) => ({
     ...item,
     feed_triaged_at: item.feed_triaged_at || item.pending_feed_item?.ts || ts,
@@ -1337,9 +1470,8 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
   const pendingNeedingRows = feedCapacity.status === 'available'
     ? pendingTriaged.filter((item) => !acknowledgedEventIds.has(item.event_id)).length
     : pendingTriaged.length
-  // Never spend a provider call after today's firehose is already full. When only row capacity remains,
-  // bound new scoring to that exact remainder after pending recovery rows; the byte boundary remains the
-  // final authority and can create at most this explicitly bounded suffix for later UTC rollover.
+  // Never spend a provider call without one shard's guaranteed durable room. A full/near-full shard is
+  // represented as the next empty shard, so capacity protection no longer pauses scoring until UTC midnight.
   const byteGuaranteedSlots = feedCapacity.status === 'available'
     ? Math.floor(feedCapacity.remainingBytes / MAX_FEED_ITEM_BYTES)
     : 0
@@ -1400,6 +1532,9 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
   const anthropicLedgerUnavailable = (): boolean => anthropicOn
     && (anthropicBudget?.ledgerAvailable !== true || anthropicBudget.lastReserveFailure === 'authority_unavailable')
   const credentialRejectedFor = (providerId: string): boolean => {
+    // The canonical OpenAI path is fingerprinted. Never let its obsolete, un-fingerprinted access streak
+    // veto a repaired configuration before the new classifier can test it once.
+    if (triageOptionsForProvider(providerId)) return providerIsQuarantined(providerId)
     const shared = cooldownInfo(stateDir, providerId)
     const workload = cooldownInfo(stateDir, triageCooldownId(providerId))
     return credentialRejected(shared.reason, shared.accessFails ?? 0) || credentialRejected(workload.reason, workload.accessFails ?? 0)
@@ -1410,13 +1545,13 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
     const at = now().getTime()
     if (providerId === 'local') return {}
     if (providerId === 'groq') {
-      const options: TriageOptions = { model: cfg.groqModel, baseUrl: cfg.groqBaseUrl, apiKey: cfg.groqApiKey, maxTokens: cfg.triageMaxTokens, requestRemainingHeaderIsDaily: true }
+      const options: TriageOptions = { model: cfg.groqModel, baseUrl: cfg.groqBaseUrl, apiKey: cfg.groqApiKey, maxTokens: cfg.triageMaxTokens, requestRemainingHeaderIsDaily: true, ...triageIdentityFields('groq', 'Groq', 'GROQ_API_KEY') }
       const admission = dailyQuotaAdmission({ id: providerId, meter: 'tokens', used: budget.tokens, cap: cfg.groqDailyTokenTarget, cost: triageGroqTokenBound(auditBatch, options), paceCost: triagePaceTokenBound(auditBatch), floorFraction: cfg.groqPaceFloorFrac }, at)
       return { allowanceUsed: budget.tokens, allowanceReleased: admission.released, allowanceCap: cfg.groqDailyTokenTarget }
     }
     const overflowEntry = overflow.find((entry) => entry.p.id === providerId)
     if (overflowEntry) {
-      const options: TriageOptions = { model: overflowEntry.p.model, models: overflowEntry.p.models, baseUrl: overflowEntry.p.baseUrl, apiKey: overflowEntry.p.apiKey, maxTokens: overflowEntry.p.maxTokens, headers: overflowEntry.p.headers, extraBody: overflowEntry.p.extraBody, timeoutMs: overflowEntry.p.timeoutMs, maxAttempts: 1, requestRemainingHeaderIsDaily: overflowEntry.p.requestRemainingHeaderIsDaily }
+      const options: TriageOptions = { model: overflowEntry.p.model, models: overflowEntry.p.models, baseUrl: overflowEntry.p.baseUrl, apiKey: overflowEntry.p.apiKey, maxTokens: overflowEntry.p.maxTokens, headers: overflowEntry.p.headers, extraBody: overflowEntry.p.extraBody, timeoutMs: overflowEntry.p.timeoutMs, maxAttempts: 1, requestRemainingHeaderIsDaily: overflowEntry.p.requestRemainingHeaderIsDaily, ...triageIdentityFields(overflowEntry.p.id, overflowEntry.p.label, overflowEntry.p.keyEnvVar) }
       const tokenMeter = overflowEntry.p.dailyTokenCap != null
       const used = tokenMeter ? overflowEntry.budget.tokens : overflowEntry.budget.requests
       const cap = tokenMeter ? overflowEntry.p.dailyTokenCap! : overflowEntry.p.dailyReqCap
@@ -1446,9 +1581,9 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
   // The audit ledger starts with the state from which every batch decision is made. It contains only
   // bounded enums and counters: provider response/error text and the batch contents never enter it.
   const startProviderSnapshots: ProviderStateSnapshotEvent['providers'] = [
-    ...(localProvider ? [{ id: 'local', state: localCoolingDown ? 'cooling' as const : 'healthy' as const, eligible: !localCoolingDown && !credentialRejectedFor('local'), reason: credentialRejectedFor('local') ? 'credential-rejected' as const : localCoolingDown ? 'cooldown' as const : 'eligible' as const, consecutiveFailures: cooldownInfo(stateDir, 'local').fails, ...auditAllowanceFor('local') }] : []),
-    ...(cfg.groqApiKey ? [{ id: 'groq', state: !budget.ledgerAvailable ? 'unavailable' as const : groqCoolingDown ? 'cooling' as const : budget.providerDayExhausted ? 'budget-spent' as const : 'healthy' as const, eligible: budget.ledgerAvailable && !groqCoolingDown && !budget.providerDayExhausted && !credentialRejectedFor('groq'), reason: !budget.ledgerAvailable ? 'ledger-unavailable' as const : credentialRejectedFor('groq') ? 'credential-rejected' as const : groqCoolingDown ? 'cooldown' as const : budget.providerDayExhausted ? 'provider-day-exhausted' as const : 'eligible' as const, consecutiveFailures: cooldownInfo(stateDir, 'groq').fails, ...auditAllowanceFor('groq') }] : []),
-    ...overflow.map((ov) => ({ id: ov.p.id, state: !ov.budget.ledgerAvailable ? 'unavailable' as const : ov.coolingDown ? 'cooling' as const : ov.budget.providerDayExhausted ? 'budget-spent' as const : 'healthy' as const, eligible: ov.budget.ledgerAvailable && !ov.coolingDown && !ov.budget.providerDayExhausted && !credentialRejectedFor(ov.p.id), reason: !ov.budget.ledgerAvailable ? 'ledger-unavailable' as const : credentialRejectedFor(ov.p.id) ? 'credential-rejected' as const : ov.coolingDown ? 'cooldown' as const : ov.budget.providerDayExhausted ? 'provider-day-exhausted' as const : routeClass(ov) === 'aggregate-fallback' ? 'aggregate-band' as const : routeClass(ov) === 'local-fallback' ? 'demoted-local-band' as const : 'eligible' as const, consecutiveFailures: cooldownInfo(stateDir, ov.p.id).fails, ...auditAllowanceFor(ov.p.id) })),
+    ...(localProvider ? [{ id: 'local', state: providerIsQuarantined('local') ? 'unavailable' as const : localCoolingDown ? 'cooling' as const : 'healthy' as const, eligible: !localCoolingDown && !credentialRejectedFor('local'), reason: providerIsQuarantined('local') ? 'quarantined' as const : credentialRejectedFor('local') ? 'credential-rejected' as const : localCoolingDown ? 'cooldown' as const : 'eligible' as const, consecutiveFailures: cooldownInfo(stateDir, 'local').fails, ...auditAllowanceFor('local') }] : []),
+    ...(cfg.groqApiKey ? [{ id: 'groq', state: !budget.ledgerAvailable || providerIsQuarantined('groq') ? 'unavailable' as const : groqCoolingDown ? 'cooling' as const : budget.providerDayExhausted ? 'budget-spent' as const : 'healthy' as const, eligible: budget.ledgerAvailable && !groqCoolingDown && !budget.providerDayExhausted && !credentialRejectedFor('groq'), reason: !budget.ledgerAvailable ? 'ledger-unavailable' as const : providerIsQuarantined('groq') ? 'quarantined' as const : credentialRejectedFor('groq') ? 'credential-rejected' as const : groqCoolingDown ? 'cooldown' as const : budget.providerDayExhausted ? 'provider-day-exhausted' as const : 'eligible' as const, consecutiveFailures: cooldownInfo(stateDir, 'groq').fails, ...auditAllowanceFor('groq') }] : []),
+    ...overflow.map((ov) => ({ id: ov.p.id, state: !ov.budget.ledgerAvailable || providerIsQuarantined(ov.p.id) ? 'unavailable' as const : ov.coolingDown ? 'cooling' as const : ov.budget.providerDayExhausted ? 'budget-spent' as const : 'healthy' as const, eligible: ov.budget.ledgerAvailable && !ov.coolingDown && !ov.budget.providerDayExhausted && !credentialRejectedFor(ov.p.id), reason: !ov.budget.ledgerAvailable ? 'ledger-unavailable' as const : providerIsQuarantined(ov.p.id) ? 'quarantined' as const : credentialRejectedFor(ov.p.id) ? 'credential-rejected' as const : ov.coolingDown ? 'cooldown' as const : ov.budget.providerDayExhausted ? 'provider-day-exhausted' as const : routeClass(ov) === 'aggregate-fallback' ? 'aggregate-band' as const : routeClass(ov) === 'local-fallback' ? 'demoted-local-band' as const : 'eligible' as const, consecutiveFailures: cooldownInfo(stateDir, ov.p.id).fails, ...auditAllowanceFor(ov.p.id) })),
     ...geminiPool.map((gem) => ({ id: `gemini:${gem.model}`, state: !gem.budget.ledgerAvailable ? 'unavailable' as const : gem.coolingDown ? 'cooling' as const : gem.budget.providerDayExhausted ? 'budget-spent' as const : 'healthy' as const, eligible: gem.budget.ledgerAvailable && !gem.coolingDown && !gem.budget.providerDayExhausted && !credentialRejectedFor(`gemini:${gem.model}`), reason: !gem.budget.ledgerAvailable ? 'ledger-unavailable' as const : credentialRejectedFor(`gemini:${gem.model}`) ? 'credential-rejected' as const : gem.coolingDown ? 'cooldown' as const : gem.budget.providerDayExhausted ? 'provider-day-exhausted' as const : 'eligible' as const, consecutiveFailures: cooldownInfo(stateDir, `gemini:${gem.model}`).fails, ...auditAllowanceFor(`gemini:${gem.model}`) })),
     ...(anthropicOn ? [{ id: 'anthropic-triage', state: !anthropicBudget?.ledgerAvailable ? 'unavailable' as const : anthropicCoolingDown ? 'cooling' as const : 'healthy' as const, eligible: anthropicBudget?.ledgerAvailable === true && !anthropicCoolingDown && !credentialRejectedFor('anthropic-triage'), reason: !anthropicBudget?.ledgerAvailable ? 'ledger-unavailable' as const : credentialRejectedFor('anthropic-triage') ? 'credential-rejected' as const : anthropicCoolingDown ? 'cooldown' as const : 'eligible' as const, consecutiveFailures: cooldownInfo(stateDir, 'anthropic-triage').fails, ...auditAllowanceFor('anthropic-triage') }] : []),
   ]
@@ -1474,7 +1609,7 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
     }
     const batch = scoreItems.slice(i, i + cfg.triageBatch)
     const est = estimateTokens(batch.length)
-    const groqOptions: TriageOptions = { model: cfg.groqModel, baseUrl: cfg.groqBaseUrl, apiKey: cfg.groqApiKey, maxTokens: cfg.triageMaxTokens, requestRemainingHeaderIsDaily: true }
+    const groqOptions: TriageOptions = { model: cfg.groqModel, baseUrl: cfg.groqBaseUrl, apiKey: cfg.groqApiKey, maxTokens: cfg.triageMaxTokens, requestRemainingHeaderIsDaily: true, ...triageIdentityFields('groq', 'Groq', 'GROQ_API_KEY') }
     const groqAttemptTokenBound = triageGroqTokenBound(batch, groqOptions)
     // PROVIDER PICK. Prefer Groq while it's on-schedule (the pacer keeps it spread across the day); when
     // Groq is paced/capped, overflow to Gemini's separate free pool; defer only when BOTH are out.
@@ -1493,9 +1628,10 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
     while (groqAttempts > 0 && !budget.pacedCanSpend(groqAttemptTokenBound * groqAttempts, pace, groqAdmissionAt, groqAttempts, groqPaceBound * groqAttempts)) groqAttempts--
     const groqOk = !!cfg.groqApiKey && groqAttempts > 0
     const candidateAt = now().getTime()
-    const candidateReason = (args: { enabled: boolean; ledger: boolean; exhausted: boolean; held: boolean; rejected?: boolean; hard: boolean; paced: boolean }): ProviderRoutingCandidate['eligibilityReason'] => {
+    const candidateReason = (args: { enabled: boolean; ledger: boolean; exhausted: boolean; held: boolean; quarantined?: boolean; rejected?: boolean; hard: boolean; paced: boolean }): ProviderRoutingCandidate['eligibilityReason'] => {
       if (!args.enabled) return 'disabled'
       if (!args.ledger) return 'ledger-unavailable'
+      if (args.quarantined) return 'quarantined'
       if (args.rejected) return 'credential-rejected'
       if (args.exhausted) return 'provider-day-exhausted'
       if (args.held) return 'cooldown'
@@ -1506,23 +1642,23 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
     const routingCandidates: ProviderRoutingCandidate[] = []
     if (localProvider) {
       const held = localDownThisCycle || triageIsHeld(stateDir, 'local', candidateAt)
-      const reason = candidateReason({ enabled: true, ledger: localBudget?.ledgerAvailable === true, exhausted: false, held, rejected: credentialRejectedFor('local'), hard: true, paced: true })
+      const reason = candidateReason({ enabled: true, ledger: localBudget?.ledgerAvailable === true, exhausted: false, held, quarantined: providerIsQuarantined('local'), rejected: credentialRejectedFor('local'), hard: true, paced: true })
       routingCandidates.push({ id: 'local', label: localProvider.label, order: 0, band: 'direct', eligible: reason === 'eligible', eligibilityReason: reason, releasedCapacityUrgency: 1, consecutiveFailures: cooldownInfo(stateDir, 'local').fails })
     }
     if (cfg.groqApiKey) {
       const held = groqDownThisCycle || triageIsHeld(stateDir, 'groq', candidateAt)
-      const reason = candidateReason({ enabled: true, ledger: budget.ledgerAvailable, exhausted: budget.providerDayExhausted, held, rejected: credentialRejectedFor('groq'), hard: budget.canSpend(groqAttemptTokenBound, 1), paced: groqOk })
+      const reason = candidateReason({ enabled: true, ledger: budget.ledgerAvailable, exhausted: budget.providerDayExhausted, held, quarantined: providerIsQuarantined('groq'), rejected: credentialRejectedFor('groq'), hard: budget.canSpend(groqAttemptTokenBound, 1), paced: groqOk })
       const admission = dailyQuotaAdmission({ id: 'groq', meter: 'tokens', used: budget.tokens, cap: cfg.groqDailyTokenTarget, cost: groqAttemptTokenBound, paceCost: groqPaceBound, floorFraction: cfg.groqPaceFloorFrac }, candidateAt)
       routingCandidates.push({ id: 'groq', label: 'Groq', order: 1, band: 'direct', eligible: reason === 'eligible', eligibilityReason: reason, releasedCapacityUrgency: admission.normalizedDeficit, consecutiveFailures: cooldownInfo(stateDir, 'groq').fails })
     }
     let configuredOrder = 2
     for (const ov of overflowDirect) {
-      const options: TriageOptions = { model: ov.p.model, models: ov.p.models, baseUrl: ov.p.baseUrl, apiKey: ov.p.apiKey, maxTokens: ov.p.maxTokens, headers: ov.p.headers, extraBody: ov.p.extraBody, timeoutMs: ov.p.timeoutMs, maxAttempts: 1, requestRemainingHeaderIsDaily: ov.p.requestRemainingHeaderIsDaily }
+      const options: TriageOptions = { model: ov.p.model, models: ov.p.models, baseUrl: ov.p.baseUrl, apiKey: ov.p.apiKey, maxTokens: ov.p.maxTokens, headers: ov.p.headers, extraBody: ov.p.extraBody, timeoutMs: ov.p.timeoutMs, maxAttempts: 1, requestRemainingHeaderIsDaily: ov.p.requestRemainingHeaderIsDaily, ...triageIdentityFields(ov.p.id, ov.p.label, ov.p.keyEnvVar) }
       const perAttemptTokens = triageGroqTokenBound(batch, options)
       const tokenMeter = ov.p.dailyTokenCap != null
       const admission = dailyQuotaAdmission({ id: ov.p.id, meter: tokenMeter ? 'tokens' : 'requests', used: tokenMeter ? ov.budget.tokens : ov.budget.requests, cap: tokenMeter ? ov.p.dailyTokenCap! : ov.p.dailyReqCap, cost: tokenMeter ? perAttemptTokens : 1, paceCost: tokenMeter ? triagePaceTokenBound(batch) : 1, resetTimeZone: ov.p.dayTz, floorFraction: ov.p.paceFloorFrac ?? cfg.freeProviderPaceFloorFrac }, candidateAt)
       const held = ov.failed || triageIsHeld(stateDir, ov.p.id, candidateAt)
-      const reason = candidateReason({ enabled: true, ledger: ov.budget.ledgerAvailable, exhausted: ov.budget.providerDayExhausted, held, rejected: credentialRejectedFor(ov.p.id), hard: admission.hardCapFit && ov.budget.canSpend(perAttemptTokens, 1), paced: admission.pacedFit })
+      const reason = candidateReason({ enabled: true, ledger: ov.budget.ledgerAvailable, exhausted: ov.budget.providerDayExhausted, held, quarantined: providerIsQuarantined(ov.p.id), rejected: credentialRejectedFor(ov.p.id), hard: admission.hardCapFit && ov.budget.canSpend(perAttemptTokens, 1), paced: admission.pacedFit })
       routingCandidates.push({ id: ov.p.id, label: ov.p.label, order: configuredOrder++, band: 'direct', eligible: reason === 'eligible', eligibilityReason: reason, releasedCapacityUrgency: admission.normalizedDeficit, consecutiveFailures: cooldownInfo(stateDir, ov.p.id).fails })
     }
     for (const gem of geminiPool) {
@@ -1536,19 +1672,19 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
       routingCandidates.push({ id: `gemini:${gem.model}`, label: gem.model, order: configuredOrder++, band: 'direct', eligible: reason === 'eligible', eligibilityReason: reason, releasedCapacityUrgency: admission.normalizedDeficit, consecutiveFailures: cooldownInfo(stateDir, `gemini:${gem.model}`).fails })
     }
     for (const ov of overflowAggregate) {
-      const options: TriageOptions = { model: ov.p.model, models: ov.p.models, baseUrl: ov.p.baseUrl, apiKey: ov.p.apiKey, maxTokens: ov.p.maxTokens, headers: ov.p.headers, extraBody: ov.p.extraBody, timeoutMs: ov.p.timeoutMs, maxAttempts: 1, requestRemainingHeaderIsDaily: ov.p.requestRemainingHeaderIsDaily }
+      const options: TriageOptions = { model: ov.p.model, models: ov.p.models, baseUrl: ov.p.baseUrl, apiKey: ov.p.apiKey, maxTokens: ov.p.maxTokens, headers: ov.p.headers, extraBody: ov.p.extraBody, timeoutMs: ov.p.timeoutMs, maxAttempts: 1, requestRemainingHeaderIsDaily: ov.p.requestRemainingHeaderIsDaily, ...triageIdentityFields(ov.p.id, ov.p.label, ov.p.keyEnvVar) }
       const perAttemptTokens = triageGroqTokenBound(batch, options)
       const tokenMeter = ov.p.dailyTokenCap != null
       const admission = dailyQuotaAdmission({ id: ov.p.id, meter: tokenMeter ? 'tokens' : 'requests', used: tokenMeter ? ov.budget.tokens : ov.budget.requests, cap: tokenMeter ? ov.p.dailyTokenCap! : ov.p.dailyReqCap, cost: tokenMeter ? perAttemptTokens : 1, paceCost: tokenMeter ? triagePaceTokenBound(batch) : 1, resetTimeZone: ov.p.dayTz, floorFraction: ov.p.paceFloorFrac ?? cfg.freeProviderPaceFloorFrac }, candidateAt)
       const held = ov.failed || triageIsHeld(stateDir, ov.p.id, candidateAt)
-      const reason = candidateReason({ enabled: true, ledger: ov.budget.ledgerAvailable, exhausted: ov.budget.providerDayExhausted, held, rejected: credentialRejectedFor(ov.p.id), hard: admission.hardCapFit && ov.budget.canSpend(perAttemptTokens, 1), paced: admission.pacedFit })
+      const reason = candidateReason({ enabled: true, ledger: ov.budget.ledgerAvailable, exhausted: ov.budget.providerDayExhausted, held, quarantined: providerIsQuarantined(ov.p.id), rejected: credentialRejectedFor(ov.p.id), hard: admission.hardCapFit && ov.budget.canSpend(perAttemptTokens, 1), paced: admission.pacedFit })
       routingCandidates.push({ id: ov.p.id, label: ov.p.label, order: configuredOrder++, band: 'aggregate', eligible: reason === 'eligible', eligibilityReason: reason, releasedCapacityUrgency: admission.normalizedDeficit, consecutiveFailures: cooldownInfo(stateDir, ov.p.id).fails })
     }
     for (const ov of overflowLocal) {
-      const options: TriageOptions = { model: ov.p.model, models: ov.p.models, baseUrl: ov.p.baseUrl, apiKey: ov.p.apiKey, maxTokens: ov.p.maxTokens, headers: ov.p.headers, extraBody: ov.p.extraBody, timeoutMs: ov.p.timeoutMs, maxAttempts: 1 }
+      const options: TriageOptions = { model: ov.p.model, models: ov.p.models, baseUrl: ov.p.baseUrl, apiKey: ov.p.apiKey, maxTokens: ov.p.maxTokens, headers: ov.p.headers, extraBody: ov.p.extraBody, timeoutMs: ov.p.timeoutMs, maxAttempts: 1, ...triageIdentityFields(ov.p.id, ov.p.label, ov.p.keyEnvVar) }
       const perAttemptTokens = triageGroqTokenBound(batch, options)
       const held = ov.failed || triageIsHeld(stateDir, ov.p.id, candidateAt)
-      const reason = candidateReason({ enabled: true, ledger: ov.budget.ledgerAvailable, exhausted: ov.budget.providerDayExhausted, held, rejected: credentialRejectedFor(ov.p.id), hard: ov.budget.canSpend(perAttemptTokens, 1), paced: true })
+      const reason = candidateReason({ enabled: true, ledger: ov.budget.ledgerAvailable, exhausted: ov.budget.providerDayExhausted, held, quarantined: providerIsQuarantined(ov.p.id), rejected: credentialRejectedFor(ov.p.id), hard: ov.budget.canSpend(perAttemptTokens, 1), paced: true })
       routingCandidates.push({ id: ov.p.id, label: ov.p.label, order: configuredOrder++, band: 'demoted-local', eligible: reason === 'eligible', eligibilityReason: reason, releasedCapacityUrgency: 1, consecutiveFailures: cooldownInfo(stateDir, ov.p.id).fails })
     }
     const batchMaxPriority = batch.reduce((maximum, item) => Math.max(maximum, preTriagePriority(item, now())), -Infinity)
@@ -1586,7 +1722,10 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
     }
     latestRoutingEvaluation = routingEvaluation
     if (routingTelemetryWritable && !recordRouterModeIfChanged(routingOptions(), routingCycleId, routingEvaluation.router)) routingTelemetryWritable = false
-    let adaptiveTarget = routingTelemetryWritable && routingEvaluation.router.mode === 'adaptive' ? routingEvaluation.selectedProviderId : null
+    // In adaptive mode this is the normal ranked target. During auto's pre-activation shadow window it is
+    // non-null only for the bounded one-in-ten verification batch selected by evaluateProviderRouting.
+    // Explicit shadow/static still return null, so their configured-order promise remains unchanged.
+    let adaptiveTarget = routingTelemetryWritable ? routingEvaluation.selectedProviderId : null
     let adaptiveTargetFailed = false
     let auditAttemptIndex = 0
     let activeAudit: { providerId: string; decisionId: string; startedAt: number } | null = null
@@ -1674,7 +1813,7 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
       if (!credentialRejectedFor('local') && !triageIsHeld(stateDir, 'local', now().getTime())) {
         prepareAudit('local')
         const attemptStartedAt = now().getTime()
-        res = await triageBatch(batch, { model: localProvider.model, models: localProvider.models, baseUrl: localProvider.baseUrl, apiKey: localProvider.apiKey, maxTokens: localProvider.maxTokens, headers: localProvider.headers, extraBody: localProvider.extraBody, timeoutMs: localProvider.timeoutMs, maxAttempts: localProvider.maxAttempts }, fetchFn, sleep)
+        res = await triageBatch(batch, { model: localProvider.model, models: localProvider.models, baseUrl: localProvider.baseUrl, apiKey: localProvider.apiKey, maxTokens: localProvider.maxTokens, headers: localProvider.headers, extraBody: localProvider.extraBody, timeoutMs: localProvider.timeoutMs, maxAttempts: localProvider.maxAttempts, ...triageIdentityFields('local', localProvider.label || 'Local', localProvider.keyEnvVar) }, fetchFn, sleep)
         completeAudit('local', res)
         localRequests += res.requests
         localTokens += res.tokens
@@ -1737,7 +1876,7 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
         if (deps.signal?.aborted) return
         // skip already-failed (this cycle), cross-cycle cooling-down, or out-of-budget providers
         if (ov.failed || credentialRejectedFor(ov.p.id) || triageIsHeld(stateDir, ov.p.id, now().getTime())) continue
-        const options: TriageOptions = { model: ov.p.model, models: ov.p.models, baseUrl: ov.p.baseUrl, apiKey: ov.p.apiKey, maxTokens: ov.p.maxTokens, headers: ov.p.headers, extraBody: ov.p.extraBody, timeoutMs: ov.p.timeoutMs, maxAttempts: ov.p.maxAttempts }
+        const options: TriageOptions = { model: ov.p.model, models: ov.p.models, baseUrl: ov.p.baseUrl, apiKey: ov.p.apiKey, maxTokens: ov.p.maxTokens, headers: ov.p.headers, extraBody: ov.p.extraBody, timeoutMs: ov.p.timeoutMs, maxAttempts: ov.p.maxAttempts, ...triageIdentityFields(ov.p.id, ov.p.label, ov.p.keyEnvVar) }
         const perAttemptTokens = triageGroqTokenBound(batch, options)
         if (!hardCapAttempts(ov.budget, perAttemptTokens, ov.p.maxAttempts ?? 2)) continue
         const acquired = await ov.limiter.acquire(est, sleep, () => now().getTime(), undefined, deps.signal)
@@ -1799,7 +1938,7 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
     }
     type FreePoolRoute = OverflowRoute | GeminiRoute
     const overflowQuotaRoute = (ov: (typeof overflow)[number], priority: number): OverflowRoute => {
-      const options: TriageOptions = { model: ov.p.model, models: ov.p.models, baseUrl: ov.p.baseUrl, apiKey: ov.p.apiKey, maxTokens: ov.p.maxTokens, headers: ov.p.headers, extraBody: ov.p.extraBody, timeoutMs: ov.p.timeoutMs, maxAttempts: 1, requestRemainingHeaderIsDaily: ov.p.requestRemainingHeaderIsDaily }
+      const options: TriageOptions = { model: ov.p.model, models: ov.p.models, baseUrl: ov.p.baseUrl, apiKey: ov.p.apiKey, maxTokens: ov.p.maxTokens, headers: ov.p.headers, extraBody: ov.p.extraBody, timeoutMs: ov.p.timeoutMs, maxAttempts: 1, requestRemainingHeaderIsDaily: ov.p.requestRemainingHeaderIsDaily, ...triageIdentityFields(ov.p.id, ov.p.label, ov.p.keyEnvVar) }
       const perAttemptTokens = triageGroqTokenBound(batch, options)
       const tokenMeter = ov.p.dailyTokenCap != null
       return {
@@ -2374,7 +2513,7 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
     inboxed = Array.isArray(current?.rows) ? current.rows.length : 0
   } catch { inboxed = 0 }
   // A row is only a candidate to land until its firehose item is durably appended below. Inbox-withheld
-  // rows never reach that boundary. A daily feed cap or I/O failure can still refuse a suffix, and that
+  // rows never reach that boundary. An unusable shard limit or I/O failure can still refuse a suffix, and that
   // suffix must remain uncounted, unseen, and queued until a later cycle actually persists it.
   const eligibleFeedCandidates = triaged.filter((t) => !withheldEventIds.has(t.event_id))
   // append reports an ordered prefix. Put already-durable acknowledgements first so a new row blocked by
@@ -2579,7 +2718,7 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
     : knownRetryIds.size
   // The raw input journal already excludes this cycle's expired rows. Any later successful scored/exact/final
   // journal is also sufficient; do not undercount retirement merely because final cleanup failed.
-  const expiredRemoved = backlogDurablyCleared(
+  const expiredRemoved = retirementPersisted || backlogDurablyCleared(
     inputJournalOk || deferredJournalOk || exactFeedJournalOk,
     deferredPersisted,
   )
@@ -2663,14 +2802,16 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
                 : undefined
   // Work beyond the hot window remains in durable overflow, so reaching DEFERRED_CAP adds no loss clause.
   const capNote = baseNote
-  // Same honesty for the age boundary: a retired item was never scored and never will be. Reported even on
+  // Same honesty for the age boundary: a retired item was never scored and never will be. Its exact payload
+  // remains recoverable in SQLite, but the missed scoring target is still reported even on
   // a cycle that deferred nothing, because that is exactly the cycle whose note would otherwise read clean.
   // Count retirement ONLY once a backlog write durably removed the expired rows — `expiredRemoved`, which is
   // true when EITHER the pre-projection journal write OR the final cleanup write succeeded (both write the
   // same expired-excluding tail, so either one durably replaces the on-disk file). If BOTH fail, the last-good
   // file predates this cycle's expiry and still holds the expired rows — they'll be re-loaded, re-expired and
   // re-counted next cycle, so reporting them RETIRED now would double-count the same loss until the disk
-  // recovers. Same gate the expired-only branch already applies with `cleared`. (Codex #453 — ordinary-cycle
+  // recovers. SQLite retirement now satisfies this gate itself; the file-write checks remain for rolling
+  // compatibility. (Codex #453 — ordinary-cycle
   // summary, and its partial-success follow-up: a lone failed cleanup write must not undo a successful journal write.)
   const coreNote = backlogExpired.length > 0 && expiredRemoved
     ? `${capNote ? `${capNote} · ` : ''}${backlogExpired.length} backlog item${backlogExpired.length === 1 ? '' : 's'} RETIRED unscored — waited longer than ${Math.round(DEFERRED_MAX_AGE_MS / 3_600_000)}h behind the queue`
@@ -2696,7 +2837,7 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
   const feedNote = feedIoReason
     ? `feed persistence unavailable — ${feedUnwritten} scored and ${heldUnscored} unscored item${feedUnwritten + heldUnscored === 1 ? '' : 's'} stayed queued; no unproved rows count as complete`
     : feedCapReason
-      ? `daily feed ${feedCapKind || 'item'} cap reached — ${feedUnwritten} scored and ${heldUnscored} unscored item${feedUnwritten + heldUnscored === 1 ? '' : 's'} stayed queued; provider calls stop at known capacity`
+      ? `feed shard ${feedCapKind || 'item'} limit could not accept work — ${feedUnwritten} scored and ${heldUnscored} unscored item${feedUnwritten + heldUnscored === 1 ? '' : 's'} stayed queued; provider calls stop at known capacity`
       : pendingRecoveryHeld
         ? `feed recovery drained first — ${heldUnscored} unscored item${heldUnscored === 1 ? '' : 's'} stayed queued without a provider call`
         : ''

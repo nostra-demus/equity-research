@@ -12,6 +12,16 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { createHash } from 'node:crypto'
+import {
+  classifyProviderCaughtFailure,
+  classifyProviderHttpFailure,
+  clearProviderQuarantine,
+  honorProviderRetryAfter,
+  providerRequestIdentity,
+  quarantineProviderFailure,
+  readProviderQuarantine,
+  type ProviderFailureClassification,
+} from '../provider-failure'
 import { Budget, armCooldown, clearCooldown, conservativeChatTokenBound, credibleTokenUsage, getSharedLimiter, isCoolingDown, rateInfoForLimiter, type RateInfo } from '../triage/budget'
 import { parseRate } from '../triage/groq'
 import type { Theme, ThemeCompany, ThemeMember } from './types'
@@ -40,6 +50,7 @@ export interface BriefConfig {
   groqDailyTokenCap?: number
   llmCooldownMs?: number
   llmCooldownMaxMs?: number
+  groqKeyEnvVar?: string
 }
 
 const CACHE_FILE = 'themes-brief-cache.json'
@@ -261,7 +272,7 @@ function parseBriefJson(text: string): string | null {
 }
 
 class GroqBriefHttpError extends Error {
-  constructor(readonly status: number, readonly rate: RateInfo) {
+  constructor(readonly status: number, readonly rate: RateInfo, readonly failure: ProviderFailureClassification) {
     super(`Groq theme brief HTTP ${status}`)
     this.name = 'GroqBriefHttpError'
   }
@@ -284,9 +295,15 @@ async function callGroq(cfg: BriefConfig, user: string, fetchFn: typeof fetch): 
     }),
   })
   const rate = parseRate(res)
-  // Upstream bodies can contain account ids, balances, or request fragments. Do not read or attach them
-  // to the typed failure: status + rate headers are the complete routing contract.
-  if (!res.ok) throw new GroqBriefHttpError(res.status, rate)
+  if (!res.ok) {
+    // Read only for in-memory model/endpoint evidence. Raw provider text is never returned or persisted.
+    const rawBody = await res.text().catch(() => '')
+    const failure = honorProviderRetryAfter(
+      classifyProviderHttpFailure(res.status, rawBody),
+      rate.retryAfterMs,
+    )
+    throw new GroqBriefHttpError(res.status, rate, failure)
+  }
   const data: any = await res.json()
   const text = data?.choices?.[0]?.message?.content
   return { text: typeof text === 'string' ? text : '', tokens: credibleTokenUsage(data?.usage?.total_tokens, 0), rate }
@@ -298,7 +315,15 @@ async function callGroq(cfg: BriefConfig, user: string, fetchFn: typeof fetch): 
  *  too short. Never throws. Provider failures arm the shared cooldown; this non-essential read never
  *  exhausts the shared daily ledger, especially not on a transient per-minute 429. */
 async function tryGroqBrief(theme: Theme, cfg: BriefConfig, stateDir: string, fetchFn: typeof fetch): Promise<string | null> {
+  if (!cfg.groqApiKey || !cfg.groqBaseUrl || !cfg.groqModel) return null
   const now = Date.now()
+  const identity = providerRequestIdentity({
+    providerId: 'groq', baseUrl: cfg.groqBaseUrl || '', model: cfg.groqModel || '', apiKey: cfg.groqApiKey,
+    keyEnvVar: cfg.groqKeyEnvVar || 'GROQ_API_KEY', transport: 'openai', workload: 'theme-brief',
+    contractVersion: 'theme-brief-json-v1',
+    request: { temperature: 0.3, maxTokens: 500, responseFormat: 'json_object' },
+  })
+  if (readProviderQuarantine(stateDir, identity)) return null
   if (isCoolingDown(stateDir, 'groq', now) || isCoolingDown(stateDir, BRIEF_HOLD_ID, now)) return null
   const budget = Budget.load(stateDir, cfg.groqDailyReqCap ?? 13_000, cfg.groqDailyTokenCap ?? 500_000, now, 'groq-budget.json')
   const perAttemptTokens = themeBriefTokenBound(theme)
@@ -306,6 +331,7 @@ async function tryGroqBrief(theme: Theme, cfg: BriefConfig, stateDir: string, fe
   const limiter = getSharedLimiter(cfg.groqRpm ?? 28, cfg.groqTpm ?? 6000)
   const got = await limiter.acquire(EST_TOKENS, undefined, undefined, LIMITER_WAIT_MS)
   if (!got) return null // per-minute window busy — degrade rather than make the user wait
+  if (readProviderQuarantine(stateDir, identity)) return null
   if (isCoolingDown(stateDir, 'groq', Date.now()) || isCoolingDown(stateDir, BRIEF_HOLD_ID, Date.now())) return null
   const reservation = budget.tryReserve(perAttemptTokens)
   if (!reservation) return null
@@ -313,20 +339,26 @@ async function tryGroqBrief(theme: Theme, cfg: BriefConfig, stateDir: string, fe
   let briefHealthy = false
   let attemptStartedAt = 0
   let exhaustDay = false
+  let terminalFailure: ProviderFailureClassification | null = null
   let failureHold: { id: string; baseMs: number; maxMs: number; reason: string } | null = null
-  const providerWideHttp = (status: number) => status === 429 || status >= 500 || [401, 402, 403, 404].includes(status)
-  const classifyHttpFailure = (status: number, rate: RateInfo) => {
+  const classifyHttpFailure = (failure: ProviderFailureClassification, rate: RateInfo) => {
+    const status = failure.httpStatus || 0
     exhaustDay = status === 429 && rate.rpdRemaining === 0
     if (exhaustDay) return
-    const sharedFailure = providerWideHttp(status)
+    if (failure.scope === 'workload') providerReachable = true
+    if (failure.action === 'quarantine') {
+      terminalFailure = failure
+      quarantineProviderFailure(stateDir, identity, failure, Date.now())
+      return
+    }
     const retryMs = rate.retryAfterMs != null && Number.isFinite(rate.retryAfterMs)
       ? Math.max(0, Math.floor(rate.retryAfterMs))
       : null
     if (retryMs === 0) {
-      if (!sharedFailure) providerReachable = true
+      if (failure.scope === 'workload') providerReachable = true
       return
     }
-    if (!sharedFailure) {
+    if (failure.scope === 'workload') {
       providerReachable = true
       failureHold = retryMs != null
         ? { id: BRIEF_HOLD_ID, baseMs: retryMs, maxMs: retryMs, reason: 'theme-brief-request' }
@@ -366,11 +398,16 @@ async function tryGroqBrief(theme: Theme, cfg: BriefConfig, stateDir: string, fe
   } catch (e: any) {
     budget.reconcile(reservation, 1, perAttemptTokens)
     if (e instanceof GroqBriefHttpError) {
-      limiter.learn(rateInfoForLimiter(e.rate, providerWideHttp(e.status)))
-      classifyHttpFailure(e.status, e.rate)
+      limiter.learn(rateInfoForLimiter(e.rate, e.failure.providerWide))
+      classifyHttpFailure(e.failure, e.rate)
     } else {
-      const timedOut = e?.name === 'TimeoutError' || e?.name === 'AbortError'
-      if (timedOut || e instanceof SyntaxError) {
+      const failure = classifyProviderCaughtFailure(e)
+      const timedOut = failure.code === 'timeout'
+      if (failure.action === 'quarantine') {
+        terminalFailure = failure
+        quarantineProviderFailure(stateDir, identity, failure, Date.now())
+        failureHold = null
+      } else if (timedOut || e instanceof SyntaxError) {
         providerReachable = e instanceof SyntaxError
         failureHold = {
           id: BRIEF_HOLD_ID,
@@ -390,6 +427,7 @@ async function tryGroqBrief(theme: Theme, cfg: BriefConfig, stateDir: string, fe
     return null
   } finally {
     if (briefHealthy) {
+      clearProviderQuarantine(stateDir, identity, attemptStartedAt)
       clearCooldown(stateDir, 'groq', attemptStartedAt)
       clearCooldown(stateDir, BRIEF_HOLD_ID, attemptStartedAt)
     } else {
@@ -397,7 +435,7 @@ async function tryGroqBrief(theme: Theme, cfg: BriefConfig, stateDir: string, fe
       // request/contract is bad. Clear stale shared outage state, then isolate the retry to this prompt.
       if (providerReachable && failureHold?.id !== 'groq') clearCooldown(stateDir, 'groq', attemptStartedAt)
       if (exhaustDay) budget.exhaust()
-      else if (failureHold) armCooldown(stateDir, Date.now(), failureHold.baseMs, failureHold.id, failureHold.maxMs, failureHold.reason)
+      else if (!terminalFailure && failureHold) armCooldown(stateDir, Date.now(), failureHold.baseMs, failureHold.id, failureHold.maxMs, failureHold.reason)
     }
   }
 }

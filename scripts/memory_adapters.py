@@ -19,7 +19,7 @@ Public API
 Supported sources
 -----------------
 * ``analyses/*/decision_record.json`` and ``analyses/*/reviews/*_decision_review.json``
-* ``analyses/*/corrections.json``
+* ``analyses/*/corrections.json`` and ``analyses/performance/*_calibration_summary.json``
 * ``commodity/runs/*/decision_record.json`` and ``signal_evidence.json``
 * screener event, thesis, idea (history/current/archive), checkpoint, conviction-event,
   and conviction-state ledgers
@@ -240,6 +240,11 @@ def _correction_subjects(record: dict[str, Any], relative_path: str) -> list[str
     return _equity_subjects(record, relative_path)
 
 
+def _calibration_subjects(record: dict[str, Any], relative_path: str) -> list[str]:
+    del record, relative_path
+    return ["entity:internal:research-calibration"]
+
+
 def _commodity_subjects(record: dict[str, Any], relative_path: str) -> list[str]:
     run_root = _record_run_root(record, relative_path)
     if not run_root:
@@ -367,6 +372,17 @@ def _classify(relative_path: str) -> SourceSpec | None:
             _correction_subjects, _record_run_root,
             lambda row: _legacy_version(row, "equity-decision-correction"),
             allow_git_time=True,
+            prefer_git_time_for_date=True,
+        )
+    if (
+        len(parts) == 3
+        and parts[:2] == ("analyses", "performance")
+        and parts[2].endswith("_calibration_summary.json")
+    ):
+        return SourceSpec(
+            "equity_calibration_summary", "calibration.summary-recorded", "json",
+            ("generated_at",), ("generated_at",), _calibration_subjects, _no_run,
+            lambda row: _legacy_version(row, "equity-calibration-summary"),
             prefer_git_time_for_date=True,
         )
     if (len(parts) == 4 and parts[:2] == ("commodity", "runs")
@@ -839,6 +855,7 @@ def discover_legacy_sources(repo_root: str | Path) -> list[Path]:
         "analyses/*/decision_record.json",
         "analyses/*/reviews/*_decision_review.json",
         "analyses/*/corrections.json",
+        "analyses/performance/*_calibration_summary.json",
         "commodity/runs/*/decision_record.json",
         "commodity/runs/*/signal_evidence.json",
         "screener/ledger/events.ndjson",

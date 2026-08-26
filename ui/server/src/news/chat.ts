@@ -20,6 +20,7 @@ import { scoreTradeCluster, type TradeScoreBreakdown } from './trade-score'
 import type { FeedItem } from './types'
 import { appendNewsChatFinalQuestion } from './chat-provider'
 import { decisionMemoryBlock, type CallMemoryItem } from '../call-learning'
+import { listFirehoseFilesInDir } from './firehose-files'
 
 const canonicalThemeReaders = new Map<string, ReturnType<typeof createThemesIndexReader>>()
 function readCanonicalThemes(repoRoot: string) {
@@ -120,7 +121,6 @@ interface SavedEnrichment {
   }
 }
 
-const FILE_RE = /^(\d{4}-\d{2}-\d{2})_firehose\.ndjson$/
 const WINDOW_MS: Record<Exclude<NewsChatWindow, 'history'>, number> = {
   '24h': 24 * 60 * 60 * 1000,
   '7d': 7 * 24 * 60 * 60 * 1000,
@@ -205,16 +205,15 @@ function buildNewsQuery(question: string, concepts: ReturnType<typeof loadRetrie
   return buildHybridQuery(question, { stopWords: STOP, metricTerms: METRIC_TERMS, concepts, forcedAnchors, minAnchorMatches })
 }
 
-function listDailyFiles(repoRoot: string, archiveDir: string): { date: string; file: string; store: string }[] {
-  const byDate = new Map<string, { file: string; store: string }>()
+function listDailyFiles(repoRoot: string, archiveDir: string): { date: string; index: number; file: string; store: string }[] {
+  const byShard = new Map<string, { date: string; index: number; file: string; store: string }>()
   const add = (dir: string, prefer: boolean, store: string) => {
     if (!dir) return
-    let names: string[] = []
-    try { names = fs.readdirSync(dir) } catch { return }
-    for (const name of names) {
-      const m = FILE_RE.exec(name)
-      if (!m) continue
-      if (prefer || !byDate.has(m[1])) byDate.set(m[1], { file: path.join(dir, name), store })
+    let files: ReturnType<typeof listFirehoseFilesInDir> = []
+    try { files = listFirehoseFilesInDir(dir) } catch { return }
+    for (const row of files) {
+      const key = `${row.date}:${row.index}`
+      if (prefer || !byShard.has(key)) byShard.set(key, { date: row.date, index: row.index, file: row.file, store })
     }
   }
   // The repo data pool is a valid saved archive even when the optional Drive path is not in the process
@@ -222,7 +221,7 @@ function listDailyFiles(repoRoot: string, archiveDir: string): { date: string; f
   add(path.join(repoRoot, 'data', 'NEWS-ARCHIVE'), false, 'saved archive')
   add(archiveDir, true, 'saved archive')
   add(path.join(repoRoot, 'screener', 'inbox'), true, 'live wire')
-  return [...byDate.entries()].map(([date, row]) => ({ date, ...row })).sort((a, b) => b.date.localeCompare(a.date))
+  return [...byShard.values()].sort((a, b) => b.date.localeCompare(a.date) || b.index - a.index)
 }
 
 let enrichmentCache: { file: string; mtimeMs: number; rows: Map<string, SavedEnrichment> } | null = null

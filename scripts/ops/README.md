@@ -260,8 +260,9 @@ the engine after editing; confirm with `curl -s localhost:8787/api/tickers | gre
 **Auth for the doer (required).** The cockpit launches the selected provider headlessly, so its saved login
 or provider credential must be reachable by the launchd GUI agent. Provider configuration lives in
 `~/.config/nostra-engine/providers.env` (mode 600, outside the repo); the retired housekeeping shim does not
-source it or start a model. `NEWS_ARCHIVE_DIR` is auto-carried from the existing install on a re-run, so you
-don't have to re-pass it every time.
+source it or start a model. `NEWS_ARCHIVE_DIR` is auto-carried from the existing install on a re-run and is
+rendered into both the archive writer and the engine reader. You do not have to re-pass it every time, and
+historical news reads continue to fall back to Drive after the 30-day local working set is pruned.
 
 **Feedback → coding-agent dispatch (optional).** The cockpit's Feedback panel can send an item to a coding
 agent that opens a **draft PR** (`ui/server/src/feedback-dispatch.ts`). It is OFF and FAIL-CLOSED by default;
@@ -353,7 +354,7 @@ merged either; its commits have to be replayed onto the new base.
 `KeepAlive` only restarts a **crashed** process. The watchdog covers what it can't: a non-launchd
 process squatting `:8787`, the engine being up but serving **broken content** (the blank page = HTML
 returned for the `.js` bundle), an unreachable tunnel, or a **publicly-broken-but-locally-up** state.
-Every 30s it checks (1) `/api/health`, (2) that the served `index-*.js` comes back as real
+Every 30s it checks (1) `/api/health`, (2) that the served JavaScript entry comes back as real
 `application/javascript`, and (3) the public URL — capturing the HTTP code, latency, **and** the
 `x-engine-status` header so it can tell a dead tunnel (code `000`/`>=520`) apart from the edge serving
 *offline* while the local engine is fine (`x-engine-status: offline` or `503` → `public-offline`) apart
@@ -365,6 +366,16 @@ whose old connector is still draining. A failed restart command does not start t
 window with `WATCHDOG_TUNNEL_HEAL_COOLDOWN_SECONDS` (`0` disables suppression). It also kills a **stray
 second engine** on a non-`:8787` port (the load-doubling failure mode). Every incident + repair is logged to
 `~/Library/Logs/nostradamus-watchdog.log`. **You do nothing; it fixes itself and keeps a track.**
+
+Every three minutes it also reads the machine verdict embedded in `/api/news/diagnostics`. That verdict is
+derived from the scanner's existing cycle receipts, saved queue, provider routing state, and fixed-hour flow;
+the watchdog never makes a duplicate provider call. It records stale/missing cycles, unreadable queue or cycle
+history, actual unscored loss, dangerous backlog pressure, measured capacity shortfall, standing provider
+faults, and routes that have not succeeded in seven days. A scheduler-stale or unreachable-diagnostics fault
+is checked twice and may restart the engine, with a separate 15-minute cooldown. Provider allowance, key,
+model, storage, and capacity faults are logged with their real remedy and never cause a useless restart.
+Override the cadence with `WATCHDOG_SCANNER_HEALTH_INTERVAL_SECONDS` and the restart cooldown with
+`WATCHDOG_SCANNER_HEAL_COOLDOWN_SECONDS`.
 
 On the configured Mac Pro, the watchdog runs an independent connector supervisor. It proves, in order: exact
 writer host and role, the stable pool/config identities, the complete 15-minute plist contract, the loaded
@@ -417,6 +428,50 @@ ln -s "$NOSTRA_POOL" "$HOME/nostra-prod/data"                            # uploa
 NEWS_ARCHIVE_DIR="$HOME/Library/CloudStorage/GoogleDrive-<you>/My Drive/equity-research-data/news-archive" \
   bash scripts/ops/install-services.sh --role doer
 ```
+
+### News queue storage and Drive recovery
+
+The live queue is `ui/server/.state/news-queue.sqlite` on the doer Mac. SQLite performs all queue
+transactions locally; Google Drive does not run or lock the database. The older
+`news-deferred*.json` files remain compatibility projections during rollout, but they are no longer the
+source of truth and their hot-window cap is not a data cap.
+
+Every archive run uses SQLite's online backup API, verifies the snapshot, compresses it, and writes both
+`YYYY-MM-DD_news-queue.sqlite.gz` and `news-queue-latest.sqlite.gz` to `NEWS_ARCHIVE_DIR`, each with a
+SHA-256 sidecar. It never copies the live WAL file directly. Raw firehose shards remain the permanent,
+uncapped Drive record of completed items; retired-unscored items keep their complete payload and reason in
+the SQLite snapshots.
+
+For a restore, stop the engine first, verify the `.sha256` sidecar, decompress the chosen snapshot to a
+temporary local path, and run `PRAGMA quick_check`. Move the old database, its `-wal` and `-shm` sidecars,
+and every compatibility journal into a separate rollback directory before installing the snapshot. Never
+leave newer sidecars or journals beside an older restored database: SQLite could replay newer WAL state,
+while startup could re-import journal rows whose completion tombstones exist only in the displaced database.
+
+```bash
+set -euo pipefail
+launchctl bootout "gui/$(id -u)/com.nostradamus.engine" 2>/dev/null || true
+QUEUE_STATE="$HOME/nostra-prod/ui/server/.state"
+QUEUE_BACKUP="${NEWS_ARCHIVE_DIR:?set NEWS_ARCHIVE_DIR}/news-queue-latest.sqlite.gz"
+RESTORE_WORK="$(mktemp -d)"
+(cd "$(dirname "$QUEUE_BACKUP")" && shasum -a 256 -c "$(basename "$QUEUE_BACKUP").sha256")
+gzip -dc "$QUEUE_BACKUP" > "$RESTORE_WORK/news-queue.sqlite"
+test "$(sqlite3 "$RESTORE_WORK/news-queue.sqlite" 'PRAGMA quick_check;')" = "ok"
+QUEUE_ROLLBACK="$QUEUE_STATE/restore-rollback-$(date -u +%Y%m%dT%H%M%SZ)"
+mkdir -p "$QUEUE_ROLLBACK"
+for name in \
+  news-queue.sqlite news-queue.sqlite-wal news-queue.sqlite-shm \
+  news-deferred.json news-deferred-pending.json \
+  news-scored-checkpoints.ndjson news-input-overflow.json; do
+  old="$QUEUE_STATE/$name"
+  test ! -e "$old" || mv "$old" "$QUEUE_ROLLBACK/"
+done
+mv "$RESTORE_WORK/news-queue.sqlite" "$QUEUE_STATE/news-queue.sqlite"
+chmod 600 "$QUEUE_STATE/news-queue.sqlite"
+launchctl bootstrap "gui/$(id -u)" "$HOME/Library/LaunchAgents/com.nostradamus.engine.plist"
+```
+
+Keep the rollback directory until the engine has restarted and the queue count has been checked.
 
 ## Operating rules (so it never blanks or dies)
 

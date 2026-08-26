@@ -5,6 +5,7 @@ import { fileURLToPath } from 'node:url'
 
 const testDir = path.dirname(fileURLToPath(import.meta.url))
 const command = fs.readFileSync(path.resolve(testDir, '../../../.claude/commands/research/full-canary.md'), 'utf8')
+const moduleCommand = fs.readFileSync(path.resolve(testDir, '../../../.claude/commands/research/module-canary.md'), 'utf8')
 
 assert.doesNotMatch(
   command,
@@ -16,13 +17,30 @@ for (const expected of [
   '.requires_idea_publication',
   '_pool_extracts/',
   'readiness_override.json',
+  '.defer_module_memos',
 ]) {
   assert.ok(command.includes(expected), `canary prompt must recognize supervisor-owned ${expected}`)
 }
 assert.match(
   command,
-  /Fail if any module folder, terminal artifact, failure\/interruption marker,[\s\S]*unexpected top-level entry already exists/,
-  'the corrected support-file allowlist must not weaken the fail-closed prior-output check',
+  /Require every discovered module's canonical `99_\*` synthesis[\s\S]*pass the artifact validator/,
+  'the terminal adjudicator must refuse a partial module DAG',
 )
+assert.match(command, /ONE terminal adjudicator/)
+for (const expected of [
+  'NOSTRA_PARITY_CANARY_CONTINUATION=1',
+  'raw retained `final_thesis.md`',
+  '`idea_3_6m.json`',
+  'Still fail on `execution_provenance.receipt.json`',
+  'do not launch or repeat a module',
+]) assert.ok(command.includes(expected), `canary recovery contract is missing: ${expected}`)
 
-console.log('✓ provider-parity canary prompt accepts only supervisor-owned launch support after pristine admission')
+for (const expected of [
+  'This is a thin compatibility loader, not a second module prompt',
+  '.claude/commands/research/<MODULE>.md',
+  'Never fall back to a prior dated run',
+  'scripts/commit-run.sh',
+]) assert.ok(moduleCommand.includes(expected), `module canary loader is missing: ${expected}`)
+assert.match(moduleCommand, /intermediate module stages cannot publish/)
+
+console.log('✓ provider-parity canary prompts enforce bounded modules plus one terminal adjudicator')

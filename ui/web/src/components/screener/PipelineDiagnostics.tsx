@@ -27,6 +27,19 @@ function until(iso: string | null): string {
   return m < 1 ? 'in under a minute' : m < 60 ? `in ~${m}m` : `in ~${Math.round(m / 60)}h`
 }
 
+/** Plain age of a past proof point. Provider "Ready" is only configuration/allowance state; this text says
+ * when the exact scorer contract last worked, so an untouched backup cannot masquerade as verified. */
+function ago(iso: string, now: number): string {
+  const ms = now - Date.parse(iso)
+  if (!Number.isFinite(ms) || ms < -60_000) return 'at an unknown time'
+  if (ms < 90_000) return 'just now'
+  const minutes = Math.round(ms / 60_000)
+  if (minutes < 60) return `~${minutes}m ago`
+  const hours = Math.round(minutes / 60)
+  if (hours < 48) return `~${hours}h ago`
+  return `~${Math.round(hours / 24)}d ago`
+}
+
 const HEALTH_TONE: Record<TierHealth, string> = {
   healthy: 'live',
   paced: 'warn',
@@ -41,6 +54,18 @@ const ROLE_LABEL: Record<TierDiagnostics['role'], string> = {
   overflow: 'free backup',
   gemini: 'free backup',
   'last-resort': 'paid backup',
+}
+
+const SCANNER_ACTION: Record<string, string> = {
+  'restart-engine': 'The watchdog will confirm the fault twice, then restart the engine with a cooldown.',
+  'enable-ingester': 'Turn on incoming-news collection when this host is meant to own it. Restarting alone will not change that setting.',
+  'repair-storage': 'Repair the saved queue or storage connection. Restarting cannot restore missing proof.',
+  'repair-provider': 'Repair the named key, account, model, or provider setup. Restarting will not change it.',
+  'verify-provider': 'Auto routing will verify this backup with bounded real queued work; static or shadow routing leaves it observation-only.',
+  'increase-capacity': 'The scanner needs more working scoring capacity or a smaller inflow. Restarting will not add capacity.',
+  'wait-for-reset': 'The work remains saved while the service allowance or retry hold resets. Restarting will not reset it.',
+  'inspect-cycle-ledger': 'Inspect the scanner lease and saved cycle receipts before changing process state.',
+  none: 'No repair is needed.',
 }
 
 const DEFER_WHY: Record<DeferReason, string> = {
@@ -83,7 +108,7 @@ function lastResortWhy(state: LastResortState): string {
   return LAST_RESORT_WHY[state] || 'The paid Haiku backup is not checking items right now.'
 }
 
-function TierRow({ tier, coolLeftMs, routerMode }: { tier: TierDiagnostics; coolLeftMs: number; routerMode?: NonNullable<NewsDiagnostics['router']>['mode'] }) {
+function TierRow({ tier, coolLeftMs, nowTs, routerMode }: { tier: TierDiagnostics; coolLeftMs: number; nowTs: number; routerMode?: NonNullable<NewsDiagnostics['router']>['mode'] }) {
   const c = `var(${tier.color})`
   const meter = tierMeter(tier)
   const tone = tier.spendingAllowed === false ? 'off' : HEALTH_TONE[tier.health]
@@ -147,7 +172,7 @@ function TierRow({ tier, coolLeftMs, routerMode }: { tier: TierDiagnostics; cool
         </div>
       )}
       {tier.routing && <div className="diagtier__fitness" title={`Yield ${(tier.routing.components.usableBatchYield * 100).toFixed(1)}%; throughput ${(tier.routing.components.usefulThroughput * 100).toFixed(1)}% of peer; released-capacity urgency ${(tier.routing.components.releasedCapacityUrgency * 100).toFixed(1)}%; failure penalty ${tier.routing.components.failurePenalty}; cost penalty ${tier.routing.components.costPenalty}.`}>
-        fitness {tier.routing.fitnessScore.toFixed(1)} · {tier.routing.sampleSize} calls · {tier.routing.eligible ? 'eligible' : tier.routing.eligibilityReason}
+        fitness {tier.routing.fitnessScore.toFixed(1)} · {tier.routing.sampleSize} calls · {tier.routing.eligible ? 'eligible' : tier.routing.eligibilityReason} · {tier.routing.lastSuccessAt ? `last proven ${ago(tier.routing.lastSuccessAt, nowTs)}` : 'not proven in the last 7 days'}
       </div>}
     </div>
   )
@@ -294,7 +319,8 @@ export function PipelineDiagnostics() {
   const dailyLossTotalsKnown = !!diag && dailyLossTotalsAvailable(diag.today, diag.backlog)
   // Tiers the provider is refusing the key for. Read off the per-tier flag rather than the defer group so this
   // still renders against an engine that has the flag but not yet the group (rolling deploy).
-  const credentialBlocked = (diag?.tiers || []).filter((t) => t.enabled && t.spendingAllowed !== false && t.credentialRejected === true)
+  const quarantinedBlocked = (diag?.tiers || []).filter((t) => t.enabled && t.spendingAllowed !== false && t.quarantined === true)
+  const credentialBlocked = (diag?.tiers || []).filter((t) => t.enabled && t.spendingAllowed !== false && t.credentialRejected === true && t.quarantined !== true)
   return (
     <motion.div className={`diag${trendMode ? ' is-trend' : ''}`} initial={{ x: '100%' }} animate={{ x: 0 }} transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}>
       <div className="diag__head">
@@ -330,6 +356,18 @@ export function PipelineDiagnostics() {
               <span className="diag__stripline">{statusLine}</span>
               {todayCopy && <span className="diag__today">Today: {todayCopy}</span>}
             </div>
+            {diag.health && diag.health.status !== 'healthy' && (
+              <div className={`diagwhy${diag.health.status === 'failing' ? ' is-alert' : ''}`} role={diag.health.status === 'failing' ? 'alert' : 'status'} data-testid="scanner-health-verdict">
+                <div className="diagwhy__head">
+                  <span aria-hidden>{diag.health.status === 'failing' ? '⚠' : '●'}</span>
+                  <span>{diag.health.status === 'failing' ? 'Scanner needs attention' : diag.health.status === 'idle' ? 'Scanner is not collecting news' : 'Scanner is working with a problem'}</span>
+                </div>
+                <ul className="diagwhy__list">
+                  {diag.health.findings.map((finding, index) => <li key={`${finding.code}-${index}`}>{finding.message}</li>)}
+                </ul>
+                <div className="diagwhy__foot">{SCANNER_ACTION[diag.health.action] || 'See the root cause above before attempting a repair.'}</div>
+              </div>
+            )}
           </section>
 
           <section className="diag__sec">
@@ -352,7 +390,27 @@ export function PipelineDiagnostics() {
             </div>
           </section>
 
-          {/* A REJECTED CREDENTIAL, ABOVE EVERYTHING ELSE. Every other state on this panel resolves itself
+          {/* A STANDING PROVIDER FAULT, ABOVE EVERYTHING ELSE. A timer cannot repair a rejected key, missing
+              entitlement/credits, or retired model. Keep it outside defer.active: fallbacks may keep the
+              cycle moving while a large provider silently remains dark. */}
+          {quarantinedBlocked.length > 0 && (
+            <section className="diag__sec">
+              <div className="diagwhy is-alert" role="alert">
+                <div className="diagwhy__head">
+                  <span aria-hidden>⚠</span>
+                  <span>{quarantinedBlocked.map((t) => t.label).join(', ')} needs repair</span>
+                </div>
+                <ul className="diagwhy__list">
+                  {quarantinedBlocked.map((t) => (
+                    <li key={t.id}>{t.label}: {tierStatusCopy(t, 0)}</li>
+                  ))}
+                </ul>
+                <div className="diagwhy__foot">The scanner has stopped spending calls here and is using fallbacks until the configuration changes or a canary succeeds.</div>
+              </div>
+            </section>
+          )}
+
+          {/* A REJECTED LEGACY CREDENTIAL, ABOVE EVERYTHING ELSE. Every other state on this panel resolves itself
               given time — a quota resets, a rate limit lapses, an outage ends. This one never does, and it is
               the only one that needs a human. It is drawn here, outside `defer.active`, because a dead tier
               does not necessarily make the CYCLE defer: with other providers coping, the panel would look
@@ -454,7 +512,7 @@ export function PipelineDiagnostics() {
           <details className="diagdetails">
             <summary>Checking services <span className="diag__count">{diag.tiers.length}</span></summary>
             <div className="diag__tiers">
-              {diag.tiers.map((t) => <TierRow key={t.id} tier={t} coolLeftMs={coolLeft(t)} routerMode={diag.router?.mode} />)}
+              {diag.tiers.map((t) => <TierRow key={t.id} tier={t} coolLeftMs={coolLeft(t)} nowTs={nowTs} routerMode={diag.router?.mode} />)}
             </div>
             <div className="diag__hint">The bars show how much of this app’s daily limit has been used.</div>
             {diag.tiers.length === 0 && <div className="diag__hint">No checking service is set up, so the scanner cannot run.</div>}

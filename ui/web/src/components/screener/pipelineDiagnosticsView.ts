@@ -40,6 +40,9 @@ export function todayOutcomeCopy(
   const incomplete = Number.isSafeInteger(today.incompleteCycles) && (today.incompleteCycles ?? 0) > 0
     ? today.incompleteCycles as number
     : 0
+  const recorded = Number.isSafeInteger(today.recordedInterruptions) && (today.recordedInterruptions ?? 0) > 0
+    ? today.recordedInterruptions as number
+    : 0
   const corrupt = Number.isSafeInteger(today.corruptCycleRows) && (today.corruptCycleRows ?? 0) > 0
     ? today.corruptCycleRows as number
     : 0
@@ -53,6 +56,9 @@ export function todayOutcomeCopy(
       : []),
     ...(incomplete > 0
       ? [`${incomplete.toLocaleString('en-US')} check${incomplete === 1 ? '' : 's'} did not finish recording`]
+      : []),
+    ...(recorded > 0
+      ? [`${recorded.toLocaleString('en-US')} interrupted check${recorded === 1 ? '' : 's'} ${recorded === 1 ? 'is' : 'are'} permanently recorded`]
       : []),
   ]
   const gapCopy = gaps.join('; ') || 'one or more checks did not finish recording'
@@ -170,7 +176,9 @@ export function pipelineFlowPresentation(
       flow.history.unreadableDates.length ? 'Some recent records cannot be read' : '',
       flow.history.corruptCycleRows ? `${flow.history.corruptCycleRows} recent record${flow.history.corruptCycleRows === 1 ? '' : 's'} cannot be read` : '',
       flow.history.incompleteCycles ? `${flow.history.incompleteCycles} recent check${flow.history.incompleteCycles === 1 ? '' : 's'} did not finish recording` : '',
+      flow.history.recordedInterruptions ? `${flow.history.recordedInterruptions} interrupted check${flow.history.recordedInterruptions === 1 ? '' : 's'} permanently recorded` : '',
       flow.history.gapMarkerUnreadable ? 'The record of finished checks cannot be read' : '',
+      flow.history.interruptionAuditUnreadable ? 'The permanent interrupted-check record cannot be read' : '',
     ].filter(Boolean).join(' · ')
     return unavailable(
       'We can’t tell yet.',
@@ -292,6 +300,18 @@ export function tierStatusCopy(tier: TierDiagnostics, retryRemainingMs: number):
   if (!tier.enabled) return tier.disabledReason || 'Off'
   if (tier.spendingAllowed === false) return 'News scanner is not running'
   if (tier.enabled && tier.providerDayExhausted) return "Service says today's limit is used"
+  if (tier.quarantined) {
+    const variable = tier.keyEnvVar ? ` (${tier.keyEnvVar})` : ''
+    switch (tier.quarantineReason) {
+      case 'auth': return `API key rejected${variable} — replace it; waiting will not help`
+      case 'entitlement': return `Account permission denied${variable} — enable access; waiting will not help`
+      case 'billing': return 'Billing or credits are unavailable — repair the provider account'
+      case 'model_terminal': return 'Configured model is unavailable — change the model or endpoint'
+      case 'request_invalid': return 'Provider endpoint/request configuration is invalid — repair it'
+      case 'local_state': return 'Saved provider health state is unreadable — repair the local state file'
+      default: return `Provider is quarantined after ${tier.quarantineReason || 'a standing fault'} — waiting will not help`
+    }
+  }
   // A REJECTED CREDENTIAL OUTRANKS THE COUNTDOWN. This branch sits above the retry timer deliberately: the
   // timer is the truth about when the engine will next probe, but it is the WRONG headline for a fault that
   // probing cannot fix. Shown as a countdown, a dead key reads as patience — which is how one went unnoticed
@@ -336,10 +356,10 @@ export function diagnosticBlockers(diag: NewsDiagnostics): DiagnosticBlockers {
   const labels = new Map(diag.tiers.map((tier) => [tier.id, tier.label]))
   const names = (ids: string[]) => [...new Set(ids)].map((id) => labels.get(id) || id)
   return {
-    retryHeld: names(diag.defer.retryHeldTiers ?? diag.tiers.filter((t) => t.enabled && t.spendingAllowed !== false && t.health === 'cooling' && !t.providerDayExhausted).map((t) => t.id)),
+    retryHeld: names(diag.defer.retryHeldTiers ?? diag.tiers.filter((t) => t.enabled && t.spendingAllowed !== false && t.health === 'cooling' && !t.providerDayExhausted && t.quarantined !== true).map((t) => t.id)),
     providerDayLimited: names(diag.defer.providerDayExhaustedTiers ?? diag.tiers.filter((t) => t.enabled && t.spendingAllowed !== false && t.providerDayExhausted).map((t) => t.id)),
     allowanceUsed: names(diag.defer.allowanceExhaustedTiers ?? diag.tiers.filter((t) => t.enabled && t.spendingAllowed !== false && t.health === 'budget-spent' && !t.providerDayExhausted).map((t) => t.id)),
-    needsAttention: names(diag.defer.unavailableTiers ?? diag.tiers.filter((t) => t.enabled && t.spendingAllowed !== false && t.health === 'unavailable').map((t) => t.id)),
+    needsAttention: names(diag.defer.unavailableTiers ?? diag.tiers.filter((t) => t.enabled && t.spendingAllowed !== false && t.health === 'unavailable' && t.quarantined !== true).map((t) => t.id)),
     paced: names(diag.defer.pacedTiers ?? diag.tiers.filter((t) => t.enabled && t.spendingAllowed !== false && t.health === 'paced').map((t) => t.id)),
     // Derived from the per-tier flag when an older engine omits the group, so the fault surfaces during a
     // rolling deploy rather than waiting for both halves to land.

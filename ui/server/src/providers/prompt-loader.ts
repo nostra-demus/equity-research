@@ -16,7 +16,8 @@ const SEGMENT_RE = /^[a-z0-9][a-z0-9-]*$/
 export const CANONICAL_COMMAND_FRONTMATTER_KEYS = new Set(['description', 'argument-hint', 'allowed-tools'])
 export const CANONICAL_AGENT_FRONTMATTER_KEYS = new Set([
   'name', 'description', 'tools', 'model', 'layer', 'fail_fast', 'depends_on', 'data_readiness',
-  'emits_signal_evidence', 'signal_families', 'reads_from', 'exact_resume',
+  'emits_signal_evidence', 'signal_families', 'reads_from', 'exact_resume', 'memory_profile',
+  'memory_isolation',
 ])
 
 export interface CanonicalCommand {
@@ -70,6 +71,13 @@ function assertModuleMetadata(data: Record<string, unknown>, sourcePath: string)
   }
   if ('exact_resume' in data && typeof data.exact_resume !== 'boolean') {
     contractError('CANONICAL_FRONTMATTER_INVALID', `${sourcePath}: 'exact_resume' must be a boolean.`)
+  }
+  if ('memory_isolation' in data && data.memory_isolation !== true) {
+    contractError('CANONICAL_FRONTMATTER_INVALID', `${sourcePath}: 'memory_isolation' must be true when present.`)
+  }
+  if ('memory_profile' in data && (!data.memory_profile || typeof data.memory_profile !== 'object'
+      || Array.isArray(data.memory_profile))) {
+    contractError('CANONICAL_FRONTMATTER_INVALID', `${sourcePath}: 'memory_profile' must be an object when present.`)
   }
 }
 
