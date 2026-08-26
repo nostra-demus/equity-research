@@ -1232,18 +1232,27 @@ app.post('/api/internal/provider-parity/canary-continue', { config: { rateLimit:
     const preSpawnAuthority = marker ? null : readProviderPreSpawnFailureAuthority(parsed.data.runRoot)
     const authority = interruptedAuthority ?? preSpawnAuthority
     const preSpawnRecovery = Boolean(preSpawnAuthority)
+    const markerAuthority = marker ? {
+      attemptId: typeof marker['attemptId'] === 'string' ? marker['attemptId']
+        : typeof marker['runId'] === 'string' ? marker['runId'] : null,
+      provider: typeof marker['provider'] === 'string' ? marker['provider'] : null,
+      model: typeof marker['model'] === 'string' ? marker['model'] : null,
+      reasoningLevel: typeof marker['reasoningLevel'] === 'string' ? marker['reasoningLevel'] : null,
+      profileKey: typeof marker['profileKey'] === 'string' ? marker['profileKey'] : null,
+      reason: marker['reason'],
+    } : null
     if (!authority
         || authority.runId !== parsed.data.interruptedRunId
         || authority.provider !== parsed.data.provider
         || authority.model !== parsed.data.model
         || authority.reasoningLevel !== parsed.data.reasoningLevel
         || authority.profileKey !== parsed.data.expectedProfileKey
-        || (marker && ((marker.attemptId ?? marker.runId) !== parsed.data.interruptedRunId
-          || marker.provider !== parsed.data.provider
-          || marker.model !== parsed.data.model
-          || marker.reasoningLevel !== parsed.data.reasoningLevel
-          || marker.profileKey !== parsed.data.expectedProfileKey
-          || !isRecoverableParityInterruptionReason(marker.reason)))) {
+        || (markerAuthority && (markerAuthority.attemptId !== parsed.data.interruptedRunId
+          || markerAuthority.provider !== parsed.data.provider
+          || markerAuthority.model !== parsed.data.model
+          || markerAuthority.reasoningLevel !== parsed.data.reasoningLevel
+          || markerAuthority.profileKey !== parsed.data.expectedProfileKey
+          || !isRecoverableParityInterruptionReason(markerAuthority.reason)))) {
       throw Object.assign(new Error('canary interruption authority does not match the requested Codex process/profile'), { statusCode: 409 })
     }
     if (canaryRunFileExists(rootAbs, '.aborted')

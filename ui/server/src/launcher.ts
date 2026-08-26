@@ -3921,7 +3921,12 @@ async function continueLaunch(run: RunState): Promise<void> {
   } catch (e: any) {
     // spawnEngine already emitted run-error + finalized on its own throw — only clean up if it didn't
     if (run.endedAt === undefined) {
-      const message = String(e?.message || e)
+      let message: string
+      if (e instanceof Error) message = e.message
+      else if (typeof e === 'string') message = e
+      else {
+        try { message = JSON.stringify(e) || String(e) } catch { message = String(e) }
+      }
       // A frozen same-root recovery may fail in a deterministic pre-spawn guard after its prior marker was
       // consumed by admission. Re-seal this no-process failure so a later explicitly authorized retry can
       // recover the same root; ordinary launches and any run with a child remain unchanged.
