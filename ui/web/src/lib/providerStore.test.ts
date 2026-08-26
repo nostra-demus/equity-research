@@ -28,6 +28,9 @@ const { useStore } = await import('./store')
 const originalProviders = api.providers
 const originalProviderCheck = api.providerCheck
 const originalEstimate = api.estimate
+const originalCancelSubject = api.cancelSubject
+const originalRefreshActiveRuns = useStore.getState().refreshActiveRuns
+const originalScRefreshBoard = useStore.getState().scRefreshBoard
 
 try {
   values.set(RUN_PROVIDER_STORAGE_KEY, 'codex')
@@ -72,6 +75,11 @@ try {
   })
   await useStore.getState().requestFull()
   assert.equal(estimateCalls, 0, 'a reviewed deployment blocks launch planning before any spend boundary')
+  let cancelCalls = 0
+  api.cancelSubject = async () => { cancelCalls++; return { ok: true, cancelled: ['run-1'] } }
+  useStore.setState({ refreshActiveRuns: async () => {}, scRefreshBoard: async () => {} })
+  await useStore.getState().cancelSignalRun('SIG-1')
+  assert.equal(cancelCalls, 1, 'a reviewed deployment keeps cancellation available while new admission is closed')
 
   values.set(RUN_PROVIDER_STORAGE_KEY, 'codex')
   useStore.setState({ runProvider: 'codex', providers: bothAvailable })
@@ -136,6 +144,8 @@ try {
   api.providers = originalProviders
   api.providerCheck = originalProviderCheck
   api.estimate = originalEstimate
+  api.cancelSubject = originalCancelSubject
+  useStore.setState({ refreshActiveRuns: originalRefreshActiveRuns, scRefreshBoard: originalScRefreshBoard })
   ;(globalThis as any).window = previousWindow
   ;(globalThis as any).document = previousDocument
   ;(globalThis as any).localStorage = previousStorage

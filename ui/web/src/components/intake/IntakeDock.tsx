@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react'
 import { intakeResting } from '../../lib/intake'
-import { useStore } from '../../lib/store'
+import { isLaunchHealthBlocked, useStore } from '../../lib/store'
 import type { AgentNode } from '../../lib/types'
 import { Spin } from '../Spin'
 import { IntakeDocCard } from './IntakeDocCard'
@@ -51,6 +51,8 @@ export function IntakeDock() {
   const launchRerun = useStore((s) => s.launchRerun)
   const setToast = useStore((s) => s.setToast)
   const scopedPending = useStore((s) => s.scopedRerunPending)
+  const health = useStore((s) => s.health)
+  const launchBlocked = isLaunchHealthBlocked(health)
 
   // The live document-intake run for this company — this click, an auto-analysis on landing, or one
   // started in another tab. Its steps ARE the reading list. Positive `kind` match, never a fallback:
@@ -196,6 +198,7 @@ export function IntakeDock() {
               onRunOrb={runOne}
               scopedPending={scopedPending}
               running={false}
+              launchBlocked={launchBlocked}
             />
           )}
         </div>

@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState, type ReactNode } from 'react'
 import { createPortal } from 'react-dom'
-import { useStore } from '../../lib/store'
+import { isLaunchHealthBlocked, useStore } from '../../lib/store'
 import { plainStage } from '../../lib/plain'
 import { Spin } from '../Spin'
 import type { FeedItem, SignalState } from '../../lib/types'
@@ -40,6 +40,9 @@ export function RunChecksMenu({ it }: Props) {
   const runProvider = useStore((s) => s.runProvider)
   const providers = useStore((s) => s.providers)
   const providerProblem = providerLaunchBlockedReason(providers[runProvider], providers.catalogState)
+  const health = useStore((s) => s.health)
+  const launchBlocked = isLaunchHealthBlocked(health)
+  const launchProblem = launchBlocked ? 'Engine update in progress — new runs resume when it finishes' : providerProblem
   const [open, setOpen] = useState(false)
   const [anchor, setAnchor] = useState<ReportMenuAnchor | null>(null)
 
@@ -152,9 +155,9 @@ export function RunChecksMenu({ it }: Props) {
           className="btn btn--amber runsplit__trigger"
           aria-haspopup="menu"
           aria-expanded={open}
-          disabled={busy || loading || !!providerProblem}
+          disabled={busy || loading || (!!launchProblem && state !== 'running')}
           onClick={openMenu}
-          title={staticMode ? 'Runs on your local machine (npm run dev)' : providerProblem || (loading ? 'Checking this signal’s run state…' : 'Choose how to run the checks')}
+          title={staticMode ? 'Runs on your local machine (npm run dev)' : state === 'running' ? 'Manage this run' : launchProblem || (loading ? 'Checking this signal’s run state…' : 'Choose how to run the checks')}
         >
           {busy ? <><Spin /> Starting…</> : loading ? <><Spin /> Checking…</> : <>{buttonLabel}<span className="runsplit__chev" aria-hidden style={{ transform: open ? 'rotate(180deg)' : 'none' }}>▾</span></>}
         </button>
@@ -186,12 +189,12 @@ export function RunChecksMenu({ it }: Props) {
             {state === 'partial' && (
               <>
                 <div className="reportpop__label">{stages.length ? `Resume · ${doneSet.size}/${stages.length} done` : 'Resume the run'}</div>
-                <button className="reportpop__item" role="menuitem" disabled={!!providerProblem} title={providerProblem || undefined} onClick={closeThen(resumeAll)}>
+                <button className="reportpop__item" role="menuitem" disabled={!!launchProblem} title={launchProblem || undefined} onClick={closeThen(resumeAll)}>
                   <b>Continue to the end</b>
                   <span>Run every remaining stage</span>
                 </button>
                 {remaining.length > 0 && remaining.map((m) => (
-                  <button key={m.name} className="reportpop__item" role="menuitem" disabled={!!providerProblem} title={providerProblem || undefined} onClick={closeThen(() => resumeThrough(m.name))}>
+                  <button key={m.name} className="reportpop__item" role="menuitem" disabled={!!launchProblem} title={launchProblem || undefined} onClick={closeThen(() => resumeThrough(m.name))}>
                     <b>Continue through “{plainStage(m.name)}”</b>
                     <span>Run up to here, then stop again</span>
                   </button>
@@ -203,11 +206,11 @@ export function RunChecksMenu({ it }: Props) {
             {(state === 'parked' || state === 'logged') && (
               <>
                 <div className="reportpop__label">{state === 'parked' ? 'Parked by the gate' : 'Logged by the gate'}{scoreTxt}</div>
-                <button className="reportpop__item" role="menuitem" disabled={!!providerProblem} title={providerProblem || undefined} onClick={closeThen(overrideRun)}>
+                <button className="reportpop__item" role="menuitem" disabled={!!launchProblem} title={launchProblem || undefined} onClick={closeThen(overrideRun)}>
                   <b style={{ color: 'var(--accent-deep)' }}>Override the gate & run all</b>
                   <span>Force past the promotion gate and run every stage</span>
                 </button>
-                <button className="reportpop__item" role="menuitem" disabled={!!providerProblem} title={providerProblem || undefined} onClick={closeThen(startFull)}>
+                <button className="reportpop__item" role="menuitem" disabled={!!launchProblem} title={launchProblem || undefined} onClick={closeThen(startFull)}>
                   <b>Run all (respect the gate)</b>
                   <span>Re-score at the gate — it may park again</span>
                 </button>
@@ -218,13 +221,13 @@ export function RunChecksMenu({ it }: Props) {
             {state === 'never' && (
               <>
                 <div className="reportpop__label">Run the checks</div>
-                <button className="reportpop__item" role="menuitem" disabled={!!providerProblem} title={providerProblem || undefined} onClick={closeThen(startFull)}>
+                <button className="reportpop__item" role="menuitem" disabled={!!launchProblem} title={launchProblem || undefined} onClick={closeThen(startFull)}>
                   <b style={{ color: 'var(--accent-deep)' }}>Run all checks</b>
                   <span>The full gauntlet — every stage</span>
                 </button>
                 {nonTerminal.length > 0 && <div className="reportpop__label" style={{ marginTop: 2 }}>Or stop after…</div>}
                 {nonTerminal.map((m) => (
-                  <button key={m.name} className="reportpop__item" role="menuitem" disabled={!!providerProblem} title={providerProblem || undefined} onClick={closeThen(() => startThrough(m.name))}>
+                  <button key={m.name} className="reportpop__item" role="menuitem" disabled={!!launchProblem} title={launchProblem || undefined} onClick={closeThen(() => startThrough(m.name))}>
                     <b>{plainStage(m.name)}</b>
                     <span>Run through here, then stop — Continue the rest later</span>
                   </button>
