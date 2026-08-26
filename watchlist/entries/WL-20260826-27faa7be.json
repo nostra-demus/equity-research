@@ -1,0 +1,39 @@
+{
+  "schema_version": "watchlist-entry/v1",
+  "entry_id": "WL-20260826-27faa7be",
+  "origin": "manual",
+  "listing": {
+    "ticker": "META",
+    "ticker_raw": "META",
+    "currency": "USD",
+    "exchange": "NASDAQ",
+    "company_name": "Meta Platforms, Inc.",
+    "listing_key": "META|USD"
+  },
+  "engine_ref": null,
+  "why": "Mexico AG trial verdict positive or negative",
+  "conviction": "high",
+  "review_date": "2026-09-08",
+  "tags": [],
+  "triggers": [
+    {
+      "kind": "event_date",
+      "due_date": "2026-09-08",
+      "label": "Mexico AG trial outcome",
+      "trigger_id": "TRG-2032d971dedf"
+    }
+  ],
+  "attachments": [],
+  "archive": null,
+  "history": [
+    {
+      "at": "2026-08-26T14:46:02.527Z",
+      "by": "local",
+      "action": "created",
+      "detail": ""
+    }
+  ],
+  "created_at": "2026-08-26T14:46:02.527Z",
+  "created_by": "local",
+  "updated_at": "2026-08-26T14:46:02.527Z"
+}
