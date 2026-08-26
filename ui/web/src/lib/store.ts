@@ -354,6 +354,7 @@ let deploymentAdmissionBlocked = false
 const STREAM_LIVE_MS = 20000
 let lastStreamActivityAt = 0
 const HARD_DOWN = new Set<HealthState>(['updating', 'engine-offline', 'your-network', 'session-expired'])
+export const isLaunchHealthBlocked = (health: HealthState): boolean => HARD_DOWN.has(health)
 
 // Auto-resume of interrupted screener runs (a closed laptop / dropped connection): per-signal attempt
 // bookkeeping so we never spin a persistently-failing run forever, and never double-launch one already

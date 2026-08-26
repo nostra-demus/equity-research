@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { useStore } from '../lib/store'
+import { isLaunchHealthBlocked, useStore } from '../lib/store'
 import { api } from '../lib/api'
 import type { ProviderParityCanaryStatus } from '../lib/api'
 import { captureAskOpener } from '../lib/askFocus'
@@ -266,7 +266,7 @@ function ScreenerControls() {
   const openPipeline = useStore((s) => s.openPipeline)
   const openActivity = useStore((s) => s.openActivity)
   const health = useStore((s) => s.health)
-  const engineDown = health === 'updating' || health === 'engine-offline' || health === 'your-network' || health === 'session-expired'
+  const engineDown = isLaunchHealthBlocked(health)
   // ONE runs entry: opens the book (every event you've checked) AND un-hides the live-progress rail, so
   // "Runs" is the single home for both what's running now and everything you've run — replacing the
   // confusing pair of "Runs" (reopen the live rail) + "Recent runs" (open the book) that read as duplicates.
@@ -460,16 +460,18 @@ function ResumeChip() {
   const activeSwarm = useStore((s) => s.activeSwarm)
   const health = useStore((s) => s.health)
   const launchPending = useStore((s) => s.launchPending)
-  const engineDown = health === 'updating' || health === 'engine-offline' || health === 'your-network' || health === 'session-expired'
+  const engineDown = isLaunchHealthBlocked(health)
   const entry = selectedTicker
     ? resumableRuns.find((e) => e.kind === 'full' && e.subject === selectedTicker && e.swarm === activeSwarm)
     : undefined
   if (!entry) return null
   const resuming = launchPending?.key?.startsWith(`resume:${entry.subject}:`)
   const noun = entry.unit === 'agent' ? 'check' : 'module'
-  const title = engineDown
-    ? health === 'updating' ? 'Engine update in progress — runs resume automatically when it finishes' : 'Engine offline — live runs are paused until it reconnects'
-    : `This run stopped partway (${entry.doneCount}/${entry.totalCount} ${noun}s done). Resume finishes it from where it stopped — the done work is reused.`
+  const title = health === 'updating'
+    ? 'Engine update in progress — runs resume automatically when it finishes'
+    : engineDown
+      ? 'Engine offline — live runs are paused until it reconnects'
+      : `This run stopped partway (${entry.doneCount}/${entry.totalCount} ${noun}s done). Resume finishes it from where it stopped — the done work is reused.`
   return (
     <button className="aresume aresume--bar" disabled={engineDown || !!resuming} onClick={() => void resumeRun(entry)} title={title}>
       {resuming ? 'Resuming…' : 'Resume'}<span className="aresume__glyph" aria-hidden>▸</span>
@@ -801,10 +803,21 @@ export function CommandBar() {
   const health = useStore((s) => s.health)
   const activeSwarm = useStore((s) => s.activeSwarm)
   const swarms = useStore((s) => s.swarms)
-  const engineDown = health === 'updating' || health === 'engine-offline' || health === 'your-network' || health === 'session-expired'
+  const engineDown = isLaunchHealthBlocked(health)
   const screenerMode = activeSwarm === 'screener'
   const pendingOnSelectedTicker = Boolean(selectedTicker && launchPending?.ticker === selectedTicker)
   const fullPending = pendingOnSelectedTicker && launchPending?.key === 'full:request'
+  const fullRunTitle = staticMode
+    ? 'Runs on your local machine (npm run dev)'
+    : health === 'updating'
+      ? 'Engine update in progress — runs resume automatically when it finishes'
+      : engineDown
+        ? 'Engine offline — live runs are paused until it reconnects'
+        : anyRun
+          ? 'A run is in flight — a full run needs exclusive access'
+          : pendingOnSelectedTicker
+            ? 'Another action is already starting for this company'
+            : 'Run the full pipeline'
   // a swarm's decision record carries its own verdict field (e.g. commodity `action`) — resolve it
   // generically so the final-report button shows for any finished constellation-swarm run too
   const verdict = resolveVerdict(decision, swarms.find((s) => s.id === activeSwarm)?.verdictField)
@@ -867,7 +880,7 @@ export function CommandBar() {
             Ask ▸
           </button>
           <ResumeChip />
-          <button className="btn btn--amber" disabled={!selectedTicker || anyRun || engineDown || pendingOnSelectedTicker} onClick={requestFull} title={staticMode ? 'Runs on your local machine (npm run dev)' : health === 'updating' ? 'Engine update in progress — runs resume automatically when it finishes' : engineDown ? 'Engine offline — live runs are paused until it reconnects' : anyRun ? 'A run is in flight — a full run needs exclusive access' : pendingOnSelectedTicker ? 'Another action is already starting for this company' : 'Run the full pipeline'}>
+          <button className="btn btn--amber" disabled={!selectedTicker || anyRun || engineDown || pendingOnSelectedTicker} onClick={requestFull} title={fullRunTitle}>
             {fullPending ? 'Preparing…' : 'Run full ▸'}
           </button>
           <TickerPicker />
