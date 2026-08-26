@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-26T13:45:47Z",
+  "generated_at": "2026-08-26T13:56:01Z",
   "inbox": [
     {
       "inbox_id": "INB-20260826-891",
@@ -140,6 +140,55 @@
         {
           "name": "Cifi Hold Gp",
           "ticker": "00884",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260826-906",
+      "headline": "AINNOVATION (02121): SUPPLEMENTAL ANNOUNCEMENT - DISCLOSEABLE TRANSACTION IN RELATION TO THE ACQUISITION OF 51% EQUITY INTEREST IN TARGET COMPANY II",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0826/2026082601509.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-26T12:27:00Z",
+      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
+      "prelim_note": "The company is acquiring a 51% equity interest in a target company, representing a material expansion of its business.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company is acquiring a 51% equity interest in a target company, representing a material expansion of its business.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "AINNOVATION",
+          "ticker": "02121",
           "listing_country": "CN"
         }
       ],
@@ -1450,6 +1499,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260826-916",
+      "headline": "Jazz Pharmaceuticals Plans $1 Bln Notes Offering, Concurrent $225 Mln Share Buyback",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/jazz-pharmaceuticals-plans-1-bln-notes-offering-concurrent-225-mln-share-buyback",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-26T12:16:41Z",
+      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
+      "prelim_note": "Company announced a $1 billion notes offering and a $225 million share buyback.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company announced a $1 billion notes offering and a $225 million share buyback.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "debt_credit",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Jazz Pharmaceuticals",
+          "ticker": "JAZZ",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260826-905",
       "headline": "Zoom Stock Retreats As Guidance Underwhelms Amid Consumer Slowdown",
       "headline_en": null,
@@ -1896,109 +1995,6 @@
       "companies": [
         {
           "name": "McKesson",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260826-736",
-      "headline": "NCLT allows Subhash Chandra to pay ₹6.5 crore against claims of ₹22,006.57 crore",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/companies/nclt-allows-subhash-chandra-to-pay-65-crore-against-claims-of-2200657-crore/article71392162.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-26T09:28:50Z",
-      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
-      "prelim_note": "NCLT approved a settlement where only ₹6.5 crore is paid against claims of ₹22,006.57 crore, indicating a massive haircut/distress.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "NCLT approved a settlement where only ₹6.5 crore is paid against claims of ₹22,006.57 crore, indicating a massive haircut/distress.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Subhash Chandra",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260826-698",
-      "headline": "Australia's top software firm WiseTech slumps 10% as e2open acquisition costs weigh",
-      "headline_en": null,
-      "url": "https://www.reuters.com/world/asia-pacific/australias-top-software-firm-wisetech-slumps-10-annual-profit-miss-2026-08-26/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-26T08:28:07Z",
-      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
-      "prelim_note": "WiseTech shares fell 10% following concerns over acquisition costs for e2open.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "WiseTech shares fell 10% following concerns over acquisition costs for e2open.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "WiseTech Global",
-          "ticker": null,
-          "listing_country": "AU"
-        },
-        {
-          "name": "e2open",
           "ticker": null,
           "listing_country": "US"
         }
@@ -94693,9 +94689,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2871604,
-    "news_picked_today": 1783,
-    "news_dropped_today": 13085
+    "news_seen_today": 2945638,
+    "news_picked_today": 1806,
+    "news_dropped_today": 13098
   },
   "book_momentum": {
     "live_count": 8,
