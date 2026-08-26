@@ -35,7 +35,7 @@ async function check(name: string, fn: () => void | Promise<void>) {
 function makeFake(opts?: { fail429Once?: string[]; graph?: SwarmGraph; failMaster?: boolean }) {
   const launches: { kind: string; module?: string; agent?: string; provider: string; model?: string;
     reasoningLevel?: string; expectedProfileKey?: string; chainId?: string;
-    parityCanary?: { runRoot: string; freezeReceipt: string; stage?: string } }[] = []
+    parityCanary?: { runRoot: string; freezeReceipt: string; stage?: string; continuation?: boolean } }[] = []
   const onFinish = new Map<string, (s: RunStatus) => void>()
   let marker: string | null = null
   let markerRoot: string | undefined
@@ -249,6 +249,40 @@ const sorted = (a: string[]) => [...a].sort()
     assert.equal(f.wasMarkerCleared(), true, 'terminal completion clears the isolated defer marker')
     assert.equal(getParityCanaryChainStatus(runRoot)?.status, 'done',
       'only the terminal adjudicator can complete the logical canary')
+  })
+
+  await check('a same-root canary continuation never reruns completed modules even with raw terminal files', async () => {
+    const f = makeFake()
+    const runRoot = `analyses/ZZCHAINCONT_${Date.now()}`
+    const absolute = path.join(REPO_ROOT, runRoot)
+    fs.mkdirSync(absolute, { recursive: true })
+    try {
+      for (const module of buildSwarmGraph().modules) {
+        const synthesis = Object.values(module.layers).flat().find((agent) => agent.isSynthesis)!
+        const dir = path.join(absolute, module.name)
+        fs.mkdirSync(dir, { recursive: true })
+        fs.writeFileSync(path.join(dir, `${synthesis.key.split('/').at(-1)}.md`), `# ${module.name} synthesis\n`)
+      }
+      fs.writeFileSync(path.join(absolute, 'final_thesis.md'), '# Raw retained thesis\n')
+      fs.writeFileSync(path.join(absolute, 'decision_record.json'), '{"decision":"Avoid"}\n')
+      const freezeReceipt = 'analyses/provider-parity/2026-08-26/freeze/ZZCHAINCONT_2026-08-26.json'
+      const out = await launchFullChained('ZZCHAINCONT', 'tester', 'local', {
+        provider: 'codex', model: 'gpt-5.6-sol', reasoningLevel: 'max', expectedProfileKey: 'codex:test',
+      }, f.deps, undefined, undefined, {
+        runRoot, continuation: true, parityCanary: { runRoot, freezeReceipt },
+      })
+      assert.equal(out.resumed, true)
+      assert.equal(out.planned?.length, 0)
+      assert.equal(out.skipped?.length, buildSwarmGraph().modules.length)
+      assert.equal(f.launches.filter((launch) => launch.kind === 'module').length, 0,
+        'the recovery spends no quota on completed modules')
+      assert.equal(f.launches.filter((launch) =>
+        launch.kind === 'full' && launch.parityCanary?.stage === 'final'
+          && launch.parityCanary.continuation === true).length, 1,
+      'the recovery launches exactly one terminal adjudicator')
+    } finally {
+      fs.rmSync(absolute, { recursive: true, force: true })
+    }
   })
 
   await check('a frozen canary stays non-terminal until every active sibling drains after a failure', async () => {

@@ -38,7 +38,7 @@ import {
   type NonCleanExactModuleRecovery,
 } from './module-publication'
 import type { LaunchPreflight, ReadinessDecision, ReadinessReport, ResearchMemoryIdentity, RunKind, RunStatus } from './types'
-import { validateAgentOutputFile } from '../../../scripts/agent-output-validity.mjs'
+import { validateAgentOutputFile, validateAgentOutputText } from '../../../scripts/agent-output-validity.mjs'
 import './providers/claude'
 import './providers/codex'
 import { claudeChildEnv, detectClaudeFlags } from './providers/claude'
@@ -48,7 +48,7 @@ import {
   appendExecutionAttempt, artifactIsFresh, attestParitySnapshotAtPublication,
   canonicalManifestJsonl, canonicalManifestPath, decisionArtifacts,
   EXECUTION_PROVENANCE_RECEIPT, receiptPath, recordAdmittedProviderSelection, recordProviderInterruptionAuthority,
-  recordRecoveredPublicationAuthority, releaseExecutionEpochAfterPublication,
+  protectedInterruptedExecutionLineage, recordRecoveredPublicationAuthority, releaseExecutionEpochAfterPublication,
   releaseParityRegistration, resolveParityBindingPath, supersedeIncompleteDecisionAuthorAttempt, writeExecutionReceipt,
 } from './execution-provenance'
 import { runIbkrPaperAutoSyncAfterPublication, scheduleIbkrPaperAutoSyncAfterPublication } from './ibkr-paper-auto-sync'
@@ -632,6 +632,76 @@ export interface CodexAutomaticContinuationPlan {
   unresolvedOutputs?: string[]
 }
 
+function codexContinuationTerminalOutputs(run: RunState): string[] {
+  if (run.kind === 'signal') return ['RUN_METADATA.md']
+  if (run.kind !== 'full' && run.kind !== 'rerun') return []
+  if (run.swarmId === RESEARCH_SWARM_ID) {
+    return run.kind === 'full' ? ROOT_ARTIFACTS_FULL : ROOT_ARTIFACTS_RERUN
+  }
+  return swarmById(run.swarmId)?.layout === 'constellation' ? decisionArtifacts(run) : []
+}
+
+const FINISH_GATE_PROVISIONAL_MARK = 'PROVISIONAL — the automated finish-gate'
+
+function regularFileSha256(absolute: string): string | null {
+  try {
+    const info = fs.lstatSync(absolute)
+    if (!info.isFile() || info.isSymbolicLink()) return null
+    return createHash('sha256').update(fs.readFileSync(absolute)).digest('hex')
+  } catch { return null }
+}
+
+function captureCodexContinuationBaselines(run: RunState): void {
+  if (run.provider !== 'codex' || run.automaticContinuationBaselines || !run.runRoot) return
+  const root = path.isAbsolute(run.runRoot) ? run.runRoot : path.join(REPO_ROOT, run.runRoot)
+  run.automaticContinuationBaselines = Object.fromEntries(
+    codexContinuationTerminalOutputs(run).map((relative) => [
+      relative, regularFileSha256(path.join(root, relative)),
+    ]),
+  )
+}
+
+function validCodexTerminalMarkdown(absolute: string, relative: string): boolean {
+  const ordinary = validateAgentOutputFile(absolute)
+  if (ordinary.valid) return true
+  if (relative !== 'final_thesis.md') return false
+  try {
+    const lines = fs.readFileSync(absolute, 'utf8').replace(/\r\n?/g, '\n').split('\n')
+    let index = 0
+    while (index < lines.length && lines[index].trim() === '') index++
+    if (index >= lines.length || !lines[index].startsWith('>')
+        || !lines.slice(index, index + 6).join('\n').includes(FINISH_GATE_PROVISIONAL_MARK)) return false
+    while (index < lines.length && lines[index].startsWith('>')) index++
+    while (index < lines.length && lines[index].trim() === '') index++
+    return validateAgentOutputText(lines.slice(index).join('\n')).valid
+  } catch { return false }
+}
+
+function codexContinuationArtifactComplete(run: RunState, relative: string): boolean {
+  if (!run.runRoot) return false
+  // A full research run has not crossed its terminal publication boundary while the immutable-idea
+  // marker remains, even if a RUN_METADATA file was staged during a failed publication attempt.
+  if (run.kind === 'full' && run.swarmId === RESEARCH_SWARM_ID
+      && relative === 'RUN_METADATA.md' && ideaPublicationPending(run.runRoot)) return false
+  const root = path.isAbsolute(run.runRoot) ? run.runRoot : path.join(REPO_ROOT, run.runRoot)
+  const absolute = path.join(root, relative)
+  try {
+    const info = fs.lstatSync(absolute)
+    if (!info.isFile() || info.isSymbolicLink() || info.size === 0) return false
+    const baselines = run.automaticContinuationBaselines
+    if (baselines && Object.prototype.hasOwnProperty.call(baselines, relative)) {
+      const current = regularFileSha256(absolute)
+      if (current === null || current === baselines[relative]) return false
+    } else if (!artifactIsFresh(run, relative)) return false
+    if (relative.endsWith('.md')) return validCodexTerminalMarkdown(absolute, relative)
+    if (relative.endsWith('.json')) {
+      const parsed = JSON.parse(fs.readFileSync(absolute, 'utf8'))
+      return parsed !== null && typeof parsed === 'object' && !Array.isArray(parsed)
+    }
+    return true
+  } catch { return false }
+}
+
 function codexContinuationInventory(run: RunState): {
   checkpoint: string
   completedOutputs: string[]
@@ -643,10 +713,33 @@ function codexContinuationInventory(run: RunState): {
   const unresolved = [...run.expected.values()]
     .filter((expected) => run.agents.get(expected.key)?.status !== 'done')
     .sort((left, right) => left.key.localeCompare(right.key))
+  const completedOutputs = completed.map((item) => item.outputRel)
+  const unresolvedOutputs = unresolved.map((item) => item.outputRel)
+  const completedSet = new Set(completedOutputs)
+  const unresolvedSet = new Set(unresolvedOutputs)
+  const terminalCheckpoint: string[] = []
+  for (const relative of codexContinuationTerminalOutputs(run)) {
+    // A future discovered swarm may declare a terminal artifact that is also represented by a roster
+    // agent. The filesystem verdict for a terminal artifact wins, and each path appears in one cohort.
+    completedSet.delete(relative)
+    unresolvedSet.delete(relative)
+    if (codexContinuationArtifactComplete(run, relative)) {
+      completedSet.add(relative)
+      terminalCheckpoint.push(`terminal:${relative}`)
+    } else {
+      unresolvedSet.add(relative)
+    }
+  }
   return {
-    checkpoint: completed.map((item) => item.key).join('\n'),
-    completedOutputs: completed.map((item) => item.outputRel),
-    unresolvedOutputs: unresolved.map((item) => item.outputRel),
+    // Root-terminal progress must reset the stagnant-turn guard too. Previously every module could be
+    // complete while final_thesis/decision_record advanced, yet the checkpoint stayed frozen and the
+    // next fresh Codex process was rejected with an empty inventory before it could publish provenance.
+    checkpoint: [
+      ...completed.filter((item) => completedSet.has(item.outputRel)).map((item) => item.key),
+      ...terminalCheckpoint,
+    ].join('\n'),
+    completedOutputs: [...completedSet],
+    unresolvedOutputs: [...unresolvedSet],
   }
 }
 
@@ -676,16 +769,11 @@ export function planCodexAutomaticContinuation(
   // A screener signal may deliberately stop at a terminal routing before later discovered modules run.
   // RUN_METADATA is written only after that routing is adjudicated, so it is the exact parent-completion
   // barrier; requiring every expected orb would incorrectly continue valid PARK/LOG/watchlist outcomes.
+  const terminalMissing = codexContinuationTerminalOutputs(run)
+    .some((relative) => !codexContinuationArtifactComplete(run, relative))
   const missingBarrier = run.kind === 'signal'
-    ? (() => {
-      if (!run.runRoot) return true
-      const metadata = path.join(REPO_ROOT, run.runRoot, 'RUN_METADATA.md')
-      try {
-        const info = fs.lstatSync(metadata)
-        return !info.isFile() || info.isSymbolicLink() || !validateAgentOutputFile(metadata).valid
-      } catch { return true }
-    })()
-    : truncatedBeforeFinal(run)
+    ? terminalMissing
+    : truncatedBeforeFinal(run) || terminalMissing
   if (!missingBarrier) return { continue: false, reason: 'completion_barrier_not_missing' }
   // A missing close result cannot prove a clean provider boundary and must never authorize another process.
   if (!res || typeof res !== 'object') return { continue: false, reason: 'provider_process_nonclean' }
@@ -789,6 +877,8 @@ export function childCouldReportDoneOnClose(run: RunState, res: any): boolean {
   return run.endedAt === undefined && (run.status as string) !== 'cancelled' && !run.cancelRequested
     && !streamResultErrors.has(run)
     && !terminated && !(code && code !== 0) && res?.failed !== true && !truncatedBeforeFinal(run)
+    && !(run.provider === 'codex' && codexContinuationTerminalOutputs(run)
+      .some((relative) => !codexContinuationArtifactComplete(run, relative)))
 }
 
 // The SINGLE place a run's final status is decided on process close (exported for tests).
@@ -838,7 +928,8 @@ export function finalizeRunOnClose(run: RunState, res: any, stderr: string, term
   // Explicit provider errors/quota stops keep their own reason; this refinement applies only to a claimed
   // success or the clean-exit/missing-terminal silhouette seen in the AMZN parity canary.
   if (run.provider === 'codex'
-      && truncatedBeforeFinal(run)
+      && (truncatedBeforeFinal(run) || codexContinuationTerminalOutputs(run)
+        .some((relative) => !codexContinuationArtifactComplete(run, relative)))
       && (classified.outcome === 'success'
         || (classified.outcome === 'error' && classified.reason === 'codex_missing_turn_completed'))) {
     classified = {
@@ -1564,7 +1655,9 @@ function agentRequiredUpstream(swarmId: string, module?: string, agent?: string)
 // synchronous with no `await` in between, so two onClose callbacks landing "around the same time" still
 // run to completion one at a time — the second always sees the first's dedup entry and returns before
 // writing. Serialization is real, just done in-process rather than via admission's declared-write model.
-const ROOT_ARTIFACTS_FULL = ['final_thesis.md', 'memo.md', 'audit_dossier.md', 'decision_record.json', 'RUN_METADATA.md']
+const ROOT_ARTIFACTS_FULL = [
+  'final_thesis.md', 'memo.md', 'audit_dossier.md', 'decision_record.json', 'idea_3_6m.json', 'RUN_METADATA.md',
+]
 const ROOT_ARTIFACTS_RERUN = ['final_thesis.md', 'memo.md', 'audit_dossier.md', 'decision_record.json']
 // A screener signal run owns its whole SIG folder; these are its run-root JSON artifacts.
 const ROOT_ARTIFACTS_SIGNAL = ['intake.json', 'signal_payload.json', 'thesis_record.json', 'candidates.json', 'RUN_METADATA.md']
@@ -1820,6 +1913,8 @@ export interface LaunchParams {
     freezeReceipt: string
     /** Internal chain lifecycle. The HTTP body never accepts this field. */
     stage?: ParityCanaryStage
+    /** Supervisor-only marker for the terminal process of an authorized same-root recovery. */
+    continuation?: boolean
   }
   user?: string // who launched it (from Cloudflare Access at the route); defaults to "local"
   userVia?: 'cf-access' | 'local'
@@ -2501,6 +2596,8 @@ interface FullChainScope {
   runRoot?: string
   /** Frozen canaries use per-module loaders, then one terminal full-canary adjudicator. */
   parityCanary?: { runRoot: string; freezeReceipt: string }
+  /** Operator-authorized same-root recovery seeds completed modules even when raw terminal files exist. */
+  continuation?: boolean
 }
 
 export function chainedResumePreflight(
@@ -2615,7 +2712,8 @@ export async function launchFullChained(
   // a complete folder is left alone (this is then a fresh full, not a resume). A module is finished only
   // when its CURRENT discovered synthesis passes the same mechanical validator used by exact planning.
   const resumeRoot = datedRoot
-  if (fs.existsSync(path.join(REPO_ROOT, resumeRoot)) && !finalDeliverablesPresent(resumeRoot)) {
+  if (fs.existsSync(path.join(REPO_ROOT, resumeRoot))
+      && (scope.continuation === true || !finalDeliverablesPresent(resumeRoot))) {
     for (const name of names) {
       try {
         const finished = (synthesisFiles.get(name) ?? []).some((file) =>
@@ -2659,7 +2757,7 @@ export async function launchFullChained(
     masterLaunched = true
     const masterParams: LaunchParams = scope.parityCanary
       ? { kind: 'full', ticker, user, userVia, chained: true, chainId, ...selection,
-        parityCanary: { ...scope.parityCanary, stage: 'final' } }
+        parityCanary: { ...scope.parityCanary, stage: 'final', continuation: scope.continuation === true } }
       : { kind: 'rerun', ticker, module: 'master', agent: 'synthesizer', user, userVia, chained: true,
         chainId, memoryIdentity, ...selection, ...decisionBinding }
     const launched = deps.launchAndWire(
@@ -3105,7 +3203,10 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
     }
     assertParityCanaryStageRoot(rootAbsolute, stage)
     runRoot = rootRelative
-    params.parityCanary = { runRoot: rootRelative, freezeReceipt: freezeRelative, stage }
+    params.parityCanary = {
+      runRoot: rootRelative, freezeReceipt: freezeRelative, stage,
+      continuation: params.parityCanary.continuation === true,
+    }
   } else if (kind === 'parity') {
     const request = params.parity
     if (!request) {
@@ -3357,7 +3458,11 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
       defaultFullChainDeps,
       undefined,
       undefined,
-      { runRoot, parityCanary: { runRoot, freezeReceipt: params.parityCanary.freezeReceipt } },
+      {
+        runRoot,
+        continuation: params.parityCanary.stage === 'continuation',
+        parityCanary: { runRoot, freezeReceipt: params.parityCanary.freezeReceipt },
+      },
     )
   }
 
@@ -3514,6 +3619,11 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
       memoryIdentity: params.memoryIdentity,
       parityCanaryStage: params.parityCanary?.stage === 'module' || params.parityCanary?.stage === 'final'
         ? params.parityCanary.stage : undefined,
+      parityCanaryContinuation: params.parityCanary?.stage === 'final'
+        && params.parityCanary.continuation === true,
+      protectedPriorExecutionAttempts: params.parityCanary?.stage === 'final'
+        && params.parityCanary.continuation === true
+        ? protectedInterruptedExecutionLineage(runRoot) : undefined,
     })
   } catch (error) {
     releaseDeployBarrier()
@@ -3643,13 +3753,14 @@ export function paritySnapshotRootMatchesDataSubject(snapshotRoot: string, dataD
 
 const RECOVERABLE_PARITY_INTERRUPTION_REASONS = new Set([
   'codex_incomplete_orchestration',
+  'codex_continuation_failed',
   'terminated_sigterm',
   'supervisor_shutdown',
   'supervisor_restart',
 ])
 
 /** The route still requires exact supervisor authority, profile/root equality, no abort marker, and no
- * terminal artifact. These are only the machine-stop reasons eligible to enter that existing gate. */
+ * completed supervisor receipt. These are only the machine-stop reasons eligible to enter that gate. */
 export function isRecoverableParityInterruptionReason(value: unknown): boolean {
   return typeof value === 'string' && RECOVERABLE_PARITY_INTERRUPTION_REASONS.has(value)
 }
@@ -3707,18 +3818,16 @@ export function assertParityCanaryStageRoot(rootAbsolute: string, stage: ParityC
     return
   }
   if (stage === 'continuation') {
-    const terminal = ['final_thesis.md', 'decision_record.json', EXECUTION_PROVENANCE_RECEIPT]
-      .filter((name) => names.has(name))
-    if (terminal.length) {
-      throw Object.assign(new Error(`parity canary continuation already has terminal artifacts: ${terminal.join(', ')}`), { statusCode: 409 })
-    }
     if (!names.has('.interrupted') || names.has('.aborted')) {
       throw Object.assign(new Error('parity canary continuation requires an interruption marker and no abort marker'), { statusCode: 409 })
     }
   }
+  if ((stage === 'continuation' || stage === 'final') && names.has(EXECUTION_PROVENANCE_RECEIPT)) {
+    throw Object.assign(new Error('parity canary continuation is already supervisor-published'), { statusCode: 409 })
+  }
   const stageSupport = stage === 'continuation'
-    ? new Set([...support, '.interrupted', FAILURE_NOTE])
-    : support
+    ? new Set([...support, ...ROOT_ARTIFACTS_FULL, '.interrupted', FAILURE_NOTE])
+    : stage === 'final' ? new Set([...support, ...ROOT_ARTIFACTS_FULL]) : support
   for (const entry of entries) {
     const absolute = path.join(rootAbsolute, entry.name)
     const info = fs.lstatSync(absolute)
@@ -3824,6 +3933,7 @@ export const EXACT_MODULE_RUN_ROOT_ENV = 'NOSTRA_EXACT_MODULE_RUN_ROOT'
 export const EXACT_MODULE_NAME_ENV = 'NOSTRA_EXACT_MODULE_NAME'
 export const EXACT_MODULE_WRITABLE_ORBS_ENV = 'NOSTRA_EXACT_MODULE_WRITABLE_ORBS'
 export const EXACT_MODULE_SYNTHESIS_ORBS_ENV = 'NOSTRA_EXACT_MODULE_SYNTHESIS_ORBS'
+export const PARITY_CANARY_CONTINUATION_ENV = 'NOSTRA_PARITY_CANARY_CONTINUATION'
 // Back-compatible helper for the few untracked Claude-only wrappers that import childEnv(). Tracked
 // cockpit processes get their environment from their selected ProviderAdapter.
 interface RunPolicyEnvOptions {
@@ -3908,9 +4018,11 @@ function applyRunPolicyEnv(source: NodeJS.ProcessEnv, run: RunState): NodeJS.Pro
     exactModuleSynthesisOrbs: scope?.synthesisOrbs,
   })
   delete env.NOSTRA_MEMORY_MODE
+  delete env[PARITY_CANARY_CONTINUATION_ENV]
   if (run.memoryRuntime && run.memoryRuntime.mode !== 'off') {
     env.NOSTRA_MEMORY_MODE = run.memoryRuntime.mode
   }
+  if (run.parityCanaryContinuation) env[PARITY_CANARY_CONTINUATION_ENV] = '1'
   return env
 }
 
@@ -5658,7 +5770,15 @@ async function continueIncompleteCodexProcess(
     numTurns: run.numTurns ?? 0,
     durationMs: run.durationMs ?? 0,
   }
-  supersedeIncompleteDecisionAuthorAttempt(run)
+  const declaredDecisionArtifacts = decisionArtifacts(run)
+  const retainedDecisionAuthor = declaredDecisionArtifacts.length > 0
+    && declaredDecisionArtifacts.every((relative) => plan.completedOutputs!.includes(relative))
+  if (!retainedDecisionAuthor) {
+    supersedeIncompleteDecisionAuthorAttempt(
+      run, run.automaticContinuationRetainsDecisionAuthor === true,
+    )
+  }
+  run.automaticContinuationRetainsDecisionAuthor = retainedDecisionAuthor
   run.automaticContinuationCount = plan.index!
   run.providerAttemptId = randomUUID()
   run.automaticContinuationCheckpoint = plan.checkpoint!
@@ -5688,9 +5808,12 @@ async function continueIncompleteCodexProcess(
   run.status = 'starting'
 
   const ts = Date.now()
+  const totalOutputs = new Set([
+    ...plan.completedOutputs!, ...plan.unresolvedOutputs!,
+  ]).size
   const activity = {
     tool: 'Task',
-    target: `Continue same Codex run · process ${plan.index} · ${plan.completedOutputs!.length}/${run.expected.size} outputs complete`,
+    target: `Continue same Codex run · process ${plan.index} · ${plan.completedOutputs!.length}/${totalOutputs} outputs complete`,
     ts,
   }
   run.lastActivity = activity
@@ -5882,6 +6005,7 @@ async function spawnEngine(run: RunState): Promise<void> {
     // Provider-owned lease/binary validation is deliberately the final synchronous operation before
     // supervisor provenance begins and the process is created. It must not perform asynchronous work.
     launchSpec.beforeSpawn?.()
+    captureCodexContinuationBaselines(run)
     appendExecutionAttempt(run)
     child = execa(launchSpec.command, launchSpec.args, {
       cwd: launchSpec.cwd,

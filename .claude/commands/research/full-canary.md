@@ -21,9 +21,18 @@ required `.requires_idea_publication` and `.defer_module_memos` markers, the det
 readiness cache, and one folder for every currently discovered module. A human-approved degraded-data launch
 may additionally have `readiness_override.json`. Require every discovered module's canonical `99_*` synthesis
 to exist and pass the artifact validator before continuing. Treat only those completed module folders and
-exact supervisor support paths as expected. Fail if any module is missing/partial, or if any terminal
-artifact, failure/interruption marker, or other unexpected top-level entry already exists. The snapshot root
-in the receipt must be the exact `data/<TICKER>` directory.
+exact supervisor support paths as expected. Normally, fail if any module is missing/partial, or if any
+terminal artifact, failure/interruption marker, or other unexpected top-level entry already exists.
+
+One narrow exception is a supervisor-authorized same-root recovery: `NOSTRA_PARITY_CANARY_CONTINUATION=1`.
+That variable is valid only when the cockpit has already verified the protected interruption authority and
+then launched this terminal process through the internal continuation route. In that mode, the completed
+module folders remain immutable inputs, but raw retained `final_thesis.md`, `decision_record.json`,
+`idea_3_6m.json`, `memo.md`, `audit_dossier.md`, and `RUN_METADATA.md` are allowed. Re-run the complete
+terminal adjudication and replace/revalidate those raw files; do not treat their mere presence as completion
+and do not launch or repeat a module. Still fail on `execution_provenance.receipt.json`, `.aborted`, any
+unknown top-level entry, or any incomplete module. The snapshot root in the receipt must be the exact
+`data/<TICKER>` directory in both modes.
 
 Then execute the complete `/research:full` workflow, with these narrow substitutions taking precedence:
 
@@ -33,7 +42,9 @@ Then execute the complete `/research:full` workflow, with these narrow substitut
 - Treat the completed module set as the current frozen run, not as a prior decision. Never select a prior
   run; set `<PRIOR_RUN>` to `none`. Do not read another analysis root as research context. Follow the normal
   completed-module skip rule, then perform the master synthesis, memos, finish gates, audits, decision record,
-  metadata, and terminal publication against this exact root.
+  idea assessment, metadata, and terminal publication against this exact root. In continuation mode this
+  explicitly means re-authoring all retained raw terminal files from the frozen module evidence before the
+  publication call; their pre-existing bytes are not a substitute for this process's adjudication.
 - Use only the frozen `data/<TICKER>` snapshot and the receipt's exact price anchor. Do not fetch or use
   newer web evidence, a newer price, or a different data directory. A missing required input remains missing.
 - Preserve `.provider-parity-input.json` byte-for-byte. Every research output, module folder, synthesis,
