@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-26T09:42:06Z",
+  "generated_at": "2026-08-26T09:52:42Z",
   "inbox": [
     {
       "inbox_id": "INB-20260826-726",
@@ -655,6 +655,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260826-736",
+      "headline": "NCLT allows Subhash Chandra to pay ₹6.5 crore against claims of ₹22,006.57 crore",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/companies/nclt-allows-subhash-chandra-to-pay-65-crore-against-claims-of-2200657-crore/article71392162.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-26T09:28:50Z",
+      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
+      "prelim_note": "NCLT approved a settlement where only ₹6.5 crore is paid against claims of ₹22,006.57 crore, indicating a massive haircut/distress.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "NCLT approved a settlement where only ₹6.5 crore is paid against claims of ₹22,006.57 crore, indicating a massive haircut/distress.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Subhash Chandra",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1962,56 +2011,6 @@
       "companies": [
         {
           "name": "Avenue Supermarts Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260826-590",
-      "headline": "Hindustan Aeronautics Limited: Hindustan Aeronautics Limited has informed the Exchange regarding a press release dated August 26, 2026, titled \"HAL and SafranHelicopter Engines sign final contract with SAFHAL, launchingdevelopment and production of the Aravalli engine\".",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/HAL_26082026111035_Mediarelease_26082026.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-26T05:40:45Z",
-      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
-      "prelim_note": "The company signed a contract for the development and production of a new engine, indicating future revenue growth.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "The company signed a contract for the development and production of a new engine, indicating future revenue growth.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "commercial",
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Hindustan Aeronautics Limited",
           "ticker": null,
           "listing_country": "IN"
         }
@@ -94345,9 +94344,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1922079,
-    "news_picked_today": 1311,
-    "news_dropped_today": 11601
+    "news_seen_today": 1944267,
+    "news_picked_today": 1323,
+    "news_dropped_today": 11613
   },
   "book_momentum": {
     "live_count": 8,
