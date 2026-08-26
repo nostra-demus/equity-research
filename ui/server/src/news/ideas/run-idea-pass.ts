@@ -1109,7 +1109,9 @@ export async function runIdeaPass(deps: IdeaPassDeps): Promise<IdeaPassResult> {
         schema_version: 'ideas-interrupted-attempt/v1',
         interruption_id: interruptionId,
         detected_at: detectedAt,
-        started_at: new Date(prev.ran_at_ms).toISOString(),
+        // Old state retained only a general pass clock, not this request's exact start. Keep the field
+        // honestly unknown; ran_at_ms is used only inside the deterministic recovery identity.
+        started_at: null,
         phase: 'legacy_unknown',
         attempt_id: null,
         provider: null,
