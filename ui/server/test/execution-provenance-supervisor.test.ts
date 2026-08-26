@@ -116,6 +116,52 @@ try {
   fs.writeFileSync(path.join(absolute, 'decision_record.json'), JSON.stringify({ ticker: 'ZZPROVSUP', version: 2 }) + '\n')
   assert.equal(artifactIsFresh(run, 'decision_record.json'), true, 'only current-attempt artifact bytes are publishable')
 
+  const originalAuthor = run.currentExecutionAttempts?.find((row) =>
+    row.attribution === 'recorded' && row.decision_author === true)
+  assert.ok(originalAuthor, 'the initial terminal process is the recorded decision author')
+  const originalBaseline = run.publicationBaselines?.['decision_record.json']
+  run.providerAttemptId = randomUUID()
+  run.automaticContinuationRetainsDecisionAuthor = true
+  beginExecutionAttempt(run)
+  assert.equal(run.publicationBaselines?.['decision_record.json'], originalBaseline,
+    'an automatic continuation preserves the logical run freshness baseline')
+  assert.equal(artifactIsFresh(run, 'decision_record.json'), true,
+    'an unchanged decision from the first process remains publishable by its continuation')
+  const retainedAuthor = run.executionAttempts?.find((row) =>
+    row.attempt_id === originalAuthor?.attempt_id && row.attribution === 'recorded')
+  assert.equal(retainedAuthor?.decision_author, true,
+    'the process that authored the verdict retains calibration attribution')
+  const publicationContinuation = run.currentExecutionAttempts?.find((row) => row.attribution === 'recorded')
+  assert.equal(publicationContinuation?.decision_author, false,
+    'a publication-only continuation is a recorded contributor, not the decision author')
+  assert.deepEqual(publicationContinuation?.decision_artifacts, [],
+    'a publication-only continuation does not claim the retained decision artifact')
+
+  const protectedRecoveryRoot = `${root}_protected-recovery`
+  const protectedRecoveryAbsolute = path.join(REPO_ROOT, protectedRecoveryRoot)
+  extraCleanup.push(protectedRecoveryAbsolute)
+  fs.mkdirSync(protectedRecoveryAbsolute, { recursive: true })
+  const protectedRecovery = createRun({
+    kind: 'full', ticker: 'ZZPROTECTED', provider: 'codex',
+    executionProfile: { key: 'codex:test', parentModel: 'gpt-test', parentReasoning: 'max' },
+    profileKey: 'codex:test', model: 'gpt-test', reasoningLevel: 'max', prompt: '', user: 'test',
+    userVia: 'local', runRoot: protectedRecoveryRoot, willCommitToMain: false,
+    writeTargetsAbs: [protectedRecoveryAbsolute], coveredModules: [], readDepsAbs: [],
+    closeWatcher: undefined, expected: new Map(),
+    protectedPriorExecutionAttempts: [{ ...originalAuthor! }],
+  })
+  beginExecutionAttempt(protectedRecovery)
+  const importedProtected = protectedRecovery.executionAttempts?.find((row) =>
+    row.attempt_id === originalAuthor?.attempt_id)
+  assert.equal(importedProtected?.attribution, 'recorded')
+  assert.equal(importedProtected?.decision_author, false,
+    'an interrupted prior author is retained as observed lineage but cannot author the replacement verdict')
+  assert.deepEqual(importedProtected?.scope, ['live_prior_attempt'])
+  assert.equal(protectedRecovery.currentExecutionAttempts?.find((row) =>
+    row.attribution === 'recorded')?.decision_author, true,
+    'the recovery terminal process authors the replacement verdict')
+  finishRun(protectedRecovery, 'error')
+
   const imported = projectionLineageRows({ execution_provenance: {
     provider_mode: 'single_provider', profile_key: 'claude:opus:default',
     contributors: [{ provider: 'claude', model: 'opus', reasoning_level: 'default', attribution: 'recorded', scopes: ['modules'] }],

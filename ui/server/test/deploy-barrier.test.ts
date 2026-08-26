@@ -2,7 +2,9 @@ import assert from 'node:assert/strict'
 import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
-import { acquireProviderRunDeployLease, providerDeployBarrierPath } from '../src/deploy-barrier'
+import {
+  acquireProviderRunDeployLease, providerDeployBarrierPath, withProviderRunDeployLease,
+} from '../src/deploy-barrier'
 import { acquireRetainedFlockSync, releaseRetainedFlock } from '../src/singleton-lock'
 
 const root = fs.mkdtempSync(path.join(os.tmpdir(), 'nostra-deploy-barrier-'))
@@ -28,6 +30,30 @@ try {
 
   const afterDeploy = acquireProviderRunDeployLease(root)
   afterDeploy()
+
+  let finishAsync!: () => void
+  let enteredAsync!: () => void
+  const entered = new Promise<void>((resolve) => { enteredAsync = resolve })
+  const finish = new Promise<void>((resolve) => { finishAsync = resolve })
+  const inFlight = withProviderRunDeployLease(root, async () => {
+    enteredAsync()
+    await finish
+    return 42
+  })
+  await entered
+  assert.throws(exclusive, (error: any) => error?.code === 'EBUSY',
+    'the async scanner lifecycle retains its shared deploy lease until every awaited step settles')
+  finishAsync()
+  assert.equal(await inFlight, 42)
+  const afterAsync = exclusive()
+  releaseRetainedFlock(afterAsync)
+
+  await assert.rejects(
+    withProviderRunDeployLease(root, async () => { throw new Error('scanner failed') }),
+    /scanner failed/,
+  )
+  const afterRejectedAsync = exclusive()
+  releaseRetainedFlock(afterRejectedAsync)
 } finally {
   fs.rmSync(root, { recursive: true, force: true })
 }

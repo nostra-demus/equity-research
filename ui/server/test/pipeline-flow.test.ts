@@ -14,8 +14,10 @@ import {
   PIPELINE_FLOW_ABORT_SETTLEMENT_MS,
   PIPELINE_FLOW_WINDOW_MS,
   readPipelineFlowCycles,
+  reconcilePipelineFlowGaps,
   requiredPipelineFlowDates,
 } from '../src/news/pipeline-flow'
+import { readCycleInterruptionAudit } from '../src/news/provider-routing'
 import type { CycleSummary } from '../src/news/types'
 
 let passed = 0
@@ -495,6 +497,96 @@ check('a prior-day missing summary gates only the overlapping rate window and no
   } finally {
     fs.rmSync(root, { recursive: true, force: true })
     fs.rmSync(state, { recursive: true, force: true })
+  }
+})
+
+check('stale receipts become permanent interruption audits only after summary reconciliation', () => {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'pipeline-flow-reconcile-root-'))
+  const state = fs.mkdtempSync(path.join(os.tmpdir(), 'pipeline-flow-reconcile-state-'))
+  const now = Date.parse('2026-08-21T12:00:00Z')
+  const matched = '2026-08-21T11:00:00Z'
+  const interrupted = '2026-08-21T11:10:00Z'
+  const live = '2026-08-21T11:55:00Z'
+  try {
+    const inbox = path.join(root, 'screener', 'inbox')
+    fs.mkdirSync(inbox, { recursive: true })
+    fs.writeFileSync(path.join(inbox, '2026-08-21_firehose.ndjson'), `${JSON.stringify({
+      kind: 'cycle_summary', ...cycle(Date.parse(matched), {
+        completed_at: '2026-08-21T11:01:00Z', new_arrivals: 1, picked: 1,
+      }),
+    })}\n`)
+    assert.equal(beginPipelineFlowCycle(state, matched, Date.parse(matched), CYCLE_TIMEOUT_MS), true)
+    assert.equal(beginPipelineFlowCycle(state, interrupted, Date.parse(interrupted), CYCLE_TIMEOUT_MS), true)
+    assert.equal(beginPipelineFlowCycle(state, live, Date.parse(live), CYCLE_TIMEOUT_MS), true)
+
+    assert.equal(reconcilePipelineFlowGaps(root, '', state, now, CYCLE_TIMEOUT_MS), true)
+    assert.deepEqual(
+      JSON.parse(fs.readFileSync(path.join(state, 'news-pipeline-flow-gaps.json'), 'utf8')).starts,
+      [live],
+      'a proven summary clears its false marker, a stale missing summary is audited, and a live look remains active',
+    )
+    const audit = readCycleInterruptionAudit(root, '', Date.parse('2026-08-21T00:00:00Z'), now + 1)
+    assert.equal(audit.readable, true)
+    assert.equal(audit.events.length, 1)
+    assert.equal(audit.events[0].startedAt, new Date(interrupted).toISOString())
+
+    const flow = readPipelineFlowCycles(root, '', now, CYCLE_TIMEOUT_MS, state)
+    assert.equal(flow.history.incompleteCycles, 1, 'the still-running receipt alone remains active')
+    assert.equal(flow.history.recordedInterruptions, 1, 'the audited incident still invalidates an overlapping capacity window')
+    assert.equal(flow.history.todayIncompleteCycles, 1)
+    assert.equal(flow.history.todayRecordedInterruptions, 1)
+    assert.equal(flow.history.todayTotalsLowerBound, true)
+
+    // Simulate a host death after the audit append but before the compact marker rewrite. The retry finds
+    // the deterministic audit incident, removes the stale marker, and never appends a duplicate.
+    assert.equal(beginPipelineFlowCycle(state, interrupted, now, CYCLE_TIMEOUT_MS), true)
+    assert.equal(reconcilePipelineFlowGaps(root, '', state, now, CYCLE_TIMEOUT_MS), true)
+    assert.equal(readCycleInterruptionAudit(root, '', Date.parse('2026-08-21T00:00:00Z'), now + 1).events.length, 1)
+    assert.deepEqual(JSON.parse(fs.readFileSync(path.join(state, 'news-pipeline-flow-gaps.json'), 'utf8')).starts, [live])
+  } finally {
+    fs.rmSync(root, { recursive: true, force: true })
+    fs.rmSync(state, { recursive: true, force: true })
+  }
+})
+
+check('ambiguous completion evidence remains active instead of being rewritten as a missing-summary incident', () => {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'pipeline-flow-ambiguous-root-'))
+  const state = fs.mkdtempSync(path.join(os.tmpdir(), 'pipeline-flow-ambiguous-state-'))
+  const started = '2026-08-21T11:00:00Z'
+  const now = Date.parse('2026-08-21T12:00:00Z')
+  try {
+    const inbox = path.join(root, 'screener', 'inbox')
+    fs.mkdirSync(inbox, { recursive: true })
+    fs.writeFileSync(path.join(inbox, '2026-08-21_firehose.ndjson'), `{"kind":"cycle_summary","ts":"${started}",\n`)
+    assert.equal(beginPipelineFlowCycle(state, started, Date.parse(started), CYCLE_TIMEOUT_MS), true)
+    assert.equal(reconcilePipelineFlowGaps(root, '', state, now, CYCLE_TIMEOUT_MS), false)
+    assert.deepEqual(JSON.parse(fs.readFileSync(path.join(state, 'news-pipeline-flow-gaps.json'), 'utf8')).starts, [started])
+    assert.equal(fs.existsSync(path.join(inbox, '2026-08-21_pipeline.ndjson')), false)
+  } finally {
+    fs.rmSync(root, { recursive: true, force: true })
+    fs.rmSync(state, { recursive: true, force: true })
+  }
+})
+
+check('an unreadable interruption audit fails capacity and daily totals closed', () => {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'pipeline-flow-audit-damage-'))
+  const now = Date.parse('2026-08-21T12:00:00Z')
+  try {
+    const inbox = path.join(root, 'screener', 'inbox')
+    fs.mkdirSync(inbox, { recursive: true })
+    fs.writeFileSync(path.join(inbox, '2026-08-21_firehose.ndjson'), `${JSON.stringify({
+      kind: 'cycle_summary', ...cycle(now - 60_000, {
+        completed_at: '2026-08-21T11:59:30Z', new_arrivals: 1, picked: 1,
+      }),
+    })}\n`)
+    fs.writeFileSync(path.join(inbox, '2026-08-21_pipeline.ndjson'), '{not-json}\n')
+    const read = readPipelineFlowCycles(root, '', now, CYCLE_TIMEOUT_MS)
+    assert.equal(read.history.interruptionAuditUnreadable, true)
+    assert.equal(read.history.coverage, 'partial')
+    assert.equal(read.history.todayTotalsLowerBound, true)
+    assert.equal(buildPipelineFlowRates(read.cycles, now, CYCLE_TIMEOUT_MS, read.history).comparison.status, 'unavailable')
+  } finally {
+    fs.rmSync(root, { recursive: true, force: true })
   }
 })
 

@@ -27,6 +27,13 @@ assert.match(
   'the terminal adjudicator must refuse a partial module DAG',
 )
 assert.match(command, /ONE terminal adjudicator/)
+for (const expected of [
+  'NOSTRA_PARITY_CANARY_CONTINUATION=1',
+  'raw retained `final_thesis.md`',
+  '`idea_3_6m.json`',
+  'Still fail on `execution_provenance.receipt.json`',
+  'do not launch or repeat a module',
+]) assert.ok(command.includes(expected), `canary recovery contract is missing: ${expected}`)
 
 for (const expected of [
   'This is a thin compatibility loader, not a second module prompt',

@@ -32,6 +32,7 @@ export type ScannerHealthCode =
   | 'cycle-ledger-damaged'
   | 'flow-history-incomplete'
   | 'cycle-completion-gap'
+  | 'cycle-interruption-recorded'
   | 'last-cycle-aborted'
   | 'providers-unconfigured'
   | 'providers-blocked'
@@ -70,6 +71,7 @@ export interface ScannerHealthInput {
       missingDates?: string[]
       unreadableDates?: string[]
       gapMarkerUnreadable?: boolean
+      interruptionAuditUnreadable?: boolean
     }
     comparison: {
       measured: boolean
@@ -99,6 +101,7 @@ export interface ScannerHealthInput {
   }
   today: {
     incompleteCycles: number
+    recordedInterruptions?: number
     totalsLowerBound: boolean
     historyStatus: 'complete' | 'missing' | 'unreadable' | 'unavailable'
     corruptCycleRows: number
@@ -211,7 +214,8 @@ export function evaluateScannerHealth(
   }
 
   if (input.today.historyStatus === 'unreadable' || input.today.historyStatus === 'unavailable'
-    || input.today.corruptCycleRows > 0 || input.flow.history?.gapMarkerUnreadable) {
+    || input.today.corruptCycleRows > 0 || input.flow.history?.gapMarkerUnreadable
+    || input.flow.history?.interruptionAuditUnreadable) {
     add({
       code: 'cycle-ledger-damaged', severity: 'critical',
       message: `Today's scanner history is damaged or unreadable${input.today.corruptCycleRows > 0 ? ` (${input.today.corruptCycleRows} malformed ${plural(input.today.corruptCycleRows, 'record')})` : ''}.`,
@@ -235,6 +239,15 @@ export function evaluateScannerHealth(
     add({
       code: 'cycle-completion-gap', severity: 'critical',
       message: `${incomplete} earlier scanner ${plural(incomplete, 'look')} started without a durable completion record.`,
+      action: 'inspect-cycle-ledger', restartRecommended: false,
+    })
+  }
+
+  const recordedInterruptions = Math.max(0, input.today.recordedInterruptions || 0)
+  if (recordedInterruptions > 0) {
+    add({
+      code: 'cycle-interruption-recorded', severity: 'warning',
+      message: `${recordedInterruptions} earlier scanner ${plural(recordedInterruptions, 'look')} ended without a completion summary. ${recordedInterruptions === 1 ? 'The incident is' : 'The incidents are'} permanently recorded, and today's totals remain lower bounds.`,
       action: 'inspect-cycle-ledger', restartRecommended: false,
     })
   }

@@ -59,8 +59,8 @@ import { rerankCandidates } from './retrieval/rerank'
 import { markInboxConsumed, setDismissed } from './news/inbox-actions'
 import { refreshBoard } from './news/write-inbox'
 import {
-  appendIdeaFeedback, finalizeIdeaPromotion, ideaPromotionEligibility, readIdeaById, releaseIdeaPromotion, reserveIdeaPromotion,
-  updateIdeaSnapshot,
+  appendIdeaFeedback, finalizeIdeaPromotion, ideaPromotionEligibility, readIdeaById, reconcileIdeaPromotionReservations,
+  releaseIdeaPromotion, reserveIdeaPromotion, updateIdeaSnapshot,
 } from './news/ideas/ideas-store'
 import { auditInboxAction, hideSignal, moveThesis, MOVE_TARGETS, SIGNAL_ACTIONS } from './screener-actions'
 import { markIdeasPublicationPending } from './news/ideas/ideas-publisher'
@@ -1243,9 +1243,8 @@ app.post('/api/internal/provider-parity/canary-continue', { config: { rateLimit:
       throw Object.assign(new Error('canary interruption authority does not match the requested Codex process/profile'), { statusCode: 409 })
     }
     if (canaryRunFileExists(rootAbs, '.aborted')
-        || ['final_thesis.md', 'decision_record.json', 'execution_provenance.receipt.json']
-          .some((name) => canaryRunFileExists(rootAbs, name))) {
-      throw Object.assign(new Error('canary is aborted or already has terminal artifacts'), { statusCode: 409 })
+        || canaryRunFileExists(rootAbs, 'execution_provenance.receipt.json')) {
+      throw Object.assign(new Error('canary is aborted or already supervisor-published'), { statusCode: 409 })
     }
     const bindingRaw = readCanaryRunFile(rootAbs, '.provider-parity-input.json')
     let subject = ''
@@ -6004,6 +6003,42 @@ app.post('/api/screener/board/rebuild', { config: { rateLimit: { max: 120, timeW
 // Then it stamps the idea snapshot promoted so the board reflects it. Reuses the whole launch machinery
 // (credit/preflight/admission) — this endpoint only maps idea -> intake and records the promotion.
 const IDEA_ID_RE = /^IDEA-[a-f0-9]{12}$/
+
+/** A crash-recovery proof, not a broad folder-exists check: the exact manifest-derived signal folder must
+ * contain a regular, non-symlink intake whose embedded identity matches the frozen reservation. */
+function durableSignalIntakeExists(signalId: string): boolean {
+  if (!/^SIG-[0-9]{8}-[a-f0-9]{8}$/.test(signalId)) return false
+  const screener = swarmById('screener')
+  if (!screener?.runRootTemplate || !screener.placeholder) throw new Error('screener run-root manifest is unavailable')
+  const root = path.resolve(REPO_ROOT, screener.runRootTemplate.replace(`{${screener.placeholder}}`, signalId))
+  const boundary = path.resolve(REPO_ROOT, 'screener')
+  if (!root.startsWith(boundary + path.sep)) throw new Error('screener run-root manifest escaped its repository boundary')
+  const intake = path.resolve(root, 'intake.json')
+  if (!intake.startsWith(root + path.sep)) throw new Error('signal intake path escaped its run root')
+  try {
+    const rootInfo = fs.lstatSync(root)
+    const intakeInfo = fs.lstatSync(intake)
+    if (!rootInfo.isDirectory() || rootInfo.isSymbolicLink()
+        || !intakeInfo.isFile() || intakeInfo.isSymbolicLink()) {
+      throw new Error('signal admission proof is not a regular contained intake')
+    }
+    const realBoundary = fs.realpathSync(boundary)
+    const realRoot = fs.realpathSync(root)
+    const realIntake = fs.realpathSync(intake)
+    if (!realRoot.startsWith(realBoundary + path.sep) || !realIntake.startsWith(realRoot + path.sep)) {
+      throw new Error('signal admission proof escaped its real screener boundary')
+    }
+    const parsed = JSON.parse(fs.readFileSync(realIntake, 'utf8'))
+    if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed) || parsed.signal_id !== signalId) {
+      throw new Error('signal admission proof identity does not match its reservation')
+    }
+    return true
+  } catch (error: any) {
+    if (error?.code === 'ENOENT') return false
+    throw error
+  }
+}
+
 app.post('/api/screener/ideas/:id/promote', { config: { rateLimit: { max: 60, timeWindow: '1 minute' } } }, async (req, reply) => {
   const providerBody = ProviderBody.safeParse(req.body ?? {})
   if (!providerBody.success) return reply.code(400).send({ error: 'invalid provider profile' })
@@ -6027,7 +6062,12 @@ app.post('/api/screener/ideas/:id/promote', { config: { rateLimit: { max: 60, ti
   const intake = hasSource
     ? { headline, source_url: idea.source_url as string, source_name: idea.source_name as string, input_nature: 'news_headline' }
     : { headline, human_prompt_note: `Desk skim — ${idea.direction.toUpperCase()} ${idea.ticker}: ${idea.reason}`.slice(0, 4000), input_nature: 'human_prompt' }
-  const reservation = reserveIdeaPromotion(REPO_ROOT, ideaId)
+  // Freeze the exact date used in the deterministic SIG id before reserving. launch() can spend minutes in
+  // provider readiness; recomputing after midnight would otherwise make the recovery receipt name a folder
+  // the admitted launch never wrote.
+  const signalDate = todayDate()
+  const reservedSignalId = sigIdFor(intake, signalDate)
+  const reservation = reserveIdeaPromotion(REPO_ROOT, ideaId, Date.now(), reservedSignalId)
   if (!reservation) {
     const current = readIdeaById(REPO_ROOT, ideaId)
     if (current) {
@@ -6046,10 +6086,11 @@ app.post('/api/screener/ideas/:id/promote', { config: { rateLimit: { max: 60, ti
     const out = await launch({
       kind: 'signal', intake, provider: providerBody.data.provider,
       model: providerBody.data.model, reasoningLevel: providerBody.data.reasoningLevel,
-      expectedProfileKey: providerBody.data.expectedProfileKey, user, userVia,
+      expectedProfileKey: providerBody.data.expectedProfileKey, signalDate, user, userVia,
     })
     launchCompleted = true
     const sigId = out.preflight.ticker
+    if (sigId !== reservation.signal_id) throw new Error('admitted signal identity did not match its durable promotion reservation')
     // Merge only lifecycle fields into the newest provider snapshot under the reservation. A refresh or
     // feedback update that landed during the paid launch remains intact.
     markIdeasPublicationPending(STATE_DIR)
@@ -6628,6 +6669,13 @@ purgeReelTempDirs(0)
   .then(() => reconcileOrphanedProviderGroups())
   .then(async (count) => {
     if (count) console.log(`[swarm-cockpit] reconciled ${count} orphaned provider process group(s) before admission`) // eslint-disable-line no-console
+    const promotions = reconcileIdeaPromotionReservations(REPO_ROOT, durableSignalIntakeExists)
+    if (promotions.recovered > 0) {
+      markIdeasPublicationPending(STATE_DIR)
+      console.log(`[swarm-cockpit] recovered ${promotions.recovered} admitted Idea promotion(s) before admission`) // eslint-disable-line no-console
+    }
+    if (promotions.released > 0) console.log(`[swarm-cockpit] released ${promotions.released} stale Idea promotion reservation(s)`) // eslint-disable-line no-console
+    if (promotions.errors.length > 0) console.error(`[swarm-cockpit] Idea promotion recovery needs attention: ${promotions.errors.join('; ')}`) // eslint-disable-line no-console
     const recovered = await recoverReadyPublications()
     if (recovered) console.log(`[swarm-cockpit] recovered ${recovered} post-extinction publication(s) before admission`) // eslint-disable-line no-console
     // Readiness means the first workspace request is warm. Graph discovery/parsing is synchronous, so if

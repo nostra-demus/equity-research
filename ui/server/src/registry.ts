@@ -46,6 +46,8 @@ export interface RunState {
   /** Canonical supervisor-owned rows. Provider children never receive or mutate this array. */
   executionAttempts?: Array<Record<string, unknown>>
   currentExecutionAttempts?: Array<Record<string, unknown>>
+  /** Protected rows captured before an interrupted selection is replaced by a recovery admission. */
+  protectedPriorExecutionAttempts?: Array<Record<string, unknown>>
   /** Run-root-relative decision artifact hashes captured immediately before the provider starts. */
   publicationBaselines?: Record<string, string | null>
   /** Retained evidence exists but its pre-provider identity cannot be proven. */
@@ -56,6 +58,8 @@ export interface RunState {
   parityCanary?: boolean
   /** Frozen child role. Only `final` is a decision author and must complete supervisor publication. */
   parityCanaryStage?: 'module' | 'final'
+  /** This terminal canary repairs a supervisor-authorized same-root interruption. */
+  parityCanaryContinuation?: boolean
   /** Set only after the live supervisor verifies the terminal parity receipt and bound canaries. */
   parityVerificationCompleted?: boolean
   parityVerificationReceiptPath?: string
@@ -132,8 +136,12 @@ export interface RunState {
   automaticContinuationCount?: number
   /** Sorted canonical done-orb keys observed at the prior Codex process boundary. */
   automaticContinuationCheckpoint?: string
+  /** Pre-first-process hashes for every declared terminal output in this admitted logical Codex run. */
+  automaticContinuationBaselines?: Record<string, string | null>
   /** Consecutive clean Codex process boundaries with no newly completed canonical output. */
   automaticContinuationStagnantTurns?: number
+  /** The prior process already authored every declared decision artifact; later processes publish only. */
+  automaticContinuationRetainsDecisionAuthor?: boolean
   /** Metrics already accumulated before the currently running continuation process. */
   automaticContinuationMetricBase?: { costUsd: number; numTurns: number; durationMs: number }
   willCommitToMain: boolean
