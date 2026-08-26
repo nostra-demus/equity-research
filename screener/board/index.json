@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-26T17:29:59Z",
+  "generated_at": "2026-08-26T17:49:56Z",
   "inbox": [
     {
       "inbox_id": "INB-20260826-980",
@@ -1696,6 +1696,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260826-1052",
+      "headline": "Gatik Raises $200 Million as It Ramps Up Driverless Truck Fleet",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/technology/ai/articles/gatik-raises-200-million-ramps-170035744.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-26T17:00:35Z",
+      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
+      "prelim_note": "Gatik raised $200 million in new funding to expand its autonomous trucking operations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Gatik raised $200 million in new funding to expand its autonomous trucking operations.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Gatik",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260826-1031",
       "headline": "AD Ports board backs ADQ’s Dh6.25-a-share buyout offer",
       "headline_en": null,
@@ -1789,6 +1838,56 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260826-1055",
+      "headline": "KSS Q2 Earnings Beat Estimates on Margin Gains, Outlook Raised",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/kss-q2-earnings-beat-estimates-margin-gains-outlook-raised",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-26T15:45:00Z",
+      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
+      "prelim_note": "Kohl's beat earnings estimates and raised its financial outlook.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Kohl's beat earnings estimates and raised its financial outlook.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Kohl's",
+          "ticker": "KSS",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1888,109 +1987,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260826-1003",
-      "headline": "Germany and UniCredit to talk about Commerzbank amid takeover battle",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/finance/germanys-commerzbank-has-bumpy-history-with-big-ma-2026-08-26/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-26T14:55:44Z",
-      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
-      "prelim_note": "UniCredit is engaged in a potential takeover battle for Commerzbank, with German government involvement.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "UniCredit is engaged in a potential takeover battle for Commerzbank, with German government involvement.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "UniCredit",
-          "ticker": null,
-          "listing_country": "IT"
-        },
-        {
-          "name": "Commerzbank",
-          "ticker": null,
-          "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260826-1004",
-      "headline": "Abercrombie raises full-year forecasts on robust apparel demand, shares jump",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/retail-consumer/abercrombie-raises-full-year-sales-forecast-resilient-apparel-demand-2026-08-26/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-26T14:54:40Z",
-      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
-      "prelim_note": "Abercrombie raised its full-year financial forecasts due to strong demand.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Abercrombie raised its full-year financial forecasts due to strong demand.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Abercrombie & Fitch",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -95051,9 +95047,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3624312,
-    "news_picked_today": 2115,
-    "news_dropped_today": 15069
+    "news_seen_today": 3674045,
+    "news_picked_today": 2126,
+    "news_dropped_today": 15310
   },
   "book_momentum": {
     "live_count": 8,
