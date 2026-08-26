@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-08-26T13:56:01Z",
+  "generated_at": "2026-08-26T14:05:41Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260826-927",
+      "headline": "DFZQ (03958): (1) MAJOR TRANSACTION - THE PROPOSED ACQUISITION OF 100% EQUITY INTERESTS IN SHANGHAI SECURITIES BY WAY OF ISSUE OF CONSIDERATION A SHARES UNDER SPECIFIC MANDATE AND PAYMENT OF CASH AND (2) APPLICATION FOR WHITEWASH WAIVER ACCEPTANCE OF APPLICATION FOR THE PURCHASE OF ASSETS BY WAY OF ISSUE OF CONSIDERATION A SHARES UNDER THE PROPOSED TRANSACTION BY THE SHANGHAI STOCK EXCHANGE",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0826/2026082601813.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-26T13:49:00Z",
+      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
+      "prelim_note": "DFZQ announced a major acquisition of 100% equity in Shanghai Securities.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "DFZQ announced a major acquisition of 100% equity in Shanghai Securities.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "DFZQ",
+          "ticker": "03958",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260826-891",
       "headline": "ETHK LABS INC. (01931): PROFIT WARNING",
@@ -1499,6 +1548,165 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260826-926",
+      "headline": "Meta settles for $18 billion in lawsuit brought by 29 states over social media harms to children",
+      "headline_en": null,
+      "url": "https://techcrunch.com/2026/08/26/meta-settles-for-18-billion-in-lawsuit-brought-by-29-states-over-social-media-harms-to-children/",
+      "source_name": "TechCrunch",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-26T13:43:01Z",
+      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
+      "prelim_note": "Meta has reached an $18 billion settlement regarding social media harms to children.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Meta has reached an $18 billion settlement regarding social media harms to children.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Meta",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260826-922",
+      "headline": "Kohl’s Falls 6% Despite Raised Guidance and a $150M Tariff Refund, Ross and TJX Hold Flat",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/markets/stocks/articles/kohl-falls-6-despite-raised-132046978.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-26T13:20:46Z",
+      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
+      "prelim_note": "Kohl's stock fell 6% despite a $150M tariff refund and raised guidance, indicating market disappointment with underlying performance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Kohl's stock fell 6% despite a $150M tariff refund and raised guidance, indicating market disappointment with underlying performance.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Kohl's",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Ross",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "TJX",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260826-924",
+      "headline": "Abercrombie & Fitch raises full-year outlook as Q2 earnings top estimates",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/markets/stocks/articles/abercrombie-fitch-raises-full-outlook-131700391.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-26T13:17:00Z",
+      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
+      "prelim_note": "Company beat Q2 earnings estimates and raised full-year outlook.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company beat Q2 earnings estimates and raised full-year outlook.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Abercrombie & Fitch",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260826-916",
       "headline": "Jazz Pharmaceuticals Plans $1 Bln Notes Offering, Concurrent $225 Mln Share Buyback",
       "headline_en": null,
@@ -1804,202 +2012,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260826-862",
-      "headline": "Intuit shares plunge as cautious fiscal 2027 guidance falls short of forecasts",
-      "headline_en": null,
-      "url": "https://finance.yahoo.com/markets/stocks/articles/intuit-shares-plunge-cautious-fiscal-104320782.html",
-      "source_name": "Yahoo Finance",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-26T10:43:20Z",
-      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
-      "prelim_note": "Intuit issued cautious FY2027 guidance that missed forecasts, a quantified guidance cut for a mega-cap company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Intuit issued cautious FY2027 guidance that missed forecasts, a quantified guidance cut for a mega-cap company.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Intuit",
-          "ticker": "INTU",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260826-808",
-      "headline": "Avaada Electro cuts IPO size to ₹7,600 crore amid valuation, concentration concerns",
-      "headline_en": null,
-      "url": "https://www.livemint.com/market/ipo/avaada-electro-ipo-size-cut-rs-7600-crore-ipo-11787735978270.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-26T10:10:12Z",
-      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
-      "prelim_note": "Avaada Electro reduced its IPO size to ₹7,600 crore due to valuation and concentration concerns.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Avaada Electro reduced its IPO size to ₹7,600 crore due to valuation and concentration concerns.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Avaada Electro",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260826-800",
-      "headline": "Ambu CEO Says Growth Intact as Guidance Cut Revives Old Fears",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-08-26/ambu-ceo-says-growth-intact-as-guidance-cut-revives-old-fears",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-26T10:04:00Z",
-      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
-      "prelim_note": "Ambu has issued a guidance cut, which is a material event impacting investor expectations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Ambu has issued a guidance cut, which is a material event impacting investor expectations.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Ambu",
-          "ticker": null,
-          "listing_country": "DK"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260826-773",
-      "headline": "McKesson to acquire Precision Medicine Group for $2.25bn",
-      "headline_en": null,
-      "url": "https://finance.yahoo.com/healthcare/articles/mckesson-acquire-precision-medicine-group-094614528.html",
-      "source_name": "Yahoo Finance",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-26T09:46:14Z",
-      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
-      "prelim_note": "McKesson is acquiring Precision Medicine Group for $2.25bn.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "McKesson is acquiring Precision Medicine Group for $2.25bn.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "McKesson",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -94689,9 +94701,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2945638,
-    "news_picked_today": 1806,
-    "news_dropped_today": 13098
+    "news_seen_today": 3021223,
+    "news_picked_today": 1823,
+    "news_dropped_today": 13105
   },
   "book_momentum": {
     "live_count": 8,
