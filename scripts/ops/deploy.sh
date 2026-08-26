@@ -31,7 +31,13 @@ set -uo pipefail
 
 PROD="${ENGINE_REPO_ROOT:-$HOME/nostra-prod}"
 UID_NUM="$(id -u)"
-# resolve npm to an absolute path (launchd has a minimal PATH; brew is /opt/homebrew on Apple-Silicon, /usr/local on Intel)
+# launchd supplies only the system directories. npm itself uses `#!/usr/bin/env node`, and a globally
+# installed sidecar is discovered by name after provisioning, so resolving npm to an absolute path alone is
+# insufficient: npm then fails with `env: node: No such file or directory`, and the new binary stays
+# invisible. Keep a caller-supplied custom/virtual-environment path authoritative, then expose both
+# supported Homebrew locations before ANY tool discovery. Use system paths only when no PATH was supplied.
+export PATH="${PATH:-/usr/bin:/bin:/usr/sbin:/sbin}:/opt/homebrew/bin:/usr/local/bin"
+# resolve npm to an absolute path (brew is /opt/homebrew on Apple-Silicon, /usr/local on Intel)
 NPM="$(command -v npm 2>/dev/null || true)"; [ -n "$NPM" ] || for c in /opt/homebrew/bin/npm /usr/local/bin/npm; do [ -x "$c" ] && NPM="$c" && break; done; NPM="${NPM:-/opt/homebrew/bin/npm}"
 GIT="$(command -v git || echo /usr/bin/git)"
 PYTHON="$(command -v python3 || echo /usr/bin/python3)"
