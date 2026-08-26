@@ -104,6 +104,12 @@ export interface CodexPythonRuntime {
   readOnlyRoots: string[]
 }
 
+interface CodexPythonRuntimeProof {
+  version: [number, number, number]
+  executable: string
+  prefixes: unknown[]
+}
+
 export const CODEX_AVAILABILITY_CACHE_TTL_MS = 60_000
 export const CODEX_LAUNCH_PROOF_MAX_AGE_MS = 20_000
 export const CODEX_LAUNCH_PROOF_REPLAY_TTL_MS = 5 * 60_000
@@ -347,14 +353,33 @@ export function assertCodexPythonRuntime(env: NodeJS.ProcessEnv): CodexPythonRun
   const result = spawnSync(snapshot.realPath, [
     '-I', '-c', 'import json, os, sys; print(json.dumps({"version": list(sys.version_info[:3]), "executable": os.path.realpath(sys.executable), "prefixes": [sys.prefix, sys.exec_prefix, sys.base_prefix, sys.base_exec_prefix]}))',
   ], { env, encoding: 'utf8', timeout: 5_000 })
-  let proof: any
-  try { proof = JSON.parse(String(result.stdout || '')) } catch { proof = null }
+  let proof: CodexPythonRuntimeProof | null = null
+  try {
+    const parsed: unknown = JSON.parse(String(result.stdout || ''))
+    if (parsed && typeof parsed === 'object' && !Array.isArray(parsed)) {
+      const candidate = parsed as Record<string, unknown>
+      const version = candidate.version
+      const executable = candidate.executable
+      const prefixes = candidate.prefixes
+      if (Array.isArray(version) && version.length === 3
+          && version.every((part) => Number.isInteger(part))
+          && typeof executable === 'string' && Array.isArray(prefixes)) {
+        let resolvedExecutable: string | null = null
+        try { resolvedExecutable = fs.realpathSync(executable) } catch { /* invalid proof */ }
+        if (resolvedExecutable === snapshot.realPath) {
+          proof = {
+            version: version as [number, number, number],
+            executable,
+            prefixes,
+          }
+        }
+      }
+    }
+  } catch { /* malformed output fails closed below */ }
   if (result.status !== 0 || result.error || String(result.stderr || '').trim()
-      || !proof || !Array.isArray(proof.version) || proof.version.length !== 3
-      || proof.version.some((part: unknown) => !Number.isInteger(part))
+      || !proof
       || proof.version[0] !== 3 || proof.version[1] < 10
-      || typeof proof.executable !== 'string' || fs.realpathSync(proof.executable) !== snapshot.realPath
-      || !Array.isArray(proof.prefixes) || !proof.prefixes.length) {
+      || !proof.prefixes.length) {
     throw new Error('Codex launch requires an executable Python 3.10+ runtime on the isolated child PATH.')
   }
   const readOnlyRoots = [...new Set([

@@ -151,6 +151,16 @@ try {
     'a non-executable Python candidate never enters model-visible PATH')
   assert.throws(() => assertCodexPythonRuntime({ PATH: pythonToolDir }), /requires an executable Python 3\.10\+/,
     'the launch fails closed before inference when no supported Python can execute')
+  fs.writeFileSync(path.join(pythonToolDir, 'python3'), '#!/bin/sh\nprintf "[]"\n', { mode: 0o755 })
+  fs.chmodSync(path.join(pythonToolDir, 'python3'), 0o755)
+  const malformedProofPython = codexChildEnv(
+    { PATH: '/usr/bin:/bin' }, { pythonToolDirs: [pythonToolDir] },
+  )
+  assert.throws(
+    () => assertCodexPythonRuntime(malformedProofPython),
+    /requires an executable Python 3\.10\+/,
+    'non-object runtime proof JSON fails closed with the provider error instead of throwing on properties',
+  )
 } finally { fs.rmSync(pythonPathFixture, { recursive: true, force: true }) }
 assert.equal(scrubbed.OPENAI_API_KEY, undefined)
 assert.equal(scrubbed.CODEX_API_KEY, undefined)
