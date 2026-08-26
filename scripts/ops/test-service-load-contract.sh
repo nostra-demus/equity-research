@@ -63,7 +63,7 @@ import pathlib
 import sys
 
 text = pathlib.Path(sys.argv[1]).read_text(encoding="utf-8")
-path_contract = 'export PATH="/opt/homebrew/bin:/usr/local/bin:${PATH:-/usr/bin:/bin:/usr/sbin:/sbin}"'
+path_contract = 'export PATH="${PATH:-/usr/bin:/bin:/usr/sbin:/sbin}:/opt/homebrew/bin:/usr/local/bin"'
 npm_discovery = 'NPM="$(command -v npm 2>/dev/null || true)"'
 assert path_contract in text
 assert npm_discovery in text
