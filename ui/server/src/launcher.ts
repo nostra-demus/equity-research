@@ -693,7 +693,10 @@ function codexContinuationInventory(run: RunState): {
     // Root-terminal progress must reset the stagnant-turn guard too. Previously every module could be
     // complete while final_thesis/decision_record advanced, yet the checkpoint stayed frozen and the
     // next fresh Codex process was rejected with an empty inventory before it could publish provenance.
-    checkpoint: [...completed.map((item) => item.key), ...terminalCheckpoint].join('\n'),
+    checkpoint: [
+      ...completed.filter((item) => completedSet.has(item.outputRel)).map((item) => item.key),
+      ...terminalCheckpoint,
+    ].join('\n'),
     completedOutputs: [...completedSet],
     unresolvedOutputs: [...unresolvedSet],
   }
