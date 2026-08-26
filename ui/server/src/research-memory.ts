@@ -14,7 +14,7 @@ interface MemoryConfig {
   mode: ResearchMemoryMode
   stateRoot: string
   checkpoint: string
-  writerOwner: string
+  writerOwnerPath: string
   writerHead: string
   canonicalLedger: string
   protectedStore: string
@@ -156,7 +156,7 @@ function memoryConfig(env: NodeJS.ProcessEnv = process.env): MemoryConfig {
     mode,
     stateRoot: path.resolve(read('NOSTRA_MEMORY_STATE_ROOT', path.join(STATE_DIR, 'memory-runtime'))),
     checkpoint: read('NOSTRA_MEMORY_CHECKPOINT'),
-    writerOwner: read('NOSTRA_MEMORY_WRITER_OWNER'),
+    writerOwnerPath: read('NOSTRA_MEMORY_WRITER_OWNER_PATH'),
     writerHead: read('NOSTRA_MEMORY_WRITER_HEAD'),
     canonicalLedger: read('NOSTRA_MEMORY_CANONICAL_LEDGER'),
     protectedStore: read('NOSTRA_MEMORY_PROTECTED_STORE'),
@@ -280,7 +280,11 @@ export function resolveRunMemoryIdentity(run: RunState): ResearchMemoryIdentity 
 async function defaultExecutor(args: string[]): Promise<Record<string, any>> {
   const result = await execa('python3', ['scripts/research_memory_run_cli.py', ...args], {
     cwd: REPO_ROOT, env: { ...process.env, PYTHONPATH: path.join(REPO_ROOT, 'scripts') },
-    extendEnv: false, reject: false, timeout: 30_000,
+    // A repository-SHA change may require the one permitted deterministic clean rebuild before spend.
+    // That rebuild is not packet compilation and can exceed 30s on the full historical corpus. Keep every
+    // ordinary compile/attest/verify call at 30s; only snapshot preparation receives the bounded rebuild
+    // window. The runtime still fails closed before a paid dispatch when this deadline is exceeded.
+    extendEnv: false, reject: false, timeout: args[0] === 'prepare' ? 120_000 : 30_000,
   })
   let parsed: any
   try { parsed = JSON.parse(result.stdout.trim()) } catch { parsed = null }
@@ -355,7 +359,7 @@ export async function prepareResearchMemory(
       const predecessor = preparationTail.get(logical)
       promise = (predecessor ? predecessor.catch(() => undefined) : Promise.resolve()).then(() => executor([
         'prepare', ...commonArgs(config, logical), '--reuse',
-        '--checkpoint', config.checkpoint, '--writer-owner', config.writerOwner,
+        '--checkpoint', config.checkpoint, '--writer-owner', config.writerOwnerPath,
         '--writer-head', config.writerHead,
         '--canonical-ledger', config.canonicalLedger,
         '--protected-store', config.protectedStore,

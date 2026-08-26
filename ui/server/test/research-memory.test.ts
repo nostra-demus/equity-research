@@ -36,7 +36,8 @@ function run(): RunState {
 
 const configured = {
   NOSTRA_MEMORY_MODE: 'enforced', NOSTRA_MEMORY_STATE_ROOT: '/tmp/memory-state',
-  NOSTRA_MEMORY_CHECKPOINT: '/tmp/checkpoint', NOSTRA_MEMORY_WRITER_OWNER: '/tmp/owner',
+  NOSTRA_MEMORY_CHECKPOINT: '/tmp/checkpoint', NOSTRA_MEMORY_WRITER_OWNER_PATH: '/tmp/owner',
+  NOSTRA_MEMORY_WRITER_OWNER: 'memory-canonical-writer',
   NOSTRA_MEMORY_WRITER_HEAD: '/tmp/head', NOSTRA_MEMORY_CANONICAL_LEDGER: '/tmp/memory.ndjson',
   NOSTRA_MEMORY_PROTECTED_STORE: '/tmp/protected-memory',
   NOSTRA_MEMORY_PROTECTED_MASTER_KEY: '/tmp/protected-key',
@@ -95,6 +96,7 @@ assert.equal(prepared.memoryRuntime?.status, 'verified')
 assert.equal(calls[0][0], 'verify-enforcement')
 assert.equal(calls[1][0], 'prepare')
 assert.ok(calls[1].includes('--legal-name'))
+assert.equal(calls[1][calls[1].indexOf('--writer-owner') + 1], '/tmp/owner')
 await verifyResearchMemoryBeforeSpawn(prepared, executor, configured)
 assert.equal(calls[2][0], 'verify-enforcement')
 assert.equal(calls[3][0], 'verify')

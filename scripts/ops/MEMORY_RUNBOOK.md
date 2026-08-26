@@ -11,6 +11,22 @@ and keys are `0600`. Copy `memory-maintenance.json.example` to
 `~/.config/nostra-engine/memory-maintenance.json`, replace every placeholder, then set mode `0600`.
 Never paste the resulting file into logs, issues, or a pull request.
 
+For a new host, initialize the private read-only shadow boundary with the reviewed bootstrap instead
+of creating keys or writer anchors by hand. The command refuses an existing partial root, generates
+raw owner-only keys, creates an empty deny-all controlled-writer anchor, signs the exact provider
+policy, proves one deterministic projection rebuild, and writes all settings atomically to the
+owner-only `providers.env`. It cannot enable `enforced` mode or activate a lesson/playbook.
+
+```bash
+python3 scripts/memory_shadow_bootstrap.py provision \
+  --provider-model codex/gpt-5.6-sol \
+  --provider-model claude/sonnet
+```
+
+Restart the engine after a successful result, then verify `GET /api/memory/runtime` reports
+`mode: shadow`. Rerunning the same command is an integrity check and does not rotate keys. Use
+`status` for the same check without touching `providers.env`.
+
 Use a different service identity and credential for each role:
 
 | Role | Runtime setting |
@@ -27,6 +43,9 @@ The quarantine HTTP operation additionally requires a long random
 `NOSTRA_MEMORY_QUARANTINE_TOKEN`. It is accepted only in
 `x-nostra-memory-quarantine-token`, checked in constant time, origin-checked, and rate-limited. Do
 not reuse the publication token or a provider credential.
+
+`NOSTRA_MEMORY_WRITER_OWNER_PATH` is the separate owner-record pathname consumed by projection
+preparation. It must never be overloaded with the canonical-writer service identity above.
 
 ## Runtime switches
 
