@@ -1,6 +1,56 @@
 {
-  "generated_at": "2026-08-26T14:56:12Z",
+  "generated_at": "2026-08-26T15:16:25Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260826-980",
+      "headline": "FINGERTANGO (06860): PROFIT WARNING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0826/2026082601861.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-26T14:03:00Z",
+      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
+      "prelim_note": "Fingertango issued a profit warning for the interim period.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Fingertango issued a profit warning for the interim period.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "guidance_change",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Fingertango",
+          "ticker": "06860",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260826-927",
       "headline": "DFZQ (03958): (1) MAJOR TRANSACTION - THE PROPOSED ACQUISITION OF 100% EQUITY INTERESTS IN SHANGHAI SECURITIES BY WAY OF ISSUE OF CONSIDERATION A SHARES UNDER SPECIFIC MANDATE AND PAYMENT OF CASH AND (2) APPLICATION FOR WHITEWASH WAIVER ACCEPTANCE OF APPLICATION FOR THE PURCHASE OF ASSETS BY WAY OF ISSUE OF CONSIDERATION A SHARES UNDER THE PROPOSED TRANSACTION BY THE SHANGHAI STOCK EXCHANGE",
@@ -1548,6 +1598,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260826-990",
+      "headline": "Zoom Falls 6% as Soft Q3 Profit Guidance Overshadows a Double Beat; HubSpot and Monday.com Slip",
+      "headline_en": null,
+      "url": "https://247wallst.com/investing/2026/08/26/zoom-falls-6-as-soft-q3-profit-guidance-overshadows-a-double-beat-hubspot-and-monday-com-slip/",
+      "source_name": "24/7 Wall St.",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-26T14:09:41Z",
+      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
+      "prelim_note": "Zoom Video Communications shares fell 6% following soft Q3 profit guidance despite beating earnings expectations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Zoom Video Communications shares fell 6% following soft Q3 profit guidance despite beating earnings expectations.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Zoom Video Communications",
+          "ticker": "ZM",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260826-948",
       "headline": "Live updates: Trump notches endorsement wins; Meta, 29 states reach lawsuit settlement",
       "headline_en": null,
@@ -1749,6 +1848,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260826-993",
+      "headline": "Meta To Pay $16.7 Billion To Settle Lawsuit Claiming Facebook, Instagram Addiction Among Children",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/markets/meta-to-pay-16-7-billion-to-settle-lawsuit-claiming-facebook-instagram-addiction-among-children-11962327#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-26T13:36:45Z",
+      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
+      "prelim_note": "Meta to pay $16.7 billion to settle a childhood-addiction lawsuit, a quantified material-event capital outflow reducing cash and net income.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Meta to pay $16.7 billion to settle a childhood-addiction lawsuit, a quantified material-event capital outflow reducing cash and net income.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 92,
+      "rank_factors": {
+        "materiality": 92,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Meta",
+          "ticker": "META",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260826-945",
       "headline": "Vanguard to acquire fintech platform Altruist for $4 billion",
       "headline_en": null,
@@ -1847,165 +1995,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260826-952",
-      "headline": "Meta pays $17-billion to settle social media harms lawsuit, agrees to implement child safety measures",
-      "headline_en": null,
-      "url": "https://www.theglobeandmail.com/world/article-meta-lawsuit-social-media-harms-settle-zuckerberg/",
-      "source_name": "The Globe and Mail",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-26T13:21:03Z",
-      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
-      "prelim_note": "Meta is paying a massive $17-billion settlement, which is a significant cash outflow and impacts legal risk profile.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Meta is paying a massive $17-billion settlement, which is a significant cash outflow and impacts legal risk profile.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Meta Platforms, Inc.",
-          "ticker": "META",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260826-922",
-      "headline": "Kohl’s Falls 6% Despite Raised Guidance and a $150M Tariff Refund, Ross and TJX Hold Flat",
-      "headline_en": null,
-      "url": "https://finance.yahoo.com/markets/stocks/articles/kohl-falls-6-despite-raised-132046978.html",
-      "source_name": "Yahoo Finance",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-26T13:20:46Z",
-      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
-      "prelim_note": "Kohl's stock fell 6% despite a $150M tariff refund and raised guidance, indicating market disappointment with underlying performance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Kohl's stock fell 6% despite a $150M tariff refund and raised guidance, indicating market disappointment with underlying performance.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Kohl's",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Ross",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "TJX",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260826-924",
-      "headline": "Abercrombie & Fitch raises full-year outlook as Q2 earnings top estimates",
-      "headline_en": null,
-      "url": "https://finance.yahoo.com/markets/stocks/articles/abercrombie-fitch-raises-full-outlook-131700391.html",
-      "source_name": "Yahoo Finance",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-26T13:17:00Z",
-      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
-      "prelim_note": "Company beat Q2 earnings estimates and raised full-year outlook.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Company beat Q2 earnings estimates and raised full-year outlook.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Abercrombie & Fitch",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -81298,149 +81287,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-488ad3e42649",
-      "idea_version": "IDEAV-2f149886ca5aa422",
-      "idea_version_started_at": "2026-08-25T06:14:06Z",
-      "ticker": "PVRINOX",
-      "company": "PVR INOX Limited",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company board is meeting to consider a share buyback, which typically signals management confidence and provides a floor for the stock price.",
-      "why_now": "The board meeting is scheduled for August 31, 2026.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-01682c4fe36d"
-      ],
-      "primary_source_event_id": "EVT-01682c4fe36d",
-      "source_headlines": [
-        "PVR INOX Limited: board meeting 31-Aug-2026 — Buyback"
-      ],
-      "source_headline": "PVR INOX Limited: board meeting 31-Aug-2026 — Buyback",
-      "source_url": "https://nsearchives.nseindia.com/corporate/PVRINOXLTD_25082026082934_PVRINOXBoardmeetingintimation.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-25T03:00:29Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-25T06:14:06Z",
-      "updated_at": "2026-08-25T06:14:06Z",
-      "decay_at": "2026-08-26T15:00:29Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-9db64567877d",
-      "idea_version": "IDEAV-169281d2e6ab5478",
-      "idea_version_started_at": "2026-08-25T06:14:06Z",
-      "ticker": "TCS",
-      "company": "Tata Consultancy Services",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company secured a $1.5 billion AI deployment contract with Porsche, representing a significant revenue win and validation of its enterprise technology services.",
-      "why_now": "The deal was announced on August 25, 2026.",
-      "conviction": 80,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 18,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-958ceb21fb0d"
-      ],
-      "primary_source_event_id": "EVT-958ceb21fb0d",
-      "source_headlines": [
-        "Porsche inks $1.5 billion deal for AI deployment with India’s largest IT services firm Tata Consultancy"
-      ],
-      "source_headline": "Porsche inks $1.5 billion deal for AI deployment with India’s largest IT services firm Tata Consultancy",
-      "source_url": "https://www.cnbc.com/2026/08/25/porsche-inks-billion-ai-deal-india-it-tcs.html",
-      "source_name": "CNBC",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-25T03:01:16Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-25T06:14:06Z",
-      "updated_at": "2026-08-25T06:14:06Z",
-      "decay_at": "2026-08-26T15:01:16Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-15545ed7f8b1",
       "idea_version": "IDEAV-73067bb8cd7980b7",
       "idea_version_started_at": "2026-08-26T09:35:45Z",
@@ -82283,6 +82129,149 @@
       "surfaced_at": "2026-08-25T09:09:48Z",
       "updated_at": "2026-08-25T09:09:48Z",
       "decay_at": "2026-08-26T01:30:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-488ad3e42649",
+      "idea_version": "IDEAV-2f149886ca5aa422",
+      "idea_version_started_at": "2026-08-25T06:14:06Z",
+      "ticker": "PVRINOX",
+      "company": "PVR INOX Limited",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company board is meeting to consider a share buyback, which typically signals management confidence and provides a floor for the stock price.",
+      "why_now": "The board meeting is scheduled for August 31, 2026.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-01682c4fe36d"
+      ],
+      "primary_source_event_id": "EVT-01682c4fe36d",
+      "source_headlines": [
+        "PVR INOX Limited: board meeting 31-Aug-2026 — Buyback"
+      ],
+      "source_headline": "PVR INOX Limited: board meeting 31-Aug-2026 — Buyback",
+      "source_url": "https://nsearchives.nseindia.com/corporate/PVRINOXLTD_25082026082934_PVRINOXBoardmeetingintimation.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-25T03:00:29Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-25T06:14:06Z",
+      "updated_at": "2026-08-25T06:14:06Z",
+      "decay_at": "2026-08-26T15:00:29Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-9db64567877d",
+      "idea_version": "IDEAV-169281d2e6ab5478",
+      "idea_version_started_at": "2026-08-25T06:14:06Z",
+      "ticker": "TCS",
+      "company": "Tata Consultancy Services",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company secured a $1.5 billion AI deployment contract with Porsche, representing a significant revenue win and validation of its enterprise technology services.",
+      "why_now": "The deal was announced on August 25, 2026.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 18,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-958ceb21fb0d"
+      ],
+      "primary_source_event_id": "EVT-958ceb21fb0d",
+      "source_headlines": [
+        "Porsche inks $1.5 billion deal for AI deployment with India’s largest IT services firm Tata Consultancy"
+      ],
+      "source_headline": "Porsche inks $1.5 billion deal for AI deployment with India’s largest IT services firm Tata Consultancy",
+      "source_url": "https://www.cnbc.com/2026/08/25/porsche-inks-billion-ai-deal-india-it-tcs.html",
+      "source_name": "CNBC",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-25T03:01:16Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-25T06:14:06Z",
+      "updated_at": "2026-08-25T06:14:06Z",
+      "decay_at": "2026-08-26T15:01:16Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -84940,13 +84929,13 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 132,
-    "shown_count": 132,
+    "total_count": 134,
+    "shown_count": 134,
     "hidden_count": 0,
     "side_counts": {
       "long": {
-        "total_count": 53,
-        "shown_count": 53,
+        "total_count": 55,
+        "shown_count": 55,
         "hidden_count": 0
       },
       "short": {
@@ -84971,6 +84960,155 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-9db64567877d",
+        "idea_version": "IDEAV-169281d2e6ab5478",
+        "idea_version_started_at": "2026-08-25T06:14:06Z",
+        "ticker": "TCS",
+        "company": "Tata Consultancy Services",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company secured a $1.5 billion AI deployment contract with Porsche, representing a significant revenue win and validation of its enterprise technology services.",
+        "why_now": "The deal was announced on August 25, 2026.",
+        "conviction": 80,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 18,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-958ceb21fb0d"
+        ],
+        "primary_source_event_id": "EVT-958ceb21fb0d",
+        "source_headlines": [
+          "Porsche inks $1.5 billion deal for AI deployment with India’s largest IT services firm Tata Consultancy"
+        ],
+        "source_headline": "Porsche inks $1.5 billion deal for AI deployment with India’s largest IT services firm Tata Consultancy",
+        "source_url": "https://www.cnbc.com/2026/08/25/porsche-inks-billion-ai-deal-india-it-tcs.html",
+        "source_name": "CNBC",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-25T03:01:16Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-25T06:14:06Z",
+        "updated_at": "2026-08-25T06:14:06Z",
+        "decay_at": "2026-08-26T15:01:16Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-26T15:01:16Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-488ad3e42649",
+        "idea_version": "IDEAV-2f149886ca5aa422",
+        "idea_version_started_at": "2026-08-25T06:14:06Z",
+        "ticker": "PVRINOX",
+        "company": "PVR INOX Limited",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company board is meeting to consider a share buyback, which typically signals management confidence and provides a floor for the stock price.",
+        "why_now": "The board meeting is scheduled for August 31, 2026.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-01682c4fe36d"
+        ],
+        "primary_source_event_id": "EVT-01682c4fe36d",
+        "source_headlines": [
+          "PVR INOX Limited: board meeting 31-Aug-2026 — Buyback"
+        ],
+        "source_headline": "PVR INOX Limited: board meeting 31-Aug-2026 — Buyback",
+        "source_url": "https://nsearchives.nseindia.com/corporate/PVRINOXLTD_25082026082934_PVRINOXBoardmeetingintimation.pdf",
+        "source_name": "BSE / NSE Exchange Filing",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-25T03:00:29Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-25T06:14:06Z",
+        "updated_at": "2026-08-25T06:14:06Z",
+        "decay_at": "2026-08-26T15:00:29Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-26T15:00:29Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-a0a147ac1188",
         "idea_version": "IDEAV-4b5375bcc0cc434c",
@@ -94752,7 +94890,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 166,
-    "live_count": 33,
+    "live_count": 31,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -94771,9 +94909,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3223442,
-    "news_picked_today": 1936,
-    "news_dropped_today": 13388
+    "news_seen_today": 3274732,
+    "news_picked_today": 1972,
+    "news_dropped_today": 13580
   },
   "book_momentum": {
     "live_count": 8,
