@@ -31,6 +31,12 @@ export interface ProviderFailureClassification {
   evidenceCode?: string
 }
 
+export interface ProviderHttpRequestContext {
+  providerId?: string
+  model?: string
+  models?: string[]
+}
+
 export interface ProviderRequestIdentityInput {
   providerId: string
   baseUrl: string
@@ -203,7 +209,11 @@ function errorEvidence(rawBody: unknown): ErrorEvidence {
 
 /** Provider-neutral HTTP classification. Status supplies the safe baseline; the body is used only in-memory
  * to distinguish a model/resource 404 and is never returned, logged, or persisted. */
-export function classifyProviderHttpFailure(status: number, rawBody?: unknown): ProviderFailureClassification {
+export function classifyProviderHttpFailure(
+  status: number,
+  rawBody?: unknown,
+  context?: ProviderHttpRequestContext,
+): ProviderFailureClassification {
   const evidence = errorEvidence(rawBody)
   const carry = {
     httpStatus: status,
@@ -214,6 +224,21 @@ export function classifyProviderHttpFailure(status: number, rawBody?: unknown): 
   if (status === 402) return { code: 'billing', scope: 'provider', action: 'quarantine', providerWide: true, ...carry }
   if (status === 403) return { code: 'entitlement', scope: 'provider', action: 'quarantine', providerWide: true, ...carry }
   if (status === 404) {
+    // `openrouter/free` is a live pool, not a fixed model deployment. OpenRouter documents that it filters
+    // the changing free pool for the request's required capabilities, and that availability can vary. More
+    // generally, its documented "No allowed providers are available" 404 is distinct from model_not_found:
+    // it describes a routing gap that may heal without any configuration change. Keep that exact request
+    // contract on a cooldown; a genuinely missing/retired model still follows the terminal path below.
+    const models = [context?.model, ...(context?.models || [])]
+      .map((value) => String(value || '').trim().toLowerCase())
+    const openRouterRoute = String(context?.providerId || '').trim().toLowerCase() === 'openrouter'
+      && models.some(Boolean)
+    const noProviderRoute = /no (?:allowed )?providers? (?:are )?(?:currently )?available/.test(evidence.search)
+    if (openRouterRoute && noProviderRoute) {
+      return {
+        code: 'transient_upstream', scope: 'workload', action: 'cooldown', providerWide: false, ...carry,
+      }
+    }
     const model = /(?:model|deployment|endpoint|route).*(?:not found|does not exist|unavailable|deprecated|decommissioned|retired|no endpoint)|(?:not found|unavailable).*(?:model|deployment|endpoint|route)/.test(evidence.search)
     return {
       code: model ? 'model_terminal' : 'request_invalid',

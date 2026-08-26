@@ -82,6 +82,39 @@ await check('only safe error identifiers cross the classifier boundary', () => {
   assert.doesNotMatch(JSON.stringify(classified), /acct-123|4\.21|balance/)
 })
 
+await check('OpenRouter no-provider gaps cool down while a genuinely missing model stays quarantined', () => {
+  const noRoute = {
+    error: {
+      code: 404,
+      message: 'No allowed providers are available for the selected model; private route detail',
+    },
+  }
+  const dynamic = classifyProviderHttpFailure(404, noRoute, {
+    providerId: 'openrouter', model: 'openrouter/free', models: ['openrouter/free'],
+  })
+  assert.deepEqual(dynamic, {
+    code: 'transient_upstream', scope: 'workload', action: 'cooldown', providerWide: false, httpStatus: 404,
+  })
+  assert.doesNotMatch(JSON.stringify(dynamic), /private route detail/)
+
+  const fixedRouteGap = classifyProviderHttpFailure(404, noRoute, {
+    providerId: 'openrouter', model: 'fixed/model', models: ['fixed/model'],
+  })
+  assert.equal(fixedRouteGap.code, 'transient_upstream')
+  assert.equal(fixedRouteGap.action, 'cooldown')
+
+  const otherGateway = classifyProviderHttpFailure(404, noRoute, {
+    providerId: 'other', model: 'fixed/model', models: ['fixed/model'],
+  })
+  assert.equal(otherGateway.action, 'quarantine', 'OpenRouter semantics never leak into another gateway')
+
+  const missingRouter = classifyProviderHttpFailure(404, {
+    error: { type: 'invalid_request_error', code: 'model_not_found', message: 'Model does not exist' },
+  }, { providerId: 'openrouter', model: 'openrouter/free' })
+  assert.equal(missingRouter.code, 'model_terminal')
+  assert.equal(missingRouter.action, 'quarantine')
+})
+
 await check('fingerprint changes on key, model, endpoint, or request contract but never contains the key', () => {
   const base = {
     providerId: 'groq', baseUrl: 'https://api.groq.com/openai/v1', model: 'openai/gpt-oss-20b',
@@ -218,6 +251,40 @@ await check('triage quarantines one terminal HTTP response, skips future network
   assert.equal(recovered.ok, true)
   assert.equal(calls, 2)
   assert.equal(readProviderQuarantine(state, recovered.providerIdentity!), null)
+})
+
+await check('OpenRouter free-pool no-route response never creates a standing quarantine', async () => {
+  resetProviderQuarantineMemory()
+  const state = temp()
+  const items = [{ event_id: 'E1', headline: 'RBI cuts rates', source_name: 'Reuters', region: 'IN' } as any]
+  let calls = 0
+  const noRoute = (async () => {
+    calls++
+    return response({ error: { code: 404, message: 'No allowed providers are available for the selected model' } }, 404)
+  }) as unknown as typeof fetch
+  const options = {
+    model: 'openrouter/free', models: ['openrouter/free'],
+    baseUrl: 'https://openrouter.ai/api/v1', apiKey: 'openrouter-key',
+    providerId: 'openrouter', providerLabel: 'OpenRouter', keyEnvVar: 'OPENROUTER_API_KEY',
+    stateDir: state, workload: 'triage', contractVersion: 'news-triage-json-v1', maxAttempts: 1,
+  }
+
+  const first = await triageBatch(items, options, noRoute)
+  assert.equal(first.failure?.code, 'transient_upstream')
+  assert.equal(first.failure?.action, 'cooldown')
+  assert.equal(first.failure?.scope, 'workload')
+  assert.equal(fs.existsSync(path.join(state, 'provider-openrouter-quarantine.json')), false)
+
+  const success = (async () => {
+    calls++
+    return response({
+      usage: { total_tokens: 10 },
+      choices: [{ message: { content: JSON.stringify({ items: [{ i: 0, materiality_pre_score: 80 }] }) } }],
+    })
+  }) as unknown as typeof fetch
+  const recovered = await triageBatch(items, options, success)
+  assert.equal(recovered.ok, true)
+  assert.equal(calls, 2, 'the unchanged dynamic router is tried again after the caller cooldown')
 })
 
 await check('terminal caught exceptions fail fast and durably quarantine both title and article routes', async () => {
