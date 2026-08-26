@@ -20,8 +20,10 @@ function run(): RunState {
     runId: '00000000-0000-4000-8000-000000000001', kind: 'agent', ticker: 'TEST',
     subjectId: 'TEST', swarmId: 'research', unit: 'ticker', module: 'earnings',
     agent: 'historical-financials', provider: 'codex',
-    executionProfile: { key: 'test', specialistModel: 'gpt-5.6-terra' },
-    profileKey: 'codex:test', model: 'gpt-5.5', prompt: 'test', user: 'local', userVia: 'local',
+    executionProfile: {
+      key: 'test', parentModel: 'gpt-5.6-sol', specialistModel: 'gpt-5.6-terra',
+    },
+    profileKey: 'codex:test', model: 'gpt-5.6-sol', prompt: 'test', user: 'local', userVia: 'local',
     runRoot: 'analyses/MEMORYTEST_2099-01-01', child: null, status: 'starting', startedAt: Date.now(),
     willCommitToMain: false, writeTargetsAbs: [], coveredModules: ['earnings'], readDepsAbs: [],
     agents: new Map(), expected: new Map([
@@ -126,8 +128,8 @@ assert.equal(
 )
 await compileResearchMemoryPacket(prepared, 'earnings/99_earnings-synthesis', executor, configured)
 assert.equal(calls[6][0], 'compile')
-assert.equal(calls.filter((args) => args[0] === 'authorize').length, 1, 'module synthesis reuses the exact specialist-model authorization')
-assert.equal(calls[6][calls[6].indexOf('--authorization') + 1], '/tmp/specialist-provider-authorization.json')
+assert.equal(calls.filter((args) => args[0] === 'authorize').length, 1, 'module synthesis does not inherit the Terra specialist authorization')
+assert.equal(calls[6][calls[6].indexOf('--authorization') + 1], '/tmp/provider-authorization.json')
 await assert.rejects(() => compileResearchMemoryPacket(
   prepared, 'valuation/01_price-and-capital-structure', executor, configured,
 ))

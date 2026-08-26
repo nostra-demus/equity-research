@@ -309,10 +309,13 @@ function commonArgs(config: MemoryConfig, logical: string): string[] {
 }
 
 function packetRecipientModel(run: RunState, agentKey: string): string {
-  // Every module agent, including its 99_* synthesizer, is a nested Codex/Claude specialist. Only the
-  // top-level master is authored by the parent process. Bind packet authorization to the model that
-  // actually receives those bytes, not to the process that requested compilation on its behalf.
-  if (agentKey === 'master/synthesizer') return run.model
+  // Codex runs ordinary specialists on Terra, but every 99_* module synthesis and the root synthesis on
+  // Sol. That is the same path-based execution contract enforced by codex-contract.ts. Bind packet
+  // authorization to the model that actually receives the bytes, not merely to the parent process that
+  // requested compilation on its behalf. Providers without a separate specialist model keep the pinned
+  // parent authorization.
+  const stem = agentKey.split('/').at(-1) || ''
+  if (agentKey === 'master/synthesizer' || stem.startsWith('99_')) return run.model
   return run.executionProfile.specialistModel?.trim() || run.model
 }
 
