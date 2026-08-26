@@ -18,6 +18,7 @@ import sys
 import tempfile
 
 from canonical_json import canonical_json, canonical_sha256
+from idea_run_root import parse_idea_run_root
 
 
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -103,15 +104,9 @@ def _finite_nonnegative(value):
 
 def validate_decision_identity(decision, expected_root):
     """Bind the decision record to the ticker and calendar date encoded by its run folder."""
-    run_name = os.path.basename(expected_root)
-    match = re.fullmatch(r"([-A-Z0-9.]{1,24})_(\d{4}-\d{2}-\d{2})", run_name)
-    if not isinstance(decision, dict) or decision.get("run_root") != expected_root or not match:
+    _, expected_ticker, expected_date = parse_idea_run_root(expected_root)
+    if not isinstance(decision, dict) or decision.get("run_root") != expected_root:
         raise ValueError("decision_record identity does not match this run")
-    expected_ticker, expected_date = match.groups()
-    try:
-        dt.date.fromisoformat(expected_date)
-    except ValueError as exc:
-        raise ValueError("decision_record run date is invalid") from exc
     if decision.get("ticker") != expected_ticker or decision.get("decision_date") != expected_date:
         raise ValueError("decision_record ticker or decision_date does not match its run folder")
     return expected_ticker
@@ -263,9 +258,7 @@ def atomic_write(path, value):
 
 
 def create(run_root, repo=REPO):
-    expected_root = run_root.replace(os.sep, "/").strip("/")
-    if not re.fullmatch(r"analyses/[^/]+_\d{4}-\d{2}-\d{2}", expected_root):
-        raise ValueError("RUN_ROOT must be one repo-relative analyses/<TICKER>_<YYYY-MM-DD> path")
+    expected_root, _, _ = parse_idea_run_root(run_root)
     run_abs = os.path.realpath(os.path.join(repo, expected_root))
     analyses_abs = os.path.realpath(os.path.join(repo, "analyses"))
     if not run_abs.startswith(analyses_abs + os.sep) or not os.path.isdir(run_abs):
@@ -319,7 +312,7 @@ def create(run_root, repo=REPO):
 
 def main(argv):
     if len(argv) != 1:
-        print("usage: create_idea_projection_manifest.py analyses/<TICKER>_<YYYY-MM-DD>", file=sys.stderr)
+        print("usage: create_idea_projection_manifest.py <canonical research RUN_ROOT>", file=sys.stderr)
         return 2
     try:
         create(argv[0])
