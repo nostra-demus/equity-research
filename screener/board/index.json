@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-26T14:05:41Z",
+  "generated_at": "2026-08-26T14:46:22Z",
   "inbox": [
     {
       "inbox_id": "INB-20260826-927",
@@ -1548,6 +1548,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260826-948",
+      "headline": "Live updates: Trump notches endorsement wins; Meta, 29 states reach lawsuit settlement",
+      "headline_en": null,
+      "url": "https://thehill.com/homenews/administration/6051255-live-updates-trump-iran-canada-dolly-parton/",
+      "source_name": "The Hill — Homenews",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-26T13:55:05Z",
+      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
+      "prelim_note": "Meta and 29 states have reached a lawsuit settlement.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Meta and 29 states have reached a lawsuit settlement.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Meta",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260826-926",
       "headline": "Meta settles for $18 billion in lawsuit brought by 29 states over social media harms to children",
       "headline_en": null,
@@ -1588,6 +1637,261 @@
         {
           "name": "Meta",
           "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260826-962",
+      "headline": "Abercrombie raises full-year sales forecast on robust apparel demand; shares surge",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/retail-consumer/abercrombie-raises-full-year-sales-forecast-resilient-apparel-demand-2026-08-26/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-26T13:42:20Z",
+      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
+      "prelim_note": "Abercrombie & Fitch raised its full-year sales forecast, indicating stronger-than-expected demand.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Abercrombie & Fitch raised its full-year sales forecast, indicating stronger-than-expected demand.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Abercrombie & Fitch",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260826-961",
+      "headline": "Victory Capital to acquire First Eagle in $7bn deal",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/1809a163-07b8-46fd-b056-7ee25d5023d4?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-26T13:38:50Z",
+      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
+      "prelim_note": "Victory Capital announced the acquisition of First Eagle in a $7 billion deal.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Victory Capital announced the acquisition of First Eagle in a $7 billion deal.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Victory Capital",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "First Eagle",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260826-945",
+      "headline": "Vanguard to acquire fintech platform Altruist for $4 billion",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/markets/stocks/articles/vanguard-acquire-fintech-platform-altruist-133640757.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-26T13:36:40Z",
+      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
+      "prelim_note": "Vanguard is set to acquire Altruist for $4 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Vanguard is set to acquire Altruist for $4 billion.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Vanguard",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Altruist",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260826-947",
+      "headline": "Meta settles multistate teen social media lawsuit for $16.7 billion",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/media-advertising/articles/meta-settles-29-states-over-132242399.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-26T13:22:42Z",
+      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
+      "prelim_note": "Meta has settled a multistate teen social media lawsuit for $16.7 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Meta has settled a multistate teen social media lawsuit for $16.7 billion.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Meta",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260826-952",
+      "headline": "Meta pays $17-billion to settle social media harms lawsuit, agrees to implement child safety measures",
+      "headline_en": null,
+      "url": "https://www.theglobeandmail.com/world/article-meta-lawsuit-social-media-harms-settle-zuckerberg/",
+      "source_name": "The Globe and Mail",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-26T13:21:03Z",
+      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
+      "prelim_note": "Meta is paying a massive $17-billion settlement, which is a significant cash outflow and impacts legal risk profile.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Meta is paying a massive $17-billion settlement, which is a significant cash outflow and impacts legal risk profile.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Meta Platforms, Inc.",
+          "ticker": "META",
           "listing_country": "US"
         }
       ],
@@ -1702,316 +2006,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260826-916",
-      "headline": "Jazz Pharmaceuticals Plans $1 Bln Notes Offering, Concurrent $225 Mln Share Buyback",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/jazz-pharmaceuticals-plans-1-bln-notes-offering-concurrent-225-mln-share-buyback",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-26T12:16:41Z",
-      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
-      "prelim_note": "Company announced a $1 billion notes offering and a $225 million share buyback.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Company announced a $1 billion notes offering and a $225 million share buyback.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "debt_credit",
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Jazz Pharmaceuticals",
-          "ticker": "JAZZ",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260826-905",
-      "headline": "Zoom Stock Retreats As Guidance Underwhelms Amid Consumer Slowdown",
-      "headline_en": null,
-      "url": "https://www.investors.com/news/technology/zoom-stock-zm-zoom-earnings-q22026/?src=A00220&yptr=yahoo",
-      "source_name": "Yahoo Finance",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-26T11:59:43Z",
-      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
-      "prelim_note": "Company issued underwhelming guidance, signaling a consumer slowdown.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Company issued underwhelming guidance, signaling a consumer slowdown.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Zoom",
-          "ticker": "ZM",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260826-880",
-      "headline": "Victory Capital to Buy First Eagle for $7 Billion",
-      "headline_en": null,
-      "url": "https://www.wsj.com/business/deals/victory-capital-to-buy-first-eagle-for-7-billion-ff0286f0?mod=rss_markets_main",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-26T11:30:00Z",
-      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
-      "prelim_note": "Victory Capital announced the acquisition of First Eagle for $7 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Victory Capital announced the acquisition of First Eagle for $7 billion.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Victory Capital",
-          "ticker": "VCTR",
-          "listing_country": "US"
-        },
-        {
-          "name": "First Eagle",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260826-866",
-      "headline": "Couche-Tard launches tender offer for all shares of Polish retailer Zabka",
-      "headline_en": null,
-      "url": "https://www.theglobeandmail.com/business/article-alimentation-couche-tard-zabka-poland-convenience-store/",
-      "source_name": "The Globe and Mail",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-26T11:02:44Z",
-      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
-      "prelim_note": "Couche-Tard has launched a tender offer for Zabka, representing a significant M&A event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Couche-Tard has launched a tender offer for Zabka, representing a significant M&A event.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Alimentation Couche-Tard",
-          "ticker": null,
-          "listing_country": "CA"
-        },
-        {
-          "name": "Zabka",
-          "ticker": null,
-          "listing_country": "PL"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260826-857",
-      "headline": "Victory Capital Holdings To Buy First Eagle Investments For About $7 Bln",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/victory-capital-holdings-buy-first-eagle-investments-about-7-bln",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-26T10:50:23Z",
-      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
-      "prelim_note": "$7B acquisition of First Eagle Investments is a large, confirmed M&A deal.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "$7B acquisition of First Eagle Investments is a large, confirmed M&A deal.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Victory Capital Holdings",
-          "ticker": "VCTR",
-          "listing_country": "US"
-        },
-        {
-          "name": "First Eagle Investments",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260826-867",
-      "headline": "Navitas Semiconductor acquires power management firm Claros for $232.8m",
-      "headline_en": null,
-      "url": "https://www.datacenterdynamics.com/en/news/navitas-semiconductor-acquires-power-management-firm-claros-for-2328m/",
-      "source_name": "DataCenterDynamics",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-26T10:48:10Z",
-      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
-      "prelim_note": "Navitas Semiconductor is acquiring Claros for $232.8 million.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Navitas Semiconductor is acquiring Claros for $232.8 million.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Navitas Semiconductor",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -81447,79 +81441,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-a0a147ac1188",
-      "idea_version": "IDEAV-4b5375bcc0cc434c",
-      "idea_version_started_at": "2026-08-25T06:14:06Z",
-      "ticker": "PEL",
-      "company": "Piramal Enterprises",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The launch of a Qualified Institutional Placement (QIP) to raise ₹2,100 crore will cause immediate equity dilution for existing shareholders.",
-      "why_now": "The QIP launch was reported on August 25, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-279b1dcba5a4"
-      ],
-      "primary_source_event_id": "EVT-279b1dcba5a4",
-      "source_headlines": [
-        "Piramal Finance shares in focus as it launches QIP to raise up to ₹2,100 crore"
-      ],
-      "source_headline": "Piramal Finance shares in focus as it launches QIP to raise up to ₹2,100 crore",
-      "source_url": "https://www.cnbctv18.com/market/piramal-finance-share-price-qip-launch-raise-up-to-rs-2100-crore-issue-price-sources-19976156.htm",
-      "source_name": "CNBC-TV18",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-25T02:40:57Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-25T06:14:06Z",
-      "updated_at": "2026-08-25T06:14:06Z",
-      "decay_at": "2026-08-26T14:40:57Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-15545ed7f8b1",
       "idea_version": "IDEAV-73067bb8cd7980b7",
       "idea_version_started_at": "2026-08-26T09:35:45Z",
@@ -82362,6 +82283,79 @@
       "surfaced_at": "2026-08-25T09:09:48Z",
       "updated_at": "2026-08-25T09:09:48Z",
       "decay_at": "2026-08-26T01:30:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-a0a147ac1188",
+      "idea_version": "IDEAV-4b5375bcc0cc434c",
+      "idea_version_started_at": "2026-08-25T06:14:06Z",
+      "ticker": "PEL",
+      "company": "Piramal Enterprises",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The launch of a Qualified Institutional Placement (QIP) to raise ₹2,100 crore will cause immediate equity dilution for existing shareholders.",
+      "why_now": "The QIP launch was reported on August 25, 2026.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-279b1dcba5a4"
+      ],
+      "primary_source_event_id": "EVT-279b1dcba5a4",
+      "source_headlines": [
+        "Piramal Finance shares in focus as it launches QIP to raise up to ₹2,100 crore"
+      ],
+      "source_headline": "Piramal Finance shares in focus as it launches QIP to raise up to ₹2,100 crore",
+      "source_url": "https://www.cnbctv18.com/market/piramal-finance-share-price-qip-launch-raise-up-to-rs-2100-crore-issue-price-sources-19976156.htm",
+      "source_name": "CNBC-TV18",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-25T02:40:57Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-25T06:14:06Z",
+      "updated_at": "2026-08-25T06:14:06Z",
+      "decay_at": "2026-08-26T14:40:57Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -84946,8 +84940,8 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 131,
-    "shown_count": 131,
+    "total_count": 132,
+    "shown_count": 132,
     "hidden_count": 0,
     "side_counts": {
       "long": {
@@ -84956,8 +84950,8 @@
         "hidden_count": 0
       },
       "short": {
-        "total_count": 78,
-        "shown_count": 78,
+        "total_count": 79,
+        "shown_count": 79,
         "hidden_count": 0
       }
     },
@@ -84977,6 +84971,82 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-a0a147ac1188",
+        "idea_version": "IDEAV-4b5375bcc0cc434c",
+        "idea_version_started_at": "2026-08-25T06:14:06Z",
+        "ticker": "PEL",
+        "company": "Piramal Enterprises",
+        "exchange": "NSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The launch of a Qualified Institutional Placement (QIP) to raise ₹2,100 crore will cause immediate equity dilution for existing shareholders.",
+        "why_now": "The QIP launch was reported on August 25, 2026.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-279b1dcba5a4"
+        ],
+        "primary_source_event_id": "EVT-279b1dcba5a4",
+        "source_headlines": [
+          "Piramal Finance shares in focus as it launches QIP to raise up to ₹2,100 crore"
+        ],
+        "source_headline": "Piramal Finance shares in focus as it launches QIP to raise up to ₹2,100 crore",
+        "source_url": "https://www.cnbctv18.com/market/piramal-finance-share-price-qip-launch-raise-up-to-rs-2100-crore-issue-price-sources-19976156.htm",
+        "source_name": "CNBC-TV18",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-25T02:40:57Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-25T06:14:06Z",
+        "updated_at": "2026-08-25T06:14:06Z",
+        "decay_at": "2026-08-26T14:40:57Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-26T14:40:57Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-bb6c79ef8ffe",
         "idea_version": "IDEAV-b5b37f571dad8a76",
@@ -94682,7 +94752,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 166,
-    "live_count": 34,
+    "live_count": 33,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -94701,9 +94771,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3021223,
-    "news_picked_today": 1823,
-    "news_dropped_today": 13105
+    "news_seen_today": 3197769,
+    "news_picked_today": 1918,
+    "news_dropped_today": 13358
   },
   "book_momentum": {
     "live_count": 8,
