@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-08-26T08:05:37Z",
+  "generated_at": "2026-08-26T08:25:33Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260826-623",
+      "headline": "BASF India Limited: BASF India Limited has informed the Exchange about Newspaper Advertisement in respect of Notice of final hearing of Company Scheme Petition related to demerger of Companys Agricultural Solutions Business into BASF Agricultural Solutions India Ltd.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/BASFIL_26082026133505_SELetter.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-26T08:05:23Z",
+      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
+      "prelim_note": "Final hearing notice in company scheme petition for demerger of BASF India's Agricultural Solutions business signals imminent structural separation affecting revenue allocation, divisional focus, and capital structure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Final hearing notice in company scheme petition for demerger of BASF India's Agricultural Solutions business signals imminent structural separation affecting revenue allocation, divisional focus, and capital structure.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 74,
+      "rank_factors": {
+        "materiality": 74,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BASF India Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260826-588",
       "headline": "ACF: ACCC Grants Final Approval for Acquisition of AGIS",
@@ -1947,55 +1996,6 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260826-553",
-      "headline": "CHINA OVERSEAS (00688): ANNOUNCEMENT OF UNAUDITED INTERIM RESULTS FOR THE SIX MONTHS ENDED 30 JUNE 2026",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0826/2026082600217.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-26T04:04:00Z",
-      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
-      "prelim_note": "Release of unaudited interim results for China Overseas Land & Investment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Release of unaudited interim results for China Overseas Land & Investment.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "China Overseas Land & Investment",
-          "ticker": "00688",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -94039,9 +94039,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1623212,
-    "news_picked_today": 1155,
-    "news_dropped_today": 11469
+    "news_seen_today": 1665259,
+    "news_picked_today": 1171,
+    "news_dropped_today": 11477
   },
   "book_momentum": {
     "live_count": 8,
