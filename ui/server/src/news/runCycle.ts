@@ -26,7 +26,7 @@ import { Budget, NON_BINDING_DAILY_TOKEN_CAP, UsdBudget, armCooldown, clearCoold
 import { triageBatchGemini } from './triage/gemini'
 import { triageBatchAnthropic } from './triage/anthropic'
 import { isAuthExpiredNote, isPlanQuotaNote, isTerminalApiNote, triageBatchClaudeCli, type ClaudeCliRunner } from './triage/claude-cli'
-import { SYSTEM, buildUserMessage, estimateTokens, openAiRequestIdentity, scoreToBand, triageBatch, triageMaxOutputTokens, type TriageOptions, type TriageResult } from './triage/groq'
+import { SYSTEM, TRIAGE_CONTRACT_VERSION, buildUserMessage, estimateTokens, openAiRequestIdentity, scoreToBand, triageBatch, triageMaxOutputTokens, type TriageOptions, type TriageResult } from './triage/groq'
 import { readProviderQuarantine } from './provider-failure'
 import { rankScore, preTriagePriority, capSocialBand, capSocialScore, deriveMaterialityLabel } from './rank'
 import { deriveScope, deriveSourceTier, toEventScope } from './scope'
@@ -1413,7 +1413,7 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
   let localDownThisCycle = false // once the local box fails this cycle, stop poking it and use the cloud fallback
   const triageIdentityFields = (providerId: string, providerLabel: string, keyEnvVar?: string) => ({
     providerId, providerLabel, ...(keyEnvVar ? { keyEnvVar } : {}), stateDir,
-    workload: 'triage', contractVersion: 'news-triage-json-v1',
+    workload: 'triage', contractVersion: TRIAGE_CONTRACT_VERSION,
   })
   const triageOptionsForProvider = (providerId: string): TriageOptions | null => {
     if (providerId === 'groq') return {
@@ -1438,7 +1438,7 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
   }
   const providerIsQuarantined = (providerId: string): boolean => {
     const options = triageOptionsForProvider(providerId)
-    return !!(options && readProviderQuarantine(stateDir, openAiRequestIdentity(options, 'triage', 'news-triage-json-v1')))
+    return !!(options && readProviderQuarantine(stateDir, openAiRequestIdentity(options, 'triage', TRIAGE_CONTRACT_VERSION)))
   }
   const pendingTriaged = items.filter(isFeedPendingTriaged).map((item) => ({
     ...item,
