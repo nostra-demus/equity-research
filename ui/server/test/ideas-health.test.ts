@@ -5,10 +5,12 @@ import os from 'node:os'
 import path from 'node:path'
 import { ideasHealthLivenessMs, initializeIdeasHealth, inspectPersistedIdeasHealth, readIdeasHealth, readPersistedIdeasHealth, updateIdeasHealth } from '../src/news/ideas/ideas-health'
 import { callGroqForIdeaPass, chunkIdeaRows, ideaGroqTokenBound, runIdeaPass, type IdeaPassConfig } from '../src/news/ideas/run-idea-pass'
+import { ideaProviderRequestIdentity } from '../src/news/ideas/surface-ideas'
 import { ideaId, readIdeaById, readPassState, readTopSweep, topNEffectHash, topNHash, writePassState } from '../src/news/ideas/ideas-store'
 import { armCooldown, Budget, NON_BINDING_DAILY_TOKEN_CAP, getSharedGeminiLimiter, getSharedLimiter, readCooldownUntil, resetBudgetMemory, resetCooldownMemory, resetSharedLimiters } from '../src/news/triage/budget'
 import type { OverflowProvider } from '../src/config'
 import { validIdeaSnapshot } from './ideas-fixture'
+import { classifyProviderHttpFailure, quarantineProviderFailure, readProviderQuarantine } from '../src/news/provider-failure'
 
 const NOW = Date.parse('2026-08-03T12:00:00Z')
 const cfg: IdeaPassConfig = {
@@ -1108,6 +1110,67 @@ try {
   resetBudgetMemory(); resetCooldownMemory(); resetSharedLimiters()
 }
 
+// A standing exact quarantine is checked before limiter/budget use, and again after the limiter to close
+// the cross-workload race. Neither path may create a dispatch marker or spend one provider unit.
+const standingQuarantineRoot = rootWithRows(2)
+const standingQuarantineState = path.join(standingQuarantineRoot, '.state')
+const standingQuarantineRows = readTopSweep(standingQuarantineRoot, cfg.topN, {
+  nowMs: NOW, maxAgeMs: cfg.inputMaxAgeHrs! * 3_600_000,
+}).rows
+const groqIdentity = ideaProviderRequestIdentity({
+  providerId: 'groq', providerLabel: 'Groq', keyEnvVar: 'GROQ_API_KEY', stateDir: standingQuarantineState,
+  model: cfg.groqModel, baseUrl: cfg.groqBaseUrl, apiKey: cfg.groqApiKey, maxTokens: cfg.groqMaxTokens,
+  workload: 'ideas', contractVersion: 'news-ideas-json-v1', requestRemainingHeaderIsDaily: true,
+})
+quarantineProviderFailure(standingQuarantineState, groqIdentity, classifyProviderHttpFailure(401), NOW)
+let standingQuarantineFetches = 0
+const standingQuarantine = await callGroqForIdeaPass(standingQuarantineRows, {
+  repoRoot: standingQuarantineRoot, stateDir: standingQuarantineState, config: cfg, refreshBoard: async () => {},
+  now: () => NOW, fetchFn: (async () => {
+    standingQuarantineFetches++
+    return new Response('{}', { status: 200 })
+  }) as typeof fetch, sleep: async () => {},
+})
+assert.equal(standingQuarantine, null)
+assert.equal(standingQuarantineFetches, 0)
+assert.equal(fs.existsSync(path.join(standingQuarantineState, 'groq-budget.json')), false)
+assert.equal(readCooldownUntil(standingQuarantineState, 'groq'), 0)
+assert.equal(readCooldownUntil(standingQuarantineState, 'ideas:groq'), 0)
+
+resetBudgetMemory(); resetCooldownMemory(); resetSharedLimiters()
+const quarantineRaceRoot = rootWithRows(2)
+const quarantineRaceState = path.join(quarantineRaceRoot, '.state')
+const quarantineRaceRows = readTopSweep(quarantineRaceRoot, cfg.topN, {
+  nowMs: NOW, maxAgeMs: cfg.inputMaxAgeHrs! * 3_600_000,
+}).rows
+const quarantineRaceIdentity = ideaProviderRequestIdentity({
+  providerId: 'groq', providerLabel: 'Groq', keyEnvVar: 'GROQ_API_KEY', stateDir: quarantineRaceState,
+  model: cfg.groqModel, baseUrl: cfg.groqBaseUrl, apiKey: cfg.groqApiKey, maxTokens: cfg.groqMaxTokens,
+  workload: 'ideas', contractVersion: 'news-ideas-json-v1', requestRemainingHeaderIsDaily: true,
+})
+const quarantineRaceLimiter = getSharedLimiter(cfg.groqRpm, cfg.groqTpm)
+const originalQuarantineRaceAcquire = quarantineRaceLimiter.acquire.bind(quarantineRaceLimiter)
+let quarantineRaceFetches = 0
+quarantineRaceLimiter.acquire = (async () => {
+  quarantineProviderFailure(quarantineRaceState, quarantineRaceIdentity, classifyProviderHttpFailure(401), NOW)
+  return true
+}) as typeof quarantineRaceLimiter.acquire
+try {
+  const quarantineRace = await callGroqForIdeaPass(quarantineRaceRows, {
+    repoRoot: quarantineRaceRoot, stateDir: quarantineRaceState, config: cfg, refreshBoard: async () => {},
+    now: () => NOW, fetchFn: (async () => {
+      quarantineRaceFetches++
+      return new Response('{}', { status: 200 })
+    }) as typeof fetch, sleep: async () => {},
+  })
+  assert.equal(quarantineRace, null)
+  assert.equal(quarantineRaceFetches, 0)
+  assert.equal(fs.existsSync(path.join(quarantineRaceState, 'groq-budget.json')), false)
+} finally {
+  quarantineRaceLimiter.acquire = originalQuarantineRaceAcquire
+  resetBudgetMemory(); resetCooldownMemory(); resetSharedLimiters()
+}
+
 // Bad Ideas JSON is workload-specific: charge the real request, then cool only `ideas:<provider>`. It must
 // never exhaust the shared ledger or mark the provider unhealthy for core news triage.
 const contractRoot = rootWithRows(2)
@@ -1141,7 +1204,13 @@ await runIdeaPass({
   sleep: async () => {}, persistHealth: true,
 })
 assert.equal(readCooldownUntil(requestState, 'ideas-request-shape'), 0, 'Ideas HTTP 400 cannot cool shared triage')
-assert.ok(readCooldownUntil(requestState, 'ideas:ideas-request-shape') > requestAt)
+assert.equal(readCooldownUntil(requestState, 'ideas:ideas-request-shape'), 0, 'a permanent request contract is quarantined, not timed')
+const requestIdentity = ideaProviderRequestIdentity({
+  providerId: requestProvider.id, providerLabel: requestProvider.label, stateDir: requestState,
+  model: requestProvider.model, baseUrl: requestProvider.baseUrl, apiKey: requestProvider.apiKey,
+  maxTokens: requestProvider.maxTokens, workload: 'ideas', contractVersion: 'news-ideas-json-v1',
+})
+assert.equal(readProviderQuarantine(requestState, requestIdentity)?.failureCode, 'request_invalid')
 assert.equal(Budget.load(requestState, 10, NON_BINDING_DAILY_TOKEN_CAP, requestAt, requestProvider.budgetFile).remainingRequests, 9)
 
 const requestRetryRoot = rootWithRows(2)
