@@ -14,6 +14,14 @@ import { getProviderAdapter } from './providers/registry'
 
 const PROVIDER_MESSAGE_MAX = 4_000
 
+function accumulatedProviderMetric(base: unknown, current: unknown): number | undefined {
+  if (typeof current !== 'number' || !Number.isFinite(current) || current < 0) return undefined
+  const safeBase = base === undefined ? 0 : base
+  if (typeof safeBase !== 'number' || !Number.isFinite(safeBase) || safeBase < 0) return undefined
+  const total = safeBase + current
+  return Number.isFinite(total) ? total : undefined
+}
+
 function rememberProviderMessage(run: RunState, message: string | undefined): void {
   const normalized = message?.trim()
   if (!normalized) return
@@ -229,9 +237,16 @@ export function handleStreamLine(run: RunState, line: string) {
       // what made months of module stalls undiagnosable.
       run.cliResult = event.cliResult
       rememberProviderMessage(run, event.message)
-      if (typeof event.costUsd === 'number') run.costUsd = event.costUsd
-      if (typeof event.numTurns === 'number') run.numTurns = event.numTurns
-      if (typeof event.durationMs === 'number') run.durationMs = event.durationMs
+      // A bounded Codex automatic continuation is another provider process inside the SAME admitted run.
+      // Its process-local result metrics must add to the logical run instead of replacing the earlier work.
+      // Ordinary Claude/Codex launches have no base and retain the exact historical assignment behaviour.
+      const metricBase = run.automaticContinuationMetricBase
+      const costUsd = accumulatedProviderMetric(metricBase?.costUsd, event.costUsd)
+      const numTurns = accumulatedProviderMetric(metricBase?.numTurns, event.numTurns)
+      const durationMs = accumulatedProviderMetric(metricBase?.durationMs, event.durationMs)
+      if (costUsd !== undefined) run.costUsd = costUsd
+      if (numTurns !== undefined) run.numTurns = numTurns
+      if (durationMs !== undefined) run.durationMs = durationMs
       // Do not sweep outputs on the stream result. The detached leader can emit its result and exit while
       // a Task/tool descendant is still writing. The launcher's close path proves the whole process group
       // extinct first, then performs the authoritative final sweep before terminal validation/publication.

@@ -22,6 +22,19 @@ import { resolveThemeFamilyState, themeStoryFamilyKey } from './story-key'
 import { selectNarrativeCore } from './core'
 import { isDisplayableThemeChallenge, isSupportingThemeEvidence, sourcePriority } from './evidence'
 import { uniqueThemeMembers } from './qualification'
+import {
+  classifyProviderCaughtFailure,
+  classifyProviderContractFailure,
+  classifyProviderHttpFailure,
+  clearProviderQuarantine,
+  honorProviderRetryAfter,
+  providerRequestIdentity,
+  publicProviderFailureNote,
+  publicProviderQuarantineNote,
+  quarantineProviderFailure,
+  readProviderQuarantine,
+  type ProviderFailureClassification,
+} from '../provider-failure'
 
 interface NamerCfg {
   themesDiscoverModel?: string // 'claude-haiku' | 'groq' | 'off'
@@ -340,6 +353,7 @@ interface OpenAiThemeProvider {
   id: string
   label: string
   apiKey: string
+  keyEnvVar?: string
   baseUrl: string
   model: string
   models?: string[]
@@ -370,6 +384,7 @@ interface OpenAiCallResult {
   status: number
   note: string
   rate: ReturnType<typeof parseRate>
+  failure?: ProviderFailureClassification
 }
 
 type ThemeFailureScope = 'provider' | 'workload'
@@ -429,17 +444,25 @@ async function callOpenAi(
     })
     const rate = parseRate(res)
     if (!res.ok) {
-      // Provider bodies can contain organization names, billing details, request ids, or echoed account
-      // metadata. Compiler health is persisted and served to clients, so only the fixed public status class
-      // may cross this boundary.
-      return { text: null, tokens: 0, ok: false, status: res.status, note: `${provider.label} HTTP ${res.status}`, rate }
+      // Read only for bounded type/code classification. Raw bodies can contain organization, billing, or
+      // account details and therefore never cross this stack frame into compiler health.
+      const rawBody = await res.text().catch(() => '')
+      const failure = honorProviderRetryAfter(classifyProviderHttpFailure(res.status, rawBody), rate.retryAfterMs)
+      const dailyLimit = provider.requestRemainingHeaderIsDaily && res.status === 429 && rate.rpdRemaining === 0
+      return {
+        text: null, tokens: 0, ok: false, status: res.status,
+        note: publicProviderFailureNote(provider.label, failure, dailyLimit), rate, failure,
+      }
     }
     try {
       const data: any = await res.json()
       const text = data?.choices?.[0]?.message?.content
       const tokens = credibleTotalTokens(data?.usage?.total_tokens)
       if (data?.choices?.[0]?.finish_reason === 'length') {
-        return { text: null, tokens, ok: false, status: res.status, note: `${provider.label}: output truncated`, rate }
+        return {
+          text: null, tokens, ok: false, status: res.status, note: `${provider.label}: output truncated`, rate,
+          failure: classifyProviderContractFailure(),
+        }
       }
       return {
         text: typeof text === 'string' ? text : null,
@@ -448,9 +471,13 @@ async function callOpenAi(
         status: res.status,
         note: typeof text === 'string' ? '' : `${provider.label}: empty content`,
         rate,
+        ...(typeof text === 'string' ? {} : { failure: classifyProviderContractFailure() }),
       }
     } catch {
-      return { text: null, tokens: 0, ok: false, status: res.status, note: `${provider.label}: invalid response JSON`, rate }
+      return {
+        text: null, tokens: 0, ok: false, status: res.status, note: `${provider.label}: invalid response JSON`, rate,
+        failure: classifyProviderContractFailure(),
+      }
     }
   }, parentSignal)
 }
@@ -715,7 +742,7 @@ function openAiProviders(cfg: NamerCfg): OpenAiThemeProvider[] {
     seen.add(provider.id); out.push(provider)
   }
   const fromConfig = (p: OverflowProvider, primaryLocal = false): OpenAiThemeProvider => ({
-    id: p.id, label: p.label || p.id, apiKey: p.apiKey, baseUrl: p.baseUrl, model: p.model,
+    id: p.id, label: p.label || p.id, apiKey: p.apiKey, keyEnvVar: p.keyEnvVar, baseUrl: p.baseUrl, model: p.model,
     models: p.models, maxTokens: p.maxTokens, rpm: p.rpm, tpm: p.tpm ?? 0,
     dailyReqCap: p.dailyReqCap, dailyTokenCap: p.dailyTokenCap ?? NON_BINDING_DAILY_TOKEN_CAP,
     budgetFile: p.budgetFile, dayTz: p.dayTz, headers: p.headers, extraBody: p.extraBody,
@@ -730,6 +757,7 @@ function openAiProviders(cfg: NamerCfg): OpenAiThemeProvider[] {
   if (cfg.localProvider) add(fromConfig(cfg.localProvider, true))
   if (cfg.groqApiKey) add({
     id: 'groq', label: 'Groq', apiKey: cfg.groqApiKey, baseUrl: cfg.groqBaseUrl || 'https://api.groq.com/openai/v1',
+    keyEnvVar: 'GROQ_API_KEY',
     model: cfg.groqModel || 'openai/gpt-oss-20b', maxTokens: 3000, rpm: cfg.groqRpm ?? 0,
     tpm: cfg.groqTpm ?? 0, dailyReqCap: cfg.groqDailyReqCap ?? 950,
     dailyTokenCap: cfg.groqDailyTokenCap ?? 200_000, budgetFile: 'groq-budget.json',
@@ -738,6 +766,26 @@ function openAiProviders(cfg: NamerCfg): OpenAiThemeProvider[] {
   })
   for (const provider of cfg.overflowProviders || []) add(fromConfig(provider))
   return out
+}
+
+function themeProviderIdentity(provider: OpenAiThemeProvider, maxTokens: number) {
+  return providerRequestIdentity({
+    providerId: provider.id,
+    baseUrl: provider.baseUrl,
+    model: provider.model,
+    models: provider.models,
+    apiKey: provider.apiKey,
+    keyEnvVar: provider.keyEnvVar,
+    transport: 'openai',
+    workload: 'themes',
+    contractVersion: 'news-themes-json-v1',
+    request: {
+      responseFormat: 'json_object',
+      temperature: 0.2,
+      configuredMaxTokens: maxTokens,
+      extraBody: provider.extraBody || {},
+    },
+  })
 }
 
 const MIN_THEME_OUTPUT_TOKENS = 1200
@@ -888,6 +936,7 @@ export function makeThemeNamer(
             if (isCoolingDown(stateDir, provider.id, at) || isCoolingDown(stateDir, scopedHoldId(provider.id), at)) continue
             const maxTokens = providerOutputCap(provider, theme, generic)
             if (!maxTokens) continue
+            if (readProviderQuarantine(stateDir, themeProviderIdentity(provider, maxTokens))) continue
             const tokenCost = themeNamerTokenBound([theme], generic, maxTokens)
             const budget = Budget.load(stateDir, provider.dailyReqCap, provider.dailyTokenCap, at, provider.budgetFile, provider.dayTz)
             if (!budget.canSpend(tokenCost, 1)) continue
@@ -1019,6 +1068,12 @@ export function makeThemeNamer(
             constrain(provider.id, 'rate_limiter_busy', `${provider.label} cannot safely admit one theme contract inside its configured token/minute envelope.`)
             continue
           }
+          const providerIdentity = themeProviderIdentity(provider, maxTokens)
+          const standing = readProviderQuarantine(stateDir, providerIdentity)
+          if (standing) {
+            constrain(provider.id, 'provider_error', publicProviderQuarantineNote(provider.label, standing))
+            continue
+          }
           const perAttemptTokens = themeNamerTokenBound([theme], generic, maxTokens)
           const budget = Budget.load(stateDir, provider.dailyReqCap, provider.dailyTokenCap, now.getTime(), provider.budgetFile, provider.dayTz)
           if (!budget.ledgerAvailable) {
@@ -1072,6 +1127,11 @@ export function makeThemeNamer(
             constrain(provider.id, 'cooldown', `${provider.label} is waiting to try again after an error.`)
             continue
           }
+          const admittedStanding = readProviderQuarantine(stateDir, providerIdentity)
+          if (admittedStanding) {
+            constrain(provider.id, 'provider_error', publicProviderQuarantineNote(provider.label, admittedStanding))
+            continue
+          }
           const admissionBudget = Budget.load(
             stateDir, provider.dailyReqCap, provider.dailyTokenCap, admissionAt, provider.budgetFile, provider.dayTz,
           )
@@ -1112,7 +1172,7 @@ export function makeThemeNamer(
           let response: OpenAiCallResult = {
             text: null, tokens: 0, ok: false, status: 0, note: `${provider.label}: request failed`, rate: {},
           }
-          let thrownFailure: ThemeFailureClass | null = null
+          let thrownFailure: ProviderFailureClassification | null = null
           let cancelledByParent = false
           try {
             response = await callOpenAi(
@@ -1127,8 +1187,9 @@ export function makeThemeNamer(
             if (parentSignal?.aborted || error instanceof ThemeParentAbortError) cancelledByParent = true
             else {
               thrownFailure = error instanceof ThemeProviderTimeoutError
-                ? { scope: 'workload', kind: 'timeout' }
-                : { scope: 'provider', kind: 'availability' }
+                ? { code: 'timeout', scope: 'workload', action: 'cooldown', providerWide: false }
+                : classifyProviderCaughtFailure(error)
+              response.note = publicProviderFailureNote(provider.label, thrownFailure)
             }
           }
           admissionBudget.reconcile(reservation, 1, response.tokens > 0 ? response.tokens : perAttemptTokens)
@@ -1136,11 +1197,11 @@ export function makeThemeNamer(
           // a provider failure, though: do not learn a retry, arm either cooldown scope, or try another tier.
           if (cancelledByParent || parentSignal?.aborted) { parentAborted = true; break themeLoop }
           if (!response.ok || !response.text) {
-            const failure = thrownFailure || classifyThemeHttpFailure(response.status)
+            const failure = thrownFailure || response.failure || classifyProviderContractFailure()
             const explicitDailyLimit = provider.requestRemainingHeaderIsDaily
               && response.status === 429
               && response.rate.rpdRemaining === 0
-            limiter.learn(rateInfoForLimiter(response.rate, failure.scope === 'provider'), Date.now)
+            limiter.learn(rateInfoForLimiter(response.rate, failure.providerWide), Date.now)
             if (explicitDailyLimit) admissionBudget.exhaust('provider_daily_limit')
             if (response.status >= 200 && response.status < 300) {
               terminal = 'malformed'; result.malformed_count++
@@ -1152,10 +1213,23 @@ export function makeThemeNamer(
               // A concrete workload-scoped HTTP response proves the provider is reachable; clear only an
               // older shared generation. A timeout does not prove reachability and therefore cannot erase a
               // concurrent/newer provider-wide outage marker.
-              if (!explicitDailyLimit && failure.scope === 'workload' && response.status > 0) {
+              if (!explicitDailyLimit && failure.scope === 'workload' && response.status > 0 && failure.action !== 'quarantine') {
                 clearCooldown(stateDir, provider.id, attemptStartedAt)
               }
-              if (!explicitDailyLimit) armFailure(provider.id, provider.id === 'local', failure, response.rate)
+              if (!explicitDailyLimit && failure.action === 'quarantine') {
+                // Stamp when the failure became known, not when its request began. A different request may
+                // start after this one and succeed before this response arrives; backdating the later failure
+                // to `attemptStartedAt` would let that success erase evidence it could not have observed.
+                const failureObservedAt = Date.now()
+                quarantineProviderFailure(stateDir, providerIdentity, failure, failureObservedAt)
+              } else if (!explicitDailyLimit) {
+                const kind: ThemeFailureKind = failure.code === 'rate_limited' ? 'rate_limit'
+                  : failure.code === 'timeout' ? 'timeout'
+                    : failure.code === 'contract_invalid' ? 'contract'
+                      : failure.code === 'transient_upstream' ? 'availability'
+                        : 'request'
+                armFailure(provider.id, provider.id === 'local', { scope: failure.scope, kind }, response.rate)
+              }
             }
             continue
           }
@@ -1164,6 +1238,7 @@ export function makeThemeNamer(
           if (terminal === 'validated' || terminal === 'rejected') {
             clearCooldown(stateDir, provider.id, attemptStartedAt)
             clearCooldown(stateDir, scopedHoldId(provider.id), attemptStartedAt)
+            clearProviderQuarantine(stateDir, providerIdentity, attemptStartedAt)
             break
           }
           if (terminal === 'omitted') result.omitted_count++

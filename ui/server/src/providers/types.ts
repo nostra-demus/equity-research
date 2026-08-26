@@ -60,6 +60,16 @@ export interface ProviderLaunchContext {
   env: NodeJS.ProcessEnv
   guard: { maxTurns: number; budgetUsd: number }
   resumeSessionId?: string
+  /**
+   * A fresh provider process continuing the SAME admitted logical run after Codex returned cleanly before
+   * the filesystem completion barrier. This is not a new launch or cross-provider resume: provider, profile,
+   * run id, run root, and frozen inputs remain immutable. Claude never receives this field.
+   */
+  automaticContinuation?: {
+    index: number
+    completedOutputs: readonly string[]
+    unresolvedOutputs: readonly string[]
+  }
   /** Per-launch identity tying one fresh availability proof to its immediate spawn. */
   availabilityProofId?: string
   /** Exact per-run AF_UNIX supervisor publication capability; adapters may allow only this socket. */

@@ -40,6 +40,28 @@ try {
   fs.mkdirSync(path.join(root, '_pool_extracts'))
   fs.mkdirSync(path.join(root, 'business-model'))
   fs.writeFileSync(path.join(root, 'business-model', '01_partial.md'), '# Partial sibling\n')
+  fs.writeFileSync(path.join(root, '.interrupted'), JSON.stringify({ reason: 'codex_incomplete_orchestration' }) + '\n')
+  fs.writeFileSync(path.join(root, 'RUN_FAILURE.md'), '# Prior attempt stopped\n')
+  assert.doesNotThrow(
+    () => assertParityCanaryStageRoot(root, 'continuation'),
+    'an interrupted canary may retain validated partial modules and supervisor failure markers',
+  )
+  fs.writeFileSync(path.join(root, '.aborted'), '{}\n')
+  assert.throws(
+    () => assertParityCanaryStageRoot(root, 'continuation'),
+    /requires an interruption marker and no abort marker/,
+    'an operator-aborted canary cannot be continued',
+  )
+  fs.rmSync(path.join(root, '.aborted'))
+  fs.writeFileSync(path.join(root, 'final_thesis.md'), '# Premature terminal file\n')
+  assert.throws(
+    () => assertParityCanaryStageRoot(root, 'continuation'),
+    /already has terminal artifacts/,
+    'a continuation never overwrites terminal-looking artifacts',
+  )
+  fs.rmSync(path.join(root, 'final_thesis.md'))
+  fs.rmSync(path.join(root, '.interrupted'))
+  fs.rmSync(path.join(root, 'RUN_FAILURE.md'))
   assert.doesNotThrow(
     () => assertParityCanaryStageRoot(root, 'module'),
     'module admissions permit an in-flight sibling directory from the same scheduler',

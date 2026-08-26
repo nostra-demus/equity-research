@@ -8,6 +8,7 @@ import { execa } from 'execa'
 import { REPO_ROOT } from '../config'
 import { registerProviderAdapter } from './registry'
 import {
+  canonicalAgentNameFromCodexNativePath,
   CODEX_MODEL_CONTRACTS,
   CODEX_PARENT_CONTRACT,
   CODEX_PROJECT_DOC_MAX_BYTES,
@@ -1807,6 +1808,46 @@ export function buildCodexLaunchSpec(
     if (!fs.statSync(workspaceRoot).isDirectory()) throw new Error('Codex workspace root is not a directory.')
     const writablePaths = resolveCodexWritablePaths(context.writablePaths, workspaceRoot, dataRoot)
     const canonical = loadCanonicalCommand(context.prompt, context.cwd)
+    const continuation = context.automaticContinuation
+    if (continuation && context.resumeSessionId) {
+      throw new Error('Codex automatic continuation cannot also resume a prior CLI session.')
+    }
+    if (continuation) {
+      const safeOutput = (value: unknown): value is string => typeof value === 'string'
+        && value.length > 0 && value.length <= 500 && !value.includes('\n') && !value.includes('\r')
+        // Canonical roster paths are POSIX on every host. Reject (rather than reinterpret) a Windows
+        // separator so the validated value is exactly the value inserted into the model prompt.
+        && !value.includes('\\')
+        && !path.posix.isAbsolute(value) && path.posix.normalize(value) === value && !value.startsWith('../')
+      if (!Number.isSafeInteger(continuation.index) || continuation.index < 1
+          || !continuation.completedOutputs.every(safeOutput)
+          || !continuation.unresolvedOutputs.length
+          || !continuation.unresolvedOutputs.every(safeOutput)) {
+        throw new Error('Codex automatic continuation inventory is invalid.')
+      }
+    }
+    const continuationPrompt = continuation ? [
+      '# Cockpit automatic continuation',
+      '',
+      `This is continuation process ${continuation.index} of the SAME already-admitted Codex cockpit run.`,
+      'The run id, run root, frozen inputs, provider, and execution profile have not changed. Existing valid',
+      'canonical artifacts are authoritative. Do not redo or overwrite a completed output. Inspect them only',
+      'when a dependency requires it, then continue from the first unresolved canonical output.',
+      '',
+      `Completed canonical outputs (${continuation.completedOutputs.length}):`,
+      ...(continuation.completedOutputs.length ? continuation.completedOutputs.map((item) => `- ${item}`) : ['- (none)']),
+      '',
+      `Unresolved canonical outputs (${continuation.unresolvedOutputs.length}):`,
+      ...continuation.unresolvedOutputs.map((item) => `- ${item}`),
+      '',
+      'Keep the native child pool within its live capacity, wait for each wave, validate its files, and launch',
+      'the next ready wave. Do not end the parent turn after announcing future work, after one child, or between',
+      'waves. Return only after the canonical filesystem completion barrier and publication contract pass, or',
+      'after a real provider/tool failure that prevents further work. Never publish an intermediate module.',
+      '',
+      '# Canonical command (still authoritative)',
+      '',
+    ].join('\n') : ''
     const publication = resolveCodexPublicationTransport(context, [...writablePaths, lease.home])
     const protectedPathBinding = JSON.stringify({
       writable: [...(context.writablePaths ?? [])],
@@ -1859,7 +1900,7 @@ export function buildCodexLaunchSpec(
     const spec: ProviderLaunchSpec = {
       command: probe.command,
       args,
-      input: canonical.prompt,
+      input: continuationPrompt ? `${continuationPrompt}${canonical.prompt}` : canonical.prompt,
       cwd: workspaceRoot,
       env,
       cliVersion: probe.cliVersion,
@@ -1914,6 +1955,28 @@ function toolEvent(item: any): { tool: string; input?: unknown } | null {
           ...(item.agents_states && typeof item.agents_states === 'object'
             ? { agentStates: item.agents_states }
             : {}),
+          ...(canonicalType ? { subagent_type: canonicalType, description: `Dispatch ${canonicalType}` } : {}),
+        },
+      }
+    }
+    case 'sub_agent_activity':
+    case 'subAgentActivity': {
+      const agentThreadId = typeof item.agent_thread_id === 'string'
+        ? item.agent_thread_id
+        : typeof item.agentThreadId === 'string' ? item.agentThreadId : undefined
+      const agentPath = typeof item.agent_path === 'string'
+        ? item.agent_path
+        : typeof item.agentPath === 'string' ? item.agentPath : undefined
+      const kind = typeof item.kind === 'string' ? item.kind : ''
+      const canonicalType = canonicalAgentNameFromCodexNativePath(agentPath)
+      const status = kind === 'interrupted' ? 'interrupted' : 'running'
+      return {
+        tool: 'Task',
+        input: {
+          tool: kind === 'started' ? 'spawn_agent' : 'subagent_activity',
+          agentPath,
+          receiverThreadIds: agentThreadId ? [agentThreadId] : [],
+          ...(agentThreadId ? { agentStates: { [agentThreadId]: { status } } } : {}),
           ...(canonicalType ? { subagent_type: canonicalType, description: `Dispatch ${canonicalType}` } : {}),
         },
       }

@@ -41,6 +41,8 @@ export interface RunState {
   publicationToken?: string
   /** One publication epoch; chained steps share their chain id, stable-root runs never share epochs. */
   provenanceEpoch?: string
+  /** Exact paid provider process inside the logical run. Rotated for each automatic continuation. */
+  providerAttemptId?: string
   /** Canonical supervisor-owned rows. Provider children never receive or mutate this array. */
   executionAttempts?: Array<Record<string, unknown>>
   currentExecutionAttempts?: Array<Record<string, unknown>>
@@ -126,6 +128,14 @@ export interface RunState {
   activity: RunActivity[] // bounded ring of recent tool calls — replayed on subscribe (see ACTIVITY_RING)
   sessionId?: string
   resumeSessionId?: string
+  /** Number of fresh Codex processes added inside this one admitted logical run. Zero/absent is the first. */
+  automaticContinuationCount?: number
+  /** Sorted canonical done-orb keys observed at the prior Codex process boundary. */
+  automaticContinuationCheckpoint?: string
+  /** Consecutive clean Codex process boundaries with no newly completed canonical output. */
+  automaticContinuationStagnantTurns?: number
+  /** Metrics already accumulated before the currently running continuation process. */
+  automaticContinuationMetricBase?: { costUsd: number; numTurns: number; durationMs: number }
   willCommitToMain: boolean
   writeTargetsAbs: string[] // absolute paths this run writes — D2 disjointness
   coveredModules: string[] // modules this run writes into — D2b / D3
@@ -216,6 +226,7 @@ export function createRun(
     activity: [],
     subscribers: new Set(),
     ...init,
+    providerAttemptId: init.providerAttemptId ?? runId,
     // RunSubject defaults AFTER the spread so an omitted/undefined field can never shadow them:
     // existing research call sites pass only `ticker` and stay correct.
     subjectId: init.subjectId ?? init.ticker,

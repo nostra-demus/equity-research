@@ -1,0 +1,73 @@
+{
+  "idea_id": "IDEA-c56cd7fabf5d",
+  "idea_version": "IDEAV-e298fc8d653164e4",
+  "idea_version_started_at": "2026-08-26T00:07:40Z",
+  "ticker": "SLTS",
+  "company": "Selectis Health, Inc.",
+  "exchange": "NASDAQ",
+  "ticker_verified": false,
+  "listing_verified": false,
+  "liquidity_verified": false,
+  "listing_verification_source": null,
+  "direction": "long",
+  "pair_with": null,
+  "reason": "A third-party tender offer (SC TO-T) indicates an acquisition attempt, typically driving the stock price toward the offer price.",
+  "why_now": "The filing was made on 2026-08-25.",
+  "conviction": 80,
+  "conviction_basis": "pre_edge_proxy",
+  "trade_score": 45,
+  "trade_score_basis": "evidence_gate_v2",
+  "trade_score_breakdown": {
+    "evidence": 25,
+    "impact": 19,
+    "specificity": 7,
+    "timing": 10,
+    "expression": 0,
+    "corroboration": 0,
+    "learning_adjustment": 0
+  },
+  "trade_readiness": "watch_only",
+  "missing_checks": [
+    "verified listed ticker",
+    "verified listing",
+    "live liquidity",
+    "dated catalyst",
+    "live price, liquidity, and consensus"
+  ],
+  "learning": {
+    "resolved": 0,
+    "positive": 0,
+    "negative": 0,
+    "neutral": 0,
+    "adjustment": 0,
+    "basis": "not_enough_outcomes",
+    "evidenceIds": []
+  },
+  "priced_in": "room",
+  "thesis_type": "company_specific",
+  "origin_type": "wire",
+  "source_themes": [],
+  "source_event_ids": [
+    "EVT-745dbd29e5af"
+  ],
+  "primary_source_event_id": "EVT-745dbd29e5af",
+  "source_headlines": [
+    "SC TO-T/A - SELECTIS HEALTH, INC. (0000727346) (Subject)"
+  ],
+  "source_headline": "SC TO-T/A - SELECTIS HEALTH, INC. (0000727346) (Subject)",
+  "source_url": "https://www.sec.gov/Archives/edgar/data/727346/000092189526002309/0000921895-26-002309-index.htm",
+  "source_name": "SEC EDGAR — Latest SC TO-T (Third-Party Tender Offer)",
+  "materiality_max": 100,
+  "newest_source_at": "2026-08-25T20:35:14Z",
+  "prior_coverage": {
+    "has_run": false,
+    "latest_run": null,
+    "latest_decision": null,
+    "data_pool_present": false
+  },
+  "surfaced_at": "2026-08-26T00:07:40Z",
+  "updated_at": "2026-08-26T00:07:40Z",
+  "decay_at": "2026-08-27T08:35:14Z",
+  "status": "live",
+  "promoted_signal_id": null
+}
