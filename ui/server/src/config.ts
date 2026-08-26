@@ -1066,6 +1066,9 @@ export const NEWS = {
   themesDiscoverModel: process.env.NEWS_THEMES_DISCOVER_MODEL || 'claude-haiku', // 'claude-haiku' | 'groq' | 'off'
   themesClaudeModel: process.env.NEWS_THEMES_CLAUDE_MODEL || 'claude-haiku-4-5',
   themesClaudeApiKey: process.env.THEMES_CLAUDE_API_KEY || process.env.ANTHROPIC_API_KEY || '',
+  themesClaudeKeyEnvVar: process.env.THEMES_CLAUDE_API_KEY
+    ? 'THEMES_CLAUDE_API_KEY'
+    : process.env.ANTHROPIC_API_KEY ? 'ANTHROPIC_API_KEY' : undefined,
   themesClaudeBaseUrl: process.env.THEMES_CLAUDE_BASE_URL || 'https://api.anthropic.com',
   themesClaudeDailyCap: capNum(process.env.NEWS_THEMES_CLAUDE_DAILY_CAP, 60), // max Claude discovery calls/day
   // Keep the complete fallback chain inside the outer 90s Themes-stage budget. Each provider receives one

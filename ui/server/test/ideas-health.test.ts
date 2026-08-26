@@ -944,6 +944,45 @@ assert.equal(exhaustedGemini.providerDayExhausted, true)
 assert.equal(exhaustedGemini.requests, 1, 'provider-day closure retains the real call count')
 assert.equal(Budget.load(geminiFallbackState, 10, 5_000_000, geminiAt, 'gemini-budget-gemini-b.json', geminiDayTz).requests, 1)
 
+const geminiQuarantineRoot = rootWithRows(2)
+const geminiQuarantineState = path.join(geminiQuarantineRoot, '.state')
+let geminiQuarantineFetches = 0
+const geminiQuarantineConfig = {
+  ...cfg, groqApiKey: '', overflowProviders: [], geminiEnabled: true, geminiApiKey: 'rejected-key',
+  geminiBaseUrl: 'https://gemini.test/v1beta', geminiModels: [{ model: 'gemini-dead', dailyReqCap: 10 }],
+  geminiMaxTokens: 500, geminiDailyTokenCap: 5_000_000, geminiDayTz, geminiRpm: 0, geminiTpm: 0,
+}
+const geminiRejected = (async () => {
+  geminiQuarantineFetches++
+  return new Response(JSON.stringify({ error: { code: 'API_KEY_INVALID', message: 'private project acct-123' } }), { status: 401 })
+}) as typeof fetch
+const geminiQuarantineFirst = await runIdeaPass({
+  repoRoot: geminiQuarantineRoot, stateDir: geminiQuarantineState, config: geminiQuarantineConfig,
+  refreshBoard: async () => {}, now: () => geminiAt, sleep: async () => {}, persistHealth: true,
+  fetchFn: geminiRejected,
+})
+assert.equal(geminiQuarantineFirst.reason_code, 'provider_error')
+assert.equal(geminiQuarantineFetches, 1)
+assert.equal(readCooldownUntil(geminiQuarantineState, 'gemini:gemini-dead'), 0,
+  'a permanent key fault is not hidden behind a retry timer')
+assert.equal(Budget.load(
+  geminiQuarantineState, 10, 5_000_000, geminiAt, 'gemini-budget-gemini-dead.json', geminiDayTz,
+).requests, 1)
+
+const geminiQuarantineSecondAt = geminiAt + (geminiQuarantineConfig.minIntervalSec + 1) * 1_000
+const geminiQuarantineSecond = await runIdeaPass({
+  repoRoot: geminiQuarantineRoot, stateDir: geminiQuarantineState, config: geminiQuarantineConfig,
+  refreshBoard: async () => {}, now: () => geminiQuarantineSecondAt, sleep: async () => {}, persistHealth: true,
+  fetchFn: geminiRejected,
+})
+assert.equal(geminiQuarantineSecond.reason_code, 'provider_error')
+assert.equal(geminiQuarantineFetches, 1, 'the unchanged Gemini fault is checked before budget and network')
+assert.match(readIdeasHealth(geminiQuarantineState, geminiQuarantineRoot, true, geminiQuarantineSecondAt).reason || '',
+  /waiting will not repair this configuration/)
+assert.equal(Budget.load(
+  geminiQuarantineState, 10, 5_000_000, geminiAt, 'gemini-budget-gemini-dead.json', geminiDayTz,
+).requests, 1, 'the standing quarantine consumes no second daily request')
+
 resetSharedLimiters()
 const geminiLimiterRoot = rootWithRows(2)
 const geminiLimiterState = path.join(geminiLimiterRoot, '.state')
@@ -1587,5 +1626,5 @@ assert.equal(missingProduced.status, 'error')
 assert.equal(missingProduced.outcome, 'failed')
 assert.equal(missingProduced.reason_code, 'snapshot_store_error', 'success_with_ideas must reconcile to an actually projectable snapshot')
 
-for (const root of [thin, noKeyRoot, okRoot, coverageRoot, failedRoot, crashRoot, fallbackRoot, fairRoot, aggregateRouteRoot, geminiRoot, geminiFallbackRoot, geminiLimiterRoot, pacedRoot, transientRoot, retryRoot, adapterGuardRoot, contractRoot, requestRoot, requestRetryRoot, cappedRoot, localRoot, slowLocalRoot, raceRoot, deadlineRoot, staleRoot, staleSweepRoot, staleRowsRoot, localVetoRoot, brokenStoreRoot, invalidStoreRoot, missingProducedRoot]) fs.rmSync(root, { recursive: true, force: true })
+for (const root of [thin, noKeyRoot, okRoot, coverageRoot, failedRoot, crashRoot, fallbackRoot, fairRoot, aggregateRouteRoot, geminiRoot, geminiFallbackRoot, geminiQuarantineRoot, geminiLimiterRoot, pacedRoot, transientRoot, retryRoot, adapterGuardRoot, contractRoot, requestRoot, requestRetryRoot, cappedRoot, localRoot, slowLocalRoot, raceRoot, deadlineRoot, staleRoot, staleSweepRoot, staleRowsRoot, localVetoRoot, brokenStoreRoot, invalidStoreRoot, missingProducedRoot]) fs.rmSync(root, { recursive: true, force: true })
 console.log('\n1 ideas-health test file passed')
