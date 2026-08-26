@@ -19,8 +19,9 @@ import type {
   ResolvedProviderProfile,
 } from './types'
 
-// A tracked Claude process can execute arbitrary shell commands under bypassPermissions. Treat its
-// environment as model-visible and pass only OS/runtime plumbing plus Claude's own authentication.
+// A tracked Claude process can execute arbitrary shell commands. Pass only OS/runtime plumbing plus
+// Claude's own subscription authentication. The one supported headless credential is retained only in
+// the parent CLI; CLAUDE_CODE_SUBPROCESS_ENV_SCRUB removes it from Bash, hooks, and MCP subprocesses.
 // In particular, never inherit ENGINE_STATE_DIR, provider config paths, publication identities, GitHub
 // credentials, or unrelated provider keys from the long-lived supervisor.
 const CLAUDE_CHILD_ENV_ALLOWLIST = [
@@ -62,8 +63,11 @@ export async function detectClaudeFlags(): Promise<Set<string>> {
 export function claudeChildEnv(base: NodeJS.ProcessEnv = process.env): NodeJS.ProcessEnv {
   const env: NodeJS.ProcessEnv = {}
   for (const key of CLAUDE_CHILD_ENV_ALLOWLIST) if (base[key] !== undefined) env[key] = base[key]
-  // Tracked cockpit runs are Max-plan runs. API/OAuth billing tokens must never enter model-visible Bash;
-  // the CLI authenticates through its first-party claude.ai login instead.
+  // Anthropic documents setup-token/CLAUDE_CODE_OAUTH_TOKEN as the subscription-auth path for scripts
+  // where an interactive browser/Keychain session is unavailable. Never pass API-key or gateway auth.
+  // The CLI's own scrub keeps this inference-only credential out of every model-visible subprocess.
+  if (base.CLAUDE_CODE_OAUTH_TOKEN) env.CLAUDE_CODE_OAUTH_TOKEN = base.CLAUDE_CODE_OAUTH_TOKEN
+  env.CLAUDE_CODE_SUBPROCESS_ENV_SCRUB = '1'
   env.NOSTRA_COCKPIT_RUN = '1'
   env.NO_COLOR = '1'
   for (const key of CLAUDE_COCKPIT_ENV_ALLOWLIST) if (base[key]) env[key] = base[key]
@@ -71,19 +75,30 @@ export function claudeChildEnv(base: NodeJS.ProcessEnv = process.env): NodeJS.Pr
 }
 
 export function isClaudeMaxAuth(value: unknown): boolean {
-  const status = value as any
+  const status = value as Record<string, unknown>
   return status?.loggedIn === true && status?.authMethod === 'claude.ai'
     && status?.apiProvider === 'firstParty' && status?.subscriptionType === 'max'
 }
 
-async function assertClaudeMaxAuth(env: NodeJS.ProcessEnv): Promise<void> {
+export function isClaudeSubscriptionAuth(value: unknown, env: NodeJS.ProcessEnv): boolean {
+  if (isClaudeMaxAuth(value)) return true
+  const status = value as any
+  // `auth status` deliberately does not report a plan name for setup-token credentials. Require both the
+  // exact first-party oauth_token result and the credential in this already-sanitized child environment;
+  // Anthropic's setup-token flow itself requires a paid Claude subscription and is never API-key billed.
+  return typeof env.CLAUDE_CODE_OAUTH_TOKEN === 'string' && env.CLAUDE_CODE_OAUTH_TOKEN.length > 0
+    && status?.loggedIn === true && status?.authMethod === 'oauth_token'
+    && status?.apiProvider === 'firstParty'
+}
+
+async function assertClaudeSubscriptionAuth(env: NodeJS.ProcessEnv): Promise<void> {
   const result = await execa(CLAUDE_BIN, ['auth', 'status', '--json'], {
     cwd: REPO_ROOT, env, extendEnv: false, reject: false, timeout: 15_000,
   })
   let parsed: unknown
   try { parsed = JSON.parse(result.stdout || '') } catch { parsed = null }
-  if (result.failed || result.exitCode !== 0 || !isClaudeMaxAuth(parsed)) {
-    const error: any = new Error('Tracked Claude cockpit runs require a first-party Claude Max login; API-token billing is disabled.')
+  if (result.failed || result.exitCode !== 0 || !isClaudeSubscriptionAuth(parsed, env)) {
+    const error: any = new Error('Tracked Claude cockpit runs require first-party Claude subscription authentication; API-key billing is disabled.')
     error.statusCode = 503
     error.code = 'CLAUDE_MAX_AUTH_REQUIRED'
     throw error
@@ -433,12 +448,12 @@ async function probeAvailability(): Promise<ProviderAvailability> {
     })
     let parsed: unknown
     try { parsed = JSON.parse(auth.stdout || '') } catch { parsed = null }
-    if (auth.failed || auth.exitCode !== 0 || !isClaudeMaxAuth(parsed)) {
+    if (auth.failed || auth.exitCode !== 0 || !isClaudeSubscriptionAuth(parsed, env)) {
       return {
         available: false,
         availability: 'unavailable',
         cliVersion: String(version.stdout || '').trim() || undefined,
-        reason: 'Claude is installed, but the cockpit requires a first-party Claude Max login. Run `claude auth login`, then check again; API-token billing is disabled.',
+        reason: 'Claude is installed, but the cockpit requires first-party Claude subscription authentication. Run `claude auth login` or configure a setup-token for the headless service; API-key billing is disabled.',
       }
     }
     await assertClaudeSandboxRuntime()
@@ -492,7 +507,7 @@ async function buildLaunch(context: ProviderLaunchContext): Promise<ProviderLaun
     if (!flags.has(required)) throw new Error(`Claude CLI lacks required tracked-run isolation flag ${required}.`)
   }
   const env = claudeChildEnv(context.env)
-  await assertClaudeMaxAuth(env)
+  await assertClaudeSubscriptionAuth(env)
   await assertClaudeSandboxRuntime()
   if (!context.writablePaths?.length) throw new Error('Tracked Claude launch has no exact writable output scope.')
   const mirror = createClaudeMirrorWorkspace(context.cwd)

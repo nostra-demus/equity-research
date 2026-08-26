@@ -161,6 +161,13 @@ no public or loopback TCP, and access to only the per-run publication Unix socke
 enforce that boundary, Claude is shown unavailable and the tracked launch fails closed; there is no manual
 "verified" flag which can assert a proof the engine did not observe.
 
+The unattended service authenticates through Anthropic's supported `claude setup-token` subscription path:
+`CLAUDE_CODE_OAUTH_TOKEN` lives only in the owner-readable `providers.env`. The tracked parent CLI receives it
+with `CLAUDE_CODE_SUBPROCESS_ENV_SCRUB=1`, so Bash tools, hooks, and MCP subprocesses cannot read the credential.
+`ANTHROPIC_API_KEY` and `ANTHROPIC_AUTH_TOKEN` are always removed. An interactive first-party Claude Max login
+remains accepted when the macOS Keychain is available, but unattended operation never depends on an unlocked
+GUI session and can never fall through to API-key billing.
+
 **Connector repair boundary.** The fifteen-minute connector sweep only fetches a series when its manifest release
 clock is due, through the staged publication
 contract in `frameworks/EXTERNAL_DATA.md`; it does not run a coding agent. Automatic connector build and
