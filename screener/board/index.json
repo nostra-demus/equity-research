@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-26T08:25:33Z",
+  "generated_at": "2026-08-26T08:42:46Z",
   "inbox": [
     {
       "inbox_id": "INB-20260826-623",
@@ -1571,6 +1571,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260826-632",
+      "headline": "MAQ: Full Year Results - Investor Presentation [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.MAQ?key=2924-03126655-2A1692379",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-26T08:04:37Z",
+      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
+      "prelim_note": "MAQ full-year financial results announcement — actual revenue, margin, and earnings figures to move analyst consensus, guidance, and fair-value expectations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "MAQ full-year financial results announcement — actual revenue, margin, and earnings figures to move analyst consensus, guidance, and fair-value expectations.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "MAQ",
+          "ticker": "MAQ",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260826-596",
       "headline": "MIC Electronics Ltd: Receipt of in-principle approval from the stock exchanges for issue of Equity Shares on preferntial basis towards the acquisition of M/s. NEO Semi SG Pte Ltd, Singapore.",
       "headline_en": null,
@@ -1949,49 +1998,6 @@
       "event_types": [
         "regulatory",
         "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260826-009",
-      "headline": "Xi signals defiance as US threatens new sanctions over China’s Iran ties",
-      "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/international/global/xi-signals-defiance-us-threatens-new-sanctions-over-chinas-iran-ties",
-      "source_name": "The Business Times (Singapore)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-25T23:46:00Z",
-      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
-      "prelim_note": "Geopolitical tensions are escalating as the US threatens new sanctions against China over Iran ties, posing a risk to global trade.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Geopolitical tensions are escalating as the US threatens new sanctions against China over Iran ties, posing a risk to global trade.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
       ],
       "issuer_linkage": "macro",
       "companies": [],
@@ -94039,9 +94045,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1665259,
-    "news_picked_today": 1171,
-    "news_dropped_today": 11477
+    "news_seen_today": 1707642,
+    "news_picked_today": 1182,
+    "news_dropped_today": 11478
   },
   "book_momentum": {
     "live_count": 8,
