@@ -1,6 +1,60 @@
 {
-  "generated_at": "2026-08-26T11:25:07Z",
+  "generated_at": "2026-08-26T12:23:34Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260826-872",
+      "headline": "Mankind Pharma Ltd: Please find attached outcome of the Board Meeting held today, according consent of the Board of Directors of the Company for the integration of Bharat Serums and Vaccines Limited, a wholly ....",
+      "headline_en": null,
+      "url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/bb1e8a0a-d435-48a4-ac2e-74a395c6a105.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-26T11:13:03Z",
+      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
+      "prelim_note": "The company's board consented to the integration of Bharat Serums and Vaccines Limited.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company's board consented to the integration of Bharat Serums and Vaccines Limited.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Mankind Pharma Ltd",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "Bharat Serums and Vaccines Limited",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260826-813",
       "headline": "SUPER HI (09658): ANNOUNCEMENT OF INTERIM RESULTS FOR THE SIX MONTHS ENDED JUNE 30, 2026",
@@ -1101,6 +1155,212 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260826-866",
+      "headline": "Couche-Tard launches tender offer for all shares of Polish retailer Zabka",
+      "headline_en": null,
+      "url": "https://www.theglobeandmail.com/business/article-alimentation-couche-tard-zabka-poland-convenience-store/",
+      "source_name": "The Globe and Mail",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-26T11:02:44Z",
+      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
+      "prelim_note": "Couche-Tard has launched a tender offer for Zabka, representing a significant M&A event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Couche-Tard has launched a tender offer for Zabka, representing a significant M&A event.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Alimentation Couche-Tard",
+          "ticker": null,
+          "listing_country": "CA"
+        },
+        {
+          "name": "Zabka",
+          "ticker": null,
+          "listing_country": "PL"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260826-857",
+      "headline": "Victory Capital Holdings To Buy First Eagle Investments For About $7 Bln",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/victory-capital-holdings-buy-first-eagle-investments-about-7-bln",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-26T10:50:23Z",
+      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
+      "prelim_note": "$7B acquisition of First Eagle Investments is a large, confirmed M&A deal.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "$7B acquisition of First Eagle Investments is a large, confirmed M&A deal.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Victory Capital Holdings",
+          "ticker": "VCTR",
+          "listing_country": "US"
+        },
+        {
+          "name": "First Eagle Investments",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260826-867",
+      "headline": "Navitas Semiconductor acquires power management firm Claros for $232.8m",
+      "headline_en": null,
+      "url": "https://www.datacenterdynamics.com/en/news/navitas-semiconductor-acquires-power-management-firm-claros-for-2328m/",
+      "source_name": "DataCenterDynamics",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-26T10:48:10Z",
+      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
+      "prelim_note": "Navitas Semiconductor is acquiring Claros for $232.8 million.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Navitas Semiconductor is acquiring Claros for $232.8 million.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Navitas Semiconductor",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260826-862",
+      "headline": "Intuit shares plunge as cautious fiscal 2027 guidance falls short of forecasts",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/markets/stocks/articles/intuit-shares-plunge-cautious-fiscal-104320782.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-26T10:43:20Z",
+      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
+      "prelim_note": "Intuit issued cautious FY2027 guidance that missed forecasts, a quantified guidance cut for a mega-cap company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Intuit issued cautious FY2027 guidance that missed forecasts, a quantified guidance cut for a mega-cap company.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Intuit",
+          "ticker": "INTU",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260826-808",
       "headline": "Avaada Electro cuts IPO size to ₹7,600 crore amid valuation, concentration concerns",
       "headline_en": null,
@@ -1759,263 +2019,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260826-466",
-      "headline": "Elon Musk's SpaceX to build ‘biggest launch site on Earth’ in Louisiana for $100 billion",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/news/elon-musks-spacex-to-build-biggest-launch-site-on-earth-in-louisiana-for-100-billion-11787710915634.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-26T02:32:06Z",
-      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
-      "prelim_note": "SpaceX plans a $100 billion launch site in Louisiana, a major capex commitment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "SpaceX plans a $100 billion launch site in Louisiana, a major capex commitment.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SpaceX",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260826-399",
-      "headline": "Volkswagen CEO faces pushback over plan for 50,000 job cuts and plant closures",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/business/volkswagen-ceo-faces-pushback-over-plan-for-50000-job-cuts-and-plant-closures-19977137.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-26T02:10:18Z",
-      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
-      "prelim_note": "Volkswagen is facing significant internal and external pushback regarding a plan to cut 50,000 jobs and close plants.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Volkswagen is facing significant internal and external pushback regarding a plan to cut 50,000 jobs and close plants.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Volkswagen",
-          "ticker": null,
-          "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260826-397",
-      "headline": "Domino’s Pizza sales decline accelerates after slumping to big loss",
-      "headline_en": null,
-      "url": "https://www.afr.com/companies/retail/domino-s-pizza-sales-decline-accelerates-after-slumping-to-big-loss-20260825-p60r8i?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-26T01:47:51Z",
-      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
-      "prelim_note": "Domino's Pizza reported an accelerating sales decline and a big loss, implying a material earnings deterioration.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Domino's Pizza reported an accelerating sales decline and a big loss, implying a material earnings deterioration.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Domino's Pizza",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260826-398",
-      "headline": "Dick’s Sporting Goods’ Core Business Grows 4.9%, but Foot Locker Losses and Weak Guidance Send Shares Tumbling",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/dicks-sporting-goods-core-business-grows-49-foot-locker-losses-and-weak-guidance-send",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-26T01:40:38Z",
-      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
-      "prelim_note": "Foot Locker reported weak guidance and losses, causing a significant share price decline.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Foot Locker reported weak guidance and losses, causing a significant share price decline.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Foot Locker",
-          "ticker": "FL",
-          "listing_country": "US"
-        },
-        {
-          "name": "Dick's Sporting Goods",
-          "ticker": "DKS",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260826-444",
-      "headline": "Sumitomo joins four-way race for Australia's FleetPartners with $582 million bid",
-      "headline_en": null,
-      "url": "https://www.reuters.com/legal/transactional/sumitomo-heats-up-bidding-war-australias-fleetpartners-with-582-million-offer-2026-08-25/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-26T01:32:33Z",
-      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
-      "prelim_note": "Sumitomo entered a four-way race for FleetPartners with a $582 million bid, a named M&A deal value.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Sumitomo entered a four-way race for FleetPartners with a $582 million bid, a named M&A deal value.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Sumitomo",
-          "ticker": null,
-          "listing_country": "JP"
-        },
-        {
-          "name": "FleetPartners",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -79730,76 +79733,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-1a0be428f2c5",
-      "idea_version": "IDEAV-3f09477d2976d083",
-      "idea_version_started_at": "2026-08-25T04:41:49Z",
-      "ticker": "GNL",
-      "company": "Global Net Lease",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The $535 million acquisition of Modiv Industrial expands the company's portfolio of industrial assets, likely enhancing FFO per share through scale and operational synergies.",
-      "why_now": "The acquisition was announced on 2026-08-25.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 18,
-        "impact": 18,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-b374fce7beea"
-      ],
-      "primary_source_event_id": "EVT-b374fce7beea",
-      "source_headlines": [
-        "Greenberg Traurig Advises Global Net Lease on $535M Modiv Industrial Acquisition"
-      ],
-      "source_headline": "Greenberg Traurig Advises Global Net Lease on $535M Modiv Industrial Acquisition",
-      "source_url": "https://www.prnewswire.com/news-releases/greenberg-traurig-advises-global-net-lease-on-535m-modiv-industrial-acquisition-302858807.html",
-      "source_name": "PR Newswire — All News Releases",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-25T00:10:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-25T04:41:49Z",
-      "updated_at": "2026-08-25T04:41:49Z",
-      "decay_at": "2026-08-26T12:10:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-bb6c79ef8ffe",
       "idea_version": "IDEAV-b5b37f571dad8a76",
       "idea_version_started_at": "2026-08-25T03:44:44Z",
@@ -82154,6 +82087,76 @@
       "surfaced_at": "2026-08-25T09:09:48Z",
       "updated_at": "2026-08-25T09:09:48Z",
       "decay_at": "2026-08-25T23:00:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-1a0be428f2c5",
+      "idea_version": "IDEAV-3f09477d2976d083",
+      "idea_version_started_at": "2026-08-25T04:41:49Z",
+      "ticker": "GNL",
+      "company": "Global Net Lease",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The $535 million acquisition of Modiv Industrial expands the company's portfolio of industrial assets, likely enhancing FFO per share through scale and operational synergies.",
+      "why_now": "The acquisition was announced on 2026-08-25.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 18,
+        "impact": 18,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-b374fce7beea"
+      ],
+      "primary_source_event_id": "EVT-b374fce7beea",
+      "source_headlines": [
+        "Greenberg Traurig Advises Global Net Lease on $535M Modiv Industrial Acquisition"
+      ],
+      "source_headline": "Greenberg Traurig Advises Global Net Lease on $535M Modiv Industrial Acquisition",
+      "source_url": "https://www.prnewswire.com/news-releases/greenberg-traurig-advises-global-net-lease-on-535m-modiv-industrial-acquisition-302858807.html",
+      "source_name": "PR Newswire — All News Releases",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-25T00:10:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-25T04:41:49Z",
+      "updated_at": "2026-08-25T04:41:49Z",
+      "decay_at": "2026-08-26T12:10:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -84950,13 +84953,13 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 129,
-    "shown_count": 129,
+    "total_count": 130,
+    "shown_count": 130,
     "hidden_count": 0,
     "side_counts": {
       "long": {
-        "total_count": 51,
-        "shown_count": 51,
+        "total_count": 52,
+        "shown_count": 52,
         "hidden_count": 0
       },
       "short": {
@@ -84981,6 +84984,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-1a0be428f2c5",
+        "idea_version": "IDEAV-3f09477d2976d083",
+        "idea_version_started_at": "2026-08-25T04:41:49Z",
+        "ticker": "GNL",
+        "company": "Global Net Lease",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The $535 million acquisition of Modiv Industrial expands the company's portfolio of industrial assets, likely enhancing FFO per share through scale and operational synergies.",
+        "why_now": "The acquisition was announced on 2026-08-25.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 62,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 18,
+          "impact": 18,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-b374fce7beea"
+        ],
+        "primary_source_event_id": "EVT-b374fce7beea",
+        "source_headlines": [
+          "Greenberg Traurig Advises Global Net Lease on $535M Modiv Industrial Acquisition"
+        ],
+        "source_headline": "Greenberg Traurig Advises Global Net Lease on $535M Modiv Industrial Acquisition",
+        "source_url": "https://www.prnewswire.com/news-releases/greenberg-traurig-advises-global-net-lease-on-535m-modiv-industrial-acquisition-302858807.html",
+        "source_name": "PR Newswire — All News Releases",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-25T00:10:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-25T04:41:49Z",
+        "updated_at": "2026-08-25T04:41:49Z",
+        "decay_at": "2026-08-26T12:10:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-26T12:10:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-aaaaf1fc1368",
         "idea_version": "IDEAV-3c2e59d52bf37f43",
@@ -94540,7 +94616,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 166,
-    "live_count": 36,
+    "live_count": 35,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -94559,9 +94635,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2215405,
-    "news_picked_today": 1534,
-    "news_dropped_today": 12062
+    "news_seen_today": 2397778,
+    "news_picked_today": 1613,
+    "news_dropped_today": 12739
   },
   "book_momentum": {
     "live_count": 8,
