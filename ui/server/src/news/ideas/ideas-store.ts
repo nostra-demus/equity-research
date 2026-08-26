@@ -2874,10 +2874,13 @@ export interface IdeaPromotionReservation {
 function readPromotionReservation(fp: string): IdeaPromotionReservation | null {
   try {
     const value = JSON.parse(fs.readFileSync(fp, 'utf8'))
-    return /^IDEA-[a-f0-9]{12}$/.test(value?.idea_id)
-      && /^[0-9a-f-]{36}$/.test(value?.token)
-      && Number.isFinite(parseRfc3339Ms(value?.started_at))
-      && (value?.signal_id === undefined || /^SIG-[0-9]{8}-[a-f0-9]{8}$/.test(value.signal_id))
+    return value && typeof value === 'object' && !Array.isArray(value)
+      && typeof value.idea_id === 'string' && /^IDEA-[a-f0-9]{12}$/.test(value.idea_id)
+      && typeof value.token === 'string' && /^[0-9a-f-]{36}$/.test(value.token)
+      && typeof value.started_at === 'string'
+      && Number.isFinite(parseRfc3339Ms(value.started_at))
+      && (value.signal_id === undefined || (typeof value.signal_id === 'string'
+        && /^SIG-[0-9]{8}-[a-f0-9]{8}$/.test(value.signal_id)))
       ? value as IdeaPromotionReservation : null
   } catch { return null }
 }

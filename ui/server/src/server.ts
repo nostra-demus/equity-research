@@ -5896,11 +5896,18 @@ function durableSignalIntakeExists(signalId: string): boolean {
   try {
     const rootInfo = fs.lstatSync(root)
     const intakeInfo = fs.lstatSync(intake)
-    if (!rootInfo.isDirectory() || rootInfo.isSymbolicLink() || fs.realpathSync(root) !== root
-        || !intakeInfo.isFile() || intakeInfo.isSymbolicLink() || fs.realpathSync(intake) !== intake) {
+    if (!rootInfo.isDirectory() || rootInfo.isSymbolicLink()
+        || !intakeInfo.isFile() || intakeInfo.isSymbolicLink()) {
       throw new Error('signal admission proof is not a regular contained intake')
     }
-    if (JSON.parse(fs.readFileSync(intake, 'utf8'))?.signal_id !== signalId) {
+    const realBoundary = fs.realpathSync(boundary)
+    const realRoot = fs.realpathSync(root)
+    const realIntake = fs.realpathSync(intake)
+    if (!realRoot.startsWith(realBoundary + path.sep) || !realIntake.startsWith(realRoot + path.sep)) {
+      throw new Error('signal admission proof escaped its real screener boundary')
+    }
+    const parsed = JSON.parse(fs.readFileSync(realIntake, 'utf8'))
+    if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed) || parsed.signal_id !== signalId) {
       throw new Error('signal admission proof identity does not match its reservation')
     }
     return true
