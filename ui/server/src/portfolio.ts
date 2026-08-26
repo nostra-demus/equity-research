@@ -689,9 +689,13 @@ export function buildBook(documents: FlexDocument[]): Book {
   const accruals: BookAccruals = {
     dividend: accrualRow?.dividend ?? null,
     interest: accrualRow?.interest ?? null,
-    total: accrualRow === undefined || (accrualRow.dividend === null && accrualRow.interest === null)
+    // A total is stated only when BOTH balances are known. A blank accrual attribute means UNKNOWN,
+    // not zero (portfolio-import `num`): summing the present side as if the missing one were zero would
+    // let the NAV bridge label the whole residual "proven accrued income" while an omitted balance is
+    // still unaccounted for (§3 do not hide missing data, §15 an aggregate carries its components).
+    total: accrualRow === undefined || accrualRow.dividend === null || accrualRow.interest === null
       ? null
-      : (accrualRow.dividend ?? 0) + (accrualRow.interest ?? 0),
+      : accrualRow.dividend + accrualRow.interest,
   }
 
   // THE NEWEST DOCUMENT THAT ACTUALLY CARRIES A SNAPSHOT, not simply the newest document. A
