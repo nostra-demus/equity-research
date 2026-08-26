@@ -74,6 +74,15 @@ export function claudeChildEnv(base: NodeJS.ProcessEnv = process.env): NodeJS.Pr
   return env
 }
 
+/** Environment visible to a Bash/tool subprocess after the tracked parent CLI applies Anthropic's
+ * CLAUDE_CODE_SUBPROCESS_ENV_SCRUB contract. Keep this separate from claudeChildEnv: the parent needs the
+ * subscription credential to authenticate, while nested tools must never inherit it. */
+export function claudeNestedToolEnv(base: NodeJS.ProcessEnv = process.env): NodeJS.ProcessEnv {
+  const env = claudeChildEnv(base)
+  delete env.CLAUDE_CODE_OAUTH_TOKEN
+  return env
+}
+
 export function isClaudeMaxAuth(value: unknown): boolean {
   const status = value as Record<string, unknown>
   return status?.loggedIn === true && status?.authMethod === 'claude.ai'
@@ -387,7 +396,10 @@ async function assertClaudeSandboxRuntime(): Promise<void> {
         filesystem: settings.sandbox.filesystem,
         network: settings.sandbox.network,
       }, null, 2) + '\n', { flag: 'wx', mode: 0o600 })
-      const probeEnv = claudeChildEnv(process.env)
+      // The probe executes the nested CLI directly instead of spending quota on a parent Claude turn.
+      // Mirror the environment Anthropic's parent-side scrub presents to Bash/tools; otherwise the proof
+      // would hand its direct child the parent's setup-token and fail for the wrong reason.
+      const probeEnv = claudeNestedToolEnv(process.env)
       probeEnv.TMPDIR = scratchDir
       probeEnv.TMP = scratchDir
       probeEnv.TEMP = scratchDir
