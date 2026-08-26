@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-08-26T08:14:24Z",
+  "generated_at": "2026-08-26T08:25:33Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260826-623",
+      "headline": "BASF India Limited: BASF India Limited has informed the Exchange about Newspaper Advertisement in respect of Notice of final hearing of Company Scheme Petition related to demerger of Companys Agricultural Solutions Business into BASF Agricultural Solutions India Ltd.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/BASFIL_26082026133505_SELetter.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-26T08:05:23Z",
+      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
+      "prelim_note": "Final hearing notice in company scheme petition for demerger of BASF India's Agricultural Solutions business signals imminent structural separation affecting revenue allocation, divisional focus, and capital structure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Final hearing notice in company scheme petition for demerger of BASF India's Agricultural Solutions business signals imminent structural separation affecting revenue allocation, divisional focus, and capital structure.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 74,
+      "rank_factors": {
+        "materiality": 74,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BASF India Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260826-588",
       "headline": "ACF: ACCC Grants Final Approval for Acquisition of AGIS",
@@ -1946,55 +1995,6 @@
       ],
       "issuer_linkage": "macro",
       "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260826-621",
-      "headline": "GACM Technologies Ltd: The Exchange has received the disclosure under Regulation 29(2) of SEBI (Substantial Acquisition of Shares & Takeovers) Regulations, 2011 for Magnifica Global Opportunities VCC & Others",
-      "headline_en": null,
-      "url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/FF5BB004_0EB3_4344_8DE6_3381CCAE7C18_132602.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-26T07:56:06Z",
-      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
-      "prelim_note": "SEBI Regulation 29(2) substantial-acquisition disclosure for Magnifica Global Opportunities VCC; shareholding stake, control threshold status, and transaction terms not provided in headline.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "SEBI Regulation 29(2) substantial-acquisition disclosure for Magnifica Global Opportunities VCC; shareholding stake, control threshold status, and transaction terms not provided in headline.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 58,
-      "rank_factors": {
-        "materiality": 58,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 12,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "GACM Technologies Ltd",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -94039,9 +94039,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1644214,
-    "news_picked_today": 1160,
-    "news_dropped_today": 11476
+    "news_seen_today": 1665259,
+    "news_picked_today": 1171,
+    "news_dropped_today": 11477
   },
   "book_momentum": {
     "live_count": 8,
