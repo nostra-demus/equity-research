@@ -37,6 +37,10 @@ interface MemoryConfig {
   enforcementShadow: string
   enforcementPublicKey: string
   enforcementKeyId: string
+  benchmarkPublicKey: string
+  benchmarkKeyId: string
+  shadowAdjudicatorPublicKey: string
+  shadowAdjudicatorKeyId: string
 }
 
 interface PrepareResult {
@@ -187,11 +191,21 @@ function memoryConfig(env: NodeJS.ProcessEnv = process.env): MemoryConfig {
     )),
     enforcementPublicKey: read('NOSTRA_MEMORY_ENFORCEMENT_PUBLIC_KEY'),
     enforcementKeyId: read('NOSTRA_MEMORY_ENFORCEMENT_KEY_ID'),
+    benchmarkPublicKey: read('NOSTRA_MEMORY_BENCHMARK_PUBLIC_KEY'),
+    benchmarkKeyId: read('NOSTRA_MEMORY_BENCHMARK_KEY_ID'),
+    shadowAdjudicatorPublicKey: read('NOSTRA_MEMORY_SHADOW_ADJUDICATOR_PUBLIC_KEY'),
+    shadowAdjudicatorKeyId: read('NOSTRA_MEMORY_SHADOW_ADJUDICATOR_KEY_ID'),
   }
   if (mode !== 'off') {
+    const enforcementOnly = new Set([
+      'enforcementActivation', 'enforcementReadiness', 'enforcementThreeLayer',
+      'enforcementShadow', 'enforcementPublicKey', 'enforcementKeyId',
+      'benchmarkPublicKey', 'benchmarkKeyId',
+      'shadowAdjudicatorPublicKey', 'shadowAdjudicatorKeyId',
+    ])
     const missing = Object.entries(config)
       .filter(([key, value]) => key !== 'mode' && key !== 'stateRoot'
-        && (mode === 'enforced' || !key.startsWith('enforcement')) && !value)
+        && (mode === 'enforced' || !enforcementOnly.has(key)) && !value)
       .map(([key]) => key)
     if (missing.length) throw new Error(`memory runtime configuration is incomplete: ${missing.join(', ')}`)
   }
@@ -287,14 +301,21 @@ async function verifyEnforcementGate(
   config: MemoryConfig, run: RunState, executor: MemoryExecutor,
 ): Promise<void> {
   if (config.mode !== 'enforced') return
-  const result = await executor([
+  const untrustedResult: unknown = await executor([
     'verify-enforcement', '--activation', config.enforcementActivation,
     '--readiness', config.enforcementReadiness,
     '--three-layer', config.enforcementThreeLayer,
     '--shadow', config.enforcementShadow,
     '--public-key', config.enforcementPublicKey, '--key-id', config.enforcementKeyId,
+    '--benchmark-public-key', config.benchmarkPublicKey, '--benchmark-key-id', config.benchmarkKeyId,
+    '--adjudicator-public-key', config.shadowAdjudicatorPublicKey,
+    '--adjudicator-key-id', config.shadowAdjudicatorKeyId,
     '--provider', run.provider, '--model', run.model, '--now', new Date().toISOString(),
   ])
+  if (!untrustedResult || typeof untrustedResult !== 'object' || Array.isArray(untrustedResult)) {
+    throw new Error('signed memory enforcement activation did not verify')
+  }
+  const result = untrustedResult as Record<string, unknown>
   if (result.schema !== 'memory-enforcement-verification/v1' || result.ok !== true
       || result.provider_model !== `${run.provider}/${run.model}`
       || typeof result.activation_sha256 !== 'string' || !HASH.test(result.activation_sha256)
@@ -389,8 +410,9 @@ export async function prepareResearchMemory(
   return binding
 }
 
-export async function verifyResearchMemoryBeforeSpawn(
+async function verifyResearchMemoryBinding(
   run: RunState, executor: MemoryExecutor = defaultExecutor, env: NodeJS.ProcessEnv = process.env,
+  requireCurrentActivation = true,
 ): Promise<void> {
   const binding = run.memoryRuntime
   if (!binding || binding.status === 'off' || binding.status === 'unavailable') return
@@ -398,7 +420,7 @@ export async function verifyResearchMemoryBeforeSpawn(
     throw new Error('memory snapshot or provider authorization is not verified')
   }
   const config = memoryConfig(env)
-  await verifyEnforcementGate(config, run, executor)
+  if (requireCurrentActivation) await verifyEnforcementGate(config, run, executor)
   if (runtimeControls(config.stateRoot).globalDisabled) {
     throw new Error('global memory kill switch activated after the run snapshot was frozen')
   }
@@ -414,6 +436,12 @@ export async function verifyResearchMemoryBeforeSpawn(
       || result.authorization_sha256 !== binding.authorizationSha256) {
     throw new Error('memory provider authorization changed before provider dispatch')
   }
+}
+
+export async function verifyResearchMemoryBeforeSpawn(
+  run: RunState, executor: MemoryExecutor = defaultExecutor, env: NodeJS.ProcessEnv = process.env,
+): Promise<void> {
+  await verifyResearchMemoryBinding(run, executor, env, true)
 }
 
 export async function compileResearchMemoryPacket(
@@ -546,7 +574,7 @@ export async function finalizeResearchMemory(
   }
   try {
     const config = memoryConfig(env)
-    await verifyResearchMemoryBeforeSpawn(run, executor, env)
+    await verifyResearchMemoryBinding(run, executor, env, false)
     const status = successful ? 'completed' : 'failed'
     const result = await executor([
       'finalize', ...commonArgs(config, binding.logicalRunId), '--mode', binding.mode,

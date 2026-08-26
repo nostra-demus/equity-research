@@ -4,7 +4,7 @@
   "title": "Production memory shadow A/B evaluation report v1",
   "type": "object",
   "additionalProperties": false,
-  "required": ["schema", "evaluation_id", "evaluation_mode", "preregistration_sha256", "roster_sha256", "window", "sample", "quality", "provider_parity", "gate", "report_sha256"],
+  "required": ["schema", "evaluation_id", "evaluation_mode", "preregistration_sha256", "roster_sha256", "window", "sample", "quality", "provider_parity", "gate", "adjudication_attestation", "report_sha256"],
   "properties": {
     "schema": {"const": "memory-shadow-evaluation-report/v1"},
     "evaluation_id": {"type": "string", "pattern": "^memory-shadow-eval-[A-Za-z0-9._-]{1,96}$"},
@@ -59,10 +59,36 @@
         "blocking_reasons": {"type": "array", "uniqueItems": true, "items": {"type": "string"}}
       }
     },
+    "adjudication_attestation": {
+      "oneOf": [
+        {"type": "null"},
+        {
+          "type": "object", "additionalProperties": false,
+          "required": ["schema", "adjudicator_id", "attested_at", "report_body_sha256", "signature"],
+          "properties": {
+            "schema": {"const": "memory-shadow-adjudication-attestation/v1"},
+            "adjudicator_id": {"type": "string", "minLength": 1, "maxLength": 160},
+            "attested_at": {"type": "string", "format": "date-time"},
+            "report_body_sha256": {"$ref": "#/$defs/hash"},
+            "signature": {"$ref": "#/$defs/signature"}
+          }
+        }
+      ]
+    },
     "report_sha256": {"$ref": "#/$defs/hash"}
   },
   "$defs": {
     "hash": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
-    "rate": {"type": "number", "minimum": 0, "maximum": 1}
+    "rate": {"type": "number", "minimum": 0, "maximum": 1},
+    "signature": {
+      "type": "object", "additionalProperties": false,
+      "required": ["key_id", "algorithm", "signed_sha256", "value"],
+      "properties": {
+        "key_id": {"type": "string", "minLength": 1, "maxLength": 128},
+        "algorithm": {"const": "ed25519"},
+        "signed_sha256": {"$ref": "#/$defs/hash"},
+        "value": {"type": "string", "pattern": "^[A-Za-z0-9_-]{86}$"}
+      }
+    }
   }
 }

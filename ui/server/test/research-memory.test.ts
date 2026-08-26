@@ -8,6 +8,7 @@ import type { RunState } from '../src/registry'
 import {
   clearResearchMemoryPreparationForTests,
   compileResearchMemoryPacket,
+  finalizeResearchMemory,
   prepareResearchMemory,
   researchMemoryMode,
   researchMemoryTaskStatus,
@@ -53,6 +54,10 @@ const configured = {
   NOSTRA_MEMORY_ENFORCEMENT_SHADOW: '/tmp/shadow-report.json',
   NOSTRA_MEMORY_ENFORCEMENT_PUBLIC_KEY: '/tmp/enforcement-public-key',
   NOSTRA_MEMORY_ENFORCEMENT_KEY_ID: 'memory-enforcement-release',
+  NOSTRA_MEMORY_BENCHMARK_PUBLIC_KEY: '/tmp/benchmark-public-key',
+  NOSTRA_MEMORY_BENCHMARK_KEY_ID: 'benchmark-runner-key',
+  NOSTRA_MEMORY_SHADOW_ADJUDICATOR_PUBLIC_KEY: '/tmp/shadow-adjudicator-public-key',
+  NOSTRA_MEMORY_SHADOW_ADJUDICATOR_KEY_ID: 'shadow-adjudicator-key',
 } as NodeJS.ProcessEnv
 
 assert.equal(researchMemoryMode({}), 'off')
@@ -76,6 +81,7 @@ const executor = async (args: string[]) => {
     authorization_path: '/tmp/provider-authorization.json',
     authorization_sha256: `sha256:${'b'.repeat(64)}`,
   }
+  if (args[0] === 'finalize') return { ok: true, status: 'completed', coverage_pct: 100 }
   return {
     ok: true, receipt_id: 'run-receipt_00000000-0000-5000-8000-000000000001',
     receipt_sha256: `sha256:${'a'.repeat(64)}`,
@@ -125,6 +131,14 @@ await assert.rejects(
 assert.deepEqual(blockedCalls.map((args) => args[0]), ['verify-enforcement'])
 assert.equal(blockedByReleaseGate.memoryRuntime?.status, 'blocked')
 
+clearResearchMemoryPreparationForTests()
+const malformedGateResult = run()
+await assert.rejects(
+  () => prepareResearchMemory(malformedGateResult, async () => null as any, configured),
+  /memory snapshot blocked before spend: signed memory enforcement activation did not verify/,
+)
+assert.equal(malformedGateResult.memoryRuntime?.status, 'blocked')
+
 const shadowGateCalls: string[][] = []
 const shadowWithConfig = run()
 await prepareResearchMemory(shadowWithConfig, async (args) => {
@@ -156,6 +170,14 @@ fs.writeFileSync(output, '# Changed analysis\n')
 assert.equal(researchMemoryTaskStatus(
   prepared, 'earnings/01_historical-financials', 'earnings/01_historical-financials.md', statusConfig,
 ).attested, false)
+const enforcementChecksBeforeFinalize = calls.filter((args) => args[0] === 'verify-enforcement').length
+const finalized = await finalizeResearchMemory(prepared, true, executor, configured)
+assert.deepEqual(finalized, { ok: true })
+assert.equal(
+  calls.filter((args) => args[0] === 'verify-enforcement').length,
+  enforcementChecksBeforeFinalize,
+  'finalization verifies the frozen receipt without requiring an unexpired dispatch activation',
+)
 fs.rmSync(statusRoot, { recursive: true })
 fs.rmSync(path.resolve('../..', 'analyses/MEMORYTEST_2099-01-01'), { recursive: true })
 

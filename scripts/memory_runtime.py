@@ -788,7 +788,9 @@ class ProjectionManager:
         _atomic_private_write(self.identity_path, registry)
         return registry
 
-    def prepare(self, *, now: dt.datetime | None = None) -> ProjectionSnapshot:
+    def prepare(
+        self, *, now: dt.datetime | None = None, force_rebuild: bool = False,
+    ) -> ProjectionSnapshot:
         repository_sha = _git_sha(self.repo_root)
         writer_owner = controlled_writer_owner_sha256(self.writer_owner_path)
         writer_head = controlled_writer_head_sha256(self.writer_head_path)
@@ -796,6 +798,8 @@ class ProjectionManager:
         registry = self._identity(as_of)
         diagnostics: tuple[dict[str, Any], ...] = ()
         try:
+            if force_rebuild:
+                raise MemoryRuntimeError("deterministic-clean-rebuild-requested")
             checkpoint = verify_external_checkpoint(
                 self.checkpoint_path, verifier=self.verifier, repository_sha=repository_sha,
                 writer_owner_sha256=writer_owner, writer_head_sha256=writer_head,

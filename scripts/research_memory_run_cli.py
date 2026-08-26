@@ -333,6 +333,10 @@ def verify_enforcement(args: argparse.Namespace) -> int:
         shadow=load_object(args.shadow),
         public_key=load_master_key_file(Path(args.public_key)),
         key_id=args.key_id,
+        benchmark_public_key=load_master_key_file(Path(args.benchmark_public_key)),
+        benchmark_key_id=args.benchmark_key_id,
+        adjudicator_public_key=load_master_key_file(Path(args.adjudicator_public_key)),
+        adjudicator_key_id=args.adjudicator_key_id,
         provider=args.provider,
         model=args.model,
         now=args.now,
@@ -535,6 +539,10 @@ def parser() -> argparse.ArgumentParser:
     e.add_argument("--shadow", required=True)
     e.add_argument("--public-key", required=True)
     e.add_argument("--key-id", required=True)
+    e.add_argument("--benchmark-public-key", required=True)
+    e.add_argument("--benchmark-key-id", required=True)
+    e.add_argument("--adjudicator-public-key", required=True)
+    e.add_argument("--adjudicator-key-id", required=True)
     e.add_argument("--provider", required=True)
     e.add_argument("--model", required=True)
     e.add_argument("--now", required=True)

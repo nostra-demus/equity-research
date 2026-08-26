@@ -34,6 +34,7 @@ class MemoryMaintenanceTests(unittest.TestCase):
             with patch("memory_maintenance.ProjectionManager") as manager:
                 manager.return_value.prepare.return_value = snapshot
                 report = clean_rebuild(config)
+                manager.return_value.prepare.assert_called_once_with(force_rebuild=True)
             self.assertEqual("completed", report["status"])
             self.assertEqual(27, report["event_count"])
             self.assertNotIn("events", report)
