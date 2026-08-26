@@ -64,6 +64,9 @@ function readTag(src: string, from: number): { tag: string; attrs: Record<string
     if (i >= src.length) throw new Error(`unterminated tag <${tag}>`)
     if (src[i] === '/') {
       while (i < src.length && src[i] !== '>') i++
+      // Running off the end means the '>' never arrived. Returning an end index past the source would
+      // finish the parse silently on a truncated download instead of failing on it.
+      if (i >= src.length) throw new Error(`unterminated tag <${tag}> — the download may be truncated`)
       return { tag, attrs, end: i + 1, selfClosing: true }
     }
     if (src[i] === '>') return { tag, attrs, end: i + 1, selfClosing: false }

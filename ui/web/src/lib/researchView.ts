@@ -1,5 +1,6 @@
-// Which view the research stage is showing. Three values now: the flat constellation, the 3D globe, and
-// the watchlist (a list of names you are waiting on, not a rendering of the swarm).
+// Which view the research stage is showing. Four values: the flat constellation, the 3D globe, and two
+// cross-company views — the watchlist (names you are waiting on) and the portfolio (the fund's real
+// book). Neither cross-company view is a rendering of the swarm.
 //
 // Both functions here are pure so they can be tested without a DOM — and they need testing, because both
 // used to be one-liners that silently swallowed a third value:
@@ -10,9 +11,14 @@
 //     without WebGL.
 // Neither is a hypothetical: the first fires on every reload, the second on every boot.
 
-export type ResearchView = 'constellation' | 'globe' | 'watchlist'
+export type ResearchView = 'constellation' | 'globe' | 'watchlist' | 'portfolio'
 
-const VIEWS: readonly ResearchView[] = ['constellation', 'globe', 'watchlist']
+const VIEWS: readonly ResearchView[] = ['constellation', 'globe', 'watchlist', 'portfolio']
+
+/** The views that are a PLACE YOU GO rather than the stage you work on: cross-company lists, not a
+ *  rendering of the selected company's swarm. They are research-only, and they are not restored on
+ *  reload — see normalizeStoredView. */
+const CROSS_COMPANY: readonly ResearchView[] = ['watchlist', 'portfolio']
 
 /**
  * An allow-list, not a two-way guess.
@@ -27,13 +33,13 @@ const VIEWS: readonly ResearchView[] = ['constellation', 'globe', 'watchlist']
  * thing you read, and the globe is one click away for anyone who prefers it.
  */
 export function normalizeStoredView(raw: unknown): ResearchView {
-  if (raw === 'watchlist') return 'constellation'
+  if (CROSS_COMPANY.includes(raw as ResearchView)) return 'constellation'
   return VIEWS.includes(raw as ResearchView) ? (raw as ResearchView) : 'constellation'
 }
 
-/** Which views are worth remembering between visits. The watchlist is not one (see above). */
+/** Which views are worth remembering between visits. The cross-company views are not (see above). */
 export function isPersistableView(v: ResearchView): boolean {
-  return v !== 'watchlist'
+  return !CROSS_COMPANY.includes(v)
 }
 
 /** Only the globe needs WebGL, so only the globe may be coerced away from it. */
@@ -48,5 +54,5 @@ export function coerceViewForWebgl(view: ResearchView, webglOK: boolean): Resear
  * detour, or switching swarms and back would silently lose it.
  */
 export function effectiveResearchView(view: ResearchView, isResearch: boolean): ResearchView {
-  return view === 'watchlist' && !isResearch ? 'constellation' : view
+  return CROSS_COMPANY.includes(view) && !isResearch ? 'constellation' : view
 }

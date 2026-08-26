@@ -200,7 +200,14 @@ const EPS = 1e-9
 /** Match closes against open lots, oldest first, recovering the structure the statement omits.
  *  Handles the `C;O` flip (close the existing side, then open the opposite one) and a short book
  *  symmetrically — a short opens a negative lot and closes with a buy. */
-export function runFifo(trades: FlexTrade[]): { lots: BookLot[]; closures: BookClosure[]; warnings: string[] } {
+export function runFifo(
+  trades: FlexTrade[],
+  /** Fallback FX when the closing row itself carries no `fxRateToBase`. IBKR leaves that attribute blank
+   *  on a trade already IN the base currency, where the right answer is 1 — not "unconvertible". Without
+   *  it the reconciliation counted every such closure as un-valuable and refused to compare realised P&L
+   *  on a single-currency book, while the broker side of the same check resolved fine through the grid. */
+  rateFor?: (currency: string | null, date: string | null) => number | null,
+): { lots: BookLot[]; closures: BookClosure[]; warnings: string[] } {
   const warnings: string[] = []
   const open = new Map<string, BookLot[]>()
   const closures: BookClosure[] = []
@@ -261,6 +268,8 @@ export function runFifo(trades: FlexTrade[]): { lots: BookLot[]; closures: BookC
         const closeShare = Math.abs(qty) > 0 ? closeCost * (matched / Math.abs(qty)) : 0
         const commissionLocal = openShare + closeShare
         const realizedLocal = grossLocal + commissionLocal
+        const closedAt = t.dateTime ?? t.tradeDate
+        const closeRate = t.fxRateToBase ?? (rateFor ? rateFor(t.currency ?? lot.currency, closedAt ? closedAt.slice(0, 10) : null) : null)
         closures.push({
           key,
           symbol: t.symbol ?? lot.symbol,
@@ -270,12 +279,12 @@ export function runFifo(trades: FlexTrade[]): { lots: BookLot[]; closures: BookC
           entryPrice: lot.price,
           exitPrice: price,
           openedAt: lot.openedAt,
-          closedAt: t.dateTime ?? t.tradeDate,
-          holdingDays: daysBetween(lot.openedAt, t.dateTime ?? t.tradeDate),
+          closedAt,
+          holdingDays: daysBetween(lot.openedAt, closedAt),
           realizedLocal,
           grossLocal,
           commissionLocal,
-          realizedBase: t.fxRateToBase === null ? null : realizedLocal * t.fxRateToBase,
+          realizedBase: closeRate === null ? null : realizedLocal * closeRate,
           closeTradeID: t.tradeID,
         })
         lot.quantity -= signedMatched
@@ -341,9 +350,13 @@ export function alignFlowsToNavDates(flows: { date: string | null; amount: numbe
   const dates = navSeries.map((p) => p.date)
   for (const f of flows) {
     if (!f.date) continue
+    // A flow with no base-currency value is EXCLUDED, exactly as buildBook's warning says it is. Falling
+    // back to the local amount would push, say, an INR deposit into a USD return chain unconverted —
+    // wrong by the size of the exchange rate, and silently, since the warning claims the opposite.
+    if (f.amountBase === null) continue
     const landing = dates.find((d) => d >= f.date!)
     if (landing === undefined) continue
-    byDate.set(landing, (byDate.get(landing) ?? 0) + (f.amountBase ?? f.amount))
+    byDate.set(landing, (byDate.get(landing) ?? 0) + f.amountBase)
   }
   return byDate
 }
@@ -417,7 +430,11 @@ function buildFxResolver(docs: FlexDocument[], base: string | null): (currency: 
         const mid = (lo + hi) >> 1
         if (entry.dates[mid]! <= date) { best = entry.dates[mid]!; lo = mid + 1 } else hi = mid - 1
       }
-      if (best) return entry.rates.get(best) ?? null
+      // ON OR BEFORE, never after. Falling back to the newest rate in the whole grid would value a
+      // transaction that predates the grid at a rate struck months or years later — a made-up number
+      // that looks like a real one. No earlier rate means the row genuinely cannot be valued, and the
+      // caller already knows to exclude it and say so.
+      return best === null ? null : entry.rates.get(best) ?? null
     }
     return entry.rates.get(entry.dates[entry.dates.length - 1]!) ?? null
   }
@@ -445,7 +462,12 @@ export function buildBook(documents: FlexDocument[]): Book {
   // ORDER ONCE, HERE. Dedup keeps the LAST row for a key and the NAV map keeps the last value for a
   // date, so "newest wins" is only true if the documents are in chronological order. Relying on the
   // caller's argument order let a stale export overwrite a newer one.
-  docs.sort((a, b) => (a.toDate ?? '').localeCompare(b.toDate ?? ''))
+  // `whenGenerated` breaks the tie: re-exporting the same range after a restatement produces two files
+  // with the SAME toDate, and without the tie-break their order is whatever the store happened to list,
+  // so the STALE one could win the "newest document" snapshot and still reconcile against its own stale
+  // summary.
+  docs.sort((a, b) =>
+    (a.toDate ?? '').localeCompare(b.toDate ?? '') || (a.whenGenerated ?? '').localeCompare(b.whenGenerated ?? ''))
 
   const trades = dropSupersededTrades(dedupeBy(docs.flatMap((d) => d.trades), (t) => t.tradeID ?? t.transactionID))
   const cash = dedupeBy(docs.flatMap((d) => d.cashTransactions), (c) => c.transactionID)
@@ -465,9 +487,6 @@ export function buildBook(documents: FlexDocument[]): Book {
     .map(([date, total]) => ({ date, total }))
     .sort((a, b) => a.date.localeCompare(b.date))
 
-  const { lots, closures, warnings: fifoWarnings } = runFifo(trades)
-  warnings.push(...fifoWarnings)
-
   const baseCurrency =
     newest.changeInNav?.currency
     ?? docs.flatMap((d) => d.equitySummary).find((r) => r.currency !== null)?.currency
@@ -478,6 +497,11 @@ export function buildBook(documents: FlexDocument[]): Book {
    *  Null means we genuinely cannot value it in the base currency. */
   const rateFor = (currency: string | null, rowRate: number | null, date: string | null): number | null =>
     rowRate !== null ? rowRate : fx(currency, date)
+
+  // FIFO runs with the rate grid available, so a base-currency close (whose row carries no rate) values
+  // at 1 rather than counting as unconvertible — see the note on runFifo's second parameter.
+  const { lots, closures, warnings: fifoWarnings } = runFifo(trades, (currency, date) => fx(currency, date))
+  warnings.push(...fifoWarnings)
 
   const flows: BookFlow[] = cash
     .filter((c) => isCapitalFlow(c.type))
@@ -559,11 +583,16 @@ export function buildBook(documents: FlexDocument[]): Book {
   }
 }
 
-/** Futures and options carry NOTIONAL, not a NAV allocation — a 3-lot gold future is ~$776k of exposure
- *  against ~$29k of margin. Weighting them like equity overstates NAV and every other weight with it. */
+/** MARGIN-BACKED NOTIONAL, not a NAV allocation — a 3-lot gold future is ~$776k of exposure against
+ *  ~$29k of margin. Weighting that like equity overstates NAV and every other weight with it.
+ *
+ *  Bought options are deliberately NOT in this list. An option's marked premium is a real asset (or, when
+ *  short, a real liability) that sits inside NAV exactly as a share does, so flagging it notional would
+ *  strike its value out of the invested total and understate any book that holds options. Future-style
+ *  options (FSOPT) settle on margin like a future, so they belong here. */
 function isDerivativeCategory(assetCategory: string | null): boolean {
   const c = (assetCategory ?? '').toUpperCase()
-  return c === 'FUT' || c === 'OPT' || c === 'FOP' || c === 'CFD' || c === 'FSOPT'
+  return c === 'FUT' || c === 'CFD' || c === 'FSOPT'
 }
 
 // ---------- reconciliation ----------
@@ -638,6 +667,11 @@ export function reconcile(ctx: {
   // 4. Realised P&L, IN BASE CURRENCY on both sides.
   const executions = trades.filter((t) => !t.levelOfDetail || t.levelOfDetail.toUpperCase() === 'EXECUTION')
   const brokerRows = executions.filter((t) => t.fifoPnlRealized !== null)
+  // An OPENING execution still carries fifoPnlRealized="0" — it is a real attribute with a real value,
+  // so it belongs in the sum, but it is NOT evidence that anything was closed. Only a row that says it
+  // closed, or that realised money, can prove a missing opening lot.
+  const brokerClosingRows = brokerRows.filter(
+    (t) => t.fifoPnlRealized !== 0 || (t.openCloseIndicator ?? '').toUpperCase().includes('C'))
   const rate = (t: FlexTrade) => t.fxRateToBase ?? fx(t.currency, t.tradeDate)
   const unconvertible = brokerRows.filter((t) => rate(t) === null).length
     + closures.filter((c) => c.realizedBase === null).length
@@ -645,9 +679,11 @@ export function reconcile(ctx: {
     if (unconvertible > 0) {
       add({ name: 'Realised P&L', ours: null, broker: null, break: null, tolerance: 0, ok: false,
         detail: `${unconvertible} row(s) could not be valued in the base currency, so realised P&L cannot be compared` })
-    } else if (brokerRows.length > 0 && closures.length === 0) {
+    } else if (brokerClosingRows.length > 0 && closures.length === 0) {
       // Every close failed to match an opening lot (history starting mid-position). The book has no
       // realised P&L of its own, so skipping the check would certify a book that never verified one.
+      // Note this fires on CLOSING rows only: an opening-only account reports zeros on both sides and
+      // falls through to the ordinary comparison below, which passes, as it should.
       add({ name: 'Realised P&L', ours: 0, broker: brokerRows.reduce((a, t) => a + t.fifoPnlRealized! * rate(t)!, 0),
         break: null, tolerance: 0, ok: false,
         detail: 'the statement reports realised trades but no close matched an opening lot — the imported history starts too late' })
@@ -661,7 +697,12 @@ export function reconcile(ctx: {
 
   // 5. Our derived lots against the broker's position snapshot. This is what catches a history that
   //    starts after a position was opened, or an opening execution the query never returned.
-  if (positions.length > 0) {
+  //    Gated on the SECTION being present, not on the snapshot being non-empty: an empty OpenPositions
+  //    section is a positive statement that the account is flat, and requiring at least one row would
+  //    skip the check exactly when our lots disagree most — the broker says nothing is held and the FIFO
+  //    engine still shows open lots.
+  const positionsSection = docs.length > 0 && docs[docs.length - 1]!.sectionsPresent.includes('OpenPositions')
+  if (positionsSection || positions.length > 0) {
     const held = new Map<string, number>()
     for (const p of positions) if (p.quantity !== null) held.set(positionKey(p), p.quantity)
     const derived = new Map<string, number>()

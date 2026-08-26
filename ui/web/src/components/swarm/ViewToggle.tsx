@@ -39,6 +39,7 @@ export function ViewToggle() {
     { id: 'constellation', label: 'Constellation', enabled: true },
     { id: 'globe', label: 'Globe', enabled: webglOK, title: webglOK ? undefined : '3D view needs WebGL — unavailable in this browser' },
     ...(isResearch ? [{ id: 'watchlist' as const, label: 'Watchlist', enabled: true }] : []),
+    ...(isResearch ? [{ id: 'portfolio' as const, label: 'Portfolio', enabled: true }] : []),
   ]
   // The view ACTUALLY on screen, not the raw preference: on a non-research swarm a stored 'watchlist'
   // falls back to the constellation (App.tsx renders effectiveResearchView too), but the Watchlist pill is

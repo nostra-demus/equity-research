@@ -4923,3 +4923,76 @@ a { color: inherit; }
 @media (prefers-reduced-motion: reduce) {
   .theme-list__row { transition: none; }
 }
+
+/* ---- fund book (the REAL portfolio, fed by IBKR Flex exports) ----
+   Cross-company view like the watchlist: it fills the stage rather than rendering the swarm. Every value
+   here is a token — the panel/label/number rhythm matches CallsTracker so the two read as one product. */
+.fundbook { width: min(1180px, 94%); max-height: 100%; overflow-y: auto; margin: 0 auto; padding: 18px 0 28px; display: flex; flex-direction: column; gap: 14px; text-align: left; }
+.fundbook__head { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
+.fundbook__eyebrow { color: var(--accent-bright); font-size: 8.5px; font-weight: 750; letter-spacing: 0.55px; text-transform: uppercase; }
+.fundbook__titlerow { display: flex; align-items: baseline; gap: 10px; margin-top: 3px; }
+.fundbook__titlerow strong { font-size: 19px; letter-spacing: 0.2px; }
+.fundbook__titlerow small { color: var(--text-faint); font-size: 11px; }
+.fundbook__recon { flex-shrink: 0; display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: var(--r-pill); font-size: 9.5px; font-weight: 700; border: 1px solid var(--hairline-strong); color: var(--text-muted); }
+.fundbook__recon i { width: 6px; height: 6px; border-radius: 50%; background: var(--text-faint); }
+.fundbook__recon.is-ok { color: var(--accent-bright); border-color: color-mix(in srgb, var(--accent) 38%, transparent); background: var(--accent-wash-soft); }
+.fundbook__recon.is-ok i { background: var(--accent); }
+.fundbook__recon.is-break { color: var(--bad); border-color: color-mix(in srgb, var(--bad) 40%, transparent); background: color-mix(in srgb, var(--bad) 8%, transparent); }
+.fundbook__recon.is-break i { background: var(--bad); }
+
+.fundbook__drop { position: relative; display: flex; align-items: center; gap: 16px; padding: 16px 18px; border: 1px dashed var(--hairline-strong); border-radius: var(--r-lg); background: var(--surface-1); color: var(--accent); cursor: pointer; transition: border-color var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease); }
+.fundbook__drop.is-over { border-color: var(--accent); background: var(--accent-wash-soft); }
+.fundbook__drop.is-busy { cursor: progress; }
+.fundbook__droptext { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.fundbook__droptext strong { font-size: 13px; color: var(--text); }
+.fundbook__droptext small { color: var(--text-faint); font-size: 11px; line-height: 1.5; }
+.fundbook__bar { position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: var(--surface-3); border-radius: 0 0 var(--r-lg) var(--r-lg); overflow: hidden; }
+.fundbook__bar span { display: block; height: 100%; background: var(--accent); transition: width var(--dur-fast) var(--ease); }
+@media (hover: hover) and (pointer: fine) { .fundbook__drop:hover { border-color: color-mix(in srgb, var(--accent) 45%, transparent); } }
+
+.fundbook__notes { display: flex; flex-direction: column; gap: 5px; }
+.fundbook__note { padding: 7px 11px; border-radius: var(--r-sm); font-size: 11.5px; border: 1px solid var(--hairline); }
+.fundbook__note--ok { color: var(--accent-bright); border-color: color-mix(in srgb, var(--accent) 30%, transparent); background: var(--accent-wash-soft); }
+.fundbook__note--bad { color: var(--bad); border-color: color-mix(in srgb, var(--bad) 34%, transparent); background: color-mix(in srgb, var(--bad) 7%, transparent); }
+
+.fundbook__cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(168px, 1fr)); gap: 1px; border: 1px solid var(--hairline-strong); border-radius: var(--r-lg); background: var(--hairline); overflow: hidden; }
+.fundbook__card { display: flex; flex-direction: column; gap: 4px; padding: 13px 15px; background: var(--surface-2); }
+.fundbook__cardlabel { color: var(--text-faint); font-size: 9px; font-weight: 700; letter-spacing: 0.35px; text-transform: uppercase; }
+.fundbook__cardvalue { font-size: 20px; letter-spacing: -0.2px; font-variant-numeric: tabular-nums; }
+.fundbook__cardsub { color: var(--text-faint); font-size: 9.5px; line-height: 1.4; }
+
+.fundbook__panel { border: 1px solid var(--hairline-strong); border-radius: var(--r-lg); background: var(--surface-2); overflow: hidden; }
+.fundbook__panelhead { display: flex; align-items: flex-start; justify-content: space-between; gap: 14px; padding: 13px 14px; border-bottom: 1px solid var(--hairline); }
+.fundbook__panelhead strong { font-size: 13px; display: block; }
+.fundbook__panelhead small { color: var(--text-faint); font-size: 10.5px; }
+.fundbook__row { display: grid; grid-template-columns: 1.3fr 0.5fr 1fr 1fr 1fr 1.2fr 0.8fr 1.2fr; align-items: center; gap: 10px; padding: 9px 14px; border-bottom: 1px solid var(--hairline); font-size: 11.5px; }
+.fundbook__row:last-child { border-bottom: none; }
+.fundbook__row--head { background: var(--surface-1); color: var(--text-faint); font-size: 9px; font-weight: 700; letter-spacing: 0.35px; text-transform: uppercase; }
+.fundbook__row .num { text-align: right; font-variant-numeric: tabular-nums; }
+.fundbook__row .dim { color: var(--text-muted); }
+.fundbook__row .mono { font-family: var(--font-mono); font-size: 11.5px; }
+.fundbook__notional { display: block; color: var(--text-faint); font-size: 8.5px; }
+.fundbook__subhead { padding: 8px 14px; border-bottom: 1px solid var(--hairline); background: var(--surface-1); color: var(--text-faint); font-size: 10px; line-height: 1.5; }
+.fundbook__subhead b { color: var(--text-muted); }
+.fundbook__none, .fundbook__foot { padding: 11px 14px; color: var(--text-faint); font-size: 11px; line-height: 1.5; border-top: 1px solid var(--hairline); }
+.fundbook__foot b { color: var(--text-muted); }
+.fundbook__foot--warn { color: var(--bad); }
+.fundbook__stmt { display: grid; grid-template-columns: 2fr 1.2fr 0.8fr auto; align-items: center; gap: 12px; padding: 9px 14px; border-bottom: 1px solid var(--hairline); font-size: 11.5px; }
+.fundbook__stmt:last-of-type { border-bottom: none; }
+.fundbook__stmt .mono { font-family: var(--font-mono); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.fundbook__stmt .dim { color: var(--text-muted); }
+.fundbook__stmt .num { font-variant-numeric: tabular-nums; }
+.fundbook__remove { font-size: 10.5px; color: var(--text-muted); border: 1px solid var(--hairline); background: transparent; border-radius: var(--r-sm); padding: 3px 10px; cursor: pointer; transition: background var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease); }
+.fundbook__remove:hover:not(:disabled) { background: color-mix(in srgb, var(--bad) 10%, transparent); color: var(--bad); border-color: color-mix(in srgb, var(--bad) 36%, transparent); }
+.fundbook__remove:disabled { opacity: 0.55; cursor: progress; }
+
+.fundbook__empty { display: flex; flex-direction: column; gap: 7px; padding: 34px 20px; text-align: center; border: 1px solid var(--hairline); border-radius: var(--r-lg); background: var(--surface-2); }
+.fundbook__empty strong { font-size: 13.5px; }
+.fundbook__empty span { color: var(--text-faint); font-size: 11.5px; line-height: 1.6; max-width: 62ch; margin: 0 auto; }
+.fundbook__loading { display: flex; flex-direction: column; gap: 12px; }
+.fundbook__error { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 11px 13px; border: 1px solid var(--bad); border-radius: var(--r-md); background: color-mix(in srgb, var(--bad) 7%, var(--surface-2)); color: var(--text-muted); font-size: 11.5px; }
+.fundbook__retry { font-size: 11px; color: var(--accent-bright); border: 1px solid color-mix(in srgb, var(--accent) 40%, transparent); background: var(--accent-wash); border-radius: var(--r-sm); padding: 4px 12px; cursor: pointer; }
+@media (max-width: 900px) {
+  .fundbook__row { grid-template-columns: 1.2fr 0.6fr 1fr 1fr 1.2fr; }
+  .fundbook__row > :nth-child(n+6) { display: none; }
+}

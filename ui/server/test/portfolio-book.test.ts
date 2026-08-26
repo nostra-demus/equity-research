@@ -125,7 +125,7 @@ check('a flow on a non-trading day lands on the next valued day, not the floor',
   // The real-statement bug: a Saturday deposit matched no NAV row, was silently dropped, and Monday's
   // jump then read as a +99% day — over 100 percentage points of phantom return.
   const nav = [{ date: '2026-05-08', total: 1000 }, { date: '2026-05-11', total: 2000 }]
-  const aligned = alignFlowsToNavDates([{ date: '2026-05-09', amount: 1000, amountBase: null }], nav)
+  const aligned = alignFlowsToNavDates([{ date: '2026-05-09', amount: 1000, amountBase: 1000 }], nav)
   assert.equal(aligned.get('2026-05-11'), 1000, 'the Saturday flow must land on Monday')
   assert.equal(aligned.size, 1)
   // and with it aligned, the day is flat rather than a doubling
@@ -134,8 +134,17 @@ check('a flow on a non-trading day lands on the next valued day, not the floor',
 
 check('a flow after the last valued day has nowhere to land and is ignored', () => {
   const nav = [{ date: '2026-05-08', total: 1000 }, { date: '2026-05-11', total: 2000 }]
-  const aligned = alignFlowsToNavDates([{ date: '2026-06-01', amount: 500, amountBase: null }], nav)
+  const aligned = alignFlowsToNavDates([{ date: '2026-06-01', amount: 500, amountBase: 500 }], nav)
   assert.equal(aligned.size, 0)
+})
+
+check('a flow with no base-currency value is EXCLUDED, exactly as the warning says', () => {
+  // buildBook warns that an unconvertible flow "is excluded from the return calculation". Landing the
+  // raw local amount instead would put, say, 90,000 INR into a USD chain as if it were 90,000 USD —
+  // wrong by the exchange rate, and wrong in the direction that says the opposite of the warning.
+  const nav = [{ date: '2026-05-08', total: 1000 }, { date: '2026-05-11', total: 1000 }]
+  const aligned = alignFlowsToNavDates([{ date: '2026-05-11', amount: 90_000, amountBase: null }], nav)
+  assert.equal(aligned.size, 0, 'an unvalued flow must not reach the return chain')
 })
 
 // ---------- flows and income ----------
@@ -318,6 +327,89 @@ check('the book reports what the query actually contained', () => {
 
 check('a book cannot be built from nothing', () => {
   assert.throws(() => buildBook([]), /no Flex documents/)
+})
+
+// ---------- honest reconciliation on the awkward books ----------
+
+const openingBuy = {
+  ...doc.trades[0]!,
+  tradeID: 'OPEN1', transactionID: 'OPEN1', origTradeID: null, origTransactionID: null,
+  symbol: 'ZZZ', conid: '9001', currency: 'USD', assetCategory: 'STK',
+  quantity: 10, tradePrice: 5, multiplier: 1, fxRateToBase: 1,
+  // The attribute IBKR really does stamp on an opening execution.
+  fifoPnlRealized: 0, openCloseIndicator: 'O', ibCommission: 0, taxes: 0,
+  levelOfDetail: 'EXECUTION',
+}
+
+check('an opening-only account is not accused of a broken history', () => {
+  // fifoPnlRealized="0" rides along on OPENING rows too. Counting those as evidence that something was
+  // closed made a brand-new account — buys only, nothing sold — fail its realised-P&L check outright.
+  const built = buildBook([{ ...doc, trades: [openingBuy] }])
+  const realised = built.reconciliation.checks.find((c) => c.name === 'Realised P&L')!
+  assert.ok(realised, 'the check must still run')
+  assert.ok(realised.ok, `nothing was closed, so nothing is unmatched: ${realised.detail}`)
+})
+
+check('an EMPTY position snapshot is compared against, not skipped', () => {
+  // The broker says the account is flat and our lots say 10 shares are held. Requiring at least one
+  // broker row before checking would certify exactly the book that disagrees most.
+  const built = buildBook([{ ...doc, trades: [openingBuy], openPositions: [] }])
+  const positions = built.reconciliation.checks.find((c) => c.name === 'Open positions')
+  assert.ok(positions, 'an empty OpenPositions section is a statement of fact, not a missing section')
+  assert.equal(positions!.ok, false, 'flat at the broker vs 10 held in our lots is a break')
+  assert.ok(near(positions!.break!, 10))
+})
+
+check('a base-currency closure with no row-level FX rate is valued at 1, not left unconvertible', () => {
+  // IBKR omits fxRateToBase on a trade already in the base currency. Reading the blank as "cannot be
+  // valued" made a single-currency book refuse to compare realised P&L at all.
+  const built = buildBook([{ ...doc, trades: doc.trades.map((t) => ({ ...t, fxRateToBase: null })) }])
+  assert.ok(built.closures.length > 0)
+  assert.ok(built.closures.every((c) => c.realizedBase !== null), 'a USD close in a USD book is convertible')
+  const realised = built.reconciliation.checks.find((c) => c.name === 'Realised P&L')!
+  assert.ok(realised.ok, realised.detail)
+})
+
+check('a bought option is NAV, not notional exposure', () => {
+  // A futures contract is margin against notional. An option's marked premium is a real asset sitting
+  // inside NAV, so flagging it notional strikes its value out of the invested total.
+  const template = doc.openPositions.find((p) => !p.levelOfDetail || p.levelOfDetail.toUpperCase() === 'SUMMARY')!
+  const built = buildBook([{
+    ...doc,
+    openPositions: [
+      { ...template, symbol: 'OPT1', conid: '9100', assetCategory: 'OPT' },
+      { ...template, symbol: 'FUT1', conid: '9101', assetCategory: 'FUT' },
+    ],
+  }])
+  assert.equal(built.positions.find((p) => p.symbol === 'OPT1')!.isDerivative, false)
+  assert.equal(built.positions.find((p) => p.symbol === 'FUT1')!.isDerivative, true)
+})
+
+check('two exports ending on the same day are ordered by when they were generated', () => {
+  // A correction re-exported the same range: same toDate, different content. Without the tie-break the
+  // order is whatever the store listed, so the STALE file could win the point-in-time snapshot.
+  const template = doc.openPositions.find((p) => !p.levelOfDetail || p.levelOfDetail.toUpperCase() === 'SUMMARY')!
+  const stale = { ...doc, whenGenerated: '2026-01-05T10:00:00', openPositions: [{ ...template, symbol: 'STALE', conid: '9200' }] }
+  const fresh = { ...doc, whenGenerated: '2026-01-06T10:00:00', openPositions: [{ ...template, symbol: 'FRESH', conid: '9201' }] }
+  // The stale one is passed LAST — only whenGenerated can move it back.
+  const built = buildBook([fresh, stale])
+  assert.ok(built.positions.some((p) => p.symbol === 'FRESH'), 'the later-generated export owns the snapshot')
+  assert.ok(!built.positions.some((p) => p.symbol === 'STALE'))
+})
+
+check('a rate is never taken from AFTER the date it is valuing', () => {
+  // The grid's oldest row is June; the dividend settled in January. Falling back to the newest rate in
+  // the series would value it at a rate struck five months later and call the result a fact.
+  const january = {
+    ...doc.cashTransactions[0]!, transactionID: 'FXEARLY', currency: 'EUR', amount: 1000,
+    fxRateToBase: null, type: 'Dividends', dateTime: '2026-01-02T00:00:00', settleDate: '2026-01-02',
+  }
+  const built = buildBook([{
+    ...doc, cashTransactions: [january],
+    conversionRates: [{ reportDate: '2026-06-30', fromCurrency: 'EUR', toCurrency: 'USD', rate: 1.5 }],
+  }])
+  assert.equal(built.income.dividendsGross, 0, 'a June rate cannot value a January dividend')
+  assert.ok(built.warnings.some((w) => /could not be valued/.test(w)), 'the exclusion must be reported')
 })
 
 console.log(`\n${passed} passed, ${fails.length} failed`)
