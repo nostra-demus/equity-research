@@ -428,15 +428,19 @@ function classifyThemeHttpFailure(status: number): ThemeFailureClass {
   return { scope: 'workload', kind: 'request' }
 }
 
+const THEME_FAILURE_KIND_BY_CODE: Partial<Record<ProviderFailureClassification['code'], ThemeFailureKind>> = {
+  rate_limited: 'rate_limit',
+  timeout: 'timeout',
+  contract_invalid: 'contract',
+  transient_upstream: 'availability',
+  auth: 'access',
+  entitlement: 'access',
+  billing: 'credits',
+  model_terminal: 'endpoint',
+}
+
 function themeFailureFromProviderFailure(failure: ProviderFailureClassification): ThemeFailureClass {
-  const kind: ThemeFailureKind = failure.code === 'rate_limited' ? 'rate_limit'
-    : failure.code === 'timeout' ? 'timeout'
-      : failure.code === 'contract_invalid' ? 'contract'
-        : failure.code === 'transient_upstream' ? 'availability'
-          : failure.code === 'auth' || failure.code === 'entitlement' ? 'access'
-            : failure.code === 'billing' ? 'credits'
-              : failure.code === 'model_terminal' ? 'endpoint'
-                : 'request'
+  const kind = THEME_FAILURE_KIND_BY_CODE[failure.code] ?? 'request'
   return { scope: failure.scope, kind }
 }
 
