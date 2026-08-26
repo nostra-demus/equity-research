@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-26T09:53:24Z",
+  "generated_at": "2026-08-26T10:01:00Z",
   "inbox": [
     {
       "inbox_id": "INB-20260826-726",
@@ -1874,6 +1874,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260826-739",
+      "headline": "Rail Vikas Nigam Limited: Disclosure under Regulation 30 of SEBI (LODR) Regulations, 2015-Imposition of fine by NSE for the quarter ended 30th June, 2026",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/RVNL_26082026151652_Finedetails26082026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-26T09:47:00Z",
+      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
+      "prelim_note": "Company disclosed a fine imposed by the NSE for the quarter ended June 2026.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "Company disclosed a fine imposed by the NSE for the quarter ended June 2026.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 25,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Rail Vikas Nigam Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260826-639",
       "headline": "LEADING HLDGS (06999): A. RESUMPTION GUIDANCE AND QUARTERLY UPDATE ON SUSPENSION OF TRADING B. QUARTERLY UPDATE ON PLANS AND MEASURES IN RESOLVING THE DISCLAIMER OF OPINION",
       "headline_en": null,
@@ -1963,55 +2012,6 @@
         {
           "name": "National Aluminium Company Limited",
           "ticker": "NATIONALUM",
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260826-589",
-      "headline": "Avenue Supermarts Limited: Avenue Supermarts Limited has informed the Exchange about Action(s) taken or orders passed",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/DMART_26082026111105_ASLInitmationReg30_26082026.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-26T05:41:23Z",
-      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
-      "prelim_note": "Regulatory orders or actions against a company can imply potential fines or operational restrictions.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "Regulatory orders or actions against a company can imply potential fines or operational restrictions.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Avenue Supermarts Limited",
-          "ticker": null,
           "listing_country": "IN"
         }
       ],
@@ -94560,9 +94560,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1944267,
-    "news_picked_today": 1323,
-    "news_dropped_today": 11613
+    "news_seen_today": 1966561,
+    "news_picked_today": 1341,
+    "news_dropped_today": 11631
   },
   "book_momentum": {
     "live_count": 8,
