@@ -782,7 +782,7 @@ async function callProviderForIdeaPassDetailed(
   const durableTerminal = r.failure?.action === 'quarantine'
   const ideaDeadlineFailure = r.failureKind === 'availability' && r.timedOut === true
   const providerWideFailure = r.ok || (r.failure
-    ? r.failure.providerWide
+    ? r.failure.providerWide === true
     : r.failureKind === 'rate_limit'
       || (r.failureKind === 'availability' && !ideaDeadlineFailure)
       || providerTerminal)
