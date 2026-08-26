@@ -19,11 +19,21 @@ const PAD = { l: 46, r: 14, t: 12, b: 22 }
  *  The SVG scales UNIFORMLY (no preserveAspectRatio override), so one factor converts a client x into
  *  viewBox units — reading the raw offset instead would put the crosshair in the wrong place at every
  *  width but one. Pointer events rather than mouse events, so a touch drag reads the curve too. */
-function useHover(count: number, W: number, x: (i: number) => number) {
+/** Hover state for a chart. MUST be called before any early return — it used to sit after the
+ *  "not enough points" guard, which is a conditional hook: the first render that takes the guard and the
+ *  next that does not leave React seeing a different number of hooks, and it throws. On the growth chart
+ *  that is reachable from the UI, because picking a range with fewer than two points fires the guard.
+ *
+ *  `count` and `x` are read through a ref at event time rather than closed over, so the handler stays
+ *  correct when the range changes the series under it. */
+function useHover(geometry: () => { count: number; W: number; x: (i: number) => number }) {
   const ref = useRef<SVGSVGElement | null>(null)
+  const geo = useRef(geometry)
+  geo.current = geometry
   const [at, setAt] = useState<number | null>(null)
   const onMove = useCallback((e: React.PointerEvent<SVGSVGElement>) => {
     const el = ref.current
+    const { count, W, x } = geo.current()
     if (!el || count < 2) return
     const box = el.getBoundingClientRect()
     if (box.width <= 0) return
@@ -33,7 +43,7 @@ function useHover(count: number, W: number, x: (i: number) => number) {
     const span = x(count - 1) - x(0)
     const i = span <= 0 ? 0 : Math.round(((vx - x(0)) / span) * (count - 1))
     setAt(Math.max(0, Math.min(count - 1, i)))
-  }, [count, W, x])
+  }, [])
   return { ref, at, onMove, onLeave: useCallback(() => setAt(null), []) }
 }
 
@@ -128,6 +138,9 @@ export function GrowthChart({ series: full, benchmarkSymbol, height = 210 }: {
   height?: number
 }) {
   const [range, setRange] = useState<RangeId>('MAX')
+  // Declared here, above every guard below, so the hook count never changes with the chosen range.
+  const geo = useRef<{ count: number; W: number; x: (i: number) => number }>({ count: 0, W: 960, x: () => 0 })
+  const hover = useHover(() => geo.current)
   const last = full.length ? full[full.length - 1]!.date : null
   const cut = (r: (typeof RANGES)[number]): GrowthPoint[] => {
     if (r.id === 'MAX' || last === null) return full
@@ -188,11 +201,11 @@ export function GrowthChart({ series: full, benchmarkSymbol, height = 210 }: {
   const max = hi + padY
   const x = (i: number) => PAD.l + (i / (series.length - 1)) * (W - PAD.l - PAD.r)
   const y = (v: number) => PAD.t + (1 - (v - min) / (max - min)) * (H - PAD.t - PAD.b)
+  geo.current = { count: series.length, W, x }
 
   const bookPath = buildPath(bookPts, x, y)
   const area = `${bookPath} L${x(series.length - 1).toFixed(1)} ${y(min).toFixed(1)} L${x(0).toFixed(1)} ${y(min).toFixed(1)} Z`
   const end = series[series.length - 1]!
-  const hover = useHover(series.length, W, x)
   // The legend doubles as the readout: hovering replaces "where it ended" with "where it was that day",
   // which is the same three numbers in the same place rather than a floating box that covers the curve.
   const shown = hover.at === null ? end : series[hover.at]!
@@ -250,6 +263,8 @@ export function UnderwaterChart({ series, height = 170 }: {
   series: { date: string; depth: number }[]
   height?: number
 }) {
+  const geo = useRef<{ count: number; W: number; x: (i: number) => number }>({ count: 0, W: 960, x: () => 0 })
+  const hover = useHover(() => geo.current)
   if (series.length < 2) return <div className="fundbook__none">Not enough valued days to draw a drawdown yet.</div>
   const W = 960
   const H = height
@@ -263,7 +278,7 @@ export function UnderwaterChart({ series, height = 170 }: {
   const line = buildPath(pts, x, y)
   const area = `${line} L${x(series.length - 1).toFixed(1)} ${y(0).toFixed(1)} L${x(0).toFixed(1)} ${y(0).toFixed(1)} Z`
   const troughIndex = series.findIndex((s) => s.depth === deepest)
-  const hover = useHover(series.length, W, x)
+  geo.current = { count: series.length, W, x }
 
   return (
     <div className="fundbook__chart">
@@ -298,9 +313,17 @@ export function UnderwaterChart({ series, height = 170 }: {
         {hover.at === null ? (
           <span><i style={{ background: 'var(--bad)' }} />Deepest <b>{deepest.toFixed(2)}%</b>{troughIndex >= 0 && <> on {series[troughIndex]!.date}</>}</span>
         ) : (
-          <span><i style={{ background: 'var(--bad)' }} />Under water <b>{series[hover.at]!.depth.toFixed(2)}%</b> on {series[hover.at]!.date}</span>
+          <span><i style={{ background: 'var(--bad)' }} />Under water <b>{series[hover.at]!.depth.toFixed(2)}%</b></span>
         )}
-        <span className="dim">{series[0]!.date} → {series[series.length - 1]!.date} · measured on the flow-adjusted index, so a withdrawal is not a fall</span>
+        {/* THE DATE REPLACES THE RANGE while reading, exactly as the growth chart does. It used to be
+            appended after the percentage, at 9px, mid-sentence, while this line went on showing the
+            full static range — so the one number that changes under the cursor was the least visible
+            thing in the legend, and read as no date at all. */}
+        <span className="dim">
+          {hover.at === null
+            ? <>{series[0]!.date} → {series[series.length - 1]!.date} · measured on the flow-adjusted index, so a withdrawal is not a fall</>
+            : <><b>{series[hover.at]!.date}</b> · hover to read any day</>}
+        </span>
       </div>
     </div>
   )
