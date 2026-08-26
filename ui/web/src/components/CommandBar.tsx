@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
-import { useStore } from '../lib/store'
+import { isLaunchHealthBlocked, useStore } from '../lib/store'
 import { api } from '../lib/api'
 import type { ProviderParityCanaryStatus } from '../lib/api'
 import { captureAskOpener } from '../lib/askFocus'
@@ -265,7 +265,7 @@ export function ScreenerAskButton() {
 function ScreenerControls() {
   const openSignalIntake = useStore((s) => s.openSignalIntake)
   const health = useStore((s) => s.health)
-  const engineDown = health === 'engine-offline' || health === 'your-network' || health === 'session-expired'
+  const engineDown = isLaunchHealthBlocked(health)
   return (
     <button className="btn btn--amber" disabled={engineDown} onClick={openSignalIntake} title="Paste one news event and run it through the checks">
       Check an event ▸
@@ -450,16 +450,18 @@ function ResumeChip() {
   const activeSwarm = useStore((s) => s.activeSwarm)
   const health = useStore((s) => s.health)
   const launchPending = useStore((s) => s.launchPending)
-  const engineDown = health === 'engine-offline' || health === 'your-network' || health === 'session-expired'
+  const engineDown = isLaunchHealthBlocked(health)
   const entry = selectedTicker
     ? resumableRuns.find((e) => e.kind === 'full' && e.subject === selectedTicker && e.swarm === activeSwarm)
     : undefined
   if (!entry) return null
   const resuming = launchPending?.key?.startsWith(`resume:${entry.subject}:`)
   const noun = entry.unit === 'agent' ? 'check' : 'module'
-  const title = engineDown
-    ? 'Engine offline — live runs are paused until it reconnects'
-    : `This run stopped partway (${entry.doneCount}/${entry.totalCount} ${noun}s done). Resume finishes it from where it stopped — the done work is reused.`
+  const title = health === 'updating'
+    ? 'Engine update in progress — Resume becomes available when it finishes'
+    : engineDown
+      ? 'Engine offline — live runs are paused until it reconnects'
+      : `This run stopped partway (${entry.doneCount}/${entry.totalCount} ${noun}s done). Resume finishes it from where it stopped — the done work is reused.`
   return (
     <button className="aresume aresume--bar" disabled={engineDown || !!resuming} onClick={() => void resumeRun(entry)} title={title}>
       {resuming ? 'Resuming…' : 'Resume'}<span className="aresume__glyph" aria-hidden>▸</span>
@@ -856,10 +858,21 @@ export function CommandBar() {
   const health = useStore((s) => s.health)
   const activeSwarm = useStore((s) => s.activeSwarm)
   const swarms = useStore((s) => s.swarms)
-  const engineDown = health === 'engine-offline' || health === 'your-network' || health === 'session-expired'
+  const engineDown = isLaunchHealthBlocked(health)
   const screenerMode = activeSwarm === 'screener'
   const pendingOnSelectedTicker = Boolean(selectedTicker && launchPending?.ticker === selectedTicker)
   const fullPending = pendingOnSelectedTicker && launchPending?.key === 'full:request'
+  const fullRunTitle = staticMode
+    ? 'Runs on your local machine (npm run dev)'
+    : health === 'updating'
+      ? 'Engine update in progress — new runs become available when it finishes'
+      : engineDown
+        ? 'Engine offline — live runs are paused until it reconnects'
+        : anyRun
+          ? 'A run is in flight — a full run needs exclusive access'
+          : pendingOnSelectedTicker
+            ? 'Another action is already starting for this company'
+            : 'Run the full pipeline'
   // a swarm's decision record carries its own verdict field (e.g. commodity `action`) — resolve it
   // generically so the final-report button shows for any finished constellation-swarm run too
   const verdict = resolveVerdict(decision, swarms.find((s) => s.id === activeSwarm)?.verdictField)
@@ -895,7 +908,7 @@ export function CommandBar() {
             Ask ▸
           </button>
           <ResumeChip />
-          <button className="btn btn--amber" disabled={!selectedTicker || anyRun || engineDown || pendingOnSelectedTicker} onClick={requestFull} title={staticMode ? 'Runs on your local machine (npm run dev)' : engineDown ? 'Engine offline — live runs are paused until it reconnects' : anyRun ? 'A run is in flight — a full run needs exclusive access' : pendingOnSelectedTicker ? 'Another action is already starting for this company' : 'Run the full pipeline'}>
+          <button className="btn btn--amber" disabled={!selectedTicker || anyRun || engineDown || pendingOnSelectedTicker} onClick={requestFull} title={fullRunTitle}>
             {fullPending ? 'Preparing…' : 'Run full ▸'}
           </button>
           <TickerPicker />

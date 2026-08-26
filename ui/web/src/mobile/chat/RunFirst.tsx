@@ -7,6 +7,7 @@
 import { useState } from 'react'
 import { api } from '../../lib/api'
 import { freezeProviderLaunch, launchProviderReceiptMatches, providerLaunchBlockedReason, type ProviderStatus, type ProvidersRead, type RunProvider } from '../../lib/provider'
+import { isLaunchHealthBlocked, useStore } from '../../lib/store'
 
 const titleize = (s: string) => s.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase())
 
@@ -23,10 +24,15 @@ export function RunFirst({ swarm, subject, scope, module, isFlow, staticMode, pr
 }) {
   const [pending, setPending] = useState(false)
   const [note, setNote] = useState<string | null>(null)
+  const health = useStore((s) => s.health)
+  const launchHealthProblem = isLaunchHealthBlocked(health)
+    ? health === 'updating' ? 'Engine update in progress — new runs become available when it finishes.' : 'Engine offline — live runs are paused.'
+    : null
   const providerProblem = providerLaunchBlockedReason(providerStatus, providerCatalogState)
+  const launchProblem = launchHealthProblem || providerProblem
 
   const launch = async () => {
-    if (pending || !module || providerProblem) return
+    if (pending || !module || launchProblem) return
     setPending(true)
     setNote(null)
     try {
@@ -53,10 +59,10 @@ export function RunFirst({ swarm, subject, scope, module, isFlow, staticMode, pr
         <p className="mrunfirst__hint">Running the whole pipeline is a desktop action — use <b>Run full ▸</b> there, then ask here.</p>
       ) : (
         <>
-          <button className="mrunfirst__btn" disabled={staticMode || pending || !!providerProblem} title={providerProblem || undefined} onClick={() => void launch()}>
+          <button className="mrunfirst__btn" disabled={staticMode || pending || !!launchProblem} title={launchProblem || undefined} onClick={() => void launch()}>
             {pending ? 'Starting…' : `Run ${titleize(module || '')} ▸`}
           </button>
-          <p className="mrunfirst__hint">{providerProblem || `Starts a real ${provider === 'codex' ? 'Codex plan' : 'Claude'} engine run, exactly as the desktop button does.`}</p>
+          <p className="mrunfirst__hint">{launchProblem || `Starts a real ${provider === 'codex' ? 'Codex plan' : 'Claude'} engine run, exactly as the desktop button does.`}</p>
         </>
       )}
       {note && <p className="mrunfirst__hint">{note}</p>}

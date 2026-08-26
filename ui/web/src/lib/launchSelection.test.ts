@@ -305,6 +305,11 @@ try {
   api.estimate = async () => preflight('rerun', 'AAA')
   await useStore.getState().runScopedRerun()
   assert.equal(scopedArgs, null, 'a scoped re-run fails closed when an old server omits the exact-call receipt')
+  useStore.setState({ health: 'updating', scopedRerunPending: false })
+  assert.equal(await useStore.getState().prepareScopedRerun(), false, 'a reviewed deployment blocks scoped planning')
+  await useStore.getState().runScopedRerun()
+  assert.equal(scopedArgs, null, 'a reviewed deployment blocks the scoped POST')
+  useStore.setState({ health: 'online', scopedRerunPending: false })
   const scopedPlanOrigin = {
     planPath: `${exactAAA.run_root}/intake/2026-08-13_intake_plan.json`,
     planSha256: `sha256:${'c'.repeat(64)}`,
