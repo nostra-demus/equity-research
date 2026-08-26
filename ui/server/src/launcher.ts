@@ -632,6 +632,35 @@ export interface CodexAutomaticContinuationPlan {
   unresolvedOutputs?: string[]
 }
 
+function codexContinuationTerminalOutputs(run: RunState): string[] {
+  if (run.kind === 'signal') return ['RUN_METADATA.md']
+  if (run.kind !== 'full' && run.kind !== 'rerun') return []
+  if (run.swarmId === RESEARCH_SWARM_ID) {
+    return run.kind === 'full' ? ROOT_ARTIFACTS_FULL : ROOT_ARTIFACTS_RERUN
+  }
+  return swarmById(run.swarmId)?.layout === 'constellation' ? decisionArtifacts(run) : []
+}
+
+function codexContinuationArtifactComplete(run: RunState, relative: string): boolean {
+  if (!run.runRoot || !artifactIsFresh(run, relative)) return false
+  // A full research run has not crossed its terminal publication boundary while the immutable-idea
+  // marker remains, even if a RUN_METADATA file was staged during a failed publication attempt.
+  if (run.kind === 'full' && run.swarmId === RESEARCH_SWARM_ID
+      && relative === 'RUN_METADATA.md' && ideaPublicationPending(run.runRoot)) return false
+  const root = path.isAbsolute(run.runRoot) ? run.runRoot : path.join(REPO_ROOT, run.runRoot)
+  const absolute = path.join(root, relative)
+  try {
+    const info = fs.lstatSync(absolute)
+    if (!info.isFile() || info.isSymbolicLink() || info.size === 0) return false
+    if (relative.endsWith('.md')) return validateAgentOutputFile(absolute).valid
+    if (relative.endsWith('.json')) {
+      const parsed = JSON.parse(fs.readFileSync(absolute, 'utf8'))
+      return parsed !== null && typeof parsed === 'object' && !Array.isArray(parsed)
+    }
+    return true
+  } catch { return false }
+}
+
 function codexContinuationInventory(run: RunState): {
   checkpoint: string
   completedOutputs: string[]
@@ -643,10 +672,30 @@ function codexContinuationInventory(run: RunState): {
   const unresolved = [...run.expected.values()]
     .filter((expected) => run.agents.get(expected.key)?.status !== 'done')
     .sort((left, right) => left.key.localeCompare(right.key))
+  const completedOutputs = completed.map((item) => item.outputRel)
+  const unresolvedOutputs = unresolved.map((item) => item.outputRel)
+  const completedSet = new Set(completedOutputs)
+  const unresolvedSet = new Set(unresolvedOutputs)
+  const terminalCheckpoint: string[] = []
+  for (const relative of codexContinuationTerminalOutputs(run)) {
+    // A future discovered swarm may declare a terminal artifact that is also represented by a roster
+    // agent. The filesystem verdict for a terminal artifact wins, and each path appears in one cohort.
+    completedSet.delete(relative)
+    unresolvedSet.delete(relative)
+    if (codexContinuationArtifactComplete(run, relative)) {
+      completedSet.add(relative)
+      terminalCheckpoint.push(`terminal:${relative}`)
+    } else {
+      unresolvedSet.add(relative)
+    }
+  }
   return {
-    checkpoint: completed.map((item) => item.key).join('\n'),
-    completedOutputs: completed.map((item) => item.outputRel),
-    unresolvedOutputs: unresolved.map((item) => item.outputRel),
+    // Root-terminal progress must reset the stagnant-turn guard too. Previously every module could be
+    // complete while final_thesis/decision_record advanced, yet the checkpoint stayed frozen and the
+    // next fresh Codex process was rejected with an empty inventory before it could publish provenance.
+    checkpoint: [...completed.map((item) => item.key), ...terminalCheckpoint].join('\n'),
+    completedOutputs: [...completedSet],
+    unresolvedOutputs: [...unresolvedSet],
   }
 }
 
@@ -677,14 +726,7 @@ export function planCodexAutomaticContinuation(
   // RUN_METADATA is written only after that routing is adjudicated, so it is the exact parent-completion
   // barrier; requiring every expected orb would incorrectly continue valid PARK/LOG/watchlist outcomes.
   const missingBarrier = run.kind === 'signal'
-    ? (() => {
-      if (!run.runRoot) return true
-      const metadata = path.join(REPO_ROOT, run.runRoot, 'RUN_METADATA.md')
-      try {
-        const info = fs.lstatSync(metadata)
-        return !info.isFile() || info.isSymbolicLink() || !validateAgentOutputFile(metadata).valid
-      } catch { return true }
-    })()
+    ? !codexContinuationArtifactComplete(run, 'RUN_METADATA.md')
     : truncatedBeforeFinal(run)
   if (!missingBarrier) return { continue: false, reason: 'completion_barrier_not_missing' }
   // A missing close result cannot prove a clean provider boundary and must never authorize another process.

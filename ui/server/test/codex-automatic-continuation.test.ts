@@ -104,11 +104,57 @@ const cleanExit = { exitCode: 0 }
   const absolute = path.join(REPO_ROOT, signal.runRoot)
   fs.mkdirSync(absolute, { recursive: true })
   try {
-    assert.equal(planCodexAutomaticContinuation(signal, cleanExit).continue, true,
+    const missingMetadata = planCodexAutomaticContinuation(signal, cleanExit)
+    assert.equal(missingMetadata.continue, true,
       'a signal parent that ended before its run metadata continues')
+    assert.ok(missingMetadata.unresolvedOutputs?.includes('RUN_METADATA.md'),
+      'a signal continuation always gives the provider a non-empty terminal inventory')
     fs.writeFileSync(path.join(absolute, 'RUN_METADATA.md'), '# Signal run\n\nFinal routing: PARK\n')
     assert.equal(planCodexAutomaticContinuation(signal, cleanExit).reason, 'completion_barrier_not_missing',
       'a valid terminal PARK/LOG outcome is complete even when later discovered orbs never ran')
+  } finally {
+    fs.rmSync(absolute, { recursive: true, force: true })
+  }
+}
+
+{
+  const run = makeRun()
+  run.kind = 'full'
+  run.module = 'master'
+  run.runRoot = `analyses/ZZTERM${Math.random().toString(16).slice(2, 8).toUpperCase()}_2099-01-01`
+  for (const agent of run.agents.values()) agent.status = 'done'
+  const absolute = path.join(REPO_ROOT, run.runRoot)
+  fs.mkdirSync(absolute, { recursive: true })
+  try {
+    fs.writeFileSync(path.join(absolute, 'final_thesis.md'), '# Terminal thesis\n\nAvoid.\n')
+    fs.writeFileSync(path.join(absolute, 'decision_record.json'), JSON.stringify({
+      schema_version: '1.0', created_by: 'synthesizer', decision: 'Avoid',
+    }, null, 2) + '\n')
+    fs.writeFileSync(path.join(absolute, 'RUN_METADATA.md'), '# Staged metadata\n\nNot published.\n')
+    fs.writeFileSync(path.join(absolute, '.requires_idea_publication'), '')
+
+    const terminalContinuation = planCodexAutomaticContinuation(run, cleanExit)
+    assert.equal(terminalContinuation.continue, true,
+      'a clean master boundary continues when only terminal publication artifacts remain')
+    assert.ok(terminalContinuation.completedOutputs?.includes('final_thesis.md'))
+    assert.ok(terminalContinuation.completedOutputs?.includes('decision_record.json'))
+    assert.ok(terminalContinuation.checkpoint?.includes('terminal:final_thesis.md'))
+    assert.ok(terminalContinuation.checkpoint?.includes('terminal:decision_record.json'))
+    assert.ok(terminalContinuation.unresolvedOutputs?.includes('memo.md'))
+    assert.ok(terminalContinuation.unresolvedOutputs?.includes('audit_dossier.md'))
+    assert.ok(terminalContinuation.unresolvedOutputs?.includes('RUN_METADATA.md'),
+      'staged metadata stays unresolved until immutable Ideas publication clears its marker')
+
+    run.automaticContinuationCount = terminalContinuation.index
+    run.automaticContinuationCheckpoint = terminalContinuation.checkpoint
+    run.automaticContinuationStagnantTurns = terminalContinuation.stagnantTurns
+    fs.writeFileSync(path.join(absolute, 'memo.md'), '# Memo\n\nTerminal memo.\n')
+    const terminalProgress = planCodexAutomaticContinuation(run, cleanExit)
+    assert.equal(terminalProgress.continue, true)
+    assert.equal(terminalProgress.stagnantTurns, 0,
+      'new terminal artifacts reset the no-progress guard after every module is already complete')
+    assert.ok(terminalProgress.completedOutputs?.includes('memo.md'))
+    assert.ok(terminalProgress.checkpoint?.includes('terminal:memo.md'))
   } finally {
     fs.rmSync(absolute, { recursive: true, force: true })
   }
