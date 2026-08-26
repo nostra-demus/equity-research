@@ -22,6 +22,7 @@ import {
   addManual, clearSuperseded, deleteManual, normalizeManual, provisionalRead, readManual,
   type ManualInput, type ManualRead, type StatementCoverage,
 } from './portfolio-manual'
+import { readLinks, setLink, thesisRead, type PortfolioThesisRead } from './portfolio-thesis'
 import { benchmarkCompare, betaAlpha, dailyReturns, measuredWindow, moneyWeightedReturn, monthlyReturns, returnsByPeriod, riskMetrics, type BenchmarkRead, type BetaAlpha, type MonthRow, type PeriodReturn, type RiskRead } from './portfolio-metrics'
 
 export const PORTFOLIO_DIR = path.join(STATE_DIR, 'portfolio')
@@ -187,6 +188,9 @@ export interface PortfolioRead {
   /** Hand-logged fills, marked against statement coverage. A SEPARATE layer: nothing here reaches the
    *  book or the reconciliation checks, which stay exactly as the broker states them. */
   manual: ManualRead
+  /** What the engine's own research says about what is held. Read-only in both directions — a verdict
+   *  never moves a position, and a position never moves a verdict. */
+  thesis: PortfolioThesisRead
   /** Null whenever there is no book to measure. */
   performance: PortfolioPerformance | null
   /** Present when the stored statements cannot currently produce a book — two accounts, say. The
@@ -269,6 +273,13 @@ function manualRead(statements: StoredStatement[], book: Book | null): ManualRea
   return provisionalRead(readManual(PORTFOLIO_DIR), coverageOf(statements), book?.positions ?? [])
 }
 
+/** Derived on every read like the book itself: a dossier published since the last look shows up without
+ *  anything having to be re-imported, and a verdict is never frozen into the book's own state. */
+function thesisOf(book: Book | null): PortfolioThesisRead {
+  const today = new Date().toISOString().slice(0, 10)
+  return thesisRead(book?.positions ?? [], readLinks(PORTFOLIO_DIR), today)
+}
+
 export function logManualTrade(input: ManualInput): PortfolioRead {
   const today = new Date().toISOString().slice(0, 10)
   addManual(PORTFOLIO_DIR, normalizeManual(input, today))
@@ -277,6 +288,13 @@ export function logManualTrade(input: ManualInput): PortfolioRead {
 
 export function removeManualTrade(id: string): boolean {
   return deleteManual(PORTFOLIO_DIR, id)
+}
+
+/** Point a holding at the engine's research for a company, or pass null to unlink. Validated in
+ *  portfolio-thesis.ts so every caller obeys the same rule. */
+export function linkThesis(symbol: string, ticker: string | null): PortfolioRead {
+  setLink(PORTFOLIO_DIR, symbol, ticker)
+  return readPortfolio()
 }
 
 /** Drop every entry a statement now covers. Returns how many went, so the UI can say it out loud
@@ -288,7 +306,10 @@ export function clearSupersededManual(): number {
 export function readPortfolio(): PortfolioRead {
   const statements = listStatements()
   if (statements.length === 0) {
-    return { statements, book: null, performance: null, manual: manualRead(statements, null), error: null }
+    return {
+      statements, book: null, performance: null, error: null,
+      manual: manualRead(statements, null), thesis: thesisOf(null),
+    }
   }
   const key = currentKey(statements)
   if (cache && cache.key === key) {
@@ -298,6 +319,7 @@ export function readPortfolio(): PortfolioRead {
       statements, book: cache.book, error: cache.error,
       performance: cache.book ? performanceOf(cache.book) : null,
       manual: manualRead(statements, cache.book),
+      thesis: thesisOf(cache.book),
     }
   }
 
@@ -323,5 +345,10 @@ export function readPortfolio(): PortfolioRead {
     }
   }
   cache = { key, book, error }
-  return { statements, book, performance: book ? performanceOf(book) : null, manual: manualRead(statements, book), error }
+  return {
+    statements, book, error,
+    performance: book ? performanceOf(book) : null,
+    manual: manualRead(statements, book),
+    thesis: thesisOf(book),
+  }
 }

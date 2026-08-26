@@ -8,7 +8,7 @@ import type { BridgeStatus } from './types'
 import { parseMemoryRead, unavailableMemoryRead } from './memoryView'
 import { publishedPaperExecutionResult } from './paperPortfolioView'
 import { normalizeProvidersRead, normalizeProviderStatus, providerCatalogForError, providerCatalogUnknown, providerLaunchFields, type FrozenProviderLaunch, type ProviderExecutionProfile, type ProvidersRead, type RunProvider } from './provider'
-import type { ActivityQuery, ActivityResult, AddPipelineSourceInput, BuildStep, CallsResult, ChatComputed, ChatConversationDetail, ChatListQuery, ChatListResult, ChatRequest, ChatScopes, CockpitFeedbackCategory, CockpitFeedbackStatus, CockpitFeedbackView, CompletedChatTurn, CoverageGroup, DataNeedsRead, DataNeedUploadRead, DataStatus, DiscoveredFeed, EventEnrichment, EventResearchLink, FeedbackRecord, FeedbackSubmitInput, FeedbackSummary, FeedbackType, FeedItem, IbkrPaperPortfolioRead, IntakePlan, IntensityStats, IntensityWindow, LaunchableRunKind, LaunchPreflight, MemoryRead, NewsChatEvidence, NewsChatReceipt, NewsChatRequest, NewsCycle, NewsDiagnostics, NewsStatus, PaperExecutionResult, PipelineAuditEvent, PipelineTrend, PipelineView, QuoteRead, PortfolioManualInput, PortfolioManualRead, PortfolioRead, PortfolioUploadResult, ResumableRunInfo, RunHistoryEntry, RunKind, ScanVerdict, ScreenerBoard, SignalIntakeInput, SignalState, SourcesReport, SwarmGraph, SwarmMeta, SwarmSubjectSummary, ThesisPlan, TickerSummary, UploadResult, Usage, WhatChangedRead, Whoami } from './types'
+import type { ActivityQuery, ActivityResult, AddPipelineSourceInput, BuildStep, CallsResult, ChatComputed, ChatConversationDetail, ChatListQuery, ChatListResult, ChatRequest, ChatScopes, CockpitFeedbackCategory, CockpitFeedbackStatus, CockpitFeedbackView, CompletedChatTurn, CoverageGroup, DataNeedsRead, DataNeedUploadRead, DataStatus, DiscoveredFeed, EventEnrichment, EventResearchLink, FeedbackRecord, FeedbackSubmitInput, FeedbackSummary, FeedbackType, FeedItem, IbkrPaperPortfolioRead, IntakePlan, IntensityStats, IntensityWindow, LaunchableRunKind, LaunchPreflight, MemoryRead, NewsChatEvidence, NewsChatReceipt, NewsChatRequest, NewsCycle, NewsDiagnostics, NewsStatus, PaperExecutionResult, PipelineAuditEvent, PipelineTrend, PipelineView, QuoteRead, PortfolioManualInput, PortfolioManualRead, PortfolioRead, PortfolioThesisRead, PortfolioUploadResult, ResumableRunInfo, RunHistoryEntry, RunKind, ScanVerdict, ScreenerBoard, SignalIntakeInput, SignalState, SourcesReport, SwarmGraph, SwarmMeta, SwarmSubjectSummary, ThesisPlan, TickerSummary, UploadResult, Usage, WhatChangedRead, Whoami } from './types'
 
 // Vite supplies `import.meta.env` in the app; standalone tsx regression tests do not.
 const BASE = import.meta.env?.BASE_URL || '/'
@@ -494,6 +494,7 @@ function archiveQueryParams(q: ArchiveQuery): URLSearchParams {
 /** The static-mode stand-in for the provisional layer. A shape, never a claim: an artefact-only build
  *  has no engine to hold hand-logged fills, and returning nothing at all would make the caller guess. */
 const EMPTY_MANUAL: PortfolioManualRead = { trades: [], live: 0, superseded: 0, effects: [] }
+const EMPTY_THESIS: PortfolioThesisRead = { rows: [], covered: [], coveredWeightPct: null, againstCount: 0, uncoveredCount: 0 }
 
 export const api = {
   // One bounded, read-only view over the shared research memory. Static hosting returns an explicit
@@ -1144,7 +1145,7 @@ export const api = {
   // ---- fund book (the REAL portfolio, fed by IBKR Flex exports) ----
   portfolio: async (): Promise<PortfolioRead> => {
     if ((await ensureMode()) === 'static') {
-      return { statements: [], book: null, performance: null, manual: EMPTY_MANUAL, error: null }
+      return { statements: [], book: null, performance: null, manual: EMPTY_MANUAL, thesis: EMPTY_THESIS, error: null }
     }
     return get('/api/portfolio')
   },
@@ -1185,6 +1186,11 @@ export const api = {
   clearSupersededManual: async (): Promise<PortfolioRead & { cleared: number }> => {
     if ((await ensureMode()) === 'static') throw STATIC_ERR()
     return post('/api/portfolio/manual/clear-superseded')
+  },
+  /** Point a holding at the engine's research for a company, or pass null to unlink. */
+  linkThesis: async (symbol: string, ticker: string | null): Promise<PortfolioRead> => {
+    if ((await ensureMode()) === 'static') throw STATIC_ERR()
+    return post('/api/portfolio/link', { symbol, ticker })
   },
 
   history: async (ticker: string): Promise<{ history: RunHistoryEntry[] }> => {

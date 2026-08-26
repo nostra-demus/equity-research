@@ -3,11 +3,15 @@ import { motion, useReducedMotion } from 'framer-motion'
 import { api } from '../../lib/api'
 import type {
   PortfolioBook, PortfolioClosure, PortfolioManualRead, PortfolioPerformance, PortfolioPosition, PortfolioRead,
+  PortfolioThesisRead,
 } from '../../lib/types'
+import { useStore } from '../../lib/store'
 import { GrowthChart, UnderwaterChart } from './charts'
 import { LogTradeForm, ManualTradeList, ProvisionalEffects } from './manual'
+import { ThesisPanel } from './thesis'
 
 const EMPTY_MANUAL: PortfolioManualRead = { trades: [], live: 0, superseded: 0, effects: [] }
+const EMPTY_THESIS: PortfolioThesisRead = { rows: [], covered: [], coveredWeightPct: null, againstCount: 0, uncoveredCount: 0 }
 
 // The fund book: what the fund ACTUALLY owns, fed by IBKR Flex exports.
 //
@@ -45,6 +49,8 @@ const toneOf = (v: number | null | undefined): string =>
 
 export function PortfolioStage() {
   const reduced = useReducedMotion()
+  const selectTicker = useStore((s) => s.selectTicker)
+  const setResearchView = useStore((s) => s.setResearchView)
   const [read, setRead] = useState<PortfolioRead | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
@@ -69,7 +75,7 @@ export function PortfolioStage() {
     try {
       const before = snapshot(read)
       const result = await api.uploadStatements(files, setProgress)
-      const after: PortfolioRead = { statements: result.statements, book: result.book, performance: result.performance, manual: result.manual, error: result.error }
+      const after: PortfolioRead = { statements: result.statements, book: result.book, performance: result.performance, manual: result.manual, thesis: result.thesis, error: result.error }
       setRead(after)
       // What the import actually did to the book, measured rather than asserted: a "12 statements
       // imported" message that leaves every total unchanged is exactly the case an operator needs to
@@ -92,6 +98,7 @@ export function PortfolioStage() {
 
   const book = read?.book ?? null
   const manual = read?.manual ?? EMPTY_MANUAL
+  const thesis = read?.thesis ?? EMPTY_THESIS
   const ccy = book?.baseCurrency ?? null
   const hasStatements = (read?.statements.length ?? 0) > 0
 
@@ -180,12 +187,16 @@ export function PortfolioStage() {
           // the import surface, because when the build FAILS the Remove buttons there are the only way
           // out; hiding them behind a successful build strands the operator with an error and no control.
           <ImportTab
-            read={read ?? { statements: [], book: null, performance: null, manual: EMPTY_MANUAL, error: null }}
+            read={read ?? { statements: [], book: null, performance: null, manual: EMPTY_MANUAL, thesis: EMPTY_THESIS, error: null }}
             onFiles={upload} onChanged={setRead} busy={busy} progress={progress} notes={notes}
             firstRun={!hasStatements} changed={changed} manual={manual}
           />
         ) : tab === 'holdings' ? (
-          <Holdings book={book} perf={read?.performance ?? null} manual={manual} onManage={() => setTab('trades')} />
+          <Holdings
+            book={book} perf={read?.performance ?? null} manual={manual} thesis={thesis}
+            onManage={() => setTab('trades')} onChanged={setRead}
+            onOpenRun={(runRoot, ticker) => { setResearchView('constellation'); void selectTicker(ticker, runRoot) }}
+          />
         ) : tab === 'performance' ? (
           read?.performance
             ? <Performance perf={read.performance} />
@@ -261,8 +272,10 @@ function Card({ label, value, sub, tone }: { label: string; value: string; sub?:
 
 // ---------- holdings ----------
 
-function Holdings({ book, perf, manual, onManage }: {
-  book: PortfolioBook; perf: PortfolioPerformance | null; manual: PortfolioManualRead; onManage: () => void
+function Holdings({ book, perf, manual, thesis, onManage, onChanged, onOpenRun }: {
+  book: PortfolioBook; perf: PortfolioPerformance | null; manual: PortfolioManualRead
+  thesis: PortfolioThesisRead; onManage: () => void; onChanged: (r: PortfolioRead) => void
+  onOpenRun: (runRoot: string, ticker: string) => void
 }) {
   const ccy = book.baseCurrency
   const nav = book.navSeries.length ? book.navSeries[book.navSeries.length - 1]!.total : null
@@ -390,6 +403,9 @@ function Holdings({ book, perf, manual, onManage }: {
           {book.positions.length === 0 && <div className="fundbook__none">No open positions in this statement.</div>}
         </div>
       </div>
+
+      {/* Directly under the positions it describes — the join is only useful next to the thing joined. */}
+      <ThesisPanel thesis={thesis} onChanged={onChanged} onOpenRun={onOpenRun} />
     </>
   )
 }

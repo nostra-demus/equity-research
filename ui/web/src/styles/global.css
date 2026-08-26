@@ -4998,6 +4998,30 @@ a { color: inherit; }
 .fundbook__subhead--split { display: flex; align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap; }
 .fundbook__subhead--split > span { max-width: 72ch; }
 
+/* thesis linkage ------------------------------------------------------------ */
+.fundbook__row--thesis { grid-template-columns: minmax(110px, 1.1fr) 74px minmax(150px, 1.4fr) 86px 110px minmax(190px, 1.5fr); min-width: 760px; }
+/* A whole panel turns only for the one state that needs acting on: something held against its verdict. */
+.fundbook__panel.is-against { border-color: color-mix(in srgb, var(--bad) 34%, var(--hairline-strong)); }
+.fundbook__coverage { flex-shrink: 0; color: var(--text-faint); font-size: 10px; white-space: nowrap; }
+.fundbook__coverage b { color: var(--text); font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+.fundbook__stance { display: block; color: var(--text-faint); font-size: 8.5px; letter-spacing: 0.2px; }
+.fundbook__shortflag { display: block; color: var(--bad); font-size: 8px; font-weight: 700; letter-spacing: 0.3px; text-transform: uppercase; }
+.fundbook__subhead--lead { display: flex; flex-direction: column; gap: 4px; color: var(--text-muted); font-size: 11px; line-height: 1.55; }
+.fundbook__subhead--lead b { color: var(--text); }
+.fundbook__againstlead { color: var(--bad); }
+.fundbook__againstlead b { color: var(--bad); }
+.fundbook__thesisend { display: flex; align-items: center; justify-content: flex-end; flex-wrap: wrap; gap: 6px; }
+.fundbook__thesisend small { color: var(--text-faint); font-size: 8.5px; }
+.fundbook__suggest { display: inline-flex; align-items: center; gap: 4px; color: var(--text-faint); font-size: 9.5px; }
+/* Deliberately a quiet text button, not a call to action: linking is an answer only the operator has. */
+.fundbook__linkbtn { border: none; background: transparent; padding: 1px 3px; cursor: pointer;
+  color: var(--accent); font-size: 9.5px; font-family: var(--font-mono); border-bottom: 1px dotted currentColor; }
+.fundbook__linkbtn:disabled { opacity: 0.5; cursor: progress; }
+@media (hover: hover) and (pointer: fine) { .fundbook__linkbtn:hover:not(:disabled) { color: var(--accent-bright); } }
+.fundbook__select { padding: 3px 6px; border: 1px solid var(--hairline-strong); border-radius: var(--r-sm);
+  background: var(--surface-2); color: var(--text); font-size: 10.5px; font-family: var(--font-mono); }
+.fundbook__select:focus-visible { outline: none; border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent-wash); }
+
 /* import delta -------------------------------------------------------------- */
 .fundbook__cards--tight { border: none; border-radius: 0; grid-template-columns: repeat(auto-fit, minmax(132px, 1fr)); }
 .fundbook__cards--tight .fundbook__cardvalue { font-size: 15px; }

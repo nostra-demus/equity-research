@@ -2178,6 +2178,37 @@ export interface PortfolioManualRead {
   effects: PortfolioManualEffect[]
 }
 
+/** How a holding reached its dossier. `exact` needs no confirmation; `linked` was confirmed once. */
+export type PortfolioThesisMatch = 'exact' | 'linked'
+/** Where the book sits relative to the verdict — direction-aware, so a Short Candidate contradicts a
+ *  long position and agrees with a short one. */
+export type PortfolioThesisStance = 'supported' | 'watch' | 'against' | 'unrated' | 'hedge' | 'none'
+export interface PortfolioThesisRow {
+  symbol: string
+  currency: string | null
+  weightPct: number | null
+  quantity: number | null
+  ticker: string | null
+  matchedBy: PortfolioThesisMatch | null
+  decision: string | null
+  confidence: number | null
+  decisionDate: string | null
+  ageDays: number | null
+  runRoot: string | null
+  runCount: number
+  hasNewerPartial: boolean
+  stance: PortfolioThesisStance
+  /** Covered tickers this holding MIGHT be. Offered, never applied. */
+  suggestions: string[]
+}
+export interface PortfolioThesisRead {
+  rows: PortfolioThesisRow[]
+  covered: string[]
+  coveredWeightPct: number | null
+  againstCount: number
+  uncoveredCount: number
+}
+
 export interface PortfolioPerformance {
   periods: PortfolioPeriodReturn[]
   months: PortfolioMonthRow[]
@@ -2198,6 +2229,8 @@ export interface PortfolioRead {
   statements: PortfolioStatement[]
   /** Hand-logged fills. A SEPARATE layer from the book: nothing here reaches the reconciled figures. */
   manual: PortfolioManualRead
+  /** What the engine's research says about what is held. Read-only in both directions. */
+  thesis: PortfolioThesisRead
   book: PortfolioBook | null
   performance: PortfolioPerformance | null
   error: string | null
