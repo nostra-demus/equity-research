@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
+import { foldRoundTrips, type TradeRowData } from './tradeRows'
 import { motion, useReducedMotion } from 'framer-motion'
 import { api } from '../../lib/api'
 import type {
@@ -347,7 +348,12 @@ function cashShare(book: PortfolioBook, cashEquivalents: string[]): number | nul
  *  to the holdings since the statement, applied to the last reconciled level. Returns the series
  *  untouched whenever there is nothing to add — no live mark, no gap, or no reconciled NAV to scale
  *  from — so the chart never gains a point that says the same thing twice. */
-function withLive(growth: PortfolioPerformance['growth'], live: PortfolioLiveMark | null, nav: number | null) {
+function withLive(
+  growth: PortfolioPerformance['growth'],
+  live: PortfolioLiveMark | null,
+  nav: number | null,
+  benchmarkForward: PortfolioPerformance['benchmarkForward'] = [],
+) {
   if (!live || live.unavailable || live.nav === null || live.asOf === null) return growth
   if (nav === null || nav <= 0 || growth.length === 0) return growth
   const last = growth[growth.length - 1]!
@@ -355,9 +361,11 @@ function withLive(growth: PortfolioPerformance['growth'], live: PortfolioLiveMar
   return [...growth, {
     date: live.asOf,
     book: last.book * (live.nav / nav),
-    // No live index level to pair it with — the market feed carries closes, and reading one as "now"
-    // would put a real number beside an estimate and invite the comparison.
-    benchmark: null,
+    // The index carries forward too, but ONLY on a day the feed actually closed. Its level is a settled
+    // close, not an estimate — it is the book beside it that is priced at the market. Requiring the
+    // dates to match exactly is what keeps a Friday index close from being drawn at a Monday book mark
+    // and read as a comparison that was never made.
+    benchmark: benchmarkForward.find((b) => b.date === live.asOf)?.level ?? null,
     provisional: true,
   }]
 }
@@ -468,7 +476,7 @@ function Holdings({ book, perf, manual, cashEquivalents, live, onManage, onChang
             <div className="fundbook__panelhead">
               <div><strong>Growth of capital</strong></div>
             </div>
-            <GrowthChart series={withLive(perf.growth, live, nav)} benchmarkSymbol={perf.benchmark.symbol} height={230} />
+            <GrowthChart series={withLive(perf.growth, live, nav, perf.benchmarkForward)} benchmarkSymbol={perf.benchmark.symbol} height={230} />
           </div>
         )}
 
@@ -988,22 +996,6 @@ function Performance({ perf, cashShare }: { perf: PortfolioPerformance; cashShar
 // ---------- trade history ----------
 
 /** One row of the trade table: a single closing execution, with every FIFO lot it consumed folded in. */
-interface TradeRowData {
-  symbol: string | null
-  currency: string | null
-  quantity: number
-  entryPrice: number
-  exitPrice: number
-  openedAt: string | null
-  closedAt: string | null
-  holdingDays: number
-  grossLocal: number
-  commissionLocal: number
-  /** Base currency where a rate existed, local otherwise — the same figure the cards above total. */
-  realized: number
-  /** How many opening lots this one exit consumed. */
-  lots: number
-}
 
 function Trades({ book, manual, onChanged, importOpen, onImportOpen, importSurface }: {
   book: PortfolioBook; manual: PortfolioManualRead; onChanged: (r: PortfolioRead) => void
@@ -1016,38 +1008,7 @@ function Trades({ book, manual, onChanged, importOpen, onImportOpen, importSurfa
   // spread across nine of them. The operator placed one order; the lots are the accounting underneath
   // it. `closeTradeID` is the closing execution, which is exactly the thing to group on. A closure with
   // no id keeps its own row rather than being lumped with unrelated ones.
-  const rows = useMemo(() => {
-    const groups = new Map<string, PortfolioClosure[]>()
-    book.closures.forEach((c, i) => {
-      const key = c.closeTradeID ? `${c.symbol}|${c.closeTradeID}` : `solo|${i}`
-      const list = groups.get(key)
-      if (list) list.push(c); else groups.set(key, [c])
-    })
-    const merged: TradeRowData[] = [...groups.values()].map((lots) => {
-      const qty = lots.reduce((a, c) => a + c.quantity, 0)
-      // Weighted by quantity, because the lots being merged were opened at different prices — a plain
-      // mean would report an entry the book never paid.
-      const wAvg = (pick: (c: PortfolioClosure) => number) =>
-        qty === 0 ? pick(lots[0]!) : lots.reduce((a, c) => a + pick(c) * c.quantity, 0) / qty
-      const opened = lots.map((c) => c.openedAt).filter(Boolean).sort()[0] ?? null
-      return {
-        symbol: lots[0]!.symbol,
-        currency: lots[0]!.currency,
-        quantity: qty,
-        entryPrice: wAvg((c) => c.entryPrice),
-        exitPrice: wAvg((c) => c.exitPrice),
-        openedAt: opened,
-        closedAt: lots[0]!.closedAt,
-        // Measured from the OLDEST lot in the group: that is how long the money was actually committed.
-        holdingDays: Math.max(...lots.map((c) => c.holdingDays ?? 0)),
-        grossLocal: lots.reduce((a, c) => a + c.grossLocal, 0),
-        commissionLocal: lots.reduce((a, c) => a + c.commissionLocal, 0),
-        realized: sumBase(lots, baseRealised).total,
-        lots: lots.length,
-      }
-    })
-    return merged.sort((a, b) => (b.closedAt ?? '').localeCompare(a.closedAt ?? ''))
-  }, [book.closures])
+  const rows = useMemo(() => foldRoundTrips(book.closures), [book.closures])
   const stats = useMemo(() => {
     const vals = rows.map((c) => c.realized)
     const wins = vals.filter((v) => v > 0)
@@ -1268,7 +1229,7 @@ function Trades({ book, manual, onChanged, importOpen, onImportOpen, importSurfa
         <div className="fundbook__panelhead">
           <div>
             <strong>Closed round trips</strong>
-            <small>One row per exit, every lot it consumed folded in · realised is net of commission on both legs</small>
+            <small>One row per round trip — every lot it consumed and every order it left in · realised is net of commission on both legs</small>
           </div>
         </div>
         <div className="fundbook__scroll">
@@ -1295,7 +1256,12 @@ function TradeRow({ c, grossRealised }: { c: TradeRowData; grossRealised: number
     <div className="fundbook__row fundbook__row--trades">
       <strong className="mono">
         {c.symbol ?? '—'}
-        {c.lots > 1 && <small className="fundbook__lots" title={`This exit closed ${c.lots} opening lots`}>{c.lots} lots</small>}
+        {(c.lots > 1 || c.fills > 1) && (
+          <small
+            className="fundbook__lots"
+            title={`${c.fills > 1 ? `${c.fills} exits, ` : ''}${c.lots} opening lot${c.lots === 1 ? '' : 's'} — summed, with prices weighted by quantity`}
+          >{c.fills > 1 ? `${c.fills} fills` : `${c.lots} lots`}</small>
+        )}
       </strong>
       <span className="dim">{c.currency ?? '—'}</span>
       <span className="dim mono">{(c.openedAt ?? '—').slice(0, 10)}</span>

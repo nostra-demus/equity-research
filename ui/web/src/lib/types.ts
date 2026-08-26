@@ -2301,6 +2301,10 @@ export interface PortfolioPerformance {
   /** Both curves rebased to 100 at the first funded day — NAV itself cannot be plotted against an
    *  index, because a deposit would draw as performance. */
   growth: { date: string; book: number; benchmark: number | null }[]
+  /** Index levels for feed days AFTER the book's last valued day, rebased exactly as `growth` is. The
+   *  index is a settled close there, not an estimate — it is the BOOK's forward mark that is priced at
+   *  the market. Used only where the date matches the live mark, so it is never drawn at a book day. */
+  benchmarkForward: { date: string; level: number }[]
   /** ANNUALISED (XIRR) — not comparable with the cumulative period returns, and labelled as such. */
   moneyWeightedAnnualisedPct: number | null
   risk: PortfolioRisk

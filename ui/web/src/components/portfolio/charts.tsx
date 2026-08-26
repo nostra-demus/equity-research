@@ -242,6 +242,17 @@ export function GrowthChart({ series: full, benchmarkSymbol, height = 210 }: {
   const estimated = shiftedEstimated.length > 1
     ? shiftedEstimated.map((p, i) => `${i ? 'L' : 'M'}${x(p._i).toFixed(1)} ${y(p.value as number).toFixed(1)}`).join(' ')
     : ''
+  // The index gets the same treatment as the book: solid to the boundary, dashed past it. Its level
+  // there is a settled close rather than an estimate, but the dash marks "after the last statement",
+  // which is what the reader needs to know about BOTH lines. Drawn only when the forward day actually
+  // carries a level — otherwise the index simply stops, as it did before.
+  const bmReconciled = firstProvisional === -1 ? bmPts : bmPts.slice(0, firstProvisional)
+  const bmForward = firstProvisional > 0
+    ? bmPts.slice(lastReconciled).map((p, i) => ({ ...p, _i: lastReconciled + i }))
+    : []
+  const bmEstimated = bmForward.length > 1 && bmForward.every((p) => p.value !== null)
+    ? bmForward.map((p, i) => `${i ? 'L' : 'M'}${x(p._i).toFixed(1)} ${y(p.value as number).toFixed(1)}`).join(' ')
+    : ''
   const area = `${buildPath(reconciledPts, x, y)} L${x(Math.max(0, lastReconciled)).toFixed(1)} ${y(min).toFixed(1)} L${x(0).toFixed(1)} ${y(min).toFixed(1)} Z`
   const end = series[series.length - 1]!
   // The legend doubles as the readout: hovering replaces "where it ended" with "where it was that day",
@@ -275,7 +286,11 @@ export function GrowthChart({ series: full, benchmarkSymbol, height = 210 }: {
         {/* 100 is the line that matters: above it the book has made money, below it has not. */}
         <line x1={PAD.l} y1={y(100)} x2={W - PAD.r} y2={y(100)} stroke="var(--hairline-strong)" strokeWidth="1" vectorEffect="non-scaling-stroke" />
         <path d={area} fill="url(#fbGrowthFill)" />
-        {hasBm && <path d={buildPath(bmPts, x, y)} fill="none" stroke="var(--text-faint)" strokeWidth="1.6" vectorEffect="non-scaling-stroke" strokeLinejoin="round" />}
+        {hasBm && <path d={buildPath(bmReconciled, x, y)} fill="none" stroke="var(--text-faint)" strokeWidth="1.6" vectorEffect="non-scaling-stroke" strokeLinejoin="round" />}
+        {hasBm && bmEstimated && (
+          <path d={bmEstimated} fill="none" stroke="var(--text-faint)" strokeWidth="1.6" strokeDasharray="4 3"
+            vectorEffect="non-scaling-stroke" strokeLinejoin="round" />
+        )}
         <path d={bookPath} fill="none" stroke="var(--accent)" strokeWidth="2" vectorEffect="non-scaling-stroke" strokeLinejoin="round" strokeLinecap="round" />
         {estimated && (
           <>
@@ -285,6 +300,10 @@ export function GrowthChart({ series: full, benchmarkSymbol, height = 210 }: {
               vectorEffect="non-scaling-stroke" strokeLinejoin="round" strokeLinecap="round" />
             <circle cx={x(series.length - 1)} cy={y(series[series.length - 1]!.book)} r="3.5"
               fill="none" stroke="var(--accent)" strokeWidth="2" vectorEffect="non-scaling-stroke" />
+            {series[series.length - 1]!.benchmark !== null && (
+              <circle cx={x(series.length - 1)} cy={y(series[series.length - 1]!.benchmark as number)} r="3"
+                fill="none" stroke="var(--text-faint)" strokeWidth="1.6" vectorEffect="non-scaling-stroke" />
+            )}
           </>
         )}
         <DateAxis series={series} x={x} H={H} W={W} />
@@ -310,7 +329,7 @@ export function GrowthChart({ series: full, benchmarkSymbol, height = 210 }: {
           : <span className="dim">{benchmarkSymbol} — no price history loaded</span>}
         <span className="dim">
           {hover.at === null
-            ? <>{series[0]!.date} → {end.date}{firstProvisional > 0 ? ` · dashed past ${series[lastReconciled]!.date} is priced at the market, not from a statement` : ' · rebased to 100 at the start of this range'}</>
+            ? <>{series[0]!.date} → {end.date}{firstProvisional > 0 ? ` · dashed past ${series[lastReconciled]!.date}: the book priced at the market, the index at its close` : ' · rebased to 100 at the start of this range'}</>
             : <>{shown.date} · hover to read any day</>}
         </span>
       </div>

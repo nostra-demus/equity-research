@@ -180,6 +180,10 @@ export interface PortfolioPerformance {
    *  comparable: NAV itself cannot be plotted against an index because deposits move it without being
    *  performance. The book curve is the flow-adjusted index the returns are already built from. */
   growth: { date: string; book: number; benchmark: number | null }[]
+  /** Index levels for feed days AFTER the book's last valued day, rebased exactly as `growth` is. The
+   *  index is a settled close there, not an estimate — it is the BOOK's forward mark that is priced at
+   *  the market. Used only where the date matches the live mark, so it is never drawn at a book day. */
+  benchmarkForward: { date: string; level: number }[]
   /** The LP's lived return — reported alongside the time-weighted figure, never instead of it.
    *  ANNUALISED (XIRR), unlike the cumulative period returns above: the UI must label it as such. */
   moneyWeightedAnnualisedPct: number | null
@@ -227,6 +231,8 @@ export function performanceOf(book: Book): PortfolioPerformance {
   // against an index would draw every deposit as a leap in performance; the book curve is the same
   // flow-adjusted index every return on this screen is already built from.
   const growth: { date: string; book: number; benchmark: number | null }[] = []
+  /** Index levels for feed days AFTER the book's last valued day, on the same rebasing as `growth`. */
+  const benchmarkForward: { date: string; level: number }[] = []
   if (returns.length > 0) {
     const start = returns[0]!.date
     const inWindow = closes.filter((c) => c.date >= start).sort((a, b) => a.date.localeCompare(b.date))
@@ -249,6 +255,18 @@ export function performanceOf(book: Book): PortfolioPerformance {
       if (close !== undefined && base) lastBm = (close / base) * 100
       growth.push({ date, book: index, benchmark: beyond(date) ? null : lastBm })
     }
+    // PAST THE LAST STATEMENT, the index is not an estimate — it is a settled close the feed already
+    // carries. The book's own forward mark is priced at the market and dashed for that reason; leaving
+    // the index behind at the statement date made the book look as though it had diverged, when the
+    // day simply had not been drawn yet. Levels only — the chart uses one only when its date matches
+    // the live mark exactly, so an index day is never plotted at a book day's position.
+    const last = returns[returns.length - 1]!.date
+    for (const c of inWindow) {
+      if (c.date <= last || base === null || c.close <= 0) continue
+      const gap = (Date.parse(`${c.date}T00:00:00Z`) - Date.parse(`${last}T00:00:00Z`)) / 86_400_000
+      if (gap > MAX_BENCHMARK_GAP_DAYS) break
+      benchmarkForward.push({ date: c.date, level: (c.close / base) * 100 })
+    }
   }
 
   return {
@@ -256,6 +274,7 @@ export function performanceOf(book: Book): PortfolioPerformance {
     months: monthlyReturns(book.navSeries, flowsByDate, closes),
     betaAlpha: betaAlpha(returns, closes, RISK_FREE_ANNUAL_PCT),
     growth,
+    benchmarkForward,
     moneyWeightedAnnualisedPct: moneyWeightedReturn(book.navSeries, flowsByDate),
     risk: riskMetrics(book.navSeries, flowsByDate, RISK_FREE_ANNUAL_PCT),
     benchmark: benchmarkCompare(BENCHMARK_SYMBOL, book.twr, window, closes),
