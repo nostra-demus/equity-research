@@ -195,7 +195,8 @@ function holdAfterTriageFailure(args: {
     : 'provider-access'
   const providerWide = triageFailureIsProviderWide(result)
   const scopedReason = result.timedOut ? 'timeout'
-    : result.failureKind === 'contract' ? 'triage-contract' : 'triage-request'
+    : result.failureKind === 'contract' ? 'triage-contract'
+      : result.failureKind === 'availability' ? 'triage-availability' : 'triage-request'
   // How long the failing call actually ran. Rides onto the marker so a LATER cycle — which sees only the
   // marker, never the failure note — can still tell the operator "timed out at 30.0s" instead of "an error".
   const took = result.elapsedMs
@@ -214,7 +215,10 @@ function holdAfterTriageFailure(args: {
     return
   }
   if (result.failureKind === 'availability') {
-    armCooldown(stateDir, at, cooldownMs, result.timedOut ? scopedId : providerId, cooldownMaxMs, result.timedOut ? 'timeout' : 'availability', took)
+    armCooldown(
+      stateDir, at, cooldownMs, providerWide ? providerId : scopedId, cooldownMaxMs,
+      providerWide ? 'availability' : scopedReason, took,
+    )
     return
   }
   if (accessFailure) {

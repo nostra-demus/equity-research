@@ -165,6 +165,33 @@ await check('terminal failure is durable, timer-free, fingerprint-bound, and cle
   assert.equal(readProviderQuarantine(state, identity), null, 'a newer successful canary clears it')
 })
 
+await check('a legacy OpenRouter 404 marker gets one policy-v2 probe and a true missing model re-quarantines', () => {
+  resetProviderQuarantineMemory()
+  const state = temp()
+  const identity = providerRequestIdentity({
+    providerId: 'openrouter', baseUrl: 'https://openrouter.ai/api/v1', model: 'openrouter/free',
+    models: ['openrouter/free'], apiKey: 'openrouter-key', workload: 'triage', contractVersion: 'v1',
+  })
+  const missing = classifyProviderHttpFailure(404, {
+    error: { type: 'invalid_request_error', code: 'model_not_found', message: 'Model does not exist' },
+  }, { providerId: 'openrouter', model: 'openrouter/free' })
+  quarantineProviderFailure(state, identity, missing, 10_000)
+  const file = path.join(state, 'provider-openrouter-quarantine.json')
+  const legacy = JSON.parse(fs.readFileSync(file, 'utf8'))
+  delete legacy.policyVersion
+  fs.writeFileSync(file, `${JSON.stringify(legacy)}\n`)
+  resetProviderQuarantineMemory()
+
+  assert.equal(readProviderQuarantine(state, identity), null,
+    'the old over-broad 404 policy cannot keep an upgraded installation permanently dark')
+  const current = quarantineProviderFailure(state, identity, missing, 11_000)
+  assert.equal(current?.policyVersion, 2)
+  assert.equal(current?.failureCode, 'model_terminal')
+  resetProviderQuarantineMemory()
+  assert.equal(readProviderQuarantine(state, identity)?.failureCode, 'model_terminal',
+    'a genuinely missing model becomes standing again after its one reclassified probe')
+})
+
 await check('an unreadable quarantine marker fails safe as local_state', () => {
   resetProviderQuarantineMemory()
   const state = temp()

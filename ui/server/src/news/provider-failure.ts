@@ -68,6 +68,8 @@ export interface ProviderRequestIdentity {
 
 export interface ProviderQuarantine {
   version: 1
+  /** Classifier semantics that produced this marker. Absent means the original v1 policy. */
+  policyVersion?: number
   providerId: string
   workload?: string
   scope: ProviderFailureScope
@@ -86,6 +88,7 @@ export interface ProviderQuarantine {
 }
 
 const VERSION = 1
+const FAILURE_POLICY_VERSION = 2
 const MAX_ERROR_BODY = 64 * 1024
 // Domain separation for change-detection fingerprints. These are not password verifiers or authorization
 // tokens: provider API keys are high-entropy credentials, and only the HMAC output enters durable state.
@@ -336,6 +339,8 @@ function markerFingerprint(identity: ProviderRequestIdentity, scope: ProviderFai
 
 function validMarker(value: any): value is Omit<ProviderQuarantine, 'persisted'> {
   return value?.version === VERSION
+    && (value.policyVersion == null || (Number.isInteger(value.policyVersion)
+      && value.policyVersion >= 1 && value.policyVersion <= FAILURE_POLICY_VERSION))
     && typeof value.providerId === 'string'
     && (value.scope === 'provider' || value.scope === 'workload')
     && FAILURE_CODES.has(value.failureCode)
@@ -407,7 +412,17 @@ export function readProviderQuarantine(stateDir: string, identity: ProviderReque
     if (marker.failureCode === 'local_state') return { ...marker, providerId: identity.providerId, scope }
     if (marker.providerId !== identity.providerId || marker.scope !== scope) continue
     if (scope === 'workload' && marker.workload !== identity.workload) continue
-    if (marker.fingerprint === markerFingerprint(identity, scope)) return marker
+    if (marker.fingerprint === markerFingerprint(identity, scope)) {
+      // Before policy v2, every OpenRouter 404 became a standing provider quarantine. That includes the
+      // temporary documented "No Providers Available" response, so merely fixing classification would
+      // leave already-affected installations stuck forever. Give each legacy 404 one new classified probe.
+      // A genuinely missing model is immediately written back under v2 and becomes standing again.
+      const legacyOpenRouter404 = marker.providerId === 'openrouter'
+        && marker.httpStatus === 404
+        && (marker.policyVersion ?? 1) < FAILURE_POLICY_VERSION
+      if (legacyOpenRouter404) continue
+      return marker
+    }
   }
   return null
 }
@@ -465,6 +480,7 @@ export function quarantineProviderFailure(
     const observedAt = same ? Math.max(prior.observedAt, at) : at
     const marker: ProviderQuarantine = {
       version: 1,
+      policyVersion: FAILURE_POLICY_VERSION,
       providerId: identity.providerId,
       ...(failure.scope === 'workload' ? { workload: identity.workload } : {}),
       scope: failure.scope,
@@ -499,7 +515,7 @@ export function quarantineProviderFailure(
       return observed
     }
     const marker: ProviderQuarantine = {
-      version: 1, providerId: identity.providerId,
+      version: 1, policyVersion: FAILURE_POLICY_VERSION, providerId: identity.providerId,
       ...(failure.scope === 'workload' ? { workload: identity.workload } : {}),
       scope: failure.scope, failureCode: failure.code, fingerprint,
       providerFingerprint: identity.providerFingerprint, requestFingerprint: identity.requestFingerprint,
