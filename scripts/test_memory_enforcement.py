@@ -204,6 +204,22 @@ class EnforcementActivationTests(unittest.TestCase):
                     private_key=self.private, key_id="memory-enforcement-release",
                     **self.release_keys(),
                 )
+        for invalid in (None, [], "not-a-mapping"):
+            for field in ("readiness", "three_layer", "shadow"):
+                inputs = {
+                    "readiness": self.readiness,
+                    "three_layer": self.three_layer,
+                    "shadow": self.shadow,
+                }
+                inputs[field] = invalid
+                with self.subTest(field=field, invalid=invalid), self.assertRaises(EnforcementError):
+                    create_activation(
+                        **inputs,
+                        created_at="2026-08-27T00:00:00.000000Z",
+                        expires_at="2026-09-20T00:00:00.000000Z",
+                        private_key=self.private, key_id="memory-enforcement-release",
+                        **self.release_keys(),
+                    )
 
     def test_supervisor_cli_verifies_activation_before_dispatch(self) -> None:
         activation = self.activation()

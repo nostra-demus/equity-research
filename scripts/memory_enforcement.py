@@ -93,6 +93,8 @@ def _release_evidence(
     *, benchmark_public_key: bytes, benchmark_key_id: str,
     adjudicator_public_key: bytes, adjudicator_key_id: str,
 ) -> tuple[dict[str, str], list[str]]:
+    if not all(isinstance(value, Mapping) for value in (readiness, three_layer, shadow)):
+        raise EnforcementError("readiness, three-layer, and shadow reports must be objects")
     verify_operational_readiness_report(readiness)
     production_benchmark = _mapping(_mapping(readiness.get("adoption")).get("production_benchmark"))
     if readiness.get("status") != "met" or production_benchmark.get("status") != "met":
