@@ -4,6 +4,16 @@ description: Inventories management- and governance-relevant data in the data po
 tools: Read, Glob, Grep, Bash
 layer: 0
 fail_fast: true
+memory_profile:
+  version: 1
+  task: management-governance.governance-data-triage
+  episodic_scope: exact-listing
+  semantic_topics: [management-governance, governance-data-triage]
+  procedure_tags: [management-governance, governance-data-triage]
+  cross_company: true
+  permitted_source_tiers: [1, 2, 3, 4, 5]
+  permitted_classifications: [public, internal]
+  max_context_tokens: 3000
 ---
 
 # ROLE

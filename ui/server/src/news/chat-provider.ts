@@ -1,4 +1,16 @@
 import type { ChatTurnOutcome } from '../chat-llm'
+import {
+  classifyProviderCaughtFailure,
+  classifyProviderHttpFailure,
+  clearProviderQuarantine,
+  honorProviderRetryAfter,
+  providerRequestIdentity,
+  publicProviderFailureNote,
+  publicProviderQuarantineNote,
+  quarantineProviderFailure,
+  readProviderQuarantine,
+  type ProviderFailureClassification,
+} from './provider-failure'
 import { Budget, armCooldown, clearCooldown, conservativeChatTokenBound, credibleTokenUsage, getSharedLimiter, isCoolingDown, rateInfoForLimiter, type BudgetReservation, type RateInfo } from './triage/budget'
 import { parseRate } from './triage/groq'
 
@@ -21,6 +33,7 @@ export interface NewsChatFallbackConfig {
   limiterWaitMs: number
   cooldownMs: number
   cooldownMaxMs: number
+  keyEnvVar?: string
 }
 
 export interface NewsChatFallbackOutcome extends ChatTurnOutcome {
@@ -136,6 +149,16 @@ export async function runNewsChatFallback(opts: {
   const perAttemptTokens = newsChatTokenBound(opts.system, compactUser, config.maxTokens)
   const now = Date.now()
   const chatHoldId = 'chat:groq'
+  const identity = providerRequestIdentity({
+    providerId: 'groq', baseUrl: config.baseUrl, model: config.model, apiKey: config.apiKey,
+    keyEnvVar: config.keyEnvVar || 'GROQ_API_KEY', transport: 'openai', workload: 'news-chat',
+    contractVersion: 'news-chat-text-v1',
+    request: { temperature: 0.1, maxTokens: Math.max(200, config.maxTokens), stream: false, promptCompaction: 'v1' },
+  })
+  const standing = readProviderQuarantine(config.stateDir, identity)
+  if (standing) {
+    return { attempted: false, costUsd: 0, error: `News chat backup is unavailable: ${publicProviderQuarantineNote('Groq', standing)}.` }
+  }
   if (isCoolingDown(config.stateDir, 'groq', now) || isCoolingDown(config.stateDir, chatHoldId, now)) return { attempted: false, costUsd: 0, error: 'News chat backup is waiting for its next engine retry after an error.' }
   const budget = Budget.load(config.stateDir, config.dailyReqCap, config.dailyTokenCap, now, 'groq-budget.json')
   if (!budget.pacedCanSpend(perAttemptTokens, { targetTokens: config.dailyTokenTarget, floorFrac: config.paceFloorFrac }, now)) {
@@ -166,6 +189,10 @@ export async function runNewsChatFallback(opts: {
   }
   if (!acquired) return { attempted: false, costUsd: 0, error: opts.signal.aborted ? 'aborted' : 'News chat backup is busy with the shared Groq workload.' }
   if (opts.signal.aborted) return { attempted: false, costUsd: 0, error: 'aborted' }
+  const admittedStanding = readProviderQuarantine(config.stateDir, identity)
+  if (admittedStanding) {
+    return { attempted: false, costUsd: 0, error: `News chat backup is unavailable: ${publicProviderQuarantineNote('Groq', admittedStanding)}.` }
+  }
   if (isCoolingDown(config.stateDir, 'groq', Date.now()) || isCoolingDown(config.stateDir, chatHoldId, Date.now())) {
     return { attempted: false, costUsd: 0, error: 'News chat backup is waiting to try again after an error.' }
   }
@@ -193,13 +220,19 @@ export async function runNewsChatFallback(opts: {
   let providerReachable = false
   let chatHealthy = false
   let exhaustDay = false
+  let terminalFailure: ProviderFailureClassification | null = null
   let failureHold: { id: string; baseMs: number; maxMs: number; reason: string } | null = null
-  const classifyHttpFailure = (status: number, rate: RateInfo) => {
+  const classifyHttpFailure = (failure: ProviderFailureClassification, rate: RateInfo) => {
+    const status = failure.httpStatus || 0
     exhaustDay = status === 429 && rate.rpdRemaining === 0
     if (exhaustDay) return
-    const sharedFailure = status === 429 || status >= 500 || [401, 402, 403, 404].includes(status)
-    if (!sharedFailure) {
-      providerReachable = true
+    if (failure.scope === 'workload') providerReachable = true
+    if (failure.action === 'quarantine') {
+      terminalFailure = failure
+      quarantineProviderFailure(config.stateDir, identity, failure, Date.now())
+      return
+    }
+    if (failure.scope === 'workload') {
       const retryMs = rate.retryAfterMs != null && Number.isFinite(rate.retryAfterMs) ? Math.max(0, Math.floor(rate.retryAfterMs)) : null
       failureHold = retryMs != null
         ? retryMs > 0 ? { id: chatHoldId, baseMs: retryMs, maxMs: retryMs, reason: 'chat-request' } : null
@@ -232,14 +265,19 @@ export async function runNewsChatFallback(opts: {
       signal: timeout.signal,
     })
     const rate = parseRate(response)
-    const providerWideHttp = response.status === 429 || response.status >= 500 || [401, 402, 403, 404].includes(response.status)
-    limiter.learn(rateInfoForLimiter(rate, response.ok || providerWideHttp))
     if (!response.ok) {
-      classifyHttpFailure(response.status, rate)
-      // Provider bodies can contain account or organisation identifiers. Keep them in neither the UI nor
-      // logs; the status code is enough for the operator to diagnose the configured backup.
-      return { attempted: true, costUsd: 0, error: `News chat backup failed (${response.status}).` }
+      // The body is used in memory only to distinguish an explicit retired-model 404 from an ambiguous
+      // request 404. No provider message, account id, or request fragment crosses this boundary.
+      const rawBody = await response.text().catch(() => '')
+      const failure = honorProviderRetryAfter(
+        classifyProviderHttpFailure(response.status, rawBody),
+        rate.retryAfterMs,
+      )
+      limiter.learn(rateInfoForLimiter(rate, failure.providerWide))
+      classifyHttpFailure(failure, rate)
+      return { attempted: true, costUsd: 0, error: `News chat backup is unavailable: ${publicProviderFailureNote('Groq', failure, exhaustDay)}.` }
     }
+    limiter.learn(rateInfoForLimiter(rate, true))
     providerReachable = true
     const payload: any = await response.json()
     // A provider-supplied count can lower the conservative reservation only when it is a credible,
@@ -258,15 +296,21 @@ export async function runNewsChatFallback(opts: {
       return { attempted: true, costUsd: 0, error: 'News chat backup returned no answer.' }
     }
     chatHealthy = true
+    clearProviderQuarantine(config.stateDir, identity, requestStartedAt)
     opts.onToken(answer)
     return { attempted: true, costUsd: 0, model: `groq/${config.model}` }
   } catch (error: any) {
     if (opts.signal.aborted) return { attempted: true, costUsd: 0, error: 'aborted' }
-    const timedOut = error?.name === 'AbortError' || error?.name === 'TimeoutError'
-    failureHold = timedOut || error instanceof SyntaxError
+    const failure = classifyProviderCaughtFailure(error)
+    const timedOut = failure.code === 'timeout'
+    if (failure.action === 'quarantine') {
+      terminalFailure = failure
+      quarantineProviderFailure(config.stateDir, identity, failure, Date.now())
+      failureHold = null
+    } else failureHold = timedOut || error instanceof SyntaxError
       ? { id: chatHoldId, baseMs: config.cooldownMs, maxMs: config.cooldownMaxMs, reason: timedOut ? 'chat-timeout' : 'chat-contract' }
       : { id: 'groq', baseMs: config.cooldownMs, maxMs: config.cooldownMaxMs, reason: 'availability' }
-    const reason = timedOut ? 'timed out' : 'provider unavailable'
+    const reason = failure.action === 'quarantine' ? publicProviderFailureNote('Groq', failure) : timedOut ? 'timed out' : 'provider unavailable'
     return { attempted: true, costUsd: 0, error: `News chat backup ${reason}.` }
   } finally {
     clearTimeout(timer)
@@ -282,7 +326,7 @@ export async function runNewsChatFallback(opts: {
       } else if (!opts.signal.aborted) {
         if (providerReachable && failureHold?.id !== 'groq') clearCooldown(config.stateDir, 'groq', requestStartedAt)
         if (exhaustDay) budget.exhaust()
-        else if (failureHold) armCooldown(config.stateDir, Date.now(), failureHold.baseMs, failureHold.id, failureHold.maxMs, failureHold.reason)
+        else if (!terminalFailure && failureHold) armCooldown(config.stateDir, Date.now(), failureHold.baseMs, failureHold.id, failureHold.maxMs, failureHold.reason)
       }
     }
   }

@@ -18,9 +18,23 @@
 
 import { conservativeChatTokenBound, type RateInfo } from '../triage/budget'
 import {
-  EVENT_TYPES, caughtFailure, httpFailureKind, publicHttpFailureNote,
-  parseRate, type ProviderFailureKind,
+  EVENT_TYPES, caughtFailure, parseRate, type ProviderFailureKind,
 } from '../triage/groq'
+import {
+  classifyProviderContractFailure,
+  classifyProviderHttpFailure,
+  classifyProviderLocalStateFailure,
+  clearProviderQuarantine,
+  honorProviderRetryAfter,
+  providerFailureFromQuarantine,
+  providerRequestIdentity,
+  publicProviderFailureNote,
+  publicProviderQuarantineNote,
+  quarantineProviderFailure,
+  readProviderQuarantine,
+  type ProviderFailureClassification,
+  type ProviderRequestIdentity,
+} from '../provider-failure'
 import { cleanTicker, normTicker } from '../symbology'
 
 // §14 thesis-type classification — the surface skim must name when a "stock idea" is really a macro /
@@ -142,6 +156,57 @@ export interface SurfaceIdeasResult {
   httpStatus?: number
   timedOut?: boolean
   dailyLimit?: boolean
+  failure?: ProviderFailureClassification
+  providerIdentity?: ProviderRequestIdentity
+  quarantined?: boolean
+}
+
+export interface SurfaceIdeasOptions {
+  model: string
+  baseUrl: string
+  apiKey: string
+  maxTokens?: number
+  models?: string[]
+  headers?: Record<string, string>
+  extraBody?: Record<string, unknown>
+  timeoutMs?: number
+  maxAttempts?: number
+  signal?: AbortSignal
+  requestRemainingHeaderIsDaily?: boolean
+  providerId?: string
+  providerLabel?: string
+  keyEnvVar?: string
+  stateDir?: string
+  workload?: string
+  contractVersion?: string
+  nowMs?: () => number
+}
+
+export function ideaProviderRequestIdentity(opts: SurfaceIdeasOptions): ProviderRequestIdentity {
+  return providerRequestIdentity({
+    providerId: opts.providerId || 'ideas',
+    baseUrl: opts.baseUrl,
+    model: opts.model,
+    models: opts.models,
+    apiKey: opts.apiKey,
+    keyEnvVar: opts.keyEnvVar,
+    transport: 'openai',
+    workload: opts.workload || 'ideas',
+    contractVersion: opts.contractVersion || 'news-ideas-json-v1',
+    request: {
+      responseFormat: 'json_object',
+      temperature: 0.2,
+      configuredMaxTokens: opts.maxTokens ?? 2500,
+      extraBody: opts.extraBody || {},
+    },
+  })
+}
+
+function legacyFailureKind(failure: ProviderFailureClassification): ProviderFailureKind {
+  if (failure.code === 'rate_limited') return 'rate_limit'
+  if (failure.code === 'transient_upstream' || failure.code === 'timeout') return 'availability'
+  if (failure.code === 'contract_invalid') return 'contract'
+  return 'request'
 }
 
 // Input-token estimate for the per-minute limiter. Each row carries the title, evidence tier, separate
@@ -323,21 +388,49 @@ export function coerceCompleteIdeaRows(rawIdeas: unknown[], rowCount: number): R
  */
 export async function surfaceIdeasBatch(
   rows: IdeaInputRow[],
-  opts: { model: string; baseUrl: string; apiKey: string; maxTokens?: number; models?: string[]; headers?: Record<string, string>; extraBody?: Record<string, unknown>; timeoutMs?: number; maxAttempts?: number; signal?: AbortSignal; requestRemainingHeaderIsDaily?: boolean },
+  opts: SurfaceIdeasOptions,
   fetchFn: typeof fetch = fetch,
   sleep: (ms: number) => Promise<void> = (ms) => new Promise((r) => setTimeout(r, ms)),
 ): Promise<SurfaceIdeasResult> {
   if (!rows.length) return { ideas: [], requests: 0, tokens: 0, ok: true }
-  if (!opts.apiKey) return { ideas: [], requests: 0, tokens: 0, ok: false, note: 'no api key', failureKind: 'request' }
-  if (opts.signal?.aborted) return { ideas: [], requests: 0, tokens: 0, ok: false, note: 'idea: provider-chain deadline reached', failureKind: 'request' }
+  const provider = opts.providerLabel || opts.providerId || 'idea'
+  const identity = ideaProviderRequestIdentity(opts)
+  if (!opts.apiKey) {
+    const failure = classifyProviderLocalStateFailure()
+    return { ideas: [], requests: 0, tokens: 0, ok: false, note: 'no api key', failureKind: 'request', failure, providerIdentity: identity }
+  }
+  if (opts.signal?.aborted) return { ideas: [], requests: 0, tokens: 0, ok: false, note: 'idea: provider-chain deadline reached', failureKind: 'request', providerIdentity: identity }
+  const standing = opts.stateDir ? readProviderQuarantine(opts.stateDir, identity) : null
+  if (standing) {
+    const failure = providerFailureFromQuarantine(standing)
+    return {
+      ideas: [], requests: 0, tokens: 0, ok: false, quarantined: true,
+      note: publicProviderQuarantineNote(provider, standing),
+      failureKind: legacyFailureKind(failure), failure, providerIdentity: identity,
+    }
+  }
 
   let requests = 0
   let tokens = 0
   let lastNote = 'idea fetch error'
-  let lastFailure: { failureKind: ProviderFailureKind; timedOut?: boolean } = { failureKind: 'availability' }
+  let lastFailure: { failureKind: ProviderFailureKind; failure: ProviderFailureClassification; timedOut?: boolean } = {
+    failureKind: 'availability',
+    failure: { code: 'transient_upstream', scope: 'provider', action: 'cooldown', providerWide: true },
+  }
   const maxAttempts = opts.maxAttempts ?? 2
+  const clock = opts.nowMs ?? (() => Date.now())
   for (let attempt = 1; attempt <= maxAttempts; attempt++) {
     if (opts.signal?.aborted) break
+    const concurrentStanding = opts.stateDir ? readProviderQuarantine(opts.stateDir, identity) : null
+    if (concurrentStanding) {
+      const failure = providerFailureFromQuarantine(concurrentStanding)
+      return {
+        ideas: [], requests, tokens, ok: false, quarantined: true,
+        note: publicProviderQuarantineNote(provider, concurrentStanding),
+        failureKind: legacyFailureKind(failure), failure, providerIdentity: identity,
+      }
+    }
+    const attemptStartedAt = clock()
     try {
       requests++ // one count per fetch invocation, including network/response-decoding failures below
       const requestSignal = AbortSignal.timeout(opts.timeoutMs ?? 30_000)
@@ -360,19 +453,21 @@ export async function surfaceIdeasBatch(
       })
       const rate = parseRate(res)
       if (!res.ok) {
-        // Drain the body for connection reuse, but never copy provider/account details into public health.
-        await res.text().catch(() => '')
+        // Read only to classify safe type/code fields. The body and message never leave this stack frame.
+        const rawBody = await res.text().catch(() => '')
         const dailyLimit = opts.requestRemainingHeaderIsDaily === true && res.status === 429 && rate.rpdRemaining === 0
-        const failureKind = httpFailureKind(res.status)
-        lastNote = publicHttpFailureNote('idea', res.status, dailyLimit)
-        lastFailure = { failureKind }
-        if (((res.status === 429 && !dailyLimit) || res.status >= 500) && attempt < maxAttempts) {
+        const failure = honorProviderRetryAfter(classifyProviderHttpFailure(res.status, rawBody, opts), rate.retryAfterMs)
+        const failureKind = legacyFailureKind(failure)
+        lastNote = publicProviderFailureNote(provider, failure, dailyLimit)
+        lastFailure = { failureKind, failure }
+        if (((failure.code === 'rate_limited' && !dailyLimit) || failure.code === 'transient_upstream') && attempt < maxAttempts) {
           await sleep(rate.retryAfterMs || 1500 * attempt)
           continue
         }
+        if (opts.stateDir) quarantineProviderFailure(opts.stateDir, identity, failure, clock())
         return {
           ideas: [], requests, tokens, ok: false, note: lastNote, rate, httpStatus: res.status,
-          failureKind, ...(dailyLimit ? { dailyLimit: true } : {}),
+          failureKind, failure, providerIdentity: identity, ...(dailyLimit ? { dailyLimit: true } : {}),
         }
       }
       let data: any
@@ -383,37 +478,50 @@ export async function surfaceIdeasBatch(
         // provider is unavailable. Keep it idea-scoped so this nonessential skim cannot cool core triage.
         // A stream/read failure is transport availability and stays on the retry path below.
         if (e?.name === 'SyntaxError') {
-          return { ideas: [], requests, tokens, ok: false, note: 'idea: malformed provider response JSON', rate, failureKind: 'contract' }
+          const failure = classifyProviderContractFailure()
+          return { ideas: [], requests, tokens, ok: false, note: 'idea: malformed provider response JSON', rate, failureKind: 'contract', failure, providerIdentity: identity }
         }
         throw e
       }
       tokens += Number(data?.usage?.total_tokens)
         || conservativeChatTokenBound(IDEA_SYSTEM, buildIdeaUserMessage(rows), opts.maxTokens ?? 2500)
       if (data?.choices?.[0]?.finish_reason === 'length') {
-        return { ideas: [], requests, tokens, ok: false, note: 'idea: output truncated at max_tokens', rate, failureKind: 'contract' }
+        const failure = classifyProviderContractFailure()
+        return { ideas: [], requests, tokens, ok: false, note: 'idea: output truncated at max_tokens', rate, failureKind: 'contract', failure, providerIdentity: identity }
       }
       const content = data?.choices?.[0]?.message?.content
-      if (typeof content !== 'string') return { ideas: [], requests, tokens, ok: false, note: 'idea: empty content', rate, failureKind: 'contract' }
+      if (typeof content !== 'string') {
+        const failure = classifyProviderContractFailure()
+        return { ideas: [], requests, tokens, ok: false, note: 'idea: empty content', rate, failureKind: 'contract', failure, providerIdentity: identity }
+      }
       let parsed: any
-      try { parsed = JSON.parse(content) } catch { return { ideas: [], requests, tokens, ok: false, note: 'idea: non-JSON content', rate, failureKind: 'contract' } }
+      try { parsed = JSON.parse(content) } catch {
+        const failure = classifyProviderContractFailure()
+        return { ideas: [], requests, tokens, ok: false, note: 'idea: non-JSON content', rate, failureKind: 'contract', failure, providerIdentity: identity }
+      }
       // An honest empty result has one exact shape: {"ideas":[]}. Treating a missing/wrong `ideas`
       // field as [] makes provider schema drift indistinguishable from "nothing clears the bar" — the
       // same false-green empty state this health contract exists to prevent.
       if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed) || !Array.isArray(parsed.ideas)) {
-        return { ideas: [], requests, tokens, ok: false, note: 'idea: invalid response schema (expected top-level ideas array)', rate, failureKind: 'contract' }
+        const failure = classifyProviderContractFailure()
+        return { ideas: [], requests, tokens, ok: false, note: 'idea: invalid response schema (expected top-level ideas array)', rate, failureKind: 'contract', failure, providerIdentity: identity }
       }
       const ideas = coerceCompleteIdeaRows(parsed.ideas, rows.length)
       if (!ideas) {
-        return { ideas: [], requests, tokens, ok: false, note: 'idea: invalid, duplicate, or excess idea rows', rate, failureKind: 'contract' }
+        const failure = classifyProviderContractFailure()
+        return { ideas: [], requests, tokens, ok: false, note: 'idea: invalid, duplicate, or excess idea rows', rate, failureKind: 'contract', failure, providerIdentity: identity }
       }
-      return { ideas, requests, tokens, ok: true, rate }
+      if (opts.stateDir) clearProviderQuarantine(opts.stateDir, identity, attemptStartedAt)
+      return { ideas, requests, tokens, ok: true, rate, providerIdentity: identity }
     } catch (e: any) {
-      const failure = caughtFailure(e, 'idea')
+      const failure = caughtFailure(e, provider)
       lastNote = failure.note
-      lastFailure = failure
+      lastFailure = { failureKind: failure.failureKind, failure: failure.failure, ...(failure.timedOut ? { timedOut: true } : {}) }
+      if (opts.stateDir) quarantineProviderFailure(opts.stateDir, identity, failure.failure, clock())
       if (opts.signal?.aborted) break
+      if (failure.failure.action === 'quarantine') break
       if (attempt < maxAttempts) await sleep(1500 * attempt)
     }
   }
-  return { ideas: [], requests, tokens, ok: false, note: lastNote, ...lastFailure }
+  return { ideas: [], requests, tokens, ok: false, note: lastNote, providerIdentity: identity, ...lastFailure }
 }

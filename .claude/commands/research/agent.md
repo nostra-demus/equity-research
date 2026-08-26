@@ -66,12 +66,20 @@ Construct `<CROSS_MODULE_CONTEXT>` exactly as `frameworks/MODULE_PIPELINE.md` St
 
 Issue exactly ONE Task call using the EXACT message template from `frameworks/MODULE_PIPELINE.md` Step 4A:
 
+Before dispatch, compile and append this agent's packet using `frameworks/MEMORY_RUNTIME.md` Step 1 and
+the generic key `<MODULE>/<NN>_<AGENT_SLUG>`. Apply its Step-2 declaration obligations. In enforced mode,
+a compile failure stops before the Task call.
+
 - `subagent_type` = the agent's frontmatter `name`
 - Pass `<TICKER>`, `data/<TICKER>/`, `<DATE>`, and `<CROSS_MODULE_CONTEXT>` (verbatim, unless `none`), and instruct the agent to persist its complete clean report to `<OUTPUT_PATH>` via Mode A (`Write`) / Mode B (`Bash` heredoc) / Mode C (inline fallback). The saved file must contain ONLY the report, starting with its top-level `#` header — no chat-confirmation block. Tell the agent explicitly: **do not run git or commit anything.**
 
 ## 8. Verify the output file
 
 Per `frameworks/MODULE_PIPELINE.md` Step 4B: confirm `test -s "<OUTPUT_PATH>"`, that it starts with a `#` header, that it is not truncated, and that it has no stray confirmation block. If verification fails, attempt one recovery (ask the agent to re-persist a clean file, or write its inline return as Mode C).
+
+After the file passes, attest the returned declaration using `frameworks/MEMORY_RUNTIME.md` Step 3. An
+invalid/missing attestation invalidates the single-agent result in enforced mode; shadow records it and
+continues.
 
 ## 9. Report — do NOT commit
 

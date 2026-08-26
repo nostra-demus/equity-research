@@ -8,6 +8,7 @@ import { rebuildThemeCompanies } from './assign'
 import { resolveThemeFamilyState, themeStoryFamilyKey, themeStoryObservationKey } from './story-key'
 import { selectNarrativeCore } from './core'
 import { exactThemeEvidenceUrl, hasExactThemeProvenance, isDisplayableThemeChallenge, isSupportingThemeEvidence, sourcePriority } from './evidence'
+import { admitThemeToIdeas, type ThemeIdeaAdmissionResult } from './idea-admission'
 import type {
   Theme,
   ThemeAssessment,
@@ -16,6 +17,7 @@ import type {
   ThemeEvidence,
   ThemeMember,
   ThemeSummary,
+  ThemePlayer,
 } from './types'
 
 const HOUR_MS = 3_600_000
@@ -196,6 +198,8 @@ export interface QualifiedTheme {
   supporting_members: ThemeMember[]
   challenging_members: ThemeMember[]
   off_core_members: ThemeMember[]
+  players: ThemePlayer[]
+  idea_admission: ThemeIdeaAdmissionResult
 }
 
 /** Assess a theme (or a caller-provided slice) using explicit admission gates, never a hidden score. */
@@ -270,7 +274,24 @@ export function qualifyTheme(
   }
   const validExpressions = [...expressionByName.values()].filter((expression) => !conflictingExpressionNames.has(expression.name_key)).slice(0, 3)
   const expressionCompany = validExpressions[0] ? companyByKey.get(validExpressions[0].name_key) : undefined
-  const expressionProofIds = new Set(validExpressions.flatMap((expression) => expression.evidence_event_ids))
+  const projectedIds = new Set(arr(members).map((member) => member.event_id))
+  const activeSupportIds = new Set(supportedMembers.map((member) => member.event_id))
+  const players: ThemePlayer[] = theme.player_contract_version === 1 ? arr(theme.players).filter((player) => {
+    if (!scoped) return true
+    // A sliced detail/list may use only exact news evidence inside that slice. Relationship-export-only
+    // rows have no event geography/subject and therefore cannot be borrowed into a scoped projection.
+    return player.evidence.some((row) => row.kind === 'news' && !!row.event_id && projectedIds.has(row.event_id))
+  }).filter((player) => {
+    const newsProof = player.evidence.filter((row) => row.kind === 'news')
+    // A later correction/challenge can retire a proof family without rewriting the stored contract. Keep
+    // relationship-export context visible, but never present or admit a news-derived player whose exact
+    // naming/proof event is no longer active support.
+    return newsProof.length === 0 || newsProof.some((row) => !!row.event_id && activeSupportIds.has(row.event_id))
+  }) : []
+  const expressionProofIds = new Set([
+    ...validExpressions.flatMap((expression) => expression.evidence_event_ids),
+    ...players.flatMap((player) => player.evidence.flatMap((row) => row.event_id ? [row.event_id] : [])),
+  ])
 
   const uniqueCount = new Set(scopedObservations
     .map(themeStoryFamilyKey)
@@ -311,7 +332,24 @@ export function qualifyTheme(
       : recent24Support.length
         ? 'reinforced' as const
         : 'quiet' as const
-  const allGates = narrativeReady && whyNowReady && evidenceReady && coherent && expressionReady && sliceStateReady && !theme.needs_narrative_update
+  const whyNowMemberForAdmission = supportedMembers.find((member) => member.event_id === theme.narrative?.why_now_event_id)
+  const ideaAdmission = admitThemeToIdeas({
+    narrative_complete: narrativeReady,
+    support_count: supportCount,
+    coherent: coherent && sliceStateReady,
+    unresolved_challenge: challengingMembers.length > 0,
+    pending_revalidation: Boolean(theme.needs_narrative_update || theme.narrative_update_overflow || theme.needs_player_revalidation),
+    why_now_event_id: theme.narrative?.why_now_event_id || null,
+    why_now_exact: whyNowReady,
+    why_now_current: !!whyNowMemberForAdmission && ageHours(whyNowMemberForAdmission.found_at, nowMs) <= 24,
+    players,
+    theme_rev: theme.rev,
+    package_rev: theme.rev,
+  })
+  // `assessment.status` remains the validated-theme maturity lane for compatibility. `idea_ready` below
+  // is deliberately stricter and is the only authority Ideas consumes.
+  const allGates = narrativeReady && whyNowReady && evidenceReady && coherent && expressionReady
+    && sliceStateReady && !theme.needs_narrative_update
   const supportTiers = new Set(supportedMembers.map((member) => String(member.tier || '').toLowerCase()))
   const hasPrimaryOrIssuerProof = supportedMembers.some((member) => ['primary_filing', 'official_data', 'company'].includes(String(member.tier || '').toLowerCase()))
   const conviction = allGates && supportCount >= 3 && coherencePct >= 75 && challengingMembers.length === 0 && hasPrimaryOrIssuerProof && supportTiers.size >= 2
@@ -338,8 +376,7 @@ export function qualifyTheme(
   else blockers.push(`Needs at least 2 distinct supported-source rows in the causal core; has ${metrics.narrative_support_count}.`)
   if (coherent) reasons.push(`${metrics.narrative_support_count} of ${metrics.unique_evidence_count} distinct evidence rows repeat at least 2 narrative anchors.`)
   else blockers.push(`Needs a recurring narrative across at least 2 evidence rows (2+ recurring anchors and 60% coherence); has ${metrics.recurring_narrative_token_count} anchors, ${metrics.narrative_support_count} supporting rows, and ${metrics.narrative_coherence_pct}%.`)
-  if (expressionReady) reasons.push(`${metrics.first_order_directional_ticker_count} ticker-linked expression has a stated mechanism and exact supporting evidence.`)
-  else blockers.push('Needs at least one ticker-linked expression with a causal mechanism and supporting evidence; listing and liquidity are checked later.')
+  if (ideaAdmission.eligible_players.length) reasons.push(`${ideaAdmission.eligible_players.length} independently verified listed player has a causal mechanism and exact supporting evidence.`)
 
   const status: ThemeAssessmentStatus = allGates
     ? 'actionable'
@@ -367,6 +404,8 @@ export function qualifyTheme(
     supporting_members: supportedMembers,
     challenging_members: challengingMembers,
     off_core_members: offCoreMembers,
+    players,
+    idea_admission: ideaAdmission,
   }
 }
 

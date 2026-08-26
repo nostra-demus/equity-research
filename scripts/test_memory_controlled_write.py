@@ -131,6 +131,8 @@ def write_request(
         "store_bindings": copy.deepcopy(store_bindings or []),
         "shadow_feedback_sha256": None,
         "shadow_feedback_canonical_json": None,
+        "promotion_manifest_sha256": None,
+        "promotion_manifest_canonical_json": None,
     }
 
 
@@ -919,6 +921,30 @@ class ControlledWriterTests(unittest.TestCase):
             malformed["operation"] = "claim-correction"
             before = snapshot(root / "state")
             result = writer.submit(malformed)
+            self.assertEqual(result["disposition"], "rejected")
+            self.assertIsNone(result["dead_letter_id"])
+            self.assertEqual(snapshot(root / "state"), before)
+            self.assertEqual((sink.reads, sink.writes), (0, 0))
+
+    def test_playbook_quarantine_requires_dedicated_authority_before_state_access(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            sink = CountingSink()
+            writer = ControlledWriter(
+                root / "state",
+                sink,
+                authorize_write=lambda _request, _principal: True,
+                authorize_recovery=lambda _descriptor, _principal: True,
+                **PROVENANCE_OPTIONS,
+                review_authorizer=lambda _request, _principal: True,
+                quarantine_authorizer=lambda _request, _principal: False,
+                quarantine_authorizer_id="memory-emergency-quarantine",
+                clock=clock,
+            )
+            malformed = write_request(claim_event(1), 1)
+            malformed["operation"] = "playbook-quarantine"
+            before = snapshot(root / "state")
+            result = writer.submit(malformed, principal={"id": "ordinary-writer"})
             self.assertEqual(result["disposition"], "rejected")
             self.assertIsNone(result["dead_letter_id"])
             self.assertEqual(snapshot(root / "state"), before)

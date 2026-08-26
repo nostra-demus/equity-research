@@ -3,6 +3,16 @@ name: external-dependency
 description: Identifies the company's exposure to external variables (commodities, rates, FX, freight, policy, regulation, weather, geopolitics, consumer cycle, industrial cycle) and classifies the business as Company-controlled, Partly externally driven, or Mostly externally driven. Produces an external-dependency-risk score (higher = worse).
 tools: Read, Glob, Grep, Bash, Write
 layer: 1
+memory_profile:
+  version: 1
+  task: business-model.external-dependency
+  episodic_scope: exact-listing
+  semantic_topics: [business-model, external-dependency]
+  procedure_tags: [business-model, external-dependency]
+  cross_company: true
+  permitted_source_tiers: [1, 2, 3, 4, 5]
+  permitted_classifications: [public, internal]
+  max_context_tokens: 3000
 ---
 
 # ROLE

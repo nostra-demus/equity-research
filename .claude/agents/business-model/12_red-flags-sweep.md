@@ -3,6 +3,16 @@ name: red-flags-sweep
 description: Catch-all sweep for red flags not already captured by upstream specialists. Reads outputs from disqualifier-scan, segment-map, customer-geography, business-quality, external-dependency, and capital-allocation-governance to avoid duplication. Surfaces only flags that are evidence-supported and not already prominent in upstream reports.
 tools: Read, Glob, Grep, Bash, Write
 layer: 3
+memory_profile:
+  version: 1
+  task: business-model.red-flags-sweep
+  episodic_scope: exact-listing
+  semantic_topics: [business-model, red-flags-sweep]
+  procedure_tags: [business-model, red-flags-sweep]
+  cross_company: true
+  permitted_source_tiers: [1, 2, 3, 4, 5]
+  permitted_classifications: [public, internal]
+  max_context_tokens: 3000
 ---
 
 # ROLE

@@ -5,6 +5,16 @@ description: Reads the catalyst module's specialist outputs and produces the fin
 tools: Read, Glob, Grep, Bash
 layer: 2
 fail_fast: false
+memory_profile:
+  version: 1
+  task: catalyst.catalyst-synthesis
+  episodic_scope: exact-listing
+  semantic_topics: [catalyst, catalyst-synthesis]
+  procedure_tags: [catalyst, catalyst-synthesis]
+  cross_company: true
+  permitted_source_tiers: [1, 2, 3, 4, 5]
+  permitted_classifications: [public, internal]
+  max_context_tokens: 4000
 ---
 
 # ROLE

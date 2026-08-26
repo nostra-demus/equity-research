@@ -3,6 +3,16 @@ name: liquidity-runway
 description: Measures committed liquidity (cash + liquid investments + undrawn committed facilities) against near-term cash obligations (maturities, interest, maintenance capex, committed dividends) and expresses the runway in months, with a sources-and-uses bridge.
 tools: Read, Glob, Grep, Bash
 layer: 3
+memory_profile:
+  version: 1
+  task: balance-sheet-survival.liquidity-runway
+  episodic_scope: exact-listing
+  semantic_topics: [balance-sheet-survival, liquidity-runway]
+  procedure_tags: [balance-sheet-survival, liquidity-runway]
+  cross_company: true
+  permitted_source_tiers: [1, 2, 3, 4, 5]
+  permitted_classifications: [public, internal]
+  max_context_tokens: 3000
 ---
 
 # ROLE

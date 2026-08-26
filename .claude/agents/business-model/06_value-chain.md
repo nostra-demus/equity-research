@@ -3,6 +3,16 @@ name: value-chain
 description: Locates the company in its value chain — raw material supplier, component supplier, manufacturer, distributor, retailer, platform, service provider, or end-customer-facing — and assesses whether it controls its economics or gets squeezed by suppliers and customers.
 tools: Read, Glob, Grep, Bash, WebSearch, Write
 layer: 2
+memory_profile:
+  version: 1
+  task: business-model.value-chain
+  episodic_scope: exact-listing
+  semantic_topics: [business-model, value-chain]
+  procedure_tags: [business-model, value-chain]
+  cross_company: true
+  permitted_source_tiers: [1, 2, 3, 4, 5]
+  permitted_classifications: [public, internal]
+  max_context_tokens: 3000
 ---
 
 # ROLE

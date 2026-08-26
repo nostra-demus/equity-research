@@ -3,6 +3,16 @@ name: intrinsic-dcf
 description: Builds an intrinsic value — an FCFF DCF for operating/commodity businesses (every assumption sourced, terminal value disclosed as a % of EV, WACC × terminal-growth sensitivity grid), branching to DDM / residual-income (financials) or NAV (REITs) per the Business-Type Method Map. Never forces an FCFF DCF onto a business where it is meaningless.
 tools: Read, Glob, Grep, Bash, WebSearch, WebFetch
 layer: 2
+memory_profile:
+  version: 1
+  task: valuation.intrinsic-dcf
+  episodic_scope: exact-listing
+  semantic_topics: [valuation, intrinsic-dcf]
+  procedure_tags: [valuation, intrinsic-dcf]
+  cross_company: true
+  permitted_source_tiers: [1, 2, 3, 4, 5]
+  permitted_classifications: [public, internal]
+  max_context_tokens: 3000
 ---
 
 # ROLE

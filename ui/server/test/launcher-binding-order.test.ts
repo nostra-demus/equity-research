@@ -58,22 +58,37 @@ assert.ok(launchStart >= 0 && launchEnd > launchStart, 'launch() source boundary
 const launchBody = source.slice(launchStart, launchEnd)
 assert.match(source, /intakeReceiptIntentStillActionable\([\s\S]*params\.intakeReceipt/,
   'admission CAS re-reads the exact plan/hash/source/orb intent')
-const preMutationCas = launchBody.indexOf('assertLaunchBindingsStillCurrent(swarmId, subjectId, params)')
-const reap = launchBody.indexOf('reapAllDeadRuns()', preMutationCas)
-const force = launchBody.indexOf('if (params.force)', preMutationCas)
-const firstForceCancel = launchBody.indexOf('await cancel(r.runId)', force)
-assert.ok(preMutationCas >= 0, 'launch() must perform its selected-decision/owner CAS')
-assert.ok(preMutationCas < reap, 'CAS must precede dead-run finalization')
-assert.ok(reap < force && force < firstForceCancel, 'CAS must precede every force-cancel side effect')
+const chainedAcquire = launchBody.indexOf('const releasePoolClaim = acquireSharedDataPoolClaim(swarmId, ticker, kind)')
+const chainedCas = launchBody.indexOf('assertLaunchBindingsStillCurrent(swarmId, ticker, params)', chainedAcquire)
+const chainedReap = launchBody.indexOf('reapAllDeadRuns()', chainedCas)
+const chainedForce = launchBody.indexOf('if (params.force)', chainedCas)
+const chainedForceStop = launchBody.indexOf('await stopSubjectForForce(ticker, swarmId)', chainedForce)
+const chainedPostForceCas = launchBody.indexOf('assertLaunchBindingsStillCurrent(swarmId, ticker, params)', chainedForceStop)
+const chainedLaunch = launchBody.indexOf('return await launchFullChained(', chainedPostForceCas)
+assert.ok(chainedAcquire >= 0 && chainedAcquire < chainedCas, 'a chained full reserves its pool before the first CAS')
+assert.ok(chainedCas < chainedForce && chainedForce < chainedReap && chainedReap < chainedForceStop,
+  'a chained full performs its CAS before force can stop the old subject')
 assert.equal(
-  launchBody.slice(preMutationCas, firstForceCancel).includes('await '),
+  launchBody.slice(chainedCas, chainedForceStop).replace(/\/\/.*$/gm, '').includes('await '),
   false,
-  'no event-loop yield may reopen a CAS-to-force-cancel race',
+  'a chained full cannot yield between its first CAS and registry cleanup',
 )
-const preAdmissionCas = launchBody.indexOf('assertLaunchBindingsStillCurrent(swarmId, subjectId, params)', firstForceCancel)
+assert.ok(chainedForceStop < chainedPostForceCas && chainedPostForceCas < chainedLaunch,
+  'a chained full re-reads its bindings after force cancellation and before scheduler mutation')
+
+const normalAcquire = launchBody.indexOf('const releasePoolClaim = acquireSharedDataPoolClaim(swarmId, subjectId, kind)')
+const normalCas = launchBody.indexOf('assertLaunchBindingsStillCurrent(swarmId, subjectId, params)', normalAcquire)
+const normalReap = launchBody.indexOf('reapAllDeadRuns()', normalCas)
+const normalForce = launchBody.indexOf('if (params.force)', normalReap)
+const normalForceStop = launchBody.indexOf('await stopSubjectForForce(subjectId, swarmId)', normalForce)
+const preAdmissionCas = launchBody.indexOf('assertLaunchBindingsStillCurrent(swarmId, subjectId, params)', normalForceStop)
 const admission = launchBody.indexOf('const decision = admitRun(', preAdmissionCas)
-assert.ok(firstForceCancel < preAdmissionCas && preAdmissionCas < admission,
-  'bindings are re-read after force cancellation and immediately before admission')
+assert.ok(normalAcquire >= 0 && normalAcquire < normalCas && normalCas < normalReap,
+  'an ordinary launch reserves its pool and checks bindings before registry cleanup')
+assert.ok(normalReap < normalForce && normalForce < normalForceStop,
+  'an ordinary force uses the shared stop/drain/finalize helper')
+assert.ok(normalForceStop < preAdmissionCas && preAdmissionCas < admission,
+  'ordinary bindings are re-read after force cancellation and immediately before admission')
 const fullRelaunchReset = launchBody.indexOf('resetAdmittedFullRelaunch(runRoot)', admission)
 assert.ok(fullRelaunchReset > admission,
   'a monolithic full clears the exact-only aborted pause only after successful admission')

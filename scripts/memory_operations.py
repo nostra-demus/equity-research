@@ -20,9 +20,13 @@ from typing import Any, Mapping, Sequence
 
 try:
     from canonical_json import canonical_json_bytes, canonical_sha256
+    from memory_crypto import load_master_key_file
+    from memory_shadow_evaluation import verify_adjudication_attestation
     from validate_screener_json import Checker
 except ImportError:  # pragma: no cover - package-style imports
     from scripts.canonical_json import canonical_json_bytes, canonical_sha256
+    from scripts.memory_crypto import load_master_key_file
+    from scripts.memory_shadow_evaluation import verify_adjudication_attestation
     from scripts.validate_screener_json import Checker
 
 
@@ -186,6 +190,29 @@ _SCHEMA_REVIEW_FIELDS = frozenset(
         "reviewed_at",
         "review_complete",
         "overdue_schema_count",
+    }
+)
+_REBUILD_OBSERVATION_FIELDS = frozenset(
+    {
+        "schema", "observation_id", "started_at", "completed_at", "duration_milliseconds",
+        "status", "source", "repository_sha", "projection_digest", "event_count",
+        "identity_registry_sha256", "checkpoint_sha256", "diagnostic_count", "observation_sha256",
+    }
+)
+_SHADOW_QUALITY_FIELDS = frozenset(
+    {
+        "baseline_serious_errors", "memory_serious_errors", "material_memory_claims",
+        "covered_material_memory_claims", "evidence_coverage", "qualifier_loss_count",
+        "protected_leak_count", "temporal_leak_count", "mandatory_recheck_rate",
+        "contradiction_improvement", "prior_defense_improvement", "abstention_improvement",
+        "context_compilation_p95_millis", "median_cost_overhead",
+    }
+)
+_SHADOW_REPORT_FIELDS = frozenset(
+    {
+        "schema", "evaluation_id", "evaluation_mode", "preregistration_sha256", "roster_sha256", "window",
+        "sample", "quality", "provider_parity", "gate", "adjudication_attestation",
+        "report_sha256",
     }
 )
 _SCALE_COMPARISON_FIELDS = frozenset(
@@ -802,6 +829,114 @@ def _projection_doctor(report: Mapping[str, Any] | None) -> dict[str, Any]:
     }
 
 
+def _rebuild_cadence(observation: Mapping[str, Any] | None, evaluated: dt.datetime) -> dict[str, Any]:
+    empty = {
+        "status": "unmeasured", "observation_sha256": None,
+        "completed_at": None, "age_days": None,
+    }
+    if observation is None:
+        return empty
+    value = _exact_mapping(observation, _REBUILD_OBSERVATION_FIELDS, "rebuild_observation")
+    if (
+        value.get("schema") != "memory-maintenance-rebuild/v1"
+        or value.get("status") != "completed"
+        or value.get("source") != "deterministic-local-rebuild"
+    ):
+        raise OperationsError("rebuild_observation is not a completed clean rebuild")
+    supplied = _hash_ref(value.get("observation_sha256"), "rebuild_observation.observation_sha256")
+    body = dict(value)
+    body.pop("observation_sha256")
+    if supplied != "sha256:" + canonical_sha256(body):
+        raise OperationsError("rebuild_observation hash does not match")
+    completed_text, completed = _instant(value.get("completed_at"), "rebuild_observation.completed_at")
+    started_text, started = _instant(value.get("started_at"), "rebuild_observation.started_at")
+    if completed < started or completed > evaluated:
+        raise OperationsError("rebuild_observation window is invalid")
+    if value.get("started_at") != started_text or value.get("completed_at") != completed_text:
+        raise OperationsError("rebuild_observation timestamps are not normalized")
+    if _integer(value.get("event_count"), "rebuild_observation.event_count", minimum=1) < 1:
+        raise OperationsError("rebuild_observation has no events")
+    age = _age_days(evaluated, completed_text)
+    return {
+        "status": "met" if age is not None and age <= 31 else "failed",
+        "observation_sha256": supplied, "completed_at": completed_text, "age_days": age,
+    }
+
+
+def _material_claim_lineage(
+    report: Mapping[str, Any] | None, evaluated: dt.datetime, *,
+    adjudicator_public_key: bytes | None, adjudicator_key_id: str | None,
+) -> dict[str, Any]:
+    empty = {
+        "status": "unmeasured", "observation_sha256": None,
+        "window_start": None, "window_end": None, "material_claims": None,
+        "covered_claims": None, "coverage_ratio": None,
+    }
+    if report is None:
+        return empty
+    value = _exact_mapping(report, _SHADOW_REPORT_FIELDS, "shadow_evaluation_report")
+    if value.get("schema") != "memory-shadow-evaluation-report/v1":
+        raise OperationsError("shadow_evaluation_report has an unsupported schema")
+    supplied = _hash_ref(value.get("report_sha256"), "shadow_evaluation_report.report_sha256")
+    body = dict(value)
+    body.pop("report_sha256")
+    if supplied != "sha256:" + canonical_sha256(body):
+        raise OperationsError("shadow_evaluation_report hash does not match")
+    window = value.get("window")
+    if not isinstance(window, Mapping) or set(window) != {"start", "end"}:
+        raise OperationsError("shadow_evaluation_report window is invalid")
+    start_text, start = _instant(window.get("start"), "shadow_evaluation_report.window.start")
+    end_text, end = _instant(window.get("end"), "shadow_evaluation_report.window.end")
+    if end < start or end > evaluated or window != {"start": start_text, "end": end_text}:
+        raise OperationsError("shadow_evaluation_report window is invalid")
+    quality = _exact_mapping(value.get("quality"), _SHADOW_QUALITY_FIELDS, "shadow_evaluation_report.quality")
+    claims = _integer(quality.get("material_memory_claims"), "shadow_evaluation_report.material_claims")
+    covered = _integer(quality.get("covered_material_memory_claims"), "shadow_evaluation_report.covered_claims")
+    if covered > claims:
+        raise OperationsError("shadow_evaluation_report covered claims exceed material claims")
+    ratio = _number(quality.get("evidence_coverage"), "shadow_evaluation_report.evidence_coverage")
+    expected_ratio = _ratio(covered, claims) if claims else 0.0
+    if ratio != expected_ratio:
+        raise OperationsError("shadow_evaluation_report evidence coverage contradicts its counts")
+    mode = value.get("evaluation_mode")
+    if mode == "production-shadow":
+        if not isinstance(adjudicator_public_key, bytes) or len(adjudicator_public_key) != 32:
+            raise OperationsError(
+                "production shadow readiness requires a valid 32-byte adjudicator public key"
+            )
+        if not isinstance(adjudicator_key_id, str) or not adjudicator_key_id:
+            raise OperationsError(
+                "production shadow readiness requires a non-empty adjudicator key ID"
+            )
+        if not verify_adjudication_attestation(
+            value, public_key=adjudicator_public_key, key_id=adjudicator_key_id,
+        ):
+            raise OperationsError("production shadow readiness lacks trusted adjudication")
+    elif mode == "synthetic-ci":
+        if value.get("adjudication_attestation") is not None:
+            raise OperationsError("synthetic shadow evidence cannot carry a production adjudication")
+    else:
+        raise OperationsError("shadow_evaluation_report evaluation mode is unsupported")
+    gate = value.get("gate")
+    production = (
+        mode == "production-shadow" and isinstance(gate, Mapping)
+        and gate.get("quality_passed") is True and gate.get("counts_as_production_evidence") is True
+        and gate.get("blocking_reasons") == []
+    )
+    leaks = sum(_integer(quality.get(field), f"shadow_evaluation_report.{field}") for field in (
+        "qualifier_loss_count", "protected_leak_count", "temporal_leak_count",
+    ))
+    if not production:
+        status = "unmeasured"
+    else:
+        status = "met" if claims > 0 and ratio == 1.0 and leaks == 0 else "failed"
+    return {
+        "status": status, "observation_sha256": supplied,
+        "window_start": start_text, "window_end": end_text,
+        "material_claims": claims, "covered_claims": covered, "coverage_ratio": ratio,
+    }
+
+
 def _store_doctor(report: Mapping[str, Any] | None) -> dict[str, Any]:
     if report is None:
         return {
@@ -1175,6 +1310,8 @@ def _slo_rows(
     evidence: Mapping[str, Any],
 ) -> list[dict[str, Any]]:
     projection = evidence["projection_rebuild"]
+    rebuild_cadence = evidence["projection_rebuild_cadence"]
+    material_claims = evidence["material_claim_lineage"]
     controlled = evidence["controlled_writes"]
     performance = evidence["performance"]
     restore = evidence["restore_drill"]
@@ -1199,12 +1336,14 @@ def _slo_rows(
             "unmeasured", _measurement(None, "ratio"), projection_ref
         )
 
-    # Neither the Phase 0 file-retrieval benchmark nor the Phase 3 synthetic fixture is a
-    # production observation of every retrieved material claim.  Keep this explicit.
+    material_ref = [material_claims["observation_sha256"]] if material_claims["observation_sha256"] else []
     statuses["material-claim-lineage"] = (
-        "unmeasured",
-        _measurement(None, "ratio"),
-        [],
+        material_claims["status"],
+        _measurement(
+            material_claims["coverage_ratio"], "ratio",
+            numerator=material_claims["covered_claims"], denominator=material_claims["material_claims"],
+        ),
+        material_ref,
     )
 
     access_ref = [access["observation_sha256"]] if access["observation_sha256"] else []
@@ -1289,10 +1428,9 @@ def _slo_rows(
         restore_ref,
     )
 
-    # The Phase 1 doctor has no authenticated run timestamp.  Its digest proves a
-    # deterministic rebuild, but cannot prove the monthly cadence by itself.
     statuses["projection-rebuild-cadence"] = (
-        "unmeasured", _measurement(None, "days"), projection_ref
+        rebuild_cadence["status"], _measurement(rebuild_cadence["age_days"], "days"),
+        [rebuild_cadence["observation_sha256"]] if rebuild_cadence["observation_sha256"] else [],
     )
 
     restore_age = _age_days(evaluated, restore["performed_at"])
@@ -1383,7 +1521,9 @@ def _overall_status(
             adoption["production_benchmark"]["status"],
             adoption["phase3_synthetic"]["status"],
             evidence["projection_rebuild"]["status"],
+            evidence["projection_rebuild_cadence"]["status"],
             evidence["object_store_doctor"]["status"],
+            evidence["material_claim_lineage"]["status"],
             evidence["controlled_writes"]["status"],
             evidence["performance"]["status"],
             evidence["restore_drill"]["status"],
@@ -1409,6 +1549,10 @@ def build_operational_readiness_report(
     restore_drill_observation: Mapping[str, Any] | None = None,
     access_audit_observation: Mapping[str, Any] | None = None,
     schema_review_observation: Mapping[str, Any] | None = None,
+    rebuild_observation: Mapping[str, Any] | None = None,
+    shadow_evaluation_report: Mapping[str, Any] | None = None,
+    shadow_adjudicator_public_key: bytes | None = None,
+    shadow_adjudicator_key_id: str | None = None,
     scale_comparisons: Sequence[Mapping[str, Any]] = (),
 ) -> dict[str, Any]:
     """Build one content-free deterministic readiness report from explicit evidence.
@@ -1422,7 +1566,13 @@ def build_operational_readiness_report(
     adoption["phase3_synthetic"] = _phase3(phase3_synthetic_report)
     evidence = {
         "projection_rebuild": _projection_doctor(projection_doctor_report),
+        "projection_rebuild_cadence": _rebuild_cadence(rebuild_observation, evaluated),
         "object_store_doctor": _store_doctor(store_doctor_report),
+        "material_claim_lineage": _material_claim_lineage(
+            shadow_evaluation_report, evaluated,
+            adjudicator_public_key=shadow_adjudicator_public_key,
+            adjudicator_key_id=shadow_adjudicator_key_id,
+        ),
         "controlled_writes": _controlled_writes(controlled_write_observation, evaluated),
         "performance": _performance(performance_observation, evaluated),
         "restore_drill": _restore(restore_drill_observation, evaluated),
@@ -1580,6 +1730,44 @@ def _verify_operational_evidence_semantics(
         )
         if projection["status"] != expected:
             raise OperationsError("projection status contradicts rebuild evidence")
+
+    rebuild = evidence["projection_rebuild_cadence"]
+    if rebuild["observation_sha256"] is None:
+        if rebuild != {
+            "status": "unmeasured", "observation_sha256": None,
+            "completed_at": None, "age_days": None,
+        }:
+            raise OperationsError("missing rebuild cadence evidence must remain empty")
+    else:
+        completed_text, completed = _instant(rebuild["completed_at"], "projection_rebuild_cadence.completed_at")
+        if completed_text != rebuild["completed_at"] or completed > evaluated:
+            raise OperationsError("projection rebuild cadence time is invalid")
+        age = _age_days(evaluated, completed_text)
+        if rebuild["age_days"] != age or rebuild["status"] != ("met" if age <= 31 else "failed"):
+            raise OperationsError("projection rebuild cadence status contradicts its age")
+
+    material = evidence["material_claim_lineage"]
+    if material["observation_sha256"] is None:
+        if material != {
+            "status": "unmeasured", "observation_sha256": None,
+            "window_start": None, "window_end": None, "material_claims": None,
+            "covered_claims": None, "coverage_ratio": None,
+        }:
+            raise OperationsError("missing material-claim evidence must remain empty")
+    else:
+        start_text, end_text, _, end = _window(material, "material_claim_lineage")
+        if start_text != material["window_start"] or end_text != material["window_end"] or end > evaluated:
+            raise OperationsError("material-claim evidence window is invalid")
+        claims = material["material_claims"]
+        covered = material["covered_claims"]
+        if claims is None or covered is None or covered > claims:
+            raise OperationsError("material-claim evidence counts are invalid")
+        ratio = _ratio(covered, claims) if claims else 0.0
+        if material["coverage_ratio"] != ratio:
+            raise OperationsError("material-claim coverage ratio contradicts its counts")
+        expected = "met" if claims > 0 and ratio == 1.0 else "failed"
+        if material["status"] not in {expected, "unmeasured"}:
+            raise OperationsError("material-claim status contradicts its evidence")
 
     store = evidence["object_store_doctor"]
     if store["report_sha256"] is None:
@@ -2111,6 +2299,10 @@ def _parser() -> argparse.ArgumentParser:
     report.add_argument("--restore-drill-observation")
     report.add_argument("--access-audit-observation")
     report.add_argument("--schema-review-observation")
+    report.add_argument("--rebuild-observation")
+    report.add_argument("--shadow-evaluation")
+    report.add_argument("--shadow-adjudicator-public-key")
+    report.add_argument("--shadow-adjudicator-key-id")
     report.add_argument("--scale-comparison", action="append", default=[])
     return parser
 
@@ -2158,6 +2350,22 @@ def main(argv: Sequence[str] | None = None) -> int:
                 if args.schema_review_observation
                 else None
             ),
+            rebuild_observation=(
+                load_json_read_only(args.rebuild_observation)
+                if args.rebuild_observation
+                else None
+            ),
+            shadow_evaluation_report=(
+                load_json_read_only(args.shadow_evaluation)
+                if args.shadow_evaluation
+                else None
+            ),
+            shadow_adjudicator_public_key=(
+                load_master_key_file(Path(args.shadow_adjudicator_public_key))
+                if args.shadow_adjudicator_public_key
+                else None
+            ),
+            shadow_adjudicator_key_id=args.shadow_adjudicator_key_id,
             scale_comparisons=[load_json_read_only(path) for path in args.scale_comparison],
         )
     except (OperationsError, OSError, TypeError, ValueError) as exc:

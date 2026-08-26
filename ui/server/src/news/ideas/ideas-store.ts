@@ -23,6 +23,8 @@ import {
 } from '../themes/story-key'
 import { loadThemes, readThemesIndex, themesLedgerPath } from '../themes/store'
 import type { Theme, ThemeMember } from '../themes/types'
+import { admitThemeToIdeas } from '../themes/idea-admission'
+import { qualifyTheme } from '../themes/qualification'
 import type { FeedItem } from '../types'
 import {
   classifyHumanVetoStoryState,
@@ -1009,9 +1011,8 @@ function validThemeRef(theme: unknown): theme is {
   rev: number
   description: string
   activity: string
-  assessment: { status: string; activity?: string }
   narrative: { thesis: string; why_now: string; why_now_event_id: string }
-  evidence: { event_id: string; found_at?: string; stance: 'supports' | 'challenges' }[]
+  evidence: { event_id: string; found_at?: string; headline?: string; source_name?: string | null; url?: string | null; stance: 'supports' | 'challenges' }[]
   qualified_expressions: {
     name: string
     name_key: string
@@ -1022,10 +1023,16 @@ function validThemeRef(theme: unknown): theme is {
     mechanism: string
     evidence_event_ids: string[]
   }[]
+  idea_ready: true
+  assessment: { status: string; activity?: string; metrics: { narrative_support_count: number; narrative_coherence_pct: number; recurring_narrative_token_count: number } }
 } {
   if (!record(theme) || !THEME_ID_RE.test(String(theme.theme_id || '')) || !exactString(theme.description, 500)) return false
   if (!boundedNumber(theme.rev, 1, Number.MAX_SAFE_INTEGER, true)) return false
-  if (!record(theme.assessment) || theme.assessment.status !== 'actionable' || theme.activity === 'challenged'
+  if (!record(theme.assessment) || !record(theme.assessment.metrics)
+    || !boundedNumber(theme.assessment.metrics.narrative_support_count, 0, 10_000, true)
+    || !boundedNumber(theme.assessment.metrics.narrative_coherence_pct, 0, 100, true)
+    || !boundedNumber(theme.assessment.metrics.recurring_narrative_token_count, 0, 1_000, true)
+    || theme.idea_ready !== true || theme.assessment.status !== 'actionable' || theme.activity === 'challenged'
     || theme.assessment.activity === 'challenged' || !record(theme.narrative)
     || !exactString(theme.narrative.thesis, 1_000) || !exactString(theme.narrative.why_now, 1_000)
     || !EVENT_ID_RE.test(String(theme.narrative.why_now_event_id || '')) || !Array.isArray(theme.evidence)) return false
@@ -1059,6 +1066,57 @@ function validThemeRef(theme: unknown): theme is {
     expressionKeys.add(key)
   }
   return true
+}
+
+function themeAdmissionForIdeas(theme: {
+  rev: number
+  narrative: { thesis: string; why_now: string; why_now_event_id: string }
+  assessment: { metrics: { narrative_support_count: number; narrative_coherence_pct: number; recurring_narrative_token_count: number } }
+  evidence: { event_id: string; found_at?: string; headline?: string; source_name?: string | null; url?: string | null; stance: 'supports' | 'challenges' }[]
+  qualified_expressions: Array<{ name: string; ticker: string; side: 'beneficiary' | 'harmed'; mechanism: string; evidence_event_ids: string[] }>
+}, retained: Theme | undefined, nowMs: number) {
+  // Canonical Themes and Ideas consume the exact same qualification/admission result. Do not rebuild a
+  // parallel approximation from the compact index when the exact retained revision is available.
+  if (retained) return qualifyTheme(retained, new Date(nowMs)).idea_admission
+
+  const whyNowId = theme.narrative?.why_now_event_id || null
+  const whyNowProjection = theme.evidence.find((row) => row.event_id === whyNowId && row.stance === 'supports')
+  const metrics = theme.assessment.metrics
+  // The normal path reads canonical player rows from the exact ledger revision. Index-only deploy/test
+  // migration is allowed only when no ledger exists; qualified_expressions in that index are themselves
+  // derived by Themes from eligible players and are never expanded here.
+  const players = theme.qualified_expressions.map((expression) => ({
+    name: expression.name,
+    ticker: expression.ticker,
+    listing_status: 'verified_public' as const,
+    order: 1 as const,
+    side: expression.side,
+    relationship: 'direct_subject' as const,
+    mechanism: expression.mechanism,
+    mechanism_basis: 'engine_inference' as const,
+    evidence: expression.evidence_event_ids.map((eventId) => {
+      const row = theme.evidence.find((evidence) => evidence.event_id === eventId)
+      return {
+        kind: 'news' as const, event_id: eventId, headline: row?.headline || null,
+        publisher: row?.source_name || null, url: row?.url || null, published_at: row?.found_at || null,
+        source_ref: null, source_file: null,
+      }
+    }),
+    idea_eligible: true,
+  }))
+  return admitThemeToIdeas({
+    narrative_complete: Boolean(theme.narrative?.thesis?.trim() && theme.narrative?.why_now?.trim()),
+    support_count: metrics.narrative_support_count,
+    coherent: metrics.recurring_narrative_token_count >= 2 && metrics.narrative_coherence_pct >= 60,
+    unresolved_challenge: false,
+    pending_revalidation: false,
+    why_now_event_id: whyNowId,
+    why_now_exact: Boolean(whyNowProjection),
+    why_now_current: Boolean(whyNowProjection?.found_at && parseRfc3339Ms(whyNowProjection.found_at) >= nowMs - 24 * 60 * 60 * 1000),
+    players,
+    theme_rev: theme.rev,
+    package_rev: theme.rev,
+  })
 }
 
 const canonicalThemeKey = (themeId: string, rev: number) => `${themeId}@${rev}`
@@ -1225,6 +1283,7 @@ function readActionableThemeRows(
     const retained = canonical.byRevision.get(canonicalThemeKey(theme.theme_id, theme.rev))
     if ((ledgerPresent && !retained)
       || (retained && retainedThemeHasActiveChallenge(retained))) continue
+    if (!themeAdmissionForIdeas(theme, retained, nowMs).admitted) continue
     // The two-row prompt package is only a projection of a bounded canonical audit. Register every
     // retained member's identity before veto filtering so an intermediate family/URL bridge cannot be
     // hidden merely because that member is neither the current WHY_NOW nor expression proof.

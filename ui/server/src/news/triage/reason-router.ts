@@ -15,6 +15,16 @@
 // must obey the same provider allowance or a burst of "small" bypass calls becomes quota loss elsewhere.
 
 import { NEWS, STATE_DIR } from '../../config'
+import {
+  classifyProviderCaughtFailure,
+  classifyProviderHttpFailure,
+  clearProviderQuarantine,
+  honorProviderRetryAfter,
+  providerRequestIdentity,
+  quarantineProviderFailure,
+  readProviderQuarantine,
+  type ProviderFailureClassification,
+} from '../provider-failure'
 import { deriveScope, type ScopeId } from '../scope'
 import {
   Budget,
@@ -61,6 +71,7 @@ export interface ReasonRouterConfig {
   groqPaceFloorFrac: number
   llmCooldownMs: number
   llmCooldownMaxMs: number
+  groqKeyEnvVar?: string
 }
 
 export interface ReasonRouterOptions {
@@ -136,6 +147,13 @@ export async function routeReason(
   const perAttemptTokens = conservativeChatTokenBound(SYSTEM, user, 80)
   const at = now()
   if (!cfg.groqApiKey || opts.signal?.aborted) return kw
+  const identity = providerRequestIdentity({
+    providerId: 'groq', baseUrl: cfg.groqBaseUrl, model: cfg.groqModel, apiKey: cfg.groqApiKey,
+    keyEnvVar: cfg.groqKeyEnvVar || 'GROQ_API_KEY', transport: 'openai', workload: 'reason-router',
+    contractVersion: 'reason-router-json-v1',
+    request: { temperature: 0, maxTokens: 80, responseFormat: 'json_object' },
+  })
+  if (readProviderQuarantine(stateDir, identity)) return kw
   if (isCoolingDown(stateDir, 'groq', at) || isCoolingDown(stateDir, ROUTER_HOLD_ID, at)) return kw
 
   let budget = Budget.load(stateDir, cfg.groqDailyReqCap, cfg.groqDailyTokenCap, at, 'groq-budget.json')
@@ -157,6 +175,7 @@ export async function routeReason(
     return kw
   }
   if (!acquired || opts.signal?.aborted) return kw
+  if (readProviderQuarantine(stateDir, identity)) return kw
 
   // Re-read and reserve after the limiter wait. This closes both races: another workload may have spent
   // the remaining daily room while this caller waited, the provider day may have rolled over, or another
@@ -184,16 +203,23 @@ export async function routeReason(
   let providerReachable = false
   let routerHealthy = false
   let exhaustDay = false
+  let terminalFailure: ProviderFailureClassification | null = null
   let attemptStartedAt = 0
   let failureHold: { id: string; baseMs: number; maxMs: number; reason: string } | null = null
 
-  const classifyHttpFailure = (status: number, rate: RateInfo) => {
+  const classifyHttpFailure = (failure: ProviderFailureClassification, rate: RateInfo) => {
+    const status = failure.httpStatus || 0
     exhaustDay = status === 429 && rate.rpdRemaining === 0
     if (exhaustDay) return
-    const providerWide = status === 429 || status >= 500 || [401, 402, 403, 404].includes(status)
+    if (failure.scope === 'workload') providerReachable = true
+    if (failure.action === 'quarantine') {
+      terminalFailure = failure
+      quarantineProviderFailure(stateDir, identity, failure, now())
+      return
+    }
     const retryMs = rate.retryAfterMs != null && Number.isFinite(rate.retryAfterMs)
       ? Math.max(0, Math.floor(rate.retryAfterMs)) : null
-    if (!providerWide) {
+    if (failure.scope === 'workload') {
       failureHold = retryMs != null
         ? retryMs > 0
           ? { id: ROUTER_HOLD_ID, baseMs: retryMs, maxMs: retryMs, reason: 'reason-router-request' }
@@ -233,14 +259,19 @@ export async function routeReason(
         ],
       }),
     })
-    providerReachable = true
     const rate = parseRate(res)
-    const providerWide = res.status === 429 || res.status >= 500 || [401, 402, 403, 404].includes(res.status)
-    limiter.learn(rateInfoForLimiter(rate, res.ok || providerWide), now)
     if (!res.ok) {
-      classifyHttpFailure(res.status, rate)
+      const rawBody = await res.text().catch(() => '')
+      const failure = honorProviderRetryAfter(
+        classifyProviderHttpFailure(res.status, rawBody),
+        rate.retryAfterMs,
+      )
+      limiter.learn(rateInfoForLimiter(rate, failure.providerWide), now)
+      classifyHttpFailure(failure, rate)
       return kw
     }
+    providerReachable = true
+    limiter.learn(rateInfoForLimiter(rate, true), now)
     const data: any = await res.json()
     recordedTokens = credibleTokenUsage(data?.usage?.total_tokens, perAttemptTokens)
     const finishReason = String(data?.choices?.[0]?.finish_reason || '').toLowerCase()
@@ -258,10 +289,16 @@ export async function routeReason(
     const scope = parsed.scope as ScopeId
     const confidence = Math.max(0, Math.min(1, numericConfidence))
     routerHealthy = true
+    clearProviderQuarantine(stateDir, identity, attemptStartedAt)
     return { scope, confidence, via: 'llm' }
   } catch (error: any) {
     if (opts.signal?.aborted) return kw
-    if (internalTimedOut || error?.name === 'AbortError' || error?.name === 'TimeoutError') {
+    const failure = classifyProviderCaughtFailure(error)
+    if (failure.action === 'quarantine') {
+      terminalFailure = failure
+      quarantineProviderFailure(stateDir, identity, failure, now())
+      failureHold = null
+    } else if (internalTimedOut || error?.name === 'AbortError' || error?.name === 'TimeoutError') {
       failureHold = { id: ROUTER_HOLD_ID, baseMs: cfg.llmCooldownMs, maxMs: cfg.llmCooldownMaxMs, reason: 'reason-router-timeout' }
     } else if (providerReachable || error instanceof SyntaxError) {
       providerReachable = true
@@ -282,7 +319,7 @@ export async function routeReason(
       // cannot erase a newer concurrent 429/5xx marker armed after this attempt began.
       if (providerReachable && failureHold?.id !== 'groq') clearCooldown(stateDir, 'groq', attemptStartedAt)
       if (exhaustDay) budget.exhaust()
-      else if (failureHold) armCooldown(stateDir, now(), failureHold.baseMs, failureHold.id, failureHold.maxMs, failureHold.reason)
+      else if (!terminalFailure && failureHold) armCooldown(stateDir, now(), failureHold.baseMs, failureHold.id, failureHold.maxMs, failureHold.reason)
     }
   }
 }

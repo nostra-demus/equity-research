@@ -9,10 +9,10 @@ import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
 import {
-  buildIdeaUserMessage, coerceIdea, estimateIdeaTokens, IDEA_SYSTEM, surfaceIdeasBatch,
+  buildIdeaUserMessage, coerceIdea, estimateIdeaTokens, ideaProviderRequestIdentity, IDEA_SYSTEM, surfaceIdeasBatch,
   type IdeaInputRow, type IdeaThemeExpression, type RawIdea,
 } from '../src/news/ideas/surface-ideas'
-import { surfaceIdeasBatchGemini } from '../src/news/ideas/surface-ideas-gemini'
+import { geminiIdeaProviderRequestIdentity, surfaceIdeasBatchGemini } from '../src/news/ideas/surface-ideas-gemini'
 import {
   finalizeIdeaPromotion, ideaDecayAt, ideaId, ideaPromotionEligibility, ideaSnapshotRevision, ideaVersion, pruneExpiredIdeas,
   isSurfacedIdeaSnapshot, readArchivedIdeaSnapshots, readIdeaArchiveStore, readIdeaById, readIdeaSnapshotStore, readTopSweep, readTopSweepRows, releaseIdeaPromotion,
@@ -30,9 +30,10 @@ import { classifyHumanVetoStoryState, humanVetoStoryStates, mergeInbox } from '.
 import { setDismissed } from '../src/news/inbox-actions'
 import { createTheme } from '../src/news/themes/discover'
 import { appendThemeMutations, buildThemesIndex } from '../src/news/themes/store'
-import type { ThemeItemView } from '../src/news/themes/types'
+import type { Theme, ThemeItemView } from '../src/news/themes/types'
 import { validIdeaSnapshot } from './ideas-fixture'
 import { attachValidNarrative } from './themes-fixtures'
+import { readProviderQuarantine } from '../src/news/provider-failure'
 
 let passed = 0
 async function check(name: string, fn: () => void | Promise<void>) {
@@ -91,18 +92,42 @@ const actionableTheme = (
 ) => ({
   theme_id,
   rev,
+  idea_ready: true,
   description: 'A current causal change is affecting the named listed-company exposure.',
   activity: 'reinforced',
-  assessment: { status: 'actionable', activity: 'reinforced' },
+  assessment: { status: 'actionable', activity: 'reinforced', metrics: { narrative_support_count: 2, narrative_coherence_pct: 100, recurring_narrative_token_count: 2 } },
   narrative: {
     thesis: 'The cited change can alter revenue, costs or capacity for the evidence-bound expression.',
     why_now: 'The designated current source shows that the causal change is active now.',
     why_now_event_id: evidence.find((row) => row.stance === 'supports')?.event_id,
   },
-  evidence,
+  evidence: evidence.map((row) => ({
+    headline: `Exact evidence ${row.event_id}`, source_name: 'Fixture source',
+    url: `https://fixture.test/${encodeURIComponent(row.event_id)}`, ...row,
+  })),
   qualified_expressions,
   ...patch,
 })
+
+const attachVerifiedPlayerContract = (theme: Theme): Theme => {
+  const expression = theme.narrative?.expressions[0]
+  const proofId = expression?.evidence_event_ids[0]
+  const member = theme.members.find((row) => row.event_id === proofId)
+  const company = theme.companies.find((row) => row.name_key === expression?.name_key)
+  if (!expression || !member || !company?.ticker || !member.url || !member.source_name) throw new Error('fixture has no exact player proof')
+  theme.player_contract_version = 1
+  theme.players = [{
+    name: company.name, ticker: company.ticker, listing_status: 'verified_public', order: 1,
+    side: expression.side, relationship: 'direct_subject', mechanism: expression.mechanism,
+    mechanism_basis: 'engine_inference', idea_eligible: true,
+    evidence: [{
+      kind: 'news', event_id: member.event_id, headline: member.headline_en || member.headline,
+      publisher: member.source_name, url: member.url, published_at: member.found_at,
+      source_ref: null, source_file: null,
+    }],
+  }]
+  return theme
+}
 
 const exactThemeExpression = (
   themeId: string,
@@ -426,6 +451,77 @@ check('surfaceIdeasBatch: a max_tokens truncation is reported, not half-parsed',
 check('surfaceIdeasBatch: a terminal HTTP error returns ok:false (deferred, not scored-zero)', async () => {
   const r = await surfaceIdeasBatch(ROWS, OPTS, stubFetch('bad', { ok: false, status: 400 }), noSleep, noSleep)
   assert.equal(r.ok, false); assert.equal(r.failureKind, 'request'); assert.equal(r.httpStatus, 400); assert.match(r.note || '', /HTTP 400/)
+})
+check('surfaceIdeasBatch quarantines a standing key fault once and reopens only for changed configuration', async () => {
+  const stateDir = fs.mkdtempSync(path.join(os.tmpdir(), 'ideas-provider-quarantine-'))
+  try {
+    let calls = 0
+    const opts = {
+      ...OPTS, providerId: 'ideas-auth', providerLabel: 'Ideas Auth', keyEnvVar: 'IDEAS_AUTH_KEY',
+      stateDir, maxAttempts: 1,
+    }
+    const rejected = (async () => {
+      calls++
+      return new Response(JSON.stringify({ error: { code: 'invalid_api_key', message: 'private acct-123 secret' } }), { status: 401 })
+    }) as typeof fetch
+    const first = await surfaceIdeasBatch(ROWS, opts, rejected, noSleep)
+    assert.equal(first.ok, false)
+    assert.equal(first.failure?.code, 'auth')
+    assert.equal(first.failure?.action, 'quarantine')
+    assert.equal(readProviderQuarantine(stateDir, ideaProviderRequestIdentity(opts))?.failureCode, 'auth')
+    assert.doesNotMatch(first.note || '', /acct-123|private|secret/)
+
+    const second = await surfaceIdeasBatch(ROWS, opts, rejected, noSleep)
+    assert.equal(second.requests, 0)
+    assert.equal(second.quarantined, true)
+    assert.equal(calls, 1, 'the unchanged standing fault is never probed again')
+
+    const repaired = { ...opts, apiKey: 'rotated-key' }
+    const recovered = await surfaceIdeasBatch(ROWS, repaired, stubFetch({ ideas: [] }), noSleep)
+    assert.equal(recovered.ok, true)
+    assert.equal(recovered.requests, 1)
+    assert.equal(readProviderQuarantine(stateDir, ideaProviderRequestIdentity(repaired)), null)
+    assert.equal(readProviderQuarantine(stateDir, ideaProviderRequestIdentity(opts))?.failureCode, 'auth',
+      'a new key succeeds without erasing the old fingerprint\'s evidence')
+  } finally {
+    fs.rmSync(stateDir, { recursive: true, force: true })
+  }
+})
+check('surfaceIdeasBatchGemini quarantines one permanent fault and reopens only for changed configuration', async () => {
+  const stateDir = fs.mkdtempSync(path.join(os.tmpdir(), 'ideas-gemini-quarantine-'))
+  try {
+    let calls = 0
+    const opts = {
+      model: 'gemini-retired', baseUrl: 'https://gemini.test/v1beta', apiKey: 'gemini-key',
+      providerId: 'gemini:gemini-retired', providerLabel: 'Gemini · gemini-retired',
+      keyEnvVar: 'GEMINI_API_KEY', stateDir, maxTokens: 700, maxAttempts: 1,
+    }
+    const rejected = (async () => {
+      calls++
+      return new Response(JSON.stringify({
+        error: { code: 'NOT_FOUND', message: 'Model gemini-retired was retired for private project acct-123' },
+      }), { status: 404 })
+    }) as typeof fetch
+    const first = await surfaceIdeasBatchGemini(ROWS, opts, rejected, noSleep)
+    assert.equal(first.failure?.code, 'model_terminal')
+    assert.equal(first.failure?.action, 'quarantine')
+    assert.doesNotMatch(first.note || '', /acct-123|private project/)
+    assert.equal(readProviderQuarantine(stateDir, geminiIdeaProviderRequestIdentity(opts))?.failureCode, 'model_terminal')
+
+    const second = await surfaceIdeasBatchGemini(ROWS, opts, rejected, noSleep)
+    assert.equal(second.requests, 0)
+    assert.equal(second.quarantined, true)
+    assert.equal(calls, 1, 'the unchanged Gemini fault is never probed again')
+
+    const repaired = { ...opts, model: 'gemini-live', providerId: 'gemini:gemini-live' }
+    const recovered = await surfaceIdeasBatchGemini(ROWS, repaired, stubGeminiIdeas([]), noSleep)
+    assert.equal(recovered.ok, true)
+    assert.equal(recovered.requests, 1)
+    assert.equal(readProviderQuarantine(stateDir, geminiIdeaProviderRequestIdentity(repaired)), null)
+    assert.equal(readProviderQuarantine(stateDir, geminiIdeaProviderRequestIdentity(opts))?.failureCode, 'model_terminal')
+  } finally {
+    fs.rmSync(stateDir, { recursive: true, force: true })
+  }
 })
 check('surfaceIdeasBatch exposes structured retry metadata without leaking provider bodies', async () => {
   const secret = 'account acct-123 balance and prompt must stay private'
@@ -2485,6 +2581,7 @@ check('an actionable Theme carries a same-URL correction first-seen clock into I
   )
   theme.name = 'Capacity Expansion Approval Reversal'
   theme.description = 'A withdrawn approval changes the economics of Acme capacity expansion.'
+  attachVerifiedPlayerContract(theme)
   appendThemeMutations(dir, [theme], () => new Date('2026-08-04T00:08:00Z'))
   const publicTheme = buildThemesIndex([theme], () => new Date('2026-08-04T00:09:00Z')).themes[0]
   assert.equal(publicTheme.assessment.status, 'actionable', 'control fixture reaches Ideas only as a complete Theme package')
@@ -2717,6 +2814,7 @@ check('Theme-to-Ideas resolves historical challenge state: equal-quality restora
     })
     theme.name = 'Transformer Backlog Extends Grid Buildout'
     theme.description = 'Transformer backlog changes grid capacity and supplier economics.'
+    attachVerifiedPlayerContract(theme)
     appendThemeMutations(dir, [theme], () => new Date('2026-08-03T11:58:00Z'))
     fs.writeFileSync(path.join(inbox, '2026-08-03_sweep.json'), JSON.stringify({
       updated_at: '2026-08-03T11:55:00Z', rows: [1, 2, 3, 4].map((index) => ({
@@ -2963,6 +3061,7 @@ check('ledger content is reprojected without forging a newer last-successful The
   )
   theme.name = 'AI Data-Center Chip Capacity'
   theme.description = 'Nvidia is expanding chip capacity for AI data centers.'
+  attachVerifiedPlayerContract(theme)
   appendThemeMutations(dir, [theme], () => new Date('2026-08-03T11:30:00Z'))
   const feed = themeViews.map((row, index) => ({
     kind: 'item', ts: row.found_at, found_at: row.found_at, event_id: row.event_id,

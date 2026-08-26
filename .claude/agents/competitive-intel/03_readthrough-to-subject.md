@@ -3,6 +3,16 @@ name: peer-readthrough-to-subject
 description: Reads the already-reported competitors' earnings-call transcripts and derives the read-through to the subject's not-yet-reported quarter — every line labelled inference, normalised to a common calendar window, scope-matched, and tied to what the subject's own print would confirm or falsify. The forward-looking core of the competitive-intel module.
 tools: Read, Glob, Grep, Bash, WebSearch
 layer: 3
+memory_profile:
+  version: 1
+  task: competitive-intel.readthrough-to-subject
+  episodic_scope: exact-listing
+  semantic_topics: [competitive-intel, readthrough-to-subject]
+  procedure_tags: [competitive-intel, readthrough-to-subject]
+  cross_company: true
+  permitted_source_tiers: [1, 2, 3, 4, 5]
+  permitted_classifications: [public, internal]
+  max_context_tokens: 3000
 ---
 
 # ROLE
