@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-26T15:16:25Z",
+  "generated_at": "2026-08-26T15:26:14Z",
   "inbox": [
     {
       "inbox_id": "INB-20260826-980",
@@ -1598,6 +1598,109 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260826-1003",
+      "headline": "Germany and UniCredit to talk about Commerzbank amid takeover battle",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/finance/germanys-commerzbank-has-bumpy-history-with-big-ma-2026-08-26/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-26T14:55:44Z",
+      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
+      "prelim_note": "UniCredit is engaged in a potential takeover battle for Commerzbank, with German government involvement.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "UniCredit is engaged in a potential takeover battle for Commerzbank, with German government involvement.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "UniCredit",
+          "ticker": null,
+          "listing_country": "IT"
+        },
+        {
+          "name": "Commerzbank",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260826-1004",
+      "headline": "Abercrombie raises full-year forecasts on robust apparel demand, shares jump",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/retail-consumer/abercrombie-raises-full-year-sales-forecast-resilient-apparel-demand-2026-08-26/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-26T14:54:40Z",
+      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
+      "prelim_note": "Abercrombie raised its full-year financial forecasts due to strong demand.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Abercrombie raised its full-year financial forecasts due to strong demand.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Abercrombie & Fitch",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260826-990",
       "headline": "Zoom Falls 6% as Soft Q3 Profit Guidance Overshadows a Double Beat; HubSpot and Monday.com Slip",
       "headline_en": null,
@@ -1889,109 +1992,6 @@
           "name": "Meta",
           "ticker": "META",
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260826-945",
-      "headline": "Vanguard to acquire fintech platform Altruist for $4 billion",
-      "headline_en": null,
-      "url": "https://finance.yahoo.com/markets/stocks/articles/vanguard-acquire-fintech-platform-altruist-133640757.html",
-      "source_name": "Yahoo Finance",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-26T13:36:40Z",
-      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
-      "prelim_note": "Vanguard is set to acquire Altruist for $4 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Vanguard is set to acquire Altruist for $4 billion.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Vanguard",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Altruist",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260826-947",
-      "headline": "Meta settles multistate teen social media lawsuit for $16.7 billion",
-      "headline_en": null,
-      "url": "https://finance.yahoo.com/media-advertising/articles/meta-settles-29-states-over-132242399.html",
-      "source_name": "Yahoo Finance",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-26T13:22:42Z",
-      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
-      "prelim_note": "Meta has settled a multistate teen social media lawsuit for $16.7 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Meta has settled a multistate teen social media lawsuit for $16.7 billion.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Meta",
-          "ticker": null,
-          "listing_country": null
         }
       ],
       "size_bucket": "mega",
@@ -94909,9 +94909,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3274732,
-    "news_picked_today": 1972,
-    "news_dropped_today": 13580
+    "news_seen_today": 3300438,
+    "news_picked_today": 1983,
+    "news_dropped_today": 13653
   },
   "book_momentum": {
     "live_count": 8,
