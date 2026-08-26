@@ -2149,7 +2149,10 @@ export interface PortfolioPosition {
 export interface PortfolioClosure {
   symbol: string | null
   currency: string | null
+  /** ABSOLUTE size; the direction is in `side`. */
   quantity: number
+  /** Long or short, from the opening lot's sign. */
+  side: 'long' | 'short'
   entryPrice: number
   exitPrice: number
   openedAt: string | null

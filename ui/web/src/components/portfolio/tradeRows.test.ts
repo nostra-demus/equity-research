@@ -18,7 +18,7 @@ let seq = 0
 function closure(o: Partial<PortfolioClosure> & { quantity: number; realizedBase: number }): PortfolioClosure {
   seq += 1
   return {
-    key: `k${seq}`, symbol: 'SGOV', assetCategory: 'STK', currency: 'USD',
+    key: `k${seq}`, symbol: 'SGOV', assetCategory: 'STK', currency: 'USD', side: 'long',
     entryPrice: 100, exitPrice: 101, openedAt: '2026-05-04', closedAt: '2026-08-21',
     holdingDays: 109, realizedLocal: o.realizedBase, grossLocal: o.realizedBase, commissionLocal: 0,
     openFxRateToBase: 1, closeFxRateToBase: 1, closeTradeID: `t${seq}`,
@@ -105,6 +105,31 @@ check('one unknown leg makes the folded row unknown, not partially right', () =>
     closure({ quantity: 100, realizedBase: 10, commissionLocal: -3, closeTradeID: 'f' }),
   ]
   assert.ok(near(foldRoundTrips(ok)[0]!.commissionBase!, -5))
+})
+
+check('a long and a short over the same two days are two trades, not one double-sized one', () => {
+  // `quantity` is absolute, so without the side in the key these looked identical and folded into a
+  // 200-share row priced at the average of two trades that offset each other.
+  const cs = [
+    closure({ quantity: 100, realizedBase: 40, entryPrice: 10, exitPrice: 11, closeTradeID: 'a' }),
+    { ...closure({ quantity: 100, realizedBase: -40, entryPrice: 11, exitPrice: 10, closeTradeID: 'b' }), side: 'short' } as PortfolioClosure,
+  ]
+  const rows = foldRoundTrips(cs)
+  assert.equal(rows.length, 2)
+  assert.deepEqual(rows.map((r) => r.side).sort(), ['long', 'short'])
+  assert.ok(rows.every((r) => r.quantity === 100), 'neither row may carry the other\u2019s size')
+})
+
+check('two round trips inside one day stay two rows', () => {
+  // A repeat is indistinguishable from one sale split across orders, so folding them would undercount
+  // trades and hide the loser inside the winner — the miscount this fold exists to correct, reversed.
+  const cs = [
+    closure({ quantity: 100, realizedBase: 50, openedAt: '2026-08-07', closedAt: '2026-08-07', closeTradeID: 'a' }),
+    closure({ quantity: 100, realizedBase: -30, openedAt: '2026-08-07', closedAt: '2026-08-07', closeTradeID: 'b' }),
+  ]
+  const rows = foldRoundTrips(cs)
+  assert.equal(rows.length, 2, 'a same-day round trip keeps its own row')
+  assert.ok(rows.some((r) => r.realized > 0) && rows.some((r) => r.realized < 0), 'and the loser stays visible')
 })
 
 console.log(`\n${passed} passed, ${fails.length} failed`)

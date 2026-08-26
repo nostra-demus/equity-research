@@ -586,5 +586,48 @@ check('no feed at all is a dash, never a zero', () => {
   assert.equal(itd.excess, null)
 })
 
+check('a window opening on a non-trading day still gets that day\u2019s market level', () => {
+  // The book has a NAV row every calendar day; the feed has trading days only. A month-to-date whose
+  // boundary falls on a Saturday used to skip the Friday->Monday step entirely, so a big Monday read
+  // as nothing for the index while the book\u2019s own return over the identical window included it.
+  const nav: NavPoint[] = []
+  const closes: { date: string; close: number }[] = []
+  const d = new Date(Date.UTC(2026, 9, 26))          // Mon 26 Oct
+  for (let i = 0; i < 16; i++) {
+    const date = d.toISOString().slice(0, 10)
+    const dow = d.getUTCDay()
+    nav.push({ date, total: 1000 })                   // every calendar day, as the statement gives it
+    if (dow !== 0 && dow !== 6) {
+      // Flat except one +5% Monday, 2 Nov — the first trading day of the new month.
+      closes.push({ date, close: date === '2026-11-02' ? 105 : (date < '2026-11-02' ? 100 : 105) })
+    }
+    d.setUTCDate(d.getUTCDate() + 1)
+  }
+  const mtd = returnsByPeriod(nav, new Map(), 0, closes).find((p) => p.label === 'Month to date')!
+  assert.equal(mtd.from, '2026-10-31', 'the window opens on the Saturday, as the NAV series has one')
+  assert.ok(mtd.benchmark !== null, 'and the index must still be measurable over it')
+  assert.ok(near(mtd.benchmark!, 5, 1e-9), `the Monday move belongs to this window, got ${mtd.benchmark}`)
+})
+
+check('a feed that covers only the tail of the book fills no row at all', () => {
+  // Any single usable step used to produce a number, so a two-month feed filled every column of an
+  // eight-month book — while the footer of that same panel said the history does not cover it.
+  const nav: NavPoint[] = []
+  const closes: { date: string; close: number }[] = []
+  const d = new Date(Date.UTC(2026, 0, 1))
+  for (let i = 0; i < 240; i++) {
+    const date = d.toISOString().slice(0, 10)
+    nav.push({ date, total: 1000 * 1.0002 ** i })
+    if (i >= 200) closes.push({ date, close: 100 * 1.0003 ** i })   // feed starts 200 days in
+    d.setUTCDate(d.getUTCDate() + 1)
+  }
+  const itd = returnsByPeriod(nav, new Map(), 0, closes).find((p) => p.label === 'Since inception')!
+  assert.equal(itd.benchmark, null, 'the feed does not reach the book\u2019s start')
+  assert.equal(itd.excess, null)
+  // ...while a window the feed DOES cover still reports.
+  const mtd = returnsByPeriod(nav, new Map(), 0, closes).find((p) => p.label === 'Month to date')!
+  assert.ok(mtd.benchmark !== null, 'a covered window is unaffected')
+})
+
 console.log(`\n${passed} passed, ${fails.length} failed`)
 if (fails.length) { console.error('FAILED: ' + fails.join(', ')); process.exit(1) }

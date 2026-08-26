@@ -6,6 +6,8 @@ import type { PortfolioClosure } from '../../lib/types'
 export interface TradeRowData {
   symbol: string | null
   currency: string | null
+  /** Long or short. Keyed on, because `quantity` is absolute and cannot tell the two apart. */
+  side: 'long' | 'short'
   quantity: number
   entryPrice: number
   exitPrice: number
@@ -56,6 +58,7 @@ export function foldRoundTrips(closures: PortfolioClosure[]): TradeRowData[] {
     return {
       symbol: lots[0]!.symbol,
       currency: lots[0]!.currency,
+      side: lots[0]!.side,
       quantity: qty,
       entryPrice: wAvg((c) => c.entryPrice),
       exitPrice: wAvg((c) => c.exitPrice),
@@ -83,7 +86,22 @@ export function foldRoundTrips(closures: PortfolioClosure[]): TradeRowData[] {
   // the row says how many broker rows sit behind it.
   const byRoundTrip = new Map<string, TradeRowData[]>()
   for (const r of merged) {
-    const key = `${r.symbol}|${r.currency}|${(r.openedAt ?? '').slice(0, 10)}|${(r.closedAt ?? '').slice(0, 10)}`
+    const opened = (r.openedAt ?? '').slice(0, 10)
+    const closed = (r.closedAt ?? '').slice(0, 10)
+    // TWO THINGS THE KEY HAS TO SEPARATE, because folding either would invent a position:
+    //
+    // SIDE. `quantity` is absolute, so a long and a short in the same name over the same two days look
+    // identical to a key built from symbol and dates — they folded into one row of twice the size,
+    // priced at a quantity-weighted average of two trades that offset each other.
+    //
+    // DAY TRADES. Opened and closed the same day, a name can be traded round more than once, and a
+    // repeat is indistinguishable from one sale split across orders. Merging them would undercount
+    // trades and hide a loser inside a winner's row — the same miscount this fold exists to correct,
+    // pointing the other way. So a same-day round trip keeps its own row; only the multi-day case,
+    // where the duplicate rows actually appeared, folds.
+    const key = opened !== '' && opened === closed
+      ? `daytrade|${r.symbol}|${r.currency}|${r.side}|${opened}|${byRoundTrip.size}`
+      : `${r.symbol}|${r.currency}|${r.side}|${opened}|${closed}`
     const list = byRoundTrip.get(key)
     if (list) list.push(r); else byRoundTrip.set(key, [r])
   }

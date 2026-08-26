@@ -148,25 +148,45 @@ function startOfQuarter(d: string): string {
 }
 function startOfYear(d: string): string { return `${d.slice(0, 4)}-01-01` }
 
-/** The index chained over one explicit window, on the SAME days the book is measured over. Returns
- *  null rather than a number whenever the feed cannot carry the window honestly: no step at all, a
- *  non-positive close, or a hole wider than a long weekend. Chained (not first-close-to-last-close) so
- *  a window return can never disagree with the months inside it. */
+/** The index over one explicit window, on the SAME days the book is measured over.
+ *
+ *  TWO THINGS THIS HAS TO GET RIGHT, both of which it got wrong first:
+ *
+ *  THE ANCHOR IS THE LEVEL ON `from`, NOT THE FIRST STEP INSIDE IT. The book has a NAV row every
+ *  calendar day; the feed has trading days only. When a period opens on a weekend or a holiday — a
+ *  month-to-date whose boundary is Saturday the 31st — requiring the first step to START inside the
+ *  window threw away the Friday→Monday move, so a +5% Monday read as 0.00% for the index while the
+ *  book's own return over the identical window included it. The market's level ON a closed day IS the
+ *  previous close, so the chain anchors at the last close AT OR BEFORE `from`.
+ *
+ *  BOTH ENDS MUST BE COVERED. Any single usable step used to produce a number, so a feed holding only
+ *  the last two months of an eight-month book filled every row's index column — while the footer of
+ *  that same panel, fed by benchmarkCompare, correctly said the history does not cover the book. One
+ *  panel cannot say both. Coverage is required at each end within the same tolerance a step gets. */
 function benchmarkOverWindow(
   benchmarkCloses: { date: string; close: number }[],
   from: string,
   to: string,
 ): number | null {
   const sorted = [...benchmarkCloses].sort((a, b) => a.date.localeCompare(b.date))
+  const days = (a: string, b: string) =>
+    (Date.parse(`${b}T00:00:00Z`) - Date.parse(`${a}T00:00:00Z`)) / 86_400_000
+  // The window's own opening level: the last close at or before it.
+  let startIndex = -1
+  for (let i = 0; i < sorted.length; i++) {
+    if (sorted[i]!.date <= from) startIndex = i
+    else break
+  }
+  if (startIndex === -1) return null                                   // feed begins after the window
+  if (days(sorted[startIndex]!.date, from) > MAX_FEED_GAP_DAYS) return null  // ...or too far before it
+  const last = sorted[sorted.length - 1]!
+  if (last.date < to && days(last.date, to) > MAX_FEED_GAP_DAYS) return null // feed ends before the window
   let chain = 1
   let steps = 0
-  for (let i = 1; i < sorted.length; i++) {
+  for (let i = startIndex + 1; i < sorted.length; i++) {
     const prev = sorted[i - 1]!, curr = sorted[i]!
-    // The step's own START must sit inside the window: a step reaching in from before it would credit
-    // the index with a move the book was never exposed to.
-    if (prev.date < from || curr.date > to) continue
-    const gapDays = (Date.parse(`${curr.date}T00:00:00Z`) - Date.parse(`${prev.date}T00:00:00Z`)) / 86_400_000
-    if (prev.close <= 0 || gapDays > MAX_FEED_GAP_DAYS) return null
+    if (curr.date > to) break
+    if (prev.close <= 0 || days(prev.date, curr.date) > MAX_FEED_GAP_DAYS) return null
     chain *= curr.close / prev.close
     steps++
   }
