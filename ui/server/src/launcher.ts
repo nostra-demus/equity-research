@@ -2559,8 +2559,8 @@ const defaultFullChainDeps: FullChainDeps = {
     // bootstrap SIGTERM). In that race finishRun() has already passed the callback site, so merely storing
     // onFinish would strand the invisible full-chain reservation forever: no active RunState, no Activity
     // row in "Now", and the production deploy barrier pinned by an owner that can never advance. Replay the
-    // terminal status synchronously when launch() returns an already-finished child; JavaScript's single
-    // turn makes the ended-check vs callback assignment atomic with finishRun().
+    // terminal status when launch() returns an already-finished child. The replay is deferred one event-loop
+    // turn so launchFullChained records the launch ACK/firstRunId before the callback can pump another wave.
     wireChainedRunFinish(run, onFinish)
     return { runId: out.runId, preflight: out.preflight }
   },
@@ -2592,13 +2592,21 @@ export function wireChainedRunFinish(
   run: Pick<RunState, 'chained' | 'endedAt' | 'finishLogged' | 'onFinish' | 'status'> | undefined,
   onFinish: (status: RunStatus) => void,
 ): void {
+  const replay = (status: RunStatus) => {
+    // launchAndWire's promise must settle before the terminal callback advances the DAG. In particular, a
+    // synchronously replayed first child could launch a second wave whose immediate 429 was misclassified as
+    // a pre-first-launch failure because launchFullChained had not recorded firstRunId yet.
+    setImmediate(() => {
+      try { onFinish(status) } catch { /* match finishRun's terminal-hook isolation */ }
+    })
+  }
   if (!run) {
-    try { onFinish('error') } catch { /* terminal hooks never break the launcher */ }
+    replay('error')
     return
   }
   run.chained = true
   if (run.endedAt !== undefined || run.finishLogged) {
-    try { onFinish(run.status) } catch { /* match finishRun's terminal-hook isolation */ }
+    replay(run.status)
     return
   }
   run.onFinish = onFinish

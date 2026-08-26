@@ -102,7 +102,7 @@ function makeFake(opts?: { fail429Once?: string[]; graph?: SwarmGraph; failMaste
 const sorted = (a: string[]) => [...a].sort()
 
 ;(async () => {
-  await check('a child that finishes before launch ACK replays its terminal status instead of stranding the chain', () => {
+  await check('a child that finishes before launch ACK replays only after the ACK turn instead of stranding the chain', async () => {
     const delivered: RunStatus[] = []
     const terminal = {
       chained: false,
@@ -113,8 +113,11 @@ const sorted = (a: string[]) => [...a].sort()
     }
     wireChainedRunFinish(terminal, (status) => { delivered.push(status) })
     assert.equal(terminal.chained, true, 'the terminal child keeps chained cancellation identity')
-    assert.deepEqual(delivered, ['error'], 'the already-recorded terminal outcome is replayed exactly once')
+    assert.deepEqual(delivered, [], 'the terminal outcome cannot advance the DAG before the launch ACK settles')
     assert.equal(terminal.onFinish, undefined, 'no dead callback is stored after terminal completion')
+
+    await new Promise<void>((resolve) => setImmediate(resolve))
+    assert.deepEqual(delivered, ['error'], 'the already-recorded terminal outcome is replayed exactly once after the ACK turn')
 
     const live = {
       chained: false,
