@@ -58,6 +58,24 @@ fi
 
 # The manual installer never guesses an executable. Normal deploy owns exact provisioning, health, scorer
 # proof, private enable, and retry backoff without rerunning unrelated service installation.
+if "$PYTHON_BIN" -I - "$HERE/deploy.sh" <<'PYDEPLOYPATH'
+import pathlib
+import sys
+
+text = pathlib.Path(sys.argv[1]).read_text(encoding="utf-8")
+path_contract = 'export PATH="/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin${PATH:+:$PATH}"'
+npm_discovery = 'NPM="$(command -v npm 2>/dev/null || true)"'
+assert path_contract in text
+assert npm_discovery in text
+assert text.index(path_contract) < text.index(npm_discovery)
+PYDEPLOYPATH
+then
+  echo "  ok  deploy runtime exposes Homebrew node/npm/sidecars before tool discovery"
+else
+  echo "  FAIL deploy runtime can strand npm behind launchd's minimal PATH"
+  failures=$((failures + 1))
+fi
+
 if grep -Fq 'OMNIROUTE_BIN="$(command -v omniroute 2>/dev/null || true)"' "$HERE/install-services.sh" \
     && grep -Fq 'if [ -n "$OMNIROUTE_BIN" ]; then' "$HERE/install-services.sh" \
     && grep -Fq 'remove_one "$OMNIROUTE_SERVICE"' "$HERE/install-services.sh" \
