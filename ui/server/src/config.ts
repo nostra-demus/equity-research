@@ -411,13 +411,17 @@ export function buildOverflowProviders(): OverflowProvider[] {
   }
   const orKey = process.env.OPENROUTER_API_KEY || ''
   if (orKey && process.env.NEWS_OPENROUTER_ENABLED !== '0') {
-    // OpenRouter: strongest free models (gpt-oss-120b…). Free = ~20 RPM, ~50/day pooled (no credits) →
-    // ~1000/day once $10 is loaded (free models still cost $0). Fallback chain (max 3) routes around 429s.
-    const models = (process.env.NEWS_OPENROUTER_MODELS || 'openai/gpt-oss-120b:free,openai/gpt-oss-20b:free,meta-llama/llama-3.3-70b-instruct:free').split(',').map((s) => s.trim()).filter(Boolean).slice(0, 3)
+    // OpenRouter's official `openrouter/free` router is the durable default: it selects from the free models
+    // that are available NOW and filters for capabilities required by the request (including structured
+    // output). Do not pin the default to dated `:free` slugs: those endpoints retire independently and turn a
+    // healthy gateway into a permanent 404. Operators can still provide up to three deliberate, ordered
+    // choices through NEWS_OPENROUTER_MODELS; OpenRouter applies that array as its server-side fallback chain.
+    // Free = ~20 RPM, ~50/day pooled (no credits) → ~1000/day once $10 is loaded (free models remain $0).
+    const models = (process.env.NEWS_OPENROUTER_MODELS || 'openrouter/free').split(',').map((s) => s.trim()).filter(Boolean).slice(0, 3)
     out.push({
       id: 'openrouter', label: 'OpenRouter', color: '--provider-or',
       apiKey: orKey, keyEnvVar: 'OPENROUTER_API_KEY', baseUrl: process.env.OPENROUTER_BASE_URL || 'https://openrouter.ai/api/v1',
-      model: models[0] || 'openai/gpt-oss-120b:free', models,
+      model: models[0] || 'openrouter/free', models,
       dailyReqCap: capNum(process.env.NEWS_OPENROUTER_DAILY_REQ_CAP, 45),
       rpm: capNum(process.env.NEWS_OPENROUTER_RPM, 18),
       maxTokens: capNum(process.env.NEWS_OPENROUTER_MAX_TOKENS, 3500),
@@ -432,7 +436,9 @@ export function buildOverflowProviders(): OverflowProvider[] {
       // therefore this cooldown marker) with the background scan, so a legitimately-slow provider timing out
       // there would arm the very hold the backlog drain depends on — sidelining it for both workloads.
       skipArticleRead: true,
-      extraBody: { reasoning: { effort: 'low' } }, // gpt-oss is a reasoning model — keep thinking minimal
+      // Reasoning models in the live free pool get a small thinking budget; non-reasoning routes safely ignore
+      // this optional gateway-normalized control. The JSON response contract still decides whether a call won.
+      extraBody: { reasoning: { effort: 'low' } },
       headers: { 'HTTP-Referer': 'https://app.nostra-demus.com', 'X-Title': 'Nostradamus Screener' },
       budgetFile: 'openrouter-budget.json',
     })

@@ -173,7 +173,10 @@ engine allowances rather than claiming live account-quota knowledge.
   under 1 req/s) · `NEWS_MISTRAL_DAILY_REQ_CAP` (2000 soft backstop) · `NEWS_MISTRAL_MAX_TOKENS` ·
   `MISTRAL_BASE_URL` · `NEWS_MISTRAL_ENABLED=0` to force off.
 - **OpenRouter** (`OPENROUTER_API_KEY`) / **NVIDIA NIM** (`NVIDIA_API_KEY`) — request-gated free pools
-  participating in the same reset-clock allocator instead of waiting behind Cerebras + Mistral. Both run a
+  participating in the same reset-clock allocator instead of waiting behind Cerebras + Mistral. OpenRouter
+  defaults to its official `openrouter/free` router, which selects from currently available free models and
+  filters for the request's required capabilities; `NEWS_OPENROUTER_MODELS` remains the explicit ordered-model
+  override. This avoids turning normal free-model retirements into a broken default. Both providers run a
   **75s** call deadline (`NEWS_OPENROUTER_TIMEOUT_MS` / `NEWS_NVIDIA_TIMEOUT_MS`) rather than the generic 30s:
   the request is not streamed, so one clock covers queue wait + prefill + the whole decode, and a free `:free`
   model on a shared gateway queues before it generates. Both also set `skipArticleRead`, keeping them out of

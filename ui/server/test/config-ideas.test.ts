@@ -26,6 +26,7 @@ assert.equal(age.status, 0, age.stderr)
 assert.equal(age.stdout, '18', 'the source-age ceiling is independently configurable')
 
 const providerCode = "import('./src/config.ts').then((m) => process.stdout.write(JSON.stringify({enabled:m.NEWS.enabled,configured:m.NEWS.providerConfigured,ideaConfigured:m.NEWS.ideaProviderConfigured,overflow:m.NEWS.overflowProviders.map((p)=>p.id)})))"
+const openRouterCode = "import('./src/config.ts').then((m) => { const p=m.NEWS.overflowProviders.find((x)=>x.id==='openrouter'); process.stdout.write(JSON.stringify(p&&{model:p.model,models:p.models})) })"
 const providerEnvKeys = [
   'GROQ_API_KEY', 'CEREBRAS_API_KEY', 'MISTRAL_API_KEY', 'OPENROUTER_API_KEY', 'NVIDIA_API_KEY',
   'GEMINI_API_KEY', 'NEWS_LOCAL_ENABLED', 'NEWS_LOCAL_PRIMARY', 'NEWS_INGEST_ENABLED', 'NEWS_GEMINI_ENABLED',
@@ -45,6 +46,15 @@ function readProviderConfig(patch: Record<string, string> = {}): { enabled: bool
   return JSON.parse(r.stdout)
 }
 
+function readOpenRouterConfig(patch: Record<string, string> = {}): { model: string; models: string[] } {
+  const env = isolatedProviderEnv({ OPENROUTER_API_KEY: 'test-openrouter', ...patch })
+  delete env.NEWS_OPENROUTER_MODELS
+  if (patch.NEWS_OPENROUTER_MODELS !== undefined) env.NEWS_OPENROUTER_MODELS = patch.NEWS_OPENROUTER_MODELS
+  const r = spawnSync(process.execPath, ['--import', 'tsx', '--input-type=module', '-e', openRouterCode], { cwd: process.cwd(), env, encoding: 'utf8' })
+  assert.equal(r.status, 0, r.stderr)
+  return JSON.parse(r.stdout)
+}
+
 assert.deepEqual(readProviderConfig(), { enabled: false, configured: false, ideaConfigured: false, overflow: [] }, 'a providerless process stays idle')
 assert.deepEqual(
   readProviderConfig({ MISTRAL_API_KEY: 'test-mistral' }),
@@ -60,6 +70,17 @@ assert.equal(
   readProviderConfig({ MISTRAL_API_KEY: 'test-mistral', NEWS_INGEST_ENABLED: '0' }).enabled,
   false,
   'the explicit scheduler kill switch remains authoritative',
+)
+
+assert.deepEqual(
+  readOpenRouterConfig(),
+  { model: 'openrouter/free', models: ['openrouter/free'] },
+  'OpenRouter defaults to the retirement-resistant official free router, not dated free-model slugs',
+)
+assert.deepEqual(
+  readOpenRouterConfig({ NEWS_OPENROUTER_MODELS: 'vendor/primary:free, vendor/fallback:free' }),
+  { model: 'vendor/primary:free', models: ['vendor/primary:free', 'vendor/fallback:free'] },
+  'an explicit ordered OpenRouter model chain remains supported',
 )
 
 // A Groq-less deployment must not treat the absent Groq ledger as fresh capacity. Once its only configured
