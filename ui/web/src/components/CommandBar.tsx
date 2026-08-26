@@ -766,7 +766,7 @@ function FeedbackButton() {
   )
 }
 
-function BarMenu({ label, title, children, alert = false, workspace = false }: { label: React.ReactNode; title: string; children: React.ReactNode; alert?: boolean; workspace?: boolean }) {
+function BarMenu({ label, title, children, alert = false, workspace = false, closeOnNavigation = false }: { label: React.ReactNode; title: string; children: React.ReactNode; alert?: boolean; workspace?: boolean; closeOnNavigation?: boolean }) {
   const [open, setOpen] = useState(false)
   const wrap = useRef<HTMLDivElement | null>(null)
   useEffect(() => {
@@ -780,9 +780,10 @@ function BarMenu({ label, title, children, alert = false, workspace = false }: {
   return (
     <div className="barmenu" ref={wrap}>
       <button className={`btn btn--ghost barmenu__trigger${alert ? ' barmenu__trigger--alert' : ''}`} data-memory-entry={workspace ? 'true' : undefined} data-tools-entry={workspace ? 'true' : undefined} aria-expanded={open} onClick={() => setOpen(!open)} title={title}>{label}<span aria-hidden>▾</span></button>
-      {open && <div className="barmenu__panel" onClick={workspace ? (event) => {
-        if ((event.target as Element).closest('button')) setOpen(false)
-      } : undefined}>{children}</div>}
+      {open && <div className="barmenu__panel" onClick={(event) => {
+        const target = event.target as Element
+        if ((workspace && target.closest('button')) || (closeOnNavigation && target.closest('[data-menu-nav] button'))) setOpen(false)
+      }}>{children}</div>}
     </div>
   )
 }
@@ -822,6 +823,7 @@ function StatusMenu({ screenerMode, showScanner, showBridge }: { screenerMode: b
   return (
     <BarMenu
       alert={bad || backlog > 0}
+      closeOnNavigation
       title="Engine, provider and background scanner status"
       label={<><span className={`barmenu__dot${bad ? ' is-bad' : ''}`} />Status{backlog > 0 && <em>{backlog > 999 ? `${Math.round(backlog / 1000)}k` : backlog}</em>}</>}
     >
@@ -830,9 +832,9 @@ function StatusMenu({ screenerMode, showScanner, showBridge }: { screenerMode: b
       {!screenerMode && <div className="barmenu__statusrow"><ReadinessStrip /></div>}
       <div className="barmenu__statusrow barmenu__statusrow--provider"><ProviderSelector /></div>
       {(showScanner || showBridge || screenerMode) && <div className="barmenu__rule" />}
-      {showScanner && <div className="barmenu__statusrow"><AutoScanChip /></div>}
-      {screenerMode && <div className="barmenu__statusrow"><PipelineChip /></div>}
-      {showBridge && <div className="barmenu__statusrow"><BridgeChip /></div>}
+      {showScanner && <div className="barmenu__statusrow" data-menu-nav><AutoScanChip /></div>}
+      {screenerMode && <div className="barmenu__statusrow" data-menu-nav><PipelineChip /></div>}
+      {showBridge && <div className="barmenu__statusrow" data-menu-nav><BridgeChip /></div>}
     </BarMenu>
   )
 }

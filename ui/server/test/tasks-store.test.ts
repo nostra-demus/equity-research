@@ -46,6 +46,16 @@ check('one unreadable card does not empty the board', () => {
   assert.deepEqual(read.unreadable, ['broken.json'])
 })
 
+check('malformed nested attachment metadata is quarantined', () => {
+  const strictDir = path.join(root, 'strict')
+  const task = card({ attachments: [{
+    attachment_id: '../escape', filename: 'note.md', bytes: 4, added_at: 'not-a-date', added_by: 'test',
+  }] })
+  fs.mkdirSync(strictDir, { recursive: true })
+  fs.writeFileSync(path.join(strictDir, `${task.task_id}.json`), JSON.stringify(task))
+  assert.deepEqual(readTasks(strictDir), { tasks: [], unreadable: [`${task.task_id}.json`] })
+})
+
 check('Watch mints one linked watchlist row and carries the owner', () => {
   const task = card({ stage: 'final_decision', decision: 'watch', assignee: 'AB' })
   const result = syncTaskWatchlist(task, 'tester', entriesDir)
@@ -89,6 +99,63 @@ check('Watch reuses an independent row and never overwrites its reason', () => {
   assert.equal(entry.assignee, 'NV')
 })
 
+check('changing ticker detaches and archives the old task-created row before linking the new one', () => {
+  fs.rmSync(entriesDir, { recursive: true, force: true })
+  const task = card({ stage: 'final_decision', decision: 'watch' })
+  syncTaskWatchlist(task, 'tester', entriesDir)
+  const oldId = task.watchlist_entry_id
+  task.ticker = 'TSLA'
+  const result = syncTaskWatchlist(task, 'tester', entriesDir)
+  assert.equal(result.problem, undefined)
+  assert.equal(result.changedEntries.length, 2)
+  const entries = readEntries(entriesDir).entries
+  const old = entries.find((entry) => entry.entry_id === oldId)
+  const next = entries.find((entry) => entry.listing.ticker === 'TSLA')
+  assert.ok(old?.archive)
+  assert.equal(old?.task_id, null)
+  assert.equal(next?.task_id, task.task_id)
+  assert.equal(task.watchlist_entry_id, next?.entry_id)
+})
+
+check('a second Watch task cannot steal one ticker owner', () => {
+  fs.rmSync(entriesDir, { recursive: true, force: true })
+  const first = card({ stage: 'final_decision', decision: 'watch' })
+  syncTaskWatchlist(first, 'tester', entriesDir)
+  const second = card({ stage: 'final_decision', decision: 'watch', subject: 'another event' })
+  const result = syncTaskWatchlist(second, 'tester', entriesDir)
+  assert.match(result.problem ?? '', /already has a Final Decision/)
+  assert.equal(second.watchlist_entry_id, null)
+  assert.equal(readEntries(entriesDir).entries[0].task_id, first.task_id)
+})
+
+check('an ambiguous same-ticker listing is refused instead of guessed', () => {
+  fs.rmSync(entriesDir, { recursive: true, force: true })
+  writeEntry(watch({ entry_id: newEntryId(new Date('2026-08-26T12:01:00Z')), listing: makeListing({ ticker: 'NHY', currency: 'NOK' }) }), entriesDir)
+  writeEntry(watch({ entry_id: newEntryId(new Date('2026-08-26T12:02:00Z')), listing: makeListing({ ticker: 'NHY', currency: 'USD' }) }), entriesDir)
+  const task = card({ ticker: 'NHY', stage: 'final_decision', decision: 'watch' })
+  const result = syncTaskWatchlist(task, 'tester', entriesDir)
+  assert.match(result.problem ?? '', /more than one active listing/)
+  assert.equal(task.watchlist_entry_id, null)
+})
+
+check('tickerless Watch is explicit and does not silently skip sync', () => {
+  fs.rmSync(entriesDir, { recursive: true, force: true })
+  const task = card({ scope: 'world_event', ticker: null, stage: 'final_decision', decision: 'watch' })
+  const result = syncTaskWatchlist(task, 'tester', entriesDir)
+  assert.match(result.problem ?? '', /Add a ticker/)
+  assert.equal(readEntries(entriesDir).entries.length, 0)
+})
+
+check('an unchanged link does not append duplicate provenance', () => {
+  fs.rmSync(entriesDir, { recursive: true, force: true })
+  const task = card({ stage: 'final_decision', decision: 'watch' })
+  syncTaskWatchlist(task, 'tester', entriesDir)
+  const before = readEntries(entriesDir).entries[0].history.length
+  const result = syncTaskWatchlist(task, 'tester', entriesDir)
+  assert.equal(result.changed, false)
+  assert.equal(readEntries(entriesDir).entries[0].history.length, before)
+})
+
 check('assignment changed in Watchlist flows back to the linked task', () => {
   fs.rmSync(tasksDir, { recursive: true, force: true })
   const task = card({ stage: 'final_decision', decision: 'watch', assignee: 'NV' })
@@ -106,6 +173,7 @@ check('leaving Watch archives only a task-created row', () => {
   task.decision = 'deploy'
   syncTaskWatchlist(task, 'tester', entriesDir)
   assert.ok(readEntries(entriesDir).entries[0].archive)
+  assert.equal(readEntries(entriesDir).entries[0].task_id, null)
 
   fs.rmSync(entriesDir, { recursive: true, force: true })
   const independent = watch()

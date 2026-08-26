@@ -3748,6 +3748,7 @@ a { color: inherit; }
 .taskcard:hover { transform: translateY(-1px); border-color: var(--hairline-strong); background: var(--surface-3); }
 .taskcard:active { cursor: grabbing; }
 .taskcard__main { display: block; width: 100%; padding: 12px 12px 8px; text-align: left; }
+.taskcard__main:disabled { cursor: default; opacity: 1; }
 .taskcard__top { display: flex; align-items: center; gap: 6px; min-width: 0; }
 .taskcard__scope { padding: 2px 6px; border: 1px solid var(--hairline); border-radius: var(--r-pill); color: var(--text-faint); font-size: 8.5px; font-weight: 700; letter-spacing: 0.4px; text-transform: uppercase; }
 .taskcard__scope--world_event { color: var(--accent-bright); border-color: var(--accent-deep); }
@@ -3763,15 +3764,17 @@ a { color: inherit; }
 .taskcard__files a:hover { color: var(--accent-bright); }
 .taskcard__foot { display: flex; align-items: center; justify-content: space-between; padding: 7px 9px; border-top: 1px solid var(--hairline); }
 .taskperson { position: relative; display: inline-flex; align-items: center; }
-.taskperson > span, .wtile__owner, .wdet__owner > span { display: grid; place-items: center; width: 28px; height: 24px; border-radius: var(--r-pill); color: var(--accent-bright); background: var(--accent-wash); font-size: 9.5px; font-weight: 800; }
+.taskperson > span, .wtile__owner, .wdet__owner > span { display: inline-flex; align-items: center; justify-content: center; gap: 3px; min-width: 28px; height: 24px; padding: 0 6px; border-radius: var(--r-pill); color: var(--accent-bright); background: var(--accent-wash); font-size: 9.5px; font-weight: 800; }
+.taskperson i, .wdet__owner i { color: var(--text-faint); font-size: 8px; font-style: normal; }
 .taskperson select { position: absolute; inset: 0; width: 100%; opacity: 0; cursor: pointer; }
+.taskperson:focus-within, .wdet__owner:focus-within { border-radius: var(--r-pill); outline: 2px solid var(--accent); outline-offset: 2px; }
 .taskcard__moves { display: flex; gap: 3px; }
 .taskcard__moves button { width: 27px; height: 25px; border: 1px solid var(--hairline); border-radius: var(--r-sm); color: var(--text-muted); }
 .taskcard__moves button:hover:not(:disabled) { color: var(--accent-bright); border-color: var(--accent-deep); }
 .taskcard__moves button:disabled { opacity: 0.25; cursor: default; }
 
 .taskmodal__backdrop { position: fixed; inset: 0; z-index: 70; display: grid; place-items: center; padding: 24px; background: var(--scrim); backdrop-filter: blur(5px); }
-.taskmodal { width: min(660px, 96vw); max-height: min(850px, 92vh); display: flex; flex-direction: column; border: 1px solid var(--hairline-strong); border-radius: var(--r-lg); background: var(--surface-1); box-shadow: var(--shadow-2); overflow: hidden; }
+.taskmodal { width: min(660px, 100%); max-width: 100%; max-height: min(850px, 92vh); display: flex; flex-direction: column; border: 1px solid var(--hairline-strong); border-radius: var(--r-lg); background: var(--surface-1); box-shadow: var(--shadow-2); overflow: hidden; }
 .taskmodal__head { display: flex; align-items: center; justify-content: space-between; padding: 17px 20px; border-bottom: 1px solid var(--hairline); }
 .taskmodal__head h2 { margin: 3px 0 0; font-size: 17px; }
 .taskmodal__body { display: flex; flex-direction: column; gap: 16px; padding: 18px 20px; overflow-y: auto; }
@@ -3800,7 +3803,7 @@ a { color: inherit; }
 .taskmodal__foot { display: flex; align-items: center; justify-content: flex-end; gap: 9px; padding: 13px 20px; border-top: 1px solid var(--hairline); }
 .taskmodal__blocker { margin-right: auto; color: var(--bad); font-size: 10.5px; }
 
-.wtile__owner { margin-left: auto; width: 24px; height: 19px; font-size: 8px; }
+.wtile__owner { margin-left: auto; min-width: 24px; height: 19px; padding: 0 4px; font-size: 8px; }
 .wdet__owner { position: relative; margin-left: auto; display: inline-flex; }
 .wdet__owner select { position: absolute; inset: 0; width: 100%; opacity: 0; cursor: pointer; }
 
@@ -3811,10 +3814,19 @@ a { color: inherit; }
   .taskboard { grid-template-columns: repeat(4, 260px); }
 }
 @media (max-width: 760px) {
+  .topbar { height: auto; min-height: 56px; padding-block: 8px; flex-wrap: wrap; align-content: center; }
+  .topbar__spacer { display: none; }
+  .brand { flex: 1 1 calc(100% - 78px); }
+  .barmenu__panel { position: fixed; top: 58px; left: 10px; right: 10px; width: auto; max-height: calc(100vh - 70px); overflow-y: auto; }
+  .viewtoggle { left: 10px; right: 10px; width: auto; overflow-x: auto; justify-content: flex-start; }
+  .viewtoggle__btn { flex: 0 0 auto; }
   .tasks__head { flex-direction: column; gap: 12px; }
   .tasks__tools { width: 100%; margin-left: 0; justify-content: flex-start; }
   .tasks__tools .fld--search { flex: 1; min-width: 140px; }
   .taskmodal__identity { grid-template-columns: 1fr; }
+  .taskmodal__backdrop { padding: 12px; }
+  .taskmodal__foot { flex-wrap: wrap; }
+  .taskmodal__blocker { flex: 1 0 100%; }
 }
 
 /* ---- globe: Suspense fallback while the three.js chunk downloads, + PR1 scaffold placeholder ---- */
