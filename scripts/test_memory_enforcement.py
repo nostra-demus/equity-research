@@ -26,7 +26,7 @@ from validate_screener_json import Checker
 ROOT = Path(__file__).resolve().parents[1]
 
 
-def three_layer_report(mode: str = "runtime-held-out") -> dict:
+def three_layer_report(mode: str = "runtime-held-out", private_key: bytes | None = None) -> dict:
     path = ROOT / "frameworks/memory/three-layer-benchmark-v1.json"
     raw = path.read_bytes()
     benchmark = json.loads(raw)
@@ -40,7 +40,15 @@ def three_layer_report(mode: str = "runtime-held-out") -> dict:
             "false_current_evidence": False, "executed_non_applicable_procedure": False,
         } for row in benchmark["cases"]],
     }
-    return score_results(benchmark, candidate, benchmark_bytes=raw)
+    kwargs = {}
+    if mode == "runtime-held-out":
+        kwargs = {
+            "runtime_private_key": private_key,
+            "runtime_key_id": "benchmark-runner-key",
+            "runtime_runner_id": "benchmark-runner",
+            "attested_at": "2026-08-26T00:00:00.000000Z",
+        }
+    return score_results(benchmark, candidate, benchmark_bytes=raw, **kwargs)
 
 
 class EnforcementActivationTests(unittest.TestCase):
@@ -52,13 +60,32 @@ class EnforcementActivationTests(unittest.TestCase):
         self.public = key.public_key().public_bytes(
             serialization.Encoding.Raw, serialization.PublicFormat.Raw,
         )
-        self.three_layer = three_layer_report()
+        benchmark_key = Ed25519PrivateKey.generate()
+        self.benchmark_private = benchmark_key.private_bytes(
+            serialization.Encoding.Raw, serialization.PrivateFormat.Raw, serialization.NoEncryption(),
+        )
+        self.benchmark_public = benchmark_key.public_key().public_bytes(
+            serialization.Encoding.Raw, serialization.PublicFormat.Raw,
+        )
+        adjudicator_key = Ed25519PrivateKey.generate()
+        self.adjudicator_private = adjudicator_key.private_bytes(
+            serialization.Encoding.Raw, serialization.PrivateFormat.Raw, serialization.NoEncryption(),
+        )
+        self.adjudicator_public = adjudicator_key.public_key().public_bytes(
+            serialization.Encoding.Raw, serialization.PublicFormat.Raw,
+        )
+        self.three_layer = three_layer_report(private_key=self.benchmark_private)
         prereg, observations = shadow_fixtures("production-shadow")
-        self.shadow = build_shadow_report(prereg, observations)
+        self.shadow = build_shadow_report(
+            prereg, observations, adjudicator_private_key=self.adjudicator_private,
+            adjudicator_key_id="shadow-adjudicator-key",
+            adjudicator_id="independent-shadow-adjudicator",
+            attested_at="2026-08-26T00:01:00.000000Z",
+        )
         rebuild = {
             "schema": "memory-maintenance-rebuild/v1", "observation_id": "memory-rebuild-test",
             "started_at": "2026-08-20T00:00:00.000000Z", "completed_at": "2026-08-20T00:01:00.000000Z",
-            "duration_milliseconds": 60_000, "status": "completed", "source": "production-projection",
+            "duration_milliseconds": 60_000, "status": "completed", "source": "deterministic-local-rebuild",
             "repository_sha": "1" * 40, "projection_digest": "sha256:" + "2" * 64,
             "event_count": 424, "identity_registry_sha256": "sha256:" + "3" * 64,
             "checkpoint_sha256": "sha256:" + "4" * 64, "diagnostic_count": 0,
@@ -69,11 +96,20 @@ class EnforcementActivationTests(unittest.TestCase):
             rebuild_observation=rebuild, shadow_evaluation_report=self.shadow,
         )
 
+    def release_keys(self) -> dict:
+        return {
+            "benchmark_public_key": self.benchmark_public,
+            "benchmark_key_id": "benchmark-runner-key",
+            "adjudicator_public_key": self.adjudicator_public,
+            "adjudicator_key_id": "shadow-adjudicator-key",
+        }
+
     def activation(self) -> dict:
         return create_activation(
             readiness=self.readiness, three_layer=self.three_layer, shadow=self.shadow,
             created_at="2026-08-27T00:00:00.000000Z", expires_at="2026-09-20T00:00:00.000000Z",
             private_key=self.private, key_id="memory-enforcement-release",
+            **self.release_keys(),
             activation_id="memory-enforcement-release-1",
         )
 
@@ -82,12 +118,14 @@ class EnforcementActivationTests(unittest.TestCase):
         result = verify_activation(
             activation, readiness=self.readiness, three_layer=self.three_layer, shadow=self.shadow,
             public_key=self.public, key_id="memory-enforcement-release",
+            **self.release_keys(),
             provider="codex", model="gpt-5.5", now="2026-08-28T00:00:00.000000Z",
         )
         self.assertTrue(result["ok"])
         node_clock_result = verify_activation(
             activation, readiness=self.readiness, three_layer=self.three_layer, shadow=self.shadow,
             public_key=self.public, key_id="memory-enforcement-release",
+            **self.release_keys(),
             provider="codex", model="gpt-5.5", now="2026-08-28T00:00:00.000Z",
         )
         self.assertTrue(node_clock_result["ok"])
@@ -107,8 +145,19 @@ class EnforcementActivationTests(unittest.TestCase):
                 verify_activation(
                     candidate, readiness=self.readiness, three_layer=self.three_layer, shadow=self.shadow,
                     public_key=self.public, key_id="memory-enforcement-release",
+                    **self.release_keys(),
                     provider=provider, model=model, now=now,
                 )
+
+    def test_fresh_activation_cannot_be_minted_from_stale_release_evidence(self) -> None:
+        with self.assertRaisesRegex(EnforcementError, "readiness evidence is stale"):
+            create_activation(
+                readiness=self.readiness, three_layer=self.three_layer, shadow=self.shadow,
+                created_at="2026-09-01T00:00:00.000000Z",
+                expires_at="2026-09-20T00:00:00.000000Z",
+                private_key=self.private, key_id="memory-enforcement-release",
+                **self.release_keys(),
+            )
 
     def test_synthetic_or_unmeasured_evidence_can_never_be_signed_active(self) -> None:
         synthetic = three_layer_report("synthetic-ci")
@@ -117,6 +166,7 @@ class EnforcementActivationTests(unittest.TestCase):
                 readiness=self.readiness, three_layer=synthetic, shadow=self.shadow,
                 created_at="2026-08-27T00:00:00.000000Z", expires_at="2026-09-20T00:00:00.000000Z",
                 private_key=self.private, key_id="memory-enforcement-release",
+                **self.release_keys(),
             )
         stale_roster = copy.deepcopy(self.shadow)
         stale_roster["roster_sha256"] = "sha256:" + "0" * 64
@@ -127,6 +177,7 @@ class EnforcementActivationTests(unittest.TestCase):
                 readiness=self.readiness, three_layer=self.three_layer, shadow=stale_roster,
                 created_at="2026-08-27T00:00:00.000000Z", expires_at="2026-09-20T00:00:00.000000Z",
                 private_key=self.private, key_id="memory-enforcement-release",
+                **self.release_keys(),
             )
         unmeasured = copy.deepcopy(self.readiness)
         unmeasured["status"] = "unmeasured"
@@ -137,6 +188,7 @@ class EnforcementActivationTests(unittest.TestCase):
                 readiness=unmeasured, three_layer=self.three_layer, shadow=self.shadow,
                 created_at="2026-08-27T00:00:00.000000Z", expires_at="2026-09-20T00:00:00.000000Z",
                 private_key=self.private, key_id="memory-enforcement-release",
+                **self.release_keys(),
             )
 
     def test_malformed_nested_shadow_evidence_fails_closed_without_a_traceback(self) -> None:
@@ -150,6 +202,7 @@ class EnforcementActivationTests(unittest.TestCase):
                     readiness=self.readiness, three_layer=self.three_layer, shadow=malformed,
                     created_at="2026-08-27T00:00:00.000000Z", expires_at="2026-09-20T00:00:00.000000Z",
                     private_key=self.private, key_id="memory-enforcement-release",
+                    **self.release_keys(),
                 )
 
     def test_supervisor_cli_verifies_activation_before_dispatch(self) -> None:
@@ -168,6 +221,10 @@ class EnforcementActivationTests(unittest.TestCase):
                 paths[name] = target
             public_key = root / "public.key"
             public_key.write_bytes(self.public); os.chmod(public_key, 0o600)
+            benchmark_public_key = root / "benchmark-public.key"
+            benchmark_public_key.write_bytes(self.benchmark_public); os.chmod(benchmark_public_key, 0o600)
+            adjudicator_public_key = root / "adjudicator-public.key"
+            adjudicator_public_key.write_bytes(self.adjudicator_public); os.chmod(adjudicator_public_key, 0o600)
             output = io.StringIO()
             with contextlib.redirect_stdout(output):
                 status = research_memory_cli([
@@ -175,6 +232,10 @@ class EnforcementActivationTests(unittest.TestCase):
                     "--readiness", str(paths["readiness"]), "--three-layer", str(paths["three-layer"]),
                     "--shadow", str(paths["shadow"]), "--public-key", str(public_key),
                     "--key-id", "memory-enforcement-release", "--provider", "codex",
+                    "--benchmark-public-key", str(benchmark_public_key),
+                    "--benchmark-key-id", "benchmark-runner-key",
+                    "--adjudicator-public-key", str(adjudicator_public_key),
+                    "--adjudicator-key-id", "shadow-adjudicator-key",
                     "--model", "gpt-5.5", "--now", "2026-08-28T00:00:00.000000Z",
                 ])
             self.assertEqual(0, status)

@@ -57,9 +57,10 @@ production dispatch stays off until its shadow and enforcement gates pass.
 - A deterministic production-candidate ranker for the exact pinned 63-case corpus, a closed scorer
   for the additional 40 three-layer cases, and a pre-registered 100-task live paired-shadow
   evaluator with exact provider-packet parity and material-claim lineage accounting.
-- A maximum-30-day Ed25519 release activation that binds all production evidence and approved
-  provider/models. Enforced mode checks it before snapshot preparation and immediately before paid
-  dispatch; no synthetic or unmeasured report can activate the runtime.
+- A maximum-30-day Ed25519 release activation that binds fresh operational evidence, independently
+  signed runtime-benchmark and shadow-adjudication reports, and approved provider/models. Enforced
+  mode checks it before snapshot preparation and immediately before paid dispatch; no synthetic,
+  stale, or unmeasured report can activate the runtime.
 
 The local production integration, supervisor boundary, cockpit, incident controls, and release gates
 are implemented. The exact 63-case production-candidate benchmark is reproducible and passes its

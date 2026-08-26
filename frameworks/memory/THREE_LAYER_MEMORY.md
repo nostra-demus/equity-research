@@ -196,14 +196,18 @@ immutable; readiness compares a freshly generated candidate report with that bas
 
 The 40-case scorer accepts only a complete, closed runtime result set before it reads the scoring
 fields. Synthetic CI can prove the scorer but cannot satisfy release evidence. A production result
-must declare `runtime-held-out`, pass every case, and contain no forbidden record, false-current-
-evidence use, qualifier loss, temporal leak, protected leak, or non-applicable procedure execution.
+must declare `runtime-held-out`, carry an Ed25519 attestation from the separately configured runtime
+benchmark identity, pass every case, and contain no forbidden record, false-current-evidence use,
+qualifier loss, temporal leak, protected leak, or non-applicable procedure execution. The mode string
+alone never counts as production provenance.
 
 Live A/B release evidence is pre-registered with fixed thresholds. Every observation binds the exact
 preregistration, prompt program, source pool, memory snapshot, access scope, canonical packet bytes,
 provider/model, outputs, costs, and independent adjudicator. Baseline and memory outputs must have
 the same contradiction, prior-defense, and abstention opportunity counts. Provider approval is
 limited to Claude/Codex model pairs that received byte-equivalent packets in complete parity groups.
+The complete report is signed by the configured adjudicator identity; a different agent-supplied
+name is not independent-adjudication proof.
 The preregistration also freezes the self-discovered analytical-agent roster. Global enforcement
 cannot activate until every current specialist, module synthesizer, and master synthesizer appears
 in the shadow sample; adding a new profiled agent invalidates an older activation until it is tested.
@@ -211,9 +215,13 @@ in the shadow sample; adding a new profiled agent invalidates an older activatio
 Enforced mode requires a current Ed25519-signed `memory-enforcement-activation/v1`. The activation
 binds a fully met operational-readiness report, the passing runtime 40-case report, the passing
 production-shadow report, and its exact approved provider/model set. It lives for at most 30 days.
+Readiness must have been evaluated within 24 hours of activation and the shadow window must end
+within 30 days; minting a fresh activation from old evidence is forbidden.
 The supervisor verifies it before snapshot work and again immediately before every paid dispatch;
 missing, expired, tampered, synthetic, stale, or provider-mismatched evidence stops before spend.
-Shadow mode never treats the activation as a pass and remains non-blocking.
+Completion verifies the already-frozen receipt and authorization but does not require an activation
+to remain unexpired after the last paid dispatch. Shadow mode never treats the activation as a pass
+and remains non-blocking.
 
 ## Production projection and lifecycle implementation
 

@@ -7,18 +7,28 @@ import json
 import unittest
 from pathlib import Path
 
+from cryptography.hazmat.primitives import serialization
+from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey
 from memory_shadow_evaluation import (
     ShadowEvaluationError,
     analytical_agent_keys,
     build_report,
     seal_observation,
     seal_preregistration,
+    verify_adjudication_attestation,
 )
 from validate_screener_json import Checker
 
 
 ROOT = Path(__file__).resolve().parents[1]
 SCHEMA = ROOT / "frameworks/memory/shadow-evaluation-report-v1.schema.json"
+_ADJUDICATOR = Ed25519PrivateKey.generate()
+ADJUDICATOR_PRIVATE = _ADJUDICATOR.private_bytes(
+    serialization.Encoding.Raw, serialization.PrivateFormat.Raw, serialization.NoEncryption(),
+)
+ADJUDICATOR_PUBLIC = _ADJUDICATOR.public_key().public_bytes(
+    serialization.Encoding.Raw, serialization.PublicFormat.Raw,
+)
 
 
 def digest(value: str) -> str:
@@ -78,6 +88,15 @@ def fixtures(mode: str = "synthetic-ci") -> tuple[dict, list[dict]]:
     return prereg, observations
 
 
+def production_report(prereg: dict, observations: list[dict]) -> dict:
+    return build_report(
+        prereg, observations, adjudicator_private_key=ADJUDICATOR_PRIVATE,
+        adjudicator_key_id="shadow-adjudicator-key",
+        adjudicator_id="independent-shadow-adjudicator",
+        attested_at="2026-08-26T00:01:00.000000Z",
+    )
+
+
 class ShadowEvaluationTests(unittest.TestCase):
     def test_fixed_100_task_gate_passes_but_synthetic_evidence_cannot_enable_production(self) -> None:
         prereg, observations = fixtures()
@@ -95,9 +114,14 @@ class ShadowEvaluationTests(unittest.TestCase):
 
     def test_same_evidence_counts_only_after_a_production_shadow_preregistration(self) -> None:
         prereg, observations = fixtures("production-shadow")
-        report = build_report(prereg, observations)
+        with self.assertRaisesRegex(ShadowEvaluationError, "trusted adjudicator attestation"):
+            build_report(prereg, observations)
+        report = production_report(prereg, observations)
         self.assertTrue(report["gate"]["counts_as_production_evidence"])
         self.assertEqual(["claude/claude-opus", "codex/gpt-5.5"], report["gate"]["approved_provider_models"])
+        self.assertTrue(verify_adjudication_attestation(
+            report, public_key=ADJUDICATOR_PUBLIC, key_id="shadow-adjudicator-key",
+        ))
 
     def test_qualifier_loss_cost_or_packet_mismatch_blocks_release(self) -> None:
         for mutation, blocker in (
@@ -113,7 +137,7 @@ class ShadowEvaluationTests(unittest.TestCase):
             else:
                 row["packet_data_sha256"] = digest("mismatch")
             observations[0] = seal_observation(row)
-            report = build_report(prereg, observations)
+            report = production_report(prereg, observations)
             self.assertIn(blocker, report["gate"]["blocking_reasons"])
             self.assertFalse(report["gate"]["counts_as_production_evidence"])
 
@@ -129,7 +153,7 @@ class ShadowEvaluationTests(unittest.TestCase):
             changed.append(seal_observation({
                 **item, "agent_id": replacement, "task_id": replacement,
             }))
-        report = build_report(prereg, changed)
+        report = production_report(prereg, changed)
         self.assertIn("analytical-agent-coverage", report["gate"]["blocking_reasons"])
         self.assertEqual([missing], report["sample"]["missing_agent_keys"])
         self.assertFalse(report["gate"]["counts_as_production_evidence"])

@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import datetime as dt
 import json
 import sys
 from pathlib import Path
@@ -10,9 +11,13 @@ from typing import Any, Mapping, Sequence
 
 try:
     from canonical_json import canonical_sha256
+    from memory_crypto import load_master_key_file
+    from memory_release_attestation import sign_attestation, verify_attestation
     from memory_runtime import _atomic_private_write, _safe_regular
 except ImportError:  # pragma: no cover
     from scripts.canonical_json import canonical_sha256
+    from scripts.memory_crypto import load_master_key_file
+    from scripts.memory_release_attestation import sign_attestation, verify_attestation
     from scripts.memory_runtime import _atomic_private_write, _safe_regular
 
 
@@ -21,6 +26,10 @@ DEFAULT_BENCHMARK = ROOT / "frameworks/memory/three-layer-benchmark-v1.json"
 RESULT_SCHEMA = "memory-three-layer-candidate-results/v1"
 REPORT_SCHEMA = "memory-three-layer-benchmark-report/v1"
 MODES = {"synthetic-ci", "runtime-held-out"}
+RUNTIME_DOMAIN = b"memory-three-layer-runtime-attestation/v1\0"
+RUNTIME_ATTESTATION_FIELDS = {
+    "schema", "runner_id", "attested_at", "report_body_sha256", "signature",
+}
 CASE_FIELDS = {
     "id", "records", "action", "protected_content_leak", "temporal_leak",
     "qualifier_loss", "false_current_evidence", "executed_non_applicable_procedure",
@@ -43,6 +52,64 @@ def _object(path: str | Path) -> dict[str, Any]:
 
 def _rate(numerator: float, denominator: int) -> float:
     return round(numerator / denominator, 6) if denominator else 0.0
+
+
+def _instant(value: Any, label: str) -> str:
+    if not isinstance(value, str):
+        raise ThreeLayerBenchmarkError(f"{label} must be an aware timestamp")
+    try:
+        moment = dt.datetime.fromisoformat(value.replace("Z", "+00:00"))
+    except ValueError as exc:
+        raise ThreeLayerBenchmarkError(f"{label} must be an aware timestamp") from exc
+    if moment.tzinfo is None:
+        raise ThreeLayerBenchmarkError(f"{label} must be timezone-aware")
+    return moment.astimezone(dt.timezone.utc).isoformat(timespec="microseconds").replace("+00:00", "Z")
+
+
+def _runtime_attestation(
+    body: Mapping[str, Any], *, private_key: bytes, key_id: str,
+    runner_id: str, attested_at: str,
+) -> dict[str, Any]:
+    if not isinstance(runner_id, str) or not runner_id or len(runner_id) > 128:
+        raise ThreeLayerBenchmarkError("runtime benchmark runner identity is invalid")
+    payload: dict[str, Any] = {
+        "schema": "memory-three-layer-runtime-attestation/v1",
+        "runner_id": runner_id,
+        "attested_at": _instant(attested_at, "runtime attested_at"),
+        "report_body_sha256": "sha256:" + canonical_sha256(body),
+    }
+    return {
+        **payload,
+        "signature": sign_attestation(
+            payload, domain=RUNTIME_DOMAIN, private_key=private_key, key_id=key_id,
+        ),
+    }
+
+
+def verify_runtime_attestation(
+    report: Mapping[str, Any], *, public_key: bytes, key_id: str,
+) -> bool:
+    attestation = report.get("runtime_attestation")
+    if not isinstance(attestation, Mapping) or set(attestation) != RUNTIME_ATTESTATION_FIELDS:
+        return False
+    body = {
+        key: value for key, value in report.items()
+        if key not in {"report_sha256", "runtime_attestation"}
+    }
+    payload = {key: value for key, value in attestation.items() if key != "signature"}
+    try:
+        if _instant(payload.get("attested_at"), "runtime attested_at") != payload.get("attested_at"):
+            return False
+    except ThreeLayerBenchmarkError:
+        return False
+    return (
+        payload.get("schema") == "memory-three-layer-runtime-attestation/v1"
+        and payload.get("report_body_sha256") == "sha256:" + canonical_sha256(body)
+        and verify_attestation(
+            payload, attestation.get("signature"), domain=RUNTIME_DOMAIN,
+            public_key=public_key, key_id=key_id,
+        )
+    )
 
 
 def _candidate_rows(value: Mapping[str, Any], ids: set[str]) -> tuple[str, dict[str, dict[str, Any]]]:
@@ -78,6 +145,8 @@ def _candidate_rows(value: Mapping[str, Any], ids: set[str]) -> tuple[str, dict[
 
 def score_results(
     benchmark: Mapping[str, Any], candidate: Mapping[str, Any], *, benchmark_bytes: bytes,
+    runtime_private_key: bytes | None = None, runtime_key_id: str | None = None,
+    runtime_runner_id: str | None = None, attested_at: str | None = None,
 ) -> dict[str, Any]:
     if benchmark.get("schema") != "memory-three-layer-benchmark/v1" or benchmark.get("case_count") != 40:
         raise ThreeLayerBenchmarkError("three-layer benchmark contract is invalid")
@@ -137,11 +206,25 @@ def score_results(
             "blocking_case_ids": blockers,
         },
     }
-    body["report_sha256"] = "sha256:" + canonical_sha256(body)
-    return body
+    if mode == "runtime-held-out":
+        if None in (runtime_private_key, runtime_key_id, runtime_runner_id, attested_at):
+            raise ThreeLayerBenchmarkError("runtime-held-out results require a trusted runner attestation")
+        runtime_attestation = _runtime_attestation(
+            body, private_key=runtime_private_key, key_id=str(runtime_key_id),
+            runner_id=str(runtime_runner_id), attested_at=str(attested_at),
+        )
+    else:
+        runtime_attestation = None
+    report = {**body, "runtime_attestation": runtime_attestation}
+    report["report_sha256"] = "sha256:" + canonical_sha256(report)
+    return report
 
 
-def score_files(benchmark_path: str | Path, candidate_path: str | Path) -> dict[str, Any]:
+def score_files(
+    benchmark_path: str | Path, candidate_path: str | Path, *,
+    runtime_private_key: bytes | None = None, runtime_key_id: str | None = None,
+    runtime_runner_id: str | None = None, attested_at: str | None = None,
+) -> dict[str, Any]:
     benchmark_bytes = _safe_regular(Path(benchmark_path), owner_only=False)
     try:
         benchmark = json.loads(benchmark_bytes)
@@ -149,17 +232,33 @@ def score_files(benchmark_path: str | Path, candidate_path: str | Path) -> dict[
         raise ThreeLayerBenchmarkError("benchmark is invalid JSON") from exc
     if not isinstance(benchmark, dict):
         raise ThreeLayerBenchmarkError("benchmark must be an object")
-    return score_results(benchmark, _object(candidate_path), benchmark_bytes=benchmark_bytes)
+    return score_results(
+        benchmark, _object(candidate_path), benchmark_bytes=benchmark_bytes,
+        runtime_private_key=runtime_private_key, runtime_key_id=runtime_key_id,
+        runtime_runner_id=runtime_runner_id, attested_at=attested_at,
+    )
 
 
 def main(argv: Sequence[str] | None = None) -> int:
     parser = argparse.ArgumentParser(prog="memory-three-layer-benchmark", description=__doc__)
     parser.add_argument("--benchmark", default=str(DEFAULT_BENCHMARK))
     parser.add_argument("--candidate", required=True)
+    parser.add_argument("--runtime-private-key")
+    parser.add_argument("--runtime-key-id")
+    parser.add_argument("--runtime-runner-id")
+    parser.add_argument("--attested-at")
     parser.add_argument("--output")
     args = parser.parse_args(argv)
     try:
-        report = score_files(args.benchmark, args.candidate)
+        report = score_files(
+            args.benchmark, args.candidate,
+            runtime_private_key=(
+                load_master_key_file(Path(args.runtime_private_key))
+                if args.runtime_private_key else None
+            ),
+            runtime_key_id=args.runtime_key_id, runtime_runner_id=args.runtime_runner_id,
+            attested_at=args.attested_at,
+        )
     except (ThreeLayerBenchmarkError, OSError, ValueError) as exc:
         print(json.dumps({"schema": "memory-three-layer-benchmark-result/v1", "ok": False, "code": str(exc)}, sort_keys=True))
         return 4
@@ -178,4 +277,6 @@ if __name__ == "__main__":
     raise SystemExit(main())
 
 
-__all__ = ["ThreeLayerBenchmarkError", "score_files", "score_results"]
+__all__ = [
+    "ThreeLayerBenchmarkError", "score_files", "score_results", "verify_runtime_attestation",
+]

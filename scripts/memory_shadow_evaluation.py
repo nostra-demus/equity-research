@@ -13,17 +13,25 @@ from typing import Any, Mapping, Sequence
 
 try:
     from canonical_json import canonical_sha256
+    from memory_crypto import load_master_key_file
     from memory_profiles import research_agent_files
+    from memory_release_attestation import sign_attestation, verify_attestation
     from memory_runtime import _atomic_private_write, _safe_regular
 except ImportError:  # pragma: no cover
     from scripts.canonical_json import canonical_sha256
+    from scripts.memory_crypto import load_master_key_file
     from scripts.memory_profiles import research_agent_files
+    from scripts.memory_release_attestation import sign_attestation, verify_attestation
     from scripts.memory_runtime import _atomic_private_write, _safe_regular
 
 
 PREREG_SCHEMA = "memory-shadow-preregistration/v1"
 OBSERVATION_SCHEMA = "memory-shadow-pair-observation/v1"
 REPORT_SCHEMA = "memory-shadow-evaluation-report/v1"
+ADJUDICATION_DOMAIN = b"memory-shadow-adjudication-attestation/v1\0"
+ADJUDICATION_ATTESTATION_FIELDS = {
+    "schema", "adjudicator_id", "attested_at", "report_body_sha256", "signature",
+}
 MODES = {"synthetic-ci", "production-shadow"}
 HASH_FIELDS = {
     "preregistration_sha256",
@@ -237,6 +245,56 @@ def verify_observation(value: Any, preregistration: Mapping[str, Any]) -> dict[s
     return expected
 
 
+def _adjudication_attestation(
+    body: Mapping[str, Any], *, private_key: bytes, key_id: str,
+    adjudicator_id: str, attested_at: str,
+) -> dict[str, Any]:
+    _id(adjudicator_id, "adjudicator_id")
+    normalized, instant = _instant(attested_at, "attested_at")
+    _, window_end = _instant(body.get("window", {}).get("end"), "window.end")
+    if instant < window_end:
+        raise ShadowEvaluationError("adjudication cannot predate the evaluated observations")
+    payload: dict[str, Any] = {
+        "schema": "memory-shadow-adjudication-attestation/v1",
+        "adjudicator_id": adjudicator_id,
+        "attested_at": normalized,
+        "report_body_sha256": "sha256:" + canonical_sha256(body),
+    }
+    return {
+        **payload,
+        "signature": sign_attestation(
+            payload, domain=ADJUDICATION_DOMAIN, private_key=private_key, key_id=key_id,
+        ),
+    }
+
+
+def verify_adjudication_attestation(
+    report: Mapping[str, Any], *, public_key: bytes, key_id: str,
+) -> bool:
+    attestation = report.get("adjudication_attestation")
+    if not isinstance(attestation, Mapping) or set(attestation) != ADJUDICATION_ATTESTATION_FIELDS:
+        return False
+    body = {
+        key: value for key, value in report.items()
+        if key not in {"report_sha256", "adjudication_attestation"}
+    }
+    payload = {key: value for key, value in attestation.items() if key != "signature"}
+    try:
+        normalized, attested = _instant(payload.get("attested_at"), "attested_at")
+        _, window_end = _instant(body.get("window", {}).get("end"), "window.end")
+    except (ShadowEvaluationError, AttributeError):
+        return False
+    return (
+        payload.get("schema") == "memory-shadow-adjudication-attestation/v1"
+        and normalized == payload.get("attested_at") and attested >= window_end
+        and payload.get("report_body_sha256") == "sha256:" + canonical_sha256(body)
+        and verify_attestation(
+            payload, attestation.get("signature"), domain=ADJUDICATION_DOMAIN,
+            public_key=public_key, key_id=key_id,
+        )
+    )
+
+
 def _rate(successes: int, opportunities: int) -> float:
     return round(successes / opportunities, 6) if opportunities else 0.0
 
@@ -256,7 +314,11 @@ def _p95(values: Sequence[int]) -> float:
     return float(ordered[max(0, math.ceil(len(ordered) * 0.95) - 1)]) if ordered else 0.0
 
 
-def build_report(preregistration: Mapping[str, Any], observations: Sequence[Mapping[str, Any]]) -> dict[str, Any]:
+def build_report(
+    preregistration: Mapping[str, Any], observations: Sequence[Mapping[str, Any]], *,
+    adjudicator_private_key: bytes | None = None, adjudicator_key_id: str | None = None,
+    adjudicator_id: str | None = None, attested_at: str | None = None,
+) -> dict[str, Any]:
     prereg = verify_preregistration(preregistration)
     if not observations or len(observations) > 100_000:
         raise ShadowEvaluationError("shadow evaluation observation count is invalid")
@@ -376,8 +438,22 @@ def build_report(preregistration: Mapping[str, Any], observations: Sequence[Mapp
             "blocking_reasons": blockers,
         },
     }
-    body["report_sha256"] = "sha256:" + canonical_sha256(body)
-    return body
+    if prereg["evaluation_mode"] == "production-shadow":
+        if None in (adjudicator_private_key, adjudicator_key_id, adjudicator_id, attested_at):
+            raise ShadowEvaluationError("production shadow requires a trusted adjudicator attestation")
+        if adjudicator_id in prereg["required_agent_keys"]:
+            raise ShadowEvaluationError("production adjudicator cannot be an evaluated analytical agent")
+        if any(row["adjudicator_id"] != adjudicator_id for row in rows):
+            raise ShadowEvaluationError("shadow observations do not bind the trusted adjudicator identity")
+        adjudication_attestation = _adjudication_attestation(
+            body, private_key=adjudicator_private_key, key_id=str(adjudicator_key_id),
+            adjudicator_id=str(adjudicator_id), attested_at=str(attested_at),
+        )
+    else:
+        adjudication_attestation = None
+    report = {**body, "adjudication_attestation": adjudication_attestation}
+    report["report_sha256"] = "sha256:" + canonical_sha256(report)
+    return report
 
 
 def _load(path: str | Path) -> dict[str, Any]:
@@ -403,6 +479,8 @@ def main(argv: Sequence[str] | None = None) -> int:
     record.add_argument("--output", required=True)
     evaluate = sub.add_parser("evaluate")
     evaluate.add_argument("--preregistration", required=True); evaluate.add_argument("--observation", action="append", required=True)
+    evaluate.add_argument("--adjudicator-private-key"); evaluate.add_argument("--adjudicator-key-id")
+    evaluate.add_argument("--adjudicator-id"); evaluate.add_argument("--attested-at")
     evaluate.add_argument("--output")
     args = parser.parse_args(argv)
     try:
@@ -419,7 +497,15 @@ def main(argv: Sequence[str] | None = None) -> int:
                 raise ShadowEvaluationError("shadow observation draft has an invalid closed shape")
             result = verify_observation(seal_observation(draft), preregistration)
         else:
-            result = build_report(_load(args.preregistration), [_load(path) for path in args.observation])
+            result = build_report(
+                _load(args.preregistration), [_load(path) for path in args.observation],
+                adjudicator_private_key=(
+                    load_master_key_file(Path(args.adjudicator_private_key))
+                    if args.adjudicator_private_key else None
+                ),
+                adjudicator_key_id=args.adjudicator_key_id,
+                adjudicator_id=args.adjudicator_id, attested_at=args.attested_at,
+            )
     except (ShadowEvaluationError, OSError, ValueError) as exc:
         print(json.dumps({"schema": "memory-shadow-evaluation-result/v1", "ok": False, "code": str(exc)}, sort_keys=True))
         return 4
@@ -441,5 +527,5 @@ if __name__ == "__main__":
 __all__ = [
     "ShadowEvaluationError", "TARGET", "build_report", "seal_observation",
     "seal_preregistration", "verify_observation", "verify_preregistration",
-    "analytical_agent_keys", "analytical_roster_sha256",
+    "analytical_agent_keys", "analytical_roster_sha256", "verify_adjudication_attestation",
 ]

@@ -207,7 +207,8 @@ _SHADOW_QUALITY_FIELDS = frozenset(
 _SHADOW_REPORT_FIELDS = frozenset(
     {
         "schema", "evaluation_id", "evaluation_mode", "preregistration_sha256", "roster_sha256", "window",
-        "sample", "quality", "provider_parity", "gate", "report_sha256",
+        "sample", "quality", "provider_parity", "gate", "adjudication_attestation",
+        "report_sha256",
     }
 )
 _SCALE_COMPARISON_FIELDS = frozenset(
@@ -832,7 +833,11 @@ def _rebuild_cadence(observation: Mapping[str, Any] | None, evaluated: dt.dateti
     if observation is None:
         return empty
     value = _exact_mapping(observation, _REBUILD_OBSERVATION_FIELDS, "rebuild_observation")
-    if value.get("schema") != "memory-maintenance-rebuild/v1" or value.get("status") != "completed":
+    if (
+        value.get("schema") != "memory-maintenance-rebuild/v1"
+        or value.get("status") != "completed"
+        or value.get("source") != "deterministic-local-rebuild"
+    ):
         raise OperationsError("rebuild_observation is not a completed clean rebuild")
     supplied = _hash_ref(value.get("observation_sha256"), "rebuild_observation.observation_sha256")
     body = dict(value)

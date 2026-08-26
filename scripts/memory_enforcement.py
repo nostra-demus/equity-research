@@ -17,13 +17,15 @@ try:
     from canonical_json import canonical_json_bytes, canonical_sha256
     from memory_crypto import ed25519_sign, ed25519_verify, load_master_key_file
     from memory_operations import verify_operational_readiness_report
-    from memory_shadow_evaluation import analytical_roster_sha256
+    from memory_shadow_evaluation import analytical_roster_sha256, verify_adjudication_attestation
+    from memory_three_layer_benchmark import verify_runtime_attestation
     from memory_runtime import _atomic_private_write, _safe_regular
 except ImportError:  # pragma: no cover
     from scripts.canonical_json import canonical_json_bytes, canonical_sha256
     from scripts.memory_crypto import ed25519_sign, ed25519_verify, load_master_key_file
     from scripts.memory_operations import verify_operational_readiness_report
-    from scripts.memory_shadow_evaluation import analytical_roster_sha256
+    from scripts.memory_shadow_evaluation import analytical_roster_sha256, verify_adjudication_attestation
+    from scripts.memory_three_layer_benchmark import verify_runtime_attestation
     from scripts.memory_runtime import _atomic_private_write, _safe_regular
 
 
@@ -37,6 +39,8 @@ EVIDENCE_FIELDS = {
     "operational_readiness_sha256", "three_layer_benchmark_sha256", "shadow_evaluation_sha256",
 }
 MAX_LIFETIME = dt.timedelta(days=30)
+MAX_READINESS_AGE = dt.timedelta(days=1)
+MAX_SHADOW_AGE = dt.timedelta(days=30)
 ACTIVATION_ID = re.compile(r"memory-enforcement-[A-Za-z0-9._-]{1,96}")
 
 
@@ -86,6 +90,8 @@ def _shadow_window_end(shadow: Mapping[str, Any]) -> Any:
 
 def _release_evidence(
     readiness: Mapping[str, Any], three_layer: Mapping[str, Any], shadow: Mapping[str, Any],
+    *, benchmark_public_key: bytes, benchmark_key_id: str,
+    adjudicator_public_key: bytes, adjudicator_key_id: str,
 ) -> tuple[dict[str, str], list[str]]:
     verify_operational_readiness_report(readiness)
     production_benchmark = _mapping(_mapping(readiness.get("adoption")).get("production_benchmark"))
@@ -101,6 +107,10 @@ def _release_evidence(
     ):
         raise EnforcementError("the runtime-held-out 40-case gate is not met")
     three_hash = _verify_report_hash(three_layer, "report_sha256", "three-layer report")
+    if not verify_runtime_attestation(
+        three_layer, public_key=benchmark_public_key, key_id=benchmark_key_id,
+    ):
+        raise EnforcementError("the runtime-held-out report lacks a trusted runner attestation")
     gate = shadow.get("gate")
     provider_parity = _mapping(shadow.get("provider_parity"))
     sample = _mapping(shadow.get("sample"))
@@ -117,6 +127,10 @@ def _release_evidence(
     ):
         raise EnforcementError("the production shadow and provider-parity gate is not met")
     shadow_hash = _verify_report_hash(shadow, "report_sha256", "shadow report")
+    if not verify_adjudication_attestation(
+        shadow, public_key=adjudicator_public_key, key_id=adjudicator_key_id,
+    ):
+        raise EnforcementError("the production shadow report lacks a trusted adjudicator attestation")
     providers = gate.get("approved_provider_models")
     if (
         not isinstance(providers, list) or not providers
@@ -133,6 +147,19 @@ def _release_evidence(
     }, list(providers)
 
 
+def _verify_evidence_freshness(
+    readiness: Mapping[str, Any], shadow: Mapping[str, Any], reference: dt.datetime,
+) -> None:
+    _, readiness_at = _instant(readiness.get("evaluated_at"), "readiness.evaluated_at")
+    _, shadow_end = _instant(_shadow_window_end(shadow), "shadow.window.end")
+    if readiness_at > reference or shadow_end > reference:
+        raise EnforcementError("release evidence cannot postdate activation")
+    if reference - readiness_at > MAX_READINESS_AGE:
+        raise EnforcementError("operational readiness evidence is stale")
+    if reference - shadow_end > MAX_SHADOW_AGE:
+        raise EnforcementError("production shadow evidence is stale")
+
+
 def _message(unsigned: Mapping[str, Any], activation_sha256: str) -> bytes:
     return DOMAIN + canonical_json_bytes({**unsigned, "activation_sha256": activation_sha256})
 
@@ -140,20 +167,23 @@ def _message(unsigned: Mapping[str, Any], activation_sha256: str) -> bytes:
 def create_activation(
     *, readiness: Mapping[str, Any], three_layer: Mapping[str, Any], shadow: Mapping[str, Any],
     created_at: str, expires_at: str, private_key: bytes, key_id: str,
+    benchmark_public_key: bytes, benchmark_key_id: str,
+    adjudicator_public_key: bytes, adjudicator_key_id: str,
     activation_id: str | None = None,
 ) -> dict[str, Any]:
     created_text, created = _instant(created_at, "created_at")
     expires_text, expires = _instant(expires_at, "expires_at")
     if expires <= created or expires - created > MAX_LIFETIME:
         raise EnforcementError("enforcement activation lifetime must be positive and at most 30 days")
-    evidence, providers = _release_evidence(readiness, three_layer, shadow)
+    evidence, providers = _release_evidence(
+        readiness, three_layer, shadow,
+        benchmark_public_key=benchmark_public_key, benchmark_key_id=benchmark_key_id,
+        adjudicator_public_key=adjudicator_public_key, adjudicator_key_id=adjudicator_key_id,
+    )
     identity = activation_id or f"memory-enforcement-{uuid.uuid4()}"
     if not isinstance(identity, str) or ACTIVATION_ID.fullmatch(identity) is None:
         raise EnforcementError("activation identity is invalid")
-    _, readiness_at = _instant(readiness.get("evaluated_at"), "readiness.evaluated_at")
-    _, shadow_end = _instant(_shadow_window_end(shadow), "shadow.window.end")
-    if readiness_at > created or shadow_end > created:
-        raise EnforcementError("release evidence cannot postdate activation")
+    _verify_evidence_freshness(readiness, shadow, created)
     unsigned: dict[str, Any] = {
         "schema": SCHEMA, "activation_id": identity, "status": "active",
         "created_at": created_text, "expires_at": expires_text,
@@ -175,11 +205,17 @@ def create_activation(
 def verify_activation(
     activation: Mapping[str, Any], *, readiness: Mapping[str, Any],
     three_layer: Mapping[str, Any], shadow: Mapping[str, Any], public_key: bytes,
-    key_id: str, provider: str, model: str, now: str,
+    key_id: str, benchmark_public_key: bytes, benchmark_key_id: str,
+    adjudicator_public_key: bytes, adjudicator_key_id: str,
+    provider: str, model: str, now: str,
 ) -> dict[str, Any]:
     if not isinstance(activation, Mapping) or set(activation) != FIELDS or activation.get("schema") != SCHEMA:
         raise EnforcementError("enforcement activation has an invalid closed shape")
-    evidence, providers = _release_evidence(readiness, three_layer, shadow)
+    evidence, providers = _release_evidence(
+        readiness, three_layer, shadow,
+        benchmark_public_key=benchmark_public_key, benchmark_key_id=benchmark_key_id,
+        adjudicator_public_key=adjudicator_public_key, adjudicator_key_id=adjudicator_key_id,
+    )
     if activation.get("status") != "active" or activation.get("evidence") != evidence or activation.get("approved_provider_models") != providers:
         raise EnforcementError("enforcement activation does not bind the current release evidence")
     if not isinstance(activation.get("evidence"), Mapping) or set(activation["evidence"]) != EVIDENCE_FIELDS:
@@ -191,10 +227,7 @@ def verify_activation(
         raise EnforcementError("enforcement activation time window is invalid")
     if current < created or current >= expires:
         raise EnforcementError("enforcement activation is not currently valid")
-    _, readiness_at = _instant(readiness.get("evaluated_at"), "readiness.evaluated_at")
-    _, shadow_end = _instant(_shadow_window_end(shadow), "shadow.window.end")
-    if readiness_at > created or shadow_end > created:
-        raise EnforcementError("release evidence cannot postdate activation")
+    _verify_evidence_freshness(readiness, shadow, created)
     if f"{provider}/{model}" not in providers:
         raise EnforcementError("provider/model did not pass production shadow enforcement")
     unsigned = {key: value for key, value in activation.items() if key not in {"activation_sha256", "signature"}}
@@ -231,6 +264,8 @@ def main(argv: Sequence[str] | None = None) -> int:
     for command in (activate, verify):
         command.add_argument("--readiness", required=True); command.add_argument("--three-layer", required=True)
         command.add_argument("--shadow", required=True); command.add_argument("--key-id", required=True)
+        command.add_argument("--benchmark-public-key", required=True); command.add_argument("--benchmark-key-id", required=True)
+        command.add_argument("--adjudicator-public-key", required=True); command.add_argument("--adjudicator-key-id", required=True)
     activate.add_argument("--private-key", required=True); activate.add_argument("--created-at", required=True)
     activate.add_argument("--expires-at", required=True); activate.add_argument("--activation-id")
     activate.add_argument("--output", required=True)
@@ -244,6 +279,10 @@ def main(argv: Sequence[str] | None = None) -> int:
                 readiness=readiness, three_layer=three_layer, shadow=shadow,
                 created_at=args.created_at, expires_at=args.expires_at,
                 private_key=load_master_key_file(Path(args.private_key)), key_id=args.key_id,
+                benchmark_public_key=load_master_key_file(Path(args.benchmark_public_key)),
+                benchmark_key_id=args.benchmark_key_id,
+                adjudicator_public_key=load_master_key_file(Path(args.adjudicator_public_key)),
+                adjudicator_key_id=args.adjudicator_key_id,
                 activation_id=args.activation_id,
             )
             _atomic_private_write(Path(args.output), result)
@@ -252,6 +291,10 @@ def main(argv: Sequence[str] | None = None) -> int:
             output = verify_activation(
                 _load(args.activation), readiness=readiness, three_layer=three_layer, shadow=shadow,
                 public_key=load_master_key_file(Path(args.public_key)), key_id=args.key_id,
+                benchmark_public_key=load_master_key_file(Path(args.benchmark_public_key)),
+                benchmark_key_id=args.benchmark_key_id,
+                adjudicator_public_key=load_master_key_file(Path(args.adjudicator_public_key)),
+                adjudicator_key_id=args.adjudicator_key_id,
                 provider=args.provider, model=args.model, now=args.now,
             )
     except (EnforcementError, OSError, ValueError) as exc:

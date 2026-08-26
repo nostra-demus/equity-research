@@ -143,6 +143,10 @@ python3 scripts/memory_shadow_evaluation.py record \
 python3 scripts/memory_shadow_evaluation.py evaluate \
   --preregistration /absolute/private/memory-runtime/operations/shadow-preregistration.json \
   --observation /absolute/private/memory-runtime/shadow-observations/pair-0001.json \
+  --adjudicator-private-key /absolute/external/memory-shadow-adjudicator-ed25519.seed \
+  --adjudicator-key-id memory-shadow-adjudicator \
+  --adjudicator-id independent-shadow-adjudicator \
+  --attested-at 2026-08-26T00:01:00Z \
   --output /absolute/private/memory-runtime/operations/shadow-evaluation-report.json
 ```
 
@@ -155,6 +159,10 @@ expected/forbidden fields, then score the closed result:
 ```bash
 python3 scripts/memory_three_layer_benchmark.py \
   --candidate /absolute/private/memory-runtime/operations/three-layer-candidate-results.json \
+  --runtime-private-key /absolute/external/memory-benchmark-runner-ed25519.seed \
+  --runtime-key-id memory-benchmark-runner \
+  --runtime-runner-id production-memory-benchmark-runner \
+  --attested-at 2026-08-26T00:00:00Z \
   --output /absolute/private/memory-runtime/operations/three-layer-benchmark-report.json
 ```
 
@@ -168,19 +176,26 @@ python3 scripts/memory_enforcement.py activate \
   --three-layer /absolute/private/memory-runtime/operations/three-layer-benchmark-report.json \
   --shadow /absolute/private/memory-runtime/operations/shadow-evaluation-report.json \
   --private-key /absolute/external/memory-enforcement-ed25519.seed \
+  --benchmark-public-key /absolute/external/memory-benchmark-runner-ed25519.pub \
+  --benchmark-key-id memory-benchmark-runner \
+  --adjudicator-public-key /absolute/external/memory-shadow-adjudicator-ed25519.pub \
+  --adjudicator-key-id memory-shadow-adjudicator \
   --key-id memory-enforcement-release --created-at 2026-08-27T00:00:00Z \
   --expires-at 2026-09-20T00:00:00Z \
   --output /absolute/private/memory-runtime/operations/enforcement-activation.json
 ```
 
-Set `NOSTRA_MEMORY_ENFORCEMENT_PUBLIC_KEY` and `NOSTRA_MEMORY_ENFORCEMENT_KEY_ID`. The activation,
-readiness, three-layer, and shadow paths default to the filenames above under
+Set `NOSTRA_MEMORY_ENFORCEMENT_PUBLIC_KEY`, `NOSTRA_MEMORY_ENFORCEMENT_KEY_ID`,
+`NOSTRA_MEMORY_BENCHMARK_PUBLIC_KEY`, `NOSTRA_MEMORY_BENCHMARK_KEY_ID`,
+`NOSTRA_MEMORY_SHADOW_ADJUDICATOR_PUBLIC_KEY`, and
+`NOSTRA_MEMORY_SHADOW_ADJUDICATOR_KEY_ID`. The activation, readiness, three-layer, and shadow paths default to the filenames above under
 `<state_root>/operations/`; override them with `NOSTRA_MEMORY_ENFORCEMENT_ACTIVATION`,
 `NOSTRA_MEMORY_ENFORCEMENT_READINESS`, `NOSTRA_MEMORY_ENFORCEMENT_THREE_LAYER`, and
 `NOSTRA_MEMORY_ENFORCEMENT_SHADOW` only when the private-state layout differs. Set
 `NOSTRA_MEMORY_MODE=enforced` last. An absent, expired, altered, unmeasured, synthetic, or
 provider/model-mismatched activation stops before paid dispatch. Never weaken this gate to start a
-run.
+run. Readiness evidence older than 24 hours and shadow evidence older than 30 days cannot mint a new
+activation. A run whose final paid dispatch occurred before expiry may still finalize afterward.
 
 ## Cockpit and alerts
 

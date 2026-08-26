@@ -114,7 +114,9 @@ def clean_rebuild(config: Mapping[str, Any]) -> dict[str, Any]:
         signer=ed25519_checkpoint_signer(private_key, key_id=key_id),
         verifier=ed25519_checkpoint_verifier(public_key, key_id=key_id),
     )
-    snapshot = manager.prepare()
+    snapshot = manager.prepare(force_rebuild=True)
+    if snapshot.source != "deterministic-local-rebuild":
+        raise MaintenanceError("clean rebuild did not exercise deterministic recovery")
     completed_at = _now()
     body: dict[str, Any] = {
         "schema": REBUILD_SCHEMA,
