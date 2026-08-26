@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-08-26T09:25:04Z",
+  "generated_at": "2026-08-26T09:35:03Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260826-726",
+      "headline": "WEB: Upgrading 1H27 guidance [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.WEB?key=2924-03126688-3A699937",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-26T08:54:27Z",
+      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
+      "prelim_note": "The company is upgrading its 1H27 financial guidance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company is upgrading its 1H27 financial guidance.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "guidance_change",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Webjet",
+          "ticker": "WEB",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260826-677",
       "headline": "SR MEDICAL (00108): PROFIT WARNING",
@@ -1963,56 +2012,6 @@
       "companies": [
         {
           "name": "Hindustan Aeronautics Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260826-533",
-      "headline": "Adani Energy Solutions Ltd: AESL Wins Rs 4,700 crore Transmission project in Maharashtra for evacuation of 4,500 MW of Renewable & Storage Power",
-      "headline_en": null,
-      "url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/5dcccc1a-9686-4914-b61f-34c8c62748a8.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-26T03:26:44Z",
-      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
-      "prelim_note": "Company won a Rs 4,700 crore transmission project for 4,500 MW evacuation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "Company won a Rs 4,700 crore transmission project for 4,500 MW evacuation.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex",
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Adani Energy Solutions Ltd",
           "ticker": null,
           "listing_country": "IN"
         }
@@ -94275,9 +94274,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1878665,
-    "news_picked_today": 1270,
-    "news_dropped_today": 11546
+    "news_seen_today": 1900350,
+    "news_picked_today": 1301,
+    "news_dropped_today": 11587
   },
   "book_momentum": {
     "live_count": 8,
