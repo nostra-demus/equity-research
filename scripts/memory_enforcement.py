@@ -173,10 +173,10 @@ def verify_activation(
         raise EnforcementError("enforcement activation evidence is invalid")
     created_text, created = _instant(activation.get("created_at"), "created_at")
     expires_text, expires = _instant(activation.get("expires_at"), "expires_at")
-    now_text, current = _instant(now, "now")
+    _, current = _instant(now, "now")
     if created_text != activation["created_at"] or expires_text != activation["expires_at"] or expires <= created or expires - created > MAX_LIFETIME:
         raise EnforcementError("enforcement activation time window is invalid")
-    if current < created or current >= expires or now_text != now:
+    if current < created or current >= expires:
         raise EnforcementError("enforcement activation is not currently valid")
     _, readiness_at = _instant(readiness.get("evaluated_at"), "readiness.evaluated_at")
     _, shadow_end = _instant(shadow.get("window", {}).get("end"), "shadow.window.end")
