@@ -1014,7 +1014,7 @@ export type DeferReason =
   | 'storage-emergency'
   | 'no-scoring-provider'
   | 'batch-failed'
-export type LastResortState = 'off' | 'unavailable' | 'scored' | 'usd-cap' | 'plan-quota' | 'auth-expired' | 'cooling' | 'available'
+export type LastResortState = 'off' | 'unavailable' | 'scored' | 'usd-cap' | 'plan-quota' | 'auth-expired' | 'cooling' | 'paced' | 'available'
 
 // One ingest cycle's outcome, streamed live over /api/news/stream as `news-cycle`. Mirrors the server's
 // CycleSummary (ui/server/src/news/types.ts). Every field past `dropped` is optional so an OLDER engine

@@ -640,7 +640,7 @@ await check('drain mode (skipFetch) triages the deferred backlog WITHOUT re-fetc
     if (String(u).includes('/chat/completions')) { groqCalls++; return res(JSON.stringify({ choices: [{ finish_reason: 'stop', message: { content: triageJson } }], usage: { total_tokens: 200 } })) }
     feedFetches++; return res('', 200) // any GDELT/RSS/NSE fetch would land here — must stay 0
   }) as unknown as typeof fetch
-  const cfg: any = { groqApiKey: 'k', groqModel: 'm', groqBaseUrl: 'https://api.groq.com/openai/v1', groqRpm: 0, groqTpm: 0, triageBatch: 12, groqDailyReqCap: 9999, groqDailyTokenCap: 9e9, pickThreshold: 70, watchThreshold: 40, rankBoostWeight: 1, inboxMaxRows: 40, feedItemsDailyCap: 5000, triageMaxTokens: 900, rssEnabled: false, nseEnabled: false, gdeltLookbackMin: 40, gdeltBaseUrl: 'https://gdelt.test' }
+  const cfg: any = { groqApiKey: 'k', groqModel: 'm', groqBaseUrl: 'https://api.groq.com/openai/v1', groqRpm: 0, groqTpm: 0, triageBatch: 12, groqDailyReqCap: 9999, groqDailyTokenCap: 9e9, pickThreshold: 70, watchThreshold: 40, rankBoostWeight: 1, inboxMaxRows: 40, feedItemsDailyCap: 5000, triageMaxTokens: 900, rssEnabled: false, nseEnabled: false, gdeltLookbackMin: 40, gdeltBaseUrl: 'https://gdelt.test', anthropicFallbackEnabled: false }
   const s = await runIngestCycle({ repoRoot: root, stateDir: state, config: cfg, fetchFn, sleep: async () => {}, now: () => new Date('2026-06-13T11:00:00Z'), skipFetch: true })
   assert.equal(feedFetches, 0, 'skipFetch must not hit GDELT/RSS/NSE')
   assert.equal(s.candidates, 1, 'the deferred backlog item was triaged')
@@ -664,7 +664,7 @@ await check('ingest: a high-scoring Reddit rumor is capped to `watch` with a sub
     if (String(u).includes('/chat/completions')) return res(JSON.stringify({ choices: [{ finish_reason: 'stop', message: { content: triageJson } }], usage: { total_tokens: 200 } }))
     return res('', 200)
   }) as unknown as typeof fetch
-  const cfg: any = { groqApiKey: 'k', groqModel: 'm', groqBaseUrl: 'https://api.groq.com/openai/v1', groqRpm: 0, groqTpm: 0, triageBatch: 12, groqDailyReqCap: 9999, groqDailyTokenCap: 9e9, pickThreshold: 70, watchThreshold: 40, rankBoostWeight: 1, inboxMaxRows: 40, feedItemsDailyCap: 5000, triageMaxTokens: 900, rssEnabled: false, nseEnabled: false, gdeltLookbackMin: 40, gdeltBaseUrl: 'https://gdelt.test' }
+  const cfg: any = { groqApiKey: 'k', groqModel: 'm', groqBaseUrl: 'https://api.groq.com/openai/v1', groqRpm: 0, groqTpm: 0, triageBatch: 12, groqDailyReqCap: 9999, groqDailyTokenCap: 9e9, pickThreshold: 70, watchThreshold: 40, rankBoostWeight: 1, inboxMaxRows: 40, feedItemsDailyCap: 5000, triageMaxTokens: 900, rssEnabled: false, nseEnabled: false, gdeltLookbackMin: 40, gdeltBaseUrl: 'https://gdelt.test', anthropicFallbackEnabled: false }
   const s = await runIngestCycle({ repoRoot: root, stateDir: state, config: cfg, fetchFn, sleep: async () => {}, now: () => new Date('2026-06-13T11:00:00Z'), skipFetch: true })
   assert.equal(s.picked, 0, 'a social rumor is NEVER a pick (§4/§24)')
   assert.equal(s.watched, 1, 'it lands in the watch band instead')

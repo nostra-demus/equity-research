@@ -5899,7 +5899,7 @@ app.get('/api/news/status', async () => getNewsStatus())
 app.get('/api/bridge/status', async () => getBridgeStatus())
 
 // FULL pipeline diagnostics: every triage tier's budget + health + cooldown, the deferred backlog vs its
-// loss boundary, the last cycle's flow, and the honest defer reason (incl. the Haiku last-resort's state).
+// loss boundary, the last cycle's flow, and the honest defer reason (including Haiku priority 1's state).
 // Read-only, fail-soft (never throws), rate-limited like the other fs-reading news reads. Backs the cockpit's
 // "Pipeline diagnostics" panel so a defer/cooldown/backlog state is never a surprise.
 app.get('/api/news/diagnostics', { config: { rateLimit: { max: 600, timeWindow: '1 minute' } } }, async () => getNewsDiagnostics())

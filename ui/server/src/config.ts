@@ -550,6 +550,9 @@ export function localIsPrimary(): boolean {
 // sufficient to run news triage. Explicit NEWS_INGEST_ENABLED=0 remains authoritative below.
 const CONFIGURED_LOCAL_PROVIDER = localIsPrimary() ? buildLocalProvider() : null
 const CONFIGURED_OVERFLOW_PROVIDERS = buildOverflowProviders()
+const CONFIGURED_ANTHROPIC_PROVIDER = process.env.NEWS_ANTHROPIC_FALLBACK_ENABLED !== '0'
+  && ((process.env.NEWS_ANTHROPIC_FALLBACK_MODE || 'subscription') === 'subscription'
+    || Boolean(process.env.NEWS_ANTHROPIC_FALLBACK_API_KEY))
 const NEWS_IDEA_PROVIDER_CONFIGURED = Boolean(
   process.env.GROQ_API_KEY
   || CONFIGURED_LOCAL_PROVIDER
@@ -558,7 +561,8 @@ const NEWS_IDEA_PROVIDER_CONFIGURED = Boolean(
 )
 const NEWS_PROVIDER_CONFIGURED = Boolean(
   NEWS_IDEA_PROVIDER_CONFIGURED
-  || (process.env.GEMINI_API_KEY && process.env.NEWS_GEMINI_ENABLED !== '0'),
+  || (process.env.GEMINI_API_KEY && process.env.NEWS_GEMINI_ENABLED !== '0')
+  || CONFIGURED_ANTHROPIC_PROVIDER
 )
 // A run that produces NO output at all for this long is hung, not working. There was previously no
 // wall-clock ceiling of any kind on a research run (execa is spawned with no `timeout`), and the
@@ -698,8 +702,8 @@ export const CHAT = {
 // The "forever-living" front door of the screener: pull a free news firehose (GDELT, keyless),
 // score each item with a FREE LLM (Groq) as a cheap brain, and fill a RANKED inbox — all at ~$0.
 // It writes the same inbox contract the manual /screener:sweep already fills, so nothing downstream
-// changes. It never charges a card by default: the only Claude seam that is ON is the last-resort triage
-// fallback, which runs on the host's flat-fee SUBSCRIPTION via the local `claude` CLI (no API key) and is
+// changes. It never charges a card by default: the only Claude seam that is ON is priority-1 triage,
+// which runs on the host's flat-fee SUBSCRIPTION via the local `claude` CLI (no API key) and is
 // bounded by a daily $ ceiling — that ceiling doubles as the governor stopping news triage from starving
 // the research runs it shares the plan with. The theme namer is metered and stays off unless a key is set.
 // The expensive gauntlet stays free of both: promoting an inbox row into the paid gauntlet stays the
@@ -823,11 +827,11 @@ export const NEWS = {
   llmCooldownMs: capNum(process.env.NEWS_LLM_COOLDOWN_SEC, 300) * 1000,
   llmCooldownMaxMs: capNum(process.env.NEWS_LLM_COOLDOWN_MAX_SEC, 3600) * 1000,
   // The exponential 5→60 min backoff above is calibrated to protect a small daily REQUEST cap during an
-  // outage. The Haiku last-resort has NO request cap — it is $-metered (a failed spawn records ~$0) and is
-  // the LAST line of defence against the deferred backlog overrunning its loss cap. Backing it off for up to
+  // outage. Haiku has NO request cap — it is $-metered (a failed spawn records ~$0) and is the FIRST line
+  // of defence against the deferred backlog overrunning its loss cap. Backing it off for up to
   // an hour after a TRANSIENT blip (a per-minute rate-limit, a spawn timeout, a one-off non-JSON reply) is
   // exactly wrong there: it leaves the backlog dropping data while $49 of budget sits unused. So a transient
-  // last-resort failure arms a SHORT, FLAT cooldown instead (passed as base==max, which flattens the
+  // transient Haiku failure arms a SHORT, FLAT cooldown instead (passed as base==max, which flattens the
   // exponential window to a constant) — it re-probes about once a drain (~60-90s) until the blip clears. A
   // real plan-quota exhaustion still gets the long llmCooldown* backoff (wait for the plan to reset), and an
   // api-mode terminal 4xx still exhausts the day's ledger. Only the transient path uses this.
@@ -1088,11 +1092,8 @@ export const NEWS = {
   themesLimiterWaitMs: capNum(process.env.NEWS_THEMES_LIMITER_WAIT_MS, 2500),
   themesProviderAttemptTimeoutMs: capNum(process.env.NEWS_THEMES_PROVIDER_ATTEMPT_TIMEOUT_MS, 25_000),
   themesProviderChainTimeoutMs: capNum(process.env.NEWS_THEMES_PROVIDER_CHAIN_TIMEOUT_MS, 80_000),
-  // LAST-RESORT TRIAGE TIER. When EVERY free brain (Groq + the OpenAI-compatible overflow registry + the
-  // Gemini pool) is paced/capped/failing for a batch, it would otherwise DEFER — and on a sustained-overload
-  // day the deferred backlog overruns its 1,000-item cap and the low-priority tail is permanently dropped
-  // (never scored, never re-fetchable once it ages out of the source window). This tier scores that
-  // spillover on Claude Haiku instead, so recency is preserved and nothing is silently lost.
+  // PRIORITY-1 TRIAGE TIER. Claude Haiku gets every eligible batch first. If it is paced, capped, cooling,
+  // or fails, the existing local/Groq/overflow/Gemini chain continues automatically for that same batch.
   //
   // TWO BACKENDS, default `subscription`:
   //   subscription — the local `claude` CLI under the host keychain OAuth (news/triage/claude-cli.ts): the
@@ -1104,8 +1105,8 @@ export const NEWS = {
   //     Opt-in only; deliberately never defaults to ANTHROPIC_API_KEY or the themes key.
   //
   // Bounded by a daily $ ledger (UsdBudget, STATE_DIR — restart-safe): spend up to anthropicDailyUsd, then
-  // DEFER the rest exactly as before. On a healthy day the free tiers absorb everything and this never fires
-  // ($0 / no plan draw). Cost is reported on every cycle summary (anthropic_cost_usd) so it is never hidden.
+  // stop admitting Haiku calls and fall through to the other providers. Cost is reported on every cycle
+  // summary (anthropic_cost_usd) so it is never hidden.
   // ON by default: it needs no key on the subscription path, and the whole point is to stop dropping items.
   // Set NEWS_ANTHROPIC_FALLBACK_ENABLED=0 to turn it off.
   anthropicFallbackEnabled: process.env.NEWS_ANTHROPIC_FALLBACK_ENABLED !== '0',
@@ -1115,9 +1116,8 @@ export const NEWS = {
   // days (peaks of 2k-3k deferred), which is exactly when it is needed most. $50 lets it chew through the
   // whole overload backlog before the daily governor stops it. On the SUBSCRIPTION path this $ figure is a
   // PROXY for how much of the shared 5-hour/weekly plan pool this tier has drawn, so a higher ceiling means
-  // more potential contention with research runs — but three guardrails keep that bounded: it is still the
-  // LAST tier (fires only when every free provider is out), it still backs off the moment the plan itself
-  // reports a usage limit (cross-cycle cooldown until the plan resets), and it is priority-gated. Tune via
+  // more potential contention with research runs. Its guardrails are the unchanged $200/day ceiling, the
+  // plan's own usage limit, reset-clock pacing, per-minute pacing, cooldowns, and the priority floor. Tune via
   // NEWS_ANTHROPIC_FALLBACK_DAILY_USD; drop it back down if news triage ever starves a research run.
   //
   // Raised 50 → 200 (2026-08-21, operator request) for the SUSTAINED multi-provider outage $50 does not

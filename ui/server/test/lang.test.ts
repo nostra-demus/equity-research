@@ -140,7 +140,7 @@ await check('runIngestCycle: a non-English headline is stored translated on the 
     ] })
     return res({ articles: [] })
   }) as unknown as typeof fetch
-  const cfg = { groqApiKey: 'k', gdeltBaseUrl: 'https://gdelt.test/doc', groqBaseUrl: 'https://groq.test', groqRpm: 6000, gdeltLookbackMin: 40, pickThreshold: 60, watchThreshold: 40 } as any
+  const cfg = { groqApiKey: 'k', gdeltBaseUrl: 'https://gdelt.test/doc', groqBaseUrl: 'https://groq.test', groqRpm: 6000, gdeltLookbackMin: 40, pickThreshold: 60, watchThreshold: 40, anthropicFallbackEnabled: false } as any
   const now = () => new Date('2026-06-12T09:30:00Z')
 
   const s = await runIngestCycle({ repoRoot: root, stateDir: state, config: cfg, fetchFn, sleep: noSleep, now })
@@ -180,7 +180,7 @@ await check('runIngestCycle: a Latin-script Finnish headline is stored translate
     ] })
     return res({ articles: [] })
   }) as unknown as typeof fetch
-  const cfg = { groqApiKey: 'k', gdeltBaseUrl: 'https://gdelt.test/doc', groqBaseUrl: 'https://groq.test', groqRpm: 6000, gdeltLookbackMin: 40, pickThreshold: 60, watchThreshold: 40 } as any
+  const cfg = { groqApiKey: 'k', gdeltBaseUrl: 'https://gdelt.test/doc', groqBaseUrl: 'https://groq.test', groqRpm: 6000, gdeltLookbackMin: 40, pickThreshold: 60, watchThreshold: 40, anthropicFallbackEnabled: false } as any
   const now = () => new Date('2026-06-12T09:30:00Z')
 
   const s = await runIngestCycle({ repoRoot: root, stateDir: state, config: cfg, fetchFn, sleep: noSleep, now })
@@ -211,7 +211,7 @@ await check('runIngestCycle: an English headline stores headline_en = null (no n
     ] })
     return res({ articles: [] })
   }) as unknown as typeof fetch
-  const cfg = { groqApiKey: 'k', gdeltBaseUrl: 'https://gdelt.test/doc', groqBaseUrl: 'https://groq.test', groqRpm: 6000, gdeltLookbackMin: 40, pickThreshold: 60, watchThreshold: 40 } as any
+  const cfg = { groqApiKey: 'k', gdeltBaseUrl: 'https://gdelt.test/doc', groqBaseUrl: 'https://groq.test', groqRpm: 6000, gdeltLookbackMin: 40, pickThreshold: 60, watchThreshold: 40, anthropicFallbackEnabled: false } as any
   const now = () => new Date('2026-06-12T09:30:00Z')
   await runIngestCycle({ repoRoot: root, stateDir: state, config: cfg, fetchFn, sleep: noSleep, now })
   const fh = fs.readFileSync(path.join(root, 'screener/inbox/2026-06-12_firehose.ndjson'), 'utf8')

@@ -277,7 +277,7 @@ export type DeferReason =
   | 'paced' // under the daily cap but over the clock-prorated pacer ceiling — holding budget for later
   | 'batch-failed' // a provider was reached but returned an error (an LLM hiccup, not a budget state)
 
-// The Haiku last-resort tier's state at the END of a cycle — the piece that was invisible when "Groq in
+// Haiku priority 1's state at the END of a cycle — the piece that was invisible when "Groq in
 // failure cooldown" printed with no hint the paid fallback had ALSO tapped out (the reported surprise).
 export type LastResortState =
   | 'off' // tier disabled (NEWS_ANTHROPIC_FALLBACK_ENABLED=0, or api mode with no key)
@@ -287,7 +287,8 @@ export type LastResortState =
   | 'plan-quota' // the shared Claude plan's own usage limit hit → backing off until the plan resets
   | 'auth-expired' // the host's Claude sign-in expired → re-probes every drain, recovers on `claude auth login`
   | 'cooling' // in its cross-cycle cooldown from an earlier error
-  | 'available' // on and under budget, but not needed this cycle (the free tiers absorbed everything)
+  | 'paced' // under the hard $ ceiling, but the reset-clock pacer has not released the next call yet
+  | 'available' // on and under budget, but no call was needed this cycle
 
 // One ingest cycle's outcome — returned to the caller and logged as a firehose summary line.
 export interface CycleSummary {
@@ -309,7 +310,7 @@ export interface CycleSummary {
   gemini_tokens?: number
   overflow_requests?: number // batches that overflowed to the OpenAI-compatible registry (OpenRouter, NVIDIA, …)
   overflow_tokens?: number
-  anthropic_requests?: number // batches scored by the metered Anthropic-Haiku last-resort tier (0 / absent when unused)
+  anthropic_requests?: number // requests made by the metered Haiku priority-1 tier (0 / absent when unused)
   anthropic_tokens?: number
   anthropic_cost_usd?: number // metered USD spent on the Anthropic fallback this cycle (0 / absent when unused)
   // Per-tier triage work. Daily budget request counters can also include article/theme/idea calls and count
