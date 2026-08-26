@@ -241,6 +241,13 @@ check('daily outcome copy marks every counter as a lower bound when a started lo
     }),
     '7 checked · 5 kept · 2 ignored · older report; totals may be incomplete: 2 checks did not finish recording',
   )
+  assert.equal(
+    todayOutcomeCopy({
+      read: 7, kept: 5, dropped: 2, cycles: 3, durablyCommitted: true,
+      incompleteCycles: 0, recordedInterruptions: 1, totalsLowerBound: true,
+    }),
+    'at least 7 checked · at least 5 kept · at least 2 ignored · some totals may be missing: 1 interrupted check is permanently recorded',
+  )
 })
 
 check('daily outcome copy is unavailable when every started look lacks a summary or its authority is unreadable', () => {
@@ -380,6 +387,17 @@ check('started-without-summary and unreadable safety-marker debt are named inste
     '2 recent checks did not finish recording · The record of finished checks cannot be read',
   )
   assert.doesNotMatch(view.coverageCopy, /partition/i)
+
+  incomplete.history = {
+    ...completeHistory,
+    coverage: 'partial',
+    recordedInterruptions: 1,
+    interruptionAuditUnreadable: true,
+  }
+  assert.equal(
+    pipelineFlowPresentation(incomplete, FLOW_TS, FLOW_NOW).coverageCopy,
+    '1 interrupted check permanently recorded · The permanent interrupted-check record cannot be read',
+  )
 })
 
 check('deploy skew without partition coverage fails closed instead of trusting numeric rates', () => {

@@ -9,7 +9,10 @@ import { buildSwarmGraph } from '../src/roster'
 
 const root = fs.mkdtempSync(path.join(os.tmpdir(), 'nostra-parity-stage-'))
 try {
-  for (const reason of ['codex_incomplete_orchestration', 'terminated_sigterm', 'supervisor_shutdown', 'supervisor_restart']) {
+  for (const reason of [
+    'codex_incomplete_orchestration', 'codex_continuation_failed',
+    'terminated_sigterm', 'supervisor_shutdown', 'supervisor_restart',
+  ]) {
     assert.equal(isRecoverableParityInterruptionReason(reason), true, `${reason} is an exact machine-stop recovery reason`)
   }
   for (const reason of ['cancelled_by_user', 'out_of_credits', '', null]) {
@@ -60,13 +63,31 @@ try {
     'an operator-aborted canary cannot be continued',
   )
   fs.rmSync(path.join(root, '.aborted'))
-  fs.writeFileSync(path.join(root, 'final_thesis.md'), '# Premature terminal file\n')
+  for (const [name, content] of Object.entries({
+    'final_thesis.md': '# Retained terminal thesis\n',
+    'decision_record.json': '{"decision":"Avoid"}\n',
+    'idea_3_6m.json': '{"status":"not_assessable"}\n',
+    'memo.md': '# Retained memo\n',
+    'audit_dossier.md': '# Retained audit\n',
+    'RUN_METADATA.md': '# Retained metadata\n',
+  })) fs.writeFileSync(path.join(root, name), content)
+  assert.doesNotThrow(
+    () => assertParityCanaryStageRoot(root, 'continuation'),
+    'a sealed same-root continuation may retain raw terminal work while repairing publication',
+  )
+  fs.writeFileSync(path.join(root, 'execution_provenance.receipt.json'), '{}\n')
   assert.throws(
     () => assertParityCanaryStageRoot(root, 'continuation'),
-    /already has terminal artifacts/,
-    'a continuation never overwrites terminal-looking artifacts',
+    /already supervisor-published/,
+    'a supervisor-published canary cannot enter the recovery path',
   )
-  fs.rmSync(path.join(root, 'final_thesis.md'))
+  fs.rmSync(path.join(root, 'execution_provenance.receipt.json'))
+  for (const name of [
+    'final_thesis.md', 'decision_record.json', 'idea_3_6m.json',
+    'memo.md', 'audit_dossier.md', 'RUN_METADATA.md',
+  ]) {
+    fs.rmSync(path.join(root, name))
+  }
   fs.rmSync(path.join(root, '.interrupted'))
   fs.rmSync(path.join(root, 'RUN_FAILURE.md'))
   assert.doesNotThrow(
@@ -87,7 +108,13 @@ try {
       fs.writeFileSync(path.join(dir, file), `# ${module.name} synthesis\n\nVerdict: mechanically valid test artifact.\n`)
     }
   }
-  assert.doesNotThrow(() => assertParityCanaryStageRoot(root, 'final'))
+  fs.writeFileSync(path.join(root, 'final_thesis.md'), '# Retained interrupted thesis\n')
+  fs.writeFileSync(path.join(root, 'decision_record.json'), '{"decision":"Avoid"}\n')
+  fs.writeFileSync(path.join(root, 'idea_3_6m.json'), '{"status":"not_assessable"}\n')
+  assert.doesNotThrow(
+    () => assertParityCanaryStageRoot(root, 'final'),
+    'the terminal recovery stage accepts retained raw adjudication after every module validates',
+  )
 
   const businessSynthesis = buildSwarmGraph().modules
     .find((module) => module.name === 'business-model')!
