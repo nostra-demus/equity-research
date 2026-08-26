@@ -1281,12 +1281,12 @@ export function actualProviderRanks(candidates: ProviderCandidateScore[], mode: 
     if (left.id === right.id) return 0
     if (left.id === 'anthropic-triage' || right.id === 'anthropic-triage') return left.id === 'anthropic-triage' ? -1 : 1
     if (mode === 'adaptive') {
-      const band = bandWeight(left) - bandWeight(right)
+      const band = compareFiniteRank(bandWeight(left), bandWeight(right))
       if (band) return band
       const rank = compareFiniteRank(left.rank, right.rank)
       if (rank) return rank
     }
-    return left.order - right.order
+    return compareFiniteRank(left.order, right.order)
   })
   return new Map(ordered.map((candidate, index) => [candidate.id, index + 1]))
 }
@@ -1611,12 +1611,12 @@ export function getNewsDiagnostics(options: { omniRouteHomeDir?: string } = {}):
     const actualRankOrder = (left: TierDiagnostics, right: TierDiagnostics): number => {
       return compareFiniteRank(left.routing?.actualRank, right.routing?.actualRank)
     }
-    tiers.sort((left, right) => bandOrder(left) - bandOrder(right)
-      || (left.routing?.eligible === true ? 0 : 1) - (right.routing?.eligible === true ? 0 : 1)
+    tiers.sort((left, right) => compareFiniteRank(bandOrder(left), bandOrder(right))
+      || compareFiniteRank(left.routing?.eligible === true ? 0 : 1, right.routing?.eligible === true ? 0 : 1)
       || actualRankOrder(left, right)
-      || left.order - right.order)
+      || compareFiniteRank(left.order, right.order))
   } else {
-    tiers.sort((left, right) => left.order - right.order)
+    tiers.sort((left, right) => compareFiniteRank(left.order, right.order))
   }
 
   const scoredBy = scoredByForLastCycle(last, tiers)

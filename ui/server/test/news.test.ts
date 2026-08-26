@@ -19,7 +19,7 @@ import { newsBus } from '../src/news/bus'
 import { appendFirehoseSummary, FIREHOSE_HARD_MAX_BYTES, mergeInbox, revisionClockRegistryDiagnostics } from '../src/news/write-inbox'
 import { appendScoredCheckpoint, backlogDurablyCleared, buildTriageQueue, expireBacklog, inspectDeferredBacklog, loadDeferred, MAX_FEED_ITEM_BYTES, migrateDeferred, preserveResidence, recentMissingFeedTargetIsRetryable, runIngestCycle as runIngestCycleRaw, saveDeferred, scoringJournalSlots, stampDeferred, triageGroqTokenBound } from '../src/news/runCycle'
 import { buildPipelineFlowRates, countUniqueNewArrivals, readPipelineFlowCycles } from '../src/news/pipeline-flow'
-import { appendPipelineTelemetry, readCycleInterruptionAudit } from '../src/news/provider-routing'
+import { appendPipelineTelemetry, compareFiniteRank, readCycleInterruptionAudit } from '../src/news/provider-routing'
 import { actualProviderRanks, anthropicDrainReady, backlogTrend, credentialRejected, CREDENTIAL_DEAD_AFTER_FAILS, drainBatchEst, geminiPoolProviderDayExhausted, getNewsDiagnostics, providerDrainUsable, providerLastCycleMetric, scoredByForLastCycle, tierHealth } from '../src/news/scheduler'
 import { buildOverflowProviders, NEWS, STATE_DIR } from '../src/config'
 import { createTheme } from '../src/news/themes/discover'
@@ -5937,6 +5937,9 @@ await check('last-look provider maps name OmniRoute exactly and legacy summaries
 })
 
 await check('adaptive actual provider ranks keep Haiku first and tolerate missing fallback ranks', () => {
+  assert.equal(compareFiniteRank(Number.MAX_VALUE, -Number.MAX_VALUE), 1, 'finite extremes compare without subtraction overflow')
+  assert.equal(compareFiniteRank(Number.MAX_VALUE, Number.MAX_VALUE), 0, 'equal finite ranks compare as equal')
+  assert.equal(compareFiniteRank(Number.POSITIVE_INFINITY, Number.NaN), 0, 'all invalid ranks compare as equal')
   const candidates = [
     { id: 'groq', band: 'direct', order: 0, eligible: true, rank: 1 },
     { id: 'anthropic-triage', band: 'direct', order: -1, eligible: true, rank: 3 },
