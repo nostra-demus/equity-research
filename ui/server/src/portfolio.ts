@@ -848,6 +848,10 @@ export function reconcile(ctx: {
   // in the whole grid — so the two sides of this very check converted at different dates and broke a
   // valid multi-currency book.
   const rate = (t: FlexTrade) => t.fxRateToBase ?? fx(t.currency, (t.dateTime ?? t.tradeDate)?.slice(0, 10) ?? null)
+  /** A row's realised money in the base currency. A ZERO-P&L row (every opening execution carries
+   *  fifoPnlRealized="0") contributes nothing whatever the rate is, so it is not an obstacle to the
+   *  comparison and must not be multiplied by a rate that may legitimately be absent. */
+  const realisedBase = (t: FlexTrade) => (t.fifoPnlRealized ? t.fifoPnlRealized * rate(t)! : 0)
   // Zero converts at every rate, so a zero-P&L opening row with no rate is not an obstacle to comparing.
   const unconvertible = brokerRows.filter((t) => t.fifoPnlRealized !== 0 && rate(t) === null).length
     + closures.filter((c) => c.realizedBase === null).length
@@ -874,12 +878,12 @@ export function reconcile(ctx: {
       // realised P&L of its own, so skipping the check would certify a book that never verified one.
       // Note this fires on CLOSING rows only: an opening-only account reports zeros on both sides and
       // falls through to the ordinary comparison below, which passes, as it should.
-      add({ name: 'Realised P&L', ours: 0, broker: brokerRows.reduce((a, t) => a + t.fifoPnlRealized! * rate(t)!, 0),
+      add({ name: 'Realised P&L', ours: 0, broker: brokerRows.reduce((a, t) => a + realisedBase(t), 0),
         break: null, tolerance: 0, ok: false,
         detail: 'the statement reports realised trades but no close matched an opening lot — the imported history starts too late' })
     } else {
       const caRealised = caRows.reduce((a, c) => a + c.fifoPnlRealized! * caRate(c)!, 0)
-      const theirs = brokerRows.reduce((a, t) => a + t.fifoPnlRealized! * rate(t)!, 0) + caRealised
+      const theirs = brokerRows.reduce((a, t) => a + realisedBase(t), 0) + caRealised
       const ours = closures.reduce((a, c) => a + c.realizedBase!, 0) + caRealised
       cmp('Realised P&L', ours, theirs, Math.max(1, Math.abs(theirs) * 0.001),
         'Our FIFO matching against the statement\u2019s own fifoPnlRealized, both in the base currency')
