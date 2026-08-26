@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-26T17:20:03Z",
+  "generated_at": "2026-08-26T17:29:59Z",
   "inbox": [
     {
       "inbox_id": "INB-20260826-980",
@@ -1647,6 +1647,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260826-1051",
+      "headline": "Meta dodges ‘Big Tobacco’ nightmare with $18 billion settlement in child-safety lawsuit",
+      "headline_en": null,
+      "url": "https://www.marketwatch.com/story/metas-stock-rises-as-the-company-settles-in-social-media-addiction-trial-78abdfbf?mod=mw_rss_topstories",
+      "source_name": "MarketWatch",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-26T17:12:00Z",
+      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
+      "prelim_note": "Meta settles child-safety lawsuit for quantified $18 billion, removing major contingent liability and confirming material capital charge.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Meta settles child-safety lawsuit for quantified $18 billion, removing major contingent liability and confirming material capital charge.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Meta",
+          "ticker": "META",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260826-1031",
       "headline": "AD Ports board backs ADQ’s Dh6.25-a-share buyout offer",
       "headline_en": null,
@@ -1942,55 +1991,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260826-990",
-      "headline": "Zoom Falls 6% as Soft Q3 Profit Guidance Overshadows a Double Beat; HubSpot and Monday.com Slip",
-      "headline_en": null,
-      "url": "https://247wallst.com/investing/2026/08/26/zoom-falls-6-as-soft-q3-profit-guidance-overshadows-a-double-beat-hubspot-and-monday-com-slip/",
-      "source_name": "24/7 Wall St.",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-26T14:09:41Z",
-      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
-      "prelim_note": "Zoom Video Communications shares fell 6% following soft Q3 profit guidance despite beating earnings expectations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Zoom Video Communications shares fell 6% following soft Q3 profit guidance despite beating earnings expectations.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Zoom Video Communications",
-          "ticker": "ZM",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -95051,9 +95051,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3599355,
-    "news_picked_today": 2092,
-    "news_dropped_today": 15008
+    "news_seen_today": 3624312,
+    "news_picked_today": 2115,
+    "news_dropped_today": 15069
   },
   "book_momentum": {
     "live_count": 8,
