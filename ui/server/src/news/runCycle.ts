@@ -31,7 +31,7 @@ import { readProviderQuarantine } from './provider-failure'
 import { rankScore, preTriagePriority, capSocialBand, capSocialScore, deriveMaterialityLabel } from './rank'
 import { deriveScope, deriveSourceTier, toEventScope } from './scope'
 import { deriveCommodities } from './commodities'
-import { beginPipelineFlowCycle, buildPipelineFlowRates, completePipelineFlowCycle, countUniqueNewArrivals, readPipelineFlowCycles } from './pipeline-flow'
+import { beginPipelineFlowCycle, buildPipelineFlowRates, completePipelineFlowCycle, countUniqueNewArrivals, readPipelineFlowCycles, reconcilePipelineFlowGaps } from './pipeline-flow'
 import {
   deterministicCycleId,
   deterministicDecisionId,
@@ -982,6 +982,13 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
     minOutcomes: cfg.providerRouterMinOutcomes,
     now: now().getTime(),
   })
+
+  // A prior process/host death can leave a start receipt after its maximum completion window. Preserve that
+  // incident in the append-only Drive-archived audit before clearing the compact active marker. Failure is
+  // fail-visible: the marker remains and diagnostics continue to report an unresolved completion gap.
+  if (!reconcilePipelineFlowGaps(repoRoot, cfg.newsArchiveDir, stateDir, cycleStartedAt, cfg.cycleTimeoutMs)) {
+    log('pipeline completion-gap reconciliation deferred — unresolved evidence remains active')
+  }
 
   const phase: 'fetch' | 'drain' = deps.skipFetch ? 'drain' : 'fetch'
   const blank: CycleSummary = { ts, ok: false, fetched: 0, candidates: 0, picked: 0, watched: 0, dropped: 0, inboxed: 0, groq_requests: 0, groq_tokens: 0, phase }

@@ -17,6 +17,7 @@ function fixture(): { root: string; state: string } {
   fs.writeFileSync(path.join(root, 'scripts', 'commit-run.sh'), '#!/bin/sh\n')
   fs.writeFileSync(path.join(root, 'screener', 'ledger', 'ideas.ndjson'), '{}\n')
   fs.writeFileSync(path.join(root, 'screener', 'ledger', 'ideas_feedback.ndjson'), '{}\n')
+  fs.writeFileSync(path.join(root, 'screener', 'ledger', 'ideas_interrupted_attempts.ndjson'), '{}\n')
   fs.writeFileSync(path.join(root, 'screener', 'board', 'index.json'), '{}\n')
   return { root, state }
 }
@@ -43,6 +44,7 @@ try {
   const commit = calls.find((call) => call.executable === 'bash')!
   assert.ok(commit.args.includes('screener/ledger/ideas.ndjson'))
   assert.ok(commit.args.includes('screener/ledger/ideas_feedback.ndjson'))
+  assert.ok(commit.args.includes('screener/ledger/ideas_interrupted_attempts.ndjson'))
   assert.ok(commit.args.includes('screener/board/index.json'))
   assert.ok(!commit.args.includes('screener/ledger/ideas_archive'), 'a never-created archive path cannot abort first publication')
   assert.ok(!commit.args.includes('screener/ledger/ideas'), 'a never-created live directory is also omitted')

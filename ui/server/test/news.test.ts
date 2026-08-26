@@ -19,7 +19,7 @@ import { newsBus } from '../src/news/bus'
 import { appendFirehoseSummary, FIREHOSE_HARD_MAX_BYTES, mergeInbox, revisionClockRegistryDiagnostics } from '../src/news/write-inbox'
 import { appendScoredCheckpoint, backlogDurablyCleared, buildTriageQueue, expireBacklog, inspectDeferredBacklog, loadDeferred, MAX_FEED_ITEM_BYTES, migrateDeferred, preserveResidence, recentMissingFeedTargetIsRetryable, runIngestCycle, saveDeferred, scoringJournalSlots, stampDeferred, triageGroqTokenBound } from '../src/news/runCycle'
 import { buildPipelineFlowRates, countUniqueNewArrivals, readPipelineFlowCycles } from '../src/news/pipeline-flow'
-import { appendPipelineTelemetry } from '../src/news/provider-routing'
+import { appendPipelineTelemetry, readCycleInterruptionAudit } from '../src/news/provider-routing'
 import { anthropicDrainReady, backlogTrend, credentialRejected, CREDENTIAL_DEAD_AFTER_FAILS, drainBatchEst, geminiPoolProviderDayExhausted, getNewsDiagnostics, providerDrainUsable, providerLastCycleMetric, scoredByForLastCycle, tierHealth } from '../src/news/scheduler'
 import { buildOverflowProviders, NEWS, STATE_DIR } from '../src/config'
 import { createTheme } from '../src/news/themes/discover'
@@ -3174,6 +3174,22 @@ await check('a refused cycle summary leaves a durable gap and hides the safety-r
   assert.equal(read.history.incompleteCycles, 1)
   assert.equal(read.history.coverage, 'partial')
   assert.equal(buildPipelineFlowRates(read.cycles, now.getTime() + 1_000, NEWS.cycleTimeoutMs, read.history).comparison.status, 'unavailable')
+
+  const recoveredAt = new Date('2026-08-21T12:20:00Z')
+  await runIngestCycle({
+    repoRoot: root, stateDir: state, skipFetch: true, now: () => recoveredAt,
+    fetchFn: (async () => { throw new Error('interruption reconciliation needs no network') }) as unknown as typeof fetch,
+    sleep: noSleep, config: noProviderConfig,
+  })
+  assert.deepEqual(
+    JSON.parse(fs.readFileSync(path.join(state, 'news-pipeline-flow-gaps.json'), 'utf8')).starts,
+    [],
+    'the next pass clears the active marker only after recording the stale incident',
+  )
+  const interruptions = readCycleInterruptionAudit(root, '', now.getTime(), recoveredAt.getTime() + 1)
+  assert.equal(interruptions.readable, true)
+  assert.equal(interruptions.events.length, 1)
+  assert.equal(interruptions.events[0].startedAt, now.toISOString())
 })
 
 await check('an acknowledged row behind a cap-blocked row is completed first and stays silent on SSE', async () => {

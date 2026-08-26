@@ -40,6 +40,9 @@ export function todayOutcomeCopy(
   const incomplete = Number.isSafeInteger(today.incompleteCycles) && (today.incompleteCycles ?? 0) > 0
     ? today.incompleteCycles as number
     : 0
+  const recorded = Number.isSafeInteger(today.recordedInterruptions) && (today.recordedInterruptions ?? 0) > 0
+    ? today.recordedInterruptions as number
+    : 0
   const corrupt = Number.isSafeInteger(today.corruptCycleRows) && (today.corruptCycleRows ?? 0) > 0
     ? today.corruptCycleRows as number
     : 0
@@ -53,6 +56,9 @@ export function todayOutcomeCopy(
       : []),
     ...(incomplete > 0
       ? [`${incomplete.toLocaleString('en-US')} check${incomplete === 1 ? '' : 's'} did not finish recording`]
+      : []),
+    ...(recorded > 0
+      ? [`${recorded.toLocaleString('en-US')} interrupted check${recorded === 1 ? '' : 's'} ${recorded === 1 ? 'is' : 'are'} permanently recorded`]
       : []),
   ]
   const gapCopy = gaps.join('; ') || 'one or more checks did not finish recording'
@@ -170,7 +176,9 @@ export function pipelineFlowPresentation(
       flow.history.unreadableDates.length ? 'Some recent records cannot be read' : '',
       flow.history.corruptCycleRows ? `${flow.history.corruptCycleRows} recent record${flow.history.corruptCycleRows === 1 ? '' : 's'} cannot be read` : '',
       flow.history.incompleteCycles ? `${flow.history.incompleteCycles} recent check${flow.history.incompleteCycles === 1 ? '' : 's'} did not finish recording` : '',
+      flow.history.recordedInterruptions ? `${flow.history.recordedInterruptions} interrupted check${flow.history.recordedInterruptions === 1 ? '' : 's'} permanently recorded` : '',
       flow.history.gapMarkerUnreadable ? 'The record of finished checks cannot be read' : '',
+      flow.history.interruptionAuditUnreadable ? 'The permanent interrupted-check record cannot be read' : '',
     ].filter(Boolean).join(' · ')
     return unavailable(
       'We can’t tell yet.',
