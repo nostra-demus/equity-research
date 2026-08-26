@@ -2,7 +2,7 @@
 // / backlog state is never a surprise. It answers, in one place: which tier is scoring right now, how much of
 // each tier's engine allowance has been used, which tiers are held after errors (and for how long), how deep the deferred backlog
 // is against its active work window, and — the piece that used to be hidden — exactly WHY anything is waiting,
-// including the Haiku last-resort's state. Read-only. Same right-slide-in family as the Data Pipeline panel;
+// including Haiku priority 1's state. Read-only. Same right-slide-in family as the Data Pipeline panel;
 // live-tick-safe (polled + refreshed on every cycle, so it is mounted WITHOUT <AnimatePresence> in App.tsx —
 // a live re-render can freeze a framer exit mid-slide). All colour comes from tokens; motion is
 // transform/opacity only, <300ms, and stilled under reduced-motion.

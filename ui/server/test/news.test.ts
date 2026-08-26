@@ -17,7 +17,7 @@ import { analyzeArticleGemini, geminiSchemaEnabled, TRIAGE_RESPONSE_SCHEMA, tria
 import { appendFeedItems, inspectFeedCapacity, readFeed } from '../src/news/feed'
 import { newsBus } from '../src/news/bus'
 import { appendFirehoseSummary, FIREHOSE_HARD_MAX_BYTES, mergeInbox, revisionClockRegistryDiagnostics } from '../src/news/write-inbox'
-import { appendScoredCheckpoint, backlogDurablyCleared, buildTriageQueue, expireBacklog, inspectDeferredBacklog, loadDeferred, MAX_FEED_ITEM_BYTES, migrateDeferred, preserveResidence, recentMissingFeedTargetIsRetryable, runIngestCycle, saveDeferred, scoringJournalSlots, stampDeferred, triageGroqTokenBound } from '../src/news/runCycle'
+import { appendScoredCheckpoint, backlogDurablyCleared, buildTriageQueue, expireBacklog, inspectDeferredBacklog, loadDeferred, MAX_FEED_ITEM_BYTES, migrateDeferred, preserveResidence, recentMissingFeedTargetIsRetryable, runIngestCycle as runIngestCycleRaw, saveDeferred, scoringJournalSlots, stampDeferred, triageGroqTokenBound } from '../src/news/runCycle'
 import { buildPipelineFlowRates, countUniqueNewArrivals, readPipelineFlowCycles } from '../src/news/pipeline-flow'
 import { appendPipelineTelemetry, readCycleInterruptionAudit } from '../src/news/provider-routing'
 import { anthropicDrainReady, backlogTrend, credentialRejected, CREDENTIAL_DEAD_AFTER_FAILS, drainBatchEst, geminiPoolProviderDayExhausted, getNewsDiagnostics, providerDrainUsable, providerLastCycleMetric, scoredByForLastCycle, tierHealth } from '../src/news/scheduler'
@@ -51,6 +51,12 @@ function res(body: any, status = 200): any {
 }
 const noSleep = async () => {}
 const tmp = () => fs.mkdtempSync(path.join(os.tmpdir(), 'news-'))
+// Generic integration checks mock the provider under test and must never spawn the host's real Claude CLI.
+// Haiku-specific checks opt back in explicitly with anthropicFallbackEnabled:true.
+const runIngestCycle = (deps: Parameters<typeof runIngestCycleRaw>[0] = {}) => runIngestCycleRaw({
+  ...deps,
+  config: { anthropicFallbackEnabled: false, ...(deps.config || {}) } as any,
+})
 const diagnosticsHome = fs.mkdtempSync(path.join(os.tmpdir(), 'news-diagnostics-home-'))
 function gdeltQueryHasDomain(rawUrl: string, domain: string): boolean {
   try {
@@ -4886,6 +4892,112 @@ await check('OmniRoute: OFF unless explicitly enabled, LAST in the cloud chain, 
   }
 })
 
+await check('Haiku priority 1 scores before Groq when both providers are healthy', async () => {
+  resetSharedLimiters(); resetBudgetMemory(); resetCooldownMemory()
+  const root = tmp(), state = tmp()
+  let gdeltServed = false, groqCalls = 0, cliCalls = 0
+  const fetchFn = (async (url: string) => {
+    const u = String(url)
+    if (u.includes('groq')) {
+      groqCalls++
+      return res({ usage: { total_tokens: 20 }, choices: [{ message: { content: JSON.stringify({ items: [{ i: 0, relevance: 'material', materiality_pre_score: 70, event_types: ['macro_sector'], issuer_linkage: 'macro', why: 'Groq should not be called.' }] }) } }] })
+    }
+    if (u.includes('gdelt') && !gdeltServed) {
+      gdeltServed = true
+      return res({ articles: [{ url: 'https://reuters.com/haiku-first', title: 'Central bank unexpectedly changes policy rates and bank funding costs', domain: 'reuters.com', seendate: '20260612T090000Z' }] })
+    }
+    return res({ articles: [] })
+  }) as unknown as typeof fetch
+  const claudeCliRunner = async () => {
+    cliCalls++
+    return {
+      text: JSON.stringify({ items: [{ i: 0, relevance: 'material', materiality_pre_score: 84, event_types: ['macro_sector'], issuer_linkage: 'macro', why: 'Haiku handled the first-priority batch.', companies: [], size_bucket: 'unknown' }] }),
+      costUsd: 0.006, costUsdKnown: true,
+    }
+  }
+  const summary = await runIngestCycle({
+    repoRoot: root, stateDir: state, fetchFn, sleep: noSleep, now: () => new Date('2026-06-12T09:30:00Z'), claudeCliRunner,
+    config: {
+      groqApiKey: 'k', gdeltBaseUrl: 'https://gdelt.test/doc', groqBaseUrl: 'https://groq.test', groqRpm: 6000,
+      gdeltLookbackMin: 40, rssEnabled: false, themesEnabled: false, overflowProviders: [], geminiEnabled: false,
+      anthropicFallbackEnabled: true, anthropicFallbackMode: 'subscription', anthropicDailyUsd: 200,
+      anthropicPerCallUsd: 0.10, anthropicRpm: 6000, anthropicMinPriority: 0,
+    } as any,
+  })
+  assert.equal(cliCalls, 1)
+  assert.equal(groqCalls, 0, 'a healthy Haiku result stops the fallback chain')
+  assert.equal(summary.provider_scored_batches?.['anthropic-triage'], 1)
+  assert.equal(summary.groq_requests, 0)
+})
+
+await check('Haiku priority-1 failure immediately falls through to the existing Groq provider', async () => {
+  resetSharedLimiters(); resetBudgetMemory(); resetCooldownMemory()
+  const root = tmp(), state = tmp()
+  let gdeltServed = false, groqCalls = 0, cliCalls = 0
+  const fetchFn = (async (url: string) => {
+    const u = String(url)
+    if (u.includes('groq')) {
+      groqCalls++
+      return res({ usage: { total_tokens: 20 }, choices: [{ message: { content: JSON.stringify({ items: [{ i: 0, relevance: 'material', materiality_pre_score: 80, event_types: ['macro_sector'], issuer_linkage: 'macro', why: 'Groq caught the failed Haiku batch.', companies: [], size_bucket: 'unknown' }] }) } }] })
+    }
+    if (u.includes('gdelt') && !gdeltServed) {
+      gdeltServed = true
+      return res({ articles: [{ url: 'https://reuters.com/haiku-fallback', title: 'Central bank unexpectedly changes policy rates and bank funding costs', domain: 'reuters.com', seendate: '20260612T090000Z' }] })
+    }
+    return res({ articles: [] })
+  }) as unknown as typeof fetch
+  const claudeCliRunner = async () => {
+    cliCalls++
+    return { text: '', costUsd: 0, costUsdKnown: true, error: 'claude cli: transient provider error' }
+  }
+  const summary = await runIngestCycle({
+    repoRoot: root, stateDir: state, fetchFn, sleep: noSleep, now: () => new Date('2026-06-12T09:30:00Z'), claudeCliRunner,
+    config: {
+      groqApiKey: 'k', gdeltBaseUrl: 'https://gdelt.test/doc', groqBaseUrl: 'https://groq.test', groqRpm: 6000,
+      gdeltLookbackMin: 40, rssEnabled: false, themesEnabled: false, overflowProviders: [], geminiEnabled: false,
+      anthropicFallbackEnabled: true, anthropicFallbackMode: 'subscription', anthropicDailyUsd: 200,
+      anthropicPerCallUsd: 0.10, anthropicRpm: 6000, anthropicMinPriority: 0,
+    } as any,
+  })
+  assert.equal(cliCalls, 2, 'Haiku uses its one bounded retry before handing the batch to Groq')
+  assert.equal(groqCalls, 1)
+  assert.equal(summary.groq_requests, 1)
+  assert.equal(summary.provider_scored_batches?.groq, 1)
+})
+
+await check('the unchanged $200 Haiku ceiling falls through to Groq without a Claude call', async () => {
+  resetSharedLimiters(); resetBudgetMemory(); resetCooldownMemory()
+  const root = tmp(), state = tmp(), day = '2026-06-12'
+  fs.mkdirSync(state, { recursive: true })
+  fs.writeFileSync(path.join(state, 'anthropic-triage-budget.json'), JSON.stringify({ date: day, usd: 200, calls: 2000 }))
+  let gdeltServed = false, groqCalls = 0, cliCalls = 0
+  const fetchFn = (async (url: string) => {
+    const u = String(url)
+    if (u.includes('groq')) {
+      groqCalls++
+      return res({ usage: { total_tokens: 20 }, choices: [{ message: { content: JSON.stringify({ items: [{ i: 0, relevance: 'material', materiality_pre_score: 80, event_types: ['macro_sector'], issuer_linkage: 'macro', why: 'The fallback remains automatic.', companies: [], size_bucket: 'unknown' }] }) } }] })
+    }
+    if (u.includes('gdelt') && !gdeltServed) {
+      gdeltServed = true
+      return res({ articles: [{ url: 'https://reuters.com/haiku-capped', title: 'Central bank unexpectedly changes policy rates and bank funding costs', domain: 'reuters.com', seendate: '20260612T090000Z' }] })
+    }
+    return res({ articles: [] })
+  }) as unknown as typeof fetch
+  const summary = await runIngestCycle({
+    repoRoot: root, stateDir: state, fetchFn, sleep: noSleep, now: () => new Date(`${day}T09:30:00Z`),
+    claudeCliRunner: async () => { cliCalls++; return { text: '{"items":[]}', costUsd: 0, costUsdKnown: true } },
+    config: {
+      groqApiKey: 'k', gdeltBaseUrl: 'https://gdelt.test/doc', groqBaseUrl: 'https://groq.test', groqRpm: 6000,
+      gdeltLookbackMin: 40, rssEnabled: false, themesEnabled: false, overflowProviders: [], geminiEnabled: false,
+      anthropicFallbackEnabled: true, anthropicFallbackMode: 'subscription', anthropicDailyUsd: 200,
+      anthropicPerCallUsd: 0.10, anthropicRpm: 6000, anthropicMinPriority: 0,
+    } as any,
+  })
+  assert.equal(cliCalls, 0)
+  assert.equal(groqCalls, 1)
+  assert.equal(summary.groq_requests, 1)
+})
+
 await check('free brains exhausted → the subscription tier SCORES the batch instead of deferring it', async () => {
   resetSharedLimiters()
   resetCooldownMemory()
@@ -4920,7 +5032,7 @@ await check('free brains exhausted → the subscription tier SCORES the batch in
 
   const s = await runIngestCycle({ repoRoot: root, stateDir: state, config: cfg, fetchFn, sleep: noSleep, now, claudeCliRunner })
   assert.equal(s.ok, true)
-  assert.equal(cliCalls, 1, 'the tier was reached exactly once (after Groq failed)')
+  assert.equal(cliCalls, 1, 'the priority-1 tier was reached exactly once')
   assert.equal(s.picked, 1, 'SCORED by the subscription tier — not deferred, not dropped')
   assert.equal(JSON.parse(fs.readFileSync(path.join(state, 'news-deferred.json'), 'utf8')).length, 0, 'nothing deferred — the tier caught it')
   assert.equal(s.anthropic_requests, 1)
@@ -5447,7 +5559,7 @@ await check('the cycle summary carries the transparency fields (fresh/carryover/
   assert.equal(s.last_resort, 'off', 'the Haiku fallback state is reported (off, since disabled here)')
 })
 
-await check('honest defer note: Groq cooling + Haiku last-resort OFF names BOTH blockers (the fixed surprise)', async () => {
+await check('honest defer note: Groq cooling + Haiku priority 1 OFF names BOTH blockers', async () => {
   resetSharedLimiters()
   resetCooldownMemory()
   const root = tmp()
@@ -5475,7 +5587,7 @@ await check('honest defer note: Groq cooling + Haiku last-resort OFF names BOTH 
   assert.equal(s2.defer_reason, 'provider-retry-held', 'structured reason is the engine retry hold')
   assert.equal(s2.last_resort, 'off')
   assert.match(s2.note || '', /provider retries held after errors/i)
-  assert.match(s2.note || '', /Haiku last-resort is off/i, 'the note no longer hides that the fallback was unavailable — the whole point')
+  assert.match(s2.note || '', /Haiku priority 1 is off/i, 'the note names that priority 1 was unavailable')
 })
 
 await check('honest defer note: Groq cooling + Haiku at its $50 ceiling names the ceiling', async () => {
@@ -5613,7 +5725,7 @@ await check('Haiku classification: a TRANSIENT failure arms the SHORT flat coold
   assert.equal(s.last_resort, 'cooling', 'a transient error reads as cooling, not plan-quota')
   const window = readCooldownUntil(state, 'anthropic-triage') - nowMs
   assert.equal(window, 60_000, 'transient → the short flat 60s cooldown (re-probes ~once a drain), NOT 5–60 min')
-  assert.match(s.note || '', /Haiku last-resort backing off after an error/i)
+  assert.match(s.note || '', /Haiku priority 1 backing off after an error/i)
 })
 
 await check('Haiku classification: a real PLAN-QUOTA exhaustion arms the LONG backoff (wait for the plan to reset)', async () => {
@@ -5784,11 +5896,12 @@ await check('last-look provider maps name OmniRoute exactly and legacy summaries
 
 await check('getNewsDiagnostics: enumerates every tier in routing order, with the backlog gauge + honest defer block', async () => {
   const d = getNewsDiagnostics({ omniRouteHomeDir: diagnosticsHome })
-  assert.ok(Array.isArray(d.tiers) && d.tiers.length >= 1, 'tiers are enumerated (at least Groq + the last resort)')
+  assert.ok(Array.isArray(d.tiers) && d.tiers.length >= 1, 'tiers are enumerated (at least Groq + Haiku)')
   const groq = d.tiers.find((t) => t.id === 'groq')
   assert.ok(groq && groq.role === 'primary' && groq.meter === 'requests', 'Groq is the primary, requests-metered tier')
   const haiku = d.tiers.find((t) => t.id === 'anthropic-triage')
-  assert.ok(haiku && haiku.role === 'last-resort' && haiku.meter === 'usd', 'the Haiku last-resort tier is present and $-metered')
+  assert.ok(haiku && haiku.role === 'primary' && haiku.meter === 'usd', 'Haiku priority 1 is present and $-metered')
+  assert.equal(d.tiers[0]?.id, 'anthropic-triage', 'Haiku is displayed first in configured provider order')
   assert.equal(haiku!.usdCap, NEWS.anthropicDailyUsd, 'the daily $ ceiling flows through config → diagnostics')
   const omni = d.tiers.find((t) => t.id === 'omniroute')
   assert.ok(omni, 'OmniRoute never disappears from diagnostics when its opt-in flag is absent')
