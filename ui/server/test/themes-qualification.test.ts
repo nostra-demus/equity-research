@@ -407,7 +407,7 @@ check('a quiet but fully evidenced thesis remains actionable and watchable', () 
   assert.deepEqual(buildThemesIndex([quiet], now).themes.map((row) => row.theme_id), ['THM-quiet-durable'])
 })
 
-check('causal expressions require a mechanism and exact supporting IDs that name the company', () => {
+check('legacy causal expressions can validate a theme but cannot bypass the player contract into Ideas', () => {
   const invalid = narrativeTheme('THM-expression-contract', [
     item('expr-1', 'Nvidia expands AI data center chip capacity', { companies: [co('Nvidia', 'NVDA')] }),
     item('expr-2', 'Vertiv expands AI data center cooling capacity', { companies: [co('Vertiv', 'VRT')] }),
@@ -426,15 +426,9 @@ check('causal expressions require a mechanism and exact supporting IDs that name
   }]
   summary = buildSummary(invalid, NOW)
   assert.equal(summary.assessment.status, 'actionable')
-  assert.deepEqual(summary.qualified_expressions.map((expression) => ({
-    ticker: expression.ticker,
-    mechanism: expression.mechanism,
-    evidence_event_ids: expression.evidence_event_ids,
-  })), [{
-    ticker: 'VRT',
-    mechanism: 'Cooling orders transmit capacity demand into revenue.',
-    evidence_event_ids: ['expr-2'],
-  }])
+  assert.equal(summary.idea_ready, false)
+  assert.deepEqual(summary.qualified_expressions, [])
+  assert.ok(summary.idea_blockers.some((blocker) => blocker.includes('verified listed player')))
 })
 
 check('off-core rows and companies never leak into summary, detail or brief projections', () => {

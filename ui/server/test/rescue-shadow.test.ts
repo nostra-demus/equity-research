@@ -306,6 +306,25 @@ function responseForUrl(url: string): any {
 }
 
 {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'rescue-shadow-sharded-range-'))
+  try {
+    assert.equal(recordRescueRows(root, [], START), true)
+    const inbox = path.join(root, 'screener', 'inbox')
+    fs.mkdirSync(inbox, { recursive: true })
+    const base = path.join(inbox, '2026-08-22_firehose.ndjson')
+    const shard = path.join(inbox, '2026-08-22_firehose.000001.ndjson')
+    fs.writeFileSync(base, `${JSON.stringify(row(90))}\n`)
+    fs.writeFileSync(shard, `${JSON.stringify(row(91))}\n`)
+    const after = { '2026-08-22': fs.statSync(base).size + fs.statSync(shard).size }
+    assert.equal(stageRescueFeedRange(root, START, { before: { '2026-08-22': 0 }, after }), true)
+    assert.equal(flushStagedRescueRows(root, root, START), true)
+    const ids = new Set(loadRescueQueue(root).items.map((item) => item.event_id))
+    assert.equal(ids.has('EVT-90'), true)
+    assert.equal(ids.has('EVT-91'), true, 'the logical daily byte range continues across the shard boundary')
+  } finally { fs.rmSync(root, { recursive: true, force: true }) }
+}
+
+{
   const root = fs.mkdtempSync(path.join(os.tmpdir(), 'rescue-shadow-stage-mode-recovery-'))
   const rename = fs.renameSync
   try {

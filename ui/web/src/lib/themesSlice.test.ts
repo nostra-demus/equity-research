@@ -386,6 +386,34 @@ try {
 const originalNewsTheme = api.newsTheme
 const originalNewsThemeBrief = api.newsThemeBrief
 try {
+  let detailArgs: Parameters<typeof api.newsTheme> | null = null
+  api.newsTheme = async (...args) => {
+    detailArgs = args
+    return detailOf(newerTheme)
+  }
+  useStore.setState({
+    swarms: [{
+      id: 'commodities', label: 'Commodities', color: '#999', unit: 'commodity', order: 1, layout: 'constellation',
+      wire: { eventScope: 'commodity', groupBy: 'subject', subjectField: 'commodity', defaultView: 'themes' },
+    }],
+    activeSwarm: 'commodities', wireSwarm: 'commodities', swarmSubjectList: ['GOLD'],
+    themes: [newerTheme], themesStatus: 'ready', themesView: 'board', selectedTheme: null,
+    themeDetail: null, themeDetailError: null, themesLoading: false,
+    themesGeo: { country: 'IN', geoRegion: 'asia', label: 'India' }, themesSubject: 'GOLD',
+  })
+  await useStore.getState().selectTheme(newerTheme.theme_id)
+  assert.deepEqual(detailArgs, [
+    newerTheme.theme_id,
+    { country: 'IN', geoRegion: 'asia' },
+    { scope: 'commodity', commodity: 'GOLD' },
+  ], 'theme detail receives the exact geography and subject projection that produced its list row')
+  assert.equal(useStore.getState().themeDetail?.theme.theme_id, newerTheme.theme_id)
+  await useStore.getState().selectTheme(null)
+} finally {
+  api.newsTheme = originalNewsTheme
+}
+
+try {
   api.newsTheme = async () => { throw new Error('detail endpoint unavailable') }
   api.newsThemeBrief = async () => { throw new Error('brief endpoint unavailable') }
   await useStore.getState().selectTheme('THM-DETAIL-FAIL')

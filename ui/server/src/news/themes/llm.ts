@@ -22,11 +22,25 @@ import { resolveThemeFamilyState, themeStoryFamilyKey } from './story-key'
 import { selectNarrativeCore } from './core'
 import { isDisplayableThemeChallenge, isSupportingThemeEvidence, sourcePriority } from './evidence'
 import { uniqueThemeMembers } from './qualification'
+import {
+  classifyProviderCaughtFailure,
+  classifyProviderContractFailure,
+  classifyProviderHttpFailure,
+  clearProviderQuarantine,
+  honorProviderRetryAfter,
+  providerRequestIdentity,
+  publicProviderFailureNote,
+  publicProviderQuarantineNote,
+  quarantineProviderFailure,
+  readProviderQuarantine,
+  type ProviderFailureClassification,
+} from '../provider-failure'
 
 interface NamerCfg {
   themesDiscoverModel?: string // 'claude-haiku' | 'groq' | 'off'
   themesClaudeModel?: string
   themesClaudeApiKey?: string
+  themesClaudeKeyEnvVar?: string
   themesClaudeBaseUrl?: string
   themesClaudeDailyCap?: number
   groqApiKey?: string
@@ -306,7 +320,11 @@ interface ClaudeCallResult {
   status: number
   note: string
   rate: RateInfo
+  failure?: ProviderFailureClassification
 }
+
+const CLAUDE_API_VERSION = '2023-06-01'
+const CLAUDE_OUTPUT_TOKENS = 3000
 
 async function callClaude(
   cfg: NamerCfg,
@@ -318,20 +336,36 @@ async function callClaude(
   return withProviderTimeout(timeoutMs, async (signal) => {
     const res = await fetchFn(`${cfg.themesClaudeBaseUrl}/v1/messages`, {
       method: 'POST',
-      headers: { 'content-type': 'application/json', 'x-api-key': cfg.themesClaudeApiKey || '', 'anthropic-version': '2023-06-01' },
+      headers: { 'content-type': 'application/json', 'x-api-key': cfg.themesClaudeApiKey || '', 'anthropic-version': CLAUDE_API_VERSION },
       signal,
-      body: JSON.stringify({ model: cfg.themesClaudeModel || 'claude-haiku-4-5', max_tokens: 3000, system: SYSTEM, messages: [{ role: 'user', content: user }] }),
+      body: JSON.stringify({ model: cfg.themesClaudeModel || 'claude-haiku-4-5', max_tokens: CLAUDE_OUTPUT_TOKENS, system: SYSTEM, messages: [{ role: 'user', content: user }] }),
     })
     const rate = parseRate(res)
-    if (!res.ok) return { text: null, ok: false, status: res.status, note: `Claude HTTP ${res.status}`, rate }
+    if (!res.ok) {
+      // The body is classification-only input. Account details and provider messages never enter durable
+      // quarantine state, compiler health, or logs.
+      const rawBody = await res.text().catch(() => '')
+      const failure = honorProviderRetryAfter(classifyProviderHttpFailure(res.status, rawBody), rate.retryAfterMs)
+      return {
+        text: null, ok: false, status: res.status, note: publicProviderFailureNote('Claude', failure),
+        rate, failure,
+      }
+    }
     try {
       const data: any = await res.json()
       const text = Array.isArray(data?.content) ? data.content.filter((c: any) => c?.type === 'text').map((c: any) => c.text).join('') : ''
       return typeof text === 'string' && text
         ? { text, ok: true, status: res.status, note: '', rate }
-        : { text: null, ok: false, status: res.status, note: 'Claude returned empty theme content.', rate }
-    } catch {
-      return { text: null, ok: false, status: res.status, note: 'Claude returned invalid response JSON.', rate }
+        : {
+            text: null, ok: false, status: res.status, note: 'Claude returned empty theme content.', rate,
+            failure: classifyProviderContractFailure(),
+          }
+    } catch (error) {
+      if (!(error instanceof SyntaxError)) throw error
+      return {
+        text: null, ok: false, status: res.status, note: 'Claude returned invalid response JSON.', rate,
+        failure: classifyProviderContractFailure(),
+      }
     }
   }, parentSignal)
 }
@@ -340,6 +374,7 @@ interface OpenAiThemeProvider {
   id: string
   label: string
   apiKey: string
+  keyEnvVar?: string
   baseUrl: string
   model: string
   models?: string[]
@@ -370,6 +405,7 @@ interface OpenAiCallResult {
   status: number
   note: string
   rate: ReturnType<typeof parseRate>
+  failure?: ProviderFailureClassification
 }
 
 type ThemeFailureScope = 'provider' | 'workload'
@@ -390,6 +426,22 @@ function classifyThemeHttpFailure(status: number): ThemeFailureClass {
   if (status === 402) return { scope: 'provider', kind: 'credits' }
   if (status === 404) return { scope: 'provider', kind: 'endpoint' }
   return { scope: 'workload', kind: 'request' }
+}
+
+const THEME_FAILURE_KIND_BY_CODE: Partial<Record<ProviderFailureClassification['code'], ThemeFailureKind>> = {
+  rate_limited: 'rate_limit',
+  timeout: 'timeout',
+  contract_invalid: 'contract',
+  transient_upstream: 'availability',
+  auth: 'access',
+  entitlement: 'access',
+  billing: 'credits',
+  model_terminal: 'endpoint',
+}
+
+function themeFailureFromProviderFailure(failure: ProviderFailureClassification): ThemeFailureClass {
+  const kind = THEME_FAILURE_KIND_BY_CODE[failure.code] ?? 'request'
+  return { scope: failure.scope, kind }
 }
 
 function exactRetryMs(rate: RateInfo | undefined): number | undefined {
@@ -429,17 +481,27 @@ async function callOpenAi(
     })
     const rate = parseRate(res)
     if (!res.ok) {
-      // Provider bodies can contain organization names, billing details, request ids, or echoed account
-      // metadata. Compiler health is persisted and served to clients, so only the fixed public status class
-      // may cross this boundary.
-      return { text: null, tokens: 0, ok: false, status: res.status, note: `${provider.label} HTTP ${res.status}`, rate }
+      // Read only for bounded type/code classification. Raw bodies can contain organization, billing, or
+      // account details and therefore never cross this stack frame into compiler health.
+      const rawBody = await res.text().catch(() => '')
+      const failure = honorProviderRetryAfter(classifyProviderHttpFailure(res.status, rawBody, {
+        providerId: provider.id, model: provider.model, models: provider.models,
+      }), rate.retryAfterMs)
+      const dailyLimit = provider.requestRemainingHeaderIsDaily && res.status === 429 && rate.rpdRemaining === 0
+      return {
+        text: null, tokens: 0, ok: false, status: res.status,
+        note: publicProviderFailureNote(provider.label, failure, dailyLimit), rate, failure,
+      }
     }
     try {
       const data: any = await res.json()
       const text = data?.choices?.[0]?.message?.content
       const tokens = credibleTotalTokens(data?.usage?.total_tokens)
       if (data?.choices?.[0]?.finish_reason === 'length') {
-        return { text: null, tokens, ok: false, status: res.status, note: `${provider.label}: output truncated`, rate }
+        return {
+          text: null, tokens, ok: false, status: res.status, note: `${provider.label}: output truncated`, rate,
+          failure: classifyProviderContractFailure(),
+        }
       }
       return {
         text: typeof text === 'string' ? text : null,
@@ -448,9 +510,13 @@ async function callOpenAi(
         status: res.status,
         note: typeof text === 'string' ? '' : `${provider.label}: empty content`,
         rate,
+        ...(typeof text === 'string' ? {} : { failure: classifyProviderContractFailure() }),
       }
     } catch {
-      return { text: null, tokens: 0, ok: false, status: res.status, note: `${provider.label}: invalid response JSON`, rate }
+      return {
+        text: null, tokens: 0, ok: false, status: res.status, note: `${provider.label}: invalid response JSON`, rate,
+        failure: classifyProviderContractFailure(),
+      }
     }
   }, parentSignal)
 }
@@ -605,7 +671,9 @@ function applyProposals(
       const nameKey = text(value?.name_key, 160)
       const company = companyByKey.get(nameKey)
       const mechanism = text(value?.mechanism, 300)
-      if (!company || !cleanTicker(company.ticker) || !mechanism || seenExpressions.has(nameKey)) continue
+      // Keep an evidence-bound named company even when it has no ticker guess. Listing verification is a
+      // separate authority; dropping it here made “no verified listing” indistinguishable from no player.
+      if (!company || !mechanism || seenExpressions.has(nameKey)) continue
       if (!roles.has(value?.role) || (value?.side !== 'beneficiary' && value?.side !== 'harmed')) continue
       if (value.role === 'harmed' && value.side !== 'harmed') return
       const evidenceIds: string[] = (Array.isArray(value?.evidence_event_ids) ? value.evidence_event_ids as unknown[] : [])
@@ -696,6 +764,8 @@ function applyProposals(
       expressions,
       validated_at: now.toISOString().replace(/\.\d{3}Z$/, 'Z'),
     }
+    t.player_contract_version = 1
+    delete t.needs_player_revalidation
     t.generation = generation
     if (generation === 'llm' && validatorProvider) t.validator_provider = validatorProvider
     else delete t.validator_provider
@@ -711,7 +781,7 @@ function openAiProviders(cfg: NamerCfg): OpenAiThemeProvider[] {
     seen.add(provider.id); out.push(provider)
   }
   const fromConfig = (p: OverflowProvider, primaryLocal = false): OpenAiThemeProvider => ({
-    id: p.id, label: p.label || p.id, apiKey: p.apiKey, baseUrl: p.baseUrl, model: p.model,
+    id: p.id, label: p.label || p.id, apiKey: p.apiKey, keyEnvVar: p.keyEnvVar, baseUrl: p.baseUrl, model: p.model,
     models: p.models, maxTokens: p.maxTokens, rpm: p.rpm, tpm: p.tpm ?? 0,
     dailyReqCap: p.dailyReqCap, dailyTokenCap: p.dailyTokenCap ?? NON_BINDING_DAILY_TOKEN_CAP,
     budgetFile: p.budgetFile, dayTz: p.dayTz, headers: p.headers, extraBody: p.extraBody,
@@ -726,6 +796,7 @@ function openAiProviders(cfg: NamerCfg): OpenAiThemeProvider[] {
   if (cfg.localProvider) add(fromConfig(cfg.localProvider, true))
   if (cfg.groqApiKey) add({
     id: 'groq', label: 'Groq', apiKey: cfg.groqApiKey, baseUrl: cfg.groqBaseUrl || 'https://api.groq.com/openai/v1',
+    keyEnvVar: 'GROQ_API_KEY',
     model: cfg.groqModel || 'openai/gpt-oss-20b', maxTokens: 3000, rpm: cfg.groqRpm ?? 0,
     tpm: cfg.groqTpm ?? 0, dailyReqCap: cfg.groqDailyReqCap ?? 950,
     dailyTokenCap: cfg.groqDailyTokenCap ?? 200_000, budgetFile: 'groq-budget.json',
@@ -734,6 +805,43 @@ function openAiProviders(cfg: NamerCfg): OpenAiThemeProvider[] {
   })
   for (const provider of cfg.overflowProviders || []) add(fromConfig(provider))
   return out
+}
+
+function themeProviderIdentity(provider: OpenAiThemeProvider, maxTokens: number) {
+  return providerRequestIdentity({
+    providerId: provider.id,
+    baseUrl: provider.baseUrl,
+    model: provider.model,
+    models: provider.models,
+    apiKey: provider.apiKey,
+    keyEnvVar: provider.keyEnvVar,
+    transport: 'openai',
+    workload: 'themes',
+    contractVersion: 'news-themes-json-v1',
+    request: {
+      responseFormat: 'json_object',
+      temperature: 0.2,
+      configuredMaxTokens: maxTokens,
+      extraBody: provider.extraBody || {},
+    },
+  })
+}
+
+function claudeProviderIdentity(cfg: NamerCfg) {
+  return providerRequestIdentity({
+    providerId: 'claude',
+    baseUrl: cfg.themesClaudeBaseUrl || 'https://api.anthropic.com',
+    model: cfg.themesClaudeModel || 'claude-haiku-4-5',
+    apiKey: cfg.themesClaudeApiKey,
+    keyEnvVar: cfg.themesClaudeKeyEnvVar || 'THEMES_CLAUDE_API_KEY',
+    transport: 'anthropic',
+    workload: 'themes',
+    contractVersion: 'news-themes-json-v1',
+    request: {
+      anthropicVersion: CLAUDE_API_VERSION,
+      configuredMaxTokens: CLAUDE_OUTPUT_TOKENS,
+    },
+  })
 }
 
 const MIN_THEME_OUTPUT_TOKENS = 1200
@@ -884,6 +992,7 @@ export function makeThemeNamer(
             if (isCoolingDown(stateDir, provider.id, at) || isCoolingDown(stateDir, scopedHoldId(provider.id), at)) continue
             const maxTokens = providerOutputCap(provider, theme, generic)
             if (!maxTokens) continue
+            if (readProviderQuarantine(stateDir, themeProviderIdentity(provider, maxTokens))) continue
             const tokenCost = themeNamerTokenBound([theme], generic, maxTokens)
             const budget = Budget.load(stateDir, provider.dailyReqCap, provider.dailyTokenCap, at, provider.budgetFile, provider.dayTz)
             if (!budget.canSpend(tokenCost, 1)) continue
@@ -928,9 +1037,13 @@ export function makeThemeNamer(
       if (useClaude) {
         const claudeId = 'claude'
         const claudeScopedId = scopedHoldId(claudeId)
+        const claudeIdentity = claudeProviderIdentity(cfg)
         const todayISO = now.toISOString().slice(0, 10)
         const claudeCap = cfg.themesClaudeDailyCap ?? 60
-        if (isCoolingDown(stateDir, claudeId, now.getTime()) || isCoolingDown(stateDir, claudeScopedId, now.getTime())) {
+        const standing = readProviderQuarantine(stateDir, claudeIdentity)
+        if (standing) {
+          constrain(claudeId, 'provider_error', publicProviderQuarantineNote('Claude', standing))
+        } else if (isCoolingDown(stateDir, claudeId, now.getTime()) || isCoolingDown(stateDir, claudeScopedId, now.getTime())) {
           constrain(claudeId, 'cooldown', 'Claude is cooling down.')
         } else {
           // No await separates this guard from reserve+dispatch, so a pre-dispatch parent abort cannot
@@ -949,7 +1062,7 @@ export function makeThemeNamer(
             markSent(theme, claudeId)
             const attemptStartedAt = Date.now()
             let response: ClaudeCallResult
-            let thrownFailure: ThemeFailureClass | null = null
+            let thrownFailure: ProviderFailureClassification | null = null
             try {
               response = await callClaude(
                 cfg,
@@ -964,8 +1077,8 @@ export function makeThemeNamer(
                 break themeLoop
               }
               thrownFailure = error instanceof ThemeProviderTimeoutError
-                ? { scope: 'workload', kind: 'timeout' }
-                : { scope: 'provider', kind: 'availability' }
+                ? { code: 'timeout', scope: 'workload', action: 'cooldown', providerWide: false }
+                : classifyProviderCaughtFailure(error)
               response = { text: null, ok: false, status: 0, note: 'Claude request failed.', rate: {} }
             }
             if (parentSignal?.aborted) { parentAborted = true; break themeLoop }
@@ -977,15 +1090,25 @@ export function makeThemeNamer(
                 armFailure(claudeId, false, { scope: 'workload', kind: 'contract' }, response.rate)
               } else {
                 constrain(claudeId, 'provider_error', response.note || 'Claude request failed.')
-                const failure = thrownFailure || classifyThemeHttpFailure(response.status)
-                if (failure.scope === 'workload') clearCooldown(stateDir, claudeId, attemptStartedAt)
-                armFailure(claudeId, false, failure, response.rate)
+                const sharedFailure = thrownFailure || response.failure
+                if (sharedFailure?.action === 'quarantine') {
+                  // Stamp when the response proves the fault. Backdating this to request start could let a
+                  // different, later-started success erase a failure it never observed.
+                  quarantineProviderFailure(stateDir, claudeIdentity, sharedFailure, Date.now())
+                } else {
+                  const failure = sharedFailure
+                    ? themeFailureFromProviderFailure(sharedFailure)
+                    : classifyThemeHttpFailure(response.status)
+                  if (failure.scope === 'workload') clearCooldown(stateDir, claudeId, attemptStartedAt)
+                  armFailure(claudeId, false, failure, response.rate)
+                }
               }
             } else {
               terminal = classify(theme, response.text, 'claude', claudeId)
               if (terminal === 'validated' || terminal === 'rejected') {
                 clearCooldown(stateDir, claudeId, attemptStartedAt)
                 clearCooldown(stateDir, claudeScopedId, attemptStartedAt)
+                clearProviderQuarantine(stateDir, claudeIdentity, attemptStartedAt)
               }
               else {
                 if (terminal === 'omitted') result.omitted_count++
@@ -1013,6 +1136,12 @@ export function makeThemeNamer(
           const maxTokens = providerOutputCap(provider, theme, generic)
           if (!maxTokens) {
             constrain(provider.id, 'rate_limiter_busy', `${provider.label} cannot safely admit one theme contract inside its configured token/minute envelope.`)
+            continue
+          }
+          const providerIdentity = themeProviderIdentity(provider, maxTokens)
+          const standing = readProviderQuarantine(stateDir, providerIdentity)
+          if (standing) {
+            constrain(provider.id, 'provider_error', publicProviderQuarantineNote(provider.label, standing))
             continue
           }
           const perAttemptTokens = themeNamerTokenBound([theme], generic, maxTokens)
@@ -1068,6 +1197,11 @@ export function makeThemeNamer(
             constrain(provider.id, 'cooldown', `${provider.label} is waiting to try again after an error.`)
             continue
           }
+          const admittedStanding = readProviderQuarantine(stateDir, providerIdentity)
+          if (admittedStanding) {
+            constrain(provider.id, 'provider_error', publicProviderQuarantineNote(provider.label, admittedStanding))
+            continue
+          }
           const admissionBudget = Budget.load(
             stateDir, provider.dailyReqCap, provider.dailyTokenCap, admissionAt, provider.budgetFile, provider.dayTz,
           )
@@ -1108,7 +1242,7 @@ export function makeThemeNamer(
           let response: OpenAiCallResult = {
             text: null, tokens: 0, ok: false, status: 0, note: `${provider.label}: request failed`, rate: {},
           }
-          let thrownFailure: ThemeFailureClass | null = null
+          let thrownFailure: ProviderFailureClassification | null = null
           let cancelledByParent = false
           try {
             response = await callOpenAi(
@@ -1123,8 +1257,9 @@ export function makeThemeNamer(
             if (parentSignal?.aborted || error instanceof ThemeParentAbortError) cancelledByParent = true
             else {
               thrownFailure = error instanceof ThemeProviderTimeoutError
-                ? { scope: 'workload', kind: 'timeout' }
-                : { scope: 'provider', kind: 'availability' }
+                ? { code: 'timeout', scope: 'workload', action: 'cooldown', providerWide: false }
+                : classifyProviderCaughtFailure(error)
+              response.note = publicProviderFailureNote(provider.label, thrownFailure)
             }
           }
           admissionBudget.reconcile(reservation, 1, response.tokens > 0 ? response.tokens : perAttemptTokens)
@@ -1132,11 +1267,11 @@ export function makeThemeNamer(
           // a provider failure, though: do not learn a retry, arm either cooldown scope, or try another tier.
           if (cancelledByParent || parentSignal?.aborted) { parentAborted = true; break themeLoop }
           if (!response.ok || !response.text) {
-            const failure = thrownFailure || classifyThemeHttpFailure(response.status)
+            const failure = thrownFailure || response.failure || classifyProviderContractFailure()
             const explicitDailyLimit = provider.requestRemainingHeaderIsDaily
               && response.status === 429
               && response.rate.rpdRemaining === 0
-            limiter.learn(rateInfoForLimiter(response.rate, failure.scope === 'provider'), Date.now)
+            limiter.learn(rateInfoForLimiter(response.rate, failure.providerWide), Date.now)
             if (explicitDailyLimit) admissionBudget.exhaust('provider_daily_limit')
             if (response.status >= 200 && response.status < 300) {
               terminal = 'malformed'; result.malformed_count++
@@ -1148,10 +1283,23 @@ export function makeThemeNamer(
               // A concrete workload-scoped HTTP response proves the provider is reachable; clear only an
               // older shared generation. A timeout does not prove reachability and therefore cannot erase a
               // concurrent/newer provider-wide outage marker.
-              if (!explicitDailyLimit && failure.scope === 'workload' && response.status > 0) {
+              if (!explicitDailyLimit && failure.scope === 'workload' && response.status > 0 && failure.action !== 'quarantine') {
                 clearCooldown(stateDir, provider.id, attemptStartedAt)
               }
-              if (!explicitDailyLimit) armFailure(provider.id, provider.id === 'local', failure, response.rate)
+              if (!explicitDailyLimit && failure.action === 'quarantine') {
+                // Stamp when the failure became known, not when its request began. A different request may
+                // start after this one and succeed before this response arrives; backdating the later failure
+                // to `attemptStartedAt` would let that success erase evidence it could not have observed.
+                const failureObservedAt = Date.now()
+                quarantineProviderFailure(stateDir, providerIdentity, failure, failureObservedAt)
+              } else if (!explicitDailyLimit) {
+                const kind: ThemeFailureKind = failure.code === 'rate_limited' ? 'rate_limit'
+                  : failure.code === 'timeout' ? 'timeout'
+                    : failure.code === 'contract_invalid' ? 'contract'
+                      : failure.code === 'transient_upstream' ? 'availability'
+                        : 'request'
+                armFailure(provider.id, provider.id === 'local', { scope: failure.scope, kind }, response.rate)
+              }
             }
             continue
           }
@@ -1160,6 +1308,7 @@ export function makeThemeNamer(
           if (terminal === 'validated' || terminal === 'rejected') {
             clearCooldown(stateDir, provider.id, attemptStartedAt)
             clearCooldown(stateDir, scopedHoldId(provider.id), attemptStartedAt)
+            clearProviderQuarantine(stateDir, providerIdentity, attemptStartedAt)
             break
           }
           if (terminal === 'omitted') result.omitted_count++

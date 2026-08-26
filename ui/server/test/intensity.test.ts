@@ -25,6 +25,10 @@ fs.writeFileSync(path.join(inbox, '2026-06-15_firehose.ndjson'), [
   item('2026-06-15T11:05:00Z', 'news'),
   item('2026-06-15T10:00:00Z', 'company'),
 ].join('\n') + '\n')
+fs.writeFileSync(path.join(inbox, '2026-06-15_firehose.000001.ndjson'), [
+  cyc('2026-06-15T11:30:00Z', 20),
+  item('2026-06-15T11:30:00Z', 'company'),
+].join('\n') + '\n')
 fs.writeFileSync(path.join(inbox, '2026-06-14_firehose.ndjson'), [
   cyc('2026-06-14T18:00:00Z', 30),  // inside the day window
   cyc('2026-06-14T06:00:00Z', 999), // BEFORE the window start → must be excluded
@@ -44,24 +48,24 @@ function check(name: string, fn: () => void) {
 check('the day window sums only in-window cycles and tallies tiers from item lines', () => {
   const r = getIntensity('day', now)
   assert.equal(r.window, 'day')
-  assert.equal(r.scans, 3)            // 100, 50, 30 — the 999 cycle at 06:00 is out of window
-  assert.equal(r.totalFetched, 180)
+  assert.equal(r.scans, 4)            // 100, 50, 20, 30 — the 999 cycle at 06:00 is out of window
+  assert.equal(r.totalFetched, 200)
   assert.equal(r.byTier.news, 2)
-  assert.equal(r.byTier.company, 1)
+  assert.equal(r.byTier.company, 2)
   assert.equal(r.byTier.official_data, 1)
-  assert.equal(r.ratePerSec, Math.round((180 / 86400) * 100) / 100)
+  assert.equal(r.ratePerSec, Math.round((200 / 86400) * 100) / 100)
   assert.ok(r.from && r.to)
 })
 check('the hourly histogram sums to the window total and stays bounded (≤48 points)', () => {
   const r = getIntensity('day', now)
   assert.ok(r.hourly.length > 0 && r.hourly.length <= 48)
-  assert.equal(r.hourly.reduce((a, b) => a + b.fetched, 0), 180)
+  assert.equal(r.hourly.reduce((a, b) => a + b.fetched, 0), 200)
 })
 check("'scan' returns only the most-recent cycle", () => {
   const r = getIntensity('scan', now)
   assert.equal(r.window, 'scan')
   assert.equal(r.scans, 1)
-  assert.equal(r.totalFetched, 100) // the 11:00 cycle (latest)
+  assert.equal(r.totalFetched, 20) // the 11:30 cycle in shard 1 (latest)
   assert.equal(r.from, null)
 })
 check('a missing firehose → zeroed result, never throws', () => {

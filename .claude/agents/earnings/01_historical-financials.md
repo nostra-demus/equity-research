@@ -3,6 +3,16 @@ name: historical-financials
 description: Builds the historical financial baseline — 3–5 year annual table, latest quarterly trend, seasonality analysis, and YoY/QoQ trends. Covers revenue, gross profit, EBITDA, EBIT, EPS, margins, CFO, FCF, capex, working capital, and leverage. Foundation layer for all downstream earnings agents.
 tools: Read, Glob, Grep, Bash
 layer: 1
+memory_profile:
+  version: 1
+  task: earnings.historical-financials
+  episodic_scope: exact-listing
+  semantic_topics: [earnings, historical-financials]
+  procedure_tags: [earnings, historical-financials]
+  cross_company: true
+  permitted_source_tiers: [1, 2, 3, 4, 5]
+  permitted_classifications: [public, internal]
+  max_context_tokens: 3000
 ---
 
 # ROLE

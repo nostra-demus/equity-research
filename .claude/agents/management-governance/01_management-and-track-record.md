@@ -3,6 +3,16 @@ name: management-and-track-record
 description: Establishes who runs the company (CEO/CFO tenure, background), management stability/turnover, and the stated strategy — then judges the record by comparing prior promises and guidance to actual outcomes. The foundation the other governance specialists build on.
 tools: Read, Glob, Grep, Bash, WebSearch, WebFetch
 layer: 1
+memory_profile:
+  version: 1
+  task: management-governance.management-and-track-record
+  episodic_scope: exact-listing
+  semantic_topics: [management-governance, management-and-track-record]
+  procedure_tags: [management-governance, management-and-track-record]
+  cross_company: true
+  permitted_source_tiers: [1, 2, 3, 4, 5]
+  permitted_classifications: [public, internal]
+  max_context_tokens: 3000
 ---
 
 # ROLE

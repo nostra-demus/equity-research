@@ -378,9 +378,10 @@ xesc() {
   printf '%s' "$s" | sed -e 's/\\/\\\\/g' -e 's/[&#]/\\&/g'   # 2) sed-RHS escape
 }
 render() {
-  local f="$1" e_home e_prod e_state e_path e_npm e_node e_cf e_omniroute e_news e_bridge e_connector_config
+  local f="$1" e_home e_prod e_state e_path e_npm e_node e_python e_cf e_omniroute e_news e_bridge e_connector_config
   e_home="$(xesc "$HOME")"; e_prod="$(xesc "$PROD")"; e_state="$(xesc "$STATE_DIR")"; e_path="$(xesc "$PLIST_PATH")"
   e_npm="$(xesc "$NPM_BIN")"; e_node="$(xesc "$NODE_BIN")"; e_cf="$(xesc "$CLOUDFLARED_BIN")"; e_news="$(xesc "$NEWS_ARCHIVE_DIR")"
+  e_python="$(xesc "$PYTHON_BIN")"
   e_omniroute="$(xesc "$OMNIROUTE_BIN")"
   e_bridge="$(xesc "$BRIDGE_MODE_VALUE")"
   e_connector_config="$(xesc "$CONNECTOR_CONFIG_DIR")"
@@ -391,6 +392,7 @@ render() {
     -e "s#{{PLIST_PATH}}#$e_path#g" \
     -e "s#{{NPM_BIN}}#$e_npm#g" \
     -e "s#{{NODE_BIN}}#$e_node#g" \
+    -e "s#{{PYTHON_BIN}}#$e_python#g" \
     -e "s#{{CLOUDFLARED_BIN}}#$e_cf#g" \
     -e "s#{{OMNIROUTE_BIN}}#$e_omniroute#g" \
     -e "s#{{NEWS_ARCHIVE_DIR}}#$e_news#g" \
@@ -609,7 +611,9 @@ remove_one() {
 BASE=(com.nostradamus.engine com.nostradamus.deploy com.nostradamus.watchdog com.nostradamus.caffeinate)
 DOER_ONLY=(com.nostradamus.tunnel com.nostradamus.news-archive com.nostradamus.external-ingest \
            com.nostradamus.connectors \
-           com.nostradamus.hk-calibrate-daily com.nostradamus.hk-calibrate)
+           com.nostradamus.hk-calibrate-daily com.nostradamus.hk-calibrate \
+           com.nostradamus.memory-observability com.nostradamus.memory-rebuild \
+           com.nostradamus.memory-recovery-drill)
 # These historical timers directly spawned Claude and therefore bypassed provider/profile inheritance,
 # quota pauses, admission and supervisor publication. Remove them on every full install, including doer
 # upgrades; deterministic calibration timers above remain model-free and installed.

@@ -71,6 +71,44 @@ await check('backup is skipped without explicit configuration', async () => {
   assert.match(result.error || '', /not configured/i)
 })
 
+await check('terminal chat faults are durably zero-call until the exact provider config changes', async () => {
+  resetBudgetMemory(); resetCooldownMemory(); resetSharedLimiters()
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'news-chat-terminal-'))
+  let calls = 0
+  const rejected = (async () => {
+    calls++
+    return new Response(JSON.stringify({ error: { type: 'auth_error', message: 'secret account detail' } }), { status: 401 })
+  }) as typeof fetch
+  const first = await runNewsChatFallback({
+    system: 'Use evidence.', user: 'What changed?', signal: new AbortController().signal, onToken: () => {},
+    config: { ...config, stateDir: dir }, fetchImpl: rejected,
+  })
+  assert.equal(first.attempted, true)
+  assert.doesNotMatch(first.error || '', /secret|account detail/i)
+  assert.equal(readCooldownUntil(dir, 'groq'), 0, 'a permanent fault is not represented as a timer')
+  assert.equal(fs.existsSync(path.join(dir, 'provider-groq-quarantine.json')), true)
+
+  const second = await runNewsChatFallback({
+    system: 'Use evidence.', user: 'Try again?', signal: new AbortController().signal, onToken: () => {},
+    config: { ...config, stateDir: dir }, fetchImpl: rejected,
+  })
+  assert.equal(second.attempted, false)
+  assert.equal(calls, 1)
+
+  let answer = ''
+  const repaired = await runNewsChatFallback({
+    system: 'Use evidence.', user: 'Try repaired config.', signal: new AbortController().signal,
+    onToken: (text) => { answer = text }, config: { ...config, stateDir: dir, apiKey: 'rotated-key' },
+    fetchImpl: async () => {
+      calls++
+      return new Response(JSON.stringify({ choices: [{ finish_reason: 'stop', message: { content: 'Repaired.' } }], usage: { total_tokens: 10 } }), { status: 200 })
+    },
+  })
+  assert.equal(repaired.error, undefined)
+  assert.equal(answer, 'Repaired.')
+  assert.equal(calls, 2)
+})
+
 await check('a read-only replica never spends a shared provider slot', async () => {
   let calls = 0
   const result = await runNewsChatFallback({

@@ -3,6 +3,16 @@ name: contingent-liabilities-and-commitments
 description: Reads the contingent-liabilities and commitments note as a governance test — sizes off-P&L exposure against net worth, tracks each item's movement year over year (additions / reversals / crystallization), and judges whether management provides for probable losses honestly or parks them behind serial appeals; owns checklist A7a-01…15 and emits the inverted Contingent-Liability Risk Score.
 tools: Read, Glob, Grep, Bash, WebSearch, WebFetch
 layer: 2
+memory_profile:
+  version: 1
+  task: management-governance.contingent-liabilities-and-commitments
+  episodic_scope: exact-listing
+  semantic_topics: [management-governance, contingent-liabilities-and-commitments]
+  procedure_tags: [management-governance, contingent-liabilities-and-commitments]
+  cross_company: true
+  permitted_source_tiers: [1, 2, 3, 4, 5]
+  permitted_classifications: [public, internal]
+  max_context_tokens: 3000
 ---
 
 # ROLE

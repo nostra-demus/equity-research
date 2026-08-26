@@ -12,9 +12,10 @@ import {
   memoryFreshnessPollDelay,
   memoryKinds,
   parseMemoryRead,
+  parseMemoryRuntimeRead,
   unavailableMemoryRead,
 } from './memoryView'
-import type { MemoryItem, MemoryRead } from './types'
+import type { MemoryItem, MemoryRead, MemoryRuntimeRead } from './types'
 
 const item = (patch: Partial<MemoryItem> = {}): MemoryItem => ({
   event_id: 'event:research:ABC:1', event_type: 'decision', cockpit: 'research', kind: 'decision',
@@ -44,6 +45,28 @@ assert.equal(parseMemoryRead({ ...good, counts: { ...good.counts, total: 4 } }),
 assert.equal(parseMemoryRead({ ...good, items: [...good.items, good.items[0]], counts: { ...good.counts, total: 4, research: 2 }, status: { ...good.status, event_count: 4 } }), null, 'duplicate event identities are refused')
 assert.equal(parseMemoryRead({ ...good, items: [{ ...good.items[0], confidence: 101 }], counts: { ...good.counts, total: 1, research: 1, screener: 0, commodity: 0 }, status: { ...good.status, event_count: 1 } }), null, 'out-of-range confidence is refused')
 assert.deepEqual(parseMemoryRead(unavailableMemoryRead()), unavailableMemoryRead())
+
+const runtime: MemoryRuntimeRead = {
+  contract_version: 'memory-runtime-ui/1', available: true, read_only: true,
+  generated_at: '2026-08-26T00:00:00Z', state: 'healthy', mode: 'enforced', effective_mode: 'enforced',
+  controls: {
+    revision: 1, updated_at: '2026-08-26T00:00:00Z', global_disabled: false,
+    disabled_layers: [], disabled_playbooks: [], pinned_playbooks: [],
+    candidate_intake_disabled: false, control_sha256: `sha256:${'a'.repeat(64)}`,
+  },
+  counts: {
+    runs: 1, task_episodes: 2, lessons: 3, playbooks: 4, candidates: 5, executions: 6,
+    promotions: 7, quarantines: 0, packets: 2, used_items: 4, rejected_items: 1,
+    contradicted_items: 1, deviations: 0,
+  },
+  readiness: { status: 'met', evaluated_at: '2026-08-26T00:00:00Z', report_sha256: `sha256:${'b'.repeat(64)}` },
+  slos: [{ name: 'context-compilation-p95', status: 'met', target: 'value=5000' }],
+  alerts: [], services: [{ role: 'projection-query', identity: 'reader', configured: true }],
+}
+assert.deepEqual(parseMemoryRuntimeRead(runtime), runtime)
+assert.equal(parseMemoryRuntimeRead({ ...runtime, read_only: false }), null)
+assert.equal(parseMemoryRuntimeRead({ ...runtime, counts: { ...runtime.counts, packets: -1 } }), null)
+assert.equal(parseMemoryRuntimeRead({ ...runtime, alerts: [{ code: 'x', severity: 'secret', message: 'bad' }] }), null)
 
 const freshnessCheck = {
   ...good,

@@ -1,0 +1,70 @@
+{
+  "schema": "memory-three-layer-benchmark/v1",
+  "as_of": "2026-08-25",
+  "case_count": 40,
+  "held_out_protocol": {
+    "runtime_inputs": ["query", "fixture"],
+    "scoring_only": ["expected_records", "expected_action", "forbidden_records"],
+    "rule": "The retrieval/runtime candidate must not inspect scoring-only fields before producing its result.",
+    "serious_failure": "Any protected-content leak, post-cutoff fact, qualifier loss, false current-evidence claim, or procedure execution on a non-applicable case."
+  },
+  "required_categories": [
+    "prior_miss_recall",
+    "correction_supersession",
+    "semantic_applicability",
+    "cross_company_isolation",
+    "playbook_matching",
+    "playbook_conflict",
+    "qualifier_survival",
+    "abstention"
+  ],
+  "cases": [
+    {"id":"miss-001","category":"prior_miss_recall","query":"Newest exact-listing miss","fixture":"review-newer-than-decision","expected_records":["newest-reviewed-miss"],"expected_action":"mandatory-current-recheck","forbidden_records":[]},
+    {"id":"miss-002","category":"prior_miss_recall","query":"Miss attached to older decision","fixture":"older-decision-new-review","expected_records":["newest-reviewed-miss"],"expected_action":"mandatory-current-recheck","forbidden_records":["newer-decision-without-review"]},
+    {"id":"miss-003","category":"prior_miss_recall","query":"Resolved prior miss","fixture":"miss-with-current-defense","expected_records":["miss","defense"],"expected_action":"verify-defense","forbidden_records":[]},
+    {"id":"miss-004","category":"prior_miss_recall","query":"Different listing same ticker","fixture":"listing-collision","expected_records":[],"expected_action":"exclude-and-diagnose","forbidden_records":["other-listing-miss"]},
+    {"id":"miss-005","category":"prior_miss_recall","query":"Mandatory miss exceeds budget","fixture":"mandatory-overflow","expected_records":["all-mandatory-misses"],"expected_action":"fail-before-dispatch","forbidden_records":[]},
+
+    {"id":"correction-001","category":"correction_supersession","query":"Standing corrected value","fixture":"one-correction","expected_records":["correction"],"expected_action":"use-replacement-after-current-check","forbidden_records":["superseded-value"]},
+    {"id":"correction-002","category":"correction_supersession","query":"Correction before valid time","fixture":"future-correction","expected_records":["original"],"expected_action":"respect-cutoff","forbidden_records":["future-correction"]},
+    {"id":"correction-003","category":"correction_supersession","query":"Correction chain","fixture":"two-corrections","expected_records":["latest-correction"],"expected_action":"follow-complete-chain","forbidden_records":["intermediate-value"]},
+    {"id":"correction-004","category":"correction_supersession","query":"Protected correction unauthorized provider","fixture":"mandatory-protected-correction","expected_records":[],"expected_action":"stop-for-approved-provider","forbidden_records":["protected-identifier"]},
+    {"id":"correction-005","category":"correction_supersession","query":"Purged correction in stale resume","fixture":"post-purge-resume","expected_records":[],"expected_action":"re-resolve-and-stop","forbidden_records":["purged-correction"]},
+
+    {"id":"semantic-001","category":"semantic_applicability","query":"US GAAP revenue lesson","fixture":"matching-jurisdiction-standard-metric","expected_records":["us-gaap-revenue-lesson"],"expected_action":"require-current-check","forbidden_records":[]},
+    {"id":"semantic-002","category":"semantic_applicability","query":"Ind AS issuer","fixture":"wrong-accounting-standard","expected_records":[],"expected_action":"not-applicable","forbidden_records":["us-gaap-revenue-lesson"]},
+    {"id":"semantic-003","category":"semantic_applicability","query":"Expired policy lesson","fixture":"expired-lesson","expected_records":[],"expected_action":"omit-expired","forbidden_records":["expired-policy"]},
+    {"id":"semantic-004","category":"semantic_applicability","query":"Issuer lesson with contradiction","fixture":"active-lesson-contradiction","expected_records":["lesson","contradicting-evidence"],"expected_action":"surface-contradiction","forbidden_records":[]},
+    {"id":"semantic-005","category":"semantic_applicability","query":"Lesson attempts positive lift","fixture":"positive-lift-field","expected_records":[],"expected_action":"reject-contract","forbidden_records":["positive-lift"]},
+
+    {"id":"cross-001","category":"cross_company_isolation","query":"Sector match","fixture":"five-issuer-sector-lesson","expected_records":["sector-lesson"],"expected_action":"include-optional-after-exact","forbidden_records":[]},
+    {"id":"cross-002","category":"cross_company_isolation","query":"Only four issuers","fixture":"under-floor-candidate","expected_records":[],"expected_action":"keep-candidate-inert","forbidden_records":["under-floor-lesson"]},
+    {"id":"cross-003","category":"cross_company_isolation","query":"Wrong jurisdiction","fixture":"sector-match-jurisdiction-mismatch","expected_records":[],"expected_action":"isolate","forbidden_records":["wrong-jurisdiction-lesson"]},
+    {"id":"cross-004","category":"cross_company_isolation","query":"Budget truncation","fixture":"exact-and-cross-company-overflow","expected_records":["exact-issuer-item"],"expected_action":"truncate-cross-company-first","forbidden_records":[]},
+    {"id":"cross-005","category":"cross_company_isolation","query":"Hidden protected corpus","fixture":"lower-authority-query","expected_records":[],"expected_action":"content-free-omission","forbidden_records":["protected-count","protected-id"]},
+
+    {"id":"match-001","category":"playbook_matching","query":"Exact issuer playbook","fixture":"issuer-and-global-match","expected_records":["issuer-playbook"],"expected_action":"select-most-specific","forbidden_records":["global-playbook"]},
+    {"id":"match-002","category":"playbook_matching","query":"Jurisdiction playbook","fixture":"jurisdiction-and-sector-match","expected_records":["jurisdiction-playbook"],"expected_action":"select-most-specific","forbidden_records":["sector-playbook"]},
+    {"id":"match-003","category":"playbook_matching","query":"Source-type mismatch","fixture":"wrong-source-type","expected_records":[],"expected_action":"decline","forbidden_records":["filing-only-playbook"]},
+    {"id":"match-004","category":"playbook_matching","query":"Expired playbook","fixture":"expired-playbook","expected_records":[],"expected_action":"decline-expired","forbidden_records":["expired-playbook"]},
+    {"id":"match-005","category":"playbook_matching","query":"Quarantined playbook","fixture":"quarantined-playbook","expected_records":[],"expected_action":"decline-quarantined","forbidden_records":["quarantined-playbook"]},
+
+    {"id":"conflict-001","category":"playbook_conflict","query":"Equal issuer specificity conflict","fixture":"two-issuer-playbooks","expected_records":["issuer-playbook-a","issuer-playbook-b"],"expected_action":"abstain-conflict","forbidden_records":[]},
+    {"id":"conflict-002","category":"playbook_conflict","query":"Equal jurisdiction conflict","fixture":"two-jurisdiction-playbooks","expected_records":["jurisdiction-playbook-a","jurisdiction-playbook-b"],"expected_action":"abstain-conflict","forbidden_records":[]},
+    {"id":"conflict-003","category":"playbook_conflict","query":"Different specificity","fixture":"sector-and-global-disagree","expected_records":["sector-playbook"],"expected_action":"select-more-specific","forbidden_records":["global-playbook"]},
+    {"id":"conflict-004","category":"playbook_conflict","query":"Active and old version","fixture":"version-supersession","expected_records":["active-version"],"expected_action":"pin-active-version","forbidden_records":["superseded-version"]},
+    {"id":"conflict-005","category":"playbook_conflict","query":"Policy leak incident","fixture":"quarantine-after-snapshot","expected_records":[],"expected_action":"post-completion-hash-and-status-fail","forbidden_records":["leaking-playbook"]},
+
+    {"id":"qualifier-001","category":"qualifier_survival","query":"Estimated vendor value","fixture":"licensed-estimate","expected_records":["qualified-estimate"],"expected_action":"preserve-estimate-and-error-band","forbidden_records":["unqualified-fact"]},
+    {"id":"qualifier-002","category":"qualifier_survival","query":"Inference episode","fixture":"historical-inference","expected_records":["inference-episode"],"expected_action":"preserve-inference-label","forbidden_records":["proven-fact"]},
+    {"id":"qualifier-003","category":"qualifier_survival","query":"Contractual pass-through","fixture":"hedged-upstream-finding","expected_records":["qualified-finding"],"expected_action":"preserve-contractual-qualifier","forbidden_records":["absolute-no-pass-through"]},
+    {"id":"qualifier-004","category":"qualifier_survival","query":"Translated filing","fixture":"non-english-primary-source","expected_records":["translated-tier-one-fact"],"expected_action":"preserve-tier-and-translation-label","forbidden_records":["language-downgrade"]},
+    {"id":"qualifier-005","category":"qualifier_survival","query":"Mismatched basis ratio","fixture":"peak-over-period-end","expected_records":["basis-warning"],"expected_action":"preserve-both-bases","forbidden_records":["clean-percentage"]},
+
+    {"id":"abstain-001","category":"abstention","query":"Verified first run","fixture":"verified-empty","expected_records":[],"expected_action":"dispatch-empty-packet","forbidden_records":[]},
+    {"id":"abstain-002","category":"abstention","query":"Projection and rebuild fail","fixture":"unverified-snapshot","expected_records":[],"expected_action":"stop-before-spend","forbidden_records":[]},
+    {"id":"abstain-003","category":"abstention","query":"Mandatory unauthorized memory","fixture":"provider-denial","expected_records":[],"expected_action":"require-approved-provider","forbidden_records":["protected-memory"]},
+    {"id":"abstain-004","category":"abstention","query":"Missing playbook evidence","fixture":"required-step-no-span","expected_records":["active-playbook"],"expected_action":"playbook-abstention","forbidden_records":["fabricated-reconciliation"]},
+    {"id":"abstain-005","category":"abstention","query":"Invalid use declaration","fixture":"used-flag-no-output-correspondence","expected_records":[],"expected_action":"invalidate-output-and-block-ideas","forbidden_records":["unattested-task-episode"]}
+  ]
+}

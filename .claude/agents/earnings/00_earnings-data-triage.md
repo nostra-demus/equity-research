@@ -4,6 +4,16 @@ description: Inventories earnings-relevant data in the data pool. Checks for lat
 tools: Read, Glob, Grep, Bash
 layer: 0
 fail_fast: true
+memory_profile:
+  version: 1
+  task: earnings.earnings-data-triage
+  episodic_scope: exact-listing
+  semantic_topics: [earnings, earnings-data-triage]
+  procedure_tags: [earnings, earnings-data-triage]
+  cross_company: true
+  permitted_source_tiers: [1, 2, 3, 4, 5]
+  permitted_classifications: [public, internal]
+  max_context_tokens: 3000
 ---
 
 # ROLE

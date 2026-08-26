@@ -11,6 +11,7 @@ import { NEWS, STATE_DIR } from '../ui/server/src/config'
 import { semanticIndexKey, semanticIndexKeys, updateSemanticIndex } from '../ui/server/src/retrieval/semantic'
 import type { EmbeddingConfig, SemanticKeyIndex } from '../ui/server/src/retrieval/semantic'
 import type { FeedItem } from '../ui/server/src/news/types'
+import { parseFirehoseName } from '../ui/server/src/news/firehose-files'
 
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const args = process.argv.slice(2)
@@ -19,9 +20,8 @@ const limitArg = args.find((x) => /^--limit=\d+$/.test(x))
 const limit = limitArg ? Number(limitArg.split('=')[1]) : null
 
 export function firehoseFiles(root = repoRoot, configuredArchiveDir = NEWS.newsArchiveDir): string[] {
-  // The live inbox and the durable archive intentionally carry the same YYYY-MM-DD file while rotation
-  // settles. Pick one physical source per date/basename, preferring the configured/durable archive, so a
-  // backfill never reads and bills the same copied day twice.
+  // The live inbox and durable archive intentionally carry the same physical shards while copying settles.
+  // Pick one source per basename, preferring the configured archive, so backfill never bills a shard twice.
   const dirs = [
     path.join(root, 'screener', 'inbox'),
     path.join(root, 'data', 'NEWS-ARCHIVE'),
@@ -30,7 +30,7 @@ export function firehoseFiles(root = repoRoot, configuredArchiveDir = NEWS.newsA
   const files = new Map<string, string>()
   for (const dir of dirs) {
     try {
-      for (const name of fs.readdirSync(dir)) if (name.endsWith('_firehose.ndjson')) files.set(name, path.join(dir, name))
+      for (const name of fs.readdirSync(dir)) if (parseFirehoseName(name)) files.set(name, path.join(dir, name))
     } catch { /* an optional archive may not be mounted */ }
   }
   return [...files.values()].sort((a, b) => path.basename(a).localeCompare(path.basename(b)))

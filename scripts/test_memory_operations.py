@@ -24,6 +24,12 @@ from memory_operations import (  # noqa: E402
     operational_report_bytes,
     verify_operational_readiness_report,
 )
+from memory_shadow_evaluation import build_report as build_shadow_report  # noqa: E402
+from test_memory_shadow_evaluation import (  # noqa: E402
+    ADJUDICATOR_PRIVATE,
+    ADJUDICATOR_PUBLIC,
+    fixtures as shadow_fixtures,
+)
 from validate_screener_json import Checker  # noqa: E402
 
 
@@ -595,6 +601,53 @@ def test_operational_slos_and_external_anchor() -> None:
     assert _slo(stale_report, "access-audit-cadence")["status"] == "failed"
 
 
+def test_production_shadow_readiness_requires_trusted_adjudication() -> None:
+    preregistration, observations = shadow_fixtures("production-shadow")
+    shadow = build_shadow_report(
+        preregistration,
+        observations,
+        adjudicator_private_key=ADJUDICATOR_PRIVATE,
+        adjudicator_key_id="shadow-adjudicator-key",
+        adjudicator_id="independent-shadow-adjudicator",
+        attested_at="2026-08-26T00:01:00.000000Z",
+    )
+    report = _full_report(
+        evaluated_at="2026-08-27T00:00:00Z",
+        shadow_evaluation_report=shadow,
+        shadow_adjudicator_public_key=ADJUDICATOR_PUBLIC,
+        shadow_adjudicator_key_id="shadow-adjudicator-key",
+    )
+    assert report["operational_evidence"]["material_claim_lineage"]["status"] == "met"
+
+    _expect_operations_error(
+        lambda: _full_report(
+            evaluated_at="2026-08-27T00:00:00Z",
+            shadow_evaluation_report=shadow,
+        ),
+        "requires a valid 32-byte adjudicator public key",
+    )
+    _expect_operations_error(
+        lambda: _full_report(
+            evaluated_at="2026-08-27T00:00:00Z",
+            shadow_evaluation_report=shadow,
+            shadow_adjudicator_public_key=ADJUDICATOR_PUBLIC,
+        ),
+        "requires a non-empty adjudicator key ID",
+    )
+    forged = copy.deepcopy(shadow)
+    forged["adjudication_attestation"]["signature"]["value"] = "A" * 86
+    _rehash(forged)
+    _expect_operations_error(
+        lambda: _full_report(
+            evaluated_at="2026-08-27T00:00:00Z",
+            shadow_evaluation_report=forged,
+            shadow_adjudicator_public_key=ADJUDICATOR_PUBLIC,
+            shadow_adjudicator_key_id="shadow-adjudicator-key",
+        ),
+        "lacks trusted adjudication",
+    )
+
+
 def test_scale_requires_comparative_measured_need() -> None:
     report = _full_report(
         scale_comparisons=[
@@ -785,6 +838,7 @@ def main() -> None:
         test_schema_closure_and_minimal_determinism,
         test_adoption_requires_exact_63_case_candidate,
         test_operational_slos_and_external_anchor,
+        test_production_shadow_readiness_requires_trusted_adjudication,
         test_scale_requires_comparative_measured_need,
         test_rehashed_semantic_mutations_fail,
         test_cli_is_read_only_and_refuses_symlinks,

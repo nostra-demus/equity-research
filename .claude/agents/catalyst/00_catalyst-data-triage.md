@@ -13,6 +13,16 @@ data_readiness:
   caps:
     transcript: "calendar leans on filings only (no transcript for management-commentary catalysts)"
     guidance: "guidance-driven catalysts limited (no guidance doc in the pool)"
+memory_profile:
+  version: 1
+  task: catalyst.catalyst-data-triage
+  episodic_scope: exact-listing
+  semantic_topics: [catalyst, catalyst-data-triage]
+  procedure_tags: [catalyst, catalyst-data-triage]
+  cross_company: true
+  permitted_source_tiers: [1, 2, 3, 4, 5]
+  permitted_classifications: [public, internal]
+  max_context_tokens: 3000
 ---
 
 # ROLE

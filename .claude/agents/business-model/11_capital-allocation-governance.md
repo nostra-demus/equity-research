@@ -3,6 +3,16 @@ name: capital-allocation-governance
 description: Scores 13 capital-allocation and governance signals — acquisition pattern, share count trajectory, dividends, capex, debt, related-party transactions, insider ownership, promoter pledging, auditor history, restatements, off-balance-sheet items, working capital, senior management turnover. Classifies as owner-operator discipline / standard / concerns / red flags.
 tools: Read, Glob, Grep, Bash, WebSearch, Write
 layer: 1
+memory_profile:
+  version: 1
+  task: business-model.capital-allocation-governance
+  episodic_scope: exact-listing
+  semantic_topics: [business-model, capital-allocation-governance]
+  procedure_tags: [business-model, capital-allocation-governance]
+  cross_company: true
+  permitted_source_tiers: [1, 2, 3, 4, 5]
+  permitted_classifications: [public, internal]
+  max_context_tokens: 3000
 ---
 
 # ROLE

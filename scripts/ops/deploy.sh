@@ -40,6 +40,8 @@ LOG="$HOME/Library/Logs/nostradamus-deploy.log"
 DEPLOY_LOCK="$OPS/.deploy.flock"
 MARK="$OPS/.deployed.sha"   # the SHA the built ui/dist + running engine were last reconciled to
 FAILMARK="$OPS/.deploy.failed"                       # "<sha> <epoch>" of the last build/boot that failed (backoff)
+RUN_BARRIER_DIR="${ENGINE_STATE_DIR:-$PROD/ui/server/.state}"
+RUN_BARRIER_LOCK="$RUN_BARRIER_DIR/provider-deploy-barrier.flock"
 FAIL_BACKOFF="${DEPLOY_FAIL_BACKOFF_SECS:-1800}"     # don't re-attempt the SAME failing SHA more often than this
 # After an engine restart, poll /api/health before trusting the new code. A commit that BUILDS but throws at
 # boot/first request otherwise flaps forever under launchd KeepAlive (the build-failure breaker above never
@@ -1207,6 +1209,59 @@ reconcile_build() {
 trap 'gitlock_release; exec 8>&-' EXIT
 
 cd "$PROD" 2>/dev/null || { log "FATAL cannot cd $PROD"; exit 0; }
+
+# ---- provider-neutral run/deploy barrier -----------------------------------------------------------
+# Every admitted Claude or Codex run holds a SHARED flock on this stable inode; a whole chained run keeps
+# one across the child-transition/capacity gaps too. Deployment takes the EXCLUSIVE side before touching
+# the checkout, dependencies, feature flags, or launchctl. This is an atomic kernel boundary, not a status
+# poll: a run cannot enter after a "no active runs" check but before kickstart. Busy means defer the entire
+# deploy unchanged until the run ends. Unexpected path/ownership state also fails closed.
+case "$RUN_BARRIER_DIR" in /*) ;; *) log "WARN provider deploy barrier requires an absolute state directory"; exit 0 ;; esac
+if [ -e "$RUN_BARRIER_DIR" ] || [ -L "$RUN_BARRIER_DIR" ]; then
+  if [ -L "$RUN_BARRIER_DIR" ] || [ ! -d "$RUN_BARRIER_DIR" ] || [ ! -O "$RUN_BARRIER_DIR" ]; then
+    log "WARN unsafe provider deploy barrier directory — refusing deployment"
+    exit 0
+  fi
+else
+  mkdir -p "$RUN_BARRIER_DIR" 2>/dev/null || { log "WARN cannot create provider deploy barrier directory"; exit 0; }
+fi
+chmod 700 "$RUN_BARRIER_DIR" 2>/dev/null || { log "WARN cannot protect provider deploy barrier directory"; exit 0; }
+[ ! -L "$RUN_BARRIER_LOCK" ] || { log "WARN unsafe provider deploy barrier lock"; exit 0; }
+exec 10>>"$RUN_BARRIER_LOCK" || { log "WARN cannot open provider deploy barrier lock"; exit 0; }
+"$PYTHON" -I - "$RUN_BARRIER_LOCK" 10<&10 <<'PYRUNBARRIER'
+import fcntl
+import os
+import stat
+import sys
+
+try:
+    opened = os.fstat(10); named = os.lstat(sys.argv[1])
+    if (not stat.S_ISREG(opened.st_mode) or opened.st_uid != os.getuid()
+            or opened.st_nlink != 1 or stat.S_ISLNK(named.st_mode)
+            or (opened.st_dev, opened.st_ino) != (named.st_dev, named.st_ino)):
+        raise OSError
+    os.fchmod(10, 0o600)
+    try:
+        fcntl.flock(10, fcntl.LOCK_EX | fcntl.LOCK_NB)
+    except BlockingIOError:
+        raise SystemExit(3)
+    locked = os.fstat(10); named = os.lstat(sys.argv[1])
+    if (locked.st_uid != os.getuid() or locked.st_nlink != 1 or locked.st_mode & 0o077
+            or (locked.st_dev, locked.st_ino) != (named.st_dev, named.st_ino)):
+        raise OSError
+except OSError:
+    raise SystemExit(4)
+PYRUNBARRIER
+barrier_rc=$?
+if [ "$barrier_rc" -ne 0 ]; then
+  exec 10>&-
+  if [ "$barrier_rc" -eq 3 ]; then
+    log "DEFER active cockpit run owns the provider deploy barrier — checkout and engine left unchanged"
+  else
+    log "WARN provider deploy barrier could not be proven safe — refusing deployment"
+  fi
+  exit 0
+fi
 
 ensure_data_symlink   # re-assert data/ -> Drive pool symlink before any git op / build (defense-in-depth)
 
