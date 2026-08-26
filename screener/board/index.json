@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-26T04:01:34Z",
+  "generated_at": "2026-08-26T04:10:50Z",
   "inbox": [
     {
       "inbox_id": "INB-20260826-491",
@@ -1019,6 +1019,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260826-533",
+      "headline": "Adani Energy Solutions Ltd: AESL Wins Rs 4,700 crore Transmission project in Maharashtra for evacuation of 4,500 MW of Renewable & Storage Power",
+      "headline_en": null,
+      "url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/5dcccc1a-9686-4914-b61f-34c8c62748a8.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-26T03:26:44Z",
+      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
+      "prelim_note": "Company won a Rs 4,700 crore transmission project for 4,500 MW evacuation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "Company won a Rs 4,700 crore transmission project for 4,500 MW evacuation.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex",
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Adani Energy Solutions Ltd",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260826-468",
       "headline": "SNM: Sentinel completes acquisition of 1.0Moz Big Springs Project [price-sensitive]",
       "headline_en": null,
@@ -1943,55 +1993,6 @@
           "name": "Sammaan Capital Limited",
           "ticker": null,
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260826-490",
-      "headline": "HAW: Details of Auditor Appointment/Resignation",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.HAW?key=2924-03126490-3A699909",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-26T02:51:31Z",
-      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
-      "prelim_note": "HAW announced details of an auditor appointment or resignation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "HAW announced details of an auditor appointment or resignation.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "management",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "HAW",
-          "ticker": null,
-          "listing_country": "AU"
         }
       ],
       "size_bucket": "unknown",
@@ -80854,150 +80855,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-aaaaf1fc1368",
-      "idea_version": "IDEAV-3c2e59d52bf37f43",
-      "idea_version_started_at": "2026-08-24T19:00:25Z",
-      "ticker": "IPCL",
-      "company": "India Power Corporation Limited",
-      "exchange": "BSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company is undergoing a Corporate Insolvency Resolution Process, indicating severe financial distress.",
-      "why_now": "The company informed the exchange about the Committee of Creditors meeting on August 24, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-1100c983eabc"
-      ],
-      "primary_source_event_id": "EVT-1100c983eabc",
-      "source_headlines": [
-        "DPSC Limited: DPSC Limited has informed the Exchange about Corporate Insolvency Resolution Process-Post facto intimation of the 5th (Fifth) Meeting of the Committee of Creditors (CoC) of India Power Corporation Limited (IPCL)"
-      ],
-      "source_headline": "DPSC Limited: DPSC Limited has informed the Exchange about Corporate Insolvency Resolution Process-Post facto intimation of the 5th (Fifth) Meeting of the Committee of Creditors (CoC) of India Power Corporation Limited (IPCL)",
-      "source_url": "https://nsearchives.nseindia.com/corporate/DPSCLTD_24082026213702_Intimationofpostponmentof5thCOCMeetingtoSE24082026.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-24T16:07:24Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-24T19:00:25Z",
-      "updated_at": "2026-08-24T19:00:25Z",
-      "decay_at": "2026-08-26T04:07:24Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-c4367824b313",
-      "idea_version": "IDEAV-e72f7c9b1affcd09",
-      "idea_version_started_at": "2026-08-24T16:50:38Z",
-      "ticker": "DPSC",
-      "company": "India Power Corporation Limited",
-      "exchange": "BSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company is undergoing a Corporate Insolvency Resolution Process, which typically results in substantial value destruction for existing shareholders.",
-      "why_now": "The update regarding the 5th Committee of Creditors meeting was filed on August 24, 2026.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-1100c983eabc"
-      ],
-      "primary_source_event_id": "EVT-1100c983eabc",
-      "source_headlines": [
-        "DPSC Limited: DPSC Limited has informed the Exchange about Corporate Insolvency Resolution Process-Post facto intimation of the 5th (Fifth) Meeting of the Committee of Creditors (CoC) of India Power Corporation Limited (IPCL)"
-      ],
-      "source_headline": "DPSC Limited: DPSC Limited has informed the Exchange about Corporate Insolvency Resolution Process-Post facto intimation of the 5th (Fifth) Meeting of the Committee of Creditors (CoC) of India Power Corporation Limited (IPCL)",
-      "source_url": "https://nsearchives.nseindia.com/corporate/DPSCLTD_24082026213702_Intimationofpostponmentof5thCOCMeetingtoSE24082026.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-24T16:07:24Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-24T16:50:38Z",
-      "updated_at": "2026-08-24T16:50:38Z",
-      "decay_at": "2026-08-26T04:07:24Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-eec9cd9f6717",
       "idea_version": "IDEAV-7caad8a89b95b482",
       "idea_version_started_at": "2026-08-25T09:09:48Z",
@@ -82207,6 +82064,78 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-aaaaf1fc1368",
+      "idea_version": "IDEAV-3c2e59d52bf37f43",
+      "idea_version_started_at": "2026-08-24T19:00:25Z",
+      "ticker": "IPCL",
+      "company": "India Power Corporation Limited",
+      "exchange": "BSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company is undergoing a Corporate Insolvency Resolution Process, indicating severe financial distress.",
+      "why_now": "The company informed the exchange about the Committee of Creditors meeting on August 24, 2026.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "price and market expectations",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "unknown",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-1100c983eabc"
+      ],
+      "primary_source_event_id": "EVT-1100c983eabc",
+      "source_headlines": [
+        "DPSC Limited: DPSC Limited has informed the Exchange about Corporate Insolvency Resolution Process-Post facto intimation of the 5th (Fifth) Meeting of the Committee of Creditors (CoC) of India Power Corporation Limited (IPCL)"
+      ],
+      "source_headline": "DPSC Limited: DPSC Limited has informed the Exchange about Corporate Insolvency Resolution Process-Post facto intimation of the 5th (Fifth) Meeting of the Committee of Creditors (CoC) of India Power Corporation Limited (IPCL)",
+      "source_url": "https://nsearchives.nseindia.com/corporate/DPSCLTD_24082026213702_Intimationofpostponmentof5thCOCMeetingtoSE24082026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-24T16:07:24Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-24T19:00:25Z",
+      "updated_at": "2026-08-24T19:00:25Z",
+      "decay_at": "2026-08-26T04:07:24Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-b9b5c6dfbbcc",
       "idea_version": "IDEAV-a3fefe3e61967f5f",
       "idea_version_started_at": "2026-08-24T19:00:25Z",
@@ -82273,6 +82202,78 @@
       "surfaced_at": "2026-08-24T19:00:25Z",
       "updated_at": "2026-08-24T19:00:25Z",
       "decay_at": "2026-08-26T03:14:22Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-c4367824b313",
+      "idea_version": "IDEAV-e72f7c9b1affcd09",
+      "idea_version_started_at": "2026-08-24T16:50:38Z",
+      "ticker": "DPSC",
+      "company": "India Power Corporation Limited",
+      "exchange": "BSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company is undergoing a Corporate Insolvency Resolution Process, which typically results in substantial value destruction for existing shareholders.",
+      "why_now": "The update regarding the 5th Committee of Creditors meeting was filed on August 24, 2026.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-1100c983eabc"
+      ],
+      "primary_source_event_id": "EVT-1100c983eabc",
+      "source_headlines": [
+        "DPSC Limited: DPSC Limited has informed the Exchange about Corporate Insolvency Resolution Process-Post facto intimation of the 5th (Fifth) Meeting of the Committee of Creditors (CoC) of India Power Corporation Limited (IPCL)"
+      ],
+      "source_headline": "DPSC Limited: DPSC Limited has informed the Exchange about Corporate Insolvency Resolution Process-Post facto intimation of the 5th (Fifth) Meeting of the Committee of Creditors (CoC) of India Power Corporation Limited (IPCL)",
+      "source_url": "https://nsearchives.nseindia.com/corporate/DPSCLTD_24082026213702_Intimationofpostponmentof5thCOCMeetingtoSE24082026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-24T16:07:24Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-24T16:50:38Z",
+      "updated_at": "2026-08-24T16:50:38Z",
+      "decay_at": "2026-08-26T04:07:24Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -83858,8 +83859,8 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 127,
-    "shown_count": 127,
+    "total_count": 129,
+    "shown_count": 129,
     "hidden_count": 0,
     "side_counts": {
       "long": {
@@ -83868,8 +83869,8 @@
         "hidden_count": 0
       },
       "short": {
-        "total_count": 76,
-        "shown_count": 76,
+        "total_count": 78,
+        "shown_count": 78,
         "hidden_count": 0
       }
     },
@@ -83889,6 +83890,156 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-aaaaf1fc1368",
+        "idea_version": "IDEAV-3c2e59d52bf37f43",
+        "idea_version_started_at": "2026-08-24T19:00:25Z",
+        "ticker": "IPCL",
+        "company": "India Power Corporation Limited",
+        "exchange": "BSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company is undergoing a Corporate Insolvency Resolution Process, indicating severe financial distress.",
+        "why_now": "The company informed the exchange about the Committee of Creditors meeting on August 24, 2026.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "price and market expectations",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "unknown",
+        "thesis_type": "balance_sheet_survival",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-1100c983eabc"
+        ],
+        "primary_source_event_id": "EVT-1100c983eabc",
+        "source_headlines": [
+          "DPSC Limited: DPSC Limited has informed the Exchange about Corporate Insolvency Resolution Process-Post facto intimation of the 5th (Fifth) Meeting of the Committee of Creditors (CoC) of India Power Corporation Limited (IPCL)"
+        ],
+        "source_headline": "DPSC Limited: DPSC Limited has informed the Exchange about Corporate Insolvency Resolution Process-Post facto intimation of the 5th (Fifth) Meeting of the Committee of Creditors (CoC) of India Power Corporation Limited (IPCL)",
+        "source_url": "https://nsearchives.nseindia.com/corporate/DPSCLTD_24082026213702_Intimationofpostponmentof5thCOCMeetingtoSE24082026.pdf",
+        "source_name": "BSE / NSE Exchange Filing",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-24T16:07:24Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-24T19:00:25Z",
+        "updated_at": "2026-08-24T19:00:25Z",
+        "decay_at": "2026-08-26T04:07:24Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-26T04:07:24Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-c4367824b313",
+        "idea_version": "IDEAV-e72f7c9b1affcd09",
+        "idea_version_started_at": "2026-08-24T16:50:38Z",
+        "ticker": "DPSC",
+        "company": "India Power Corporation Limited",
+        "exchange": "BSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company is undergoing a Corporate Insolvency Resolution Process, which typically results in substantial value destruction for existing shareholders.",
+        "why_now": "The update regarding the 5th Committee of Creditors meeting was filed on August 24, 2026.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "balance_sheet_survival",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-1100c983eabc"
+        ],
+        "primary_source_event_id": "EVT-1100c983eabc",
+        "source_headlines": [
+          "DPSC Limited: DPSC Limited has informed the Exchange about Corporate Insolvency Resolution Process-Post facto intimation of the 5th (Fifth) Meeting of the Committee of Creditors (CoC) of India Power Corporation Limited (IPCL)"
+        ],
+        "source_headline": "DPSC Limited: DPSC Limited has informed the Exchange about Corporate Insolvency Resolution Process-Post facto intimation of the 5th (Fifth) Meeting of the Committee of Creditors (CoC) of India Power Corporation Limited (IPCL)",
+        "source_url": "https://nsearchives.nseindia.com/corporate/DPSCLTD_24082026213702_Intimationofpostponmentof5thCOCMeetingtoSE24082026.pdf",
+        "source_name": "BSE / NSE Exchange Filing",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-24T16:07:24Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-24T16:50:38Z",
+        "updated_at": "2026-08-24T16:50:38Z",
+        "decay_at": "2026-08-26T04:07:24Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-26T04:07:24Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-d405caebf67e",
         "idea_version": "IDEAV-504d292584970131",
@@ -93298,7 +93449,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 149,
-    "live_count": 21,
+    "live_count": 19,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -93317,9 +93468,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 816161,
-    "news_picked_today": 840,
-    "news_dropped_today": 5772
+    "news_seen_today": 835414,
+    "news_picked_today": 892,
+    "news_dropped_today": 5936
   },
   "book_momentum": {
     "live_count": 8,
