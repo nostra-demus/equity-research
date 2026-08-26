@@ -104,8 +104,10 @@ export function compareFiniteRank(left: unknown, right: unknown): number {
   if (!leftValid && !rightValid) return 0
   if (!leftValid) return 1
   if (!rightValid) return -1
-  if (left < right) return -1
-  if (left > right) return 1
+  const leftNumber = left as number
+  const rightNumber = right as number
+  if (leftNumber < rightNumber) return -1
+  if (leftNumber > rightNumber) return 1
   return 0
 }
 

@@ -1497,7 +1497,7 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
   const providerScoredBatches: Record<string, number> = {}
   let anthropicDownThisCycle = false // once the paid tier fails this cycle, stop poking it (save the cap)
   let anthropicBudgetBlocked = false // remaining dollars cannot fit one conservative provider call
-  let anthropicPacedThisCycle = false // the latest batch was held only by the reset-clock pacer
+  let anthropicPacedThisCycle = false // at least one eligible batch was held only by the reset-clock pacer
   let anthropicPaceCallBoundUsd = 0 // exact latest-batch bound used to recheck pacing at cycle end
   let anthropicFailNote = '' // the Haiku tier's failure note this cycle → distinguishes plan-quota from a transient error
   let usageLedgerUnavailable = false // durable authority damage is not a spent allowance/provider quota
@@ -1699,7 +1699,7 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
     const haikuHeld = anthropicDownThisCycle || triageIsHeld(stateDir, 'anthropic-triage', candidateAt)
     const haikuBaseReason = candidateReason({ enabled: anthropicOn, ledger: anthropicBudget?.ledgerAvailable === true, exhausted: false, held: haikuHeld, rejected: credentialRejectedFor('anthropic-triage'), hard: haikuHardFit, paced: haikuPacedFit })
     anthropicPaceCallBoundUsd = haikuCallBoundUsd
-    anthropicPacedThisCycle = haikuBaseReason === 'paced' && batchMaxPriority >= cfg.anthropicMinPriority
+    anthropicPacedThisCycle ||= haikuBaseReason === 'paced' && batchMaxPriority >= cfg.anthropicMinPriority
     routingCandidates.push({ id: 'anthropic-triage', label: 'Claude Haiku', order: -1, band: 'direct', eligible: batchMaxPriority >= cfg.anthropicMinPriority && haikuBaseReason === 'eligible', eligibilityReason: batchMaxPriority < cfg.anthropicMinPriority ? 'minimum-priority' : haikuBaseReason, releasedCapacityUrgency: haikuAdmission.normalizedDeficit, consecutiveFailures: cooldownInfo(stateDir, 'anthropic-triage').fails, isHaiku: true })
 
     const routingEvaluation = evaluateProviderRouting(routingOptions(), routingCandidates)

@@ -5040,6 +5040,38 @@ await check('Haiku priority 1 reports paced honestly while automatic fallbacks r
   assert.equal(loadDeferred(state).length, 1, 'the item remains durable for the next released allowance or fallback')
 })
 
+await check('an earlier paced Haiku batch remains visible after a later batch misses the priority floor', async () => {
+  resetSharedLimiters(); resetBudgetMemory(); resetCooldownMemory()
+  const root = tmp(), state = tmp(), day = '2026-06-12'
+  fs.mkdirSync(state, { recursive: true })
+  fs.writeFileSync(path.join(state, 'anthropic-triage-budget.json'), JSON.stringify({ date: day, usd: 2, calls: 20 }))
+  let gdeltServed = false, cliCalls = 0
+  const fetchFn = (async (url: string) => {
+    if (String(url).includes('gdelt') && !gdeltServed) {
+      gdeltServed = true
+      return res({ articles: [
+        { url: 'https://reuters.com/haiku-paced-high', title: 'Company issues a major profit warning and cuts guidance', domain: 'reuters.com', seendate: '20260612T000500Z' },
+        { url: 'https://reuters.com/haiku-paced-low', title: 'Company publishes a routine monthly operations update', domain: 'reuters.com', seendate: '20260612T000500Z' },
+      ] })
+    }
+    return res({ articles: [] })
+  }) as unknown as typeof fetch
+  const summary = await runIngestCycle({
+    repoRoot: root, stateDir: state, fetchFn, sleep: noSleep, now: () => new Date(`${day}T00:10:00Z`),
+    claudeCliRunner: async () => { cliCalls++; return { text: '{"items":[]}', costUsd: 0, costUsdKnown: true } },
+    config: {
+      groqApiKey: '', gdeltBaseUrl: 'https://gdelt.test/doc', gdeltLookbackMin: 40, triageBatch: 1,
+      rssEnabled: false, themesEnabled: false, overflowProviders: [], geminiEnabled: false,
+      anthropicFallbackEnabled: true, anthropicFallbackMode: 'subscription', anthropicDailyUsd: 200,
+      anthropicPerCallUsd: 0.10, anthropicRpm: 6000, anthropicMinPriority: 15,
+      freeProviderPaceFloorFrac: 0,
+    } as any,
+  })
+  assert.equal(cliCalls, 0)
+  assert.equal(summary.last_resort, 'paced', 'a later below-floor batch cannot erase the earlier pacing blocker')
+  assert.equal(loadDeferred(state).length, 2, 'both unscored batches remain durable')
+})
+
 await check('free brains exhausted → the subscription tier SCORES the batch instead of deferring it', async () => {
   resetSharedLimiters()
   resetCooldownMemory()
