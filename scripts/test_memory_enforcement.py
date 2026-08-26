@@ -139,6 +139,19 @@ class EnforcementActivationTests(unittest.TestCase):
                 private_key=self.private, key_id="memory-enforcement-release",
             )
 
+    def test_malformed_nested_shadow_evidence_fails_closed_without_a_traceback(self) -> None:
+        for field in ("provider_parity", "sample", "window"):
+            malformed = copy.deepcopy(self.shadow)
+            malformed[field] = None
+            body = dict(malformed); body.pop("report_sha256")
+            malformed["report_sha256"] = "sha256:" + canonical_sha256(body)
+            with self.subTest(field=field), self.assertRaises(EnforcementError):
+                create_activation(
+                    readiness=self.readiness, three_layer=self.three_layer, shadow=malformed,
+                    created_at="2026-08-27T00:00:00.000000Z", expires_at="2026-09-20T00:00:00.000000Z",
+                    private_key=self.private, key_id="memory-enforcement-release",
+                )
+
     def test_supervisor_cli_verifies_activation_before_dispatch(self) -> None:
         activation = self.activation()
         with tempfile.TemporaryDirectory() as directory:

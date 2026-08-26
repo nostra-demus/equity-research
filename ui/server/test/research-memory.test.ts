@@ -125,6 +125,14 @@ await assert.rejects(
 assert.deepEqual(blockedCalls.map((args) => args[0]), ['verify-enforcement'])
 assert.equal(blockedByReleaseGate.memoryRuntime?.status, 'blocked')
 
+clearResearchMemoryPreparationForTests()
+const malformedGateResult = run()
+await assert.rejects(
+  () => prepareResearchMemory(malformedGateResult, async () => null as any, configured),
+  /memory snapshot blocked before spend: signed memory enforcement activation did not verify/,
+)
+assert.equal(malformedGateResult.memoryRuntime?.status, 'blocked')
+
 const shadowGateCalls: string[][] = []
 const shadowWithConfig = run()
 await prepareResearchMemory(shadowWithConfig, async (args) => {

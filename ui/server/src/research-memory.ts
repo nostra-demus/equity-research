@@ -287,7 +287,7 @@ async function verifyEnforcementGate(
   config: MemoryConfig, run: RunState, executor: MemoryExecutor,
 ): Promise<void> {
   if (config.mode !== 'enforced') return
-  const result = await executor([
+  const untrustedResult: unknown = await executor([
     'verify-enforcement', '--activation', config.enforcementActivation,
     '--readiness', config.enforcementReadiness,
     '--three-layer', config.enforcementThreeLayer,
@@ -295,6 +295,10 @@ async function verifyEnforcementGate(
     '--public-key', config.enforcementPublicKey, '--key-id', config.enforcementKeyId,
     '--provider', run.provider, '--model', run.model, '--now', new Date().toISOString(),
   ])
+  if (!untrustedResult || typeof untrustedResult !== 'object' || Array.isArray(untrustedResult)) {
+    throw new Error('signed memory enforcement activation did not verify')
+  }
+  const result = untrustedResult as Record<string, unknown>
   if (result.schema !== 'memory-enforcement-verification/v1' || result.ok !== true
       || result.provider_model !== `${run.provider}/${run.model}`
       || typeof result.activation_sha256 !== 'string' || !HASH.test(result.activation_sha256)

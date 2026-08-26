@@ -74,11 +74,22 @@ def _verify_report_hash(report: Mapping[str, Any], field: str, label: str) -> st
     return supplied
 
 
+def _mapping(value: Any) -> Mapping[str, Any]:
+    """Return an untrusted nested object only when it is safe to inspect."""
+
+    return value if isinstance(value, Mapping) else {}
+
+
+def _shadow_window_end(shadow: Mapping[str, Any]) -> Any:
+    return _mapping(shadow.get("window")).get("end")
+
+
 def _release_evidence(
     readiness: Mapping[str, Any], three_layer: Mapping[str, Any], shadow: Mapping[str, Any],
 ) -> tuple[dict[str, str], list[str]]:
     verify_operational_readiness_report(readiness)
-    if readiness.get("status") != "met" or readiness.get("adoption", {}).get("production_benchmark", {}).get("status") != "met":
+    production_benchmark = _mapping(_mapping(readiness.get("adoption")).get("production_benchmark"))
+    if readiness.get("status") != "met" or production_benchmark.get("status") != "met":
         raise EnforcementError("operational readiness and the exact Phase 0 production benchmark must be met")
     if (
         three_layer.get("schema") != "memory-three-layer-benchmark-report/v1"
@@ -91,15 +102,17 @@ def _release_evidence(
         raise EnforcementError("the runtime-held-out 40-case gate is not met")
     three_hash = _verify_report_hash(three_layer, "report_sha256", "three-layer report")
     gate = shadow.get("gate")
+    provider_parity = _mapping(shadow.get("provider_parity"))
+    sample = _mapping(shadow.get("sample"))
     if (
         shadow.get("schema") != "memory-shadow-evaluation-report/v1"
         or shadow.get("evaluation_mode") != "production-shadow"
         or not isinstance(gate, Mapping) or gate.get("quality_passed") is not True
         or gate.get("counts_as_production_evidence") is not True
         or gate.get("blocking_reasons") != []
-        or shadow.get("provider_parity", {}).get("status") != "met"
-        or shadow.get("sample", {}).get("missing_agent_keys") != []
-        or shadow.get("sample", {}).get("required_agents") != shadow.get("sample", {}).get("covered_required_agents")
+        or provider_parity.get("status") != "met"
+        or sample.get("missing_agent_keys") != []
+        or sample.get("required_agents") != sample.get("covered_required_agents")
         or shadow.get("roster_sha256") != analytical_roster_sha256(Path(__file__).resolve().parents[1])
     ):
         raise EnforcementError("the production shadow and provider-parity gate is not met")
@@ -138,7 +151,7 @@ def create_activation(
     if not isinstance(identity, str) or ACTIVATION_ID.fullmatch(identity) is None:
         raise EnforcementError("activation identity is invalid")
     _, readiness_at = _instant(readiness.get("evaluated_at"), "readiness.evaluated_at")
-    _, shadow_end = _instant(shadow.get("window", {}).get("end"), "shadow.window.end")
+    _, shadow_end = _instant(_shadow_window_end(shadow), "shadow.window.end")
     if readiness_at > created or shadow_end > created:
         raise EnforcementError("release evidence cannot postdate activation")
     unsigned: dict[str, Any] = {
@@ -179,7 +192,7 @@ def verify_activation(
     if current < created or current >= expires:
         raise EnforcementError("enforcement activation is not currently valid")
     _, readiness_at = _instant(readiness.get("evaluated_at"), "readiness.evaluated_at")
-    _, shadow_end = _instant(shadow.get("window", {}).get("end"), "shadow.window.end")
+    _, shadow_end = _instant(_shadow_window_end(shadow), "shadow.window.end")
     if readiness_at > created or shadow_end > created:
         raise EnforcementError("release evidence cannot postdate activation")
     if f"{provider}/{model}" not in providers:
