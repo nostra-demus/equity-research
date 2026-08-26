@@ -16,6 +16,12 @@ from memory_profiles import parse_profile
 from memory_projection import verify_projection
 from memory_crypto import load_master_key_file
 from memory_enforcement import verify_activation
+from memory_candidate_intake import (
+    CandidateIntakeError,
+    build_intake_receipt,
+    intake_attested_candidates,
+    materialize_candidate_suggestions,
+)
 from memory_runtime import (
     EXCHANGE_MICS,
     MemoryRuntimeError,
@@ -44,6 +50,7 @@ from research_memory_run import (
     store_packet,
     store_provider_authorization,
     store_run_receipt,
+    task_episode_id,
     utc_now,
     validate_memory_use,
 )
@@ -161,6 +168,9 @@ def normalize_agent_draft(
     }
     if not isinstance(draft, dict) or draft.get("schema") != "memory-use-draft/v1" or set(draft) != expected_fields:
         raise ResearchMemoryError("memory-use-agent-input-must-be-closed-draft")
+    suggestions = draft.get("candidate_suggestions")
+    if not isinstance(suggestions, list) or len(suggestions) > 32:
+        raise ResearchMemoryError("memory-use-candidate-suggestions-invalid")
     output_path, refs = verify_current_evidence(
         root, ticker=ticker, output=output, rows=draft.get("current_evidence"),
     )
@@ -352,6 +362,10 @@ def compile_packet(args: argparse.Namespace) -> int:
         receipt_path(state, args.run_id),
         verifier=ed25519_contract_verifier(args.contract_public_key, key_id=args.contract_key_id),
     )
+    verify_projection(
+        frozen_projection_path(state, args.run_id),
+        expected_digest=receipt["projection_digest"].removeprefix("sha256:"),
+    )
     authorization = load_bound_authorization(
         state, run_id=args.run_id, path=args.authorization,
         expected_sha256=args.authorization_sha256, receipt=receipt,
@@ -406,6 +420,10 @@ def attest(args: argparse.Namespace) -> int:
         receipt_path(state, args.run_id),
         verifier=ed25519_contract_verifier(args.contract_public_key, key_id=args.contract_key_id),
     )
+    verify_projection(
+        frozen_projection_path(state, args.run_id),
+        expected_digest=receipt["projection_digest"].removeprefix("sha256:"),
+    )
     authorization = load_bound_authorization(
         state, run_id=args.run_id, path=args.authorization,
         expected_sha256=args.authorization_sha256, receipt=receipt,
@@ -420,15 +438,31 @@ def attest(args: argparse.Namespace) -> int:
     output_path, internal_draft = normalize_agent_draft(
         root, ticker=receipt["issuer_listing"]["ticker"], output=args.output, draft=draft_or_use,
     )
-    use = materialize_memory_use(
-        internal_draft, receipt=effective_receipt, packet=packet,
-        task_id=args.task_id, agent_id=agent_id,
-    )
     output = _safe_regular(output_path, owner_only=False)
+    moment = dt.datetime.now(dt.timezone.utc)
+    episode_id = task_episode_id(
+        run_id=args.run_id, task_id=args.task_id, output=output,
+    )
+    candidates = materialize_candidate_suggestions(
+        internal_draft["candidate_suggestions"], receipt=effective_receipt,
+        agent_id=agent_id, task_episode_id=episode_id,
+        current_evidence_refs=internal_draft["current_evidence_refs"],
+        database_path=frozen_projection_path(state, args.run_id),
+        now=moment,
+    )
+    materialized_draft = {
+        **internal_draft,
+        "candidate_suggestions": [item["candidate_sha256"] for item in candidates],
+    }
+    use = materialize_memory_use(
+        materialized_draft, receipt=effective_receipt, packet=packet,
+        task_id=args.task_id, agent_id=agent_id, now=moment,
+    )
     attestation = validate_memory_use(
         use, packet=packet, output=output,
         signer=ed25519_contract_signer(args.contract_private_key, key_id=args.contract_key_id),
         supervisor_id=args.supervisor_id,
+        now=moment,
     )
     task = build_task_episode(
         run_id=args.run_id, task_id=args.task_id, issuer_listing=receipt["issuer_listing"],
@@ -438,6 +472,7 @@ def attest(args: argparse.Namespace) -> int:
         output=output, packet=packet, query=query, attestation=attestation,
         latency_milliseconds=args.latency_ms, cost_microusd=args.cost_microusd,
         quality_gates=[{"name": "output-contract", "passed": args.output_gate_passed}],
+        now=moment,
     )
     directory = state / "execution-receipts" / args.run_id / safe_agent
     attestation_path = directory / "use-attestation.json"
@@ -446,12 +481,26 @@ def attest(args: argparse.Namespace) -> int:
     _atomic_private_write(attestation_path, attestation)
     _atomic_private_write(directory / "memory-use.json", use)
     _atomic_private_write(episode_path, task)
+    queued = intake_attested_candidates(
+        candidates, state_root=state, repository_root=root,
+        protected_master_key=args.protected_master_key,
+        protected_key_id=args.protected_key_id,
+        attestation=attestation, output_gate_passed=args.output_gate_passed,
+    ) if attestation["valid"] and args.output_gate_passed else []
+    if candidates:
+        intake = build_intake_receipt(
+            run_id=args.run_id, task_id=args.task_id, task_episode_id=task["episode_id"],
+            use_id=use["use_id"], candidates=candidates, now=moment,
+        )
+        if queued:
+            _atomic_private_write(directory / "candidate-intake.json", intake)
     dump({
         "schema": "research-memory-attest-result/v1", "ok": True, "valid": attestation["valid"],
         "attestation_id": attestation["attestation_id"], "episode_id": task["episode_id"],
         "status": task["status"], "error_codes": task["error_codes"],
+        "candidate_count": len(queued),
     })
-    return 0 if attestation["valid"] or args.mode == "shadow" else 2
+    return 0 if task["status"] == "completed" or args.mode == "shadow" else 2
 
 
 def finalize(args: argparse.Namespace) -> int:
@@ -564,6 +613,8 @@ def parser() -> argparse.ArgumentParser:
     a.add_argument("--authorization", required=True)
     a.add_argument("--authorization-sha256", required=True)
     a.add_argument("--contract-private-key", required=True)
+    a.add_argument("--protected-master-key")
+    a.add_argument("--protected-key-id")
     a.add_argument("--agent-key", required=True)
     a.add_argument("--task-id", required=True)
     a.add_argument("--output", required=True)
@@ -589,7 +640,7 @@ def main(argv: list[str] | None = None) -> int:
     args = parser().parse_args(argv)
     try:
         return int(args.handler(args))
-    except (OSError, ValueError, sqlite3.Error, MemoryRuntimeError, ResearchMemoryError) as exc:
+    except (OSError, ValueError, sqlite3.Error, MemoryRuntimeError, ResearchMemoryError, CandidateIntakeError) as exc:
         dump({"schema": "research-memory-error/v1", "ok": False, "code": str(exc)})
         return 1
 

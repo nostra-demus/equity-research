@@ -44,6 +44,10 @@ production dispatch stays off until its shadow and enforcement gates pass.
 - Closed production contracts for query v2, separated context packets, frozen run receipts,
   supervisor-attested memory use, task/run episodes, semantic candidates/lessons, procedural
   candidates/playbooks/evaluations/executions, provider policy, and PR-bound promotion manifests.
+- A supervisor-only candidate-intake bridge that turns structured analytical suggestions into inert
+  existing candidate contracts only after evidence/policy resolution and valid task attestation.
+  The canonical memory-use record stores hashes; raw candidate content remains owner-only outside
+  Git, and the agent cannot choose authorship, provenance, replay commitments, timestamps, or IDs.
 - Cross-field fail-closed checks for authority narrowing, role token ceilings, mandatory-memory
   overflow, exact-listing identity, 180-day semantic review, empirical promotion floors,
   independent promotion, deterministic-tool allowlists, playbook validation cases, and untrusted
