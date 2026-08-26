@@ -107,7 +107,7 @@ import {
   writePendingModulePublication,
 } from './module-publication'
 import { retryBoundModulePublication, type CommitRunAttempt } from './module-publication-git'
-import { readLastProviderSelection } from './execution-provenance'
+import { readLastProviderSelection, readProviderInterruptionAuthority } from './execution-provenance'
 import { intakePoolNewest, latestPlanFileFor, readIntakePlan, resolveIntakeRunRoot, type IntakeReceiptIntent } from './intake'
 import { finishedOwnerConflict, listFinishedIntakeOwners, resolveUniqueFinishedIntakeOwner, type FinishedIntakeOwner } from './intake-owner'
 import { getBridgeStatus, getBridgeSubjectNames, startBridgeScheduler } from './bridge-scheduler'
@@ -956,6 +956,16 @@ const ParityCanaryLaunchBody = z.object({
   freezeReceipt: z.string().regex(/^[A-Za-z0-9._/-]{1,500}$/),
 }).strict()
 
+const ParityCanaryContinueBody = z.object({
+  provider: z.literal('codex'),
+  model: z.string().regex(/^[a-z0-9.\-]{1,40}$/i),
+  reasoningLevel: z.string().regex(/^[a-z0-9_-]{1,24}$/i),
+  expectedProfileKey: z.string().min(1).max(240),
+  runRoot: z.string().regex(PARITY_CANARY_RUN_ROOT_RE),
+  freezeReceipt: z.string().regex(/^[A-Za-z0-9._/-]{1,500}$/),
+  interruptedRunId: z.string().uuid(),
+}).strict()
+
 const ParityCanaryStatusQuery = z.object({
   runRoot: z.string().regex(PARITY_CANARY_RUN_ROOT_RE),
 }).strict()
@@ -1100,6 +1110,99 @@ app.post('/api/internal/provider-parity/canary', { config: { rateLimit: { max: 4
   } catch (error: any) {
     const body = error?.body && typeof error.body === 'object' ? error.body : null
     return reply.code(error?.statusCode || 500).send({ error: error?.message || 'parity canary launch failed', ...(body || {}) })
+  }
+})
+
+// One-use recovery for a frozen Codex canary whose provider process exited cleanly before it finished its
+// discovered Task graph. This is deliberately a different route from the paid canary POST: it can only
+// continue the exact supervisor-sealed root/profile/process already on disk, and can never create a new
+// attempt root. The subject lock plus interruption-marker consumption makes duplicate clicks fail closed.
+app.post('/api/internal/provider-parity/canary-continue', { config: { rateLimit: { max: 4, timeWindow: '1 minute' } } }, async (req, reply) => {
+  if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request blocked' })
+  if (process.env.ENGINE_PROVIDER_PARITY_ENABLED !== '1') {
+    return reply.code(404).send({ error: 'provider parity launch is disabled' })
+  }
+  const { user, userVia } = identify(req)
+  if (userVia !== 'cf-access' || !isDispatchAdmin(user)) {
+    return reply.code(403).send({ error: 'not authorized to continue provider parity (admin only)' })
+  }
+  const parsed = ParityCanaryContinueBody.safeParse(req.body)
+  if (!parsed.success) return reply.code(400).send({ error: 'invalid parity canary continuation body', detail: parsed.error.flatten() })
+
+  const validateCandidate = (): { subject: string } => {
+    const lexicalRoot = path.join(REPO_ROOT, parsed.data.runRoot)
+    let lexicalStat: fs.Stats
+    try { lexicalStat = fs.lstatSync(lexicalRoot) } catch {
+      throw Object.assign(new Error('canary run root not found'), { statusCode: 404 })
+    }
+    if (!lexicalStat.isDirectory() || lexicalStat.isSymbolicLink()) {
+      throw Object.assign(new Error('invalid canary run root'), { statusCode: 400 })
+    }
+    let rootAbs: string
+    try { rootAbs = resolveInsideAnalyses(lexicalRoot) } catch {
+      throw Object.assign(new Error('invalid canary run root'), { statusCode: 400 })
+    }
+    const interruptedRaw = readCanaryRunFile(rootAbs, '.interrupted')
+    let marker: Record<string, unknown>
+    try {
+      const value = interruptedRaw ? JSON.parse(interruptedRaw) : null
+      if (!value || typeof value !== 'object' || Array.isArray(value)) throw new Error('invalid')
+      marker = value
+    } catch {
+      throw Object.assign(new Error('canary has no valid supervisor interruption marker'), { statusCode: 409 })
+    }
+    const authority = readProviderInterruptionAuthority(parsed.data.runRoot)
+    if (!authority
+        || authority.runId !== parsed.data.interruptedRunId
+        || authority.provider !== parsed.data.provider
+        || authority.model !== parsed.data.model
+        || authority.reasoningLevel !== parsed.data.reasoningLevel
+        || authority.profileKey !== parsed.data.expectedProfileKey
+        || (marker.attemptId ?? marker.runId) !== parsed.data.interruptedRunId
+        || marker.provider !== parsed.data.provider
+        || marker.model !== parsed.data.model
+        || marker.reasoningLevel !== parsed.data.reasoningLevel
+        || marker.profileKey !== parsed.data.expectedProfileKey
+        || marker.reason !== 'codex_incomplete_orchestration') {
+      throw Object.assign(new Error('canary interruption authority does not match the requested Codex process/profile'), { statusCode: 409 })
+    }
+    if (canaryRunFileExists(rootAbs, '.aborted')
+        || ['final_thesis.md', 'decision_record.json', 'execution_provenance.receipt.json']
+          .some((name) => canaryRunFileExists(rootAbs, name))) {
+      throw Object.assign(new Error('canary is aborted or already has terminal artifacts'), { statusCode: 409 })
+    }
+    const bindingRaw = readCanaryRunFile(rootAbs, '.provider-parity-input.json')
+    let subject = ''
+    try { subject = String(JSON.parse(bindingRaw || '{}').subject || '').toUpperCase() } catch { /* fail below */ }
+    if (!isValidTicker(subject)) {
+      throw Object.assign(new Error('canary provider binding has an invalid subject'), { statusCode: 409 })
+    }
+    if (subjectChainActive(subject, RESEARCH_SWARM_ID)
+        || listRuns().some((run) => run.runRoot === parsed.data.runRoot && IN_FLIGHT_STATUSES.has(run.status))) {
+      throw Object.assign(new Error('canary already has an active writer'), { statusCode: 409 })
+    }
+    return { subject }
+  }
+
+  try {
+    const initial = validateCandidate()
+    return await withSubjectLock(subjectMutationLockKey(RESEARCH_SWARM_ID, initial.subject), async () => {
+      const current = validateCandidate()
+      if (current.subject !== initial.subject) {
+        throw Object.assign(new Error('canary subject changed before continuation'), { statusCode: 409 })
+      }
+      return launch({
+        kind: 'full', provider: parsed.data.provider, model: parsed.data.model,
+        reasoningLevel: parsed.data.reasoningLevel, expectedProfileKey: parsed.data.expectedProfileKey,
+        parityCanary: {
+          runRoot: parsed.data.runRoot, freezeReceipt: parsed.data.freezeReceipt, stage: 'continuation',
+        },
+        user, userVia,
+      })
+    })
+  } catch (error: any) {
+    const body = error?.body && typeof error.body === 'object' ? error.body : null
+    return reply.code(error?.statusCode || 500).send({ error: error?.message || 'parity canary continuation failed', ...(body || {}) })
   }
 })
 
