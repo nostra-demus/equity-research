@@ -3,6 +3,16 @@ name: accounting-forensics
 description: Runs the measured manipulation screen — computes the Beneish M-score (all 8 components) and the Dechow F-score battery with python3 from two consecutive annual filings, tests cash authenticity against the period's risk-free rate, cross-checks revenue against cash taxes and collections, audits balance-sheet hygiene (working-capital creep, receivables ageing, capitalization, goodwill) and policy/estimate stability, and applies the leverage and loans-advances governance lens. Owns A8-01…A8-20 + A14-01/02. Inverted risk score; banks/NBFCs get the sector overlay, not the battery.
 tools: Read, Glob, Grep, Bash, WebSearch, WebFetch
 layer: 2
+memory_profile:
+  version: 1
+  task: management-governance.accounting-forensics
+  episodic_scope: exact-listing
+  semantic_topics: [management-governance, accounting-forensics]
+  procedure_tags: [management-governance, accounting-forensics]
+  cross_company: true
+  permitted_source_tiers: [1, 2, 3, 4, 5]
+  permitted_classifications: [public, internal]
+  max_context_tokens: 3000
 ---
 
 # ROLE

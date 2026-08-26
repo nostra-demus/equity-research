@@ -4,6 +4,9 @@
 #   - a non-launchd process squatting :8787 (KeepAlive keeps EADDRINUSE-ing)
 #   - the engine "up" but serving BROKEN content (the blank page: HTML returned for the JS bundle)
 #   - the cloudflared tunnel being unreachable
+#   - the engine "up" while its scanner scheduler is stale, its queue evidence is damaged, or all providers
+#     are blocked. Only the scheduler-stale class is restarted; provider/storage/capacity faults are logged
+#     with their real remedy because restarting cannot repair them.
 # Local failures repair after 2 consecutive checks. A public/tunnel failure gets one immediate repair,
 # then a convergence cooldown prevents repeated tunnel restarts from extending an edge rollout flap.
 # Every check/incident/repair is logged to ~/Library/Logs/nostradamus-watchdog.log ("keep a track").
@@ -11,7 +14,7 @@ set -uo pipefail
 
 # Pure decision helper. Keeping this above the source guard lets the test exercise cooldown boundaries
 # without running the watchdog (and therefore without touching launchctl or the network).
-tunnel_heal_cooldown_remaining() {
+cooldown_remaining() {
   local now_raw="${1:-}" last_raw="${2:-}" cooldown_raw="${3:-}"
   local now last cooldown elapsed
   case "$now_raw" in ''|*[!0-9]*) return 2;; esac
@@ -103,8 +106,15 @@ TUNNEL_HEAL_COOLDOWN_SECONDS="${WATCHDOG_TUNNEL_HEAL_COOLDOWN_SECONDS:-300}"
 case "$TUNNEL_HEAL_COOLDOWN_SECONDS" in
   ''|*[!0-9]*) TUNNEL_HEAL_COOLDOWN_SECONDS=300;;
 esac
+SCANNER_HEALTH_INTERVAL_SECONDS="${WATCHDOG_SCANNER_HEALTH_INTERVAL_SECONDS:-180}"
+SCANNER_HEAL_COOLDOWN_SECONDS="${WATCHDOG_SCANNER_HEAL_COOLDOWN_SECONDS:-900}"
+case "$SCANNER_HEALTH_INTERVAL_SECONDS" in ''|*[!0-9]*) SCANNER_HEALTH_INTERVAL_SECONDS=180;; esac
+case "$SCANNER_HEAL_COOLDOWN_SECONDS" in ''|*[!0-9]*) SCANNER_HEAL_COOLDOWN_SECONDS=900;; esac
 # resolve npm to an absolute path (launchd has a minimal PATH; brew is /opt/homebrew on Apple-Silicon, /usr/local on Intel)
 NPM="$(command -v npm 2>/dev/null || true)"; [ -n "$NPM" ] || for c in /opt/homebrew/bin/npm /usr/local/bin/npm; do [ -x "$c" ] && NPM="$c" && break; done; NPM="${NPM:-/opt/homebrew/bin/npm}"
+# The scanner verdict reader is dependency-free JavaScript. Resolve Node separately rather than invoking
+# npm/tsx every three minutes; launchd's PATH is intentionally minimal.
+NODE="$(command -v node 2>/dev/null || true)"; [ -n "$NODE" ] || for c in /opt/homebrew/bin/node /usr/local/bin/node; do [ -x "$c" ] && NODE="$c" && break; done; NODE="${NODE:-/opt/homebrew/bin/node}"
 PYTHON="$(command -v python3 2>/dev/null || true)"; PYTHON="${PYTHON:-/usr/bin/python3}"
 UID_NUM="$(id -u)"
 AGENTS_DIR="$HOME/Library/LaunchAgents"
@@ -112,6 +122,11 @@ LOG="$HOME/Library/Logs/nostradamus-watchdog.log"
 STATE_DIR="$HOME/Library/Application Support/nostradamus"
 FAILS="$STATE_DIR/watchdog.fails"
 TUNNEL_HEAL_AT="$STATE_DIR/tunnel-heal.at"
+SCANNER_HEALTH_AT="$STATE_DIR/scanner-health.at"
+SCANNER_HEALTH_STATE="$STATE_DIR/scanner-health.state"
+SCANNER_HEALTH_FAILS="$STATE_DIR/scanner-health.fails"
+SCANNER_HEAL_AT="$STATE_DIR/scanner-heal.at"
+SCANNER_HEALING="$STATE_DIR/scanner-healing"
 mkdir -p "$STATE_DIR" "$(dirname "$LOG")"
 
 ts() { date '+%Y-%m-%d %H:%M:%S'; }
@@ -124,6 +139,17 @@ get_tunnel_heal_at() {
   case "$value" in ''|*[!0-9]*) echo 0;; *) echo "$value";; esac
 }
 set_tunnel_heal_at() { echo "$1" > "$TUNNEL_HEAL_AT"; }
+get_scanner_fails() {
+  local value
+  value="$(cat "$SCANNER_HEALTH_FAILS" 2>/dev/null || true)"
+  case "$value" in ''|*[!0-9]*) echo 0;; *) echo "$value";; esac
+}
+set_scanner_fails() { echo "$1" > "$SCANNER_HEALTH_FAILS"; }
+get_scanner_heal_at() {
+  local value
+  value="$(cat "$SCANNER_HEAL_AT" 2>/dev/null || true)"
+  case "$value" in ''|*[!0-9]*) echo 0;; *) echo "$value";; esac
+}
 # Recover an agent even if it was booted OUT (not just crashed): `kickstart` cannot start an
 # unloaded agent, so bootstrap first when it is gone, THEN (re)start. This is exactly what was
 # missing when a failed installer left the engine booted-out and the watchdog could not bring it back.
@@ -140,7 +166,7 @@ connector_note_hourly() {
   now="$(date +%s)"
   last="$(cat "$marker" 2>/dev/null || true)"
   case "$last" in ''|*[!0-9]*) last=0;; esac
-  remaining="$(tunnel_heal_cooldown_remaining "$now" "$last" 3600 2>/dev/null || echo 0)"
+  remaining="$(cooldown_remaining "$now" "$last" 3600 2>/dev/null || echo 0)"
   [ "${remaining:-0}" -eq 0 ] || return 0
   log "$message"
   printf '%s\n' "$now" > "$marker.tmp" 2>/dev/null && mv "$marker.tmp" "$marker" 2>/dev/null || true
@@ -161,6 +187,12 @@ for ag in com.nostradamus.deploy com.nostradamus.news-archive; do
   launchctl print "gui/$UID_NUM/$ag" >/dev/null 2>&1 \
     || { launchctl bootstrap "gui/$UID_NUM" "$AGENTS_DIR/$ag.plist" 2>/dev/null && log "RECOVERED $ag (was booted out)"; }
 done
+
+QUEUE_ARCHIVE_FAILURE="$REPO/ui/server/.state/news-archive.failed"
+if [ -s "$QUEUE_ARCHIVE_FAILURE" ]; then
+  connector_note_hourly news-archive-failed \
+    "NEWS ARCHIVE failed — canonical SQLite queue does not have both current Drive restore points"
+fi
 
 # Reconcile the complete connector scheduler, not merely an already-installed process.  The independent
 # supervisor owns the fail-closed chain role -> stable pool identity -> plist contract -> launchd -> fresh
@@ -188,7 +220,14 @@ if ! curl -fsS --max-time 5 "http://127.0.0.1:$PORT/api/health" >/dev/null 2>&1;
   problem="engine-down"
 else
   # 2) CONTENT health — the served bundle must come back as real JS. If it's HTML/404, the SPA is blank.
-  ref="$(curl -fsS --max-time 5 "http://127.0.0.1:$PORT/" 2>/dev/null | grep -oE 'assets/index-[A-Za-z0-9_-]+\.js' | head -1)"
+  # Vite owns the entry-chunk basename. It historically emitted `index-*`, while the current build emits
+  # `main-*`; keying health to either spelling turns every healthy deploy into an endless rebuild/restart
+  # loop when the bundler changes that implementation detail. Read the actual script entry from the served
+  # HTML, while keeping the captured path to one safe `assets/` segment before requesting it below.
+  ref="$(curl -fsS --max-time 5 "http://127.0.0.1:$PORT/" 2>/dev/null \
+    | grep -oE '<script([[:space:]][^>]*)?>' \
+    | grep -oE "[[:space:]]src[[:space:]]*=[[:space:]]*['\"](\./|/)?assets/[A-Za-z0-9._-]+\.js['\"]" \
+    | grep -oE 'assets/[A-Za-z0-9._-]+\.js' | head -n 1)"
   if [ -z "$ref" ]; then
     problem="no-bundle-ref"
   else
@@ -263,7 +302,7 @@ if [ -n "$problem" ]; then
       tunnel-down|public-offline)
         now="$(date +%s)"
         last_heal="$(get_tunnel_heal_at)"
-        cooldown_remaining="$(tunnel_heal_cooldown_remaining "$now" "$last_heal" "$TUNNEL_HEAL_COOLDOWN_SECONDS")"
+        cooldown_remaining="$(cooldown_remaining "$now" "$last_heal" "$TUNNEL_HEAL_COOLDOWN_SECONDS")"
         if [ "${cooldown_remaining:-0}" -gt 0 ]; then
           log "SUPPRESS HEAL $problem — tunnel convergence cooldown ${cooldown_remaining}s remaining"
           # Tunnel state has its own timestamp. Do not let its persistent failure count make the next
@@ -296,7 +335,85 @@ else
   { [ ! -f "$LOG" ] || [ "$hb_age" -ge 3300 ]; } && log "OK${detail:+ [$detail]} pub=${pub:-?}"
 fi
 
-# 4) THE STORY (enrich) read health — defense-in-depth ON TOP OF the engine's own per-cycle heal pass.
+# 4) SCANNER WORK health — the process can answer /api/health while its scheduler is no longer completing
+# looks, its queue/ledger is unreadable, or every provider is blocked. Read the SAME verdict the cockpit
+# shows; never duplicate provider policy here. Only a restart-engine verdict can kickstart the process.
+# Capacity, credential, quota, and storage faults are logged with their real remedy and left running.
+if [ -z "$problem" ]; then
+  sh_age=999999
+  [ -f "$SCANNER_HEALTH_AT" ] && sh_age=$(( $(date +%s) - $(stat -f %m "$SCANNER_HEALTH_AT" 2>/dev/null || echo 0) ))
+  if [ "$sh_age" -ge "$SCANNER_HEALTH_INTERVAL_SECONDS" ]; then
+    touch "$SCANNER_HEALTH_AT"
+    scanner_line="$("$NODE" "$REPO/scripts/ops/scanner-health.mjs" --url "http://127.0.0.1:$PORT/api/news/diagnostics" 2>&1)"
+    scanner_rc=$?
+    scanner_line="$(printf '%s\n' "$scanner_line" | head -1)"
+    scanner_status=""; scanner_code=""; scanner_action=""; scanner_summary=""
+    IFS=$'\t' read -r scanner_status scanner_code scanner_action scanner_summary <<< "$scanner_line"
+    case "$scanner_status" in healthy|degraded|failing|idle) ;;
+      *) scanner_status="failing"; scanner_code="diagnostics-contract-invalid"; scanner_action="inspect-deploy"; scanner_summary="Scanner health reader returned an invalid result."; scanner_rc=4 ;;
+    esac
+    [ -n "$scanner_code" ] || scanner_code="diagnostics-contract-invalid"
+    [ -n "$scanner_action" ] || scanner_action="inspect-deploy"
+    [ -n "$scanner_summary" ] || scanner_summary="Scanner health did not include a root-cause summary."
+
+    prior_line="$(cat "$SCANNER_HEALTH_STATE" 2>/dev/null || true)"
+    prior_status=""; prior_code=""; prior_action=""; prior_summary=""
+    IFS=$'\t' read -r prior_status prior_code prior_action prior_summary <<< "$prior_line"
+    scanner_key="$scanner_status|$scanner_code|$scanner_action"
+    prior_key="$prior_status|$prior_code|$prior_action"
+    printf '%s\t%s\t%s\t%s\n' "$scanner_status" "$scanner_code" "$scanner_action" "$scanner_summary" > "$SCANNER_HEALTH_STATE"
+
+    if [ "$scanner_status" = "healthy" ]; then
+      if [[ (-n "$prior_status" && "$prior_status" != "healthy") || -f "$SCANNER_HEALING" ]]; then
+        log "SCANNER-RECOVERED — $scanner_summary"
+      fi
+      set_scanner_fails 0
+      rm -f "$SCANNER_HEALING"
+    else
+      if [ "$scanner_key" != "$prior_key" ]; then
+        case "$scanner_rc" in
+          4) log "SCANNER-MONITOR-FAILED [$scanner_code] — $scanner_summary" ;;
+          *)
+            scanner_label="DEGRADED"
+            [ "$scanner_status" = "failing" ] && scanner_label="FAILING"
+            [ "$scanner_status" = "idle" ] && scanner_label="IDLE"
+            log "SCANNER-$scanner_label [$scanner_code; remedy=$scanner_action] — $scanner_summary"
+            ;;
+        esac
+      fi
+
+      if [ "$scanner_rc" -eq 3 ] && [ "$scanner_action" = "restart-engine" ]; then
+        if [ "$scanner_key" = "$prior_key" ]; then scanner_n=$(( $(get_scanner_fails) + 1 )); else scanner_n=1; fi
+        set_scanner_fails "$scanner_n"
+        # The verdict already has its own scheduler-staleness grace. Require a second independent read too,
+        # then keep a separate restart cooldown so a persistent code/config problem cannot cause churn.
+        if [ "$scanner_n" -ge 2 ]; then
+          scanner_now="$(date +%s)"
+          scanner_remaining="$(cooldown_remaining "$scanner_now" "$(get_scanner_heal_at)" "$SCANNER_HEAL_COOLDOWN_SECONDS")"
+          if [ "${scanner_remaining:-0}" -gt 0 ]; then
+            log "SUPPRESS SCANNER HEAL [$scanner_code] — engine restart cooldown ${scanner_remaining}s remaining"
+            set_scanner_fails 0
+          else
+            log "HEAL SCANNER [$scanner_code] — restarting engine after two confirmed unhealthy reads"
+            if ensure_up com.nostradamus.engine; then
+              echo "$scanner_now" > "$SCANNER_HEAL_AT"
+              : > "$SCANNER_HEALING"
+              set_scanner_fails 0
+            else
+              log "HEAL-FAILED SCANNER [$scanner_code] — engine restart command failed; retry remains armed"
+            fi
+          fi
+        fi
+      else
+        # Waiting for a provider reset, repairing a key, restoring storage, or adding capacity are not made
+        # safer by restarting. Keep the incident visible but never convert it into process churn.
+        set_scanner_fails 0
+      fi
+    fi
+  fi
+fi
+
+# 5) THE STORY (enrich) read health — defense-in-depth ON TOP OF the engine's own per-cycle heal pass.
 # Low-frequency (~30 min) and only when the engine is locally healthy this cycle. A high ON-WIRE degraded
 # rate means article reads are regressing in a way the in-engine heal can't fix on its own (LLM keys expired,
 # provider chain broken, the heal pass silently not firing) — exactly the "frozen useless story" class of

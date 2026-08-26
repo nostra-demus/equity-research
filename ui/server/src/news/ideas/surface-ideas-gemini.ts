@@ -6,7 +6,22 @@
 
 import { conservativeChatTokenBound, type RateInfo } from '../triage/budget'
 import { isPerDayQuota, parseGeminiRetry } from '../triage/gemini'
-import { caughtFailure, durToMs, httpFailureKind, publicHttpFailureNote, type ProviderFailureKind } from '../triage/groq'
+import { caughtFailure, durToMs, type ProviderFailureKind } from '../triage/groq'
+import {
+  classifyProviderContractFailure,
+  classifyProviderHttpFailure,
+  classifyProviderLocalStateFailure,
+  clearProviderQuarantine,
+  honorProviderRetryAfter,
+  providerFailureFromQuarantine,
+  providerRequestIdentity,
+  publicProviderFailureNote,
+  publicProviderQuarantineNote,
+  quarantineProviderFailure,
+  readProviderQuarantine,
+  type ProviderFailureClassification,
+  type ProviderRequestIdentity,
+} from '../provider-failure'
 import {
   IDEA_SYSTEM, buildIdeaUserMessage, coerceCompleteIdeaRows,
   type IdeaInputRow, type SurfaceIdeasResult,
@@ -20,6 +35,39 @@ export interface GeminiIdeasOptions {
   timeoutMs?: number
   maxAttempts?: number
   signal?: AbortSignal
+  providerId?: string
+  providerLabel?: string
+  keyEnvVar?: string
+  stateDir?: string
+  workload?: string
+  contractVersion?: string
+  nowMs?: () => number
+}
+
+export function geminiIdeaProviderRequestIdentity(opts: GeminiIdeasOptions): ProviderRequestIdentity {
+  return providerRequestIdentity({
+    providerId: opts.providerId || `gemini:${opts.model}`,
+    baseUrl: opts.baseUrl,
+    model: opts.model,
+    apiKey: opts.apiKey,
+    keyEnvVar: opts.keyEnvVar,
+    transport: 'gemini',
+    workload: opts.workload || 'ideas',
+    contractVersion: opts.contractVersion || 'news-ideas-json-v1',
+    request: {
+      responseMimeType: 'application/json',
+      temperature: 0.2,
+      configuredMaxTokens: opts.maxTokens ?? 2500,
+      thinkingBudget: 0,
+    },
+  })
+}
+
+function legacyFailureKind(failure: ProviderFailureClassification): ProviderFailureKind {
+  if (failure.code === 'rate_limited') return 'rate_limit'
+  if (failure.code === 'transient_upstream' || failure.code === 'timeout') return 'availability'
+  if (failure.code === 'contract_invalid') return 'contract'
+  return 'request'
 }
 
 async function waitOrAbort(ms: number, sleep: (ms: number) => Promise<void>, signal?: AbortSignal): Promise<boolean> {
@@ -49,8 +97,30 @@ export async function surfaceIdeasBatchGemini(
   sleep: (ms: number) => Promise<void> = (ms) => new Promise((resolve) => setTimeout(resolve, ms)),
 ): Promise<SurfaceIdeasResult> {
   if (!rows.length) return { ideas: [], requests: 0, tokens: 0, ok: true }
-  if (!opts.apiKey) return { ideas: [], requests: 0, tokens: 0, ok: false, note: 'gemini idea: provider not configured', failureKind: 'request' }
-  if (opts.signal?.aborted) return { ideas: [], requests: 0, tokens: 0, ok: false, note: 'gemini idea: provider-chain deadline reached', failureKind: 'request' }
+  const provider = opts.providerLabel || opts.providerId || `Gemini · ${opts.model}`
+  const identity = geminiIdeaProviderRequestIdentity(opts)
+  if (!opts.apiKey) {
+    const failure = classifyProviderLocalStateFailure()
+    return {
+      ideas: [], requests: 0, tokens: 0, ok: false, note: 'gemini idea: provider not configured',
+      failureKind: 'request', failure, providerIdentity: identity,
+    }
+  }
+  if (opts.signal?.aborted) {
+    return {
+      ideas: [], requests: 0, tokens: 0, ok: false, note: 'gemini idea: provider-chain deadline reached',
+      failureKind: 'request', providerIdentity: identity,
+    }
+  }
+  const standing = opts.stateDir ? readProviderQuarantine(opts.stateDir, identity) : null
+  if (standing) {
+    const failure = providerFailureFromQuarantine(standing)
+    return {
+      ideas: [], requests: 0, tokens: 0, ok: false, quarantined: true,
+      note: publicProviderQuarantineNote(provider, standing), failureKind: legacyFailureKind(failure),
+      failure, providerIdentity: identity,
+    }
+  }
 
   const user = buildIdeaUserMessage(rows)
   const maxOutputTokens = opts.maxTokens ?? 2500
@@ -59,10 +129,24 @@ export async function surfaceIdeasBatchGemini(
   let requests = 0
   let tokens = 0
   let lastNote = 'gemini idea: network unavailable'
-  let lastFailure: { failureKind: ProviderFailureKind; timedOut?: boolean } = { failureKind: 'availability' }
+  let lastFailure: { failureKind: ProviderFailureKind; failure: ProviderFailureClassification; timedOut?: boolean } = {
+    failureKind: 'availability',
+    failure: { code: 'transient_upstream', scope: 'provider', action: 'cooldown', providerWide: true },
+  }
+  const clock = opts.nowMs ?? (() => Date.now())
 
   for (let attempt = 1; attempt <= maxAttempts; attempt++) {
     if (opts.signal?.aborted) break
+    const concurrentStanding = opts.stateDir ? readProviderQuarantine(opts.stateDir, identity) : null
+    if (concurrentStanding) {
+      const failure = providerFailureFromQuarantine(concurrentStanding)
+      return {
+        ideas: [], requests, tokens, ok: false, quarantined: true,
+        note: publicProviderQuarantineNote(provider, concurrentStanding), failureKind: legacyFailureKind(failure),
+        failure, providerIdentity: identity,
+      }
+    }
+    const attemptStartedAt = clock()
     try {
       requests++
       const timeoutSignal = AbortSignal.timeout(opts.timeoutMs ?? 30_000)
@@ -95,17 +179,19 @@ export async function surfaceIdeasBatchGemini(
           ? { ...bodyRate, retryAfterMs: headerRetryAfterMs }
           : bodyRate
         const dailyLimit = res.status === 429 && isPerDayQuota(parsedError)
-        const failureKind = httpFailureKind(res.status)
-        lastNote = publicHttpFailureNote('gemini idea', res.status, dailyLimit)
-        lastFailure = { failureKind }
-        const transient = (res.status === 429 && !dailyLimit) || res.status >= 500
+        const failure = honorProviderRetryAfter(classifyProviderHttpFailure(res.status, parsedError ?? raw), rate.retryAfterMs)
+        const failureKind = legacyFailureKind(failure)
+        lastNote = publicProviderFailureNote(provider, failure, dailyLimit)
+        lastFailure = { failureKind, failure }
+        const transient = ((failure.code === 'rate_limited' && !dailyLimit) || failure.code === 'transient_upstream')
         if (transient && attempt < maxAttempts) {
           if (!await waitOrAbort(rate.retryAfterMs || 1500 * attempt, sleep, opts.signal)) break
           continue
         }
+        if (opts.stateDir) quarantineProviderFailure(opts.stateDir, identity, failure, clock())
         return {
           ideas: [], requests, tokens, ok: false, note: lastNote, rate, failureKind,
-          httpStatus: res.status, ...(dailyLimit ? { dailyLimit: true } : {}),
+          failure, providerIdentity: identity, httpStatus: res.status, ...(dailyLimit ? { dailyLimit: true } : {}),
         }
       }
 
@@ -113,7 +199,11 @@ export async function surfaceIdeasBatchGemini(
       try { data = await res.json() }
       catch (error: any) {
         if (error?.name === 'SyntaxError') {
-          return { ideas: [], requests, tokens, ok: false, note: 'gemini idea: malformed provider response JSON', failureKind: 'contract' }
+          const failure = classifyProviderContractFailure()
+          return {
+            ideas: [], requests, tokens, ok: false, note: 'gemini idea: malformed provider response JSON',
+            failureKind: 'contract', failure, providerIdentity: identity,
+          }
         }
         throw error
       }
@@ -121,33 +211,52 @@ export async function surfaceIdeasBatchGemini(
         || conservativeChatTokenBound(IDEA_SYSTEM, user, maxOutputTokens)
       const candidate = data?.candidates?.[0]
       if (data?.promptFeedback?.blockReason) {
-        return { ideas: [], requests, tokens, ok: false, note: 'gemini idea: response blocked', failureKind: 'contract' }
+        const failure = classifyProviderContractFailure()
+        return { ideas: [], requests, tokens, ok: false, note: 'gemini idea: response blocked', failureKind: 'contract', failure, providerIdentity: identity }
       }
       if (candidate?.finishReason && candidate.finishReason !== 'STOP') {
-        return { ideas: [], requests, tokens, ok: false, note: 'gemini idea: output truncated or incomplete', failureKind: 'contract' }
+        const failure = classifyProviderContractFailure()
+        return { ideas: [], requests, tokens, ok: false, note: 'gemini idea: output truncated or incomplete', failureKind: 'contract', failure, providerIdentity: identity }
       }
       const content = Array.isArray(candidate?.content?.parts)
         ? candidate.content.parts.map((part: any) => typeof part?.text === 'string' ? part.text : '').join('')
         : ''
-      if (!content) return { ideas: [], requests, tokens, ok: false, note: 'gemini idea: empty content', failureKind: 'contract' }
+      if (!content) {
+        const failure = classifyProviderContractFailure()
+        return { ideas: [], requests, tokens, ok: false, note: 'gemini idea: empty content', failureKind: 'contract', failure, providerIdentity: identity }
+      }
       let parsed: any
       try { parsed = JSON.parse(content) }
-      catch { return { ideas: [], requests, tokens, ok: false, note: 'gemini idea: non-JSON content', failureKind: 'contract' } }
+      catch {
+        const failure = classifyProviderContractFailure()
+        return { ideas: [], requests, tokens, ok: false, note: 'gemini idea: non-JSON content', failureKind: 'contract', failure, providerIdentity: identity }
+      }
       if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed) || !Array.isArray(parsed.ideas)) {
-        return { ideas: [], requests, tokens, ok: false, note: 'gemini idea: invalid response schema (expected top-level ideas array)', failureKind: 'contract' }
+        const failure = classifyProviderContractFailure()
+        return {
+          ideas: [], requests, tokens, ok: false, note: 'gemini idea: invalid response schema (expected top-level ideas array)',
+          failureKind: 'contract', failure, providerIdentity: identity,
+        }
       }
       const ideas = coerceCompleteIdeaRows(parsed.ideas, rows.length)
       if (!ideas) {
-        return { ideas: [], requests, tokens, ok: false, note: 'gemini idea: invalid, duplicate, or excess idea rows', failureKind: 'contract' }
+        const failure = classifyProviderContractFailure()
+        return {
+          ideas: [], requests, tokens, ok: false, note: 'gemini idea: invalid, duplicate, or excess idea rows',
+          failureKind: 'contract', failure, providerIdentity: identity,
+        }
       }
-      return { ideas, requests, tokens, ok: true }
+      if (opts.stateDir) clearProviderQuarantine(opts.stateDir, identity, attemptStartedAt)
+      return { ideas, requests, tokens, ok: true, providerIdentity: identity }
     } catch (error: any) {
-      const failure = caughtFailure(error, 'gemini idea')
-      lastNote = failure.note
-      lastFailure = failure
+      const caught = caughtFailure(error, provider)
+      lastNote = caught.note
+      lastFailure = caught
+      if (opts.stateDir) quarantineProviderFailure(opts.stateDir, identity, caught.failure, clock())
       if (opts.signal?.aborted) break
+      if (caught.failure.action === 'quarantine') break
       if (attempt < maxAttempts && !await waitOrAbort(1500 * attempt, sleep, opts.signal)) break
     }
   }
-  return { ideas: [], requests, tokens, ok: false, note: lastNote, ...lastFailure }
+  return { ideas: [], requests, tokens, ok: false, note: lastNote, providerIdentity: identity, ...lastFailure }
 }

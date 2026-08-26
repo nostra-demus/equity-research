@@ -179,6 +179,14 @@ check('Where scopes what the evidence is about and preserves a cross-border list
     member('c1', { country: 'IN', companies: [nvidia], headline: 'India AI data center capacity requires Nvidia accelerators' }),
     member('c2', { country: 'IN', companies: [nvidia], headline: 'India AI data center capacity expands Nvidia accelerator demand' }),
   ], { companies: [{ ...nvidia, order: 1, side: 'beneficiary' } as any] })
+  const proof = t.members.find((member) => member.event_id === t.narrative!.expressions[0].evidence_event_ids[0])!
+  t.player_contract_version = 1
+  t.players = [{
+    name: 'Nvidia', ticker: 'NVDA', listing_status: 'verified_public', order: 1, side: 'beneficiary',
+    relationship: 'direct_subject', mechanism: t.narrative!.expressions[0].mechanism,
+    mechanism_basis: 'engine_inference', idea_eligible: true,
+    evidence: [{ kind: 'news', event_id: proof.event_id, headline: proof.headline, publisher: proof.source_name!, url: proof.url!, published_at: proof.found_at, source_ref: null, source_file: null }],
+  }]
   const summary = buildGeoThemesIndex([t], { country: 'IN' }, now).themes[0]
   assert.equal(summary.assessment.status, 'actionable')
   assert.deepEqual(summary.top_companies.map((c) => c.ticker), ['NVDA'])

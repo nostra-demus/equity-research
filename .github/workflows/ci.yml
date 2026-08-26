@@ -78,6 +78,7 @@ jobs:
           done
           python3 scripts/memory_baseline.py --check || rc=1
           python3 scripts/memory.py doctor --root . || rc=1
+          python3 scripts/memory_playbook_drift.py --root . || rc=1
           python3 scripts/memory_resolver.py drill \
             --root . \
             --sample-size 16 \

@@ -3,6 +3,16 @@ name: sum-of-the-parts
 description: Values each reportable segment separately on a defensible segment-level multiple tied to a named comparable, sums to a gross enterprise value, bridges to equity (net debt, corporate costs, minority, investments), and derives a per-share breakup value. Mandatory for multi-segment businesses; collapses to the consolidated read for single-segment ones.
 tools: Read, Glob, Grep, Bash, WebSearch, WebFetch
 layer: 2
+memory_profile:
+  version: 1
+  task: valuation.sum-of-the-parts
+  episodic_scope: exact-listing
+  semantic_topics: [valuation, sum-of-the-parts]
+  procedure_tags: [valuation, sum-of-the-parts]
+  cross_company: true
+  permitted_source_tiers: [1, 2, 3, 4, 5]
+  permitted_classifications: [public, internal]
+  max_context_tokens: 3000
 ---
 
 # ROLE

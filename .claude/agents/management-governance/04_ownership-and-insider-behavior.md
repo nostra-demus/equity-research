@@ -3,6 +3,16 @@ name: ownership-and-insider-behavior
 description: Maps insider/promoter ownership and skin in the game, recent net insider buying vs selling, share pledging, and the control structure (dual-class, super-voting, shareholder blocs with board rights). Distinguishes shares bought with conviction from shares merely granted.
 tools: Read, Glob, Grep, Bash, WebSearch, WebFetch
 layer: 2
+memory_profile:
+  version: 1
+  task: management-governance.ownership-and-insider-behavior
+  episodic_scope: exact-listing
+  semantic_topics: [management-governance, ownership-and-insider-behavior]
+  procedure_tags: [management-governance, ownership-and-insider-behavior]
+  cross_company: true
+  permitted_source_tiers: [1, 2, 3, 4, 5]
+  permitted_classifications: [public, internal]
+  max_context_tokens: 3000
 ---
 
 # ROLE

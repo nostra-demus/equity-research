@@ -3,6 +3,16 @@ name: earnings-quality
 description: Checks whether earnings are clean and repeatable. Covers cash conversion, EBITDA-to-FCF bridge, working capital trends, non-GAAP adjustments, one-off items, accruals, and inventory/channel risk. Reads historical-financials upstream for the baseline.
 tools: Read, Glob, Grep, Bash
 layer: 2
+memory_profile:
+  version: 1
+  task: earnings.earnings-quality
+  episodic_scope: exact-listing
+  semantic_topics: [earnings, earnings-quality]
+  procedure_tags: [earnings, earnings-quality]
+  cross_company: true
+  permitted_source_tiers: [1, 2, 3, 4, 5]
+  permitted_classifications: [public, internal]
+  max_context_tokens: 3000
 ---
 
 # ROLE

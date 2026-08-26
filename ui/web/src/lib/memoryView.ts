@@ -1,4 +1,4 @@
-import type { MemoryCockpit, MemoryCounts, MemoryItem, MemoryRead } from './types'
+import type { MemoryCockpit, MemoryCounts, MemoryItem, MemoryRead, MemoryRuntimeRead } from './types'
 
 export type MemoryTab = 'all' | MemoryCockpit
 
@@ -109,6 +109,44 @@ export function unavailableMemoryRead(message = 'Live memory is unavailable in t
     counts: { total: 0, research: 0, screener: 0, commodity: 0, decisions: 0, reviews: 0, corrections: 0 },
     items: [],
   }
+}
+
+const RUNTIME_COUNT_KEYS: Array<keyof MemoryRuntimeRead['counts']> = [
+  'runs', 'task_episodes', 'lessons', 'playbooks', 'candidates', 'executions', 'promotions',
+  'quarantines', 'packets', 'used_items', 'rejected_items', 'contradicted_items', 'deviations',
+]
+
+/** Runtime metadata is untrusted too; reject deploy skew instead of rendering guessed fields. */
+export function parseMemoryRuntimeRead(value: unknown): MemoryRuntimeRead | null {
+  if (!object(value)) return null
+  const counts = object(value.counts) ? value.counts : null
+  if (value.contract_version !== 'memory-runtime-ui/1' || value.read_only !== true
+      || typeof value.available !== 'boolean' || !iso(value.generated_at)
+      || !['healthy', 'degraded', 'unavailable', 'disabled'].includes(String(value.state))
+      || !['off', 'shadow', 'enforced'].includes(String(value.mode))
+      || !['off', 'shadow', 'enforced'].includes(String(value.effective_mode))
+      || !counts || !RUNTIME_COUNT_KEYS.every((key) => finiteCount(counts[key]))
+      || !object(value.readiness) || !['met', 'failed', 'unmeasured'].includes(String(value.readiness.status))
+      || (value.readiness.evaluated_at !== null && !iso(value.readiness.evaluated_at))
+      || (value.readiness.report_sha256 !== null && (!text(value.readiness.report_sha256)
+        || !/^sha256:[a-f0-9]{64}$/.test(value.readiness.report_sha256)))
+      || !object(value.controls) || !finiteCount(value.controls.revision)
+      || typeof value.controls.global_disabled !== 'boolean'
+      || typeof value.controls.candidate_intake_disabled !== 'boolean'
+      || !Array.isArray(value.controls.disabled_layers)
+      || value.controls.disabled_layers.some((item) => !['episodic', 'semantic', 'procedural'].includes(String(item)))
+      || !Array.isArray(value.controls.disabled_playbooks) || value.controls.disabled_playbooks.length > 512
+      || !Array.isArray(value.controls.pinned_playbooks) || value.controls.pinned_playbooks.length > 512
+      || !Array.isArray(value.slos) || value.slos.length > 128
+      || !value.slos.every((item) => object(item) && boundedText(item.name, 191)
+        && boundedText(item.status, 64) && boundedText(item.target, 256))
+      || !Array.isArray(value.alerts) || value.alerts.length > 128
+      || !value.alerts.every((item) => object(item) && boundedText(item.code, 191)
+        && ['info', 'warning', 'critical'].includes(String(item.severity)) && boundedText(item.message, 512))
+      || !Array.isArray(value.services) || value.services.length > 32
+      || !value.services.every((item) => object(item) && boundedText(item.role, 191)
+        && (item.identity === null || boundedText(item.identity, 191)) && typeof item.configured === 'boolean')) return null
+  return value as unknown as MemoryRuntimeRead
 }
 
 /** Only the server's explicit stale-while-revalidate state asks the open reader to check again. */

@@ -153,6 +153,16 @@ check('the credential fault is its own blocker group, never filed under needs-at
   assert.deepEqual(diagnosticBlockers(older).needsCredential, ['Mistral'])
 })
 
+check('a durable quarantine names the actual repair and never renders a retry countdown', () => {
+  const billing = { ...tier('cerebras', 'Cerebras', 'cooling'), quarantined: true, quarantineReason: 'billing' }
+  assert.equal(tierStatusCopy(billing, 55 * 60_000), 'Billing or credits are unavailable — repair the provider account')
+  const model = { ...tier('groq', 'Groq', 'cooling'), quarantined: true, quarantineReason: 'model_terminal' }
+  assert.equal(tierStatusCopy(model, 55 * 60_000), 'Configured model is unavailable — change the model or endpoint')
+  const key = { ...tier('groq', 'Groq', 'cooling'), quarantined: true, quarantineReason: 'auth', keyEnvVar: 'GROQ_API_KEY' }
+  assert.equal(tierStatusCopy(key, 55 * 60_000), 'API key rejected (GROQ_API_KEY) — replace it; waiting will not help')
+  assert.deepEqual(diagnosticBlockers(diagnostics([billing], { blockingTiers: ['cerebras'] })).retryHeld, [], 'standing quarantine is never filed under a timer')
+})
+
 check('a timeout names the measured duration, so "is our deadline too short?" is answerable', () => {
   const at30 = { ...tier('openrouter', 'OpenRouter', 'cooling'), cooldownReason: 'timeout', lastFailureMs: 30_000 }
   assert.equal(tierStatusCopy(at30, 50 * 60_000), 'Paused after a request took too long at 30.0s · try again in ~50m')

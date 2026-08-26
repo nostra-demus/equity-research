@@ -1,0 +1,825 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "frameworks/memory/three-layer-contracts.schema.json",
+  "title": "Production three-layer research-memory contracts",
+  "description": "Closed contracts for frozen-run episodic, semantic, and procedural memory. Each public schema file resolves to one definition in this bundle.",
+  "$defs": {
+    "hashRef": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "gitSha": {
+      "type": "string",
+      "pattern": "^git:[0-9a-f]{40}(?:[0-9a-f]{24})?$"
+    },
+    "boundedName": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._/-]{0,127}$"
+    },
+    "memoryId": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]*_[0-9a-f]{8}-[0-9a-f]{4}-[57][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    },
+    "episodeRef": {
+      "type": "string",
+      "pattern": "^(?:[a-z][a-z0-9-]*_[0-9a-f]{8}-[0-9a-f]{4}-[57][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}|evt_[0-9a-f]{8}-[0-9a-f]{4}-[57][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12})$"
+    },
+    "awareDateTime": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(?:\\.\\d{1,6})?(?:Z|[+-]\\d{2}:\\d{2})$"
+    },
+    "dateOrDateTime": {
+      "oneOf": [
+        { "type": "string", "format": "date", "pattern": "^\\d{4}-\\d{2}-\\d{2}$" },
+        { "$ref": "#/$defs/awareDateTime" }
+      ]
+    },
+    "validTime": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["from", "to"],
+      "properties": {
+        "from": { "$ref": "#/$defs/dateOrDateTime" },
+        "to": {
+          "oneOf": [
+            { "type": "null" },
+            { "$ref": "#/$defs/dateOrDateTime" }
+          ]
+        }
+      }
+    },
+    "classifications": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 5,
+      "uniqueItems": true,
+      "items": { "enum": ["public", "internal", "licensed", "confidential", "restricted"] }
+    },
+    "policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["classification", "retention", "retain_until"],
+      "properties": {
+        "classification": { "enum": ["public", "internal", "licensed", "confidential", "restricted"] },
+        "retention": { "enum": ["permanent", "source-policy", "expires"] },
+        "retain_until": { "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/awareDateTime" }] }
+      },
+      "allOf": [{
+        "if": { "properties": { "retention": { "const": "expires" } }, "required": ["retention"] },
+        "then": { "properties": { "retain_until": { "$ref": "#/$defs/awareDateTime" } } },
+        "else": { "properties": { "retain_until": { "type": "null" } } }
+      }]
+    },
+    "sourceTiers": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 10,
+      "uniqueItems": true,
+      "items": { "type": "integer", "minimum": 1, "maximum": 10 }
+    },
+    "subjectId": {
+      "type": "string",
+      "pattern": "^(?:issuer:lei:[A-Z0-9]{20}|security:figi:[A-Z0-9]{12}|security:isin:[A-Z]{2}[A-Z0-9]{9}[0-9]|security:mic-ticker:[A-Z0-9]{4}:[A-Z0-9][A-Z0-9.-]{0,31}|entity:internal:[a-z0-9][a-z0-9._-]{0,127})$"
+    },
+    "evidenceRef": {
+      "type": "string",
+      "pattern": "^evidence:sha256:[0-9a-f]{64}#[A-Za-z0-9][A-Za-z0-9._~:/?&=,+-]{0,255}$"
+    },
+    "evidenceRefs": {
+      "type": "array",
+      "maxItems": 128,
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/evidenceRef" }
+    },
+    "issuerListing": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["legal_name", "issuer_id", "listing_id", "mic", "ticker", "currency", "resolution_status"],
+      "properties": {
+        "legal_name": { "type": "string", "minLength": 1, "maxLength": 256 },
+        "issuer_id": { "$ref": "#/$defs/subjectId" },
+        "listing_id": { "$ref": "#/$defs/subjectId" },
+        "mic": { "type": "string", "pattern": "^[A-Z0-9]{4}$" },
+        "ticker": { "type": "string", "pattern": "^[A-Z0-9][A-Z0-9.-]{0,31}$" },
+        "currency": { "type": "string", "pattern": "^[A-Z]{3}$" },
+        "resolution_status": { "enum": ["exact", "ambiguous", "excluded"] }
+      }
+    },
+    "providerAccess": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["provider", "model", "service_identity", "classifications", "source_tiers", "entitlement_set_sha256", "embedding_classifications", "embedding_permitted"],
+      "properties": {
+        "provider": { "$ref": "#/$defs/boundedName" },
+        "model": { "type": "string", "minLength": 1, "maxLength": 256 },
+        "service_identity": { "$ref": "#/$defs/boundedName" },
+        "classifications": { "$ref": "#/$defs/classifications" },
+        "source_tiers": { "$ref": "#/$defs/sourceTiers" },
+        "entitlement_set_sha256": { "$ref": "#/$defs/hashRef" },
+        "embedding_classifications": {
+          "type": "array",
+          "maxItems": 5,
+          "uniqueItems": true,
+          "items": { "enum": ["public", "internal", "licensed", "confidential", "restricted"] }
+        },
+        "embedding_permitted": { "type": "boolean" }
+      }
+    },
+    "applicability": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["agents", "modules", "issuer_ids", "listing_ids", "sectors", "jurisdictions", "accounting_standards", "metrics", "source_types"],
+      "properties": {
+        "agents": { "$ref": "#/$defs/nameList" },
+        "modules": { "$ref": "#/$defs/nameList" },
+        "issuer_ids": {
+          "type": "array",
+          "maxItems": 128,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/subjectId" }
+        },
+        "listing_ids": {
+          "type": "array",
+          "maxItems": 128,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^security:mic-ticker:[A-Z0-9]{4}:[A-Z0-9][A-Z0-9.-]{0,31}$"
+          }
+        },
+        "sectors": { "$ref": "#/$defs/stringList" },
+        "jurisdictions": { "$ref": "#/$defs/stringList" },
+        "accounting_standards": { "$ref": "#/$defs/stringList" },
+        "metrics": { "$ref": "#/$defs/stringList" },
+        "source_types": { "$ref": "#/$defs/stringList" }
+      }
+    },
+    "nameList": {
+      "type": "array",
+      "maxItems": 128,
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/boundedName" }
+    },
+    "stringList": {
+      "type": "array",
+      "maxItems": 128,
+      "uniqueItems": true,
+      "items": { "type": "string", "minLength": 1, "maxLength": 256 }
+    },
+    "producer": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "id"],
+      "properties": {
+        "kind": { "enum": ["agent", "human", "supervisor", "adapter", "system", "service"] },
+        "id": { "$ref": "#/$defs/boundedName" }
+      }
+    },
+    "reviewer": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["role", "identity"],
+      "properties": {
+        "role": { "enum": ["evidence", "applicability", "security", "extraction", "outcome"] },
+        "identity": { "$ref": "#/$defs/producer" }
+      }
+    },
+    "signature": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["key_id", "algorithm", "signed_sha256", "value"],
+      "properties": {
+        "key_id": { "$ref": "#/$defs/boundedName" },
+        "algorithm": { "const": "ed25519" },
+        "signed_sha256": { "$ref": "#/$defs/hashRef" },
+        "value": { "type": "string", "pattern": "^[A-Za-z0-9_-]{86}$" }
+      }
+    },
+    "canonicalRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["record_id", "schema", "content_sha256"],
+      "properties": {
+        "record_id": { "type": "string", "minLength": 1, "maxLength": 256 },
+        "schema": { "type": "string", "pattern": "^[a-z][a-z0-9-]*/v[0-9]+$", "maxLength": 128 },
+        "content_sha256": { "$ref": "#/$defs/hashRef" }
+      }
+    },
+    "identityList": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 32,
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/subjectId" }
+    },
+    "memoryQuerySpecV2": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schema", "task", "requesting_agent", "requesting_role", "layers", "subject_ids", "semantic_topics", "procedure_tags", "cross_company", "as_of_system_time", "valid_time", "trusted_access_scope", "requested_classifications", "requested_source_tiers", "max_context_tokens", "per_layer_budgets", "mandatory_item_policy"],
+      "properties": {
+        "schema": { "const": "memory-query-spec/v2" },
+        "task": { "$ref": "#/$defs/boundedName" },
+        "requesting_agent": { "$ref": "#/$defs/boundedName" },
+        "requesting_role": { "enum": ["specialist", "module-synthesizer", "master-synthesizer"] },
+        "layers": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 3,
+          "uniqueItems": true,
+          "items": { "enum": ["episodic", "semantic", "procedural"] }
+        },
+        "subject_ids": { "$ref": "#/$defs/identityList" },
+        "semantic_topics": { "$ref": "#/$defs/stringList" },
+        "procedure_tags": { "$ref": "#/$defs/stringList" },
+        "cross_company": { "type": "boolean" },
+        "as_of_system_time": { "$ref": "#/$defs/awareDateTime" },
+        "valid_time": { "$ref": "#/$defs/validTime" },
+        "trusted_access_scope": { "$ref": "#/$defs/providerAccess" },
+        "requested_classifications": { "$ref": "#/$defs/classifications" },
+        "requested_source_tiers": { "$ref": "#/$defs/sourceTiers" },
+        "max_context_tokens": { "type": "integer", "minimum": 64, "maximum": 6000 },
+        "per_layer_budgets": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["episodic", "semantic", "procedural"],
+          "properties": {
+            "episodic": { "type": "integer", "minimum": 0, "maximum": 6000 },
+            "semantic": { "type": "integer", "minimum": 0, "maximum": 6000 },
+            "procedural": { "type": "integer", "minimum": 0, "maximum": 6000 }
+          }
+        },
+        "mandatory_item_policy": { "const": "fail-before-dispatch" }
+      }
+    },
+    "packetEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["layer", "record", "classification", "source_tiers", "mandatory", "rank", "valid_time", "evidence_refs", "data"],
+      "properties": {
+        "layer": { "enum": ["episodic", "semantic", "procedural"] },
+        "record": { "$ref": "#/$defs/canonicalRef" },
+        "classification": { "enum": ["public", "internal", "licensed", "confidential", "restricted"] },
+        "source_tiers": { "$ref": "#/$defs/sourceTiers" },
+        "mandatory": { "type": "boolean" },
+        "rank": { "type": "integer", "minimum": 1, "maximum": 1000 },
+        "valid_time": { "$ref": "#/$defs/validTime" },
+        "evidence_refs": { "$ref": "#/$defs/evidenceRefs" },
+        "data": { "type": "string", "minLength": 1, "maxLength": 65536 }
+      }
+    },
+    "packetSection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["delimiter", "entries"],
+      "properties": {
+        "delimiter": { "enum": ["MEMORY_DATA_EPISODES", "MEMORY_DATA_SEMANTICS", "MEMORY_DATA_PROCEDURES"] },
+        "entries": {
+          "type": "array",
+          "maxItems": 100,
+          "items": { "$ref": "#/$defs/packetEntry" }
+        }
+      }
+    },
+    "memoryContextPacketV2": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schema", "context_packet_id", "content_sha256", "query_sha256", "run_receipt_id", "as_of_system_time", "effective_access_scope", "sections", "omissions", "accounting", "lineage"],
+      "properties": {
+        "schema": { "const": "memory-context-packet/v2" },
+        "context_packet_id": { "$ref": "#/$defs/memoryId" },
+        "content_sha256": { "$ref": "#/$defs/hashRef" },
+        "query_sha256": { "$ref": "#/$defs/hashRef" },
+        "run_receipt_id": { "$ref": "#/$defs/memoryId" },
+        "as_of_system_time": { "$ref": "#/$defs/awareDateTime" },
+        "effective_access_scope": { "$ref": "#/$defs/providerAccess" },
+        "sections": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["episodes", "semantics", "procedures"],
+          "properties": {
+            "episodes": { "$ref": "#/$defs/packetSection" },
+            "semantics": { "$ref": "#/$defs/packetSection" },
+            "procedures": { "$ref": "#/$defs/packetSection" }
+          }
+        },
+        "omissions": {
+          "type": "array",
+          "maxItems": 128,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["layer", "reason", "mandatory"],
+            "properties": {
+              "layer": { "enum": ["episodic", "semantic", "procedural"] },
+              "reason": { "enum": ["budget", "authorization", "expired", "superseded", "not-applicable", "quarantined"] },
+              "mandatory": { "type": "boolean" }
+            }
+          }
+        },
+        "accounting": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["estimated_tokens", "max_context_tokens", "compile_milliseconds", "optional_truncated"],
+          "properties": {
+            "estimated_tokens": { "type": "integer", "minimum": 0, "maximum": 6000 },
+            "max_context_tokens": { "type": "integer", "minimum": 64, "maximum": 6000 },
+            "compile_milliseconds": { "type": "integer", "minimum": 0 },
+            "optional_truncated": { "type": "boolean" }
+          }
+        },
+        "lineage": {
+          "type": "array",
+          "maxItems": 300,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/canonicalRef" }
+        }
+      }
+    },
+    "runReceiptV1": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schema", "receipt_id", "run_id", "snapshot_reason", "parent_receipt_id", "issuer_listing", "repository_sha", "projection_digest", "policy_clock", "as_of_system_time", "provider_access", "active_playbooks", "snapshot_source", "status", "created_at", "receipt_sha256", "signature"],
+      "properties": {
+        "schema": { "const": "research-memory-run-receipt/v1" },
+        "receipt_id": { "$ref": "#/$defs/memoryId" },
+        "run_id": { "$ref": "#/$defs/boundedName" },
+        "snapshot_reason": { "enum": ["new-run", "deliberate-rerun"] },
+        "parent_receipt_id": { "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/memoryId" }] },
+        "issuer_listing": { "$ref": "#/$defs/issuerListing" },
+        "repository_sha": { "$ref": "#/$defs/gitSha" },
+        "projection_digest": { "$ref": "#/$defs/hashRef" },
+        "policy_clock": { "$ref": "#/$defs/awareDateTime" },
+        "as_of_system_time": { "$ref": "#/$defs/awareDateTime" },
+        "provider_access": { "$ref": "#/$defs/providerAccess" },
+        "active_playbooks": {
+          "type": "array",
+          "maxItems": 128,
+          "uniqueItems": true,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["playbook_id", "version", "content_sha256"],
+            "properties": {
+              "playbook_id": { "$ref": "#/$defs/memoryId" },
+              "version": { "type": "integer", "minimum": 1 },
+              "content_sha256": { "$ref": "#/$defs/hashRef" }
+            }
+          }
+        },
+        "snapshot_source": { "enum": ["production-projection", "deterministic-local-rebuild"] },
+        "status": { "enum": ["verified", "verified-empty"] },
+        "created_at": { "$ref": "#/$defs/awareDateTime" },
+        "receipt_sha256": { "$ref": "#/$defs/hashRef" },
+        "signature": { "$ref": "#/$defs/signature" }
+      }
+    },
+    "memoryDisposition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["record", "reason_code"],
+      "properties": {
+        "record": { "$ref": "#/$defs/canonicalRef" },
+        "reason_code": { "type": "string", "pattern": "^[a-z][a-z0-9-]{0,63}$" }
+      }
+    },
+    "memoryUseV1": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schema", "use_id", "run_id", "task_id", "agent_id", "packet_id", "packet_sha256", "used", "checked_rejected", "contradicted", "not_applicable", "current_evidence_refs", "playbook", "candidate_suggestions", "created_at", "use_sha256"],
+      "properties": {
+        "schema": { "const": "memory-use/v1" },
+        "use_id": { "$ref": "#/$defs/memoryId" },
+        "run_id": { "$ref": "#/$defs/boundedName" },
+        "task_id": { "$ref": "#/$defs/boundedName" },
+        "agent_id": { "$ref": "#/$defs/boundedName" },
+        "packet_id": { "$ref": "#/$defs/memoryId" },
+        "packet_sha256": { "$ref": "#/$defs/hashRef" },
+        "used": { "type": "array", "maxItems": 128, "items": { "$ref": "#/$defs/memoryDisposition" } },
+        "checked_rejected": { "type": "array", "maxItems": 128, "items": { "$ref": "#/$defs/memoryDisposition" } },
+        "contradicted": { "type": "array", "maxItems": 128, "items": { "$ref": "#/$defs/memoryDisposition" } },
+        "not_applicable": { "type": "array", "maxItems": 128, "items": { "$ref": "#/$defs/memoryDisposition" } },
+        "current_evidence_refs": { "$ref": "#/$defs/evidenceRefs" },
+        "playbook": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["status", "playbook_id", "version", "execution_receipt_id", "deviation_codes"],
+          "properties": {
+            "status": { "enum": ["none", "executed", "deviated", "declined"] },
+            "playbook_id": { "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/memoryId" }] },
+            "version": { "type": ["integer", "null"], "minimum": 1 },
+            "execution_receipt_id": { "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/memoryId" }] },
+            "deviation_codes": { "$ref": "#/$defs/stringList" }
+          }
+        },
+        "candidate_suggestions": {
+          "type": "array",
+          "maxItems": 32,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/hashRef" }
+        },
+        "created_at": { "$ref": "#/$defs/awareDateTime" },
+        "use_sha256": { "$ref": "#/$defs/hashRef" }
+      }
+    },
+    "memoryUseAttestationV1": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schema", "attestation_id", "use_id", "use_sha256", "output_sha256", "supervisor", "checks", "valid", "error_codes", "verified_at", "attestation_sha256", "signature"],
+      "properties": {
+        "schema": { "const": "memory-use-attestation/v1" },
+        "attestation_id": { "$ref": "#/$defs/memoryId" },
+        "use_id": { "$ref": "#/$defs/memoryId" },
+        "use_sha256": { "$ref": "#/$defs/hashRef" },
+        "output_sha256": { "$ref": "#/$defs/hashRef" },
+        "supervisor": { "$ref": "#/$defs/producer" },
+        "checks": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["output_correspondence", "current_evidence", "playbook_steps", "undeclared_memory_scan", "canonical_hashes"],
+          "properties": {
+            "output_correspondence": { "type": "boolean" },
+            "current_evidence": { "type": "boolean" },
+            "playbook_steps": { "type": "boolean" },
+            "undeclared_memory_scan": { "type": "boolean" },
+            "canonical_hashes": { "type": "boolean" }
+          }
+        },
+        "valid": { "type": "boolean" },
+        "error_codes": { "$ref": "#/$defs/stringList" },
+        "verified_at": { "$ref": "#/$defs/awareDateTime" },
+        "attestation_sha256": { "$ref": "#/$defs/hashRef" },
+        "signature": { "$ref": "#/$defs/signature" }
+      }
+    },
+    "qualityGate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "passed"],
+      "properties": {
+        "name": { "$ref": "#/$defs/boundedName" },
+        "passed": { "type": "boolean" }
+      }
+    },
+    "memoryTaskEpisodeV1": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schema", "episode_id", "run_id", "task_id", "issuer_listing", "agent_id", "task", "provider", "model", "prompt_program_sha", "output_sha256", "packet_id", "packet_sha256", "query_sha256", "status", "latency_milliseconds", "cost_microusd", "quality_gates", "use_attestation_id", "procedure_execution_id", "error_codes", "created_at", "episode_sha256"],
+      "properties": {
+        "schema": { "const": "memory-task-episode/v1" },
+        "episode_id": { "$ref": "#/$defs/memoryId" },
+        "run_id": { "$ref": "#/$defs/boundedName" },
+        "task_id": { "$ref": "#/$defs/boundedName" },
+        "issuer_listing": { "$ref": "#/$defs/issuerListing" },
+        "agent_id": { "$ref": "#/$defs/boundedName" },
+        "task": { "$ref": "#/$defs/boundedName" },
+        "provider": { "$ref": "#/$defs/boundedName" },
+        "model": { "type": "string", "minLength": 1, "maxLength": 256 },
+        "prompt_program_sha": { "$ref": "#/$defs/gitSha" },
+        "output_sha256": { "$ref": "#/$defs/hashRef" },
+        "packet_id": { "$ref": "#/$defs/memoryId" },
+        "packet_sha256": { "$ref": "#/$defs/hashRef" },
+        "query_sha256": { "$ref": "#/$defs/hashRef" },
+        "status": { "enum": ["completed", "failed", "invalid", "abstained"] },
+        "latency_milliseconds": { "type": "integer", "minimum": 0 },
+        "cost_microusd": { "type": "integer", "minimum": 0 },
+        "quality_gates": { "type": "array", "maxItems": 128, "items": { "$ref": "#/$defs/qualityGate" } },
+        "use_attestation_id": { "$ref": "#/$defs/memoryId" },
+        "procedure_execution_id": { "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/memoryId" }] },
+        "error_codes": { "$ref": "#/$defs/stringList" },
+        "created_at": { "$ref": "#/$defs/awareDateTime" },
+        "episode_sha256": { "$ref": "#/$defs/hashRef" }
+      }
+    },
+    "memoryRunEpisodeV1": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schema", "episode_id", "run_id", "receipt_id", "issuer_listing", "mode", "task_episode_ids", "expected_task_count", "completed_task_count", "memory_coverage_pct", "status", "started_at", "completed_at", "episode_sha256"],
+      "properties": {
+        "schema": { "const": "memory-run-episode/v1" },
+        "episode_id": { "$ref": "#/$defs/memoryId" },
+        "run_id": { "$ref": "#/$defs/boundedName" },
+        "receipt_id": { "$ref": "#/$defs/memoryId" },
+        "issuer_listing": { "$ref": "#/$defs/issuerListing" },
+        "mode": { "enum": ["off", "shadow", "enforced"] },
+        "task_episode_ids": { "type": "array", "maxItems": 512, "uniqueItems": true, "items": { "$ref": "#/$defs/memoryId" } },
+        "expected_task_count": { "type": "integer", "minimum": 0 },
+        "completed_task_count": { "type": "integer", "minimum": 0 },
+        "memory_coverage_pct": { "type": "number", "minimum": 0, "maximum": 100 },
+        "status": { "enum": ["completed", "failed", "incomplete", "blocked"] },
+        "started_at": { "$ref": "#/$defs/awareDateTime" },
+        "completed_at": { "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/awareDateTime" }] },
+        "episode_sha256": { "$ref": "#/$defs/hashRef" }
+      }
+    },
+    "semanticCore": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["lesson_kind", "effect", "statement", "applicability", "supporting_evidence", "contradicting_evidence", "observations", "effective_observation_count", "distinct_issuer_count", "valid_time", "review_due"],
+      "properties": {
+        "lesson_kind": { "enum": ["exact-issuer", "official-policy", "cross-company-empirical"] },
+        "effect": { "enum": ["current-check-required", "reviewed-negative-policy"] },
+        "statement": { "type": "string", "minLength": 1, "maxLength": 4096 },
+        "applicability": { "$ref": "#/$defs/applicability" },
+        "supporting_evidence": { "type": "array", "minItems": 1, "maxItems": 128, "uniqueItems": true, "items": { "$ref": "#/$defs/evidenceRef" } },
+        "contradicting_evidence": { "$ref": "#/$defs/evidenceRefs" },
+        "observations": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 128,
+          "uniqueItems": true,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["issuer_id", "effective_at", "evidence_ref"],
+            "properties": {
+              "issuer_id": { "$ref": "#/$defs/subjectId" },
+              "effective_at": { "$ref": "#/$defs/awareDateTime" },
+              "evidence_ref": { "$ref": "#/$defs/evidenceRef" }
+            }
+          }
+        },
+        "effective_observation_count": { "type": "integer", "minimum": 1 },
+        "distinct_issuer_count": { "type": "integer", "minimum": 1 },
+        "valid_time": { "$ref": "#/$defs/validTime" },
+        "review_due": { "type": "string", "format": "date", "pattern": "^\\d{4}-\\d{2}-\\d{2}$" }
+      }
+    },
+    "memorySemanticCandidateV1": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schema", "candidate_id", "candidate_type", "source_basis", "semantic", "originating_episode_ids", "created_by", "policy", "status", "created_at", "candidate_sha256"],
+      "properties": {
+        "schema": { "const": "memory-semantic-candidate/v1" },
+        "candidate_id": { "$ref": "#/$defs/memoryId" },
+        "candidate_type": { "enum": ["fact", "lesson"] },
+        "source_basis": { "enum": ["structured-correction", "reviewed-outcome", "authoritative-policy", "empirical-observations", "current-evidence-extraction"] },
+        "semantic": { "$ref": "#/$defs/semanticCore" },
+        "originating_episode_ids": { "type": "array", "minItems": 1, "maxItems": 128, "uniqueItems": true, "items": { "$ref": "#/$defs/episodeRef" } },
+        "created_by": { "$ref": "#/$defs/producer" },
+        "policy": { "$ref": "#/$defs/policy" },
+        "status": { "const": "candidate" },
+        "created_at": { "$ref": "#/$defs/awareDateTime" },
+        "candidate_sha256": { "$ref": "#/$defs/hashRef" }
+      }
+    },
+    "memorySemanticLessonV1": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schema", "lesson_id", "version", "semantic", "owner", "verified_by", "source_candidate_sha256", "policy", "status", "supersedes", "activated_at", "lesson_sha256"],
+      "properties": {
+        "schema": { "const": "memory-semantic-lesson/v1" },
+        "lesson_id": { "$ref": "#/$defs/memoryId" },
+        "version": { "type": "integer", "minimum": 1 },
+        "semantic": { "$ref": "#/$defs/semanticCore" },
+        "owner": { "$ref": "#/$defs/boundedName" },
+        "verified_by": { "type": "array", "minItems": 2, "maxItems": 8, "items": { "$ref": "#/$defs/reviewer" } },
+        "source_candidate_sha256": { "$ref": "#/$defs/hashRef" },
+        "policy": { "$ref": "#/$defs/policy" },
+        "status": { "enum": ["active", "quarantined", "superseded", "expired"] },
+        "supersedes": { "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/canonicalRef" }] },
+        "activated_at": { "$ref": "#/$defs/awareDateTime" },
+        "lesson_sha256": { "$ref": "#/$defs/hashRef" }
+      }
+    },
+    "playbookStep": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["step_id", "operation", "required", "tool_id", "evidence_required", "on_failure"],
+      "properties": {
+        "step_id": { "type": "string", "pattern": "^[a-z][a-z0-9-]{0,63}$" },
+        "operation": { "type": "string", "minLength": 1, "maxLength": 1024 },
+        "required": { "type": "boolean" },
+        "tool_id": { "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/boundedName" }] },
+        "evidence_required": { "type": "boolean" },
+        "on_failure": { "enum": ["abstain", "fallback", "stop"] }
+      }
+    },
+    "playbookCore": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["procedure_key", "required", "owner", "risk_class", "applicability", "required_inputs", "steps", "required_evidence", "expected_output", "prohibited_shortcuts", "fallback", "abstention_behavior", "permitted_tools", "originating_episode_ids", "counterexample_ids", "validation_case_ids", "measured_effect"],
+      "properties": {
+        "procedure_key": { "type": "string", "pattern": "^[a-z][a-z0-9.-]{0,127}$" },
+        "required": { "type": "boolean" },
+        "owner": { "$ref": "#/$defs/boundedName" },
+        "risk_class": { "enum": ["mechanical", "analytical", "high-risk"] },
+        "applicability": { "$ref": "#/$defs/applicability" },
+        "required_inputs": { "$ref": "#/$defs/stringList" },
+        "steps": { "type": "array", "minItems": 1, "maxItems": 64, "items": { "$ref": "#/$defs/playbookStep" } },
+        "required_evidence": { "$ref": "#/$defs/stringList" },
+        "expected_output": { "type": "string", "minLength": 1, "maxLength": 2048 },
+        "prohibited_shortcuts": { "type": "array", "minItems": 1, "maxItems": 64, "uniqueItems": true, "items": { "type": "string", "minLength": 1, "maxLength": 512 } },
+        "fallback": { "type": "string", "minLength": 1, "maxLength": 2048 },
+        "abstention_behavior": { "type": "string", "minLength": 1, "maxLength": 2048 },
+        "permitted_tools": { "$ref": "#/$defs/nameList" },
+        "originating_episode_ids": { "type": "array", "minItems": 1, "maxItems": 128, "uniqueItems": true, "items": { "$ref": "#/$defs/memoryId" } },
+        "counterexample_ids": { "$ref": "#/$defs/stringList" },
+        "validation_case_ids": { "type": "array", "minItems": 4, "maxItems": 128, "uniqueItems": true, "items": { "type": "string", "minLength": 1, "maxLength": 128 } },
+        "measured_effect": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["metric", "baseline", "candidate", "sample_size", "serious_error_regression"],
+          "properties": {
+            "metric": { "type": "string", "minLength": 1, "maxLength": 128 },
+            "baseline": { "type": "number" },
+            "candidate": { "type": "number" },
+            "sample_size": { "type": "integer", "minimum": 1 },
+            "serious_error_regression": { "type": "boolean" }
+          }
+        }
+      }
+    },
+    "memoryPlaybookCandidateV1": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schema", "candidate_id", "playbook", "created_by", "policy", "status", "created_at", "candidate_sha256"],
+      "properties": {
+        "schema": { "const": "memory-playbook-candidate/v1" },
+        "candidate_id": { "$ref": "#/$defs/memoryId" },
+        "playbook": { "$ref": "#/$defs/playbookCore" },
+        "created_by": { "$ref": "#/$defs/producer" },
+        "policy": { "$ref": "#/$defs/policy" },
+        "status": { "const": "candidate" },
+        "created_at": { "$ref": "#/$defs/awareDateTime" },
+        "candidate_sha256": { "$ref": "#/$defs/hashRef" }
+      }
+    },
+    "memoryPlaybookV1": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schema", "playbook_id", "version", "playbook", "source_candidate_sha256", "policy", "status", "status_reason", "expires_at", "prior_version", "verified_by", "evaluation_sha256", "activated_at", "playbook_sha256"],
+      "properties": {
+        "schema": { "const": "memory-playbook/v1" },
+        "playbook_id": { "$ref": "#/$defs/memoryId" },
+        "version": { "type": "integer", "minimum": 1 },
+        "playbook": { "$ref": "#/$defs/playbookCore" },
+        "source_candidate_sha256": { "$ref": "#/$defs/hashRef" },
+        "policy": { "$ref": "#/$defs/policy" },
+        "status": { "enum": ["active", "quarantined", "deprecated", "expired"] },
+        "status_reason": {
+          "oneOf": [
+            { "type": "null" },
+            { "enum": ["policy-leak", "stale-fact", "prompt-injection", "serious-evidence-error", "two-ordinary-failures", "expired", "manual-emergency"] }
+          ]
+        },
+        "expires_at": { "$ref": "#/$defs/awareDateTime" },
+        "prior_version": { "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/canonicalRef" }] },
+        "verified_by": { "type": "array", "minItems": 3, "maxItems": 8, "items": { "$ref": "#/$defs/reviewer" } },
+        "evaluation_sha256": { "$ref": "#/$defs/hashRef" },
+        "promotion_manifest_sha256": { "$ref": "#/$defs/hashRef" },
+        "activated_at": { "$ref": "#/$defs/awareDateTime" },
+        "playbook_sha256": { "$ref": "#/$defs/hashRef" }
+      }
+    },
+    "evaluationCase": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["case_id", "kind", "issuer_id", "source_episode_id", "output_sha256", "integrity_gate_sha256", "integrity_status", "outcome_review_sha256", "applicable", "passed", "citation_error", "qualifier_loss", "temporal_error", "abstention_error", "serious_error", "metrics_sha256"],
+      "properties": {
+        "case_id": { "type": "string", "minLength": 1, "maxLength": 128 },
+        "kind": { "enum": ["origin", "held-out", "counterexample", "outcome-review"] },
+        "issuer_id": { "$ref": "#/$defs/subjectId" },
+        "source_episode_id": { "$ref": "#/$defs/episodeRef" },
+        "output_sha256": { "$ref": "#/$defs/hashRef" },
+        "integrity_gate_sha256": { "$ref": "#/$defs/hashRef" },
+        "integrity_status": { "const": "passed" },
+        "outcome_review_sha256": {
+          "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/hashRef" }]
+        },
+        "applicable": { "type": "boolean" },
+        "passed": { "type": "boolean" },
+        "citation_error": { "type": "boolean" },
+        "qualifier_loss": { "type": "boolean" },
+        "temporal_error": { "type": "boolean" },
+        "abstention_error": { "type": "boolean" },
+        "serious_error": { "type": "boolean" },
+        "metrics_sha256": { "$ref": "#/$defs/hashRef" }
+      }
+    },
+    "playbookReviewAttestation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schema", "role", "identity", "candidate_sha256", "cases_sha256", "decision", "decided_at", "attestation_sha256", "signature"],
+      "properties": {
+        "schema": { "const": "memory-playbook-review-attestation/v1" },
+        "role": { "enum": ["evidence", "applicability", "security"] },
+        "identity": { "$ref": "#/$defs/producer" },
+        "candidate_sha256": { "$ref": "#/$defs/hashRef" },
+        "cases_sha256": { "$ref": "#/$defs/hashRef" },
+        "decision": { "const": "approved" },
+        "decided_at": { "$ref": "#/$defs/awareDateTime" },
+        "attestation_sha256": { "$ref": "#/$defs/hashRef" },
+        "signature": { "$ref": "#/$defs/signature" }
+      }
+    },
+    "memoryPlaybookEvaluationV1": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schema", "evaluation_id", "candidate_sha256", "risk_class", "cases", "reviewers", "review_attestations", "metric_regressions", "security_failures", "passed", "evaluated_at", "evaluation_sha256"],
+      "properties": {
+        "schema": { "const": "memory-playbook-evaluation/v1" },
+        "evaluation_id": { "$ref": "#/$defs/memoryId" },
+        "candidate_sha256": { "$ref": "#/$defs/hashRef" },
+        "risk_class": { "enum": ["mechanical", "analytical", "high-risk"] },
+        "cases": { "type": "array", "minItems": 4, "maxItems": 128, "items": { "$ref": "#/$defs/evaluationCase" } },
+        "reviewers": { "type": "array", "minItems": 3, "maxItems": 8, "items": { "$ref": "#/$defs/reviewer" } },
+        "review_attestations": { "type": "array", "minItems": 3, "maxItems": 3, "items": { "$ref": "#/$defs/playbookReviewAttestation" } },
+        "metric_regressions": { "$ref": "#/$defs/stringList" },
+        "security_failures": { "$ref": "#/$defs/stringList" },
+        "passed": { "type": "boolean" },
+        "evaluated_at": { "$ref": "#/$defs/awareDateTime" },
+        "evaluation_sha256": { "$ref": "#/$defs/hashRef" }
+      }
+    },
+    "stepExecution": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["step_id", "status", "tool_id", "input_sha256", "output_sha256", "evidence_refs", "deviation_code"],
+      "properties": {
+        "step_id": { "type": "string", "pattern": "^[a-z][a-z0-9-]{0,63}$" },
+        "status": { "enum": ["completed", "failed", "skipped", "deviated"] },
+        "tool_id": { "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/boundedName" }] },
+        "input_sha256": { "$ref": "#/$defs/hashRef" },
+        "output_sha256": { "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/hashRef" }] },
+        "evidence_refs": { "$ref": "#/$defs/evidenceRefs" },
+        "deviation_code": { "type": ["string", "null"], "pattern": "^[a-z][a-z0-9-]{0,63}$" }
+      }
+    },
+    "memoryPlaybookExecutionV1": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schema", "execution_id", "run_id", "task_id", "packet_id", "packet_sha256", "query_sha256", "projection_digest", "playbook_id", "version", "playbook_sha256", "canonical_hash_verified_before", "canonical_hash_verified_after", "steps", "status", "deviation_codes", "incident_codes", "started_at", "completed_at", "execution_sha256"],
+      "properties": {
+        "schema": { "const": "memory-playbook-execution/v1" },
+        "execution_id": { "$ref": "#/$defs/memoryId" },
+        "run_id": { "$ref": "#/$defs/boundedName" },
+        "task_id": { "$ref": "#/$defs/boundedName" },
+        "packet_id": { "$ref": "#/$defs/memoryId" },
+        "packet_sha256": { "$ref": "#/$defs/hashRef" },
+        "query_sha256": { "$ref": "#/$defs/hashRef" },
+        "projection_digest": { "$ref": "#/$defs/hashRef" },
+        "playbook_id": { "$ref": "#/$defs/memoryId" },
+        "version": { "type": "integer", "minimum": 1 },
+        "playbook_sha256": { "$ref": "#/$defs/hashRef" },
+        "canonical_hash_verified_before": { "type": "boolean" },
+        "canonical_hash_verified_after": { "type": "boolean" },
+        "steps": { "type": "array", "minItems": 1, "maxItems": 64, "items": { "$ref": "#/$defs/stepExecution" } },
+        "status": { "enum": ["completed", "failed", "deviated", "abstained"] },
+        "deviation_codes": { "$ref": "#/$defs/stringList" },
+        "incident_codes": {
+          "type": "array",
+          "maxItems": 16,
+          "uniqueItems": true,
+          "items": { "enum": ["policy-leak", "stale-fact", "prompt-injection", "serious-evidence-error", "ordinary-failure"] }
+        },
+        "started_at": { "$ref": "#/$defs/awareDateTime" },
+        "completed_at": { "$ref": "#/$defs/awareDateTime" },
+        "execution_sha256": { "$ref": "#/$defs/hashRef" }
+      }
+    },
+    "memoryPromotionManifestV1": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schema", "manifest_id", "candidate_kind", "candidate_sha256", "target_schema", "target_id", "target_version", "evaluation_sha256", "reviewers", "author", "branch", "pull_request", "activation_content_sha256", "created_at", "manifest_sha256", "signature"],
+      "properties": {
+        "schema": { "const": "memory-promotion-manifest/v1" },
+        "manifest_id": { "$ref": "#/$defs/memoryId" },
+        "candidate_kind": { "enum": ["semantic", "playbook"] },
+        "candidate_sha256": { "$ref": "#/$defs/hashRef" },
+        "target_schema": { "enum": ["memory-semantic-lesson/v1", "memory-playbook/v1"] },
+        "target_id": { "$ref": "#/$defs/memoryId" },
+        "target_version": { "type": "integer", "minimum": 1 },
+        "evaluation_sha256": { "$ref": "#/$defs/hashRef" },
+        "reviewers": { "type": "array", "minItems": 3, "maxItems": 8, "items": { "$ref": "#/$defs/reviewer" } },
+        "author": { "$ref": "#/$defs/producer" },
+        "branch": { "type": "string", "pattern": "^codex/memory-promotion-[a-z0-9][a-z0-9-]{0,63}$" },
+        "pull_request": { "type": "integer", "minimum": 1 },
+        "activation_content_sha256": { "$ref": "#/$defs/hashRef" },
+        "created_at": { "$ref": "#/$defs/awareDateTime" },
+        "manifest_sha256": { "$ref": "#/$defs/hashRef" },
+        "signature": { "$ref": "#/$defs/signature" }
+      }
+    },
+    "memoryProviderPolicyV1": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schema", "policy_id", "version", "providers", "default_action", "updated_at", "policy_sha256", "signature"],
+      "properties": {
+        "schema": { "const": "memory-provider-policy/v1" },
+        "policy_id": { "$ref": "#/$defs/boundedName" },
+        "version": { "type": "integer", "minimum": 1 },
+        "providers": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 128,
+          "items": { "$ref": "#/$defs/providerAccess" }
+        },
+        "default_action": { "const": "deny" },
+        "updated_at": { "$ref": "#/$defs/awareDateTime" },
+        "policy_sha256": { "$ref": "#/$defs/hashRef" },
+        "signature": { "$ref": "#/$defs/signature" }
+      }
+    }
+  }
+}

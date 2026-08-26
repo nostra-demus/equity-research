@@ -383,6 +383,26 @@ class MemoryStoreTests(unittest.TestCase):
         kwargs.setdefault("projection_absent", lambda _ref: True)
         return MemoryStore(root, authorize=allow, **kwargs)
 
+    def test_projection_reader_lists_only_authorized_exact_event_refs(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            requests: list[tuple[str, object]] = []
+
+            def authorize(request: object) -> bool:
+                requests.append((request.action, request.principal))
+                return request.principal == "projection-reader"
+
+            store = MemoryStore(Path(temporary) / "store", authorize=authorize)
+            raw = b"projection source"
+            manifest = object_manifest(raw)
+            ref = store.put_object(manifest, raw, principal="projection-reader")
+            stored = store.put_event(
+                event(manifest["policy"]), objects=[ref], principal="projection-reader",
+            )
+            self.assertEqual((stored,), store.list_event_refs(principal="projection-reader"))
+            self.assertIn(("projection", "projection-reader"), requests)
+            with self.assertRaises(AccessDenied):
+                store.list_event_refs(principal="different-reader")
+
     def test_exact_bytes_idempotence_manifest_binding_and_private_modes(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary) / "store"

@@ -14,6 +14,14 @@ import { getProviderAdapter } from './providers/registry'
 
 const PROVIDER_MESSAGE_MAX = 4_000
 
+function accumulatedProviderMetric(base: unknown, current: unknown): number | undefined {
+  if (typeof current !== 'number' || !Number.isFinite(current) || current < 0) return undefined
+  const safeBase = base === undefined ? 0 : base
+  if (typeof safeBase !== 'number' || !Number.isFinite(safeBase) || safeBase < 0) return undefined
+  const total = safeBase + current
+  return Number.isFinite(total) ? total : undefined
+}
+
 function rememberProviderMessage(run: RunState, message: string | undefined): void {
   const normalized = message?.trim()
   if (!normalized) return
@@ -115,6 +123,69 @@ export function activityTarget(tool: string, input: any): string | undefined {
 // provider-specific shape reaches the shared run registry, activity feed, or finalizer.
 export function handleStreamLine(run: RunState, line: string) {
   const events = getProviderAdapter(run.provider).parseStreamLine(line)
+  const observeTask = (event: { tool?: string; toolUseId?: string; input?: unknown }, ts: number) => {
+    if (event.tool !== 'Task') return undefined
+    const input = event.input as any
+    const sub = typeof input?.subagent_type === 'string' ? input.subagent_type : undefined
+    const idx = sub ? getNameIndex().get(sub) : undefined
+    let key = event.toolUseId ? run.toolUseToAgent.get(event.toolUseId) : undefined
+    if (idx) {
+      key = idx.key
+      const isNewSpawnAttempt = input?.tool === 'spawn_agent'
+        && !!event.toolUseId
+        && !run.toolUseToAgent.has(event.toolUseId)
+      if (event.toolUseId) run.toolUseToAgent.set(event.toolUseId, key)
+      const a = run.agents.get(key) || {
+        key, module: idx.module, name: idx.name, layer: idx.layer, status: 'queued' as const,
+      }
+      // A failed canonical specialist may be explicitly retried with a new native spawn call. Retire
+      // the old thread bindings before reopening its orb so a late update from the failed child cannot
+      // poison the new attempt. Repeated rows for one tool-use id remain idempotent.
+      if (a.status === 'failed' && isNewSpawnAttempt) {
+        for (const [threadId, agentKey] of run.nativeThreadToAgent) {
+          if (agentKey !== key) continue
+          run.nativeThreadToAgent.delete(threadId)
+          run.nativeAgentStates.delete(threadId)
+        }
+        a.status = 'running'
+        run.agents.set(key, a)
+        emit(run, {
+          type: 'agent-started', runId: run.runId, module: idx.module, agentKey: idx.key,
+          name: idx.name, layer: idx.layer, ts,
+        })
+      } else if (a.status !== 'done' && a.status !== 'failed') {
+        const newlyRunning = a.status !== 'running'
+        a.status = 'running'
+        run.agents.set(key, a)
+        if (newlyRunning) {
+          emit(run, {
+            type: 'agent-started', runId: run.runId, module: idx.module, agentKey: idx.key,
+            name: idx.name, layer: idx.layer, ts,
+          })
+        }
+      }
+    }
+    const receiverThreadIds = Array.isArray(input?.receiverThreadIds)
+      ? input.receiverThreadIds.filter((value: unknown): value is string => typeof value === 'string' && !!value)
+      : []
+    if (key) for (const threadId of receiverThreadIds) run.nativeThreadToAgent.set(threadId, key)
+    const states = input?.agentStates && typeof input.agentStates === 'object' ? input.agentStates : {}
+    for (const [threadId, state] of Object.entries(states as Record<string, any>)) {
+      const status = typeof state?.status === 'string' ? state.status : undefined
+      if (status) run.nativeAgentStates.set(threadId, status)
+      const stateKey = run.nativeThreadToAgent.get(threadId) || key
+      const a = stateKey ? run.agents.get(stateKey) : undefined
+      if (a && a.status !== 'done' && a.status !== 'failed'
+          && ['interrupted', 'errored', 'shutdown', 'not_found'].includes(status || '')) {
+        a.status = 'failed'
+        emit(run, {
+          type: 'agent-failed', runId: run.runId, agentKey: a.key, module: a.module, name: a.name,
+          layer: a.layer, reason: `native_${status}`, ts,
+        })
+      }
+    }
+    return key
+  }
   for (const event of events) {
     const ts = Date.now()
     if (event.type === 'session') {
@@ -136,26 +207,20 @@ export function handleStreamLine(run: RunState, line: string) {
         provider: run.provider, executionProfile: run.executionProfile, ts,
       })
       if (event.tool === 'Task') {
-        const input = event.input as any
-        const sub = input?.subagent_type
-        const idx = sub ? getNameIndex().get(sub) : undefined
-        if (idx) {
-          if (event.toolUseId) run.toolUseToAgent.set(event.toolUseId, idx.key)
-          const a = run.agents.get(idx.key) || { key: idx.key, module: idx.module, name: idx.name, layer: idx.layer, status: 'queued' as const }
-          if (a.status !== 'done') {
-            a.status = 'running'
-            run.agents.set(idx.key, a)
-            emit(run, { type: 'agent-started', runId: run.runId, module: idx.module, agentKey: idx.key, name: idx.name, layer: idx.layer, ts })
-          }
-        }
+        observeTask(event, ts)
       }
       continue
     }
+    if (event.type === 'tool-progress') {
+      observeTask(event, ts)
+      continue
+    }
     if (event.type === 'tool-result') {
+      const observedKey = observeTask(event, ts)
       if (!event.isError) continue
-      const key = event.toolUseId ? run.toolUseToAgent.get(event.toolUseId) : undefined
+      const key = observedKey || (event.toolUseId ? run.toolUseToAgent.get(event.toolUseId) : undefined)
       const a = key ? run.agents.get(key) : undefined
-      if (a && a.status !== 'done') {
+      if (a && a.status !== 'done' && a.status !== 'failed') {
         a.status = 'failed'
         emit(run, { type: 'agent-failed', runId: run.runId, agentKey: a.key, module: a.module, name: a.name, layer: a.layer, reason: 'tool_result_error', ts })
       }
@@ -172,9 +237,16 @@ export function handleStreamLine(run: RunState, line: string) {
       // what made months of module stalls undiagnosable.
       run.cliResult = event.cliResult
       rememberProviderMessage(run, event.message)
-      if (typeof event.costUsd === 'number') run.costUsd = event.costUsd
-      if (typeof event.numTurns === 'number') run.numTurns = event.numTurns
-      if (typeof event.durationMs === 'number') run.durationMs = event.durationMs
+      // A bounded Codex automatic continuation is another provider process inside the SAME admitted run.
+      // Its process-local result metrics must add to the logical run instead of replacing the earlier work.
+      // Ordinary Claude/Codex launches have no base and retain the exact historical assignment behaviour.
+      const metricBase = run.automaticContinuationMetricBase
+      const costUsd = accumulatedProviderMetric(metricBase?.costUsd, event.costUsd)
+      const numTurns = accumulatedProviderMetric(metricBase?.numTurns, event.numTurns)
+      const durationMs = accumulatedProviderMetric(metricBase?.durationMs, event.durationMs)
+      if (costUsd !== undefined) run.costUsd = costUsd
+      if (numTurns !== undefined) run.numTurns = numTurns
+      if (durationMs !== undefined) run.durationMs = durationMs
       // Do not sweep outputs on the stream result. The detached leader can emit its result and exit while
       // a Task/tool descendant is still writing. The launcher's close path proves the whole process group
       // extinct first, then performs the authoritative final sweep before terminal validation/publication.

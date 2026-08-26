@@ -3,6 +3,16 @@ name: capital-structure-and-leverage
 description: Builds the full debt stack (short/long-term, secured/unsecured, senior/sub, bonds/loans/revolver, finance leases), adds lease/pension/preferred obligations, and computes gross and net leverage with the trend. The foundation every other solvency agent uses.
 tools: Read, Glob, Grep, Bash
 layer: 1
+memory_profile:
+  version: 1
+  task: balance-sheet-survival.capital-structure-and-leverage
+  episodic_scope: exact-listing
+  semantic_topics: [balance-sheet-survival, capital-structure-and-leverage]
+  procedure_tags: [balance-sheet-survival, capital-structure-and-leverage]
+  cross_company: true
+  permitted_source_tiers: [1, 2, 3, 4, 5]
+  permitted_classifications: [public, internal]
+  max_context_tokens: 3000
 ---
 
 # ROLE

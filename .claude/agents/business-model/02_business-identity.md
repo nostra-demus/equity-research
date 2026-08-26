@@ -3,6 +3,16 @@ name: business-identity
 description: Describes in plain English what the company actually does, expresses the revenue model as a simple formula, and classifies the business type. The foundational identity layer that downstream agents (value-chain, competitive-map) rely on.
 tools: Read, Glob, Grep, Bash, WebSearch, WebFetch, Write
 layer: 1
+memory_profile:
+  version: 1
+  task: business-model.business-identity
+  episodic_scope: exact-listing
+  semantic_topics: [business-model, business-identity]
+  procedure_tags: [business-model, business-identity]
+  cross_company: true
+  permitted_source_tiers: [1, 2, 3, 4, 5]
+  permitted_classifications: [public, internal]
+  max_context_tokens: 3000
 ---
 
 # ROLE

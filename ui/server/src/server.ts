@@ -1,4 +1,4 @@
-import { randomUUID } from 'node:crypto'
+import { createHash, randomUUID, timingSafeEqual } from 'node:crypto'
 import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
@@ -22,12 +22,12 @@ import { attachmentExists, attachmentPath, deleteAttachment, readAttachment, sav
 import {
   assertClaudeCli, assertProviderAvailable, cancel, cancelAll, cancelSubject, checkProviderUsage,
   creditCheck, decideReadiness, drainProviderRunsForShutdown, estimate, isSealedResearchRun, launch,
-  queuePublicationIntent, reapDeadSubjectRuns, reconcileOrphanedProviderGroups, recoverReadyPublications, sigIdFor,
-  subjectChainActive, todayDate, warmLaunchProbes,
+  getParityCanaryChainStatus, queuePublicationIntent, reapDeadSubjectRuns, reconcileOrphanedProviderGroups, recoverReadyPublications, sigIdFor,
+  isRecoverableParityInterruptionReason, subjectChainActive, todayDate, warmLaunchProbes,
   type RunProviderSelection,
 } from './launcher'
 import { newsBus } from './news/bus'
-import { readFeed, searchFeed, applyActiveWeightsTo } from './news/feed'
+import { readFeed, searchFeed, applyActiveWeightsTo, type SearchCursor } from './news/feed'
 import { getPulse } from './news/commodity-pulse'
 import { callVsLive, getQuotes, resolveUnits, symbolCandidates } from './news/equity-quote'
 import { getCalendar } from './news/events-calendar'
@@ -41,7 +41,8 @@ import { getIntensity, INTENSITY_WINDOWS, type IntensityWindow } from './news/in
 import { getRankWeights, defaultRankWeights, saveRankWeights, resetRankWeights, rankWeightsCustomised, type RankWeights } from './news/rank-weights'
 import { buildSourcesReport } from './news/source-health'
 import { loadTheme, buildThemeDetail } from './news/themes/store'
-import type { ThemeGeo } from './news/themes/geo-index'
+import { memberMatchesGeo, type ThemeGeo } from './news/themes/geo-index'
+import { memberMatchesCommodity } from './news/themes/commodity-index'
 import { createThemesIndexReader } from './news/themes/api-index'
 import {
   clearSupersededManual, deleteStatement, logManualTrade, readPortfolio, removeManualTrade, saveStatement,
@@ -110,7 +111,7 @@ import {
   writePendingModulePublication,
 } from './module-publication'
 import { retryBoundModulePublication, type CommitRunAttempt } from './module-publication-git'
-import { readLastProviderSelection } from './execution-provenance'
+import { readLastProviderSelection, readProviderInterruptionAuthority } from './execution-provenance'
 import { intakePoolNewest, latestPlanFileFor, readIntakePlan, resolveIntakeRunRoot, type IntakeReceiptIntent } from './intake'
 import { finishedOwnerConflict, listFinishedIntakeOwners, resolveUniqueFinishedIntakeOwner, type FinishedIntakeOwner } from './intake-owner'
 import { getBridgeStatus, getBridgeSubjectNames, startBridgeScheduler } from './bridge-scheduler'
@@ -139,6 +140,8 @@ import { AGENT_RE, EVENT_ID_RE, FEEDBACK_ID_RE, MODULE_RE, SIG_RE, THESIS_RE, TI
 import type { RunKind, RunStatus } from './types'
 import { MANIFEST_SUBJECT_RE, normalizeDataSubject } from './data-subject'
 import { createMemoryReader } from './memory'
+import { createMemoryRuntimeReader } from './memory-runtime'
+import { researchMemoryMode } from './research-memory'
 import { purgeReelTempDirs, ReelTranscriptError, transcribeInstagramReel, type ReelTranscriptProgressEvent } from './reel-transcript'
 import { getProviderAdapter, isProviderEnabled, isRunProvider, listProviderAdapters, providerDisabledReason } from './providers/registry'
 import type { RunProvider } from './providers/types'
@@ -267,11 +270,81 @@ app.get('/api/health', async (_req, reply) => {
 // One shared, read-only Memory view for research, screener and commodity. The reader owns the fixed
 // internal classification, projection path and trusted digest; callers cannot widen policy or select files.
 const memoryReader = createMemoryReader({ repoRoot: REPO_ROOT, stateDir: STATE_DIR })
+const memoryRuntimeReader = createMemoryRuntimeReader({
+  repoRoot: REPO_ROOT,
+  stateRoot: path.resolve(process.env.NOSTRA_MEMORY_STATE_ROOT || path.join(STATE_DIR, 'memory-runtime')),
+  mode: researchMemoryMode(),
+  serviceIdentities: {
+    'projection-query': process.env.NOSTRA_MEMORY_PROJECTION_SERVICE_IDENTITY,
+    'candidate-intake': process.env.NOSTRA_MEMORY_CANDIDATE_INTAKE_IDENTITY,
+    'independent-verification': process.env.NOSTRA_MEMORY_VERIFIER_IDENTITY,
+    'canonical-writing': process.env.NOSTRA_MEMORY_WRITER_OWNER,
+    'promotion-pr': process.env.NOSTRA_MEMORY_PROMOTION_SERVICE_IDENTITY,
+    'emergency-quarantine': process.env.NOSTRA_MEMORY_QUARANTINE_SERVICE_IDENTITY,
+    'restore-retirement': process.env.NOSTRA_MEMORY_RESTORE_SERVICE_IDENTITY,
+  },
+})
 app.get('/api/memory', { config: { rateLimit: { max: 60, timeWindow: '1 minute' } } }, async (_req, reply) => {
   reply.header('cache-control', 'no-store')
   // Unavailability is part of memory-ui/1, not a transport failure. Keep it a parseable 200 so the
   // cockpit can explain that state; an actual missing route/network failure remains distinguishable.
   return memoryReader.read()
+})
+
+app.get('/api/memory/runtime', { config: { rateLimit: { max: 60, timeWindow: '1 minute' } } }, async (_req, reply) => {
+  reply.header('cache-control', 'no-store')
+  return await memoryRuntimeReader.runtime()
+})
+
+app.get('/api/memory/runs/:runId', { config: { rateLimit: { max: 60, timeWindow: '1 minute' } } }, async (req, reply) => {
+  reply.header('cache-control', 'no-store')
+  const parsed = z.object({ runId: z.string().regex(/^[A-Za-z0-9][A-Za-z0-9._:-]{0,191}$/) }).safeParse(req.params)
+  if (!parsed.success) return reply.code(400).send({ error: 'invalid memory run id' })
+  const run = await memoryRuntimeReader.runs(parsed.data.runId)
+  return run || reply.code(404).send({ error: 'memory run not found' })
+})
+
+app.get('/api/memory/lessons', { config: { rateLimit: { max: 60, timeWindow: '1 minute' } } }, async (_req, reply) => {
+  reply.header('cache-control', 'no-store')
+  return { contract_version: 'memory-lessons-ui/1', read_only: true, items: await memoryRuntimeReader.lessons() }
+})
+
+app.get('/api/memory/playbooks', { config: { rateLimit: { max: 60, timeWindow: '1 minute' } } }, async (_req, reply) => {
+  reply.header('cache-control', 'no-store')
+  return { contract_version: 'memory-playbooks-ui/1', read_only: true, items: await memoryRuntimeReader.playbooks() }
+})
+
+app.get('/api/memory/candidates', { config: { rateLimit: { max: 30, timeWindow: '1 minute' } } }, async (_req, reply) => {
+  reply.header('cache-control', 'no-store')
+  return { contract_version: 'memory-candidates-ui/1', read_only: true, items: await memoryRuntimeReader.candidates() }
+})
+
+function validMemoryQuarantineToken(req: FastifyRequest): boolean {
+  const configured = String(process.env.NOSTRA_MEMORY_QUARANTINE_TOKEN || '')
+  const raw = req.headers['x-nostra-memory-quarantine-token']
+  const supplied = Array.isArray(raw) ? raw[0] : raw
+  if (!configured || typeof supplied !== 'string') return false
+  const left = createHash('sha256').update(configured).digest()
+  const right = createHash('sha256').update(supplied).digest()
+  return timingSafeEqual(left, right)
+}
+
+app.post('/api/memory/playbooks/quarantine', { config: { rateLimit: { max: 5, timeWindow: '1 minute' } } }, async (req, reply) => {
+  reply.header('cache-control', 'no-store')
+  if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request rejected' })
+  if (!process.env.NOSTRA_MEMORY_QUARANTINE_TOKEN) return reply.code(503).send({ error: 'memory quarantine identity is not configured' })
+  if (!validMemoryQuarantineToken(req)) return reply.code(401).send({ error: 'memory quarantine authentication failed' })
+  const parsed = z.object({
+    playbook_id: z.string().regex(/^[A-Za-z0-9][A-Za-z0-9._\/-]{0,127}$/),
+    version: z.number().int().positive().optional(),
+    reason: z.enum(['policy-leak', 'stale-fact', 'prompt-injection', 'serious-evidence-error', 'operator-emergency', 'provider-incident', 'purge-pending']),
+  }).strict().safeParse(req.body)
+  if (!parsed.success) return reply.code(400).send({ error: 'invalid playbook quarantine request' })
+  try {
+    return await memoryRuntimeReader.control({ operation: 'playbook-quarantine', ...parsed.data })
+  } catch {
+    return reply.code(503).send({ error: 'memory playbook quarantine failed closed' })
+  }
 })
 
 // ---------- Tools: Reel to Transcript ----------
@@ -839,6 +912,13 @@ const ResearchLaunchBody = z.object({
   force: z.boolean().optional(),
   runRoot: z.string().min(1).max(300).optional(),
   decisionFingerprint: z.string().regex(/^sha256:[a-f0-9]{64}$/).optional(),
+  memoryIdentity: z.object({
+    legalName: z.string().trim().min(1).max(256),
+    venue: z.string().trim().min(1).max(80),
+    currency: z.string().regex(/^[A-Z]{3}$/),
+    ticker: z.string().regex(TICKER_RE),
+    identifiers: z.array(z.string().trim().min(1).max(128)).max(16).default([]),
+  }).strict().optional(),
 })
 
 const INB_RE = /^INB-\d{8}-\d{3,}$/
@@ -950,6 +1030,16 @@ const ParityCanaryLaunchBody = z.object({
   expectedProfileKey: z.string().min(1).max(240),
   runRoot: z.string().regex(PARITY_CANARY_RUN_ROOT_RE),
   freezeReceipt: z.string().regex(/^[A-Za-z0-9._/-]{1,500}$/),
+}).strict()
+
+const ParityCanaryContinueBody = z.object({
+  provider: z.literal('codex'),
+  model: z.string().regex(/^[a-z0-9.\-]{1,40}$/i),
+  reasoningLevel: z.string().regex(/^[a-z0-9_-]{1,24}$/i),
+  expectedProfileKey: z.string().min(1).max(240),
+  runRoot: z.string().regex(PARITY_CANARY_RUN_ROOT_RE),
+  freezeReceipt: z.string().regex(/^[A-Za-z0-9._/-]{1,500}$/),
+  interruptedRunId: z.string().uuid(),
 }).strict()
 
 const ParityCanaryStatusQuery = z.object({
@@ -1099,6 +1189,99 @@ app.post('/api/internal/provider-parity/canary', { config: { rateLimit: { max: 4
   }
 })
 
+// One-use recovery for a frozen Codex canary whose provider process exited cleanly before it finished its
+// discovered Task graph. This is deliberately a different route from the paid canary POST: it can only
+// continue the exact supervisor-sealed root/profile/process already on disk, and can never create a new
+// attempt root. The subject lock plus interruption-marker consumption makes duplicate clicks fail closed.
+app.post('/api/internal/provider-parity/canary-continue', { config: { rateLimit: { max: 4, timeWindow: '1 minute' } } }, async (req, reply) => {
+  if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request blocked' })
+  if (process.env.ENGINE_PROVIDER_PARITY_ENABLED !== '1') {
+    return reply.code(404).send({ error: 'provider parity launch is disabled' })
+  }
+  const { user, userVia } = identify(req)
+  if (userVia !== 'cf-access' || !isDispatchAdmin(user)) {
+    return reply.code(403).send({ error: 'not authorized to continue provider parity (admin only)' })
+  }
+  const parsed = ParityCanaryContinueBody.safeParse(req.body)
+  if (!parsed.success) return reply.code(400).send({ error: 'invalid parity canary continuation body', detail: parsed.error.flatten() })
+
+  const validateCandidate = (): { subject: string } => {
+    const lexicalRoot = path.join(REPO_ROOT, parsed.data.runRoot)
+    let lexicalStat: fs.Stats
+    try { lexicalStat = fs.lstatSync(lexicalRoot) } catch {
+      throw Object.assign(new Error('canary run root not found'), { statusCode: 404 })
+    }
+    if (!lexicalStat.isDirectory() || lexicalStat.isSymbolicLink()) {
+      throw Object.assign(new Error('invalid canary run root'), { statusCode: 400 })
+    }
+    let rootAbs: string
+    try { rootAbs = resolveInsideAnalyses(lexicalRoot) } catch {
+      throw Object.assign(new Error('invalid canary run root'), { statusCode: 400 })
+    }
+    const interruptedRaw = readCanaryRunFile(rootAbs, '.interrupted')
+    let marker: Record<string, unknown>
+    try {
+      const value = interruptedRaw ? JSON.parse(interruptedRaw) : null
+      if (!value || typeof value !== 'object' || Array.isArray(value)) throw new Error('invalid')
+      marker = value
+    } catch {
+      throw Object.assign(new Error('canary has no valid supervisor interruption marker'), { statusCode: 409 })
+    }
+    const authority = readProviderInterruptionAuthority(parsed.data.runRoot)
+    if (!authority
+        || authority.runId !== parsed.data.interruptedRunId
+        || authority.provider !== parsed.data.provider
+        || authority.model !== parsed.data.model
+        || authority.reasoningLevel !== parsed.data.reasoningLevel
+        || authority.profileKey !== parsed.data.expectedProfileKey
+        || (marker.attemptId ?? marker.runId) !== parsed.data.interruptedRunId
+        || marker.provider !== parsed.data.provider
+        || marker.model !== parsed.data.model
+        || marker.reasoningLevel !== parsed.data.reasoningLevel
+        || marker.profileKey !== parsed.data.expectedProfileKey
+        || !isRecoverableParityInterruptionReason(marker.reason)) {
+      throw Object.assign(new Error('canary interruption authority does not match the requested Codex process/profile'), { statusCode: 409 })
+    }
+    if (canaryRunFileExists(rootAbs, '.aborted')
+        || ['final_thesis.md', 'decision_record.json', 'execution_provenance.receipt.json']
+          .some((name) => canaryRunFileExists(rootAbs, name))) {
+      throw Object.assign(new Error('canary is aborted or already has terminal artifacts'), { statusCode: 409 })
+    }
+    const bindingRaw = readCanaryRunFile(rootAbs, '.provider-parity-input.json')
+    let subject = ''
+    try { subject = String(JSON.parse(bindingRaw || '{}').subject || '').toUpperCase() } catch { /* fail below */ }
+    if (!isValidTicker(subject)) {
+      throw Object.assign(new Error('canary provider binding has an invalid subject'), { statusCode: 409 })
+    }
+    if (subjectChainActive(subject, RESEARCH_SWARM_ID)
+        || listRuns().some((run) => run.runRoot === parsed.data.runRoot && IN_FLIGHT_STATUSES.has(run.status))) {
+      throw Object.assign(new Error('canary already has an active writer'), { statusCode: 409 })
+    }
+    return { subject }
+  }
+
+  try {
+    const initial = validateCandidate()
+    return await withSubjectLock(subjectMutationLockKey(RESEARCH_SWARM_ID, initial.subject), async () => {
+      const current = validateCandidate()
+      if (current.subject !== initial.subject) {
+        throw Object.assign(new Error('canary subject changed before continuation'), { statusCode: 409 })
+      }
+      return launch({
+        kind: 'full', provider: parsed.data.provider, model: parsed.data.model,
+        reasoningLevel: parsed.data.reasoningLevel, expectedProfileKey: parsed.data.expectedProfileKey,
+        parityCanary: {
+          runRoot: parsed.data.runRoot, freezeReceipt: parsed.data.freezeReceipt, stage: 'continuation',
+        },
+        user, userVia,
+      })
+    })
+  } catch (error: any) {
+    const body = error?.body && typeof error.body === 'object' ? error.body : null
+    return reply.code(error?.statusCode || 500).send({ error: error?.message || 'parity canary continuation failed', ...(body || {}) })
+  }
+})
+
 // The ordinary Activity ledger intentionally excludes release canaries. Give the authenticated operator
 // a narrow, read-only status surface so a terminal failure cannot disappear with the live-run chip.
 app.get('/api/internal/provider-parity/canary-status', { config: { rateLimit: { max: 120, timeWindow: '1 minute' } } }, async (req, reply) => {
@@ -1119,8 +1302,18 @@ app.get('/api/internal/provider-parity/canary-status', { config: { rateLimit: { 
     return reply.code(error?.code === 'ENOENT' ? 404 : 400).send({ error: error?.code === 'ENOENT' ? 'canary run root not found' : 'invalid canary run root' })
   }
 
-  const run = listRuns()
-    .filter((candidate) => candidate.runRoot === parsed.data.runRoot && candidate.parityCanary === true)
+  const logicalChain = getParityCanaryChainStatus(parsed.data.runRoot)
+  const chainRuns = listRuns()
+    .filter((candidate) => candidate.runRoot === parsed.data.runRoot && candidate.parityCanary === true
+      && (!logicalChain || candidate.chainId === logicalChain.chainId))
+  const run = chainRuns
+    .sort((a, b) => b.startedAt - a.startedAt)[0]
+  // The aggregate deliberately stays `running` across child transitions, but a child parked at the
+  // readiness gate is actionable operator state, not an ordinary transition. Surface that exact child
+  // and run id so the canary UI can open the shared readiness-decision workflow instead of polling a
+  // logical chain that can never advance by itself.
+  const pausedRun = chainRuns
+    .filter((candidate) => candidate.status === 'awaiting-readiness-decision')
     .sort((a, b) => b.startedAt - a.startedAt)[0]
   const terminalEvent = run && [...run.eventLog].reverse().find((event) => event.type === 'run-error' || event.type === 'run-done')
   const failureNote = readCanaryRunFile(rootAbs, 'RUN_FAILURE.md')
@@ -1138,21 +1331,28 @@ app.get('/api/internal/provider-parity/canary-status', { config: { rateLimit: { 
   const diskFailure = failureNote !== null || interruptedRaw !== null
   // A supervisor-written failure marker wins over any child-created terminal-looking files. Successful
   // post-restart recovery still requires all three terminal artifacts, including the supervisor receipt.
-  const status = abortedRaw !== null ? 'cancelled'
-    : diskFailure ? 'error'
-      : run?.status ?? (diskComplete ? 'done' : 'unknown')
-  const eventMessage = abortedRaw !== null ? 'Canary cancelled by the operator.'
-    : terminalEvent?.type === 'run-error'
-    ? terminalEvent.message || terminalEvent.reason
-    : terminalEvent?.type === 'run-done' ? 'Canary completed.' : null
+  const logicalInFlight = logicalChain?.status === 'starting' || logicalChain?.status === 'running'
+  const status = logicalInFlight && pausedRun ? pausedRun.status
+    : logicalInFlight ? logicalChain.status
+    : abortedRaw !== null ? 'cancelled'
+      : diskFailure ? 'error'
+        : logicalChain?.status ?? run?.status ?? (diskComplete ? 'done' : 'unknown')
+  const eventMessage = logicalInFlight && pausedRun
+    ? 'Canary paused for a data-readiness decision.'
+    : logicalInFlight ? logicalChain.message
+    : abortedRaw !== null ? 'Canary cancelled by the operator.'
+      : logicalChain?.message
+        ?? (terminalEvent?.type === 'run-error'
+          ? terminalEvent.message || terminalEvent.reason
+          : terminalEvent?.type === 'run-done' ? 'Canary completed.' : null)
   return {
     runRoot: parsed.data.runRoot,
-    runId: run?.runId ?? null,
+    runId: pausedRun?.runId ?? logicalChain?.runId ?? run?.runId ?? null,
     status,
-    startedAt: run?.startedAt ?? null,
-    endedAt: run?.endedAt ?? null,
-    provider: run?.provider ?? null,
-    profileKey: run?.profileKey ?? null,
+    startedAt: logicalChain?.startedAt ?? pausedRun?.startedAt ?? run?.startedAt ?? null,
+    endedAt: logicalChain?.endedAt ?? run?.endedAt ?? null,
+    provider: logicalChain?.provider ?? pausedRun?.provider ?? run?.provider ?? null,
+    profileKey: logicalChain?.profileKey ?? pausedRun?.profileKey ?? run?.profileKey ?? null,
     message: eventMessage,
     failureNote,
     interruption,
@@ -1326,6 +1526,9 @@ app.post('/api/launch', { config: { rateLimit: { max: 60, timeWindow: '1 minute'
   if (!parsed.success) return reply.code(400).send({ error: 'invalid body', detail: parsed.error.flatten() })
   const { ticker, module, agent, provider, reasoningLevel, model, expectedProfileKey, confirmTicker, runRoot, decisionFingerprint } = parsed.data
   const rkind = parsed.data.kind
+  if (parsed.data.memoryIdentity && parsed.data.memoryIdentity.ticker !== ticker) {
+    return reply.code(400).send({ error: 'memory identity ticker does not match the research subject' })
+  }
   // review (file an outcome review) and track (rebuild the calls dashboard) need no upstream deps and
   // ignore module/agent — they follow the dep-free `full` admission path. review defaults to ad-hoc.
   const window = rkind === 'review' ? (parsed.data.window ?? 'ad-hoc') : undefined
@@ -1363,6 +1566,7 @@ app.post('/api/launch', { config: { rateLimit: { max: 60, timeWindow: '1 minute'
   try {
     return await withSubjectLock(subjectMutationLockKey(RESEARCH_SWARM_ID, ticker), async () => {
       const out = await launch({ kind: rkind, ticker, module, agent, window, provider, reasoningLevel, model, expectedProfileKey, user, userVia, force: parsed.data.force,
+        memoryIdentity: parsed.data.memoryIdentity,
         ...(exactBinding ? { ...exactBinding, decisionRunRoot: exactBinding.runRoot } : {}) })
       return exactBinding
         ? { ...out, preflight: { ...out.preflight, exactDecisionBinding: exactDecisionLaunchReceipt(exactBinding) } }
@@ -5284,7 +5488,8 @@ app.get('/api/news/feed', async (req) => {
 // (newest-N-in-window, no filtering), this applies every filter SERVER-SIDE and keeps scanning older days
 // until it fills a page of MATCHES or hits the archive floor — so a sparse filter (Aerospace & Defense in
 // the UAE) finds matches buried deep in history instead of falsely reading "nothing". Recency-ordered,
-// (ts,event_id) cursor paging. Rate-limited (the fs-read DoS guard) like the other filesystem routes.
+// loss-free cursor paging with an exact storage resume point. Rate-limited (the fs-read DoS guard) like
+// the other filesystem routes.
 app.get('/api/news/search', { config: { rateLimit: { max: 600, timeWindow: '1 minute' } } }, async (req) => {
   const q = req.query as any
   const filters = parseFeedFilterQuery(q || {})
@@ -5294,9 +5499,22 @@ app.get('/api/news/search', { config: { rateLimit: { max: 600, timeWindow: '1 mi
   // (an unhandled 500 + raw-error leak — there is no global error handler). searchFeed now also guards this,
   // but dropping malformed optional inputs here keeps results sane (an ignored filter, not a silent "today").
   const realDate = (s: any): s is string => typeof s === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(s) && !Number.isNaN(Date.parse(`${s}T00:00:00Z`))
-  const cursor = typeof q?.cursorTs === 'string' && q.cursorTs && !Number.isNaN(Date.parse(q.cursorTs)) ? { ts: String(q.cursorTs), id: String(q?.cursorId || '') } : null
   const from = realDate(q?.from) ? q.from : undefined
   const to = realDate(q?.to) ? q.to : undefined
+  const cursor = typeof q?.cursorTs === 'string' && q.cursorTs && !Number.isNaN(Date.parse(q.cursorTs))
+    ? { ts: String(q.cursorTs), id: String(q?.cursorId || '') } as SearchCursor
+    : null
+  // Budgeted search also returns an exact physical resume point. Older clients only send the stable
+  // (ts,id) pair; accept the storage cursor only when all three fields are present and bounded.
+  const cursorShard = typeof q?.cursorScanShard === 'string' && /^\d+$/.test(q.cursorScanShard) ? Number(q.cursorScanShard) : NaN
+  const cursorLine = typeof q?.cursorScanLine === 'string' && /^-?\d+$/.test(q.cursorScanLine) ? Number(q.cursorScanLine) : NaN
+  if (cursor && realDate(q?.cursorScanDate)
+    && Number.isSafeInteger(cursorShard) && cursorShard >= 0 && cursorShard <= 999_999
+    && Number.isSafeInteger(cursorLine) && cursorLine >= -1) {
+    cursor.scanDate = q.cursorScanDate
+    cursor.scanShard = cursorShard
+    cursor.scanLine = cursorLine
+  }
   const snap = searchFeed(REPO_ROOT, {
     predicate: (it) => matchesFeedFilters(it, filters),
     archiveDir: NEWS.newsArchiveDir, limit, cursor, fromDate: from, toDate: to,
@@ -5429,7 +5647,19 @@ app.get('/api/news/themes/:id', async (req, reply) => {
   if (!THEME_RE.test(id)) return reply.code(400).send({ error: 'bad theme id' })
   const theme = loadTheme(REPO_ROOT, id)
   if (!theme) return reply.code(404).send({ error: 'theme not found' })
-  return buildThemeDetail(REPO_ROOT, theme)
+  const q = (req.query as any) || {}
+  const geo: ThemeGeo = {
+    country: typeof q.country === 'string' && q.country.trim() ? q.country.trim().toUpperCase() : undefined,
+    geoRegion: typeof q.geoRegion === 'string' && q.geoRegion.trim() ? q.geoRegion.trim() : undefined,
+  }
+  const subject = typeof q.commodity === 'string' && q.commodity.trim() ? q.commodity.trim().toUpperCase() : undefined
+  const commodityScoped = subject !== undefined || (typeof q.scope === 'string' && q.scope.trim() === 'commodity')
+  const scoped = Boolean(geo.country || geo.geoRegion || commodityScoped)
+  const members = scoped ? theme.members.filter((member) => {
+    if ((geo.country || geo.geoRegion) && !memberMatchesGeo(member, geo)) return false
+    return !commodityScoped || memberMatchesCommodity(member, { commodity: subject, geo: null })
+  }) : undefined
+  return buildThemeDetail(REPO_ROOT, theme, members ? { members } : {})
 })
 // On-demand BRIEF for ONE opened theme — the few-sentence plain-English explainer of what the theme is
 // about and what's happening. Built from the theme's own member headlines by one free Groq pass, cached

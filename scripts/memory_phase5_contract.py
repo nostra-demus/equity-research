@@ -20,12 +20,14 @@ try:
     from calibrate import match_resolved_forecasts
     from canonical_json import canonical_json_bytes, canonical_sha256
     from memory_contract import parse_aware_datetime, validate_claim, validate_event
+    from memory_three_layer_contract import validate_contract as validate_three_layer_contract
     from memory_shadow import ShadowError, parse_closed_json, verify_shadow_feedback
     from validate_screener_json import Checker
 except ImportError:  # pragma: no cover - package-style imports
     from scripts.calibrate import match_resolved_forecasts
     from scripts.canonical_json import canonical_json_bytes, canonical_sha256
     from scripts.memory_contract import parse_aware_datetime, validate_claim, validate_event
+    from scripts.memory_three_layer_contract import validate_contract as validate_three_layer_contract
     from scripts.memory_shadow import ShadowError, parse_closed_json, verify_shadow_feedback
     from scripts.validate_screener_json import Checker
 
@@ -40,7 +42,10 @@ FORECAST_OUTCOME_SCHEMA = "forecast-outcome-v1.schema.json"
 CALIBRATION_OBSERVATION_SCHEMA = "calibration-observation-v1.schema.json"
 
 PHASE5_PAYLOAD_SCHEMAS = frozenset(
-    {"memory-feedback-review/v1", "memory-correction/v1"}
+    {
+        "memory-feedback-review/v1", "memory-correction/v1",
+        "memory-semantic-lesson/v1", "memory-playbook/v1",
+    }
 )
 OPERATIONS = frozenset(
     {
@@ -48,6 +53,12 @@ OPERATIONS = frozenset(
         "claim-correction",
         "feedback-promotion",
         "feedback-correction",
+        "semantic-promotion",
+        "semantic-supersession",
+        "playbook-promotion",
+        "playbook-supersession",
+        "playbook-quarantine",
+        "playbook-deprecation",
     }
 )
 
@@ -245,6 +256,8 @@ def validate_phase5_payload(payload: Any, *, shadow_feedback: Any = None) -> lis
         )
     if schema == "memory-correction/v1":
         return validate_correction_payload(payload, shadow_feedback)
+    if schema in {"memory-semantic-lesson/v1", "memory-playbook/v1"}:
+        return validate_three_layer_contract(payload)
     return [f"schema — unsupported Phase 5 payload schema {schema!r}"]
 
 
@@ -386,6 +399,43 @@ def _phase5_event_semantics(
                         errors.append(
                             f"supersedes[{position}] — feedback correction must retain the exact shadow artifact"
                         )
+    elif schema == "memory-playbook/v1":
+        event_type = event.get("event_type")
+        if payload.get("policy") != event.get("policy"):
+            errors.append("payload.policy — must exactly equal envelope policy")
+        if event_type == "playbook.activated" and payload.get("status") != "active":
+            errors.append("payload.status — playbook.activated requires an active payload")
+        if event_type == "playbook.status-changed" and payload.get("status") == "active":
+            errors.append("payload.status — playbook.status-changed cannot reactivate a playbook")
+        if event_index is not None:
+            for position, target_id in enumerate(event.get("supersedes", [])):
+                target = event_index.get(target_id)
+                target_payload = target.get("payload") if isinstance(target, Mapping) else None
+                if (
+                    not isinstance(target, Mapping)
+                    or target.get("event_type") not in {"playbook.activated", "playbook.status-changed"}
+                    or not isinstance(target_payload, Mapping)
+                    or target_payload.get("schema") != "memory-playbook/v1"
+                ):
+                    errors.append(f"supersedes[{position}] — target is not a canonical playbook event")
+                    continue
+                if target.get("policy") != event.get("policy"):
+                    errors.append(f"supersedes[{position}] — playbook policy must remain unchanged")
+                if target_payload.get("playbook_id") != payload.get("playbook_id"):
+                    errors.append(f"supersedes[{position}] — playbook logical ID must remain unchanged")
+                if event_type == "playbook.status-changed":
+                    for field in (
+                        "version", "playbook", "source_candidate_sha256", "evaluation_sha256",
+                        "activated_at",
+                    ):
+                        if target_payload.get(field) != payload.get(field):
+                            errors.append(
+                                f"payload.{field} — a status change cannot rewrite active procedure content"
+                            )
+                elif payload.get("version") != target_payload.get("version", 0) + 1:
+                    errors.append(
+                        f"payload.version — activated supersession must advance target {position} by one"
+                    )
     return errors
 
 
@@ -501,6 +551,31 @@ def request_shadow_feedback(request: Mapping[str, Any]) -> Mapping[str, Any] | N
     return value
 
 
+def request_promotion_manifest(request: Mapping[str, Any]) -> Mapping[str, Any] | None:
+    """Decode and hash-check the optional signed PR activation commitment."""
+
+    raw = request.get("promotion_manifest_canonical_json")
+    digest = request.get("promotion_manifest_sha256")
+    if raw is None and digest is None:
+        return None
+    if raw is None or digest is None:
+        raise Phase5ContractError(
+            "promotion manifest canonical JSON and digest must either both be null or both be present"
+        )
+    value, errors = _decode_capsule(
+        raw, digest, field="promotion_manifest_canonical_json"
+    )
+    if errors or value is None:
+        raise Phase5ContractError("; ".join(errors))
+    manifest_errors = validate_three_layer_contract(value)
+    if manifest_errors:
+        raise Phase5ContractError(
+            "promotion_manifest_canonical_json — "
+            + "; ".join(manifest_errors[:12])
+        )
+    return value
+
+
 def validate_write_request(
     request: Any,
     *,
@@ -520,6 +595,11 @@ def validate_write_request(
     except Phase5ContractError as exc:
         errors.append(str(exc))
         shadow_feedback = None
+    try:
+        promotion_manifest = request_promotion_manifest(request)
+    except Phase5ContractError as exc:
+        errors.append(str(exc))
+        promotion_manifest = None
     if errors or event is None:
         return errors
     errors.extend(
@@ -539,6 +619,14 @@ def validate_write_request(
         errors.append(
             "shadow_feedback_canonical_json — controlled feedback writes require the exact Phase 4 artifact"
         )
+    promotion_operations = {
+        "semantic-promotion", "semantic-supersession", "playbook-promotion",
+        "playbook-supersession", "playbook-deprecation",
+    }
+    if operation in promotion_operations and promotion_manifest is None:
+        errors.append(
+            "promotion_manifest_canonical_json — controlled permanent activation/deprecation requires the signed PR commitment"
+        )
     payload = event.get("payload")
     payload_schema = payload.get("schema") if isinstance(payload, Mapping) else None
     event_type = event.get("event_type")
@@ -547,6 +635,12 @@ def validate_write_request(
         "claim-correction": ("claim.corrected", "memory-correction/v1"),
         "feedback-promotion": ("feedback.reviewed", "memory-feedback-review/v1"),
         "feedback-correction": ("feedback.corrected", "memory-correction/v1"),
+        "semantic-promotion": ("semantic.activated", "memory-semantic-lesson/v1"),
+        "semantic-supersession": ("semantic.activated", "memory-semantic-lesson/v1"),
+        "playbook-promotion": ("playbook.activated", "memory-playbook/v1"),
+        "playbook-supersession": ("playbook.activated", "memory-playbook/v1"),
+        "playbook-quarantine": ("playbook.status-changed", "memory-playbook/v1"),
+        "playbook-deprecation": ("playbook.status-changed", "memory-playbook/v1"),
     }.get(operation)
     if expected is not None and (event_type, payload_schema) != expected:
         errors.append(
@@ -554,6 +648,65 @@ def validate_write_request(
         )
     if operation == "claim-append" and event.get("supersedes") != []:
         errors.append("event.supersedes — claim-append must not supersede an event")
+    if operation == "semantic-promotion" and event.get("supersedes") != []:
+        errors.append("event.supersedes — first semantic promotion must not supersede an event")
+    if operation == "semantic-supersession" and len(event.get("supersedes", [])) != 1:
+        errors.append("event.supersedes — semantic supersession requires exactly one prior lesson event")
+    if operation in {"semantic-promotion", "semantic-supersession"} and isinstance(payload, Mapping):
+        if payload.get("status") != "active":
+            errors.append("event.payload.status — controlled semantic activation requires active status")
+        if payload.get("policy") != event.get("policy"):
+            errors.append("event.policy — must exactly equal the semantic lesson policy")
+        semantic = payload.get("semantic") if isinstance(payload.get("semantic"), Mapping) else {}
+        expected_refs = sorted(
+            set(semantic.get("supporting_evidence", []))
+            | set(semantic.get("contradicting_evidence", []))
+        )
+        if sorted(event.get("evidence_refs", [])) != expected_refs:
+            errors.append(
+                "event.evidence_refs — must exactly bind supporting and contradicting semantic evidence"
+            )
+        if isinstance(promotion_manifest, Mapping) and (
+            promotion_manifest.get("candidate_kind") != "semantic"
+            or promotion_manifest.get("target_schema") != "memory-semantic-lesson/v1"
+            or promotion_manifest.get("target_id") != payload.get("lesson_id")
+            or promotion_manifest.get("target_version") != payload.get("version")
+            or promotion_manifest.get("activation_content_sha256")
+            != payload.get("lesson_sha256")
+        ):
+            errors.append(
+                "promotion_manifest_canonical_json — does not authorize this exact semantic lesson"
+            )
+    if operation == "playbook-promotion" and event.get("supersedes") != []:
+        errors.append("event.supersedes — first playbook promotion must not supersede an event")
+    if operation in {"playbook-supersession", "playbook-quarantine", "playbook-deprecation"} and len(event.get("supersedes", [])) != 1:
+        errors.append(f"event.supersedes — {operation} requires exactly one prior playbook event")
+    if operation in {
+        "playbook-promotion", "playbook-supersession", "playbook-quarantine", "playbook-deprecation",
+    } and isinstance(payload, Mapping):
+        expected_status = {
+            "playbook-promotion": "active",
+            "playbook-supersession": "active",
+            "playbook-quarantine": "quarantined",
+            "playbook-deprecation": "deprecated",
+        }[operation]
+        if payload.get("status") != expected_status:
+            errors.append(f"event.payload.status — {operation} requires {expected_status!r}")
+        if payload.get("policy") != event.get("policy"):
+            errors.append("event.policy — must exactly equal the playbook policy")
+        if event.get("evidence_refs") != []:
+            errors.append("event.evidence_refs — playbook authority comes from its reviewed evaluation, not carried facts")
+        if operation != "playbook-quarantine" and isinstance(promotion_manifest, Mapping) and (
+            promotion_manifest.get("candidate_kind") != "playbook"
+            or promotion_manifest.get("target_schema") != "memory-playbook/v1"
+            or promotion_manifest.get("target_id") != payload.get("playbook_id")
+            or promotion_manifest.get("target_version") != payload.get("version")
+            or promotion_manifest.get("activation_content_sha256") != payload.get("playbook_sha256")
+            or promotion_manifest.get("evaluation_sha256") != payload.get("evaluation_sha256")
+        ):
+            errors.append(
+                "promotion_manifest_canonical_json — does not authorize this exact playbook state"
+            )
     if operation in {"claim-correction", "feedback-correction"} and isinstance(payload, Mapping):
         expected_domain = "claim" if operation == "claim-correction" else "feedback-review"
         if payload.get("replacement_domain") != expected_domain:

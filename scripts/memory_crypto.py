@@ -29,7 +29,7 @@ from dataclasses import dataclass
 
 try:
     from cryptography.exceptions import InvalidSignature, InvalidTag, UnsupportedAlgorithm
-    from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PublicKey
+    from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey, Ed25519PublicKey
     from cryptography.hazmat.primitives.ciphers.aead import AESGCMSIV
     from cryptography.hazmat.primitives.keywrap import (
         InvalidUnwrap,
@@ -38,7 +38,7 @@ try:
     )
 except ImportError as exc:  # pragma: no cover - exercised by the dependency guard test
     InvalidSignature = InvalidTag = InvalidUnwrap = UnsupportedAlgorithm = None  # type: ignore[assignment]
-    Ed25519PublicKey = AESGCMSIV = None  # type: ignore[assignment]
+    Ed25519PrivateKey = Ed25519PublicKey = AESGCMSIV = None  # type: ignore[assignment]
     aes_key_unwrap = aes_key_wrap = None  # type: ignore[assignment]
     _IMPORT_ERROR: ImportError | None = exc
 else:
@@ -184,6 +184,20 @@ def ed25519_verify(public_key: bytes, message: bytes, signature: bytes) -> bool:
     except (InvalidSignature, ValueError):
         return False
     return True
+
+
+def ed25519_sign(private_key: bytes, message: bytes) -> bytes:
+    """Sign one domain-separated checkpoint using a raw owner-only Ed25519 seed."""
+
+    require_crypto_backend()
+    if not isinstance(private_key, bytes) or len(private_key) != 32:
+        raise MemoryCryptoError("Ed25519 private key seed must be exactly 32 bytes")
+    if not isinstance(message, bytes) or not message:
+        raise MemoryCryptoError("Ed25519 signing message must be non-empty bytes")
+    try:
+        return Ed25519PrivateKey.from_private_bytes(private_key).sign(message)
+    except (ValueError, UnsupportedAlgorithm) as exc:
+        raise MemoryCryptoError("Ed25519 signing failed") from exc
 
 
 def receipt_signature_verifier(
