@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-26T02:50:54Z",
+  "generated_at": "2026-08-26T03:20:59Z",
   "inbox": [
     {
       "inbox_id": "INB-20260826-252",
@@ -355,6 +355,60 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260826-470",
+      "headline": "Developer Ingenia secures land bank with $1b acquisition of Peet",
+      "headline_en": null,
+      "url": "https://www.afr.com/property/commercial/developer-ingenia-secures-land-bank-with-1b-acquisition-of-peet-20260826-p60rnn?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-26T02:36:38Z",
+      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
+      "prelim_note": "Ingenia secured a $1b land bank via acquisition of Peet, a named deal value.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Ingenia secured a $1b land bank via acquisition of Peet, a named deal value.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 13,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ingenia",
+          "ticker": null,
+          "listing_country": "AU"
+        },
+        {
+          "name": "Peet",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -901,6 +955,55 @@
       "companies": [
         {
           "name": "BKB",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260826-468",
+      "headline": "SNM: Sentinel completes acquisition of 1.0Moz Big Springs Project [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.SNM?key=2924-03126470_PS-6A1340391",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-26T02:35:26Z",
+      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
+      "prelim_note": "Sentinel completed acquisition of 1.0Moz Big Springs Project, a confirmed deal with resource size stated.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "Sentinel completed acquisition of 1.0Moz Big Springs Project, a confirmed deal with resource size stated.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SNM",
           "ticker": null,
           "listing_country": "AU"
         }
@@ -1848,148 +1951,50 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260826-349",
-      "headline": "Deloitte pays $30m penalty to Trump administration for DEI",
+      "inbox_id": "INB-20260826-488",
+      "headline": "TIAN CHANG GP (02182): MAJOR TRANSACTION",
       "headline_en": null,
-      "url": "https://www.afr.com/world/north-america/deloitte-pays-30m-penalty-to-trump-administration-for-dei-20260826-p60rp7?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-26T01:46:31Z",
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0825/2026082501394.htm",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-25T11:39:00Z",
       "sweep_file": "screener/inbox/2026-08-26_sweep.json",
-      "prelim_note": "Deloitte pays $30m penalty to US administration for DEI programs.",
+      "prelim_note": "HKEX filing flags a 'MAJOR TRANSACTION' by Tian Chang Group, a confirmed deal-type event with no value stated.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 93,
-      "triage_reason": "Deloitte pays $30m penalty to US administration for DEI programs.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Deloitte",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260826-014",
-      "headline": "ARF: Edge Early Learning Administration [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ARF?key=2924-03126297-3A699852",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-25T23:45:15Z",
-      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
-      "prelim_note": "Administration of a key partner or subsidiary indicates operational risk and potential financial impact.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "Administration of a key partner or subsidiary indicates operational risk and potential financial impact.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 2,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "operations",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Arena REIT",
-          "ticker": "ARF",
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260826-122",
-      "headline": "NEWTREND GROUP (02573): ANNOUNCEMENT OF INTERIM RESULTS FOR THE SIX MONTHS ENDED 30 JUNE 2026",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0826/2026082600019.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-25T22:23:00Z",
-      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
-      "prelim_note": "Interim financial results are a primary source of performance data for investors.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "Interim financial results are a primary source of performance data for investors.",
+      "triage_reason": "HKEX filing flags a 'MAJOR TRANSACTION' by Tian Chang Group, a confirmed deal-type event with no value stated.",
       "region": "CN",
       "relevance": "material",
       "materiality_pre_score": 60,
       "rank_factors": {
         "materiality": 60,
         "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": -1,
-        "recency": 4,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 1,
         "materiality_label_floor": 10,
         "quantified": 0,
         "boost_weight": 1,
-        "scope_id": "single_name",
+        "scope_id": "multi_name",
         "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "small"
+        "event_id": "mna",
+        "size_bucket": "unknown"
       },
       "event_types": [
-        "earnings_revenue_margin"
+        "mna"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Newtrend Group",
-          "ticker": "02573",
+          "name": "TIAN CHANG GP",
+          "ticker": "02182",
           "listing_country": "CN"
         }
       ],
-      "size_bucket": "small",
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -80849,77 +80854,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-4402530dd0df",
-      "idea_version": "IDEAV-46c32b6ff22055b5",
-      "idea_version_started_at": "2026-08-24T23:28:07Z",
-      "ticker": "03958",
-      "company": "DFZQ",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The successful acquisition of Shanghai Securities and the grant of the whitewash waiver remove significant regulatory and execution uncertainty for the firm's expansion strategy.",
-      "why_now": "Shareholder approval and waiver grants were confirmed on August 24, 2026.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-6c7f7b452995"
-      ],
-      "primary_source_event_id": "EVT-6c7f7b452995",
-      "source_headlines": [
-        "DFZQ (03958): (1) MAJOR TRANSACTION - THE PROPOSED ACQUISITION OF 100% EQUITY INTERESTS IN SHANGHAI SECURITIES BY WAY OF ISSUE OF CONSIDERATION A SHARES UNDER SPECIFIC MANDATE AND PAYMENT OF CASH AND (2) APPLICATION FOR WHITEWASH WAIVER POLL RESULTS OF THE EXTRAORDINARY GENERAL MEETING, A SHAREHOLDERS' CLASS MEETING AND H SHAREHOLDERS' CLASS MEETING HELD ON AUGUST 24, 2026 AND GRANT OF THE WHITEWASH WAIVER"
-      ],
-      "source_headline": "DFZQ (03958): (1) MAJOR TRANSACTION - THE PROPOSED ACQUISITION OF 100% EQUITY INTERESTS IN SHANGHAI SECURITIES BY WAY OF ISSUE OF CONSIDERATION A SHARES UNDER SPECIFIC MANDATE AND PAYMENT OF CASH AND (2) APPLICATION FOR WHITEWASH WAIVER POLL RESULTS OF THE EXTRAORDINARY GENERAL MEETING, A SHAREHOLDERS' CLASS MEETING AND H SHAREHOLDERS' CLASS MEETING HELD ON AUGUST 24, 2026 AND GRANT OF THE WHITEWASH WAIVER",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0824/2026082402029.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-24T14:54:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-24T16:50:38Z",
-      "updated_at": "2026-08-24T23:28:07Z",
-      "decay_at": "2026-08-26T02:54:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-aaaaf1fc1368",
       "idea_version": "IDEAV-3c2e59d52bf37f43",
       "idea_version_started_at": "2026-08-24T19:00:25Z",
@@ -80992,78 +80926,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-b9b5c6dfbbcc",
-      "idea_version": "IDEAV-a3fefe3e61967f5f",
-      "idea_version_started_at": "2026-08-24T19:00:25Z",
-      "ticker": "VIJI",
-      "company": "Viji Finance Ltd",
-      "exchange": "BSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Resignation of the statutory auditor raises concerns about the company's financial reporting and internal controls.",
-      "why_now": "The disclosure of the auditor's resignation was made on August 24, 2026.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 18,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-070cc53c4fe9"
-      ],
-      "primary_source_event_id": "EVT-070cc53c4fe9",
-      "source_headlines": [
-        "Viji Finance Ltd: DISCLOSURE PERTAINING TO SEBI REGULATION 30 OF THE SEBI LODR REGULATIONS, 2015 IN RESPECT OF RESIGNATION OF STATUTORY AUDITOR OF THE COMPANY"
-      ],
-      "source_headline": "Viji Finance Ltd: DISCLOSURE PERTAINING TO SEBI REGULATION 30 OF THE SEBI LODR REGULATIONS, 2015 IN RESPECT OF RESIGNATION OF STATUTORY AUDITOR OF THE COMPANY",
-      "source_url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/9507d9b0-0437-419e-8469-23d0b101a8bd.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-24T15:14:22Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-24T19:00:25Z",
-      "updated_at": "2026-08-24T19:00:25Z",
-      "decay_at": "2026-08-26T03:14:22Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-c4367824b313",
       "idea_version": "IDEAV-e72f7c9b1affcd09",
       "idea_version_started_at": "2026-08-24T16:50:38Z",
@@ -81130,78 +80992,6 @@
       "surfaced_at": "2026-08-24T16:50:38Z",
       "updated_at": "2026-08-24T16:50:38Z",
       "decay_at": "2026-08-26T04:07:24Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-d405caebf67e",
-      "idea_version": "IDEAV-504d292584970131",
-      "idea_version_started_at": "2026-08-24T16:50:38Z",
-      "ticker": "SHRENIK",
-      "company": "Shrenik Limited",
-      "exchange": "BSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company has entered the Corporate Insolvency Resolution Process, signaling severe financial distress and a high probability of significant equity impairment.",
-      "why_now": "The exchange filing confirming the insolvency process was made on August 24, 2026.",
-      "conviction": 80,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 23,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-aff62580c943"
-      ],
-      "primary_source_event_id": "EVT-aff62580c943",
-      "source_headlines": [
-        "Shrenik Limited: Shrenik Limited has informed the Exchange about Corporate Insolvency Resolution Process"
-      ],
-      "source_headline": "Shrenik Limited: Shrenik Limited has informed the Exchange about Corporate Insolvency Resolution Process",
-      "source_url": "https://nsearchives.nseindia.com/corporate/SHRENIK_24082026204921_Disclosure_of_Constitution_of_CoC.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-24T15:19:47Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-24T16:50:38Z",
-      "updated_at": "2026-08-24T16:50:38Z",
-      "decay_at": "2026-08-26T03:19:47Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -81625,6 +81415,77 @@
       "surfaced_at": "2026-08-23T23:13:49Z",
       "updated_at": "2026-08-24T23:28:07Z",
       "decay_at": "2026-08-25T11:05:20Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-4402530dd0df",
+      "idea_version": "IDEAV-46c32b6ff22055b5",
+      "idea_version_started_at": "2026-08-24T23:28:07Z",
+      "ticker": "03958",
+      "company": "DFZQ",
+      "exchange": "HKEX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The successful acquisition of Shanghai Securities and the grant of the whitewash waiver remove significant regulatory and execution uncertainty for the firm's expansion strategy.",
+      "why_now": "Shareholder approval and waiver grants were confirmed on August 24, 2026.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-6c7f7b452995"
+      ],
+      "primary_source_event_id": "EVT-6c7f7b452995",
+      "source_headlines": [
+        "DFZQ (03958): (1) MAJOR TRANSACTION - THE PROPOSED ACQUISITION OF 100% EQUITY INTERESTS IN SHANGHAI SECURITIES BY WAY OF ISSUE OF CONSIDERATION A SHARES UNDER SPECIFIC MANDATE AND PAYMENT OF CASH AND (2) APPLICATION FOR WHITEWASH WAIVER POLL RESULTS OF THE EXTRAORDINARY GENERAL MEETING, A SHAREHOLDERS' CLASS MEETING AND H SHAREHOLDERS' CLASS MEETING HELD ON AUGUST 24, 2026 AND GRANT OF THE WHITEWASH WAIVER"
+      ],
+      "source_headline": "DFZQ (03958): (1) MAJOR TRANSACTION - THE PROPOSED ACQUISITION OF 100% EQUITY INTERESTS IN SHANGHAI SECURITIES BY WAY OF ISSUE OF CONSIDERATION A SHARES UNDER SPECIFIC MANDATE AND PAYMENT OF CASH AND (2) APPLICATION FOR WHITEWASH WAIVER POLL RESULTS OF THE EXTRAORDINARY GENERAL MEETING, A SHAREHOLDERS' CLASS MEETING AND H SHAREHOLDERS' CLASS MEETING HELD ON AUGUST 24, 2026 AND GRANT OF THE WHITEWASH WAIVER",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0824/2026082402029.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-24T14:54:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-24T16:50:38Z",
+      "updated_at": "2026-08-24T23:28:07Z",
+      "decay_at": "2026-08-26T02:54:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -82410,6 +82271,150 @@
       "surfaced_at": "2026-08-24T19:00:25Z",
       "updated_at": "2026-08-24T19:00:25Z",
       "decay_at": "2026-08-26T01:52:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-b9b5c6dfbbcc",
+      "idea_version": "IDEAV-a3fefe3e61967f5f",
+      "idea_version_started_at": "2026-08-24T19:00:25Z",
+      "ticker": "VIJI",
+      "company": "Viji Finance Ltd",
+      "exchange": "BSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Resignation of the statutory auditor raises concerns about the company's financial reporting and internal controls.",
+      "why_now": "The disclosure of the auditor's resignation was made on August 24, 2026.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 18,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "price and market expectations",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "unknown",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-070cc53c4fe9"
+      ],
+      "primary_source_event_id": "EVT-070cc53c4fe9",
+      "source_headlines": [
+        "Viji Finance Ltd: DISCLOSURE PERTAINING TO SEBI REGULATION 30 OF THE SEBI LODR REGULATIONS, 2015 IN RESPECT OF RESIGNATION OF STATUTORY AUDITOR OF THE COMPANY"
+      ],
+      "source_headline": "Viji Finance Ltd: DISCLOSURE PERTAINING TO SEBI REGULATION 30 OF THE SEBI LODR REGULATIONS, 2015 IN RESPECT OF RESIGNATION OF STATUTORY AUDITOR OF THE COMPANY",
+      "source_url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/9507d9b0-0437-419e-8469-23d0b101a8bd.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-24T15:14:22Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-24T19:00:25Z",
+      "updated_at": "2026-08-24T19:00:25Z",
+      "decay_at": "2026-08-26T03:14:22Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-d405caebf67e",
+      "idea_version": "IDEAV-504d292584970131",
+      "idea_version_started_at": "2026-08-24T16:50:38Z",
+      "ticker": "SHRENIK",
+      "company": "Shrenik Limited",
+      "exchange": "BSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company has entered the Corporate Insolvency Resolution Process, signaling severe financial distress and a high probability of significant equity impairment.",
+      "why_now": "The exchange filing confirming the insolvency process was made on August 24, 2026.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 23,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-aff62580c943"
+      ],
+      "primary_source_event_id": "EVT-aff62580c943",
+      "source_headlines": [
+        "Shrenik Limited: Shrenik Limited has informed the Exchange about Corporate Insolvency Resolution Process"
+      ],
+      "source_headline": "Shrenik Limited: Shrenik Limited has informed the Exchange about Corporate Insolvency Resolution Process",
+      "source_url": "https://nsearchives.nseindia.com/corporate/SHRENIK_24082026204921_Disclosure_of_Constitution_of_CoC.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-24T15:19:47Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-24T16:50:38Z",
+      "updated_at": "2026-08-24T16:50:38Z",
+      "decay_at": "2026-08-26T03:19:47Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -84067,18 +84072,18 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 124,
-    "shown_count": 124,
+    "total_count": 127,
+    "shown_count": 127,
     "hidden_count": 0,
     "side_counts": {
       "long": {
-        "total_count": 50,
-        "shown_count": 50,
+        "total_count": 51,
+        "shown_count": 51,
         "hidden_count": 0
       },
       "short": {
-        "total_count": 74,
-        "shown_count": 74,
+        "total_count": 76,
+        "shown_count": 76,
         "hidden_count": 0
       }
     },
@@ -84098,6 +84103,230 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-d405caebf67e",
+        "idea_version": "IDEAV-504d292584970131",
+        "idea_version_started_at": "2026-08-24T16:50:38Z",
+        "ticker": "SHRENIK",
+        "company": "Shrenik Limited",
+        "exchange": "BSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company has entered the Corporate Insolvency Resolution Process, signaling severe financial distress and a high probability of significant equity impairment.",
+        "why_now": "The exchange filing confirming the insolvency process was made on August 24, 2026.",
+        "conviction": 80,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 23,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "balance_sheet_survival",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-aff62580c943"
+        ],
+        "primary_source_event_id": "EVT-aff62580c943",
+        "source_headlines": [
+          "Shrenik Limited: Shrenik Limited has informed the Exchange about Corporate Insolvency Resolution Process"
+        ],
+        "source_headline": "Shrenik Limited: Shrenik Limited has informed the Exchange about Corporate Insolvency Resolution Process",
+        "source_url": "https://nsearchives.nseindia.com/corporate/SHRENIK_24082026204921_Disclosure_of_Constitution_of_CoC.pdf",
+        "source_name": "BSE / NSE Exchange Filing",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-24T15:19:47Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-24T16:50:38Z",
+        "updated_at": "2026-08-24T16:50:38Z",
+        "decay_at": "2026-08-26T03:19:47Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-26T03:19:47Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-b9b5c6dfbbcc",
+        "idea_version": "IDEAV-a3fefe3e61967f5f",
+        "idea_version_started_at": "2026-08-24T19:00:25Z",
+        "ticker": "VIJI",
+        "company": "Viji Finance Ltd",
+        "exchange": "BSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "Resignation of the statutory auditor raises concerns about the company's financial reporting and internal controls.",
+        "why_now": "The disclosure of the auditor's resignation was made on August 24, 2026.",
+        "conviction": 55,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 18,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "price and market expectations",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "unknown",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-070cc53c4fe9"
+        ],
+        "primary_source_event_id": "EVT-070cc53c4fe9",
+        "source_headlines": [
+          "Viji Finance Ltd: DISCLOSURE PERTAINING TO SEBI REGULATION 30 OF THE SEBI LODR REGULATIONS, 2015 IN RESPECT OF RESIGNATION OF STATUTORY AUDITOR OF THE COMPANY"
+        ],
+        "source_headline": "Viji Finance Ltd: DISCLOSURE PERTAINING TO SEBI REGULATION 30 OF THE SEBI LODR REGULATIONS, 2015 IN RESPECT OF RESIGNATION OF STATUTORY AUDITOR OF THE COMPANY",
+        "source_url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/9507d9b0-0437-419e-8469-23d0b101a8bd.pdf",
+        "source_name": "BSE / NSE Exchange Filing",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-24T15:14:22Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-24T19:00:25Z",
+        "updated_at": "2026-08-24T19:00:25Z",
+        "decay_at": "2026-08-26T03:14:22Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-26T03:14:22Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-4402530dd0df",
+        "idea_version": "IDEAV-46c32b6ff22055b5",
+        "idea_version_started_at": "2026-08-24T23:28:07Z",
+        "ticker": "03958",
+        "company": "DFZQ",
+        "exchange": "HKEX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The successful acquisition of Shanghai Securities and the grant of the whitewash waiver remove significant regulatory and execution uncertainty for the firm's expansion strategy.",
+        "why_now": "Shareholder approval and waiver grants were confirmed on August 24, 2026.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 20,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-6c7f7b452995"
+        ],
+        "primary_source_event_id": "EVT-6c7f7b452995",
+        "source_headlines": [
+          "DFZQ (03958): (1) MAJOR TRANSACTION - THE PROPOSED ACQUISITION OF 100% EQUITY INTERESTS IN SHANGHAI SECURITIES BY WAY OF ISSUE OF CONSIDERATION A SHARES UNDER SPECIFIC MANDATE AND PAYMENT OF CASH AND (2) APPLICATION FOR WHITEWASH WAIVER POLL RESULTS OF THE EXTRAORDINARY GENERAL MEETING, A SHAREHOLDERS' CLASS MEETING AND H SHAREHOLDERS' CLASS MEETING HELD ON AUGUST 24, 2026 AND GRANT OF THE WHITEWASH WAIVER"
+        ],
+        "source_headline": "DFZQ (03958): (1) MAJOR TRANSACTION - THE PROPOSED ACQUISITION OF 100% EQUITY INTERESTS IN SHANGHAI SECURITIES BY WAY OF ISSUE OF CONSIDERATION A SHARES UNDER SPECIFIC MANDATE AND PAYMENT OF CASH AND (2) APPLICATION FOR WHITEWASH WAIVER POLL RESULTS OF THE EXTRAORDINARY GENERAL MEETING, A SHAREHOLDERS' CLASS MEETING AND H SHAREHOLDERS' CLASS MEETING HELD ON AUGUST 24, 2026 AND GRANT OF THE WHITEWASH WAIVER",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0824/2026082402029.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-24T14:54:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-24T16:50:38Z",
+        "updated_at": "2026-08-24T23:28:07Z",
+        "decay_at": "2026-08-26T02:54:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-26T02:54:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-997ba9627856",
         "idea_version": "IDEAV-e753d73e8b3609a1",
@@ -93283,7 +93512,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 149,
-    "live_count": 24,
+    "live_count": 21,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -93302,9 +93531,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 594745,
-    "news_picked_today": 694,
-    "news_dropped_today": 3518
+    "news_seen_today": 717432,
+    "news_picked_today": 762,
+    "news_dropped_today": 4446
   },
   "book_momentum": {
     "live_count": 8,
