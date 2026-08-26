@@ -5012,7 +5012,7 @@ a { color: inherit; }
 .fundbook__note--ok { color: var(--accent-bright); border-color: color-mix(in srgb, var(--accent) 30%, transparent); background: var(--accent-wash-soft); }
 .fundbook__note--bad { color: var(--bad); border-color: color-mix(in srgb, var(--bad) 34%, transparent); background: color-mix(in srgb, var(--bad) 7%, transparent); }
 
-.fundbook__cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(168px, 1fr)); gap: 1px; border: 1px solid var(--hairline-strong); border-radius: var(--r-lg); background: var(--hairline); overflow: hidden; }
+.fundbook__cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1px; border: 1px solid var(--hairline-strong); border-radius: var(--r-lg); background: var(--hairline); overflow: hidden; }
 .fundbook__card { display: flex; flex-direction: column; gap: 4px; padding: 13px 15px; background: var(--surface-2); }
 .fundbook__cardlabel { color: var(--text-faint); font-size: 9px; font-weight: 700; letter-spacing: 0.35px; text-transform: uppercase; }
 .fundbook__cardvalue { font-size: 20px; letter-spacing: -0.2px; font-variant-numeric: tabular-nums; }
@@ -5206,6 +5206,12 @@ a { color: inherit; }
 .fundbook__select:focus-visible { outline: none; border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent-wash); }
 
 /* import delta -------------------------------------------------------------- */
+/* Nine risk figures, three to a row, each row a theme (made / risked / risk-adjusted). auto-fit gave
+   six columns and left the last three stranded beside an empty half-row; a count that DIVIDES the
+   cards is what removes the hole. Narrow viewports fall back to the shared auto-fit above. */
+/* Stands in for a bar chart that has only one bar — same column, same rhythm, no false comparison. */
+.fundbook__barnote { padding: 6px 0 2px; color: var(--text-faint); font-size: 10.5px; line-height: 1.45; }
+@media (min-width: 900px) { .fundbook__cards--metrics { grid-template-columns: repeat(3, 1fr); } }
 .fundbook__cards--tight { border: none; border-radius: 0; grid-template-columns: repeat(auto-fit, minmax(132px, 1fr)); }
 .fundbook__cards--tight .fundbook__cardvalue { font-size: 15px; }
 .fundbook__card.is-moved { background: var(--accent-wash-soft); }

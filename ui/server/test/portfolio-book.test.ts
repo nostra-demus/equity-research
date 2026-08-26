@@ -542,5 +542,44 @@ check('a position and a trade in the SAME contract produce the same key without 
   assert.equal(held.break, 0, `the two sides must agree: ${held.detail}`)
 })
 
+// ---------- accruals ----------
+// Income EARNED but not yet PAID sits inside the broker's ending value and in no cash transaction, so
+// capital + realised + unrealised + paid income lands short of NAV by exactly that much. The real book
+// was short $24.88 while the four rows were printed under a bold "Net asset value" they did not make.
+check('accrued-but-unpaid income is carried, so the NAV bridge can close', () => {
+  const withAccruals = {
+    ...doc,
+    changeInNav: {
+      ...(doc.changeInNav ?? ({} as any)),
+      changeInDividendAccruals: 12.5,
+      changeInInterestAccruals: 24.88,
+    },
+  }
+  const built = buildBook([withAccruals])
+  assert.equal(built.accruals.dividend, 12.5)
+  assert.equal(built.accruals.interest, 24.88)
+  assert.ok(Math.abs(built.accruals.total! - 37.38) < 1e-9, `total ${built.accruals.total}`)
+})
+
+check('an export that does not reach back to the book\u2019s start cannot prove the balance', () => {
+  // The statement states the CHANGE over its own window. That equals the BALANCE only when the window
+  // covers the whole life of the book; from a later export it is a change on top of an unknown opening
+  // balance, and the honest answer is null — the bridge then says "not explained" rather than printing
+  // a number under a label it cannot support.
+  const early = {
+    ...doc,
+    fromDate: '2025-12-01', toDate: '2025-12-31', whenGenerated: '2025-12-31T00:00:00',
+    changeInNav: null, trades: [], openPositions: [], equitySummary: [], cashTransactions: [], corporateActions: [],
+  }
+  const later = {
+    ...doc,
+    whenGenerated: '2026-01-06T00:00:00',
+    changeInNav: { ...(doc.changeInNav ?? ({} as any)), changeInDividendAccruals: 1, changeInInterestAccruals: 2 },
+  }
+  const built = buildBook([early, later])
+  assert.equal(built.accruals.total, null, 'the newest window starts after the book does')
+  assert.equal(built.accruals.interest, null)
+})
+
 console.log(`\n${passed} passed, ${fails.length} failed`)
 if (fails.length) { console.error('FAILED: ' + fails.join(', ')); process.exit(1) }

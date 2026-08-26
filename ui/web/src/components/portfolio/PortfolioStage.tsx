@@ -398,6 +398,23 @@ function Holdings({ book, perf, manual, cashEquivalents, live, onManage, onChang
   // Every row the statement could not put a rate on, across the three totals above. Reported rather
   // than absorbed: a total that silently drops rows is worse than one that says how many it dropped.
   const unvalued = investedSum.unvalued + unrealisedSum.unvalued + realisedSum.unvalued
+
+  // THE BRIDGE MUST CLOSE. Capital in, realised, unrealised and PAID income do not reach NAV on their
+  // own: the broker also carries income that is earned but not yet paid, which sits inside the ending
+  // value and in no cash transaction ($24.88 of accrued interest on the real book). Printing the four
+  // rows under a bold total they do not produce is the kind of arithmetic nobody checks until it is
+  // large. So the shortfall is always shown — named when the statement's own accrual balance proves
+  // what it is, and marked unexplained when it does not, which turns any future omission into a
+  // visible row instead of a silent error.
+  const bridgeParts = nav === null ? null : flows + realised + unrealised + book.income.net
+  const rawGap = bridgeParts === null || nav === null ? null : nav - bridgeParts
+  const accrued = book.accruals?.total ?? null
+  const gapIsAccruals = rawGap !== null && accrued !== null && Math.abs(rawGap - accrued) < 0.005
+  // Half a cent: below that the difference is float noise in the sum, not a missing component.
+  const bridgeGap = rawGap === null || Math.abs(rawGap) < 0.005 ? null : rawGap
+  const bridgeGapLabel = gapIsAccruals
+    ? 'Income earned but not yet paid'
+    : 'Not explained by the rows above'
   const brokerCash = nav === null ? null : nav - invested - parkedValue
   const cash = brokerCash === null ? null : brokerCash + parkedValue
 
@@ -463,6 +480,9 @@ function Holdings({ book, perf, manual, cashEquivalents, live, onManage, onChang
           <BridgeRow label="Realised on closed trades" value={fmtMoney(realised, ccy)} tone={toneOf(realised)} />
           <BridgeRow label="Unrealised on open positions" value={fmtMoney(unrealised, ccy)} tone={toneOf(unrealised)} />
           <BridgeRow label="Income, net of withholding and fees" value={fmtMoney(book.income.net, ccy)} tone={toneOf(book.income.net)} />
+          {bridgeGap !== null && (
+            <BridgeRow label={bridgeGapLabel} value={fmtMoney(bridgeGap, ccy)} tone={toneOf(bridgeGap)} />
+          )}
           <div className="fundbook__bridge is-total"><span>Net asset value</span><strong>{fmtMoney(nav, ccy)}</strong></div>
         </div>
       </div>
@@ -667,10 +687,17 @@ function Exposure({ book, risked, parkedValue, nav, ccy, bars }: {
           )}
         </div>
         <div>
+          {/* A bar is a COMPARISON. With one currency there is nothing to compare it against, and the
+              row reduced to a full-width 100% bar that took a third of the block to say what the
+              sentence below says in six words. Two or more, and the split is worth drawing. */}
           <div className="fundbook__subhead">By currency</div>
-          {byCurrency.map(([k, v]) => (
+          {byCurrency.length > 1 ? byCurrency.map(([k, v]) => (
             <ExposureBar key={`c-${k}`} label={k} pct={shareOfRisk(v) ?? 0} value={fmtMoney(v, ccy)} />
-          ))}
+          )) : (
+            <div className="fundbook__barnote">
+              {byCurrency.length === 1 ? `All of it in ${byCurrency[0]![0]} — no currency risk to spread.` : 'No valued position to split.'}
+            </div>
+          )}
           <div className="fundbook__subhead">By asset class</div>
           {byClass.map(([k, v]) => (
             <ExposureBar key={`a-${k}`} label={k} pct={shareOfRisk(v) ?? 0} value={fmtMoney(v, ccy)} deep />
@@ -776,10 +803,11 @@ function Performance({ perf, cashShare }: { perf: PortfolioPerformance; cashShar
   const cashHeavy = cashShare !== null && cashShare >= 33
   return (
     <>
-      {/* ORDER IS THE ARGUMENT: what the book made, then what it made it against, then what that cost in
-          risk, then the risk-adjusted read, and last what the LP actually earned. The comparisons used
-          to be buried in the table below while volatility led the screen. */}
-      <div className="fundbook__cards">
+      {/* ORDER IS THE ARGUMENT, and now the GRID CARRIES IT: three to a row, one theme per row — what
+          the book made, what that cost in risk, then the risk-adjusted read and what the LP actually
+          earned. Nine cards in a six-wide grid put three of them alone on a second row beside 970px of
+          nothing; three rows of three fill the block and say why each card sits where it does. */}
+      <div className="fundbook__cards fundbook__cards--metrics">
         <Card
           label="Return · TWR"
           value={fmtPct(inception?.twr, 2)}
@@ -812,13 +840,6 @@ function Performance({ perf, cashShare }: { perf: PortfolioPerformance; cashShar
           value={risk.volatility === null || !risk.sufficient ? '—' : `${risk.volatility.toFixed(1)}%`}
           sub={cashHeavy ? `Annualised on TOTAL NAV, which is ${cashShare!.toFixed(0)}% cash` : 'Annualised from the daily NAV series'}
         />
-        {/* The cash caveat is on the ratios too, and it is not a nicety: a book mostly in T-bills has
-            little volatility, so its Sharpe reads high for holding cash rather than for picking well.
-            The invested sleeve's own ratio cannot be computed — the statement carries ONE daily NAV for
-            the whole account, not one per sleeve — so the honest move is to say what the figure covers
-            rather than to derive a flattering number from a denominator we do not have. */}
-        <Card label="Sharpe" value={ratio(risk.sharpe)} sub={cashHeavy ? 'Excess per unit of swing — on the whole book, cash included' : 'Excess return per unit of swing'} />
-        <Card label="Sortino" value={ratio(risk.sortino)} sub="Counts only downside swing" />
         <Card
           label={`Beta to ${bm.symbol}`}
           value={perf.betaAlpha.beta === null ? '—' : perf.betaAlpha.beta.toFixed(2)}
@@ -826,6 +847,13 @@ function Performance({ perf, cashShare }: { perf: PortfolioPerformance; cashShar
             ? `Needs ${bm.symbol} price history`
             : `Alpha ${fmtPct(perf.betaAlpha.alpha, 1)} annualised${Math.abs(perf.betaAlpha.beta) < 0.2 ? ' — but at this beta that is little more than the excess over cash' : ''}, from ${perf.betaAlpha.pairedDays} paired days`}
         />
+        {/* The cash caveat is on the ratios too, and it is not a nicety: a book mostly in T-bills has
+            little volatility, so its Sharpe reads high for holding cash rather than for picking well.
+            The invested sleeve's own ratio cannot be computed — the statement carries ONE daily NAV for
+            the whole account, not one per sleeve — so the honest move is to say what the figure covers
+            rather than to derive a flattering number from a denominator we do not have. */}
+        <Card label="Sharpe" value={ratio(risk.sharpe)} sub={cashHeavy ? 'Excess per unit of swing — on the whole book, cash included' : 'Excess return per unit of swing'} />
+        <Card label="Sortino" value={ratio(risk.sortino)} sub="Counts only downside swing" />
         <Card
           label="Money-weighted"
           value={fmtPct(perf.moneyWeightedAnnualisedPct)}
@@ -857,11 +885,12 @@ function Performance({ perf, cashShare }: { perf: PortfolioPerformance; cashShar
                 <small className="fundbook__since">{p.from} → {p.to}</small>
               </span>
               <strong className="num" style={{ color: toneOf(p.twr) }}>{fmtPct(p.twr, 2)}</strong>
-              {/* The benchmark is only meaningful over the same window, so it appears on the inception
-                  row alone rather than repeated against periods it was never measured over. */}
-              <span className="num dim">{p.label === 'Since inception' ? fmtPct(bm.benchmarkTwr, 2) : '—'}</span>
-              <span className="num" style={{ color: p.label === 'Since inception' ? toneOf(bm.excess) : undefined }}>
-                {p.label === 'Since inception' && bm.excess !== null ? `${bm.excess >= 0 ? '+' : '−'}${Math.abs(bm.excess).toFixed(2)}pp` : '—'}
+              {/* Measured over THIS row's own window — the same days the return beside it covers —
+                  rather than repeating the since-inception figure or leaving the column empty. Null,
+                  and so a dash, only where the feed cannot span the window without a hole in it. */}
+              <span className="num dim">{fmtPct(p.benchmark, 2)}</span>
+              <span className="num" style={{ color: toneOf(p.excess) }}>
+                {p.excess === null ? '—' : `${p.excess >= 0 ? '+' : '−'}${Math.abs(p.excess).toFixed(2)}pp`}
               </span>
               {/* The second yardstick: beating an index while trailing a deposit account is not a result.
                   The day count that used to close this row is gone — the window is printed under the

@@ -2183,6 +2183,8 @@ export interface PortfolioBook {
   corporateActions: { type: string | null; symbol: string | null; actionDescription: string | null; dateTime: string | null }[]
   flows: { date: string | null; currency: string | null; amount: number; amountBase: number | null; description: string | null }[]
   income: { dividendsGross: number; withholdingTax: number; paymentInLieu: number; interest: number; fees: number; net: number }
+  /** Income earned and already inside NAV but not yet paid out. Null where the statements cannot prove it. */
+  accruals: { dividend: number | null; interest: number | null; total: number | null }
   navSeries: { date: string; total: number }[]
   twr: number | null
   reconciliation: { ok: boolean; checks: PortfolioCheck[] }
@@ -2192,6 +2194,7 @@ export interface PortfolioPeriodReturn {
   label: string; from: string | null; to: string | null; twr: number | null; days: number
   /** What cash would have returned over the same window, and the book's margin over it. */
   hurdle: number | null; overHurdle: number | null
+  benchmark: number | null; excess: number | null
   /** The book has no valued day at or before this period's start, so the window is shorter than the
    *  label implies — a "year to date" on a book that only began in April. */
   partial: boolean

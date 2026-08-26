@@ -128,6 +128,17 @@ export interface BookIncome {
   net: number
 }
 
+/** Income the broker has already credited to NAV but has NOT yet paid out — it is in the ending value
+ *  and in no cash transaction, so a bridge built from paid income alone lands short of NAV by exactly
+ *  this much. Present only when the newest statement's own window covers the book's whole life, which
+ *  is what makes its stated CHANGE equal to the balance; otherwise null, and the bridge says
+ *  "not explained" rather than guessing. */
+export interface BookAccruals {
+  dividend: number | null
+  interest: number | null
+  total: number | null
+}
+
 export interface NavPoint {
   date: string
   total: number
@@ -160,6 +171,8 @@ export interface Book {
   closures: BookClosure[]
   flows: BookFlow[]
   income: BookIncome
+  /** Accrued-but-unpaid income at `asOf`. Null where the statements cannot prove the balance. */
+  accruals: BookAccruals
   navSeries: NavPoint[]
   twr: number | null
   corporateActions: FlexCorporateAction[]
@@ -593,6 +606,26 @@ export function buildBook(documents: FlexDocument[]): Book {
     return out
   }
 
+  // ACCRUALS. IBKR carries dividends and interest that have been EARNED but not yet PAID inside the
+  // ending value, while no cash transaction exists for them yet — so paid income alone rebuilds NAV
+  // short by exactly the accrued balance ($24.88 of interest on the real book). The statement states
+  // the CHANGE over its own window, which equals the BALANCE only when that window covers the book's
+  // whole life; anywhere else the honest answer is null, and the bridge then prints an unexplained
+  // residual instead of a number wearing a label it cannot support.
+  const accrualDoc = [...docs].reverse().find((d) => d.changeInNav !== null)
+  const bookStart = docs.map((d) => d.fromDate).filter((x): x is string => !!x).sort()[0] ?? null
+  const accrualsProvable = accrualDoc != null && accrualDoc.fromDate != null && bookStart != null
+    && accrualDoc.fromDate <= bookStart
+  const accrualDividend = accrualsProvable ? accrualDoc!.changeInNav!.changeInDividendAccruals : null
+  const accrualInterest = accrualsProvable ? accrualDoc!.changeInNav!.changeInInterestAccruals : null
+  const accruals: BookAccruals = {
+    dividend: accrualDividend,
+    interest: accrualInterest,
+    total: accrualDividend === null && accrualInterest === null
+      ? null
+      : (accrualDividend ?? 0) + (accrualInterest ?? 0),
+  }
+
   // THE NEWEST DOCUMENT THAT ACTUALLY CARRIES A SNAPSHOT, not simply the newest document. A
   // Trades-only export is a normal thing to run, and taking positions from it emptied the Holdings tab
   // while the badge still read "Reconciled" — because the position check is gated on the same document
@@ -644,6 +677,7 @@ export function buildBook(documents: FlexDocument[]): Book {
     closures,
     flows,
     income,
+    accruals,
     navSeries,
     twr,
     corporateActions,

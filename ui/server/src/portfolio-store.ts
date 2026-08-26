@@ -252,7 +252,7 @@ export function performanceOf(book: Book): PortfolioPerformance {
   }
 
   return {
-    periods: returnsByPeriod(window, flowsByDate, RISK_FREE_ANNUAL_PCT),
+    periods: returnsByPeriod(window, flowsByDate, RISK_FREE_ANNUAL_PCT, closes),
     months: monthlyReturns(book.navSeries, flowsByDate, closes),
     betaAlpha: betaAlpha(returns, closes, RISK_FREE_ANNUAL_PCT),
     growth,

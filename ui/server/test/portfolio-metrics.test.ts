@@ -497,5 +497,64 @@ check('the benchmark month covers the days the BOOK held capital, not the whole 
   assert.ok(wholeMonth > fundedOnly + 5, 'the fixture must actually distinguish the two readings')
 })
 
+// ---------- benchmark per period window ----------
+// The SP500 and Excess columns used to be filled for the since-inception row only and dashed everywhere
+// else, so a month in which the book beat the index read as if it had never been compared. Each row now
+// measures the index over ITS OWN window — the same recurring trap as the cash hurdle, which once
+// charged a full year of interest against a four-month return and flipped the sign of "over cash".
+check('each period measures the index over its own window, not the whole history', () => {
+  // Flat book, so the only thing under test is the index side. Index: +1%/day for the first 10 days,
+  // then dead flat — so a month-to-date window must NOT inherit the earlier climb.
+  const nav: NavPoint[] = []
+  const closes: { date: string; close: number }[] = []
+  const d = new Date(Date.UTC(2026, 0, 22))
+  let c = 100
+  for (let i = 0; i < 20; i++) {
+    const date = d.toISOString().slice(0, 10)
+    nav.push({ date, total: 1000 })
+    closes.push({ date, close: c })
+    if (i < 10) c *= 1.01
+    d.setUTCDate(d.getUTCDate() + 1)
+  }
+  // 22 Jan .. 10 Feb. Month to date opens on the last point at or before 31 Jan and runs to 10 Feb.
+  const rows = returnsByPeriod(nav, new Map(), 0, closes)
+  const mtd = rows.find((p) => p.label === 'Month to date')!
+  const itd = rows.find((p) => p.label === 'Since inception')!
+  const from = closes.find((x) => x.date === mtd.from)!.close
+  const to = closes[closes.length - 1]!.close
+  assert.ok(near(mtd.benchmark!, (to / from - 1) * 100, 1e-9), `MTD index ${mtd.benchmark}`)
+  assert.ok(near(itd.benchmark!, (to / closes[0]!.close - 1) * 100, 1e-9), `ITD index ${itd.benchmark}`)
+  // The fixture must actually distinguish them, or this passes for the wrong reason.
+  assert.ok(itd.benchmark! > mtd.benchmark! + 5, 'fixture does not separate the two windows')
+  // Excess is the book's own return less the index over that SAME window.
+  assert.ok(near(mtd.excess!, mtd.twr! - mtd.benchmark!, 1e-9))
+})
+
+check('a hole in the feed leaves the row blank rather than chaining across it', () => {
+  const nav: NavPoint[] = []
+  const closes: { date: string; close: number }[] = []
+  const d = new Date(Date.UTC(2026, 1, 1))
+  for (let i = 0; i < 40; i++) {
+    const date = d.toISOString().slice(0, 10)
+    nav.push({ date, total: 1000 * 1.001 ** i })
+    // A three-week hole in the middle: wider than a long weekend, so it must not be compounded.
+    if (i < 10 || i > 30) closes.push({ date, close: 100 * 1.002 ** i })
+    d.setUTCDate(d.getUTCDate() + 1)
+  }
+  const itd = returnsByPeriod(nav, new Map(), 0, closes).find((p) => p.label === 'Since inception')!
+  assert.equal(itd.benchmark, null)
+  assert.equal(itd.excess, null)
+  assert.ok(itd.twr !== null, 'the book return is unaffected by the feed')
+})
+
+check('no feed at all is a dash, never a zero', () => {
+  const nav: NavPoint[] = [
+    { date: '2026-03-01', total: 1000 }, { date: '2026-03-02', total: 1010 }, { date: '2026-03-03', total: 1020 },
+  ]
+  const itd = returnsByPeriod(nav, new Map())[3]!
+  assert.equal(itd.benchmark, null)
+  assert.equal(itd.excess, null)
+})
+
 console.log(`\n${passed} passed, ${fails.length} failed`)
 if (fails.length) { console.error('FAILED: ' + fails.join(', ')); process.exit(1) }

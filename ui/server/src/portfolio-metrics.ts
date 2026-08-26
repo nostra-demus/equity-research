@@ -41,6 +41,10 @@ export interface PeriodReturn {
   /** True when the book has no valued day at or before this period's start, so the window is shorter
    *  than the label implies — a "year to date" on a book that only began in April. */
   partial: boolean
+  /** The index over the SAME measured window, percent, and the book's margin over it. Null where the
+   *  feed does not cover the window cleanly — never a figure chained across a hole. */
+  benchmark: number | null
+  excess: number | null
 }
 
 export interface DrawdownRead {
@@ -142,12 +146,38 @@ function startOfQuarter(d: string): string {
 }
 function startOfYear(d: string): string { return `${d.slice(0, 4)}-01-01` }
 
+/** The index chained over one explicit window, on the SAME days the book is measured over. Returns
+ *  null rather than a number whenever the feed cannot carry the window honestly: no step at all, a
+ *  non-positive close, or a hole wider than a long weekend. Chained (not first-close-to-last-close) so
+ *  a window return can never disagree with the months inside it. */
+function benchmarkOverWindow(
+  benchmarkCloses: { date: string; close: number }[],
+  from: string,
+  to: string,
+): number | null {
+  const sorted = [...benchmarkCloses].sort((a, b) => a.date.localeCompare(b.date))
+  let chain = 1
+  let steps = 0
+  for (let i = 1; i < sorted.length; i++) {
+    const prev = sorted[i - 1]!, curr = sorted[i]!
+    // The step's own START must sit inside the window: a step reaching in from before it would credit
+    // the index with a move the book was never exposed to.
+    if (prev.date < from || curr.date > to) continue
+    const gapDays = (Date.parse(`${curr.date}T00:00:00Z`) - Date.parse(`${prev.date}T00:00:00Z`)) / 86_400_000
+    if (prev.close <= 0 || gapDays > MAX_FEED_GAP_DAYS) return null
+    chain *= curr.close / prev.close
+    steps++
+  }
+  return steps === 0 ? null : (chain - 1) * 100
+}
+
 /** Month, quarter, year to date and since inception — each a genuine time-weighted return over its own
  *  window, not a slice of one cumulative figure. */
 export function returnsByPeriod(
   navSeries: NavPoint[],
   flowsByDate: Map<string, number>,
   riskFreeAnnualPct = 0,
+  benchmarkCloses: { date: string; close: number }[] = [],
 ): PeriodReturn[] {
   if (navSeries.length === 0) return []
   const asOf = navSeries[navSeries.length - 1]!.date
@@ -173,11 +203,16 @@ export function returnsByPeriod(
       ? Math.max(0, (Date.parse(`${asOf}T00:00:00Z`) - Date.parse(`${slice[0]!.date}T00:00:00Z`)) / 86_400_000)
       : 0
     const hurdle = spanDays > 0 ? ((1 + riskFreeAnnualPct / 100) ** (spanDays / 365) - 1) * 100 : null
+    const benchmark = slice.length >= 2
+      ? benchmarkOverWindow(benchmarkCloses, slice[0]!.date, asOf)
+      : null
     return {
       label,
       from: slice.length ? slice[0]!.date : null,
       to: asOf,
       twr,
+      benchmark,
+      excess: twr === null || benchmark === null ? null : twr - benchmark,
       days: Math.max(0, slice.length - 1),
       hurdle,
       overHurdle: twr === null || hurdle === null ? null : twr - hurdle,
