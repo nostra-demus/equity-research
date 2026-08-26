@@ -2,6 +2,7 @@
 """Fail-closed tests for detached production-evidence attestations."""
 from __future__ import annotations
 
+import base64
 import binascii
 import unittest
 from unittest import mock
@@ -9,7 +10,10 @@ from unittest import mock
 from cryptography.hazmat.primitives import serialization
 from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey
 
-from memory_release_attestation import sign_attestation, verify_attestation
+try:
+    from memory_release_attestation import sign_attestation, verify_attestation
+except ImportError:  # pragma: no cover
+    from scripts.memory_release_attestation import sign_attestation, verify_attestation
 
 
 class ReleaseAttestationTest(unittest.TestCase):
@@ -31,8 +35,9 @@ class ReleaseAttestationTest(unittest.TestCase):
             private_key=private_key,
             key_id="benchmark-runner",
         )
-        with mock.patch(
-            "memory_release_attestation.base64.b64decode",
+        with mock.patch.object(
+            base64,
+            "b64decode",
             side_effect=binascii.Error("invalid base64"),
         ):
             self.assertFalse(
