@@ -1,8 +1,8 @@
 // The research stage's view preference (lib/researchView.ts).
 //
-// Both functions replace a one-liner that silently swallowed a third value, so the cases that matter are
-// the ones the old code got wrong: a stored 'watchlist' surviving a reload, and surviving a browser with
-// no WebGL. Run: npx tsx src/lib/researchView.test.ts
+// These functions replace a one-liner that silently swallowed cross-company values, so the cases that
+// matter are the ones the old code got wrong: destinations never becoming the next landing page, and
+// non-WebGL views surviving a browser without WebGL. Run: npx tsx src/lib/researchView.test.ts
 import assert from 'node:assert/strict'
 import { coerceViewForWebgl, effectiveResearchView, isPersistableView, normalizeStoredView } from './researchView'
 
@@ -11,7 +11,7 @@ function check(name: string, fn: () => void): void {
   try { fn(); passed++; console.log('  ok ', name) } catch (e) { console.error('  FAIL', name); console.error('   ', e); process.exitCode = 1 }
 }
 
-check('the two stage views round-trip through storage', () => {
+check('the two canvas stage views round-trip through storage', () => {
   assert.equal(normalizeStoredView('constellation'), 'constellation')
   assert.equal(normalizeStoredView('globe'), 'globe')
 })
@@ -21,6 +21,8 @@ check('the watchlist is never restored as a landing view', () => {
   // opened it once, instead of the company they were actually working on
   assert.equal(normalizeStoredView('watchlist'), 'constellation')
   assert.equal(isPersistableView('watchlist'), false, 'so it is never written in the first place')
+  assert.equal(normalizeStoredView('tasks'), 'constellation')
+  assert.equal(isPersistableView('tasks'), false, 'the shared task board is a destination too')
   assert.equal(isPersistableView('constellation'), true)
   assert.equal(isPersistableView('globe'), true)
 })
@@ -47,6 +49,8 @@ check('with WebGL present nothing is coerced', () => {
 check('a non-research swarm falls back rather than rendering an empty stage', () => {
   assert.equal(effectiveResearchView('watchlist', false), 'constellation')
   assert.equal(effectiveResearchView('watchlist', true), 'watchlist')
+  assert.equal(effectiveResearchView('tasks', false), 'constellation')
+  assert.equal(effectiveResearchView('tasks', true), 'tasks')
   assert.equal(effectiveResearchView('globe', false), 'globe', 'the globe is shared by every constellation swarm')
 })
 

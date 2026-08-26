@@ -42,7 +42,7 @@ assert.equal(useStore.getState().toolsOpen, false, 'opening Calls closes Tools')
 
 const bar = renderToStaticMarkup(createElement(CommandBar))
 assert.equal((bar.match(/data-tools-entry="true"/g) || []).length, 1, 'the shared top bar exposes one Tools entry')
-assert.match(bar, />Tools<\/button>/)
+assert.match(bar, />Workspace<span/, 'secondary tools are grouped under the compact Workspace menu')
 
 const globalCss = fs.readFileSync(path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../styles/global.css'), 'utf8')
 assert.match(globalCss, /@media \(max-width: 1700px\)[\s\S]*\.brand__name, \.swarmswitch__label \{ display: none; \}/,

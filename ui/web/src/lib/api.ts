@@ -1436,10 +1436,53 @@ export const api = {
   watchAttachmentUrl: (entryId: string, attachmentId: string) =>
     `/api/watchlist/${encodeURIComponent(entryId)}/attachment/${encodeURIComponent(attachmentId)}`,
 
+  watchAssign: async (ticker: string, currency: string | null, assignee: import('./types').TaskAssignee | null) => {
+    if ((await ensureMode()) === 'static') throw STATIC_ERR()
+    return post<{ ok: boolean; publish_error?: string }>('/api/watchlist/assign', { ticker, currency, assignee })
+  },
   watchRestore: async (ticker: string, currency: string | null) => {
     if ((await ensureMode()) === 'static') throw STATIC_ERR()
     return post<{ ok: boolean; publish_error?: string }>('/api/watchlist/restore', { ticker, currency })
   },
+
+  // ---- Tasks board ----
+  tasks: async (): Promise<import('./types').TasksRead> => {
+    if ((await ensureMode()) === 'static') return { tasks: [], people: [
+      { id: 'AB', name: 'Ayush Banka' }, { id: 'NV', name: 'Noel Vaz' }, { id: 'CK', name: 'Chiraag Kapil' },
+    ], unreadable: [], attachments_enabled: false, as_of: new Date().toISOString() }
+    return get<import('./types').TasksRead>('/api/tasks')
+  },
+  taskCreate: async (input: import('./types').TaskInput) => {
+    if ((await ensureMode()) === 'static') throw STATIC_ERR()
+    return post<{ ok: boolean; task: import('./types').TaskCard; publish_error?: string }>('/api/tasks', input)
+  },
+  taskUpdate: async (taskId: string, input: Partial<import('./types').TaskInput>) => {
+    if ((await ensureMode()) === 'static') throw STATIC_ERR()
+    return patch<{ ok: boolean; task: import('./types').TaskCard; publish_error?: string }>(`/api/tasks/${encodeURIComponent(taskId)}`, input)
+  },
+  taskAttach: async (taskId: string, files: File[]): Promise<{ ok: boolean; task: import('./types').TaskCard; fileErrors: { filename: string; reason: string }[]; publish_error?: string }> => {
+    if ((await ensureMode()) === 'static') throw STATIC_ERR()
+    const fd = new FormData()
+    for (const file of files) fd.append('files', file, file.name)
+    return new Promise((resolve, reject) => {
+      const xhr = new XMLHttpRequest()
+      xhr.open('POST', `/api/tasks/${encodeURIComponent(taskId)}/attachments`)
+      xhr.onload = () => {
+        let body: any = {}
+        try { body = JSON.parse(xhr.responseText) } catch { /* keep empty */ }
+        if (xhr.status >= 200 && xhr.status < 300) resolve(body)
+        else reject(Object.assign(new Error(body?.error || `${xhr.status}`), { status: xhr.status, body }))
+      }
+      xhr.onerror = () => reject(new Error('upload failed'))
+      xhr.send(fd)
+    })
+  },
+  taskDetach: async (taskId: string, attachmentId: string) => {
+    if ((await ensureMode()) === 'static') throw STATIC_ERR()
+    return del<{ ok: boolean; task: import('./types').TaskCard; publish_error?: string }>(`/api/tasks/${encodeURIComponent(taskId)}/attachment/${encodeURIComponent(attachmentId)}`)
+  },
+  taskAttachmentUrl: (taskId: string, attachmentId: string) =>
+    `/api/tasks/${encodeURIComponent(taskId)}/attachment/${encodeURIComponent(attachmentId)}`,
 
   quote: async (ticker: string, runRoot?: string): Promise<QuoteRead | null> => {
     if ((await ensureMode()) === 'static') return null

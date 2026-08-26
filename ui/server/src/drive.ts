@@ -152,13 +152,13 @@ async function ensureFolder(name: string, parentId: string, cacheKey: string): P
   return p
 }
 
-/** Stream one PDF into WATCHLIST/<entryId>/. Takes an entry id, never a ticker. */
-export async function uploadToWatchlist(entryId: string, filename: string, body: Readable): Promise<{ id: string; name: string }> {
+/** Stream one planning attachment into WATCHLIST/<entryId>/. Takes an entry id, never a ticker. */
+export async function uploadToWatchlist(entryId: string, filename: string, body: Readable, mimeType = 'application/pdf'): Promise<{ id: string; name: string }> {
   const root = await ensureFolder(WATCHLIST_FOLDER, GDRIVE.dataFolderId, `__root__:${WATCHLIST_FOLDER}`)
   const folderId = await ensureFolder(entryId, root, `entry:${entryId}`)
   const res = await client().files.create({
     requestBody: { name: filename, parents: [folderId] },
-    media: { mimeType: 'application/pdf', body },
+    media: { mimeType, body },
     fields: 'id,name',
     supportsAllDrives: true,
   })
