@@ -1,6 +1,154 @@
 {
-  "generated_at": "2026-08-26T12:23:34Z",
+  "generated_at": "2026-08-26T13:11:52Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260826-889",
+      "headline": "Nitco Limited: Nitco Limited has informed the Exchange regarding a press release dated August 26, 2026, titled \"NITCO forms JV with House of Abhinandan Lodha for Rs 4,500-crore Alibaug project\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/NITCO_26082026173047_SE_PressRelease_HoABL.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-26T12:00:55Z",
+      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
+      "prelim_note": "Significant joint venture announcement for a project valued at Rs 4,500 crore, which is material for a company of Nitco's size.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Significant joint venture announcement for a project valued at Rs 4,500 crore, which is material for a company of Nitco's size.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna",
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nitco Limited",
+          "ticker": "NITCO",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260826-877",
+      "headline": "GUANZE MEDICAL (02427): PROFIT WARNING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0826/2026082601299.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-26T11:42:00Z",
+      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
+      "prelim_note": "Profit warning indicates a material deterioration in financial performance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Profit warning indicates a material deterioration in financial performance.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "guidance_change",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Guanze Medical Information Industry",
+          "ticker": "02427",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260826-879",
+      "headline": "CENTRALCHINA MT (09982): PROFIT WARNING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0826/2026082601281.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-26T11:37:00Z",
+      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
+      "prelim_note": "Profit warning indicates a material deterioration in financial performance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Profit warning indicates a material deterioration in financial performance.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "guidance_change",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Central China Management",
+          "ticker": "09982",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260826-872",
       "headline": "Mankind Pharma Ltd: Please find attached outcome of the Board Meeting held today, according consent of the Board of Directors of the Company for the integration of Bharat Serums and Vaccines Limited, a wholly ....",
@@ -1155,6 +1303,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260826-880",
+      "headline": "Victory Capital to Buy First Eagle for $7 Billion",
+      "headline_en": null,
+      "url": "https://www.wsj.com/business/deals/victory-capital-to-buy-first-eagle-for-7-billion-ff0286f0?mod=rss_markets_main",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-26T11:30:00Z",
+      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
+      "prelim_note": "Victory Capital announced the acquisition of First Eagle for $7 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Victory Capital announced the acquisition of First Eagle for $7 billion.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Victory Capital",
+          "ticker": "VCTR",
+          "listing_country": "US"
+        },
+        {
+          "name": "First Eagle",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260826-866",
       "headline": "Couche-Tard launches tender offer for all shares of Polish retailer Zabka",
       "headline_en": null,
@@ -1817,208 +2019,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260826-690",
-      "headline": "Taqa to delist from Abu Dhabi bourse after L’imad buyout",
-      "headline_en": null,
-      "url": "https://www.agbi.com/markets/2026/08/taqa-to-delist-from-abu-dhabi-bourse-after-limad-buyout/",
-      "source_name": "AGBI — Arabian Gulf Business Insight",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-26T07:29:00Z",
-      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
-      "prelim_note": "Taqa is delisting from the Abu Dhabi bourse following a buyout, which is a significant capital structure event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Taqa is delisting from the Abu Dhabi bourse following a buyout, which is a significant capital structure event.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna",
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Taqa",
-          "ticker": null,
-          "listing_country": "AE"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260826-688",
-      "headline": "Bathla urgently seeks $20m as developer faces risk of liquidation",
-      "headline_en": null,
-      "url": "https://www.afr.com/property/residential/bathla-in-urgent-call-for-20m-as-developer-faces-risk-of-liquidation-20260826-p60rri?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-26T07:13:29Z",
-      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
-      "prelim_note": "Developer Bathla is seeking $20 million to avoid liquidation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Developer Bathla is seeking $20 million to avoid liquidation.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": -1,
-        "recency": 4,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bathla",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260826-661",
-      "headline": "Constellation Energy Just Raised Guidance. Here's What's Driving It.",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/constellation-energy-just-raised-guidance-heres-whats-driving-it",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-26T06:25:00Z",
-      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
-      "prelim_note": "Constellation Energy raised its financial guidance, which directly impacts analyst expectations and valuation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Constellation Energy raised its financial guidance, which directly impacts analyst expectations and valuation.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Constellation Energy",
-          "ticker": "CEG",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260826-470",
-      "headline": "Developer Ingenia secures land bank with $1b acquisition of Peet",
-      "headline_en": null,
-      "url": "https://www.afr.com/property/commercial/developer-ingenia-secures-land-bank-with-1b-acquisition-of-peet-20260826-p60rnn?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-26T02:36:38Z",
-      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
-      "prelim_note": "Ingenia secured a $1b land bank via acquisition of Peet, a named deal value.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Ingenia secured a $1b land bank via acquisition of Peet, a named deal value.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 72,
-      "rank_factors": {
-        "materiality": 72,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 13,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Ingenia",
-          "ticker": null,
-          "listing_country": "AU"
-        },
-        {
-          "name": "Peet",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -79733,76 +79733,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-bb6c79ef8ffe",
-      "idea_version": "IDEAV-b5b37f571dad8a76",
-      "idea_version_started_at": "2026-08-25T03:44:44Z",
-      "ticker": "BA",
-      "company": "Boeing",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company secured a massive $131.2 billion ceiling value contract for the F-15 program, providing significant long-term revenue visibility and defense backlog support.",
-      "why_now": "The contract award was announced on August 25, 2026.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-7d66ec36e8b3"
-      ],
-      "primary_source_event_id": "EVT-7d66ec36e8b3",
-      "source_headlines": [
-        "Boeing awarded contract with ceiling value of $131.2 billion for F-15 program"
-      ],
-      "source_headline": "Boeing awarded contract with ceiling value of $131.2 billion for F-15 program",
-      "source_url": "https://www.reuters.com/business/aerospace-defense/boeing-awarded-contract-with-ceiling-value-1312-billion-f-15-program-2026-08-24/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 96,
-      "newest_source_at": "2026-08-25T00:50:10Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-25T03:44:44Z",
-      "updated_at": "2026-08-25T03:44:44Z",
-      "decay_at": "2026-08-26T12:50:10Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-cdd269b5c982",
       "idea_version": "IDEAV-b1f67878e4d63fbd",
       "idea_version_started_at": "2026-08-26T11:24:53Z",
@@ -82298,6 +82228,76 @@
       "surfaced_at": "2026-08-23T16:33:16Z",
       "updated_at": "2026-08-23T16:33:16Z",
       "decay_at": "2026-08-25T03:50:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-bb6c79ef8ffe",
+      "idea_version": "IDEAV-b5b37f571dad8a76",
+      "idea_version_started_at": "2026-08-25T03:44:44Z",
+      "ticker": "BA",
+      "company": "Boeing",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company secured a massive $131.2 billion ceiling value contract for the F-15 program, providing significant long-term revenue visibility and defense backlog support.",
+      "why_now": "The contract award was announced on August 25, 2026.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-7d66ec36e8b3"
+      ],
+      "primary_source_event_id": "EVT-7d66ec36e8b3",
+      "source_headlines": [
+        "Boeing awarded contract with ceiling value of $131.2 billion for F-15 program"
+      ],
+      "source_headline": "Boeing awarded contract with ceiling value of $131.2 billion for F-15 program",
+      "source_url": "https://www.reuters.com/business/aerospace-defense/boeing-awarded-contract-with-ceiling-value-1312-billion-f-15-program-2026-08-24/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "materiality_max": 96,
+      "newest_source_at": "2026-08-25T00:50:10Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-25T03:44:44Z",
+      "updated_at": "2026-08-25T03:44:44Z",
+      "decay_at": "2026-08-26T12:50:10Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -84953,13 +84953,13 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 130,
-    "shown_count": 130,
+    "total_count": 131,
+    "shown_count": 131,
     "hidden_count": 0,
     "side_counts": {
       "long": {
-        "total_count": 52,
-        "shown_count": 52,
+        "total_count": 53,
+        "shown_count": 53,
         "hidden_count": 0
       },
       "short": {
@@ -84984,6 +84984,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-bb6c79ef8ffe",
+        "idea_version": "IDEAV-b5b37f571dad8a76",
+        "idea_version_started_at": "2026-08-25T03:44:44Z",
+        "ticker": "BA",
+        "company": "Boeing",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company secured a massive $131.2 billion ceiling value contract for the F-15 program, providing significant long-term revenue visibility and defense backlog support.",
+        "why_now": "The contract award was announced on August 25, 2026.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 62,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-7d66ec36e8b3"
+        ],
+        "primary_source_event_id": "EVT-7d66ec36e8b3",
+        "source_headlines": [
+          "Boeing awarded contract with ceiling value of $131.2 billion for F-15 program"
+        ],
+        "source_headline": "Boeing awarded contract with ceiling value of $131.2 billion for F-15 program",
+        "source_url": "https://www.reuters.com/business/aerospace-defense/boeing-awarded-contract-with-ceiling-value-1312-billion-f-15-program-2026-08-24/",
+        "source_name": "Reuters — Latest (news sitemap)",
+        "materiality_max": 96,
+        "newest_source_at": "2026-08-25T00:50:10Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-25T03:44:44Z",
+        "updated_at": "2026-08-25T03:44:44Z",
+        "decay_at": "2026-08-26T12:50:10Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-26T12:50:10Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-1a0be428f2c5",
         "idea_version": "IDEAV-3f09477d2976d083",
@@ -94616,7 +94689,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 166,
-    "live_count": 35,
+    "live_count": 34,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -94635,9 +94708,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2397778,
-    "news_picked_today": 1613,
-    "news_dropped_today": 12739
+    "news_seen_today": 2653585,
+    "news_picked_today": 1712,
+    "news_dropped_today": 13048
   },
   "book_momentum": {
     "live_count": 8,
