@@ -56,18 +56,19 @@ class ReleaseAttestationTest(unittest.TestCase):
         # Alter each unused padding bit while preserving the decoded signature.
         for bitmask in (0x01, 0x02, 0x04, 0x08):
             with self.subTest(bitmask=bitmask):
-                attestation["value"] = (
+                test_attestation = dict(attestation)
+                test_attestation["value"] = (
                     canonical_value[:-1]
                     + BASE64URL_ALPHABET[last_value | bitmask]
                 )
                 self.assertEqual(
                     base64.urlsafe_b64decode(canonical_value + "=="),
-                    base64.urlsafe_b64decode(attestation["value"] + "=="),
+                    base64.urlsafe_b64decode(test_attestation["value"] + "=="),
                 )
                 self.assertFalse(
                     verify_attestation(
                         payload,
-                        attestation,
+                        test_attestation,
                         domain=domain,
                         public_key=PUBLIC_KEY,
                         key_id="benchmark-runner",
