@@ -2856,7 +2856,14 @@ export function updateIdeaSnapshot(
   }
 }
 
-export interface IdeaPromotionReservation { idea_id: string; token: string; started_at: string }
+export interface IdeaPromotionReservation {
+  idea_id: string
+  token: string
+  started_at: string
+  /** Deterministic identity frozen before provider admission. Absent only on rolling-deploy reservations
+   * created before crash-safe promotion recovery existed. */
+  signal_id?: string
+}
 // The reservation path is built INLINE in each function below (never via a shared helper). CodeQL's
 // path-injection sanitizer does not follow a resolve+contain guard across a function-return boundary, so a
 // helper guard is invisible to the scanner at the fs sinks in its callers — two earlier attempts (a callee
@@ -2867,7 +2874,14 @@ export interface IdeaPromotionReservation { idea_id: string; token: string; star
 function readPromotionReservation(fp: string): IdeaPromotionReservation | null {
   try {
     const value = JSON.parse(fs.readFileSync(fp, 'utf8'))
-    return value?.idea_id && value?.token && value?.started_at ? value as IdeaPromotionReservation : null
+    return value && typeof value === 'object' && !Array.isArray(value)
+      && typeof value.idea_id === 'string' && /^IDEA-[a-f0-9]{12}$/.test(value.idea_id)
+      && typeof value.token === 'string' && /^[0-9a-f-]{36}$/.test(value.token)
+      && typeof value.started_at === 'string'
+      && Number.isFinite(parseRfc3339Ms(value.started_at))
+      && (value.signal_id === undefined || (typeof value.signal_id === 'string'
+        && /^SIG-[0-9]{8}-[a-f0-9]{8}$/.test(value.signal_id)))
+      ? value as IdeaPromotionReservation : null
   } catch { return null }
 }
 
@@ -2917,8 +2931,10 @@ export function reserveIdeaPromotion(
   repoRoot: string,
   ideaId: string,
   nowMs = Date.now(),
+  signalId?: string,
 ): IdeaPromotionReservation | null {
   if (!/^IDEA-[a-f0-9]{12}$/.test(ideaId)) return null
+  if (signalId !== undefined && !/^SIG-[0-9]{8}-[a-f0-9]{8}$/.test(signalId)) return null
   const dir = ideasDir(repoRoot)
   fs.mkdirSync(dir, { recursive: true })
   const fp = path.join(dir, `${ideaId}.json`)
@@ -2937,6 +2953,7 @@ export function reserveIdeaPromotion(
       idea_id: ideaId,
       token: randomUUID(),
       started_at: new Date(nowMs).toISOString().replace(/\.\d{3}Z$/, 'Z'),
+      ...(signalId ? { signal_id: signalId } : {}),
     }
     writePromotionReservationAtomic(repoRoot, reservation)
     return reservation
@@ -2995,6 +3012,92 @@ export function finalizeIdeaPromotion(
   } finally {
     releaseIdeaMutationLease(fp, lease)
   }
+}
+
+export interface IdeaPromotionReconciliation {
+  recovered: number
+  released: number
+  pending: number
+  errors: string[]
+}
+
+/**
+ * Reconcile promotion reservations left by a killed server. A durable, identity-matching signal intake
+ * proves launch admission happened, so the Idea lifecycle can be completed locally without another paid
+ * request. A stale reservation with no intake is released for a clean retry. Legacy reservations without
+ * a frozen signal id remain protected until their normal stale boundary and can never be guessed.
+ */
+export function reconcileIdeaPromotionReservations(
+  repoRoot: string,
+  durableSignalIntakeExists: (signalId: string) => boolean,
+  nowMs = Date.now(),
+): IdeaPromotionReconciliation {
+  const result: IdeaPromotionReconciliation = { recovered: 0, released: 0, pending: 0, errors: [] }
+  const dir = path.resolve(ideasDir(repoRoot))
+  let entries: string[]
+  try {
+    entries = fs.readdirSync(dir).filter((entry) => /^IDEA-[a-f0-9]{12}\.promotion$/.test(entry)).sort()
+  } catch (error: any) {
+    if (error?.code === 'ENOENT') return result
+    result.errors.push(`promotion store cannot be read: ${String(error?.message || error).slice(0, 200)}`)
+    return result
+  }
+  const updatedAt = new Date(nowMs).toISOString().replace(/\.\d{3}Z$/, 'Z')
+  for (const entry of entries) {
+    const ideaId = entry.slice(0, -'.promotion'.length)
+    // The directory entry is regex-gated above. Resolve and contain the exact path before every fs sink.
+    const reservationFile = path.resolve(dir, entry)
+    if (!reservationFile.startsWith(dir + path.sep)) {
+      result.errors.push(`${ideaId}: unsafe promotion reservation path`)
+      continue
+    }
+    const reservation = readPromotionReservation(reservationFile)
+    if (!reservation || reservation.idea_id !== ideaId) {
+      result.errors.push(`${ideaId}: promotion reservation is unreadable`)
+      continue
+    }
+    const current = readIdeaById(repoRoot, ideaId)
+    if (current?.status === 'promoted' && current.promoted_signal_id) {
+      releaseIdeaPromotion(repoRoot, ideaId, reservation.token)
+      if (fs.existsSync(reservationFile)) result.errors.push(`${ideaId}: completed reservation could not be cleared`)
+      else result.released++
+      continue
+    }
+    let signalExists = false
+    if (reservation.signal_id) {
+      try {
+        signalExists = durableSignalIntakeExists(reservation.signal_id)
+      } catch (error: any) {
+        result.errors.push(`${ideaId}: signal admission proof could not be checked: ${String(error?.message || error).slice(0, 160)}`)
+        continue
+      }
+    }
+    if (reservation.signal_id && signalExists) {
+      if (!current) {
+        result.errors.push(`${ideaId}: admitted signal exists but its Idea snapshot is missing`)
+        continue
+      }
+      try {
+        finalizeIdeaPromotion(
+          repoRoot, ideaId, reservation.token, reservation.signal_id, updatedAt, current,
+        )
+        result.recovered++
+      } catch (error: any) {
+        result.errors.push(`${ideaId}: ${String(error?.message || error).slice(0, 200)}`)
+      }
+      continue
+    }
+    const startedAt = parseRfc3339Ms(reservation.started_at)
+    const stale = !Number.isFinite(startedAt) || nowMs < startedAt || nowMs - startedAt > IDEA_PROMOTION_STALE_MS
+    if (!stale) {
+      result.pending++
+      continue
+    }
+    releaseIdeaPromotion(repoRoot, ideaId, reservation.token)
+    if (fs.existsSync(reservationFile)) result.errors.push(`${ideaId}: stale reservation could not be released`)
+    else result.released++
+  }
+  return result
 }
 
 interface ThemeAdmissionEdge { evidence: Set<string>; whyNow: Set<string>; roles: Set<string> }
@@ -3205,6 +3308,25 @@ export interface IdeaPassIdeaClaim {
   /** Stable identities of only the source rows that supported this accepted occurrence. */
   input_keys: string[]
 }
+export interface IdeaInterruptedAttemptRecord {
+  schema_version: 'ideas-interrupted-attempt/v1'
+  interruption_id: string
+  detected_at: string
+  started_at: string | null
+  phase: 'authorized' | 'dispatched' | 'legacy_unknown'
+  attempt_id: string | null
+  provider: string | null
+  input_keys: string[]
+  /** Aligned with input_keys. Null means the rolling/legacy checkpoint did not retain that event id. */
+  input_event_ids: (string | null)[]
+  recovered_idea_claims: IdeaPassIdeaClaim[]
+  outcome: 'response_unknown'
+  disposition: 'quarantined_at_most_once'
+}
+export interface IdeaPassUncertainInputAudit {
+  input_key: string
+  interruption_id: string
+}
 export interface IdeaPassSnapshotRevision {
   idea_id: string
   revision: string
@@ -3232,9 +3354,52 @@ export interface IdeaPassState {
    * quarantined, not completed: later/new rows keep flowing, but these rows are never sent again without
    * an explicit audited recovery. Changed or removed rows naturally drop because their identity changes. */
   uncertain_input_keys?: string[]
+  /** Permanent-ledger receipt aligned by exact input identity. A live quarantine cannot be cleared until
+   * every row has one, so an aging row never erases the only record of an unknown provider response. */
+  uncertain_input_audits?: IdeaPassUncertainInputAudit[]
   /** Durable request lifecycle marker. Recovery safely retries prepared, quarantines dispatched, and
    * locally finishes persisted without another provider call. */
   in_flight?: IdeaPassInFlightState
+}
+
+export const IDEA_INTERRUPTED_ATTEMPTS_PATH = 'screener/ledger/ideas_interrupted_attempts.ndjson'
+
+/** Append-only, fsynced and idempotent evidence for provider requests whose response is unknowable.
+ * Publication is deliberately owned by runIdeaPass, which must push this receipt before clearing the
+ * transient in-flight marker. */
+export async function appendIdeaInterruptedAttempt(
+  repoRoot: string,
+  record: IdeaInterruptedAttemptRecord,
+): Promise<'appended' | 'duplicate'> {
+  const helperInRepo = path.join(repoRoot, 'scripts', 'append-ndjson.sh')
+  const helper = fs.existsSync(helperInRepo) ? helperInRepo : sourceTreeAppendHelper
+  if (!fs.existsSync(helper)) throw new Error(`Ideas interrupted-attempt append helper is missing: ${helper}`)
+  const ledger = path.join(repoRoot, IDEA_INTERRUPTED_ATTEMPTS_PATH)
+  try {
+    const result = await execFileAsync('bash', [
+      helper, ledger, JSON.stringify(record), 'interruption_id', record.interruption_id,
+    ], {
+      cwd: repoRoot,
+      encoding: 'utf8',
+      timeout: 20_000,
+      maxBuffer: 256_000,
+      env: { ...process.env, NDJSON_REPO_LOCK_WAIT_MS: '15000' },
+    })
+    const stdout = String(result.stdout || '')
+    if (/^APPENDED=1\s*$/m.test(stdout)) return 'appended'
+    if (/^DUPLICATE=1\s*$/m.test(stdout)) return 'duplicate'
+    const detail = String(result.stderr || '').trim() || stdout.trim() || 'invalid helper output'
+    throw Object.assign(new Error(`Ideas interrupted-attempt append failed: ${detail.slice(0, 240)}`), {
+      code: 'EIDEA_INTERRUPTION_APPEND',
+    })
+  } catch (error: any) {
+    if (error?.code === 'EIDEA_INTERRUPTION_APPEND') throw error
+    const detail = String(error?.stderr || '').trim() || String(error?.stdout || '').trim()
+      || String(error?.message || error || 'unknown')
+    throw Object.assign(new Error(`Ideas interrupted-attempt append failed: ${detail.slice(0, 240)}`), {
+      code: 'EIDEA_INTERRUPTION_APPEND',
+    })
+  }
 }
 
 export function readPassState(stateDir: string, failOnCorrupt = false): IdeaPassState | null {
@@ -3281,6 +3446,11 @@ export function readPassState(stateDir: string, failOnCorrupt = false): IdeaPass
       && o.completed_idea_claims.every((claim: any) => claim
         && typeof claim.idea_id === 'string' && claim.idea_id.length > 0 && claim.idea_id.length <= 256
         && Array.isArray(claim.input_keys) && stringArray(claim.input_keys)))
+    const uncertainAuditsValid = o?.uncertain_input_audits === undefined || (Array.isArray(o.uncertain_input_audits)
+      && o.uncertain_input_audits.length <= 10_000
+      && o.uncertain_input_audits.every((audit: any) => audit
+        && typeof audit.input_key === 'string' && audit.input_key.length > 0 && audit.input_key.length <= 256
+        && typeof audit.interruption_id === 'string' && /^IDEAI-[a-f0-9]{64}$/.test(audit.interruption_id)))
     if (o && typeof o.hash === 'string'
       && (o.effect_hash === undefined || typeof o.effect_hash === 'string')
       && typeof o.ran_at_ms === 'number' && Number.isFinite(o.ran_at_ms)
@@ -3289,6 +3459,7 @@ export function readPassState(stateDir: string, failOnCorrupt = false): IdeaPass
       && stringArray(o.completed_input_keys)
       && stringArray(o.completed_idea_ids)
       && stringArray(o.uncertain_input_keys)
+      && uncertainAuditsValid
       && claimsValid
       && inFlightValid) return o as IdeaPassState
   } catch { /* handled below */ }
