@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-26T21:03:51Z",
+  "generated_at": "2026-08-26T22:23:11Z",
   "inbox": [
     {
       "inbox_id": "INB-20260826-1056",
@@ -341,6 +341,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260826-1117",
+      "headline": "LEE'S PHARM (00950): Positive Profit Alert",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0826/2026082601649.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-26T13:06:00Z",
+      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
+      "prelim_note": "The company issued a positive profit alert, indicating an expected increase in earnings.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company issued a positive profit alert, indicating an expected increase in earnings.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 2,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "LEE'S PHARM",
+          "ticker": "00950",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1033,6 +1082,60 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260826-1103",
+      "headline": "PRU (02378): Prudential plc announces sale of up to a 2.0 per cent stake in ICICI Prudential Asset Management to support India public float requirements",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0826/2026082600823.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-26T10:09:00Z",
+      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
+      "prelim_note": "Prudential plc announced the sale of up to a 2.0 percent stake in ICICI Prudential Asset Management to support India public float requirements.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Prudential plc announced the sale of up to a 2.0 percent stake in ICICI Prudential Asset Management to support India public float requirements.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 0,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Prudential plc",
+          "ticker": "02378",
+          "listing_country": "GB"
+        },
+        {
+          "name": "ICICI Prudential Asset Management",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1843,143 +1946,50 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260826-1088",
-      "headline": "Salesforce raises annual revenue forecasts on AI product momentum",
+      "inbox_id": "INB-20260826-1099",
+      "headline": "Victory Capital Agrees to Buy First Eagle For $7B",
       "headline_en": null,
-      "url": "https://www.reuters.com/technology/salesforce-raises-annual-revenue-forecast-2026-08-26/",
-      "source_name": "Reuters — Latest (news sitemap)",
+      "url": "https://www.bloomberg.com/news/videos/2026-08-26/victory-capital-agrees-to-buy-first-eagle-for-7b-video",
+      "source_name": "Bloomberg",
       "input_nature": "news_headline",
-      "found_at": "2026-08-26T20:14:29Z",
+      "found_at": "2026-08-26T20:52:27Z",
       "sweep_file": "screener/inbox/2026-08-26_sweep.json",
-      "prelim_note": "Salesforce raised its annual revenue guidance due to AI product demand.",
+      "prelim_note": "Victory Capital to acquire First Eagle Investment Management for $7 billion, a named M&A transaction affecting capital structure and strategic focus.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 100,
-      "triage_reason": "Salesforce raised its annual revenue guidance due to AI product demand.",
+      "triage_reason": "Victory Capital to acquire First Eagle Investment Management for $7 billion, a named M&A transaction affecting capital structure and strategic focus.",
       "region": "US",
       "relevance": "material",
-      "materiality_pre_score": 80,
+      "materiality_pre_score": 78,
       "rank_factors": {
-        "materiality": 80,
+        "materiality": 78,
         "source_tier": 0,
-        "scope": 6,
-        "event": 7,
+        "scope": 5,
+        "event": 9,
         "size": 2,
         "recency": 5,
         "materiality_label_floor": 0,
-        "quantified": 0,
+        "quantified": 6,
         "boost_weight": 1,
-        "scope_id": "single_name",
+        "scope_id": "multi_name",
         "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Salesforce",
-          "ticker": "CRM",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260826-1089",
-      "headline": "Meta agrees to pay $18 billion to settle US lawsuits over children's social media addiction",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/meta-reaches-18-billion-settlements-over-childrens-social-media-addiction-2026-08-26/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-26T20:09:43Z",
-      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
-      "prelim_note": "Meta agreed to an $18 billion settlement regarding lawsuits over children's social media addiction.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Meta agreed to an $18 billion settlement regarding lawsuits over children's social media addiction.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 90,
-      "rank_factors": {
-        "materiality": 90,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Meta",
-          "ticker": "META",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260826-1093",
-      "headline": "Intuit expects 2027 revenue to ‘decelerate,’ CFO says",
-      "headline_en": null,
-      "url": "https://www.cfodive.com/news/intuit-expects-2027-revenue-decelerate-cfo-AI/828869/",
-      "source_name": "CFO Dive",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-26T18:27:16Z",
-      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
-      "prelim_note": "Intuit CFO indicated that revenue growth is expected to decelerate by 2027.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Intuit CFO indicated that revenue growth is expected to decelerate by 2027.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
+        "event_id": "mna",
         "size_bucket": "large"
       },
       "event_types": [
-        "guidance_change"
+        "mna"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Intuit",
+          "name": "Victory Capital Holdings, Inc.",
+          "ticker": "VCAP",
+          "listing_country": "US"
+        },
+        {
+          "name": "First Eagle Investment Management",
           "ticker": null,
           "listing_country": "US"
         }
@@ -81058,219 +81068,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-4fb19a242234",
-      "idea_version": "IDEAV-244f43e33b9125c4",
-      "idea_version_started_at": "2026-08-25T10:36:18Z",
-      "ticker": "02222",
-      "company": "NVC INTL",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "NVC INTL issued a profit warning, indicating a likely decline in its profitability for the upcoming reporting period.",
-      "why_now": "The company released a profit warning today, suggesting an immediate negative impact on its financial performance.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-5ef86e82764d"
-      ],
-      "primary_source_event_id": "EVT-5ef86e82764d",
-      "source_headlines": [
-        "NVC INTL (02222): PROFIT WARNING"
-      ],
-      "source_headline": "NVC INTL (02222): PROFIT WARNING",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0825/2026082501009.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-25T10:07:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-25T10:36:18Z",
-      "updated_at": "2026-08-25T10:36:18Z",
-      "decay_at": "2026-08-26T22:07:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-8b9f3e9f0b64",
-      "idea_version": "IDEAV-c756c5bb3afcddeb",
-      "idea_version_started_at": "2026-08-25T10:36:18Z",
-      "ticker": "00348",
-      "company": "China Healthwise",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "China Healthwise issued a profit warning, indicating that its financial results will be significantly lower than previously expected.",
-      "why_now": "The company filed a profit warning today, signaling an immediate negative revision to its earnings expectations.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-7c7d0d9e5dde"
-      ],
-      "primary_source_event_id": "EVT-7c7d0d9e5dde",
-      "source_headlines": [
-        "CHINAHEALTHWISE (00348): INSIDE INFORMATION PROFIT WARNING"
-      ],
-      "source_headline": "CHINAHEALTHWISE (00348): INSIDE INFORMATION PROFIT WARNING",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0825/2026082500909.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-25T09:42:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-25T10:36:18Z",
-      "updated_at": "2026-08-25T10:36:18Z",
-      "decay_at": "2026-08-26T21:42:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-c3365d772313",
-      "idea_version": "IDEAV-6082786c91a4db9a",
-      "idea_version_started_at": "2026-08-25T10:36:18Z",
-      "ticker": "01335",
-      "company": "SHEEN TAI",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "SHEEN TAI issued a profit warning, signaling that its financial results will be worse than anticipated.",
-      "why_now": "The company filed a profit warning today, indicating an immediate negative revision to its earnings outlook.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-d29a8f8ea7ca"
-      ],
-      "primary_source_event_id": "EVT-d29a8f8ea7ca",
-      "source_headlines": [
-        "SHEEN TAI (01335): PROFIT WARNING"
-      ],
-      "source_headline": "SHEEN TAI (01335): PROFIT WARNING",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0825/2026082501051.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-25T10:16:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-25T10:36:18Z",
-      "updated_at": "2026-08-25T10:36:18Z",
-      "decay_at": "2026-08-26T22:16:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-15545ed7f8b1",
       "idea_version": "IDEAV-73067bb8cd7980b7",
       "idea_version_started_at": "2026-08-26T09:35:45Z",
@@ -82190,6 +81987,77 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-4fb19a242234",
+      "idea_version": "IDEAV-244f43e33b9125c4",
+      "idea_version_started_at": "2026-08-25T10:36:18Z",
+      "ticker": "02222",
+      "company": "NVC INTL",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "NVC INTL issued a profit warning, indicating a likely decline in its profitability for the upcoming reporting period.",
+      "why_now": "The company released a profit warning today, suggesting an immediate negative impact on its financial performance.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-5ef86e82764d"
+      ],
+      "primary_source_event_id": "EVT-5ef86e82764d",
+      "source_headlines": [
+        "NVC INTL (02222): PROFIT WARNING"
+      ],
+      "source_headline": "NVC INTL (02222): PROFIT WARNING",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0825/2026082501009.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-25T10:07:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-25T10:36:18Z",
+      "updated_at": "2026-08-25T10:36:18Z",
+      "decay_at": "2026-08-26T22:07:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-6cd689f1508e",
       "idea_version": "IDEAV-3d678ffe2f37074f",
       "idea_version_started_at": "2026-08-25T10:36:18Z",
@@ -82261,6 +82129,77 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-8b9f3e9f0b64",
+      "idea_version": "IDEAV-c756c5bb3afcddeb",
+      "idea_version_started_at": "2026-08-25T10:36:18Z",
+      "ticker": "00348",
+      "company": "China Healthwise",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "China Healthwise issued a profit warning, indicating that its financial results will be significantly lower than previously expected.",
+      "why_now": "The company filed a profit warning today, signaling an immediate negative revision to its earnings expectations.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-7c7d0d9e5dde"
+      ],
+      "primary_source_event_id": "EVT-7c7d0d9e5dde",
+      "source_headlines": [
+        "CHINAHEALTHWISE (00348): INSIDE INFORMATION PROFIT WARNING"
+      ],
+      "source_headline": "CHINAHEALTHWISE (00348): INSIDE INFORMATION PROFIT WARNING",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0825/2026082500909.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-25T09:42:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-25T10:36:18Z",
+      "updated_at": "2026-08-25T10:36:18Z",
+      "decay_at": "2026-08-26T21:42:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-90771b14dcb3",
       "idea_version": "IDEAV-01e2cd27c752c40a",
       "idea_version_started_at": "2026-08-25T10:36:18Z",
@@ -82326,6 +82265,77 @@
       "surfaced_at": "2026-08-25T10:36:18Z",
       "updated_at": "2026-08-25T10:36:18Z",
       "decay_at": "2026-08-26T20:31:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-c3365d772313",
+      "idea_version": "IDEAV-6082786c91a4db9a",
+      "idea_version_started_at": "2026-08-25T10:36:18Z",
+      "ticker": "01335",
+      "company": "SHEEN TAI",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "SHEEN TAI issued a profit warning, signaling that its financial results will be worse than anticipated.",
+      "why_now": "The company filed a profit warning today, indicating an immediate negative revision to its earnings outlook.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-d29a8f8ea7ca"
+      ],
+      "primary_source_event_id": "EVT-d29a8f8ea7ca",
+      "source_headlines": [
+        "SHEEN TAI (01335): PROFIT WARNING"
+      ],
+      "source_headline": "SHEEN TAI (01335): PROFIT WARNING",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0825/2026082501051.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-25T10:16:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-25T10:36:18Z",
+      "updated_at": "2026-08-25T10:36:18Z",
+      "decay_at": "2026-08-26T22:16:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -85274,8 +85284,8 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 140,
-    "shown_count": 140,
+    "total_count": 143,
+    "shown_count": 143,
     "hidden_count": 0,
     "side_counts": {
       "long": {
@@ -85284,8 +85294,8 @@
         "hidden_count": 0
       },
       "short": {
-        "total_count": 84,
-        "shown_count": 84,
+        "total_count": 87,
+        "shown_count": 87,
         "hidden_count": 0
       }
     },
@@ -85305,6 +85315,228 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-c3365d772313",
+        "idea_version": "IDEAV-6082786c91a4db9a",
+        "idea_version_started_at": "2026-08-25T10:36:18Z",
+        "ticker": "01335",
+        "company": "SHEEN TAI",
+        "exchange": "HKEX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "SHEEN TAI issued a profit warning, signaling that its financial results will be worse than anticipated.",
+        "why_now": "The company filed a profit warning today, indicating an immediate negative revision to its earnings outlook.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-d29a8f8ea7ca"
+        ],
+        "primary_source_event_id": "EVT-d29a8f8ea7ca",
+        "source_headlines": [
+          "SHEEN TAI (01335): PROFIT WARNING"
+        ],
+        "source_headline": "SHEEN TAI (01335): PROFIT WARNING",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0825/2026082501051.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-25T10:16:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-25T10:36:18Z",
+        "updated_at": "2026-08-25T10:36:18Z",
+        "decay_at": "2026-08-26T22:16:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-26T22:16:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-4fb19a242234",
+        "idea_version": "IDEAV-244f43e33b9125c4",
+        "idea_version_started_at": "2026-08-25T10:36:18Z",
+        "ticker": "02222",
+        "company": "NVC INTL",
+        "exchange": "HKEX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "NVC INTL issued a profit warning, indicating a likely decline in its profitability for the upcoming reporting period.",
+        "why_now": "The company released a profit warning today, suggesting an immediate negative impact on its financial performance.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 20,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-5ef86e82764d"
+        ],
+        "primary_source_event_id": "EVT-5ef86e82764d",
+        "source_headlines": [
+          "NVC INTL (02222): PROFIT WARNING"
+        ],
+        "source_headline": "NVC INTL (02222): PROFIT WARNING",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0825/2026082501009.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-25T10:07:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-25T10:36:18Z",
+        "updated_at": "2026-08-25T10:36:18Z",
+        "decay_at": "2026-08-26T22:07:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-26T22:07:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-8b9f3e9f0b64",
+        "idea_version": "IDEAV-c756c5bb3afcddeb",
+        "idea_version_started_at": "2026-08-25T10:36:18Z",
+        "ticker": "00348",
+        "company": "China Healthwise",
+        "exchange": "HKEX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "China Healthwise issued a profit warning, indicating that its financial results will be significantly lower than previously expected.",
+        "why_now": "The company filed a profit warning today, signaling an immediate negative revision to its earnings expectations.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-7c7d0d9e5dde"
+        ],
+        "primary_source_event_id": "EVT-7c7d0d9e5dde",
+        "source_headlines": [
+          "CHINAHEALTHWISE (00348): INSIDE INFORMATION PROFIT WARNING"
+        ],
+        "source_headline": "CHINAHEALTHWISE (00348): INSIDE INFORMATION PROFIT WARNING",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0825/2026082500909.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-25T09:42:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-25T10:36:18Z",
+        "updated_at": "2026-08-25T10:36:18Z",
+        "decay_at": "2026-08-26T21:42:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-26T21:42:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-3d6e58f72681",
         "idea_version": "IDEAV-884aacf771ac6a84",
@@ -95684,7 +95916,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 172,
-    "live_count": 31,
+    "live_count": 28,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -95703,9 +95935,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4177430,
-    "news_picked_today": 2268,
-    "news_dropped_today": 17832
+    "news_seen_today": 4365436,
+    "news_picked_today": 2300,
+    "news_dropped_today": 19156
   },
   "book_momentum": {
     "live_count": 8,
