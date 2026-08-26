@@ -23,6 +23,8 @@ LINE_RE = re.compile(r"^(?:export\s+)?([A-Za-z_][A-Za-z0-9_]*)\s*=")
 MAX_BYTES = 1024 * 1024
 MANAGED_KEY_NAME = "Nostra scanner (managed no-log)"
 MANAGED_KEY_MACHINE_ID = "nostra-scanner"
+DEFAULT_OMNIROUTE_MODEL = "auto/coding:free"
+LEGACY_DEFAULT_OMNIROUTE_MODELS = frozenset({"oc/hy3-free"})
 DESCRIPTOR_KEYS = (
     "NEWS_OMNIROUTE_API_KEY",
     "NEWS_OMNIROUTE_API_KEY_ID",
@@ -514,7 +516,8 @@ def main() -> int:
         "action",
         choices=(
             "set", "matches", "fingerprint", "state-fingerprint", "model",
-            "ensure-no-log-key", "no-log-key-healthy", "verify-no-body-log",
+            "migrate-default-model", "ensure-no-log-key", "no-log-key-healthy",
+            "verify-no-body-log",
         ),
     )
     parser.add_argument("--file", required=True)
@@ -543,8 +546,19 @@ def main() -> int:
         if args.action in {"fingerprint", "state-fingerprint"}:
             print(contract_fingerprint(text, include_enabled=args.action == "state-fingerprint"))
             return 0
+        if args.action == "migrate-default-model":
+            if any(value is not None for value in (args.key, args.value, args.database, args.after)):
+                raise SystemExit(2)
+            current = current_value(text, "NEWS_OMNIROUTE_MODEL")
+            # This migration owns only the old managed default (or an installation that never wrote the
+            # default explicitly). A different value is an operator-owned route and must remain byte-for-byte.
+            changed = current is None or current in LEGACY_DEFAULT_OMNIROUTE_MODELS
+            if changed:
+                changed = set_value(path, "NEWS_OMNIROUTE_MODEL", DEFAULT_OMNIROUTE_MODEL)
+            print("updated" if changed else "unchanged")
+            return 0
         if args.action == "model":
-            value = selected_values(text, DESCRIPTOR_KEYS)["NEWS_OMNIROUTE_MODEL"] or "oc/hy3-free"
+            value = selected_values(text, DESCRIPTOR_KEYS)["NEWS_OMNIROUTE_MODEL"] or DEFAULT_OMNIROUTE_MODEL
             if not 0 < len(value) <= 300 or any(ord(char) < 32 or ord(char) == 127 for char in value):
                 return 1
             print(value)
