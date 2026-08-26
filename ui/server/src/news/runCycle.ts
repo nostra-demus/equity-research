@@ -1715,7 +1715,10 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
     }
     latestRoutingEvaluation = routingEvaluation
     if (routingTelemetryWritable && !recordRouterModeIfChanged(routingOptions(), routingCycleId, routingEvaluation.router)) routingTelemetryWritable = false
-    let adaptiveTarget = routingTelemetryWritable && routingEvaluation.router.mode === 'adaptive' ? routingEvaluation.selectedProviderId : null
+    // In adaptive mode this is the normal ranked target. During auto's pre-activation shadow window it is
+    // non-null only for the bounded one-in-ten verification batch selected by evaluateProviderRouting.
+    // Explicit shadow/static still return null, so their configured-order promise remains unchanged.
+    let adaptiveTarget = routingTelemetryWritable ? routingEvaluation.selectedProviderId : null
     let adaptiveTargetFailed = false
     let auditAttemptIndex = 0
     let activeAudit: { providerId: string; decisionId: string; startedAt: number } | null = null

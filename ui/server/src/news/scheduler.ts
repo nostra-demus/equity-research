@@ -934,6 +934,7 @@ export interface TierDiagnostics {
     eligibilityReason: string
     explorationDue: boolean
     lastSelectedAt: string | null
+    lastSuccessAt: string | null
   }
 }
 
@@ -1586,6 +1587,7 @@ export function getNewsDiagnostics(options: { omniRouteHomeDir?: string } = {}):
       eligibilityReason: score.eligibilityReason,
       explorationDue: score.explorationDue,
       lastSelectedAt: score.lastSelectedAt,
+      lastSuccessAt: score.lastSuccessAt,
     }
     if (tier.id === 'anthropic-triage' && routing.router.mode === 'adaptive') tier.label = 'Claude Haiku'
   }

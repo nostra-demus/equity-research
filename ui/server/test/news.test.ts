@@ -19,6 +19,7 @@ import { newsBus } from '../src/news/bus'
 import { appendFirehoseSummary, FIREHOSE_HARD_MAX_BYTES, mergeInbox, revisionClockRegistryDiagnostics } from '../src/news/write-inbox'
 import { appendScoredCheckpoint, backlogDurablyCleared, buildTriageQueue, expireBacklog, inspectDeferredBacklog, loadDeferred, MAX_FEED_ITEM_BYTES, migrateDeferred, preserveResidence, recentMissingFeedTargetIsRetryable, runIngestCycle, saveDeferred, scoringJournalSlots, stampDeferred, triageGroqTokenBound } from '../src/news/runCycle'
 import { buildPipelineFlowRates, countUniqueNewArrivals, readPipelineFlowCycles } from '../src/news/pipeline-flow'
+import { appendPipelineTelemetry } from '../src/news/provider-routing'
 import { anthropicDrainReady, backlogTrend, credentialRejected, CREDENTIAL_DEAD_AFTER_FAILS, drainBatchEst, geminiPoolProviderDayExhausted, getNewsDiagnostics, providerDrainUsable, providerLastCycleMetric, scoredByForLastCycle, tierHealth } from '../src/news/scheduler'
 import { buildOverflowProviders, NEWS, STATE_DIR } from '../src/config'
 import { createTheme } from '../src/news/themes/discover'
@@ -3605,6 +3606,74 @@ await check('LOCAL telemetry lock contention cannot throw away an already-scored
 })
 
 // ---- a token-gated overflow provider (Cerebras) paces on its daily TOKEN cap, not just requests ----
+await check('auto learning routes the bounded verification batch through an unproven backup end to end', async () => {
+  resetSharedLimiters(); resetBudgetMemory(); resetCooldownMemory()
+  const root = tmp()
+  const state = tmp()
+  const nowMs = Date.parse('2026-08-22T12:00:00Z')
+  // Nine completed primary outcomes put the next real group on the one-in-ten verification boundary. The
+  // backup has no outcome, which is the exact activation catch-22: auto needs two-provider evidence, but a
+  // healthy configured-first route previously prevented the second provider from ever receiving work.
+  for (let index = 0; index < 9; index++) {
+    const at = new Date(nowMs - 2 * 3_600_000 + index * 60_000).toISOString()
+    const decisionId = `learning-${index}`
+    assert.equal(appendPipelineTelemetry(root, {
+      v: 1, kind: 'provider_decision', ts: at, cycleId: `cycle-${index}`, decisionId,
+      mode: 'shadow', actualProviderId: 'groq', shadowProviderId: 'groq', exploration: false, candidates: [],
+    }), true)
+    assert.equal(appendPipelineTelemetry(root, {
+      v: 1, kind: 'provider_outcome', ts: at, cycleId: `cycle-${index}`, decisionId,
+      providerId: 'groq', outcome: 'success', failureClass: null, batchSize: 1, scoredItems: 1,
+      networkCalls: 1, tokens: 120, costUsd: 0, elapsedMs: 500,
+    }), true)
+  }
+  const good = { usage: { total_tokens: 120 }, choices: [{ message: { content: JSON.stringify({ items: [
+    { i: 0, relevance: 'material', materiality_pre_score: 84, event_types: ['macro_sector'], issuer_linkage: 'macro', why: 'The policy change moves funding costs.', companies: [], size_bucket: 'unknown' },
+  ] }) } }] }
+  let gdeltServed = false
+  let primaryCalls = 0
+  let backupCalls = 0
+  const fetchFn = (async (url: string) => {
+    const target = String(url)
+    if (target.includes('groq.test')) { primaryCalls++; return res(good) }
+    if (target.includes('backup.test')) { backupCalls++; return res(good) }
+    if (target.includes('gdelt') && !gdeltServed) {
+      gdeltServed = true
+      return res({ articles: [{
+        url: 'https://reuters.com/provider-verification',
+        title: 'Central bank policy change materially lowers company funding costs',
+        domain: 'reuters.com', seendate: '20260822T115500Z',
+      }] })
+    }
+    return res({ articles: [] })
+  }) as unknown as typeof fetch
+  const summary = await runIngestCycle({
+    repoRoot: root, stateDir: state, fetchFn, sleep: noSleep, now: () => new Date(nowMs),
+    config: {
+      groqApiKey: 'k', groqBaseUrl: 'https://groq.test', groqRpm: 6000,
+      gdeltBaseUrl: 'https://gdelt.test/doc', gdeltLookbackMin: 40, rssEnabled: false,
+      themesEnabled: false, triageBatch: 1, localProvider: null, geminiEnabled: false,
+      anthropicFallbackEnabled: false, providerRouterMode: 'auto', providerRouterShadowHours: 24,
+      providerRouterMinOutcomes: 20, newsArchiveDir: '',
+      overflowProviders: [{
+        id: 'backup', label: 'Backup', color: '--provider-or', kind: 'openai', apiKey: 'k',
+        baseUrl: 'https://backup.test/v1', model: 'm', maxTokens: 900, rpm: 6000,
+        dailyReqCap: 100, budgetFile: 'backup-budget.json', limiter: 'backup',
+      }],
+    } as any,
+  })
+  assert.equal(summary.picked, 1)
+  assert.equal(backupCalls, 1, 'the overdue backup checked useful real work under the normal reservation path')
+  assert.equal(primaryCalls, 0, 'the verification batch was not also double-spent on the healthy primary')
+  const audit = fs.readFileSync(path.join(root, 'screener/inbox/2026-08-22_pipeline.ndjson'), 'utf8')
+    .trim().split('\n').map((line) => JSON.parse(line))
+  const verification = audit.find((row) => row.kind === 'provider_decision' && row.exploration === true)
+  assert.equal(verification?.mode, 'shadow', 'auto is still learning; one canary does not bypass activation gates')
+  assert.equal(verification?.actualProviderId, 'backup')
+  assert.ok(audit.some((row) => row.kind === 'provider_outcome' && row.decisionId === verification?.decisionId
+    && row.providerId === 'backup' && row.outcome === 'success'), 'the canary result is durable proof, not a fire-and-forget ping')
+})
+
 await check('overflow paces on the daily TOKEN cap, not just requests (token-gated free tier like Cerebras)', async () => {
   const root = tmp()
   const state = tmp()

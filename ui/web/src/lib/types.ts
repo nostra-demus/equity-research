@@ -1180,6 +1180,7 @@ export interface TierDiagnostics {
     eligibilityReason: string
     explorationDue: boolean
     lastSelectedAt: string | null
+    lastSuccessAt: string | null
   }
 }
 

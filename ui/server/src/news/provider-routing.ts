@@ -70,6 +70,9 @@ export interface ProviderCandidateScore extends ProviderRoutingCandidate {
   sampleSize: number
   explorationDue: boolean
   lastSelectedAt: string | null
+  /** Last audited batch that returned the complete scorer contract. Null means no success exists in the
+   * seven-day routing authority, so a configured backup must not be presented as proven healthy. */
+  lastSuccessAt: string | null
   components: ProviderFitnessComponents
 }
 
@@ -755,6 +758,7 @@ function scoreCandidates(state: DerivedRoutingState, candidates: readonly Provid
       sampleSize: aggregate?.sampleSize || 0,
       explorationDue: candidate.eligible && recoveryDue && (underSampled || noPostRecoverySuccess),
       lastSelectedAt: aggregate?.lastSelectedAt || null,
+      lastSuccessAt: aggregate?.lastSuccessAt || null,
       components: {
         usableBatchYield: round(usableBatchYield),
         usefulThroughput: round(usefulThroughput),
@@ -786,14 +790,28 @@ export function evaluateProviderRouting(options: ProviderRoutingOptions, candida
     .sort((left, right) => (left.rank || Infinity) - (right.rank || Infinity))
   let selected = directScores[0] || null
   let exploration = false
-  if (directScores.length > 1 && loaded.state.decisionCount % 10 === 9) {
-    const probe = directScores.filter((candidate) => candidate.explorationDue).sort((left, right) => left.sampleSize - right.sampleSize || left.order - right.order)[0]
+  // Auto must be able to collect the two-provider evidence its own activation gate requires. Previously
+  // `auto` remained in shadow and calculated an exploration target, but returned no actual target until
+  // AFTER two providers already had outcomes. A healthy first provider therefore kept every later backup
+  // untested forever and the router could never leave shadow. One in ten real batches is now an in-band
+  // canary while auto is learning: no synthetic traffic, no second scheduler, and the existing caller keeps
+  // the same allowance reservation, limiter, cooldown, quarantine, audit, and durable-result path. Explicit
+  // `shadow` and `static` remain observation-only emergency overrides and never alter configured order.
+  const canExplore = router.mode === 'adaptive'
+    || (router.mode === 'shadow' && router.requestedMode === 'auto')
+  if (canExplore && directScores.length > 1 && loaded.state.decisionCount % 10 === 9) {
+    // Learning must not manufacture paid spend merely to satisfy its evidence gate. Haiku can earn proof
+    // when queue pressure legitimately reaches the opted-in last resort; once adaptive is live, retain the
+    // established cost-penalized recovery exploration policy across all eligible routes.
+    const probe = directScores.filter((candidate) => candidate.explorationDue
+      && (router.mode === 'adaptive' || !candidate.isHaiku))
+      .sort((left, right) => left.sampleSize - right.sampleSize || left.order - right.order)[0]
     if (probe) { selected = probe; exploration = true }
   }
   return {
     router,
     candidates: scores,
-    selectedProviderId: router.mode === 'adaptive' ? selected?.id || null : null,
+    selectedProviderId: router.mode === 'adaptive' || exploration ? selected?.id || null : null,
     shadowProviderId: selected?.id || null,
     exploration,
   }

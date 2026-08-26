@@ -208,6 +208,43 @@ check('one-in-ten recovery exploration promotes an eligible under-sampled provid
   assert.equal(held.exploration, false, 'an under-sampled provider is not probed again inside its six-hour recovery interval')
 })
 
+check('auto learning sends bounded in-band canaries, while explicit shadow and static never change order', () => {
+  const learning = workspace()
+  const rows: PipelineAuditEvent[] = []
+  for (let index = 0; index < 9; index++) {
+    const ts = new Date(NOW - 2 * 3_600_000 + index * 60_000).toISOString()
+    rows.push(decision(ts, 300 + index, 'alpha'), outcome(ts, 300 + index, 'alpha', true))
+  }
+  seed(learning.root, rows)
+  const automatic = evaluateProviderRouting({
+    repoRoot: learning.root, stateDir: learning.state, requestedMode: 'auto',
+    shadowHours: 24, minOutcomes: 20, now: NOW,
+  }, candidates({ 'anthropic-triage': { eligible: false, eligibilityReason: 'haiku-pressure' } }))
+  assert.equal(automatic.router.mode, 'shadow', 'activation gates are still closed')
+  assert.equal(automatic.router.coverageComplete, false)
+  assert.equal(automatic.exploration, true, 'the tenth real batch becomes the bounded verification batch')
+  assert.equal(automatic.selectedProviderId, 'beta', 'the never-proven eligible backup receives useful real work')
+  assert.equal(automatic.candidates.find((row) => row.id === 'alpha')?.lastSuccessAt, rows.at(-1)?.ts)
+  assert.equal(automatic.candidates.find((row) => row.id === 'beta')?.lastSuccessAt, null)
+
+  for (const requestedMode of ['shadow', 'static'] as const) {
+    const held = evaluateProviderRouting({
+      repoRoot: learning.root, stateDir: path.join(learning.root, `.state-${requestedMode}`),
+      requestedMode, shadowHours: 24, minOutcomes: 20, now: NOW,
+    }, candidates({ 'anthropic-triage': { eligible: false, eligibilityReason: 'haiku-pressure' } }))
+    assert.equal(held.exploration, false, `${requestedMode} is an observation-only operator override`)
+    assert.equal(held.selectedProviderId, null, `${requestedMode} never reroutes a real batch`)
+  }
+
+  const noFreeBackup = evaluateProviderRouting({
+    repoRoot: learning.root, stateDir: path.join(learning.root, '.state-no-free-backup'),
+    requestedMode: 'auto', shadowHours: 24, minOutcomes: 20, now: NOW,
+  }, candidates({ beta: { eligible: false, eligibilityReason: 'cooldown' } }))
+  assert.equal(noFreeBackup.router.mode, 'shadow')
+  assert.equal(noFreeBackup.exploration, false, 'learning never spends the paid last resort merely to collect a second sample')
+  assert.equal(noFreeBackup.selectedProviderId, null)
+})
+
 check('aggregate and demoted-local safety bands never displace an eligible direct route', () => {
   const { root, state } = workspace()
   const result = evaluateProviderRouting({ repoRoot: root, stateDir: state, requestedMode: 'shadow', now: NOW }, [
