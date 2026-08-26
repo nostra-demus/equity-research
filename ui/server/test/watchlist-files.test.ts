@@ -52,6 +52,9 @@ check('a saved PDF round-trips, and is keyed by ENTRY id — never by ticker', (
   // the path proves the layout: <data>/WATCHLIST/<entry_id>/<file> — no ticker anywhere in it
   const p = attachmentPath('WL-20260819-abc123', '1a2b-thesis.pdf', dir)!
   assert.equal(path.relative(dir, p), path.join('WATCHLIST', 'WL-20260819-abc123', '1a2b-thesis.pdf'))
+
+  const task = attachmentPath('TASK-20260826-abc12345', 'notes.docx', dir)
+  assert.equal(path.relative(dir, task!), path.join('WATCHLIST', 'TASK-20260826-abc12345', 'notes.docx'), 'Tasks reuse the same reserved planning-document store')
   fs.rmSync(dir, { recursive: true, force: true })
 })
 

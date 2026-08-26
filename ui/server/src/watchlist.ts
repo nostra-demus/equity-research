@@ -142,6 +142,10 @@ export interface WatchEntry {
   tags: string[]
   triggers: WatchTrigger[]
   attachments: WatchAttachment[]
+  /** Shared owner initials. Optional on old files; null means unassigned. */
+  assignee?: 'AB' | 'NV' | 'CK' | null
+  /** Present when a Watch outcome on the Tasks board owns this row. */
+  task_id?: string | null
   archive: WatchArchive | null
   history: { at: string; by: string; action: string; detail: string }[]
   created_at: string
@@ -241,6 +245,8 @@ export interface MergedWatchRow {
   tags: string[]
   triggers: WatchTrigger[]
   attachments: WatchAttachment[]
+  assignee: WatchEntry['assignee']
+  task_id: string | null
   engine: EngineWatchRow | null
   /** Set when an archived engine row came back because the engine changed what it says. */
   resurfaced: boolean
@@ -825,6 +831,8 @@ export function mergeWatchlist(input: MergeInput): { rows: MergedWatchRow[]; arc
       tags: entry?.tags ?? [],
       triggers,
       attachments: entry?.attachments ?? [],
+      assignee: entry?.assignee ?? null,
+      task_id: entry?.task_id ?? null,
       engine,
       resurfaced,
       archive: arch,
