@@ -138,8 +138,8 @@ check('the list is bounded', () => {
 
 // ---------- superseding: the case the feature turns on ----------
 const COVER: StatementCoverage[] = [
-  { id: 'a'.repeat(16), filename: 'jan-jun.xml', fromDate: '2026-01-01', toDate: '2026-06-30' },
-  { id: 'b'.repeat(16), filename: 'jul.xml', fromDate: '2026-07-01', toDate: '2026-07-31' },
+  { id: 'a'.repeat(16), filename: 'jan-jun.xml', fromDate: '2026-01-01', toDate: '2026-06-30', hasTrades: true },
+  { id: 'b'.repeat(16), filename: 'jul.xml', fromDate: '2026-07-01', toDate: '2026-07-31', hasTrades: true },
 ]
 
 check('an entry inside a statement window is superseded; one after it stays live', () => {
@@ -173,8 +173,20 @@ check('supersede is by DATE COVERAGE, not by matching a row', () => {
 
 check('a statement with no stated range answers for nothing', () => {
   const t = make({ tradeDate: '2026-07-15' })
-  const noRange: StatementCoverage[] = [{ id: 'c'.repeat(16), filename: 'x.xml', fromDate: null, toDate: null }]
+  const noRange: StatementCoverage[] = [{ id: 'c'.repeat(16), filename: 'x.xml', fromDate: null, toDate: null, hasTrades: true }]
   assert.equal(provisionalRead([t], noRange, []).trades[0]!.supersededBy, null)
+})
+
+check('a statement that returned no trade rows answers for nothing either', () => {
+  // A Flex query run with the Trades section unticked covers the dates and contains not one fill. Letting
+  // it supersede on dates alone offered to clear the operator's only record of a real trade on the
+  // strength of a statement that never held it.
+  const t = make({ tradeDate: '2026-07-15' })
+  const noTrades: StatementCoverage[] = [
+    { id: 'd'.repeat(16), filename: 'nav-only.xml', fromDate: '2026-07-01', toDate: '2026-07-31', hasTrades: false },
+  ]
+  assert.equal(provisionalRead([t], noTrades, []).trades[0]!.supersededBy, null)
+  assert.equal(provisionalRead([t], noTrades, []).live, 1, 'it stays live, and keeps moving the provisional position')
 })
 
 check('superseded entries are KEPT until the operator clears them', () => {

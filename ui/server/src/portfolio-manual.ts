@@ -220,12 +220,18 @@ export interface StatementCoverage {
   filename: string
   fromDate: string | null
   toDate: string | null
+  /** Whether the export actually returned the Trades section. A Flex query run with Trades unticked
+   *  covers the dates without carrying a single fill, so it cannot answer for a hand-logged one. */
+  hasTrades: boolean
 }
 
 function supersededBy(trade: ManualTrade, coverage: StatementCoverage[]): SupersededBy | null {
   for (const s of coverage) {
     // A statement with no stated range covers nothing: it cannot be used to answer for a date.
     if (!s.fromDate || !s.toDate) continue
+    // Nor can one that returned no trade rows. Superseding on dates alone offered to clear the operator's
+    // only record of a real fill on the strength of a statement that never contained it.
+    if (!s.hasTrades) continue
     if (trade.tradeDate >= s.fromDate && trade.tradeDate <= s.toDate) {
       return { statementId: s.id, filename: s.filename, from: s.fromDate, to: s.toDate }
     }

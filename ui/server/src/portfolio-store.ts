@@ -47,8 +47,16 @@ export interface StoredStatement {
   unmodelled: string[]
 }
 
+/** Owner-only. These files are the raw broker statement: account identifiers, every position, every
+ *  fill and the exact NAV. Under the usual 022 umask the defaults land 0755/0644, so on any machine with
+ *  a second local account the whole book was readable. mkdir's `mode` is ignored when the directory
+ *  already exists, hence the explicit chmod for stores created before this. */
+const DIR_MODE = 0o700
+const FILE_MODE = 0o600
+
 function ensureDirs(): void {
-  fs.mkdirSync(STATEMENTS_DIR, { recursive: true })
+  fs.mkdirSync(STATEMENTS_DIR, { recursive: true, mode: DIR_MODE })
+  try { fs.chmodSync(STATEMENTS_DIR, DIR_MODE) } catch { /* read-only store — nothing to tighten */ }
 }
 
 /** Content hash, so re-uploading a file the book already holds is a no-op rather than a duplicate.
@@ -60,14 +68,21 @@ function statementId(xml: string): string {
 function metaPath(id: string): string { return path.join(STATEMENTS_DIR, `${id}.json`) }
 function xmlPath(id: string): string { return path.join(STATEMENTS_DIR, `${id}.xml`) }
 
-export function listStatements(): StoredStatement[] {
+/** `badSidecars` collects the metadata files that could not be parsed. They must not be dropped
+ *  silently: a statement missing from this list is never read, never counted as unreadable, and never
+ *  offered a Remove button — so the book is built from the survivors and published green. That is the
+ *  same silent-partial-book failure the unreadable-XML guard closes, left open on the sidecar side. */
+export function listStatements(badSidecars?: string[]): StoredStatement[] {
   ensureDirs()
   let names: string[] = []
   try { names = fs.readdirSync(STATEMENTS_DIR).filter((n) => n.endsWith('.json')) } catch { return [] }
   const out: StoredStatement[] = []
   for (const name of names) {
     let raw: Partial<StoredStatement> & { id?: string }
-    try { raw = JSON.parse(fs.readFileSync(path.join(STATEMENTS_DIR, name), 'utf8')) } catch { continue }
+    try { raw = JSON.parse(fs.readFileSync(path.join(STATEMENTS_DIR, name), 'utf8')) } catch {
+      badSidecars?.push(name) // name only — the caught error carries absolute paths
+      continue
+    }
     out.push(backfill(raw as StoredStatement))
   }
   return out.sort((a, b) => (a.toDate ?? '').localeCompare(b.toDate ?? ''))
@@ -86,7 +101,7 @@ function backfill(s: StoredStatement): StoredStatement {
   let doc
   try { doc = parseFlexXml(fs.readFileSync(xmlPath(s.id), 'utf8')) } catch { return empty }
   const filled: StoredStatement = { ...s, sections: sectionCounts(doc), unmodelled: doc.sectionsUnmodelled }
-  try { fs.writeFileSync(metaPath(s.id), JSON.stringify(filled, null, 2) + '\n') } catch { /* read-only store — still return the counts */ }
+  try { fs.writeFileSync(metaPath(s.id), JSON.stringify(filled, null, 2) + '\n', { mode: FILE_MODE }) } catch { /* read-only store — still return the counts */ }
   return filled
 }
 
@@ -133,20 +148,29 @@ export function saveStatement(xml: string, filename: string): SaveResult {
   // writing the XML first opened a window where a crash left a statement the list cannot show and the
   // duplicate check will never accept again — unimportable and undeletable. Sidecar first inverts the
   // failure: the row is listed, reported unreadable, removable, and a re-upload repairs it.
-  fs.writeFileSync(metaPath(id), JSON.stringify(statement, null, 2) + '\n')
-  fs.writeFileSync(xmlPath(id), xml)
+  fs.writeFileSync(metaPath(id), JSON.stringify(statement, null, 2) + '\n', { mode: FILE_MODE })
+  fs.writeFileSync(xmlPath(id), xml, { mode: FILE_MODE })
   invalidate()
   return { status: 'saved', statement }
 }
 
 export function deleteStatement(id: string): boolean {
   if (!/^[0-9a-f]{16}$/.test(id)) return false // ids are our own hashes — never a caller-supplied path
-  let removed = false
+  // BOTH files, or neither. Reporting success once either one is gone hid the two half-states that
+  // matter: the sidecar removed but the XML kept orphans the raw statement on disk with no route to it
+  // from the UI, and the XML removed but the sidecar kept leaves a listed statement whose source is gone.
+  let existed = false
+  let removed = true
   for (const p of [xmlPath(id), metaPath(id)]) {
-    try { if (fs.existsSync(p)) { fs.rmSync(p, { force: true }); removed = true } } catch { /* best effort */ }
+    try {
+      if (!fs.existsSync(p)) continue
+      existed = true
+      fs.rmSync(p, { force: true })
+      if (fs.existsSync(p)) removed = false
+    } catch { removed = false }
   }
-  if (removed) invalidate()
-  return removed
+  invalidate()
+  return existed && removed
 }
 
 // Rebuilding parses every stored statement, so the result is cached against the exact set of files it
@@ -164,7 +188,20 @@ function currentKey(statements: StoredStatement[]): string {
 // to net asset value; charging the manager for those, or crediting them, measures the fund against
 // something it never had a view on. Fed by .claude/connectors/fred-sp500 into data/_market/fred/.
 export const BENCHMARK_SYMBOL = 'SP500'
-export const RISK_FREE_ANNUAL_PCT = 4.3
+/** PRICE INDEX, not total return. FRED's SP500 series is the closing index level, so it excludes the
+ *  index's dividends (~1.3%/yr) while the book's own return keeps its dividend cash inside NAV. The
+ *  comparison therefore flatters the fund by roughly that much, and the screen says so rather than
+ *  crediting it silently. Replacing this with a total-return series would remove the caveat with it. */
+export const BENCHMARK_BASIS = 'price index — the index’s dividends are not included, worth roughly 1.3%/yr'
+/** The cash hurdle, DATED AND SOURCED. An undated constant goes stale silently and no reader can
+ *  reconstruct what a past ratio was measured against — the same reason every other published figure in
+ *  this repo carries its source and as-of date. */
+export const RISK_FREE = {
+  pct: 4.3,
+  asOf: '2026-01-02',
+  source: '3-month US Treasury bill (secondary market), FRED DTB3',
+} as const
+export const RISK_FREE_ANNUAL_PCT = RISK_FREE.pct
 /** How far past its last close the benchmark curve may still be carried — a long weekend and a public
  *  holiday, no more. The same tolerance benchmarkCompare uses to decide whether the feed covers a
  *  window, so the chart and the comparison can never disagree about what is covered. */
@@ -186,6 +223,14 @@ export interface PortfolioPerformance {
   risk: RiskRead
   benchmark: BenchmarkRead
   riskFreeAnnualPct: number
+  /** Where that hurdle came from and when it was read. A ratio stated without them cannot be checked
+   *  later, and the rate goes stale silently. */
+  riskFreeAsOf: string
+  riskFreeSource: string
+  /** What the benchmark series actually measures. The index is a PRICE index while the book's return
+   *  keeps its dividends, so the comparison flatters the fund by roughly the index's yield — said out
+   *  loud rather than credited in silence. */
+  benchmarkBasis: string
   /** Whether any market feed exists at all, so the UI can tell "none configured" from "does not cover
    *  this window" — different problems with different fixes. */
   feedPresent: boolean
@@ -260,12 +305,18 @@ export function performanceOf(book: Book): PortfolioPerformance {
     risk: riskMetrics(book.navSeries, flowsByDate, RISK_FREE_ANNUAL_PCT),
     benchmark: benchmarkCompare(BENCHMARK_SYMBOL, book.twr, window, closes),
     riskFreeAnnualPct: RISK_FREE_ANNUAL_PCT,
+    riskFreeAsOf: RISK_FREE.asOf,
+    riskFreeSource: RISK_FREE.source,
+    benchmarkBasis: BENCHMARK_BASIS,
     feedPresent: feedPresent(),
   }
 }
 
 function coverageOf(statements: StoredStatement[]): StatementCoverage[] {
-  return statements.map((s) => ({ id: s.id, filename: s.filename, fromDate: s.fromDate, toDate: s.toDate }))
+  return statements.map((s) => ({
+    id: s.id, filename: s.filename, fromDate: s.fromDate, toDate: s.toDate,
+    hasTrades: (s.sections?.Trades ?? s.trades ?? 0) > 0,
+  }))
 }
 
 /** The provisional layer for the current store. Whether an entry is superseded is DERIVED from the
@@ -301,7 +352,16 @@ export function clearSupersededManual(): number {
 }
 
 export function readPortfolio(): PortfolioRead {
-  const statements = listStatements()
+  const badSidecars: string[] = []
+  const statements = listStatements(badSidecars)
+  if (badSidecars.length > 0) {
+    return {
+      statements, book: null, performance: null,
+      error: `${badSidecars.length} statement record${badSidecars.length === 1 ? '' : 's'} could not be read (${badSidecars.join(', ')}) — the statement${badSidecars.length === 1 ? ' it names is' : 's they name are'} missing from the book, so no book is published until ${badSidecars.length === 1 ? 'it is' : 'they are'} repaired or removed`,
+      manual: manualRead(statements, null),
+      overrides: readOverrides(PORTFOLIO_DIR),
+    }
+  }
   if (statements.length === 0) {
     return {
       statements, book: null, performance: null, error: null,

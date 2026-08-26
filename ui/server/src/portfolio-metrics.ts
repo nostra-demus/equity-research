@@ -20,6 +20,8 @@
 import { computeTwr, type NavPoint } from './portfolio'
 
 const TRADING_DAYS = 252
+/** The ceiling on observations per year: a daily NAV series cannot carry more than one row per day. */
+const CALENDAR_DAYS = 365
 
 /** Below this many daily observations the ratios are too noisy to state at all. One quarter. */
 export const MIN_RATIO_DAYS = 60
@@ -425,24 +427,41 @@ export function riskMetrics(
   flowsByDate: Map<string, number>,
   riskFreeAnnualPct: number,
 ): RiskRead {
-  const returns = dailyReturns(navSeries, flowsByDate).map((x) => x.r)
+  const series = dailyReturns(navSeries, flowsByDate)
+  const returns = series.map((x) => x.r)
   const dd = drawdown(navSeries, flowsByDate)
   const sufficient = returns.length >= MIN_RATIO_DAYS
   const sd = stdev(returns)
   if (!sufficient || sd === null || sd === 0) {
     return { sampleDays: returns.length, sufficient, volatility: null, sharpe: null, sortino: null, drawdown: dd, calmar: null }
   }
-  const rfDaily = riskFreeAnnualPct / 100 / TRADING_DAYS
+
+  // ANNUALIZE ON THE OBSERVED CALENDAR, NOT ON 252. A Flex export carries a NAV row for every CALENDAR
+  // day, weekends included — this module's own note above says so. Scaling ~365 observations a year by
+  // √252 understated annualised volatility by about 17%, while charging the hurdle at annual/252 on
+  // every one of those ~365 days over-charged it by about 45%. Both errors flattered or punished the
+  // ratios for a reason that had nothing to do with the book.
+  //
+  // Deriving the frequency from the sample makes the arithmetic right whichever calendar the export
+  // uses — daily rows, trading-day rows, or a sparse series — instead of asserting one.
+  const spanDays = (Date.parse(`${series[series.length - 1]!.date}T00:00:00Z`)
+    - Date.parse(`${series[0]!.date}T00:00:00Z`)) / 86_400_000
+  const perYear = spanDays > 0
+    ? Math.min(CALENDAR_DAYS, Math.max(1, (returns.length / spanDays) * CALENDAR_DAYS))
+    : TRADING_DAYS
+  const annualize = Math.sqrt(perYear)
+
+  const rfDaily = riskFreeAnnualPct / 100 / perYear
   const excess = returns.map((r) => r - rfDaily)
-  const volatility = sd * Math.sqrt(TRADING_DAYS) * 100
-  const sharpe = (mean(excess) / sd) * Math.sqrt(TRADING_DAYS)
+  const volatility = sd * annualize * 100
+  const sharpe = (mean(excess) / sd) * annualize
 
   // Downside deviation: only returns BELOW the hurdle contribute. Divided by the full sample size, not
   // by the count of down days — dividing by the down-day count rewards a book simply for having few of
   // them, which is the opposite of what the ratio is for.
   const below = returns.map((r) => Math.min(0, r - rfDaily))
   const downside = Math.sqrt(below.reduce((a, x) => a + x * x, 0) / returns.length)
-  const sortino = downside > 0 ? (mean(excess) / downside) * Math.sqrt(TRADING_DAYS) : null
+  const sortino = downside > 0 ? (mean(excess) / downside) * annualize : null
 
   const periodTwr = computeTwr(navSeries, flowsByDate)
   const calmar = periodTwr !== null && dd.depth !== null && dd.depth < 0 ? periodTwr / Math.abs(dd.depth) : null
