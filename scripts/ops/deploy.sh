@@ -34,8 +34,9 @@ UID_NUM="$(id -u)"
 # launchd supplies only the system directories. npm itself uses `#!/usr/bin/env node`, and a globally
 # installed sidecar is discovered by name after provisioning, so resolving npm to an absolute path alone is
 # insufficient: npm then fails with `env: node: No such file or directory`, and the new binary stays
-# invisible. Put both supported Homebrew locations ahead of the inherited path before ANY tool discovery.
-export PATH="/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin${PATH:+:$PATH}"
+# invisible. Put both supported Homebrew locations ahead of the inherited path before ANY tool discovery,
+# while preserving custom/virtual-environment paths and using system paths only when no PATH was supplied.
+export PATH="/opt/homebrew/bin:/usr/local/bin:${PATH:-/usr/bin:/bin:/usr/sbin:/sbin}"
 # resolve npm to an absolute path (brew is /opt/homebrew on Apple-Silicon, /usr/local on Intel)
 NPM="$(command -v npm 2>/dev/null || true)"; [ -n "$NPM" ] || for c in /opt/homebrew/bin/npm /usr/local/bin/npm; do [ -x "$c" ] && NPM="$c" && break; done; NPM="${NPM:-/opt/homebrew/bin/npm}"
 GIT="$(command -v git || echo /usr/bin/git)"
