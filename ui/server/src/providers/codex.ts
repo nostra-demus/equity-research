@@ -45,6 +45,18 @@ const CODEX_COCKPIT_ENV_ALLOWLIST = [
   'NOSTRA_PUBLICATION_ENDPOINT',
   'NOSTRA_PUBLICATION_SOCKET',
   'NOSTRA_PUBLICATION_TOKEN',
+  // Provider-neutral run policy is applied before adapter construction and reasserted immediately before
+  // spawn. These values are deliberately model-visible command controls, never credentials. Keeping the
+  // same explicit set on both sides preserves the one-use launch-environment proof for every run kind.
+  'NOSTRA_DEFER_MODULE_MEMO',
+  'NOSTRA_EXACT_MODULE_RESUME',
+  'NOSTRA_EXACT_MODULE_INPUTS',
+  'NOSTRA_EXACT_MODULE_RUN_ROOT',
+  'NOSTRA_EXACT_MODULE_NAME',
+  'NOSTRA_EXACT_MODULE_WRITABLE_ORBS',
+  'NOSTRA_EXACT_MODULE_SYNTHESIS_ORBS',
+  'NOSTRA_MEMORY_MODE',
+  'NOSTRA_PARITY_CANARY_CONTINUATION',
 ] as const
 
 // Homebrew's versioned Python formulae deliberately keep the unversioned `python3` shim out of

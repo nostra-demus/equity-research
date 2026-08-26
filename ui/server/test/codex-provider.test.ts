@@ -111,6 +111,15 @@ const scrubbed = codexChildEnv({
   NOSTRA_PUBLICATION_ENDPOINT: 'http://localhost/publication',
   NOSTRA_PUBLICATION_SOCKET: '/Users/example/.nostra-publication-fixture/p.sock',
   NOSTRA_PUBLICATION_TOKEN: '12345678-1234-4234-8234-123456789abc',
+  NOSTRA_DEFER_MODULE_MEMO: '1',
+  NOSTRA_EXACT_MODULE_RESUME: '1',
+  NOSTRA_EXACT_MODULE_INPUTS: '["decision_record.json"]',
+  NOSTRA_EXACT_MODULE_RUN_ROOT: 'analyses/AAPL_2026-08-26',
+  NOSTRA_EXACT_MODULE_NAME: 'valuation',
+  NOSTRA_EXACT_MODULE_WRITABLE_ORBS: 'valuation/01_price-and-capital-structure.md',
+  NOSTRA_EXACT_MODULE_SYNTHESIS_ORBS: 'valuation/99_valuation-synthesis.md',
+  NOSTRA_MEMORY_MODE: 'shadow',
+  NOSTRA_PARITY_CANARY_CONTINUATION: '1',
   NOSTRA_UNRELATED_SECRET: 'must-not-leak',
   GH_TOKEN: 'must-not-leak',
   GOOGLE_DRIVE_OAUTH_TOKEN: 'must-not-leak',
@@ -151,13 +160,19 @@ assert.equal(scrubbed.NOSTRA_PROVENANCE_MANIFEST, undefined, 'model-authored pro
 assert.equal(scrubbed.NOSTRA_PUBLICATION_ENDPOINT, 'http://localhost/publication')
 assert.equal(scrubbed.NOSTRA_PUBLICATION_SOCKET, '/Users/example/.nostra-publication-fixture/p.sock')
 assert.equal(scrubbed.NOSTRA_PUBLICATION_TOKEN, '12345678-1234-4234-8234-123456789abc')
+assert.equal(scrubbed.NOSTRA_PARITY_CANARY_CONTINUATION, '1')
+assert.equal(scrubbed.NOSTRA_MEMORY_MODE, 'shadow')
 assert.equal(scrubbed.NOSTRA_UNRELATED_SECRET, undefined)
 for (const key of ['GH_TOKEN', 'GOOGLE_DRIVE_OAUTH_TOKEN', 'SMTP_PASSWORD', 'ANTHROPIC_API_KEY', 'GITHUB_ACTIONS']) {
   assert.equal(scrubbed[key], undefined, `${key} must not reach model-visible Bash`)
 }
 assert.deepEqual(Object.keys(scrubbed).sort(), [
   'CODEX_HOME', 'NO_COLOR', 'NOSTRA_COCKPIT_RUN', 'NOSTRA_PUBLICATION_ENDPOINT',
-  'NOSTRA_PUBLICATION_SOCKET', 'NOSTRA_PUBLICATION_TOKEN', 'PATH',
+  'NOSTRA_PUBLICATION_SOCKET', 'NOSTRA_PUBLICATION_TOKEN', 'NOSTRA_DEFER_MODULE_MEMO',
+  'NOSTRA_EXACT_MODULE_RESUME', 'NOSTRA_EXACT_MODULE_INPUTS', 'NOSTRA_EXACT_MODULE_RUN_ROOT',
+  'NOSTRA_EXACT_MODULE_NAME', 'NOSTRA_EXACT_MODULE_WRITABLE_ORBS',
+  'NOSTRA_EXACT_MODULE_SYNTHESIS_ORBS', 'NOSTRA_MEMORY_MODE',
+  'NOSTRA_PARITY_CANARY_CONTINUATION', 'PATH',
 ].sort())
 
 const npmShimFixture = fs.mkdtempSync(path.join(os.tmpdir(), 'nostra-codex-node-shim-'))
@@ -629,6 +644,8 @@ try {
       NOSTRA_PUBLICATION_ENDPOINT: 'http://localhost/publication',
       NOSTRA_PUBLICATION_SOCKET: publicationSocketPath,
       NOSTRA_PUBLICATION_TOKEN: publicationToken,
+      NOSTRA_PARITY_CANARY_CONTINUATION: '1',
+      NOSTRA_MEMORY_MODE: 'shadow',
     },
     guard: { maxTurns: 2_000, budgetUsd: 100 },
     publicationSocketPath,
@@ -673,6 +690,8 @@ try {
   assert.ok(spec.args.some((arg) => arg === 'shell_environment_policy.set.NOSTRA_PUBLICATION_ENDPOINT="http://localhost/publication"'))
   assert.ok(spec.args.some((arg) => arg === `shell_environment_policy.set.NOSTRA_PUBLICATION_SOCKET=${JSON.stringify(publicationSocketPath)}`))
   assert.ok(spec.args.some((arg) => arg === `shell_environment_policy.set.NOSTRA_PUBLICATION_TOKEN=${JSON.stringify(publicationToken)}`))
+  assert.ok(spec.args.includes('shell_environment_policy.set.NOSTRA_PARITY_CANARY_CONTINUATION="1"'))
+  assert.ok(spec.args.includes('shell_environment_policy.set.NOSTRA_MEMORY_MODE="shadow"'))
   assert.ok(!spec.args.some((arg) => arg.includes('NOSTRA_PROVENANCE_MANIFEST')), 'child-authored provenance paths must be scrubbed')
   const isolatedConfig = fs.readFileSync(path.join(probe.authLease.home, 'config.toml'), 'utf8')
   assert.match(isolatedConfig, /approval_policy = "on-request"/)
