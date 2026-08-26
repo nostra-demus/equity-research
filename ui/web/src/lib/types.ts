@@ -2123,6 +2123,8 @@ export interface PortfolioPosition {
   symbol: string | null
   conid: string | null
   assetCategory: string | null
+  /** COMMON / ETF / ADR — the only asset-class signal the statement carries. */
+  subCategory: string | null
   currency: string | null
   quantity: number | null
   markPrice: number | null
@@ -2246,41 +2248,11 @@ export interface PortfolioManualRead {
   effects: PortfolioManualEffect[]
 }
 
-/** How a holding reached its dossier. `exact` needs no confirmation; `linked` was confirmed once. */
-export type PortfolioThesisMatch = 'exact' | 'linked'
-/** Where the book sits relative to the verdict — direction-aware, so a Short Candidate contradicts a
- *  long position and agrees with a short one. */
-export type PortfolioThesisStance = 'supported' | 'watch' | 'against' | 'unrated' | 'hedge' | 'none'
-export interface PortfolioThesisRow {
-  symbol: string
-  currency: string | null
-  weightPct: number | null
-  quantity: number | null
-  ticker: string | null
-  matchedBy: PortfolioThesisMatch | null
-  decision: string | null
-  confidence: number | null
-  decisionDate: string | null
-  ageDays: number | null
-  runRoot: string | null
-  runCount: number
-  hasNewerPartial: boolean
-  stance: PortfolioThesisStance
-  /** Covered tickers this holding MIGHT be. Offered, never applied. */
-  suggestions: string[]
-}
 /** What the operator has declared about a holding that the statement cannot say. */
 export interface PortfolioOverrides {
   /** Symbols held as cash equivalents — a T-bill ETF is cash with a ticker, and the broker's own
    *  subCategory cannot tell one from a sugar fund. */
   cashEquivalents: string[]
-}
-export interface PortfolioThesisRead {
-  rows: PortfolioThesisRow[]
-  covered: string[]
-  coveredWeightPct: number | null
-  againstCount: number
-  uncoveredCount: number
 }
 
 export interface PortfolioPerformance {
@@ -2303,8 +2275,6 @@ export interface PortfolioRead {
   statements: PortfolioStatement[]
   /** Hand-logged fills. A SEPARATE layer from the book: nothing here reaches the reconciled figures. */
   manual: PortfolioManualRead
-  /** What the engine's research says about what is held. Read-only in both directions. */
-  thesis: PortfolioThesisRead
   overrides: PortfolioOverrides
   book: PortfolioBook | null
   performance: PortfolioPerformance | null

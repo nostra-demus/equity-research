@@ -3,14 +3,12 @@ import { motion, useReducedMotion } from 'framer-motion'
 import { api } from '../../lib/api'
 import type {
   PortfolioBook, PortfolioClosure, PortfolioManualRead, PortfolioPerformance, PortfolioPosition, PortfolioRead,
-  PortfolioThesisRead,
 } from '../../lib/types'
 import { useStore } from '../../lib/store'
 import { GrowthChart, UnderwaterChart } from './charts'
 import { LogTradeForm, ManualTradeList, ProvisionalEffects } from './manual'
 
 const EMPTY_MANUAL: PortfolioManualRead = { trades: [], live: 0, superseded: 0, effects: [] }
-const EMPTY_THESIS: PortfolioThesisRead = { rows: [], covered: [], coveredWeightPct: null, againstCount: 0, uncoveredCount: 0 }
 
 // The fund book: what the fund ACTUALLY owns, fed by IBKR Flex exports.
 //
@@ -30,7 +28,7 @@ const EMPTY_THESIS: PortfolioThesisRead = { rows: [], covered: [], coveredWeight
 //  · It never weights a derivative by its notional. A futures contract is exposure against margin, not
 //    an allocation of NAV, so it is shown apart from the equity weights.
 
-type Tab = 'holdings' | 'performance' | 'trades' | 'import'
+type Tab = 'holdings' | 'performance' | 'trades'
 
 const fmtMoney = (v: number | null | undefined, ccy: string | null): string => {
   if (v === null || v === undefined || !Number.isFinite(v)) return '—'
@@ -73,6 +71,9 @@ export function PortfolioStage() {
   const [dragging, setDragging] = useState(false)
   const [tab, setTab] = useState<Tab>('holdings')
   const [changed, setChanged] = useState<ImportDelta | null>(null)
+  // Import and hand-logging are both "put a trade into the book", so they belong on the trade screen as
+  // two buttons rather than a tab of their own. This says which of the two surfaces is open.
+  const [openImport, setOpenImport] = useState(false)
 
   const load = useCallback(async () => {
     setLoading(true)
@@ -88,12 +89,13 @@ export function PortfolioStage() {
     try {
       const before = snapshot(read)
       const result = await api.uploadStatements(files, setProgress)
-      const after: PortfolioRead = { statements: result.statements, book: result.book, performance: result.performance, manual: result.manual, thesis: result.thesis, overrides: result.overrides, error: result.error }
+      const after: PortfolioRead = { statements: result.statements, book: result.book, performance: result.performance, manual: result.manual, overrides: result.overrides, error: result.error }
       setRead(after)
       // What the import actually did to the book, measured rather than asserted: a "12 statements
       // imported" message that leaves every total unchanged is exactly the case an operator needs to
       // notice, and only a before/after comparison can show it.
       setChanged(diffBooks(before, snapshot(after)))
+      setOpenImport(true)
       const next: { tone: 'ok' | 'bad'; text: string }[] = []
       if (result.saved.length) next.push({ tone: 'ok', text: `${result.saved.length} statement${result.saved.length === 1 ? '' : 's'} imported` })
       // A duplicate is a normal outcome, not a failure: overlapping exports are how full history is
@@ -118,7 +120,6 @@ export function PortfolioStage() {
     { id: 'holdings', label: 'Holdings', count: book?.positions.length },
     { id: 'performance', label: 'Returns & risk' },
     { id: 'trades', label: 'Trade history', count: (book?.closures.length ?? 0) + manual.live },
-    { id: 'import', label: 'Import', count: read?.statements.length },
   ]
 
   return (
@@ -168,13 +169,13 @@ export function PortfolioStage() {
             {/* Outstanding hand-logged fills sit beside the reconciliation state, not buried in a tab:
                 together they answer "is what I am looking at the whole picture?" */}
             {manual.live > 0 && (
-              <button className="fundbook__recon is-provisional" onClick={() => setTab('trades')}
+              <button className="fundbook__recon is-provisional" onClick={() => { setTab('trades'); setOpenImport(false) }}
                 title="Fills logged by hand that no statement covers yet">
                 <i aria-hidden />
                 {manual.live} logged by hand
               </button>
             )}
-            {book && <ReconcileBadge book={book} onInspect={() => setTab('import')} />}
+            {book && <ReconcileBadge book={book} onInspect={() => { setTab('trades'); setOpenImport(true) }} />}
           </div>
         </div>
       )}
@@ -199,7 +200,7 @@ export function PortfolioStage() {
           // the import surface, because when the build FAILS the Remove buttons there are the only way
           // out; hiding them behind a successful build strands the operator with an error and no control.
           <ImportTab
-            read={read ?? { statements: [], book: null, performance: null, manual: EMPTY_MANUAL, thesis: EMPTY_THESIS, overrides: { cashEquivalents: [] }, error: null }}
+            read={read ?? { statements: [], book: null, performance: null, manual: EMPTY_MANUAL, overrides: { cashEquivalents: [] }, error: null }}
             onFiles={upload} onChanged={setRead} busy={busy} progress={progress} notes={notes}
             firstRun={!hasStatements} changed={changed} manual={manual}
           />
@@ -217,10 +218,17 @@ export function PortfolioStage() {
           read?.performance
             ? <Performance perf={read.performance} />
             : <div className="fundbook__none">No performance to show yet.</div>
-        ) : tab === 'trades' ? (
-          <Trades book={book} manual={manual} onChanged={setRead} />
         ) : (
-          <ImportTab read={read!} onFiles={upload} onChanged={setRead} busy={busy} progress={progress} notes={notes} changed={changed} manual={manual} />
+          <Trades
+            book={book} manual={manual} onChanged={setRead}
+            importOpen={openImport} onImportOpen={setOpenImport}
+            importSurface={
+              <ImportTab
+                read={read!} onFiles={upload} onChanged={setRead} busy={busy} progress={progress}
+                notes={notes} changed={changed} manual={manual} embedded
+              />
+            }
+          />
         )}
       </div>
     </motion.div>
@@ -324,12 +332,23 @@ function Holdings({ book, perf, manual, cashEquivalents, onManage, onChanged }: 
 
   return (
     <>
+      {/* The LIVE BOOK, not performance: what is held and what it is worth today. The time-weighted
+          return heads Returns & risk and realised P&L heads Trade history — repeating them here made
+          this row a summary of three screens instead of a snapshot of one. */}
       <div className="fundbook__cards">
-        <Card label="Net asset value" value={fmtMoney(nav, ccy)} sub={`${book.navSeries.length} daily points`} />
-        <Card label="Return · TWR" value={fmtPct(perf?.periods.at(-1)?.twr ?? book.twr)} sub="Time-weighted, flows removed" tone={toneOf(book.twr)} />
-        <Card label="Unrealised" value={fmtMoney(unrealised, ccy)} sub="Open equity positions" tone={toneOf(unrealised)} />
-        <Card label="Realised" value={fmtMoney(realised, ccy)} sub={`${book.closures.length} closed round trips`} tone={toneOf(realised)} />
-        <Card label="Net capital in" value={fmtMoney(flows, ccy)} sub="Removed from the return" />
+        <Card label="Net asset value" value={fmtMoney(nav, ccy)} sub={`${book.navSeries.length} daily points · as of ${book.asOf ?? '—'}`} />
+        <Card
+          label="Invested"
+          value={fmtMoney(invested, ccy)}
+          sub={nav ? `${((invested / nav) * 100).toFixed(1)}% of NAV · ${risked.length} position${risked.length === 1 ? '' : 's'}` : `${risked.length} positions`}
+        />
+        <Card
+          label="Cash"
+          value={fmtMoney(cash, ccy)}
+          sub={parked.length > 0 ? `incl. ${parked.map((p) => p.symbol).join(', ')} held as cash` : 'Broker balance'}
+        />
+        <Card label="Unrealised" value={fmtMoney(unrealised, ccy)} sub="On open positions, at the statement's marks" tone={toneOf(unrealised)} />
+        <Card label="Net capital in" value={fmtMoney(flows, ccy)} sub="LP contributions less withdrawals" />
         <Card label="Income" value={fmtMoney(book.income.net, ccy)} sub={`Dividends ${fmtMoney(book.income.dividendsGross, ccy)} · withholding ${fmtMoney(book.income.withholdingTax, ccy)}`} tone={toneOf(book.income.net)} />
       </div>
 
@@ -367,17 +386,32 @@ function Holdings({ book, perf, manual, cashEquivalents, onManage, onChanged }: 
           </div>
           {nav !== null && cash !== null && (
             <div className="fundbook__bars">
-              <Bar label="At risk" pct={(invested / nav) * 100} value={fmtMoney(invested, ccy)} />
+              <Bar label="Invested" pct={(invested / nav) * 100} value={fmtMoney(invested, ccy)} />
               <Bar label="Cash" pct={(cash / nav) * 100} value={fmtMoney(cash, ccy)} deep />
             </div>
           )}
-          {parked.length > 0 && (
-            <div className="fundbook__foot">
-              Cash includes {fmtMoney(parkedValue, ccy)} held as{' '}
-              {parked.map((p) => p.symbol).join(', ')} — declared cash equivalents, so they are money
-              waiting rather than money at risk. Untick them on a position row to count them as invested.
-            </div>
-          )}
+          {/* The declaration belongs where the split it changes is explained, not repeated as a button on
+              every position row — one control in one place instead of one per holding. */}
+          <div className="fundbook__foot fundbook__cashdecl">
+            <span>
+              {parked.length > 0
+                ? <>Cash includes {fmtMoney(parkedValue, ccy)} held as {parked.map((p) => p.symbol).join(', ')} — money waiting, not money at risk.</>
+                : <>A T-bill or money-market ETF is cash with a ticker. The statement cannot tell one from a commodity fund, so name it here.</>}
+            </span>
+            <select
+              className="fundbook__select"
+              value=""
+              onChange={(e) => { if (e.target.value) void onCash(e.target.value, !isCashEq(e.target.value)) }}
+              aria-label="Treat a holding as cash, or stop treating it as cash"
+            >
+              <option value="" disabled>treat as cash…</option>
+              {equities.map((p) => (
+                <option key={p.symbol ?? ''} value={p.symbol ?? ''}>
+                  {p.symbol}{isCashEq(p.symbol) ? ' — count as invested' : ''}
+                </option>
+              ))}
+            </select>
+          </div>
           {currencyRows.length > 1 && (
             <div className="fundbook__bars fundbook__bars--top">
               {currencyRows.map(([c, v]) => (
@@ -429,20 +463,15 @@ function Holdings({ book, perf, manual, cashEquivalents, onManage, onChanged }: 
           <div className="fundbook__row fundbook__row--head">
             <span>Symbol</span><span>Ccy</span><span className="num">Quantity</span><span className="num">Avg cost</span>
             <span className="num">Mark</span><span className="num">Value</span><span className="num">Weight</span><span className="num">Unrealised</span>
-            <span />
           </div>
-          {risked.map((p, i) => (
-            <PositionRow key={`${p.conid ?? p.symbol ?? 'x'}-${i}`} p={p} onCash={onCash} />
-          ))}
+          {risked.map((p, i) => <PositionRow key={`${p.conid ?? p.symbol ?? 'x'}-${i}`} p={p} />)}
           {parked.length > 0 && (
             <>
               <div className="fundbook__subhead">
                 Cash equivalents — money parked, not money at risk. Counted as cash above, and left out
                 of the weights the rest of the book is measured on.
               </div>
-              {parked.map((p, i) => (
-                <PositionRow key={`c-${p.conid ?? p.symbol ?? 'x'}-${i}`} p={p} isCash onCash={onCash} />
-              ))}
+              {parked.map((p, i) => <PositionRow key={`c-${p.conid ?? p.symbol ?? 'x'}-${i}`} p={p} isCash />)}
             </>
           )}
           {derivatives.length > 0 && (
@@ -455,7 +484,118 @@ function Holdings({ book, perf, manual, cashEquivalents, onManage, onChanged }: 
         </div>
       </div>
 
+      <Exposure book={book} risked={risked} parkedValue={parkedValue} nav={nav} ccy={ccy} />
     </>
+  )
+}
+
+/** EXPOSURE — concentration, gross and net, and the single name that matters most.
+ *
+ *  Measured on money AT RISK, not on NAV. A book that is 72% parked in T-bills has a largest position of
+ *  36% of NAV but 50% of its actual risk, and only the second number answers "what happens if this one
+ *  goes wrong". Both are shown so neither can be mistaken for the other.
+ *
+ *  Sector is absent ON PURPOSE: the Flex statement carries an asset category and a sub-category and
+ *  nothing else. A sector guessed from a ticker would be an invention wearing the broker's authority,
+ *  so the panel says the data is not there rather than drawing a made-up split. */
+function Exposure({ book, risked, parkedValue, nav, ccy }: {
+  book: PortfolioBook; risked: PortfolioPosition[]; parkedValue: number
+  nav: number | null; ccy: string | null
+}) {
+  const derivatives = book.positions.filter((p) => p.isDerivative)
+  const valued = risked
+    .map((p) => ({ p, base: (p.positionValue ?? 0) * (p.fxRateToBase ?? 1) }))
+    .sort((a, b) => Math.abs(b.base) - Math.abs(a.base))
+  const atRisk = valued.reduce((a, v) => a + v.base, 0)
+  if (valued.length === 0) return null
+
+  const shareOfRisk = (v: number) => (atRisk === 0 ? null : (v / atRisk) * 100)
+  const top = valued[0]!
+  const topThree = valued.slice(0, 3).reduce((a, v) => a + v.base, 0)
+  // Gross counts both directions; net cancels them. They are equal here only because the book is
+  // long-only — the moment it is not, the difference between them IS the hedge.
+  const gross = valued.reduce((a, v) => a + Math.abs(v.base), 0)
+  const longs = valued.filter((v) => v.base > 0).reduce((a, v) => a + v.base, 0)
+  const shorts = valued.filter((v) => v.base < 0).reduce((a, v) => a + v.base, 0)
+
+  const group = (key: (p: PortfolioPosition) => string) => {
+    const by = new Map<string, number>()
+    for (const { p, base } of valued) by.set(key(p), (by.get(key(p)) ?? 0) + base)
+    return [...by.entries()].sort((a, b) => Math.abs(b[1]) - Math.abs(a[1]))
+  }
+  const byCurrency = group((p) => p.currency ?? '—')
+  const byClass = group((p) => p.subCategory || p.assetCategory || 'unclassified')
+
+  return (
+    <div className="fundbook__panel">
+      <div className="fundbook__panelhead">
+        <div>
+          <strong>Exposure</strong>
+          <small>
+            Concentration measured on money AT RISK, not on NAV — a book that is mostly parked would
+            otherwise look diversified for having done nothing
+          </small>
+        </div>
+      </div>
+
+      <div className="fundbook__cards fundbook__cards--inset">
+        <Card
+          label="Largest single name"
+          value={shareOfRisk(top.base) === null ? '—' : `${shareOfRisk(top.base)!.toFixed(1)}%`}
+          sub={`${top.p.symbol ?? '—'} · ${fmtMoney(top.base, ccy)}${nav ? ` · ${((top.base / nav) * 100).toFixed(1)}% of NAV` : ''}`}
+        />
+        <Card
+          label="Top three"
+          value={shareOfRisk(topThree) === null ? '—' : `${shareOfRisk(topThree)!.toFixed(1)}%`}
+          sub={`of money at risk · ${valued.slice(0, 3).map((v) => v.p.symbol).join(', ')}`}
+        />
+        <Card label="Gross exposure" value={fmtMoney(gross, ccy)} sub={nav ? `${((gross / nav) * 100).toFixed(0)}% of NAV · long and short added` : 'long and short added'} />
+        <Card
+          label="Net exposure"
+          value={fmtMoney(longs + shorts, ccy)}
+          sub={shorts === 0 ? 'Long-only, so net equals gross' : `${fmtMoney(longs, ccy)} long less ${fmtMoney(Math.abs(shorts), ccy)} short`}
+        />
+        <Card label="Names at risk" value={String(valued.length)} sub={parkedValue > 0 ? `plus ${fmtMoney(parkedValue, ccy)} parked as cash` : 'every equity position'} />
+      </div>
+
+      <div className="fundbook__split">
+        <div>
+          <div className="fundbook__subhead">By position</div>
+          {valued.map(({ p, base }) => (
+            <ExposureBar key={`${p.conid ?? p.symbol}`} label={p.symbol ?? '—'} pct={shareOfRisk(base) ?? 0} value={fmtMoney(base, ccy)} />
+          ))}
+        </div>
+        <div>
+          <div className="fundbook__subhead">By currency</div>
+          {byCurrency.map(([k, v]) => (
+            <ExposureBar key={`c-${k}`} label={k} pct={shareOfRisk(v) ?? 0} value={fmtMoney(v, ccy)} />
+          ))}
+          <div className="fundbook__subhead">By asset class</div>
+          {byClass.map(([k, v]) => (
+            <ExposureBar key={`a-${k}`} label={k} pct={shareOfRisk(v) ?? 0} value={fmtMoney(v, ccy)} deep />
+          ))}
+        </div>
+      </div>
+
+      <div className="fundbook__foot">
+        No sector split: the statement carries an asset category and a sub-category and nothing else, and
+        a sector guessed from a ticker would be an invention wearing the broker&rsquo;s authority.
+        {derivatives.length > 0 && ' Futures are excluded — notional is exposure against margin, not a share of NAV.'}
+      </div>
+    </div>
+  )
+}
+
+function ExposureBar({ label, pct, value, deep }: { label: string; pct: number; value: string; deep?: boolean }) {
+  return (
+    <div className="fundbook__bar-row fundbook__bar-row--exposure">
+      <span className="fundbook__bar-label mono">{label}</span>
+      <span className="fundbook__bar-track">
+        <span style={{ width: `${Math.max(0, Math.min(100, Math.abs(pct)))}%`, background: deep ? 'var(--accent-deep)' : 'var(--accent)' }} />
+      </span>
+      <span className="fundbook__bar-pct">{pct.toFixed(1)}%</span>
+      <span className="fundbook__bar-value">{value}</span>
+    </div>
   )
 }
 
@@ -492,9 +632,8 @@ function Delta({ label, before, after, beforeText, afterText }: {
   )
 }
 
-function PositionRow({ p, derivative, isCash, onCash }: {
+function PositionRow({ p, derivative, isCash }: {
   p: PortfolioPosition; derivative?: boolean; isCash?: boolean
-  onCash?: (symbol: string, isCash: boolean) => void | Promise<void>
 }) {
   return (
     <div className={`fundbook__row${isCash ? ' is-parked' : ''}`}>
@@ -506,18 +645,6 @@ function PositionRow({ p, derivative, isCash, onCash }: {
       <span className="num">{fmtSmallMoney(p.positionValue)}{derivative && <small className="fundbook__notional">notional</small>}</span>
       <span className="num dim">{derivative ? '—' : p.percentOfNAV === null ? '—' : `${p.percentOfNAV.toFixed(1)}%`}</span>
       <span className="num" style={{ color: toneOf(p.unrealizedLocal) }}>{fmtSmallMoney(p.unrealizedLocal)}</span>
-      {/* The broker cannot say whether an ETF is a view or a parking space, so the operator can. */}
-      <span className="fundbook__rowend">
-        {!derivative && onCash && p.symbol && (
-          <button
-            className="fundbook__linkbtn"
-            title={isCash ? `Count ${p.symbol} as an investment again` : `${p.symbol} is a place to park money, not a position`}
-            onClick={() => void onCash(p.symbol!, !isCash)}
-          >
-            {isCash ? 'not cash' : 'as cash'}
-          </button>
-        )}
-      </span>
     </div>
   )
 }
@@ -686,8 +813,9 @@ interface TradeRowData {
   lots: number
 }
 
-function Trades({ book, manual, onChanged }: {
+function Trades({ book, manual, onChanged, importOpen, onImportOpen, importSurface }: {
   book: PortfolioBook; manual: PortfolioManualRead; onChanged: (r: PortfolioRead) => void
+  importOpen: boolean; onImportOpen: (v: boolean) => void; importSurface: React.ReactNode
 }) {
   const [logging, setLogging] = useState(false)
   const ccy = book.baseCurrency
@@ -806,14 +934,29 @@ function Trades({ book, manual, onChanged }: {
     <div className={`fundbook__panel${manual.live > 0 ? ' is-provisional' : ''}`}>
       <div className="fundbook__panelhead">
         <div>
-          <strong>Logged by hand</strong>
+          <strong>Add trades to the book</strong>
           <small>
-            Fills taken since the last export. Provisional — they never enter the reconciled book, and a
-            statement covering their date answers them.
+            Import the broker&rsquo;s own record, or log a fill taken since the last export. A hand-logged
+            fill is provisional — it never enters the reconciled book, and a statement covering its date
+            answers it.
           </small>
         </div>
-        {!logging && <button className="fundbook__btn is-primary" onClick={() => setLogging(true)}>Log a trade</button>}
+        <div className="fundbook__formbtns">
+          <button
+            className={`fundbook__btn${importOpen ? ' is-primary' : ''}`}
+            onClick={() => { onImportOpen(!importOpen); setLogging(false) }}
+          >
+            {importOpen ? 'Hide import' : 'Import statement'}
+          </button>
+          <button
+            className={`fundbook__btn${logging ? ' is-primary' : ''}`}
+            onClick={() => { setLogging(!logging); onImportOpen(false) }}
+          >
+            {logging ? 'Cancel' : 'Log a trade'}
+          </button>
+        </div>
       </div>
+      {importOpen && <div className="fundbook__embed">{importSurface}</div>}
       {logging && (
         <LogTradeForm
           baseCurrency={ccy}
@@ -821,6 +964,7 @@ function Trades({ book, manual, onChanged }: {
           onDone={(read) => { onChanged(read); setLogging(false) }}
         />
       )}
+
       {/* The "nothing logged yet" copy explains the feature — pointless, and faintly absurd, while the
           operator is typing into the form it describes. */}
       {(!logging || manual.trades.length > 0) && (
@@ -982,7 +1126,7 @@ function TradeRow({ c, grossRealised }: { c: TradeRowData; grossRealised: number
 
 // ---------- import ----------
 
-function ImportTab({ read, onFiles, onChanged, busy, progress, notes, firstRun, changed, manual }: {
+function ImportTab({ read, onFiles, onChanged, busy, progress, notes, firstRun, changed, manual, embedded }: {
   read: PortfolioRead
   onFiles: (f: File[]) => void
   onChanged: (r: PortfolioRead) => void
@@ -992,16 +1136,18 @@ function ImportTab({ read, onFiles, onChanged, busy, progress, notes, firstRun, 
   firstRun?: boolean
   changed: ImportDelta | null
   manual: PortfolioManualRead
+  /** Rendered inside the trade screen rather than as a screen of its own — no drop-zone flourish. */
+  embedded?: boolean
 }) {
   const [removing, setRemoving] = useState<string | null>(null)
   const [removeError, setRemoveError] = useState<string | null>(null)
   const book = read.book
   return (
     <>
-      <label className={`fundbook__drop${busy ? ' is-busy' : ''}${firstRun ? '' : ' is-compact'}`}>
+      <label className={`fundbook__drop${busy ? ' is-busy' : ''}${firstRun && !embedded ? '' : ' is-compact'}`}>
         <input type="file" accept=".xml,text/xml,application/xml" multiple hidden
           onChange={(e) => { void onFiles([...(e.target.files ?? [])]); e.target.value = '' }} />
-        <svg width={firstRun ? 26 : 20} height={firstRun ? 26 : 20} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+        <svg width={firstRun && !embedded ? 26 : 20} height={firstRun && !embedded ? 26 : 20} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
           <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /><path d="M7 10l5 5 5-5" /><path d="M12 15V3" />
         </svg>
         <div className="fundbook__droptext">

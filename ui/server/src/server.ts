@@ -45,7 +45,7 @@ import { memberMatchesGeo, type ThemeGeo } from './news/themes/geo-index'
 import { memberMatchesCommodity } from './news/themes/commodity-index'
 import { createThemesIndexReader } from './news/themes/api-index'
 import {
-  clearSupersededManual, declareCashEquivalent, deleteStatement, linkThesis, logManualTrade, readPortfolio,
+  clearSupersededManual, declareCashEquivalent, deleteStatement, logManualTrade, readPortfolio,
   removeManualTrade, saveStatement, STATEMENT_MAX_BYTES,
 } from './portfolio-store'
 import { buildThemeBrief } from './news/themes/brief'
@@ -3680,25 +3680,6 @@ app.post('/api/portfolio/manual/clear-superseded', async (req, reply) => {
   if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request rejected' })
   const cleared = clearSupersededManual()
   return { cleared, ...readPortfolio() }
-})
-
-// Point a holding at the engine's research for a company. An IDENTICAL ticker already matches on its
-// own; this exists for the cases where it cannot — the book holds an ADR (NHYDY) while the research
-// covers the local listing (NHY). Deliberately an explicit act: a rule loose enough to catch that pair
-// automatically would also match BG to BGC, and attributing one company's verdict to another is worse
-// than showing no verdict at all.
-app.post('/api/portfolio/link', { config: { rateLimit: { max: 60, timeWindow: '1 minute' } } }, async (req, reply) => {
-  if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request rejected' })
-  const body = (req.body ?? {}) as { symbol?: unknown; ticker?: unknown }
-  const ticker = body.ticker === null || body.ticker === undefined || body.ticker === ''
-    ? null
-    : String(body.ticker)
-  try {
-    return linkThesis(String(body.symbol ?? ''), ticker)
-  } catch (e: any) {
-    // portfolio-thesis.ts writes these for the operator, so they are safe to return verbatim.
-    return reply.code(400).send({ error: String(e?.message || 'that link could not be saved') })
-  }
 })
 
 // Declare a holding a cash equivalent. The broker cannot answer this — SGOV, CANE and GLDM all arrive

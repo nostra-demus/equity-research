@@ -85,6 +85,9 @@ export interface BookPosition {
   symbol: string | null
   conid: string | null
   assetCategory: string | null
+  /** COMMON / ETF / ADR and the like. The only asset-class signal the statement carries — it does NOT
+   *  distinguish a T-bill ETF from a commodity one, which is why cash equivalence is declared. */
+  subCategory: string | null
   currency: string | null
   quantity: number | null
   markPrice: number | null
@@ -589,6 +592,7 @@ export function buildBook(documents: FlexDocument[]): Book {
     .map((p) => ({
       symbol: p.symbol,
       conid: p.conid,
+      subCategory: p.subCategory,
       assetCategory: p.assetCategory,
       currency: p.currency,
       quantity: p.position,
