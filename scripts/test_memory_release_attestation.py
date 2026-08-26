@@ -2,53 +2,39 @@
 """Fail-closed tests for detached production-evidence attestations."""
 from __future__ import annotations
 
-import base64
-import binascii
+import hashlib
 import unittest
-from unittest import mock
-
-from cryptography.hazmat.primitives import serialization
-from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey
 
 try:
-    from memory_release_attestation import sign_attestation, verify_attestation
+    from canonical_json import canonical_json_bytes
+    from memory_release_attestation import verify_attestation
 except ImportError:  # pragma: no cover
-    from scripts.memory_release_attestation import sign_attestation, verify_attestation
+    from scripts.canonical_json import canonical_json_bytes
+    from scripts.memory_release_attestation import verify_attestation
 
 
 class ReleaseAttestationTest(unittest.TestCase):
-    def test_invalid_base64_fails_closed(self) -> None:
-        key = Ed25519PrivateKey.generate()
-        private_key = key.private_bytes(
-            serialization.Encoding.Raw,
-            serialization.PrivateFormat.Raw,
-            serialization.NoEncryption(),
-        )
-        public_key = key.public_key().public_bytes(
-            serialization.Encoding.Raw,
-            serialization.PublicFormat.Raw,
-        )
+    def test_noncanonical_base64_fails_closed(self) -> None:
         payload = {"report_id": "benchmark-1"}
-        attestation = sign_attestation(
-            payload,
-            domain=b"memory-test\0",
-            private_key=private_key,
-            key_id="benchmark-runner",
-        )
-        with mock.patch.object(
-            base64,
-            "b64decode",
-            side_effect=binascii.Error("invalid base64"),
-        ):
-            self.assertFalse(
-                verify_attestation(
-                    payload,
-                    attestation,
-                    domain=b"memory-test\0",
-                    public_key=public_key,
-                    key_id="benchmark-runner",
-                )
+        domain = b"memory-test\0"
+        message = domain + canonical_json_bytes(payload)
+        attestation = {
+            "key_id": "benchmark-runner",
+            "algorithm": "ed25519",
+            "signed_sha256": "sha256:" + hashlib.sha256(message).hexdigest(),
+            # Structurally valid, but B introduces non-zero padding bits. The
+            # verifier must reject this alternate encoding before signature use.
+            "value": "A" * 85 + "B",
+        }
+        self.assertFalse(
+            verify_attestation(
+                payload,
+                attestation,
+                domain=domain,
+                public_key=b"A" * 32,
+                key_id="benchmark-runner",
             )
+        )
 
 
 if __name__ == "__main__":

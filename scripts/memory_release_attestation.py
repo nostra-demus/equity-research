@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import base64
-import binascii
 import hashlib
 import re
 from typing import Any, Mapping
@@ -62,7 +61,7 @@ def verify_attestation(
         return False
     try:
         signature = base64.b64decode(encoded + "==", altchars=b"-_", validate=True)
-    except (ValueError, TypeError, binascii.Error):
+    except (ValueError, TypeError):
         return False
     return (
         base64.urlsafe_b64encode(signature).decode("ascii").rstrip("=") == encoded
