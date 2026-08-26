@@ -22,11 +22,12 @@ import { resolveEventRegion } from './geo'
 import { resolveCountry } from './geography'
 import { invalidateFacets } from './facets'
 import { SeenCache } from './seen-cache'
-import { Budget, NON_BINDING_DAILY_TOKEN_CAP, UsdBudget, armCooldown, clearCooldown, conservativeChatTokenBound, conservativeChatUsdBound, cooldownInfo, dailyQuotaAdmission, getNamedLimiter, getSharedGeminiLimiter, getSharedLimiter, isCoolingDown, rateInfoForLimiter, readCooldownUntil, selectDailyQuotaCandidate, type DailyQuotaCandidate, type PaceCfg } from './triage/budget'
+import { Budget, NON_BINDING_DAILY_TOKEN_CAP, UsdBudget, armCooldown, clearCooldown, conservativeChatTokenBound, conservativeChatUsdBound, cooldownInfo, dailyQuotaAdmission, getNamedLimiter, getSharedGeminiLimiter, getSharedLimiter, rateInfoForLimiter, readCooldownUntil, selectDailyQuotaCandidate, type DailyQuotaCandidate, type PaceCfg } from './triage/budget'
 import { triageBatchGemini } from './triage/gemini'
 import { triageBatchAnthropic } from './triage/anthropic'
 import { isAuthExpiredNote, isPlanQuotaNote, isTerminalApiNote, triageBatchClaudeCli, type ClaudeCliRunner } from './triage/claude-cli'
-import { SYSTEM, buildUserMessage, estimateTokens, scoreToBand, triageBatch, triageMaxOutputTokens, type TriageOptions, type TriageResult } from './triage/groq'
+import { SYSTEM, buildUserMessage, estimateTokens, openAiRequestIdentity, scoreToBand, triageBatch, triageMaxOutputTokens, type TriageOptions, type TriageResult } from './triage/groq'
+import { readProviderQuarantine } from './provider-failure'
 import { rankScore, preTriagePriority, capSocialBand, capSocialScore, deriveMaterialityLabel } from './rank'
 import { deriveScope, deriveSourceTier, toEventScope } from './scope'
 import { deriveCommodities } from './commodities'
@@ -115,7 +116,9 @@ function addProviderCount(target: Record<string, number>, id: string, value: num
 
 function routingFailureClass(result: TriageResult): ProviderFailureClass {
   if (result.dailyLimit) return 'provider-day-limit'
-  if (result.httpStatus != null && [401, 402, 403, 404].includes(result.httpStatus)) return 'credential'
+  if (result.failure?.code === 'auth' || result.failure?.code === 'entitlement') return 'credential'
+  if (result.failure?.code === 'billing') return 'plan-quota'
+  if (result.failure?.code === 'model_terminal' || result.failure?.code === 'request_invalid') return 'contract'
   if (result.failureKind === 'contract') return 'contract'
   if (result.failureKind === 'rate_limit') return 'rate-limit'
   if (result.timedOut) return 'timeout'
@@ -142,12 +145,19 @@ function clearTriageCooldowns(stateDir: string, providerId: string, attemptStart
 function triageIsHeld(stateDir: string, providerId: string, at: number): boolean {
   const shared = cooldownInfo(stateDir, providerId)
   const workload = cooldownInfo(stateDir, triageCooldownId(providerId))
-  const rejected = [shared, workload].some((marker) => marker.reason === 'provider-access' && (marker.accessFails ?? 0) >= 3)
-  return rejected || isCoolingDown(stateDir, providerId, at) || isCoolingDown(stateDir, triageCooldownId(providerId), at)
+  // Pre-quarantine engines collapsed 401/402/403/404 into an un-fingerprinted provider-access marker. It
+  // cannot prove that a new key/model is still bad and, after three failures, used to block that repair
+  // forever. OpenAI-compatible routes now take one classified attempt instead. Gemini/Anthropic retain the
+  // legacy marker until their adapters migrate to the shared classifier.
+  const canonical = providerId !== 'anthropic-triage' && !providerId.startsWith('gemini:')
+  const held = (marker: ReturnType<typeof cooldownInfo>) => marker.until > at
+    && !(canonical && marker.reason === 'provider-access')
+  return held(shared) || held(workload)
 }
 
 function triageFailureIsProviderWide(result: TriageResult): boolean {
   if (result.ok) return true
+  if (result.failure) return result.failure.providerWide
   const accessFailure = result.httpStatus != null && [401, 402, 403, 404].includes(result.httpStatus)
   return result.failureKind === 'rate_limit'
     || (result.failureKind === 'availability' && !result.timedOut)
@@ -169,7 +179,7 @@ function holdAfterTriageFailure(args: {
   budget?: Budget
 }): void {
   const { stateDir, providerId, result, at, cooldownMs, cooldownMaxMs, aborted, budget } = args
-  if (aborted) return
+  if (aborted || result.quarantined || result.failure?.action === 'quarantine') return
   if (result.dailyLimit) {
     budget?.exhaust()
     return
@@ -1390,6 +1400,35 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
   let localRequests = 0
   let localTokens = 0
   let localDownThisCycle = false // once the local box fails this cycle, stop poking it and use the cloud fallback
+  const triageIdentityFields = (providerId: string, providerLabel: string, keyEnvVar?: string) => ({
+    providerId, providerLabel, ...(keyEnvVar ? { keyEnvVar } : {}), stateDir,
+    workload: 'triage', contractVersion: 'news-triage-json-v1',
+  })
+  const triageOptionsForProvider = (providerId: string): TriageOptions | null => {
+    if (providerId === 'groq') return {
+      model: cfg.groqModel, baseUrl: cfg.groqBaseUrl, apiKey: cfg.groqApiKey,
+      maxTokens: cfg.triageMaxTokens, requestRemainingHeaderIsDaily: true,
+      ...triageIdentityFields('groq', 'Groq', 'GROQ_API_KEY'),
+    }
+    if (providerId === 'local' && localProvider) return {
+      model: localProvider.model, models: localProvider.models, baseUrl: localProvider.baseUrl,
+      apiKey: localProvider.apiKey, maxTokens: localProvider.maxTokens, headers: localProvider.headers,
+      extraBody: localProvider.extraBody, timeoutMs: localProvider.timeoutMs,
+      ...triageIdentityFields('local', localProvider.label || 'Local', localProvider.keyEnvVar),
+    }
+    const entry = overflow.find((candidate) => candidate.p.id === providerId)?.p
+    if (!entry) return null
+    return {
+      model: entry.model, models: entry.models, baseUrl: entry.baseUrl, apiKey: entry.apiKey,
+      maxTokens: entry.maxTokens, headers: entry.headers, extraBody: entry.extraBody,
+      timeoutMs: entry.timeoutMs, requestRemainingHeaderIsDaily: entry.requestRemainingHeaderIsDaily,
+      ...triageIdentityFields(entry.id, entry.label, entry.keyEnvVar),
+    }
+  }
+  const providerIsQuarantined = (providerId: string): boolean => {
+    const options = triageOptionsForProvider(providerId)
+    return !!(options && readProviderQuarantine(stateDir, openAiRequestIdentity(options, 'triage', 'news-triage-json-v1')))
+  }
   const pendingTriaged = items.filter(isFeedPendingTriaged).map((item) => ({
     ...item,
     feed_triaged_at: item.feed_triaged_at || item.pending_feed_item?.ts || ts,
@@ -1482,6 +1521,9 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
   const anthropicLedgerUnavailable = (): boolean => anthropicOn
     && (anthropicBudget?.ledgerAvailable !== true || anthropicBudget.lastReserveFailure === 'authority_unavailable')
   const credentialRejectedFor = (providerId: string): boolean => {
+    // The canonical OpenAI path is fingerprinted. Never let its obsolete, un-fingerprinted access streak
+    // veto a repaired configuration before the new classifier can test it once.
+    if (triageOptionsForProvider(providerId)) return providerIsQuarantined(providerId)
     const shared = cooldownInfo(stateDir, providerId)
     const workload = cooldownInfo(stateDir, triageCooldownId(providerId))
     return credentialRejected(shared.reason, shared.accessFails ?? 0) || credentialRejected(workload.reason, workload.accessFails ?? 0)
@@ -1492,13 +1534,13 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
     const at = now().getTime()
     if (providerId === 'local') return {}
     if (providerId === 'groq') {
-      const options: TriageOptions = { model: cfg.groqModel, baseUrl: cfg.groqBaseUrl, apiKey: cfg.groqApiKey, maxTokens: cfg.triageMaxTokens, requestRemainingHeaderIsDaily: true }
+      const options: TriageOptions = { model: cfg.groqModel, baseUrl: cfg.groqBaseUrl, apiKey: cfg.groqApiKey, maxTokens: cfg.triageMaxTokens, requestRemainingHeaderIsDaily: true, ...triageIdentityFields('groq', 'Groq', 'GROQ_API_KEY') }
       const admission = dailyQuotaAdmission({ id: providerId, meter: 'tokens', used: budget.tokens, cap: cfg.groqDailyTokenTarget, cost: triageGroqTokenBound(auditBatch, options), paceCost: triagePaceTokenBound(auditBatch), floorFraction: cfg.groqPaceFloorFrac }, at)
       return { allowanceUsed: budget.tokens, allowanceReleased: admission.released, allowanceCap: cfg.groqDailyTokenTarget }
     }
     const overflowEntry = overflow.find((entry) => entry.p.id === providerId)
     if (overflowEntry) {
-      const options: TriageOptions = { model: overflowEntry.p.model, models: overflowEntry.p.models, baseUrl: overflowEntry.p.baseUrl, apiKey: overflowEntry.p.apiKey, maxTokens: overflowEntry.p.maxTokens, headers: overflowEntry.p.headers, extraBody: overflowEntry.p.extraBody, timeoutMs: overflowEntry.p.timeoutMs, maxAttempts: 1, requestRemainingHeaderIsDaily: overflowEntry.p.requestRemainingHeaderIsDaily }
+      const options: TriageOptions = { model: overflowEntry.p.model, models: overflowEntry.p.models, baseUrl: overflowEntry.p.baseUrl, apiKey: overflowEntry.p.apiKey, maxTokens: overflowEntry.p.maxTokens, headers: overflowEntry.p.headers, extraBody: overflowEntry.p.extraBody, timeoutMs: overflowEntry.p.timeoutMs, maxAttempts: 1, requestRemainingHeaderIsDaily: overflowEntry.p.requestRemainingHeaderIsDaily, ...triageIdentityFields(overflowEntry.p.id, overflowEntry.p.label, overflowEntry.p.keyEnvVar) }
       const tokenMeter = overflowEntry.p.dailyTokenCap != null
       const used = tokenMeter ? overflowEntry.budget.tokens : overflowEntry.budget.requests
       const cap = tokenMeter ? overflowEntry.p.dailyTokenCap! : overflowEntry.p.dailyReqCap
@@ -1528,9 +1570,9 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
   // The audit ledger starts with the state from which every batch decision is made. It contains only
   // bounded enums and counters: provider response/error text and the batch contents never enter it.
   const startProviderSnapshots: ProviderStateSnapshotEvent['providers'] = [
-    ...(localProvider ? [{ id: 'local', state: localCoolingDown ? 'cooling' as const : 'healthy' as const, eligible: !localCoolingDown && !credentialRejectedFor('local'), reason: credentialRejectedFor('local') ? 'credential-rejected' as const : localCoolingDown ? 'cooldown' as const : 'eligible' as const, consecutiveFailures: cooldownInfo(stateDir, 'local').fails, ...auditAllowanceFor('local') }] : []),
-    ...(cfg.groqApiKey ? [{ id: 'groq', state: !budget.ledgerAvailable ? 'unavailable' as const : groqCoolingDown ? 'cooling' as const : budget.providerDayExhausted ? 'budget-spent' as const : 'healthy' as const, eligible: budget.ledgerAvailable && !groqCoolingDown && !budget.providerDayExhausted && !credentialRejectedFor('groq'), reason: !budget.ledgerAvailable ? 'ledger-unavailable' as const : credentialRejectedFor('groq') ? 'credential-rejected' as const : groqCoolingDown ? 'cooldown' as const : budget.providerDayExhausted ? 'provider-day-exhausted' as const : 'eligible' as const, consecutiveFailures: cooldownInfo(stateDir, 'groq').fails, ...auditAllowanceFor('groq') }] : []),
-    ...overflow.map((ov) => ({ id: ov.p.id, state: !ov.budget.ledgerAvailable ? 'unavailable' as const : ov.coolingDown ? 'cooling' as const : ov.budget.providerDayExhausted ? 'budget-spent' as const : 'healthy' as const, eligible: ov.budget.ledgerAvailable && !ov.coolingDown && !ov.budget.providerDayExhausted && !credentialRejectedFor(ov.p.id), reason: !ov.budget.ledgerAvailable ? 'ledger-unavailable' as const : credentialRejectedFor(ov.p.id) ? 'credential-rejected' as const : ov.coolingDown ? 'cooldown' as const : ov.budget.providerDayExhausted ? 'provider-day-exhausted' as const : routeClass(ov) === 'aggregate-fallback' ? 'aggregate-band' as const : routeClass(ov) === 'local-fallback' ? 'demoted-local-band' as const : 'eligible' as const, consecutiveFailures: cooldownInfo(stateDir, ov.p.id).fails, ...auditAllowanceFor(ov.p.id) })),
+    ...(localProvider ? [{ id: 'local', state: providerIsQuarantined('local') ? 'unavailable' as const : localCoolingDown ? 'cooling' as const : 'healthy' as const, eligible: !localCoolingDown && !credentialRejectedFor('local'), reason: providerIsQuarantined('local') ? 'quarantined' as const : credentialRejectedFor('local') ? 'credential-rejected' as const : localCoolingDown ? 'cooldown' as const : 'eligible' as const, consecutiveFailures: cooldownInfo(stateDir, 'local').fails, ...auditAllowanceFor('local') }] : []),
+    ...(cfg.groqApiKey ? [{ id: 'groq', state: !budget.ledgerAvailable || providerIsQuarantined('groq') ? 'unavailable' as const : groqCoolingDown ? 'cooling' as const : budget.providerDayExhausted ? 'budget-spent' as const : 'healthy' as const, eligible: budget.ledgerAvailable && !groqCoolingDown && !budget.providerDayExhausted && !credentialRejectedFor('groq'), reason: !budget.ledgerAvailable ? 'ledger-unavailable' as const : providerIsQuarantined('groq') ? 'quarantined' as const : credentialRejectedFor('groq') ? 'credential-rejected' as const : groqCoolingDown ? 'cooldown' as const : budget.providerDayExhausted ? 'provider-day-exhausted' as const : 'eligible' as const, consecutiveFailures: cooldownInfo(stateDir, 'groq').fails, ...auditAllowanceFor('groq') }] : []),
+    ...overflow.map((ov) => ({ id: ov.p.id, state: !ov.budget.ledgerAvailable || providerIsQuarantined(ov.p.id) ? 'unavailable' as const : ov.coolingDown ? 'cooling' as const : ov.budget.providerDayExhausted ? 'budget-spent' as const : 'healthy' as const, eligible: ov.budget.ledgerAvailable && !ov.coolingDown && !ov.budget.providerDayExhausted && !credentialRejectedFor(ov.p.id), reason: !ov.budget.ledgerAvailable ? 'ledger-unavailable' as const : providerIsQuarantined(ov.p.id) ? 'quarantined' as const : credentialRejectedFor(ov.p.id) ? 'credential-rejected' as const : ov.coolingDown ? 'cooldown' as const : ov.budget.providerDayExhausted ? 'provider-day-exhausted' as const : routeClass(ov) === 'aggregate-fallback' ? 'aggregate-band' as const : routeClass(ov) === 'local-fallback' ? 'demoted-local-band' as const : 'eligible' as const, consecutiveFailures: cooldownInfo(stateDir, ov.p.id).fails, ...auditAllowanceFor(ov.p.id) })),
     ...geminiPool.map((gem) => ({ id: `gemini:${gem.model}`, state: !gem.budget.ledgerAvailable ? 'unavailable' as const : gem.coolingDown ? 'cooling' as const : gem.budget.providerDayExhausted ? 'budget-spent' as const : 'healthy' as const, eligible: gem.budget.ledgerAvailable && !gem.coolingDown && !gem.budget.providerDayExhausted && !credentialRejectedFor(`gemini:${gem.model}`), reason: !gem.budget.ledgerAvailable ? 'ledger-unavailable' as const : credentialRejectedFor(`gemini:${gem.model}`) ? 'credential-rejected' as const : gem.coolingDown ? 'cooldown' as const : gem.budget.providerDayExhausted ? 'provider-day-exhausted' as const : 'eligible' as const, consecutiveFailures: cooldownInfo(stateDir, `gemini:${gem.model}`).fails, ...auditAllowanceFor(`gemini:${gem.model}`) })),
     ...(anthropicOn ? [{ id: 'anthropic-triage', state: !anthropicBudget?.ledgerAvailable ? 'unavailable' as const : anthropicCoolingDown ? 'cooling' as const : 'healthy' as const, eligible: anthropicBudget?.ledgerAvailable === true && !anthropicCoolingDown && !credentialRejectedFor('anthropic-triage'), reason: !anthropicBudget?.ledgerAvailable ? 'ledger-unavailable' as const : credentialRejectedFor('anthropic-triage') ? 'credential-rejected' as const : anthropicCoolingDown ? 'cooldown' as const : 'eligible' as const, consecutiveFailures: cooldownInfo(stateDir, 'anthropic-triage').fails, ...auditAllowanceFor('anthropic-triage') }] : []),
   ]
@@ -1556,7 +1598,7 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
     }
     const batch = scoreItems.slice(i, i + cfg.triageBatch)
     const est = estimateTokens(batch.length)
-    const groqOptions: TriageOptions = { model: cfg.groqModel, baseUrl: cfg.groqBaseUrl, apiKey: cfg.groqApiKey, maxTokens: cfg.triageMaxTokens, requestRemainingHeaderIsDaily: true }
+    const groqOptions: TriageOptions = { model: cfg.groqModel, baseUrl: cfg.groqBaseUrl, apiKey: cfg.groqApiKey, maxTokens: cfg.triageMaxTokens, requestRemainingHeaderIsDaily: true, ...triageIdentityFields('groq', 'Groq', 'GROQ_API_KEY') }
     const groqAttemptTokenBound = triageGroqTokenBound(batch, groqOptions)
     // PROVIDER PICK. Prefer Groq while it's on-schedule (the pacer keeps it spread across the day); when
     // Groq is paced/capped, overflow to Gemini's separate free pool; defer only when BOTH are out.
@@ -1575,9 +1617,10 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
     while (groqAttempts > 0 && !budget.pacedCanSpend(groqAttemptTokenBound * groqAttempts, pace, groqAdmissionAt, groqAttempts, groqPaceBound * groqAttempts)) groqAttempts--
     const groqOk = !!cfg.groqApiKey && groqAttempts > 0
     const candidateAt = now().getTime()
-    const candidateReason = (args: { enabled: boolean; ledger: boolean; exhausted: boolean; held: boolean; rejected?: boolean; hard: boolean; paced: boolean }): ProviderRoutingCandidate['eligibilityReason'] => {
+    const candidateReason = (args: { enabled: boolean; ledger: boolean; exhausted: boolean; held: boolean; quarantined?: boolean; rejected?: boolean; hard: boolean; paced: boolean }): ProviderRoutingCandidate['eligibilityReason'] => {
       if (!args.enabled) return 'disabled'
       if (!args.ledger) return 'ledger-unavailable'
+      if (args.quarantined) return 'quarantined'
       if (args.rejected) return 'credential-rejected'
       if (args.exhausted) return 'provider-day-exhausted'
       if (args.held) return 'cooldown'
@@ -1588,23 +1631,23 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
     const routingCandidates: ProviderRoutingCandidate[] = []
     if (localProvider) {
       const held = localDownThisCycle || triageIsHeld(stateDir, 'local', candidateAt)
-      const reason = candidateReason({ enabled: true, ledger: localBudget?.ledgerAvailable === true, exhausted: false, held, rejected: credentialRejectedFor('local'), hard: true, paced: true })
+      const reason = candidateReason({ enabled: true, ledger: localBudget?.ledgerAvailable === true, exhausted: false, held, quarantined: providerIsQuarantined('local'), rejected: credentialRejectedFor('local'), hard: true, paced: true })
       routingCandidates.push({ id: 'local', label: localProvider.label, order: 0, band: 'direct', eligible: reason === 'eligible', eligibilityReason: reason, releasedCapacityUrgency: 1, consecutiveFailures: cooldownInfo(stateDir, 'local').fails })
     }
     if (cfg.groqApiKey) {
       const held = groqDownThisCycle || triageIsHeld(stateDir, 'groq', candidateAt)
-      const reason = candidateReason({ enabled: true, ledger: budget.ledgerAvailable, exhausted: budget.providerDayExhausted, held, rejected: credentialRejectedFor('groq'), hard: budget.canSpend(groqAttemptTokenBound, 1), paced: groqOk })
+      const reason = candidateReason({ enabled: true, ledger: budget.ledgerAvailable, exhausted: budget.providerDayExhausted, held, quarantined: providerIsQuarantined('groq'), rejected: credentialRejectedFor('groq'), hard: budget.canSpend(groqAttemptTokenBound, 1), paced: groqOk })
       const admission = dailyQuotaAdmission({ id: 'groq', meter: 'tokens', used: budget.tokens, cap: cfg.groqDailyTokenTarget, cost: groqAttemptTokenBound, paceCost: groqPaceBound, floorFraction: cfg.groqPaceFloorFrac }, candidateAt)
       routingCandidates.push({ id: 'groq', label: 'Groq', order: 1, band: 'direct', eligible: reason === 'eligible', eligibilityReason: reason, releasedCapacityUrgency: admission.normalizedDeficit, consecutiveFailures: cooldownInfo(stateDir, 'groq').fails })
     }
     let configuredOrder = 2
     for (const ov of overflowDirect) {
-      const options: TriageOptions = { model: ov.p.model, models: ov.p.models, baseUrl: ov.p.baseUrl, apiKey: ov.p.apiKey, maxTokens: ov.p.maxTokens, headers: ov.p.headers, extraBody: ov.p.extraBody, timeoutMs: ov.p.timeoutMs, maxAttempts: 1, requestRemainingHeaderIsDaily: ov.p.requestRemainingHeaderIsDaily }
+      const options: TriageOptions = { model: ov.p.model, models: ov.p.models, baseUrl: ov.p.baseUrl, apiKey: ov.p.apiKey, maxTokens: ov.p.maxTokens, headers: ov.p.headers, extraBody: ov.p.extraBody, timeoutMs: ov.p.timeoutMs, maxAttempts: 1, requestRemainingHeaderIsDaily: ov.p.requestRemainingHeaderIsDaily, ...triageIdentityFields(ov.p.id, ov.p.label, ov.p.keyEnvVar) }
       const perAttemptTokens = triageGroqTokenBound(batch, options)
       const tokenMeter = ov.p.dailyTokenCap != null
       const admission = dailyQuotaAdmission({ id: ov.p.id, meter: tokenMeter ? 'tokens' : 'requests', used: tokenMeter ? ov.budget.tokens : ov.budget.requests, cap: tokenMeter ? ov.p.dailyTokenCap! : ov.p.dailyReqCap, cost: tokenMeter ? perAttemptTokens : 1, paceCost: tokenMeter ? triagePaceTokenBound(batch) : 1, resetTimeZone: ov.p.dayTz, floorFraction: ov.p.paceFloorFrac ?? cfg.freeProviderPaceFloorFrac }, candidateAt)
       const held = ov.failed || triageIsHeld(stateDir, ov.p.id, candidateAt)
-      const reason = candidateReason({ enabled: true, ledger: ov.budget.ledgerAvailable, exhausted: ov.budget.providerDayExhausted, held, rejected: credentialRejectedFor(ov.p.id), hard: admission.hardCapFit && ov.budget.canSpend(perAttemptTokens, 1), paced: admission.pacedFit })
+      const reason = candidateReason({ enabled: true, ledger: ov.budget.ledgerAvailable, exhausted: ov.budget.providerDayExhausted, held, quarantined: providerIsQuarantined(ov.p.id), rejected: credentialRejectedFor(ov.p.id), hard: admission.hardCapFit && ov.budget.canSpend(perAttemptTokens, 1), paced: admission.pacedFit })
       routingCandidates.push({ id: ov.p.id, label: ov.p.label, order: configuredOrder++, band: 'direct', eligible: reason === 'eligible', eligibilityReason: reason, releasedCapacityUrgency: admission.normalizedDeficit, consecutiveFailures: cooldownInfo(stateDir, ov.p.id).fails })
     }
     for (const gem of geminiPool) {
@@ -1618,19 +1661,19 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
       routingCandidates.push({ id: `gemini:${gem.model}`, label: gem.model, order: configuredOrder++, band: 'direct', eligible: reason === 'eligible', eligibilityReason: reason, releasedCapacityUrgency: admission.normalizedDeficit, consecutiveFailures: cooldownInfo(stateDir, `gemini:${gem.model}`).fails })
     }
     for (const ov of overflowAggregate) {
-      const options: TriageOptions = { model: ov.p.model, models: ov.p.models, baseUrl: ov.p.baseUrl, apiKey: ov.p.apiKey, maxTokens: ov.p.maxTokens, headers: ov.p.headers, extraBody: ov.p.extraBody, timeoutMs: ov.p.timeoutMs, maxAttempts: 1, requestRemainingHeaderIsDaily: ov.p.requestRemainingHeaderIsDaily }
+      const options: TriageOptions = { model: ov.p.model, models: ov.p.models, baseUrl: ov.p.baseUrl, apiKey: ov.p.apiKey, maxTokens: ov.p.maxTokens, headers: ov.p.headers, extraBody: ov.p.extraBody, timeoutMs: ov.p.timeoutMs, maxAttempts: 1, requestRemainingHeaderIsDaily: ov.p.requestRemainingHeaderIsDaily, ...triageIdentityFields(ov.p.id, ov.p.label, ov.p.keyEnvVar) }
       const perAttemptTokens = triageGroqTokenBound(batch, options)
       const tokenMeter = ov.p.dailyTokenCap != null
       const admission = dailyQuotaAdmission({ id: ov.p.id, meter: tokenMeter ? 'tokens' : 'requests', used: tokenMeter ? ov.budget.tokens : ov.budget.requests, cap: tokenMeter ? ov.p.dailyTokenCap! : ov.p.dailyReqCap, cost: tokenMeter ? perAttemptTokens : 1, paceCost: tokenMeter ? triagePaceTokenBound(batch) : 1, resetTimeZone: ov.p.dayTz, floorFraction: ov.p.paceFloorFrac ?? cfg.freeProviderPaceFloorFrac }, candidateAt)
       const held = ov.failed || triageIsHeld(stateDir, ov.p.id, candidateAt)
-      const reason = candidateReason({ enabled: true, ledger: ov.budget.ledgerAvailable, exhausted: ov.budget.providerDayExhausted, held, rejected: credentialRejectedFor(ov.p.id), hard: admission.hardCapFit && ov.budget.canSpend(perAttemptTokens, 1), paced: admission.pacedFit })
+      const reason = candidateReason({ enabled: true, ledger: ov.budget.ledgerAvailable, exhausted: ov.budget.providerDayExhausted, held, quarantined: providerIsQuarantined(ov.p.id), rejected: credentialRejectedFor(ov.p.id), hard: admission.hardCapFit && ov.budget.canSpend(perAttemptTokens, 1), paced: admission.pacedFit })
       routingCandidates.push({ id: ov.p.id, label: ov.p.label, order: configuredOrder++, band: 'aggregate', eligible: reason === 'eligible', eligibilityReason: reason, releasedCapacityUrgency: admission.normalizedDeficit, consecutiveFailures: cooldownInfo(stateDir, ov.p.id).fails })
     }
     for (const ov of overflowLocal) {
-      const options: TriageOptions = { model: ov.p.model, models: ov.p.models, baseUrl: ov.p.baseUrl, apiKey: ov.p.apiKey, maxTokens: ov.p.maxTokens, headers: ov.p.headers, extraBody: ov.p.extraBody, timeoutMs: ov.p.timeoutMs, maxAttempts: 1 }
+      const options: TriageOptions = { model: ov.p.model, models: ov.p.models, baseUrl: ov.p.baseUrl, apiKey: ov.p.apiKey, maxTokens: ov.p.maxTokens, headers: ov.p.headers, extraBody: ov.p.extraBody, timeoutMs: ov.p.timeoutMs, maxAttempts: 1, ...triageIdentityFields(ov.p.id, ov.p.label, ov.p.keyEnvVar) }
       const perAttemptTokens = triageGroqTokenBound(batch, options)
       const held = ov.failed || triageIsHeld(stateDir, ov.p.id, candidateAt)
-      const reason = candidateReason({ enabled: true, ledger: ov.budget.ledgerAvailable, exhausted: ov.budget.providerDayExhausted, held, rejected: credentialRejectedFor(ov.p.id), hard: ov.budget.canSpend(perAttemptTokens, 1), paced: true })
+      const reason = candidateReason({ enabled: true, ledger: ov.budget.ledgerAvailable, exhausted: ov.budget.providerDayExhausted, held, quarantined: providerIsQuarantined(ov.p.id), rejected: credentialRejectedFor(ov.p.id), hard: ov.budget.canSpend(perAttemptTokens, 1), paced: true })
       routingCandidates.push({ id: ov.p.id, label: ov.p.label, order: configuredOrder++, band: 'demoted-local', eligible: reason === 'eligible', eligibilityReason: reason, releasedCapacityUrgency: 1, consecutiveFailures: cooldownInfo(stateDir, ov.p.id).fails })
     }
     const batchMaxPriority = batch.reduce((maximum, item) => Math.max(maximum, preTriagePriority(item, now())), -Infinity)
@@ -1756,7 +1799,7 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
       if (!credentialRejectedFor('local') && !triageIsHeld(stateDir, 'local', now().getTime())) {
         prepareAudit('local')
         const attemptStartedAt = now().getTime()
-        res = await triageBatch(batch, { model: localProvider.model, models: localProvider.models, baseUrl: localProvider.baseUrl, apiKey: localProvider.apiKey, maxTokens: localProvider.maxTokens, headers: localProvider.headers, extraBody: localProvider.extraBody, timeoutMs: localProvider.timeoutMs, maxAttempts: localProvider.maxAttempts }, fetchFn, sleep)
+        res = await triageBatch(batch, { model: localProvider.model, models: localProvider.models, baseUrl: localProvider.baseUrl, apiKey: localProvider.apiKey, maxTokens: localProvider.maxTokens, headers: localProvider.headers, extraBody: localProvider.extraBody, timeoutMs: localProvider.timeoutMs, maxAttempts: localProvider.maxAttempts, ...triageIdentityFields('local', localProvider.label || 'Local', localProvider.keyEnvVar) }, fetchFn, sleep)
         completeAudit('local', res)
         localRequests += res.requests
         localTokens += res.tokens
@@ -1819,7 +1862,7 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
         if (deps.signal?.aborted) return
         // skip already-failed (this cycle), cross-cycle cooling-down, or out-of-budget providers
         if (ov.failed || credentialRejectedFor(ov.p.id) || triageIsHeld(stateDir, ov.p.id, now().getTime())) continue
-        const options: TriageOptions = { model: ov.p.model, models: ov.p.models, baseUrl: ov.p.baseUrl, apiKey: ov.p.apiKey, maxTokens: ov.p.maxTokens, headers: ov.p.headers, extraBody: ov.p.extraBody, timeoutMs: ov.p.timeoutMs, maxAttempts: ov.p.maxAttempts }
+        const options: TriageOptions = { model: ov.p.model, models: ov.p.models, baseUrl: ov.p.baseUrl, apiKey: ov.p.apiKey, maxTokens: ov.p.maxTokens, headers: ov.p.headers, extraBody: ov.p.extraBody, timeoutMs: ov.p.timeoutMs, maxAttempts: ov.p.maxAttempts, ...triageIdentityFields(ov.p.id, ov.p.label, ov.p.keyEnvVar) }
         const perAttemptTokens = triageGroqTokenBound(batch, options)
         if (!hardCapAttempts(ov.budget, perAttemptTokens, ov.p.maxAttempts ?? 2)) continue
         const acquired = await ov.limiter.acquire(est, sleep, () => now().getTime(), undefined, deps.signal)
@@ -1881,7 +1924,7 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
     }
     type FreePoolRoute = OverflowRoute | GeminiRoute
     const overflowQuotaRoute = (ov: (typeof overflow)[number], priority: number): OverflowRoute => {
-      const options: TriageOptions = { model: ov.p.model, models: ov.p.models, baseUrl: ov.p.baseUrl, apiKey: ov.p.apiKey, maxTokens: ov.p.maxTokens, headers: ov.p.headers, extraBody: ov.p.extraBody, timeoutMs: ov.p.timeoutMs, maxAttempts: 1, requestRemainingHeaderIsDaily: ov.p.requestRemainingHeaderIsDaily }
+      const options: TriageOptions = { model: ov.p.model, models: ov.p.models, baseUrl: ov.p.baseUrl, apiKey: ov.p.apiKey, maxTokens: ov.p.maxTokens, headers: ov.p.headers, extraBody: ov.p.extraBody, timeoutMs: ov.p.timeoutMs, maxAttempts: 1, requestRemainingHeaderIsDaily: ov.p.requestRemainingHeaderIsDaily, ...triageIdentityFields(ov.p.id, ov.p.label, ov.p.keyEnvVar) }
       const perAttemptTokens = triageGroqTokenBound(batch, options)
       const tokenMeter = ov.p.dailyTokenCap != null
       return {

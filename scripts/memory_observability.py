@@ -50,9 +50,17 @@ def _p95(values: Sequence[int]) -> float:
 def performance_observation(state_root: str | Path, *, evaluated_at: dt.datetime | None = None) -> dict[str, Any]:
     root = _safe_directory(Path(state_root), create=True)
     packet_root = root / "packet-cache"
-    packets = sorted(packet_root.glob("*/*/packet.json")) if packet_root.is_dir() and not packet_root.is_symlink() else []
-    if len(packets) > MAX_PACKETS:
-        raise ObservabilityError("packet metric scan exceeds its fixed bound")
+    packet_iter = (
+        packet_root.glob("*/*/packet.json")
+        if packet_root.is_dir() and not packet_root.is_symlink()
+        else ()
+    )
+    packets: list[Path] = []
+    for packet in packet_iter:
+        packets.append(packet)
+        if len(packets) > MAX_PACKETS:
+            raise ObservabilityError("packet metric scan exceeds its fixed bound")
+    packets.sort()
     compilation: list[int] = []
     clocks: list[dt.datetime] = []
     for path in packets:

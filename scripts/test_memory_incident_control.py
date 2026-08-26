@@ -8,6 +8,9 @@ import tempfile
 import unittest
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
+from unittest.mock import patch
+
+import memory_incident_control
 
 from memory_incident_control import (
     IncidentControlError,
@@ -19,6 +22,13 @@ from memory_incident_control import (
 
 
 class IncidentControlTests(unittest.TestCase):
+    def test_missing_posix_lock_capability_fails_closed_with_stable_error(self) -> None:
+        with tempfile.TemporaryDirectory() as raw, patch.object(memory_incident_control, "fcntl", None):
+            with self.assertRaisesRegex(
+                IncidentControlError, "requires POSIX owner-lock primitives",
+            ):
+                mutate_controls(Path(raw) / "runtime", operation="global-disable", actor="ops")
+
     def test_controls_fail_safe_and_mutate_with_append_only_audit(self) -> None:
         with tempfile.TemporaryDirectory() as raw:
             root = Path(raw) / "runtime"

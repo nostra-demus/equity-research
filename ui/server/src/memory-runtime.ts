@@ -181,57 +181,62 @@ function hash(value: unknown): string | null {
   return /^sha256:[a-f0-9]{64}$/.test(candidate) ? candidate : null
 }
 
-function privateFileText(file: string): string | null {
-  let descriptor: number | null = null
+async function privateFileText(file: string): Promise<string | null> {
+  let handle: fs.promises.FileHandle | null = null
   try {
-    const before = fs.lstatSync(file)
+    const before = await fs.promises.lstat(file)
     if (!before.isFile() || before.isSymbolicLink() || before.nlink !== 1
         || before.size <= 0 || before.size > MAX_FILE_BYTES
         || (process.getuid && before.uid !== process.getuid()) || (before.mode & 0o077) !== 0) {
       throw new Error('memory runtime file is unsafe')
     }
-    descriptor = fs.openSync(file, fs.constants.O_RDONLY | (fs.constants.O_NOFOLLOW || 0))
-    const opened = fs.fstatSync(descriptor)
+    handle = await fs.promises.open(file, fs.constants.O_RDONLY | (fs.constants.O_NOFOLLOW || 0))
+    const opened = await handle.stat()
     if (!opened.isFile() || opened.nlink !== 1 || opened.dev !== before.dev || opened.ino !== before.ino
         || opened.size !== before.size || (process.getuid && opened.uid !== process.getuid())
         || (opened.mode & 0o077) !== 0) throw new Error('memory runtime file changed during open')
-    return fs.readFileSync(descriptor, 'utf8')
+    return await handle.readFile({ encoding: 'utf8' })
   } catch (error: any) {
     if (error?.code === 'ENOENT') return null
     throw error
   } finally {
-    if (descriptor !== null) fs.closeSync(descriptor)
+    if (handle !== null) await handle.close()
   }
 }
 
-function safeJson(file: string): Record<string, unknown> | null {
+async function safeJson(file: string): Promise<Record<string, unknown> | null> {
   try {
-    const raw = privateFileText(file)
+    const raw = await privateFileText(file)
     if (raw === null) return null
     const parsed: unknown = JSON.parse(raw)
     return object(parsed) ? parsed : null
   } catch { return null }
 }
 
-function privateRegular(file: string): boolean {
-  let descriptor: number | null = null
+async function privateRegular(file: string): Promise<boolean> {
+  let handle: fs.promises.FileHandle | null = null
   try {
-    const before = fs.lstatSync(file)
+    const before = await fs.promises.lstat(file)
     if (!before.isFile() || before.isSymbolicLink() || before.nlink !== 1 || before.size <= 0
         || (process.getuid && before.uid !== process.getuid()) || (before.mode & 0o077) !== 0) return false
-    descriptor = fs.openSync(file, fs.constants.O_RDONLY | (fs.constants.O_NOFOLLOW || 0))
-    const opened = fs.fstatSync(descriptor)
+    handle = await fs.promises.open(file, fs.constants.O_RDONLY | (fs.constants.O_NOFOLLOW || 0))
+    const opened = await handle.stat()
     return opened.isFile() && opened.nlink === 1 && opened.dev === before.dev && opened.ino === before.ino
       && opened.size === before.size && (!process.getuid || opened.uid === process.getuid())
       && (opened.mode & 0o077) === 0
   } catch { return false } finally {
-    if (descriptor !== null) fs.closeSync(descriptor)
+    if (handle !== null) await handle.close()
   }
 }
 
-function filesUnder(root: string): string[] {
-  if (!fs.existsSync(root)) return []
-  const rootInfo = fs.lstatSync(root)
+async function filesUnder(root: string): Promise<string[]> {
+  let rootInfo: fs.Stats
+  try {
+    rootInfo = await fs.promises.lstat(root)
+  } catch (error: any) {
+    if (error?.code === 'ENOENT') return []
+    throw error
+  }
   if (!rootInfo.isDirectory() || rootInfo.isSymbolicLink()
       || (process.getuid && rootInfo.uid !== process.getuid()) || (rootInfo.mode & 0o077) !== 0) {
     throw new Error('memory runtime root is invalid')
@@ -240,12 +245,12 @@ function filesUnder(root: string): string[] {
   const pending = [root]
   while (pending.length) {
     const directory = pending.pop()!
-    const directoryInfo = fs.lstatSync(directory)
+    const directoryInfo = await fs.promises.lstat(directory)
     if (!directoryInfo.isDirectory() || directoryInfo.isSymbolicLink()
         || (process.getuid && directoryInfo.uid !== process.getuid()) || (directoryInfo.mode & 0o077) !== 0) {
       throw new Error('memory runtime directory is invalid')
     }
-    for (const entry of fs.readdirSync(directory, { withFileTypes: true })) {
+    for (const entry of await fs.promises.readdir(directory, { withFileTypes: true })) {
       if (entry.isSymbolicLink()) continue
       const candidate = path.join(directory, entry.name)
       if (entry.isDirectory()) pending.push(candidate)
@@ -258,10 +263,13 @@ function filesUnder(root: string): string[] {
   return result.sort()
 }
 
-function controlsFrom(root: string): RuntimeControlView {
+async function controlsFrom(root: string): Promise<RuntimeControlView> {
   const file = path.join(root, 'controls', 'runtime-controls.json')
-  if (!fs.existsSync(file)) return { ...EMPTY_CONTROLS }
-  const value = safeJson(file)
+  const raw = await privateFileText(file)
+  if (raw === null) return { ...EMPTY_CONTROLS }
+  let parsed: unknown
+  try { parsed = JSON.parse(raw) } catch { parsed = null }
+  const value = object(parsed) ? parsed : null
   if (!value || value.schema !== 'memory-runtime-controls/v1') throw new Error('memory runtime control file is invalid')
   const fields = [
     'candidate_intake_disabled', 'control_sha256', 'disabled_layers', 'disabled_playbooks',
@@ -427,12 +435,15 @@ function targetText(value: unknown): string {
   return entries.join(', ').slice(0, MAX_TEXT) || 'fixed contract target'
 }
 
-function readinessFrom(root: string): RuntimeRead['readiness'] & { slos: RuntimeRead['slos'] } {
+async function readinessFrom(root: string): Promise<RuntimeRead['readiness'] & { slos: RuntimeRead['slos'] }> {
   const file = path.join(root, 'operations', 'readiness-report.json')
-  if (!fs.existsSync(file)) {
+  const raw = await privateFileText(file)
+  if (raw === null) {
     return { status: 'unmeasured', evaluated_at: null, report_sha256: null, slos: [] }
   }
-  const report = safeJson(file)
+  let parsed: unknown
+  try { parsed = JSON.parse(raw) } catch { parsed = null }
+  const report = object(parsed) ? parsed : null
   if (!report || report.schema !== 'memory-operational-readiness-report/v1') throw new Error('memory readiness report is invalid')
   const supplied = hash(report.report_sha256)
   const body = { ...report }
@@ -459,10 +470,17 @@ function dedupeLatest<T>(values: T[], key: (item: T) => string, version: (item: 
   return [...latest.values()].sort((left, right) => key(left).localeCompare(key(right)))
 }
 
-function buildSnapshot(options: RuntimeReaderOptions): RuntimeSnapshot {
+async function buildSnapshot(options: RuntimeReaderOptions): Promise<RuntimeSnapshot> {
   const root = path.resolve(options.stateRoot)
   const now = new Date((options.now || Date.now)()).toISOString()
-  if (!fs.existsSync(root)) {
+  let rootMissing = false
+  try {
+    await fs.promises.lstat(root)
+  } catch (error: any) {
+    if (error?.code === 'ENOENT') rootMissing = true
+    else throw error
+  }
+  if (rootMissing) {
     const runtime: RuntimeRead = {
       contract_version: MEMORY_RUNTIME_CONTRACT, available: options.mode === 'off', read_only: true,
       generated_at: now, state: options.mode === 'off' ? 'disabled' : 'unavailable', mode: options.mode,
@@ -474,12 +492,14 @@ function buildSnapshot(options: RuntimeReaderOptions): RuntimeSnapshot {
     }
     return { runtime, runs: [], lessons: [], playbooks: [], candidates: [] }
   }
-  const allFiles = filesUnder(root)
-  const values = allFiles.map((file) => ({ file, value: safeJson(file) })).filter(
-    (item): item is { file: string; value: Record<string, unknown> } => Boolean(item.value),
-  )
+  const allFiles = await filesUnder(root)
+  const values: Array<{ file: string; value: Record<string, unknown> }> = []
+  for (const file of allFiles) {
+    const value = await safeJson(file)
+    if (value) values.push({ file, value })
+  }
   const visibleValues = values.filter((item) => item.value.schema !== 'memory-semantic-protected-queue/v1')
-  const controls = controlsFrom(root)
+  const controls = await controlsFrom(root)
   const executions = visibleValues.map((item) => item.value).filter((item) => item.schema === 'memory-playbook-execution/v1')
   const executionMap = executionSummaries(executions)
   const manifestByDirectory = new Map<string, string>()
@@ -513,9 +533,9 @@ function buildSnapshot(options: RuntimeReaderOptions): RuntimeSnapshot {
       && (row.version === null || row.version === item.version))
     return local ? { ...item, status: 'quarantined-local', status_reason: local.reason } : item
   })
-  const readiness = readinessFrom(root)
+  const readiness = await readinessFrom(root)
   const alerts: RuntimeAlertView[] = []
-  const projectionReady = privateRegular(path.join(root, 'projection.sqlite'))
+  const projectionReady = await privateRegular(path.join(root, 'projection.sqlite'))
   if (options.mode !== 'off' && !projectionReady) alerts.push({ code: 'projection-missing', severity: 'critical', message: 'The verified production memory projection is unavailable.' })
   if (controls.global_disabled) alerts.push({ code: 'global-kill-switch', severity: 'critical', message: 'The global memory kill switch is active.' })
   if (controls.disabled_layers.length) alerts.push({ code: 'layers-disabled', severity: 'warning', message: `${controls.disabled_layers.length} memory layer switch(es) are disabled.` })
@@ -585,38 +605,55 @@ export function createMemoryRuntimeReader(options: RuntimeReaderOptions) {
   const actor = options.serviceIdentities?.['emergency-quarantine'] || 'memory-quarantine-service'
   const controlExec = options.controlExec || defaultControlExec(path.resolve(options.repoRoot), path.resolve(options.stateRoot), actor)
   let cached: { snapshot: RuntimeSnapshot; freshUntil: number; staleUntil: number } | null = null
+  let inflight: Promise<RuntimeSnapshot> | null = null
+  let cacheEpoch = 0
 
-  const read = (): RuntimeSnapshot => {
+  const read = async (): Promise<RuntimeSnapshot> => {
     const at = now()
     if (cached && at < cached.freshUntil) return cached.snapshot
-    try {
-      const snapshot = buildSnapshot(options)
-      cached = { snapshot, freshUntil: at + ttlMs, staleUntil: at + ttlMs + maxStaleMs }
-      return snapshot
-    } catch {
-      if (cached && at < cached.staleUntil) {
-        return {
-          ...cached.snapshot,
-          runtime: {
-            ...cached.snapshot.runtime, state: 'degraded',
-            alerts: [...cached.snapshot.runtime.alerts, { code: 'runtime-view-stale', severity: 'warning', message: 'Showing the last verified runtime view inside its bounded stale window.' }],
-          },
+    if (inflight) return inflight
+    const epoch = cacheEpoch
+    const scan = (async (): Promise<RuntimeSnapshot> => {
+      try {
+        const snapshot = await buildSnapshot(options)
+        if (cacheEpoch === epoch) {
+          cached = { snapshot, freshUntil: at + ttlMs, staleUntil: at + ttlMs + maxStaleMs }
         }
+        return snapshot
+      } catch {
+        if (cached && at < cached.staleUntil) {
+          return {
+            ...cached.snapshot,
+            runtime: {
+              ...cached.snapshot.runtime, state: 'degraded',
+              alerts: [...cached.snapshot.runtime.alerts, { code: 'runtime-view-stale', severity: 'warning', message: 'Showing the last verified runtime view inside its bounded stale window.' }],
+            },
+          }
+        }
+        return await buildSnapshot({ ...options, stateRoot: path.join(options.stateRoot, '.unavailable') })
       }
-      return buildSnapshot({ ...options, stateRoot: path.join(options.stateRoot, '.unavailable') })
+    })()
+    inflight = scan
+    try { return await scan } finally {
+      if (inflight === scan) inflight = null
     }
   }
 
   return {
-    runtime: () => read().runtime,
-    runs: (runId?: string) => runId ? read().runs.find((item) => item.run_id === runId) || null : read().runs,
-    lessons: () => read().lessons,
-    playbooks: () => read().playbooks,
-    candidates: () => read().candidates,
+    runtime: async () => (await read()).runtime,
+    runs: async (runId?: string) => {
+      const snapshot = await read()
+      return runId ? snapshot.runs.find((item) => item.run_id === runId) || null : snapshot.runs
+    },
+    lessons: async () => (await read()).lessons,
+    playbooks: async () => (await read()).playbooks,
+    candidates: async () => (await read()).candidates,
     async control(operation: RuntimeControlOperation): Promise<RuntimeRead> {
       await controlExec(operationArgs(operation))
+      cacheEpoch++
       cached = null
-      return read().runtime
+      inflight = null
+      return (await read()).runtime
     },
   }
 }

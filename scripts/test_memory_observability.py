@@ -7,11 +7,24 @@ import os
 import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 from memory_observability import ObservabilityError, performance_observation, publish_performance, publish_readiness
 
 
 class MemoryObservabilityTests(unittest.TestCase):
+    def test_packet_bound_is_enforced_before_any_packet_is_read(self) -> None:
+        with tempfile.TemporaryDirectory() as raw, patch("memory_observability.MAX_PACKETS", 1):
+            root = Path(raw)
+            os.chmod(root, 0o700)
+            for agent in ("agent-a", "agent-b"):
+                packet = root / "packet-cache" / "run" / agent / "packet.json"
+                packet.parent.mkdir(parents=True, mode=0o700)
+                packet.write_text("not-json", encoding="utf-8")
+                os.chmod(packet, 0o600)
+            with self.assertRaisesRegex(ObservabilityError, "exceeds its fixed bound"):
+                performance_observation(root)
+
     def test_packet_metrics_are_bounded_content_free_and_conservative(self) -> None:
         with tempfile.TemporaryDirectory() as raw:
             root = Path(raw)
