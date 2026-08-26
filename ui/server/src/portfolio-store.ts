@@ -22,6 +22,7 @@ import {
   addManual, clearSuperseded, deleteManual, normalizeManual, provisionalRead, readManual,
   type ManualInput, type ManualRead, type StatementCoverage,
 } from './portfolio-manual'
+import { readOverrides, setCashEquivalent, type PortfolioOverrides } from './portfolio-overrides'
 import { benchmarkCompare, betaAlpha, dailyReturns, measuredWindow, moneyWeightedReturn, monthlyReturns, returnsByPeriod, riskMetrics, type BenchmarkRead, type BetaAlpha, type MonthRow, type PeriodReturn, type RiskRead } from './portfolio-metrics'
 
 export const PORTFOLIO_DIR = path.join(STATE_DIR, 'portfolio')
@@ -128,8 +129,12 @@ export function saveStatement(xml: string, filename: string): SaveResult {
     unmodelled: doc.sectionsUnmodelled,
   }
   if (fs.existsSync(xmlPath(id))) return { status: 'duplicate', statement }
-  fs.writeFileSync(xmlPath(id), xml)
+  // ORDER MATTERS. `listStatements` reads the .json and the duplicate check above reads the .xml, so
+  // writing the XML first opened a window where a crash left a statement the list cannot show and the
+  // duplicate check will never accept again — unimportable and undeletable. Sidecar first inverts the
+  // failure: the row is listed, reported unreadable, removable, and a re-upload repairs it.
   fs.writeFileSync(metaPath(id), JSON.stringify(statement, null, 2) + '\n')
+  fs.writeFileSync(xmlPath(id), xml)
   invalidate()
   return { status: 'saved', statement }
 }
@@ -155,8 +160,15 @@ function currentKey(statements: StoredStatement[]): string {
 
 /** The benchmark and the cash hurdle the book is measured against. Both are stated on screen so the
  *  comparison can never be read as against something else. */
-export const BENCHMARK_SYMBOL = 'SPY'
+// The INDEX, not an ETF tracking it. An ETF carries its own fee drag and its own premium or discount
+// to net asset value; charging the manager for those, or crediting them, measures the fund against
+// something it never had a view on. Fed by .claude/connectors/fred-sp500 into data/_market/fred/.
+export const BENCHMARK_SYMBOL = 'SP500'
 export const RISK_FREE_ANNUAL_PCT = 4.3
+/** How far past its last close the benchmark curve may still be carried — a long weekend and a public
+ *  holiday, no more. The same tolerance benchmarkCompare uses to decide whether the feed covers a
+ *  window, so the chart and the comparison can never disagree about what is covered. */
+const MAX_BENCHMARK_GAP_DAYS = 7
 
 export interface PortfolioPerformance {
   periods: PeriodReturn[]
@@ -168,8 +180,6 @@ export interface PortfolioPerformance {
    *  comparable: NAV itself cannot be plotted against an index because deposits move it without being
    *  performance. The book curve is the flow-adjusted index the returns are already built from. */
   growth: { date: string; book: number; benchmark: number | null }[]
-  /** Distance below the previous high, day by day — the underwater curve. */
-  underwater: { date: string; depth: number }[]
   /** The LP's lived return — reported alongside the time-weighted figure, never instead of it.
    *  ANNUALISED (XIRR), unlike the cumulative period returns above: the UI must label it as such. */
   moneyWeightedAnnualisedPct: number | null
@@ -187,6 +197,9 @@ export interface PortfolioRead {
   /** Hand-logged fills, marked against statement coverage. A SEPARATE layer: nothing here reaches the
    *  book or the reconciliation checks, which stay exactly as the broker states them. */
   manual: ManualRead
+  /** What the operator has declared about a holding that the statement cannot say — currently which
+   *  positions are cash equivalents rather than investments. */
+  overrides: PortfolioOverrides
   /** Null whenever there is no book to measure. */
   performance: PortfolioPerformance | null
   /** Present when the stored statements cannot currently produce a book — two accounts, say. The
@@ -219,28 +232,22 @@ export function performanceOf(book: Book): PortfolioPerformance {
     const inWindow = closes.filter((c) => c.date >= start).sort((a, b) => a.date.localeCompare(b.date))
     const base = inWindow.length ? inWindow[0]!.close : null
     const byDate = new Map(inWindow.map((c) => [c.date, c.close]))
+    // The feed's own last day. Carrying the last level FOREVER drew a flat index line for every month
+    // past the end of the data — while benchmarkCompare, correctly, reported the comparison
+    // unavailable. One screen cannot say both. Past coverage the curve simply stops.
+    const covered = inWindow.length ? inWindow[inWindow.length - 1]!.date : null
+    const beyond = (date: string) => covered === null
+      || (Date.parse(`${date}T00:00:00Z`) - Date.parse(`${covered}T00:00:00Z`)) / 86_400_000 > MAX_BENCHMARK_GAP_DAYS
     let index = 100
     let lastBm: number | null = base ? 100 : null
     growth.push({ date: start, book: 100, benchmark: lastBm })
     for (const { date, r } of returns) {
       index *= 1 + r
       const close = byDate.get(date)
-      // Carry the last level across a day the feed does not price, rather than breaking the line.
+      // Carry the last level across a day the feed does not price — a market holiday is not a gap in
+      // the series — but only while the feed still covers the date.
       if (close !== undefined && base) lastBm = (close / base) * 100
-      growth.push({ date, book: index, benchmark: lastBm })
-    }
-  }
-
-  // The underwater curve, from that same index — so a withdrawal is never drawn as a drawdown.
-  const underwater: { date: string; depth: number }[] = []
-  if (returns.length > 0) {
-    let index = 1
-    let peak = 1
-    underwater.push({ date: returns[0]!.date, depth: 0 })
-    for (const { date, r } of returns) {
-      index *= 1 + r
-      peak = Math.max(peak, index)
-      underwater.push({ date, depth: (index / peak - 1) * 100 })
+      growth.push({ date, book: index, benchmark: beyond(date) ? null : lastBm })
     }
   }
 
@@ -249,7 +256,6 @@ export function performanceOf(book: Book): PortfolioPerformance {
     months: monthlyReturns(book.navSeries, flowsByDate, closes),
     betaAlpha: betaAlpha(returns, closes, RISK_FREE_ANNUAL_PCT),
     growth,
-    underwater,
     moneyWeightedAnnualisedPct: moneyWeightedReturn(book.navSeries, flowsByDate),
     risk: riskMetrics(book.navSeries, flowsByDate, RISK_FREE_ANNUAL_PCT),
     benchmark: benchmarkCompare(BENCHMARK_SYMBOL, book.twr, window, closes),
@@ -270,13 +276,22 @@ function manualRead(statements: StoredStatement[], book: Book | null): ManualRea
 }
 
 export function logManualTrade(input: ManualInput): PortfolioRead {
-  const today = new Date().toISOString().slice(0, 10)
+  // LOCAL, not UTC. The form offers the operator's own calendar day; east of UTC that day begins hours
+  // before the UTC one, so a UTC "today" rejected this morning's real fill as being in the future.
+  const now = new Date()
+  const today = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`
   addManual(PORTFOLIO_DIR, normalizeManual(input, today))
   return readPortfolio()
 }
 
 export function removeManualTrade(id: string): boolean {
   return deleteManual(PORTFOLIO_DIR, id)
+}
+
+/** Declare a holding a cash equivalent (a T-bill ETF is cash with a ticker), or take it back. */
+export function declareCashEquivalent(symbol: string, isCash: boolean): PortfolioRead {
+  setCashEquivalent(PORTFOLIO_DIR, symbol, isCash)
+  return readPortfolio()
 }
 
 /** Drop every entry a statement now covers. Returns how many went, so the UI can say it out loud
@@ -288,7 +303,11 @@ export function clearSupersededManual(): number {
 export function readPortfolio(): PortfolioRead {
   const statements = listStatements()
   if (statements.length === 0) {
-    return { statements, book: null, performance: null, manual: manualRead(statements, null), error: null }
+    return {
+      statements, book: null, performance: null, error: null,
+      manual: manualRead(statements, null),
+      overrides: readOverrides(PORTFOLIO_DIR),
+    }
   }
   const key = currentKey(statements)
   if (cache && cache.key === key) {
@@ -298,6 +317,7 @@ export function readPortfolio(): PortfolioRead {
       statements, book: cache.book, error: cache.error,
       performance: cache.book ? performanceOf(cache.book) : null,
       manual: manualRead(statements, cache.book),
+      overrides: readOverrides(PORTFOLIO_DIR),
     }
   }
 
@@ -323,5 +343,10 @@ export function readPortfolio(): PortfolioRead {
     }
   }
   cache = { key, book, error }
-  return { statements, book, performance: book ? performanceOf(book) : null, manual: manualRead(statements, book), error }
+  return {
+    statements, book, error,
+    performance: book ? performanceOf(book) : null,
+    manual: manualRead(statements, book),
+    overrides: readOverrides(PORTFOLIO_DIR),
+  }
 }

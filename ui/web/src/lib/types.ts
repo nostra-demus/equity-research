@@ -2131,6 +2131,8 @@ export interface PortfolioPosition {
   symbol: string | null
   conid: string | null
   assetCategory: string | null
+  /** COMMON / ETF / ADR — the only asset-class signal the statement carries. */
+  subCategory: string | null
   currency: string | null
   quantity: number | null
   markPrice: number | null
@@ -2162,6 +2164,9 @@ export interface PortfolioClosure {
   /** Rates at each end, so the result can be split into what the STOCK did and what the CURRENCY did. */
   openFxRateToBase: number | null
   closeFxRateToBase: number | null
+  /** The closing execution this lot was matched against. One sell can consume several opening lots, so
+   *  this is what groups the FIFO fragments back into the single trade the operator actually placed. */
+  closeTradeID: string | null
 }
 
 export interface PortfolioBook {
@@ -2251,6 +2256,41 @@ export interface PortfolioManualRead {
   effects: PortfolioManualEffect[]
 }
 
+/** What the operator has declared about a holding that the statement cannot say. */
+export interface PortfolioOverrides {
+  /** Symbols held as cash equivalents — a T-bill ETF is cash with a ticker, and the broker's own
+   *  subCategory cannot tell one from a sugar fund. */
+  cashEquivalents: string[]
+}
+
+/** One holding re-priced at the market. */
+export interface PortfolioLiveRow {
+  symbol: string
+  quantity: number
+  statementPrice: number | null
+  price: number
+  value: number
+  movePct: number | null
+}
+/** The gap between the last statement and today, priced at the market. NEVER part of the book: it is
+ *  today's prices against yesterday's share counts, and it ties to nothing. */
+export interface PortfolioLiveMark {
+  asOf: string | null
+  /** True when the prices are a settled close rather than a live tick — the UI must say which. */
+  asOfIsClose: boolean
+  delayed: boolean
+  stale: boolean
+  bookAsOf: string | null
+  staleDays: number | null
+  nav: number | null
+  unrealised: number | null
+  /** Carried from the statement unchanged: the leg this estimate cannot see moving. */
+  cash: number | null
+  priced: PortfolioLiveRow[]
+  unpriced: string[]
+  unavailable: string | null
+}
+
 export interface PortfolioPerformance {
   periods: PortfolioPeriodReturn[]
   months: PortfolioMonthRow[]
@@ -2258,7 +2298,6 @@ export interface PortfolioPerformance {
   /** Both curves rebased to 100 at the first funded day — NAV itself cannot be plotted against an
    *  index, because a deposit would draw as performance. */
   growth: { date: string; book: number; benchmark: number | null }[]
-  underwater: { date: string; depth: number }[]
   /** ANNUALISED (XIRR) — not comparable with the cumulative period returns, and labelled as such. */
   moneyWeightedAnnualisedPct: number | null
   risk: PortfolioRisk
@@ -2271,6 +2310,7 @@ export interface PortfolioRead {
   statements: PortfolioStatement[]
   /** Hand-logged fills. A SEPARATE layer from the book: nothing here reaches the reconciled figures. */
   manual: PortfolioManualRead
+  overrides: PortfolioOverrides
   book: PortfolioBook | null
   performance: PortfolioPerformance | null
   error: string | null

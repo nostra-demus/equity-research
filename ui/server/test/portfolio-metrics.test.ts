@@ -444,5 +444,58 @@ check('a period that cannot reach its own boundary is marked partial', () => {
   assert.equal(byLabel['Since inception']!.partial, false, 'inception is never partial — it IS the start')
 })
 
+check('beta refuses an index step built across a hole in the feed', () => {
+  // One month-long gap becomes a single "daily" index return of a month's magnitude, paired against one
+  // book day. That pair alone drags beta toward it and leaves the residual as invented alpha. The
+  // monthly table already refuses such a step; the regression must refuse it on the same terms.
+  const book: { date: string; r: number }[] = []
+  const closes: { date: string; close: number }[] = []
+  let close = 100
+  const d = new Date(Date.UTC(2026, 0, 1))
+  // Long enough that the sample still clears MIN_RATIO_DAYS after a month is punched out of the feed.
+  for (let i = 0; i <= 120; i++) {
+    const date = d.toISOString().slice(0, 10)
+    if (i > 0) {
+      const rm = i % 2 ? 0.01 : -0.005
+      close *= 1 + rm
+      book.push({ date, r: 2 * rm })
+    }
+    // The hole is in the FEED only — the book still has every day.
+    if (i < 30 || i > 60) closes.push({ date, close })
+    d.setUTCDate(d.getUTCDate() + 1)
+  }
+  const { beta, pairedDays } = betaAlpha(book, closes, 0)
+  assert.ok(pairedDays >= MIN_RATIO_DAYS, `needs a usable sample, got ${pairedDays}`)
+  assert.ok(near(beta!, 2, 1e-9), `the gap step must be dropped, leaving beta 2 — got ${beta}`)
+})
+
+check('the benchmark month covers the days the BOOK held capital, not the whole calendar month', () => {
+  // The book's first month starts the day capital arrived. Chaining the feed across the WHOLE month
+  // credited the index with days the fund did not exist for — on the real book that read as April:
+  // book 0.00% against index 10.42%, eight of those days before it was funded.
+  //
+  // The feed is DAILY here on purpose: a sparse fixture trips the gap guard instead, and would have
+  // passed for the wrong reason.
+  const nav: NavPoint[] = []
+  const closes: { date: string; close: number }[] = []
+  const d = new Date(Date.UTC(2026, 3, 1))
+  let close = 100
+  for (let i = 0; i < 30; i++) {
+    const date = d.toISOString().slice(0, 10)
+    // The index climbs 1%/day for the eight days BEFORE the fund is funded, then 0.1%/day after.
+    if (i > 0) close *= i < 8 ? 1.01 : 1.001
+    closes.push({ date, close })
+    nav.push({ date, total: i < 8 ? 0 : 1000 * 1.0005 ** (i - 8) })
+    d.setUTCDate(d.getUTCDate() + 1)
+  }
+  const flows = new Map([[nav[8]!.date, 1000]])
+  const april = monthlyReturns(nav, flows, closes).find((m) => m.month === '2026-04')!
+
+  const fundedOnly = (closes[29]!.close / closes[8]!.close - 1) * 100
+  const wholeMonth = (closes[29]!.close / closes[0]!.close - 1) * 100
+  assert.ok(near(april.benchmark!, fundedOnly, 1e-9), `expected the funded window ${fundedOnly}, got ${april.benchmark}`)
+  assert.ok(wholeMonth > fundedOnly + 5, 'the fixture must actually distinguish the two readings')
+})
+
 console.log(`\n${passed} passed, ${fails.length} failed`)
 if (fails.length) { console.error('FAILED: ' + fails.join(', ')); process.exit(1) }

@@ -253,7 +253,11 @@ export interface FlexOpenPosition {
   openDateTime: string | null
   reportDate: string | null
   levelOfDetail: string | null
+  // What separates one CONTRACT from another sharing a ticker. The trade side of the position key
+  // already carries these; without them here the two sides of the same key disagree.
   expiry: string | null
+  strike: number | null
+  putCall: string | null
 }
 
 export interface FlexCashTransaction {
@@ -447,6 +451,8 @@ export function parseFlexXml(xml: string): FlexDocument {
       reportDate: isoDate(a.reportDate),
       levelOfDetail: str(a.levelOfDetail),
       expiry: isoDate(a.expiry),
+      strike: num(a.strike),
+      putCall: str(a.putCall),
     })),
 
     cashTransactions: rowsOf(statement, 'CashTransactions').map((a) => ({

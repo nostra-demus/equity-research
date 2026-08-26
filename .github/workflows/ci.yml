@@ -115,6 +115,9 @@ jobs:
       - name: Ledger-records resolver tests (append-only correction layer — supersession + errata)
         run: python3 scripts/test_ledger_records.py
 
+      - name: Benchmark feed fetcher (offline parser + file-shape tests)
+        run: python3 scripts/test_fetch_market_feed.py
+
       - name: Provider analytical-parity gate tests (frozen runs + evidence adjudication)
         run: |
           python3 -m json.tool frameworks/provider_parity_freeze.schema.json >/dev/null

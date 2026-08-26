@@ -2,8 +2,10 @@ import { useCallback, useEffect, useMemo, useState } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 import { api } from '../../lib/api'
 import type {
-  PortfolioBook, PortfolioClosure, PortfolioManualRead, PortfolioPerformance, PortfolioPosition, PortfolioRead,
+  PortfolioBook, PortfolioClosure, PortfolioLiveMark, PortfolioManualRead, PortfolioPerformance,
+  PortfolioPosition, PortfolioRead,
 } from '../../lib/types'
+import { useStore } from '../../lib/store'
 import { GrowthChart, UnderwaterChart } from './charts'
 import { LogTradeForm, ManualTradeList, ProvisionalEffects } from './manual'
 
@@ -27,7 +29,7 @@ const EMPTY_MANUAL: PortfolioManualRead = { trades: [], live: 0, superseded: 0, 
 //  · It never weights a derivative by its notional. A futures contract is exposure against margin, not
 //    an allocation of NAV, so it is shown apart from the equity weights.
 
-type Tab = 'holdings' | 'performance' | 'trades' | 'import'
+type Tab = 'holdings' | 'performance' | 'trades'
 
 const fmtMoney = (v: number | null | undefined, ccy: string | null): string => {
   if (v === null || v === undefined || !Number.isFinite(v)) return '—'
@@ -36,8 +38,48 @@ const fmtMoney = (v: number | null | undefined, ccy: string | null): string => {
 }
 const fmtPct = (v: number | null | undefined, digits = 1): string =>
   v === null || v === undefined || !Number.isFinite(v) ? '—' : `${v >= 0 ? '+' : '−'}${Math.abs(v).toFixed(digits)}%`
-const fmtNum = (v: number | null | undefined, digits = 2): string =>
-  v === null || v === undefined || !Number.isFinite(v) ? '—' : v.toLocaleString('en-US', { minimumFractionDigits: digits, maximumFractionDigits: digits })
+const fmtNum = (v: number | null | undefined, digits = 2): string => {
+  if (v === null || v === undefined || !Number.isFinite(v)) return '—'
+  // The typographic minus the rest of the cockpit uses. A hyphen beside tabular figures reads as a
+  // dash, and `(-0.4).toLocaleString(…, {maximumFractionDigits: 0})` renders the string "-0", which
+  // looks like a broken row rather than a small loss.
+  const rounded = Number(v.toFixed(digits))
+  const sign = rounded < 0 ? '−' : ''
+  return `${sign}${Math.abs(rounded).toLocaleString('en-US', { minimumFractionDigits: digits, maximumFractionDigits: digits })}`
+}
+
+/** Precision that follows magnitude: a 0.1803-share lot is not "0", and a $4.29 gain is not "0" either. */
+const fmtQty = (v: number | null | undefined): string =>
+  v === null || v === undefined || !Number.isFinite(v) ? '—'
+    : Math.abs(v) < 1 && v !== 0 ? fmtNum(v, 4) : fmtNum(v, Number.isInteger(v) ? 0 : 2)
+const fmtSmallMoney = (v: number | null | undefined): string =>
+  v === null || v === undefined || !Number.isFinite(v) ? '—' : Math.abs(v) < 100 ? fmtNum(v, 2) : fmtNum(v, 0)
+
+/** A position's value in the BASE currency, or null when the statement gave no rate to convert it.
+ *
+ *  `?? 1` was the bug: a EUR 10,000 position with no rate was added to a dollar total as $10,000. The
+ *  backend sets the rate to null deliberately — it is saying it cannot value this row — so the honest
+ *  reading is to leave it out of the total and say how many rows were left out, exactly as buildBook
+ *  already does for income it cannot convert. */
+const baseValue = (v: number | null | undefined, p: { fxRateToBase: number | null }): number | null =>
+  v === null || v === undefined || !Number.isFinite(v) || p.fxRateToBase === null ? null : v * p.fxRateToBase
+
+/** What a closed round trip realised in the base currency, or null when no rate existed at the close.
+ *  Falling back to the LOCAL figure summed francs into dollars and published a total the reconciliation
+ *  explicitly refuses to certify. */
+const baseRealised = (c: { realizedBase: number | null }): number | null => c.realizedBase
+
+/** Sum only what could be valued, and count what could not — so a total is never quietly short. */
+function sumBase<T>(rows: T[], value: (row: T) => number | null): { total: number; unvalued: number } {
+  let total = 0
+  let unvalued = 0
+  for (const row of rows) {
+    const v = value(row)
+    if (v === null) unvalued += 1
+    else total += v
+  }
+  return { total, unvalued }
+}
 
 /** Positive is amber, not green: the cockpit's --good IS the accent. Losses are the only red. */
 const toneOf = (v: number | null | undefined): string =>
@@ -45,6 +87,8 @@ const toneOf = (v: number | null | undefined): string =>
 
 export function PortfolioStage() {
   const reduced = useReducedMotion()
+  const selectTicker = useStore((s) => s.selectTicker)
+  const setResearchView = useStore((s) => s.setResearchView)
   const [read, setRead] = useState<PortfolioRead | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
@@ -54,6 +98,12 @@ export function PortfolioStage() {
   const [dragging, setDragging] = useState(false)
   const [tab, setTab] = useState<Tab>('holdings')
   const [changed, setChanged] = useState<ImportDelta | null>(null)
+  // Import and hand-logging are both "put a trade into the book", so they belong on the trade screen as
+  // two buttons rather than a tab of their own. This says which of the two surfaces is open.
+  const [openImport, setOpenImport] = useState(false)
+  // Loaded AFTER the book and kept apart from it. The reconciled figures must be on screen immediately
+  // and must never wait on — or be altered by — a number that ties to nothing.
+  const [live, setLive] = useState<PortfolioLiveMark | null>(null)
 
   const load = useCallback(async () => {
     setLoading(true)
@@ -62,6 +112,12 @@ export function PortfolioStage() {
     finally { setLoading(false) }
   }, [])
   useEffect(() => { void load() }, [load])
+  useEffect(() => {
+    if (!read?.book) { setLive(null); return }
+    let dropped = false
+    void api.portfolioLive().then((m) => { if (!dropped) setLive(m) }).catch(() => { if (!dropped) setLive(null) })
+    return () => { dropped = true }
+  }, [read?.book?.asOf, read?.statements.length])
 
   const upload = useCallback(async (files: File[]) => {
     if (!files.length || busy) return
@@ -69,12 +125,13 @@ export function PortfolioStage() {
     try {
       const before = snapshot(read)
       const result = await api.uploadStatements(files, setProgress)
-      const after: PortfolioRead = { statements: result.statements, book: result.book, performance: result.performance, manual: result.manual, error: result.error }
+      const after: PortfolioRead = { statements: result.statements, book: result.book, performance: result.performance, manual: result.manual, overrides: result.overrides, error: result.error }
       setRead(after)
       // What the import actually did to the book, measured rather than asserted: a "12 statements
       // imported" message that leaves every total unchanged is exactly the case an operator needs to
       // notice, and only a before/after comparison can show it.
       setChanged(diffBooks(before, snapshot(after)))
+      setOpenImport(true)
       const next: { tone: 'ok' | 'bad'; text: string }[] = []
       if (result.saved.length) next.push({ tone: 'ok', text: `${result.saved.length} statement${result.saved.length === 1 ? '' : 's'} imported` })
       // A duplicate is a normal outcome, not a failure: overlapping exports are how full history is
@@ -99,7 +156,6 @@ export function PortfolioStage() {
     { id: 'holdings', label: 'Holdings', count: book?.positions.length },
     { id: 'performance', label: 'Returns & risk' },
     { id: 'trades', label: 'Trade history', count: (book?.closures.length ?? 0) + manual.live },
-    { id: 'import', label: 'Import', count: read?.statements.length },
   ]
 
   return (
@@ -149,13 +205,13 @@ export function PortfolioStage() {
             {/* Outstanding hand-logged fills sit beside the reconciliation state, not buried in a tab:
                 together they answer "is what I am looking at the whole picture?" */}
             {manual.live > 0 && (
-              <button className="fundbook__recon is-provisional" onClick={() => setTab('trades')}
+              <button className="fundbook__recon is-provisional" onClick={() => { setTab('trades'); setOpenImport(false) }}
                 title="Fills logged by hand that no statement covers yet">
                 <i aria-hidden />
                 {manual.live} logged by hand
               </button>
             )}
-            {book && <ReconcileBadge book={book} onInspect={() => setTab('import')} />}
+            {book && <ReconcileBadge book={book} onInspect={() => { setTab('trades'); setOpenImport(true) }} />}
           </div>
         </div>
       )}
@@ -180,20 +236,35 @@ export function PortfolioStage() {
           // the import surface, because when the build FAILS the Remove buttons there are the only way
           // out; hiding them behind a successful build strands the operator with an error and no control.
           <ImportTab
-            read={read ?? { statements: [], book: null, performance: null, manual: EMPTY_MANUAL, error: null }}
+            read={read ?? { statements: [], book: null, performance: null, manual: EMPTY_MANUAL, overrides: { cashEquivalents: [] }, error: null }}
             onFiles={upload} onChanged={setRead} busy={busy} progress={progress} notes={notes}
             firstRun={!hasStatements} changed={changed} manual={manual}
           />
         ) : tab === 'holdings' ? (
-          <Holdings book={book} perf={read?.performance ?? null} manual={manual} onManage={() => setTab('trades')} />
+          // `read?.overrides?.` uses optional chaining on a REQUIRED field on purpose: a server that
+          // predates the key — an older engine, or the live cockpit between a bundle deploy and its
+          // restart — would otherwise white-screen the whole Portfolio view over a field that only
+          // decorates it.
+          <Holdings
+            book={book} perf={read?.performance ?? null} manual={manual}
+            cashEquivalents={read?.overrides?.cashEquivalents ?? []} live={live}
+            onManage={() => setTab('trades')} onChanged={setRead}
+          />
         ) : tab === 'performance' ? (
           read?.performance
-            ? <Performance perf={read.performance} />
+            ? <Performance perf={read.performance} cashShare={cashShare(book, read?.overrides?.cashEquivalents ?? [])} />
             : <div className="fundbook__none">No performance to show yet.</div>
-        ) : tab === 'trades' ? (
-          <Trades book={book} manual={manual} onChanged={setRead} />
         ) : (
-          <ImportTab read={read!} onFiles={upload} onChanged={setRead} busy={busy} progress={progress} notes={notes} changed={changed} manual={manual} />
+          <Trades
+            book={book} manual={manual} onChanged={setRead}
+            importOpen={openImport} onImportOpen={setOpenImport}
+            importSurface={
+              <ImportTab
+                read={read!} onFiles={upload} onChanged={setRead} busy={busy} progress={progress}
+                notes={notes} changed={changed} manual={manual} embedded
+              />
+            }
+          />
         )}
       </div>
     </motion.div>
@@ -231,7 +302,7 @@ function snapshot(read: PortfolioRead | null): Snapshot {
     positions: b?.positions.length ?? 0,
     navPoints: b?.navSeries.length ?? 0,
     nav: b && b.navSeries.length ? b.navSeries[b.navSeries.length - 1]!.total : null,
-    realised: b ? b.closures.reduce((a, c) => a + (c.realizedBase ?? c.realizedLocal), 0) : null,
+    realised: b ? sumBase(b.closures, baseRealised).total : null,
     from: dates[0] ?? null,
     to: dates[dates.length - 1] ?? null,
   }
@@ -259,25 +330,81 @@ function Card({ label, value, sub, tone }: { label: string; value: string; sub?:
   )
 }
 
+/** Share of NAV sitting in cash and declared cash equivalents. The risk ratios are computed on total
+ *  NAV, so this is what says whether they describe the picking or mostly the parking. */
+function cashShare(book: PortfolioBook, cashEquivalents: string[]): number | null {
+  const nav = book.navSeries.length ? book.navSeries[book.navSeries.length - 1]!.total : null
+  if (nav === null || nav <= 0) return null
+  const risked = book.positions
+    .filter((p) => !p.isDerivative && !cashEquivalents.includes((p.symbol ?? '').toUpperCase()))
+    .reduce((a, p) => a + (baseValue(p.positionValue, p) ?? 0), 0)
+  return ((nav - risked) / nav) * 100
+}
+
+/** Carry the reconciled index forward to today's prices, as ONE extra point.
+ *
+ *  The index is rebased, not absolute, so the estimate enters as a RATIO: whatever the market has done
+ *  to the holdings since the statement, applied to the last reconciled level. Returns the series
+ *  untouched whenever there is nothing to add — no live mark, no gap, or no reconciled NAV to scale
+ *  from — so the chart never gains a point that says the same thing twice. */
+function withLive(growth: PortfolioPerformance['growth'], live: PortfolioLiveMark | null, nav: number | null) {
+  if (!live || live.unavailable || live.nav === null || live.asOf === null) return growth
+  if (nav === null || nav <= 0 || growth.length === 0) return growth
+  const last = growth[growth.length - 1]!
+  if (live.asOf <= last.date) return growth // the statement already covers the day the prices belong to
+  return [...growth, {
+    date: live.asOf,
+    book: last.book * (live.nav / nav),
+    // No live index level to pair it with — the market feed carries closes, and reading one as "now"
+    // would put a real number beside an estimate and invite the comparison.
+    benchmark: null,
+    provisional: true,
+  }]
+}
+
 // ---------- holdings ----------
 
-function Holdings({ book, perf, manual, onManage }: {
-  book: PortfolioBook; perf: PortfolioPerformance | null; manual: PortfolioManualRead; onManage: () => void
+function Holdings({ book, perf, manual, cashEquivalents, live, onManage, onChanged }: {
+  book: PortfolioBook; perf: PortfolioPerformance | null; manual: PortfolioManualRead
+  cashEquivalents: string[]; live: PortfolioLiveMark | null
+  onManage: () => void; onChanged: (r: PortfolioRead) => void
 }) {
   const ccy = book.baseCurrency
+  const isCashEq = (sym: string | null) => !!sym && cashEquivalents.includes(sym.toUpperCase())
+  const onCash = async (symbol: string, isCash: boolean) => {
+    try { onChanged(await api.setCashEquivalent(symbol, isCash)) } catch { /* the row simply does not move */ }
+  }
   const nav = book.navSeries.length ? book.navSeries[book.navSeries.length - 1]!.total : null
   const equities = book.positions.filter((p) => !p.isDerivative)
   const derivatives = book.positions.filter((p) => p.isDerivative)
-  const invested = equities.reduce((a, p) => a + (p.positionValue ?? 0) * (p.fxRateToBase ?? 1), 0)
-  const unrealised = equities.reduce((a, p) => a + (p.unrealizedLocal ?? 0) * (p.fxRateToBase ?? 1), 0)
+  // A T-bill ETF is cash with a ticker: it is held to park money, not to express a view. Counting it as
+  // invested made a book that is 72% in SGOV read as "99.7% invested" when it is mostly waiting. The
+  // broker cannot tell us — SGOV, CANE and GLDM all arrive as subCategory="ETF" — so the operator does.
+  // BIGGEST FIRST. The statement's own order is the order the account happened to acquire things, which
+  // tells the reader nothing; with 20+ names the position that actually matters could be anywhere in the
+  // list. Sorted by what it is worth, the top of the table is always the part worth reading.
+  const byValue = (a: PortfolioPosition, b: PortfolioPosition) =>
+    Math.abs(baseValue(b.positionValue, b) ?? 0) - Math.abs(baseValue(a.positionValue, a) ?? 0)
+  const parked = equities.filter((p) => isCashEq(p.symbol)).sort(byValue)
+  const risked = equities.filter((p) => !isCashEq(p.symbol)).sort(byValue)
+  const parkedValue = sumBase(parked, (p) => baseValue(p.positionValue, p)).total
+  const investedSum = sumBase(risked, (p) => baseValue(p.positionValue, p))
+  const invested = investedSum.total
+  const unrealisedSum = sumBase(equities, (p) => baseValue(p.unrealizedLocal, p))
+  const unrealised = unrealisedSum.total
   const flows = book.flows.reduce((a, f) => a + (f.amountBase ?? 0), 0)
-  const realised = book.closures.reduce((a, c) => a + (c.realizedBase ?? c.realizedLocal), 0)
-  const cash = nav === null ? null : nav - invested
+  const realisedSum = sumBase(book.closures, baseRealised)
+  const realised = realisedSum.total
+  // Every row the statement could not put a rate on, across the three totals above. Reported rather
+  // than absorbed: a total that silently drops rows is worse than one that says how many it dropped.
+  const unvalued = investedSum.unvalued + unrealisedSum.unvalued + realisedSum.unvalued
+  const brokerCash = nav === null ? null : nav - invested - parkedValue
+  const cash = brokerCash === null ? null : brokerCash + parkedValue
 
   // Currency mix is real risk on a cross-border book, and nothing else on this screen shows it.
   const byCurrency = new Map<string, number>()
   for (const p of equities) {
-    byCurrency.set(p.currency ?? '—', (byCurrency.get(p.currency ?? '—') ?? 0) + (p.positionValue ?? 0) * (p.fxRateToBase ?? 1))
+    byCurrency.set(p.currency ?? '—', (byCurrency.get(p.currency ?? '—') ?? 0) + (baseValue(p.positionValue, p) ?? 0))
   }
   if (cash !== null && cash > 0) byCurrency.set(ccy ?? 'cash', (byCurrency.get(ccy ?? 'cash') ?? 0) + cash)
   const currencyRows = [...byCurrency.entries()].sort((a, b) => b[1] - a[1])
@@ -285,56 +412,52 @@ function Holdings({ book, perf, manual, onManage }: {
 
   return (
     <>
+      {/* The LIVE BOOK, not performance: what is held and what it is worth today. The time-weighted
+          return heads Returns & risk and realised P&L heads Trade history — repeating them here made
+          this row a summary of three screens instead of a snapshot of one. */}
       <div className="fundbook__cards">
-        <Card label="Net asset value" value={fmtMoney(nav, ccy)} sub={`${book.navSeries.length} daily points`} />
-        <Card label="Return · TWR" value={fmtPct(perf?.periods.at(-1)?.twr ?? book.twr)} sub="Time-weighted, flows removed" tone={toneOf(book.twr)} />
-        <Card label="Unrealised" value={fmtMoney(unrealised, ccy)} sub="Open equity positions" tone={toneOf(unrealised)} />
-        <Card label="Realised" value={fmtMoney(realised, ccy)} sub={`${book.closures.length} closed round trips`} tone={toneOf(realised)} />
-        <Card label="Net capital in" value={fmtMoney(flows, ccy)} sub="Removed from the return" />
+        <Card label="Net asset value" value={fmtMoney(nav, ccy)} sub={`${book.navSeries.length} daily points · as of ${book.asOf ?? '—'}`} />
+        <Card
+          label="Invested"
+          value={fmtMoney(invested, ccy)}
+          sub={nav ? `${((invested / nav) * 100).toFixed(1)}% of NAV · ${risked.length} position${risked.length === 1 ? '' : 's'}` : `${risked.length} positions`}
+        />
+        <Card
+          label="Cash"
+          value={fmtMoney(cash, ccy)}
+          sub={parked.length > 0 ? `incl. ${parked.map((p) => p.symbol).join(', ')} held as cash` : 'Broker balance'}
+        />
+        <Card label="Unrealised" value={fmtMoney(unrealised, ccy)} sub="On open positions, at the statement's marks" tone={toneOf(unrealised)} />
+        <Card label="Net capital in" value={fmtMoney(flows, ccy)} sub="LP contributions less withdrawals" />
+        {live && !live.unavailable && live.nav !== null && live.staleDays !== null && live.staleDays > 0 ? (
+          <Card
+            label="Estimated now"
+            value={fmtMoney(live.nav, ccy)}
+            sub={`${live.asOfIsClose ? 'Last close' : 'Delayed'} ${live.asOf} · ${live.staleDays}d past the statement · cash frozen at ${live.bookAsOf}${live.unpriced.length ? ` · ${live.unpriced.join(', ')} unpriced` : ''}`}
+            tone={nav !== null && live.nav !== nav ? toneOf(live.nav - nav) : undefined}
+          />
+        ) : null}
         <Card label="Income" value={fmtMoney(book.income.net, ccy)} sub={`Dividends ${fmtMoney(book.income.dividendsGross, ccy)} · withholding ${fmtMoney(book.income.withholdingTax, ccy)}`} tone={toneOf(book.income.net)} />
       </div>
 
-      {perf && perf.growth.length > 1 && (
-        <div className="fundbook__panel">
-          <div className="fundbook__panelhead">
-            <div>
-              <strong>Growth of capital</strong>
-              <small>Time-weighted, flows removed — so this is the decisions, not when the capital arrived</small>
+      {/* THE ESTIMATE IS APPENDED, NOT MERGED. The reconciled index ends where the statements do; this
+          carries it forward by the ratio the market has moved the holdings since, and the chart draws
+          that last hop dashed. It never touches TWR, the reconciliation, or any figure in the cards. */}
+      {/* The curve and the bridge answer the same question from two directions — what the book did, and
+          what it is made of — so they sit side by side rather than a screen apart. */}
+      <div className="fundbook__split fundbook__split--wide">
+        {perf && perf.growth.length > 1 && (
+          <div className="fundbook__panel">
+            <div className="fundbook__panelhead">
+              <div><strong>Growth of capital</strong></div>
             </div>
+            <GrowthChart series={withLive(perf.growth, live, nav)} benchmarkSymbol={perf.benchmark.symbol} height={230} />
           </div>
-          <GrowthChart series={perf.growth} benchmarkSymbol={perf.benchmark.symbol} />
-        </div>
-      )}
-
-      <div className="fundbook__split">
-        <div className="fundbook__panel">
-          <div className="fundbook__panelhead">
-            <div><strong>Where the money sits</strong><small>Invested against cash, and the currencies carrying it</small></div>
-          </div>
-          {nav !== null && cash !== null && (
-            <div className="fundbook__bars">
-              <Bar label="Invested" pct={(invested / nav) * 100} value={fmtMoney(invested, ccy)} />
-              <Bar label="Cash" pct={(cash / nav) * 100} value={fmtMoney(cash, ccy)} deep />
-            </div>
-          )}
-          {currencyRows.length > 1 && (
-            <div className="fundbook__bars fundbook__bars--top">
-              {currencyRows.map(([c, v]) => (
-                <Bar key={c} label={c} pct={currencyTotal ? (v / currencyTotal) * 100 : 0} value={fmtMoney(v, ccy)} />
-              ))}
-            </div>
-          )}
-          {derivatives.length > 0 && (
-            <div className="fundbook__foot">
-              Futures notional is <b>exposure</b>, not an allocation of NAV — it consumes margin, not its
-              face value, so it carries no weight here.
-            </div>
-          )}
-        </div>
+        )}
 
         <div className="fundbook__panel">
           <div className="fundbook__panelhead">
-            <div><strong>How NAV got here</strong><small>LP flows are removed from the return, but they still build the book</small></div>
+            <div><strong>How NAV got here</strong></div>
           </div>
           <BridgeRow label="LP capital, net" value={fmtMoney(flows, ccy)} />
           <BridgeRow label="Realised on closed trades" value={fmtMoney(realised, ccy)} tone={toneOf(realised)} />
@@ -343,20 +466,6 @@ function Holdings({ book, perf, manual, onManage }: {
           <div className="fundbook__bridge is-total"><span>Net asset value</span><strong>{fmtMoney(nav, ccy)}</strong></div>
         </div>
       </div>
-
-      {book.flows.length > 0 && (
-        <div className="fundbook__panel">
-          <div className="fundbook__panelhead">
-            <div><strong>Capital flows</strong><small>Every contribution and withdrawal — removed from the return, so they never read as performance</small></div>
-          </div>
-          {[...book.flows].sort((a, b) => (b.date ?? '').localeCompare(a.date ?? '')).map((f, i) => (
-            <div key={`${f.date}-${i}`} className="fundbook__bridge">
-              <span><span className="mono dim">{f.date ?? '—'}</span> · {f.description ?? (f.amount >= 0 ? 'Contribution' : 'Withdrawal')}</span>
-              <strong style={{ color: toneOf(f.amountBase ?? f.amount) }}>{fmtMoney(f.amountBase ?? f.amount, ccy)}</strong>
-            </div>
-          ))}
-        </div>
-      )}
 
       {manual.effects.length > 0 && (
         <div className="fundbook__panel is-provisional">
@@ -371,26 +480,226 @@ function Holdings({ book, perf, manual, onManage }: {
         </div>
       )}
 
+      {/* THE SUMMARY BEFORE THE DETAIL. Exposure answers "where is the risk" in a bounded block;
+          Positions answers "what exactly do I hold" in a list that grows with every name. Printed the
+          other way round, the summary sat a screen and a half below the thing it summarises. */}
+      <Exposure
+        book={book} risked={risked} parkedValue={parkedValue} nav={nav} ccy={ccy}
+        invested={invested} cash={cash} parked={parked} bars={
+          <>
+            {nav !== null && cash !== null && (
+              <div className="fundbook__bars">
+                <Bar label="Invested" pct={(invested / nav) * 100} value={fmtMoney(invested, ccy)} />
+                <Bar label="Cash" pct={(cash / nav) * 100} value={fmtMoney(cash, ccy)} deep />
+              </div>
+            )}
+            {/* The declaration belongs where the split it changes is explained, not repeated as a button on
+                every position row — one control in one place instead of one per holding. */}
+            {unvalued > 0 && (
+            <div className="fundbook__foot fundbook__foot--warn">
+              {unvalued} row{unvalued === 1 ? '' : 's'} could not be valued in {ccy ?? 'the base currency'} —
+              the statement carried no rate for {unvalued === 1 ? 'it' : 'them'}, so {unvalued === 1 ? 'it is' : 'they are'} left
+              out of the totals above rather than added at one-for-one.
+            </div>
+          )}
+          <div className="fundbook__foot fundbook__cashdecl">
+              <span>
+                {parked.length > 0
+                  ? <>Cash includes {fmtMoney(parkedValue, ccy)} held as {parked.map((p) => p.symbol).join(', ')} — money waiting, not money at risk.</>
+                  : <>A T-bill or money-market ETF is cash with a ticker. The statement cannot tell one from a commodity fund, so name it here.</>}
+              </span>
+              <select
+                className="fundbook__select"
+                value=""
+                onChange={(e) => { if (e.target.value) void onCash(e.target.value, !isCashEq(e.target.value)) }}
+                aria-label="Treat a holding as cash, or stop treating it as cash"
+              >
+                <option value="" disabled>treat as cash…</option>
+                {equities.map((p) => (
+                  <option key={p.symbol ?? ''} value={p.symbol ?? ''}>
+                    {p.symbol}{isCashEq(p.symbol) ? ' — count as invested' : ''}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </>
+        }
+      />
+
       <div className="fundbook__panel">
         <div className="fundbook__panelhead">
-          <div><strong>Positions</strong><small>{book.positions.length} open · weights come from the statement · as the statement states them</small></div>
+          <div><strong>Positions</strong><small>{book.positions.length} open · weights as the statement states them</small></div>
         </div>
         <div className="fundbook__scroll">
           <div className="fundbook__row fundbook__row--head">
             <span>Symbol</span><span>Ccy</span><span className="num">Quantity</span><span className="num">Avg cost</span>
-            <span className="num">Mark</span><span className="num">Value</span><span className="num">Weight</span><span className="num">Unrealised</span>
+            <span className="num">Mark</span><span className="num">Value</span><span className="num">Weight</span>
+            <span className="num">Unrealised</span><span className="num">%</span>
           </div>
-          {equities.map((p, i) => <PositionRow key={`${p.conid ?? p.symbol ?? 'x'}-${i}`} p={p} />)}
+          {risked.map((p, i) => <PositionRow key={`${p.conid ?? p.symbol ?? 'x'}-${i}`} p={p} />)}
+          {parked.length > 0 && (
+            <>
+              <div className="fundbook__subhead">Cash equivalents — counted as cash above, not as positions</div>
+              {parked.map((p, i) => <PositionRow key={`c-${p.conid ?? p.symbol ?? 'x'}-${i}`} p={p} isCash />)}
+            </>
+          )}
           {derivatives.length > 0 && (
             <>
-              <div className="fundbook__subhead">Derivatives — notional is <b>exposure</b>, not an allocation of NAV, so these carry no weight</div>
+              <div className="fundbook__subhead">Derivatives — notional is <b>exposure</b>, so these carry no weight</div>
               {derivatives.map((p, i) => <PositionRow key={`d-${p.conid ?? p.symbol ?? 'x'}-${i}`} p={p} derivative />)}
             </>
           )}
           {book.positions.length === 0 && <div className="fundbook__none">No open positions in this statement.</div>}
         </div>
       </div>
+
+      {/* CAPITAL FLOWS LAST. It is reference detail — how the LP's money went in and out — and like the
+          positions list it grows without bound, so it sits behind the things read on every visit. */}
+      {book.flows.length > 0 && (
+        <div className="fundbook__panel">
+          <div className="fundbook__panelhead">
+            <div><strong>Capital flows</strong><small>Removed from the return, so they never read as performance</small></div>
+          </div>
+          {[...book.flows].sort((a, b) => (b.date ?? '').localeCompare(a.date ?? '')).map((f, i) => (
+            <div key={`${f.date}-${i}`} className="fundbook__bridge">
+              <span><span className="mono dim">{f.date ?? '—'}</span> · {f.description ?? (f.amount >= 0 ? 'Contribution' : 'Withdrawal')}</span>
+              <strong style={{ color: toneOf(f.amountBase ?? f.amount) }}>{fmtMoney(f.amountBase ?? f.amount, ccy)}</strong>
+            </div>
+          ))}
+        </div>
+      )}
     </>
+  )
+}
+
+/** EXPOSURE — concentration, gross and net, and the single name that matters most.
+ *
+ *  Measured on money AT RISK, not on NAV. A book that is 72% parked in T-bills has a largest position of
+ *  36% of NAV but 50% of its actual risk, and only the second number answers "what happens if this one
+ *  goes wrong". Both are shown so neither can be mistaken for the other.
+ *
+ *  Sector is absent ON PURPOSE: the Flex statement carries an asset category and a sub-category and
+ *  nothing else. A sector guessed from a ticker would be an invention wearing the broker's authority,
+ *  so the panel says the data is not there rather than drawing a made-up split. */
+function Exposure({ book, risked, parkedValue, nav, ccy, bars }: {
+  book: PortfolioBook; risked: PortfolioPosition[]; parkedValue: number
+  nav: number | null; ccy: string | null
+  invested: number; cash: number | null; parked: PortfolioPosition[]
+  /** The invested-against-cash bars and the cash declaration, folded in from what used to be a panel of
+   *  its own. They answer the same question this one does — how the money is distributed — and both
+   *  were drawing their own currency breakdown, so side by side they said one thing twice. */
+  bars: React.ReactNode
+}) {
+  const derivatives = book.positions.filter((p) => p.isDerivative)
+  const valued = risked
+    .map((p) => ({ p, base: baseValue(p.positionValue, p) ?? 0 }))
+    .sort((a, b) => Math.abs(b.base) - Math.abs(a.base))
+  const atRisk = valued.reduce((a, v) => a + v.base, 0)
+  if (valued.length === 0) return null
+
+  const shareOfRisk = (v: number) => (atRisk === 0 ? null : (v / atRisk) * 100)
+  const top = valued[0]!
+  const topThree = valued.slice(0, 3).reduce((a, v) => a + v.base, 0)
+  // Gross counts both directions; net cancels them. They are equal here only because the book is
+  // long-only — the moment it is not, the difference between them IS the hedge.
+  const gross = valued.reduce((a, v) => a + Math.abs(v.base), 0)
+  const longs = valued.filter((v) => v.base > 0).reduce((a, v) => a + v.base, 0)
+  const shorts = valued.filter((v) => v.base < 0).reduce((a, v) => a + v.base, 0)
+
+  const group = (key: (p: PortfolioPosition) => string) => {
+    const by = new Map<string, number>()
+    for (const { p, base } of valued) by.set(key(p), (by.get(key(p)) ?? 0) + base)
+    return [...by.entries()].sort((a, b) => Math.abs(b[1]) - Math.abs(a[1]))
+  }
+  const shown = valued.slice(0, TOP_POSITIONS)
+  const rest = valued.slice(TOP_POSITIONS)
+  const restValue = rest.reduce((a, v) => a + v.base, 0)
+  const byCurrency = group((p) => p.currency ?? '—')
+  const byClass = group((p) => p.subCategory || p.assetCategory || 'unclassified')
+
+  return (
+    <div className="fundbook__panel">
+      <div className="fundbook__panelhead">
+        <div>
+          <strong>Exposure</strong>
+          <small>What is at risk against what is parked, and how that risk is spread</small>
+        </div>
+      </div>
+
+      {bars}
+
+      <div className="fundbook__cards fundbook__cards--inset">
+        <Card
+          label="Largest single name"
+          value={shareOfRisk(top.base) === null ? '—' : `${shareOfRisk(top.base)!.toFixed(1)}%`}
+          sub={`${top.p.symbol ?? '—'} · ${fmtMoney(top.base, ccy)}${nav ? ` · ${((top.base / nav) * 100).toFixed(1)}% of NAV` : ''}`}
+        />
+        <Card
+          label="Top three"
+          value={shareOfRisk(topThree) === null ? '—' : `${shareOfRisk(topThree)!.toFixed(1)}%`}
+          sub={`of money at risk · ${valued.slice(0, 3).map((v) => v.p.symbol).join(', ')}`}
+        />
+        <Card label="Gross exposure" value={fmtMoney(gross, ccy)} sub={nav ? `${((gross / nav) * 100).toFixed(0)}% of NAV · long and short added` : 'long and short added'} />
+        <Card
+          label="Net exposure"
+          value={fmtMoney(longs + shorts, ccy)}
+          sub={shorts === 0 ? 'Long-only, so net equals gross' : `${fmtMoney(longs, ccy)} long less ${fmtMoney(Math.abs(shorts), ccy)} short`}
+        />
+        <Card label="Names at risk" value={String(valued.length)} sub={parkedValue > 0 ? `plus ${fmtMoney(parkedValue, ccy)} parked as cash` : 'every equity position'} />
+      </div>
+
+      <div className="fundbook__split">
+        <div>
+          <div className="fundbook__subhead">By position</div>
+          {/* CAPPED, because this is a summary and a summary with one row per holding is just the
+              positions table again. Concentration is carried by the top few and the size of the tail —
+              which is what the rolled-up row says — not by twenty individually tiny bars. */}
+          {shown.map(({ p, base }) => (
+            <ExposureBar key={`${p.conid ?? p.symbol}`} label={p.symbol ?? '—'} pct={shareOfRisk(base) ?? 0} value={fmtMoney(base, ccy)} />
+          ))}
+          {rest.length > 0 && (
+            <ExposureBar
+              label={`${rest.length} smaller`}
+              pct={shareOfRisk(restValue) ?? 0}
+              value={fmtMoney(restValue, ccy)}
+              deep
+            />
+          )}
+        </div>
+        <div>
+          <div className="fundbook__subhead">By currency</div>
+          {byCurrency.map(([k, v]) => (
+            <ExposureBar key={`c-${k}`} label={k} pct={shareOfRisk(v) ?? 0} value={fmtMoney(v, ccy)} />
+          ))}
+          <div className="fundbook__subhead">By asset class</div>
+          {byClass.map(([k, v]) => (
+            <ExposureBar key={`a-${k}`} label={k} pct={shareOfRisk(v) ?? 0} value={fmtMoney(v, ccy)} deep />
+          ))}
+        </div>
+      </div>
+
+      <div className="fundbook__foot">
+        No sector split: the statement carries an asset category and a sub-category and nothing else, and
+        a sector guessed from a ticker would be an invention wearing the broker&rsquo;s authority.
+        {derivatives.length > 0 && ' Futures are excluded — notional is exposure against margin, not a share of NAV.'}
+      </div>
+    </div>
+  )
+}
+
+/** How many names the concentration panel names individually before rolling the tail into one row. */
+const TOP_POSITIONS = 8
+
+function ExposureBar({ label, pct, value, deep }: { label: string; pct: number; value: string; deep?: boolean }) {
+  return (
+    <div className="fundbook__bar-row fundbook__bar-row--exposure">
+      <span className="fundbook__bar-label mono">{label}</span>
+      <span className="fundbook__bar-track">
+        <span style={{ width: `${Math.max(0, Math.min(100, Math.abs(pct)))}%`, background: deep ? 'var(--accent-deep)' : 'var(--accent)' }} />
+      </span>
+      <span className="fundbook__bar-pct">{pct.toFixed(1)}%</span>
+      <span className="fundbook__bar-value">{value}</span>
+    </div>
   )
 }
 
@@ -427,39 +736,115 @@ function Delta({ label, before, after, beforeText, afterText }: {
   )
 }
 
-function PositionRow({ p, derivative }: { p: PortfolioPosition; derivative?: boolean }) {
+function PositionRow({ p, derivative, isCash }: {
+  p: PortfolioPosition; derivative?: boolean; isCash?: boolean
+}) {
   return (
-    <div className="fundbook__row">
+    <div className={`fundbook__row${isCash ? ' is-parked' : ''}`}>
       <strong className="mono">{p.symbol ?? '—'}</strong>
       <span className="dim">{p.currency ?? '—'}</span>
-      <span className="num">{fmtNum(p.quantity, 0)}</span>
+      <span className="num">{fmtQty(p.quantity)}</span>
       <span className="num dim">{fmtNum(p.costBasisPrice)}</span>
       <span className="num">{fmtNum(p.markPrice)}</span>
-      <span className="num">{fmtNum(p.positionValue, 0)}{derivative && <small className="fundbook__notional">notional</small>}</span>
+      <span className="num">{fmtSmallMoney(p.positionValue)}{derivative && <small className="fundbook__notional">notional</small>}</span>
       <span className="num dim">{derivative ? '—' : p.percentOfNAV === null ? '—' : `${p.percentOfNAV.toFixed(1)}%`}</span>
-      <span className="num" style={{ color: toneOf(p.unrealizedLocal) }}>{fmtNum(p.unrealizedLocal, 0)}</span>
+      <span className="num" style={{ color: toneOf(p.unrealizedLocal) }}>{fmtSmallMoney(p.unrealizedLocal)}</span>
+      {/* Against COST, not against market value: the question is what this position has returned on the
+          money put into it. Cost is the statement's own basis, so the percentage ties to the figure
+          beside it rather than to a denominator computed here. */}
+      <span className="num" style={{ color: toneOf(p.unrealizedLocal) }}>{fmtPct(unrealisedPct(p), 1)}</span>
     </div>
   )
 }
 
+/** Unrealised return on cost. Null when the statement gives no usable basis — a position transferred in
+ *  without one would otherwise divide by zero and report an infinite gain. */
+function unrealisedPct(p: PortfolioPosition): number | null {
+  const cost = p.costBasisMoney
+  if (cost === null || !Number.isFinite(cost) || Math.abs(cost) < 1e-9) return null
+  if (p.unrealizedLocal === null || !Number.isFinite(p.unrealizedLocal)) return null
+  return (p.unrealizedLocal / Math.abs(cost)) * 100
+}
+
 // ---------- performance ----------
 
-function Performance({ perf }: { perf: PortfolioPerformance }) {
+function Performance({ perf, cashShare }: { perf: PortfolioPerformance; cashShare: number | null }) {
   const { risk, benchmark: bm } = perf
   const ratio = (v: number | null) => (risk.sufficient && v !== null ? v.toFixed(2) : '—')
+  const inception = perf.periods.find((p) => p.label === 'Since inception') ?? null
+  // Past about a third in cash, the ratios say more about the parking than the picking.
+  const cashHeavy = cashShare !== null && cashShare >= 33
   return (
     <>
+      {/* ORDER IS THE ARGUMENT: what the book made, then what it made it against, then what that cost in
+          risk, then the risk-adjusted read, and last what the LP actually earned. The comparisons used
+          to be buried in the table below while volatility led the screen. */}
+      <div className="fundbook__cards">
+        <Card
+          label="Return · TWR"
+          value={fmtPct(inception?.twr, 2)}
+          sub={inception ? `Time-weighted, flows removed · ${inception.from} → ${inception.to}` : 'Since inception'}
+          tone={toneOf(inception?.twr)}
+        />
+        <Card
+          label={`vs ${bm.symbol}`}
+          value={bm.excess === null ? '—' : `${bm.excess >= 0 ? '+' : '−'}${Math.abs(bm.excess).toFixed(2)}pp`}
+          sub={bm.unavailable ? bm.unavailable : `${fmtPct(inception?.twr, 2)} against the index's ${fmtPct(bm.benchmarkTwr, 2)}`}
+          tone={toneOf(bm.excess)}
+        />
+        <Card
+          label="vs cash"
+          value={inception?.overHurdle === undefined || inception?.overHurdle === null
+            ? '—'
+            : `${inception.overHurdle >= 0 ? '+' : '−'}${Math.abs(inception.overHurdle).toFixed(2)}pp`}
+          sub={`Over a ${perf.riskFreeAnnualPct}% cash rate, which earned ${fmtPct(inception?.hurdle, 2)} across this window`}
+          tone={toneOf(inception?.overHurdle)}
+        />
+        <Card
+          label="Max drawdown"
+          value={risk.drawdown.depth === null ? '—' : `${fmtNum(risk.drawdown.depth, 2)}%`}
+          sub={risk.drawdown.depth === null ? 'No fall from a high yet'
+            : `${risk.drawdown.peakDate} → ${risk.drawdown.troughDate}${risk.drawdown.recoveredDate ? ` · back ${risk.drawdown.recoveredDate}` : ' · still under water'}`}
+          tone={risk.drawdown.depth === null ? undefined : 'var(--bad)'}
+        />
+        <Card
+          label="Volatility"
+          value={risk.volatility === null || !risk.sufficient ? '—' : `${risk.volatility.toFixed(1)}%`}
+          sub={cashHeavy ? `Annualised on TOTAL NAV, which is ${cashShare!.toFixed(0)}% cash` : 'Annualised from the daily NAV series'}
+        />
+        {/* The cash caveat is on the ratios too, and it is not a nicety: a book mostly in T-bills has
+            little volatility, so its Sharpe reads high for holding cash rather than for picking well.
+            The invested sleeve's own ratio cannot be computed — the statement carries ONE daily NAV for
+            the whole account, not one per sleeve — so the honest move is to say what the figure covers
+            rather than to derive a flattering number from a denominator we do not have. */}
+        <Card label="Sharpe" value={ratio(risk.sharpe)} sub={cashHeavy ? 'Excess per unit of swing — on the whole book, cash included' : 'Excess return per unit of swing'} />
+        <Card label="Sortino" value={ratio(risk.sortino)} sub="Counts only downside swing" />
+        <Card
+          label={`Beta to ${bm.symbol}`}
+          value={perf.betaAlpha.beta === null ? '—' : perf.betaAlpha.beta.toFixed(2)}
+          sub={perf.betaAlpha.beta === null
+            ? `Needs ${bm.symbol} price history`
+            : `Alpha ${fmtPct(perf.betaAlpha.alpha, 1)} annualised${Math.abs(perf.betaAlpha.beta) < 0.2 ? ' — but at this beta that is little more than the excess over cash' : ''}, from ${perf.betaAlpha.pairedDays} paired days`}
+        />
+        <Card
+          label="Money-weighted"
+          value={fmtPct(perf.moneyWeightedAnnualisedPct)}
+          sub="ANNUALISED (IRR) — what the LP earned, not comparable with the cumulative returns"
+          tone={toneOf(perf.moneyWeightedAnnualisedPct)}
+        />
+      </div>
+
       <div className="fundbook__panel">
         <div className="fundbook__panelhead">
           <div>
             <strong>Return by period</strong>
-            <small>Time-weighted, flows removed · cash hurdle {perf.riskFreeAnnualPct}% · ratios from {risk.sampleDays} days with capital in the book</small>
+            <small>Cash hurdle {perf.riskFreeAnnualPct}% · ratios from {risk.sampleDays} funded days</small>
           </div>
         </div>
         <div className="fundbook__scroll">
           <div className="fundbook__row fundbook__row--periods fundbook__row--head">
             <span>Period</span><span className="num">Return</span><span className="num">{bm.symbol}</span><span className="num">Excess</span>
-            <span className="num">Cash</span><span className="num">Over cash</span><span className="num">Days</span>
+            <span className="num">Cash</span><span className="num">Over cash</span>
           </div>
           {perf.periods.map((p) => (
             <div key={p.label} className="fundbook__row fundbook__row--periods">
@@ -478,12 +863,14 @@ function Performance({ perf }: { perf: PortfolioPerformance }) {
               <span className="num" style={{ color: p.label === 'Since inception' ? toneOf(bm.excess) : undefined }}>
                 {p.label === 'Since inception' && bm.excess !== null ? `${bm.excess >= 0 ? '+' : '−'}${Math.abs(bm.excess).toFixed(2)}pp` : '—'}
               </span>
-              {/* The second yardstick: beating an index while trailing a deposit account is not a result. */}
+              {/* The second yardstick: beating an index while trailing a deposit account is not a result.
+                  The day count that used to close this row is gone — the window is printed under the
+                  period name, so it said the same thing twice and cost the table 58 of the 780px that
+                  made it scroll on a laptop. */}
               <span className="num dim">{fmtPct(p.hurdle, 2)}</span>
               <span className="num" style={{ color: toneOf(p.overHurdle) }}>
                 {p.overHurdle === null ? '—' : `${p.overHurdle >= 0 ? '+' : '−'}${Math.abs(p.overHurdle).toFixed(2)}pp`}
               </span>
-              <span className="num dim">{p.days}</span>
             </div>
           ))}
         </div>
@@ -495,58 +882,10 @@ function Performance({ perf }: { perf: PortfolioPerformance }) {
         )}
       </div>
 
-      {perf.underwater.length > 1 && (
-        <div className="fundbook__panel">
-          <div className="fundbook__panelhead">
-            <div>
-              <strong>Drawdown</strong>
-              <small>
-                Distance below the previous high — the honest picture of what holding it felt like
-                {risk.drawdown.underWaterDays !== null && ` · the deepest took ${risk.drawdown.underWaterDays} days to recover`}
-              </small>
-            </div>
-          </div>
-          <UnderwaterChart series={perf.underwater} />
-        </div>
-      )}
-
-      <div className="fundbook__cards">
-        <Card label="Volatility" value={risk.volatility === null || !risk.sufficient ? '—' : `${risk.volatility.toFixed(1)}%`} sub="Annualised, daily NAV" />
-        <Card label="Sharpe" value={ratio(risk.sharpe)} sub="Excess return per unit of swing" />
-        <Card label="Sortino" value={ratio(risk.sortino)} sub="Counts only downside swing" />
-        <Card label="Calmar" value={ratio(risk.calmar)} sub="Period return ÷ worst fall" />
-        <Card
-          label="Max drawdown"
-          value={risk.drawdown.depth === null ? '—' : `${risk.drawdown.depth.toFixed(2)}%`}
-          sub={risk.drawdown.depth === null ? 'No fall from a high yet'
-            : `${risk.drawdown.peakDate} → ${risk.drawdown.troughDate}${risk.drawdown.recoveredDate ? ` · back ${risk.drawdown.recoveredDate}` : ' · still under water'}`}
-          tone={risk.drawdown.depth === null ? undefined : 'var(--bad)'}
-        />
-        <Card
-          label="Money-weighted"
-          value={fmtPct(perf.moneyWeightedAnnualisedPct)}
-          sub="ANNUALISED (IRR) — not comparable with the cumulative returns above"
-          tone={toneOf(perf.moneyWeightedAnnualisedPct)}
-        />
-        <Card
-          label={`Beta to ${bm.symbol}`}
-          value={perf.betaAlpha.beta === null ? '—' : perf.betaAlpha.beta.toFixed(2)}
-          sub={perf.betaAlpha.pairedDays > 0
-            ? `From ${perf.betaAlpha.pairedDays} days both series moved`
-            : `Needs ${bm.symbol} price history`}
-        />
-        <Card
-          label="Alpha"
-          value={perf.betaAlpha.alpha === null ? '—' : fmtPct(perf.betaAlpha.alpha)}
-          sub="Annualised, beyond what beta explains"
-          tone={perf.betaAlpha.alpha === null ? undefined : toneOf(perf.betaAlpha.alpha)}
-        />
-      </div>
-
       {perf.months.length > 0 && (
         <div className="fundbook__panel">
           <div className="fundbook__panelhead">
-            <div><strong>Month by month</strong><small>Compounded from the same daily returns, so a month can never disagree with the period that contains it</small></div>
+            <div><strong>Month by month</strong></div>
           </div>
           <div className="fundbook__scroll">
             <div className="fundbook__months">
@@ -569,6 +908,37 @@ function Performance({ perf }: { perf: PortfolioPerformance }) {
         </div>
       )}
 
+      {/* THE TWO RETURN TABLES BELONG TOGETHER: the same question at two granularities, and a reader
+          goes straight from one to the other. The drawdown chart answers a different one — not what the
+          book returned but what holding it felt like — so it follows them rather than splitting them,
+          which is also the order the cards above read in: return, then comparison, then risk.
+
+          They are NOT side by side, and the reason is measurable rather than aesthetic: the period
+          table needs 780px and a half column of the 1180px shell is 584px, so it would scroll
+          horizontally forever. The monthly grid is worse as a partner — 352px at six months, 772px at
+          twelve, 2212px at three years — so any pairing that fits today breaks within months. */}
+      {perf.growth.length > 1 && (
+        <div className="fundbook__panel">
+          <div className="fundbook__panelhead">
+            <div>
+              <strong>Drawdown</strong>
+              <small>
+                Distance below the previous high
+                {risk.drawdown.underWaterDays !== null && ` · the deepest took ${risk.drawdown.underWaterDays} days to recover`}
+              </small>
+            </div>
+          </div>
+          {/* The SAME series the growth curve is drawn from: the underwater line is a pure function of
+              that index, so deriving it here rather than from a second precomputed field means the two
+              charts cannot disagree about the same days — and it is what lets the range and the
+              benchmark work at all. */}
+          {/* THE RECONCILED SERIES ONLY. Max drawdown is a risk statistic the cards state as fact; letting
+              an estimate set a new low would put a number nobody can check into a figure people size
+              positions from. */}
+          <UnderwaterChart series={perf.growth} benchmarkSymbol={perf.benchmark.symbol} />
+        </div>
+      )}
+
       {!risk.sufficient && (
         <div className="fundbook__panel"><div className="fundbook__foot">
           {risk.sampleDays} days of valued history — too few to state Sharpe, Sortino or volatility
@@ -588,17 +958,69 @@ function Performance({ perf }: { perf: PortfolioPerformance }) {
 
 // ---------- trade history ----------
 
-function Trades({ book, manual, onChanged }: {
+/** One row of the trade table: a single closing execution, with every FIFO lot it consumed folded in. */
+interface TradeRowData {
+  symbol: string | null
+  currency: string | null
+  quantity: number
+  entryPrice: number
+  exitPrice: number
+  openedAt: string | null
+  closedAt: string | null
+  holdingDays: number
+  grossLocal: number
+  commissionLocal: number
+  /** Base currency where a rate existed, local otherwise — the same figure the cards above total. */
+  realized: number
+  /** How many opening lots this one exit consumed. */
+  lots: number
+}
+
+function Trades({ book, manual, onChanged, importOpen, onImportOpen, importSurface }: {
   book: PortfolioBook; manual: PortfolioManualRead; onChanged: (r: PortfolioRead) => void
+  importOpen: boolean; onImportOpen: (v: boolean) => void; importSurface: React.ReactNode
 }) {
   const [logging, setLogging] = useState(false)
   const ccy = book.baseCurrency
-  const rows = useMemo(
-    () => [...book.closures].sort((a, b) => (b.closedAt ?? '').localeCompare(a.closedAt ?? '')),
-    [book.closures],
-  )
+  // ONE ROW PER TRADE, NOT PER LOT. A single sell is matched against every opening lot it consumes, so
+  // FIFO produces one closure per lot — on the real book, 47 lot-rows for 31 trades, with one AMZN sell
+  // spread across nine of them. The operator placed one order; the lots are the accounting underneath
+  // it. `closeTradeID` is the closing execution, which is exactly the thing to group on. A closure with
+  // no id keeps its own row rather than being lumped with unrelated ones.
+  const rows = useMemo(() => {
+    const groups = new Map<string, PortfolioClosure[]>()
+    book.closures.forEach((c, i) => {
+      const key = c.closeTradeID ? `${c.symbol}|${c.closeTradeID}` : `solo|${i}`
+      const list = groups.get(key)
+      if (list) list.push(c); else groups.set(key, [c])
+    })
+    const merged: TradeRowData[] = [...groups.values()].map((lots) => {
+      const qty = lots.reduce((a, c) => a + c.quantity, 0)
+      // Weighted by quantity, because the lots being merged were opened at different prices — a plain
+      // mean would report an entry the book never paid.
+      const wAvg = (pick: (c: PortfolioClosure) => number) =>
+        qty === 0 ? pick(lots[0]!) : lots.reduce((a, c) => a + pick(c) * c.quantity, 0) / qty
+      const opened = lots.map((c) => c.openedAt).filter(Boolean).sort()[0] ?? null
+      return {
+        symbol: lots[0]!.symbol,
+        currency: lots[0]!.currency,
+        quantity: qty,
+        entryPrice: wAvg((c) => c.entryPrice),
+        exitPrice: wAvg((c) => c.exitPrice),
+        openedAt: opened,
+        closedAt: lots[0]!.closedAt,
+        // Measured from the OLDEST lot in the group: that is how long the money was actually committed.
+        holdingDays: Math.max(...lots.map((c) => c.holdingDays ?? 0)),
+        grossLocal: lots.reduce((a, c) => a + c.grossLocal, 0),
+        commissionLocal: lots.reduce((a, c) => a + c.commissionLocal, 0),
+        realized: sumBase(lots, baseRealised).total,
+        lots: lots.length,
+      }
+    })
+    return merged.sort((a, b) => (b.closedAt ?? '').localeCompare(a.closedAt ?? ''))
+  }, [book.closures])
   const stats = useMemo(() => {
-    const vals = rows.map((c) => c.realizedBase ?? c.realizedLocal)
+    const vals = rows.map((c) => c.realized)
     const wins = vals.filter((v) => v > 0)
     const losses = vals.filter((v) => v < 0)
     const held = rows.map((c) => c.holdingDays).filter((d): d is number => d !== null)
@@ -612,6 +1034,7 @@ function Trades({ book, manual, onChanged }: {
       avgLoss: avg(losses),
       avgHold: avg(held),
       commission: rows.reduce((a, c) => a + c.commissionLocal, 0),
+      grossRealised: vals.reduce((a, b) => a + Math.abs(b), 0),
       worst: losses.length ? Math.min(...losses) : null,
     }
   }, [rows])
@@ -623,7 +1046,7 @@ function Trades({ book, manual, onChanged }: {
     for (const c of rows) {
       const k = c.symbol ?? '—'
       const cur = by.get(k) ?? { value: 0, trades: 0 }
-      cur.value += c.realizedBase ?? c.realizedLocal
+      cur.value += c.realized
       cur.trades += 1
       by.set(k, cur)
     }
@@ -647,7 +1070,10 @@ function Trades({ book, manual, onChanged }: {
   // broker's realised P&L, which is why the note under the table says where it does land.
   const { currencyEffect, allBase } = useMemo(() => {
     const by = new Map<string, { trades: number; security: number; currencyEffect: number; costs: number; realised: number }>()
-    for (const c of rows) {
+    // Reads the LOTS, not the merged rows: the fx pair belongs to a lot (each was opened on its own day
+    // at its own rate), and averaging rates across a merge would blur the very split this table exists
+    // to show.
+    for (const c of book.closures) {
       const open = c.openFxRateToBase
       const close = c.closeFxRateToBase
       if (open === null || close === null) continue // no rate pair — excluded rather than assumed 1
@@ -657,13 +1083,13 @@ function Trades({ book, manual, onChanged }: {
       cur.security += c.grossLocal * open
       cur.currencyEffect += c.grossLocal * (close - open)
       cur.costs += c.commissionLocal * close
-      cur.realised += c.realizedBase ?? c.realizedLocal
+      cur.realised += c.realizedBase ?? 0
       by.set(k, cur)
     }
     const list = [...by.entries()].map(([currency, v]) => ({ currency, ...v }))
       .sort((a, b) => Math.abs(b.realised) - Math.abs(a.realised))
     return { currencyEffect: list, allBase: list.every((r) => Math.abs(r.currencyEffect) < 0.005) }
-  }, [rows])
+  }, [book.closures])
 
   // Rendered above the closed round trips AND above the empty state: a book whose only activity is
   // hand-logged fills must not look like a book with nothing in it.
@@ -671,14 +1097,25 @@ function Trades({ book, manual, onChanged }: {
     <div className={`fundbook__panel${manual.live > 0 ? ' is-provisional' : ''}`}>
       <div className="fundbook__panelhead">
         <div>
-          <strong>Logged by hand</strong>
-          <small>
-            Fills taken since the last export. Provisional — they never enter the reconciled book, and a
-            statement covering their date answers them.
-          </small>
+          <strong>Add trades to the book</strong>
+          <small>A hand-logged fill is provisional — it never enters the reconciled book, and a statement covering its date answers it</small>
         </div>
-        {!logging && <button className="fundbook__btn is-primary" onClick={() => setLogging(true)}>Log a trade</button>}
+        <div className="fundbook__formbtns">
+          <button
+            className={`fundbook__btn${importOpen ? ' is-primary' : ''}`}
+            onClick={() => { onImportOpen(!importOpen); setLogging(false) }}
+          >
+            {importOpen ? 'Hide import' : 'Import statement'}
+          </button>
+          <button
+            className={`fundbook__btn${logging ? ' is-primary' : ''}`}
+            onClick={() => { setLogging(!logging); onImportOpen(false) }}
+          >
+            {logging ? 'Cancel' : 'Log a trade'}
+          </button>
+        </div>
       </div>
+      {importOpen && <div className="fundbook__embed">{importSurface}</div>}
       {logging && (
         <LogTradeForm
           baseCurrency={ccy}
@@ -686,6 +1123,7 @@ function Trades({ book, manual, onChanged }: {
           onDone={(read) => { onChanged(read); setLogging(false) }}
         />
       )}
+
       {/* The "nothing logged yet" copy explains the feature — pointless, and faintly absurd, while the
           operator is typing into the form it describes. */}
       {(!logging || manual.trades.length > 0) && (
@@ -713,7 +1151,8 @@ function Trades({ book, manual, onChanged }: {
   }
   return (
     <>
-      {manualPanel}
+      {/* The SUMMARY leads here too. "Add trades" is an action, not information: it was heading a screen
+          whose first question is what the trading actually produced. */}
       <div className="fundbook__cards">
         <Card label="Realised" value={fmtMoney(stats.total, ccy)} sub={`Net of ${fmtMoney(Math.abs(stats.commission), ccy)} in costs`} tone={toneOf(stats.total)} />
         <Card label="Closed trades" value={String(rows.length)} sub={`${stats.wins} up · ${stats.losses} down`} />
@@ -727,10 +1166,12 @@ function Trades({ book, manual, onChanged }: {
         <Card label="Largest loss" value={fmtMoney(stats.worst, ccy)} sub="Single round trip" tone={stats.worst === null ? undefined : 'var(--bad)'} />
       </div>
 
+      {manualPanel}
+
       <div className="fundbook__split">
         <div className="fundbook__panel">
           <div className="fundbook__panelhead">
-            <div><strong>Where the money came from</strong><small>Realised result by name — the few positions that actually made the difference</small></div>
+            <div><strong>Where the money came from</strong><small>Realised result by name</small></div>
           </div>
           {attribution.length === 0
             ? <div className="fundbook__none">Nothing closed yet.</div>
@@ -758,14 +1199,14 @@ function Trades({ book, manual, onChanged }: {
             <div className="fundbook__foot">
               {topShare === null
                 ? 'Every closed name is shown.'
-                : `The best three names carry ${topShare.toFixed(0)}% of the gross winnings — concentration in the result, not in the book.`}
+                : `The best three names carry ${topShare.toFixed(0)}% of the gross winnings.`}
             </div>
           )}
         </div>
 
         <div className="fundbook__panel">
           <div className="fundbook__panelhead">
-            <div><strong>Stock or currency?</strong><small>How much of the realised result was the position, and how much was the exchange rate moving under it</small></div>
+            <div><strong>Stock or currency?</strong><small>How much of the result was the position, and how much was the rate moving under it</small></div>
           </div>
           {currencyEffect.length === 0 ? (
             <div className="fundbook__none">No closed trade carries both an opening and a closing rate yet.</div>
@@ -796,43 +1237,55 @@ function Trades({ book, manual, onChanged }: {
 
       <div className="fundbook__panel">
         <div className="fundbook__panelhead">
-          <div><strong>Closed round trips</strong><small>Newest first · realised is net of commission on both legs, as the broker states it</small></div>
+          <div>
+            <strong>Closed round trips</strong>
+            <small>One row per exit, every lot it consumed folded in · realised is net of commission on both legs</small>
+          </div>
         </div>
         <div className="fundbook__scroll">
           <div className="fundbook__row fundbook__row--trades fundbook__row--head">
             <span>Symbol</span><span>Ccy</span><span>Opened</span><span>Closed</span><span className="num">Held</span>
             <span className="num">Qty</span><span className="num">Entry</span><span className="num">Exit</span>
             <span className="num">Gross</span><span className="num">Costs</span><span className="num">Realised</span>
+            <span className="num">Share</span>
           </div>
-          {rows.map((c, i) => <TradeRow key={`${c.symbol}-${c.closedAt}-${i}`} c={c} />)}
+          {rows.map((c, i) => (
+            <TradeRow key={`${c.symbol}-${c.closedAt}-${i}`} c={c} grossRealised={stats.grossRealised} />
+          ))}
         </div>
       </div>
     </>
   )
 }
 
-function TradeRow({ c }: { c: PortfolioClosure }) {
-  const net = c.realizedBase ?? c.realizedLocal
+function TradeRow({ c, grossRealised }: { c: TradeRowData; grossRealised: number }) {
+  // Share of the book's total realised ACTIVITY (winners and losers as magnitudes), so it stays stable
+  // when the net happens to sit near zero — where a share of the net would explode into nonsense.
+  const share = grossRealised > 0 ? (Math.abs(c.realized) / grossRealised) * 100 : null
   return (
     <div className="fundbook__row fundbook__row--trades">
-      <strong className="mono">{c.symbol ?? '—'}</strong>
+      <strong className="mono">
+        {c.symbol ?? '—'}
+        {c.lots > 1 && <small className="fundbook__lots" title={`This exit closed ${c.lots} opening lots`}>{c.lots} lots</small>}
+      </strong>
       <span className="dim">{c.currency ?? '—'}</span>
       <span className="dim mono">{(c.openedAt ?? '—').slice(0, 10)}</span>
       <span className="dim mono">{(c.closedAt ?? '—').slice(0, 10)}</span>
-      <span className="num dim">{c.holdingDays === null ? '—' : `${c.holdingDays}d`}</span>
-      <span className="num">{fmtNum(c.quantity, 0)}</span>
+      <span className="num dim">{`${c.holdingDays}d`}</span>
+      <span className="num">{fmtQty(c.quantity)}</span>
       <span className="num dim">{fmtNum(c.entryPrice)}</span>
       <span className="num">{fmtNum(c.exitPrice)}</span>
-      <span className="num dim">{fmtNum(c.grossLocal, 0)}</span>
-      <span className="num dim">{fmtNum(c.commissionLocal, 0)}</span>
-      <strong className="num" style={{ color: toneOf(net) }}>{fmtNum(net, 0)}</strong>
+      <span className="num dim">{fmtSmallMoney(c.grossLocal)}</span>
+      <span className="num dim">{fmtSmallMoney(c.commissionLocal)}</span>
+      <strong className="num" style={{ color: toneOf(c.realized) }}>{fmtSmallMoney(c.realized)}</strong>
+      <span className="num dim">{share === null ? '—' : `${share.toFixed(1)}%`}</span>
     </div>
   )
 }
 
 // ---------- import ----------
 
-function ImportTab({ read, onFiles, onChanged, busy, progress, notes, firstRun, changed, manual }: {
+function ImportTab({ read, onFiles, onChanged, busy, progress, notes, firstRun, changed, manual, embedded }: {
   read: PortfolioRead
   onFiles: (f: File[]) => void
   onChanged: (r: PortfolioRead) => void
@@ -842,16 +1295,18 @@ function ImportTab({ read, onFiles, onChanged, busy, progress, notes, firstRun, 
   firstRun?: boolean
   changed: ImportDelta | null
   manual: PortfolioManualRead
+  /** Rendered inside the trade screen rather than as a screen of its own — no drop-zone flourish. */
+  embedded?: boolean
 }) {
   const [removing, setRemoving] = useState<string | null>(null)
   const [removeError, setRemoveError] = useState<string | null>(null)
   const book = read.book
   return (
     <>
-      <label className={`fundbook__drop${busy ? ' is-busy' : ''}${firstRun ? '' : ' is-compact'}`}>
+      <label className={`fundbook__drop${busy ? ' is-busy' : ''}${firstRun && !embedded ? '' : ' is-compact'}`}>
         <input type="file" accept=".xml,text/xml,application/xml" multiple hidden
           onChange={(e) => { void onFiles([...(e.target.files ?? [])]); e.target.value = '' }} />
-        <svg width={firstRun ? 26 : 20} height={firstRun ? 26 : 20} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+        <svg width={firstRun && !embedded ? 26 : 20} height={firstRun && !embedded ? 26 : 20} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
           <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /><path d="M7 10l5 5 5-5" /><path d="M12 15V3" />
         </svg>
         <div className="fundbook__droptext">
@@ -921,7 +1376,7 @@ function ImportTab({ read, onFiles, onChanged, busy, progress, notes, firstRun, 
       {book && (
         <div className="fundbook__panel">
           <div className="fundbook__panelhead">
-            <div><strong>Reconciliation</strong><small>Every number in the book is derived — these checks are what prove it against the broker</small></div>
+            <div><strong>Reconciliation</strong><small>What proves the derived numbers against the broker</small></div>
           </div>
           <div className="fundbook__scroll">
             <div className="fundbook__row fundbook__row--checks fundbook__row--head">
@@ -947,7 +1402,7 @@ function ImportTab({ read, onFiles, onChanged, busy, progress, notes, firstRun, 
       {read.statements.length > 0 ? (
         <div className="fundbook__panel">
           <div className="fundbook__panelhead">
-            <div><strong>Imported statements</strong><small>The book is rebuilt from these every time it is read — remove one and it recomputes</small></div>
+            <div><strong>Imported statements</strong><small>Remove one and the book recomputes</small></div>
           </div>
           {read.statements.map((s) => (
             <div key={s.id} className="fundbook__stmt">

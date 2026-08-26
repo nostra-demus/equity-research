@@ -85,6 +85,15 @@ export interface BookPosition {
   symbol: string | null
   conid: string | null
   assetCategory: string | null
+  /** COMMON / ETF / ADR and the like. The only asset-class signal the statement carries — it does NOT
+   *  distinguish a T-bill ETF from a commodity one, which is why cash equivalence is declared. */
+  subCategory: string | null
+  /** Contract identity, carried so positionKey() answers the SAME on this side as on the trade side.
+   *  Without them the conid-less fallback key differed between the two — the very mismatch the note on
+   *  positionKey claims to have closed — and reconciliation check 5 broke on every no-conid derivative. */
+  expiry: string | null
+  strike: number | null
+  putCall: string | null
   currency: string | null
   quantity: number | null
   markPrice: number | null
@@ -584,11 +593,24 @@ export function buildBook(documents: FlexDocument[]): Book {
     return out
   }
 
-  const positions: BookPosition[] = newest.openPositions
+  // THE NEWEST DOCUMENT THAT ACTUALLY CARRIES A SNAPSHOT, not simply the newest document. A
+  // Trades-only export is a normal thing to run, and taking positions from it emptied the Holdings tab
+  // while the badge still read "Reconciled" — because the position check is gated on the same document
+  // and silently skipped itself too. The older snapshot is the best available truth; `asOf` already
+  // states the date it belongs to.
+  const positionSource = [...docs].reverse().find((d) => d.sectionsPresent.includes('OpenPositions')) ?? newest
+  if (positionSource !== newest && newest.sectionsPresent.length > 0) {
+    warnings.push(`the newest export carries no OpenPositions section — holdings are shown as of ${positionSource.toDate ?? 'the last statement that had them'}`)
+  }
+  const positions: BookPosition[] = positionSource.openPositions
     .filter((p) => !p.levelOfDetail || p.levelOfDetail.toUpperCase() === 'SUMMARY')
     .map((p) => ({
       symbol: p.symbol,
       conid: p.conid,
+      subCategory: p.subCategory,
+      expiry: p.expiry,
+      strike: p.strike,
+      putCall: p.putCall,
       assetCategory: p.assetCategory,
       currency: p.currency,
       quantity: p.position,
@@ -707,6 +729,14 @@ export function reconcile(ctx: {
   //    multi-file import must not be certified on the other checks alone.
   if (latestNav?.twr != null) {
     const from = latestNav.fromDate, to = latestNav.toDate
+    // LEFT AS IT IS, deliberately. A review suggested opening the slice on the last point BEFORE
+    // `from`, on the theory that IBKR's twr covers the move ON fromDate while a slice starting there
+    // does not. It may well be right — but the convention cannot be settled from the data available:
+    // in the real statement startingValue, the fromDate NAV row and the row before it are all zero, so
+    // both readings fit. Changing the arithmetic of a RECONCILIATION CHECK on an untestable hypothesis
+    // is the wrong risk: this check passes today, and if the convention is the other way the "fix"
+    // manufactures the break it claims to prevent. Settle it with a multi-period export whose
+    // startingValue differs from its fromDate NAV row, then change it with a test that fails first.
     const windowed = from && to ? navSeries.filter((p) => p.date >= from && p.date <= to) : navSeries
     const ourWindowTwr = windowed.length === navSeries.length ? ctx.twr : computeTwr(windowed, ctx.flowsByDate)
     cmp('Time-weighted return', ourWindowTwr, latestNav.twr, 0.05,
@@ -750,7 +780,10 @@ export function reconcile(ctx: {
   //    section is a positive statement that the account is flat, and requiring at least one row would
   //    skip the check exactly when our lots disagree most — the broker says nothing is held and the FIFO
   //    engine still shows open lots.
-  const positionsSection = docs.length > 0 && docs[docs.length - 1]!.sectionsPresent.includes('OpenPositions')
+  // Gated on the document the positions actually CAME from, not on the newest one — otherwise a
+  // Trades-only newest export both empties the snapshot and quietly drops the check that would have
+  // caught it.
+  const positionsSection = docs.some((d) => d.sectionsPresent.includes('OpenPositions'))
   if (positionsSection || positions.length > 0) {
     const held = new Map<string, number>()
     for (const p of positions) if (p.quantity !== null) held.set(positionKey(p), p.quantity)

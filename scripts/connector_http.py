@@ -255,9 +255,14 @@ class _PinnedHTTPSHandler(urllib.request.HTTPSHandler):
                 **kwargs,
             )
 
-        return self.do_open(
-            connection_factory, req, context=self._context, check_hostname=self._check_hostname,
-        )
+        # `_check_hostname` was dropped from HTTPSHandler in Python 3.13 when hostname checking moved
+        # entirely into the SSLContext, so reading it directly raises AttributeError there and takes
+        # EVERY connector down on a newer interpreter. The context already carries the setting; pass it
+        # on only where the attribute still exists, which keeps older interpreters behaving as before.
+        extra = {}
+        if hasattr(self, "_check_hostname"):
+            extra["check_hostname"] = self._check_hostname
+        return self.do_open(connection_factory, req, context=self._context, **extra)
 
 
 class AllowlistRedirectHandler(urllib.request.HTTPRedirectHandler):

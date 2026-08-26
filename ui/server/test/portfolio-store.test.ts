@@ -189,6 +189,37 @@ check('a rejected entry is never stored, and says why', () => {
   assert.equal(store.readPortfolio().manual.trades.length, 0)
 })
 
+check('a statement is never left both invisible and permanently "already imported"', () => {
+  // listStatements reads the .json; the duplicate check reads the .xml. Writing the XML first opened a
+  // window where a crash between the two left a statement the list cannot show and the duplicate check
+  // will never accept again — unimportable AND undeletable. The sidecar goes down first, so the failure
+  // inverts: the row is listed, reported unreadable, removable, and a re-upload repairs it.
+  for (const s of store.listStatements()) store.deleteStatement(s.id)
+  const { statement } = store.saveStatement(xml, 'ordering.xml')
+  const dir = path.join(TMP, 'portfolio', 'statements')
+  // Simulate the crash by removing whichever file the interrupted write would not have reached.
+  fs.rmSync(path.join(dir, `${statement.id}.xml`), { force: true })
+
+  const listed = store.listStatements()
+  assert.equal(listed.length, 1, 'the operator can still SEE it')
+  const read = store.readPortfolio()
+  assert.equal(read.book, null)
+  assert.match(read.error ?? '', /ordering\.xml/, 'and is told which file is the problem')
+  assert.equal(store.saveStatement(xml, 'again.xml').status, 'saved', 're-uploading repairs it rather than being refused')
+  for (const s of store.listStatements()) store.deleteStatement(s.id)
+})
+
+check('a fill dated today in the operator\u2019s own timezone is accepted', () => {
+  // The guard compared a LOCAL calendar day from the form against a UTC "today". East of UTC the local
+  // day starts hours earlier, so this morning's real fill was rejected as being in the future.
+  const now = new Date()
+  const localToday = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`
+  assert.doesNotThrow(() => store.logManualTrade({
+    symbol: 'ACME', side: 'buy', quantity: 1, price: 10, currency: 'USD', tradeDate: localToday,
+  }), `a fill dated ${localToday} is today wherever the operator is`)
+  for (const t of store.readPortfolio().manual.trades) store.removeManualTrade(t.id)
+})
+
 try { fs.rmSync(TMP, { recursive: true, force: true }) } catch { /* best effort */ }
 console.log(`\n${passed} passed, ${fails.length} failed`)
 if (fails.length) { console.error('FAILED: ' + fails.join(', ')); process.exit(1) }

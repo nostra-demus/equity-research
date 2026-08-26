@@ -152,8 +152,8 @@ export function ProvisionalEffects({ effects, compact }: { effects: PortfolioMan
       ))}
       {!compact && (
         <div className="fundbook__foot">
-          Quantities only. No NAV or return is stated from a hand-entered fill: that would need a mark, an
-          FX rate and a settled commission, none of which exist until the statement arrives.
+          Quantities only — a NAV or return from a hand-entered fill would need a mark, an FX rate and a
+          settled commission, none of which exist until the statement arrives.
         </div>
       )}
     </>

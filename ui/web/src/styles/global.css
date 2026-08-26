@@ -4961,8 +4961,16 @@ a { color: inherit; }
 .fundbook__dropnote { padding: 8px 13px; border: 1px dashed var(--accent); border-radius: var(--r-md);
   background: var(--accent-wash-soft); color: var(--accent-bright); font-size: 11.5px; font-weight: 600; }
 .fundbook__split { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 12px; }
+/* A curve needs more room than a ledger, so this pair is 3:2 rather than even — and it collapses to a
+   single column before the chart gets too narrow to read. */
+.fundbook__split--wide { grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); }
+@media (max-width: 1080px) { .fundbook__split--wide { grid-template-columns: minmax(0, 1fr); } }
+.fundbook__split > .fundbook__panel { min-width: 0; }
 .fundbook__bars { display: flex; flex-direction: column; gap: 8px; padding: 12px 14px; }
 .fundbook__bars--top { border-top: 1px solid var(--hairline); }
+.fundbook__bar-row--exposure { padding: 0 14px; }
+.fundbook__bar-row--exposure:first-of-type { padding-top: 4px; }
+.fundbook__bar-row--exposure:last-of-type { padding-bottom: 10px; }
 .fundbook__bar-row { display: grid; grid-template-columns: 74px 1fr 46px 92px; align-items: center; gap: 10px; font-size: 11px; }
 .fundbook__bar-label { color: var(--text-muted); }
 .fundbook__bar-track { height: 7px; border-radius: var(--r-pill); background: var(--surface-3); overflow: hidden; }
@@ -4975,7 +4983,13 @@ a { color: inherit; }
 .fundbook__bridge.is-total strong { color: var(--accent-bright); font-size: 13px; }
 /* Wide tables scroll INSIDE their panel so the page body never scrolls sideways. */
 .fundbook__scroll { overflow-x: auto; }
-.fundbook__row--trades { grid-template-columns: 92px 52px 92px 92px 58px 74px 84px 84px 90px 78px 96px; min-width: 900px; }
+/* THE BASE ROW MUST COME BEFORE EVERY `--variant`. They share its specificity, so whichever is written
+   last wins — and with the base further down the file it was silently forcing its own column count onto
+   the trades and reconciliation tables, wrapping their headers onto a second line. Declared here so a
+   variant added anywhere below reliably overrides it. */
+.fundbook__row { display: grid; grid-template-columns: minmax(88px, 1.5fr) 44px 92px 84px 84px 104px 62px 96px 68px; align-items: center; gap: 8px; padding: 9px 14px; border-bottom: 1px solid var(--hairline); font-size: 11.5px; }
+.fundbook__row--trades { grid-template-columns: 104px 48px 92px 92px 54px 82px 78px 78px 88px 74px 92px 58px; min-width: 940px; }
+.fundbook__lots { display: block; color: var(--text-faint); font-size: 8px; letter-spacing: 0.2px; text-transform: uppercase; }
 .fundbook__row--checks { grid-template-columns: minmax(240px, 2.4fr) 1fr 1fr 1fr 74px; min-width: 700px; }
 .fundbook__ok { color: var(--accent-bright); font-weight: 700; font-size: 10px; }
 .fundbook__break { color: var(--bad); font-weight: 700; font-size: 10px; }
@@ -5008,9 +5022,21 @@ a { color: inherit; }
 .fundbook__panelhead { display: flex; align-items: flex-start; justify-content: space-between; gap: 14px; padding: 13px 14px; border-bottom: 1px solid var(--hairline); }
 .fundbook__panelhead strong { font-size: 13px; display: block; }
 .fundbook__panelhead small { color: var(--text-faint); font-size: 10.5px; }
-.fundbook__row { display: grid; grid-template-columns: 1.3fr 0.5fr 1fr 1fr 1fr 1.2fr 0.8fr 1.2fr; align-items: center; gap: 10px; padding: 9px 14px; border-bottom: 1px solid var(--hairline); font-size: 11.5px; }
+/* The import surface rendered INSIDE the trade panel rather than as its own screen — inset, so it reads
+   as a drawer that opened rather than a second page that arrived. */
+.fundbook__embed { display: flex; flex-direction: column; gap: 12px; padding: 13px 14px; background: var(--surface-1); border-bottom: 1px solid var(--hairline); }
+.fundbook__embed > .fundbook__panel { border-radius: var(--r-md); }
+.fundbook__cashdecl { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.fundbook__cashdecl > span { flex: 1 1 240px; }
+/* Parked money reads quieter than money at risk — it is in the book, but it is not a position. */
+.fundbook__row.is-parked { background: color-mix(in srgb, var(--surface-1) 55%, transparent); }
+.fundbook__row.is-parked > :not(.fundbook__rowend) { opacity: 0.72; }
 .fundbook__row:last-child { border-bottom: none; }
-.fundbook__row--head { background: var(--surface-1); color: var(--text-faint); font-size: 9px; font-weight: 700; letter-spacing: 0.35px; text-transform: uppercase; }
+/* Sticky, so a 20-name book does not scroll its own column labels away. The header sits inside
+   .fundbook__scroll, which is the scrolling box, so it pins against that rather than the page. */
+.fundbook__row--head { position: sticky; top: 0; z-index: 2; background: var(--surface-1); color: var(--text-faint); font-size: 9px; font-weight: 700; letter-spacing: 0.35px; text-transform: uppercase; }
+/* Bounded so a long book scrolls INSIDE the table instead of pushing everything below it off-screen. */
+.fundbook__scroll { max-height: min(58vh, 620px); overflow-y: auto; }
 .fundbook__row .num { text-align: right; font-variant-numeric: tabular-nums; }
 .fundbook__row .dim { color: var(--text-muted); }
 .fundbook__row .mono { font-family: var(--font-mono); font-size: 11.5px; }
@@ -5038,12 +5064,12 @@ a { color: inherit; }
 /* Narrow: the positions table scrolls sideways inside its own panel rather than dropping columns —
    hiding Value/Weight/Unrealised silently removed the numbers the screen exists to show. */
 @media (max-width: 900px) {
-  .fundbook__row { min-width: 640px; }
+  .fundbook__row { min-width: 760px; }
   .fundbook__tabs { align-self: stretch; overflow-x: auto; }
 }
 /* Seven columns now: return, benchmark, excess, cash hurdle, over-hurdle, days. Beating an index
    while trailing a deposit account is not a result, so the hurdle sits beside the benchmark. */
-.fundbook__row--periods { grid-template-columns: 2.2fr 1fr 1fr 1fr 1fr 1fr 0.6fr; min-width: 780px; }
+.fundbook__row--periods { grid-template-columns: minmax(150px, 2.2fr) 1fr 1fr 1fr 1fr 1fr; min-width: 700px; }
 .fundbook__row--fx { grid-template-columns: 64px 62px 1fr 1fr 1fr 1.1fr; min-width: 0; }
 
 /* charts ------------------------------------------------------------------ */
@@ -5051,12 +5077,26 @@ a { color: inherit; }
    type in a narrow panel, and these read at a glance or not at all. */
 .fundbook__svg { display: block; width: 100%; height: auto; }
 .fundbook__chart { padding: 6px 4px 0; }
+.fundbook__ranges { display: flex; gap: 2px; padding: 8px 12px 2px; }
+.fundbook__range { padding: 3px 9px; border: 1px solid transparent; background: transparent; border-radius: var(--r-sm);
+  color: var(--text-faint); font-size: 9.5px; font-weight: 700; letter-spacing: 0.4px; cursor: pointer;
+  transition: color var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease); }
+.fundbook__range.is-on { color: var(--accent-bright); background: var(--accent-wash); border-color: color-mix(in srgb, var(--accent) 30%, transparent); }
+/* A range the history cannot fill stays visible but unusable — hiding it would leave the reader
+   wondering whether the chart simply has no longer view. */
+.fundbook__range:disabled { opacity: 0.32; cursor: not-allowed; }
+@media (hover: hover) and (pointer: fine) { .fundbook__range:not(:disabled):not(.is-on):hover { color: var(--text); background: var(--surface-3); } }
 .fundbook__axis { font-family: var(--font-mono); font-size: 9px; fill: var(--text-faint); }
 .fundbook__legend { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 16px; padding: 8px 14px 12px; font-size: 10.5px; color: var(--text-muted); }
 .fundbook__legend span { display: inline-flex; align-items: center; gap: 6px; }
 .fundbook__legend i { width: 14px; height: 2px; border-radius: 2px; flex-shrink: 0; }
 .fundbook__legend b { font-family: var(--font-mono); color: var(--text); font-variant-numeric: tabular-nums; }
 .fundbook__legend .dim { color: var(--text-faint); }
+/* Reading a specific day rather than the endpoint — the numbers brighten so it is obvious the legend
+   has become a readout and is no longer telling you where the curve ended. */
+.fundbook__legend.is-reading b { color: var(--accent-bright); }
+.fundbook__svg { touch-action: pan-y; }
+@media (hover: hover) and (pointer: fine) { .fundbook__svg { cursor: crosshair; } }
 
 /* month grid --------------------------------------------------------------- */
 .fundbook__months { display: flex; flex-direction: column; gap: 1px; padding: 10px 14px 14px; min-width: max-content; }
@@ -5140,6 +5180,30 @@ a { color: inherit; }
 .fundbook__warnflag { display: block; color: var(--bad); font-size: 8.5px; font-weight: 600; letter-spacing: 0.2px; }
 .fundbook__subhead--split { display: flex; align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap; }
 .fundbook__subhead--split > span { max-width: 72ch; }
+
+/* thesis linkage ------------------------------------------------------------ */
+.fundbook__row--thesis { grid-template-columns: minmax(110px, 1.1fr) 74px minmax(150px, 1.4fr) 86px 110px minmax(190px, 1.5fr); min-width: 760px; }
+/* A whole panel turns only for the one state that needs acting on: something held against its verdict. */
+.fundbook__panel.is-against { border-color: color-mix(in srgb, var(--bad) 34%, var(--hairline-strong)); }
+.fundbook__coverage { flex-shrink: 0; color: var(--text-faint); font-size: 10px; white-space: nowrap; }
+.fundbook__coverage b { color: var(--text); font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+.fundbook__stance { display: block; color: var(--text-faint); font-size: 8.5px; letter-spacing: 0.2px; }
+.fundbook__shortflag { display: block; color: var(--bad); font-size: 8px; font-weight: 700; letter-spacing: 0.3px; text-transform: uppercase; }
+.fundbook__subhead--lead { display: flex; flex-direction: column; gap: 4px; color: var(--text-muted); font-size: 11px; line-height: 1.55; }
+.fundbook__subhead--lead b { color: var(--text); }
+.fundbook__againstlead { color: var(--bad); }
+.fundbook__againstlead b { color: var(--bad); }
+.fundbook__thesisend { display: flex; align-items: center; justify-content: flex-end; flex-wrap: wrap; gap: 6px; }
+.fundbook__thesisend small { color: var(--text-faint); font-size: 8.5px; }
+.fundbook__suggest { display: inline-flex; align-items: center; gap: 4px; color: var(--text-faint); font-size: 9.5px; }
+/* Deliberately a quiet text button, not a call to action: linking is an answer only the operator has. */
+.fundbook__linkbtn { border: none; background: transparent; padding: 1px 3px; cursor: pointer;
+  color: var(--accent); font-size: 9.5px; font-family: var(--font-mono); border-bottom: 1px dotted currentColor; }
+.fundbook__linkbtn:disabled { opacity: 0.5; cursor: progress; }
+@media (hover: hover) and (pointer: fine) { .fundbook__linkbtn:hover:not(:disabled) { color: var(--accent-bright); } }
+.fundbook__select { padding: 3px 6px; border: 1px solid var(--hairline-strong); border-radius: var(--r-sm);
+  background: var(--surface-2); color: var(--text); font-size: 10.5px; font-family: var(--font-mono); }
+.fundbook__select:focus-visible { outline: none; border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent-wash); }
 
 /* import delta -------------------------------------------------------------- */
 .fundbook__cards--tight { border: none; border-radius: 0; grid-template-columns: repeat(auto-fit, minmax(132px, 1fr)); }
