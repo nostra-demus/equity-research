@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key><string>com.nostradamus.memory-recovery-drill</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>{{PYTHON_BIN}}</string>
+    <string>{{ENGINE_REPO_ROOT}}/scripts/memory_maintenance.py</string>
+    <string>--config</string>
+    <string>{{HOME}}/.config/nostra-engine/memory-maintenance.json</string>
+    <string>recovery-drill</string>
+  </array>
+  <key>WorkingDirectory</key><string>{{ENGINE_REPO_ROOT}}</string>
+  <key>EnvironmentVariables</key>
+  <dict>
+    <key>PYTHONPATH</key><string>{{ENGINE_REPO_ROOT}}/scripts</string>
+    <key>PATH</key><string>{{PLIST_PATH}}</string>
+  </dict>
+  <key>StartCalendarInterval</key>
+  <array>
+    <dict><key>Month</key><integer>1</integer><key>Day</key><integer>2</integer><key>Hour</key><integer>3</integer><key>Minute</key><integer>30</integer></dict>
+    <dict><key>Month</key><integer>4</integer><key>Day</key><integer>2</integer><key>Hour</key><integer>3</integer><key>Minute</key><integer>30</integer></dict>
+    <dict><key>Month</key><integer>7</integer><key>Day</key><integer>2</integer><key>Hour</key><integer>3</integer><key>Minute</key><integer>30</integer></dict>
+    <dict><key>Month</key><integer>10</integer><key>Day</key><integer>2</integer><key>Hour</key><integer>3</integer><key>Minute</key><integer>30</integer></dict>
+  </array>
+  <key>StandardOutPath</key><string>{{HOME}}/Library/Logs/nostradamus-memory-recovery-drill.log</string>
+  <key>StandardErrorPath</key><string>{{HOME}}/Library/Logs/nostradamus-memory-recovery-drill.error.log</string>
+  <key>ProcessType</key><string>Background</string>
+</dict>
+</plist>

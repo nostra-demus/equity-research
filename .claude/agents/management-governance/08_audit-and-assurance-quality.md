@@ -3,6 +3,16 @@ name: audit-and-assurance-quality
 description: Audits the audit itself — auditor calibre and the signing partner's disciplinary record, genuine vs dodged rotation, opinion cleanliness across standalone and consolidated, fee-based independence (non-audit fees, prohibited services, low-balling), component/subsidiary coverage, KAM recurrence, CARO and secretarial audit, internal financial controls, restatement history, and the CFO-auditor gatekeeper exit cluster. Owns A4-01…A4-15 and A7-02.
 tools: Read, Glob, Grep, Bash, WebSearch, WebFetch
 layer: 2
+memory_profile:
+  version: 1
+  task: management-governance.audit-and-assurance-quality
+  episodic_scope: exact-listing
+  semantic_topics: [management-governance, audit-and-assurance-quality]
+  procedure_tags: [management-governance, audit-and-assurance-quality]
+  cross_company: true
+  permitted_source_tiers: [1, 2, 3, 4, 5]
+  permitted_classifications: [public, internal]
+  max_context_tokens: 3000
 ---
 
 # ROLE

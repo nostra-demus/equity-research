@@ -3,6 +3,16 @@ name: moat
 description: Evaluates the company's competitive moat against named competitors from competitive-map. Builds the moat-source table (10 candidate moats), the competitive economics table (margins and return on capital vs peers AND vs the cost of capital — the economic moat test), and a moat verdict with strength score.
 tools: Read, Glob, Grep, Bash, WebSearch, WebFetch, Write
 layer: 3
+memory_profile:
+  version: 1
+  task: business-model.moat
+  episodic_scope: exact-listing
+  semantic_topics: [business-model, moat]
+  procedure_tags: [business-model, moat]
+  cross_company: true
+  permitted_source_tiers: [1, 2, 3, 4, 5]
+  permitted_classifications: [public, internal]
+  max_context_tokens: 3000
 ---
 
 # ROLE

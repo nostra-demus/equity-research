@@ -17,6 +17,16 @@ data_readiness:
   sufficient: ["external:peer_transcript"]
   caps:
     "external:peer_transcript": "no competitor transcripts in the pool — peer read-through and triangulation are Not assessable; the module reports the coverage gap rather than a benchmark"
+memory_profile:
+  version: 1
+  task: competitive-intel.competitive-intel-triage
+  episodic_scope: exact-listing
+  semantic_topics: [competitive-intel, competitive-intel-triage]
+  procedure_tags: [competitive-intel, competitive-intel-triage]
+  cross_company: true
+  permitted_source_tiers: [1, 2, 3, 4, 5]
+  permitted_classifications: [public, internal]
+  max_context_tokens: 3000
 ---
 
 # ROLE

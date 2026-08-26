@@ -186,7 +186,7 @@ only the final recovery/status fields after the immutable validation succeeds:
 
 For each module in `<MODULES_PLANNED>` (in the order from step 4):
 
-- **Already finished? Skip it.** If `<RUN_ROOT>/<MODULE>/99_<MODULE>-synthesis.md` exists and is non-empty (`test -s`), this module completed in a prior attempt — do NOT re-dispatch it. Treat it as completed for the cross-module context of later modules (8A), and move to the next module. (A partial, half-written module — anything short of a non-empty `99_<MODULE>-synthesis.md` — is NOT trusted: re-run it.)
+- **Already finished? Skip it.** If `<RUN_ROOT>/<MODULE>/99_<MODULE>-synthesis.md` exists and is non-empty (`test -s`), this module completed in a prior attempt. When `NOSTRA_MEMORY_MODE=enforced`, first discover that module's analytical files and run `frameworks/MEMORY_RUNTIME.md` Step 4 for every expected output; skip the module only when every exact byte set returns `attested: true`. Otherwise enter the shared pipeline, which reuses each individually attested output and dispatches only the missing/unattested work. In `shadow`, record missing receipts without widening the paid scope. Treat a fully reusable module as completed for the cross-module context of later modules (8A), and move to the next module. (A partial, half-written module — anything short of a non-empty `99_<MODULE>-synthesis.md` — is NOT trusted: re-run it.)
 
 ### 8A. Build cross-module context
 
@@ -232,6 +232,9 @@ After all modules complete:
 
 ## 10. Run the master synthesizer
 
+Before the Task call, compile and append the `master/synthesizer` packet and declaration obligations from
+`frameworks/MEMORY_RUNTIME.md`. In enforced mode, compilation failure stops before paid dispatch.
+
 Dispatch a single Task call:
 
 - `subagent_type: "synthesizer"`
@@ -240,6 +243,10 @@ Dispatch a single Task call:
   > Synthesize the analyses in <RUN_ROOT>/. Output the final thesis to <RUN_ROOT>/final_thesis.md.
 
 Wait for it to complete. Treat the synthesizer as failed if `<RUN_ROOT>/final_thesis.md` does not exist when it returns.
+After the normal file check passes, attest the returned declaration with agent key `master/synthesizer`
+and output `final_thesis.md` under `frameworks/MEMORY_RUNTIME.md`. An enforced attestation failure stops
+before any idea assessment, audit, projection, or admission step. The later post-seal final idea
+re-projection is memory-blind because it is a publication-integrity writer, not a new analytical pass.
 
 **10.0 — Preliminary idea-assessment existence and schema gate (forward runs only).** If the thesis exists,
 the same synthesizer must also have written `<RUN_ROOT>/idea_3_6m.json`. This is an early completeness

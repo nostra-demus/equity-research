@@ -149,7 +149,10 @@ PYTHONPATH=scripts python3 scripts/memory_operations.py report \
   --performance-observation /trusted/performance.json \
   --restore-drill-observation /trusted/restore-drill.json \
   --access-audit-observation /trusted/access-audit.json \
-  --schema-review-observation /trusted/schema-review.json
+  --schema-review-observation /trusted/schema-review.json \
+  --shadow-evaluation /trusted/shadow-evaluation-report.json \
+  --shadow-adjudicator-public-key /external/shadow-adjudicator-ed25519.pub \
+  --shadow-adjudicator-key-id memory-shadow-adjudicator
 ```
 
 Exit codes are `0` for `met`, `1` for `failed`, `2` for `unmeasured`, and `4` for refused malformed

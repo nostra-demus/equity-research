@@ -3,6 +3,16 @@ name: earnings-sensitivity
 description: Identifies the 3–7 variables with the highest earnings sensitivity and estimates directional bull/bear EPS or EBITDA impact where evidence allows. Uses the structured sensitivity table format. Reads historical-financials, revenue-drivers, and margin-drivers upstream.
 tools: Read, Glob, Grep, Bash, WebSearch
 layer: 3
+memory_profile:
+  version: 1
+  task: earnings.earnings-sensitivity
+  episodic_scope: exact-listing
+  semantic_topics: [earnings, earnings-sensitivity]
+  procedure_tags: [earnings, earnings-sensitivity]
+  cross_company: true
+  permitted_source_tiers: [1, 2, 3, 4, 5]
+  permitted_classifications: [public, internal]
+  max_context_tokens: 3000
 ---
 
 # ROLE

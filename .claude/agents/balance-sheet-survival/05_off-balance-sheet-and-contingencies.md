@@ -3,6 +3,16 @@ name: off-balance-sheet-and-contingencies
 description: Surfaces obligations that sit outside or beneath the headline debt line — operating leases, pension/OPEB underfunding, guarantees, standby letters of credit, securitizations/factoring, purchase commitments, and litigation/tax contingencies — recording both the recognized liability and the maximum exposure.
 tools: Read, Glob, Grep, Bash
 layer: 2
+memory_profile:
+  version: 1
+  task: balance-sheet-survival.off-balance-sheet-and-contingencies
+  episodic_scope: exact-listing
+  semantic_topics: [balance-sheet-survival, off-balance-sheet-and-contingencies]
+  procedure_tags: [balance-sheet-survival, off-balance-sheet-and-contingencies]
+  cross_company: true
+  permitted_source_tiers: [1, 2, 3, 4, 5]
+  permitted_classifications: [public, internal]
+  max_context_tokens: 3000
 ---
 
 # ROLE

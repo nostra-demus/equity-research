@@ -5,10 +5,10 @@ import { QUOTE_CLIENT_TIMEOUT_MS } from './quoteTimeout'
 import type { ValuationLeversResponse, ValuationOverride } from './valuationLevers'
 import type { AutotuneState, RankWeightChanges, WeightChange } from './types'
 import type { BridgeStatus } from './types'
-import { parseMemoryRead, unavailableMemoryRead } from './memoryView'
+import { parseMemoryRead, parseMemoryRuntimeRead, unavailableMemoryRead } from './memoryView'
 import { publishedPaperExecutionResult } from './paperPortfolioView'
 import { normalizeProvidersRead, normalizeProviderStatus, providerCatalogForError, providerCatalogUnknown, providerLaunchFields, type FrozenProviderLaunch, type ProviderExecutionProfile, type ProvidersRead, type RunProvider } from './provider'
-import type { ActivityQuery, ActivityResult, AddPipelineSourceInput, BuildStep, CallsResult, ChatComputed, ChatConversationDetail, ChatListQuery, ChatListResult, ChatRequest, ChatScopes, CockpitFeedbackCategory, CockpitFeedbackStatus, CockpitFeedbackView, CompletedChatTurn, CoverageGroup, DataNeedsRead, DataNeedUploadRead, DataStatus, DiscoveredFeed, EventEnrichment, EventResearchLink, FeedbackRecord, FeedbackSubmitInput, FeedbackSummary, FeedbackType, FeedItem, IbkrPaperPortfolioRead, IntakePlan, IntensityStats, IntensityWindow, LaunchableRunKind, LaunchPreflight, MemoryRead, NewsChatEvidence, NewsChatReceipt, NewsChatRequest, NewsCycle, NewsDiagnostics, NewsStatus, PaperExecutionResult, PipelineAuditEvent, PipelineTrend, PipelineView, QuoteRead, ResumableRunInfo, RunHistoryEntry, RunKind, ScanVerdict, ScreenerBoard, SignalIntakeInput, SignalState, SourcesReport, SwarmGraph, SwarmMeta, SwarmSubjectSummary, ThesisPlan, TickerSummary, UploadResult, Usage, WhatChangedRead, Whoami } from './types'
+import type { ActivityQuery, ActivityResult, AddPipelineSourceInput, BuildStep, CallsResult, ChatComputed, ChatConversationDetail, ChatListQuery, ChatListResult, ChatRequest, ChatScopes, CockpitFeedbackCategory, CockpitFeedbackStatus, CockpitFeedbackView, CompletedChatTurn, CoverageGroup, DataNeedsRead, DataNeedUploadRead, DataStatus, DiscoveredFeed, EventEnrichment, EventResearchLink, FeedbackRecord, FeedbackSubmitInput, FeedbackSummary, FeedbackType, FeedItem, IbkrPaperPortfolioRead, IntakePlan, IntensityStats, IntensityWindow, LaunchableRunKind, LaunchPreflight, MemoryRead, MemoryRuntimeRead, NewsChatEvidence, NewsChatReceipt, NewsChatRequest, NewsCycle, NewsDiagnostics, NewsStatus, PaperExecutionResult, PipelineAuditEvent, PipelineTrend, PipelineView, QuoteRead, ResumableRunInfo, RunHistoryEntry, RunKind, ScanVerdict, ScreenerBoard, SignalIntakeInput, SignalState, SourcesReport, SwarmGraph, SwarmMeta, SwarmSubjectSummary, ThesisPlan, TickerSummary, UploadResult, Usage, WhatChangedRead, Whoami } from './types'
 
 // Vite supplies `import.meta.env` in the app; standalone tsx regression tests do not.
 const BASE = import.meta.env?.BASE_URL || '/'
@@ -400,7 +400,13 @@ export interface ArchiveQuery {
   // replacing it. Structurally a CompanyPick; typed inline so lib/ never imports from components/.
   textAs?: { ticker: string | null; name: string; aliases?: string[]; listingCountry?: string | null }[]
 }
-export interface SearchCursor { ts: string; id: string }
+export interface SearchCursor {
+  ts: string
+  id: string
+  scanDate?: string
+  scanShard?: number
+  scanLine?: number
+}
 export interface FeedSearchResponse {
   items: FeedItem[]
   nextCursor: SearchCursor | null
@@ -498,6 +504,12 @@ export const api = {
     if ((await ensureMode()) === 'static') return unavailableMemoryRead()
     const read = parseMemoryRead(await get<unknown>('/api/memory', MEMORY_CLIENT_TIMEOUT_MS))
     if (!read) throw Object.assign(new Error('The live engine returned an unsupported memory view.'), { code: 'memory-contract-invalid' })
+    return read
+  },
+  memoryRuntime: async (): Promise<MemoryRuntimeRead | null> => {
+    if ((await ensureMode()) === 'static') return null
+    const read = parseMemoryRuntimeRead(await get<unknown>('/api/memory/runtime', MEMORY_CLIENT_TIMEOUT_MS))
+    if (!read) throw Object.assign(new Error('The live engine returned an unsupported memory runtime view.'), { code: 'memory-runtime-contract-invalid' })
     return read
   },
   reelTranscript: async (url: string, signal?: AbortSignal): Promise<ReelTranscriptRead> => {
@@ -685,11 +697,17 @@ export const api = {
     return get(`/api/news/feed?${p.toString()}`)
   },
   // Archive-spanning, server-filtered search over the WHOLE since-inception archive (not the 2-day wire).
-  // Recency-ordered, (ts,event_id) cursor paging. Empty in static showcase mode (no engine).
+  // Recency-ordered, loss-free cursor paging. Empty in static showcase mode (no engine).
   newsSearch: async (q: ArchiveQuery, opts: { cursor?: SearchCursor | null; limit?: number } = {}): Promise<FeedSearchResponse> => {
     if ((await ensureMode()) === 'static') return { items: [], nextCursor: null, scannedThroughDate: null, exhausted: true }
     const p = archiveQueryParams(q)
-    if (opts.cursor) { p.set('cursorTs', opts.cursor.ts); p.set('cursorId', opts.cursor.id) }
+    if (opts.cursor) {
+      p.set('cursorTs', opts.cursor.ts)
+      p.set('cursorId', opts.cursor.id)
+      if (opts.cursor.scanDate !== undefined) p.set('cursorScanDate', opts.cursor.scanDate)
+      if (opts.cursor.scanShard !== undefined) p.set('cursorScanShard', String(opts.cursor.scanShard))
+      if (opts.cursor.scanLine !== undefined) p.set('cursorScanLine', String(opts.cursor.scanLine))
+    }
     if (opts.limit) p.set('limit', String(opts.limit))
     return get(`/api/news/search?${p.toString()}`)
   },
@@ -785,9 +803,15 @@ export const api = {
     const qs = p.toString()
     return get(`/api/news/themes${qs ? `?${qs}` : ''}`)
   },
-  newsTheme: async (id: string): Promise<import('./themes').ThemeDetail | null> => {
+  newsTheme: async (id: string, geo?: { country?: string; geoRegion?: string }, slice?: { scope?: string; commodity?: string }): Promise<import('./themes').ThemeDetail | null> => {
     if ((await ensureMode()) === 'static') return null
-    return get(`/api/news/themes/${encodeURIComponent(id)}`)
+    const p = new URLSearchParams()
+    if (geo?.country) p.set('country', geo.country)
+    if (geo?.geoRegion) p.set('geoRegion', geo.geoRegion)
+    if (slice?.scope) p.set('scope', slice.scope)
+    if (slice?.commodity) p.set('commodity', slice.commodity)
+    const qs = p.toString()
+    return get(`/api/news/themes/${encodeURIComponent(id)}${qs ? `?${qs}` : ''}`)
   },
   // The opened theme's plain-English brief — a few sentences on what it's about and what's happening.
   // Generated on the host by one free Groq pass (cached, degrading to a headline synthesis); the static

@@ -1,0 +1,77 @@
+{
+  "schema_version": "idea-archive/v1",
+  "archived_at": "2026-08-25T14:44:11Z",
+  "archive_reason": "expired_pruned",
+  "snapshot": {
+    "idea_id": "IDEA-d524f33198fb",
+    "idea_version": "IDEAV-225621e1913ec241",
+    "idea_version_started_at": "2026-08-22T17:48:11Z",
+    "ticker": "LOGI",
+    "company": "Logitech International S.A.",
+    "exchange": "NASDAQ",
+    "ticker_verified": true,
+    "listing_verified": true,
+    "liquidity_verified": false,
+    "listing_verification_source": "yahoo_symbol_directory",
+    "direction": "short",
+    "pair_with": null,
+    "reason": "Logitech faces a lawsuit alleging it withheld $61 million in tariff refunds from customers and extracted up to $97 million through tariff-justified price increases, which could lead to significant legal costs and reputational damage.",
+    "why_now": "The lawsuit is a live event reported on August 22, 2026, creating immediate legal and financial uncertainty for the company.",
+    "conviction": 60,
+    "conviction_basis": "pre_edge_proxy",
+    "trade_score": 62,
+    "trade_score_basis": "evidence_gate_v2",
+    "trade_score_breakdown": {
+      "evidence": 14,
+      "impact": 19,
+      "specificity": 15,
+      "timing": 10,
+      "expression": 6,
+      "corroboration": 0,
+      "learning_adjustment": 0
+    },
+    "trade_readiness": "needs_data",
+    "missing_checks": [
+      "live liquidity",
+      "dated catalyst",
+      "independent confirmation",
+      "live price, liquidity, and consensus"
+    ],
+    "learning": {
+      "resolved": 0,
+      "positive": 0,
+      "negative": 0,
+      "neutral": 0,
+      "adjustment": 0,
+      "basis": "not_enough_outcomes",
+      "evidenceIds": []
+    },
+    "priced_in": "room",
+    "thesis_type": "company_specific",
+    "origin_type": "wire",
+    "source_themes": [],
+    "source_event_ids": [
+      "EVT-58735c1f1545"
+    ],
+    "primary_source_event_id": "EVT-58735c1f1545",
+    "source_headlines": [
+      "Logitech faces lawsuit for withholding $61M in tariff refunds from customers — lawsuit claims company extracted up to $97M from consumers in 2026 through tariff-justified price increases"
+    ],
+    "source_headline": "Logitech faces lawsuit for withholding $61M in tariff refunds from customers — lawsuit claims company extracted up to $97M from consumers in 2026 through tariff-justified price increases",
+    "source_url": "https://www.tomshardware.com/peripherals/logitech-faces-lawsuit-for-withholding-usd61m-in-tariff-refunds-from-customers-lawsuit-claims-company-extracted-up-to-usd97m-from-consumers-in-2026-through-tariff-justified-price-increases",
+    "source_name": "Tom's Hardware",
+    "materiality_max": 100,
+    "newest_source_at": "2026-08-22T14:13:50Z",
+    "prior_coverage": {
+      "has_run": false,
+      "latest_run": null,
+      "latest_decision": null,
+      "data_pool_present": false
+    },
+    "surfaced_at": "2026-08-22T17:48:11Z",
+    "updated_at": "2026-08-22T17:48:11Z",
+    "decay_at": "2026-08-24T02:13:50Z",
+    "status": "live",
+    "promoted_signal_id": null
+  }
+}

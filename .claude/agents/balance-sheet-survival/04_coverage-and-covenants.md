@@ -3,6 +3,16 @@ name: coverage-and-covenants
 description: Computes interest and fixed-charge coverage ratios and maps each maintenance covenant — threshold, current actual, and headroom to a breach. Identifies the tightest covenant and what would trip it.
 tools: Read, Glob, Grep, Bash
 layer: 2
+memory_profile:
+  version: 1
+  task: balance-sheet-survival.coverage-and-covenants
+  episodic_scope: exact-listing
+  semantic_topics: [balance-sheet-survival, coverage-and-covenants]
+  procedure_tags: [balance-sheet-survival, coverage-and-covenants]
+  cross_company: true
+  permitted_source_tiers: [1, 2, 3, 4, 5]
+  permitted_classifications: [public, internal]
+  max_context_tokens: 3000
 ---
 
 # ROLE

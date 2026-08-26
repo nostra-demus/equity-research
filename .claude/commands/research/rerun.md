@@ -97,6 +97,9 @@ Build `<CROSS_MODULE_CONTEXT>` exactly as `frameworks/MODULE_PIPELINE.md` Step 4
 
 Dispatch exactly ONE Task call using the message template in `frameworks/MODULE_PIPELINE.md` Step 4A: `subagent_type` = the target's frontmatter `name`; pass `<TICKER>`, `data/<TICKER>/`, `<DATE>`, and `<CROSS_MODULE_CONTEXT>`; instruct the agent to persist its complete clean report to `<TARGET_OUT>` (Mode A/B/C), starting with its `#` header, no confirmation block, **and not to run git**. Then verify per Step 4B (`test -s`, starts with `#`, not truncated, no stray confirmation block); attempt one recovery if it fails.
 
+Compile and append the target packet before this Task, then attest its declaration after persistence, using
+`frameworks/MEMORY_RUNTIME.md` with key `<MODULE>/<NN>_<AGENT_SLUG>`. Enforced failures stop this rerun.
+
 ## 6. Compute the downstream synthesis cascade (data-driven — no hardcoding)
 
 Discover modules and their `depends_on` exactly as `/research:full` step 4: glob `.claude/agents/*/99_*-synthesis.md`, read each `depends_on` frontmatter, and topologically sort (alphabetical tie-break).
@@ -116,6 +119,8 @@ For each `<M>` in `<CASCADE>`, in order:
 - Locate `<M>`'s synthesis agent: glob `.claude/agents/<M>/99_*-synthesis.md`, read its frontmatter `name` (= `subagent_type`). Its output path is `<RUN_ROOT>/<M>/99_<...>-synthesis.md`.
 - Build `<CROSS_MODULE_CONTEXT>` for `<M>` from its `depends_on` (step 5's rule) — naming every dependency whose `99_*-synthesis.md` exists under `<RUN_ROOT>` (all do, since this is a finished run; their upstream outputs were just refreshed earlier in the cascade).
 - Dispatch ONE Task call (same template as step 5): `subagent_type` = the synthesis agent's `name`; instruct it to read its module folder's specialist outputs under `<RUN_ROOT>/<M>/` plus the cross-module paths, and persist its refreshed synthesis to its `99_*` output path; **do not run git**. Verify per Step 4B.
+- Compile the synthesis packet before dispatch and attest it after verification using
+  `frameworks/MEMORY_RUNTIME.md` and key `<M>/99_<synthesis-slug>`. Enforced failures stop the cascade.
 - **Refresh `<M>`'s two other module tiers** so they stay in sync with the refreshed synthesis (these are the module-level equivalent of step 9's run-level memo/dossier, per `frameworks/MODULE_PIPELINE.md` Step 4.9). Both are best-effort — never abort the rerun:
   - **Module memo** — dispatch one Task call: `subagent_type: "module-memo-writer"`, message: `Read <RUN_ROOT>/<M>/99_<...>-synthesis.md and write the module memo to <RUN_ROOT>/<M>/<M>_memo.md. Condense only what the synthesis carries; do not change its verdict, scores, or caps; the saved file starts with its # header and has no confirmation block; do not write any other file and do not run git.` If `<RUN_ROOT>/<M>/<M>_memo.md` is absent afterward, record it as failed but continue.
   - **Module dossier** — run the deterministic module-scoped Bash/Python concatenation from `frameworks/MODULE_PIPELINE.md` Step 4.9B **verbatim**, with `RUN_ROOT="<RUN_ROOT>"` and `MODULE="<M>"`. It is read-only on artifacts, writes only `<M>_dossier.md`, and must never abort the rerun.
@@ -130,6 +135,10 @@ Dispatch a single Task call (per `/research:full` step 10):
 
 - `subagent_type: "synthesizer"`
 - > Synthesize the analyses in <RUN_ROOT>/. Output the final thesis to <RUN_ROOT>/final_thesis.md.
+
+Before dispatch, compile and append `master/synthesizer` under `frameworks/MEMORY_RUNTIME.md`; after
+`final_thesis.md` passes its ordinary existence/output checks, attest the declaration with output
+`final_thesis.md`. Enforced failure stops before the finish gate or commit.
 
 Wait for it. Treat as failed if `<RUN_ROOT>/final_thesis.md` does not exist when it returns (if so, STOP before committing and report the failure).
 

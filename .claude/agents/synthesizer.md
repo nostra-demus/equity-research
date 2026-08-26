@@ -2,6 +2,16 @@
 name: synthesizer
 description: Reads all specialist outputs in the current run folder and produces a final buy-side thesis. Invoked by the /research:full command after all specialists complete.
 tools: Read, Glob, Bash, Write
+memory_profile:
+  version: 1
+  task: research.master-synthesis
+  episodic_scope: exact-listing
+  semantic_topics: [research-synthesis, calibration]
+  procedure_tags: [master-synthesis, adjudication]
+  cross_company: true
+  permitted_source_tiers: [1, 2, 3, 4, 5]
+  permitted_classifications: [public, internal]
+  max_context_tokens: 6000
 ---
 
 You are the FINAL SYNTHESIS AGENT for an institutional-grade equity research workflow.
