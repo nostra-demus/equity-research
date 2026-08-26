@@ -3,9 +3,7 @@
 from __future__ import annotations
 
 import argparse
-import base64
 import datetime as dt
-import hashlib
 import json
 import re
 import sys
@@ -14,16 +12,18 @@ from pathlib import Path
 from typing import Any, Mapping, Sequence
 
 try:
-    from canonical_json import canonical_json_bytes, canonical_sha256
-    from memory_crypto import ed25519_sign, ed25519_verify, load_master_key_file
+    from canonical_json import canonical_sha256
+    from memory_crypto import load_master_key_file
     from memory_operations import verify_operational_readiness_report
+    from memory_release_attestation import sign_attestation, verify_attestation
     from memory_shadow_evaluation import analytical_roster_sha256, verify_adjudication_attestation
     from memory_three_layer_benchmark import verify_runtime_attestation
     from memory_runtime import _atomic_private_write, _safe_regular
 except ImportError:  # pragma: no cover
-    from scripts.canonical_json import canonical_json_bytes, canonical_sha256
-    from scripts.memory_crypto import ed25519_sign, ed25519_verify, load_master_key_file
+    from scripts.canonical_json import canonical_sha256
+    from scripts.memory_crypto import load_master_key_file
     from scripts.memory_operations import verify_operational_readiness_report
+    from scripts.memory_release_attestation import sign_attestation, verify_attestation
     from scripts.memory_shadow_evaluation import analytical_roster_sha256, verify_adjudication_attestation
     from scripts.memory_three_layer_benchmark import verify_runtime_attestation
     from scripts.memory_runtime import _atomic_private_write, _safe_regular
@@ -46,6 +46,37 @@ ACTIVATION_ID = re.compile(r"memory-enforcement-[A-Za-z0-9._-]{1,96}")
 
 class EnforcementError(ValueError):
     """Enforced mode lacks valid, current, independently signed release evidence."""
+
+
+def _utc_now() -> dt.datetime:
+    """Read the promotion service clock at the signing boundary."""
+
+    return dt.datetime.now(dt.timezone.utc)
+
+
+def _trusted_creation_time() -> tuple[str, dt.datetime]:
+    moment = _utc_now()
+    if not isinstance(moment, dt.datetime) or moment.tzinfo is None:
+        raise EnforcementError("the promotion service clock must be timezone-aware")
+    moment = moment.astimezone(dt.timezone.utc)
+    return moment.isoformat(timespec="microseconds").replace("+00:00", "Z"), moment
+
+
+def _verify_release_key_separation(
+    *, public_key: bytes, key_id: str,
+    benchmark_public_key: bytes, benchmark_key_id: str,
+    adjudicator_public_key: bytes, adjudicator_key_id: str,
+) -> None:
+    keys = (public_key, benchmark_public_key, adjudicator_public_key)
+    identities = (key_id, benchmark_key_id, adjudicator_key_id)
+    if any(not isinstance(key, bytes) or len(key) != 32 for key in keys):
+        raise EnforcementError("release trust-role public keys must be 32-byte Ed25519 keys")
+    if len(set(keys)) != len(keys):
+        raise EnforcementError("release signer, benchmark runner, and shadow adjudicator keys must be distinct")
+    if any(not isinstance(identity, str) or not identity for identity in identities):
+        raise EnforcementError("release trust-role key identities must be non-empty")
+    if len(set(identities)) != len(identities):
+        raise EnforcementError("release trust-role key identities must be distinct")
 
 
 def _load(path: str | Path) -> dict[str, Any]:
@@ -162,21 +193,22 @@ def _verify_evidence_freshness(
         raise EnforcementError("production shadow evidence is stale")
 
 
-def _message(unsigned: Mapping[str, Any], activation_sha256: str) -> bytes:
-    return DOMAIN + canonical_json_bytes({**unsigned, "activation_sha256": activation_sha256})
-
-
 def create_activation(
     *, readiness: Mapping[str, Any], three_layer: Mapping[str, Any], shadow: Mapping[str, Any],
-    created_at: str, expires_at: str, private_key: bytes, key_id: str,
+    expires_at: str, private_key: bytes, public_key: bytes, key_id: str,
     benchmark_public_key: bytes, benchmark_key_id: str,
     adjudicator_public_key: bytes, adjudicator_key_id: str,
     activation_id: str | None = None,
 ) -> dict[str, Any]:
-    created_text, created = _instant(created_at, "created_at")
+    created_text, created = _trusted_creation_time()
     expires_text, expires = _instant(expires_at, "expires_at")
     if expires <= created or expires - created > MAX_LIFETIME:
         raise EnforcementError("enforcement activation lifetime must be positive and at most 30 days")
+    _verify_release_key_separation(
+        public_key=public_key, key_id=key_id,
+        benchmark_public_key=benchmark_public_key, benchmark_key_id=benchmark_key_id,
+        adjudicator_public_key=adjudicator_public_key, adjudicator_key_id=adjudicator_key_id,
+    )
     evidence, providers = _release_evidence(
         readiness, three_layer, shadow,
         benchmark_public_key=benchmark_public_key, benchmark_key_id=benchmark_key_id,
@@ -192,15 +224,17 @@ def create_activation(
         "evidence": evidence, "approved_provider_models": providers,
     }
     activation_sha = "sha256:" + canonical_sha256(unsigned)
-    message = _message(unsigned, activation_sha)
-    raw = ed25519_sign(private_key, message)
+    signed_payload = {**unsigned, "activation_sha256": activation_sha}
+    signature = sign_attestation(
+        signed_payload, domain=DOMAIN, private_key=private_key, key_id=key_id,
+    )
+    if not verify_attestation(
+        signed_payload, signature, domain=DOMAIN, public_key=public_key, key_id=key_id,
+    ):
+        raise EnforcementError("release signer private and public keys do not match")
     return {
         **unsigned, "activation_sha256": activation_sha,
-        "signature": {
-            "key_id": key_id, "algorithm": "ed25519",
-            "signed_sha256": "sha256:" + hashlib.sha256(message).hexdigest(),
-            "value": base64.urlsafe_b64encode(raw).decode().rstrip("="),
-        },
+        "signature": signature,
     }
 
 
@@ -213,6 +247,11 @@ def verify_activation(
 ) -> dict[str, Any]:
     if not isinstance(activation, Mapping) or set(activation) != FIELDS or activation.get("schema") != SCHEMA:
         raise EnforcementError("enforcement activation has an invalid closed shape")
+    _verify_release_key_separation(
+        public_key=public_key, key_id=key_id,
+        benchmark_public_key=benchmark_public_key, benchmark_key_id=benchmark_key_id,
+        adjudicator_public_key=adjudicator_public_key, adjudicator_key_id=adjudicator_key_id,
+    )
     evidence, providers = _release_evidence(
         readiness, three_layer, shadow,
         benchmark_public_key=benchmark_public_key, benchmark_key_id=benchmark_key_id,
@@ -239,17 +278,10 @@ def verify_activation(
     signature = activation.get("signature")
     if not isinstance(signature, Mapping) or set(signature) != {"key_id", "algorithm", "signed_sha256", "value"}:
         raise EnforcementError("enforcement activation signature is invalid")
-    message = _message(unsigned, activation_sha)
-    if (
-        signature.get("key_id") != key_id or signature.get("algorithm") != "ed25519"
-        or signature.get("signed_sha256") != "sha256:" + hashlib.sha256(message).hexdigest()
+    signed_payload = {**unsigned, "activation_sha256": activation_sha}
+    if not verify_attestation(
+        signed_payload, signature, domain=DOMAIN, public_key=public_key, key_id=key_id,
     ):
-        raise EnforcementError("enforcement activation signature metadata is invalid")
-    try:
-        raw = base64.urlsafe_b64decode(str(signature.get("value")) + "==")
-    except (ValueError, TypeError) as exc:
-        raise EnforcementError("enforcement activation signature encoding is invalid") from exc
-    if not ed25519_verify(public_key, message, raw):
         raise EnforcementError("enforcement activation signature verification failed")
     return {
         "schema": "memory-enforcement-verification/v1", "ok": True,
@@ -268,7 +300,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         command.add_argument("--shadow", required=True); command.add_argument("--key-id", required=True)
         command.add_argument("--benchmark-public-key", required=True); command.add_argument("--benchmark-key-id", required=True)
         command.add_argument("--adjudicator-public-key", required=True); command.add_argument("--adjudicator-key-id", required=True)
-    activate.add_argument("--private-key", required=True); activate.add_argument("--created-at", required=True)
+    activate.add_argument("--private-key", required=True); activate.add_argument("--public-key", required=True)
     activate.add_argument("--expires-at", required=True); activate.add_argument("--activation-id")
     activate.add_argument("--output", required=True)
     verify.add_argument("--activation", required=True); verify.add_argument("--public-key", required=True)
@@ -279,8 +311,9 @@ def main(argv: Sequence[str] | None = None) -> int:
         if args.command == "activate":
             result = create_activation(
                 readiness=readiness, three_layer=three_layer, shadow=shadow,
-                created_at=args.created_at, expires_at=args.expires_at,
+                expires_at=args.expires_at,
                 private_key=load_master_key_file(Path(args.private_key)), key_id=args.key_id,
+                public_key=load_master_key_file(Path(args.public_key)),
                 benchmark_public_key=load_master_key_file(Path(args.benchmark_public_key)),
                 benchmark_key_id=args.benchmark_key_id,
                 adjudicator_public_key=load_master_key_file(Path(args.adjudicator_public_key)),

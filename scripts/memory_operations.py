@@ -20,9 +20,13 @@ from typing import Any, Mapping, Sequence
 
 try:
     from canonical_json import canonical_json_bytes, canonical_sha256
+    from memory_crypto import load_master_key_file
+    from memory_shadow_evaluation import verify_adjudication_attestation
     from validate_screener_json import Checker
 except ImportError:  # pragma: no cover - package-style imports
     from scripts.canonical_json import canonical_json_bytes, canonical_sha256
+    from scripts.memory_crypto import load_master_key_file
+    from scripts.memory_shadow_evaluation import verify_adjudication_attestation
     from scripts.validate_screener_json import Checker
 
 
@@ -859,7 +863,10 @@ def _rebuild_cadence(observation: Mapping[str, Any] | None, evaluated: dt.dateti
     }
 
 
-def _material_claim_lineage(report: Mapping[str, Any] | None, evaluated: dt.datetime) -> dict[str, Any]:
+def _material_claim_lineage(
+    report: Mapping[str, Any] | None, evaluated: dt.datetime, *,
+    adjudicator_public_key: bytes | None, adjudicator_key_id: str | None,
+) -> dict[str, Any]:
     empty = {
         "status": "unmeasured", "observation_sha256": None,
         "window_start": None, "window_end": None, "material_claims": None,
@@ -891,9 +898,28 @@ def _material_claim_lineage(report: Mapping[str, Any] | None, evaluated: dt.date
     expected_ratio = _ratio(covered, claims) if claims else 0.0
     if ratio != expected_ratio:
         raise OperationsError("shadow_evaluation_report evidence coverage contradicts its counts")
+    mode = value.get("evaluation_mode")
+    if mode == "production-shadow":
+        if not isinstance(adjudicator_public_key, bytes) or len(adjudicator_public_key) != 32:
+            raise OperationsError(
+                "production shadow readiness requires a valid 32-byte adjudicator public key"
+            )
+        if not isinstance(adjudicator_key_id, str) or not adjudicator_key_id:
+            raise OperationsError(
+                "production shadow readiness requires a non-empty adjudicator key ID"
+            )
+        if not verify_adjudication_attestation(
+            value, public_key=adjudicator_public_key, key_id=adjudicator_key_id,
+        ):
+            raise OperationsError("production shadow readiness lacks trusted adjudication")
+    elif mode == "synthetic-ci":
+        if value.get("adjudication_attestation") is not None:
+            raise OperationsError("synthetic shadow evidence cannot carry a production adjudication")
+    else:
+        raise OperationsError("shadow_evaluation_report evaluation mode is unsupported")
     gate = value.get("gate")
     production = (
-        value.get("evaluation_mode") == "production-shadow" and isinstance(gate, Mapping)
+        mode == "production-shadow" and isinstance(gate, Mapping)
         and gate.get("quality_passed") is True and gate.get("counts_as_production_evidence") is True
         and gate.get("blocking_reasons") == []
     )
@@ -1525,6 +1551,8 @@ def build_operational_readiness_report(
     schema_review_observation: Mapping[str, Any] | None = None,
     rebuild_observation: Mapping[str, Any] | None = None,
     shadow_evaluation_report: Mapping[str, Any] | None = None,
+    shadow_adjudicator_public_key: bytes | None = None,
+    shadow_adjudicator_key_id: str | None = None,
     scale_comparisons: Sequence[Mapping[str, Any]] = (),
 ) -> dict[str, Any]:
     """Build one content-free deterministic readiness report from explicit evidence.
@@ -1540,7 +1568,11 @@ def build_operational_readiness_report(
         "projection_rebuild": _projection_doctor(projection_doctor_report),
         "projection_rebuild_cadence": _rebuild_cadence(rebuild_observation, evaluated),
         "object_store_doctor": _store_doctor(store_doctor_report),
-        "material_claim_lineage": _material_claim_lineage(shadow_evaluation_report, evaluated),
+        "material_claim_lineage": _material_claim_lineage(
+            shadow_evaluation_report, evaluated,
+            adjudicator_public_key=shadow_adjudicator_public_key,
+            adjudicator_key_id=shadow_adjudicator_key_id,
+        ),
         "controlled_writes": _controlled_writes(controlled_write_observation, evaluated),
         "performance": _performance(performance_observation, evaluated),
         "restore_drill": _restore(restore_drill_observation, evaluated),
@@ -2269,6 +2301,8 @@ def _parser() -> argparse.ArgumentParser:
     report.add_argument("--schema-review-observation")
     report.add_argument("--rebuild-observation")
     report.add_argument("--shadow-evaluation")
+    report.add_argument("--shadow-adjudicator-public-key")
+    report.add_argument("--shadow-adjudicator-key-id")
     report.add_argument("--scale-comparison", action="append", default=[])
     return parser
 
@@ -2326,6 +2360,12 @@ def main(argv: Sequence[str] | None = None) -> int:
                 if args.shadow_evaluation
                 else None
             ),
+            shadow_adjudicator_public_key=(
+                load_master_key_file(Path(args.shadow_adjudicator_public_key))
+                if args.shadow_adjudicator_public_key
+                else None
+            ),
+            shadow_adjudicator_key_id=args.shadow_adjudicator_key_id,
             scale_comparisons=[load_json_read_only(path) for path in args.scale_comparison],
         )
     except (OperationsError, OSError, TypeError, ValueError) as exc:

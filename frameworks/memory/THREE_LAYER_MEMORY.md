@@ -207,7 +207,8 @@ provider/model, outputs, costs, and independent adjudicator. Baseline and memory
 the same contradiction, prior-defense, and abstention opportunity counts. Provider approval is
 limited to Claude/Codex model pairs that received byte-equivalent packets in complete parity groups.
 The complete report is signed by the configured adjudicator identity; a different agent-supplied
-name is not independent-adjudication proof.
+name is not independent-adjudication proof. Operational readiness verifies that signature against
+the pinned adjudicator key before it can mark material-claim lineage as met.
 The preregistration also freezes the self-discovered analytical-agent roster. Global enforcement
 cannot activate until every current specialist, module synthesizer, and master synthesizer appears
 in the shadow sample; adding a new profiled agent invalidates an older activation until it is tested.
@@ -216,7 +217,9 @@ Enforced mode requires a current Ed25519-signed `memory-enforcement-activation/v
 binds a fully met operational-readiness report, the passing runtime 40-case report, the passing
 production-shadow report, and its exact approved provider/model set. It lives for at most 30 days.
 Readiness must have been evaluated within 24 hours of activation and the shadow window must end
-within 30 days; minting a fresh activation from old evidence is forbidden.
+within 30 days; minting a fresh activation from old evidence is forbidden. The promotion service
+sets `created_at` from its own UTC clock, and the release signer, runtime benchmark runner, and
+shadow adjudicator public keys and key IDs must be pairwise distinct.
 The supervisor verifies it before snapshot work and again immediately before every paid dispatch;
 missing, expired, tampered, synthetic, stale, or provider-mismatched evidence stops before spend.
 Completion verifies the already-frozen receipt and authorization but does not require an activation

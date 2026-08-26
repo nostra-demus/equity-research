@@ -1,20 +1,24 @@
 #!/usr/bin/env python3
 from __future__ import annotations
 
+import base64
 import copy
 import contextlib
+import datetime as dt
 import io
 import json
 import os
 import tempfile
 import unittest
+from unittest import mock
 from pathlib import Path
 
 from cryptography.hazmat.primitives import serialization
 from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey
 
+import memory_enforcement
 from canonical_json import canonical_sha256
-from memory_enforcement import EnforcementError, create_activation, verify_activation
+from memory_enforcement import EnforcementError, create_activation, main as enforcement_cli, verify_activation
 from memory_shadow_evaluation import build_report as build_shadow_report
 from memory_three_layer_benchmark import score_results
 from research_memory_run_cli import main as research_memory_cli
@@ -94,7 +98,15 @@ class EnforcementActivationTests(unittest.TestCase):
         self.readiness = _full_report(
             evaluated_at="2026-08-26T12:00:00Z",
             rebuild_observation=rebuild, shadow_evaluation_report=self.shadow,
+            shadow_adjudicator_public_key=self.adjudicator_public,
+            shadow_adjudicator_key_id="shadow-adjudicator-key",
         )
+        clock = mock.patch.object(
+            memory_enforcement, "_utc_now",
+            return_value=dt.datetime(2026, 8, 27, tzinfo=dt.timezone.utc),
+        )
+        clock.start()
+        self.addCleanup(clock.stop)
 
     def release_keys(self) -> dict:
         return {
@@ -107,14 +119,15 @@ class EnforcementActivationTests(unittest.TestCase):
     def activation(self) -> dict:
         return create_activation(
             readiness=self.readiness, three_layer=self.three_layer, shadow=self.shadow,
-            created_at="2026-08-27T00:00:00.000000Z", expires_at="2026-09-20T00:00:00.000000Z",
-            private_key=self.private, key_id="memory-enforcement-release",
+            expires_at="2026-09-20T00:00:00.000000Z",
+            private_key=self.private, public_key=self.public, key_id="memory-enforcement-release",
             **self.release_keys(),
             activation_id="memory-enforcement-release-1",
         )
 
     def test_only_signed_current_production_evidence_enables_an_approved_provider(self) -> None:
         activation = self.activation()
+        self.assertEqual("2026-08-27T00:00:00.000000Z", activation["created_at"])
         result = verify_activation(
             activation, readiness=self.readiness, three_layer=self.three_layer, shadow=self.shadow,
             public_key=self.public, key_id="memory-enforcement-release",
@@ -133,6 +146,121 @@ class EnforcementActivationTests(unittest.TestCase):
         checker = Checker(schema); checker.check(schema, activation, "")
         self.assertEqual([], checker.errors)
 
+    def test_noncanonical_activation_signature_encoding_fails_closed(self) -> None:
+        activation = self.activation()
+        canonical = activation["signature"]["value"]
+        alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_"
+        decoded = base64.urlsafe_b64decode(canonical + "==")
+        rejected = 0
+        for replacement in alphabet:
+            candidate = canonical[:-1] + replacement
+            if candidate == canonical:
+                continue
+            if base64.urlsafe_b64decode(candidate + "==") != decoded:
+                continue
+            noncanonical = copy.deepcopy(activation)
+            noncanonical["signature"]["value"] = candidate
+            with self.assertRaisesRegex(EnforcementError, "signature verification failed"):
+                verify_activation(
+                    noncanonical, readiness=self.readiness, three_layer=self.three_layer,
+                    shadow=self.shadow, public_key=self.public,
+                    key_id="memory-enforcement-release", **self.release_keys(),
+                    provider="codex", model="gpt-5.5",
+                    now="2026-08-28T00:00:00.000000Z",
+                )
+            rejected += 1
+        self.assertGreater(rejected, 0)
+
+    def test_release_trust_roles_require_distinct_keys(self) -> None:
+        reused = self.release_keys()
+        reused["benchmark_public_key"] = self.public
+        with self.assertRaisesRegex(EnforcementError, "keys must be distinct"):
+            create_activation(
+                readiness=self.readiness, three_layer=self.three_layer, shadow=self.shadow,
+                expires_at="2026-09-20T00:00:00.000000Z",
+                private_key=self.private, public_key=self.public,
+                key_id="memory-enforcement-release", **reused,
+            )
+
+        activation = self.activation()
+        with self.assertRaisesRegex(EnforcementError, "keys must be distinct"):
+            verify_activation(
+                activation, readiness=self.readiness, three_layer=self.three_layer,
+                shadow=self.shadow, public_key=self.public,
+                key_id="memory-enforcement-release", **reused,
+                provider="codex", model="gpt-5.5",
+                now="2026-08-28T00:00:00.000000Z",
+            )
+
+        wrong_public = Ed25519PrivateKey.generate().public_key().public_bytes(
+            serialization.Encoding.Raw, serialization.PublicFormat.Raw,
+        )
+        with self.assertRaisesRegex(EnforcementError, "private and public keys do not match"):
+            create_activation(
+                readiness=self.readiness, three_layer=self.three_layer, shadow=self.shadow,
+                expires_at="2026-09-20T00:00:00.000000Z",
+                private_key=self.private, public_key=wrong_public,
+                key_id="memory-enforcement-release", **self.release_keys(),
+            )
+
+    def test_promotion_clock_must_be_timezone_aware(self) -> None:
+        with mock.patch.object(
+            memory_enforcement, "_utc_now", return_value=dt.datetime(2026, 8, 27),
+        ), self.assertRaisesRegex(EnforcementError, "clock must be timezone-aware"):
+            create_activation(
+                readiness=self.readiness, three_layer=self.three_layer, shadow=self.shadow,
+                expires_at="2026-09-20T00:00:00.000000Z",
+                private_key=self.private, public_key=self.public,
+                key_id="memory-enforcement-release", **self.release_keys(),
+            )
+
+    def test_activation_cli_uses_the_service_clock_and_release_public_key(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            evidence_paths = {}
+            for name, value in (
+                ("readiness", self.readiness),
+                ("three-layer", self.three_layer),
+                ("shadow", self.shadow),
+            ):
+                path = root / f"{name}.json"
+                path.write_text(json.dumps(value), encoding="utf-8")
+                os.chmod(path, 0o600)
+                evidence_paths[name] = path
+            key_paths = {}
+            for name, value in (
+                ("private", self.private),
+                ("public", self.public),
+                ("benchmark", self.benchmark_public),
+                ("adjudicator", self.adjudicator_public),
+            ):
+                path = root / f"{name}.key"
+                path.write_bytes(value)
+                os.chmod(path, 0o600)
+                key_paths[name] = path
+            activation_path = root / "activation.json"
+            output = io.StringIO()
+            with contextlib.redirect_stdout(output):
+                status = enforcement_cli([
+                    "activate",
+                    "--readiness", str(evidence_paths["readiness"]),
+                    "--three-layer", str(evidence_paths["three-layer"]),
+                    "--shadow", str(evidence_paths["shadow"]),
+                    "--private-key", str(key_paths["private"]),
+                    "--public-key", str(key_paths["public"]),
+                    "--key-id", "memory-enforcement-release",
+                    "--benchmark-public-key", str(key_paths["benchmark"]),
+                    "--benchmark-key-id", "benchmark-runner-key",
+                    "--adjudicator-public-key", str(key_paths["adjudicator"]),
+                    "--adjudicator-key-id", "shadow-adjudicator-key",
+                    "--expires-at", "2026-09-20T00:00:00.000000Z",
+                    "--output", str(activation_path),
+                ])
+            self.assertEqual(0, status)
+            self.assertTrue(json.loads(output.getvalue())["ok"])
+            activation = json.loads(activation_path.read_text(encoding="utf-8"))
+            self.assertEqual("2026-08-27T00:00:00.000000Z", activation["created_at"])
+
     def test_tamper_expiry_and_unapproved_provider_fail_closed(self) -> None:
         activation = self.activation()
         tampered = copy.deepcopy(activation); tampered["evidence"]["shadow_evaluation_sha256"] = "sha256:" + "0" * 64
@@ -150,13 +278,15 @@ class EnforcementActivationTests(unittest.TestCase):
                 )
 
     def test_fresh_activation_cannot_be_minted_from_stale_release_evidence(self) -> None:
-        with self.assertRaisesRegex(EnforcementError, "readiness evidence is stale"):
+        with mock.patch.object(
+            memory_enforcement, "_utc_now",
+            return_value=dt.datetime(2026, 9, 1, tzinfo=dt.timezone.utc),
+        ), self.assertRaisesRegex(EnforcementError, "readiness evidence is stale"):
             create_activation(
                 readiness=self.readiness, three_layer=self.three_layer, shadow=self.shadow,
-                created_at="2026-09-01T00:00:00.000000Z",
                 expires_at="2026-09-20T00:00:00.000000Z",
-                private_key=self.private, key_id="memory-enforcement-release",
-                **self.release_keys(),
+                private_key=self.private, public_key=self.public,
+                key_id="memory-enforcement-release", **self.release_keys(),
             )
 
     def test_synthetic_or_unmeasured_evidence_can_never_be_signed_active(self) -> None:
@@ -164,8 +294,8 @@ class EnforcementActivationTests(unittest.TestCase):
         with self.assertRaisesRegex(EnforcementError, "runtime-held-out"):
             create_activation(
                 readiness=self.readiness, three_layer=synthetic, shadow=self.shadow,
-                created_at="2026-08-27T00:00:00.000000Z", expires_at="2026-09-20T00:00:00.000000Z",
-                private_key=self.private, key_id="memory-enforcement-release",
+                expires_at="2026-09-20T00:00:00.000000Z",
+                private_key=self.private, public_key=self.public, key_id="memory-enforcement-release",
                 **self.release_keys(),
             )
         stale_roster = copy.deepcopy(self.shadow)
@@ -175,8 +305,8 @@ class EnforcementActivationTests(unittest.TestCase):
         with self.assertRaisesRegex(EnforcementError, "production shadow"):
             create_activation(
                 readiness=self.readiness, three_layer=self.three_layer, shadow=stale_roster,
-                created_at="2026-08-27T00:00:00.000000Z", expires_at="2026-09-20T00:00:00.000000Z",
-                private_key=self.private, key_id="memory-enforcement-release",
+                expires_at="2026-09-20T00:00:00.000000Z",
+                private_key=self.private, public_key=self.public, key_id="memory-enforcement-release",
                 **self.release_keys(),
             )
         unmeasured = copy.deepcopy(self.readiness)
@@ -186,8 +316,8 @@ class EnforcementActivationTests(unittest.TestCase):
         with self.assertRaises(Exception):
             create_activation(
                 readiness=unmeasured, three_layer=self.three_layer, shadow=self.shadow,
-                created_at="2026-08-27T00:00:00.000000Z", expires_at="2026-09-20T00:00:00.000000Z",
-                private_key=self.private, key_id="memory-enforcement-release",
+                expires_at="2026-09-20T00:00:00.000000Z",
+                private_key=self.private, public_key=self.public, key_id="memory-enforcement-release",
                 **self.release_keys(),
             )
 
@@ -200,8 +330,8 @@ class EnforcementActivationTests(unittest.TestCase):
             with self.subTest(field=field), self.assertRaises(EnforcementError):
                 create_activation(
                     readiness=self.readiness, three_layer=self.three_layer, shadow=malformed,
-                    created_at="2026-08-27T00:00:00.000000Z", expires_at="2026-09-20T00:00:00.000000Z",
-                    private_key=self.private, key_id="memory-enforcement-release",
+                    expires_at="2026-09-20T00:00:00.000000Z",
+                    private_key=self.private, public_key=self.public, key_id="memory-enforcement-release",
                     **self.release_keys(),
                 )
         for invalid in (None, [], "not-a-mapping"):
@@ -215,9 +345,9 @@ class EnforcementActivationTests(unittest.TestCase):
                 with self.subTest(field=field, invalid=invalid), self.assertRaises(EnforcementError):
                     create_activation(
                         **inputs,
-                        created_at="2026-08-27T00:00:00.000000Z",
                         expires_at="2026-09-20T00:00:00.000000Z",
-                        private_key=self.private, key_id="memory-enforcement-release",
+                        private_key=self.private, public_key=self.public,
+                        key_id="memory-enforcement-release",
                         **self.release_keys(),
                     )
 
