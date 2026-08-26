@@ -18,7 +18,16 @@ export const MARKET_FEED_DIR = path.join(DATA_DIR, '_market')
 
 export interface Close { date: string; close: number }
 
-function isIsoDate(s: string): boolean { return /^\d{4}-\d{2}-\d{2}$/.test(s) }
+/** A real calendar date, not merely the right SHAPE. The shape-only test accepted 2026-13-40, which
+ *  Date.parse then turns into NaN — and a NaN span loses every `span > bestSpan` comparison, so provider
+ *  selection could finish with nothing chosen and the caller dereferenced null. One malformed row in an
+ *  operator-dropped CSV took down the whole portfolio read, which is exactly what this module's contract
+ *  says must never happen. */
+function isIsoDate(s: string): boolean {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(s)) return false
+  const d = new Date(`${s}T00:00:00Z`)
+  return !Number.isNaN(d.getTime()) && d.toISOString().slice(0, 10) === s
+}
 
 /** Every daily close the feed holds for one symbol, oldest first, de-duplicated by date.
  *  Symbol matching is case-insensitive: a feed may write SPY, spy or ^GSPC casing.
@@ -61,7 +70,9 @@ export function readCloses(symbol: string): Close[] {
         if ((row[iSymbol] ?? '').trim().toUpperCase() !== want) continue
         const date = (row[iDate] ?? '').trim()
         const close = Number((row[iClose] ?? '').trim())
-        if (!isIsoDate(date) || !Number.isFinite(close)) continue
+        // A zero or negative close is not a price. Left in, it makes the ratio returns downstream read
+        // as a -100% move rather than as missing data.
+        if (!isIsoDate(date) || !Number.isFinite(close) || close <= 0) continue
         byDate.set(date, close)
       }
     }
@@ -76,9 +87,10 @@ export function readCloses(symbol: string): Close[] {
   for (const [, byDate] of [...perProvider.entries()].sort((a, b) => a[0].localeCompare(b[0]))) {
     const dates = [...byDate.keys()].sort()
     const span = Date.parse(`${dates[dates.length - 1]!}T00:00:00Z`) - Date.parse(`${dates[0]!}T00:00:00Z`)
-    if (span > bestSpan) { bestSpan = span; chosen = byDate }
+    if (Number.isFinite(span) && span > bestSpan) { bestSpan = span; chosen = byDate }
   }
-  return [...chosen!.entries()].map(([date, close]) => ({ date, close })).sort((a, b) => a.date.localeCompare(b.date))
+  if (!chosen) return []
+  return [...chosen.entries()].map(([date, close]) => ({ date, close })).sort((a, b) => a.date.localeCompare(b.date))
 }
 
 /** Whether any feed folder exists at all — lets the UI distinguish "no feed configured" from

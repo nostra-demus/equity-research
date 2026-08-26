@@ -152,7 +152,7 @@ export interface Book {
   accountId: string | null
   baseCurrency: string | null
   asOf: string | null
-  coverage: { from: string | null; to: string | null; documents: number }
+  coverage: { from: string | null; to: string | null; documents: number; gaps: { after: string; before: string }[] }
   sectionsPresent: string[]
   sectionsUnmodelled: string[]
   positions: BookPosition[]
@@ -389,6 +389,33 @@ export function alignFlowsToNavDates(flows: { date: string | null; amount: numbe
   return byDate
 }
 
+/** Periods the imported statements do not cover, as the pair of dates the hole sits between.
+ *
+ *  This matters because a daily-chained return has no way to notice one. Import 2024 and 2026 without
+ *  2025 and the chain simply joins the last 2024 NAV to the first 2026 NAV as though it were one step —
+ *  so every deposit and withdrawal made during 2025 is counted as investment performance. Nothing else
+ *  catches it: the reconciliation checks are scoped to the newest statement's own window, so the book
+ *  reads "Reconciled" while the headline return is wrong by the size of a year's contributions. */
+export function coverageGaps(docs: { fromDate: string | null; toDate: string | null }[]): { after: string; before: string }[] {
+  const windows = docs
+    .filter((d): d is { fromDate: string; toDate: string } => !!d.fromDate && !!d.toDate)
+    .sort((a, b) => a.fromDate.localeCompare(b.fromDate))
+  const gaps: { after: string; before: string }[] = []
+  let reach: string | null = null
+  for (const w of windows) {
+    if (reach !== null && w.fromDate > nextDay(reach)) gaps.push({ after: reach, before: w.fromDate })
+    if (reach === null || w.toDate > reach) reach = w.toDate
+  }
+  return gaps
+}
+
+function nextDay(iso: string): string {
+  const d = new Date(`${iso}T00:00:00Z`)
+  if (Number.isNaN(d.getTime())) return iso
+  d.setUTCDate(d.getUTCDate() + 1)
+  return d.toISOString().slice(0, 10)
+}
+
 export function computeTwr(navSeries: NavPoint[], flowsByDate: Map<string, number>): number | null {
   if (navSeries.length < 2) return null
   let chain = 1
@@ -482,6 +509,13 @@ export function buildBook(documents: FlexDocument[]): Book {
 
   // A book is ONE account. Merging two accounts' trades, cash and NAV produces neither account's book —
   // and it can still reconcile by coincidence, which is worse than failing. Refuse rather than warn.
+  // A statement that does not name its account cannot be shown to belong to this one. Filtering the
+  // missing identity out instead let an unidentifiable export slip past the one-account test — the set
+  // stayed at size 1 and its trades, NAV and flows merged into a book labelled with the known account.
+  const unidentified = docs.filter((d) => !d.accountIds.length && !d.accountId)
+  if (unidentified.length > 0) {
+    throw new Error(`${unidentified.length} export(s) do not name an account — every statement must identify the same one`)
+  }
   const accountIds = new Set(docs.flatMap((d) => d.accountIds.length ? d.accountIds : [d.accountId]).filter((a): a is string => !!a))
   if (accountIds.size > 1) {
     throw new Error(`these exports span ${accountIds.size} accounts (${[...accountIds].sort().join(', ')}) — build one book per account`)
@@ -522,9 +556,26 @@ export function buildBook(documents: FlexDocument[]): Book {
     .map(([date, total]) => ({ date, total }))
     .sort((a, b) => a.date.localeCompare(b.date))
 
+  // BASE_SUMMARY is IBKR's REPORTING sentinel, not an ISO code. Taken literally it matches no currency
+  // in the rate grid and not even the base itself, so every closure, flow and income row became
+  // unconvertible and the header read "Reported in BASE_SUMMARY".
+  const isSentinel = (c: string | null) => (c ?? '').toUpperCase() === 'BASE_SUMMARY'
+  const realCurrency = (c: string | null) => (c === null || isSentinel(c) ? null : c)
+
+  // One book, one base currency. The NAV series is built from EquitySummaryInBase totals across every
+  // document; if the account's reporting currency changed mid-history those totals are in different
+  // units, and chaining them turns the switch into a fabricated daily return. Row-level fxRateToBase
+  // values are also rates to their ORIGINAL base. Refuse, exactly as the multi-account case does.
+  const baseCurrencies = new Set(
+    [...docs.map((d) => d.changeInNav?.currency ?? null), ...docs.flatMap((d) => d.equitySummary).map((r) => r.currency)]
+      .map(realCurrency).filter((c): c is string => !!c))
+  if (baseCurrencies.size > 1) {
+    throw new Error(`these exports report in ${baseCurrencies.size} base currencies (${[...baseCurrencies].sort().join(', ')}) — build one book per reporting currency`)
+  }
+
   const baseCurrency =
-    newest.changeInNav?.currency
-    ?? docs.flatMap((d) => d.equitySummary).find((r) => r.currency !== null)?.currency
+    realCurrency(newest.changeInNav?.currency ?? null)
+    ?? docs.flatMap((d) => d.equitySummary).map((r) => realCurrency(r.currency)).find((c) => c !== null)
     ?? null
   const fx = buildFxResolver(docs, baseCurrency)
 
@@ -626,7 +677,13 @@ export function buildBook(documents: FlexDocument[]): Book {
     }))
 
   const flowsByDate = alignFlowsToNavDates(flows, navSeries)
-  const twr = computeTwr(navSeries, flowsByDate)
+  const gaps = coverageGaps(docs)
+  for (const g of gaps) {
+    warnings.push(`no statement covers ${nextDay(g.after)} to ${g.before} — the all-history return and risk figures are withheld for that reason`)
+  }
+  // An all-history return computed across a hole is not a conservative estimate of the real one; it is a
+  // different number with flows counted as performance. Withhold it rather than publish it.
+  const twr = gaps.length > 0 ? null : computeTwr(navSeries, flowsByDate)
 
   return {
     accountId: newest.accountId,
@@ -636,6 +693,7 @@ export function buildBook(documents: FlexDocument[]): Book {
       from: docs.map((d) => d.fromDate).filter((x): x is string => !!x).sort()[0] ?? null,
       to: docs.map((d) => d.toDate).filter((x): x is string => !!x).sort().reverse()[0] ?? null,
       documents: docs.length,
+      gaps,
     },
     sectionsPresent: [...new Set(docs.flatMap((d) => d.sectionsPresent))].sort(),
     sectionsUnmodelled: [...new Set(docs.flatMap((d) => d.sectionsUnmodelled))].sort(),
@@ -647,7 +705,7 @@ export function buildBook(documents: FlexDocument[]): Book {
     navSeries,
     twr,
     corporateActions,
-    reconciliation: reconcile({ docs, navSeries, twr, closures, trades, flows, income, incomeBetween, positions, openLots: lots, flowsByDate, fx }),
+    reconciliation: reconcile({ docs, navSeries, twr, closures, trades, corporateActions, flows, income, incomeBetween, positions, openLots: lots, flowsByDate, fx, gaps }),
     warnings,
   }
 }
@@ -688,9 +746,12 @@ export function reconcile(ctx: {
   openLots: BookLot[]
   flowsByDate: Map<string, number>
   fx: (currency: string | null, date: string | null) => number | null
+  corporateActions: FlexCorporateAction[]
+  /** Periods no statement covers. A hole makes the all-history figures unverifiable, not merely noisy. */
+  gaps: { after: string; before: string }[]
 }): Reconciliation {
   const checks: ReconciliationCheck[] = []
-  const { docs, navSeries, closures, trades, flows, income, incomeBetween, positions, openLots, fx } = ctx
+  const { docs, navSeries, closures, trades, corporateActions, flows, income, incomeBetween, positions, openLots, fx, gaps } = ctx
   // docs arrive chronologically ordered from buildBook, so the last statement is the newest.
   const withNav = docs.filter((d) => d.changeInNav !== null)
   const latestNav = withNav.length ? withNav[withNav.length - 1]!.changeInNav! : null
@@ -705,11 +766,32 @@ export function reconcile(ctx: {
     add({ name, ours, broker, break: diff, tolerance, ok: Math.abs(diff) <= tolerance, detail })
   }
 
-  // 1. NAV: the statement's ending value against the last day of its own daily series.
+  // 0. The floor. Six of the eight checks below read from ChangeInNAV; without that section they add
+  //    nothing at all, and `checks.every(...)` over the two that survive returned ok:true \u2014 the badge
+  //    read "Reconciled" on a book with no broker evidence for NAV, return, flows or income. That is the
+  //    exact failure this function's own docstring forbids, so record the absence as a failed check
+  //    rather than letting it disappear.
+  if (!latestNav) {
+    add({ name: 'Statement summary', ours: null, broker: null, break: null, tolerance: 0, ok: false,
+      detail: 'no export carried a ChangeInNAV section \u2014 NAV, the NAV bridge, return, capital flows and income have no broker figure to check against' })
+  }
+  // A hole between statements cannot be reconciled away by the newest statement's own window, which is
+  // all the checks below ever see.
+  for (const g of gaps) {
+    add({ name: 'Coverage', ours: null, broker: null, break: null, tolerance: 0, ok: false,
+      detail: `no statement covers ${g.after} to ${g.before} \u2014 flows and performance inside that period are unverifiable, so the all-history return is withheld` })
+  }
+
+  // 1. NAV: the statement's ending value against the last day of ITS OWN window.
+  //    Taking the last point of the MERGED series compared two different dates whenever the newest
+  //    export carried daily NAV but no ChangeInNAV \u2014 reporting a break equal to all account movement
+  //    since the older statement, on a book where both files were correct.
+  const navAtStatementEnd = latestNav?.toDate ? navSeries.find((p) => p.date === latestNav.toDate) ?? null : null
   const lastPoint = navSeries.length ? navSeries[navSeries.length - 1]! : null
-  if (latestNav?.endingValue != null && lastPoint) {
-    cmp('Net asset value', lastPoint.total, latestNav.endingValue, 1,
-      'Last day of the daily series against the statement\u2019s ending value')
+  if (latestNav?.endingValue != null) {
+    const ourEnd = navAtStatementEnd ?? (latestNav.toDate ? null : lastPoint)
+    cmp('Net asset value', ourEnd ? ourEnd.total : null, latestNav.endingValue, 1,
+      'The statement\u2019s own ending date in the daily series against its stated ending value')
   }
 
   // 2. The NAV bridge identity: starting value plus every component must equal the ending value.
@@ -719,8 +801,14 @@ export function reconcile(ctx: {
       latestNav.withholdingTax, latestNav.interest, latestNav.commissions, latestNav.otherFees,
       latestNav.depositsWithdrawals, latestNav.fxTranslation,
       latestNav.changeInDividendAccruals, latestNav.changeInInterestAccruals,
-    ].filter((v): v is number => v !== null)
-    cmp('NAV bridge', latestNav.startingValue + components.reduce((a, b) => a + b, 0), latestNav.endingValue, 1,
+    ]
+    // An absent component is UNKNOWN, not zero — the parser preserves that distinction deliberately, and
+    // filtering the nulls out threw it away, then compared the partial sum as though the bridge were
+    // complete. This is the check that proves NAV is rebuildable; it must not pass by luck.
+    const complete = components.every((v): v is number => v !== null)
+    cmp('NAV bridge',
+      complete ? latestNav.startingValue + (components as number[]).reduce((a, b) => a + b, 0) : null,
+      latestNav.endingValue, 1,
       'Starting value plus every stated component should rebuild the ending value')
   }
 
@@ -738,7 +826,11 @@ export function reconcile(ctx: {
     // manufactures the break it claims to prevent. Settle it with a multi-period export whose
     // startingValue differs from its fromDate NAV row, then change it with a test that fails first.
     const windowed = from && to ? navSeries.filter((p) => p.date >= from && p.date <= to) : navSeries
-    const ourWindowTwr = windowed.length === navSeries.length ? ctx.twr : computeTwr(windowed, ctx.flowsByDate)
+    // Recompute whenever coverage has a hole: ctx.twr is deliberately withheld (null) in that case, but
+    // ONE statement's own window is still continuous and still worth checking.
+    const ourWindowTwr = windowed.length === navSeries.length && gaps.length === 0
+      ? ctx.twr
+      : computeTwr(windowed, ctx.flowsByDate)
     cmp('Time-weighted return', ourWindowTwr, latestNav.twr, 0.05,
       'Daily-chained return with flows removed, over the statement\u2019s own window (percentage points)')
   }
@@ -751,10 +843,29 @@ export function reconcile(ctx: {
   // closed, or that realised money, can prove a missing opening lot.
   const brokerClosingRows = brokerRows.filter(
     (t) => t.fifoPnlRealized !== 0 || (t.openCloseIndicator ?? '').toUpperCase().includes('C'))
-  const rate = (t: FlexTrade) => t.fxRateToBase ?? fx(t.currency, t.tradeDate)
-  const unconvertible = brokerRows.filter((t) => rate(t) === null).length
+  // Same date basis the FIFO side uses (dateTime first, tradeDate second). Resolving on tradeDate alone
+  // meant a row carrying only dateTime fell through to fx(currency, null), which returns the NEWEST rate
+  // in the whole grid — so the two sides of this very check converted at different dates and broke a
+  // valid multi-currency book.
+  const rate = (t: FlexTrade) => t.fxRateToBase ?? fx(t.currency, (t.dateTime ?? t.tradeDate)?.slice(0, 10) ?? null)
+  // Zero converts at every rate, so a zero-P&L opening row with no rate is not an obstacle to comparing.
+  const unconvertible = brokerRows.filter((t) => t.fifoPnlRealized !== 0 && rate(t) === null).length
     + closures.filter((c) => c.realizedBase === null).length
-  if (brokerRows.length > 0 || closures.length > 0) {
+  // A corporate action can realise money with no Trade row behind it — a cash merger or cash-in-lieu.
+  // It is parsed and published, and it was outside this check entirely, so the realised total could be
+  // short while the badge stayed green.
+  const caRows = corporateActions.filter((c) => c.fifoPnlRealized !== null && c.fifoPnlRealized !== 0)
+  const caRate = (c: FlexCorporateAction) =>
+    c.fxRateToBase ?? fx(c.currency, (c.dateTime ?? c.reportDate)?.slice(0, 10) ?? null)
+  if (brokerRows.length === 0 && closures.length === 0 && latestNav?.realized != null && latestNav.realized !== 0) {
+    // The statement says money was realised and no trade detail was imported to reconstruct it. Skipping
+    // the check here certified a book whose entire closed-trade history could be missing.
+    add({ name: 'Realised P&L', ours: null, broker: latestNav.realized, break: null, tolerance: 0, ok: false,
+      detail: 'the statement reports realised P&L but no trade rows were imported — re-run the Flex query with the Trades section enabled' })
+  } else if (caRows.length > 0 && caRows.some((c) => caRate(c) === null)) {
+    add({ name: 'Realised P&L', ours: null, broker: null, break: null, tolerance: 0, ok: false,
+      detail: `${caRows.length} corporate action(s) realised money that could not be valued in the base currency` })
+  } else if (brokerRows.length > 0 || closures.length > 0 || caRows.length > 0) {
     if (unconvertible > 0) {
       add({ name: 'Realised P&L', ours: null, broker: null, break: null, tolerance: 0, ok: false,
         detail: `${unconvertible} row(s) could not be valued in the base currency, so realised P&L cannot be compared` })
@@ -767,8 +878,9 @@ export function reconcile(ctx: {
         break: null, tolerance: 0, ok: false,
         detail: 'the statement reports realised trades but no close matched an opening lot — the imported history starts too late' })
     } else {
-      const theirs = brokerRows.reduce((a, t) => a + t.fifoPnlRealized! * rate(t)!, 0)
-      const ours = closures.reduce((a, c) => a + c.realizedBase!, 0)
+      const caRealised = caRows.reduce((a, c) => a + c.fifoPnlRealized! * caRate(c)!, 0)
+      const theirs = brokerRows.reduce((a, t) => a + t.fifoPnlRealized! * rate(t)!, 0) + caRealised
+      const ours = closures.reduce((a, c) => a + c.realizedBase!, 0) + caRealised
       cmp('Realised P&L', ours, theirs, Math.max(1, Math.abs(theirs) * 0.001),
         'Our FIFO matching against the statement\u2019s own fifoPnlRealized, both in the base currency')
     }
@@ -823,6 +935,17 @@ export function reconcile(ctx: {
   if (latestNav?.withholdingTax != null) {
     cmp('Withholding tax', windowIncome ? windowIncome.withholdingTax : null, latestNav.withholdingTax, 1,
       'Withholding we classified against the statement\u2019s own total, over that statement\u2019s window')
+  }
+  // Interest and fees were published on the Income card and never checked. A cash row the classifier
+  // does not recognise is dropped silently, so without these two the displayed income can be wrong with
+  // every check green.
+  if (latestNav?.interest != null) {
+    cmp('Interest', windowIncome ? windowIncome.interest : null, latestNav.interest, 1,
+      'Interest we classified against the statement\u2019s own total, over that statement\u2019s window')
+  }
+  if (latestNav?.otherFees != null) {
+    cmp('Fees', windowIncome ? windowIncome.fees : null, latestNav.otherFees, 1,
+      'Fees we classified against the statement\u2019s own total, over that statement\u2019s window')
   }
 
   return { ok: checks.length > 0 && checks.every((c) => c.ok), checks }

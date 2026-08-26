@@ -56,7 +56,13 @@ function main(argv: string[]): number {
   const unvalued = book.closures.length - valued.length
   console.log(`CLOSURES  ${book.closures.length}   realised ${money(valued.reduce((a, c) => a + c.realizedBase!, 0), ccy)}`
     + (unvalued > 0 ? `   (${unvalued} with no rate, excluded)` : ''))
-  console.log(`FLOWS     ${book.flows.length}   net ${money(book.flows.reduce((a, f) => a + (f.amountBase ?? f.amount), 0), ccy)}`)
+  // Same rule as the closures line above, which the flows line was missed by: an unconverted EUR deposit
+  // added straight into a USD total prints a mixed-currency number under the base-currency label, in the
+  // same run whose warnings say that flow could not be valued.
+  const valuedFlows = book.flows.filter((f) => f.amountBase !== null)
+  const unvaluedFlows = book.flows.length - valuedFlows.length
+  console.log(`FLOWS     ${book.flows.length}   net ${money(valuedFlows.reduce((a, f) => a + f.amountBase!, 0), ccy)}`
+    + (unvaluedFlows > 0 ? `   (${unvaluedFlows} with no rate, excluded)` : ''))
   console.log(`CORP ACTS ${book.corporateActions.length}`)
   console.log('')
   console.log('INCOME')

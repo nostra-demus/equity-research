@@ -183,13 +183,14 @@ check('every reconciliation check passes on a coherent statement', () => {
   const failed = book.reconciliation.checks.filter((c) => !c.ok)
   assert.equal(failed.length, 0, `failing: ${failed.map((f) => `${f.name} break=${f.break}`).join('; ')}`)
   assert.equal(book.reconciliation.ok, true)
-  assert.equal(book.reconciliation.checks.length, 8)
+  assert.equal(book.reconciliation.checks.length, 10)
 })
 
 check('the book verifies NAV, return, realised P&L, positions and cash', () => {
   const names = book.reconciliation.checks.map((c) => c.name)
   for (const n of ['Net asset value', 'NAV bridge', 'Time-weighted return', 'Realised P&L',
-                   'Open positions', 'Capital flows', 'Dividends', 'Withholding tax']) {
+                   'Open positions', 'Capital flows', 'Dividends', 'Withholding tax',
+                   'Interest', 'Fees']) {
     assert.ok(names.includes(n), `missing check: ${n}`)
   }
 })
@@ -540,6 +541,95 @@ check('a position and a trade in the SAME contract produce the same key without 
   const built = buildBook([{ ...doc, trades: [fut], openPositions: [snapshot], cashTransactions: [], corporateActions: [] }])
   const held = built.reconciliation.checks.find((c) => c.name === 'Open positions')!
   assert.equal(held.break, 0, `the two sides must agree: ${held.detail}`)
+})
+
+// ---------- the reconciliation FLOOR ----------
+// Six of the checks read from ChangeInNAV. When it is absent they add nothing, and `every(...)` over
+// whatever survived returned true — so the badge read "Reconciled" on a book with no broker evidence for
+// NAV, return, flows or income. These fix that class of failure: a check that cannot run must fail.
+
+check('a statement with no Change in NAV section cannot reconcile', () => {
+  const noNav = buildBook([{ ...doc, changeInNav: null }])
+  assert.equal(noNav.reconciliation.ok, false, 'six of eight checks cannot run — the book is not verified')
+  const floor = noNav.reconciliation.checks.find((c) => c.name === 'Statement summary')!
+  assert.ok(floor, 'the absence must be recorded as a check, not vanish')
+  assert.equal(floor.ok, false)
+})
+
+check('a statement reporting realised money with no trade rows cannot reconcile', () => {
+  // The Flex query was run with the Trades section unticked: the entire closed-trade history is missing
+  // and every remaining check can still pass.
+  const noTrades = buildBook([{ ...doc, trades: [], openPositions: [] }])
+  const realised = noTrades.reconciliation.checks.find((c) => c.name === 'Realised P&L')!
+  assert.ok(realised, 'the check must exist rather than being skipped')
+  assert.equal(realised.ok, false)
+  assert.equal(noTrades.reconciliation.ok, false)
+})
+
+check('an unknown NAV bridge component is not treated as zero', () => {
+  // A blank attribute means UNKNOWN. Dropping it and summing the rest let the identity pass by luck.
+  const holed = buildBook([{ ...doc, changeInNav: { ...doc.changeInNav!, mtm: null } }])
+  const bridge = holed.reconciliation.checks.find((c) => c.name === 'NAV bridge')!
+  assert.equal(bridge.ok, false)
+  assert.equal(bridge.ours, null, 'an incomplete bridge is un-evaluated, not a partial sum')
+})
+
+// ---------- coverage ----------
+
+check('a hole between statements withholds the all-history return and fails the book', () => {
+  // Import 2026 and 2028 without 2027 and the chain joins the last NAV of one to the first of the other
+  // as a single step, counting every deposit made in between as performance.
+  const later = {
+    ...doc,
+    fromDate: '2028-01-01', toDate: '2028-12-31',
+    trades: [], cashTransactions: [], corporateActions: [], openPositions: [],
+    equitySummary: [{ reportDate: '2028-06-30', total: 500000, currency: 'USD', cash: null }],
+  }
+  const gapped = buildBook([doc, later as typeof doc])
+  assert.equal(gapped.twr, null, 'a return chained across a hole is a different number, not a rough one')
+  assert.equal(gapped.coverage.gaps.length, 1)
+  const cov = gapped.reconciliation.checks.find((c) => c.name === 'Coverage')!
+  assert.ok(cov && !cov.ok, 'the hole must be a failing check, not only a warning')
+  assert.ok(gapped.warnings.some((w) => w.includes('no statement covers')), 'and the operator is told which dates')
+})
+
+check('two abutting statements are not a gap', () => {
+  // The fixture ends 2026-01-04, so the next statement opening on the 5th leaves no uncovered day.
+  const next = {
+    ...doc,
+    fromDate: '2026-01-05', toDate: '2026-01-31',
+    trades: [], cashTransactions: [], corporateActions: [], openPositions: [],
+    equitySummary: [{ reportDate: '2026-01-31', total: 120000, currency: 'USD', cash: null }],
+  }
+  assert.equal(buildBook([doc, next as typeof doc]).coverage.gaps.length, 0)
+})
+
+// ---------- identity and currency ----------
+
+check('a statement that does not name its account is refused', () => {
+  // Filtering the missing identity out left the set at size 1, so an unidentifiable export merged into
+  // a book labelled with the known account.
+  const anonymous = { ...doc, accountId: null, accountIds: [] }
+  assert.throws(() => buildBook([doc, anonymous]), /do not name an account/)
+})
+
+check('two reporting currencies are refused rather than chained', () => {
+  // EquitySummaryInBase totals are in the document's OWN base. Merging a EUR series into a USD one turns
+  // the switch itself into a daily return.
+  const inEuros = {
+    ...doc,
+    changeInNav: { ...doc.changeInNav!, currency: 'EUR' },
+    equitySummary: doc.equitySummary.map((r) => ({ ...r, currency: 'EUR' })),
+  }
+  assert.throws(() => buildBook([doc, inEuros]), /base currencies/)
+})
+
+check('BASE_SUMMARY is a reporting label, not a currency', () => {
+  // Taken literally it matched nothing in the rate grid — not even the base itself — so every closure,
+  // flow and income row became unconvertible and the header read "Reported in BASE_SUMMARY".
+  const sentinel = buildBook([{ ...doc, changeInNav: { ...doc.changeInNav!, currency: 'BASE_SUMMARY' } }])
+  assert.equal(sentinel.baseCurrency, 'USD', 'the real currency comes from the daily NAV rows instead')
+  assert.ok(sentinel.closures.every((c) => c.realizedBase !== null), 'and base-currency closures still value')
 })
 
 console.log(`\n${passed} passed, ${fails.length} failed`)

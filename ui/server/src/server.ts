@@ -3620,6 +3620,11 @@ app.get('/api/quote', { config: { rateLimit: { max: 600, timeWindow: '1 minute' 
 // private financial data, not research output.
 
 app.get('/api/portfolio', async (req, reply) => {
+  // The response carries the account identifier, exact NAV, every position and the trade history. Without
+  // an explicit header it is heuristically cacheable, so a browser or an intermediary can re-serve the
+  // whole book after the session ends — the attachment route already sets the same header for the same
+  // reason.
+  reply.header('cache-control', 'private, no-store')
   try {
     return readPortfolio()
   } catch (e: any) {
@@ -3723,6 +3728,7 @@ app.post('/api/portfolio/manual/clear-superseded', async (req, reply) => {
 // should show the reconciled figures immediately and let the estimate arrive after.
 app.get('/api/portfolio/live', async (req, reply) => {
   if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request rejected' })
+  reply.header('cache-control', 'private, no-store') // same private book, marked to market
   try {
     return await liveMark(readPortfolio().book)
   } catch (e: any) {
