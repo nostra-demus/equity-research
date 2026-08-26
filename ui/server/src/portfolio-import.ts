@@ -222,6 +222,12 @@ export interface FlexTrade {
   exchange: string | null
   transactionType: string | null
   levelOfDetail: string | null
+  // What makes one CONTRACT different from another that shares a ticker. Without these a trade row
+  // cannot be matched to the right position, and two futures expiries (or two option strikes) share one
+  // FIFO queue whenever the broker omits conid.
+  expiry: string | null
+  strike: number | null
+  putCall: string | null
   // Corporate actions RESTATE trades. These carry the pre-restatement original, which is the only way
   // to follow a lot across a split without guessing.
   origTradeID: string | null
@@ -414,6 +420,9 @@ export function parseFlexXml(xml: string): FlexDocument {
       exchange: str(a.exchange),
       transactionType: str(a.transactionType),
       levelOfDetail: str(a.levelOfDetail),
+      expiry: isoDate(a.expiry),
+      strike: num(a.strike),
+      putCall: str(a.putCall),
       origTradeID: str(a.origTradeID),
       origTradePrice: num(a.origTradePrice),
       origTransactionID: str(a.origTransactionID),

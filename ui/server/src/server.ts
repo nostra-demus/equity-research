@@ -44,7 +44,10 @@ import { loadTheme, buildThemeDetail } from './news/themes/store'
 import { memberMatchesGeo, type ThemeGeo } from './news/themes/geo-index'
 import { memberMatchesCommodity } from './news/themes/commodity-index'
 import { createThemesIndexReader } from './news/themes/api-index'
-import { deleteStatement, readPortfolio, saveStatement, STATEMENT_MAX_BYTES } from './portfolio-store'
+import {
+  clearSupersededManual, deleteStatement, logManualTrade, readPortfolio, removeManualTrade, saveStatement,
+  STATEMENT_MAX_BYTES,
+} from './portfolio-store'
 import { buildThemeBrief } from './news/themes/brief'
 import { enrichEvent, listCoveredTickers, peekCachedEnrichment } from './news/enrich'
 import { verdictOf } from './news/impact-floor'
@@ -3683,6 +3686,35 @@ app.delete('/api/portfolio/statements/:id', async (req, reply) => {
   const id = String((req.params as any).id ?? '')
   if (!deleteStatement(id)) return reply.code(404).send({ error: 'not found' })
   return readPortfolio()
+})
+
+// A fill taken since the last export, typed in by hand. PROVISIONAL by construction: it is stored and
+// shown, it never enters the book or the reconciliation checks, and it is marked as answered the moment
+// a statement covers its date. Validation lives in portfolio-manual.ts so the same rules apply to any
+// caller, and its thrown messages are written for the operator — safe to return verbatim, unlike the
+// store's, which can carry absolute paths.
+app.post('/api/portfolio/manual', { config: { rateLimit: { max: 60, timeWindow: '1 minute' } } }, async (req, reply) => {
+  if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request rejected' })
+  try {
+    return logManualTrade((req.body ?? {}) as any)
+  } catch (e: any) {
+    return reply.code(400).send({ error: String(e?.message || 'that entry could not be logged') })
+  }
+})
+
+app.delete('/api/portfolio/manual/:id', async (req, reply) => {
+  if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request rejected' })
+  if (!removeManualTrade(String((req.params as any).id ?? ''))) return reply.code(404).send({ error: 'not found' })
+  return readPortfolio()
+})
+
+// Clear the entries a statement has already answered. Deliberately an explicit action rather than
+// something an upload does on its own: an entry the broker never confirmed is exactly what the operator
+// needs to see, and it would vanish unnoticed if importing tidied up behind itself.
+app.post('/api/portfolio/manual/clear-superseded', async (req, reply) => {
+  if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request rejected' })
+  const cleared = clearSupersededManual()
+  return { cleared, ...readPortfolio() }
 })
 
 // ---------- watchlist (watchlist.ts) ----------

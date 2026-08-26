@@ -18,6 +18,10 @@ import { STATE_DIR } from './config'
 import { feedPresent, readCloses } from './market-feed'
 import { alignFlowsToNavDates, buildBook, type Book } from './portfolio'
 import { parseFlexXml, type FlexDocument } from './portfolio-import'
+import {
+  addManual, clearSuperseded, deleteManual, normalizeManual, provisionalRead, readManual,
+  type ManualInput, type ManualRead, type StatementCoverage,
+} from './portfolio-manual'
 import { benchmarkCompare, betaAlpha, dailyReturns, measuredWindow, moneyWeightedReturn, monthlyReturns, returnsByPeriod, riskMetrics, type BenchmarkRead, type BetaAlpha, type MonthRow, type PeriodReturn, type RiskRead } from './portfolio-metrics'
 
 export const PORTFOLIO_DIR = path.join(STATE_DIR, 'portfolio')
@@ -180,6 +184,9 @@ export interface PortfolioPerformance {
 export interface PortfolioRead {
   statements: StoredStatement[]
   book: Book | null
+  /** Hand-logged fills, marked against statement coverage. A SEPARATE layer: nothing here reaches the
+   *  book or the reconciliation checks, which stay exactly as the broker states them. */
+  manual: ManualRead
   /** Null whenever there is no book to measure. */
   performance: PortfolioPerformance | null
   /** Present when the stored statements cannot currently produce a book — two accounts, say. The
@@ -243,7 +250,7 @@ export function performanceOf(book: Book): PortfolioPerformance {
     betaAlpha: betaAlpha(returns, closes, RISK_FREE_ANNUAL_PCT),
     growth,
     underwater,
-    moneyWeightedAnnualisedPct: moneyWeightedReturn(book.navSeries, book.flows),
+    moneyWeightedAnnualisedPct: moneyWeightedReturn(book.navSeries, flowsByDate),
     risk: riskMetrics(book.navSeries, flowsByDate, RISK_FREE_ANNUAL_PCT),
     benchmark: benchmarkCompare(BENCHMARK_SYMBOL, book.twr, window, closes),
     riskFreeAnnualPct: RISK_FREE_ANNUAL_PCT,
@@ -251,12 +258,47 @@ export function performanceOf(book: Book): PortfolioPerformance {
   }
 }
 
+function coverageOf(statements: StoredStatement[]): StatementCoverage[] {
+  return statements.map((s) => ({ id: s.id, filename: s.filename, fromDate: s.fromDate, toDate: s.toDate }))
+}
+
+/** The provisional layer for the current store. Whether an entry is superseded is DERIVED from the
+ *  statements present right now — so removing a statement makes the entries it answered live again,
+ *  which is the honest answer rather than a stale flag frozen at upload time. */
+function manualRead(statements: StoredStatement[], book: Book | null): ManualRead {
+  return provisionalRead(readManual(PORTFOLIO_DIR), coverageOf(statements), book?.positions ?? [])
+}
+
+export function logManualTrade(input: ManualInput): PortfolioRead {
+  const today = new Date().toISOString().slice(0, 10)
+  addManual(PORTFOLIO_DIR, normalizeManual(input, today))
+  return readPortfolio()
+}
+
+export function removeManualTrade(id: string): boolean {
+  return deleteManual(PORTFOLIO_DIR, id)
+}
+
+/** Drop every entry a statement now covers. Returns how many went, so the UI can say it out loud
+ *  instead of the list simply shrinking. */
+export function clearSupersededManual(): number {
+  return clearSuperseded(PORTFOLIO_DIR, coverageOf(listStatements()))
+}
+
 export function readPortfolio(): PortfolioRead {
   const statements = listStatements()
-  if (statements.length === 0) return { statements, book: null, performance: null, error: null }
+  if (statements.length === 0) {
+    return { statements, book: null, performance: null, manual: manualRead(statements, null), error: null }
+  }
   const key = currentKey(statements)
   if (cache && cache.key === key) {
-    return { statements, book: cache.book, performance: cache.book ? performanceOf(cache.book) : null, error: cache.error }
+    // The manual layer is NOT cached with the book: it changes on its own, and it is a file read plus a
+    // roll-up over at most a couple of hundred rows.
+    return {
+      statements, book: cache.book, error: cache.error,
+      performance: cache.book ? performanceOf(cache.book) : null,
+      manual: manualRead(statements, cache.book),
+    }
   }
 
   // EVERY listed statement must load, or there is no book. Skipping an unreadable one and building from
@@ -281,5 +323,5 @@ export function readPortfolio(): PortfolioRead {
     }
   }
   cache = { key, book, error }
-  return { statements, book, performance: book ? performanceOf(book) : null, error }
+  return { statements, book, performance: book ? performanceOf(book) : null, manual: manualRead(statements, book), error }
 }

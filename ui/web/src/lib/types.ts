@@ -2187,6 +2187,9 @@ export interface PortfolioPeriodReturn {
   label: string; from: string | null; to: string | null; twr: number | null; days: number
   /** What cash would have returned over the same window, and the book's margin over it. */
   hurdle: number | null; overHurdle: number | null
+  /** The book has no valued day at or before this period's start, so the window is shorter than the
+   *  label implies — a "year to date" on a book that only began in April. */
+  partial: boolean
 }
 export interface PortfolioMonthRow { month: string; book: number | null; benchmark: number | null }
 export interface PortfolioBetaAlpha { beta: number | null; alpha: number | null; pairedDays: number }
@@ -2207,6 +2210,47 @@ export interface PortfolioBenchmark {
   /** Why the comparison is unavailable, when it is — never a silent blank. */
   unavailable: string | null
 }
+/** What the operator types into the log-a-trade form. Validated by the engine, never here: one set of
+ *  rules for every caller. */
+export interface PortfolioManualInput {
+  symbol: string
+  side: 'buy' | 'sell'
+  quantity: number
+  price: number
+  currency: string
+  tradeDate: string
+  commission?: number
+  note?: string | null
+}
+export interface PortfolioManualTrade extends PortfolioManualInput {
+  id: string
+  commission: number
+  note: string | null
+  loggedAt: string
+  /** Set once a statement covers this date — the broker's own record has answered for it. */
+  supersededBy: { statementId: string; filename: string; from: string | null; to: string | null } | null
+  signedQuantity: number
+  /** In the entry's OWN currency — there is no rate for a fill the book has not seen. */
+  cashEffect: number
+}
+/** What the LIVE entries would do to one position, stated against what the book actually holds. */
+export interface PortfolioManualEffect {
+  symbol: string
+  currency: string
+  bookQuantity: number | null
+  delta: number
+  provisionalQuantity: number
+  cashEffect: number
+  trades: number
+  crossesZero: boolean
+}
+export interface PortfolioManualRead {
+  trades: PortfolioManualTrade[]
+  live: number
+  superseded: number
+  effects: PortfolioManualEffect[]
+}
+
 export interface PortfolioPerformance {
   periods: PortfolioPeriodReturn[]
   months: PortfolioMonthRow[]
@@ -2225,6 +2269,8 @@ export interface PortfolioPerformance {
 
 export interface PortfolioRead {
   statements: PortfolioStatement[]
+  /** Hand-logged fills. A SEPARATE layer from the book: nothing here reaches the reconciled figures. */
+  manual: PortfolioManualRead
   book: PortfolioBook | null
   performance: PortfolioPerformance | null
   error: string | null

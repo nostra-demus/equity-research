@@ -2,9 +2,12 @@ import { useCallback, useEffect, useMemo, useState } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 import { api } from '../../lib/api'
 import type {
-  PortfolioBook, PortfolioClosure, PortfolioPerformance, PortfolioPosition, PortfolioRead,
+  PortfolioBook, PortfolioClosure, PortfolioManualRead, PortfolioPerformance, PortfolioPosition, PortfolioRead,
 } from '../../lib/types'
 import { GrowthChart, UnderwaterChart } from './charts'
+import { LogTradeForm, ManualTradeList, ProvisionalEffects } from './manual'
+
+const EMPTY_MANUAL: PortfolioManualRead = { trades: [], live: 0, superseded: 0, effects: [] }
 
 // The fund book: what the fund ACTUALLY owns, fed by IBKR Flex exports.
 //
@@ -66,7 +69,7 @@ export function PortfolioStage() {
     try {
       const before = snapshot(read)
       const result = await api.uploadStatements(files, setProgress)
-      const after: PortfolioRead = { statements: result.statements, book: result.book, performance: result.performance, error: result.error }
+      const after: PortfolioRead = { statements: result.statements, book: result.book, performance: result.performance, manual: result.manual, error: result.error }
       setRead(after)
       // What the import actually did to the book, measured rather than asserted: a "12 statements
       // imported" message that leaves every total unchanged is exactly the case an operator needs to
@@ -82,16 +85,20 @@ export function PortfolioStage() {
     } catch (e: any) {
       setNotes([{ tone: 'bad', text: e?.message || 'upload failed' }])
     } finally { setBusy(false); setProgress(0) }
-  }, [busy])
+    // `read` IS a dependency: the delta panel measures against the book as it stood immediately before
+    // the upload, and a callback frozen at mount compares against whatever was loaded then — so after a
+    // statement delete or a hand-logged trade it reported deltas that never happened.
+  }, [busy, read])
 
   const book = read?.book ?? null
+  const manual = read?.manual ?? EMPTY_MANUAL
   const ccy = book?.baseCurrency ?? null
   const hasStatements = (read?.statements.length ?? 0) > 0
 
   const tabs: { id: Tab; label: string; count?: number }[] = [
     { id: 'holdings', label: 'Holdings', count: book?.positions.length },
     { id: 'performance', label: 'Returns & risk' },
-    { id: 'trades', label: 'Trade history', count: book?.closures.length },
+    { id: 'trades', label: 'Trade history', count: (book?.closures.length ?? 0) + manual.live },
     { id: 'import', label: 'Import', count: read?.statements.length },
   ]
 
@@ -113,23 +120,43 @@ export function PortfolioStage() {
             {book && <small>{ccy ? `Reported in ${ccy}` : ''}{book.asOf ? ` · as of ${book.asOf}` : ''}</small>}
           </div>
         </div>
-        {book && <ReconcileBadge book={book} onInspect={() => setTab('import')} />}
       </div>
 
-      {book && (
-        <div className="fundbook__tabs" role="tablist" aria-label="Fund book sections">
-          {tabs.map((t) => (
-            <button
-              key={t.id}
-              role="tab"
-              aria-selected={tab === t.id}
-              className={`fundbook__tab${tab === t.id ? ' is-on' : ''}`}
-              onClick={() => setTab(t.id)}
-            >
-              {t.label}
-              {t.count !== undefined && <span className="fundbook__tabcount">{t.count}</span>}
-            </button>
-          ))}
+      {/* Tabs and status on ONE row, deliberately BELOW the title rather than in the header's top-right
+          corner: the cockpit's view toggle is an absolute overlay pinned there, and the reconciliation
+          badge — the one thing on this screen that must never be hidden — was sliding underneath it at
+          ordinary desktop widths. This row clears the overlay at any width, with no magic number
+          coupling the two components. */}
+      {(book || manual.live > 0) && (
+        <div className="fundbook__toolbar">
+          {book && (
+            <div className="fundbook__tabs" role="tablist" aria-label="Fund book sections">
+              {tabs.map((t) => (
+                <button
+                  key={t.id}
+                  role="tab"
+                  aria-selected={tab === t.id}
+                  className={`fundbook__tab${tab === t.id ? ' is-on' : ''}`}
+                  onClick={() => setTab(t.id)}
+                >
+                  {t.label}
+                  {t.count !== undefined && <span className="fundbook__tabcount">{t.count}</span>}
+                </button>
+              ))}
+            </div>
+          )}
+          <div className="fundbook__badges">
+            {/* Outstanding hand-logged fills sit beside the reconciliation state, not buried in a tab:
+                together they answer "is what I am looking at the whole picture?" */}
+            {manual.live > 0 && (
+              <button className="fundbook__recon is-provisional" onClick={() => setTab('trades')}
+                title="Fills logged by hand that no statement covers yet">
+                <i aria-hidden />
+                {manual.live} logged by hand
+              </button>
+            )}
+            {book && <ReconcileBadge book={book} onInspect={() => setTab('import')} />}
+          </div>
         </div>
       )}
 
@@ -153,20 +180,20 @@ export function PortfolioStage() {
           // the import surface, because when the build FAILS the Remove buttons there are the only way
           // out; hiding them behind a successful build strands the operator with an error and no control.
           <ImportTab
-            read={read ?? { statements: [], book: null, performance: null, error: null }}
+            read={read ?? { statements: [], book: null, performance: null, manual: EMPTY_MANUAL, error: null }}
             onFiles={upload} onChanged={setRead} busy={busy} progress={progress} notes={notes}
-            firstRun={!hasStatements} changed={changed}
+            firstRun={!hasStatements} changed={changed} manual={manual}
           />
         ) : tab === 'holdings' ? (
-          <Holdings book={book} perf={read?.performance ?? null} />
+          <Holdings book={book} perf={read?.performance ?? null} manual={manual} onManage={() => setTab('trades')} />
         ) : tab === 'performance' ? (
           read?.performance
             ? <Performance perf={read.performance} />
             : <div className="fundbook__none">No performance to show yet.</div>
         ) : tab === 'trades' ? (
-          <Trades book={book} />
+          <Trades book={book} manual={manual} onChanged={setRead} />
         ) : (
-          <ImportTab read={read!} onFiles={upload} onChanged={setRead} busy={busy} progress={progress} notes={notes} changed={changed} />
+          <ImportTab read={read!} onFiles={upload} onChanged={setRead} busy={busy} progress={progress} notes={notes} changed={changed} manual={manual} />
         )}
       </div>
     </motion.div>
@@ -234,7 +261,9 @@ function Card({ label, value, sub, tone }: { label: string; value: string; sub?:
 
 // ---------- holdings ----------
 
-function Holdings({ book, perf }: { book: PortfolioBook; perf: PortfolioPerformance | null }) {
+function Holdings({ book, perf, manual, onManage }: {
+  book: PortfolioBook; perf: PortfolioPerformance | null; manual: PortfolioManualRead; onManage: () => void
+}) {
   const ccy = book.baseCurrency
   const nav = book.navSeries.length ? book.navSeries[book.navSeries.length - 1]!.total : null
   const equities = book.positions.filter((p) => !p.isDerivative)
@@ -329,9 +358,22 @@ function Holdings({ book, perf }: { book: PortfolioBook; perf: PortfolioPerforma
         </div>
       )}
 
+      {manual.effects.length > 0 && (
+        <div className="fundbook__panel is-provisional">
+          <div className="fundbook__panelhead">
+            <div>
+              <strong>Logged by hand — not in a statement yet</strong>
+              <small>What the book will hold once these fills land. Nothing here is in the numbers above.</small>
+            </div>
+            <button className="fundbook__btn" onClick={onManage}>Manage</button>
+          </div>
+          <ProvisionalEffects effects={manual.effects} />
+        </div>
+      )}
+
       <div className="fundbook__panel">
         <div className="fundbook__panelhead">
-          <div><strong>Positions</strong><small>{book.positions.length} open · weights come from the statement</small></div>
+          <div><strong>Positions</strong><small>{book.positions.length} open · weights come from the statement · as the statement states them</small></div>
         </div>
         <div className="fundbook__scroll">
           <div className="fundbook__row fundbook__row--head">
@@ -421,7 +463,14 @@ function Performance({ perf }: { perf: PortfolioPerformance }) {
           </div>
           {perf.periods.map((p) => (
             <div key={p.label} className="fundbook__row fundbook__row--periods">
-              <span>{p.label}<small className="fundbook__since">{p.from} → {p.to}</small></span>
+              <span>
+                {p.label}
+                {/* The book has no valued day at this period's own start, so the figure covers less than
+                    the label claims. Said out loud — otherwise two rows show the same number under two
+                    period names and the reader has to guess which one is the real one. */}
+                {p.partial && <em className="fundbook__partial" title={`The book has no valued day before this period began — measured from ${p.from}`}>from inception</em>}
+                <small className="fundbook__since">{p.from} → {p.to}</small>
+              </span>
               <strong className="num" style={{ color: toneOf(p.twr) }}>{fmtPct(p.twr, 2)}</strong>
               {/* The benchmark is only meaningful over the same window, so it appears on the inception
                   row alone rather than repeated against periods it was never measured over. */}
@@ -539,7 +588,10 @@ function Performance({ perf }: { perf: PortfolioPerformance }) {
 
 // ---------- trade history ----------
 
-function Trades({ book }: { book: PortfolioBook }) {
+function Trades({ book, manual, onChanged }: {
+  book: PortfolioBook; manual: PortfolioManualRead; onChanged: (r: PortfolioRead) => void
+}) {
+  const [logging, setLogging] = useState(false)
   const ccy = book.baseCurrency
   const rows = useMemo(
     () => [...book.closures].sort((a, b) => (b.closedAt ?? '').localeCompare(a.closedAt ?? '')),
@@ -613,16 +665,55 @@ function Trades({ book }: { book: PortfolioBook }) {
     return { currencyEffect: list, allBase: list.every((r) => Math.abs(r.currencyEffect) < 0.005) }
   }, [rows])
 
+  // Rendered above the closed round trips AND above the empty state: a book whose only activity is
+  // hand-logged fills must not look like a book with nothing in it.
+  const manualPanel = (
+    <div className={`fundbook__panel${manual.live > 0 ? ' is-provisional' : ''}`}>
+      <div className="fundbook__panelhead">
+        <div>
+          <strong>Logged by hand</strong>
+          <small>
+            Fills taken since the last export. Provisional — they never enter the reconciled book, and a
+            statement covering their date answers them.
+          </small>
+        </div>
+        {!logging && <button className="fundbook__btn is-primary" onClick={() => setLogging(true)}>Log a trade</button>}
+      </div>
+      {logging && (
+        <LogTradeForm
+          baseCurrency={ccy}
+          onCancel={() => setLogging(false)}
+          onDone={(read) => { onChanged(read); setLogging(false) }}
+        />
+      )}
+      {/* The "nothing logged yet" copy explains the feature — pointless, and faintly absurd, while the
+          operator is typing into the form it describes. */}
+      {(!logging || manual.trades.length > 0) && (
+        <ManualTradeList manual={manual} baseCurrency={ccy} onChanged={onChanged} />
+      )}
+      {manual.effects.length > 0 && (
+        <>
+          <div className="fundbook__subhead">What they would do to the book</div>
+          <ProvisionalEffects effects={manual.effects} />
+        </>
+      )}
+    </div>
+  )
+
   if (rows.length === 0) {
     return (
-      <div className="fundbook__empty">
-        <strong>No closed trades yet</strong>
-        <span>A round trip appears once a position has been closed and matched against the lot that opened it.</span>
-      </div>
+      <>
+        {manualPanel}
+        <div className="fundbook__empty">
+          <strong>No closed trades yet</strong>
+          <span>A round trip appears once a position has been closed and matched against the lot that opened it.</span>
+        </div>
+      </>
     )
   }
   return (
     <>
+      {manualPanel}
       <div className="fundbook__cards">
         <Card label="Realised" value={fmtMoney(stats.total, ccy)} sub={`Net of ${fmtMoney(Math.abs(stats.commission), ccy)} in costs`} tone={toneOf(stats.total)} />
         <Card label="Closed trades" value={String(rows.length)} sub={`${stats.wins} up · ${stats.losses} down`} />
@@ -741,7 +832,7 @@ function TradeRow({ c }: { c: PortfolioClosure }) {
 
 // ---------- import ----------
 
-function ImportTab({ read, onFiles, onChanged, busy, progress, notes, firstRun, changed }: {
+function ImportTab({ read, onFiles, onChanged, busy, progress, notes, firstRun, changed, manual }: {
   read: PortfolioRead
   onFiles: (f: File[]) => void
   onChanged: (r: PortfolioRead) => void
@@ -750,6 +841,7 @@ function ImportTab({ read, onFiles, onChanged, busy, progress, notes, firstRun, 
   notes: { tone: 'ok' | 'bad'; text: string }[]
   firstRun?: boolean
   changed: ImportDelta | null
+  manual: PortfolioManualRead
 }) {
   const [removing, setRemoving] = useState<string | null>(null)
   const [removeError, setRemoveError] = useState<string | null>(null)
@@ -801,6 +893,25 @@ function ImportTab({ read, onFiles, onChanged, busy, progress, notes, firstRun, 
               <Delta label="Covered through" beforeText={changed.before.to ?? '—'} afterText={changed.after.to ?? '—'} />
             </div>
           )}
+        </div>
+      )}
+
+      {/* Only when no book builds. The Trade-history tab owns these normally, but that tab does not exist
+          without a book — and entries logged before the statements were removed would otherwise be
+          stranded with no way to reach or delete them. Shown, never offered: logging a NEW fill needs an
+          account and a base currency to be worth anything, and neither exists here. */}
+      {!book && manual.trades.length > 0 && (
+        <div className="fundbook__panel is-provisional">
+          <div className="fundbook__panelhead">
+            <div>
+              <strong>Logged by hand</strong>
+              <small>
+                {manual.trades.length} entr{manual.trades.length === 1 ? 'y' : 'ies'} kept from before. They
+                rejoin the Trade history screen as soon as a statement builds a book again.
+              </small>
+            </div>
+          </div>
+          <ManualTradeList manual={manual} baseCurrency={null} onChanged={onChanged} />
         </div>
       )}
 
