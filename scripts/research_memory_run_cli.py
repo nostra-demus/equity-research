@@ -336,9 +336,24 @@ def compile_packet(args: argparse.Namespace) -> int:
     )
     effective_receipt = {**receipt, "provider_access": authorization["provider_access"]}
     profile, role, _agent_id = _profile(root, args.agent_key)
+    disabled_playbooks: list[tuple[str, int | None]] = []
+    for item in args.disable_playbook:
+        playbook_id, separator, version_text = item.rpartition("@")
+        if separator and version_text.isdigit():
+            disabled_playbooks.append((playbook_id, int(version_text)))
+        else:
+            disabled_playbooks.append((item, None))
+    pinned_playbooks: dict[str, int] = {}
+    for item in args.pin_playbook:
+        playbook_id, separator, version_text = item.rpartition("@")
+        if not separator or not version_text.isdigit() or playbook_id in pinned_playbooks:
+            raise ResearchMemoryError("memory-control-pin-invalid")
+        pinned_playbooks[playbook_id] = int(version_text)
     query, packet, rendered = compile_agent_packet(
         frozen_projection_path(state, args.run_id), receipt=effective_receipt, profile=profile,
         agent_id=args.agent_key, role=role, valid_date=args.valid_date,
+        disabled_layers=args.disable_layer, disabled_playbooks=disabled_playbooks,
+        pinned_playbooks=pinned_playbooks,
     )
     query_path, packet_path, rendered_path = store_packet(
         state, run_id=args.run_id, agent_id=args.agent_key,
@@ -500,6 +515,9 @@ def parser() -> argparse.ArgumentParser:
     c.add_argument("--authorization-sha256", required=True)
     c.add_argument("--agent-key", required=True)
     c.add_argument("--valid-date", required=True)
+    c.add_argument("--disable-layer", action="append", choices=["episodic", "semantic", "procedural"], default=[])
+    c.add_argument("--disable-playbook", action="append", default=[])
+    c.add_argument("--pin-playbook", action="append", default=[])
     c.set_defaults(handler=compile_packet)
 
     a = sub.add_parser("attest")

@@ -3,6 +3,7 @@ import { createHash } from 'node:crypto'
 import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
+import { canonicalJsonText } from '../src/canonical-json'
 import type { RunState } from '../src/registry'
 import {
   clearResearchMemoryPreparationForTests,
@@ -131,5 +132,47 @@ const shadow = run()
 delete shadow.memoryIdentity
 await prepareResearchMemory(shadow, executor, { NOSTRA_MEMORY_MODE: 'shadow' })
 assert.equal(shadow.memoryRuntime?.status, 'unavailable')
+
+const controlRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'memory-controls-'))
+const controlConfig = { ...configured, NOSTRA_MEMORY_STATE_ROOT: controlRoot }
+function writeControls(patch: Record<string, unknown>) {
+  const body = {
+    schema: 'memory-runtime-controls/v1', revision: 1, updated_at: '2026-08-26T00:00:00Z',
+    updated_by: 'ops', global_disabled: false, disabled_layers: [], disabled_playbooks: [],
+    pinned_playbooks: [], candidate_intake_disabled: false, ...patch,
+  }
+  const value = { ...body, control_sha256: `sha256:${createHash('sha256').update(canonicalJsonText(body)).digest('hex')}` }
+  const file = path.join(controlRoot, 'controls', 'runtime-controls.json')
+  fs.mkdirSync(path.dirname(file), { recursive: true, mode: 0o700 })
+  fs.writeFileSync(file, JSON.stringify(value), { mode: 0o600 })
+}
+writeControls({ global_disabled: true })
+const killed = run()
+await prepareResearchMemory(killed, executor, controlConfig)
+assert.equal(killed.memoryRuntime?.status, 'off', 'the global kill switch stops memory before preparation')
+
+writeControls({
+  disabled_layers: ['semantic'],
+  disabled_playbooks: [{ playbook_id: 'memory-playbook-filing', version: 2, reason: 'stale-fact', disabled_at: '2026-08-26T00:00:00Z' }],
+  pinned_playbooks: [{ playbook_id: 'memory-playbook-governance', version: 1, pinned_at: '2026-08-26T00:00:00Z' }],
+})
+clearResearchMemoryPreparationForTests()
+const controlled = run()
+await prepareResearchMemory(controlled, executor, controlConfig)
+await compileResearchMemoryPacket(controlled, 'earnings/01_historical-financials', executor, controlConfig)
+const controlledCompile = calls.at(-1)!
+assert.deepEqual(controlledCompile.slice(controlledCompile.indexOf('--disable-layer'), controlledCompile.indexOf('--disable-layer') + 2), ['--disable-layer', 'semantic'])
+assert.ok(controlledCompile.includes('memory-playbook-filing@2'))
+assert.ok(controlledCompile.includes('memory-playbook-governance@1'))
+const controlsFile = path.join(controlRoot, 'controls', 'runtime-controls.json')
+const tamperedControls = JSON.parse(fs.readFileSync(controlsFile, 'utf8'))
+fs.writeFileSync(controlsFile, JSON.stringify({ ...tamperedControls, global_disabled: true }), { mode: 0o600 })
+clearResearchMemoryPreparationForTests()
+await assert.rejects(
+  () => prepareResearchMemory(run(), executor, controlConfig),
+  /memory snapshot blocked before spend/,
+  'an existing control file that fails integrity must block enforced dispatch',
+)
+fs.rmSync(controlRoot, { recursive: true })
 
 console.log('research memory supervisor tests passed')

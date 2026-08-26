@@ -731,10 +731,30 @@ def compile_agent_packet(
     agent_id: str, role: str, valid_date: str,
     active_semantics: Sequence[Mapping[str, Any]] = (),
     active_playbooks: Sequence[Mapping[str, Any]] = (),
+    disabled_layers: Sequence[str] = (),
+    disabled_playbooks: Sequence[tuple[str, int | None]] = (),
+    pinned_playbooks: Mapping[str, int] | None = None,
 ) -> tuple[dict[str, Any], dict[str, Any], str]:
     started = time.monotonic_ns()
     if active_semantics or active_playbooks:
         raise ResearchMemoryError("external-active-memory-bypasses-frozen-projection")
+    disabled_layer_set = set(disabled_layers)
+    if not disabled_layer_set.issubset({"episodic", "semantic", "procedural"}):
+        raise ResearchMemoryError("memory-control-layer-invalid")
+    disabled_playbook_set = set(disabled_playbooks)
+    if any(
+        not isinstance(playbook_id, str) or not playbook_id
+        or (version is not None and (type(version) is not int or version < 1))
+        for playbook_id, version in disabled_playbook_set
+    ):
+        raise ResearchMemoryError("memory-control-playbook-invalid")
+    pinned = dict(pinned_playbooks or {})
+    if any(
+        not isinstance(playbook_id, str) or not playbook_id
+        or type(version) is not int or version < 1
+        for playbook_id, version in pinned.items()
+    ):
+        raise ResearchMemoryError("memory-control-pin-invalid")
     query = build_query(
         profile=profile, agent_id=agent_id, role=role, receipt=receipt, valid_date=valid_date,
     )
@@ -762,30 +782,75 @@ def compile_agent_packet(
         if isinstance(target, str)
     }
     matching_playbooks: dict[str, list[tuple[int, bool, Mapping[str, Any]]]] = {}
+    control_omissions: set[str] = set()
+    seen_pinned_versions: set[tuple[str, int]] = set()
+    applicable_pinned_ids: set[str] = set()
     for event in events:
         event_type = event.get("event_type")
         if event_type in _EPISODE_TYPES and _exact_listing_event(
             event, listing, exact_run_roots=exact_run_roots,
         ):
             mandatory = _is_mandatory_episode(event)
+            if "episodic" in disabled_layer_set:
+                if mandatory:
+                    raise ResearchMemoryError("mandatory-episodic-memory-disabled")
+                control_omissions.add("episodic")
+                continue
             priority = 1 if mandatory else 3
             candidates.append((priority, "episodic", mandatory, event))
         elif event_type == _CALIBRATION_TYPE and profile.get("cross_company") is True:
+            if "semantic" in disabled_layer_set:
+                control_omissions.add("semantic")
+                continue
             candidates.append((5, "semantic", False, event))
         elif event_type == "semantic.activated" and event.get("event_id") not in superseded_semantics:
             applicable, mandatory = _active_semantic_match(
                 event, query=query, profile=profile, agent_id=agent_id, listing=listing,
             )
             if applicable:
+                if "semantic" in disabled_layer_set:
+                    if mandatory:
+                        raise ResearchMemoryError("mandatory-semantic-memory-disabled")
+                    control_omissions.add("semantic")
+                    continue
                 candidates.append((4, "semantic", mandatory, event))
         elif event_type == "playbook.activated" and event.get("event_id") not in superseded_playbooks:
             applicable, mandatory, specificity, procedure_key = _active_playbook_match(
                 event, query=query, profile=profile, agent_id=agent_id, listing=listing,
             )
             if applicable:
+                payload = event.get("payload", {})
+                playbook_id = payload.get("playbook_id") if isinstance(payload, Mapping) else None
+                version = payload.get("version") if isinstance(payload, Mapping) else None
+                if not isinstance(playbook_id, str) or type(version) is not int:
+                    raise ResearchMemoryError("active-playbook-identity-invalid")
+                if playbook_id in pinned:
+                    applicable_pinned_ids.add(playbook_id)
+                if playbook_id in pinned and version == pinned[playbook_id]:
+                    seen_pinned_versions.add((playbook_id, version))
+                disabled = (playbook_id, None) in disabled_playbook_set or (
+                    playbook_id, version
+                ) in disabled_playbook_set
+                pinned_out = playbook_id in pinned and version != pinned[playbook_id]
+                if "procedural" in disabled_layer_set or disabled or pinned_out:
+                    if mandatory and not pinned_out:
+                        raise ResearchMemoryError("mandatory-procedural-memory-disabled")
+                    control_omissions.add("procedural")
+                    continue
                 matching_playbooks.setdefault(procedure_key, []).append(
                     (specificity, mandatory, event)
                 )
+    unavailable_pins = sorted(
+        (playbook_id, version) for playbook_id, version in pinned.items()
+        if playbook_id in applicable_pinned_ids
+        and (playbook_id, version) not in seen_pinned_versions
+    )
+    if unavailable_pins:
+        raise ResearchMemoryError(
+            "pinned-playbook-version-unavailable:" + ",".join(
+                f"{playbook_id}@{version}" for playbook_id, version in unavailable_pins
+            )
+        )
     for procedure_key, matches in sorted(matching_playbooks.items()):
         best_specificity = max(item[0] for item in matches)
         winners = [item for item in matches if item[0] == best_specificity]
@@ -810,7 +875,10 @@ def compile_agent_packet(
     ))
     layer_names = {"episodic": "episodes", "semantic": "semantics", "procedural": "procedures"}
     entries: dict[str, list[dict[str, Any]]] = {name: [] for name in layer_names}
-    omissions: list[dict[str, Any]] = []
+    omissions: list[dict[str, Any]] = [
+        {"layer": layer, "reason": "quarantined", "mandatory": False}
+        for layer in sorted(control_omissions)
+    ]
     omission_keys: set[tuple[str, str]] = set()
     used_tokens = {name: 0 for name in layer_names}
     layer_budgets = query["per_layer_budgets"]

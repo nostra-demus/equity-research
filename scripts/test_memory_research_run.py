@@ -394,6 +394,41 @@ class ResearchMemoryRunTests(unittest.TestCase):
         self.assertEqual([], packet["sections"]["episodes"]["entries"])
         self.assertEqual([{"layer": "episodic", "reason": "authorization", "mandatory": False}], packet["omissions"])
 
+    def test_incident_layer_switch_omits_optional_memory_but_never_hides_a_mandatory_miss(self) -> None:
+        with self.assertRaisesRegex(ResearchMemoryError, "mandatory-episodic-memory-disabled"):
+            compile_agent_packet(
+                self.database, receipt=self.receipt, profile=PROFILE,
+                agent_id="earnings/01_historical-financials", role="specialist",
+                valid_date="2026-08-25", disabled_layers=["episodic"],
+            )
+
+        optional_database = self.root / "control-optional.sqlite"
+        result = build_projection([
+            event(21, "decision.recorded", "equity_decision_record", {
+                "ticker": "TEST", "company_name": "Test Holdings Inc", "exchange": "NasdaqGS",
+                "currency": "USD", "decision_date": "2026-08-20", "decision": "Watchlist",
+            }),
+        ], optional_database)
+        receipt = build_run_receipt(
+            run_id="runtime-run-control", snapshot=ProjectionSnapshot(
+                source="deterministic-local-rebuild", repository_sha="1" * 40,
+                projection_digest="sha256:" + result.digest, event_count=1,
+                identity_registry_sha256="sha256:" + "2" * 64,
+                checkpoint_sha256="sha256:" + "3" * 64, diagnostics=(),
+            ), issuer_listing=LISTING, provider_access=ACCESS, active_playbooks=[],
+            snapshot_reason="new-run", parent_receipt_id=None, signer=signer,
+        )
+        _query, packet, _rendered = compile_agent_packet(
+            optional_database, receipt=receipt, profile=PROFILE,
+            agent_id="earnings/01_historical-financials", role="specialist",
+            valid_date="2026-08-25", disabled_layers=["episodic"],
+        )
+        self.assertEqual([], packet["sections"]["episodes"]["entries"])
+        self.assertEqual(
+            [{"layer": "episodic", "reason": "quarantined", "mandatory": False}],
+            packet["omissions"],
+        )
+
 
 if __name__ == "__main__":
     unittest.main()

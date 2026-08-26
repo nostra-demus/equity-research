@@ -1,4 +1,4 @@
-import { randomUUID } from 'node:crypto'
+import { createHash, randomUUID, timingSafeEqual } from 'node:crypto'
 import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
@@ -136,6 +136,8 @@ import { AGENT_RE, EVENT_ID_RE, FEEDBACK_ID_RE, MODULE_RE, SIG_RE, THESIS_RE, TI
 import type { RunKind, RunStatus } from './types'
 import { MANIFEST_SUBJECT_RE, normalizeDataSubject } from './data-subject'
 import { createMemoryReader } from './memory'
+import { createMemoryRuntimeReader } from './memory-runtime'
+import { researchMemoryMode } from './research-memory'
 import { purgeReelTempDirs, ReelTranscriptError, transcribeInstagramReel, type ReelTranscriptProgressEvent } from './reel-transcript'
 import { getProviderAdapter, isProviderEnabled, isRunProvider, listProviderAdapters, providerDisabledReason } from './providers/registry'
 import type { RunProvider } from './providers/types'
@@ -264,11 +266,81 @@ app.get('/api/health', async (_req, reply) => {
 // One shared, read-only Memory view for research, screener and commodity. The reader owns the fixed
 // internal classification, projection path and trusted digest; callers cannot widen policy or select files.
 const memoryReader = createMemoryReader({ repoRoot: REPO_ROOT, stateDir: STATE_DIR })
+const memoryRuntimeReader = createMemoryRuntimeReader({
+  repoRoot: REPO_ROOT,
+  stateRoot: path.resolve(process.env.NOSTRA_MEMORY_STATE_ROOT || path.join(STATE_DIR, 'memory-runtime')),
+  mode: researchMemoryMode(),
+  serviceIdentities: {
+    'projection-query': process.env.NOSTRA_MEMORY_PROJECTION_SERVICE_IDENTITY,
+    'candidate-intake': process.env.NOSTRA_MEMORY_CANDIDATE_INTAKE_IDENTITY,
+    'independent-verification': process.env.NOSTRA_MEMORY_VERIFIER_IDENTITY,
+    'canonical-writing': process.env.NOSTRA_MEMORY_WRITER_OWNER,
+    'promotion-pr': process.env.NOSTRA_MEMORY_PROMOTION_SERVICE_IDENTITY,
+    'emergency-quarantine': process.env.NOSTRA_MEMORY_QUARANTINE_SERVICE_IDENTITY,
+    'restore-retirement': process.env.NOSTRA_MEMORY_RESTORE_SERVICE_IDENTITY,
+  },
+})
 app.get('/api/memory', { config: { rateLimit: { max: 60, timeWindow: '1 minute' } } }, async (_req, reply) => {
   reply.header('cache-control', 'no-store')
   // Unavailability is part of memory-ui/1, not a transport failure. Keep it a parseable 200 so the
   // cockpit can explain that state; an actual missing route/network failure remains distinguishable.
   return memoryReader.read()
+})
+
+app.get('/api/memory/runtime', { config: { rateLimit: { max: 60, timeWindow: '1 minute' } } }, async (_req, reply) => {
+  reply.header('cache-control', 'no-store')
+  return await memoryRuntimeReader.runtime()
+})
+
+app.get('/api/memory/runs/:runId', { config: { rateLimit: { max: 60, timeWindow: '1 minute' } } }, async (req, reply) => {
+  reply.header('cache-control', 'no-store')
+  const parsed = z.object({ runId: z.string().regex(/^[A-Za-z0-9][A-Za-z0-9._:-]{0,191}$/) }).safeParse(req.params)
+  if (!parsed.success) return reply.code(400).send({ error: 'invalid memory run id' })
+  const run = await memoryRuntimeReader.runs(parsed.data.runId)
+  return run || reply.code(404).send({ error: 'memory run not found' })
+})
+
+app.get('/api/memory/lessons', { config: { rateLimit: { max: 60, timeWindow: '1 minute' } } }, async (_req, reply) => {
+  reply.header('cache-control', 'no-store')
+  return { contract_version: 'memory-lessons-ui/1', read_only: true, items: await memoryRuntimeReader.lessons() }
+})
+
+app.get('/api/memory/playbooks', { config: { rateLimit: { max: 60, timeWindow: '1 minute' } } }, async (_req, reply) => {
+  reply.header('cache-control', 'no-store')
+  return { contract_version: 'memory-playbooks-ui/1', read_only: true, items: await memoryRuntimeReader.playbooks() }
+})
+
+app.get('/api/memory/candidates', { config: { rateLimit: { max: 30, timeWindow: '1 minute' } } }, async (_req, reply) => {
+  reply.header('cache-control', 'no-store')
+  return { contract_version: 'memory-candidates-ui/1', read_only: true, items: await memoryRuntimeReader.candidates() }
+})
+
+function validMemoryQuarantineToken(req: FastifyRequest): boolean {
+  const configured = String(process.env.NOSTRA_MEMORY_QUARANTINE_TOKEN || '')
+  const raw = req.headers['x-nostra-memory-quarantine-token']
+  const supplied = Array.isArray(raw) ? raw[0] : raw
+  if (!configured || typeof supplied !== 'string') return false
+  const left = createHash('sha256').update(configured).digest()
+  const right = createHash('sha256').update(supplied).digest()
+  return timingSafeEqual(left, right)
+}
+
+app.post('/api/memory/playbooks/quarantine', { config: { rateLimit: { max: 5, timeWindow: '1 minute' } } }, async (req, reply) => {
+  reply.header('cache-control', 'no-store')
+  if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request rejected' })
+  if (!process.env.NOSTRA_MEMORY_QUARANTINE_TOKEN) return reply.code(503).send({ error: 'memory quarantine identity is not configured' })
+  if (!validMemoryQuarantineToken(req)) return reply.code(401).send({ error: 'memory quarantine authentication failed' })
+  const parsed = z.object({
+    playbook_id: z.string().regex(/^[A-Za-z0-9][A-Za-z0-9._\/-]{0,127}$/),
+    version: z.number().int().positive().optional(),
+    reason: z.enum(['policy-leak', 'stale-fact', 'prompt-injection', 'serious-evidence-error', 'operator-emergency', 'provider-incident', 'purge-pending']),
+  }).strict().safeParse(req.body)
+  if (!parsed.success) return reply.code(400).send({ error: 'invalid playbook quarantine request' })
+  try {
+    return await memoryRuntimeReader.control({ operation: 'playbook-quarantine', ...parsed.data })
+  } catch {
+    return reply.code(503).send({ error: 'memory playbook quarantine failed closed' })
+  }
 })
 
 // ---------- Tools: Reel to Transcript ----------
