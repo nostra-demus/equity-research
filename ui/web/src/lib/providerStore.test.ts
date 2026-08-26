@@ -58,6 +58,21 @@ try {
     codex: { provider: 'codex' as const, enabled: true, available: true, checked: true, status: 'available', profile: CODEX_EXECUTION_PROFILE },
     catalogState: 'valid' as const,
   }
+  estimateCalls = 0
+  useStore.setState({
+    staticMode: false,
+    health: 'updating',
+    runProvider: 'claude',
+    providers: bothAvailable,
+    selectedTicker: 'AAA',
+    activeSwarm: 'research',
+    selectToken: 1,
+    activeRuns: {},
+    launchPending: null,
+  })
+  await useStore.getState().requestFull()
+  assert.equal(estimateCalls, 0, 'a reviewed deployment blocks launch planning before any spend boundary')
+
   values.set(RUN_PROVIDER_STORAGE_KEY, 'codex')
   useStore.setState({ runProvider: 'codex', providers: bothAvailable })
   api.providers = async () => { throw Object.assign(new Error('gateway'), { status: 503 }) }

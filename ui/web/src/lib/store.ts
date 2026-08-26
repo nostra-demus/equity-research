@@ -344,12 +344,16 @@ const OFFLINE_THRESHOLD = 3 // consecutive GENUINE fails before we even consider
 // began (0 = not in an outage), cleared the moment the engine answers again.
 const OFFLINE_GRACE_MS = 40000
 let outageStartedAt = 0
+// A reviewed deploy keeps the read/SSE planes alive while the admission kernel is intentionally closed.
+// Once /api/health proves that state, only a later health response may clear it; an unrelated live SSE
+// byte must never repaint the cockpit as launch-ready between probes.
+let deploymentAdmissionBlocked = false
 // A news/run SSE event within this window proves the engine is up — the live data plane is the ground
 // truth, so a slow/failed health probe is overridden while the wire is demonstrably alive. Updated on every
 // SSE message by _noteStreamLive(); paired with newsSource.readyState===OPEN for the event-quiet gaps.
 const STREAM_LIVE_MS = 20000
 let lastStreamActivityAt = 0
-const HARD_DOWN = new Set<HealthState>(['engine-offline', 'your-network', 'session-expired'])
+const HARD_DOWN = new Set<HealthState>(['updating', 'engine-offline', 'your-network', 'session-expired'])
 
 // Auto-resume of interrupted screener runs (a closed laptop / dropped connection): per-signal attempt
 // bookkeeping so we never spin a persistently-failing run forever, and never double-launch one already
@@ -3785,6 +3789,7 @@ export const useStore = create<State>((set, get) => ({
     healthAbort = ac
     const to = setTimeout(() => ac.abort(), HEALTH_TIMEOUT_MS)
     let outcome: 'ok' | 'engine' | 'session' = 'engine'
+    let deploymentPending = false
     try {
       const r = await fetch('/api/health', { cache: 'no-store', headers: { accept: 'application/json' }, signal: ac.signal })
       const ct = r.headers.get('content-type') || ''
@@ -3793,6 +3798,7 @@ export const useStore = create<State>((set, get) => ({
       } else if (r.ok && ct.includes('application/json')) {
         const j = await r.json().catch(() => null)
         outcome = j && j.ok === true ? 'ok' : 'engine' // {ok:true}=live; {ok:false}=worker offline marker
+        deploymentPending = outcome === 'ok' && j?.deploymentPending === true
       } else if (r.status === 401 || r.status === 403 || r.redirected || !ct.includes('application/json')) {
         outcome = 'session' // Access login/redirect (HTML) — an auth issue, not an engine outage
       } else {
@@ -3806,13 +3812,17 @@ export const useStore = create<State>((set, get) => ({
     }
 
     if (outcome === 'ok') {
+      deploymentAdmissionBlocked = deploymentPending
       const reconnected = get().health !== 'online'
       outageStartedAt = 0 // engine answered — end any grace clock
-      set({ health: 'online', healthFailCount: 0, lastHealthOkAt: Date.now(), connected: true })
+      // A pending reviewed deploy keeps reads live but closes every paid admission at the server's kernel
+      // barrier. Reflect that distinct state in the cockpit instead of claiming "Live" and letting a run
+      // button reach a guaranteed 503/profile-refresh race. The next healthy poll returns to online.
+      set({ health: deploymentPending ? 'updating' : 'online', healthFailCount: 0, lastHealthOkAt: Date.now(), connected: true })
       // Every proven-healthy poll repairs ONLY missing bootstrap pieces. This must not depend on a health
       // transition: /api/swarms can return an auth response while health was already online. The health
       // cadence bounds these attempts, and the underlying calls coalesce.
-      healMissingLiveBootstrap('health', reconnected)
+      if (!deploymentPending) healMissingLiveBootstrap('health', reconnected)
     } else if (outcome === 'session') {
       outageStartedAt = 0 // an Access/session issue, not an engine outage
       clearSwarmDiscoveryRetry() // sign-in recovery owns the next attempt; never hammer Access every 3s
@@ -3840,8 +3850,8 @@ export const useStore = create<State>((set, get) => ({
       if (wireAlive) {
         const reconnected = get().health !== 'online'
         outageStartedAt = 0 // the live wire proves the engine is up — end any grace clock
-        set({ health: 'online', healthFailCount: 0, lastHealthOkAt: Date.now(), connected: true })
-        healMissingLiveBootstrap('health', reconnected)
+        set({ health: deploymentAdmissionBlocked ? 'updating' : 'online', healthFailCount: 0, lastHealthOkAt: Date.now(), connected: true })
+        if (!deploymentAdmissionBlocked) healMissingLiveBootstrap('health', reconnected)
       } else {
         const n = get().healthFailCount + 1
         if (!outageStartedAt) outageStartedAt = Date.now() // first genuine fail of this outage → start the grace clock
@@ -5742,6 +5752,10 @@ export const useStore = create<State>((set, get) => ({
   _noteStreamLive: () => {
     lastStreamActivityAt = Date.now()
     if (get().staticMode) return
+    if (deploymentAdmissionBlocked) {
+      if (get().health !== 'updating') set({ health: 'updating', healthFailCount: 0, lastHealthOkAt: Date.now(), connected: true })
+      return
+    }
     // a live SSE event is the data plane proving itself — flip to online INSTANTLY (don't wait for the next
     // health poll). This is what makes recovery feel instant and stops a false "offline" while events flow.
     // Guarded so it only writes state on an actual transition (no re-render churn when already online).

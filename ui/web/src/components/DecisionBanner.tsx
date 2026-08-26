@@ -325,7 +325,7 @@ export function DecisionBanner() {
   // On a default open the manifest resolves to the standing run, so runRoot === standingRunRoot; opening
   // the partial from run history makes them differ.
   const viewingStanding = !runRoot || runRoot === standingRunRoot
-  const engineDown = health === 'engine-offline' || health === 'your-network' || health === 'session-expired'
+  const engineDown = health === 'updating' || health === 'engine-offline' || health === 'your-network' || health === 'session-expired'
 
   if (dataStatus && !dataStatus.hasAnyData) return null
   if (hasActiveRun) return null

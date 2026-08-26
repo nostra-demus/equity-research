@@ -9,6 +9,7 @@ type PillMeta = { label: string; color: string; pulse?: boolean }
 const PILL: Record<HealthState, PillMeta> = {
   connecting: { label: 'Connecting…', color: 'var(--text-faint)' },
   online: { label: 'Live', color: 'var(--live)' },
+  updating: { label: 'Updating…', color: 'var(--accent)', pulse: true },
   reconnecting: { label: 'Reconnecting…', color: 'var(--accent)', pulse: true },
   'engine-offline': { label: 'Engine offline', color: 'var(--bad)' },
   'your-network': { label: "You're offline", color: 'var(--bad)' },
@@ -31,6 +32,11 @@ export function EngineStatusPill() {
 
 type BannerMeta = { title: string; body: string; cta: 'retry' | 'reload' }
 const BANNER: Partial<Record<HealthState, BannerMeta>> = {
+  updating: {
+    title: 'Engine updating',
+    body: 'A reviewed update is being installed. Existing work is protected and new runs resume automatically when it finishes.',
+    cta: 'retry',
+  },
   'engine-offline': {
     title: 'Engine offline',
     body: "The research engine's machine is asleep or offline. You're seeing the last loaded state; live actions are paused.",

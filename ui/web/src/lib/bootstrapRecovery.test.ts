@@ -191,6 +191,15 @@ try {
   assert.equal(alreadyHealthyDiscoveryCalls, 2, 'a later healthy poll must heal discovery even when health was already online')
   assert.deepEqual(useStore.getState().swarms, [research, screener])
 
+  globalThis.fetch = async () => new Response('{"ok":true,"deploymentPending":true}', { status: 200, headers: { 'content-type': 'application/json' } })
+  await useStore.getState()._tickHealth()
+  assert.equal(useStore.getState().health, 'updating', 'a reviewed deployment must not be presented as launch-ready')
+  useStore.getState()._noteStreamLive()
+  assert.equal(useStore.getState().health, 'updating', 'live SSE traffic must not clear the reviewed deployment barrier')
+  globalThis.fetch = async () => new Response('{"ok":true,"deploymentPending":false}', { status: 200, headers: { 'content-type': 'application/json' } })
+  await useStore.getState()._tickHealth()
+  assert.equal(useStore.getState().health, 'online', 'the next healthy poll must re-open launch controls after deployment')
+
   api.swarms = async () => { throw Object.assign(new Error('gateway before Access check'), { status: 503 }) }
   useStore.setState({ activeSwarm: 'screener', swarms: [], health: 'online' })
   await useStore.getState().init()
