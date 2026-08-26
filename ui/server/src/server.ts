@@ -1239,9 +1239,8 @@ app.post('/api/internal/provider-parity/canary-continue', { config: { rateLimit:
       throw Object.assign(new Error('canary interruption authority does not match the requested Codex process/profile'), { statusCode: 409 })
     }
     if (canaryRunFileExists(rootAbs, '.aborted')
-        || ['final_thesis.md', 'decision_record.json', 'execution_provenance.receipt.json']
-          .some((name) => canaryRunFileExists(rootAbs, name))) {
-      throw Object.assign(new Error('canary is aborted or already has terminal artifacts'), { statusCode: 409 })
+        || canaryRunFileExists(rootAbs, 'execution_provenance.receipt.json')) {
+      throw Object.assign(new Error('canary is aborted or already supervisor-published'), { statusCode: 409 })
     }
     const bindingRaw = readCanaryRunFile(rootAbs, '.provider-parity-input.json')
     let subject = ''
