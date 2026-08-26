@@ -3860,6 +3860,13 @@ export const useStore = create<State>((set, get) => ({
         if (!deploymentAdmissionBlocked) healMissingLiveBootstrap('health', reconnected)
       } else {
         const n = get().healthFailCount + 1
+        if (deploymentAdmissionBlocked) {
+          // A reviewed deploy deliberately creates a short origin restart gap. Keep the sticky admission
+          // state authoritative until a successful non-pending health response clears it; otherwise the
+          // generic reconnecting state would re-enable paid controls in the middle of the restart.
+          set({ health: 'updating', healthFailCount: n, connected: false })
+          return
+        }
         if (!outageStartedAt) outageStartedAt = Date.now() // first genuine fail of this outage → start the grace clock
         // Escalate to the red 'engine-offline' bar only once the outage has BOTH failed enough times
         // (anti-flicker) AND outlasted the grace window (so a ~20s redeploy/restart stays 'reconnecting',
@@ -4901,6 +4908,11 @@ export const useStore = create<State>((set, get) => ({
   // flips to "In the machine" (the server stamped the snapshot promoted). Re-throws so the card can show a
   // failure inline — a paid launch that didn't happen must never look like it did.
   scPromoteIdea: async (idea) => {
+    if (isLaunchHealthBlocked(get().health)) {
+      throw new Error(get().health === 'updating'
+        ? 'Engine update in progress — the idea was not promoted.'
+        : 'Engine offline — the idea was not promoted.')
+    }
     const provider = get().runProvider
     const providerProblem = providerLaunchBlockedReason(get().providers[provider], get().providers.catalogState)
     if (providerProblem) throw new Error(`${providerProblem}. Choose another run provider.`)
@@ -5759,6 +5771,9 @@ export const useStore = create<State>((set, get) => ({
     lastStreamActivityAt = Date.now()
     if (get().staticMode) return
     if (deploymentAdmissionBlocked) {
+      // An old authenticated SSE socket can outlive an Access session, and browser network state is local
+      // truth. Keep those higher-priority recovery instructions visible while retaining the deploy latch.
+      if (get().health === 'session-expired' || get().health === 'your-network') return
       if (get().health !== 'updating') set({ health: 'updating', healthFailCount: 0, lastHealthOkAt: Date.now(), connected: true })
       return
     }

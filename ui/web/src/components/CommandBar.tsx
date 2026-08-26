@@ -468,7 +468,7 @@ function ResumeChip() {
   const resuming = launchPending?.key?.startsWith(`resume:${entry.subject}:`)
   const noun = entry.unit === 'agent' ? 'check' : 'module'
   const title = health === 'updating'
-    ? 'Engine update in progress — runs resume automatically when it finishes'
+    ? 'Engine update in progress — Resume becomes available when it finishes'
     : engineDown
       ? 'Engine offline — live runs are paused until it reconnects'
       : `This run stopped partway (${entry.doneCount}/${entry.totalCount} ${noun}s done). Resume finishes it from where it stopped — the done work is reused.`
@@ -810,7 +810,7 @@ export function CommandBar() {
   const fullRunTitle = staticMode
     ? 'Runs on your local machine (npm run dev)'
     : health === 'updating'
-      ? 'Engine update in progress — runs resume automatically when it finishes'
+      ? 'Engine update in progress — new runs become available when it finishes'
       : engineDown
         ? 'Engine offline — live runs are paused until it reconnects'
         : anyRun

@@ -29,6 +29,7 @@ const originalProviders = api.providers
 const originalProviderCheck = api.providerCheck
 const originalEstimate = api.estimate
 const originalCancelSubject = api.cancelSubject
+const originalPromoteIdea = api.promoteIdea
 const originalRefreshActiveRuns = useStore.getState().refreshActiveRuns
 const originalScRefreshBoard = useStore.getState().scRefreshBoard
 
@@ -75,6 +76,13 @@ try {
   })
   await useStore.getState().requestFull()
   assert.equal(estimateCalls, 0, 'a reviewed deployment blocks launch planning before any spend boundary')
+  let promoteCalls = 0
+  api.promoteIdea = async () => { promoteCalls++; throw new Error('must not promote') }
+  await assert.rejects(
+    () => useStore.getState().scPromoteIdea({ idea_id: 'IDEA-1' } as any),
+    /update in progress/i,
+  )
+  assert.equal(promoteCalls, 0, 'a reviewed deployment blocks direct signal promotion before the paid boundary')
   let cancelCalls = 0
   api.cancelSubject = async () => { cancelCalls++; return { ok: true, cancelled: ['run-1'] } }
   useStore.setState({ refreshActiveRuns: async () => {}, scRefreshBoard: async () => {} })
@@ -145,6 +153,7 @@ try {
   api.providerCheck = originalProviderCheck
   api.estimate = originalEstimate
   api.cancelSubject = originalCancelSubject
+  api.promoteIdea = originalPromoteIdea
   useStore.setState({ refreshActiveRuns: originalRefreshActiveRuns, scRefreshBoard: originalScRefreshBoard })
   ;(globalThis as any).window = previousWindow
   ;(globalThis as any).document = previousDocument

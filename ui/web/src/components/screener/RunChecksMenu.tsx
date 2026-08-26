@@ -42,7 +42,7 @@ export function RunChecksMenu({ it }: Props) {
   const providerProblem = providerLaunchBlockedReason(providers[runProvider], providers.catalogState)
   const health = useStore((s) => s.health)
   const launchBlocked = isLaunchHealthBlocked(health)
-  const launchProblem = launchBlocked ? 'Engine update in progress — new runs resume when it finishes' : providerProblem
+  const launchProblem = launchBlocked ? 'Engine update in progress — new runs become available when it finishes' : providerProblem
   const [open, setOpen] = useState(false)
   const [anchor, setAnchor] = useState<ReportMenuAnchor | null>(null)
 
