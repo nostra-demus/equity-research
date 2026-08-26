@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-26T08:42:46Z",
+  "generated_at": "2026-08-26T08:52:27Z",
   "inbox": [
     {
       "inbox_id": "INB-20260826-623",
@@ -561,6 +561,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260826-661",
+      "headline": "Constellation Energy Just Raised Guidance. Here's What's Driving It.",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/constellation-energy-just-raised-guidance-heres-whats-driving-it",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-26T06:25:00Z",
+      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
+      "prelim_note": "Constellation Energy raised its financial guidance, which directly impacts analyst expectations and valuation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Constellation Energy raised its financial guidance, which directly impacts analyst expectations and valuation.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Constellation Energy",
+          "ticker": "CEG",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260826-611",
       "headline": "Couche-Tard launches tender offer for all Zabka shares",
       "headline_en": null,
@@ -1073,6 +1122,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260826-634",
+      "headline": "MAQ: Full Year Results Announcement [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.MAQ?key=2924-03126653-2A1692378",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-26T08:01:57Z",
+      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
+      "prelim_note": "Full year financial results are a primary driver of valuation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Full year financial results are a primary driver of valuation.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "MAQ",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260826-257",
       "headline": "ART: FY26 Financial Results Presentation [price-sensitive]",
       "headline_en": null,
@@ -1264,6 +1362,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260826-639",
+      "headline": "LEADING HLDGS (06999): A. RESUMPTION GUIDANCE AND QUARTERLY UPDATE ON SUSPENSION OF TRADING B. QUARTERLY UPDATE ON PLANS AND MEASURES IN RESOLVING THE DISCLAIMER OF OPINION",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0826/2026082600346.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-26T08:33:00Z",
+      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
+      "prelim_note": "Ongoing trading suspension and disclaimer of opinion indicate significant financial and operational distress.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "Ongoing trading suspension and disclaimer of opinion indicate significant financial and operational distress.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "LEADING HLDGS",
+          "ticker": "06999",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1620,6 +1767,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260826-635",
+      "headline": "NVQ: Termination of Divestment [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.NVQ?key=2924-03126629-3A699918",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-26T07:32:37Z",
+      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
+      "prelim_note": "Termination of a divestment plan alters the company's strategic direction and capital structure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Termination of a divestment plan alters the company's strategic direction and capital structure.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "NVQ",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260826-596",
       "headline": "MIC Electronics Ltd: Receipt of in-principle approval from the stock exchanges for issue of Equity Shares on preferntial basis towards the acquisition of M/s. NEO Semi SG Pte Ltd, Singapore.",
       "headline_en": null,
@@ -1810,197 +2006,6 @@
           "listing_country": "AU"
         }
       ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260826-005",
-      "headline": "SPL: FY26 Key Financial Results and Annual Report [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.SPL?key=2924-03126298-3A699854",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-25T23:45:30Z",
-      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
-      "prelim_note": "Seven Group Holdings released its FY26 financial results and annual report.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Seven Group Holdings released its FY26 financial results and annual report.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Seven Group Holdings",
-          "ticker": "SVW",
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260826-019",
-      "headline": "NXL: Change in substantial shareholding from AEF",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.NXL?key=2924-03126200-2A1692162",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-25T23:13:40Z",
-      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
-      "prelim_note": "Change in substantial shareholding indicates significant institutional movement in the company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Change in substantial shareholding indicates significant institutional movement in the company.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nuix Limited",
-          "ticker": "NXL",
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260826-137",
-      "headline": "25-NSE - Boost Run Inc. (0002090646) (Subject)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/2090646/000135445726000818/0001354457-26-000818-index.htm",
-      "source_name": "SEC EDGAR — Latest 25-NSE (Delisting Notification)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-08-25T20:12:01Z",
-      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
-      "prelim_note": "25-NSE delisting notification for Boost Run Inc. indicates a forced or voluntary delisting event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "25-NSE delisting notification for Boost Run Inc. indicates a forced or voluntary delisting event.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 9,
-        "size": 0,
-        "recency": 3,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "default_distress",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Boost Run Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260826-534",
-      "headline": "US Treasury sanctions on Iran’s trade partners",
-      "headline_en": null,
-      "url": "https://www.scmp.com/plus/news/china/diplomacy/article/3365276/us-treasury-sanctions-irans-trade-partners?utm_source=rss_feed",
-      "source_name": "South China Morning Post",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-26T04:29:39Z",
-      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
-      "prelim_note": "US sanctions on trade partners represent a significant escalation in geopolitical and operational risk for global trade.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "US sanctions on trade partners represent a significant escalation in geopolitical and operational risk for global trade.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory",
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -94045,9 +94050,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1707642,
-    "news_picked_today": 1182,
-    "news_dropped_today": 11478
+    "news_seen_today": 1728940,
+    "news_picked_today": 1220,
+    "news_dropped_today": 11488
   },
   "book_momentum": {
     "live_count": 8,
