@@ -1060,6 +1060,48 @@ export function readProviderInterruptionAuthority(runRoot: string): ProviderInte
   }
 }
 
+/** A continuation can fail after admission but before `beginExecutionAttempt`/spawn. In that exact state
+ * the protected selection has advanced to `admitted`, while the protected manifest still contains only
+ * older observed rows. That negative proof is safe to re-arm after the launcher defect is corrected; a
+ * spawned/current attempt (or a fresh root with no prior lineage) never qualifies. */
+export function readProviderPreSpawnFailureAuthority(runRoot: string): ProviderInterruptionAuthority | null {
+  const durable = readProviderSelectionRecord(runRoot)
+  if (!durable || durable.stage !== 'admitted') return null
+  const rows = readProtectedManifestRows(runRoot)
+  if (!rows.length || rows.some((row) =>
+    row.attempt_id === durable.run_id && row.attribution === 'recorded')) return null
+  return {
+    runId: durable.run_id,
+    provider: durable.provider,
+    model: durable.model,
+    reasoningLevel: durable.reasoningLevel,
+    profileKey: durable.profileKey,
+    executionProfile: durable.executionProfile ? { ...durable.executionProfile } : undefined,
+  }
+}
+
+/** Bind a newly written interruption marker to the exact protected pre-spawn admission above. */
+export function sealProviderPreSpawnFailureAuthority(runRoot: string, expectedRunId: string): void {
+  const durable = readProviderSelectionRecord(runRoot)
+  const authority = readProviderPreSpawnFailureAuthority(runRoot)
+  if (!durable || !authority || authority.runId !== expectedRunId) {
+    throw new Error('provider pre-spawn recovery authority changed before it could be sealed')
+  }
+  const relative = `${runRoot}/.interrupted`
+  const digest = protectedSelectionArtifactHash(relative)
+  if (!digest) throw new Error('provider pre-spawn recovery marker is not a regular file')
+  writeProviderSelection({
+    runId: authority.runId,
+    providerAttemptId: authority.runId,
+    runRoot,
+    provider: authority.provider,
+    model: authority.model,
+    reasoningLevel: authority.reasoningLevel,
+    profileKey: authority.profileKey,
+    executionProfile: authority.executionProfile,
+  } as RunState, 'interrupted', { [relative]: digest })
+}
+
 /** Capture canonical interrupted rows before a recovery admission advances the protected selection stage. */
 export function protectedInterruptedExecutionLineage(runRoot: string): Array<Record<string, unknown>> {
   const selection = readProviderSelectionRecord(runRoot)
