@@ -4987,7 +4987,7 @@ a { color: inherit; }
    last wins — and with the base further down the file it was silently forcing its own column count onto
    the trades and reconciliation tables, wrapping their headers onto a second line. Declared here so a
    variant added anywhere below reliably overrides it. */
-.fundbook__row { display: grid; grid-template-columns: 1.3fr 0.5fr 1fr 1fr 1fr 1.2fr 0.8fr 1.2fr; align-items: center; gap: 10px; padding: 9px 14px; border-bottom: 1px solid var(--hairline); font-size: 11.5px; }
+.fundbook__row { display: grid; grid-template-columns: minmax(88px, 1.5fr) 44px 92px 84px 84px 104px 62px 96px 68px; align-items: center; gap: 8px; padding: 9px 14px; border-bottom: 1px solid var(--hairline); font-size: 11.5px; }
 .fundbook__row--trades { grid-template-columns: 104px 48px 92px 92px 54px 82px 78px 78px 88px 74px 92px 58px; min-width: 940px; }
 .fundbook__lots { display: block; color: var(--text-faint); font-size: 8px; letter-spacing: 0.2px; text-transform: uppercase; }
 .fundbook__row--checks { grid-template-columns: minmax(240px, 2.4fr) 1fr 1fr 1fr 74px; min-width: 700px; }
@@ -5060,7 +5060,7 @@ a { color: inherit; }
 /* Narrow: the positions table scrolls sideways inside its own panel rather than dropping columns —
    hiding Value/Weight/Unrealised silently removed the numbers the screen exists to show. */
 @media (max-width: 900px) {
-  .fundbook__row { min-width: 720px; }
+  .fundbook__row { min-width: 760px; }
   .fundbook__tabs { align-self: stretch; overflow-x: auto; }
 }
 /* Seven columns now: return, benchmark, excess, cash hurdle, over-hurdle, days. Beating an index
@@ -5073,6 +5073,15 @@ a { color: inherit; }
    type in a narrow panel, and these read at a glance or not at all. */
 .fundbook__svg { display: block; width: 100%; height: auto; }
 .fundbook__chart { padding: 6px 4px 0; }
+.fundbook__ranges { display: flex; gap: 2px; padding: 8px 12px 2px; }
+.fundbook__range { padding: 3px 9px; border: 1px solid transparent; background: transparent; border-radius: var(--r-sm);
+  color: var(--text-faint); font-size: 9.5px; font-weight: 700; letter-spacing: 0.4px; cursor: pointer;
+  transition: color var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease); }
+.fundbook__range.is-on { color: var(--accent-bright); background: var(--accent-wash); border-color: color-mix(in srgb, var(--accent) 30%, transparent); }
+/* A range the history cannot fill stays visible but unusable — hiding it would leave the reader
+   wondering whether the chart simply has no longer view. */
+.fundbook__range:disabled { opacity: 0.32; cursor: not-allowed; }
+@media (hover: hover) and (pointer: fine) { .fundbook__range:not(:disabled):not(.is-on):hover { color: var(--text); background: var(--surface-3); } }
 .fundbook__axis { font-family: var(--font-mono); font-size: 9px; fill: var(--text-faint); }
 .fundbook__legend { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 16px; padding: 8px 14px 12px; font-size: 10.5px; color: var(--text-muted); }
 .fundbook__legend span { display: inline-flex; align-items: center; gap: 6px; }

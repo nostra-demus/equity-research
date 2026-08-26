@@ -78,13 +78,95 @@ function buildPath(points: Point[], x: (i: number) => number, y: (v: number) => 
   return d.trim()
 }
 
-/** Growth of capital: the book against the benchmark, both rebased to 100. */
-export function GrowthChart({ series, benchmarkSymbol, height = 210 }: {
-  series: { date: string; book: number; benchmark: number | null }[]
+export interface GrowthPoint { date: string; book: number; benchmark: number | null }
+
+/** The ranges a broker's chart offers. `5D` is five VALUED points; the rest are calendar windows back
+ *  from the last valued day, which is what "six months" means to the person asking. */
+const RANGES = [
+  { id: '5D', points: 5 },
+  { id: '1M', months: 1 },
+  { id: '6M', months: 6 },
+  { id: '1Y', months: 12 },
+  { id: '5Y', months: 60 },
+  { id: 'MAX' },
+] as const
+type RangeId = (typeof RANGES)[number]['id']
+
+function windowStart(last: string, months: number): string {
+  const d = new Date(`${last}T00:00:00Z`)
+  d.setUTCMonth(d.getUTCMonth() - months)
+  return d.toISOString().slice(0, 10)
+}
+
+/** REBASED TO THE WINDOW, not to inception. A one-month view of a series rebased at inception would
+ *  draw the level the book reached months ago and label it a month's growth. Each side takes its own
+ *  first value in the window as 100, which is also what keeps the two curves comparable: they start
+ *  together on the left edge whatever range is chosen. */
+function rebase(points: GrowthPoint[]): GrowthPoint[] {
+  if (points.length === 0) return points
+  const bookBase = points[0]!.book
+  const bmBase = points.find((p) => p.benchmark !== null)?.benchmark ?? null
+  if (!Number.isFinite(bookBase) || bookBase === 0) return points
+  return points.map((p) => ({
+    date: p.date,
+    book: (p.book / bookBase) * 100,
+    benchmark: p.benchmark === null || bmBase === null || bmBase === 0 ? null : (p.benchmark / bmBase) * 100,
+  }))
+}
+
+/** Growth of capital: the book against the benchmark, both rebased to 100 at the start of the range. */
+export function GrowthChart({ series: full, benchmarkSymbol, height = 210 }: {
+  series: GrowthPoint[]
   benchmarkSymbol: string
   height?: number
 }) {
-  if (series.length < 2) return <div className="fundbook__none">Not enough valued days to draw a curve yet.</div>
+  const [range, setRange] = useState<RangeId>('MAX')
+  const last = full.length ? full[full.length - 1]!.date : null
+  const cut = (r: (typeof RANGES)[number]): GrowthPoint[] => {
+    if (r.id === 'MAX' || last === null) return full
+    if ('points' in r) return full.slice(-r.points!)
+    const from = windowStart(last, r.months!)
+    return full.filter((p) => p.date >= from)
+  }
+  // A range the history cannot fill is OFFERED BUT DISABLED, with the reason on hover: silently showing
+  // four months under a "1Y" button is the kind of small lie that makes the rest untrustworthy.
+  const covered = (r: (typeof RANGES)[number]): boolean => {
+    if (r.id === 'MAX') return full.length >= 2
+    const slice = cut(r)
+    if (slice.length < 2) return false
+    if ('points' in r) return full.length >= r.points!
+    return full[0]!.date <= windowStart(last!, r.months!)
+  }
+  const active = RANGES.find((r) => r.id === range) ?? RANGES[RANGES.length - 1]
+  const series = rebase(cut(active))
+
+  const selector = (
+    <div className="fundbook__ranges" role="group" aria-label="Chart range">
+      {RANGES.map((r) => {
+        const ok = covered(r)
+        return (
+          <button
+            key={r.id}
+            className={`fundbook__range${range === r.id ? ' is-on' : ''}`}
+            disabled={!ok}
+            title={ok ? undefined : `Only ${full.length} valued day${full.length === 1 ? '' : 's'} of history`}
+            onClick={() => setRange(r.id)}
+          >
+            {r.id}
+          </button>
+        )
+      })}
+    </div>
+  )
+
+  if (series.length < 2) {
+    return (
+      <>
+        {selector}
+        <div className="fundbook__none">Not enough valued days to draw a curve yet.</div>
+      </>
+    )
+  }
   const W = 960
   const H = height
   const bookPts: Point[] = series.map((s) => ({ date: s.date, value: s.book }))
@@ -102,17 +184,18 @@ export function GrowthChart({ series, benchmarkSymbol, height = 210 }: {
 
   const bookPath = buildPath(bookPts, x, y)
   const area = `${bookPath} L${x(series.length - 1).toFixed(1)} ${y(min).toFixed(1)} L${x(0).toFixed(1)} ${y(min).toFixed(1)} Z`
-  const last = series[series.length - 1]!
+  const end = series[series.length - 1]!
   const hover = useHover(series.length, W, x)
   // The legend doubles as the readout: hovering replaces "where it ended" with "where it was that day",
   // which is the same three numbers in the same place rather than a floating box that covers the curve.
-  const shown = hover.at === null ? last : series[hover.at]!
+  const shown = hover.at === null ? end : series[hover.at]!
 
   return (
     <div className="fundbook__chart">
+      {selector}
       <svg className="fundbook__svg" viewBox={`0 0 ${W} ${H}`} role="img"
         ref={hover.ref} onPointerMove={hover.onMove} onPointerLeave={hover.onLeave}
-        aria-label={`Growth of capital rebased to 100: the book ends at ${last.book.toFixed(1)}${last.benchmark !== null ? ` against ${benchmarkSymbol} at ${last.benchmark.toFixed(1)}` : ''}`}>
+        aria-label={`Growth of capital over ${range}, rebased to 100: the book ends at ${end.book.toFixed(1)}${end.benchmark !== null ? ` against ${benchmarkSymbol} at ${end.benchmark.toFixed(1)}` : ''}`}>
         <defs>
           <linearGradient id="fbGrowthFill" x1="0" y1="0" x2="0" y2="1">
             <stop offset="0%" stopColor="var(--accent)" stopOpacity="0.20" />
@@ -147,7 +230,7 @@ export function GrowthChart({ series, benchmarkSymbol, height = 210 }: {
           : <span className="dim">{benchmarkSymbol} — no price history loaded</span>}
         <span className="dim">
           {hover.at === null
-            ? <>{series[0]!.date} → {last.date} · rebased to 100 at the first funded day</>
+            ? <>{series[0]!.date} → {end.date} · rebased to 100 at the start of this range</>
             : <>{shown.date} · hover to read any day</>}
         </span>
       </div>

@@ -358,10 +358,7 @@ function Holdings({ book, perf, manual, cashEquivalents, onManage, onChanged }: 
         {perf && perf.growth.length > 1 && (
           <div className="fundbook__panel">
             <div className="fundbook__panelhead">
-              <div>
-                <strong>Growth of capital</strong>
-                <small>Time-weighted, flows removed — the decisions, not when the capital arrived</small>
-              </div>
+              <div><strong>Growth of capital</strong></div>
             </div>
             <GrowthChart series={perf.growth} benchmarkSymbol={perf.benchmark.symbol} height={230} />
           </div>
@@ -369,7 +366,7 @@ function Holdings({ book, perf, manual, cashEquivalents, onManage, onChanged }: 
 
         <div className="fundbook__panel">
           <div className="fundbook__panelhead">
-            <div><strong>How NAV got here</strong><small>LP flows are removed from the return, but they still build the book</small></div>
+            <div><strong>How NAV got here</strong></div>
           </div>
           <BridgeRow label="LP capital, net" value={fmtMoney(flows, ccy)} />
           <BridgeRow label="Realised on closed trades" value={fmtMoney(realised, ccy)} tone={toneOf(realised)} />
@@ -382,7 +379,7 @@ function Holdings({ book, perf, manual, cashEquivalents, onManage, onChanged }: 
       <div className="fundbook__split">
         <div className="fundbook__panel">
           <div className="fundbook__panelhead">
-            <div><strong>Where the money sits</strong><small>What is at risk against what is parked, and the currencies carrying it</small></div>
+            <div><strong>Where the money sits</strong></div>
           </div>
           {nav !== null && cash !== null && (
             <div className="fundbook__bars">
@@ -419,18 +416,12 @@ function Holdings({ book, perf, manual, cashEquivalents, onManage, onChanged }: 
               ))}
             </div>
           )}
-          {derivatives.length > 0 && (
-            <div className="fundbook__foot">
-              Futures notional is <b>exposure</b>, not an allocation of NAV — it consumes margin, not its
-              face value, so it carries no weight here.
-            </div>
-          )}
         </div>
 
         {book.flows.length > 0 && (
           <div className="fundbook__panel">
             <div className="fundbook__panelhead">
-              <div><strong>Capital flows</strong><small>Every contribution and withdrawal — removed from the return, so they never read as performance</small></div>
+              <div><strong>Capital flows</strong><small>Removed from the return, so they never read as performance</small></div>
             </div>
             {[...book.flows].sort((a, b) => (b.date ?? '').localeCompare(a.date ?? '')).map((f, i) => (
               <div key={`${f.date}-${i}`} className="fundbook__bridge">
@@ -457,26 +448,24 @@ function Holdings({ book, perf, manual, cashEquivalents, onManage, onChanged }: 
 
       <div className="fundbook__panel">
         <div className="fundbook__panelhead">
-          <div><strong>Positions</strong><small>{book.positions.length} open · weights come from the statement · as the statement states them</small></div>
+          <div><strong>Positions</strong><small>{book.positions.length} open · weights as the statement states them</small></div>
         </div>
         <div className="fundbook__scroll">
           <div className="fundbook__row fundbook__row--head">
             <span>Symbol</span><span>Ccy</span><span className="num">Quantity</span><span className="num">Avg cost</span>
-            <span className="num">Mark</span><span className="num">Value</span><span className="num">Weight</span><span className="num">Unrealised</span>
+            <span className="num">Mark</span><span className="num">Value</span><span className="num">Weight</span>
+            <span className="num">Unrealised</span><span className="num">%</span>
           </div>
           {risked.map((p, i) => <PositionRow key={`${p.conid ?? p.symbol ?? 'x'}-${i}`} p={p} />)}
           {parked.length > 0 && (
             <>
-              <div className="fundbook__subhead">
-                Cash equivalents — money parked, not money at risk. Counted as cash above, and left out
-                of the weights the rest of the book is measured on.
-              </div>
+              <div className="fundbook__subhead">Cash equivalents — counted as cash above, not as positions</div>
               {parked.map((p, i) => <PositionRow key={`c-${p.conid ?? p.symbol ?? 'x'}-${i}`} p={p} isCash />)}
             </>
           )}
           {derivatives.length > 0 && (
             <>
-              <div className="fundbook__subhead">Derivatives — notional is <b>exposure</b>, not an allocation of NAV, so these carry no weight</div>
+              <div className="fundbook__subhead">Derivatives — notional is <b>exposure</b>, so these carry no weight</div>
               {derivatives.map((p, i) => <PositionRow key={`d-${p.conid ?? p.symbol ?? 'x'}-${i}`} p={p} derivative />)}
             </>
           )}
@@ -531,10 +520,7 @@ function Exposure({ book, risked, parkedValue, nav, ccy }: {
       <div className="fundbook__panelhead">
         <div>
           <strong>Exposure</strong>
-          <small>
-            Concentration measured on money AT RISK, not on NAV — a book that is mostly parked would
-            otherwise look diversified for having done nothing
-          </small>
+          <small>Concentration on money at risk, not on NAV</small>
         </div>
       </div>
 
@@ -645,8 +631,21 @@ function PositionRow({ p, derivative, isCash }: {
       <span className="num">{fmtSmallMoney(p.positionValue)}{derivative && <small className="fundbook__notional">notional</small>}</span>
       <span className="num dim">{derivative ? '—' : p.percentOfNAV === null ? '—' : `${p.percentOfNAV.toFixed(1)}%`}</span>
       <span className="num" style={{ color: toneOf(p.unrealizedLocal) }}>{fmtSmallMoney(p.unrealizedLocal)}</span>
+      {/* Against COST, not against market value: the question is what this position has returned on the
+          money put into it. Cost is the statement's own basis, so the percentage ties to the figure
+          beside it rather than to a denominator computed here. */}
+      <span className="num" style={{ color: toneOf(p.unrealizedLocal) }}>{fmtPct(unrealisedPct(p), 1)}</span>
     </div>
   )
+}
+
+/** Unrealised return on cost. Null when the statement gives no usable basis — a position transferred in
+ *  without one would otherwise divide by zero and report an infinite gain. */
+function unrealisedPct(p: PortfolioPosition): number | null {
+  const cost = p.costBasisMoney
+  if (cost === null || !Number.isFinite(cost) || Math.abs(cost) < 1e-9) return null
+  if (p.unrealizedLocal === null || !Number.isFinite(p.unrealizedLocal)) return null
+  return (p.unrealizedLocal / Math.abs(cost)) * 100
 }
 
 // ---------- performance ----------
@@ -660,7 +659,7 @@ function Performance({ perf }: { perf: PortfolioPerformance }) {
         <div className="fundbook__panelhead">
           <div>
             <strong>Return by period</strong>
-            <small>Time-weighted, flows removed · cash hurdle {perf.riskFreeAnnualPct}% · ratios from {risk.sampleDays} days with capital in the book</small>
+            <small>Cash hurdle {perf.riskFreeAnnualPct}% · ratios from {risk.sampleDays} funded days</small>
           </div>
         </div>
         <div className="fundbook__scroll">
@@ -708,7 +707,7 @@ function Performance({ perf }: { perf: PortfolioPerformance }) {
             <div>
               <strong>Drawdown</strong>
               <small>
-                Distance below the previous high — the honest picture of what holding it felt like
+                Distance below the previous high
                 {risk.drawdown.underWaterDays !== null && ` · the deepest took ${risk.drawdown.underWaterDays} days to recover`}
               </small>
             </div>
@@ -753,7 +752,7 @@ function Performance({ perf }: { perf: PortfolioPerformance }) {
       {perf.months.length > 0 && (
         <div className="fundbook__panel">
           <div className="fundbook__panelhead">
-            <div><strong>Month by month</strong><small>Compounded from the same daily returns, so a month can never disagree with the period that contains it</small></div>
+            <div><strong>Month by month</strong></div>
           </div>
           <div className="fundbook__scroll">
             <div className="fundbook__months">
@@ -935,11 +934,7 @@ function Trades({ book, manual, onChanged, importOpen, onImportOpen, importSurfa
       <div className="fundbook__panelhead">
         <div>
           <strong>Add trades to the book</strong>
-          <small>
-            Import the broker&rsquo;s own record, or log a fill taken since the last export. A hand-logged
-            fill is provisional — it never enters the reconciled book, and a statement covering its date
-            answers it.
-          </small>
+          <small>A hand-logged fill is provisional — it never enters the reconciled book, and a statement covering its date answers it</small>
         </div>
         <div className="fundbook__formbtns">
           <button
@@ -1009,7 +1004,7 @@ function Trades({ book, manual, onChanged, importOpen, onImportOpen, importSurfa
       <div className="fundbook__split">
         <div className="fundbook__panel">
           <div className="fundbook__panelhead">
-            <div><strong>Where the money came from</strong><small>Realised result by name — the few positions that actually made the difference</small></div>
+            <div><strong>Where the money came from</strong><small>Realised result by name</small></div>
           </div>
           {attribution.length === 0
             ? <div className="fundbook__none">Nothing closed yet.</div>
@@ -1037,14 +1032,14 @@ function Trades({ book, manual, onChanged, importOpen, onImportOpen, importSurfa
             <div className="fundbook__foot">
               {topShare === null
                 ? 'Every closed name is shown.'
-                : `The best three names carry ${topShare.toFixed(0)}% of the gross winnings — concentration in the result, not in the book.`}
+                : `The best three names carry ${topShare.toFixed(0)}% of the gross winnings.`}
             </div>
           )}
         </div>
 
         <div className="fundbook__panel">
           <div className="fundbook__panelhead">
-            <div><strong>Stock or currency?</strong><small>How much of the realised result was the position, and how much was the exchange rate moving under it</small></div>
+            <div><strong>Stock or currency?</strong><small>How much of the result was the position, and how much was the rate moving under it</small></div>
           </div>
           {currencyEffect.length === 0 ? (
             <div className="fundbook__none">No closed trade carries both an opening and a closing rate yet.</div>
@@ -1077,10 +1072,7 @@ function Trades({ book, manual, onChanged, importOpen, onImportOpen, importSurfa
         <div className="fundbook__panelhead">
           <div>
             <strong>Closed round trips</strong>
-            <small>
-              Newest first · one row per exit, with every lot it consumed folded in · realised is net of
-              commission on both legs, as the broker states it
-            </small>
+            <small>One row per exit, every lot it consumed folded in · realised is net of commission on both legs</small>
           </div>
         </div>
         <div className="fundbook__scroll">
@@ -1217,7 +1209,7 @@ function ImportTab({ read, onFiles, onChanged, busy, progress, notes, firstRun, 
       {book && (
         <div className="fundbook__panel">
           <div className="fundbook__panelhead">
-            <div><strong>Reconciliation</strong><small>Every number in the book is derived — these checks are what prove it against the broker</small></div>
+            <div><strong>Reconciliation</strong><small>What proves the derived numbers against the broker</small></div>
           </div>
           <div className="fundbook__scroll">
             <div className="fundbook__row fundbook__row--checks fundbook__row--head">
@@ -1243,7 +1235,7 @@ function ImportTab({ read, onFiles, onChanged, busy, progress, notes, firstRun, 
       {read.statements.length > 0 ? (
         <div className="fundbook__panel">
           <div className="fundbook__panelhead">
-            <div><strong>Imported statements</strong><small>The book is rebuilt from these every time it is read — remove one and it recomputes</small></div>
+            <div><strong>Imported statements</strong><small>Remove one and the book recomputes</small></div>
           </div>
           {read.statements.map((s) => (
             <div key={s.id} className="fundbook__stmt">
