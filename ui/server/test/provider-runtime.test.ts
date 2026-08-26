@@ -16,7 +16,10 @@ import {
 import {
   applySupervisorPublicationEnv, paritySnapshotRootMatchesDataSubject, providerWritablePaths,
 } from '../src/launcher'
-import { claudeChildEnv, claudeSandboxSettings, createClaudeMirrorWorkspace, isClaudeMaxAuth } from '../src/providers/claude'
+import {
+  claudeChildEnv, claudeSandboxSettings, createClaudeMirrorWorkspace,
+  isClaudeMaxAuth, isClaudeSubscriptionAuth,
+} from '../src/providers/claude'
 import { codexChildEnv } from '../src/providers/codex'
 import type { RunState } from '../src/registry'
 import type { ProviderLaunchContext } from '../src/providers/types'
@@ -131,6 +134,7 @@ try {
     const binding = { runId: randomUUID(), runRoot, token: 'opaque-capability' }
     const source = applySupervisorPublicationEnv({
       PATH: '/bin', OPENAI_API_KEY: 'do-not-leak', ANTHROPIC_API_KEY: 'no-api-billing',
+      ANTHROPIC_AUTH_TOKEN: 'no-gateway-billing',
       CLAUDE_CODE_OAUTH_TOKEN: 'no-model-visible-oauth',
     }, binding)
     for (const env of [claudeChildEnv(source), codexChildEnv(source)]) {
@@ -142,14 +146,28 @@ try {
     }
     assert.equal(codexChildEnv(source).OPENAI_API_KEY, undefined)
     assert.equal(claudeChildEnv(source).ANTHROPIC_API_KEY, undefined)
-    assert.equal(claudeChildEnv(source).CLAUDE_CODE_OAUTH_TOKEN, undefined)
+    assert.equal(claudeChildEnv(source).ANTHROPIC_AUTH_TOKEN, undefined)
+    assert.equal(claudeChildEnv(source).CLAUDE_CODE_OAUTH_TOKEN, 'no-model-visible-oauth')
+    assert.equal(claudeChildEnv(source).CLAUDE_CODE_SUBPROCESS_ENV_SCRUB, '1')
     assert.equal(claudeChildEnv({ ...source, NOSTRA_PUBLICATION_SOCKET: '/tmp/fixture.sock' }).NOSTRA_PUBLICATION_SOCKET,
       '/tmp/fixture.sock')
   })
 
-  check('tracked Claude is Max-auth-only and OS-denies Git/code/archive writes independently of env', () => {
-    assert.equal(isClaudeMaxAuth({ loggedIn: true, authMethod: 'claude.ai', apiProvider: 'firstParty', subscriptionType: 'max' }), true)
+  check('tracked Claude accepts only first-party subscription auth and scrubs headless credentials', () => {
+    const maxLogin = { loggedIn: true, authMethod: 'claude.ai', apiProvider: 'firstParty', subscriptionType: 'max' }
+    const headless = { loggedIn: true, authMethod: 'oauth_token', apiProvider: 'firstParty' }
+    assert.equal(isClaudeMaxAuth(maxLogin), true)
     assert.equal(isClaudeMaxAuth({ loggedIn: true, authMethod: 'apiKey', apiProvider: 'firstParty', subscriptionType: 'max' }), false)
+    assert.equal(isClaudeSubscriptionAuth(maxLogin, {}), true)
+    assert.equal(isClaudeSubscriptionAuth(headless, { CLAUDE_CODE_OAUTH_TOKEN: 'subscription-token' }), true)
+    assert.equal(isClaudeSubscriptionAuth(headless, {}), false, 'a status label alone cannot admit headless auth')
+    assert.equal(isClaudeSubscriptionAuth({ ...headless, apiProvider: 'thirdParty' },
+      { CLAUDE_CODE_OAUTH_TOKEN: 'subscription-token' }), false)
+    assert.equal(isClaudeSubscriptionAuth({ loggedIn: true, authMethod: 'apiKey', apiProvider: 'firstParty' },
+      { CLAUDE_CODE_OAUTH_TOKEN: 'subscription-token' }), false)
+  })
+
+  check('tracked Claude OS-denies Git/code/archive writes independently of env', () => {
     const gitDir = path.join(REPO_ROOT, '.git')
     const archive = path.join(REPO_ROOT, 'commodity', 'runs', 'GOLD', 'decisions')
     const context: ProviderLaunchContext = {
