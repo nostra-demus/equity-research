@@ -5887,19 +5887,27 @@ const IDEA_ID_RE = /^IDEA-[a-f0-9]{12}$/
 function durableSignalIntakeExists(signalId: string): boolean {
   if (!/^SIG-[0-9]{8}-[a-f0-9]{8}$/.test(signalId)) return false
   const screener = swarmById('screener')
-  if (!screener?.runRootTemplate || !screener.placeholder) return false
+  if (!screener?.runRootTemplate || !screener.placeholder) throw new Error('screener run-root manifest is unavailable')
   const root = path.resolve(REPO_ROOT, screener.runRootTemplate.replace(`{${screener.placeholder}}`, signalId))
   const boundary = path.resolve(REPO_ROOT, 'screener')
-  if (!root.startsWith(boundary + path.sep)) return false
+  if (!root.startsWith(boundary + path.sep)) throw new Error('screener run-root manifest escaped its repository boundary')
   const intake = path.resolve(root, 'intake.json')
-  if (!intake.startsWith(root + path.sep)) return false
+  if (!intake.startsWith(root + path.sep)) throw new Error('signal intake path escaped its run root')
   try {
     const rootInfo = fs.lstatSync(root)
     const intakeInfo = fs.lstatSync(intake)
     if (!rootInfo.isDirectory() || rootInfo.isSymbolicLink() || fs.realpathSync(root) !== root
-        || !intakeInfo.isFile() || intakeInfo.isSymbolicLink() || fs.realpathSync(intake) !== intake) return false
-    return JSON.parse(fs.readFileSync(intake, 'utf8'))?.signal_id === signalId
-  } catch { return false }
+        || !intakeInfo.isFile() || intakeInfo.isSymbolicLink() || fs.realpathSync(intake) !== intake) {
+      throw new Error('signal admission proof is not a regular contained intake')
+    }
+    if (JSON.parse(fs.readFileSync(intake, 'utf8'))?.signal_id !== signalId) {
+      throw new Error('signal admission proof identity does not match its reservation')
+    }
+    return true
+  } catch (error: any) {
+    if (error?.code === 'ENOENT') return false
+    throw error
+  }
 }
 
 app.post('/api/screener/ideas/:id/promote', { config: { rateLimit: { max: 60, timeWindow: '1 minute' } } }, async (req, reply) => {

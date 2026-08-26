@@ -3062,7 +3062,12 @@ export function reconcileIdeaPromotionReservations(
     }
     let signalExists = false
     if (reservation.signal_id) {
-      try { signalExists = durableSignalIntakeExists(reservation.signal_id) } catch { signalExists = false }
+      try {
+        signalExists = durableSignalIntakeExists(reservation.signal_id)
+      } catch (error: any) {
+        result.errors.push(`${ideaId}: signal admission proof could not be checked: ${String(error?.message || error).slice(0, 160)}`)
+        continue
+      }
     }
     if (reservation.signal_id && signalExists) {
       if (!current) {

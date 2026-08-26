@@ -3635,6 +3635,25 @@ check('startup recovery releases only a stale reservation with no admitted signa
   assert.ok(reserveIdeaPromotion(dir, id, now + 30 * 60_000 + 2, signalId), 'a proven non-admitted stale launch can retry')
   fs.rmSync(dir, { recursive: true, force: true })
 })
+check('startup recovery keeps a stale reservation when admission proof cannot be checked', () => {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'ideas-promotion-proof-error-'))
+  const id = ideaId('PROOFERR', 'long')
+  const now = Date.parse('2026-08-03T10:00:00Z')
+  const signalId = 'SIG-20260803-cafebabe'
+  writeIdea(dir, validIdeaSnapshot('PROOFERR', 'long', { decay_at: '2026-08-04T10:00:00Z' }))
+  const reservation = reserveIdeaPromotion(dir, id, now, signalId)
+  assert.ok(reservation)
+  const reconciled = reconcileIdeaPromotionReservations(dir, () => {
+    throw new Error('temporary filesystem failure')
+  }, now + 30 * 60_000 + 1)
+  assert.equal(reconciled.recovered, 0)
+  assert.equal(reconciled.released, 0)
+  assert.equal(reconciled.pending, 0)
+  assert.match(reconciled.errors[0] ?? '', /signal admission proof could not be checked/)
+  assert.equal(readIdeaById(dir, id)?.status, 'live')
+  assert.equal(fs.existsSync(path.join(dir, 'screener', 'ledger', 'ideas', `${id}.promotion`)), true)
+  fs.rmSync(dir, { recursive: true, force: true })
+})
 check('promotion reservation rejects a malformed frozen signal identity', () => {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'ideas-promotion-signal-id-'))
   const id = ideaId('SIGID', 'long')
