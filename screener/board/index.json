@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-26T02:41:35Z",
+  "generated_at": "2026-08-26T02:50:54Z",
   "inbox": [
     {
       "inbox_id": "INB-20260826-252",
@@ -355,6 +355,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260826-466",
+      "headline": "Elon Musk's SpaceX to build ‘biggest launch site on Earth’ in Louisiana for $100 billion",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/news/elon-musks-spacex-to-build-biggest-launch-site-on-earth-in-louisiana-for-100-billion-11787710915634.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-26T02:32:06Z",
+      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
+      "prelim_note": "SpaceX plans a $100 billion launch site in Louisiana, a major capex commitment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "SpaceX plans a $100 billion launch site in Louisiana, a major capex commitment.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SpaceX",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1941,56 +1990,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260826-098",
-      "headline": "U.S. FDA Approves Ziihera (zanidatamab-hrii) with and without Tislelizumab plus Chemotherapy in First-Line HER2+ Advanced Gastroesophageal Adenocarcinoma",
-      "headline_en": null,
-      "url": "https://www.drugs.com/newdrugs/u-s-fda-approves-ziihera-zanidatamab-hrii-without-tislelizumab-plus-chemotherapy-first-line-her2-6863.html",
-      "source_name": "Drugs.com — New Drug Approvals",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-08-25T22:08:48Z",
-      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
-      "prelim_note": "FDA approved Ziihera for first-line HER2+ advanced gastroesophageal adenocarcinoma, a new drug approval for the maker.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "FDA approved Ziihera for first-line HER2+ advanced gastroesophageal adenocarcinoma, a new drug approval for the maker.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "product",
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Zymeworks Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -80921,77 +80920,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-997ba9627856",
-      "idea_version": "IDEAV-e753d73e8b3609a1",
-      "idea_version_started_at": "2026-08-24T23:28:07Z",
-      "ticker": "06887",
-      "company": "Sunshine Pharma",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "A profit warning indicates significant deterioration in margins or revenue, likely requiring a downward revision of earnings expectations.",
-      "why_now": "The profit warning was issued on August 24, 2026, and the market has not yet fully adjusted to the negative guidance.",
-      "conviction": 80,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-9330f5c5cc8c"
-      ],
-      "primary_source_event_id": "EVT-9330f5c5cc8c",
-      "source_headlines": [
-        "SUNSHINE PHARMA (06887): PROFIT WARNING"
-      ],
-      "source_headline": "SUNSHINE PHARMA (06887): PROFIT WARNING",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0824/2026082402015.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-24T14:50:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-24T23:28:07Z",
-      "updated_at": "2026-08-24T23:28:07Z",
-      "decay_at": "2026-08-26T02:50:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-aaaaf1fc1368",
       "idea_version": "IDEAV-3c2e59d52bf37f43",
       "idea_version_started_at": "2026-08-24T19:00:25Z",
@@ -81768,6 +81696,77 @@
       "surfaced_at": "2026-08-24T23:28:07Z",
       "updated_at": "2026-08-24T23:28:07Z",
       "decay_at": "2026-08-25T10:06:05Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-997ba9627856",
+      "idea_version": "IDEAV-e753d73e8b3609a1",
+      "idea_version_started_at": "2026-08-24T23:28:07Z",
+      "ticker": "06887",
+      "company": "Sunshine Pharma",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "A profit warning indicates significant deterioration in margins or revenue, likely requiring a downward revision of earnings expectations.",
+      "why_now": "The profit warning was issued on August 24, 2026, and the market has not yet fully adjusted to the negative guidance.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-9330f5c5cc8c"
+      ],
+      "primary_source_event_id": "EVT-9330f5c5cc8c",
+      "source_headlines": [
+        "SUNSHINE PHARMA (06887): PROFIT WARNING"
+      ],
+      "source_headline": "SUNSHINE PHARMA (06887): PROFIT WARNING",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0824/2026082402015.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-24T14:50:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-24T23:28:07Z",
+      "updated_at": "2026-08-24T23:28:07Z",
+      "decay_at": "2026-08-26T02:50:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -84068,8 +84067,8 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 123,
-    "shown_count": 123,
+    "total_count": 124,
+    "shown_count": 124,
     "hidden_count": 0,
     "side_counts": {
       "long": {
@@ -84078,8 +84077,8 @@
         "hidden_count": 0
       },
       "short": {
-        "total_count": 73,
-        "shown_count": 73,
+        "total_count": 74,
+        "shown_count": 74,
         "hidden_count": 0
       }
     },
@@ -84099,6 +84098,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-997ba9627856",
+        "idea_version": "IDEAV-e753d73e8b3609a1",
+        "idea_version_started_at": "2026-08-24T23:28:07Z",
+        "ticker": "06887",
+        "company": "Sunshine Pharma",
+        "exchange": "HKEX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "A profit warning indicates significant deterioration in margins or revenue, likely requiring a downward revision of earnings expectations.",
+        "why_now": "The profit warning was issued on August 24, 2026, and the market has not yet fully adjusted to the negative guidance.",
+        "conviction": 80,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-9330f5c5cc8c"
+        ],
+        "primary_source_event_id": "EVT-9330f5c5cc8c",
+        "source_headlines": [
+          "SUNSHINE PHARMA (06887): PROFIT WARNING"
+        ],
+        "source_headline": "SUNSHINE PHARMA (06887): PROFIT WARNING",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0824/2026082402015.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-24T14:50:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-24T23:28:07Z",
+        "updated_at": "2026-08-24T23:28:07Z",
+        "decay_at": "2026-08-26T02:50:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-26T02:50:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-5eb83f28e809",
         "idea_version": "IDEAV-edc735557a877cff",
@@ -93210,7 +93283,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 149,
-    "live_count": 25,
+    "live_count": 24,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -93229,9 +93302,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 573524,
-    "news_picked_today": 651,
-    "news_dropped_today": 3297
+    "news_seen_today": 594745,
+    "news_picked_today": 694,
+    "news_dropped_today": 3518
   },
   "book_momentum": {
     "live_count": 8,
