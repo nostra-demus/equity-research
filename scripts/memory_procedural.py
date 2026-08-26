@@ -424,7 +424,13 @@ def build_playbook(
     reviewers = evaluation.get("reviewers")
     attestations = evaluation.get("review_attestations")
     cases = evaluation.get("cases")
-    if not isinstance(reviewers, list) or not isinstance(attestations, list) or not isinstance(cases, list):
+    if (
+        not isinstance(reviewers, list)
+        or not isinstance(attestations, list)
+        or not isinstance(cases, list)
+        or not cases
+        or any(not isinstance(item, Mapping) for item in cases)
+    ):
         raise ProceduralMemoryError("playbook-evaluation-reviewers-invalid")
     verified_reviewers = _verified_reviewers(candidate, cases, attestations, review_verifier)
     if reviewers != verified_reviewers:
@@ -454,11 +460,24 @@ def build_playbook(
     if expires_days < 1 or expires_days > 365:
         raise ProceduralMemoryError("playbook-review-or-expiry-window-invalid")
     identity = playbook_id or _memory_id("playbook", candidate["candidate_sha256"])
+    active_core = copy.deepcopy(candidate["playbook"])
+    proposed_effect = active_core.get("measured_effect", {})
+    active_core["measured_effect"] = {
+        "metric": (
+            "reviewed-replay-pass-rate"
+            if proposed_effect.get("metric") == "pending-reviewed-replay"
+            else proposed_effect.get("metric")
+        ),
+        "baseline": proposed_effect.get("baseline"),
+        "candidate": sum(item.get("passed") is True for item in cases) / len(cases),
+        "sample_size": len(cases),
+        "serious_error_regression": any(item.get("serious_error") is True for item in cases),
+    }
     value: dict[str, Any] = {
         "schema": "memory-playbook/v1",
         "playbook_id": identity,
         "version": version,
-        "playbook": copy.deepcopy(candidate["playbook"]),
+        "playbook": active_core,
         "source_candidate_sha256": candidate["candidate_sha256"],
         "policy": copy.deepcopy(candidate["policy"]),
         "status": "active",

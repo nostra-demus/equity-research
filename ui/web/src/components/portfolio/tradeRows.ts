@@ -11,9 +11,13 @@ export interface TradeRowData {
   exitPrice: number
   openedAt: string | null
   closedAt: string | null
-  holdingDays: number
+  /** Null when any lot in the trade carried no timestamp — an unknown hold is not a same-day one. */
+  holdingDays: number | null
   grossLocal: number
   commissionLocal: number
+  /** Commission in the BASE currency, or null when a lot closed with no rate. The local figures cannot
+   *  be added across currencies: summed straight, francs went into a dollar total. */
+  commissionBase: number | null
   /** Base currency where a rate existed, local otherwise — the same figure the cards above total. */
   realized: number
   /** Broker rows behind this line: the opening lots consumed, across every exit folded into it. */
@@ -58,9 +62,14 @@ export function foldRoundTrips(closures: PortfolioClosure[]): TradeRowData[] {
       openedAt: opened,
       closedAt: lots[0]!.closedAt,
       // Measured from the OLDEST lot in the group: that is how long the money was actually committed.
-      holdingDays: Math.max(...lots.map((c) => c.holdingDays ?? 0)),
+      // One lot with no timestamp makes the whole group unknown — reading a missing date as 0 days
+      // presented a position held for months as a same-day trade and dragged the average hold down.
+      holdingDays: lots.some((c) => c.holdingDays === null) ? null : Math.max(...lots.map((c) => c.holdingDays!)),
       grossLocal: lots.reduce((a, c) => a + c.grossLocal, 0),
       commissionLocal: lots.reduce((a, c) => a + c.commissionLocal, 0),
+      commissionBase: lots.some((c) => c.closeFxRateToBase === null)
+        ? null
+        : lots.reduce((a, c) => a + c.commissionLocal * c.closeFxRateToBase!, 0),
       realized: sumBase(lots, baseRealised).total,
       lots: lots.length,
       fills: 1,
@@ -88,9 +97,14 @@ export function foldRoundTrips(closures: PortfolioClosure[]): TradeRowData[] {
       quantity: qty,
       entryPrice: wAvg((r) => r.entryPrice),
       exitPrice: wAvg((r) => r.exitPrice),
-      holdingDays: Math.max(...group.map((r) => r.holdingDays)),
+      // Both carry the first fold's rule outward: one unknown leg makes the folded row unknown too,
+      // rather than quietly reporting the known part as if it were the whole.
+      holdingDays: group.some((r) => r.holdingDays === null) ? null : Math.max(...group.map((r) => r.holdingDays!)),
       grossLocal: group.reduce((a, r) => a + r.grossLocal, 0),
       commissionLocal: group.reduce((a, r) => a + r.commissionLocal, 0),
+      commissionBase: group.some((r) => r.commissionBase === null)
+        ? null
+        : group.reduce((a, r) => a + r.commissionBase!, 0),
       realized: group.reduce((a, r) => a + r.realized, 0),
       lots: group.reduce((a, r) => a + r.lots, 0),
       fills: group.reduce((a, r) => a + r.fills, 0),

@@ -118,7 +118,7 @@ def candidate_command(args: argparse.Namespace) -> int:
         created_by={"kind": args.creator_kind, "id": args.creator_id},
         policy=load(args.policy), now=moment(args.now),
     )
-    with candidate_intake_guard(args.state_root):
+    with candidate_intake_guard(args.state_root, candidate_count=1):
         path = state(args).put_candidate(value)
     emit_artifact(
         schema="memory-playbook-candidate-intake-result/v1", value=value,
@@ -132,7 +132,7 @@ def seed_command(args: argparse.Namespace) -> int:
     values = seed_initial_candidates(
         created_by={"kind": args.creator_kind, "id": args.creator_id}, now=moment(args.now),
     )
-    with candidate_intake_guard(args.state_root):
+    with candidate_intake_guard(args.state_root, candidate_count=len(values)):
         paths = [store.put_candidate(value) for value in values]
     dump({
         "schema": "memory-playbook-seed-result/v1", "candidate_count": len(paths),

@@ -133,8 +133,13 @@ check('a flat series has no volatility, so it has no Sharpe to state', () => {
   assert.equal(risk.sharpe, null, 'zero deviation cannot produce a ratio')
 })
 
-check('volatility annualises the daily deviation', () => {
-  // Alternating ±1% around a flat path: daily deviation is ~1%, annualised ~15.9%.
+check('volatility annualises on the calendar the series is actually observed on', () => {
+  // Alternating ±1% on EVERY calendar day: the series really does move 365 times a year, so the daily
+  // ~1% deviation annualises at √365 ≈ 19.1%, not at √252.
+  //
+  // This band used to say ~15.9%, which asserted a trading-day calendar over a series carrying a row per
+  // calendar day. A Flex export is calendar-daily (see the note on measuredWindow), so that convention
+  // understated annualised volatility by about 17% on every real book.
   const nav: NavPoint[] = []
   let v = 1000
   const d = new Date(Date.UTC(2026, 0, 1))
@@ -144,7 +149,32 @@ check('volatility annualises the daily deviation', () => {
     d.setUTCDate(d.getUTCDate() + 1)
   }
   const risk = riskMetrics(nav, new Map(), 0)
-  assert.ok(risk.volatility !== null && risk.volatility > 14 && risk.volatility < 18, `expected ~16%, got ${risk.volatility}`)
+  assert.ok(risk.volatility !== null && risk.volatility > 17 && risk.volatility < 21, `expected ~19%, got ${risk.volatility}`)
+})
+
+check('a calendar series with quiet weekends annualises like the trading days it really moves on', () => {
+  // THE POINT OF DERIVING THE FREQUENCY FROM THE SAMPLE. A real export carries a NAV row every calendar
+  // day; the ~113 weekend rows are flat, which deflates the measured deviation. Scaling that deflated
+  // number by √252 understated the answer twice over. Measuring the observation frequency instead makes
+  // the two ways of holding the same risk agree, which is the property that has to hold.
+  const move = 0.01
+  const calendar: NavPoint[] = []
+  let v = 1000
+  const d = new Date(Date.UTC(2026, 0, 5)) // a Monday
+  let step = 0
+  for (let i = 0; i < 400; i++) {
+    calendar.push({ date: d.toISOString().slice(0, 10), total: v })
+    const day = d.getUTCDay()
+    if (day !== 0 && day !== 6) { v *= step % 2 === 0 ? 1 + move : 1 / (1 + move); step++ }
+    d.setUTCDate(d.getUTCDate() + 1)
+  }
+  const withWeekends = riskMetrics(calendar, new Map(), 0).volatility
+  const tradingOnly = riskMetrics(
+    calendar.filter((p) => { const w = new Date(`${p.date}T00:00:00Z`).getUTCDay(); return w !== 0 && w !== 6 }),
+    new Map(), 0).volatility
+  assert.ok(withWeekends !== null && tradingOnly !== null)
+  assert.ok(Math.abs(withWeekends - tradingOnly) / tradingOnly < 0.1,
+    `the same risk read two ways must agree: calendar ${withWeekends}, trading-day ${tradingOnly}`)
 })
 
 check('Sortino exceeds Sharpe when the volatility is mostly upside', () => {

@@ -2310,6 +2310,12 @@ export interface PortfolioPerformance {
   risk: PortfolioRisk
   benchmark: PortfolioBenchmark
   riskFreeAnnualPct: number
+  /** The hurdle's as-of date and where it came from, so a ratio can be checked against its basis later
+   *  rather than being read as current forever. */
+  riskFreeAsOf: string
+  riskFreeSource: string
+  /** What the index series measures — it is a price index, so it excludes the index's own dividends. */
+  benchmarkBasis: string
   feedPresent: boolean
 }
 

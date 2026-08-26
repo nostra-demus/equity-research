@@ -1,6 +1,502 @@
 {
-  "generated_at": "2026-08-26T10:21:44Z",
+  "generated_at": "2026-08-26T13:20:51Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260826-889",
+      "headline": "Nitco Limited: Nitco Limited has informed the Exchange regarding a press release dated August 26, 2026, titled \"NITCO forms JV with House of Abhinandan Lodha for Rs 4,500-crore Alibaug project\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/NITCO_26082026173047_SE_PressRelease_HoABL.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-26T12:00:55Z",
+      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
+      "prelim_note": "Significant joint venture announcement for a project valued at Rs 4,500 crore, which is material for a company of Nitco's size.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Significant joint venture announcement for a project valued at Rs 4,500 crore, which is material for a company of Nitco's size.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna",
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nitco Limited",
+          "ticker": "NITCO",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260826-877",
+      "headline": "GUANZE MEDICAL (02427): PROFIT WARNING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0826/2026082601299.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-26T11:42:00Z",
+      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
+      "prelim_note": "Profit warning indicates a material deterioration in financial performance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Profit warning indicates a material deterioration in financial performance.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "guidance_change",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Guanze Medical Information Industry",
+          "ticker": "02427",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260826-879",
+      "headline": "CENTRALCHINA MT (09982): PROFIT WARNING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0826/2026082601281.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-26T11:37:00Z",
+      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
+      "prelim_note": "Profit warning indicates a material deterioration in financial performance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Profit warning indicates a material deterioration in financial performance.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "guidance_change",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Central China Management",
+          "ticker": "09982",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260826-872",
+      "headline": "Mankind Pharma Ltd: Please find attached outcome of the Board Meeting held today, according consent of the Board of Directors of the Company for the integration of Bharat Serums and Vaccines Limited, a wholly ....",
+      "headline_en": null,
+      "url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/bb1e8a0a-d435-48a4-ac2e-74a395c6a105.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-26T11:13:03Z",
+      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
+      "prelim_note": "The company's board consented to the integration of Bharat Serums and Vaccines Limited.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company's board consented to the integration of Bharat Serums and Vaccines Limited.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Mankind Pharma Ltd",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "Bharat Serums and Vaccines Limited",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260826-813",
+      "headline": "SUPER HI (09658): ANNOUNCEMENT OF INTERIM RESULTS FOR THE SIX MONTHS ENDED JUNE 30, 2026",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0826/2026082601123.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-26T11:02:00Z",
+      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
+      "prelim_note": "Release of interim financial results is a material event for investors.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Release of interim financial results is a material event for investors.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SUPER HI",
+          "ticker": "09658",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260826-809",
+      "headline": "Krishna Institute of Medical Sciences Limited: Krishna Institute of Medical Sciences Limited has informed the Exchange about Clarification regarding article appearing in Dealstreetasia.com dated 25th August 2026 titled ChrysCapital- backed KIMS in talks to acquire stake in Renova Hospitals for $52 Million",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/KIMS_26082026162658_Mediadisclosures.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-26T10:57:07Z",
+      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
+      "prelim_note": "The company confirmed it is in talks to acquire a stake in Renova Hospitals for $52 million.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company confirmed it is in talks to acquire a stake in Renova Hospitals for $52 million.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Krishna Institute of Medical Sciences Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260826-833",
+      "headline": "LINEKONG (08267): PROFIT WARNING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/0826/2026082601043.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-26T10:46:00Z",
+      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
+      "prelim_note": "Profit warning signals a material negative revision to earnings expectations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Profit warning signals a material negative revision to earnings expectations.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "guidance_change",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "LINEKONG",
+          "ticker": "08267",
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260826-836",
+      "headline": "STAR GROUP ASIA (01560): PROFIT WARNING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0826/2026082601025.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-26T10:44:00Z",
+      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
+      "prelim_note": "Profit warning signals a material negative revision to earnings expectations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Profit warning signals a material negative revision to earnings expectations.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "guidance_change",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "STAR GROUP ASIA",
+          "ticker": "01560",
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260826-780",
+      "headline": "RIZHAO PORT JR (06117): PROFIT WARNING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0826/2026082600931.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-26T10:27:00Z",
+      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
+      "prelim_note": "Profit warning issued, indicating a negative impact on expected earnings.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Profit warning issued, indicating a negative impact on expected earnings.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "guidance_change",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Rizhao Port Jr",
+          "ticker": "06117",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260826-774",
+      "headline": "HMT Limited: HMT Limited has informed the Exchange about Delay/default in the payment of fines/penalties/dues etc. to authority",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/HMT_26082026155126_HMTFINE300626.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-26T10:23:09Z",
+      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
+      "prelim_note": "HMT Limited reported a default in payment of fines and penalties to an authority.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "HMT Limited reported a default in payment of fines and penalties to an authority.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HMT Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260826-753",
       "headline": "EGR Wealth Limited enters administration",
@@ -807,6 +1303,413 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260826-880",
+      "headline": "Victory Capital to Buy First Eagle for $7 Billion",
+      "headline_en": null,
+      "url": "https://www.wsj.com/business/deals/victory-capital-to-buy-first-eagle-for-7-billion-ff0286f0?mod=rss_markets_main",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-26T11:30:00Z",
+      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
+      "prelim_note": "Victory Capital announced the acquisition of First Eagle for $7 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Victory Capital announced the acquisition of First Eagle for $7 billion.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Victory Capital",
+          "ticker": "VCTR",
+          "listing_country": "US"
+        },
+        {
+          "name": "First Eagle",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260826-866",
+      "headline": "Couche-Tard launches tender offer for all shares of Polish retailer Zabka",
+      "headline_en": null,
+      "url": "https://www.theglobeandmail.com/business/article-alimentation-couche-tard-zabka-poland-convenience-store/",
+      "source_name": "The Globe and Mail",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-26T11:02:44Z",
+      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
+      "prelim_note": "Couche-Tard has launched a tender offer for Zabka, representing a significant M&A event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Couche-Tard has launched a tender offer for Zabka, representing a significant M&A event.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Alimentation Couche-Tard",
+          "ticker": null,
+          "listing_country": "CA"
+        },
+        {
+          "name": "Zabka",
+          "ticker": null,
+          "listing_country": "PL"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260826-857",
+      "headline": "Victory Capital Holdings To Buy First Eagle Investments For About $7 Bln",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/victory-capital-holdings-buy-first-eagle-investments-about-7-bln",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-26T10:50:23Z",
+      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
+      "prelim_note": "$7B acquisition of First Eagle Investments is a large, confirmed M&A deal.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "$7B acquisition of First Eagle Investments is a large, confirmed M&A deal.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Victory Capital Holdings",
+          "ticker": "VCTR",
+          "listing_country": "US"
+        },
+        {
+          "name": "First Eagle Investments",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260826-867",
+      "headline": "Navitas Semiconductor acquires power management firm Claros for $232.8m",
+      "headline_en": null,
+      "url": "https://www.datacenterdynamics.com/en/news/navitas-semiconductor-acquires-power-management-firm-claros-for-2328m/",
+      "source_name": "DataCenterDynamics",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-26T10:48:10Z",
+      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
+      "prelim_note": "Navitas Semiconductor is acquiring Claros for $232.8 million.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Navitas Semiconductor is acquiring Claros for $232.8 million.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Navitas Semiconductor",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260826-862",
+      "headline": "Intuit shares plunge as cautious fiscal 2027 guidance falls short of forecasts",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/markets/stocks/articles/intuit-shares-plunge-cautious-fiscal-104320782.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-26T10:43:20Z",
+      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
+      "prelim_note": "Intuit issued cautious FY2027 guidance that missed forecasts, a quantified guidance cut for a mega-cap company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Intuit issued cautious FY2027 guidance that missed forecasts, a quantified guidance cut for a mega-cap company.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Intuit",
+          "ticker": "INTU",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260826-808",
+      "headline": "Avaada Electro cuts IPO size to ₹7,600 crore amid valuation, concentration concerns",
+      "headline_en": null,
+      "url": "https://www.livemint.com/market/ipo/avaada-electro-ipo-size-cut-rs-7600-crore-ipo-11787735978270.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-26T10:10:12Z",
+      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
+      "prelim_note": "Avaada Electro reduced its IPO size to ₹7,600 crore due to valuation and concentration concerns.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Avaada Electro reduced its IPO size to ₹7,600 crore due to valuation and concentration concerns.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Avaada Electro",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260826-800",
+      "headline": "Ambu CEO Says Growth Intact as Guidance Cut Revives Old Fears",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-08-26/ambu-ceo-says-growth-intact-as-guidance-cut-revives-old-fears",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-26T10:04:00Z",
+      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
+      "prelim_note": "Ambu has issued a guidance cut, which is a material event impacting investor expectations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Ambu has issued a guidance cut, which is a material event impacting investor expectations.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ambu",
+          "ticker": null,
+          "listing_country": "DK"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260826-773",
+      "headline": "McKesson to acquire Precision Medicine Group for $2.25bn",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/healthcare/articles/mckesson-acquire-precision-medicine-group-094614528.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-26T09:46:14Z",
+      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
+      "prelim_note": "McKesson is acquiring Precision Medicine Group for $2.25bn.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "McKesson is acquiring Precision Medicine Group for $2.25bn.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "McKesson",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260826-736",
       "headline": "NCLT allows Subhash Chandra to pay ₹6.5 crore against claims of ₹22,006.57 crore",
       "headline_en": null,
@@ -1116,906 +2019,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260826-690",
-      "headline": "Taqa to delist from Abu Dhabi bourse after L’imad buyout",
-      "headline_en": null,
-      "url": "https://www.agbi.com/markets/2026/08/taqa-to-delist-from-abu-dhabi-bourse-after-limad-buyout/",
-      "source_name": "AGBI — Arabian Gulf Business Insight",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-26T07:29:00Z",
-      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
-      "prelim_note": "Taqa is delisting from the Abu Dhabi bourse following a buyout, which is a significant capital structure event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Taqa is delisting from the Abu Dhabi bourse following a buyout, which is a significant capital structure event.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna",
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Taqa",
-          "ticker": null,
-          "listing_country": "AE"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260826-688",
-      "headline": "Bathla urgently seeks $20m as developer faces risk of liquidation",
-      "headline_en": null,
-      "url": "https://www.afr.com/property/residential/bathla-in-urgent-call-for-20m-as-developer-faces-risk-of-liquidation-20260826-p60rri?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-26T07:13:29Z",
-      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
-      "prelim_note": "Developer Bathla is seeking $20 million to avoid liquidation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Developer Bathla is seeking $20 million to avoid liquidation.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": -1,
-        "recency": 4,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bathla",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260826-661",
-      "headline": "Constellation Energy Just Raised Guidance. Here's What's Driving It.",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/constellation-energy-just-raised-guidance-heres-whats-driving-it",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-26T06:25:00Z",
-      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
-      "prelim_note": "Constellation Energy raised its financial guidance, which directly impacts analyst expectations and valuation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Constellation Energy raised its financial guidance, which directly impacts analyst expectations and valuation.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Constellation Energy",
-          "ticker": "CEG",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260826-470",
-      "headline": "Developer Ingenia secures land bank with $1b acquisition of Peet",
-      "headline_en": null,
-      "url": "https://www.afr.com/property/commercial/developer-ingenia-secures-land-bank-with-1b-acquisition-of-peet-20260826-p60rnn?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-26T02:36:38Z",
-      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
-      "prelim_note": "Ingenia secured a $1b land bank via acquisition of Peet, a named deal value.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Ingenia secured a $1b land bank via acquisition of Peet, a named deal value.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 72,
-      "rank_factors": {
-        "materiality": 72,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 13,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Ingenia",
-          "ticker": null,
-          "listing_country": "AU"
-        },
-        {
-          "name": "Peet",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260826-466",
-      "headline": "Elon Musk's SpaceX to build ‘biggest launch site on Earth’ in Louisiana for $100 billion",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/news/elon-musks-spacex-to-build-biggest-launch-site-on-earth-in-louisiana-for-100-billion-11787710915634.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-26T02:32:06Z",
-      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
-      "prelim_note": "SpaceX plans a $100 billion launch site in Louisiana, a major capex commitment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "SpaceX plans a $100 billion launch site in Louisiana, a major capex commitment.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SpaceX",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260826-399",
-      "headline": "Volkswagen CEO faces pushback over plan for 50,000 job cuts and plant closures",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/business/volkswagen-ceo-faces-pushback-over-plan-for-50000-job-cuts-and-plant-closures-19977137.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-26T02:10:18Z",
-      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
-      "prelim_note": "Volkswagen is facing significant internal and external pushback regarding a plan to cut 50,000 jobs and close plants.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Volkswagen is facing significant internal and external pushback regarding a plan to cut 50,000 jobs and close plants.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Volkswagen",
-          "ticker": null,
-          "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260826-397",
-      "headline": "Domino’s Pizza sales decline accelerates after slumping to big loss",
-      "headline_en": null,
-      "url": "https://www.afr.com/companies/retail/domino-s-pizza-sales-decline-accelerates-after-slumping-to-big-loss-20260825-p60r8i?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-26T01:47:51Z",
-      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
-      "prelim_note": "Domino's Pizza reported an accelerating sales decline and a big loss, implying a material earnings deterioration.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Domino's Pizza reported an accelerating sales decline and a big loss, implying a material earnings deterioration.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Domino's Pizza",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260826-398",
-      "headline": "Dick’s Sporting Goods’ Core Business Grows 4.9%, but Foot Locker Losses and Weak Guidance Send Shares Tumbling",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/dicks-sporting-goods-core-business-grows-49-foot-locker-losses-and-weak-guidance-send",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-26T01:40:38Z",
-      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
-      "prelim_note": "Foot Locker reported weak guidance and losses, causing a significant share price decline.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Foot Locker reported weak guidance and losses, causing a significant share price decline.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Foot Locker",
-          "ticker": "FL",
-          "listing_country": "US"
-        },
-        {
-          "name": "Dick's Sporting Goods",
-          "ticker": "DKS",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260826-444",
-      "headline": "Sumitomo joins four-way race for Australia's FleetPartners with $582 million bid",
-      "headline_en": null,
-      "url": "https://www.reuters.com/legal/transactional/sumitomo-heats-up-bidding-war-australias-fleetpartners-with-582-million-offer-2026-08-25/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-26T01:32:33Z",
-      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
-      "prelim_note": "Sumitomo entered a four-way race for FleetPartners with a $582 million bid, a named M&A deal value.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Sumitomo entered a four-way race for FleetPartners with a $582 million bid, a named M&A deal value.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Sumitomo",
-          "ticker": null,
-          "listing_country": "JP"
-        },
-        {
-          "name": "FleetPartners",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260826-368",
-      "headline": "Musk's rocket firm SpaceX to build $100bn launch facility",
-      "headline_en": null,
-      "url": "https://www.bbc.co.uk/news/articles/cq5xel4v642o?at_medium=RSS&at_campaign=rss",
-      "source_name": "BBC News — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-26T01:32:07Z",
-      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
-      "prelim_note": "SpaceX to build a $100bn launch facility, a major capital expenditure commitment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "SpaceX to build a $100bn launch facility, a major capital expenditure commitment.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SpaceX",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260826-345",
-      "headline": "SpaceX to build $100 billion Starship rocket complex in Louisiana",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/media-telecom/spacex-build-starship-spaceport-louisiana-2026-08-25/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-26T01:09:52Z",
-      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
-      "prelim_note": "SpaceX plans a $100 billion Starship rocket complex in Louisiana, a major capex commitment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "SpaceX plans a $100 billion Starship rocket complex in Louisiana, a major capex commitment.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SpaceX",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260826-255",
-      "headline": "Deloitte to pay US administration $21.5mn to settle ‘discriminatory’ practices probe",
-      "headline_en": null,
-      "url": "https://www.ft.com/content/33304634-1594-487c-9031-5fdf7adf5652?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-26T00:07:15Z",
-      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
-      "prelim_note": "Deloitte is paying a $21.5 million settlement to resolve a discrimination probe.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Deloitte is paying a $21.5 million settlement to resolve a discrimination probe.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Deloitte",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260826-634",
-      "headline": "MAQ: Full Year Results Announcement [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.MAQ?key=2924-03126653-2A1692378",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-26T08:01:57Z",
-      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
-      "prelim_note": "Full year financial results are a primary driver of valuation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Full year financial results are a primary driver of valuation.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "MAQ",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260826-257",
-      "headline": "ART: FY26 Financial Results Presentation [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ART?key=2924-03126411-2A1692239",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-26T00:41:10Z",
-      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
-      "prelim_note": "The company released its FY26 financial results presentation, which is a price-sensitive event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "The company released its FY26 financial results presentation, which is a price-sensitive event.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ART",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260826-259",
-      "headline": "AQZ: FY26 Annual Results Presentation [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.AQZ?key=2924-03126404-2A1692227",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-26T00:38:05Z",
-      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
-      "prelim_note": "The company released its FY26 annual results presentation, which is a price-sensitive event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "The company released its FY26 annual results presentation, which is a price-sensitive event.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "AQZ",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260826-023",
-      "headline": "BKB: Trading Halt [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.BKB?key=2924-03126243-6A1340341",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-25T23:26:05Z",
-      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
-      "prelim_note": "A trading halt pending an announcement is a material event that typically precedes significant corporate news.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "A trading halt pending an announcement is a material event that typically precedes significant corporate news.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "strategic_review",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "strategic_review"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "BKB",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260826-694",
-      "headline": "Hochschild Mining sees earnings more than double as gold and silver prices rise",
-      "headline_en": null,
-      "url": "https://www.thisismoney.co.uk/money/markets/article-16080675/Hochschild-Mining-sees-earnings-double-gold-silver-prices-rise.html?ns_mchannel=rss&ns_campaign=1490&ito=1490",
-      "source_name": "This is Money (Daily Mail) — Markets",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-26T08:09:33Z",
-      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
-      "prelim_note": "Hochschild Mining reported earnings more than doubled due to higher commodity prices.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Hochschild Mining reported earnings more than doubled due to higher commodity prices.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": -1,
-        "recency": 4,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Hochschild Mining",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260826-616",
-      "headline": "Kesar Enterprises Ltd-$: Please find enclosed herewith details of acceptance of One Time Settlement sanctioned by Sugar Development Fund through IFCI Limited.",
-      "headline_en": null,
-      "url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/06792046-d577-494d-8c7b-f9a6178e4665.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-26T07:01:16Z",
-      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
-      "prelim_note": "Sanction of One Time Settlement by Sugar Development Fund via IFCI Limited for Kesar Enterprises Ltd; specific debt-relief event that improves balance sheet and solvency.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Sanction of One Time Settlement by Sugar Development Fund via IFCI Limited for Kesar Enterprises Ltd; specific debt-relief event that improves balance sheet and solvency.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 72,
-      "rank_factors": {
-        "materiality": 72,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "debt_credit",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Kesar Enterprises Ltd",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -79730,34 +79733,35 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-1a0be428f2c5",
-      "idea_version": "IDEAV-3f09477d2976d083",
-      "idea_version_started_at": "2026-08-25T04:41:49Z",
-      "ticker": "GNL",
-      "company": "Global Net Lease",
-      "exchange": "NYSE",
+      "idea_id": "IDEA-cdd269b5c982",
+      "idea_version": "IDEAV-b1f67878e4d63fbd",
+      "idea_version_started_at": "2026-08-26T11:24:53Z",
+      "ticker": "WEB",
+      "company": "Webjet",
+      "exchange": "ASX",
       "direction": "long",
       "pair_with": null,
-      "reason": "The $535 million acquisition of Modiv Industrial expands the company's portfolio of industrial assets, likely enhancing FFO per share through scale and operational synergies.",
-      "why_now": "The acquisition was announced on 2026-08-25.",
-      "conviction": 60,
+      "reason": "Webjet upgraded 1H27 guidance via price-sensitive ASX filing, citing stronger booking volumes and margin improvement, directly raising near-term earnings expectations.",
+      "why_now": "Guidance upgrade filed on ASX 2026-08-26; primary source with immediate earnings revision.",
+      "conviction": 72,
       "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
+      "trade_score": 45,
       "trade_score_basis": "evidence_gate_v2",
       "trade_score_breakdown": {
-        "evidence": 18,
-        "impact": 18,
-        "specificity": 15,
+        "evidence": 25,
+        "impact": 20,
+        "specificity": 7,
         "timing": 10,
-        "expression": 6,
+        "expression": 0,
         "corroboration": 0,
         "learning_adjustment": 0
       },
-      "trade_readiness": "needs_data",
+      "trade_readiness": "watch_only",
       "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
         "live liquidity",
         "dated catalyst",
-        "independent confirmation",
         "live price, liquidity, and consensus"
       ],
       "learning": {
@@ -79774,60 +79778,62 @@
       "origin_type": "wire",
       "source_themes": [],
       "source_event_ids": [
-        "EVT-b374fce7beea"
+        "EVT-d854fc898cc4"
       ],
-      "primary_source_event_id": "EVT-b374fce7beea",
+      "primary_source_event_id": "EVT-d854fc898cc4",
       "source_headlines": [
-        "Greenberg Traurig Advises Global Net Lease on $535M Modiv Industrial Acquisition"
+        "WEB: Upgrading 1H27 guidance [price-sensitive]"
       ],
-      "source_headline": "Greenberg Traurig Advises Global Net Lease on $535M Modiv Industrial Acquisition",
-      "source_url": "https://www.prnewswire.com/news-releases/greenberg-traurig-advises-global-net-lease-on-535m-modiv-industrial-acquisition-302858807.html",
-      "source_name": "PR Newswire — All News Releases",
+      "source_headline": "WEB: Upgrading 1H27 guidance [price-sensitive]",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.WEB?key=2924-03126688-3A699937",
+      "source_name": "ASX (Australia Exchange Filing)",
       "materiality_max": 100,
-      "newest_source_at": "2026-08-25T00:10:00Z",
+      "newest_source_at": "2026-08-26T08:54:27Z",
       "prior_coverage": {
         "has_run": false,
         "latest_run": null,
         "latest_decision": null,
         "data_pool_present": false
       },
-      "surfaced_at": "2026-08-25T04:41:49Z",
-      "updated_at": "2026-08-25T04:41:49Z",
-      "decay_at": "2026-08-26T12:10:00Z",
+      "surfaced_at": "2026-08-26T11:24:53Z",
+      "updated_at": "2026-08-26T11:24:53Z",
+      "decay_at": "2026-08-27T20:54:27Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
       "stale": false
     },
     {
-      "idea_id": "IDEA-bb6c79ef8ffe",
-      "idea_version": "IDEAV-b5b37f571dad8a76",
-      "idea_version_started_at": "2026-08-25T03:44:44Z",
-      "ticker": "BA",
-      "company": "Boeing",
-      "exchange": "NYSE",
-      "direction": "long",
+      "idea_id": "IDEA-1e44ade2951b",
+      "idea_version": "IDEAV-1bcdcec0f4e1ceee",
+      "idea_version_started_at": "2026-08-26T10:48:25Z",
+      "ticker": "00108",
+      "company": "SR Medical",
+      "exchange": "HKEX",
+      "direction": "short",
       "pair_with": null,
-      "reason": "The company secured a massive $131.2 billion ceiling value contract for the F-15 program, providing significant long-term revenue visibility and defense backlog support.",
-      "why_now": "The contract award was announced on August 25, 2026.",
-      "conviction": 75,
+      "reason": "The company issued a profit warning, indicating a deterioration in earnings and revenue performance.",
+      "why_now": "The profit warning was filed today, August 26, 2026.",
+      "conviction": 70,
       "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
+      "trade_score": 45,
       "trade_score_basis": "evidence_gate_v2",
       "trade_score_breakdown": {
-        "evidence": 14,
+        "evidence": 25,
         "impact": 19,
-        "specificity": 15,
+        "specificity": 7,
         "timing": 10,
-        "expression": 6,
+        "expression": 0,
         "corroboration": 0,
         "learning_adjustment": 0
       },
-      "trade_readiness": "needs_data",
+      "trade_readiness": "watch_only",
       "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
         "live liquidity",
         "dated catalyst",
-        "independent confirmation",
+        "priced-in risk",
         "live price, liquidity, and consensus"
       ],
       "learning": {
@@ -79839,31 +79845,31 @@
         "basis": "not_enough_outcomes",
         "evidenceIds": []
       },
-      "priced_in": "room",
+      "priced_in": "priced",
       "thesis_type": "company_specific",
       "origin_type": "wire",
       "source_themes": [],
       "source_event_ids": [
-        "EVT-7d66ec36e8b3"
+        "EVT-1c40ffea2ea5"
       ],
-      "primary_source_event_id": "EVT-7d66ec36e8b3",
+      "primary_source_event_id": "EVT-1c40ffea2ea5",
       "source_headlines": [
-        "Boeing awarded contract with ceiling value of $131.2 billion for F-15 program"
+        "SR MEDICAL (00108): PROFIT WARNING"
       ],
-      "source_headline": "Boeing awarded contract with ceiling value of $131.2 billion for F-15 program",
-      "source_url": "https://www.reuters.com/business/aerospace-defense/boeing-awarded-contract-with-ceiling-value-1312-billion-f-15-program-2026-08-24/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 96,
-      "newest_source_at": "2026-08-25T00:50:10Z",
+      "source_headline": "SR MEDICAL (00108): PROFIT WARNING",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0826/2026082600396.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-26T08:43:00Z",
       "prior_coverage": {
         "has_run": false,
         "latest_run": null,
         "latest_decision": null,
         "data_pool_present": false
       },
-      "surfaced_at": "2026-08-25T03:44:44Z",
-      "updated_at": "2026-08-25T03:44:44Z",
-      "decay_at": "2026-08-26T12:50:10Z",
+      "surfaced_at": "2026-08-26T10:48:25Z",
+      "updated_at": "2026-08-26T10:48:25Z",
+      "decay_at": "2026-08-27T20:43:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -82017,6 +82023,76 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-1a0be428f2c5",
+      "idea_version": "IDEAV-3f09477d2976d083",
+      "idea_version_started_at": "2026-08-25T04:41:49Z",
+      "ticker": "GNL",
+      "company": "Global Net Lease",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The $535 million acquisition of Modiv Industrial expands the company's portfolio of industrial assets, likely enhancing FFO per share through scale and operational synergies.",
+      "why_now": "The acquisition was announced on 2026-08-25.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 18,
+        "impact": 18,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-b374fce7beea"
+      ],
+      "primary_source_event_id": "EVT-b374fce7beea",
+      "source_headlines": [
+        "Greenberg Traurig Advises Global Net Lease on $535M Modiv Industrial Acquisition"
+      ],
+      "source_headline": "Greenberg Traurig Advises Global Net Lease on $535M Modiv Industrial Acquisition",
+      "source_url": "https://www.prnewswire.com/news-releases/greenberg-traurig-advises-global-net-lease-on-535m-modiv-industrial-acquisition-302858807.html",
+      "source_name": "PR Newswire — All News Releases",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-25T00:10:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-25T04:41:49Z",
+      "updated_at": "2026-08-25T04:41:49Z",
+      "decay_at": "2026-08-26T12:10:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-69441c9f6035",
       "idea_version": "IDEAV-9c1860334765f3b7",
       "idea_version_started_at": "2026-08-24T08:35:35Z",
@@ -82152,6 +82228,76 @@
       "surfaced_at": "2026-08-23T16:33:16Z",
       "updated_at": "2026-08-23T16:33:16Z",
       "decay_at": "2026-08-25T03:50:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-bb6c79ef8ffe",
+      "idea_version": "IDEAV-b5b37f571dad8a76",
+      "idea_version_started_at": "2026-08-25T03:44:44Z",
+      "ticker": "BA",
+      "company": "Boeing",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company secured a massive $131.2 billion ceiling value contract for the F-15 program, providing significant long-term revenue visibility and defense backlog support.",
+      "why_now": "The contract award was announced on August 25, 2026.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-7d66ec36e8b3"
+      ],
+      "primary_source_event_id": "EVT-7d66ec36e8b3",
+      "source_headlines": [
+        "Boeing awarded contract with ceiling value of $131.2 billion for F-15 program"
+      ],
+      "source_headline": "Boeing awarded contract with ceiling value of $131.2 billion for F-15 program",
+      "source_url": "https://www.reuters.com/business/aerospace-defense/boeing-awarded-contract-with-ceiling-value-1312-billion-f-15-program-2026-08-24/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "materiality_max": 96,
+      "newest_source_at": "2026-08-25T00:50:10Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-25T03:44:44Z",
+      "updated_at": "2026-08-25T03:44:44Z",
+      "decay_at": "2026-08-26T12:50:10Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -82862,78 +83008,6 @@
       "surfaced_at": "2026-08-24T21:01:02Z",
       "updated_at": "2026-08-24T21:01:02Z",
       "decay_at": "2026-08-25T22:22:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-137047b4543b",
-      "idea_version": "IDEAV-2d67a2b15ec5b565",
-      "idea_version_started_at": "2026-08-24T19:00:25Z",
-      "ticker": "09988",
-      "company": "Alibaba",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Proposed placing of new shares under a general mandate will dilute existing shareholders' ownership and could pressure the stock price.",
-      "why_now": "The company made this announcement on August 23, 2026.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-109b0a908dfe"
-      ],
-      "primary_source_event_id": "EVT-109b0a908dfe",
-      "source_headlines": [
-        "BABA-W BABA-WR (09988 89988): VOLUNTARY ANNOUNCEMENT AND OVERSEAS REGULATORY ANNOUNCEMENT PROPOSED PLACING OF NEW SHARES UNDER GENERAL MANDATE"
-      ],
-      "source_headline": "BABA-W BABA-WR (09988 89988): VOLUNTARY ANNOUNCEMENT AND OVERSEAS REGULATORY ANNOUNCEMENT PROPOSED PLACING OF NEW SHARES UNDER GENERAL MANDATE",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0823/2026082300007.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-23T10:06:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-24T19:00:25Z",
-      "updated_at": "2026-08-24T19:00:25Z",
-      "decay_at": "2026-08-24T22:06:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -84799,78 +84873,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-c09be92dcb5d",
-      "idea_version": "IDEAV-3f94933415bec6c9",
-      "idea_version_started_at": "2026-08-23T11:45:28Z",
-      "ticker": "GRASIM",
-      "company": "Grasim Industries",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company has provided explicit forward guidance targeting Rs 2 lakh crore in revenue by FY27, driven by the scaling of its new growth platforms.",
-      "why_now": "The guidance was issued today, August 23, 2026, providing a clear medium-term revenue target for the market to re-rate the stock.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-63d5c4f332ef"
-      ],
-      "primary_source_event_id": "EVT-63d5c4f332ef",
-      "source_headlines": [
-        "Grasim eyes Rs 2 lakh crore revenue in FY27 as growth platforms scale up: KM Birla"
-      ],
-      "source_headline": "Grasim eyes Rs 2 lakh crore revenue in FY27 as growth platforms scale up: KM Birla",
-      "source_url": "https://economictimes.indiatimes.com/news/company/corporate-trends/grasim-eyes-rs-2-lakh-crore-revenue-in-fy27-as-growth-platforms-scale-up-km-birla/articleshow/133437989.cms",
-      "source_name": "The Economic Times",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-23T10:23:38Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-23T11:45:28Z",
-      "updated_at": "2026-08-23T11:45:28Z",
-      "decay_at": "2026-08-24T22:23:38Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-d704446fee63",
       "idea_version": "IDEAV-2fea4607e2989a34",
       "idea_version_started_at": "2026-08-04T08:40:40Z",
@@ -84945,19 +84947,19 @@
     "schema_version": "ideas-archive/v1",
     "health": {
       "status": "ok",
-      "file_count": 88,
+      "file_count": 90,
       "suppression_count": 0,
       "corrupt_count": 0,
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 129,
-    "shown_count": 129,
+    "total_count": 131,
+    "shown_count": 131,
     "hidden_count": 0,
     "side_counts": {
       "long": {
-        "total_count": 51,
-        "shown_count": 51,
+        "total_count": 53,
+        "shown_count": 53,
         "hidden_count": 0
       },
       "short": {
@@ -84982,6 +84984,152 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-bb6c79ef8ffe",
+        "idea_version": "IDEAV-b5b37f571dad8a76",
+        "idea_version_started_at": "2026-08-25T03:44:44Z",
+        "ticker": "BA",
+        "company": "Boeing",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company secured a massive $131.2 billion ceiling value contract for the F-15 program, providing significant long-term revenue visibility and defense backlog support.",
+        "why_now": "The contract award was announced on August 25, 2026.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 62,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-7d66ec36e8b3"
+        ],
+        "primary_source_event_id": "EVT-7d66ec36e8b3",
+        "source_headlines": [
+          "Boeing awarded contract with ceiling value of $131.2 billion for F-15 program"
+        ],
+        "source_headline": "Boeing awarded contract with ceiling value of $131.2 billion for F-15 program",
+        "source_url": "https://www.reuters.com/business/aerospace-defense/boeing-awarded-contract-with-ceiling-value-1312-billion-f-15-program-2026-08-24/",
+        "source_name": "Reuters — Latest (news sitemap)",
+        "materiality_max": 96,
+        "newest_source_at": "2026-08-25T00:50:10Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-25T03:44:44Z",
+        "updated_at": "2026-08-25T03:44:44Z",
+        "decay_at": "2026-08-26T12:50:10Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-26T12:50:10Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-1a0be428f2c5",
+        "idea_version": "IDEAV-3f09477d2976d083",
+        "idea_version_started_at": "2026-08-25T04:41:49Z",
+        "ticker": "GNL",
+        "company": "Global Net Lease",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The $535 million acquisition of Modiv Industrial expands the company's portfolio of industrial assets, likely enhancing FFO per share through scale and operational synergies.",
+        "why_now": "The acquisition was announced on 2026-08-25.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 62,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 18,
+          "impact": 18,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-b374fce7beea"
+        ],
+        "primary_source_event_id": "EVT-b374fce7beea",
+        "source_headlines": [
+          "Greenberg Traurig Advises Global Net Lease on $535M Modiv Industrial Acquisition"
+        ],
+        "source_headline": "Greenberg Traurig Advises Global Net Lease on $535M Modiv Industrial Acquisition",
+        "source_url": "https://www.prnewswire.com/news-releases/greenberg-traurig-advises-global-net-lease-on-535m-modiv-industrial-acquisition-302858807.html",
+        "source_name": "PR Newswire — All News Releases",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-25T00:10:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-25T04:41:49Z",
+        "updated_at": "2026-08-25T04:41:49Z",
+        "decay_at": "2026-08-26T12:10:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-26T12:10:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-aaaaf1fc1368",
         "idea_version": "IDEAV-3c2e59d52bf37f43",
@@ -87950,8 +88098,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-08-24T22:23:38Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-08-26T10:48:29Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -88025,8 +88173,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-08-24T22:06:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-08-26T10:48:29Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -94540,7 +94688,7 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 164,
+    "surfaced_total": 166,
     "live_count": 34,
     "promoted_total": 1,
     "machine_confirmed": 0,
@@ -94560,9 +94708,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2033408,
-    "news_picked_today": 1374,
-    "news_dropped_today": 11838
+    "news_seen_today": 2701637,
+    "news_picked_today": 1728,
+    "news_dropped_today": 13056
   },
   "book_momentum": {
     "live_count": 8,

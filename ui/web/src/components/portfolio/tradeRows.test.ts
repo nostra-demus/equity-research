@@ -83,5 +83,29 @@ check('a closure the statement could not put a rate on is counted as unvalued, n
   assert.ok(near(row!.realized, 25), 'the unrated leg must not be added in as a zero-valued win')
 })
 
+check('one unknown leg makes the folded row unknown, not partially right', () => {
+  // Both rules come from the first fold and have to survive the second: a missing timestamp read as
+  // 0 days presented a months-long position as a same-day trade, and commission summed across
+  // currencies put francs into a dollar total. Folding must not quietly recover either.
+  const cs = [
+    closure({ quantity: 100, realizedBase: 10, closeTradeID: 'a' }),
+    { ...closure({ quantity: 100, realizedBase: 10, closeTradeID: 'b' }), holdingDays: null } as PortfolioClosure,
+  ]
+  assert.equal(foldRoundTrips(cs)[0]!.holdingDays, null)
+
+  const fx = [
+    closure({ quantity: 100, realizedBase: 10, commissionLocal: -2, closeTradeID: 'c' }),
+    { ...closure({ quantity: 100, realizedBase: 10, commissionLocal: -2, closeTradeID: 'd' }), closeFxRateToBase: null } as PortfolioClosure,
+  ]
+  assert.equal(foldRoundTrips(fx)[0]!.commissionBase, null)
+
+  // …and when every leg IS rated, the base figure is the sum.
+  const ok = [
+    closure({ quantity: 100, realizedBase: 10, commissionLocal: -2, closeTradeID: 'e' }),
+    closure({ quantity: 100, realizedBase: 10, commissionLocal: -3, closeTradeID: 'f' }),
+  ]
+  assert.ok(near(foldRoundTrips(ok)[0]!.commissionBase!, -5))
+})
+
 console.log(`\n${passed} passed, ${fails.length} failed`)
 if (fails.length) { console.error('FAILED: ' + fails.join(', ')); process.exit(1) }

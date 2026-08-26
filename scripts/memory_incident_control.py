@@ -309,9 +309,11 @@ def mutate_controls(
 
 
 @contextlib.contextmanager
-def candidate_intake_guard(state_root: str | Path):
+def candidate_intake_guard(state_root: str | Path, *, candidate_count: int = 1):
     """Serialize and bound candidate batches across semantic and procedural writers."""
 
+    if type(candidate_count) is not int or candidate_count < 1 or candidate_count > MAX_PENDING_CANDIDATES:
+        raise IncidentControlError("candidate intake batch size is invalid")
     root = _safe_directory(Path(state_root), create=True)
     controls = root / "controls"
     with _owner_lock(root, "candidate-intake.lock"):
@@ -325,7 +327,7 @@ def candidate_intake_guard(state_root: str | Path):
                 if candidate.is_file() and not candidate.is_symlink()
                 and (candidate.name.endswith(".json") or candidate.name.endswith(".sealed.json"))
             ]
-        if len(files) >= MAX_PENDING_CANDIDATES:
+        if len(files) + candidate_count > MAX_PENDING_CANDIDATES:
             raise IncidentControlError("candidate backlog limit reached")
         now_seconds = dt.datetime.now(dt.timezone.utc).timestamp()
         recent_batches = [

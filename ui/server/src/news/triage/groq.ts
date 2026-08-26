@@ -96,6 +96,10 @@ export const EVENT_TYPES = [
   'index_rebalance', 'restructuring_layoffs',
 ]
 
+// Bump whenever the production scorer prompt/coverage contract changes. Durable provider quarantines include
+// this value, so a repaired prompt gets one fresh proof instead of inheriting a standing fault from v1.
+export const TRIAGE_CONTRACT_VERSION = 'news-triage-json-v2'
+
 export const SYSTEM = `You are a buy-side news triage filter. For each headline decide whether it could change an investment decision, and how much.
 
 An item is MATERIAL only if it plausibly can: move revenue / margins / cash flow / capital structure; alter regulatory, legal or operational risk; affect management credibility; shift supply / demand; or move analyst expectations. Routine recaps, opinion, and price chatter are NOT material.
@@ -117,7 +121,9 @@ headline_en: if the headline is NOT written in English, a faithful, concise Engl
 headline_lang: when headline_en is non-null, the source language of the original headline, named in English (e.g. "Finnish", "German", "Japanese", "Korean"). If the headline is already English, use null. Be honest: only name a non-English language when the headline genuinely is in it.
 event_region: the market the event is ABOUT — where the affected, tradable parties are listed or operate, NOT where the news outlet is based. A South China Morning Post story about Bangladesh and Malaysia is "OTHER", not "CN". One of: "US" | "IN" | "JP" | "GB" | "CN" | "KR" | "GLOBAL" (a worldwide / multi-region event with no single market) | "OTHER" (a real market outside those listed). Use null when the headline gives no location and names no company you can place.
 
-Return ONLY JSON: {"items":[{"i":<index>,"relevance":"material|relevant_non_material|irrelevant","materiality_pre_score":<int>,"event_materiality_label":"low|medium|high|critical","event_direction":"positive|negative|mixed|neutral|unknown","event_types":[...],"issuer_linkage":"primary|secondary|sector|macro","why":"...","companies":[{"name":"...","ticker":null,"listing_country":null}],"size_bucket":"unknown","headline_en":null,"headline_lang":null,"event_region":null}]}. Include every index exactly once.`
+OUTPUT EFFICIENCY: A clearly irrelevant item scoring below 45 will be discarded. For that item, return only {"i":<index>,"relevance":"irrelevant","materiality_pre_score":<int>} unless the transport's JSON schema requires the other keys. Do not spend output tokens explaining or tagging an item you reject. For every item that is material, relevant_non_material, or scores 45+, return the complete object below. The parser supplies conservative empty defaults only for compact rejected rows.
+
+Return ONLY JSON: {"items":[{"i":<index>,"relevance":"material|relevant_non_material|irrelevant","materiality_pre_score":<int>,"event_materiality_label":"low|medium|high|critical","event_direction":"positive|negative|mixed|neutral|unknown","event_types":[...],"issuer_linkage":"primary|secondary|sector|macro","why":"...","companies":[{"name":"...","ticker":null,"listing_country":null}],"size_bucket":"unknown","headline_en":null,"headline_lang":null,"event_region":null}]}. Include every index exactly once. Never omit an index, even when using the compact rejected-row form.`
 
 export interface TriageOptions {
   model: string
@@ -403,7 +409,7 @@ export async function triageBatch(
   const byIndex = new Map<number, Triage>()
   if (!items.length) return { byIndex, requests: 0, tokens: 0, ok: true }
   const provider = opts.providerLabel || opts.providerId || 'groq'
-  const identity = openAiRequestIdentity(opts, 'triage', 'news-triage-json-v1')
+  const identity = openAiRequestIdentity(opts, 'triage', TRIAGE_CONTRACT_VERSION)
   if (!opts.apiKey) {
     const failure = classifyProviderLocalStateFailure()
     return { byIndex, requests: 0, tokens: 0, ok: false, note: `${provider}: provider not configured`, failureKind: 'request', failure, providerIdentity: identity }

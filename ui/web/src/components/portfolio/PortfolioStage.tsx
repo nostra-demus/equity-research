@@ -420,21 +420,13 @@ function Holdings({ book, perf, manual, cashEquivalents, live, onManage, onChang
   const gapIsAccruals = rawGap !== null && accrued !== null && Math.abs(rawGap - accrued) < 0.005
   // Half a cent: below that the difference is float noise in the sum, not a missing component.
   const bridgeGap = rawGap === null || Math.abs(rawGap) < 0.005 ? null : rawGap
+  // Named when the statement's own accrual balance proves what it is; otherwise the candidates are
+  // listed rather than left blank — an unexplained row still has to tell the reader where to look.
   const bridgeGapLabel = gapIsAccruals
     ? 'Income earned but not yet paid'
-    : 'Not explained by the rows above'
+    : 'Everything else — currency translation, accruals, derivative marks'
   const brokerCash = nav === null ? null : nav - invested - parkedValue
   const cash = brokerCash === null ? null : brokerCash + parkedValue
-
-  // Currency mix is real risk on a cross-border book, and nothing else on this screen shows it.
-  const byCurrency = new Map<string, number>()
-  for (const p of equities) {
-    byCurrency.set(p.currency ?? '—', (byCurrency.get(p.currency ?? '—') ?? 0) + (baseValue(p.positionValue, p) ?? 0))
-  }
-  if (cash !== null && cash > 0) byCurrency.set(ccy ?? 'cash', (byCurrency.get(ccy ?? 'cash') ?? 0) + cash)
-  const currencyRows = [...byCurrency.entries()].sort((a, b) => b[1] - a[1])
-  const currencyTotal = currencyRows.reduce((a, [, v]) => a + v, 0)
-
   return (
     <>
       {/* The LIVE BOOK, not performance: what is held and what it is worth today. The time-weighted
@@ -515,7 +507,9 @@ function Holdings({ book, perf, manual, cashEquivalents, live, onManage, onChang
         book={book} risked={risked} parkedValue={parkedValue} nav={nav} ccy={ccy}
         invested={invested} cash={cash} parked={parked} bars={
           <>
-            {nav !== null && cash !== null && (
+            {/* nav > 0, not merely present: an account that has been emptied divides by zero, and both
+                bars printed the literal string "NaN%". */}
+            {nav !== null && nav > 0 && cash !== null && (
               <div className="fundbook__bars">
                 <Bar label="Invested" pct={(invested / nav) * 100} value={fmtMoney(invested, ccy)} />
                 <Bar label="Cash" pct={(cash / nav) * 100} value={fmtMoney(cash, ccy)} deep />
@@ -590,8 +584,18 @@ function Holdings({ book, perf, manual, cashEquivalents, live, onManage, onChang
           </div>
           {[...book.flows].sort((a, b) => (b.date ?? '').localeCompare(a.date ?? '')).map((f, i) => (
             <div key={`${f.date}-${i}`} className="fundbook__bridge">
-              <span><span className="mono dim">{f.date ?? '—'}</span> · {f.description ?? (f.amount >= 0 ? 'Contribution' : 'Withdrawal')}</span>
-              <strong style={{ color: toneOf(f.amountBase ?? f.amount) }}>{fmtMoney(f.amountBase ?? f.amount, ccy)}</strong>
+              <span>
+                <span className="mono dim">{f.date ?? '—'}</span> · {f.description ?? (f.amount >= 0 ? 'Contribution' : 'Withdrawal')}
+                {/* The backend sets amountBase to null when the statement carried no rate. Falling back
+                    to the local figure under the base-currency label printed a €1,000 contribution as
+                    "$1,000", so the flow stays in the currency it was actually paid in. */}
+                {f.amountBase === null && (
+                  <small className="fundbook__since">no rate in the statement — not converted to {ccy ?? 'the base currency'}</small>
+                )}
+              </span>
+              <strong style={{ color: toneOf(f.amountBase ?? f.amount) }}>
+                {f.amountBase === null ? `${fmtMoney(f.amount, null)} ${f.currency ?? '—'}` : fmtMoney(f.amountBase, ccy)}
+              </strong>
             </div>
           ))}
         </div>
@@ -622,15 +626,17 @@ function Exposure({ book, risked, parkedValue, nav, ccy, bars }: {
   const valued = risked
     .map((p) => ({ p, base: baseValue(p.positionValue, p) ?? 0 }))
     .sort((a, b) => Math.abs(b.base) - Math.abs(a.base))
-  const atRisk = valued.reduce((a, v) => a + v.base, 0)
   if (valued.length === 0) return null
 
-  const shareOfRisk = (v: number) => (atRisk === 0 ? null : (v / atRisk) * 100)
-  const top = valued[0]!
-  const topThree = valued.slice(0, 3).reduce((a, v) => a + v.base, 0)
   // Gross counts both directions; net cancels them. They are equal here only because the book is
   // long-only — the moment it is not, the difference between them IS the hedge.
   const gross = valued.reduce((a, v) => a + Math.abs(v.base), 0)
+  // Every share on this panel divides by GROSS. Against the signed net, a $100 long beside a $20 short
+  // reported the long as 125% of the money at risk, and a market-neutral book made every figure here
+  // null because the denominator came out at zero.
+  const shareOfRisk = (v: number) => (gross === 0 ? null : (v / gross) * 100)
+  const top = valued[0]!
+  const topThree = valued.slice(0, 3).reduce((a, v) => a + v.base, 0)
   const longs = valued.filter((v) => v.base > 0).reduce((a, v) => a + v.base, 0)
   const shorts = valued.filter((v) => v.base < 0).reduce((a, v) => a + v.base, 0)
 
@@ -1015,6 +1021,9 @@ function Trades({ book, manual, onChanged, importOpen, onImportOpen, importSurfa
     const losses = vals.filter((v) => v < 0)
     const held = rows.map((c) => c.holdingDays).filter((d): d is number => d !== null)
     const avg = (xs: number[]) => (xs.length ? xs.reduce((a, b) => a + b, 0) / xs.length : null)
+    // Converted trade by trade at that trade's own closing rate, and the ones with no rate counted
+    // rather than added: the raw local figures were summed across currencies and shown as base.
+    const costs = sumBase(rows, (c) => c.commissionBase)
     return {
       total: vals.reduce((a, b) => a + b, 0),
       hitRate: rows.length ? (wins.length / rows.length) * 100 : null,
@@ -1023,7 +1032,8 @@ function Trades({ book, manual, onChanged, importOpen, onImportOpen, importSurfa
       avgWin: avg(wins),
       avgLoss: avg(losses),
       avgHold: avg(held),
-      commission: rows.reduce((a, c) => a + c.commissionLocal, 0),
+      commission: costs.total,
+      commissionUnvalued: costs.unvalued,
       grossRealised: vals.reduce((a, b) => a + Math.abs(b), 0),
       worst: losses.length ? Math.min(...losses) : null,
     }
@@ -1031,7 +1041,7 @@ function Trades({ book, manual, onChanged, importOpen, onImportOpen, importSurfa
 
   // Attribution: what each NAME contributed, biggest absolute mover first. A fund's realised result is
   // almost never spread evenly, and the names that carried it are the ones worth reviewing.
-  const { attribution, attributionMax, topShare } = useMemo(() => {
+  const { attribution, attributionMax, topShare, nameCount } = useMemo(() => {
     const by = new Map<string, { value: number; trades: number }>()
     for (const c of rows) {
       const k = c.symbol ?? '—'
@@ -1051,6 +1061,7 @@ function Trades({ book, manual, onChanged, importOpen, onImportOpen, importSurfa
       attribution: list,
       attributionMax: max,
       topShare: winners.length > 3 && grossWin > 0 ? (top3 / grossWin) * 100 : null,
+      nameCount: all.length,
     }
   }, [rows])
 
@@ -1144,7 +1155,14 @@ function Trades({ book, manual, onChanged, importOpen, onImportOpen, importSurfa
       {/* The SUMMARY leads here too. "Add trades" is an action, not information: it was heading a screen
           whose first question is what the trading actually produced. */}
       <div className="fundbook__cards">
-        <Card label="Realised" value={fmtMoney(stats.total, ccy)} sub={`Net of ${fmtMoney(Math.abs(stats.commission), ccy)} in costs`} tone={toneOf(stats.total)} />
+        <Card
+          label="Realised"
+          value={fmtMoney(stats.total, ccy)}
+          sub={`Net of ${fmtMoney(Math.abs(stats.commission), ccy)} in costs${stats.commissionUnvalued > 0
+            ? ` · costs on ${stats.commissionUnvalued} trade${stats.commissionUnvalued === 1 ? '' : 's'} had no rate and are left out`
+            : ''}`}
+          tone={toneOf(stats.total)}
+        />
         <Card label="Closed trades" value={String(rows.length)} sub={`${stats.wins} up · ${stats.losses} down`} />
         <Card label="Hit rate" value={stats.hitRate === null ? '—' : `${stats.hitRate.toFixed(0)}%`} sub="Share that closed up" />
         <Card
@@ -1187,9 +1205,13 @@ function Trades({ book, manual, onChanged, importOpen, onImportOpen, importSurfa
             ))}
           {attribution.length > 0 && (
             <div className="fundbook__foot">
-              {topShare === null
-                ? 'Every closed name is shown.'
-                : `The best three names carry ${topShare.toFixed(0)}% of the gross winnings.`}
+              {/* Counted against the list actually drawn. This claimed every name was shown whenever
+                  there were three winners or fewer — a fact about winners, not about the cap of 12,
+                  so a book with 20 closed names and 2 winners asserted completeness with 8 hidden. */}
+              {attribution.length < nameCount
+                ? `The ${attribution.length} biggest movers, of ${nameCount} closed names.`
+                : 'Every closed name is shown.'}
+              {topShare !== null && ` The best three names carry ${topShare.toFixed(0)}% of the gross winnings.`}
             </div>
           )}
         </div>
@@ -1266,7 +1288,7 @@ function TradeRow({ c, grossRealised }: { c: TradeRowData; grossRealised: number
       <span className="dim">{c.currency ?? '—'}</span>
       <span className="dim mono">{(c.openedAt ?? '—').slice(0, 10)}</span>
       <span className="dim mono">{(c.closedAt ?? '—').slice(0, 10)}</span>
-      <span className="num dim">{`${c.holdingDays}d`}</span>
+      <span className="num dim">{c.holdingDays === null ? '—' : `${c.holdingDays}d`}</span>
       <span className="num">{fmtQty(c.quantity)}</span>
       <span className="num dim">{fmtNum(c.entryPrice)}</span>
       <span className="num">{fmtNum(c.exitPrice)}</span>

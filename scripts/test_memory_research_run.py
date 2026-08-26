@@ -224,6 +224,19 @@ class ResearchMemoryRunTests(unittest.TestCase):
         self.assertEqual(task["status"], "completed")
         self.assertEqual(run["memory_coverage_pct"], 100)
 
+        failed_gate = build_task_episode(
+            run_id=self.receipt["run_id"], task_id="task-2", issuer_listing=LISTING,
+            agent_id="earnings-historical-financials", task=PROFILE["task"],
+            provider="codex", model="gpt-5.5", prompt_program_sha="1" * 40,
+            output=output, packet=packet, query=query, attestation=attestation,
+            latency_milliseconds=100, cost_microusd=1234,
+            quality_gates=[{"name": "output-contract", "passed": False}],
+        )
+        self.assertEqual(failed_gate["status"], "invalid")
+        self.assertEqual(
+            failed_gate["error_codes"], ["quality-gate-failed:output-contract"],
+        )
+
     def test_provider_switch_authorization_is_signed_and_snapshot_bound(self) -> None:
         switched = {**ACCESS, "provider": "claude", "model": "claude-opus"}
         authorization = build_provider_authorization(

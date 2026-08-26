@@ -90,9 +90,43 @@ saved in the analytical markdown:
 }
 ```
 
-The four disposition arrays, evidence rows, playbook object, and candidate hashes are data only. The
-agent never supplies run IDs, packet hashes, canonical record objects, timestamps, use IDs, or canonical
-hashes; the supervisor materializes those fields.
+The four disposition arrays, evidence rows, playbook object, and candidate suggestions are data only.
+The agent never supplies run IDs, packet hashes, canonical record objects, timestamps, use IDs,
+candidate creators, provenance IDs, validation-case IDs, or canonical hashes; the supervisor
+materializes those fields.
+
+An agent that found a reusable lesson may place this closed object in `candidate_suggestions`:
+
+```json
+{
+  "kind": "semantic",
+  "candidate_type": "fact",
+  "source_basis": "current-evidence-extraction",
+  "semantic": {"...": "the closed semanticCore fields"},
+  "policy": {"classification": "internal", "retention": "permanent", "retain_until": null}
+}
+```
+
+Its `semantic.supporting_evidence` rows must be a subset of the declaration's verified
+`current_evidence` refs. Exact-issuer applicability must name exactly the receipt's legal issuer and
+listing. An official-policy suggestion uses `source_basis: authoritative-policy`; other semantic bases
+remain reserved for the structured correction, reviewed-outcome, and empirical seeders.
+
+A procedure suggestion uses this closed shape:
+
+```json
+{
+  "kind": "procedural",
+  "playbook": {"...": "playbookCore except the four supervisor-owned fields below"},
+  "policy": {"classification": "internal", "retention": "permanent", "retain_until": null}
+}
+```
+
+The procedure draft must omit `originating_episode_ids`, `counterexample_ids`,
+`validation_case_ids`, and `measured_effect`. The supervisor binds the origin to the attested task,
+creates deterministic replay-case commitments, and marks effect measurement as pending. A passing
+independent replay replaces that pending value before activation. Public procedure suggestions are
+rejected because the analytical task itself is internal.
 
 ## 3. Verify use after persistence
 
@@ -108,8 +142,11 @@ python3 scripts/research_memory_client.py attest \
 
 Remove the temporary draft after the call. The supervisor independently verifies the packet commitment,
 dispositions, mandatory coverage, output markers, current source file hashes and confinement, undeclared
-memory references, and playbook receipt. It then writes the canonical use attestation and task episode
-outside Git.
+memory references, and playbook receipt. It materializes suggestion hashes only after resolving semantic
+evidence and policy against the frozen projection, then persists the canonical use attestation and task
+episode. Only after those origin records are durable may candidates enter the owner-only queue, and only
+when both the memory-use attestation and ordinary output gate pass. A content-free candidate-intake
+receipt records the completed queue write outside Git.
 
 - In `enforced`, a missing/invalid declaration invalidates that analytical output under the existing
   retry/quarantine policy. The run cannot reach final Ideas admission while any memory-contract failure
