@@ -42,6 +42,7 @@ function TaskEditor({ task, initial, attachmentsEnabled, onClose, onSaved }: {
     decision: task.decision, assignee: task.assignee,
   } : {}), ...(initial ?? {}) })
   const [files, setFiles] = useState<File[]>([])
+  const [attachments, setAttachments] = useState(task?.attachments ?? [])
   const [saving, setSaving] = useState(false)
   const inputRef = useRef<HTMLInputElement>(null)
   const dialogRef = useRef<HTMLElement>(null)
@@ -128,12 +129,16 @@ function TaskEditor({ task, initial, attachmentsEnabled, onClose, onSaved }: {
 
   const addFiles = (next: File[]) => {
     const accepted = next.filter((file) => /\.(pdf|doc|docx|md)$/i.test(file.name))
-    setFiles((current) => [...current, ...accepted].slice(0, Math.max(0, TASK_MAX_ATTACHMENTS - (task?.attachments.length ?? 0))))
+    setFiles((current) => [...current, ...accepted].slice(0, Math.max(0, TASK_MAX_ATTACHMENTS - attachments.length)))
   }
 
   const detach = async (attachmentId: string) => {
     if (!task) return
-    try { await api.taskDetach(task.task_id, attachmentId); await onSaved() }
+    try {
+      const result = await api.taskDetach(task.task_id, attachmentId)
+      setAttachments(result.task.attachments)
+      await onSaved()
+    }
     catch { setToast({ msg: 'Could not remove that file.', tone: 'bad' }) }
   }
 
@@ -197,8 +202,8 @@ function TaskEditor({ task, initial, attachmentsEnabled, onClose, onSaved }: {
             </div>
           )}
           <div className="taskfield">
-            <label>Attachments <span>{(task?.attachments.length ?? 0) + files.length}/{TASK_MAX_ATTACHMENTS}</span></label>
-            {task?.attachments.map((attachment) => (
+            <label>Attachments <span>{attachments.length + files.length}/{TASK_MAX_ATTACHMENTS}</span></label>
+            {task && attachments.map((attachment) => (
               <div className="taskfile" key={attachment.attachment_id}>
                 <a href={api.taskAttachmentUrl(task.task_id, attachment.attachment_id)} target="_blank" rel="noreferrer">{attachment.filename}</a>
                 <span>{Math.max(1, Math.round(attachment.bytes / 1024))} KB</span>
@@ -206,7 +211,7 @@ function TaskEditor({ task, initial, attachmentsEnabled, onClose, onSaved }: {
               </div>
             ))}
             {files.map((file, index) => <div className="taskfile" key={`${file.name}-${index}`}><span>{file.name}</span><span>{Math.max(1, Math.round(file.size / 1024))} KB</span><button onClick={() => setFiles(files.filter((_, i) => i !== index))}>✕</button></div>)}
-            {attachmentsEnabled && (task?.attachments.length ?? 0) + files.length < TASK_MAX_ATTACHMENTS ? (
+            {attachmentsEnabled && attachments.length + files.length < TASK_MAX_ATTACHMENTS ? (
               <button className="taskdrop" onClick={() => inputRef.current?.click()}>
                 <input ref={inputRef} type="file" accept=".pdf,.doc,.docx,.md,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,text/markdown" multiple hidden onChange={(event) => { addFiles(Array.from(event.target.files ?? [])); event.target.value = '' }} />
                 <span>＋</span> Attach PDF, Word or Markdown

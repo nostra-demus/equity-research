@@ -99,6 +99,24 @@ check('Watch reuses an independent row and never overwrites its reason', () => {
   assert.equal(entry.assignee, 'NV')
 })
 
+check('Watch restores one archived row instead of creating a duplicate', () => {
+  fs.rmSync(entriesDir, { recursive: true, force: true })
+  const existing = watch({
+    archive: { at: '2026-08-25T12:00:00.000Z', by: 'tester', reason: 'paused', muted_fingerprint: null, mute_scope: 'listing' },
+    why: 'keep these notes',
+  })
+  writeEntry(existing, entriesDir)
+  const task = card({ stage: 'final_decision', decision: 'watch', assignee: 'AB' })
+  const result = syncTaskWatchlist(task, 'tester', entriesDir)
+  assert.equal(result.problem, undefined)
+  const entries = readEntries(entriesDir).entries
+  assert.equal(entries.length, 1)
+  assert.equal(entries[0].entry_id, existing.entry_id)
+  assert.equal(entries[0].archive, null)
+  assert.equal(entries[0].why, 'keep these notes')
+  assert.equal(entries[0].task_id, task.task_id)
+})
+
 check('changing ticker detaches and archives the old task-created row before linking the new one', () => {
   fs.rmSync(entriesDir, { recursive: true, force: true })
   const task = card({ stage: 'final_decision', decision: 'watch' })
@@ -134,7 +152,7 @@ check('an ambiguous same-ticker listing is refused instead of guessed', () => {
   writeEntry(watch({ entry_id: newEntryId(new Date('2026-08-26T12:02:00Z')), listing: makeListing({ ticker: 'NHY', currency: 'USD' }) }), entriesDir)
   const task = card({ ticker: 'NHY', stage: 'final_decision', decision: 'watch' })
   const result = syncTaskWatchlist(task, 'tester', entriesDir)
-  assert.match(result.problem ?? '', /more than one active listing/)
+  assert.match(result.problem ?? '', /more than one listing/)
   assert.equal(task.watchlist_entry_id, null)
 })
 

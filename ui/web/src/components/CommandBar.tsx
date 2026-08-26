@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { createPortal } from 'react-dom'
 import { useStore } from '../lib/store'
 import { api } from '../lib/api'
 import type { ProviderParityCanaryStatus } from '../lib/api'
@@ -685,7 +686,7 @@ function ProviderSelector() {
           </div>
         </>
       )}
-      {canaryOpen && canInspectCanary && (
+      {canaryOpen && canInspectCanary && typeof document !== 'undefined' && createPortal((
         <div className="scrim" onClick={() => { if (!canarySubmitting) setCanaryOpen(false) }}>
           <div className="modal" role="dialog" aria-modal="true" aria-labelledby="provider-canary-title" onClick={(event) => event.stopPropagation()} style={{ width: 'min(560px, calc(100vw - 24px))' }}>
             <div className="modal__head">
@@ -732,7 +733,7 @@ function ProviderSelector() {
             </div>
           </div>
         </div>
-      )}
+      ), document.body)}
     </div>
   )
 }
@@ -780,10 +781,10 @@ function BarMenu({ label, title, children, alert = false, workspace = false, clo
   return (
     <div className="barmenu" ref={wrap}>
       <button className={`btn btn--ghost barmenu__trigger${alert ? ' barmenu__trigger--alert' : ''}`} data-memory-entry={workspace ? 'true' : undefined} data-tools-entry={workspace ? 'true' : undefined} aria-expanded={open} onClick={() => setOpen(!open)} title={title}>{label}<span aria-hidden>▾</span></button>
-      {open && <div className="barmenu__panel" onClick={(event) => {
+      <div className="barmenu__panel" hidden={!open} onClick={(event) => {
         const target = event.target as Element
         if ((workspace && target.closest('button')) || (closeOnNavigation && target.closest('[data-menu-nav] button'))) setOpen(false)
-      }}>{children}</div>}
+      }}>{children}</div>
     </div>
   )
 }

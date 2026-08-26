@@ -92,6 +92,7 @@ a { color: inherit; }
 .barmenu__dot { width: 6px; height: 6px; border-radius: 50%; background: var(--good); box-shadow: 0 0 6px color-mix(in srgb, var(--good) 55%, transparent); }
 .barmenu__dot.is-bad { background: var(--bad); box-shadow: 0 0 6px color-mix(in srgb, var(--bad) 55%, transparent); }
 .barmenu__panel { position: absolute; top: 41px; right: 0; z-index: 45; width: 292px; padding: 7px; border: 1px solid var(--hairline-strong); border-radius: var(--r-lg); background: var(--surface-1); box-shadow: var(--shadow-2); animation: dlmenu-in 160ms var(--ease-out) both; }
+.barmenu__panel[hidden] { display: none; }
 .barmenu__label { padding: 5px 8px 6px; color: var(--text-faint); font-size: 9px; font-weight: 700; letter-spacing: 0.7px; text-transform: uppercase; }
 .barmenu__item { display: flex; flex-direction: column; align-items: flex-start; gap: 1px; width: 100%; padding: 8px 9px; border-radius: var(--r-sm); text-align: left; }
 .barmenu__item:hover { background: var(--surface-3); }
