@@ -47,6 +47,12 @@ const themeProviderIdentity = (input: {
     configuredMaxTokens: input.maxTokens ?? 3000, extraBody: input.extraBody || {},
   },
 })
+const claudeThemeProviderIdentity = (input: { apiKey: string; baseUrl: string; model: string }) => providerRequestIdentity({
+  providerId: 'claude', baseUrl: input.baseUrl, model: input.model, apiKey: input.apiKey,
+  keyEnvVar: 'THEMES_CLAUDE_API_KEY', transport: 'anthropic', workload: 'themes',
+  contractVersion: 'news-themes-json-v1',
+  request: { anthropicVersion: '2023-06-01', configuredMaxTokens: 3000 },
+})
 
 function item(id: string, headline: string, opts: Partial<ThemeItemView> = {}): ThemeItemView {
   return {
@@ -2000,7 +2006,7 @@ await check('a changed theme model reopens an exact quarantine without deleting 
   resetBudgetMemory(); resetCooldownMemory(); resetSharedLimiters()
 })
 
-await check('a Claude access response uses the shared provider hold but only consumes one real call', async () => {
+await check('a Claude access response is quarantined once and a changed model reopens it', async () => {
   const { makeThemeNamer } = await import('../src/news/themes/llm')
   resetCooldownMemory()
   const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'thm-claude-terminal-'))
@@ -2016,7 +2022,7 @@ await check('a Claude access response uses the shared provider hold but only con
   }) as unknown as typeof fetch
   const cfg = {
     themesDiscoverModel: 'claude-haiku', themesClaudeApiKey: 'k', themesClaudeBaseUrl: 'https://claude.test',
-    themesClaudeDailyCap: 10,
+    themesClaudeModel: 'claude-retired', themesClaudeDailyCap: 10,
   }
   const first = await makeThemeNamer(cfg, failed, tmp)([makeCandidate('FirstClaude')], NOW)
   assert.equal(first?.state, 'failed')
@@ -2027,18 +2033,38 @@ await check('a Claude access response uses the shared provider hold but only con
   const persisted = JSON.parse(fs.readFileSync(path.join(tmp, 'themes-llm-budget.json'), 'utf8'))
   assert.equal(persisted.calls, 1)
   assert.notEqual(persisted.exhausted, true)
-  assert.ok(readCooldownUntil(tmp, 'claude') > NOW.getTime())
+  const oldIdentity = claudeThemeProviderIdentity({ apiKey: 'k', baseUrl: 'https://claude.test', model: 'claude-retired' })
+  assert.equal(readProviderQuarantine(tmp, oldIdentity)?.failureCode, 'entitlement')
+  assert.equal(readCooldownUntil(tmp, 'claude'), 0, 'a timer cannot repair Claude account permission')
   assert.equal(readCooldownUntil(tmp, 'themes:claude'), 0)
 
   const secondCandidate = makeCandidate('SecondClaude')
   const second = await makeThemeNamer(cfg, failed, tmp)([secondCandidate], new Date(NOW.getTime() + 1_000))
-  assert.equal(second?.state, 'blocked')
+  assert.equal(second?.state, 'failed')
   assert.equal(second?.provider, 'claude')
-  assert.equal(second?.blocker, 'cooldown')
+  assert.equal(second?.blocker, 'provider_error')
+  assert.match(second?.message || '', /waiting will not repair this configuration/)
   assert.doesNotMatch(second?.message || '', /private-account-body/)
   assert.equal(second?.attempted_count, 0)
   assert.equal(secondCandidate.validation_attempted_at, undefined)
   assert.equal(fetches, 1)
+
+  const repairedCandidate = makeCandidate('RepairedClaude')
+  const repairedProposal = llmThemeProposal({
+    support: repairedCandidate.members.map((member) => member.event_id), anchors: ['capacity', 'shortage'],
+  })
+  const repairedCfg = { ...cfg, themesClaudeModel: 'claude-live' }
+  const repaired = await makeThemeNamer(repairedCfg, (async () => new Response(JSON.stringify({
+    content: [{ type: 'text', text: JSON.stringify({ themes: [repairedProposal] }) }],
+  }), { status: 200, headers: { 'content-type': 'application/json' } })) as typeof fetch, tmp)(
+    [repairedCandidate], new Date(NOW.getTime() + 2_000),
+  )
+  assert.equal(repaired?.state, 'succeeded')
+  assert.equal(readProviderQuarantine(tmp, claudeThemeProviderIdentity({
+    apiKey: 'k', baseUrl: 'https://claude.test', model: 'claude-live',
+  })), null)
+  assert.equal(readProviderQuarantine(tmp, oldIdentity)?.failureCode, 'entitlement',
+    'repair succeeds without deleting evidence for the old fingerprint')
   fs.rmSync(tmp, { recursive: true, force: true })
   resetCooldownMemory()
 })

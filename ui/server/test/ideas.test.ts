@@ -12,7 +12,7 @@ import {
   buildIdeaUserMessage, coerceIdea, estimateIdeaTokens, ideaProviderRequestIdentity, IDEA_SYSTEM, surfaceIdeasBatch,
   type IdeaInputRow, type IdeaThemeExpression, type RawIdea,
 } from '../src/news/ideas/surface-ideas'
-import { surfaceIdeasBatchGemini } from '../src/news/ideas/surface-ideas-gemini'
+import { geminiIdeaProviderRequestIdentity, surfaceIdeasBatchGemini } from '../src/news/ideas/surface-ideas-gemini'
 import {
   finalizeIdeaPromotion, ideaDecayAt, ideaId, ideaPromotionEligibility, ideaSnapshotRevision, ideaVersion, pruneExpiredIdeas,
   isSurfacedIdeaSnapshot, readArchivedIdeaSnapshots, readIdeaArchiveStore, readIdeaById, readIdeaSnapshotStore, readTopSweep, readTopSweepRows, releaseIdeaPromotion,
@@ -483,6 +483,42 @@ check('surfaceIdeasBatch quarantines a standing key fault once and reopens only 
     assert.equal(readProviderQuarantine(stateDir, ideaProviderRequestIdentity(repaired)), null)
     assert.equal(readProviderQuarantine(stateDir, ideaProviderRequestIdentity(opts))?.failureCode, 'auth',
       'a new key succeeds without erasing the old fingerprint\'s evidence')
+  } finally {
+    fs.rmSync(stateDir, { recursive: true, force: true })
+  }
+})
+check('surfaceIdeasBatchGemini quarantines one permanent fault and reopens only for changed configuration', async () => {
+  const stateDir = fs.mkdtempSync(path.join(os.tmpdir(), 'ideas-gemini-quarantine-'))
+  try {
+    let calls = 0
+    const opts = {
+      model: 'gemini-retired', baseUrl: 'https://gemini.test/v1beta', apiKey: 'gemini-key',
+      providerId: 'gemini:gemini-retired', providerLabel: 'Gemini · gemini-retired',
+      keyEnvVar: 'GEMINI_API_KEY', stateDir, maxTokens: 700, maxAttempts: 1,
+    }
+    const rejected = (async () => {
+      calls++
+      return new Response(JSON.stringify({
+        error: { code: 'NOT_FOUND', message: 'Model gemini-retired was retired for private project acct-123' },
+      }), { status: 404 })
+    }) as typeof fetch
+    const first = await surfaceIdeasBatchGemini(ROWS, opts, rejected, noSleep)
+    assert.equal(first.failure?.code, 'model_terminal')
+    assert.equal(first.failure?.action, 'quarantine')
+    assert.doesNotMatch(first.note || '', /acct-123|private project/)
+    assert.equal(readProviderQuarantine(stateDir, geminiIdeaProviderRequestIdentity(opts))?.failureCode, 'model_terminal')
+
+    const second = await surfaceIdeasBatchGemini(ROWS, opts, rejected, noSleep)
+    assert.equal(second.requests, 0)
+    assert.equal(second.quarantined, true)
+    assert.equal(calls, 1, 'the unchanged Gemini fault is never probed again')
+
+    const repaired = { ...opts, model: 'gemini-live', providerId: 'gemini:gemini-live' }
+    const recovered = await surfaceIdeasBatchGemini(ROWS, repaired, stubGeminiIdeas([]), noSleep)
+    assert.equal(recovered.ok, true)
+    assert.equal(recovered.requests, 1)
+    assert.equal(readProviderQuarantine(stateDir, geminiIdeaProviderRequestIdentity(repaired)), null)
+    assert.equal(readProviderQuarantine(stateDir, geminiIdeaProviderRequestIdentity(opts))?.failureCode, 'model_terminal')
   } finally {
     fs.rmSync(stateDir, { recursive: true, force: true })
   }

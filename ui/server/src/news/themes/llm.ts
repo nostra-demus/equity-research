@@ -40,6 +40,7 @@ interface NamerCfg {
   themesDiscoverModel?: string // 'claude-haiku' | 'groq' | 'off'
   themesClaudeModel?: string
   themesClaudeApiKey?: string
+  themesClaudeKeyEnvVar?: string
   themesClaudeBaseUrl?: string
   themesClaudeDailyCap?: number
   groqApiKey?: string
@@ -319,7 +320,11 @@ interface ClaudeCallResult {
   status: number
   note: string
   rate: RateInfo
+  failure?: ProviderFailureClassification
 }
+
+const CLAUDE_API_VERSION = '2023-06-01'
+const CLAUDE_OUTPUT_TOKENS = 3000
 
 async function callClaude(
   cfg: NamerCfg,
@@ -331,20 +336,36 @@ async function callClaude(
   return withProviderTimeout(timeoutMs, async (signal) => {
     const res = await fetchFn(`${cfg.themesClaudeBaseUrl}/v1/messages`, {
       method: 'POST',
-      headers: { 'content-type': 'application/json', 'x-api-key': cfg.themesClaudeApiKey || '', 'anthropic-version': '2023-06-01' },
+      headers: { 'content-type': 'application/json', 'x-api-key': cfg.themesClaudeApiKey || '', 'anthropic-version': CLAUDE_API_VERSION },
       signal,
-      body: JSON.stringify({ model: cfg.themesClaudeModel || 'claude-haiku-4-5', max_tokens: 3000, system: SYSTEM, messages: [{ role: 'user', content: user }] }),
+      body: JSON.stringify({ model: cfg.themesClaudeModel || 'claude-haiku-4-5', max_tokens: CLAUDE_OUTPUT_TOKENS, system: SYSTEM, messages: [{ role: 'user', content: user }] }),
     })
     const rate = parseRate(res)
-    if (!res.ok) return { text: null, ok: false, status: res.status, note: `Claude HTTP ${res.status}`, rate }
+    if (!res.ok) {
+      // The body is classification-only input. Account details and provider messages never enter durable
+      // quarantine state, compiler health, or logs.
+      const rawBody = await res.text().catch(() => '')
+      const failure = honorProviderRetryAfter(classifyProviderHttpFailure(res.status, rawBody), rate.retryAfterMs)
+      return {
+        text: null, ok: false, status: res.status, note: publicProviderFailureNote('Claude', failure),
+        rate, failure,
+      }
+    }
     try {
       const data: any = await res.json()
       const text = Array.isArray(data?.content) ? data.content.filter((c: any) => c?.type === 'text').map((c: any) => c.text).join('') : ''
       return typeof text === 'string' && text
         ? { text, ok: true, status: res.status, note: '', rate }
-        : { text: null, ok: false, status: res.status, note: 'Claude returned empty theme content.', rate }
-    } catch {
-      return { text: null, ok: false, status: res.status, note: 'Claude returned invalid response JSON.', rate }
+        : {
+            text: null, ok: false, status: res.status, note: 'Claude returned empty theme content.', rate,
+            failure: classifyProviderContractFailure(),
+          }
+    } catch (error) {
+      if (!(error instanceof SyntaxError)) throw error
+      return {
+        text: null, ok: false, status: res.status, note: 'Claude returned invalid response JSON.', rate,
+        failure: classifyProviderContractFailure(),
+      }
     }
   }, parentSignal)
 }
@@ -405,6 +426,22 @@ function classifyThemeHttpFailure(status: number): ThemeFailureClass {
   if (status === 402) return { scope: 'provider', kind: 'credits' }
   if (status === 404) return { scope: 'provider', kind: 'endpoint' }
   return { scope: 'workload', kind: 'request' }
+}
+
+const THEME_FAILURE_KIND_BY_CODE: Partial<Record<ProviderFailureClassification['code'], ThemeFailureKind>> = {
+  rate_limited: 'rate_limit',
+  timeout: 'timeout',
+  contract_invalid: 'contract',
+  transient_upstream: 'availability',
+  auth: 'access',
+  entitlement: 'access',
+  billing: 'credits',
+  model_terminal: 'endpoint',
+}
+
+function themeFailureFromProviderFailure(failure: ProviderFailureClassification): ThemeFailureClass {
+  const kind = THEME_FAILURE_KIND_BY_CODE[failure.code] ?? 'request'
+  return { scope: failure.scope, kind }
 }
 
 function exactRetryMs(rate: RateInfo | undefined): number | undefined {
@@ -788,6 +825,23 @@ function themeProviderIdentity(provider: OpenAiThemeProvider, maxTokens: number)
   })
 }
 
+function claudeProviderIdentity(cfg: NamerCfg) {
+  return providerRequestIdentity({
+    providerId: 'claude',
+    baseUrl: cfg.themesClaudeBaseUrl || 'https://api.anthropic.com',
+    model: cfg.themesClaudeModel || 'claude-haiku-4-5',
+    apiKey: cfg.themesClaudeApiKey,
+    keyEnvVar: cfg.themesClaudeKeyEnvVar || 'THEMES_CLAUDE_API_KEY',
+    transport: 'anthropic',
+    workload: 'themes',
+    contractVersion: 'news-themes-json-v1',
+    request: {
+      anthropicVersion: CLAUDE_API_VERSION,
+      configuredMaxTokens: CLAUDE_OUTPUT_TOKENS,
+    },
+  })
+}
+
 const MIN_THEME_OUTPUT_TOKENS = 1200
 
 /** Pick an output ceiling that the provider's configured token/minute envelope can safely admit. The
@@ -981,9 +1035,13 @@ export function makeThemeNamer(
       if (useClaude) {
         const claudeId = 'claude'
         const claudeScopedId = scopedHoldId(claudeId)
+        const claudeIdentity = claudeProviderIdentity(cfg)
         const todayISO = now.toISOString().slice(0, 10)
         const claudeCap = cfg.themesClaudeDailyCap ?? 60
-        if (isCoolingDown(stateDir, claudeId, now.getTime()) || isCoolingDown(stateDir, claudeScopedId, now.getTime())) {
+        const standing = readProviderQuarantine(stateDir, claudeIdentity)
+        if (standing) {
+          constrain(claudeId, 'provider_error', publicProviderQuarantineNote('Claude', standing))
+        } else if (isCoolingDown(stateDir, claudeId, now.getTime()) || isCoolingDown(stateDir, claudeScopedId, now.getTime())) {
           constrain(claudeId, 'cooldown', 'Claude is cooling down.')
         } else {
           // No await separates this guard from reserve+dispatch, so a pre-dispatch parent abort cannot
@@ -1002,7 +1060,7 @@ export function makeThemeNamer(
             markSent(theme, claudeId)
             const attemptStartedAt = Date.now()
             let response: ClaudeCallResult
-            let thrownFailure: ThemeFailureClass | null = null
+            let thrownFailure: ProviderFailureClassification | null = null
             try {
               response = await callClaude(
                 cfg,
@@ -1017,8 +1075,8 @@ export function makeThemeNamer(
                 break themeLoop
               }
               thrownFailure = error instanceof ThemeProviderTimeoutError
-                ? { scope: 'workload', kind: 'timeout' }
-                : { scope: 'provider', kind: 'availability' }
+                ? { code: 'timeout', scope: 'workload', action: 'cooldown', providerWide: false }
+                : classifyProviderCaughtFailure(error)
               response = { text: null, ok: false, status: 0, note: 'Claude request failed.', rate: {} }
             }
             if (parentSignal?.aborted) { parentAborted = true; break themeLoop }
@@ -1030,15 +1088,25 @@ export function makeThemeNamer(
                 armFailure(claudeId, false, { scope: 'workload', kind: 'contract' }, response.rate)
               } else {
                 constrain(claudeId, 'provider_error', response.note || 'Claude request failed.')
-                const failure = thrownFailure || classifyThemeHttpFailure(response.status)
-                if (failure.scope === 'workload') clearCooldown(stateDir, claudeId, attemptStartedAt)
-                armFailure(claudeId, false, failure, response.rate)
+                const sharedFailure = thrownFailure || response.failure
+                if (sharedFailure?.action === 'quarantine') {
+                  // Stamp when the response proves the fault. Backdating this to request start could let a
+                  // different, later-started success erase a failure it never observed.
+                  quarantineProviderFailure(stateDir, claudeIdentity, sharedFailure, Date.now())
+                } else {
+                  const failure = sharedFailure
+                    ? themeFailureFromProviderFailure(sharedFailure)
+                    : classifyThemeHttpFailure(response.status)
+                  if (failure.scope === 'workload') clearCooldown(stateDir, claudeId, attemptStartedAt)
+                  armFailure(claudeId, false, failure, response.rate)
+                }
               }
             } else {
               terminal = classify(theme, response.text, 'claude', claudeId)
               if (terminal === 'validated' || terminal === 'rejected') {
                 clearCooldown(stateDir, claudeId, attemptStartedAt)
                 clearCooldown(stateDir, claudeScopedId, attemptStartedAt)
+                clearProviderQuarantine(stateDir, claudeIdentity, attemptStartedAt)
               }
               else {
                 if (terminal === 'omitted') result.omitted_count++
