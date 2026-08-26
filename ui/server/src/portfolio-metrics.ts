@@ -208,11 +208,18 @@ export function monthlyReturns(
   flowsByDate: Map<string, number>,
   benchmarkCloses: { date: string; close: number }[] = [],
 ): MonthRow[] {
+  const book = dailyReturns(navSeries, flowsByDate)
   const byMonth = new Map<string, number>()
-  for (const { date, r } of dailyReturns(navSeries, flowsByDate)) {
+  for (const { date, r } of book) {
     const m = date.slice(0, 7)
     byMonth.set(m, (byMonth.get(m) ?? 1) * (1 + r))
   }
+  // THE SAME DAYS, on both sides. The book's first month is almost always partial — it starts on the
+  // day capital arrived — while the feed carries the whole month, so an unrestricted index chain
+  // credited the index with days the book never held anything. On the real book that read as April:
+  // book 0.00% against index 10.42%, eight of those days before the fund was funded at all.
+  const firstBookDay = book.length ? book[0]!.date : null
+  const lastBookDay = book.length ? book[book.length - 1]!.date : null
   // The benchmark is bucketed the SAME way the book is: by chaining daily returns under the date the
   // return lands on, not by comparing the first and last price inside the month. Those are not the same
   // thing — a month's first daily return spans the turn from the previous month, which the book keeps
@@ -223,6 +230,10 @@ export function monthlyReturns(
   const sorted = [...benchmarkCloses].sort((a, b) => a.date.localeCompare(b.date))
   for (let i = 1; i < sorted.length; i++) {
     const prev = sorted[i - 1]!, curr = sorted[i]!
+    // The step's OWN START must be inside the book's life, not merely its end. Testing only `curr`
+    // still admitted the one step that reaches from before the fund existed INTO its first day — on the
+    // real book, the index's whole first week of April against a fund that had no capital in it.
+    if (firstBookDay === null || prev.date < firstBookDay || curr.date > lastBookDay!) continue
     const m = curr.date.slice(0, 7)
     // A hole in the feed would otherwise dump a multi-week move into whichever month happens to carry
     // the next close. A month built across one is reported as unavailable, not as a number.
@@ -267,7 +278,14 @@ export function betaAlpha(
   const bmReturns = new Map<string, number>()
   for (let i = 1; i < sorted.length; i++) {
     const prev = sorted[i - 1]!, curr = sorted[i]!
-    if (prev.close > 0) bmReturns.set(curr.date, curr.close / prev.close - 1)
+    if (prev.close <= 0) continue
+    // A HOLE IN THE FEED IS NOT A DAY'S MOVE. Without this, a month-long gap becomes one "daily" index
+    // return of a month's magnitude, paired against a single book day — which drags beta toward that
+    // one pair and invents alpha out of the residual. The monthly table already refuses such a step;
+    // the regression must refuse it on the same terms or the two disagree about the same feed.
+    const gapDays = (Date.parse(`${curr.date}T00:00:00Z`) - Date.parse(`${prev.date}T00:00:00Z`)) / 86_400_000
+    if (gapDays > MAX_FEED_GAP_DAYS) continue
+    bmReturns.set(curr.date, curr.close / prev.close - 1)
   }
   const pairs = bookReturns
     .filter((b) => bmReturns.has(b.date))

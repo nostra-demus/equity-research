@@ -129,8 +129,12 @@ export function saveStatement(xml: string, filename: string): SaveResult {
     unmodelled: doc.sectionsUnmodelled,
   }
   if (fs.existsSync(xmlPath(id))) return { status: 'duplicate', statement }
-  fs.writeFileSync(xmlPath(id), xml)
+  // ORDER MATTERS. `listStatements` reads the .json and the duplicate check above reads the .xml, so
+  // writing the XML first opened a window where a crash left a statement the list cannot show and the
+  // duplicate check will never accept again — unimportable and undeletable. Sidecar first inverts the
+  // failure: the row is listed, reported unreadable, removable, and a re-upload repairs it.
   fs.writeFileSync(metaPath(id), JSON.stringify(statement, null, 2) + '\n')
+  fs.writeFileSync(xmlPath(id), xml)
   invalidate()
   return { status: 'saved', statement }
 }
@@ -161,6 +165,10 @@ function currentKey(statements: StoredStatement[]): string {
 // something it never had a view on. Fed by .claude/connectors/fred-sp500 into data/_market/fred/.
 export const BENCHMARK_SYMBOL = 'SP500'
 export const RISK_FREE_ANNUAL_PCT = 4.3
+/** How far past its last close the benchmark curve may still be carried — a long weekend and a public
+ *  holiday, no more. The same tolerance benchmarkCompare uses to decide whether the feed covers a
+ *  window, so the chart and the comparison can never disagree about what is covered. */
+const MAX_BENCHMARK_GAP_DAYS = 7
 
 export interface PortfolioPerformance {
   periods: PeriodReturn[]
@@ -226,15 +234,22 @@ export function performanceOf(book: Book): PortfolioPerformance {
     const inWindow = closes.filter((c) => c.date >= start).sort((a, b) => a.date.localeCompare(b.date))
     const base = inWindow.length ? inWindow[0]!.close : null
     const byDate = new Map(inWindow.map((c) => [c.date, c.close]))
+    // The feed's own last day. Carrying the last level FOREVER drew a flat index line for every month
+    // past the end of the data — while benchmarkCompare, correctly, reported the comparison
+    // unavailable. One screen cannot say both. Past coverage the curve simply stops.
+    const covered = inWindow.length ? inWindow[inWindow.length - 1]!.date : null
+    const beyond = (date: string) => covered === null
+      || (Date.parse(`${date}T00:00:00Z`) - Date.parse(`${covered}T00:00:00Z`)) / 86_400_000 > MAX_BENCHMARK_GAP_DAYS
     let index = 100
     let lastBm: number | null = base ? 100 : null
     growth.push({ date: start, book: 100, benchmark: lastBm })
     for (const { date, r } of returns) {
       index *= 1 + r
       const close = byDate.get(date)
-      // Carry the last level across a day the feed does not price, rather than breaking the line.
+      // Carry the last level across a day the feed does not price — a market holiday is not a gap in
+      // the series — but only while the feed still covers the date.
       if (close !== undefined && base) lastBm = (close / base) * 100
-      growth.push({ date, book: index, benchmark: lastBm })
+      growth.push({ date, book: index, benchmark: beyond(date) ? null : lastBm })
     }
   }
 
@@ -277,7 +292,10 @@ function manualRead(statements: StoredStatement[], book: Book | null): ManualRea
 }
 
 export function logManualTrade(input: ManualInput): PortfolioRead {
-  const today = new Date().toISOString().slice(0, 10)
+  // LOCAL, not UTC. The form offers the operator's own calendar day; east of UTC that day begins hours
+  // before the UTC one, so a UTC "today" rejected this morning's real fill as being in the future.
+  const now = new Date()
+  const today = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`
   addManual(PORTFOLIO_DIR, normalizeManual(input, today))
   return readPortfolio()
 }

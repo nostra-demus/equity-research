@@ -489,5 +489,58 @@ check('the windowed income check compares the statement\u2019s own window, not e
   assert.ok(built.income.dividendsGross > dividends.ours!, 'while the all-documents total does include it')
 })
 
+// ---------- review fixes ----------
+check('a Trades-only newest export does not empty the holdings NOR drop the check that would catch it', () => {
+  // A statement with no OpenPositions section is a normal thing to run. Taking the snapshot from the
+  // newest document regardless left the Holdings tab blank — and the position check was gated on that
+  // same document, so it silently skipped itself and the badge still read "Reconciled".
+  const tradesOnly = {
+    ...doc,
+    whenGenerated: '2026-02-01T00:00:00',
+    fromDate: '2026-01-05', toDate: '2026-01-20',
+    openPositions: [],
+    equitySummary: [], changeInNav: null,
+    sectionsPresent: doc.sectionsPresent.filter((n) => n !== 'OpenPositions'),
+    trades: [], cashTransactions: [], corporateActions: [],
+  }
+  const built = buildBook([{ ...doc, whenGenerated: '2026-01-05T00:00:00' }, tradesOnly])
+  assert.equal(built.positions.length, 4, 'the newest snapshot that EXISTS is the one to show')
+  assert.ok(built.reconciliation.checks.some((c) => c.name === 'Open positions'), 'and the check must still run')
+  assert.ok(built.warnings.some((w) => /no OpenPositions section/.test(w)), 'with the staleness said out loud')
+})
+
+check('the return check holds when a second export widens the merged NAV series', () => {
+  // A guard on the window slice itself: with several overlapping exports the merged series spans more
+  // than the newest statement's own period, so the comparison is made over THAT period. (Whether the
+  // slice should also open on the day BEFORE it is an open question — see the note at the check.)
+  const built = buildBook([doc])
+  const twr = built.reconciliation.checks.find((c) => c.name === 'Time-weighted return')!
+  assert.equal(twr.ok, true, twr.detail)
+  // A second, older document widens the merged NAV series past the newest statement's window, which is
+  // exactly the case the window slice exists for.
+  const older = { ...doc, whenGenerated: '2026-01-01T00:00:00', changeInNav: null }
+  const pair = buildBook([older, { ...doc, whenGenerated: '2026-01-06T00:00:00' }])
+  const twr2 = pair.reconciliation.checks.find((c) => c.name === 'Time-weighted return')!
+  assert.equal(twr2.ok, true, twr2.detail)
+})
+
+check('a position and a trade in the SAME contract produce the same key without a conid', () => {
+  // The fallback key names expiry, strike and right. The trade side carried them and the position side
+  // did not, so the two halves of one key disagreed and check 5 broke on every conid-less derivative.
+  const base = doc.trades.find((t) => t.tradeID)!
+  const fut = {
+    ...base, tradeID: 'FUTK', transactionID: 'FUTK', conid: null, symbol: 'ESZ', assetCategory: 'FUT',
+    expiry: '2026-03-20', strike: null, putCall: null, quantity: 2, tradePrice: 5000, multiplier: 50,
+    buySell: 'BUY', openCloseIndicator: 'O', fifoPnlRealized: 0, origTradeID: null, origTransactionID: null,
+  }
+  const snapshot = {
+    ...doc.openPositions[0]!, conid: null, symbol: 'ESZ', assetCategory: 'FUT', expiry: '2026-03-20',
+    strike: null, putCall: null, position: 2, multiplier: 50, currency: 'USD',
+  }
+  const built = buildBook([{ ...doc, trades: [fut], openPositions: [snapshot], cashTransactions: [], corporateActions: [] }])
+  const held = built.reconciliation.checks.find((c) => c.name === 'Open positions')!
+  assert.equal(held.break, 0, `the two sides must agree: ${held.detail}`)
+})
+
 console.log(`\n${passed} passed, ${fails.length} failed`)
 if (fails.length) { console.error('FAILED: ' + fails.join(', ')); process.exit(1) }

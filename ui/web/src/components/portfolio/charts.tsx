@@ -93,8 +93,15 @@ const RANGES = [
 type RangeId = (typeof RANGES)[number]['id']
 
 function windowStart(last: string, months: number): string {
+  // setUTCMonth OVERFLOWS. From 2026-03-31, minus one month asks for 31 February and JavaScript hands
+  // back 3 March — so "1M" would start four weeks LATER than it should, and the coverage check would
+  // answer for a window that was never drawn. Clamp the day to the target month's own last day.
   const d = new Date(`${last}T00:00:00Z`)
+  const day = d.getUTCDate()
+  d.setUTCDate(1)
   d.setUTCMonth(d.getUTCMonth() - months)
+  const lastOfMonth = new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth() + 1, 0)).getUTCDate()
+  d.setUTCDate(Math.min(day, lastOfMonth))
   return d.toISOString().slice(0, 10)
 }
 

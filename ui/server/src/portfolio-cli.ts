@@ -50,7 +50,12 @@ function main(argv: string[]): number {
   console.log('')
   console.log(`POSITIONS ${book.positions.length}   (${book.positions.filter((p) => p.isDerivative).length} derivative — notional is exposure, not a NAV weight)`)
   console.log(`OPEN LOTS ${book.openLots.length}`)
-  console.log(`CLOSURES  ${book.closures.length}   realised ${money(book.closures.reduce((a, c) => a + (c.realizedBase ?? c.realizedLocal), 0), ccy)}`)
+  // Only what could be valued in base. Falling back to the local figure summed unlike currencies into
+  // one number, which is the thing the reconciliation refuses to certify.
+  const valued = book.closures.filter((c) => c.realizedBase !== null)
+  const unvalued = book.closures.length - valued.length
+  console.log(`CLOSURES  ${book.closures.length}   realised ${money(valued.reduce((a, c) => a + c.realizedBase!, 0), ccy)}`
+    + (unvalued > 0 ? `   (${unvalued} with no rate, excluded)` : ''))
   console.log(`FLOWS     ${book.flows.length}   net ${money(book.flows.reduce((a, f) => a + (f.amountBase ?? f.amount), 0), ccy)}`)
   console.log(`CORP ACTS ${book.corporateActions.length}`)
   console.log('')

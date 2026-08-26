@@ -54,6 +54,32 @@ const fmtQty = (v: number | null | undefined): string =>
 const fmtSmallMoney = (v: number | null | undefined): string =>
   v === null || v === undefined || !Number.isFinite(v) ? '—' : Math.abs(v) < 100 ? fmtNum(v, 2) : fmtNum(v, 0)
 
+/** A position's value in the BASE currency, or null when the statement gave no rate to convert it.
+ *
+ *  `?? 1` was the bug: a EUR 10,000 position with no rate was added to a dollar total as $10,000. The
+ *  backend sets the rate to null deliberately — it is saying it cannot value this row — so the honest
+ *  reading is to leave it out of the total and say how many rows were left out, exactly as buildBook
+ *  already does for income it cannot convert. */
+const baseValue = (v: number | null | undefined, p: { fxRateToBase: number | null }): number | null =>
+  v === null || v === undefined || !Number.isFinite(v) || p.fxRateToBase === null ? null : v * p.fxRateToBase
+
+/** What a closed round trip realised in the base currency, or null when no rate existed at the close.
+ *  Falling back to the LOCAL figure summed francs into dollars and published a total the reconciliation
+ *  explicitly refuses to certify. */
+const baseRealised = (c: { realizedBase: number | null }): number | null => c.realizedBase
+
+/** Sum only what could be valued, and count what could not — so a total is never quietly short. */
+function sumBase<T>(rows: T[], value: (row: T) => number | null): { total: number; unvalued: number } {
+  let total = 0
+  let unvalued = 0
+  for (const row of rows) {
+    const v = value(row)
+    if (v === null) unvalued += 1
+    else total += v
+  }
+  return { total, unvalued }
+}
+
 /** Positive is amber, not green: the cockpit's --good IS the accent. Losses are the only red. */
 const toneOf = (v: number | null | undefined): string =>
   v === null || v === undefined || !Number.isFinite(v) ? 'var(--text-muted)' : v < 0 ? 'var(--bad)' : 'var(--good)'
@@ -266,7 +292,7 @@ function snapshot(read: PortfolioRead | null): Snapshot {
     positions: b?.positions.length ?? 0,
     navPoints: b?.navSeries.length ?? 0,
     nav: b && b.navSeries.length ? b.navSeries[b.navSeries.length - 1]!.total : null,
-    realised: b ? b.closures.reduce((a, c) => a + (c.realizedBase ?? c.realizedLocal), 0) : null,
+    realised: b ? sumBase(b.closures, baseRealised).total : null,
     from: dates[0] ?? null,
     to: dates[dates.length - 1] ?? null,
   }
@@ -301,7 +327,7 @@ function cashShare(book: PortfolioBook, cashEquivalents: string[]): number | nul
   if (nav === null || nav <= 0) return null
   const risked = book.positions
     .filter((p) => !p.isDerivative && !cashEquivalents.includes((p.symbol ?? '').toUpperCase()))
-    .reduce((a, p) => a + (p.positionValue ?? 0) * (p.fxRateToBase ?? 1), 0)
+    .reduce((a, p) => a + (baseValue(p.positionValue, p) ?? 0), 0)
   return ((nav - risked) / nav) * 100
 }
 
@@ -326,21 +352,27 @@ function Holdings({ book, perf, manual, cashEquivalents, onManage, onChanged }: 
   // tells the reader nothing; with 20+ names the position that actually matters could be anywhere in the
   // list. Sorted by what it is worth, the top of the table is always the part worth reading.
   const byValue = (a: PortfolioPosition, b: PortfolioPosition) =>
-    Math.abs((b.positionValue ?? 0) * (b.fxRateToBase ?? 1)) - Math.abs((a.positionValue ?? 0) * (a.fxRateToBase ?? 1))
+    Math.abs(baseValue(b.positionValue, b) ?? 0) - Math.abs(baseValue(a.positionValue, a) ?? 0)
   const parked = equities.filter((p) => isCashEq(p.symbol)).sort(byValue)
   const risked = equities.filter((p) => !isCashEq(p.symbol)).sort(byValue)
-  const parkedValue = parked.reduce((a, p) => a + (p.positionValue ?? 0) * (p.fxRateToBase ?? 1), 0)
-  const invested = risked.reduce((a, p) => a + (p.positionValue ?? 0) * (p.fxRateToBase ?? 1), 0)
-  const unrealised = equities.reduce((a, p) => a + (p.unrealizedLocal ?? 0) * (p.fxRateToBase ?? 1), 0)
+  const parkedValue = sumBase(parked, (p) => baseValue(p.positionValue, p)).total
+  const investedSum = sumBase(risked, (p) => baseValue(p.positionValue, p))
+  const invested = investedSum.total
+  const unrealisedSum = sumBase(equities, (p) => baseValue(p.unrealizedLocal, p))
+  const unrealised = unrealisedSum.total
   const flows = book.flows.reduce((a, f) => a + (f.amountBase ?? 0), 0)
-  const realised = book.closures.reduce((a, c) => a + (c.realizedBase ?? c.realizedLocal), 0)
+  const realisedSum = sumBase(book.closures, baseRealised)
+  const realised = realisedSum.total
+  // Every row the statement could not put a rate on, across the three totals above. Reported rather
+  // than absorbed: a total that silently drops rows is worse than one that says how many it dropped.
+  const unvalued = investedSum.unvalued + unrealisedSum.unvalued + realisedSum.unvalued
   const brokerCash = nav === null ? null : nav - invested - parkedValue
   const cash = brokerCash === null ? null : brokerCash + parkedValue
 
   // Currency mix is real risk on a cross-border book, and nothing else on this screen shows it.
   const byCurrency = new Map<string, number>()
   for (const p of equities) {
-    byCurrency.set(p.currency ?? '—', (byCurrency.get(p.currency ?? '—') ?? 0) + (p.positionValue ?? 0) * (p.fxRateToBase ?? 1))
+    byCurrency.set(p.currency ?? '—', (byCurrency.get(p.currency ?? '—') ?? 0) + (baseValue(p.positionValue, p) ?? 0))
   }
   if (cash !== null && cash > 0) byCurrency.set(ccy ?? 'cash', (byCurrency.get(ccy ?? 'cash') ?? 0) + cash)
   const currencyRows = [...byCurrency.entries()].sort((a, b) => b[1] - a[1])
@@ -420,7 +452,14 @@ function Holdings({ book, perf, manual, cashEquivalents, onManage, onChanged }: 
             )}
             {/* The declaration belongs where the split it changes is explained, not repeated as a button on
                 every position row — one control in one place instead of one per holding. */}
-            <div className="fundbook__foot fundbook__cashdecl">
+            {unvalued > 0 && (
+            <div className="fundbook__foot fundbook__foot--warn">
+              {unvalued} row{unvalued === 1 ? '' : 's'} could not be valued in {ccy ?? 'the base currency'} —
+              the statement carried no rate for {unvalued === 1 ? 'it' : 'them'}, so {unvalued === 1 ? 'it is' : 'they are'} left
+              out of the totals above rather than added at one-for-one.
+            </div>
+          )}
+          <div className="fundbook__foot fundbook__cashdecl">
               <span>
                 {parked.length > 0
                   ? <>Cash includes {fmtMoney(parkedValue, ccy)} held as {parked.map((p) => p.symbol).join(', ')} — money waiting, not money at risk.</>
@@ -510,7 +549,7 @@ function Exposure({ book, risked, parkedValue, nav, ccy, bars }: {
 }) {
   const derivatives = book.positions.filter((p) => p.isDerivative)
   const valued = risked
-    .map((p) => ({ p, base: (p.positionValue ?? 0) * (p.fxRateToBase ?? 1) }))
+    .map((p) => ({ p, base: baseValue(p.positionValue, p) ?? 0 }))
     .sort((a, b) => Math.abs(b.base) - Math.abs(a.base))
   const atRisk = valued.reduce((a, v) => a + v.base, 0)
   if (valued.length === 0) return null
@@ -924,7 +963,7 @@ function Trades({ book, manual, onChanged, importOpen, onImportOpen, importSurfa
         holdingDays: Math.max(...lots.map((c) => c.holdingDays ?? 0)),
         grossLocal: lots.reduce((a, c) => a + c.grossLocal, 0),
         commissionLocal: lots.reduce((a, c) => a + c.commissionLocal, 0),
-        realized: lots.reduce((a, c) => a + (c.realizedBase ?? c.realizedLocal), 0),
+        realized: sumBase(lots, baseRealised).total,
         lots: lots.length,
       }
     })
@@ -994,7 +1033,7 @@ function Trades({ book, manual, onChanged, importOpen, onImportOpen, importSurfa
       cur.security += c.grossLocal * open
       cur.currencyEffect += c.grossLocal * (close - open)
       cur.costs += c.commissionLocal * close
-      cur.realised += c.realizedBase ?? c.realizedLocal
+      cur.realised += c.realizedBase ?? 0
       by.set(k, cur)
     }
     const list = [...by.entries()].map(([currency, v]) => ({ currency, ...v }))
