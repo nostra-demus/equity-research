@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "frameworks/memory/enforcement-activation-v1.schema.json",
+  "title": "Signed enforced-memory activation commitment v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "activation_id", "status", "created_at", "expires_at", "evidence", "approved_provider_models", "activation_sha256", "signature"],
+  "properties": {
+    "schema": {"const": "memory-enforcement-activation/v1"},
+    "activation_id": {"type": "string", "pattern": "^memory-enforcement-[A-Za-z0-9._-]{1,96}$"},
+    "status": {"const": "active"},
+    "created_at": {"type": "string", "format": "date-time"},
+    "expires_at": {"type": "string", "format": "date-time"},
+    "evidence": {
+      "type": "object", "additionalProperties": false,
+      "required": ["operational_readiness_sha256", "three_layer_benchmark_sha256", "shadow_evaluation_sha256"],
+      "properties": {
+        "operational_readiness_sha256": {"$ref": "#/$defs/hash"},
+        "three_layer_benchmark_sha256": {"$ref": "#/$defs/hash"},
+        "shadow_evaluation_sha256": {"$ref": "#/$defs/hash"}
+      }
+    },
+    "approved_provider_models": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string"}},
+    "activation_sha256": {"$ref": "#/$defs/hash"},
+    "signature": {
+      "type": "object", "additionalProperties": false,
+      "required": ["key_id", "algorithm", "signed_sha256", "value"],
+      "properties": {
+        "key_id": {"type": "string"}, "algorithm": {"const": "ed25519"},
+        "signed_sha256": {"$ref": "#/$defs/hash"},
+        "value": {"type": "string", "pattern": "^[A-Za-z0-9_-]{86}$"}
+      }
+    }
+  },
+  "$defs": {"hash": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"}}
+}
