@@ -7,10 +7,14 @@ import crypto from 'node:crypto'
 import fs from 'node:fs'
 import path from 'node:path'
 import { REPO_ROOT } from './config'
+import { cleanTicker } from './news/symbology'
 import {
+  WATCHLIST_MAX_ROWS,
   WATCHLIST_ENTRIES_DIR,
+  isWatchId,
   makeListing,
   newEntryId,
+  pickEntryForListing,
   readEntries,
   writeEntry,
   type EngineWatchRow,
@@ -58,6 +62,25 @@ const STAGES = new Set<TaskStage>(['idea_generation', 'ticker_identified', 'deep
 const DECISIONS = new Set<TaskDecision>(['deploy', 'reject', 'watch'])
 const SCOPES = new Set<TaskScope>(['ticker', 'company_event', 'world_event'])
 
+const safeStoredName = (value: unknown, max = 500): value is string => typeof value === 'string'
+  && value.length > 0 && value.length <= max && path.basename(value) === value && value !== '.' && value !== '..'
+const isoTimestamp = (value: unknown): value is string => typeof value === 'string'
+  && value.length <= 40 && Number.isFinite(Date.parse(value))
+const historyShape = (value: unknown): value is TaskCard['history'][number] => {
+  const row = value as TaskCard['history'][number]
+  return !!row && typeof row === 'object' && !Array.isArray(row) && isoTimestamp(row.at)
+    && typeof row.by === 'string' && row.by.length <= 160
+    && typeof row.action === 'string' && row.action.length > 0 && row.action.length <= 80
+    && typeof row.detail === 'string' && row.detail.length <= 1000
+}
+const attachmentShape = (value: unknown): value is WatchAttachment => {
+  const attachment = value as WatchAttachment
+  return !!attachment && typeof attachment === 'object' && !Array.isArray(attachment)
+    && safeStoredName(attachment.attachment_id) && safeStoredName(attachment.filename)
+    && typeof attachment.bytes === 'number' && Number.isFinite(attachment.bytes) && attachment.bytes >= 0
+    && isoTimestamp(attachment.added_at) && typeof attachment.added_by === 'string' && attachment.added_by.length <= 160
+}
+
 export const isTaskId = (value: unknown): value is string => typeof value === 'string' && TASK_ID_RE.test(value)
 
 export function newTaskId(now: Date = new Date()): string {
@@ -71,9 +94,20 @@ function taskShape(value: unknown): value is TaskCard {
     && task.schema_version === 'task-card/v1' && isTaskId(task.task_id)
     && SCOPES.has(task.scope) && STAGES.has(task.stage)
     && (task.decision === null || DECISIONS.has(task.decision))
+    && (task.stage === 'final_decision' ? task.decision !== null : task.decision === null)
     && ASSIGNEES.has(task.assignee)
-    && typeof task.subject === 'string' && typeof task.title === 'string'
-    && Array.isArray(task.attachments) && Array.isArray(task.history)
+    && (task.ticker === null || (typeof task.ticker === 'string' && task.ticker.length > 0 && task.ticker.length <= 24
+      && cleanTicker(task.ticker) === task.ticker))
+    && (task.scope === 'world_event' || task.stage === 'idea_generation' || task.ticker !== null)
+    && (task.decision !== 'watch' || task.ticker !== null)
+    && typeof task.subject === 'string' && task.subject.length > 0 && task.subject.length <= 240
+    && typeof task.title === 'string' && task.title.length > 0 && task.title.length <= 4000
+    && Array.isArray(task.attachments) && task.attachments.length <= TASK_MAX_ATTACHMENTS && task.attachments.every(attachmentShape)
+    && (task.watchlist_entry_id === null || isWatchId(task.watchlist_entry_id))
+    && typeof task.watchlist_created === 'boolean'
+    && Array.isArray(task.history) && task.history.length <= 50 && task.history.every(historyShape)
+    && isoTimestamp(task.created_at) && typeof task.created_by === 'string' && task.created_by.length <= 160
+    && isoTimestamp(task.updated_at)
 }
 
 /** One broken JSON card degrades only itself. */
@@ -110,6 +144,8 @@ export const taskPath = (taskId: string) => `watchlist/tasks/${taskId}.json`
 export interface TaskWatchSync {
   entry: WatchEntry | null
   changed: boolean
+  changedEntries: WatchEntry[]
+  problem?: string
 }
 
 /**
@@ -125,45 +161,76 @@ export function syncTaskWatchlist(
 ): TaskWatchSync {
   const { entries } = readEntries(entriesDir)
   const linked = task.watchlist_entry_id ? entries.find((entry) => entry.entry_id === task.watchlist_entry_id) ?? null : null
-  const shouldWatch = task.stage === 'final_decision' && task.decision === 'watch' && !!task.ticker
+  const shouldWatch = task.stage === 'final_decision' && task.decision === 'watch'
+  const changedEntries: WatchEntry[] = []
+  const persist = (entry: WatchEntry) => {
+    writeEntry(entry, entriesDir)
+    if (!changedEntries.some((candidate) => candidate.entry_id === entry.entry_id)) changedEntries.push(entry)
+  }
 
   if (!shouldWatch) {
-    if (!linked) return { entry: null, changed: false }
+    if (!linked || linked.task_id !== task.task_id) return { entry: linked, changed: false, changedEntries }
+    const at = new Date().toISOString()
     if (task.watchlist_created && !linked.archive) {
-      const at = new Date().toISOString()
       linked.archive = { at, by: actor, reason: `Task outcome changed to ${task.decision ?? task.stage}`, muted_fingerprint: null, mute_scope: 'listing' }
-      linked.updated_at = at
       linked.history = [...linked.history, { at, by: actor, action: 'archived', detail: 'task outcome changed' }].slice(-50)
-      writeEntry(linked, entriesDir)
-      return { entry: linked, changed: true }
     }
-    // An independently-created watchlist row stays on the list; only remove the task link.
-    if (linked.task_id === task.task_id) {
-      linked.task_id = null
-      linked.updated_at = new Date().toISOString()
-      writeEntry(linked, entriesDir)
-      return { entry: linked, changed: true }
-    }
-    return { entry: linked, changed: false }
+    linked.task_id = null
+    linked.updated_at = at
+    linked.history = [...linked.history, { at, by: actor, action: 'unlinked-task', detail: task.task_id }].slice(-50)
+    persist(linked)
+    return { entry: linked, changed: true, changedEntries }
   }
 
-  const ticker = task.ticker!
-  let entry = linked
-  if (!entry) {
-    // A task names a ticker, not a currency. If the engine already projects that ticker into the
-    // Watchlist, adopt its exact listing key so the task decorates that row instead of manufacturing a
-    // second USD-by-default row alongside (for example) an existing NOK primary listing.
-    if (engineCandidate?.listing.ticker === ticker) {
-      entry = entries.find((candidate) => candidate.listing?.listing_key === engineCandidate.listing.listing_key && !candidate.archive) ?? null
-    }
-    // Prefer an already-active row for this ticker. If currency creates more than one listing, the newest
-    // user-touched row is the least surprising target; no second ticker-only row is manufactured.
-    if (!entry) {
-      const sameTicker = entries.filter((candidate) => candidate.listing?.ticker === ticker && !candidate.archive)
-      entry = sameTicker.sort((a, b) => String(b.updated_at).localeCompare(String(a.updated_at)))[0] ?? null
-    }
+  if (!task.ticker) return {
+    entry: linked, changed: false, changedEntries,
+    problem: 'Add a ticker before choosing Watch so the decision can sync to one Watchlist security.',
   }
+  const ticker = task.ticker
+  const otherOwner = entries.find((candidate) => candidate.listing?.ticker === ticker
+    && candidate.task_id && candidate.task_id !== task.task_id && !candidate.archive)
+  if (otherOwner) return {
+    entry: linked, changed: false, changedEntries,
+    problem: `${ticker} already has a Final Decision · Watch task. Keep one owner for the Watchlist row.`,
+  }
+
+  // A saved link is authoritative only while it still names the same ticker. Editing AMZN -> TSLA must
+  // never repaint the AMZN Watchlist row as if it represented the new task.
+  let entry = linked?.listing.ticker === ticker ? linked : null
+  if (!entry && engineCandidate?.listing.ticker === ticker) {
+    entry = pickEntryForListing(entries, engineCandidate.listing.listing_key)
+  }
+  if (!entry) {
+    const activeSameTicker = entries.filter((candidate) => candidate.listing?.ticker === ticker && !candidate.archive)
+    if (activeSameTicker.length > 1) return {
+      entry: linked, changed: false, changedEntries,
+      problem: `${ticker} has more than one active listing. Use the exact listing in Watchlist first, then retry.`,
+    }
+    entry = activeSameTicker[0] ?? null
+  }
+  if (entry?.task_id && entry.task_id !== task.task_id) return {
+    entry: linked, changed: false, changedEntries,
+    problem: `${ticker} is already linked to another task.`,
+  }
+  if (!entry && entries.length >= WATCHLIST_MAX_ROWS) return {
+    entry: linked, changed: false, changedEntries, problem: 'The Watchlist is full.',
+  }
+
   const at = new Date().toISOString()
+  // Retargeting detaches the old relationship first, but only after the new target has passed every
+  // ambiguity and ownership check above. This prevents a failed edit from partially unlinking the card.
+  if (linked && linked.entry_id !== entry?.entry_id && linked.task_id === task.task_id) {
+    if (task.watchlist_created && !linked.archive) {
+      linked.archive = { at, by: actor, reason: `Task ticker changed to ${ticker}`, muted_fingerprint: null, mute_scope: 'listing' }
+      linked.history = [...linked.history, { at, by: actor, action: 'archived', detail: 'task ticker changed' }].slice(-50)
+    }
+    linked.task_id = null
+    linked.updated_at = at
+    linked.history = [...linked.history, { at, by: actor, action: 'unlinked-task', detail: task.task_id }].slice(-50)
+    persist(linked)
+  }
+  if (linked && linked.entry_id !== entry?.entry_id) task.watchlist_created = false
+
   if (!entry) {
     const engine = engineCandidate?.listing.ticker === ticker ? engineCandidate : null
     const listing = engine?.listing ?? makeListing({ ticker })
@@ -179,15 +246,25 @@ export function syncTaskWatchlist(
     }
     task.watchlist_created = true
   } else {
+    const relationshipChanged = entry.task_id !== task.task_id || !!entry.archive || task.watchlist_entry_id !== entry.entry_id
+    const assignmentChanged = entry.assignee !== task.assignee
+    const priorAssignee = entry.assignee
     entry.assignee = task.assignee
     entry.task_id = task.task_id
     entry.archive = null
     entry.updated_at = at
-    entry.history = [...entry.history, { at, by: actor, action: 'linked-task', detail: task.task_id }].slice(-50)
+    if (relationshipChanged) entry.history = [...entry.history, { at, by: actor, action: 'linked-task', detail: task.task_id }].slice(-50)
+    if (assignmentChanged) entry.history = [...entry.history, {
+      at, by: actor, action: 'assigned', detail: `${priorAssignee ?? 'unassigned'} → ${task.assignee} · from Tasks`,
+    }].slice(-50)
+    if (!relationshipChanged && !assignmentChanged) {
+      task.watchlist_entry_id = entry.entry_id
+      return { entry, changed: changedEntries.length > 0, changedEntries }
+    }
   }
-  writeEntry(entry, entriesDir)
+  persist(entry)
   task.watchlist_entry_id = entry.entry_id
-  return { entry, changed: true }
+  return { entry, changed: true, changedEntries }
 }
 
 /** Assignment edits from Watchlist immediately update the linked Kanban card. */

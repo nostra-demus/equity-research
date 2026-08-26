@@ -157,7 +157,7 @@ export function WatchDetail({ row }: { row: WatchRow | null }) {
           : <span className="wl__verdict wl__verdict--none" title="You added this — the engine has not researched it">yours</span>}
         {!staticMode && (
           <label className="wdet__owner" title={row.task_id ? 'Shared with this ticker’s Tasks card' : 'Assign this watchlist name'}>
-            <span>{row.assignee ?? '—'}</span>
+            <span>{row.assignee ?? '—'}<i aria-hidden>⌄</i></span>
             <select disabled={assigning} value={row.assignee ?? ''} onChange={(event) => void assign((event.target.value || null) as 'AB' | 'NV' | 'CK' | null)} aria-label={`Assign ${row.ticker}`}>
               {!row.task_id && <option value="">Unassigned</option>}
               <option value="AB">AB · Ayush Banka</option>

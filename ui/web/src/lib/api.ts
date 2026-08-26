@@ -1447,7 +1447,7 @@ export const api = {
 
   // ---- Tasks board ----
   tasks: async (): Promise<import('./types').TasksRead> => {
-    if ((await ensureMode()) === 'static') return { tasks: [], people: [
+    if ((await ensureMode()) === 'static') return snap.tasks || { tasks: [], people: [
       { id: 'AB', name: 'Ayush Banka' }, { id: 'NV', name: 'Noel Vaz' }, { id: 'CK', name: 'Chiraag Kapil' },
     ], unreadable: [], attachments_enabled: false, as_of: new Date().toISOString() }
     return get<import('./types').TasksRead>('/api/tasks')
