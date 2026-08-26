@@ -44,6 +44,7 @@ import { DecisionBanner } from './components/DecisionBanner'
 import { OfflineBanner } from './components/EngineStatus'
 import { MemoryExplorer } from './components/memory/MemoryExplorer'
 import { ToolsWorkspace } from './components/tools/ToolsWorkspace'
+import { TasksStage } from './components/tasks/TasksStage'
 
 // The 3D globe view is lazy-loaded: this dynamic import is the chunk boundary that keeps three.js out of
 // the main bundle — it (and its three.js deps) only download when the user first opens the globe.
@@ -92,18 +93,29 @@ function ResearchStage() {
   const effective = effectiveResearchView(view, isResearch)
   const onWatchlist = effective === 'watchlist'
   const onPortfolio = effective === 'portfolio'
+  const onTasks = effective === 'tasks'
   // The company-scoped furniture — upload prompts, the document rail, the decision banner — belongs to
   // the company on the stage. A CROSS-COMPANY view has no such subject, so every one of these must sit
   // out: with an empty pool the upload empty-state renders straight over the portfolio, and there is no
   // way to dismiss it because it is not a dialog.
-  const onCrossCompany = onWatchlist || onPortfolio
+  const onCrossCompany = onWatchlist || onPortfolio || onTasks
   const onGlobe = webglOK && effective === 'globe'
   const ease = [0.23, 1, 0.32, 1] as const
   const W = GLOBE.WRAP_SECONDS // wrap/unwrap duration, shared with GlobeScene's morph
   const home = (
     <>
       <AnimatePresence>
-        {onPortfolio ? (
+        {onTasks ? (
+          <motion.div
+            key="tasks"
+            className="stageview"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1, transition: { duration: reduced ? 0 : 0.22, ease } }}
+            exit={{ opacity: 0, transition: { duration: reduced ? 0 : 0.16, ease } }}
+          >
+            <TasksStage />
+          </motion.div>
+        ) : onPortfolio ? (
           // Same plain fade as the watchlist: a cross-company view is not the constellation/globe pair,
           // so borrowing their wrap choreography would read as a stutter.
           <motion.div

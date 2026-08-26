@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-26T18:58:23Z",
+  "generated_at": "2026-08-26T20:40:29Z",
   "inbox": [
     {
       "inbox_id": "INB-20260826-1056",
@@ -145,6 +145,104 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260826-1066",
+      "headline": "25-NSE - BlackSky Technology Inc. (0001753539) (Subject)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1753539/000087666126000707/0000876661-26-000707-index.htm",
+      "source_name": "SEC EDGAR — Latest 25-NSE (Delisting Notification)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-08-26T13:27:05Z",
+      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
+      "prelim_note": "BlackSky Technology Inc. delisted from NYSE (Form 25-NSE), removing public trading access and shareholder liquidity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "BlackSky Technology Inc. delisted from NYSE (Form 25-NSE), removing public trading access and shareholder liquidity.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 3,
+        "materiality_label_floor": 7,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BlackSky Technology Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260826-1067",
+      "headline": "25-NSE - NEW YORK STOCK EXCHANGE LLC (0000876661) (Filed by)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/876661/000087666126000707/0000876661-26-000707-index.htm",
+      "source_name": "SEC EDGAR — Latest 25-NSE (Delisting Notification)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-08-26T13:27:05Z",
+      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
+      "prelim_note": "NYSE filed Form 25-NSE delisting notification for BlackSky Technology Inc.; same survival event as item 9, reported as exchange filer.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "NYSE filed Form 25-NSE delisting notification for BlackSky Technology Inc.; same survival event as item 9, reported as exchange filer.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 3,
+        "materiality_label_floor": 7,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BlackSky Technology Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1696,6 +1794,153 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260826-1088",
+      "headline": "Salesforce raises annual revenue forecasts on AI product momentum",
+      "headline_en": null,
+      "url": "https://www.reuters.com/technology/salesforce-raises-annual-revenue-forecast-2026-08-26/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-26T20:14:29Z",
+      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
+      "prelim_note": "Salesforce raised its annual revenue guidance due to AI product demand.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Salesforce raised its annual revenue guidance due to AI product demand.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Salesforce",
+          "ticker": "CRM",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260826-1089",
+      "headline": "Meta agrees to pay $18 billion to settle US lawsuits over children's social media addiction",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/meta-reaches-18-billion-settlements-over-childrens-social-media-addiction-2026-08-26/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-26T20:09:43Z",
+      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
+      "prelim_note": "Meta agreed to an $18 billion settlement regarding lawsuits over children's social media addiction.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Meta agreed to an $18 billion settlement regarding lawsuits over children's social media addiction.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Meta",
+          "ticker": "META",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260826-1093",
+      "headline": "Intuit expects 2027 revenue to ‘decelerate,’ CFO says",
+      "headline_en": null,
+      "url": "https://www.cfodive.com/news/intuit-expects-2027-revenue-decelerate-cfo-AI/828869/",
+      "source_name": "CFO Dive",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-26T18:27:16Z",
+      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
+      "prelim_note": "Intuit CFO indicated that revenue growth is expected to decelerate by 2027.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Intuit CFO indicated that revenue growth is expected to decelerate by 2027.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Intuit",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260826-1063",
       "headline": "Meta agrees to pay $18 billion to settle lawsuits over children's social media addiction",
       "headline_en": null,
@@ -1740,252 +1985,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260826-1062",
-      "headline": "Nvidia (NVDA) Earnings Live: Updates on Q2 2026 Results From AI Chipmaker",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/live-blog/2026-08-26/nvidia-second-quarter-earnings",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-26T17:36:34Z",
-      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
-      "prelim_note": "Nvidia is reporting Q2 2026 earnings, a major market-moving event for the semiconductor and AI sectors.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Nvidia is reporting Q2 2026 earnings, a major market-moving event for the semiconductor and AI sectors.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": "NVDA",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260826-1051",
-      "headline": "Meta dodges ‘Big Tobacco’ nightmare with $18 billion settlement in child-safety lawsuit",
-      "headline_en": null,
-      "url": "https://www.marketwatch.com/story/metas-stock-rises-as-the-company-settles-in-social-media-addiction-trial-78abdfbf?mod=mw_rss_topstories",
-      "source_name": "MarketWatch",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-26T17:12:00Z",
-      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
-      "prelim_note": "Meta settles child-safety lawsuit for quantified $18 billion, removing major contingent liability and confirming material capital charge.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Meta settles child-safety lawsuit for quantified $18 billion, removing major contingent liability and confirming material capital charge.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 78,
-      "rank_factors": {
-        "materiality": 78,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Meta",
-          "ticker": "META",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260826-1052",
-      "headline": "Gatik Raises $200 Million as It Ramps Up Driverless Truck Fleet",
-      "headline_en": null,
-      "url": "https://finance.yahoo.com/technology/ai/articles/gatik-raises-200-million-ramps-170035744.html",
-      "source_name": "Yahoo Finance",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-26T17:00:35Z",
-      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
-      "prelim_note": "Gatik raised $200 million in new funding to expand its autonomous trucking operations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Gatik raised $200 million in new funding to expand its autonomous trucking operations.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Gatik",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260826-1064",
-      "headline": "DICK'S Sporting Shares Plunge 31% on Soft Q2 Earnings & Lower View",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/dicks-sporting-shares-plunge-31-soft-q2-earnings-lower-view",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-26T16:42:00Z",
-      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
-      "prelim_note": "Company reported a 31% share price drop following a miss on Q2 earnings and a downward revision to guidance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Company reported a 31% share price drop following a miss on Q2 earnings and a downward revision to guidance.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "DICK'S Sporting Goods",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260826-1031",
-      "headline": "AD Ports board backs ADQ’s Dh6.25-a-share buyout offer",
-      "headline_en": null,
-      "url": "https://www.khaleejtimes.com/business/ad-ports-board-backs-adqs-dh625-a-share-buyout-offer",
-      "source_name": "Khaleej Times — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-26T15:58:47Z",
-      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
-      "prelim_note": "AD Ports board approved a buyout offer at Dh6.25 per share from ADQ, representing a significant corporate action.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "AD Ports board approved a buyout offer at Dh6.25 per share from ADQ, representing a significant corporate action.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "AD Ports",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -79630,6 +79629,78 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-fa9512f6988e",
+      "idea_version": "IDEAV-8e32e03160a422e5",
+      "idea_version_started_at": "2026-08-26T20:21:39Z",
+      "ticker": "BKSY",
+      "company": "BlackSky Technology Inc.",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company has received a delisting notification from the NYSE, which typically signals severe liquidity or compliance distress and often precedes further equity erosion.",
+      "why_now": "The delisting notice was filed with the SEC on 2026-08-26.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 55,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-2d4d4442635c",
+        "EVT-f14c29c6fe25"
+      ],
+      "primary_source_event_id": "EVT-2d4d4442635c",
+      "source_headlines": [
+        "25-NSE - BlackSky Technology Inc. (0001753539) (Subject)",
+        "25-NSE - NEW YORK STOCK EXCHANGE LLC (0000876661) (Filed by)"
+      ],
+      "source_headline": "25-NSE - BlackSky Technology Inc. (0001753539) (Subject)",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1753539/000087666126000707/0000876661-26-000707-index.htm",
+      "source_name": "SEC EDGAR — Latest 25-NSE (Delisting Notification)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-26T13:27:05Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-26T20:21:39Z",
+      "updated_at": "2026-08-26T20:21:39Z",
+      "decay_at": "2026-08-28T01:27:05Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-4402530dd0df",
       "idea_version": "IDEAV-1b64f1ccf2917e03",
       "idea_version_started_at": "2026-08-26T17:19:45Z",
@@ -80776,77 +80847,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-3d6e58f72681",
-      "idea_version": "IDEAV-884aacf771ac6a84",
-      "idea_version_started_at": "2026-08-25T10:36:18Z",
-      "ticker": "00397",
-      "company": "Minerva Group",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Minerva Group issued a supplemental profit warning, indicating worse-than-expected financial performance for the first half of 2026.",
-      "why_now": "The company filed a supplemental profit warning today for the six months ended June 30, 2026.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-38ecff884b68"
-      ],
-      "primary_source_event_id": "EVT-38ecff884b68",
-      "source_headlines": [
-        "MINERVA GROUP (00397): SUPPLEMENTAL ANNOUNCEMENT IN RELATION TO THE PROFIT WARNING ANNOUNCEMENT FOR THE SIX MONTHS ENDED 30 JUNE 2026"
-      ],
-      "source_headline": "MINERVA GROUP (00397): SUPPLEMENTAL ANNOUNCEMENT IN RELATION TO THE PROFIT WARNING ANNOUNCEMENT FOR THE SIX MONTHS ENDED 30 JUNE 2026",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0825/2026082500380.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-25T08:31:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-25T10:36:18Z",
-      "updated_at": "2026-08-25T10:36:18Z",
-      "decay_at": "2026-08-26T20:31:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-4fb19a242234",
       "idea_version": "IDEAV-244f43e33b9125c4",
       "idea_version_started_at": "2026-08-25T10:36:18Z",
@@ -80918,77 +80918,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-6cd689f1508e",
-      "idea_version": "IDEAV-3d678ffe2f37074f",
-      "idea_version_started_at": "2026-08-25T10:36:18Z",
-      "ticker": "2986",
-      "company": "Abalance Corporation",
-      "exchange": "TSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Abalance Corporation faces delisting from the Japan Exchange Group, indicating severe financial distress or non-compliance that will eliminate its public market access.",
-      "why_now": "The Japan Exchange Group announced the decision on delisting Abalance Corporation today, effective August 25, 2026.",
-      "conviction": 80,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-05d98e75c7c3"
-      ],
-      "primary_source_event_id": "EVT-05d98e75c7c3",
-      "source_headlines": [
-        "Decision on Delisting, etc.: Abalance Corporation"
-      ],
-      "source_headline": "[TSE]Decision on Delisting, etc.: Abalance Corporation",
-      "source_url": "https://www.jpx.co.jp/english/news/1023/20260825-12.html",
-      "source_name": "Japan Exchange Group (JPX) — Market News",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-25T07:45:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-25T10:36:18Z",
-      "updated_at": "2026-08-25T10:36:18Z",
-      "decay_at": "2026-08-26T19:45:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-8b9f3e9f0b64",
       "idea_version": "IDEAV-c756c5bb3afcddeb",
       "idea_version_started_at": "2026-08-25T10:36:18Z",
@@ -81054,77 +80983,6 @@
       "surfaced_at": "2026-08-25T10:36:18Z",
       "updated_at": "2026-08-25T10:36:18Z",
       "decay_at": "2026-08-26T21:42:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-90771b14dcb3",
-      "idea_version": "IDEAV-01e2cd27c752c40a",
-      "idea_version_started_at": "2026-08-25T10:36:18Z",
-      "ticker": "08377",
-      "company": "Harbour Equine",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Harbour Equine issued a profit warning, signaling a significant deterioration in its expected earnings.",
-      "why_now": "The company released a profit warning today, indicating immediate negative impact on its financial outlook.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-5cfed5eaf9b6"
-      ],
-      "primary_source_event_id": "EVT-5cfed5eaf9b6",
-      "source_headlines": [
-        "HARBOUR EQUINE (08377): PROFIT WARNING"
-      ],
-      "source_headline": "HARBOUR EQUINE (08377): PROFIT WARNING",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/0825/2026082500372.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-25T08:31:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-25T10:36:18Z",
-      "updated_at": "2026-08-25T10:36:18Z",
-      "decay_at": "2026-08-26T20:31:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -82044,6 +81902,219 @@
       "surfaced_at": "2026-08-25T09:09:48Z",
       "updated_at": "2026-08-25T09:09:48Z",
       "decay_at": "2026-08-26T01:30:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-3d6e58f72681",
+      "idea_version": "IDEAV-884aacf771ac6a84",
+      "idea_version_started_at": "2026-08-25T10:36:18Z",
+      "ticker": "00397",
+      "company": "Minerva Group",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Minerva Group issued a supplemental profit warning, indicating worse-than-expected financial performance for the first half of 2026.",
+      "why_now": "The company filed a supplemental profit warning today for the six months ended June 30, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-38ecff884b68"
+      ],
+      "primary_source_event_id": "EVT-38ecff884b68",
+      "source_headlines": [
+        "MINERVA GROUP (00397): SUPPLEMENTAL ANNOUNCEMENT IN RELATION TO THE PROFIT WARNING ANNOUNCEMENT FOR THE SIX MONTHS ENDED 30 JUNE 2026"
+      ],
+      "source_headline": "MINERVA GROUP (00397): SUPPLEMENTAL ANNOUNCEMENT IN RELATION TO THE PROFIT WARNING ANNOUNCEMENT FOR THE SIX MONTHS ENDED 30 JUNE 2026",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0825/2026082500380.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-25T08:31:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-25T10:36:18Z",
+      "updated_at": "2026-08-25T10:36:18Z",
+      "decay_at": "2026-08-26T20:31:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-6cd689f1508e",
+      "idea_version": "IDEAV-3d678ffe2f37074f",
+      "idea_version_started_at": "2026-08-25T10:36:18Z",
+      "ticker": "2986",
+      "company": "Abalance Corporation",
+      "exchange": "TSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Abalance Corporation faces delisting from the Japan Exchange Group, indicating severe financial distress or non-compliance that will eliminate its public market access.",
+      "why_now": "The Japan Exchange Group announced the decision on delisting Abalance Corporation today, effective August 25, 2026.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-05d98e75c7c3"
+      ],
+      "primary_source_event_id": "EVT-05d98e75c7c3",
+      "source_headlines": [
+        "Decision on Delisting, etc.: Abalance Corporation"
+      ],
+      "source_headline": "[TSE]Decision on Delisting, etc.: Abalance Corporation",
+      "source_url": "https://www.jpx.co.jp/english/news/1023/20260825-12.html",
+      "source_name": "Japan Exchange Group (JPX) — Market News",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-25T07:45:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-25T10:36:18Z",
+      "updated_at": "2026-08-25T10:36:18Z",
+      "decay_at": "2026-08-26T19:45:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-90771b14dcb3",
+      "idea_version": "IDEAV-01e2cd27c752c40a",
+      "idea_version_started_at": "2026-08-25T10:36:18Z",
+      "ticker": "08377",
+      "company": "Harbour Equine",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Harbour Equine issued a profit warning, signaling a significant deterioration in its expected earnings.",
+      "why_now": "The company released a profit warning today, indicating immediate negative impact on its financial outlook.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-5cfed5eaf9b6"
+      ],
+      "primary_source_event_id": "EVT-5cfed5eaf9b6",
+      "source_headlines": [
+        "HARBOUR EQUINE (08377): PROFIT WARNING"
+      ],
+      "source_headline": "HARBOUR EQUINE (08377): PROFIT WARNING",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/0825/2026082500372.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-25T08:31:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-25T10:36:18Z",
+      "updated_at": "2026-08-25T10:36:18Z",
+      "decay_at": "2026-08-26T20:31:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -84992,8 +85063,8 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 137,
-    "shown_count": 137,
+    "total_count": 140,
+    "shown_count": 140,
     "hidden_count": 0,
     "side_counts": {
       "long": {
@@ -85002,8 +85073,8 @@
         "hidden_count": 0
       },
       "short": {
-        "total_count": 81,
-        "shown_count": 81,
+        "total_count": 84,
+        "shown_count": 84,
         "hidden_count": 0
       }
     },
@@ -85023,6 +85094,228 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-3d6e58f72681",
+        "idea_version": "IDEAV-884aacf771ac6a84",
+        "idea_version_started_at": "2026-08-25T10:36:18Z",
+        "ticker": "00397",
+        "company": "Minerva Group",
+        "exchange": "HKEX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "Minerva Group issued a supplemental profit warning, indicating worse-than-expected financial performance for the first half of 2026.",
+        "why_now": "The company filed a supplemental profit warning today for the six months ended June 30, 2026.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-38ecff884b68"
+        ],
+        "primary_source_event_id": "EVT-38ecff884b68",
+        "source_headlines": [
+          "MINERVA GROUP (00397): SUPPLEMENTAL ANNOUNCEMENT IN RELATION TO THE PROFIT WARNING ANNOUNCEMENT FOR THE SIX MONTHS ENDED 30 JUNE 2026"
+        ],
+        "source_headline": "MINERVA GROUP (00397): SUPPLEMENTAL ANNOUNCEMENT IN RELATION TO THE PROFIT WARNING ANNOUNCEMENT FOR THE SIX MONTHS ENDED 30 JUNE 2026",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0825/2026082500380.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-25T08:31:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-25T10:36:18Z",
+        "updated_at": "2026-08-25T10:36:18Z",
+        "decay_at": "2026-08-26T20:31:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-26T20:31:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-90771b14dcb3",
+        "idea_version": "IDEAV-01e2cd27c752c40a",
+        "idea_version_started_at": "2026-08-25T10:36:18Z",
+        "ticker": "08377",
+        "company": "Harbour Equine",
+        "exchange": "HKEX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "Harbour Equine issued a profit warning, signaling a significant deterioration in its expected earnings.",
+        "why_now": "The company released a profit warning today, indicating immediate negative impact on its financial outlook.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 20,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-5cfed5eaf9b6"
+        ],
+        "primary_source_event_id": "EVT-5cfed5eaf9b6",
+        "source_headlines": [
+          "HARBOUR EQUINE (08377): PROFIT WARNING"
+        ],
+        "source_headline": "HARBOUR EQUINE (08377): PROFIT WARNING",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/0825/2026082500372.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-25T08:31:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-25T10:36:18Z",
+        "updated_at": "2026-08-25T10:36:18Z",
+        "decay_at": "2026-08-26T20:31:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-26T20:31:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-6cd689f1508e",
+        "idea_version": "IDEAV-3d678ffe2f37074f",
+        "idea_version_started_at": "2026-08-25T10:36:18Z",
+        "ticker": "2986",
+        "company": "Abalance Corporation",
+        "exchange": "TSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "Abalance Corporation faces delisting from the Japan Exchange Group, indicating severe financial distress or non-compliance that will eliminate its public market access.",
+        "why_now": "The Japan Exchange Group announced the decision on delisting Abalance Corporation today, effective August 25, 2026.",
+        "conviction": 80,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "balance_sheet_survival",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-05d98e75c7c3"
+        ],
+        "primary_source_event_id": "EVT-05d98e75c7c3",
+        "source_headlines": [
+          "Decision on Delisting, etc.: Abalance Corporation"
+        ],
+        "source_headline": "[TSE]Decision on Delisting, etc.: Abalance Corporation",
+        "source_url": "https://www.jpx.co.jp/english/news/1023/20260825-12.html",
+        "source_name": "Japan Exchange Group (JPX) — Market News",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-25T07:45:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-25T10:36:18Z",
+        "updated_at": "2026-08-25T10:36:18Z",
+        "decay_at": "2026-08-26T19:45:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-26T19:45:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-8431f766b3ed",
         "idea_version": "IDEAV-f04415eb6299e5c8",
@@ -95179,8 +95472,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 168,
-    "live_count": 30,
+    "surfaced_total": 169,
+    "live_count": 28,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -95199,9 +95492,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3822063,
-    "news_picked_today": 2173,
-    "news_dropped_today": 16139
+    "news_seen_today": 4129385,
+    "news_picked_today": 2258,
+    "news_dropped_today": 17614
   },
   "book_momentum": {
     "live_count": 8,

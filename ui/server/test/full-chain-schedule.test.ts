@@ -10,7 +10,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 import {
   cancelSubject, type FullChainDeps, getParityCanaryChainStatus, haltAllChains,
-  launchFullChained, subjectChainActive,
+  launchFullChained, subjectChainActive, wireChainedRunFinish,
 } from '../src/launcher'
 import { FULL_PER_MODULE, REPO_ROOT } from '../src/config'
 import { sharedDataPoolConflict } from '../src/intake-owner'
@@ -102,6 +102,36 @@ function makeFake(opts?: { fail429Once?: string[]; graph?: SwarmGraph; failMaste
 const sorted = (a: string[]) => [...a].sort()
 
 ;(async () => {
+  await check('a child that finishes before launch ACK replays only after the ACK turn instead of stranding the chain', async () => {
+    const delivered: RunStatus[] = []
+    const terminal = {
+      chained: false,
+      endedAt: Date.now(),
+      finishLogged: true,
+      status: 'error' as RunStatus,
+      onFinish: undefined,
+    }
+    wireChainedRunFinish(terminal, (status) => { delivered.push(status) })
+    assert.equal(terminal.chained, true, 'the terminal child keeps chained cancellation identity')
+    assert.deepEqual(delivered, [], 'the terminal outcome cannot advance the DAG before the launch ACK settles')
+    assert.equal(terminal.onFinish, undefined, 'no dead callback is stored after terminal completion')
+
+    await new Promise<void>((resolve) => setImmediate(resolve))
+    assert.deepEqual(delivered, ['error'], 'the already-recorded terminal outcome is replayed exactly once after the ACK turn')
+
+    const live = {
+      chained: false,
+      endedAt: undefined,
+      finishLogged: false,
+      status: 'running' as RunStatus,
+      onFinish: undefined as ((status: RunStatus) => void) | undefined,
+    }
+    wireChainedRunFinish(live, (status) => { delivered.push(status) })
+    assert.equal(delivered.length, 1, 'a live child does not fire its terminal callback early')
+    live.onFinish?.('done')
+    assert.deepEqual(delivered, ['error', 'done'], 'the live child remains wired for ordinary completion')
+  })
+
   // sanity: the expected schedule below is written for THIS exact research DAG. If a module is added or a
   // dependency changes, this fails first (loudly) so the schedule assertions get re-checked.
   await check('research DAG is the expected 7-module shape', () => {

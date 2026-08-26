@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useLayoutEffect, useRef, type ReactNode } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
-import { useStore } from '../lib/store'
+import { isLaunchHealthBlocked, useStore } from '../lib/store'
 import { ABSENT_PRICE_COPY, decisionColor, livePriceLabel, livePriceTitle, money, priceQualifier, resolveConfidence, resolveVerdict, resolveVerdictOriginal, shortDay, verdictIsCapped } from '../lib/format'
 import { commodityDecisionProjection, type CommodityHorizonCard } from '../lib/commodityDecision'
 import type { QuoteAbsentReason, WhatChangedRead } from '../lib/types'
@@ -325,7 +325,7 @@ export function DecisionBanner() {
   // On a default open the manifest resolves to the standing run, so runRoot === standingRunRoot; opening
   // the partial from run history makes them differ.
   const viewingStanding = !runRoot || runRoot === standingRunRoot
-  const engineDown = health === 'engine-offline' || health === 'your-network' || health === 'session-expired'
+  const engineDown = isLaunchHealthBlocked(health)
 
   if (dataStatus && !dataStatus.hasAnyData) return null
   if (hasActiveRun) return null

@@ -42,9 +42,13 @@ assert.equal(useStore.getState().toolsOpen, false, 'opening Calls closes Tools')
 
 const bar = renderToStaticMarkup(createElement(CommandBar))
 assert.equal((bar.match(/data-tools-entry="true"/g) || []).length, 1, 'the shared top bar exposes one Tools entry')
-assert.match(bar, />Tools<\/button>/)
+assert.match(bar, />Workspace<span/, 'secondary tools are grouped under the compact Workspace menu')
+assert.match(bar, /class="tickerpick providerpick"/,
+  'the provider and canary controller stays mounted while the Status menu is closed, so deep links can open it')
 
 const globalCss = fs.readFileSync(path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../styles/global.css'), 'utf8')
+assert.match(globalCss, /\.barmenu__panel\[hidden\]\s*\{\s*display:\s*none;/,
+  'a mounted closed menu remains visually hidden')
 assert.match(globalCss, /@media \(max-width: 1700px\)[\s\S]*\.brand__name, \.swarmswitch__label \{ display: none; \}/,
   'the top bar yields brand and switcher text before a new action can create a clipping band')
 
