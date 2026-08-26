@@ -36,6 +36,7 @@ import {
   deterministicCycleId,
   deterministicDecisionId,
   credentialRejected,
+  compareFiniteRank,
   evaluateProviderRouting,
   recordProviderDecision,
   recordProviderOutcome,
@@ -1727,7 +1728,7 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
         const band = bandWeight(left) - bandWeight(right)
         if (band) return band
         return routingEvaluation.router.mode === 'adaptive'
-          ? (left.rank ?? Infinity) - (right.rank ?? Infinity) || left.order - right.order
+          ? compareFiniteRank(left.rank, right.rank) || left.order - right.order
           : left.order - right.order
       })
       const actualRanks = new Map(actualOrder.map((candidate, index) => [candidate.id, index + 1]))

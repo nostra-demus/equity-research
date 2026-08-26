@@ -5941,11 +5941,18 @@ await check('adaptive actual provider ranks keep Haiku first and tolerate missin
     { id: 'groq', band: 'direct', order: 0, eligible: true, rank: 1 },
     { id: 'anthropic-triage', band: 'direct', order: -1, eligible: true, rank: 3 },
     { id: 'mistral', band: 'direct', order: 1, eligible: true, rank: null },
+    { id: 'openrouter', band: 'direct', order: 2, eligible: true, rank: undefined },
+    { id: 'nvidia', band: 'direct', order: 3, eligible: true, rank: Number.NaN },
   ] as any
   const ranks = actualProviderRanks(candidates, 'adaptive')
   assert.equal(ranks.get('anthropic-triage'), 1, 'priority 1 overrides the lower-cost fallback fitness rank')
   assert.equal(ranks.get('groq'), 2)
   assert.equal(ranks.get('mistral'), 3, 'an unranked provider sorts last without an Infinity-minus-Infinity NaN')
+  assert.deepEqual(
+    [...actualProviderRanks([...candidates].reverse(), 'adaptive').entries()],
+    [...ranks.entries()],
+    'null, undefined, and NaN ranks produce the same order when the input direction is reversed',
+  )
 })
 
 await check('getNewsDiagnostics: enumerates every tier in routing order, with the backlog gauge + honest defer block', async () => {

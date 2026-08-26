@@ -28,7 +28,7 @@ import { readProviderQuarantine, type ProviderQuarantine } from './provider-fail
 import { preTriagePriority } from './rank'
 import { buildPipelineFlowRates, readPipelineFlowCycles, type PipelineFlowHistory, type PipelineFlowRates } from './pipeline-flow'
 import { omniRouteDisabledReason } from './omniroute-provision-status'
-import { credentialRejected, evaluateProviderRouting, type ProviderCandidateScore, type ProviderRouterMetadata, type ProviderRouterMode, type ProviderRoutingCandidate } from './provider-routing'
+import { compareFiniteRank, credentialRejected, evaluateProviderRouting, type ProviderCandidateScore, type ProviderRouterMetadata, type ProviderRouterMode, type ProviderRoutingCandidate } from './provider-routing'
 import { evaluateScannerHealth, type ScannerHealthVerdict } from './scanner-health'
 import {
   getRescueDiagnostics, runRescueShadowPass, setRescueNormalIdeasRuntimePause,
@@ -1283,13 +1283,8 @@ export function actualProviderRanks(candidates: ProviderCandidateScore[], mode: 
     if (mode === 'adaptive') {
       const band = bandWeight(left) - bandWeight(right)
       if (band) return band
-      const leftRank = left.rank
-      const rightRank = right.rank
-      if (leftRank !== rightRank) {
-        if (leftRank == null || !Number.isFinite(leftRank)) return 1
-        if (rightRank == null || !Number.isFinite(rightRank)) return -1
-        return leftRank - rightRank
-      }
+      const rank = compareFiniteRank(left.rank, right.rank)
+      if (rank) return rank
     }
     return left.order - right.order
   })
@@ -1614,12 +1609,7 @@ export function getNewsDiagnostics(options: { omniRouteHomeDir?: string } = {}):
   if (routing.router.mode === 'adaptive') {
     const bandOrder = (tier: TierDiagnostics): number => aggregateIds.has(tier.id) ? 1 : localFallbackIds.has(tier.id) ? 2 : 0
     const actualRankOrder = (left: TierDiagnostics, right: TierDiagnostics): number => {
-      const leftRank = left.routing?.actualRank
-      const rightRank = right.routing?.actualRank
-      if (leftRank === rightRank) return 0
-      if (leftRank == null || !Number.isFinite(leftRank)) return 1
-      if (rightRank == null || !Number.isFinite(rightRank)) return -1
-      return leftRank - rightRank
+      return compareFiniteRank(left.routing?.actualRank, right.routing?.actualRank)
     }
     tiers.sort((left, right) => bandOrder(left) - bandOrder(right)
       || (left.routing?.eligible === true ? 0 : 1) - (right.routing?.eligible === true ? 0 : 1)
