@@ -795,7 +795,6 @@ class ProjectionManager:
         writer_owner = controlled_writer_owner_sha256(self.writer_owner_path)
         writer_head = controlled_writer_head_sha256(self.writer_head_path)
         as_of = _utc(now)
-        registry = self._identity(as_of)
         diagnostics: tuple[dict[str, Any], ...] = ()
         try:
             if force_rebuild:
@@ -804,6 +803,10 @@ class ProjectionManager:
                 self.checkpoint_path, verifier=self.verifier, repository_sha=repository_sha,
                 writer_owner_sha256=writer_owner, writer_head_sha256=writer_head,
             )
+            # The registry's as-of clock is part of its signed checkpoint commitment. Reconstruct the
+            # same bytes using that frozen clock; using the current wall clock here would make an
+            # unchanged projection look stale on every later run and force a needless full rebuild.
+            registry = self._identity(str(checkpoint["created_at"]))
             projection = verify_projection(
                 self.database, expected_digest=checkpoint["projection_digest"].removeprefix("sha256:")
             )
@@ -813,6 +816,7 @@ class ProjectionManager:
                 raise MemoryRuntimeError("external-checkpoint-count-stale")
             source = "production-projection"
         except (OSError, sqlite3.Error, ProjectionError, MemoryRuntimeError):
+            registry = self._identity(as_of)
             events, adapter_diagnostics = self.event_loader(self.repo_root)
             if self.canonical_ledger_path is not None:
                 operational = load_controlled_ledger_events(

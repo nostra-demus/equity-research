@@ -7,7 +7,7 @@
 // DRIVE it's a member of (set GDRIVE_SHARED_DRIVE_ID). Writing into a plain My Drive folder fails with a
 // quota error — use an OAuth refresh token for a real account in that case. Every call passes
 // supportsAllDrives so Shared Drives work.
-import type { Readable } from 'node:stream'
+import { Readable } from 'node:stream'
 import { drive, auth, type drive_v3 } from '@googleapis/drive'
 import { GDRIVE, GDRIVE_ENABLED } from './config'
 
@@ -65,6 +65,10 @@ export async function companyFolderExists(ticker: string): Promise<boolean> {
 
 const folderCache = new Map<string, string>() // ticker -> folderId
 const inflight = new Map<string, Promise<string>>() // per-ticker lock — no duplicate-create race
+const identityInflight = new Map<string, {
+  canonical: string
+  promise: Promise<{ created: boolean; id: string }>
+}>()
 
 /** Find-or-create the <TICKER> sub-folder under the shared data folder; returns its Drive id. */
 export async function ensureCompanyFolder(ticker: string): Promise<string> {
@@ -104,6 +108,46 @@ export async function uploadToCompany(ticker: string, filename: string, mimeType
   })
   if (!res.data.id) throw new Error('Drive did not return a file id')
   return { id: res.data.id, name: res.data.name || filename }
+}
+
+/**
+ * Create the public legal-listing sidecar exactly once. An interrupted folder creation can retry and
+ * finish the sidecar; an existing identity is never silently overwritten by another Add-company call.
+ */
+export async function ensureCompanyIdentity(ticker: string, identity: unknown): Promise<{ created: boolean; id: string }> {
+  const canonical = JSON.stringify(identity)
+  const pending = identityInflight.get(ticker)
+  if (pending) {
+    if (pending.canonical === canonical) return pending.promise
+    // Do not let a same-ticker request carrying a different legal tuple inherit the first request's
+    // successful result. Wait for the exact-once write, then re-read it; the caller will receive
+    // `created: false` and reject the conflicting request rather than claiming its tuple was stored.
+    await pending.promise
+    return ensureCompanyIdentity(ticker, identity)
+  }
+  const task = (async () => {
+    const folderId = await ensureCompanyFolder(ticker)
+    const existing = await client().files.list({
+      q: `name='.research-identity.json' and '${escapeQ(folderId)}' in parents and trashed=false`,
+      fields: 'files(id,name,createdTime)',
+      orderBy: 'createdTime',
+      pageSize: 10,
+      ...sharedDriveListParams(),
+    })
+    const fileId = existing.data.files?.[0]?.id
+    if (fileId) return { created: false, id: fileId }
+    const body = Buffer.from(`${JSON.stringify(identity, null, 2)}\n`, 'utf8')
+    const created = await client().files.create({
+      requestBody: { name: '.research-identity.json', parents: [folderId] },
+      media: { mimeType: 'application/json', body: Readable.from([body]) },
+      fields: 'id',
+      supportsAllDrives: true,
+    })
+    if (!created.data.id) throw new Error('Drive did not return an identity file id')
+    return { created: true, id: created.data.id }
+  })().finally(() => identityInflight.delete(ticker))
+  identityInflight.set(ticker, { canonical, promise: task })
+  return task
 }
 
 // ---- watchlist attachments ----

@@ -28,7 +28,10 @@ from memory_shadow_bootstrap import (  # noqa: E402
     POLICY_KEY_ID,
     PROTECTED_KEY_ID,
     SERVICE_IDENTITY,
+    _create_private_file,
     _parse_provider_models,
+    _pending_path,
+    _pending_record,
     provision,
     status,
 )
@@ -42,6 +45,7 @@ class MemoryShadowBootstrapTests(unittest.TestCase):
         self.environment = self.private / "config" / "providers.env"
         self.models = _parse_provider_models([
             "codex/gpt-5.6-sol",
+            "codex/gpt-5.6-terra",
             "claude/sonnet",
             "codex/gpt-5.6-sol",
         ])
@@ -119,14 +123,32 @@ class MemoryShadowBootstrapTests(unittest.TestCase):
         )
         environment = self.environment.read_text()
         self.assertIn("NOSTRA_MEMORY_MODE=shadow\n", environment)
-        self.assertIn("NOSTRA_MEMORY_WRITER_OWNER=memory-canonical-writer\n", environment)
         self.assertIn(
             f"NOSTRA_MEMORY_WRITER_OWNER_PATH={paths['writer_owner']}\n",
             environment,
         )
+        for inactive in (
+            "NOSTRA_MEMORY_CANDIDATE_INTAKE_IDENTITY",
+            "NOSTRA_MEMORY_VERIFIER_IDENTITY",
+            "NOSTRA_MEMORY_WRITER_OWNER",
+            "NOSTRA_MEMORY_PROMOTION_SERVICE_IDENTITY",
+            "NOSTRA_MEMORY_RESTORE_SERVICE_IDENTITY",
+        ):
+            self.assertNotIn(f"{inactive}=", environment)
         self.assertNotEqual(
             "memory-canonical-writer",
             str(paths["writer_owner"]),
+        )
+        writer_configuration = json.loads(
+            (paths["writer_state"] / "journal" / "configuration.json").read_text()
+        )["configuration"]
+        self.assertEqual(
+            writer_configuration["promotion_manifest_verifier_id"],
+            "memory-promotion-manifest-verifier-v1",
+        )
+        self.assertEqual(
+            writer_configuration["retirement_proof_verifier_id"],
+            "memory-retirement-proof-verifier-v1",
         )
 
         for directory in (self.base, paths["state_root"], paths["protected_store"]):
@@ -145,7 +167,9 @@ class MemoryShadowBootstrapTests(unittest.TestCase):
             before_keys,
             {name: paths[name].read_bytes() for name in before_keys},
         )
-        self.assertTrue(status(base_root=self.base)["ok"])
+        checked = status(base_root=self.base, projection_verifier=self.fake_projection)
+        self.assertTrue(checked["ok"])
+        self.assertEqual(checked["snapshot"]["projection_digest"], "sha256:" + "a" * 64)
         self.environment.write_text(
             self.environment.read_text().replace(
                 "NOSTRA_MEMORY_MODE=shadow", "NOSTRA_MEMORY_MODE=off",
@@ -153,10 +177,12 @@ class MemoryShadowBootstrapTests(unittest.TestCase):
         )
         os.chmod(self.environment, 0o600)
         with self.assertRaisesRegex(BootstrapError, "NOSTRA_MEMORY_MODE does not match"):
-            status(base_root=self.base)
+            status(base_root=self.base, projection_verifier=self.fake_projection)
 
     def test_refuses_partial_root_and_different_provider_policy(self) -> None:
         self.base.mkdir(mode=0o700)
+        with self.assertRaisesRegex(BootstrapError, "without a verified bootstrap manifest"):
+            self.provision()
         (self.base / "unexpected").write_text("do not replace")
         with self.assertRaisesRegex(BootstrapError, "without a verified bootstrap manifest"):
             self.provision()
@@ -185,10 +211,51 @@ class MemoryShadowBootstrapTests(unittest.TestCase):
             self.provision()
         self.assertFalse(self.base.exists())
 
+    def test_recovers_only_a_matching_interrupted_bootstrap(self) -> None:
+        self.base.mkdir(mode=0o700)
+        identity = (self.base.stat().st_dev, self.base.stat().st_ino)
+        pending = _pending_record(
+            repository_root=ROOT,
+            base_root=self.base,
+            environment_file=self.environment,
+            provider_models=self.models,
+            root_identity=identity,
+            nonce="a" * 64,
+        )
+        raw = json.dumps(pending).encode("utf-8")
+        _create_private_file(self.base / ".bootstrap-pending.json", raw)
+        _create_private_file(_pending_path(self.base), raw)
+        (self.base / "keys").mkdir(mode=0o700)
+        _create_private_file(self.base / "keys" / "partial.key", b"interrupted")
+
+        result = self.provision()
+        self.assertTrue(result["created"])
+        self.assertFalse((self.base / ".bootstrap-pending.json").exists())
+        self.assertFalse(_pending_path(self.base).exists())
+        self.assertTrue((self.base / "bootstrap-manifest.json").is_file())
+
     def test_parser_rejects_malformed_provider_models(self) -> None:
         for value in ("codex", "/gpt-5", "Codex/gpt-5", "codex/has space"):
             with self.subTest(value=value), self.assertRaises(BootstrapError):
                 _parse_provider_models([value])
+
+    def test_refuses_repository_local_state_or_environment(self) -> None:
+        with self.assertRaisesRegex(BootstrapError, "state root must live outside"):
+            provision(
+                repository_root=ROOT,
+                base_root=ROOT / ".unsafe-memory-test",
+                environment_file=self.environment,
+                provider_models=self.models,
+                projection_preparer=self.fake_projection,
+            )
+        with self.assertRaisesRegex(BootstrapError, "environment file must live outside"):
+            provision(
+                repository_root=ROOT,
+                base_root=self.base,
+                environment_file=ROOT / "providers.env",
+                provider_models=self.models,
+                projection_preparer=self.fake_projection,
+            )
 
 
 if __name__ == "__main__":

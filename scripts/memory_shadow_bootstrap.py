@@ -1,11 +1,10 @@
 #!/usr/bin/env python3
-"""Provision the owner-only, deny-all production boundary used for memory shadow runs.
+"""Provision the owner-only production boundary used for memory shadow runs.
 
 This command is intentionally narrower than the memory promotion/runtime CLIs. It can create only
 ``shadow`` configuration, never ``enforced`` configuration, canonical content, active lessons, or
-active playbooks. The controlled writer it creates denies every write and recovery request; its sole
-purpose is to give projection snapshots a real, immutable genesis owner/head while the live shadow
-evidence is collected.
+active playbooks. It creates the immutable controlled-writer genesis configuration, but deliberately
+installs no canonical-writer service identity or credential while shadow evidence is collected.
 """
 from __future__ import annotations
 
@@ -13,7 +12,6 @@ import argparse
 import base64
 import contextlib
 import datetime as dt
-import fcntl
 import hashlib
 import importlib.util
 import json
@@ -25,6 +23,11 @@ import stat
 import sys
 from pathlib import Path
 from typing import Any, Callable, Iterator, Mapping, Sequence
+
+try:
+    import fcntl
+except ImportError:  # pragma: no cover - the production bootstrap must fail closed off POSIX
+    fcntl = None  # type: ignore[assignment]
 
 from canonical_json import canonical_json_bytes, canonical_sha256
 from memory_controlled_write import ControlledWriter, NdjsonCanonicalSink
@@ -49,17 +52,44 @@ from research_memory_run import ed25519_contract_signer, ed25519_contract_verifi
 
 
 SCHEMA = "memory-shadow-bootstrap-manifest/v1"
+PENDING_SCHEMA = "memory-shadow-bootstrap-pending/v1"
 PROTECTED_KEY_ID = "key:memory-protected-v1"
 CHECKPOINT_KEY_ID = "memory-checkpoint-v1"
 CONTRACT_KEY_ID = "memory-contract-v1"
 POLICY_KEY_ID = "memory-provider-policy-v1"
 SERVICE_IDENTITY = "cockpit-runtime"
+PROVENANCE_VERIFIER_ID = "memory-candidate-provenance-v1"
+AUTHORITY_RESOLVER_ID = "memory-authoritative-event-resolver-v1"
+PROMOTION_VERIFIER_ID = "memory-promotion-manifest-verifier-v1"
+QUARANTINE_AUTHORIZER_ID = "memory-emergency-quarantine-v1"
+RETIREMENT_VERIFIER_ID = "memory-retirement-proof-verifier-v1"
 PROVIDER_MODEL_RE = re.compile(r"^([a-z][a-z0-9._-]{0,63})/(\S{1,256})$")
 HASH_RE = re.compile(r"^sha256:[0-9a-f]{64}$")
 
 
 class BootstrapError(RuntimeError):
     """The private shadow boundary could not be provisioned safely."""
+
+
+def _require_posix_security() -> None:
+    if (
+        os.name != "posix"
+        or fcntl is None
+        or not hasattr(os, "getuid")
+        or not hasattr(os, "fchmod")
+        or not hasattr(os, "O_NOFOLLOW")
+    ):
+        raise BootstrapError("shadow bootstrap requires POSIX ownership, no-follow, chmod, and flock")
+
+
+def _require_outside_repository(repository_root: Path, path: Path, *, label: str) -> None:
+    resolved = path.resolve(strict=False)
+    repository = repository_root.resolve(strict=True)
+    try:
+        resolved.relative_to(repository)
+    except ValueError:
+        return
+    raise BootstrapError(f"{label} must live outside the Git repository")
 
 
 def _utc_now() -> str:
@@ -273,12 +303,7 @@ def _environment_updates(paths: Mapping[str, Path], quarantine_token: str) -> di
         "NOSTRA_MEMORY_POLICY_PUBLIC_KEY": str(paths["policy_public_key"]),
         "NOSTRA_MEMORY_POLICY_KEY_ID": POLICY_KEY_ID,
         "NOSTRA_MEMORY_SERVICE_IDENTITY": SERVICE_IDENTITY,
-        "NOSTRA_MEMORY_CANDIDATE_INTAKE_IDENTITY": "memory-candidate-intake",
-        "NOSTRA_MEMORY_VERIFIER_IDENTITY": "memory-independent-verifier",
-        "NOSTRA_MEMORY_WRITER_OWNER": "memory-canonical-writer",
-        "NOSTRA_MEMORY_PROMOTION_SERVICE_IDENTITY": "memory-promotion-pr",
         "NOSTRA_MEMORY_QUARANTINE_SERVICE_IDENTITY": "memory-emergency-quarantine",
-        "NOSTRA_MEMORY_RESTORE_SERVICE_IDENTITY": "memory-restore-retirement",
         "NOSTRA_MEMORY_QUARANTINE_TOKEN": quarantine_token,
         # This is deliberately last: one atomic providers.env replace makes the complete configuration
         # visible together, after every key, policy, writer anchor, and projection proof exists.
@@ -326,6 +351,7 @@ def _require_unconfigured_environment(repository_root: Path, environment_file: P
 
 @contextlib.contextmanager
 def _bootstrap_lock(base_root: Path) -> Iterator[None]:
+    _require_posix_security()
     parent = _safe_directory(base_root.parent, create=True)
     lock_path = parent / f".{base_root.name}.bootstrap.lock"
     descriptor = os.open(
@@ -345,6 +371,7 @@ def _bootstrap_lock(base_root: Path) -> Iterator[None]:
         ):
             raise BootstrapError("shadow bootstrap lock is unsafe")
         os.fchmod(descriptor, 0o600)
+        assert fcntl is not None
         fcntl.flock(descriptor, fcntl.LOCK_EX)
         yield
     finally:
@@ -377,6 +404,136 @@ def _paths(base_root: Path) -> dict[str, Path]:
         "quarantine_token": base_root / "keys" / "quarantine.token",
         "manifest": base_root / "bootstrap-manifest.json",
     }
+
+
+def _pending_path(base_root: Path) -> Path:
+    return base_root.parent / f".{base_root.name}.bootstrap.pending.json"
+
+
+def _pending_record(
+    *, repository_root: Path, base_root: Path, environment_file: Path,
+    provider_models: Sequence[tuple[str, str]], root_identity: tuple[int, int], nonce: str,
+) -> dict[str, Any]:
+    return {
+        "schema": PENDING_SCHEMA,
+        "repository_root": str(repository_root),
+        "base_root": str(base_root),
+        "environment_file": str(environment_file),
+        "provider_models": [
+            {"provider": provider, "model": model}
+            for provider, model in provider_models
+        ],
+        "root_device": root_identity[0],
+        "root_inode": root_identity[1],
+        "nonce": nonce,
+    }
+
+
+def _load_pending(path: Path) -> dict[str, Any]:
+    try:
+        value = json.loads(_safe_file(path))
+    except (UnicodeError, json.JSONDecodeError) as exc:
+        raise BootstrapError("shadow bootstrap recovery marker is invalid") from exc
+    fields = {
+        "schema", "repository_root", "base_root", "environment_file", "provider_models",
+        "root_device", "root_inode", "nonce",
+    }
+    if (
+        not isinstance(value, dict)
+        or set(value) != fields
+        or value.get("schema") != PENDING_SCHEMA
+        or not isinstance(value.get("root_device"), int)
+        or not isinstance(value.get("root_inode"), int)
+        or not isinstance(value.get("nonce"), str)
+        or len(str(value.get("nonce"))) != 64
+    ):
+        raise BootstrapError("shadow bootstrap recovery marker has an unsupported shape")
+    return value
+
+
+def _expected_pending(
+    value: Mapping[str, Any], *, repository_root: Path, base_root: Path,
+    environment_file: Path, provider_models: Sequence[tuple[str, str]],
+) -> bool:
+    return (
+        value.get("repository_root") == str(repository_root)
+        and value.get("base_root") == str(base_root)
+        and value.get("environment_file") == str(environment_file)
+        and value.get("provider_models") == [
+            {"provider": provider, "model": model}
+            for provider, model in provider_models
+        ]
+    )
+
+
+def _unlink_private(path: Path) -> None:
+    _safe_file(path)
+    path.unlink()
+
+
+def _cleanup_pending(base_root: Path) -> None:
+    for marker in (base_root / ".bootstrap-pending.json", _pending_path(base_root)):
+        if marker.exists() or marker.is_symlink():
+            _unlink_private(marker)
+
+
+def _recover_pending(
+    *, repository_root: Path, base_root: Path, environment_file: Path,
+    provider_models: Sequence[tuple[str, str]], manifest_path: Path,
+) -> None:
+    """Remove only an incomplete boundary proven to have been created by this exact request."""
+    external = _pending_path(base_root)
+    if manifest_path.exists() or manifest_path.is_symlink():
+        return
+    if not (base_root.exists() or base_root.is_symlink()):
+        if external.exists() or external.is_symlink():
+            pending = _load_pending(external)
+            if not _expected_pending(
+                pending, repository_root=repository_root, base_root=base_root,
+                environment_file=environment_file, provider_models=provider_models,
+            ):
+                raise BootstrapError("shadow bootstrap recovery marker belongs to another request")
+            _unlink_private(external)
+        return
+    root = base_root.lstat()
+    if stat.S_ISLNK(root.st_mode) or not stat.S_ISDIR(root.st_mode) or root.st_uid != os.getuid():
+        raise BootstrapError("shadow state root exists without a verified bootstrap manifest")
+    internal = base_root / ".bootstrap-pending.json"
+    entries = list(base_root.iterdir())
+    if not entries:
+        if not (external.exists() or external.is_symlink()):
+            raise BootstrapError("shadow state root exists without a verified bootstrap manifest")
+        pending = _load_pending(external)
+        if not _expected_pending(
+            pending, repository_root=repository_root, base_root=base_root,
+            environment_file=environment_file, provider_models=provider_models,
+        ):
+            raise BootstrapError("shadow bootstrap recovery marker belongs to another request")
+        if (pending["root_device"], pending["root_inode"]) != (root.st_dev, root.st_ino):
+            raise BootstrapError("shadow bootstrap recovery root identity changed")
+        base_root.rmdir()
+        _unlink_private(external)
+        return
+    if (
+        not (internal.exists() or internal.is_symlink())
+        or not (external.exists() or external.is_symlink())
+    ):
+        raise BootstrapError("shadow state root exists without a verified bootstrap manifest")
+    pending = _load_pending(internal)
+    if not _expected_pending(
+        pending, repository_root=repository_root, base_root=base_root,
+        environment_file=environment_file, provider_models=provider_models,
+    ):
+        raise BootstrapError("shadow bootstrap recovery marker belongs to another request")
+    if (pending["root_device"], pending["root_inode"]) != (root.st_dev, root.st_ino):
+        raise BootstrapError("shadow bootstrap recovery root identity changed")
+    if _load_pending(external) != pending:
+        raise BootstrapError("shadow bootstrap recovery markers disagree")
+    current = base_root.lstat()
+    if base_root.is_symlink() or (current.st_dev, current.st_ino) != (root.st_dev, root.st_ino):
+        raise BootstrapError("shadow bootstrap recovery root changed")
+    shutil.rmtree(base_root)
+    _unlink_private(external)
 
 
 def _artifact_hashes(paths: Mapping[str, Path]) -> dict[str, str]:
@@ -493,10 +650,14 @@ def _empty_authority(_event_id: str, _principal: object) -> None:
     return None
 
 
-def _prepare_projection(repository_root: Path, paths: Mapping[str, Path]) -> Mapping[str, Any]:
-    manager = ProjectionManager(
+def _retirement_denied(*_args: object, **_kwargs: object) -> bool:
+    return False
+
+
+def _projection_manager(repository_root: Path, paths: Mapping[str, Path]) -> ProjectionManager:
+    return ProjectionManager(
         repository_root,
-        paths["state_root"],
+        paths["state_root"] / "projection",
         checkpoint_path=paths["checkpoint"],
         writer_owner_path=paths["writer_owner"],
         writer_head_path=paths["writer_head"],
@@ -512,19 +673,35 @@ def _prepare_projection(repository_root: Path, paths: Mapping[str, Path]) -> Map
             paths["checkpoint_public_key"], key_id=CHECKPOINT_KEY_ID,
         ),
     )
-    snapshot = manager.prepare(force_rebuild=True)
+
+
+def _snapshot_result(snapshot: object) -> Mapping[str, Any]:
     return {
-        "source": snapshot.source,
-        "repository_sha": snapshot.repository_sha,
-        "projection_digest": snapshot.projection_digest,
-        "event_count": snapshot.event_count,
-        "checkpoint_sha256": snapshot.checkpoint_sha256,
+        "source": getattr(snapshot, "source"),
+        "repository_sha": getattr(snapshot, "repository_sha"),
+        "projection_digest": getattr(snapshot, "projection_digest"),
+        "event_count": getattr(snapshot, "event_count"),
+        "checkpoint_sha256": getattr(snapshot, "checkpoint_sha256"),
     }
+
+
+def _prepare_projection(repository_root: Path, paths: Mapping[str, Path]) -> Mapping[str, Any]:
+    return _snapshot_result(
+        _projection_manager(repository_root, paths).prepare(force_rebuild=True)
+    )
+
+
+def _verify_projection(repository_root: Path, paths: Mapping[str, Path]) -> Mapping[str, Any]:
+    # `prepare()` first verifies the shared signed projection and performs the one allowed clean rebuild
+    # if the repository SHA or projection bytes changed. No provider is invoked and providers.env is not
+    # touched, so a successful status always proves the same usable path the paid-run supervisor consumes.
+    return _snapshot_result(_projection_manager(repository_root, paths).prepare())
 
 
 def _new_boundary(
     repository_root: Path,
     paths: Mapping[str, Path],
+    environment_file: Path,
     provider_models: Sequence[tuple[str, str]],
     *,
     projection_preparer: Callable[[Path, Mapping[str, Path]], Mapping[str, Any]],
@@ -536,6 +713,17 @@ def _new_boundary(
     os.chmod(base_root, 0o700)
     created_identity = (base_root.stat().st_dev, base_root.stat().st_ino)
     try:
+        pending = _pending_record(
+            repository_root=repository_root,
+            base_root=base_root,
+            environment_file=environment_file,
+            provider_models=provider_models,
+            root_identity=created_identity,
+            nonce=secrets.token_hex(32),
+        )
+        pending_bytes = canonical_json_bytes(pending) + b"\n"
+        _create_private_file(_pending_path(base_root), pending_bytes)
+        _create_private_file(base_root / ".bootstrap-pending.json", pending_bytes)
         for name in ("runtime", "external", "canonical", "keys", "policy"):
             _safe_directory(base_root / name, create=True)
         _create_private_file(paths["protected_master_key"], secrets.token_bytes(32))
@@ -567,13 +755,21 @@ def _new_boundary(
             authorize_write=_deny,
             authorize_recovery=_deny,
             candidate_provenance_verifier=_provenance_denied,
-            candidate_provenance_verifier_id="shadow-bootstrap-deny-provenance-v1",
+            candidate_provenance_verifier_id=PROVENANCE_VERIFIER_ID,
             authoritative_event_resolver=_empty_authority,
-            authoritative_event_resolver_id="shadow-bootstrap-empty-authority-v1",
+            authoritative_event_resolver_id=AUTHORITY_RESOLVER_ID,
             memory_store=store,
             journal_cipher=AESGCMSIVEnvelopeCipher(
                 master, key_id="key:memory-shadow-journal-v1",
             ),
+            review_authorizer=_deny,
+            promotion_manifest_verifier=_deny,
+            promotion_manifest_verifier_id=PROMOTION_VERIFIER_ID,
+            quarantine_authorizer=_deny,
+            quarantine_authorizer_id=QUARANTINE_AUTHORIZER_ID,
+            authorize_retirement=_deny,
+            retirement_proof_verifier=_retirement_denied,
+            retirement_proof_verifier_id=RETIREMENT_VERIFIER_ID,
             repository_root=repository_root,
         )
         if not HASH_RE.fullmatch(writer.current_head()):
@@ -619,6 +815,11 @@ def _new_boundary(
                 shutil.rmtree(base_root)
         except OSError:
             pass
+        try:
+            if _pending_path(base_root).exists() or _pending_path(base_root).is_symlink():
+                _unlink_private(_pending_path(base_root))
+        except OSError:
+            pass
         raise
 
 
@@ -630,6 +831,7 @@ def provision(
     provider_models: Sequence[tuple[str, str]],
     projection_preparer: Callable[[Path, Mapping[str, Path]], Mapping[str, Any]] = _prepare_projection,
 ) -> dict[str, Any]:
+    _require_posix_security()
     require_crypto_backend()
     repository_root = Path(os.path.abspath(os.fspath(repository_root.expanduser())))
     if not (repository_root / ".git").exists() and not (
@@ -638,8 +840,19 @@ def provision(
         raise BootstrapError("repository root is not a Git checkout")
     base_root = Path(os.path.abspath(os.fspath(base_root.expanduser())))
     environment_file = Path(os.path.abspath(os.fspath(environment_file.expanduser())))
+    if environment_file.name != "providers.env":
+        raise BootstrapError("shadow environment file must be named providers.env")
+    _require_outside_repository(repository_root, base_root, label="shadow state root")
+    _require_outside_repository(repository_root, environment_file, label="shadow environment file")
     paths = _paths(base_root)
     with _bootstrap_lock(base_root):
+        _recover_pending(
+            repository_root=repository_root,
+            base_root=base_root,
+            environment_file=environment_file,
+            provider_models=provider_models,
+            manifest_path=paths["manifest"],
+        )
         if paths["manifest"].exists() or paths["manifest"].is_symlink():
             manifest = _load_manifest(paths["manifest"])
             verified_paths, stored_environment = _verify_manifest(
@@ -651,6 +864,7 @@ def provision(
                 raise BootstrapError("existing shadow boundary uses a different environment file")
             token = _safe_file(verified_paths["quarantine_token"]).decode("ascii")
             updates = _environment_updates(verified_paths, token)
+            _cleanup_pending(base_root)
             _write_environment(
                 repository_root,
                 environment_file,
@@ -672,6 +886,7 @@ def provision(
         created = _new_boundary(
             repository_root,
             paths,
+            environment_file,
             provider_models,
             projection_preparer=projection_preparer,
         )
@@ -683,6 +898,7 @@ def provision(
         }
         from memory_runtime import _atomic_private_write
         _atomic_private_write(paths["manifest"], manifest)
+        _cleanup_pending(base_root)
         token = _safe_file(paths["quarantine_token"]).decode("ascii")
         updates = _environment_updates(paths, token)
         _write_environment(
@@ -705,7 +921,11 @@ def provision(
         }
 
 
-def status(*, base_root: Path) -> dict[str, Any]:
+def status(
+    *, base_root: Path,
+    projection_verifier: Callable[[Path, Mapping[str, Path]], Mapping[str, Any]] = _verify_projection,
+) -> dict[str, Any]:
+    _require_posix_security()
     paths = _paths(Path(os.path.abspath(os.fspath(base_root.expanduser()))))
     manifest = _load_manifest(paths["manifest"])
     verified_paths, environment_file = _verify_manifest(manifest)
@@ -716,6 +936,7 @@ def status(*, base_root: Path) -> dict[str, Any]:
         environment_file,
         _environment_updates(verified_paths, token),
     )
+    snapshot = projection_verifier(repository_root, verified_paths)
     return {
         "schema": "memory-shadow-bootstrap-status/v1",
         "ok": True,
@@ -724,6 +945,7 @@ def status(*, base_root: Path) -> dict[str, Any]:
         "provider_models": manifest["provider_models"],
         "state_root": str(verified_paths["state_root"]),
         "environment_file": str(environment_file),
+        "snapshot": dict(snapshot),
     }
 
 
