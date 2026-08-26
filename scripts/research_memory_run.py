@@ -1138,6 +1138,12 @@ def materialize_memory_use(
     return use
 
 
+def task_episode_id(*, run_id: str, task_id: str, output: bytes) -> str:
+    """Return the deterministic typed episode ID before the full episode is materialized."""
+
+    return memory_id("task-episode", f"{run_id}|{task_id}|{sha(output)}")
+
+
 def build_task_episode(
     *, run_id: str, task_id: str, issuer_listing: Mapping[str, Any], agent_id: str,
     task: str, provider: str, model: str, prompt_program_sha: str, output: bytes,
@@ -1146,10 +1152,18 @@ def build_task_episode(
     procedure_execution_id: str | None = None, now: dt.datetime | None = None,
 ) -> dict[str, Any]:
     created = utc_now(now)
-    status = "completed" if attestation.get("valid") is True else "invalid"
+    gates = [dict(item) for item in quality_gates]
+    failed_gates = [
+        str(item.get("name")) for item in gates if item.get("passed") is not True
+    ]
+    status = (
+        "completed"
+        if attestation.get("valid") is True and not failed_gates
+        else "invalid"
+    )
     body = {
         "schema": TASK_EPISODE_SCHEMA,
-        "episode_id": memory_id("task-episode", f"{run_id}|{task_id}|{sha(output)}"),
+        "episode_id": task_episode_id(run_id=run_id, task_id=task_id, output=output),
         "run_id": run_id,
         "task_id": task_id,
         "issuer_listing": dict(issuer_listing),
@@ -1166,10 +1180,13 @@ def build_task_episode(
         "status": status,
         "latency_milliseconds": max(0, latency_milliseconds),
         "cost_microusd": max(0, cost_microusd),
-        "quality_gates": [dict(item) for item in quality_gates],
+        "quality_gates": gates,
         "use_attestation_id": attestation["attestation_id"],
         "procedure_execution_id": procedure_execution_id,
-        "error_codes": list(attestation.get("error_codes", [])),
+        "error_codes": [
+            *attestation.get("error_codes", []),
+            *(f"quality-gate-failed:{name}" for name in failed_gates),
+        ],
         "created_at": created,
     }
     body["episode_sha256"] = sha(body)
@@ -1216,5 +1233,5 @@ __all__ = [
     "materialize_memory_use", "memory_id", "sha", "load_provider_authorization",
     "store_provider_authorization", "verify_provider_authorization",
     "ed25519_contract_signer", "ed25519_contract_verifier", "store_packet", "store_run_receipt",
-    "utc_now", "validate_memory_use", "verify_run_receipt",
+    "task_episode_id", "utc_now", "validate_memory_use", "verify_run_receipt",
 ]

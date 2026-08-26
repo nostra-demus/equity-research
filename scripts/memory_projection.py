@@ -17,7 +17,7 @@ import tempfile
 from dataclasses import dataclass
 from itertools import zip_longest
 from pathlib import Path
-from typing import Iterable, Sequence
+from typing import Iterable, Mapping, Sequence
 
 from canonical_json import canonical_json, canonical_sha256
 from memory_contract import CLASSIFICATIONS, parse_aware_datetime, validate_event
@@ -150,6 +150,20 @@ def _policy_inheritance_errors(child: dict, parent: dict) -> list[str]:
     ):
         errors.append("upstream source licence prohibits content-bearing derivatives")
     return errors
+
+
+def policy_inheritance_errors(
+    child_policy: Mapping[str, object], parent_event: Mapping[str, object],
+) -> list[str]:
+    """Public fail-closed policy check for non-event derivatives such as inert candidates."""
+
+    if not isinstance(child_policy, Mapping) or not isinstance(parent_event, Mapping):
+        return ["candidate and upstream policy inputs must be objects"]
+    child = {"policy": dict(child_policy), "payload": {"schema": "memory-candidate/v1"}}
+    try:
+        return _policy_inheritance_errors(child, dict(parent_event))
+    except (KeyError, TypeError, ValueError, ProjectionError) as exc:
+        return [f"candidate policy could not be compared safely: {exc}"]
 
 
 def _event_validation_errors(event: dict) -> list[str]:

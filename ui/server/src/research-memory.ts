@@ -520,6 +520,8 @@ export async function attestResearchMemoryUse(
     '--authorization', binding.authorizationPath,
     '--authorization-sha256', binding.authorizationSha256,
     '--contract-private-key', config.contractPrivateKey,
+    '--protected-master-key', config.protectedMasterKey,
+    '--protected-key-id', config.protectedKeyId,
     '--agent-key', agentKey, '--task-id', agentKey,
     '--output', path.relative(REPO_ROOT, output).split(path.sep).join('/'), '--use', usePath,
     '--supervisor-id', config.serviceIdentity, '--output-gate-passed', '--mode', binding.mode,

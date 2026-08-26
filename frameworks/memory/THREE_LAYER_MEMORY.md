@@ -151,15 +151,19 @@ one.
 
 ## Usage verification
 
-Every analytical task returns `memory-use/v1`. It distinguishes used, checked/rejected,
+Every analytical task returns a closed memory-use draft. It distinguishes used, checked/rejected,
 contradicted, and inapplicable records; names current evidence; declares playbook execution or
-deviation; and commits candidate suggestions by hash.
+deviation; and may carry structured inert candidate suggestions. The supervisor, not the agent,
+derives candidate authorship, exact provenance, replay commitments, timestamps, IDs, and hashes. The
+canonical `memory-use/v1` commits only those supervisor-materialized hashes.
 
 The supervisor creates `memory-use-attestation/v1` only after checking output correspondence,
-current evidence, playbook steps, undeclared memory use, and canonical hashes. `valid` is the
-conjunction of those checks. In enforced mode an invalid declaration invalidates the analytical
-output under the existing retry policy. Any unresolved memory-contract failure blocks final Ideas
-admission.
+current evidence, playbook steps, undeclared memory use, and canonical hashes. Semantic suggestions
+must resolve to policy-compatible evidence in the frozen projection; procedure suggestions inherit
+the internal task boundary. A suggestion reaches the inert queue only after both this attestation and
+the ordinary output gate pass, under the shared backlog and rate limits. `valid` is the conjunction of
+the use checks. In enforced mode an invalid declaration invalidates the analytical output under the
+existing retry policy. Any unresolved memory-contract failure blocks final Ideas admission.
 
 ## Retention, incident, and recovery boundary
 
