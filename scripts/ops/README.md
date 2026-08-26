@@ -296,9 +296,14 @@ and serves `nostra-prod/ui/dist`. Runtime state (`ui/server/.state`, gitignored)
 scripts (`~/.nostra-ops/{deploy,watchdog}.sh`) live outside the tree so a fast-forward never disturbs them.
 
 ### How a change goes live (auto-deploy — `deploy.sh`)
-**Merge a PR to `main` → it's live in ≤~2 min. No manual step.** Every 120s `deploy.sh`:
+**Merge a PR to `main` → it receives priority on the next ≤~2 min deploy tick. No manual step.** Every
+120s `deploy.sh` first publishes a writer intent when the remote or built marker is ahead. An already-running
+research/scanner lifecycle finishes safely, but no new provider lifecycle is admitted ahead of the pending
+deployment; this bounds convergence to the current lifecycle plus one deploy tick instead of letting the
+one-minute backlog drain starve releases indefinitely. The deployer then:
 1. `git fetch`; if `origin/main` is ahead, **fast-forward only** (never resets — an unpushed local data
-   commit makes it *skip*, never discard) and skips entirely if a run is mid-write;
+   commit makes it *skip*, never discard). The launchd interval is the default merge debounce; there is no
+   additional quiet-period delay unless an operator explicitly configures one;
 2. acts on *what* changed: `ui/web/**` → rebuild `ui/dist` (served instantly, no restart);
    `ui/server/**` → `kickstart` the engine; a changed `package-lock` → `npm ci` first; data/docs only
    (`analyses/**`, `screener/**`, `*.md`) → nothing to rebuild;
@@ -492,7 +497,7 @@ Keep the rollback directory until the engine has restarted and the queue count h
 
 ```
 launchctl list | grep nostradamus                 # all agents (a doer also shows tunnel + calibration timers)
-curl -s http://127.0.0.1:8787/api/health          # {"ok":true,"repoRoot":".../nostra-prod"}
+curl -s http://127.0.0.1:8787/api/health          # ok + repoRoot + deploymentPending writer-priority state
 curl -fsS http://127.0.0.1:20128/healthz          # exact: ok (cheap every-tick OmniRoute liveness)
 curl -s https://app.nostra-demus.com/api/health   # public path (doer only)
 tail -f ~/Library/Logs/nostradamus-deploy.log     # auto-deploy log (DEPLOY/DONE lines)
