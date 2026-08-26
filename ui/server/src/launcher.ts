@@ -61,6 +61,7 @@ import {
   researchMemoryTaskStatus,
   verifyResearchMemoryBeforeSpawn,
 } from './research-memory'
+import { acquireProviderRunDeployLease } from './deploy-barrier'
 
 // Provider adapters may issue a short-lived auth/binary lease while building a launch spec. Keep the
 // disposer supervisor-owned and keyed by the in-memory RunState: it is never exported to the child env.
@@ -2347,7 +2348,11 @@ const subjectChainKey = (subjectId: string, swarmId: string) => `${swarmId}\u000
 // module is backed off on capacity between waves). Keep a token for that whole lifetime so disk-staging and
 // publish-only routes cannot mistake a child-transition gap for an idle subject. The token is deliberately
 // separate from child admission: deferred children carry `chained:true` and are allowed to join their owner.
-const activeSubjectChains = new Map<string, symbol>()
+interface ActiveSubjectChain {
+  token: symbol
+  releaseDeployBarrier: () => void
+}
+const activeSubjectChains = new Map<string, ActiveSubjectChain>()
 const cancelledChainIds = new Set<string>()
 
 export interface ParityCanaryChainStatus {
@@ -2383,25 +2388,32 @@ function acquireSubjectChainReservation(subjectId: string, swarmId = RESEARCH_SW
     error.body = { code: 'subject_busy' }
     throw error
   }
+  // Hold this across the WHOLE logical chain, including capacity backoff and the child-transition gap
+  // where no RunState exists. A per-child barrier alone would leave that exact gap open to launchctl.
+  const releaseDeployBarrier = acquireProviderRunDeployLease()
   const token = Symbol(key)
-  activeSubjectChains.set(key, token)
+  const active = { token, releaseDeployBarrier }
+  activeSubjectChains.set(key, active)
   let released = false
   return () => {
     if (released) return
     released = true
     // Token-bound delete: an old halted scheduler must never clear a newer replacement chain.
-    if (activeSubjectChains.get(key) === token) activeSubjectChains.delete(key)
+    if (activeSubjectChains.get(key) === active) activeSubjectChains.delete(key)
+    releaseDeployBarrier()
   }
 }
 
 export function haltAllChains(): void {
   chainEpoch++
+  for (const active of activeSubjectChains.values()) active.releaseDeployBarrier()
   activeSubjectChains.clear()
 }
 
 export function haltSubjectChains(subjectId: string, swarmId = RESEARCH_SWARM_ID): void {
   const key = subjectChainKey(subjectId, swarmId)
   subjectChainEpoch.set(key, (subjectChainEpoch.get(key) ?? 0) + 1)
+  activeSubjectChains.get(key)?.releaseDeployBarrier()
   activeSubjectChains.delete(key)
 }
 
@@ -3449,45 +3461,57 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
     throw err
   }
 
+  // Atomic deploy/run boundary. There is no await between this shared-kernel-lease acquisition and the
+  // registry claim below. If deploy.sh already owns the exclusive side, fail before provider spend; once
+  // this succeeds, a deploy cannot restart either Claude or Codex until finishRun releases the lease.
+  const releaseDeployBarrier = acquireProviderRunDeployLease()
+
   // Admission and registry claim stay in one synchronous turn. Persist the immutable provider/profile
   // selection before touching the run root; process-attempt provenance still begins only at spawn.
-  const run = createRun({
-    kind,
-    ticker,
-    subjectId,
-    swarmId,
-    unit: manifest.unit,
-    module,
-    agent,
-    provider: profile.provider,
-    executionProfile: profile.executionProfile,
-    profileKey: profile.profileKey,
-    model: profile.model,
-    reasoningLevel: profile.reasoningLevel,
-    availabilityProofId,
-    resumeSessionId: params.resumeSessionId,
-    prompt,
-    user,
-    userVia,
-    runRoot,
-    selectedDecisionRunRoot: params.decisionRunRoot,
-    selectedDecisionFingerprint: params.decisionFingerprint,
-    // `willCommitToMain` is the historical name for the mandatory terminal publication protocol. A frozen
-    // terminal canary performs a stamp+receipt without Git, but must still fail if that protocol is skipped.
-    willCommitToMain: requiresSupervisorPublication(kind, params.parityCanary?.stage),
-    writeTargetsAbs,
-    coveredModules,
-    readDepsAbs,
-    closeWatcher: undefined,
-    expected,
-    chained: params.chained,
-    chainId: params.chainId,
-    onTerminal: params.onTerminal,
-    parityCanary: Boolean(params.parityCanary),
-    memoryIdentity: params.memoryIdentity,
-    parityCanaryStage: params.parityCanary?.stage === 'module' || params.parityCanary?.stage === 'final'
-      ? params.parityCanary.stage : undefined,
-  })
+  let run: RunState
+  try {
+    run = createRun({
+      kind,
+      ticker,
+      subjectId,
+      swarmId,
+      unit: manifest.unit,
+      module,
+      agent,
+      provider: profile.provider,
+      executionProfile: profile.executionProfile,
+      profileKey: profile.profileKey,
+      model: profile.model,
+      reasoningLevel: profile.reasoningLevel,
+      availabilityProofId,
+      resumeSessionId: params.resumeSessionId,
+      prompt,
+      user,
+      userVia,
+      runRoot,
+      selectedDecisionRunRoot: params.decisionRunRoot,
+      selectedDecisionFingerprint: params.decisionFingerprint,
+      // `willCommitToMain` is the historical name for the mandatory terminal publication protocol. A frozen
+      // terminal canary performs a stamp+receipt without Git, but must still fail if that protocol is skipped.
+      willCommitToMain: requiresSupervisorPublication(kind, params.parityCanary?.stage),
+      writeTargetsAbs,
+      coveredModules,
+      readDepsAbs,
+      closeWatcher: undefined,
+      releaseDeployBarrier,
+      expected,
+      chained: params.chained,
+      chainId: params.chainId,
+      onTerminal: params.onTerminal,
+      parityCanary: Boolean(params.parityCanary),
+      memoryIdentity: params.memoryIdentity,
+      parityCanaryStage: params.parityCanary?.stage === 'module' || params.parityCanary?.stage === 'final'
+        ? params.parityCanary.stage : undefined,
+    })
+  } catch (error) {
+    releaseDeployBarrier()
+    throw error
+  }
   run.publicationToken = randomUUID()
   run.provenanceEpoch = params.chainId || run.runId
   try {
@@ -3608,6 +3632,19 @@ export function paritySnapshotRootMatchesDataSubject(snapshotRoot: string, dataD
   } catch {
     return false
   }
+}
+
+const RECOVERABLE_PARITY_INTERRUPTION_REASONS = new Set([
+  'codex_incomplete_orchestration',
+  'terminated_sigterm',
+  'supervisor_shutdown',
+  'supervisor_restart',
+])
+
+/** The route still requires exact supervisor authority, profile/root equality, no abort marker, and no
+ * terminal artifact. These are only the machine-stop reasons eligible to enter that existing gate. */
+export function isRecoverableParityInterruptionReason(value: unknown): boolean {
+  return typeof value === 'string' && RECOVERABLE_PARITY_INTERRUPTION_REASONS.has(value)
 }
 
 /**

@@ -150,6 +150,8 @@ export interface RunState {
   eventLog: SseEvent[]
   subscribers: Set<SseClient>
   closeWatcher?: () => Promise<void> | void
+  /** Shared kernel lease that prevents a production deploy/restart during this run. */
+  releaseDeployBarrier?: () => void
 }
 
 const runs = new Map<string, RunState>()
@@ -387,5 +389,8 @@ export function finishRun(run: RunState, status: RunStatus) {
       run.onTerminal?.(status)
     } catch {}
   }
+  const releaseDeployBarrier = run.releaseDeployBarrier
+  run.releaseDeployBarrier = undefined
+  try { releaseDeployBarrier?.() } catch {}
   void Promise.resolve(run.closeWatcher?.()).catch(() => {})
 }

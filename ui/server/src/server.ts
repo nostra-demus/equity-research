@@ -23,7 +23,7 @@ import {
   assertClaudeCli, assertProviderAvailable, cancel, cancelAll, cancelSubject, checkProviderUsage,
   creditCheck, decideReadiness, drainProviderRunsForShutdown, estimate, isSealedResearchRun, launch,
   getParityCanaryChainStatus, queuePublicationIntent, reapDeadSubjectRuns, reconcileOrphanedProviderGroups, recoverReadyPublications, sigIdFor,
-  subjectChainActive, todayDate, warmLaunchProbes,
+  isRecoverableParityInterruptionReason, subjectChainActive, todayDate, warmLaunchProbes,
   type RunProviderSelection,
 } from './launcher'
 import { newsBus } from './news/bus'
@@ -1235,7 +1235,7 @@ app.post('/api/internal/provider-parity/canary-continue', { config: { rateLimit:
         || marker.model !== parsed.data.model
         || marker.reasoningLevel !== parsed.data.reasoningLevel
         || marker.profileKey !== parsed.data.expectedProfileKey
-        || marker.reason !== 'codex_incomplete_orchestration') {
+        || !isRecoverableParityInterruptionReason(marker.reason)) {
       throw Object.assign(new Error('canary interruption authority does not match the requested Codex process/profile'), { statusCode: 409 })
     }
     if (canaryRunFileExists(rootAbs, '.aborted')

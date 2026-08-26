@@ -4,11 +4,12 @@ import { spawn, spawnSync } from 'node:child_process'
 
 const FLOCK_LEASE_PROGRAM = [
   'import fcntl, sys, time',
-  'wait_ms, poll_ms = int(sys.argv[1]), int(sys.argv[2])',
+  'wait_ms, poll_ms, mode = int(sys.argv[1]), int(sys.argv[2]), sys.argv[3]',
+  'operation = fcntl.LOCK_SH if mode == "shared" else fcntl.LOCK_EX',
   'deadline = time.monotonic() + wait_ms / 1000',
   'while True:',
   ' try:',
-  '  fcntl.flock(3, fcntl.LOCK_EX | fcntl.LOCK_NB)',
+  '  fcntl.flock(3, operation | fcntl.LOCK_NB)',
   '  break',
   ' except BlockingIOError:',
   '  if time.monotonic() >= deadline:',
@@ -21,6 +22,8 @@ const FLOCK_LEASE_PROGRAM = [
 export interface RetainedFlockOptions {
   waitMs: number
   pollMs?: number
+  /** Shared leases coexist with other readers but exclude deploy/restart's exclusive lease. */
+  mode?: 'exclusive' | 'shared'
   busyMessage: string
 }
 
@@ -37,7 +40,7 @@ export function acquireRetainedFlockSync(lockPath: string, options: RetainedFloc
   fs.mkdirSync(path.dirname(lockPath), { recursive: true })
   const fd = fs.openSync(lockPath, 'a+', 0o600)
   const result = spawnSync('python3', [
-    '-c', FLOCK_LEASE_PROGRAM, String(waitMs), String(pollMs),
+    '-c', FLOCK_LEASE_PROGRAM, String(waitMs), String(pollMs), options.mode ?? 'exclusive',
   ], {
     stdio: ['ignore', 'pipe', 'pipe', fd] as any,
     encoding: 'utf8',
@@ -64,7 +67,7 @@ export async function acquireRetainedFlock(lockPath: string, options: RetainedFl
   let child: ReturnType<typeof spawn>
   try {
     child = spawn('python3', [
-      '-c', FLOCK_LEASE_PROGRAM, String(waitMs), String(pollMs),
+      '-c', FLOCK_LEASE_PROGRAM, String(waitMs), String(pollMs), options.mode ?? 'exclusive',
     ], { stdio: ['ignore', 'pipe', 'pipe', fd] })
   } catch (error) {
     releaseRetainedFlock(fd)

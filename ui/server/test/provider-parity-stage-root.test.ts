@@ -4,11 +4,18 @@ import assert from 'node:assert/strict'
 import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
-import { assertParityCanaryStageRoot } from '../src/launcher'
+import { assertParityCanaryStageRoot, isRecoverableParityInterruptionReason } from '../src/launcher'
 import { buildSwarmGraph } from '../src/roster'
 
 const root = fs.mkdtempSync(path.join(os.tmpdir(), 'nostra-parity-stage-'))
 try {
+  for (const reason of ['codex_incomplete_orchestration', 'terminated_sigterm', 'supervisor_shutdown', 'supervisor_restart']) {
+    assert.equal(isRecoverableParityInterruptionReason(reason), true, `${reason} is an exact machine-stop recovery reason`)
+  }
+  for (const reason of ['cancelled_by_user', 'out_of_credits', '', null]) {
+    assert.equal(isRecoverableParityInterruptionReason(reason), false, `${String(reason)} cannot bypass the continuation gate`)
+  }
+
   const missingRoot = path.join(root, 'does-not-exist')
   let missingError: (Error & { statusCode?: number }) | undefined
   try {
