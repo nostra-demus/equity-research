@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-26T07:31:02Z",
+  "generated_at": "2026-08-26T08:05:37Z",
   "inbox": [
     {
       "inbox_id": "INB-20260826-588",
@@ -1171,6 +1171,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260826-616",
+      "headline": "Kesar Enterprises Ltd-$: Please find enclosed herewith details of acceptance of One Time Settlement sanctioned by Sugar Development Fund through IFCI Limited.",
+      "headline_en": null,
+      "url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/06792046-d577-494d-8c7b-f9a6178e4665.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-26T07:01:16Z",
+      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
+      "prelim_note": "Sanction of One Time Settlement by Sugar Development Fund via IFCI Limited for Kesar Enterprises Ltd; specific debt-relief event that improves balance sheet and solvency.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Sanction of One Time Settlement by Sugar Development Fund via IFCI Limited for Kesar Enterprises Ltd; specific debt-relief event that improves balance sheet and solvency.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "debt_credit",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Kesar Enterprises Ltd",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260826-587",
       "headline": "National Aluminium Company Ltd: Imposition of Fine by NSE",
       "headline_en": null,
@@ -1943,55 +1992,6 @@
         {
           "name": "China Overseas Land & Investment",
           "ticker": "00688",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260826-555",
-      "headline": "ANTA SPORTS ANTA SPORTS-R (02020 82020): 2026 INTERIM RESULTS ANNOUNCEMENT",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0826/2026082600213.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-26T04:04:00Z",
-      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
-      "prelim_note": "Release of 2026 interim results for Anta Sports.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Release of 2026 interim results for Anta Sports.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Anta Sports",
-          "ticker": "02020",
           "listing_country": "CN"
         }
       ],
@@ -94039,9 +94039,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1464091,
-    "news_picked_today": 1134,
-    "news_dropped_today": 11442
+    "news_seen_today": 1623212,
+    "news_picked_today": 1155,
+    "news_dropped_today": 11469
   },
   "book_momentum": {
     "live_count": 8,
