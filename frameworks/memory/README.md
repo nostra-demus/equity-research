@@ -60,7 +60,8 @@ production dispatch stays off until its shadow and enforcement gates pass.
 - A maximum-30-day Ed25519 release activation that binds fresh operational evidence, independently
   signed runtime-benchmark and shadow-adjudication reports, and approved provider/models. Enforced
   mode checks it before snapshot preparation and immediately before paid dispatch; no synthetic,
-  stale, or unmeasured report can activate the runtime.
+  stale, or unmeasured report can activate the runtime. The promotion-service clock supplies the
+  creation time, and the release, benchmark, and adjudication keys must be pairwise distinct.
 
 The local production integration, supervisor boundary, cockpit, incident controls, and release gates
 are implemented. The exact 63-case production-candidate benchmark is reproducible and passes its

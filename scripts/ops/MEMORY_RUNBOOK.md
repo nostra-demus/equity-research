@@ -107,7 +107,9 @@ python3 scripts/memory_observability.py publish-readiness \
   --access-audit /absolute/private/memory-runtime/operations/access-audit-observation.json \
   --schema-review /absolute/private/memory-runtime/operations/schema-review-observation.json \
   --rebuild-observation /absolute/private/memory-runtime/operations/latest-rebuild-observation.json \
-  --shadow-evaluation /absolute/private/memory-runtime/operations/shadow-evaluation-report.json
+  --shadow-evaluation /absolute/private/memory-runtime/operations/shadow-evaluation-report.json \
+  --shadow-adjudicator-public-key /absolute/external/memory-shadow-adjudicator-ed25519.pub \
+  --shadow-adjudicator-key-id memory-shadow-adjudicator
 ```
 
 Omitted evidence stays `unmeasured`; the publisher never infers a pass. Packet compilation time is
@@ -176,11 +178,12 @@ python3 scripts/memory_enforcement.py activate \
   --three-layer /absolute/private/memory-runtime/operations/three-layer-benchmark-report.json \
   --shadow /absolute/private/memory-runtime/operations/shadow-evaluation-report.json \
   --private-key /absolute/external/memory-enforcement-ed25519.seed \
+  --public-key /absolute/external/memory-enforcement-ed25519.pub \
   --benchmark-public-key /absolute/external/memory-benchmark-runner-ed25519.pub \
   --benchmark-key-id memory-benchmark-runner \
   --adjudicator-public-key /absolute/external/memory-shadow-adjudicator-ed25519.pub \
   --adjudicator-key-id memory-shadow-adjudicator \
-  --key-id memory-enforcement-release --created-at 2026-08-27T00:00:00Z \
+  --key-id memory-enforcement-release \
   --expires-at 2026-09-20T00:00:00Z \
   --output /absolute/private/memory-runtime/operations/enforcement-activation.json
 ```
@@ -195,7 +198,9 @@ Set `NOSTRA_MEMORY_ENFORCEMENT_PUBLIC_KEY`, `NOSTRA_MEMORY_ENFORCEMENT_KEY_ID`,
 `NOSTRA_MEMORY_MODE=enforced` last. An absent, expired, altered, unmeasured, synthetic, or
 provider/model-mismatched activation stops before paid dispatch. Never weaken this gate to start a
 run. Readiness evidence older than 24 hours and shadow evidence older than 30 days cannot mint a new
-activation. A run whose final paid dispatch occurred before expiry may still finalize afterward.
+activation. The promotion service sets `created_at` from its own UTC clock; callers cannot backdate
+it. The release signer, benchmark runner, and shadow adjudicator public keys and key IDs must be
+pairwise distinct. A run whose final paid dispatch occurred before expiry may still finalize afterward.
 
 ## Cockpit and alerts
 

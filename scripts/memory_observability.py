@@ -10,9 +10,11 @@ from pathlib import Path
 from typing import Any, Mapping, Sequence
 
 try:
+    from memory_crypto import load_master_key_file
     from memory_operations import build_operational_readiness_report, load_json_read_only
     from memory_runtime import _atomic_private_write, _safe_directory, _safe_regular
 except ImportError:  # pragma: no cover - package-style imports
+    from scripts.memory_crypto import load_master_key_file
     from scripts.memory_operations import build_operational_readiness_report, load_json_read_only
     from scripts.memory_runtime import _atomic_private_write, _safe_directory, _safe_regular
 
@@ -117,7 +119,10 @@ def publish_readiness(
     controlled_write: str | None = None, performance: str | None = None,
     restore_drill: str | None = None, access_audit: str | None = None,
     schema_review: str | None = None, rebuild_observation: str | None = None,
-    shadow_evaluation: str | None = None, scale_comparisons: Sequence[str] = (),
+    shadow_evaluation: str | None = None,
+    shadow_adjudicator_public_key: str | None = None,
+    shadow_adjudicator_key_id: str | None = None,
+    scale_comparisons: Sequence[str] = (),
 ) -> Path:
     root = _safe_directory(Path(state_root), create=True)
     report = build_operational_readiness_report(
@@ -134,6 +139,12 @@ def publish_readiness(
         schema_review_observation=_optional(schema_review),
         rebuild_observation=_optional(rebuild_observation),
         shadow_evaluation_report=_optional(shadow_evaluation),
+        shadow_adjudicator_public_key=(
+            load_master_key_file(Path(shadow_adjudicator_public_key))
+            if shadow_adjudicator_public_key
+            else None
+        ),
+        shadow_adjudicator_key_id=shadow_adjudicator_key_id,
         scale_comparisons=[load_json_read_only(path) for path in scale_comparisons],
     )
     path = root / "operations" / "readiness-report.json"
@@ -157,6 +168,8 @@ def _parser() -> argparse.ArgumentParser:
         "rebuild-observation", "shadow-evaluation",
     ):
         report.add_argument(f"--{name}")
+    report.add_argument("--shadow-adjudicator-public-key")
+    report.add_argument("--shadow-adjudicator-key-id")
     report.add_argument("--scale-comparison", action="append", default=[])
     return parser
 
@@ -176,6 +189,8 @@ def main(argv: Sequence[str] | None = None) -> int:
                 performance=args.performance, restore_drill=args.restore_drill,
                 access_audit=args.access_audit, schema_review=args.schema_review,
                 rebuild_observation=args.rebuild_observation, shadow_evaluation=args.shadow_evaluation,
+                shadow_adjudicator_public_key=args.shadow_adjudicator_public_key,
+                shadow_adjudicator_key_id=args.shadow_adjudicator_key_id,
                 scale_comparisons=args.scale_comparison,
             )
     except (ObservabilityError, OSError, TypeError, ValueError) as exc:
