@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-08-26T00:19:26Z",
+  "generated_at": "2026-08-26T00:30:06Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260826-121",
+      "headline": "FFM: Successful A$190m raising to fund development and growth [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.FFM?key=2924-03126359-6A1340317",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-25T23:59:15Z",
+      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
+      "prelim_note": "A successful A$190m capital raise provides significant liquidity for development and growth.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A successful A$190m capital raise provides significant liquidity for development and growth.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "FireFly Metals",
+          "ticker": "FFM",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260826-030",
       "headline": "MAT: Suspension from Quotation [price-sensitive]",
@@ -100,6 +149,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260826-105",
+      "headline": "INDIGO STAR (08373): VERY SUBSTANTIAL ACQUISITION IN RELATION TO THE ACQUISITION OF PROPERTY IN SINGAPORE AND NOTICE OF EXTRAORDINARY GENERAL MEETING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/0826/2026082600045.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-25T23:31:00Z",
+      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
+      "prelim_note": "Indigo Star announced a very substantial acquisition of property in Singapore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Indigo Star announced a very substantial acquisition of property in Singapore.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Indigo Star Holdings Ltd",
+          "ticker": "08373",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260826-023",
       "headline": "BKB: Trading Halt [price-sensitive]",
       "headline_en": null,
@@ -144,6 +242,61 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260826-174",
+      "headline": "REDCO HEALTHY (02370): INSIDE INFORMATION - STATUTORY DEMAND SERVED ON REDCO PROPERTIES GROUP LIMITED",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0826/2026082600003.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-25T22:02:00Z",
+      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
+      "prelim_note": "A statutory demand was served on Redco Properties Group, a creditor enforcement step signaling distress at the company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "A statutory demand was served on Redco Properties Group, a creditor enforcement step signaling distress at the company.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "litigation_enforcement",
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Redco Healthy",
+          "ticker": "02370",
+          "listing_country": "HK"
+        },
+        {
+          "name": "Redco Properties Group Limited",
+          "ticker": null,
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -242,6 +395,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260826-137",
+      "headline": "25-NSE - Boost Run Inc. (0002090646) (Subject)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/2090646/000135445726000818/0001354457-26-000818-index.htm",
+      "source_name": "SEC EDGAR — Latest 25-NSE (Delisting Notification)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-08-25T20:12:01Z",
+      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
+      "prelim_note": "25-NSE delisting notification for Boost Run Inc. indicates a forced or voluntary delisting event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "25-NSE delisting notification for Boost Run Inc. indicates a forced or voluntary delisting event.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 3,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Boost Run Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -438,6 +640,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260826-118",
+      "headline": "QFIN-S (03660): ANNOUNCEMENT OF THE SECOND QUARTER AND INTERIM 2026 FINANCIAL RESULTS AND SEMI-ANNUAL DIVIDEND",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0826/2026082600029.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-25T23:00:00Z",
+      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
+      "prelim_note": "Quarterly and interim financial results are material events for investors to assess company performance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Quarterly and interim financial results are material events for investors to assess company performance.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Qifu Technology",
+          "ticker": "03660",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260826-120",
+      "headline": "ZAI LAB (09688): INTERIM RESULTS ANNOUNCEMENT FOR THE SIX MONTHS ENDED JUNE 30, 2026",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0826/2026082600023.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-25T22:27:00Z",
+      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
+      "prelim_note": "Interim financial results are a primary source of performance data for investors.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Interim financial results are a primary source of performance data for investors.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Zai Lab",
+          "ticker": "09688",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260826-029",
       "headline": "NIC: Half Year Financial Report [price-sensitive]",
       "headline_en": null,
@@ -482,6 +782,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260826-123",
+      "headline": "NOAH HOLDINGS (06686): INSIDE INFORMATION - INTERIM RESULTS ANNOUNCEMENT FOR THE SIX MONTHS ENDED JUNE 30, 2026",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0826/2026082600015.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-25T22:15:00Z",
+      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
+      "prelim_note": "Interim financial results are a primary source of performance data for investors.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Interim financial results are a primary source of performance data for investors.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Noah Holdings",
+          "ticker": "06686",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -536,6 +885,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260826-179",
+      "headline": "Hero MotoCorp Limited: Pursuant to Regulation 30 of the SEBI (Listing Obligations and Disclosure Requirements) Regulations, 2015, please refer to the attached disclosure regarding update on investment in Ather Energy Limited.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/HEROMOTO_25082026225914_DisclosureunderRegulation30.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-25T17:30:02Z",
+      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
+      "prelim_note": "Update on investment in Ather Energy indicates strategic capital allocation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "Update on investment in Ather Energy indicates strategic capital allocation.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 2,
+        "event": 9,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Hero MotoCorp Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "Ather Energy Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260826-014",
       "headline": "ARF: Edge Early Learning Administration [price-sensitive]",
       "headline_en": null,
@@ -580,6 +983,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260826-122",
+      "headline": "NEWTREND GROUP (02573): ANNOUNCEMENT OF INTERIM RESULTS FOR THE SIX MONTHS ENDED 30 JUNE 2026",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0826/2026082600019.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-25T22:23:00Z",
+      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
+      "prelim_note": "Interim financial results are a primary source of performance data for investors.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "Interim financial results are a primary source of performance data for investors.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Newtrend Group",
+          "ticker": "02573",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -635,6 +1087,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260826-171",
+      "headline": "AKESO (09926): VOLUNTARY ANNOUNCEMENT - AK112-309/HARMONI-GI1 MET PRIMARY ENDPOINT OF OS IVONESCIMAB PLUS CHEMO DEMONSTRATES STATISTICALLY SIGNIFICANT AND CLINICALLY MEANINGFUL OS BENEFIT VERSUS DURVALUMAB PLUS CHEMO IN 1L BTC",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0826/2026082600031.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-25T23:00:00Z",
+      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
+      "prelim_note": "Akeso's ivonescimab plus chemo met primary OS endpoint in phase 3 1L BTC trial vs durvalumab, a clinical win that can shift revenue outlook.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "Akeso's ivonescimab plus chemo met primary OS endpoint in phase 3 1L BTC trial vs durvalumab, a clinical win that can shift revenue outlook.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Akeso",
+          "ticker": "09926",
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260826-107",
+      "headline": "MRD: Significant Scandium Resource Upgrade [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.MRD?key=2924-03126363-6A1340339",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-26T00:00:10Z",
+      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
+      "prelim_note": "MRD announced a significant resource upgrade for its scandium project.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "MRD announced a significant resource upgrade for its scandium project.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 2,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "operations",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "MRD",
+          "ticker": "MRD",
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260826-001",
       "headline": "NEU: Growing royalty anchors Neuren first ever dividend program [price-sensitive]",
       "headline_en": null,
@@ -676,6 +1226,55 @@
           "name": "Neuren Pharmaceuticals",
           "ticker": "NEU",
           "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260826-119",
+      "headline": "INNOGEN-B (02591): VOLUNTARY ANNOUNCEMENT - INTENTION TO CONDUCT ON-MARKET H SHARE REPURCHASE",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0826/2026082600025.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-25T22:28:00Z",
+      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
+      "prelim_note": "An intention to conduct share repurchases is a signal of management confidence and capital allocation strategy.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "An intention to conduct share repurchases is a signal of management confidence and capital allocation strategy.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Innogen",
+          "ticker": "02591",
+          "listing_country": "CN"
         }
       ],
       "size_bucket": "mid",
@@ -831,6 +1430,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260826-114",
+      "headline": "LYC: Lynas Rare Earths FY26 Results Announcement [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.LYC?key=2924-03126367-6A1340315",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-26T00:02:55Z",
+      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
+      "prelim_note": "Lynas Rare Earths released its FY26 financial results.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "Lynas Rare Earths released its FY26 financial results.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Lynas Rare Earths Ltd",
+          "ticker": "LYC",
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260826-106",
+      "headline": "HM1: FY26 Results Announcement",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.HM1?key=2924-03126366-2A1692211",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-26T00:01:10Z",
+      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
+      "prelim_note": "HM1 released its FY26 financial results.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "HM1 released its FY26 financial results.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Hearts and Minds Investments Ltd",
+          "ticker": "HM1",
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260826-024",
       "headline": "NEU: Half Yearly Report and Accounts [price-sensitive]",
       "headline_en": null,
@@ -875,6 +1572,104 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260826-110",
+      "headline": "GAP: FY2026 Results Announcement [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.GAP?key=2924-03126354-3A699873",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-25T23:57:30Z",
+      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
+      "prelim_note": "GAP released its FY2026 financial results.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "GAP released its FY2026 financial results.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "GAP",
+          "ticker": "GAP",
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260826-109",
+      "headline": "CAT: Catapult Reaffirms Guidance, CEO & MD Address",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.CAT?key=2924-03126355-3A699878",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-25T23:57:35Z",
+      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
+      "prelim_note": "Catapult reaffirmed its existing financial guidance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 82,
+      "triage_reason": "Catapult reaffirmed its existing financial guidance.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "guidance_change",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Catapult Group International Ltd",
+          "ticker": "CAT",
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -979,482 +1774,145 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260826-011",
-      "headline": "LYC: Appendix 4E and 2026 Annual Report [price-sensitive]",
+      "inbox_id": "INB-20260826-170",
+      "headline": "BRETON (01333): PROFIT ALERT - REDUCTION IN LOSS",
       "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.LYC?key=2924-03126303-6A1340354",
-      "source_name": "ASX (Australia Exchange Filing)",
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0826/2026082600033.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
       "input_nature": "exchange_announcement",
-      "found_at": "2026-08-25T23:46:55Z",
+      "found_at": "2026-08-25T23:07:00Z",
       "sweep_file": "screener/inbox/2026-08-26_sweep.json",
-      "prelim_note": "Annual report filing provides comprehensive financial data for the fiscal year.",
+      "prelim_note": "Breton profit alert says reduction in loss, a confirmed earnings improvement with no number attached.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 76,
-      "triage_reason": "Annual report filing provides comprehensive financial data for the fiscal year.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Lynas Rare Earths",
-          "ticker": "LYC",
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260826-015",
-      "headline": "LSF: Appendix 4E and FY26 Annual Report [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.LSF?key=2924-03126295-3A699865",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-25T23:44:40Z",
-      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
-      "prelim_note": "Annual report filing provides full-year financial performance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 75,
-      "triage_reason": "Annual report filing provides full-year financial performance.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "L1 Long Short Fund",
-          "ticker": "LSF",
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260826-086",
-      "headline": "SCHEDULE 13D/A - PAINE SCHWARTZ FOOD CHAIN FUND V GP, LTD. (0001818714) (Filed by)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1818714/000114036126034359/0001140361-26-034359-index.htm",
-      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-08-25T23:38:33Z",
-      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
-      "prelim_note": "Schedule 13D/A shows an amended >5% activist stake filing by Paine Schwartz Food Chain Fund V GP, Ltd.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 75,
-      "triage_reason": "Schedule 13D/A shows an amended >5% activist stake filing by Paine Schwartz Food Chain Fund V GP, Ltd.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Paine Schwartz Food Chain Fund V GP, Ltd.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260826-084",
-      "headline": "SCHEDULE 13D/A - SUJA LIFE, INC. (0001934114) (Subject)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1934114/000114036126034359/0001140361-26-034359-index.htm",
-      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-08-25T23:38:33Z",
-      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
-      "prelim_note": "Schedule 13D/A shows an amended >5% activist ownership filing in Suja Life, Inc.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 75,
-      "triage_reason": "Schedule 13D/A shows an amended >5% activist ownership filing in Suja Life, Inc.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Suja Life, Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260826-031",
-      "headline": "LDX: FY26 Annual Report",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.LDX?key=2924-03126286-2A1692166",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-25T23:41:10Z",
-      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
-      "prelim_note": "Annual report filing provides comprehensive financial and operational data for the fiscal year.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 74,
-      "triage_reason": "Annual report filing provides comprehensive financial and operational data for the fiscal year.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "LDX",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260826-088",
-      "headline": "SCHEDULE 13D/A - Nijhawan Pardeep (0001777962) (Filed by)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1777962/000117184326005738/0001171843-26-005738-index.htm",
-      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-08-25T22:00:42Z",
-      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
-      "prelim_note": "Schedule 13D/A shows an amended >5% activist ownership filing by Nijhawan Pardeep.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 74,
-      "triage_reason": "Schedule 13D/A shows an amended >5% activist ownership filing by Nijhawan Pardeep.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nijhawan Pardeep",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260826-090",
-      "headline": "SCHEDULE 13D/A - Edesa Biotech, Inc. (0001540159) (Subject)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1540159/000117184326005738/0001171843-26-005738-index.htm",
-      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-08-25T22:00:42Z",
-      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
-      "prelim_note": "Schedule 13D/A shows an amended >5% activist ownership filing in Edesa Biotech, Inc.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 73,
-      "triage_reason": "Schedule 13D/A shows an amended >5% activist ownership filing in Edesa Biotech, Inc.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": -1,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Edesa Biotech, Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260826-089",
-      "headline": "Special Purpose Credit Programs: Rescission of Interagency Statement",
-      "headline_en": null,
-      "url": "https://www.occ.gov/news-issuances/bulletins/2026/bulletin-2026-39.html",
-      "source_name": "Office of the Comptroller of the Currency — Bulletins",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-08-25T22:00:00Z",
-      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
-      "prelim_note": "OCC bulletin rescinds an interagency statement on special purpose credit programs, a regulatory change for banks.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 73,
-      "triage_reason": "OCC bulletin rescinds an interagency statement on special purpose credit programs, a regulatory change for banks.",
-      "region": "US",
+      "triage_score": 78,
+      "triage_reason": "Breton profit alert says reduction in loss, a confirmed earnings improvement with no number attached.",
+      "region": "CN",
       "relevance": "material",
       "materiality_pre_score": 55,
       "rank_factors": {
         "materiality": 55,
         "source_tier": 8,
-        "scope": 2,
-        "event": 4,
+        "scope": 6,
+        "event": 5,
         "size": 0,
         "recency": 4,
         "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
-        "scope_id": "policy",
+        "scope_id": "single_name",
         "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
+        "event_id": "earnings_revenue_margin",
         "size_bucket": "unknown"
       },
       "event_types": [
-        "regulatory"
+        "earnings_revenue_margin"
       ],
-      "issuer_linkage": "macro",
-      "companies": [],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Breton",
+          "ticker": "01333",
+          "listing_country": "CN"
+        }
+      ],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260826-004",
-      "headline": "LSF: Dividend/Distribution - LSF",
+      "inbox_id": "INB-20260826-125",
+      "headline": "FIRST TRACTOR (00038): INTERIM RESULTS ANNOUNCEMENT FOR THE SIX MONTHS ENDED 30 JUNE 2026",
       "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.LSF?key=2924-03126300-3A699868",
-      "source_name": "ASX (Australia Exchange Filing)",
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0826/2026082600011.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
       "input_nature": "exchange_announcement",
-      "found_at": "2026-08-25T23:46:00Z",
+      "found_at": "2026-08-25T22:10:00Z",
       "sweep_file": "screener/inbox/2026-08-26_sweep.json",
-      "prelim_note": "L1 Long Short Fund announced a dividend distribution.",
+      "prelim_note": "Interim results announcement for First Tractor for H1 2026 gives fresh financials but no number in headline.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 70,
-      "triage_reason": "L1 Long Short Fund announced a dividend distribution.",
-      "region": "OTHER",
+      "triage_score": 78,
+      "triage_reason": "Interim results announcement for First Tractor for H1 2026 gives fresh financials but no number in headline.",
+      "region": "CN",
       "relevance": "material",
-      "materiality_pre_score": 50,
+      "materiality_pre_score": 55,
       "rank_factors": {
-        "materiality": 50,
+        "materiality": 55,
         "source_tier": 8,
         "scope": 6,
-        "event": 0,
-        "size": 1,
-        "recency": 5,
+        "event": 5,
+        "size": 0,
+        "recency": 4,
         "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "mid"
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
       },
       "event_types": [
-        "capital_actions"
+        "earnings_revenue_margin"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "L1 Long Short Fund",
-          "ticker": "LSF",
-          "listing_country": "AU"
+          "name": "First Tractor",
+          "ticker": "00038",
+          "listing_country": "CN"
         }
       ],
-      "size_bucket": "mid",
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260826-026",
-      "headline": "AUQ: 57th, 58th, 59th and 60th Copper Concentrate Shipments [price-sensitive]",
+      "inbox_id": "INB-20260826-126",
+      "headline": "NOAH HOLDINGS (06686): INSIDE INFORMATION - ANNOUNCEMENT OF THE SECOND QUARTER 2026 UNAUDITED FINANCIAL RESULTS",
       "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.AUQ?key=2924-03126238-6A1340332",
-      "source_name": "ASX (Australia Exchange Filing)",
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0826/2026082600007.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
       "input_nature": "exchange_announcement",
-      "found_at": "2026-08-25T23:25:25Z",
+      "found_at": "2026-08-25T22:08:00Z",
       "sweep_file": "screener/inbox/2026-08-26_sweep.json",
-      "prelim_note": "Confirmation of multiple copper concentrate shipments indicates ongoing operational revenue generation.",
+      "prelim_note": "Q2 2026 unaudited financial results for Noah Holdings disclosed as inside information, no number in headline.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 69,
-      "triage_reason": "Confirmation of multiple copper concentrate shipments indicates ongoing operational revenue generation.",
-      "region": "OTHER",
+      "triage_score": 78,
+      "triage_reason": "Q2 2026 unaudited financial results for Noah Holdings disclosed as inside information, no number in headline.",
+      "region": "CN",
       "relevance": "material",
-      "materiality_pre_score": 50,
+      "materiality_pre_score": 55,
       "rank_factors": {
-        "materiality": 50,
+        "materiality": 55,
         "source_tier": 8,
         "scope": 6,
-        "event": 0,
+        "event": 5,
         "size": 0,
-        "recency": 5,
+        "recency": 4,
         "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "primary_filing",
-        "event_id": null,
+        "event_id": "earnings_revenue_margin",
         "size_bucket": "unknown"
       },
       "event_types": [
-        "commercial"
+        "earnings_revenue_margin"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "AUQ",
-          "ticker": null,
-          "listing_country": "AU"
+          "name": "Noah Holdings",
+          "ticker": "06686",
+          "listing_country": "CN"
         }
       ],
       "size_bucket": "unknown",
@@ -1463,218 +1921,28 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260826-081",
-      "headline": "SCHEDULE 13D - Nu-Med Plus, Inc. (0001543637) (Subject)",
+      "inbox_id": "INB-20260826-128",
+      "headline": "CLOVER BIO-B (02197): INTERIM RESULTS ANNOUNCEMENT FOR THE SIX MONTHS ENDED JUNE 30, 2026",
       "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1543637/000157587226000616/0001575872-26-000616-index.htm",
-      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-08-25T22:03:52Z",
-      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
-      "prelim_note": "Schedule 13D activist or >5% stake filing for Nu-Med Plus, Inc., no stake size in headline.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 69,
-      "triage_reason": "Schedule 13D activist or >5% stake filing for Nu-Med Plus, Inc., no stake size in headline.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 35,
-      "rank_factors": {
-        "materiality": 35,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nu-Med Plus, Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260826-025",
-      "headline": "DXS: Update - Notification of buy-back - DXS",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.DXS?key=2924-03126241-2A1692186",
-      "source_name": "ASX (Australia Exchange Filing)",
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0826/2026082600005.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
       "input_nature": "exchange_announcement",
-      "found_at": "2026-08-25T23:25:45Z",
+      "found_at": "2026-08-25T22:07:00Z",
       "sweep_file": "screener/inbox/2026-08-26_sweep.json",
-      "prelim_note": "Update on an existing share buy-back program is a routine capital management activity.",
+      "prelim_note": "Interim results for Clover Bio-B for H1 2026 provide fresh financials with no number in headline.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 64,
-      "triage_reason": "Update on an existing share buy-back program is a routine capital management activity.",
-      "region": "OTHER",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 30,
+      "triage_score": 78,
+      "triage_reason": "Interim results for Clover Bio-B for H1 2026 provide fresh financials with no number in headline.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
       "rank_factors": {
-        "materiality": 30,
+        "materiality": 55,
         "source_tier": 8,
         "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "DXS",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260826-079",
-      "headline": "SCHEDULE 13D - TEJADA FRED (0001552627) (Filed by)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1552627/000157587226000616/0001575872-26-000616-index.htm",
-      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-08-25T22:03:52Z",
-      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
-      "prelim_note": "Schedule 13D filing by Tejada Fred indicating activist or >5% stake disclosure, no company or size in headline.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 61,
-      "triage_reason": "Schedule 13D filing by Tejada Fred indicating activist or >5% stake disclosure, no company or size in headline.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 35,
-      "rank_factors": {
-        "materiality": 35,
-        "source_tier": 8,
-        "scope": -2,
-        "event": 6,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "unknown",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "secondary",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260826-018",
-      "headline": "LIB: RENOWNED GUIANA SHIELD GOLD GEOLOGIST JOINS LIBERTY BOARD",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.LIB?key=2924-03126202-6A1340323",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-25T23:15:05Z",
-      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
-      "prelim_note": "Appointment of a new board member with specific expertise is a minor strategic development.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 57,
-      "triage_reason": "Appointment of a new board member with specific expertise is a minor strategic development.",
-      "region": "OTHER",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 35,
-      "rank_factors": {
-        "materiality": 35,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "management",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Liberty Energy",
-          "ticker": "LIB",
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260826-104",
-      "headline": "SCHEDULE 13G - CAPTRUST FINANCIAL ADVISORS (0001512024) (Filed by)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1512024/000106299326004619/0001062993-26-004619-index.htm",
-      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-08-25T21:40:52Z",
-      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
-      "prelim_note": "Schedule 13G passive stake filing by CAPTRUST Financial Advisors, no stake size disclosed.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 54,
-      "triage_reason": "Schedule 13G passive stake filing by CAPTRUST Financial Advisors, no stake size disclosed.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 30,
-      "rank_factors": {
-        "materiality": 30,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
+        "event": 5,
         "size": 0,
         "recency": 4,
         "materiality_label_floor": 0,
@@ -1682,263 +1950,18 @@
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
+        "event_id": "earnings_revenue_margin",
         "size_bucket": "unknown"
       },
       "event_types": [
-        "ownership_activist"
+        "earnings_revenue_margin"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "CAPTRUST Financial Advisors",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260826-100",
-      "headline": "SCHEDULE 13G - Bluerock Private Real Estate Fund (0001551047) (Subject)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1551047/000106299326004619/0001062993-26-004619-index.htm",
-      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-08-25T21:40:52Z",
-      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
-      "prelim_note": "Schedule 13G passive stake filing for Bluerock Private Real Estate Fund, no stake size or action disclosed.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 54,
-      "triage_reason": "Schedule 13G passive stake filing for Bluerock Private Real Estate Fund, no stake size or action disclosed.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 30,
-      "rank_factors": {
-        "materiality": 30,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bluerock Private Real Estate Fund",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260826-050",
-      "headline": "424B2 - JPMORGAN CHASE & CO (0000019617) (Filer)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/19617/000191870426024788/0001918704-26-024788-index.htm",
-      "source_name": "SEC EDGAR — Latest 424B2 (Prospectus, shelf takedown)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-08-25T21:20:28Z",
-      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
-      "prelim_note": "Routine SEC 424B2 prospectus shelf takedown filing by JPMorgan Chase & Co with no deal size in headline.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 52,
-      "triage_reason": "Routine SEC 424B2 prospectus shelf takedown filing by JPMorgan Chase & Co with no deal size in headline.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 25,
-      "rank_factors": {
-        "materiality": 25,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "debt_credit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "JPMorgan Chase & Co",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260826-046",
-      "headline": "424B2 - JPMorgan Chase Financial Co. LLC (0001665650) (Filer)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1665650/000191870426024788/0001918704-26-024788-index.htm",
-      "source_name": "SEC EDGAR — Latest 424B2 (Prospectus, shelf takedown)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-08-25T21:20:28Z",
-      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
-      "prelim_note": "Routine SEC 424B2 prospectus shelf takedown filing by JPMorgan Chase Financial Co. LLC with no deal size in headline.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 50,
-      "triage_reason": "Routine SEC 424B2 prospectus shelf takedown filing by JPMorgan Chase Financial Co. LLC with no deal size in headline.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 25,
-      "rank_factors": {
-        "materiality": 25,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "debt_credit",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "JPMorgan Chase Financial Co. LLC",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260826-073",
-      "headline": "144 - Aura Minerals Inc. (0001468642) (Subject)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1468642/000213761326000002/0002137613-26-000002-index.htm",
-      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-08-25T23:46:46Z",
-      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
-      "prelim_note": "Form 144 proposed insider sale for Aura Minerals with no share count or value disclosed.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 47,
-      "triage_reason": "Form 144 proposed insider sale for Aura Minerals with no share count or value disclosed.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 25,
-      "rank_factors": {
-        "materiality": 25,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 2,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "insider_transaction",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "insider_transaction"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Aura Minerals Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260826-056",
-      "headline": "DEF 14A - 374Water Inc. (0000933972) (Filer)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/933972/000165495426007870/0001654954-26-007870-index.htm",
-      "source_name": "SEC EDGAR — Latest DEF 14A (Definitive Proxy)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-08-25T21:24:27Z",
-      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
-      "prelim_note": "Definitive proxy filing (DEF 14A) for 374Water Inc. with no specific event or number in headline.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 47,
-      "triage_reason": "Definitive proxy filing (DEF 14A) for 374Water Inc. with no specific event or number in headline.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 25,
-      "rank_factors": {
-        "materiality": 25,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "management",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "374Water Inc.",
-          "ticker": null,
-          "listing_country": "US"
+          "name": "Clover Bio-B",
+          "ticker": "02197",
+          "listing_country": "CN"
         }
       ],
       "size_bucket": "unknown",
@@ -84009,78 +84032,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-70b8068a4e51",
-      "idea_version": "IDEAV-e5fe083e1712ff14",
-      "idea_version_started_at": "2026-08-23T02:23:58Z",
-      "ticker": "PARA",
-      "company": "Paramount Global",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Preliminary talks regarding a potential deal between Paramount and Warner Bros. Discovery create a merger arbitrage opportunity where Paramount is the likely target.",
-      "why_now": "Preliminary talks are scheduled to begin on Monday, August 24, 2026.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 16,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "pair_trade",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-c19a7d1d8eac"
-      ],
-      "primary_source_event_id": "EVT-c19a7d1d8eac",
-      "source_headlines": [
-        "Paramount and California to hold preliminary talks on Monday over Warner Bros deal: Report"
-      ],
-      "source_headline": "Paramount and California to hold preliminary talks on Monday over Warner Bros deal: Report",
-      "source_url": "https://www.livemint.com/companies/news/paramount-and-california-to-hold-preliminary-talks-on-monday-over-warner-bros-deal-report-11787444046114.html",
-      "source_name": "Mint",
-      "materiality_max": 91,
-      "newest_source_at": "2026-08-23T00:22:45Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-23T02:23:58Z",
-      "updated_at": "2026-08-23T02:23:58Z",
-      "decay_at": "2026-08-24T12:22:45Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-83741fd2591e",
       "idea_version": "IDEAV-c6b66d0e8c72d50a",
       "idea_version_started_at": "2026-08-23T04:34:35Z",
@@ -84227,7 +84178,7 @@
     "schema_version": "ideas-archive/v1",
     "health": {
       "status": "ok",
-      "file_count": 82,
+      "file_count": 83,
       "suppression_count": 0,
       "corrupt_count": 0,
       "invalid_count": 0,
@@ -87081,8 +87032,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-08-24T12:22:45Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-08-26T00:29:57Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -93170,9 +93121,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 48616,
-    "news_picked_today": 110,
-    "news_dropped_today": 130
+    "news_seen_today": 72834,
+    "news_picked_today": 186,
+    "news_dropped_today": 330
   },
   "book_momentum": {
     "live_count": 8,
