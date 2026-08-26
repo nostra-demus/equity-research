@@ -12,7 +12,7 @@ import { getCreditStatus, setCreditStatus } from './credit'
 import { writeAgentMetrics } from './agent-metrics'
 import { startRunWatcher, sweepRunOutputs } from './fs-watcher'
 import { createRun, emit, emitTransient, finishRun, getRun, IN_FLIGHT_STATUSES, inFlightRunsForSubject, listRuns, recordActivity, setActiveSubjectRun, type ExpectedAgent, type RunState } from './registry'
-import { clearRunMarker, resolveRunRoot, writeRunMarker, writeSupervisorRunFile } from './outputs'
+import { clearRunMarker, isValidCalendarISODate, resolveRunRoot, writeRunMarker, writeSupervisorRunFile } from './outputs'
 import { runReadiness } from './readiness'
 import { buildSwarmGraph, downstreamCascade } from './roster'
 import { isValidTicker, resolveInsideScreener } from './sandbox'
@@ -1797,6 +1797,9 @@ export interface LaunchParams {
   memoryIdentity?: ResearchMemoryIdentity
   resumeSessionId?: string
   intake?: SignalIntakeInput // kind 'signal' (new signal): materialized into <runRoot>/intake.json
+  /** Internal date frozen before an Idea promotion reserves its deterministic signal id. Ordinary signal
+   * launches omit it and keep the launch-time date. This closes the reserve -> provider-gate midnight race. */
+  signalDate?: string
   inboxId?: string // kind 'signal' launched from an Inbox card — recorded as the intake's provenance
   // kind 'signal' relaunch of an EXISTING sig: stamp override_promote onto its intake.json so the gauntlet
   // pushes a signal-gate PARK/LOG (a "noted, no action" / "set aside" cull) PAST the promotion gate and runs
@@ -2925,6 +2928,10 @@ async function stopSubjectForForce(subjectId: string, swarmId: string): Promise<
 
 export async function launch(params: LaunchParams): Promise<{ runId: string; preflight: LaunchPreflight; chained?: boolean; skipped?: string[]; planned?: string[]; resumed?: boolean }> {
   const { kind, module, agent, window } = params
+  if (params.signalDate !== undefined && (kind !== 'signal' || params.ticker !== undefined
+      || !isValidCalendarISODate(params.signalDate))) {
+    throw Object.assign(new Error('A frozen signal date is valid only for a new signal launch.'), { statusCode: 400 })
+  }
   const profile = getProviderAdapter(params.provider).resolveProfile({
     model: params.model,
     reasoningLevel: params.reasoningLevel,
@@ -3147,7 +3154,7 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
     subjectId = `${thesisId}::${checkpointId}`
     runRoot = `screener/ledger/conviction/runs/${checkpointId}`
   } else if (kind === 'signal') {
-    const date = todayDate()
+    const date = params.signalDate ?? todayDate()
     if (params.ticker && SIG_ID_RE.test(params.ticker)) {
       // relaunch/override of an existing signal: its intake.json must already exist
       subjectId = params.ticker
