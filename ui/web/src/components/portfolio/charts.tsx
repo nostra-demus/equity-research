@@ -131,25 +131,16 @@ function rebase(points: GrowthPoint[]): GrowthPoint[] {
   }))
 }
 
-/** Growth of capital: the book against the benchmark, both rebased to 100 at the start of the range. */
-export function GrowthChart({ series: full, benchmarkSymbol, height = 210 }: {
-  series: GrowthPoint[]
-  benchmarkSymbol: string
-  height?: number
+/** The range buttons, shared by both charts so they cannot drift apart. `covered` decides which are
+ *  offered: a range the history cannot fill is shown DISABLED with the reason, because silently drawing
+ *  four months under a "1Y" button is the kind of small lie that makes the rest untrustworthy. */
+function RangeBar({ range, setRange, full, cut }: {
+  range: RangeId
+  setRange: (r: RangeId) => void
+  full: { date: string }[]
+  cut: (r: (typeof RANGES)[number]) => { date: string }[]
 }) {
-  const [range, setRange] = useState<RangeId>('MAX')
-  // Declared here, above every guard below, so the hook count never changes with the chosen range.
-  const geo = useRef<{ count: number; W: number; x: (i: number) => number }>({ count: 0, W: 960, x: () => 0 })
-  const hover = useHover(() => geo.current)
   const last = full.length ? full[full.length - 1]!.date : null
-  const cut = (r: (typeof RANGES)[number]): GrowthPoint[] => {
-    if (r.id === 'MAX' || last === null) return full
-    if ('points' in r) return full.slice(-r.points!)
-    const from = windowStart(last, r.months!)
-    return full.filter((p) => p.date >= from)
-  }
-  // A range the history cannot fill is OFFERED BUT DISABLED, with the reason on hover: silently showing
-  // four months under a "1Y" button is the kind of small lie that makes the rest untrustworthy.
   const covered = (r: (typeof RANGES)[number]): boolean => {
     if (r.id === 'MAX') return full.length >= 2
     const slice = cut(r)
@@ -157,10 +148,7 @@ export function GrowthChart({ series: full, benchmarkSymbol, height = 210 }: {
     if ('points' in r) return full.length >= r.points!
     return full[0]!.date <= windowStart(last!, r.months!)
   }
-  const active = RANGES.find((r) => r.id === range) ?? RANGES[RANGES.length - 1]
-  const series = rebase(cut(active))
-
-  const selector = (
+  return (
     <div className="fundbook__ranges" role="group" aria-label="Chart range">
       {RANGES.map((r) => {
         const ok = covered(r)
@@ -178,6 +166,32 @@ export function GrowthChart({ series: full, benchmarkSymbol, height = 210 }: {
       })}
     </div>
   )
+}
+
+/** Slice a dated series to a range. Shared so both charts window identically. */
+function cutTo<T extends { date: string }>(full: T[], r: (typeof RANGES)[number]): T[] {
+  const last = full.length ? full[full.length - 1]!.date : null
+  if (r.id === 'MAX' || last === null) return full
+  if ('points' in r) return full.slice(-r.points!)
+  const from = windowStart(last, r.months!)
+  return full.filter((p) => p.date >= from)
+}
+
+/** Growth of capital: the book against the benchmark, both rebased to 100 at the start of the range. */
+export function GrowthChart({ series: full, benchmarkSymbol, height = 210 }: {
+  series: GrowthPoint[]
+  benchmarkSymbol: string
+  height?: number
+}) {
+  const [range, setRange] = useState<RangeId>('MAX')
+  // Declared here, above every guard below, so the hook count never changes with the chosen range.
+  const geo = useRef<{ count: number; W: number; x: (i: number) => number }>({ count: 0, W: 960, x: () => 0 })
+  const hover = useHover(() => geo.current)
+  const last = full.length ? full[full.length - 1]!.date : null
+  const cut = (r: (typeof RANGES)[number]) => cutTo(full, r)
+  const active = RANGES.find((r) => r.id === range) ?? RANGES[RANGES.length - 1]
+  const series = rebase(cut(active))
+  const selector = <RangeBar range={range} setRange={setRange} full={full} cut={cut} />
 
   if (series.length < 2) {
     return (
@@ -258,33 +272,79 @@ export function GrowthChart({ series: full, benchmarkSymbol, height = 210 }: {
   )
 }
 
-/** Distance below the previous high, day by day. */
-export function UnderwaterChart({ series, height = 170 }: {
-  series: { date: string; depth: number }[]
+/** Distance below the previous high, day by day — for the book and for the index beside it.
+ *
+ *  DERIVED FROM THE SAME GROWTH SERIES the curve above is drawn from, rather than from a second
+ *  precomputed field, so the two charts cannot disagree about the same days.
+ *
+ *  THE PEAK IS THE WINDOW'S OWN. Drawdown is path-dependent: measured against an all-time high from
+ *  months ago, a "5D" view would sit at a near-constant depth and say nothing about the week. Each
+ *  range re-peaks, so it answers the question its label asks — the worst fall WITHIN that window —
+ *  exactly as the growth chart re-bases to its own start.
+ *
+ *  THE INDEX IS THERE BECAUSE A FALL IS NOT A FACT ON ITS OWN. A book down 0.9% while the market was
+ *  down 5% held up; the same 0.9% while the market rose is something else entirely, and the depth alone
+ *  cannot tell the two apart. */
+export function UnderwaterChart({ series: full, benchmarkSymbol, height = 170 }: {
+  series: GrowthPoint[]
+  benchmarkSymbol: string
   height?: number
 }) {
+  const [range, setRange] = useState<RangeId>('MAX')
   const geo = useRef<{ count: number; W: number; x: (i: number) => number }>({ count: 0, W: 960, x: () => 0 })
   const hover = useHover(() => geo.current)
-  if (series.length < 2) return <div className="fundbook__none">Not enough valued days to draw a drawdown yet.</div>
+
+  const cut = (r: (typeof RANGES)[number]) => cutTo(full, r)
+  const active = RANGES.find((r) => r.id === range) ?? RANGES[RANGES.length - 1]
+  const windowed = cut(active)
+  const selector = <RangeBar range={range} setRange={setRange} full={full} cut={cut} />
+
+  /** Running-peak depth, in percent, over whatever slice it is given. */
+  const underwater = (pick: (p: GrowthPoint) => number | null): (number | null)[] => {
+    let peak: number | null = null
+    return windowed.map((p) => {
+      const v = pick(p)
+      if (v === null || !Number.isFinite(v) || v <= 0) return null
+      peak = peak === null ? v : Math.max(peak, v)
+      return (v / peak - 1) * 100
+    })
+  }
+  const bookDd = underwater((p) => p.book)
+  const bmDd = underwater((p) => p.benchmark)
+  const hasBm = bmDd.some((d) => d !== null)
+
+  if (windowed.length < 2) {
+    return (
+      <>
+        {selector}
+        <div className="fundbook__none">Not enough valued days to draw a drawdown yet.</div>
+      </>
+    )
+  }
   const W = 960
   const H = height
-  const deepest = Math.min(...series.map((s) => s.depth))
+  const depths = [...bookDd, ...bmDd].filter((d): d is number => d !== null)
+  const deepest = Math.min(...bookDd.filter((d): d is number => d !== null), 0)
   // Always show at least a couple of points of depth, so a book that has barely fallen does not get a
   // dramatic-looking curve drawn from noise.
-  const min = Math.min(deepest * 1.15, -2)
-  const x = (i: number) => PAD.l + (i / (series.length - 1)) * (W - PAD.l - PAD.r)
+  const min = Math.min(Math.min(...depths, 0) * 1.15, -2)
+  const x = (i: number) => PAD.l + (i / (windowed.length - 1)) * (W - PAD.l - PAD.r)
   const y = (v: number) => PAD.t + (1 - (v - min) / (0 - min)) * (H - PAD.t - PAD.b)
-  const pts: Point[] = series.map((s) => ({ date: s.date, value: s.depth }))
+  geo.current = { count: windowed.length, W, x }
+
+  const pts: Point[] = windowed.map((p, i) => ({ date: p.date, value: bookDd[i]! }))
+  const bmPts: Point[] = windowed.map((p, i) => ({ date: p.date, value: bmDd[i] }))
   const line = buildPath(pts, x, y)
-  const area = `${line} L${x(series.length - 1).toFixed(1)} ${y(0).toFixed(1)} L${x(0).toFixed(1)} ${y(0).toFixed(1)} Z`
-  const troughIndex = series.findIndex((s) => s.depth === deepest)
-  geo.current = { count: series.length, W, x }
+  const area = `${line} L${x(windowed.length - 1).toFixed(1)} ${y(0).toFixed(1)} L${x(0).toFixed(1)} ${y(0).toFixed(1)} Z`
+  const troughIndex = bookDd.indexOf(deepest)
+  const at = hover.at
 
   return (
     <div className="fundbook__chart">
+      {selector}
       <svg className="fundbook__svg" viewBox={`0 0 ${W} ${H}`} role="img"
         ref={hover.ref} onPointerMove={hover.onMove} onPointerLeave={hover.onLeave}
-        aria-label={`Drawdown from the previous high, deepest ${deepest.toFixed(2)} percent`}>
+        aria-label={`Drawdown from the previous high over ${range}, deepest ${deepest.toFixed(2)} percent`}>
         <defs>
           <linearGradient id="fbDdFill" x1="0" y1="0" x2="0" y2="1">
             <stop offset="0%" stopColor="var(--bad)" stopOpacity="0.05" />
@@ -299,30 +359,34 @@ export function UnderwaterChart({ series, height = 170 }: {
         ))}
         <line x1={PAD.l} y1={y(0)} x2={W - PAD.r} y2={y(0)} stroke="var(--hairline-strong)" strokeWidth="1" vectorEffect="non-scaling-stroke" />
         <path d={area} fill="url(#fbDdFill)" />
+        {hasBm && <path d={buildPath(bmPts, x, y)} fill="none" stroke="var(--text-faint)" strokeWidth="1.4" vectorEffect="non-scaling-stroke" strokeLinejoin="round" />}
         <path d={line} fill="none" stroke="var(--bad)" strokeWidth="1.8" vectorEffect="non-scaling-stroke" strokeLinejoin="round" />
-        <DateAxis series={series} x={x} H={H} W={W} />
-        {hover.at !== null && (
+        <DateAxis series={windowed} x={x} H={H} W={W} />
+        {at !== null && (
           <g pointerEvents="none">
-            <line x1={x(hover.at)} y1={PAD.t} x2={x(hover.at)} y2={H - PAD.b}
+            <line x1={x(at)} y1={PAD.t} x2={x(at)} y2={H - PAD.b}
               stroke="var(--hairline-strong)" strokeWidth="1" vectorEffect="non-scaling-stroke" />
-            <circle cx={x(hover.at)} cy={y(series[hover.at]!.depth)} r="3.5" fill="var(--bad)" />
+            {bookDd[at] !== null && <circle cx={x(at)} cy={y(bookDd[at]!)} r="3.5" fill="var(--bad)" />}
+            {bmDd[at] !== null && <circle cx={x(at)} cy={y(bmDd[at]!)} r="3" fill="var(--text-faint)" />}
           </g>
         )}
       </svg>
-      <div className={`fundbook__legend${hover.at !== null ? ' is-reading' : ''}`}>
-        {hover.at === null ? (
-          <span><i style={{ background: 'var(--bad)' }} />Deepest <b>{deepest.toFixed(2)}%</b>{troughIndex >= 0 && <> on {series[troughIndex]!.date}</>}</span>
+      <div className={`fundbook__legend${at !== null ? ' is-reading' : ''}`}>
+        {at === null ? (
+          <span><i style={{ background: 'var(--bad)' }} />Deepest <b>{deepest.toFixed(2)}%</b>{troughIndex >= 0 && <> on {windowed[troughIndex]!.date}</>}</span>
         ) : (
-          <span><i style={{ background: 'var(--bad)' }} />Under water <b>{series[hover.at]!.depth.toFixed(2)}%</b></span>
+          <span><i style={{ background: 'var(--bad)' }} />Book <b>{bookDd[at] === null ? '—' : `${bookDd[at]!.toFixed(2)}%`}</b></span>
         )}
-        {/* THE DATE REPLACES THE RANGE while reading, exactly as the growth chart does. It used to be
-            appended after the percentage, at 9px, mid-sentence, while this line went on showing the
-            full static range — so the one number that changes under the cursor was the least visible
-            thing in the legend, and read as no date at all. */}
+        {hasBm && (
+          <span>
+            <i style={{ background: 'var(--text-faint)' }} />{benchmarkSymbol}{' '}
+            <b>{(at === null ? Math.min(...bmDd.filter((d): d is number => d !== null), 0) : bmDd[at])?.toFixed(2) ?? '—'}%</b>
+          </span>
+        )}
         <span className="dim">
-          {hover.at === null
-            ? <>{series[0]!.date} → {series[series.length - 1]!.date} · measured on the flow-adjusted index, so a withdrawal is not a fall</>
-            : <><b>{series[hover.at]!.date}</b> · hover to read any day</>}
+          {at === null
+            ? <>{windowed[0]!.date} → {windowed[windowed.length - 1]!.date} · measured on the flow-adjusted index, so a withdrawal is not a fall</>
+            : <><b>{windowed[at]!.date}</b> · hover to read any day</>}
         </span>
       </div>
     </div>

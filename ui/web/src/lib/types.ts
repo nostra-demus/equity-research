@@ -2270,7 +2270,6 @@ export interface PortfolioPerformance {
   /** Both curves rebased to 100 at the first funded day — NAV itself cannot be plotted against an
    *  index, because a deposit would draw as performance. */
   growth: { date: string; book: number; benchmark: number | null }[]
-  underwater: { date: string; depth: number }[]
   /** ANNUALISED (XIRR) — not comparable with the cumulative period returns, and labelled as such. */
   moneyWeightedAnnualisedPct: number | null
   risk: PortfolioRisk

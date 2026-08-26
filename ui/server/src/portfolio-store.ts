@@ -180,8 +180,6 @@ export interface PortfolioPerformance {
    *  comparable: NAV itself cannot be plotted against an index because deposits move it without being
    *  performance. The book curve is the flow-adjusted index the returns are already built from. */
   growth: { date: string; book: number; benchmark: number | null }[]
-  /** Distance below the previous high, day by day — the underwater curve. */
-  underwater: { date: string; depth: number }[]
   /** The LP's lived return — reported alongside the time-weighted figure, never instead of it.
    *  ANNUALISED (XIRR), unlike the cumulative period returns above: the UI must label it as such. */
   moneyWeightedAnnualisedPct: number | null
@@ -253,25 +251,11 @@ export function performanceOf(book: Book): PortfolioPerformance {
     }
   }
 
-  // The underwater curve, from that same index — so a withdrawal is never drawn as a drawdown.
-  const underwater: { date: string; depth: number }[] = []
-  if (returns.length > 0) {
-    let index = 1
-    let peak = 1
-    underwater.push({ date: returns[0]!.date, depth: 0 })
-    for (const { date, r } of returns) {
-      index *= 1 + r
-      peak = Math.max(peak, index)
-      underwater.push({ date, depth: (index / peak - 1) * 100 })
-    }
-  }
-
   return {
     periods: returnsByPeriod(window, flowsByDate, RISK_FREE_ANNUAL_PCT),
     months: monthlyReturns(book.navSeries, flowsByDate, closes),
     betaAlpha: betaAlpha(returns, closes, RISK_FREE_ANNUAL_PCT),
     growth,
-    underwater,
     moneyWeightedAnnualisedPct: moneyWeightedReturn(book.navSeries, flowsByDate),
     risk: riskMetrics(book.navSeries, flowsByDate, RISK_FREE_ANNUAL_PCT),
     benchmark: benchmarkCompare(BENCHMARK_SYMBOL, book.twr, window, closes),

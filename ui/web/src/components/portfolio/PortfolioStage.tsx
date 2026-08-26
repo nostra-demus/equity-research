@@ -874,7 +874,7 @@ function Performance({ perf, cashShare }: { perf: PortfolioPerformance; cashShar
           table needs 780px and a half column of the 1180px shell is 584px, so it would scroll
           horizontally forever. The monthly grid is worse as a partner — 352px at six months, 772px at
           twelve, 2212px at three years — so any pairing that fits today breaks within months. */}
-      {perf.underwater.length > 1 && (
+      {perf.growth.length > 1 && (
         <div className="fundbook__panel">
           <div className="fundbook__panelhead">
             <div>
@@ -885,7 +885,11 @@ function Performance({ perf, cashShare }: { perf: PortfolioPerformance; cashShar
               </small>
             </div>
           </div>
-          <UnderwaterChart series={perf.underwater} />
+          {/* The SAME series the growth curve is drawn from: the underwater line is a pure function of
+              that index, so deriving it here rather than from a second precomputed field means the two
+              charts cannot disagree about the same days — and it is what lets the range and the
+              benchmark work at all. */}
+          <UnderwaterChart series={perf.growth} benchmarkSymbol={perf.benchmark.symbol} />
         </div>
       )}
 
