@@ -624,7 +624,15 @@ def test_production_shadow_readiness_requires_trusted_adjudication() -> None:
             evaluated_at="2026-08-27T00:00:00Z",
             shadow_evaluation_report=shadow,
         ),
-        "requires a pinned adjudicator key",
+        "requires a valid 32-byte adjudicator public key",
+    )
+    _expect_operations_error(
+        lambda: _full_report(
+            evaluated_at="2026-08-27T00:00:00Z",
+            shadow_evaluation_report=shadow,
+            shadow_adjudicator_public_key=ADJUDICATOR_PUBLIC,
+        ),
+        "requires a non-empty adjudicator key ID",
     )
     forged = copy.deepcopy(shadow)
     forged["adjudication_attestation"]["signature"]["value"] = "A" * 86

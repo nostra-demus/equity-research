@@ -900,13 +900,14 @@ def _material_claim_lineage(
         raise OperationsError("shadow_evaluation_report evidence coverage contradicts its counts")
     mode = value.get("evaluation_mode")
     if mode == "production-shadow":
-        if (
-            not isinstance(adjudicator_public_key, bytes)
-            or len(adjudicator_public_key) != 32
-            or not isinstance(adjudicator_key_id, str)
-            or not adjudicator_key_id
-        ):
-            raise OperationsError("production shadow readiness requires a pinned adjudicator key")
+        if not isinstance(adjudicator_public_key, bytes) or len(adjudicator_public_key) != 32:
+            raise OperationsError(
+                "production shadow readiness requires a valid 32-byte adjudicator public key"
+            )
+        if not isinstance(adjudicator_key_id, str) or not adjudicator_key_id:
+            raise OperationsError(
+                "production shadow readiness requires a non-empty adjudicator key ID"
+            )
         if not verify_adjudication_attestation(
             value, public_key=adjudicator_public_key, key_id=adjudicator_key_id,
         ):
