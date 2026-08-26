@@ -30,6 +30,13 @@ check('live provider rows distinguish configured readiness from a recent success
   assert.match(panel, /ms < -60_000/)
 })
 
+check('the shared machine verdict exposes root cause and restart policy above the detailed rows', () => {
+  assert.match(panel, /data-testid="scanner-health-verdict"/)
+  assert.match(panel, /diag\.health\.findings\.map/)
+  assert.match(panel, /The watchdog will confirm the fault twice/)
+  assert.match(panel, /Restarting will not add capacity/)
+})
+
 check('range presets, UTC/custom range, and the 90-day client cap are present', () => {
   for (const label of ["label: '1h'", "label: '24h'", "label: '7d'", "label: '30d'"]) assert.match(trend, new RegExp(label))
   assert.match(trend, /type="datetime-local"/)

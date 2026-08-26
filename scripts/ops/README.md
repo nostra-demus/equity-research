@@ -353,7 +353,7 @@ merged either; its commits have to be replayed onto the new base.
 `KeepAlive` only restarts a **crashed** process. The watchdog covers what it can't: a non-launchd
 process squatting `:8787`, the engine being up but serving **broken content** (the blank page = HTML
 returned for the `.js` bundle), an unreachable tunnel, or a **publicly-broken-but-locally-up** state.
-Every 30s it checks (1) `/api/health`, (2) that the served `index-*.js` comes back as real
+Every 30s it checks (1) `/api/health`, (2) that the served JavaScript entry comes back as real
 `application/javascript`, and (3) the public URL — capturing the HTTP code, latency, **and** the
 `x-engine-status` header so it can tell a dead tunnel (code `000`/`>=520`) apart from the edge serving
 *offline* while the local engine is fine (`x-engine-status: offline` or `503` → `public-offline`) apart
@@ -365,6 +365,16 @@ whose old connector is still draining. A failed restart command does not start t
 window with `WATCHDOG_TUNNEL_HEAL_COOLDOWN_SECONDS` (`0` disables suppression). It also kills a **stray
 second engine** on a non-`:8787` port (the load-doubling failure mode). Every incident + repair is logged to
 `~/Library/Logs/nostradamus-watchdog.log`. **You do nothing; it fixes itself and keeps a track.**
+
+Every three minutes it also reads the machine verdict embedded in `/api/news/diagnostics`. That verdict is
+derived from the scanner's existing cycle receipts, saved queue, provider routing state, and fixed-hour flow;
+the watchdog never makes a duplicate provider call. It records stale/missing cycles, unreadable queue or cycle
+history, actual unscored loss, dangerous backlog pressure, measured capacity shortfall, standing provider
+faults, and routes that have not succeeded in seven days. A scheduler-stale or unreachable-diagnostics fault
+is checked twice and may restart the engine, with a separate 15-minute cooldown. Provider allowance, key,
+model, storage, and capacity faults are logged with their real remedy and never cause a useless restart.
+Override the cadence with `WATCHDOG_SCANNER_HEALTH_INTERVAL_SECONDS` and the restart cooldown with
+`WATCHDOG_SCANNER_HEAL_COOLDOWN_SECONDS`.
 
 On the configured Mac Pro, the watchdog runs an independent connector supervisor. It proves, in order: exact
 writer host and role, the stable pool/config identities, the complete 15-minute plist contract, the loaded

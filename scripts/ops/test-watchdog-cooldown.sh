@@ -186,15 +186,21 @@ case "${0##*/}" in
   npm)
     exit 97
     ;;
+  node)
+    printf '%s\n' "${WATCHDOG_TEST_SCANNER_LINE:-healthy\thealthy\tnone\tScanner is healthy.}"
+    exit "${WATCHDOG_TEST_SCANNER_RC:-0}"
+    ;;
   *) exit 99 ;;
 esac
 MOCK
 chmod +x "$MOCK_BIN/mock-command"
-for command_name in curl launchctl lsof stat npm; do
+for command_name in curl launchctl lsof stat npm node; do
   ln -s mock-command "$MOCK_BIN/$command_name"
 done
 
 run_watchdog() {
+  local scanner_line="${WATCHDOG_TEST_SCANNER_LINE_OVERRIDE:-}"
+  [ -n "$scanner_line" ] || scanner_line=$'healthy\thealthy\tnone\tScanner is healthy.'
   WATCHDOG_TEST_PUBLIC_STATUS="$1" \
   WATCHDOG_TEST_LOCAL_HEALTH="$2" \
   WATCHDOG_TEST_LAUNCHCTL_FAIL="${3:-0}" \
@@ -202,7 +208,11 @@ run_watchdog() {
   WATCHDOG_TEST_CONNECTOR_LOADED="${4:-1}" \
   WATCHDOG_TEST_CONNECTOR_RUNNING="${5:-0}" \
   WATCHDOG_TEST_CONNECTOR_PID="${6:-4242}" \
+  WATCHDOG_TEST_SCANNER_LINE="$scanner_line" \
+  WATCHDOG_TEST_SCANNER_RC="${WATCHDOG_TEST_SCANNER_RC_OVERRIDE:-0}" \
   WATCHDOG_TUNNEL_HEAL_COOLDOWN_SECONDS=300 \
+  WATCHDOG_SCANNER_HEALTH_INTERVAL_SECONDS=0 \
+  WATCHDOG_SCANNER_HEAL_COOLDOWN_SECONDS=300 \
   ENGINE_REPO_ROOT="$TEST_TMP/repo" \
   HOME="$TEST_HOME" \
   PATH="$MOCK_BIN:/usr/bin:/bin" \
@@ -283,6 +293,67 @@ elif ! grep -q "HEAL-FAILED public-offline" "$TEST_HOME/Library/Logs/nostradamus
 else
   echo "  ok  failed tunnel restarts remain retryable and do not start the cooldown"
 fi
+
+# Scanner supervision consumes the server's machine-readable remedy. Provider/account/capacity problems
+# stay visible without process churn; only a restart-engine verdict may kickstart the engine, and only after
+# two independent reads with its own cooldown.
+rm -f \
+  "$TEST_HOME/Library/Application Support/nostradamus/scanner-health.state" \
+  "$TEST_HOME/Library/Application Support/nostradamus/scanner-health.fails" \
+  "$TEST_HOME/Library/Application Support/nostradamus/scanner-heal.at" \
+  "$TEST_HOME/Library/Application Support/nostradamus/scanner-healing"
+: > "$LAUNCHCTL_LOG"
+WATCHDOG_TEST_SCANNER_LINE_OVERRIDE=$'degraded\tproviders-blocked\twait-for-reset\tAll providers are waiting for reset.'
+WATCHDOG_TEST_SCANNER_RC_OVERRIDE=2
+run_watchdog 200 up
+run_watchdog 200 up
+if [ "$(count_kickstarts engine)" != 0 ]; then
+  echo "  FAIL a provider/reset fault triggered a useless engine restart"
+  failures=$((failures + 1))
+elif ! grep -q "SCANNER-DEGRADED \[providers-blocked; remedy=wait-for-reset\]" "$TEST_HOME/Library/Logs/nostradamus-watchdog.log"; then
+  echo "  FAIL a non-restartable scanner root cause was not logged"
+  failures=$((failures + 1))
+else
+  echo "  ok  provider/reset faults are tracked without restart churn"
+fi
+
+rm -f \
+  "$TEST_HOME/Library/Application Support/nostradamus/scanner-health.state" \
+  "$TEST_HOME/Library/Application Support/nostradamus/scanner-health.fails" \
+  "$TEST_HOME/Library/Application Support/nostradamus/scanner-heal.at" \
+  "$TEST_HOME/Library/Application Support/nostradamus/scanner-healing"
+: > "$LAUNCHCTL_LOG"
+WATCHDOG_TEST_SCANNER_LINE_OVERRIDE=$'failing\tscheduler-stale\trestart-engine\tNo scanner look has completed.'
+WATCHDOG_TEST_SCANNER_RC_OVERRIDE=3
+run_watchdog 200 up
+first_scanner_restarts="$(count_kickstarts engine)"
+run_watchdog 200 up
+second_scanner_restarts="$(count_kickstarts engine)"
+run_watchdog 200 up
+run_watchdog 200 up
+if [ "$first_scanner_restarts" != 0 ] || [ "$second_scanner_restarts" != 1 ]; then
+  echo "  FAIL scanner-stale healing did not require exactly two confirmed reads"
+  failures=$((failures + 1))
+elif [ "$(count_kickstarts engine)" != 1 ]; then
+  echo "  FAIL scanner restart cooldown did not suppress repeated healing"
+  failures=$((failures + 1))
+elif ! grep -q "SUPPRESS SCANNER HEAL \[scheduler-stale\]" "$TEST_HOME/Library/Logs/nostradamus-watchdog.log"; then
+  echo "  FAIL scanner restart cooldown was not recorded"
+  failures=$((failures + 1))
+else
+  echo "  ok  stale scheduler self-heals after confirmation with restart cooldown"
+fi
+
+WATCHDOG_TEST_SCANNER_LINE_OVERRIDE=$'healthy\thealthy\tnone\tScanner is completing work.'
+WATCHDOG_TEST_SCANNER_RC_OVERRIDE=0
+run_watchdog 200 up
+if ! grep -q "SCANNER-RECOVERED" "$TEST_HOME/Library/Logs/nostradamus-watchdog.log"; then
+  echo "  FAIL scanner recovery was not recorded"
+  failures=$((failures + 1))
+else
+  echo "  ok  scanner recovery is recorded"
+fi
+unset WATCHDOG_TEST_SCANNER_LINE_OVERRIDE WATCHDOG_TEST_SCANNER_RC_OVERRIDE
 
 if [ "$failures" -ne 0 ]; then
   echo "$failures watchdog cooldown test(s) failed"
