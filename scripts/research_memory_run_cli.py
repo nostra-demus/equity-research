@@ -14,6 +14,8 @@ from pathlib import Path
 
 from memory_profiles import parse_profile
 from memory_projection import verify_projection
+from memory_crypto import load_master_key_file
+from memory_enforcement import verify_activation
 from memory_runtime import (
     EXCHANGE_MICS,
     MemoryRuntimeError,
@@ -322,6 +324,23 @@ def verify(args: argparse.Namespace) -> int:
     return 0
 
 
+def verify_enforcement(args: argparse.Namespace) -> int:
+    """Fail closed unless enforced mode has current signed production evidence."""
+    result = verify_activation(
+        load_object(args.activation),
+        readiness=load_object(args.readiness),
+        three_layer=load_object(args.three_layer),
+        shadow=load_object(args.shadow),
+        public_key=load_master_key_file(Path(args.public_key)),
+        key_id=args.key_id,
+        provider=args.provider,
+        model=args.model,
+        now=args.now,
+    )
+    dump(result)
+    return 0
+
+
 def compile_packet(args: argparse.Namespace) -> int:
     root = Path(args.root).resolve()
     state = Path(args.state_root).resolve()
@@ -508,6 +527,18 @@ def parser() -> argparse.ArgumentParser:
     v.add_argument("--authorization", required=True)
     v.add_argument("--authorization-sha256", required=True)
     v.set_defaults(handler=verify)
+
+    e = sub.add_parser("verify-enforcement")
+    e.add_argument("--activation", required=True)
+    e.add_argument("--readiness", required=True)
+    e.add_argument("--three-layer", required=True)
+    e.add_argument("--shadow", required=True)
+    e.add_argument("--public-key", required=True)
+    e.add_argument("--key-id", required=True)
+    e.add_argument("--provider", required=True)
+    e.add_argument("--model", required=True)
+    e.add_argument("--now", required=True)
+    e.set_defaults(handler=verify_enforcement)
 
     c = sub.add_parser("compile")
     common(c)

@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "frameworks/memory/shadow-evaluation-report-v1.schema.json",
+  "title": "Production memory shadow A/B evaluation report v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "evaluation_id", "evaluation_mode", "preregistration_sha256", "roster_sha256", "window", "sample", "quality", "provider_parity", "gate", "report_sha256"],
+  "properties": {
+    "schema": {"const": "memory-shadow-evaluation-report/v1"},
+    "evaluation_id": {"type": "string", "pattern": "^memory-shadow-eval-[A-Za-z0-9._-]{1,96}$"},
+    "evaluation_mode": {"enum": ["synthetic-ci", "production-shadow"]},
+    "preregistration_sha256": {"$ref": "#/$defs/hash"},
+    "roster_sha256": {"$ref": "#/$defs/hash"},
+    "window": {
+      "type": "object", "additionalProperties": false, "required": ["start", "end"],
+      "properties": {"start": {"type": "string", "format": "date-time"}, "end": {"type": "string", "format": "date-time"}}
+    },
+    "sample": {
+      "type": "object", "additionalProperties": false,
+      "required": ["paired_tasks", "runs", "issuers", "issuers_with_prior_reviews", "provider_parity_groups", "required_agents", "covered_required_agents", "missing_agent_keys"],
+      "properties": {
+        "paired_tasks": {"type": "integer", "minimum": 0}, "runs": {"type": "integer", "minimum": 0},
+        "issuers": {"type": "integer", "minimum": 0}, "issuers_with_prior_reviews": {"type": "integer", "minimum": 0},
+        "provider_parity_groups": {"type": "integer", "minimum": 0},
+        "required_agents": {"type": "integer", "minimum": 1},
+        "covered_required_agents": {"type": "integer", "minimum": 0},
+        "missing_agent_keys": {"type": "array", "uniqueItems": true, "items": {"type": "string"}}
+      }
+    },
+    "quality": {
+      "type": "object", "additionalProperties": false,
+      "required": ["baseline_serious_errors", "memory_serious_errors", "material_memory_claims", "covered_material_memory_claims", "evidence_coverage", "qualifier_loss_count", "protected_leak_count", "temporal_leak_count", "mandatory_recheck_rate", "contradiction_improvement", "prior_defense_improvement", "abstention_improvement", "context_compilation_p95_millis", "median_cost_overhead"],
+      "properties": {
+        "baseline_serious_errors": {"type": "integer", "minimum": 0}, "memory_serious_errors": {"type": "integer", "minimum": 0},
+        "material_memory_claims": {"type": "integer", "minimum": 0}, "covered_material_memory_claims": {"type": "integer", "minimum": 0},
+        "evidence_coverage": {"$ref": "#/$defs/rate"}, "qualifier_loss_count": {"type": "integer", "minimum": 0},
+        "protected_leak_count": {"type": "integer", "minimum": 0}, "temporal_leak_count": {"type": "integer", "minimum": 0},
+        "mandatory_recheck_rate": {"$ref": "#/$defs/rate"}, "contradiction_improvement": {"type": "number", "minimum": -1, "maximum": 1},
+        "prior_defense_improvement": {"type": "number", "minimum": -1, "maximum": 1}, "abstention_improvement": {"type": "number", "minimum": -1, "maximum": 1},
+        "context_compilation_p95_millis": {"type": "number", "minimum": 0}, "median_cost_overhead": {"type": "number", "minimum": -1}
+      }
+    },
+    "provider_parity": {
+      "type": "object", "additionalProperties": false,
+      "required": ["status", "providers", "packet_mismatch_count", "provider_serious_regressions"],
+      "properties": {
+        "status": {"enum": ["met", "failed", "unmeasured"]},
+        "providers": {"type": "array", "uniqueItems": true, "items": {"type": "string"}},
+        "packet_mismatch_count": {"type": "integer", "minimum": 0},
+        "provider_serious_regressions": {"type": "array", "uniqueItems": true, "items": {"type": "string"}}
+      }
+    },
+    "gate": {
+      "type": "object", "additionalProperties": false,
+      "required": ["quality_passed", "counts_as_production_evidence", "approved_provider_models", "blocking_reasons"],
+      "properties": {
+        "quality_passed": {"type": "boolean"}, "counts_as_production_evidence": {"type": "boolean"},
+        "approved_provider_models": {"type": "array", "uniqueItems": true, "items": {"type": "string"}},
+        "blocking_reasons": {"type": "array", "uniqueItems": true, "items": {"type": "string"}}
+      }
+    },
+    "report_sha256": {"$ref": "#/$defs/hash"}
+  },
+  "$defs": {
+    "hash": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+    "rate": {"type": "number", "minimum": 0, "maximum": 1}
+  }
+}

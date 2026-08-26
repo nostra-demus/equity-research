@@ -54,15 +54,20 @@ production dispatch stays off until its shadow and enforcement gates pass.
 - A production projection manager that binds a clean SQLite rebuild to an exact repository SHA,
   conservative issuer/listing registry, controlled-writer owner, and owner-signed external
   checkpoint; exact provider-policy narrowing; and registry-backed transitive runtime purge hooks.
+- A deterministic production-candidate ranker for the exact pinned 63-case corpus, a closed scorer
+  for the additional 40 three-layer cases, and a pre-registered 100-task live paired-shadow
+  evaluator with exact provider-packet parity and material-claim lineage accounting.
+- A maximum-30-day Ed25519 release activation that binds all production evidence and approved
+  provider/models. Enforced mode checks it before snapshot preparation and immediately before paid
+  dispatch; no synthetic or unmeasured report can activate the runtime.
 
-These are bounded reference components, not a production deployment. The Phase 3 synthetic fixture
-gate passes, but the exact 63-case Phase 0 production-candidate benchmark has not been run. Phase 4
-proves protocol behavior with synthetic clients; it has not called a real Codex or Claude model API
-and has no human approval of shadow answers. Phase 5 does not install an exclusive production Git
-writer, service identity, remote canonical service, or cockpit integration. Reviewed feedback is
-auditable but has no rating, confidence, or calibration effect. Phase 6 therefore reports overall
-operational readiness as `unmeasured` until authenticated production observations cover adoption,
-material-claim lineage, write reliability, latency, restore, access, and review cadence. Dedicated
+The local production integration, supervisor boundary, cockpit, incident controls, and release gates
+are implemented. The exact 63-case production-candidate benchmark is reproducible and passes its
+non-regression, strict-improvement, temporal, and protected-path gates. Production enforcement still
+cannot be activated from repository fixtures: it remains correctly blocked until operators supply
+the pre-registered live 100-task Claude/Codex shadow sample and current authenticated readiness,
+write, latency, restore, purge, access, and review-cadence observations. Reviewed feedback is
+auditable but cannot create a rating, confidence, sufficiency, or position-size lift. Dedicated
 remote vector/graph infrastructure and automated memory-driven rating changes remain deferred.
 
 ## Authority and paths
@@ -155,6 +160,15 @@ PYTHONPATH=scripts python3 scripts/test_memory_store_orphan_recovery.py
 PYTHONPATH=scripts python3 scripts/test_memory_operations.py
 PYTHONPATH=scripts python3 scripts/test_memory_three_layer_contract.py
 PYTHONPATH=scripts python3 scripts/test_memory_runtime.py
+PYTHONPATH=scripts python3 scripts/test_memory_phase0_candidate.py
+PYTHONPATH=scripts python3 scripts/test_memory_three_layer_benchmark.py
+PYTHONPATH=scripts python3 scripts/test_memory_shadow_evaluation.py
+PYTHONPATH=scripts python3 scripts/test_memory_enforcement.py
+
+# Emit the exact pinned-corpus production-candidate report. Runtime evidence belongs in
+# the owner-only state root, never the repository.
+python3 scripts/memory_phase0_candidate.py \
+  --output /absolute/private/memory-runtime/operations/phase0-candidate-report.json
 
 # Prepare the production projection. The Ed25519 seed and public key are raw 32-byte,
 # owner-only files; the signed checkpoint must live outside the mutable state root.

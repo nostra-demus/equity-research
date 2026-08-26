@@ -31,6 +31,12 @@ interface MemoryConfig {
   policyPublicKey: string
   policyKeyId: string
   serviceIdentity: string
+  enforcementActivation: string
+  enforcementReadiness: string
+  enforcementThreeLayer: string
+  enforcementShadow: string
+  enforcementPublicKey: string
+  enforcementKeyId: string
 }
 
 interface PrepareResult {
@@ -163,10 +169,29 @@ function memoryConfig(env: NodeJS.ProcessEnv = process.env): MemoryConfig {
     policyPublicKey: read('NOSTRA_MEMORY_POLICY_PUBLIC_KEY'),
     policyKeyId: read('NOSTRA_MEMORY_POLICY_KEY_ID'),
     serviceIdentity: read('NOSTRA_MEMORY_SERVICE_IDENTITY', 'cockpit-runtime'),
+    enforcementActivation: path.resolve(read(
+      'NOSTRA_MEMORY_ENFORCEMENT_ACTIVATION',
+      path.join(read('NOSTRA_MEMORY_STATE_ROOT', path.join(STATE_DIR, 'memory-runtime')), 'operations', 'enforcement-activation.json'),
+    )),
+    enforcementReadiness: path.resolve(read(
+      'NOSTRA_MEMORY_ENFORCEMENT_READINESS',
+      path.join(read('NOSTRA_MEMORY_STATE_ROOT', path.join(STATE_DIR, 'memory-runtime')), 'operations', 'readiness-report.json'),
+    )),
+    enforcementThreeLayer: path.resolve(read(
+      'NOSTRA_MEMORY_ENFORCEMENT_THREE_LAYER',
+      path.join(read('NOSTRA_MEMORY_STATE_ROOT', path.join(STATE_DIR, 'memory-runtime')), 'operations', 'three-layer-benchmark-report.json'),
+    )),
+    enforcementShadow: path.resolve(read(
+      'NOSTRA_MEMORY_ENFORCEMENT_SHADOW',
+      path.join(read('NOSTRA_MEMORY_STATE_ROOT', path.join(STATE_DIR, 'memory-runtime')), 'operations', 'shadow-evaluation-report.json'),
+    )),
+    enforcementPublicKey: read('NOSTRA_MEMORY_ENFORCEMENT_PUBLIC_KEY'),
+    enforcementKeyId: read('NOSTRA_MEMORY_ENFORCEMENT_KEY_ID'),
   }
   if (mode !== 'off') {
     const missing = Object.entries(config)
-      .filter(([key, value]) => key !== 'mode' && key !== 'stateRoot' && !value)
+      .filter(([key, value]) => key !== 'mode' && key !== 'stateRoot'
+        && (mode === 'enforced' || !key.startsWith('enforcement')) && !value)
       .map(([key]) => key)
     if (missing.length) throw new Error(`memory runtime configuration is incomplete: ${missing.join(', ')}`)
   }
@@ -258,6 +283,26 @@ function commonArgs(config: MemoryConfig, logical: string): string[] {
   ]
 }
 
+async function verifyEnforcementGate(
+  config: MemoryConfig, run: RunState, executor: MemoryExecutor,
+): Promise<void> {
+  if (config.mode !== 'enforced') return
+  const result = await executor([
+    'verify-enforcement', '--activation', config.enforcementActivation,
+    '--readiness', config.enforcementReadiness,
+    '--three-layer', config.enforcementThreeLayer,
+    '--shadow', config.enforcementShadow,
+    '--public-key', config.enforcementPublicKey, '--key-id', config.enforcementKeyId,
+    '--provider', run.provider, '--model', run.model, '--now', new Date().toISOString(),
+  ])
+  if (result.schema !== 'memory-enforcement-verification/v1' || result.ok !== true
+      || result.provider_model !== `${run.provider}/${run.model}`
+      || typeof result.activation_sha256 !== 'string' || !HASH.test(result.activation_sha256)
+      || typeof result.expires_at !== 'string' || !Number.isFinite(Date.parse(result.expires_at))) {
+    throw new Error('signed memory enforcement activation did not verify')
+  }
+}
+
 export async function prepareResearchMemory(
   run: RunState, executor: MemoryExecutor = defaultExecutor, env: NodeJS.ProcessEnv = process.env,
 ): Promise<ResearchMemoryRuntimeBinding> {
@@ -279,6 +324,7 @@ export async function prepareResearchMemory(
   if (binding.status === 'off') return binding
   try {
     const config = memoryConfig(env)
+    await verifyEnforcementGate(config, run, executor)
     const identity = resolveRunMemoryIdentity(run)
     if (!identity) throw new Error('exact issuer/listing identity is absent; ticker-only memory is forbidden')
     const scope = `${run.provider}\0${run.model}`
@@ -352,6 +398,7 @@ export async function verifyResearchMemoryBeforeSpawn(
     throw new Error('memory snapshot or provider authorization is not verified')
   }
   const config = memoryConfig(env)
+  await verifyEnforcementGate(config, run, executor)
   if (runtimeControls(config.stateRoot).globalDisabled) {
     throw new Error('global memory kill switch activated after the run snapshot was frozen')
   }
