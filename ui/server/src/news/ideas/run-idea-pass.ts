@@ -19,7 +19,11 @@ import {
   type IdeaInputRow, type IdeaOriginType, type IdeaSourceTheme, type IdeaThemeExpression, type RawIdea,
   type SurfaceIdeasOptions, type SurfaceIdeasResult,
 } from './surface-ideas'
-import { surfaceIdeasBatchGemini } from './surface-ideas-gemini'
+import {
+  geminiIdeaProviderRequestIdentity,
+  surfaceIdeasBatchGemini,
+  type GeminiIdeasOptions,
+} from './surface-ideas-gemini'
 import {
   ideaDecayAt, ideaId, ideaSnapshotRevision, ideaVersion, priorCoverage, pruneExpiredIdeas, readIdeaById,
   readIdeaSnapshots, readPassState, readTopSweep, retireUnadmittedThemeIdeas, topNEffectHash, topNHash,
@@ -476,9 +480,29 @@ function openAiIdeaOptions(p: RoutedIdeaProvider, deps: IdeaPassDeps, signal?: A
   }
 }
 
-function openAiIdeaQuarantine(deps: IdeaPassDeps, p: RoutedIdeaProvider): ProviderQuarantine | null {
-  if (p.transport === 'gemini') return null
-  return readProviderQuarantine(deps.stateDir, ideaProviderRequestIdentity(openAiIdeaOptions(p, deps)))
+function geminiIdeaOptions(p: RoutedIdeaProvider, deps: IdeaPassDeps, signal?: AbortSignal): GeminiIdeasOptions {
+  return {
+    providerId: p.id,
+    providerLabel: p.label || p.id,
+    keyEnvVar: p.keyEnvVar,
+    stateDir: deps.stateDir,
+    workload: 'ideas',
+    contractVersion: 'news-ideas-json-v1',
+    model: p.model,
+    baseUrl: p.baseUrl,
+    apiKey: p.apiKey,
+    maxTokens: p.maxTokens,
+    timeoutMs: providerAttemptTimeout(p, deps, signal),
+    signal,
+    nowMs: deps.now,
+  }
+}
+
+function ideaProviderQuarantine(deps: IdeaPassDeps, p: RoutedIdeaProvider): ProviderQuarantine | null {
+  const identity = p.transport === 'gemini'
+    ? geminiIdeaProviderRequestIdentity(geminiIdeaOptions(p, deps))
+    : ideaProviderRequestIdentity(openAiIdeaOptions(p, deps))
+  return readProviderQuarantine(deps.stateDir, identity)
 }
 
 function quarantinedProviderDecision(p: RoutedIdeaProvider, marker: ProviderQuarantine): ProviderDecision {
@@ -500,6 +524,7 @@ function geminiIdeaProviders(c: IdeaPassConfig): RoutedIdeaProvider[] {
     id: `gemini:${model}`,
     label: `Gemini · ${model}`,
     color: '--live',
+    keyEnvVar: 'GEMINI_API_KEY',
     apiKey: c.geminiApiKey!,
     baseUrl: c.geminiBaseUrl!,
     model,
@@ -538,7 +563,7 @@ function quotaRoute(
   priority: number,
 ): IdeaQuotaRoute | null {
   const at = (deps.now || (() => Date.now()))()
-  if (!provider.apiKey || openAiIdeaQuarantine(deps, provider)
+  if (!provider.apiKey || ideaProviderQuarantine(deps, provider)
     || isCoolingDown(deps.stateDir, provider.id, at)
     || isCoolingDown(deps.stateDir, `ideas:${provider.id}`, at)) return null
   const pace = providerPace(provider, deps.config)
@@ -574,7 +599,7 @@ function unavailableProviderDecision(
   const at = now()
   const label = p.label || p.id
   if (!p.apiKey) return { result: null, reason_code: 'missing_api_key', note: providerReason('missing_api_key', label), provider: label }
-  const standing = openAiIdeaQuarantine(deps, p)
+  const standing = ideaProviderQuarantine(deps, p)
   if (standing) return quarantinedProviderDecision(p, standing)
   if (isCoolingDown(deps.stateDir, p.id, at)) return { result: null, reason_code: 'provider_cooldown', note: providerReason('provider_cooldown', label), provider: label }
   if (isCoolingDown(deps.stateDir, `ideas:${p.id}`, at)) return { result: null, reason_code: 'provider_cooldown', note: `${label} is cooling down for the Ideas response contract.`, provider: label }
@@ -636,7 +661,7 @@ async function callProviderForIdeaPassDetailed(
   const ideaCooldownId = `ideas:${p.id}`
   if (!p.apiKey) return { result: null, reason_code: 'missing_api_key', note: providerReason('missing_api_key', label), provider: label }
   if (chainSignal?.aborted) return { result: null, reason_code: 'provider_error', note: `${label}: provider-chain deadline reached`, provider: label }
-  const standing = openAiIdeaQuarantine(deps, p)
+  const standing = ideaProviderQuarantine(deps, p)
   if (standing) return quarantinedProviderDecision(p, standing)
   if (isCoolingDown(deps.stateDir, p.id, now())) return { result: null, reason_code: 'provider_cooldown', note: providerReason('provider_cooldown', label), provider: label }
   if (isCoolingDown(deps.stateDir, ideaCooldownId, now())) return { result: null, reason_code: 'provider_cooldown', note: `${label} is cooling down for the Ideas response contract.`, provider: label }
@@ -679,7 +704,7 @@ async function callProviderForIdeaPassDetailed(
     || isCoolingDown(deps.stateDir, ideaCooldownId, postLimiterAt)) {
     return { result: null, reason_code: 'provider_cooldown', note: providerReason('provider_cooldown', label), provider: label }
   }
-  const admittedStanding = openAiIdeaQuarantine(deps, p)
+  const admittedStanding = ideaProviderQuarantine(deps, p)
   if (admittedStanding) return quarantinedProviderDecision(p, admittedStanding)
   let attempts = Math.min(attemptCap, budget.remainingRequests, Math.floor(budget.remainingTokens / perAttemptTokens))
   const reservationAt = postLimiterAt
@@ -714,8 +739,8 @@ async function callProviderForIdeaPassDetailed(
       ? await surfaceIdeasBatchGemini(
           rows,
           {
-            model: p.model, baseUrl: p.baseUrl, apiKey: p.apiKey, maxTokens: p.maxTokens,
-            timeoutMs: providerAttemptTimeout(p, deps, chainSignal), maxAttempts: attempts, signal: chainSignal,
+            ...geminiIdeaOptions(p, deps, chainSignal),
+            maxAttempts: attempts,
           },
           deps.fetchFn, deps.sleep,
         )
@@ -748,7 +773,7 @@ async function callProviderForIdeaPassDetailed(
     budget.reconcile(reservation, sentRequests, chargedTokens)
   }
   if (r.quarantined && r.requests === 0) {
-    const marker = openAiIdeaQuarantine(deps, p)
+    const marker = ideaProviderQuarantine(deps, p)
     return marker
       ? quarantinedProviderDecision(p, marker)
       : { result: null, reason_code: 'provider_error', note: r.note, provider: label }

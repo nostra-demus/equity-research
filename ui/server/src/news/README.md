@@ -196,7 +196,9 @@ On top of that:
   model/endpoint and configuration faults write an atomic, durable quarantine keyed to the provider, safe base
   URL, model chain, credential fingerprint and request contract. Every process checks it before network I/O, so
   one terminal response costs one call, healthy fallbacks take the same batch immediately, and restarts do not
-  start wasting requests again. There is deliberately no retry timer: a newer successful canary clears the
+  start wasting requests again. The same contract covers OpenAI-compatible routes, Gemini's native Ideas
+  `generateContent` route, and Claude's native Themes Messages route. There is deliberately no retry timer: a
+  newer successful canary clears the
   marker, while a changed key/model/endpoint/contract has a new fingerprint and gets a fresh attempt. The marker
   stores only bounded error codes/types and the **name** of the key environment variable — never the key or the
   provider's response body. An ambiguous 404 is treated as request/configuration failure, never blamed on a key.
