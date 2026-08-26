@@ -12,7 +12,7 @@ import { eventIdFor, loadLedgerEventIds, normalizeAndFilter, parseSeendate } fro
 import { SeenCache } from '../src/news/seen-cache'
 import { Budget, RateLimiter, UsdBudget, armCooldown, clearCooldown, cooldownInfo, dailyQuotaAdmission, getNamedLimiter, pacedHasHeadroom, readCooldownUntil, resetBudgetMemory, resetCooldownMemory, resetSharedLimiters, selectDailyQuotaCandidate } from '../src/news/triage/budget'
 import { articleReadTokenBound, readArticleBrief } from '../src/news/triage/article-read'
-import { analyzeArticle, coerceTriage, estimateTokens, parseRate, scoreToBand, triageBatch, triageMaxOutputTokens } from '../src/news/triage/groq'
+import { SYSTEM, TRIAGE_CONTRACT_VERSION, analyzeArticle, coerceTriage, estimateTokens, parseRate, scoreToBand, triageBatch, triageMaxOutputTokens } from '../src/news/triage/groq'
 import { analyzeArticleGemini, geminiSchemaEnabled, TRIAGE_RESPONSE_SCHEMA, triageBatchGemini } from '../src/news/triage/gemini'
 import { appendFeedItems, inspectFeedCapacity, readFeed } from '../src/news/feed'
 import { newsBus } from '../src/news/bus'
@@ -2247,6 +2247,33 @@ await check('coerceTriage: companies/size_bucket hard-coerce (bogus ticker → n
     'the explicit model-contract null pair positively identifies an already-English source')
   assert.equal(coerceTriage({ headline_en: null }).source_is_english, undefined,
     'a partial/malformed language response cannot open a human-veto exception')
+})
+
+await check('triage accepts compact rejected rows without weakening exact index coverage', async () => {
+  assert.equal(TRIAGE_CONTRACT_VERSION, 'news-triage-json-v2')
+  assert.match(SYSTEM, /clearly irrelevant item scoring below 45/)
+  assert.match(SYSTEM, /Never omit an index/)
+  const items: NewsItem[] = [
+    { event_id: 'compact-drop', headline: 'Daily market recap', url: 'https://example.com/drop', domain: 'example.com', source_name: 'Example', region: 'US', input_nature: 'news_headline', found_at: '2026-08-26T00:00:00Z', dedup_status: 'new' },
+    { event_id: 'full-watch', headline: 'Manufacturer cuts guidance 20 percent', url: 'https://example.com/watch', domain: 'example.com', source_name: 'Example', region: 'US', input_nature: 'news_headline', found_at: '2026-08-26T00:00:00Z', dedup_status: 'new' },
+  ]
+  const result = await triageBatch(items, {
+    model: 'test-model', baseUrl: 'https://provider.test/v1', apiKey: 'test-key', maxAttempts: 1,
+  }, (async () => res({
+    usage: { total_tokens: 200 },
+    choices: [{ finish_reason: 'stop', message: { content: JSON.stringify({ items: [
+      { i: 0, relevance: 'irrelevant', materiality_pre_score: 5 },
+      { i: 1, relevance: 'material', materiality_pre_score: 72, event_materiality_label: 'high', event_direction: 'negative', event_types: ['guidance_change'], issuer_linkage: 'primary', why: 'Guidance fell 20 percent.', companies: [{ name: 'Example Manufacturer', ticker: null, listing_country: null }], size_bucket: 'unknown', headline_en: null, headline_lang: null, event_region: 'US' },
+    ] }) } }],
+  })) as unknown as typeof fetch, async () => {})
+  assert.equal(result.ok, true)
+  assert.equal(result.byIndex.size, 2, 'compactness never relaxes complete index coverage')
+  assert.deepEqual(result.byIndex.get(0), {
+    relevance: 'irrelevant', materiality_pre_score: 5, event_materiality_label: 'low', event_direction: 'unknown',
+    event_types: [], issuer_linkage: 'sector', why: '', companies: [], size_bucket: 'unknown',
+    headline_en: null, headline_lang: null, event_region: null,
+  })
+  assert.equal(result.byIndex.get(1)?.event_materiality_label, 'high', 'kept rows retain the complete schema')
 })
 
 await check('coerceTriage: a non-lowercase event_materiality_label ("High"/"CRITICAL") is normalized, not defaulted to low (Thread E)', () => {

@@ -329,13 +329,16 @@ export function buildOmniRouteProvider(): OverflowProvider {
     // daemon must never tell diagnostics that a synthetic placeholder needs rotation.
     ...(configuredApiKey ? { keyEnvVar: 'NEWS_OMNIROUTE_API_KEY' } : {}),
     baseUrl: process.env.NEWS_OMNIROUTE_BASE_URL || 'http://127.0.0.1:20128/v1',
-    // `oc/hy3-free` is the zero-credential route proven against the complete production 12-row scorer
-    // contract. `auto` exhausted the scanner deadline while probing several rate-limited/slow models. An
-    // operator can still point NEWS_OMNIROUTE_MODEL at a dedicated aggregate combo configured in OmniRoute.
-    model: process.env.NEWS_OMNIROUTE_MODEL || 'oc/hy3-free',
+    // `auto/coding:free` is the zero-credential aggregate route proven against the complete production
+    // 12-row scorer contract. Unlike one pinned free model, it skips a rate-limited member and tries the
+    // next compatible free coding model inside the same request; live proof did exactly that when hy3 and
+    // MiMo returned 429, then completed through Nemotron. `auto/best-free` is deliberately NOT used: its
+    // broader pool selected request-incompatible search models during the same proof. An operator can still
+    // point NEWS_OMNIROUTE_MODEL at a separately configured aggregate combo.
+    model: process.env.NEWS_OMNIROUTE_MODEL || 'auto/coding:free',
     // OmniRoute may otherwise choose SSE, and this reasoning model can spend the whole output allowance
     // thinking before it emits scorer JSON. Disable reasoning so the budget is reserved for the one complete
-    // non-streaming scorer document; the exact production 12-row contract passed 4/4 supervised probes.
+    // non-streaming scorer document; the exact production 12-row contract passed 3/3 supervised probes.
     extraBody: { stream: false, reasoning_effort: 'none' },
     // FINITE ON PURPOSE: this bounds calls into the aggregate and keeps it out of direct providers' fair
     // selector. It cannot meter or prevent double-spend inside OmniRoute; use only dedicated/keyless upstream

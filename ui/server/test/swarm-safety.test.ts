@@ -126,7 +126,9 @@ try {
 } finally {
   // unlinkSync, not rmSync: symlinkPath points at a DIRECTORY, so rmSync resolves it and throws
   // EISDIR — which aborted cleanup and left the fixture symlink inside commodity/runs/.
-  try { fs.unlinkSync(symlinkPath) } catch { /* never created */ }
+  try { fs.unlinkSync(symlinkPath) } catch (err) {
+    if ((err as NodeJS.ErrnoException).code !== 'ENOENT') throw err
+  }
   fs.rmSync(outside, { recursive: true, force: true })
 }
 

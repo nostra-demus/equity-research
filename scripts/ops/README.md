@@ -77,9 +77,11 @@ launchctl print gui/$(id -u)/com.nostradamus.omniroute
 
 The service runs in the foreground under launchd, suppresses browser/tray launch, and explicitly sets
 `OMNIROUTE_SERVER_HOST=127.0.0.1`; do not expose this model gateway on a LAN/public interface. The production
-default is the scorer-proven keyless `oc/hy3-free` model. An operator may explicitly set
-`NEWS_OMNIROUTE_MODEL` to a separately configured aggregate combo, but deploy enables only after that exact
-override passes the same complete 12-row scorer smoke.
+default is the scorer-proven keyless `auto/coding:free` route. It can skip a rate-limited member of
+OmniRoute's compatible free coding pool and use the next one in the same request. Deploy atomically migrates
+only the old managed `oc/hy3-free` default; a different operator-set `NEWS_OMNIROUTE_MODEL` remains untouched.
+An operator may explicitly set that variable to a separately configured aggregate combo, but deploy enables
+only after that exact override passes the same complete 12-row scorer smoke.
 Activation is fail-closed. Deploy first writes `NEWS_OMNIROUTE_ENABLED=0` through an atomic owner-only
 `providers.env` updater. It requires the launchd-owned listener and exact `GET /healthz` response, provisions
 one database-backed client key with OmniRoute's `no_log` policy, and keeps that key only in the owner-only
