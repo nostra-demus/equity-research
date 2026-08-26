@@ -238,6 +238,10 @@ On top of that:
 - **The output ceiling scales with the batch.** `triageMaxOutputTokens` — one JSON row per headline, so a flat
   ceiling truncates larger batches and the completeness contract then discards the entire answer. It only ever
   raises a ceiling that is too low; a provider configured above the need keeps its own value.
+- **Rejected rows stay compact.** A clearly irrelevant, sub-45 row may return only its index, relevance and
+  score; the coercer supplies conservative empty defaults and the exact-index contract still requires every
+  row. Material/watch rows keep the complete schema. This avoids spending most decode time explaining the
+  large majority of headlines that the scanner immediately discards.
 - **Admission is paced on the calibrated cost, the hard cap on the conservative bound.** The worst-case
   per-call bound is 3–8× a measured successful batch, so gating *admission* on it made tiers with allowance in
   hand read "Saved for later today". `DailyQuotaCandidate.paceCost` splits the two; the hard cap and every

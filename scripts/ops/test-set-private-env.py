@@ -240,6 +240,43 @@ class PrivateEnvTest(unittest.TestCase):
         )
         self.assertEqual(self.run_contract("fingerprint").returncode, 1)
 
+    def test_managed_default_model_migrates_without_overwriting_operator_routes(self) -> None:
+        # An installation that relied on the implicit old default gets one explicit reviewed default.
+        missing = self.run_contract("migrate-default-model")
+        self.assertEqual(missing.returncode, 0, missing.stderr)
+        self.assertEqual(missing.stdout, "updated\n")
+        self.assertIn("NEWS_OMNIROUTE_MODEL=auto/coding:free\n", self.env.read_text(encoding="utf-8"))
+        self.assertEqual(self.run_contract("model").stdout, "auto/coding:free\n")
+        self.assertEqual(self.run_contract("migrate-default-model").stdout, "unchanged\n")
+
+        # The retired managed value migrates too, while unrelated secrets survive byte-for-byte.
+        unrelated = "GROQ_API_KEY=must-remain-secret"
+        self.write_env(f"{unrelated}\nNEWS_OMNIROUTE_MODEL=oc/hy3-free\n")
+        legacy = self.run_contract("migrate-default-model")
+        self.assertEqual(legacy.returncode, 0, legacy.stderr)
+        self.assertEqual(legacy.stdout, "updated\n")
+        payload = self.env.read_text(encoding="utf-8")
+        self.assertIn(f"{unrelated}\n", payload)
+        self.assertIn("NEWS_OMNIROUTE_MODEL=auto/coding:free\n", payload)
+
+        # Any other value is operator-owned and is neither rewritten nor republished.
+        self.write_env(f"{unrelated}\nNEWS_OMNIROUTE_MODEL=operator/private-combo\n")
+        before = (self.env.stat().st_ino, self.env.read_bytes())
+        custom = self.run_contract("migrate-default-model")
+        self.assertEqual(custom.returncode, 0, custom.stderr)
+        self.assertEqual(custom.stdout, "unchanged\n")
+        self.assertEqual((self.env.stat().st_ino, self.env.read_bytes()), before)
+
+        # Duplicate authority still fails closed and leaves the file untouched.
+        self.write_env(
+            "NEWS_OMNIROUTE_MODEL=oc/hy3-free\n"
+            "export NEWS_OMNIROUTE_MODEL=operator/private-combo\n",
+        )
+        before_bytes = self.env.read_bytes()
+        ambiguous = self.run_contract("migrate-default-model")
+        self.assertEqual(ambiguous.returncode, 1)
+        self.assertEqual(self.env.read_bytes(), before_bytes)
+
     def test_managed_key_is_private_idempotent_and_no_log(self) -> None:
         connection = self.create_database()
         before_columns = {row[1] for row in connection.execute("PRAGMA table_info(api_keys)")}

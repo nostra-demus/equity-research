@@ -6,9 +6,12 @@ import path from 'node:path'
 import { REPO_ROOT } from '../src/config'
 import {
   artifactIsFresh, beginExecutionAttempt, canonicalManifestPath, executionEpochAttemptCount,
-  projectionLineageRows, releaseExecutionEpochAfterPublication,
+  projectionLineageRows, readProviderInterruptionAuthority, readProviderPreSpawnFailureAuthority,
+  recordAdmittedProviderSelection, releaseExecutionEpochAfterPublication,
+  sealProviderPreSpawnFailureAuthority,
 } from '../src/execution-provenance'
 import { createRun, finishRun } from '../src/registry'
+import { writeRunMarker } from '../src/outputs'
 import {
   __setPostReviewCalibration, __setSupervisorCommitter, __setSupervisorCommitVerifier,
   drainPublicationIntents, queuePublicationIntent, recoverReadyPublications, requiresSupervisorPublication,
@@ -161,6 +164,42 @@ try {
     row.attribution === 'recorded')?.decision_author, true,
     'the recovery terminal process authors the replacement verdict')
   finishRun(protectedRecovery, 'error')
+
+  const preSpawnRoot = `${root}_pre-spawn-recovery`
+  const preSpawnAbsolute = path.join(REPO_ROOT, preSpawnRoot)
+  extraCleanup.push(preSpawnAbsolute)
+  fs.mkdirSync(preSpawnAbsolute, { recursive: true })
+  const priorObserved = createRun({
+    kind: 'full', ticker: 'ZZPRESPAWN', provider: 'codex',
+    executionProfile: { key: 'codex:test', parentModel: 'gpt-test', parentReasoning: 'max' },
+    profileKey: 'codex:test', model: 'gpt-test', reasoningLevel: 'max', prompt: '', user: 'test',
+    userVia: 'local', runRoot: preSpawnRoot, willCommitToMain: false,
+    writeTargetsAbs: [preSpawnAbsolute], coveredModules: [], readDepsAbs: [],
+    closeWatcher: undefined, expected: new Map(),
+  })
+  beginExecutionAttempt(priorObserved)
+  finishRun(priorObserved, 'error')
+  const failedBeforeSpawn = createRun({
+    kind: 'full', ticker: 'ZZPRESPAWN', provider: 'codex',
+    executionProfile: { key: 'codex:test', parentModel: 'gpt-test', parentReasoning: 'max' },
+    profileKey: 'codex:test', model: 'gpt-test', reasoningLevel: 'max', prompt: '', user: 'test',
+    userVia: 'local', runRoot: preSpawnRoot, willCommitToMain: false,
+    writeTargetsAbs: [preSpawnAbsolute], coveredModules: [], readDepsAbs: [],
+    closeWatcher: undefined, expected: new Map(),
+  })
+  recordAdmittedProviderSelection(failedBeforeSpawn)
+  assert.equal(readProviderPreSpawnFailureAuthority(preSpawnRoot)?.runId, failedBeforeSpawn.runId,
+    'an admitted attempt absent from the protected prior manifest is proven to have failed before spawn')
+  writeRunMarker(preSpawnRoot, '.interrupted', {
+    reason: 'continuation_spawn_failed', provider: 'codex', model: 'gpt-test', reasoningLevel: 'max',
+    profileKey: 'codex:test', runId: failedBeforeSpawn.runId, attemptId: failedBeforeSpawn.runId,
+  })
+  sealProviderPreSpawnFailureAuthority(preSpawnRoot, failedBeforeSpawn.runId)
+  assert.equal(readProviderInterruptionAuthority(preSpawnRoot)?.runId, failedBeforeSpawn.runId,
+    'the exact no-process admission can be re-armed without fabricating a provider attempt')
+  assert.equal(readProviderPreSpawnFailureAuthority(preSpawnRoot), null,
+    'a sealed interruption no longer qualifies through the admitted pre-spawn fallback')
+  finishRun(failedBeforeSpawn, 'error')
 
   const imported = projectionLineageRows({ execution_provenance: {
     provider_mode: 'single_provider', profile_key: 'claude:opus:default',
