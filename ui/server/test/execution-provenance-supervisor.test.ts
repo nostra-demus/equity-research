@@ -113,6 +113,27 @@ try {
   fs.writeFileSync(path.join(absolute, 'decision_record.json'), JSON.stringify({ ticker: 'ZZPROVSUP', version: 2 }) + '\n')
   assert.equal(artifactIsFresh(run, 'decision_record.json'), true, 'only current-attempt artifact bytes are publishable')
 
+  const originalAuthor = run.currentExecutionAttempts?.find((row) =>
+    row.attribution === 'recorded' && row.decision_author === true)
+  assert.ok(originalAuthor, 'the initial terminal process is the recorded decision author')
+  const originalBaseline = run.publicationBaselines?.['decision_record.json']
+  run.providerAttemptId = randomUUID()
+  run.automaticContinuationRetainsDecisionAuthor = true
+  beginExecutionAttempt(run)
+  assert.equal(run.publicationBaselines?.['decision_record.json'], originalBaseline,
+    'an automatic continuation preserves the logical run freshness baseline')
+  assert.equal(artifactIsFresh(run, 'decision_record.json'), true,
+    'an unchanged decision from the first process remains publishable by its continuation')
+  const retainedAuthor = run.executionAttempts?.find((row) =>
+    row.attempt_id === originalAuthor?.attempt_id && row.attribution === 'recorded')
+  assert.equal(retainedAuthor?.decision_author, true,
+    'the process that authored the verdict retains calibration attribution')
+  const publicationContinuation = run.currentExecutionAttempts?.find((row) => row.attribution === 'recorded')
+  assert.equal(publicationContinuation?.decision_author, false,
+    'a publication-only continuation is a recorded contributor, not the decision author')
+  assert.deepEqual(publicationContinuation?.decision_artifacts, [],
+    'a publication-only continuation does not claim the retained decision artifact')
+
   const imported = projectionLineageRows({ execution_provenance: {
     provider_mode: 'single_provider', profile_key: 'claude:opus:default',
     contributors: [{ provider: 'claude', model: 'opus', reasoning_level: 'default', attribution: 'recorded', scopes: ['modules'] }],

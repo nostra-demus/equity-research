@@ -126,7 +126,17 @@ const cleanExit = { exitCode: 0 }
   const absolute = path.join(REPO_ROOT, run.runRoot)
   fs.mkdirSync(absolute, { recursive: true })
   try {
-    fs.writeFileSync(path.join(absolute, 'final_thesis.md'), '# Terminal thesis\n\nAvoid.\n')
+    fs.writeFileSync(path.join(absolute, 'final_thesis.md'), [
+      '> ⚠️ **PROVISIONAL — the automated finish-gate found an integrity issue; this thesis was committed UNVERIFIED.**',
+      '> fixture integrity reason',
+      '>',
+      '> Resolve the flagged issue before relying on these numbers.',
+      '',
+      '# Terminal thesis',
+      '',
+      'Avoid.',
+      '',
+    ].join('\n'))
     fs.writeFileSync(path.join(absolute, 'decision_record.json'), JSON.stringify({
       schema_version: '1.0', created_by: 'synthesizer', decision: 'Avoid',
     }, null, 2) + '\n')
@@ -137,8 +147,9 @@ const cleanExit = { exitCode: 0 }
     assert.equal(terminalContinuation.continue, true,
       'a clean master boundary continues when only terminal publication artifacts remain')
     assert.ok(terminalContinuation.completedOutputs?.includes('final_thesis.md'))
+    assert.ok(terminalContinuation.checkpoint?.includes('terminal:final_thesis.md'),
+      'the canonical finish-gate banner does not make a valid thesis look incomplete')
     assert.ok(terminalContinuation.completedOutputs?.includes('decision_record.json'))
-    assert.ok(terminalContinuation.checkpoint?.includes('terminal:final_thesis.md'))
     assert.ok(terminalContinuation.checkpoint?.includes('terminal:decision_record.json'))
     assert.ok(terminalContinuation.unresolvedOutputs?.includes('memo.md'))
     assert.ok(terminalContinuation.unresolvedOutputs?.includes('audit_dossier.md'))
@@ -155,6 +166,15 @@ const cleanExit = { exitCode: 0 }
       'new terminal artifacts reset the no-progress guard after every module is already complete')
     assert.ok(terminalProgress.completedOutputs?.includes('memo.md'))
     assert.ok(terminalProgress.checkpoint?.includes('terminal:memo.md'))
+
+    fs.rmSync(path.join(absolute, '.requires_idea_publication'))
+    fs.rmSync(path.join(absolute, 'RUN_METADATA.md'))
+    fs.writeFileSync(path.join(absolute, 'audit_dossier.md'), '# Audit dossier\n\nTerminal audit.\n')
+    assert.equal(planCodexAutomaticContinuation(run, cleanExit).continue, true,
+      'clearing the publication marker cannot bypass a still-missing declared terminal output')
+    fs.writeFileSync(path.join(absolute, 'RUN_METADATA.md'), '# Run metadata\n\nPublished.\n')
+    assert.equal(planCodexAutomaticContinuation(run, cleanExit).reason, 'completion_barrier_not_missing',
+      'the logical run stops continuing only after every declared terminal output is valid')
   } finally {
     fs.rmSync(absolute, { recursive: true, force: true })
   }

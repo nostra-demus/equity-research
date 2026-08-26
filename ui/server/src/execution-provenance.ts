@@ -491,7 +491,10 @@ export function provenanceManifestPath(run: RunState): string {
 
 function currentAttemptRows(run: RunState): Array<Record<string, unknown>> {
   const role = roleFor(run)
+  // A bounded automatic continuation may be needed only to publish/memo an already-authored verdict.
+  // The process that wrote the decision remains the author; the continuation is a recorded contributor.
   const decisionAuthor = role === 'terminal_adjudicator'
+    && run.automaticContinuationRetainsDecisionAuthor !== true
   const model = run.model?.trim()
   const reasoningLevel = run.reasoningLevel?.trim()
   if (decisionAuthor && (!model || !reasoningLevel)) {
@@ -511,7 +514,7 @@ function currentAttemptRows(run: RunState): Array<Record<string, unknown>> {
     scope: [run.swarmId, run.kind, ...(run.module ? [run.module] : []), ...(run.agent ? [run.agent] : [])],
     role,
     decision_author: decisionAuthor,
-    decision_artifacts: decisionArtifacts(run),
+    decision_artifacts: decisionAuthor ? decisionArtifacts(run) : [],
     // A signal process may validly stop at an early routing gate before any thesis exists. If it reaches
     // edge-definition, the same declared target becomes mandatory-by-presence and is stamped; an absent
     // conditional thesis is not treated as a failed publication.
@@ -734,9 +737,16 @@ export function beginExecutionAttempt(run: RunState): void {
     profileKey: run.profileKey,
     executionProfile: run.executionProfile,
   })
+  const priorBaselines = run.publicationBaselines
   const baselines: Record<string, string | null> = {}
   for (const relative of decisionArtifacts(run)) {
-    baselines[relative] = sha256File(path.join(REPO_ROOT, run.runRoot, relative))
+    // Automatic processes belong to one admitted logical run. Preserve the first process's pre-spawn
+    // bytes so a decision it authored stays fresh when a later process performs publication only.
+    // A manual resume creates a new RunState and therefore captures a new baseline normally.
+    baselines[relative] = priorBaselines
+      && Object.prototype.hasOwnProperty.call(priorBaselines, relative)
+      ? priorBaselines[relative]
+      : sha256File(path.join(REPO_ROOT, run.runRoot, relative))
   }
   // Outcome reviews are append-only. Capture every pre-existing review filename before the provider
   // starts so the publication boundary can accept only files created by this exact attempt; an untrusted
@@ -766,12 +776,15 @@ export function appendExecutionAttempt(run: RunState, _manifestPath?: string): v
 }
 
 /** A clean-but-incomplete terminal parent did not author the eventual verdict. Retain it as a recorded
- * contributor, but move decision-author authority to the continuation process that actually publishes. */
-export function supersedeIncompleteDecisionAuthorAttempt(run: RunState): void {
+ * contributor, but move decision-author authority to the continuation process that actually publishes.
+ * `allRecorded` handles the defensive case where a publication-only process invalidated the retained
+ * verdict: every older author is then superseded before a replacement author starts. */
+export function supersedeIncompleteDecisionAuthorAttempt(run: RunState, allRecorded = false): void {
   if (!isDecisionAuthor(run)) return
   const attemptId = run.providerAttemptId ?? run.runId
   const demote = (row: Record<string, unknown>) => {
-    if (row.attempt_id !== attemptId || row.attribution !== 'recorded' || row.decision_author !== true) return
+    if ((!allRecorded && row.attempt_id !== attemptId)
+        || row.attribution !== 'recorded' || row.decision_author !== true) return
     row.decision_author = false
     row.decision_artifacts = []
   }

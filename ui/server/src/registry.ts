@@ -132,8 +132,12 @@ export interface RunState {
   automaticContinuationCount?: number
   /** Sorted canonical done-orb keys observed at the prior Codex process boundary. */
   automaticContinuationCheckpoint?: string
+  /** Pre-first-process hashes for every declared terminal output in this admitted logical Codex run. */
+  automaticContinuationBaselines?: Record<string, string | null>
   /** Consecutive clean Codex process boundaries with no newly completed canonical output. */
   automaticContinuationStagnantTurns?: number
+  /** The prior process already authored every declared decision artifact; later processes publish only. */
+  automaticContinuationRetainsDecisionAuthor?: boolean
   /** Metrics already accumulated before the currently running continuation process. */
   automaticContinuationMetricBase?: { costUsd: number; numTurns: number; durationMs: number }
   willCommitToMain: boolean
