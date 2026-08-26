@@ -232,7 +232,7 @@ export function classifyProviderHttpFailure(
     // generally, its documented "No allowed providers are available" 404 is distinct from model_not_found:
     // it describes a routing gap that may heal without any configuration change. Keep that exact request
     // contract on a cooldown; a genuinely missing/retired model still follows the terminal path below.
-    const models = [context?.model, ...(context?.models || [])]
+    const models = [...new Set([context?.model, ...(context?.models || [])])]
       .filter(Boolean)
       .map((value) => String(value).trim().toLowerCase())
     const openRouterRoute = String(context?.providerId || '').trim().toLowerCase() === 'openrouter'
