@@ -5032,7 +5032,11 @@ a { color: inherit; }
 .fundbook__row.is-parked { background: color-mix(in srgb, var(--surface-1) 55%, transparent); }
 .fundbook__row.is-parked > :not(.fundbook__rowend) { opacity: 0.72; }
 .fundbook__row:last-child { border-bottom: none; }
-.fundbook__row--head { background: var(--surface-1); color: var(--text-faint); font-size: 9px; font-weight: 700; letter-spacing: 0.35px; text-transform: uppercase; }
+/* Sticky, so a 20-name book does not scroll its own column labels away. The header sits inside
+   .fundbook__scroll, which is the scrolling box, so it pins against that rather than the page. */
+.fundbook__row--head { position: sticky; top: 0; z-index: 2; background: var(--surface-1); color: var(--text-faint); font-size: 9px; font-weight: 700; letter-spacing: 0.35px; text-transform: uppercase; }
+/* Bounded so a long book scrolls INSIDE the table instead of pushing everything below it off-screen. */
+.fundbook__scroll { max-height: min(58vh, 620px); overflow-y: auto; }
 .fundbook__row .num { text-align: right; font-variant-numeric: tabular-nums; }
 .fundbook__row .dim { color: var(--text-muted); }
 .fundbook__row .mono { font-family: var(--font-mono); font-size: 11.5px; }
@@ -5065,7 +5069,7 @@ a { color: inherit; }
 }
 /* Seven columns now: return, benchmark, excess, cash hurdle, over-hurdle, days. Beating an index
    while trailing a deposit account is not a result, so the hurdle sits beside the benchmark. */
-.fundbook__row--periods { grid-template-columns: 2.2fr 1fr 1fr 1fr 1fr 1fr 0.6fr; min-width: 780px; }
+.fundbook__row--periods { grid-template-columns: minmax(150px, 2.2fr) 1fr 1fr 1fr 1fr 1fr; min-width: 700px; }
 .fundbook__row--fx { grid-template-columns: 64px 62px 1fr 1fr 1fr 1.1fr; min-width: 0; }
 
 /* charts ------------------------------------------------------------------ */

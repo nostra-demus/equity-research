@@ -322,8 +322,13 @@ function Holdings({ book, perf, manual, cashEquivalents, onManage, onChanged }: 
   // A T-bill ETF is cash with a ticker: it is held to park money, not to express a view. Counting it as
   // invested made a book that is 72% in SGOV read as "99.7% invested" when it is mostly waiting. The
   // broker cannot tell us — SGOV, CANE and GLDM all arrive as subCategory="ETF" — so the operator does.
-  const parked = equities.filter((p) => isCashEq(p.symbol))
-  const risked = equities.filter((p) => !isCashEq(p.symbol))
+  // BIGGEST FIRST. The statement's own order is the order the account happened to acquire things, which
+  // tells the reader nothing; with 20+ names the position that actually matters could be anywhere in the
+  // list. Sorted by what it is worth, the top of the table is always the part worth reading.
+  const byValue = (a: PortfolioPosition, b: PortfolioPosition) =>
+    Math.abs((b.positionValue ?? 0) * (b.fxRateToBase ?? 1)) - Math.abs((a.positionValue ?? 0) * (a.fxRateToBase ?? 1))
+  const parked = equities.filter((p) => isCashEq(p.symbol)).sort(byValue)
+  const risked = equities.filter((p) => !isCashEq(p.symbol)).sort(byValue)
   const parkedValue = parked.reduce((a, p) => a + (p.positionValue ?? 0) * (p.fxRateToBase ?? 1), 0)
   const invested = risked.reduce((a, p) => a + (p.positionValue ?? 0) * (p.fxRateToBase ?? 1), 0)
   const unrealised = equities.reduce((a, p) => a + (p.unrealizedLocal ?? 0) * (p.fxRateToBase ?? 1), 0)
@@ -387,63 +392,6 @@ function Holdings({ book, perf, manual, cashEquivalents, onManage, onChanged }: 
         </div>
       </div>
 
-      <div className="fundbook__split">
-        <div className="fundbook__panel">
-          <div className="fundbook__panelhead">
-            <div><strong>Where the money sits</strong></div>
-          </div>
-          {nav !== null && cash !== null && (
-            <div className="fundbook__bars">
-              <Bar label="Invested" pct={(invested / nav) * 100} value={fmtMoney(invested, ccy)} />
-              <Bar label="Cash" pct={(cash / nav) * 100} value={fmtMoney(cash, ccy)} deep />
-            </div>
-          )}
-          {/* The declaration belongs where the split it changes is explained, not repeated as a button on
-              every position row — one control in one place instead of one per holding. */}
-          <div className="fundbook__foot fundbook__cashdecl">
-            <span>
-              {parked.length > 0
-                ? <>Cash includes {fmtMoney(parkedValue, ccy)} held as {parked.map((p) => p.symbol).join(', ')} — money waiting, not money at risk.</>
-                : <>A T-bill or money-market ETF is cash with a ticker. The statement cannot tell one from a commodity fund, so name it here.</>}
-            </span>
-            <select
-              className="fundbook__select"
-              value=""
-              onChange={(e) => { if (e.target.value) void onCash(e.target.value, !isCashEq(e.target.value)) }}
-              aria-label="Treat a holding as cash, or stop treating it as cash"
-            >
-              <option value="" disabled>treat as cash…</option>
-              {equities.map((p) => (
-                <option key={p.symbol ?? ''} value={p.symbol ?? ''}>
-                  {p.symbol}{isCashEq(p.symbol) ? ' — count as invested' : ''}
-                </option>
-              ))}
-            </select>
-          </div>
-          {currencyRows.length > 1 && (
-            <div className="fundbook__bars fundbook__bars--top">
-              {currencyRows.map(([c, v]) => (
-                <Bar key={c} label={c} pct={currencyTotal ? (v / currencyTotal) * 100 : 0} value={fmtMoney(v, ccy)} />
-              ))}
-            </div>
-          )}
-        </div>
-
-        {book.flows.length > 0 && (
-          <div className="fundbook__panel">
-            <div className="fundbook__panelhead">
-              <div><strong>Capital flows</strong><small>Removed from the return, so they never read as performance</small></div>
-            </div>
-            {[...book.flows].sort((a, b) => (b.date ?? '').localeCompare(a.date ?? '')).map((f, i) => (
-              <div key={`${f.date}-${i}`} className="fundbook__bridge">
-                <span><span className="mono dim">{f.date ?? '—'}</span> · {f.description ?? (f.amount >= 0 ? 'Contribution' : 'Withdrawal')}</span>
-                <strong style={{ color: toneOf(f.amountBase ?? f.amount) }}>{fmtMoney(f.amountBase ?? f.amount, ccy)}</strong>
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
-
       {manual.effects.length > 0 && (
         <div className="fundbook__panel is-provisional">
           <div className="fundbook__panelhead">
@@ -456,6 +404,45 @@ function Holdings({ book, perf, manual, cashEquivalents, onManage, onChanged }: 
           <ProvisionalEffects effects={manual.effects} />
         </div>
       )}
+
+      {/* THE SUMMARY BEFORE THE DETAIL. Exposure answers "where is the risk" in a bounded block;
+          Positions answers "what exactly do I hold" in a list that grows with every name. Printed the
+          other way round, the summary sat a screen and a half below the thing it summarises. */}
+      <Exposure
+        book={book} risked={risked} parkedValue={parkedValue} nav={nav} ccy={ccy}
+        invested={invested} cash={cash} parked={parked} bars={
+          <>
+            {nav !== null && cash !== null && (
+              <div className="fundbook__bars">
+                <Bar label="Invested" pct={(invested / nav) * 100} value={fmtMoney(invested, ccy)} />
+                <Bar label="Cash" pct={(cash / nav) * 100} value={fmtMoney(cash, ccy)} deep />
+              </div>
+            )}
+            {/* The declaration belongs where the split it changes is explained, not repeated as a button on
+                every position row — one control in one place instead of one per holding. */}
+            <div className="fundbook__foot fundbook__cashdecl">
+              <span>
+                {parked.length > 0
+                  ? <>Cash includes {fmtMoney(parkedValue, ccy)} held as {parked.map((p) => p.symbol).join(', ')} — money waiting, not money at risk.</>
+                  : <>A T-bill or money-market ETF is cash with a ticker. The statement cannot tell one from a commodity fund, so name it here.</>}
+              </span>
+              <select
+                className="fundbook__select"
+                value=""
+                onChange={(e) => { if (e.target.value) void onCash(e.target.value, !isCashEq(e.target.value)) }}
+                aria-label="Treat a holding as cash, or stop treating it as cash"
+              >
+                <option value="" disabled>treat as cash…</option>
+                {equities.map((p) => (
+                  <option key={p.symbol ?? ''} value={p.symbol ?? ''}>
+                    {p.symbol}{isCashEq(p.symbol) ? ' — count as invested' : ''}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </>
+        }
+      />
 
       <div className="fundbook__panel">
         <div className="fundbook__panelhead">
@@ -484,7 +471,21 @@ function Holdings({ book, perf, manual, cashEquivalents, onManage, onChanged }: 
         </div>
       </div>
 
-      <Exposure book={book} risked={risked} parkedValue={parkedValue} nav={nav} ccy={ccy} />
+      {/* CAPITAL FLOWS LAST. It is reference detail — how the LP's money went in and out — and like the
+          positions list it grows without bound, so it sits behind the things read on every visit. */}
+      {book.flows.length > 0 && (
+        <div className="fundbook__panel">
+          <div className="fundbook__panelhead">
+            <div><strong>Capital flows</strong><small>Removed from the return, so they never read as performance</small></div>
+          </div>
+          {[...book.flows].sort((a, b) => (b.date ?? '').localeCompare(a.date ?? '')).map((f, i) => (
+            <div key={`${f.date}-${i}`} className="fundbook__bridge">
+              <span><span className="mono dim">{f.date ?? '—'}</span> · {f.description ?? (f.amount >= 0 ? 'Contribution' : 'Withdrawal')}</span>
+              <strong style={{ color: toneOf(f.amountBase ?? f.amount) }}>{fmtMoney(f.amountBase ?? f.amount, ccy)}</strong>
+            </div>
+          ))}
+        </div>
+      )}
     </>
   )
 }
@@ -498,9 +499,14 @@ function Holdings({ book, perf, manual, cashEquivalents, onManage, onChanged }: 
  *  Sector is absent ON PURPOSE: the Flex statement carries an asset category and a sub-category and
  *  nothing else. A sector guessed from a ticker would be an invention wearing the broker's authority,
  *  so the panel says the data is not there rather than drawing a made-up split. */
-function Exposure({ book, risked, parkedValue, nav, ccy }: {
+function Exposure({ book, risked, parkedValue, nav, ccy, bars }: {
   book: PortfolioBook; risked: PortfolioPosition[]; parkedValue: number
   nav: number | null; ccy: string | null
+  invested: number; cash: number | null; parked: PortfolioPosition[]
+  /** The invested-against-cash bars and the cash declaration, folded in from what used to be a panel of
+   *  its own. They answer the same question this one does — how the money is distributed — and both
+   *  were drawing their own currency breakdown, so side by side they said one thing twice. */
+  bars: React.ReactNode
 }) {
   const derivatives = book.positions.filter((p) => p.isDerivative)
   const valued = risked
@@ -523,6 +529,9 @@ function Exposure({ book, risked, parkedValue, nav, ccy }: {
     for (const { p, base } of valued) by.set(key(p), (by.get(key(p)) ?? 0) + base)
     return [...by.entries()].sort((a, b) => Math.abs(b[1]) - Math.abs(a[1]))
   }
+  const shown = valued.slice(0, TOP_POSITIONS)
+  const rest = valued.slice(TOP_POSITIONS)
+  const restValue = rest.reduce((a, v) => a + v.base, 0)
   const byCurrency = group((p) => p.currency ?? '—')
   const byClass = group((p) => p.subCategory || p.assetCategory || 'unclassified')
 
@@ -531,9 +540,11 @@ function Exposure({ book, risked, parkedValue, nav, ccy }: {
       <div className="fundbook__panelhead">
         <div>
           <strong>Exposure</strong>
-          <small>Concentration on money at risk, not on NAV</small>
+          <small>What is at risk against what is parked, and how that risk is spread</small>
         </div>
       </div>
+
+      {bars}
 
       <div className="fundbook__cards fundbook__cards--inset">
         <Card
@@ -558,9 +569,20 @@ function Exposure({ book, risked, parkedValue, nav, ccy }: {
       <div className="fundbook__split">
         <div>
           <div className="fundbook__subhead">By position</div>
-          {valued.map(({ p, base }) => (
+          {/* CAPPED, because this is a summary and a summary with one row per holding is just the
+              positions table again. Concentration is carried by the top few and the size of the tail —
+              which is what the rolled-up row says — not by twenty individually tiny bars. */}
+          {shown.map(({ p, base }) => (
             <ExposureBar key={`${p.conid ?? p.symbol}`} label={p.symbol ?? '—'} pct={shareOfRisk(base) ?? 0} value={fmtMoney(base, ccy)} />
           ))}
+          {rest.length > 0 && (
+            <ExposureBar
+              label={`${rest.length} smaller`}
+              pct={shareOfRisk(restValue) ?? 0}
+              value={fmtMoney(restValue, ccy)}
+              deep
+            />
+          )}
         </div>
         <div>
           <div className="fundbook__subhead">By currency</div>
@@ -582,6 +604,9 @@ function Exposure({ book, risked, parkedValue, nav, ccy }: {
     </div>
   )
 }
+
+/** How many names the concentration panel names individually before rolling the tail into one row. */
+const TOP_POSITIONS = 8
 
 function ExposureBar({ label, pct, value, deep }: { label: string; pct: number; value: string; deep?: boolean }) {
   return (
@@ -737,7 +762,7 @@ function Performance({ perf, cashShare }: { perf: PortfolioPerformance; cashShar
         <div className="fundbook__scroll">
           <div className="fundbook__row fundbook__row--periods fundbook__row--head">
             <span>Period</span><span className="num">Return</span><span className="num">{bm.symbol}</span><span className="num">Excess</span>
-            <span className="num">Cash</span><span className="num">Over cash</span><span className="num">Days</span>
+            <span className="num">Cash</span><span className="num">Over cash</span>
           </div>
           {perf.periods.map((p) => (
             <div key={p.label} className="fundbook__row fundbook__row--periods">
@@ -756,12 +781,14 @@ function Performance({ perf, cashShare }: { perf: PortfolioPerformance; cashShar
               <span className="num" style={{ color: p.label === 'Since inception' ? toneOf(bm.excess) : undefined }}>
                 {p.label === 'Since inception' && bm.excess !== null ? `${bm.excess >= 0 ? '+' : '−'}${Math.abs(bm.excess).toFixed(2)}pp` : '—'}
               </span>
-              {/* The second yardstick: beating an index while trailing a deposit account is not a result. */}
+              {/* The second yardstick: beating an index while trailing a deposit account is not a result.
+                  The day count that used to close this row is gone — the window is printed under the
+                  period name, so it said the same thing twice and cost the table 58 of the 780px that
+                  made it scroll on a laptop. */}
               <span className="num dim">{fmtPct(p.hurdle, 2)}</span>
               <span className="num" style={{ color: toneOf(p.overHurdle) }}>
                 {p.overHurdle === null ? '—' : `${p.overHurdle >= 0 ? '+' : '−'}${Math.abs(p.overHurdle).toFixed(2)}pp`}
               </span>
-              <span className="num dim">{p.days}</span>
             </div>
           ))}
         </div>
@@ -1035,7 +1062,8 @@ function Trades({ book, manual, onChanged, importOpen, onImportOpen, importSurfa
   }
   return (
     <>
-      {manualPanel}
+      {/* The SUMMARY leads here too. "Add trades" is an action, not information: it was heading a screen
+          whose first question is what the trading actually produced. */}
       <div className="fundbook__cards">
         <Card label="Realised" value={fmtMoney(stats.total, ccy)} sub={`Net of ${fmtMoney(Math.abs(stats.commission), ccy)} in costs`} tone={toneOf(stats.total)} />
         <Card label="Closed trades" value={String(rows.length)} sub={`${stats.wins} up · ${stats.losses} down`} />
@@ -1048,6 +1076,8 @@ function Trades({ book, manual, onChanged, importOpen, onImportOpen, importSurfa
         <Card label="Avg hold" value={stats.avgHold === null ? '—' : `${Math.round(stats.avgHold)}d`} sub="Open to close" />
         <Card label="Largest loss" value={fmtMoney(stats.worst, ccy)} sub="Single round trip" tone={stats.worst === null ? undefined : 'var(--bad)'} />
       </div>
+
+      {manualPanel}
 
       <div className="fundbook__split">
         <div className="fundbook__panel">
