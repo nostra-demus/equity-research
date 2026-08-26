@@ -53,23 +53,26 @@ class ReleaseAttestationTest(unittest.TestCase):
         canonical_value = attestation["value"]
         last_value = BASE64URL_ALPHABET.index(canonical_value[-1])
         self.assertEqual(last_value & 0x0F, 0)
-        # Alter only unused padding bits, preserving the decoded signature.
-        attestation["value"] = (
-            canonical_value[:-1] + BASE64URL_ALPHABET[last_value | 0x01]
-        )
-        self.assertEqual(
-            base64.urlsafe_b64decode(canonical_value + "=="),
-            base64.urlsafe_b64decode(attestation["value"] + "=="),
-        )
-        self.assertFalse(
-            verify_attestation(
-                payload,
-                attestation,
-                domain=domain,
-                public_key=PUBLIC_KEY,
-                key_id="benchmark-runner",
-            )
-        )
+        # Alter each unused padding bit while preserving the decoded signature.
+        for bitmask in (0x01, 0x02, 0x04, 0x08):
+            with self.subTest(bitmask=bitmask):
+                attestation["value"] = (
+                    canonical_value[:-1]
+                    + BASE64URL_ALPHABET[last_value | bitmask]
+                )
+                self.assertEqual(
+                    base64.urlsafe_b64decode(canonical_value + "=="),
+                    base64.urlsafe_b64decode(attestation["value"] + "=="),
+                )
+                self.assertFalse(
+                    verify_attestation(
+                        payload,
+                        attestation,
+                        domain=domain,
+                        public_key=PUBLIC_KEY,
+                        key_id="benchmark-runner",
+                    )
+                )
 
 
 if __name__ == "__main__":
