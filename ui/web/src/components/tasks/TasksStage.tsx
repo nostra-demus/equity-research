@@ -229,16 +229,17 @@ function TaskEditor({ task, initial, attachmentsEnabled, onClose, onSaved }: {
   )
 }
 
-function TaskCardView({ task, readOnly, onEdit, onMove, onAssign }: {
+function TaskCardView({ task, readOnly, onEdit, onMove, onAssign, onDragEnd }: {
   task: TaskCard
   readOnly: boolean
   onEdit: () => void
   onMove: (stage: TaskStage) => void
   onAssign: (assignee: TaskAssignee) => void
+  onDragEnd: () => void
 }) {
   const index = stageIndex(task.stage)
   return (
-    <article className="taskcard" draggable={!readOnly} title={readOnly ? task.title : undefined} onDragStart={(event) => { if (readOnly) return; event.dataTransfer.setData('text/task-id', task.task_id); event.dataTransfer.effectAllowed = 'move' }}>
+    <article className="taskcard" draggable={!readOnly} title={readOnly ? task.title : undefined} onDragStart={(event) => { if (readOnly) return; event.dataTransfer.setData('text/task-id', task.task_id); event.dataTransfer.effectAllowed = 'move' }} onDragEnd={onDragEnd}>
       <button className="taskcard__main" disabled={readOnly} onClick={onEdit} aria-label={readOnly ? task.subject : `Edit ${task.subject}`} title={readOnly ? 'Read-only snapshot' : undefined}>
         <div className="taskcard__top">
           <span className={`taskcard__scope taskcard__scope--${task.scope}`}>{task.scope === 'world_event' ? 'World' : task.scope === 'company_event' ? 'Event' : 'Ticker'}</span>
@@ -338,7 +339,7 @@ export function TasksStage() {
             <section key={stage.id} className={`taskcol${dragOver === stage.id ? ' is-over' : ''}`} onDragOver={(event) => { event.preventDefault(); event.dataTransfer.dropEffect = 'move'; setDragOver(stage.id) }} onDragLeave={(event) => { if (!event.currentTarget.contains(event.relatedTarget as Node)) setDragOver(null) }} onDrop={(event) => onDrop(event, stage.id)}>
               <header className="taskcol__head"><span>{stage.step}</span><h2>{stage.label}</h2><b>{columnTasks.length}</b></header>
               <div className="taskcol__body">
-                {columnTasks.map((task) => <TaskCardView key={task.task_id} task={task} readOnly={staticMode} onEdit={() => setEditor({ task })} onMove={(next) => move(task, next)} onAssign={(assignee) => void update(task, { assignee })} />)}
+                {columnTasks.map((task) => <TaskCardView key={task.task_id} task={task} readOnly={staticMode} onEdit={() => setEditor({ task })} onMove={(next) => move(task, next)} onAssign={(assignee) => void update(task, { assignee })} onDragEnd={() => setDragOver(null)} />)}
                 {!columnTasks.length && <div className="taskcol__empty">{loading ? 'Loading…' : error || (query || person !== 'all' ? 'No matching tasks' : 'Drop a task here')}</div>}
               </div>
             </section>

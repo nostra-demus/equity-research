@@ -4773,7 +4773,7 @@ app.get('/api/tasks/:id/attachment/:attachmentId', { config: { rateLimit: { max:
       : ext === '.docx' ? 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
         : 'application/msword'
   const disposition = ext === '.pdf' ? 'inline' : 'attachment'
-  const filename = attachment.filename.replace(/[^A-Za-z0-9._-]/g, '')
+  const filename = attachment.filename.replace(/[^A-Za-z0-9._-]/g, '') || `attachment${ext}`
   return reply.header('content-type', contentType).header('x-content-type-options', 'nosniff')
     .header('content-disposition', `${disposition}; filename="${filename}"`).header('cache-control', 'private, no-store').send(stream)
 })
