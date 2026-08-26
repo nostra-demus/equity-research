@@ -9,7 +9,7 @@ import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
 import {
-  buildIdeaUserMessage, coerceIdea, estimateIdeaTokens, IDEA_SYSTEM, surfaceIdeasBatch,
+  buildIdeaUserMessage, coerceIdea, estimateIdeaTokens, ideaProviderRequestIdentity, IDEA_SYSTEM, surfaceIdeasBatch,
   type IdeaInputRow, type IdeaThemeExpression, type RawIdea,
 } from '../src/news/ideas/surface-ideas'
 import { surfaceIdeasBatchGemini } from '../src/news/ideas/surface-ideas-gemini'
@@ -33,6 +33,7 @@ import { appendThemeMutations, buildThemesIndex } from '../src/news/themes/store
 import type { Theme, ThemeItemView } from '../src/news/themes/types'
 import { validIdeaSnapshot } from './ideas-fixture'
 import { attachValidNarrative } from './themes-fixtures'
+import { readProviderQuarantine } from '../src/news/provider-failure'
 
 let passed = 0
 async function check(name: string, fn: () => void | Promise<void>) {
@@ -450,6 +451,41 @@ check('surfaceIdeasBatch: a max_tokens truncation is reported, not half-parsed',
 check('surfaceIdeasBatch: a terminal HTTP error returns ok:false (deferred, not scored-zero)', async () => {
   const r = await surfaceIdeasBatch(ROWS, OPTS, stubFetch('bad', { ok: false, status: 400 }), noSleep, noSleep)
   assert.equal(r.ok, false); assert.equal(r.failureKind, 'request'); assert.equal(r.httpStatus, 400); assert.match(r.note || '', /HTTP 400/)
+})
+check('surfaceIdeasBatch quarantines a standing key fault once and reopens only for changed configuration', async () => {
+  const stateDir = fs.mkdtempSync(path.join(os.tmpdir(), 'ideas-provider-quarantine-'))
+  try {
+    let calls = 0
+    const opts = {
+      ...OPTS, providerId: 'ideas-auth', providerLabel: 'Ideas Auth', keyEnvVar: 'IDEAS_AUTH_KEY',
+      stateDir, maxAttempts: 1,
+    }
+    const rejected = (async () => {
+      calls++
+      return new Response(JSON.stringify({ error: { code: 'invalid_api_key', message: 'private acct-123 secret' } }), { status: 401 })
+    }) as typeof fetch
+    const first = await surfaceIdeasBatch(ROWS, opts, rejected, noSleep)
+    assert.equal(first.ok, false)
+    assert.equal(first.failure?.code, 'auth')
+    assert.equal(first.failure?.action, 'quarantine')
+    assert.equal(readProviderQuarantine(stateDir, ideaProviderRequestIdentity(opts))?.failureCode, 'auth')
+    assert.doesNotMatch(first.note || '', /acct-123|private|secret/)
+
+    const second = await surfaceIdeasBatch(ROWS, opts, rejected, noSleep)
+    assert.equal(second.requests, 0)
+    assert.equal(second.quarantined, true)
+    assert.equal(calls, 1, 'the unchanged standing fault is never probed again')
+
+    const repaired = { ...opts, apiKey: 'rotated-key' }
+    const recovered = await surfaceIdeasBatch(ROWS, repaired, stubFetch({ ideas: [] }), noSleep)
+    assert.equal(recovered.ok, true)
+    assert.equal(recovered.requests, 1)
+    assert.equal(readProviderQuarantine(stateDir, ideaProviderRequestIdentity(repaired)), null)
+    assert.equal(readProviderQuarantine(stateDir, ideaProviderRequestIdentity(opts))?.failureCode, 'auth',
+      'a new key succeeds without erasing the old fingerprint\'s evidence')
+  } finally {
+    fs.rmSync(stateDir, { recursive: true, force: true })
+  }
 })
 check('surfaceIdeasBatch exposes structured retry metadata without leaking provider bodies', async () => {
   const secret = 'account acct-123 balance and prompt must stay private'

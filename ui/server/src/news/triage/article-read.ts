@@ -36,6 +36,7 @@ export interface ArticleReadProvider {
   id: string
   kind: 'openai' | 'gemini' // openai = chat/completions (Groq, OpenRouter, NVIDIA); gemini = generateContent
   apiKey: string
+  keyEnvVar?: string
   baseUrl: string
   model: string // primary/lead model
   models?: string[] // OpenAI fallback chain (OpenRouter routes around its own 429s)
@@ -133,6 +134,7 @@ function sharedAccessStatus(status?: number): boolean {
 }
 
 function articleFailureIsProviderWide(result: Awaited<ReturnType<typeof analyzeArticle>>): boolean {
+  if (result.failure) return result.failure.providerWide
   return result.failureKind === 'rate_limit'
     || (result.failureKind === 'availability' && !result.timedOut)
     || sharedAccessStatus(result.httpStatus)
@@ -147,7 +149,7 @@ function armArticleFailure(
   cooldownMs: number,
   cooldownMaxMs: number,
 ): void {
-  if (result.attempted === false || result.dailyLimit) return
+  if (result.attempted === false || result.dailyLimit || result.quarantined || result.failure?.action === 'quarantine') return
   const providerWide = articleFailureIsProviderWide(result)
   const scopedReason = result.timedOut ? 'article-timeout' : result.failureKind === 'request' ? 'article-request' : 'article-contract'
   if (result.rate?.retryAfterMs != null && Number.isFinite(result.rate.retryAfterMs)) {
@@ -297,7 +299,13 @@ export async function readArticleBrief(
         continue
       }
       const attemptStartedAt = now()
-      const r = await analyzeArticle(body, headline, { model: p.model, models: p.models, baseUrl: p.baseUrl, apiKey: p.apiKey, maxTokens: p.maxTokens, headers: p.headers, extraBody: p.extraBody, timeoutMs: callTimeout, maxAttempts: 1, requestRemainingHeaderIsDaily: p.id === 'groq' || p.requestRemainingHeaderIsDaily === true }, fetchFn, sleep)
+      const r = await analyzeArticle(body, headline, {
+        model: p.model, models: p.models, baseUrl: p.baseUrl, apiKey: p.apiKey, maxTokens: p.maxTokens,
+        headers: p.headers, extraBody: p.extraBody, timeoutMs: callTimeout, maxAttempts: 1,
+        requestRemainingHeaderIsDaily: p.id === 'groq' || p.requestRemainingHeaderIsDaily === true,
+        providerId: p.id, providerLabel: p.id === 'groq' ? 'Groq' : p.id, keyEnvVar: p.keyEnvVar,
+        stateDir: deps.stateDir, workload: 'article', contractVersion: 'news-article-json-v1',
+      }, fetchFn, sleep)
       const requests = r.attempted === false ? 0 : 1
       if (requests) attempted = true // a thin/no-key preflight skip must never freeze future enrichment
       budget.reconcile(reservation, requests, requests ? (r.tokens || perAttemptTokens) : 0)

@@ -20,6 +20,7 @@ export type ProviderEligibilityReason =
   | 'eligible'
   | 'disabled'
   | 'cooldown'
+  | 'quarantined'
   | 'credential-rejected'
   | 'ledger-unavailable'
   | 'hard-cap'
@@ -186,7 +187,7 @@ export type PipelineAuditEvent = ProviderStateSnapshotEvent | ProviderDecisionEv
 
 const ROUTER_MODES = new Set<ProviderRouterMode>(['static', 'shadow', 'adaptive', 'static-fallback'])
 const ELIGIBILITY_REASONS = new Set<ProviderEligibilityReason>([
-  'eligible', 'disabled', 'cooldown', 'credential-rejected', 'ledger-unavailable', 'hard-cap',
+  'eligible', 'disabled', 'cooldown', 'quarantined', 'credential-rejected', 'ledger-unavailable', 'hard-cap',
   'provider-day-exhausted', 'paced', 'contract-retry-limit', 'minimum-priority', 'aggregate-band',
   'demoted-local-band', 'haiku-pressure', 'reservation-unavailable',
 ])

@@ -47,6 +47,31 @@ export const CODEX_EXECUTION_PROFILE_KEY = 'codex|gpt-5.6-sol:max|gpt-5.6-terra:
 export const CODEX_SPECIALIST_LOADER = 'claude-specialist-loader'
 export const CODEX_ADJUDICATOR_LOADER = 'claude-adjudicator-loader'
 
+const CANONICAL_AGENT_NAME_RE = /^[a-z0-9][a-z0-9-]*$/
+const CODEX_NATIVE_TASK_PREFIX = 'nostra_'
+
+/**
+ * Codex's public JSONL stream can expose a native child only as a SubAgentActivity row. Bind that
+ * otherwise prompt-free row to the canonical orb through a reversible task name, never a fuzzy suffix.
+ * Canonical names already exclude underscores, so hyphen -> underscore is one-to-one and zero-touch.
+ */
+export function codexNativeTaskName(canonicalName: string): string {
+  if (!CANONICAL_AGENT_NAME_RE.test(canonicalName)) {
+    throw new Error(`Unsafe canonical Codex subagent name '${canonicalName}'.`)
+  }
+  return `${CODEX_NATIVE_TASK_PREFIX}${canonicalName.replaceAll('-', '_')}`
+}
+
+export function canonicalAgentNameFromCodexNativePath(agentPath: unknown): string | null {
+  if (typeof agentPath !== 'string' || !agentPath.trim()) return null
+  const basename = agentPath.replaceAll('\\', '/').split('/').filter(Boolean).at(-1) || ''
+  if (!basename.startsWith(CODEX_NATIVE_TASK_PREFIX)) return null
+  const encoded = basename.slice(CODEX_NATIVE_TASK_PREFIX.length)
+  if (!/^[a-z0-9]+(?:_[a-z0-9]+)*$/.test(encoded)) return null
+  const canonicalName = encoded.replaceAll('_', '-')
+  return CANONICAL_AGENT_NAME_RE.test(canonicalName) ? canonicalName : null
+}
+
 /** Models named by the canonical Claude prompt-program, not by a cockpit provider picker. */
 export const CLAUDE_AGENT_MODEL_MAP = {
   opus: { model: 'gpt-5.6-sol', reasoningLevel: 'max' },
@@ -150,6 +175,10 @@ Task compatibility is dynamic and path-based. When the program requests Task(sub
    tier above. In its message, provide the resolved
    canonical markdown path plus the Task message verbatim. Start that loader message with the exact line
    NOSTRA_SUBAGENT_TYPE: NAME so the cockpit can attribute the native subagent event to its canonical orb.
+   Set the native spawn's task_name to exactly nostra_NAME with every hyphen in NAME replaced by one
+   underscore (example: data-triage -> nostra_data_triage). Do not add a module, layer, ordinal, or any
+   other prefix/suffix. This reversible name is required because some Codex JSONL versions expose only
+   SubAgentActivity.agent_path, not the spawn prompt, while the child is live.
    The loader must read the WHOLE canonical file
    before acting. If that custom loader is unavailable, spawn the built-in default agent with the same
    path-and-message instruction AND explicitly set the same model and reasoning tier. Never copy the

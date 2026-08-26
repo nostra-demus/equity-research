@@ -11,7 +11,7 @@ import { DATA_DIR, ESTIMATES, FULL_PER_MODULE, HOST, LAUNCH_GUARDS, MAX_CONCURRE
 import { getCreditStatus, setCreditStatus } from './credit'
 import { writeAgentMetrics } from './agent-metrics'
 import { startRunWatcher, sweepRunOutputs } from './fs-watcher'
-import { createRun, emit, finishRun, getRun, IN_FLIGHT_STATUSES, inFlightRunsForSubject, listRuns, setActiveSubjectRun, type ExpectedAgent, type RunState } from './registry'
+import { createRun, emit, emitTransient, finishRun, getRun, IN_FLIGHT_STATUSES, inFlightRunsForSubject, listRuns, recordActivity, setActiveSubjectRun, type ExpectedAgent, type RunState } from './registry'
 import { clearRunMarker, resolveRunRoot, writeRunMarker, writeSupervisorRunFile } from './outputs'
 import { runReadiness } from './readiness'
 import { buildSwarmGraph, downstreamCascade } from './roster'
@@ -47,9 +47,9 @@ import type { ProviderExecutionProfile, RunProvider } from './providers/types'
 import {
   appendExecutionAttempt, artifactIsFresh, attestParitySnapshotAtPublication,
   canonicalManifestJsonl, canonicalManifestPath, decisionArtifacts,
-  receiptPath, recordAdmittedProviderSelection, recordProviderInterruptionAuthority,
+  EXECUTION_PROVENANCE_RECEIPT, receiptPath, recordAdmittedProviderSelection, recordProviderInterruptionAuthority,
   recordRecoveredPublicationAuthority, releaseExecutionEpochAfterPublication,
-  releaseParityRegistration, resolveParityBindingPath, writeExecutionReceipt,
+  releaseParityRegistration, resolveParityBindingPath, supersedeIncompleteDecisionAuthorAttempt, writeExecutionReceipt,
 } from './execution-provenance'
 import { runIbkrPaperAutoSyncAfterPublication, scheduleIbkrPaperAutoSyncAfterPublication } from './ibkr-paper-auto-sync'
 import { parityCanaryRootBasenameMatches } from './provider-parity-path'
@@ -619,6 +619,106 @@ function codexIncompleteOrchestrationMessage(run: RunState): string {
 
 const streamResultErrors = new WeakMap<RunState, { reason: string; message: string }>()
 
+const CODEX_AUTOMATIC_CONTINUATION_MAX = 64
+
+export interface CodexAutomaticContinuationPlan {
+  continue: boolean
+  reason: string
+  index?: number
+  checkpoint?: string
+  stagnantTurns?: number
+  completedOutputs?: string[]
+  unresolvedOutputs?: string[]
+}
+
+function codexContinuationInventory(run: RunState): {
+  checkpoint: string
+  completedOutputs: string[]
+  unresolvedOutputs: string[]
+} {
+  const completed = [...run.expected.values()]
+    .filter((expected) => run.agents.get(expected.key)?.status === 'done')
+    .sort((left, right) => left.key.localeCompare(right.key))
+  const unresolved = [...run.expected.values()]
+    .filter((expected) => run.agents.get(expected.key)?.status !== 'done')
+    .sort((left, right) => left.key.localeCompare(right.key))
+  return {
+    checkpoint: completed.map((item) => item.key).join('\n'),
+    completedOutputs: completed.map((item) => item.outputRel),
+    unresolvedOutputs: unresolved.map((item) => item.outputRel),
+  }
+}
+
+/**
+ * Decide whether a clean, prematurely-ended Codex process may continue inside the SAME admitted RunState.
+ * Files remain the completion truth. Explicit errors, cancellation, publication activity, descendant-writer
+ * races, fail-fast module exits, and two consecutive no-progress boundaries all fail closed.
+ */
+export function planCodexAutomaticContinuation(
+  run: RunState,
+  res: any,
+  stderr = '',
+  descendantObserved = false,
+): CodexAutomaticContinuationPlan {
+  if (run.provider !== 'codex') return { continue: false, reason: 'provider_not_codex' }
+  if (!['module', 'full', 'rerun', 'signal'].includes(run.kind) || run.expected.size === 0) {
+    return { continue: false, reason: 'scope_not_orchestrated' }
+  }
+  if (run.endedAt !== undefined || (run.status as string) === 'cancelled' || run.cancelRequested) {
+    return { continue: false, reason: 'run_not_active' }
+  }
+  if (streamResultErrors.has(run) || run.streamFailure) return { continue: false, reason: 'provider_stream_error' }
+  if (descendantObserved) return { continue: false, reason: 'descendant_writer_observed' }
+  if (run.publicationRequested || run.publicationCompleted || run.publicationError) {
+    return { continue: false, reason: 'publication_started' }
+  }
+  // A screener signal may deliberately stop at a terminal routing before later discovered modules run.
+  // RUN_METADATA is written only after that routing is adjudicated, so it is the exact parent-completion
+  // barrier; requiring every expected orb would incorrectly continue valid PARK/LOG/watchlist outcomes.
+  const missingBarrier = run.kind === 'signal'
+    ? (() => {
+      if (!run.runRoot) return true
+      const metadata = path.join(REPO_ROOT, run.runRoot, 'RUN_METADATA.md')
+      try {
+        const info = fs.lstatSync(metadata)
+        return !info.isFile() || info.isSymbolicLink() || !validateAgentOutputFile(metadata).valid
+      } catch { return true }
+    })()
+    : truncatedBeforeFinal(run)
+  if (!missingBarrier) return { continue: false, reason: 'completion_barrier_not_missing' }
+  // A missing close result cannot prove a clean provider boundary and must never authorize another process.
+  if (!res || typeof res !== 'object') return { continue: false, reason: 'provider_process_nonclean' }
+  const code = res.exitCode ?? res.code
+  const terminated = res.isTerminated === true || res.killed === true || !!res.signal
+  if (terminated || res.failed === true || (typeof code === 'number' && code !== 0)) {
+    return { continue: false, reason: 'provider_process_nonclean' }
+  }
+  const classified = getProviderAdapter(run.provider).classifyExit({
+    result: res, stderr, status: run.status, cliResult: run.cliResult,
+  })
+  const cleanIncomplete = classified.outcome === 'success'
+    || (classified.outcome === 'error' && classified.reason === 'codex_missing_turn_completed')
+  if (!cleanIncomplete) return { continue: false, reason: `provider_${classified.outcome}` }
+
+  const currentCount = run.automaticContinuationCount ?? 0
+  const max = Math.min(Math.max(run.expected.size * 2 + 4, 8), CODEX_AUTOMATIC_CONTINUATION_MAX)
+  if (currentCount >= max) return { continue: false, reason: 'continuation_limit_reached' }
+  const inventory = codexContinuationInventory(run)
+  const repeated = run.automaticContinuationCheckpoint !== undefined
+    && run.automaticContinuationCheckpoint === inventory.checkpoint
+  const stagnantTurns = repeated ? (run.automaticContinuationStagnantTurns ?? 0) + 1 : 0
+  if (stagnantTurns >= 2) return { continue: false, reason: 'no_artifact_progress' }
+  return {
+    continue: true,
+    reason: 'clean_incomplete_codex_process',
+    index: currentCount + 1,
+    checkpoint: inventory.checkpoint,
+    stagnantTurns,
+    completedOutputs: inventory.completedOutputs,
+    unresolvedOutputs: inventory.unresolvedOutputs,
+  }
+}
+
 function interruptionMarker(run: RunState, reason: string, message?: string, resetsAt?: number) {
   return {
     reason,
@@ -631,6 +731,7 @@ function interruptionMarker(run: RunState, reason: string, message?: string, res
     reasoningLevel: run.reasoningLevel,
     executionEpoch: run.provenanceEpoch,
     runId: run.runId,
+    attemptId: run.providerAttemptId ?? run.runId,
     startedAt: run.startedAt,
   }
 }
@@ -1022,6 +1123,8 @@ function runProcessTreeAlive(run: RunState): boolean {
 interface ProviderProcessLease {
   schema_version: 'cockpit-provider-process/1.0'
   run_id: string
+  /** Exact provider process inside the logical run. Absent only on pre-continuation leases. */
+  attempt_id?: string
   run_root: string
   subject: string
   swarm: string
@@ -1063,7 +1166,8 @@ function persistProviderProcessLease(run: RunState): void {
   fs.mkdirSync(providerProcessLeaseDir, { recursive: true, mode: 0o700 })
   fs.chmodSync(providerProcessLeaseDir, 0o700)
   const unsigned: Omit<ProviderProcessLease, 'self_sha256'> = {
-    schema_version: 'cockpit-provider-process/1.0', run_id: run.runId, run_root: run.runRoot,
+    schema_version: 'cockpit-provider-process/1.0', run_id: run.runId,
+    attempt_id: run.providerAttemptId ?? run.runId, run_root: run.runRoot,
     subject: run.subjectId, swarm: run.swarmId, kind: run.kind, provider: run.provider,
     profile_key: run.profileKey, model: run.model, reasoning_level: run.reasoningLevel,
     execution_profile: run.executionProfile, pid, process_started: identity.started,
@@ -1107,6 +1211,7 @@ function readProviderProcessLease(absolute: string): ProviderProcessLease | null
     if (!info.isFile() || info.isSymbolicLink() || fs.realpathSync(absolute) !== absolute) return null
     const value = JSON.parse(fs.readFileSync(absolute, 'utf8')) as ProviderProcessLease
     if (value.schema_version !== 'cockpit-provider-process/1.0' || !/^[0-9a-f-]{36}$/.test(value.run_id)
+        || (value.attempt_id !== undefined && !/^[0-9a-f-]{36}$/.test(value.attempt_id))
         || typeof value.run_root !== 'string' || typeof value.subject !== 'string'
         || typeof value.swarm !== 'string' || !['claude', 'codex'].includes(value.provider)
         || !Number.isSafeInteger(value.pid) || value.pid <= 1 || typeof value.process_started !== 'string'
@@ -1151,10 +1256,11 @@ export async function reconcileOrphanedProviderGroups(): Promise<number> {
       writeRunMarker(lease.run_root, '.interrupted', {
         reason: 'supervisor_restart', provider: lease.provider, profileKey: lease.profile_key,
         model: lease.model, reasoningLevel: lease.reasoning_level,
-        runId: lease.run_id, startedAt: lease.run_started_at,
+        runId: lease.run_id, attemptId: lease.attempt_id ?? lease.run_id, startedAt: lease.run_started_at,
       })
       recordProviderInterruptionAuthority({
-        runId: lease.run_id, runRoot: lease.run_root, provider: lease.provider,
+        runId: lease.run_id, providerAttemptId: lease.attempt_id ?? lease.run_id,
+        runRoot: lease.run_root, provider: lease.provider,
         profileKey: lease.profile_key, model: lease.model, reasoningLevel: lease.reasoning_level,
         executionProfile: lease.execution_profile,
       } as RunState)
@@ -1778,7 +1884,7 @@ export interface LaunchParams {
   sharedPoolTarget?: { swarm: string; subject: string }
 }
 
-export type ParityCanaryStage = 'chain' | 'module' | 'final'
+export type ParityCanaryStage = 'chain' | 'continuation' | 'module' | 'final'
 
 /** A model child is allowed to finish successfully only after this supervisor-owned publication phase. */
 export function requiresSupervisorPublication(kind: RunKind, parityStage?: ParityCanaryStage): boolean {
@@ -3222,7 +3328,7 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
   // The operator endpoint admits one LOGICAL full attempt. Its provider-neutral scheduler launches every
   // discovered module as a bounded child, then a single terminal full-canary adjudicator. Child stages carry
   // the same chainId/profile/root/freeze binding and therefore re-enter launch() without recursing here.
-  if (kind === 'full' && params.parityCanary?.stage === 'chain') {
+  if (kind === 'full' && (params.parityCanary?.stage === 'chain' || params.parityCanary?.stage === 'continuation')) {
     return launchFullChained(
       subjectId,
       user,
@@ -3556,13 +3662,26 @@ export function assertParityCanaryStageRoot(rootAbsolute: string, stage: ParityC
     }
     return
   }
+  if (stage === 'continuation') {
+    const terminal = ['final_thesis.md', 'decision_record.json', EXECUTION_PROVENANCE_RECEIPT]
+      .filter((name) => names.has(name))
+    if (terminal.length) {
+      throw Object.assign(new Error(`parity canary continuation already has terminal artifacts: ${terminal.join(', ')}`), { statusCode: 409 })
+    }
+    if (!names.has('.interrupted') || names.has('.aborted')) {
+      throw Object.assign(new Error('parity canary continuation requires an interruption marker and no abort marker'), { statusCode: 409 })
+    }
+  }
+  const stageSupport = stage === 'continuation'
+    ? new Set([...support, '.interrupted', FAILURE_NOTE])
+    : support
   for (const entry of entries) {
     const absolute = path.join(rootAbsolute, entry.name)
     const info = fs.lstatSync(absolute)
     if (info.isSymbolicLink() || fs.realpathSync(absolute) !== path.join(rootReal, entry.name)) {
       throw Object.assign(new Error(`parity canary stage contains an unsafe path: ${entry.name}`), { statusCode: 409 })
     }
-    if (support.has(entry.name)) {
+    if (stageSupport.has(entry.name)) {
       const directoryExpected = entry.name === '_pool_extracts'
       if (directoryExpected !== info.isDirectory() || (!directoryExpected && !info.isFile())) {
         throw Object.assign(new Error(`parity canary support path has the wrong type: ${entry.name}`), { statusCode: 409 })
@@ -5472,6 +5591,85 @@ export async function warmLaunchProbes(): Promise<void> {
   }))
 }
 
+async function continueIncompleteCodexProcess(
+  run: RunState,
+  res: any,
+  stderr: string,
+  descendantObserved: boolean,
+  publicationSocket: SupervisorPublicationSocket,
+): Promise<boolean> {
+  const plan = planCodexAutomaticContinuation(run, res, stderr, descendantObserved)
+  if (!plan.continue) return false
+
+  // Verify and fully retire every capability/resource from the old process before a new credential lease,
+  // publication socket, or detached process group can exist for this same RunState.
+  try { run.publicationTransportVerify?.() } catch { return false }
+  await publicationSocket.close()
+  releaseProviderLaunchResources(run)
+  if (run.publicationError) return false
+  clearProviderProcessLease(run.runId)
+
+  run.automaticContinuationMetricBase = {
+    costUsd: run.costUsd ?? 0,
+    numTurns: run.numTurns ?? 0,
+    durationMs: run.durationMs ?? 0,
+  }
+  supersedeIncompleteDecisionAuthorAttempt(run)
+  run.automaticContinuationCount = plan.index!
+  run.providerAttemptId = randomUUID()
+  run.automaticContinuationCheckpoint = plan.checkpoint!
+  run.automaticContinuationStagnantTurns = plan.stagnantTurns!
+  run.child = null
+  run.processGroupPid = undefined
+  run.processGroupKillRequested = undefined
+  run.cliResult = undefined
+  run.streamFailure = undefined
+  run.lastProviderMessage = undefined
+  run.sessionId = undefined
+  run.resumeSessionId = undefined
+  run.lastStdoutAt = Date.now()
+  run.note = undefined
+  run.publicationToken = randomUUID()
+  run.publicationPhase = 'open'
+  run.publicationTransportVerify = undefined
+  run.availabilityProofId = randomUUID()
+  streamResultErrors.delete(run)
+  run.toolUseToAgent.clear()
+  run.nativeThreadToAgent.clear()
+  run.nativeAgentStates.clear()
+  for (const agent of run.agents.values()) {
+    if (agent.status !== 'done') agent.status = 'queued'
+  }
+  terminalCloseHandlers.delete(run)
+  run.status = 'starting'
+
+  const ts = Date.now()
+  const activity = {
+    tool: 'Task',
+    target: `Continue same Codex run · process ${plan.index} · ${plan.completedOutputs!.length}/${run.expected.size} outputs complete`,
+    ts,
+  }
+  run.lastActivity = activity
+  recordActivity(run, activity)
+  emitTransient(run, {
+    type: 'run-activity', runId: run.runId, tool: activity.tool, target: activity.target,
+    provider: run.provider, executionProfile: run.executionProfile, ts,
+  })
+
+  try {
+    await spawnEngine(run)
+  } catch (error: any) {
+    if (run.endedAt === undefined) {
+      const message = `Codex automatic continuation ${plan.index} could not start: ${String(error?.message || error)}`
+      run.streamFailure = { reason: 'codex_continuation_failed', message }
+      finalizeRunOnClose(run, { exitCode: 1, failed: true, shortMessage: message }, message)
+    }
+  }
+  // The old close handler must never continue into memory/publication/finalization after ownership moved
+  // to the replacement process (or its failed-start finalizer).
+  return true
+}
+
 async function spawnEngine(run: RunState): Promise<void> {
   // A confirmation can stay open while another process publishes a newer call; likewise, a shared
   // data/<SUBJECT> pool can acquire a second finished swarm owner after an automatic intake was queued.
@@ -5549,6 +5747,8 @@ async function spawnEngine(run: RunState): Promise<void> {
   const publicationBinding = {
     runId: run.runId, runRoot: run.runRoot!, token: run.publicationToken!, socketPath: publicationSocket.socketPath,
   }
+  const continuationInventory = (run.provider === 'codex' && (run.automaticContinuationCount ?? 0) > 0)
+    ? codexContinuationInventory(run) : null
   let launchSpec: Awaited<ReturnType<typeof adapter.buildLaunch>>
   try {
     launchSpec = await adapter.buildLaunch({
@@ -5569,6 +5769,11 @@ async function spawnEngine(run: RunState): Promise<void> {
       env: applyRunPolicyEnv(applySupervisorPublicationEnv(process.env, publicationBinding), run),
       guard: LAUNCH_GUARDS[run.kind],
       resumeSessionId: run.resumeSessionId,
+      automaticContinuation: continuationInventory ? {
+        index: run.automaticContinuationCount!,
+        completedOutputs: continuationInventory.completedOutputs,
+        unresolvedOutputs: continuationInventory.unresolvedOutputs,
+      } : undefined,
       availabilityProofId: run.availabilityProofId,
       publicationSocketPath: publicationSocket.socketPath,
     })
@@ -5702,22 +5907,26 @@ async function spawnEngine(run: RunState): Promise<void> {
     stallTimer.unref?.()
   }
   run.status = 'running'
-  emit(run, {
-    type: 'run-started', runId: run.runId, kind: run.kind, ticker: run.ticker,
-    runRoot: run.runRoot, willCommitToMain: run.willCommitToMain,
-    provider: run.provider, executionProfile: run.executionProfile, profileKey: run.profileKey,
-    model: run.model, reasoningLevel: run.reasoningLevel, cliVersion: run.cliVersion,
-    ...(run.swarmId !== 'research' ? { swarm: run.swarmId } : {}), ts: Date.now(),
-  })
+  // One logical cockpit run has one started event and one audit-launch row. A bounded Codex continuation
+  // swaps only the provider process underneath that RunState and was already surfaced as run-activity.
+  if ((run.automaticContinuationCount ?? 0) === 0) {
+    emit(run, {
+      type: 'run-started', runId: run.runId, kind: run.kind, ticker: run.ticker,
+      runRoot: run.runRoot, willCommitToMain: run.willCommitToMain,
+      provider: run.provider, executionProfile: run.executionProfile, profileKey: run.profileKey,
+      model: run.model, reasoningLevel: run.reasoningLevel, cliVersion: run.cliVersion,
+      ...(run.swarmId !== 'research' ? { swarm: run.swarmId } : {}), ts: Date.now(),
+    })
 
-  // perpetual audit record: who launched what, when, on which company (finish is logged in finishRun)
-  logLaunch({
-    runId: run.runId, user: run.user, userVia: run.userVia, kind: run.kind, ticker: run.ticker,
-    runRoot: run.runRoot ?? undefined, module: run.module, agent: run.agent, provider: run.provider,
-    executionProfile: run.executionProfile, profileKey: run.profileKey, model: run.model,
-    reasoningLevel: run.reasoningLevel, cliVersion: run.cliVersion, chained: run.chained,
-    chainId: run.chainId, executionEpoch: run.provenanceEpoch, swarm: run.swarmId,
-  })
+    // perpetual audit record: who launched what, when, on which company (finish is logged in finishRun)
+    logLaunch({
+      runId: run.runId, user: run.user, userVia: run.userVia, kind: run.kind, ticker: run.ticker,
+      runRoot: run.runRoot ?? undefined, module: run.module, agent: run.agent, provider: run.provider,
+      executionProfile: run.executionProfile, profileKey: run.profileKey, model: run.model,
+      reasoningLevel: run.reasoningLevel, cliVersion: run.cliVersion, chained: run.chained,
+      chainId: run.chainId, executionEpoch: run.provenanceEpoch, swarm: run.swarmId,
+    })
+  }
 
   // line-buffered stdout -> stream parser
   let buf = ''
@@ -5757,6 +5966,12 @@ async function spawnEngine(run: RunState): Promise<void> {
     }
     // heal any file event the watcher missed in the final moments (awaitWriteFinish hold vs exit)
     sweepRunOutputs(run)
+    // Codex can end a clean parent turn after one native child even though the canonical filesystem graph
+    // is still incomplete. Continue inside this exact admitted RunState: no second frontend POST, no new
+    // run/root/provider/profile, and no publication between processes. Claude never enters this branch.
+    if (await continueIncompleteCodexProcess(
+      run, res, stderr, closeGroupProof.descendantObserved, publicationSocket,
+    )) return
     // A clean exact-resume module is not done until its completed module directory is proven on origin/main.
     // Keep the subject/write claims live while this awaits, so no second run can race the terminal commit.
     // Failed/cancelled/truncated children retain their ordinary outcome and do not attempt publication.

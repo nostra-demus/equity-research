@@ -501,7 +501,7 @@ function currentAttemptRows(run: RunState): Array<Record<string, unknown>> {
   const row = {
     schema_version: '1.0',
     event: 'attempt_started',
-    attempt_id: run.runId,
+    attempt_id: run.providerAttemptId ?? run.runId,
     provider: run.provider,
     model: model || null,
     reasoning_level: reasoningLevel || null,
@@ -765,6 +765,20 @@ export function appendExecutionAttempt(run: RunState, _manifestPath?: string): v
   beginExecutionAttempt(run)
 }
 
+/** A clean-but-incomplete terminal parent did not author the eventual verdict. Retain it as a recorded
+ * contributor, but move decision-author authority to the continuation process that actually publishes. */
+export function supersedeIncompleteDecisionAuthorAttempt(run: RunState): void {
+  if (!isDecisionAuthor(run)) return
+  const attemptId = run.providerAttemptId ?? run.runId
+  const demote = (row: Record<string, unknown>) => {
+    if (row.attempt_id !== attemptId || row.attribution !== 'recorded' || row.decision_author !== true) return
+    row.decision_author = false
+    row.decision_artifacts = []
+  }
+  for (const row of run.executionAttempts ?? []) demote(row)
+  for (const row of (run.runRoot ? liveAttemptsByRunRoot.get(run.runRoot) : undefined) ?? []) demote(row)
+}
+
 export function canonicalManifestPath(run: RunState): string {
   const dir = path.join(STATE_DIR, 'execution-provenance')
   fs.mkdirSync(dir, { recursive: true, mode: 0o700 })
@@ -854,6 +868,10 @@ export interface RecordedProviderSelection {
   executionProfile?: ProviderExecutionProfile
 }
 
+export interface ProviderInterruptionAuthority extends RecordedProviderSelection {
+  runId: string
+}
+
 type ProviderSelectionStage = 'admitted' | 'spawned' | 'interrupted' | 'published'
 
 function providerSelectionPath(runRoot: string): string {
@@ -926,7 +944,8 @@ function writeProviderSelection(
     ? 'protected_admission' : stage === 'spawned' ? 'protected_manifest'
       : stage === 'interrupted' ? 'interruption_artifact' : 'published_artifacts'
   const unsigned: Omit<ProviderSelectionRecord, 'self_sha256'> = {
-    schema_version: 'cockpit-provider-selection/3.0', stage, run_id: run.runId, run_root: run.runRoot,
+    schema_version: 'cockpit-provider-selection/3.0', stage,
+    run_id: run.providerAttemptId ?? run.runId, run_root: run.runRoot,
     recorded_at: new Date().toISOString(), provider: run.provider, model: run.model,
     reasoningLevel: run.reasoningLevel, profileKey: run.profileKey, executionProfile: run.executionProfile,
     authority: { kind: authorityKind, artifact_hashes: artifactHashes },
@@ -1006,5 +1025,23 @@ export function readLastProviderSelection(
   if (!live) return null
   return {
     ...live, executionProfile: live.executionProfile ? { ...live.executionProfile } : undefined,
+  }
+}
+
+/** Exact durable authority for an interrupted process. Unlike the general selection reader, this retains
+ * the supervisor-signed run id so an operator continuation can bind to one specific stopped process. */
+export function readProviderInterruptionAuthority(runRoot: string): ProviderInterruptionAuthority | null {
+  const absoluteRoot = path.resolve(REPO_ROOT, runRoot)
+  const repo = path.resolve(REPO_ROOT)
+  if (absoluteRoot !== repo && !absoluteRoot.startsWith(`${repo}${path.sep}`)) return null
+  const durable = readProviderSelectionRecord(runRoot)
+  if (!durable || durable.stage !== 'interrupted') return null
+  return {
+    runId: durable.run_id,
+    provider: durable.provider,
+    model: durable.model,
+    reasoningLevel: durable.reasoningLevel,
+    profileKey: durable.profileKey,
+    executionProfile: durable.executionProfile ? { ...durable.executionProfile } : undefined,
   }
 }

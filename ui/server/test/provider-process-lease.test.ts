@@ -12,9 +12,10 @@ process.env.ENGINE_STATE_DIR = state
 
 const { REPO_ROOT } = await import('../src/config')
 const { reconcileOrphanedProviderGroups } = await import('../src/launcher')
-const { readLastProviderSelection } = await import('../src/execution-provenance')
+const { readLastProviderSelection, readProviderInterruptionAuthority } = await import('../src/execution-provenance')
 
 const runId = randomUUID()
+const attemptId = randomUUID()
 const runRoot = `analyses/ZZLEASE_${Date.now()}`
 const absoluteRoot = path.join(REPO_ROOT, runRoot)
 const leaseDir = path.join(state, 'provider-process-groups')
@@ -37,6 +38,7 @@ try {
   const unsigned = {
     schema_version: 'cockpit-provider-process/1.0',
     run_id: runId,
+    attempt_id: attemptId,
     run_root: runRoot,
     subject: 'ZZLEASE',
     swarm: 'research',
@@ -68,9 +70,13 @@ try {
   const marker = JSON.parse(fs.readFileSync(path.join(absoluteRoot, '.interrupted'), 'utf8'))
   assert.equal(marker.reason, 'supervisor_restart')
   assert.equal(marker.provider, 'codex')
+  assert.equal(marker.runId, runId)
+  assert.equal(marker.attemptId, attemptId)
   const selection = readLastProviderSelection(runRoot, 'interrupted')
   assert.equal(selection?.provider, 'codex')
   assert.equal(selection?.profileKey, unsigned.profile_key)
+  const authority = readProviderInterruptionAuthority(runRoot)
+  assert.equal(authority?.runId, attemptId, 'interruption authority binds the exact provider process')
 
   fs.writeFileSync(path.join(leaseDir, `${randomUUID()}.json`), '{"forged":true}\n', { mode: 0o600 })
   await assert.rejects(reconcileOrphanedProviderGroups(), /invalid provider-process lease/,
