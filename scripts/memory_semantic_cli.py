@@ -81,7 +81,7 @@ def candidate_command(args: argparse.Namespace) -> int:
         created_by={"kind": args.creator_kind, "id": args.creator_id},
         policy=load(args.policy), now=now(args.now),
     )
-    with candidate_intake_guard(args.state_root):
+    with candidate_intake_guard(args.state_root, candidate_count=1):
         path = state(args).put_candidate(value)
     result = {
         "schema": "memory-semantic-candidate-intake-result/v1",
@@ -116,7 +116,7 @@ def verify_command(args: argparse.Namespace) -> int:
 
 def seed_command(args: argparse.Namespace) -> int:
     store = state(args)
-    with candidate_intake_guard(args.state_root):
+    with candidate_intake_guard(args.state_root, candidate_count=1):
         paths = seed_reviewed_candidates(
             database_path=args.projection, projection_digest=args.projection_digest,
             state=store, now=now(args.now),
