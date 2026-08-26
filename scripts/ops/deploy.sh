@@ -146,6 +146,156 @@ is_doer_host() {
   legacy_tunnel_contract "$tunnel"
 }
 
+# Prove that the doer's archive writer and engine reader use the same retained Drive directory. The
+# installed plists are treated as authority only after stable, owner-only, no-follow reads. Exit 10 means
+# the archive contract is sound but the engine needs the one-time migration; every other mismatch fails
+# closed without replacing or blanking an installed service. The desired path is captured by the caller and
+# is never written to the deploy log.
+engine_archive_contract() {
+  local archive_plist="$HOME/Library/LaunchAgents/com.nostradamus.news-archive.plist"
+  local engine_plist="$HOME/Library/LaunchAgents/com.nostradamus.engine.plist"
+  "$PYTHON" -I - "$archive_plist" "$engine_plist" <<'PYENGINEARCHIVE'
+import os
+import plistlib
+import stat
+import sys
+
+
+class ContractError(RuntimeError):
+    pass
+
+
+def identity(info):
+    return (
+        info.st_dev, info.st_ino, info.st_size, info.st_mtime_ns, info.st_ctime_ns,
+        info.st_mode, info.st_uid, info.st_nlink,
+    )
+
+
+def require_safe(info):
+    if (
+        not stat.S_ISREG(info.st_mode)
+        or info.st_uid != os.getuid()
+        or info.st_nlink != 1
+        or info.st_mode & 0o077
+        or not 0 < info.st_size <= 1024 * 1024
+    ):
+        raise ContractError("unsafe installed plist")
+
+
+def secure_plist(path, allow_missing=False):
+    descriptor = None
+    try:
+        before = os.lstat(path)
+    except FileNotFoundError:
+        if allow_missing:
+            return None
+        raise ContractError("required installed plist is missing")
+    except OSError as error:
+        raise ContractError("cannot inspect installed plist") from error
+    try:
+        require_safe(before)
+        descriptor = os.open(path, os.O_RDONLY | getattr(os, "O_NOFOLLOW", 0))
+        opened = os.fstat(descriptor)
+        require_safe(opened)
+        if identity(opened) != identity(before):
+            raise ContractError("installed plist changed during open")
+        remaining = opened.st_size
+        chunks = []
+        while remaining:
+            chunk = os.read(descriptor, min(remaining, 64 * 1024))
+            if not chunk:
+                raise ContractError("short installed plist read")
+            chunks.append(chunk)
+            remaining -= len(chunk)
+        if os.read(descriptor, 1):
+            raise ContractError("installed plist grew during read")
+        after_fd = os.fstat(descriptor)
+        after_path = os.lstat(path)
+        require_safe(after_fd)
+        require_safe(after_path)
+        if identity(after_fd) != identity(before) or identity(after_path) != identity(before):
+            raise ContractError("installed plist changed during read")
+        value = plistlib.loads(b"".join(chunks))
+        if not isinstance(value, dict):
+            raise ContractError("installed plist root is invalid")
+        return value
+    except (OSError, ValueError, plistlib.InvalidFileException) as error:
+        raise ContractError("cannot read installed plist") from error
+    finally:
+        if descriptor is not None:
+            os.close(descriptor)
+
+
+try:
+    archive = secure_plist(sys.argv[1])
+    archive_env = archive.get("EnvironmentVariables")
+    archive_args = archive.get("ProgramArguments")
+    if archive.get("Label") != "com.nostradamus.news-archive" or not isinstance(archive_env, dict):
+        raise ContractError("archive service identity is invalid")
+    repo_root = archive_env.get("REPO")
+    desired = archive_env.get("NEWS_ARCHIVE_DIR")
+    if (
+        not isinstance(repo_root, str)
+        or not os.path.isabs(repo_root)
+        or not isinstance(desired, str)
+        or not os.path.isabs(desired)
+        or len(desired) > 4096
+        or "\n" in desired
+        or "\r" in desired
+        or archive_args != ["/bin/bash", os.path.join(repo_root, "scripts", "ops", "news-archive.sh")]
+    ):
+        raise ContractError("archive service path contract is invalid")
+    engine = secure_plist(sys.argv[2], allow_missing=True)
+    if engine is None:
+        print(desired)
+        raise SystemExit(10)
+    engine_env = engine.get("EnvironmentVariables")
+    if (
+        engine.get("Label") != "com.nostradamus.engine"
+        or not isinstance(engine_env, dict)
+        or engine_env.get("ENGINE_REPO_ROOT") != repo_root
+        or engine.get("WorkingDirectory") != os.path.join(repo_root, "ui", "server")
+    ):
+        raise ContractError("engine service identity is invalid")
+    if engine_env.get("NEWS_ARCHIVE_DIR") == desired:
+        raise SystemExit(0)
+    print(desired)
+    raise SystemExit(10)
+except ContractError:
+    raise SystemExit(20)
+PYENGINEARCHIVE
+}
+
+reconcile_engine_archive_launchagent() {
+  local installer="$PROD/scripts/ops/install-services.sh" desired_archive_dir="" contract_rc
+  is_doer_host || return 0
+  desired_archive_dir="$(engine_archive_contract)"
+  contract_rc=$?
+  if [ "$contract_rc" -eq 0 ]; then
+    return 0
+  fi
+  if [ "$contract_rc" -ne 10 ] || [ -z "$desired_archive_dir" ]; then
+    log "WARN engine archive reader reconciliation could not prove the installed archive/engine contract"
+    return 1
+  fi
+  [ -f "$installer" ] && [ ! -L "$installer" ] \
+    || { log "WARN engine archive reader installer is missing or unsafe"; return 1; }
+  log "engine archive reader missing or drifted — reconciling only the engine service"
+  if ! ENGINE_REPO_ROOT="$PROD" NEWS_ARCHIVE_DIR="$desired_archive_dir" NOSTRA_ROLE=doer \
+      /bin/bash "$installer" --role doer --only engine >>"$LOG" 2>&1; then
+    log "WARN engine archive reader service reconciliation failed"
+    return 1
+  fi
+  if ! engine_archive_contract >/dev/null 2>&1; then
+    log "WARN engine archive reader service did not retain the exact archive contract"
+    return 1
+  fi
+  health_gate || { log "WARN engine became unhealthy after archive reader reconciliation"; return 1; }
+  log "engine archive reader active on the retained Drive archive"
+  return 0
+}
+
 # One-time + continuously idempotent connector LaunchAgent migration. PR1 changes the connector scheduler
 # from six-hourly to a due-aware fifteen-minute floor and moves every declared CONNECTOR_* secret out of the
 # installed plist into ~/.config/nostra-engine/providers.env. Merely changing the tracked template does not
@@ -1046,6 +1196,9 @@ if [ "${1:-}" = --check-dirty ]; then
   cd "$PROD" 2>/dev/null || exit 0
   has_nondata_dirty
   exit $?
+elif [ "${1:-}" = --check-engine-archive ]; then
+  engine_archive_contract
+  exit $?
 elif [ "$#" -gt 0 ]; then
   exit 2
 fi
@@ -1316,6 +1469,10 @@ if [ "$LOCAL" = "$REMOTE" ]; then
     log "SKIP service reconciliation because a dirty non-data (code/ops) file is present (§28)"
     exit 0
   fi
+  if ! reconcile_engine_archive_launchagent; then
+    log "WARN engine archive reader remains unreconciled — leaving the deployed marker unchanged for retry"
+    exit 0
+  fi
   if ! migrate_connector_launchagent_v2; then
     log "WARN connector-agent reconciliation failed — leaving the deployed marker unchanged for retry"
     exit 0
@@ -1463,6 +1620,10 @@ fi
 # The fast-forwarded, reviewed source is now immutable under fd 9. Activate
 # its connector service contract before advancing any deployed marker; a
 # failure leaves the old service and marker in place so the next tick retries.
+if ! reconcile_engine_archive_launchagent; then
+  log "WARN engine archive reader reconciliation failed after fast-forward — leaving the deployed marker unchanged for retry"
+  exit 0
+fi
 if ! migrate_connector_launchagent_v2; then
   log "WARN connector-agent reconciliation failed after fast-forward — leaving the deployed marker unchanged for retry"
   exit 0

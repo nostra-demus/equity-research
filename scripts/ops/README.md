@@ -260,8 +260,9 @@ the engine after editing; confirm with `curl -s localhost:8787/api/tickers | gre
 **Auth for the doer (required).** The cockpit launches the selected provider headlessly, so its saved login
 or provider credential must be reachable by the launchd GUI agent. Provider configuration lives in
 `~/.config/nostra-engine/providers.env` (mode 600, outside the repo); the retired housekeeping shim does not
-source it or start a model. `NEWS_ARCHIVE_DIR` is auto-carried from the existing install on a re-run, so you
-don't have to re-pass it every time.
+source it or start a model. `NEWS_ARCHIVE_DIR` is auto-carried from the existing install on a re-run and is
+rendered into both the archive writer and the engine reader. You do not have to re-pass it every time, and
+historical news reads continue to fall back to Drive after the 30-day local working set is pruned.
 
 **Feedback → coding-agent dispatch (optional).** The cockpit's Feedback panel can send an item to a coding
 agent that opens a **draft PR** (`ui/server/src/feedback-dispatch.ts`). It is OFF and FAIL-CLOSED by default;
