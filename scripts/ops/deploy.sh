@@ -1217,9 +1217,10 @@ trap 'gitlock_release; exec 8>&-' EXIT
 cd "$PROD" 2>/dev/null || { log "FATAL cannot cd $PROD"; exit 0; }
 
 # ---- provider-neutral run/deploy barrier -----------------------------------------------------------
-# Every admitted Claude or Codex run holds a SHARED flock on this stable inode; a whole chained run keeps
-# one across the child-transition/capacity gaps too. Deployment takes the EXCLUSIVE side before touching
-# the checkout, dependencies, feature flags, or launchctl. This is an atomic kernel boundary, not a status
+# Every admitted Claude/Codex run and every scanner/Ideas lifecycle holds a SHARED flock on this stable
+# inode; a whole chained run keeps one across the child-transition/capacity gaps too. Deployment takes the
+# EXCLUSIVE side before touching the checkout, dependencies, feature flags, or launchctl. This is an atomic
+# kernel boundary, not a status
 # poll: a run cannot enter after a "no active runs" check but before kickstart. Busy means defer the entire
 # deploy unchanged until the run ends. Unexpected path/ownership state also fails closed.
 case "$RUN_BARRIER_DIR" in /*) ;; *) log "WARN provider deploy barrier requires an absolute state directory"; exit 0 ;; esac

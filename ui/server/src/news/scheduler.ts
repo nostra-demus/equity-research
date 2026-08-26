@@ -10,6 +10,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { NEWS, REPO_ROOT, STATE_DIR, buildOmniRouteProvider } from '../config'
+import { withProviderRunDeployLease } from '../deploy-barrier'
 import { acquireSingletonLock, releaseSingletonLock } from '../singleton-lock'
 import { refreshBoard } from './write-inbox'
 import { DEFERRED_CAP, DEFERRED_MAX_AGE_MS, inspectDeferredBacklog, loadDeferred, runIngestCycle, triageGroqTokenBound, triagePaceTokenBound } from './runCycle'
@@ -291,7 +292,8 @@ async function runScheduledQualifiedIdeaOutcomes(
 ): Promise<void> {
   if (outcomeRunning) return
   outcomeRunning = true
-  try { await run(log) }
+  try { await withProviderRunDeployLease(STATE_DIR, () => run(log)) }
+  catch (e: any) { log(`qualified idea outcome pass deferred: ${e?.message || e}`) }
   finally { outcomeRunning = false }
 }
 
@@ -1772,12 +1774,12 @@ export function startNewsIngester(): void {
       if (running) return
       running = true
       try {
-        await runNormalIdeasThenSecondLook({
+        await withProviderRunDeployLease(STATE_DIR, () => runNormalIdeasThenSecondLook({
           ideas: () => runConfiguredIdeaPass(log),
           secondLook: () => runConfiguredRescueShadow(log, true),
           onSecondLookBlocked: () =>
             runConfiguredRescueShadow(log, false, 'The normal Ideas scan did not finish, so the second look waited.'),
-        })
+        }))
       }
       catch (e: any) { log(`idea pass error: ${e?.message || e}`) }
       finally {
@@ -1803,35 +1805,37 @@ export function startNewsIngester(): void {
     if (running) return // never overlap cycles
     running = true
     try {
-      try {
-        const summary = await runAbortableCycle(
-          (signal) => runIngestCycle({ log, signal, fetchFn: withCycleSignal(fetch, signal) }),
-          CYCLE_TIMEOUT_MS,
-          () => log(`cycle exceeded ${Math.round(CYCLE_TIMEOUT_MS / 1000)}s guard — aborting in-flight work`),
-        )
-        lastNote = summary.note || null
-        // AUTO-FIX (under the SAME cycle lock so it can't overlap a drain and double-spend a budget file):
-        // re-read any degraded THE STORY entries still on the wire, so a momentarily-missed article fixes
-        // itself without a human reopening it. Budget-gated, capped, never throws, and bounded by its own
-        // per-fetch timeouts — AWAITED to completion (not raced) so it can't overlap the next tick either.
-        if (budgetHasHeadroom()) await healEnrichCache({ hasBudget: budgetHasHeadroom, log })
-      } catch (e: any) {
-        log(`cycle error: ${e?.message || e}`)
-        lastNote = `cycle error: ${e?.message || e}`
-      }
-      // This is deliberately outside the ingest try. runIdeaPass applies its own sweep + found_at age
-      // ceiling, so a transient source failure does not suppress a safe pass over still-current inputs.
-      // Outcome settlement has one owner: its independent interval above.
-      await runNormalIdeasThenSecondLook({
-        ideas: () => runConfiguredIdeaPass(log),
-        secondLook: () => runConfiguredRescueShadow(log, true),
-        onSecondLookBlocked: () =>
-          runConfiguredRescueShadow(log, false, 'The normal Ideas scan did not finish, so the second look waited.'),
+      await withProviderRunDeployLease(STATE_DIR, async () => {
+        try {
+          const summary = await runAbortableCycle(
+            (signal) => runIngestCycle({ log, signal, fetchFn: withCycleSignal(fetch, signal) }),
+            CYCLE_TIMEOUT_MS,
+            () => log(`cycle exceeded ${Math.round(CYCLE_TIMEOUT_MS / 1000)}s guard — aborting in-flight work`),
+          )
+          lastNote = summary.note || null
+          // AUTO-FIX (under the SAME cycle lock so it can't overlap a drain and double-spend a budget file):
+          // re-read any degraded THE STORY entries still on the wire, so a momentarily-missed article fixes
+          // itself without a human reopening it. Budget-gated, capped, never throws, and bounded by its own
+          // per-fetch timeouts — AWAITED to completion (not raced) so it can't overlap the next tick either.
+          if (budgetHasHeadroom()) await healEnrichCache({ hasBudget: budgetHasHeadroom, log })
+        } catch (e: any) {
+          log(`cycle error: ${e?.message || e}`)
+          lastNote = `cycle error: ${e?.message || e}`
+        }
+        // This is deliberately outside the ingest try. runIdeaPass applies its own sweep + found_at age
+        // ceiling, so a transient source failure does not suppress a safe pass over still-current inputs.
+        // Outcome settlement has one owner: its independent interval above.
+        await runNormalIdeasThenSecondLook({
+          ideas: () => runConfiguredIdeaPass(log),
+          secondLook: () => runConfiguredRescueShadow(log, true),
+          onSecondLookBlocked: () =>
+            runConfiguredRescueShadow(log, false, 'The normal Ideas scan did not finish, so the second look waited.'),
+        })
       })
     } catch (e: any) {
       // runConfiguredIdeaPass is fail-soft, but keep a final boundary so an unexpected regression cannot
       // wedge the scheduler lock.
-      log(`idea pass error: ${e?.message || e}`)
+      log(`scanner pass error: ${e?.message || e}`)
     } finally {
       running = false
       lastCycleAt = new Date().toISOString().replace(/\.\d{3}Z$/, 'Z')
@@ -1848,11 +1852,11 @@ export function startNewsIngester(): void {
     if (running || backlogCount() === 0 || !drainHasHeadroom()) return
     running = true
     try {
-      const summary = await runAbortableCycle(
+      const summary = await withProviderRunDeployLease(STATE_DIR, () => runAbortableCycle(
         (signal) => runIngestCycle({ log, signal, skipFetch: true, fetchFn: withCycleSignal(fetch, signal) }),
         CYCLE_TIMEOUT_MS,
         () => log(`drain exceeded ${Math.round(CYCLE_TIMEOUT_MS / 1000)}s guard — aborting in-flight work`),
-      )
+      ))
       lastNote = summary.note || lastNote
     } catch (e: any) {
       log(`drain error: ${e?.message || e}`)
