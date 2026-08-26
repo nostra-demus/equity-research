@@ -24,8 +24,8 @@ check() {
 
 check "ops scripts remain valid shell" \
   "bash -n \"$INSTALL\" && bash -n \"$DEPLOY\" && bash -n \"$WATCHDOG\" && bash -n \"$FAILOVER\" && python3 -m py_compile \"$SUPERVISOR\""
-check "installer accepts only the connector and OmniRoute narrow repair targets" \
-  "grep -Fq 'case \"\$ONLY\" in connectors|omniroute)' \"$INSTALL\" && grep -Fq 'ONLY_SET=1' \"$INSTALL\""
+check "installer accepts only the connector, engine, and OmniRoute narrow repair targets" \
+  "grep -Fq 'case \"\$ONLY\" in connectors|engine|omniroute)' \"$INSTALL\" && grep -Fq 'ONLY_SET=1' \"$INSTALL\""
 check "unknown or misspelled installer arguments fail closed" \
   "grep -Fq 'ERROR: unknown argument:' \"$INSTALL\" && ! grep -Fq 'WARN ignoring unknown arg:' \"$INSTALL\""
 check "connector-only install skips every runtime ops-script replacement" \
@@ -106,6 +106,42 @@ if [ "$omniroute_only_rc" -eq 0 ] \
 else
   echo "  FAIL --only omniroute hit nounset/empty-array regression or widened its scope"
   sed 's/^/    /' "$TEST_TMP/omniroute-only.out" 2>/dev/null || true
+  failures=$((failures + 1))
+fi
+
+ENGINE_MOCK_BIN="$TEST_TMP/engine-mock-bin"
+ENGINE_MOCK_STATE="$TEST_TMP/engine-loaded"
+mkdir -p "$ENGINE_MOCK_BIN"
+ln -s "$(command -v python3)" "$ENGINE_MOCK_BIN/python3"
+printf '%s\n' '#!/usr/bin/env bash' \
+  'case "${1:-}" in' \
+  '  print) [ -f "$ENGINE_MOCK_STATE" ] ;;' \
+  '  bootstrap) : > "$ENGINE_MOCK_STATE" ;;' \
+  '  bootout) rm -f "$ENGINE_MOCK_STATE" ;;' \
+  '  kickstart|list) exit 0 ;;' \
+  '  *) exit 1 ;;' \
+  'esac' > "$ENGINE_MOCK_BIN/launchctl"
+chmod +x "$ENGINE_MOCK_BIN/launchctl"
+before_engine_runtime="$(runtime_identity)"
+if HOME="$TEST_HOME" ENGINE_REPO_ROOT="$TEST_PROD" NEWS_ARCHIVE_DIR="$TEST_TMP/Drive Archive" \
+    ENGINE_MOCK_STATE="$ENGINE_MOCK_STATE" PATH="$ENGINE_MOCK_BIN:/usr/bin:/bin:/usr/sbin:/sbin" \
+    /bin/bash -u "$INSTALL" --role doer --only engine >"$TEST_TMP/engine-only.out" 2>&1; then
+  engine_only_rc=0
+else
+  engine_only_rc=$?
+fi
+after_engine_runtime="$(runtime_identity)"
+engine_archive_value="$(/usr/libexec/PlistBuddy -c 'Print :EnvironmentVariables:NEWS_ARCHIVE_DIR' \
+  "$TEST_HOME/Library/LaunchAgents/com.nostradamus.engine.plist" 2>/dev/null || true)"
+if [ "$engine_only_rc" -eq 0 ] \
+    && [ "$before_engine_runtime" = "$after_engine_runtime" ] \
+    && [ "$engine_archive_value" = "$TEST_TMP/Drive Archive" ] \
+    && [ ! -e "$TEST_OPS/role" ] \
+    && ! grep -q 'com.nostradamus.connectors' "$TEST_TMP/engine-only.out"; then
+  echo "  ok  engine-only install atomically renders Drive reads without widening autonomy"
+else
+  echo "  FAIL --only engine changed runtime/role/connector state or lost the Drive path"
+  sed 's/^/    /' "$TEST_TMP/engine-only.out" 2>/dev/null || true
   failures=$((failures + 1))
 fi
 

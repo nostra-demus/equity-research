@@ -16,6 +16,7 @@ const PUBLISH_TIMEOUT_MS = 20 * 60_000
 const DATA_PATHS = [
   'screener/ledger/ideas.ndjson',
   'screener/ledger/ideas_feedback.ndjson',
+  'screener/ledger/ideas_interrupted_attempts.ndjson',
   'screener/ledger/ideas',
   'screener/ledger/ideas_archive',
   'screener/board/index.json',
