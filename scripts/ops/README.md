@@ -166,7 +166,8 @@ The unattended service authenticates through Anthropic's supported `claude setup
 with `CLAUDE_CODE_SUBPROCESS_ENV_SCRUB=1`, so Bash tools, hooks, and MCP subprocesses cannot read the credential.
 `ANTHROPIC_API_KEY` and `ANTHROPIC_AUTH_TOKEN` are always removed. An interactive first-party Claude Max login
 remains accepted when the macOS Keychain is available, but unattended operation never depends on an unlocked
-GUI session and can never fall through to API-key billing.
+GUI session and can never fall through to API-key billing. The no-model sandbox proof mirrors that scrubbed
+nested-tool environment while separately proving the parent subscription authentication.
 
 **Connector repair boundary.** The fifteen-minute connector sweep only fetches a series when its manifest release
 clock is due, through the staged publication

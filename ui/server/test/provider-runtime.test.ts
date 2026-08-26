@@ -18,7 +18,7 @@ import {
 } from '../src/launcher'
 import {
   claudeChildEnv, claudeSandboxSettings, createClaudeMirrorWorkspace,
-  isClaudeMaxAuth, isClaudeSubscriptionAuth,
+  claudeNestedToolEnv, isClaudeMaxAuth, isClaudeSubscriptionAuth,
 } from '../src/providers/claude'
 import { codexChildEnv } from '../src/providers/codex'
 import type { RunState } from '../src/registry'
@@ -149,6 +149,8 @@ try {
     assert.equal(claudeChildEnv(source).ANTHROPIC_AUTH_TOKEN, undefined)
     assert.equal(claudeChildEnv(source).CLAUDE_CODE_OAUTH_TOKEN, 'no-model-visible-oauth')
     assert.equal(claudeChildEnv(source).CLAUDE_CODE_SUBPROCESS_ENV_SCRUB, '1')
+    assert.equal(claudeNestedToolEnv(source).CLAUDE_CODE_OAUTH_TOKEN, undefined)
+    assert.equal(claudeNestedToolEnv(source).CLAUDE_CODE_SUBPROCESS_ENV_SCRUB, '1')
     assert.equal(claudeChildEnv({ ...source, NOSTRA_PUBLICATION_SOCKET: '/tmp/fixture.sock' }).NOSTRA_PUBLICATION_SOCKET,
       '/tmp/fixture.sock')
   })
