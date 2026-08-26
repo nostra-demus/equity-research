@@ -6,7 +6,10 @@ import path from 'node:path'
 import { ideasHealthLivenessMs, initializeIdeasHealth, inspectPersistedIdeasHealth, readIdeasHealth, readPersistedIdeasHealth, updateIdeasHealth } from '../src/news/ideas/ideas-health'
 import { callGroqForIdeaPass, chunkIdeaRows, ideaGroqTokenBound, runIdeaPass, type IdeaPassConfig } from '../src/news/ideas/run-idea-pass'
 import { ideaProviderRequestIdentity } from '../src/news/ideas/surface-ideas'
-import { ideaId, readIdeaById, readPassState, readTopSweep, topNEffectHash, topNHash, writePassState } from '../src/news/ideas/ideas-store'
+import {
+  IDEA_INTERRUPTED_ATTEMPTS_PATH, ideaId, readIdeaById, readPassState, readTopSweep,
+  topNEffectHash, topNHash, writePassState,
+} from '../src/news/ideas/ideas-store'
 import { armCooldown, Budget, NON_BINDING_DAILY_TOKEN_CAP, getSharedGeminiLimiter, getSharedLimiter, readCooldownUntil, resetBudgetMemory, resetCooldownMemory, resetSharedLimiters } from '../src/news/triage/budget'
 import type { OverflowProvider } from '../src/config'
 import { validIdeaSnapshot } from './ideas-fixture'
@@ -466,6 +469,40 @@ const dispatchedCrashFetch = (async (_url: Parameters<typeof fetch>[0], init?: P
     usage: { total_tokens: 50 },
   }), { status: 200, headers: { 'content-type': 'application/json' } })
 }) as typeof fetch
+const dispatchedInterruptionLedger = path.join(dispatchedCrashRoot, IDEA_INTERRUPTED_ATTEMPTS_PATH)
+const dispatchedAppendFailure = await runIdeaPass({
+  repoRoot: dispatchedCrashRoot, stateDir: dispatchedCrashState, config: dispatchedCrashCfg,
+  refreshBoard: async () => {}, now: () => NOW + 30_000,
+  fetchFn: dispatchedCrashFetch, sleep: async () => {}, persistHealth: true,
+  appendInterruptedAttempt: () => { throw new Error('simulated interruption-ledger failure') },
+})
+assert.equal(dispatchedAppendFailure.reason_code, 'internal_error')
+assert.equal(readPassState(dispatchedCrashState)?.in_flight?.phase, 'dispatched',
+  'an append failure preserves the only retry/quarantine authority')
+assert.equal(fs.existsSync(dispatchedInterruptionLedger), false)
+assert.equal(dispatchedCrashFetches, 0)
+let dispatchedPublishCalls = 0
+const dispatchedPublishFailure = await runIdeaPass({
+  repoRoot: dispatchedCrashRoot, stateDir: dispatchedCrashState, config: dispatchedCrashCfg,
+  refreshBoard: async () => {}, now: () => NOW + 45_000,
+  fetchFn: dispatchedCrashFetch, sleep: async () => {}, persistHealth: true,
+  publishIdeas: async () => (++dispatchedPublishCalls === 1
+    ? { status: 'clean', pending: false }
+    : { status: 'failed', pending: true, reason: 'commit_failed' }),
+})
+assert.equal(dispatchedPublishFailure.reason_code, 'publish_failed')
+assert.equal(readPassState(dispatchedCrashState)?.in_flight?.phase, 'dispatched',
+  'a push failure preserves the transient marker until the permanent receipt is published')
+assert.equal(dispatchedCrashFetches, 0)
+const interruptedRowsAfterPublishFailure = fs.readFileSync(dispatchedInterruptionLedger, 'utf8')
+  .trim().split('\n').map((line) => JSON.parse(line))
+assert.equal(interruptedRowsAfterPublishFailure.length, 1)
+assert.equal(interruptedRowsAfterPublishFailure[0].schema_version, 'ideas-interrupted-attempt/v1')
+assert.equal(interruptedRowsAfterPublishFailure[0].phase, 'dispatched')
+assert.equal(interruptedRowsAfterPublishFailure[0].attempt_id, 'crash:groq')
+assert.equal(interruptedRowsAfterPublishFailure[0].provider, 'groq')
+assert.deepEqual(interruptedRowsAfterPublishFailure[0].input_keys, dispatchedEnvelopeKeys)
+assert.equal(interruptedRowsAfterPublishFailure[0].input_event_ids.every((id: unknown) => typeof id === 'string'), true)
 const dispatchedCrashHeld = await runIdeaPass({
   repoRoot: dispatchedCrashRoot, stateDir: dispatchedCrashState, config: dispatchedCrashCfg, refreshBoard: async () => {},
   now: () => NOW + 60_000, fetchFn: dispatchedCrashFetch, sleep: async () => {}, persistHealth: true,
@@ -475,6 +512,10 @@ assert.equal(dispatchedCrashFetches, 0, 'an ambiguous dispatched request is not 
 const quarantinedState = readPassState(dispatchedCrashState)
 assert.equal(quarantinedState?.in_flight, undefined, 'the global marker is converted into a row-scoped quarantine')
 assert.deepEqual(quarantinedState?.uncertain_input_keys, dispatchedEnvelopeKeys)
+assert.deepEqual(quarantinedState?.uncertain_input_audits?.map((audit) => audit.input_key), dispatchedEnvelopeKeys)
+assert.equal(new Set(quarantinedState?.uncertain_input_audits?.map((audit) => audit.interruption_id)).size, 1)
+assert.equal(fs.readFileSync(dispatchedInterruptionLedger, 'utf8').trim().split('\n').length, 1,
+  'restart sees the deterministic receipt and never duplicates it')
 assert.deepEqual(quarantinedState?.completed_input_keys, [], 'uncertain rows are not called completed')
 assert.equal(Budget.load(dispatchedCrashState, cfg.groqDailyReqCap, cfg.groqDailyTokenCap,
   NOW + 60_000, 'groq-budget.json').requests, 1, 'recovery never reserves or charges the uncertain envelope again')
@@ -535,6 +576,8 @@ assert.equal(dispatchedCrashRemoval.reason_code, 'stale_running')
 assert.equal(dispatchedCrashFetches, 2, 'removing one uncertain row does not re-send its peers')
 assert.deepEqual(readPassState(dispatchedCrashState)?.uncertain_input_keys, dispatchedEnvelopeKeys.slice(1),
   'removing one uncertain row clears only its own exact key')
+assert.deepEqual(readPassState(dispatchedCrashState)?.uncertain_input_audits?.map((audit) => audit.input_key),
+  dispatchedEnvelopeKeys.slice(1), 'the live receipt mapping ages only with its exact row')
 assert.equal(Budget.load(dispatchedCrashState, cfg.groqDailyReqCap, cfg.groqDailyTokenCap,
   NOW + 3 * (dispatchedCrashCfg.minIntervalSec * 1000 + 1), 'groq-budget.json').requests, 3)
 const dispatchedCrashHeartbeatAt = NOW
@@ -558,6 +601,58 @@ assert.equal(readIdeasHealth(dispatchedCrashState, dispatchedCrashRoot, true, di
 assert.equal(Budget.load(dispatchedCrashState, cfg.groqDailyReqCap, cfg.groqDailyTokenCap,
   dispatchedCrashHeartbeatAt, 'groq-budget.json').requests, 4,
   'only the safe heartbeat adds a request; quarantined rows still add none')
+dispatchedCrashSweep.updated_at = '2026-08-03T11:50:00Z'
+dispatchedCrashSweep.rows = dispatchedCrashSweep.rows.filter((row: { headline: string }) => (
+  row.headline !== 'Company 1 files a material update' && row.headline !== 'Company 2 files a material update'
+))
+fs.writeFileSync(dispatchedCrashSweepPath, JSON.stringify(dispatchedCrashSweep))
+await runIdeaPass({
+  repoRoot: dispatchedCrashRoot, stateDir: dispatchedCrashState, config: dispatchedCrashCfg,
+  refreshBoard: async () => {}, now: () => dispatchedCrashHeartbeatAt + dispatchedCrashCfg.minIntervalSec * 1000 + 1,
+  fetchFn: dispatchedCrashFetch, sleep: async () => {}, persistHealth: true,
+})
+assert.equal(readPassState(dispatchedCrashState)?.uncertain_input_keys, undefined)
+assert.equal(readPassState(dispatchedCrashState)?.uncertain_input_audits, undefined)
+assert.equal(fs.readFileSync(dispatchedInterruptionLedger, 'utf8').trim().split('\n').length, 1,
+  'aging the final live quarantine cannot delete its permanent interruption record')
+resetSharedLimiters()
+
+// A rolling deployment can encounter row-scoped quarantines created before the permanent audit ledger
+// existed. Archive that legacy state once, with honest unknown provider/attempt fields, before aging it.
+const legacyInterruptedRoot = rootWithRows(3)
+const legacyInterruptedState = path.join(legacyInterruptedRoot, '.state')
+const legacyInterruptedRows = readTopSweep(legacyInterruptedRoot, 3, {
+  nowMs: NOW, maxAgeMs: cfg.inputMaxAgeHrs! * 3_600_000, allEligible: true,
+}).rows
+const legacyInterruptedKeys = legacyInterruptedRows.map((row) => `${topNHash([row])}:${topNEffectHash([row])}`)
+writePassState(legacyInterruptedState, {
+  hash: topNHash(legacyInterruptedRows), effect_hash: topNEffectHash(legacyInterruptedRows), ran_at_ms: NOW,
+  completed_chunks: [], coverage_order: legacyInterruptedKeys, completed_input_keys: [],
+  completed_idea_ids: [], completed_idea_claims: [], uncertain_input_keys: legacyInterruptedKeys,
+})
+let legacyInterruptedFetches = 0
+const runLegacyInterrupted = (at: number) => runIdeaPass({
+  repoRoot: legacyInterruptedRoot, stateDir: legacyInterruptedState, config: { ...cfg, topN: 3 },
+  refreshBoard: async () => {}, now: () => at,
+  fetchFn: (async () => { legacyInterruptedFetches++; return new Response('{}', { status: 500 }) }) as typeof fetch,
+  sleep: async () => {}, persistHealth: true,
+})
+const legacyInterruptedFirst = await runLegacyInterrupted(NOW + 60_000)
+assert.equal(legacyInterruptedFirst.reason_code, 'stale_running')
+assert.equal(legacyInterruptedFetches, 0)
+const legacyInterruptedLedger = path.join(legacyInterruptedRoot, IDEA_INTERRUPTED_ATTEMPTS_PATH)
+const legacyInterruptedRecords = fs.readFileSync(legacyInterruptedLedger, 'utf8').trim().split('\n')
+  .map((line) => JSON.parse(line))
+assert.equal(legacyInterruptedRecords.length, 1)
+assert.equal(legacyInterruptedRecords[0].phase, 'legacy_unknown')
+assert.equal(legacyInterruptedRecords[0].attempt_id, null)
+assert.equal(legacyInterruptedRecords[0].provider, null)
+assert.deepEqual(legacyInterruptedRecords[0].input_keys, legacyInterruptedKeys)
+assert.deepEqual(readPassState(legacyInterruptedState)?.uncertain_input_audits?.map((audit) => audit.input_key),
+  legacyInterruptedKeys)
+await runLegacyInterrupted(NOW + 120_000)
+assert.equal(fs.readFileSync(legacyInterruptedLedger, 'utf8').trim().split('\n').length, 1,
+  'legacy recovery is deterministic and idempotent across restarts')
 resetSharedLimiters()
 
 // The ranked queue is strongest first. If a later chunk repeats the same ticker+direction, completing

@@ -38,3 +38,12 @@ export function acquireProviderRunDeployLease(stateDir = STATE_DIR): () => void 
     releaseRetainedFlock(descriptor)
   }
 }
+
+/** Retain the shared side for an entire async provider/scanner lifecycle, including every awaited
+ * persistence step. The finally boundary is the contract: a rejection cannot strand deployment, while a
+ * live promise cannot be restarted out from under its durable completion receipt. */
+export async function withProviderRunDeployLease<T>(stateDir: string, run: () => Promise<T>): Promise<T> {
+  const release = acquireProviderRunDeployLease(stateDir)
+  try { return await run() }
+  finally { release() }
+}
