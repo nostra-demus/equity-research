@@ -18,7 +18,7 @@ import { STATE_DIR } from './config'
 import { feedPresent, readCloses } from './market-feed'
 import { alignFlowsToNavDates, buildBook, type Book } from './portfolio'
 import { parseFlexXml, type FlexDocument } from './portfolio-import'
-import { benchmarkCompare, measuredWindow, moneyWeightedReturn, returnsByPeriod, riskMetrics, type BenchmarkRead, type PeriodReturn, type RiskRead } from './portfolio-metrics'
+import { benchmarkCompare, betaAlpha, dailyReturns, measuredWindow, moneyWeightedReturn, monthlyReturns, returnsByPeriod, riskMetrics, type BenchmarkRead, type BetaAlpha, type MonthRow, type PeriodReturn, type RiskRead } from './portfolio-metrics'
 
 export const PORTFOLIO_DIR = path.join(STATE_DIR, 'portfolio')
 export const STATEMENTS_DIR = path.join(PORTFOLIO_DIR, 'statements')
@@ -35,6 +35,11 @@ export interface StoredStatement {
   fromDate: string | null
   toDate: string | null
   trades: number
+  /** Row count per section, so the import screen can show WHICH reports a query actually returned.
+   *  A Flex query missing Change in NAV still imports and still looks fine — this is where that shows. */
+  sections: Record<string, number>
+  /** Sections the statement carried that the importer does not read. */
+  unmodelled: string[]
 }
 
 function ensureDirs(): void {
@@ -56,9 +61,43 @@ export function listStatements(): StoredStatement[] {
   try { names = fs.readdirSync(STATEMENTS_DIR).filter((n) => n.endsWith('.json')) } catch { return [] }
   const out: StoredStatement[] = []
   for (const name of names) {
-    try { out.push(JSON.parse(fs.readFileSync(path.join(STATEMENTS_DIR, name), 'utf8'))) } catch { /* skip unreadable */ }
+    let raw: Partial<StoredStatement> & { id?: string }
+    try { raw = JSON.parse(fs.readFileSync(path.join(STATEMENTS_DIR, name), 'utf8')) } catch { continue }
+    out.push(backfill(raw as StoredStatement))
   }
   return out.sort((a, b) => (a.toDate ?? '').localeCompare(b.toDate ?? ''))
+}
+
+/** Fill in fields a sidecar written by an older build does not carry.
+ *
+ *  The counts are re-derived from the statement itself and the sidecar rewritten, so the work happens
+ *  once per file rather than on every read. A statement whose XML has since become unreadable falls
+ *  back to empty rather than refusing the listing — the operator needs that row precisely so they can
+ *  remove the bad file. */
+function backfill(s: StoredStatement): StoredStatement {
+  if (s.sections && s.unmodelled) return s
+  const empty: StoredStatement = { ...s, sections: s.sections ?? {}, unmodelled: s.unmodelled ?? [] }
+  if (!s.id) return empty
+  let doc
+  try { doc = parseFlexXml(fs.readFileSync(xmlPath(s.id), 'utf8')) } catch { return empty }
+  const filled: StoredStatement = { ...s, sections: sectionCounts(doc), unmodelled: doc.sectionsUnmodelled }
+  try { fs.writeFileSync(metaPath(s.id), JSON.stringify(filled, null, 2) + '\n') } catch { /* read-only store — still return the counts */ }
+  return filled
+}
+
+/** What the file actually carried, section by section. A Flex query with a section left unticked
+ *  imports cleanly and reconciles green while silently missing dividends or NAV; these counts are how
+ *  that is caught. */
+function sectionCounts(doc: FlexDocument): Record<string, number> {
+  return {
+    Trades: doc.trades.length,
+    'Open positions': doc.openPositions.length,
+    'Cash transactions': doc.cashTransactions.length,
+    'Corporate actions': doc.corporateActions.length,
+    'Change in NAV': doc.changeInNav ? 1 : 0,
+    'Daily NAV': doc.equitySummary.length,
+    'Conversion rates': doc.conversionRates.length,
+  }
 }
 
 export interface SaveResult {
@@ -81,6 +120,8 @@ export function saveStatement(xml: string, filename: string): SaveResult {
     fromDate: doc.fromDate,
     toDate: doc.toDate,
     trades: doc.trades.length,
+    sections: sectionCounts(doc),
+    unmodelled: doc.sectionsUnmodelled,
   }
   if (fs.existsSync(xmlPath(id))) return { status: 'duplicate', statement }
   fs.writeFileSync(xmlPath(id), xml)
@@ -115,6 +156,16 @@ export const RISK_FREE_ANNUAL_PCT = 4.3
 
 export interface PortfolioPerformance {
   periods: PeriodReturn[]
+  /** Month by month, book against benchmark. */
+  months: MonthRow[]
+  /** How much index movement the book carries, and what it returned beyond that. */
+  betaAlpha: BetaAlpha
+  /** The two curves the growth chart draws, both REBASED to 100 at the first funded day so they are
+   *  comparable: NAV itself cannot be plotted against an index because deposits move it without being
+   *  performance. The book curve is the flow-adjusted index the returns are already built from. */
+  growth: { date: string; book: number; benchmark: number | null }[]
+  /** Distance below the previous high, day by day — the underwater curve. */
+  underwater: { date: string; depth: number }[]
   /** The LP's lived return — reported alongside the time-weighted figure, never instead of it.
    *  ANNUALISED (XIRR), unlike the cumulative period returns above: the UI must label it as such. */
   moneyWeightedAnnualisedPct: number | null
@@ -143,11 +194,58 @@ export function performanceOf(book: Book): PortfolioPerformance {
   // alignment drifts from the first the moment either is corrected — and the copy that lived here had
   // already drifted, landing an unvaluable flow's raw local amount in the chain the original excludes.
   const flowsByDate = alignFlowsToNavDates(book.flows, book.navSeries)
+  const closes = readCloses(BENCHMARK_SYMBOL)
+  const returns = dailyReturns(book.navSeries, flowsByDate)
+  // EVERY period is measured over the window the book actually held capital, never over every calendar
+  // row the export happens to carry. A Flex export routinely starts months before the first deposit,
+  // and measuring from there charges the book a full year of cash hurdle against a few months of
+  // return — which does not merely overstate the hurdle, it FLIPS the sign of "over cash". It also
+  // dated a four-month-old book "since 2025-08-22" on screen.
+  const window = measuredWindow(book.navSeries, flowsByDate)
+
+  // Both curves REBASED to 100 on the first day the book actually held capital. Plotting raw NAV
+  // against an index would draw every deposit as a leap in performance; the book curve is the same
+  // flow-adjusted index every return on this screen is already built from.
+  const growth: { date: string; book: number; benchmark: number | null }[] = []
+  if (returns.length > 0) {
+    const start = returns[0]!.date
+    const inWindow = closes.filter((c) => c.date >= start).sort((a, b) => a.date.localeCompare(b.date))
+    const base = inWindow.length ? inWindow[0]!.close : null
+    const byDate = new Map(inWindow.map((c) => [c.date, c.close]))
+    let index = 100
+    let lastBm: number | null = base ? 100 : null
+    growth.push({ date: start, book: 100, benchmark: lastBm })
+    for (const { date, r } of returns) {
+      index *= 1 + r
+      const close = byDate.get(date)
+      // Carry the last level across a day the feed does not price, rather than breaking the line.
+      if (close !== undefined && base) lastBm = (close / base) * 100
+      growth.push({ date, book: index, benchmark: lastBm })
+    }
+  }
+
+  // The underwater curve, from that same index — so a withdrawal is never drawn as a drawdown.
+  const underwater: { date: string; depth: number }[] = []
+  if (returns.length > 0) {
+    let index = 1
+    let peak = 1
+    underwater.push({ date: returns[0]!.date, depth: 0 })
+    for (const { date, r } of returns) {
+      index *= 1 + r
+      peak = Math.max(peak, index)
+      underwater.push({ date, depth: (index / peak - 1) * 100 })
+    }
+  }
+
   return {
-    periods: returnsByPeriod(book.navSeries, flowsByDate),
+    periods: returnsByPeriod(window, flowsByDate, RISK_FREE_ANNUAL_PCT),
+    months: monthlyReturns(book.navSeries, flowsByDate, closes),
+    betaAlpha: betaAlpha(returns, closes, RISK_FREE_ANNUAL_PCT),
+    growth,
+    underwater,
     moneyWeightedAnnualisedPct: moneyWeightedReturn(book.navSeries, book.flows),
     risk: riskMetrics(book.navSeries, flowsByDate, RISK_FREE_ANNUAL_PCT),
-    benchmark: benchmarkCompare(BENCHMARK_SYMBOL, book.twr, measuredWindow(book.navSeries, flowsByDate), readCloses(BENCHMARK_SYMBOL)),
+    benchmark: benchmarkCompare(BENCHMARK_SYMBOL, book.twr, window, closes),
     riskFreeAnnualPct: RISK_FREE_ANNUAL_PCT,
     feedPresent: feedPresent(),
   }

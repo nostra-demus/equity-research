@@ -5040,6 +5040,57 @@ a { color: inherit; }
   .fundbook__row { min-width: 640px; }
   .fundbook__tabs { align-self: stretch; overflow-x: auto; }
 }
-.fundbook__row--periods { grid-template-columns: 2.2fr 1fr 1fr 1fr 0.6fr; }
+/* Seven columns now: return, benchmark, excess, cash hurdle, over-hurdle, days. Beating an index
+   while trailing a deposit account is not a result, so the hurdle sits beside the benchmark. */
+.fundbook__row--periods { grid-template-columns: 2.2fr 1fr 1fr 1fr 1fr 1fr 0.6fr; min-width: 780px; }
+.fundbook__row--fx { grid-template-columns: 64px 62px 1fr 1fr 1fr 1.1fr; min-width: 0; }
+
+/* charts ------------------------------------------------------------------ */
+/* Uniform scaling (no preserveAspectRatio override): stretching the viewBox would squash the axis
+   type in a narrow panel, and these read at a glance or not at all. */
+.fundbook__svg { display: block; width: 100%; height: auto; }
+.fundbook__chart { padding: 6px 4px 0; }
+.fundbook__axis { font-family: var(--font-mono); font-size: 9px; fill: var(--text-faint); }
+.fundbook__legend { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 16px; padding: 8px 14px 12px; font-size: 10.5px; color: var(--text-muted); }
+.fundbook__legend span { display: inline-flex; align-items: center; gap: 6px; }
+.fundbook__legend i { width: 14px; height: 2px; border-radius: 2px; flex-shrink: 0; }
+.fundbook__legend b { font-family: var(--font-mono); color: var(--text); font-variant-numeric: tabular-nums; }
+.fundbook__legend .dim { color: var(--text-faint); }
+
+/* month grid --------------------------------------------------------------- */
+.fundbook__months { display: flex; flex-direction: column; gap: 1px; padding: 10px 14px 14px; min-width: max-content; }
+.fundbook__monthrow { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(58px, 1fr); align-items: center; gap: 2px; font-size: 11px; }
+.fundbook__monthrow > span:first-child { position: sticky; left: 0; width: 52px; background: var(--surface-2); color: var(--text-muted); font-size: 9.5px; z-index: 1; }
+.fundbook__monthrow .num { text-align: right; font-variant-numeric: tabular-nums; padding: 4px 6px; }
+.fundbook__monthrow .dim { color: var(--text-faint); }
+.fundbook__monthrow--head { color: var(--text-faint); font-size: 9px; font-weight: 700; letter-spacing: 0.35px; text-transform: uppercase; border-bottom: 1px solid var(--hairline); padding-bottom: 2px; margin-bottom: 2px; }
+
+/* contribution bars -------------------------------------------------------- */
+.fundbook__contrib { display: grid; grid-template-columns: 78px 1fr 92px 28px; align-items: center; gap: 10px; padding: 6px 14px; font-size: 11px; }
+.fundbook__contrib:first-of-type { padding-top: 12px; }
+.fundbook__contrib-label { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--text); }
+.fundbook__contrib-track { position: relative; height: 9px; border-radius: var(--r-pill); background: var(--surface-3); }
+.fundbook__contrib-zero { position: absolute; left: 50%; top: -2px; bottom: -2px; width: 1px; background: var(--hairline-strong); }
+.fundbook__contrib-fill { position: absolute; top: 0; bottom: 0; border-radius: var(--r-pill); min-width: 2px; }
+.fundbook__contrib-value, .fundbook__contrib-n { text-align: right; font-family: var(--font-mono); font-size: 10.5px; font-variant-numeric: tabular-nums; }
+.fundbook__contrib-n { color: var(--text-faint); }
+
+/* statement section chips --------------------------------------------------- */
+.fundbook__stmt { grid-template-columns: 2fr 1.2fr 0.8fr auto; grid-template-areas: 'name range trades remove' 'chips chips chips chips'; row-gap: 7px; }
+.fundbook__stmt .mono { grid-area: name; }
+.fundbook__chips { grid-area: chips; display: flex; flex-wrap: wrap; gap: 4px; }
+.fundbook__chip { display: inline-flex; align-items: center; gap: 4px; padding: 2px 7px; border-radius: var(--r-pill); border: 1px solid var(--hairline);
+  background: var(--surface-1); color: var(--text-faint); font-size: 9px; font-style: normal; letter-spacing: 0.2px; }
+.fundbook__chip b { font-family: var(--font-mono); color: var(--text-muted); font-weight: 700; }
+/* Carried no rows, or present but not consumed by the importer. Dashed so it reads as an absence, and
+   deliberately NOT red: in this cockpit red means a loss or a broken check, and a statement with no
+   corporate actions is a normal statement. The tooltip carries the distinction. */
+.fundbook__chip.is-unread { border-style: dashed; opacity: 0.72; }
+
+/* import delta -------------------------------------------------------------- */
+.fundbook__cards--tight { border: none; border-radius: 0; grid-template-columns: repeat(auto-fit, minmax(132px, 1fr)); }
+.fundbook__cards--tight .fundbook__cardvalue { font-size: 15px; }
+.fundbook__card.is-moved { background: var(--accent-wash-soft); }
+.fundbook__card.is-moved .fundbook__cardvalue { color: var(--accent-bright); }
 .fundbook__since { display: block; color: var(--text-faint); font-size: 9px; font-variant-numeric: tabular-nums; }
 .fundbook__cards--inset { border: none; border-radius: 0; border-top: 1px solid var(--hairline); }

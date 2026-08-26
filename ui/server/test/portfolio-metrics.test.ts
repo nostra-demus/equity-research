@@ -4,7 +4,8 @@
 // Run: npx tsx test/portfolio-metrics.test.ts
 import assert from 'node:assert/strict'
 import {
-  benchmarkCompare, dailyReturns, drawdown, measuredWindow, moneyWeightedReturn, returnsByPeriod, riskMetrics, MIN_RATIO_DAYS,
+  benchmarkCompare, betaAlpha, dailyReturns, drawdown, measuredWindow, monthlyReturns, moneyWeightedReturn,
+  returnsByPeriod, riskMetrics, MIN_RATIO_DAYS,
 } from '../src/portfolio-metrics'
 import type { NavPoint } from '../src/portfolio'
 
@@ -249,6 +250,126 @@ check('a book that was never funded has no window to compare over', () => {
   assert.deepEqual(measuredWindow(nav, new Map()), [])
   const b = benchmarkCompare('SPY', null, measuredWindow(nav, new Map()), [{ date: '2026-01-01', close: 1 }])
   assert.match(b.unavailable ?? '', /no measurable window/)
+})
+
+// ---------- the cash hurdle ----------
+check('the cash hurdle accrues over calendar days, not trading days', () => {
+  // 366 daily points = 365 calendar days apart. A 5% deposit account earns exactly 5% over that span,
+  // and it earns it on weekends too — a trading-day accrual would report ~5% of 252/365.
+  const nav = series(366, 0, 1000)
+  const [, , , inception] = returnsByPeriod(nav, new Map(), 5)
+  assert.equal(inception!.label, 'Since inception')
+  assert.ok(near(inception!.hurdle!, 5, 1e-9), `expected 5%, got ${inception!.hurdle}`)
+  // A flat book over that year did not beat cash — it lost 5 points to it.
+  assert.ok(near(inception!.overHurdle!, -5, 1e-9))
+})
+
+check('with no cash rate the hurdle is zero, not absent — and over-hurdle is the return itself', () => {
+  const nav = series(31, 0.001, 1000)
+  const inception = returnsByPeriod(nav, new Map())[3]!
+  assert.equal(inception.hurdle, 0)
+  assert.ok(near(inception.overHurdle!, inception.twr!, 1e-9))
+})
+
+check('a single-point window has no span, so it states no hurdle rather than 0%', () => {
+  const one = returnsByPeriod([{ date: '2026-01-01', total: 1000 }], new Map(), 5)[3]!
+  assert.equal(one.hurdle, null)
+  assert.equal(one.overHurdle, null)
+})
+
+check('a period never charges cash for days the book held none', () => {
+  // A Flex export starts when the ACCOUNT opened, not when it was funded. Measured from there, a book
+  // funded for 100 days is charged a full year of hurdle — and the sign of "over cash" flips.
+  const unfunded = Array.from({ length: 265 }, (_, i) => ({
+    date: new Date(Date.UTC(2025, 0, 1 + i)).toISOString().slice(0, 10), total: 0,
+  }))
+  const funded = series(101, 0.0004, 1000).map((p, i) => ({
+    ...p, date: new Date(Date.UTC(2025, 9, 1 + i)).toISOString().slice(0, 10),
+  }))
+  const nav = [...unfunded, ...funded]
+  const flows = new Map([[funded[0]!.date, 1000]])
+
+  const raw = returnsByPeriod(nav, flows, 5)[3]!
+  const measured = returnsByPeriod(measuredWindow(nav, flows), flows, 5)[3]!
+  assert.ok(near(raw.twr!, measured.twr!, 1e-9), 'the RETURN is the same either way — only the span differs')
+  assert.equal(measured.from, funded[0]!.date, 'the window opens on the first funded day')
+  // 100 calendar days of a 5% cash rate, not 365.
+  assert.ok(near(measured.hurdle!, ((1.05 ** (100 / 365)) - 1) * 100, 1e-9), `got ${measured.hurdle}`)
+  assert.ok(raw.hurdle! > measured.hurdle! * 2, 'measuring from the unfunded start inflates the hurdle')
+  assert.ok(measured.overHurdle! > 0 && raw.overHurdle! < 0, 'and it inverts the verdict against cash')
+})
+
+// ---------- month by month ----------
+check('months compound back to the period return that contains them', () => {
+  // 40 points from 2026-01-01 at 0.1%/day: 30 returns land in January, 9 in February.
+  const nav = series(40, 0.001, 1000)
+  const months = monthlyReturns(nav, new Map())
+  assert.deepEqual(months.map((m) => m.month), ['2026-01', '2026-02'])
+  assert.ok(near(months[0]!.book!, (1.001 ** 30 - 1) * 100, 1e-9))
+  assert.ok(near(months[1]!.book!, (1.001 ** 9 - 1) * 100, 1e-9))
+  // The identity that makes the table trustworthy: a month can never disagree with its period.
+  const chained = months.reduce((a, m) => a * (1 + m.book! / 100), 1)
+  const inception = returnsByPeriod(nav, new Map())[3]!
+  assert.ok(near((chained - 1) * 100, inception.twr!, 1e-9), `${(chained - 1) * 100} vs ${inception.twr}`)
+})
+
+check('the benchmark month keeps the turn-of-month move, exactly as the book does', () => {
+  const nav = series(40, 0.001, 1000)
+  // Jan 30 → Feb 2 is +10%. That step belongs to February on BOTH sides: the book's first February
+  // daily return spans the same turn. Reading first-price-to-last-price inside February would drop it.
+  const closes = [
+    { date: '2026-01-28', close: 100 },
+    { date: '2026-01-30', close: 100 },
+    { date: '2026-02-02', close: 110 },
+    { date: '2026-02-04', close: 110 },
+  ]
+  const months = monthlyReturns(nav, new Map(), closes)
+  assert.ok(near(months[0]!.benchmark!, 0, 1e-9), 'January: 100 → 100 is flat')
+  assert.ok(near(months[1]!.benchmark!, 10, 1e-9), `February must carry the turn, got ${months[1]!.benchmark}`)
+})
+
+check('a month the feed does not cover reports nothing rather than 0%', () => {
+  const nav = series(40, 0.001, 1000)
+  const noFeb = monthlyReturns(nav, new Map(), [{ date: '2026-01-05', close: 100 }, { date: '2026-01-28', close: 105 }])
+  assert.equal(noFeb[1]!.benchmark, null, 'February has no closes at all')
+  // And a HOLE in the feed must not dump a multi-week move into whichever month catches the next close.
+  const gap = monthlyReturns(nav, new Map(), [{ date: '2026-01-05', close: 100 }, { date: '2026-02-04', close: 130 }])
+  assert.equal(gap[1]!.benchmark, null, 'a 30-day step is a gap, not a February return')
+})
+
+// ---------- beta and alpha ----------
+check('a book that moves exactly twice the index has beta 2 and no alpha', () => {
+  const closes: { date: string; close: number }[] = []
+  const book: { date: string; r: number }[] = []
+  let close = 100
+  const d = new Date(Date.UTC(2026, 0, 1))
+  // Alternating moves, so the index has real variance to regress against.
+  for (let i = 0; i <= 80; i++) {
+    const date = d.toISOString().slice(0, 10)
+    if (i > 0) {
+      const rm = i % 2 ? 0.01 : -0.005
+      close *= 1 + rm
+      book.push({ date, r: 2 * rm })
+    }
+    closes.push({ date, close })
+    d.setUTCDate(d.getUTCDate() + 1)
+  }
+  const { beta, alpha, pairedDays } = betaAlpha(book, closes, 0)
+  assert.equal(pairedDays, 80)
+  assert.ok(near(beta!, 2, 1e-9), `expected beta 2, got ${beta}`)
+  assert.ok(near(alpha!, 0, 1e-9), `expected no alpha, got ${alpha}`)
+})
+
+check('a day only one side traded is dropped, not treated as flat', () => {
+  // The book is valued daily; the feed only carries its own market's sessions. Counting a missing
+  // index day as a zero-return day would drag beta toward zero and invent alpha out of the hole.
+  const book = Array.from({ length: 70 }, (_, i) => ({
+    date: new Date(Date.UTC(2026, 0, 1 + i)).toISOString().slice(0, 10), r: 0.001,
+  }))
+  const closes = book.slice(0, 30).map((b, i) => ({ date: b.date, close: 100 + i }))
+  const { beta, pairedDays } = betaAlpha(book, closes, 0)
+  assert.equal(pairedDays, 29, 'only the days the index actually moved are paired')
+  assert.equal(beta, null, 'under the minimum sample it states nothing rather than a number')
 })
 
 console.log(`\n${passed} passed, ${fails.length} failed`)

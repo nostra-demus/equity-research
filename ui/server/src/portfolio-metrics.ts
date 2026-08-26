@@ -23,6 +23,9 @@ const TRADING_DAYS = 252
 
 /** Below this many daily observations the ratios are too noisy to state at all. One quarter. */
 export const MIN_RATIO_DAYS = 60
+/** Longest gap between two feed closes still treated as one step. Wider than a long weekend plus a
+ *  public holiday, narrow enough that a missing week is caught rather than compounded into a month. */
+const MAX_FEED_GAP_DAYS = 7
 
 export interface PeriodReturn {
   label: string
@@ -31,6 +34,10 @@ export interface PeriodReturn {
   /** Time-weighted, percent. Null when the window holds too little to measure. */
   twr: number | null
   days: number
+  /** What cash would have returned over the SAME window, and the book's margin over it. The second
+   *  yardstick: beating an index while trailing a deposit account is not a result. */
+  hurdle: number | null
+  overHurdle: number | null
 }
 
 export interface DrawdownRead {
@@ -134,7 +141,11 @@ function startOfYear(d: string): string { return `${d.slice(0, 4)}-01-01` }
 
 /** Month, quarter, year to date and since inception — each a genuine time-weighted return over its own
  *  window, not a slice of one cumulative figure. */
-export function returnsByPeriod(navSeries: NavPoint[], flowsByDate: Map<string, number>): PeriodReturn[] {
+export function returnsByPeriod(
+  navSeries: NavPoint[],
+  flowsByDate: Map<string, number>,
+  riskFreeAnnualPct = 0,
+): PeriodReturn[] {
   if (navSeries.length === 0) return []
   const asOf = navSeries[navSeries.length - 1]!.date
   const windows: { label: string; from: string }[] = [
@@ -152,14 +163,117 @@ export function returnsByPeriod(navSeries: NavPoint[], flowsByDate: Map<string, 
       else break
     }
     const slice = navSeries.slice(startIndex)
+    const twr = computeTwr(slice, flowsByDate)
+    // The hurdle accrues over CALENDAR days, not trading days: cash pays on weekends too.
+    const spanDays = slice.length >= 2
+      ? Math.max(0, (Date.parse(`${asOf}T00:00:00Z`) - Date.parse(`${slice[0]!.date}T00:00:00Z`)) / 86_400_000)
+      : 0
+    const hurdle = spanDays > 0 ? ((1 + riskFreeAnnualPct / 100) ** (spanDays / 365) - 1) * 100 : null
     return {
       label,
       from: slice.length ? slice[0]!.date : null,
       to: asOf,
-      twr: computeTwr(slice, flowsByDate),
+      twr,
       days: Math.max(0, slice.length - 1),
+      hurdle,
+      overHurdle: twr === null || hurdle === null ? null : twr - hurdle,
     }
   })
+}
+
+// ---------- monthly ----------
+
+export interface MonthRow {
+  /** `YYYY-MM`. */
+  month: string
+  /** Time-weighted book return for the month, percent. */
+  book: number | null
+  /** Benchmark return over the same month, percent — null where the feed does not cover it. */
+  benchmark: number | null
+}
+
+/** Month by month, book against benchmark. Built by compounding the SAME daily return series every
+ *  other figure rests on, so a month can never disagree with the period return that contains it. */
+export function monthlyReturns(
+  navSeries: NavPoint[],
+  flowsByDate: Map<string, number>,
+  benchmarkCloses: { date: string; close: number }[] = [],
+): MonthRow[] {
+  const byMonth = new Map<string, number>()
+  for (const { date, r } of dailyReturns(navSeries, flowsByDate)) {
+    const m = date.slice(0, 7)
+    byMonth.set(m, (byMonth.get(m) ?? 1) * (1 + r))
+  }
+  // The benchmark is bucketed the SAME way the book is: by chaining daily returns under the date the
+  // return lands on, not by comparing the first and last price inside the month. Those are not the same
+  // thing — a month's first daily return spans the turn from the previous month, which the book keeps
+  // and a first-price-to-last-price reading throws away. Measured the other way, every month would
+  // understate the index against a book that included that move.
+  const bmByMonth = new Map<string, number>()
+  const suspect = new Set<string>()
+  const sorted = [...benchmarkCloses].sort((a, b) => a.date.localeCompare(b.date))
+  for (let i = 1; i < sorted.length; i++) {
+    const prev = sorted[i - 1]!, curr = sorted[i]!
+    const m = curr.date.slice(0, 7)
+    // A hole in the feed would otherwise dump a multi-week move into whichever month happens to carry
+    // the next close. A month built across one is reported as unavailable, not as a number.
+    const gapDays = (Date.parse(`${curr.date}T00:00:00Z`) - Date.parse(`${prev.date}T00:00:00Z`)) / 86_400_000
+    if (prev.close <= 0 || gapDays > MAX_FEED_GAP_DAYS) { suspect.add(m); continue }
+    bmByMonth.set(m, (bmByMonth.get(m) ?? 1) * (curr.close / prev.close))
+  }
+  return [...byMonth.entries()]
+    .sort((a, b) => a[0].localeCompare(b[0]))
+    .map(([month, chain]) => {
+      const bm = bmByMonth.get(month)
+      return {
+        month,
+        book: (chain - 1) * 100,
+        benchmark: bm === undefined || suspect.has(month) ? null : (bm - 1) * 100,
+      }
+    })
+}
+
+// ---------- beta and alpha ----------
+
+export interface BetaAlpha {
+  /** How much of the index's movement the book takes on. Null without enough paired days. */
+  beta: number | null
+  /** Annualised return beyond what that beta explains, percentage points. */
+  alpha: number | null
+  /** Days on which BOTH series have a return — the pairing the regression actually used. */
+  pairedDays: number
+}
+
+/** Regress the book on the index over the days both actually moved.
+ *
+ *  Pairing matters more than it looks: the book has a NAV row every day the account was valued, the
+ *  feed only has trading days for its own market, and a holiday on one side is not a zero-return day on
+ *  the other. Treating a missing day as flat drags beta toward zero and invents alpha out of the gap. */
+export function betaAlpha(
+  bookReturns: { date: string; r: number }[],
+  benchmarkCloses: { date: string; close: number }[],
+  riskFreeAnnualPct: number,
+): BetaAlpha {
+  const sorted = [...benchmarkCloses].sort((a, b) => a.date.localeCompare(b.date))
+  const bmReturns = new Map<string, number>()
+  for (let i = 1; i < sorted.length; i++) {
+    const prev = sorted[i - 1]!, curr = sorted[i]!
+    if (prev.close > 0) bmReturns.set(curr.date, curr.close / prev.close - 1)
+  }
+  const pairs = bookReturns
+    .filter((b) => bmReturns.has(b.date))
+    .map((b) => ({ rb: b.r, rm: bmReturns.get(b.date)! }))
+  if (pairs.length < MIN_RATIO_DAYS) return { beta: null, alpha: null, pairedDays: pairs.length }
+
+  const mb = pairs.reduce((a, p) => a + p.rb, 0) / pairs.length
+  const mm = pairs.reduce((a, p) => a + p.rm, 0) / pairs.length
+  const varM = pairs.reduce((a, p) => a + (p.rm - mm) ** 2, 0) / (pairs.length - 1)
+  if (varM <= 0) return { beta: null, alpha: null, pairedDays: pairs.length }
+  const cov = pairs.reduce((a, p) => a + (p.rb - mb) * (p.rm - mm), 0) / (pairs.length - 1)
+  const beta = cov / varM
+  const rfDaily = riskFreeAnnualPct / 100 / TRADING_DAYS
+  const alphaDaily = mb - rfDaily - beta * (mm - rfDaily)
+  return { beta, alpha: alphaDaily * TRADING_DAYS * 100, pairedDays: pairs.length }
 }
 
 // ---------- money-weighted ----------

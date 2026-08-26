@@ -49,6 +49,10 @@ export interface BookLot {
    *  belonging to the quantity being closed — see the commission note in runFifo. */
   commission: number
   openedQuantityAbs: number
+  /** The base-currency rate on the day the lot OPENED. Without it a closure can only be valued at the
+   *  closing rate, which silently folds the currency move into the stock result — the one split a
+   *  cross-border book most needs to see. */
+  openFxRateToBase: number | null
 }
 
 export interface BookClosure {
@@ -70,6 +74,10 @@ export interface BookClosure {
   commissionLocal: number
   /** Approximate base-currency value using the closing trade's own `fxRateToBase`. */
   realizedBase: number | null
+  /** Rates at each end, so the caller can split the result into what the STOCK did and what the
+   *  CURRENCY did. Equal (or both 1) on a single-currency book, where the split is correctly zero. */
+  openFxRateToBase: number | null
+  closeFxRateToBase: number | null
   closeTradeID: string | null
 }
 
@@ -285,6 +293,8 @@ export function runFifo(
           grossLocal,
           commissionLocal,
           realizedBase: closeRate === null ? null : realizedLocal * closeRate,
+          openFxRateToBase: lot.openFxRateToBase,
+          closeFxRateToBase: closeRate,
           closeTradeID: t.tradeID,
         })
         lot.quantity -= signedMatched
@@ -312,6 +322,7 @@ export function runFifo(
         // Only the share of the opening commission belonging to the quantity that actually stays open.
         commission: ((t.ibCommission ?? 0) + (t.taxes ?? 0)) * (Math.abs(remaining) / Math.abs(qty)),
         openedQuantityAbs: Math.abs(remaining),
+        openFxRateToBase: t.fxRateToBase ?? (rateFor ? rateFor(t.currency, (t.dateTime ?? t.tradeDate)?.slice(0, 10) ?? null) : null),
       })
     }
     open.set(key, lots)
