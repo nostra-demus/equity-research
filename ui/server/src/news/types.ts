@@ -287,7 +287,8 @@ export type LastResortState =
   | 'plan-quota' // the shared Claude plan's own usage limit hit → backing off until the plan resets
   | 'auth-expired' // the host's Claude sign-in expired → re-probes every drain, recovers on `claude auth login`
   | 'cooling' // in its cross-cycle cooldown from an earlier error
-  | 'available' // on and under budget, but not needed this cycle (the free tiers absorbed everything)
+  | 'paced' // under the hard $ ceiling, but the reset-clock pacer has not released the next call yet
+  | 'available' // on and under budget, but no call was needed this cycle
 
 // One ingest cycle's outcome — returned to the caller and logged as a firehose summary line.
 export interface CycleSummary {

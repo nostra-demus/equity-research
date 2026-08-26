@@ -20,7 +20,7 @@ import { appendFirehoseSummary, FIREHOSE_HARD_MAX_BYTES, mergeInbox, revisionClo
 import { appendScoredCheckpoint, backlogDurablyCleared, buildTriageQueue, expireBacklog, inspectDeferredBacklog, loadDeferred, MAX_FEED_ITEM_BYTES, migrateDeferred, preserveResidence, recentMissingFeedTargetIsRetryable, runIngestCycle as runIngestCycleRaw, saveDeferred, scoringJournalSlots, stampDeferred, triageGroqTokenBound } from '../src/news/runCycle'
 import { buildPipelineFlowRates, countUniqueNewArrivals, readPipelineFlowCycles } from '../src/news/pipeline-flow'
 import { appendPipelineTelemetry, readCycleInterruptionAudit } from '../src/news/provider-routing'
-import { anthropicDrainReady, backlogTrend, credentialRejected, CREDENTIAL_DEAD_AFTER_FAILS, drainBatchEst, geminiPoolProviderDayExhausted, getNewsDiagnostics, providerDrainUsable, providerLastCycleMetric, scoredByForLastCycle, tierHealth } from '../src/news/scheduler'
+import { actualProviderRanks, anthropicDrainReady, backlogTrend, credentialRejected, CREDENTIAL_DEAD_AFTER_FAILS, drainBatchEst, geminiPoolProviderDayExhausted, getNewsDiagnostics, providerDrainUsable, providerLastCycleMetric, scoredByForLastCycle, tierHealth } from '../src/news/scheduler'
 import { buildOverflowProviders, NEWS, STATE_DIR } from '../src/config'
 import { createTheme } from '../src/news/themes/discover'
 import { appendThemeMutations, loadThemes } from '../src/news/themes/store'
@@ -3680,6 +3680,7 @@ await check('auto learning routes the bounded verification batch through an unpr
     { i: 0, relevance: 'material', materiality_pre_score: 84, event_types: ['macro_sector'], issuer_linkage: 'macro', why: 'The policy change moves funding costs.', companies: [], size_bucket: 'unknown' },
   ] }) } }] }
   let gdeltServed = false
+  let haikuCalls = 0
   let primaryCalls = 0
   let backupCalls = 0
   const fetchFn = (async (url: string) => {
@@ -3698,11 +3699,17 @@ await check('auto learning routes the bounded verification batch through an unpr
   }) as unknown as typeof fetch
   const summary = await runIngestCycle({
     repoRoot: root, stateDir: state, fetchFn, sleep: noSleep, now: () => new Date(nowMs),
+    claudeCliRunner: async () => {
+      haikuCalls++
+      return { text: good.choices[0].message.content, costUsd: 0.006, costUsdKnown: true }
+    },
     config: {
       groqApiKey: 'k', groqBaseUrl: 'https://groq.test', groqRpm: 6000,
       gdeltBaseUrl: 'https://gdelt.test/doc', gdeltLookbackMin: 40, rssEnabled: false,
       themesEnabled: false, triageBatch: 1, localProvider: null, geminiEnabled: false,
-      anthropicFallbackEnabled: false, providerRouterMode: 'auto', providerRouterShadowHours: 24,
+      anthropicFallbackEnabled: true, anthropicFallbackMode: 'subscription', anthropicDailyUsd: 200,
+      anthropicPerCallUsd: 0.10, anthropicRpm: 6000, anthropicMinPriority: 0,
+      providerRouterMode: 'auto', providerRouterShadowHours: 24,
       providerRouterMinOutcomes: 20, newsArchiveDir: '',
       overflowProviders: [{
         id: 'backup', label: 'Backup', color: '--provider-or', kind: 'openai', apiKey: 'k',
@@ -3713,6 +3720,7 @@ await check('auto learning routes the bounded verification batch through an unpr
   })
   assert.equal(summary.picked, 1)
   assert.equal(backupCalls, 1, 'the overdue backup checked useful real work under the normal reservation path')
+  assert.equal(haikuCalls, 0, 'the bounded fallback-health canary is not swallowed by normal Haiku priority')
   assert.equal(primaryCalls, 0, 'the verification batch was not also double-spent on the healthy primary')
   const audit = fs.readFileSync(path.join(root, 'screener/inbox/2026-08-22_pipeline.ndjson'), 'utf8')
     .trim().split('\n').map((line) => JSON.parse(line))
@@ -4362,6 +4370,7 @@ await check('an inbox atomic-write failure leaves a scored one-shot row retryabl
 
 // ---- #1: the cooldown is now PER-PROVIDER — an overflow provider outage stops re-probing it too ----
 await check('a sustained OVERFLOW-provider outage arms its own cross-cycle cooldown — the next cycle does not re-probe it', async () => {
+  resetSharedLimiters(); resetBudgetMemory(); resetCooldownMemory()
   const root = tmp()
   const state = tmp()
   let cerebrasUp = false
@@ -4998,6 +5007,39 @@ await check('the unchanged $200 Haiku ceiling falls through to Groq without a Cl
   assert.equal(summary.groq_requests, 1)
 })
 
+await check('Haiku priority 1 reports paced honestly while automatic fallbacks remain available', async () => {
+  resetSharedLimiters(); resetBudgetMemory(); resetCooldownMemory()
+  const root = tmp(), state = tmp(), day = '2026-06-12'
+  fs.mkdirSync(state, { recursive: true })
+  // At 00:10 UTC with no pacing floor, a $200 day has released about $1.39. Spending $2 is below the
+  // hard ceiling but ahead of schedule, so Haiku must wait without pretending it scored or hit the cap.
+  fs.writeFileSync(path.join(state, 'anthropic-triage-budget.json'), JSON.stringify({ date: day, usd: 2, calls: 20 }))
+  let gdeltServed = false, cliCalls = 0
+  const fetchFn = (async (url: string) => {
+    const u = String(url)
+    if (u.includes('gdelt') && !gdeltServed) {
+      gdeltServed = true
+      return res({ articles: [{ url: 'https://reuters.com/haiku-paced', title: 'Central bank unexpectedly changes policy rates and bank funding costs', domain: 'reuters.com', seendate: '20260612T000500Z' }] })
+    }
+    return res({ articles: [] })
+  }) as unknown as typeof fetch
+  const summary = await runIngestCycle({
+    repoRoot: root, stateDir: state, fetchFn, sleep: noSleep, now: () => new Date(`${day}T00:10:00Z`),
+    claudeCliRunner: async () => { cliCalls++; return { text: '{"items":[]}', costUsd: 0, costUsdKnown: true } },
+    config: {
+      groqApiKey: '', gdeltBaseUrl: 'https://gdelt.test/doc', gdeltLookbackMin: 40,
+      rssEnabled: false, themesEnabled: false, overflowProviders: [], geminiEnabled: false,
+      anthropicFallbackEnabled: true, anthropicFallbackMode: 'subscription', anthropicDailyUsd: 200,
+      anthropicPerCallUsd: 0.10, anthropicRpm: 6000, anthropicMinPriority: 0,
+      freeProviderPaceFloorFrac: 0,
+    } as any,
+  })
+  assert.equal(cliCalls, 0, 'the reset-clock pacer waits without consuming the Claude plan')
+  assert.equal(summary.last_resort, 'paced')
+  assert.match(summary.note || '', /Haiku priority 1 is paced/i)
+  assert.equal(loadDeferred(state).length, 1, 'the item remains durable for the next released allowance or fallback')
+})
+
 await check('free brains exhausted → the subscription tier SCORES the batch instead of deferring it', async () => {
   resetSharedLimiters()
   resetCooldownMemory()
@@ -5590,7 +5632,7 @@ await check('honest defer note: Groq cooling + Haiku priority 1 OFF names BOTH b
   assert.match(s2.note || '', /Haiku priority 1 is off/i, 'the note names that priority 1 was unavailable')
 })
 
-await check('honest defer note: Groq cooling + Haiku at its $50 ceiling names the ceiling', async () => {
+await check('honest defer note: Groq cooling + Haiku at its $200 ceiling names the ceiling', async () => {
   resetSharedLimiters()
   resetCooldownMemory()
   const root = tmp()
@@ -5598,7 +5640,7 @@ await check('honest defer note: Groq cooling + Haiku at its $50 ceiling names th
   fs.mkdirSync(state, { recursive: true })
   const day = new Date('2026-06-12T09:30:00Z').toISOString().slice(0, 10)
   // the Haiku $ ledger is already spent for today, and Groq is already in a fresh cooldown from a prior outage
-  fs.writeFileSync(path.join(state, 'anthropic-triage-budget.json'), JSON.stringify({ date: day, usd: 50, calls: 4000 }))
+  fs.writeFileSync(path.join(state, 'anthropic-triage-budget.json'), JSON.stringify({ date: day, usd: 200, calls: 4000 }))
   const nowMs = Date.parse('2026-06-12T09:30:00Z')
   armCooldown(state, nowMs, 5 * 60_000, 'groq')
   const fetchFn = (async (url: string) => {
@@ -5607,14 +5649,14 @@ await check('honest defer note: Groq cooling + Haiku at its $50 ceiling names th
     return res({ articles: [] })
   }) as unknown as typeof fetch
   const cfg = { groqApiKey: 'k', gdeltBaseUrl: 'https://gdelt.test/doc', groqBaseUrl: 'https://groq.test', groqRpm: 6000, gdeltLookbackMin: 40, rssEnabled: false, themesEnabled: false,
-    geminiEnabled: false, overflowProviders: [], anthropicFallbackEnabled: true, anthropicFallbackMode: 'subscription', anthropicDailyUsd: 50 } as any
+    geminiEnabled: false, overflowProviders: [], anthropicFallbackEnabled: true, anthropicFallbackMode: 'subscription', anthropicDailyUsd: 200 } as any
   const now = () => new Date(nowMs)
 
   const s = await runIngestCycle({ repoRoot: root, stateDir: state, config: cfg, fetchFn, sleep: noSleep, now })
   assert.equal(s.defer_reason, 'provider-retry-held')
   assert.equal(s.last_resort, 'usd-cap', 'the fallback is correctly reported at its $ ceiling')
   assert.match(s.note || '', /provider retries held after errors/i)
-  assert.match(s.note || '', /\$50\/day ceiling/i, 'the note surfaces the raised $50 Haiku ceiling as the second blocker')
+  assert.match(s.note || '', /\$200\/day ceiling/i, 'the note surfaces the exact $200 Haiku ceiling as the second blocker')
 })
 
 await check('honest defer note: damaged free and USD ledgers need attention, never masquerade as spent caps', async () => {
@@ -5894,11 +5936,23 @@ await check('last-look provider maps name OmniRoute exactly and legacy summaries
   ], 'rolling-deploy summaries retain the established aggregate fallback')
 })
 
+await check('adaptive actual provider ranks keep Haiku first and tolerate missing fallback ranks', () => {
+  const candidates = [
+    { id: 'groq', band: 'direct', order: 0, eligible: true, rank: 1 },
+    { id: 'anthropic-triage', band: 'direct', order: -1, eligible: true, rank: 3 },
+    { id: 'mistral', band: 'direct', order: 1, eligible: true, rank: null },
+  ] as any
+  const ranks = actualProviderRanks(candidates, 'adaptive')
+  assert.equal(ranks.get('anthropic-triage'), 1, 'priority 1 overrides the lower-cost fallback fitness rank')
+  assert.equal(ranks.get('groq'), 2)
+  assert.equal(ranks.get('mistral'), 3, 'an unranked provider sorts last without an Infinity-minus-Infinity NaN')
+})
+
 await check('getNewsDiagnostics: enumerates every tier in routing order, with the backlog gauge + honest defer block', async () => {
   const d = getNewsDiagnostics({ omniRouteHomeDir: diagnosticsHome })
   assert.ok(Array.isArray(d.tiers) && d.tiers.length >= 1, 'tiers are enumerated (at least Groq + Haiku)')
   const groq = d.tiers.find((t) => t.id === 'groq')
-  assert.ok(groq && groq.role === 'primary' && groq.meter === 'requests', 'Groq is the primary, requests-metered tier')
+  assert.ok(groq && groq.role === 'overflow' && groq.meter === 'requests', 'Groq is an automatic requests-metered fallback')
   const haiku = d.tiers.find((t) => t.id === 'anthropic-triage')
   assert.ok(haiku && haiku.role === 'primary' && haiku.meter === 'usd', 'Haiku priority 1 is present and $-metered')
   assert.equal(d.tiers[0]?.id, 'anthropic-triage', 'Haiku is displayed first in configured provider order')
@@ -6122,14 +6176,14 @@ await check('a batch that returns an UNUSABLE body is not re-sent around the who
 })
 
 for (const cap of [0, 1]) {
-  await check(`contract-retry cap ${cap}: an upstream contract failure counts toward the cap, so the pool sees exactly ${cap} more offer(s)`, async () => {
+  await check(`contract-retry cap ${cap}: after Haiku fails, an upstream contract failure still leaves exactly ${cap} pool offer(s)`, async () => {
     resetSharedLimiters(); resetBudgetMemory(); resetCooldownMemory()
     const root = tmp(), state = tmp()
     // The path the previous test could not reach: it set groqApiKey:'' so `res` was always undefined
     // entering the pool loop. Here GROQ produces the first unusable body, exactly as it does live. The
     // counter used to start at 0 regardless, so the cap under-counted by one — and cap 0, documented in
     // config.ts and the README as "never re-sends", still handed the batch to one pool provider.
-    let groqCalls = 0, poolCalls = 0
+    let haikuCalls = 0, groqCalls = 0, poolCalls = 0
     const fetchFn = (async (url: string) => {
       const u = String(url)
       if (u.includes('groq.test')) {
@@ -6151,11 +6205,21 @@ for (const cap of [0, 1]) {
       gdeltBaseUrl: 'https://gdelt.test/doc', gdeltLookbackMin: 40,
       geminiEnabled: true, geminiApiKey: 'g', geminiBaseUrl: 'https://gemini.test', geminiMaxTokens: 2400,
       geminiModels: ['a', 'b', 'c', 'd', 'e'].map((m) => ({ model: `gemini-${m}`, dailyReqCap: 500 })),
-      localProvider: null, overflowProviders: [], anthropicFallbackEnabled: false,
+      localProvider: null, overflowProviders: [],
+      anthropicFallbackEnabled: true, anthropicFallbackMode: 'subscription', anthropicDailyUsd: 200,
+      anthropicPerCallUsd: 0.10, anthropicRpm: 6000, anthropicMinPriority: 0,
       contractRetriesPerBatch: cap, triageBatch: 12,
     } as any
-    const s = await runIngestCycle({ repoRoot: root, stateDir: state, config: cfg, fetchFn, sleep: noSleep, now: () => new Date('2026-08-17T09:30:00Z') })
-    assert.ok(groqCalls >= 1, 'groq was offered the batch first and returned an unusable body')
+    const s = await runIngestCycle({
+      repoRoot: root, stateDir: state, config: cfg, fetchFn, sleep: noSleep,
+      now: () => new Date('2026-08-17T09:30:00Z'),
+      claudeCliRunner: async () => {
+        haikuCalls++
+        return { text: '', costUsd: 0, costUsdKnown: true, error: 'claude cli: transient provider error' }
+      },
+    })
+    assert.equal(haikuCalls, 2, 'Haiku made its bounded attempt and retry before the automatic chain took over')
+    assert.ok(groqCalls >= 1, 'Groq received the failed Haiku batch and returned an unusable body')
     assert.equal(poolCalls, cap, `the upstream failure is already one against the cap — got ${poolCalls} pool offer(s), expected ${cap}`)
     assert.equal(s.picked + s.watched + s.dropped, 0, 'an unusable body scores nothing')
     assert.equal(loadDeferred(state).length, 2, 'and the items are deferred, never discarded')

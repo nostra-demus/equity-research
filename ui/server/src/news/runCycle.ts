@@ -1496,6 +1496,8 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
   const providerScoredBatches: Record<string, number> = {}
   let anthropicDownThisCycle = false // once the paid tier fails this cycle, stop poking it (save the cap)
   let anthropicBudgetBlocked = false // remaining dollars cannot fit one conservative provider call
+  let anthropicPacedThisCycle = false // the latest batch was held only by the reset-clock pacer
+  let anthropicPaceCallBoundUsd = 0 // exact latest-batch bound used to recheck pacing at cycle end
   let anthropicFailNote = '' // the Haiku tier's failure note this cycle → distinguishes plan-quota from a transient error
   let usageLedgerUnavailable = false // durable authority damage is not a spent allowance/provider quota
   let budgetHit = false
@@ -1695,17 +1697,21 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
     const haikuPacedFit = haikuAdmission.pacedFit || (haikuHardFit && haikuFinalEnvelope)
     const haikuHeld = anthropicDownThisCycle || triageIsHeld(stateDir, 'anthropic-triage', candidateAt)
     const haikuBaseReason = candidateReason({ enabled: anthropicOn, ledger: anthropicBudget?.ledgerAvailable === true, exhausted: false, held: haikuHeld, rejected: credentialRejectedFor('anthropic-triage'), hard: haikuHardFit, paced: haikuPacedFit })
+    anthropicPaceCallBoundUsd = haikuCallBoundUsd
+    anthropicPacedThisCycle = haikuBaseReason === 'paced' && batchMaxPriority >= cfg.anthropicMinPriority
     routingCandidates.push({ id: 'anthropic-triage', label: 'Claude Haiku', order: -1, band: 'direct', eligible: batchMaxPriority >= cfg.anthropicMinPriority && haikuBaseReason === 'eligible', eligibilityReason: batchMaxPriority < cfg.anthropicMinPriority ? 'minimum-priority' : haikuBaseReason, releasedCapacityUrgency: haikuAdmission.normalizedDeficit, consecutiveFailures: cooldownInfo(stateDir, 'anthropic-triage').fails, isHaiku: true })
 
     const routingEvaluation = evaluateProviderRouting(routingOptions(), routingCandidates)
     latestRoutingEvaluation = routingEvaluation
     if (routingTelemetryWritable && !recordRouterModeIfChanged(routingOptions(), routingCycleId, routingEvaluation.router)) routingTelemetryWritable = false
-    // In adaptive mode this is the normal ranked target. During auto's pre-activation shadow window it is
-    // non-null only for the bounded one-in-ten verification batch selected by evaluateProviderRouting.
-    // Explicit shadow/static still return null, so their configured-order promise remains unchanged.
+    // Normal work goes to Haiku first. The sole exception is auto's bounded one-in-ten verification batch:
+    // it must reach the selected fallback or the automatic router can never collect proof that backups still
+    // work. Explicit shadow/static return no target and retain configured order.
     const haikuPrimaryEligible = routingEvaluation.candidates.some((candidate) => candidate.id === 'anthropic-triage' && candidate.eligible)
     let adaptiveTarget = routingTelemetryWritable
-      ? haikuPrimaryEligible ? 'anthropic-triage' : routingEvaluation.selectedProviderId
+      ? routingEvaluation.exploration
+        ? routingEvaluation.selectedProviderId
+        : haikuPrimaryEligible ? 'anthropic-triage' : routingEvaluation.selectedProviderId
       : null
     let adaptiveTargetFailed = false
     let auditAttemptIndex = 0
@@ -1716,6 +1722,7 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
       const decisionId = deterministicDecisionId(routingCycleId, Math.floor(i / cfg.triageBatch), auditAttemptIndex++)
       const bandWeight = (candidate: ProviderCandidateScore) => candidate.band === 'aggregate' ? 1 : candidate.band === 'demoted-local' ? 2 : 0
       const actualOrder = [...routingEvaluation.candidates].filter((candidate) => candidate.eligible).sort((left, right) => {
+        if (left.id === right.id) return 0
         if (left.id === 'anthropic-triage' || right.id === 'anthropic-triage') return left.id === 'anthropic-triage' ? -1 : 1
         const band = bandWeight(left) - bandWeight(right)
         if (band) return band
@@ -1752,8 +1759,8 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
       if (!result.ok && providerId === adaptiveTarget) adaptiveTargetFailed = true
       activeAudit = null
     }
-    const closeUnattemptedAudit = (): void => {
-      if (!activeAudit || !routingTelemetryWritable) return
+    const closeUnattemptedAudit = (providerId?: string): void => {
+      if (!activeAudit || !routingTelemetryWritable || (providerId && activeAudit.providerId !== providerId)) return
       const audit = activeAudit
       const auditOk = recordProviderOutcome(routingOptions(), {
         kind: 'provider_outcome', ts: now().toISOString(), cycleId: routingCycleId,
@@ -1774,6 +1781,7 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
     // never stall triage: the batch flows to whoever is up. `res` stays undefined only when NOTHING
     // was even attempted (all daily budgets out) → that's the genuine "defer the rest" case.
     let res: TriageResult | undefined
+    let resProviderId: string | undefined
     const stopAbortedBatch = (): boolean => {
       if (!deps.signal?.aborted || res?.ok) return false
       aborted = true
@@ -1794,17 +1802,20 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
         !anthropicOn || anthropicDownThisCycle || credentialRejectedFor('anthropic-triage')
         || triageIsHeld(stateDir, 'anthropic-triage', now().getTime()) || !anthropicCanReserve
         || !haikuPacedFit || batchMaxPriority < cfg.anthropicMinPriority
-      ) return false
+      ) {
+        closeUnattemptedAudit('anthropic-triage')
+        return false
+      }
 
       const acquired = await anthropicLimiter!.acquire(est, sleep, () => now().getTime(), undefined, deps.signal)
       if (stopAbortedBatch()) return true
       if (!acquired) {
-        closeUnattemptedAudit()
+        closeUnattemptedAudit('anthropic-triage')
         return false
       }
       if (credentialRejectedFor('anthropic-triage') || triageIsHeld(stateDir, 'anthropic-triage', now().getTime())) {
         providerRetryHeld = true
-        closeUnattemptedAudit()
+        closeUnattemptedAudit('anthropic-triage')
         return false
       }
       // The subscription adapter may make one bounded retry when the first exact response is unusable.
@@ -1824,7 +1835,7 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
           || configuredFreeLedgerUnavailable()
           || anthropicLedgerUnavailable()
         if (!usageLedgerUnavailable) budgetHit = true
-        closeUnattemptedAudit()
+        closeUnattemptedAudit('anthropic-triage')
         return false
       }
       const attemptStartedAt = now().getTime()
@@ -1851,6 +1862,7 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
             sleep,
           )
       res = ar
+      resProviderId = 'anthropic-triage'
       anthropicRequests += ar.requests
       anthropicTokens += ar.tokens
       const reconciledAnthropicUsd = ar.requests <= 0
@@ -1887,7 +1899,7 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
       }
       return stopAbortedBatch()
     }
-    if (await tryAnthropicPrimary()) break batchLoop
+    if ((!adaptiveTarget || adaptiveTarget === 'anthropic-triage' || adaptiveTargetFailed) && await tryAnthropicPrimary()) break batchLoop
 
     // LOCAL FALLBACK: unlimited, $0, no cap. It receives the batch only when Haiku did not already score it.
     // When it is down this cycle (box asleep / unreachable / error), we arm a SHORT cooldown and fall straight
@@ -1903,6 +1915,7 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
         prepareAudit('local')
         const attemptStartedAt = now().getTime()
         res = await triageBatch(batch, { model: localProvider.model, models: localProvider.models, baseUrl: localProvider.baseUrl, apiKey: localProvider.apiKey, maxTokens: localProvider.maxTokens, headers: localProvider.headers, extraBody: localProvider.extraBody, timeoutMs: localProvider.timeoutMs, maxAttempts: localProvider.maxAttempts, ...triageIdentityFields('local', localProvider.label || 'Local', localProvider.keyEnvVar) }, fetchFn, sleep)
+        resProviderId = 'local'
         completeAudit('local', res)
         localRequests += res.requests
         localTokens += res.tokens
@@ -1938,6 +1951,7 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
         })
         if (reservedResult) {
           res = reservedResult
+          resProviderId = 'groq'
           completeAudit('groq', res)
           groqRequests += res.requests
           groqTokens += res.tokens
@@ -1984,6 +1998,7 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
         try {
           overflowResult = await triageBatch(batch, { ...options, maxAttempts: attempts }, fetchFn, sleep)
           res = overflowResult
+          resProviderId = ov.p.id
         } finally {
           const charged = chargedAttemptTokens(overflowResult, perAttemptTokens)
           ov.budget.reconcile(reservation, charged.requests, charged.tokens)
@@ -2076,7 +2091,7 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
     // A Haiku contract failure must still receive its first automatic fallback. The cross-free-provider
     // retry cap starts only after that hand-off; otherwise a strict cap of zero would silently disable the
     // fallback promise precisely when priority 1 returned unusable output.
-    let contractFailures = res?.failureKind === 'contract' && !anthropicDownThisCycle ? 1 : 0
+    let contractFailures = res?.failureKind === 'contract' && resProviderId !== 'anthropic-triage' ? 1 : 0
     if ((!res || !res.ok) && (!adaptiveTarget || adaptiveTargetFailed || freePoolRoutes().some((route) => route.id === adaptiveTarget))) {
       // A failed atomic reservation is an admission failure for this batch, not evidence that the provider
       // itself is unhealthy. Exclude only this route from the current selection loop so a broken/busy ledger
@@ -2131,6 +2146,7 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
           try {
             result = await triageBatch(batch, pick.options, fetchFn, sleep)
             res = result
+            resProviderId = ov.p.id
           } finally {
             const charged = chargedAttemptTokens(result, pick.perAttemptTokens)
             ov.budget.reconcile(reservation, charged.requests, charged.tokens)
@@ -2173,6 +2189,7 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
         try {
           result = await triageBatchGemini(batch, pick.options, fetchFn, sleep)
           res = result
+          resProviderId = pick.id
         } finally {
           const charged = chargedAttemptTokens(result, pick.perAttemptTokens)
           gem.budget.reconcile(reservation, charged.requests, charged.tokens)
@@ -2237,6 +2254,7 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
         try {
           result = await triageBatch(batch, pick.options, fetchFn, sleep)
           res = result
+          resProviderId = ov.p.id
         } finally {
           const charged = chargedAttemptTokens(result, pick.perAttemptTokens)
           ov.budget.reconcile(reservation, charged.requests, charged.tokens)
@@ -2720,6 +2738,17 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
   const authExpiredHit = anthropicFailNote
     ? (cfg.anthropicFallbackMode === 'subscription' && isAuthExpiredNote(anthropicFailNote))
     : anthropicCooldownReason === 'auth-expired'
+  const anthropicEndAdmission = dailyQuotaAdmission({
+    id: 'anthropic-triage', meter: 'requests', used: anthropicBudget?.usd || 0,
+    cap: cfg.anthropicDailyUsd, cost: anthropicPaceCallBoundUsd, paceCost: anthropicPaceCallBoundUsd,
+    floorFraction: cfg.freeProviderPaceFloorFrac,
+  }, now().getTime())
+  const anthropicEndHardFit = anthropicPaceCallBoundUsd > 0 && !!anthropicBudget?.canSpend(anthropicPaceCallBoundUsd)
+  const anthropicEndFinalEnvelope = (anthropicBudget?.usd || 0) > 0 && anthropicEndHardFit
+    && Math.max(0, cfg.anthropicDailyUsd - (anthropicBudget?.usd || 0)) <= anthropicPaceCallBoundUsd + 1e-9
+  const anthropicPacedAtEnd = anthropicPacedThisCycle
+    && anthropicEndHardFit
+    && !(anthropicEndAdmission.pacedFit || anthropicEndFinalEnvelope)
   const lastResort: CycleSummary['last_resort'] = !anthropicOn
     ? 'off'
     : anthropicLedgerUnavailable()
@@ -2728,6 +2757,8 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
         ? (planQuotaHit ? 'plan-quota' : authExpiredHit ? 'auth-expired' : 'cooling')
         : anthropicBudgetBlocked || !anthropicBudget?.canSpend()
           ? 'usd-cap'
+          : anthropicPacedAtEnd
+            ? 'paced'
           : anthropicRequests > 0
             ? 'scored'
             : 'available'
@@ -2743,13 +2774,15 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
         ? ' · Haiku priority-1 usage record needs attention'
         : lastResort === 'usd-cap'
           ? ` · Haiku priority 1 at its $${cfg.anthropicDailyUsd}/day ceiling; using automatic fallbacks`
-          : lastResort === 'plan-quota'
-            ? ' · Haiku priority 1 paused — Claude plan quota spent; using automatic fallbacks'
-            : lastResort === 'auth-expired'
-              ? " · Haiku priority 1 paused — the engine's Claude sign-in has expired; automatic fallbacks remain active; run `claude auth login` on the engine host"
-              : lastResort === 'cooling'
-                ? ' · Haiku priority 1 backing off after an error; using automatic fallbacks'
-                : ''
+          : lastResort === 'paced'
+            ? ' · Haiku priority 1 is paced until more of today\'s allowance is released; using automatic fallbacks'
+            : lastResort === 'plan-quota'
+              ? ' · Haiku priority 1 paused — Claude plan quota spent; using automatic fallbacks'
+              : lastResort === 'auth-expired'
+                ? " · Haiku priority 1 paused — the engine's Claude sign-in has expired; automatic fallbacks remain active; run `claude auth login` on the engine host"
+                : lastResort === 'cooling'
+                  ? ' · Haiku priority 1 backing off after an error; using automatic fallbacks'
+                  : ''
 
   const scoringDefPlural = scoringDeferredCount === 1 ? '' : 's'
   // The durable backlog also owns rows that WERE scored but did not cross a persistence boundary. Include

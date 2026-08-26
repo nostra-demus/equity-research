@@ -550,6 +550,9 @@ export function localIsPrimary(): boolean {
 // sufficient to run news triage. Explicit NEWS_INGEST_ENABLED=0 remains authoritative below.
 const CONFIGURED_LOCAL_PROVIDER = localIsPrimary() ? buildLocalProvider() : null
 const CONFIGURED_OVERFLOW_PROVIDERS = buildOverflowProviders()
+const CONFIGURED_ANTHROPIC_PROVIDER = process.env.NEWS_ANTHROPIC_FALLBACK_ENABLED !== '0'
+  && ((process.env.NEWS_ANTHROPIC_FALLBACK_MODE || 'subscription') === 'subscription'
+    || Boolean(process.env.NEWS_ANTHROPIC_FALLBACK_API_KEY))
 const NEWS_IDEA_PROVIDER_CONFIGURED = Boolean(
   process.env.GROQ_API_KEY
   || CONFIGURED_LOCAL_PROVIDER
@@ -558,7 +561,8 @@ const NEWS_IDEA_PROVIDER_CONFIGURED = Boolean(
 )
 const NEWS_PROVIDER_CONFIGURED = Boolean(
   NEWS_IDEA_PROVIDER_CONFIGURED
-  || (process.env.GEMINI_API_KEY && process.env.NEWS_GEMINI_ENABLED !== '0'),
+  || (process.env.GEMINI_API_KEY && process.env.NEWS_GEMINI_ENABLED !== '0')
+  || CONFIGURED_ANTHROPIC_PROVIDER
 )
 // A run that produces NO output at all for this long is hung, not working. There was previously no
 // wall-clock ceiling of any kind on a research run (execa is spawned with no `timeout`), and the

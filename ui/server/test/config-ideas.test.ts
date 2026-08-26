@@ -58,7 +58,26 @@ function readOpenRouterConfig(patch: Record<string, string> = {}): { model: stri
   return JSON.parse(r.stdout)
 }
 
-assert.deepEqual(readProviderConfig(), { enabled: false, configured: false, ideaConfigured: false, overflow: [] }, 'a providerless process stays idle')
+assert.deepEqual(
+  readProviderConfig(),
+  { enabled: true, configured: true, ideaConfigured: false, overflow: [] },
+  'the default Haiku subscription activates triage even when no free-provider key is configured',
+)
+assert.deepEqual(
+  readProviderConfig({ NEWS_ANTHROPIC_FALLBACK_ENABLED: '0' }),
+  { enabled: false, configured: false, ideaConfigured: false, overflow: [] },
+  'a genuinely providerless process stays idle when Haiku is explicitly disabled',
+)
+assert.deepEqual(
+  readProviderConfig({ NEWS_ANTHROPIC_FALLBACK_MODE: 'api' }),
+  { enabled: false, configured: false, ideaConfigured: false, overflow: [] },
+  'Anthropic API mode does not activate triage without its explicit API key',
+)
+assert.deepEqual(
+  readProviderConfig({ NEWS_ANTHROPIC_FALLBACK_MODE: 'api', NEWS_ANTHROPIC_FALLBACK_API_KEY: 'test-anthropic' }),
+  { enabled: true, configured: true, ideaConfigured: false, overflow: [] },
+  'Anthropic API mode activates triage when its explicit API key is configured',
+)
 assert.deepEqual(
   readProviderConfig({ MISTRAL_API_KEY: 'test-mistral' }),
   { enabled: true, configured: true, ideaConfigured: true, overflow: ['mistral'] },

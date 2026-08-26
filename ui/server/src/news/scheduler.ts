@@ -28,7 +28,7 @@ import { readProviderQuarantine, type ProviderQuarantine } from './provider-fail
 import { preTriagePriority } from './rank'
 import { buildPipelineFlowRates, readPipelineFlowCycles, type PipelineFlowHistory, type PipelineFlowRates } from './pipeline-flow'
 import { omniRouteDisabledReason } from './omniroute-provision-status'
-import { credentialRejected, evaluateProviderRouting, type ProviderRouterMetadata, type ProviderRoutingCandidate } from './provider-routing'
+import { credentialRejected, evaluateProviderRouting, type ProviderCandidateScore, type ProviderRouterMetadata, type ProviderRouterMode, type ProviderRoutingCandidate } from './provider-routing'
 import { evaluateScannerHealth, type ScannerHealthVerdict } from './scanner-health'
 import {
   getRescueDiagnostics, runRescueShadowPass, setRescueNormalIdeasRuntimePause,
@@ -1274,6 +1274,28 @@ export function backlogTrend(cycles: CycleSummary[]): 'growing' | 'shrinking' | 
 
 /** The FULL end-to-end pipeline diagnostics for the cockpit. Read-only, never throws — every branch degrades
  *  to zeros/nulls so a partial/absent state file never fails the endpoint (matches getNewsStatus/sources). */
+/** The order the engine will really attempt, kept separate from the fitness/shadow ranking shown beside it. */
+export function actualProviderRanks(candidates: ProviderCandidateScore[], mode: ProviderRouterMode): Map<string, number> {
+  const bandWeight = (candidate: ProviderCandidateScore): number => candidate.band === 'aggregate' ? 1 : candidate.band === 'demoted-local' ? 2 : 0
+  const ordered = [...candidates].filter((candidate) => candidate.eligible).sort((left, right) => {
+    if (left.id === right.id) return 0
+    if (left.id === 'anthropic-triage' || right.id === 'anthropic-triage') return left.id === 'anthropic-triage' ? -1 : 1
+    if (mode === 'adaptive') {
+      const band = bandWeight(left) - bandWeight(right)
+      if (band) return band
+      const leftRank = left.rank
+      const rightRank = right.rank
+      if (leftRank !== rightRank) {
+        if (leftRank == null || !Number.isFinite(leftRank)) return 1
+        if (rightRank == null || !Number.isFinite(rightRank)) return -1
+        return leftRank - rightRank
+      }
+    }
+    return left.order - right.order
+  })
+  return new Map(ordered.map((candidate, index) => [candidate.id, index + 1]))
+}
+
 export function getNewsDiagnostics(options: { omniRouteHomeDir?: string } = {}): NewsDiagnostics {
   const now = Date.now()
   const ts = new Date(now).toISOString().replace(/\.\d{3}Z$/, 'Z')
@@ -1301,11 +1323,10 @@ export function getNewsDiagnostics(options: { omniRouteHomeDir?: string } = {}):
     }, 'triage', TRIAGE_CONTRACT_VERSION))
 
   const tiers: TierDiagnostics[] = []
-  // local is the PRIMARY brain (unlimited, $0, tried first) → it leads the ladder and Groq becomes a fallback.
-  const localPrimary = !!NEWS.localProvider
+  // Haiku is the sole overall primary. Local can still lead the automatic fallback chain when enabled.
   let order = 0
 
-  // --- Local primary brain (order 0) — unlimited, $0, tried FIRST for every batch ---
+  // --- Local first fallback (order 0) — unlimited, $0 ---
   if (NEWS.localProvider) {
     const lp = NEWS.localProvider
     const quarantine = triageQuarantine({
@@ -1316,7 +1337,7 @@ export function getNewsDiagnostics(options: { omniRouteHomeDir?: string } = {}):
     const cd = triageRetryInfo('local', now, true)
     const coolMs = Math.max(0, cd.until - now)
     tiers.push({
-      id: lp.id, label: lp.label, color: lp.color, role: 'primary', order: order++, enabled: true, spendingAllowed, meter: 'requests',
+      id: lp.id, label: lp.label, color: lp.color, role: 'overflow', order: order++, enabled: true, spendingAllowed, meter: 'requests',
       health: tierHealth(true, quarantine ? 1 : coolMs, b.dayUnavailable, false, b.ledgerUnavailable), // no configured cap, but its durable authority must still be valid
       ...(b.ledgerUnavailable ? { ledgerUnavailable: true } : {}),
       ...(b.providerDayExhausted ? { providerDayExhausted: true } : {}),
@@ -1326,7 +1347,7 @@ export function getNewsDiagnostics(options: { omniRouteHomeDir?: string } = {}):
     })
   }
 
-  // --- Groq (the PRIMARY when local is off; the FIRST FALLBACK when local is primary) ---
+  // --- Groq (automatic fallback after Haiku, and after local when local leads the fallback chain) ---
   {
     const enabled = !!NEWS.groqApiKey
     const quarantine = enabled ? triageQuarantine({
@@ -1340,7 +1361,7 @@ export function getNewsDiagnostics(options: { omniRouteHomeDir?: string } = {}):
     const spent = b.dayUnavailable || b.requests >= NEWS.groqDailyReqCap || b.tokens >= NEWS.groqDailyTokenCap || b.tokens + est > NEWS.groqDailyTokenCap
     const paced = enabled && !spent && !pacedHasHeadroom(b.tokens, b.requests, NEWS.groqDailyReqCap, NEWS.groqDailyTokenCap, PACE, now, est, diagnosticBatchPaceBound(diagnosticBatch))
     tiers.push({
-      id: 'groq', label: 'Groq', color: '--accent', role: localPrimary ? 'overflow' : 'primary', order: order++, enabled, spendingAllowed, meter: 'requests',
+      id: 'groq', label: 'Groq', color: '--accent', role: 'overflow', order: order++, enabled, spendingAllowed, meter: 'requests',
       health: tierHealth(enabled, quarantine ? 1 : coolMs, spent, paced, b.ledgerUnavailable),
       ...(b.ledgerUnavailable ? { ledgerUnavailable: true } : {}),
       ...(b.providerDayExhausted ? { providerDayExhausted: true } : {}),
@@ -1571,14 +1592,13 @@ export function getNewsDiagnostics(options: { omniRouteHomeDir?: string } = {}):
   })
   const routingOptions = { repoRoot: REPO_ROOT, stateDir: STATE_DIR, archiveDir: NEWS.newsArchiveDir, requestedMode: NEWS.providerRouterMode, shadowHours: NEWS.providerRouterShadowHours, minOutcomes: NEWS.providerRouterMinOutcomes, now }
   const routing = evaluateProviderRouting(routingOptions, routingCandidates)
-  const configuredEligible = [...routing.candidates].filter((candidate) => candidate.eligible).sort((left, right) => left.order - right.order)
-  const actualRank = new Map(configuredEligible.map((candidate, index) => [candidate.id, index + 1]))
+  const actualRank = actualProviderRanks(routing.candidates, routing.router.mode)
   const scoresById = new Map(routing.candidates.map((candidate) => [candidate.id, candidate]))
   for (const tier of tiers) {
     const score = scoresById.get(tier.id)
     if (!score) continue
     tier.routing = {
-      actualRank: routing.router.mode === 'adaptive' ? score.rank : actualRank.get(tier.id) ?? null,
+      actualRank: actualRank.get(tier.id) ?? null,
       shadowRank: score.rank,
       fitnessScore: score.score,
       components: score.components,
@@ -1593,9 +1613,17 @@ export function getNewsDiagnostics(options: { omniRouteHomeDir?: string } = {}):
   }
   if (routing.router.mode === 'adaptive') {
     const bandOrder = (tier: TierDiagnostics): number => aggregateIds.has(tier.id) ? 1 : localFallbackIds.has(tier.id) ? 2 : 0
+    const actualRankOrder = (left: TierDiagnostics, right: TierDiagnostics): number => {
+      const leftRank = left.routing?.actualRank
+      const rightRank = right.routing?.actualRank
+      if (leftRank === rightRank) return 0
+      if (leftRank == null || !Number.isFinite(leftRank)) return 1
+      if (rightRank == null || !Number.isFinite(rightRank)) return -1
+      return leftRank - rightRank
+    }
     tiers.sort((left, right) => bandOrder(left) - bandOrder(right)
       || (left.routing?.eligible === true ? 0 : 1) - (right.routing?.eligible === true ? 0 : 1)
-      || (left.routing?.actualRank ?? Infinity) - (right.routing?.actualRank ?? Infinity)
+      || actualRankOrder(left, right)
       || left.order - right.order)
   } else {
     tiers.sort((left, right) => left.order - right.order)

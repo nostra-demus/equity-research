@@ -53,7 +53,7 @@ const ROLE_LABEL: Record<TierDiagnostics['role'], string> = {
   primary: 'first choice',
   overflow: 'free backup',
   gemini: 'free backup',
-  'last-resort': 'paid backup',
+  'last-resort': 'paid service',
 }
 
 const SCANNER_ACTION: Record<string, string> = {
@@ -90,14 +90,15 @@ function deferWhy(reason: string): string {
 }
 
 const LAST_RESORT_WHY: Record<LastResortState, string> = {
-  off: 'The paid Haiku backup is off.',
+  off: 'Haiku priority 1 is off.',
   unavailable: "The app can’t check today’s Haiku use.",
-  scored: 'The paid Haiku backup is checking the waiting work.',
+  scored: 'Haiku priority 1 checked news this cycle.',
   'usd-cap': 'The app has used today’s Haiku spending limit.',
   'plan-quota': 'The Claude plan limit has been used. Haiku is waiting for it to reset.',
   'auth-expired': 'The Claude sign-in has expired. Run `claude auth login` on the scanner computer.',
-  cooling: 'The paid Haiku backup failed and is waiting to try again.',
-  available: 'The paid Haiku backup is ready.',
+  cooling: 'Haiku priority 1 failed and is waiting to try again.',
+  paced: 'Haiku priority 1 is waiting for more of today’s allowance to be released.',
+  available: 'Haiku priority 1 is ready for new and waiting news.',
 }
 
 /** Look up the reason text, tolerating a state this bundle has never heard of. A NEWER engine can stream a
@@ -105,7 +106,7 @@ const LAST_RESORT_WHY: Record<LastResortState, string> = {
  *  would then render `undefined` — a blank where the explanation belongs. Fall back to saying plainly that
  *  the tier is held, rather than showing nothing. */
 function lastResortWhy(state: LastResortState): string {
-  return LAST_RESORT_WHY[state] || 'The paid Haiku backup is not checking items right now.'
+  return LAST_RESORT_WHY[state] || 'Haiku priority 1 is not checking items right now.'
 }
 
 function TierRow({ tier, coolLeftMs, nowTs, routerMode }: { tier: TierDiagnostics; coolLeftMs: number; nowTs: number; routerMode?: NonNullable<NewsDiagnostics['router']>['mode'] }) {
