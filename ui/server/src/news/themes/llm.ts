@@ -484,7 +484,9 @@ async function callOpenAi(
       // Read only for bounded type/code classification. Raw bodies can contain organization, billing, or
       // account details and therefore never cross this stack frame into compiler health.
       const rawBody = await res.text().catch(() => '')
-      const failure = honorProviderRetryAfter(classifyProviderHttpFailure(res.status, rawBody, provider), rate.retryAfterMs)
+      const failure = honorProviderRetryAfter(classifyProviderHttpFailure(res.status, rawBody, {
+        providerId: provider.id, model: provider.model, models: provider.models,
+      }), rate.retryAfterMs)
       const dailyLimit = provider.requestRemainingHeaderIsDaily && res.status === 429 && rate.rpdRemaining === 0
       return {
         text: null, tokens: 0, ok: false, status: res.status,

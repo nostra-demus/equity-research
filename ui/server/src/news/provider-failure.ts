@@ -230,9 +230,10 @@ export function classifyProviderHttpFailure(
     // it describes a routing gap that may heal without any configuration change. Keep that exact request
     // contract on a cooldown; a genuinely missing/retired model still follows the terminal path below.
     const models = [context?.model, ...(context?.models || [])]
-      .map((value) => String(value || '').trim().toLowerCase())
+      .filter(Boolean)
+      .map((value) => String(value).trim().toLowerCase())
     const openRouterRoute = String(context?.providerId || '').trim().toLowerCase() === 'openrouter'
-      && models.some(Boolean)
+      && models.length > 0
     const noProviderRoute = /no (?:allowed )?providers? (?:are )?(?:currently )?available/.test(evidence.search)
     if (openRouterRoute && noProviderRoute) {
       return {
