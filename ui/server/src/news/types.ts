@@ -264,7 +264,7 @@ export interface FeedItem {
 export type DeferReason =
   | 'storage-emergency' // no durable backlog/journal copy contains all retry rows inside the configured boundary
   | 'feed-write-failed' // durable feed access/write failed; work remains queued (any scored suffix keeps its result)
-  | 'feed-cap' // the daily firehose cap held work; known-full preflight is unscored, any scored suffix is retained
+  | 'feed-cap' // an unusable per-shard limit held work; normal full shards roll, any impossible suffix is retained
   | 'inbox-withheld' // kept rows could not prove their durable inbox revision clock; they remain queued
   | 'no-scoring-provider' // ordinary unscored rows remain while no scoring route is configured
   | 'aborted' // the wall-clock guard killed the cycle mid-way and dumped the remainder to the backlog

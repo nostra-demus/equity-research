@@ -62,3 +62,5 @@ screener/board/index.json.tmp.*
 screener/ledger/ideas/*.json.lock
 screener/ledger/ideas/*.promotion
 screener/ledger/.qualified-idea-outcomes-pass.flock
+# Stable runtime lease for sharded news-firehose mutation; never research data and never unlink on release.
+screener/inbox/.*_firehose.flock

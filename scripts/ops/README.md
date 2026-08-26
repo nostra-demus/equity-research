@@ -418,6 +418,50 @@ NEWS_ARCHIVE_DIR="$HOME/Library/CloudStorage/GoogleDrive-<you>/My Drive/equity-r
   bash scripts/ops/install-services.sh --role doer
 ```
 
+### News queue storage and Drive recovery
+
+The live queue is `ui/server/.state/news-queue.sqlite` on the doer Mac. SQLite performs all queue
+transactions locally; Google Drive does not run or lock the database. The older
+`news-deferred*.json` files remain compatibility projections during rollout, but they are no longer the
+source of truth and their hot-window cap is not a data cap.
+
+Every archive run uses SQLite's online backup API, verifies the snapshot, compresses it, and writes both
+`YYYY-MM-DD_news-queue.sqlite.gz` and `news-queue-latest.sqlite.gz` to `NEWS_ARCHIVE_DIR`, each with a
+SHA-256 sidecar. It never copies the live WAL file directly. Raw firehose shards remain the permanent,
+uncapped Drive record of completed items; retired-unscored items keep their complete payload and reason in
+the SQLite snapshots.
+
+For a restore, stop the engine first, verify the `.sha256` sidecar, decompress the chosen snapshot to a
+temporary local path, and run `PRAGMA quick_check`. Move the old database, its `-wal` and `-shm` sidecars,
+and every compatibility journal into a separate rollback directory before installing the snapshot. Never
+leave newer sidecars or journals beside an older restored database: SQLite could replay newer WAL state,
+while startup could re-import journal rows whose completion tombstones exist only in the displaced database.
+
+```bash
+set -euo pipefail
+launchctl bootout "gui/$(id -u)/com.nostradamus.engine" 2>/dev/null || true
+QUEUE_STATE="$HOME/nostra-prod/ui/server/.state"
+QUEUE_BACKUP="${NEWS_ARCHIVE_DIR:?set NEWS_ARCHIVE_DIR}/news-queue-latest.sqlite.gz"
+RESTORE_WORK="$(mktemp -d)"
+(cd "$(dirname "$QUEUE_BACKUP")" && shasum -a 256 -c "$(basename "$QUEUE_BACKUP").sha256")
+gzip -dc "$QUEUE_BACKUP" > "$RESTORE_WORK/news-queue.sqlite"
+test "$(sqlite3 "$RESTORE_WORK/news-queue.sqlite" 'PRAGMA quick_check;')" = "ok"
+QUEUE_ROLLBACK="$QUEUE_STATE/restore-rollback-$(date -u +%Y%m%dT%H%M%SZ)"
+mkdir -p "$QUEUE_ROLLBACK"
+for name in \
+  news-queue.sqlite news-queue.sqlite-wal news-queue.sqlite-shm \
+  news-deferred.json news-deferred-pending.json \
+  news-scored-checkpoints.ndjson news-input-overflow.json; do
+  old="$QUEUE_STATE/$name"
+  test ! -e "$old" || mv "$old" "$QUEUE_ROLLBACK/"
+done
+mv "$RESTORE_WORK/news-queue.sqlite" "$QUEUE_STATE/news-queue.sqlite"
+chmod 600 "$QUEUE_STATE/news-queue.sqlite"
+launchctl bootstrap "gui/$(id -u)" "$HOME/Library/LaunchAgents/com.nostradamus.engine.plist"
+```
+
+Keep the rollback directory until the engine has restarted and the queue count has been checked.
+
 ## Operating rules (so it never blanks or dies)
 
 1. **Never run the server manually** (`npm run dev` / `npm start` in a terminal). launchd already owns

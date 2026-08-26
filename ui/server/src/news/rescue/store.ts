@@ -8,11 +8,11 @@ import { countryFromExchange } from '../equity-quote'
 import { coreCompanyName, directoryTickerIdentityKey } from '../symbology'
 import type { FeedItem } from '../types'
 import type { RescueCandidate, RescuePool, RescueRankInputs } from './selector'
+import { contiguousFirehoseFiles, localFirehoseFiles } from '../firehose-files'
 
 const ROOT = 'news-rescue'
-// The durable feed accepts 40,000 rows per UTC day. A 36-hour clock window can intersect late day 1,
-// all of day 2, and early day 3, so bursty valid traffic can contain 120,000 rows rather than the
-// uniform-rate 60,000. Three 80 MiB daily file ceilings bound the same worst-case byte window.
+// The main archive is uncapped because it rolls physical shards. This second-look working set remains
+// deliberately bounded so a burst cannot consume the host; overflow is explicit and closes admission.
 export const RESCUE_QUEUE_MAX_ITEMS = 120_000
 export const RESCUE_QUEUE_MAX_BYTES = 256 * 1024 * 1024
 const DAILY_MAX_ITEMS = 240 // hard parser bound; configured admission remains <=200
@@ -155,7 +155,8 @@ function rescueCheckpointDates(now: number, maxAgeHrs: number): string[] {
     new Date(midnight - daysAgo * 24 * 3_600_000).toISOString().slice(0, 10))
 }
 
-/** Cheap restart proof: stat only the at-most-three local firehose files that can overlap the queue. */
+/** Cheap restart proof: sum the local shards for the at-most-three UTC days that overlap the queue.
+ * Existing saved checkpoints remain compatible because each value is still one logical daily offset. */
 export function captureRescueFeedCheckpoint(
   repoRoot: string,
   now = Date.now(),
@@ -164,15 +165,16 @@ export function captureRescueFeedCheckpoint(
   const checkpoint: RescueFeedCheckpoint = {}
   try {
     for (const date of rescueCheckpointDates(now, maxAgeHrs)) {
-      const file = path.join(repoRoot, 'screener', 'inbox', `${date}_firehose.ndjson`)
-      try {
-        const stat = fs.statSync(file)
+      const files = localFirehoseFiles(repoRoot, date)
+      if (!contiguousFirehoseFiles(files)) throw new Error('feed checkpoint shard gap')
+      let bytes = 0
+      for (const row of files) {
+        const stat = fs.statSync(row.file)
         if (!stat.isFile() || !Number.isSafeInteger(stat.size) || stat.size < 0) throw new Error('feed checkpoint')
-        checkpoint[date] = stat.size
-      } catch (error) {
-        if ((error as NodeJS.ErrnoException)?.code === 'ENOENT') checkpoint[date] = 0
-        else throw error
+        bytes += stat.size
+        if (!Number.isSafeInteger(bytes)) throw new Error('feed checkpoint size')
       }
+      checkpoint[date] = bytes
     }
     return { available: true, checkpoint }
   } catch {
@@ -567,23 +569,45 @@ function readStagedFeedRows(repoRoot: string, stage: RescueFeedStage): FeedItem[
       if (totalBytes > RESCUE_QUEUE_MAX_BYTES) return null
       continue
     }
-    const file = path.join(repoRoot, 'screener', 'inbox', `${date}_firehose.ndjson`)
-    let fd: number | undefined
     try {
-      fd = fs.openSync(file, 'r')
-      const stat = fs.fstatSync(fd)
-      if (!stat.isFile() || stat.size < end) return null
-      if (start > 0) {
-        const boundary = Buffer.allocUnsafe(1)
-        if (fs.readSync(fd, boundary, 0, 1, start - 1) !== 1 || boundary[0] !== 0x0a) return null
+      const files = localFirehoseFiles(repoRoot, date)
+      if (!contiguousFirehoseFiles(files)) return null
+      const parts: Buffer[] = []
+      let logicalOffset = 0
+      let priorByte: number | null = start === 0 ? 0x0a : null
+      for (const row of files) {
+        let fd: number | undefined
+        try {
+          fd = fs.openSync(row.file, 'r')
+          const stat = fs.fstatSync(fd)
+          if (!stat.isFile()) return null
+          const fileStart = logicalOffset
+          const fileEnd = fileStart + stat.size
+          if (start > fileStart && start <= fileEnd && priorByte === null) {
+            const boundary = Buffer.allocUnsafe(1)
+            if (fs.readSync(fd, boundary, 0, 1, start - fileStart - 1) !== 1) return null
+            priorByte = boundary[0]
+          }
+          const overlapStart = Math.max(start, fileStart)
+          const overlapEnd = Math.min(end, fileEnd)
+          if (overlapEnd > overlapStart) {
+            const part = Buffer.allocUnsafe(overlapEnd - overlapStart)
+            let offset = 0
+            while (offset < part.length) {
+              const read = fs.readSync(fd, part, offset, part.length - offset, overlapStart - fileStart + offset)
+              if (read <= 0) return null
+              offset += read
+            }
+            parts.push(part)
+          }
+          logicalOffset = fileEnd
+        } finally {
+          if (fd !== undefined) try { fs.closeSync(fd) } catch { /* no-op */ }
+        }
       }
-      const bytes = Buffer.allocUnsafe(length)
-      let offset = 0
-      while (offset < length) {
-        const read = fs.readSync(fd, bytes, offset, length - offset, start + offset)
-        if (read <= 0) return null
-        offset += read
-      }
+      if (logicalOffset < end || priorByte !== 0x0a) return null
+      const bytes = Buffer.concat(parts, length)
+      if (bytes.length !== length) return null
       if (bytes[length - 1] !== 0x0a) return null
       for (const line of bytes.toString('utf8').split('\n')) {
         if (!line.trim()) continue
@@ -594,8 +618,6 @@ function readStagedFeedRows(repoRoot: string, stage: RescueFeedStage): FeedItem[
       }
     } catch {
       return null
-    } finally {
-      if (fd !== undefined) try { fs.closeSync(fd) } catch { /* no-op */ }
     }
   }
   return rows

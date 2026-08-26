@@ -127,13 +127,15 @@ await check('every rolling handoff crash boundary pauses an array-only worker an
     const cfg = { groqApiKey: 'k', gdeltBaseUrl: 'https://gdelt.test/doc', groqBaseUrl: 'https://groq.test', groqRpm: 6000, gdeltLookbackMin: 40, rssEnabled: false, themesEnabled: false, overflowProviders: [], geminiEnabled: false, geminiApiKey: '', anthropicFallbackEnabled: false } as any
     const origRename = fs.renameSync
     const origRm = fs.rmSync
+    let pendingRenames = 0
     ;(fs as any).renameSync = (from: string, to: string) => {
       if (boundary.fail === 'canonical' && String(to) === path.join(state, 'news-deferred.json')) throw new Error('simulated crash before canonical rename')
       if (boundary.fail === 'overflow' && String(to) === path.join(state, 'news-input-overflow.json')) throw new Error('simulated crash before overflow rename')
+      if (boundary.fail === 'barrier-remove' && String(to) === path.join(state, 'news-deferred-pending.json')
+        && ++pendingRenames === 2) throw new Error('simulated crash before empty rollback barrier')
       return (origRename as any)(from, to)
     }
     ;(fs as any).rmSync = (target: string, options?: any) => {
-      if (boundary.fail === 'barrier-remove' && String(target) === path.join(state, 'news-deferred-pending.json')) throw new Error('simulated crash before barrier removal')
       return (origRm as any)(target, options)
     }
     let summary: any
@@ -152,7 +154,7 @@ await check('every rolling handoff crash boundary pauses an array-only worker an
   }
 })
 
-await check('a final overflow read EIO reports storage emergency and a known backlog lower bound, never a false zero', async () => {
+await check('an overflow compatibility-file EIO cannot take down the canonical SQLite queue', async () => {
   resetSharedLimiters()
   resetCooldownMemory()
   const state = tmp()
@@ -196,12 +198,11 @@ await check('a final overflow read EIO reports storage emergency and a known bac
     ;(fs as any).readFileSync = origRead
   }
 
-  assert.equal(overflowReads, 2, 'the injected fault lands on the final authority verification')
-  assert.equal(summary.defer_reason, 'storage-emergency')
-  assert.equal(summary.deferred_read_failed, true, 'an unreadable final authority is distinct from a quiet queue')
-  assert.equal(summary.backlog, arts.length, 'the untouched durable suffix is reported as a known lower bound, never zero')
-  assert.match(summary.note || '', /backlog depth is unavailable.*known lower bound: 2/i)
-  assert.deepEqual(loadDeferred(state).map((item) => item.url).sort(), arts.map((item) => item.url).sort(), 'restoring reads proves the overflow suffix itself was never lost')
+  assert.ok(overflowReads >= 2, 'the compatibility projection fault was injected')
+  assert.notEqual(summary.defer_reason, 'storage-emergency', 'SQLite remains readable and authoritative')
+  assert.equal(summary.deferred_read_failed, undefined)
+  assert.equal(summary.backlog, arts.length)
+  assert.deepEqual(loadDeferred(state).map((item) => item.url).sort(), arts.map((item) => item.url).sort(), 'the SQLite overflow suffix was never lost')
 })
 
 await check('an unavailable overflow authority fails closed before any provider call and preserves existing backlog', async () => {
@@ -263,7 +264,7 @@ await check('no loss when the backlog fits under the cap → dropped_at_cap is a
   assert.equal(s.dropped_at_cap, undefined, 'no loss → the field is omitted, not 0-noise')
 })
 
-await check('saveDeferred is ATOMIC: a write failure keeps the last-good backlog (never truncates to empty) and logs it', () => {
+await check('saveDeferred commits SQLite atomically even when its compatibility-file projection fails', () => {
   const state = tmp()
   const good = [{ event_id: 'a', headline: 'x' }, { event_id: 'b', headline: 'y' }] as unknown as NewsItem[]
   // finding 4 (Codex, PR #316): saveDeferred now RETURNS whether it persisted, so a caller can tell the
@@ -282,7 +283,9 @@ await check('saveDeferred is ATOMIC: a write failure keeps the last-good backlog
     ;(fs as any).writeFileSync = origWrite
   }
   assert.equal(ret, false, 'a failed write returns false (the signal the cycle summary surfaces as deferred_write_failed)')
-  assert.equal(loadDeferred(state).length, 2, 'the last-good backlog is INTACT — not truncated to [] by the failed write')
+  assert.deepEqual(loadDeferred(state).map((item) => item.event_id), ['c'], 'SQLite contains the complete new transaction, never a partial or empty queue')
+  assert.equal(JSON.parse(fs.readFileSync(path.join(state, 'news-deferred.json'), 'utf8')).length, 2,
+    'the failed compatibility projection remains byte-valid at its last-good version')
   assert.ok(logs.some((m) => /saveDeferred failed/.test(m)), 'the write failure is logged, not swallowed')
   assert.ok(!fs.existsSync(path.join(state, 'news-deferred.json.tmp')), 'no orphan temp file left behind')
 })

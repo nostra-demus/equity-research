@@ -2,6 +2,18 @@ import type { ProviderExecutionProfile, RunProvider } from './providers/types'
 
 export type Sufficiency = 'Sufficient' | 'Partial' | 'Insufficient'
 
+export interface MemoryProfile {
+  version: 1
+  task: string
+  episodicScope: 'exact-listing'
+  semanticTopics: string[]
+  procedureTags: string[]
+  crossCompany: boolean
+  permittedSourceTiers: number[]
+  permittedClassifications: Array<'public' | 'internal'>
+  maxContextTokens: number
+}
+
 export interface AgentNode {
   key: string // "<module>/<NN>_<name>"
   module: string
@@ -15,6 +27,33 @@ export interface AgentNode {
   requiredUpstream: string[] // run-root-relative paths (e.g. "business-model/08_competitive-map.md")
   soloRunnable: boolean
   isSynthesis: boolean
+  /** Closed, self-declared query authority for the production memory compiler. */
+  memoryProfile?: MemoryProfile
+}
+
+export interface ResearchMemoryIdentity {
+  legalName: string
+  venue: string
+  currency: string
+  ticker: string
+  identifiers: string[]
+}
+
+export interface ResearchMemoryRuntimeBinding {
+  mode: 'off' | 'shadow' | 'enforced'
+  logicalRunId: string
+  status: 'off' | 'preparing' | 'verified' | 'unavailable' | 'blocked' | 'finalized'
+  receiptId?: string
+  receiptSha256?: string
+  receiptPath?: string
+  projectionPath?: string
+  authorizationId?: string
+  authorizationSha256?: string
+  authorizationPath?: string
+  expectedTaskCount: number
+  finalizeOnClose: boolean
+  startedAt: string
+  error?: string
 }
 
 export interface ModuleNode {
@@ -37,7 +76,7 @@ export interface ModuleNode {
 
 export interface SwarmGraph {
   modules: ModuleNode[]
-  masterSynthesizer: { name: string; description: string }
+  masterSynthesizer: { name: string; description: string; memoryProfile?: MemoryProfile }
   totals: { modules: number; agents: number; specialists: number; synthesis: number }
   // present ONLY for non-research swarms (research stays byte-identical for existing clients)
   swarm?: { id: string; label: string; color: string; unit: string; layout: string; order: number }

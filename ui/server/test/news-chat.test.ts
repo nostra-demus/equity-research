@@ -85,6 +85,17 @@ check('history chat reads both the local firehose and the archive mirror', async
   assert.equal(got.evidence.length, 2)
 })
 
+check('history chat streams every shard in a busy UTC day', async () => {
+  const root = tmp()
+  const dir = path.join(root, 'screener', 'inbox')
+  writeDay(dir, '2026-08-02', [item('EVT-shard-zero', '2026-08-02T10:00:00Z', 'Nvidia signs a supply agreement', 'Nvidia', 91)])
+  fs.writeFileSync(path.join(dir, '2026-08-02_firehose.000001.ndjson'), `${JSON.stringify(item('EVT-shard-one', '2026-08-02T11:00:00Z', 'Nvidia expands the supply agreement', 'Nvidia', 92))}\n`)
+  const got = await assembleNewsChatContext({ repoRoot: root, window: 'history', question: 'Nvidia supply agreement', now: () => new Date('2026-08-02T12:00:00Z') })
+  assert.equal(got.receipt.itemsSearched, 2)
+  assert.equal(got.receipt.itemsMatched, 2)
+  assert.deepEqual(new Set(got.evidence.map((row) => row.item.event_id)), new Set(['EVT-shard-zero', 'EVT-shard-one']))
+})
+
 check('history uses data/NEWS-ARCHIVE even when NEWS_ARCHIVE_DIR is not set', async () => {
   const root = tmp()
   writeDay(path.join(root, 'screener', 'inbox'), '2026-08-02', [item('EVT-new', '2026-08-02T10:00:00Z', 'Nvidia opens a new factory', 'Nvidia', 91)])

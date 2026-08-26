@@ -162,6 +162,12 @@ for ag in com.nostradamus.deploy com.nostradamus.news-archive; do
     || { launchctl bootstrap "gui/$UID_NUM" "$AGENTS_DIR/$ag.plist" 2>/dev/null && log "RECOVERED $ag (was booted out)"; }
 done
 
+QUEUE_ARCHIVE_FAILURE="$REPO/ui/server/.state/news-archive.failed"
+if [ -s "$QUEUE_ARCHIVE_FAILURE" ]; then
+  connector_note_hourly news-archive-failed \
+    "NEWS ARCHIVE failed — canonical SQLite queue does not have both current Drive restore points"
+fi
+
 # Reconcile the complete connector scheduler, not merely an already-installed process.  The independent
 # supervisor owns the fail-closed chain role -> stable pool identity -> plist contract -> launchd -> fresh
 # post-activation heartbeat.  It takes the deploy lease first and then calls the exact connector-only
@@ -188,7 +194,14 @@ if ! curl -fsS --max-time 5 "http://127.0.0.1:$PORT/api/health" >/dev/null 2>&1;
   problem="engine-down"
 else
   # 2) CONTENT health — the served bundle must come back as real JS. If it's HTML/404, the SPA is blank.
-  ref="$(curl -fsS --max-time 5 "http://127.0.0.1:$PORT/" 2>/dev/null | grep -oE 'assets/index-[A-Za-z0-9_-]+\.js' | head -1)"
+  # Vite owns the entry-chunk basename. It historically emitted `index-*`, while the current build emits
+  # `main-*`; keying health to either spelling turns every healthy deploy into an endless rebuild/restart
+  # loop when the bundler changes that implementation detail. Read the actual script entry from the served
+  # HTML, while keeping the captured path to one safe `assets/` segment before requesting it below.
+  ref="$(curl -fsS --max-time 5 "http://127.0.0.1:$PORT/" 2>/dev/null \
+    | grep -oE '<script([[:space:]][^>]*)?>' \
+    | grep -oE "[[:space:]]src[[:space:]]*=[[:space:]]*['\"](\./|/)?assets/[A-Za-z0-9._-]+\.js['\"]" \
+    | grep -oE 'assets/[A-Za-z0-9._-]+\.js' | head -n 1)"
   if [ -z "$ref" ]; then
     problem="no-bundle-ref"
   else

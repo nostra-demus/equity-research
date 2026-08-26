@@ -3,6 +3,16 @@ name: maturity-wall-and-refinancing
 description: Lays out the debt maturity schedule by year, computes weighted-average maturity and the share due within 12/24/36 months, maps fixed vs floating exposure and coupon vs current market rates, and assesses refinancing risk and the cost step-up.
 tools: Read, Glob, Grep, Bash, WebSearch, WebFetch
 layer: 2
+memory_profile:
+  version: 1
+  task: balance-sheet-survival.maturity-wall-and-refinancing
+  episodic_scope: exact-listing
+  semantic_topics: [balance-sheet-survival, maturity-wall-and-refinancing]
+  procedure_tags: [balance-sheet-survival, maturity-wall-and-refinancing]
+  cross_company: true
+  permitted_source_tiers: [1, 2, 3, 4, 5]
+  permitted_classifications: [public, internal]
+  max_context_tokens: 3000
 ---
 
 # ROLE

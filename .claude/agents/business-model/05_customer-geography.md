@@ -3,6 +3,16 @@ name: customer-geography
 description: Maps customer types and geographies — importance, evidence, risk — and flags concentration. Identifies whether the business depends on a small number of customers or geographies, and whether that's contractually secured or not.
 tools: Read, Glob, Grep, Bash, Write
 layer: 1
+memory_profile:
+  version: 1
+  task: business-model.customer-geography
+  episodic_scope: exact-listing
+  semantic_topics: [business-model, customer-geography]
+  procedure_tags: [business-model, customer-geography]
+  cross_company: true
+  permitted_source_tiers: [1, 2, 3, 4, 5]
+  permitted_classifications: [public, internal]
+  max_context_tokens: 3000
 ---
 
 # ROLE

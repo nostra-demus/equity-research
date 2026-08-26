@@ -8,7 +8,7 @@ Three refinements are essential:
 
 1. Provider model discovery does not prove that the configured credential is entitled, funded, or able to complete the real workload. Use a layered synthetic check, not a model-list check alone.
 2. HTTP status alone does not determine permanence. A `404` may mean a retired model, a wrong endpoint, a deployment name, or an account-specific entitlement. Classify the provider's structured error code and message, quarantine the exact configuration fingerprint, and preserve fallback.
-3. A static backlog percentage is weaker than a forecast. Alert on **time to either loss boundary**—capacity overflow and age expiry—with 50% as an early floor, not the sole trigger.
+3. A static backlog count is weaker than a forecast. Alert on **time to a missed service target**, local disk pressure, and archive lag. The SQLite queue no longer has an item-count loss boundary; policy retirement preserves the full unscored payload.
 
 This plan therefore builds one reliability control loop around the engine's existing provider, cooldown, budget, diagnostics, and backlog machinery. It does not build a parallel scheduler or monitoring product.
 
@@ -20,7 +20,7 @@ Reuse these seams before adding anything:
 - Shared provider budgets, rate limiters, cooldown markers, and structured diagnostic rows.
 - Separate diagnostics for retry holds, configured allowance exhaustion, provider-reported day limits, rejected credentials, pacing, and unreadable ledgers.
 - Consecutive-failure and failure-duration telemetry.
-- A durable deferred queue with a hard capacity boundary, an age boundary, trend, and explicit counters for both overflow loss and age-expiry loss.
+- A canonical SQLite deferred queue on the engine host. The JSON cap bounds only a compatibility hot window; every excess row stays active in SQLite overflow. Age retirement removes stale work from scheduling but preserves its full payload and reason.
 - A cockpit diagnostics panel and tests for the distinctions above.
 - Existing scheduled-service installation patterns under `scripts/ops/` and CI under `.github/`.
 
@@ -30,7 +30,7 @@ The implementation should extend those contracts. A second health-state store, a
 
 The finished system must uphold these invariants:
 
-- **No silent loss:** every item is in exactly one terminal or recoverable state: scored, durably deferred, deliberately retired by a documented policy, or counted as lost with a reason.
+- **No silent loss:** every item is in exactly one terminal or recoverable state: scored in the firehose, active in SQLite, or deliberately retired with its full payload and reason retained in SQLite.
 - **No infinite retry of a standing fault:** a terminal configuration fault is quarantined after bounded evidence and is not retried until its configuration fingerprint changes or a scheduled low-rate probe succeeds.
 - **No false provider claims:** engine allowance, provider-reported quota, billing/credit state, model availability, credential entitlement, latency, and workload success remain separate fields.
 - **Fallback remains live:** quarantining one provider cannot disable later tiers.
@@ -68,7 +68,7 @@ Two safeguards prevent the proposed "permanent failure" fix from becoming a new 
 
 1. Merge the narrow retired-model replacement only after confirming the replacement with the configured credential and a production-shaped triage response.
 2. Preserve the current fallback chain and verify that the old model is absent from executable defaults, service templates, and operator docs.
-3. Snapshot the last seven days of cycle ledgers: arrivals, scored throughput, deferrals, queue depth, oldest age, overflow loss, age-expiry loss, provider attempts, successful batches, and failure classes.
+3. Snapshot the last seven days of cycle ledgers: arrivals, scored throughput, deferrals, active queue depth, oldest age, policy retirements, disk headroom, archive lag, provider attempts, successful batches, and failure classes.
 4. Record current provider configuration fingerprints and known reset windows without secret values.
 5. Establish incident acceptance evidence: the primary can score, fallback can score with primary forced unavailable, and new arrivals no longer increase the queue faster than aggregate service.
 
@@ -117,7 +117,7 @@ Outputs:
 
 **Exit:** a fixture that retires a model is detected by the next scheduled run, creates one deduplicated incident, quarantines only that model, and recovers after a configured replacement passes its contract canary.
 
-### Phase 3 — Predictive loss-boundary alarms (1–2 days)
+### Phase 3 — Predictive queue-health alarms (1–2 days)
 
 Keep the existing queue counters and add prediction rather than another queue monitor.
 
@@ -127,19 +127,19 @@ Compute over explicit 15-minute, 1-hour, 6-hour, and 24-hour windows:
 - successful scoring/service rate;
 - net growth rate;
 - oldest and p95 waiting age;
-- time to capacity overflow when net growth is positive;
-- time to age expiry from the oldest unscored item;
+- local-disk runway at the observed queue and firehose growth rate;
+- time to policy retirement from the oldest unscored item;
 - required throughput to recover within 6, 12, and 24 hours;
-- observed overflow and expiry loss, separately.
+- observed policy retirements and archive failures, separately.
 
 Alert policy:
 
-- **Info:** 25% full and growing for two windows.
-- **Warning:** 50% full, or projected to either loss boundary within 24 hours, or oldest age reaches 50% of its expiry limit.
-- **Critical:** 75% full, projected loss within 6 hours, all viable providers unavailable, or any observed loss.
-- **Emergency:** 90% full, projected loss within 1 hour, queue unreadable, or observed loss continues for two cycles.
+- **Info:** active depth grows for two windows.
+- **Warning:** projected local-disk pressure within 24 hours, oldest age reaches 50% of its retirement limit, or Drive archive lag exceeds one scheduled run.
+- **Critical:** projected disk exhaustion within 6 hours, all viable providers unavailable, or any policy retirement occurs.
+- **Emergency:** queue unreadable, projected disk exhaustion within 1 hour, or retirements continue for two cycles.
 
-Use hysteresis: open after two consecutive observations except immediate observed loss/unreadable state; recover only after three healthy observations and depth below the lower threshold. Alert payloads must include depth/cap, oldest age/limit, arrivals, service, time-to-loss, active capacity, disabled tiers, observed loss, and the exact remediation.
+Use hysteresis: open after two consecutive observations except an unreadable queue or a policy retirement; recover only after three healthy observations. Alert payloads must include active depth, oldest age/limit, arrivals, service, disk runway, archive lag, active provider capacity, disabled tiers, retirement count, and the exact remediation.
 
 Automatic protective actions, in order:
 
@@ -147,9 +147,9 @@ Automatic protective actions, in order:
 2. Stop optional LLM workloads that share constrained providers.
 3. Release reserved daily allowance according to an explicit emergency reserve policy.
 4. Enable an already-authorized paid tier only within a pre-approved emergency spend ceiling.
-5. Never increase the queue cap as a first-line "repair"; that delays capacity loss while worsening age loss and disk risk.
+5. Never treat a larger compatibility hot window as a capacity repair; it does not add provider throughput and increases rewrite and disk pressure.
 
-**Exit:** deterministic simulations trigger before both capacity and age loss; recovery does not flap; measured loss counters reconcile to injected losses exactly.
+**Exit:** deterministic simulations trigger before disk exhaustion and policy retirement; recovery does not flap; retirement and archive-failure counters reconcile exactly.
 
 ### Phase 4 — Evidence-based budgets and capacity admission (3–5 days)
 
@@ -214,7 +214,7 @@ Every drill produces a machine-readable report and fails if it violates an invar
 Extend the existing pipeline diagnostics rather than creating a separate dashboard. The summary should answer, without interpretation:
 
 - Are new items being durably accepted?
-- Is the queue growing, and when will either loss boundary be reached?
+- Is the queue growing, when will the oldest work retire, and how much local disk and archive headroom remains?
 - Which providers can complete the production contract now?
 - Which are paced, cooling, provider-day-limited, allowance-limited, quarantined, credential-rejected, billing-blocked, or unknown?
 - What automatic action was taken, what remains manual, and what did it cost?
@@ -228,7 +228,7 @@ Initial SLOs, to be recalibrated from the Phase 0 baseline:
 
 - 100% of accepted news items have a reconstructable lifecycle state.
 - 0 uncounted drops.
-- 100% of capacity and age-expiry losses emit a critical alert in the same cycle.
+- 100% of policy retirements, queue-read failures, and archive failures emit a critical alert in the same cycle.
 - Terminal provider configurations stop production retries within two calls, or immediately when an explicit provider retirement code is present.
 - Healthy fallback begins within one batch after primary quarantine.
 - Scheduled drift detection finds a test retirement within 24 hours; startup/config-change detection within 5 minutes.
@@ -269,7 +269,7 @@ Create short runbooks for retired model, rejected credential, exhausted credit, 
 | --- | --- | --- | --- |
 | P0 | Phase 0 containment | same day | stop current loss and prove the replacement |
 | P0 | Phase 1 classification/quarantine | 1–2 days | ends futile retries without breaking fallback |
-| P0 | Phase 3 predictive loss alarms | 1–2 days | warns before both real loss boundaries |
+| P0 | Phase 3 predictive queue-health alarms | 1–2 days | warns before retirement or disk exhaustion |
 | P1 | Phase 2 provider doctor | 2–3 days | detects drift before runtime and on config change |
 | P1 | Phase 5 persistence/schema invariants | 2–3 days | prevents the Wire failure class and preserves rejected data |
 | P1 | Phase 4 derived budgets/admission | 3–5 days | prevents predictable mid-run starvation |
@@ -284,7 +284,7 @@ The first production-safe tranche is Phases 0, 1, and 3—not a broad autonomous
 - Automatically purchasing credit or raising spend limits.
 - Treating a successful `/models` response as production health.
 - Retrying a malformed request against every provider without first deciding whether the request itself is invalid.
-- Hiding loss by enlarging retention/capacity or relabeling expired items as ordinary drops.
+- Hiding a missed scoring target by enlarging retention or relabeling retired items as ordinary drops.
 - Building a second scheduler, budget ledger, provider registry, or diagnostics surface.
 
 ## Final recommendation
@@ -293,7 +293,7 @@ Approve Claude's core thesis, but change the build order and specification:
 
 1. Contain and prove the current fix.
 2. Canonicalize error semantics and quarantine exact terminal configurations.
-3. Forecast and alert on both queue loss boundaries.
+3. Forecast and alert on queue age, disk runway, and archive lag.
 4. Add layered scheduled canaries and honest allowance observations.
 5. Make persistence schemas migratable and rejected writes durable.
 6. Derive run admission from versioned empirical resource profiles plus immutable hard ceilings.

@@ -22,7 +22,8 @@ import {
   conservativeChatUsdBound, cooldownInfo, dailyQuotaAdmission, inspectBudgetLedger, inspectUsdLedger,
   isCoolingDown, pacedCeiling, pacedHasHeadroom, usdAmountFits,
 } from './triage/budget'
-import { SYSTEM, buildUserMessage, estimateTokens } from './triage/groq'
+import { SYSTEM, buildUserMessage, estimateTokens, openAiRequestIdentity, type TriageOptions } from './triage/groq'
+import { readProviderQuarantine, type ProviderQuarantine } from './provider-failure'
 import { preTriagePriority } from './rank'
 import { buildPipelineFlowRates, readPipelineFlowCycles, type PipelineFlowHistory, type PipelineFlowRates } from './pipeline-flow'
 import { omniRouteDisabledReason } from './omniroute-provision-status'
@@ -455,7 +456,7 @@ function overflowHasHeadroom(now = Date.now()): boolean {
     const u = overflowUsage(p)
     if (u.ledgerUnavailable || u.dayUnavailable) return false
     const strictCost = diagnosticBatchTokenBound(batch, p.maxTokens)
-    const retryHeld = triageRetryInfo(p.id, now).until > now
+    const retryHeld = triageRetryInfo(p.id, now, true).until > now
     const hardFit = providerDrainUsable(retryHeld, u.used, u.cap, u.tokens, p.dailyTokenCap, strictCost)
     if (!hardFit) return false
     if (p.id === 'local') return true // demoted local is intentionally unpaced
@@ -487,7 +488,7 @@ export function budgetHasHeadroom(now = Date.now()): boolean {
   const batch = loadUnscoredDiagnosticBatch()
   const strictCost = diagnosticBatchTokenBound(batch, NEWS.triageMaxTokens)
   const paceCost = diagnosticBatchPaceBound(batch)
-  let groqOk = Boolean(NEWS.groqApiKey) && triageRetryInfo('groq', now).until <= now
+  let groqOk = Boolean(NEWS.groqApiKey) && triageRetryInfo('groq', now, true).until <= now
   if (groqOk) {
     const b = readDailyBudget('groq-budget.json', today)
     // Groq is drain-usable only if its durable authority is valid, it is not day-closed, and one complete
@@ -581,7 +582,7 @@ function localHasHeadroom(now = Date.now()): boolean {
     ? new Intl.DateTimeFormat('en-CA', { timeZone: NEWS.localProvider.dayTz, year: 'numeric', month: '2-digit', day: '2-digit' }).format(now)
     : new Date(now).toISOString().slice(0, 10)
   const ledger = readDailyBudget(NEWS.localProvider.budgetFile, day)
-  return !ledger.ledgerUnavailable && !ledger.dayUnavailable && triageRetryInfo('local', now).until <= now
+  return !ledger.ledgerUnavailable && !ledger.dayUnavailable && triageRetryInfo('local', now, true).until <= now
 }
 
 /**
@@ -727,7 +728,7 @@ export function getNewsStatus(
   }
   const groqLedger = readDailyBudget('groq-budget.json', todayDate)
   const groqEnabled = !!NEWS.groqApiKey
-  const groqRetry = triageRetryInfo('groq', statusNow)
+  const groqRetry = triageRetryInfo('groq', statusNow, true)
   const groqCoolMs = Math.max(0, groqRetry.until - statusNow)
   const groqEst = diagnosticBatchTokenBound(diagnosticBatch, NEWS.triageMaxTokens)
   const groqSpent = groqLedger.dayUnavailable || groqLedger.requests >= NEWS.groqDailyReqCap
@@ -787,7 +788,7 @@ export function getNewsStatus(
   for (const p of NEWS.overflowProviders) {
     const u = overflowUsage(p)
     const lead = (p.model || '').split('/').pop() || p.id
-    const retry = triageRetryInfo(p.id, statusNow)
+    const retry = triageRetryInfo(p.id, statusNow, true)
     const coolMs = Math.max(0, retry.until - statusNow)
     const strictCost = diagnosticBatchTokenBound(diagnosticBatch, p.maxTokens)
     const hardFit = !u.dayUnavailable && u.used < u.cap
@@ -820,7 +821,7 @@ export function getNewsStatus(
   if (NEWS.localProvider) {
     const lp = NEWS.localProvider
     const lb = readDailyBudget(lp.budgetFile, todayDate)
-    const cd = triageRetryInfo('local', statusNow)
+    const cd = triageRetryInfo('local', statusNow, true)
     const coolMs = Math.max(0, cd.until - statusNow)
     local = {
       id: lp.id, label: lp.label, color: lp.color, model: lp.model.split('/').pop() || lp.id,
@@ -899,8 +900,13 @@ export interface TierDiagnostics {
   cooldownReason?: string // failure-class tag carried by the health marker (never a provider quota claim)
   retryScope?: 'shared' | 'triage' // whether the hold affects every workload or only triage requests
   nextEligibleAt?: string // ISO instant at which the engine may probe this tier again
-  credentialRejected?: boolean // the provider is rejecting this tier's CREDENTIAL (repeated 401/402/403/404) — waiting cannot fix it; a human must replace the key/entitlement. Present only when true
+  credentialRejected?: boolean // legacy un-fingerprinted provider-access marker; canonical adapters use quarantined instead
   keyEnvVar?: string // the env-var NAME holding that credential (never the value) — so the operator knows what to fix
+  quarantined?: boolean // standing key/account/model/config fault; unlike cooldown, no timer reopens it
+  quarantineReason?: string // canonical provider-failure taxonomy; never raw third-party text
+  quarantineScope?: 'provider' | 'workload'
+  quarantinedAt?: string
+  quarantineObservations?: number
   /** Actionable text for an optional tier that is intentionally present in diagnostics while disabled. */
   disabledReason?: string
   failingForMs?: number // how long the CURRENT unbroken failure streak has run. The backoff window pins flat at its ceiling from the 5th failure, so it stops distinguishing "down an hour" from "down two days"; this does not
@@ -928,6 +934,7 @@ export interface TierDiagnostics {
     eligibilityReason: string
     explorationDue: boolean
     lastSelectedAt: string | null
+    lastSuccessAt: string | null
   }
 }
 
@@ -1013,10 +1020,10 @@ export interface NewsDiagnostics {
     allowanceExhaustedTiers: string[]
     unavailableTiers: string[]
     pacedTiers: string[]
-    // Tiers whose CREDENTIAL the provider is rejecting. Disjoint from every group above on purpose: those
-    // are all states that clear themselves, and this one never does. Merging it into `unavailableTiers`
-    // ("Can't read today's usage") would file a dead key under a disk problem.
+    // Legacy adapters may still expose their un-fingerprinted access streak here during migration. New
+    // adapters use quarantinedTiers, whose fingerprint lets a repaired key/model reopen safely.
     needsCredentialTiers: string[]
+    quarantinedTiers: string[] // standing config/account/model faults; disjoint from timer and quota groups
     blockingTiers: string[]
   }
 }
@@ -1067,33 +1074,25 @@ export function cycleHasDurableFeedCommit(cycle: CycleSummary | null | undefined
  * streak for a day-scoped failure count. */
 interface RetryInfo { until: number; fails: number; accessFails?: number; reason?: string; scope?: 'shared' | 'triage'; firstFailureAt?: number; observedMs?: number }
 
-/** How many consecutive `provider-access` rejections make a credential DEAD rather than unlucky.
- *
- *  HTTP 401/402/403/404 is an answer about the account, not about load: a revoked key, an unpaid balance, a
- *  missing entitlement, or a wrong model id. None of those clear by waiting, and the engine has no give-up
- *  state — `armCooldown` has no failure threshold and no marker TTL, so it re-probes forever. Three in a row
- *  is deliberately conservative: it rules out a one-off gateway 403 or a key rotated mid-cycle, while still
- *  naming the fault within minutes instead of after 46 failures and two days of silent countdowns.
- *
- *  The count is the ACCESS streak, not the general failure streak: `fails` counts timeouts and outages too,
- *  so reading it here declared a key dead on its first 403 whenever two ordinary failures happened to
- *  precede it. */
+/** Rolling-deploy compatibility for adapters not yet migrated to fingerprinted quarantine. The canonical
+ * OpenAI-compatible paths deliberately ignore this umbrella marker so a changed key/model can be tested. */
 export { CREDENTIAL_DEAD_AFTER_FAILS, credentialRejected } from './provider-routing'
 
 /** A triage call is blocked by either the provider-wide availability hold or its triage-workload hold.
  * If both are live, the later gate wins because that is the true next eligibility instant. */
-function triageRetryInfo(id: string, now: number): RetryInfo {
+function triageRetryInfo(id: string, now: number, ignoreLegacyAccess = false): RetryInfo {
   const shared = { ...cooldownInfo(STATE_DIR, id), scope: 'shared' as const }
   const workload = { ...cooldownInfo(STATE_DIR, `triage:${id}`), scope: 'triage' as const }
-  const live = [shared, workload].filter((x) => x.until > now).sort((a, b) => b.until - a.until)
+  const candidates = [shared, workload].filter((x) => !(ignoreLegacyAccess && x.reason === 'provider-access'))
+  const live = candidates.filter((x) => x.until > now).sort((a, b) => b.until - a.until)
   if (live.length) return live[0]
   // Once eligible, retain the newest streak for truthful "consecutive" context until a success clears it.
-  return workload.until > shared.until ? workload : shared
+  return candidates.sort((a, b) => b.until - a.until)[0] || { until: 0, fails: 0 }
 }
 
 function retryDiagnostics(
-  cd: RetryInfo, now: number, keyEnvVar?: string,
-): Pick<TierDiagnostics, 'cooldownRemainingMs' | 'cooldownReason' | 'retryScope' | 'nextEligibleAt' | 'consecutiveFailures' | 'fails' | 'credentialRejected' | 'keyEnvVar' | 'failingForMs' | 'lastFailureMs'> {
+  cd: RetryInfo, now: number, keyEnvVar?: string, quarantine?: ProviderQuarantine | null,
+): Pick<TierDiagnostics, 'cooldownRemainingMs' | 'cooldownReason' | 'retryScope' | 'nextEligibleAt' | 'consecutiveFailures' | 'fails' | 'credentialRejected' | 'keyEnvVar' | 'failingForMs' | 'lastFailureMs' | 'quarantined' | 'quarantineReason' | 'quarantineScope' | 'quarantinedAt' | 'quarantineObservations'> {
   const remaining = Math.max(0, cd.until - now)
   // The streak's own duration, not the current backoff window. The window pins flat at maxMs from the 5th
   // failure, so it is the one number that stops carrying information exactly when the outage gets long.
@@ -1112,6 +1111,17 @@ function retryDiagnostics(
     // Reported whether or not the retry timer is currently live: a rejected credential is a standing fault,
     // and hiding it in the gaps between countdowns is how it stayed invisible for two days.
     ...(dead ? { credentialRejected: true, ...(keyEnvVar ? { keyEnvVar } : {}) } : {}),
+    ...(quarantine ? {
+      quarantined: true,
+      quarantineReason: quarantine.failureCode,
+      quarantineScope: quarantine.scope,
+      quarantinedAt: new Date(quarantine.firstObservedAt).toISOString(),
+      quarantineObservations: quarantine.observations,
+      ...((quarantine.failureCode === 'auth' || quarantine.failureCode === 'entitlement') && keyEnvVar
+        ? { keyEnvVar }
+        : {}),
+      ...(quarantine.failureCode === 'auth' ? { credentialRejected: true } : {}),
+    } : {}),
   }
 }
 
@@ -1270,6 +1280,10 @@ export function getNewsDiagnostics(options: { omniRouteHomeDir?: string } = {}):
   const lastDeferReasons = persistedDeferReasons(last)
   const lastDeferReason = lastDeferReasons[0] ?? null
   const diagnosticBatch = loadUnscoredDiagnosticBatch()
+  const triageQuarantine = (options: TriageOptions): ProviderQuarantine | null =>
+    readProviderQuarantine(STATE_DIR, openAiRequestIdentity({
+      ...options, stateDir: STATE_DIR, workload: 'triage', contractVersion: 'news-triage-json-v1',
+    }, 'triage', 'news-triage-json-v1'))
 
   const tiers: TierDiagnostics[] = []
   // local is the PRIMARY brain (unlimited, $0, tried first) → it leads the ladder and Groq becomes a fallback.
@@ -1279,16 +1293,20 @@ export function getNewsDiagnostics(options: { omniRouteHomeDir?: string } = {}):
   // --- Local primary brain (order 0) — unlimited, $0, tried FIRST for every batch ---
   if (NEWS.localProvider) {
     const lp = NEWS.localProvider
+    const quarantine = triageQuarantine({
+      model: lp.model, models: lp.models, baseUrl: lp.baseUrl, apiKey: lp.apiKey,
+      maxTokens: lp.maxTokens, extraBody: lp.extraBody, providerId: lp.id,
+    })
     const b = readDailyBudget(lp.budgetFile, todayUtc)
-    const cd = triageRetryInfo('local', now)
+    const cd = triageRetryInfo('local', now, true)
     const coolMs = Math.max(0, cd.until - now)
     tiers.push({
       id: lp.id, label: lp.label, color: lp.color, role: 'primary', order: order++, enabled: true, spendingAllowed, meter: 'requests',
-      health: tierHealth(true, coolMs, b.dayUnavailable, false, b.ledgerUnavailable), // no configured cap, but its durable authority must still be valid
+      health: tierHealth(true, quarantine ? 1 : coolMs, b.dayUnavailable, false, b.ledgerUnavailable), // no configured cap, but its durable authority must still be valid
       ...(b.ledgerUnavailable ? { ledgerUnavailable: true } : {}),
       ...(b.providerDayExhausted ? { providerDayExhausted: true } : {}),
       ...(!b.ledgerUnavailable ? { requestsToday: b.requests, tokensToday: b.tokens } : {}), // no reqCap / tokenCap on purpose — it is unlimited
-      ...retryDiagnostics(cd, now), ...providerWorkDiagnostics(cyclesToday, lp.id),
+      ...retryDiagnostics(cd, now, lp.keyEnvVar, quarantine), ...providerWorkDiagnostics(cyclesToday, lp.id),
       ...providerLastCycleDiagnostics(last, lp.id, last?.local_requests),
     })
   }
@@ -1296,20 +1314,24 @@ export function getNewsDiagnostics(options: { omniRouteHomeDir?: string } = {}):
   // --- Groq (the PRIMARY when local is off; the FIRST FALLBACK when local is primary) ---
   {
     const enabled = !!NEWS.groqApiKey
+    const quarantine = enabled ? triageQuarantine({
+      model: NEWS.groqModel, baseUrl: NEWS.groqBaseUrl, apiKey: NEWS.groqApiKey,
+      maxTokens: NEWS.triageMaxTokens, providerId: 'groq', keyEnvVar: 'GROQ_API_KEY',
+    }) : null
     const b = readDailyBudget('groq-budget.json', todayUtc)
-    const cd = triageRetryInfo('groq', now)
+    const cd = triageRetryInfo('groq', now, true)
     const coolMs = Math.max(0, cd.until - now)
     const est = diagnosticBatchTokenBound(diagnosticBatch, NEWS.triageMaxTokens)
     const spent = b.dayUnavailable || b.requests >= NEWS.groqDailyReqCap || b.tokens >= NEWS.groqDailyTokenCap || b.tokens + est > NEWS.groqDailyTokenCap
     const paced = enabled && !spent && !pacedHasHeadroom(b.tokens, b.requests, NEWS.groqDailyReqCap, NEWS.groqDailyTokenCap, PACE, now, est, diagnosticBatchPaceBound(diagnosticBatch))
     tiers.push({
       id: 'groq', label: 'Groq', color: '--accent', role: localPrimary ? 'overflow' : 'primary', order: order++, enabled, spendingAllowed, meter: 'requests',
-      health: tierHealth(enabled, coolMs, spent, paced, b.ledgerUnavailable),
+      health: tierHealth(enabled, quarantine ? 1 : coolMs, spent, paced, b.ledgerUnavailable),
       ...(b.ledgerUnavailable ? { ledgerUnavailable: true } : {}),
       ...(b.providerDayExhausted ? { providerDayExhausted: true } : {}),
       ...(!b.ledgerUnavailable ? { requestsToday: b.requests, tokensToday: b.tokens } : {}),
       reqCap: NEWS.groqDailyReqCap, tokenCap: NEWS.groqDailyTokenCap,
-      ...retryDiagnostics(cd, now, 'GROQ_API_KEY'), ...providerWorkDiagnostics(cyclesToday, 'groq'),
+      ...retryDiagnostics(cd, now, 'GROQ_API_KEY', quarantine), ...providerWorkDiagnostics(cyclesToday, 'groq'),
       ...providerLastCycleDiagnostics(last, 'groq', last?.groq_requests),
     })
   }
@@ -1324,7 +1346,11 @@ export function getNewsDiagnostics(options: { omniRouteHomeDir?: string } = {}):
   const localOverflow = NEWS.overflowProviders.filter((p) => overflowRouteClass(p) === 'local-fallback')
   const pushOverflowTier = (p: (typeof NEWS.overflowProviders)[number]) => {
     const u = overflowUsage(p)
-    const cd = triageRetryInfo(p.id, now)
+    const quarantine = triageQuarantine({
+      model: p.model, models: p.models, baseUrl: p.baseUrl, apiKey: p.apiKey, maxTokens: p.maxTokens,
+      extraBody: p.extraBody, providerId: p.id, keyEnvVar: p.keyEnvVar,
+    })
+    const cd = triageRetryInfo(p.id, now, true)
     const coolMs = Math.max(0, cd.until - now)
     // est-aware, via the SAME predicate the drain gate uses (cooling handled separately by tierHealth, so
     // pass false here): a token-gated provider one batch short of its cap CANNOT score, so it reads
@@ -1347,12 +1373,12 @@ export function getNewsDiagnostics(options: { omniRouteHomeDir?: string } = {}):
     const paced = !spent && admission != null && !admission.pacedFit
     tiers.push({
       id: p.id, label: p.label, color: p.color, role: 'overflow', order: order++, enabled: true, spendingAllowed, meter: 'requests',
-      health: tierHealth(true, coolMs, spent, paced, u.ledgerUnavailable),
+      health: tierHealth(true, quarantine ? 1 : coolMs, spent, paced, u.ledgerUnavailable),
       ...(u.ledgerUnavailable ? { ledgerUnavailable: true } : {}),
       ...(u.providerDayExhausted ? { providerDayExhausted: true } : {}),
       ...(!u.ledgerUnavailable ? { requestsToday: u.used, tokensToday: u.tokens } : {}),
       reqCap: u.cap, tokenCap: p.dailyTokenCap,
-      ...retryDiagnostics(cd, now, p.keyEnvVar), ...providerWorkDiagnostics(cyclesToday, p.id),
+      ...retryDiagnostics(cd, now, p.keyEnvVar, quarantine), ...providerWorkDiagnostics(cyclesToday, p.id),
       ...providerLastCycleDiagnostics(last, p.id),
     })
   }
@@ -1491,6 +1517,7 @@ export function getNewsDiagnostics(options: { omniRouteHomeDir?: string } = {}):
   const localFallbackIds = new Set(localOverflow.map((provider) => provider.id))
   const candidateReason = (tier: TierDiagnostics): ProviderRoutingCandidate['eligibilityReason'] => {
     if (!tier.enabled || tier.spendingAllowed === false) return 'disabled'
+    if (tier.quarantined) return 'quarantined'
     if (tier.credentialRejected) return 'credential-rejected'
     if (tier.ledgerUnavailable) return 'ledger-unavailable'
     if (tier.providerDayExhausted) return 'provider-day-exhausted'
@@ -1560,6 +1587,7 @@ export function getNewsDiagnostics(options: { omniRouteHomeDir?: string } = {}):
       eligibilityReason: score.eligibilityReason,
       explorationDue: score.explorationDue,
       lastSelectedAt: score.lastSelectedAt,
+      lastSuccessAt: score.lastSuccessAt,
     }
     if (tier.id === 'anthropic-triage' && routing.router.mode === 'adaptive') tier.label = 'Claude Haiku'
   }
@@ -1601,12 +1629,13 @@ export function getNewsDiagnostics(options: { omniRouteHomeDir?: string } = {}):
   // A rejected credential arms a cooldown too, so without this exclusion the same tier appears both as
   // the credential alert and under "retry held" — and the two have opposite remedies (rotate a key vs
   // simply wait). needsCredentialTiers documents itself as disjoint from these groups; this makes it so.
-  const retryHeldTiers = tiers.filter((t) => t.enabled && t.spendingAllowed !== false && t.health === 'cooling' && !t.providerDayExhausted && t.credentialRejected !== true).map((t) => t.id)
+  const retryHeldTiers = tiers.filter((t) => t.enabled && t.spendingAllowed !== false && t.health === 'cooling' && !t.providerDayExhausted && t.credentialRejected !== true && t.quarantined !== true).map((t) => t.id)
   const providerDayExhaustedTiers = tiers.filter((t) => t.enabled && t.spendingAllowed !== false && t.providerDayExhausted).map((t) => t.id)
   const allowanceExhaustedTiers = tiers.filter((t) => t.enabled && t.spendingAllowed !== false && t.health === 'budget-spent' && !t.providerDayExhausted).map((t) => t.id)
-  const unavailableTiers = tiers.filter((t) => t.enabled && t.spendingAllowed !== false && t.health === 'unavailable').map((t) => t.id)
+  const unavailableTiers = tiers.filter((t) => t.enabled && t.spendingAllowed !== false && t.health === 'unavailable' && t.quarantined !== true).map((t) => t.id)
   const pacedTiers = tiers.filter((t) => t.enabled && t.spendingAllowed !== false && t.health === 'paced').map((t) => t.id)
   const needsCredentialTiers = tiers.filter((t) => t.enabled && t.spendingAllowed !== false && t.credentialRejected === true).map((t) => t.id)
+  const quarantinedTiers = tiers.filter((t) => t.enabled && t.spendingAllowed !== false && t.quarantined === true).map((t) => t.id)
   const blockingTiers = [...retryHeldTiers, ...providerDayExhaustedTiers, ...allowanceExhaustedTiers, ...unavailableTiers] // rolling-deploy compatibility
 
   return {
@@ -1655,6 +1684,7 @@ export function getNewsDiagnostics(options: { omniRouteHomeDir?: string } = {}):
       unavailableTiers,
       pacedTiers,
       needsCredentialTiers,
+      quarantinedTiers,
       blockingTiers,
     },
   }

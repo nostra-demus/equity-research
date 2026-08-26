@@ -1,9 +1,11 @@
 # Permanent memory foundation
 
-This directory contains the vendor-neutral reference components for Phases 0–6 of permanent
-research memory. Historical equity, commodity, and screener ledgers remain authoritative and
-byte-identical. The adapter presents those records through one canonical envelope; SQLite and every
-retrieval index remain disposable projections rather than sole holders of evidence.
+This directory contains the vendor-neutral components for permanent research memory. Historical
+equity, commodity, and screener ledgers remain authoritative and byte-identical. The adapter presents
+those records through one canonical envelope; SQLite and every retrieval index remain disposable
+projections rather than sole holders of evidence. Phases 0–6 remain the bounded reference foundation.
+`THREE_LAYER_MEMORY.md` and the three-layer contract bundle define the staged production upgrade;
+production dispatch stays off until its shadow and enforcement gates pass.
 
 ## Implemented scope
 
@@ -11,7 +13,7 @@ retrieval index remain disposable projections rather than sole holders of eviden
   non-content tombstones.
 - Semantic validation for IDs, bitemporal clocks, hashes, policies, evidence, and supersession.
 - Lossless deterministic adapters for the current decision, review, correction, commodity, screener,
-  idea, thesis, and conviction stores.
+  idea, thesis, conviction, and structured calibration-summary stores.
 - Deterministic loading of clean, tracked Git-lane events under `memory/events/`; dirty, untracked,
   symlinked, or policy-ineligible files fail closed.
 - A deterministic SQLite + FTS5 projection with explicit event, identity, claim, relationship,
@@ -39,15 +41,35 @@ retrieval index remain disposable projections rather than sole holders of eviden
   append-only correction, crash recovery, protected-store preflight, and store-orphan recovery.
 - A closed, read-only operational-readiness report that recomputes benchmark and SLO results from
   supplied observations and keeps missing production evidence explicitly `unmeasured`.
+- Closed production contracts for query v2, separated context packets, frozen run receipts,
+  supervisor-attested memory use, task/run episodes, semantic candidates/lessons, procedural
+  candidates/playbooks/evaluations/executions, provider policy, and PR-bound promotion manifests.
+- Cross-field fail-closed checks for authority narrowing, role token ceilings, mandatory-memory
+  overflow, exact-listing identity, 180-day semantic review, empirical promotion floors,
+  independent promotion, deterministic-tool allowlists, playbook validation cases, and untrusted
+  packet rendering.
+- A frozen 40-case three-layer acceptance corpus covering prior misses, corrections, semantic
+  applicability, cross-company isolation, playbook match/conflict, qualifier survival, and
+  abstention. It supplements rather than replaces the pinned 63-case Phase 0 benchmark.
+- A production projection manager that binds a clean SQLite rebuild to an exact repository SHA,
+  conservative issuer/listing registry, controlled-writer owner, and owner-signed external
+  checkpoint; exact provider-policy narrowing; and registry-backed transitive runtime purge hooks.
+- A deterministic production-candidate ranker for the exact pinned 63-case corpus, a closed scorer
+  for the additional 40 three-layer cases, and a pre-registered 100-task live paired-shadow
+  evaluator with exact provider-packet parity and material-claim lineage accounting.
+- A maximum-30-day Ed25519 release activation that binds fresh operational evidence, independently
+  signed runtime-benchmark and shadow-adjudication reports, and approved provider/models. Enforced
+  mode checks it before snapshot preparation and immediately before paid dispatch; no synthetic,
+  stale, or unmeasured report can activate the runtime. The promotion-service clock supplies the
+  creation time, and the release, benchmark, and adjudication keys must be pairwise distinct.
 
-These are bounded reference components, not a production deployment. The Phase 3 synthetic fixture
-gate passes, but the exact 63-case Phase 0 production-candidate benchmark has not been run. Phase 4
-proves protocol behavior with synthetic clients; it has not called a real Codex or Claude model API
-and has no human approval of shadow answers. Phase 5 does not install an exclusive production Git
-writer, service identity, remote canonical service, or cockpit integration. Reviewed feedback is
-auditable but has no rating, confidence, or calibration effect. Phase 6 therefore reports overall
-operational readiness as `unmeasured` until authenticated production observations cover adoption,
-material-claim lineage, write reliability, latency, restore, access, and review cadence. Dedicated
+The local production integration, supervisor boundary, cockpit, incident controls, and release gates
+are implemented. The exact 63-case production-candidate benchmark is reproducible and passes its
+non-regression, strict-improvement, temporal, and protected-path gates. Production enforcement still
+cannot be activated from repository fixtures: it remains correctly blocked until operators supply
+the pre-registered live 100-task Claude/Codex shadow sample and current authenticated readiness,
+write, latency, restore, purge, access, and review-cadence observations. Reviewed feedback is
+auditable but cannot create a rating, confidence, sufficiency, or position-size lift. Dedicated
 remote vector/graph infrastructure and automated memory-driven rating changes remain deferred.
 
 ## Authority and paths
@@ -138,6 +160,28 @@ PYTHONPATH=scripts python3 scripts/test_memory_phase5_projection_retrieval.py
 PYTHONPATH=scripts python3 scripts/test_memory_store_preflight.py
 PYTHONPATH=scripts python3 scripts/test_memory_store_orphan_recovery.py
 PYTHONPATH=scripts python3 scripts/test_memory_operations.py
+PYTHONPATH=scripts python3 scripts/test_memory_three_layer_contract.py
+PYTHONPATH=scripts python3 scripts/test_memory_runtime.py
+PYTHONPATH=scripts python3 scripts/test_memory_phase0_candidate.py
+PYTHONPATH=scripts python3 scripts/test_memory_three_layer_benchmark.py
+PYTHONPATH=scripts python3 scripts/test_memory_shadow_evaluation.py
+PYTHONPATH=scripts python3 scripts/test_memory_enforcement.py
+
+# Emit the exact pinned-corpus production-candidate report. Runtime evidence belongs in
+# the owner-only state root, never the repository.
+python3 scripts/memory_phase0_candidate.py \
+  --output /absolute/private/memory-runtime/operations/phase0-candidate-report.json
+
+# Prepare the production projection. The Ed25519 seed and public key are raw 32-byte,
+# owner-only files; the signed checkpoint must live outside the mutable state root.
+python3 scripts/memory_runtime_cli.py prepare \
+  --root . --state-root <private-runtime-state> \
+  --checkpoint <external-checkpoint.json> \
+  --writer-owner <controlled-writer-owner.json> \
+  --writer-head <controlled-writer-head.json> \
+  --private-key <owner-only-ed25519-seed> \
+  --public-key <owner-only-ed25519-public-key> \
+  --key-id research-memory-checkpoint-v1
 
 # Install the exact cryptographic runtime and prove exact-byte resolution twice.
 python3 -m pip install --require-hashes -r scripts/requirements-memory.txt
@@ -177,3 +221,11 @@ refresh and re-freeze rules.
 
 The phase-specific trust boundaries and focused verification commands are documented in
 `PHASE2.md`, `PHASE3.md`, `PHASE4.md`, `PHASE5.md`, and `PHASE6.md`.
+The production authority, provider, security, promotion, retention, and release boundaries are in
+`THREE_LAYER_MEMORY.md`. Public schema aliases resolve into
+`three-layer-contracts.schema.json`; `scripts/memory_three_layer_contract.py` adds the cross-document
+and temporal checks JSON Schema alone cannot express.
+
+Production service identities, incident switches, metadata-only cockpit routes, monthly clean
+rebuilds, and quarterly disposable restore/purge drills are operated through
+`scripts/ops/MEMORY_RUNBOOK.md`.

@@ -2,6 +2,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { createHash } from 'node:crypto'
 import { acquireRetainedFlockSync, releaseRetainedFlock } from '../singleton-lock'
+import { resolvedFirehoseFiles } from './firehose-files'
 
 const DAY_MS = 86_400_000
 const HALF_LIFE_MS = DAY_MS
@@ -19,6 +20,7 @@ export type ProviderEligibilityReason =
   | 'eligible'
   | 'disabled'
   | 'cooldown'
+  | 'quarantined'
   | 'credential-rejected'
   | 'ledger-unavailable'
   | 'hard-cap'
@@ -68,6 +70,9 @@ export interface ProviderCandidateScore extends ProviderRoutingCandidate {
   sampleSize: number
   explorationDue: boolean
   lastSelectedAt: string | null
+  /** Last audited batch that returned the complete scorer contract. Null means no success exists in the
+   * seven-day routing authority, so a configured backup must not be presented as proven healthy. */
+  lastSuccessAt: string | null
   components: ProviderFitnessComponents
 }
 
@@ -185,7 +190,7 @@ export type PipelineAuditEvent = ProviderStateSnapshotEvent | ProviderDecisionEv
 
 const ROUTER_MODES = new Set<ProviderRouterMode>(['static', 'shadow', 'adaptive', 'static-fallback'])
 const ELIGIBILITY_REASONS = new Set<ProviderEligibilityReason>([
-  'eligible', 'disabled', 'cooldown', 'credential-rejected', 'ledger-unavailable', 'hard-cap',
+  'eligible', 'disabled', 'cooldown', 'quarantined', 'credential-rejected', 'ledger-unavailable', 'hard-cap',
   'provider-day-exhausted', 'paced', 'contract-retry-limit', 'minimum-priority', 'aggregate-band',
   'demoted-local-band', 'haiku-pressure', 'reservation-unavailable',
 ])
@@ -753,6 +758,7 @@ function scoreCandidates(state: DerivedRoutingState, candidates: readonly Provid
       sampleSize: aggregate?.sampleSize || 0,
       explorationDue: candidate.eligible && recoveryDue && (underSampled || noPostRecoverySuccess),
       lastSelectedAt: aggregate?.lastSelectedAt || null,
+      lastSuccessAt: aggregate?.lastSuccessAt || null,
       components: {
         usableBatchYield: round(usableBatchYield),
         usefulThroughput: round(usefulThroughput),
@@ -784,14 +790,28 @@ export function evaluateProviderRouting(options: ProviderRoutingOptions, candida
     .sort((left, right) => (left.rank || Infinity) - (right.rank || Infinity))
   let selected = directScores[0] || null
   let exploration = false
-  if (directScores.length > 1 && loaded.state.decisionCount % 10 === 9) {
-    const probe = directScores.filter((candidate) => candidate.explorationDue).sort((left, right) => left.sampleSize - right.sampleSize || left.order - right.order)[0]
+  // Auto must be able to collect the two-provider evidence its own activation gate requires. Previously
+  // `auto` remained in shadow and calculated an exploration target, but returned no actual target until
+  // AFTER two providers already had outcomes. A healthy first provider therefore kept every later backup
+  // untested forever and the router could never leave shadow. One in ten real batches is now an in-band
+  // canary while auto is learning: no synthetic traffic, no second scheduler, and the existing caller keeps
+  // the same allowance reservation, limiter, cooldown, quarantine, audit, and durable-result path. Explicit
+  // `shadow` and `static` remain observation-only emergency overrides and never alter configured order.
+  const canExplore = router.mode === 'adaptive'
+    || (router.mode === 'shadow' && router.requestedMode === 'auto')
+  if (canExplore && directScores.length > 1 && loaded.state.decisionCount % 10 === 9) {
+    // Learning must not manufacture paid spend merely to satisfy its evidence gate. Haiku can earn proof
+    // when queue pressure legitimately reaches the opted-in last resort; once adaptive is live, retain the
+    // established cost-penalized recovery exploration policy across all eligible routes.
+    const probe = directScores.filter((candidate) => candidate.explorationDue
+      && (router.mode === 'adaptive' || !candidate.isHaiku))
+      .sort((left, right) => left.sampleSize - right.sampleSize || left.order - right.order)[0]
     if (probe) { selected = probe; exploration = true }
   }
   return {
     router,
     candidates: scores,
-    selectedProviderId: router.mode === 'adaptive' ? selected?.id || null : null,
+    selectedProviderId: router.mode === 'adaptive' || exploration ? selected?.id || null : null,
     shadowProviderId: selected?.id || null,
     exploration,
   }
@@ -925,25 +945,26 @@ interface FirehoseSummaryRow { ts: string; completed_at?: string; new_arrivals?:
 function readCycleSummaries(repoRoot: string, archiveDir: string, from: number, to: number): { rows: FirehoseSummaryRow[]; missing: string[]; corrupt: number; corruptDays: string[]; unreadable: string[] } {
   const out = { rows: [] as FirehoseSummaryRow[], missing: [] as string[], corrupt: 0, corruptDays: [] as string[], unreadable: [] as string[] }
   for (const date of eachUtcDay(from, to)) {
-    const files = [path.join(repoRoot, 'screener', 'inbox', `${date}_firehose.ndjson`), ...(archiveDir ? [path.join(archiveDir, `${date}_firehose.ndjson`)] : [])]
-    let text: string | null = null
-    let found = false
+    let files: ReturnType<typeof resolvedFirehoseFiles>
+    try { files = resolvedFirehoseFiles(repoRoot, date, archiveDir) }
+    catch { out.unreadable.push(date); continue }
+    if (!files.length) { out.missing.push(date); continue }
     for (const file of files) {
+      let text: string
       try {
-        const stat = fs.statSync(file); found = true
-        if (stat.size > 100 * 1024 * 1024) { out.unreadable.push(date); break }
-        text = fs.readFileSync(file, 'utf8'); break
-      } catch { /* try archive */ }
-    }
-    if (text == null) { if (!found && !out.unreadable.includes(date)) out.missing.push(date); continue }
-    for (const line of text.split('\n')) {
-      if (!line.includes('"kind":"cycle_summary"')) continue
-      try {
-        const row = JSON.parse(line) as FirehoseSummaryRow & { kind?: string }
-        if (row.kind !== 'cycle_summary' || !validIso(row.ts)) { out.corrupt++; out.corruptDays.push(date); continue }
-        const time = Date.parse(row.completed_at || row.ts)
-        if (time >= from && time < to) out.rows.push(row)
-      } catch { out.corrupt++; out.corruptDays.push(date) }
+        const stat = fs.statSync(file.file)
+        if (stat.size > 100 * 1024 * 1024) throw new Error('oversized firehose shard')
+        text = fs.readFileSync(file.file, 'utf8')
+      } catch { out.unreadable.push(date); break }
+      for (const line of text.split('\n')) {
+        if (!line.includes('"kind":"cycle_summary"')) continue
+        try {
+          const row = JSON.parse(line) as FirehoseSummaryRow & { kind?: string }
+          if (row.kind !== 'cycle_summary' || !validIso(row.ts)) { out.corrupt++; out.corruptDays.push(date); continue }
+          const time = Date.parse(row.completed_at || row.ts)
+          if (time >= from && time < to) out.rows.push(row)
+        } catch { out.corrupt++; out.corruptDays.push(date) }
+      }
     }
   }
   return out

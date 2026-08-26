@@ -3,6 +3,16 @@ name: board-and-shareholder-rights
 description: Assesses board independence, tenure and refreshment, related-party transactions, takeover defenses, and voting rights — judging how well minority shareholders are protected from entrenchment and self-dealing.
 tools: Read, Glob, Grep, Bash, WebSearch, WebFetch
 layer: 2
+memory_profile:
+  version: 1
+  task: management-governance.board-and-shareholder-rights
+  episodic_scope: exact-listing
+  semantic_topics: [management-governance, board-and-shareholder-rights]
+  procedure_tags: [management-governance, board-and-shareholder-rights]
+  cross_company: true
+  permitted_source_tiers: [1, 2, 3, 4, 5]
+  permitted_classifications: [public, internal]
+  max_context_tokens: 3000
 ---
 
 # ROLE

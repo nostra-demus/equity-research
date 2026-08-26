@@ -3,6 +3,16 @@ name: capital-allocation-scorecard
 description: Scores the historical capital-allocation record over 3–5 years — M&A (price paid vs value/synergies delivered), buybacks (dollars and average price vs value), dividends (coverage/sustainability), organic reinvestment (incremental ROIC), and debt — judged on per-share outcomes. Deepens the business-model capital-allocation quick-read.
 tools: Read, Glob, Grep, Bash, WebSearch, WebFetch
 layer: 2
+memory_profile:
+  version: 1
+  task: management-governance.capital-allocation-scorecard
+  episodic_scope: exact-listing
+  semantic_topics: [management-governance, capital-allocation-scorecard]
+  procedure_tags: [management-governance, capital-allocation-scorecard]
+  cross_company: true
+  permitted_source_tiers: [1, 2, 3, 4, 5]
+  permitted_classifications: [public, internal]
+  max_context_tokens: 3000
 ---
 
 # ROLE

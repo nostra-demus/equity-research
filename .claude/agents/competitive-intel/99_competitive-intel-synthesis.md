@@ -5,6 +5,16 @@ description: Reads the competitive-intelligence module's specialist outputs and 
 tools: Read, Glob, Grep, Bash
 layer: 4
 fail_fast: false
+memory_profile:
+  version: 1
+  task: competitive-intel.competitive-intel-synthesis
+  episodic_scope: exact-listing
+  semantic_topics: [competitive-intel, competitive-intel-synthesis]
+  procedure_tags: [competitive-intel, competitive-intel-synthesis]
+  cross_company: true
+  permitted_source_tiers: [1, 2, 3, 4, 5]
+  permitted_classifications: [public, internal]
+  max_context_tokens: 4000
 ---
 
 # ROLE

@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import fcntl
 import os
 import subprocess
 import sys
@@ -79,6 +80,7 @@ def test_deploy_holds_both_leases_through_build() -> None:
             **env,
             "HOME": home,
             "ENGINE_REPO_ROOT": prod,
+            "ENGINE_STATE_DIR": os.path.join(tmp, "state"),
             "NOSTRA_POOL": os.path.join(tmp, "absent-pool"),
             "PATH": fake_bin + os.pathsep + "/usr/bin:/bin:/usr/sbin:/sbin",
             "DEPLOY_DEBOUNCE_SECS": "0",
@@ -86,6 +88,24 @@ def test_deploy_holds_both_leases_through_build() -> None:
             "FAKE_NPM_RELEASE": release,
             "FAKE_NPM_CALLS": calls,
         }
+        barrier_dir = deploy_env["ENGINE_STATE_DIR"]
+        os.makedirs(barrier_dir, mode=0o700, exist_ok=True)
+        barrier_path = os.path.join(barrier_dir, "provider-deploy-barrier.flock")
+        barrier_fd = os.open(barrier_path, os.O_RDWR | os.O_CREAT | os.O_APPEND, 0o600)
+        try:
+            fcntl.flock(barrier_fd, fcntl.LOCK_SH | fcntl.LOCK_NB)
+            deferred = subprocess.run(["bash", DEPLOY], cwd=prod, env=deploy_env,
+                                      check=False, capture_output=True, text=True, timeout=5)
+            check(deferred.returncode == 0, "an active run should defer deploy cleanly")
+            check(run(["git", "rev-parse", "HEAD"], prod, env).stdout.strip() == base,
+                  "active-run barrier must defer before fast-forwarding the checkout")
+            check(not os.path.exists(calls),
+                  "active-run barrier must defer before npm reads or mutates the live tree")
+            check(open(os.path.join(ops, ".deployed.sha"), encoding="utf-8").read().strip() == base,
+                  "active-run barrier must leave the deployed marker unchanged")
+        finally:
+            os.close(barrier_fd)
+
         first = subprocess.Popen(["bash", DEPLOY], cwd=prod, env=deploy_env,
                                  stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
         try:

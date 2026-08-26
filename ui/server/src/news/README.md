@@ -32,7 +32,7 @@ stays the human's one-click "check it ▸" action. There is no auto-promote.
    free tier is never tripped; the seen-cache means a story is never scored twice.
 4. **Write** — `write-inbox.ts`: merge pick/watch rows into `screener/inbox/<DATE>_sweep.json`
    (idempotent by URL, preserving any human `consumed` / `launched_signal_id`), ranked by score and
-   capped; log a one-line cycle summary to `<DATE>_firehose.ndjson`; rebuild the board index.
+   capped; log items and cycle summaries to the date's firehose shards; rebuild the board index.
 
 The board's inbox cards then show the score, region, and the "why," and a `seen / kept / dropped`
 header — the "here's everything I'm getting and what I picked" view.
@@ -72,13 +72,13 @@ With the expanded source set (≈350 RSS feeds + NSE + GDELT), the daily item vo
 **Groq throughput is the binding constraint on "score everything"**. At roughly 2,000 tokens per triage
 batch, the 200,000-token daily allowance normally binds after about 100 calls, well before the 1,000-request
 ceiling. A higher Groq tier can use the extra headroom reported by its live headers. The firehose record
-(`kind:"item"`, capped at 40,000/day and 80 MB/day by default) shows every durably saved item read, kept
-*and* dropped. The item boundary is hard-clamped to 90 MB so cycle summaries retain a 10 MB reserve; the
-whole file, summaries included, stops at 99 MB below GitHub's 100 MB single-file boundary. If either cap or
-the append itself refuses work, the scanner reports zero progress and keeps it unseen in durable retry
-storage. Known-full preflight rows remain unscored; any suffix already scored keeps its exact result and a
-later look retries only persistence. A storage boundary can slow the queue, but it cannot silently consume a
-row or relabel an already-scored item as expired.
+(`kind:"item"`) shows every durably saved item read, kept *and* dropped. The original
+`<DATE>_firehose.ndjson` is shard zero; at 40,000 item rows or 80 MB by default, the writer rolls to
+`<DATE>_firehose.000001.ndjson`, then `.000002`, without waiting for midnight. Each item boundary is
+hard-clamped to 90 MB so cycle summaries retain a 10 MB reserve; every physical file, summaries included,
+stays below GitHub's 100 MB single-file boundary. The logical day and Drive archive have no application
+retention cap. If an append itself fails, the scanner reports zero progress and keeps the row in durable
+retry storage; a retry uses event identity across every shard, so rollover cannot duplicate it.
 
 ## Config (all `NEWS.*` in `../config.ts`, env-tunable)
 
@@ -95,8 +95,8 @@ never widen the shelf-life limit) ·
 `NEWS_GDELT_LOOKBACK_MIN` · `NEWS_INBOX_MAX_ROWS` · `NEWS_PICK_THRESHOLD` · `NEWS_WATCH_THRESHOLD` ·
 `NEWS_RSS_ENABLED` · `NEWS_RSS_FEEDS_PATH` · `NEWS_RSS_USER_AGENT` · `NEWS_RSS_CONCURRENCY` ·
 `NEWS_RSS_PER_HOST_GAP_MS` · `NEWS_NSE_ENABLED` · `NEWS_NSE_BASE_URL` · `NEWS_NSE_LOOKBACK_HOURS` ·
-`NEWS_FEED_ITEMS_DAILY_CAP` · `NEWS_FEED_ITEMS_DAILY_MAX_BYTES` (80,000,000 by default; values above
-90,000,000 are clamped) · `NEWS_DEFERRED_CAP` (100,000 by default) · `NEWS_DEFERRED_MAX_AGE_HOURS` (48 — the wire's own live
+`NEWS_FEED_SHARD_MAX_ITEMS` (40,000) · `NEWS_FEED_SHARD_MAX_BYTES` (80,000,000; values above 90,000,000
+are clamped; the legacy `NEWS_FEED_ITEMS_DAILY_*` names remain aliases) · `NEWS_DEFERRED_CAP` (100,000 by default) · `NEWS_DEFERRED_MAX_AGE_HOURS` (48 — the wire's own live
 window; an older backlog item is retired unscored and reported) · `NEWS_FRESH_RESERVE_FRAC` (0.5 — the share of
 each cycle's triage slots reserved for items fetched this cycle, so a deep backlog cannot starve live news) ·
 `NEWS_CONTRACT_RETRIES_PER_BATCH` (1) · `NEWS_OPENROUTER_TIMEOUT_MS` / `NEWS_NVIDIA_TIMEOUT_MS` (75,000) ·
@@ -155,6 +155,15 @@ workload-scoped, so a bad triage response does not unnecessarily sideline articl
 The cockpit calls these **engine retry holds**, not provider quota resets, and labels the bars as configured
 engine allowances rather than claiming live account-quota knowledge.
 
+The automatic fitness router also verifies backups before an emergency needs them. While its 24-hour
+learning gate is still open, at most one in ten ordinary triage batches is routed through an overdue,
+eligible free backup. This is useful real work—not a duplicate ping—so it uses the same provider lease,
+allowance reservation, limiter, retry hold, quarantine, and durable audit result as every other batch. That
+closes the old catch-22 where automatic activation required two-provider evidence but a healthy first route
+prevented any second route from collecting evidence. Explicit `NEWS_PROVIDER_ROUTER_MODE=shadow` and
+`static` remain observation-only. The cockpit shows when each route last returned the complete scorer
+contract, or says plainly that it has no successful proof in the seven-day routing window.
+
 - **Gemini** (`GEMINI_API_KEY`) — a rotation pool of free models (`generateContent`), each its own
   per-day bucket, resetting midnight Pacific.
 - **Cerebras** (`CEREBRAS_API_KEY`) — the biggest + fastest free pool, on `gpt-oss-120b`
@@ -173,7 +182,10 @@ engine allowances rather than claiming live account-quota knowledge.
   under 1 req/s) · `NEWS_MISTRAL_DAILY_REQ_CAP` (2000 soft backstop) · `NEWS_MISTRAL_MAX_TOKENS` ·
   `MISTRAL_BASE_URL` · `NEWS_MISTRAL_ENABLED=0` to force off.
 - **OpenRouter** (`OPENROUTER_API_KEY`) / **NVIDIA NIM** (`NVIDIA_API_KEY`) — request-gated free pools
-  participating in the same reset-clock allocator instead of waiting behind Cerebras + Mistral. Both run a
+  participating in the same reset-clock allocator instead of waiting behind Cerebras + Mistral. OpenRouter
+  defaults to its official `openrouter/free` router, which selects from currently available free models and
+  filters for the request's required capabilities; `NEWS_OPENROUTER_MODELS` remains the explicit ordered-model
+  override. This avoids turning normal free-model retirements into a broken default. Both providers run a
   **75s** call deadline (`NEWS_OPENROUTER_TIMEOUT_MS` / `NEWS_NVIDIA_TIMEOUT_MS`) rather than the generic 30s:
   the request is not streamed, so one clock covers queue wait + prefill + the whole decode, and a free `:free`
   model on a shared gateway queues before it generates. Both also set `skipArticleRead`, keeping them out of
@@ -190,12 +202,18 @@ nothing; and a failure moves the same batch to the next tier **in the same pass*
 
 On top of that:
 
-- **A rejected credential is named, not waited out.** HTTP 401/402/403/404 (`provider-access`) is an answer about
-  the account — a revoked key, an unpaid balance, a missing entitlement, a wrong model id. None of it clears by
-  retrying, and there is no give-up state in the backoff. After `CREDENTIAL_DEAD_AFTER_FAILS` (3) consecutive
-  such failures the tier reports `credentialRejected` plus the **name** of the env var holding its key
-  (`keyEnvVar` — never the value), and the cockpit leads with *"Key rejected … check `X_API_KEY`"* instead of a
-  countdown. Three, not one, so a rotated key or a one-off gateway 403 isn't blamed.
+- **Standing faults are quarantined, not waited out.** The shared classifier keeps authentication (401), billing
+  (402), entitlement (403), retired model/endpoint (an evidenced 404), invalid request, rate limit, upstream
+  failure, timeout and invalid response-contract failures separate. Authentication, billing, entitlement,
+  model/endpoint and configuration faults write an atomic, durable quarantine keyed to the provider, safe base
+  URL, model chain, credential fingerprint and request contract. Every process checks it before network I/O, so
+  one terminal response costs one call, healthy fallbacks take the same batch immediately, and restarts do not
+  start wasting requests again. The same contract covers OpenAI-compatible routes, Gemini's native Ideas
+  `generateContent` route, and Claude's native Themes Messages route. There is deliberately no retry timer: a
+  newer successful canary clears the
+  marker, while a changed key/model/endpoint/contract has a new fingerprint and gets a fresh attempt. The marker
+  stores only bounded error codes/types and the **name** of the key environment variable — never the key or the
+  provider's response body. An ambiguous 404 is treated as request/configuration failure, never blamed on a key.
 - **Failures are timed.** Every failing call records `elapsedMs`, and the cooldown marker carries it. A timeout
   *at* the configured deadline means the engine cut the call off and a longer one may work; far below it means
   the provider refused and the deadline is irrelevant. Read it in the tier row: *"a request timeout at 30.0s"*.

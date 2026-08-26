@@ -16,11 +16,13 @@ import {
   loadCanonicalCommand,
 } from '../src/providers/prompt-loader'
 import {
+  canonicalAgentNameFromCodexNativePath,
   CODEX_PROJECT_DOC_MAX_BYTES,
   CODEX_PROJECT_DOC_HEADROOM_BYTES,
   CODEX_TOOL_MAP,
   codexAgentExecutionProfile,
   codexAgentLoaderName,
+  codexNativeTaskName,
   mapCanonicalAgentModel,
 } from '../src/providers/codex-contract'
 
@@ -74,6 +76,12 @@ const agents = discoverCanonicalAgents(repoRoot)
 assert.ok(agents.length >= 100, 'canonical dynamic agent roster unexpectedly collapsed')
 assert.equal(new Set(agents.map((agent) => agent.name)).size, agents.length, 'canonical agent names must be globally unique')
 for (const agent of agents) {
+  const nativeTaskName = codexNativeTaskName(agent.name)
+  assert.equal(
+    canonicalAgentNameFromCodexNativePath(`/root/${nativeTaskName}`),
+    agent.name,
+    `${agent.name}: native task-name mapping must remain reversible`,
+  )
   assert.equal(loadCanonicalAgent(agent.name, repoRoot).sourcePath, agent.sourcePath)
   for (const tool of agent.tools) assert.ok(tool in CODEX_TOOL_MAP, `${agent.name}: ${tool} is unmapped`)
   if (agent.model) {

@@ -3,6 +3,16 @@ name: incentives-and-compensation
 description: Dissects executive compensation — the base/bonus/LTIP mix, the actual performance metrics and weights that pay out, and whether they reward per-share value (ROIC/EPS/TSR) or size (revenue/absolute EBITDA/deal count). Assesses pay magnitude vs performance and peers.
 tools: Read, Glob, Grep, Bash, WebSearch, WebFetch
 layer: 2
+memory_profile:
+  version: 1
+  task: management-governance.incentives-and-compensation
+  episodic_scope: exact-listing
+  semantic_topics: [management-governance, incentives-and-compensation]
+  procedure_tags: [management-governance, incentives-and-compensation]
+  cross_company: true
+  permitted_source_tiers: [1, 2, 3, 4, 5]
+  permitted_classifications: [public, internal]
+  max_context_tokens: 3000
 ---
 
 # ROLE

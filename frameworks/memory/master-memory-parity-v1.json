@@ -1,0 +1,71 @@
+{
+  "schema": "memory-master-parity-fixtures/v1",
+  "source_contract": ".claude/agents/synthesizer.md",
+  "frozen_at_repository_sha": "git:72b35a501ef9bdd44c0211a3c1eae3eb9d44640d",
+  "cases": [
+    {
+      "id": "newest-exact-listing-decision",
+      "input": "Two same-listing decisions and one same-ticker different-listing decision",
+      "expected": "Use the newest exact-listing decision only"
+    },
+    {
+      "id": "newest-reviewed-lesson",
+      "input": "Newest review belongs to an older exact-listing decision",
+      "expected": "Use the newest eligible review, not merely the newest decision's review"
+    },
+    {
+      "id": "correction-standing-read",
+      "input": "A frozen prior decision has an append-only correction",
+      "expected": "Apply the correction on read while preserving the frozen record"
+    },
+    {
+      "id": "exact-prior-miss-no-defense",
+      "input": "Prior genuine miss or learning.future_research_check has no current-run defense",
+      "expected": {
+        "confidence_cap": 60,
+        "rating_cap": "Watchlist",
+        "missing_data": true,
+        "highest_value_next_data_request": "exact learned factor"
+      }
+    },
+    {
+      "id": "exact-prior-miss-current-defense",
+      "input": "Current-run evidence explicitly rechecks the exact learned factor",
+      "expected": {
+        "confidence_cap": null,
+        "rating_cap": null,
+        "positive_lift": 0
+      }
+    },
+    {
+      "id": "calibration-module-flag",
+      "input": "One relevant module slice is flagged",
+      "expected": {"haircut_points": 8, "additive": false}
+    },
+    {
+      "id": "calibration-forecast-type-flag",
+      "input": "One current-ledger forecast-type slice is flagged",
+      "expected": {"haircut_points": 8, "additive": false}
+    },
+    {
+      "id": "calibration-thesis-type-flag",
+      "input": "One current-thesis-type slice is flagged",
+      "expected": {"haircut_points": 8, "additive": false}
+    },
+    {
+      "id": "calibration-leading-error-no-defense",
+      "input": "A leading error category count is at least two and the current run says no defense evidence found",
+      "expected": {"haircut_points": 8, "additive": false}
+    },
+    {
+      "id": "calibration-multiple-flags",
+      "input": "Module, forecast, thesis, and leading-error checks all flag",
+      "expected": {"haircut_points": 8, "additive": false}
+    },
+    {
+      "id": "prior-success",
+      "input": "Prior decision and forecast were successful",
+      "expected": {"may_focus_work": true, "positive_lift": 0}
+    }
+  ]
+}

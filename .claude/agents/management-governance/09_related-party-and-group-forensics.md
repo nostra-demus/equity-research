@@ -3,6 +3,16 @@ name: related-party-and-group-forensics
 description: Quantifies every related-party channel (RPT intensity, royalty, loans/ICDs/guarantees, promoter vendor-customer flows, related-party M&A including aborted deals) and maps the group structure (layers, entity count, trapped cash, sibling leakage, off-balance-sheet recourse) — the forensic follow-the-money read on whether value leaks from minority shareholders to the promoter, and whether the structure would let it hide.
 tools: Read, Glob, Grep, Bash, WebSearch, WebFetch
 layer: 2
+memory_profile:
+  version: 1
+  task: management-governance.related-party-and-group-forensics
+  episodic_scope: exact-listing
+  semantic_topics: [management-governance, related-party-and-group-forensics]
+  procedure_tags: [management-governance, related-party-and-group-forensics]
+  cross_company: true
+  permitted_source_tiers: [1, 2, 3, 4, 5]
+  permitted_classifications: [public, internal]
+  max_context_tokens: 3000
 ---
 
 # ROLE

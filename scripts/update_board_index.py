@@ -901,16 +901,27 @@ def read_ndjson(path: str) -> list[dict]:
     return out
 
 
-def firehose_translations(max_files: int = 5) -> dict[str, str]:
+def firehose_translations(max_days: int = 5) -> dict[str, str]:
     """event_id -> English translation (headline_en), read from the recent firehose item lines.
 
     The wire stores headline_en on every triaged non-English item (ui/server/src/news); a promoted
     signal/thesis links back by event_id, so we surface the SAME translation on the board without
-    re-translating. Bounded to the most recent firehose files (active signals/theses are recent); an
-    aged-out event simply has no entry and the UI falls back to the original headline. Newest file
-    wins (reverse-sorted + setdefault)."""
+    re-translating. Bounded to the most recent UTC days (active signals/theses are recent), while reading
+    every shard in those days; an aged-out event simply has no entry and the UI falls back to the original
+    headline. Newest shard wins (reverse-sorted + setdefault)."""
     xlate: dict[str, str] = {}
-    files = sorted(glob.glob(os.path.join(INBOX, "*_firehose.ndjson")), reverse=True)[:max_files]
+    def firehose_key(fp: str) -> tuple[str, int]:
+        match = re.match(r"^(\d{4}-\d{2}-\d{2})_firehose(?:\.(\d{6}))?\.ndjson$", os.path.basename(fp))
+        return (match.group(1), int(match.group(2) or 0)) if match else ("", -1)
+
+    all_files = sorted(
+        (fp for fp in glob.glob(os.path.join(INBOX, "*_firehose*.ndjson")) if firehose_key(fp)[1] >= 0),
+        key=firehose_key,
+        reverse=True,
+    )
+    recent_days = list(dict.fromkeys(firehose_key(fp)[0] for fp in all_files))[:max(0, max_days)]
+    recent_day_set = set(recent_days)
+    files = [fp for fp in all_files if firehose_key(fp)[0] in recent_day_set]
     for fp in files:
         for o in read_ndjson(fp):
             if o.get("kind") != "item":
@@ -937,18 +948,21 @@ def conviction_resolved_ids() -> set[str]:
 def firehose_counts(today: str) -> tuple[int, int, int]:
     """Sum today's autonomous-ingester cycle summaries → (seen, picked-into-inbox, dropped).
 
-    The ingester logs one compact `cycle_summary` line per run to <DATE>_firehose.ndjson (per-item
+    The ingester logs one compact `cycle_summary` line per run to the date's firehose shards (per-item
     `kind:"item"` lines are filtered out here); dropped items are counted but never written to the
     inbox. NOTE: seen can exceed picked + dropped — a cycle that hits the daily Groq budget or a
     transient Groq failure defers the unscored tail to the next cycle.
     """
     seen = picked = dropped = 0
-    for o in read_ndjson(os.path.join(INBOX, f"{today}_firehose.ndjson")):
-        if o.get("kind") != "cycle_summary":
-            continue
-        seen += int(o.get("candidates") or 0)
-        picked += int(o.get("picked") or 0) + int(o.get("watched") or 0)
-        dropped += int(o.get("dropped") or 0)
+    files = [os.path.join(INBOX, f"{today}_firehose.ndjson")]
+    files.extend(sorted(glob.glob(os.path.join(INBOX, f"{today}_firehose.[0-9]*.ndjson"))))
+    for fp in files:
+        for o in read_ndjson(fp):
+            if o.get("kind") != "cycle_summary":
+                continue
+            seen += int(o.get("candidates") or 0)
+            picked += int(o.get("picked") or 0) + int(o.get("watched") or 0)
+            dropped += int(o.get("dropped") or 0)
     return seen, picked, dropped
 
 
@@ -1477,6 +1491,26 @@ def _selftest() -> int:
     # exact filename is sufficient to fail closed even if a crash left malformed tombstone bytes.
     import tempfile
     from unittest import mock
+    with tempfile.TemporaryDirectory() as firehose_dir:
+        def write_firehose(day, shard, event_id):
+            suffix = "" if shard == 0 else f".{shard:06d}"
+            with open(os.path.join(firehose_dir, f"{day}_firehose{suffix}.ndjson"),
+                      "w", encoding="utf-8") as handle:
+                handle.write(json.dumps({"kind": "item", "event_id": event_id,
+                                         "headline_en": f"English {event_id}"}) + "\n")
+
+        # Six dates, with two shards on the fifth-newest date. max_days=5 means five DISTINCT UTC dates,
+        # not five physical files: both shards from that boundary date must still contribute.
+        for offset, day in enumerate(("2026-08-06", "2026-08-05", "2026-08-04",
+                                      "2026-08-03", "2026-08-02", "2026-08-01")):
+            write_firehose(day, 0, f"day-{offset}")
+        write_firehose("2026-08-02", 1, "boundary-shard")
+        with mock.patch.object(sys.modules[__name__], "INBOX", firehose_dir):
+            translations = firehose_translations(max_days=5)
+        check("translation horizon counts UTC dates and includes every shard in each retained date",
+              "boundary-shard" in translations and "day-4" in translations
+              and "day-5" not in translations and len(translations) == 6)
+
     with tempfile.TemporaryDirectory() as manifest_dir:
         manifest_path = os.path.join(manifest_dir, "board-history-recovery-manifest.json")
         occurrence = {
