@@ -3308,6 +3308,25 @@ export interface IdeaPassIdeaClaim {
   /** Stable identities of only the source rows that supported this accepted occurrence. */
   input_keys: string[]
 }
+export interface IdeaInterruptedAttemptRecord {
+  schema_version: 'ideas-interrupted-attempt/v1'
+  interruption_id: string
+  detected_at: string
+  started_at: string | null
+  phase: 'authorized' | 'dispatched' | 'legacy_unknown'
+  attempt_id: string | null
+  provider: string | null
+  input_keys: string[]
+  /** Aligned with input_keys. Null means the rolling/legacy checkpoint did not retain that event id. */
+  input_event_ids: (string | null)[]
+  recovered_idea_claims: IdeaPassIdeaClaim[]
+  outcome: 'response_unknown'
+  disposition: 'quarantined_at_most_once'
+}
+export interface IdeaPassUncertainInputAudit {
+  input_key: string
+  interruption_id: string
+}
 export interface IdeaPassSnapshotRevision {
   idea_id: string
   revision: string
@@ -3335,9 +3354,44 @@ export interface IdeaPassState {
    * quarantined, not completed: later/new rows keep flowing, but these rows are never sent again without
    * an explicit audited recovery. Changed or removed rows naturally drop because their identity changes. */
   uncertain_input_keys?: string[]
+  /** Permanent-ledger receipt aligned by exact input identity. A live quarantine cannot be cleared until
+   * every row has one, so an aging row never erases the only record of an unknown provider response. */
+  uncertain_input_audits?: IdeaPassUncertainInputAudit[]
   /** Durable request lifecycle marker. Recovery safely retries prepared, quarantines dispatched, and
    * locally finishes persisted without another provider call. */
   in_flight?: IdeaPassInFlightState
+}
+
+export const IDEA_INTERRUPTED_ATTEMPTS_PATH = 'screener/ledger/ideas_interrupted_attempts.ndjson'
+
+/** Append-only, fsynced and idempotent evidence for provider requests whose response is unknowable.
+ * Publication is deliberately owned by runIdeaPass, which must push this receipt before clearing the
+ * transient in-flight marker. */
+export function appendIdeaInterruptedAttempt(
+  repoRoot: string,
+  record: IdeaInterruptedAttemptRecord,
+): 'appended' | 'duplicate' {
+  const helperInRepo = path.join(repoRoot, 'scripts', 'append-ndjson.sh')
+  const helper = fs.existsSync(helperInRepo) ? helperInRepo : sourceTreeAppendHelper
+  if (!fs.existsSync(helper)) throw new Error(`Ideas interrupted-attempt append helper is missing: ${helper}`)
+  const ledger = path.join(repoRoot, IDEA_INTERRUPTED_ATTEMPTS_PATH)
+  const result = spawnSync('bash', [
+    helper, ledger, JSON.stringify(record), 'interruption_id', record.interruption_id,
+  ], {
+    cwd: repoRoot,
+    encoding: 'utf8',
+    timeout: 20_000,
+    maxBuffer: 256_000,
+    env: { ...process.env, NDJSON_REPO_LOCK_WAIT_MS: '15000' },
+  })
+  const stdout = String(result.stdout || '')
+  if (result.status === 0 && /^APPENDED=1\s*$/m.test(stdout)) return 'appended'
+  if (result.status === 0 && /^DUPLICATE=1\s*$/m.test(stdout)) return 'duplicate'
+  const stderr = String(result.stderr || '').trim()
+  const detail = result.error?.message || stderr || stdout.trim() || `exit ${result.status ?? result.signal ?? 'unknown'}`
+  throw Object.assign(new Error(`Ideas interrupted-attempt append failed: ${detail.slice(0, 240)}`), {
+    code: 'EIDEA_INTERRUPTION_APPEND',
+  })
 }
 
 export function readPassState(stateDir: string, failOnCorrupt = false): IdeaPassState | null {
@@ -3384,6 +3438,11 @@ export function readPassState(stateDir: string, failOnCorrupt = false): IdeaPass
       && o.completed_idea_claims.every((claim: any) => claim
         && typeof claim.idea_id === 'string' && claim.idea_id.length > 0 && claim.idea_id.length <= 256
         && Array.isArray(claim.input_keys) && stringArray(claim.input_keys)))
+    const uncertainAuditsValid = o?.uncertain_input_audits === undefined || (Array.isArray(o.uncertain_input_audits)
+      && o.uncertain_input_audits.length <= 10_000
+      && o.uncertain_input_audits.every((audit: any) => audit
+        && typeof audit.input_key === 'string' && audit.input_key.length > 0 && audit.input_key.length <= 256
+        && typeof audit.interruption_id === 'string' && /^IDEAI-[a-f0-9]{64}$/.test(audit.interruption_id)))
     if (o && typeof o.hash === 'string'
       && (o.effect_hash === undefined || typeof o.effect_hash === 'string')
       && typeof o.ran_at_ms === 'number' && Number.isFinite(o.ran_at_ms)
@@ -3392,6 +3451,7 @@ export function readPassState(stateDir: string, failOnCorrupt = false): IdeaPass
       && stringArray(o.completed_input_keys)
       && stringArray(o.completed_idea_ids)
       && stringArray(o.uncertain_input_keys)
+      && uncertainAuditsValid
       && claimsValid
       && inFlightValid) return o as IdeaPassState
   } catch { /* handled below */ }

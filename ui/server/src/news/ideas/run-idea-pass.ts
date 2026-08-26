@@ -25,10 +25,10 @@ import {
   type GeminiIdeasOptions,
 } from './surface-ideas-gemini'
 import {
-  ideaDecayAt, ideaId, ideaSnapshotRevision, ideaVersion, priorCoverage, pruneExpiredIdeas, readIdeaById,
-  readIdeaSnapshots, readPassState, readTopSweep, retireUnadmittedThemeIdeas, topNEffectHash, topNHash,
-  writeIdeaIfRevision, writePassState,
-  type IdeaPassChunkState, type SurfacedIdea,
+  appendIdeaInterruptedAttempt, ideaDecayAt, ideaId, ideaSnapshotRevision, ideaVersion, priorCoverage,
+  pruneExpiredIdeas, readIdeaById, readIdeaSnapshots, readPassState, readTopSweep, retireUnadmittedThemeIdeas,
+  topNEffectHash, topNHash, writeIdeaIfRevision, writePassState,
+  type IdeaInterruptedAttemptRecord, type IdeaPassChunkState, type SurfacedIdea,
 } from './ideas-store'
 import { IDEA_LEARNING_HORIZON_DAYS, learnIdeaAdjustment } from './idea-learning'
 import { directionMatchesEvidence, scoreTradeCluster, TRADE_SCORE_POLICY_VERSION, type TradeEvidence } from '../trade-score'
@@ -40,7 +40,7 @@ import {
 } from './ideas-health'
 import type { OverflowProvider } from '../../config'
 import { markIdeasPublicationPending, publishPendingIdeas, type IdeasPublishResult } from './ideas-publisher'
-import { randomUUID } from 'node:crypto'
+import { createHash, randomUUID } from 'node:crypto'
 import {
   publicProviderQuarantineNote,
   readProviderQuarantine,
@@ -117,6 +117,8 @@ export interface IdeaPassDeps {
   publishIdeas?: () => Promise<IdeasPublishResult>
   /** Internal durable hand-off invoked immediately before provider-budget reservation. */
   markProviderDispatch?: (providerId: string, at: number) => void
+  /** Internal test/embedding seam. Omitted uses the fsynced append-only interruption ledger. */
+  appendInterruptedAttempt?: (record: IdeaInterruptedAttemptRecord) => 'appended' | 'duplicate'
 }
 
 export interface IdeaPassResult {
@@ -132,6 +134,28 @@ interface ProviderDecision {
   reason_code: IdeasHealthReasonCode | null
   note?: string
   provider?: string
+}
+
+function ideaInterruptionId(
+  phase: IdeaInterruptedAttemptRecord['phase'],
+  attemptId: string | null,
+  startedAtMs: number | null,
+  inputKeys: string[],
+): string {
+  const identity = JSON.stringify({
+    phase,
+    attempt_id: attemptId,
+    started_at_ms: startedAtMs,
+    input_keys: [...new Set(inputKeys)].sort(),
+  })
+  return `IDEAI-${createHash('sha256').update(identity).digest('hex')}`
+}
+
+function providerFromIdeaAttemptId(attemptId: string | null): string | null {
+  if (!attemptId) return null
+  const separator = attemptId.lastIndexOf(':')
+  const provider = separator >= 0 ? attemptId.slice(separator + 1) : ''
+  return /^[a-z0-9][a-z0-9_-]{0,63}$/i.test(provider) ? provider : null
 }
 
 /** Worst-case billable tokens for one OpenAI-compatible idea-surfacing attempt. */
@@ -1063,6 +1087,43 @@ export async function runIdeaPass(deps: IdeaPassDeps): Promise<IdeaPassResult> {
     const ambiguousDispatch = priorMarker && priorMarker.phase !== 'prepared'
       && priorMarker.phase !== 'persisted'
     let recoveredAmbiguousDispatch = false
+    const interruptionAuditByInputKey = new Map((prev?.uncertain_input_audits || []).map((audit) => (
+      [audit.input_key, audit.interruption_id]
+    )))
+    const interruptionRecords: IdeaInterruptedAttemptRecord[] = []
+    const detectedAt = new Date(now()).toISOString()
+    const recordInputEvents = (keys: string[], aligned?: string[]): (string | null)[] => (
+      aligned?.length === keys.length
+        ? [...aligned]
+        : keys.map((key) => rowByInputKey.get(key)?.event_id || null)
+    )
+    // Rolling deployments may already have row-scoped quarantines created by the old code. Archive every
+    // such row before it can age out, then retain the ledger receipt beside its temporary live identity.
+    const legacyUnauditedKeys = (prev?.uncertain_input_keys || []).filter((key) => (
+      !interruptionAuditByInputKey.has(key)
+    ))
+    if (prev && legacyUnauditedKeys.length) {
+      const interruptionId = ideaInterruptionId('legacy_unknown', null, prev.ran_at_ms, legacyUnauditedKeys)
+      const legacyKeySet = new Set(legacyUnauditedKeys)
+      interruptionRecords.push({
+        schema_version: 'ideas-interrupted-attempt/v1',
+        interruption_id: interruptionId,
+        detected_at: detectedAt,
+        started_at: new Date(prev.ran_at_ms).toISOString(),
+        phase: 'legacy_unknown',
+        attempt_id: null,
+        provider: null,
+        input_keys: legacyUnauditedKeys,
+        input_event_ids: recordInputEvents(legacyUnauditedKeys),
+        recovered_idea_claims: (prev.completed_idea_claims || []).filter((claim) => (
+          claim.input_keys.some((key) => legacyKeySet.has(key))
+        )),
+        outcome: 'response_unknown',
+        disposition: 'quarantined_at_most_once',
+      })
+      for (const key of legacyUnauditedKeys) interruptionAuditByInputKey.set(key, interruptionId)
+    }
+    let recoveredAmbiguousState: typeof prev = null
     if (ambiguousDispatch && prev) {
       // There is no provider-wide idempotency key for this request. A sent request with no recorded result
       // can neither be retried (duplicate spend) nor called successful (lost rows). Quarantine only its
@@ -1093,16 +1154,75 @@ export async function runIdeaPass(deps: IdeaPassDeps): Promise<IdeaPassResult> {
         ...(prev.uncertain_input_keys || []),
         ...priorMarker.input_keys,
       ])].filter((key) => currentInputKeySet.has(key))
-      const { in_flight: _ambiguous, uncertain_input_keys: _oldUncertain, ...prior } = prev
+      const markerPhase = priorMarker.phase === 'authorized' ? 'authorized' : 'dispatched'
+      const attemptId = priorMarker.attempt_id || null
+      const interruptionId = ideaInterruptionId(
+        markerPhase, attemptId, priorMarker.started_at_ms, priorMarker.input_keys,
+      )
+      const markerKeySet = new Set(priorMarker.input_keys)
+      interruptionRecords.push({
+        schema_version: 'ideas-interrupted-attempt/v1',
+        interruption_id: interruptionId,
+        detected_at: detectedAt,
+        started_at: new Date(priorMarker.started_at_ms).toISOString(),
+        phase: markerPhase,
+        attempt_id: attemptId,
+        provider: providerFromIdeaAttemptId(attemptId),
+        input_keys: [...priorMarker.input_keys],
+        input_event_ids: recordInputEvents(priorMarker.input_keys, priorMarker.input_event_ids),
+        recovered_idea_claims: [...claims].flatMap(([idea_id, input_keys]) => (
+          input_keys.some((key) => markerKeySet.has(key)) ? [{ idea_id, input_keys }] : []
+        )),
+        outcome: 'response_unknown',
+        disposition: 'quarantined_at_most_once',
+      })
+      for (const key of priorMarker.input_keys) interruptionAuditByInputKey.set(key, interruptionId)
+      const uncertainInputAudits = uncertainInputKeys.map((input_key) => ({
+        input_key,
+        interruption_id: interruptionAuditByInputKey.get(input_key)!,
+      }))
+      const {
+        in_flight: _ambiguous,
+        uncertain_input_keys: _oldUncertain,
+        uncertain_input_audits: _oldUncertainAudits,
+        ...prior
+      } = prev
       const recovered = {
         ...prior,
         completed_idea_ids: [...claims.keys()],
         completed_idea_claims: [...claims].map(([idea_id, input_keys]) => ({ idea_id, input_keys })),
         ...(uncertainInputKeys.length ? { uncertain_input_keys: uncertainInputKeys } : {}),
+        ...(uncertainInputAudits.length ? { uncertain_input_audits: uncertainInputAudits } : {}),
       }
-      writePassState(deps.stateDir, recovered)
-      prev = recovered
+      recoveredAmbiguousState = recovered
+    }
+    if (interruptionRecords.length) {
+      // Mark before the first ledger mutation. A crash at any later instruction is recovered by the
+      // ordinary publication bootstrap, while the still-present pass marker prevents another request.
+      markIdeasPublicationPending(deps.stateDir, now())
+      const append = deps.appendInterruptedAttempt
+        || ((record: IdeaInterruptedAttemptRecord) => appendIdeaInterruptedAttempt(deps.repoRoot, record))
+      for (const record of interruptionRecords) append(record)
+      // The temporary progress marker is the final recovery authority. It remains intact until the
+      // append-only receipt is committed and pushed, so neither append nor publication failure can
+      // silently convert an unknown response into forgotten history.
+      const publication = await publish()
+      if (publication.status === 'failed') return publishFailure(publication)
+    }
+    if (recoveredAmbiguousState) {
+      writePassState(deps.stateDir, recoveredAmbiguousState)
+      prev = recoveredAmbiguousState
       recoveredAmbiguousDispatch = true
+    } else if (prev && legacyUnauditedKeys.length) {
+      const audited = {
+        ...prev,
+        uncertain_input_audits: (prev.uncertain_input_keys || []).map((input_key) => ({
+          input_key,
+          interruption_id: interruptionAuditByInputKey.get(input_key)!,
+        })),
+      }
+      writePassState(deps.stateDir, audited)
+      prev = audited
     }
     const priorResultPersisted = prev?.in_flight?.phase === 'persisted'
     if (priorResultPersisted && prev) {
@@ -1114,14 +1234,25 @@ export async function runIdeaPass(deps: IdeaPassDeps): Promise<IdeaPassResult> {
     }
     const priorUncertainInputKeys = prev?.uncertain_input_keys || []
     const activeUncertainKeys = priorUncertainInputKeys.filter((key) => currentInputKeySet.has(key))
+    const priorUncertainInputAudits = prev?.uncertain_input_audits || []
+    const activeUncertainAudits = activeUncertainKeys.map((input_key) => ({
+      input_key,
+      interruption_id: interruptionAuditByInputKey.get(input_key)!,
+    }))
     if (prev && (activeUncertainKeys.length !== priorUncertainInputKeys.length
-      || activeUncertainKeys.some((key, index) => key !== priorUncertainInputKeys[index]))) {
+      || activeUncertainKeys.some((key, index) => key !== priorUncertainInputKeys[index])
+      || JSON.stringify(activeUncertainAudits) !== JSON.stringify(priorUncertainInputAudits))) {
       // Row identity includes both prompt and persistence effects. A changed/removed row releases only its
       // own old identity; every unrelated uncertain row remains quarantined.
-      const { uncertain_input_keys: _staleUncertain, ...current } = prev
+      const {
+        uncertain_input_keys: _staleUncertain,
+        uncertain_input_audits: _staleUncertainAudits,
+        ...current
+      } = prev
       const reconciled = {
         ...current,
         ...(activeUncertainKeys.length ? { uncertain_input_keys: activeUncertainKeys } : {}),
+        ...(activeUncertainAudits.length ? { uncertain_input_audits: activeUncertainAudits } : {}),
       }
       writePassState(deps.stateDir, reconciled)
       prev = reconciled
@@ -1289,7 +1420,10 @@ export async function runIdeaPass(deps: IdeaPassDeps): Promise<IdeaPassResult> {
     }
     const completedIdeaIds = new Set(completedIdeaClaims.keys())
     const serializedIdeaClaims = () => [...completedIdeaClaims].map(([idea_id, input_keys]) => ({ idea_id, input_keys }))
-    const uncertainState = activeUncertainKeys.length ? { uncertain_input_keys: activeUncertainKeys } : {}
+    const uncertainState = activeUncertainKeys.length ? {
+      uncertain_input_keys: activeUncertainKeys,
+      uncertain_input_audits: activeUncertainAudits,
+    } : {}
     const chunkIsComplete = (index: number): boolean => completedByKey.has(chunkKey(chunkStates[index]))
       || chunkInputKeys[index].every((key) => completedInputKeys.has(key))
     const pendingChunkIndex = chunkStates.findIndex((_chunk, index) => !chunkIsComplete(index))
