@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-26T16:37:10Z",
+  "generated_at": "2026-08-26T17:29:59Z",
   "inbox": [
     {
       "inbox_id": "INB-20260826-980",
@@ -1647,6 +1647,252 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260826-1051",
+      "headline": "Meta dodges ‘Big Tobacco’ nightmare with $18 billion settlement in child-safety lawsuit",
+      "headline_en": null,
+      "url": "https://www.marketwatch.com/story/metas-stock-rises-as-the-company-settles-in-social-media-addiction-trial-78abdfbf?mod=mw_rss_topstories",
+      "source_name": "MarketWatch",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-26T17:12:00Z",
+      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
+      "prelim_note": "Meta settles child-safety lawsuit for quantified $18 billion, removing major contingent liability and confirming material capital charge.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Meta settles child-safety lawsuit for quantified $18 billion, removing major contingent liability and confirming material capital charge.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Meta",
+          "ticker": "META",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260826-1031",
+      "headline": "AD Ports board backs ADQ’s Dh6.25-a-share buyout offer",
+      "headline_en": null,
+      "url": "https://www.khaleejtimes.com/business/ad-ports-board-backs-adqs-dh625-a-share-buyout-offer",
+      "source_name": "Khaleej Times — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-26T15:58:47Z",
+      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
+      "prelim_note": "AD Ports board approved a buyout offer at Dh6.25 per share from ADQ, representing a significant corporate action.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "AD Ports board approved a buyout offer at Dh6.25 per share from ADQ, representing a significant corporate action.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "AD Ports",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260826-1029",
+      "headline": "Lockheed’s Pricey F-35 Sees 10% Cost Jump for Needed Upgrades",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-08-26/lockheed-s-pricey-f-35-sees-10-cost-jump-for-needed-upgrades",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-26T15:53:09Z",
+      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
+      "prelim_note": "Lockheed Martin faces a 10% cost increase for F-35 upgrades, impacting program margins and potentially government contract terms.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Lockheed Martin faces a 10% cost increase for F-35 upgrades, impacting program margins and potentially government contract terms.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Lockheed Martin",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260826-1032",
+      "headline": "Meta’s $17 billion child-safety settlement is the biggest tech payout ever—or 3x what it paid to acquihire a 28-year-old AI superstar",
+      "headline_en": null,
+      "url": "https://fortune.com/2026/08/26/meta-settlement-17-billion-child-safety-how-big/",
+      "source_name": "Fortune",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-26T15:32:21Z",
+      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
+      "prelim_note": "Meta faces a $17 billion settlement, a significant financial impact.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Meta faces a $17 billion settlement, a significant financial impact.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Meta Platforms",
+          "ticker": "META",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260826-1033",
+      "headline": "Abercrombie & Fitch Soars 37% on a $100M Tariff Refund and Raised Guidance, Ross and Kohl’s Hold Steady",
+      "headline_en": null,
+      "url": "https://247wallst.com/investing/2026/08/26/abercrombie-fitch-soars-37-on-a-100m-tariff-refund-and-raised-guidance-ross-stores-holds-flat/",
+      "source_name": "24/7 Wall St.",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-26T15:30:35Z",
+      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
+      "prelim_note": "Abercrombie & Fitch raised guidance and received a $100M tariff refund, significantly impacting cash flow and earnings expectations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Abercrombie & Fitch raised guidance and received a $100M tariff refund, significantly impacting cash flow and earnings expectations.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Abercrombie & Fitch",
+          "ticker": "ANF",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260826-1003",
       "headline": "Germany and UniCredit to talk about Commerzbank amid takeover battle",
       "headline_en": null,
@@ -1742,256 +1988,6 @@
           "name": "Abercrombie & Fitch",
           "ticker": null,
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260826-990",
-      "headline": "Zoom Falls 6% as Soft Q3 Profit Guidance Overshadows a Double Beat; HubSpot and Monday.com Slip",
-      "headline_en": null,
-      "url": "https://247wallst.com/investing/2026/08/26/zoom-falls-6-as-soft-q3-profit-guidance-overshadows-a-double-beat-hubspot-and-monday-com-slip/",
-      "source_name": "24/7 Wall St.",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-26T14:09:41Z",
-      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
-      "prelim_note": "Zoom Video Communications shares fell 6% following soft Q3 profit guidance despite beating earnings expectations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Zoom Video Communications shares fell 6% following soft Q3 profit guidance despite beating earnings expectations.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Zoom Video Communications",
-          "ticker": "ZM",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260826-948",
-      "headline": "Live updates: Trump notches endorsement wins; Meta, 29 states reach lawsuit settlement",
-      "headline_en": null,
-      "url": "https://thehill.com/homenews/administration/6051255-live-updates-trump-iran-canada-dolly-parton/",
-      "source_name": "The Hill — Homenews",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-26T13:55:05Z",
-      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
-      "prelim_note": "Meta and 29 states have reached a lawsuit settlement.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Meta and 29 states have reached a lawsuit settlement.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Meta",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260826-926",
-      "headline": "Meta settles for $18 billion in lawsuit brought by 29 states over social media harms to children",
-      "headline_en": null,
-      "url": "https://techcrunch.com/2026/08/26/meta-settles-for-18-billion-in-lawsuit-brought-by-29-states-over-social-media-harms-to-children/",
-      "source_name": "TechCrunch",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-26T13:43:01Z",
-      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
-      "prelim_note": "Meta has reached an $18 billion settlement regarding social media harms to children.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Meta has reached an $18 billion settlement regarding social media harms to children.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Meta",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260826-962",
-      "headline": "Abercrombie raises full-year sales forecast on robust apparel demand; shares surge",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/retail-consumer/abercrombie-raises-full-year-sales-forecast-resilient-apparel-demand-2026-08-26/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-26T13:42:20Z",
-      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
-      "prelim_note": "Abercrombie & Fitch raised its full-year sales forecast, indicating stronger-than-expected demand.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Abercrombie & Fitch raised its full-year sales forecast, indicating stronger-than-expected demand.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Abercrombie & Fitch",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260826-961",
-      "headline": "Victory Capital to acquire First Eagle in $7bn deal",
-      "headline_en": null,
-      "url": "https://www.ft.com/content/1809a163-07b8-46fd-b056-7ee25d5023d4?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-26T13:38:50Z",
-      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
-      "prelim_note": "Victory Capital announced the acquisition of First Eagle in a $7 billion deal.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Victory Capital announced the acquisition of First Eagle in a $7 billion deal.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Victory Capital",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "First Eagle",
-          "ticker": null,
-          "listing_country": null
         }
       ],
       "size_bucket": "mid",
@@ -79639,6 +79635,219 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-4402530dd0df",
+      "idea_version": "IDEAV-1b64f1ccf2917e03",
+      "idea_version_started_at": "2026-08-26T17:19:45Z",
+      "ticker": "03958",
+      "company": "DFZQ",
+      "exchange": "HKEX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The acquisition of 100% of Shanghai Securities will significantly increase the firm's market share and asset base in the Chinese brokerage sector.",
+      "why_now": "The Shanghai Stock Exchange accepted the application for the asset purchase on August 26, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-b61b739ecc2a"
+      ],
+      "primary_source_event_id": "EVT-b61b739ecc2a",
+      "source_headlines": [
+        "DFZQ (03958): (1) MAJOR TRANSACTION - THE PROPOSED ACQUISITION OF 100% EQUITY INTERESTS IN SHANGHAI SECURITIES BY WAY OF ISSUE OF CONSIDERATION A SHARES UNDER SPECIFIC MANDATE AND PAYMENT OF CASH AND (2) APPLICATION FOR WHITEWASH WAIVER ACCEPTANCE OF APPLICATION FOR THE PURCHASE OF ASSETS BY WAY OF ISSUE OF CONSIDERATION A SHARES UNDER THE PROPOSED TRANSACTION BY THE SHANGHAI STOCK EXCHANGE"
+      ],
+      "source_headline": "DFZQ (03958): (1) MAJOR TRANSACTION - THE PROPOSED ACQUISITION OF 100% EQUITY INTERESTS IN SHANGHAI SECURITIES BY WAY OF ISSUE OF CONSIDERATION A SHARES UNDER SPECIFIC MANDATE AND PAYMENT OF CASH AND (2) APPLICATION FOR WHITEWASH WAIVER ACCEPTANCE OF APPLICATION FOR THE PURCHASE OF ASSETS BY WAY OF ISSUE OF CONSIDERATION A SHARES UNDER THE PROPOSED TRANSACTION BY THE SHANGHAI STOCK EXCHANGE",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0826/2026082601813.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-26T13:49:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-24T16:50:38Z",
+      "updated_at": "2026-08-26T17:19:45Z",
+      "decay_at": "2026-08-28T01:49:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-e9dd060b2328",
+      "idea_version": "IDEAV-aec0dfa00c772a8e",
+      "idea_version_started_at": "2026-08-26T17:19:45Z",
+      "ticker": "MANKIND",
+      "company": "Mankind Pharma Ltd",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The acquisition of Bharat Serums and Vaccines Limited significantly expands the company's specialty pharmaceutical portfolio and market reach in high-growth therapeutic segments.",
+      "why_now": "The board approved the integration on August 26, 2026, signaling immediate commencement of the consolidation process.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-f43b1134d89e"
+      ],
+      "primary_source_event_id": "EVT-f43b1134d89e",
+      "source_headlines": [
+        "Mankind Pharma Ltd: Please find attached outcome of the Board Meeting held today, according consent of the Board of Directors of the Company for the integration of Bharat Serums and Vaccines Limited, a wholly ...."
+      ],
+      "source_headline": "Mankind Pharma Ltd: Please find attached outcome of the Board Meeting held today, according consent of the Board of Directors of the Company for the integration of Bharat Serums and Vaccines Limited, a wholly ....",
+      "source_url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/bb1e8a0a-d435-48a4-ac2e-74a395c6a105.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-26T11:13:03Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-26T17:19:45Z",
+      "updated_at": "2026-08-26T17:19:45Z",
+      "decay_at": "2026-08-27T23:13:03Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-ff642e393c3c",
+      "idea_version": "IDEAV-eaa5f0b672f19ef2",
+      "idea_version_started_at": "2026-08-26T17:19:45Z",
+      "ticker": "NITCO",
+      "company": "Nitco Limited",
+      "exchange": "BSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The joint venture with House of Abhinandan Lodha for a Rs 4,500-crore project provides a major revenue catalyst and operational scale for the company's real estate development business.",
+      "why_now": "The press release regarding the JV was issued on August 26, 2026.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-d1ea9cbeb12e"
+      ],
+      "primary_source_event_id": "EVT-d1ea9cbeb12e",
+      "source_headlines": [
+        "Nitco Limited: Nitco Limited has informed the Exchange regarding a press release dated August 26, 2026, titled \"NITCO forms JV with House of Abhinandan Lodha for Rs 4,500-crore Alibaug project\"."
+      ],
+      "source_headline": "Nitco Limited: Nitco Limited has informed the Exchange regarding a press release dated August 26, 2026, titled \"NITCO forms JV with House of Abhinandan Lodha for Rs 4,500-crore Alibaug project\".",
+      "source_url": "https://nsearchives.nseindia.com/corporate/NITCO_26082026173047_SE_PressRelease_HoABL.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-26T12:00:55Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-26T17:19:45Z",
+      "updated_at": "2026-08-26T17:19:45Z",
+      "decay_at": "2026-08-28T00:00:55Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-cdd269b5c982",
       "idea_version": "IDEAV-b1f67878e4d63fbd",
       "idea_version_started_at": "2026-08-26T11:24:53Z",
@@ -80998,78 +81207,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-20e3c2a189e6",
-      "idea_version": "IDEAV-8730845075074861",
-      "idea_version_started_at": "2026-08-25T10:04:28Z",
-      "ticker": "IIFLSEC",
-      "company": "IIFL Finance",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "A tax demand of Rs 963 crore represents a significant cash outflow and earnings headwind that was not previously accounted for in the company's financial outlook.",
-      "why_now": "The tax demand was reported on 2026-08-25.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-7a3c2eb71da1"
-      ],
-      "primary_source_event_id": "EVT-7a3c2eb71da1",
-      "source_headlines": [
-        "IIFL Finance Share Price Falls Over 8% After Rs 963 Crore Tax Demand From I-T Authority"
-      ],
-      "source_headline": "IIFL Finance Share Price Falls Over 8% After Rs 963 Crore Tax Demand From I-T Authority",
-      "source_url": "https://www.ndtvprofit.com/markets/iifl-finance-share-price-falls-7-after-rs-963-crore-tax-demand-from-it-authority-11954657#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-25T04:54:28Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-25T10:04:28Z",
-      "updated_at": "2026-08-25T10:04:28Z",
-      "decay_at": "2026-08-26T16:54:28Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-8431f766b3ed",
       "idea_version": "IDEAV-f04415eb6299e5c8",
       "idea_version_started_at": "2026-08-25T10:04:28Z",
@@ -81924,76 +82061,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-4b467da5d4b8",
-      "idea_version": "IDEAV-f852604dee153321",
-      "idea_version_started_at": "2026-08-23T16:33:16Z",
-      "ticker": "TSM",
-      "company": "Taiwan Semiconductor Manufacturing Company",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "AMD's $10 billion investment in advanced chip packaging directly secures and expands TSMC's high-margin foundry and packaging revenue stream.",
-      "why_now": "The capital expenditure commitment was announced on 2026-08-23, signaling immediate long-term capacity utilization for TSMC.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-e6b4ede32e87"
-      ],
-      "primary_source_event_id": "EVT-e6b4ede32e87",
-      "source_headlines": [
-        "AMD Is Investing More Than $10 Billion in Taiwan to Build Advanced Chip Packaging With TSMC. Here's What Lisa Su Is Actually Buying With That Money."
-      ],
-      "source_headline": "AMD Is Investing More Than $10 Billion in Taiwan to Build Advanced Chip Packaging With TSMC. Here's What Lisa Su Is Actually Buying With That Money.",
-      "source_url": "https://finance.yahoo.com/technology/articles/amd-investing-more-10-billion-155000045.html",
-      "source_name": "Yahoo Finance",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-23T15:50:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-23T16:33:16Z",
-      "updated_at": "2026-08-23T16:33:16Z",
-      "decay_at": "2026-08-25T03:50:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-bb6c79ef8ffe",
       "idea_version": "IDEAV-b5b37f571dad8a76",
       "idea_version_started_at": "2026-08-25T03:44:44Z",
@@ -82129,6 +82196,78 @@
       "surfaced_at": "2026-08-25T09:09:48Z",
       "updated_at": "2026-08-25T09:09:48Z",
       "decay_at": "2026-08-26T01:30:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-20e3c2a189e6",
+      "idea_version": "IDEAV-8730845075074861",
+      "idea_version_started_at": "2026-08-25T10:04:28Z",
+      "ticker": "IIFLSEC",
+      "company": "IIFL Finance",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "A tax demand of Rs 963 crore represents a significant cash outflow and earnings headwind that was not previously accounted for in the company's financial outlook.",
+      "why_now": "The tax demand was reported on 2026-08-25.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-7a3c2eb71da1"
+      ],
+      "primary_source_event_id": "EVT-7a3c2eb71da1",
+      "source_headlines": [
+        "IIFL Finance Share Price Falls Over 8% After Rs 963 Crore Tax Demand From I-T Authority"
+      ],
+      "source_headline": "IIFL Finance Share Price Falls Over 8% After Rs 963 Crore Tax Demand From I-T Authority",
+      "source_url": "https://www.ndtvprofit.com/markets/iifl-finance-share-price-falls-7-after-rs-963-crore-tax-demand-from-it-authority-11954657#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-25T04:54:28Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-25T10:04:28Z",
+      "updated_at": "2026-08-25T10:04:28Z",
+      "decay_at": "2026-08-26T16:54:28Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -82416,77 +82555,6 @@
       "surfaced_at": "2026-08-23T23:13:49Z",
       "updated_at": "2026-08-24T23:28:07Z",
       "decay_at": "2026-08-25T11:05:20Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-4402530dd0df",
-      "idea_version": "IDEAV-46c32b6ff22055b5",
-      "idea_version_started_at": "2026-08-24T23:28:07Z",
-      "ticker": "03958",
-      "company": "DFZQ",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The successful acquisition of Shanghai Securities and the grant of the whitewash waiver remove significant regulatory and execution uncertainty for the firm's expansion strategy.",
-      "why_now": "Shareholder approval and waiver grants were confirmed on August 24, 2026.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-6c7f7b452995"
-      ],
-      "primary_source_event_id": "EVT-6c7f7b452995",
-      "source_headlines": [
-        "DFZQ (03958): (1) MAJOR TRANSACTION - THE PROPOSED ACQUISITION OF 100% EQUITY INTERESTS IN SHANGHAI SECURITIES BY WAY OF ISSUE OF CONSIDERATION A SHARES UNDER SPECIFIC MANDATE AND PAYMENT OF CASH AND (2) APPLICATION FOR WHITEWASH WAIVER POLL RESULTS OF THE EXTRAORDINARY GENERAL MEETING, A SHAREHOLDERS' CLASS MEETING AND H SHAREHOLDERS' CLASS MEETING HELD ON AUGUST 24, 2026 AND GRANT OF THE WHITEWASH WAIVER"
-      ],
-      "source_headline": "DFZQ (03958): (1) MAJOR TRANSACTION - THE PROPOSED ACQUISITION OF 100% EQUITY INTERESTS IN SHANGHAI SECURITIES BY WAY OF ISSUE OF CONSIDERATION A SHARES UNDER SPECIFIC MANDATE AND PAYMENT OF CASH AND (2) APPLICATION FOR WHITEWASH WAIVER POLL RESULTS OF THE EXTRAORDINARY GENERAL MEETING, A SHAREHOLDERS' CLASS MEETING AND H SHAREHOLDERS' CLASS MEETING HELD ON AUGUST 24, 2026 AND GRANT OF THE WHITEWASH WAIVER",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0824/2026082402029.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-24T14:54:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-24T16:50:38Z",
-      "updated_at": "2026-08-24T23:28:07Z",
-      "decay_at": "2026-08-26T02:54:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -84923,7 +84991,7 @@
     "schema_version": "ideas-archive/v1",
     "health": {
       "status": "ok",
-      "file_count": 90,
+      "file_count": 91,
       "suppression_count": 0,
       "corrupt_count": 0,
       "invalid_count": 0,
@@ -84934,13 +85002,13 @@
     "hidden_count": 0,
     "side_counts": {
       "long": {
-        "total_count": 56,
-        "shown_count": 56,
+        "total_count": 55,
+        "shown_count": 55,
         "hidden_count": 0
       },
       "short": {
-        "total_count": 79,
-        "shown_count": 79,
+        "total_count": 80,
+        "shown_count": 80,
         "hidden_count": 0
       }
     },
@@ -84960,6 +85028,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-20e3c2a189e6",
+        "idea_version": "IDEAV-8730845075074861",
+        "idea_version_started_at": "2026-08-25T10:04:28Z",
+        "ticker": "IIFLSEC",
+        "company": "IIFL Finance",
+        "exchange": "NSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "A tax demand of Rs 963 crore represents a significant cash outflow and earnings headwind that was not previously accounted for in the company's financial outlook.",
+        "why_now": "The tax demand was reported on 2026-08-25.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-7a3c2eb71da1"
+        ],
+        "primary_source_event_id": "EVT-7a3c2eb71da1",
+        "source_headlines": [
+          "IIFL Finance Share Price Falls Over 8% After Rs 963 Crore Tax Demand From I-T Authority"
+        ],
+        "source_headline": "IIFL Finance Share Price Falls Over 8% After Rs 963 Crore Tax Demand From I-T Authority",
+        "source_url": "https://www.ndtvprofit.com/markets/iifl-finance-share-price-falls-7-after-rs-963-crore-tax-demand-from-it-authority-11954657#publisher=newsstand",
+        "source_name": "NDTV Profit",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-25T04:54:28Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-25T10:04:28Z",
+        "updated_at": "2026-08-25T10:04:28Z",
+        "decay_at": "2026-08-26T16:54:28Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-26T16:54:28Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-4b8102f69455",
         "idea_version": "IDEAV-ff99366965afb179",
@@ -85701,80 +85844,6 @@
         "feedback": null,
         "stale": true,
         "archived_at": "2026-08-26T03:14:22Z",
-        "archive_reason": "expired",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-4402530dd0df",
-        "idea_version": "IDEAV-46c32b6ff22055b5",
-        "idea_version_started_at": "2026-08-24T23:28:07Z",
-        "ticker": "03958",
-        "company": "DFZQ",
-        "exchange": "HKEX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The successful acquisition of Shanghai Securities and the grant of the whitewash waiver remove significant regulatory and execution uncertainty for the firm's expansion strategy.",
-        "why_now": "Shareholder approval and waiver grants were confirmed on August 24, 2026.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 20,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-6c7f7b452995"
-        ],
-        "primary_source_event_id": "EVT-6c7f7b452995",
-        "source_headlines": [
-          "DFZQ (03958): (1) MAJOR TRANSACTION - THE PROPOSED ACQUISITION OF 100% EQUITY INTERESTS IN SHANGHAI SECURITIES BY WAY OF ISSUE OF CONSIDERATION A SHARES UNDER SPECIFIC MANDATE AND PAYMENT OF CASH AND (2) APPLICATION FOR WHITEWASH WAIVER POLL RESULTS OF THE EXTRAORDINARY GENERAL MEETING, A SHAREHOLDERS' CLASS MEETING AND H SHAREHOLDERS' CLASS MEETING HELD ON AUGUST 24, 2026 AND GRANT OF THE WHITEWASH WAIVER"
-        ],
-        "source_headline": "DFZQ (03958): (1) MAJOR TRANSACTION - THE PROPOSED ACQUISITION OF 100% EQUITY INTERESTS IN SHANGHAI SECURITIES BY WAY OF ISSUE OF CONSIDERATION A SHARES UNDER SPECIFIC MANDATE AND PAYMENT OF CASH AND (2) APPLICATION FOR WHITEWASH WAIVER POLL RESULTS OF THE EXTRAORDINARY GENERAL MEETING, A SHAREHOLDERS' CLASS MEETING AND H SHAREHOLDERS' CLASS MEETING HELD ON AUGUST 24, 2026 AND GRANT OF THE WHITEWASH WAIVER",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0824/2026082402029.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-24T14:54:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-24T16:50:38Z",
-        "updated_at": "2026-08-24T23:28:07Z",
-        "decay_at": "2026-08-26T02:54:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-08-26T02:54:00Z",
         "archive_reason": "expired",
         "audit_only": true
       },
@@ -88297,8 +88366,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-08-25T03:50:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-08-26T17:19:52Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -94962,8 +95031,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 166,
-    "live_count": 30,
+    "surfaced_total": 168,
+    "live_count": 32,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -94982,9 +95051,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3475563,
-    "news_picked_today": 2040,
-    "news_dropped_today": 14640
+    "news_seen_today": 3624312,
+    "news_picked_today": 2115,
+    "news_dropped_today": 15069
   },
   "book_momentum": {
     "live_count": 8,
