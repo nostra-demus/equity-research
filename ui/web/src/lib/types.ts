@@ -2154,6 +2154,9 @@ export interface PortfolioClosure {
   /** Rates at each end, so the result can be split into what the STOCK did and what the CURRENCY did. */
   openFxRateToBase: number | null
   closeFxRateToBase: number | null
+  /** The closing execution this lot was matched against. One sell can consume several opening lots, so
+   *  this is what groups the FIFO fragments back into the single trade the operator actually placed. */
+  closeTradeID: string | null
 }
 
 export interface PortfolioBook {
@@ -2266,6 +2269,12 @@ export interface PortfolioThesisRow {
   /** Covered tickers this holding MIGHT be. Offered, never applied. */
   suggestions: string[]
 }
+/** What the operator has declared about a holding that the statement cannot say. */
+export interface PortfolioOverrides {
+  /** Symbols held as cash equivalents — a T-bill ETF is cash with a ticker, and the broker's own
+   *  subCategory cannot tell one from a sugar fund. */
+  cashEquivalents: string[]
+}
 export interface PortfolioThesisRead {
   rows: PortfolioThesisRow[]
   covered: string[]
@@ -2296,6 +2305,7 @@ export interface PortfolioRead {
   manual: PortfolioManualRead
   /** What the engine's research says about what is held. Read-only in both directions. */
   thesis: PortfolioThesisRead
+  overrides: PortfolioOverrides
   book: PortfolioBook | null
   performance: PortfolioPerformance | null
   error: string | null

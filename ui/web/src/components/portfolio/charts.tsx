@@ -10,7 +10,32 @@
 // honest picture of what holding the book felt like, and it is why it is drawn rather than summarised:
 // a single "worst fall" figure hides how long the book spent under water.
 
+import { useCallback, useRef, useState } from 'react'
+
 const PAD = { l: 46, r: 14, t: 12, b: 22 }
+
+/** Shared hover plumbing for both charts.
+ *
+ *  The SVG scales UNIFORMLY (no preserveAspectRatio override), so one factor converts a client x into
+ *  viewBox units — reading the raw offset instead would put the crosshair in the wrong place at every
+ *  width but one. Pointer events rather than mouse events, so a touch drag reads the curve too. */
+function useHover(count: number, W: number, x: (i: number) => number) {
+  const ref = useRef<SVGSVGElement | null>(null)
+  const [at, setAt] = useState<number | null>(null)
+  const onMove = useCallback((e: React.PointerEvent<SVGSVGElement>) => {
+    const el = ref.current
+    if (!el || count < 2) return
+    const box = el.getBoundingClientRect()
+    if (box.width <= 0) return
+    const vx = ((e.clientX - box.left) / box.width) * W
+    // Nearest point, not the one to the left: a crosshair that lags the cursor by half a step reads as
+    // broken on a sparse series.
+    const span = x(count - 1) - x(0)
+    const i = span <= 0 ? 0 : Math.round(((vx - x(0)) / span) * (count - 1))
+    setAt(Math.max(0, Math.min(count - 1, i)))
+  }, [count, W, x])
+  return { ref, at, onMove, onLeave: useCallback(() => setAt(null), []) }
+}
 
 function niceTicks(min: number, max: number, count = 4): number[] {
   if (!Number.isFinite(min) || !Number.isFinite(max) || min === max) return [min]
@@ -78,10 +103,15 @@ export function GrowthChart({ series, benchmarkSymbol, height = 210 }: {
   const bookPath = buildPath(bookPts, x, y)
   const area = `${bookPath} L${x(series.length - 1).toFixed(1)} ${y(min).toFixed(1)} L${x(0).toFixed(1)} ${y(min).toFixed(1)} Z`
   const last = series[series.length - 1]!
+  const hover = useHover(series.length, W, x)
+  // The legend doubles as the readout: hovering replaces "where it ended" with "where it was that day",
+  // which is the same three numbers in the same place rather than a floating box that covers the curve.
+  const shown = hover.at === null ? last : series[hover.at]!
 
   return (
     <div className="fundbook__chart">
       <svg className="fundbook__svg" viewBox={`0 0 ${W} ${H}`} role="img"
+        ref={hover.ref} onPointerMove={hover.onMove} onPointerLeave={hover.onLeave}
         aria-label={`Growth of capital rebased to 100: the book ends at ${last.book.toFixed(1)}${last.benchmark !== null ? ` against ${benchmarkSymbol} at ${last.benchmark.toFixed(1)}` : ''}`}>
         <defs>
           <linearGradient id="fbGrowthFill" x1="0" y1="0" x2="0" y2="1">
@@ -101,13 +131,25 @@ export function GrowthChart({ series, benchmarkSymbol, height = 210 }: {
         {hasBm && <path d={buildPath(bmPts, x, y)} fill="none" stroke="var(--text-faint)" strokeWidth="1.6" vectorEffect="non-scaling-stroke" strokeLinejoin="round" />}
         <path d={bookPath} fill="none" stroke="var(--accent)" strokeWidth="2" vectorEffect="non-scaling-stroke" strokeLinejoin="round" strokeLinecap="round" />
         <DateAxis series={series} x={x} H={H} W={W} />
+        {hover.at !== null && (
+          <g pointerEvents="none">
+            <line x1={x(hover.at)} y1={PAD.t} x2={x(hover.at)} y2={H - PAD.b}
+              stroke="var(--hairline-strong)" strokeWidth="1" vectorEffect="non-scaling-stroke" />
+            <circle cx={x(hover.at)} cy={y(shown.book)} r="3.5" fill="var(--accent)" />
+            {shown.benchmark !== null && <circle cx={x(hover.at)} cy={y(shown.benchmark)} r="3" fill="var(--text-faint)" />}
+          </g>
+        )}
       </svg>
-      <div className="fundbook__legend">
-        <span><i style={{ background: 'var(--accent)' }} />Book <b>{last.book.toFixed(1)}</b></span>
+      <div className={`fundbook__legend${hover.at !== null ? ' is-reading' : ''}`}>
+        <span><i style={{ background: 'var(--accent)' }} />Book <b>{shown.book.toFixed(1)}</b></span>
         {hasBm
-          ? <span><i style={{ background: 'var(--text-faint)' }} />{benchmarkSymbol} <b>{last.benchmark!.toFixed(1)}</b></span>
+          ? <span><i style={{ background: 'var(--text-faint)' }} />{benchmarkSymbol} <b>{shown.benchmark === null ? '—' : shown.benchmark.toFixed(1)}</b></span>
           : <span className="dim">{benchmarkSymbol} — no price history loaded</span>}
-        <span className="dim">{series[0]!.date} → {last.date} · rebased to 100 at the first funded day</span>
+        <span className="dim">
+          {hover.at === null
+            ? <>{series[0]!.date} → {last.date} · rebased to 100 at the first funded day</>
+            : <>{shown.date} · hover to read any day</>}
+        </span>
       </div>
     </div>
   )
@@ -131,10 +173,12 @@ export function UnderwaterChart({ series, height = 170 }: {
   const line = buildPath(pts, x, y)
   const area = `${line} L${x(series.length - 1).toFixed(1)} ${y(0).toFixed(1)} L${x(0).toFixed(1)} ${y(0).toFixed(1)} Z`
   const troughIndex = series.findIndex((s) => s.depth === deepest)
+  const hover = useHover(series.length, W, x)
 
   return (
     <div className="fundbook__chart">
       <svg className="fundbook__svg" viewBox={`0 0 ${W} ${H}`} role="img"
+        ref={hover.ref} onPointerMove={hover.onMove} onPointerLeave={hover.onLeave}
         aria-label={`Drawdown from the previous high, deepest ${deepest.toFixed(2)} percent`}>
         <defs>
           <linearGradient id="fbDdFill" x1="0" y1="0" x2="0" y2="1">
@@ -152,9 +196,20 @@ export function UnderwaterChart({ series, height = 170 }: {
         <path d={area} fill="url(#fbDdFill)" />
         <path d={line} fill="none" stroke="var(--bad)" strokeWidth="1.8" vectorEffect="non-scaling-stroke" strokeLinejoin="round" />
         <DateAxis series={series} x={x} H={H} W={W} />
+        {hover.at !== null && (
+          <g pointerEvents="none">
+            <line x1={x(hover.at)} y1={PAD.t} x2={x(hover.at)} y2={H - PAD.b}
+              stroke="var(--hairline-strong)" strokeWidth="1" vectorEffect="non-scaling-stroke" />
+            <circle cx={x(hover.at)} cy={y(series[hover.at]!.depth)} r="3.5" fill="var(--bad)" />
+          </g>
+        )}
       </svg>
-      <div className="fundbook__legend">
-        <span><i style={{ background: 'var(--bad)' }} />Deepest <b>{deepest.toFixed(2)}%</b>{troughIndex >= 0 && <> on {series[troughIndex]!.date}</>}</span>
+      <div className={`fundbook__legend${hover.at !== null ? ' is-reading' : ''}`}>
+        {hover.at === null ? (
+          <span><i style={{ background: 'var(--bad)' }} />Deepest <b>{deepest.toFixed(2)}%</b>{troughIndex >= 0 && <> on {series[troughIndex]!.date}</>}</span>
+        ) : (
+          <span><i style={{ background: 'var(--bad)' }} />Under water <b>{series[hover.at]!.depth.toFixed(2)}%</b> on {series[hover.at]!.date}</span>
+        )}
         <span className="dim">{series[0]!.date} → {series[series.length - 1]!.date} · measured on the flow-adjusted index, so a withdrawal is not a fall</span>
       </div>
     </div>

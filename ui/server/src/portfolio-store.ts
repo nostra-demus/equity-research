@@ -22,6 +22,7 @@ import {
   addManual, clearSuperseded, deleteManual, normalizeManual, provisionalRead, readManual,
   type ManualInput, type ManualRead, type StatementCoverage,
 } from './portfolio-manual'
+import { readOverrides, setCashEquivalent, type PortfolioOverrides } from './portfolio-overrides'
 import { readLinks, setLink, thesisRead, type PortfolioThesisRead } from './portfolio-thesis'
 import { benchmarkCompare, betaAlpha, dailyReturns, measuredWindow, moneyWeightedReturn, monthlyReturns, returnsByPeriod, riskMetrics, type BenchmarkRead, type BetaAlpha, type MonthRow, type PeriodReturn, type RiskRead } from './portfolio-metrics'
 
@@ -191,6 +192,9 @@ export interface PortfolioRead {
   /** What the engine's own research says about what is held. Read-only in both directions — a verdict
    *  never moves a position, and a position never moves a verdict. */
   thesis: PortfolioThesisRead
+  /** What the operator has declared about a holding that the statement cannot say — currently which
+   *  positions are cash equivalents rather than investments. */
+  overrides: PortfolioOverrides
   /** Null whenever there is no book to measure. */
   performance: PortfolioPerformance | null
   /** Present when the stored statements cannot currently produce a book — two accounts, say. The
@@ -292,6 +296,12 @@ export function removeManualTrade(id: string): boolean {
 
 /** Point a holding at the engine's research for a company, or pass null to unlink. Validated in
  *  portfolio-thesis.ts so every caller obeys the same rule. */
+/** Declare a holding a cash equivalent (a T-bill ETF is cash with a ticker), or take it back. */
+export function declareCashEquivalent(symbol: string, isCash: boolean): PortfolioRead {
+  setCashEquivalent(PORTFOLIO_DIR, symbol, isCash)
+  return readPortfolio()
+}
+
 export function linkThesis(symbol: string, ticker: string | null): PortfolioRead {
   setLink(PORTFOLIO_DIR, symbol, ticker)
   return readPortfolio()
@@ -309,6 +319,7 @@ export function readPortfolio(): PortfolioRead {
     return {
       statements, book: null, performance: null, error: null,
       manual: manualRead(statements, null), thesis: thesisOf(null),
+      overrides: readOverrides(PORTFOLIO_DIR),
     }
   }
   const key = currentKey(statements)
@@ -320,6 +331,7 @@ export function readPortfolio(): PortfolioRead {
       performance: cache.book ? performanceOf(cache.book) : null,
       manual: manualRead(statements, cache.book),
       thesis: thesisOf(cache.book),
+      overrides: readOverrides(PORTFOLIO_DIR),
     }
   }
 
@@ -350,5 +362,6 @@ export function readPortfolio(): PortfolioRead {
     performance: book ? performanceOf(book) : null,
     manual: manualRead(statements, book),
     thesis: thesisOf(book),
+    overrides: readOverrides(PORTFOLIO_DIR),
   }
 }

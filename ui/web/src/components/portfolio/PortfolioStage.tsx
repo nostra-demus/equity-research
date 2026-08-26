@@ -8,7 +8,6 @@ import type {
 import { useStore } from '../../lib/store'
 import { GrowthChart, UnderwaterChart } from './charts'
 import { LogTradeForm, ManualTradeList, ProvisionalEffects } from './manual'
-import { ThesisPanel } from './thesis'
 
 const EMPTY_MANUAL: PortfolioManualRead = { trades: [], live: 0, superseded: 0, effects: [] }
 const EMPTY_THESIS: PortfolioThesisRead = { rows: [], covered: [], coveredWeightPct: null, againstCount: 0, uncoveredCount: 0 }
@@ -40,8 +39,22 @@ const fmtMoney = (v: number | null | undefined, ccy: string | null): string => {
 }
 const fmtPct = (v: number | null | undefined, digits = 1): string =>
   v === null || v === undefined || !Number.isFinite(v) ? '—' : `${v >= 0 ? '+' : '−'}${Math.abs(v).toFixed(digits)}%`
-const fmtNum = (v: number | null | undefined, digits = 2): string =>
-  v === null || v === undefined || !Number.isFinite(v) ? '—' : v.toLocaleString('en-US', { minimumFractionDigits: digits, maximumFractionDigits: digits })
+const fmtNum = (v: number | null | undefined, digits = 2): string => {
+  if (v === null || v === undefined || !Number.isFinite(v)) return '—'
+  // The typographic minus the rest of the cockpit uses. A hyphen beside tabular figures reads as a
+  // dash, and `(-0.4).toLocaleString(…, {maximumFractionDigits: 0})` renders the string "-0", which
+  // looks like a broken row rather than a small loss.
+  const rounded = Number(v.toFixed(digits))
+  const sign = rounded < 0 ? '−' : ''
+  return `${sign}${Math.abs(rounded).toLocaleString('en-US', { minimumFractionDigits: digits, maximumFractionDigits: digits })}`
+}
+
+/** Precision that follows magnitude: a 0.1803-share lot is not "0", and a $4.29 gain is not "0" either. */
+const fmtQty = (v: number | null | undefined): string =>
+  v === null || v === undefined || !Number.isFinite(v) ? '—'
+    : Math.abs(v) < 1 && v !== 0 ? fmtNum(v, 4) : fmtNum(v, Number.isInteger(v) ? 0 : 2)
+const fmtSmallMoney = (v: number | null | undefined): string =>
+  v === null || v === undefined || !Number.isFinite(v) ? '—' : Math.abs(v) < 100 ? fmtNum(v, 2) : fmtNum(v, 0)
 
 /** Positive is amber, not green: the cockpit's --good IS the accent. Losses are the only red. */
 const toneOf = (v: number | null | undefined): string =>
@@ -75,7 +88,7 @@ export function PortfolioStage() {
     try {
       const before = snapshot(read)
       const result = await api.uploadStatements(files, setProgress)
-      const after: PortfolioRead = { statements: result.statements, book: result.book, performance: result.performance, manual: result.manual, thesis: result.thesis, error: result.error }
+      const after: PortfolioRead = { statements: result.statements, book: result.book, performance: result.performance, manual: result.manual, thesis: result.thesis, overrides: result.overrides, error: result.error }
       setRead(after)
       // What the import actually did to the book, measured rather than asserted: a "12 statements
       // imported" message that leaves every total unchanged is exactly the case an operator needs to
@@ -98,7 +111,6 @@ export function PortfolioStage() {
 
   const book = read?.book ?? null
   const manual = read?.manual ?? EMPTY_MANUAL
-  const thesis = read?.thesis ?? EMPTY_THESIS
   const ccy = book?.baseCurrency ?? null
   const hasStatements = (read?.statements.length ?? 0) > 0
 
@@ -187,15 +199,19 @@ export function PortfolioStage() {
           // the import surface, because when the build FAILS the Remove buttons there are the only way
           // out; hiding them behind a successful build strands the operator with an error and no control.
           <ImportTab
-            read={read ?? { statements: [], book: null, performance: null, manual: EMPTY_MANUAL, thesis: EMPTY_THESIS, error: null }}
+            read={read ?? { statements: [], book: null, performance: null, manual: EMPTY_MANUAL, thesis: EMPTY_THESIS, overrides: { cashEquivalents: [] }, error: null }}
             onFiles={upload} onChanged={setRead} busy={busy} progress={progress} notes={notes}
             firstRun={!hasStatements} changed={changed} manual={manual}
           />
         ) : tab === 'holdings' ? (
+          // `read?.overrides?.` uses optional chaining on a REQUIRED field on purpose: a server that
+          // predates the key — an older engine, or the live cockpit between a bundle deploy and its
+          // restart — would otherwise white-screen the whole Portfolio view over a field that only
+          // decorates it.
           <Holdings
-            book={book} perf={read?.performance ?? null} manual={manual} thesis={thesis}
+            book={book} perf={read?.performance ?? null} manual={manual}
+            cashEquivalents={read?.overrides?.cashEquivalents ?? []}
             onManage={() => setTab('trades')} onChanged={setRead}
-            onOpenRun={(runRoot, ticker) => { setResearchView('constellation'); void selectTicker(ticker, runRoot) }}
           />
         ) : tab === 'performance' ? (
           read?.performance
@@ -272,20 +288,30 @@ function Card({ label, value, sub, tone }: { label: string; value: string; sub?:
 
 // ---------- holdings ----------
 
-function Holdings({ book, perf, manual, thesis, onManage, onChanged, onOpenRun }: {
+function Holdings({ book, perf, manual, cashEquivalents, onManage, onChanged }: {
   book: PortfolioBook; perf: PortfolioPerformance | null; manual: PortfolioManualRead
-  thesis: PortfolioThesisRead; onManage: () => void; onChanged: (r: PortfolioRead) => void
-  onOpenRun: (runRoot: string, ticker: string) => void
+  cashEquivalents: string[]; onManage: () => void; onChanged: (r: PortfolioRead) => void
 }) {
   const ccy = book.baseCurrency
+  const isCashEq = (sym: string | null) => !!sym && cashEquivalents.includes(sym.toUpperCase())
+  const onCash = async (symbol: string, isCash: boolean) => {
+    try { onChanged(await api.setCashEquivalent(symbol, isCash)) } catch { /* the row simply does not move */ }
+  }
   const nav = book.navSeries.length ? book.navSeries[book.navSeries.length - 1]!.total : null
   const equities = book.positions.filter((p) => !p.isDerivative)
   const derivatives = book.positions.filter((p) => p.isDerivative)
-  const invested = equities.reduce((a, p) => a + (p.positionValue ?? 0) * (p.fxRateToBase ?? 1), 0)
+  // A T-bill ETF is cash with a ticker: it is held to park money, not to express a view. Counting it as
+  // invested made a book that is 72% in SGOV read as "99.7% invested" when it is mostly waiting. The
+  // broker cannot tell us — SGOV, CANE and GLDM all arrive as subCategory="ETF" — so the operator does.
+  const parked = equities.filter((p) => isCashEq(p.symbol))
+  const risked = equities.filter((p) => !isCashEq(p.symbol))
+  const parkedValue = parked.reduce((a, p) => a + (p.positionValue ?? 0) * (p.fxRateToBase ?? 1), 0)
+  const invested = risked.reduce((a, p) => a + (p.positionValue ?? 0) * (p.fxRateToBase ?? 1), 0)
   const unrealised = equities.reduce((a, p) => a + (p.unrealizedLocal ?? 0) * (p.fxRateToBase ?? 1), 0)
   const flows = book.flows.reduce((a, f) => a + (f.amountBase ?? 0), 0)
   const realised = book.closures.reduce((a, c) => a + (c.realizedBase ?? c.realizedLocal), 0)
-  const cash = nav === null ? null : nav - invested
+  const brokerCash = nav === null ? null : nav - invested - parkedValue
+  const cash = brokerCash === null ? null : brokerCash + parkedValue
 
   // Currency mix is real risk on a cross-border book, and nothing else on this screen shows it.
   const byCurrency = new Map<string, number>()
@@ -307,27 +333,49 @@ function Holdings({ book, perf, manual, thesis, onManage, onChanged, onOpenRun }
         <Card label="Income" value={fmtMoney(book.income.net, ccy)} sub={`Dividends ${fmtMoney(book.income.dividendsGross, ccy)} · withholding ${fmtMoney(book.income.withholdingTax, ccy)}`} tone={toneOf(book.income.net)} />
       </div>
 
-      {perf && perf.growth.length > 1 && (
+      {/* The curve and the bridge answer the same question from two directions — what the book did, and
+          what it is made of — so they sit side by side rather than a screen apart. */}
+      <div className="fundbook__split fundbook__split--wide">
+        {perf && perf.growth.length > 1 && (
+          <div className="fundbook__panel">
+            <div className="fundbook__panelhead">
+              <div>
+                <strong>Growth of capital</strong>
+                <small>Time-weighted, flows removed — the decisions, not when the capital arrived</small>
+              </div>
+            </div>
+            <GrowthChart series={perf.growth} benchmarkSymbol={perf.benchmark.symbol} height={230} />
+          </div>
+        )}
+
         <div className="fundbook__panel">
           <div className="fundbook__panelhead">
-            <div>
-              <strong>Growth of capital</strong>
-              <small>Time-weighted, flows removed — so this is the decisions, not when the capital arrived</small>
-            </div>
+            <div><strong>How NAV got here</strong><small>LP flows are removed from the return, but they still build the book</small></div>
           </div>
-          <GrowthChart series={perf.growth} benchmarkSymbol={perf.benchmark.symbol} />
+          <BridgeRow label="LP capital, net" value={fmtMoney(flows, ccy)} />
+          <BridgeRow label="Realised on closed trades" value={fmtMoney(realised, ccy)} tone={toneOf(realised)} />
+          <BridgeRow label="Unrealised on open positions" value={fmtMoney(unrealised, ccy)} tone={toneOf(unrealised)} />
+          <BridgeRow label="Income, net of withholding and fees" value={fmtMoney(book.income.net, ccy)} tone={toneOf(book.income.net)} />
+          <div className="fundbook__bridge is-total"><span>Net asset value</span><strong>{fmtMoney(nav, ccy)}</strong></div>
         </div>
-      )}
+      </div>
 
       <div className="fundbook__split">
         <div className="fundbook__panel">
           <div className="fundbook__panelhead">
-            <div><strong>Where the money sits</strong><small>Invested against cash, and the currencies carrying it</small></div>
+            <div><strong>Where the money sits</strong><small>What is at risk against what is parked, and the currencies carrying it</small></div>
           </div>
           {nav !== null && cash !== null && (
             <div className="fundbook__bars">
-              <Bar label="Invested" pct={(invested / nav) * 100} value={fmtMoney(invested, ccy)} />
+              <Bar label="At risk" pct={(invested / nav) * 100} value={fmtMoney(invested, ccy)} />
               <Bar label="Cash" pct={(cash / nav) * 100} value={fmtMoney(cash, ccy)} deep />
+            </div>
+          )}
+          {parked.length > 0 && (
+            <div className="fundbook__foot">
+              Cash includes {fmtMoney(parkedValue, ccy)} held as{' '}
+              {parked.map((p) => p.symbol).join(', ')} — declared cash equivalents, so they are money
+              waiting rather than money at risk. Untick them on a position row to count them as invested.
             </div>
           )}
           {currencyRows.length > 1 && (
@@ -345,31 +393,20 @@ function Holdings({ book, perf, manual, thesis, onManage, onChanged, onOpenRun }
           )}
         </div>
 
-        <div className="fundbook__panel">
-          <div className="fundbook__panelhead">
-            <div><strong>How NAV got here</strong><small>LP flows are removed from the return, but they still build the book</small></div>
-          </div>
-          <BridgeRow label="LP capital, net" value={fmtMoney(flows, ccy)} />
-          <BridgeRow label="Realised on closed trades" value={fmtMoney(realised, ccy)} tone={toneOf(realised)} />
-          <BridgeRow label="Unrealised on open positions" value={fmtMoney(unrealised, ccy)} tone={toneOf(unrealised)} />
-          <BridgeRow label="Income, net of withholding and fees" value={fmtMoney(book.income.net, ccy)} tone={toneOf(book.income.net)} />
-          <div className="fundbook__bridge is-total"><span>Net asset value</span><strong>{fmtMoney(nav, ccy)}</strong></div>
-        </div>
-      </div>
-
-      {book.flows.length > 0 && (
-        <div className="fundbook__panel">
-          <div className="fundbook__panelhead">
-            <div><strong>Capital flows</strong><small>Every contribution and withdrawal — removed from the return, so they never read as performance</small></div>
-          </div>
-          {[...book.flows].sort((a, b) => (b.date ?? '').localeCompare(a.date ?? '')).map((f, i) => (
-            <div key={`${f.date}-${i}`} className="fundbook__bridge">
-              <span><span className="mono dim">{f.date ?? '—'}</span> · {f.description ?? (f.amount >= 0 ? 'Contribution' : 'Withdrawal')}</span>
-              <strong style={{ color: toneOf(f.amountBase ?? f.amount) }}>{fmtMoney(f.amountBase ?? f.amount, ccy)}</strong>
+        {book.flows.length > 0 && (
+          <div className="fundbook__panel">
+            <div className="fundbook__panelhead">
+              <div><strong>Capital flows</strong><small>Every contribution and withdrawal — removed from the return, so they never read as performance</small></div>
             </div>
-          ))}
-        </div>
-      )}
+            {[...book.flows].sort((a, b) => (b.date ?? '').localeCompare(a.date ?? '')).map((f, i) => (
+              <div key={`${f.date}-${i}`} className="fundbook__bridge">
+                <span><span className="mono dim">{f.date ?? '—'}</span> · {f.description ?? (f.amount >= 0 ? 'Contribution' : 'Withdrawal')}</span>
+                <strong style={{ color: toneOf(f.amountBase ?? f.amount) }}>{fmtMoney(f.amountBase ?? f.amount, ccy)}</strong>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
 
       {manual.effects.length > 0 && (
         <div className="fundbook__panel is-provisional">
@@ -392,8 +429,22 @@ function Holdings({ book, perf, manual, thesis, onManage, onChanged, onOpenRun }
           <div className="fundbook__row fundbook__row--head">
             <span>Symbol</span><span>Ccy</span><span className="num">Quantity</span><span className="num">Avg cost</span>
             <span className="num">Mark</span><span className="num">Value</span><span className="num">Weight</span><span className="num">Unrealised</span>
+            <span />
           </div>
-          {equities.map((p, i) => <PositionRow key={`${p.conid ?? p.symbol ?? 'x'}-${i}`} p={p} />)}
+          {risked.map((p, i) => (
+            <PositionRow key={`${p.conid ?? p.symbol ?? 'x'}-${i}`} p={p} onCash={onCash} />
+          ))}
+          {parked.length > 0 && (
+            <>
+              <div className="fundbook__subhead">
+                Cash equivalents — money parked, not money at risk. Counted as cash above, and left out
+                of the weights the rest of the book is measured on.
+              </div>
+              {parked.map((p, i) => (
+                <PositionRow key={`c-${p.conid ?? p.symbol ?? 'x'}-${i}`} p={p} isCash onCash={onCash} />
+              ))}
+            </>
+          )}
           {derivatives.length > 0 && (
             <>
               <div className="fundbook__subhead">Derivatives — notional is <b>exposure</b>, not an allocation of NAV, so these carry no weight</div>
@@ -404,8 +455,6 @@ function Holdings({ book, perf, manual, thesis, onManage, onChanged, onOpenRun }
         </div>
       </div>
 
-      {/* Directly under the positions it describes — the join is only useful next to the thing joined. */}
-      <ThesisPanel thesis={thesis} onChanged={onChanged} onOpenRun={onOpenRun} />
     </>
   )
 }
@@ -443,17 +492,32 @@ function Delta({ label, before, after, beforeText, afterText }: {
   )
 }
 
-function PositionRow({ p, derivative }: { p: PortfolioPosition; derivative?: boolean }) {
+function PositionRow({ p, derivative, isCash, onCash }: {
+  p: PortfolioPosition; derivative?: boolean; isCash?: boolean
+  onCash?: (symbol: string, isCash: boolean) => void | Promise<void>
+}) {
   return (
-    <div className="fundbook__row">
+    <div className={`fundbook__row${isCash ? ' is-parked' : ''}`}>
       <strong className="mono">{p.symbol ?? '—'}</strong>
       <span className="dim">{p.currency ?? '—'}</span>
-      <span className="num">{fmtNum(p.quantity, 0)}</span>
+      <span className="num">{fmtQty(p.quantity)}</span>
       <span className="num dim">{fmtNum(p.costBasisPrice)}</span>
       <span className="num">{fmtNum(p.markPrice)}</span>
-      <span className="num">{fmtNum(p.positionValue, 0)}{derivative && <small className="fundbook__notional">notional</small>}</span>
+      <span className="num">{fmtSmallMoney(p.positionValue)}{derivative && <small className="fundbook__notional">notional</small>}</span>
       <span className="num dim">{derivative ? '—' : p.percentOfNAV === null ? '—' : `${p.percentOfNAV.toFixed(1)}%`}</span>
-      <span className="num" style={{ color: toneOf(p.unrealizedLocal) }}>{fmtNum(p.unrealizedLocal, 0)}</span>
+      <span className="num" style={{ color: toneOf(p.unrealizedLocal) }}>{fmtSmallMoney(p.unrealizedLocal)}</span>
+      {/* The broker cannot say whether an ETF is a view or a parking space, so the operator can. */}
+      <span className="fundbook__rowend">
+        {!derivative && onCash && p.symbol && (
+          <button
+            className="fundbook__linkbtn"
+            title={isCash ? `Count ${p.symbol} as an investment again` : `${p.symbol} is a place to park money, not a position`}
+            onClick={() => void onCash(p.symbol!, !isCash)}
+          >
+            {isCash ? 'not cash' : 'as cash'}
+          </button>
+        )}
+      </span>
     </div>
   )
 }
@@ -604,17 +668,68 @@ function Performance({ perf }: { perf: PortfolioPerformance }) {
 
 // ---------- trade history ----------
 
+/** One row of the trade table: a single closing execution, with every FIFO lot it consumed folded in. */
+interface TradeRowData {
+  symbol: string | null
+  currency: string | null
+  quantity: number
+  entryPrice: number
+  exitPrice: number
+  openedAt: string | null
+  closedAt: string | null
+  holdingDays: number
+  grossLocal: number
+  commissionLocal: number
+  /** Base currency where a rate existed, local otherwise — the same figure the cards above total. */
+  realized: number
+  /** How many opening lots this one exit consumed. */
+  lots: number
+}
+
 function Trades({ book, manual, onChanged }: {
   book: PortfolioBook; manual: PortfolioManualRead; onChanged: (r: PortfolioRead) => void
 }) {
   const [logging, setLogging] = useState(false)
   const ccy = book.baseCurrency
-  const rows = useMemo(
-    () => [...book.closures].sort((a, b) => (b.closedAt ?? '').localeCompare(a.closedAt ?? '')),
-    [book.closures],
-  )
+  // ONE ROW PER TRADE, NOT PER LOT. A single sell is matched against every opening lot it consumes, so
+  // FIFO produces one closure per lot — on the real book, 47 lot-rows for 31 trades, with one AMZN sell
+  // spread across nine of them. The operator placed one order; the lots are the accounting underneath
+  // it. `closeTradeID` is the closing execution, which is exactly the thing to group on. A closure with
+  // no id keeps its own row rather than being lumped with unrelated ones.
+  const rows = useMemo(() => {
+    const groups = new Map<string, PortfolioClosure[]>()
+    book.closures.forEach((c, i) => {
+      const key = c.closeTradeID ? `${c.symbol}|${c.closeTradeID}` : `solo|${i}`
+      const list = groups.get(key)
+      if (list) list.push(c); else groups.set(key, [c])
+    })
+    const merged: TradeRowData[] = [...groups.values()].map((lots) => {
+      const qty = lots.reduce((a, c) => a + c.quantity, 0)
+      // Weighted by quantity, because the lots being merged were opened at different prices — a plain
+      // mean would report an entry the book never paid.
+      const wAvg = (pick: (c: PortfolioClosure) => number) =>
+        qty === 0 ? pick(lots[0]!) : lots.reduce((a, c) => a + pick(c) * c.quantity, 0) / qty
+      const opened = lots.map((c) => c.openedAt).filter(Boolean).sort()[0] ?? null
+      return {
+        symbol: lots[0]!.symbol,
+        currency: lots[0]!.currency,
+        quantity: qty,
+        entryPrice: wAvg((c) => c.entryPrice),
+        exitPrice: wAvg((c) => c.exitPrice),
+        openedAt: opened,
+        closedAt: lots[0]!.closedAt,
+        // Measured from the OLDEST lot in the group: that is how long the money was actually committed.
+        holdingDays: Math.max(...lots.map((c) => c.holdingDays ?? 0)),
+        grossLocal: lots.reduce((a, c) => a + c.grossLocal, 0),
+        commissionLocal: lots.reduce((a, c) => a + c.commissionLocal, 0),
+        realized: lots.reduce((a, c) => a + (c.realizedBase ?? c.realizedLocal), 0),
+        lots: lots.length,
+      }
+    })
+    return merged.sort((a, b) => (b.closedAt ?? '').localeCompare(a.closedAt ?? ''))
+  }, [book.closures])
   const stats = useMemo(() => {
-    const vals = rows.map((c) => c.realizedBase ?? c.realizedLocal)
+    const vals = rows.map((c) => c.realized)
     const wins = vals.filter((v) => v > 0)
     const losses = vals.filter((v) => v < 0)
     const held = rows.map((c) => c.holdingDays).filter((d): d is number => d !== null)
@@ -628,6 +743,7 @@ function Trades({ book, manual, onChanged }: {
       avgLoss: avg(losses),
       avgHold: avg(held),
       commission: rows.reduce((a, c) => a + c.commissionLocal, 0),
+      grossRealised: vals.reduce((a, b) => a + Math.abs(b), 0),
       worst: losses.length ? Math.min(...losses) : null,
     }
   }, [rows])
@@ -639,7 +755,7 @@ function Trades({ book, manual, onChanged }: {
     for (const c of rows) {
       const k = c.symbol ?? '—'
       const cur = by.get(k) ?? { value: 0, trades: 0 }
-      cur.value += c.realizedBase ?? c.realizedLocal
+      cur.value += c.realized
       cur.trades += 1
       by.set(k, cur)
     }
@@ -663,7 +779,10 @@ function Trades({ book, manual, onChanged }: {
   // broker's realised P&L, which is why the note under the table says where it does land.
   const { currencyEffect, allBase } = useMemo(() => {
     const by = new Map<string, { trades: number; security: number; currencyEffect: number; costs: number; realised: number }>()
-    for (const c of rows) {
+    // Reads the LOTS, not the merged rows: the fx pair belongs to a lot (each was opened on its own day
+    // at its own rate), and averaging rates across a merge would blur the very split this table exists
+    // to show.
+    for (const c of book.closures) {
       const open = c.openFxRateToBase
       const close = c.closeFxRateToBase
       if (open === null || close === null) continue // no rate pair — excluded rather than assumed 1
@@ -679,7 +798,7 @@ function Trades({ book, manual, onChanged }: {
     const list = [...by.entries()].map(([currency, v]) => ({ currency, ...v }))
       .sort((a, b) => Math.abs(b.realised) - Math.abs(a.realised))
     return { currencyEffect: list, allBase: list.every((r) => Math.abs(r.currencyEffect) < 0.005) }
-  }, [rows])
+  }, [book.closures])
 
   // Rendered above the closed round trips AND above the empty state: a book whose only activity is
   // hand-logged fills must not look like a book with nothing in it.
@@ -812,36 +931,51 @@ function Trades({ book, manual, onChanged }: {
 
       <div className="fundbook__panel">
         <div className="fundbook__panelhead">
-          <div><strong>Closed round trips</strong><small>Newest first · realised is net of commission on both legs, as the broker states it</small></div>
+          <div>
+            <strong>Closed round trips</strong>
+            <small>
+              Newest first · one row per exit, with every lot it consumed folded in · realised is net of
+              commission on both legs, as the broker states it
+            </small>
+          </div>
         </div>
         <div className="fundbook__scroll">
           <div className="fundbook__row fundbook__row--trades fundbook__row--head">
             <span>Symbol</span><span>Ccy</span><span>Opened</span><span>Closed</span><span className="num">Held</span>
             <span className="num">Qty</span><span className="num">Entry</span><span className="num">Exit</span>
             <span className="num">Gross</span><span className="num">Costs</span><span className="num">Realised</span>
+            <span className="num">Share</span>
           </div>
-          {rows.map((c, i) => <TradeRow key={`${c.symbol}-${c.closedAt}-${i}`} c={c} />)}
+          {rows.map((c, i) => (
+            <TradeRow key={`${c.symbol}-${c.closedAt}-${i}`} c={c} grossRealised={stats.grossRealised} />
+          ))}
         </div>
       </div>
     </>
   )
 }
 
-function TradeRow({ c }: { c: PortfolioClosure }) {
-  const net = c.realizedBase ?? c.realizedLocal
+function TradeRow({ c, grossRealised }: { c: TradeRowData; grossRealised: number }) {
+  // Share of the book's total realised ACTIVITY (winners and losers as magnitudes), so it stays stable
+  // when the net happens to sit near zero — where a share of the net would explode into nonsense.
+  const share = grossRealised > 0 ? (Math.abs(c.realized) / grossRealised) * 100 : null
   return (
     <div className="fundbook__row fundbook__row--trades">
-      <strong className="mono">{c.symbol ?? '—'}</strong>
+      <strong className="mono">
+        {c.symbol ?? '—'}
+        {c.lots > 1 && <small className="fundbook__lots" title={`This exit closed ${c.lots} opening lots`}>{c.lots} lots</small>}
+      </strong>
       <span className="dim">{c.currency ?? '—'}</span>
       <span className="dim mono">{(c.openedAt ?? '—').slice(0, 10)}</span>
       <span className="dim mono">{(c.closedAt ?? '—').slice(0, 10)}</span>
-      <span className="num dim">{c.holdingDays === null ? '—' : `${c.holdingDays}d`}</span>
-      <span className="num">{fmtNum(c.quantity, 0)}</span>
+      <span className="num dim">{`${c.holdingDays}d`}</span>
+      <span className="num">{fmtQty(c.quantity)}</span>
       <span className="num dim">{fmtNum(c.entryPrice)}</span>
       <span className="num">{fmtNum(c.exitPrice)}</span>
-      <span className="num dim">{fmtNum(c.grossLocal, 0)}</span>
-      <span className="num dim">{fmtNum(c.commissionLocal, 0)}</span>
-      <strong className="num" style={{ color: toneOf(net) }}>{fmtNum(net, 0)}</strong>
+      <span className="num dim">{fmtSmallMoney(c.grossLocal)}</span>
+      <span className="num dim">{fmtSmallMoney(c.commissionLocal)}</span>
+      <strong className="num" style={{ color: toneOf(c.realized) }}>{fmtSmallMoney(c.realized)}</strong>
+      <span className="num dim">{share === null ? '—' : `${share.toFixed(1)}%`}</span>
     </div>
   )
 }
