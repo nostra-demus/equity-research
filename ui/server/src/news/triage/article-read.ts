@@ -151,7 +151,9 @@ function armArticleFailure(
 ): void {
   if (result.attempted === false || result.dailyLimit || result.quarantined || result.failure?.action === 'quarantine') return
   const providerWide = articleFailureIsProviderWide(result)
-  const scopedReason = result.timedOut ? 'article-timeout' : result.failureKind === 'request' ? 'article-request' : 'article-contract'
+  const scopedReason = result.timedOut ? 'article-timeout'
+    : result.failureKind === 'request' ? 'article-request'
+      : result.failureKind === 'availability' ? 'article-availability' : 'article-contract'
   if (result.rate?.retryAfterMs != null && Number.isFinite(result.rate.retryAfterMs)) {
     // Retry-After is the provider's explicit reopening time. Keep this window flat (base=max) rather
     // than exponentially inflating a precise server instruction on every independently queued read. Some
@@ -167,13 +169,15 @@ function armArticleFailure(
     armCooldown(stateDir, at, cooldownMs, sharedId, cooldownMaxMs, 'rate-limit')
     return
   }
-  if (sharedAccessStatus(result.httpStatus)) {
+  if (sharedAccessStatus(result.httpStatus) && providerWide) {
     armCooldown(stateDir, at, cooldownMs, sharedId, cooldownMaxMs, 'provider-access')
     return
   }
   if (result.failureKind === 'availability' && !result.timedOut) {
-    // A real service/network outage affects every workload, so the process-wide provider circuit applies.
-    armCooldown(stateDir, at, cooldownMs, sharedId, cooldownMaxMs, 'availability')
+    // A real service/network outage affects every workload. A structured request-specific routing gap does
+    // not: keep it on this provider/model's article circuit so title triage, Themes, and Ideas stay eligible.
+    armCooldown(stateDir, at, cooldownMs, providerWide ? sharedId : articleId, cooldownMaxMs,
+      providerWide ? 'availability' : scopedReason)
     return
   }
   // Contract drift, a bad article request shape, and this reader's deliberately short timeout say nothing

@@ -3897,6 +3897,57 @@ await check('a configured overflow provider can run the ingester without a Groq 
   assert.doesNotMatch(summary.note || '', /idle|GROQ_API_KEY/)
 })
 
+await check('an OpenRouter no-route 404 holds only triage and recovers with unchanged configuration', async () => {
+  resetSharedLimiters(); resetBudgetMemory(); resetCooldownMemory()
+  const root = tmp(), state = tmp()
+  let gdeltServed = false, openRouterCalls = 0, routeAvailable = false
+  const good = { usage: { total_tokens: 120 }, choices: [{ message: { content: JSON.stringify({ items: [
+    { i: 0, relevance: 'material', materiality_pre_score: 84, event_types: ['macro_sector'], issuer_linkage: 'macro', why: 'The policy change moves funding costs.', companies: [], size_bucket: 'unknown' },
+  ] }) } }] }
+  const fetchFn = (async (url: string) => {
+    const u = String(url)
+    if (u.includes('openrouter.test')) {
+      openRouterCalls++
+      return routeAvailable
+        ? res(good)
+        : res({ error: { code: 404, message: 'No allowed providers are available for the selected model' } }, 404)
+    }
+    if (u.includes('gdelt') && !gdeltServed) {
+      gdeltServed = true
+      return res({ articles: [{
+        url: 'https://reuters.com/openrouter-route-gap', title: 'Central bank policy decision materially changes funding costs today',
+        domain: 'reuters.com', seendate: '20260612T120000Z',
+      }] })
+    }
+    return res({ articles: [] })
+  }) as unknown as typeof fetch
+  let at = Date.parse('2026-06-12T12:00:00Z')
+  const config = {
+    groqApiKey: '', gdeltBaseUrl: 'https://gdelt.test/doc', gdeltLookbackMin: 40, rssEnabled: false,
+    themesEnabled: false, triageBatch: 1, geminiEnabled: false, anthropicFallbackEnabled: false,
+    llmCooldownMs: 1_000, llmCooldownMaxMs: 1_000,
+    overflowProviders: [{
+      id: 'openrouter', label: 'OpenRouter', color: '--x', apiKey: 'k', baseUrl: 'https://openrouter.test/v1',
+      model: 'openrouter/free', models: ['openrouter/free'], maxTokens: 900, maxAttempts: 1,
+      rpm: 6000, dailyReqCap: 10, budgetFile: 'openrouter-budget.json',
+    }],
+  } as any
+
+  const failed = await runIngestCycle({ repoRoot: root, stateDir: state, config, fetchFn, sleep: noSleep, now: () => new Date(at) })
+  assert.equal(openRouterCalls, 1)
+  assert.equal(failed.picked + failed.watched + failed.dropped, 0)
+  assert.equal(readCooldownUntil(state, 'openrouter'), 0, 'Themes, Ideas, and article reads remain eligible')
+  assert.equal(readCooldownUntil(state, 'triage:openrouter'), at + 1_000)
+  assert.equal(fs.existsSync(path.join(state, 'provider-openrouter-quarantine.json')), false)
+
+  routeAvailable = true
+  at += 1_001
+  const recovered = await runIngestCycle({ repoRoot: root, stateDir: state, config, fetchFn, sleep: noSleep, now: () => new Date(at) })
+  assert.equal(openRouterCalls, 2)
+  assert.equal(recovered.picked, 1, 'the deferred item drains automatically after the bounded workload cooldown')
+  assert.equal(readCooldownUntil(state, 'triage:openrouter'), 0)
+})
+
 await check('an incomplete triage batch holds only that workload and immediately falls through to a useful provider', async () => {
   resetSharedLimiters(); resetBudgetMemory(); resetCooldownMemory()
   const root = tmp(), state = tmp()
@@ -4298,6 +4349,8 @@ await check('readArticleBrief: terminal faults quarantine; retryable request/con
   const at = Date.parse('2026-06-12T09:30:00Z')
   const cases: Array<{
     id: string
+    model?: string
+    models?: string[]
     fetchFn: typeof fetch
     expectedScope: 'article' | 'shared' | 'quarantine-provider' | 'quarantine-article'
   }> = [
@@ -4329,6 +4382,12 @@ await check('readArticleBrief: terminal faults quarantine; retryable request/con
       fetchFn: (async () => res('private upstream deployment id', 503)) as unknown as typeof fetch,
     },
     {
+      id: 'openrouter', model: 'openrouter/free', models: ['openrouter/free'], expectedScope: 'article',
+      fetchFn: (async () => res({
+        error: { code: 404, message: 'No allowed providers are available for the selected model' },
+      }, 404)) as unknown as typeof fetch,
+    },
+    {
       id: 'network', expectedScope: 'shared',
       fetchFn: (async () => { throw new Error('private DNS host detail') }) as unknown as typeof fetch,
     },
@@ -4340,7 +4399,8 @@ await check('readArticleBrief: terminal faults quarantine; retryable request/con
     resetSharedLimiters()
     const state = tmp()
     const provider = {
-      id: c.id, kind: 'openai', apiKey: 'k', baseUrl: `https://${c.id}.test`, model: 'model-a',
+      id: c.id, kind: 'openai', apiKey: 'k', baseUrl: `https://${c.id}.test`,
+      model: c.model || 'model-a', ...(c.models ? { models: c.models } : {}),
       rpm: 6000, tpm: 0, dailyReqCap: 45, dailyTokenCap: 500_000,
       budgetFile: `${c.id}-budget.json`, limiter: c.id,
     }
@@ -4348,7 +4408,7 @@ await check('readArticleBrief: terminal faults quarantine; retryable request/con
       stateDir: state, fetchFn: c.fetchFn, sleep: noSleep, now: () => at,
       deadlineMs: at + 12_000, cooldownMs: 30_000, cooldownMaxMs: 120_000,
     })
-    const articleId = `article:${c.id}/model-a`
+    const articleId = `article:${c.id}/${provider.model}`
     assert.equal(readCooldownUntil(state, articleId) > at, c.expectedScope === 'article', `${c.id}: article circuit scope`)
     assert.equal(readCooldownUntil(state, c.id) > at, c.expectedScope === 'shared', `${c.id}: shared circuit scope`)
     if (c.expectedScope === 'quarantine-provider') {

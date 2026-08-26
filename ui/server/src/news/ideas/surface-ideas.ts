@@ -456,7 +456,7 @@ export async function surfaceIdeasBatch(
         // Read only to classify safe type/code fields. The body and message never leave this stack frame.
         const rawBody = await res.text().catch(() => '')
         const dailyLimit = opts.requestRemainingHeaderIsDaily === true && res.status === 429 && rate.rpdRemaining === 0
-        const failure = honorProviderRetryAfter(classifyProviderHttpFailure(res.status, rawBody), rate.retryAfterMs)
+        const failure = honorProviderRetryAfter(classifyProviderHttpFailure(res.status, rawBody, opts), rate.retryAfterMs)
         const failureKind = legacyFailureKind(failure)
         lastNote = publicProviderFailureNote(provider, failure, dailyLimit)
         lastFailure = { failureKind, failure }

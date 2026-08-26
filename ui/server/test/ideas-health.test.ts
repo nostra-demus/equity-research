@@ -1059,6 +1059,34 @@ assert.equal(transientFallbackCalls, 1)
 assert.ok(readCooldownUntil(transientState, 'groq') > transientAt, 'availability failure cools shared Groq')
 assert.equal(readIdeasHealth(transientState, transientRoot, true, transientAt).outcome, 'success_empty')
 
+// OpenRouter's dynamic no-provider 404 is request-contract availability, not proof that triage, Themes,
+// or article reads are also down. It must use the Ideas-only circuit and remain automatically retryable.
+const openRouterGapRoot = rootWithRows(2)
+const openRouterGapState = path.join(openRouterGapRoot, '.state')
+const openRouterGapAt = transientAt + 1_000
+const openRouterGap = testProvider('openrouter', 'https://openrouter-gap.test/v1', {
+  label: 'OpenRouter', model: 'openrouter/free', models: ['openrouter/free'],
+})
+let openRouterGapCalls = 0
+await runIdeaPass({
+  repoRoot: openRouterGapRoot, stateDir: openRouterGapState,
+  config: { ...cfg, groqApiKey: '', overflowProviders: [openRouterGap] },
+  refreshBoard: async () => {}, now: () => openRouterGapAt, sleep: async () => {}, persistHealth: true,
+  fetchFn: (async () => {
+    openRouterGapCalls++
+    return new Response(JSON.stringify({
+      error: { code: 404, message: 'No allowed providers are available for the selected model' },
+    }), { status: 404 })
+  }) as typeof fetch,
+})
+assert.equal(openRouterGapCalls, 1)
+assert.equal(readCooldownUntil(openRouterGapState, 'openrouter'), 0, 'the no-route gap does not close shared OpenRouter')
+assert.ok(readCooldownUntil(openRouterGapState, 'ideas:openrouter') > openRouterGapAt)
+assert.equal(readProviderQuarantine(openRouterGapState, ideaProviderRequestIdentity({
+  model: openRouterGap.model, models: openRouterGap.models, baseUrl: openRouterGap.baseUrl,
+  apiKey: openRouterGap.apiKey, providerId: openRouterGap.id, providerLabel: openRouterGap.label,
+})), null)
+
 // Retry-After is an exact provider clock, not an input to the generic exponential breaker. A 503 can carry
 // it too; the same batch must fall through immediately while every workload shares only that exact hold.
 const retryRoot = rootWithRows(2)
