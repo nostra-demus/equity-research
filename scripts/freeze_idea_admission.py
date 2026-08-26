@@ -27,6 +27,7 @@ import tempfile
 
 from canonical_json import canonical_json, canonical_sha256
 from create_idea_projection_manifest import validate_manifest_or_raise
+from idea_run_root import parse_idea_run_root
 from validate_screener_json import validate as validate_json_contract
 
 
@@ -230,7 +231,7 @@ def decision_authority(record, expected_root, candidate, audits):
     gaps = []
     if authority["run_root"] != expected_root:
         gaps.append("decision_record.run_root does not match this run")
-    run_date = expected_root.rsplit("_", 1)[-1]
+    _, _, run_date = parse_idea_run_root(expected_root)
     if authority["decision_date"] != run_date or candidate.get("decision_date") != run_date:
         gaps.append("decision_record, candidate, and run-folder decision dates do not reconcile")
     if not all(authority[key] for key in ("ticker", "company", "exchange", "currency", "decision", "edge_proof")):
@@ -466,7 +467,7 @@ def existing_is_valid(value, expected_root):
     created = timestamp(candidate.get("created_at"))
     horizon_start = timestamp((candidate.get("horizon") or {}).get("start"))
     catalyst_start = timestamp((candidate.get("catalyst") or {}).get("window_start"))
-    run_date = expected_root.rsplit("_", 1)[-1]
+    _, _, run_date = parse_idea_run_root(expected_root)
     return bool(
         value.get("candidate_sha256") == digest(candidate)
         and assessment.get("status") == "candidate"
@@ -598,7 +599,7 @@ def _freeze_locked(expected_root, run_abs, output, repo):
     catalyst_start = timestamp((candidate.get("catalyst") or {}).get("window_start"))
     created = timestamp(candidate.get("created_at"))
     manifest_created = timestamp(manifest.get("created_at"))
-    run_date_text = expected_root.rsplit("_", 1)[-1]
+    _, _, run_date_text = parse_idea_run_root(expected_root)
     try:
         run_day_start = dt.datetime.combine(dt.date.fromisoformat(run_date_text), dt.time(), tzinfo=dt.timezone.utc)
     except ValueError:
@@ -648,9 +649,7 @@ def _freeze_locked(expected_root, run_abs, output, repo):
 
 
 def freeze(run_root, repo=REPO):
-    expected_root = run_root.replace(os.sep, "/").strip("/")
-    if not re.fullmatch(r"analyses/[^/]+_\d{4}-\d{2}-\d{2}", expected_root):
-        raise ValueError("RUN_ROOT must be one repo-relative analyses/<TICKER>_<DATE> path")
+    expected_root, _, _ = parse_idea_run_root(run_root)
     run_abs = os.path.realpath(os.path.join(repo, expected_root))
     analyses_abs = os.path.realpath(os.path.join(repo, "analyses"))
     if not run_abs.startswith(analyses_abs + os.sep) or not os.path.isdir(run_abs):
@@ -669,7 +668,7 @@ def freeze(run_root, repo=REPO):
 
 def main(argv):
     if len(argv) != 1:
-        print("usage: freeze_idea_admission.py analyses/<TICKER>_<YYYY-MM-DD>", file=sys.stderr)
+        print("usage: freeze_idea_admission.py <canonical research RUN_ROOT>", file=sys.stderr)
         return 2
     try:
         return freeze(argv[0])
