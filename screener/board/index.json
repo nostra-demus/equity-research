@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-26T08:05:37Z",
+  "generated_at": "2026-08-26T08:14:14Z",
   "inbox": [
     {
       "inbox_id": "INB-20260826-588",
@@ -1952,50 +1952,50 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260826-553",
-      "headline": "CHINA OVERSEAS (00688): ANNOUNCEMENT OF UNAUDITED INTERIM RESULTS FOR THE SIX MONTHS ENDED 30 JUNE 2026",
+      "inbox_id": "INB-20260826-621",
+      "headline": "GACM Technologies Ltd: The Exchange has received the disclosure under Regulation 29(2) of SEBI (Substantial Acquisition of Shares & Takeovers) Regulations, 2011 for Magnifica Global Opportunities VCC & Others",
       "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0826/2026082600217.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
+      "url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/FF5BB004_0EB3_4344_8DE6_3381CCAE7C18_132602.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
       "input_nature": "exchange_announcement",
-      "found_at": "2026-08-26T04:04:00Z",
+      "found_at": "2026-08-26T07:56:06Z",
       "sweep_file": "screener/inbox/2026-08-26_sweep.json",
-      "prelim_note": "Release of unaudited interim results for China Overseas Land & Investment.",
+      "prelim_note": "SEBI Regulation 29(2) substantial-acquisition disclosure for Magnifica Global Opportunities VCC; shareholding stake, control threshold status, and transaction terms not provided in headline.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 95,
-      "triage_reason": "Release of unaudited interim results for China Overseas Land & Investment.",
-      "region": "CN",
+      "triage_reason": "SEBI Regulation 29(2) substantial-acquisition disclosure for Magnifica Global Opportunities VCC; shareholding stake, control threshold status, and transaction terms not provided in headline.",
+      "region": "IN",
       "relevance": "material",
-      "materiality_pre_score": 60,
+      "materiality_pre_score": 58,
       "rank_factors": {
-        "materiality": 60,
+        "materiality": 58,
         "source_tier": 8,
         "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 12,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
+        "event_id": "ownership_activist",
+        "size_bucket": "unknown"
       },
       "event_types": [
-        "earnings_revenue_margin"
+        "ownership_activist"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "China Overseas Land & Investment",
-          "ticker": "00688",
-          "listing_country": "CN"
+          "name": "GACM Technologies Ltd",
+          "ticker": null,
+          "listing_country": "IN"
         }
       ],
-      "size_bucket": "large",
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -94039,9 +94039,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1623212,
-    "news_picked_today": 1155,
-    "news_dropped_today": 11469
+    "news_seen_today": 1644214,
+    "news_picked_today": 1160,
+    "news_dropped_today": 11476
   },
   "book_momentum": {
     "live_count": 8,
