@@ -113,6 +113,7 @@ ENGINE_MOCK_BIN="$TEST_TMP/engine-mock-bin"
 ENGINE_MOCK_STATE="$TEST_TMP/engine-loaded"
 mkdir -p "$ENGINE_MOCK_BIN"
 ln -s "$(command -v python3)" "$ENGINE_MOCK_BIN/python3"
+printf '%s\n' '#!/usr/bin/env bash' 'exit 0' > "$ENGINE_MOCK_BIN/plutil"
 printf '%s\n' '#!/usr/bin/env bash' \
   'case "${1:-}" in' \
   '  print) [ -f "$ENGINE_MOCK_STATE" ] ;;' \
@@ -121,7 +122,7 @@ printf '%s\n' '#!/usr/bin/env bash' \
   '  kickstart|list) exit 0 ;;' \
   '  *) exit 1 ;;' \
   'esac' > "$ENGINE_MOCK_BIN/launchctl"
-chmod +x "$ENGINE_MOCK_BIN/launchctl"
+chmod +x "$ENGINE_MOCK_BIN/launchctl" "$ENGINE_MOCK_BIN/plutil"
 before_engine_runtime="$(runtime_identity)"
 if HOME="$TEST_HOME" ENGINE_REPO_ROOT="$TEST_PROD" NEWS_ARCHIVE_DIR="$TEST_TMP/Drive Archive" \
     ENGINE_MOCK_STATE="$ENGINE_MOCK_STATE" PATH="$ENGINE_MOCK_BIN:/usr/bin:/bin:/usr/sbin:/sbin" \
@@ -131,7 +132,7 @@ else
   engine_only_rc=$?
 fi
 after_engine_runtime="$(runtime_identity)"
-engine_archive_value="$(/usr/libexec/PlistBuddy -c 'Print :EnvironmentVariables:NEWS_ARCHIVE_DIR' \
+engine_archive_value="$(python3 -I -c 'import plistlib, sys; print(plistlib.load(open(sys.argv[1], "rb")).get("EnvironmentVariables", {}).get("NEWS_ARCHIVE_DIR", ""))' \
   "$TEST_HOME/Library/LaunchAgents/com.nostradamus.engine.plist" 2>/dev/null || true)"
 if [ "$engine_only_rc" -eq 0 ] \
     && [ "$before_engine_runtime" = "$after_engine_runtime" ] \

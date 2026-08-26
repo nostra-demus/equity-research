@@ -67,7 +67,7 @@ import { notifyFeedbackResolved } from './feedback-email'
 import { runReadiness } from './readiness'
 import { IN_FLIGHT_STATUSES, getRun, listRuns, subscribe, unsubscribe, type SseClient } from './registry'
 import { agentNamesForModule, buildSwarmGraph, findRunRootForSubject, graphForSubject, graphForTicker, listModuleNames, swarmSubjects, swarmSubjectSummaries, terminalModuleName, warmSwarmGraphs } from './roster'
-import { isValidCalendarISODate, listAllCalls, listRunsForTicker, readDecision, readMarkdown, readPrompt, readPublishedCallsMarkdown, readRunsMarkdown, resolveRunRoot, runManifest, todayISO } from './outputs'
+import { clearRunMarker, isValidCalendarISODate, listAllCalls, listRunsForTicker, readDecision, readMarkdown, readPrompt, readPublishedCallsMarkdown, readRunsMarkdown, resolveRunRoot, runManifest, todayISO, writeRunMarker } from './outputs'
 import { readIbkrPaperPortfolio } from './ibkr-paper'
 import { ibkrPaperExecution } from './ibkr-paper-execution'
 import { drainIbkrPaperAutoSync } from './ibkr-paper-auto-sync'
@@ -107,7 +107,10 @@ import {
   writePendingModulePublication,
 } from './module-publication'
 import { retryBoundModulePublication, type CommitRunAttempt } from './module-publication-git'
-import { readLastProviderSelection, readProviderInterruptionAuthority } from './execution-provenance'
+import {
+  readLastProviderSelection, readProviderInterruptionAuthority, readProviderPreSpawnFailureAuthority,
+  sealProviderPreSpawnFailureAuthority,
+} from './execution-provenance'
 import { intakePoolNewest, latestPlanFileFor, readIntakePlan, resolveIntakeRunRoot, type IntakeReceiptIntent } from './intake'
 import { finishedOwnerConflict, listFinishedIntakeOwners, resolveUniqueFinishedIntakeOwner, type FinishedIntakeOwner } from './intake-owner'
 import { getBridgeStatus, getBridgeSubjectNames, startBridgeScheduler } from './bridge-scheduler'
@@ -1201,7 +1204,7 @@ app.post('/api/internal/provider-parity/canary-continue', { config: { rateLimit:
   const parsed = ParityCanaryContinueBody.safeParse(req.body)
   if (!parsed.success) return reply.code(400).send({ error: 'invalid parity canary continuation body', detail: parsed.error.flatten() })
 
-  const validateCandidate = (): { subject: string } => {
+  const validateCandidate = (): { subject: string; preSpawnRecovery: boolean } => {
     const lexicalRoot = path.join(REPO_ROOT, parsed.data.runRoot)
     let lexicalStat: fs.Stats
     try { lexicalStat = fs.lstatSync(lexicalRoot) } catch {
@@ -1215,27 +1218,41 @@ app.post('/api/internal/provider-parity/canary-continue', { config: { rateLimit:
       throw Object.assign(new Error('invalid canary run root'), { statusCode: 400 })
     }
     const interruptedRaw = readCanaryRunFile(rootAbs, '.interrupted')
-    let marker: Record<string, unknown>
-    try {
-      const value = interruptedRaw ? JSON.parse(interruptedRaw) : null
-      if (!value || typeof value !== 'object' || Array.isArray(value)) throw new Error('invalid')
-      marker = value
-    } catch {
-      throw Object.assign(new Error('canary has no valid supervisor interruption marker'), { statusCode: 409 })
+    let marker: Record<string, unknown> | null = null
+    if (interruptedRaw) {
+      try {
+        const value = JSON.parse(interruptedRaw)
+        if (!value || typeof value !== 'object' || Array.isArray(value)) throw new Error('invalid')
+        marker = value
+      } catch {
+        throw Object.assign(new Error('canary has no valid supervisor interruption marker'), { statusCode: 409 })
+      }
     }
-    const authority = readProviderInterruptionAuthority(parsed.data.runRoot)
+    const interruptedAuthority = marker ? readProviderInterruptionAuthority(parsed.data.runRoot) : null
+    const preSpawnAuthority = marker ? null : readProviderPreSpawnFailureAuthority(parsed.data.runRoot)
+    const authority = interruptedAuthority ?? preSpawnAuthority
+    const preSpawnRecovery = Boolean(preSpawnAuthority)
+    const markerAuthority = marker ? {
+      attemptId: typeof marker['attemptId'] === 'string' ? marker['attemptId']
+        : typeof marker['runId'] === 'string' ? marker['runId'] : null,
+      provider: typeof marker['provider'] === 'string' ? marker['provider'] : null,
+      model: typeof marker['model'] === 'string' ? marker['model'] : null,
+      reasoningLevel: typeof marker['reasoningLevel'] === 'string' ? marker['reasoningLevel'] : null,
+      profileKey: typeof marker['profileKey'] === 'string' ? marker['profileKey'] : null,
+      reason: marker['reason'],
+    } : null
     if (!authority
         || authority.runId !== parsed.data.interruptedRunId
         || authority.provider !== parsed.data.provider
         || authority.model !== parsed.data.model
         || authority.reasoningLevel !== parsed.data.reasoningLevel
         || authority.profileKey !== parsed.data.expectedProfileKey
-        || (marker.attemptId ?? marker.runId) !== parsed.data.interruptedRunId
-        || marker.provider !== parsed.data.provider
-        || marker.model !== parsed.data.model
-        || marker.reasoningLevel !== parsed.data.reasoningLevel
-        || marker.profileKey !== parsed.data.expectedProfileKey
-        || !isRecoverableParityInterruptionReason(marker.reason)) {
+        || (markerAuthority && (markerAuthority.attemptId !== parsed.data.interruptedRunId
+          || markerAuthority.provider !== parsed.data.provider
+          || markerAuthority.model !== parsed.data.model
+          || markerAuthority.reasoningLevel !== parsed.data.reasoningLevel
+          || markerAuthority.profileKey !== parsed.data.expectedProfileKey
+          || !isRecoverableParityInterruptionReason(markerAuthority.reason)))) {
       throw Object.assign(new Error('canary interruption authority does not match the requested Codex process/profile'), { statusCode: 409 })
     }
     if (canaryRunFileExists(rootAbs, '.aborted')
@@ -1252,7 +1269,7 @@ app.post('/api/internal/provider-parity/canary-continue', { config: { rateLimit:
         || listRuns().some((run) => run.runRoot === parsed.data.runRoot && IN_FLIGHT_STATUSES.has(run.status))) {
       throw Object.assign(new Error('canary already has an active writer'), { statusCode: 409 })
     }
-    return { subject }
+    return { subject, preSpawnRecovery }
   }
 
   try {
@@ -1261,6 +1278,25 @@ app.post('/api/internal/provider-parity/canary-continue', { config: { rateLimit:
       const current = validateCandidate()
       if (current.subject !== initial.subject) {
         throw Object.assign(new Error('canary subject changed before continuation'), { statusCode: 409 })
+      }
+      if (current.preSpawnRecovery) {
+        writeRunMarker(parsed.data.runRoot, '.interrupted', {
+          reason: 'continuation_spawn_failed',
+          message: 'The prior parity continuation failed before a provider process started.',
+          provider: parsed.data.provider,
+          profileKey: parsed.data.expectedProfileKey,
+          model: parsed.data.model,
+          reasoningLevel: parsed.data.reasoningLevel,
+          runId: parsed.data.interruptedRunId,
+          attemptId: parsed.data.interruptedRunId,
+          startedAt: Date.now(),
+        })
+        try {
+          sealProviderPreSpawnFailureAuthority(parsed.data.runRoot, parsed.data.interruptedRunId)
+        } catch (error) {
+          clearRunMarker(parsed.data.runRoot, '.interrupted')
+          throw error
+        }
       }
       return launch({
         kind: 'full', provider: parsed.data.provider, model: parsed.data.model,

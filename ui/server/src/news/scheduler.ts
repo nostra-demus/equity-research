@@ -23,7 +23,7 @@ import {
   conservativeChatUsdBound, cooldownInfo, dailyQuotaAdmission, inspectBudgetLedger, inspectUsdLedger,
   isCoolingDown, pacedCeiling, pacedHasHeadroom, usdAmountFits,
 } from './triage/budget'
-import { SYSTEM, buildUserMessage, estimateTokens, openAiRequestIdentity, type TriageOptions } from './triage/groq'
+import { SYSTEM, TRIAGE_CONTRACT_VERSION, buildUserMessage, estimateTokens, openAiRequestIdentity, type TriageOptions } from './triage/groq'
 import { readProviderQuarantine, type ProviderQuarantine } from './provider-failure'
 import { preTriagePriority } from './rank'
 import { buildPipelineFlowRates, readPipelineFlowCycles, type PipelineFlowHistory, type PipelineFlowRates } from './pipeline-flow'
@@ -1297,8 +1297,8 @@ export function getNewsDiagnostics(options: { omniRouteHomeDir?: string } = {}):
   const diagnosticBatch = loadUnscoredDiagnosticBatch()
   const triageQuarantine = (options: TriageOptions): ProviderQuarantine | null =>
     readProviderQuarantine(STATE_DIR, openAiRequestIdentity({
-      ...options, stateDir: STATE_DIR, workload: 'triage', contractVersion: 'news-triage-json-v1',
-    }, 'triage', 'news-triage-json-v1'))
+      ...options, stateDir: STATE_DIR, workload: 'triage', contractVersion: TRIAGE_CONTRACT_VERSION,
+    }, 'triage', TRIAGE_CONTRACT_VERSION))
 
   const tiers: TierDiagnostics[] = []
   // local is the PRIMARY brain (unlimited, $0, tried first) → it leads the ladder and Groq becomes a fallback.
