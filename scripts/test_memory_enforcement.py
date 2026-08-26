@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 from __future__ import annotations
 
+import base64
 import copy
 import contextlib
 import datetime as dt
@@ -143,6 +144,31 @@ class EnforcementActivationTests(unittest.TestCase):
         schema = json.loads((ROOT / "frameworks/memory/enforcement-activation-v1.schema.json").read_text(encoding="utf-8"))
         checker = Checker(schema); checker.check(schema, activation, "")
         self.assertEqual([], checker.errors)
+
+    def test_noncanonical_activation_signature_encoding_fails_closed(self) -> None:
+        activation = self.activation()
+        canonical = activation["signature"]["value"]
+        alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_"
+        decoded = base64.urlsafe_b64decode(canonical + "==")
+        rejected = 0
+        for replacement in alphabet:
+            candidate = canonical[:-1] + replacement
+            if candidate == canonical:
+                continue
+            if base64.urlsafe_b64decode(candidate + "==") != decoded:
+                continue
+            noncanonical = copy.deepcopy(activation)
+            noncanonical["signature"]["value"] = candidate
+            with self.assertRaisesRegex(EnforcementError, "signature verification failed"):
+                verify_activation(
+                    noncanonical, readiness=self.readiness, three_layer=self.three_layer,
+                    shadow=self.shadow, public_key=self.public,
+                    key_id="memory-enforcement-release", **self.release_keys(),
+                    provider="codex", model="gpt-5.5",
+                    now="2026-08-28T00:00:00.000000Z",
+                )
+            rejected += 1
+        self.assertGreater(rejected, 0)
 
     def test_release_trust_roles_require_distinct_keys(self) -> None:
         reused = self.release_keys()

@@ -3,9 +3,7 @@
 from __future__ import annotations
 
 import argparse
-import base64
 import datetime as dt
-import hashlib
 import json
 import re
 import sys
@@ -14,16 +12,18 @@ from pathlib import Path
 from typing import Any, Mapping, Sequence
 
 try:
-    from canonical_json import canonical_json_bytes, canonical_sha256
-    from memory_crypto import ed25519_sign, ed25519_verify, load_master_key_file
+    from canonical_json import canonical_sha256
+    from memory_crypto import load_master_key_file
     from memory_operations import verify_operational_readiness_report
+    from memory_release_attestation import sign_attestation, verify_attestation
     from memory_shadow_evaluation import analytical_roster_sha256, verify_adjudication_attestation
     from memory_three_layer_benchmark import verify_runtime_attestation
     from memory_runtime import _atomic_private_write, _safe_regular
 except ImportError:  # pragma: no cover
-    from scripts.canonical_json import canonical_json_bytes, canonical_sha256
-    from scripts.memory_crypto import ed25519_sign, ed25519_verify, load_master_key_file
+    from scripts.canonical_json import canonical_sha256
+    from scripts.memory_crypto import load_master_key_file
     from scripts.memory_operations import verify_operational_readiness_report
+    from scripts.memory_release_attestation import sign_attestation, verify_attestation
     from scripts.memory_shadow_evaluation import analytical_roster_sha256, verify_adjudication_attestation
     from scripts.memory_three_layer_benchmark import verify_runtime_attestation
     from scripts.memory_runtime import _atomic_private_write, _safe_regular
@@ -193,10 +193,6 @@ def _verify_evidence_freshness(
         raise EnforcementError("production shadow evidence is stale")
 
 
-def _message(unsigned: Mapping[str, Any], activation_sha256: str) -> bytes:
-    return DOMAIN + canonical_json_bytes({**unsigned, "activation_sha256": activation_sha256})
-
-
 def create_activation(
     *, readiness: Mapping[str, Any], three_layer: Mapping[str, Any], shadow: Mapping[str, Any],
     expires_at: str, private_key: bytes, public_key: bytes, key_id: str,
@@ -228,17 +224,17 @@ def create_activation(
         "evidence": evidence, "approved_provider_models": providers,
     }
     activation_sha = "sha256:" + canonical_sha256(unsigned)
-    message = _message(unsigned, activation_sha)
-    raw = ed25519_sign(private_key, message)
-    if not ed25519_verify(public_key, message, raw):
+    signed_payload = {**unsigned, "activation_sha256": activation_sha}
+    signature = sign_attestation(
+        signed_payload, domain=DOMAIN, private_key=private_key, key_id=key_id,
+    )
+    if not verify_attestation(
+        signed_payload, signature, domain=DOMAIN, public_key=public_key, key_id=key_id,
+    ):
         raise EnforcementError("release signer private and public keys do not match")
     return {
         **unsigned, "activation_sha256": activation_sha,
-        "signature": {
-            "key_id": key_id, "algorithm": "ed25519",
-            "signed_sha256": "sha256:" + hashlib.sha256(message).hexdigest(),
-            "value": base64.urlsafe_b64encode(raw).decode().rstrip("="),
-        },
+        "signature": signature,
     }
 
 
@@ -282,17 +278,10 @@ def verify_activation(
     signature = activation.get("signature")
     if not isinstance(signature, Mapping) or set(signature) != {"key_id", "algorithm", "signed_sha256", "value"}:
         raise EnforcementError("enforcement activation signature is invalid")
-    message = _message(unsigned, activation_sha)
-    if (
-        signature.get("key_id") != key_id or signature.get("algorithm") != "ed25519"
-        or signature.get("signed_sha256") != "sha256:" + hashlib.sha256(message).hexdigest()
+    signed_payload = {**unsigned, "activation_sha256": activation_sha}
+    if not verify_attestation(
+        signed_payload, signature, domain=DOMAIN, public_key=public_key, key_id=key_id,
     ):
-        raise EnforcementError("enforcement activation signature metadata is invalid")
-    try:
-        raw = base64.urlsafe_b64decode(str(signature.get("value")) + "==")
-    except (ValueError, TypeError) as exc:
-        raise EnforcementError("enforcement activation signature encoding is invalid") from exc
-    if not ed25519_verify(public_key, message, raw):
         raise EnforcementError("enforcement activation signature verification failed")
     return {
         "schema": "memory-enforcement-verification/v1", "ok": True,
