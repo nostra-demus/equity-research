@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-26T02:25:58Z",
+  "generated_at": "2026-08-26T02:41:11Z",
   "inbox": [
     {
       "inbox_id": "INB-20260826-252",
@@ -360,6 +360,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260826-399",
+      "headline": "Volkswagen CEO faces pushback over plan for 50,000 job cuts and plant closures",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/business/volkswagen-ceo-faces-pushback-over-plan-for-50000-job-cuts-and-plant-closures-19977137.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-26T02:10:18Z",
+      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
+      "prelim_note": "Volkswagen is facing significant internal and external pushback regarding a plan to cut 50,000 jobs and close plants.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Volkswagen is facing significant internal and external pushback regarding a plan to cut 50,000 jobs and close plants.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Volkswagen",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260826-397",
       "headline": "Domino’s Pizza sales decline accelerates after slumping to big loss",
       "headline_en": null,
@@ -400,6 +449,115 @@
       "companies": [
         {
           "name": "Domino's Pizza",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260826-398",
+      "headline": "Dick’s Sporting Goods’ Core Business Grows 4.9%, but Foot Locker Losses and Weak Guidance Send Shares Tumbling",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/dicks-sporting-goods-core-business-grows-49-foot-locker-losses-and-weak-guidance-send",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-26T01:40:38Z",
+      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
+      "prelim_note": "Foot Locker reported weak guidance and losses, causing a significant share price decline.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Foot Locker reported weak guidance and losses, causing a significant share price decline.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Foot Locker",
+          "ticker": "FL",
+          "listing_country": "US"
+        },
+        {
+          "name": "Dick's Sporting Goods",
+          "ticker": "DKS",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260826-444",
+      "headline": "Sumitomo joins four-way race for Australia's FleetPartners with $582 million bid",
+      "headline_en": null,
+      "url": "https://www.reuters.com/legal/transactional/sumitomo-heats-up-bidding-war-australias-fleetpartners-with-582-million-offer-2026-08-25/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-26T01:32:33Z",
+      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
+      "prelim_note": "Sumitomo entered a four-way race for FleetPartners with a $582 million bid, a named M&A deal value.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Sumitomo entered a four-way race for FleetPartners with a $582 million bid, a named M&A deal value.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Sumitomo",
+          "ticker": null,
+          "listing_country": "JP"
+        },
+        {
+          "name": "FleetPartners",
           "ticker": null,
           "listing_country": null
         }
@@ -754,6 +912,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260826-402",
+      "headline": "CTD: CTM Announces new Financing Arrangements ahead of Release of [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.CTD?key=2924-03126455-2A1692253",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-26T02:09:20Z",
+      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
+      "prelim_note": "The company is announcing new financing arrangements ahead of a price-sensitive release.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "The company is announcing new financing arrangements ahead of a price-sensitive release.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "debt_credit",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CTM",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1784,190 +1991,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260826-295",
-      "headline": "US proposes lifting Iran sanctions and canceling economic campaign in exchange for Hormuz reopening: report",
-      "headline_en": null,
-      "url": "https://gulfnews.com/world/mena/us-proposes-lifting-iran-sanctions-and-canceling-economic-campaign-in-exchange-for-hormuz-reopening-report-1.500652371",
-      "source_name": "Gulf News",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-26T01:05:43Z",
-      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
-      "prelim_note": "Potential geopolitical de-escalation regarding Iran sanctions and Hormuz Strait shipping.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "Potential geopolitical de-escalation regarding Iran sanctions and Hormuz Strait shipping.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260826-319",
-      "headline": "Canada hits back at US with retaliatory tariffs as trade war escalates",
-      "headline_en": null,
-      "url": "https://www.afr.com/world/north-america/canada-hits-back-at-us-with-retaliatory-tariffs-as-trade-war-escalates-20260826-p60rm1?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-26T00:38:49Z",
-      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
-      "prelim_note": "Canada retaliatory tariffs on US escalate trade war with cross-border economic impact.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "Canada retaliatory tariffs on US escalate trade war with cross-border economic impact.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260826-171",
-      "headline": "AKESO (09926): VOLUNTARY ANNOUNCEMENT - AK112-309/HARMONI-GI1 MET PRIMARY ENDPOINT OF OS IVONESCIMAB PLUS CHEMO DEMONSTRATES STATISTICALLY SIGNIFICANT AND CLINICALLY MEANINGFUL OS BENEFIT VERSUS DURVALUMAB PLUS CHEMO IN 1L BTC",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0826/2026082600031.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-25T23:00:00Z",
-      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
-      "prelim_note": "Akeso's ivonescimab plus chemo met primary OS endpoint in phase 3 1L BTC trial vs durvalumab, a clinical win that can shift revenue outlook.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "Akeso's ivonescimab plus chemo met primary OS endpoint in phase 3 1L BTC trial vs durvalumab, a clinical win that can shift revenue outlook.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 72,
-      "rank_factors": {
-        "materiality": 72,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Akeso",
-          "ticker": "09926",
-          "listing_country": "HK"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260826-107",
-      "headline": "MRD: Significant Scandium Resource Upgrade [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.MRD?key=2924-03126363-6A1340339",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-26T00:00:10Z",
-      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
-      "prelim_note": "MRD announced a significant resource upgrade for its scandium project.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "MRD announced a significant resource upgrade for its scandium project.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 2,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "operations",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "MRD",
-          "ticker": "MRD",
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -93206,9 +93229,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 509144,
-    "news_picked_today": 579,
-    "news_dropped_today": 2925
+    "news_seen_today": 573524,
+    "news_picked_today": 651,
+    "news_dropped_today": 3297
   },
   "book_momentum": {
     "live_count": 8,
