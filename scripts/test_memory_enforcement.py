@@ -16,6 +16,7 @@ from pathlib import Path
 from cryptography.hazmat.primitives import serialization
 from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey
 
+import memory_enforcement
 from canonical_json import canonical_sha256
 from memory_enforcement import EnforcementError, create_activation, main as enforcement_cli, verify_activation
 from memory_shadow_evaluation import build_report as build_shadow_report
@@ -100,8 +101,8 @@ class EnforcementActivationTests(unittest.TestCase):
             shadow_adjudicator_public_key=self.adjudicator_public,
             shadow_adjudicator_key_id="shadow-adjudicator-key",
         )
-        clock = mock.patch(
-            "memory_enforcement._utc_now",
+        clock = mock.patch.object(
+            memory_enforcement, "_utc_now",
             return_value=dt.datetime(2026, 8, 27, tzinfo=dt.timezone.utc),
         )
         clock.start()
@@ -203,8 +204,8 @@ class EnforcementActivationTests(unittest.TestCase):
             )
 
     def test_promotion_clock_must_be_timezone_aware(self) -> None:
-        with mock.patch(
-            "memory_enforcement._utc_now", return_value=dt.datetime(2026, 8, 27),
+        with mock.patch.object(
+            memory_enforcement, "_utc_now", return_value=dt.datetime(2026, 8, 27),
         ), self.assertRaisesRegex(EnforcementError, "clock must be timezone-aware"):
             create_activation(
                 readiness=self.readiness, three_layer=self.three_layer, shadow=self.shadow,
@@ -277,8 +278,8 @@ class EnforcementActivationTests(unittest.TestCase):
                 )
 
     def test_fresh_activation_cannot_be_minted_from_stale_release_evidence(self) -> None:
-        with mock.patch(
-            "memory_enforcement._utc_now",
+        with mock.patch.object(
+            memory_enforcement, "_utc_now",
             return_value=dt.datetime(2026, 9, 1, tzinfo=dt.timezone.utc),
         ), self.assertRaisesRegex(EnforcementError, "readiness evidence is stale"):
             create_activation(
