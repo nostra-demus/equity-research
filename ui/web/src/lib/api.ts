@@ -1163,7 +1163,7 @@ export const api = {
   paperPositionClose: async (contractId: number): Promise<PaperExecutionResult> => paperCommand(`/api/calls/paper-positions/${encodeURIComponent(contractId)}/close`, 'CLOSE PAPER', 'close'),
   // ---- fund book (the REAL portfolio, fed by IBKR Flex exports) ----
   portfolio: async (): Promise<PortfolioRead> => {
-    if ((await ensureMode()) === 'static') return { statements: [], book: null, error: null }
+    if ((await ensureMode()) === 'static') return { statements: [], book: null, performance: null, error: null }
     return get('/api/portfolio')
   },
   uploadStatements: async (files: File[], onProgress?: (frac: number) => void): Promise<PortfolioUploadResult> => {

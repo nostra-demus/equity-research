@@ -2141,6 +2141,23 @@ export interface PortfolioPosition {
   /** Futures and options carry NOTIONAL, not a NAV allocation — never weight them like equity. */
   isDerivative: boolean
 }
+export interface PortfolioClosure {
+  symbol: string | null
+  currency: string | null
+  quantity: number
+  entryPrice: number
+  exitPrice: number
+  openedAt: string | null
+  closedAt: string | null
+  holdingDays: number | null
+  /** Net of commission on both legs, as the broker states it. */
+  realizedLocal: number
+  /** The price difference before costs, kept so the two can be shown apart. */
+  grossLocal: number
+  commissionLocal: number
+  realizedBase: number | null
+}
+
 export interface PortfolioBook {
   accountId: string | null
   baseCurrency: string | null
@@ -2149,7 +2166,10 @@ export interface PortfolioBook {
   sectionsPresent: string[]
   sectionsUnmodelled: string[]
   positions: PortfolioPosition[]
-  closures: unknown[]
+  /** Closed round trips, recovered by FIFO matching — the trade history. */
+  closures: PortfolioClosure[]
+  openLots: { symbol: string | null; quantity: number; price: number; openedAt: string | null }[]
+  corporateActions: { type: string | null; symbol: string | null; actionDescription: string | null; dateTime: string | null }[]
   flows: { date: string | null; currency: string | null; amount: number; amountBase: number | null; description: string | null }[]
   income: { dividendsGross: number; withholdingTax: number; paymentInLieu: number; interest: number; fees: number; net: number }
   navSeries: { date: string; total: number }[]
@@ -2157,9 +2177,38 @@ export interface PortfolioBook {
   reconciliation: { ok: boolean; checks: PortfolioCheck[] }
   warnings: string[]
 }
+export interface PortfolioPeriodReturn { label: string; from: string | null; to: string | null; twr: number | null; days: number }
+export interface PortfolioDrawdown {
+  depth: number | null; peakDate: string | null; troughDate: string | null; recoveredDate: string | null
+  toTroughDays: number | null; underWaterDays: number | null; episodesOver3pct: number
+}
+export interface PortfolioRisk {
+  sampleDays: number
+  /** False when the sample is too short to state ratios — show blanks, not numbers. */
+  sufficient: boolean
+  volatility: number | null; sharpe: number | null; sortino: number | null; calmar: number | null
+  drawdown: PortfolioDrawdown
+}
+export interface PortfolioBenchmark {
+  symbol: string; benchmarkTwr: number | null; excess: number | null
+  from: string | null; to: string | null
+  /** Why the comparison is unavailable, when it is — never a silent blank. */
+  unavailable: string | null
+}
+export interface PortfolioPerformance {
+  periods: PortfolioPeriodReturn[]
+  /** ANNUALISED (XIRR) — not comparable with the cumulative period returns, and labelled as such. */
+  moneyWeightedAnnualisedPct: number | null
+  risk: PortfolioRisk
+  benchmark: PortfolioBenchmark
+  riskFreeAnnualPct: number
+  feedPresent: boolean
+}
+
 export interface PortfolioRead {
   statements: PortfolioStatement[]
   book: PortfolioBook | null
+  performance: PortfolioPerformance | null
   error: string | null
 }
 export interface PortfolioUploadResult extends PortfolioRead {
