@@ -18,7 +18,7 @@ import { buildReportHtml, parseMeta, safeName } from './export'
 import { ARTICLE_READ_PROVIDERS, CHAT, DATA_DIR, FILING_READ_PROVIDERS, GDRIVE, HOST, NEWS, PORT, REPO_ROOT, STATE_DIR, TOOLS, WEB_DIST, connectorDispatchReady, feedbackDispatchReady, feedbackEmailReady, isDispatchAdmin, isReservedDataFolder, pipelineScanReady } from './config'
 import { getCreditStatus } from './credit'
 import { analyzeTicker, listTickers } from './data-status'
-import { ensureCompanyFolder, uploadToCompany, deleteDriveFile, deleteDriveFileStrict, companyFolderExists, driveErrorMessage, GDRIVE_ENABLED, readWatchlistFile, uploadToWatchlist } from './drive'
+import { ensureCompanyFolder, ensureCompanyIdentity, uploadToCompany, deleteDriveFile, deleteDriveFileStrict, driveErrorMessage, GDRIVE_ENABLED, readWatchlistFile, uploadToWatchlist } from './drive'
 import { attachmentExists, attachmentPath, deleteAttachment, readAttachment, saveAttachment, watchlistFilesAvailable } from './watchlist-files'
 import {
   assertClaudeCli, assertProviderAvailable, cancel, cancelAll, cancelSubject, checkProviderUsage,
@@ -569,17 +569,33 @@ function selectedManualUploadOwnerReply(
 app.post('/api/tickers', async (req, reply) => {
   if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request rejected' })
   if (!GDRIVE_ENABLED) return reply.code(400).send({ error: 'Drive uploads are not configured on this server' })
-  const parsed = z.object({ ticker: z.string() }).safeParse(req.body)
+  const parsed = z.object({
+    ticker: z.string(),
+    legalName: z.string().trim().min(1).max(256),
+    venue: z.enum(['NYSE', 'NasdaqGS', 'NasdaqCM', 'NasdaqGM', 'NSE', 'DFM', 'XTRA', 'Oslo Børs', 'SHSE', 'HKEX', 'LSE']),
+    currency: z.string().regex(/^[A-Z]{3}$/),
+    identifiers: z.array(z.string().regex(/^(?:issuer:lei:[A-Z0-9]{20}|security:figi:[A-Z0-9]{12}|security:isin:[A-Z]{2}[A-Z0-9]{9}[0-9])$/)).max(3).default([]),
+  }).strict().safeParse(req.body)
   if (!parsed.success) return reply.code(400).send({ error: 'invalid body', detail: parsed.error.flatten() })
   const v = validateNewTicker(parsed.data.ticker)
   if (!v.ok) return reply.code(400).send({ error: v.reason, suggested: v.suggested })
   const { ticker } = v
+  const identity = {
+    legalName: parsed.data.legalName,
+    venue: parsed.data.venue,
+    currency: parsed.data.currency,
+    ticker,
+    identifiers: [...new Set(parsed.data.identifiers)].sort(),
+  }
   const { user, userVia } = identify(req)
   try {
-    if (await companyFolderExists(ticker)) return reply.code(409).send({ error: `${ticker} already exists` })
     await ensureCompanyFolder(ticker)
+    const sidecar = await ensureCompanyIdentity(ticker, identity)
+    if (!sidecar.created) {
+      return reply.code(409).send({ error: `${ticker} already exists` })
+    }
     console.log(`[upload] ${user} (${userVia}) created company ${ticker} in Drive`)
-    return { ok: true, ticker }
+    return { ok: true, ticker, identity }
   } catch (e: any) {
     return reply.code(502).send({ error: driveErrorMessage(e) })
   }

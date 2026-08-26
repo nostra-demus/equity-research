@@ -19,14 +19,21 @@ function run(): RunState {
   return {
     runId: '00000000-0000-4000-8000-000000000001', kind: 'agent', ticker: 'TEST',
     subjectId: 'TEST', swarmId: 'research', unit: 'ticker', module: 'earnings',
-    agent: 'historical-financials', provider: 'codex', executionProfile: { key: 'test' },
+    agent: 'historical-financials', provider: 'codex',
+    executionProfile: { key: 'test', specialistModel: 'gpt-5.6-terra' },
     profileKey: 'codex:test', model: 'gpt-5.5', prompt: 'test', user: 'local', userVia: 'local',
     runRoot: 'analyses/MEMORYTEST_2099-01-01', child: null, status: 'starting', startedAt: Date.now(),
     willCommitToMain: false, writeTargetsAbs: [], coveredModules: ['earnings'], readDepsAbs: [],
-    agents: new Map(), expected: new Map([['earnings/01_historical-financials', {
-      key: 'earnings/01_historical-financials', module: 'earnings', name: 'historical-financials',
-      layer: 1, outputRel: 'earnings/01_historical-financials.md',
-    }]]), toolUseToAgent: new Map(), nativeThreadToAgent: new Map(), nativeAgentStates: new Map(),
+    agents: new Map(), expected: new Map([
+      ['earnings/01_historical-financials', {
+        key: 'earnings/01_historical-financials', module: 'earnings', name: 'historical-financials',
+        layer: 1, outputRel: 'earnings/01_historical-financials.md',
+      }],
+      ['earnings/99_earnings-synthesis', {
+        key: 'earnings/99_earnings-synthesis', module: 'earnings', name: 'earnings-synthesis',
+        layer: 99, outputRel: 'earnings/99_earnings-synthesis.md',
+      }],
+    ]), toolUseToAgent: new Map(), nativeThreadToAgent: new Map(), nativeAgentStates: new Map(),
     eventLog: [], activity: [], subscribers: new Set(),
     memoryIdentity: {
       legalName: 'Test Holdings Inc', venue: 'NasdaqGS', currency: 'USD', ticker: 'TEST', identifiers: [],
@@ -36,7 +43,8 @@ function run(): RunState {
 
 const configured = {
   NOSTRA_MEMORY_MODE: 'enforced', NOSTRA_MEMORY_STATE_ROOT: '/tmp/memory-state',
-  NOSTRA_MEMORY_CHECKPOINT: '/tmp/checkpoint', NOSTRA_MEMORY_WRITER_OWNER: '/tmp/owner',
+  NOSTRA_MEMORY_CHECKPOINT: '/tmp/checkpoint', NOSTRA_MEMORY_WRITER_OWNER_PATH: '/tmp/owner',
+  NOSTRA_MEMORY_WRITER_OWNER: 'memory-canonical-writer',
   NOSTRA_MEMORY_WRITER_HEAD: '/tmp/head', NOSTRA_MEMORY_CANONICAL_LEDGER: '/tmp/memory.ndjson',
   NOSTRA_MEMORY_PROTECTED_STORE: '/tmp/protected-memory',
   NOSTRA_MEMORY_PROTECTED_MASTER_KEY: '/tmp/protected-key',
@@ -81,6 +89,15 @@ const executor = async (args: string[]) => {
     authorization_path: '/tmp/provider-authorization.json',
     authorization_sha256: `sha256:${'b'.repeat(64)}`,
   }
+  if (args[0] === 'authorize') return {
+    schema: 'research-memory-authorize-result/v1', ok: true,
+    receipt_id: 'run-receipt_00000000-0000-5000-8000-000000000001',
+    receipt_sha256: `sha256:${'a'.repeat(64)}`,
+    provider_model: `${args[args.indexOf('--provider') + 1]}/${args[args.indexOf('--model') + 1]}`,
+    authorization_id: 'provider-authorization_00000000-0000-5000-8000-000000000003',
+    authorization_path: '/tmp/specialist-provider-authorization.json',
+    authorization_sha256: `sha256:${'d'.repeat(64)}`,
+  }
   if (args[0] === 'finalize') return { ok: true, status: 'completed', coverage_pct: 100 }
   return {
     ok: true, receipt_id: 'run-receipt_00000000-0000-5000-8000-000000000001',
@@ -95,12 +112,22 @@ assert.equal(prepared.memoryRuntime?.status, 'verified')
 assert.equal(calls[0][0], 'verify-enforcement')
 assert.equal(calls[1][0], 'prepare')
 assert.ok(calls[1].includes('--legal-name'))
+assert.equal(calls[1][calls[1].indexOf('--writer-owner') + 1], '/tmp/owner')
 await verifyResearchMemoryBeforeSpawn(prepared, executor, configured)
 assert.equal(calls[2][0], 'verify-enforcement')
 assert.equal(calls[3][0], 'verify')
 await compileResearchMemoryPacket(prepared, 'earnings/01_historical-financials', executor, configured)
-assert.equal(calls[4][0], 'compile')
-assert.ok(calls[4].includes('--authorization'))
+assert.equal(calls[4][0], 'authorize')
+assert.equal(calls[4][calls[4].indexOf('--model') + 1], 'gpt-5.6-terra')
+assert.equal(calls[5][0], 'compile')
+assert.equal(
+  calls[5][calls[5].indexOf('--authorization') + 1],
+  '/tmp/specialist-provider-authorization.json',
+)
+await compileResearchMemoryPacket(prepared, 'earnings/99_earnings-synthesis', executor, configured)
+assert.equal(calls[6][0], 'compile')
+assert.equal(calls.filter((args) => args[0] === 'authorize').length, 1, 'module synthesis reuses the exact specialist-model authorization')
+assert.equal(calls[6][calls[6].indexOf('--authorization') + 1], '/tmp/specialist-provider-authorization.json')
 await assert.rejects(() => compileResearchMemoryPacket(
   prepared, 'valuation/01_price-and-capital-structure', executor, configured,
 ))

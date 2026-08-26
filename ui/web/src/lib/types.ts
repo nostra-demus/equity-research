@@ -1,4 +1,11 @@
 export type Sufficiency = 'Sufficient' | 'Partial' | 'Insufficient'
+export interface NewCompanyInput {
+  ticker: string
+  legalName: string
+  venue: 'NYSE' | 'NasdaqGS' | 'NasdaqCM' | 'NasdaqGM' | 'NSE' | 'DFM' | 'XTRA' | 'Oslo Børs' | 'SHSE' | 'HKEX' | 'LSE'
+  currency: string
+  identifiers: string[]
+}
 export type NodeStatus = 'dormant' | 'locked' | 'ready' | 'notready' | 'queued' | 'running' | 'done' | 'failed'
 // engine reachability, driven by the /api/health heartbeat (lib/store). `your-network` = the visitor's
 // own connection is down; `session-expired` = Cloudflare Access cookie gone (reachable but not JSON-ok).

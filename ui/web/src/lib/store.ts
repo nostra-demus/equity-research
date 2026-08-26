@@ -15,7 +15,7 @@ import { stageDockHUpdate } from './stageDock'
 import { affectedModules, focusKeysFor } from './intake'
 import { moduleRunAffordance, moduleRunInputModules } from './moduleRun'
 import type { BridgeStatus } from './types'
-import type { ActiveRunLite, AgentNode, AskMemoryMeta, AskMemoryMode, BoardIdea, BoardInboxRow, BookFilterState, BookSort, ChatMessage, ChatScope, ChatStyle, ChatWork, ConvictionDetail, CoverageGroup, CycleSummary, DataNeedsRead, DataStatus, EventEnrichment, FeedbackSubmitInput, FeedbackType, FeedItem, HealthState, IntakePlan, IntensityStats, IntensityWindow, LaunchPreflight, ListingStatus, NewsChatCompletedTurn, NewsChatEvidence, NewsChatReceipt, NewsChatWindow, NewsDiagnostics, NewsStatus, NodeRuntime, NodeStatus, QuoteRead, ReadinessReport, ResumableRunInfo, RunActivity, RunKind, ScreenerBoard, SignalIntakeInput, SignalState, SseEvent, SwarmGraph, SwarmMeta, SwarmSubjectSummary, ThesisPlan, ThesisPlanIntake, TickerSummary, Usage, WhatChangedRead } from './types'
+import type { ActiveRunLite, AgentNode, AskMemoryMeta, AskMemoryMode, BoardIdea, BoardInboxRow, BookFilterState, BookSort, ChatMessage, ChatScope, ChatStyle, ChatWork, ConvictionDetail, CoverageGroup, CycleSummary, DataNeedsRead, DataStatus, EventEnrichment, FeedbackSubmitInput, FeedbackType, FeedItem, HealthState, IntakePlan, IntensityStats, IntensityWindow, LaunchPreflight, ListingStatus, NewCompanyInput, NewsChatCompletedTurn, NewsChatEvidence, NewsChatReceipt, NewsChatWindow, NewsDiagnostics, NewsStatus, NodeRuntime, NodeStatus, QuoteRead, ReadinessReport, ResumableRunInfo, RunActivity, RunKind, ScreenerBoard, SignalIntakeInput, SignalState, SseEvent, SwarmGraph, SwarmMeta, SwarmSubjectSummary, ThesisPlan, ThesisPlanIntake, TickerSummary, Usage, WhatChangedRead } from './types'
 import { feedbackInputFromItem, feedbackLabel, polarityOf } from './feedbackTypes'
 import { emptyBookFilters } from '../components/screener/BookFilters'
 import { emptyDlFilters, type DlFilterState } from '../components/datalibrary/DataLibraryFilters'
@@ -644,7 +644,7 @@ interface State {
   openAddCompany: () => void
   closeAddCompany: () => void
   openUploader: (ticker: string) => void
-  addCompany: (ticker: string) => Promise<boolean>
+  addCompany: (input: NewCompanyInput) => Promise<boolean>
   uploadFiles: (ticker: string, files: File[]) => Promise<void>
   refreshActiveRuns: () => Promise<void>
   // disk-truth resumable set (interrupted runs across all swarms) + the manual Resume trigger. The
@@ -1717,10 +1717,11 @@ export const useStore = create<State>((set, get) => ({
   openAddCompany: () => set({ addCompanyOpen: true, uploadTarget: null, uploadErrors: [], uploadProgress: {} }),
   closeAddCompany: () => set({ addCompanyOpen: false, uploadTarget: null, uploadErrors: [], uploadProgress: {} }),
   openUploader: (ticker) => set({ uploadTarget: ticker, uploadErrors: [], uploadProgress: {} }),
-  addCompany: async (ticker) => {
+  addCompany: async (input) => {
     if (get().staticMode) { get().setToast({ msg: 'Read-only showcase — add companies on your machine via npm run dev', tone: 'info' }); return false }
+    const ticker = input.ticker
     try {
-      await api.addCompany(ticker)
+      await api.addCompany(input)
       refreshTickersSoon(get, set) // the new folder surfaces once Drive syncs it down; this keeps polling
       // target the uploader at the new ticker STRING (don't selectTicker yet — the folder isn't on the local
       // mount until Drive syncs it down, and reconcileSelection would drop a not-yet-present selection)

@@ -136,9 +136,8 @@ function ChainPath({ lead }: { lead: SupplyChainLead }) {
 }
 
 function ChainCard({ lead }: { lead: SupplyChainLead }) {
-  const addCompany = useStore((s) => s.addCompany)
+  const openAddCompany = useStore((s) => s.openAddCompany)
   const driveEnabled = useStore((s) => s.driveEnabled)
-  const [busy, setBusy] = useState(false)
   const disclosure = disclosureLabel(lead)
   const coverage = coverageLabel(lead)
   const canStartPool = Boolean(lead.symbol) && !lead.prior_coverage?.data_pool_present && !lead.prior_coverage?.has_run && driveEnabled
@@ -190,11 +189,10 @@ function ChainCard({ lead }: { lead: SupplyChainLead }) {
             <button
               type="button"
               className="bidea__cta"
-              disabled={busy}
               title={`Create a data pool for ${lead.symbol} so its filings can be gathered and it can be researched properly.`}
-              onClick={async () => { setBusy(true); try { await addCompany(lead.symbol!) } finally { setBusy(false) } }}
+              onClick={openAddCompany}
             >
-              {busy ? 'Creating…' : 'Start a pool'}
+              Start a pool
             </button>
           )}
         </div>

@@ -379,7 +379,7 @@ class MemoryRuntimeTests(unittest.TestCase):
             first = manager.prepare(now=NOW)
             self.assertEqual("deterministic-local-rebuild", first.source)
             self.assertEqual(1, first.event_count)
-            second = manager.prepare(now=NOW)
+            second = manager.prepare(now=NOW + dt.timedelta(days=1))
             self.assertEqual("production-projection", second.source)
             self.assertEqual(first.projection_digest, second.projection_digest)
             manager.database.write_bytes(b"not sqlite")

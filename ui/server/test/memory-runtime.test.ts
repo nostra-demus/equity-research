@@ -42,7 +42,8 @@ function controls() {
 }
 
 function populate(root: string) {
-  fs.writeFileSync(path.join(root, 'projection.sqlite'), 'verified-projection', { mode: 0o600 })
+  fs.mkdirSync(path.join(root, 'projection'), { recursive: true, mode: 0o700 })
+  fs.writeFileSync(path.join(root, 'projection', 'projection.sqlite'), 'verified-projection', { mode: 0o600 })
   write(root, 'controls/runtime-controls.json', controls())
   write(root, 'candidates/semantic/candidate.json', {
     schema: 'memory-semantic-candidate/v1', candidate_id: 'memory-semantic-candidate-1',
