@@ -3285,6 +3285,8 @@ export interface WatchRow {
   tags: string[]
   triggers: WatchTrigger[]
   attachments: WatchAttachment[]
+  assignee: TaskAssignee | null
+  task_id: string | null
   engine: WatchEngineRow | null
   /** Came back because the engine changed what it says about a name you had archived. */
   resurfaced: boolean
@@ -3345,4 +3347,50 @@ export interface WatchRowInput {
   tags?: string[]
   /** `trigger_id` is carried when editing so the server can keep a trigger's identity. */
   triggers?: (DistributiveOmit<WatchTrigger, 'trigger_id'> & { trigger_id?: string })[]
+  assignee?: TaskAssignee | null
+}
+
+// ---- shared research Tasks board ----
+export type TaskAssignee = 'AB' | 'NV' | 'CK'
+export type TaskStage = 'idea_generation' | 'ticker_identified' | 'deep_dive' | 'final_decision'
+export type TaskDecision = 'deploy' | 'reject' | 'watch'
+export type TaskScope = 'ticker' | 'company_event' | 'world_event'
+
+export interface TaskPerson { id: TaskAssignee; name: string }
+
+export interface TaskCard {
+  schema_version: 'task-card/v1'
+  task_id: string
+  scope: TaskScope
+  ticker: string | null
+  subject: string
+  title: string
+  stage: TaskStage
+  decision: TaskDecision | null
+  assignee: TaskAssignee
+  attachments: WatchAttachment[]
+  watchlist_entry_id: string | null
+  watchlist_created: boolean
+  history: { at: string; by: string; action: string; detail: string }[]
+  created_at: string
+  created_by: string
+  updated_at: string
+}
+
+export interface TaskInput {
+  scope: TaskScope
+  ticker?: string | null
+  subject: string
+  title: string
+  stage: TaskStage
+  decision?: TaskDecision | null
+  assignee: TaskAssignee
+}
+
+export interface TasksRead {
+  tasks: TaskCard[]
+  people: TaskPerson[]
+  unreadable: string[]
+  attachments_enabled: boolean
+  as_of: string
 }

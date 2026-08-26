@@ -263,23 +263,12 @@ export function ScreenerAskButton() {
 // the left Events rail (one unified stream); the news scan is automatic and Ask routes its evidence.
 function ScreenerControls() {
   const openSignalIntake = useStore((s) => s.openSignalIntake)
-  const openPipeline = useStore((s) => s.openPipeline)
-  const openActivity = useStore((s) => s.openActivity)
   const health = useStore((s) => s.health)
   const engineDown = health === 'engine-offline' || health === 'your-network' || health === 'session-expired'
-  // ONE runs entry: opens the book (every event you've checked) AND un-hides the live-progress rail, so
-  // "Runs" is the single home for both what's running now and everything you've run — replacing the
-  // confusing pair of "Runs" (reopen the live rail) + "Recent runs" (open the book) that read as duplicates.
-  const openRuns = () => { openActivity(); openPipeline() }
   return (
-    <>
-      <button className="btn btn--ghost" onClick={openRuns} title="Your runs — the live progress of anything running now, plus the full book of every event you've checked; reopen any analysis">
-        Runs
-      </button>
-      <button className="btn btn--amber" disabled={engineDown} onClick={openSignalIntake} title="Paste one news event and run it through the checks">
-        Check an event ▸
-      </button>
-    </>
+    <button className="btn btn--amber" disabled={engineDown} onClick={openSignalIntake} title="Paste one news event and run it through the checks">
+      Check an event ▸
+    </button>
   )
 }
 
@@ -777,19 +766,82 @@ function FeedbackButton() {
   )
 }
 
-export function CommandBar() {
-  const decision = useStore((s) => s.decision)
-  const openThesis = useStore((s) => s.openThesis)
-  const openActivity = useStore((s) => s.openActivity)
-  const openScoring = useStore((s) => s.openScoring)
-  const openReview = useStore((s) => s.openReview)
-  const openCalls = useStore((s) => s.openCalls)
+function BarMenu({ label, title, children, alert = false, workspace = false }: { label: React.ReactNode; title: string; children: React.ReactNode; alert?: boolean; workspace?: boolean }) {
+  const [open, setOpen] = useState(false)
+  const wrap = useRef<HTMLDivElement | null>(null)
+  useEffect(() => {
+    if (!open) return
+    const away = (event: MouseEvent) => { if (!wrap.current?.contains(event.target as Node)) setOpen(false) }
+    const key = (event: KeyboardEvent) => { if (event.key === 'Escape') setOpen(false) }
+    document.addEventListener('mousedown', away)
+    document.addEventListener('keydown', key)
+    return () => { document.removeEventListener('mousedown', away); document.removeEventListener('keydown', key) }
+  }, [open])
+  return (
+    <div className="barmenu" ref={wrap}>
+      <button className={`btn btn--ghost barmenu__trigger${alert ? ' barmenu__trigger--alert' : ''}`} data-memory-entry={workspace ? 'true' : undefined} data-tools-entry={workspace ? 'true' : undefined} aria-expanded={open} onClick={() => setOpen(!open)} title={title}>{label}<span aria-hidden>▾</span></button>
+      {open && <div className="barmenu__panel" onClick={workspace ? (event) => {
+        if ((event.target as Element).closest('button')) setOpen(false)
+      } : undefined}>{children}</div>}
+    </div>
+  )
+}
+
+function WorkspaceMenu({ screenerMode, hasData }: { screenerMode: boolean; hasData: boolean }) {
   const openDataLibrary = useStore((s) => s.openDataLibrary)
   const openMemory = useStore((s) => s.openMemory)
   const openTools = useStore((s) => s.openTools)
+  const openCalls = useStore((s) => s.openCalls)
+  const openActivity = useStore((s) => s.openActivity)
+  const openPipeline = useStore((s) => s.openPipeline)
+  const openChatHistory = useStore((s) => s.openChatHistory)
+  const openScoring = useStore((s) => s.openScoring)
+  const openReview = useStore((s) => s.openReview)
+  const item = (label: string, note: string, action: () => void) => <button className="barmenu__item" onClick={action}><b>{label}</b><span>{note}</span></button>
+  return (
+    <BarMenu workspace label="Workspace" title="Data, tools, activity and saved conversations">
+      <div className="barmenu__label">Work</div>
+      {hasData && item('Data', 'Pipelines, sources and gaps', openDataLibrary)}
+      <button className="barmenu__item" onClick={openMemory}><b>Memory</b><span>What the system remembers</span></button>
+      <button className="barmenu__item" onClick={openTools}><b>Tools</b><span>Focused everyday mini-apps</span></button>
+      {item('Activity', 'Live and completed runs', () => { openActivity(); if (screenerMode) openPipeline() })}
+      {item('Chats', 'Reopen saved Ask conversations', openChatHistory)}
+      <div className="barmenu__rule" />
+      {screenerMode
+        ? <>{item('Review', 'Batch-review the news wire', openReview)}{item('Scoring', 'Tune event weights', openScoring)}</>
+        : item('Calls', 'Every decision and what happened', openCalls)}
+    </BarMenu>
+  )
+}
+
+function StatusMenu({ screenerMode, showScanner, showBridge }: { screenerMode: boolean; showScanner: boolean; showBridge: boolean }) {
+  const health = useStore((s) => s.health)
+  const status = useStore((s) => s.newsStatus)
+  const backlog = status?.backlog?.count ?? 0
+  const bad = health === 'engine-offline' || health === 'your-network' || health === 'session-expired'
+  return (
+    <BarMenu
+      alert={bad || backlog > 0}
+      title="Engine, provider and background scanner status"
+      label={<><span className={`barmenu__dot${bad ? ' is-bad' : ''}`} />Status{backlog > 0 && <em>{backlog > 999 ? `${Math.round(backlog / 1000)}k` : backlog}</em>}</>}
+    >
+      <div className="barmenu__label">System</div>
+      <div className="barmenu__statusrow"><EngineStatusPill /></div>
+      {!screenerMode && <div className="barmenu__statusrow"><ReadinessStrip /></div>}
+      <div className="barmenu__statusrow barmenu__statusrow--provider"><ProviderSelector /></div>
+      {(showScanner || showBridge || screenerMode) && <div className="barmenu__rule" />}
+      {showScanner && <div className="barmenu__statusrow"><AutoScanChip /></div>}
+      {screenerMode && <div className="barmenu__statusrow"><PipelineChip /></div>}
+      {showBridge && <div className="barmenu__statusrow"><BridgeChip /></div>}
+    </BarMenu>
+  )
+}
+
+export function CommandBar() {
+  const decision = useStore((s) => s.decision)
+  const openThesis = useStore((s) => s.openThesis)
   const pipelines = useStore((s) => s.pipelines)
   const openChat = useStore((s) => s.openChat)
-  const openChatHistory = useStore((s) => s.openChatHistory)
   // "Runs" reopen: shown only while the run panel is closed (dismiss only happens from the panel, and switching
   // company/starting a run clears the flag — so a visible flag always means there's a hidden panel to bring back)
   const requestFull = useStore((s) => s.requestFull)
@@ -821,45 +873,18 @@ export function CommandBar() {
       <div className="topbar__spacer" />
       <ThemeToggle />
       <FeedbackButton />
-      {/* shared across BOTH modes; gated on the read having answered — an old engine 404s and the
-          button never renders (deploy-skew fail-closed, DESIGN.md §5) */}
-      {pipelines !== null && (
-        <button className="btn btn--ghost" onClick={openDataLibrary} title="Data library — the wired data pipelines feeding the pool, and the gaps worth wiring next">Data</button>
-      )}
-      <button className="btn btn--ghost" data-memory-entry="true" onClick={openMemory} title="Memory — find what the system remembers across every cockpit">Memory</button>
-      <button className="btn btn--ghost" data-tools-entry="true" onClick={openTools} title="Tools — open focused mini-apps for everyday work">Tools</button>
+      <WorkspaceMenu screenerMode={screenerMode} hasData={pipelines !== null} />
       {screenerMode ? (
         <>
           <StopControl />
-          <AutoScanChip />
-          <PipelineChip />
-          <EngineStatusPill />
-          <ProviderSelector />
-          <button className="btn btn--ghost" onClick={openScoring} title="Scoring weights — tune how every event is scored, for the whole wire">Scoring</button>
-          <button className="btn btn--ghost" onClick={openActivity} title="Activity — what is running now, and everything that has ever run">Activity</button>
-          <button className="btn btn--ghost" onClick={openReview} title="Batch review — flag a day's worth of items fast, with keyboard shortcuts">Review</button>
-          {/* the live-run rail's reopen is folded into the single "Runs" button below (ScreenerControls) —
-              no separate top-bar button, so "Runs" and "Recent runs" no longer read as duplicates */}
-          <button className="btn btn--ghost" onClick={openChatHistory} title="Chat history — reopen and continue any past Ask conversation">Chats</button>
+          <StatusMenu screenerMode showScanner showBridge={false} />
           <ScreenerAskButton />
           <ScreenerControls />
         </>
       ) : (
         <>
-          <ReadinessStrip />
           <StopControl />
-          {/* a constellation swarm with a declared wire watches the same scanner — show its status chip */}
-          {swarms.find((s) => s.id === activeSwarm)?.wire && <AutoScanChip />}
-          {/* the news→pool bridge only covers the research swarm's subjects (.claude/bridge/company-news-
-              bridge.json) — showing it on e.g. the commodity bar would present a global research-pool note
-              count as if it fed the current (unrelated) dossier (Codex #359, "Show the research bridge
-              only in the research swarm") */}
-          {activeSwarm === 'research' && <BridgeChip />}
-          <EngineStatusPill />
-          <ProviderSelector />
-          <button className="btn btn--ghost" onClick={openCalls} title="Calls tracker — every call the engine made and what's happened since">Calls</button>
-          <button className="btn btn--ghost" onClick={openActivity} title="Activity — what is running now, and everything that has ever run">Activity</button>
-          <button className="btn btn--ghost" onClick={openChatHistory} title="Chat history — reopen and continue any past Ask conversation">Chats</button>
+          <StatusMenu screenerMode={false} showScanner={!!swarms.find((s) => s.id === activeSwarm)?.wire} showBridge={activeSwarm === 'research'} />
           {decision?.final_thesis_path !== undefined || verdict ? (
             <button className="btn btn--ghost" onClick={openThesis}>{activeSwarm === 'research' ? 'Thesis' : 'Dossier'}</button>
           ) : null}
