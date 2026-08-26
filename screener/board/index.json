@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-26T18:12:00Z",
+  "generated_at": "2026-08-26T18:47:19Z",
   "inbox": [
     {
       "inbox_id": "INB-20260826-1056",
@@ -1892,6 +1892,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260826-1064",
+      "headline": "DICK'S Sporting Shares Plunge 31% on Soft Q2 Earnings & Lower View",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/dicks-sporting-shares-plunge-31-soft-q2-earnings-lower-view",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-26T16:42:00Z",
+      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
+      "prelim_note": "Company reported a 31% share price drop following a miss on Q2 earnings and a downward revision to guidance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company reported a 31% share price drop following a miss on Q2 earnings and a downward revision to guidance.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "DICK'S Sporting Goods",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260826-1031",
       "headline": "AD Ports board backs ADQ’s Dh6.25-a-share buyout offer",
       "headline_en": null,
@@ -1936,55 +1986,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260826-1029",
-      "headline": "Lockheed’s Pricey F-35 Sees 10% Cost Jump for Needed Upgrades",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-08-26/lockheed-s-pricey-f-35-sees-10-cost-jump-for-needed-upgrades",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-26T15:53:09Z",
-      "sweep_file": "screener/inbox/2026-08-26_sweep.json",
-      "prelim_note": "Lockheed Martin faces a 10% cost increase for F-35 upgrades, impacting program margins and potentially government contract terms.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Lockheed Martin faces a 10% cost increase for F-35 upgrades, impacting program margins and potentially government contract terms.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Lockheed Martin",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -81201,153 +81202,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-8431f766b3ed",
-      "idea_version": "IDEAV-f04415eb6299e5c8",
-      "idea_version_started_at": "2026-08-25T10:04:28Z",
-      "ticker": "ENR",
-      "company": "Siemens Energy",
-      "exchange": "XETRA",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company is actively pursuing the divestment of its steam turbine business, which would streamline operations and provide a significant cash injection to improve its balance sheet.",
-      "why_now": "The strategic review and preparation for the sale were confirmed in reports on 2026-08-25.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-2eb8f7213858",
-        "EVT-b6c4428f1c97"
-      ],
-      "primary_source_event_id": "EVT-2eb8f7213858",
-      "source_headlines": [
-        "Billion-euro deal: Siemens Energy prepares sale of steam turbine business",
-        "Billion-euro deal: Siemens Energy prepares for potential sale of steam turbine business"
-      ],
-      "source_headline": "Milliardendeal: Siemens Energy bereitet Verkauf von Dampfturbinen-Geschäft vor",
-      "source_url": "https://www.handelsblatt.com/unternehmen/industrie/milliardendeal-siemens-energy-bereitet-verkauf-von-dampfturbinen-geschaeft-vor/100249453.html",
-      "source_name": "Handelsblatt",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-25T06:37:23Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-25T10:04:28Z",
-      "updated_at": "2026-08-25T10:04:28Z",
-      "decay_at": "2026-08-26T18:37:23Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-d4ab593dba9c",
-      "idea_version": "IDEAV-caa063cb998499f5",
-      "idea_version_started_at": "2026-08-25T10:04:28Z",
-      "ticker": "HINDCOPPER",
-      "company": "Hindustan Copper",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The government's offer-for-sale of a 6% stake at a 10% discount creates immediate downward pressure on the share price due to increased supply and dilution of value.",
-      "why_now": "The announcement of the OFS occurred on 2026-08-25.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-231a7abe80b7"
-      ],
-      "primary_source_event_id": "EVT-231a7abe80b7",
-      "source_headlines": [
-        "Hindustan Copper Shares Fall 6% As Govt Announces 6% Stake Sale Via OFS At 10% Discount"
-      ],
-      "source_headline": "Hindustan Copper Shares Fall 6% As Govt Announces 6% Stake Sale Via OFS At 10% Discount",
-      "source_url": "https://www.freepressjournal.in/business/hindustan-copper-shares-fall-6-as-govt-announces-6-stake-sale-via-ofs-at-10-discount",
-      "source_name": "Free Press Journal",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-25T06:20:46Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-25T10:04:28Z",
-      "updated_at": "2026-08-25T10:04:28Z",
-      "decay_at": "2026-08-26T18:20:46Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-15545ed7f8b1",
       "idea_version": "IDEAV-73067bb8cd7980b7",
       "idea_version_started_at": "2026-08-26T09:35:45Z",
@@ -82262,6 +82116,153 @@
       "surfaced_at": "2026-08-25T10:04:28Z",
       "updated_at": "2026-08-25T10:04:28Z",
       "decay_at": "2026-08-26T16:54:28Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-8431f766b3ed",
+      "idea_version": "IDEAV-f04415eb6299e5c8",
+      "idea_version_started_at": "2026-08-25T10:04:28Z",
+      "ticker": "ENR",
+      "company": "Siemens Energy",
+      "exchange": "XETRA",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company is actively pursuing the divestment of its steam turbine business, which would streamline operations and provide a significant cash injection to improve its balance sheet.",
+      "why_now": "The strategic review and preparation for the sale were confirmed in reports on 2026-08-25.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-2eb8f7213858",
+        "EVT-b6c4428f1c97"
+      ],
+      "primary_source_event_id": "EVT-2eb8f7213858",
+      "source_headlines": [
+        "Billion-euro deal: Siemens Energy prepares sale of steam turbine business",
+        "Billion-euro deal: Siemens Energy prepares for potential sale of steam turbine business"
+      ],
+      "source_headline": "Milliardendeal: Siemens Energy bereitet Verkauf von Dampfturbinen-Geschäft vor",
+      "source_url": "https://www.handelsblatt.com/unternehmen/industrie/milliardendeal-siemens-energy-bereitet-verkauf-von-dampfturbinen-geschaeft-vor/100249453.html",
+      "source_name": "Handelsblatt",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-25T06:37:23Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-25T10:04:28Z",
+      "updated_at": "2026-08-25T10:04:28Z",
+      "decay_at": "2026-08-26T18:37:23Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-d4ab593dba9c",
+      "idea_version": "IDEAV-caa063cb998499f5",
+      "idea_version_started_at": "2026-08-25T10:04:28Z",
+      "ticker": "HINDCOPPER",
+      "company": "Hindustan Copper",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The government's offer-for-sale of a 6% stake at a 10% discount creates immediate downward pressure on the share price due to increased supply and dilution of value.",
+      "why_now": "The announcement of the OFS occurred on 2026-08-25.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-231a7abe80b7"
+      ],
+      "primary_source_event_id": "EVT-231a7abe80b7",
+      "source_headlines": [
+        "Hindustan Copper Shares Fall 6% As Govt Announces 6% Stake Sale Via OFS At 10% Discount"
+      ],
+      "source_headline": "Hindustan Copper Shares Fall 6% As Govt Announces 6% Stake Sale Via OFS At 10% Discount",
+      "source_url": "https://www.freepressjournal.in/business/hindustan-copper-shares-fall-6-as-govt-announces-6-stake-sale-via-ofs-at-10-discount",
+      "source_name": "Free Press Journal",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-25T06:20:46Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-25T10:04:28Z",
+      "updated_at": "2026-08-25T10:04:28Z",
+      "decay_at": "2026-08-26T18:20:46Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -84991,18 +84992,18 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 135,
-    "shown_count": 135,
+    "total_count": 137,
+    "shown_count": 137,
     "hidden_count": 0,
     "side_counts": {
       "long": {
-        "total_count": 55,
-        "shown_count": 55,
+        "total_count": 56,
+        "shown_count": 56,
         "hidden_count": 0
       },
       "short": {
-        "total_count": 80,
-        "shown_count": 80,
+        "total_count": 81,
+        "shown_count": 81,
         "hidden_count": 0
       }
     },
@@ -85022,6 +85023,159 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-8431f766b3ed",
+        "idea_version": "IDEAV-f04415eb6299e5c8",
+        "idea_version_started_at": "2026-08-25T10:04:28Z",
+        "ticker": "ENR",
+        "company": "Siemens Energy",
+        "exchange": "XETRA",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company is actively pursuing the divestment of its steam turbine business, which would streamline operations and provide a significant cash injection to improve its balance sheet.",
+        "why_now": "The strategic review and preparation for the sale were confirmed in reports on 2026-08-25.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-2eb8f7213858",
+          "EVT-b6c4428f1c97"
+        ],
+        "primary_source_event_id": "EVT-2eb8f7213858",
+        "source_headlines": [
+          "Billion-euro deal: Siemens Energy prepares sale of steam turbine business",
+          "Billion-euro deal: Siemens Energy prepares for potential sale of steam turbine business"
+        ],
+        "source_headline": "Milliardendeal: Siemens Energy bereitet Verkauf von Dampfturbinen-Geschäft vor",
+        "source_url": "https://www.handelsblatt.com/unternehmen/industrie/milliardendeal-siemens-energy-bereitet-verkauf-von-dampfturbinen-geschaeft-vor/100249453.html",
+        "source_name": "Handelsblatt",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-25T06:37:23Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-25T10:04:28Z",
+        "updated_at": "2026-08-25T10:04:28Z",
+        "decay_at": "2026-08-26T18:37:23Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-26T18:37:23Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-d4ab593dba9c",
+        "idea_version": "IDEAV-caa063cb998499f5",
+        "idea_version_started_at": "2026-08-25T10:04:28Z",
+        "ticker": "HINDCOPPER",
+        "company": "Hindustan Copper",
+        "exchange": "NSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The government's offer-for-sale of a 6% stake at a 10% discount creates immediate downward pressure on the share price due to increased supply and dilution of value.",
+        "why_now": "The announcement of the OFS occurred on 2026-08-25.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-231a7abe80b7"
+        ],
+        "primary_source_event_id": "EVT-231a7abe80b7",
+        "source_headlines": [
+          "Hindustan Copper Shares Fall 6% As Govt Announces 6% Stake Sale Via OFS At 10% Discount"
+        ],
+        "source_headline": "Hindustan Copper Shares Fall 6% As Govt Announces 6% Stake Sale Via OFS At 10% Discount",
+        "source_url": "https://www.freepressjournal.in/business/hindustan-copper-shares-fall-6-as-govt-announces-6-stake-sale-via-ofs-at-10-discount",
+        "source_name": "Free Press Journal",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-25T06:20:46Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-25T10:04:28Z",
+        "updated_at": "2026-08-25T10:04:28Z",
+        "decay_at": "2026-08-26T18:20:46Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-26T18:20:46Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-20e3c2a189e6",
         "idea_version": "IDEAV-8730845075074861",
@@ -95026,7 +95180,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 168,
-    "live_count": 32,
+    "live_count": 30,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -95045,9 +95199,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3723824,
-    "news_picked_today": 2143,
-    "news_dropped_today": 15485
+    "news_seen_today": 3797588,
+    "news_picked_today": 2163,
+    "news_dropped_today": 16005
   },
   "book_momentum": {
     "live_count": 8,
