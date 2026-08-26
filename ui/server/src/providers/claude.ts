@@ -75,7 +75,7 @@ export function claudeChildEnv(base: NodeJS.ProcessEnv = process.env): NodeJS.Pr
 }
 
 export function isClaudeMaxAuth(value: unknown): boolean {
-  const status = value as any
+  const status = value as Record<string, unknown>
   return status?.loggedIn === true && status?.authMethod === 'claude.ai'
     && status?.apiProvider === 'firstParty' && status?.subscriptionType === 'max'
 }
