@@ -4932,7 +4932,7 @@ await check('Haiku priority 1 scores before Groq when both providers are healthy
   assert.equal(summary.groq_requests, 0)
 })
 
-await check('Haiku priority 1 funds and scores a 24-row outer batch as two exact 12-row calls', async () => {
+await check('Haiku priority 1 funds and scores a 24-row outer batch as three exact 8-row calls', async () => {
   resetSharedLimiters(); resetBudgetMemory(); resetCooldownMemory()
   const root = tmp(), state = tmp()
   let gdeltServed = false, groqCalls = 0
@@ -4955,12 +4955,13 @@ await check('Haiku priority 1 funds and scores a 24-row outer batch as two exact
     return res({ articles: [] })
   }) as unknown as typeof fetch
   const prompts: string[] = []
+  const reservedUsdSeen: number[] = []
   const claudeCliRunner: ClaudeCliRunner = async (_system, user) => {
     prompts.push(user)
     const inFlight = JSON.parse(fs.readFileSync(path.join(state, 'anthropic-triage-budget.json'), 'utf8'))
-    assert.equal(inFlight.usd, 0.20, 'both $0.10 shards are durably funded before either provider call')
+    reservedUsdSeen.push(inFlight.usd)
     return {
-      text: JSON.stringify({ items: Array.from({ length: 12 }, (_, i) => ({
+      text: JSON.stringify({ items: Array.from({ length: 8 }, (_, i) => ({
         i, relevance: 'material', materiality_pre_score: 84, event_types: ['earnings'],
         issuer_linkage: 'primary', why: 'The company cut guidance.', companies: [], size_bucket: 'unknown',
       })) }),
@@ -4978,18 +4979,27 @@ await check('Haiku priority 1 funds and scores a 24-row outer batch as two exact
       anthropicPerCallUsd: 0.10, anthropicRpm: 6000, anthropicMinPriority: 0,
     } as any,
   })
-  assert.equal(prompts.length, 2)
-  assert.ok(prompts.every((prompt) => prompt.startsWith('Score these 12 headlines:')))
-  assert.equal(summary.anthropic_requests, 2)
-  assert.equal(summary.provider_attempts?.['anthropic-triage'], 2)
-  assert.equal(summary.provider_scored_batches?.['anthropic-triage'], 1)
+  assert.equal(prompts.length, 3)
+  assert.equal(reservedUsdSeen.length, 3)
+  assert.ok(reservedUsdSeen.every((usd) => Math.abs(usd - 0.30) < 2e-9),
+    `all three $0.10 shards are durably funded before any provider call: ${JSON.stringify(reservedUsdSeen)}`)
+  assert.ok(prompts.every((prompt) => prompt.startsWith('Score these 8 headlines:')))
+  assert.equal(summary.anthropic_requests, 3)
+  assert.equal(summary.provider_attempts?.['anthropic-triage'], 3)
+  assert.equal(summary.provider_scored_batches?.['anthropic-triage'], 1, JSON.stringify({
+    note: summary.note,
+    anthropicRequests: summary.anthropic_requests,
+    anthropicCostUsd: summary.anthropic_cost_usd,
+    providerAttempts: summary.provider_attempts,
+    providerScoredBatches: summary.provider_scored_batches,
+  }))
   assert.equal(summary.picked, 24)
   assert.equal(summary.deferred ?? 0, 0)
-  assert.equal(summary.anthropic_cost_usd, 0.08)
-  assert.equal(groqCalls, 0, 'the unchanged fallback chain is not needed after both Haiku shards succeed')
+  assert.equal(summary.anthropic_cost_usd, 0.12)
+  assert.equal(groqCalls, 0, 'the unchanged fallback chain is not needed after all three Haiku shards succeed')
   const ledger = JSON.parse(fs.readFileSync(path.join(state, 'anthropic-triage-budget.json'), 'utf8'))
-  assert.equal(ledger.usd, 0.08, 'the unused $0.12 reservation is released after exact cost telemetry')
-  assert.equal(ledger.calls, 2)
+  assert.equal(ledger.usd, 0.12, 'the unused $0.18 reservation is released after exact cost telemetry')
+  assert.equal(ledger.calls, 3)
   assert.equal(Object.keys(ledger.reservations || {}).length, 0)
 })
 

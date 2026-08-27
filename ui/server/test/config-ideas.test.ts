@@ -145,12 +145,12 @@ assert.equal(anthropicDrain.status, 0, anthropicDrain.stderr)
 assert.equal(anthropicDrain.stdout, 'false', 'an active triage-only Anthropic hold suppresses a no-progress backlog drain')
 fs.rmSync(anthropicDrainState, { recursive: true, force: true })
 
-// A 24-row subscription drain is two atomically funded 12-row calls. The scheduler must price the same
-// complete outer batch as runCycle; otherwise the final $0.19 of a $1 day looks usable here, the drain
-// starts, and runCycle immediately refuses because its required $0.20 reservation cannot fit.
+// A 24-row subscription drain is three atomically funded 8-row calls. The scheduler must price the same
+// complete outer batch as runCycle; otherwise the final $0.29 of a $1 day looks usable here, the drain
+// starts, and runCycle immediately refuses because its required $0.30 reservation cannot fit.
 const anthropicShardState = fs.mkdtempSync(path.join(os.tmpdir(), 'anthropic-shard-drain-'))
 const anthropicShardDay = new Date().toISOString().slice(0, 10)
-fs.writeFileSync(path.join(anthropicShardState, 'anthropic-triage-budget.json'), JSON.stringify({ date: anthropicShardDay, usd: 0.81, calls: 9 }))
+fs.writeFileSync(path.join(anthropicShardState, 'anthropic-triage-budget.json'), JSON.stringify({ date: anthropicShardDay, usd: 0.71, calls: 9 }))
 fs.writeFileSync(path.join(anthropicShardState, 'news-deferred.json'), JSON.stringify(Array.from({ length: 24 }, (_, index) => ({
   event_id: `shard-${index}`,
   headline: `Company ${index} materially cuts full-year guidance`,
@@ -172,7 +172,7 @@ const anthropicShardDrain = spawnSync(process.execPath, ['--import', 'tsx', '--i
   encoding: 'utf8',
 })
 assert.equal(anthropicShardDrain.status, 0, anthropicShardDrain.stderr)
-assert.equal(anthropicShardDrain.stdout, 'false', 'the drain gate refuses a 24-row batch when only one of its two Haiku shards fits')
+assert.equal(anthropicShardDrain.stdout, 'false', 'the drain gate refuses a 24-row batch unless all three Haiku shards fit')
 fs.rmSync(anthropicShardState, { recursive: true, force: true })
 
 // Title ingestion and the lead skim are independent feature gates. A standalone pass owns the provider
