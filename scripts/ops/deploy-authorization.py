@@ -205,6 +205,16 @@ def authorize(args: argparse.Namespace) -> int:
     ttl = args.ttl_seconds
     if not 60 <= ttl <= MAX_TTL_SECONDS:
         raise AuthorizationError(f"ttl must be between 60 and {MAX_TTL_SECONDS} seconds")
+    # Reject metadata that validate_shape would later refuse, BEFORE writing the receipt.
+    # Otherwise an empty (e.g. unset shell var) or over-long value writes a receipt that
+    # every subsequent check rejects while authorize refuses to replace it — wedging
+    # deployment until the state directory is edited by hand.
+    for flag, supplied in (
+        ("--authorization-reference", args.authorization_reference),
+        ("--authorized-by", args.authorized_by),
+    ):
+        if not isinstance(supplied, str) or not supplied.strip() or len(supplied) > 256:
+            raise AuthorizationError(f"{flag} must be a non-empty string of at most 256 characters")
     digest, count = program_manifest(repo, approved)
     now = int(time.time())
     value = {

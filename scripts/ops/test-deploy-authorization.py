@@ -99,6 +99,33 @@ with tempfile.TemporaryDirectory(prefix="deploy-authorization-test-") as tempora
     )
     assert missing.returncode == 1 and "no deployment authorization receipt" in missing.stderr
 
+    # Empty or over-long receipt metadata must fail closed BEFORE a receipt is written, so an unset
+    # shell var (--authorized-by "") cannot wedge deployment behind an unconsumable receipt that
+    # authorize then refuses to replace. validate_shape requires a non-empty string of <=256 chars,
+    # so authorize must enforce the same rule up front rather than write a receipt every check rejects.
+    meta_state = root / "empty-meta-state"
+    empty_meta = run(
+        sys.executable, str(HELPER), "authorize", "--repo", str(repo), "--state-dir", str(meta_state),
+        "--commit", approved, "--authorization-reference", "ref", "--authorized-by", "",
+        cwd=repo, ok=False,
+    )
+    assert empty_meta.returncode == 1 and "--authorized-by must be a non-empty" in empty_meta.stderr
+    assert not (meta_state / "deploy-authorization.json").exists()
+    long_ref = run(
+        sys.executable, str(HELPER), "authorize", "--repo", str(repo), "--state-dir", str(meta_state),
+        "--commit", approved, "--authorization-reference", "x" * 257, "--authorized-by", "owner",
+        cwd=repo, ok=False,
+    )
+    assert long_ref.returncode == 1 and "--authorization-reference must be a non-empty" in long_ref.stderr
+    assert not (meta_state / "deploy-authorization.json").exists()
+    # No wedge was created: a well-formed authorize into the same clean state still succeeds.
+    recovered = run(
+        sys.executable, str(HELPER), "authorize", "--repo", str(repo), "--state-dir", str(meta_state),
+        "--commit", approved, "--authorization-reference", "ref", "--authorized-by", "owner",
+        cwd=repo,
+    )
+    assert f"AUTHORIZED_COMMIT={approved}" in recovered.stdout
+
     # A malformed or symlinked receipt fails closed; it is never silently replaced by authorize.
     outside = root / "outside.json"
     outside.write_text(json.dumps({"schema_version": "forged"}), encoding="utf-8")
