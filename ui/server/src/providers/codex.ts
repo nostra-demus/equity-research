@@ -10,6 +10,7 @@ import { registerProviderAdapter } from './registry'
 import {
   canonicalAgentNameFromCodexNativePath,
   CODEX_MODEL_CONTRACTS,
+  CODEX_EXECUTION_PROFILES,
   CODEX_PARENT_CONTRACT,
   CODEX_PROJECT_DOC_MAX_BYTES,
   CODEX_SPECIALIST_CONTRACT,
@@ -1900,13 +1901,17 @@ export function buildCodexLaunchSpec(
   if (!pythonRuntime) throw new Error('Codex launch proof did not bind its deterministic Python runtime.')
   try {
     lease.assertValid(probe.command, probe.commandIdentity)
-    validateCodexPromptProgram(context.cwd)
-    const profile = resolveCodexProfile({ model: context.profile.model, reasoningLevel: context.profile.reasoningLevel })
+    const profile = resolveCodexProfile({
+      model: context.profile.model,
+      reasoningLevel: context.profile.reasoningLevel,
+      profileKey: context.profile.profileKey,
+    })
+    validateCodexPromptProgram(context.cwd, profile)
     const dataRoot = assertDataRoot(context.additionalWritableDataRoot)
     const workspaceRoot = fs.realpathSync(context.cwd)
     if (!fs.statSync(workspaceRoot).isDirectory()) throw new Error('Codex workspace root is not a directory.')
     const writablePaths = resolveCodexWritablePaths(context.writablePaths, workspaceRoot, dataRoot)
-    const canonical = loadCanonicalCommand(context.prompt, context.cwd)
+    const canonical = loadCanonicalCommand(context.prompt, context.cwd, profile)
     const continuation = context.automaticContinuation
     if (continuation && context.resumeSessionId) {
       throw new Error('Codex automatic continuation cannot also resume a prior CLI session.')
@@ -1986,8 +1991,8 @@ export function buildCodexLaunchSpec(
       '--config', `model_reasoning_effort="${profile.reasoningLevel}"`,
       '--config', `project_doc_max_bytes=${CODEX_PROJECT_DOC_MAX_BYTES}`,
       '--config', 'agents.enabled=true',
-      '--config', `agents.default_subagent_model="${CODEX_SPECIALIST_CONTRACT.model}"`,
-      '--config', `agents.default_subagent_reasoning_effort="${CODEX_SPECIALIST_CONTRACT.reasoningLevel}"`,
+      '--config', `agents.default_subagent_model="${profile.executionProfile.specialistModel}"`,
+      '--config', `agents.default_subagent_reasoning_effort="${profile.executionProfile.specialistReasoning}"`,
       // The Codex process gets the lease through CODEX_HOME. Model-issued Bash inherits nothing and the
       // explicit shell set below intentionally omits both HOME and CODEX_HOME.
       '--config', 'shell_environment_policy.inherit="none"',
@@ -2199,12 +2204,14 @@ export const codexProviderAdapter: ProviderAdapter = {
     provider: 'codex',
     label: 'Codex',
     description: 'Uses the local Codex CLI with ChatGPT plan authentication.',
-    defaultModel: CODEX_PARENT_CONTRACT.model,
-    models: [{
-      id: CODEX_PARENT_CONTRACT.model,
-      label: `${CODEX_PARENT_CONTRACT.label} parent · ${CODEX_SPECIALIST_CONTRACT.label} specialists`,
-      reasoningLevels: [CODEX_PARENT_CONTRACT.reasoningLevel],
-    }],
+    defaultProfileKey: CODEX_EXECUTION_PROFILES[0].key,
+    profiles: CODEX_EXECUTION_PROFILES.map(({ key, label, description }) => {
+      const resolved = resolveCodexProfile({ profileKey: key })
+      return {
+        key, label, description, model: resolved.model, reasoningLevel: resolved.reasoningLevel,
+        executionProfile: resolved.executionProfile,
+      }
+    }),
     supportsUsage: true,
   },
   resolveProfile: resolveCodexProfile,
@@ -2212,7 +2219,11 @@ export const codexProviderAdapter: ProviderAdapter = {
     return await codexProbeCoordinator.getAvailability(options)
   },
   async buildLaunch(context) {
-    const profile = resolveCodexProfile({ model: context.profile.model, reasoningLevel: context.profile.reasoningLevel })
+    const profile = resolveCodexProfile({
+      model: context.profile.model,
+      reasoningLevel: context.profile.reasoningLevel,
+      profileKey: context.profile.profileKey,
+    })
     if (context.profile.provider !== 'codex' || context.profile.profileKey !== profile.profileKey) {
       throw new Error('Codex launch profile does not match the pinned runtime contract.')
     }
@@ -2244,7 +2255,9 @@ registerProviderAdapter(codexProviderAdapter)
 
 export function isCodexProfile(value: ResolvedProviderProfile): boolean {
   try {
-    const resolved = resolveCodexProfile({ model: value.model, reasoningLevel: value.reasoningLevel })
+    const resolved = resolveCodexProfile({
+      model: value.model, reasoningLevel: value.reasoningLevel, profileKey: value.profileKey,
+    })
     return value.provider === 'codex' && value.profileKey === resolved.profileKey
   } catch {
     return false

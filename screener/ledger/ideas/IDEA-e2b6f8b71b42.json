@@ -1,7 +1,7 @@
 {
   "idea_id": "IDEA-e2b6f8b71b42",
-  "idea_version": "IDEAV-35abea89d8c1fa73",
-  "idea_version_started_at": "2026-08-27T13:17:25Z",
+  "idea_version": "IDEAV-96e08851486e9c24",
+  "idea_version_started_at": "2026-08-27T17:07:59Z",
   "ticker": "BBY",
   "company": "Best Buy",
   "exchange": "NYSE",
@@ -11,25 +11,26 @@
   "listing_verification_source": "yahoo_symbol_directory",
   "direction": "long",
   "pair_with": null,
-  "reason": "The company raised its annual outlook citing a cycle of AI-driven hardware upgrades, which is expected to drive higher average transaction values and volume.",
-  "why_now": "The guidance hike was announced today, August 27, 2026.",
-  "conviction": 70,
+  "reason": "The company reported a quarterly profit beat and raised its annual forecast, signaling better-than-expected consumer demand for electronics.",
+  "why_now": "The guidance hike was announced on August 27, 2026.",
+  "conviction": 75,
   "conviction_basis": "pre_edge_proxy",
   "trade_score": 62,
   "trade_score_basis": "evidence_gate_v2",
   "trade_score_breakdown": {
     "evidence": 14,
-    "impact": 18,
+    "impact": 19,
     "specificity": 15,
     "timing": 10,
     "expression": 6,
-    "corroboration": 6,
+    "corroboration": 0,
     "learning_adjustment": 0
   },
   "trade_readiness": "needs_data",
   "missing_checks": [
     "live liquidity",
     "dated catalyst",
+    "independent confirmation",
     "live price, liquidity, and consensus"
   ],
   "learning": {
@@ -42,23 +43,21 @@
     "evidenceIds": []
   },
   "priced_in": "room",
-  "thesis_type": "sector_cycle",
+  "thesis_type": "company_specific",
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-e604d9542919",
-    "EVT-fcf5cac79807"
+    "EVT-c08fabad16e0"
   ],
-  "primary_source_event_id": "EVT-e604d9542919",
+  "primary_source_event_id": "EVT-c08fabad16e0",
   "source_headlines": [
-    "Best Buy raises annual forecasts as AI spurs device upgrades",
-    "Best Buy Raises Outlook on Demand for Computers, Mobile Devices"
+    "Best Buy raises annual forecast after quarterly profit beats estimates"
   ],
-  "source_headline": "Best Buy raises annual forecasts as AI spurs device upgrades",
-  "source_url": "https://www.reuters.com/business/media-telecom/best-buy-raises-annual-sales-forecast-steady-electronics-demand-2026-08-27/",
-  "source_name": "Reuters — Latest (news sitemap)",
+  "source_headline": "Best Buy raises annual forecast after quarterly profit beats estimates",
+  "source_url": "https://finance.yahoo.com/markets/stocks/articles/best-buy-raises-annual-forecast-144400985.html",
+  "source_name": "Yahoo Finance",
   "materiality_max": 100,
-  "newest_source_at": "2026-08-27T11:16:59Z",
+  "newest_source_at": "2026-08-27T14:44:00Z",
   "prior_coverage": {
     "has_run": false,
     "latest_run": null,
@@ -66,8 +65,8 @@
     "data_pool_present": false
   },
   "surfaced_at": "2026-08-27T13:17:25Z",
-  "updated_at": "2026-08-27T13:17:25Z",
-  "decay_at": "2026-08-28T23:16:59Z",
+  "updated_at": "2026-08-27T17:07:59Z",
+  "decay_at": "2026-08-29T02:44:00Z",
   "status": "live",
   "promoted_signal_id": null
 }

@@ -24,6 +24,7 @@ import {
   codexAgentLoaderName,
   codexNativeTaskName,
   mapCanonicalAgentModel,
+  resolveCodexProfile,
 } from '../src/providers/codex-contract'
 
 const here = path.dirname(fileURLToPath(import.meta.url))
@@ -130,6 +131,20 @@ for (const memoName of ['memo-writer', 'module-memo-writer']) {
     profileKey: 'sol-max', label: 'GPT-5.6 Sol · Max', aliases: ['sol', 'sol-max', 'gpt-5.6-sol'],
   })
 }
+const solOnly = resolveCodexProfile({ profileKey: 'codex|gpt-5.6-sol:max|gpt-5.6-sol:max' })
+const ordinarySpecialist = agents.find((agent) => !agent.model && agent.name !== 'synthesizer' && !/^99_/.test(path.basename(agent.sourcePath)))!
+assert.deepEqual(codexAgentExecutionProfile(ordinarySpecialist, solOnly), {
+  model: 'gpt-5.6-sol', reasoningLevel: 'max', role: 'specialist',
+})
+assert.equal(codexAgentLoaderName(ordinarySpecialist, solOnly), 'claude-sol-specialist-loader')
+assert.deepEqual(codexAgentExecutionProfile({
+  name: 'future-memo-writer', sourcePath: path.join(repoRoot, '.claude/agents/future-memo-writer.md'),
+}, solOnly), {
+  model: 'gpt-5.6-sol', reasoningLevel: 'max', role: 'specialist',
+}, 'a future unpinned memo role must inherit the selected profile rather than silently falling back to Terra')
+const solOnlyCommand = loadCanonicalCommand('/research:full TEST', repoRoot, solOnly)
+assert.match(solOnlyCommand.prompt, /specialists, and triage use gpt-5\.6-sol at max/)
+assert.match(solOnlyCommand.prompt, /use claude-sol-specialist-loader/)
 assert.equal(codexAgentExecutionProfile({
   name: 'future-opus-role', sourcePath: path.join(repoRoot, '.claude/agents/future-opus-role.md'), model: 'opus',
 }).role, 'adjudicator', 'generic opus aliases must remain Sol unless the role is unambiguously memo-only')
@@ -155,6 +170,7 @@ const codexLoaderDir = path.join(repoRoot, '.codex', 'agents')
 const loaderFiles = fg.sync('*.toml', { cwd: codexLoaderDir, absolute: true, onlyFiles: true }).sort()
 const genericLoaders = {
   'claude-specialist-loader.toml': ['gpt-5.6-terra', 'xhigh'],
+  'claude-sol-specialist-loader.toml': ['gpt-5.6-sol', 'max'],
   'claude-adjudicator-loader.toml': ['gpt-5.6-sol', 'max'],
 } as const
 for (const [loader, [model, reasoning]] of Object.entries(genericLoaders)) {

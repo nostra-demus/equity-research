@@ -44,8 +44,29 @@ export const CODEX_MODEL_CONTRACTS: readonly CodexModelContract[] = [
 export const CODEX_PARENT_CONTRACT = CODEX_MODEL_CONTRACTS[0]
 export const CODEX_SPECIALIST_CONTRACT = CODEX_MODEL_CONTRACTS[1]
 export const CODEX_EXECUTION_PROFILE_KEY = 'codex|gpt-5.6-sol:max|gpt-5.6-terra:xhigh'
+export const CODEX_SOL_ONLY_PROFILE_KEY = 'codex|gpt-5.6-sol:max|gpt-5.6-sol:max'
 export const CODEX_SPECIALIST_LOADER = 'claude-specialist-loader'
+export const CODEX_SOL_SPECIALIST_LOADER = 'claude-sol-specialist-loader'
 export const CODEX_ADJUDICATOR_LOADER = 'claude-adjudicator-loader'
+
+export const CODEX_EXECUTION_PROFILES = [
+  {
+    key: CODEX_EXECUTION_PROFILE_KEY,
+    label: 'Sol + Terra',
+    description: 'Balanced · Sol adjudication with Terra specialists',
+    aliases: ['balanced', 'quality', CODEX_EXECUTION_PROFILE_KEY],
+    parent: CODEX_PARENT_CONTRACT,
+    specialist: CODEX_SPECIALIST_CONTRACT,
+  },
+  {
+    key: CODEX_SOL_ONLY_PROFILE_KEY,
+    label: 'Sol only',
+    description: 'Highest quality · Sol at max reasoning for every stage',
+    aliases: ['sol-only', 'max-quality', CODEX_SOL_ONLY_PROFILE_KEY],
+    parent: CODEX_PARENT_CONTRACT,
+    specialist: CODEX_PARENT_CONTRACT,
+  },
+] as const
 
 const CANONICAL_AGENT_NAME_RE = /^[a-z0-9][a-z0-9-]*$/
 const CODEX_NATIVE_TASK_PREFIX = 'nostra_'
@@ -84,32 +105,46 @@ function badProfile(message: string): never {
   throw error
 }
 
-export function resolveCodexProfile(request: { model?: string; reasoningLevel?: string }): ResolvedProviderProfile {
+export function resolveCodexProfile(request: { model?: string; reasoningLevel?: string; profileKey?: string }): ResolvedProviderProfile {
   const requestedModel = String(request.model || '').trim().toLowerCase()
+  const requestedKey = String(request.profileKey || '').trim().toLowerCase()
+  const selectedByKey = requestedKey
+    ? CODEX_EXECUTION_PROFILES.find((profile) => profile.key === requestedKey || profile.aliases.includes(requestedKey as never))
+    : undefined
+  if (requestedKey && !selectedByKey) {
+    badProfile(`Unsupported Codex execution profile '${request.profileKey}'.`)
+  }
   const parentAliases = [...CODEX_PARENT_CONTRACT.aliases, CODEX_EXECUTION_PROFILE_KEY, 'quality']
-  if (requestedModel && !parentAliases.includes(requestedModel)) {
+  const selectedByAlias = !selectedByKey && requestedModel
+    ? CODEX_EXECUTION_PROFILES.find((profile) => profile.aliases.includes(requestedModel as never))
+    : undefined
+  const selected = selectedByKey || selectedByAlias || CODEX_EXECUTION_PROFILES[0]
+  if (selectedByKey && requestedModel && requestedModel !== selected.parent.model) {
+    badProfile('Codex model and execution-profile key disagree.')
+  }
+  if (requestedModel && !parentAliases.includes(requestedModel) && !selectedByAlias) {
     badProfile(
       `Unsupported Codex parent model '${request.model}'. Cockpit adjudication is pinned to `
       + `${CODEX_PARENT_CONTRACT.model}; ${CODEX_SPECIALIST_CONTRACT.model} is assigned to specialists automatically.`,
     )
   }
-  if (request.reasoningLevel && request.reasoningLevel !== CODEX_PARENT_CONTRACT.reasoningLevel) {
+  if (request.reasoningLevel && request.reasoningLevel !== selected.parent.reasoningLevel) {
     badProfile(
-      `${CODEX_PARENT_CONTRACT.model} is pinned to reasoning '${CODEX_PARENT_CONTRACT.reasoningLevel}' for cockpit research; `
+      `${selected.parent.model} is pinned to reasoning '${selected.parent.reasoningLevel}' for cockpit research; `
       + `received '${request.reasoningLevel}'.`,
     )
   }
   return {
     provider: 'codex',
-    profileKey: CODEX_EXECUTION_PROFILE_KEY,
-    model: CODEX_PARENT_CONTRACT.model,
-    reasoningLevel: CODEX_PARENT_CONTRACT.reasoningLevel,
+    profileKey: selected.key,
+    model: selected.parent.model,
+    reasoningLevel: selected.parent.reasoningLevel,
     executionProfile: {
-      key: CODEX_EXECUTION_PROFILE_KEY,
-      parentModel: CODEX_PARENT_CONTRACT.model,
-      parentReasoning: CODEX_PARENT_CONTRACT.reasoningLevel,
-      specialistModel: CODEX_SPECIALIST_CONTRACT.model,
-      specialistReasoning: CODEX_SPECIALIST_CONTRACT.reasoningLevel,
+      key: selected.key,
+      parentModel: selected.parent.model,
+      parentReasoning: selected.parent.reasoningLevel,
+      specialistModel: selected.specialist.model,
+      specialistReasoning: selected.specialist.reasoningLevel,
     },
   }
 }
@@ -119,7 +154,10 @@ export function mapCanonicalAgentModel(model: unknown): { model: string; reasoni
   return CLAUDE_AGENT_MODEL_MAP[String(model).trim().toLowerCase() as keyof typeof CLAUDE_AGENT_MODEL_MAP] ?? null
 }
 
-export function codexAgentExecutionProfile(agent: { name: string; sourcePath: string; model?: string }): {
+export function codexAgentExecutionProfile(
+  agent: { name: string; sourcePath: string; model?: string },
+  executionProfile: ResolvedProviderProfile = resolveCodexProfile({}),
+): {
   model: string
   reasoningLevel: string
   role: 'specialist' | 'adjudicator'
@@ -139,20 +177,32 @@ export function codexAgentExecutionProfile(agent: { name: string; sourcePath: st
   const memoOnly = agent.name === 'memo-writer'
     || agent.name === 'module-memo-writer'
     || /(?:^|[-_])memo-writer(?:\.md)?$/i.test(basename)
-  if (memoOnly) return { ...CODEX_SPECIALIST_CONTRACT, role: 'specialist' }
+  if (memoOnly) {
+    return {
+      model: executionProfile.executionProfile.specialistModel!,
+      reasoningLevel: executionProfile.executionProfile.specialistReasoning!,
+      role: 'specialist',
+    }
+  }
   const adjudicator = agent.name === 'synthesizer' || /^99_/.test(basename)
   return adjudicator
-    ? { ...CODEX_PARENT_CONTRACT, role: 'adjudicator' }
-    : { ...CODEX_SPECIALIST_CONTRACT, role: 'specialist' }
+    ? { model: executionProfile.executionProfile.parentModel!, reasoningLevel: executionProfile.executionProfile.parentReasoning!, role: 'adjudicator' }
+    : { model: executionProfile.executionProfile.specialistModel!, reasoningLevel: executionProfile.executionProfile.specialistReasoning!, role: 'specialist' }
 }
 
-export function codexAgentLoaderName(agent: { name: string; sourcePath: string; model?: string }): string {
-  return codexAgentExecutionProfile(agent).role === 'adjudicator'
-    ? CODEX_ADJUDICATOR_LOADER
+export function codexAgentLoaderName(
+  agent: { name: string; sourcePath: string; model?: string },
+  executionProfile: ResolvedProviderProfile = resolveCodexProfile({}),
+): string {
+  const role = codexAgentExecutionProfile(agent, executionProfile)
+  if (role.role === 'adjudicator') return CODEX_ADJUDICATOR_LOADER
+  return role.model === executionProfile.executionProfile.parentModel
+      && role.reasoningLevel === executionProfile.executionProfile.parentReasoning
+    ? CODEX_SOL_SPECIALIST_LOADER
     : CODEX_SPECIALIST_LOADER
 }
 
-export const CODEX_COMPATIBILITY_PREAMBLE = `
+const CODEX_COMPATIBILITY_PREAMBLE_TEMPLATE = `
 CODEX / CLAUDE PROMPT-PROGRAM COMPATIBILITY CONTRACT
 
 The canonical research program is the expanded .claude command body below. Follow it in full. Do not
@@ -167,9 +217,9 @@ Task compatibility is dynamic and path-based. When the program requests Task(sub
 2. Fail closed on zero matches or duplicate matches. Never substitute a similarly named agent.
 3. Resolve the execution tier by convention, never by module name. Canonical model declarations take
    precedence: model: opus always uses gpt-5.6-sol at max, including memo roles. When no model is declared,
-   memo-only roles (memo-writer and module-memo-writer), specialists, and triage use gpt-5.6-terra at xhigh.
+   memo-only roles (memo-writer and module-memo-writer), specialists, and triage use __SPECIALIST_MODEL__ at __SPECIALIST_REASONING__.
    Every 99_*.md synthesis and the root synthesizer/terminal adjudicator use gpt-5.6-sol at max.
-4. Choose the project-scoped generic loader by the same convention: use claude-specialist-loader for
+4. Choose the project-scoped generic loader by the same convention: use __SPECIALIST_LOADER__ for
    every specialist, triage, or memo-only role; use claude-adjudicator-loader for every 99_*.md synthesis,
    the root synthesizer, and terminal adjudication. Spawn that loader with the exact model and reasoning
    tier above. In its message, provide the resolved
@@ -209,3 +259,15 @@ No other Claude model alias may be guessed.
 The source hierarchy, caps, schemas, file paths, commits, and research output contracts are provider-neutral.
 Do not simplify, summarize, shorten, or reinterpret the canonical prompt-program for Codex.
 `.trim()
+
+export function codexCompatibilityPreamble(
+  executionProfile: ResolvedProviderProfile = resolveCodexProfile({}),
+): string {
+  return CODEX_COMPATIBILITY_PREAMBLE_TEMPLATE
+    .replaceAll('__SPECIALIST_MODEL__', executionProfile.executionProfile.specialistModel!)
+    .replaceAll('__SPECIALIST_REASONING__', executionProfile.executionProfile.specialistReasoning!)
+    .replaceAll('__SPECIALIST_LOADER__', executionProfile.executionProfile.specialistModel === executionProfile.executionProfile.parentModel
+      ? CODEX_SOL_SPECIALIST_LOADER : CODEX_SPECIALIST_LOADER)
+}
+
+export const CODEX_COMPATIBILITY_PREAMBLE = codexCompatibilityPreamble()

@@ -712,10 +712,19 @@ try {
     _maybeAutoResume: originalActions.maybeAutoResume,
     scSelectedSignal: null,
     providers: {
-      claude: { provider: 'claude', enabled: true, available: true, checked: true, status: 'available', profile: claudeExecutionProfile },
-      codex: { provider: 'codex', enabled: true, available: true, checked: true, status: 'available', profile: codexExecutionProfile },
+      claude: {
+        provider: 'claude', enabled: true, available: true, checked: true, status: 'available', profile: claudeExecutionProfile,
+        defaultProfileKey: claudeExecutionProfile.key,
+        profiles: [{ key: claudeExecutionProfile.key, label: 'Opus', description: 'Highest quality', model: 'opus', reasoningLevel: 'default', executionProfile: claudeExecutionProfile }],
+      },
+      codex: {
+        provider: 'codex', enabled: true, available: true, checked: true, status: 'available', profile: codexExecutionProfile,
+        defaultProfileKey: codexExecutionProfile.key,
+        profiles: [{ key: codexExecutionProfile.key, label: 'Sol + Terra', description: 'Balanced', model: 'gpt-5.6-sol', reasoningLevel: 'max', executionProfile: codexExecutionProfile }],
+      },
       catalogState: 'valid',
     },
+    runProfileKeys: { claude: claudeExecutionProfile.key, codex: codexExecutionProfile.key },
     resumableRuns: [
       { swarm: 'screener', subject: 'SIG-RESUME-FIRST', runRoot: 'screener/runs/SIG-RESUME-FIRST', kind: 'signal', doneCount: 1, totalCount: 2, unit: 'module', provider: 'claude', executionProfile: claudeExecutionProfile },
       { swarm: 'screener', subject: 'SIG-RESUME-SECOND', runRoot: 'screener/runs/SIG-RESUME-SECOND', kind: 'signal', doneCount: 1, totalCount: 2, unit: 'module', provider: 'claude', executionProfile: claudeExecutionProfile },

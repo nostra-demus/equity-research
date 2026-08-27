@@ -1,0 +1,92 @@
+{
+  "schema_version": "1.0",
+  "source": "cockpit_supervisor",
+  "epoch_id": "62f6dc08-0160-4a09-a355-2f7e2f684c7b",
+  "attempts": [
+    {
+      "schema_version": "1.0",
+      "event": "attempt_started",
+      "attempt_id": "2daf6aa6-ac37-4864-b96f-8d1736d277bd",
+      "provider": "claude",
+      "model": "sonnet",
+      "reasoning_level": "default",
+      "attribution": "recorded",
+      "profile_key": "claude:sonnet:default",
+      "cli_version": "2.1.241 (Claude Code)",
+      "scope": [
+        "research",
+        "module",
+        "competitive-intel"
+      ],
+      "role": "module_synthesis",
+      "decision_author": false,
+      "decision_artifacts": [],
+      "decision_artifacts_optional": false,
+      "started_at": "2026-08-27T14:35:47.789Z",
+      "prior_unobserved": true
+    },
+    {
+      "schema_version": "1.0",
+      "event": "attempt_started",
+      "attempt_id": "2daf6aa6-ac37-4864-b96f-8d1736d277bd",
+      "provider": "claude",
+      "model": "opus",
+      "reasoning_level": "default",
+      "attribution": "configured",
+      "profile_key": "claude:sonnet:default",
+      "cli_version": "2.1.241 (Claude Code)",
+      "scope": [
+        "memo",
+        "module-memo-writer"
+      ],
+      "role": "memo",
+      "decision_author": false,
+      "decision_artifacts": [],
+      "decision_artifacts_optional": false,
+      "started_at": "2026-08-27T14:35:47.789Z",
+      "prior_unobserved": true
+    },
+    {
+      "schema_version": "1.0",
+      "event": "attempt_started",
+      "attempt_id": "b2f03e2f-f8d4-4982-9724-58040ff7043a",
+      "provider": "claude",
+      "model": "sonnet",
+      "reasoning_level": "default",
+      "attribution": "recorded",
+      "profile_key": "claude:sonnet:default",
+      "cli_version": "2.1.241 (Claude Code)",
+      "scope": [
+        "research",
+        "module",
+        "management-governance"
+      ],
+      "role": "module_synthesis",
+      "decision_author": false,
+      "decision_artifacts": [],
+      "decision_artifacts_optional": false,
+      "started_at": "2026-08-27T14:35:48.184Z"
+    },
+    {
+      "schema_version": "1.0",
+      "event": "attempt_started",
+      "attempt_id": "b2f03e2f-f8d4-4982-9724-58040ff7043a",
+      "provider": "claude",
+      "model": "opus",
+      "reasoning_level": "default",
+      "attribution": "configured",
+      "profile_key": "claude:sonnet:default",
+      "cli_version": "2.1.241 (Claude Code)",
+      "scope": [
+        "memo",
+        "module-memo-writer"
+      ],
+      "role": "memo",
+      "decision_author": false,
+      "decision_artifacts": [],
+      "decision_artifacts_optional": false,
+      "started_at": "2026-08-27T14:35:48.184Z"
+    }
+  ],
+  "written_at": "2026-08-27T14:46:32.270Z"
+}

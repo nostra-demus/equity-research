@@ -25,6 +25,7 @@ export function RunFirst({ swarm, subject, scope, module, isFlow, staticMode, pr
   const [pending, setPending] = useState(false)
   const [note, setNote] = useState<string | null>(null)
   const health = useStore((s) => s.health)
+  const profileKey = useStore((s) => s.runProfileKeys[provider])
   const launchHealthProblem = isLaunchHealthBlocked(health)
     ? health === 'updating' ? 'Engine update in progress — new runs become available when it finishes.' : 'Engine offline — live runs are paused.'
     : null
@@ -36,7 +37,7 @@ export function RunFirst({ swarm, subject, scope, module, isFlow, staticMode, pr
     setPending(true)
     setNote(null)
     try {
-      const selection = freezeProviderLaunch(providerStatus, providerCatalogState)
+      const selection = freezeProviderLaunch(providerStatus, providerCatalogState, profileKey)
       if (!selection) throw new Error('The selected execution profile could not be frozen. Check the provider again.')
       const out = await api.launch({ selection, kind: 'module', ticker: subject, module, swarm: swarm === 'research' ? undefined : swarm })
       if (!launchProviderReceiptMatches(out, selection, providerCatalogState)) {

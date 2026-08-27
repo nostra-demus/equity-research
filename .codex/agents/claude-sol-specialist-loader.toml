@@ -1,0 +1,11 @@
+name = "claude-sol-specialist-loader"
+description = "Generic zero-touch Sol loader for a canonical Claude specialist, triage, or memo-only role in a Sol-only run."
+model = "gpt-5.6-sol"
+model_reasoning_effort = "max"
+developer_instructions = """
+The parent message must provide one resolved path under `.claude/agents/` and the original Task message.
+This file contains no research role prompt of its own. Verify the path stays in that tree, read the whole
+canonical markdown file including its frontmatter and final line, then follow it as the authoritative role
+instructions and follow the original Task message verbatim. Fail closed if the path is missing, escapes,
+or cannot be read completely. Preserve every output, citation, cap, schema, and no-git/commit contract.
+"""

@@ -1,9 +1,33 @@
 import assert from 'node:assert/strict'
 import { api } from './api'
 import { moduleRunAffordance, moduleRunConfirmation, moduleRunInputModules } from './moduleRun'
-import { providerCatalogFallback } from './provider'
 import { useStore } from './store'
 import type { AgentNode, LaunchPreflight, NodeStatus, ThesisPlan } from './types'
+
+const CLAUDE_PROFILE = { key: 'claude:opus:default', parentModel: 'opus', parentReasoning: 'default' }
+const CLAUDE_SELECTION = {
+  provider: 'claude' as const,
+  expectedProfileKey: CLAUDE_PROFILE.key,
+  model: CLAUDE_PROFILE.parentModel,
+  reasoningLevel: CLAUDE_PROFILE.parentReasoning,
+  executionProfile: CLAUDE_PROFILE,
+}
+const CLAUDE_RECEIPT = {
+  provider: 'claude' as const,
+  profileKey: CLAUDE_PROFILE.key,
+  model: CLAUDE_PROFILE.parentModel,
+  reasoningLevel: CLAUDE_PROFILE.parentReasoning,
+  executionProfile: CLAUDE_PROFILE,
+}
+const CLAUDE_PROVIDERS = {
+  claude: {
+    provider: 'claude' as const, enabled: true, available: true, checked: true, status: 'available',
+    profile: CLAUDE_PROFILE, defaultProfileKey: CLAUDE_PROFILE.key,
+    profiles: [{ key: CLAUDE_PROFILE.key, label: 'Opus', description: 'Highest quality', model: 'opus', reasoningLevel: 'default', executionProfile: CLAUDE_PROFILE }],
+  },
+  codex: { provider: 'codex' as const, enabled: false, available: false, checked: true, status: 'disabled', reason: 'Disabled' },
+  catalogState: 'valid' as const,
+}
 
 const orb = (nn: string, synthesis = false): AgentNode => ({
   key: `management-governance/${nn}_${synthesis ? 'management-governance-synthesis' : `check-${nn}`}`,
@@ -110,8 +134,8 @@ const plan: ThesisPlan = {
   carry: [],
   master: { state: 'blocked', blockedBy: ['management-governance'] },
   dataPool: { files: 85, newestDate: '2026-08-14', newestMs: 1_776_000_000_000 },
-  preflight: {} as ThesisPlan['preflight'],
-  fullPreflight: {} as ThesisPlan['fullPreflight'],
+  preflight: { ...CLAUDE_RECEIPT } as ThesisPlan['preflight'],
+  fullPreflight: { ...CLAUDE_RECEIPT } as ThesisPlan['fullPreflight'],
   canCarry: true,
 }
 
@@ -165,7 +189,8 @@ try {
     constellationSwarm: 'research',
     selectedTicker: 'INDIAMART',
     runProvider: 'claude',
-    providers: providerCatalogFallback(),
+    providers: CLAUDE_PROVIDERS,
+    runProfileKeys: { claude: CLAUDE_PROFILE.key, codex: 'codex|gpt-5.6-sol:max|gpt-5.6-terra:xhigh' },
     graph: {
       modules: [
         { name: 'management-governance', order: 3, dependsOn: ['business-model', 'earnings'], readsFrom: ['balance-sheet-survival'], exactResume: true, layers: {}, agentCount: nodes.length },
@@ -228,6 +253,7 @@ try {
   assert.notEqual(useStore.getState().toast?.action?.label, 'Stop & run again', 'a blocked second click cannot offer to cancel the legitimate winner')
   resolveResume({
     runId: 'run_module_resume_test',
+    ...CLAUDE_RECEIPT,
     preflight: {} as any,
     module: 'management-governance',
     willRun: 8,
@@ -249,7 +275,7 @@ try {
     'analyses/INDIAMART_2026-08-21',
     85,
     1_776_000_000_000,
-    { subject: 'INDIAMART', swarm: 'research', selectToken: 0, provider: 'claude', legacyClaudeFallback: true },
+    { subject: 'INDIAMART', swarm: 'research', selectToken: 0, ...CLAUDE_SELECTION },
   ])
   assert.match(useStore.getState().toast?.msg ?? '', /6 empty orbs \+ 1 related saved check \+ a fresh summary/)
   assert.equal(useStore.getState().nodeRuntime[nodes[6].key]?.status, 'queued', 'the saved dependent check queues without being mislabeled as an originally empty orb')
@@ -274,6 +300,7 @@ try {
   })
   api.runThesisPlanModule = async () => ({
     runId: 'run_historical_merge_test',
+    ...CLAUDE_RECEIPT,
     preflight: {} as any,
     module: 'management-governance',
     willRun: 7,
@@ -310,6 +337,7 @@ try {
     savedInputPostArgs = args
     return {
       runId: 'run_saved_input_scope',
+      ...CLAUDE_RECEIPT,
       preflight: {} as any,
       module: 'management-governance',
       willRun: savedInputPlan.modules[0].willRunAgents,
@@ -328,7 +356,7 @@ try {
   assert.equal(savedInputPosts, 0, 'the saved-input action performs no POST before confirmation')
   await useStore.getState().confirmModule()
   assert.deepEqual(savedInputPlanReads, [
-    ['INDIAMART', { subject: 'INDIAMART', swarm: 'research', selectToken: 0, provider: 'claude', legacyClaudeFallback: true }, 'research', undefined, 'management-governance'],
+    ['INDIAMART', { subject: 'INDIAMART', swarm: 'research', selectToken: 0, ...CLAUDE_SELECTION }, 'research', undefined, 'management-governance'],
   ], 'confirmation reads exactly one server-owned module plan')
   assert.equal(savedInputPosts, 1, 'the runnable saved-input scope submits exactly one module POST')
   assert.deepEqual(savedInputPostArgs?.[2], savedInputPlan.reuse,
@@ -342,6 +370,15 @@ try {
   await useStore.getState().confirmModule()
   assert.equal(savedInputPosts, 1, 'a missing exact-module receipt starts no additional paid run')
   assert.match(useStore.getState().toast?.msg ?? '', /engine is still updating/i)
+  useStore.setState({ activeRuns: {}, globalActive: [], nodeRuntime: { ...standingRuntime }, launchPending: null })
+
+  // A plan whose execution receipt cannot be attributed is not partial launch authority. Validation may
+  // throw after the plan object was assigned; the browser must still clear it before the paid POST boundary.
+  api.thesisPlan = async () => ({ ...savedInputPlan, preflight: {} as ThesisPlan['preflight'] })
+  await useStore.getState().launchModule('management-governance')
+  await useStore.getState().confirmModule()
+  assert.equal(savedInputPosts, 1, 'an unattributed module plan cannot fall through to a paid POST')
+  assert.match(useStore.getState().toast?.msg ?? '', /did not confirm/i)
   useStore.setState({ activeRuns: {}, globalActive: [], nodeRuntime: { ...standingRuntime }, launchPending: null })
 
   // The reciprocal race: while an agent POST is pending, a module click neither plans nor replaces the
@@ -361,7 +398,7 @@ try {
   assert.equal(useStore.getState().launchPending, agentPending, 'the blocked module click preserves the agent spinner by identity')
   const newerPending = { key: 'newer:operation', label: 'Newer operation…', ticker: 'OTHER' }
   useStore.setState({ launchPending: newerPending })
-  resolveAgent({ runId: 'run_agent_pending_test' })
+  resolveAgent({ runId: 'run_agent_pending_test', ...CLAUDE_RECEIPT })
   await agentLaunch
   assert.equal(useStore.getState().launchPending, newerPending, 'an older agent finally cannot clear a newer pending operation')
   useStore.setState({ activeRuns: {}, globalActive: [], nodeRuntime: { ...standingRuntime }, launchPending: null })
@@ -377,7 +414,7 @@ try {
   const afterFullPending = { key: 'newer:after-full', label: 'Newer operation…', ticker: 'OTHER' }
   useStore.setState({ launchPending: afterFullPending })
   resolveFullEstimate({
-    kind: 'full', ticker: 'INDIAMART', agentCount: nodes.length, estCostUsdRange: [1, 2],
+    kind: 'full', ticker: 'INDIAMART', ...CLAUDE_RECEIPT, agentCount: nodes.length, estCostUsdRange: [1, 2],
     estMinutesRange: [1, 2], willCommitToMain: true, estCommits: 1, requiresTypedConfirm: true,
     creditPreflight: { ok: true, checked: true },
   })
@@ -447,11 +484,11 @@ try {
   let nonExactPlanCalls = 0
   let nonExactLaunchBody: any = null
   api.thesisPlan = async () => { nonExactPlanCalls++; return plan }
-  api.launch = async (body: any) => { nonExactLaunchBody = body; return { runId: 'legacy_business_model' } as any }
+  api.launch = async (body: any) => { nonExactLaunchBody = body; return { runId: 'legacy_business_model', ...CLAUDE_RECEIPT } as any }
   await useStore.getState().launchModule('business-model')
   assert.equal(nonExactPlanCalls, 0, 'a module without exact_resume never enters the exact smart-resume route')
   assert.deepEqual(nonExactLaunchBody, {
-    selection: { subject: 'INDIAMART', swarm: 'research', selectToken: 2, provider: 'claude', legacyClaudeFallback: true },
+    selection: { subject: 'INDIAMART', swarm: 'research', selectToken: 2, ...CLAUDE_SELECTION },
     kind: 'module', ticker: 'INDIAMART', module: 'business-model', force: undefined, swarm: undefined,
   })
   useStore.setState({ activeRuns: {}, globalActive: [], nodeRuntime: { ...standingRuntime }, launchPending: null })

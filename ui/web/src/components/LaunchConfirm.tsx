@@ -6,8 +6,9 @@ import { cascadeLabel } from '../lib/cascade'
 import { moduleRunConfirmation } from '../lib/moduleRun'
 import { requiresTypedSubjectConfirmation, typedSubjectConfirmationMatches } from '../lib/launchExperience'
 import { Spin } from './Spin'
+import { ProviderProfileSelector } from './ProviderProfileSelector'
 import type { Usage } from '../lib/types'
-import { executionProfileLabel, providerBlockedReason, providerIsBlocked, providerLabel, providerLaunchBlockedReason, providerNeedsCheck, providerUsageUnavailableText, type RunProvider } from '../lib/provider'
+import { providerBlockedReason, providerIsBlocked, providerLabel, providerLaunchBlockedReason, providerNeedsCheck, providerUsageUnavailableText, type RunProvider } from '../lib/provider'
 
 function usageText(credit: Usage | null): string {
   const unavailable = providerUsageUnavailableText(credit)
@@ -30,6 +31,7 @@ export function LaunchConfirm() {
   const credit = useStore((s) => s.credit)
   const providers = useStore((s) => s.providers)
   const changeProvider = useStore((s) => s.changeLaunchProvider)
+  const changeProfile = useStore((s) => s.changeLaunchProfile)
   const launchPending = useStore((s) => s.launchPending)
   const [typed, setTyped] = useState('')
   useEffect(() => {
@@ -43,6 +45,7 @@ export function LaunchConfirm() {
     const pendingKey = `module:${lc.module}`
     const starting = launchPending?.ticker === lc.selection.subject
       && (launchPending.key === pendingKey || launchPending.key.startsWith(`${pendingKey}:`))
+    const moduleProviderProblem = providerLaunchBlockedReason(providers[lc.selection.provider], providers.catalogState)
     return (
       <div className="scrim" onClick={cancel}>
         <motion.div
@@ -60,6 +63,18 @@ export function LaunchConfirm() {
             <div className="modal__sub">{copy.subtitle}</div>
           </div>
           <div className="modal__body">
+            <div className="modal__row"><span className="modal__k">Run with</span><span className="modal__v">
+              <span className="providerseg" role="radiogroup" aria-label="Run provider">
+                {(['claude', 'codex'] as RunProvider[]).map((choice) => {
+                  const status = providers[choice]
+                  const problem = providerBlockedReason(status)
+                  return <button key={choice} role="radio" aria-checked={lc.selection.provider === choice} className={`providerseg__btn${lc.selection.provider === choice ? ' providerseg__btn--on' : ''}`} disabled={starting || providerIsBlocked(status)} title={problem || (providerNeedsCheck(status) ? `Check ${providerLabel(choice)} status` : `Run with ${providerLabel(choice)}`)} onClick={() => void changeProvider(choice)}>{status.checking ? 'checking…' : providerLabel(choice)}</button>
+                })}
+              </span>
+            </span></div>
+            <div className="modal__row"><span className="modal__k">Model</span><span className="modal__v">
+              <ProviderProfileSelector status={providers[lc.selection.provider]} profileKey={lc.selection.expectedProfileKey} disabled={starting} onChange={(key) => void changeProfile(key)} />
+            </span></div>
             <div className="modal__row"><span className="modal__k">Empty orbs</span><span className="modal__v">{copy.emptyValue}</span></div>
             <div className="modal__row"><span className="modal__k">Saved inputs</span><span className="modal__v" style={{ fontFamily: 'inherit', textAlign: 'right', maxWidth: 300 }}>{copy.savedInputsValue}</span></div>
             <div className="modal__row"><span className="modal__k">Related saved checks</span><span className="modal__v" style={{ fontFamily: 'inherit', textAlign: 'right', maxWidth: 230 }}>{copy.relatedValue}</span></div>
@@ -68,9 +83,10 @@ export function LaunchConfirm() {
           <div style={{ padding: '4px 20px 16px', color: 'var(--text-faint)', fontSize: 12 }}>
             Nothing is checked or started until you press {copy.actionLabel}.
           </div>
+          {moduleProviderProblem && <div style={{ padding: '0 20px 8px', fontSize: 12, color: 'var(--bad)' }}>{moduleProviderProblem}. Choose an available provider to continue.</div>}
           <div className="modal__actions">
             <button className="btn btn--ghost" disabled={starting} onClick={cancel}>Cancel</button>
-            <button className="btn btn--amber" disabled={starting} onClick={confirmModule}>
+            <button className="btn btn--amber" disabled={starting || !!moduleProviderProblem} title={moduleProviderProblem || undefined} onClick={confirmModule}>
               {starting ? <><Spin /> Starting…</> : copy.actionLabel}
             </button>
           </div>
@@ -111,7 +127,7 @@ export function LaunchConfirm() {
               })}
             </span>
           </span></div>
-          <div className="modal__row"><span className="modal__k">Profile</span><span className="modal__v">{executionProfileLabel(providerStatus)}</span></div>
+          <div className="modal__row"><span className="modal__k">Model</span><span className="modal__v"><ProviderProfileSelector status={providerStatus} profileKey={lc.selection.expectedProfileKey} disabled={starting} onChange={(key) => void changeProfile(key)} /></span></div>
           <div className="modal__row"><span className="modal__k">{isRerun ? 'Orbs re-run' : 'Agents'}</span><span className="modal__v">{p.agentCount}</span></div>
           {provider === 'claude' ? <div className="modal__row"><span className="modal__k">Est. cost</span><span className="modal__v">${p.estCostUsdRange[0]}–{p.estCostUsdRange[1]}</span></div> : <div className="modal__row"><span className="modal__k">Plan billing</span><span className="modal__v">Codex subscription allowance</span></div>}
           <div className="modal__row"><span className="modal__k">Est. time</span><span className="modal__v">{p.estMinutesRange[0]}–{p.estMinutesRange[1]} min</span></div>

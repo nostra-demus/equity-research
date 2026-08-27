@@ -319,7 +319,8 @@ const sorted = (a: string[]) => [...a].sort()
       fs.writeFileSync(path.join(absolute, 'decision_record.json'), '{"decision":"Avoid"}\n')
       const freezeReceipt = 'analyses/provider-parity/2026-08-26/freeze/ZZCHAINCONT_2026-08-26.json'
       const out = await launchFullChained('ZZCHAINCONT', 'tester', 'local', {
-        provider: 'codex', model: 'gpt-5.6-sol', reasoningLevel: 'max', expectedProfileKey: 'codex:test',
+        provider: 'codex', model: 'gpt-5.6-sol', reasoningLevel: 'max',
+        expectedProfileKey: 'codex|gpt-5.6-sol:max|gpt-5.6-terra:xhigh',
       }, f.deps, undefined, undefined, {
         runRoot, continuation: true, parityCanary: { runRoot, freezeReceipt },
       })
@@ -342,7 +343,8 @@ const sorted = (a: string[]) => [...a].sort()
     const runRoot = 'analyses/provider-parity/2026-08-26/codex/TESTCHAINSTATUS_2026-08-26__attempt-1234abcd'
     const freezeReceipt = 'analyses/provider-parity/2026-08-26/freeze/TESTCHAINSTATUS_2026-08-26.json'
     await launchFullChained('TESTCHAINSTATUS', 'tester', 'local', {
-      provider: 'codex', model: 'gpt-5.6-sol', reasoningLevel: 'max', expectedProfileKey: 'codex:test',
+      provider: 'codex', model: 'gpt-5.6-sol', reasoningLevel: 'max',
+      expectedProfileKey: 'codex|gpt-5.6-sol:max|gpt-5.6-terra:xhigh',
     }, f.deps, undefined, undefined, { runRoot, parityCanary: { runRoot, freezeReceipt } })
     f.finish('business-model')
     f.finish('earnings')
