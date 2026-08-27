@@ -11,6 +11,10 @@ const MAX_RANGE_MS = 90 * DAY_MS
 const MAX_LEDGER_BYTES = 64 * 1024 * 1024
 const MAX_LEDGER_LINE_BYTES = 128 * 1024
 const MAX_EVENT_SCAN = 500_000
+/** How long a recorded routing decision may wait for its outcome before it counts as closed rather than
+ * open. One batch cannot outlive its own cycle, and the cycle guard is minutes, so an hour is far beyond
+ * any live batch while still catching a genuinely stuck writer. */
+const PENDING_DECISION_OPEN_MS = 3_600_000
 const STATE_VERSION = 2
 const EVENT_VERSION = 1
 
@@ -729,7 +733,16 @@ function activationMetadata(
     ? 0
     : [...new Set(eligibleProviderIds)].filter((id) => (state.providers[id]?.sampleSize || 0) > 0).length
   const enoughProviders = new Set(eligibleProviderIds).size < 2 || providerCount >= 2
-  const noGaps = state.corruptRows === 0 && state.coverageGapDays === 0 && Object.keys(state.pending).length === 0
+  // Only a decision whose batch could STILL be running is an open audit gap. A decision left behind by an
+  // interrupted cycle can never receive an outcome — that cycle is gone, and the interruption is already
+  // recorded as its own audited event — so counting it forever made activation unreachable on any host
+  // that ever restarts mid-cycle (measured: 22 interruptions ⇒ 21 permanent orphans in 6 days, against a
+  // gate demanding exactly zero across a 7-day window). Gating on a condition only the blocked work could
+  // restore is a deadlock, not a safety check: the router stayed in shadow indefinitely while the evidence
+  // it had already collected went unused. Corrupt rows and whole missing days still block, unchanged.
+  const openPending = Object.values(state.pending)
+    .filter((ts) => now - Date.parse(ts) < PENDING_DECISION_OPEN_MS).length
+  const noGaps = state.corruptRows === 0 && state.coverageGapDays === 0 && openPending === 0
   const coverageComplete = readable && enoughTime && state.outcomeCount >= minOutcomes && enoughProviders && noGaps
 
   if (!readable) return {
@@ -741,7 +754,7 @@ function activationMetadata(
     activatedAt: state.activatedAt,
     outcomeCount: state.outcomeCount,
     providerCount,
-    pendingDecisions: Object.keys(state.pending).length,
+    pendingDecisions: openPending,
     coverageComplete: false,
   }
   if (options.requestedMode === 'static') return {
@@ -753,7 +766,7 @@ function activationMetadata(
     activatedAt: state.activatedAt,
     outcomeCount: state.outcomeCount,
     providerCount,
-    pendingDecisions: Object.keys(state.pending).length,
+    pendingDecisions: openPending,
     coverageComplete,
   }
   if (options.requestedMode === 'shadow' || !coverageComplete) {
@@ -772,7 +785,7 @@ function activationMetadata(
       activatedAt: state.activatedAt,
       outcomeCount: state.outcomeCount,
       providerCount,
-      pendingDecisions: Object.keys(state.pending).length,
+      pendingDecisions: openPending,
       coverageComplete: false,
     }
   }

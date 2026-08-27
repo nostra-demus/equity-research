@@ -1703,15 +1703,16 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
     const routingEvaluation = evaluateProviderRouting(routingOptions(), routingCandidates)
     latestRoutingEvaluation = routingEvaluation
     if (routingTelemetryWritable && !recordRouterModeIfChanged(routingOptions(), routingCycleId, routingEvaluation.router)) routingTelemetryWritable = false
-    // Normal work goes to Haiku first. The sole exception is auto's bounded one-in-ten verification batch:
-    // it must reach the selected fallback or the automatic router can never collect proof that backups still
-    // work. Explicit shadow/static return no target and retain configured order.
-    const haikuPrimaryEligible = routingEvaluation.candidates.some((candidate) => candidate.id === 'anthropic-triage' && candidate.eligible)
-    let adaptiveTarget = routingTelemetryWritable
-      ? routingEvaluation.exploration
-        ? routingEvaluation.selectedProviderId
-        : haikuPrimaryEligible ? 'anthropic-triage' : routingEvaluation.selectedProviderId
-      : null
+    // Whichever provider the audited router selected gets the batch. It previously forced 'anthropic-triage'
+    // whenever Haiku was merely ELIGIBLE, so the learned ranking only ever reached the one-in-ten exploration
+    // batch — which meant the slowest tier carried the scan by rule, not by fitness. Measured over a full day:
+    // Haiku 34.4s/call at 88% usable vs gemini-3.1-flash-lite 2.7s at 100%, i.e. 0.42 vs 6.0 items/second, and
+    // Haiku still took 5.0 of the 7.8 provider-hours while the faster pool sat at 2.5% of its permitted rate.
+    // The router's own score already said so (Gemini ~70 vs Haiku ~26, Haiku carrying its costPenalty of 15).
+    // Haiku remains a full candidate and still absorbs the volume the rate-capped free pools cannot take —
+    // that is the bounded last-resort role it was built for. `selectedProviderId` is null outside adaptive
+    // mode, so until the router activates this is byte-for-byte the previous behaviour.
+    let adaptiveTarget = routingTelemetryWritable ? routingEvaluation.selectedProviderId : null
     let adaptiveTargetFailed = false
     let auditAttemptIndex = 0
     let activeAudit: { providerId: string; decisionId: string; startedAt: number } | null = null
@@ -1722,7 +1723,12 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
       const bandWeight = (candidate: ProviderCandidateScore) => candidate.band === 'aggregate' ? 1 : candidate.band === 'demoted-local' ? 2 : 0
       const actualOrder = [...routingEvaluation.candidates].filter((candidate) => candidate.eligible).sort((left, right) => {
         if (left.id === right.id) return 0
-        if (left.id === 'anthropic-triage' || right.id === 'anthropic-triage') return left.id === 'anthropic-triage' ? -1 : 1
+        // Rank the audit the way the chain ACTUALLY runs, so actualRank never disagrees with the code below:
+        // the batch is offered to the adaptive target first when the router named one, and to Haiku first
+        // when it did not (the unconditional PRIORITY 1 attempt). Hardcoding Haiku here regardless would
+        // misreport the order on every adaptively-routed batch.
+        const head = adaptiveTarget || 'anthropic-triage'
+        if (left.id === head || right.id === head) return left.id === head ? -1 : 1
         const band = bandWeight(left) - bandWeight(right)
         if (band) return band
         return routingEvaluation.router.mode === 'adaptive'
