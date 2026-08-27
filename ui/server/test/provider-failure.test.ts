@@ -82,6 +82,26 @@ await check('only safe error identifiers cross the classifier boundary', () => {
   assert.doesNotMatch(JSON.stringify(classified), /acct-123|4\.21|balance/)
 })
 
+await check('OmniRoute 401 cools down and retries while direct-provider 401 stays terminal', () => {
+  const body = {
+    error: { type: 'invalid_request_error', code: 'upstream_unauthorized', message: 'private routed account data' },
+  }
+  const aggregate = classifyProviderHttpFailure(401, body, {
+    providerId: 'omniroute', model: 'auto/coding:free', models: ['auto/coding:free'],
+  })
+  assert.deepEqual(aggregate, {
+    code: 'transient_upstream', scope: 'provider', action: 'cooldown', providerWide: true,
+    httpStatus: 401, evidenceType: 'invalid_request_error', evidenceCode: 'upstream_unauthorized',
+  })
+  assert.doesNotMatch(JSON.stringify(aggregate), /private routed account data/)
+
+  const direct = classifyProviderHttpFailure(401, body, {
+    providerId: 'groq', model: 'openai/gpt-oss-20b',
+  })
+  assert.equal(direct.code, 'auth')
+  assert.equal(direct.action, 'quarantine', 'direct provider credentials remain fail-closed')
+})
+
 await check('OpenRouter no-provider gaps cool down while a genuinely missing model stays quarantined', () => {
   const noRoute = {
     error: {
@@ -312,6 +332,51 @@ await check('OpenRouter free-pool no-route response never creates a standing qua
   const recovered = await triageBatch(items, options, success)
   assert.equal(recovered.ok, true)
   assert.equal(calls, 2, 'the unchanged dynamic router is tried again after the caller cooldown')
+})
+
+await check('OmniRoute 401 never creates or inherits a standing quarantine', async () => {
+  resetProviderQuarantineMemory()
+  const state = temp()
+  const items = [{ event_id: 'E1', headline: 'RBI cuts rates', source_name: 'Reuters', region: 'IN' } as any]
+  let calls = 0
+  const options = {
+    model: 'auto/coding:free', models: ['auto/coding:free'],
+    baseUrl: 'http://127.0.0.1:20128/v1', apiKey: 'local-key',
+    providerId: 'omniroute', providerLabel: 'OmniRoute', keyEnvVar: 'NEWS_OMNIROUTE_API_KEY',
+    stateDir: state, workload: 'triage', contractVersion: 'news-triage-json-v1', maxAttempts: 1,
+  }
+  const rejected = (async () => {
+    calls++
+    return response({ error: { code: 'upstream_unauthorized', message: 'private routed account data' } }, 401)
+  }) as unknown as typeof fetch
+
+  const first = await triageBatch(items, options, rejected)
+  assert.equal(first.failure?.code, 'transient_upstream')
+  assert.equal(first.failure?.action, 'cooldown')
+  assert.equal(first.failureKind, 'availability')
+  assert.equal(fs.existsSync(path.join(state, 'provider-omniroute-quarantine.json')), false)
+
+  // Recreate the exact v2 marker an affected production installation can already carry. The upgraded
+  // reader must ignore it and give the unchanged, now-self-healing route a fresh proof.
+  const identity = first.providerIdentity!
+  quarantineProviderFailure(state, identity, {
+    code: 'auth', scope: 'provider', action: 'quarantine', providerWide: true, httpStatus: 401,
+  }, 10_000)
+  resetProviderQuarantineMemory()
+  assert.equal(readProviderQuarantine(state, identity), null)
+
+  const success = (async () => {
+    calls++
+    return response({
+      usage: { total_tokens: 10 },
+      choices: [{ message: { content: JSON.stringify({ items: [{ i: 0, materiality_pre_score: 80 }] }) } }],
+    })
+  }) as unknown as typeof fetch
+  const recovered = await triageBatch(items, options, success)
+  assert.equal(recovered.ok, true)
+  assert.equal(calls, 2, 'the unchanged aggregate route gets a recovery attempt')
+  assert.equal(fs.existsSync(path.join(state, 'provider-omniroute-quarantine.json')), false,
+    'the successful recovery probe clears the stale marker')
 })
 
 await check('terminal caught exceptions fail fast and durably quarantine both title and article routes', async () => {

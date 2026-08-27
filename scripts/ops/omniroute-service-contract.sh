@@ -332,6 +332,7 @@ try:
     env = contract.get("EnvironmentVariables", {})
     expected_env_keys = {
         "HOME", "PATH", "DATA_DIR", "OMNIROUTE_SERVER_HOST", "PORT", "DASHBOARD_PORT", "API_PORT",
+        "OMNIROUTE_ROTATE_ON_400",
     }
     expected_path = f"{home}/.local/bin:/usr/local/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin"
     expected_log = f"{home}/Library/Logs/nostradamus-omniroute.log"
@@ -343,7 +344,8 @@ try:
             or env.get("DATA_DIR") != f"{home}/.omniroute"
             or env.get("OMNIROUTE_SERVER_HOST") != "127.0.0.1"
             or env.get("PORT") != "20128" or env.get("DASHBOARD_PORT") != "20128"
-            or env.get("API_PORT") != "20128" or contract.get("RunAtLoad") is not True
+            or env.get("API_PORT") != "20128" or env.get("OMNIROUTE_ROTATE_ON_400") != "true"
+            or contract.get("RunAtLoad") is not True
             or contract.get("KeepAlive") is not True or contract.get("ThrottleInterval") != 10
             or contract.get("Umask") != 63
             or contract.get("StandardOutPath") != expected_log

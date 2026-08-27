@@ -32,12 +32,14 @@ expected_args = [
 env = contract.get("EnvironmentVariables", {})
 expected_env_keys = {
     "HOME", "PATH", "DATA_DIR", "OMNIROUTE_SERVER_HOST", "PORT", "DASHBOARD_PORT", "API_PORT",
+    "OMNIROUTE_ROTATE_ON_400",
 }
 assert contract.get("Label") == "com.nostradamus.omniroute"
 assert contract.get("ProgramArguments") == expected_args
 assert "--daemon" not in contract.get("ProgramArguments", [])
 assert env.get("OMNIROUTE_SERVER_HOST") == "127.0.0.1"
 assert env.get("PORT") == env.get("DASHBOARD_PORT") == env.get("API_PORT") == "20128"
+assert env.get("OMNIROUTE_ROTATE_ON_400") == "true"
 assert env.get("HOME") == "{{HOME}}"
 assert env.get("PATH") == "{{PLIST_PATH}}"
 assert set(env) == expected_env_keys

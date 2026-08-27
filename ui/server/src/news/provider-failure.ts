@@ -223,6 +223,17 @@ export function classifyProviderHttpFailure(
     ...(evidence.type ? { evidenceType: evidence.type } : {}),
     ...(evidence.code ? { evidenceCode: evidence.code } : {}),
   }
+  // OmniRoute is a locally supervised aggregate, so one HTTP 401 is ambiguous: it can be the local client
+  // key, or a rejection from one of the free upstream routes behind it. The deploy reconciler separately
+  // proves the local key against OmniRoute's SQLite database and authenticated model catalog, then repairs
+  // or disables a broken sidecar. Treating this ambiguous response like a direct provider's permanent bad
+  // credential creates a trap: once quarantined, the aggregate is never called again and cannot prove that
+  // its rotating upstream pool recovered. Keep direct-provider 401s terminal; let OmniRoute cool down and
+  // retry so its supervised local contract and changing upstream pool can self-heal.
+  const providerId = String(context?.providerId || '').trim().toLowerCase()
+  if (status === 401 && providerId === 'omniroute') {
+    return { code: 'transient_upstream', scope: 'provider', action: 'cooldown', providerWide: true, ...carry }
+  }
   if (status === 401) return { code: 'auth', scope: 'provider', action: 'quarantine', providerWide: true, ...carry }
   if (status === 402) return { code: 'billing', scope: 'provider', action: 'quarantine', providerWide: true, ...carry }
   if (status === 403) return { code: 'entitlement', scope: 'provider', action: 'quarantine', providerWide: true, ...carry }
@@ -421,6 +432,11 @@ export function readProviderQuarantine(stateDir: string, identity: ProviderReque
         && marker.httpStatus === 404
         && (marker.policyVersion ?? 1) < FAILURE_POLICY_VERSION
       if (legacyOpenRouter404) continue
+      // Earlier policy stored OmniRoute's ambiguous 401 as a standing auth fault. Ignore that debt under
+      // the new classifier so an already-affected installation gets a recovery probe without manual file
+      // deletion. New OmniRoute 401s are cooldowns and therefore can never recreate this marker.
+      const staleOmniRoute401 = marker.providerId === 'omniroute' && marker.httpStatus === 401
+      if (staleOmniRoute401) continue
       return marker
     }
   }

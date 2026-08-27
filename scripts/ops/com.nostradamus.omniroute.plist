@@ -23,6 +23,9 @@
     <key>PORT</key><string>20128</string>
     <key>DASHBOARD_PORT</key><string>20128</string>
     <key>API_PORT</key><string>20128</string>
+    <!-- Free passthrough routes change independently. Let OmniRoute move past a rejected route instead of
+         returning a terminal response for an otherwise healthy aggregate. -->
+    <key>OMNIROUTE_ROTATE_ON_400</key><string>true</string>
   </dict>
   <key>RunAtLoad</key><true/>
   <key>KeepAlive</key><true/>
