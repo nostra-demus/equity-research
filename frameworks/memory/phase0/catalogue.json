@@ -421,8 +421,8 @@
       "paths": ["watchlist/entries/*.json"],
       "formats": ["json"],
       "observed_count": 2,
-      "producer_ids": ["watchlist-service"],
-      "reader_ids": ["watchlist-service"],
+      "producer_ids": ["watchlist-service", "task-service"],
+      "reader_ids": ["watchlist-service", "task-service"],
       "correction_model": "Entry history records mutations; archive state is explicit.",
       "evidence": [
         "watchlist/entries/WL-20260819-1aff8992.json",
@@ -545,7 +545,7 @@
     {"id": "feedback-service", "type": "service", "evidence": ["ui/server/src/screener-feedback.ts", "ui/server/src/feedback-store.ts"], "writes_store_ids": ["screener-feedback-ledgers"]},
     {"id": "board-projector", "type": "script_and_service", "evidence": ["scripts/update_board_index.py", "ui/server/src/news/ideas/ideas-projection.ts"], "writes_store_ids": ["screener-board-projections"]},
     {"id": "watchlist-service", "type": "service", "evidence": ["ui/server/src/watchlist.ts"], "writes_store_ids": ["watchlist-entries"]},
-    {"id": "task-service", "type": "service", "evidence": ["ui/server/src/tasks.ts"], "writes_store_ids": ["watchlist-tasks"]},
+    {"id": "task-service", "type": "service", "evidence": ["ui/server/src/tasks.ts"], "writes_store_ids": ["watchlist-tasks", "watchlist-entries"]},
     {"id": "external-router", "type": "script", "evidence": [".claude/tools/ingest_external.py", "frameworks/EXTERNAL_DATA.md"], "writes_store_ids": ["mounted-source-pools", "external-ingestion-inbox"]},
     {"id": "connector-runner", "type": "script", "evidence": [".claude/tools/run_connectors.py"], "writes_store_ids": ["mounted-source-pools", "connector-operations"]},
     {"id": "research-bridge", "type": "service", "evidence": ["ui/server/src/research-bridge.ts"], "writes_store_ids": ["mounted-source-pools"]}
