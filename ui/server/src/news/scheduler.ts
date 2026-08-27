@@ -370,8 +370,8 @@ function geminiPoolUsage(): { used: number; cap: number; tokens: number; provide
 
 /** Pure: the token reservation for the NEXT batch the drain loop would actually submit, given how many
  *  items are waiting — min(backlogItems, NEWS.triageBatch), not a fixed full-batch estimate. When fewer
- *  than a full batch remain (e.g. 1 queued item, ~595 tokens), reserving the default 12-item batch's
- *  ~1,640 tokens made a provider with room for the real, smaller submission read as "spent" and the drain
+ *  than a full batch remain (e.g. 1 queued item, ~595 tokens), reserving the configured full-batch amount
+ *  made a provider with room for the real, smaller submission read as "spent" and the drain
  *  skip it (Codex review, PR #316). An empty backlog reserves estimateTokens(0) — the fixed per-call
  *  overhead, not zero. Exported + pure so it is unit-testable without a filesystem backlog fixture. */
 export function drainBatchEst(backlogItems: number): number { return estimateTokens(Math.min(Math.max(0, backlogItems), NEWS.triageBatch)) }

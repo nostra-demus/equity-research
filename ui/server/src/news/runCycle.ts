@@ -1565,7 +1565,7 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
     if (providerId === 'anthropic-triage' && anthropicBudget) {
       const callBound = cfg.anthropicFallbackMode === 'subscription'
         ? Math.max(0, cfg.anthropicPerCallUsd)
-        : conservativeChatUsdBound(SYSTEM, buildUserMessage(auditBatch), cfg.anthropicMaxTokens, cfg.anthropicInPricePerMTok, cfg.anthropicOutPricePerMTok)
+        : conservativeChatUsdBound(SYSTEM, buildUserMessage(auditBatch), triageMaxOutputTokens(auditBatch.length, cfg.anthropicMaxTokens), cfg.anthropicInPricePerMTok, cfg.anthropicOutPricePerMTok)
       const admission = dailyQuotaAdmission({ id: providerId, meter: 'requests', used: anthropicBudget.usd, cap: cfg.anthropicDailyUsd, cost: callBound, paceCost: callBound, floorFraction: cfg.freeProviderPaceFloorFrac }, at)
       return { allowanceUsed: anthropicBudget.usd, allowanceReleased: admission.released, allowanceCap: cfg.anthropicDailyUsd }
     }
@@ -1684,7 +1684,7 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
     const batchMaxPriority = batch.reduce((maximum, item) => Math.max(maximum, preTriagePriority(item, now())), -Infinity)
     const haikuCallBoundUsd = cfg.anthropicFallbackMode === 'subscription'
       ? Math.max(0, cfg.anthropicPerCallUsd)
-      : conservativeChatUsdBound(SYSTEM, buildUserMessage(batch), cfg.anthropicMaxTokens, cfg.anthropicInPricePerMTok, cfg.anthropicOutPricePerMTok)
+      : conservativeChatUsdBound(SYSTEM, buildUserMessage(batch), triageMaxOutputTokens(batch.length, cfg.anthropicMaxTokens), cfg.anthropicInPricePerMTok, cfg.anthropicOutPricePerMTok)
     const haikuAdmission = dailyQuotaAdmission({ id: 'anthropic-triage', meter: 'requests', used: anthropicBudget?.usd || 0, cap: cfg.anthropicDailyUsd, cost: haikuCallBoundUsd, paceCost: haikuCallBoundUsd, floorFraction: cfg.freeProviderPaceFloorFrac }, candidateAt)
     const haikuHardFit = !!anthropicBudget?.canSpend(haikuCallBoundUsd)
     // Do not strand the last already-released call envelope at the dollar ceiling. This preserves the

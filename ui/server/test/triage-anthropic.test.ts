@@ -62,6 +62,23 @@ await check('happy path scores every index, coerces rows, and reports metered co
   assert.equal(r.costUsdKnown, true)
 })
 
+await check('Messages API output ceiling scales with a 24-row batch', async () => {
+  const batch = Array.from({ length: 24 }, (_, i) => ({ ...items[i % items.length], headline: `headline ${i}` })) as NewsItem[]
+  const body = {
+    content: [{ type: 'text', text: JSON.stringify({ items: batch.map((_, i) => ({ i, relevance: 'irrelevant', materiality_pre_score: 1 })) }) }],
+    usage: { input_tokens: 1000, output_tokens: 1000 }, stop_reason: 'end_turn',
+  }
+  let sentMaxTokens = 0
+  const fetchFn = (async (_url: unknown, init: any) => {
+    sentMaxTokens = JSON.parse(String(init.body)).max_tokens
+    return mockRes({ json: body })
+  }) as unknown as typeof fetch
+  const r = await triageBatchAnthropic(batch, { model: 'm', baseUrl: 'b', apiKey: 'k', maxTokens: 2400, maxAttempts: 1 }, fetchFn, noSleep)
+  assert.equal(r.ok, true)
+  assert.equal(r.byIndex.size, 24)
+  assert.equal(sentMaxTokens, 4480, '24 rows need the shared batch-sized ceiling, not the old flat 2400')
+})
+
 await check('a valid response without usage is scored but never represented as a known $0 call', async () => {
   const body = {
     content: [{ type: 'text', text: JSON.stringify({ items: [

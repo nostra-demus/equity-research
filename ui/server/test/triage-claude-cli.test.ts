@@ -356,6 +356,11 @@ await check('subscription model is a CLI-resolvable alias — never the Messages
   assert.equal(NEWS.anthropicApiModel, 'claude-haiku-4-5') // api backend addresses it by API id — kept apart
 })
 
+await check('default triage batch is the measured 24-row safe ceiling', () => {
+  assert.equal(NEWS.triageBatch, 24)
+  assert.ok(NEWS.triageBatch < 36, '36 rows hit the existing 120s Haiku timeout in the production-contract canary')
+})
+
 // ---- REGRESSION: the deferred backlog cap is a LOSS boundary. It sat at 1,000 while real peaks were
 // 2,383 (07-07) and 1,244 (07-16), so the tail past it was binned on exactly the overload days it exists
 // for. It must clear the observed peaks with headroom, so an exhaustion window only DELAYS items. ----

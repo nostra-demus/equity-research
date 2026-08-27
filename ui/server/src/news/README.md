@@ -238,6 +238,10 @@ On top of that:
 - **The output ceiling scales with the batch.** `triageMaxOutputTokens` — one JSON row per headline, so a flat
   ceiling truncates larger batches and the completeness contract then discards the entire answer. It only ever
   raises a ceiling that is too low; a provider configured above the need keeps its own value.
+- **The default batch is measured, not aspirational.** `NEWS_TRIAGE_BATCH` defaults to **24**: the exact
+  production contract returned all 24 rows within the existing $0.10 Haiku call guard and 120-second timeout.
+  A 36-row canary hit that timeout, so the default stops at the largest proven size; the environment variable
+  remains the no-code rollback control.
 - **Rejected rows stay compact.** A clearly irrelevant, sub-45 row may return only its index, relevance and
   score; the coercer supplies conservative empty defaults and the exact-index contract still requires every
   row. Material/watch rows keep the complete schema. This avoids spending most decode time explaining the
