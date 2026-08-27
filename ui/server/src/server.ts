@@ -3908,11 +3908,15 @@ async function standingCalls(): Promise<StandingCall[]> {
 // to close. A failure is reported back to the caller as `publish_error` rather than swallowed — the row
 // still saved locally (so nothing already typed is lost), but the client can now say so.
 const WATCHLIST_PUBLISH_TIMEOUT_MS = 20 * 60_000
-async function publishWatchlist(relPaths: string[], msg: string): Promise<{ ok: boolean; error?: string }> {
+// The Tasks client waits 90 seconds. Bound the only potentially long pre-write read to 20 seconds and
+// publication to 60, leaving 10 seconds for the small synchronous validation/write steps in between.
+const TASK_UPDATE_PUBLISH_TIMEOUT_MS = 60_000
+const TASK_ENGINE_WATCH_TIMEOUT_MS = 20_000
+async function publishWatchlist(relPaths: string[], msg: string, timeoutMs = WATCHLIST_PUBLISH_TIMEOUT_MS): Promise<{ ok: boolean; error?: string }> {
   const script = path.join(REPO_ROOT, 'scripts', 'commit-run.sh')
   if (!fs.existsSync(script)) return { ok: false, error: 'commit-run.sh not found (not a full checkout)' }
   try {
-    await execa('bash', [script, msg, '--', ...relPaths], { cwd: REPO_ROOT, timeout: WATCHLIST_PUBLISH_TIMEOUT_MS })
+    await execa('bash', [script, msg, '--', ...relPaths], { cwd: REPO_ROOT, timeout: timeoutMs })
     return { ok: true }
   } catch (e: any) {
     return { ok: false, error: String(e?.stderr || e?.message || e).slice(0, 400) }
@@ -3921,10 +3925,17 @@ async function publishWatchlist(relPaths: string[], msg: string): Promise<{ ok: 
 const watchlistEntryPath = (entryId: string) => `watchlist/entries/${entryId}.json`
 const PLANNING_MUTATION_LOCK = 'planning-mutation:tasks-watchlist'
 
+class TaskEngineWatchTimeoutError extends Error {
+  constructor() { super('task engine Watchlist lookup timed out'); this.name = 'TaskEngineWatchTimeoutError' }
+}
+
 async function withPlanningMutation(reply: FastifyReply, fn: () => Promise<unknown>): Promise<unknown> {
   try {
     return await withSubjectLock(PLANNING_MUTATION_LOCK, fn)
   } catch (error) {
+    if (error instanceof TaskEngineWatchTimeoutError) {
+      return reply.code(503).send({ error: 'The Watchlist lookup took too long. Nothing was saved; try again.' })
+    }
     if (error instanceof SubjectBusyError) {
       return reply.code(409).send({ error: 'Tasks and Watchlist are being updated. Try again in a moment.' })
     }
@@ -4555,8 +4566,24 @@ app.get('/api/tasks', { config: { rateLimit: { max: 600, timeWindow: '1 minute' 
 
 async function taskEngineWatch(task: TaskCard) {
   if (task.stage !== 'final_decision' || task.decision !== 'watch' || !task.ticker) return []
-  return readEngineWatch(await standingCalls(), readSizingDecoration())
-    .filter((row) => row.listing.ticker === task.ticker)
+  let timer: ReturnType<typeof setTimeout> | null = null
+  let timedOut = false
+  try {
+    const work = standingCalls().then((calls) => timedOut ? [] : readEngineWatch(calls, readSizingDecoration())
+      .filter((row) => row.listing.ticker === task.ticker))
+    // Promise.race installs its own rejection handler, but keep an explicit boundary too: when the
+    // timeout wins, a much later failed directory walk must never become process-level noise.
+    void work.catch(() => undefined)
+    return await Promise.race([
+      work,
+      new Promise<never>((_, reject) => {
+        timer = setTimeout(() => { timedOut = true; reject(new TaskEngineWatchTimeoutError()) }, TASK_ENGINE_WATCH_TIMEOUT_MS)
+        timer.unref?.()
+      }),
+    ])
+  } finally {
+    if (timer) clearTimeout(timer)
+  }
 }
 
 function conflictingWatchTask(ticker: string | null, exceptTaskId: string | null = null): TaskCard | null {
@@ -4659,7 +4686,9 @@ app.patch('/api/tasks/:id', { config: { rateLimit: { max: 240, timeWindow: '1 mi
     if (watchSync.problem) return reply.code(409).send({ error: watchSync.problem })
     writeTask(task)
     const paths = [taskPath(task.task_id), ...watchSync.changedEntries.map((entry) => watchlistEntryPath(entry.entry_id))]
-    const pub = await publishWatchlist(paths, `Tasks: update ${task.ticker || task.subject}`)
+    // Card movement must not hold every later planning mutation behind a long git retry. The task is
+    // already saved locally above; a publication timeout is returned explicitly as publish_error.
+    const pub = await publishWatchlist(paths, `Tasks: update ${task.ticker || task.subject}`, TASK_UPDATE_PUBLISH_TIMEOUT_MS)
     return { ok: true, task, publish_error: pub.ok ? undefined : pub.error }
   })
 })

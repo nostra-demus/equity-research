@@ -3754,6 +3754,7 @@ a { color: inherit; }
 .taskcol__empty { flex: 1; min-height: 100px; display: grid; place-items: center; border: 1px dashed var(--hairline); border-radius: var(--r-md); color: var(--text-faint); font-size: 11px; }
 .taskcard { border: 1px solid var(--hairline); border-radius: var(--r-md); background: var(--surface-2); box-shadow: var(--shadow-1); overflow: hidden; transition: transform var(--dur-fast), border-color var(--dur-fast), background var(--dur-fast); }
 .taskcard:hover { transform: translateY(-1px); border-color: var(--hairline-strong); background: var(--surface-3); }
+.taskcard.is-syncing { border-color: color-mix(in srgb, var(--accent) 45%, var(--hairline)); }
 .taskcard:active { cursor: grabbing; }
 .taskcard__main { display: block; width: 100%; padding: 12px 12px 8px; text-align: left; }
 .taskcard__main:disabled { cursor: default; opacity: 1; }
@@ -3761,7 +3762,12 @@ a { color: inherit; }
 .taskcard__scope { padding: 2px 6px; border: 1px solid var(--hairline); border-radius: var(--r-pill); color: var(--text-faint); font-size: 8.5px; font-weight: 700; letter-spacing: 0.4px; text-transform: uppercase; }
 .taskcard__scope--world_event { color: var(--accent-bright); border-color: var(--accent-deep); }
 .taskcard__ticker { color: var(--accent-bright); font-family: var(--font-mono); font-size: 10px; font-weight: 700; }
+.taskcard__sync { margin-left: auto; color: var(--text-faint); font-family: var(--font-mono); font-size: 8.5px; }
+.taskcard__sync::before { content: ''; display: inline-block; width: 5px; height: 5px; margin-right: 5px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 7px var(--accent); animation: task-sync-pulse 900ms ease-in-out infinite alternate; }
 .taskcard__decision { margin-left: auto; padding: 2px 6px; border-radius: var(--r-pill); font-size: 8.5px; font-weight: 800; text-transform: uppercase; }
+.taskcard__sync + .taskcard__decision { margin-left: 0; }
+@keyframes task-sync-pulse { to { opacity: 0.35; } }
+@media (prefers-reduced-motion: reduce) { .taskcard__sync::before { animation: none; } }
 .taskcard__decision[data-decision="deploy"] { color: var(--good); background: color-mix(in srgb, var(--good) 12%, transparent); }
 .taskcard__decision[data-decision="reject"] { color: var(--bad); background: color-mix(in srgb, var(--bad) 12%, transparent); }
 .taskcard__decision[data-decision="watch"] { color: var(--accent-bright); background: var(--accent-wash); }
