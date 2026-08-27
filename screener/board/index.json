@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-27T16:56:53Z",
+  "generated_at": "2026-08-27T17:07:45Z",
   "inbox": [
     {
       "inbox_id": "INB-20260827-635",
@@ -1334,6 +1334,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260827-686",
+      "headline": "Meta settles lawsuit, pays $17.1 billion over absurd claims",
+      "headline_en": null,
+      "url": "https://thehill.com/opinion/robbys-radar/6055273-zuckerberg-settles-social-media-lawsuit/",
+      "source_name": "The Hill — Homenews",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-27T16:48:47Z",
+      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
+      "prelim_note": "Meta settled a lawsuit for a quantified $17.1 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Meta settled a lawsuit for a quantified $17.1 billion.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Meta",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260827-679",
       "headline": "Google agrees to settle UK app developers' lawsuit for $353 million",
       "headline_en": null,
@@ -1927,56 +1976,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260827-632",
-      "headline": "Meta Faces Fresh Trouble: EU Urged To Slap $290-Million Fine For Failure To Tackle Fraud Ads",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/world/meta-faces-fresh-trouble-eu-urged-to-slap-290-million-fine-for-failure-to-tackle-fraud-ads-11967410#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-27T14:17:17Z",
-      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
-      "prelim_note": "Meta faces potential $290 million fine from EU regulators regarding ad fraud.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Meta faces potential $290 million fine from EU regulators regarding ad fraud.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "regulatory",
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Meta",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -98157,9 +98156,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2455994,
-    "news_picked_today": 1258,
-    "news_dropped_today": 19766
+    "news_seen_today": 2520331,
+    "news_picked_today": 1268,
+    "news_dropped_today": 19852
   },
   "book_momentum": {
     "live_count": 8,
