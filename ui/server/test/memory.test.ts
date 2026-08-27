@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict'
+import { createHash } from 'node:crypto'
 import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
@@ -365,7 +366,11 @@ await check('serves last-good immediately while exactly one slow background refr
   assert.equal(calls, 3, 'both stale readers share the same second project')
   release()
   await eventually(() => calls === 4, 'the background query did not finish')
-  const fresh = await reader.read()
+  let fresh = await reader.read()
+  for (let attempt = 0; attempt < 100 && fresh.status.state !== 'healthy'; attempt++) {
+    await new Promise((resolve) => setTimeout(resolve, 0))
+    fresh = await reader.read()
+  }
   assert.equal(fresh.items[0].summary, 'Generation 2')
   assert.equal(fresh.status.state, 'healthy')
 })
@@ -422,6 +427,125 @@ await check('deduplicates concurrent rebuilds into one in-flight project and que
   const [a, b] = await Promise.all([first, second])
   assert.strictEqual(a, b)
   assert.equal(calls, 2)
+})
+
+await check('persists and revalidates one owner-only last-known-good view across reader restarts', async () => {
+  const root = stateDir()
+  const clock = Date.parse('2026-08-21T00:00:00Z')
+  const fixture = fixtureExec()
+  const first = await createMemoryReader({
+    repoRoot: '/safe/repo', stateDir: root, exec: fixture.exec, now: () => clock,
+  }).read()
+  assert.equal(first.available, true)
+  const cacheDir = path.join(root, 'memory-ui')
+  const cacheFile = path.join(cacheDir, 'verified-read.json')
+  assert.equal(fs.statSync(cacheDir).mode & 0o777, 0o700)
+  assert.equal(fs.statSync(cacheFile).mode & 0o777, 0o600)
+
+  let liveCalls = 0
+  const refreshFixture = fixtureExec()
+  const restarted = createMemoryReader({
+    repoRoot: '/safe/repo', stateDir: root, now: () => clock,
+    exec: async (...args) => { liveCalls++; return refreshFixture.exec(...args) },
+  })
+  const restored = await restarted.read()
+  assert.deepEqual(restored, first)
+  assert.equal(liveCalls, 0, 'a fresh verified cache survives process/reader recreation')
+  assert.doesNotMatch(fs.readFileSync(cacheFile, 'utf8'), /SHOULD_NEVER_ESCAPE/)
+  assert.equal((await restarted.warm()).available, true)
+  assert.equal(liveCalls, 2, 'startup still revalidates a fresh cache against the new checkout')
+})
+
+await check('serves a persisted stale view during startup warm-up and shares the live rebuild', async () => {
+  const root = stateDir()
+  const origin = Date.parse('2026-08-21T00:00:00Z')
+  let clock = origin
+  await createMemoryReader({
+    repoRoot: '/safe/repo', stateDir: root, exec: fixtureExec().exec, now: () => clock,
+    ttlMs: 1_000, maxStaleMs: 5_000,
+  }).read()
+  clock += 1_001
+  let release!: () => void
+  const gate = new Promise<void>((resolve) => { release = resolve })
+  let started!: () => void
+  const projectStarted = new Promise<void>((resolve) => { started = resolve })
+  let calls = 0
+  const exec: MemoryExec = async (_file, args) => {
+    calls++
+    if (args.includes('project')) {
+      started()
+      await gate
+      return { stdout: projectPacket(corpus().length) }
+    }
+    return { stdout: queryPacket(corpus()) }
+  }
+  const restarted = createMemoryReader({
+    repoRoot: '/safe/repo', stateDir: root, exec, now: () => clock,
+    ttlMs: 1_000, maxStaleMs: 5_000,
+  })
+  const warming = restarted.warm()
+  await projectStarted
+  const immediate = await restarted.read()
+  assert.equal(immediate.available, true)
+  assert.equal(immediate.status.state, 'degraded')
+  assert.equal(calls, 1, 'the browser joins the startup rebuild instead of starting another one')
+  release()
+  assert.equal((await warming).available, true)
+  assert.equal(calls, 2)
+})
+
+await check('rejects corrupt, inconsistent, hard-linked or symlinked persisted views and falls back to a bounded live check', async () => {
+  for (const attack of ['corrupt', 'inconsistent', 'hardlink', 'symlink'] as const) {
+    const root = stateDir()
+    const clock = Date.parse('2026-08-21T00:00:00Z')
+    await createMemoryReader({
+      repoRoot: '/safe/repo', stateDir: root, exec: fixtureExec().exec, now: () => clock,
+    }).read()
+    const cacheFile = path.join(root, 'memory-ui', 'verified-read.json')
+    if (attack === 'corrupt' || attack === 'inconsistent') {
+      const envelope = JSON.parse(fs.readFileSync(cacheFile, 'utf8'))
+      const cachedRead = JSON.parse(envelope.read_json)
+      if (attack === 'corrupt') {
+        cachedRead.items[0].summary = 'SECRET_TAMPERED_CACHE'
+      } else {
+        cachedRead.counts.total += 1
+      }
+      envelope.read_json = JSON.stringify(cachedRead)
+      if (attack === 'inconsistent') {
+        envelope.read_sha256 = createHash('sha256').update(envelope.read_json).digest('hex')
+      }
+      fs.writeFileSync(cacheFile, JSON.stringify(envelope), { mode: 0o600 })
+    } else if (attack === 'hardlink') {
+      fs.linkSync(cacheFile, path.join(root, 'writable-cache-alias.json'))
+    } else {
+      const hostile = path.join(root, 'hostile.json')
+      fs.writeFileSync(hostile, 'SECRET_SYMLINK_TARGET', { mode: 0o600 })
+      fs.unlinkSync(cacheFile)
+      fs.symlinkSync(hostile, cacheFile)
+    }
+    let calls = 0
+    const read = await createMemoryReader({
+      repoRoot: '/safe/repo', stateDir: root, now: () => clock,
+      exec: async () => { calls++; throw new Error('SECRET_LIVE_FAILURE') },
+    }).read()
+    assert.equal(read.available, false, attack)
+    assert.equal(calls, 1, attack)
+    assert.doesNotMatch(JSON.stringify(read), /SECRET|TAMPERED|SYMLINK/, attack)
+  }
+})
+
+await check('refuses a symlinked state directory before running projection commands', async () => {
+  const root = stateDir()
+  const redirected = stateDir()
+  fs.symlinkSync(redirected, path.join(root, 'memory-ui'))
+  let calls = 0
+  const read = await createMemoryReader({
+    repoRoot: '/safe/repo', stateDir: root,
+    exec: async () => { calls++; return { stdout: projectPacket(0) } },
+  }).read()
+  assert.equal(read.available, false)
+  assert.equal(calls, 0)
+  assert.deepEqual(fs.readdirSync(redirected), [])
 })
 
 await check('bounds display text while retaining the full searchable event set', async () => {
@@ -490,18 +614,22 @@ await check('allows the fixed internal query to return fewer rows than the full 
   assert.deepEqual(read.items.map((item) => item.event_id), ['evt_visible_internal'])
 })
 
-await check('fails closed when the reviewed 1,000-event response ceiling would be exceeded', async () => {
+await check('keeps the Explorer available when canonical history grows beyond its bounded recent view', async () => {
   let calls = 0
-  const exec: MemoryExec = async () => {
+  const visible = event('evt_recent_visible', 'commodity_decision_record', 'decision.recorded', {
+    commodity: 'COPPER', action: 'Watch', thesis_summary: 'The recent bounded row remains visible.',
+  })
+  const exec: MemoryExec = async (_file, args) => {
     calls++
-    return { stdout: projectPacket(MEMORY_QUERY_LIMIT + 1) }
+    return { stdout: args.includes('project')
+      ? projectPacket(MEMORY_QUERY_LIMIT + 1)
+      : queryPacket([visible]) }
   }
   const read = await createMemoryReader({ repoRoot: '/safe/repo', stateDir: stateDir(), exec }).read()
-  assert.equal(read.available, false)
-  assert.equal(read.generated_at, null)
-  assert.deepEqual(read.items, [])
-  assert.deepEqual(read.counts, { total: 0, research: 0, screener: 0, commodity: 0, decisions: 0, reviews: 0, corrections: 0 })
-  assert.equal(calls, 1, 'an oversized projection is refused before querying it')
+  assert.equal(read.available, true)
+  assert.deepEqual(read.items.map((item) => item.event_id), ['evt_recent_visible'])
+  assert.equal(read.counts.total, 1)
+  assert.equal(calls, 2, 'the fixed-size query runs even when canonical history is larger')
 })
 
 await check('fails closed on malformed, incomplete, unsafe, nonzero and maxBuffer-breaching commands without echoing secrets', async () => {

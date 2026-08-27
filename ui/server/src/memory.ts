@@ -1,4 +1,5 @@
 import { execFile } from 'node:child_process'
+import { createHash, randomBytes } from 'node:crypto'
 import fs from 'node:fs'
 import path from 'node:path'
 import { resolveDisplayFields } from './ledger-corrections'
@@ -8,13 +9,18 @@ export const MEMORY_QUERY_LIMIT = 1_000
 
 const DEFAULT_TTL_MS = 60_000
 const DEFAULT_MAX_STALE_MS = 10 * 60_000
-const DEFAULT_TIMEOUT_MS = 30_000
+// The browser allows 65s for this endpoint. Give a cold projection one bounded minute; the query
+// itself is small and verified, while normal restarts serve the durable last-known-good view.
+const DEFAULT_TIMEOUT_MS = 60_000
 const DEFAULT_MAX_BUFFER = 32 * 1024 * 1024
 const MAX_DIAGNOSTICS = 10_000
 const MAX_LINEAGE_IDS = 1_000
 const MAX_PATH_LENGTH = 512
 const MAX_LOCATOR_LENGTH = 160
 const MAX_ID_LENGTH = 180
+const MAX_CACHE_FUTURE_SKEW_MS = 60_000
+const MEMORY_CACHE_SCHEMA = 'memory-ui-cache/v1' as const
+const DURABLE_CACHE_SUPPORTED = process.platform !== 'win32'
 
 export type MemoryCockpit = 'research' | 'screener' | 'commodity'
 export type MemoryStatusState = 'healthy' | 'degraded' | 'unavailable'
@@ -99,6 +105,12 @@ export interface MemoryReaderOptions {
   maxStaleMs?: number
   timeoutMs?: number
   maxBuffer?: number
+}
+
+export interface MemoryReader {
+  read: () => Promise<MemoryRead>
+  /** Start or join a bounded refresh without making server startup depend on Memory availability. */
+  warm: () => Promise<MemoryRead>
 }
 
 interface CanonicalEvent {
@@ -243,9 +255,9 @@ function parseProject(stdout: string, maxOutput: number): ProjectReport {
       || !record(report.projection) || !Array.isArray(report.diagnostics)
       || report.diagnostics.length > MAX_DIAGNOSTICS) throw new Error('invalid memory project report')
   const digest = hash(report.projection.digest)
-  if (!safeInteger(report.projection.event_count, MEMORY_QUERY_LIMIT)) {
-    throw new Error('memory corpus exceeds the bounded UI query')
-  }
+  // The Explorer deliberately queries a bounded recent working set. The canonical projection may
+  // grow well beyond that response limit without making the read path unavailable.
+  if (!safeInteger(report.projection.event_count)) throw new Error('invalid memory event count')
   const diagnostics = report.diagnostics.map((value) => {
     if (!record(value) || !['info', 'warning', 'error'].includes(String(value.severity))) {
       throw new Error('invalid memory diagnostic')
@@ -622,6 +634,190 @@ function buildRead(events: CanonicalEvent[], project: ProjectReport, generatedAt
   }
 }
 
+function parseCachedItem(value: unknown): MemoryItem {
+  if (!record(value) || !record(value.source) || !record(value.lineage) || !record(value.proof)) {
+    throw new Error('invalid cached memory item')
+  }
+  const cockpit = exactText(value.cockpit, 20)
+  if (!['research', 'screener', 'commodity'].includes(cockpit)) throw new Error('invalid cached memory cockpit')
+  const confidence = value.confidence === null
+    ? null
+    : (typeof value.confidence === 'number' && Number.isFinite(value.confidence)
+        && value.confidence >= 0 && value.confidence <= 100 ? value.confidence : (() => {
+          throw new Error('invalid cached memory confidence')
+        })())
+  if (typeof value.current !== 'boolean' || value.proof.source_verified !== true
+      || !safeInteger(value.proof.evidence_ref_count, MAX_LINEAGE_IDS)) {
+    throw new Error('invalid cached memory proof')
+  }
+  return {
+    event_id: exactId(value.event_id),
+    event_type: exactText(value.event_type, 100),
+    cockpit: cockpit as MemoryCockpit,
+    kind: exactText(value.kind, 100),
+    happened_at: exactIso(value.happened_at),
+    valid_from: exactIso(value.valid_from),
+    subject: exactText(value.subject, 96),
+    title: exactText(value.title, 180),
+    status: value.status === null ? null : exactText(value.status, 80),
+    confidence,
+    summary: exactText(value.summary, 420),
+    current: value.current,
+    source: {
+      path: sourcePath(value.source.path),
+      locator: sourceLocator(value.source.locator),
+      sha256: hash(value.source.sha256),
+      git_commit: commit(value.source.git_commit),
+    },
+    lineage: {
+      derived_from: exactIdList(value.lineage.derived_from),
+      supersedes: exactIdList(value.lineage.supersedes),
+      replaced_by: exactIdList(value.lineage.replaced_by),
+      corrected_by: exactIdList(value.lineage.corrected_by),
+    },
+    proof: {
+      source_verified: true,
+      evidence_ref_count: value.proof.evidence_ref_count,
+    },
+  }
+}
+
+function parseCachedRead(value: unknown): MemoryRead {
+  if (!record(value) || value.contract_version !== MEMORY_CONTRACT || value.available !== true
+      || value.read_only !== true || !record(value.status) || !record(value.counts)
+      || !Array.isArray(value.items) || value.items.length > MEMORY_QUERY_LIMIT) {
+    throw new Error('invalid cached memory read')
+  }
+  const state = exactText(value.status.state, 20)
+  if (state !== 'healthy' && state !== 'degraded') throw new Error('invalid cached memory status')
+  const generatedAt = exactIso(value.generated_at)
+  const items = value.items.map(parseCachedItem)
+  if (new Set(items.map((item) => item.event_id)).size !== items.length) {
+    throw new Error('duplicate cached memory event')
+  }
+  const counts: MemoryCounts = {
+    total: items.length,
+    research: items.filter((item) => item.cockpit === 'research').length,
+    screener: items.filter((item) => item.cockpit === 'screener').length,
+    commodity: items.filter((item) => item.cockpit === 'commodity').length,
+    decisions: items.filter((item) => item.event_type === 'decision.recorded').length,
+    reviews: items.filter((item) => item.event_type === 'outcome.reviewed').length,
+    corrections: items.filter((item) => item.event_type === 'correction.recorded').length,
+  }
+  for (const [key, expected] of Object.entries(counts)) {
+    if (!safeInteger(value.counts[key], MEMORY_QUERY_LIMIT) || value.counts[key] !== expected) {
+      throw new Error('cached memory counts do not reconcile')
+    }
+  }
+  const sourceCount = new Set(items.map((item) => item.source.path)).size
+  if (!safeInteger(value.status.event_count, MEMORY_QUERY_LIMIT) || value.status.event_count !== items.length
+      || !safeInteger(value.status.source_count, MEMORY_QUERY_LIMIT) || value.status.source_count !== sourceCount
+      || !safeInteger(value.status.diagnostics_count, MAX_DIAGNOSTICS + (2 * MEMORY_QUERY_LIMIT))
+      || value.status.production_readiness !== 'unmeasured') {
+    throw new Error('cached memory status does not reconcile')
+  }
+  return {
+    contract_version: MEMORY_CONTRACT,
+    available: true,
+    read_only: true,
+    generated_at: generatedAt,
+    status: {
+      state,
+      message: exactText(value.status.message, 240),
+      event_count: items.length,
+      source_count: sourceCount,
+      diagnostics_count: value.status.diagnostics_count,
+      production_readiness: 'unmeasured',
+    },
+    counts,
+    items,
+  }
+}
+
+function sha256(value: string): string {
+  return createHash('sha256').update(value, 'utf8').digest('hex')
+}
+
+function encodeCache(read: MemoryRead): string {
+  const readJson = JSON.stringify(read)
+  return JSON.stringify({
+    schema: MEMORY_CACHE_SCHEMA,
+    read_sha256: sha256(readJson),
+    read_json: readJson,
+  })
+}
+
+function decodeCache(serialized: string, maxBytes: number): MemoryRead {
+  if (Buffer.byteLength(serialized, 'utf8') > maxBytes) throw new Error('memory cache is too large')
+  const envelope: unknown = JSON.parse(serialized)
+  if (!record(envelope) || envelope.schema !== MEMORY_CACHE_SCHEMA || typeof envelope.read_json !== 'string'
+      || hash(envelope.read_sha256) !== sha256(envelope.read_json)) {
+    throw new Error('memory cache integrity check failed')
+  }
+  return parseCachedRead(JSON.parse(envelope.read_json))
+}
+
+async function secureDirectory(directory: string): Promise<void> {
+  await fs.promises.mkdir(directory, { recursive: true, mode: 0o700 })
+  const stat = await fs.promises.lstat(directory)
+  const uid = typeof process.getuid === 'function' ? process.getuid() : null
+  if (!stat.isDirectory() || stat.isSymbolicLink() || (uid !== null && stat.uid !== uid)) {
+    throw new Error('memory state directory is unsafe')
+  }
+  if (DURABLE_CACHE_SUPPORTED && (stat.mode & 0o077) !== 0) await fs.promises.chmod(directory, 0o700)
+}
+
+async function readSecureFile(file: string, maxBytes: number): Promise<string> {
+  const before = await fs.promises.lstat(file)
+  const uid = typeof process.getuid === 'function' ? process.getuid() : null
+  if (!before.isFile() || before.isSymbolicLink() || before.nlink !== 1 || before.size > maxBytes
+      || (DURABLE_CACHE_SUPPORTED && (before.mode & 0o077) !== 0)
+      || (uid !== null && before.uid !== uid)) {
+    throw new Error('memory cache file is unsafe')
+  }
+  const noFollow = fs.constants.O_NOFOLLOW ?? 0
+  const handle = await fs.promises.open(file, fs.constants.O_RDONLY | noFollow)
+  try {
+    const opened = await handle.stat()
+    if (!opened.isFile() || opened.nlink !== 1 || opened.size !== before.size || opened.size > maxBytes
+        || opened.dev !== before.dev || opened.ino !== before.ino
+        || (DURABLE_CACHE_SUPPORTED && (opened.mode & 0o077) !== 0)
+        || (uid !== null && opened.uid !== uid)) {
+      throw new Error('memory cache file changed while opening')
+    }
+    return await handle.readFile({ encoding: 'utf8' })
+  } finally {
+    await handle.close()
+  }
+}
+
+async function writeSecureFile(directory: string, file: string, content: string, maxBytes: number): Promise<void> {
+  if (Buffer.byteLength(content, 'utf8') > maxBytes) throw new Error('memory cache is too large')
+  await secureDirectory(directory)
+  const temporary = path.join(directory, `.verified-read.${process.pid}.${randomBytes(12).toString('hex')}.tmp`)
+  const noFollow = fs.constants.O_NOFOLLOW ?? 0
+  let handle: fs.promises.FileHandle | null = null
+  try {
+    handle = await fs.promises.open(
+      temporary,
+      fs.constants.O_WRONLY | fs.constants.O_CREAT | fs.constants.O_EXCL | noFollow,
+      0o600,
+    )
+    await handle.writeFile(content, { encoding: 'utf8' })
+    await handle.sync()
+    await handle.close()
+    handle = null
+    await fs.promises.rename(temporary, file)
+    if (DURABLE_CACHE_SUPPORTED) {
+      const directoryHandle = await fs.promises.open(directory, fs.constants.O_RDONLY)
+      try { await directoryHandle.sync() } finally { await directoryHandle.close() }
+    }
+  } finally {
+    if (handle) await handle.close().catch(() => undefined)
+    await fs.promises.unlink(temporary).catch(() => undefined)
+  }
+}
+
 const defaultExec: MemoryExec = (file, args, options) => new Promise((resolve, reject) => {
   execFile(file, [...args], {
     cwd: options.cwd,
@@ -639,11 +835,12 @@ const defaultExec: MemoryExec = (file, args, options) => new Promise((resolve, r
  * Build the shared, read-only Memory UI projection. The canonical repository sources stay authoritative;
  * this service owns the fixed internal policy, trusted digest and state paths and exposes curated fields only.
  */
-export function createMemoryReader(options: MemoryReaderOptions): { read: () => Promise<MemoryRead> } {
+export function createMemoryReader(options: MemoryReaderOptions): MemoryReader {
   const repoRoot = path.resolve(options.repoRoot)
   const stateDir = path.resolve(options.stateDir)
   const projectionDir = path.join(stateDir, 'memory-ui')
   const database = path.join(projectionDir, 'projection.sqlite')
+  const verifiedReadCache = path.join(projectionDir, 'verified-read.json')
   const script = path.join(repoRoot, 'scripts', 'memory.py')
   const run = options.exec || defaultExec
   const now = options.now || Date.now
@@ -660,10 +857,50 @@ export function createMemoryReader(options: MemoryReaderOptions): { read: () => 
     read: MemoryRead
   } | null = null
   let rebuilding: Promise<MemoryRead> | null = null
+  let hydrated = false
+  let hydrating: Promise<void> | null = null
+
+  const hydrate = (): Promise<void> => {
+    if (hydrated) return Promise.resolve()
+    if (hydrating) return hydrating
+    hydrating = (async () => {
+      try {
+        // Windows cannot prove this contract's Unix owner-only mode boundary through Node's stat
+        // fields. Keep the live bounded reader working there, but do not trust a durable cache.
+        if (!DURABLE_CACHE_SUPPORTED) return
+        await secureDirectory(projectionDir)
+        const read = decodeCache(await readSecureFile(verifiedReadCache, maxBuffer), maxBuffer)
+        const generatedAt = Date.parse(read.generated_at!)
+        const at = now()
+        if (generatedAt > at + MAX_CACHE_FUTURE_SKEW_MS) throw new Error('memory cache is from the future')
+        const freshUntil = generatedAt + ttlMs
+        const staleUntil = freshUntil + maxStaleMs
+        if (at < staleUntil) {
+          cached = { read, freshUntil, staleUntil, retryAfter: freshUntil }
+        }
+      } catch {
+        // Missing, expired, corrupt, overly permissive or tampered state is never trusted. A live
+        // bounded rebuild remains the only cold-start fallback.
+      } finally {
+        hydrated = true
+      }
+    })().finally(() => { hydrating = null })
+    return hydrating
+  }
+
+  const persist = async (read: MemoryRead): Promise<void> => {
+    try {
+      if (!DURABLE_CACHE_SUPPORTED) return
+      await writeSecureFile(projectionDir, verifiedReadCache, encodeCache(read), maxBuffer)
+    } catch {
+      // The current verified live read is still safe to serve. Persistence is availability hardening,
+      // never an authority source and never a reason to hide a successful current projection.
+    }
+  }
 
   const rebuild = async (): Promise<MemoryRead> => {
     try {
-      await fs.promises.mkdir(projectionDir, { recursive: true, mode: 0o700 })
+      await secureDirectory(projectionDir)
       const projected = await run('python3', [script, 'project', '--root', repoRoot, '--database', database], execOptions)
       const project = parseProject(projected.stdout, maxBuffer)
       const queried = await run('python3', [
@@ -679,7 +916,7 @@ export function createMemoryReader(options: MemoryReaderOptions): { read: () => 
 
   const refresh = (): Promise<MemoryRead> => {
     if (rebuilding) return rebuilding
-    rebuilding = rebuild().then((next) => {
+    rebuilding = rebuild().then(async (next) => {
       const completedAt = now()
       if (next.available) {
         const freshUntil = completedAt + ttlMs
@@ -689,6 +926,7 @@ export function createMemoryReader(options: MemoryReaderOptions): { read: () => 
           staleUntil: freshUntil + maxStaleMs,
           retryAfter: freshUntil,
         }
+        await persist(next)
       } else if (cached?.read.available && completedAt < cached.staleUntil) {
         // A transient refresh failure must not discard a still-bounded, last-known-good projection.
         // Back off briefly before another background attempt; staleUntil remains fixed, so this can
@@ -718,14 +956,22 @@ export function createMemoryReader(options: MemoryReaderOptions): { read: () => 
 
   return {
     async read(): Promise<MemoryRead> {
+      await hydrate()
       const at = now()
-      if (cached && at < cached.freshUntil) return cached.read
+      if (cached && at < cached.freshUntil) return rebuilding ? staleView(cached.read) : cached.read
       if (cached?.read.available && at < cached.staleUntil) {
         if (!rebuilding && at >= cached.retryAfter) void refresh()
         return staleView(cached.read)
       }
       // Cold start and an exhausted max-stale window both fail closed: the caller waits for one
       // bounded project+query attempt, sharing it with every concurrent request.
+      return refresh()
+    },
+    async warm(): Promise<MemoryRead> {
+      await hydrate()
+      // A restart commonly means a new checkout. Revalidate even a fresh persisted view so deploys,
+      // corrections and retirements are observed immediately; callers can still use that verified
+      // view while this single background rebuild runs.
       return refresh()
     },
   }

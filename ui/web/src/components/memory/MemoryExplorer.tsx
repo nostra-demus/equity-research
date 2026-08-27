@@ -51,7 +51,7 @@ function SummaryStrip({ read, runtime }: { read: MemoryRead; runtime: MemoryRunt
       </div>
       {read.available && (
         <div className="memory__counts">
-          <div><strong>{count.total.toLocaleString()}</strong><span>checked records</span></div>
+          <div><strong>{count.total.toLocaleString()}</strong><span>recent checked records</span></div>
           <div><strong>{count.research.toLocaleString()}</strong><span>research</span></div>
           <div><strong>{count.screener.toLocaleString()}</strong><span>screener</span></div>
           <div><strong>{count.commodity.toLocaleString()}</strong><span>commodity</span></div>
@@ -432,7 +432,7 @@ export function MemoryExplorer() {
               {runtime && <OperationsPanel runtime={runtime} />}
               <div className="memory__intro">
                 <strong>One shared memory.</strong>
-                <span>It keeps the conclusion, when it was known, what changed, and the source behind it.</span>
+                <span>It keeps the conclusion, when it was known, what changed, and the source behind it. This Explorer searches a bounded recent working set; older records remain in canonical memory.</span>
               </div>
               <div className="memory__controls">
                 <label className="memory__search">
