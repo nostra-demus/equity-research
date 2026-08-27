@@ -14,10 +14,10 @@ import { Budget, RateLimiter, UsdBudget, armCooldown, clearCooldown, cooldownInf
 import { articleReadTokenBound, readArticleBrief } from '../src/news/triage/article-read'
 import { SYSTEM, TRIAGE_CONTRACT_VERSION, analyzeArticle, coerceTriage, estimateTokens, parseRate, scoreToBand, triageBatch, triageMaxOutputTokens } from '../src/news/triage/groq'
 import { analyzeArticleGemini, geminiSchemaEnabled, TRIAGE_RESPONSE_SCHEMA, triageBatchGemini } from '../src/news/triage/gemini'
-import { appendFeedItems, inspectFeedCapacity, readFeed } from '../src/news/feed'
+import { appendFeedItems, inspectFeedCapacity, MAX_FEED_ITEM_BYTES, readFeed } from '../src/news/feed'
 import { newsBus } from '../src/news/bus'
 import { appendFirehoseSummary, FIREHOSE_HARD_MAX_BYTES, mergeInbox, revisionClockRegistryDiagnostics } from '../src/news/write-inbox'
-import { appendScoredCheckpoint, backlogDurablyCleared, buildTriageQueue, expireBacklog, inspectDeferredBacklog, loadDeferred, MAX_FEED_ITEM_BYTES, migrateDeferred, preserveResidence, recentMissingFeedTargetIsRetryable, runIngestCycle as runIngestCycleRaw, saveDeferred, scoringJournalSlots, stampDeferred, triageGroqTokenBound } from '../src/news/runCycle'
+import { appendScoredCheckpoint, backlogDurablyCleared, buildTriageQueue, expireBacklog, inspectDeferredBacklog, loadDeferred, migrateDeferred, preserveResidence, recentMissingFeedTargetIsRetryable, runIngestCycle as runIngestCycleRaw, saveDeferred, scoringJournalSlots, stampDeferred, triageGroqTokenBound } from '../src/news/runCycle'
 import { buildPipelineFlowRates, countUniqueNewArrivals, readPipelineFlowCycles } from '../src/news/pipeline-flow'
 import { appendPipelineTelemetry, compareFiniteRank, readCycleInterruptionAudit } from '../src/news/provider-routing'
 import { actualProviderRanks, anthropicDrainReady, backlogTrend, credentialRejected, CREDENTIAL_DEAD_AFTER_FAILS, drainBatchEst, geminiPoolProviderDayExhausted, getNewsDiagnostics, providerDrainUsable, providerLastCycleMetric, scoredByForLastCycle, tierHealth } from '../src/news/scheduler'
@@ -2781,7 +2781,7 @@ await check('NEWS_FEED_ITEMS_DAILY_MAX_BYTES is hard-clamped below GitHub 100 MB
   assert.equal(Number(run.stdout), 90_000_000)
 })
 
-type FeedBoundaryCase = 'partial-cap' | 'full-cap' | 'io-failure'
+type FeedBoundaryCase = 'rolling-cap' | 'full-cap' | 'io-failure'
 
 async function runFeedBoundaryCase(kind: FeedBoundaryCase) {
   resetSharedLimiters(); resetBudgetMemory(); resetCooldownMemory()
@@ -2808,16 +2808,10 @@ async function runFeedBoundaryCase(kind: FeedBoundaryCase) {
     })) }) } }],
   }
   let providerCalls = 0
-  const partialTriage = {
-    usage: { total_tokens: 60 },
-    choices: [{ message: { content: JSON.stringify({ items: [
-      { i: 0, relevance: 'irrelevant', materiality_pre_score: 1, event_types: [], issuer_linkage: 'sector', why: 'No decision-relevant change.', companies: [], size_bucket: 'unknown' },
-    ] }) } }],
-  }
   const fetchFn = (async (url: string) => {
     if (!String(url).includes('groq')) return res({ articles: [] })
     providerCalls++
-    return res(kind === 'partial-cap' ? partialTriage : triage)
+    return res(triage)
   }) as unknown as typeof fetch
   const emitted: string[] = []
   const unsubscribe = newsBus.subscribe((event) => {
@@ -2831,7 +2825,7 @@ async function runFeedBoundaryCase(kind: FeedBoundaryCase) {
         groqApiKey: 'k', groqBaseUrl: 'https://groq.test', groqRpm: 6000,
         localProvider: null, overflowProviders: [], geminiEnabled: false,
         anthropicFallbackEnabled: false, themesEnabled: false,
-        feedItemsDailyCap: kind === 'partial-cap' ? 1 : kind === 'full-cap' ? 0 : 10,
+        feedItemsDailyCap: kind === 'rolling-cap' ? 1 : kind === 'full-cap' ? 0 : 10,
       } as any,
     })
     const backlog = loadDeferred(state)
@@ -2848,25 +2842,23 @@ async function runFeedBoundaryCase(kind: FeedBoundaryCase) {
   }
 }
 
-await check('runIngestCycle partial feed cap publishes/counts only the prefix and preserves the suffix clocks', async () => {
-  const result = await runFeedBoundaryCase('partial-cap')
-  const { summary, backlog, seen, emitted, itemRows, originalRows, providerCalls } = result
-  assert.equal(summary.picked + summary.watched + summary.dropped, 1, 'only the one persisted row counts as scanned')
-  assert.equal(summary.feed_unwritten, undefined, 'capacity preflight avoids scoring an unwritable suffix')
+await check('runIngestCycle treats the item cap as per-shard and rolls without limiting the cycle', async () => {
+  const result = await runFeedBoundaryCase('rolling-cap')
+  const { root, summary, backlog, seen, emitted, itemRows, providerCalls } = result
+  assert.equal(summary.picked + summary.watched + summary.dropped, 3)
+  assert.equal(summary.feed_unwritten, undefined)
   assert.equal(summary.feed_write_failed, undefined)
-  assert.equal(summary.feed_cap_kind, 'items')
-  assert.equal(summary.defer_reason, 'feed-cap')
-  assert.deepEqual(summary.defer_reasons, ['feed-cap'])
-  assert.equal(summary.deferred, 2)
-  assert.equal(summary.backlog, 2)
-  assert.match(String(summary.note), /feed shard items limit could not accept work/)
-  assert.equal(providerCalls, 1, 'only the exact writable prefix spends provider capacity')
-  assert.equal(itemRows.length, 1, 'only the confirmed prefix is in the durable wire')
+  assert.equal(summary.feed_cap_kind, undefined)
+  assert.notEqual(summary.defer_reason, 'feed-cap')
+  assert.equal(summary.deferred, undefined)
+  assert.equal(summary.backlog, 0)
+  assert.doesNotMatch(String(summary.note), /feed shard .* limit could not accept work/)
+  assert.equal(providerCalls, 1)
+  assert.equal(itemRows.length, 3)
   assert.deepEqual(emitted, itemRows.map((item) => item.event_id), 'SSE emits exactly the persisted prefix')
-  assert.deepEqual(Object.keys(seen).sort(), emitted.slice().sort(), 'only persisted rows enter the seen cache')
-  const originalClock = new Map(originalRows.map((row) => [row.event_id, row.deferred_at]))
-  assert.equal(backlog.length, 2)
-  for (const row of backlog) assert.equal(row.deferred_at, originalClock.get(row.event_id), `${row.event_id} keeps its original residence clock`)
+  assert.deepEqual(Object.keys(seen).sort(), emitted.slice().sort())
+  assert.equal(backlog.length, 0)
+  assert.equal(fs.existsSync(path.join(root, 'screener', 'inbox', '2026-08-21_firehose.000002.ndjson')), true)
 })
 
 await check('runIngestCycle full feed cap reports zero progress and durably queues every scored row', async () => {
@@ -3311,8 +3303,8 @@ await check('a concurrent shard fill rolls cleanly while a separate provider fai
     if (!String(url).includes('groq')) return res({ articles: [] })
     calls++
     if (calls === 1) {
-      // Admission honestly reserves two worst-case rows. Simulate another writer consuming the active
-      // shard after that snapshot; the completed batch must roll instead of becoming feed-pending.
+      // Simulate another writer consuming the active shard after preflight; the completed batch must roll
+      // instead of becoming feed-pending.
       const filler = Math.max(0, maxBytes - fs.statSync(fp).size - 1)
       fs.appendFileSync(fp, `${' '.repeat(Math.max(0, filler - 1))}\n`)
     }

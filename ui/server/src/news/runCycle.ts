@@ -8,7 +8,7 @@
 import path from 'node:path'
 import { NEWS, REPO_ROOT, STATE_DIR } from '../config'
 import { newsBus } from './bus'
-import { appendFeedItems, inspectFeedCapacity, inspectHistoricalFeedIdentities, readFeed } from './feed'
+import { appendFeedItems, inspectFeedCapacity, inspectHistoricalFeedIdentities, MAX_FEED_ITEM_BYTES, readFeed } from './feed'
 import { assignDedupGroups } from './dedup'
 import { fetchGdelt } from './sources/gdelt'
 import { acknowledgeRssDeliveries, fetchRss } from './sources/rss'
@@ -130,7 +130,6 @@ function routingFailureClass(result: TriageResult): ProviderFailureClass {
 // Normalization and triage bound every source/model field. Reserve a deliberately conservative 64KiB for
 // each eventual NDJSON item before spending a provider call (observed rows peak below 8KiB). The runtime
 // assertion at the append boundary fails closed if a future additive field ever violates this contract.
-export const MAX_FEED_ITEM_BYTES = 64 * 1024
 
 /** A model-output/request-shape failure belongs to this prompt/workload, not to the provider as a whole.
  * Keeping a separate marker prevents one malformed triage answer from sidelining article reads, Themes,
@@ -1466,20 +1465,17 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
   const pendingNeedingRows = feedCapacity.status === 'available'
     ? pendingTriaged.filter((item) => !acknowledgedEventIds.has(item.event_id)).length
     : pendingTriaged.length
-  // Never spend a provider call without one shard's guaranteed durable room. A full/near-full shard is
-  // represented as the next empty shard, so capacity protection no longer pauses scoring until UTC midnight.
-  const byteGuaranteedSlots = feedCapacity.status === 'available'
-    ? Math.floor(feedCapacity.remainingBytes / MAX_FEED_ITEM_BYTES)
-    : 0
+  // Never spend a provider call unless at least one accepted row fits an empty physical shard. Once that
+  // is true, the append boundary may roll through as many bounded shards as this cycle needs; the active
+  // shard's remaining slots are not a daily capacity ceiling.
+  const feedShardWritable = feedCapacity.status === 'available'
+    && feedCapacity.remainingItems > 0
+    && feedCapacity.remainingBytes >= MAX_FEED_ITEM_BYTES
   const scoringSlots = hasScoringProvider && !historicalFeedReadFailed && pendingNeedingRows === 0
-    && feedCapacity.status === 'available' && byteGuaranteedSlots > 0
+    && feedShardWritable
     // A catastrophic append failure can turn every scored row into feed-pending. Never score more rows than
     // the durable backlog can retain, so its priority slice can preserve the ENTIRE unwritten scored set.
-    ? Math.min(
-        scoringJournalSlots(pendingTriaged.length),
-        Math.max(0, feedCapacity.remainingItems - pendingNeedingRows),
-        byteGuaranteedSlots,
-      )
+    ? scoringJournalSlots(pendingTriaged.length)
     : 0
   const scoreItems = unscoredItems.slice(0, scoringSlots)
   const capacityDeferred = unscoredItems.slice(scoringSlots)
@@ -2596,10 +2592,10 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
   const feedUnwritten = feedAppend.unwritten
   const feedWriteFailed = feedAppend.status === 'io_failure' || feedPreflightFailed
   const preflightCapKind = feedCapacity.status === 'available'
-    ? feedCapacity.remainingBytes <= 0 || byteGuaranteedSlots < unscoredItems.length
-      ? 'bytes' as const
-      : feedCapacity.remainingItems < pendingNeedingRows + unscoredItems.length
-        ? 'items' as const
+    ? feedCapacity.remainingItems <= 0
+      ? 'items' as const
+      : feedCapacity.remainingBytes < MAX_FEED_ITEM_BYTES
+        ? 'bytes' as const
         : undefined
     : undefined
   const feedCapKind = feedAppend.status === 'cap' ? feedAppend.cap : preflightCapKind

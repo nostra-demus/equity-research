@@ -470,6 +470,10 @@ export interface AppendFeedItemsOptions {
   acknowledgedEventIds?: ReadonlySet<string>
 }
 
+/** Scoring refuses a projected row above this bound. Capacity preflight reserves exactly the same size,
+ * so the writer and the provider-admission boundary cannot drift apart. */
+export const MAX_FEED_ITEM_BYTES = 64 * 1024
+
 export type FeedCapacitySnapshot =
   | {
       status: 'available'
@@ -570,7 +574,7 @@ export function inspectFeedCapacity(
   // Scoring preflight reserves for the largest accepted row. Once the active shard cannot guarantee one,
   // advertise the next empty shard now; append will make that rollover atomically for the actual row.
   const rolls = itemCap > 0 && byteCap > 0
-    && (active.count >= itemCap || (active.size > 0 && byteCap - active.size < 64 * 1024))
+    && (active.count >= itemCap || (active.size > 0 && byteCap - active.size < MAX_FEED_ITEM_BYTES))
   const itemCount = rolls ? 0 : active.count
   const bytes = rolls ? 0 : active.size
   return {
