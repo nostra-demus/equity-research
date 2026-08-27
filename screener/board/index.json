@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-27T09:48:14Z",
+  "generated_at": "2026-08-27T10:53:59Z",
   "inbox": [
     {
       "inbox_id": "INB-20260827-391",
@@ -690,6 +690,105 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260827-445",
+      "headline": "Nvidia revenue tops $96 billion as memory commitments soar to $160 billion — CEO Jensen Huang says AI 'has reached its inflection point'",
+      "headline_en": null,
+      "url": "https://www.tomshardware.com/tech-industry/big-tech/nvidia-revenue-tops-usd96-billion-as-memory-commitments-soar-to-usd160-billion-ceo-jensen-huang-says-ai-has-reached-its-inflection-point",
+      "source_name": "Tom's Hardware",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-27T09:13:54Z",
+      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
+      "prelim_note": "Nvidia reported $96 billion in revenue and $160 billion in memory commitments, signaling massive AI demand.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nvidia reported $96 billion in revenue and $160 billion in memory commitments, signaling massive AI demand.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260827-410",
+      "headline": "AD Ports board backs $8.6 billion buyout offer from L’imad",
+      "headline_en": null,
+      "url": "https://www.arabianbusiness.com/business/transport/ad-ports-board-backs-8-6-billion-buyout-offer-from-limad",
+      "source_name": "Arabian Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-27T09:11:48Z",
+      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
+      "prelim_note": "AD Ports board has backed an $8.6 billion buyout offer.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "AD Ports board has backed an $8.6 billion buyout offer.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "AD Ports",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260827-370",
       "headline": "Nvidia to buy Hugging face for $12.9 bn, says report; same AI firm was hacked by OpenAI agents in July",
       "headline_en": null,
@@ -736,6 +835,55 @@
           "name": "Hugging Face",
           "ticker": null,
           "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260827-414",
+      "headline": "HDFC Bank Share Price Falls To 52-Week Low After US Class Action Lawsuit Over Alleged Bribery Scheme",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/markets/hdfc-bank-share-price-falls-after-us-class-action-lawsuit-over-alleged-bribery-scheme-11964590#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-27T08:26:43Z",
+      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
+      "prelim_note": "HDFC Bank faces a US class action lawsuit regarding an alleged bribery scheme, contributing to a 52-week low.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "HDFC Bank faces a US class action lawsuit regarding an alleged bribery scheme, contributing to a 52-week low.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HDFC Bank",
+          "ticker": null,
+          "listing_country": "IN"
         }
       ],
       "size_bucket": "mega",
@@ -1826,163 +1974,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260827-194",
-      "headline": "Strong AI chip demand fuels Nvidia's Q2 results well beyond Wall Street's expectations",
-      "headline_en": null,
-      "url": "https://gulfnews.com/business/markets/strong-ai-chip-demand-fuels-nvidias-q2-results-well-beyond-wall-streets-expectations-1.500653496",
-      "source_name": "Gulf News",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-27T03:10:07Z",
-      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
-      "prelim_note": "Nvidia reported Q2 results that significantly exceeded analyst expectations, driven by strong AI chip demand.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Nvidia reported Q2 results that significantly exceeded analyst expectations, driven by strong AI chip demand.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": "NVDA",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260827-142",
-      "headline": "Nvidia agrees to buy Hugging Face for $16.4 billion: Report",
-      "headline_en": null,
-      "url": "https://www.straitstimes.com/business/nvidia-agrees-to-buy-hugging-face-for-16-4-billion-report",
-      "source_name": "The Straits Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-27T02:47:00Z",
-      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
-      "prelim_note": "Nvidia is acquiring Hugging Face for $16.4 billion, a major M&A event in the AI sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Nvidia is acquiring Hugging Face for $16.4 billion, a major M&A event in the AI sector.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 90,
-      "rank_factors": {
-        "materiality": 90,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Hugging Face",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260827-139",
-      "headline": "Nvidia in talks to buy Hugging Face for $12.9 billion amid AI deal spree, reports say",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/business/companies/nvidia-hugging-face-acquisition-open-source-models-artificial-intelligence-platform-deal-reports-19978002.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-27T02:38:02Z",
-      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
-      "prelim_note": "Nvidia is reportedly in talks to acquire Hugging Face for $12.9 billion, a significant M&A event in the AI sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Nvidia is reportedly in talks to acquire Hugging Face for $12.9 billion, a significant M&A event in the AI sector.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Hugging Face",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -83902,77 +83893,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-d6c3f18fcbf9",
-      "idea_version": "IDEAV-566e4dbe9e2d5627",
-      "idea_version_started_at": "2026-08-26T00:07:40Z",
-      "ticker": "FPR",
-      "company": "FPR",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company is actively updating the market on non-binding indicative offers, suggesting ongoing M&A interest and potential for a formal bid.",
-      "why_now": "The update was released on 2026-08-25.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-55a3e1586196"
-      ],
-      "primary_source_event_id": "EVT-55a3e1586196",
-      "source_headlines": [
-        "FPR: Update regarding Non-Binding Indicative Offers [price-sensitive]"
-      ],
-      "source_headline": "FPR: Update regarding Non-Binding Indicative Offers [price-sensitive]",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.FPR?key=2924-03126089-2A1692067",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-25T22:41:50Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-26T00:07:40Z",
-      "updated_at": "2026-08-26T00:07:40Z",
-      "decay_at": "2026-08-27T10:41:50Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-15545ed7f8b1",
       "idea_version": "IDEAV-73067bb8cd7980b7",
       "idea_version_started_at": "2026-08-26T09:35:45Z",
@@ -84957,6 +84877,77 @@
       "surfaced_at": "2026-08-26T00:07:40Z",
       "updated_at": "2026-08-26T00:07:40Z",
       "decay_at": "2026-08-27T02:40:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-d6c3f18fcbf9",
+      "idea_version": "IDEAV-566e4dbe9e2d5627",
+      "idea_version_started_at": "2026-08-26T00:07:40Z",
+      "ticker": "FPR",
+      "company": "FPR",
+      "exchange": "ASX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company is actively updating the market on non-binding indicative offers, suggesting ongoing M&A interest and potential for a formal bid.",
+      "why_now": "The update was released on 2026-08-25.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-55a3e1586196"
+      ],
+      "primary_source_event_id": "EVT-55a3e1586196",
+      "source_headlines": [
+        "FPR: Update regarding Non-Binding Indicative Offers [price-sensitive]"
+      ],
+      "source_headline": "FPR: Update regarding Non-Binding Indicative Offers [price-sensitive]",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.FPR?key=2924-03126089-2A1692067",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-25T22:41:50Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-26T00:07:40Z",
+      "updated_at": "2026-08-26T00:07:40Z",
+      "decay_at": "2026-08-27T10:41:50Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -87046,13 +87037,13 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 146,
-    "shown_count": 146,
+    "total_count": 147,
+    "shown_count": 147,
     "hidden_count": 0,
     "side_counts": {
       "long": {
-        "total_count": 59,
-        "shown_count": 59,
+        "total_count": 60,
+        "shown_count": 60,
         "hidden_count": 0
       },
       "short": {
@@ -87077,6 +87068,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-d6c3f18fcbf9",
+        "idea_version": "IDEAV-566e4dbe9e2d5627",
+        "idea_version_started_at": "2026-08-26T00:07:40Z",
+        "ticker": "FPR",
+        "company": "FPR",
+        "exchange": "ASX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company is actively updating the market on non-binding indicative offers, suggesting ongoing M&A interest and potential for a formal bid.",
+        "why_now": "The update was released on 2026-08-25.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-55a3e1586196"
+        ],
+        "primary_source_event_id": "EVT-55a3e1586196",
+        "source_headlines": [
+          "FPR: Update regarding Non-Binding Indicative Offers [price-sensitive]"
+        ],
+        "source_headline": "FPR: Update regarding Non-Binding Indicative Offers [price-sensitive]",
+        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.FPR?key=2924-03126089-2A1692067",
+        "source_name": "ASX (Australia Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-25T22:41:50Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-26T00:07:40Z",
+        "updated_at": "2026-08-26T00:07:40Z",
+        "decay_at": "2026-08-27T10:41:50Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-27T10:41:50Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-c56cd7fabf5d",
         "idea_version": "IDEAV-e298fc8d653164e4",
@@ -97900,7 +97965,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 188,
-    "live_count": 41,
+    "live_count": 40,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -97919,9 +97984,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1219985,
-    "news_picked_today": 585,
-    "news_dropped_today": 12447
+    "news_seen_today": 1345609,
+    "news_picked_today": 690,
+    "news_dropped_today": 13542
   },
   "book_momentum": {
     "live_count": 8,
