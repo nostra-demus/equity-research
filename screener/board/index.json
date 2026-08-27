@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-27T21:30:30Z",
+  "generated_at": "2026-08-27T22:19:15Z",
   "inbox": [
     {
       "inbox_id": "INB-20260827-822",
@@ -1687,6 +1687,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260827-824",
+      "headline": "Gap names new Old Navy CEO and lifts profit forecast, shares jump 14%",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/retail-consumer/gap-lifts-annual-profit-forecast-strength-namesake-brand-2026-08-27/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-27T21:15:48Z",
+      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
+      "prelim_note": "Gap Inc. named a new Old Navy CEO and raised its profit forecast, resulting in a 14% share price increase.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Gap Inc. named a new Old Navy CEO and raised its profit forecast, resulting in a 14% share price increase.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Gap Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260827-791",
       "headline": "Ulta Beauty Raises Forecast as Sales Grow",
       "headline_en": null,
@@ -1932,55 +1982,6 @@
         },
         {
           "name": "Dentsu Group",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260827-740",
-      "headline": "Universal Studios Japan to spend up to $1.9bn on expansion",
-      "headline_en": null,
-      "url": "https://asia.nikkei.com/business/media-entertainment/universal-studios-japan-to-spend-up-to-1.9bn-on-expansion",
-      "source_name": "Nikkei Asia",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-27T17:28:43Z",
-      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
-      "prelim_note": "Universal Studios Japan is planning a $1.9B expansion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Universal Studios Japan is planning a $1.9B expansion.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Universal Studios Japan",
           "ticker": null,
           "listing_country": "JP"
         }
@@ -82466,75 +82467,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-e2e8adffa9c4",
-      "idea_version": "IDEAV-f88b600677b122ca",
-      "idea_version_started_at": "2026-08-26T23:18:30Z",
-      "ticker": "PRU",
-      "company": "Prudential plc",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Prudential plc is selling a stake in ICICI Prudential Asset Management to meet public float requirements, which could unlock value and improve capital efficiency.",
-      "why_now": "The announcement of the stake sale was made on August 26, 2026, indicating an active corporate action.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-b3f2732415d4"
-      ],
-      "primary_source_event_id": "EVT-b3f2732415d4",
-      "source_headlines": [
-        "PRU (02378): Prudential plc announces sale of up to a 2.0 per cent stake in ICICI Prudential Asset Management to support India public float requirements"
-      ],
-      "source_headline": "PRU (02378): Prudential plc announces sale of up to a 2.0 per cent stake in ICICI Prudential Asset Management to support India public float requirements",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0826/2026082600823.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-26T10:09:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-26T23:18:30Z",
-      "updated_at": "2026-08-26T23:18:30Z",
-      "decay_at": "2026-08-27T22:09:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-492fb380ef56",
       "idea_version": "IDEAV-d66fd299676ae4cf",
       "idea_version_started_at": "2026-08-26T21:03:32Z",
@@ -84109,6 +84041,75 @@
       "promoted_signal_id": null,
       "feedback": null,
       "stale": false
+    },
+    {
+      "idea_id": "IDEA-e2e8adffa9c4",
+      "idea_version": "IDEAV-f88b600677b122ca",
+      "idea_version_started_at": "2026-08-26T23:18:30Z",
+      "ticker": "PRU",
+      "company": "Prudential plc",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Prudential plc is selling a stake in ICICI Prudential Asset Management to meet public float requirements, which could unlock value and improve capital efficiency.",
+      "why_now": "The announcement of the stake sale was made on August 26, 2026, indicating an active corporate action.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-b3f2732415d4"
+      ],
+      "primary_source_event_id": "EVT-b3f2732415d4",
+      "source_headlines": [
+        "PRU (02378): Prudential plc announces sale of up to a 2.0 per cent stake in ICICI Prudential Asset Management to support India public float requirements"
+      ],
+      "source_headline": "PRU (02378): Prudential plc announces sale of up to a 2.0 per cent stake in ICICI Prudential Asset Management to support India public float requirements",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0826/2026082600823.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-26T10:09:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-26T23:18:30Z",
+      "updated_at": "2026-08-26T23:18:30Z",
+      "decay_at": "2026-08-27T22:09:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
     },
     {
       "idea_id": "IDEA-2c6e860326a2",
@@ -86761,13 +86762,13 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 164,
-    "shown_count": 164,
+    "total_count": 165,
+    "shown_count": 165,
     "hidden_count": 0,
     "side_counts": {
       "long": {
-        "total_count": 69,
-        "shown_count": 69,
+        "total_count": 70,
+        "shown_count": 70,
         "hidden_count": 0
       },
       "short": {
@@ -86792,6 +86793,78 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-e2e8adffa9c4",
+        "idea_version": "IDEAV-f88b600677b122ca",
+        "idea_version_started_at": "2026-08-26T23:18:30Z",
+        "ticker": "PRU",
+        "company": "Prudential plc",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Prudential plc is selling a stake in ICICI Prudential Asset Management to meet public float requirements, which could unlock value and improve capital efficiency.",
+        "why_now": "The announcement of the stake sale was made on August 26, 2026, indicating an active corporate action.",
+        "conviction": 55,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 62,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-b3f2732415d4"
+        ],
+        "primary_source_event_id": "EVT-b3f2732415d4",
+        "source_headlines": [
+          "PRU (02378): Prudential plc announces sale of up to a 2.0 per cent stake in ICICI Prudential Asset Management to support India public float requirements"
+        ],
+        "source_headline": "PRU (02378): Prudential plc announces sale of up to a 2.0 per cent stake in ICICI Prudential Asset Management to support India public float requirements",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0826/2026082600823.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-26T10:09:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-26T23:18:30Z",
+        "updated_at": "2026-08-26T23:18:30Z",
+        "decay_at": "2026-08-27T22:09:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-27T22:09:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-cdd269b5c982",
         "idea_version": "IDEAV-b1f67878e4d63fbd",
@@ -98955,7 +99028,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 203,
-    "live_count": 37,
+    "live_count": 36,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -98974,9 +99047,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3016921,
-    "news_picked_today": 1714,
-    "news_dropped_today": 24206
+    "news_seen_today": 3094381,
+    "news_picked_today": 1739,
+    "news_dropped_today": 25525
   },
   "book_momentum": {
     "live_count": 8,
