@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-27T07:19:29Z",
+  "generated_at": "2026-08-27T07:54:58Z",
   "inbox": [
     {
       "inbox_id": "INB-20260827-292",
@@ -543,6 +543,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260827-347",
+      "headline": "Taqa to delist from Abu Dhabi bourse after ADPC completes 100% takeover",
+      "headline_en": null,
+      "url": "https://www.khaleejtimes.com/business/taqa-to-delist-from-abu-dhabi-bourse-after-adpc-completes-100-takeover",
+      "source_name": "Khaleej Times — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-27T07:02:54Z",
+      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
+      "prelim_note": "Taqa is set to delist from the Abu Dhabi bourse following a 100% takeover by ADPC.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Taqa is set to delist from the Abu Dhabi bourse following a 100% takeover by ADPC.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Taqa",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260827-319",
       "headline": "Delivery Hero Lifts Guidance on Increased Growth",
       "headline_en": null,
@@ -592,6 +641,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260827-344",
+      "headline": "Nvidia Agrees To Buy Hugging Face For ₹1.23 Lakh Crore In A Bid To Strengthen Its Foothold In The AI Industry",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/tech/nvidia-agrees-to-buy-hugging-face-for-123-lakh-crore-in-a-bid-to-strengthen-its-foothold-in-the-ai-industry",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-27T06:41:24Z",
+      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
+      "prelim_note": "Nvidia reportedly acquiring Hugging Face for ₹1.23 lakh crore ($14.7B).",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nvidia reportedly acquiring Hugging Face for ₹1.23 lakh crore ($14.7B).",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Hugging Face",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260827-321",
       "headline": "Bombay Burmah shares rally 15%: SC recalls ₹4,655 cr lease rent observations",
       "headline_en": null,
@@ -636,6 +739,98 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260827-346",
+      "headline": "NCLT Approves Subhash Chandra Repayment Plan; Creditors Face 99.97% Haircut On ₹22,006 Crore Claims",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/nclt-approves-subhash-chandra-repayment-plan-creditors-face-9997-haircut-on-22006-crore-claims",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-27T06:34:26Z",
+      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
+      "prelim_note": "Creditors face a 99.97% haircut on ₹22,006 crore in claims following NCLT approval of a repayment plan.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Creditors face a 99.97% haircut on ₹22,006 crore in claims following NCLT approval of a repayment plan.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Subhash Chandra",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260827-345",
+      "headline": "Subhash Chandra’s Repayment Plan Gets NCLT Boost, ₹22,006 Crore Claims May Fetch Creditors Just ₹6.5 Crore",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/subhash-chandras-repayment-plan-gets-nclt-boost-22006-crore-claims-may-fetch-creditors-just-65-crore",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-27T06:34:26Z",
+      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
+      "prelim_note": "Creditors face massive write-down, with claims of ₹22,006 crore expected to recover only ₹6.5 crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Creditors face massive write-down, with claims of ₹22,006 crore expected to recover only ₹6.5 crore.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1783,202 +1978,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260827-282",
-      "headline": "NUC: FY26 Results Presentation [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.NUC?key=2924-03127576-3A700128",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-27T06:54:36Z",
-      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
-      "prelim_note": "NUC announced its FY26 results presentation, which is a price-sensitive event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "NUC announced its FY26 results presentation, which is a price-sensitive event.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "NUC",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260827-248",
-      "headline": "OMH: MEDIA RELEASE 30 June 2026 Half Year Results [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.OMH?key=2924-03127456-6A1340683",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-27T04:43:16Z",
-      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
-      "prelim_note": "Company released half-year financial results.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Company released half-year financial results.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "OMH",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260827-238",
-      "headline": "CTD: Preliminary Final Report [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.CTD?key=2924-03127422-2A1692760",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-27T04:03:36Z",
-      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
-      "prelim_note": "Preliminary final report is a price-sensitive full-year earnings release that will move the stock on revenue, profit and guidance numbers.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Preliminary final report is a price-sensitive full-year earnings release that will move the stock on revenue, profit and guidance numbers.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "CTD",
-          "ticker": "CTD",
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260827-047",
-      "headline": "ID8: Preliminary Final Report [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ID8?key=2924-03127262-2A1692689",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-27T00:07:50Z",
-      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
-      "prelim_note": "Preliminary final reports contain audited or unaudited financial results which are price-sensitive and impact analyst expectations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Preliminary final reports contain audited or unaudited financial results which are price-sensitive and impact analyst expectations.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ID8",
-          "ticker": "ID8",
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -97631,9 +97630,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 904179,
-    "news_picked_today": 476,
-    "news_dropped_today": 8116
+    "news_seen_today": 979922,
+    "news_picked_today": 505,
+    "news_dropped_today": 9095
   },
   "book_momentum": {
     "live_count": 8,
