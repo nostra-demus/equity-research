@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-27T15:20:48Z",
+  "generated_at": "2026-08-27T15:33:33Z",
   "inbox": [
     {
       "inbox_id": "INB-20260827-635",
@@ -41,6 +41,56 @@
       "companies": [
         {
           "name": "Sun Granite Export Ltd",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260827-668",
+      "headline": "Directions under Section 35 A read with Section 56 of the Banking Regulation Act, 1949 – The Citizens Co-operative Bank Ltd., Jammu",
+      "headline_en": null,
+      "url": "https://www.rbi.org.in/scripts/BS_PressReleaseDisplay.aspx?prid=63456",
+      "source_name": "Reserve Bank of India (RBI) — Press Releases",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-08-27T14:55:00Z",
+      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
+      "prelim_note": "The RBI has imposed regulatory directions on The Citizens Co-operative Bank Ltd., which indicates significant operational or solvency risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The RBI has imposed regulatory directions on The Citizens Co-operative Bank Ltd., which indicates significant operational or solvency risk.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "regulatory",
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "The Citizens Co-operative Bank Ltd.",
           "ticker": null,
           "listing_country": "IN"
         }
@@ -1931,55 +1981,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260827-510",
-      "headline": "Hormel Foods cuts annual sales forecast as sluggish consumer demand weighs",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/retail-consumer/hormel-foods-cuts-annual-sales-forecast-sluggish-consumer-demand-weighs-2026-08-27/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-27T11:41:44Z",
-      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
-      "prelim_note": "Hormel Foods cut its annual sales forecast due to sluggish consumer demand.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Hormel Foods cut its annual sales forecast due to sluggish consumer demand.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Hormel Foods",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -84323,77 +84324,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-45be7ab74aa4",
-      "idea_version": "IDEAV-9ece0dbfbc954d63",
-      "idea_version_started_at": "2026-08-26T09:18:20Z",
-      "ticker": "ADANIENSOL",
-      "company": "Adani Energy Solutions Ltd",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Winning a Rs 4,700 crore transmission project provides immediate revenue visibility and strengthens the company's infrastructure order book in the renewable energy sector.",
-      "why_now": "The contract win was formally filed with the exchange on August 26, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 18,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-5503513ff13f"
-      ],
-      "primary_source_event_id": "EVT-5503513ff13f",
-      "source_headlines": [
-        "Adani Energy Solutions Ltd: AESL Wins Rs 4,700 crore Transmission project in Maharashtra for evacuation of 4,500 MW of Renewable & Storage Power"
-      ],
-      "source_headline": "Adani Energy Solutions Ltd: AESL Wins Rs 4,700 crore Transmission project in Maharashtra for evacuation of 4,500 MW of Renewable & Storage Power",
-      "source_url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/5dcccc1a-9686-4914-b61f-34c8c62748a8.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 97,
-      "newest_source_at": "2026-08-26T03:26:44Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-26T09:18:20Z",
-      "updated_at": "2026-08-26T09:18:20Z",
-      "decay_at": "2026-08-27T15:26:44Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-7c0521e054d8",
       "idea_version": "IDEAV-70ae5a093e31e60c",
       "idea_version_started_at": "2026-08-26T09:18:20Z",
@@ -84530,77 +84460,6 @@
       "surfaced_at": "2026-08-26T06:46:12Z",
       "updated_at": "2026-08-26T06:46:12Z",
       "decay_at": "2026-08-27T17:41:23Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-68879e44d305",
-      "idea_version": "IDEAV-c02f59361546dfe9",
-      "idea_version_started_at": "2026-08-26T06:46:12Z",
-      "ticker": "AESL",
-      "company": "Adani Energy Solutions Ltd",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Winning a Rs 4,700 crore transmission project will boost revenue and cash flow.",
-      "why_now": "Transmission project win announced on 26 Aug 2026.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 18,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-5503513ff13f"
-      ],
-      "primary_source_event_id": "EVT-5503513ff13f",
-      "source_headlines": [
-        "Adani Energy Solutions Ltd: AESL Wins Rs 4,700 crore Transmission project in Maharashtra for evacuation of 4,500 MW of Renewable & Storage Power"
-      ],
-      "source_headline": "Adani Energy Solutions Ltd: AESL Wins Rs 4,700 crore Transmission project in Maharashtra for evacuation of 4,500 MW of Renewable & Storage Power",
-      "source_url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/5dcccc1a-9686-4914-b61f-34c8c62748a8.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 97,
-      "newest_source_at": "2026-08-26T03:26:44Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-26T06:46:12Z",
-      "updated_at": "2026-08-26T06:46:12Z",
-      "decay_at": "2026-08-27T15:26:44Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -86823,6 +86682,148 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-45be7ab74aa4",
+      "idea_version": "IDEAV-9ece0dbfbc954d63",
+      "idea_version_started_at": "2026-08-26T09:18:20Z",
+      "ticker": "ADANIENSOL",
+      "company": "Adani Energy Solutions Ltd",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Winning a Rs 4,700 crore transmission project provides immediate revenue visibility and strengthens the company's infrastructure order book in the renewable energy sector.",
+      "why_now": "The contract win was formally filed with the exchange on August 26, 2026.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 18,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-5503513ff13f"
+      ],
+      "primary_source_event_id": "EVT-5503513ff13f",
+      "source_headlines": [
+        "Adani Energy Solutions Ltd: AESL Wins Rs 4,700 crore Transmission project in Maharashtra for evacuation of 4,500 MW of Renewable & Storage Power"
+      ],
+      "source_headline": "Adani Energy Solutions Ltd: AESL Wins Rs 4,700 crore Transmission project in Maharashtra for evacuation of 4,500 MW of Renewable & Storage Power",
+      "source_url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/5dcccc1a-9686-4914-b61f-34c8c62748a8.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 97,
+      "newest_source_at": "2026-08-26T03:26:44Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-26T09:18:20Z",
+      "updated_at": "2026-08-26T09:18:20Z",
+      "decay_at": "2026-08-27T15:26:44Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-68879e44d305",
+      "idea_version": "IDEAV-c02f59361546dfe9",
+      "idea_version_started_at": "2026-08-26T06:46:12Z",
+      "ticker": "AESL",
+      "company": "Adani Energy Solutions Ltd",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Winning a Rs 4,700 crore transmission project will boost revenue and cash flow.",
+      "why_now": "Transmission project win announced on 26 Aug 2026.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 18,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-5503513ff13f"
+      ],
+      "primary_source_event_id": "EVT-5503513ff13f",
+      "source_headlines": [
+        "Adani Energy Solutions Ltd: AESL Wins Rs 4,700 crore Transmission project in Maharashtra for evacuation of 4,500 MW of Renewable & Storage Power"
+      ],
+      "source_headline": "Adani Energy Solutions Ltd: AESL Wins Rs 4,700 crore Transmission project in Maharashtra for evacuation of 4,500 MW of Renewable & Storage Power",
+      "source_url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/5dcccc1a-9686-4914-b61f-34c8c62748a8.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 97,
+      "newest_source_at": "2026-08-26T03:26:44Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-26T06:46:12Z",
+      "updated_at": "2026-08-26T06:46:12Z",
+      "decay_at": "2026-08-27T15:26:44Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-d704446fee63",
       "idea_version": "IDEAV-2fea4607e2989a34",
       "idea_version_started_at": "2026-08-04T08:40:40Z",
@@ -86903,13 +86904,13 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 152,
-    "shown_count": 152,
+    "total_count": 154,
+    "shown_count": 154,
     "hidden_count": 0,
     "side_counts": {
       "long": {
-        "total_count": 62,
-        "shown_count": 62,
+        "total_count": 64,
+        "shown_count": 64,
         "hidden_count": 0
       },
       "short": {
@@ -86934,6 +86935,154 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-45be7ab74aa4",
+        "idea_version": "IDEAV-9ece0dbfbc954d63",
+        "idea_version_started_at": "2026-08-26T09:18:20Z",
+        "ticker": "ADANIENSOL",
+        "company": "Adani Energy Solutions Ltd",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Winning a Rs 4,700 crore transmission project provides immediate revenue visibility and strengthens the company's infrastructure order book in the renewable energy sector.",
+        "why_now": "The contract win was formally filed with the exchange on August 26, 2026.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 18,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-5503513ff13f"
+        ],
+        "primary_source_event_id": "EVT-5503513ff13f",
+        "source_headlines": [
+          "Adani Energy Solutions Ltd: AESL Wins Rs 4,700 crore Transmission project in Maharashtra for evacuation of 4,500 MW of Renewable & Storage Power"
+        ],
+        "source_headline": "Adani Energy Solutions Ltd: AESL Wins Rs 4,700 crore Transmission project in Maharashtra for evacuation of 4,500 MW of Renewable & Storage Power",
+        "source_url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/5dcccc1a-9686-4914-b61f-34c8c62748a8.pdf",
+        "source_name": "BSE / NSE Exchange Filing",
+        "materiality_max": 97,
+        "newest_source_at": "2026-08-26T03:26:44Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-26T09:18:20Z",
+        "updated_at": "2026-08-26T09:18:20Z",
+        "decay_at": "2026-08-27T15:26:44Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-27T15:26:44Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-68879e44d305",
+        "idea_version": "IDEAV-c02f59361546dfe9",
+        "idea_version_started_at": "2026-08-26T06:46:12Z",
+        "ticker": "AESL",
+        "company": "Adani Energy Solutions Ltd",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Winning a Rs 4,700 crore transmission project will boost revenue and cash flow.",
+        "why_now": "Transmission project win announced on 26 Aug 2026.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 18,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-5503513ff13f"
+        ],
+        "primary_source_event_id": "EVT-5503513ff13f",
+        "source_headlines": [
+          "Adani Energy Solutions Ltd: AESL Wins Rs 4,700 crore Transmission project in Maharashtra for evacuation of 4,500 MW of Renewable & Storage Power"
+        ],
+        "source_headline": "Adani Energy Solutions Ltd: AESL Wins Rs 4,700 crore Transmission project in Maharashtra for evacuation of 4,500 MW of Renewable & Storage Power",
+        "source_url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/5dcccc1a-9686-4914-b61f-34c8c62748a8.pdf",
+        "source_name": "BSE / NSE Exchange Filing",
+        "materiality_max": 97,
+        "newest_source_at": "2026-08-26T03:26:44Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-26T06:46:12Z",
+        "updated_at": "2026-08-26T06:46:12Z",
+        "decay_at": "2026-08-27T15:26:44Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-27T15:26:44Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-5057424de03d",
         "idea_version": "IDEAV-9f70f8b01b8a2072",
@@ -98205,7 +98354,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 199,
-    "live_count": 45,
+    "live_count": 43,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -98224,9 +98373,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2013671,
-    "news_picked_today": 1169,
-    "news_dropped_today": 18679
+    "news_seen_today": 2062873,
+    "news_picked_today": 1184,
+    "news_dropped_today": 18832
   },
   "book_momentum": {
     "live_count": 8,
