@@ -10,6 +10,7 @@ failures=0
 TEST_TMP="$(mktemp -d)" || exit 1
 trap 'rm -rf "$TEST_TMP"' EXIT
 PYTHON_BIN="$(command -v python3)"
+REPO_ROOT="$(cd "$HERE/../.." && pwd)"
 
 # Autonomous research commits advance main continuously. They must never impersonate a reviewed engine
 # deployment and pause provider admission; any executable/prompt/ops delta must retain the barrier.
@@ -140,6 +141,40 @@ then
   echo "  ok  deploy runtime exposes Homebrew node/npm/sidecars before tool discovery"
 else
   echo "  FAIL deploy runtime can strand npm behind launchd's minimal PATH"
+  failures=$((failures + 1))
+fi
+
+# The relationship extractor's Python environment is repaired only inside deploy's exclusive run barrier.
+# A missing package must hold the release marker and back off without restarting the live engine; the setup
+# helper itself must fast-path a healthy venv and bound its network fallback.
+if "$PYTHON_BIN" -I - "$HERE/deploy.sh" "$REPO_ROOT/.claude/tools/setup-tools.sh" <<'PYEXTRACTORDEPS'
+import pathlib
+import sys
+
+deploy = pathlib.Path(sys.argv[1]).read_text(encoding="utf-8")
+setup = pathlib.Path(sys.argv[2]).read_text(encoding="utf-8")
+fn = deploy.split("reconcile_extractor_python_deps() {", 1)[1].split("\n}", 1)[0]
+preflight = deploy.split("extractor_python_deps_ready() {", 1)[1].split("\n}", 1)[0]
+runtime = deploy.split("CLEAR_DEPLOY_INTENT_ON_EXIT=1", 1)[1]
+assert '.claude/tools/setup-tools.sh --python-only' in fn
+assert '"$FAILMARK.tmp"' in fn and 'return 1' in fn
+assert "launchctl" not in fn and "reconcile_build" not in fn
+assert "from striprtf.striprtf import rtf_to_text" in preflight
+assert 'if [ "$intent_needed" = 0 ] && ! extractor_python_deps_ready' in deploy
+assert runtime.count("if ! reconcile_extractor_python_deps") == 2
+assert runtime.index("if ! reconcile_extractor_python_deps") > runtime.index("gitlock_acquire")
+for dependency in ("import openpyxl", "import pypdf", "import xlrd", "from striprtf.striprtf import rtf_to_text"):
+    assert dependency in setup
+assert "if python_deps_ready" in setup
+assert "--python-only" in setup
+assert '[ ! -L "$VENV" ] && [ -d "$VENV" ] && [ -O "$VENV" ]' in setup
+assert "PIP_DEFAULT_TIMEOUT=15" in setup and "--retries 1" in setup
+assert setup.index('if [ "$PYTHON_ONLY" = 1 ]') < setup.index("install_ocr_tools()")
+PYEXTRACTORDEPS
+then
+  echo "  ok  extractor dependencies repair behind the run barrier and fail without a restart"
+else
+  echo "  FAIL extractor dependency repair can block or destabilize a production research run"
   failures=$((failures + 1))
 fi
 
