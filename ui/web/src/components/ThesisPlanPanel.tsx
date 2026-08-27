@@ -345,13 +345,15 @@ export function ThesisPlanPanel() {
                   </div>
                 </div>
 
-                {provider === 'claude' && <div className="tpp__saving">
+                <div className="tpp__saving">
                   {saves ? (
-                    <>Re-running everything would cost <b>${band(full!.estCostUsdRange)}</b> and take <b>{band(full!.estMinutesRange)} min</b>. Reusing what’s done skips {full!.agentCount - p!.agentCount} orbs.</>
+                    provider === 'claude'
+                      ? <>Re-running everything would cost <b>${band(full!.estCostUsdRange)}</b> and take <b>{band(full!.estMinutesRange)} min</b>. Reusing what’s done skips {full!.agentCount - p!.agentCount} orbs.</>
+                      : <>Re-running everything would use more of your Codex allowance and take <b>{band(full!.estMinutesRange)} min</b>. Reusing what’s done skips {full!.agentCount - p!.agentCount} orbs.</>
                   ) : (
                     <>Nothing is being reused, so this is a full run — the next step asks you to type <b>{ticker}</b> to confirm. Click a module above to keep its existing output instead.</>
                   )}
-                </div>}
+                </div>
               </>
             )}
 

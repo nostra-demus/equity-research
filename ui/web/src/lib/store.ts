@@ -14,6 +14,7 @@ import { selectNewsChatHandoffEvidence } from './newsChatHandoff'
 import { stageDockHUpdate } from './stageDock'
 import { affectedModules, focusKeysFor } from './intake'
 import { moduleRunAffordance, moduleRunInputModules } from './moduleRun'
+import { preflightConfirmationMatches } from './launchExperience'
 import type { BridgeStatus } from './types'
 import type { ActiveRunLite, AgentNode, AskMemoryMeta, AskMemoryMode, BoardIdea, BoardInboxRow, BookFilterState, BookSort, ChatMessage, ChatScope, ChatStyle, ChatWork, ConvictionDetail, CoverageGroup, CycleSummary, DataNeedsRead, DataStatus, EventEnrichment, FeedbackSubmitInput, FeedbackType, FeedItem, HealthState, IntakePlan, IntensityStats, IntensityWindow, LaunchPreflight, ListingStatus, NewCompanyInput, NewsChatCompletedTurn, NewsChatEvidence, NewsChatReceipt, NewsChatWindow, NewsDiagnostics, NewsStatus, NodeRuntime, NodeStatus, QuoteRead, ReadinessReport, ResumableRunInfo, RunActivity, RunKind, ScreenerBoard, SignalIntakeInput, SignalState, SseEvent, SwarmGraph, SwarmMeta, SwarmSubjectSummary, ThesisPlan, ThesisPlanIntake, TickerSummary, Usage, WhatChangedRead } from './types'
 import { feedbackInputFromItem, feedbackLabel, polarityOf } from './feedbackTypes'
@@ -168,6 +169,8 @@ let launchPriceSeq = 0
 let providerCatalogSeq = 0
 const providerCheckSeq: Record<RunProvider, number> = { claude: 0, codex: 0 }
 let providerChecksInFlight = 0
+let providerRediscoveryTimer: ReturnType<typeof setTimeout> | null = null
+let providerRediscoveryAttempt = 0
 // Most-recent turns sent to the model per request. The server's ChatBody caps the transcript at 40, so a
 // long or resumed conversation (whose full history lives in chatMessages + on disk) is windowed to the last
 // 40 here — anything larger would be rejected 400 and break "continue chatting". The closed-book CONTEXT is
@@ -355,6 +358,45 @@ const STREAM_LIVE_MS = 20000
 let lastStreamActivityAt = 0
 const HARD_DOWN = new Set<HealthState>(['engine-offline', 'your-network', 'session-expired'])
 export const isLaunchHealthBlocked = (health: HealthState): boolean => health === 'updating' || HARD_DOWN.has(health)
+
+export const PROVIDER_REDISCOVERY_DELAYS_MS = [2_000, 5_000, 10_000, 20_000, 30_000] as const
+
+export function providerCatalogNeedsRediscovery(providers: ProvidersRead): boolean {
+  if (providers.catalogState === 'fallback') return false
+  return providers.catalogState === 'unknown'
+    || providers.claude.status === 'unknown'
+    || providers.codex.status === 'unknown'
+}
+
+function clearProviderRediscovery(): void {
+  if (providerRediscoveryTimer) clearTimeout(providerRediscoveryTimer)
+  providerRediscoveryTimer = null
+  providerRediscoveryAttempt = 0
+}
+
+function reconcileProviderRediscovery(get: () => State): void {
+  if (!providerCatalogNeedsRediscovery(get().providers)) {
+    clearProviderRediscovery()
+    return
+  }
+  if (providerRediscoveryTimer) return
+  const delay = PROVIDER_REDISCOVERY_DELAYS_MS[Math.min(providerRediscoveryAttempt, PROVIDER_REDISCOVERY_DELAYS_MS.length - 1)]
+  providerRediscoveryAttempt++
+  providerRediscoveryTimer = setTimeout(() => {
+    providerRediscoveryTimer = null
+    const state = get()
+    if (!providerCatalogNeedsRediscovery(state.providers)) {
+      clearProviderRediscovery()
+      return
+    }
+    if (state.staticMode || providerChecksInFlight > 0 || HARD_DOWN.has(state.health)) {
+      reconcileProviderRediscovery(get)
+      return
+    }
+    void state.refreshProviders()
+  }, delay)
+  ;(providerRediscoveryTimer as any).unref?.()
+}
 
 // Auto-resume of interrupted screener runs (a closed laptop / dropped connection): per-signal attempt
 // bookkeeping so we never spin a persistently-failing run forever, and never double-launch one already
@@ -1284,6 +1326,7 @@ function launchPreflightMatches(
     && preflight.exactDecisionBinding.intakePlan.planSha256 === selection.planOrigin.planSha256
     && preflight.exactDecisionBinding.intakePlan.sourceDecisionFingerprint === selection.planOrigin.sourceDecisionFingerprint)
   return preflight.kind === kind && preflight.ticker === selection.subject && swarmMatches
+    && preflightConfirmationMatches(kind, preflight.requiresTypedConfirm)
     && launchProviderReceiptMatches(preflight, selection, catalogState)
     && exactReceiptMatches && planReceiptMatches
     && (kind !== 'rerun' || (!!node && preflight.module === node.module && preflight.agent === node.name))
@@ -1303,6 +1346,14 @@ function requireLaunchProviderReceipt(
       ? `The engine did not confirm that this run started with the selected ${providerLabel(selection.provider)} profile. Check Activity before retrying.`
       : `The engine did not confirm the selected ${providerLabel(selection.provider)} execution profile.`,
   ), { body: { code: 'provider_receipt_mismatch' } })
+}
+
+// Admission must have one deterministic visibility effect across every provider and entry point. Do not
+// wait for polling/SSE/subject navigation to make a real run discoverable: open Activity now, then reconcile
+// the supervisor's authoritative row in the background.
+function revealAcceptedTrackedLaunch(set: any, get: () => State): void {
+  set({ activityOpen: true })
+  void get().refreshActiveRuns()
 }
 
 async function verifyScopedRerunCapability(
@@ -1826,6 +1877,7 @@ export const useStore = create<State>((set, get) => ({
         // `planned` = modules this relaunch will actually run. Use it to keep the UI honest.
         const out = await api.launch(body)
         requireLaunchProviderReceipt(out, execution, get().providers.catalogState)
+        revealAcceptedTrackedLaunch(set, get)
         const { runId, chained, skipped, planned: plannedMods, resumed } = out
         if (chained) set({ chainTickers: new Set(get().chainTickers).add(runSubjectKey(info.swarm || 'research', info.subject)) })
         // If the resumed subject is the one on screen, light up its orbs and follow live (beginRun keys off
@@ -1963,6 +2015,7 @@ export const useStore = create<State>((set, get) => ({
     } finally {
       providerChecksInFlight = Math.max(0, providerChecksInFlight - 1)
       set({ providersChecking: providerChecksInFlight > 0 })
+      reconcileProviderRediscovery(get)
     }
   },
 
@@ -2349,9 +2402,10 @@ export const useStore = create<State>((set, get) => ({
       if (typeof runId !== 'string' || !runId.trim()
           || !launchProviderReceiptMatches(out, selection, get().providers.catalogState)
           || !launchPreflightMatches(preflight, selection, 'full', get().providers.catalogState)) {
-        void get().refreshActiveRuns()
+        revealAcceptedTrackedLaunch(set, get)
         return get().setToast({ msg: 'The run started, but its receipt did not match this call. Check Activity before doing anything else.', tone: 'bad' })
       }
+      revealAcceptedTrackedLaunch(set, get)
       // The paid request may finish after navigation. It still targeted the captured subject, but must not
       // paint that run onto the newly selected graph.
       if (!launchSelectionIsCurrent(get(), selection)) {
@@ -2467,9 +2521,10 @@ export const useStore = create<State>((set, get) => ({
         if (typeof runId !== 'string' || !runId.trim()
             || !launchProviderReceiptMatches(out, selection, get().providers.catalogState)
             || !launchPreflightMatches(preflight, selection, 'rerun', get().providers.catalogState, node)) {
-          void get().refreshActiveRuns()
+          revealAcceptedTrackedLaunch(set, get)
           return get().setToast({ msg: 'The re-run started, but its receipt did not match this call. Check Activity before doing anything else.', tone: 'bad' })
         }
+        revealAcceptedTrackedLaunch(set, get)
         if (!launchSelectionIsCurrent(get(), selection)) {
           void get().refreshActiveRuns()
           return get().setToast({ msg: `The re-run of ${node.name} started on ${selection.subject}. Follow it in Activity.`, tone: 'good' })
@@ -2849,6 +2904,7 @@ export const useStore = create<State>((set, get) => ({
       try {
         const out = await api.analyzeIntake(t, sw, execution, runRoot, decisionFingerprint)
         requireLaunchProviderReceipt(out, execution, get().providers.catalogState)
+        revealAcceptedTrackedLaunch(set, get)
         // Attach to the run's live stream NOW rather than waiting for the next background poll: this is
         // what feeds the dock's reading list, and the run starts reading the moment it spawns. (The
         // server replays its activity ring on subscribe, so the steps taken in this gap are not lost —
@@ -3036,6 +3092,7 @@ export const useStore = create<State>((set, get) => ({
         selection,
       )
       requireLaunchProviderReceipt(out, selection, get().providers.catalogState)
+      revealAcceptedTrackedLaunch(set, get)
       const { runId, staleModules, carried, scoped, chained } = out
       if (chained) set({ chainTickers: new Set(get().chainTickers).add(runSubjectKey('research', t)) })
       if (!launchSelectionIsCurrent(get(), selection)) {
@@ -3137,6 +3194,7 @@ export const useStore = create<State>((set, get) => ({
 
       const out = await api.runThesisPlan(t, plan.reuse, plan.swarm, execution)
       requireLaunchProviderReceipt(out, execution, get().providers.catalogState)
+      revealAcceptedTrackedLaunch(set, get)
       const { runId, chained, carried, willRun } = out
       if (chained) set({ chainTickers: new Set(get().chainTickers).add(runSubjectKey(plan.swarm, t)) })
 
@@ -3700,7 +3758,7 @@ export const useStore = create<State>((set, get) => ({
     try {
       const out = await api.launch({ selection: execution, kind: 'review', ticker, window: 'ad-hoc' })
       requireLaunchProviderReceipt(out, execution, get().providers.catalogState)
-      void get().refreshActiveRuns() // flip the card's busy state NOW, not on the next 20s idle poll
+      revealAcceptedTrackedLaunch(set, get) // flip the card's busy state NOW, not on the next 20s idle poll
       get().setToast({ msg: `Filing an ad-hoc review for ${ticker} — see Activity; the tracker refreshes when it lands`, tone: 'good' })
     } catch (e: any) {
       launchErrorToast(get, e, ticker, `${ticker} review`)
@@ -3721,7 +3779,7 @@ export const useStore = create<State>((set, get) => ({
     try {
       const out = await api.launch({ selection: execution, kind: 'review', ticker, window })
       requireLaunchProviderReceipt(out, execution, get().providers.catalogState)
-      void get().refreshActiveRuns()
+      revealAcceptedTrackedLaunch(set, get)
       get().setToast({ msg: `Filing the ${window} review for ${ticker} — see Activity`, tone: 'good' })
     } catch (e: any) {
       launchErrorToast(get, e, ticker, `${ticker} ${window} review`)
@@ -3744,6 +3802,7 @@ export const useStore = create<State>((set, get) => ({
     try {
       const out = await api.launch({ selection: execution, kind: 'track', ticker: t })
       requireLaunchProviderReceipt(out, execution, get().providers.catalogState)
+      revealAcceptedTrackedLaunch(set, get)
       get().setToast({ msg: 'Rebuilding the calls dashboard — see Activity; it commits when done', tone: 'good' })
     } catch (e: any) {
       launchErrorToast(get, e, t, 'calls dashboard')
@@ -4922,6 +4981,7 @@ export const useStore = create<State>((set, get) => ({
     if (!trackedLaunchResponseMatches(out, execution, get().providers.catalogState, out.alreadyPromoted === true)) {
       throw Object.assign(new Error('The engine did not return an exact provider receipt for the promoted run.'), { body: { code: 'provider_receipt_mismatch' } })
     }
+    if (out.alreadyPromoted !== true) revealAcceptedTrackedLaunch(set, get)
     await get().scRefreshBoard()
   },
   // 👍/👎 a surfaced idea — the self-grading loop. Optimistic (the thumb reacts instantly), then persist +
@@ -5027,6 +5087,7 @@ export const useStore = create<State>((set, get) => ({
         if (!execution || !automaticResumeMatches(records, execution)) { hold(); continue }
         const out = await api.launchSignal(execution, { sigId: r.sigId })
         requireLaunchProviderReceipt(out, execution, get().providers.catalogState)
+        revealAcceptedTrackedLaunch(set, get)
         const { runId } = out
         resumed++ // the server accepted it even if the user navigated while this await was pending
         if (!stillOwnsResume()) break
@@ -5371,6 +5432,7 @@ export const useStore = create<State>((set, get) => ({
       // Either way the gauntlet skips modules already on disk, so finished checks are reused, never redone.
       const out = await api.launchSignal(execution, { sigId, until, override })
       requireLaunchProviderReceipt(out, execution, get().providers.catalogState)
+      revealAcceptedTrackedLaunch(set, get)
       const { runId } = out
       // keep finished orbs as-is; re-queue everything else under the new runId so they animate as they run
       const rt: Record<string, NodeRuntime> = {}
@@ -5558,6 +5620,7 @@ export const useStore = create<State>((set, get) => ({
       if (!trackedLaunchResponseMatches(res, execution, get().providers.catalogState, res.alreadyHandedOff === true)) {
         throw Object.assign(new Error('The engine did not return an exact provider receipt for the handoff run.'), { body: { code: 'provider_receipt_mismatch' } })
       }
+      if (res.alreadyHandedOff !== true) revealAcceptedTrackedLaunch(set, get)
       const already = res.alreadyHandedOff
       set({ pipelineOpen: false, scThesisDetail: null })
       get().switchSwarm('research', { payloadTicker: ticker, landTicker: poolPresent ? ticker : undefined })
@@ -5600,6 +5663,7 @@ export const useStore = create<State>((set, get) => ({
       if (!optionalNestedLaunchResponseMatches(res, execution, get().providers.catalogState, res.analyzing === true)) {
         throw Object.assign(new Error('The engine did not return an exact provider receipt for the event analysis run.'), { body: { code: 'provider_receipt_mismatch' } })
       }
+      if (res.analyzing === true) revealAcceptedTrackedLaunch(set, get)
       const targetSwarm = typeof res.swarm === 'string' && res.swarm ? res.swarm : 'research'
       const openIt = () => {
         get().scSelectEvent(null)
@@ -6381,6 +6445,7 @@ async function runPlannedResearchModule(
       selection,
     )
     requireLaunchProviderReceipt(out, selection, get().providers.catalogState)
+    revealAcceptedTrackedLaunch(set, get)
     const { runId, doneOrbKeys, carried, resumed, ranClean } = out
     if (!launchSelectionIsCurrent(get(), selection)) {
       void get().refreshActiveRuns()
@@ -6495,8 +6560,8 @@ function beginRun(
   // close the output panel so the user is dropped back to the swarm to watch the run live; keep
   // other concurrent runs' stream rows, just clear any stale rows from this runId
   set(onScreen
-    ? { activeRuns, nodeRuntime: rt, runStream: get().runStream.filter((r) => r.runId !== runId), coreBloom: false, selectedNodeKey: null, openOutput: null }
-    : { activeRuns })
+    ? { activeRuns, activityOpen: true, nodeRuntime: rt, runStream: get().runStream.filter((r) => r.runId !== runId), coreBloom: false, selectedNodeKey: null, openOutput: null }
+    : { activeRuns, activityOpen: true })
   connectRun(get, runId)
   get().refreshActiveRuns()
 }
@@ -6864,9 +6929,9 @@ function beginScreenerRun(
   if (subject.startsWith('SIG-') && ownsVisibleSignal) {
     const rt: Record<string, NodeRuntime> = {}
     for (const k of get().scNodesByKey.keys()) rt[k] = { status: 'queued', runId }
-    set({ activeRuns, scRuntime: rt, runStream: get().runStream.filter((r) => r.runId !== runId) })
+    set({ activeRuns, activityOpen: true, scRuntime: rt, runStream: get().runStream.filter((r) => r.runId !== runId) })
   } else {
-    set({ activeRuns })
+    set({ activeRuns, activityOpen: true })
   }
   connectScreenerRun(get, runId, subject)
   void get().refreshActiveRuns() // the kill-switch pill ("N running") tracks screener runs too

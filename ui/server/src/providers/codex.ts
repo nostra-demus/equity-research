@@ -113,7 +113,11 @@ interface CodexPythonRuntimeProof {
 export const CODEX_AVAILABILITY_CACHE_TTL_MS = 60_000
 export const CODEX_LAUNCH_PROOF_MAX_AGE_MS = 20_000
 export const CODEX_LAUNCH_PROOF_REPLAY_TTL_MS = 5 * 60_000
-export const CODEX_NEGATIVE_CACHE_TTL_MS = 1_500
+// Keep the last *display* failure visible long enough for the cockpit to explain what needs fixing.
+// A 1.5s negative cache made passive GETs miss the failure between polls and restart another expensive
+// catalogue probe, leaving the browser on "being verified" indefinitely. Explicit provider checks still
+// bypass this cache, and launch authority still requires its own fresh one-shot proof.
+export const CODEX_NEGATIVE_CACHE_TTL_MS = 60_000
 const CODEX_AUTH_MAX_BYTES = 1024 * 1024
 export const CODEX_STALE_AUTH_LEASE_AGE_MS = 60 * 60_000
 const CODEX_AUTH_LEASE_PREFIX = 'nostra-codex-probe-'
