@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-08-27T12:55:41Z",
+  "generated_at": "2026-08-27T13:05:19Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260827-571",
+      "headline": "GUSHENGTANG (02273): VOLUNTARY ANNOUNCEMENT - ACQUISITIONS OF 100% EQUITY INTERESTS IN THE TARGET COMPANIES",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0827/2026082701665.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-27T12:47:00Z",
+      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
+      "prelim_note": "Acquisition of 100% equity interests in target companies is material M&A with no deal value, target names, or strategic rationale disclosed in headline.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Acquisition of 100% equity interests in target companies is material M&A with no deal value, target names, or strategic rationale disclosed in headline.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 76,
+      "rank_factors": {
+        "materiality": 76,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "GUSHENGTANG",
+          "ticker": "02273",
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260827-530",
       "headline": "CICC (03908): UPDATES ON PROGRESS RELATING TO THE MAJOR TRANSACTION AND SPECIFIC MANDATE TO ISSUE CICC A SHARES FOR THE PROPOSED MERGERS OF CICC, DONGXING SECURITIES AND CINDA SECURITIES",
@@ -46,6 +95,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260827-577",
+      "headline": "Quadrant Televentures Ltd-$: Filling of Resolution Plan to the Tribunal",
+      "headline_en": null,
+      "url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/7976e01b-7e97-436c-96c8-882830f82f13.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-27T12:38:43Z",
+      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
+      "prelim_note": "Quadrant Televentures Ltd is filing a resolution plan to the Tribunal, indicating a potential restructuring or insolvency event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Quadrant Televentures Ltd is filing a resolution plan to the Tribunal, indicating a potential restructuring or insolvency event.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Quadrant Televentures Ltd",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1887,109 +1985,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260827-344",
-      "headline": "Nvidia Agrees To Buy Hugging Face For ₹1.23 Lakh Crore In A Bid To Strengthen Its Foothold In The AI Industry",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/tech/nvidia-agrees-to-buy-hugging-face-for-123-lakh-crore-in-a-bid-to-strengthen-its-foothold-in-the-ai-industry",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-27T06:41:24Z",
-      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
-      "prelim_note": "Nvidia reportedly acquiring Hugging Face for ₹1.23 lakh crore ($14.7B).",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Nvidia reportedly acquiring Hugging Face for ₹1.23 lakh crore ($14.7B).",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Hugging Face",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260827-321",
-      "headline": "Bombay Burmah shares rally 15%: SC recalls ₹4,655 cr lease rent observations",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/markets/stock-markets/bombay-burmah-trading-shares-rally-15-supreme-court-recalls-4655-crore-lease-rent-observations/article71395237.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-27T06:39:40Z",
-      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
-      "prelim_note": "The Supreme Court recalled a ₹4,655 crore lease rent observation, significantly reducing a potential financial liability for the company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "The Supreme Court recalled a ₹4,655 crore lease rent observation, significantly reducing a potential financial liability for the company.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bombay Burmah Trading Corporation",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -97721,9 +97716,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1631334,
-    "news_picked_today": 935,
-    "news_dropped_today": 15913
+    "news_seen_today": 1666620,
+    "news_picked_today": 949,
+    "news_dropped_today": 16091
   },
   "book_momentum": {
     "live_count": 8,
