@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-08-27T07:54:58Z",
+  "generated_at": "2026-08-27T08:58:21Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260827-354",
+      "headline": "CHK OIL (00632): PROFIT WARNING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0827/2026082700268.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-27T08:32:00Z",
+      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
+      "prelim_note": "Company issued a profit warning, indicating a decline in expected earnings.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company issued a profit warning, indicating a decline in expected earnings.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "guidance_change",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CHK Oil",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260827-292",
       "headline": "NUC: Appendix 4E and FY26 Full Year Statutory Accounts [price-sensitive]",
@@ -538,6 +587,163 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260827-370",
+      "headline": "Nvidia to buy Hugging face for $12.9 bn, says report; same AI firm was hacked by OpenAI agents in July",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/news/nvidia-to-buy-hugging-face-for-12-9-bn-says-report-same-ai-firm-was-hacked-by-openai-agents-in-july-11787813921717.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-27T08:28:26Z",
+      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
+      "prelim_note": "Report says Nvidia will acquire Hugging Face for $12.9 billion, a large M&A deal if confirmed.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Report says Nvidia will acquire Hugging Face for $12.9 billion, a large M&A deal if confirmed.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": "NVDA",
+          "listing_country": "US"
+        },
+        {
+          "name": "Hugging Face",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260827-352",
+      "headline": "Boeing Paid $4.7 Billion to Buy Back a Business It Sold in 2005",
+      "headline_en": null,
+      "url": "https://www.fool.com/investing/2026/08/27/boeing-paid-usd4-7-billion-to-buy-back-a-business-it-sold-in-2005/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-27T07:44:01Z",
+      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
+      "prelim_note": "Boeing spent $4.7 billion to re-acquire a business unit, impacting cash flow and capital allocation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Boeing spent $4.7 billion to re-acquire a business unit, impacting cash flow and capital allocation.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Boeing",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260827-351",
+      "headline": "Nvidia agrees to buy Hugging Face for $12.9 billion, report says",
+      "headline_en": null,
+      "url": "https://www.cnbc.com/2026/08/27/nvidia-hugging-face-acquisition.html",
+      "source_name": "CNBC",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-27T07:29:46Z",
+      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
+      "prelim_note": "Nvidia reportedly agreed to acquire Hugging Face for $12.9 billion, a large M&A deal that can reshape AI infrastructure and move both companies' valuations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nvidia reportedly agreed to acquire Hugging Face for $12.9 billion, a large M&A deal that can reshape AI infrastructure and move both companies' valuations.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": "NVDA",
+          "listing_country": "US"
+        },
+        {
+          "name": "Hugging Face",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1763,211 +1969,6 @@
       "event_types": [
         "earnings_revenue_margin",
         "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": "NVDA",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260827-037",
-      "headline": "Williams-Sonoma Grew Comps 6.2% and Raised Full-Year Guidance. Here’s the Catch.",
-      "headline_en": null,
-      "url": "https://www.fool.com/investing/2026/08/26/williams-sonoma-grew-comps-62-and-raised-full-year-guidance-heres-the-catch/?source=iedfolrf0000001",
-      "source_name": "The Motley Fool",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-26T23:54:04Z",
-      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
-      "prelim_note": "Williams-Sonoma reported 6.2% comp growth and raised its full-year guidance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Williams-Sonoma reported 6.2% comp growth and raised its full-year guidance.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Williams-Sonoma",
-          "ticker": "WSM",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260827-039",
-      "headline": "Salesforce raises annual forecasts, expands AI partnership with Anthropic",
-      "headline_en": null,
-      "url": "https://www.reuters.com/technology/salesforce-raises-annual-revenue-forecast-2026-08-26/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-26T23:50:28Z",
-      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
-      "prelim_note": "Salesforce raised its annual guidance and expanded a strategic AI partnership.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Salesforce raised its annual guidance and expanded a strategic AI partnership.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "guidance_change",
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Salesforce",
-          "ticker": "CRM",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260827-116",
-      "headline": "SoftBank in talks to buy stake in 1X at $6 billion valuation, The Information reports",
-      "headline_en": null,
-      "url": "https://www.reuters.com/legal/transactional/softbank-talks-buy-stake-1x-6-billion-valuation-information-reports-2026-08-27/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-27T01:53:05Z",
-      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
-      "prelim_note": "SoftBank is reportedly in talks to acquire a stake in AI robotics startup 1X at a $6 billion valuation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "SoftBank is reportedly in talks to acquire a stake in AI robotics startup 1X at a $6 billion valuation.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 72,
-      "rank_factors": {
-        "materiality": 72,
-        "source_tier": -8,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 13,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "unconfirmed",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna",
-        "rumor"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SoftBank Group Corp.",
-          "ticker": "9984",
-          "listing_country": "JP"
-        },
-        {
-          "name": "1X Technologies",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260827-073",
-      "headline": "Nvidia in talks to acquire Hugging Face in $13 billion deal, Business Insider reports",
-      "headline_en": null,
-      "url": "https://www.reuters.com/technology/nvidia-talks-acquire-hugging-face-13-billion-deal-business-insider-reports-2026-08-27/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-27T00:52:46Z",
-      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
-      "prelim_note": "Nvidia is reportedly in talks for a significant $13 billion acquisition of AI platform Hugging Face.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Nvidia is reportedly in talks for a significant $13 billion acquisition of AI platform Hugging Face.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": -8,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "unconfirmed",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna",
-        "rumor"
       ],
       "issuer_linkage": "primary",
       "companies": [
@@ -83616,77 +83617,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-c56cd7fabf5d",
-      "idea_version": "IDEAV-e298fc8d653164e4",
-      "idea_version_started_at": "2026-08-26T00:07:40Z",
-      "ticker": "SLTS",
-      "company": "Selectis Health, Inc.",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "A third-party tender offer (SC TO-T) indicates an acquisition attempt, typically driving the stock price toward the offer price.",
-      "why_now": "The filing was made on 2026-08-25.",
-      "conviction": 80,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-745dbd29e5af"
-      ],
-      "primary_source_event_id": "EVT-745dbd29e5af",
-      "source_headlines": [
-        "SC TO-T/A - SELECTIS HEALTH, INC. (0000727346) (Subject)"
-      ],
-      "source_headline": "SC TO-T/A - SELECTIS HEALTH, INC. (0000727346) (Subject)",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/727346/000092189526002309/0000921895-26-002309-index.htm",
-      "source_name": "SEC EDGAR — Latest SC TO-T (Third-Party Tender Offer)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-25T20:35:14Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-26T00:07:40Z",
-      "updated_at": "2026-08-26T00:07:40Z",
-      "decay_at": "2026-08-27T08:35:14Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-d6c3f18fcbf9",
       "idea_version": "IDEAV-566e4dbe9e2d5627",
       "idea_version_started_at": "2026-08-26T00:07:40Z",
@@ -84600,6 +84530,77 @@
       "surfaced_at": "2026-08-26T00:07:40Z",
       "updated_at": "2026-08-26T00:07:40Z",
       "decay_at": "2026-08-27T02:38:44Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-c56cd7fabf5d",
+      "idea_version": "IDEAV-e298fc8d653164e4",
+      "idea_version_started_at": "2026-08-26T00:07:40Z",
+      "ticker": "SLTS",
+      "company": "Selectis Health, Inc.",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "A third-party tender offer (SC TO-T) indicates an acquisition attempt, typically driving the stock price toward the offer price.",
+      "why_now": "The filing was made on 2026-08-25.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-745dbd29e5af"
+      ],
+      "primary_source_event_id": "EVT-745dbd29e5af",
+      "source_headlines": [
+        "SC TO-T/A - SELECTIS HEALTH, INC. (0000727346) (Subject)"
+      ],
+      "source_headline": "SC TO-T/A - SELECTIS HEALTH, INC. (0000727346) (Subject)",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/727346/000092189526002309/0000921895-26-002309-index.htm",
+      "source_name": "SEC EDGAR — Latest SC TO-T (Third-Party Tender Offer)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-25T20:35:14Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-26T00:07:40Z",
+      "updated_at": "2026-08-26T00:07:40Z",
+      "decay_at": "2026-08-27T08:35:14Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -86831,13 +86832,13 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 145,
-    "shown_count": 145,
+    "total_count": 146,
+    "shown_count": 146,
     "hidden_count": 0,
     "side_counts": {
       "long": {
-        "total_count": 58,
-        "shown_count": 58,
+        "total_count": 59,
+        "shown_count": 59,
         "hidden_count": 0
       },
       "short": {
@@ -86862,6 +86863,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-c56cd7fabf5d",
+        "idea_version": "IDEAV-e298fc8d653164e4",
+        "idea_version_started_at": "2026-08-26T00:07:40Z",
+        "ticker": "SLTS",
+        "company": "Selectis Health, Inc.",
+        "exchange": "NASDAQ",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "A third-party tender offer (SC TO-T) indicates an acquisition attempt, typically driving the stock price toward the offer price.",
+        "why_now": "The filing was made on 2026-08-25.",
+        "conviction": 80,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-745dbd29e5af"
+        ],
+        "primary_source_event_id": "EVT-745dbd29e5af",
+        "source_headlines": [
+          "SC TO-T/A - SELECTIS HEALTH, INC. (0000727346) (Subject)"
+        ],
+        "source_headline": "SC TO-T/A - SELECTIS HEALTH, INC. (0000727346) (Subject)",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/727346/000092189526002309/0000921895-26-002309-index.htm",
+        "source_name": "SEC EDGAR — Latest SC TO-T (Third-Party Tender Offer)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-25T20:35:14Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-26T00:07:40Z",
+        "updated_at": "2026-08-26T00:07:40Z",
+        "decay_at": "2026-08-27T08:35:14Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-27T08:35:14Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-ce13917c3b1c",
         "idea_version": "IDEAV-22ef4ab24b8587bf",
@@ -97611,7 +97686,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 184,
-    "live_count": 38,
+    "live_count": 37,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -97630,9 +97705,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 979922,
-    "news_picked_today": 505,
-    "news_dropped_today": 9095
+    "news_seen_today": 1109892,
+    "news_picked_today": 542,
+    "news_dropped_today": 10546
   },
   "book_momentum": {
     "live_count": 8,
