@@ -4568,9 +4568,13 @@ async function taskEngineWatch(task: TaskCard) {
   if (task.stage !== 'final_decision' || task.decision !== 'watch' || !task.ticker) return []
   let timer: ReturnType<typeof setTimeout> | null = null
   try {
+    const work = standingCalls().then((calls) => readEngineWatch(calls, readSizingDecoration())
+      .filter((row) => row.listing.ticker === task.ticker))
+    // Promise.race installs its own rejection handler, but keep an explicit boundary too: when the
+    // timeout wins, a much later failed directory walk must never become process-level noise.
+    void work.catch(() => undefined)
     return await Promise.race([
-      standingCalls().then((calls) => readEngineWatch(calls, readSizingDecoration())
-        .filter((row) => row.listing.ticker === task.ticker)),
+      work,
       new Promise<never>((_, reject) => {
         timer = setTimeout(() => reject(new TaskEngineWatchTimeoutError()), TASK_ENGINE_WATCH_TIMEOUT_MS)
         timer.unref?.()
