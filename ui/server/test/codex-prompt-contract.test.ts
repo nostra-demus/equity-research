@@ -31,6 +31,7 @@ const repoRoot = path.resolve(here, '../../..')
 
 const agentsDoc = fs.readFileSync(path.join(repoRoot, 'AGENTS.md'))
 const claudeDoc = fs.readFileSync(path.join(repoRoot, 'CLAUDE.md'))
+const contributingDoc = fs.readFileSync(path.join(repoRoot, 'CONTRIBUTING.md'), 'utf8')
 assert.equal(claudeDoc.byteLength, agentsDoc.byteLength)
 assert.ok(agentsDoc.byteLength > 32_768, 'guard fixture no longer proves the Codex default 32 KiB limit is insufficient')
 assert.ok(agentsDoc.byteLength <= CODEX_PROJECT_DOC_MAX_BYTES)
@@ -49,6 +50,29 @@ assert.equal(
   normalizeTwinName(claudeDoc),
   'AGENTS.md and CLAUDE.md may differ only in their own filename references',
 )
+const doctrineText = agentsDoc.toString('utf8')
+assert.match(doctrineText, /## 31\. Production Engineering Reliability/)
+assert.match(doctrineText, /No production-affecting task is "done" at a local pass, commit, PR, merge, or restart\./)
+assert.match(doctrineText, /The deployed filesystem and service topology is part of the launch contract\./)
+assert.match(contributingDoc, /## Permanent production-engineering standard \(Claude, Codex, humans\)/)
+const providerTransparentContract = fs.readFileSync(
+  path.join(repoRoot, 'frameworks', 'PROVIDER_TRANSPARENT_COCKPIT.md'),
+  'utf8',
+)
+assert.match(providerTransparentContract, /configured repo-root `data\/` projection/)
+assert.match(providerTransparentContract, /before provider spawn or spend/)
+for (const requiredContract of [
+  'Start from the product invariant and trace the whole path',
+  'Close the failure class, not one incident',
+  'Prove the state machine, including failure and recovery',
+  '"Done" means deployed and independently verified',
+  'Make each material lesson durable',
+]) {
+  assert.ok(
+    contributingDoc.includes(requiredContract),
+    `CONTRIBUTING.md lost the permanent engineering contract section: ${requiredContract}`,
+  )
+}
 const doctrineTail = agentsDoc.toString('utf8').trimEnd().split(/\r?\n/).at(-1) || ''
 assert.match(doctrineTail, /The twins must match\./, 'tail sentinel missing: Codex may have received a truncated doctrine')
 assert.equal(expandClaudeArguments('plain=$ARGUMENTS braced=${ARGUMENTS} default=${ARGUMENTS:-all}', 'ABC'), 'plain=ABC braced=ABC default=ABC')

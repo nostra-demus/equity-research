@@ -251,6 +251,59 @@ try {
     assert.equal(fs.existsSync(mirror.cwd), false)
   })
 
+  check('tracked Claude mirrors the declared production data symlink without widening root-link trust', () => {
+    const fixture = fs.mkdtempSync(path.join(os.tmpdir(), 'nostra-claude-mirror-'))
+    try {
+      const repo = path.join(fixture, 'repo')
+      const pool = path.join(fixture, 'mounted-pool')
+      const replacement = path.join(fixture, 'replacement-pool')
+      fs.mkdirSync(repo)
+      fs.mkdirSync(pool)
+      fs.mkdirSync(replacement)
+      fs.mkdirSync(path.join(repo, 'scripts'))
+      fs.writeFileSync(path.join(pool, 'pool-sentinel'), 'canonical')
+      const data = path.join(repo, 'data')
+      fs.symlinkSync(pool, data, 'dir')
+      const mirror = createClaudeMirrorWorkspace(repo, data)
+      try {
+        assert.equal(fs.readlinkSync(path.join(mirror.cwd, 'data')), fs.realpathSync(pool))
+        assert.equal(fs.readFileSync(path.join(mirror.cwd, 'data', 'pool-sentinel'), 'utf8'), 'canonical')
+        mirror.validate()
+        fs.unlinkSync(data)
+        fs.symlinkSync(replacement, data, 'dir')
+        assert.throws(mirror.validate, /source link changed before spawn/,
+          'a configured-link swap after mirror creation must fail closed')
+      } finally { mirror.cleanup() }
+
+      fs.symlinkSync(pool, path.join(repo, 'undeclared-root-link'), 'dir')
+      assert.throws(() => createClaudeMirrorWorkspace(repo, data), /undeclared repository-root symlink/,
+        'only the configured data projection may be a repository-root link')
+    } finally {
+      fs.rmSync(fixture, { recursive: true, force: true })
+    }
+  })
+
+  check('tracked Claude rejects an invalid configured data-root declaration before creating a mirror', () => {
+    const fixture = fs.mkdtempSync(path.join(os.tmpdir(), 'nostra-claude-mirror-config-'))
+    try {
+      const repo = path.join(fixture, 'repo')
+      fs.mkdirSync(repo)
+      assert.throws(
+        () => createClaudeMirrorWorkspace(repo, path.join(fixture, 'some-other-root')),
+        /configured data root to be the repository data entry/,
+      )
+      fs.mkdirSync(path.join(repo, 'scripts'))
+      fs.symlinkSync(path.join(repo, 'scripts'), path.join(repo, 'data'), 'dir')
+      assert.throws(
+        () => createClaudeMirrorWorkspace(repo, path.join(repo, 'data')),
+        /could not pin the configured data-root symlink/,
+        'the declared name cannot launder an in-repository directory into the external data capability',
+      )
+    } finally {
+      fs.rmSync(fixture, { recursive: true, force: true })
+    }
+  })
+
   check('canonical manifests are supervisor-state paths, independent of a child-controlled run root', () => {
     const escaped = baseRun({ runRoot: '../../outside', executionAttempts: [{}] })
     const manifest = canonicalManifestPath(escaped)
