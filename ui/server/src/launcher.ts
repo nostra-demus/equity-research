@@ -1809,8 +1809,9 @@ export function estimate(
   swarm?: string,
   model?: string,
   reasoningLevel?: string,
+  profileKey?: string,
 ): LaunchPreflight {
-  const profile = getProviderAdapter(provider).resolveProfile({ model, reasoningLevel })
+  const profile = getProviderAdapter(provider).resolveProfile({ model, reasoningLevel, profileKey })
   const swarmId = swarmIdFor(kind, swarm)
   const g = buildSwarmGraph(swarmId)
   let agentCount = 1
@@ -2647,7 +2648,7 @@ export function chainedResumePreflight(
   const full = estimate(
     'full', ticker, selection.provider, undefined, undefined,
     swarmId === RESEARCH_SWARM_ID ? undefined : swarmId,
-    selection.model, selection.reasoningLevel,
+    selection.model, selection.reasoningLevel, selection.expectedProfileKey,
   )
   return {
     ...full,
@@ -2773,7 +2774,7 @@ export async function launchFullChained(
   const resumed = skippedModules.length > 0
   const preflight: LaunchPreflight = resumed
     ? chainedResumePreflight(ticker, plannedModules, selection)
-    : estimate('full', ticker, selection.provider, undefined, undefined, undefined, selection.model, selection.reasoningLevel)
+    : estimate('full', ticker, selection.provider, undefined, undefined, undefined, selection.model, selection.reasoningLevel, selection.expectedProfileKey)
   let stopped = false
   let stoppedOutcome: RunStatus | null = null
   let stoppedMessage = ''
@@ -3080,6 +3081,7 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
   const profile = getProviderAdapter(params.provider).resolveProfile({
     model: params.model,
     reasoningLevel: params.reasoningLevel,
+    profileKey: params.expectedProfileKey,
   })
   if (params.expectedProfileKey && params.expectedProfileKey !== profile.profileKey) {
     const error: any = new Error('The selected provider profile changed after preflight. Refresh and confirm the run again.')
@@ -3772,7 +3774,7 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
   void continueLaunch(run)
   return {
     runId: run.runId,
-    preflight: estimate(kind, ticker, profile.provider, module, agent, swarmId, profile.model, profile.reasoningLevel),
+    preflight: estimate(kind, ticker, profile.provider, module, agent, swarmId, profile.model, profile.reasoningLevel, profile.profileKey),
   }
   } finally {
     releaseTargetPoolClaim()

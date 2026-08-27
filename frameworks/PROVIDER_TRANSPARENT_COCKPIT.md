@@ -23,6 +23,25 @@ Every provider follows the same user-visible sequence:
 9. Validate and expose the same required artifacts. Filesystem artifacts, not provider prose, are completion
    truth.
 
+## Provider-owned model profiles
+
+Model choice is part of the same provider-transparent contract, not a second launch system:
+
+- The server owns the finite list of reviewed profiles for each provider. The browser renders that list and
+  may never invent a model slug, reasoning level, or nested specialist tier.
+- The user can choose the provider and model profile at every tracked launch boundary. A profile change in
+  a confirmation invalidates the old estimate and typed acknowledgement, then prices the exact new profile.
+- The provider, parent model, reasoning level, nested specialist profile, and profile
+  key are frozen together. They propagate unchanged through chained work, Activity, SSE, interruption,
+  automatic continuation, resume metadata, artifacts, and execution provenance.
+- Automatic continuation and ordinary resume use the exact frozen profile. A manual change is an explicit
+  mixed-profile continuation and requires the same warning and provenance treatment as a provider change.
+- A profile name is a runtime promise. Every unpinned nested agent must use the selected specialist tier;
+  canonical role pins may only make the tier stricter. Unsupported, stale, mismatched, or unavailable profiles
+  fail before admission. There is no silent substitution.
+- Provider and model choice may change execution quality, speed, and quota use. It must not change launch
+  controls, workflow topology, completion truth, publication, Activity, cancellation, resume, or artifacts.
+
 The server remains the hard gate. The browser may impose a stricter acknowledgement but may never weaken a
 server rule because an estimate is stale, missing, malformed, or provider-specific. Confirmation compares
 against the frozen subject, never the mutable ticker currently displayed in the cockpit.

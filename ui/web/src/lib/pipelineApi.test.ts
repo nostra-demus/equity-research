@@ -12,6 +12,15 @@ const codexSelection = {
   executionProfile: { key: 'codex|gpt-5.6-sol:max|gpt-5.6-terra:xhigh', parentModel: 'gpt-5.6-sol', parentReasoning: 'max', specialistModel: 'gpt-5.6-terra', specialistReasoning: 'xhigh' },
 }
 const codexWire = { provider: codexSelection.provider, expectedProfileKey: codexSelection.expectedProfileKey, model: codexSelection.model, reasoningLevel: codexSelection.reasoningLevel }
+const claudeProfile = { key: 'claude:opus:default', parentModel: 'opus', parentReasoning: 'default' }
+const option = (provider: 'claude' | 'codex', executionProfile: typeof claudeProfile | typeof codexSelection.executionProfile) => ({
+  key: executionProfile.key,
+  label: provider === 'claude' ? 'Opus' : 'Sol + Terra',
+  description: provider === 'claude' ? 'Highest quality' : 'Balanced',
+  model: executionProfile.parentModel,
+  reasoningLevel: executionProfile.parentReasoning,
+  executionProfile,
+})
 
 let passed = 0
 const check = async (name: string, fn: () => Promise<void>) => {
@@ -237,8 +246,8 @@ await check('targeted discovery cannot run without immutable decision identity',
 
 await check('provider status array normalizes without inventing missing usage', async () => {
   globalThis.fetch = (async () => new Response(JSON.stringify({ providers: [
-    { provider: 'claude', label: 'Claude', enabled: true, available: true, checked: true, availability: 'available', profile: { key: 'claude:sonnet:default', parentModel: 'sonnet', parentReasoning: 'default' } },
-    { provider: 'codex', label: 'Codex', enabled: true, available: false, checked: true, availability: 'unknown', reason: 'catalogue unavailable', profile: codexSelection.executionProfile },
+    { provider: 'claude', label: 'Claude', enabled: true, available: true, checked: true, availability: 'available', profile: claudeProfile, defaultProfileKey: claudeProfile.key, profiles: [option('claude', claudeProfile)] },
+    { provider: 'codex', label: 'Codex', enabled: true, available: false, checked: true, availability: 'unknown', reason: 'catalogue unavailable', profile: codexSelection.executionProfile, defaultProfileKey: codexSelection.executionProfile.key, profiles: [option('codex', codexSelection.executionProfile)] },
   ], checkedAt: Date.now() }), { status: 200, headers: { 'content-type': 'application/json' } })) as typeof fetch
   const providers = await api.providers()
   assert.equal(providers.claude.available, true)
@@ -248,7 +257,7 @@ await check('provider status array normalizes without inventing missing usage', 
   assert.equal(providers.catalogState, 'valid')
 })
 
-await check('only an exact 404 enables the legacy Claude fallback', async () => {
+await check('only an exact 404 identifies a legacy endpoint without enabling model-selected launches', async () => {
   globalThis.fetch = (async () => new Response(JSON.stringify({ claude: { available: true } }), {
     status: 200, headers: { 'content-type': 'application/json' },
   })) as typeof fetch
@@ -261,7 +270,7 @@ await check('only an exact 404 enables the legacy Claude fallback', async () => 
   globalThis.fetch = (async () => new Response('missing', { status: 404 })) as typeof fetch
   const missing = await api.providers()
   assert.equal(missing.catalogState, 'fallback')
-  assert.match(missing.codex.reason || '', /Claude only/)
+  assert.match(missing.codex.reason || '', /Engine update required/)
 
   globalThis.fetch = (async () => new Response('gateway', { status: 503 })) as typeof fetch
   const transient = await api.providers()
@@ -274,6 +283,7 @@ await check('targeted provider check validates the provider contract', async () 
   globalThis.fetch = (async () => new Response(JSON.stringify({
     provider: 'codex', enabled: true, available: false, checked: true, availability: 'unavailable',
     reason: 'ChatGPT login required', profile: codexSelection.executionProfile,
+    defaultProfileKey: codexSelection.executionProfile.key, profiles: [option('codex', codexSelection.executionProfile)],
   }), { status: 200, headers: { 'content-type': 'application/json' } })) as typeof fetch
   const unavailable = await api.providerCheck('codex')
   assert.equal(unavailable.available, false)

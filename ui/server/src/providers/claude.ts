@@ -6,7 +6,7 @@ import http from 'node:http'
 import net from 'node:net'
 import os from 'node:os'
 import path from 'node:path'
-import { CLAUDE_BIN, DATA_DIR, DEFAULT_MODEL, PUBLICATION_SOCKET_ROOT, REPO_ROOT, STATE_DIR } from '../config'
+import { CLAUDE_BIN, DATA_DIR, PUBLICATION_SOCKET_ROOT, REPO_ROOT, STATE_DIR } from '../config'
 import type { CreditPreflight } from '../types'
 import { registerProviderAdapter } from './registry'
 import type {
@@ -830,8 +830,35 @@ async function getAvailability(options: { refresh?: boolean } = {}): Promise<Pro
   return { ...result }
 }
 
-function resolveProfile(request: { model?: string; reasoningLevel?: string }): ResolvedProviderProfile {
-  const model = request.model || DEFAULT_MODEL
+export const CLAUDE_DEFAULT_RUN_MODEL = 'opus'
+export const CLAUDE_RUN_MODELS = [
+  { model: 'opus', label: 'Opus', description: 'Highest quality · Opus across the research swarm' },
+  { model: 'sonnet', label: 'Sonnet', description: 'Balanced · Sonnet swarm with Opus memo roles' },
+] as const
+
+function resolveProfile(request: { model?: string; reasoningLevel?: string; profileKey?: string }): ResolvedProviderProfile {
+  const requestedModel = String(request.model || '').trim().toLowerCase()
+  const requestedKey = String(request.profileKey || '').trim()
+  const keyedModel = requestedKey.match(/^claude:(opus|sonnet):default$/)?.[1]
+  if (requestedKey && !keyedModel) {
+    const error: any = new Error(`Unsupported Claude execution profile '${request.profileKey}'.`)
+    error.statusCode = 400
+    error.code = 'CLAUDE_PROFILE_INVALID'
+    throw error
+  }
+  const model = keyedModel || requestedModel || CLAUDE_DEFAULT_RUN_MODEL
+  if (!CLAUDE_RUN_MODELS.some((candidate) => candidate.model === model)) {
+    const error: any = new Error(`Unsupported Claude research model '${request.model}'. Choose Opus or Sonnet.`)
+    error.statusCode = 400
+    error.code = 'CLAUDE_PROFILE_INVALID'
+    throw error
+  }
+  if (keyedModel && requestedModel && requestedModel !== keyedModel) {
+    const error: any = new Error('Claude model and execution-profile key disagree.')
+    error.statusCode = 409
+    error.code = 'CLAUDE_PROFILE_CHANGED'
+    throw error
+  }
   const reasoningLevel = request.reasoningLevel || 'default'
   if (reasoningLevel !== 'default') {
     const error: any = new Error(`Claude's cockpit profile uses its CLI default reasoning; received '${reasoningLevel}'.`)
@@ -1040,13 +1067,14 @@ export const claudeProviderAdapter: ProviderAdapter = {
     provider: 'claude',
     label: 'Claude',
     description: 'Run the cockpit through Claude Code.',
-    defaultModel: DEFAULT_MODEL,
-    reasoningLevels: ['default'],
-    models: [
-      { id: 'sonnet', label: 'Sonnet' },
-      { id: 'opus', label: 'Opus' },
-      { id: 'haiku', label: 'Haiku' },
-    ],
+    defaultProfileKey: `claude:${CLAUDE_DEFAULT_RUN_MODEL}:default`,
+    profiles: CLAUDE_RUN_MODELS.map(({ model, label, description }) => {
+      const resolved = resolveProfile({ model })
+      return {
+        key: resolved.profileKey, label, description, model: resolved.model,
+        reasoningLevel: resolved.reasoningLevel, executionProfile: resolved.executionProfile,
+      }
+    }),
     supportsUsage: true,
   },
   resolveProfile,

@@ -18,7 +18,7 @@ import {
 } from '../src/launcher'
 import {
   CLAUDE_TRACKED_SETTING_SOURCES, claudeChildEnv, claudeSandboxSettings, createClaudeMirrorWorkspace,
-  claudeNestedToolEnv, isClaudeMaxAuth, isClaudeSubscriptionAuth,
+  claudeNestedToolEnv, claudeProviderAdapter, isClaudeMaxAuth, isClaudeSubscriptionAuth,
 } from '../src/providers/claude'
 import { codexChildEnv } from '../src/providers/codex'
 import type { RunState } from '../src/registry'
@@ -56,6 +56,19 @@ const baseRun = (overrides: Partial<RunState> = {}): RunState => ({
 
 try {
   fs.mkdirSync(absoluteRoot, { recursive: true })
+
+  check('Claude research defaults to Opus and only exposes research-approved frozen models', () => {
+    assert.equal(claudeProviderAdapter.resolveProfile({}).profileKey, 'claude:opus:default')
+    assert.deepEqual(claudeProviderAdapter.profile.profiles.map((profile) => profile.key), [
+      'claude:opus:default', 'claude:sonnet:default',
+    ])
+    assert.equal(claudeProviderAdapter.resolveProfile({ profileKey: 'claude:sonnet:default' }).model, 'sonnet')
+    assert.throws(() => claudeProviderAdapter.resolveProfile({ model: 'haiku' }), /Choose Opus or Sonnet/)
+    assert.throws(
+      () => claudeProviderAdapter.resolveProfile({ profileKey: 'claude:opus:default', model: 'sonnet' }),
+      /disagree/,
+    )
+  })
 
   check('usage windows merge per provider without collapsing unavailable into zero', () => {
     setCreditStatus({ ok: true, checked: true, rateLimitType: 'primary', utilization: 0.2,

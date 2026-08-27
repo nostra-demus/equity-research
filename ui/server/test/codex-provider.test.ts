@@ -94,6 +94,26 @@ assert.deepEqual(codexProviderAdapter.resolveProfile({}), {
     specialistModel: 'gpt-5.6-terra', specialistReasoning: 'xhigh',
   },
 })
+assert.deepEqual(codexProviderAdapter.resolveProfile({
+  profileKey: 'codex|gpt-5.6-sol:max|gpt-5.6-sol:max',
+  model: 'gpt-5.6-sol',
+  reasoningLevel: 'max',
+}), {
+  provider: 'codex', profileKey: 'codex|gpt-5.6-sol:max|gpt-5.6-sol:max', model: 'gpt-5.6-sol', reasoningLevel: 'max',
+  executionProfile: {
+    key: 'codex|gpt-5.6-sol:max|gpt-5.6-sol:max', parentModel: 'gpt-5.6-sol', parentReasoning: 'max',
+    specialistModel: 'gpt-5.6-sol', specialistReasoning: 'max',
+  },
+})
+assert.equal(codexProviderAdapter.profile.defaultProfileKey, 'codex|gpt-5.6-sol:max|gpt-5.6-terra:xhigh')
+assert.deepEqual(codexProviderAdapter.profile.profiles.map((profile) => profile.key), [
+  'codex|gpt-5.6-sol:max|gpt-5.6-terra:xhigh',
+  'codex|gpt-5.6-sol:max|gpt-5.6-sol:max',
+])
+assert.throws(
+  () => codexProviderAdapter.resolveProfile({ profileKey: 'codex|gpt-5.6-sol:max|gpt-5.6-sol:max', model: 'terra' }),
+  /disagree/,
+)
 assert.throws(() => codexProviderAdapter.resolveProfile({ model: 'terra' }), /pinned to gpt-5.6-sol/)
 assert.throws(() => codexProviderAdapter.resolveProfile({ model: 'sonnet' }), /Unsupported Codex parent model/)
 assert.throws(
@@ -674,6 +694,7 @@ const protectedWritePaths = [
 const protectedReadPaths = [protectedStateRoot]
 let baseSpec: ReturnType<typeof buildCodexLaunchSpec> | undefined
 let resumeSpec: ReturnType<typeof buildCodexLaunchSpec> | undefined
+let solOnlySpec: ReturnType<typeof buildCodexLaunchSpec> | undefined
 try {
   const context: ProviderLaunchContext = {
     prompt: '/research:full AAPL',
@@ -713,6 +734,14 @@ try {
   assert.doesNotMatch(JSON.stringify(spec.args), /verified-snapshot|CODEX_HOME/,
     'credential bytes and lease location must never enter model-visible CLI arguments')
   assert.ok(spec.args.includes('--json'))
+  const solOnlyProbe = launchProbe(launchAuthHome)
+  solOnlySpec = buildCodexLaunchSpec({
+    ...context,
+    profile: codexProviderAdapter.resolveProfile({ profileKey: 'codex|gpt-5.6-sol:max|gpt-5.6-sol:max' }),
+  }, solOnlyProbe)
+  assert.ok(solOnlySpec.args.includes('agents.default_subagent_model="gpt-5.6-sol"'))
+  assert.ok(solOnlySpec.args.includes('agents.default_subagent_reasoning_effort="max"'))
+  assert.match(solOnlySpec.input || '', /use claude-sol-specialist-loader/)
   assert.ok(!spec.args.includes('--approve-for-me'), 'legacy workspace-write shorthand would override the named permission profile')
   assert.ok(!spec.args.includes('--sandbox'), 'legacy sandbox flags would override the named permission profile')
   assert.ok(!spec.args.includes('--ignore-user-config'), 'the isolated sanitized config is the credential boundary and must be loaded')
@@ -883,6 +912,7 @@ try {
 } finally {
   baseSpec?.cleanup?.()
   resumeSpec?.cleanup?.()
+  solOnlySpec?.cleanup?.()
   fs.rmSync(dataRoot, { recursive: true, force: true })
   fs.rmSync(launchAuthHome, { recursive: true, force: true })
   await new Promise<void>((resolve) => publicationSocketServer.close(() => resolve()))
