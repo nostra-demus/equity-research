@@ -147,6 +147,22 @@ def _fixture_repository(root: Path) -> None:
         "schema_version": "idea-archive/v1", "archived_at": "2026-03-03T00:00:00Z",
         "archive_reason": "expired_pruned", "snapshot": idea_base,
     })
+    # The withdrawn and imported archive kinds carry their time and identity outside "snapshot".
+    _write_json(root, "screener/ledger/ideas_archive/suppression.json", {
+        "schema_version": "idea-archive-suppression/v1",
+        "idea_id": idea_base["idea_id"], "idea_version": idea_base["idea_version"],
+        "idea_version_started_at": idea_base["idea_version_started_at"],
+        "direction": "short", "pair_with": None,
+        "suppressed_at": "2026-03-03T01:00:00Z",
+        "suppression_reason": "withdrawn_unadmitted",
+    })
+    _write_json(root, "screener/ledger/ideas_archive/recovery.json", {
+        "schema_version": "idea-board-recovery/v1",
+        "recovered_at": "2026-03-03T02:00:00Z",
+        "recovery_reason": "missing_archive_occurrence",
+        "provenance": {"source_path": "screener/ledger/ideas.ndjson"},
+        "board_row": idea_base,
+    })
     _write_ndjson(root, "screener/ledger/conviction/conviction.ndjson", [{
         "row_type": "conviction_event", "thesis_id": "THS-SIG-20260301-aaaaaaaa-v1",
         "at": "2026-03-02T12:00:00Z", "kind": "seed", "event_key": "seed-1",
@@ -194,7 +210,7 @@ class MemoryAdapterTests(unittest.TestCase):
                 "screener_thesis": 1,
                 "screener_idea_history": 2,
                 "screener_idea_snapshot": 1,
-                "screener_idea_archive": 1,
+                "screener_idea_archive": 3,
                 "screener_conviction_event": 1,
                 "screener_conviction_checkpoint": 1,
                 "screener_conviction_state": 1,
