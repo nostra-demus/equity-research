@@ -428,6 +428,7 @@ export function TasksStage() {
       } finally {
         if (revisionRef.current.get(taskId) === revision) {
           confirmedRef.current.delete(taskId)
+          revisionRef.current.delete(taskId)
           setSyncingIds((current) => {
             const next = new Set(current)
             next.delete(taskId)

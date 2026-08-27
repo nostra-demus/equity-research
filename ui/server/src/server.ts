@@ -3925,6 +3925,10 @@ async function publishWatchlist(relPaths: string[], msg: string, timeoutMs = WAT
 const watchlistEntryPath = (entryId: string) => `watchlist/entries/${entryId}.json`
 const PLANNING_MUTATION_LOCK = 'planning-mutation:tasks-watchlist'
 
+class TaskEngineWatchTimeoutError extends Error {
+  constructor() { super('task engine Watchlist lookup timed out'); this.name = 'TaskEngineWatchTimeoutError' }
+}
+
 async function withPlanningMutation(reply: FastifyReply, fn: () => Promise<unknown>): Promise<unknown> {
   try {
     return await withSubjectLock(PLANNING_MUTATION_LOCK, fn)
@@ -4559,10 +4563,6 @@ app.get('/api/tasks', { config: { rateLimit: { max: 600, timeWindow: '1 minute' 
     as_of: new Date().toISOString(),
   }
 })
-
-class TaskEngineWatchTimeoutError extends Error {
-  constructor() { super('task engine Watchlist lookup timed out'); this.name = 'TaskEngineWatchTimeoutError' }
-}
 
 async function taskEngineWatch(task: TaskCard) {
   if (task.stage !== 'final_decision' || task.decision !== 'watch' || !task.ticker) return []
