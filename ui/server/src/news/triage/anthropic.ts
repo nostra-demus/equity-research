@@ -16,7 +16,7 @@ import type { NewsItem, Triage } from '../types'
 import type { RateInfo } from './budget'
 import {
   buildUserMessage, caughtFailure, coerceCompleteTriageRows, estimateTokens, httpFailureKind,
-  parseRate, publicHttpFailureNote, SYSTEM, type TriageOptions, type TriageResult,
+  parseRate, publicHttpFailureNote, SYSTEM, triageMaxOutputTokens, type TriageOptions, type TriageResult,
 } from './groq'
 
 // Default Haiku 4.5 list prices ($ / million tokens). Used ONLY to report spend on the cycle summary; the
@@ -68,6 +68,10 @@ export async function triageBatchAnthropic(
 
   const inPrice = opts.inPricePerMTok ?? HAIKU_IN_PER_MTOK
   const outPrice = opts.outPricePerMTok ?? HAIKU_OUT_PER_MTOK
+  // Match the OpenAI-compatible and Gemini adapters: one output row is required per input index, so the
+  // ceiling must grow with the batch. This matters when an operator opts into API mode; the subscription
+  // CLI has its own per-call dollar guard instead of a max_tokens field.
+  const maxOut = triageMaxOutputTokens(items.length, opts.maxTokens)
   let requests = 0
   let tokens = 0
   let costUsd = 0
@@ -97,7 +101,7 @@ export async function triageBatchAnthropic(
         signal, // whichever comes first: the cycle wall-clock guard or this attempt's own timeout
         body: JSON.stringify({
           model: opts.model,
-          max_tokens: opts.maxTokens ?? 2400,
+          max_tokens: maxOut,
           temperature: 0.1,
           system: SYSTEM,
           messages: [{ role: 'user', content: buildUserMessage(items) }],
@@ -152,7 +156,7 @@ export async function triageBatchAnthropic(
       }
       // a max_tokens truncation is deterministic — report it, don't half-parse (mirrors the Groq 'length' path)
       if (data?.stop_reason === 'max_tokens') {
-        return { byIndex, requests, tokens, ok: false, note: 'anthropic: output truncated at max_tokens — lower NEWS_TRIAGE_BATCH or raise NEWS_ANTHROPIC_FALLBACK_MAX_TOKENS', costUsd, costUsdKnown, failureKind: 'contract' }
+        return { byIndex, requests, tokens, ok: false, note: `anthropic: output truncated at max_tokens (${maxOut} for ${items.length} items) — lower NEWS_TRIAGE_BATCH or raise NEWS_ANTHROPIC_FALLBACK_MAX_TOKENS`, costUsd, costUsdKnown, failureKind: 'contract' }
       }
       const content = Array.isArray(data?.content)
         ? data.content.filter((c: any) => c?.type === 'text').map((c: any) => (typeof c?.text === 'string' ? c.text : '')).join('')

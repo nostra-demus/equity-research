@@ -5848,8 +5848,8 @@ await check('providerDrainUsable: mirrors the triage loop pick — cooling / req
 
 await check('drainBatchEst: reserves for the batch the drain would ACTUALLY submit — min(backlog, NEWS.triageBatch), not a fixed full-batch estimate', async () => {
   // The reported gap (Codex, PR #316): 1 queued item needs estimateTokens(1) = 595 tokens, but the drain
-  // gate reserved estimateTokens(NEWS.triageBatch) = 1,640 for the default 12-item batch — a provider with
-  // 600 tokens of room (enough for the real, 1-item submission) still read as spent and the drain skipped it.
+  // gate reserved estimateTokens(NEWS.triageBatch) for the configured full batch — a provider with 600
+  // tokens of room (enough for the real, 1-item submission) still read as spent and the drain skipped it.
   assert.equal(drainBatchEst(1), estimateTokens(1), 'a 1-item backlog reserves for a 1-item batch, not a full batch')
   assert.equal(drainBatchEst(1), 595, 'pinned to the reported gap\'s own numbers')
   // a backlog at or above the batch size reserves the full batch — unchanged from the old fixed estimate
