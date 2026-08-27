@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-27T13:05:19Z",
+  "generated_at": "2026-08-27T13:17:12Z",
   "inbox": [
     {
       "inbox_id": "INB-20260827-571",
@@ -1083,6 +1083,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260827-587",
+      "headline": "HP Q3 2026 earnings: record revenue but PC shipments drop 16%",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/markets/stocks/articles/hp-q3-2026-earnings-record-125155738.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-27T12:51:55Z",
+      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
+      "prelim_note": "HP reported record revenue but a 16% drop in PC shipments, indicating mixed operational performance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "HP reported record revenue but a 16% drop in PC shipments, indicating mixed operational performance.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HP",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260827-506",
       "headline": "Immobilien: Centrum Development: Es folgt ein reguläres Insolvenzverfahren",
       "headline_en": null,
@@ -1933,55 +1982,6 @@
           "name": "Taqa",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260827-319",
-      "headline": "Delivery Hero Lifts Guidance on Increased Growth",
-      "headline_en": null,
-      "url": "https://www.wsj.com/business/retail/delivery-hero-lifts-guidance-on-increased-growth-4991f823?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-27T06:47:00Z",
-      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
-      "prelim_note": "Delivery Hero raised its guidance due to increased growth.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Delivery Hero raised its guidance due to increased growth.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Delivery Hero",
-          "ticker": null,
-          "listing_country": "DE"
         }
       ],
       "size_bucket": "large",
@@ -97716,9 +97716,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1666620,
-    "news_picked_today": 949,
-    "news_dropped_today": 16091
+    "news_seen_today": 1701748,
+    "news_picked_today": 968,
+    "news_dropped_today": 16264
   },
   "book_momentum": {
     "live_count": 8,
