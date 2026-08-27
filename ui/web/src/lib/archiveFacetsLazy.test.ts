@@ -1,5 +1,6 @@
-// Archive facets are intentionally demand-loaded: the rail's mount-time empty search must stay cheap,
-// while clearing a filter must restore the full facet universe. Run: npx tsx src/lib/archiveFacetsLazy.test.ts
+// Archive facets are preloaded from the server's off-thread warm index so native geography selects have
+// their options before the first click. Intent handlers remain as retries, while an empty archive search
+// itself stays cheap. Run: npx tsx src/lib/archiveFacetsLazy.test.ts
 import assert from 'node:assert/strict'
 import { readFileSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
@@ -32,7 +33,7 @@ api.newsFacets = async () => {
 
 try {
   const railSource = readFileSync(fileURLToPath(new URL('../components/screener/EventRail.tsx', import.meta.url)), 'utf8')
-  assert.doesNotMatch(railSource, /useEffect\(\(\) => \{ void loadFacets\(\{\}\)/, 'the rail must not restore a mount-time facet scan')
+  assert.match(railSource, /useEffect\(\(\) => \{ void loadFacets\(\{\}\) \}, \[loadFacets\]\)/, 'the rail preloads the warm facet snapshot once before a native select opens')
   assert.equal((railSource.match(/onFocusCapture=\{ensureFacets\}/g) || []).length, 2, 'keyboard focus must demand-load both primary facet controls')
   assert.equal((railSource.match(/onPointerDown=\{ensureFacets\}/g) || []).length, 2, 'pointer use must demand-load both primary facet controls')
   assert.equal((railSource.match(/onClick=\{ensureFacets\}/g) || []).length, 2, 'keyboard activation must retry both primary facet controls')

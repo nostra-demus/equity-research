@@ -35,7 +35,7 @@ import { callVsLive, getQuotes, resolveUnits, symbolCandidates } from './news/eq
 import { getCalendar } from './news/events-calendar'
 import type { FeedItem } from './news/types'
 import { matchesFeedFilters, parseFeedFilterQuery, explainFeedFilterMatch, hasAnyFilter, type FeedFilterQuery } from './news/feed-filter'
-import { computeFacets } from './news/facets'
+import { computeFacetsAsync, warmFacets } from './news/facets-service'
 import { searchSymbolsEnriched } from './news/symbology'
 import { fetchCnbcRows } from './news/cnbc-quote'
 import { baseTicker, cleanTicker } from './news/symbology'
@@ -5996,10 +5996,11 @@ app.get('/api/news/search', { config: { rateLimit: { max: 600, timeWindow: '1 mi
 // FACETS — the available geographies (country + continent) / sectors / sub-sectors / sources / themes,
 // WITH COUNTS, over the whole archive, honouring the active filter context. This is what makes the
 // cockpit dropdowns show the archive truth (e.g. "United Arab Emirates (3)"), not just the 2-day window.
-// Backed by a TTL-cached index (news/facets.ts), so a dropdown open is cheap.
+// Backed by a pre-warmed worker + bounded response cache, so archive growth cannot freeze unrelated routes
+// and the browser receives the complete filter universe before its first native dropdown opens.
 app.get('/api/news/facets', { config: { rateLimit: { max: 600, timeWindow: '1 minute' } } }, async (req) => {
   const filters = parseFeedFilterQuery((req.query as any) || {})
-  return computeFacets(REPO_ROOT, filters, { archiveDir: NEWS.newsArchiveDir })
+  return computeFacetsAsync(REPO_ROOT, filters, { archiveDir: NEWS.newsArchiveDir })
 })
 
 // GLOBAL SYMBOL SEARCH — the "any ticker, any country" directory behind the company autofill. Resolves a
@@ -7151,6 +7152,9 @@ purgeReelTempDirs(0)
     // Revalidate Memory as soon as the control plane is listening. A browser arriving during the
     // refresh receives the bounded, verified last-known-good view; concurrent callers join one rebuild.
     void memoryReader.warm()
+    // Build the complete-history filter universe off-thread before the reader reaches for Geography or
+    // Company. The server remains responsive while the worker scans Drive, and later callers join/cache it.
+    void warmFacets(REPO_ROOT, { archiveDir: NEWS.newsArchiveDir })
     // warm the once-per-process claude CLI probes so the FIRST launch click doesn't pay them (~1-4s)
     void warmLaunchProbes()
     // autonomous news ingester (screener swarm): fills a ranked inbox 24/7 at ~$0 when GROQ_API_KEY

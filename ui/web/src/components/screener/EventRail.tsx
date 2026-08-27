@@ -422,6 +422,12 @@ export function EventRail() {
     const id = setTimeout(() => { void runArchiveSearch(archiveMode ? archiveQueryRef.current : {}) }, 220)
     return () => clearTimeout(id)
   }, [archiveKey, archiveMode, runArchiveSearch])
+  // The server now pre-builds archive facets in a background worker, so asking for the warm snapshot on
+  // mount no longer freezes startup. Populate native selects BEFORE their first click: macOS snapshots a
+  // native select's options when it opens, so fetching on pointer-down alone left that open menu stuck on
+  // "loading countries…" even when the response arrived moments later. The intent handlers remain as a
+  // self-healing retry if the mount request raced a deploy or transient archive outage.
+  useEffect(() => { void loadFacets({}) }, [loadFacets])
   // the rendered set: the archive matches in archive mode, the live wire otherwise
   const items = archiveMode ? archiveResults : liveItems
 
