@@ -1,7 +1,7 @@
 {
   "idea_id": "IDEA-301c9958417a",
-  "idea_version": "IDEAV-4cd410735af0a497",
-  "idea_version_started_at": "2026-08-27T05:24:46Z",
+  "idea_version": "IDEAV-809b0caea01ea0f9",
+  "idea_version_started_at": "2026-08-27T13:17:25Z",
   "ticker": "META",
   "company": "Meta Platforms",
   "exchange": "NASDAQ",
@@ -11,15 +11,15 @@
   "listing_verification_source": "yahoo_symbol_directory",
   "direction": "short",
   "pair_with": null,
-  "reason": "The company faces a massive $16-18 billion settlement regarding teen safety and addiction lawsuits, which will materially impact its cash reserves and potentially limit user engagement through new usage restrictions.",
-  "why_now": "The settlement was announced on 2026-08-27.",
-  "conviction": 80,
+  "reason": "The $18 billion settlement and mandated restrictions on teen user engagement will increase operating costs and reduce ad inventory, directly impacting revenue growth.",
+  "why_now": "The settlement was finalized and announced on August 26, 2026.",
+  "conviction": 65,
   "conviction_basis": "pre_edge_proxy",
-  "trade_score": 62,
+  "trade_score": 51,
   "trade_score_basis": "evidence_gate_v2",
   "trade_score_breakdown": {
     "evidence": 14,
-    "impact": 21,
+    "impact": 0,
     "specificity": 15,
     "timing": 10,
     "expression": 6,
@@ -30,6 +30,7 @@
   "missing_checks": [
     "live liquidity",
     "dated catalyst",
+    "raw economic impact",
     "live price, liquidity, and consensus"
   ],
   "learning": {
@@ -43,22 +44,32 @@
   },
   "priced_in": "room",
   "thesis_type": "company_specific",
-  "origin_type": "wire",
-  "source_themes": [],
+  "origin_type": "theme",
+  "source_themes": [
+    {
+      "theme_id": "THM-c70ed8ee",
+      "theme_rev": 8,
+      "evidence_event_ids": [
+        "EVT-a07b30a7062e",
+        "EVT-215b5ea2962f"
+      ],
+      "why_now_event_id": "EVT-a07b30a7062e"
+    }
+  ],
   "source_event_ids": [
-    "EVT-a5331170a808",
-    "EVT-cc33836b4cd3"
+    "EVT-a07b30a7062e",
+    "EVT-215b5ea2962f"
   ],
-  "primary_source_event_id": "EVT-a5331170a808",
+  "primary_source_event_id": "EVT-a07b30a7062e",
   "source_headlines": [
-    "Meta Agrees To $16 Billion Settlement Over Teen Safety Lawsuit; Will Introduce 2-Hour Daily Usage Limit For Kids Under 18",
-    "Meta agrees to pay $18 billion to settle US lawsuits over social media addiction"
+    "Meta dodges ‘Big Tobacco’ nightmare with $18 billion settlement in child-safety lawsuit",
+    "Meta agrees to heavy restrictions on teen users in major lawsuit settlement"
   ],
-  "source_headline": "Meta Agrees To $16 Billion Settlement Over Teen Safety Lawsuit; Will Introduce 2-Hour Daily Usage Limit For Kids Under 18",
-  "source_url": "https://www.freepressjournal.in/tech/meta-agrees-to-16-billion-settlement-over-teen-safety-lawsuit-will-introduce-2-hour-daily-usage-limit-for-kids-under-18",
-  "source_name": "Free Press Journal",
+  "source_headline": "Meta dodges ‘Big Tobacco’ nightmare with $18 billion settlement in child-safety lawsuit",
+  "source_url": "https://www.marketwatch.com/story/metas-stock-rises-as-the-company-settles-in-social-media-addiction-trial-78abdfbf?mod=mw_rss_topstories",
+  "source_name": "MarketWatch",
   "materiality_max": 100,
-  "newest_source_at": "2026-08-27T04:05:03Z",
+  "newest_source_at": "2026-08-26T17:12:00.000Z",
   "prior_coverage": {
     "has_run": true,
     "latest_run": "analyses/META_2026-08-27",
@@ -66,8 +77,8 @@
     "data_pool_present": true
   },
   "surfaced_at": "2026-08-26T21:03:32Z",
-  "updated_at": "2026-08-27T05:24:46Z",
-  "decay_at": "2026-08-28T16:05:03Z",
+  "updated_at": "2026-08-27T13:17:25Z",
+  "decay_at": "2026-08-28T05:12:00Z",
   "status": "live",
   "promoted_signal_id": null
 }
