@@ -334,7 +334,9 @@ async function runCodexChatTurn(opts: ChatTurnOptions, choice: ChatModelSpec): P
 export async function runChatTurn(opts: ChatTurnOptions): Promise<ChatTurnOutcome> {
   if (opts.signal.aborted) return { costUsd: 0, error: 'aborted' }
   const choice = resolveChatModel(opts.model)
-  if (!choice) return { costUsd: 0, error: 'That Ask model is not supported. Choose another model and retry.' }
+  if (!choice || !CHAT.allowedModels.includes(choice.id)) {
+    return { costUsd: 0, error: 'That Ask model is not supported or allowed. Choose another model and retry.' }
+  }
   if (activeChatTurns >= CHAT.maxConcurrent) return { costUsd: 0, error: 'Chat is busy right now — try again in a moment.' }
   activeChatTurns++
   try {

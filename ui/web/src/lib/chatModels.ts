@@ -28,10 +28,11 @@ export function chatModelLabel(value: string): string {
 }
 
 export function readChatModel(
-  storage: Pick<Storage, 'getItem'> | null = typeof localStorage === 'undefined' ? null : localStorage,
+  storage?: Pick<Storage, 'getItem'> | null,
 ): string {
   try {
-    const value = storage?.getItem(CHAT_MODEL_STORAGE_KEY)
+    const store = storage !== undefined ? storage : (typeof window === 'undefined' ? null : window.localStorage)
+    const value = store?.getItem(CHAT_MODEL_STORAGE_KEY)
     return isChatModel(value) ? value : DEFAULT_CHAT_MODEL
   } catch {
     return DEFAULT_CHAT_MODEL
@@ -40,8 +41,11 @@ export function readChatModel(
 
 export function saveChatModel(
   model: string,
-  storage: Pick<Storage, 'setItem'> | null = typeof localStorage === 'undefined' ? null : localStorage,
+  storage?: Pick<Storage, 'setItem'> | null,
 ): void {
   if (!isChatModel(model)) return
-  try { storage?.setItem(CHAT_MODEL_STORAGE_KEY, model) } catch { /* private mode */ }
+  try {
+    const store = storage !== undefined ? storage : (typeof window === 'undefined' ? null : window.localStorage)
+    store?.setItem(CHAT_MODEL_STORAGE_KEY, model)
+  } catch { /* private mode or blocked storage */ }
 }

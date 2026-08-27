@@ -24,6 +24,8 @@ saveChatModel('arbitrary:model', storage)
 assert.equal(values.get(CHAT_MODEL_STORAGE_KEY), 'codex:gpt-5.6-terra', 'unknown model ids never become a saved request')
 values.set(CHAT_MODEL_STORAGE_KEY, 'retired:model')
 assert.equal(readChatModel(storage), 'sonnet', 'a stale local preference fails safely to the live default')
+assert.equal(readChatModel({ getItem: () => { throw new DOMException('blocked', 'SecurityError') } }), 'sonnet')
+assert.doesNotThrow(() => saveChatModel('sonnet', { setItem: () => { throw new DOMException('blocked', 'SecurityError') } }))
 
 const src = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const desktop = fs.readFileSync(path.join(src, 'components/ChatPanel.tsx'), 'utf8')

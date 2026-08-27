@@ -4,7 +4,7 @@ import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { CHAT } from '../src/config'
 import { CHAT_MODEL_SPECS, resolveChatModel } from '../src/chat-models'
-import { buildCodexChatArgs, classifyCodexChatLine } from '../src/chat-llm'
+import { buildCodexChatArgs, classifyCodexChatLine, runChatTurn } from '../src/chat-llm'
 
 const ids = CHAT_MODEL_SPECS.map((choice) => choice.id)
 assert.deepEqual(ids, [
@@ -59,6 +59,22 @@ assert.deepEqual(classifyCodexChatLine({ type: 'item.completed', item: { type: '
 assert.deepEqual(classifyCodexChatLine({ type: 'turn.completed' }, sol.model), [{ kind: 'result', costUsd: 0 }])
 assert.match((classifyCodexChatLine({ type: 'turn.failed', error: { message: '401 authentication required' } }, sol.model)[0] as any).error, /codex session isn't signed in/i)
 assert.match((classifyCodexChatLine({ type: 'error', message: '429 weekly usage limit' }, sol.model)[0] as any).error, /usage limit/i)
+
+const allowedIndex = CHAT.allowedModels.indexOf(sol.id)
+assert.notEqual(allowedIndex, -1)
+CHAT.allowedModels.splice(allowedIndex, 1)
+try {
+  const denied = await runChatTurn({
+    system,
+    user: 'This must stop before spawning Codex.',
+    model: sol.id,
+    signal: new AbortController().signal,
+    onToken: () => assert.fail('a model excluded by the configured allow-list must never stream'),
+  })
+  assert.match(denied.error || '', /not supported or allowed/i)
+} finally {
+  CHAT.allowedModels.splice(allowedIndex, 0, sol.id)
+}
 
 const here = path.dirname(fileURLToPath(import.meta.url))
 const webCatalogue = fs.readFileSync(path.join(here, '../../web/src/lib/chatModels.ts'), 'utf8')
