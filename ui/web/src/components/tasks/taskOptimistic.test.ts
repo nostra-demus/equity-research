@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict'
 import test from 'node:test'
 import type { TaskCard, TasksRead } from '../../lib/types'
-import { optimisticTask, overlayOptimisticTasks, replaceTask } from './taskOptimistic'
+import { optimisticTask, overlayOptimisticTasks, replaceTask, taskUpdateInput } from './taskOptimistic'
 
 const card = (overrides: Partial<TaskCard> = {}): TaskCard => ({
   schema_version: 'task-card/v1', task_id: 'TASK-20260827-1234abcd', scope: 'ticker', ticker: 'MIDEA',
@@ -27,6 +27,10 @@ test('rapid changes build on the card already shown to the user', () => {
   const reassigned = optimisticTask(moved, { assignee: 'AB' })
   assert.equal(reassigned.stage, 'deep_dive')
   assert.equal(reassigned.assignee, 'AB')
+  assert.deepEqual(taskUpdateInput(reassigned), {
+    scope: 'ticker', ticker: 'MIDEA', subject: 'European Heat',
+    title: 'Need to run a full scanner on right data', stage: 'deep_dive', decision: null, assignee: 'AB',
+  })
 })
 
 test('an unrelated refresh cannot replace a task whose save is still pending', () => {

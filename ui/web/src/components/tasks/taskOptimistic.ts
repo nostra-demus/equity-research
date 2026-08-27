@@ -18,6 +18,19 @@ export function optimisticTask(task: TaskCard, patch: Partial<TaskInput>): TaskC
   }
 }
 
+/** Send the complete state the user can see so a later queued save also retries any earlier quick edit. */
+export function taskUpdateInput(task: TaskCard): TaskInput {
+  return {
+    scope: task.scope,
+    ticker: task.ticker,
+    subject: task.subject,
+    title: task.title,
+    stage: task.stage,
+    decision: task.decision,
+    assignee: task.assignee,
+  }
+}
+
 export function replaceTask(read: TasksRead | null, task: TaskCard): TasksRead | null {
   if (!read) return read
   return { ...read, tasks: read.tasks.map((candidate) => candidate.task_id === task.task_id ? task : candidate) }

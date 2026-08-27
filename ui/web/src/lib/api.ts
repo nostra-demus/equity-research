@@ -237,11 +237,12 @@ async function del<T>(url: string): Promise<T> {
   return j as T
 }
 
-async function patch<T>(url: string, body?: any): Promise<T> {
+async function patch<T>(url: string, body?: any, timeoutMs?: number): Promise<T> {
   const r = await fetch(url, {
     method: 'PATCH',
     headers: body !== undefined ? { 'content-type': 'application/json' } : undefined,
     body: body !== undefined ? JSON.stringify(body) : undefined,
+    signal: timeoutMs ? AbortSignal.timeout(timeoutMs) : undefined,
   })
   const j = await r.json().catch(() => ({}))
   if (!r.ok) throw Object.assign(new Error((j as any)?.error || `${r.status}`), { status: r.status, body: j })
@@ -1458,7 +1459,9 @@ export const api = {
   },
   taskUpdate: async (taskId: string, input: Partial<import('./types').TaskInput>) => {
     if ((await ensureMode()) === 'static') throw STATIC_ERR()
-    return patch<{ ok: boolean; task: import('./types').TaskCard; publish_error?: string }>(`/api/tasks/${encodeURIComponent(taskId)}`, input)
+    // Durable git publication normally completes in seconds. Bound the request so one broken connection
+    // can never pin the ordered board-save queue behind it indefinitely.
+    return patch<{ ok: boolean; task: import('./types').TaskCard; publish_error?: string }>(`/api/tasks/${encodeURIComponent(taskId)}`, input, 90_000)
   },
   taskAttach: async (taskId: string, files: File[]): Promise<{ ok: boolean; task: import('./types').TaskCard; fileErrors: { filename: string; reason: string }[]; publish_error?: string }> => {
     if ((await ensureMode()) === 'static') throw STATIC_ERR()

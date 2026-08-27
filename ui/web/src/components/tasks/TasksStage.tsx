@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { api } from '../../lib/api'
 import { useStore } from '../../lib/store'
 import type { TaskAssignee, TaskCard, TaskDecision, TaskInput, TaskScope, TaskStage, TasksRead } from '../../lib/types'
-import { optimisticTask, overlayOptimisticTasks, replaceTask } from './taskOptimistic'
+import { optimisticTask, overlayOptimisticTasks, replaceTask, taskUpdateInput } from './taskOptimistic'
 
 const STAGES: { id: TaskStage; label: string; step: string }[] = [
   { id: 'idea_generation', label: 'Idea generation', step: '01' },
@@ -291,13 +291,13 @@ export function TasksStage() {
   const load = useCallback(async () => {
     try {
       const next = overlayOptimisticTasks(await api.tasks(), optimisticRef.current)
-      readRef.current = next
       setRead(next)
       setError('')
     }
     catch (cause: any) { setError(cause?.message || 'Could not load tasks.') }
     finally { setLoading(false) }
   }, [])
+  useEffect(() => { readRef.current = read }, [read])
   const closeEditor = useCallback(() => setEditor(null), [])
   useEffect(() => { void load() }, [load])
 
@@ -307,11 +307,7 @@ export function TasksStage() {
   }, [read, query, person])
 
   const showTask = useCallback((task: TaskCard) => {
-    setRead((current) => {
-      const next = replaceTask(current, task)
-      readRef.current = next
-      return next
-    })
+    setRead((current) => replaceTask(current, task))
   }, [])
 
   const update = (task: TaskCard, patch: Partial<TaskInput>) => {
@@ -326,13 +322,19 @@ export function TasksStage() {
     revisionRef.current.set(taskId, revision)
     optimisticRef.current.set(taskId, optimistic)
     showTask(optimistic)
-    setSyncingIds((current) => new Set(current).add(taskId))
+    setSyncingIds((current) => {
+      const next = new Set(current)
+      next.add(taskId)
+      return next
+    })
 
     // Publication is intentionally durable and can take a few seconds. Keep one ordered client queue so
     // rapid moves stay instant without racing the server's shared Tasks/Watchlist mutation lock.
     mutationChainRef.current = mutationChainRef.current.catch(() => undefined).then(async () => {
       try {
-        const result = await api.taskUpdate(taskId, patch)
+        // Every queued request carries the complete visible card. If an earlier partial edit failed,
+        // this later request still preserves it instead of silently restoring an older server value.
+        const result = await api.taskUpdate(taskId, taskUpdateInput(optimistic))
         confirmedRef.current.set(taskId, result.task)
         if (revisionRef.current.get(taskId) === revision) {
           optimisticRef.current.delete(taskId)
