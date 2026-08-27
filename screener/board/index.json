@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-27T11:59:10Z",
+  "generated_at": "2026-08-27T12:14:10Z",
   "inbox": [
     {
       "inbox_id": "INB-20260827-473",
@@ -739,6 +739,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260827-506",
+      "headline": "Immobilien: Centrum Development: Es folgt ein reguläres Insolvenzverfahren",
+      "headline_en": null,
+      "url": "https://www.handelsblatt.com/finanzen/immobilien/immobilien-centrum-development-es-folgt-ein-regulaeres-insolvenzverfahren/100250037.html",
+      "source_name": "Handelsblatt",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-27T11:46:50Z",
+      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
+      "prelim_note": "Centrum Development has entered regular insolvency proceedings.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Centrum Development has entered regular insolvency proceedings.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Centrum Development",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260827-510",
+      "headline": "Hormel Foods cuts annual sales forecast as sluggish consumer demand weighs",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/retail-consumer/hormel-foods-cuts-annual-sales-forecast-sluggish-consumer-demand-weighs-2026-08-27/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-27T11:41:44Z",
+      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
+      "prelim_note": "Hormel Foods cut its annual sales forecast due to sluggish consumer demand.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Hormel Foods cut its annual sales forecast due to sluggish consumer demand.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Hormel Foods",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260827-493",
       "headline": "Mirae Asset eyes $109 billion crypto empire after acquiring Digital X",
       "headline_en": null,
@@ -886,6 +984,60 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260827-505",
+      "headline": "Nvidia agrees to buy Hugging Face for $12.9 billion, reports",
+      "headline_en": null,
+      "url": "https://fortune.com/2026/08/27/nvidia-hugging-face-billion-dollar-deal-open-source-ai/",
+      "source_name": "Fortune",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-27T11:05:22Z",
+      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
+      "prelim_note": "Nvidia is reported to acquire Hugging Face for $12.9 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nvidia is reported to acquire Hugging Face for $12.9 billion.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Hugging Face",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1832,152 +1984,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260827-265",
-      "headline": "KKR Agrees To $250 Mn Settlement With US DOJ In Merger Filing Case",
-      "headline_en": null,
-      "url": "https://www.outlookbusiness.com/corporate/kkr-agrees-to-250-mn-settlement-with-us-doj-in-merger-filing-case",
-      "source_name": "Outlook Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-27T05:25:32Z",
-      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
-      "prelim_note": "KKR agreed to a $250 million settlement with the US DOJ regarding merger filing violations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "KKR agreed to a $250 million settlement with the US DOJ regarding merger filing violations.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "KKR",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260827-333",
-      "headline": "Boliden to Buy Controlling Nexa Stake in $1.3 Billion Deal",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-08-27/boliden-to-buy-controlling-stake-in-nexa-in-1-3-billion-deal",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-27T05:23:00Z",
-      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
-      "prelim_note": "Boliden is acquiring a controlling stake in Nexa Resources for $1.3 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Boliden is acquiring a controlling stake in Nexa Resources for $1.3 billion.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Boliden AB",
-          "ticker": null,
-          "listing_country": "SE"
-        },
-        {
-          "name": "Nexa Resources",
-          "ticker": null,
-          "listing_country": "LU"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260827-260",
-      "headline": "NCLT approves Subhash Chandra's ₹6.5 cr repayment plan; creditors face 99.97% haircut",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/business/nclt-clears-subhash-chandras-6-5-crore-rupees-payout-to-settle-22006-crore-rupees-dues-with-nearly-99-97-haircut-19977977.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-27T04:59:54Z",
-      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
-      "prelim_note": "NCLT approved a repayment plan resulting in a 99.97% haircut for creditors on a ₹6.5 cr debt.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "NCLT approved a repayment plan resulting in a 99.97% haircut for creditors on a ₹6.5 cr debt.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -97709,9 +97715,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1472769,
-    "news_picked_today": 822,
-    "news_dropped_today": 15042
+    "news_seen_today": 1508746,
+    "news_picked_today": 838,
+    "news_dropped_today": 15314
   },
   "book_momentum": {
     "live_count": 8,
