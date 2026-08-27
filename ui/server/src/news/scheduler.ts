@@ -479,7 +479,7 @@ function overflowUsage(p: (typeof NEWS.overflowProviders)[number]): { id: string
  *  cap, and — for a token-gated provider — with room for one more batch (tokens + est), not just
  *  strictly under the cap. The old check was BOTH cooldown-blind (a cooling provider with request budget —
  *  e.g. NVIDIA at 34/150 while cooling — read as headroom, so the drain ran and scored 0) and est-blind (a
- *  a token-gated pool one batch short of its daily cap read as headroom the loop then skipped). */
+ *  token-gated pool one batch short of its daily cap read as headroom the loop then skipped). */
 function overflowHasHeadroom(now = Date.now()): boolean {
   const batch = loadUnscoredDiagnosticBatch()
   return NEWS.overflowProviders.some((p) => {

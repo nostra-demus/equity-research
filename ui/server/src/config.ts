@@ -1202,7 +1202,7 @@ export function buildArticleReadProviders(cfg: typeof NEWS = NEWS): ArticleReadP
     // rather than sharing its id's cooldown between a ~7s interactive read and the background backlog drain.
     if (p.skipArticleRead) continue
     // OpenAI-compatible overflow: its own named limiter + daily budget file, exactly as runCycle uses it. A
-    // A TOKEN-gated provider carries its own tpm + daily token cap, so the read paces on the SAME
+    // TOKEN-gated provider carries its own tpm + daily token cap, so the read paces on the SAME
     // binding limit as the ingester (they share the budget file + limiter); request-gated providers
     // (OpenRouter/NVIDIA) omit them → tpm 0 + a non-binding token cap, the prior behaviour byte-for-byte.
     out.push({ id: p.id, kind: 'openai', apiKey: p.apiKey, keyEnvVar: p.keyEnvVar, baseUrl: p.baseUrl, model: p.model, models: p.models, maxTokens: p.maxTokens, rpm: p.rpm, tpm: p.tpm ?? 0, dailyReqCap: p.dailyReqCap, dailyTokenCap: p.dailyTokenCap ?? NON_BINDING_DAILY_TOKEN_CAP, budgetFile: p.budgetFile, dayTz: p.dayTz, headers: p.headers, extraBody: p.extraBody, limiter: p.id, paceMeter: p.dailyTokenCap != null ? 'tokens' : 'requests', paceCap: p.dailyTokenCap ?? p.dailyReqCap, paceFloorFrac: p.paceFloorFrac ?? cfg.freeProviderPaceFloorFrac, requestRemainingHeaderIsDaily: p.requestRemainingHeaderIsDaily })
