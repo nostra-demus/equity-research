@@ -301,5 +301,23 @@ check('grouping still never changes the blotter total, cash bucket included', ()
   assert.ok(near(blotter, grouped, 1e-9), `blotter ${blotter} vs grouped ${grouped}`)
 })
 
+check('an idea whose legs could not all be valued says the total is partial', () => {
+  // sumBase already skipped the unconvertible leg; the count it returned was thrown away, so a split
+  // exit with one missing rate published a believable, understated idea result with nothing saying so.
+  const rows = foldRoundTrips([
+    closure({ symbol: 'CANE', quantity: 100, realizedBase: 3703.48, closeTradeID: 'a' }),
+    closure({ symbol: 'CANE', quantity: 50, realizedBase: null as unknown as number, closeFxRateToBase: null, closeTradeID: 'b' }),
+  ])
+  const groups = groupByIdea(rows, ideaBook([['sugar', 'Sugar']], { a: 'sugar', b: 'sugar' }))
+  const sugar = groups.find((g) => g.label === 'Sugar')!
+  assert.ok(sugar.unvalued > 0, 'the unvalued leg is counted, not silently dropped')
+  assert.ok(near(sugar.realized, 3703.48, 1e-6), 'and the total is the convertible part only')
+})
+
+check('a fully valued idea reports no missing legs', () => {
+  const rows = foldRoundTrips([closure({ symbol: 'CANE', quantity: 100, realizedBase: 10, closeTradeID: 'a' })])
+  assert.equal(groupByIdea(rows, ideaBook([['sugar', 'Sugar']], { a: 'sugar' }))[0]!.unvalued, 0)
+})
+
 console.log(`\n${passed} passed, ${fails.length} failed`)
 if (fails.length) { console.error('FAILED: ' + fails.join(', ')); process.exit(1) }

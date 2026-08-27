@@ -26,6 +26,10 @@ export interface TradeRowData {
   lots: number
   /** Exits folded in. More than one means the broker split one sale into several orders. */
   fills: number
+  /** Legs the statement carried no rate for, so `realized` is the convertible part ONLY. Non-zero means
+   *  the figure beside it is incomplete, and anything that adds it up has to say so rather than publish
+   *  a plausible, understated total. */
+  unvalued: number
   /** Every broker closeTradeID behind this row. This is the row's STABLE identity: an idea assignment
    *  is written against these, not against the symbol, so labelling this year's AMZN cannot relabel
    *  next year's. Empty when the broker gave no id — such a row cannot be labelled at all, which is
@@ -79,6 +83,7 @@ export function foldRoundTrips(closures: PortfolioClosure[]): TradeRowData[] {
         ? null
         : lots.reduce((a, c) => a + c.commissionLocal * c.closeFxRateToBase!, 0),
       realized: sumBase(lots, baseRealised).total,
+      unvalued: sumBase(lots, baseRealised).unvalued,
       lots: lots.length,
       fills: 1,
       closeTradeIDs: [...new Set(lots.map((c) => c.closeTradeID).filter((v): v is string => !!v))],
@@ -130,6 +135,7 @@ export function foldRoundTrips(closures: PortfolioClosure[]): TradeRowData[] {
         ? null
         : group.reduce((a, r) => a + r.commissionBase!, 0),
       realized: group.reduce((a, r) => a + r.realized, 0),
+      unvalued: group.reduce((a, r) => a + r.unvalued, 0),
       lots: group.reduce((a, r) => a + r.lots, 0),
       fills: group.reduce((a, r) => a + r.fills, 0),
       closeTradeIDs: [...new Set(group.flatMap((r) => r.closeTradeIDs))],
@@ -156,6 +162,10 @@ export interface IdeaGroupRow {
   /** Rows the operator cannot label because the broker gave no trade id. Surfaced so a stuck row is
    *  visible rather than looking like one nobody got round to. */
   unlabellable: number
+  /** Legs inside this idea the statement could not value. Non-zero means `realized` is the convertible
+   *  part only: a split exit with one missing FX rate would otherwise publish a believable but
+   *  understated idea result with nothing on screen saying money was left out. */
+  unvalued: number
   /** True for the declared-cash bucket. Cash equivalents are already answered — SGOV is where the book
    *  WAITS, not a view it holds — so filing them under Unassigned read as an unfinished job. */
   isCash: boolean
@@ -201,10 +211,11 @@ export function groupByIdea(
     if (cash.has((r.symbol ?? '').toUpperCase())) {
       const g = out.get('\u0000cash') ?? {
         ideaId: null, label: 'Cash equivalent', symbols: [], realized: 0, trades: 0, unlabellable: 0,
-        firstClosed: null, lastClosed: null, isCash: true,
+        firstClosed: null, lastClosed: null, isCash: true, unvalued: 0,
       }
       if (r.symbol && !g.symbols.includes(r.symbol)) g.symbols.push(r.symbol)
       g.realized += r.realized
+      g.unvalued += r.unvalued
       g.trades += 1
       const cl = (r.closedAt ?? '').slice(0, 10)
       if (cl) {
@@ -223,10 +234,11 @@ export function groupByIdea(
 
     const g = out.get(key) ?? {
       ideaId: split ? null : id, label, symbols: [], realized: 0, trades: 0, unlabellable: 0,
-      firstClosed: null, lastClosed: null, isCash: false,
+      firstClosed: null, lastClosed: null, isCash: false, unvalued: 0,
     }
     if (r.symbol && !g.symbols.includes(r.symbol)) g.symbols.push(r.symbol)
     g.realized += r.realized
+    g.unvalued += r.unvalued
     g.trades += 1
     if (r.closeTradeIDs.length === 0) g.unlabellable += 1
     const closed = (r.closedAt ?? '').slice(0, 10)

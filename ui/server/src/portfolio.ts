@@ -224,6 +224,21 @@ function dedupeBy<T>(rows: T[], key: (row: T) => string | null): T[] {
  *  `origTradeID` names the row it replaces. Dedup by id therefore keeps BOTH across overlapping
  *  exports, double-counting the position (a 2:1 split leaves 300 shares where 200 are held). Anything
  *  another row claims as its original is superseded and dropped. */
+/** old trade id -> the id of the row that replaced it. The same relation dropSupersededTrades acts on,
+ *  surfaced so a label filed against the old row can follow it (portfolio-ideas.migrateClosureIds).
+ *  Pure and side-effect free: it reads the documents, it does not touch the book. */
+export function supersessionMap(documents: FlexDocument[]): Record<string, string> {
+  const out: Record<string, string> = {}
+  for (const doc of documents) {
+    for (const t of doc.trades ?? []) {
+      if (!t.tradeID) continue
+      if (t.origTradeID) out[t.origTradeID] = t.tradeID
+      if (t.origTransactionID) out[t.origTransactionID] = t.tradeID
+    }
+  }
+  return out
+}
+
 function dropSupersededTrades(trades: FlexTrade[]): FlexTrade[] {
   const superseded = new Set<string>()
   for (const t of trades) {

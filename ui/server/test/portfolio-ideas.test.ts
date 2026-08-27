@@ -6,7 +6,8 @@ import os from 'node:os'
 import path from 'node:path'
 import {
   assignClosures, assignPosition, createIdea, deleteIdea, ideaForClosure, ideaForPosition, ideaId,
-  isResidual, MAX_IDEAS, readIdeas, renameIdea, RESIDUAL_VALUE_BASE,
+  isResidual, MAX_IDEAS, migrateClosureIds, pruneClosedPositions, readIdeas, renameIdea,
+  RESIDUAL_VALUE_BASE,
 } from '../src/portfolio-ideas'
 
 const TMP = fs.mkdtempSync(path.join(os.tmpdir(), 'fundbook-ideas-'))
@@ -234,6 +235,84 @@ check('re-creating an existing idea returns THAT idea, whatever case was typed',
   const long = createIdea(d, 'x'.repeat(80))
   assert.equal(long.label.length, 60, 'truncated to the cap, so the returned label differs from input')
   assert.ok(readIdeas(d).ideas.some((i) => i.id === long.id))
+})
+
+check('a closed position does not lend its idea to the next one in the same ticker', () => {
+  // The whole module is keyed on trade ids to stop this year's AMZN labelling next year's. A position
+  // label keyed by symbol re-opened the same hole from the other side: sell out, buy back months later,
+  // and the new position silently inherited the old bet.
+  const d = dir('prune')
+  const ai = createIdea(d, 'AI')
+  assignPosition(d, 'AMZN', ai.id)
+  assignPosition(d, 'GLDM', createIdea(d, 'Gold').id)
+  // AMZN has been sold; GLDM is still held.
+  const dropped = pruneClosedPositions(d, ['GLDM'])
+  assert.equal(dropped, 1)
+  const book = readIdeas(d)
+  assert.equal(ideaForPosition(book, 'AMZN'), null, 'the closed one is gone')
+  assert.equal(ideaForPosition(book, 'GLDM'), 'gold', 'the held one is untouched')
+  assert.equal(book.ideas.length, 2, 'and the ideas themselves survive — only the label went')
+})
+
+check('an empty book prunes nothing', () => {
+  // Removing every statement leaves no positions. Pruning against that would wipe the whole ledger for
+  // a book that is merely absent, so it is guarded.
+  const d = dir('prune-empty')
+  assignPosition(d, 'AMZN', createIdea(d, 'AI').id)
+  assert.equal(pruneClosedPositions(d, []), 0)
+  assert.equal(ideaForPosition(readIdeas(d), 'AMZN'), 'ai')
+})
+
+check('a label follows its trade through a restatement', () => {
+  // A corporate action replaces the row: the new one carries origTradeID and the old is dropped, so a
+  // label stored against the old id fell back to Unassigned on the next import.
+  const d = dir('restate')
+  const sugar = createIdea(d, 'Sugar')
+  assignClosures(d, ['OLD1'], sugar.id)
+  assert.equal(migrateClosureIds(d, { OLD1: 'NEW1' }), 1)
+  const book = readIdeas(d)
+  assert.equal(ideaForClosure(book, ['NEW1']), 'sugar', 'it moved to the replacement')
+  assert.equal(ideaForClosure(book, ['OLD1']), null, 'and does not linger on the row that went')
+})
+
+check('a restatement never overwrites a label already on the replacement', () => {
+  const d = dir('restate-keep')
+  const a = createIdea(d, 'Sugar')
+  const b = createIdea(d, 'Gold')
+  assignClosures(d, ['OLD1'], a.id)
+  assignClosures(d, ['NEW1'], b.id)   // the operator has already spoken about the new row
+  migrateClosureIds(d, { OLD1: 'NEW1' })
+  assert.equal(ideaForClosure(readIdeas(d), ['NEW1']), 'gold', 'the more recent word wins')
+})
+
+check('a rename cannot duplicate another idea name', () => {
+  // Two ideas with one name are indistinguishable in every picker, and createIdea matches on the name —
+  // so it would have to pick one arbitrarily and file a trade under a bet nobody meant.
+  const d = dir('rename-clash')
+  const gold = createIdea(d, 'Gold')
+  createIdea(d, 'Sugar')
+  assert.throws(() => renameIdea(d, gold.id, 'Sugar'), /already the name/)
+  assert.throws(() => renameIdea(d, gold.id, 'sugar'), /already the name/, 'case does not dodge it')
+  // Renaming to its OWN name, in a new case, is still allowed.
+  assert.doesNotThrow(() => renameIdea(d, gold.id, 'GOLD'))
+  assert.equal(readIdeas(d).ideas.find((i) => i.id === gold.id)!.label, 'GOLD')
+})
+
+check('the ledger is written owner-only', () => {
+  // The statement store next door enforces 0700/0600 because this lane is the operator's own book; the
+  // ledger names their theses, symbols and broker trade ids and is no less private.
+  const d = dir('perm')
+  createIdea(d, 'Sugar')
+  const mode = fs.statSync(path.join(d, 'ideas.json')).mode & 0o777
+  assert.equal(mode & 0o077, 0, `group/other bits set: ${mode.toString(8)}`)
+  const dirMode = fs.statSync(d).mode & 0o777
+  assert.equal(dirMode & 0o077, 0, `directory is group/other readable: ${dirMode.toString(8)}`)
+})
+
+check('an oversized ledger is refused, not parsed', () => {
+  const d = dir('huge')
+  fs.writeFileSync(path.join(d, 'ideas.json'), '{"ideas":[' + '{"id":"x","label":"y"},'.repeat(220_000) + '{"id":"z","label":"z"}]}')
+  assert.deepEqual(readIdeas(d).ideas, [], 'refused on size before any parse')
 })
 
 try { fs.rmSync(TMP, { recursive: true, force: true }) } catch { /* best effort */ }

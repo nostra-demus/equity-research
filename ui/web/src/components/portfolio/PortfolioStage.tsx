@@ -127,7 +127,9 @@ export function PortfolioStage() {
     try {
       const before = snapshot(read)
       const result = await api.uploadStatements(files, setProgress)
-      const after: PortfolioRead = { statements: result.statements, book: result.book, performance: result.performance, manual: result.manual, overrides: result.overrides, error: result.error }
+      // `ideas` included: the field is OPTIONAL for deploy skew, so omitting it here still type-checked
+      // while silently hiding the By idea panel and every holding picker until a full reload.
+      const after: PortfolioRead = { statements: result.statements, book: result.book, performance: result.performance, manual: result.manual, overrides: result.overrides, ideas: result.ideas, error: result.error }
       setRead(after)
       // What the import actually did to the book, measured rather than asserted: a "12 statements
       // imported" message that leaves every total unchanged is exactly the case an operator needs to
@@ -674,15 +676,22 @@ function Exposure({ book, risked, parkedValue, nav, ccy, ideas, bars }: {
   const residualCount = valued.length - nonResidual.length
   const byIdea = (() => {
     if (!ideas) return []
-    const by = new Map<string, number>()
+    // GROSS per idea, because every share on this panel divides by gross (see shareOfRisk). Summed
+    // SIGNED, a pair inside one idea cancelled: a $100 long against a $100 short rendered as 0% and $0
+    // while accounting for $200 of the money at risk — the one shape an idea view exists to show.
+    // `net` is carried alongside so a hedged idea can say so instead of vanishing.
+    const by = new Map<string, { gross: number; net: number }>()
     for (const { p, base } of nonResidual) {
       const id = ideas.assignments?.positions?.[(p.symbol ?? '').toUpperCase()] ?? ''
-      by.set(id, (by.get(id) ?? 0) + base)
+      const cur = by.get(id) ?? { gross: 0, net: 0 }
+      cur.gross += Math.abs(base)
+      cur.net += base
+      by.set(id, cur)
     }
     return [...by.entries()].sort((a, b) => {
       if (!a[0]) return 1
       if (!b[0]) return -1
-      return Math.abs(b[1]) - Math.abs(a[1])
+      return b[1].gross - a[1].gross
     })
   })()
 
@@ -767,8 +776,11 @@ function Exposure({ book, risked, parkedValue, nav, ccy, ideas, bars }: {
                 <ExposureBar
                   key={`i-${id || 'none'}`}
                   label={id ? (ideaLabel.get(id) ?? id) : 'Unassigned'}
-                  pct={shareOfRisk(v) ?? 0}
-                  value={fmtMoney(v, ccy)}
+                  pct={shareOfRisk(v.gross) ?? 0}
+                  // The gross figure is what the bar measures. Where net differs the idea is hedged
+                  // inside itself, and saying so is the point — a bar alone would read as a directional
+                  // bet of that size.
+                  value={Math.abs(v.gross - v.net) > 0.5 ? `${fmtMoney(v.gross, ccy)} · net ${fmtMoney(v.net, ccy)}` : fmtMoney(v.gross, ccy)}
                   deep={!id}
                   prose
                 />
@@ -1285,7 +1297,7 @@ function Trades({ book, manual, onChanged, ideas, cashEquivalents, importOpen, o
     const labels = new Map((ideas?.ideas ?? []).map((i) => [i.id, i.label]))
     const assigned = ideas?.assignments?.closures ?? {}
     const cash = new Set(cashEquivalents.map((v) => v.trim().toUpperCase()))
-    const by = new Map<string, { value: number; trades: number; names: Set<string> }>()
+    const by = new Map<string, { value: number; trades: number; names: Set<string>; label: string }>()
     let folded = 0
     for (const c of rows) {
       const sym = c.symbol ?? '—'
@@ -1293,15 +1305,18 @@ function Trades({ book, manual, onChanged, ideas, cashEquivalents, importOpen, o
       // disagree about which bucket a trade is in.
       const { id } = ideaOfRow(c.closeTradeIDs, assigned)
       const useIdea = !!id && !cash.has(sym.toUpperCase())
-      const k = useIdea ? (labels.get(id!) ?? id!) : sym
-      const cur = by.get(k) ?? { value: 0, trades: 0, names: new Set<string>() }
+      // Keyed on a TAGGED identity, never on the text shown. Keyed by label, an idea called "AMZN"
+      // silently merged with the AMZN ticker's own bar, and two ideas renamed alike merged with each
+      // other — unrelated P&L and trade counts added into one contribution and its concentration stats.
+      const k = useIdea ? `i:${id}` : `s:${sym}`
+      const cur = by.get(k) ?? { value: 0, trades: 0, names: new Set<string>(), label: useIdea ? (labels.get(id!) ?? id!) : sym }
       cur.value += c.realized
       cur.trades += 1
       cur.names.add(sym)
       by.set(k, cur)
     }
     for (const v of by.values()) if (v.names.size > 1) folded += 1
-    const all = [...by.entries()].map(([symbol, v]) => ({ symbol, value: v.value, trades: v.trades }))
+    const all = [...by.values()].map((v) => ({ symbol: v.label, value: v.value, trades: v.trades }))
       .sort((a, b) => Math.abs(b.value) - Math.abs(a.value))
     const list = all.slice(0, 12)
     const max = Math.max(...list.map((a) => Math.abs(a.value)), 1)

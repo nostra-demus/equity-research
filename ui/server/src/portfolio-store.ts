@@ -16,15 +16,15 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { STATE_DIR } from './config'
 import { feedPresent, readCloses } from './market-feed'
-import { alignFlowsToNavDates, buildBook, type Book } from './portfolio'
+import { alignFlowsToNavDates, buildBook, supersessionMap, type Book } from './portfolio'
 import { parseFlexXml, type FlexDocument } from './portfolio-import'
 import {
   addManual, clearSuperseded, deleteManual, normalizeManual, provisionalRead, readManual,
   type ManualInput, type ManualRead, type StatementCoverage,
 } from './portfolio-manual'
 import {
-  assignClosures, assignPosition, createIdea, deleteIdea, readIdeas, renameIdea,
-  type Idea, type IdeaBook,
+  assignClosures, assignPosition, createIdea, deleteIdea, migrateClosureIds, pruneClosedPositions,
+  readIdeas, renameIdea, type Idea, type IdeaBook,
 } from './portfolio-ideas'
 import { readOverrides, setCashEquivalent, type PortfolioOverrides } from './portfolio-overrides'
 import { benchmarkCompare, betaAlpha, dailyReturns, measuredWindow, moneyWeightedReturn, monthlyReturns, returnsByPeriod, riskMetrics, type BenchmarkRead, type BetaAlpha, type MonthRow, type PeriodReturn, type RiskRead } from './portfolio-metrics'
@@ -481,6 +481,16 @@ export function readPortfolio(): PortfolioRead {
       error = String(e?.message || e)
     }
   }
+  // Reconcile the idea ledger to the book that was just built. Both are no-ops in the ordinary case
+  // and write only when something actually moved, so this costs a read on every refresh and nothing
+  // else. It runs here because this is the one place that has BOTH the ledger and the fresh documents.
+  if (book) {
+    try {
+      migrateClosureIds(PORTFOLIO_DIR, supersessionMap(docs))
+      pruneClosedPositions(PORTFOLIO_DIR, book.positions.map((p) => p.symbol ?? ''))
+    } catch { /* the ledger decorates the book; failing to tidy it must never cost the book */ }
+  }
+
   cache = { key, book, error }
   return {
     statements, book, error,

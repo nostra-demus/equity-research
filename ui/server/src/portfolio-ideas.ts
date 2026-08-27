@@ -25,6 +25,17 @@ import path from 'node:path'
 
 const FILE = 'ideas.json'
 
+/** The statement store next door enforces these for the same reason (portfolio-store.ts): this lane
+ *  holds the operator's own book. The ledger names their theses, their symbols and their broker trade
+ *  ids, so it is owner-only too — a default 0644 under a 0755 directory published all three to any
+ *  other local account. chmod as well as mode, because mkdir/open ignore mode on an existing path. */
+const DIR_MODE = 0o700
+const FILE_MODE = 0o600
+
+/** A ledger far past any real book is refused rather than parsed. readIdeas runs on every portfolio
+ *  refresh, so a hand-edited or corrupt file must not be able to make that read unbounded work. */
+const MAX_FILE_BYTES = 4 * 1024 * 1024
+
 /** Bounded like every other file in this lane. A book with 200 live ideas is not a book. */
 export const MAX_IDEAS = 200
 /** Bounded so a corrupt or hand-edited file cannot make the read unbounded work. */
@@ -74,7 +85,11 @@ export function ideaId(label: string): string {
  *  them must not cost the book. Mirrors readOverrides deliberately — same lane, same failure rule. */
 export function readIdeas(dir: string): IdeaBook {
   let raw: unknown
-  try { raw = JSON.parse(fs.readFileSync(filePath(dir), 'utf8')) } catch { return emptyBook() }
+  try {
+    // Size first: a 400MB ledger must be refused, not parsed and then found to be too big.
+    if (fs.statSync(filePath(dir)).size > MAX_FILE_BYTES) return emptyBook()
+    raw = JSON.parse(fs.readFileSync(filePath(dir), 'utf8'))
+  } catch { return emptyBook() }
   if (!raw || typeof raw !== 'object' || Array.isArray(raw)) return emptyBook()
   const src = raw as { ideas?: unknown; assignments?: unknown }
 
@@ -97,14 +112,16 @@ export function readIdeas(dir: string): IdeaBook {
   const readMap = (value: unknown, key: (k: string) => string): Record<string, string> => {
     const out: Record<string, string> = {}
     if (!value || typeof value !== 'object' || Array.isArray(value)) return out
+    // Counted on entries INSPECTED, not entries accepted: counting acceptances let a file of a million
+    // rejected rows walk the whole thing while claiming to be bounded.
     let n = 0
     for (const [k, v] of Object.entries(value as Record<string, unknown>)) {
       if (n >= MAX_ASSIGNMENTS) break
+      n++
       if (typeof v !== 'string') continue
       const kk = key(k)
       if (!kk || !seen.has(v)) continue
       out[kk] = v
-      n++
     }
     return out
   }
@@ -123,12 +140,16 @@ export function readIdeas(dir: string): IdeaBook {
 }
 
 function write(dir: string, book: IdeaBook): void {
-  fs.mkdirSync(dir, { recursive: true })
+  fs.mkdirSync(dir, { recursive: true, mode: DIR_MODE })
+  try { fs.chmodSync(dir, DIR_MODE) } catch { /* read-only store — nothing to tighten */ }
   // Through a temp file: a crash mid-write would otherwise leave a truncated object and every
-  // declaration gone, silently unlabelling the whole book.
+  // declaration gone, silently unlabelling the whole book. The temp file is created owner-only from
+  // the start — writing it 0644 and tightening after leaves a window where it is readable.
   const tmp = `${filePath(dir)}.tmp`
-  fs.writeFileSync(tmp, JSON.stringify(book, null, 2) + '\n')
+  fs.writeFileSync(tmp, JSON.stringify(book, null, 2) + '\n', { mode: FILE_MODE })
+  try { fs.chmodSync(tmp, FILE_MODE) } catch { /* best effort */ }
   fs.renameSync(tmp, filePath(dir))
+  try { fs.chmodSync(filePath(dir), FILE_MODE) } catch { /* best effort */ }
 }
 
 /** Create an idea, or return the existing one of the same NAME. Idempotent on the name, not on the
@@ -162,6 +183,11 @@ export function renameIdea(dir: string, id: string, label: string): void {
   const book = readIdeas(dir)
   const idea = book.ideas.find((i) => i.id === id)
   if (!idea) throw new Error(`no such idea: ${id}`)
+  // Two ideas with the SAME name are indistinguishable in every picker, and createIdea now matches on
+  // the name — so it would have to pick one of them arbitrarily and file a trade under a bet the
+  // operator did not mean. Renaming ONTO an existing name is refused; merging is a delete, not a rename.
+  const clash = book.ideas.find((i) => i.id !== id && i.label.toLowerCase() === clean.toLowerCase())
+  if (clash) throw new Error(`"${clean}" is already the name of another idea`)
   // The id is deliberately NOT re-slugged: assignments point at it, and renaming a label must not
   // silently unassign every trade that carried it.
   idea.label = clean
@@ -214,6 +240,52 @@ export function assignClosures(dir: string, closeTradeIDs: string[], id: string 
   }
   write(dir, book)
   return ids.length
+}
+
+/** Drop position labels whose position is no longer held.
+ *
+ *  THE DEFECT THIS CLOSES. A position label is keyed by symbol and says, in its own field comment, that
+ *  it labels the CURRENT open position. When that position closes, the entry stayed — and the picker
+ *  only renders for current holdings, so it could not be cleared while the position was absent. Buying
+ *  the same ticker again months later then silently inherited the old idea, which is exactly the
+ *  cross-era relabelling this whole module is keyed on trade ids to prevent.
+ *
+ *  Guarded on a non-empty book: with no open positions there is nothing to compare against, and
+ *  pruning against an empty list would wipe every label the moment a statement was removed.
+ *  Returns how many went, so a caller can avoid writing when nothing changed. */
+export function pruneClosedPositions(dir: string, openSymbols: string[]): number {
+  const open = new Set(openSymbols.map(normalizeSymbol).filter(Boolean))
+  if (open.size === 0) return 0
+  const book = readIdeas(dir)
+  const stale = Object.keys(book.assignments.positions).filter((k) => !open.has(k))
+  if (stale.length === 0) return 0
+  for (const k of stale) delete book.assignments.positions[k]
+  write(dir, book)
+  return stale.length
+}
+
+/** Follow a closure label onto the trade that replaced it.
+ *
+ *  A corporate action does not edit a trade in place: IBKR emits a NEW row whose `origTradeID` names
+ *  the one it replaces, and portfolio.ts drops the superseded row. The closure then carries the NEW
+ *  id, so a label stored against the old one silently fell back to Unassigned on the next import —
+ *  losing a historical result the operator had already filed. Returns how many moved. */
+export function migrateClosureIds(dir: string, oldToNew: Record<string, string>): number {
+  const pairs = Object.entries(oldToNew).filter(([a, b]) => a && b && a !== b)
+  if (pairs.length === 0) return 0
+  const book = readIdeas(dir)
+  let moved = 0
+  for (const [oldId, newId] of pairs) {
+    const idea = book.assignments.closures[oldId]
+    if (!idea) continue
+    // The replacement wins only where it is not already labelled — an explicit label on the new row is
+    // the operator's more recent word and must not be overwritten by the row it superseded.
+    if (!book.assignments.closures[newId]) book.assignments.closures[newId] = idea
+    delete book.assignments.closures[oldId]
+    moved += 1
+  }
+  if (moved > 0) write(dir, book)
+  return moved
 }
 
 /** The idea labelling an open position, or null. Never guesses. */
