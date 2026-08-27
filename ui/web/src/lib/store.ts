@@ -4264,6 +4264,8 @@ export const useStore = create<State>((set, get) => ({
   // plane (newsItems, the SSE singleton, enrichment cache, shelf/flags) is deliberately NOT touched.
   _enterWire: (to) => {
     if (get().wireSwarm === to) return
+    archiveToken++ // invalidate any history page still owned by the wire we are leaving
+    facetsToken++ // invalidate its delayed/background facet recount too
     themesRequestSeq++ // invalidate any response owned by the wire we are leaving
     cancelThemeDetailRequest()
     if (themesGeoRefetchTimer) { clearTimeout(themesGeoRefetchTimer); themesGeoRefetchTimer = null }
@@ -5716,7 +5718,7 @@ export const useStore = create<State>((set, get) => ({
   // of filtering the 2-day wire. An empty query returns the rail to LIVE mode (the SSE wire). A monotonic
   // token guards against a stale slow response overwriting a newer search (last-write-wins by query).
   //
-  // The search and the facets are fired together but SETTLED SEPARATELY, and that separation is the fix for
+  // The search and the facets are SETTLED SEPARATELY, and that separation is the fix for
   // a real, reproduced failure: they used to share one `Promise.all`, so when the (much heavier) facets call
   // exceeded the client's request budget, its rejection threw away a search that had already succeeded — and
   // the catch then wrote `results: [], exhausted: true`, which the rail renders as "genuinely nothing matches
@@ -5758,13 +5760,19 @@ export const useStore = create<State>((set, get) => ({
         set({ scArchiveResults: [], scArchiveCursor: null, scArchiveScannedThrough: null, scArchiveExhausted: false, scArchiveLoading: false, scArchiveError: archiveErrorNote(e) })
       },
     )
+    // Let the lightweight result page finish before the worker starts its full-archive facet recount. Both
+    // reads share the archive files, so starting them together made the 100ms history search wait 3–6s for
+    // disk while the recount ran. The previous facet snapshot remains usable while its counts refresh.
+    await search
+    if (token !== archiveToken) return
     // THE DROPDOWNS — never touches the result list. On failure the previous facets stand (stale counts in a
     // dropdown are a cosmetic loss; an erased result list is a false answer).
-    const facets = api.newsFacets(wq).then(
-      (f) => { if (token === archiveToken) set({ scFacets: f, scFacetsLoading: false }) },
-      () => { if (token === archiveToken) set({ scFacetsLoading: false }) },
-    )
-    await Promise.all([search, facets]) // both already handle their own outcome — this only awaits quiescence
+    try {
+      const f = await api.newsFacets(wq)
+      if (token === archiveToken) set({ scFacets: f, scFacetsLoading: false })
+    } catch {
+      if (token === archiveToken) set({ scFacetsLoading: false })
+    }
   },
   scLoadFacets: async (q: ArchiveQuery) => {
     const token = ++facetsToken

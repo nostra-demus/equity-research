@@ -740,7 +740,7 @@ export function EventRail() {
             onChange={(e) => { const cc = e.target.value; setGeo({ country: cc, geoRegion: cc ? countryParent(cc) || filters.geoRegion : filters.geoRegion }) }}
             title={facets ? 'Country — every country that has any archived match' : facetsLoading ? 'Loading the archive’s countries…' : 'Open to load every country in the archive'}
           >
-            <option value="">{facetsLoading ? 'loading countries…' : filters.geoRegion ? `all of ${filters.geoRegion}` : 'any country'}</option>
+            <option value="">{facetsLoading && !facets ? 'loading countries…' : filters.geoRegion ? `all of ${filters.geoRegion}` : 'any country'}</option>
             {countryOptions.map((c) => (
               <option key={c.key} value={c.key}>{c.label} · {c.count}</option>
             ))}
