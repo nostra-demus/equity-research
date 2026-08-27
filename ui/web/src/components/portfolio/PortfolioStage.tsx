@@ -895,19 +895,36 @@ function PositionRow({ p, derivative, isCash, ideas, onChanged }: {
  *  as one line of small red text under the row. An inline input also lets the name be corrected before
  *  it is committed, which a modal dialog cannot.
  */
-function IdeaPicker({ symbol, ideas, onChanged }: {
+function IdeaPicker({ symbol, ideas, onChanged, closeTradeIDs }: {
   symbol: string; ideas: PortfolioIdeaBook; onChanged?: (r: PortfolioRead) => void
+  /** Present on a CLOSED round trip: the broker ids that identify it. Absent means this is the open
+   *  position in `symbol`. The two are labelled separately on purpose — that is what keeps this year's
+   *  AMZN and next year's from sharing a label just because they share a ticker. */
+  closeTradeIDs?: string[]
 }) {
   const [busy, setBusy] = useState(false)
   const [err, setErr] = useState<string | null>(null)
   const [naming, setNaming] = useState(false)
   const [draft, setDraft] = useState('')
-  const current = ideas.assignments.positions[symbol.toUpperCase()] ?? ''
+  const onTrade = Array.isArray(closeTradeIDs)
+  // A round trip's legs can disagree — the operator may have labelled them separately. Showing one of
+  // them as if it were the row's answer would misreport it, so the picker shows no selection and the
+  // row's own '(split)' marker says why.
+  const found = onTrade ? new Set(closeTradeIDs!.map((t) => ideas.assignments.closures[t] ?? '')) : null
+  const current = onTrade
+    ? (found!.size === 1 ? [...found!][0]! : '')
+    : (ideas.assignments.positions[symbol.toUpperCase()] ?? '')
+  // No broker id means no stable key, so there is nothing to label and the control must not pretend.
+  const unlabellable = onTrade && closeTradeIDs!.length === 0
+
+  async function save(id: string | null): Promise<PortfolioRead> {
+    return onTrade ? api.setTradeIdea(closeTradeIDs!, id) : api.setHoldingIdea(symbol, id)
+  }
 
   async function assign(id: string | null) {
     setBusy(true); setErr(null)
     try {
-      onChanged?.(await api.setHoldingIdea(symbol, id))
+      onChanged?.(await save(id))
     } catch (e: any) {
       setErr(String(e?.message || 'that could not be saved'))
     } finally { setBusy(false) }
@@ -924,11 +941,19 @@ function IdeaPicker({ symbol, ideas, onChanged }: {
       const created = await api.createIdea(label)
       const id = created.idea?.id
       if (!id) throw new Error('that idea could not be created')
-      onChanged?.(await api.setHoldingIdea(symbol, id))
+      onChanged?.(await save(id))
       setNaming(false); setDraft('')
     } catch (e: any) {
       setErr(String(e?.message || 'that idea could not be saved'))
     } finally { setBusy(false) }
+  }
+
+  if (unlabellable) {
+    return (
+      <span className="fundbook__idea">
+        <small className="fundbook__lots" title="The broker gave this trade no id, so there is no stable key to hang a label on — a positional one would point at a different trade after the next import.">no trade id</small>
+      </span>
+    )
   }
 
   if (naming) {
@@ -965,14 +990,14 @@ function IdeaPicker({ symbol, ideas, onChanged }: {
         className="fundbook__ideaselect"
         value={current}
         disabled={busy}
-        aria-label={`Idea for ${symbol}`}
+        aria-label={onTrade ? `Idea for the ${symbol} round trip` : `Idea for ${symbol}`}
         onChange={(e) => {
           const v = e.target.value
           if (v === NEW_IDEA) { setNaming(true); setDraft(''); setErr(null); return }
           void assign(v || null)
         }}
       >
-        <option value="">— no idea yet —</option>
+        <option value="">{onTrade && found!.size > 1 ? '— split —' : '— no idea yet —'}</option>
         {ideas.ideas.map((i) => <option key={i.id} value={i.id}>{i.label}</option>)}
         <option value={NEW_IDEA}>+ New idea…</option>
       </select>
@@ -1521,13 +1546,16 @@ function Trades({ book, manual, onChanged, ideas, cashEquivalents, importOpen, o
         </div>
         <div className="fundbook__scroll">
           <div className="fundbook__row fundbook__row--trades fundbook__row--head">
-            <span>Symbol</span><span>Ccy</span><span>Opened</span><span>Closed</span><span className="num">Held</span>
+            <span>Symbol</span><span>Idea</span><span>Ccy</span><span>Opened</span><span>Closed</span><span className="num">Held</span>
             <span className="num">Qty</span><span className="num">Entry</span><span className="num">Exit</span>
             <span className="num">Gross</span><span className="num">Costs</span><span className="num">Realised</span>
             <span className="num">Share</span>
           </div>
           {rows.map((c, i) => (
-            <TradeRow key={`${c.symbol}-${c.closedAt}-${i}`} c={c} grossRealised={stats.grossRealised} />
+            <TradeRow
+              key={`${c.symbol}-${c.closedAt}-${i}`} c={c} grossRealised={stats.grossRealised}
+              ideas={ideas} onChanged={onChanged}
+            />
           ))}
         </div>
       </div>
@@ -1535,7 +1563,10 @@ function Trades({ book, manual, onChanged, ideas, cashEquivalents, importOpen, o
   )
 }
 
-function TradeRow({ c, grossRealised }: { c: TradeRowData; grossRealised: number }) {
+function TradeRow({ c, grossRealised, ideas, onChanged }: {
+  c: TradeRowData; grossRealised: number
+  ideas?: PortfolioIdeaBook; onChanged?: (r: PortfolioRead) => void
+}) {
   // Share of the book's total realised ACTIVITY (winners and losers as magnitudes), so it stays stable
   // when the net happens to sit near zero — where a share of the net would explode into nonsense.
   const share = grossRealised > 0 ? (Math.abs(c.realized) / grossRealised) * 100 : null
@@ -1550,6 +1581,11 @@ function TradeRow({ c, grossRealised }: { c: TradeRowData; grossRealised: number
           >{c.fills > 1 ? `${c.fills} fills` : `${c.lots} lots`}</small>
         )}
       </strong>
+      <span>
+        {ideas
+          ? <IdeaPicker symbol={c.symbol ?? '—'} ideas={ideas} onChanged={onChanged} closeTradeIDs={c.closeTradeIDs} />
+          : <span className="dim">—</span>}
+      </span>
       <span className="dim">{c.currency ?? '—'}</span>
       <span className="dim mono">{(c.openedAt ?? '—').slice(0, 10)}</span>
       <span className="dim mono">{(c.closedAt ?? '—').slice(0, 10)}</span>
