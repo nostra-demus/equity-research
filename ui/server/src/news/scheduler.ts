@@ -1303,7 +1303,13 @@ export function actualProviderRanks(candidates: ProviderCandidateScore[], mode: 
   const bandWeight = (candidate: ProviderCandidateScore): number => candidate.band === 'aggregate' ? 1 : candidate.band === 'demoted-local' ? 2 : 0
   const ordered = [...candidates].filter((candidate) => candidate.eligible).sort((left, right) => {
     if (left.id === right.id) return 0
-    if (left.id === 'anthropic-triage' || right.id === 'anthropic-triage') return left.id === 'anthropic-triage' ? -1 : 1
+    // Outside adaptive mode the chain really does offer every batch to Haiku first, so it genuinely ranks 1.
+    // Under adaptive routing the batch goes to whichever provider the audited fitness selected, so pinning
+    // Haiku here too would make the diagnostics panel report an order the scanner is not running — the
+    // display twin of the routing bug this accompanies, and the reason the slow tier looked authoritative.
+    if (mode !== 'adaptive' && (left.id === 'anthropic-triage' || right.id === 'anthropic-triage')) {
+      return left.id === 'anthropic-triage' ? -1 : 1
+    }
     if (mode === 'adaptive') {
       const band = compareFiniteRank(bandWeight(left), bandWeight(right))
       if (band) return band

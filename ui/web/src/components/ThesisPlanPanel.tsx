@@ -6,6 +6,7 @@ import { Spin } from './Spin'
 import type { ModulePlanEntry, ThesisPlan } from '../lib/types'
 import './ThesisPlanPanel.css'
 import { providerBlockedReason, providerIsBlocked, providerLabel, providerLaunchBlockedReason, providerNeedsCheck, type RunProvider } from '../lib/provider'
+import { ProviderProfileSelector } from './ProviderProfileSelector'
 
 /** Cost/time are calibrated "~" bands, not quotes. Showing "$13.5–31.9" beside "$55–130" implies a precision
  *  neither number has (and reads as sloppy next to it). Round both — same band, honest about its width. */
@@ -139,6 +140,8 @@ export function ThesisPlanPanel() {
   const reopen = useStore((s) => s.openThesisPlan)
   const provider = useStore((s) => s.runProvider)
   const setProvider = useStore((s) => s.setRunProvider)
+  const profileKey = useStore((s) => s.runProfileKeys[provider])
+  const setProfile = useStore((s) => s.setRunProfile)
   const providers = useStore((s) => s.providers)
   const checkProvider = useStore((s) => s.refreshProviders)
   const providerChoiceGeneration = useRef(0)
@@ -322,6 +325,13 @@ export function ThesisPlanPanel() {
                         })()}>{status.checking ? 'checking…' : providerLabel(choice)}</button>
                       })}
                     </span>
+                  </span></div>
+                  <div className="modal__row"><span className="modal__k">Model</span><span className="modal__v">
+                    <ProviderProfileSelector status={providers[provider]} profileKey={profileKey} disabled={pricing || busyOnTicker} onChange={(key) => void (async () => {
+                      ++providerChoiceGeneration.current
+                      setProfile(provider, key)
+                      await reopen()
+                    })()} />
                   </span></div>
                 </div>
 

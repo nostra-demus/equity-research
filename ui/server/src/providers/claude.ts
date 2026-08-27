@@ -2,10 +2,11 @@ import { execa } from 'execa'
 import { execFileSync } from 'node:child_process'
 import { createHash, randomUUID } from 'node:crypto'
 import fs from 'node:fs'
+import http from 'node:http'
 import net from 'node:net'
 import os from 'node:os'
 import path from 'node:path'
-import { CLAUDE_BIN, DATA_DIR, DEFAULT_MODEL, REPO_ROOT, STATE_DIR } from '../config'
+import { CLAUDE_BIN, DATA_DIR, PUBLICATION_SOCKET_ROOT, REPO_ROOT, STATE_DIR } from '../config'
 import type { CreditPreflight } from '../types'
 import { registerProviderAdapter } from './registry'
 import type {
@@ -171,10 +172,18 @@ export function claudeSandboxSettings(
     path.resolve(os.homedir()), canonicalPath(os.homedir()),
     path.resolve(os.tmpdir()), canonicalPath(os.tmpdir()),
   ])]
+  // The publication helper must lstat the exact run-scoped socket and its private parent before it
+  // connects. Re-open only those two metadata paths in the separate owner-only IPC tree; STATE_DIR stays
+  // wholly unreadable. The supervisor owns both inodes, verifies them on every request, and grants no write.
+  const publicationMetadataReads = context.publicationSocketPath ? [
+    path.dirname(path.resolve(context.publicationSocketPath)),
+    path.resolve(context.publicationSocketPath),
+  ] : []
   const allowedReads = [...new Set([
     path.resolve(context.cwd), canonicalPath(context.cwd),
     path.resolve(context.additionalWritableDataRoot), canonicalPath(context.additionalWritableDataRoot),
     ...(mirrorCwd ? [path.resolve(mirrorCwd), canonicalPath(mirrorCwd)] : []),
+    ...publicationMetadataReads.flatMap((value) => [path.resolve(value), canonicalPath(value)]),
   ])]
   const mirrorAlias = (value: string): string[] => {
     if (!mirrorCwd) return []
@@ -656,8 +665,10 @@ async function assertClaudeSandboxRuntime(): Promise<void> {
   const proof = (async () => {
     fs.mkdirSync(STATE_DIR, { recursive: true, mode: 0o700 })
     fs.chmodSync(STATE_DIR, 0o700)
+    fs.mkdirSync(PUBLICATION_SOCKET_ROOT, { recursive: true, mode: 0o700 })
+    fs.chmodSync(PUBLICATION_SOCKET_ROOT, 0o700)
     const id = randomUUID()
-    const supervisorDir = fs.mkdtempSync(path.join(STATE_DIR, 'claude-srt-proof-'))
+    const supervisorDir = fs.mkdtempSync(path.join(PUBLICATION_SOCKET_ROOT, 'claude-srt-proof-'))
     // SRT creates its proxy/multiplexer socket below TMPDIR. Keep this exact disposable path short
     // enough for Darwin's 103-byte sockaddr_un ceiling; broad /tmp remains denied except this root.
     const mirrorDir = fs.mkdtempSync('/tmp/nostra-claude-srt-')
@@ -668,7 +679,7 @@ async function assertClaudeSandboxRuntime(): Promise<void> {
     const socketPath = path.join(supervisorDir, 'p.sock')
     const deniedSocketPath = path.join(supervisorDir, 'denied.sock')
     const settingsPath = path.join(supervisorDir, 'settings.json')
-    const stateSentinel = path.join(supervisorDir, 'state-secret')
+    const stateSentinel = path.join(STATE_DIR, `.claude-srt-state-${id}`)
     const homeSentinel = path.join(os.homedir(), `.nostra-claude-srt-home-${id}`)
     const tempSentinel = path.join(os.tmpdir(), `.nostra-claude-srt-tmp-${id}`)
     const deniedRepoWrite = path.join(REPO_ROOT, `.nostra-claude-srt-write-${id}`)
@@ -677,7 +688,19 @@ async function assertClaudeSandboxRuntime(): Promise<void> {
       cwd: REPO_ROOT, encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'],
     }).trim()
     const gitSentinel = path.join(gitDir, 'HEAD')
-    const unixServer = net.createServer((socket) => socket.end())
+    const publicationToken = randomUUID()
+    const unixServer = http.createServer((request, response) => {
+      let body = ''
+      request.setEncoding('utf8')
+      request.on('data', (chunk) => { if (body.length <= 4096) body += chunk })
+      request.on('end', () => {
+        const token = request.headers['x-nostra-publication-token']
+        const valid = request.method === 'POST' && request.url === '/publication'
+          && token === publicationToken && body === '{"phase":"sandbox-boundary-probe"}'
+        response.writeHead(valid ? 200 : 400, { 'content-type': 'application/json' })
+        response.end(JSON.stringify(valid ? { ok: true, probe: true } : { error: 'invalid probe' }))
+      })
+    })
     const deniedUnixServer = net.createServer((socket) => socket.end())
     const tcpServer = net.createServer((socket) => socket.end())
     try {
@@ -711,6 +734,9 @@ async function assertClaudeSandboxRuntime(): Promise<void> {
       probeEnv.TEMP = scratchDir
       probeEnv.XDG_CACHE_HOME = scratchDir
       probeEnv.PYTHONDONTWRITEBYTECODE = '1'
+      probeEnv.NOSTRA_PUBLICATION_ENDPOINT = 'http://localhost/publication'
+      probeEnv.NOSTRA_PUBLICATION_SOCKET = socketPath
+      probeEnv.NOSTRA_PUBLICATION_TOKEN = publicationToken
       const result = await execa(srt, [
         '-s', settingsPath,
         'python3', path.join(REPO_ROOT, 'scripts', 'ops', 'claude-sandbox-probe.py'),
@@ -726,6 +752,7 @@ async function assertClaudeSandboxRuntime(): Promise<void> {
         '--unix-socket', socketPath,
         '--denied-unix-socket', deniedSocketPath,
         '--loopback-port', String(address.port),
+        '--publication-helper', path.join(REPO_ROOT, 'scripts', 'supervisor_publication.py'),
       ], { cwd: mirrorDir, env: probeEnv, extendEnv: false, reject: false, timeout: 45_000 })
       if (result.failed || result.exitCode !== 0 || !result.stdout.includes('CLAUDE_SANDBOX_BOUNDARY_OK=1')) {
         throw new Error(`tracked Claude OS boundary proof failed: ${(result.stderr || result.stdout || 'unknown error').slice(-1000)}`)
@@ -736,7 +763,7 @@ async function assertClaudeSandboxRuntime(): Promise<void> {
       }
     } finally {
       await Promise.all([closeServer(unixServer), closeServer(deniedUnixServer), closeServer(tcpServer)])
-      for (const candidate of [homeSentinel, tempSentinel, deniedRepoWrite]) {
+      for (const candidate of [stateSentinel, homeSentinel, tempSentinel, deniedRepoWrite]) {
         try { fs.unlinkSync(candidate) } catch { /* absent */ }
       }
       fs.rmSync(mirrorDir, { recursive: true, force: true })
@@ -803,8 +830,35 @@ async function getAvailability(options: { refresh?: boolean } = {}): Promise<Pro
   return { ...result }
 }
 
-function resolveProfile(request: { model?: string; reasoningLevel?: string }): ResolvedProviderProfile {
-  const model = request.model || DEFAULT_MODEL
+export const CLAUDE_DEFAULT_RUN_MODEL = 'opus'
+export const CLAUDE_RUN_MODELS = [
+  { model: 'opus', label: 'Opus', description: 'Highest quality · Opus across the research swarm' },
+  { model: 'sonnet', label: 'Sonnet', description: 'Balanced · Sonnet swarm with Opus memo roles' },
+] as const
+
+function resolveProfile(request: { model?: string; reasoningLevel?: string; profileKey?: string }): ResolvedProviderProfile {
+  const requestedModel = String(request.model || '').trim().toLowerCase()
+  const requestedKey = String(request.profileKey || '').trim()
+  const keyedModel = requestedKey.match(/^claude:(opus|sonnet):default$/)?.[1]
+  if (requestedKey && !keyedModel) {
+    const error: any = new Error(`Unsupported Claude execution profile '${request.profileKey}'.`)
+    error.statusCode = 400
+    error.code = 'CLAUDE_PROFILE_INVALID'
+    throw error
+  }
+  const model = keyedModel || requestedModel || CLAUDE_DEFAULT_RUN_MODEL
+  if (!CLAUDE_RUN_MODELS.some((candidate) => candidate.model === model)) {
+    const error: any = new Error(`Unsupported Claude research model '${request.model}'. Choose Opus or Sonnet.`)
+    error.statusCode = 400
+    error.code = 'CLAUDE_PROFILE_INVALID'
+    throw error
+  }
+  if (keyedModel && requestedModel && requestedModel !== keyedModel) {
+    const error: any = new Error('Claude model and execution-profile key disagree.')
+    error.statusCode = 409
+    error.code = 'CLAUDE_PROFILE_CHANGED'
+    throw error
+  }
   const reasoningLevel = request.reasoningLevel || 'default'
   if (reasoningLevel !== 'default') {
     const error: any = new Error(`Claude's cockpit profile uses its CLI default reasoning; received '${reasoningLevel}'.`)
@@ -1013,13 +1067,14 @@ export const claudeProviderAdapter: ProviderAdapter = {
     provider: 'claude',
     label: 'Claude',
     description: 'Run the cockpit through Claude Code.',
-    defaultModel: DEFAULT_MODEL,
-    reasoningLevels: ['default'],
-    models: [
-      { id: 'sonnet', label: 'Sonnet' },
-      { id: 'opus', label: 'Opus' },
-      { id: 'haiku', label: 'Haiku' },
-    ],
+    defaultProfileKey: `claude:${CLAUDE_DEFAULT_RUN_MODEL}:default`,
+    profiles: CLAUDE_RUN_MODELS.map(({ model, label, description }) => {
+      const resolved = resolveProfile({ model })
+      return {
+        key: resolved.profileKey, label, description, model: resolved.model,
+        reasoningLevel: resolved.reasoningLevel, executionProfile: resolved.executionProfile,
+      }
+    }),
     supportsUsage: true,
   },
   resolveProfile,

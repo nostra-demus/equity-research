@@ -1034,7 +1034,7 @@ export function thesisPlan(
     preflight: chainedResumePreflight(safe, run, selection, swarmId),
     fullPreflight: estimate(
       'full', safe, selection.provider, undefined, undefined,
-      isResearch ? undefined : swarmId, selection.model, selection.reasoningLevel,
+      isResearch ? undefined : swarmId, selection.model, selection.reasoningLevel, selection.expectedProfileKey,
     ),
     canCarry,
   }

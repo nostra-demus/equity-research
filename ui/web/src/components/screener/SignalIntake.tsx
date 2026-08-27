@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useStore } from '../../lib/store'
 import { Spin } from '../Spin'
+import { ProviderProfileSelector } from '../ProviderProfileSelector'
 import { providerBlockedReason, providerIsBlocked, providerLabel, providerLaunchBlockedReason, providerNeedsCheck, type RunProvider } from '../../lib/provider'
 
 // The Phase 0.1 intake doc's input_nature enum — kept verbatim so the agent-side schema validates.
@@ -34,6 +35,8 @@ export function SignalIntake() {
   const seed = useStore((s) => s.signalIntakeSeed)
   const provider = useStore((s) => s.runProvider)
   const setProvider = useStore((s) => s.setRunProvider)
+  const profileKey = useStore((s) => s.runProfileKeys[provider])
+  const setProfile = useStore((s) => s.setRunProfile)
   const providers = useStore((s) => s.providers)
   const checkProvider = useStore((s) => s.refreshProviders)
   const providerProblem = providerLaunchBlockedReason(providers[provider], providers.catalogState)
@@ -91,6 +94,8 @@ export function SignalIntake() {
                 return <button key={choice} role="radio" aria-checked={provider === choice} className={`providerseg__btn${provider === choice ? ' providerseg__btn--on' : ''}`} disabled={providerIsBlocked(status)} title={problem || (providerNeedsCheck(status) ? `Check ${providerLabel(choice)} status` : `Run with ${providerLabel(choice)}`)} onClick={() => { setProvider(choice); if (providerNeedsCheck(status) && !status.checking) void checkProvider(choice) }}>{status.checking ? 'checking…' : providerLabel(choice)}</button>
               })}
             </div>
+            <label className="intake__label">Model</label>
+            <ProviderProfileSelector status={providers[provider]} profileKey={profileKey} onChange={(key) => setProfile(provider, key)} />
             {providerProblem && <div className="intake__hint" style={{ color: 'var(--bad)' }}>{providerProblem}. Choose an available provider to continue.</div>}
 
             <label className="intake__label">What kind of event is this?</label>

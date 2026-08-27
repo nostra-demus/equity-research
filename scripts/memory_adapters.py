@@ -343,9 +343,13 @@ def _screener_idea_subjects(record: dict[str, Any], relative_path: str) -> list[
 
 
 def _screener_idea_archive_subjects(record: dict[str, Any], relative_path: str) -> list[str]:
-    snapshot = record.get("snapshot")
-    if isinstance(snapshot, dict):
-        return _screener_idea_subjects(snapshot, relative_path)
+    # The archive directory holds three writer schemas: idea-archive/v1 nests the idea under
+    # "snapshot", idea-board-recovery/v1 nests it under "board_row", and
+    # idea-archive-suppression/v1 carries the identifiers flat on the record.
+    for key in ("snapshot", "board_row"):
+        nested = record.get(key)
+        if isinstance(nested, dict):
+            return _screener_idea_subjects(nested, relative_path)
     return _screener_idea_subjects(record, relative_path)
 
 
@@ -479,8 +483,12 @@ def _classify(relative_path: str) -> SourceSpec | None:
             and path.suffix == ".json" and path.name != "retention.json"):
         return SourceSpec(
             "screener_idea_archive", "screener.idea.archived", "json",
-            ("archived_at", "updated_at", "snapshot.updated_at"),
-            ("snapshot.idea_version_started_at", "snapshot.surfaced_at", "archived_at"),
+            ("archived_at", "recovered_at", "suppressed_at",
+             "updated_at", "snapshot.updated_at", "board_row.updated_at"),
+            ("snapshot.idea_version_started_at", "snapshot.surfaced_at",
+             "board_row.idea_version_started_at", "board_row.surfaced_at",
+             "idea_version_started_at", "surfaced_at",
+             "archived_at", "recovered_at", "suppressed_at"),
             _screener_idea_archive_subjects, _no_run,
             lambda row: _legacy_version(row, "screener-idea-archive"),
         )
@@ -1133,6 +1141,25 @@ def adapt_source(
     return _adapt_source(root, source_path)
 
 
+def _link_derived_from(
+    child: Event, parent: Event, source_path: str, label: str,
+    diagnostics: list[Diagnostic],
+) -> bool:
+    """Link child->parent only when the parent is strictly earlier.
+
+    Both records can fall back to the same git commit time when they were committed together,
+    which leaves the derivation order unestablished rather than known.
+    """
+    if _system_datetime(parent["system_time"]) >= _system_datetime(child["system_time"]):
+        diagnostics.append(_diagnostic(
+            "warning", "unordered_derivation", source_path, "json",
+            f"{label} does not have an earlier system_time; derived_from link omitted",
+        ))
+        return False
+    child["derived_from"] = _unique([*child["derived_from"], parent["event_id"]])
+    return True
+
+
 def _resolve_correction_links(events: list[Event], diagnostics: list[Diagnostic]) -> None:
     by_source = {event["payload"]["source_path"]: event for event in events}
     for correction in [
@@ -1144,9 +1171,7 @@ def _resolve_correction_links(events: list[Event], diagnostics: list[Diagnostic]
         original_path = (run_root / "decision_record.json").as_posix()
         original = by_source.get(original_path)
         if original:
-            correction["derived_from"] = _unique([
-                *correction["derived_from"], original["event_id"],
-            ])
+            _link_derived_from(correction, original, source_path, repr(original_path), diagnostics)
         else:
             diagnostics.append(_diagnostic(
                 "warning", "unresolved_correction_source", source_path, "json",
@@ -1173,9 +1198,7 @@ def _resolve_correction_links(events: list[Event], diagnostics: list[Diagnostic]
             ))
             continue
         target["supersedes"] = _unique([*target["supersedes"], original["event_id"]])
-        correction["derived_from"] = _unique([
-            *correction["derived_from"], target["event_id"],
-        ])
+        _link_derived_from(correction, target, source_path, repr(target_path), diagnostics)
 
 
 def adapt_repository(repo_root: str | Path) -> tuple[list[Event], list[Diagnostic]]:

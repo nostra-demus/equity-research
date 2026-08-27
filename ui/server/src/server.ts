@@ -692,6 +692,8 @@ async function providerStatus(provider: RunProvider, checkUsage = false) {
     checked: true,
     reason: availability.reason,
     profile: resolved.executionProfile,
+    defaultProfileKey: adapter.profile.defaultProfileKey,
+    profiles: adapter.profile.profiles,
     usage,
     cliVersion: availability.cliVersion,
   }
@@ -770,11 +772,10 @@ const ProviderLaunchFields = {
   reasoningLevel: z.string().regex(/^[a-z0-9_-]{1,24}$/i).optional(),
   expectedProfileKey: z.string().min(1).max(240).optional(),
 }
-const ProviderQuery = z.object({
-  provider: z.enum(['claude', 'codex']).default('claude'),
-  model: z.string().regex(/^[a-z0-9.\-]{1,40}$/i).optional(),
-  reasoningLevel: z.string().regex(/^[a-z0-9_-]{1,24}$/i).optional(),
-})
+// Query and POST launch boundaries must parse the exact same provider/profile identity. Keeping one
+// field set prevents a newly added immutable field from being accepted by paid POSTs but silently
+// stripped from estimates (which would make a non-default model impossible to price or confirm).
+const ProviderQuery = z.object(ProviderLaunchFields)
 const ProviderBody = z.object(ProviderLaunchFields)
 const ExactPlanBindingFields = {
   planPath: z.string().min(1).max(700).optional(),
@@ -867,7 +868,7 @@ function boundLaunchEstimate(
     if (runRoot || decisionFingerprint || planPath || planSha256 || sourceDecisionFingerprint) {
       return reply.code(400).send({ error: 'exact call binding is rerun-only' })
     }
-    return estimate(kind, subject, selection.provider, module, agent, swarm, selection.model, selection.reasoningLevel)
+    return estimate(kind, subject, selection.provider, module, agent, swarm, selection.model, selection.reasoningLevel, selection.expectedProfileKey)
   }
   const binding = exactDecisionLaunchBinding(swarm || RESEARCH_SWARM_ID, subject, runRoot, decisionFingerprint)
   if (!binding) return reply.code(409).send({ error: 'selected_decision_required' })
@@ -879,7 +880,7 @@ function boundLaunchEstimate(
     : undefined
   if (requestedPlan && !intakePlan) return reply.code(409).send({ error: 'intake_plan_changed' })
   return {
-    ...estimate(kind, subject, selection.provider, module, agent, swarm, selection.model, selection.reasoningLevel),
+    ...estimate(kind, subject, selection.provider, module, agent, swarm, selection.model, selection.reasoningLevel, selection.expectedProfileKey),
     exactDecisionBinding: exactDecisionLaunchReceipt(binding, intakePlan ?? undefined),
   }
 }

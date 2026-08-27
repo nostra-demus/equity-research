@@ -1,7 +1,18 @@
 import assert from 'node:assert/strict'
-import { automaticResumeMatches, CODEX_EXECUTION_PROFILE, executionProfileLabel, freezeProviderLaunch, launchProviderReceiptMatches, manualResumeConfirmation, normalizeProvidersRead, optionalNestedLaunchResponseMatches, providerBlockedReason, providerCatalogFallback, providerCatalogForError, providerCatalogUnknown, providerIsBlocked, providerLaunchBlockedReason, providerNeedsCheck, providerUsagePercentText, providerUsageUnavailableText, readRunProvider, resumeExecutionDisposition, RUN_PROVIDER_STORAGE_KEY, saveRunProvider, trackedLaunchResponseMatches } from './provider'
+import { automaticResumeMatches, CODEX_EXECUTION_PROFILE, CODEX_SOL_ONLY_EXECUTION_PROFILE, executionProfileLabel, freezeProviderLaunch, launchProviderReceiptMatches, manualResumeConfirmation, normalizeProvidersRead, optionalNestedLaunchResponseMatches, providerBlockedReason, providerCatalogFallback, providerCatalogForError, providerCatalogUnknown, providerIsBlocked, providerLaunchBlockedReason, providerNeedsCheck, providerUsagePercentText, providerUsageUnavailableText, readRunProfileKey, readRunProvider, resumeExecutionDisposition, RUN_PROFILE_STORAGE_PREFIX, RUN_PROVIDER_STORAGE_KEY, saveRunProfileKey, saveRunProvider, selectedProviderProfile, trackedLaunchResponseMatches } from './provider'
 
 const CLAUDE_PROFILE = { key: 'claude:opus:default', parentModel: 'opus', parentReasoning: 'default' }
+const CLAUDE_SONNET_PROFILE = { key: 'claude:sonnet:default', parentModel: 'sonnet', parentReasoning: 'default' }
+const profileOptions = {
+  claude: [
+    { key: CLAUDE_PROFILE.key, label: 'Opus', description: 'Highest quality', model: 'opus', reasoningLevel: 'default', executionProfile: CLAUDE_PROFILE },
+    { key: CLAUDE_SONNET_PROFILE.key, label: 'Sonnet', description: 'Balanced', model: 'sonnet', reasoningLevel: 'default', executionProfile: CLAUDE_SONNET_PROFILE },
+  ],
+  codex: [
+    { key: CODEX_EXECUTION_PROFILE.key, label: 'Sol + Terra', description: 'Balanced', model: 'gpt-5.6-sol', reasoningLevel: 'max', executionProfile: CODEX_EXECUTION_PROFILE },
+    { key: CODEX_SOL_ONLY_EXECUTION_PROFILE.key, label: 'Sol only', description: 'Highest quality', model: 'gpt-5.6-sol', reasoningLevel: 'max', executionProfile: CODEX_SOL_ONLY_EXECUTION_PROFILE },
+  ],
+}
 const providerRow = (provider: 'claude' | 'codex', availability: 'available' | 'unavailable' | 'unknown', overrides: Record<string, unknown> = {}) => ({
   provider,
   enabled: true,
@@ -9,6 +20,8 @@ const providerRow = (provider: 'claude' | 'codex', availability: 'available' | '
   checked: true,
   availability,
   profile: provider === 'claude' ? CLAUDE_PROFILE : CODEX_EXECUTION_PROFILE,
+  defaultProfileKey: provider === 'claude' ? CLAUDE_PROFILE.key : CODEX_EXECUTION_PROFILE.key,
+  profiles: profileOptions[provider],
   ...overrides,
 })
 
@@ -24,6 +37,13 @@ assert.equal(values.get(RUN_PROVIDER_STORAGE_KEY), 'codex')
 assert.equal(readRunProvider(storage), 'codex', 'the provider choice is sticky')
 values.set(RUN_PROVIDER_STORAGE_KEY, 'invalid')
 assert.equal(readRunProvider(storage), 'claude', 'malformed preferences fail safely to Claude')
+assert.equal(readRunProfileKey('claude', storage), CLAUDE_PROFILE.key, 'Claude defaults to highest-quality Opus')
+assert.equal(readRunProfileKey('codex', storage), CODEX_EXECUTION_PROFILE.key, 'Codex defaults to its reviewed balanced profile')
+saveRunProfileKey('claude', CLAUDE_SONNET_PROFILE.key, storage)
+saveRunProfileKey('codex', CODEX_SOL_ONLY_EXECUTION_PROFILE.key, storage)
+assert.equal(values.get(`${RUN_PROFILE_STORAGE_PREFIX}claude`), CLAUDE_SONNET_PROFILE.key)
+assert.equal(readRunProfileKey('claude', storage), CLAUDE_SONNET_PROFILE.key, 'Claude model choice is sticky')
+assert.equal(readRunProfileKey('codex', storage), CODEX_SOL_ONLY_EXECUTION_PROFILE.key, 'Codex model choice is sticky')
 
 assert.equal(executionProfileLabel({
   provider: 'codex', enabled: true, available: true, checked: true,
@@ -44,6 +64,12 @@ const catalog = normalizeProvidersRead({ providers: [
 assert.ok(catalog)
 assert.equal(catalog.catalogState, 'valid')
 assert.equal(providerIsBlocked(catalog.codex), false, 'rate-limited but runtime-available stays selectable')
+assert.equal(catalog.claude.profiles?.length, 2)
+assert.equal(catalog.codex.profiles?.length, 2)
+assert.equal(selectedProviderProfile(catalog.claude, CLAUDE_SONNET_PROFILE.key)?.label, 'Sonnet')
+assert.equal(selectedProviderProfile(catalog.claude, 'claude:removed-model:default'), null,
+  'an explicit unknown model never silently substitutes the default')
+assert.equal(executionProfileLabel(catalog.codex, CODEX_SOL_ONLY_EXECUTION_PROFILE.key), 'Sol only')
 
 const authMissing = normalizeProvidersRead({ providers: [
   providerRow('claude', 'available'),
@@ -66,10 +92,24 @@ assert.equal(normalizeProvidersRead({ providers: [
   providerRow('claude', 'available'),
   providerRow('codex', 'available', { profile: { ...CODEX_EXECUTION_PROFILE, specialistReasoning: 'high' } }),
 ] }), null, 'Codex catalogue must prove the exact Sol/max + Terra/xhigh profile')
+assert.equal(normalizeProvidersRead({ providers: [
+  providerRow('claude', 'available', { profiles: undefined }),
+  providerRow('codex', 'available'),
+] }), null, 'an older server without a model catalogue cannot overwrite or launch a saved model')
+assert.equal(normalizeProvidersRead({ providers: [
+  providerRow('claude', 'available', { profiles: [{ ...profileOptions.claude[0], label: '' }, profileOptions.claude[1]] }),
+  providerRow('codex', 'available'),
+] }), null, 'malformed selectable profiles fail the whole catalogue closed')
+assert.equal(normalizeProvidersRead({ providers: [
+  providerRow('claude', 'available', { defaultProfileKey: CLAUDE_SONNET_PROFILE.key }),
+  providerRow('codex', 'available'),
+] }), null, 'the default profile key must describe the authoritative default execution profile')
 const fallback = providerCatalogFallback('old server')
 assert.equal(fallback.catalogState, 'fallback')
 assert.equal(providerIsBlocked(fallback.claude), false, 'legacy Claude remains available')
 assert.equal(providerIsBlocked(fallback.codex), true, 'Codex fails closed when the contract is absent')
+assert.match(providerLaunchBlockedReason(fallback.claude, fallback.catalogState) || '', /cannot verify model selection/i,
+  'a new client never launches an unverified legacy default after model choice exists')
 assert.match(providerLaunchBlockedReason({ provider: 'codex', enabled: true, available: false, checked: false }, 'unknown') || '', /not been verified/, 'persisted Codex cannot launch during catalogue discovery')
 assert.equal(providerLaunchBlockedReason(catalog.codex, catalog.catalogState), null, 'a proved current Codex contract can launch even when usage is rate-limited')
 assert.equal(providerCatalogForError({ status: 404 }).catalogState, 'fallback', 'only exact 404 proves the legacy endpoint')
@@ -82,6 +122,8 @@ for (const error of [{ status: 500 }, { status: '404' }, new Error('timeout'), n
 assert.equal(providerCatalogUnknown().claude.available, false, 'malformed/transient catalogues block Claude too')
 
 const codexSelection = freezeProviderLaunch(catalog.codex, 'valid')!
+assert.equal(freezeProviderLaunch(catalog.codex, 'valid', 'codex|removed-profile'), null,
+  'a stale explicit profile fails closed instead of launching the default')
 const codexReceipt = { provider: 'codex', profileKey: codexSelection.expectedProfileKey, model: codexSelection.model, reasoningLevel: codexSelection.reasoningLevel, executionProfile: codexSelection.executionProfile }
 assert.equal(launchProviderReceiptMatches({ preflight: codexReceipt }, codexSelection, 'valid'), true)
 assert.equal(launchProviderReceiptMatches({ provider: 'claude', preflight: codexReceipt }, codexSelection, 'valid'), false, 'contradictory echoes fail')
@@ -90,8 +132,8 @@ assert.equal(launchProviderReceiptMatches({ preflight: { ...codexReceipt, execut
 assert.equal(launchProviderReceiptMatches({ ...codexReceipt, preflight: { ...codexReceipt, executionProfile: { ...codexSelection.executionProfile, specialistModel: 'other' } } }, codexSelection, 'valid'), false, 'one exact receipt cannot mask a contradictory nested profile')
 assert.equal(launchProviderReceiptMatches({ ...codexReceipt, launch: { preflight: { ...codexReceipt, profileKey: 'rolled-profile' } } }, codexSelection, 'valid'), false, 'contradictory deeply nested CAS fields fail closed')
 assert.equal(launchProviderReceiptMatches({ preflight: {} }, codexSelection, 'valid'), false, 'a current launch cannot omit its full execution receipt')
-const legacyClaude = freezeProviderLaunch(fallback.claude, 'fallback')!
-assert.equal(launchProviderReceiptMatches({ preflight: {} }, legacyClaude, 'fallback'), true, 'only proved legacy Claude may omit the echo')
+assert.equal(freezeProviderLaunch(fallback.claude, 'fallback'), null,
+  'an old server cannot silently choose Claude Sonnet for a new client that defaults to Opus')
 assert.equal(launchProviderReceiptMatches({}, codexSelection, 'valid', false), true, 'a no-launch idempotent response needs no receipt')
 assert.equal(trackedLaunchResponseMatches({ alreadyPromoted: true }, codexSelection, 'valid', true), true)
 assert.equal(trackedLaunchResponseMatches({ alreadyPromoted: true, provider: 'claude' }, codexSelection, 'valid', true), false,
@@ -108,7 +150,23 @@ assert.equal(optionalNestedLaunchResponseMatches({ analyzing: true, provider: 'c
 
 const exactCodexRecord = { provider: 'codex' as const, executionProfile: CODEX_EXECUTION_PROFILE }
 assert.equal(manualResumeConfirmation([exactCodexRecord], codexSelection), null)
+const solOnlySelection = freezeProviderLaunch(catalog.codex, 'valid', CODEX_SOL_ONLY_EXECUTION_PROFILE.key)!
+assert.deepEqual(solOnlySelection, {
+  provider: 'codex',
+  expectedProfileKey: CODEX_SOL_ONLY_EXECUTION_PROFILE.key,
+  model: 'gpt-5.6-sol',
+  reasoningLevel: 'max',
+  executionProfile: CODEX_SOL_ONLY_EXECUTION_PROFILE,
+}, 'Sol-only selection freezes the exact parent and specialist profile')
 const claudeSelection = freezeProviderLaunch(catalog.claude, 'valid')!
+const sonnetSelection = freezeProviderLaunch(catalog.claude, 'valid', CLAUDE_SONNET_PROFILE.key)!
+assert.deepEqual(sonnetSelection, {
+  provider: 'claude',
+  expectedProfileKey: CLAUDE_SONNET_PROFILE.key,
+  model: 'sonnet',
+  reasoningLevel: 'default',
+  executionProfile: CLAUDE_SONNET_PROFILE,
+}, 'Claude Sonnet selection freezes independently from the Opus default')
 assert.match(manualResumeConfirmation([{ provider: 'claude', executionProfile: CLAUDE_PROFILE }], codexSelection) || '', /Mixed \(Claude → Codex\)/)
 assert.match(manualResumeConfirmation([{ provider: 'codex' }], codexSelection) || '', /original exact provider\/profile is unknown/)
 assert.match(manualResumeConfirmation([{ provider: 'claude', executionProfile: { key: 'claude:sonnet:default', parentModel: 'sonnet', parentReasoning: 'default' } }], claudeSelection) || '', /profile changed|now configured/i)

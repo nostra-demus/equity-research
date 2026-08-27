@@ -27,11 +27,34 @@ class FakeEventSource {
 ;(globalThis as any).EventSource = FakeEventSource
 
 const { api } = await import('./api')
-const { providerCatalogFallback } = await import('./provider')
 const { useStore } = await import('./store')
-const CLAUDE_SELECTION = { provider: 'claude' as const, legacyClaudeFallback: true as const }
+const CLAUDE_PROFILE = { key: 'claude:opus:default', parentModel: 'opus', parentReasoning: 'default' }
+const CLAUDE_SELECTION = {
+  provider: 'claude' as const,
+  expectedProfileKey: CLAUDE_PROFILE.key,
+  model: CLAUDE_PROFILE.parentModel,
+  reasoningLevel: CLAUDE_PROFILE.parentReasoning,
+  executionProfile: CLAUDE_PROFILE,
+}
 const CODEX_PROFILE = { key: 'codex|gpt-5.6-sol:max|gpt-5.6-terra:xhigh', parentModel: 'gpt-5.6-sol', parentReasoning: 'max', specialistModel: 'gpt-5.6-terra', specialistReasoning: 'xhigh' }
+const CODEX_SOL_ONLY_PROFILE = { key: 'codex|gpt-5.6-sol:max|gpt-5.6-sol:max', parentModel: 'gpt-5.6-sol', parentReasoning: 'max', specialistModel: 'gpt-5.6-sol', specialistReasoning: 'max' }
 const CODEX_SELECTION = { provider: 'codex' as const, expectedProfileKey: CODEX_PROFILE.key, model: CODEX_PROFILE.parentModel, reasoningLevel: CODEX_PROFILE.parentReasoning, executionProfile: CODEX_PROFILE }
+const providerCatalog = () => ({
+  claude: {
+    provider: 'claude' as const, enabled: true, available: true, checked: true, status: 'available',
+    profile: CLAUDE_PROFILE, defaultProfileKey: CLAUDE_PROFILE.key,
+    profiles: [{ key: CLAUDE_PROFILE.key, label: 'Opus', description: 'Highest quality', model: 'opus', reasoningLevel: 'default', executionProfile: CLAUDE_PROFILE }],
+  },
+  codex: {
+    provider: 'codex' as const, enabled: true, available: true, checked: true, status: 'available',
+    profile: CODEX_PROFILE, defaultProfileKey: CODEX_PROFILE.key,
+    profiles: [
+      { key: CODEX_PROFILE.key, label: 'Sol + Terra', description: 'Balanced', model: 'gpt-5.6-sol', reasoningLevel: 'max', executionProfile: CODEX_PROFILE },
+      { key: CODEX_SOL_ONLY_PROFILE.key, label: 'Sol only', description: 'Highest quality', model: 'gpt-5.6-sol', reasoningLevel: 'max', executionProfile: CODEX_SOL_ONLY_PROFILE },
+    ],
+  },
+  catalogState: 'valid' as const,
+})
 
 const original = {
   estimate: api.estimate,
@@ -66,7 +89,8 @@ const preflight = (
   planOrigin?: { planPath: string; planSha256: string; sourceDecisionFingerprint: string },
 ): LaunchPreflight => ({
   kind, ticker, ...(swarm && swarm !== 'research' ? { swarm } : {}),
-  provider: 'claude',
+  provider: 'claude', profileKey: CLAUDE_PROFILE.key, model: CLAUDE_PROFILE.parentModel,
+  reasoningLevel: CLAUDE_PROFILE.parentReasoning, executionProfile: CLAUDE_PROFILE,
   ...(kind === 'rerun' ? { module: orb.module, agent: orb.name } : {}),
   ...(kind === 'rerun' && exact ? { exactDecisionBinding: {
     contractVersion: 'exact-decision-launch/1',
@@ -96,7 +120,8 @@ try {
     staticMode: false, health: 'online', swarms: [research, commodity], activeSwarm: 'research',
     constellationSwarm: 'research', selectedTicker: 'AAA', selectToken: 101, warp: null,
     graph, nodesByKey: new Map([[orb.key, orb]]), activeRuns: {}, launchConfirm: null, launchPending: null,
-    runRoot: exactAAA.run_root, dataNeeds: null, providers: providerCatalogFallback(), runProvider: 'claude',
+    runRoot: exactAAA.run_root, dataNeeds: null, providers: providerCatalog(), runProvider: 'claude',
+    runProfileKeys: { claude: CLAUDE_PROFILE.key, codex: CODEX_PROFILE.key },
   })
 
   const fullEstimate = deferred<LaunchPreflight>()
@@ -425,7 +450,7 @@ try {
 
   // Claude and Codex share one accepted-launch contract: same full-run acknowledgement payload, same
   // immediate Activity visibility, and the exact frozen provider/profile stamped on the live run.
-  const claudeProfile = { key: 'claude:opus:default', parentModel: 'opus', parentReasoning: 'default' }
+  const claudeProfile = CLAUDE_PROFILE
   const providerMatrix = [
     {
       provider: 'claude' as const,
@@ -469,6 +494,63 @@ try {
     assert.equal(useStore.getState().activityOpen, true, `${row.provider} admitted run opens Activity immediately`)
   }
 
+  // Changing the model inside a confirmation is a new spend decision: discard the old capability,
+  // re-price the exact selected profile, and never let the original balanced receipt survive.
+  const codexProfiles = [
+    { key: CODEX_PROFILE.key, label: 'Sol + Terra', description: 'Balanced', model: 'gpt-5.6-sol', reasoningLevel: 'max', executionProfile: CODEX_PROFILE },
+    { key: CODEX_SOL_ONLY_PROFILE.key, label: 'Sol only', description: 'Highest quality', model: 'gpt-5.6-sol', reasoningLevel: 'max', executionProfile: CODEX_SOL_ONLY_PROFILE },
+  ]
+  const solOnlySelection = {
+    provider: 'codex' as const,
+    expectedProfileKey: CODEX_SOL_ONLY_PROFILE.key,
+    model: CODEX_SOL_ONLY_PROFILE.parentModel,
+    reasoningLevel: CODEX_SOL_ONLY_PROFILE.parentReasoning,
+    executionProfile: CODEX_SOL_ONLY_PROFILE,
+  }
+  const solOnlyPreflight = {
+    ...codexPreflight,
+    profileKey: solOnlySelection.expectedProfileKey,
+    model: solOnlySelection.model,
+    reasoningLevel: solOnlySelection.reasoningLevel,
+    executionProfile: solOnlySelection.executionProfile,
+  }
+  let repricedSelection: any = null
+  api.estimate = async (_kind, _ticker, selection) => {
+    repricedSelection = selection
+    return solOnlyPreflight
+  }
+  useStore.setState({
+    staticMode: false, health: 'online', activeSwarm: 'research', constellationSwarm: 'research',
+    selectedTicker: 'AAA', selectToken: 1063, warp: null, graph, nodesByKey: new Map([[orb.key, orb]]),
+    activeRuns: {}, activityOpen: false, runProvider: 'codex',
+    runProfileKeys: { claude: claudeProfile.key, codex: CODEX_PROFILE.key },
+    providers: {
+      claude: {
+        provider: 'claude', enabled: true, available: true, checked: true, status: 'available', profile: claudeProfile,
+        defaultProfileKey: claudeProfile.key,
+        profiles: [{ key: claudeProfile.key, label: 'Opus', description: 'Highest quality', model: 'opus', reasoningLevel: 'default', executionProfile: claudeProfile }],
+      },
+      codex: {
+        provider: 'codex', enabled: true, available: true, checked: true, status: 'available', profile: CODEX_PROFILE,
+        defaultProfileKey: CODEX_PROFILE.key, profiles: codexProfiles,
+      },
+      catalogState: 'valid',
+    },
+    launchConfirm: {
+      kind: 'full', selection: { subject: 'AAA', swarm: 'research', selectToken: 1063, ...CODEX_SELECTION },
+      preflight: codexPreflight,
+    },
+    launchPending: null,
+  })
+  await useStore.getState().changeLaunchProfile(CODEX_SOL_ONLY_PROFILE.key)
+  assert.deepEqual(repricedSelection, {
+    subject: 'AAA', swarm: 'research', selectToken: 1063, ...solOnlySelection,
+  }, 'the fresh estimate receives only the newly selected immutable profile')
+  assert.equal(useStore.getState().runProfileKeys.codex, CODEX_SOL_ONLY_PROFILE.key, 'the browser remembers the new Codex model profile')
+  const repricedConfirmation = useStore.getState().launchConfirm
+  assert.equal(repricedConfirmation?.selection.expectedProfileKey, CODEX_SOL_ONLY_PROFILE.key)
+  assert.equal(repricedConfirmation?.kind === 'full' ? repricedConfirmation.preflight.profileKey : undefined, CODEX_SOL_ONLY_PROFILE.key)
+
   // A malformed or provider-specific estimate cannot silently remove the full-run confirmation step.
   api.estimate = async () => ({ ...codexPreflight, requiresTypedConfirm: false })
   useStore.setState({
@@ -508,11 +590,15 @@ try {
   useStore.setState({
     activeSwarm: 'research', constellationSwarm: 'research', selectedTicker: 'AAA', selectToken: 1064,
     graph, nodesByKey: new Map([[orb.key, orb]]), nodeRuntime: {}, activeRuns: {}, runProvider: 'claude',
-    providers: providerCatalogFallback(), launchPending: null,
+    providers: providerCatalog(), launchPending: null,
   })
   const agentLaunch = useStore.getState().launchAgent(orb)
   useStore.setState({ activeSwarm: 'commodity', constellationSwarm: 'commodity', selectedTicker: 'GOLD', nodeRuntime: {} })
-  delayedAgent.resolve({ runId: 'frozen-agent-run', preflight: {} })
+  delayedAgent.resolve({
+    runId: 'frozen-agent-run', provider: 'claude', profileKey: CLAUDE_PROFILE.key,
+    model: CLAUDE_PROFILE.parentModel, reasoningLevel: CLAUDE_PROFILE.parentReasoning,
+    executionProfile: CLAUDE_PROFILE,
+  })
   await agentLaunch
   assert.equal(useStore.getState().activeRuns['frozen-agent-run']?.ticker, 'AAA', 'post-await registration keeps the frozen subject')
   assert.equal(useStore.getState().activeRuns['frozen-agent-run']?.swarmId, 'research', 'post-await registration keeps the frozen swarm')

@@ -4,6 +4,7 @@
 import { Sheet } from './Sheet'
 import { applyTheme, readTheme, saveChatStyle, type ChatStyle } from '../prefs'
 import { providerBlockedReason, providerIsBlocked, providerLabel, providerNeedsCheck, type ProvidersRead, type RunProvider } from '../../lib/provider'
+import { useStore } from '../../lib/store'
 
 const MODELS: Array<{ id: string; blurb: string }> = [
   { id: 'sonnet', blurb: 'fast · strong default' },
@@ -27,6 +28,8 @@ export function PrefsSheet({ open, model, style, provider, providers, onModel, o
   onProvider: (p: RunProvider) => void
   onClose: () => void
 }) {
+  const runProfileKey = useStore((s) => s.runProfileKeys[provider])
+  const setRunProfile = useStore((s) => s.setRunProfile)
   return (
     <Sheet open={open} onClose={onClose} label="Chat preferences">
       <div className="msheet__head">Run research with</div>
@@ -37,7 +40,16 @@ export function PrefsSheet({ open, model, style, provider, providers, onModel, o
           return <button key={choice} className={`msheet__row${provider === choice ? ' msheet__row--on' : ''}`} disabled={providerIsBlocked(status)} title={problem || (providerNeedsCheck(status) ? `Check ${providerLabel(choice)} status` : undefined)} onClick={() => onProvider(choice)}><span className="msheet__rowlabel">{status.checking ? 'checking…' : providerLabel(choice)}</span><span className="msheet__rowsub">{problem || (providerNeedsCheck(status) ? 'status unknown — tap to check again' : choice === 'codex' ? 'uses your Codex plan for new runs' : 'uses your Claude plan for new runs')}</span></button>
         })}
       </div>
-      <div className="msheet__head">Model</div>
+      <div className="msheet__head">Research model</div>
+      <div className="msheet__list msheet__list--tight">
+        {(providers[provider].profiles || []).map((profile) => (
+          <button key={profile.key} className={`msheet__row${runProfileKey === profile.key ? ' msheet__row--on' : ''}`} onClick={() => setRunProfile(provider, profile.key)}>
+            <span className="msheet__rowlabel">{profile.label}</span>
+            <span className="msheet__rowsub">{profile.description}</span>
+          </button>
+        ))}
+      </div>
+      <div className="msheet__head">Ask model</div>
       <div className="msheet__list msheet__list--tight">
         {MODELS.map((m) => (
           <button key={m.id} className={`msheet__row${model === m.id ? ' msheet__row--on' : ''}`} onClick={() => onModel(m.id)}>

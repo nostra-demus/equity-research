@@ -20,9 +20,17 @@ const { CODEX_EXECUTION_PROFILE } = await import('./provider')
 const { useStore } = await import('./store')
 
 const claudeProfile = { key: 'claude:opus:default', parentModel: 'opus', parentReasoning: 'default' }
+const option = (provider: 'claude' | 'codex', executionProfile: typeof claudeProfile | typeof CODEX_EXECUTION_PROFILE) => ({
+  key: executionProfile.key,
+  label: provider === 'claude' ? 'Opus' : 'Sol + Terra',
+  description: provider === 'claude' ? 'Highest quality' : 'Balanced',
+  model: executionProfile.parentModel,
+  reasoningLevel: executionProfile.parentReasoning,
+  executionProfile,
+})
 const providers = {
-  claude: { provider: 'claude' as const, enabled: true, available: true, checked: true, status: 'available', profile: claudeProfile },
-  codex: { provider: 'codex' as const, enabled: true, available: true, checked: true, status: 'available', profile: CODEX_EXECUTION_PROFILE },
+  claude: { provider: 'claude' as const, enabled: true, available: true, checked: true, status: 'available', profile: claudeProfile, defaultProfileKey: claudeProfile.key, profiles: [option('claude', claudeProfile)] },
+  codex: { provider: 'codex' as const, enabled: true, available: true, checked: true, status: 'available', profile: CODEX_EXECUTION_PROFILE, defaultProfileKey: CODEX_EXECUTION_PROFILE.key, profiles: [option('codex', CODEX_EXECUTION_PROFILE)] },
   catalogState: 'valid' as const,
 }
 const originalLaunchSignal = api.launchSignal
@@ -32,6 +40,7 @@ try {
   api.launchSignal = async () => { launches++; throw new Error('fixture stop') }
   useStore.setState({
     staticMode: false, health: 'online', activeSwarm: 'screener', runProvider: 'codex', providers,
+    runProfileKeys: { claude: claudeProfile.key, codex: CODEX_EXECUTION_PROFILE.key },
     scBoard: {
       generated_at: null, inbox: [], signals: [], theses: [], handoffs: [], counts: {},
       resumable: [{ sigId: 'SIG-CONFLICT', headline: 'conflict', doneCount: 1, totalCount: 2, provider: 'codex', executionProfile: CODEX_EXECUTION_PROFILE }],

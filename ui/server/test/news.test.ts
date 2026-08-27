@@ -6032,7 +6032,14 @@ await check('last-look provider maps name OmniRoute exactly and legacy summaries
   ], 'rolling-deploy summaries retain the established aggregate fallback')
 })
 
-await check('adaptive actual provider ranks keep Haiku first and tolerate missing fallback ranks', () => {
+// This previously asserted that Haiku ranks 1 even under adaptive routing ("priority 1 overrides the
+// lower-cost fallback fitness rank"). That was a deliberate choice, and it is the one being reversed:
+// measured over a full live day, Haiku scored 0.42 items/second at 88% usable against gemini-3.1-flash-lite's
+// 6.0 at 100%, and the router's own fitness put them at ~26 vs ~70. The panel must report the order the
+// scanner actually runs, so the pin now applies only OUTSIDE adaptive mode — where the chain really does
+// try Haiku first. Haiku keeps its place as the last resort that absorbs what the rate-capped free pools
+// cannot take; it simply stops outranking a provider proven faster and more reliable.
+await check('actual provider ranks follow fitness under adaptive routing, keep Haiku first otherwise', () => {
   assert.equal(compareFiniteRank(Number.MAX_VALUE, -Number.MAX_VALUE), 1, 'finite extremes compare without subtraction overflow')
   assert.equal(compareFiniteRank(Number.MAX_VALUE, Number.MAX_VALUE), 0, 'equal finite ranks compare as equal')
   assert.equal(compareFiniteRank(Number.POSITIVE_INFINITY, Number.NaN), 0, 'all invalid ranks compare as equal')
@@ -6044,13 +6051,21 @@ await check('adaptive actual provider ranks keep Haiku first and tolerate missin
     { id: 'nvidia', band: 'direct', order: 3, eligible: true, rank: Number.NaN },
   ] as any
   const ranks = actualProviderRanks(candidates, 'adaptive')
-  assert.equal(ranks.get('anthropic-triage'), 1, 'priority 1 overrides the lower-cost fallback fitness rank')
-  assert.equal(ranks.get('groq'), 2)
+  assert.equal(ranks.get('groq'), 1, 'the fittest audited provider leads the order the scanner actually runs')
+  assert.equal(ranks.get('anthropic-triage'), 2, 'Haiku no longer outranks a provider measured faster and more usable')
   assert.equal(ranks.get('mistral'), 3, 'an unranked provider sorts last without an Infinity-minus-Infinity NaN')
   assert.deepEqual(
     [...actualProviderRanks([...candidates].reverse(), 'adaptive').entries()],
     [...ranks.entries()],
     'null, undefined, and NaN ranks produce the same order when the input direction is reversed',
+  )
+  // Shadow/static keep the pin, because there the chain genuinely offers every batch to Haiku first.
+  const staticRanks = actualProviderRanks(candidates, 'shadow')
+  assert.equal(staticRanks.get('anthropic-triage'), 1, 'outside adaptive routing Haiku really is tried first')
+  assert.deepEqual(
+    [...actualProviderRanks([...candidates].reverse(), 'shadow').entries()],
+    [...staticRanks.entries()],
+    'the non-adaptive order is also direction-stable',
   )
 })
 
