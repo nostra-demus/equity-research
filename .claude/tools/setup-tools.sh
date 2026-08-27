@@ -25,7 +25,7 @@ fi
 
 python_deps_ready() {
   [ -x "$VENV/bin/python" ] || return 1
-  "$VENV/bin/python" - <<'PY' >/dev/null 2>&1
+  "$VENV/bin/python" - <<'PY'
 import openpyxl
 import pypdf
 import xlrd
@@ -36,7 +36,7 @@ PY
 # The import probe makes normal deploy ticks near-instant. Only a missing/broken dependency reaches pip.
 # Pip is deliberately bounded: deploy.sh already owns the no-active-run barrier, and a dead package index
 # must fail the release safely rather than hold new admissions forever.
-if python_deps_ready; then
+if python_deps_ready >/dev/null 2>&1; then
   echo "[setup-tools] python deps already ready in $VENV"
 else
   [ -x "$VENV/bin/python" ] || python3 -m venv "$VENV"

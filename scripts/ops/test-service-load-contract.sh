@@ -156,6 +156,7 @@ setup = pathlib.Path(sys.argv[2]).read_text(encoding="utf-8")
 fn = deploy.split("reconcile_extractor_python_deps() {", 1)[1].split("\n}", 1)[0]
 preflight = deploy.split("extractor_python_deps_ready() {", 1)[1].split("\n}", 1)[0]
 runtime = deploy.split("CLEAR_DEPLOY_INTENT_ON_EXIT=1", 1)[1]
+global_backoff = runtime.split('if [ "$LOCAL" = "$REMOTE" ]; then', 1)[0]
 assert '.claude/tools/setup-tools.sh --python-only' in fn
 assert '[ -f "$PROD/.claude/tools/relationship_graph.py" ] || return 0' in fn
 assert '"$FAILMARK.tmp"' in fn and 'return 1' in fn
@@ -165,9 +166,13 @@ assert '[ -f "$PROD/.claude/tools/relationship_graph.py" ] || return 0' in prefl
 assert 'if [ "$intent_needed" = 0 ] && ! extractor_python_deps_ready' in deploy
 assert runtime.count("if ! reconcile_extractor_python_deps") == 2
 assert runtime.index("if ! reconcile_extractor_python_deps") > runtime.index("gitlock_acquire")
+assert "matches a recently-failed deploy" in global_backoff
+assert runtime.index("matches a recently-failed deploy") < runtime.index("if ! reconcile_extractor_python_deps")
 for dependency in ("import openpyxl", "import pypdf", "import xlrd", "from striprtf.striprtf import rtf_to_text"):
     assert dependency in setup
 assert "if python_deps_ready" in setup
+assert 'if python_deps_ready >/dev/null 2>&1' in setup
+assert 'python_deps_ready || { echo "[setup-tools] python dependency verification failed"' in setup
 assert "--python-only" in setup
 assert '[ ! -L "$VENV" ] && [ -d "$VENV" ] && [ -O "$VENV" ]' in setup
 assert "PIP_DEFAULT_TIMEOUT=15" in setup and "--retries 1" in setup
