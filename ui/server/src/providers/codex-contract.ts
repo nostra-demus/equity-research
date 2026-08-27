@@ -196,7 +196,8 @@ export function codexAgentLoaderName(
 ): string {
   const role = codexAgentExecutionProfile(agent, executionProfile)
   if (role.role === 'adjudicator') return CODEX_ADJUDICATOR_LOADER
-  return role.model === CODEX_PARENT_CONTRACT.model && role.reasoningLevel === CODEX_PARENT_CONTRACT.reasoningLevel
+  return role.model === executionProfile.executionProfile.parentModel
+      && role.reasoningLevel === executionProfile.executionProfile.parentReasoning
     ? CODEX_SOL_SPECIALIST_LOADER
     : CODEX_SPECIALIST_LOADER
 }
@@ -265,7 +266,7 @@ export function codexCompatibilityPreamble(
   return CODEX_COMPATIBILITY_PREAMBLE_TEMPLATE
     .replaceAll('__SPECIALIST_MODEL__', executionProfile.executionProfile.specialistModel!)
     .replaceAll('__SPECIALIST_REASONING__', executionProfile.executionProfile.specialistReasoning!)
-    .replaceAll('__SPECIALIST_LOADER__', executionProfile.executionProfile.specialistModel === CODEX_PARENT_CONTRACT.model
+    .replaceAll('__SPECIALIST_LOADER__', executionProfile.executionProfile.specialistModel === executionProfile.executionProfile.parentModel
       ? CODEX_SOL_SPECIALIST_LOADER : CODEX_SPECIALIST_LOADER)
 }
 
