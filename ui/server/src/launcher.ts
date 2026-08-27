@@ -4151,10 +4151,14 @@ export interface SupervisorPublicationSocket {
  */
 export async function startSupervisorPublicationSocket(run: RunState): Promise<SupervisorPublicationSocket> {
   if (!run.publicationToken) throw new Error('run has no supervisor publication capability')
+  if (typeof process.getuid !== 'function') {
+    throw new Error('publication capabilities require Unix owner identity checks')
+  }
+  const ownerUid = process.getuid()
   const identity = (target: string, kind: 'directory' | 'socket'): string => {
     const info = fs.lstatSync(target, { bigint: true })
     if ((kind === 'directory' && !info.isDirectory()) || (kind === 'socket' && !info.isSocket())
-        || info.isSymbolicLink() || Number(info.uid) !== (process.getuid?.() ?? Number(info.uid))
+        || info.isSymbolicLink() || Number(info.uid) !== ownerUid
         || Number(info.mode & 0o077n) !== 0 || fs.realpathSync(target) !== target) {
       throw new Error(`publication ${kind} identity is unsafe`)
     }
@@ -4163,7 +4167,7 @@ export async function startSupervisorPublicationSocket(run: RunState): Promise<S
   const rootIdentity = (target: string): string => {
     const info = fs.lstatSync(target, { bigint: true })
     if (!info.isDirectory() || info.isSymbolicLink()
-        || Number(info.uid) !== (process.getuid?.() ?? Number(info.uid))
+        || Number(info.uid) !== ownerUid
         || Number(info.mode & 0o077n) !== 0 || fs.realpathSync(target) !== target) {
       throw new Error('publication socket root identity is unsafe')
     }
