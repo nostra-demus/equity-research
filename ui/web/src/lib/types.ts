@@ -1118,7 +1118,7 @@ export interface NewsStatus {
   }
   // every free OVERFLOW pool (Gemini + each OpenAI-compatible provider) — one entry per provider; the
   // cockpit renders a chip per entry, so a newly-wired key appears automatically. color = a CSS var name.
-  // tokenCap is present only for TOKEN-gated providers (Cerebras) — the chip then reads tokens (its
+  // tokenCap is present only for TOKEN-gated providers — the chip then reads tokens (its
   // binding limit) instead of requests, so the number shown is ground truth.
   overflow?: {
     id: string; label: string; color: string; model: string; requests: number; reqCap: number; tokens: number; tokenCap?: number
@@ -1142,7 +1142,7 @@ export type TierHealth = 'healthy' | 'paced' | 'cooling' | 'budget-spent' | 'una
 export interface TierDiagnostics {
   id: string
   label: string
-  color: string // a CSS var NAME (e.g. '--accent', '--provider-cb'); the chip reads it, never a literal
+  color: string // a CSS var NAME (e.g. '--accent', '--provider-or'); the chip reads it, never a literal
   role: 'primary' | 'overflow' | 'gemini' | 'last-resort'
   order: number // routing order in the fallback chain (0 = tried first)
   enabled: boolean

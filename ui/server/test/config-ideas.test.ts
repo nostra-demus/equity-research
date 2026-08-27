@@ -79,8 +79,8 @@ assert.deepEqual(
   'Anthropic API mode activates triage when its explicit API key is configured',
 )
 assert.deepEqual(
-  readProviderConfig({ MISTRAL_API_KEY: 'test-mistral' }),
-  { enabled: true, configured: true, ideaConfigured: true, overflow: ['mistral'] },
+  readProviderConfig({ NVIDIA_API_KEY: 'test-nvidia' }),
+  { enabled: true, configured: true, ideaConfigured: true, overflow: ['nvidia'] },
   'an existing fallback provider activates the scheduler without a Groq key',
 )
 assert.deepEqual(
@@ -89,7 +89,7 @@ assert.deepEqual(
   'native Gemini alone activates both news triage and the native Gemini Ideas adapter',
 )
 assert.equal(
-  readProviderConfig({ MISTRAL_API_KEY: 'test-mistral', NEWS_INGEST_ENABLED: '0' }).enabled,
+  readProviderConfig({ NVIDIA_API_KEY: 'test-nvidia', NEWS_INGEST_ENABLED: '0' }).enabled,
   false,
   'the explicit scheduler kill switch remains authoritative',
 )
@@ -109,11 +109,11 @@ assert.deepEqual(
 // fallback is spent, the frequent backlog drain stays idle instead of churning the same no-progress batch.
 const drainState = fs.mkdtempSync(path.join(os.tmpdir(), 'groqless-drain-'))
 const today = new Date().toISOString().slice(0, 10)
-fs.writeFileSync(path.join(drainState, 'mistral-budget.json'), JSON.stringify({ date: today, requests: 1, tokens: 0 }))
+fs.writeFileSync(path.join(drainState, 'nvidia-budget.json'), JSON.stringify({ date: today, requests: 1, tokens: 0 }))
 const drainCode = "import('./src/news/scheduler.ts').then((m) => process.stdout.write(String(m.budgetHasHeadroom(Date.now()))))"
 const drain = spawnSync(process.execPath, ['--import', 'tsx', '--input-type=module', '-e', drainCode], {
   cwd: SERVER_DIR,
-  env: isolatedProviderEnv({ MISTRAL_API_KEY: 'test-mistral', NEWS_MISTRAL_DAILY_REQ_CAP: '1', ENGINE_STATE_DIR: drainState }),
+  env: isolatedProviderEnv({ NVIDIA_API_KEY: 'test-nvidia', NEWS_NVIDIA_DAILY_REQ_CAP: '1', ENGINE_STATE_DIR: drainState }),
   encoding: 'utf8',
 })
 assert.equal(drain.status, 0, drain.stderr)

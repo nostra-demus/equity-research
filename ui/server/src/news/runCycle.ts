@@ -1344,9 +1344,9 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
       }))
     : []
   const geminiLimiter = geminiOn ? getSharedGeminiLimiter(cfg.geminiRpm, cfg.geminiTpm) : null
-  // OpenAI-compatible OVERFLOW registry (Cerebras, OpenRouter, NVIDIA, …) — each its own budget + per-minute
+  // OpenAI-compatible OVERFLOW registry (OpenRouter, NVIDIA, …) — each its own budget + per-minute
   // limiter, tried in config order after Groq. Adding a provider is a config entry; this loop needs no change.
-  // A token-gated provider (Cerebras) sets dailyTokenCap + tpm so it paces on its BINDING limit (tokens); a
+  // A token-gated provider sets dailyTokenCap + tpm so it paces on its BINDING limit (tokens); a
   // request-gated one omits them → a non-binding 50M token cap + tpm 0 (request-spacing only), as before.
   const overflow = cfg.overflowProviders.map((p) => ({
     p,
@@ -2042,8 +2042,8 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
       }
     }
 
-    // FINITE FREE CAPACITY POOL. The old fixed walk always started at Cerebras, then Mistral, then
-    // OpenRouter/NVIDIA, and only then Gemini. That is priority, not utilization: early tiers consumed or
+    // FINITE FREE CAPACITY POOL. The old fixed walk always ran the registry in configured order, and only
+    // then Gemini. That is priority, not utilization: early tiers consumed or
     // failed repeatedly while later allowances sat untouched. Build the exact one-call admission for every
     // finite tier, release each against its provider-day clock, and select the tier furthest behind target.
     // One provider call per selection is deliberate: on failure the SAME batch immediately moves to another
