@@ -33,6 +33,11 @@ assert.equal(resolveChatRequestModel(undefined, ['sonnet'], 'sonnet')?.id, 'sonn
 assert.deepEqual(publicChatModelCatalogue(['sonnet', 'haiku'], 'opus'), {
   models: ['sonnet', 'haiku'], defaultModel: 'sonnet',
 }, 'the browser receives only reviewed models admitted by this host')
+assert.deepEqual(publicChatModelCatalogue(['claude-sonnet-4-6-20260801'], 'claude-sonnet-4-6-20260801'), {
+  models: ['claude-sonnet-4-6-20260801'], defaultModel: 'claude-sonnet-4-6-20260801',
+}, 'a host-pinned concrete Claude model remains selectable instead of emptying the picker')
+assert.deepEqual(publicChatModelCatalogue(['unreviewed:model'], 'unreviewed:model'), { models: [], defaultModel: null },
+  'the public response cannot invalidate the complete picker contract with an unreviewed id')
 
 const sol = resolveChatModel('codex:gpt-5.6-sol')!
 const root = '/tmp/nostra-chat-contract'

@@ -36,7 +36,19 @@ export function normalizeChatModelsRead(value: unknown): ChatModelsRead | null {
 }
 
 export function isChatModel(value: unknown): value is string {
-  return typeof value === 'string' && CHAT_MODELS.some((choice) => choice.id === value)
+  return typeof value === 'string' && (
+    CHAT_MODELS.some((choice) => choice.id === value)
+    || (/^claude-[A-Za-z0-9._-]{1,53}$/.test(value) && value.length <= 60)
+  )
+}
+
+export function chatModelChoices(ids: readonly string[]): ChatModelChoice[] {
+  return ids.flatMap((id) => {
+    const reviewed = CHAT_MODELS.find((choice) => choice.id === id)
+    if (reviewed) return [reviewed]
+    if (!isChatModel(id)) return []
+    return [{ id, provider: 'claude' as const, label: id, sub: 'host-configured Claude model' }]
+  })
 }
 
 export function chatModelLabel(value: string): string {

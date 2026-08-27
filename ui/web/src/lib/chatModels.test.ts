@@ -2,7 +2,7 @@ import assert from 'node:assert/strict'
 import fs from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { CHAT_MODELS, CHAT_MODEL_STORAGE_KEY, chatModelLabel, normalizeChatModelsRead, readChatModel, saveChatModel } from './chatModels'
+import { CHAT_MODELS, CHAT_MODEL_STORAGE_KEY, chatModelChoices, chatModelLabel, normalizeChatModelsRead, readChatModel, saveChatModel } from './chatModels'
 
 assert.equal(CHAT_MODELS.filter((choice) => choice.provider === 'claude').length, 3)
 assert.deepEqual(CHAT_MODELS.filter((choice) => choice.provider === 'codex').map((choice) => choice.label), [
@@ -15,6 +15,13 @@ assert.deepEqual(normalizeChatModelsRead({ models: ['sonnet', 'codex:gpt-5.6-sol
 })
 assert.equal(normalizeChatModelsRead({ models: ['unreviewed:model'], defaultModel: 'unreviewed:model' }), null,
   'the browser never trusts an unreviewed server model id')
+const pinnedClaude = 'claude-sonnet-4-6-20260801'
+assert.deepEqual(normalizeChatModelsRead({ models: [pinnedClaude], defaultModel: pinnedClaude }), {
+  models: [pinnedClaude], defaultModel: pinnedClaude,
+})
+assert.deepEqual(chatModelChoices([pinnedClaude]), [{
+  id: pinnedClaude, provider: 'claude', label: pinnedClaude, sub: 'host-configured Claude model',
+}], 'a host-pinned concrete Claude model becomes a usable picker row')
 
 const values = new Map<string, string>()
 const storage = {
@@ -27,6 +34,8 @@ assert.equal(values.get(CHAT_MODEL_STORAGE_KEY), 'codex:gpt-5.6-terra')
 assert.equal(readChatModel(storage), 'codex:gpt-5.6-terra', 'the Ask choice survives reloads and is shared by desktop/mobile')
 saveChatModel('arbitrary:model', storage)
 assert.equal(values.get(CHAT_MODEL_STORAGE_KEY), 'codex:gpt-5.6-terra', 'unknown model ids never become a saved request')
+saveChatModel(pinnedClaude, storage)
+assert.equal(readChatModel(storage), pinnedClaude, 'a host-pinned Claude choice persists across reloads')
 values.set(CHAT_MODEL_STORAGE_KEY, 'retired:model')
 assert.equal(readChatModel(storage), 'sonnet', 'a stale local preference fails safely to the live default')
 assert.equal(readChatModel({ getItem: () => { throw new DOMException('blocked', 'SecurityError') } }), 'sonnet')

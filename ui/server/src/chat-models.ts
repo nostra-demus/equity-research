@@ -55,9 +55,12 @@ export function publicChatModelCatalogue(allowedModels: readonly string[], defau
   models: string[]
   defaultModel: string | null
 } {
-  const models = CHAT_MODEL_SPECS
-    .filter((choice) => Boolean(resolveAllowedChatModel(choice.id, allowedModels)))
-    .map((choice) => choice.id)
+  const models = [...new Set(allowedModels.flatMap((id) => (
+    resolveAllowedChatModel(id, allowedModels)
+      && (Boolean(resolveChatModel(id)) || (/^claude-[A-Za-z0-9._-]{1,53}$/.test(id) && id.length <= 60))
+      ? [id]
+      : []
+  )))]
   return {
     models,
     defaultModel: models.includes(defaultModel) ? defaultModel : models[0] ?? null,
