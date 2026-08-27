@@ -21,6 +21,7 @@ const DECISIONS: { id: TaskDecision; label: string }[] = [
   { id: 'deploy', label: 'Deploy' }, { id: 'reject', label: 'Reject' }, { id: 'watch', label: 'Watch' },
 ]
 const TASK_MAX_ATTACHMENTS = 5
+type TaskSaveResult = { ok: boolean; task: TaskCard; publish_error?: string; reconcile_warning?: string }
 
 const emptyDraft = (): TaskInput => ({
   scope: 'ticker', ticker: '', subject: '', title: '', stage: 'idea_generation', decision: null, assignee: 'CK',
@@ -30,12 +31,13 @@ function personName(id: TaskAssignee): string { return PEOPLE.find((person) => p
 function stageIndex(stage: TaskStage): number { return STAGES.findIndex((item) => item.id === stage) }
 function taskRequestTimedOut(cause: any): boolean { return cause?.name === 'TimeoutError' || cause?.name === 'AbortError' }
 
-function TaskEditor({ task, initial, attachmentsEnabled, onClose, onSaved }: {
+function TaskEditor({ task, initial, attachmentsEnabled, onClose, onSaved, saveTask }: {
   task: TaskCard | null
   initial?: Partial<TaskInput>
   attachmentsEnabled: boolean
   onClose: () => void
   onSaved: () => Promise<void>
+  saveTask: (task: TaskCard | null, input: TaskInput) => Promise<TaskSaveResult>
 }) {
   const tickers = useStore((state) => state.tickers)
   const setToast = useStore((state) => state.setToast)
@@ -46,6 +48,7 @@ function TaskEditor({ task, initial, attachmentsEnabled, onClose, onSaved }: {
   const [files, setFiles] = useState<File[]>([])
   const [attachments, setAttachments] = useState(task?.attachments ?? [])
   const [saving, setSaving] = useState(false)
+  const [retryBlocked, setRetryBlocked] = useState(false)
   const inputRef = useRef<HTMLInputElement>(null)
   const dialogRef = useRef<HTMLElement>(null)
   const savingRef = useRef(saving)
@@ -95,7 +98,8 @@ function TaskEditor({ task, initial, attachmentsEnabled, onClose, onSaved }: {
 
   const watchTickerNeeded = draft.stage === 'final_decision' && draft.decision === 'watch'
   const tickerNeeded = (draft.scope !== 'world_event' && draft.stage !== 'idea_generation') || watchTickerNeeded
-  const blocker = !draft.subject.trim() ? 'Name the ticker or event.'
+  const blocker = retryBlocked ? 'Refresh the board before trying this save again.'
+    : !draft.subject.trim() ? 'Name the ticker or event.'
     : !draft.title.trim() ? 'Write the task.'
       : tickerNeeded && !draft.ticker?.trim() ? 'Add the ticker before this stage.'
         : draft.stage === 'final_decision' && !draft.decision ? 'Choose Deploy, Reject or Watch.'
@@ -112,8 +116,8 @@ function TaskEditor({ task, initial, attachmentsEnabled, onClose, onSaved }: {
         title: draft.title.trim(),
         decision: draft.stage === 'final_decision' ? draft.decision : null,
       }
-      const result = task ? await api.taskUpdate(task.task_id, input) : await api.taskCreate(input)
-      let warning = result.publish_error ? `Saved locally, but did not sync: ${result.publish_error}` : ''
+      const result = await saveTask(task, input)
+      let warning = result.reconcile_warning ?? (result.publish_error ? `Saved locally, but did not sync: ${result.publish_error}` : '')
       if (files.length) {
         try {
           const uploaded = await api.taskAttach(result.task.task_id, files)
@@ -125,6 +129,7 @@ function TaskEditor({ task, initial, attachmentsEnabled, onClose, onSaved }: {
       setToast(warning ? { msg: warning, tone: 'bad' } : { msg: task ? 'Task updated.' : 'Task added.', tone: 'good' })
       onClose()
     } catch (error: any) {
+      if (error?.retryBlocked) setRetryBlocked(true)
       setToast({ msg: error?.message || 'Could not save the task.', tone: 'bad' })
     } finally { setSaving(false) }
   }
@@ -312,6 +317,39 @@ export function TasksStage() {
     setRead((current) => replaceTask(current, task))
   }, [])
 
+  const enqueueMutation = useCallback(<T,>(operation: () => Promise<T>): Promise<T> => {
+    const queued = mutationChainRef.current.then(operation)
+    mutationChainRef.current = queued.then(() => undefined, () => undefined)
+    return queued
+  }, [])
+
+  const saveEditorTask = useCallback((task: TaskCard | null, input: TaskInput): Promise<TaskSaveResult> => (
+    enqueueMutation(async () => {
+      if (!task) return api.taskCreate(input)
+      try {
+        return await api.taskUpdate(task.task_id, input)
+      } catch (cause: any) {
+        if (!taskRequestTimedOut(cause)) throw cause
+        // A lost response does not prove the update failed. Confirm the complete editor payload against
+        // the authoritative task before the modal closes or offers the same save again.
+        let serverTask: TaskCard | null = null
+        try {
+          serverTask = (await api.tasks()).tasks.find((candidate) => candidate.task_id === task.task_id) ?? null
+        } catch {
+          throw Object.assign(new Error('Could not confirm whether the task saved. Refresh before trying again.'), { retryBlocked: true })
+        }
+        if (serverTask && taskMatchesPatch(serverTask, input)) {
+          return {
+            ok: true,
+            task: serverTask,
+            reconcile_warning: 'The task is saved locally, but the final sync reply was lost.',
+          }
+        }
+        throw new Error('The save timed out and was not confirmed. The latest server version is unchanged; you can retry.')
+      }
+    })
+  ), [enqueueMutation])
+
   const update = (task: TaskCard, patch: Partial<TaskInput>) => {
     if (staticMode) return
     const taskId = task.task_id
@@ -332,7 +370,7 @@ export function TasksStage() {
 
     // Publication is intentionally durable and can take a few seconds. Keep one ordered client queue so
     // rapid moves stay instant without racing the server's shared Tasks/Watchlist mutation lock.
-    mutationChainRef.current = mutationChainRef.current.catch(() => undefined).then(async () => {
+    void enqueueMutation(async () => {
       const queuedPatch = mergeTaskUpdatePatches(retryPatchRef.current.get(taskId), patch)
       try {
         const result = await api.taskUpdate(taskId, queuedPatch)
@@ -445,7 +483,7 @@ export function TasksStage() {
           )
         })}
       </div>
-      {editor && !staticMode && <TaskEditor key={`${editor.task?.task_id ?? 'new'}-${editor.initial?.stage ?? ''}`} task={editor.task} initial={editor.initial} attachmentsEnabled={read?.attachments_enabled ?? false} onClose={closeEditor} onSaved={load} />}
+      {editor && !staticMode && <TaskEditor key={`${editor.task?.task_id ?? 'new'}-${editor.initial?.stage ?? ''}`} task={editor.task} initial={editor.initial} attachmentsEnabled={read?.attachments_enabled ?? false} onClose={closeEditor} onSaved={load} saveTask={saveEditorTask} />}
     </div>
   )
 }

@@ -3908,7 +3908,10 @@ async function standingCalls(): Promise<StandingCall[]> {
 // to close. A failure is reported back to the caller as `publish_error` rather than swallowed — the row
 // still saved locally (so nothing already typed is lost), but the client can now say so.
 const WATCHLIST_PUBLISH_TIMEOUT_MS = 20 * 60_000
+// The Tasks client waits 90 seconds. Bound the only potentially long pre-write read to 20 seconds and
+// publication to 60, leaving 10 seconds for the small synchronous validation/write steps in between.
 const TASK_UPDATE_PUBLISH_TIMEOUT_MS = 60_000
+const TASK_ENGINE_WATCH_TIMEOUT_MS = 20_000
 async function publishWatchlist(relPaths: string[], msg: string, timeoutMs = WATCHLIST_PUBLISH_TIMEOUT_MS): Promise<{ ok: boolean; error?: string }> {
   const script = path.join(REPO_ROOT, 'scripts', 'commit-run.sh')
   if (!fs.existsSync(script)) return { ok: false, error: 'commit-run.sh not found (not a full checkout)' }
@@ -3926,6 +3929,9 @@ async function withPlanningMutation(reply: FastifyReply, fn: () => Promise<unkno
   try {
     return await withSubjectLock(PLANNING_MUTATION_LOCK, fn)
   } catch (error) {
+    if (error instanceof TaskEngineWatchTimeoutError) {
+      return reply.code(503).send({ error: 'The Watchlist lookup took too long. Nothing was saved; try again.' })
+    }
     if (error instanceof SubjectBusyError) {
       return reply.code(409).send({ error: 'Tasks and Watchlist are being updated. Try again in a moment.' })
     }
@@ -4554,10 +4560,25 @@ app.get('/api/tasks', { config: { rateLimit: { max: 600, timeWindow: '1 minute' 
   }
 })
 
+class TaskEngineWatchTimeoutError extends Error {
+  constructor() { super('task engine Watchlist lookup timed out'); this.name = 'TaskEngineWatchTimeoutError' }
+}
+
 async function taskEngineWatch(task: TaskCard) {
   if (task.stage !== 'final_decision' || task.decision !== 'watch' || !task.ticker) return []
-  return readEngineWatch(await standingCalls(), readSizingDecoration())
-    .filter((row) => row.listing.ticker === task.ticker)
+  let timer: ReturnType<typeof setTimeout> | null = null
+  try {
+    return await Promise.race([
+      standingCalls().then((calls) => readEngineWatch(calls, readSizingDecoration())
+        .filter((row) => row.listing.ticker === task.ticker)),
+      new Promise<never>((_, reject) => {
+        timer = setTimeout(() => reject(new TaskEngineWatchTimeoutError()), TASK_ENGINE_WATCH_TIMEOUT_MS)
+        timer.unref?.()
+      }),
+    ])
+  } finally {
+    if (timer) clearTimeout(timer)
+  }
 }
 
 function conflictingWatchTask(ticker: string | null, exceptTaskId: string | null = null): TaskCard | null {
