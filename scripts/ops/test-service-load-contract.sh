@@ -157,9 +157,11 @@ fn = deploy.split("reconcile_extractor_python_deps() {", 1)[1].split("\n}", 1)[0
 preflight = deploy.split("extractor_python_deps_ready() {", 1)[1].split("\n}", 1)[0]
 runtime = deploy.split("CLEAR_DEPLOY_INTENT_ON_EXIT=1", 1)[1]
 assert '.claude/tools/setup-tools.sh --python-only' in fn
+assert '[ -f "$PROD/.claude/tools/relationship_graph.py" ] || return 0' in fn
 assert '"$FAILMARK.tmp"' in fn and 'return 1' in fn
 assert "launchctl" not in fn and "reconcile_build" not in fn
 assert "from striprtf.striprtf import rtf_to_text" in preflight
+assert '[ -f "$PROD/.claude/tools/relationship_graph.py" ] || return 0' in preflight
 assert 'if [ "$intent_needed" = 0 ] && ! extractor_python_deps_ready' in deploy
 assert runtime.count("if ! reconcile_extractor_python_deps") == 2
 assert runtime.index("if ! reconcile_extractor_python_deps") > runtime.index("gitlock_acquire")

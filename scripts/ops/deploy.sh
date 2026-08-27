@@ -1474,6 +1474,9 @@ reconcile_build() {
 # hammering production every watcher tick.
 reconcile_extractor_python_deps() {
   local target="$1"
+  # Older/minimal installations (and deploy contract fixtures) do not carry the Chain parser. There is no
+  # extractor dependency contract to reconcile until that reviewed tool exists in the checkout.
+  [ -f "$PROD/.claude/tools/relationship_graph.py" ] || return 0
   log "  verify extractor python deps"
   if ( cd "$PROD" && .claude/tools/setup-tools.sh --python-only ) >>"$LOG" 2>&1; then
     rm -f "$FAILMARK" 2>/dev/null || true
@@ -1491,6 +1494,7 @@ reconcile_extractor_python_deps() {
 # yield until the exclusive repair has had one chance to run.
 extractor_python_deps_ready() {
   local py="$PROD/.claude/tools/.venv/bin/python"
+  [ -f "$PROD/.claude/tools/relationship_graph.py" ] || return 0
   [ -x "$py" ] || return 1
   "$py" -I - <<'PYEXTRACTORREADY' >/dev/null 2>&1
 import openpyxl
