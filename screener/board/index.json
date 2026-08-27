@@ -1,6 +1,60 @@
 {
-  "generated_at": "2026-08-27T13:17:46Z",
+  "generated_at": "2026-08-27T14:12:51Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260827-604",
+      "headline": "Tejas Networks Limited: Tejas Networks Limited has informed the Exchange about receipt of a Letter of Intent dated August 27, 2026, from Tata Consultancy Services Limited ( TCS ) for supply of RAN equipment, accessories & installation materials for BSNL 4G mobile network for 18,685 sites, valued at Rs.1537 Crores.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/TEJASNET_27082026183323_Intimation-Letter_of_Intent_from_TCS.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-27T13:03:38Z",
+      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
+      "prelim_note": "Tejas Networks received a contract worth Rs.1537 Crores from TCS for BSNL 4G network equipment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Tejas Networks received a contract worth Rs.1537 Crores from TCS for BSNL 4G network equipment.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 0,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tejas Networks Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "Tata Consultancy Services Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260827-571",
       "headline": "GUSHENGTANG (02273): VOLUNTARY ANNOUNCEMENT - ACQUISITIONS OF 100% EQUITY INTERESTS IN THE TARGET COMPANIES",
@@ -1935,55 +1989,6 @@
       ],
       "issuer_linkage": "primary",
       "companies": [],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260827-347",
-      "headline": "Taqa to delist from Abu Dhabi bourse after ADPC completes 100% takeover",
-      "headline_en": null,
-      "url": "https://www.khaleejtimes.com/business/taqa-to-delist-from-abu-dhabi-bourse-after-adpc-completes-100-takeover",
-      "source_name": "Khaleej Times — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-27T07:02:54Z",
-      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
-      "prelim_note": "Taqa is set to delist from the Abu Dhabi bourse following a 100% takeover by ADPC.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Taqa is set to delist from the Abu Dhabi bourse following a 100% takeover by ADPC.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Taqa",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
       "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
@@ -81482,6 +81487,76 @@
   "handoffs": [],
   "ideas": [
     {
+      "idea_id": "IDEA-eca4f9742c9b",
+      "idea_version": "IDEAV-416c47135182b874",
+      "idea_version_started_at": "2026-08-27T14:03:31Z",
+      "ticker": "HPQ",
+      "company": "HP Inc.",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Despite record revenue, the 16% drop in PC shipments signals a significant deterioration in the core hardware business volume, which will likely pressure margins as the company relies more on services to offset hardware weakness.",
+      "why_now": "The Q3 2026 earnings report was released on August 27, 2026.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 18,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-8d8e06420c40"
+      ],
+      "primary_source_event_id": "EVT-8d8e06420c40",
+      "source_headlines": [
+        "HP Q3 2026 earnings: record revenue but PC shipments drop 16%"
+      ],
+      "source_headline": "HP Q3 2026 earnings: record revenue but PC shipments drop 16%",
+      "source_url": "https://finance.yahoo.com/markets/stocks/articles/hp-q3-2026-earnings-record-125155738.html",
+      "source_name": "Yahoo Finance",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-27T12:51:55Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-27T14:03:31Z",
+      "updated_at": "2026-08-27T14:03:31Z",
+      "decay_at": "2026-08-29T00:51:55Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-00d8e75528b1",
       "idea_version": "IDEAV-894653a9197177b3",
       "idea_version_started_at": "2026-08-27T13:17:25Z",
@@ -82464,76 +82539,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-49a2653dd307",
-      "idea_version": "IDEAV-bbf0f9c9aff71064",
-      "idea_version_started_at": "2026-08-26T04:56:22Z",
-      "ticker": "VWAGY",
-      "company": "Volkswagen",
-      "exchange": "OTC Markets",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Management's plan for 50,000 job cuts and plant closures indicates severe internal cost pressures and potential labor unrest that will disrupt operations.",
-      "why_now": "The restructuring plan was reported on 2026-08-26.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-ef3265c90c00"
-      ],
-      "primary_source_event_id": "EVT-ef3265c90c00",
-      "source_headlines": [
-        "Volkswagen CEO faces pushback over plan for 50,000 job cuts and plant closures"
-      ],
-      "source_headline": "Volkswagen CEO faces pushback over plan for 50,000 job cuts and plant closures",
-      "source_url": "https://www.cnbctv18.com/business/volkswagen-ceo-faces-pushback-over-plan-for-50000-job-cuts-and-plant-closures-19977137.htm",
-      "source_name": "CNBC-TV18",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-26T02:10:18Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-26T04:56:22Z",
-      "updated_at": "2026-08-26T04:56:22Z",
-      "decay_at": "2026-08-27T14:10:18Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-1604e5b6569e",
       "idea_version": "IDEAV-f30eba4f4706d90d",
       "idea_version_started_at": "2026-08-27T03:27:43Z",
@@ -82894,6 +82899,149 @@
       "surfaced_at": "2026-08-26T21:03:32Z",
       "updated_at": "2026-08-27T13:17:25Z",
       "decay_at": "2026-08-28T05:12:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-87ba79df5ac3",
+      "idea_version": "IDEAV-c73cfc10aa1e50de",
+      "idea_version_started_at": "2026-08-27T14:03:31Z",
+      "ticker": "00813",
+      "company": "Shimao Group",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The filing of a winding-up petition indicates a terminal stage of financial distress and a high probability of equity wipeout for shareholders.",
+      "why_now": "The exchange filing regarding the winding-up petition was published on August 27, 2026.",
+      "conviction": 90,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-ae0eb1b2a3f4"
+      ],
+      "primary_source_event_id": "EVT-ae0eb1b2a3f4",
+      "source_headlines": [
+        "SHIMAO GROUP (00813): Inside Information - Winding-up petition"
+      ],
+      "source_headline": "SHIMAO GROUP (00813): Inside Information - Winding-up petition",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0827/2026082701361.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-27T11:31:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-27T14:03:31Z",
+      "updated_at": "2026-08-27T14:03:31Z",
+      "decay_at": "2026-08-28T23:31:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-eb4b26f5f274",
+      "idea_version": "IDEAV-36da48601dde92a6",
+      "idea_version_started_at": "2026-08-27T14:03:31Z",
+      "ticker": "TEJASNET",
+      "company": "Tejas Networks Limited",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company secured a significant contract valued at Rs. 1537 Crores to supply RAN equipment for BSNL's 4G network, providing a clear boost to near-term revenue and order book visibility.",
+      "why_now": "The Letter of Intent was received and disclosed on August 27, 2026.",
+      "conviction": 85,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-b2ba97b36119"
+      ],
+      "primary_source_event_id": "EVT-b2ba97b36119",
+      "source_headlines": [
+        "Tejas Networks Limited: Tejas Networks Limited has informed the Exchange about receipt of a Letter of Intent dated August 27, 2026, from Tata Consultancy Services Limited ( TCS ) for supply of RAN equipment, accessories & installation materials for BSNL 4G mobile network for 18,685 sites, valued at Rs.1537 Crores."
+      ],
+      "source_headline": "Tejas Networks Limited: Tejas Networks Limited has informed the Exchange about receipt of a Letter of Intent dated August 27, 2026, from Tata Consultancy Services Limited ( TCS ) for supply of RAN equipment, accessories & installation materials for BSNL 4G mobile network for 18,685 sites, valued at Rs.1537 Crores.",
+      "source_url": "https://nsearchives.nseindia.com/corporate/TEJASNET_27082026183323_Intimation-Letter_of_Intent_from_TCS.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-27T13:03:38Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-27T14:03:31Z",
+      "updated_at": "2026-08-27T14:03:31Z",
+      "decay_at": "2026-08-29T01:03:38Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -84341,150 +84489,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-d1268b378638",
-      "idea_version": "IDEAV-daea33c0af81e531",
-      "idea_version_started_at": "2026-08-26T04:56:22Z",
-      "ticker": "DMP",
-      "company": "Domino's Pizza Enterprises",
-      "exchange": "ASX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company reported an accelerating decline in sales and a significant net loss, indicating structural weakness in its core markets.",
-      "why_now": "The financial results were released on 2026-08-26.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-79f615bcd44a"
-      ],
-      "primary_source_event_id": "EVT-79f615bcd44a",
-      "source_headlines": [
-        "Domino’s Pizza sales decline accelerates after slumping to big loss"
-      ],
-      "source_headline": "Domino’s Pizza sales decline accelerates after slumping to big loss",
-      "source_url": "https://www.afr.com/companies/retail/domino-s-pizza-sales-decline-accelerates-after-slumping-to-big-loss-20260825-p60r8i?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-26T01:47:51Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-26T04:56:22Z",
-      "updated_at": "2026-08-26T04:56:22Z",
-      "decay_at": "2026-08-27T13:47:51Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-edaa84386aed",
-      "idea_version": "IDEAV-f72d940aecfafb2f",
-      "idea_version_started_at": "2026-08-26T04:56:22Z",
-      "ticker": "FL",
-      "company": "Foot Locker",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company reported significant losses and issued weak forward guidance, signaling a deterioration in consumer discretionary spending and operational efficiency.",
-      "why_now": "The earnings release and guidance downgrade occurred on 2026-08-26.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-00822a4a4db2"
-      ],
-      "primary_source_event_id": "EVT-00822a4a4db2",
-      "source_headlines": [
-        "Dick’s Sporting Goods’ Core Business Grows 4.9%, but Foot Locker Losses and Weak Guidance Send Shares Tumbling"
-      ],
-      "source_headline": "Dick’s Sporting Goods’ Core Business Grows 4.9%, but Foot Locker Losses and Weak Guidance Send Shares Tumbling",
-      "source_url": "https://www.nasdaq.com/articles/dicks-sporting-goods-core-business-grows-49-foot-locker-losses-and-weak-guidance-send",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-26T01:40:38Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-26T04:56:22Z",
-      "updated_at": "2026-08-26T04:56:22Z",
-      "decay_at": "2026-08-27T13:40:38Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-15545ed7f8b1",
       "idea_version": "IDEAV-73067bb8cd7980b7",
       "idea_version_started_at": "2026-08-26T09:35:45Z",
@@ -84911,6 +84915,76 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-49a2653dd307",
+      "idea_version": "IDEAV-bbf0f9c9aff71064",
+      "idea_version_started_at": "2026-08-26T04:56:22Z",
+      "ticker": "VWAGY",
+      "company": "Volkswagen",
+      "exchange": "OTC Markets",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Management's plan for 50,000 job cuts and plant closures indicates severe internal cost pressures and potential labor unrest that will disrupt operations.",
+      "why_now": "The restructuring plan was reported on 2026-08-26.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-ef3265c90c00"
+      ],
+      "primary_source_event_id": "EVT-ef3265c90c00",
+      "source_headlines": [
+        "Volkswagen CEO faces pushback over plan for 50,000 job cuts and plant closures"
+      ],
+      "source_headline": "Volkswagen CEO faces pushback over plan for 50,000 job cuts and plant closures",
+      "source_url": "https://www.cnbctv18.com/business/volkswagen-ceo-faces-pushback-over-plan-for-50000-job-cuts-and-plant-closures-19977137.htm",
+      "source_name": "CNBC-TV18",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-26T02:10:18Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-26T04:56:22Z",
+      "updated_at": "2026-08-26T04:56:22Z",
+      "decay_at": "2026-08-27T14:10:18Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-4b8102f69455",
       "idea_version": "IDEAV-ff99366965afb179",
       "idea_version_started_at": "2026-08-25T06:14:06Z",
@@ -85121,34 +85195,35 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-1be35230099d",
-      "idea_version": "IDEAV-2a98c38e12921db5",
-      "idea_version_started_at": "2026-08-25T09:09:48Z",
-      "ticker": "HUM",
-      "company": "Humana AB",
-      "exchange": "NYSE",
-      "direction": "long",
+      "idea_id": "IDEA-d1268b378638",
+      "idea_version": "IDEAV-daea33c0af81e531",
+      "idea_version_started_at": "2026-08-26T04:56:22Z",
+      "ticker": "DMP",
+      "company": "Domino's Pizza Enterprises",
+      "exchange": "ASX",
+      "direction": "short",
       "pair_with": null,
-      "reason": "Ambea AB has published a formal offer document for a recommended takeover of Humana AB, creating a merger arbitrage opportunity.",
-      "why_now": "The offer document and prospectus were published on 2026-08-24, initiating the formal tender period.",
+      "reason": "The company reported an accelerating decline in sales and a significant net loss, indicating structural weakness in its core markets.",
+      "why_now": "The financial results were released on 2026-08-26.",
       "conviction": 70,
       "conviction_basis": "pre_edge_proxy",
-      "trade_score": 55,
+      "trade_score": 45,
       "trade_score_basis": "evidence_gate_v2",
       "trade_score_breakdown": {
-        "evidence": 18,
+        "evidence": 14,
         "impact": 19,
-        "specificity": 15,
+        "specificity": 7,
         "timing": 10,
-        "expression": 6,
+        "expression": 0,
         "corroboration": 0,
         "learning_adjustment": 0
       },
-      "trade_readiness": "needs_data",
+      "trade_readiness": "watch_only",
       "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
         "live liquidity",
         "dated catalyst",
-        "priced-in risk",
         "independent confirmation",
         "live price, liquidity, and consensus"
       ],
@@ -85161,31 +85236,103 @@
         "basis": "not_enough_outcomes",
         "evidenceIds": []
       },
-      "priced_in": "priced",
+      "priced_in": "room",
       "thesis_type": "company_specific",
       "origin_type": "wire",
       "source_themes": [],
       "source_event_ids": [
-        "EVT-780976145b26"
+        "EVT-79f615bcd44a"
       ],
-      "primary_source_event_id": "EVT-780976145b26",
+      "primary_source_event_id": "EVT-79f615bcd44a",
       "source_headlines": [
-        "AMBEA AB (PUBL) PUBLISHES OFFER DOCUMENT AND PROSPECTUS REGARDING THE RECOMMENDED PUBLIC TAKEOVER OFFER TO THE SHAREHOLDERS OF HUMANA AB"
+        "Domino’s Pizza sales decline accelerates after slumping to big loss"
       ],
-      "source_headline": "AMBEA AB ( PUBL ) OFFENTLIGGÖR ERBJUDANDEHANDLING OCH PROSPEKT AVSEENDE DET REKOMMENDERADE OFFENTLIGA UPPKÖPSERBJUDANDET TILL AKTIEÄGARNA I HUMANA AB",
-      "source_url": "https://news.cision.com/se/ambea/r/ambea-ab---publ---offentliggor-erbjudandehandling-och-prospekt-avseende-det-rekommenderade-offentlig,c4386956",
-      "source_name": "Cision — Sweden Regulatory & Company News",
+      "source_headline": "Domino’s Pizza sales decline accelerates after slumping to big loss",
+      "source_url": "https://www.afr.com/companies/retail/domino-s-pizza-sales-decline-accelerates-after-slumping-to-big-loss-20260825-p60r8i?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
       "materiality_max": 100,
-      "newest_source_at": "2026-08-24T13:30:00Z",
+      "newest_source_at": "2026-08-26T01:47:51Z",
       "prior_coverage": {
         "has_run": false,
         "latest_run": null,
         "latest_decision": null,
         "data_pool_present": false
       },
-      "surfaced_at": "2026-08-25T09:09:48Z",
-      "updated_at": "2026-08-25T09:09:48Z",
-      "decay_at": "2026-08-26T01:30:00Z",
+      "surfaced_at": "2026-08-26T04:56:22Z",
+      "updated_at": "2026-08-26T04:56:22Z",
+      "decay_at": "2026-08-27T13:47:51Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-edaa84386aed",
+      "idea_version": "IDEAV-f72d940aecfafb2f",
+      "idea_version_started_at": "2026-08-26T04:56:22Z",
+      "ticker": "FL",
+      "company": "Foot Locker",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company reported significant losses and issued weak forward guidance, signaling a deterioration in consumer discretionary spending and operational efficiency.",
+      "why_now": "The earnings release and guidance downgrade occurred on 2026-08-26.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-00822a4a4db2"
+      ],
+      "primary_source_event_id": "EVT-00822a4a4db2",
+      "source_headlines": [
+        "Dick’s Sporting Goods’ Core Business Grows 4.9%, but Foot Locker Losses and Weak Guidance Send Shares Tumbling"
+      ],
+      "source_headline": "Dick’s Sporting Goods’ Core Business Grows 4.9%, but Foot Locker Losses and Weak Guidance Send Shares Tumbling",
+      "source_url": "https://www.nasdaq.com/articles/dicks-sporting-goods-core-business-grows-49-foot-locker-losses-and-weak-guidance-send",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-26T01:40:38Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-26T04:56:22Z",
+      "updated_at": "2026-08-26T04:56:22Z",
+      "decay_at": "2026-08-27T13:40:38Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -86480,78 +86627,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-a4c0ac39922d",
-      "idea_version": "IDEAV-e0f1ef97e94c311a",
-      "idea_version_started_at": "2026-08-24T19:00:25Z",
-      "ticker": "01622",
-      "company": "Redco Group",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "A profit warning indicates that the company's financial performance is expected to be significantly worse than previously anticipated.",
-      "why_now": "The profit warning was issued on August 24, 2026.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-17e88cda411c"
-      ],
-      "primary_source_event_id": "EVT-17e88cda411c",
-      "source_headlines": [
-        "REDCO GROUP (01622): PROFIT WARNING"
-      ],
-      "source_headline": "REDCO GROUP (01622): PROFIT WARNING",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0824/2026082401707.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-24T13:52:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-24T19:00:25Z",
-      "updated_at": "2026-08-24T19:00:25Z",
-      "decay_at": "2026-08-26T01:52:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-aaaaf1fc1368",
       "idea_version": "IDEAV-3c2e59d52bf37f43",
       "idea_version_started_at": "2026-08-24T19:00:25Z",
@@ -86914,14 +86989,14 @@
     "schema_version": "ideas-archive/v1",
     "health": {
       "status": "ok",
-      "file_count": 120,
+      "file_count": 122,
       "suppression_count": 0,
       "corrupt_count": 0,
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 147,
-    "shown_count": 147,
+    "total_count": 150,
+    "shown_count": 150,
     "hidden_count": 0,
     "side_counts": {
       "long": {
@@ -86930,8 +87005,8 @@
         "hidden_count": 0
       },
       "short": {
-        "total_count": 87,
-        "shown_count": 87,
+        "total_count": 90,
+        "shown_count": 90,
         "hidden_count": 0
       }
     },
@@ -86951,6 +87026,229 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-49a2653dd307",
+        "idea_version": "IDEAV-bbf0f9c9aff71064",
+        "idea_version_started_at": "2026-08-26T04:56:22Z",
+        "ticker": "VWAGY",
+        "company": "Volkswagen",
+        "exchange": "OTC Markets",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "Management's plan for 50,000 job cuts and plant closures indicates severe internal cost pressures and potential labor unrest that will disrupt operations.",
+        "why_now": "The restructuring plan was reported on 2026-08-26.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 62,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-ef3265c90c00"
+        ],
+        "primary_source_event_id": "EVT-ef3265c90c00",
+        "source_headlines": [
+          "Volkswagen CEO faces pushback over plan for 50,000 job cuts and plant closures"
+        ],
+        "source_headline": "Volkswagen CEO faces pushback over plan for 50,000 job cuts and plant closures",
+        "source_url": "https://www.cnbctv18.com/business/volkswagen-ceo-faces-pushback-over-plan-for-50000-job-cuts-and-plant-closures-19977137.htm",
+        "source_name": "CNBC-TV18",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-26T02:10:18Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-26T04:56:22Z",
+        "updated_at": "2026-08-26T04:56:22Z",
+        "decay_at": "2026-08-27T14:10:18Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-27T14:10:18Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-d1268b378638",
+        "idea_version": "IDEAV-daea33c0af81e531",
+        "idea_version_started_at": "2026-08-26T04:56:22Z",
+        "ticker": "DMP",
+        "company": "Domino's Pizza Enterprises",
+        "exchange": "ASX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company reported an accelerating decline in sales and a significant net loss, indicating structural weakness in its core markets.",
+        "why_now": "The financial results were released on 2026-08-26.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-79f615bcd44a"
+        ],
+        "primary_source_event_id": "EVT-79f615bcd44a",
+        "source_headlines": [
+          "Domino’s Pizza sales decline accelerates after slumping to big loss"
+        ],
+        "source_headline": "Domino’s Pizza sales decline accelerates after slumping to big loss",
+        "source_url": "https://www.afr.com/companies/retail/domino-s-pizza-sales-decline-accelerates-after-slumping-to-big-loss-20260825-p60r8i?ref=rss&utm_medium=rss&utm_source=rss_feed",
+        "source_name": "Australian Financial Review",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-26T01:47:51Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-26T04:56:22Z",
+        "updated_at": "2026-08-26T04:56:22Z",
+        "decay_at": "2026-08-27T13:47:51Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-27T13:47:51Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-edaa84386aed",
+        "idea_version": "IDEAV-f72d940aecfafb2f",
+        "idea_version_started_at": "2026-08-26T04:56:22Z",
+        "ticker": "FL",
+        "company": "Foot Locker",
+        "exchange": "NYSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company reported significant losses and issued weak forward guidance, signaling a deterioration in consumer discretionary spending and operational efficiency.",
+        "why_now": "The earnings release and guidance downgrade occurred on 2026-08-26.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-00822a4a4db2"
+        ],
+        "primary_source_event_id": "EVT-00822a4a4db2",
+        "source_headlines": [
+          "Dick’s Sporting Goods’ Core Business Grows 4.9%, but Foot Locker Losses and Weak Guidance Send Shares Tumbling"
+        ],
+        "source_headline": "Dick’s Sporting Goods’ Core Business Grows 4.9%, but Foot Locker Losses and Weak Guidance Send Shares Tumbling",
+        "source_url": "https://www.nasdaq.com/articles/dicks-sporting-goods-core-business-grows-49-foot-locker-losses-and-weak-guidance-send",
+        "source_name": "Nasdaq",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-26T01:40:38Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-26T04:56:22Z",
+        "updated_at": "2026-08-26T04:56:22Z",
+        "decay_at": "2026-08-27T13:40:38Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-27T13:40:38Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-d6c3f18fcbf9",
         "idea_version": "IDEAV-566e4dbe9e2d5627",
@@ -88883,8 +89181,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-08-26T01:52:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-08-27T14:03:38Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -88957,8 +89255,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-08-26T01:30:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-08-27T14:03:38Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -97847,7 +98145,7 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 196,
+    "surfaced_total": 199,
     "live_count": 48,
     "promoted_total": 1,
     "machine_confirmed": 0,
@@ -97867,9 +98165,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1701748,
-    "news_picked_today": 968,
-    "news_dropped_today": 16264
+    "news_seen_today": 1802564,
+    "news_picked_today": 1032,
+    "news_dropped_today": 17880
   },
   "book_momentum": {
     "live_count": 8,
