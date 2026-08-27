@@ -4264,6 +4264,8 @@ export const useStore = create<State>((set, get) => ({
   // plane (newsItems, the SSE singleton, enrichment cache, shelf/flags) is deliberately NOT touched.
   _enterWire: (to) => {
     if (get().wireSwarm === to) return
+    archiveToken++ // invalidate any history page still owned by the wire we are leaving
+    facetsToken++ // invalidate its delayed/background facet recount too
     themesRequestSeq++ // invalidate any response owned by the wire we are leaving
     cancelThemeDetailRequest()
     if (themesGeoRefetchTimer) { clearTimeout(themesGeoRefetchTimer); themesGeoRefetchTimer = null }

@@ -66,7 +66,20 @@ try {
   finishSearch({ items: [], nextCursor: null, scannedThroughDate: '2099-01-01', exhausted: true })
   await activeSearch
   assert.equal(facetCalls, 1, 'context counts refresh after the first history result page settles')
-  console.log('\narchiveFacetsLazy.test.ts: 14 passed')
+
+  let finishStaleSearch: ((value: Awaited<ReturnType<typeof api.newsSearch>>) => void) | undefined
+  api.newsSearch = async () => new Promise((resolve) => { finishStaleSearch = resolve })
+  facetCalls = 0
+  useStore.setState({ wireSwarm: 'screener' })
+  const staleSearch = useStore.getState().scRunArchiveSearch({ geoRegion: 'Europe' })
+  await Promise.resolve()
+  useStore.getState()._enterWire('commodity')
+  assert.ok(finishStaleSearch, 'the old wire history request must be in flight before switching wires')
+  finishStaleSearch({ items: [], nextCursor: null, scannedThroughDate: '2099-01-01', exhausted: true })
+  await staleSearch
+  assert.equal(facetCalls, 0, 'a wire switch must cancel the old wire background facet recount')
+  assert.deepEqual(useStore.getState().scArchiveQuery, {}, 'a stale history response must not repopulate the new wire')
+  console.log('\narchiveFacetsLazy.test.ts: 18 passed')
 } finally {
   api.newsFacets = originalNewsFacets
   api.newsSearch = originalNewsSearch
