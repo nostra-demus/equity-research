@@ -423,7 +423,7 @@ Modules implement the specifics (signals, factors, score caps, red-flag IDs) in 
 
 ## 25. Git Policy
 
-> **Scope — research-data output only.** This section is the *data* contract: it governs the engine's autonomous research commits (`analyses/**`, `screener/**`, `analyses/tracking/**`, `watchlist/**`), which `commit-run.sh` writes and pushes straight to `main`. **Code changes do not follow this section** — engine source, the prompt-program under `.claude/`, `frameworks/`, the doctrine files, scripts, and CI go through branch → PR → CI → automated multi-reviewer adversarial review, then stop as an open PR until the user explicitly authorizes that PR's merge (see §28). See §28, which takes precedence for code.
+> **Scope — research-data output only.** This section is the *data* contract: it governs the engine's autonomous research commits (`analyses/**`, `screener/**`, `analyses/tracking/**`, `watchlist/**`), which `commit-run.sh` writes and pushes straight to `main`. **Code changes do not follow this section** — engine source, the prompt-program under `.claude/`, `frameworks/`, the doctrine files, scripts, and CI go through branch → PR → CI → automated multi-reviewer adversarial review, then stop as an open PR until the user explicitly authorizes that PR's merge. See §28, which takes precedence for code.
 
 For ALL work in this repository:
 - Commit directly to the `main` branch.
