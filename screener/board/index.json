@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-27T11:49:18Z",
+  "generated_at": "2026-08-27T11:49:54Z",
   "inbox": [
     {
       "inbox_id": "INB-20260827-391",
@@ -81471,6 +81471,147 @@
   "handoffs": [],
   "ideas": [
     {
+      "idea_id": "IDEA-90b902d53889",
+      "idea_version": "IDEAV-4b55128cf90b4516",
+      "idea_version_started_at": "2026-08-27T11:49:33Z",
+      "ticker": "NVDA",
+      "company": "Nvidia",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Nvidia's revenue exceeded $96 billion, and CEO Jensen Huang stated that AI has reached an inflection point, suggesting strong future growth prospects, further supported by a potential $12.9 billion acquisition of Hugging Face.",
+      "why_now": "The company reported record revenue and provided an optimistic outlook on AI inflection today, alongside acquisition rumors.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 6,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-6cfe1436e69a",
+        "EVT-045e4a30f063"
+      ],
+      "primary_source_event_id": "EVT-6cfe1436e69a",
+      "source_headlines": [
+        "Nvidia To Acquire Hugging Face For $12.9 Bn: Report",
+        "Nvidia revenue tops $96 billion as memory commitments soar to $160 billion — CEO Jensen Huang says AI 'has reached its inflection point'"
+      ],
+      "source_headline": "Nvidia To Acquire Hugging Face For $12.9 Bn: Report",
+      "source_url": "https://www.outlookbusiness.com/corporate/nvidia-to-acquire-hugging-face-for-129-bn-report",
+      "source_name": "Outlook Business",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-27T09:13:54Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-27T03:27:43Z",
+      "updated_at": "2026-08-27T11:49:33Z",
+      "decay_at": "2026-08-28T21:13:54Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-c43c63c30708",
+      "idea_version": "IDEAV-8a034305354e72f2",
+      "idea_version_started_at": "2026-08-27T11:49:33Z",
+      "ticker": "BBTC.NS",
+      "company": "Bombay Burmah Trading Corporation",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The Supreme Court recalled its observations regarding a ₹4,655 crore lease rent, which is a significant positive development for the company.",
+      "why_now": "The Supreme Court's recall order was issued today.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-68c5cc93172a"
+      ],
+      "primary_source_event_id": "EVT-68c5cc93172a",
+      "source_headlines": [
+        "Bombay Burmah shares rally 15%: SC recalls ₹4,655 cr lease rent observations"
+      ],
+      "source_headline": "Bombay Burmah shares rally 15%: SC recalls ₹4,655 cr lease rent observations",
+      "source_url": "https://www.thehindubusinessline.com/markets/stock-markets/bombay-burmah-trading-shares-rally-15-supreme-court-recalls-4655-crore-lease-rent-observations/article71395237.ece",
+      "source_name": "The Hindu BusinessLine",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-27T06:39:40Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-27T11:49:33Z",
+      "updated_at": "2026-08-27T11:49:33Z",
+      "decay_at": "2026-08-28T18:39:40Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-1312ba074e78",
       "idea_version": "IDEAV-141e9a03175678bb",
       "idea_version_started_at": "2026-08-27T08:58:33Z",
@@ -82312,23 +82453,23 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-90b902d53889",
-      "idea_version": "IDEAV-8e958126bfb1c724",
-      "idea_version_started_at": "2026-08-27T03:27:43Z",
-      "ticker": "NVDA",
-      "company": "Nvidia",
-      "exchange": "NASDAQ",
-      "direction": "long",
+      "idea_id": "IDEA-6f55bf31e25a",
+      "idea_version": "IDEAV-5d771201ad67cf74",
+      "idea_version_started_at": "2026-08-27T11:49:33Z",
+      "ticker": "BA",
+      "company": "Boeing",
+      "exchange": "NYSE",
+      "direction": "short",
       "pair_with": null,
-      "reason": "Nvidia's potential acquisition of Hugging Face would expand its AI software capabilities and ecosystem, reinforcing its dominant position in the AI market.",
-      "why_now": "Business Insider reported on August 27, 2026, that Nvidia is in talks to acquire Hugging Face for $13 billion, creating a fresh catalyst.",
-      "conviction": 65,
+      "reason": "Boeing paid $4.7 billion to buy back a business it had previously sold in 2005, indicating a potentially inefficient capital allocation or strategic misstep.",
+      "why_now": "The transaction details were reported today.",
+      "conviction": 55,
       "conviction_basis": "pre_edge_proxy",
-      "trade_score": 59,
+      "trade_score": 60,
       "trade_score_basis": "evidence_gate_v2",
       "trade_score_breakdown": {
-        "evidence": 7,
-        "impact": 21,
+        "evidence": 14,
+        "impact": 19,
         "specificity": 15,
         "timing": 10,
         "expression": 6,
@@ -82339,6 +82480,7 @@
       "missing_checks": [
         "live liquidity",
         "dated catalyst",
+        "price and market expectations",
         "independent confirmation",
         "live price, liquidity, and consensus"
       ],
@@ -82351,31 +82493,102 @@
         "basis": "not_enough_outcomes",
         "evidenceIds": []
       },
-      "priced_in": "room",
+      "priced_in": "unknown",
       "thesis_type": "company_specific",
       "origin_type": "wire",
       "source_themes": [],
       "source_event_ids": [
-        "EVT-5621f94b1828"
+        "EVT-f5cd8feb7480"
       ],
-      "primary_source_event_id": "EVT-5621f94b1828",
+      "primary_source_event_id": "EVT-f5cd8feb7480",
       "source_headlines": [
-        "Nvidia in talks to acquire Hugging Face in $13 billion deal, Business Insider reports"
+        "Boeing Paid $4.7 Billion to Buy Back a Business It Sold in 2005"
       ],
-      "source_headline": "Nvidia in talks to acquire Hugging Face in $13 billion deal, Business Insider reports",
-      "source_url": "https://www.reuters.com/technology/nvidia-talks-acquire-hugging-face-13-billion-deal-business-insider-reports-2026-08-27/",
-      "source_name": "Reuters — Latest (news sitemap)",
+      "source_headline": "Boeing Paid $4.7 Billion to Buy Back a Business It Sold in 2005",
+      "source_url": "https://www.fool.com/investing/2026/08/27/boeing-paid-usd4-7-billion-to-buy-back-a-business-it-sold-in-2005/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
       "materiality_max": 100,
-      "newest_source_at": "2026-08-27T00:52:46Z",
+      "newest_source_at": "2026-08-27T07:44:01Z",
       "prior_coverage": {
         "has_run": false,
         "latest_run": null,
         "latest_decision": null,
         "data_pool_present": false
       },
-      "surfaced_at": "2026-08-27T03:27:43Z",
-      "updated_at": "2026-08-27T03:27:43Z",
-      "decay_at": "2026-08-28T12:52:46Z",
+      "surfaced_at": "2026-08-27T11:49:33Z",
+      "updated_at": "2026-08-27T11:49:33Z",
+      "decay_at": "2026-08-28T19:44:01Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-ab6392d211fe",
+      "idea_version": "IDEAV-4303f9c968250a66",
+      "idea_version_started_at": "2026-08-27T11:49:33Z",
+      "ticker": "HDB",
+      "company": "HDFC Bank",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "HDFC Bank's share price fell to a 52-week low following a US class action lawsuit alleging a bribery scheme.",
+      "why_now": "The lawsuit and subsequent share price drop occurred today.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 60,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "price and market expectations",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "unknown",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-e6dcd8ef1d62"
+      ],
+      "primary_source_event_id": "EVT-e6dcd8ef1d62",
+      "source_headlines": [
+        "HDFC Bank Share Price Falls To 52-Week Low After US Class Action Lawsuit Over Alleged Bribery Scheme"
+      ],
+      "source_headline": "HDFC Bank Share Price Falls To 52-Week Low After US Class Action Lawsuit Over Alleged Bribery Scheme",
+      "source_url": "https://www.ndtvprofit.com/markets/hdfc-bank-share-price-falls-after-us-class-action-lawsuit-over-alleged-bribery-scheme-11964590#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-27T08:26:43Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-27T11:49:33Z",
+      "updated_at": "2026-08-27T11:49:33Z",
+      "decay_at": "2026-08-28T20:26:43Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -84465,76 +84678,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-eec9cd9f6717",
-      "idea_version": "IDEAV-7caad8a89b95b482",
-      "idea_version_started_at": "2026-08-25T09:09:48Z",
-      "ticker": "GH",
-      "company": "Guardant Health",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company faces a $245.2 million judgment for patent infringement, which will negatively impact cash reserves and potentially force changes to their product commercialization strategy.",
-      "why_now": "The final judgment was announced on 2026-08-24, creating immediate balance sheet pressure.",
-      "conviction": 80,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 18,
-        "impact": 18,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-12fec20cb36e"
-      ],
-      "primary_source_event_id": "EVT-12fec20cb36e",
-      "source_headlines": [
-        "TwinStrand Biosciences Announces Final Judgment in Patent Infringement Suit Against Guardant Health, Awarding TwinStrand and the University of Washington More Than $245.2 Million in Damages, Accrued Royalties and Interest | GH Stock News"
-      ],
-      "source_headline": "TwinStrand Biosciences Announces Final Judgment in Patent Infringement Suit Against Guardant Health, Awarding TwinStrand and the University of Washington More Than $245.2 Million in Damages, Accrued Royalties and Interest | GH Stock News",
-      "source_url": "https://www.stocktitan.net/news/GH/twin-strand-biosciences-announces-final-judgment-in-patent-fmua2oc5pmut.html",
-      "source_name": "Stock Titan — Latest News",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-24T11:00:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-25T09:09:48Z",
-      "updated_at": "2026-08-25T09:09:48Z",
-      "decay_at": "2026-08-25T23:00:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-4b8102f69455",
       "idea_version": "IDEAV-ff99366965afb179",
       "idea_version_started_at": "2026-08-25T06:14:06Z",
@@ -86032,148 +86175,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-33be1fdd6647",
-      "idea_version": "IDEAV-2b62a45ebc1796dd",
-      "idea_version_started_at": "2026-08-24T21:01:02Z",
-      "ticker": "02266",
-      "company": "LAI SI ENT",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The profit warning indicates a negative trend in the company's financial results.",
-      "why_now": "The announcement was made on 2026-08-24.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-4c88decf78bd"
-      ],
-      "primary_source_event_id": "EVT-4c88decf78bd",
-      "source_headlines": [
-        "LAI SI ENT (02266): PROFIT WARNING"
-      ],
-      "source_headline": "LAI SI ENT (02266): PROFIT WARNING",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0824/2026082401187.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-24T11:14:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-24T21:01:02Z",
-      "updated_at": "2026-08-24T21:01:02Z",
-      "decay_at": "2026-08-25T23:14:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-8ebbe2edbfcb",
-      "idea_version": "IDEAV-fd3fed37ef7b0da3",
-      "idea_version_started_at": "2026-08-24T21:01:02Z",
-      "ticker": "01900",
-      "company": "CHINA ITS",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company issued a profit warning, indicating significant deterioration in earnings performance.",
-      "why_now": "The filing was released on 2026-08-24, making the negative outlook immediate news.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-3a8f593bfac2"
-      ],
-      "primary_source_event_id": "EVT-3a8f593bfac2",
-      "source_headlines": [
-        "CHINA ITS (01900): PROFIT WARNING"
-      ],
-      "source_headline": "CHINA ITS (01900): PROFIT WARNING",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0824/2026082401223.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-24T11:24:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-24T21:01:02Z",
-      "updated_at": "2026-08-24T21:01:02Z",
-      "decay_at": "2026-08-25T23:24:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-5eb83f28e809",
       "idea_version": "IDEAV-edc735557a877cff",
       "idea_version_started_at": "2026-08-24T19:00:25Z",
@@ -86606,148 +86607,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-6eca4f13ca43",
-      "idea_version": "IDEAV-bfdfa19aee0854a9",
-      "idea_version_started_at": "2026-08-24T14:45:11Z",
-      "ticker": "00655",
-      "company": "HK CHINESE LTD",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company issued a profit warning, indicating deteriorating earnings performance for the period.",
-      "why_now": "The announcement was released on 2026-08-24.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-6232e9536276"
-      ],
-      "primary_source_event_id": "EVT-6232e9536276",
-      "source_headlines": [
-        "HK CHINESE LTD (00655): INSIDE INFORMATION ANNOUNCEMENT / PROFIT WARNING"
-      ],
-      "source_headline": "HK CHINESE LTD (00655): INSIDE INFORMATION ANNOUNCEMENT / PROFIT WARNING",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0824/2026082401277.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-24T11:40:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-24T14:45:11Z",
-      "updated_at": "2026-08-24T14:45:11Z",
-      "decay_at": "2026-08-25T23:40:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-aeee8baa02be",
-      "idea_version": "IDEAV-d4a281323a968b8c",
-      "idea_version_started_at": "2026-08-24T14:45:11Z",
-      "ticker": "02439",
-      "company": "CH TREASURES NM",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company reported a decrease in profit for the six months ended 30 June 2026, signaling operational headwinds.",
-      "why_now": "The profit warning was filed on 2026-08-24.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-ebad0a5538d4"
-      ],
-      "primary_source_event_id": "EVT-ebad0a5538d4",
-      "source_headlines": [
-        "CH TREASURES NM (02439): PROFIT WARNING DECREASE IN PROFIT FOR THE SIX MONTHS ENDED 30 JUNE 2026"
-      ],
-      "source_headline": "CH TREASURES NM (02439): PROFIT WARNING DECREASE IN PROFIT FOR THE SIX MONTHS ENDED 30 JUNE 2026",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0824/2026082401291.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-24T11:44:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-24T14:45:11Z",
-      "updated_at": "2026-08-24T14:45:11Z",
-      "decay_at": "2026-08-25T23:44:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-6857baeec631",
       "idea_version": "IDEAV-3a8093446de16731",
       "idea_version_started_at": "2026-08-24T13:46:18Z",
@@ -86813,77 +86672,6 @@
       "surfaced_at": "2026-08-24T13:46:18Z",
       "updated_at": "2026-08-24T13:46:18Z",
       "decay_at": "2026-08-26T00:03:57Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-931b605ccb2e",
-      "idea_version": "IDEAV-f11ed3123a83f41f",
-      "idea_version_started_at": "2026-08-24T13:46:18Z",
-      "ticker": "00083",
-      "company": "Sino Land",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Sino Land has secured a new joint venture tender for land development in Hong Kong, which enhances its long-term project pipeline and capital deployment strategy.",
-      "why_now": "The announcement was filed on 2026-08-24, making the development project official and actionable for investors.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-710641670dd4"
-      ],
-      "primary_source_event_id": "EVT-710641670dd4",
-      "source_headlines": [
-        "SINO LAND (00083): Formation of the Joint Ventures and Award of the Tender for the Acquisition and Development of the Sites in Hong Kong"
-      ],
-      "source_headline": "SINO LAND (00083): Formation of the Joint Ventures and Award of the Tender for the Acquisition and Development of the Sites in Hong Kong",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0824/2026082401241.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-24T11:30:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-24T13:46:18Z",
-      "updated_at": "2026-08-24T13:46:18Z",
-      "decay_at": "2026-08-25T23:30:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -86964,7 +86752,7 @@
     "schema_version": "ideas-archive/v1",
     "health": {
       "status": "ok",
-      "file_count": 113,
+      "file_count": 119,
       "suppression_count": 0,
       "corrupt_count": 0,
       "invalid_count": 0,
@@ -89155,8 +88943,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-08-25T23:44:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-08-27T11:49:42Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -89229,8 +89017,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-08-25T23:40:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-08-27T11:49:42Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -89303,8 +89091,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-08-25T23:30:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-08-27T11:49:42Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -89377,8 +89165,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-08-25T23:24:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-08-27T11:49:42Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -89451,8 +89239,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-08-25T23:14:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-08-27T11:49:42Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -89524,8 +89312,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-08-25T23:00:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-08-27T11:49:42Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -97897,8 +97685,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 190,
-    "live_count": 42,
+    "surfaced_total": 193,
+    "live_count": 45,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
