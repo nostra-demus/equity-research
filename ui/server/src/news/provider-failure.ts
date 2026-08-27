@@ -230,7 +230,7 @@ export function classifyProviderHttpFailure(
   // credential creates a trap: once quarantined, the aggregate is never called again and cannot prove that
   // its rotating upstream pool recovered. Keep direct-provider 401s terminal; let OmniRoute cool down and
   // retry so its supervised local contract and changing upstream pool can self-heal.
-  const providerId = context?.providerId?.trim().toLowerCase() || ''
+  const providerId = context?.providerId ? safeProviderId(context.providerId) : ''
   if (status === 401 && providerId === 'omniroute') {
     return { code: 'transient_upstream', scope: 'provider', action: 'cooldown', providerWide: true, ...carry }
   }
