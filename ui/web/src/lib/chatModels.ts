@@ -36,8 +36,9 @@ export function chatModelsReadAfterFailure(error: unknown, previous: ChatModelsR
 export function normalizeChatModelsRead(value: unknown): ChatModelsRead | null {
   if (!value || typeof value !== 'object' || Array.isArray(value)) return null
   const read = value as Record<string, unknown>
-  if (!Array.isArray(read.models) || !read.models.every(isChatModel)) return null
-  const models = [...new Set(read.models)]
+  if (!Array.isArray(read.models)) return null
+  const models = [...new Set(read.models.filter(isChatModel))]
+  if (!models.length) return null
   const defaultModel = typeof read.defaultModel === 'string' && models.includes(read.defaultModel)
     ? read.defaultModel
     : models[0] ?? null

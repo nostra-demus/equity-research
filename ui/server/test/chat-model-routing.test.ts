@@ -25,6 +25,11 @@ assert.equal(resolveChatModel('gpt-5.6-sol'), null, 'a bare GPT id cannot bypass
 assert.deepEqual(resolveAllowedChatModel('claude-sonnet-4-6-20260801', ['claude-sonnet-4-6-20260801']), {
   id: 'claude-sonnet-4-6-20260801', provider: 'claude', model: 'claude-sonnet-4-6-20260801',
 }, 'a configured concrete Claude model id preserves the existing env-tunable escape hatch')
+assert.equal(
+  resolveAllowedChatModel('Claude-Sonnet-4-6-20260801', ['claude-sonnet-4-6-20260801'])?.id,
+  'claude-sonnet-4-6-20260801',
+  'mixed-case operator/client input resolves against the normalized concrete Claude allow-list',
+)
 assert.equal(resolveAllowedChatModel('codex:unreviewed-gpt', ['codex:unreviewed-gpt']), null)
 assert.equal(resolveChatRequestModel('codex:gpt-5.6-sol', ['sonnet'], 'sonnet'), null,
   'an explicitly excluded model is rejected rather than silently becoming the default')

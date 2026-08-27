@@ -32,7 +32,7 @@ export function resolveChatModel(value: unknown): ChatModelSpec | null {
 // id through ENGINE_CHAT_MODELS_ALLOWED; preserve that pre-existing escape hatch without letting an unknown
 // provider-qualified Codex id bypass the reviewed GPT catalogue.
 export function resolveAllowedChatModel(value: unknown, allowedModels: readonly string[]): ChatModelSpec | null {
-  const id = typeof value === 'string' ? value.trim() : ''
+  const id = typeof value === 'string' ? value.trim().toLowerCase() : ''
   if (!id) return null
   const reviewed = resolveChatModel(id)
   if (reviewed) return allowedModels.includes(reviewed.id) ? reviewed : null

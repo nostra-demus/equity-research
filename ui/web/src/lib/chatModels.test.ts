@@ -15,6 +15,9 @@ assert.deepEqual(normalizeChatModelsRead({ models: ['sonnet', 'codex:gpt-5.6-sol
 })
 assert.equal(normalizeChatModelsRead({ models: ['unreviewed:model'], defaultModel: 'unreviewed:model' }), null,
   'the browser never trusts an unreviewed server model id')
+assert.deepEqual(normalizeChatModelsRead({ models: ['unreviewed:model', 'sonnet'], defaultModel: 'unreviewed:model' }), {
+  models: ['sonnet'], defaultModel: 'sonnet',
+}, 'one malformed catalogue row is quarantined without hiding valid Ask models')
 const pinnedClaude = 'claude-sonnet-4-6-20260801'
 assert.deepEqual(normalizeChatModelsRead({ models: [pinnedClaude], defaultModel: pinnedClaude }), {
   models: [pinnedClaude], defaultModel: pinnedClaude,
@@ -72,6 +75,7 @@ assert.match(menu, /useChatModelChoices/, 'desktop Ask filters its picker throug
 assert.match(mobile, /useChatModelChoices/, 'mobile Ask filters its picker through the same host allow-list')
 assert.match(availability, /api\.chatModels\(\)/, 'all pickers read admitted models from the server')
 assert.match(availability, /useRef\(onSelect\)/, 'parent renders cannot restart the host-catalogue request')
+assert.match(availability, /useRef\(model\)/, 'model changes use the current selection without restarting discovery')
 assert.match(availability, /setTimeout/, 'a temporary catalogue outage retries without replacing the saved model')
 assert.ok((store.match(/model: get\(\)\.chatModel/g) || []).length >= 2, 'research and news requests both send the selected model')
 assert.match(store, /chatModel: c\.model \|\| get\(\)\.chatModel,[\s\S]*newsChatWindow:/, 'saved news History restores its exact model before the next turn')

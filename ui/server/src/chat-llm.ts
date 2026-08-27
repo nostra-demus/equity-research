@@ -158,17 +158,33 @@ export function codexChatFeatureDisables(output: string): string[] {
 // makes an in-place CLI upgrade self-heal without a server restart; rejected probes are never cached.
 let codexChatFeatureCache: { command: string; expiresAt: number; pending: Promise<string[]> } | null = null
 
-async function inspectCodexChatFeatures(command: string, env: NodeJS.ProcessEnv, cwd: string): Promise<string[]> {
+async function inspectCodexChatFeatures(command: string): Promise<string[]> {
   const now = Date.now()
   if (codexChatFeatureCache?.command === command && codexChatFeatureCache.expiresAt > now) {
     return codexChatFeatureCache.pending
   }
   const pending = (async () => {
+    let featureRoot = ''
     let result: any
     try {
-      result = await execa(command, ['features', 'list'], { cwd, env, reject: false, timeout: 10_000 })
+      featureRoot = await fs.mkdtemp(path.join(os.tmpdir(), 'nostra-codex-feature-'))
+      await fs.chmod(featureRoot, 0o700)
+      const featureEnv = codexChildEnv()
+      // Inspect the same config-free defaults Ask will use, without borrowing a turn's workspace or auth
+      // lease. This directory remains alive for the complete subprocess and is removed by this promise.
+      featureEnv.CODEX_HOME = featureRoot
+      featureEnv.TMPDIR = featureRoot
+      featureEnv.TMP = featureRoot
+      featureEnv.TEMP = featureRoot
+      result = await execa(command, ['features', 'list'], {
+        cwd: featureRoot, env: featureEnv, reject: false, timeout: 10_000,
+      })
     } catch (error: any) {
       throw new Error(`Codex feature check failed: ${error?.shortMessage || error?.message || error}`)
+    } finally {
+      if (featureRoot) {
+        try { await fs.rm(featureRoot, { recursive: true, force: true }) } catch { /* bounded feature probe */ }
+      }
     }
     if (result?.exitCode !== 0 || result?.failed) {
       throw new Error(`Codex feature check failed: ${String(result?.stderr || result?.stdout || `exit ${result?.exitCode}`).trim().slice(0, 240)}`)
@@ -340,7 +356,7 @@ async function runCodexChatTurn(opts: ChatTurnOptions, choice: ChatModelSpec): P
     env.TMP = chatRoot
     env.TEMP = chatRoot
     const command = resolveCodexBin()
-    const disabledFeatures = await inspectCodexChatFeatures(command, env, chatRoot)
+    const disabledFeatures = await inspectCodexChatFeatures(command)
     if (opts.signal.aborted) return { costUsd: 0, error: 'aborted' }
     const args = buildCodexChatArgs(choice, chatRoot, opts.system, {
       parser: opts.thinkingTokens === 0,
