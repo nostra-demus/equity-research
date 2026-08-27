@@ -945,11 +945,10 @@ export const NEWS = {
   // cloud tiers' exponential backoff — local has no daily cap to protect from failed-probe burn, so recovering
   // fast when the box wakes matters more than sparing a failed call.
   localCooldownMs: capNum(process.env.NEWS_LOCAL_COOLDOWN_SEC, 45) * 1000,
-  // One provider round-trip has a large fixed cost, especially through the Haiku subscription CLI. The
-  // former 12-row default could not keep up with the live arrival rate even while Haiku and OmniRoute were
-  // healthy. A production-contract canary proved 24 rows complete inside both existing guards (all 24
-  // indices, $0.0846 under the $0.10 call ceiling, 64s under the 120s timeout); 36 rows hit that timeout.
-  // Keep 24 as the measured safe ceiling. The env override remains the immediate rollback/tuning control.
+  // One provider round-trip has a large fixed cost. The former 12-row outer batch could not keep up with
+  // live arrivals, while the free/API providers safely accept 24. A simple 24-row Haiku canary finished in
+  // 64s, but a complex live batch later hit the 120s ceiling; the subscription transport therefore fans
+  // this 24-row outer batch into two parallel 12-row calls. The env override remains the rollback control.
   triageBatch: capNum(process.env.NEWS_TRIAGE_BATCH, 24),
   // How many times ONE batch may be re-sent to a DIFFERENT free provider after a `contract` failure — a call
   // that returned but whose body was unusable (malformed JSON, wrong envelope, missing rows, truncation).

@@ -14,6 +14,7 @@ import { Budget, RateLimiter, UsdBudget, armCooldown, clearCooldown, cooldownInf
 import { articleReadTokenBound, readArticleBrief } from '../src/news/triage/article-read'
 import { SYSTEM, TRIAGE_CONTRACT_VERSION, analyzeArticle, coerceTriage, estimateTokens, parseRate, scoreToBand, triageBatch, triageMaxOutputTokens } from '../src/news/triage/groq'
 import { analyzeArticleGemini, geminiSchemaEnabled, TRIAGE_RESPONSE_SCHEMA, triageBatchGemini } from '../src/news/triage/gemini'
+import type { ClaudeCliRunner } from '../src/news/triage/claude-cli'
 import { appendFeedItems, inspectFeedCapacity, MAX_FEED_ITEM_BYTES, readFeed } from '../src/news/feed'
 import { newsBus } from '../src/news/bus'
 import { appendFirehoseSummary, FIREHOSE_HARD_MAX_BYTES, mergeInbox, revisionClockRegistryDiagnostics } from '../src/news/write-inbox'
@@ -4929,6 +4930,67 @@ await check('Haiku priority 1 scores before Groq when both providers are healthy
   assert.equal(groqCalls, 0, 'a healthy Haiku result stops the fallback chain')
   assert.equal(summary.provider_scored_batches?.['anthropic-triage'], 1)
   assert.equal(summary.groq_requests, 0)
+})
+
+await check('Haiku priority 1 funds and scores a 24-row outer batch as two exact 12-row calls', async () => {
+  resetSharedLimiters(); resetBudgetMemory(); resetCooldownMemory()
+  const root = tmp(), state = tmp()
+  let gdeltServed = false, groqCalls = 0
+  const articles = Array.from({ length: 24 }, (_, index) => ({
+    url: `https://reuters.com/haiku-shard-${index}`,
+    title: `Company ${index} issues a major profit warning and materially cuts full-year guidance`,
+    domain: 'reuters.com',
+    seendate: '20260612T090000Z',
+  }))
+  const fetchFn = (async (url: string) => {
+    const value = String(url)
+    if (value.includes('groq')) {
+      groqCalls++
+      return res('Haiku should have completed the whole outer batch', 503)
+    }
+    if (value.includes('gdelt') && !gdeltServed) {
+      gdeltServed = true
+      return res({ articles })
+    }
+    return res({ articles: [] })
+  }) as unknown as typeof fetch
+  const prompts: string[] = []
+  const claudeCliRunner: ClaudeCliRunner = async (_system, user) => {
+    prompts.push(user)
+    const inFlight = JSON.parse(fs.readFileSync(path.join(state, 'anthropic-triage-budget.json'), 'utf8'))
+    assert.equal(inFlight.usd, 0.20, 'both $0.10 shards are durably funded before either provider call')
+    return {
+      text: JSON.stringify({ items: Array.from({ length: 12 }, (_, i) => ({
+        i, relevance: 'material', materiality_pre_score: 84, event_types: ['earnings'],
+        issuer_linkage: 'primary', why: 'The company cut guidance.', companies: [], size_bucket: 'unknown',
+      })) }),
+      costUsd: 0.04,
+      costUsdKnown: true,
+    }
+  }
+  const summary = await runIngestCycle({
+    repoRoot: root, stateDir: state, fetchFn, sleep: noSleep, now: () => new Date('2026-06-12T09:30:00Z'), claudeCliRunner,
+    config: {
+      groqApiKey: 'k', gdeltBaseUrl: 'https://gdelt.test/doc', groqBaseUrl: 'https://groq.test', groqRpm: 6000,
+      gdeltLookbackMin: 40, rssEnabled: false, themesEnabled: false, overflowProviders: [], geminiEnabled: false,
+      triageBatch: 24, triageMaxItemsPerCycle: 24,
+      anthropicFallbackEnabled: true, anthropicFallbackMode: 'subscription', anthropicDailyUsd: 200,
+      anthropicPerCallUsd: 0.10, anthropicRpm: 6000, anthropicMinPriority: 0,
+    } as any,
+  })
+  assert.equal(prompts.length, 2)
+  assert.ok(prompts.every((prompt) => prompt.startsWith('Score these 12 headlines:')))
+  assert.equal(summary.anthropic_requests, 2)
+  assert.equal(summary.provider_attempts?.['anthropic-triage'], 2)
+  assert.equal(summary.provider_scored_batches?.['anthropic-triage'], 1)
+  assert.equal(summary.picked, 24)
+  assert.equal(summary.deferred ?? 0, 0)
+  assert.equal(summary.anthropic_cost_usd, 0.08)
+  assert.equal(groqCalls, 0, 'the unchanged fallback chain is not needed after both Haiku shards succeed')
+  const ledger = JSON.parse(fs.readFileSync(path.join(state, 'anthropic-triage-budget.json'), 'utf8'))
+  assert.equal(ledger.usd, 0.08, 'the unused $0.12 reservation is released after exact cost telemetry')
+  assert.equal(ledger.calls, 2)
+  assert.equal(Object.keys(ledger.reservations || {}).length, 0)
 })
 
 await check('Haiku priority-1 failure immediately falls through to the existing Groq provider', async () => {

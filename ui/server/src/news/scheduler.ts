@@ -23,6 +23,7 @@ import {
   conservativeChatUsdBound, cooldownInfo, dailyQuotaAdmission, inspectBudgetLedger, inspectUsdLedger,
   isCoolingDown, pacedCeiling, pacedHasHeadroom, usdAmountFits,
 } from './triage/budget'
+import { claudeCliShardCount } from './triage/claude-cli'
 import { SYSTEM, TRIAGE_CONTRACT_VERSION, buildUserMessage, estimateTokens, openAiRequestIdentity, type TriageOptions } from './triage/groq'
 import { readProviderQuarantine, type ProviderQuarantine } from './provider-failure'
 import { preTriagePriority } from './rank'
@@ -582,7 +583,7 @@ export function anthropicHasHeadroom(now = Date.now()): boolean {
   if (u.ledgerUnavailable) return false
   const batch = loadUnscoredDiagnosticBatch()
   const nextCallUsd = NEWS.anthropicFallbackMode === 'subscription'
-    ? Math.max(0, NEWS.anthropicPerCallUsd)
+    ? Math.max(0, NEWS.anthropicPerCallUsd) * Math.max(1, claudeCliShardCount(batch.length))
     : conservativeChatUsdBound(
         SYSTEM,
         buildUserMessage(batch),
