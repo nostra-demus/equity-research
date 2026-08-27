@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-27T03:17:21Z",
+  "generated_at": "2026-08-27T03:27:26Z",
   "inbox": [
     {
       "inbox_id": "INB-20260827-134",
@@ -943,6 +943,56 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260827-171",
+      "headline": "Nvidia’s 70% sales growth forecast sends a message to AI doubters. What did CEO Jensen Huang say?",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/us-stocks/wall-street-guide/nvidias-70-sales-growth-forecast-sends-a-message-to-ai-doubters-what-did-ceo-jensen-huang-say/articleshow/133554571.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-27T02:57:08Z",
+      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
+      "prelim_note": "Nvidia CEO Jensen Huang cites 70% sales-growth forecast, materially altering near-term revenue expectations and AI-sector investor sentiment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Nvidia CEO Jensen Huang cites 70% sales-growth forecast, materially altering near-term revenue expectations and AI-sector investor sentiment.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 73,
+      "rank_factors": {
+        "materiality": 73,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "guidance_change",
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": "NVDA",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1928,55 +1978,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260827-043",
-      "headline": "KKR to Pay $250 Million to Resolve DOJ Merger Filing Lawsuit",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-08-26/kkr-to-pay-250-million-to-resolve-doj-merger-filing-lawsuit",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-26T23:23:21Z",
-      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
-      "prelim_note": "KKR agreed to pay a $250 million fine to resolve a DOJ lawsuit regarding merger filing violations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "KKR agreed to pay a $250 million fine to resolve a DOJ lawsuit regarding merger filing violations.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "KKR",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -97626,9 +97627,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 408115,
-    "news_picked_today": 193,
-    "news_dropped_today": 3431
+    "news_seen_today": 427222,
+    "news_picked_today": 200,
+    "news_dropped_today": 3448
   },
   "book_momentum": {
     "live_count": 8,
