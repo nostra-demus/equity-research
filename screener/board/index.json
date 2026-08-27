@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-27T15:56:32Z",
+  "generated_at": "2026-08-27T16:02:41Z",
   "inbox": [
     {
       "inbox_id": "INB-20260827-635",
@@ -1334,6 +1334,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260827-676",
+      "headline": "Velocity to buy Toorak platform, manage $3B BPL portfolio",
+      "headline_en": null,
+      "url": "https://www.housingwire.com/articles/velocity-toorak-acquisition-rtl-bpl/",
+      "source_name": "HousingWire",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-27T15:49:26Z",
+      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
+      "prelim_note": "Velocity is acquiring a platform to manage a $3 billion portfolio, representing a significant expansion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Velocity is acquiring a platform to manage a $3 billion portfolio, representing a significant expansion.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Velocity",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260827-669",
       "headline": "Build-A-Bear Cuts Revenue View, Fires Exec After Summer Line Flop",
       "headline_en": null,
@@ -1933,56 +1982,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260827-618",
-      "headline": "Jameson Maker Pernod Ricard Warns of Sales Hit as Americans Ease Off on Drinking",
-      "headline_en": null,
-      "url": "https://www.wsj.com/business/retail/pernod-ricard-warns-weak-u-s-drinking-to-keep-clipping-sales-growth-45a92af3?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-27T13:14:00Z",
-      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
-      "prelim_note": "Pernod Ricard warned of a sales hit due to Americans easing off on drinking.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Pernod Ricard warned of a sales hit due to Americans easing off on drinking.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change",
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Pernod Ricard",
-          "ticker": "RI",
-          "listing_country": "FR"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -98375,9 +98374,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2193491,
-    "news_picked_today": 1203,
-    "news_dropped_today": 18957
+    "news_seen_today": 2210044,
+    "news_picked_today": 1207,
+    "news_dropped_today": 19001
   },
   "book_momentum": {
     "live_count": 8,
