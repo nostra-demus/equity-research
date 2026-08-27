@@ -4,11 +4,12 @@ import { motion, useReducedMotion } from 'framer-motion'
 import { api } from '../../lib/api'
 import type {
   PortfolioBook, PortfolioClosure, PortfolioLiveMark, PortfolioManualRead, PortfolioPerformance,
-  PortfolioPosition, PortfolioRead,
+  PortfolioIdeaBook, PortfolioPosition, PortfolioRead,
 } from '../../lib/types'
 import { useStore } from '../../lib/store'
 import { GrowthChart, UnderwaterChart } from './charts'
 import { LogTradeForm, ManualTradeList, ProvisionalEffects } from './manual'
+import { groupByIdea } from './tradeRows'
 
 const EMPTY_MANUAL: PortfolioManualRead = { trades: [], live: 0, superseded: 0, effects: [] }
 
@@ -248,7 +249,7 @@ export function PortfolioStage() {
           // decorates it.
           <Holdings
             book={book} perf={read?.performance ?? null} manual={manual}
-            cashEquivalents={read?.overrides?.cashEquivalents ?? []} live={live}
+            cashEquivalents={read?.overrides?.cashEquivalents ?? []} live={live} ideas={read?.ideas}
             onManage={() => setTab('trades')} onChanged={setRead}
           />
         ) : tab === 'performance' ? (
@@ -257,7 +258,7 @@ export function PortfolioStage() {
             : <div className="fundbook__none">No performance to show yet.</div>
         ) : (
           <Trades
-            book={book} manual={manual} onChanged={setRead}
+            book={book} manual={manual} onChanged={setRead} ideas={read?.ideas}
             importOpen={openImport} onImportOpen={setOpenImport}
             importSurface={
               <ImportTab
@@ -372,9 +373,11 @@ function withLive(
 
 // ---------- holdings ----------
 
-function Holdings({ book, perf, manual, cashEquivalents, live, onManage, onChanged }: {
+function Holdings({ book, perf, manual, cashEquivalents, live, ideas, onManage, onChanged }: {
   book: PortfolioBook; perf: PortfolioPerformance | null; manual: PortfolioManualRead
   cashEquivalents: string[]; live: PortfolioLiveMark | null
+  /** Absent on an engine that predates idea grouping — the block simply does not render (DESIGN.md §5). */
+  ideas?: PortfolioIdeaBook
   onManage: () => void; onChanged: (r: PortfolioRead) => void
 }) {
   const ccy = book.baseCurrency
@@ -511,7 +514,7 @@ function Holdings({ book, perf, manual, cashEquivalents, live, onManage, onChang
           other way round, the summary sat a screen and a half below the thing it summarises. */}
       <Exposure
         book={book} risked={risked} parkedValue={parkedValue} nav={nav} ccy={ccy}
-        invested={invested} cash={cash} parked={parked} bars={
+        invested={invested} cash={cash} parked={parked} ideas={ideas} bars={
           <>
             {/* nav > 0, not merely present: an account that has been emptied divides by zero, and both
                 bars printed the literal string "NaN%". */}
@@ -564,7 +567,7 @@ function Holdings({ book, perf, manual, cashEquivalents, live, onManage, onChang
             <span className="num">Mark</span><span className="num">Value</span><span className="num">Weight</span>
             <span className="num">Unrealised</span><span className="num">%</span>
           </div>
-          {risked.map((p, i) => <PositionRow key={`${p.conid ?? p.symbol ?? 'x'}-${i}`} p={p} />)}
+          {risked.map((p, i) => <PositionRow key={`${p.conid ?? p.symbol ?? 'x'}-${i}`} p={p} ideas={ideas} onChanged={onChanged} />)}
           {parked.length > 0 && (
             <>
               <div className="fundbook__subhead">Cash equivalents — counted as cash above, not as positions</div>
@@ -619,10 +622,11 @@ function Holdings({ book, perf, manual, cashEquivalents, live, onManage, onChang
  *  Sector is absent ON PURPOSE: the Flex statement carries an asset category and a sub-category and
  *  nothing else. A sector guessed from a ticker would be an invention wearing the broker's authority,
  *  so the panel says the data is not there rather than drawing a made-up split. */
-function Exposure({ book, risked, parkedValue, nav, ccy, bars }: {
+function Exposure({ book, risked, parkedValue, nav, ccy, ideas, bars }: {
   book: PortfolioBook; risked: PortfolioPosition[]; parkedValue: number
   nav: number | null; ccy: string | null
   invested: number; cash: number | null; parked: PortfolioPosition[]
+  ideas?: PortfolioIdeaBook
   /** The invested-against-cash bars and the cash declaration, folded in from what used to be a panel of
    *  its own. They answer the same question this one does — how the money is distributed — and both
    *  were drawing their own currency breakdown, so side by side they said one thing twice. */
@@ -656,6 +660,27 @@ function Exposure({ book, risked, parkedValue, nav, ccy, bars }: {
   const restValue = rest.reduce((a, v) => a + v.base, 0)
   const byCurrency = group((p) => p.currency ?? '—')
   const byClass = group((p) => p.subCategory || p.assetCategory || 'unclassified')
+
+  // BY IDEA — the only breakdown here the statement cannot produce, because it is a declaration.
+  // Residual dust is dropped from the WEIGHTING: one leftover share of CANE is $11 against a $1.03m
+  // book, and counting it renders a closed idea as an open 0.0% one forever. It stays in the positions
+  // list and in reconciliation; only its weight is withheld.
+  const ideaLabel = new Map((ideas?.ideas ?? []).map((i) => [i.id, i.label]))
+  const nonResidual = valued.filter((v) => Math.abs(v.base) >= RESIDUAL_VALUE_BASE)
+  const residualCount = valued.length - nonResidual.length
+  const byIdea = (() => {
+    if (!ideas) return []
+    const by = new Map<string, number>()
+    for (const { p, base } of nonResidual) {
+      const id = ideas.assignments.positions[(p.symbol ?? '').toUpperCase()] ?? ''
+      by.set(id, (by.get(id) ?? 0) + base)
+    }
+    return [...by.entries()].sort((a, b) => {
+      if (!a[0]) return 1
+      if (!b[0]) return -1
+      return Math.abs(b[1]) - Math.abs(a[1])
+    })
+  })()
 
   return (
     <div className="fundbook__panel">
@@ -731,6 +756,28 @@ function Exposure({ book, risked, parkedValue, nav, ccy, bars }: {
           {byClass.map(([k, v]) => (
             <ExposureBar key={`a-${k}`} label={k} pct={shareOfRisk(v) ?? 0} value={fmtMoney(v, ccy)} deep />
           ))}
+          {ideas && (
+            <>
+              <div className="fundbook__subhead">By idea — <b>declared, never inferred</b></div>
+              {byIdea.length > 0 ? byIdea.map(([id, v]) => (
+                <ExposureBar
+                  key={`i-${id || 'none'}`}
+                  label={id ? (ideaLabel.get(id) ?? id) : 'Unassigned'}
+                  pct={shareOfRisk(v) ?? 0}
+                  value={fmtMoney(v, ccy)}
+                  deep={!id}
+                />
+              )) : (
+                <div className="fundbook__barnote">No position carries an idea yet — name one on a holding below.</div>
+              )}
+              {residualCount > 0 && (
+                <div className="fundbook__barnote">
+                  {residualCount === 1 ? 'One holding is' : `${residualCount} holdings are`} under {fmtMoney(RESIDUAL_VALUE_BASE, ccy)} and
+                  left out of this weighting — dust from a closed trade, not a view. Still listed and still reconciled below.
+                </div>
+              )}
+            </>
+          )}
         </div>
       </div>
 
@@ -745,6 +792,10 @@ function Exposure({ book, risked, parkedValue, nav, ccy, bars }: {
 
 /** How many names the concentration panel names individually before rolling the tail into one row. */
 const TOP_POSITIONS = 8
+
+/** Mirrors RESIDUAL_VALUE_BASE in the server's portfolio-ideas.ts. Dust is left out of idea WEIGHTING
+ *  only — never out of the positions list, and never out of reconciliation. */
+const RESIDUAL_VALUE_BASE = 100
 
 function ExposureBar({ label, pct, value, deep }: { label: string; pct: number; value: string; deep?: boolean }) {
   return (
@@ -797,12 +848,18 @@ function Delta({ label, before, after, beforeText, afterText }: {
   )
 }
 
-function PositionRow({ p, derivative, isCash }: {
+function PositionRow({ p, derivative, isCash, ideas, onChanged }: {
   p: PortfolioPosition; derivative?: boolean; isCash?: boolean
+  ideas?: PortfolioIdeaBook; onChanged?: (r: PortfolioRead) => void
 }) {
   return (
     <div className={`fundbook__row${isCash ? ' is-parked' : ''}`}>
-      <strong className="mono">{p.symbol ?? '—'}</strong>
+      <strong className="mono">
+        {p.symbol ?? '—'}
+        {ideas && !isCash && !derivative && p.symbol && (
+          <IdeaPicker symbol={p.symbol} ideas={ideas} onChanged={onChanged} />
+        )}
+      </strong>
       <span className="dim">{p.currency ?? '—'}</span>
       <span className="num">{fmtQty(p.quantity)}</span>
       <span className="num dim">{fmtNum(p.costBasisPrice)}</span>
@@ -815,6 +872,53 @@ function PositionRow({ p, derivative, isCash }: {
           beside it rather than to a denominator computed here. */}
       <span className="num" style={{ color: toneOf(p.unrealizedLocal) }}>{fmtPct(unrealisedPct(p), 1)}</span>
     </div>
+  )
+}
+
+/** Declaring which idea a HOLDING expresses. A plain <select>, because that is what this is: a short
+ *  closed list, keyboard-reachable, with no popover state to get wrong. Nothing is preselected — the
+ *  empty option is the honest default, and it stays selected until the operator chooses. */
+function IdeaPicker({ symbol, ideas, onChanged }: {
+  symbol: string; ideas: PortfolioIdeaBook; onChanged?: (r: PortfolioRead) => void
+}) {
+  const [busy, setBusy] = useState(false)
+  const [err, setErr] = useState<string | null>(null)
+  const current = ideas.assignments.positions[symbol.toUpperCase()] ?? ''
+
+  async function choose(value: string) {
+    setBusy(true); setErr(null)
+    try {
+      // "+ New idea…" names it first, then assigns — two calls, so a cancelled prompt changes nothing.
+      let id = value
+      if (value === '\u0000new') {
+        const label = window.prompt(`Name the idea ${symbol} expresses`)?.trim()
+        if (!label) { setBusy(false); return }
+        const created = await api.createIdea(label)
+        id = (created.ideas?.ideas ?? []).find((i: { label: string }) => i.label === label)?.id ?? ''
+        if (!id) throw new Error('that idea could not be created')
+      }
+      const read = await api.setHoldingIdea(symbol, id || null)
+      onChanged?.(read)
+    } catch (e: any) {
+      setErr(String(e?.message || 'that could not be saved'))
+    } finally { setBusy(false) }
+  }
+
+  return (
+    <span className="fundbook__idea">
+      <select
+        className="fundbook__ideaselect"
+        value={current}
+        disabled={busy}
+        aria-label={`Idea for ${symbol}`}
+        onChange={(e) => void choose(e.target.value)}
+      >
+        <option value="">— no idea yet —</option>
+        {ideas.ideas.map((i) => <option key={i.id} value={i.id}>{i.label}</option>)}
+        <option value={'\u0000new'}>+ New idea…</option>
+      </select>
+      {err && <small className="fundbook__ideaerr">{err}</small>}
+    </span>
   )
 }
 
@@ -1036,8 +1140,9 @@ function Performance({ perf, cashShare }: { perf: PortfolioPerformance; cashShar
 
 /** One row of the trade table: a single closing execution, with every FIFO lot it consumed folded in. */
 
-function Trades({ book, manual, onChanged, importOpen, onImportOpen, importSurface }: {
+function Trades({ book, manual, onChanged, ideas, importOpen, onImportOpen, importSurface }: {
   book: PortfolioBook; manual: PortfolioManualRead; onChanged: (r: PortfolioRead) => void
+  ideas?: PortfolioIdeaBook
   importOpen: boolean; onImportOpen: (v: boolean) => void; importSurface: React.ReactNode
 }) {
   const [logging, setLogging] = useState(false)
@@ -1048,6 +1153,11 @@ function Trades({ book, manual, onChanged, importOpen, onImportOpen, importSurfa
   // it. `closeTradeID` is the closing execution, which is exactly the thing to group on. A closure with
   // no id keeps its own row rather than being lumped with unrelated ones.
   const rows = useMemo(() => foldRoundTrips(book.closures), [book.closures])
+  // A THIRD fold on top of the round trips: which IDEA each was expressing. It changes nothing about
+  // the arithmetic above — the grouped total is asserted equal to the blotter total in the tests —
+  // and it is the only view that can answer "did the sugar idea work" when the idea was expressed
+  // through two different vehicles.
+  const ideaRows = useMemo(() => groupByIdea(rows, ideas), [rows, ideas])
   const stats = useMemo(() => {
     const vals = rows.map((c) => c.realized)
     const wins = vals.filter((v) => v > 0)
@@ -1248,6 +1358,44 @@ function Trades({ book, manual, onChanged, importOpen, onImportOpen, importSurfa
             </div>
           )}
         </div>
+
+        {ideas && (
+          <div className="fundbook__panel">
+            <div className="fundbook__panelhead">
+              <div><strong>By idea</strong><small>What the money was actually betting on, across every vehicle used to express it</small></div>
+            </div>
+            <div className="fundbook__subhead">
+              Declared, never inferred — a ticker is not an idea, so each closed trade is labelled
+              against <b>the broker&rsquo;s own trade ids</b>. Labelling this year&rsquo;s trade cannot relabel next year&rsquo;s.
+            </div>
+            {ideaRows.length === 0 ? (
+              <div className="fundbook__none">No closed trades yet.</div>
+            ) : (
+              <div className="fundbook__scroll">
+                <div className="fundbook__row fundbook__row--ideas fundbook__row--head">
+                  <span>Idea</span><span>Expressed through</span><span className="num">Realised</span>
+                  <span className="num">Trades</span><span className="num">First</span><span className="num">Last</span>
+                </div>
+                {ideaRows.map((g) => (
+                  <div key={g.ideaId ?? g.label} className="fundbook__row fundbook__row--ideas">
+                    <span>{g.label}</span>
+                    <span className="mono dim">{g.symbols.join(' · ') || '—'}</span>
+                    <span className="num" style={{ color: toneOf(g.realized) }}>{fmtSmallMoney(g.realized)}</span>
+                    <span className="num dim">{g.trades}</span>
+                    <span className="num dim">{g.firstClosed ?? '—'}</span>
+                    <span className="num dim">{g.lastClosed ?? '—'}</span>
+                  </div>
+                ))}
+              </div>
+            )}
+            {ideaRows.some((g) => g.unlabellable > 0) && (
+              <div className="fundbook__foot">
+                {ideaRows.reduce((a, g) => a + g.unlabellable, 0)} closed trade(s) carry no broker trade id, so they
+                cannot be labelled — they are shown under Unassigned and will stay there.
+              </div>
+            )}
+          </div>
+        )}
 
         <div className="fundbook__panel">
           <div className="fundbook__panelhead">

@@ -5127,6 +5127,20 @@ a { color: inherit; }
 .fundbook__row--trades { grid-template-columns: 104px 48px 92px 92px 54px 82px 78px 78px 88px 74px 92px 58px; min-width: 940px; }
 .fundbook__lots { display: block; color: var(--text-faint); font-size: 8px; letter-spacing: 0.2px; text-transform: uppercase; }
 .fundbook__row--checks { grid-template-columns: minmax(240px, 2.4fr) 1fr 1fr 1fr 74px; min-width: 700px; }
+/* By idea — the declared grouping. Same row grammar as the other blotter grids so it reads as part of
+   the same table, not a bolted-on panel. */
+.fundbook__row--ideas { grid-template-columns: minmax(120px, 1.4fr) minmax(120px, 1.6fr) 96px 62px 84px 84px; min-width: 660px; }
+/* The idea a holding expresses, declared under its symbol — the same sub-label slot the lot count uses,
+   so the row keeps its nine columns and nothing re-grids. */
+.fundbook__idea { display: block; margin-top: 3px; font-weight: 400; }
+.fundbook__ideaselect {
+  max-width: 100%; padding: 1px 4px; border-radius: var(--r-sm); font-size: 9.5px; font-family: var(--font-sans);
+  color: var(--text-muted); background: var(--surface-3); border: 1px solid var(--hairline);
+}
+.fundbook__ideaselect:focus-visible { outline: none; box-shadow: 0 0 0 2px var(--accent-wash); }
+.fundbook__ideaselect:disabled { opacity: 0.5; }
+@media (hover: hover) and (pointer: fine) { .fundbook__ideaselect:hover { color: var(--text); border-color: var(--hairline-strong); } }
+.fundbook__ideaerr { display: block; margin-top: 2px; color: var(--bad); font-size: 8.5px; }
 .fundbook__ok { color: var(--accent-bright); font-weight: 700; font-size: 10px; }
 .fundbook__break { color: var(--bad); font-weight: 700; font-size: 10px; }
 .fundbook__drop.is-compact { padding: 10px 14px; gap: 12px; }
