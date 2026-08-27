@@ -22,6 +22,7 @@ const previousDocument = (globalThis as any).document
 const { api } = await import('./api')
 const { useStore } = await import('./store')
 const originalNewsFacets = api.newsFacets
+const originalNewsSearch = api.newsSearch
 let facetCalls = 0
 api.newsFacets = async () => {
   facetCalls++
@@ -39,6 +40,7 @@ try {
   assert.equal((railSource.match(/onClick=\{ensureFacets\}/g) || []).length, 2, 'keyboard activation must retry both primary facet controls')
   assert.doesNotMatch(railSource, /if \(n\) ensureFacets\(\)/, 'opening static secondary Filters must not start a redundant facet scan')
   assert.match(railSource, /onTextIntent=\{ensureFacets\}/, 'using the keyword input must demand-load ticker-to-company facets')
+  assert.match(railSource, /facetsLoading && !facets \? 'loading countries…'/, 'a background recount must keep the existing country selection visible')
 
   const filterSource = readFileSync(fileURLToPath(new URL('../components/screener/FeedFilters.tsx', import.meta.url)), 'utf8')
   assert.match(filterSource, /onFocus=\{onTextIntent\}/, 'keyboard entry into the keyword input must signal filter intent')
@@ -53,9 +55,21 @@ try {
   await useStore.getState().scRunArchiveSearch({})
   await Promise.resolve()
   assert.equal(facetCalls, 1, 'clearing a used filter must restore full-archive facets')
-  console.log('\narchiveFacetsLazy.test.ts: 10 passed')
+
+  let finishSearch: ((value: Awaited<ReturnType<typeof api.newsSearch>>) => void) | undefined
+  api.newsSearch = async () => new Promise((resolve) => { finishSearch = resolve })
+  facetCalls = 0
+  const activeSearch = useStore.getState().scRunArchiveSearch({ geoRegion: 'Asia' })
+  await Promise.resolve()
+  assert.equal(facetCalls, 0, 'a full-archive recount must not compete with the first history result page')
+  assert.ok(finishSearch, 'the history search must start immediately')
+  finishSearch({ items: [], nextCursor: null, scannedThroughDate: '2099-01-01', exhausted: true })
+  await activeSearch
+  assert.equal(facetCalls, 1, 'context counts refresh after the first history result page settles')
+  console.log('\narchiveFacetsLazy.test.ts: 14 passed')
 } finally {
   api.newsFacets = originalNewsFacets
+  api.newsSearch = originalNewsSearch
   ;(globalThis as any).window = previousWindow
   ;(globalThis as any).document = previousDocument
 }
