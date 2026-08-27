@@ -4,7 +4,6 @@ import { Sheet } from './Sheet'
 import { applyTheme, readTheme, saveChatStyle, type ChatStyle } from '../prefs'
 import { providerBlockedReason, providerIsBlocked, providerLabel, providerNeedsCheck, type ProvidersRead, type RunProvider } from '../../lib/provider'
 import { useStore } from '../../lib/store'
-import { saveChatModel } from '../../lib/chatModels'
 import { useChatModelChoices } from '../../lib/useChatModels'
 
 const STYLES: Array<{ id: ChatStyle; blurb: string }> = [
@@ -49,7 +48,7 @@ export function PrefsSheet({ open, model, style, provider, providers, onModel, o
       <div className="msheet__head">Ask model</div>
       <div className="msheet__list msheet__list--tight">
         {chatModels.map((m) => (
-          <button key={m.id} className={`msheet__row${model === m.id ? ' msheet__row--on' : ''}`} onClick={() => { saveChatModel(m.id); onModel(m.id) }}>
+          <button key={m.id} className={`msheet__row${model === m.id ? ' msheet__row--on' : ''}`} onClick={() => onModel(m.id)}>
             <span className="msheet__rowlabel">{m.label}</span>
             <span className="msheet__rowsub">{m.provider === 'codex' ? 'Codex · ' : 'Claude · '}{m.sub}</span>
           </button>

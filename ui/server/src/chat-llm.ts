@@ -288,7 +288,7 @@ async function runClaudeChatTurn(opts: ChatTurnOptions, choice: ChatModelSpec): 
     const events = classifyChatLine(parsed)
     const fallback = events.filter((event) => event.kind === 'fallback-text')
     if (fallback.length && !streamedText) {
-      for (const event of fallback) if (event.kind === 'fallback-text') opts.onToken(event.text)
+      for (const event of fallback) opts.onToken(event.text)
       streamedText = true
     }
     for (const event of events) {
