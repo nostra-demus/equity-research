@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-08-27T21:21:31Z",
+  "generated_at": "2026-08-27T21:30:30Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260827-822",
+      "headline": "10-K - Affirm Holdings, Inc. (0001820953) (Filer)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1820953/000162828026059279/0001628280-26-059279-index.htm",
+      "source_name": "SEC EDGAR — Latest 10-K (Annual Report)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-08-27T21:06:37Z",
+      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
+      "prelim_note": "Affirm Holdings, Inc. files its annual 10-K report, containing audited financial statements and comprehensive business updates.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Affirm Holdings, Inc. files its annual 10-K report, containing audited financial statements and comprehensive business updates.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Affirm Holdings, Inc.",
+          "ticker": "AFRM",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260827-709",
       "headline": "ECA2026-621 - Information Regarding the Business Combination of D. Boral ARC Acquisition I Corp. (BCAR/U/W) & Exascale Labs Inc.",
@@ -1937,60 +1986,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260827-733",
-      "headline": "SK Biopharma pens $795M deal to usher Biohaven’s epilepsy therapy towards hoped-for 2029 launch",
-      "headline_en": null,
-      "url": "https://www.fiercebiotech.com/biotech/sk-biopharma-pens-795m-deal-usher-biohavens-epilepsy-therapy-towards-fda",
-      "source_name": "FierceBiotech",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-27T17:28:41Z",
-      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
-      "prelim_note": "SK Biopharma entered a $795M licensing deal for an epilepsy therapy.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "SK Biopharma entered a $795M licensing deal for an epilepsy therapy.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SK Biopharma",
-          "ticker": null,
-          "listing_country": "KR"
-        },
-        {
-          "name": "Biohaven",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -98979,9 +98974,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3002947,
-    "news_picked_today": 1688,
-    "news_dropped_today": 23992
+    "news_seen_today": 3016921,
+    "news_picked_today": 1714,
+    "news_dropped_today": 24206
   },
   "book_momentum": {
     "live_count": 8,
