@@ -47,8 +47,9 @@ import { memberMatchesGeo, type ThemeGeo } from './news/themes/geo-index'
 import { memberMatchesCommodity } from './news/themes/commodity-index'
 import { createThemesIndexReader } from './news/themes/api-index'
 import {
-  clearSupersededManual, declareCashEquivalent, deleteStatement, logManualTrade, readPortfolio,
-  removeManualTrade, saveStatement, STATEMENT_MAX_BYTES,
+  assignHoldingIdea, assignTradeIdea, clearSupersededManual, declareCashEquivalent, declareIdea,
+  deleteStatement, logManualTrade, readPortfolio, removeDeclaredIdea, removeManualTrade,
+  renameDeclaredIdea, saveStatement, STATEMENT_MAX_BYTES,
 } from './portfolio-store'
 import { liveMark } from './portfolio-live'
 import { buildThemeBrief } from './news/themes/brief'
@@ -3770,6 +3771,71 @@ app.post('/api/portfolio/cash-equivalent', { config: { rateLimit: { max: 60, tim
     return declareCashEquivalent(String(body.symbol ?? ''), body.isCash === true)
   } catch (e: any) {
     return reply.code(400).send({ error: String(e?.message || 'that declaration could not be saved') })
+  }
+})
+
+// ---------- ideas (portfolio-ideas.ts) ----------
+// WHICH IDEA a trade was expressing. Nothing here infers: CANE and SUGAl are one sugar bet and NHYDY is
+// an aluminium bet, and no field in the statement says so. Assignments are keyed to the open position
+// or to the broker's own closeTradeIDs, never to the bare symbol, so labelling this year's AMZN cannot
+// relabel next year's. Same 60/min lane as the cash-equivalent declaration above.
+app.post('/api/portfolio/idea', { config: { rateLimit: { max: 60, timeWindow: '1 minute' } } }, async (req, reply) => {
+  if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request rejected' })
+  const body = (req.body ?? {}) as { label?: unknown }
+  try {
+    return declareIdea(String(body.label ?? ''))
+  } catch (e: any) {
+    return reply.code(400).send({ error: String(e?.message || 'that idea could not be saved') })
+  }
+})
+
+app.post('/api/portfolio/idea/rename', { config: { rateLimit: { max: 60, timeWindow: '1 minute' } } }, async (req, reply) => {
+  if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request rejected' })
+  const body = (req.body ?? {}) as { id?: unknown; label?: unknown }
+  try {
+    return renameDeclaredIdea(String(body.id ?? ''), String(body.label ?? ''))
+  } catch (e: any) {
+    return reply.code(400).send({ error: String(e?.message || 'that idea could not be renamed') })
+  }
+})
+
+app.post('/api/portfolio/idea/delete', { config: { rateLimit: { max: 60, timeWindow: '1 minute' } } }, async (req, reply) => {
+  if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request rejected' })
+  const body = (req.body ?? {}) as { id?: unknown }
+  try {
+    return removeDeclaredIdea(String(body.id ?? ''))
+  } catch (e: any) {
+    return reply.code(400).send({ error: String(e?.message || 'that idea could not be removed') })
+  }
+})
+
+// Label a HOLDING. `ideaId: null` clears it.
+app.post('/api/portfolio/idea/holding', { config: { rateLimit: { max: 60, timeWindow: '1 minute' } } }, async (req, reply) => {
+  if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request rejected' })
+  const body = (req.body ?? {}) as { symbol?: unknown; ideaId?: unknown }
+  try {
+    // ABSENT is not NULL. Clearing is a deliberate act, so it takes a deliberate `null`; a malformed or
+    // version-skewed request that simply omits the field would otherwise silently unassign the holding.
+    if (!('ideaId' in body)) throw new Error('ideaId is required — send null to clear the assignment')
+    const id = body.ideaId === null ? null : String(body.ideaId)
+    return assignHoldingIdea(String(body.symbol ?? ''), id)
+  } catch (e: any) {
+    return reply.code(400).send({ error: String(e?.message || 'that holding could not be assigned') })
+  }
+})
+
+// Label a CLOSED ROUND TRIP by the broker trade ids behind it. A split sale carries several, and every
+// one is written, so the row still reads as assigned however a later import re-folds it.
+app.post('/api/portfolio/idea/trade', { config: { rateLimit: { max: 60, timeWindow: '1 minute' } } }, async (req, reply) => {
+  if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request rejected' })
+  const body = (req.body ?? {}) as { closeTradeIDs?: unknown; ideaId?: unknown }
+  const ids = Array.isArray(body.closeTradeIDs) ? body.closeTradeIDs.map((v) => String(v ?? '')) : []
+  try {
+    if (!('ideaId' in body)) throw new Error('ideaId is required — send null to clear the assignment')
+    const id = body.ideaId === null ? null : String(body.ideaId)
+    return assignTradeIdea(ids, id)
+  } catch (e: any) {
+    return reply.code(400).send({ error: String(e?.message || 'that trade could not be assigned') })
   }
 })
 

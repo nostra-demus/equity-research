@@ -1,7 +1,7 @@
 // Turning FIFO bookkeeping back into trades. Extracted from the component so the arithmetic can be
 // tested directly: it is a two-stage aggregation over real money, and a fold that quietly drops or
 // double-counts a leg would misstate realised P&L on screen with nothing to catch it.
-import type { PortfolioClosure } from '../../lib/types'
+import type { PortfolioClosure, PortfolioIdeaBook } from '../../lib/types'
 
 export interface TradeRowData {
   symbol: string | null
@@ -26,6 +26,15 @@ export interface TradeRowData {
   lots: number
   /** Exits folded in. More than one means the broker split one sale into several orders. */
   fills: number
+  /** Legs the statement carried no rate for, so `realized` is the convertible part ONLY. Non-zero means
+   *  the figure beside it is incomplete, and anything that adds it up has to say so rather than publish
+   *  a plausible, understated total. */
+  unvalued: number
+  /** Every broker closeTradeID behind this row. This is the row's STABLE identity: an idea assignment
+   *  is written against these, not against the symbol, so labelling this year's AMZN cannot relabel
+   *  next year's. Empty when the broker gave no id — such a row cannot be labelled at all, which is
+   *  reported rather than papered over with a positional key that moves on the next import. */
+  closeTradeIDs: string[]
 }
 
 const baseRealised = (c: { realizedBase: number | null }): number | null => c.realizedBase
@@ -74,8 +83,10 @@ export function foldRoundTrips(closures: PortfolioClosure[]): TradeRowData[] {
         ? null
         : lots.reduce((a, c) => a + c.commissionLocal * c.closeFxRateToBase!, 0),
       realized: sumBase(lots, baseRealised).total,
+      unvalued: sumBase(lots, baseRealised).unvalued,
       lots: lots.length,
       fills: 1,
+      closeTradeIDs: [...new Set(lots.map((c) => c.closeTradeID).filter((v): v is string => !!v))],
     }
   })
   // SECOND FOLD — one line per ROUND TRIP, not per broker order. A single sale routinely leaves the
@@ -124,9 +135,132 @@ export function foldRoundTrips(closures: PortfolioClosure[]): TradeRowData[] {
         ? null
         : group.reduce((a, r) => a + r.commissionBase!, 0),
       realized: group.reduce((a, r) => a + r.realized, 0),
+      unvalued: group.reduce((a, r) => a + r.unvalued, 0),
       lots: group.reduce((a, r) => a + r.lots, 0),
       fills: group.reduce((a, r) => a + r.fills, 0),
+      closeTradeIDs: [...new Set(group.flatMap((r) => r.closeTradeIDs))],
     }
   })
   return folded.sort((a, b) => (b.closedAt ?? '').localeCompare(a.closedAt ?? ''))
+}
+
+// ---------------------------------------------------------------------------------------------
+// Grouping the blotter by IDEA — the question the per-symbol view cannot answer.
+//
+// In the real book CANE (+3,703.48) and SUGAl (+3,004.97) are one sugar bet worth +6,708.45, and they
+// never appear together. This folds them. It is a THIRD fold layered on top of foldRoundTrips, and it
+// deliberately does not touch that function's keys: the round-trip arithmetic is already tested and a
+// grouping question must not be able to change a realised figure.
+
+export interface IdeaGroupRow {
+  /** Null is the honest Unassigned bucket — rendered, never folded away. */
+  ideaId: string | null
+  label: string
+  symbols: string[]
+  realized: number
+  trades: number
+  /** Rows the operator cannot label because the broker gave no trade id. Surfaced so a stuck row is
+   *  visible rather than looking like one nobody got round to. */
+  unlabellable: number
+  /** Legs inside this idea the statement could not value. Non-zero means `realized` is the convertible
+   *  part only: a split exit with one missing FX rate would otherwise publish a believable but
+   *  understated idea result with nothing on screen saying money was left out. */
+  unvalued: number
+  /** True for the declared-cash bucket. Cash equivalents are already answered — SGOV is where the book
+   *  WAITS, not a view it holds — so filing them under Unassigned read as an unfinished job. */
+  isCash: boolean
+  firstClosed: string | null
+  lastClosed: string | null
+}
+
+/** The idea a closed round trip carries, read from the broker ids behind it. ONE implementation, used
+ *  by every panel that asks the question, so the grouping, the attribution bars and the row picker
+ *  cannot drift into disagreeing about which bucket a trade is in.
+ *
+ *  `split` is true only when the legs carry TWO DIFFERENT declared ideas — the operator really did
+ *  label them apart, and filing the row under one of them would misreport it. A leg carrying NO label
+ *  is not a disagreement: statements arrive in pieces, so a round trip labelled while it held one
+ *  broker id routinely grows a second on the next import, and reading that as a split would drop an
+ *  already-labelled trade out of its idea's realised total with nobody having touched it. */
+export function ideaOfRow(
+  closeTradeIDs: string[], assigned: Record<string, string>,
+): { id: string | null; split: boolean } {
+  const found = new Set<string>()
+  for (const t of closeTradeIDs) { const v = assigned[t]; if (v) found.add(v) }
+  if (found.size > 1) return { id: null, split: true }
+  return { id: found.size === 1 ? [...found][0]! : null, split: false }
+}
+
+/** Fold closed round trips into one row per idea. `ideas` absent (an engine that predates the feature)
+ *  yields a single Unassigned row rather than an empty screen — DESIGN.md §5, fail closed.
+ *
+ *  `cashEquivalents` are the symbols the operator has ALREADY declared to be cash. They get their own
+ *  bucket rather than landing in Unassigned: the Holdings exposure block excludes them for exactly the
+ *  same reason, and a book that answered "SGOV is cash" should not then be asked again on another tab. */
+export function groupByIdea(
+  rows: TradeRowData[], ideas: PortfolioIdeaBook | undefined, cashEquivalents: string[] = [],
+): IdeaGroupRow[] {
+  const labels = new Map((ideas?.ideas ?? []).map((i) => [i.id, i.label]))
+  const assigned = ideas?.assignments?.closures ?? {}
+  const cash = new Set(cashEquivalents.map((s) => s.trim().toUpperCase()))
+  const out = new Map<string, IdeaGroupRow>()
+
+  for (const r of rows) {
+    // A declared cash equivalent short-circuits — UNLESS this particular round trip carries a label of
+    // its own. The cash declaration is about what the symbol is doing NOW; it is not a statement about
+    // every trade ever done in it. A past SGOV rates trade the operator deliberately labelled through
+    // the blotter picker was being overridden by today's parked-cash declaration, losing the explicit
+    // word in favour of the implicit one. Explicit beats implicit; unlabelled cash-symbol trades still
+    // land in the cash bucket, which is what stops SGOV reading as an unfinished job.
+    if (cash.has((r.symbol ?? '').toUpperCase()) && !ideaOfRow(r.closeTradeIDs, assigned).id) {
+      const g = out.get('\u0000cash') ?? {
+        ideaId: null, label: 'Cash equivalent', symbols: [], realized: 0, trades: 0, unlabellable: 0,
+        firstClosed: null, lastClosed: null, isCash: true, unvalued: 0,
+      }
+      if (r.symbol && !g.symbols.includes(r.symbol)) g.symbols.push(r.symbol)
+      g.realized += r.realized
+      g.unvalued += r.unvalued
+      g.trades += 1
+      const cl = (r.closedAt ?? '').slice(0, 10)
+      if (cl) {
+        if (!g.firstClosed || cl < g.firstClosed) g.firstClosed = cl
+        if (!g.lastClosed || cl > g.lastClosed) g.lastClosed = cl
+      }
+      out.set('\u0000cash', g)
+      continue
+    }
+    // A row whose legs were labelled differently is NOT quietly filed under one of them: that
+    // disagreement is something the operator actually did, and hiding it would misreport the row.
+    const { id: declared, split } = ideaOfRow(r.closeTradeIDs, assigned)
+    const id = split ? '\u0000mixed' : declared
+    const key = id ?? '\u0000none'
+    const label = split ? 'Split across ideas' : (declared ? (labels.get(declared) ?? declared) : 'Unassigned')
+
+    const g = out.get(key) ?? {
+      ideaId: split ? null : id, label, symbols: [], realized: 0, trades: 0, unlabellable: 0,
+      firstClosed: null, lastClosed: null, isCash: false, unvalued: 0,
+    }
+    if (r.symbol && !g.symbols.includes(r.symbol)) g.symbols.push(r.symbol)
+    g.realized += r.realized
+    g.unvalued += r.unvalued
+    g.trades += 1
+    if (r.closeTradeIDs.length === 0) g.unlabellable += 1
+    const closed = (r.closedAt ?? '').slice(0, 10)
+    if (closed) {
+      if (!g.firstClosed || closed < g.firstClosed) g.firstClosed = closed
+      if (!g.lastClosed || closed > g.lastClosed) g.lastClosed = closed
+    }
+    out.set(key, g)
+  }
+
+  for (const g of out.values()) g.symbols.sort()
+  // Named ideas first by size of result, then the two honest buckets last — Unassigned is a to-do
+  // list, so it belongs at the bottom where it can be worked through, not interleaved by P&L.
+  const named = [...out.values()].filter((g) => g.ideaId !== null)
+  const rest = [...out.values()].filter((g) => g.ideaId === null)
+  // By MAGNITUDE, like the attribution panel beside it. Sorted by signed value, every loss sat below
+  // every gain, so the idea that lost the most money appeared last — under ideas that made almost none.
+  named.sort((a, b) => Math.abs(b.realized) - Math.abs(a.realized))
+  rest.sort((a, b) => a.label.localeCompare(b.label))
+  return [...named, ...rest]
 }

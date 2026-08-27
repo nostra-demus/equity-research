@@ -2276,6 +2276,29 @@ export interface PortfolioOverrides {
   cashEquivalents: string[]
 }
 
+/** A named idea the book expresses. The id is the anchor assignments point at; the label is only what
+ *  is shown, so renaming never orphans a trade. */
+export interface PortfolioIdea {
+  id: string
+  label: string
+}
+
+/** Which idea each holding and each closed round trip was expressing. DECLARED, never inferred: a
+ *  ticker is not an idea, so positions are keyed by symbol (one open position at a time) and closed
+ *  trades by the broker's own closeTradeIDs (which cannot span two eras of the same ticker). */
+/** What POST /api/portfolio/idea returns: the whole read, plus the idea it created OR already had.
+ *  The id is handed back explicitly because the server is idempotent on the slug — asking for 'sugar'
+ *  when 'Sugar' exists returns 'Sugar', and a label match would miss it. */
+export interface PortfolioIdeaCreated extends PortfolioRead { idea: PortfolioIdea }
+
+export interface PortfolioIdeaBook {
+  ideas: PortfolioIdea[]
+  assignments: {
+    positions: Record<string, string>
+    closures: Record<string, string>
+  }
+}
+
 /** One holding re-priced at the market. */
 export interface PortfolioLiveRow {
   symbol: string
@@ -2334,6 +2357,9 @@ export interface PortfolioRead {
   /** Hand-logged fills. A SEPARATE layer from the book: nothing here reaches the reconciled figures. */
   manual: PortfolioManualRead
   overrides: PortfolioOverrides
+  /** Absent on an engine that predates idea grouping — the client must positively match it rather than
+   *  defaulting one in, or a deploy skew window renders an empty grouping as real (DESIGN.md §5). */
+  ideas?: PortfolioIdeaBook
   book: PortfolioBook | null
   performance: PortfolioPerformance | null
   error: string | null

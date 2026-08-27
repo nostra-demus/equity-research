@@ -16,12 +16,16 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { STATE_DIR } from './config'
 import { feedPresent, readCloses } from './market-feed'
-import { alignFlowsToNavDates, buildBook, type Book } from './portfolio'
+import { alignFlowsToNavDates, buildBook, supersessionMap, type Book } from './portfolio'
 import { parseFlexXml, type FlexDocument } from './portfolio-import'
 import {
   addManual, clearSuperseded, deleteManual, normalizeManual, provisionalRead, readManual,
   type ManualInput, type ManualRead, type StatementCoverage,
 } from './portfolio-manual'
+import {
+  assignClosures, assignPosition, createIdea, deleteIdea, migrateClosureIds, pruneClosedPositions,
+  readIdeas, renameIdea, type Idea, type IdeaBook,
+} from './portfolio-ideas'
 import { readOverrides, setCashEquivalent, type PortfolioOverrides } from './portfolio-overrides'
 import { benchmarkCompare, betaAlpha, dailyReturns, measuredWindow, moneyWeightedReturn, monthlyReturns, returnsByPeriod, riskMetrics, type BenchmarkRead, type BetaAlpha, type MonthRow, type PeriodReturn, type RiskRead } from './portfolio-metrics'
 
@@ -274,6 +278,9 @@ export interface PortfolioRead {
   /** What the operator has declared about a holding that the statement cannot say — currently which
    *  positions are cash equivalents rather than investments. */
   overrides: PortfolioOverrides
+  /** Which IDEA each holding and each closed round trip was expressing. Declared, never inferred —
+   *  see portfolio-ideas.ts for why a ticker cannot stand in for an idea. */
+  ideas: IdeaBook
   /** Null whenever there is no book to measure. */
   performance: PortfolioPerformance | null
   /** Present when the stored statements cannot currently produce a book — two accounts, say. The
@@ -384,6 +391,36 @@ export function declareCashEquivalent(symbol: string, isCash: boolean): Portfoli
   return readPortfolio()
 }
 
+/** Name an idea, or hand a holding / closed round trip to one. Each returns the whole read so the
+ *  screen refreshes from one round trip, exactly as declareCashEquivalent does. */
+export function declareIdea(label: string): PortfolioRead & { idea: Idea } {
+  // The created OR already-existing idea is returned explicitly. The caller must never look the id
+  // back up by label: createIdea is idempotent on the SLUG, so asking for 'sugar' when 'Sugar' exists
+  // returns 'Sugar' — and a label match would miss it and report a failure the server never had.
+  const idea = createIdea(PORTFOLIO_DIR, label)
+  return { ...readPortfolio(), idea }
+}
+
+export function renameDeclaredIdea(id: string, label: string): PortfolioRead {
+  renameIdea(PORTFOLIO_DIR, id, label)
+  return readPortfolio()
+}
+
+export function removeDeclaredIdea(id: string): PortfolioRead {
+  deleteIdea(PORTFOLIO_DIR, id)
+  return readPortfolio()
+}
+
+export function assignHoldingIdea(symbol: string, ideaId: string | null): PortfolioRead {
+  assignPosition(PORTFOLIO_DIR, symbol, ideaId)
+  return readPortfolio()
+}
+
+export function assignTradeIdea(closeTradeIDs: string[], ideaId: string | null): PortfolioRead {
+  assignClosures(PORTFOLIO_DIR, closeTradeIDs, ideaId)
+  return readPortfolio()
+}
+
 /** Drop every entry a statement now covers. Returns how many went, so the UI can say it out loud
  *  instead of the list simply shrinking. */
 export function clearSupersededManual(): number {
@@ -399,6 +436,7 @@ export function readPortfolio(): PortfolioRead {
       error: `${badSidecars.length} statement record${badSidecars.length === 1 ? '' : 's'} could not be read (${badSidecars.join(', ')}) — the statement${badSidecars.length === 1 ? ' it names is' : 's they name are'} missing from the book, so no book is published until ${badSidecars.length === 1 ? 'it is' : 'they are'} repaired or removed`,
       manual: manualRead(statements, null),
       overrides: readOverrides(PORTFOLIO_DIR),
+    ideas: readIdeas(PORTFOLIO_DIR),
     }
   }
   if (statements.length === 0) {
@@ -406,6 +444,7 @@ export function readPortfolio(): PortfolioRead {
       statements, book: null, performance: null, error: null,
       manual: manualRead(statements, null),
       overrides: readOverrides(PORTFOLIO_DIR),
+    ideas: readIdeas(PORTFOLIO_DIR),
     }
   }
   const key = currentKey(statements)
@@ -417,6 +456,7 @@ export function readPortfolio(): PortfolioRead {
       performance: cache.book ? performanceOf(cache.book) : null,
       manual: manualRead(statements, cache.book),
       overrides: readOverrides(PORTFOLIO_DIR),
+    ideas: readIdeas(PORTFOLIO_DIR),
     }
   }
 
@@ -441,11 +481,29 @@ export function readPortfolio(): PortfolioRead {
       error = String(e?.message || e)
     }
   }
+  // Reconcile the idea ledger to the book that was just built. Both are no-ops in the ordinary case
+  // and write only when something actually moved, so this costs a read on every refresh and nothing
+  // else. It runs here because this is the one place that has BOTH the ledger and the fresh documents.
+  if (book) {
+    try {
+      migrateClosureIds(PORTFOLIO_DIR, supersessionMap(docs))
+      // The closures are the EVIDENCE a position actually closed. Absence from the statement set is
+      // not evidence — the operator may have removed the newest statement to repair it — so a label is
+      // dropped only where the book itself shows the position being sold out of.
+      pruneClosedPositions(
+        PORTFOLIO_DIR,
+        book.positions.map((p) => p.symbol ?? ''),
+        book.closures.map((c) => c.symbol ?? ''),
+      )
+    } catch { /* the ledger decorates the book; failing to tidy it must never cost the book */ }
+  }
+
   cache = { key, book, error }
   return {
     statements, book, error,
     performance: book ? performanceOf(book) : null,
     manual: manualRead(statements, book),
     overrides: readOverrides(PORTFOLIO_DIR),
+    ideas: readIdeas(PORTFOLIO_DIR),
   }
 }

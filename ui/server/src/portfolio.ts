@@ -224,6 +224,25 @@ function dedupeBy<T>(rows: T[], key: (row: T) => string | null): T[] {
  *  `origTradeID` names the row it replaces. Dedup by id therefore keeps BOTH across overlapping
  *  exports, double-counting the position (a 2:1 split leaves 300 shares where 200 are held). Anything
  *  another row claims as its original is superseded and dropped. */
+/** old trade id -> the id of the row that replaced it. The same relation dropSupersededTrades acts on,
+ *  surfaced so a label filed against the old row can follow it (portfolio-ideas.migrateClosureIds).
+ *  Pure and side-effect free: it reads the documents, it does not touch the book. */
+export function supersessionMap(documents: FlexDocument[]): Record<string, string> {
+  const out: Record<string, string> = {}
+  for (const doc of documents) {
+    for (const t of doc.trades ?? []) {
+      // The SAME fallback runFifo stamps onto closeTradeID. Keyed on tradeID alone, a restating row
+      // that carries only a transactionID was left out of the map, so the label stayed on the removed
+      // execution while the live replacement showed Unassigned.
+      const replacement = t.tradeID ?? t.transactionID
+      if (!replacement) continue
+      if (t.origTradeID) out[t.origTradeID] = replacement
+      if (t.origTransactionID) out[t.origTransactionID] = replacement
+    }
+  }
+  return out
+}
+
 function dropSupersededTrades(trades: FlexTrade[]): FlexTrade[] {
   const superseded = new Set<string>()
   for (const t of trades) {
@@ -333,7 +352,10 @@ export function runFifo(
           realizedBase: closeRate === null ? null : realizedLocal * closeRate,
           openFxRateToBase: lot.openFxRateToBase,
           closeFxRateToBase: closeRate,
-          closeTradeID: t.tradeID,
+          // `?? transactionID`: the same fallback buildBook already dedups on. Without it a closing
+          // execution that carries only a transactionID produced a closure with no identity at all,
+          // and the UI declared that round trip permanently unlabellable.
+          closeTradeID: t.tradeID ?? t.transactionID,
         })
         lot.quantity -= signedMatched
         remaining += signedMatched

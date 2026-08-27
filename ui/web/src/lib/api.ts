@@ -1,5 +1,7 @@
 import { staticPromptPath } from './prompts'
-import type { PipelinesRead, WatchResolveRead, WatchRowInput, WatchlistRead } from './types'
+import type {
+  PipelinesRead, PortfolioIdeaCreated, WatchResolveRead, WatchRowInput, WatchlistRead,
+} from './types'
 import { DEFAULT_RANK_WEIGHTS, type RankWeights, type RankWeightsState } from './rankWeights'
 import { QUOTE_CLIENT_TIMEOUT_MS } from './quoteTimeout'
 import type { ValuationLeversResponse, ValuationOverride } from './valuationLevers'
@@ -1225,6 +1227,29 @@ export const api = {
   setCashEquivalent: async (symbol: string, isCash: boolean): Promise<PortfolioRead> => {
     if ((await ensureMode()) === 'static') throw STATIC_ERR()
     return post('/api/portfolio/cash-equivalent', { symbol, isCash })
+  },
+  /** Name a new idea. Idempotent on the slug, so re-adding "Sugar" returns the existing one. */
+  createIdea: async (label: string): Promise<PortfolioIdeaCreated> => {
+    if ((await ensureMode()) === 'static') throw STATIC_ERR()
+    return post('/api/portfolio/idea', { label })
+  },
+  renameIdea: async (id: string, label: string): Promise<PortfolioRead> => {
+    if ((await ensureMode()) === 'static') throw STATIC_ERR()
+    return post('/api/portfolio/idea/rename', { id, label })
+  },
+  deleteIdea: async (id: string): Promise<PortfolioRead> => {
+    if ((await ensureMode()) === 'static') throw STATIC_ERR()
+    return post('/api/portfolio/idea/delete', { id })
+  },
+  /** Label a HOLDING, or clear it with null. */
+  setHoldingIdea: async (symbol: string, ideaId: string | null): Promise<PortfolioRead> => {
+    if ((await ensureMode()) === 'static') throw STATIC_ERR()
+    return post('/api/portfolio/idea/holding', { symbol, ideaId })
+  },
+  /** Label a CLOSED ROUND TRIP by every broker trade id behind it, or clear it with null. */
+  setTradeIdea: async (closeTradeIDs: string[], ideaId: string | null): Promise<PortfolioRead> => {
+    if ((await ensureMode()) === 'static') throw STATIC_ERR()
+    return post('/api/portfolio/idea/trade', { closeTradeIDs, ideaId })
   },
 
   history: async (ticker: string): Promise<{ history: RunHistoryEntry[] }> => {
