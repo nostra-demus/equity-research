@@ -61,6 +61,8 @@ assert.match(news, /<ChatModelMenu/, 'the separate saved-news Ask drawer uses th
 assert.match(menu, /useChatModelChoices/, 'desktop Ask filters its picker through the host allow-list')
 assert.match(mobile, /useChatModelChoices/, 'mobile Ask filters its picker through the same host allow-list')
 assert.match(availability, /api\.chatModels\(\)/, 'all pickers read admitted models from the server')
+assert.match(availability, /useRef\(onSelect\)/, 'parent renders cannot restart the host-catalogue request')
+assert.match(availability, /setTimeout/, 'a temporary catalogue outage retries without replacing the saved model')
 assert.ok((store.match(/model: get\(\)\.chatModel/g) || []).length >= 2, 'research and news requests both send the selected model')
 assert.match(store, /chatModel: c\.model \|\| get\(\)\.chatModel,[\s\S]*newsChatWindow:/, 'saved news History restores its exact model before the next turn')
 

@@ -3,7 +3,7 @@
 // Claude exposes a native no-tools flag. Codex gets the equivalent hard boundary through explicit config:
 // shell/unified-exec, agents, apps, web search and image tools are disabled; its workspace is an empty,
 // read-only temporary directory; project/user instructions and session persistence are disabled.
-import fs from 'node:fs'
+import fs from 'node:fs/promises'
 import os from 'node:os'
 import path from 'node:path'
 import { execa, type ResultPromise } from 'execa'
@@ -154,17 +154,35 @@ export function codexChatFeatureDisables(output: string): string[] {
     .sort()
 }
 
+// Deduplicate concurrent turns and avoid a CLI feature subprocess on every question. The short TTL also
+// makes an in-place CLI upgrade self-heal without a server restart; rejected probes are never cached.
+let codexChatFeatureCache: { command: string; expiresAt: number; pending: Promise<string[]> } | null = null
+
 async function inspectCodexChatFeatures(command: string, env: NodeJS.ProcessEnv, cwd: string): Promise<string[]> {
-  let result: any
+  const now = Date.now()
+  if (codexChatFeatureCache?.command === command && codexChatFeatureCache.expiresAt > now) {
+    return codexChatFeatureCache.pending
+  }
+  const pending = (async () => {
+    let result: any
+    try {
+      result = await execa(command, ['features', 'list'], { cwd, env, reject: false, timeout: 10_000 })
+    } catch (error: any) {
+      throw new Error(`Codex feature check failed: ${error?.shortMessage || error?.message || error}`)
+    }
+    if (result?.exitCode !== 0 || result?.failed) {
+      throw new Error(`Codex feature check failed: ${String(result?.stderr || result?.stdout || `exit ${result?.exitCode}`).trim().slice(0, 240)}`)
+    }
+    return codexChatFeatureDisables(`${result?.stdout || ''}\n${result?.stderr || ''}`)
+  })()
+  const entry = { command, expiresAt: now + 60_000, pending }
+  codexChatFeatureCache = entry
   try {
-    result = await execa(command, ['features', 'list'], { cwd, env, reject: false, timeout: 10_000 })
-  } catch (error: any) {
-    throw new Error(`Codex feature check failed: ${error?.shortMessage || error?.message || error}`)
+    return await pending
+  } catch (error) {
+    if (codexChatFeatureCache === entry) codexChatFeatureCache = null
+    throw error
   }
-  if (result?.exitCode !== 0 || result?.failed) {
-    throw new Error(`Codex feature check failed: ${String(result?.stderr || result?.stdout || `exit ${result?.exitCode}`).trim().slice(0, 240)}`)
-  }
-  return codexChatFeatureDisables(`${result?.stdout || ''}\n${result?.stderr || ''}`)
 }
 
 /** Pure launch contract kept exported so tests pin every closed-book Codex boundary. */
@@ -298,12 +316,12 @@ async function runCodexChatTurn(opts: ChatTurnOptions, choice: ChatModelSpec): P
   let chatRoot = ''
   let cleanupAuthHome: (() => void) | undefined
   try {
-    chatRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'nostra-codex-chat-'))
+    chatRoot = await fs.mkdtemp(path.join(os.tmpdir(), 'nostra-codex-chat-'))
     try {
-      fs.chmodSync(chatRoot, 0o700)
+      await fs.chmod(chatRoot, 0o700)
     } catch (error) {
       // mkdtemp succeeded, so this request owns the bounded directory even if hardening it did not.
-      try { fs.rmSync(chatRoot, { recursive: true, force: true }) } catch { /* best-effort failure cleanup */ }
+      try { await fs.rm(chatRoot, { recursive: true, force: true }) } catch { /* best-effort failure cleanup */ }
       chatRoot = ''
       throw error
     }
@@ -398,7 +416,7 @@ async function runCodexChatTurn(opts: ChatTurnOptions, choice: ChatModelSpec): P
   } finally {
     try { cleanupAuthHome?.() } catch { /* bounded auth-only temporary home */ }
     if (chatRoot) {
-      try { fs.rmSync(chatRoot, { recursive: true, force: true }) } catch { /* bounded temporary workspace */ }
+      try { await fs.rm(chatRoot, { recursive: true, force: true }) } catch { /* bounded temporary workspace */ }
     }
   }
 }

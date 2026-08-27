@@ -22,7 +22,6 @@ export const DATA_NEEDS_CLIENT_TIMEOUT_MS = 20_000
 export const MEMORY_CLIENT_TIMEOUT_MS = 65_000
 export const REEL_TRANSCRIPT_CLIENT_TIMEOUT_MS = 150_000
 export const EXACT_DECISION_LAUNCH_CONTRACT = 'exact-decision-launch/1' as const
-let lastChatModelsRead: ChatModelsRead | null = null
 export interface ProviderReceiptFields {
   provider?: RunProvider
   executionProfile?: ProviderExecutionProfile
@@ -1749,20 +1748,18 @@ export const api = {
 
   // ---- chat with your data (closed-book Q&A over a run's synthesized output) ----
   // The host's admitted Ask catalogue. Only a confirmed 404 means an old server and earns the legacy
-  // Claude catalogue. A transient/malformed response keeps the last truthful catalogue (or rejects while
-  // unknown), so it can never overwrite a valid host-pinned choice with Sonnet.
+  // Claude catalogue. A transient/malformed response rejects so each picker can keep its last truthful
+  // catalogue and retry; it can never overwrite a valid host-pinned choice with Sonnet.
   chatModels: async (): Promise<ChatModelsRead> => {
     const all = { models: CHAT_MODELS.map((choice) => choice.id), defaultModel: 'sonnet' }
     if ((await ensureMode()) === 'static') return all
     try {
       const read = normalizeChatModelsRead(await get<unknown>('/api/chat/models', 8_000))
       if (!read) throw new Error('Ask model catalogue was invalid')
-      lastChatModelsRead = read
       return read
     } catch (error) {
-      const fallback = chatModelsReadAfterFailure(error, lastChatModelsRead)
+      const fallback = chatModelsReadAfterFailure(error, null)
       if (!fallback) throw error
-      lastChatModelsRead = fallback
       return fallback
     }
   },

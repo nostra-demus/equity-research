@@ -678,8 +678,8 @@ export const ESTIMATES = {
 export const CHAT = {
   // default model + the allow-list the panel's model switcher may pick from. Validated server-side so a
   // tampered request can't pass an arbitrary `--model`. Provider-qualified Codex ids keep routing explicit.
-  defaultModel: process.env.ENGINE_CHAT_MODEL || DEFAULT_CHAT_MODEL_ID,
-  allowedModels: (process.env.ENGINE_CHAT_MODELS_ALLOWED || DEFAULT_CHAT_MODEL_IDS).split(',').map((s) => s.trim()).filter(Boolean),
+  defaultModel: (process.env.ENGINE_CHAT_MODEL || DEFAULT_CHAT_MODEL_ID).trim().toLowerCase(),
+  allowedModels: (process.env.ENGINE_CHAT_MODELS_ALLOWED || DEFAULT_CHAT_MODEL_IDS).split(',').map((s) => s.trim().toLowerCase()).filter(Boolean),
   // HARD per-turn ceiling for Claude (the subscription CLI stops at it). Codex plan turns do not expose a
   // per-turn dollar meter; they remain bounded by the same timeout, concurrency, one-turn and no-tool guards.
   budgetUsd: capNum(process.env.ENGINE_CHAT_BUDGET_USD, 3),
