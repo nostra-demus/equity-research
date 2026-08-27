@@ -64,6 +64,9 @@ function failWorker(instance: Worker, error: Error): void {
   const pending = [...workerCalls.values()]
   workerCalls.clear()
   for (const call of pending) call.reject(error)
+  // Erroring workers normally exit themselves, but explicit termination also covers bootstrap/runtime
+  // failures that leave a live isolate behind. The exit listener is idempotent because `worker` is null.
+  void instance.terminate()
 }
 
 function getWorker(): Worker {
