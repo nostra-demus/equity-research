@@ -1,8 +1,15 @@
 export type Sufficiency = 'Sufficient' | 'Partial' | 'Insufficient'
+export interface NewCompanyInput {
+  ticker: string
+  legalName: string
+  venue: 'NYSE' | 'NasdaqGS' | 'NasdaqCM' | 'NasdaqGM' | 'NSE' | 'DFM' | 'XTRA' | 'Oslo Børs' | 'SHSE' | 'HKEX' | 'LSE'
+  currency: string
+  identifiers: string[]
+}
 export type NodeStatus = 'dormant' | 'locked' | 'ready' | 'notready' | 'queued' | 'running' | 'done' | 'failed'
 // engine reachability, driven by the /api/health heartbeat (lib/store). `your-network` = the visitor's
 // own connection is down; `session-expired` = Cloudflare Access cookie gone (reachable but not JSON-ok).
-export type HealthState = 'connecting' | 'online' | 'reconnecting' | 'engine-offline' | 'your-network' | 'session-expired'
+export type HealthState = 'connecting' | 'online' | 'updating' | 'reconnecting' | 'engine-offline' | 'your-network' | 'session-expired'
 
 // ---- shared research memory (GET /api/memory) ----
 // One small, read-only projection for every cockpit. The canonical records and the full memory payloads
@@ -1007,7 +1014,7 @@ export type DeferReason =
   | 'storage-emergency'
   | 'no-scoring-provider'
   | 'batch-failed'
-export type LastResortState = 'off' | 'unavailable' | 'scored' | 'usd-cap' | 'plan-quota' | 'auth-expired' | 'cooling' | 'available'
+export type LastResortState = 'off' | 'unavailable' | 'scored' | 'usd-cap' | 'plan-quota' | 'auth-expired' | 'cooling' | 'paced' | 'available'
 
 // One ingest cycle's outcome, streamed live over /api/news/stream as `news-cycle`. Mirrors the server's
 // CycleSummary (ui/server/src/news/types.ts). Every field past `dropped` is optional so an OLDER engine
@@ -3288,6 +3295,8 @@ export interface WatchRow {
   tags: string[]
   triggers: WatchTrigger[]
   attachments: WatchAttachment[]
+  assignee: TaskAssignee | null
+  task_id: string | null
   engine: WatchEngineRow | null
   /** Came back because the engine changed what it says about a name you had archived. */
   resurfaced: boolean
@@ -3348,4 +3357,50 @@ export interface WatchRowInput {
   tags?: string[]
   /** `trigger_id` is carried when editing so the server can keep a trigger's identity. */
   triggers?: (DistributiveOmit<WatchTrigger, 'trigger_id'> & { trigger_id?: string })[]
+  assignee?: TaskAssignee | null
+}
+
+// ---- shared research Tasks board ----
+export type TaskAssignee = 'AB' | 'NV' | 'CK'
+export type TaskStage = 'idea_generation' | 'ticker_identified' | 'deep_dive' | 'final_decision'
+export type TaskDecision = 'deploy' | 'reject' | 'watch'
+export type TaskScope = 'ticker' | 'company_event' | 'world_event'
+
+export interface TaskPerson { id: TaskAssignee; name: string }
+
+export interface TaskCard {
+  schema_version: 'task-card/v1'
+  task_id: string
+  scope: TaskScope
+  ticker: string | null
+  subject: string
+  title: string
+  stage: TaskStage
+  decision: TaskDecision | null
+  assignee: TaskAssignee
+  attachments: WatchAttachment[]
+  watchlist_entry_id: string | null
+  watchlist_created: boolean
+  history: { at: string; by: string; action: string; detail: string }[]
+  created_at: string
+  created_by: string
+  updated_at: string
+}
+
+export interface TaskInput {
+  scope: TaskScope
+  ticker?: string | null
+  subject: string
+  title: string
+  stage: TaskStage
+  decision?: TaskDecision | null
+  assignee: TaskAssignee
+}
+
+export interface TasksRead {
+  tasks: TaskCard[]
+  people: TaskPerson[]
+  unreadable: string[]
+  attachments_enabled: boolean
+  as_of: string
 }

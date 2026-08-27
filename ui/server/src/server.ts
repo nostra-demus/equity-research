@@ -2,6 +2,7 @@ import { createHash, randomUUID, timingSafeEqual } from 'node:crypto'
 import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
+import { Transform } from 'node:stream'
 import { execFile } from 'node:child_process'
 import { promisify } from 'node:util'
 import chokidar from 'chokidar'
@@ -11,13 +12,14 @@ import multipart from '@fastify/multipart'
 import { execa } from 'execa'
 import Fastify, { type FastifyReply, type FastifyRequest } from 'fastify'
 import { z } from 'zod'
+import { providerDeployPending } from './deploy-barrier'
 import { readActivity, ACTIVITY_FILTER_KINDS } from './activity-log'
 import { recordDataChange, syncingState, SYNC_WINDOW_MS } from './data-activity'
 import { buildReportHtml, parseMeta, safeName } from './export'
 import { ARTICLE_READ_PROVIDERS, CHAT, DATA_DIR, FILING_READ_PROVIDERS, GDRIVE, HOST, NEWS, PORT, REPO_ROOT, STATE_DIR, TOOLS, WEB_DIST, connectorDispatchReady, feedbackDispatchReady, feedbackEmailReady, isDispatchAdmin, isReservedDataFolder, pipelineScanReady } from './config'
 import { getCreditStatus } from './credit'
 import { analyzeTicker, listTickers } from './data-status'
-import { ensureCompanyFolder, uploadToCompany, deleteDriveFile, deleteDriveFileStrict, companyFolderExists, driveErrorMessage, GDRIVE_ENABLED, readWatchlistFile, uploadToWatchlist } from './drive'
+import { ensureCompanyFolder, ensureCompanyIdentity, uploadToCompany, deleteDriveFile, deleteDriveFileStrict, driveErrorMessage, GDRIVE_ENABLED, readWatchlistFile, uploadToWatchlist } from './drive'
 import { attachmentExists, attachmentPath, deleteAttachment, readAttachment, saveAttachment, watchlistFilesAvailable } from './watchlist-files'
 import {
   assertClaudeCli, assertProviderAvailable, cancel, cancelAll, cancelSubject, checkProviderUsage,
@@ -83,6 +85,11 @@ import {
   type StandingCall, type WatchEntry, type WatchTrigger,
   readRunScenarios,
 } from './watchlist'
+import {
+  TASKS_DIR, TASK_MAX_ATTACHMENTS, TASK_PEOPLE, isTaskId, newTaskId, readTasks,
+  syncTaskWatchlist, syncWatchAssigneeToTask, taskPath, writeTask,
+  type TaskCard, type TaskDecision, type TaskStage,
+} from './tasks'
 import { readValuationSummary, readOverrides, appendOverride } from './valuation-levers'
 import { assembleContext, buildChatPrompts, scopeAvailability } from './chat-context'
 import { chatTurnsInFlight, runChatTurn } from './chat-llm'
@@ -268,7 +275,7 @@ function startSSE(reply: FastifyReply) {
 // no-store so a browser/proxy never serves a stale 200 that would mask an outage from the heartbeat.
 app.get('/api/health', async (_req, reply) => {
   reply.header('cache-control', 'no-store')
-  return { ok: true, repoRoot: REPO_ROOT }
+  return { ok: true, repoRoot: REPO_ROOT, deploymentPending: providerDeployPending(STATE_DIR) }
 })
 
 // One shared, read-only Memory view for research, screener and commodity. The reader owns the fixed
@@ -568,17 +575,33 @@ function selectedManualUploadOwnerReply(
 app.post('/api/tickers', async (req, reply) => {
   if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request rejected' })
   if (!GDRIVE_ENABLED) return reply.code(400).send({ error: 'Drive uploads are not configured on this server' })
-  const parsed = z.object({ ticker: z.string() }).safeParse(req.body)
+  const parsed = z.object({
+    ticker: z.string(),
+    legalName: z.string().trim().min(1).max(256),
+    venue: z.enum(['NYSE', 'NasdaqGS', 'NasdaqCM', 'NasdaqGM', 'NSE', 'DFM', 'XTRA', 'Oslo Børs', 'SHSE', 'HKEX', 'LSE']),
+    currency: z.string().regex(/^[A-Z]{3}$/),
+    identifiers: z.array(z.string().regex(/^(?:issuer:lei:[A-Z0-9]{20}|security:figi:[A-Z0-9]{12}|security:isin:[A-Z]{2}[A-Z0-9]{9}[0-9])$/)).max(3).default([]),
+  }).strict().safeParse(req.body)
   if (!parsed.success) return reply.code(400).send({ error: 'invalid body', detail: parsed.error.flatten() })
   const v = validateNewTicker(parsed.data.ticker)
   if (!v.ok) return reply.code(400).send({ error: v.reason, suggested: v.suggested })
   const { ticker } = v
+  const identity = {
+    legalName: parsed.data.legalName,
+    venue: parsed.data.venue,
+    currency: parsed.data.currency,
+    ticker,
+    identifiers: [...new Set(parsed.data.identifiers)].sort(),
+  }
   const { user, userVia } = identify(req)
   try {
-    if (await companyFolderExists(ticker)) return reply.code(409).send({ error: `${ticker} already exists` })
     await ensureCompanyFolder(ticker)
+    const sidecar = await ensureCompanyIdentity(ticker, identity)
+    if (!sidecar.created) {
+      return reply.code(409).send({ error: `${ticker} already exists` })
+    }
     console.log(`[upload] ${user} (${userVia}) created company ${ticker} in Drive`)
-    return { ok: true, ticker }
+    return { ok: true, ticker, identity }
   } catch (e: any) {
     return reply.code(502).send({ error: driveErrorMessage(e) })
   }
@@ -3817,7 +3840,24 @@ const WatchRowBody = z.object({
   review_date: ISO_CALENDAR_DATE.nullable().optional(),
   tags: z.array(z.string().trim().min(1).max(24)).max(WATCHLIST_MAX_TAGS).default([]),
   triggers: z.array(TriggerBody).max(WATCHLIST_MAX_TRIGGERS).default([]),
+  assignee: z.enum(['AB', 'NV', 'CK']).nullable().optional(),
 }).strip()
+
+const TaskBody = z.object({
+  scope: z.enum(['ticker', 'company_event', 'world_event']),
+  ticker: z.string().trim().max(24).nullable().optional(),
+  subject: z.string().trim().min(1).max(240),
+  title: z.string().trim().min(1).max(4000),
+  stage: z.enum(['idea_generation', 'ticker_identified', 'deep_dive', 'final_decision']),
+  decision: z.enum(['deploy', 'reject', 'watch']).nullable().optional(),
+  assignee: z.enum(['AB', 'NV', 'CK']),
+}).strip()
+
+function taskOutcomeProblem(stage: TaskStage, decision: TaskDecision | null): string | null {
+  if (stage === 'final_decision' && !decision) return 'Choose Deploy, Reject or Watch before moving to Final Decision.'
+  if (stage !== 'final_decision' && decision) return 'A final decision belongs only in Final Decision.'
+  return null
+}
 
 const WatchTargetBody = z.object({
   ticker: z.string().trim().min(1).max(15),
@@ -3878,6 +3918,18 @@ async function publishWatchlist(relPaths: string[], msg: string): Promise<{ ok: 
   }
 }
 const watchlistEntryPath = (entryId: string) => `watchlist/entries/${entryId}.json`
+const PLANNING_MUTATION_LOCK = 'planning-mutation:tasks-watchlist'
+
+async function withPlanningMutation(reply: FastifyReply, fn: () => Promise<unknown>): Promise<unknown> {
+  try {
+    return await withSubjectLock(PLANNING_MUTATION_LOCK, fn)
+  } catch (error) {
+    if (error instanceof SubjectBusyError) {
+      return reply.code(409).send({ error: 'Tasks and Watchlist are being updated. Try again in a moment.' })
+    }
+    throw error
+  }
+}
 
 async function buildWatchlist() {
   const { entries, unreadable } = readEntries()
@@ -3978,6 +4030,7 @@ app.post('/api/watchlist', { config: { rateLimit: { max: 120, timeWindow: '1 min
   if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request rejected' })
   const parsed = WatchRowBody.safeParse(req.body ?? {})
   if (!parsed.success) return reply.code(400).send({ error: 'invalid body', detail: parsed.error.flatten() })
+  return withPlanningMutation(reply, async () => {
   const listing = makeListing({
     ticker: parsed.data.ticker,
     currency: parsed.data.currency ?? null,
@@ -4001,6 +4054,9 @@ app.post('/api/watchlist', { config: { rateLimit: { max: 120, timeWindow: '1 min
   // Re-adding a name you archived is an un-archive, not a second row. Creating another file would put the
   // same listing in BOTH the active and the archived views at once.
   if (existing?.archive) {
+    if (existing.task_id && parsed.data.assignee === null) {
+      return reply.code(409).send({ error: 'A Watchlist row linked to a task must keep its assigned person.' })
+    }
     existing.archive = null
     existing.why = parsed.data.why || existing.why
     if (parsed.data.conviction !== undefined) existing.conviction = parsed.data.conviction ?? null
@@ -4012,10 +4068,15 @@ app.post('/api/watchlist', { config: { rateLimit: { max: 120, timeWindow: '1 min
     // the person before they saved.
     existing.tags = [...new Set(parsed.data.tags.map((t) => t.toLowerCase()))]
     existing.triggers = withTriggerIds(parsed.data.triggers, existing.triggers)
+    if (parsed.data.assignee !== undefined) existing.assignee = parsed.data.assignee ?? null
     existing.updated_at = now.toISOString()
     existing.history = [...existing.history, { at: now.toISOString(), by: user, action: 'restored', detail: 're-added' }].slice(-50)
     writeEntry(existing)
-    const pub = await publishWatchlist([watchlistEntryPath(existing.entry_id)], `Watchlist: re-add ${listing.ticker}`)
+    const linkedTask = syncWatchAssigneeToTask(existing, user)
+    const pub = await publishWatchlist([
+      watchlistEntryPath(existing.entry_id),
+      ...(linkedTask ? [taskPath(linkedTask.task_id)] : []),
+    ], `Watchlist: re-add ${listing.ticker}`)
     return reply.code(200).send({ ok: true, entry: existing, publish_error: pub.ok ? undefined : pub.error })
   }
   const engine = readEngineWatch(await standingCalls(), readSizingDecoration()).find((e) => e.listing.listing_key === listing.listing_key) ?? null
@@ -4031,6 +4092,8 @@ app.post('/api/watchlist', { config: { rateLimit: { max: 120, timeWindow: '1 min
     tags: [...new Set(parsed.data.tags.map((t) => t.toLowerCase()))],
     triggers: withTriggerIds(parsed.data.triggers),
     attachments: [],
+    assignee: parsed.data.assignee ?? null,
+    task_id: null,
     archive: null,
     history: [{ at: now.toISOString(), by: user, action: 'created', detail: '' }],
     created_at: now.toISOString(),
@@ -4040,6 +4103,7 @@ app.post('/api/watchlist', { config: { rateLimit: { max: 120, timeWindow: '1 min
   writeEntry(entry)
   const pub = await publishWatchlist([watchlistEntryPath(entry.entry_id)], `Watchlist: add ${listing.ticker}`)
   return reply.code(201).send({ ok: true, entry, publish_error: pub.ok ? undefined : pub.error })
+  })
 })
 
 app.patch('/api/watchlist/:id', { config: { rateLimit: { max: 240, timeWindow: '1 minute' } } }, async (req, reply) => {
@@ -4048,6 +4112,7 @@ app.patch('/api/watchlist/:id', { config: { rateLimit: { max: 240, timeWindow: '
   if (!isWatchId(id)) return reply.code(400).send({ error: 'bad id' })
   const parsed = WatchRowBody.partial().safeParse(req.body ?? {})
   if (!parsed.success) return reply.code(400).send({ error: 'invalid body', detail: parsed.error.flatten() })
+  return withPlanningMutation(reply, async () => {
   const { entries } = readEntries()
   const entry = entries.find((e) => e.entry_id === id)
   if (!entry) return reply.code(404).send({ error: 'not found' })
@@ -4057,11 +4122,15 @@ app.patch('/api/watchlist/:id', { config: { rateLimit: { max: 240, timeWindow: '
   }
   const { user } = identify(req)
   const d = parsed.data
+  if (d.assignee === null && entry.task_id) {
+    return reply.code(409).send({ error: 'A Watchlist row linked to a task must keep its assigned person.' })
+  }
   if (d.why !== undefined) entry.why = d.why
   if (d.conviction !== undefined) entry.conviction = d.conviction ?? null
   if (d.review_date !== undefined) entry.review_date = d.review_date ?? null
   if (d.tags !== undefined) entry.tags = [...new Set(d.tags.map((t) => t.toLowerCase()))]
   if (d.triggers !== undefined) entry.triggers = withTriggerIds(d.triggers, entry.triggers)
+  if (d.assignee !== undefined) entry.assignee = d.assignee ?? null
   if (d.company_name !== undefined) entry.listing.company_name = d.company_name ?? null
   if (d.exchange !== undefined) entry.listing.exchange = d.exchange ?? null
   // Currency is the field that decides whether a row can be priced at all, so it MUST be fixable after
@@ -4083,8 +4152,60 @@ app.patch('/api/watchlist/:id', { config: { rateLimit: { max: 240, timeWindow: '
   entry.updated_at = new Date().toISOString()
   entry.history = [...entry.history, { at: entry.updated_at, by: user, action: 'edited', detail: '' }].slice(-50)
   writeEntry(entry)
-  const pub = await publishWatchlist([watchlistEntryPath(entry.entry_id)], `Watchlist: edit ${entry.listing.ticker}`)
+  const linkedTask = syncWatchAssigneeToTask(entry, user)
+  const pub = await publishWatchlist([
+    watchlistEntryPath(entry.entry_id),
+    ...(linkedTask ? [taskPath(linkedTask.task_id)] : []),
+  ], `Watchlist: edit ${entry.listing.ticker}`)
   return { ok: true, entry, publish_error: pub.ok ? undefined : pub.error }
+  })
+})
+
+// Assignment is intentionally a one-field route. It lets a pure engine row (which has no entry file yet)
+// become assigned without forcing the operator through the full watchlist composer, and it mirrors the
+// assignment into a linked task in the same published mutation.
+app.post('/api/watchlist/assign', { config: { rateLimit: { max: 240, timeWindow: '1 minute' } } }, async (req, reply) => {
+  if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request rejected' })
+  const parsed = z.object({
+    ticker: z.string().trim().min(1).max(24),
+    currency: z.string().trim().max(8).nullable().optional(),
+    assignee: z.enum(['AB', 'NV', 'CK']).nullable(),
+  }).strip().safeParse(req.body ?? {})
+  if (!parsed.success) return reply.code(400).send({ error: 'invalid body', detail: parsed.error.flatten() })
+  return withPlanningMutation(reply, async () => {
+  const key = listingKey(parsed.data.ticker, parsed.data.currency ?? null)
+  const { entries } = readEntries()
+  let entry = pickEntryForListing(entries, key)
+  const { user } = identify(req)
+  const at = new Date().toISOString()
+  if (!entry) {
+    if (entries.length >= WATCHLIST_MAX_ROWS) return reply.code(413).send({ error: 'watchlist is full' })
+    const engine = readEngineWatch(await standingCalls(), readSizingDecoration()).find((row) => row.listing.listing_key === key)
+    if (!engine) return reply.code(404).send({ error: 'watchlist row not found' })
+    entry = {
+      schema_version: 'watchlist-entry/v1', entry_id: newEntryId(new Date()), origin: 'engine', listing: engine.listing,
+      engine_ref: { run_root: engine.run_root, decision: engine.decision, decision_date: engine.decision_date, fingerprint: engine.fingerprint },
+      why: '', conviction: null, review_date: engine.next_review, tags: [], triggers: [], attachments: [],
+      assignee: parsed.data.assignee, task_id: null, archive: null,
+      history: [{ at, by: user, action: 'assigned', detail: parsed.data.assignee ?? 'unassigned' }],
+      created_at: at, created_by: user, updated_at: at,
+    }
+  } else {
+    if (parsed.data.assignee === null && entry.task_id) {
+      return reply.code(409).send({ error: 'A Watchlist row linked to a task must keep its assigned person.' })
+    }
+    entry.assignee = parsed.data.assignee
+    entry.updated_at = at
+    entry.history = [...entry.history, { at, by: user, action: 'assigned', detail: parsed.data.assignee ?? 'unassigned' }].slice(-50)
+  }
+  writeEntry(entry)
+  const linkedTask = syncWatchAssigneeToTask(entry, user)
+  const pub = await publishWatchlist([
+    watchlistEntryPath(entry.entry_id),
+    ...(linkedTask ? [taskPath(linkedTask.task_id)] : []),
+  ], `Watchlist: assign ${entry.listing.ticker}`)
+  return { ok: true, entry, publish_error: pub.ok ? undefined : pub.error }
+  })
 })
 
 /**
@@ -4096,6 +4217,7 @@ app.post('/api/watchlist/archive', { config: { rateLimit: { max: 120, timeWindow
   if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request rejected' })
   const parsed = WatchTargetBody.safeParse(req.body ?? {})
   if (!parsed.success) return reply.code(400).send({ error: 'invalid body', detail: parsed.error.flatten() })
+  return withPlanningMutation(reply, async () => {
   const key = listingKey(parsed.data.ticker, parsed.data.currency ?? null)
   const { user } = identify(req)
   const now = new Date()
@@ -4114,6 +4236,9 @@ app.post('/api/watchlist/archive', { config: { rateLimit: { max: 120, timeWindow
       archive: null, history: [], created_at: now.toISOString(), created_by: user, updated_at: now.toISOString(),
     }
   }
+  if (entry.task_id) {
+    return reply.code(409).send({ error: 'Change this card’s Final Decision in Tasks before archiving its Watchlist row.' })
+  }
   entry.archive = {
     at: now.toISOString(),
     by: user,
@@ -4126,23 +4251,29 @@ app.post('/api/watchlist/archive', { config: { rateLimit: { max: 120, timeWindow
   writeEntry(entry)
   const pub = await publishWatchlist([watchlistEntryPath(entry.entry_id)], `Watchlist: archive ${entry.listing.ticker}`)
   return { ok: true, entry, publish_error: pub.ok ? undefined : pub.error }
+  })
 })
 
 app.post('/api/watchlist/restore', { config: { rateLimit: { max: 120, timeWindow: '1 minute' } } }, async (req, reply) => {
   if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request rejected' })
   const parsed = WatchTargetBody.safeParse(req.body ?? {})
   if (!parsed.success) return reply.code(400).send({ error: 'invalid body', detail: parsed.error.flatten() })
+  return withPlanningMutation(reply, async () => {
   const key = listingKey(parsed.data.ticker, parsed.data.currency ?? null)
   const { entries } = readEntries()
   const entry = pickEntryForListing(entries, key)
   if (!entry) return reply.code(404).send({ error: 'not found' })
+  if (entry.task_id) {
+    return reply.code(409).send({ error: 'Change this card’s Final Decision in Tasks before restoring its Watchlist row.' })
+  }
   const { user } = identify(req)
   const now = new Date().toISOString()
   entry.archive = null
   entry.updated_at = now
   entry.history = [...entry.history, { at: now, by: user, action: 'restored', detail: '' }].slice(-50)
   // An engine row that carries nothing of its own is not worth a file once it is un-archived.
-  const bare = entry.origin === 'engine' && !entry.why && !entry.triggers.length && !entry.attachments.length && !entry.tags.length
+  const bare = entry.origin === 'engine' && !entry.why && !entry.triggers.length && !entry.attachments.length
+    && !entry.tags.length && !entry.assignee && !entry.task_id
   if (bare) {
     deleteEntry(entry.entry_id)
     const pub = await publishWatchlist([watchlistEntryPath(entry.entry_id)], `Watchlist: restore ${entry.listing.ticker} (bare — file removed)`)
@@ -4151,6 +4282,7 @@ app.post('/api/watchlist/restore', { config: { rateLimit: { max: 120, timeWindow
   writeEntry(entry)
   const pub = await publishWatchlist([watchlistEntryPath(entry.entry_id)], `Watchlist: restore ${entry.listing.ticker}`)
   return { ok: true, entry, publish_error: pub.ok ? undefined : pub.error }
+  })
 })
 
 // The scenario targets a finished run recorded, offered as a pre-filled trigger the human still adopts.
@@ -4389,12 +4521,284 @@ app.delete('/api/watchlist/:id/attachment/:attachmentId', { config: { rateLimit:
       return reply.code(502).send({ error: driveErrorMessage(e) })
     }
   }
-  entry.attachments = entry.attachments.filter((a) => a.attachment_id !== attachmentId)
-  entry.updated_at = new Date().toISOString()
-  entry.history = [...entry.history, { at: entry.updated_at, by: user, action: 'detached', detail: attachmentId }].slice(-50)
-  writeEntry(entry)
-  const pub = await publishWatchlist([watchlistEntryPath(entry.entry_id)], `Watchlist: detach file from ${entry.listing.ticker}`)
-  return { ok: true, entry, publish_error: pub.ok ? undefined : pub.error }
+  // The Drive operation above may take seconds. Re-enter the shared planning lock and re-read the row
+  // before changing metadata so a task assignment completed while Drive was deleting cannot be replaced
+  // by the stale copy captured at the start of this request.
+  return withPlanningMutation(reply, async () => {
+    const fresh = readEntries().entries.find((candidate) => candidate.entry_id === id)
+    if (!fresh) return reply.code(404).send({ error: 'not found' })
+    if (!fresh.attachments.some((attachment) => attachment.attachment_id === attachmentId)) {
+      return { ok: true, entry: fresh }
+    }
+    fresh.attachments = fresh.attachments.filter((attachment) => attachment.attachment_id !== attachmentId)
+    fresh.updated_at = new Date().toISOString()
+    fresh.history = [...fresh.history, { at: fresh.updated_at, by: user, action: 'detached', detail: attachmentId }].slice(-50)
+    writeEntry(fresh)
+    const pub = await publishWatchlist([watchlistEntryPath(fresh.entry_id)], `Watchlist: detach file from ${fresh.listing.ticker}`)
+    return { ok: true, entry: fresh, publish_error: pub.ok ? undefined : pub.error }
+  })
+})
+
+// ---------- Tasks board ----------
+// Human planning state, stored one card per file under watchlist/tasks. The Watch outcome is synchronized
+// through syncTaskWatchlist(), so the Tasks board and Watchlist are two views over one final decision.
+app.get('/api/tasks', { config: { rateLimit: { max: 600, timeWindow: '1 minute' } } }, async () => {
+  const read = readTasks()
+  return {
+    ...read,
+    people: TASK_PEOPLE,
+    attachments_enabled: watchlistFilesAvailable() || GDRIVE_ENABLED,
+    as_of: new Date().toISOString(),
+  }
+})
+
+async function taskEngineWatch(task: TaskCard) {
+  if (task.stage !== 'final_decision' || task.decision !== 'watch' || !task.ticker) return []
+  return readEngineWatch(await standingCalls(), readSizingDecoration())
+    .filter((row) => row.listing.ticker === task.ticker)
+}
+
+function conflictingWatchTask(ticker: string | null, exceptTaskId: string | null = null): TaskCard | null {
+  if (!ticker) return null
+  return readTasks().tasks.find((candidate) => candidate.task_id !== exceptTaskId && candidate.ticker === ticker
+    && candidate.stage === 'final_decision' && candidate.decision === 'watch') ?? null
+}
+
+app.post('/api/tasks', { config: { rateLimit: { max: 120, timeWindow: '1 minute' } } }, async (req, reply) => {
+  if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request rejected' })
+  const parsed = TaskBody.safeParse(req.body ?? {})
+  if (!parsed.success) return reply.code(400).send({ error: 'invalid body', detail: parsed.error.flatten() })
+  const problem = taskOutcomeProblem(parsed.data.stage, parsed.data.decision ?? null)
+  if (problem) return reply.code(400).send({ error: problem })
+  const rawTicker = parsed.data.ticker?.trim() || ''
+  const ticker = rawTicker ? cleanTicker(rawTicker) : null
+  if (rawTicker && !ticker) return reply.code(400).send({ error: 'ticker not usable' })
+  if (parsed.data.scope !== 'world_event' && !ticker && parsed.data.stage !== 'idea_generation') {
+    return reply.code(400).send({ error: 'Add a ticker before moving this card past Idea generation.' })
+  }
+  if (parsed.data.stage === 'final_decision' && parsed.data.decision === 'watch' && !ticker) {
+    return reply.code(400).send({ error: 'Add a ticker before choosing Watch so it can sync to Watchlist.' })
+  }
+  return withPlanningMutation(reply, async () => {
+    const { user } = identify(req)
+    const at = new Date().toISOString()
+    const task: TaskCard = {
+      schema_version: 'task-card/v1', task_id: newTaskId(new Date()), scope: parsed.data.scope,
+      ticker: ticker ? ticker.toUpperCase() : null, subject: parsed.data.subject, title: parsed.data.title,
+      stage: parsed.data.stage, decision: parsed.data.stage === 'final_decision' ? parsed.data.decision ?? null : null,
+      assignee: parsed.data.assignee, attachments: [], watchlist_entry_id: null, watchlist_created: false,
+      history: [{ at, by: user, action: 'created', detail: parsed.data.stage }],
+      created_at: at, created_by: user, updated_at: at,
+    }
+    if (task.decision === 'watch' && conflictingWatchTask(task.ticker)) {
+      return reply.code(409).send({ error: `${task.ticker} already has a Final Decision · Watch task.` })
+    }
+    const engineMatches = await taskEngineWatch(task)
+    if (engineMatches.length > 1) return reply.code(409).send({ error: `${task.ticker} maps to more than one listing. Add the exact security to Watchlist first.` })
+    const watchSync = syncTaskWatchlist(task, user, undefined, engineMatches[0] ?? null)
+    if (watchSync.problem) return reply.code(409).send({ error: watchSync.problem })
+    writeTask(task)
+    const paths = [taskPath(task.task_id), ...watchSync.changedEntries.map((entry) => watchlistEntryPath(entry.entry_id))]
+    const pub = await publishWatchlist(paths, `Tasks: add ${task.ticker || task.subject}`)
+    return reply.code(201).send({ ok: true, task, publish_error: pub.ok ? undefined : pub.error })
+  })
+})
+
+app.patch('/api/tasks/:id', { config: { rateLimit: { max: 240, timeWindow: '1 minute' } } }, async (req, reply) => {
+  if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request rejected' })
+  const id = String((req.params as any).id ?? '')
+  if (!isTaskId(id)) return reply.code(400).send({ error: 'bad id' })
+  const parsed = TaskBody.partial().safeParse(req.body ?? {})
+  if (!parsed.success) return reply.code(400).send({ error: 'invalid body', detail: parsed.error.flatten() })
+  return withPlanningMutation(reply, async () => {
+    const task = readTasks().tasks.find((candidate) => candidate.task_id === id)
+    if (!task) return reply.code(404).send({ error: 'not found' })
+    const d = parsed.data
+    const stage = d.stage ?? task.stage
+    const decision = stage === 'final_decision'
+      ? (d.decision !== undefined ? d.decision : task.decision)
+      : null
+    const problem = taskOutcomeProblem(stage, decision ?? null)
+    if (problem) return reply.code(400).send({ error: problem })
+    const rawTicker = d.ticker === undefined ? task.ticker ?? '' : d.ticker?.trim() || ''
+    const ticker = rawTicker ? cleanTicker(rawTicker) : null
+    if (rawTicker && !ticker) return reply.code(400).send({ error: 'ticker not usable' })
+    const scope = d.scope ?? task.scope
+    if (scope !== 'world_event' && !ticker && stage !== 'idea_generation') {
+      return reply.code(400).send({ error: 'Add a ticker before moving this card past Idea generation.' })
+    }
+    if (stage === 'final_decision' && decision === 'watch' && !ticker) {
+      return reply.code(400).send({ error: 'Add a ticker before choosing Watch so it can sync to Watchlist.' })
+    }
+    if (decision === 'watch' && conflictingWatchTask(ticker, task.task_id)) {
+      return reply.code(409).send({ error: `${ticker} already has a Final Decision · Watch task.` })
+    }
+    const { user } = identify(req)
+    const at = new Date().toISOString()
+    const prior = { stage: task.stage, assignee: task.assignee, ticker: task.ticker }
+    task.scope = scope
+    task.ticker = ticker ? ticker.toUpperCase() : null
+    task.subject = d.subject ?? task.subject
+    task.title = d.title ?? task.title
+    task.stage = stage
+    task.decision = decision ?? null
+    task.assignee = d.assignee ?? task.assignee
+    task.updated_at = at
+    const event = prior.stage !== stage
+      ? { action: 'moved', detail: `${prior.stage} → ${stage}${task.decision ? ` · ${task.decision}` : ''}` }
+      : prior.assignee !== task.assignee
+        ? { action: 'assigned', detail: `${prior.assignee} → ${task.assignee}` }
+        : prior.ticker !== task.ticker
+          ? { action: 'retargeted', detail: `${prior.ticker ?? 'no ticker'} → ${task.ticker ?? 'no ticker'}` }
+          : { action: 'edited', detail: '' }
+    task.history = [...task.history, { at, by: user, ...event }].slice(-50)
+    const engineMatches = await taskEngineWatch(task)
+    if (engineMatches.length > 1) return reply.code(409).send({ error: `${task.ticker} maps to more than one listing. Add the exact security to Watchlist first.` })
+    const watchSync = syncTaskWatchlist(task, user, undefined, engineMatches[0] ?? null)
+    if (watchSync.problem) return reply.code(409).send({ error: watchSync.problem })
+    writeTask(task)
+    const paths = [taskPath(task.task_id), ...watchSync.changedEntries.map((entry) => watchlistEntryPath(entry.entry_id))]
+    const pub = await publishWatchlist(paths, `Tasks: update ${task.ticker || task.subject}`)
+    return { ok: true, task, publish_error: pub.ok ? undefined : pub.error }
+  })
+})
+
+const TASK_ATTACH_RE = /\.(pdf|doc|docx|md)$/i
+const TASK_ATTACH_MAX_BYTES = 25 * 1024 * 1024
+
+app.post('/api/tasks/:id/attachments', { config: { rateLimit: { max: 60, timeWindow: '1 minute' } } }, async (req, reply) => {
+  if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request rejected' })
+  const id = String((req.params as any).id ?? '')
+  if (!isTaskId(id)) return reply.code(400).send({ error: 'bad id' })
+  return withPlanningMutation(reply, async () => {
+  const task = readTasks().tasks.find((candidate) => candidate.task_id === id)
+  if (!task) return reply.code(404).send({ error: 'not found' })
+  const useLocal = watchlistFilesAvailable()
+  if (!useLocal && !GDRIVE_ENABLED) return reply.code(503).send({ error: 'attachments need either the Drive mount or the Drive API' })
+  const { user } = identify(req)
+  const added: typeof task.attachments = []
+  const fileErrors: { filename: string; reason: string }[] = []
+  try {
+    for await (const part of req.parts()) {
+      if (part.type !== 'file') continue
+      const raw = part.filename || 'file'
+      if (task.attachments.length + added.length >= TASK_MAX_ATTACHMENTS) {
+        part.file.resume(); fileErrors.push({ filename: raw, reason: `maximum ${TASK_MAX_ATTACHMENTS} files` }); continue
+      }
+      const safe = sanitizeUploadFilename(raw)
+      if (!safe.ok) { part.file.resume(); fileErrors.push({ filename: raw, reason: safe.reason }); continue }
+      if (!TASK_ATTACH_RE.test(safe.name)) {
+        part.file.resume(); fileErrors.push({ filename: raw, reason: 'PDF, Word or Markdown only' }); continue
+      }
+      try {
+        if (useLocal) {
+          const chunks: Buffer[] = []
+          let bytes = 0
+          let tooBig = false
+          for await (const chunk of part.file) {
+            const buf = Buffer.isBuffer(chunk) ? chunk : Buffer.from(chunk)
+            bytes += buf.length
+            if (bytes > TASK_ATTACH_MAX_BYTES) { tooBig = true; chunks.length = 0; continue }
+            chunks.push(buf)
+          }
+          if (tooBig || (part.file as any).truncated) {
+            fileErrors.push({ filename: raw, reason: `larger than ${Math.round(TASK_ATTACH_MAX_BYTES / 1024 / 1024)}MB` }); continue
+          }
+          const attachmentId = `${Date.now().toString(36)}-${randomUUID().replace(/-/g, '').slice(0, 8)}-${safe.name}`
+          const saved = saveAttachment(id, attachmentId, Buffer.concat(chunks))
+          if (!saved.ok) { fileErrors.push({ filename: raw, reason: saved.error }); continue }
+          added.push({ attachment_id: attachmentId, filename: safe.name, bytes: saved.bytes, added_at: new Date().toISOString(), added_by: user })
+        } else {
+          let bytes = 0
+          let tooBig = false
+          const tracker = new Transform({
+            transform(chunk, _encoding, callback) {
+              bytes += chunk.length
+              if (bytes > TASK_ATTACH_MAX_BYTES) { tooBig = true; callback(new Error('too large')); return }
+              callback(null, chunk)
+            },
+          })
+          part.file.on('error', (error) => tracker.destroy(error))
+          const ext = path.extname(safe.name).toLowerCase()
+          const mime = ext === '.pdf' ? 'application/pdf' : ext === '.md' ? 'text/markdown'
+            : ext === '.docx' ? 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' : 'application/msword'
+          const up = await uploadToWatchlist(id, safe.name, part.file.pipe(tracker) as any, mime)
+          if (tooBig || (part.file as any).truncated) {
+            await deleteDriveFileStrict(up.id)
+            fileErrors.push({ filename: raw, reason: `larger than ${Math.round(TASK_ATTACH_MAX_BYTES / 1024 / 1024)}MB` }); continue
+          }
+          added.push({ attachment_id: up.id, filename: up.name, bytes, added_at: new Date().toISOString(), added_by: user })
+        }
+      } catch (error: any) {
+        part.file.resume()
+        fileErrors.push({ filename: raw, reason: String(error?.message) === 'too large'
+          ? `larger than ${Math.round(TASK_ATTACH_MAX_BYTES / 1024 / 1024)}MB`
+          : driveErrorMessage(error) })
+      }
+    }
+  } catch (error: any) {
+    fileErrors.push({ filename: '(upload)', reason: String(error?.message || error) })
+  }
+  let publishError: string | undefined
+  if (added.length) {
+    const fresh = readTasks().tasks.find((candidate) => candidate.task_id === id) ?? task
+    fresh.attachments = [...fresh.attachments, ...added]
+    fresh.updated_at = new Date().toISOString()
+    fresh.history = [...fresh.history, { at: fresh.updated_at, by: user, action: 'attached', detail: added.map((a) => a.filename).join(', ') }].slice(-50)
+    writeTask(fresh)
+    const pub = await publishWatchlist([taskPath(fresh.task_id)], `Tasks: attach files to ${fresh.ticker || fresh.subject}`)
+    publishError = pub.ok ? undefined : pub.error
+  }
+  return reply.code(added.length ? 201 : 400).send({ ok: added.length > 0, task: { ...task, attachments: [...task.attachments, ...added] }, fileErrors, publish_error: publishError })
+  })
+})
+
+app.get('/api/tasks/:id/attachment/:attachmentId', { config: { rateLimit: { max: 300, timeWindow: '1 minute' } } }, async (req, reply) => {
+  const id = String((req.params as any).id ?? '')
+  const attachmentId = String((req.params as any).attachmentId ?? '')
+  if (!isTaskId(id)) return reply.code(404).send({ error: 'not found' })
+  const task = readTasks().tasks.find((candidate) => candidate.task_id === id)
+  const attachment = task?.attachments.find((candidate) => candidate.attachment_id === attachmentId)
+  if (!attachment) return reply.code(404).send({ error: 'not found' })
+  const local = attachmentPath(id, attachmentId) ? readAttachment(id, attachmentId) : null
+  let stream: import('node:stream').Readable | Buffer
+  if (local) stream = local
+  else {
+    if (!GDRIVE_ENABLED) return reply.code(503).send({ error: 'attachments need either the Drive mount or the Drive API' })
+    try { stream = await readWatchlistFile(attachmentId) } catch { return reply.code(502).send({ error: 'could not read the file' }) }
+  }
+  const ext = path.extname(attachment.filename).toLowerCase()
+  const contentType = ext === '.pdf' ? 'application/pdf'
+    : ext === '.md' ? 'text/plain; charset=utf-8'
+      : ext === '.docx' ? 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+        : 'application/msword'
+  const disposition = ext === '.pdf' ? 'inline' : 'attachment'
+  const filename = attachment.filename.replace(/[^A-Za-z0-9._-]/g, '') || `attachment${ext}`
+  return reply.header('content-type', contentType).header('x-content-type-options', 'nosniff')
+    .header('content-disposition', `${disposition}; filename="${filename}"`).header('cache-control', 'private, no-store').send(stream)
+})
+
+app.delete('/api/tasks/:id/attachment/:attachmentId', { config: { rateLimit: { max: 120, timeWindow: '1 minute' } } }, async (req, reply) => {
+  if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request rejected' })
+  const id = String((req.params as any).id ?? '')
+  const attachmentId = String((req.params as any).attachmentId ?? '')
+  if (!isTaskId(id)) return reply.code(400).send({ error: 'bad id' })
+  return withPlanningMutation(reply, async () => {
+  const task = readTasks().tasks.find((candidate) => candidate.task_id === id)
+  if (!task?.attachments.some((attachment) => attachment.attachment_id === attachmentId)) return reply.code(404).send({ error: 'not found' })
+  if (attachmentExists(id, attachmentId)) {
+    if (!deleteAttachment(id, attachmentId)) return reply.code(502).send({ error: 'could not remove the file' })
+  } else {
+    try { await deleteDriveFileStrict(attachmentId) } catch (error: any) { return reply.code(502).send({ error: driveErrorMessage(error) }) }
+  }
+  const { user } = identify(req)
+  task.attachments = task.attachments.filter((attachment) => attachment.attachment_id !== attachmentId)
+  task.updated_at = new Date().toISOString()
+  task.history = [...task.history, { at: task.updated_at, by: user, action: 'detached', detail: attachmentId }].slice(-50)
+  writeTask(task)
+  const pub = await publishWatchlist([taskPath(task.task_id)], `Tasks: detach file from ${task.ticker || task.subject}`)
+  return { ok: true, task, publish_error: pub.ok ? undefined : pub.error }
+  })
 })
 
 app.get('/api/output/run', async (req, reply) => {
@@ -5495,7 +5899,7 @@ app.get('/api/news/status', async () => getNewsStatus())
 app.get('/api/bridge/status', async () => getBridgeStatus())
 
 // FULL pipeline diagnostics: every triage tier's budget + health + cooldown, the deferred backlog vs its
-// loss boundary, the last cycle's flow, and the honest defer reason (incl. the Haiku last-resort's state).
+// loss boundary, the last cycle's flow, and the honest defer reason (including Haiku priority 1's state).
 // Read-only, fail-soft (never throws), rate-limited like the other fs-reading news reads. Backs the cockpit's
 // "Pipeline diagnostics" panel so a defer/cooldown/backlog state is never a surprise.
 app.get('/api/news/diagnostics', { config: { rateLimit: { max: 600, timeWindow: '1 minute' } } }, async () => getNewsDiagnostics())

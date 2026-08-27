@@ -11,6 +11,7 @@ import tempfile
 
 from freeze_idea_admission import digest, freeze, main as freeze_main
 from create_idea_projection_manifest import create as create_manifest, file_digest, validate_manifest
+from idea_run_root import parse_idea_run_root
 
 
 def freeze_worker(queue, run_root, repo):
@@ -71,10 +72,11 @@ def fixture(
     expectations_edge=66,
     reconcile_audits=True,
     company_name=None,
+    run_root=None,
 ):
     now = dt.datetime.now(dt.timezone.utc).replace(microsecond=0)
     run_date = now.date().isoformat()
-    run_root = f"analyses/{ticker}_{run_date}"
+    run_root = run_root or f"analyses/{ticker}_{run_date}"
     run = os.path.join(repo, run_root)
     os.makedirs(run, exist_ok=True)
     start = iso(now + dt.timedelta(days=1))
@@ -219,6 +221,37 @@ def main():
         assert freeze(run_root, repo) == 0
         assert not os.path.exists(publication_marker), "idempotent recovery must release a stale completion marker after revalidation"
         assert json.load(open(os.path.join(run, "idea_admission.json"), encoding="utf-8")) == admitted, "recovery may validate but never rewrite the first frozen result"
+
+        parity_date = dt.datetime.now(dt.timezone.utc).date().isoformat()
+        for provider, parity_ticker in (("codex", "PARITYC"), ("claude", "PARITYL")):
+            parity_root = (
+                f"analyses/provider-parity/{parity_date}/{provider}/"
+                f"{parity_ticker}_{parity_date}__attempt-deadbeef"
+            )
+            parsed_root, parsed_ticker, parsed_date = parse_idea_run_root(parity_root)
+            assert (parsed_root, parsed_ticker, parsed_date) == (
+                parity_root, parity_ticker, parity_date,
+            )
+            admitted_parity_root, admitted_parity_run = fixture(
+                repo, ticker=parity_ticker, run_root=parity_root,
+            )
+            open(
+                os.path.join(admitted_parity_run, ".requires_idea_publication"),
+                "w", encoding="utf-8",
+            ).close()
+            assert freeze(admitted_parity_root, repo) == 0
+            assert not os.path.exists(os.path.join(admitted_parity_run, ".requires_idea_publication"))
+            parity_admission = json.load(open(
+                os.path.join(admitted_parity_run, "idea_admission.json"), encoding="utf-8",
+            ))
+            assert parity_admission["run_root"] == parity_root
+        try:
+            parse_idea_run_root(
+                f"analyses/provider-parity/2020-01-01/codex/PARITY_{parity_date}__attempt-deadbeef"
+            )
+            raise AssertionError("a parity root with mismatched path and decision dates must fail closed")
+        except ValueError:
+            pass
         original_target = admitted["candidate"]["scenarios"][0]["price_target"]
         assessment_path = os.path.join(run, "idea_3_6m.json")
         changed = json.load(open(assessment_path, encoding="utf-8"))

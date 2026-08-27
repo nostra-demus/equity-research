@@ -14,7 +14,7 @@ interface MemoryConfig {
   mode: ResearchMemoryMode
   stateRoot: string
   checkpoint: string
-  writerOwner: string
+  writerOwnerPath: string
   writerHead: string
   canonicalLedger: string
   protectedStore: string
@@ -55,6 +55,12 @@ interface PrepareResult {
   authorization_sha256: string
 }
 
+interface RecipientAuthorization {
+  authorizationId: string
+  authorizationPath: string
+  authorizationSha256: string
+}
+
 interface RuntimeControls {
   globalDisabled: boolean
   disabledLayers: string[]
@@ -68,6 +74,7 @@ const HASH = /^sha256:[a-f0-9]{64}$/
 const preparation = new Map<string, Promise<PrepareResult>>()
 const preparationScope = new Map<string, string>()
 const preparationTail = new Map<string, Promise<PrepareResult>>()
+let recipientAuthorizations = new WeakMap<RunState, Map<string, Promise<RecipientAuthorization>>>()
 
 export function researchMemoryMode(env: NodeJS.ProcessEnv = process.env): ResearchMemoryMode {
   const value = String(env.NOSTRA_MEMORY_MODE || 'off').trim().toLowerCase()
@@ -156,7 +163,7 @@ function memoryConfig(env: NodeJS.ProcessEnv = process.env): MemoryConfig {
     mode,
     stateRoot: path.resolve(read('NOSTRA_MEMORY_STATE_ROOT', path.join(STATE_DIR, 'memory-runtime'))),
     checkpoint: read('NOSTRA_MEMORY_CHECKPOINT'),
-    writerOwner: read('NOSTRA_MEMORY_WRITER_OWNER'),
+    writerOwnerPath: read('NOSTRA_MEMORY_WRITER_OWNER_PATH'),
     writerHead: read('NOSTRA_MEMORY_WRITER_HEAD'),
     canonicalLedger: read('NOSTRA_MEMORY_CANONICAL_LEDGER'),
     protectedStore: read('NOSTRA_MEMORY_PROTECTED_STORE'),
@@ -280,7 +287,11 @@ export function resolveRunMemoryIdentity(run: RunState): ResearchMemoryIdentity 
 async function defaultExecutor(args: string[]): Promise<Record<string, any>> {
   const result = await execa('python3', ['scripts/research_memory_run_cli.py', ...args], {
     cwd: REPO_ROOT, env: { ...process.env, PYTHONPATH: path.join(REPO_ROOT, 'scripts') },
-    extendEnv: false, reject: false, timeout: 30_000,
+    // A repository-SHA change may require the one permitted deterministic clean rebuild before spend.
+    // That rebuild is not packet compilation and can exceed 30s on the full historical corpus. Keep every
+    // ordinary compile/attest/verify call at 30s; only snapshot preparation receives the bounded rebuild
+    // window. The runtime still fails closed before a paid dispatch when this deadline is exceeded.
+    extendEnv: false, reject: false, timeout: args[0] === 'prepare' ? 120_000 : 30_000,
   })
   let parsed: any
   try { parsed = JSON.parse(result.stdout.trim()) } catch { parsed = null }
@@ -295,6 +306,70 @@ function commonArgs(config: MemoryConfig, logical: string): string[] {
     '--root', REPO_ROOT, '--state-root', config.stateRoot, '--run-id', logical,
     '--contract-public-key', config.contractPublicKey, '--contract-key-id', config.contractKeyId,
   ]
+}
+
+function packetRecipientModel(run: RunState, agentKey: string): string {
+  // Codex runs ordinary specialists on Terra, but every 99_* module synthesis and the root synthesis on
+  // Sol. That is the same path-based execution contract enforced by codex-contract.ts. Bind packet
+  // authorization to the model that actually receives the bytes, not merely to the parent process that
+  // requested compilation on its behalf. Providers without a separate specialist model keep the pinned
+  // parent authorization.
+  const stem = agentKey.split('/').at(-1) || ''
+  if (agentKey === 'master/synthesizer' || stem.startsWith('99_')) return run.model
+  return run.executionProfile.specialistModel?.trim() || run.model
+}
+
+async function authorizationForAgent(
+  run: RunState, agentKey: string, executor: MemoryExecutor, config: MemoryConfig,
+): Promise<RecipientAuthorization> {
+  const binding = run.memoryRuntime
+  if (!binding?.authorizationId || !binding.authorizationPath || !binding.authorizationSha256) {
+    throw new Error('run has no verified provider authorization')
+  }
+  const model = packetRecipientModel(run, agentKey)
+  if (model === run.model) {
+    return {
+      authorizationId: binding.authorizationId,
+      authorizationPath: binding.authorizationPath,
+      authorizationSha256: binding.authorizationSha256,
+    }
+  }
+  const recipient = `${run.provider}\0${model}`
+  let byRecipient = recipientAuthorizations.get(run)
+  if (!byRecipient) {
+    byRecipient = new Map()
+    recipientAuthorizations.set(run, byRecipient)
+  }
+  let pending = byRecipient.get(recipient)
+  if (!pending) {
+    pending = executor([
+      'authorize', ...commonArgs(config, binding.logicalRunId),
+      '--contract-private-key', config.contractPrivateKey,
+      '--provider-policy', config.providerPolicy,
+      '--policy-public-key', config.policyPublicKey, '--policy-key-id', config.policyKeyId,
+      '--provider', run.provider, '--model', model, '--service-identity', config.serviceIdentity,
+      '--classification', 'public', '--classification', 'internal',
+      '--source-tier', '1', '--source-tier', '2', '--source-tier', '3', '--source-tier', '4', '--source-tier', '5',
+      '--now', new Date().toISOString(),
+    ]).then((value) => {
+      if (value.schema !== 'research-memory-authorize-result/v1' || value.ok !== true
+          || value.receipt_id !== binding.receiptId || value.receipt_sha256 !== binding.receiptSha256
+          || value.provider_model !== `${run.provider}/${model}`
+          || typeof value.authorization_id !== 'string'
+          || typeof value.authorization_path !== 'string' || !path.isAbsolute(value.authorization_path)
+          || typeof value.authorization_sha256 !== 'string' || !HASH.test(value.authorization_sha256)) {
+        throw new Error('memory supervisor returned an invalid recipient authorization')
+      }
+      return {
+        authorizationId: value.authorization_id,
+        authorizationPath: value.authorization_path,
+        authorizationSha256: value.authorization_sha256,
+      }
+    })
+    byRecipient.set(recipient, pending)
+    void pending.catch(() => byRecipient?.delete(recipient))
+  }
+  return pending
 }
 
 async function verifyEnforcementGate(
@@ -355,7 +430,7 @@ export async function prepareResearchMemory(
       const predecessor = preparationTail.get(logical)
       promise = (predecessor ? predecessor.catch(() => undefined) : Promise.resolve()).then(() => executor([
         'prepare', ...commonArgs(config, logical), '--reuse',
-        '--checkpoint', config.checkpoint, '--writer-owner', config.writerOwner,
+        '--checkpoint', config.checkpoint, '--writer-owner', config.writerOwnerPath,
         '--writer-head', config.writerHead,
         '--canonical-ledger', config.canonicalLedger,
         '--protected-store', config.protectedStore,
@@ -450,20 +525,18 @@ export async function compileResearchMemoryPacket(
 ): Promise<Record<string, unknown>> {
   const binding = run.memoryRuntime
   if (!binding || binding.status !== 'verified') throw new Error('run has no verified memory snapshot')
-  if (!binding.authorizationPath || !binding.authorizationSha256) {
-    throw new Error('run has no verified provider authorization')
-  }
   const expected = agentKey === 'master/synthesizer'
     ? run.kind === 'full' || run.expected.has(agentKey)
     : run.expected.has(agentKey)
   if (!expected) throw new Error('memory packet agent is outside the supervisor roster')
   const config = memoryConfig(env)
+  const authorization = await authorizationForAgent(run, agentKey, executor, config)
   const controls = runtimeControls(config.stateRoot)
   if (controls.globalDisabled) throw new Error('global memory kill switch is active')
   return executor([
     'compile', ...commonArgs(config, binding.logicalRunId),
-    '--authorization', binding.authorizationPath,
-    '--authorization-sha256', binding.authorizationSha256, '--agent-key', agentKey,
+    '--authorization', authorization.authorizationPath,
+    '--authorization-sha256', authorization.authorizationSha256, '--agent-key', agentKey,
     '--valid-date', new Date(run.startedAt).toISOString().slice(0, 10),
     ...controls.disabledLayers.flatMap((item) => ['--disable-layer', item]),
     ...controls.disabledPlaybooks.flatMap((item) => [
@@ -496,9 +569,6 @@ export async function attestResearchMemoryUse(
   if (!binding || binding.status !== 'verified' || !run.runRoot) {
     throw new Error('run has no verified memory snapshot')
   }
-  if (!binding.authorizationPath || !binding.authorizationSha256) {
-    throw new Error('run has no verified provider authorization')
-  }
   const expected = agentKey === 'master/synthesizer'
     ? run.kind === 'full' || run.expected.has(agentKey) ? 'final_thesis.md' : undefined
     : run.expected.get(agentKey)?.outputRel
@@ -512,13 +582,14 @@ export async function attestResearchMemoryUse(
   const info = fs.lstatSync(output)
   if (!info.isFile() || info.isSymbolicLink()) throw new Error('memory use output is not a regular file')
   const config = memoryConfig(env)
+  const authorization = await authorizationForAgent(run, agentKey, executor, config)
   const safeAgent = agentKey.replace(/[^A-Za-z0-9._-]+/g, '_')
   const usePath = path.join(config.stateRoot, 'execution-receipts', binding.logicalRunId, safeAgent, 'memory-use.json')
   atomicPrivateJson(usePath, use)
   return executor([
     'attest', ...commonArgs(config, binding.logicalRunId),
-    '--authorization', binding.authorizationPath,
-    '--authorization-sha256', binding.authorizationSha256,
+    '--authorization', authorization.authorizationPath,
+    '--authorization-sha256', authorization.authorizationSha256,
     '--contract-private-key', config.contractPrivateKey,
     '--protected-master-key', config.protectedMasterKey,
     '--protected-key-id', config.protectedKeyId,
@@ -603,4 +674,5 @@ export function clearResearchMemoryPreparationForTests(): void {
   preparation.clear()
   preparationScope.clear()
   preparationTail.clear()
+  recipientAuthorizations = new WeakMap()
 }

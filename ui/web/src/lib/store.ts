@@ -15,7 +15,7 @@ import { stageDockHUpdate } from './stageDock'
 import { affectedModules, focusKeysFor } from './intake'
 import { moduleRunAffordance, moduleRunInputModules } from './moduleRun'
 import type { BridgeStatus } from './types'
-import type { ActiveRunLite, AgentNode, AskMemoryMeta, AskMemoryMode, BoardIdea, BoardInboxRow, BookFilterState, BookSort, ChatMessage, ChatScope, ChatStyle, ChatWork, ConvictionDetail, CoverageGroup, CycleSummary, DataNeedsRead, DataStatus, EventEnrichment, FeedbackSubmitInput, FeedbackType, FeedItem, HealthState, IntakePlan, IntensityStats, IntensityWindow, LaunchPreflight, ListingStatus, NewsChatCompletedTurn, NewsChatEvidence, NewsChatReceipt, NewsChatWindow, NewsDiagnostics, NewsStatus, NodeRuntime, NodeStatus, QuoteRead, ReadinessReport, ResumableRunInfo, RunActivity, RunKind, ScreenerBoard, SignalIntakeInput, SignalState, SseEvent, SwarmGraph, SwarmMeta, SwarmSubjectSummary, ThesisPlan, ThesisPlanIntake, TickerSummary, Usage, WhatChangedRead } from './types'
+import type { ActiveRunLite, AgentNode, AskMemoryMeta, AskMemoryMode, BoardIdea, BoardInboxRow, BookFilterState, BookSort, ChatMessage, ChatScope, ChatStyle, ChatWork, ConvictionDetail, CoverageGroup, CycleSummary, DataNeedsRead, DataStatus, EventEnrichment, FeedbackSubmitInput, FeedbackType, FeedItem, HealthState, IntakePlan, IntensityStats, IntensityWindow, LaunchPreflight, ListingStatus, NewCompanyInput, NewsChatCompletedTurn, NewsChatEvidence, NewsChatReceipt, NewsChatWindow, NewsDiagnostics, NewsStatus, NodeRuntime, NodeStatus, QuoteRead, ReadinessReport, ResumableRunInfo, RunActivity, RunKind, ScreenerBoard, SignalIntakeInput, SignalState, SseEvent, SwarmGraph, SwarmMeta, SwarmSubjectSummary, ThesisPlan, ThesisPlanIntake, TickerSummary, Usage, WhatChangedRead } from './types'
 import { feedbackInputFromItem, feedbackLabel, polarityOf } from './feedbackTypes'
 import { emptyBookFilters } from '../components/screener/BookFilters'
 import { emptyDlFilters, type DlFilterState } from '../components/datalibrary/DataLibraryFilters'
@@ -344,12 +344,17 @@ const OFFLINE_THRESHOLD = 3 // consecutive GENUINE fails before we even consider
 // began (0 = not in an outage), cleared the moment the engine answers again.
 const OFFLINE_GRACE_MS = 40000
 let outageStartedAt = 0
+// A reviewed deploy keeps the read/SSE planes alive while the admission kernel is intentionally closed.
+// Once /api/health proves that state, only a later health response may clear it; an unrelated live SSE
+// byte must never repaint the cockpit as launch-ready between probes.
+let deploymentAdmissionBlocked = false
 // A news/run SSE event within this window proves the engine is up — the live data plane is the ground
 // truth, so a slow/failed health probe is overridden while the wire is demonstrably alive. Updated on every
 // SSE message by _noteStreamLive(); paired with newsSource.readyState===OPEN for the event-quiet gaps.
 const STREAM_LIVE_MS = 20000
 let lastStreamActivityAt = 0
 const HARD_DOWN = new Set<HealthState>(['engine-offline', 'your-network', 'session-expired'])
+export const isLaunchHealthBlocked = (health: HealthState): boolean => health === 'updating' || HARD_DOWN.has(health)
 
 // Auto-resume of interrupted screener runs (a closed laptop / dropped connection): per-signal attempt
 // bookkeeping so we never spin a persistently-failing run forever, and never double-launch one already
@@ -644,7 +649,7 @@ interface State {
   openAddCompany: () => void
   closeAddCompany: () => void
   openUploader: (ticker: string) => void
-  addCompany: (ticker: string) => Promise<boolean>
+  addCompany: (input: NewCompanyInput) => Promise<boolean>
   uploadFiles: (ticker: string, files: File[]) => Promise<void>
   refreshActiveRuns: () => Promise<void>
   // disk-truth resumable set (interrupted runs across all swarms) + the manual Resume trigger. The
@@ -1717,10 +1722,11 @@ export const useStore = create<State>((set, get) => ({
   openAddCompany: () => set({ addCompanyOpen: true, uploadTarget: null, uploadErrors: [], uploadProgress: {} }),
   closeAddCompany: () => set({ addCompanyOpen: false, uploadTarget: null, uploadErrors: [], uploadProgress: {} }),
   openUploader: (ticker) => set({ uploadTarget: ticker, uploadErrors: [], uploadProgress: {} }),
-  addCompany: async (ticker) => {
+  addCompany: async (input) => {
     if (get().staticMode) { get().setToast({ msg: 'Read-only showcase — add companies on your machine via npm run dev', tone: 'info' }); return false }
+    const ticker = input.ticker
     try {
-      await api.addCompany(ticker)
+      await api.addCompany(input)
       refreshTickersSoon(get, set) // the new folder surfaces once Drive syncs it down; this keeps polling
       // target the uploader at the new ticker STRING (don't selectTicker yet — the folder isn't on the local
       // mount until Drive syncs it down, and reconcileSelection would drop a not-yet-present selection)
@@ -1793,7 +1799,7 @@ export const useStore = create<State>((set, get) => ({
   // screener's continueSignal; usable from the Activity log (any subject) and the orb view (this subject).
   resumeRun: async (info) => {
     if (get().staticMode) return get().setToast({ msg: 'Read-only showcase — runs happen on your machine via npm run dev', tone: 'info' })
-    if (HARD_DOWN.has(get().health)) return get().setToast({ msg: 'Engine offline — live runs are paused until it reconnects.', tone: 'info' })
+    if (isLaunchHealthBlocked(get().health)) return get().setToast({ msg: 'Engine offline — live runs are paused until it reconnects.', tone: 'info' })
     const provider = get().runProvider
     // Screener signals resume through their own path — it keeps the finished orbs and re-queues the rest.
     // That path compares both the board and disk receipts; do not pre-confirm only the weaker row here.
@@ -2135,7 +2141,7 @@ export const useStore = create<State>((set, get) => ({
 
   launchAgent: async (node, force) => {
     if (get().staticMode) return get().setToast({ msg: 'Read-only showcase — runs happen on your machine via npm run dev', tone: 'info' })
-    if (HARD_DOWN.has(get().health)) return get().setToast({ msg: 'Engine offline — live runs are paused until it reconnects.', tone: 'info' })
+    if (isLaunchHealthBlocked(get().health)) return get().setToast({ msg: 'Engine offline — live runs are paused until it reconnects.', tone: 'info' })
     const providerProblem = providerLaunchBlockedReason(get().providers[get().runProvider], get().providers.catalogState)
     if (providerProblem) return get().setToast({ msg: `${providerProblem}. Choose another run provider.`, tone: 'bad' })
     const selection = captureLaunchSelection(get())
@@ -2183,7 +2189,7 @@ export const useStore = create<State>((set, get) => ({
 
   launchModule: async (module, force) => {
     if (get().staticMode) return get().setToast({ msg: 'Read-only showcase — runs happen on your machine via npm run dev', tone: 'info' })
-    if (HARD_DOWN.has(get().health)) return get().setToast({ msg: 'Engine offline — live runs are paused until it reconnects.', tone: 'info' })
+    if (isLaunchHealthBlocked(get().health)) return get().setToast({ msg: 'Engine offline — live runs are paused until it reconnects.', tone: 'info' })
     const providerProblem = providerLaunchBlockedReason(get().providers[get().runProvider], get().providers.catalogState)
     if (providerProblem) return get().setToast({ msg: `${providerProblem}. Choose another run provider.`, tone: 'bad' })
     const selection = captureLaunchSelection(get())
@@ -2266,7 +2272,7 @@ export const useStore = create<State>((set, get) => ({
       set({ launchConfirm: null })
       return get().setToast({ msg: 'Read-only showcase — runs happen on your machine via npm run dev', tone: 'info' })
     }
-    if (HARD_DOWN.has(get().health)) {
+    if (isLaunchHealthBlocked(get().health)) {
       set({ launchConfirm: null })
       return get().setToast({ msg: 'Engine offline — the run was not started.', tone: 'bad' })
     }
@@ -2287,7 +2293,7 @@ export const useStore = create<State>((set, get) => ({
 
   requestFull: async () => {
     if (get().staticMode) return get().setToast({ msg: 'Read-only showcase — a full run executes on your machine via npm run dev', tone: 'info' })
-    if (HARD_DOWN.has(get().health)) return get().setToast({ msg: 'Engine offline — live runs are paused until it reconnects.', tone: 'info' })
+    if (isLaunchHealthBlocked(get().health)) return get().setToast({ msg: 'Engine offline — live runs are paused until it reconnects.', tone: 'info' })
     const providerProblem = providerLaunchBlockedReason(get().providers[get().runProvider], get().providers.catalogState)
     if (providerProblem) return get().setToast({ msg: `${providerProblem}. Choose another run provider.`, tone: 'bad' })
     const selection = captureLaunchSelection(get())
@@ -2325,7 +2331,7 @@ export const useStore = create<State>((set, get) => ({
       set({ launchConfirm: null })
       return get().setToast({ msg: 'The selected call changed. Nothing was launched.', tone: 'info' })
     }
-    if (HARD_DOWN.has(get().health)) { set({ launchConfirm: null }); return get().setToast({ msg: 'Engine offline — the run was not started.', tone: 'bad' }) }
+    if (isLaunchHealthBlocked(get().health)) { set({ launchConfirm: null }); return get().setToast({ msg: 'Engine offline — the run was not started.', tone: 'bad' }) }
     const planned = [...get().nodesByKey.keys()]
     // keep the confirm modal OPEN with its Launch button spinning until the server acks — closing it
     // immediately read as "dismissed", not "launching" (the old dead-air window)
@@ -2370,7 +2376,7 @@ export const useStore = create<State>((set, get) => ({
   // opens the cascade confirm dialog; confirmRerun() actually launches. Live-only.
   launchRerun: async (node, planOrigin) => {
     if (get().staticMode) return get().setToast({ msg: 'Read-only showcase — re-runs happen on your machine via npm run dev', tone: 'info' })
-    if (HARD_DOWN.has(get().health)) return get().setToast({ msg: 'Engine offline — live runs are paused until it reconnects.', tone: 'info' })
+    if (isLaunchHealthBlocked(get().health)) return get().setToast({ msg: 'Engine offline — live runs are paused until it reconnects.', tone: 'info' })
     const selection = captureLaunchSelection(get())
     if (!selection) return
     if (hasPendingLaunchForTicker(get(), selection)) return
@@ -2424,7 +2430,7 @@ export const useStore = create<State>((set, get) => ({
       set({ launchConfirm: null })
       return get().setToast({ msg: 'The selected call changed. Nothing was launched.', tone: 'info' })
     }
-    if (HARD_DOWN.has(get().health)) { set({ launchConfirm: null }); return get().setToast({ msg: 'Engine offline — the run was not started.', tone: 'bad' }) }
+    if (isLaunchHealthBlocked(get().health)) { set({ launchConfirm: null }); return get().setToast({ msg: 'Engine offline — the run was not started.', tone: 'bad' }) }
     const node = lc.node
     const liveNode = get().nodesByKey.get(node.key)
     if (!liveNode || liveNode.module !== node.module || liveNode.name !== node.name) {
@@ -2824,7 +2830,7 @@ export const useStore = create<State>((set, get) => ({
     const sw = get().activeSwarm
     const runRoot = get().runRoot ?? undefined
     if (!t || get().staticMode || sw === 'screener' || get().intakeAnalyzing) return
-    if (HARD_DOWN.has(get().health)) return get().setToast({ msg: 'Engine offline — analysis is paused until it reconnects.', tone: 'info' })
+    if (isLaunchHealthBlocked(get().health)) return get().setToast({ msg: 'Engine offline — analysis is paused until it reconnects.', tone: 'info' })
     const provider = get().runProvider
     const providerProblem = providerLaunchBlockedReason(get().providers[provider], get().providers.catalogState)
     if (providerProblem) return get().setToast({ msg: `${providerProblem}. Choose another run provider.`, tone: 'bad' })
@@ -2979,6 +2985,10 @@ export const useStore = create<State>((set, get) => ({
       get().setToast({ msg: 'Read-only showcase — runs happen on your machine via npm run dev', tone: 'info' })
       return false
     }
+    if (isLaunchHealthBlocked(get().health)) {
+      get().setToast({ msg: 'Engine updating — scoped re-runs resume when it finishes.', tone: 'info' })
+      return false
+    }
     set({ scopedRerunPending: true })
     try {
       await verifyScopedRerunCapability(get, selection)
@@ -3006,6 +3016,7 @@ export const useStore = create<State>((set, get) => ({
     }
     const t = selection.subject
     if (get().staticMode) { get().setToast({ msg: 'Read-only showcase — runs happen on your machine via npm run dev', tone: 'info' }); return }
+    if (isLaunchHealthBlocked(get().health)) { get().setToast({ msg: 'Engine updating — the scoped re-run was not started.', tone: 'info' }); return }
     // Captured BEFORE the request: if the user switches tickers while this is in flight, `nodesByKey` and
     // `beginRun` (which reads `selectedTicker` itself) would both resolve against the NEW ticker — silently
     // registering and rendering ticker A's scoped run as ticker B's (Codex #358 r3673980759).
@@ -3084,7 +3095,7 @@ export const useStore = create<State>((set, get) => ({
     if (!plan || !t) return
     // Research-only, matched positively (a missing/unknown swarm must never read as permitted).
     if (plan.swarm !== 'research') return get().setToast({ msg: `Completing a ${plan.swarm} dossier from here isn’t supported yet.`, tone: 'info' })
-    if (HARD_DOWN.has(get().health)) return get().setToast({ msg: 'Engine offline — live runs are paused until it reconnects.', tone: 'info' })
+    if (isLaunchHealthBlocked(get().health)) return get().setToast({ msg: 'Engine offline — live runs are paused until it reconnects.', tone: 'info' })
     const provider = get().runProvider
     const providerProblem = providerLaunchBlockedReason(get().providers[provider], get().providers.catalogState)
     if (providerProblem) return get().setToast({ msg: `${providerProblem}. Choose another run provider.`, tone: 'bad' })
@@ -3177,7 +3188,7 @@ export const useStore = create<State>((set, get) => ({
     const t = get().selectedTicker
     if (!plan || !t) return
     if (plan.swarm !== 'research') return get().setToast({ msg: `Running a single module of a ${plan.swarm} dossier from here isn’t supported yet.`, tone: 'info' })
-    if (HARD_DOWN.has(get().health)) return get().setToast({ msg: 'Engine offline — live runs are paused until it reconnects.', tone: 'info' })
+    if (isLaunchHealthBlocked(get().health)) return get().setToast({ msg: 'Engine offline — live runs are paused until it reconnects.', tone: 'info' })
     const provider = get().runProvider
     const providerProblem = providerLaunchBlockedReason(get().providers[provider], get().providers.catalogState)
     if (providerProblem) return get().setToast({ msg: `${providerProblem}. Choose another run provider.`, tone: 'bad' })
@@ -3679,7 +3690,7 @@ export const useStore = create<State>((set, get) => ({
   // Phase 3 /research:review-decisions <ticker> ad-hoc via the launch system; the tracker auto-refreshes.
   updateCall: async (ticker) => {
     if (get().staticMode) return get().setToast({ msg: 'Read-only showcase — updates run on your machine via npm run dev', tone: 'info' })
-    if (HARD_DOWN.has(get().health)) return get().setToast({ msg: 'Engine offline — live updates are paused until it reconnects.', tone: 'info' })
+    if (isLaunchHealthBlocked(get().health)) return get().setToast({ msg: 'Engine offline — live updates are paused until it reconnects.', tone: 'info' })
     const provider = get().runProvider
     const providerProblem = providerLaunchBlockedReason(get().providers[provider], get().providers.catalogState)
     if (providerProblem) return get().setToast({ msg: `${providerProblem}. Choose another run provider.`, tone: 'bad' })
@@ -3700,7 +3711,7 @@ export const useStore = create<State>((set, get) => ({
   // file a specific scheduled (due/overdue) review window — never silently ad-hoc.
   fileDueReview: async (ticker, window) => {
     if (get().staticMode) return get().setToast({ msg: 'Read-only showcase — updates run on your machine via npm run dev', tone: 'info' })
-    if (HARD_DOWN.has(get().health)) return get().setToast({ msg: 'Engine offline — live updates are paused until it reconnects.', tone: 'info' })
+    if (isLaunchHealthBlocked(get().health)) return get().setToast({ msg: 'Engine offline — live updates are paused until it reconnects.', tone: 'info' })
     const provider = get().runProvider
     const providerProblem = providerLaunchBlockedReason(get().providers[provider], get().providers.catalogState)
     if (providerProblem) return get().setToast({ msg: `${providerProblem}. Choose another run provider.`, tone: 'bad' })
@@ -3722,7 +3733,7 @@ export const useStore = create<State>((set, get) => ({
   // ignores the ticker; the launch validator requires a roster ticker, so pass an ignored placeholder.
   refreshDashboard: async () => {
     if (get().staticMode) return get().setToast({ msg: 'Read-only showcase — the dashboard regenerates on your machine via npm run dev', tone: 'info' })
-    if (HARD_DOWN.has(get().health)) return get().setToast({ msg: 'Engine offline — paused until it reconnects.', tone: 'info' })
+    if (isLaunchHealthBlocked(get().health)) return get().setToast({ msg: 'Engine offline — paused until it reconnects.', tone: 'info' })
     const t = get().selectedTicker || get().tickers[0]?.ticker
     if (!t) return get().setToast({ msg: 'No company loaded to run the dashboard from', tone: 'info' })
     const provider = get().runProvider
@@ -3784,6 +3795,7 @@ export const useStore = create<State>((set, get) => ({
     healthAbort = ac
     const to = setTimeout(() => ac.abort(), HEALTH_TIMEOUT_MS)
     let outcome: 'ok' | 'engine' | 'session' = 'engine'
+    let deploymentPending = false
     try {
       const r = await fetch('/api/health', { cache: 'no-store', headers: { accept: 'application/json' }, signal: ac.signal })
       const ct = r.headers.get('content-type') || ''
@@ -3792,6 +3804,7 @@ export const useStore = create<State>((set, get) => ({
       } else if (r.ok && ct.includes('application/json')) {
         const j = await r.json().catch(() => null)
         outcome = j && j.ok === true ? 'ok' : 'engine' // {ok:true}=live; {ok:false}=worker offline marker
+        deploymentPending = outcome === 'ok' && j?.deploymentPending === true
       } else if (r.status === 401 || r.status === 403 || r.redirected || !ct.includes('application/json')) {
         outcome = 'session' // Access login/redirect (HTML) — an auth issue, not an engine outage
       } else {
@@ -3805,13 +3818,17 @@ export const useStore = create<State>((set, get) => ({
     }
 
     if (outcome === 'ok') {
+      deploymentAdmissionBlocked = deploymentPending
       const reconnected = get().health !== 'online'
       outageStartedAt = 0 // engine answered — end any grace clock
-      set({ health: 'online', healthFailCount: 0, lastHealthOkAt: Date.now(), connected: true })
+      // A pending reviewed deploy keeps reads live but closes every paid admission at the server's kernel
+      // barrier. Reflect that distinct state in the cockpit instead of claiming "Live" and letting a run
+      // button reach a guaranteed 503/profile-refresh race. The next healthy poll returns to online.
+      set({ health: deploymentPending ? 'updating' : 'online', healthFailCount: 0, lastHealthOkAt: Date.now(), connected: true })
       // Every proven-healthy poll repairs ONLY missing bootstrap pieces. This must not depend on a health
       // transition: /api/swarms can return an auth response while health was already online. The health
       // cadence bounds these attempts, and the underlying calls coalesce.
-      healMissingLiveBootstrap('health', reconnected)
+      if (!deploymentPending) healMissingLiveBootstrap('health', reconnected)
     } else if (outcome === 'session') {
       outageStartedAt = 0 // an Access/session issue, not an engine outage
       clearSwarmDiscoveryRetry() // sign-in recovery owns the next attempt; never hammer Access every 3s
@@ -3839,10 +3856,17 @@ export const useStore = create<State>((set, get) => ({
       if (wireAlive) {
         const reconnected = get().health !== 'online'
         outageStartedAt = 0 // the live wire proves the engine is up — end any grace clock
-        set({ health: 'online', healthFailCount: 0, lastHealthOkAt: Date.now(), connected: true })
-        healMissingLiveBootstrap('health', reconnected)
+        set({ health: deploymentAdmissionBlocked ? 'updating' : 'online', healthFailCount: 0, lastHealthOkAt: Date.now(), connected: true })
+        if (!deploymentAdmissionBlocked) healMissingLiveBootstrap('health', reconnected)
       } else {
         const n = get().healthFailCount + 1
+        if (deploymentAdmissionBlocked) {
+          // A reviewed deploy deliberately creates a short origin restart gap. Keep the sticky admission
+          // state authoritative until a successful non-pending health response clears it; otherwise the
+          // generic reconnecting state would re-enable paid controls in the middle of the restart.
+          set({ health: 'updating', healthFailCount: n, connected: false })
+          return
+        }
         if (!outageStartedAt) outageStartedAt = Date.now() // first genuine fail of this outage → start the grace clock
         // Escalate to the red 'engine-offline' bar only once the outage has BOTH failed enough times
         // (anti-flicker) AND outlasted the grace window (so a ~20s redeploy/restart stays 'reconnecting',
@@ -4862,7 +4886,7 @@ export const useStore = create<State>((set, get) => ({
     // bail BEFORE tearing down the reader — submitSignal no-ops (toast only) in static/offline, and clearing
     // first would drop the user back to the empty constellation on a confusing no-op, losing their place.
     if (get().staticMode) return get().setToast({ msg: 'Read-only showcase — runs happen on your machine via npm run dev', tone: 'info' })
-    if (HARD_DOWN.has(get().health)) return get().setToast({ msg: 'Engine offline — live runs are paused until it reconnects.', tone: 'info' })
+    if (isLaunchHealthBlocked(get().health)) return get().setToast({ msg: 'Engine offline — live runs are paused until it reconnects.', tone: 'info' })
     set({ scSelectedEvent: null })
     // keep the ORIGINAL headline as the signal headline so the Gate-0 event_id matches the wire item
     // (the recipe hashes headline|url); hand the English translation to the gauntlet as body context.
@@ -4884,6 +4908,11 @@ export const useStore = create<State>((set, get) => ({
   // flips to "In the machine" (the server stamped the snapshot promoted). Re-throws so the card can show a
   // failure inline — a paid launch that didn't happen must never look like it did.
   scPromoteIdea: async (idea) => {
+    if (isLaunchHealthBlocked(get().health)) {
+      throw new Error(get().health === 'updating'
+        ? 'Engine update in progress — the idea was not promoted.'
+        : 'Engine offline — the idea was not promoted.')
+    }
     const provider = get().runProvider
     const providerProblem = providerLaunchBlockedReason(get().providers[provider], get().providers.catalogState)
     if (providerProblem) throw new Error(`${providerProblem}. Choose another run provider.`)
@@ -4950,12 +4979,12 @@ export const useStore = create<State>((set, get) => ({
   // connection is back. Capped + cooled-down so a genuinely-broken run can't loop, and capacity rejects
   // are retried (not counted) on the next fetch. The selected run animates; the rest run in the background.
   _maybeAutoResume: async (resumable) => {
-    if (get().staticMode || HARD_DOWN.has(get().health) || get().activeSwarm !== 'screener') return
+    if (get().staticMode || isLaunchHealthBlocked(get().health) || get().activeSwarm !== 'screener') return
     const ownerEpoch = screenerOwnershipEpoch
     const stillOwnsResume = () => get().activeSwarm === 'screener'
       && screenerOwnershipEpoch === ownerEpoch
       && !get().staticMode
-      && !HARD_DOWN.has(get().health)
+      && !isLaunchHealthBlocked(get().health)
     const list = (resumable || []).filter((r) => {
       const t = autoResumeTries.get(r.sigId)
       if (t && t.count >= AUTO_RESUME_MAX) return false // gave up — manual Continue from here
@@ -5265,7 +5294,7 @@ export const useStore = create<State>((set, get) => ({
 
   submitSignal: async (intake, until) => {
     if (get().staticMode) return get().setToast({ msg: 'Read-only showcase — signals run on your machine via npm run dev', tone: 'info' })
-    if (HARD_DOWN.has(get().health)) return get().setToast({ msg: 'Engine offline — live runs are paused until it reconnects.', tone: 'info' })
+    if (isLaunchHealthBlocked(get().health)) return get().setToast({ msg: 'Engine offline — live runs are paused until it reconnects.', tone: 'info' })
     const provider = get().runProvider
     const providerProblem = providerLaunchBlockedReason(get().providers[provider], get().providers.catalogState)
     if (providerProblem) return get().setToast({ msg: `${providerProblem}. Choose another run provider.`, tone: 'bad' })
@@ -5291,7 +5320,7 @@ export const useStore = create<State>((set, get) => ({
   // re-run an existing signal (e.g. a PARK the human overrides, or an inbox row promoted to a run)
   relaunchSignal: async (sigId) => {
     if (get().staticMode) return get().setToast({ msg: 'Read-only showcase — signals run on your machine via npm run dev', tone: 'info' })
-    if (HARD_DOWN.has(get().health)) return get().setToast({ msg: 'Engine offline — live runs are paused until it reconnects.', tone: 'info' })
+    if (isLaunchHealthBlocked(get().health)) return get().setToast({ msg: 'Engine offline — live runs are paused until it reconnects.', tone: 'info' })
     const provider = get().runProvider
     const providerProblem = providerLaunchBlockedReason(get().providers[provider], get().providers.catalogState)
     if (providerProblem) return get().setToast({ msg: `${providerProblem}. Choose another run provider.`, tone: 'bad' })
@@ -5318,7 +5347,7 @@ export const useStore = create<State>((set, get) => ({
   // exactly where it stopped — 3 done, the rest queued → running.
   continueSignal: async (sigId, until, override) => {
     if (get().staticMode) return get().setToast({ msg: 'Read-only showcase — signals run on your machine via npm run dev', tone: 'info' })
-    if (HARD_DOWN.has(get().health)) return get().setToast({ msg: 'Engine offline — live runs are paused until it reconnects.', tone: 'info' })
+    if (isLaunchHealthBlocked(get().health)) return get().setToast({ msg: 'Engine offline — live runs are paused until it reconnects.', tone: 'info' })
     const provider = get().runProvider
     const providerProblem = providerLaunchBlockedReason(get().providers[provider], get().providers.catalogState)
     if (providerProblem) return get().setToast({ msg: `${providerProblem}. Choose another run provider.`, tone: 'bad' })
@@ -5412,7 +5441,7 @@ export const useStore = create<State>((set, get) => ({
 
   runSweep: async () => {
     if (get().staticMode) return get().setToast({ msg: 'Read-only showcase — sweeps run on your machine via npm run dev', tone: 'info' })
-    if (HARD_DOWN.has(get().health)) return get().setToast({ msg: 'Engine offline — live runs are paused until it reconnects.', tone: 'info' })
+    if (isLaunchHealthBlocked(get().health)) return get().setToast({ msg: 'Engine offline — live runs are paused until it reconnects.', tone: 'info' })
     const provider = get().runProvider
     const providerProblem = providerLaunchBlockedReason(get().providers[provider], get().providers.catalogState)
     if (providerProblem) return get().setToast({ msg: `${providerProblem}. Choose another run provider.`, tone: 'bad' })
@@ -5517,7 +5546,7 @@ export const useStore = create<State>((set, get) => ({
   // human-confirmed launch — if the pool already has filings we open the full-run confirm on landing.
   sendToResearch: async (thesisId, ticker, poolPresent) => {
     if (get().staticMode) return get().setToast({ msg: 'Read-only showcase — handoffs run on your machine via npm run dev', tone: 'info' })
-    if (HARD_DOWN.has(get().health)) return get().setToast({ msg: 'Engine offline — live runs are paused until it reconnects.', tone: 'info' })
+    if (isLaunchHealthBlocked(get().health)) return get().setToast({ msg: 'Engine offline — live runs are paused until it reconnects.', tone: 'info' })
     const provider = get().runProvider
     const providerProblem = providerLaunchBlockedReason(get().providers[provider], get().providers.catalogState)
     if (providerProblem) return get().setToast({ msg: `${providerProblem}. Choose another run provider.`, tone: 'bad' })
@@ -5560,7 +5589,7 @@ export const useStore = create<State>((set, get) => ({
   // events in a row never warps them away mid-flow.
   sendEventToResearch: async (it, ticker) => {
     if (get().staticMode) { get().setToast({ msg: 'Read-only showcase — sending to research runs on your machine via npm run dev', tone: 'info' }); return false }
-    if (HARD_DOWN.has(get().health)) { get().setToast({ msg: 'Engine offline — try again when it reconnects.', tone: 'info' }); return false }
+    if (isLaunchHealthBlocked(get().health)) { get().setToast({ msg: 'Engine offline — try again when it reconnects.', tone: 'info' }); return false }
     const provider = get().runProvider
     const providerProblem = providerLaunchBlockedReason(get().providers[provider], get().providers.catalogState)
     if (providerProblem) { get().setToast({ msg: `${providerProblem}. Choose another run provider.`, tone: 'bad' }); return false }
@@ -5741,6 +5770,13 @@ export const useStore = create<State>((set, get) => ({
   _noteStreamLive: () => {
     lastStreamActivityAt = Date.now()
     if (get().staticMode) return
+    if (deploymentAdmissionBlocked) {
+      // An old authenticated SSE socket can outlive an Access session, and browser network state is local
+      // truth. Keep those higher-priority recovery instructions visible while retaining the deploy latch.
+      if (get().health === 'session-expired' || get().health === 'your-network') return
+      if (get().health !== 'updating') set({ health: 'updating', healthFailCount: 0, lastHealthOkAt: Date.now(), connected: true })
+      return
+    }
     // a live SSE event is the data plane proving itself — flip to online INSTANTLY (don't wait for the next
     // health poll). This is what makes recovery feel instant and stops a false "offline" while events flow.
     // Guarded so it only writes state on an actual transition (no re-render churn when already online).
@@ -5901,7 +5937,7 @@ export const useStore = create<State>((set, get) => ({
   // promote one Inbox row into the paid gauntlet (the component shows the two-click cost confirm)
   checkInboxItem: async (row) => {
     if (get().staticMode) return get().setToast({ msg: 'Read-only showcase — checks run on your machine via npm run dev', tone: 'info' })
-    if (HARD_DOWN.has(get().health)) return get().setToast({ msg: 'Engine offline — live runs are paused until it reconnects.', tone: 'info' })
+    if (isLaunchHealthBlocked(get().health)) return get().setToast({ msg: 'Engine offline — live runs are paused until it reconnects.', tone: 'info' })
     const provider = get().runProvider
     const providerProblem = providerLaunchBlockedReason(get().providers[provider], get().providers.catalogState)
     if (providerProblem) return get().setToast({ msg: `${providerProblem}. Choose another run provider.`, tone: 'bad' })

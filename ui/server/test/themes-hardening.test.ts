@@ -108,7 +108,7 @@ const narrative = (rows: ThemeItemView[]) => {
   const later = new Date(NOW.getTime() + 25 * 3_600_000)
   await runIngestCycle({
     repoRoot: root, stateDir, skipFetch: true, now: () => later,
-    config: { groqApiKey: 'test', themesEnabled: true, themesDiscoverEveryCycles: 99 },
+    config: { groqApiKey: 'test', themesEnabled: true, themesDiscoverEveryCycles: 99, anthropicFallbackEnabled: false },
     log: () => {},
   })
   unsubscribe()

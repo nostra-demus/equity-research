@@ -1,4 +1,4 @@
-// Watchlist thesis attachments on the LOCAL Drive mount.
+// Watchlist and Tasks planning attachments on the LOCAL Drive mount.
 //
 // The cockpit's `data/` is a symlink into Google Drive for Desktop, which is how the engine has always
 // read the pool: through the filesystem, with Drive syncing underneath. Uploads were built the other way
@@ -32,10 +32,11 @@ export function watchlistFilesRoot(dataDir: string = DATA_DIR): string | null {
   // means configuring the name of a company that already exists (`GDRIVE_WATCHLIST_FOLDER=AMZN`) would
   // reserve AMZN and silently remove it from the cockpit, with its pool reading as absent. Detected by
   // content rather than by a ticker regex, because the default `WATCHLIST` is itself ticker-shaped: our
-  // own store holds nothing but `WL-*` entry directories, so anything else in there is someone's pool.
+  // own store holds nothing but `WL-*` watch entries and `TASK-*` cards, so anything else in there is
+  // someone's pool.
   try {
     const existing = fs.readdirSync(root)
-    if (existing.some((n) => !n.startsWith('WL-') && !n.startsWith('.'))) return null
+    if (existing.some((n) => !n.startsWith('WL-') && !n.startsWith('TASK-') && !n.startsWith('.'))) return null
   } catch {
     // absent — nothing to collide with; created below
   }
@@ -103,9 +104,9 @@ export function attachmentPath(entryId: string, attachmentId: string, dataDir: s
 }
 
 /**
- * Save one PDF. Written to a temp name in the SAME directory and renamed over the target, so a failed or
- * interrupted write cannot leave a half-file that later reads as a valid attachment — and so Drive never
- * uploads a partial PDF and then syncs it back down as evidence of a document that does not exist.
+ * Save one planning attachment. Written to a temp name in the SAME directory and renamed over the target,
+ * so a failed or interrupted write cannot leave a half-file that later reads as valid — and so Drive never
+ * uploads a partial document and then syncs it back down as a file that does not exist in full.
  */
 export function saveAttachment(
   entryId: string, attachmentId: string, body: Buffer, dataDir: string = DATA_DIR,

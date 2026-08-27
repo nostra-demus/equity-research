@@ -161,6 +161,14 @@ no public or loopback TCP, and access to only the per-run publication Unix socke
 enforce that boundary, Claude is shown unavailable and the tracked launch fails closed; there is no manual
 "verified" flag which can assert a proof the engine did not observe.
 
+The unattended service authenticates through Anthropic's supported `claude setup-token` subscription path:
+`CLAUDE_CODE_OAUTH_TOKEN` lives only in the owner-readable `providers.env`. The tracked parent CLI receives it
+with `CLAUDE_CODE_SUBPROCESS_ENV_SCRUB=1`, so Bash tools, hooks, and MCP subprocesses cannot read the credential.
+`ANTHROPIC_API_KEY` and `ANTHROPIC_AUTH_TOKEN` are always removed. An interactive first-party Claude Max login
+remains accepted when the macOS Keychain is available, but unattended operation never depends on an unlocked
+GUI session and can never fall through to API-key billing. The no-model sandbox proof mirrors that scrubbed
+nested-tool environment while separately proving the parent subscription authentication.
+
 **Connector repair boundary.** The fifteen-minute connector sweep only fetches a series when its manifest release
 clock is due, through the staged publication
 contract in `frameworks/EXTERNAL_DATA.md`; it does not run a coding agent. Automatic connector build and
@@ -296,9 +304,14 @@ and serves `nostra-prod/ui/dist`. Runtime state (`ui/server/.state`, gitignored)
 scripts (`~/.nostra-ops/{deploy,watchdog}.sh`) live outside the tree so a fast-forward never disturbs them.
 
 ### How a change goes live (auto-deploy — `deploy.sh`)
-**Merge a PR to `main` → it's live in ≤~2 min. No manual step.** Every 120s `deploy.sh`:
+**Merge a PR to `main` → it receives priority on the next ≤~2 min deploy tick. No manual step.** Every
+120s `deploy.sh` first publishes a writer intent when the remote or built marker is ahead. An already-running
+research/scanner lifecycle finishes safely, but no new provider lifecycle is admitted ahead of the pending
+deployment; this bounds convergence to the current lifecycle plus one deploy tick instead of letting the
+one-minute backlog drain starve releases indefinitely. The deployer then:
 1. `git fetch`; if `origin/main` is ahead, **fast-forward only** (never resets — an unpushed local data
-   commit makes it *skip*, never discard) and skips entirely if a run is mid-write;
+   commit makes it *skip*, never discard). The launchd interval is the default merge debounce; there is no
+   additional quiet-period delay unless an operator explicitly configures one;
 2. acts on *what* changed: `ui/web/**` → rebuild `ui/dist` (served instantly, no restart);
    `ui/server/**` → `kickstart` the engine; a changed `package-lock` → `npm ci` first; data/docs only
    (`analyses/**`, `screener/**`, `*.md`) → nothing to rebuild;
@@ -492,7 +505,7 @@ Keep the rollback directory until the engine has restarted and the queue count h
 
 ```
 launchctl list | grep nostradamus                 # all agents (a doer also shows tunnel + calibration timers)
-curl -s http://127.0.0.1:8787/api/health          # {"ok":true,"repoRoot":".../nostra-prod"}
+curl -s http://127.0.0.1:8787/api/health          # ok + repoRoot + deploymentPending writer-priority state
 curl -fsS http://127.0.0.1:20128/healthz          # exact: ok (cheap every-tick OmniRoute liveness)
 curl -s https://app.nostra-demus.com/api/health   # public path (doer only)
 tail -f ~/Library/Logs/nostradamus-deploy.log     # auto-deploy log (DEPLOY/DONE lines)

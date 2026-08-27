@@ -3,7 +3,8 @@ import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
 import {
-  acquireProviderRunDeployLease, providerDeployBarrierPath, withProviderRunDeployLease,
+  acquireProviderRunDeployLease, providerDeployBarrierPath, providerDeployIntentPath,
+  withProviderRunDeployLease,
 } from '../src/deploy-barrier'
 import { acquireRetainedFlockSync, releaseRetainedFlock } from '../src/singleton-lock'
 
@@ -30,6 +31,33 @@ try {
 
   const afterDeploy = acquireProviderRunDeployLease(root)
   afterDeploy()
+
+  const incumbent = acquireProviderRunDeployLease(root)
+  fs.writeFileSync(providerDeployIntentPath(root), 'a'.repeat(40) + ' 1\n', { mode: 0o600 })
+  assert.throws(() => acquireProviderRunDeployLease(root), (error: any) =>
+    error?.code === 'deployment_in_progress' && error?.statusCode === 503,
+  'a published writer intent must stop new scanner admissions before they take a shared lease')
+  let invokedWhilePending = false
+  await assert.rejects(
+    withProviderRunDeployLease(root, async () => { invokedWhilePending = true }),
+    (error: any) => error?.code === 'deployment_in_progress',
+  )
+  assert.equal(invokedWhilePending, false, 'pending deployment must refuse provider work before its callback')
+  assert.throws(exclusive, (error: any) => error?.code === 'EBUSY',
+    'writer intent drains but never interrupts the provider lifecycle that was already admitted')
+  incumbent()
+  const prioritizedWriter = exclusive()
+  releaseRetainedFlock(prioritizedWriter)
+  fs.unlinkSync(providerDeployIntentPath(root))
+
+  let intentChecks = 0
+  assert.throws(
+    () => acquireProviderRunDeployLease(root, () => ++intentChecks === 2),
+    (error: any) => error?.code === 'deployment_in_progress',
+    'a writer intent published during shared acquisition must release the raced reader immediately',
+  )
+  const afterIntentRace = exclusive()
+  releaseRetainedFlock(afterIntentRace)
 
   let finishAsync!: () => void
   let enteredAsync!: () => void
@@ -58,4 +86,4 @@ try {
   fs.rmSync(root, { recursive: true, force: true })
 }
 
-console.log('deploy-barrier.test.ts: shared runs and exclusive deploy are race-free')
+console.log('deploy-barrier.test.ts: shared runs, writer intent, and exclusive deploy are race-free')

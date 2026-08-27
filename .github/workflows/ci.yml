@@ -353,6 +353,8 @@ jobs:
           fi
           echo "== test-watchdog-cooldown.sh =="
           bash scripts/ops/test-watchdog-cooldown.sh || rc=1
+          echo "== test-deploy-priority.sh =="
+          bash scripts/ops/test-deploy-priority.sh || rc=1
           echo "== test-connector-service-recovery.sh =="
           bash scripts/ops/test-connector-service-recovery.sh || rc=1
           echo "== test-connector-supervisor.py =="

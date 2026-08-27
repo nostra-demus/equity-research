@@ -32,4 +32,22 @@ assert.match(html, /Re-analyze the documents/)
 assert.doesNotMatch(html, /Re-run anyway|Re-run scoped|Review rerun/)
 assert.doesNotMatch(html, /none change an orb’s inputs/)
 
+const updatingHtml = renderToStaticMarkup(createElement(RerunPlanList, {
+  plan: {
+    ...blocked,
+    actionable: true,
+    rerun_plan: { materiality_gate: 60, entry_orbs: [], note_only: [], commands: [{
+      command: '/research:rerun demand source-reader TEST', module: 'demand', agent: 'source-reader',
+      cascade_modules: ['demand'], triggered_by: ['data/TEST/new.pdf'],
+    }] },
+  },
+  keysFor: () => new Set<string>(),
+  nodesByKey: new Map(),
+  onRowEnter: () => {}, onLeave: () => {}, onRun: () => {},
+  onPrepareScoped: async () => false, onRunScoped: () => {}, onRunOrb: () => {},
+  batchSupported: true, scopedPending: false, running: false, launchBlocked: true,
+}))
+assert.match(updatingHtml, /disabled=""/)
+assert.match(updatingHtml, /Engine update in progress/)
+
 console.log('RerunPlanList: identity-blocked plans are honest and expose no paid action')

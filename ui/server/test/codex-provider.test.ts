@@ -132,22 +132,35 @@ assert.equal(scrubbed.PATH?.split(path.delimiter)[0], path.dirname(process.execP
 assert.equal(scrubbed.PATH?.split(path.delimiter).includes('/bin'), true,
   'the source PATH remains available after the pinned runtime directory')
 
+const testPythonRuntime = assertCodexPythonRuntime(codexChildEnv(process.env))
 const pythonPathFixture = fs.mkdtempSync(path.join(os.tmpdir(), 'nostra-codex-python-path-'))
 try {
   const pythonToolDir = path.join(pythonPathFixture, 'python@3.12', 'libexec', 'bin')
   fs.mkdirSync(pythonToolDir, { recursive: true })
-  fs.writeFileSync(path.join(pythonToolDir, 'python3'), '#!/bin/sh\nexit 0\n', { mode: 0o755 })
+  fs.symlinkSync(testPythonRuntime.executable, path.join(pythonToolDir, 'python3'))
   const withVersionedPython = codexChildEnv({ PATH: '/usr/bin:/bin' }, { pythonToolDirs: [pythonToolDir] })
   assert.equal(withVersionedPython.PATH?.split(path.delimiter)[1], pythonToolDir,
     'an installed versioned Homebrew Python wins over the older launchd/system python')
-  assert.doesNotThrow(() => assertCodexPythonRuntime(withVersionedPython),
+  const pinnedRuntime = assertCodexPythonRuntime(withVersionedPython)
+  assert.equal(pinnedRuntime.executable, testPythonRuntime.executable,
     'the launch preflight accepts an executable supported runtime from the isolated child PATH')
-  fs.chmodSync(path.join(pythonToolDir, 'python3'), 0o644)
+  fs.unlinkSync(path.join(pythonToolDir, 'python3'))
+  fs.writeFileSync(path.join(pythonToolDir, 'python3'), '#!/bin/sh\nexit 0\n', { mode: 0o644 })
   const withoutBrokenPython = codexChildEnv({ PATH: '/usr/bin:/bin' }, { pythonToolDirs: [pythonToolDir] })
   assert.equal(withoutBrokenPython.PATH?.split(path.delimiter).includes(pythonToolDir), false,
     'a non-executable Python candidate never enters model-visible PATH')
   assert.throws(() => assertCodexPythonRuntime({ PATH: pythonToolDir }), /requires an executable Python 3\.10\+/,
     'the launch fails closed before inference when no supported Python can execute')
+  fs.writeFileSync(path.join(pythonToolDir, 'python3'), '#!/bin/sh\nprintf "[]"\n', { mode: 0o755 })
+  fs.chmodSync(path.join(pythonToolDir, 'python3'), 0o755)
+  const malformedProofPython = codexChildEnv(
+    { PATH: '/usr/bin:/bin' }, { pythonToolDirs: [pythonToolDir] },
+  )
+  assert.throws(
+    () => assertCodexPythonRuntime(malformedProofPython),
+    /requires an executable Python 3\.10\+/,
+    'non-object runtime proof JSON fails closed with the provider error instead of throwing on properties',
+  )
 } finally { fs.rmSync(pythonPathFixture, { recursive: true, force: true }) }
 assert.equal(scrubbed.OPENAI_API_KEY, undefined)
 assert.equal(scrubbed.CODEX_API_KEY, undefined)
@@ -207,9 +220,10 @@ try {
     if (installedCodex) {
       await assertCodexCredentialSandboxBoundary({
         command: fs.realpathSync(installedCodex),
-        env: codexChildEnv({ PATH: process.env.PATH, CODEX_HOME: isolated.home }),
+        env: codexChildEnv({ PATH: process.env.PATH, CODEX_HOME: isolated.home }, { pythonRuntime: testPythonRuntime }),
         leaseHome: isolated.home,
         sourceAuthPath: isolated.sourceAuthPath,
+        pythonRuntime: testPythonRuntime,
       })
       assert.equal(fs.existsSync(path.join(isolated.home, 'config.toml')), false,
         'capability probing must remove its transient permission profile before sealing the lease')
@@ -364,6 +378,7 @@ function launchProbe(
     commandIdentity: pinned.identity,
     cliVersion: 'codex-cli test',
     models: [],
+    pythonRuntime: testPythonRuntime,
     authLease: lease,
   }
 }
@@ -700,6 +715,10 @@ try {
   assert.doesNotMatch(isolatedConfig, /filesystem\.":workspace_roots"/)
   assert.match(isolatedConfig, new RegExp(`${JSON.stringify(fs.realpathSync(repoRoot)).replace(/[.*+?^${}()|[\]\\]/g, '\\$&')} = "read"`))
   assert.match(isolatedConfig, new RegExp(`${JSON.stringify(fs.realpathSync(dataRoot)).replace(/[.*+?^${}()|[\]\\]/g, '\\$&')} = "read"`))
+  for (const runtimeRoot of testPythonRuntime.readOnlyRoots) {
+    assert.match(isolatedConfig, new RegExp(`${JSON.stringify(runtimeRoot).replace(/[.*+?^${}()|[\]\\]/g, '\\$&')} = "read"`),
+      'the exact host-proved Python runtime tree must be read-only inside model-issued Bash')
+  }
   assert.match(isolatedConfig, new RegExp(`${JSON.stringify(fs.realpathSync(writableOutputRoot)).replace(/[.*+?^${}()|[\]\\]/g, '\\$&')} = "write"`))
   assert.match(isolatedConfig, /features\.network_proxy = true/)
   assert.match(isolatedConfig, /\[permissions\.nostra-cockpit\.network\]\nenabled = true\nmode = "limited"/)

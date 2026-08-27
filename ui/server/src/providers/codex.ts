@@ -63,14 +63,18 @@ const CODEX_COCKPIT_ENV_ALLOWLIST = [
 // /usr/local/bin and /opt/homebrew/bin. LaunchAgents therefore see Apple's older /usr/bin/python3 even
 // when a current Python is installed. Put only an already-installed formula's libexec directory on the
 // isolated child PATH; this never installs or links software and works on Intel and Apple Silicon.
-const CODEX_PYTHON_FORMULAE = ['python@3.13', 'python@3.12', 'python@3.11', 'python'] as const
+const CODEX_PYTHON_FORMULAE = ['python@3.14', 'python@3.13', 'python@3.12', 'python@3.11', 'python'] as const
 const CODEX_HOMEBREW_PREFIXES = process.arch === 'arm64'
   ? ['/opt/homebrew', '/usr/local'] as const
   : ['/usr/local', '/opt/homebrew'] as const
 
 function defaultCodexPythonToolDirs(): string[] {
   return CODEX_PYTHON_FORMULAE.flatMap((formula) => CODEX_HOMEBREW_PREFIXES
-    .map((prefix) => path.join(prefix, 'opt', formula, 'libexec', 'bin')))
+    .flatMap((prefix) => [
+      // Python <=3.13 exposes the unversioned shim in libexec; 3.14 moved it into bin.
+      path.join(prefix, 'opt', formula, 'libexec', 'bin'),
+      path.join(prefix, 'opt', formula, 'bin'),
+    ]))
 }
 
 interface CatalogReasoningLevel { effort?: unknown }
@@ -88,8 +92,22 @@ export interface CodexProbe {
   commandIdentity: string
   cliVersion: string
   models: CatalogModel[]
+  /** Exact deterministic runtime proved both on the host and inside the named Codex sandbox. */
+  pythonRuntime?: CodexPythonRuntime
   /** Present only on a fresh per-launch probe; display probes never retain credentials. */
   authLease?: IsolatedCodexProbeHome
+}
+
+export interface CodexPythonRuntime {
+  executable: string
+  identity: string
+  readOnlyRoots: string[]
+}
+
+interface CodexPythonRuntimeProof {
+  version: [number, number, number]
+  executable: string
+  prefixes: unknown[]
 }
 
 export const CODEX_AVAILABILITY_CACHE_TTL_MS = 60_000
@@ -298,7 +316,7 @@ function codexProbeRuntimeKey(
 
 export function codexChildEnv(
   source: NodeJS.ProcessEnv = process.env,
-  options: { pythonToolDirs?: readonly string[] } = {},
+  options: { pythonToolDirs?: readonly string[]; pythonRuntime?: CodexPythonRuntime } = {},
 ): NodeJS.ProcessEnv {
   const env: NodeJS.ProcessEnv = {}
   for (const key of CODEX_CHILD_ENV_ALLOWLIST) if (source[key] !== undefined) env[key] = source[key]
@@ -314,6 +332,7 @@ export function codexChildEnv(
   })
   env.PATH = [...new Set([
     runtimeBin,
+    ...(options.pythonRuntime ? [path.dirname(options.pythonRuntime.executable)] : []),
     ...pythonToolDirs,
     ...String(env.PATH || '').split(path.delimiter).filter(Boolean),
   ])]
@@ -324,14 +343,62 @@ export function codexChildEnv(
   return env
 }
 
-/** Refuse before inference when the canonical prompt program cannot execute its deterministic Python gates. */
-export function assertCodexPythonRuntime(env: NodeJS.ProcessEnv): void {
-  const result = spawnSync('python3', [
-    '-c',
-    'import sys; raise SystemExit(0 if sys.version_info >= (3, 10) else 1)',
-  ], { env, encoding: 'utf8', timeout: 5_000 })
-  if (result.status !== 0 || result.error) {
+/** Resolve and bind the deterministic runtime before inference; the named sandbox proves it separately. */
+export function assertCodexPythonRuntime(env: NodeJS.ProcessEnv): CodexPythonRuntime {
+  let executable: string
+  try { executable = resolveExecutablePath('python3', env) } catch {
     throw new Error('Codex launch requires an executable Python 3.10+ runtime on the isolated child PATH.')
+  }
+  const snapshot = stableRegularFileSnapshot(executable, 'Codex Python runtime')
+  const result = spawnSync(snapshot.realPath, [
+    '-I', '-c', 'import json, os, sys; print(json.dumps({"version": list(sys.version_info[:3]), "executable": os.path.realpath(sys.executable), "prefixes": [sys.prefix, sys.exec_prefix, sys.base_prefix, sys.base_exec_prefix]}))',
+  ], { env, encoding: 'utf8', timeout: 5_000 })
+  let proof: CodexPythonRuntimeProof | null = null
+  try {
+    const parsed: unknown = JSON.parse(String(result.stdout || ''))
+    if (parsed && typeof parsed === 'object' && !Array.isArray(parsed)) {
+      const candidate = parsed as Record<string, unknown>
+      const version = candidate.version
+      const executable = candidate.executable
+      const prefixes = candidate.prefixes
+      if (Array.isArray(version) && version.length === 3
+          && version.every((part) => Number.isInteger(part))
+          && typeof executable === 'string' && Array.isArray(prefixes)) {
+        let resolvedExecutable: string | null = null
+        try { resolvedExecutable = fs.realpathSync(executable) } catch { /* invalid proof */ }
+        if (resolvedExecutable === snapshot.realPath) {
+          proof = {
+            version: version as [number, number, number],
+            executable,
+            prefixes,
+          }
+        }
+      }
+    }
+  } catch { /* malformed output fails closed below */ }
+  if (result.status !== 0 || result.error || String(result.stderr || '').trim()
+      || !proof
+      || proof.version[0] !== 3 || proof.version[1] < 10
+      || !proof.prefixes.length) {
+    throw new Error('Codex launch requires an executable Python 3.10+ runtime on the isolated child PATH.')
+  }
+  const readOnlyRoots = [...new Set([
+    path.dirname(snapshot.realPath),
+    ...proof.prefixes.map((candidate: unknown) => {
+      if (typeof candidate !== 'string' || !path.isAbsolute(candidate)) {
+        throw new Error('Codex Python runtime reported one invalid import root.')
+      }
+      const resolved = fs.realpathSync(candidate)
+      if (!fs.statSync(resolved).isDirectory()) {
+        throw new Error('Codex Python runtime import root is not a directory.')
+      }
+      return resolved
+    }),
+  ])].sort()
+  return {
+    executable: snapshot.realPath,
+    identity: `${snapshot.identity}:version:${proof.version.join('.')}:roots:${readOnlyRoots.join(',')}`,
+    readOnlyRoots,
   }
 }
 
@@ -434,6 +501,7 @@ export interface IsolatedCodexProbeHome {
     protectedWritePaths?: readonly string[],
     protectedReadPaths?: readonly string[],
     publicationSocketPath?: string,
+    runtimeReadPaths?: readonly string[],
   ): string
   assertValid(command: string, commandIdentity: string): void
   consumeForSpawn(command: string, commandIdentity: string): void
@@ -455,6 +523,7 @@ export function codexSandboxConfig(options: {
   protectedWritePaths?: readonly string[]
   protectedReadPaths?: readonly string[]
   publicationSocketPath?: string
+  runtimeReadPaths?: readonly string[]
 }): string {
   const normalizePaths = (values: readonly string[] | undefined, label: string): string[] => {
     const normalized = new Set<string>()
@@ -475,6 +544,9 @@ export function codexSandboxConfig(options: {
   for (const candidate of [options.repoRoot, options.dataRoot].filter(Boolean) as string[]) {
     if (!path.isAbsolute(candidate)) throw new Error('Codex permission-profile paths must be absolute.')
     access.set(path.resolve(candidate), 'read')
+  }
+  for (const candidate of normalizePaths(options.runtimeReadPaths, 'Codex runtime-read')) {
+    access.set(candidate, 'read')
   }
   if (options.scratchRoot) access.set(path.resolve(options.scratchRoot), 'write')
   for (const candidate of normalizePaths(options.writablePaths, 'Codex writable')) access.set(candidate, 'write')
@@ -698,6 +770,7 @@ export function createIsolatedCodexProbeHome(
     },
     installLaunchSandboxConfig(
       repoRoot, dataRoot, writablePaths, protectedWritePaths, protectedReadPaths, publicationSocketPath,
+      runtimeReadPaths,
     ) {
       if (sandboxConfigured) throw new Error('Codex launch permission profile was already installed.')
       assertValid(boundCommand!, boundCommandIdentity!)
@@ -713,6 +786,7 @@ export function createIsolatedCodexProbeHome(
         protectedWritePaths,
         protectedReadPaths,
         publicationSocketPath,
+        runtimeReadPaths,
       })
       try {
         fs.mkdirSync(scratchRoot, { mode: 0o700 })
@@ -769,6 +843,8 @@ shift 8
 { printf forged >"$1"; } 2>/dev/null && exit 53
 { printf forged >"$2"; } 2>/dev/null && exit 54
 shift 2
+"$5" -I -c 'import hashlib, json, sys; raise SystemExit(0 if sys.version_info >= (3, 10) else 1)' \
+  >/dev/null 2>&1 || exit 55
 /usr/bin/curl --disable --fail --silent --show-error --max-time 3 \
   --unix-socket "$1" -X POST \
   -H 'X-Nostra-Publication-Token: boundary-token' \
@@ -804,6 +880,7 @@ export async function assertCodexCredentialSandboxBoundary(options: {
   env: NodeJS.ProcessEnv
   leaseHome: string
   sourceAuthPath: string
+  pythonRuntime: CodexPythonRuntime
   timeoutMs?: number
 }): Promise<void> {
   const leaseHome = fs.realpathSync(options.leaseHome)
@@ -923,6 +1000,7 @@ export async function assertCodexCredentialSandboxBoundary(options: {
       protectedWritePaths: [codeRoot, gitPointer, decisionsRoot, resolvedGitDir, commonGitDir],
       protectedReadPaths: [stateRoot],
       publicationSocketPath: publicationSocket,
+      runtimeReadPaths: options.pythonRuntime.readOnlyRoots,
     }), { flag: 'wx', mode: 0o600 })
     const env = { ...options.env, CODEX_HOME: leaseHome }
 
@@ -939,6 +1017,7 @@ export async function assertCodexCredentialSandboxBoundary(options: {
       stateSentinel, path.join(stateRoot, 'must-not-create'),
       repoRootForbidden, dataRootForbidden,
       publicationSocket, unrelatedSocket, `http://127.0.0.1:${tcpAddress.port}/unrelated`, transportOutput,
+      options.pythonRuntime.executable,
     ], { cwd: repoRoot, env, reject: false, timeout })
     const protectedTreeIntact = fs.readFileSync(codeSentinel, 'utf8') === 'engine-code\n'
         && fs.readFileSync(gitPointer, 'utf8') === 'gitdir: /must/not/mutate\n'
@@ -1342,8 +1421,9 @@ async function probeCodex(
   validateCodexPromptProgram(repoRoot)
   const pinned = pinCodexExecutable(resolveCodexBin(sourceEnv), sourceEnv)
   const command = pinned.command
+  const pythonRuntime = assertCodexPythonRuntime(codexChildEnv(sourceEnv))
   const isolatedHome = createIsolatedCodexProbeHome(sourceEnv)
-  const env = { ...codexChildEnv(sourceEnv), CODEX_HOME: isolatedHome.home }
+  const env = { ...codexChildEnv(sourceEnv, { pythonRuntime }), CODEX_HOME: isolatedHome.home }
   let handedOff = false
   const run = async (args: string[], label: string, timeout = 20_000): Promise<{ stdout: string; stderr: string }> => {
     let result: any
@@ -1401,6 +1481,7 @@ async function probeCodex(
       env,
       leaseHome: isolatedHome.home,
       sourceAuthPath: isolatedHome.sourceAuthPath,
+      pythonRuntime,
     })
 
     // The isolated CODEX_HOME started with auth.json only, but the capability probes above may have
@@ -1434,9 +1515,9 @@ async function probeCodex(
     isolatedHome.seal(command, pinned.identity)
     if (options.retainAuthLease) {
       handedOff = true
-      return { command, commandIdentity: pinned.identity, cliVersion: version, models, authLease: isolatedHome }
+      return { command, commandIdentity: pinned.identity, cliVersion: version, models, pythonRuntime, authLease: isolatedHome }
     }
-    return { command, commandIdentity: pinned.identity, cliVersion: version, models }
+    return { command, commandIdentity: pinned.identity, cliVersion: version, models, pythonRuntime }
   } finally {
     if (!handedOff) isolatedHome.cleanup()
   }
@@ -1811,6 +1892,8 @@ export function buildCodexLaunchSpec(
 ): ProviderLaunchSpec {
   const lease = probe.authLease
   if (!lease) throw new Error('Codex launch requires the one-use ChatGPT credential lease from its fresh proof.')
+  const pythonRuntime = probe.pythonRuntime
+  if (!pythonRuntime) throw new Error('Codex launch proof did not bind its deterministic Python runtime.')
   try {
     lease.assertValid(probe.command, probe.commandIdentity)
     validateCodexPromptProgram(context.cwd)
@@ -1865,6 +1948,7 @@ export function buildCodexLaunchSpec(
       writable: [...(context.writablePaths ?? [])],
       write: [...(context.protectedWritePaths ?? [])],
       read: [...(context.protectedReadPaths ?? [])],
+      runtime: pythonRuntime.readOnlyRoots,
     })
     const scratchRoot = lease.installLaunchSandboxConfig(
       workspaceRoot,
@@ -1873,10 +1957,11 @@ export function buildCodexLaunchSpec(
       context.protectedWritePaths,
       context.protectedReadPaths,
       publication.socket.realPath,
+      pythonRuntime.readOnlyRoots,
     )
     // Override the mutable caller home with the exact credential snapshot used by login/catalogue proof.
     const env: NodeJS.ProcessEnv = {
-      ...codexChildEnv(context.env),
+      ...codexChildEnv(context.env, { pythonRuntime }),
       CODEX_HOME: lease.home,
       TMPDIR: scratchRoot,
       TMP: scratchRoot,
@@ -1928,8 +2013,12 @@ export function buildCodexLaunchSpec(
         writable: [...(context.writablePaths ?? [])],
         write: [...(context.protectedWritePaths ?? [])],
         read: [...(context.protectedReadPaths ?? [])],
+        runtime: pythonRuntime.readOnlyRoots,
       }) !== protectedPathBinding) {
         throw new Error('Codex writable/protected-path policy changed after the credential proof was bound.')
+      }
+      if (assertCodexPythonRuntime(spec.env).identity !== pythonRuntime.identity) {
+        throw new Error('Codex Python runtime changed after the launch proof was bound.')
       }
       const currentSocket = stableUnixSocketSnapshot(
         context.publicationSocketPath!, 'Codex supervisor publication socket',
@@ -2125,10 +2214,14 @@ export const codexProviderAdapter: ProviderAdapter = {
     }
     if (!context.availabilityProofId) throw new Error('Codex launch is missing its fresh availability proof id.')
     // This deterministic program dependency must clear before credential/catalogue work and paid inference.
-    assertCodexPythonRuntime(codexChildEnv(context.env))
+    const requestedPython = assertCodexPythonRuntime(codexChildEnv(context.env))
     const probe = await codexProbeCoordinator.probeForLaunch(
       context.env, context.cwd, profile.profileKey, context.availabilityProofId,
     )
+    if (!probe.pythonRuntime || probe.pythonRuntime.identity !== requestedPython.identity) {
+      probe.authLease?.cleanup()
+      throw new Error('Codex Python runtime changed during the verified launch preflight.')
+    }
     return buildCodexLaunchSpec(context, probe)
   },
   parseStreamLine: parseCodexStreamLine,

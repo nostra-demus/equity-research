@@ -1,8 +1,7 @@
-// The SUBSCRIPTION brain — the last-resort triage tier that costs no metered credits. When every FREE
-// provider (Groq + the OpenAI-compatible overflow registry + the Gemini pool) is paced/capped/failing for
-// a batch, it would otherwise DEFER, and on a sustained-overload day the deferred backlog overruns its
-// 1,000-item cap and the low-priority tail is permanently dropped. This tier scores that spillover on the
-// LOCAL `claude` CLI under the host keychain OAuth — the SAME subscription (and the same auth context:
+// The SUBSCRIPTION brain — the priority-1 triage tier that costs no metered credits. It scores first while
+// its guarded allowance is available; otherwise the existing providers continue automatically. This protects
+// the deferred backlog from permanent loss during provider outages. It runs on the LOCAL `claude` CLI under
+// the host keychain OAuth — the SAME subscription (and the same auth context:
 // cwd=REPO_ROOT + childEnv()) the research runs and chat already use. No API key, ever.
 //
 // It speaks the EXACT same triage contract as the Groq/Gemini paths — same SYSTEM prompt, same batched

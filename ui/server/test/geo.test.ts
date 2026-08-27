@@ -106,7 +106,7 @@ await check('runIngestCycle: SCMP story about Bangladesh/Malaysia lands region O
     ] })
     return res({ articles: [] })
   }) as unknown as typeof fetch
-  const cfg = { groqApiKey: 'k', gdeltBaseUrl: 'https://gdelt.test/doc', groqBaseUrl: 'https://groq.test', groqRpm: 6000, gdeltLookbackMin: 40, pickThreshold: 60, watchThreshold: 40 } as any
+  const cfg = { groqApiKey: 'k', gdeltBaseUrl: 'https://gdelt.test/doc', groqBaseUrl: 'https://groq.test', groqRpm: 6000, gdeltLookbackMin: 40, pickThreshold: 60, watchThreshold: 40, anthropicFallbackEnabled: false } as any
   const now = () => new Date('2026-06-12T09:30:00Z')
 
   const s = await runIngestCycle({ repoRoot: root, stateDir: state, config: cfg, fetchFn, sleep: noSleep, now })
@@ -139,7 +139,7 @@ await check('runIngestCycle: with no event_region and no company, an SCMP story 
     ] })
     return res({ articles: [] })
   }) as unknown as typeof fetch
-  const cfg = { groqApiKey: 'k', gdeltBaseUrl: 'https://gdelt.test/doc', groqBaseUrl: 'https://groq.test', groqRpm: 6000, gdeltLookbackMin: 40, pickThreshold: 60, watchThreshold: 40 } as any
+  const cfg = { groqApiKey: 'k', gdeltBaseUrl: 'https://gdelt.test/doc', groqBaseUrl: 'https://groq.test', groqRpm: 6000, gdeltLookbackMin: 40, pickThreshold: 60, watchThreshold: 40, anthropicFallbackEnabled: false } as any
   const now = () => new Date('2026-06-12T09:30:00Z')
 
   await runIngestCycle({ repoRoot: root, stateDir: state, config: cfg, fetchFn, sleep: noSleep, now })

@@ -311,6 +311,48 @@ def prepare(args: argparse.Namespace) -> int:
     return 0
 
 
+def authorize(args: argparse.Namespace) -> int:
+    """Bind the frozen run receipt to the model that will actually receive one agent packet."""
+    state = Path(args.state_root).resolve()
+    verifier = ed25519_contract_verifier(
+        args.contract_public_key, key_id=args.contract_key_id,
+    )
+    receipt = load_run_receipt(receipt_path(state, args.run_id), verifier=verifier)
+    policy = load_object(args.provider_policy)
+    provider_access = authorize_provider(
+        policy,
+        provider=args.provider,
+        model=args.model,
+        service_identity=args.service_identity,
+        requested_classifications=args.classification,
+        requested_source_tiers=args.source_tier,
+        verifier=ed25519_policy_verifier(
+            args.policy_public_key, key_id=args.policy_key_id,
+        ),
+    )
+    now = dt.datetime.fromisoformat(args.now.replace("Z", "+00:00")) if args.now else None
+    authorization = build_provider_authorization(
+        receipt=receipt,
+        provider_access=provider_access,
+        signer=ed25519_contract_signer(
+            args.contract_private_key, key_id=args.contract_key_id,
+        ),
+        now=now,
+    )
+    output = store_provider_authorization(state, args.run_id, authorization)
+    dump({
+        "schema": "research-memory-authorize-result/v1",
+        "ok": True,
+        "receipt_id": receipt["receipt_id"],
+        "receipt_sha256": receipt["receipt_sha256"],
+        "provider_model": f"{provider_access['provider']}/{provider_access['model']}",
+        "authorization_id": authorization["authorization_id"],
+        "authorization_path": str(output),
+        "authorization_sha256": authorization["authorization_sha256"],
+    })
+    return 0
+
+
 def verify(args: argparse.Namespace) -> int:
     state = Path(args.state_root).resolve()
     receipt = load_run_receipt(
@@ -574,6 +616,20 @@ def parser() -> argparse.ArgumentParser:
     p.add_argument("--parent-receipt")
     p.add_argument("--now")
     p.set_defaults(handler=prepare)
+
+    z = sub.add_parser("authorize")
+    common(z)
+    z.add_argument("--contract-private-key", required=True)
+    z.add_argument("--provider-policy", required=True)
+    z.add_argument("--policy-public-key", required=True)
+    z.add_argument("--policy-key-id", required=True)
+    z.add_argument("--provider", required=True)
+    z.add_argument("--model", required=True)
+    z.add_argument("--service-identity", required=True)
+    z.add_argument("--classification", action="append", required=True)
+    z.add_argument("--source-tier", action="append", required=True, type=int)
+    z.add_argument("--now")
+    z.set_defaults(handler=authorize)
 
     v = sub.add_parser("verify")
     common(v)

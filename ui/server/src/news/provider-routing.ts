@@ -97,6 +97,20 @@ export interface ProviderRoutingEvaluation {
   exploration: boolean
 }
 
+/** Compare optional learned ranks without ever returning NaN or violating comparator symmetry. */
+export function compareFiniteRank(left: unknown, right: unknown): number {
+  const leftValid = typeof left === 'number' && Number.isFinite(left)
+  const rightValid = typeof right === 'number' && Number.isFinite(right)
+  if (!leftValid && !rightValid) return 0
+  if (!leftValid) return 1
+  if (!rightValid) return -1
+  const leftNumber = left as number
+  const rightNumber = right as number
+  if (leftNumber < rightNumber) return -1
+  if (leftNumber > rightNumber) return 1
+  return 0
+}
+
 interface ProviderAggregate {
   updatedAt: string
   successfulBatches: number

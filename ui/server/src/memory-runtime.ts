@@ -535,7 +535,9 @@ async function buildSnapshot(options: RuntimeReaderOptions): Promise<RuntimeSnap
   })
   const readiness = await readinessFrom(root)
   const alerts: RuntimeAlertView[] = []
-  const projectionReady = await privateRegular(path.join(root, 'projection.sqlite'))
+  // This is the exact shared projection path used by research_memory_run_cli.py. Keeping the UI on that
+  // same file prevents a bootstrap-only or stale sibling database from producing false readiness.
+  const projectionReady = await privateRegular(path.join(root, 'projection', 'projection.sqlite'))
   if (options.mode !== 'off' && !projectionReady) alerts.push({ code: 'projection-missing', severity: 'critical', message: 'The verified production memory projection is unavailable.' })
   if (controls.global_disabled) alerts.push({ code: 'global-kill-switch', severity: 'critical', message: 'The global memory kill switch is active.' })
   if (controls.disabled_layers.length) alerts.push({ code: 'layers-disabled', severity: 'warning', message: `${controls.disabled_layers.length} memory layer switch(es) are disabled.` })

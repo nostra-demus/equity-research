@@ -37,6 +37,7 @@ export function WatchTile({ row, selected, onSelect }: {
     >
       <span className="wtile__top">
         <span className="wtile__sym">{row.ticker}</span>
+        {row.assignee && <span className="wtile__owner" title={`Assigned to ${row.assignee}`}>{row.assignee}</span>}
         {row.origin !== 'engine' && <span className="wtile__mine" aria-label="you added this">·</span>}
         {reviewHot && <span className="wtile__hot" aria-label="review due">●</span>}
       </span>

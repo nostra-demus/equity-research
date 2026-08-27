@@ -301,7 +301,7 @@ await check('a malformed backlog fails closed and runCycle preserves its exact b
   let calls = 0
   const summary = await runIngestCycle({
     repoRoot: root, stateDir: state,
-    config: { groqApiKey: 'k', themesEnabled: false } as any,
+    config: { groqApiKey: 'k', themesEnabled: false, anthropicFallbackEnabled: false } as any,
     fetchFn: (async () => { calls++; return res({ articles: [] }) }) as unknown as typeof fetch,
     sleep: noSleep, now: () => new Date('2026-06-12T09:30:00Z'),
   })

@@ -11,7 +11,7 @@
 // freeze (DESIGN.md §3, the LiveFeed rule); the only motion is a one-shot CSS fade keyed per idea.
 
 import { useEffect, useRef, useState } from 'react'
-import { useStore } from '../../lib/store'
+import { isLaunchHealthBlocked, useStore } from '../../lib/store'
 import type { ArchivedBoardIdea, BoardIdea, IdeasArchive, IdeasArchiveHealth, IdeasArchiveRetentionSide, IdeasArchiveSideCounts, QualifiedIdeaEvaluation, QualifiedIdeasBoard } from '../../lib/types'
 import { ideaIsStaleNow, qualifiedIdeaFreshnessNow } from '../../lib/ideasView'
 import { ChainLane, normalizeSupplyChainBoard } from './ChainLane'
@@ -1042,8 +1042,12 @@ function PromoteButton({ idea }: { idea: BoardIdea }) {
   const promote = useStore((s) => s.scPromoteIdea)
   const runProvider = useStore((s) => s.runProvider)
   const providers = useStore((s) => s.providers)
+  const health = useStore((s) => s.health)
   const agentCount = useStore((s) => s.scGraph?.totals.agents)
   const providerProblem = providerLaunchBlockedReason(providers[runProvider], providers.catalogState)
+  const launchProblem = isLaunchHealthBlocked(health)
+    ? health === 'updating' ? 'Engine update in progress — new runs become available when it finishes' : 'Engine offline — live runs are paused'
+    : providerProblem
   const [phase, setPhase] = useState<'idle' | 'armed' | 'sending'>('idle')
   const [err, setErr] = useState<string | null>(null)
   const armTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
@@ -1079,9 +1083,9 @@ function PromoteButton({ idea }: { idea: BoardIdea }) {
       <button
         type="button"
         className={`bidea__cta${phase === 'armed' ? ' bidea__cta--armed' : ''}`}
-        disabled={!!providerProblem}
+        disabled={!!launchProblem}
         onClick={onClick}
-        title={providerProblem || (phase === 'armed' ? `Click again to launch with ${runProvider === 'codex' ? 'the selected Codex plan' : 'Claude'}` : 'Send this idea into the full paid screener gauntlet for a deep check')}
+        title={launchProblem || (phase === 'armed' ? `Click again to launch with ${runProvider === 'codex' ? 'the selected Codex plan' : 'Claude'}` : 'Send this idea into the full paid screener gauntlet for a deep check')}
       >
         {label}
       </button>

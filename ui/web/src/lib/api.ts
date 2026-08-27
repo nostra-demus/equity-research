@@ -8,7 +8,7 @@ import type { BridgeStatus } from './types'
 import { parseMemoryRead, parseMemoryRuntimeRead, unavailableMemoryRead } from './memoryView'
 import { publishedPaperExecutionResult } from './paperPortfolioView'
 import { normalizeProvidersRead, normalizeProviderStatus, providerCatalogForError, providerCatalogUnknown, providerLaunchFields, type FrozenProviderLaunch, type ProviderExecutionProfile, type ProvidersRead, type RunProvider } from './provider'
-import type { ActivityQuery, ActivityResult, AddPipelineSourceInput, BuildStep, CallsResult, ChatComputed, ChatConversationDetail, ChatListQuery, ChatListResult, ChatRequest, ChatScopes, CockpitFeedbackCategory, CockpitFeedbackStatus, CockpitFeedbackView, CompletedChatTurn, CoverageGroup, DataNeedsRead, DataNeedUploadRead, DataStatus, DiscoveredFeed, EventEnrichment, EventResearchLink, FeedbackRecord, FeedbackSubmitInput, FeedbackSummary, FeedbackType, FeedItem, IbkrPaperPortfolioRead, IntakePlan, IntensityStats, IntensityWindow, LaunchableRunKind, LaunchPreflight, MemoryRead, MemoryRuntimeRead, NewsChatEvidence, NewsChatReceipt, NewsChatRequest, NewsCycle, NewsDiagnostics, NewsStatus, PaperExecutionResult, PipelineAuditEvent, PipelineTrend, PipelineView, QuoteRead, PortfolioManualInput, PortfolioManualRead, PortfolioLiveMark, PortfolioOverrides, PortfolioRead, PortfolioUploadResult, ResumableRunInfo, RunHistoryEntry, RunKind, ScanVerdict, ScreenerBoard, SignalIntakeInput, SignalState, SourcesReport, SwarmGraph, SwarmMeta, SwarmSubjectSummary, ThesisPlan, TickerSummary, UploadResult, Usage, WhatChangedRead, Whoami } from './types'
+import type { ActivityQuery, ActivityResult, AddPipelineSourceInput, BuildStep, CallsResult, ChatComputed, ChatConversationDetail, ChatListQuery, ChatListResult, ChatRequest, ChatScopes, CockpitFeedbackCategory, CockpitFeedbackStatus, CockpitFeedbackView, CompletedChatTurn, CoverageGroup, DataNeedsRead, DataNeedUploadRead, DataStatus, DiscoveredFeed, EventEnrichment, EventResearchLink, FeedbackRecord, FeedbackSubmitInput, FeedbackSummary, FeedbackType, FeedItem, IbkrPaperPortfolioRead, IntakePlan, IntensityStats, IntensityWindow, LaunchableRunKind, LaunchPreflight, MemoryRead, MemoryRuntimeRead, NewCompanyInput, NewsChatEvidence, NewsChatReceipt, NewsChatRequest, NewsCycle, NewsDiagnostics, NewsStatus, PaperExecutionResult, PipelineAuditEvent, PipelineTrend, PipelineView, QuoteRead, PortfolioManualInput, PortfolioManualRead, PortfolioLiveMark, PortfolioOverrides, PortfolioRead, PortfolioUploadResult, ResumableRunInfo, RunHistoryEntry, RunKind, ScanVerdict, ScreenerBoard, SignalIntakeInput, SignalState, SourcesReport, SwarmGraph, SwarmMeta, SwarmSubjectSummary, ThesisPlan, TickerSummary, UploadResult, Usage, WhatChangedRead, Whoami } from './types'
 
 // Vite supplies `import.meta.env` in the app; standalone tsx regression tests do not.
 const BASE = import.meta.env?.BASE_URL || '/'
@@ -968,11 +968,12 @@ export const api = {
     if ((await ensureMode()) === 'static') return { tickers: snap.tickers, emptyState: snap.emptyState, dataDir: snap.dataDir, driveEnabled: false, coverage: snap.defaultCoverage || [] }
     return get(`/api/tickers`)
   },
-  // Create a company = a <TICKER> folder in the shared Drive (the server writes it; it syncs back down to
-  // the local mount the engine reads). Throws with e.body.{error,suggested} on a bad/duplicate name.
-  addCompany: async (ticker: string): Promise<{ ok: boolean; ticker: string }> => {
+  // Create a company = a <TICKER> folder plus its immutable legal-listing identity in the shared Drive
+  // (the server writes them; they sync back down to the local mount the engine reads). Throws with
+  // e.body.{error,suggested} on a bad or duplicate identity.
+  addCompany: async (input: NewCompanyInput): Promise<{ ok: boolean; ticker: string }> => {
     if ((await ensureMode()) === 'static') throw STATIC_ERR()
-    return post(`/api/tickers`, { ticker })
+    return post(`/api/tickers`, input)
   },
   // Upload documents into a company's Drive folder. Uses XHR (not fetch) so the dropzone can show upload
   // progress; onProgress reports 0..1 of the whole request body. Resolves with per-file {written,errors}.
@@ -989,7 +990,7 @@ export const api = {
         let body: any = {}
         try { body = JSON.parse(xhr.responseText || '{}') } catch {}
         if (xhr.status >= 200 && xhr.status < 300) resolve(body as UploadResult)
-        else reject(Object.assign(new Error(body?.error || `${xhr.status}`), { status: xhr.status, body }))
+        else reject(Object.assign(new Error(body?.error || body?.fileErrors?.[0]?.reason || `${xhr.status}`), { status: xhr.status, body }))
       }
       xhr.onerror = () => reject(new Error('network error during upload'))
       xhr.send(fd)
@@ -1436,10 +1437,53 @@ export const api = {
   watchAttachmentUrl: (entryId: string, attachmentId: string) =>
     `/api/watchlist/${encodeURIComponent(entryId)}/attachment/${encodeURIComponent(attachmentId)}`,
 
+  watchAssign: async (ticker: string, currency: string | null, assignee: import('./types').TaskAssignee | null) => {
+    if ((await ensureMode()) === 'static') throw STATIC_ERR()
+    return post<{ ok: boolean; publish_error?: string }>('/api/watchlist/assign', { ticker, currency, assignee })
+  },
   watchRestore: async (ticker: string, currency: string | null) => {
     if ((await ensureMode()) === 'static') throw STATIC_ERR()
     return post<{ ok: boolean; publish_error?: string }>('/api/watchlist/restore', { ticker, currency })
   },
+
+  // ---- Tasks board ----
+  tasks: async (): Promise<import('./types').TasksRead> => {
+    if ((await ensureMode()) === 'static') return snap.tasks || { tasks: [], people: [
+      { id: 'AB', name: 'Ayush Banka' }, { id: 'NV', name: 'Noel Vaz' }, { id: 'CK', name: 'Chiraag Kapil' },
+    ], unreadable: [], attachments_enabled: false, as_of: new Date().toISOString() }
+    return get<import('./types').TasksRead>('/api/tasks')
+  },
+  taskCreate: async (input: import('./types').TaskInput) => {
+    if ((await ensureMode()) === 'static') throw STATIC_ERR()
+    return post<{ ok: boolean; task: import('./types').TaskCard; publish_error?: string }>('/api/tasks', input)
+  },
+  taskUpdate: async (taskId: string, input: Partial<import('./types').TaskInput>) => {
+    if ((await ensureMode()) === 'static') throw STATIC_ERR()
+    return patch<{ ok: boolean; task: import('./types').TaskCard; publish_error?: string }>(`/api/tasks/${encodeURIComponent(taskId)}`, input)
+  },
+  taskAttach: async (taskId: string, files: File[]): Promise<{ ok: boolean; task: import('./types').TaskCard; fileErrors: { filename: string; reason: string }[]; publish_error?: string }> => {
+    if ((await ensureMode()) === 'static') throw STATIC_ERR()
+    const fd = new FormData()
+    for (const file of files) fd.append('files', file, file.name)
+    return new Promise((resolve, reject) => {
+      const xhr = new XMLHttpRequest()
+      xhr.open('POST', `/api/tasks/${encodeURIComponent(taskId)}/attachments`)
+      xhr.onload = () => {
+        let body: any = {}
+        try { body = JSON.parse(xhr.responseText) } catch { /* keep empty */ }
+        if (xhr.status >= 200 && xhr.status < 300) resolve(body)
+        else reject(Object.assign(new Error(body?.error || body?.fileErrors?.[0]?.reason || `${xhr.status}`), { status: xhr.status, body }))
+      }
+      xhr.onerror = () => reject(new Error('upload failed'))
+      xhr.send(fd)
+    })
+  },
+  taskDetach: async (taskId: string, attachmentId: string) => {
+    if ((await ensureMode()) === 'static') throw STATIC_ERR()
+    return del<{ ok: boolean; task: import('./types').TaskCard; publish_error?: string }>(`/api/tasks/${encodeURIComponent(taskId)}/attachment/${encodeURIComponent(attachmentId)}`)
+  },
+  taskAttachmentUrl: (taskId: string, attachmentId: string) =>
+    `/api/tasks/${encodeURIComponent(taskId)}/attachment/${encodeURIComponent(attachmentId)}`,
 
   quote: async (ticker: string, runRoot?: string): Promise<QuoteRead | null> => {
     if ((await ensureMode()) === 'static') return null

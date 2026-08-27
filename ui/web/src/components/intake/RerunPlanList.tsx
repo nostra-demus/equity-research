@@ -22,6 +22,7 @@ export function RerunPlanList({
   onRunOrb,
   scopedPending,
   running,
+  launchBlocked = false,
 }: {
   plan: IntakePlan
   keysFor: (module: string, agent: string) => Set<string>
@@ -35,6 +36,7 @@ export function RerunPlanList({
   onRunOrb: (module: string, agent: string) => void
   scopedPending: boolean
   running: boolean
+  launchBlocked?: boolean
 }) {
   const cmds = plan.rerun_plan?.commands ?? []
   const notes = plan.rerun_plan?.note_only ?? []
@@ -70,7 +72,7 @@ export function RerunPlanList({
             click at all. This is the same priced, one-confirm plan the Re-run button opens; it never
             launches anything by itself. Secondary styling: the engine's advice is still "no". */}
         {batchSupported && !blocked && <>
-          <button className="iplan__run iplan__run--ghost" onClick={onRun} disabled={running}>
+          <button className="iplan__run iplan__run--ghost" onClick={onRun} disabled={running || launchBlocked} title={launchBlocked ? 'Engine update in progress — new runs become available when it finishes' : undefined}>
             Re-run anyway…
           </button>
           <div className="iplan__foot">Opens the run plan so you can pick what to re-run — nothing spends until you confirm.</div>
@@ -125,11 +127,11 @@ export function RerunPlanList({
             <span className="iplan__verb iplan__verb--once">not re-run</span>
           </div>
         </div>
-        <button className="iplan__run" onClick={onRunScoped} disabled={running || scopedPending}>
+        <button className="iplan__run" onClick={onRunScoped} disabled={running || scopedPending || launchBlocked} title={launchBlocked ? 'Engine update in progress — new runs become available when it finishes' : undefined}>
           {scopedPending ? 'Starting…' : `Re-run scoped — ${specialistCmds} orb${specialistCmds === 1 ? '' : 's'} + ${stale.size} synthes${stale.size === 1 ? 'is' : 'es'} + master ▸`}
         </button>
         {/* the old module-granularity path stays one click away, honestly labeled */}
-        <button className="iplan__run iplan__run--ghost" onClick={onRun} disabled={running || scopedPending}>
+        <button className="iplan__run iplan__run--ghost" onClick={onRun} disabled={running || scopedPending || launchBlocked} title={launchBlocked ? 'Engine update in progress — new runs become available when it finishes' : undefined}>
           Re-run whole modules instead…
         </button>
         {/* honest to BOTH launcher modes (monolithic and per-module chained): the invariant is that only
@@ -156,7 +158,7 @@ export function RerunPlanList({
               <span className="iplan__cascade">+ {c.cascade_modules.length - 1} downstream</span>
             )}
             {!batchSupported && (
-              <button className="iplan__row-run" onClick={() => onRunOrb(c.module, c.agent)} disabled={running}>
+              <button className="iplan__row-run" onClick={() => onRunOrb(c.module, c.agent)} disabled={running || launchBlocked} title={launchBlocked ? 'Engine update in progress — new runs become available when it finishes' : undefined}>
                 Review rerun
               </button>
             )}
@@ -164,7 +166,7 @@ export function RerunPlanList({
         ))}
       </div>
       {batchSupported ? <>
-        <button className="iplan__run" onClick={() => void openScopedConfirmation()} disabled={running || scopedPending}>
+        <button className="iplan__run" onClick={() => void openScopedConfirmation()} disabled={running || scopedPending || launchBlocked} title={launchBlocked ? 'Engine update in progress — new runs become available when it finishes' : undefined}>
           {scopedPending ? 'Verifying exact call…' : <>Re-run {specialistCmds} orb{specialistCmds === 1 ? '' : 's'} + downstream — keep the rest</>}
         </button>
         <div className="iplan__foot">Opens the scoped plan (priced, one confirm) — reruns never auto-spend.</div>
