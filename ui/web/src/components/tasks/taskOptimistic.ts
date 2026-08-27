@@ -34,6 +34,14 @@ export function taskMatchesPatch(task: TaskCard, patch: Partial<TaskInput>): boo
     && (patch.assignee === undefined || task.assignee === patch.assignee)
 }
 
+/** Only failures that can plausibly succeed unchanged should be folded into the next queued edit. */
+export function retryableTaskUpdateError(cause: any): boolean {
+  const status = Number(cause?.status)
+  if (!Number.isFinite(status)) return true
+  if (status >= 500) return true
+  return status === 409 && String(cause?.message ?? '').includes('Tasks and Watchlist are being updated')
+}
+
 export function replaceTask(read: TasksRead | null, task: TaskCard): TasksRead | null {
   if (!read) return read
   return { ...read, tasks: read.tasks.map((candidate) => candidate.task_id === task.task_id ? task : candidate) }

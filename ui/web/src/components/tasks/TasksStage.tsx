@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { api } from '../../lib/api'
 import { useStore } from '../../lib/store'
 import type { TaskAssignee, TaskCard, TaskDecision, TaskInput, TaskScope, TaskStage, TasksRead } from '../../lib/types'
-import { mergeTaskUpdatePatches, optimisticTask, overlayOptimisticTasks, replaceTask, taskMatchesPatch } from './taskOptimistic'
+import { mergeTaskUpdatePatches, optimisticTask, overlayOptimisticTasks, replaceTask, retryableTaskUpdateError, taskMatchesPatch } from './taskOptimistic'
 
 const STAGES: { id: TaskStage; label: string; step: string }[] = [
   { id: 'idea_generation', label: 'Idea generation', step: '01' },
@@ -414,12 +414,14 @@ export function TasksStage() {
             // A newer local edit is already queued. Retry only the fields this failed request owned.
             retryPatchRef.current.set(taskId, queuedPatch)
           }
-        } else if (isLatest) {
+        } else if (isLatest || !retryableTaskUpdateError(cause)) {
           retryPatchRef.current.delete(taskId)
-          const rollback = confirmedRef.current.get(taskId) ?? task
-          optimisticRef.current.delete(taskId)
-          showTask(rollback)
-          setToast({ msg: `${cause?.message || 'Could not update the task.'} The card was moved back.`, tone: 'bad' })
+          if (isLatest) {
+            const rollback = confirmedRef.current.get(taskId) ?? task
+            optimisticRef.current.delete(taskId)
+            showTask(rollback)
+            setToast({ msg: `${cause?.message || 'Could not update the task.'} The card was moved back.`, tone: 'bad' })
+          }
         } else {
           // The next queued request folds these intentional fields in, without resending stale title,
           // assignee, or other fields this browser never changed.

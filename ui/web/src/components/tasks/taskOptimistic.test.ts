@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict'
 import test from 'node:test'
 import type { TaskCard, TasksRead } from '../../lib/types'
-import { mergeTaskUpdatePatches, optimisticTask, overlayOptimisticTasks, replaceTask, taskMatchesPatch } from './taskOptimistic'
+import { mergeTaskUpdatePatches, optimisticTask, overlayOptimisticTasks, replaceTask, retryableTaskUpdateError, taskMatchesPatch } from './taskOptimistic'
 
 const card = (overrides: Partial<TaskCard> = {}): TaskCard => ({
   schema_version: 'task-card/v1', task_id: 'TASK-20260827-1234abcd', scope: 'ticker', ticker: 'MIDEA',
@@ -37,6 +37,14 @@ test('retry patches never include untouched fields owned by another client', () 
   assert.deepEqual(patch, { assignee: 'AB', stage: 'deep_dive' })
   assert.equal(taskMatchesPatch(card({ assignee: 'AB', stage: 'deep_dive', title: 'Changed elsewhere' }), patch), true)
   assert.equal(taskMatchesPatch(card({ assignee: 'CK', stage: 'deep_dive' }), patch), false)
+})
+
+test('only temporary task failures are carried into a later queued edit', () => {
+  assert.equal(retryableTaskUpdateError(Object.assign(new Error('invalid body'), { status: 400 })), false)
+  assert.equal(retryableTaskUpdateError(Object.assign(new Error('watch conflict'), { status: 409 })), false)
+  assert.equal(retryableTaskUpdateError(Object.assign(new Error('Tasks and Watchlist are being updated. Try again in a moment.'), { status: 409 })), true)
+  assert.equal(retryableTaskUpdateError(Object.assign(new Error('server unavailable'), { status: 503 })), true)
+  assert.equal(retryableTaskUpdateError(new Error('network disconnected')), true)
 })
 
 test('an unrelated refresh cannot replace a task whose save is still pending', () => {
