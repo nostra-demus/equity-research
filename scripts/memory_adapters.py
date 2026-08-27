@@ -55,6 +55,7 @@ POLICY = {
     "retention": "permanent",
     "retain_until": None,
 }
+GIT_ARGUMENT_BATCH_SIZE = 100
 
 _DATE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 
@@ -78,6 +79,47 @@ class SourceSpec:
     allow_git_time: bool = False
     prefer_git_time_for_date: bool = False
     latest_system: bool = False
+
+
+@dataclass(frozen=True)
+class GitMetadataSnapshot:
+    """One immutable Git receipt view shared by a repository adaptation.
+
+    The original adapter resolved cleanliness, current-file commits, and commit clocks one
+    source at a time.  That was exact but made a 751-event production projection spawn hundreds
+    of identical Git processes.  This snapshot keeps the same path/line receipts while resolving
+    repository-wide facts once, before any source is adapted.
+    """
+
+    repository_is_git: bool
+    clean_paths: frozenset[str]
+    json_receipts: dict[str, tuple[str, str, str]]
+    line_commits: dict[str, dict[int, str]]
+    commit_times: dict[str, str]
+
+    def recorded_metadata(
+        self,
+        relative_path: str,
+        source_locator: str,
+    ) -> tuple[str, str, str] | None:
+        if not self.repository_is_git or relative_path not in self.clean_paths:
+            return None
+        line_match = re.fullmatch(r"line-(\d+)", source_locator)
+        if not line_match:
+            return self.json_receipts.get(relative_path)
+        line_number = int(line_match.group(1))
+        commit = self.line_commits.get(relative_path, {}).get(line_number)
+        timestamp = self.commit_times.get(commit or "")
+        if not commit or timestamp is None:
+            return None
+        # All rows introduced by one commit become durable atomically.  Preserve their explicit
+        # NDJSON append order at microsecond precision, exactly as the one-source resolver does.
+        timestamp_value = _system_datetime(timestamp) + dt.timedelta(microseconds=line_number)
+        return (
+            timestamp_value.isoformat(timespec="microseconds").replace("+00:00", "Z"),
+            commit,
+            "git-commit+ndjson-line-order/v1",
+        )
 
 
 def payload_sha256(payload: dict[str, Any]) -> str:
@@ -608,6 +650,170 @@ def _git_recorded_metadata(
     return timestamp, commit, trust
 
 
+def _decode_git_path(raw: bytes) -> str | None:
+    try:
+        return raw.decode("utf-8")
+    except UnicodeDecodeError:
+        return None
+
+
+def _git_dirty_paths(repo_root: Path, relative_paths: Sequence[str]) -> set[str] | None:
+    """Return dirty supported paths using one NUL-safe Git status snapshot."""
+
+    if not relative_paths:
+        return set()
+    try:
+        result = subprocess.run(
+            ["git", "status", "--porcelain=v1", "-z", "--untracked-files=all"],
+            cwd=repo_root, check=False, capture_output=True, timeout=30,
+        )
+    except (OSError, subprocess.SubprocessError):
+        return None
+    if result.returncode != 0:
+        return None
+    wanted = set(relative_paths)
+    dirty: set[str] = set()
+    for raw in result.stdout.split(b"\0"):
+        if not raw:
+            continue
+        # Porcelain v1 -z emits ``XY path\0``.  A rename/copy emits a second bare path
+        # token; keeping both dirty is conservative and preserves the old per-path check.
+        candidate = raw[3:] if len(raw) >= 3 and raw[2:3] == b" " else raw
+        decoded = _decode_git_path(candidate)
+        if decoded in wanted:
+            dirty.add(decoded)
+    return dirty
+
+
+def _git_json_receipts(
+    repo_root: Path,
+    relative_paths: Sequence[str],
+) -> dict[str, tuple[str, str, str]]:
+    """Resolve each current JSON path's latest recording commit in one history walk."""
+
+    if not relative_paths:
+        return {}
+    receipts: dict[str, tuple[str, str, str]] = {}
+    for offset in range(0, len(relative_paths), GIT_ARGUMENT_BATCH_SIZE):
+        batch = relative_paths[offset:offset + GIT_ARGUMENT_BATCH_SIZE]
+        wanted = set(batch)
+        try:
+            result = subprocess.run(
+                [
+                    "git", "log", "--format=REC%x00%H%x00%cI%x00", "--name-only", "-z",
+                    "--", *batch,
+                ],
+                cwd=repo_root, check=False, capture_output=True, timeout=30,
+            )
+        except (OSError, subprocess.SubprocessError):
+            return {}
+        if result.returncode != 0:
+            return {}
+
+        commit: str | None = None
+        timestamp: str | None = None
+        for raw in result.stdout.split(b"\0"):
+            # Git inserts one record-separating newline before the next header/path.  Remove
+            # exactly that byte; a real filename beginning with a newline keeps its own byte.
+            token = raw[1:] if raw.startswith(b"\n") else raw
+            if token == b"REC":
+                commit = None
+                timestamp = None
+                continue
+            if commit is None:
+                if token:
+                    try:
+                        commit = token.decode("ascii")
+                    except UnicodeDecodeError:
+                        commit = ""
+                continue
+            if timestamp is None:
+                if token:
+                    try:
+                        timestamp = _normalise_datetime(token.decode("ascii"))
+                    except (UnicodeDecodeError, ValueError):
+                        timestamp = ""
+                continue
+            if not token or not commit or not timestamp:
+                continue
+            relative = _decode_git_path(token)
+            if relative in wanted and relative not in receipts:
+                receipts[relative] = (timestamp, commit, "git-commit/v1")
+    return receipts
+
+
+def _git_commit_times(repo_root: Path, commits: Iterable[str]) -> dict[str, str]:
+    ordered = sorted(set(commits))
+    if not ordered:
+        return {}
+    values: dict[str, str] = {}
+    for offset in range(0, len(ordered), GIT_ARGUMENT_BATCH_SIZE):
+        batch = ordered[offset:offset + GIT_ARGUMENT_BATCH_SIZE]
+        try:
+            result = subprocess.run(
+                ["git", "show", "-s", "--format=REC%x00%H%x00%cI%x00", *batch],
+                cwd=repo_root, check=False, capture_output=True, timeout=30,
+            )
+        except (OSError, subprocess.SubprocessError):
+            return {}
+        if result.returncode != 0:
+            return {}
+        tokens = [raw[1:] if raw.startswith(b"\n") else raw for raw in result.stdout.split(b"\0")]
+        index = 0
+        while index + 2 < len(tokens):
+            if tokens[index] != b"REC":
+                index += 1
+                continue
+            try:
+                commit = tokens[index + 1].decode("ascii")
+                timestamp = _normalise_datetime(tokens[index + 2].decode("ascii"))
+            except (UnicodeDecodeError, ValueError):
+                index += 3
+                continue
+            values[commit] = timestamp
+            index += 3
+    return values
+
+
+def _repository_git_snapshot(
+    repo_root: Path,
+    sources: Sequence[Path],
+) -> GitMetadataSnapshot:
+    """Freeze the Git facts used by every source in one adapter pass."""
+
+    root = repo_root.resolve()
+    root_text = str(root)
+    if _git_top_level(root_text) != root_text:
+        return GitMetadataSnapshot(False, frozenset(), {}, {}, {})
+
+    relative_paths = [source.as_posix() for source in sources]
+    dirty = _git_dirty_paths(root, relative_paths)
+    clean_paths = frozenset(
+        relative for relative in relative_paths
+        if dirty is not None and relative not in dirty
+    )
+    json_paths: list[str] = []
+    ndjson_paths: list[str] = []
+    for relative in clean_paths:
+        spec = _classify(relative)
+        if spec is not None and spec.format == "json":
+            json_paths.append(relative)
+        elif spec is not None and spec.format == "ndjson":
+            ndjson_paths.append(relative)
+    json_receipts = _git_json_receipts(root, json_paths)
+    line_commits = {
+        relative: _git_line_commits(root_text, relative)
+        for relative in ndjson_paths
+    }
+    commit_times = _git_commit_times(
+        root,
+        (commit for mapping in line_commits.values() for commit in mapping.values()),
+    )
+    return GitMetadataSnapshot(
+        True, clean_paths, json_receipts, line_commits, commit_times,
+    )
+
+
 def _build_event(
     spec: SourceSpec,
     relative_path: str,
@@ -616,6 +822,7 @@ def _build_event(
     raw_record: bytes,
     record: dict[str, Any],
     repo_root: Path,
+    git_snapshot: GitMetadataSnapshot | None = None,
 ) -> tuple[Event | None, list[Diagnostic]]:
     diagnostics: list[Diagnostic] = []
     subjects = _unique(spec.subjects(record, relative_path))
@@ -633,10 +840,18 @@ def _build_event(
     git_commit: str | None = None
     git_receipt_time: str | None = None
     root_text = str(repo_root.resolve())
-    repository_is_git = _git_top_level(root_text) == root_text
+    repository_is_git = (
+        git_snapshot.repository_is_git
+        if git_snapshot is not None
+        else _git_top_level(root_text) == root_text
+    )
     system_time_trust = "unverified-non-git-fixture"
     if repository_is_git:
-        git_metadata = _git_recorded_metadata(repo_root, relative_path, source_locator)
+        git_metadata = (
+            git_snapshot.recorded_metadata(relative_path, source_locator)
+            if git_snapshot is not None
+            else _git_recorded_metadata(repo_root, relative_path, source_locator)
+        )
         if git_metadata is None:
             diagnostics.append(_diagnostic(
                 "error", "uncommitted_source_time", relative_path, source_locator,
@@ -762,6 +977,7 @@ def _read_json_source(
     absolute: Path,
     relative: str,
     spec: SourceSpec,
+    git_snapshot: GitMetadataSnapshot | None = None,
 ) -> tuple[list[Event], list[Diagnostic]]:
     try:
         raw = absolute.read_bytes()
@@ -777,7 +993,9 @@ def _read_json_source(
         return [], [_diagnostic(
             "error", "unsupported_shape", relative, "json", "top-level JSON value must be an object",
         )]
-    event, diagnostics = _build_event(spec, relative, "json", "json", raw, record, repo_root)
+    event, diagnostics = _build_event(
+        spec, relative, "json", "json", raw, record, repo_root, git_snapshot,
+    )
     return ([event] if event else []), diagnostics
 
 
@@ -786,6 +1004,7 @@ def _read_ndjson_source(
     absolute: Path,
     relative: str,
     spec: SourceSpec,
+    git_snapshot: GitMetadataSnapshot | None = None,
 ) -> tuple[list[Event], list[Diagnostic]]:
     try:
         raw = absolute.read_bytes()
@@ -814,7 +1033,7 @@ def _read_ndjson_source(
             ))
             continue
         event, row_diagnostics = _build_event(
-            spec, relative, locator, locator, raw_line, record, repo_root,
+            spec, relative, locator, locator, raw_line, record, repo_root, git_snapshot,
         )
         diagnostics.extend(row_diagnostics)
         if event is None:
@@ -876,7 +1095,11 @@ def discover_legacy_sources(repo_root: str | Path) -> list[Path]:
     return [Path(relative) for relative in sorted(candidates)]
 
 
-def _adapt_source(root: Path, source_path: str | Path) -> tuple[list[Event], list[Diagnostic]]:
+def _adapt_source(
+    root: Path,
+    source_path: str | Path,
+    git_snapshot: GitMetadataSnapshot | None = None,
+) -> tuple[list[Event], list[Diagnostic]]:
     try:
         absolute, relative = _relative_source(root, source_path)
     except ValueError as exc:
@@ -888,8 +1111,8 @@ def _adapt_source(root: Path, source_path: str | Path) -> tuple[list[Event], lis
             "path does not match a supported legacy memory source",
         )]
     if spec.format == "json":
-        return _read_json_source(root, absolute, relative, spec)
-    return _read_ndjson_source(root, absolute, relative, spec)
+        return _read_json_source(root, absolute, relative, spec, git_snapshot)
+    return _read_ndjson_source(root, absolute, relative, spec, git_snapshot)
 
 
 def _clear_mutable_git_caches() -> None:
@@ -962,8 +1185,10 @@ def adapt_repository(repo_root: str | Path) -> tuple[list[Event], list[Diagnosti
     _clear_mutable_git_caches()
     events: list[Event] = []
     diagnostics: list[Diagnostic] = []
-    for source in discover_legacy_sources(root):
-        source_events, source_diagnostics = _adapt_source(root, source)
+    sources = discover_legacy_sources(root)
+    git_snapshot = _repository_git_snapshot(root, sources)
+    for source in sources:
+        source_events, source_diagnostics = _adapt_source(root, source, git_snapshot)
         events.extend(source_events)
         diagnostics.extend(source_diagnostics)
 
