@@ -1,4 +1,5 @@
-import { CHAT_MODELS, chatModelLabel } from '../../lib/chatModels'
+import { chatModelLabel } from '../../lib/chatModels'
+import { useChatModelChoices } from '../../lib/useChatModels'
 
 const PROVIDERS = [
   { id: 'claude', label: 'Claude' },
@@ -16,6 +17,7 @@ export function ChatModelMenu({
   onOpenChange: (open: boolean) => void
   onSelect: (model: string) => void
 }) {
+  const choices = useChatModelChoices(model, onSelect)
   return (
     <div style={{ position: 'relative' }} data-chat-model-picker="true">
       <button
@@ -34,7 +36,7 @@ export function ChatModelMenu({
             {PROVIDERS.map((provider) => (
               <div key={provider.id}>
                 <div className="pmenu__label">{provider.label}</div>
-                {CHAT_MODELS.filter((choice) => choice.provider === provider.id).map((choice) => (
+                {choices.filter((choice) => choice.provider === provider.id).map((choice) => (
                   <button
                     key={choice.id}
                     className="dlmenu__item"
@@ -45,6 +47,9 @@ export function ChatModelMenu({
                     <b>{choice.label}{choice.id === model ? ' ✓' : ''}</b><span>{choice.sub}</span>
                   </button>
                 ))}
+                {!choices.some((choice) => choice.provider === provider.id) && (
+                  <div className="dlmenu__item" aria-disabled="true"><span>Not enabled on this host</span></div>
+                )}
               </div>
             ))}
           </div>

@@ -93,6 +93,7 @@ import {
 import { readValuationSummary, readOverrides, appendOverride } from './valuation-levers'
 import { assembleContext, buildChatPrompts, scopeAvailability } from './chat-context'
 import { chatTurnsInFlight, runChatTurn } from './chat-llm'
+import { publicChatModelCatalogue, resolveChatRequestModel } from './chat-models'
 import { computePlan, computedContextBlock, detectWhatIf, isNumberlessTargetFollowUp, loadSidecar, parseWhatIf, recordedList, repriceFromMetric, resolveAuthenticatedPriorScenario, validateIntents } from './chat-whatif'
 import { ChatTurnReservationError, deleteConversation, findCompletedTurnForUser, getConversation, isValidConversationId, isValidTurnId, listConversations, recordAssistantMessageForPending, recordPendingUserMessage, rollbackUserMessage, searchConversationMemory, type UserMessageRollback } from './chat-store'
 import { askMemoryMeta, compactNewsEvidence, routeAskMemory, type AskMemoryPromptContext } from './ask-memory'
@@ -4974,12 +4975,17 @@ const ChatBody = z.object({
     computed: z.array(z.record(z.string(), z.unknown())).max(6).optional(),
   })).min(1).max(40),
 })
+app.get('/api/chat/models', { config: { rateLimit: { max: 600, timeWindow: '1 minute' } } }, async () => (
+  publicChatModelCatalogue(CHAT.allowedModels, CHAT.defaultModel)
+))
 app.post('/api/chat', async (req, reply) => {
   if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request blocked' })
   const parsed = ChatBody.safeParse(req.body)
   if (!parsed.success) return reply.code(400).send({ error: 'invalid chat request', detail: parsed.error.issues?.[0]?.message })
   const { scope, module, orbPath, messages } = parsed.data
-  const model = CHAT.allowedModels.includes(parsed.data.model || '') ? parsed.data.model! : CHAT.defaultModel
+  const modelChoice = resolveChatRequestModel(parsed.data.model, CHAT.allowedModels, CHAT.defaultModel)
+  if (!modelChoice) return reply.code(400).send({ error: 'that Ask model is not supported or allowed — choose another model' })
+  const model = modelChoice.id
   const swarmId = parsed.data.swarm && parsed.data.swarm !== 'research' ? parsed.data.swarm : 'research'
 
   const last = messages[messages.length - 1]
@@ -5481,9 +5487,11 @@ app.post('/api/news/chat', { config: { rateLimit: { max: NEWS.chatRateLimitPerMi
   const { window, messages } = parsed.data
   const last = messages[messages.length - 1]
   if (last.role !== 'user' || !last.content.trim()) return reply.code(400).send({ error: 'the last message must be a question' })
+  const modelChoice = resolveChatRequestModel(parsed.data.model, CHAT.allowedModels, CHAT.defaultModel)
+  if (!modelChoice) return reply.code(400).send({ error: 'that Ask model is not supported or allowed — choose another model' })
+  const model = modelChoice.id
   const releaseNewsChat = newsChatGate.tryAcquire()
   if (!releaseNewsChat) return reply.code(429).send({ error: 'news chat is busy — try again in a moment' })
-  const model = CHAT.allowedModels.includes(parsed.data.model || '') ? parsed.data.model! : CHAT.defaultModel
   const { user: chatUser, userVia } = identify(req)
   const requestAbort = bindNewsChatRequestAbort(req.raw, reply.raw)
   const ac = requestAbort.controller

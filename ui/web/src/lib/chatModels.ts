@@ -14,10 +14,26 @@ export const CHAT_MODELS: readonly ChatModelChoice[] = [
   { id: 'sonnet', provider: 'claude', label: 'Sonnet', sub: 'fast · strong default' },
   { id: 'opus', provider: 'claude', label: 'Opus', sub: 'deepest Claude reasoning' },
   { id: 'haiku', provider: 'claude', label: 'Haiku', sub: 'fastest · lightest' },
-  { id: 'codex:gpt-5.6-sol', provider: 'codex', label: 'GPT-5.6 Sol', sub: 'strongest GPT · medium reasoning' },
+  { id: 'codex:gpt-5.6-sol', provider: 'codex', label: 'GPT-5.6 Sol', sub: 'strongest GPT · max reasoning' },
   { id: 'codex:gpt-5.6-terra', provider: 'codex', label: 'GPT-5.6 Terra', sub: 'balanced GPT · medium reasoning' },
   { id: 'codex:gpt-5.6-luna', provider: 'codex', label: 'GPT-5.6 Luna', sub: 'fastest GPT · light reasoning' },
 ] as const
+
+export interface ChatModelsRead {
+  models: string[]
+  defaultModel: string | null
+}
+
+export function normalizeChatModelsRead(value: unknown): ChatModelsRead | null {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) return null
+  const read = value as Record<string, unknown>
+  if (!Array.isArray(read.models) || !read.models.every(isChatModel)) return null
+  const models = [...new Set(read.models)]
+  const defaultModel = typeof read.defaultModel === 'string' && models.includes(read.defaultModel)
+    ? read.defaultModel
+    : models[0] ?? null
+  return { models, defaultModel }
+}
 
 export function isChatModel(value: unknown): value is string {
   return typeof value === 'string' && CHAT_MODELS.some((choice) => choice.id === value)

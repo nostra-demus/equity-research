@@ -4,7 +4,8 @@ import { Sheet } from './Sheet'
 import { applyTheme, readTheme, saveChatStyle, type ChatStyle } from '../prefs'
 import { providerBlockedReason, providerIsBlocked, providerLabel, providerNeedsCheck, type ProvidersRead, type RunProvider } from '../../lib/provider'
 import { useStore } from '../../lib/store'
-import { CHAT_MODELS, saveChatModel } from '../../lib/chatModels'
+import { saveChatModel } from '../../lib/chatModels'
+import { useChatModelChoices } from '../../lib/useChatModels'
 
 const STYLES: Array<{ id: ChatStyle; blurb: string }> = [
   { id: 'simple', blurb: 'plain English, like you’re 18 — no jargon' },
@@ -25,6 +26,7 @@ export function PrefsSheet({ open, model, style, provider, providers, onModel, o
 }) {
   const runProfileKey = useStore((s) => s.runProfileKeys[provider])
   const setRunProfile = useStore((s) => s.setRunProfile)
+  const chatModels = useChatModelChoices(model, onModel)
   return (
     <Sheet open={open} onClose={onClose} label="Chat preferences">
       <div className="msheet__head">Run research with</div>
@@ -46,12 +48,13 @@ export function PrefsSheet({ open, model, style, provider, providers, onModel, o
       </div>
       <div className="msheet__head">Ask model</div>
       <div className="msheet__list msheet__list--tight">
-        {CHAT_MODELS.map((m) => (
+        {chatModels.map((m) => (
           <button key={m.id} className={`msheet__row${model === m.id ? ' msheet__row--on' : ''}`} onClick={() => { saveChatModel(m.id); onModel(m.id) }}>
             <span className="msheet__rowlabel">{m.label}</span>
             <span className="msheet__rowsub">{m.provider === 'codex' ? 'Codex · ' : 'Claude · '}{m.sub}</span>
           </button>
         ))}
+        {!chatModels.length && <div className="msheet__row"><span className="msheet__rowsub">No Ask models are enabled on this host.</span></div>}
       </div>
       <div className="msheet__head">Explain answers as…</div>
       <div className="msheet__list msheet__list--tight">

@@ -3,7 +3,13 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { CHAT } from '../src/config'
-import { CHAT_MODEL_SPECS, resolveAllowedChatModel, resolveChatModel } from '../src/chat-models'
+import {
+  CHAT_MODEL_SPECS,
+  publicChatModelCatalogue,
+  resolveAllowedChatModel,
+  resolveChatModel,
+  resolveChatRequestModel,
+} from '../src/chat-models'
 import { buildCodexChatArgs, classifyCodexChatLine, codexChatFeatureDisables, runChatTurn } from '../src/chat-llm'
 
 const ids = CHAT_MODEL_SPECS.map((choice) => choice.id)
@@ -20,6 +26,13 @@ assert.deepEqual(resolveAllowedChatModel('claude-sonnet-4-6-20260801', ['claude-
   id: 'claude-sonnet-4-6-20260801', provider: 'claude', model: 'claude-sonnet-4-6-20260801',
 }, 'a configured concrete Claude model id preserves the existing env-tunable escape hatch')
 assert.equal(resolveAllowedChatModel('codex:unreviewed-gpt', ['codex:unreviewed-gpt']), null)
+assert.equal(resolveChatRequestModel('codex:gpt-5.6-sol', ['sonnet'], 'sonnet'), null,
+  'an explicitly excluded model is rejected rather than silently becoming the default')
+assert.equal(resolveChatRequestModel(undefined, ['sonnet'], 'sonnet')?.id, 'sonnet',
+  'an omitted choice still receives the configured default')
+assert.deepEqual(publicChatModelCatalogue(['sonnet', 'haiku'], 'opus'), {
+  models: ['sonnet', 'haiku'], defaultModel: 'sonnet',
+}, 'the browser receives only reviewed models admitted by this host')
 
 const sol = resolveChatModel('codex:gpt-5.6-sol')!
 const root = '/tmp/nostra-chat-contract'
@@ -46,7 +59,7 @@ const args = buildCodexChatArgs(sol, root, system, { disabledFeatures })
 const configs = args.flatMap((arg, index) => args[index - 1] === '--config' ? [arg] : [])
 for (const required of [
   'model_provider="openai"',
-  'model_reasoning_effort="medium"',
+  'model_reasoning_effort="max"',
   'approval_policy="never"',
   'history.persistence="none"',
   'web_search="disabled"',
@@ -69,6 +82,10 @@ assert.ok(!args.includes('--search'), 'closed-book Ask never enables Codex searc
 
 const parserArgs = buildCodexChatArgs(sol, root, system, { parser: true, disabledFeatures })
 assert.ok(parserArgs.includes('model_reasoning_effort="low"'), 'the small what-if parser stays on light reasoning')
+const terra = resolveChatModel('codex:gpt-5.6-terra')!
+assert.ok(buildCodexChatArgs(terra, root, system).includes('model_reasoning_effort="medium"'))
+assert.ok(buildCodexChatArgs(terra, root, system, { parser: true }).includes('model_reasoning_effort="medium"'),
+  'the parser uses the lightest configured effort that Terra supports rather than forcing low')
 
 assert.deepEqual(classifyCodexChatLine({ type: 'thread.started', thread_id: 't1' }, sol.model), [{ kind: 'ready', model: sol.model }])
 assert.deepEqual(classifyCodexChatLine({ type: 'item.started', item: { type: 'reasoning' } }, sol.model), [{ kind: 'thinking-start' }])

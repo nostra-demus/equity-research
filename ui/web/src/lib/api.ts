@@ -7,6 +7,7 @@ import type { AutotuneState, RankWeightChanges, WeightChange } from './types'
 import type { BridgeStatus } from './types'
 import { parseMemoryRead, parseMemoryRuntimeRead, unavailableMemoryRead } from './memoryView'
 import { publishedPaperExecutionResult } from './paperPortfolioView'
+import { CHAT_MODELS, normalizeChatModelsRead, type ChatModelsRead } from './chatModels'
 import { normalizeProvidersRead, normalizeProviderStatus, providerCatalogForError, providerCatalogUnknown, providerLaunchFields, type FrozenProviderLaunch, type ProviderExecutionProfile, type ProvidersRead, type RunProvider } from './provider'
 import type { ActivityQuery, ActivityResult, AddPipelineSourceInput, BuildStep, CallsResult, ChatComputed, ChatConversationDetail, ChatListQuery, ChatListResult, ChatRequest, ChatScopes, CockpitFeedbackCategory, CockpitFeedbackStatus, CockpitFeedbackView, CompletedChatTurn, CoverageGroup, DataNeedsRead, DataNeedUploadRead, DataStatus, DiscoveredFeed, EventEnrichment, EventResearchLink, FeedbackRecord, FeedbackSubmitInput, FeedbackSummary, FeedbackType, FeedItem, IbkrPaperPortfolioRead, IntakePlan, IntensityStats, IntensityWindow, LaunchableRunKind, LaunchPreflight, MemoryRead, MemoryRuntimeRead, NewCompanyInput, NewsChatEvidence, NewsChatReceipt, NewsChatRequest, NewsCycle, NewsDiagnostics, NewsStatus, PaperExecutionResult, PipelineAuditEvent, PipelineTrend, PipelineView, QuoteRead, PortfolioManualInput, PortfolioManualRead, PortfolioLiveMark, PortfolioOverrides, PortfolioRead, PortfolioUploadResult, ResumableRunInfo, RunHistoryEntry, RunKind, ScanVerdict, ScreenerBoard, SignalIntakeInput, SignalState, SourcesReport, SwarmGraph, SwarmMeta, SwarmSubjectSummary, ThesisPlan, TickerSummary, UploadResult, Usage, WhatChangedRead, Whoami } from './types'
 
@@ -1746,6 +1747,18 @@ export const api = {
   dataStreamUrl: () => `/api/data-status/stream`,
 
   // ---- chat with your data (closed-book Q&A over a run's synthesized output) ----
+  // The host's admitted Ask catalogue. A missing/old endpoint falls back to the three legacy Claude
+  // choices, so a rolling deploy never presents GPT while an older server would silently run Sonnet.
+  chatModels: async (): Promise<ChatModelsRead> => {
+    const all = { models: CHAT_MODELS.map((choice) => choice.id), defaultModel: 'sonnet' }
+    if ((await ensureMode()) === 'static') return all
+    try {
+      return normalizeChatModelsRead(await get<unknown>('/api/chat/models', 8_000))
+        || { models: ['sonnet', 'opus', 'haiku'], defaultModel: 'sonnet' }
+    } catch {
+      return { models: ['sonnet', 'opus', 'haiku'], defaultModel: 'sonnet' }
+    }
+  },
   // which scopes are present (chat-able) vs not-yet-run. Static showcase: nothing chat-able (no engine).
   chatScopes: async (ticker: string, swarm?: string): Promise<ChatScopes> => {
     if ((await ensureMode()) === 'static') return { ticker, runRoot: null, run: { present: false }, modules: [], orbs: [] }

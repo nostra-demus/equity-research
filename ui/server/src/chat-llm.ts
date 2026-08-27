@@ -174,7 +174,9 @@ export function buildCodexChatArgs(
   system: string,
   options: { parser?: boolean; disabledFeatures?: readonly string[] } = {},
 ): string[] {
-  const reasoning = options.parser ? 'low' : choice.reasoningLevel || 'medium'
+  const reasoning = options.parser
+    ? choice.parserReasoningLevel || choice.reasoningLevel || 'medium'
+    : choice.reasoningLevel || 'medium'
   return [
     'exec',
     '--strict-config',

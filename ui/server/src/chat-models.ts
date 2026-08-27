@@ -1,10 +1,12 @@
 export type ChatModelProvider = 'claude' | 'codex'
+export type CodexReasoningEffort = 'low' | 'medium' | 'high' | 'xhigh' | 'max'
 
 export interface ChatModelSpec {
   id: string
   provider: ChatModelProvider
   model: string
-  reasoningLevel?: 'low' | 'medium' | 'high'
+  reasoningLevel?: CodexReasoningEffort
+  parserReasoningLevel?: CodexReasoningEffort
 }
 
 // Chat ids are provider-qualified only where the underlying model name could otherwise be confused with
@@ -13,9 +15,9 @@ export const CHAT_MODEL_SPECS: readonly ChatModelSpec[] = [
   { id: 'sonnet', provider: 'claude', model: 'sonnet' },
   { id: 'opus', provider: 'claude', model: 'opus' },
   { id: 'haiku', provider: 'claude', model: 'haiku' },
-  { id: 'codex:gpt-5.6-sol', provider: 'codex', model: 'gpt-5.6-sol', reasoningLevel: 'medium' },
-  { id: 'codex:gpt-5.6-terra', provider: 'codex', model: 'gpt-5.6-terra', reasoningLevel: 'medium' },
-  { id: 'codex:gpt-5.6-luna', provider: 'codex', model: 'gpt-5.6-luna', reasoningLevel: 'low' },
+  { id: 'codex:gpt-5.6-sol', provider: 'codex', model: 'gpt-5.6-sol', reasoningLevel: 'max', parserReasoningLevel: 'low' },
+  { id: 'codex:gpt-5.6-terra', provider: 'codex', model: 'gpt-5.6-terra', reasoningLevel: 'medium', parserReasoningLevel: 'medium' },
+  { id: 'codex:gpt-5.6-luna', provider: 'codex', model: 'gpt-5.6-luna', reasoningLevel: 'low', parserReasoningLevel: 'low' },
 ] as const
 
 export const DEFAULT_CHAT_MODEL_ID = 'sonnet'
@@ -36,4 +38,28 @@ export function resolveAllowedChatModel(value: unknown, allowedModels: readonly 
   if (reviewed) return allowedModels.includes(reviewed.id) ? reviewed : null
   if (id.toLowerCase().startsWith('codex:') || !allowedModels.includes(id)) return null
   return { id, provider: 'claude', model: id }
+}
+
+/** Resolve an HTTP request without ever substituting a different explicitly requested model. */
+export function resolveChatRequestModel(
+  value: unknown,
+  allowedModels: readonly string[],
+  defaultModel: string,
+): ChatModelSpec | null {
+  const requested = typeof value === 'string' ? value.trim() : ''
+  return resolveAllowedChatModel(requested || defaultModel, allowedModels)
+}
+
+/** The reviewed catalogue the browser may truthfully offer for this host configuration. */
+export function publicChatModelCatalogue(allowedModels: readonly string[], defaultModel: string): {
+  models: string[]
+  defaultModel: string | null
+} {
+  const models = CHAT_MODEL_SPECS
+    .filter((choice) => Boolean(resolveAllowedChatModel(choice.id, allowedModels)))
+    .map((choice) => choice.id)
+  return {
+    models,
+    defaultModel: models.includes(defaultModel) ? defaultModel : models[0] ?? null,
+  }
 }
