@@ -605,12 +605,13 @@ sanctioned production indirection, including the configured external `data/` pro
 undeclared or swapped links. A provider safety guard that works only in a simplified checkout and blocks the
 real production topology is a release defect, not a successful hardening.
 
-No production-affecting task is "done" at a local pass, commit, PR, merge, or restart. Completion requires
-green protected CI and adversarial review, merged-commit ancestry in the production checkout, the deployer's
-healthy/DONE gate, live read-only contract verification, and proof that no unauthorized run, retry, spend,
-or unrelated mutation occurred. Paid canaries and second attempts require explicit authorization. When an
-external provider, network, subscription, or machine fails, the system must fail visibly, preserve completed
-work, and provide the same bounded recovery path; it must never promise that an external dependency cannot
-fail.
+Without explicit authority for a specific merge and production action, a code task is "done" only at an open,
+green, reviewed PR tested on local or staging; it must not proceed to merge, deployment, restart, configuration,
+or run mutation. If and only if the user separately authorizes those exact later actions in the current
+conversation, that production phase requires merged-commit ancestry in the production checkout, the deployer's
+healthy/DONE gate, live read-only contract verification, and proof that no unauthorized run, retry, spend, or
+unrelated mutation occurred. Paid canaries and second attempts require their own explicit authorization. When
+an external provider, network, subscription, or machine fails, the system must fail visibly, preserve completed
+work, and provide the same bounded recovery path; it must never promise that an external dependency cannot fail.
 
 **The twins must match.** This doctrine is maintained as two files — this one (`CLAUDE.md`) and its counterpart read by the other assistant — and they must stay identical except for each file's own name. Derive one from the other instead of hand-editing both; drift between them is a defect, and a CI check may enforce that they match.

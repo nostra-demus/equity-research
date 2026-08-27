@@ -254,8 +254,8 @@ def test_commit_hook_rejection_is_never_pushed_as_old_head():
         check("commit-hook rejection unstages this run's paths", cached.returncode == 0)
 
 
-def test_conflicting_rebase_is_aborted_cleanly():
-    """A non-fast-forward with a real content conflict must not leave the shared checkout rebasing."""
+def test_conflicting_remote_reconciliation_leaves_checkout_untouched():
+    """A non-fast-forward content conflict must never start a checkout-changing rebase."""
     with tempfile.TemporaryDirectory(prefix="commit-run-test-conflict-") as tmp:
         env = git_env()
         origin = os.path.join(tmp, "origin.git")
@@ -285,26 +285,26 @@ def test_conflicting_rebase_is_aborted_cleanly():
         head = run(["git", "rev-parse", "HEAD"], cwd=agent, env=env).stdout.strip()
         reported = next((line.split("=", 1)[1] for line in result.stdout.splitlines()
                          if line.startswith("COMMIT_SHA=")), "")
-        check("a conflicting rebase exits 4 and reports the retained local commit",
+        check("a conflicting in-memory reconciliation exits 4 and reports the retained local commit",
               result.returncode == 4 and reported == head,
               f"rc={result.returncode} stdout={result.stdout!r} stderr={result.stderr!r}")
-        check("conflicting rebase is explicitly reported as safely aborted",
-              "safely aborted" in result.stderr, result.stderr)
-        check("no rebase-merge/rebase-apply directory survives the failure",
+        check("the conflict is reported without entering a rebase",
+              "data reconciliation conflicts" in result.stderr, result.stderr)
+        check("no rebase-merge/rebase-apply directory is ever created",
               not os.path.exists(git_internal_path(agent, "rebase-merge", env))
               and not os.path.exists(git_internal_path(agent, "rebase-apply", env)))
         unmerged = run(["git", "ls-files", "-u"], cwd=agent, env=env)
         cached = run(["git", "diff", "--cached", "--quiet"], cwd=agent, env=env, check_rc=False)
         local_blob = run(["git", "show", f"HEAD:{shared_path}"], cwd=agent, env=env)
-        check("abort restores a clean index with no unmerged entries",
+        check("the in-memory conflict leaves a clean index with no unmerged entries",
               unmerged.stdout == "" and cached.returncode == 0,
               f"unmerged={unmerged.stdout!r}")
-        check("abort restores HEAD to the local commit rather than losing its data",
+        check("HEAD stays on the local data commit rather than losing its data",
               '"side":"local"' in local_blob.stdout, local_blob.stdout)
 
 
-def test_clean_rebase_second_push_race_retains_rebased_commit():
-    """If a second remote move beats the retry, keep the cleanly rebased commit and say so."""
+def test_clean_reconciliation_race_retains_original_local_commit():
+    """If every synthetic push loses, the production checkout must remain on its original program."""
     with tempfile.TemporaryDirectory(prefix="commit-run-test-second-race-") as tmp:
         origin, agent, env = setup_stale_local_main_scenario(tmp)
         racer = os.path.join(tmp, "racer")
@@ -315,8 +315,8 @@ def test_clean_rebase_second_push_race_retains_rebased_commit():
         run(["git", "commit", "-q", "-m", "remote race"], cwd=racer, env=env)
         run(["git", "push", "-q", "origin", "main"], cwd=racer, env=env)
 
-        # Both commit-run pushes are rejected by this hook. The first still reaches fetch/rebase,
-        # which is clean because the changes are in different files; the second exercises the race.
+        # The direct push and all synthetic reconciliation pushes are rejected. Fetching the remote object
+        # must not make its code appear in the local production checkout.
         hook = os.path.join(origin, "hooks", "pre-receive")
         with open(hook, "w") as f:
             f.write("#!/bin/sh\nexit 1\n")
@@ -330,18 +330,50 @@ def test_clean_rebase_second_push_race_retains_rebased_commit():
         head = run(["git", "rev-parse", "HEAD"], cwd=agent, env=env).stdout.strip()
         reported = next((line.split("=", 1)[1] for line in result.stdout.splitlines()
                          if line.startswith("COMMIT_SHA=")), "")
-        ancestor = run(["git", "merge-base", "--is-ancestor", "origin/main", "HEAD"],
-                       cwd=agent, env=env, check_rc=False)
         local_blob = run(["git", "show", f"HEAD:{local_race_path}"], cwd=agent, env=env, check_rc=False)
         remote_blob = run(["git", "show", "HEAD:remote-race.txt"], cwd=agent, env=env, check_rc=False)
-        check("clean rebase plus second push rejection exits 4 with the rebased SHA",
-              result.returncode == 4 and reported == head and "rebase succeeded" in result.stderr,
+        check("clean reconciliation races exit 4 with the original local data SHA",
+              result.returncode == 4 and reported == head and "lost three remote races" in result.stderr,
               f"rc={result.returncode} stdout={result.stdout!r} stderr={result.stderr!r}")
-        check("rebased local commit retains both the remote move and this run's data",
-              ancestor.returncode == 0 and local_blob.returncode == 0 and remote_blob.returncode == 0)
-        check("clean second-push failure leaves no rebase state",
+        check("remote code is not pulled into the local commit while local data is retained",
+              local_blob.returncode == 0 and remote_blob.returncode != 0)
+        check("reconciliation failure creates no rebase state",
               not os.path.exists(git_internal_path(agent, "rebase-merge", env))
               and not os.path.exists(git_internal_path(agent, "rebase-apply", env)))
+
+
+def test_clean_data_reconciliation_publishes_without_advancing_production_program():
+    """A successful data publication may advance origin/main, never the live checkout's code."""
+    with tempfile.TemporaryDirectory(prefix="commit-run-test-clean-program-pin-") as tmp:
+        _, _, agent, env, remote_code_sha = setup_dirty_data_reconcile_scenario(tmp)
+        local_before = run(["git", "rev-parse", "HEAD"], cwd=agent, env=env).stdout.strip()
+        relative = "analyses/PINNED_2099-01-01/result.md"
+        write_text(agent, relative, "published while program stays pinned\n")
+        result = run(
+            ["bash", COMMIT_RUN, "test: preserve production program", "--", relative],
+            cwd=agent, env=env, check_rc=False,
+        )
+        local_after = run(["git", "rev-parse", "HEAD"], cwd=agent, env=env).stdout.strip()
+        local_data_sha = local_after
+        local_remote_code = run(["git", "cat-file", "-e", "HEAD:reviewed-code.txt"],
+                                cwd=agent, env=env, check_rc=False)
+        run(["git", "fetch", "-q", "origin", "main"], cwd=agent, env=env)
+        published = run(["git", "show", f"origin/main:{relative}"], cwd=agent, env=env, check_rc=False)
+        remote_has_code = run(["git", "cat-file", "-e", "origin/main:reviewed-code.txt"],
+                              cwd=agent, env=env, check_rc=False)
+        data_ancestor = run(["git", "merge-base", "--is-ancestor", local_data_sha, "origin/main"],
+                            cwd=agent, env=env, check_rc=False)
+        code_ancestor = run(["git", "merge-base", "--is-ancestor", remote_code_sha, "origin/main"],
+                            cwd=agent, env=env, check_rc=False)
+        check("clean data reconciliation publishes successfully",
+              result.returncode == 0 and f"COMMIT_SHA={local_data_sha}" in result.stdout
+              and published.returncode == 0 and data_ancestor.returncode == 0,
+              f"rc={result.returncode} stdout={result.stdout!r} stderr={result.stderr!r}")
+        check("production HEAD gains only its data commit and never the remote code tree",
+              local_after != local_before and local_remote_code.returncode != 0,
+              f"before={local_before} after={local_after}")
+        check("origin/main retains both reviewed code and the exact data ancestry",
+              remote_has_code.returncode == 0 and code_ancestor.returncode == 0)
 
 
 def setup_dirty_data_reconcile_scenario(tmp):
@@ -785,8 +817,9 @@ if __name__ == "__main__":
     test_no_op_when_no_matching_pathspec()
     test_git_add_failure_is_not_a_noop()
     test_commit_hook_rejection_is_never_pushed_as_old_head()
-    test_conflicting_rebase_is_aborted_cleanly()
-    test_clean_rebase_second_push_race_retains_rebased_commit()
+    test_conflicting_remote_reconciliation_leaves_checkout_untouched()
+    test_clean_reconciliation_race_retains_original_local_commit()
+    test_clean_data_reconciliation_publishes_without_advancing_production_program()
     test_dirty_data_reconcile_preserves_live_bytes_and_original_commit_ancestry()
     test_dirty_code_still_blocks_reconciliation()
     test_retry_push_reconciles_dirty_data_without_moving_local_head()
