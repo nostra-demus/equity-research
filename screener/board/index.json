@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-27T04:20:28Z",
+  "generated_at": "2026-08-27T04:39:32Z",
   "inbox": [
     {
       "inbox_id": "INB-20260827-134",
@@ -390,6 +390,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260827-229",
+      "headline": "Meta agrees to pay $18 billion to settle US lawsuits over social media addiction",
+      "headline_en": null,
+      "url": "https://www.arnnewscentre.ae/news/business/meta-agrees-to-pay-18-billion-to-settle-us-lawsuits-over-social-media-addiction/",
+      "source_name": "ARN News Centre — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-27T04:05:03Z",
+      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
+      "prelim_note": "Meta has agreed to an $18 billion settlement regarding social media addiction lawsuits.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Meta has agreed to an $18 billion settlement regarding social media addiction lawsuits.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Meta Platforms",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1090,6 +1139,55 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260827-238",
+      "headline": "CTD: Preliminary Final Report [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.CTD?key=2924-03127422-2A1692760",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-27T04:03:36Z",
+      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
+      "prelim_note": "Preliminary final report is a price-sensitive full-year earnings release that will move the stock on revenue, profit and guidance numbers.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Preliminary final report is a price-sensitive full-year earnings release that will move the stock on revenue, profit and guidance numbers.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CTD",
+          "ticker": "CTD",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1836,31 +1934,31 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260827-159",
-      "headline": "CU6: Preliminary Final Report [price-sensitive]",
+      "inbox_id": "INB-20260827-222",
+      "headline": "JIN: Amended FY26 Results - Investor Presentation [price-sensitive]",
       "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.CU6?key=2924-03127374-2A1692757",
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.JIN?key=2924-03127431-2A1692793",
       "source_name": "ASX (Australia Exchange Filing)",
       "input_nature": "exchange_announcement",
-      "found_at": "2026-08-27T02:32:25Z",
+      "found_at": "2026-08-27T04:08:46Z",
       "sweep_file": "screener/inbox/2026-08-27_sweep.json",
-      "prelim_note": "Preliminary final report flagged price-sensitive suggests full-year results that could move estimates.",
+      "prelim_note": "Company released amended FY26 results presentation marked as price-sensitive.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 94,
-      "triage_reason": "Preliminary final report flagged price-sensitive suggests full-year results that could move estimates.",
+      "triage_reason": "Company released amended FY26 results presentation marked as price-sensitive.",
       "region": "OTHER",
       "relevance": "material",
-      "materiality_pre_score": 65,
+      "materiality_pre_score": 55,
       "rank_factors": {
-        "materiality": 65,
+        "materiality": 55,
         "source_tier": 8,
         "scope": 6,
         "event": 5,
         "size": 0,
         "recency": 5,
-        "materiality_label_floor": 5,
+        "materiality_label_floor": 15,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
@@ -1874,107 +1972,9 @@
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "CU6",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260827-087",
-      "headline": "AQZ: AQZ completes institutional component of $40m raising [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.AQZ?key=2924-03127289-2A1692701",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-27T00:49:40Z",
-      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
-      "prelim_note": "The company completed the institutional component of a $40 million capital raise.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "The company completed the institutional component of a $40 million capital raise.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "AQZ",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260827-016",
-      "headline": "BBT: FY26 Results Investor Presentation [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.BBT?key=2924-03127254-2A1692682",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-27T00:01:45Z",
-      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
-      "prelim_note": "Company released price-sensitive FY26 results.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "Company released price-sensitive FY26 results.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "BBT",
-          "ticker": null,
-          "listing_country": "AU"
+          "name": "JIN",
+          "ticker": "JIN",
+          "listing_country": null
         }
       ],
       "size_bucket": "unknown",
@@ -97412,9 +97412,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 521511,
-    "news_picked_today": 251,
-    "news_dropped_today": 4309
+    "news_seen_today": 558978,
+    "news_picked_today": 288,
+    "news_dropped_today": 4692
   },
   "book_momentum": {
     "live_count": 8,
