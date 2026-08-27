@@ -55,6 +55,7 @@ POLICY = {
     "retention": "permanent",
     "retain_until": None,
 }
+GIT_ARGUMENT_BATCH_SIZE = 100
 
 _DATE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 
@@ -663,16 +664,14 @@ def _git_dirty_paths(repo_root: Path, relative_paths: Sequence[str]) -> set[str]
         return set()
     try:
         result = subprocess.run(
-            [
-                "git", "status", "--porcelain=v1", "-z", "--untracked-files=all",
-                "--", *relative_paths,
-            ],
+            ["git", "status", "--porcelain=v1", "-z", "--untracked-files=all"],
             cwd=repo_root, check=False, capture_output=True, timeout=30,
         )
     except (OSError, subprocess.SubprocessError):
         return None
     if result.returncode != 0:
         return None
+    wanted = set(relative_paths)
     dirty: set[str] = set()
     for raw in result.stdout.split(b"\0"):
         if not raw:
@@ -681,7 +680,7 @@ def _git_dirty_paths(repo_root: Path, relative_paths: Sequence[str]) -> set[str]
         # token; keeping both dirty is conservative and preserves the old per-path check.
         candidate = raw[3:] if len(raw) >= 3 and raw[2:3] == b" " else raw
         decoded = _decode_git_path(candidate)
-        if decoded is not None:
+        if decoded in wanted:
             dirty.add(decoded)
     return dirty
 
@@ -694,50 +693,52 @@ def _git_json_receipts(
 
     if not relative_paths:
         return {}
-    wanted = set(relative_paths)
-    try:
-        result = subprocess.run(
-            [
-                "git", "log", "--format=REC%x00%H%x00%cI%x00", "--name-only", "-z",
-                "--", *relative_paths,
-            ],
-            cwd=repo_root, check=False, capture_output=True, timeout=30,
-        )
-    except (OSError, subprocess.SubprocessError):
-        return {}
-    if result.returncode != 0:
-        return {}
-
     receipts: dict[str, tuple[str, str, str]] = {}
-    commit: str | None = None
-    timestamp: str | None = None
-    for raw in result.stdout.split(b"\0"):
-        # Git inserts one record-separating newline before the next header/path.  Remove
-        # exactly that byte; a real filename beginning with a newline keeps its own byte.
-        token = raw[1:] if raw.startswith(b"\n") else raw
-        if token == b"REC":
-            commit = None
-            timestamp = None
-            continue
-        if commit is None:
-            if token:
-                try:
-                    commit = token.decode("ascii")
-                except UnicodeDecodeError:
-                    commit = ""
-            continue
-        if timestamp is None:
-            if token:
-                try:
-                    timestamp = _normalise_datetime(token.decode("ascii"))
-                except (UnicodeDecodeError, ValueError):
-                    timestamp = ""
-            continue
-        if not token or not commit or not timestamp:
-            continue
-        relative = _decode_git_path(token)
-        if relative in wanted and relative not in receipts:
-            receipts[relative] = (timestamp, commit, "git-commit/v1")
+    for offset in range(0, len(relative_paths), GIT_ARGUMENT_BATCH_SIZE):
+        batch = relative_paths[offset:offset + GIT_ARGUMENT_BATCH_SIZE]
+        wanted = set(batch)
+        try:
+            result = subprocess.run(
+                [
+                    "git", "log", "--format=REC%x00%H%x00%cI%x00", "--name-only", "-z",
+                    "--", *batch,
+                ],
+                cwd=repo_root, check=False, capture_output=True, timeout=30,
+            )
+        except (OSError, subprocess.SubprocessError):
+            return {}
+        if result.returncode != 0:
+            return {}
+
+        commit: str | None = None
+        timestamp: str | None = None
+        for raw in result.stdout.split(b"\0"):
+            # Git inserts one record-separating newline before the next header/path.  Remove
+            # exactly that byte; a real filename beginning with a newline keeps its own byte.
+            token = raw[1:] if raw.startswith(b"\n") else raw
+            if token == b"REC":
+                commit = None
+                timestamp = None
+                continue
+            if commit is None:
+                if token:
+                    try:
+                        commit = token.decode("ascii")
+                    except UnicodeDecodeError:
+                        commit = ""
+                continue
+            if timestamp is None:
+                if token:
+                    try:
+                        timestamp = _normalise_datetime(token.decode("ascii"))
+                    except (UnicodeDecodeError, ValueError):
+                        timestamp = ""
+                continue
+            if not token or not commit or not timestamp:
+                continue
+            relative = _decode_git_path(token)
+            if relative in wanted and relative not in receipts:
+                receipts[relative] = (timestamp, commit, "git-commit/v1")
     return receipts
 
 
@@ -745,30 +746,32 @@ def _git_commit_times(repo_root: Path, commits: Iterable[str]) -> dict[str, str]
     ordered = sorted(set(commits))
     if not ordered:
         return {}
-    try:
-        result = subprocess.run(
-            ["git", "show", "-s", "--format=REC%x00%H%x00%cI%x00", *ordered],
-            cwd=repo_root, check=False, capture_output=True, timeout=30,
-        )
-    except (OSError, subprocess.SubprocessError):
-        return {}
-    if result.returncode != 0:
-        return {}
     values: dict[str, str] = {}
-    tokens = [raw[1:] if raw.startswith(b"\n") else raw for raw in result.stdout.split(b"\0")]
-    index = 0
-    while index + 2 < len(tokens):
-        if tokens[index] != b"REC":
-            index += 1
-            continue
+    for offset in range(0, len(ordered), GIT_ARGUMENT_BATCH_SIZE):
+        batch = ordered[offset:offset + GIT_ARGUMENT_BATCH_SIZE]
         try:
-            commit = tokens[index + 1].decode("ascii")
-            timestamp = _normalise_datetime(tokens[index + 2].decode("ascii"))
-        except (UnicodeDecodeError, ValueError):
+            result = subprocess.run(
+                ["git", "show", "-s", "--format=REC%x00%H%x00%cI%x00", *batch],
+                cwd=repo_root, check=False, capture_output=True, timeout=30,
+            )
+        except (OSError, subprocess.SubprocessError):
+            return {}
+        if result.returncode != 0:
+            return {}
+        tokens = [raw[1:] if raw.startswith(b"\n") else raw for raw in result.stdout.split(b"\0")]
+        index = 0
+        while index + 2 < len(tokens):
+            if tokens[index] != b"REC":
+                index += 1
+                continue
+            try:
+                commit = tokens[index + 1].decode("ascii")
+                timestamp = _normalise_datetime(tokens[index + 2].decode("ascii"))
+            except (UnicodeDecodeError, ValueError):
+                index += 3
+                continue
+            values[commit] = timestamp
             index += 3
-            continue
-        values[commit] = timestamp
-        index += 3
     return values
 
 

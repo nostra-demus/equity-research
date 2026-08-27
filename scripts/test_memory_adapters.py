@@ -430,6 +430,45 @@ class MemoryAdapterTests(unittest.TestCase):
             self.assertEqual(commands["blame"], 1)
             self.assertEqual(commands["show"], 1)
 
+    def test_git_metadata_commands_bound_argument_batches(self) -> None:
+        paths = [f"analyses/T{i:03d}_2026-01-01/decision_record.json" for i in range(205)]
+        commits = [f"{i:040x}" for i in range(205)]
+        log_batches: list[list[str]] = []
+        show_batches: list[list[str]] = []
+
+        def fake_run(argv, **_kwargs):
+            if argv[1] == "status":
+                self.assertNotIn("--", argv)
+                return subprocess.CompletedProcess(argv, 0, stdout=b"")
+            if argv[1] == "log":
+                batch = argv[argv.index("--") + 1:]
+                log_batches.append(batch)
+                payload = b"".join(
+                    b"REC\0" + commits[paths.index(path)].encode("ascii")
+                    + b"\0" + b"2026-06-01T12:00:00Z\0" + path.encode("utf-8") + b"\0"
+                    for path in batch
+                )
+                return subprocess.CompletedProcess(argv, 0, stdout=payload)
+            if argv[1] == "show":
+                batch = argv[4:]
+                show_batches.append(batch)
+                payload = b"".join(
+                    b"REC\0" + commit.encode("ascii") + b"\0" + b"2026-06-01T12:00:00Z\0"
+                    for commit in batch
+                )
+                return subprocess.CompletedProcess(argv, 0, stdout=payload)
+            raise AssertionError(argv)
+
+        with mock.patch.object(memory_adapters.subprocess, "run", side_effect=fake_run):
+            self.assertEqual(memory_adapters._git_dirty_paths(ROOT, paths), set())
+            receipts = memory_adapters._git_json_receipts(ROOT, paths)
+            times = memory_adapters._git_commit_times(ROOT, commits)
+
+        self.assertEqual(len(receipts), len(paths))
+        self.assertEqual(len(times), len(commits))
+        self.assertEqual([len(batch) for batch in log_batches], [100, 100, 5])
+        self.assertEqual([len(batch) for batch in show_batches], [100, 100, 5])
+
     def test_non_monotonic_rows_preserve_chronological_supersession(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
