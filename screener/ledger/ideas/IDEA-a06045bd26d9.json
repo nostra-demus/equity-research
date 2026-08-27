@@ -1,9 +1,9 @@
 {
-  "idea_id": "IDEA-c965aee2d06a",
-  "idea_version": "IDEAV-3f87f0dae61817dd",
-  "idea_version_started_at": "2026-08-24T09:24:19Z",
-  "ticker": "1831",
-  "company": "SHIFANG HLDG",
+  "idea_id": "IDEA-a06045bd26d9",
+  "idea_version": "IDEAV-1958a334293ed605",
+  "idea_version_started_at": "2026-08-27T02:10:48Z",
+  "ticker": "06860",
+  "company": "Fingertango",
   "exchange": "HKEX",
   "ticker_verified": false,
   "listing_verified": false,
@@ -11,9 +11,9 @@
   "listing_verification_source": null,
   "direction": "short",
   "pair_with": null,
-  "reason": "The company's shares have been halted from trading, indicating significant operational issues.",
-  "why_now": "The trading halt notice was issued on August 24, 2026.",
-  "conviction": 55,
+  "reason": "The company issued a profit warning, signaling deteriorating margins or revenue performance that will likely lead to downward earnings revisions.",
+  "why_now": "The profit warning was filed on 2026-08-26.",
+  "conviction": 75,
   "conviction_basis": "pre_edge_proxy",
   "trade_score": 45,
   "trade_score_basis": "evidence_gate_v2",
@@ -32,7 +32,6 @@
     "verified listing",
     "live liquidity",
     "dated catalyst",
-    "price and market expectations",
     "live price, liquidity, and consensus"
   ],
   "learning": {
@@ -44,31 +43,31 @@
     "basis": "not_enough_outcomes",
     "evidenceIds": []
   },
-  "priced_in": "unknown",
+  "priced_in": "room",
   "thesis_type": "company_specific",
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-d15287d05a24"
+    "EVT-8348e5c7ac6a"
   ],
-  "primary_source_event_id": "EVT-d15287d05a24",
+  "primary_source_event_id": "EVT-8348e5c7ac6a",
   "source_headlines": [
-    "SHIFANG HLDG (01831): EXCHANGE NOTICE - TRADING HALT"
+    "FINGERTANGO (06860): PROFIT WARNING"
   ],
-  "source_headline": "SHIFANG HLDG (01831): EXCHANGE NOTICE - TRADING HALT",
-  "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0824/2026082400281.htm",
+  "source_headline": "FINGERTANGO (06860): PROFIT WARNING",
+  "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0826/2026082601861.pdf",
   "source_name": "HKEXnews (HK Exchange Filing)",
   "materiality_max": 100,
-  "newest_source_at": "2026-08-24T02:09:00Z",
+  "newest_source_at": "2026-08-26T14:03:00Z",
   "prior_coverage": {
     "has_run": false,
     "latest_run": null,
     "latest_decision": null,
     "data_pool_present": false
   },
-  "surfaced_at": "2026-08-24T09:24:19Z",
-  "updated_at": "2026-08-24T09:24:19Z",
-  "decay_at": "2026-08-25T14:09:00Z",
+  "surfaced_at": "2026-08-27T02:10:48Z",
+  "updated_at": "2026-08-27T02:10:48Z",
+  "decay_at": "2026-08-28T02:03:00Z",
   "status": "live",
   "promoted_signal_id": null
 }
