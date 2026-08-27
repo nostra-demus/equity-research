@@ -1,4 +1,4 @@
-// Load engine LLM-provider secrets (GROQ / CEREBRAS / GEMINI / OPENROUTER / NVIDIA / ANTHROPIC keys, plus
+// Load engine LLM-provider secrets (GROQ / GEMINI / OPENROUTER / NVIDIA / ANTHROPIC keys, plus
 // any NEWS_* overrides) from the SAME out-of-repo config dir the GitHub App identity already uses
 // ($NOSTRA_ENGINE_CONFIG_DIR, default ~/.config/nostra-engine) — so a key is dropped in ONE gitignored file
 // OUTSIDE the repo and "just works" for both the cockpit server and the standalone ingester, with no secret
