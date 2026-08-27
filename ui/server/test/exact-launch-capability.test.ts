@@ -13,6 +13,10 @@ assert.ok(routeStart > 0 && routeEnd > routeStart, 'launch estimate route exists
 const route = source.slice(routeStart, routeEnd)
 
 assert.match(source, /EXACT_DECISION_LAUNCH_CONTRACT\s*=\s*'exact-decision-launch\/1'/)
+assert.match(source, /const ProviderQuery = z\.object\(ProviderLaunchFields\)/,
+  'estimate queries and paid launch bodies share one provider/profile field contract')
+assert.match(source, /const ProviderLaunchFields = \{[\s\S]*expectedProfileKey:\s*z\.string\(\)\.min\(1\)\.max\(240\)\.optional\(\)/,
+  'the shared provider/profile contract preserves the exact execution-profile key')
 assert.match(source, /app\.post\('\/api\/launch\/exact'/)
 assert.match(source, /\.\.\.binding, decisionRunRoot: binding\.runRoot, intakeReceipt, user, userVia/,
   'the exact route carries the selected decision root through launcher CAS and final spawn boundary')
