@@ -30,6 +30,7 @@ def main() -> int:
     parser.add_argument("--unix-socket", required=True)
     parser.add_argument("--denied-unix-socket", required=True)
     parser.add_argument("--loopback-port", type=int, required=True)
+    parser.add_argument("--publication-helper", required=True)
     args = parser.parse_args()
 
     # Positive controls prove the sandbox is not merely failing every operation.
@@ -62,6 +63,19 @@ def main() -> int:
     with socket.socket(socket.AF_UNIX, socket.SOCK_STREAM) as client:
         client.settimeout(2)
         client.connect(args.unix_socket)
+
+    # Exercise the same ownership/mode checks and HTTP client used by commit-run.sh. A raw connect alone
+    # does not prove the helper can stat the exact socket; that gap previously let a paid run finish every
+    # agent and fail only at publication.
+    helper = Path(args.publication_helper)
+    if helper.name != "supervisor_publication.py" or not helper.is_file():
+        raise RuntimeError("publication helper is unavailable")
+    sys.path.insert(0, str(helper.parent))
+    from supervisor_publication import post
+
+    publication = post({"phase": "sandbox-boundary-probe"}, timeout=2)
+    if publication.get("probe") is not True:
+        raise RuntimeError("publication helper did not complete the sandbox transport probe")
 
     def unrelated_unix() -> None:
         with socket.socket(socket.AF_UNIX, socket.SOCK_STREAM) as client:

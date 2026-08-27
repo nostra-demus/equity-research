@@ -181,7 +181,7 @@ try {
       cwd: REPO_ROOT, additionalWritableDataRoot: path.join(REPO_ROOT, 'data'),
       writablePaths: [path.join(REPO_ROOT, 'commodity', 'runs', 'GOLD')],
       protectedWritePaths: [gitDir, path.join(REPO_ROOT, 'scripts'), archive],
-      publicationSocketPath: '/tmp/nostra-publication-fixture/publication.sock',
+      publicationSocketPath: '/tmp/nostra-publication-fixture/p.sock',
       env: { PATH: '/bin', NOSTRA_COCKPIT_RUN: '1' }, guard: { maxTurns: 1, budgetUsd: 1 },
     }
     const settings: any = claudeSandboxSettings(context)
@@ -198,7 +198,10 @@ try {
     assert.ok(!settings.permissions.allow.includes('Write') && !settings.permissions.allow.includes('Edit'),
       'built-in writers have no unscoped allow')
     assert.deepEqual(settings.sandbox.network.allowUnixSockets,
-      ['/tmp/nostra-publication-fixture/publication.sock'])
+      ['/tmp/nostra-publication-fixture/p.sock'])
+    assert.ok(settings.sandbox.filesystem.allowRead.includes('/tmp/nostra-publication-fixture')
+      && settings.sandbox.filesystem.allowRead.includes('/tmp/nostra-publication-fixture/p.sock'),
+    'the helper receives metadata-read access to only the private socket parent and exact socket')
     for (const target of [path.resolve(gitDir), path.resolve(path.join(REPO_ROOT, 'scripts')), path.resolve(archive)]) {
       assert.ok(settings.sandbox.filesystem.denyWrite.includes(target), `${target} must be OS write-denied`)
     }
