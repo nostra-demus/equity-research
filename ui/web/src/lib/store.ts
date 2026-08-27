@@ -381,7 +381,6 @@ function reconcileProviderRediscovery(get: () => State): void {
   }
   if (providerRediscoveryTimer) return
   const delay = PROVIDER_REDISCOVERY_DELAYS_MS[Math.min(providerRediscoveryAttempt, PROVIDER_REDISCOVERY_DELAYS_MS.length - 1)]
-  providerRediscoveryAttempt++
   providerRediscoveryTimer = setTimeout(() => {
     providerRediscoveryTimer = null
     const state = get()
@@ -393,9 +392,9 @@ function reconcileProviderRediscovery(get: () => State): void {
       reconcileProviderRediscovery(get)
       return
     }
+    providerRediscoveryAttempt++
     void state.refreshProviders()
   }, delay)
-  ;(providerRediscoveryTimer as any).unref?.()
 }
 
 // Auto-resume of interrupted screener runs (a closed laptop / dropped connection): per-signal attempt

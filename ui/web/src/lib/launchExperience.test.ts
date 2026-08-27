@@ -35,4 +35,17 @@ const thesisPanel = readFileSync(fileURLToPath(new URL('../components/ThesisPlan
 assert.doesNotMatch(thesisPanel, /provider === 'claude' && <div className="tpp__saving">/,
   'the full-run typed-confirmation explanation must be visible under every provider')
 
+const storeSource = readFileSync(fileURLToPath(new URL('./store.ts', import.meta.url)), 'utf8')
+const rediscoverySource = storeSource.slice(
+  storeSource.indexOf('function reconcileProviderRediscovery'),
+  storeSource.indexOf('// Auto-resume of interrupted screener runs'),
+)
+assert.ok(
+  rediscoverySource.indexOf('providerRediscoveryAttempt++')
+    > rediscoverySource.indexOf('state.staticMode || providerChecksInFlight > 0'),
+  'offline/check-in-flight deferrals must not consume a provider rediscovery attempt',
+)
+assert.doesNotMatch(rediscoverySource, /\.unref\?\./,
+  'browser provider rediscovery must use browser timers without Node-only timer methods')
+
 console.log('provider-transparent UX: run-kind confirmation and frozen-subject guards passed')
