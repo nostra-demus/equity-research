@@ -430,6 +430,21 @@
       ]
     },
     {
+      "id": "watchlist-tasks",
+      "kind": "ledger",
+      "authority": "authoritative_versioned_entry",
+      "paths": ["watchlist/tasks/*.json"],
+      "formats": ["json"],
+      "observed_count": 1,
+      "producer_ids": ["task-service"],
+      "reader_ids": ["task-service"],
+      "correction_model": "Each card carries an append-only history of stage moves and decisions; the current stage is the projection of that history.",
+      "evidence": [
+        "watchlist/tasks/TASK-20260827-b5c1c3a1.json",
+        "ui/server/src/tasks.ts"
+      ]
+    },
+    {
       "id": "mounted-source-pools",
       "kind": "source_store",
       "authority": "authoritative_source_bytes",
@@ -530,6 +545,7 @@
     {"id": "feedback-service", "type": "service", "evidence": ["ui/server/src/screener-feedback.ts", "ui/server/src/feedback-store.ts"], "writes_store_ids": ["screener-feedback-ledgers"]},
     {"id": "board-projector", "type": "script_and_service", "evidence": ["scripts/update_board_index.py", "ui/server/src/news/ideas/ideas-projection.ts"], "writes_store_ids": ["screener-board-projections"]},
     {"id": "watchlist-service", "type": "service", "evidence": ["ui/server/src/watchlist.ts"], "writes_store_ids": ["watchlist-entries"]},
+    {"id": "task-service", "type": "service", "evidence": ["ui/server/src/tasks.ts"], "writes_store_ids": ["watchlist-tasks"]},
     {"id": "external-router", "type": "script", "evidence": [".claude/tools/ingest_external.py", "frameworks/EXTERNAL_DATA.md"], "writes_store_ids": ["mounted-source-pools", "external-ingestion-inbox"]},
     {"id": "connector-runner", "type": "script", "evidence": [".claude/tools/run_connectors.py"], "writes_store_ids": ["mounted-source-pools", "connector-operations"]},
     {"id": "research-bridge", "type": "service", "evidence": ["ui/server/src/research-bridge.ts"], "writes_store_ids": ["mounted-source-pools"]}
@@ -549,6 +565,7 @@
     {"id": "feedback-service", "type": "service", "evidence": ["ui/server/src/screener-feedback.ts", "ui/server/src/feedback-store.ts"], "reads_store_ids": ["screener-feedback-ledgers", "screener-thesis-candidate-ledger"]},
     {"id": "commodity-pulse-reader", "type": "service", "evidence": ["ui/server/src/news/commodity-pulse.ts"], "reads_store_ids": ["commodity-run-artifacts", "commodity-decision-ledger", "commodity-profiles-and-validated-signals"]},
     {"id": "watchlist-service", "type": "service", "evidence": ["ui/server/src/watchlist.ts"], "reads_store_ids": ["watchlist-entries", "equity-decision-ledger", "equity-portfolio-projections"]},
+    {"id": "task-service", "type": "service", "evidence": ["ui/server/src/tasks.ts"], "reads_store_ids": ["watchlist-tasks", "watchlist-entries"]},
     {"id": "pool-extractor", "type": "script", "evidence": [".claude/tools/extract_pool.py"], "reads_store_ids": ["mounted-source-pools", "external-ingestion-inbox", "connector-operations"]},
     {"id": "news-enrichment", "type": "service", "evidence": ["ui/server/src/news/enrich.ts", "ui/server/src/news/equity-quote.ts"], "reads_store_ids": ["equity-decision-ledger", "mounted-source-pools"]},
     {"id": "research-bridge", "type": "service", "evidence": ["ui/server/src/research-bridge.ts", "ui/server/src/bridge-batch.ts"], "reads_store_ids": ["screener-event-ledger", "equity-decision-ledger", "mounted-source-pools"]},
