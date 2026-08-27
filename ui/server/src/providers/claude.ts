@@ -247,13 +247,44 @@ export interface ClaudeMirrorWorkspace {
   cleanup: () => void
 }
 
+interface ClaudeMirrorLink {
+  name: string
+  target: string
+  /** Only the configured repo-root data link is allowed to originate as a symlink. Its source and
+   * resolved directory identities are pinned so a pre-spawn swap fails closed. */
+  sourceLink?: {
+    path: string
+    value: string
+    identity: string
+    targetIdentity: string
+  }
+}
+
+const symlinkIdentity = (info: fs.BigIntStats): string => [
+  info.dev, info.ino, info.mode, info.nlink, info.uid, info.gid, info.size, info.mtimeNs, info.ctimeNs,
+].join(':')
+
+// Directory contents legitimately change while the engine is preparing a run. Pin the directory object,
+// ownership, and permissions without treating an unrelated new pool file as an identity change.
+const directoryIdentity = (info: fs.BigIntStats): string => [
+  info.dev, info.ino, info.mode, info.uid, info.gid,
+].join(':')
+
 /**
  * Claude's Bash sandbox always grants its process cwd. Run from a disposable symlink mirror instead of
  * the real repository so that implicit grant covers no durable bytes; real output paths are admitted only
  * through sandbox.filesystem.allowWrite. Project commands/agents and repo-relative scripts remain visible
  * through stable read-only symlinks, while built-in Write/Edit are disabled above.
  */
-export function createClaudeMirrorWorkspace(repoRoot = REPO_ROOT): ClaudeMirrorWorkspace {
+export function createClaudeMirrorWorkspace(
+  repoRoot = REPO_ROOT,
+  configuredDataRoot = path.join(repoRoot, 'data'),
+): ClaudeMirrorWorkspace {
+  const lexicalRepoRoot = path.resolve(repoRoot)
+  const expectedDataLink = path.join(lexicalRepoRoot, 'data')
+  if (path.resolve(configuredDataRoot) !== expectedDataLink) {
+    throw new Error('tracked Claude mirror requires the configured data root to be the repository data entry')
+  }
   // Bind the canonical path immediately (`/tmp` is `/private/tmp` on macOS). The sandbox rules and the
   // pre-spawn identity check must describe the same inode spelling, otherwise a legitimate mirror fails
   // closed while a provider-specific alias could be checked less narrowly.
@@ -261,24 +292,59 @@ export function createClaudeMirrorWorkspace(repoRoot = REPO_ROOT): ClaudeMirrorW
   fs.chmodSync(root, 0o700)
   const scratch = path.join(root, '.scratch')
   fs.mkdirSync(scratch, { mode: 0o700 })
-  const links: Array<{ name: string; target: string }> = []
+  const links: ClaudeMirrorLink[] = []
   let gitPointer = ''
   let cleaned = false
   try {
-    for (const entry of fs.readdirSync(repoRoot, { withFileTypes: true })) {
-      if (entry.isSymbolicLink()) throw new Error(`tracked Claude mirror refuses repository-root symlink: ${entry.name}`)
-      const target = path.join(repoRoot, entry.name)
+    for (const entry of fs.readdirSync(lexicalRepoRoot, { withFileTypes: true })) {
+      const sourcePath = path.join(lexicalRepoRoot, entry.name)
+      const sourceInfo = fs.lstatSync(sourcePath)
+      let target = sourcePath
+      let sourceLink: ClaudeMirrorLink['sourceLink']
+      if (sourceInfo.isSymbolicLink()) {
+        // Production intentionally projects the owner-pinned external pool through repo/data. Preserve
+        // that one declared topology without weakening the original guard for arbitrary root links. Point
+        // the disposable mirror at the resolved directory, then prove both the source link and directory
+        // identity again immediately before spawn. The provider has no write grant to either location.
+        if (sourcePath !== expectedDataLink) {
+          throw new Error(`tracked Claude mirror refuses undeclared repository-root symlink: ${entry.name}`)
+        }
+        const before = fs.lstatSync(sourcePath, { bigint: true })
+        const value = fs.readlinkSync(sourcePath)
+        target = fs.realpathSync(sourcePath)
+        const targetInfo = fs.statSync(target, { bigint: true })
+        const after = fs.lstatSync(sourcePath, { bigint: true })
+        const canonicalRepoRoot = fs.realpathSync(lexicalRepoRoot)
+        const currentUid = process.getuid?.()
+        if (!before.isSymbolicLink() || !after.isSymbolicLink()
+            || symlinkIdentity(before) !== symlinkIdentity(after)
+            || fs.readlinkSync(sourcePath) !== value
+            || !targetInfo.isDirectory()
+            || (currentUid !== undefined && targetInfo.uid !== BigInt(currentUid))
+            || target === path.parse(target).root
+            || target === canonicalPath(os.homedir())
+            || target === canonicalRepoRoot || target.startsWith(canonicalRepoRoot + path.sep)
+            || fs.realpathSync(sourcePath) !== target) {
+          throw new Error('tracked Claude mirror could not pin the configured data-root symlink')
+        }
+        sourceLink = {
+          path: sourcePath,
+          value,
+          identity: symlinkIdentity(before),
+          targetIdentity: directoryIdentity(targetInfo),
+        }
+      }
       if (entry.name === '.git') {
         const gitDir = execFileSync('git', ['rev-parse', '--absolute-git-dir'], {
-          cwd: repoRoot, encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'],
+          cwd: lexicalRepoRoot, encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'],
         }).trim()
         if (!path.isAbsolute(gitDir)) throw new Error('tracked Claude mirror could not resolve the repository Git directory')
         gitPointer = `gitdir: ${gitDir}\n`
         fs.writeFileSync(path.join(root, '.git'), gitPointer, { flag: 'wx', mode: 0o400 })
         continue
       }
-      fs.symlinkSync(target, path.join(root, entry.name), entry.isDirectory() ? 'dir' : 'file')
-      links.push({ name: entry.name, target })
+      fs.symlinkSync(target, path.join(root, entry.name), sourceInfo.isDirectory() || sourceLink ? 'dir' : 'file')
+      links.push({ name: entry.name, target, sourceLink })
     }
   } catch (error) {
     fs.rmSync(root, { recursive: true, force: true })
@@ -294,6 +360,18 @@ export function createClaudeMirrorWorkspace(repoRoot = REPO_ROOT): ClaudeMirrorW
       const info = fs.lstatSync(candidate)
       if (!info.isSymbolicLink() || fs.readlinkSync(candidate) !== link.target) {
         throw new Error(`tracked Claude mirror link changed before spawn: ${link.name}`)
+      }
+      if (link.sourceLink) {
+        const sourceInfo = fs.lstatSync(link.sourceLink.path, { bigint: true })
+        const targetInfo = fs.statSync(link.target, { bigint: true })
+        if (!sourceInfo.isSymbolicLink()
+            || symlinkIdentity(sourceInfo) !== link.sourceLink.identity
+            || fs.readlinkSync(link.sourceLink.path) !== link.sourceLink.value
+            || fs.realpathSync(link.sourceLink.path) !== link.target
+            || !targetInfo.isDirectory()
+            || directoryIdentity(targetInfo) !== link.sourceLink.targetIdentity) {
+          throw new Error(`tracked Claude mirror source link changed before spawn: ${link.name}`)
+        }
       }
     }
     if (gitPointer && fs.readFileSync(path.join(root, '.git'), 'utf8') !== gitPointer) {
@@ -522,7 +600,7 @@ async function buildLaunch(context: ProviderLaunchContext): Promise<ProviderLaun
   await assertClaudeSubscriptionAuth(env)
   await assertClaudeSandboxRuntime()
   if (!context.writablePaths?.length) throw new Error('Tracked Claude launch has no exact writable output scope.')
-  const mirror = createClaudeMirrorWorkspace(context.cwd)
+  const mirror = createClaudeMirrorWorkspace(context.cwd, context.additionalWritableDataRoot)
   env.TMPDIR = mirror.scratch
   env.TMP = mirror.scratch
   env.TEMP = mirror.scratch

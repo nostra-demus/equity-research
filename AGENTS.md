@@ -581,4 +581,33 @@ The complete state machine, entry-point matrix, allowed differences, and CI requ
 `frameworks/PROVIDER_TRANSPARENT_COCKPIT.md`. A user-visible Claude/Codex difference outside its explicit
 allowlist is a release-blocking defect.
 
+---
+
+## 31. Production Engineering Reliability
+
+Every code change by Claude, Codex, a future provider, or a human follows the same permanent engineering
+contract in `CONTRIBUTING.md`. The product invariant and full user journey are the unit of correctness; a
+model, provider, host, ticker, module, or entry point is never a license for parallel behavior or a one-off
+exception. Shared state machines and adapters carry variants. Durable state, provenance, artifacts, and
+observable lifecycle truth outrank provider prose or a plausible-looking UI.
+
+A defect is closed at its lowest shared cause and across its sibling failure class. The same reviewed change
+adds a regression that fails before the fix, preserves failure/concurrency truth, and records any material
+new invariant in the canonical contract. Manual production edits, silent substitution or fallback,
+automatic paid retries, permission broadening, hidden flags, hard-coded exceptions, and success fabricated
+from missing evidence are prohibited final solutions.
+
+The deployed filesystem and service topology is part of the launch contract. Tests must reproduce every
+sanctioned production indirection, including the configured external `data/` projection, while rejecting
+undeclared or swapped links. A provider safety guard that works only in a simplified checkout and blocks the
+real production topology is a release defect, not a successful hardening.
+
+No production-affecting task is "done" at a local pass, commit, PR, merge, or restart. Completion requires
+green protected CI and adversarial review, merged-commit ancestry in the production checkout, the deployer's
+healthy/DONE gate, live read-only contract verification, and proof that no unauthorized run, retry, spend,
+or unrelated mutation occurred. Paid canaries and second attempts require explicit authorization. When an
+external provider, network, subscription, or machine fails, the system must fail visibly, preserve completed
+work, and provide the same bounded recovery path; it must never promise that an external dependency cannot
+fail.
+
 **The twins must match.** This doctrine is maintained as two files — this one (`AGENTS.md`) and its counterpart read by the other assistant — and they must stay identical except for each file's own name. Derive one from the other instead of hand-editing both; drift between them is a defect, and a CI check may enforce that they match.

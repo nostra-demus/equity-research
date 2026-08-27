@@ -24,6 +24,77 @@ The engine's PR agent owns a code PR end to end and never needs a human to advan
 
 The `needs-human` label is advisory context, never a blocker. Don't ping a person to rebase, resolve, or approve — the agent does all of it.
 
+## Permanent production-engineering standard (Claude, Codex, humans)
+
+This section is normative for every code change, regardless of which model, tool, or person performs the
+work. A provider change is never permission to change product behavior, weaken safety, or use a different
+definition of done.
+
+### Start from the product invariant and trace the whole path
+
+- Write the user-visible outcome and the small set of genuinely allowed differences before choosing an
+  implementation. Preserve the outcome across every provider, entry point, device, run kind, retry, resume,
+  and terminal state.
+- Trace the complete path before editing: browser state → API admission → supervisor/runtime → durable state
+  and artifacts → Activity/history → deploy and recovery. Inspect and reuse the existing shared path. A fix
+  at only the visible symptom is incomplete when the same defect can survive elsewhere in the path.
+- Put variants behind adapters and shared state machines. Do not build parallel Claude/Codex screens,
+  provider-only launch logic, ticker/module allowlists, or duplicated prompt/config truth. A newly discovered
+  module, swarm, provider, or entry point must inherit the invariant without central rewiring.
+
+### Close the failure class, not one incident
+
+- Reproduce the failure with concrete evidence; identify the lowest shared cause; inspect sibling call sites
+  for the same failure class; then add a regression that fails before the repair and passes after it.
+- Ban tomorrow's shortcuts: no manual production edit as the final fix, silent fallback, silent model
+  substitution, automatic paid retry, permission broadening, unrestricted sandbox, hidden feature flag,
+  hard-coded subject/provider exception, fabricated success, or retry loop that merely hides the cause.
+- Preserve truth under failure and concurrency. Freeze admitted identity, use one authoritative lifecycle,
+  keep append-safe provenance, preserve completed artifacts, and make background work yield at a safe
+  boundary to higher-priority reviewed deployment. Cancellation or yielding must await settlement so a
+  second writer never overlaps abandoned work.
+- Fail closed before authentication, spend, publication, or another irreversible boundary. After admission,
+  fail visibly and recoverably: no hidden run, permanent spinner, ambiguous retry, false zero usage, or loss
+  of completed work. Never launch a paid canary or second attempt without explicit authorization.
+
+### Prove the state machine, including failure and recovery
+
+- Test the invariant as a matrix, not one happy path: all providers, entry points, run kinds, malformed or
+  stale preflight, offline/auth/quota failure, cancellation, resume, mixed-provider continuation, process
+  restart, concurrent writer/deploy intent, and required terminal artifacts where applicable.
+- Prefer deterministic tests and read-only production diagnostics before any paid canary. Every guard must
+  fail loudly if its target disappears; a test that silently scans zero files proves nothing.
+- Treat the deployed filesystem and service topology as part of the contract. Provider launch-boundary
+  tests must reproduce sanctioned production indirections (including the configured external `data/`
+  projection), reject every undeclared or swapped link, and prove the same fixture through every provider.
+  A security hardening that passes only against a simplified checkout is not release-ready.
+- Run the focused regression, typecheck/build, the complete affected suite, doctrine/instruction-budget
+  gates, CI, security analysis, and automated adversarial review. Triage every finding. Never waive a real
+  finding merely to merge.
+
+### "Done" means deployed and independently verified
+
+A local pass, commit, PR, merge, or process restart is not completion by itself. A production-affecting fix
+is complete only after all applicable evidence exists:
+
+1. the protected PR/merge-queue path is green and every review thread is resolved;
+2. the merged commit is proven to be an ancestor of the production checkout (exact `HEAD` is not required
+   when legitimate data-only commits have advanced it);
+3. the deployer reports its explicit healthy/DONE gate and no pending writer intent remains;
+4. live read-only health and contract endpoints show the intended state, with no unauthorized run, retry,
+   spend, or unrelated mutation; and
+5. the user-facing recovery path is actionable. If any proof is missing, report "merged, deployment pending"
+   or the exact blocker — never "all done."
+
+### Make each material lesson durable
+
+Close a material incident in the same reviewed change by updating the canonical contract and a regression
+guard. Chat history, operator memory, screenshots, and a one-time verification are evidence, not permanent
+memory. Permanent memory is the smallest authoritative repository rule plus an executable check that makes
+future drift fail before release. Record external limits honestly: software cannot promise that a provider,
+network, subscription, or machine will never fail; it must make those failures bounded, visible,
+non-destructive, and recoverable through the same product path.
+
 ## Why this prevents the conflicts we kept hitting
 
 - **Merge queue = the cure for "someone merged before me."** When two PRs are both ready, the queue serializes them: it merges #1, then rebases #2 onto the now-updated `main`, re-tests it, and merges only if green. The "falling behind" is handled by the machine, not by you. ([GitHub merge queue docs](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/configuring-pull-request-merges/managing-a-merge-queue))
