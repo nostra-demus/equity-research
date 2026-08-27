@@ -179,13 +179,20 @@ function benchmarkOverWindow(
   }
   if (startIndex === -1) return null                                   // feed begins after the window
   if (days(sorted[startIndex]!.date, from) > MAX_FEED_GAP_DAYS) return null  // ...or too far before it
-  const last = sorted[sorted.length - 1]!
-  if (last.date < to && days(last.date, to) > MAX_FEED_GAP_DAYS) return null // feed ends before the window
+  // The window's own closing level: the last close AT OR BEFORE `to`, not simply the feed's last row.
+  // Checking only whether the feed's final row reaches beyond `to` missed a gap that straddles `to`
+  // itself — a feed that resumes well after `to` looks "covered" even though nothing sits near `to`.
+  let endIndex = -1
+  for (let i = startIndex; i < sorted.length; i++) {
+    if (sorted[i]!.date <= to) endIndex = i
+    else break
+  }
+  if (endIndex === -1) return null                                     // no close at or before `to` at all
+  if (days(sorted[endIndex]!.date, to) > MAX_FEED_GAP_DAYS) return null // ...or too far before it
   let chain = 1
   let steps = 0
-  for (let i = startIndex + 1; i < sorted.length; i++) {
+  for (let i = startIndex + 1; i <= endIndex; i++) {
     const prev = sorted[i - 1]!, curr = sorted[i]!
-    if (curr.date > to) break
     if (prev.close <= 0 || days(prev.date, curr.date) > MAX_FEED_GAP_DAYS) return null
     chain *= curr.close / prev.close
     steps++

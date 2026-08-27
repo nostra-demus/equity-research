@@ -207,6 +207,31 @@ export const RISK_FREE_ANNUAL_PCT = RISK_FREE.pct
  *  window, so the chart and the comparison can never disagree about what is covered. */
 const MAX_BENCHMARK_GAP_DAYS = 7
 
+/** Index levels for feed days after the book's last valued day (`last`), rebased against `base`.
+ *  Extracted as pure logic — `performanceOf` reads its closes from disk, so this is what a test can
+ *  actually drive red-on-old/green-on-new.
+ *
+ *  THE GAP IS MEASURED BETWEEN CONSECUTIVE DRAWN CLOSES, not from the fixed statement date `last`.
+ *  Measuring from `last` alone broke the chain once the statement was more than the gap ceiling behind
+ *  the live mark, even when the feed was an unbroken daily series all the way through it — dropping the
+ *  forward level the chart looks up by exact date. A real hole in the feed still stops the chain. */
+export function forwardBenchmarkLevels(
+  inWindow: { date: string; close: number }[],
+  last: string,
+  base: number | null,
+): { date: string; level: number }[] {
+  const out: { date: string; level: number }[] = []
+  let prevDrawn = last
+  for (const c of inWindow) {
+    if (c.date <= last || base === null || c.close <= 0) continue
+    const gap = (Date.parse(`${c.date}T00:00:00Z`) - Date.parse(`${prevDrawn}T00:00:00Z`)) / 86_400_000
+    if (gap > MAX_BENCHMARK_GAP_DAYS) break
+    out.push({ date: c.date, level: (c.close / base) * 100 })
+    prevDrawn = c.date
+  }
+  return out
+}
+
 export interface PortfolioPerformance {
   periods: PeriodReturn[]
   /** Month by month, book against benchmark. */
@@ -306,12 +331,7 @@ export function performanceOf(book: Book): PortfolioPerformance {
     // day simply had not been drawn yet. Levels only — the chart uses one only when its date matches
     // the live mark exactly, so an index day is never plotted at a book day's position.
     const last = returns[returns.length - 1]!.date
-    for (const c of inWindow) {
-      if (c.date <= last || base === null || c.close <= 0) continue
-      const gap = (Date.parse(`${c.date}T00:00:00Z`) - Date.parse(`${last}T00:00:00Z`)) / 86_400_000
-      if (gap > MAX_BENCHMARK_GAP_DAYS) break
-      benchmarkForward.push({ date: c.date, level: (c.close / base) * 100 })
-    }
+    benchmarkForward.push(...forwardBenchmarkLevels(inWindow, last, base))
   }
 
   return {

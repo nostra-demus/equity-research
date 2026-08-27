@@ -425,6 +425,12 @@ function Holdings({ book, perf, manual, cashEquivalents, live, onManage, onChang
   const bridgeGapLabel = gapIsAccruals
     ? 'Income earned but not yet paid'
     : 'Everything else — currency translation, accruals, derivative marks'
+  // §15 — an aggregate carries its components: the statement gives dividend and interest accrual
+  // BALANCES separately, so a reader should be able to rebuild the one printed total from them rather
+  // than take it on faith. Both are guaranteed non-null whenever `total` (and so `gapIsAccruals`) is.
+  const bridgeGapTitle = gapIsAccruals && book.accruals
+    ? `Dividends ${fmtMoney(book.accruals.dividend, ccy)} + interest ${fmtMoney(book.accruals.interest, ccy)}`
+    : undefined
   const brokerCash = nav === null ? null : nav - invested - parkedValue
   const cash = brokerCash === null ? null : brokerCash + parkedValue
   return (
@@ -481,7 +487,7 @@ function Holdings({ book, perf, manual, cashEquivalents, live, onManage, onChang
           <BridgeRow label="Unrealised on open positions" value={fmtMoney(unrealised, ccy)} tone={toneOf(unrealised)} />
           <BridgeRow label="Income, net of withholding and fees" value={fmtMoney(book.income.net, ccy)} tone={toneOf(book.income.net)} />
           {bridgeGap !== null && (
-            <BridgeRow label={bridgeGapLabel} value={fmtMoney(bridgeGap, ccy)} tone={toneOf(bridgeGap)} />
+            <BridgeRow label={bridgeGapLabel} value={fmtMoney(bridgeGap, ccy)} tone={toneOf(bridgeGap)} title={bridgeGapTitle} />
           )}
           <div className="fundbook__bridge is-total"><span>Net asset value</span><strong>{fmtMoney(nav, ccy)}</strong></div>
         </div>
@@ -709,7 +715,16 @@ function Exposure({ book, risked, parkedValue, nav, ccy, bars }: {
             <ExposureBar key={`c-${k}`} label={k} pct={shareOfRisk(v) ?? 0} value={fmtMoney(v, ccy)} />
           )) : (
             <div className="fundbook__barnote">
-              {byCurrency.length === 1 ? `All of it in ${byCurrency[0]![0]} — no currency risk to spread.` : 'No valued position to split.'}
+              {/* One currency is "no risk to spread" only when it IS the book's base currency — a book
+                  100% in one FOREIGN currency is maximally FX-exposed, not FX-free, and an unknown
+                  currency is an unknown state, not a proven absence of risk. */}
+              {byCurrency.length === 1
+                ? byCurrency[0]![0] === '—'
+                  ? 'Currency unknown for every position — FX exposure cannot be assessed.'
+                  : byCurrency[0]![0] === ccy
+                    ? `All of it in ${byCurrency[0]![0]} — the book's own base currency, so no currency risk to spread.`
+                    : `All of it in ${byCurrency[0]![0]} — fully exposed to that currency against the book's ${ccy ?? 'base currency'}.`
+                : 'No valued position to split.'}
             </div>
           )}
           <div className="fundbook__subhead">By asset class</div>
@@ -755,8 +770,13 @@ function Bar({ label, pct, value, deep }: { label: string; pct: number; value: s
   )
 }
 
-function BridgeRow({ label, value, tone }: { label: string; value: string; tone?: string }) {
-  return <div className="fundbook__bridge"><span>{label}</span><strong style={tone ? { color: tone } : undefined}>{value}</strong></div>
+function BridgeRow({ label, value, tone, title }: { label: string; value: string; tone?: string; title?: string }) {
+  return (
+    <div className="fundbook__bridge" title={title}>
+      <span>{label}{title && <small className="fundbook__since"> {title}</small>}</span>
+      <strong style={tone ? { color: tone } : undefined}>{value}</strong>
+    </div>
+  )
 }
 
 function Delta({ label, before, after, beforeText, afterText }: {
@@ -917,11 +937,24 @@ function Performance({ perf, cashShare }: { perf: PortfolioPerformance; cashShar
             </div>
           ))}
         </div>
+        {/* bm.unavailable comes from the SINCE-INCEPTION comparison only. The period rows above are each
+            measured over their own window (benchmarkOverWindow), so a feed that covers a recent MTD or
+            QTD window but not the book's full history can fill valid rows while this footer, unqualified,
+            said "No benchmark comparison" — contradicting the table directly above it. */}
         {bm.unavailable && (
-          <div className="fundbook__foot">
-            No benchmark comparison: {bm.unavailable}. Drop daily closes for <b>{bm.symbol}</b> into
-            <b> data/_market/&lt;provider&gt;/</b> as <b>date,symbol,close</b> and it appears here.
-          </div>
+          perf.periods.some((p) => p.benchmark !== null) ? (
+            <div className="fundbook__foot">
+              No SINCE-INCEPTION benchmark comparison: {bm.unavailable}. The periods above still compare
+              where the feed covers that shorter window. Drop daily closes for <b>{bm.symbol}</b> into
+              <b> data/_market/&lt;provider&gt;/</b> as <b>date,symbol,close</b>, back to the book's own
+              start, to fill the rest.
+            </div>
+          ) : (
+            <div className="fundbook__foot">
+              No benchmark comparison: {bm.unavailable}. Drop daily closes for <b>{bm.symbol}</b> into
+              <b> data/_market/&lt;provider&gt;/</b> as <b>date,symbol,close</b> and it appears here.
+            </div>
+          )
         )}
       </div>
 

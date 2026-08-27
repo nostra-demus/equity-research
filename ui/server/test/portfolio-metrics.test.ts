@@ -629,5 +629,22 @@ check('a feed that covers only the tail of the book fills no row at all', () => 
   assert.ok(mtd.benchmark !== null, 'a covered window is unaffected')
 })
 
+check('a feed that resumes well after the window end must not silently stop short of it', () => {
+  // The window's last close was validated by checking whether the FEED's very last row reached beyond
+  // `to` — but a feed that resumes long after `to`, with nothing near `to` itself, passed that check
+  // while the accumulation loop quietly stopped at the last close before the gap and never noticed.
+  const nav: NavPoint[] = [
+    { date: '2026-01-01', total: 1000 }, { date: '2026-01-10', total: 1010 },
+  ]
+  const closes = [
+    { date: '2026-01-01', close: 100 }, { date: '2026-01-02', close: 101 },
+    // an 18-day hole straddling `to` (2026-01-10), then the feed resumes well past it
+    { date: '2026-01-20', close: 200 }, { date: '2026-01-21', close: 202 },
+  ]
+  const itd = returnsByPeriod(nav, new Map(), 0, closes).find((p) => p.label === 'Since inception')!
+  assert.equal(itd.benchmark, null, 'no close sits near the window end, so the window is unmeasurable')
+  assert.equal(itd.excess, null)
+})
+
 console.log(`\n${passed} passed, ${fails.length} failed`)
 if (fails.length) { console.error('FAILED: ' + fails.join(', ')); process.exit(1) }
