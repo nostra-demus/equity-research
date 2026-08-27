@@ -15,12 +15,14 @@ import unittest
 import uuid
 from collections import Counter
 from pathlib import Path
+from unittest import mock
 
 
 ROOT = Path(__file__).resolve().parents[1]
 SCRIPTS = Path(__file__).resolve().parent
 sys.path.insert(0, str(SCRIPTS))
 
+import memory_adapters  # noqa: E402
 from memory_adapters import (  # noqa: E402
     adapt_repository,
     adapt_source,
@@ -365,6 +367,68 @@ class MemoryAdapterTests(unittest.TestCase):
             dirty_events, dirty_diagnostics = adapt_source(root, decision_path)
             self.assertEqual(dirty_events, [])
             self.assertEqual(dirty_diagnostics[0]["code"], "uncommitted_source_time")
+
+    def test_repository_git_snapshot_batches_metadata_without_changing_events(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            _write_json(root, "analyses/AAA_2026-01-01/decision_record.json", {
+                "schema_version": "1.0", "ticker": "AAA", "exchange": "NYSE",
+                "decision_date": "2026-01-01", "decision": "Watchlist",
+            })
+            _write_json(root, "commodity/runs/GOLD/decision_record.json", {
+                "commodity": "GOLD", "decision_date": "2026-01-02", "action": "Hold",
+            })
+            _write_ndjson(root, "screener/ledger/events.ndjson", [
+                {
+                    "event_id": "EVT-aaaaaaaaaaaa", "signal_id": "SIG-20260103-aaaaaaaa",
+                    "ts": "2026-01-03T10:00:00Z", "status": "LOG",
+                },
+                {
+                    "event_id": "EVT-aaaaaaaaaaaa", "signal_id": "SIG-20260103-aaaaaaaa",
+                    "ts": "2026-01-03T11:00:00Z", "status": "PROMOTE",
+                },
+            ])
+            subprocess.run(["git", "init", "-q"], cwd=root, check=True)
+            subprocess.run(["git", "config", "user.name", "Memory Test"], cwd=root, check=True)
+            subprocess.run(
+                ["git", "config", "user.email", "memory@example.test"], cwd=root, check=True,
+            )
+            subprocess.run(["git", "add", "."], cwd=root, check=True)
+            commit_env = {
+                **os.environ,
+                "GIT_AUTHOR_DATE": "2026-06-01T12:00:00Z",
+                "GIT_COMMITTER_DATE": "2026-06-01T12:00:00Z",
+            }
+            subprocess.run(
+                ["git", "commit", "-q", "--no-gpg-sign", "-m", "record sources"],
+                cwd=root, env=commit_env, check=True,
+            )
+
+            expected_events: list[dict] = []
+            expected_diagnostics: list[dict] = []
+            for source in discover_legacy_sources(root):
+                events, diagnostics = adapt_source(root, source)
+                expected_events.extend(events)
+                expected_diagnostics.extend(diagnostics)
+
+            commands: Counter[str] = Counter()
+            original_run = memory_adapters.subprocess.run
+
+            def counted_run(*args, **kwargs):
+                argv = args[0] if args else kwargs.get("args", [])
+                if isinstance(argv, (list, tuple)) and len(argv) > 1 and argv[0] == "git":
+                    commands[str(argv[1])] += 1
+                return original_run(*args, **kwargs)
+
+            with mock.patch.object(memory_adapters.subprocess, "run", side_effect=counted_run):
+                actual_events, actual_diagnostics = adapt_repository(root)
+
+            self.assertEqual(actual_events, expected_events)
+            self.assertEqual(actual_diagnostics, expected_diagnostics)
+            self.assertEqual(commands["status"], 1)
+            self.assertEqual(commands["log"], 1)
+            self.assertEqual(commands["blame"], 1)
+            self.assertEqual(commands["show"], 1)
 
     def test_non_monotonic_rows_preserve_chronological_supersession(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
