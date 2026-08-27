@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-27T15:33:33Z",
+  "generated_at": "2026-08-27T15:42:18Z",
   "inbox": [
     {
       "inbox_id": "INB-20260827-635",
@@ -1334,6 +1334,57 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260827-669",
+      "headline": "Build-A-Bear Cuts Revenue View, Fires Exec After Summer Line Flop",
+      "headline_en": null,
+      "url": "https://www.wsj.com/business/earnings/build-a-bear-cuts-outlook-fires-exec-after-sales-fall-54a7d6a4?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-27T15:14:00Z",
+      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
+      "prelim_note": "Build-A-Bear cut its revenue guidance and terminated an executive following poor performance of its summer product line.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Build-A-Bear cut its revenue guidance and terminated an executive following poor performance of its summer product line.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change",
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Build-A-Bear Workshop",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260827-648",
       "headline": "Boliden to acquire 64.7% stake in Nexa Resources from Votorantim",
       "headline_en": null,
@@ -1932,55 +1983,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260827-506",
-      "headline": "Immobilien: Centrum Development: Es folgt ein reguläres Insolvenzverfahren",
-      "headline_en": null,
-      "url": "https://www.handelsblatt.com/finanzen/immobilien/immobilien-centrum-development-es-folgt-ein-regulaeres-insolvenzverfahren/100250037.html",
-      "source_name": "Handelsblatt",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-27T11:46:50Z",
-      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
-      "prelim_note": "Centrum Development has entered regular insolvency proceedings.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Centrum Development has entered regular insolvency proceedings.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Centrum Development",
-          "ticker": null,
-          "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -98373,9 +98375,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2062873,
-    "news_picked_today": 1184,
-    "news_dropped_today": 18832
+    "news_seen_today": 2127789,
+    "news_picked_today": 1189,
+    "news_dropped_today": 18851
   },
   "book_momentum": {
     "live_count": 8,
