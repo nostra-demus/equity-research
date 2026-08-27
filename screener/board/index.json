@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-08-27T17:16:57Z",
+  "generated_at": "2026-08-27T17:36:40Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260827-703",
+      "headline": "ICICI Bank Ltd: In continuation to our earlier letter dated August 24, 2026, please note that the Bank acting through its IFSC Banking Unit, has today completed the issuance of USD 1 billion Unsecured ....",
+      "headline_en": null,
+      "url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/37d8d8b0-a77e-4607-b1ae-1fca8534f203.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-27T16:18:35Z",
+      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
+      "prelim_note": "The bank completed a significant USD 1 billion unsecured debt issuance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The bank completed a significant USD 1 billion unsecured debt issuance.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "debt_credit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ICICI Bank Ltd",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260827-635",
       "headline": "Sun Granite Export Ltd: Disclosure of List of Creditors as on 27th August, 2026 as required under 13(2)(c) of IBBI(Insolvency Resolution Process for Corporate Persons) Regulations, 2016 and Constitution of Committee ....",
@@ -190,6 +239,55 @@
         {
           "name": "E&P GLOBAL",
           "ticker": "01142",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260827-708",
+      "headline": "MACAU LEGEND (01680): INSIDE INFORMATION - PROFIT ALERT - REDUCTION IN LOSS",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0827/2026082701949.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-27T13:42:00Z",
+      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
+      "prelim_note": "Macau Legend issued a profit alert indicating a reduction in net loss, which is a material improvement in financial performance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Macau Legend issued a profit alert indicating a reduction in net loss, which is a material improvement in financial performance.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 3,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "MACAU LEGEND",
+          "ticker": "01680",
           "listing_country": "CN"
         }
       ],
@@ -1878,104 +1976,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260827-627",
-      "headline": "Hormel Foods Cuts Sales Outlook Amid Consumer Pullback, Higher Costs",
-      "headline_en": null,
-      "url": "https://www.wsj.com/business/earnings/hormel-foods-cuts-sales-outlook-on-lower-quarterly-revenue-3cd92718?siteid=yhoof2&yptr=yahoo",
-      "source_name": "Yahoo Finance",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-27T14:20:00Z",
-      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
-      "prelim_note": "Hormel Foods cut its sales outlook due to consumer pullback and higher costs.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Hormel Foods cut its sales outlook due to consumer pullback and higher costs.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Hormel Foods",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260827-652",
-      "headline": "ED Seizes ₹12.20 Crore Jewellery, Cash In Alleged ₹160.55-Crore Bilpower Loan Fraud Probe",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/mumbai/ed-seizes-1220-crore-jewellery-cash-in-alleged-16055-crore-bilpower-loan-fraud-probe",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-27T14:19:20Z",
-      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
-      "prelim_note": "Enforcement Directorate seized 12.20 crore in assets related to a 160.55-crore loan fraud probe involving Bilpower.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Enforcement Directorate seized 12.20 crore in assets related to a 160.55-crore loan fraud probe involving Bilpower.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": -1,
-        "recency": 4,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bilpower",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -98225,9 +98225,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2552586,
-    "news_picked_today": 1274,
-    "news_dropped_today": 19918
+    "news_seen_today": 2616577,
+    "news_picked_today": 1310,
+    "news_dropped_today": 20338
   },
   "book_momentum": {
     "live_count": 8,
