@@ -143,6 +143,8 @@ Three to five lines, evidence-cited — a required test the verdict must survive
 
 If two methods disagreed on fair value, list the disagreement, the value each produced, and the reconciled view. If the high-to-low spread exceeds 40%, lead with it and explain which method you trust most for this company. If no material disagreements, write *"Methods broadly agree — fair value clusters at {base point}; dispersion {low–high}."*
 
+**Sector Cycle Reality Test roll-up (MODULE_RULES → Scenario Construction & Method-Weighting Policy §3).** State whether `02` and/or `03` flagged their reference point cycle-elevated/depressed, or marked the check "Not assessable." If both flagged the SAME direction, state plainly that their apparent agreement is one shared sector cycle counted twice, not independent corroboration — this is the case the Score Cap row below exists for.
+
 ## 4. Score Cap Application
 
 | Cap Trigger | Applied? (Y/N) | Affected Score | Final Cap |
@@ -156,6 +158,7 @@ If two methods disagreed on fair value, list the disagreement, the value each pr
 | Methods disagree >40% unreconciled | | Valuation confidence | max 55 |
 | Terminal value >75% of DCF EV | | Valuation confidence | max 60 |
 | Misaligned controlling owner (RF-OWN-004, §24 Filter 6) | | Valuation attractiveness | max 60; value-trap flag mandatory; verdict no better than "Modestly undervalued" on a cheap multiple alone |
+| Sector Cycle Reality Test flags `02` and/or `03` cycle-elevated/depressed, unreconciled | | Valuation confidence | max 60 on that method; max 55 combined if `02` AND `03` flagged the same direction |
 
 If multiple caps affect the same score, use the most restrictive.
 
@@ -252,6 +255,7 @@ If a lever is genuinely unavailable, write `null` — never fabricate one to fil
 - [ ] The verdict is exactly one of the 6 defined categories.
 - [ ] The fair-value output is the bull/base/bear LEVELS (points) pulled from `07`, with the cross-method dispersion (football field) shown separately — the base case is a point, never a band — and the current price (or "not available", with price-state if `indicative`) shown.
 - [ ] Score caps from MODULE_RULES are applied in Section 4 — every row has an explicit Y/N.
+- [ ] Section 3's Sector Cycle Reality Test roll-up states `02`/`03`'s cycle-elevated/depressed flags (or "Not assessable"), and a same-direction flag on both is named as non-independent — not silently dropped on the way up from the specialists.
 - [ ] If `01`'s price-state is not `pool-verified` (`indicative` or `none`), the canonical no-price cap is applied — margin of safety, downside-to-bear (the Downside-risk score), observed up/down, and attractiveness are all "Not assessable," confidence is capped at 55, and the Abstract says observed up/downside is not computable.
 - [ ] Value-trap risk is addressed in Section 5 when a cheap multiple is not warranted.
 - [ ] The boundary is respected: no probabilities, no probability-weighted return, no risk/reward, no rating, no position sizing.

@@ -45,7 +45,7 @@ If a method is missing or was capped, exclude it from the triangulation weightin
 1. Read the repo root `CLAUDE.md`, then read `.claude/agents/valuation/MODULE_RULES.md`, and apply both.
 2. Read each method's output (`02`–`06`) and extract its base-case fair (or implied) value point, its dispersion, and its confidence/caveats.
 3. Build the method-summary table. Assign each method a weight based on its reliability FOR THIS COMPANY (e.g., DCF is weak for a deep cyclical at a margin extreme; peers are weak when no clean public comp exists; SOTP is strong for a multi-segment conglomerate). Justify each weight. **Zero-weight (and say so) any method that is (a) invalid for the business type per the Business-Type Method Map, OR (b) flagged by its own producer as non-value-producing — `02` reversion marked "illustrative-only" on short history, `06` marked "collapsed / single-segment sanity-check only", or any method marked skipped / not-a-fair-value-input.** Such methods still appear in the football field for transparency, but they do not enter the weighted base point.
-4. Reconcile disagreements: where methods diverge, state which you trust more and why. If the spread is >40%, flag it as the headline finding.
+4. Reconcile disagreements: where methods diverge, state which you trust more and why. If the spread is >40%, flag it as the headline finding. **Read `02`'s and `03`'s own Sector Cycle Reality Test sections** (MODULE_RULES → Scenario Construction & Method-Weighting Policy §3): if EITHER flagged its reference point cycle-elevated/depressed, cap that method's contribution to the base-case confidence; if BOTH flagged the same direction, their convergence is one distorted read counted twice — say so explicitly and do not let the multiples-first majority weight (Method-Weighting §1) apply on autopilot.
 5. Derive the base-case fair value as a single POINT (a level), then the bull and bear fair-value levels (also points) — each tied to the operating drivers (from earnings sensitivity) and the warranted multiple. The bull-to-bear spread is the range; the cross-method dispersion is the §2 football field.
 6. Compute the two price-relative metrics per MODULE_RULES Calculation-Standards 11 (use the formulas verbatim): **margin of safety** = `(base FV − price) / base FV` (the cushion); **downside to bear** = `(price − bear FV) / price` (inverted — higher = worse). Both require a pool-verified price; if `01`'s price-state is not `pool-verified`, mark both "Not assessable."
 7. Run the warranted-multiple check: does the base-case fair value imply a multiple the business actually deserves given quality/moat/cyclicality? If the only way to justify upside is a multiple the business has never earned, say so.
@@ -72,6 +72,8 @@ Weights sum to 100% across the methods that are **value-producing AND valid for 
 ## 2. Triangulation & Reconciliation
 
 First show the **method football field** — the honest cross-method spread, one row per value-producing method, with its value (or its own range), confidence, and weight. Do NOT narrow or pre-blend it: the full high-to-low spread (e.g. DCF ₹142 vs peers ₹603) is the dispersion the base point must be reconciled FROM, and it must NOT be smeared into a fake mid-band wearing a scenario label.
+
+**Sector cycle distortion (MODULE_RULES §3).** If `02` and/or `03` flagged their reference point cycle-elevated/depressed, name it here and cap that method's weight/confidence rather than carrying it forward at face value. If both are flagged in the SAME direction, state plainly that their agreement is not independent corroboration — it is the same shared sector cycle counted twice — and cap the combined base-case confidence rather than letting the multiples-first majority weight apply unexamined.
 
 | Method | Value / Range | Confidence | Weight | Why this weight |
 |---|---:|---|---:|---|
@@ -113,7 +115,7 @@ Margin of safety (discount to base fair value) and downside-to-bear (loss to the
 
 ## 5. Warranted-Multiple Check
 
-2–3 sentences: does the base-case fair value imply a multiple the business deserves given its quality/moat/cyclicality (from business-model)? If upside requires a multiple the company has never sustained, flag value-trap risk explicitly. Also flag value-trap risk when the management-governance module flagged a structurally misaligned controlling owner (RF-OWN-004, §24 Filter 6): under a value-indifferent owner, persistent cheapness is a trap, not margin of safety, and the bear case should not assume a re-rating the owner will not pursue.
+2–3 sentences: does the base-case fair value imply a multiple the business deserves given its quality/moat/cyclicality (from business-model)? If upside requires a multiple the company has never sustained, flag value-trap risk explicitly. Also flag value-trap risk when the management-governance module flagged a structurally misaligned controlling owner (RF-OWN-004, §24 Filter 6): under a value-indifferent owner, persistent cheapness is a trap, not margin of safety, and the bear case should not assume a re-rating the owner will not pursue. Also flag it when §2's Sector Cycle Reality Test found the warranted multiple itself sits inside a cycle-elevated sector: a base case that "deserves" its multiple only because the whole sector currently does is not a durable warranted multiple.
 
 ## 6. Fair-Value Read
 
@@ -132,6 +134,7 @@ Margin of safety (discount to base fair value) and downside-to-bear (loss to the
 - [ ] If `01` flagged the price as stale, margin of safety and downside-to-bear are shown at BOTH the stale pool anchor and the freshest quote (each labelled with price + as-of date), leading with the fresher read (MODULE_RULES → Price freshness).
 - [ ] Margin of safety = `(base FV − price)/base FV` AND downside-to-bear = `(price − bear FV)/price` are computed as two SEPARATE metrics (downside-to-bear flagged inverted), or both marked "Not assessable" if `01`'s price-state ≠ pool-verified. Margin of safety is NOT defined as distance-to-bear.
 - [ ] The warranted-multiple check flags value-trap risk where applicable.
+- [ ] `02`'s and `03`'s Sector Cycle Reality Test sections are read; a cycle-elevated/depressed reference point caps that method's contribution, and a SAME-direction flag on both is named as one distorted read counted twice, not independent corroboration.
 - [ ] The boundary is respected: no probabilities, no risk/reward, no rating, no position sizing.
 - [ ] The weighted level math, margin of safety, and implied multiples were produced by an executed Bash/Python snippet (command + result shown), not by hand. *(fix F09)*
 - [ ] For a cyclical business, the bear case reaches a cited prior-downturn trough (predecessor/segment/industry if the entity is young), not a mild dip off the recent peak.

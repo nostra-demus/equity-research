@@ -48,6 +48,7 @@ If `business-model/08_competitive-map.md` is unavailable: identify peers yoursel
 7. Judge whether the gap is **warranted**: use `business-model` quality/moat/leverage evidence. A company with lower margins, weaker moat, or higher leverage *should* trade at a discount.
 8. Apply the warranted peer multiple to the company's metric **on the same basis** (forward multiple → forward metric, trailing → trailing, adjusted → adjusted) to derive an implied value (a base-case point plus its dispersion).
 9. **Before shipping any quality haircut, run the double-count test (CLAUDE.md §16).** Ask: *is the gap I am haircutting for already sitting in this multiple's denominator?* Applying a peer multiple to the COMPANY'S OWN metric already charges the company for every weakness that metric carries. See the DOUBLE-COUNT TEST section below — this is a hard gate, not a style note.
+10. **Sector Cycle Reality Test (MODULE_RULES → Scenario Construction & Method-Weighting Policy §3).** The peer median just computed is a CURRENT snapshot, not a fixed "normal" level — it drifts with the sector's own re-rating cycle. Check whether the peer group's own aggregate multiple (or a sector index/ETF proxy) has materially re-rated or de-rated over the last 3–5 years: source it from the same Capital IQ/Bloomberg export used for the peer table, or the web (labelled, dated). If it moved >~25% from its own level 3–5 years ago in the same direction as this stock's premium/discount finding, flag the peer-median anchor as **cycle-elevated** or **cycle-depressed** and cap this method's confidence contribution (Score Cap Rules). If sector-level history cannot be sourced, state *"Not assessable — no sector-level multiple history"* — do not assume the peer median is a stable anchor by default.
 
 # DOUBLE-COUNT TEST (hard gate — CLAUDE.md §16)
 
@@ -133,9 +134,13 @@ State ONE base-case implied value (a point — the warranted peer-multiple-impli
 
 The fourth column is the DOUBLE-COUNT TEST gate. If it reads "Yes" (an earnings-based multiple) the fifth column may NOT say "lower margin" — the lower margin is already in the metric you are multiplying. Name the separate reason (durability, growth, incremental returns, risk) and size it by that reason. If no separate reason survives, apply the peer median unadjusted and let the company's own weaker metric do the work it already does.
 
-## 6. Relative Read
+## 6. Sector Cycle Reality Test
 
-2–3 blunt sentences: cheap or expensive vs peers, whether the gap is warranted, and the implied value (base-case point + dispersion).
+One line stating whether the peer group's own aggregate multiple (or a sector index/ETF proxy) re-rated or de-rated materially over the last 3–5 years, the evidence (cited and dated), and — if it did, in the same direction as this stock's premium/discount finding — that the peer-median anchor is flagged **cycle-elevated** / **cycle-depressed** and this method's confidence is capped accordingly. If sector-level history is unavailable, state *"Not assessable — no sector-level multiple history"*.
+
+## 7. Relative Read
+
+2–3 blunt sentences: cheap or expensive vs peers, whether the gap is warranted, and the implied value (base-case point + dispersion). If §6 flagged the peer-median anchor cycle-elevated/depressed, say so here too — being in line with a peer group that is itself sector-cycle-inflated is not the same as being fairly valued.
 ```
 
 # SELF-CHECK
@@ -151,6 +156,7 @@ The fourth column is the DOUBLE-COUNT TEST gate. If it reads "Yes" (an earnings-
 - [ ] Implied value is a base-case point (named multiple) plus a separate dispersion range, with the quality adjustment shown.
 - [ ] **DOUBLE-COUNT TEST run and the quality-adjustment ledger filled.** No haircut on an earnings-based multiple (EV/EBITDA, EV/EBIT, P/E, P/FCF) is sized by the margin gap, and no haircut anywhere is derived as `own margin ÷ peer margin`. Every adjustment names what it pays for beyond what the denominator already carries.
 - [ ] If the adjusted multiple lands near `02_multiples-own-history`'s band, that is stated as a coincidence to explain — NOT as independent corroboration (CLAUDE.md §16).
+- [ ] **Sector Cycle Reality Test run.** The peer median is checked against the peer group's own aggregate multiple (or a sector index/ETF) over the last 3–5 years; a material same-direction sector re-rating/de-rating is flagged (cycle-elevated/depressed) and confidence capped, or the check is honestly marked "Not assessable" — never silently skipped. If `02_multiples-own-history` ALSO flagged its own-history band in the same direction, that is named as a compounding, non-independent distortion — not as two agreeing methods.
 - [ ] No banned phrases.
 
 # CHAT CONFIRMATION
