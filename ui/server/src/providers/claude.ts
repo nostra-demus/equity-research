@@ -339,13 +339,18 @@ function snapshotProjection(
   if (rootInfo.isFile()) return [readPinnedProjectionFile(sourcePath, '.')]
   if (!rootInfo.isDirectory()) throw new Error('tracked Claude project source must be a regular file or directory')
   const entries: ProjectionEntry[] = []
+  const includedDirectories = new Set<string>()
+  if (includedRelativeFiles) {
+    for (const file of includedRelativeFiles) {
+      const parts = file.split('/')
+      for (let i = 1; i < parts.length; i += 1) includedDirectories.add(parts.slice(0, i).join('/'))
+    }
+  }
   const selected = (relative: string, directory: boolean): boolean => {
     if (!includedRelativeFiles) return true
     if (!directory) return includedRelativeFiles.has(relative)
     if (!relative) return includedRelativeFiles.size > 0
-    const prefix = `${relative}/`
-    for (const file of includedRelativeFiles) if (file.startsWith(prefix)) return true
-    return false
+    return includedDirectories.has(relative)
   }
   const walk = (absolute: string, relative: string) => {
     if (!selected(relative, true)) return
