@@ -6,29 +6,41 @@ How we keep many people (and AI agents) shipping features into `main` without re
 
 1. Branch off `main`, make the change, open a PR.
 2. CI runs automatically (typecheck + tests), and the standing bot reviewers (CodeQL, Gemini, Codex, Copilot) review it. The engine also runs its own multi-lens adversarial pass. Get it green, and triage every review finding — fix the real ones, record a reasoned won't-fix for the rest.
-3. Merge once that bar is clear → the PR enters the **merge queue**.
-4. The queue rebases your PR on the latest `main`, re-runs CI, and merges only if still green.
+3. Stop with an open, green, reviewed PR and report: `PR ready; not merged or deployed`.
+4. Only after the user explicitly authorizes that specific PR's merge in the current conversation may it enter the **merge queue**. Deployment is a separate action requiring separate explicit production authorization.
 
-**No human approval is required** (CLAUDE.md/AGENTS.md §28). The quality gate is CI + the automated multi-reviewer adversarial pass, not a person clicking approve — and the engine's PR agent runs that gate and self-merges. Retaining the multiple independent views (each bot reviewer + the engine's own lenses) is exactly what makes a change bulletproof; keep them all.
+CI and adversarial review prove that a PR is ready; they never authorize merge or deployment (CLAUDE.md/AGENTS.md §28). The user's explicit instruction for the specific PR is mandatory. Retaining the multiple independent views (each bot reviewer + the engine's own lenses) makes the recommendation stronger, but does not replace the authorization boundary.
 
 You never hand-rebase for the normal case, and you never need to know whether your change is "big" or "small" — every PR takes the identical path.
 
-## The engine's PR agent handles the whole PR (no human babysitting)
+## The engine's PR agent prepares the whole PR, then stops
 
-The engine's PR agent owns a code PR end to end and never needs a human to advance it (§28, "Autonomous merge authority"). It is standing-authorized to:
+The engine's PR agent owns preparation and review of a code PR end to end. It is authorized to:
 
 - **update an out-of-date branch itself** — rebase or merge the latest `main` in, no "Update branch" click needed;
 - **resolve merge conflicts itself** — take the correct side, re-run the full local check suite (typecheck + tests + build + eval), and push;
 - **run the multi-view adversarial review** — the bot reviewers above plus its own multi-agent lenses — and **triage every finding**: fix the real ones, reply with a reasoned won't-fix for the rest;
-- **merge once CI is green and the review is clean.**
+- **keep updating the same PR** until CI is green and the review is clean.
 
-The `needs-human` label is advisory context, never a blocker. Don't ping a person to rebase, resolve, or approve — the agent does all of it.
+It is not authorized to merge or deploy. The PR remains open until the user explicitly names that PR and asks for its merge in the current conversation. "Continue", "go ahead", "fix it", "done?", an implementation request, and an earlier request to open a PR are not merge or deployment authorization. Production deployment, restart, configuration changes, and run launch/retry/resume/cancel each require explicit authorization for that exact action. Without it, production access is read-only.
 
 ## Permanent production-engineering standard (Claude, Codex, humans)
 
 This section is normative for every code change, regardless of which model, tool, or person performs the
 work. A provider change is never permission to change product behavior, weaken safety, or use a different
 definition of done.
+
+### Protect authority and environment boundaries
+
+- The default delivery target is an open pull request, not `main` and not production. A coding task includes
+  local or staging implementation, tests, CI, reviewer triage, and updates to the same PR. It does not include
+  merge or deployment.
+- Merge and deployment are separate irreversible boundaries. Each needs explicit authorization in the current
+  conversation for the specific PR or production action. Never carry authority forward from an earlier task,
+  infer it from urgency, or treat a generic continuation as permission.
+- Test in an isolated worktree and local or staging environments. Production may be inspected read-only for
+  diagnosis. Do not deploy, restart services, change flags/configuration, or launch, retry, resume, cancel, or
+  mutate a production run without exact authorization. Ongoing runs belong to their operators.
 
 ### Start from the product invariant and trace the whole path
 
@@ -70,20 +82,23 @@ definition of done.
   A security hardening that passes only against a simplified checkout is not release-ready.
 - Run the focused regression, typecheck/build, the complete affected suite, doctrine/instruction-budget
   gates, CI, security analysis, and automated adversarial review. Triage every finding. Never waive a real
-  finding merely to merge.
+  finding merely to declare the PR ready.
 
-### "Done" means deployed and independently verified
+### "Done" is scoped to the authority granted
 
-A local pass, commit, PR, merge, or process restart is not completion by itself. A production-affecting fix
+A code task without explicit merge/deploy authority is complete when the open PR is green, reviewed, tested
+on local or staging, and reported as `PR ready; not merged or deployed`. Merge and deployment are later,
+separately authorized tasks. If the user explicitly authorizes a production-affecting change, that later task
 is complete only after all applicable evidence exists:
 
-1. the protected PR/merge-queue path is green and every review thread is resolved;
-2. the merged commit is proven to be an ancestor of the production checkout (exact `HEAD` is not required
+1. the user explicitly authorized the specific PR merge and production action;
+2. the protected PR/merge-queue path is green and every review thread is resolved;
+3. the merged commit is proven to be an ancestor of the production checkout (exact `HEAD` is not required
    when legitimate data-only commits have advanced it);
-3. the deployer reports its explicit healthy/DONE gate and no pending writer intent remains;
-4. live read-only health and contract endpoints show the intended state, with no unauthorized run, retry,
+4. the deployer reports its explicit healthy/DONE gate and no pending writer intent remains;
+5. live read-only health and contract endpoints show the intended state, with no unauthorized run, retry,
    spend, or unrelated mutation; and
-5. the user-facing recovery path is actionable. If any proof is missing, report "merged, deployment pending"
+6. the user-facing recovery path is actionable. If any proof is missing, report "merged, deployment pending"
    or the exact blocker — never "all done."
 
 ### Make each material lesson durable
@@ -97,7 +112,7 @@ non-destructive, and recoverable through the same product path.
 
 ## Why this prevents the conflicts we kept hitting
 
-- **Merge queue = the cure for "someone merged before me."** When two PRs are both ready, the queue serializes them: it merges #1, then rebases #2 onto the now-updated `main`, re-tests it, and merges only if green. The "falling behind" is handled by the machine, not by you. ([GitHub merge queue docs](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/configuring-pull-request-merges/managing-a-merge-queue))
+- **Merge queue = the cure for "someone merged before me" after authorization.** Once the user explicitly authorizes a specific PR, the queue serializes it with other authorized changes, rebases it on current `main`, re-tests it, and merges only if still green. ([GitHub merge queue docs](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/configuring-pull-request-merges/managing-a-merge-queue))
 - **CI re-runs in the queue (on the rebased state).** A PR can't merge if it breaks against *current* `main`, even if it was green when opened. `main` stays green.
 - **No shared append-only single-line lists.** Those are "merge magnets" — any two people editing them collide. We auto-discover instead. (The `ui/server` test list used to be one hand-maintained line; it's now `test/run-all.mjs`, which globs `test/*.test.ts`. Adding a test is a new file — zero edits to `package.json`, so it can never conflict.)
 - **Zero-touch boundaries (CLAUDE.md/AGENTS.md §26).** Adding a module/sub-agent edits no shared engine file. Extend that everywhere: prefer auto-discovery and per-file fragments over central registries/manifests/index files.
@@ -115,11 +130,11 @@ These are the enforcement layer — they bind every contributor. Do them once in
 
 1. **Let CI run once** (merge this PR or push it) so the check named **`ui/server — typecheck + tests`** exists to be selected below.
 2. **Settings → Branches → Add branch ruleset (or protect `main`)**:
-   - Require a pull request before merging → **Require approvals: 0**. The gate is CI + the automated multi-reviewer adversarial pass (§28), not a human sign-off; the engine's PR agent self-merges a green, reviewed PR. Leave this at 0 — do **not** require human approvals.
+   - Require a pull request before merging and require approval from the designated owner. CI and bot review are readiness evidence; they do not replace the user's explicit authorization (§28).
    - **Require status checks to pass** → add **`ui/server — typecheck + tests`**.
    - **Require branches to be up to date before merging** (the merge queue satisfies this automatically).
    - **Require linear history** (optional, keeps `main` clean).
-   - **Bypass list → the engine's push identity ONLY** — do **not** choose "block all bypassing": the cockpit auto-publishes research **data** to `main` (`commit-run.sh`) and must keep its bypass, per §28. Every push that is not the engine then goes through a PR.
+   - The coding agent must not be a code-merge bypass actor. If cockpit research **data** publication needs a bypass identity for `commit-run.sh`, scope that identity to the data path and never reuse it as code-merge authority (§28).
 
    > **The engine identity (no extra paid seat).** A **GitHub App** with `Contents: write` is the clean choice — a GitHub App does not consume a member seat, and it gates every human (including the owner) for code. Lighter alternative: bypass the account the engine already pushes as (zero setup, but that one human is then not gated for code). Either way the engine still cannot push *code* — `commit-run.sh` stages only data paths (§28).
    >

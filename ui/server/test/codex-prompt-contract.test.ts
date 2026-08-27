@@ -55,7 +55,15 @@ const doctrineText = agentsDoc.toString('utf8')
 assert.match(doctrineText, /## 31\. Production Engineering Reliability/)
 assert.match(doctrineText, /No production-affecting task is "done" at a local pass, commit, PR, merge, or restart\./)
 assert.match(doctrineText, /The deployed filesystem and service topology is part of the launch contract\./)
+assert.match(doctrineText, /Explicit user authority is required for merge and production\./)
+assert.match(doctrineText, /Its normal terminal state is an open, green, reviewed PR\./)
+assert.match(doctrineText, /PR ready; not merged or deployed/)
+assert.match(doctrineText, /Production may be inspected read-only to diagnose a reported problem\./)
+assert.doesNotMatch(doctrineText, /Autonomous merge authority|self-merge|self-merges|no human approval is required/i)
 assert.match(contributingDoc, /## Permanent production-engineering standard \(Claude, Codex, humans\)/)
+assert.match(contributingDoc, /## The engine's PR agent prepares the whole PR, then stops/)
+assert.match(contributingDoc, /The coding agent must not be a code-merge bypass actor\./)
+assert.doesNotMatch(contributingDoc, /Autonomous merge authority|self-merge|self-merges|no human approval is required/i)
 const providerTransparentContract = fs.readFileSync(
   path.join(repoRoot, 'frameworks', 'PROVIDER_TRANSPARENT_COCKPIT.md'),
   'utf8',
@@ -66,7 +74,7 @@ for (const requiredContract of [
   'Start from the product invariant and trace the whole path',
   'Close the failure class, not one incident',
   'Prove the state machine, including failure and recovery',
-  '"Done" means deployed and independently verified',
+  '"Done" is scoped to the authority granted',
   'Make each material lesson durable',
 ]) {
   assert.ok(
