@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-27T22:19:15Z",
+  "generated_at": "2026-08-27T23:05:30Z",
   "inbox": [
     {
       "inbox_id": "INB-20260827-822",
@@ -1687,6 +1687,268 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260827-841",
+      "headline": "SentinelOne Reports Wider Q2 Net Loss",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/sentinelone-reports-wider-q2-net-loss",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-27T21:48:11Z",
+      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
+      "prelim_note": "SentinelOne reported a wider net loss for Q2, indicating margin pressure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "SentinelOne reported a wider net loss for Q2, indicating margin pressure.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SentinelOne",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260827-831",
+      "headline": "Stock Market Today, Aug. 27: Salesforce Surges 23% on Anthropic Partnership and Q2 Earnings Beat",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/stock-market-today-aug-27-salesforce-surges-23-anthropic-partnership-and-q2-earnings-beat",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-27T21:47:47Z",
+      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
+      "prelim_note": "Salesforce shares surged 23% following a Q2 earnings beat and a new partnership with Anthropic.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Salesforce shares surged 23% following a Q2 earnings beat and a new partnership with Anthropic.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Salesforce",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Anthropic",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260827-837",
+      "headline": "Nvidia to buy AI platform Hugging Face for $12.9 bil: report",
+      "headline_en": null,
+      "url": "https://japantoday.com/category/tech/nvidia-to-buy-ai-platform-hugging-face-for-12.9-bn-report",
+      "source_name": "Japan Today",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-27T21:26:22Z",
+      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
+      "prelim_note": "Reported $12.9 billion acquisition of Hugging Face by Nvidia.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Reported $12.9 billion acquisition of Hugging Face by Nvidia.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Hugging Face",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260827-850",
+      "headline": "Japanese chipmaker Kioxia, Sandisk to spend ¥5 tril to boost output",
+      "headline_en": null,
+      "url": "https://japantoday.com/category/tech/update1-japanese-chipmaker-kioxia-sandisk-to-spend-5-tril.-yen-to-boost-output",
+      "source_name": "Japan Today",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-27T21:26:07Z",
+      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
+      "prelim_note": "Kioxia and Sandisk announced a major ¥5 trillion capital expenditure to boost production capacity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Kioxia and Sandisk announced a major ¥5 trillion capital expenditure to boost production capacity.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 6,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Kioxia",
+          "ticker": null,
+          "listing_country": "JP"
+        },
+        {
+          "name": "Sandisk",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260827-832",
+      "headline": "Stock Market Today, Aug. 27: Nvidia Surges on Blowout Results and Surprising Guidance",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/stock-market-today-aug-27-nvidia-surges-blowout-results-and-surprising-guidance",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-27T21:21:26Z",
+      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
+      "prelim_note": "Nvidia reported blowout Q2 results and provided guidance that exceeded market expectations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nvidia reported blowout Q2 results and provided guidance that exceeded market expectations.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260827-824",
       "headline": "Gap names new Old Navy CEO and lifts profit forecast, shares jump 14%",
       "headline_en": null,
@@ -1729,261 +1991,6 @@
           "name": "Gap Inc.",
           "ticker": null,
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260827-791",
-      "headline": "Ulta Beauty Raises Forecast as Sales Grow",
-      "headline_en": null,
-      "url": "https://www.wsj.com/business/earnings/ulta-beauty-raises-forecast-as-sales-grow-3d5ade60?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-27T20:38:00Z",
-      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
-      "prelim_note": "Ulta Beauty raised its annual sales and profit forecasts due to strong demand.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Ulta Beauty raised its annual sales and profit forecasts due to strong demand.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Ulta Beauty",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260827-792",
-      "headline": "Gap Cuts Sales Outlook on Old Navy Weakness",
-      "headline_en": null,
-      "url": "https://www.wsj.com/business/retail/gap-cuts-sales-outlook-on-old-navy-weakness-cdc5f239?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-27T20:27:00Z",
-      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
-      "prelim_note": "Gap cut its sales outlook citing weakness at its Old Navy brand.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Gap cut its sales outlook citing weakness at its Old Navy brand.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Gap",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260827-796",
-      "headline": "Ulta Beauty raises annual sales, profit forecasts on strong beauty demand",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/retail-consumer/ulta-beauty-raises-annual-sales-profit-forecasts-2026-08-27/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-27T20:20:18Z",
-      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
-      "prelim_note": "Ulta Beauty raised annual sales and profit forecasts citing strong beauty demand.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Ulta Beauty raised annual sales and profit forecasts citing strong beauty demand.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Ulta Beauty",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260827-799",
-      "headline": "Nvidia-Hugging Face deal: Why the reported $13 billion AI acquisition matters",
-      "headline_en": null,
-      "url": "https://www.hindustantimes.com/business/nvidiahugging-face-deal-why-the-reported-13-billion-ai-acquisition-matters-101787856831450.html",
-      "source_name": "Hindustan Times (Business)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-27T19:03:28Z",
-      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
-      "prelim_note": "Nvidia is reportedly acquiring Hugging Face for $13 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Nvidia is reportedly acquiring Hugging Face for $13 billion.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Hugging Face",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260827-741",
-      "headline": "Japan's Itochu to take $1.5bn stake in Dentsu Group system developer unit",
-      "headline_en": null,
-      "url": "https://asia.nikkei.com/business/business-deals/japan-s-itochu-to-take-1.5bn-stake-in-dentsu-group-system-developer-unit",
-      "source_name": "Nikkei Asia",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-27T17:28:43Z",
-      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
-      "prelim_note": "Itochu is taking a $1.5B stake in a Dentsu Group system developer unit.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Itochu is taking a $1.5B stake in a Dentsu Group system developer unit.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Itochu",
-          "ticker": null,
-          "listing_country": "JP"
-        },
-        {
-          "name": "Dentsu Group",
-          "ticker": null,
-          "listing_country": "JP"
         }
       ],
       "size_bucket": "large",
@@ -99047,9 +99054,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3094381,
-    "news_picked_today": 1739,
-    "news_dropped_today": 25525
+    "news_seen_today": 3179592,
+    "news_picked_today": 1893,
+    "news_dropped_today": 26163
   },
   "book_momentum": {
     "live_count": 8,
