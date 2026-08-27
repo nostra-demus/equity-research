@@ -543,6 +543,56 @@ check('a position and a trade in the SAME contract produce the same key without 
   assert.equal(held.break, 0, `the two sides must agree: ${held.detail}`)
 })
 
+// ---------- accruals ----------
+// Income EARNED but not yet PAID sits inside the broker's ending value and in no cash transaction, so
+// capital + realised + unrealised + paid income lands short of NAV by exactly that much. The real book
+// was short $24.88 while the four rows were printed under a bold "Net asset value" they did not make.
+// The figure is taken as a BALANCE from the daily equity summary — see the note in buildBook for why a
+// change-over-a-window cannot answer "what is accrued today".
+check('the accrual balance is read from the book\u2019s own last day', () => {
+  const withAccruals = {
+    ...doc,
+    equitySummary: doc.equitySummary.map((r, i) => i === doc.equitySummary.length - 1
+      ? { ...r, dividendAccruals: 12.5, interestAccruals: 24.88 }
+      : { ...r, dividendAccruals: 0, interestAccruals: 0 }),
+  }
+  const built = buildBook([withAccruals])
+  assert.equal(built.accruals.dividend, 12.5)
+  assert.equal(built.accruals.interest, 24.88)
+  assert.ok(Math.abs(built.accruals.total! - 37.38) < 1e-9, `total ${built.accruals.total}`)
+})
+
+check('an earlier day\u2019s balance is never presented as today\u2019s', () => {
+  // The trap this replaced: a figure that was true weeks ago, printed on a bridge whose other rows are
+  // current. Only the row for the book's OWN last day may answer.
+  const stale = {
+    ...doc,
+    equitySummary: doc.equitySummary.map((r, i) => i === 0
+      ? { ...r, dividendAccruals: 99, interestAccruals: 99 }
+      : { ...r, dividendAccruals: null, interestAccruals: null }),
+  }
+  const built = buildBook([stale])
+  assert.equal(built.accruals.total, null, 'no balance stated for the last day means no balance stated')
+})
+
+check('an accrual balance with a missing component is unknown, not the known part alone', () => {
+  // CLAUDE.md §3 (do not hide missing data; no source = no claim) and §15 (an aggregate must be
+  // reconstructable from its components). When the ending equity-summary row states one accrual
+  // balance but not the other, the missing side is UNKNOWN, not zero. Publishing the present side as a
+  // complete total would let the NAV bridge label the whole residual "proven accrued income" while an
+  // omitted balance is still unaccounted for — so a total is withheld until BOTH sides are known.
+  const oneKnown = {
+    ...doc,
+    equitySummary: doc.equitySummary.map((r, i) => i === doc.equitySummary.length - 1
+      ? { ...r, dividendAccruals: null, interestAccruals: 24.88 }
+      : { ...r, dividendAccruals: null, interestAccruals: null }),
+  }
+  const built = buildBook([oneKnown])
+  assert.equal(built.accruals.interest, 24.88, 'the stated side is still reported')
+  assert.equal(built.accruals.dividend, null, 'the missing side stays unknown, not zero')
+  assert.equal(built.accruals.total, null, 'a total is withheld until BOTH balances are known')
+})
+
 // ---------- the reconciliation FLOOR ----------
 // Six of the checks read from ChangeInNAV. When it is absent they add nothing, and `every(...)` over
 // whatever survived returned true — so the badge read "Reconciled" on a book with no broker evidence for
@@ -631,6 +681,7 @@ check('BASE_SUMMARY is a reporting label, not a currency', () => {
   assert.equal(sentinel.baseCurrency, 'USD', 'the real currency comes from the daily NAV rows instead')
   assert.ok(sentinel.closures.every((c) => c.realizedBase !== null), 'and base-currency closures still value')
 })
+
 
 console.log(`\n${passed} passed, ${fails.length} failed`)
 if (fails.length) { console.error('FAILED: ' + fails.join(', ')); process.exit(1) }

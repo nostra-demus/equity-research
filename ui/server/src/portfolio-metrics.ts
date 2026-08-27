@@ -43,6 +43,10 @@ export interface PeriodReturn {
   /** True when the book has no valued day at or before this period's start, so the window is shorter
    *  than the label implies — a "year to date" on a book that only began in April. */
   partial: boolean
+  /** The index over the SAME measured window, percent, and the book's margin over it. Null where the
+   *  feed does not cover the window cleanly — never a figure chained across a hole. */
+  benchmark: number | null
+  excess: number | null
 }
 
 export interface DrawdownRead {
@@ -144,12 +148,65 @@ function startOfQuarter(d: string): string {
 }
 function startOfYear(d: string): string { return `${d.slice(0, 4)}-01-01` }
 
+/** The index over one explicit window, on the SAME days the book is measured over.
+ *
+ *  TWO THINGS THIS HAS TO GET RIGHT, both of which it got wrong first:
+ *
+ *  THE ANCHOR IS THE LEVEL ON `from`, NOT THE FIRST STEP INSIDE IT. The book has a NAV row every
+ *  calendar day; the feed has trading days only. When a period opens on a weekend or a holiday — a
+ *  month-to-date whose boundary is Saturday the 31st — requiring the first step to START inside the
+ *  window threw away the Friday→Monday move, so a +5% Monday read as 0.00% for the index while the
+ *  book's own return over the identical window included it. The market's level ON a closed day IS the
+ *  previous close, so the chain anchors at the last close AT OR BEFORE `from`.
+ *
+ *  BOTH ENDS MUST BE COVERED. Any single usable step used to produce a number, so a feed holding only
+ *  the last two months of an eight-month book filled every row's index column — while the footer of
+ *  that same panel, fed by benchmarkCompare, correctly said the history does not cover the book. One
+ *  panel cannot say both. Coverage is required at each end within the same tolerance a step gets. */
+function benchmarkOverWindow(
+  benchmarkCloses: { date: string; close: number }[],
+  from: string,
+  to: string,
+): number | null {
+  const sorted = [...benchmarkCloses].sort((a, b) => a.date.localeCompare(b.date))
+  const days = (a: string, b: string) =>
+    (Date.parse(`${b}T00:00:00Z`) - Date.parse(`${a}T00:00:00Z`)) / 86_400_000
+  // The window's own opening level: the last close at or before it.
+  let startIndex = -1
+  for (let i = 0; i < sorted.length; i++) {
+    if (sorted[i]!.date <= from) startIndex = i
+    else break
+  }
+  if (startIndex === -1) return null                                   // feed begins after the window
+  if (days(sorted[startIndex]!.date, from) > MAX_FEED_GAP_DAYS) return null  // ...or too far before it
+  // The window's own closing level: the last close AT OR BEFORE `to`, not simply the feed's last row.
+  // Checking only whether the feed's final row reaches beyond `to` missed a gap that straddles `to`
+  // itself — a feed that resumes well after `to` looks "covered" even though nothing sits near `to`.
+  let endIndex = -1
+  for (let i = startIndex; i < sorted.length; i++) {
+    if (sorted[i]!.date <= to) endIndex = i
+    else break
+  }
+  if (endIndex === -1) return null                                     // no close at or before `to` at all
+  if (days(sorted[endIndex]!.date, to) > MAX_FEED_GAP_DAYS) return null // ...or too far before it
+  let chain = 1
+  let steps = 0
+  for (let i = startIndex + 1; i <= endIndex; i++) {
+    const prev = sorted[i - 1]!, curr = sorted[i]!
+    if (prev.close <= 0 || days(prev.date, curr.date) > MAX_FEED_GAP_DAYS) return null
+    chain *= curr.close / prev.close
+    steps++
+  }
+  return steps === 0 ? null : (chain - 1) * 100
+}
+
 /** Month, quarter, year to date and since inception — each a genuine time-weighted return over its own
  *  window, not a slice of one cumulative figure. */
 export function returnsByPeriod(
   navSeries: NavPoint[],
   flowsByDate: Map<string, number>,
   riskFreeAnnualPct = 0,
+  benchmarkCloses: { date: string; close: number }[] = [],
 ): PeriodReturn[] {
   if (navSeries.length === 0) return []
   const asOf = navSeries[navSeries.length - 1]!.date
@@ -175,11 +232,16 @@ export function returnsByPeriod(
       ? Math.max(0, (Date.parse(`${asOf}T00:00:00Z`) - Date.parse(`${slice[0]!.date}T00:00:00Z`)) / 86_400_000)
       : 0
     const hurdle = spanDays > 0 ? ((1 + riskFreeAnnualPct / 100) ** (spanDays / 365) - 1) * 100 : null
+    const benchmark = slice.length >= 2
+      ? benchmarkOverWindow(benchmarkCloses, slice[0]!.date, asOf)
+      : null
     return {
       label,
       from: slice.length ? slice[0]!.date : null,
       to: asOf,
       twr,
+      benchmark,
+      excess: twr === null || benchmark === null ? null : twr - benchmark,
       days: Math.max(0, slice.length - 1),
       hurdle,
       overHurdle: twr === null || hurdle === null ? null : twr - hurdle,

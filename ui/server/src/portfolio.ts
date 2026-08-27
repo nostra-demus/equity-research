@@ -60,7 +60,10 @@ export interface BookClosure {
   symbol: string | null
   assetCategory: string | null
   currency: string | null
+  /** ABSOLUTE size. The direction is in `side` — see the note where closures are built. */
   quantity: number
+  /** Long or short, taken from the opening lot's sign. */
+  side: 'long' | 'short'
   entryPrice: number
   exitPrice: number
   openedAt: string | null
@@ -128,6 +131,17 @@ export interface BookIncome {
   net: number
 }
 
+/** Income the broker has already credited to NAV but has NOT yet paid out — it is in the ending value
+ *  and in no cash transaction, so a bridge built from paid income alone lands short of NAV by exactly
+ *  this much. Present only when the newest statement's own window covers the book's whole life, which
+ *  is what makes its stated CHANGE equal to the balance; otherwise null, and the bridge says
+ *  "not explained" rather than guessing. */
+export interface BookAccruals {
+  dividend: number | null
+  interest: number | null
+  total: number | null
+}
+
 export interface NavPoint {
   date: string
   total: number
@@ -160,6 +174,8 @@ export interface Book {
   closures: BookClosure[]
   flows: BookFlow[]
   income: BookIncome
+  /** Accrued-but-unpaid income at `asOf`. Null where the statements cannot prove the balance. */
+  accruals: BookAccruals
   navSeries: NavPoint[]
   twr: number | null
   corporateActions: FlexCorporateAction[]
@@ -301,6 +317,11 @@ export function runFifo(
           assetCategory: t.assetCategory ?? lot.assetCategory,
           currency: t.currency ?? lot.currency,
           quantity: matched,
+          // The lot's SIGN, which `quantity` (always absolute) throws away. Without it a long and a
+          // short in the same name, opened and closed on the same days, are indistinguishable — and
+          // anything grouping round trips would fold them into one row with a position the book never
+          // held and a quantity-weighted price it never traded.
+          side: signedMatched < 0 ? 'short' : 'long',
           entryPrice: lot.price,
           exitPrice: price,
           openedAt: lot.openedAt,
@@ -644,6 +665,39 @@ export function buildBook(documents: FlexDocument[]): Book {
     return out
   }
 
+  // ACCRUALS. IBKR carries dividends and interest that have been EARNED but not yet PAID inside the
+  // ending value, while no cash transaction exists for them yet — so paid income alone rebuilds NAV
+  // short by exactly the accrued balance ($24.88 of interest on the real book).
+  //
+  // TAKEN AS A BALANCE, NOT DERIVED FROM A CHANGE. ChangeInNAV states the change over its own window,
+  // which equals the balance only when that window covers the book's whole life AND still reaches the
+  // day the book is stated as of — two conditions, and missing the second published a stale accrual as
+  // today's on a bridge whose other rows were current. The daily equity summary carries the balance
+  // itself on every report date, so the row for the book's own last day answers the question directly
+  // and no window reasoning is needed. Absent that row, the honest answer is null and the bridge prints
+  // an unexplained residual rather than a number wearing a label it cannot support.
+  const accrualRowByDate = new Map<string, { dividend: number | null; interest: number | null }>()
+  for (const doc of docs) {
+    for (const row of doc.equitySummary) {
+      if (!row.reportDate) continue
+      if (row.dividendAccruals === null && row.interestAccruals === null) continue
+      accrualRowByDate.set(row.reportDate, { dividend: row.dividendAccruals, interest: row.interestAccruals })
+    }
+  }
+  const bookEnd = navSeries.length ? navSeries[navSeries.length - 1]!.date : null
+  const accrualRow = bookEnd === null ? undefined : accrualRowByDate.get(bookEnd)
+  const accruals: BookAccruals = {
+    dividend: accrualRow?.dividend ?? null,
+    interest: accrualRow?.interest ?? null,
+    // A total is stated only when BOTH balances are known. A blank accrual attribute means UNKNOWN,
+    // not zero (portfolio-import `num`): summing the present side as if the missing one were zero would
+    // let the NAV bridge label the whole residual "proven accrued income" while an omitted balance is
+    // still unaccounted for (§3 do not hide missing data, §15 an aggregate carries its components).
+    total: accrualRow === undefined || accrualRow.dividend === null || accrualRow.interest === null
+      ? null
+      : accrualRow.dividend + accrualRow.interest,
+  }
+
   // THE NEWEST DOCUMENT THAT ACTUALLY CARRIES A SNAPSHOT, not simply the newest document. A
   // Trades-only export is a normal thing to run, and taking positions from it emptied the Holdings tab
   // while the badge still read "Reconciled" — because the position check is gated on the same document
@@ -702,6 +756,7 @@ export function buildBook(documents: FlexDocument[]): Book {
     closures,
     flows,
     income,
+    accruals,
     navSeries,
     twr,
     corporateActions,

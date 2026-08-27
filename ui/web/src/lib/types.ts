@@ -2156,7 +2156,10 @@ export interface PortfolioPosition {
 export interface PortfolioClosure {
   symbol: string | null
   currency: string | null
+  /** ABSOLUTE size; the direction is in `side`. */
   quantity: number
+  /** Long or short, from the opening lot's sign. */
+  side: 'long' | 'short'
   entryPrice: number
   exitPrice: number
   openedAt: string | null
@@ -2190,6 +2193,8 @@ export interface PortfolioBook {
   corporateActions: { type: string | null; symbol: string | null; actionDescription: string | null; dateTime: string | null }[]
   flows: { date: string | null; currency: string | null; amount: number; amountBase: number | null; description: string | null }[]
   income: { dividendsGross: number; withholdingTax: number; paymentInLieu: number; interest: number; fees: number; net: number }
+  /** Income earned and already inside NAV but not yet paid out. Null where the statements cannot prove it. */
+  accruals: { dividend: number | null; interest: number | null; total: number | null }
   navSeries: { date: string; total: number }[]
   twr: number | null
   reconciliation: { ok: boolean; checks: PortfolioCheck[] }
@@ -2199,6 +2204,7 @@ export interface PortfolioPeriodReturn {
   label: string; from: string | null; to: string | null; twr: number | null; days: number
   /** What cash would have returned over the same window, and the book's margin over it. */
   hurdle: number | null; overHurdle: number | null
+  benchmark: number | null; excess: number | null
   /** The book has no valued day at or before this period's start, so the window is shorter than the
    *  label implies — a "year to date" on a book that only began in April. */
   partial: boolean
@@ -2305,6 +2311,10 @@ export interface PortfolioPerformance {
   /** Both curves rebased to 100 at the first funded day — NAV itself cannot be plotted against an
    *  index, because a deposit would draw as performance. */
   growth: { date: string; book: number; benchmark: number | null }[]
+  /** Index levels for feed days AFTER the book's last valued day, rebased exactly as `growth` is. The
+   *  index is a settled close there, not an estimate — it is the BOOK's forward mark that is priced at
+   *  the market. Used only where the date matches the live mark, so it is never drawn at a book day. */
+  benchmarkForward: { date: string; level: number }[]
   /** ANNUALISED (XIRR) — not comparable with the cumulative period returns, and labelled as such. */
   moneyWeightedAnnualisedPct: number | null
   risk: PortfolioRisk

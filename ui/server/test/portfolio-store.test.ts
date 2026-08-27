@@ -220,6 +220,38 @@ check('a fill dated today in the operator\u2019s own timezone is accepted', () =
   for (const t of store.readPortfolio().manual.trades) store.removeManualTrade(t.id)
 })
 
+check('the forward benchmark chain survives a stale statement when the feed itself is unbroken', () => {
+  // The gap used to be measured from the fixed statement date `last`. A statement more than the gap
+  // ceiling behind the live mark then broke the chain on its FIRST feed row, even with a continuous
+  // daily feed all the way through today — dropping the forward level the chart looks up by exact date.
+  const last = '2026-01-01'
+  const inWindow = [
+    { date: '2026-01-01', close: 100 }, // <= last, skipped
+    { date: '2026-01-02', close: 101 }, { date: '2026-01-03', close: 102 }, { date: '2026-01-04', close: 103 },
+    { date: '2026-01-05', close: 104 }, { date: '2026-01-06', close: 105 }, { date: '2026-01-07', close: 106 },
+    { date: '2026-01-08', close: 107 }, { date: '2026-01-09', close: 108 }, { date: '2026-01-10', close: 109 },
+    { date: '2026-01-11', close: 110 }, // 10 calendar days past `last` — beyond a single 7-day gap ceiling
+  ]
+  const levels = store.forwardBenchmarkLevels(inWindow, last, 100)
+  assert.equal(levels.length, 10, 'an unbroken daily feed is never broken by elapsed time since the statement')
+  assert.equal(levels[levels.length - 1]!.date, '2026-01-11')
+  assert.ok(Math.abs(levels[levels.length - 1]!.level - 110) < 1e-9)
+})
+
+check('the forward benchmark chain still stops at a real hole in the feed', () => {
+  const levels = store.forwardBenchmarkLevels(
+    [
+      { date: '2026-01-01', close: 100 },
+      { date: '2026-01-02', close: 101 },
+      { date: '2026-01-20', close: 200 }, // an 18-day hole — a real gap, not a stale statement
+    ],
+    '2026-01-01',
+    100,
+  )
+  assert.equal(levels.length, 1, 'the chain stops at the hole rather than jumping across it')
+  assert.equal(levels[0]!.date, '2026-01-02')
+})
+
 try { fs.rmSync(TMP, { recursive: true, force: true }) } catch { /* best effort */ }
 console.log(`\n${passed} passed, ${fails.length} failed`)
 if (fails.length) { console.error('FAILED: ' + fails.join(', ')); process.exit(1) }
