@@ -192,6 +192,25 @@ check('residual dust is excluded from weighting, unknown value is not', () => {
   assert.equal(isResidual(null), false)
 })
 
+check('re-creating an existing idea returns THAT idea, whatever case was typed', () => {
+  // The bug this pins: createIdea is idempotent on the SLUG, so typing "sugar" while "Sugar" exists
+  // returns the stored "Sugar". A caller that then looked the id back up BY LABEL found nothing and
+  // reported "that idea could not be created" for a call that had succeeded. The id must come from
+  // the return value, and the return value must be the real idea.
+  const d = dir('idempotent-case')
+  const first = createIdea(d, 'Sugar')
+  const again = createIdea(d, 'sugar')
+  assert.equal(again.id, first.id)
+  assert.equal(again.label, 'Sugar', 'the STORED label comes back, not the one just typed')
+  assert.equal(readIdeas(d).ideas.length, 1, 'and no duplicate is made')
+  // Whitespace and over-long labels are normalised too — both cases where a label match would miss.
+  const padded = createIdea(d, '  Sugar  ')
+  assert.equal(padded.id, first.id)
+  const long = createIdea(d, 'x'.repeat(80))
+  assert.equal(long.label.length, 60, 'truncated to the cap, so the returned label differs from input')
+  assert.ok(readIdeas(d).ideas.some((i) => i.id === long.id))
+})
+
 try { fs.rmSync(TMP, { recursive: true, force: true }) } catch { /* best effort */ }
 console.log(`\n${passed} passed, ${fails.length} failed`)
 if (fails.length) { console.error('FAILED: ' + fails.join(', ')); process.exit(1) }

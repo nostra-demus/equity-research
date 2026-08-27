@@ -5128,19 +5128,30 @@ a { color: inherit; }
 .fundbook__lots { display: block; color: var(--text-faint); font-size: 8px; letter-spacing: 0.2px; text-transform: uppercase; }
 .fundbook__row--checks { grid-template-columns: minmax(240px, 2.4fr) 1fr 1fr 1fr 74px; min-width: 700px; }
 /* By idea — the declared grouping. Same row grammar as the other blotter grids so it reads as part of
-   the same table, not a bolted-on panel. */
-.fundbook__row--ideas { grid-template-columns: minmax(120px, 1.4fr) minmax(120px, 1.6fr) 96px 62px 84px 84px; min-width: 660px; }
-/* The idea a holding expresses, declared under its symbol — the same sub-label slot the lot count uses,
-   so the row keeps its nine columns and nothing re-grids. */
-.fundbook__idea { display: block; margin-top: 3px; font-weight: 400; }
+   the same table, not a bolted-on panel. Full width, NOT inside .fundbook__split: six columns in a
+   382px third clipped Realised and pushed Trades/First/Last off-panel behind a sideways scrollbar. */
+.fundbook__row--ideas { grid-template-columns: minmax(140px, 1.4fr) minmax(150px, 1.6fr) 110px 70px 92px 92px; min-width: 660px; }
+/* An idea NAME is prose, not a code. The shared 74px label column is sized for tickers and asset
+   classes; "Consumer recovery 2026" wrapped to three lines there and made its row 50px against the
+   17px of every other bar. Wider, one line, ellipsis — the full name stays in the title attribute. */
+.fundbook__bar-row--prose { grid-template-columns: 116px 1fr 46px 92px; }
+.fundbook__bar-row--prose .fundbook__bar-label {
+  font-family: var(--font-sans); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+/* The idea a holding expresses, ON THE SAME LINE as its symbol. Stacked below, it added 22px to every
+   assignable row and left the cash-equivalent rows visibly short in the same table. */
+.fundbook__symcell { display: flex; align-items: center; gap: 7px; min-width: 0; }
+.fundbook__symcell > span:first-child { flex: none; }
+.fundbook__idea { display: inline-flex; align-items: center; min-width: 0; font-weight: 400; }
 .fundbook__ideaselect {
-  max-width: 100%; padding: 1px 4px; border-radius: var(--r-sm); font-size: 9.5px; font-family: var(--font-sans);
+  max-width: 100%; padding: 1px 4px; border-radius: var(--r-sm); font-size: 10.5px; font-family: var(--font-sans);
   color: var(--text-muted); background: var(--surface-3); border: 1px solid var(--hairline);
+  text-overflow: ellipsis;
 }
 .fundbook__ideaselect:focus-visible { outline: none; box-shadow: 0 0 0 2px var(--accent-wash); }
 .fundbook__ideaselect:disabled { opacity: 0.5; }
 @media (hover: hover) and (pointer: fine) { .fundbook__ideaselect:hover { color: var(--text); border-color: var(--hairline-strong); } }
-.fundbook__ideaerr { display: block; margin-top: 2px; color: var(--bad); font-size: 8.5px; }
+.fundbook__ideaerr { display: block; margin-top: 2px; color: var(--bad); font-size: 9.5px; }
 .fundbook__ok { color: var(--accent-bright); font-weight: 700; font-size: 10px; }
 .fundbook__break { color: var(--bad); font-weight: 700; font-size: 10px; }
 .fundbook__drop.is-compact { padding: 10px 14px; gap: 12px; }

@@ -766,6 +766,7 @@ function Exposure({ book, risked, parkedValue, nav, ccy, ideas, bars }: {
                   pct={shareOfRisk(v) ?? 0}
                   value={fmtMoney(v, ccy)}
                   deep={!id}
+                  prose
                 />
               )) : (
                 <div className="fundbook__barnote">No position carries an idea yet — name one on a holding below.</div>
@@ -797,10 +798,17 @@ const TOP_POSITIONS = 8
  *  only — never out of the positions list, and never out of reconciliation. */
 const RESIDUAL_VALUE_BASE = 100
 
-function ExposureBar({ label, pct, value, deep }: { label: string; pct: number; value: string; deep?: boolean }) {
+function ExposureBar({ label, pct, value, deep, prose }: {
+  label: string; pct: number; value: string; deep?: boolean
+  /** An idea NAME, not a ticker. Tickers and asset classes are codes and belong in mono inside 74px;
+   *  an idea is prose ("Consumer recovery 2026"), which in that column wrapped to three lines and made
+   *  its row three times the height of every other bar. Prose rows get the sans face, a wider label
+   *  column, and one line with an ellipsis — the full name stays reachable as the title. */
+  prose?: boolean
+}) {
   return (
-    <div className="fundbook__bar-row fundbook__bar-row--exposure">
-      <span className="fundbook__bar-label mono">{label}</span>
+    <div className={`fundbook__bar-row fundbook__bar-row--exposure${prose ? ' fundbook__bar-row--prose' : ''}`}>
+      <span className={`fundbook__bar-label${prose ? '' : ' mono'}`} title={prose ? label : undefined}>{label}</span>
       <span className="fundbook__bar-track">
         <span style={{ width: `${Math.max(0, Math.min(100, Math.abs(pct)))}%`, background: deep ? 'var(--accent-deep)' : 'var(--accent)' }} />
       </span>
@@ -854,8 +862,11 @@ function PositionRow({ p, derivative, isCash, ideas, onChanged }: {
 }) {
   return (
     <div className={`fundbook__row${isCash ? ' is-parked' : ''}`}>
-      <strong className="mono">
-        {p.symbol ?? '—'}
+      {/* Symbol and idea on ONE line. Stacked, the picker added 22px to every assignable row (57px
+          against the 35px of a row that has none), so the positions table ran at uneven heights with
+          the cash-equivalent rows visibly short. Inline, every row is the same height again. */}
+      <strong className="mono fundbook__symcell">
+        <span>{p.symbol ?? '—'}</span>
         {ideas && !isCash && !derivative && p.symbol && (
           <IdeaPicker symbol={p.symbol} ideas={ideas} onChanged={onChanged} />
         )}
@@ -893,8 +904,12 @@ function IdeaPicker({ symbol, ideas, onChanged }: {
       if (value === '\u0000new') {
         const label = window.prompt(`Name the idea ${symbol} expresses`)?.trim()
         if (!label) { setBusy(false); return }
+        // The SERVER says which idea this is. Looking it up by label here was the bug: createIdea is
+        // idempotent on the slug, so typing "sugar" while "Sugar" existed returned "Sugar" with a 200,
+        // the label match found nothing, and the row reported "that idea could not be created" for a
+        // call that had in fact succeeded.
         const created = await api.createIdea(label)
-        id = (created.ideas?.ideas ?? []).find((i: { label: string }) => i.label === label)?.id ?? ''
+        id = created.idea?.id ?? ''
         if (!id) throw new Error('that idea could not be created')
       }
       const read = await api.setHoldingIdea(symbol, id || null)
@@ -1319,6 +1334,44 @@ function Trades({ book, manual, onChanged, ideas, importOpen, onImportOpen, impo
 
       {manualPanel}
 
+      {ideas && (
+        <div className="fundbook__panel">
+          <div className="fundbook__panelhead">
+            <div><strong>By idea</strong><small>What the money was actually betting on, across every vehicle used to express it</small></div>
+          </div>
+          <div className="fundbook__subhead">
+            Declared, never inferred — a ticker is not an idea, so each closed trade is labelled
+            against <b>the broker&rsquo;s own trade ids</b>. Labelling this year&rsquo;s trade cannot relabel next year&rsquo;s.
+          </div>
+          {ideaRows.length === 0 ? (
+            <div className="fundbook__none">No closed trades yet.</div>
+          ) : (
+            <div className="fundbook__scroll">
+              <div className="fundbook__row fundbook__row--ideas fundbook__row--head">
+                <span>Idea</span><span>Expressed through</span><span className="num">Realised</span>
+                <span className="num">Trades</span><span className="num">First</span><span className="num">Last</span>
+              </div>
+              {ideaRows.map((g) => (
+                <div key={g.ideaId ?? g.label} className="fundbook__row fundbook__row--ideas">
+                  <span>{g.label}</span>
+                  <span className="mono dim">{g.symbols.join(' · ') || '—'}</span>
+                  <span className="num" style={{ color: toneOf(g.realized) }}>{fmtSmallMoney(g.realized)}</span>
+                  <span className="num dim">{g.trades}</span>
+                  <span className="num dim">{g.firstClosed ?? '—'}</span>
+                  <span className="num dim">{g.lastClosed ?? '—'}</span>
+                </div>
+              ))}
+            </div>
+          )}
+          {ideaRows.some((g) => g.unlabellable > 0) && (
+            <div className="fundbook__foot">
+              {ideaRows.reduce((a, g) => a + g.unlabellable, 0)} closed trade(s) carry no broker trade id, so they
+              cannot be labelled — they are shown under Unassigned and will stay there.
+            </div>
+          )}
+        </div>
+      )}
+
       <div className="fundbook__split">
         <div className="fundbook__panel">
           <div className="fundbook__panelhead">
@@ -1358,44 +1411,6 @@ function Trades({ book, manual, onChanged, ideas, importOpen, onImportOpen, impo
             </div>
           )}
         </div>
-
-        {ideas && (
-          <div className="fundbook__panel">
-            <div className="fundbook__panelhead">
-              <div><strong>By idea</strong><small>What the money was actually betting on, across every vehicle used to express it</small></div>
-            </div>
-            <div className="fundbook__subhead">
-              Declared, never inferred — a ticker is not an idea, so each closed trade is labelled
-              against <b>the broker&rsquo;s own trade ids</b>. Labelling this year&rsquo;s trade cannot relabel next year&rsquo;s.
-            </div>
-            {ideaRows.length === 0 ? (
-              <div className="fundbook__none">No closed trades yet.</div>
-            ) : (
-              <div className="fundbook__scroll">
-                <div className="fundbook__row fundbook__row--ideas fundbook__row--head">
-                  <span>Idea</span><span>Expressed through</span><span className="num">Realised</span>
-                  <span className="num">Trades</span><span className="num">First</span><span className="num">Last</span>
-                </div>
-                {ideaRows.map((g) => (
-                  <div key={g.ideaId ?? g.label} className="fundbook__row fundbook__row--ideas">
-                    <span>{g.label}</span>
-                    <span className="mono dim">{g.symbols.join(' · ') || '—'}</span>
-                    <span className="num" style={{ color: toneOf(g.realized) }}>{fmtSmallMoney(g.realized)}</span>
-                    <span className="num dim">{g.trades}</span>
-                    <span className="num dim">{g.firstClosed ?? '—'}</span>
-                    <span className="num dim">{g.lastClosed ?? '—'}</span>
-                  </div>
-                ))}
-              </div>
-            )}
-            {ideaRows.some((g) => g.unlabellable > 0) && (
-              <div className="fundbook__foot">
-                {ideaRows.reduce((a, g) => a + g.unlabellable, 0)} closed trade(s) carry no broker trade id, so they
-                cannot be labelled — they are shown under Unassigned and will stay there.
-              </div>
-            )}
-          </div>
-        )}
 
         <div className="fundbook__panel">
           <div className="fundbook__panelhead">

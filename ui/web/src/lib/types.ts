@@ -2286,6 +2286,11 @@ export interface PortfolioIdea {
 /** Which idea each holding and each closed round trip was expressing. DECLARED, never inferred: a
  *  ticker is not an idea, so positions are keyed by symbol (one open position at a time) and closed
  *  trades by the broker's own closeTradeIDs (which cannot span two eras of the same ticker). */
+/** What POST /api/portfolio/idea returns: the whole read, plus the idea it created OR already had.
+ *  The id is handed back explicitly because the server is idempotent on the slug — asking for 'sugar'
+ *  when 'Sugar' exists returns 'Sugar', and a label match would miss it. */
+export interface PortfolioIdeaCreated extends PortfolioRead { idea: PortfolioIdea }
+
 export interface PortfolioIdeaBook {
   ideas: PortfolioIdea[]
   assignments: {

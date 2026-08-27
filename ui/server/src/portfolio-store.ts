@@ -23,7 +23,8 @@ import {
   type ManualInput, type ManualRead, type StatementCoverage,
 } from './portfolio-manual'
 import {
-  assignClosures, assignPosition, createIdea, deleteIdea, readIdeas, renameIdea, type IdeaBook,
+  assignClosures, assignPosition, createIdea, deleteIdea, readIdeas, renameIdea,
+  type Idea, type IdeaBook,
 } from './portfolio-ideas'
 import { readOverrides, setCashEquivalent, type PortfolioOverrides } from './portfolio-overrides'
 import { benchmarkCompare, betaAlpha, dailyReturns, measuredWindow, moneyWeightedReturn, monthlyReturns, returnsByPeriod, riskMetrics, type BenchmarkRead, type BetaAlpha, type MonthRow, type PeriodReturn, type RiskRead } from './portfolio-metrics'
@@ -392,9 +393,12 @@ export function declareCashEquivalent(symbol: string, isCash: boolean): Portfoli
 
 /** Name an idea, or hand a holding / closed round trip to one. Each returns the whole read so the
  *  screen refreshes from one round trip, exactly as declareCashEquivalent does. */
-export function declareIdea(label: string): PortfolioRead {
-  createIdea(PORTFOLIO_DIR, label)
-  return readPortfolio()
+export function declareIdea(label: string): PortfolioRead & { idea: Idea } {
+  // The created OR already-existing idea is returned explicitly. The caller must never look the id
+  // back up by label: createIdea is idempotent on the SLUG, so asking for 'sugar' when 'Sugar' exists
+  // returns 'Sugar' — and a label match would miss it and report a failure the server never had.
+  const idea = createIdea(PORTFOLIO_DIR, label)
+  return { ...readPortfolio(), idea }
 }
 
 export function renameDeclaredIdea(id: string, label: string): PortfolioRead {

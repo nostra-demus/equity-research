@@ -1,5 +1,7 @@
 import { staticPromptPath } from './prompts'
-import type { PipelinesRead, WatchResolveRead, WatchRowInput, WatchlistRead } from './types'
+import type {
+  PipelinesRead, PortfolioIdeaCreated, WatchResolveRead, WatchRowInput, WatchlistRead,
+} from './types'
 import { DEFAULT_RANK_WEIGHTS, type RankWeights, type RankWeightsState } from './rankWeights'
 import { QUOTE_CLIENT_TIMEOUT_MS } from './quoteTimeout'
 import type { ValuationLeversResponse, ValuationOverride } from './valuationLevers'
@@ -1227,7 +1229,7 @@ export const api = {
     return post('/api/portfolio/cash-equivalent', { symbol, isCash })
   },
   /** Name a new idea. Idempotent on the slug, so re-adding "Sugar" returns the existing one. */
-  createIdea: async (label: string): Promise<PortfolioRead> => {
+  createIdea: async (label: string): Promise<PortfolioIdeaCreated> => {
     if ((await ensureMode()) === 'static') throw STATIC_ERR()
     return post('/api/portfolio/idea', { label })
   },
