@@ -104,6 +104,46 @@ export function sharedDataPoolConflict(
   return null
 }
 
+/** Why a shared-pool write was refused. `resolveUniqueFinishedIntakeOwner` collapses four very
+ *  different states into one null, which made every refusal read as "ambiguous ownership" even when the
+ *  label simply had no finished run at all. Callers that talk to a human need the real reason. */
+export type IntakeOwnerRefusal =
+  /** No finished dossier claims this label yet — nothing to attach evidence to. */
+  | { code: 'shared_data_owner_none' }
+  /** More than one cockpit finished a run on this label; picking one would write the wrong thesis. */
+  | { code: 'shared_data_owner_ambiguous'; owners: string[] }
+  /** Exactly one owner, but it is a different cockpit than the caller. */
+  | { code: 'shared_data_owner_mismatch'; owners: string[] }
+  /** The expected cockpit owns it, but the run carries no usable decision record to project from —
+   *  a finished thesis whose decision never landed, or a record that does not parse. */
+  | { code: 'shared_data_owner_undecided'; owners: string[] }
+
+/** Pure classification, mirroring finishedOwnerConflict's shape: the caller supplies the finished owners
+ *  and whatever the resolver returned, so the refusal reason is decided by exactly the inputs the resolver
+ *  itself used and can never drift from it. */
+export function classifyIntakeOwnerRefusal(
+  expectedSwarm: string,
+  owners: FinishedIntakeOwner[],
+  resolved: IntakeOwner | null,
+): IntakeOwnerRefusal | null {
+  const ownerSwarms = [...new Set(owners.map((owner) => owner.swarm))].sort()
+  if (ownerSwarms.length === 0) return { code: 'shared_data_owner_none' }
+  if (ownerSwarms.length > 1) return { code: 'shared_data_owner_ambiguous', owners: ownerSwarms }
+  if (ownerSwarms[0] !== expectedSwarm) return { code: 'shared_data_owner_mismatch', owners: ownerSwarms }
+  if (!resolved || resolved.swarm !== expectedSwarm) return { code: 'shared_data_owner_undecided', owners: ownerSwarms }
+  return null
+}
+
+/** Read the live pool and classify why `resolveUniqueFinishedIntakeOwner` abstains for `expectedSwarm`,
+ *  or null when it resolves cleanly. */
+export function explainIntakeOwnerRefusal(subject: string, expectedSwarm: string): IntakeOwnerRefusal | null {
+  return classifyIntakeOwnerRefusal(
+    expectedSwarm,
+    listFinishedIntakeOwners(subject),
+    resolveUniqueFinishedIntakeOwner(subject),
+  )
+}
+
 export interface IntakeOwner {
   swarm: string
   runRoot: string

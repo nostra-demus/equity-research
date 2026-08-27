@@ -1166,6 +1166,7 @@ export function listTickers(): { tickers: TickerSummary[]; emptyState: boolean; 
       latestRun: runs.latestRun,
       runCount: runs.runCount,
       hasNewerPartial: runs.hasNewerPartial,
+      hasStandingDecision: runs.hasStandingDecision,
     }
   })
   // resolve the data/ symlink so the UI shows the real Google Drive location it reads from
@@ -1191,14 +1192,14 @@ export function listTickers(): { tickers: TickerSummary[]; emptyState: boolean; 
 export function summarizeRuns(
   ticker: string,
   analysesDir: string = ANALYSES_DIR,
-): { latestRun: TickerSummary['latestRun']; runCount: number; hasNewerPartial: boolean } {
+): { latestRun: TickerSummary['latestRun']; runCount: number; hasNewerPartial: boolean; hasStandingDecision: boolean } {
   let dirs: string[] = []
   try {
     dirs = fs.readdirSync(analysesDir).filter((n) => n.startsWith(ticker + '_')).sort().reverse()
   } catch {
-    return { latestRun: null, runCount: 0, hasNewerPartial: false }
+    return { latestRun: null, runCount: 0, hasNewerPartial: false, hasStandingDecision: false }
   }
-  if (!dirs.length) return { latestRun: null, runCount: 0, hasNewerPartial: false }
+  if (!dirs.length) return { latestRun: null, runCount: 0, hasNewerPartial: false, hasStandingDecision: false }
   let standing: TickerSummary['latestRun'] = null
   let standingDir: string | null = null
   let fallback: TickerSummary['latestRun'] = null
@@ -1226,7 +1227,10 @@ export function summarizeRuns(
     if (!fallback) fallback = { runRoot: `analyses/${d}`, decision: null, decisionDate: null, confidence: null }
   }
   // A newer decision-less run shadows the standing one when the newest folder isn't the standing folder.
-  return { latestRun: standing ?? fallback, runCount: dirs.length, hasNewerPartial: !!standingDir && dirs[0] !== standingDir }
+  // A caller that needs to know whether this ticker can actually be WRITTEN to (send-to-research, intake)
+  // needs the standing/fallback distinction, which `latestRun` alone erases: a partial run and a decided run
+  // whose verdict is null both surface as `decision: null`. This is free — the scan above already knows.
+  return { latestRun: standing ?? fallback, runCount: dirs.length, hasNewerPartial: !!standingDir && dirs[0] !== standingDir, hasStandingDecision: !!standingDir }
 }
 
 // The latest run to surface for a ticker (the standing-run pick above). Kept as a named export for callers
