@@ -143,6 +143,28 @@ const sorted = (a: string[]) => [...a].sort()
     )
   })
 
+  await check('a pre-child profile-freeze failure releases the chain, marker, and deploy lease', async () => {
+    const ticker = 'TESTSETUPFAIL'
+    const failed = makeFake()
+    await assert.rejects(
+      () => launchFullChained(ticker, 'tester', 'local', {
+        provider: 'codex', model: 'not-a-cockpit-model', reasoningLevel: 'max',
+      }, failed.deps),
+      (error: any) => error?.code === 'CODEX_PROFILE_INVALID',
+    )
+    assert.deepEqual(failed.launches, [], 'profile freeze fails before any paid child or Activity row exists')
+    assert.equal(failed.wasMarkerCleared(), true, 'the pre-child rollback clears the defer-memo marker')
+    assert.equal(failed.poolClaimHeld(), false, 'the shared pool/deploy lease is released')
+    assert.equal(failed.poolClaimReleases(), 1, 'the chain pool claim is released exactly once')
+    assert.equal(subjectChainActive(ticker), false, 'the invisible subject-chain reservation is released')
+
+    const retry = makeFake()
+    const out = await launchFullChained(ticker, 'tester', 'local', { provider: 'claude' }, retry.deps)
+    assert.equal(out.runId, 'run-business-model', 'a corrected provider choice can launch immediately')
+    retry.finish('business-model', 'error')
+    assert.equal(retry.poolClaimHeld(), false, 'the ordinary child failure still releases the same lease')
+  })
+
   await check('schedules BM -> earnings -> {bss || mgov} -> valuation -> catalyst -> master; marker dropped', async () => {
     const f = makeFake()
     const out = await launchFullChained('TESTX', 'tester', 'local', { provider: 'claude' }, f.deps)

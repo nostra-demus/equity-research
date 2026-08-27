@@ -2722,6 +2722,13 @@ export async function launchFullChained(
     logicalCanary.message = message
   }
 
+  // From this point onward the chain owns both the subject reservation and the shared provider-deploy
+  // lease. Setup can still fail before launchAndWire creates a RunState (for example while freezing an
+  // invalid provider profile). Such a failure has no child completion callback and therefore no Activity
+  // row to release the leases. Keep one outer rollback boundary around setup + first launch ACK so every
+  // pre-child exception restores the marker and both reservations. The cleanup operations are idempotent;
+  // asynchronous child/master terminal paths remain the ordinary owners after this function returns.
+  try {
   // Drop a marker in the shared run root so each per-module run SKIPS its inline memo (MODULE_PIPELINE
   // Step 4.9A); the master step regenerates all module memos in ONE batch at the end (rerun.md Step 9B)
   // and removes the marker. Keeps the ~2.5-min-per-module memo off the parallel critical path —
@@ -2975,6 +2982,15 @@ export async function launchFullChained(
   // when the master finishes — not after each module.
   const first = await firstReady
   return { runId: first.runId, preflight, chained: true, skipped: skippedModules, planned: plannedModules, resumed }
+  } catch (error) {
+    try { deps.clearMarker(ticker, datedRoot) } catch { /* preserve the launch error */ }
+    try { releaseChainPool() } catch { /* subject release still runs in releaseChainPool's finally */ }
+    finishLogicalCanary(
+      'error',
+      `Canary chain setup or first launch failed: ${String((error as any)?.message || error)}`,
+    )
+    throw error
+  }
 }
 
 /** Stop EVERYTHING: halt every full-run chain, then cancel every in-flight run (running,
