@@ -3908,11 +3908,12 @@ async function standingCalls(): Promise<StandingCall[]> {
 // to close. A failure is reported back to the caller as `publish_error` rather than swallowed — the row
 // still saved locally (so nothing already typed is lost), but the client can now say so.
 const WATCHLIST_PUBLISH_TIMEOUT_MS = 20 * 60_000
-async function publishWatchlist(relPaths: string[], msg: string): Promise<{ ok: boolean; error?: string }> {
+const TASK_UPDATE_PUBLISH_TIMEOUT_MS = 60_000
+async function publishWatchlist(relPaths: string[], msg: string, timeoutMs = WATCHLIST_PUBLISH_TIMEOUT_MS): Promise<{ ok: boolean; error?: string }> {
   const script = path.join(REPO_ROOT, 'scripts', 'commit-run.sh')
   if (!fs.existsSync(script)) return { ok: false, error: 'commit-run.sh not found (not a full checkout)' }
   try {
-    await execa('bash', [script, msg, '--', ...relPaths], { cwd: REPO_ROOT, timeout: WATCHLIST_PUBLISH_TIMEOUT_MS })
+    await execa('bash', [script, msg, '--', ...relPaths], { cwd: REPO_ROOT, timeout: timeoutMs })
     return { ok: true }
   } catch (e: any) {
     return { ok: false, error: String(e?.stderr || e?.message || e).slice(0, 400) }
@@ -4659,7 +4660,9 @@ app.patch('/api/tasks/:id', { config: { rateLimit: { max: 240, timeWindow: '1 mi
     if (watchSync.problem) return reply.code(409).send({ error: watchSync.problem })
     writeTask(task)
     const paths = [taskPath(task.task_id), ...watchSync.changedEntries.map((entry) => watchlistEntryPath(entry.entry_id))]
-    const pub = await publishWatchlist(paths, `Tasks: update ${task.ticker || task.subject}`)
+    // Card movement must not hold every later planning mutation behind a long git retry. The task is
+    // already saved locally above; a publication timeout is returned explicitly as publish_error.
+    const pub = await publishWatchlist(paths, `Tasks: update ${task.ticker || task.subject}`, TASK_UPDATE_PUBLISH_TIMEOUT_MS)
     return { ok: true, task, publish_error: pub.ok ? undefined : pub.error }
   })
 })

@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { api } from '../../lib/api'
 import { useStore } from '../../lib/store'
 import type { TaskAssignee, TaskCard, TaskDecision, TaskInput, TaskScope, TaskStage, TasksRead } from '../../lib/types'
-import { optimisticTask, overlayOptimisticTasks, replaceTask, taskUpdateInput } from './taskOptimistic'
+import { mergeTaskUpdatePatches, optimisticTask, overlayOptimisticTasks, replaceTask, taskMatchesPatch } from './taskOptimistic'
 
 const STAGES: { id: TaskStage; label: string; step: string }[] = [
   { id: 'idea_generation', label: 'Idea generation', step: '01' },
@@ -28,6 +28,7 @@ const emptyDraft = (): TaskInput => ({
 
 function personName(id: TaskAssignee): string { return PEOPLE.find((person) => person.id === id)?.name ?? id }
 function stageIndex(stage: TaskStage): number { return STAGES.findIndex((item) => item.id === stage) }
+function taskRequestTimedOut(cause: any): boolean { return cause?.name === 'TimeoutError' || cause?.name === 'AbortError' }
 
 function TaskEditor({ task, initial, attachmentsEnabled, onClose, onSaved }: {
   task: TaskCard | null
@@ -285,6 +286,7 @@ export function TasksStage() {
   const readRef = useRef<TasksRead | null>(null)
   const optimisticRef = useRef(new Map<string, TaskCard>())
   const confirmedRef = useRef(new Map<string, TaskCard>())
+  const retryPatchRef = useRef(new Map<string, Partial<TaskInput>>())
   const revisionRef = useRef(new Map<string, number>())
   const mutationChainRef = useRef<Promise<void>>(Promise.resolve())
 
@@ -331,10 +333,10 @@ export function TasksStage() {
     // Publication is intentionally durable and can take a few seconds. Keep one ordered client queue so
     // rapid moves stay instant without racing the server's shared Tasks/Watchlist mutation lock.
     mutationChainRef.current = mutationChainRef.current.catch(() => undefined).then(async () => {
+      const queuedPatch = mergeTaskUpdatePatches(retryPatchRef.current.get(taskId), patch)
       try {
-        // Every queued request carries the complete visible card. If an earlier partial edit failed,
-        // this later request still preserves it instead of silently restoring an older server value.
-        const result = await api.taskUpdate(taskId, taskUpdateInput(optimistic))
+        const result = await api.taskUpdate(taskId, queuedPatch)
+        retryPatchRef.current.delete(taskId)
         confirmedRef.current.set(taskId, result.task)
         if (revisionRef.current.get(taskId) === revision) {
           optimisticRef.current.delete(taskId)
@@ -342,11 +344,48 @@ export function TasksStage() {
           if (result.publish_error) setToast({ msg: `Saved locally, but did not sync: ${result.publish_error}`, tone: 'bad' })
         }
       } catch (cause: any) {
-        if (revisionRef.current.get(taskId) === revision) {
+        const isLatest = revisionRef.current.get(taskId) === revision
+        if (taskRequestTimedOut(cause)) {
+          // The server saves locally before publishing. A lost/slow response therefore has an unknown
+          // outcome: read the authoritative task before deciding whether anything should move back.
+          let serverTask: TaskCard | null = null
+          try {
+            serverTask = (await api.tasks()).tasks.find((candidate) => candidate.task_id === taskId) ?? null
+          } catch { /* Never turn an unavailable reconciliation read into a guessed rejection. */ }
+          if (serverTask && taskMatchesPatch(serverTask, queuedPatch)) {
+            retryPatchRef.current.delete(taskId)
+            confirmedRef.current.set(taskId, serverTask)
+            if (isLatest) {
+              optimisticRef.current.delete(taskId)
+              showTask(serverTask)
+              setToast({ msg: 'Task saved, but the final remote-sync reply was lost.', tone: 'bad' })
+            }
+          } else if (isLatest) {
+            optimisticRef.current.delete(taskId)
+            if (serverTask) {
+              retryPatchRef.current.delete(taskId)
+              confirmedRef.current.set(taskId, serverTask)
+              showTask(serverTask)
+              setToast({ msg: 'The save timed out. The latest server version is shown.', tone: 'bad' })
+            } else {
+              // Keep the visible card when even the reconciliation read failed. A later refresh will
+              // replace it with server truth; rolling back here would be another unproved guess.
+              setToast({ msg: 'Could not confirm whether this task synced. Refresh before changing it again.', tone: 'bad' })
+            }
+          } else {
+            // A newer local edit is already queued. Retry only the fields this failed request owned.
+            retryPatchRef.current.set(taskId, queuedPatch)
+          }
+        } else if (isLatest) {
+          retryPatchRef.current.delete(taskId)
           const rollback = confirmedRef.current.get(taskId) ?? task
           optimisticRef.current.delete(taskId)
           showTask(rollback)
           setToast({ msg: `${cause?.message || 'Could not update the task.'} The card was moved back.`, tone: 'bad' })
+        } else {
+          // The next queued request folds these intentional fields in, without resending stale title,
+          // assignee, or other fields this browser never changed.
+          retryPatchRef.current.set(taskId, queuedPatch)
         }
       } finally {
         if (revisionRef.current.get(taskId) === revision) {

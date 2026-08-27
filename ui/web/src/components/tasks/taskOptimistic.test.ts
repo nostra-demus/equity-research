@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict'
 import test from 'node:test'
 import type { TaskCard, TasksRead } from '../../lib/types'
-import { optimisticTask, overlayOptimisticTasks, replaceTask, taskUpdateInput } from './taskOptimistic'
+import { mergeTaskUpdatePatches, optimisticTask, overlayOptimisticTasks, replaceTask, taskMatchesPatch } from './taskOptimistic'
 
 const card = (overrides: Partial<TaskCard> = {}): TaskCard => ({
   schema_version: 'task-card/v1', task_id: 'TASK-20260827-1234abcd', scope: 'ticker', ticker: 'MIDEA',
@@ -27,10 +27,16 @@ test('rapid changes build on the card already shown to the user', () => {
   const reassigned = optimisticTask(moved, { assignee: 'AB' })
   assert.equal(reassigned.stage, 'deep_dive')
   assert.equal(reassigned.assignee, 'AB')
-  assert.deepEqual(taskUpdateInput(reassigned), {
-    scope: 'ticker', ticker: 'MIDEA', subject: 'European Heat',
-    title: 'Need to run a full scanner on right data', stage: 'deep_dive', decision: null, assignee: 'AB',
+  assert.deepEqual(mergeTaskUpdatePatches({ assignee: 'AB' }, { stage: 'deep_dive', decision: null }), {
+    assignee: 'AB', stage: 'deep_dive', decision: null,
   })
+})
+
+test('retry patches never include untouched fields owned by another client', () => {
+  const patch = mergeTaskUpdatePatches({ assignee: 'AB' }, { stage: 'deep_dive' })
+  assert.deepEqual(patch, { assignee: 'AB', stage: 'deep_dive' })
+  assert.equal(taskMatchesPatch(card({ assignee: 'AB', stage: 'deep_dive', title: 'Changed elsewhere' }), patch), true)
+  assert.equal(taskMatchesPatch(card({ assignee: 'CK', stage: 'deep_dive' }), patch), false)
 })
 
 test('an unrelated refresh cannot replace a task whose save is still pending', () => {

@@ -18,17 +18,20 @@ export function optimisticTask(task: TaskCard, patch: Partial<TaskInput>): TaskC
   }
 }
 
-/** Send the complete state the user can see so a later queued save also retries any earlier quick edit. */
-export function taskUpdateInput(task: TaskCard): TaskInput {
-  return {
-    scope: task.scope,
-    ticker: task.ticker,
-    subject: task.subject,
-    title: task.title,
-    stage: task.stage,
-    decision: task.decision,
-    assignee: task.assignee,
-  }
+/** Combine only fields this browser changed; untouched fields stay owned by the latest server card. */
+export function mergeTaskUpdatePatches(...patches: (Partial<TaskInput> | undefined)[]): Partial<TaskInput> {
+  return Object.assign({}, ...patches.filter(Boolean))
+}
+
+/** Did the server apply every field in this browser's patch? Used after an unknown timeout outcome. */
+export function taskMatchesPatch(task: TaskCard, patch: Partial<TaskInput>): boolean {
+  return (patch.scope === undefined || task.scope === patch.scope)
+    && (patch.ticker === undefined || task.ticker === patch.ticker)
+    && (patch.subject === undefined || task.subject === patch.subject)
+    && (patch.title === undefined || task.title === patch.title)
+    && (patch.stage === undefined || task.stage === patch.stage)
+    && (patch.decision === undefined || task.decision === patch.decision)
+    && (patch.assignee === undefined || task.assignee === patch.assignee)
 }
 
 export function replaceTask(read: TasksRead | null, task: TaskCard): TasksRead | null {
