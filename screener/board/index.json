@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-08-27T01:24:47Z",
+  "generated_at": "2026-08-27T02:09:59Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260827-086",
+      "headline": "IPD: Appendix 4E [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.IPD?key=2924-03127296-2A1692710",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-27T01:03:40Z",
+      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
+      "prelim_note": "The company released its Appendix 4E, which is a mandatory preliminary final report containing key financial results.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company released its Appendix 4E, which is a mandatory preliminary final report containing key financial results.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "IPD Group",
+          "ticker": "IPD",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260827-015",
       "headline": "CCR: FY26 Results & FY27 Guidance [price-sensitive]",
@@ -300,6 +349,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260827-073",
+      "headline": "Nvidia in talks to acquire Hugging Face in $13 billion deal, Business Insider reports",
+      "headline_en": null,
+      "url": "https://www.reuters.com/technology/nvidia-talks-acquire-hugging-face-13-billion-deal-business-insider-reports-2026-08-27/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-27T00:52:46Z",
+      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
+      "prelim_note": "Nvidia is reportedly in talks for a significant $13 billion acquisition of AI platform Hugging Face.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nvidia is reportedly in talks for a significant $13 billion acquisition of AI platform Hugging Face.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": -8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "unconfirmed",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna",
+        "rumor"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": "NVDA",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260827-047",
       "headline": "ID8: Preliminary Final Report [price-sensitive]",
       "headline_en": null,
@@ -349,6 +448,153 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260827-085",
+      "headline": "BTN: Preliminary Final Report [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.BTN?key=2924-03127301-3A700065",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-27T01:12:15Z",
+      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
+      "prelim_note": "The company released its preliminary final report, which is a key financial disclosure for investors.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "The company released its preliminary final report, which is a key financial disclosure for investors.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bigtincan Holdings",
+          "ticker": "BTN",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260827-084",
+      "headline": "SCHEDULE 13D - Tactical Resources Corp. (0002041208) (Subject)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/2041208/000121390026094095/0001213900-26-094095-index.htm",
+      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-08-27T01:06:06Z",
+      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
+      "prelim_note": "A Schedule 13D filing indicates a significant ownership stake or activist interest in the company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "A Schedule 13D filing indicates a significant ownership stake or activist interest in the company.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "ownership_activist",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tactical Resources Corp.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260827-083",
+      "headline": "SCHEDULE 13D - Blue Bird Capital Enterprises LLC (0002110854) (Filed by)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/2110854/000121390026094095/0001213900-26-094095-index.htm",
+      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-08-27T01:06:06Z",
+      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
+      "prelim_note": "A Schedule 13D filing indicates a significant ownership stake or activist interest in the company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "A Schedule 13D filing indicates a significant ownership stake or activist interest in the company.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "ownership_activist",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Blue Bird Capital Enterprises LLC",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260827-013",
       "headline": "EYE: Appendix 4E and Annual Report [price-sensitive]",
       "headline_en": null,
@@ -389,6 +635,104 @@
         {
           "name": "EYE",
           "ticker": "EYE",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260827-064",
+      "headline": "Salesforce raises annual revenue forecasts on AI product momentum",
+      "headline_en": null,
+      "url": "https://www.straitstimes.com/business/salesforce-raises-annual-revenue-forecasts-on-ai-product-momentum",
+      "source_name": "The Straits Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-27T00:54:00Z",
+      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
+      "prelim_note": "Salesforce raised its annual revenue forecasts due to momentum in AI products.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Salesforce raised its annual revenue forecasts due to momentum in AI products.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Salesforce",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260827-087",
+      "headline": "AQZ: AQZ completes institutional component of $40m raising [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.AQZ?key=2924-03127289-2A1692701",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-27T00:49:40Z",
+      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
+      "prelim_note": "The company completed the institutional component of a $40 million capital raise.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "The company completed the institutional component of a $40 million capital raise.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "AQZ",
+          "ticker": null,
           "listing_country": "AU"
         }
       ],
@@ -540,6 +884,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260827-096",
+      "headline": "NDO: Appendix 4D and 2026 Half Year Financial Report [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.NDO?key=2924-03126634-3A699927",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-26T07:36:42Z",
+      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
+      "prelim_note": "The company released its half-year financial report, which is a primary source for performance assessment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "The company released its half-year financial report, which is a primary source for performance assessment.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nido Education Limited",
+          "ticker": "NDO",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -741,6 +1134,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260827-067",
+      "headline": "BOK Delivers Back-to-Back Rate Hike to Curb Inflation Risks",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-08-27/bok-delivers-back-to-back-rate-hike-to-curb-inflation-risks",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-27T00:52:23Z",
+      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
+      "prelim_note": "The Bank of Korea delivered a back-to-back rate hike to curb inflation risks.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "The Bank of Korea delivered a back-to-back rate hike to curb inflation risks.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260827-045",
       "headline": "BIDU-SW BIDU-SWR (09888 89888): VOLUNTARY CONVERSION TO DUAL PRIMARY LISTING ON THE HONG KONG STOCK EXCHANGE",
       "headline_en": null,
@@ -785,6 +1221,154 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260827-097",
+      "headline": "RMS: Ceasing to be a substantial holder from MUFG",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.RMS?key=2924-03126674-6A1340468",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-26T08:30:37Z",
+      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
+      "prelim_note": "MUFG exits substantial (≥5%) shareholding in ASX-listed RMS, materially altering voting control and ownership structure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "MUFG exits substantial (≥5%) shareholding in ASX-listed RMS, materially altering voting control and ownership structure.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 1,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "ownership_activist",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "RMS",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260827-098",
+      "headline": "CAR: Becoming a substantial holder from MUFG",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.CAR?key=2924-03126673-3A699934",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-26T08:30:12Z",
+      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
+      "prelim_note": "MUFG enters substantial (≥5%) shareholding in ASX-listed CAR, materially altering voting control and ownership structure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "MUFG enters substantial (≥5%) shareholding in ASX-listed CAR, materially altering voting control and ownership structure.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 1,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "ownership_activist",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CAR",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260827-095",
+      "headline": "Sugs Lloyd Ltd: Disclosure regarding new credit rating. kindly refer attached press release for further details.",
+      "headline_en": null,
+      "url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/4e1ea051-cc7c-4bb4-9058-f31551df76a0.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-26T07:38:22Z",
+      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
+      "prelim_note": "A new credit rating disclosure is a material event for debt and credit risk assessment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "A new credit rating disclosure is a material event for debt and credit risk assessment.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 1,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "credit_rating_downgrade",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "credit_rating_upgrade",
+        "credit_rating_downgrade"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Sugs Lloyd Ltd",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1035,6 +1619,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260827-066",
+      "headline": "Singapore police raid Radiant World office as probe widens",
+      "headline_en": null,
+      "url": "https://www.businesstimes.com.sg/companies-markets/singapore-police-raid-radiant-world-office-probe-widens",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-27T00:55:01Z",
+      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
+      "prelim_note": "Singapore police raided Radiant World's office as a probe widens.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Singapore police raided Radiant World's office as a probe widens.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Radiant World",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260827-032",
       "headline": "Magellan posts record $778m in revenue after Barrenjoey merger",
       "headline_en": null,
@@ -1183,552 +1816,35 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260827-029",
-      "headline": "Kia’s Three-Row EV9 Recalled Over Airbag Issue",
+      "inbox_id": "INB-20260827-065",
+      "headline": "Chris Ellison set for $17m windfall as MinRes reinstates dividend",
       "headline_en": null,
-      "url": "https://www.carscoops.com/2026/08/kia-ev9-airbag-recall/",
-      "source_name": "Carscoops",
+      "url": "https://www.afr.com/companies/mining/chris-ellison-set-for-17m-windfall-as-minres-reinstates-dividend-20260824-p60r2k?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
       "input_nature": "news_headline",
-      "found_at": "2026-08-27T00:04:00Z",
+      "found_at": "2026-08-27T00:35:47Z",
       "sweep_file": "screener/inbox/2026-08-27_sweep.json",
-      "prelim_note": "Kia is recalling its EV9 model due to an airbag issue, which poses operational and reputational risk.",
+      "prelim_note": "MinRes reinstated its dividend, leading to a $17 million windfall for Chris Ellison.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "Kia is recalling its EV9 model due to an airbag issue, which poses operational and reputational risk.",
+      "triage_score": 86,
+      "triage_reason": "MinRes reinstated its dividend, leading to a $17 million windfall for Chris Ellison.",
       "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Kia",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260827-031",
-      "headline": "Economists See RBA Rate Hike as Early as September After Hot CPI",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-08-26/economists-see-rba-rate-hike-as-early-as-september-after-hot-cpi",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-26T23:50:08Z",
-      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
-      "prelim_note": "Economists anticipate a potential RBA rate hike in September following higher-than-expected CPI data.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 82,
-      "triage_reason": "Economists anticipate a potential RBA rate hike in September following higher-than-expected CPI data.",
-      "region": "OTHER",
       "relevance": "material",
       "materiality_pre_score": 75,
       "rank_factors": {
         "materiality": 75,
         "source_tier": 0,
-        "scope": 2,
+        "scope": 6,
         "event": 0,
         "size": 0,
         "recency": 5,
         "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
-        "scope_id": "policy",
+        "scope_id": "single_name",
         "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260827-030",
-      "headline": "Malaysia Detains Ex-Treasury Chief Over Pilgrimage Fund Probe",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-08-26/malaysia-detains-ex-treasury-chief-over-pilgrimage-fund-probe",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-26T23:52:07Z",
-      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
-      "prelim_note": "The detention of a former treasury chief in relation to a fund probe indicates significant legal and governance risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "The detention of a former treasury chief in relation to a fund probe indicates significant legal and governance risk.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260827-050",
-      "headline": "FDA Approves Rasonque (daraxonrasib), the First Broad RAS-Targeted Medicine in Metastatic Pancreatic Cancer",
-      "headline_en": null,
-      "url": "https://www.drugs.com/newdrugs/fda-approves-rasonque-daraxonrasib-first-broad-ras-targeted-medicine-metastatic-pancreatic-cancer-6865.html",
-      "source_name": "Drugs.com — New Drug Approvals",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-08-26T23:08:38Z",
-      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
-      "prelim_note": "FDA approval of Rasonque, the first broad RAS-targeted medicine for metastatic pancreatic cancer, is a significant clinical and regulatory milestone for RAS-targeted oncology.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 80,
-      "triage_reason": "FDA approval of Rasonque, the first broad RAS-targeted medicine for metastatic pancreatic cancer, is a significant clinical and regulatory milestone for RAS-targeted oncology.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": -2,
-        "event": 0,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "unknown",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "secondary",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260827-061",
-      "headline": "SBFC Finance Ltd: Intimation on credit rating",
-      "headline_en": null,
-      "url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/4876e9c0-6096-4271-b4af-ad26627032b4.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-26T08:56:37Z",
-      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
-      "prelim_note": "SBFC Finance announces credit rating intimation, but direction (upgrade, downgrade, reaffirmation) not specified.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 79,
-      "triage_reason": "SBFC Finance announces credit rating intimation, but direction (upgrade, downgrade, reaffirmation) not specified.",
-      "region": "IN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 58,
-      "rank_factors": {
-        "materiality": 58,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": -1,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "credit_rating_downgrade",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "credit_rating_downgrade",
-        "credit_rating_upgrade"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SBFC Finance Ltd",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260827-038",
-      "headline": "Three of Australia's four major banks forecast another rate hike this year",
-      "headline_en": null,
-      "url": "https://www.reuters.com/world/asia-pacific/three-australias-four-major-banks-forecast-another-rate-hike-this-year-2026-08-27/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-27T00:18:33Z",
-      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
-      "prelim_note": "Major Australian banks are forecasting a rate hike, which impacts the broader financial sector and economic outlook.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 77,
-      "triage_reason": "Major Australian banks are forecasting a rate hike, which impacts the broader financial sector and economic outlook.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260827-046",
-      "headline": "IFT: One New Zealand announces network sharing proposal",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.IFT?key=2924-03127264-2A1692688",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-27T00:10:20Z",
-      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
-      "prelim_note": "Infratil's One New Zealand unit is proposing a network sharing agreement which could improve operational efficiency and margins.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 76,
-      "triage_reason": "Infratil's One New Zealand unit is proposing a network sharing agreement which could improve operational efficiency and margins.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Infratil",
-          "ticker": "IFT",
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260827-044",
-      "headline": "RUSAL (00486): Interim Report 2026",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0827/2026082700041.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-27T00:10:00Z",
-      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
-      "prelim_note": "The interim report provides updated financial performance data for the company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 76,
-      "triage_reason": "The interim report provides updated financial performance data for the company.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "RUSAL",
-          "ticker": "00486",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260827-060",
-      "headline": "EGG: Change in substantial holding",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.EGG?key=2924-03126704-2A1692396",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-26T09:28:37Z",
-      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
-      "prelim_note": "ASX filing of change in substantial holding in EGG, but magnitude and holder identity not disclosed.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 76,
-      "triage_reason": "ASX filing of change in substantial holding in EGG, but magnitude and holder identity not disclosed.",
-      "region": "OTHER",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "EGG",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260827-059",
-      "headline": "LM8: Change in substantial holding - St Ives",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.LM8?key=2924-03126682-6A1340473",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-26T08:47:22Z",
-      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
-      "prelim_note": "A >5% substantial holding change disclosed to ASX for LM8; without specification of holder identity, buy/sell direction, or stake size, this is routine regulatory notification with uncertain implications.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 76,
-      "triage_reason": "A >5% substantial holding change disclosed to ASX for LM8; without specification of holder identity, buy/sell direction, or stake size, this is routine regulatory notification with uncertain implications.",
-      "region": "OTHER",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "St Ives",
-          "ticker": "LM8",
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260827-008",
-      "headline": "Nestle India Limited: Nestle India Limited has informed the Exchange about intimation regarding receipt of an Order from the Office of the Principal Commissioner of Customs Air Cargo Complex (Import), New Customs House, Near IGI Airport, New Delhi 110 037",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/NESTLEIND1_26082026113941_STXIntimationVATOrder26082026signed.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-26T06:11:28Z",
-      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
-      "prelim_note": "Nestle India received a customs order at IGI Air Cargo Complex; regulatory enforcement event with unclear type (fine, hold, directive) and no disclosed financial impact.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 76,
-      "triage_reason": "Nestle India received a customs order at IGI Air Cargo Complex; regulatory enforcement event with unclear type (fine, hold, directive) and no disclosed financial impact.",
-      "region": "IN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "regulatory",
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nestle India Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260827-058",
-      "headline": "BITFIRE GROUP (01611): PROPOSED TERMINATION OF THE EXISTING SHARE OPTION SCHEME AND ADOPTION OF NEW SHARE OPTION SCHEME AND NOTICE OF EXTRAORDINARY GENERAL MEETING",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0826/2026082600510.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-26T09:05:00Z",
-      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
-      "prelim_note": "Company proposes to terminate existing share option scheme and adopt new one, subject to EGM approval; dilution and cost impacts depend on undisclosed scheme terms.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 73,
-      "triage_reason": "Company proposes to terminate existing share option scheme and adopt new one, subject to EGM approval; dilution and cost impacts depend on undisclosed scheme terms.",
-      "region": "CN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 58,
-      "rank_factors": {
-        "materiality": 58,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
         "event_id": null,
         "size_bucket": "unknown"
       },
@@ -1738,9 +1854,9 @@
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Bitfire Group",
-          "ticker": "01611",
-          "listing_country": "HK"
+          "name": "MinRes",
+          "ticker": null,
+          "listing_country": null
         }
       ],
       "size_bucket": "unknown",
@@ -1749,177 +1865,29 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260827-048",
-      "headline": "IEL: Change in substantial holding",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.IEL?key=2924-03127257-3A700055",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-27T00:04:20Z",
-      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
-      "prelim_note": "A change in substantial holding indicates institutional movement in the company's equity structure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 72,
-      "triage_reason": "A change in substantial holding indicates institutional movement in the company's equity structure.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "IDP Education",
-          "ticker": "IEL",
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260827-049",
-      "headline": "ASX: Becoming a substantial holder",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ASX?key=2924-03127250-2A1692400",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-27T00:00:40Z",
-      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
-      "prelim_note": "The ASX exchange is disclosing a change in its own substantial holding position, reflecting institutional activity.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 72,
-      "triage_reason": "The ASX exchange is disclosing a change in its own substantial holding position, reflecting institutional activity.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ASX Ltd",
-          "ticker": "ASX",
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260827-057",
-      "headline": "UNI MEDICAL (02666): COMPLETION OF THE ISSUANCE OF THE SECOND TRANCHE OF DOMESTIC MEDIUM-TERM NOTES IN THE PRC BY CHINA UNIVERSAL LEASING CO., LTD., A WHOLLY-OWNED SUBSIDIARY OF THE COMPANY",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0826/2026082600538.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-26T09:07:00Z",
-      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
-      "prelim_note": "Subsidiary completed issuance of second tranche of domestic medium-term notes in PRC; affects capital structure without disclosed amount or terms.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 70,
-      "triage_reason": "Subsidiary completed issuance of second tranche of domestic medium-term notes in PRC; affects capital structure without disclosed amount or terms.",
-      "region": "CN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 48,
-      "rank_factors": {
-        "materiality": 48,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "debt_credit",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capital_actions",
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "UNI MEDICAL",
-          "ticker": "02666",
-          "listing_country": "HK"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260827-033",
+      "inbox_id": "INB-20260827-068",
       "headline": "Judge dismisses lawsuit by Elon Musk's X challenging New York hate speech law",
       "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/international/judge-dismisses-lawsuit-elon-musks-x-challenging-new-york-hate-speech-law",
-      "source_name": "The Business Times (Singapore)",
+      "url": "https://www.deccanherald.com/world/us/judge-dismisses-lawsuit-by-elon-musks-x-challenging-new-york-hate-speech-law-4125534",
+      "source_name": "Deccan Herald",
       "input_nature": "news_headline",
-      "found_at": "2026-08-27T00:06:13Z",
+      "found_at": "2026-08-27T00:41:27Z",
       "sweep_file": "screener/inbox/2026-08-27_sweep.json",
-      "prelim_note": "A judge dismissed X's lawsuit against a New York hate speech law, maintaining the regulatory burden on the company.",
+      "prelim_note": "A judge dismissed a lawsuit by Elon Musk's X challenging New York's hate speech law.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 68,
-      "triage_reason": "A judge dismissed X's lawsuit against a New York hate speech law, maintaining the regulatory burden on the company.",
+      "triage_score": 85,
+      "triage_reason": "A judge dismissed a lawsuit by Elon Musk's X challenging New York's hate speech law.",
       "region": "US",
       "relevance": "material",
-      "materiality_pre_score": 55,
+      "materiality_pre_score": 70,
       "rank_factors": {
-        "materiality": 55,
+        "materiality": 70,
         "source_tier": 0,
         "scope": 2,
         "event": 6,
-        "size": 0,
+        "size": 2,
         "recency": 5,
         "materiality_label_floor": 0,
         "quantified": 0,
@@ -1927,7 +1895,7 @@
         "scope_id": "policy",
         "source_tier_id": "news",
         "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
+        "size_bucket": "mega"
       },
       "event_types": [
         "litigation_enforcement"
@@ -1937,10 +1905,59 @@
         {
           "name": "X",
           "ticker": null,
-          "listing_country": "US"
+          "listing_country": null
         }
       ],
-      "size_bucket": "unknown",
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260827-089",
+      "headline": "DMR Engineering Ltd: Intimation of receipt of work order",
+      "headline_en": null,
+      "url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/e44b640e-21f6-4aa9-9231-c830d8aef20f.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-26T08:21:44Z",
+      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
+      "prelim_note": "The company received a new work order, which is a positive commercial development.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 84,
+      "triage_reason": "The company received a new work order, which is a positive commercial development.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 1,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "DMR Engineering Ltd",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -97659,9 +97676,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 169401,
-    "news_picked_today": 61,
-    "news_dropped_today": 1391
+    "news_seen_today": 270833,
+    "news_picked_today": 105,
+    "news_dropped_today": 2271
   },
   "book_momentum": {
     "live_count": 8,
