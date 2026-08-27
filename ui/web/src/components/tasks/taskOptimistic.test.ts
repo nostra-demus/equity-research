@@ -39,6 +39,10 @@ test('retry patches never include untouched fields owned by another client', () 
   assert.equal(taskMatchesPatch(card({ assignee: 'CK', stage: 'deep_dive' }), patch), false)
 })
 
+test('server null and an empty ticker input reconcile as the same value', () => {
+  assert.equal(taskMatchesPatch(card({ ticker: null }), { ticker: '' }), true)
+})
+
 test('only temporary task failures are carried into a later queued edit', () => {
   assert.equal(retryableTaskUpdateError(Object.assign(new Error('invalid body'), { status: 400 })), false)
   assert.equal(retryableTaskUpdateError(Object.assign(new Error('watch conflict'), { status: 409 })), false)

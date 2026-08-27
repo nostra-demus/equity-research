@@ -26,7 +26,7 @@ export function mergeTaskUpdatePatches(...patches: (Partial<TaskInput> | undefin
 /** Did the server apply every field in this browser's patch? Used after an unknown timeout outcome. */
 export function taskMatchesPatch(task: TaskCard, patch: Partial<TaskInput>): boolean {
   return (patch.scope === undefined || task.scope === patch.scope)
-    && (patch.ticker === undefined || task.ticker === patch.ticker)
+    && (patch.ticker === undefined || (task.ticker || null) === (patch.ticker || null))
     && (patch.subject === undefined || task.subject === patch.subject)
     && (patch.title === undefined || task.title === patch.title)
     && (patch.stage === undefined || task.stage === patch.stage)
