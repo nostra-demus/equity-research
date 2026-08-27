@@ -53,6 +53,10 @@ export const STATE_DIR = process.env.ENGINE_STATE_DIR
   ? path.resolve(process.env.ENGINE_STATE_DIR)
   : path.resolve(__dirname, '..', '.state')
 export const ACTIVITY_LOG_PATH = path.join(STATE_DIR, 'activity-log.jsonl')
+// Per-run AF_UNIX publication capabilities must be readable enough for the sandboxed helper to verify
+// socket ownership/type/mode, while STATE_DIR itself remains completely unreadable. Keep this owner-only
+// IPC tree outside the repository, supervisor state, and platform-writable temporary roots.
+export const PUBLICATION_SOCKET_ROOT = path.join(os.homedir(), '.nostra-cockpit-ipc')
 
 // Small operator utilities exposed through the cockpit's Tools workspace. Reel transcription reuses the
 // existing Groq credential but has its own model/runtime knobs. The downloader path is optional: when it

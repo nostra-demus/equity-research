@@ -6,7 +6,7 @@ import path from 'node:path'
 import { randomUUID } from 'node:crypto'
 import { execFile } from 'node:child_process'
 import { promisify } from 'node:util'
-import { REPO_ROOT } from '../src/config'
+import { PUBLICATION_SOCKET_ROOT, REPO_ROOT, STATE_DIR } from '../src/config'
 import { beginExecutionAttempt } from '../src/execution-provenance'
 import { startSupervisorPublicationSocket } from '../src/launcher'
 import { createRun, finishRun } from '../src/registry'
@@ -48,6 +48,10 @@ const publication = await startSupervisorPublicationSocket(run)
 try {
   assert.equal(fs.lstatSync(publication.socketPath).isSocket(), true)
   assert.equal(fs.lstatSync(publication.socketPath).mode & 0o077, 0)
+  assert.equal(path.dirname(path.dirname(publication.socketPath)), fs.realpathSync(PUBLICATION_SOCKET_ROOT))
+  assert.equal(publication.socketPath.startsWith(`${path.resolve(STATE_DIR)}${path.sep}`), false,
+    'publication metadata must not be trapped beneath unreadable supervisor state')
+  assert.equal(fs.lstatSync(PUBLICATION_SOCKET_ROOT).mode & 0o077, 0)
   assert.equal((await request(publication.socketPath, { method: 'GET' })).status, 405)
   assert.equal((await request(publication.socketPath, { token: randomUUID() })).status, 403)
   assert.equal((await request(publication.socketPath, { body: '{broken' })).status, 400)
@@ -75,6 +79,29 @@ try {
     encoding: 'utf8',
   })
   assert.equal(JSON.parse(helperResult.stdout).ok, true, 'shared Python callers reach the exact UDS without TCP')
+
+  const concurrentRoot = `analyses/ZZSOCKET_CONCURRENT_${Date.now()}`
+  const concurrentAbsolute = path.join(REPO_ROOT, concurrentRoot)
+  fs.mkdirSync(concurrentAbsolute, { recursive: true })
+  const concurrentRun = createRun({
+    kind: 'module', ticker: 'ZZSOCKETCONCURRENT', provider: 'claude', executionProfile: profile,
+    profileKey: profile.key, model: 'sonnet', reasoningLevel: 'default', prompt: '', user: 'test',
+    userVia: 'local', runRoot: concurrentRoot, willCommitToMain: false,
+    writeTargetsAbs: [concurrentAbsolute], coveredModules: [], readDepsAbs: [], closeWatcher: undefined,
+    expected: new Map(),
+  })
+  concurrentRun.publicationToken = randomUUID()
+  beginExecutionAttempt(concurrentRun)
+  const concurrentPublication = await startSupervisorPublicationSocket(concurrentRun)
+  try {
+    publication.verify()
+    concurrentPublication.verify()
+  } finally {
+    await concurrentPublication.close()
+    finishRun(concurrentRun, 'done')
+    fs.rmSync(concurrentAbsolute, { recursive: true, force: true })
+  }
+  publication.verify()
   run.publicationCompleted = true
   fs.unlinkSync(publication.socketPath)
   fs.writeFileSync(publication.socketPath, 'forged replacement\n', { mode: 0o600 })

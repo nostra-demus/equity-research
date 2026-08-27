@@ -650,7 +650,8 @@ const writableOutputRoot = path.join(dataRoot, 'PROBE_run')
 fs.mkdirSync(writableOutputRoot)
 const launchAuthHome = fs.mkdtempSync(path.join(os.tmpdir(), 'nostra-codex-launch-auth-'))
 const protectedStateRoot = fs.mkdtempSync(path.join(os.homedir(), '.nostra-codex-state-test-'))
-const publicationSocketRoot = fs.mkdtempSync(path.join(protectedStateRoot, 'r-'))
+const publicationCapabilityRoot = fs.mkdtempSync(path.join(os.homedir(), '.nostra-codex-ipc-test-'))
+const publicationSocketRoot = fs.mkdtempSync(path.join(publicationCapabilityRoot, 'r-'))
 fs.chmodSync(publicationSocketRoot, 0o700)
 const publicationSocketPath = path.join(publicationSocketRoot, 'p.sock')
 let publicationSocketServer = net.createServer()
@@ -753,10 +754,10 @@ try {
   assert.match(isolatedConfig, /features\.network_proxy = true/)
   assert.match(isolatedConfig, /\[permissions\.nostra-cockpit\.network\]\nenabled = true\nmode = "limited"/)
   assert.match(isolatedConfig, new RegExp(`${JSON.stringify(fs.realpathSync(publicationSocketPath)).replace(/[.*+?^${}()|[\]\\]/g, '\\$&')} = "allow"`))
-  assert.match(isolatedConfig, new RegExp(`${JSON.stringify(fs.realpathSync(publicationSocketPath)).replace(/[.*+?^${}()|[\]\\]/g, '\\$&')} = "deny"`),
-    'the AF_UNIX network exception must not make its pathname mutable through filesystem tools')
-  assert.match(isolatedConfig, new RegExp(`${JSON.stringify(fs.realpathSync(publicationSocketRoot)).replace(/[.*+?^${}()|[\]\\]/g, '\\$&')} = "deny"`),
-    'the supervisor socket parent must remain inaccessible to model-issued Bash')
+  assert.match(isolatedConfig, new RegExp(`${JSON.stringify(fs.realpathSync(publicationSocketPath)).replace(/[.*+?^${}()|[\]\\]/g, '\\$&')} = "read"`),
+    'the publication helper may verify the exact socket metadata but cannot mutate it')
+  assert.match(isolatedConfig, new RegExp(`${JSON.stringify(fs.realpathSync(publicationSocketRoot)).replace(/[.*+?^${}()|[\]\\]/g, '\\$&')} = "read"`),
+    'the publication helper may verify only the private socket parent outside denied state')
   assert.match(isolatedConfig, new RegExp(`${JSON.stringify(path.join(probe.authLease.home, 'auth.json')).replace(/[.*+?^${}()|[\]\\]/g, '\\$&')} = "deny"`))
   assert.match(isolatedConfig, new RegExp(`${JSON.stringify(fs.realpathSync(launchAuthHome)).replace(/[.*+?^${}()|[\]\\]/g, '\\$&')} = "deny"`))
   for (const protectedPath of [...new Set(protectedWritePaths.filter((candidate) => candidate !== protectedStateRoot))]) {
@@ -827,7 +828,6 @@ try {
     ['missing context socket', { publicationSocketPath: undefined }, /requires one matching supervisor socket/],
     ['TCP endpoint', { env: { ...context.env, NOSTRA_PUBLICATION_ENDPOINT: 'http://127.0.0.1:3434/publication' } }, /endpoint-scoped Unix-socket URL/],
     ['forged token', { env: { ...context.env, NOSTRA_PUBLICATION_TOKEN: 'not-a-supervisor-uuid' } }, /run-scoped UUID/],
-    ['unprotected socket', { protectedReadPaths: [] }, /contained by a supervisor protected-read root/],
   ] as const) {
     const rejectedProbe = launchProbe(launchAuthHome)
     assert.throws(() => buildCodexLaunchSpec({ ...context, ...override }, rejectedProbe), expected, label)
@@ -887,6 +887,7 @@ try {
   fs.rmSync(launchAuthHome, { recursive: true, force: true })
   await new Promise<void>((resolve) => publicationSocketServer.close(() => resolve()))
   fs.rmSync(protectedStateRoot, { recursive: true, force: true })
+  fs.rmSync(publicationCapabilityRoot, { recursive: true, force: true })
 }
 
 const leaseSecurityRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'nostra-codex-lease-security-'))

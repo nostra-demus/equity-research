@@ -7,7 +7,7 @@ import { isDeepStrictEqual } from 'node:util'
 import { execa, type ResultPromise } from 'execa'
 import { logLaunch } from './activity-log'
 import { admitRun, admissionMessage } from './admission'
-import { DATA_DIR, ESTIMATES, FULL_PER_MODULE, HOST, LAUNCH_GUARDS, MAX_CONCURRENT_RUNS, PORT, REPO_ROOT, RUN_STALL_MINUTES, STATE_DIR } from './config'
+import { DATA_DIR, ESTIMATES, FULL_PER_MODULE, HOST, LAUNCH_GUARDS, MAX_CONCURRENT_RUNS, PORT, PUBLICATION_SOCKET_ROOT, REPO_ROOT, RUN_STALL_MINUTES, STATE_DIR } from './config'
 import { getCreditStatus, setCreditStatus } from './credit'
 import { writeAgentMetrics } from './agent-metrics'
 import { startRunWatcher, sweepRunOutputs } from './fs-watcher'
@@ -4151,23 +4151,6 @@ export interface SupervisorPublicationSocket {
  */
 export async function startSupervisorPublicationSocket(run: RunState): Promise<SupervisorPublicationSocket> {
   if (!run.publicationToken) throw new Error('run has no supervisor publication capability')
-  const socketRoot = path.join(STATE_DIR, 's')
-  fs.mkdirSync(socketRoot, { recursive: true, mode: 0o700 })
-  fs.chmodSync(socketRoot, 0o700)
-  const directory = fs.mkdtempSync(path.join(socketRoot, 'r-'))
-  fs.chmodSync(directory, 0o700)
-  const socketPath = path.join(directory, 'p.sock')
-  // Darwin sockaddr_un.sun_path is 104 bytes including the NUL. Fail before listen rather than silently
-  // truncating a configured STATE_DIR into a different capability path.
-  if (Buffer.byteLength(socketPath) > 103) {
-    fs.rmdirSync(directory)
-    throw new Error('ENGINE_STATE_DIR is too long for a safe per-run publication Unix socket')
-  }
-  let closed = false
-  let dirty: string | null = null
-  let directoryIdentity = ''
-  let socketIdentity = ''
-  let watcher: fs.FSWatcher | null = null
   const identity = (target: string, kind: 'directory' | 'socket'): string => {
     const info = fs.lstatSync(target, { bigint: true })
     if ((kind === 'directory' && !info.isDirectory()) || (kind === 'socket' && !info.isSocket())
@@ -4177,6 +4160,35 @@ export async function startSupervisorPublicationSocket(run: RunState): Promise<S
     }
     return [info.dev, info.ino, info.mode, info.size, info.mtimeNs, info.ctimeNs].join(':')
   }
+  const rootIdentity = (target: string): string => {
+    const info = fs.lstatSync(target, { bigint: true })
+    if (!info.isDirectory() || info.isSymbolicLink()
+        || Number(info.uid) !== (process.getuid?.() ?? Number(info.uid))
+        || Number(info.mode & 0o077n) !== 0 || fs.realpathSync(target) !== target) {
+      throw new Error('publication socket root identity is unsafe')
+    }
+    // Concurrent runs legitimately add/remove their own private child directory. Pin the root inode and
+    // mode, not its mutable directory timestamps/size, so one admitted run cannot poison another.
+    return [info.dev, info.ino, info.mode, info.uid].join(':')
+  }
+  const socketRoot = PUBLICATION_SOCKET_ROOT
+  fs.mkdirSync(socketRoot, { recursive: true, mode: 0o700 })
+  fs.chmodSync(socketRoot, 0o700)
+  const socketRootIdentity = rootIdentity(socketRoot)
+  const directory = fs.mkdtempSync(path.join(socketRoot, 'r-'))
+  fs.chmodSync(directory, 0o700)
+  const socketPath = path.join(directory, 'p.sock')
+  // Darwin sockaddr_un.sun_path is 104 bytes including the NUL. Fail before listen rather than silently
+  // truncating the owner-only capability path into a different socket.
+  if (Buffer.byteLength(socketPath) > 103) {
+    fs.rmdirSync(directory)
+    throw new Error('the owner-only publication socket path is too long for a safe Unix socket')
+  }
+  let closed = false
+  let dirty: string | null = null
+  let directoryIdentity = ''
+  let socketIdentity = ''
+  let watcher: fs.FSWatcher | null = null
   const invalidate = (reason: string): never => {
     dirty = dirty || reason
     run.publicationError = `publication transport integrity failed: ${dirty}`
@@ -4189,6 +4201,7 @@ export async function startSupervisorPublicationSocket(run: RunState): Promise<S
     if (closed) invalidate('socket already closed')
     if (dirty) invalidate(dirty)
     try {
+      if (rootIdentity(socketRoot) !== socketRootIdentity) invalidate('socket root changed')
       if (identity(directory, 'directory') !== directoryIdentity) invalidate('socket directory changed')
       if (identity(socketPath, 'socket') !== socketIdentity) invalidate('socket inode changed')
     } catch (error: any) {
@@ -4301,7 +4314,8 @@ export async function startSupervisorPublicationSocket(run: RunState): Promise<S
       // tampering. A real unlink/rebind/chmod necessarily changes the socket or parent ctime/inode and is
       // still poisoned synchronously here as well as at every request/finalization boundary.
       try {
-        if (identity(directory, 'directory') === directoryIdentity
+        if (rootIdentity(socketRoot) === socketRootIdentity
+            && identity(directory, 'directory') === directoryIdentity
             && identity(socketPath, 'socket') === socketIdentity) return
       } catch { /* unsafe/missing identity is handled below */ }
       dirty = `${event}:${filename?.toString() || path.basename(socketPath)}`

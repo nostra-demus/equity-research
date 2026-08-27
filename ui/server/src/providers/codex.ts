@@ -560,17 +560,19 @@ export function codexSandboxConfig(options: {
   for (const candidate of protectedReads) access.set(candidate, 'deny')
   access.set(path.resolve(options.leaseAuthPath), 'deny')
   access.set(path.dirname(path.resolve(options.sourceAuthPath)), 'deny')
-  // The socket is admitted only beneath a non-temporary supervisor protected-read root. Deny both
-  // pathname spellings as defense in depth while the separate network rule grants connect only.
+  // The socket lives in the supervisor-owned, non-temporary IPC tree outside STATE_DIR. Admit metadata
+  // reads for only this private parent and socket so supervisor_publication.py can verify ownership, type,
+  // and mode before connecting. The broader state root remains denied, neither exact path is writable,
+  // and the separate network rule still grants connect to this socket only.
   if (options.publicationSocketPath) {
     const requestedSocket = path.resolve(options.publicationSocketPath)
     const requestedParent = path.dirname(requestedSocket)
-    access.set(requestedSocket, 'deny')
-    access.set(requestedParent, 'deny')
+    access.set(requestedSocket, 'read')
+    access.set(requestedParent, 'read')
     try {
       const canonicalParent = fs.realpathSync(requestedParent)
-      access.set(path.join(canonicalParent, path.basename(requestedSocket)), 'deny')
-      access.set(canonicalParent, 'deny')
+      access.set(path.join(canonicalParent, path.basename(requestedSocket)), 'read')
+      access.set(canonicalParent, 'read')
     } catch { /* raw config fixtures may not exist */ }
   }
   const entries = [...access.entries()]
@@ -849,26 +851,28 @@ shift 8
 shift 2
 "$5" -I -c 'import hashlib, json, sys; raise SystemExit(0 if sys.version_info >= (3, 10) else 1)' \
   >/dev/null 2>&1 || exit 55
+"$5" -I -c 'import os, stat, sys; p=sys.argv[1]; s=os.stat(p, follow_symlinks=False); d=os.stat(os.path.dirname(p), follow_symlinks=False); raise SystemExit(0 if stat.S_ISSOCK(s.st_mode) and stat.S_ISDIR(d.st_mode) and s.st_uid == os.getuid() and d.st_uid == os.getuid() and not (s.st_mode & 0o077) and not (d.st_mode & 0o077) else 1)' "$1" \
+  >/dev/null 2>&1 || exit 56
 /usr/bin/curl --disable --fail --silent --show-error --max-time 3 \
   --unix-socket "$1" -X POST \
   -H 'X-Nostra-Publication-Token: boundary-token' \
   --data-binary '{"phase":"sandbox-boundary-probe"}' \
-  http://localhost/publication >"$4" || exit 56
-{ /usr/bin/curl --disable --fail --silent --max-time 2 --unix-socket "$2" http://localhost/unrelated >/dev/null 2>&1; } && exit 57
-{ /usr/bin/curl --disable --fail --silent --max-time 2 "$3" >/dev/null 2>&1; } && exit 58
-{ /usr/bin/curl --disable --fail --silent --max-time 2 https://api.openai.com/ >/dev/null 2>&1; } && exit 59
+  http://localhost/publication >"$4" || exit 57
+{ /usr/bin/curl --disable --fail --silent --max-time 2 --unix-socket "$2" http://localhost/unrelated >/dev/null 2>&1; } && exit 58
+{ /usr/bin/curl --disable --fail --silent --max-time 2 "$3" >/dev/null 2>&1; } && exit 59
+{ /usr/bin/curl --disable --fail --silent --max-time 2 https://api.openai.com/ >/dev/null 2>&1; } && exit 60
 socket_parent=$(/usr/bin/dirname "$1")
-{ /bin/chmod 0777 "$socket_parent"; } >/dev/null 2>&1 && exit 60
-{ /bin/rm -f "$1"; } >/dev/null 2>&1 && exit 61
-{ printf forged >"$socket_parent/forged-file"; } 2>/dev/null && exit 62
-{ /bin/ln -s "$2" "$socket_parent/forged-link"; } >/dev/null 2>&1 && exit 63
+{ /bin/chmod 0777 "$socket_parent"; } >/dev/null 2>&1 && exit 61
+{ /bin/rm -f "$1"; } >/dev/null 2>&1 && exit 62
+{ printf forged >"$socket_parent/forged-file"; } 2>/dev/null && exit 63
+{ /bin/ln -s "$2" "$socket_parent/forged-link"; } >/dev/null 2>&1 && exit 64
 ( /usr/bin/printf '' | /usr/bin/nc -lU "$socket_parent/forged.sock" ) >/dev/null 2>&1 &
 forged_pid=$!
 /bin/sleep 0.1
 if [ -S "$socket_parent/forged.sock" ]; then
   /bin/kill "$forged_pid" >/dev/null 2>&1 || :
   wait "$forged_pid" >/dev/null 2>&1 || :
-  exit 64
+  exit 65
 fi
 wait "$forged_pid" >/dev/null 2>&1 || :
 exit 0
@@ -1878,14 +1882,10 @@ function resolveCodexPublicationTransport(
   if (writableRoots.some((root) => pathIsWithin(root, socket.realPath))) {
     throw new Error('Codex supervisor publication socket must stay outside every model-writable root.')
   }
-  const protectedReadRoots = (context.protectedReadPaths ?? []).map((candidate) => {
-    if (!path.isAbsolute(candidate)) throw new Error('Codex protected-read publication roots must be absolute.')
-    try { return fs.realpathSync(candidate) } catch {
-      throw new Error(`Codex protected-read publication root does not exist: ${candidate}`)
-    }
-  })
-  if (!protectedReadRoots.some((root) => pathIsWithin(root, socket.realPath))) {
-    throw new Error('Codex supervisor publication socket must be contained by a supervisor protected-read root.')
+  const capabilityDirectory = path.dirname(socket.realPath)
+  if (pathIsWithin(context.cwd, capabilityDirectory)
+      || pathIsWithin(context.additionalWritableDataRoot, capabilityDirectory)) {
+    throw new Error('Codex supervisor publication socket root must stay outside repository and data roots.')
   }
   return { socket, endpoint, token }
 }
