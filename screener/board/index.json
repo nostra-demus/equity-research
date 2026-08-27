@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-27T02:11:04Z",
+  "generated_at": "2026-08-27T03:07:36Z",
   "inbox": [
     {
       "inbox_id": "INB-20260827-086",
@@ -199,6 +199,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260827-117",
+      "headline": "KKR settles US antitrust case accusing it of merger filing violations for $250 million",
+      "headline_en": null,
+      "url": "https://www.reuters.com/legal/litigation/kkr-settles-us-antitrust-case-accusing-it-merger-filing-violations-250-million-2026-08-27/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-27T01:51:26Z",
+      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
+      "prelim_note": "KKR has agreed to pay a $250 million settlement to resolve US antitrust allegations regarding merger filing violations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "KKR has agreed to pay a $250 million settlement to resolve US antitrust allegations regarding merger filing violations.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "KKR & Co. Inc.",
+          "ticker": "KKR",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260827-028",
       "headline": "Nvidia shares pop 4% in extended trade after Q2 results, guidance beat estimates",
       "headline_en": null,
@@ -340,6 +389,111 @@
         {
           "name": "Salesforce",
           "ticker": "CRM",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260827-116",
+      "headline": "SoftBank in talks to buy stake in 1X at $6 billion valuation, The Information reports",
+      "headline_en": null,
+      "url": "https://www.reuters.com/legal/transactional/softbank-talks-buy-stake-1x-6-billion-valuation-information-reports-2026-08-27/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-27T01:53:05Z",
+      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
+      "prelim_note": "SoftBank is reportedly in talks to acquire a stake in AI robotics startup 1X at a $6 billion valuation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "SoftBank is reportedly in talks to acquire a stake in AI robotics startup 1X at a $6 billion valuation.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": -8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 13,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "unconfirmed",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna",
+        "rumor"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SoftBank Group Corp.",
+          "ticker": "9984",
+          "listing_country": "JP"
+        },
+        {
+          "name": "1X Technologies",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260827-118",
+      "headline": "Nvidia agrees to buy Hugging Face for $12.9 billion, The Information reports",
+      "headline_en": null,
+      "url": "https://www.reuters.com/technology/nvidia-talks-acquire-hugging-face-13-billion-deal-business-insider-reports-2026-08-27/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-27T01:39:19Z",
+      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
+      "prelim_note": "Nvidia is reportedly in talks to acquire AI platform Hugging Face for $12.9 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nvidia is reportedly in talks to acquire AI platform Hugging Face for $12.9 billion.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": -8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "unconfirmed",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna",
+        "rumor"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia Corporation",
+          "ticker": "NVDA",
           "listing_country": "US"
         }
       ],
@@ -1036,6 +1190,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260827-124",
+      "headline": "SKIL Infrastructure Ltd: SKIL Infrastructure Limited has informed the Exchange regarding the Post Facto Intimation of the Tenth (10th) Committee of Creditors meeting held on Tuesday, August 25, 2026",
+      "headline_en": null,
+      "url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/a9ad5111-70d4-48bc-bbf4-0c4501e1eea0.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-26T06:31:45Z",
+      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
+      "prelim_note": "The company is in a committee of creditors meeting, indicating ongoing financial distress or insolvency proceedings.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "The company is in a committee of creditors meeting, indicating ongoing financial distress or insolvency proceedings.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 1,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SKIL Infrastructure Ltd",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260827-043",
       "headline": "KKR to Pay $250 Million to Resolve DOJ Merger Filing Lawsuit",
       "headline_en": null,
@@ -1129,6 +1332,98 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260827-110",
+      "headline": "Bank of Korea delivers back-to-back rate hike to curb inflation risks",
+      "headline_en": null,
+      "url": "https://www.businesstimes.com.sg/companies-markets/banking-finance/bank-korea-delivers-back-back-rate-hike-curb-inflation-risks",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-27T01:38:15Z",
+      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
+      "prelim_note": "The Bank of Korea delivered a back-to-back rate hike to curb inflation risks.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "The Bank of Korea delivered a back-to-back rate hike to curb inflation risks.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260827-107",
+      "headline": "Nvidia Stock Price Jumps 5% In Extended Trading After Q2 Earnings — Key Numbers Here",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/markets/nvidia-stock-price-jumps-5-percent-in-extended-trading-after-q2-earning-key-numbers-here-11964183#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-27T01:15:16Z",
+      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
+      "prelim_note": "Nvidia's stock price jumped 5% after its Q2 earnings report.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "Nvidia's stock price jumped 5% after its Q2 earnings report.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1423,6 +1718,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260827-126",
+      "headline": "AGN: Appendix 4E & Annual Report to 30 June 2026 [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.AGN?key=2924-03126569-6A1340420",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-26T06:29:46Z",
+      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
+      "prelim_note": "The company released its annual report and financial results, which are explicitly marked as price-sensitive.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "The company released its annual report and financial results, which are explicitly marked as price-sensitive.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "AGN",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260827-052",
       "headline": "PHARMARON (03759): PROPOSED ISSUE OF RMB2,180 MILLION USD SETTLED ZERO COUPON CONVERTIBLE BONDS DUE 2027 UNDER GENERAL MANDATE",
       "headline_en": null,
@@ -1467,6 +1811,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260827-122",
+      "headline": "LGI: Change in substantial holding from WAM/WMI/WAX",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.LGI?key=2924-03126628-2A1692365",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-26T07:32:07Z",
+      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
+      "prelim_note": "Change in substantial holding (≥5%) signals a shift in ownership affecting governance and capital allocation; direction and size not disclosed in headline.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "Change in substantial holding (≥5%) signals a shift in ownership affecting governance and capital allocation; direction and size not disclosed in headline.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 68,
+      "rank_factors": {
+        "materiality": 68,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "ownership_activist",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "LGI",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1565,399 +1958,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260827-053",
-      "headline": "CHINFMINING (01258): PROPOSED ISSUE OF U.S.$300,000,000 ZERO COUPON CONVERTIBLE BONDS DUE 2031 UNDER GENERAL MANDATE",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0827/2026082700013.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-26T22:14:00Z",
-      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
-      "prelim_note": "China Mining proposing $300m zero-coupon convertible bonds due 2031 raises capital with dilution risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "China Mining proposing $300m zero-coupon convertible bonds due 2031 raises capital with dilution risk.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "China Mining",
-          "ticker": "01258.HK",
-          "listing_country": "HK"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260827-066",
-      "headline": "Singapore police raid Radiant World office as probe widens",
-      "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/companies-markets/singapore-police-raid-radiant-world-office-probe-widens",
-      "source_name": "The Business Times (Singapore)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-27T00:55:01Z",
-      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
-      "prelim_note": "Singapore police raided Radiant World's office as a probe widens.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Singapore police raided Radiant World's office as a probe widens.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Radiant World",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260827-032",
-      "headline": "Magellan posts record $778m in revenue after Barrenjoey merger",
-      "headline_en": null,
-      "url": "https://www.afr.com/companies/financial-services/magellan-posts-record-778m-in-revenue-after-barrenjoey-merger-20260817-p60p3y?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-26T23:42:00Z",
-      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
-      "prelim_note": "Magellan reported record revenue of $778 million following its merger with Barrenjoey.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Magellan reported record revenue of $778 million following its merger with Barrenjoey.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Magellan Financial Group",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260827-035",
-      "headline": "Prudential posts 8% rise in first-half new business profit, expands share buyback",
-      "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/companies-markets/banking-finance/prudential-posts-8-rise-first-half-new-business-profit-expands-share-buyback",
-      "source_name": "The Business Times (Singapore)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-26T23:38:57Z",
-      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
-      "prelim_note": "Prudential reported an 8% rise in first-half new business profit and announced an expansion of its share buyback program.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Prudential reported an 8% rise in first-half new business profit and announced an expansion of its share buyback program.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Prudential",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260827-041",
-      "headline": "MP High Court Rejects Transco Pleas Against Enhanced Land Acquisition Compensation",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/indore/mp-high-court-rejects-transco-pleas-against-enhanced-land-acquisition-compensation",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-26T23:30:00Z",
-      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
-      "prelim_note": "The High Court rejected Transco's plea against higher compensation, likely increasing operational costs.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "The High Court rejected Transco's plea against higher compensation, likely increasing operational costs.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Transco",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260827-065",
-      "headline": "Chris Ellison set for $17m windfall as MinRes reinstates dividend",
-      "headline_en": null,
-      "url": "https://www.afr.com/companies/mining/chris-ellison-set-for-17m-windfall-as-minres-reinstates-dividend-20260824-p60r2k?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-27T00:35:47Z",
-      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
-      "prelim_note": "MinRes reinstated its dividend, leading to a $17 million windfall for Chris Ellison.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "MinRes reinstated its dividend, leading to a $17 million windfall for Chris Ellison.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "MinRes",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260827-068",
-      "headline": "Judge dismisses lawsuit by Elon Musk's X challenging New York hate speech law",
-      "headline_en": null,
-      "url": "https://www.deccanherald.com/world/us/judge-dismisses-lawsuit-by-elon-musks-x-challenging-new-york-hate-speech-law-4125534",
-      "source_name": "Deccan Herald",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-27T00:41:27Z",
-      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
-      "prelim_note": "A judge dismissed a lawsuit by Elon Musk's X challenging New York's hate speech law.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "A judge dismissed a lawsuit by Elon Musk's X challenging New York's hate speech law.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "X",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260827-089",
-      "headline": "DMR Engineering Ltd: Intimation of receipt of work order",
-      "headline_en": null,
-      "url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/e44b640e-21f6-4aa9-9231-c830d8aef20f.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-26T08:21:44Z",
-      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
-      "prelim_note": "The company received a new work order, which is a positive commercial development.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 84,
-      "triage_reason": "The company received a new work order, which is a positive commercial development.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 1,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "DMR Engineering Ltd",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -83094,77 +83094,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-10d3707d292c",
-      "idea_version": "IDEAV-f8fbf9f9881048c9",
-      "idea_version_started_at": "2026-08-26T00:07:40Z",
-      "ticker": "GANDHITUBE",
-      "company": "Gandhi Special Tubes Limited",
-      "exchange": "BSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company is executing a share buyback at INR 900 per share, providing a floor and potential premium for existing shareholders.",
-      "why_now": "The letter of offer and tender form were officially filed on 2026-08-25.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-80356be59882"
-      ],
-      "primary_source_event_id": "EVT-80356be59882",
-      "source_headlines": [
-        "Gandhi Special Tubes Limited: Gandhi Special Tubes Limited has informed the Exchange about Buyback- Update regarding the Buyback Offer of up to 8,68,100 fully paid-up Equity Shares of Face Value of Rs. 5/- each of Gandhi Special Tubes Limited ( the Company ) at a price of INR 900/- per Equity Share through tender offer route ( Buyback Offer ) -Copy of Letter of Offer and Tender Form"
-      ],
-      "source_headline": "Gandhi Special Tubes Limited: Gandhi Special Tubes Limited has informed the Exchange about Buyback- Update regarding the Buyback Offer of up to 8,68,100 fully paid-up Equity Shares of Face Value of Rs. 5/- each of Gandhi Special Tubes Limited ( the Company ) at a price of INR 900/- per Equity Share through tender offer route ( Buyback Offer ) -Copy of Letter of Offer and Tender Form",
-      "source_url": "https://nsearchives.nseindia.com/corporate/GANDHITUBE_25082026200827_LOF.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-25T14:38:44Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-26T00:07:40Z",
-      "updated_at": "2026-08-26T00:07:40Z",
-      "decay_at": "2026-08-27T02:38:44Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-c56cd7fabf5d",
       "idea_version": "IDEAV-e298fc8d653164e4",
       "idea_version_started_at": "2026-08-26T00:07:40Z",
@@ -83230,77 +83159,6 @@
       "surfaced_at": "2026-08-26T00:07:40Z",
       "updated_at": "2026-08-26T00:07:40Z",
       "decay_at": "2026-08-27T08:35:14Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-ce13917c3b1c",
-      "idea_version": "IDEAV-22ef4ab24b8587bf",
-      "idea_version_started_at": "2026-08-26T00:07:40Z",
-      "ticker": "00205",
-      "company": "BFB Health",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company issued a positive profit alert, signaling better-than-expected earnings performance for the period.",
-      "why_now": "The announcement was filed on 2026-08-25.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-1c1dd6355767"
-      ],
-      "primary_source_event_id": "EVT-1c1dd6355767",
-      "source_headlines": [
-        "BFB HEALTH (00205): POSITIVE PROFIT ALERT"
-      ],
-      "source_headline": "BFB HEALTH (00205): POSITIVE PROFIT ALERT",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0825/2026082502225.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-25T14:40:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-26T00:07:40Z",
-      "updated_at": "2026-08-26T00:07:40Z",
-      "decay_at": "2026-08-27T02:40:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -84220,6 +84078,148 @@
       "surfaced_at": "2026-08-25T09:09:48Z",
       "updated_at": "2026-08-25T09:09:48Z",
       "decay_at": "2026-08-26T01:30:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-10d3707d292c",
+      "idea_version": "IDEAV-f8fbf9f9881048c9",
+      "idea_version_started_at": "2026-08-26T00:07:40Z",
+      "ticker": "GANDHITUBE",
+      "company": "Gandhi Special Tubes Limited",
+      "exchange": "BSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company is executing a share buyback at INR 900 per share, providing a floor and potential premium for existing shareholders.",
+      "why_now": "The letter of offer and tender form were officially filed on 2026-08-25.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-80356be59882"
+      ],
+      "primary_source_event_id": "EVT-80356be59882",
+      "source_headlines": [
+        "Gandhi Special Tubes Limited: Gandhi Special Tubes Limited has informed the Exchange about Buyback- Update regarding the Buyback Offer of up to 8,68,100 fully paid-up Equity Shares of Face Value of Rs. 5/- each of Gandhi Special Tubes Limited ( the Company ) at a price of INR 900/- per Equity Share through tender offer route ( Buyback Offer ) -Copy of Letter of Offer and Tender Form"
+      ],
+      "source_headline": "Gandhi Special Tubes Limited: Gandhi Special Tubes Limited has informed the Exchange about Buyback- Update regarding the Buyback Offer of up to 8,68,100 fully paid-up Equity Shares of Face Value of Rs. 5/- each of Gandhi Special Tubes Limited ( the Company ) at a price of INR 900/- per Equity Share through tender offer route ( Buyback Offer ) -Copy of Letter of Offer and Tender Form",
+      "source_url": "https://nsearchives.nseindia.com/corporate/GANDHITUBE_25082026200827_LOF.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-25T14:38:44Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-26T00:07:40Z",
+      "updated_at": "2026-08-26T00:07:40Z",
+      "decay_at": "2026-08-27T02:38:44Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-ce13917c3b1c",
+      "idea_version": "IDEAV-22ef4ab24b8587bf",
+      "idea_version_started_at": "2026-08-26T00:07:40Z",
+      "ticker": "00205",
+      "company": "BFB Health",
+      "exchange": "HKEX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company issued a positive profit alert, signaling better-than-expected earnings performance for the period.",
+      "why_now": "The announcement was filed on 2026-08-25.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-1c1dd6355767"
+      ],
+      "primary_source_event_id": "EVT-1c1dd6355767",
+      "source_headlines": [
+        "BFB HEALTH (00205): POSITIVE PROFIT ALERT"
+      ],
+      "source_headline": "BFB HEALTH (00205): POSITIVE PROFIT ALERT",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0825/2026082502225.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-25T14:40:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-26T00:07:40Z",
+      "updated_at": "2026-08-26T00:07:40Z",
+      "decay_at": "2026-08-27T02:40:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -87023,13 +87023,13 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 143,
-    "shown_count": 143,
+    "total_count": 145,
+    "shown_count": 145,
     "hidden_count": 0,
     "side_counts": {
       "long": {
-        "total_count": 56,
-        "shown_count": 56,
+        "total_count": 58,
+        "shown_count": 58,
         "hidden_count": 0
       },
       "short": {
@@ -87054,6 +87054,154 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-ce13917c3b1c",
+        "idea_version": "IDEAV-22ef4ab24b8587bf",
+        "idea_version_started_at": "2026-08-26T00:07:40Z",
+        "ticker": "00205",
+        "company": "BFB Health",
+        "exchange": "HKEX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company issued a positive profit alert, signaling better-than-expected earnings performance for the period.",
+        "why_now": "The announcement was filed on 2026-08-25.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-1c1dd6355767"
+        ],
+        "primary_source_event_id": "EVT-1c1dd6355767",
+        "source_headlines": [
+          "BFB HEALTH (00205): POSITIVE PROFIT ALERT"
+        ],
+        "source_headline": "BFB HEALTH (00205): POSITIVE PROFIT ALERT",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0825/2026082502225.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-25T14:40:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-26T00:07:40Z",
+        "updated_at": "2026-08-26T00:07:40Z",
+        "decay_at": "2026-08-27T02:40:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-27T02:40:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-10d3707d292c",
+        "idea_version": "IDEAV-f8fbf9f9881048c9",
+        "idea_version_started_at": "2026-08-26T00:07:40Z",
+        "ticker": "GANDHITUBE",
+        "company": "Gandhi Special Tubes Limited",
+        "exchange": "BSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company is executing a share buyback at INR 900 per share, providing a floor and potential premium for existing shareholders.",
+        "why_now": "The letter of offer and tender form were officially filed on 2026-08-25.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-80356be59882"
+        ],
+        "primary_source_event_id": "EVT-80356be59882",
+        "source_headlines": [
+          "Gandhi Special Tubes Limited: Gandhi Special Tubes Limited has informed the Exchange about Buyback- Update regarding the Buyback Offer of up to 8,68,100 fully paid-up Equity Shares of Face Value of Rs. 5/- each of Gandhi Special Tubes Limited ( the Company ) at a price of INR 900/- per Equity Share through tender offer route ( Buyback Offer ) -Copy of Letter of Offer and Tender Form"
+        ],
+        "source_headline": "Gandhi Special Tubes Limited: Gandhi Special Tubes Limited has informed the Exchange about Buyback- Update regarding the Buyback Offer of up to 8,68,100 fully paid-up Equity Shares of Face Value of Rs. 5/- each of Gandhi Special Tubes Limited ( the Company ) at a price of INR 900/- per Equity Share through tender offer route ( Buyback Offer ) -Copy of Letter of Offer and Tender Form",
+        "source_url": "https://nsearchives.nseindia.com/corporate/GANDHITUBE_25082026200827_LOF.pdf",
+        "source_name": "BSE / NSE Exchange Filing",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-25T14:38:44Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-26T00:07:40Z",
+        "updated_at": "2026-08-26T00:07:40Z",
+        "decay_at": "2026-08-27T02:38:44Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-27T02:38:44Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-c3365d772313",
         "idea_version": "IDEAV-6082786c91a4db9a",
@@ -97655,7 +97803,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 177,
-    "live_count": 33,
+    "live_count": 31,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -97674,9 +97822,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 270833,
-    "news_picked_today": 105,
-    "news_dropped_today": 2271
+    "news_seen_today": 388815,
+    "news_picked_today": 147,
+    "news_dropped_today": 3237
   },
   "book_momentum": {
     "live_count": 8,
