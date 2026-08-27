@@ -42,6 +42,8 @@ export function RunFirst({ swarm, subject, scope, module, isFlow, staticMode, pr
       if (!launchProviderReceiptMatches(out, selection, providerCatalogState)) {
         throw new Error(`The engine did not confirm the selected ${provider === 'codex' ? 'Codex' : 'Claude'} provider. Check Activity before retrying.`)
       }
+      useStore.getState().openActivity()
+      void useStore.getState().refreshActiveRuns()
       setNote('Started — this chat unlocks when the module finishes.')
     } catch (e: any) {
       setNote(String(e?.message || e) || 'Could not start the run.')
