@@ -254,7 +254,9 @@ export function groupByIdea(
   // list, so it belongs at the bottom where it can be worked through, not interleaved by P&L.
   const named = [...out.values()].filter((g) => g.ideaId !== null)
   const rest = [...out.values()].filter((g) => g.ideaId === null)
-  named.sort((a, b) => b.realized - a.realized)
+  // By MAGNITUDE, like the attribution panel beside it. Sorted by signed value, every loss sat below
+  // every gain, so the idea that lost the most money appeared last — under ideas that made almost none.
+  named.sort((a, b) => Math.abs(b.realized) - Math.abs(a.realized))
   rest.sort((a, b) => a.label.localeCompare(b.label))
   return [...named, ...rest]
 }

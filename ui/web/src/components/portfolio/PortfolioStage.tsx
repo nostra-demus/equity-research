@@ -680,12 +680,14 @@ function Exposure({ book, risked, parkedValue, nav, ccy, ideas, bars }: {
     // SIGNED, a pair inside one idea cancelled: a $100 long against a $100 short rendered as 0% and $0
     // while accounting for $200 of the money at risk — the one shape an idea view exists to show.
     // `net` is carried alongside so a hedged idea can say so instead of vanishing.
-    const by = new Map<string, { gross: number; net: number }>()
-    for (const { p, base } of nonResidual) {
+    const by = new Map<string, { gross: number; net: number; unvalued: number }>()
+    for (const { p, base, known } of nonResidual) {
       const id = ideas.assignments?.positions?.[(p.symbol ?? '').toUpperCase()] ?? ''
-      const cur = by.get(id) ?? { gross: 0, net: 0 }
-      cur.gross += Math.abs(base)
-      cur.net += base
+      const cur = by.get(id) ?? { gross: 0, net: 0, unvalued: 0 }
+      // An unvalued position is COUNTED but not ADDED. `base` was coerced to 0 upstream, so adding it
+      // published a plausible partial figure as the idea's exposure with nothing saying a holding was
+      // left out — the same defect as calling it dust, one step further down.
+      if (known) { cur.gross += Math.abs(base); cur.net += base } else { cur.unvalued += 1 }
       by.set(id, cur)
     }
     return [...by.entries()].sort((a, b) => {
@@ -780,7 +782,10 @@ function Exposure({ book, risked, parkedValue, nav, ccy, ideas, bars }: {
                   // The gross figure is what the bar measures. Where net differs the idea is hedged
                   // inside itself, and saying so is the point — a bar alone would read as a directional
                   // bet of that size.
-                  value={Math.abs(v.gross - v.net) > 0.5 ? `${fmtMoney(v.gross, ccy)} · net ${fmtMoney(v.net, ccy)}` : fmtMoney(v.gross, ccy)}
+                  value={
+                    (Math.abs(v.gross - v.net) > 0.5 ? `${fmtMoney(v.gross, ccy)} · net ${fmtMoney(v.net, ccy)}` : fmtMoney(v.gross, ccy))
+                    + (v.unvalued > 0 ? ` · ${v.unvalued} unvalued` : '')
+                  }
                   deep={!id}
                   prose
                 />

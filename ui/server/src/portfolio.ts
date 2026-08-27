@@ -348,7 +348,10 @@ export function runFifo(
           realizedBase: closeRate === null ? null : realizedLocal * closeRate,
           openFxRateToBase: lot.openFxRateToBase,
           closeFxRateToBase: closeRate,
-          closeTradeID: t.tradeID,
+          // `?? transactionID`: the same fallback buildBook already dedups on. Without it a closing
+          // execution that carries only a transactionID produced a closure with no identity at all,
+          // and the UI declared that round trip permanently unlabellable.
+          closeTradeID: t.tradeID ?? t.transactionID,
         })
         lot.quantity -= signedMatched
         remaining += signedMatched

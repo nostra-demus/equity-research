@@ -250,12 +250,16 @@ export function assignClosures(dir: string, closeTradeIDs: string[], id: string 
  *  the same ticker again months later then silently inherited the old idea, which is exactly the
  *  cross-era relabelling this whole module is keyed on trade ids to prevent.
  *
- *  Guarded on a non-empty book: with no open positions there is nothing to compare against, and
- *  pruning against an empty list would wipe every label the moment a statement was removed.
+ *  Guarded on `bookIsReal`, NOT on the position count. Inferring "no book" from "no positions" left
+ *  the hole open in the one case it mattered most: sell the last holding and the empty list skipped
+ *  the prune entirely, so re-opening that ticker still inherited the old bet. A book with statements
+ *  behind it and nothing in it means everything is closed — which is precisely when every position
+ *  label should go. The caller passes false only when there is no book at all, so removing every
+ *  statement still cannot wipe the ledger.
  *  Returns how many went, so a caller can avoid writing when nothing changed. */
-export function pruneClosedPositions(dir: string, openSymbols: string[]): number {
+export function pruneClosedPositions(dir: string, openSymbols: string[], bookIsReal = true): number {
+  if (!bookIsReal) return 0
   const open = new Set(openSymbols.map(normalizeSymbol).filter(Boolean))
-  if (open.size === 0) return 0
   const book = readIdeas(dir)
   const stale = Object.keys(book.assignments.positions).filter((k) => !open.has(k))
   if (stale.length === 0) return 0

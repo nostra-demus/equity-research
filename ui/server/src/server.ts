@@ -3813,7 +3813,10 @@ app.post('/api/portfolio/idea/holding', { config: { rateLimit: { max: 60, timeWi
   if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request rejected' })
   const body = (req.body ?? {}) as { symbol?: unknown; ideaId?: unknown }
   try {
-    const id = body.ideaId === null || body.ideaId === undefined ? null : String(body.ideaId)
+    // ABSENT is not NULL. Clearing is a deliberate act, so it takes a deliberate `null`; a malformed or
+    // version-skewed request that simply omits the field would otherwise silently unassign the holding.
+    if (!('ideaId' in body)) throw new Error('ideaId is required — send null to clear the assignment')
+    const id = body.ideaId === null ? null : String(body.ideaId)
     return assignHoldingIdea(String(body.symbol ?? ''), id)
   } catch (e: any) {
     return reply.code(400).send({ error: String(e?.message || 'that holding could not be assigned') })
@@ -3827,7 +3830,8 @@ app.post('/api/portfolio/idea/trade', { config: { rateLimit: { max: 60, timeWind
   const body = (req.body ?? {}) as { closeTradeIDs?: unknown; ideaId?: unknown }
   const ids = Array.isArray(body.closeTradeIDs) ? body.closeTradeIDs.map((v) => String(v ?? '')) : []
   try {
-    const id = body.ideaId === null || body.ideaId === undefined ? null : String(body.ideaId)
+    if (!('ideaId' in body)) throw new Error('ideaId is required — send null to clear the assignment')
+    const id = body.ideaId === null ? null : String(body.ideaId)
     return assignTradeIdea(ids, id)
   } catch (e: any) {
     return reply.code(400).send({ error: String(e?.message || 'that trade could not be assigned') })

@@ -254,12 +254,22 @@ check('a closed position does not lend its idea to the next one in the same tick
   assert.equal(book.ideas.length, 2, 'and the ideas themselves survive — only the label went')
 })
 
-check('an empty book prunes nothing', () => {
-  // Removing every statement leaves no positions. Pruning against that would wipe the whole ledger for
-  // a book that is merely absent, so it is guarded.
-  const d = dir('prune-empty')
+check('selling the LAST holding still drops its label', () => {
+  // The residual of the bug above. Guarding on "no open positions" meant the sold-everything case —
+  // the one where every label is stale — skipped the prune entirely, so re-opening that ticker still
+  // inherited the old bet. A real book that holds nothing is not the same as no book.
+  const d = dir('prune-last')
   assignPosition(d, 'AMZN', createIdea(d, 'AI').id)
-  assert.equal(pruneClosedPositions(d, []), 0)
+  assert.equal(pruneClosedPositions(d, [], true), 1)
+  assert.equal(ideaForPosition(readIdeas(d), 'AMZN'), null)
+})
+
+check('no book at all prunes nothing', () => {
+  // Removing every statement must never wipe the ledger: there is nothing to compare against, and the
+  // labels are still the operator's.
+  const d = dir('prune-nobook')
+  assignPosition(d, 'AMZN', createIdea(d, 'AI').id)
+  assert.equal(pruneClosedPositions(d, [], false), 0)
   assert.equal(ideaForPosition(readIdeas(d), 'AMZN'), 'ai')
 })
 
