@@ -124,7 +124,7 @@ import {
   sealProviderPreSpawnFailureAuthority,
 } from './execution-provenance'
 import { intakePoolNewest, latestPlanFileFor, readIntakePlan, resolveIntakeRunRoot, type IntakeReceiptIntent } from './intake'
-import { finishedOwnerConflict, listFinishedIntakeOwners, resolveUniqueFinishedIntakeOwner, type FinishedIntakeOwner } from './intake-owner'
+import { explainIntakeOwnerRefusal, finishedOwnerConflict, listFinishedIntakeOwners, resolveUniqueFinishedIntakeOwner, type FinishedIntakeOwner } from './intake-owner'
 import { getBridgeStatus, getBridgeSubjectNames, startBridgeScheduler } from './bridge-scheduler'
 import { readWhatChanged, whatChangedMarkdown, RUN_ROOT_RE } from './what-changed'
 import { readDataNeeds, resolveDataNeedsRunRoot } from './data-needs'
@@ -6273,7 +6273,19 @@ app.post('/api/screener/event/:eventId/send-to-research', { config: { rateLimit:
     // scoped staging/manual intake cannot slip between "research owns GOLD" and the actual note write.
     const initialOwner = resolveSwarmForSubject(ticker)
     if (!initialOwner || initialOwner.swarm !== RESEARCH_SWARM_ID) {
-      return reply.code(409).send({ error: 'This label is not owned unambiguously by a finished research call.', code: 'shared_data_owner_ambiguous' })
+      // Four different states used to share one "not owned unambiguously" line, so a company that simply
+      // had no finished run read as an ownership conflict and sent the reader hunting for a clash that did
+      // not exist. Name the state that actually applies (CLAUDE.md §21 — plain words, and never a raw code).
+      const refusal = explainIntakeOwnerRefusal(ticker, RESEARCH_SWARM_ID)
+      const owners = refusal && 'owners' in refusal ? refusal.owners.join(' and ') : ''
+      const message = refusal?.code === 'shared_data_owner_none'
+        ? `${ticker} has no finished research run yet, so there is no dossier for this event to become evidence for. Finish a run on ${ticker} first — this story stays on the wire.`
+        : refusal?.code === 'shared_data_owner_mismatch'
+          ? `${ticker}'s finished run belongs to the ${owners} cockpit, not research, so a research note would attach to the wrong thesis.`
+          : refusal?.code === 'shared_data_owner_undecided'
+            ? `${ticker}'s research run has not recorded a decision yet, so there is nothing for this event to be evidence against.`
+            : `${ticker} is claimed by more than one cockpit${owners ? ` (${owners})` : ''}, so no single thesis owns this evidence.`
+      return reply.code(409).send({ error: message, code: refusal?.code || 'shared_data_owner_ambiguous' })
     }
     return await withSubjectLock(subjectMutationLockKey(initialOwner.swarm, ticker), async () => {
       const owner = resolveSwarmForSubject(ticker)

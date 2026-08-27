@@ -2087,6 +2087,11 @@ export interface TickerSummary {
   // a run folder NEWER than latestRun has no decision record yet — the verdict shown is from the last
   // completed run; the picker flags that a partial re-run has landed since (see RunHistoryEntry)
   hasNewerPartial: boolean
+  // Does ANY run folder carry a usable decision record? `latestRun` cannot answer this: a partial run and
+  // a decided run with a null verdict both arrive as `decision: null`. Writers that need a real dossier to
+  // attach to (send-to-research) gate on this. Optional so an older engine simply omits it — treat a
+  // MISSING value as unknown and let the server refuse, never as proof the run is incomplete.
+  hasStandingDecision?: boolean
 }
 
 // Per-subject run summary for a NON-research swarm's subject picker (commodity GOLD/SUGAR, …) — the lean
