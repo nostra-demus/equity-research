@@ -5152,6 +5152,27 @@ a { color: inherit; }
 .fundbook__ideaselect:disabled { opacity: 0.5; }
 @media (hover: hover) and (pointer: fine) { .fundbook__ideaselect:hover { color: var(--text); border-color: var(--hairline-strong); } }
 .fundbook__ideaerr { display: block; margin-top: 2px; color: var(--bad); font-size: 9.5px; }
+/* Naming a new idea inline. window.prompt throws "not supported" in the cockpit's browser, and a modal
+   would be the only native dialog in the whole app. */
+.fundbook__ideainput {
+  min-width: 0; width: 130px; padding: 1px 5px; border-radius: var(--r-sm); font-size: 10.5px;
+  font-family: var(--font-sans); color: var(--text); background: var(--surface-3);
+  border: 1px solid var(--accent-deep);
+}
+.fundbook__ideainput::placeholder { color: var(--text-faint); }
+.fundbook__ideainput:focus-visible { outline: none; box-shadow: 0 0 0 2px var(--accent-wash); }
+.fundbook__ideaok, .fundbook__ideacancel {
+  flex: none; padding: 2px 7px; border-radius: var(--r-sm); font-size: 9.5px; font-weight: 700;
+  font-family: var(--font-sans); border: 1px solid var(--hairline-strong); background: transparent;
+  color: var(--text-muted);
+}
+.fundbook__ideaok { color: var(--accent-bright); border-color: color-mix(in srgb, var(--accent) 38%, transparent); background: var(--accent-wash); }
+.fundbook__ideaok:disabled, .fundbook__ideacancel:disabled { opacity: 0.45; }
+.fundbook__ideaok:focus-visible, .fundbook__ideacancel:focus-visible { outline: none; box-shadow: 0 0 0 2px var(--accent-wash); }
+@media (hover: hover) and (pointer: fine) {
+  .fundbook__ideacancel:hover:not(:disabled) { color: var(--text); border-color: var(--hairline-strong); }
+}
+.fundbook__idea { flex-wrap: wrap; gap: 4px; }
 .fundbook__ok { color: var(--accent-bright); font-weight: 700; font-size: 10px; }
 .fundbook__break { color: var(--bad); font-weight: 700; font-size: 10px; }
 .fundbook__drop.is-compact { padding: 10px 14px; gap: 12px; }

@@ -259,6 +259,7 @@ export function PortfolioStage() {
         ) : (
           <Trades
             book={book} manual={manual} onChanged={setRead} ideas={read?.ideas}
+            cashEquivalents={read?.overrides?.cashEquivalents ?? []}
             importOpen={openImport} onImportOpen={setOpenImport}
             importSurface={
               <ImportTab
@@ -886,37 +887,76 @@ function PositionRow({ p, derivative, isCash, ideas, onChanged }: {
   )
 }
 
-/** Declaring which idea a HOLDING expresses. A plain <select>, because that is what this is: a short
- *  closed list, keyboard-reachable, with no popover state to get wrong. Nothing is preselected — the
- *  empty option is the honest default, and it stays selected until the operator chooses. */
+/** Declaring which idea a HOLDING expresses.
+ *
+ *  Naming a NEW idea uses an inline field, not window.prompt. The prompt was not merely bad manners in
+ *  a cockpit that has no other native dialogs — it does not exist here: this browser throws
+ *  "prompt() is not supported.", so picking "+ New idea…" could only ever fail, and the failure showed
+ *  as one line of small red text under the row. An inline input also lets the name be corrected before
+ *  it is committed, which a modal dialog cannot.
+ */
 function IdeaPicker({ symbol, ideas, onChanged }: {
   symbol: string; ideas: PortfolioIdeaBook; onChanged?: (r: PortfolioRead) => void
 }) {
   const [busy, setBusy] = useState(false)
   const [err, setErr] = useState<string | null>(null)
+  const [naming, setNaming] = useState(false)
+  const [draft, setDraft] = useState('')
   const current = ideas.assignments.positions[symbol.toUpperCase()] ?? ''
 
-  async function choose(value: string) {
+  async function assign(id: string | null) {
     setBusy(true); setErr(null)
     try {
-      // "+ New idea…" names it first, then assigns — two calls, so a cancelled prompt changes nothing.
-      let id = value
-      if (value === '\u0000new') {
-        const label = window.prompt(`Name the idea ${symbol} expresses`)?.trim()
-        if (!label) { setBusy(false); return }
-        // The SERVER says which idea this is. Looking it up by label here was the bug: createIdea is
-        // idempotent on the slug, so typing "sugar" while "Sugar" existed returned "Sugar" with a 200,
-        // the label match found nothing, and the row reported "that idea could not be created" for a
-        // call that had in fact succeeded.
-        const created = await api.createIdea(label)
-        id = created.idea?.id ?? ''
-        if (!id) throw new Error('that idea could not be created')
-      }
-      const read = await api.setHoldingIdea(symbol, id || null)
-      onChanged?.(read)
+      onChanged?.(await api.setHoldingIdea(symbol, id))
     } catch (e: any) {
       setErr(String(e?.message || 'that could not be saved'))
     } finally { setBusy(false) }
+  }
+
+  async function createAndAssign() {
+    const label = draft.trim()
+    if (!label) { setNaming(false); setDraft(''); return }
+    setBusy(true); setErr(null)
+    try {
+      // The SERVER says which idea this is. createIdea is idempotent on the slug, so typing "sugar"
+      // while "Sugar" exists returns "Sugar" — reading the id back out of the response is what makes
+      // that a success instead of the "could not be created" this used to report.
+      const created = await api.createIdea(label)
+      const id = created.idea?.id
+      if (!id) throw new Error('that idea could not be created')
+      onChanged?.(await api.setHoldingIdea(symbol, id))
+      setNaming(false); setDraft('')
+    } catch (e: any) {
+      setErr(String(e?.message || 'that idea could not be saved'))
+    } finally { setBusy(false) }
+  }
+
+  if (naming) {
+    return (
+      <span className="fundbook__idea">
+        <input
+          className="fundbook__ideainput"
+          autoFocus
+          value={draft}
+          disabled={busy}
+          maxLength={60}
+          placeholder={`idea for ${symbol}…`}
+          aria-label={`Name a new idea for ${symbol}`}
+          onChange={(e) => setDraft(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') { e.preventDefault(); void createAndAssign() }
+            if (e.key === 'Escape') { e.preventDefault(); setNaming(false); setDraft(''); setErr(null) }
+          }}
+        />
+        <button className="fundbook__ideaok" disabled={busy || !draft.trim()} onClick={() => void createAndAssign()}>
+          {busy ? '…' : 'Add'}
+        </button>
+        <button className="fundbook__ideacancel" disabled={busy} onClick={() => { setNaming(false); setDraft(''); setErr(null) }}>
+          Cancel
+        </button>
+        {err && <small className="fundbook__ideaerr">{err}</small>}
+      </span>
+    )
   }
 
   return (
@@ -926,16 +966,24 @@ function IdeaPicker({ symbol, ideas, onChanged }: {
         value={current}
         disabled={busy}
         aria-label={`Idea for ${symbol}`}
-        onChange={(e) => void choose(e.target.value)}
+        onChange={(e) => {
+          const v = e.target.value
+          if (v === NEW_IDEA) { setNaming(true); setDraft(''); setErr(null); return }
+          void assign(v || null)
+        }}
       >
         <option value="">— no idea yet —</option>
         {ideas.ideas.map((i) => <option key={i.id} value={i.id}>{i.label}</option>)}
-        <option value={'\u0000new'}>+ New idea…</option>
+        <option value={NEW_IDEA}>+ New idea…</option>
       </select>
       {err && <small className="fundbook__ideaerr">{err}</small>}
     </span>
   )
 }
+
+/** Sentinel for the "+ New idea…" row. A NUL prefix cannot collide with a real slug, which is only
+ *  ever [a-z0-9-]. */
+const NEW_IDEA = '\u0000new'
 
 /** Unrealised return on cost. Null when the statement gives no usable basis — a position transferred in
  *  without one would otherwise divide by zero and report an infinite gain. */
@@ -1155,9 +1203,9 @@ function Performance({ perf, cashShare }: { perf: PortfolioPerformance; cashShar
 
 /** One row of the trade table: a single closing execution, with every FIFO lot it consumed folded in. */
 
-function Trades({ book, manual, onChanged, ideas, importOpen, onImportOpen, importSurface }: {
+function Trades({ book, manual, onChanged, ideas, cashEquivalents, importOpen, onImportOpen, importSurface }: {
   book: PortfolioBook; manual: PortfolioManualRead; onChanged: (r: PortfolioRead) => void
-  ideas?: PortfolioIdeaBook
+  ideas?: PortfolioIdeaBook; cashEquivalents: string[]
   importOpen: boolean; onImportOpen: (v: boolean) => void; importSurface: React.ReactNode
 }) {
   const [logging, setLogging] = useState(false)
@@ -1172,7 +1220,7 @@ function Trades({ book, manual, onChanged, ideas, importOpen, onImportOpen, impo
   // the arithmetic above — the grouped total is asserted equal to the blotter total in the tests —
   // and it is the only view that can answer "did the sugar idea work" when the idea was expressed
   // through two different vehicles.
-  const ideaRows = useMemo(() => groupByIdea(rows, ideas), [rows, ideas])
+  const ideaRows = useMemo(() => groupByIdea(rows, ideas, cashEquivalents), [rows, ideas, cashEquivalents])
   const stats = useMemo(() => {
     const vals = rows.map((c) => c.realized)
     const wins = vals.filter((v) => v > 0)
@@ -1197,18 +1245,34 @@ function Trades({ book, manual, onChanged, ideas, importOpen, onImportOpen, impo
     }
   }, [rows])
 
-  // Attribution: what each NAME contributed, biggest absolute mover first. A fund's realised result is
-  // almost never spread evenly, and the names that carried it are the ones worth reviewing.
-  const { attribution, attributionMax, topShare, nameCount } = useMemo(() => {
-    const by = new Map<string, { value: number; trades: number }>()
+  // Attribution: what carried the realised result, biggest absolute mover first.
+  //
+  // Folded by IDEA where one is declared, by NAME where none is. Per symbol, one sugar bet expressed
+  // through two vehicles showed up as CANE +3,703 and SUGAl +3,005 — two mid-sized bars that between
+  // them were the book's biggest winner at +6,708, and nothing on the panel said so. A declared cash
+  // equivalent keeps its own name: SGOV is where the money waited, not a name that "carried" anything.
+  const { attribution, attributionMax, topShare, nameCount, foldedNames } = useMemo(() => {
+    const labels = new Map((ideas?.ideas ?? []).map((i) => [i.id, i.label]))
+    const assigned = ideas?.assignments?.closures ?? {}
+    const cash = new Set(cashEquivalents.map((v) => v.trim().toUpperCase()))
+    const by = new Map<string, { value: number; trades: number; names: Set<string> }>()
+    let folded = 0
     for (const c of rows) {
-      const k = c.symbol ?? '—'
-      const cur = by.get(k) ?? { value: 0, trades: 0 }
+      const sym = c.symbol ?? '—'
+      // One idea per row only when every leg agrees — the same rule groupByIdea applies, so the two
+      // panels can never disagree about which bucket a trade is in.
+      const found = new Set(c.closeTradeIDs.map((t) => assigned[t] ?? ''))
+      const id = found.size === 1 ? [...found][0]! : ''
+      const useIdea = !!id && !cash.has(sym.toUpperCase())
+      const k = useIdea ? (labels.get(id) ?? id) : sym
+      const cur = by.get(k) ?? { value: 0, trades: 0, names: new Set<string>() }
       cur.value += c.realized
       cur.trades += 1
+      cur.names.add(sym)
       by.set(k, cur)
     }
-    const all = [...by.entries()].map(([symbol, v]) => ({ symbol, ...v }))
+    for (const v of by.values()) if (v.names.size > 1) folded += 1
+    const all = [...by.entries()].map(([symbol, v]) => ({ symbol, value: v.value, trades: v.trades }))
       .sort((a, b) => Math.abs(b.value) - Math.abs(a.value))
     const list = all.slice(0, 12)
     const max = Math.max(...list.map((a) => Math.abs(a.value)), 1)
@@ -1220,8 +1284,9 @@ function Trades({ book, manual, onChanged, ideas, importOpen, onImportOpen, impo
       attributionMax: max,
       topShare: winners.length > 3 && grossWin > 0 ? (top3 / grossWin) * 100 : null,
       nameCount: all.length,
+      foldedNames: folded,
     }
-  }, [rows])
+  }, [rows, ideas, cashEquivalents])
 
   // Splitting the realised result into what the STOCK did and what the RATE did. Exact by construction:
   //   realised(base) = gross×openFx  +  gross×(closeFx − openFx)  +  costs×closeFx
@@ -1375,7 +1440,10 @@ function Trades({ book, manual, onChanged, ideas, importOpen, onImportOpen, impo
       <div className="fundbook__split">
         <div className="fundbook__panel">
           <div className="fundbook__panelhead">
-            <div><strong>Where the money came from</strong><small>Realised result by name</small></div>
+            <div>
+              <strong>Where the money came from</strong>
+              <small>{foldedNames > 0 ? 'Realised result by idea, or by name where none is declared' : 'Realised result by name'}</small>
+            </div>
           </div>
           {attribution.length === 0
             ? <div className="fundbook__none">Nothing closed yet.</div>
@@ -1407,7 +1475,8 @@ function Trades({ book, manual, onChanged, ideas, importOpen, onImportOpen, impo
               {attribution.length < nameCount
                 ? `The ${attribution.length} biggest movers, of ${nameCount} closed names.`
                 : 'Every closed name is shown.'}
-              {topShare !== null && ` The best three names carry ${topShare.toFixed(0)}% of the gross winnings.`}
+              {topShare !== null && ` The best three carry ${topShare.toFixed(0)}% of the gross winnings.`}
+              {foldedNames > 0 && ` ${foldedNames === 1 ? 'One bar is an idea' : `${foldedNames} bars are ideas`} — every vehicle used to express it, added up.`}
             </div>
           )}
         </div>

@@ -156,18 +156,46 @@ export interface IdeaGroupRow {
   /** Rows the operator cannot label because the broker gave no trade id. Surfaced so a stuck row is
    *  visible rather than looking like one nobody got round to. */
   unlabellable: number
+  /** True for the declared-cash bucket. Cash equivalents are already answered — SGOV is where the book
+   *  WAITS, not a view it holds — so filing them under Unassigned read as an unfinished job. */
+  isCash: boolean
   firstClosed: string | null
   lastClosed: string | null
 }
 
 /** Fold closed round trips into one row per idea. `ideas` absent (an engine that predates the feature)
- *  yields a single Unassigned row rather than an empty screen — DESIGN.md §5, fail closed. */
-export function groupByIdea(rows: TradeRowData[], ideas: PortfolioIdeaBook | undefined): IdeaGroupRow[] {
+ *  yields a single Unassigned row rather than an empty screen — DESIGN.md §5, fail closed.
+ *
+ *  `cashEquivalents` are the symbols the operator has ALREADY declared to be cash. They get their own
+ *  bucket rather than landing in Unassigned: the Holdings exposure block excludes them for exactly the
+ *  same reason, and a book that answered "SGOV is cash" should not then be asked again on another tab. */
+export function groupByIdea(
+  rows: TradeRowData[], ideas: PortfolioIdeaBook | undefined, cashEquivalents: string[] = [],
+): IdeaGroupRow[] {
   const labels = new Map((ideas?.ideas ?? []).map((i) => [i.id, i.label]))
   const assigned = ideas?.assignments?.closures ?? {}
+  const cash = new Set(cashEquivalents.map((s) => s.trim().toUpperCase()))
   const out = new Map<string, IdeaGroupRow>()
 
   for (const r of rows) {
+    // A declared cash equivalent short-circuits: it is answered, and an explicit idea on it would be
+    // the operator contradicting their own declaration — so the declaration wins and says so.
+    if (cash.has((r.symbol ?? '').toUpperCase())) {
+      const g = out.get('\u0000cash') ?? {
+        ideaId: null, label: 'Cash equivalent', symbols: [], realized: 0, trades: 0, unlabellable: 0,
+        firstClosed: null, lastClosed: null, isCash: true,
+      }
+      if (r.symbol && !g.symbols.includes(r.symbol)) g.symbols.push(r.symbol)
+      g.realized += r.realized
+      g.trades += 1
+      const cl = (r.closedAt ?? '').slice(0, 10)
+      if (cl) {
+        if (!g.firstClosed || cl < g.firstClosed) g.firstClosed = cl
+        if (!g.lastClosed || cl > g.lastClosed) g.lastClosed = cl
+      }
+      out.set('\u0000cash', g)
+      continue
+    }
     // A row whose legs were labelled differently is NOT quietly filed under one of them: that
     // disagreement is something the operator actually did, and hiding it would misreport the row.
     const found = new Set(r.closeTradeIDs.map((t) => assigned[t] ?? ''))
@@ -179,7 +207,7 @@ export function groupByIdea(rows: TradeRowData[], ideas: PortfolioIdeaBook | und
 
     const g = out.get(key) ?? {
       ideaId: mixed ? null : id, label, symbols: [], realized: 0, trades: 0, unlabellable: 0,
-      firstClosed: null, lastClosed: null,
+      firstClosed: null, lastClosed: null, isCash: false,
     }
     if (r.symbol && !g.symbols.includes(r.symbol)) g.symbols.push(r.symbol)
     g.realized += r.realized

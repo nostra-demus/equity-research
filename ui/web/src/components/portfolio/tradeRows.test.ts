@@ -238,5 +238,53 @@ check('grouping never changes the blotter total', () => {
   assert.ok(near(blotter, grouped, 1e-9), `blotter ${blotter} vs grouped ${grouped}`)
 })
 
+check('a declared cash equivalent gets its own bucket, not Unassigned', () => {
+  // SGOV is where the book WAITS. The Holdings exposure block already excludes it for that reason;
+  // filing its closures under Unassigned asked the operator to answer a question they had answered.
+  const rows = foldRoundTrips([
+    closure({ symbol: 'CANE', quantity: 100, realizedBase: 3703.48, closeTradeID: 'cane1' }),
+    closure({ symbol: 'SGOV', quantity: 500, realizedBase: 458.66, closeTradeID: 'sgov1' }),
+    closure({ symbol: 'AMZN', quantity: 10, realizedBase: 7124.11, closedAt: '2026-07-31', closeTradeID: 'amzn1' }),
+  ])
+  const groups = groupByIdea(rows, ideaBook([['sugar', 'Sugar']], { cane1: 'sugar' }), ['SGOV'])
+  const cash = groups.find((g) => g.isCash)
+  assert.ok(cash, 'a cash bucket exists')
+  assert.equal(cash!.label, 'Cash equivalent')
+  assert.deepEqual(cash!.symbols, ['SGOV'])
+  assert.ok(near(cash!.realized, 458.66, 1e-6))
+  const unassigned = groups.find((g) => g.label === 'Unassigned')
+  assert.deepEqual(unassigned!.symbols, ['AMZN'], 'and SGOV is no longer sitting in Unassigned')
+})
+
+check('a cash declaration beats an idea label on the same symbol', () => {
+  // Both were declared by the operator; the cash one is the more specific statement about what the
+  // holding IS, so it wins rather than the two contradicting each other across two tabs.
+  const rows = foldRoundTrips([closure({ symbol: 'SGOV', quantity: 500, realizedBase: 458.66, closeTradeID: 's1' })])
+  const groups = groupByIdea(rows, ideaBook([['parked', 'Parked cash']], { s1: 'parked' }), ['sgov'])
+  assert.equal(groups.length, 1)
+  assert.equal(groups[0]!.isCash, true)
+  assert.equal(groups[0]!.label, 'Cash equivalent')
+})
+
+check('with no cash declared, nothing changes', () => {
+  const rows = foldRoundTrips([closure({ symbol: 'SGOV', quantity: 500, realizedBase: 458.66, closeTradeID: 's1' })])
+  const groups = groupByIdea(rows, ideaBook([], {}))
+  assert.equal(groups[0]!.isCash, false)
+  assert.equal(groups[0]!.label, 'Unassigned')
+})
+
+check('grouping still never changes the blotter total, cash bucket included', () => {
+  const rows = foldRoundTrips([
+    closure({ symbol: 'CANE', quantity: 100, realizedBase: 3703.48, closeTradeID: 'a' }),
+    closure({ symbol: 'SUGAl', quantity: 50, realizedBase: 3004.97, closeTradeID: 'b' }),
+    closure({ symbol: 'SGOV', quantity: 500, realizedBase: 458.66, closeTradeID: 'c' }),
+    closure({ symbol: 'AMZN', quantity: 10, realizedBase: 7124.11, closedAt: '2026-07-31', closeTradeID: 'd' }),
+  ])
+  const blotter = rows.reduce((a, r) => a + r.realized, 0)
+  const groups = groupByIdea(rows, ideaBook([['sugar', 'Sugar']], { a: 'sugar', b: 'sugar' }), ['SGOV'])
+  const grouped = groups.reduce((a, g) => a + g.realized, 0)
+  assert.ok(near(blotter, grouped, 1e-9), `blotter ${blotter} vs grouped ${grouped}`)
+})
+
 console.log(`\n${passed} passed, ${fails.length} failed`)
 if (fails.length) { console.error('FAILED: ' + fails.join(', ')); process.exit(1) }
