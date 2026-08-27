@@ -1,6 +1,6 @@
 import { execa } from 'execa'
 import { execFileSync } from 'node:child_process'
-import { randomUUID } from 'node:crypto'
+import { createHash, randomUUID } from 'node:crypto'
 import fs from 'node:fs'
 import net from 'node:net'
 import os from 'node:os'
@@ -247,6 +247,22 @@ export interface ClaudeMirrorWorkspace {
   cleanup: () => void
 }
 
+export const CLAUDE_TRACKED_SETTING_SOURCES = 'project'
+
+interface ClaudeMirrorProjection {
+  name: string
+  validate: () => void
+}
+
+interface ProjectionEntry {
+  relativePath: string
+  kind: 'directory' | 'file'
+  identity: string
+  executable: boolean
+  bytes?: Buffer
+  digest?: string
+}
+
 interface ClaudeMirrorLink {
   name: string
   target: string
@@ -270,11 +286,150 @@ const directoryIdentity = (info: fs.BigIntStats): string => [
   info.dev, info.ino, info.mode, info.uid, info.gid,
 ].join(':')
 
+const regularFileIdentity = (info: fs.BigIntStats): string => [
+  info.dev, info.ino, info.mode, info.nlink, info.uid, info.gid, info.size, info.mtimeNs, info.ctimeNs,
+].join(':')
+
+const projectionFingerprint = (entries: ProjectionEntry[]): string => JSON.stringify(entries.map((entry) => ({
+  relativePath: entry.relativePath,
+  kind: entry.kind,
+  identity: entry.identity,
+  executable: entry.executable,
+  digest: entry.digest,
+})))
+
+function readPinnedProjectionFile(sourcePath: string, relativePath: string): ProjectionEntry {
+  const before = fs.lstatSync(sourcePath, { bigint: true })
+  if (!before.isFile() || before.isSymbolicLink() || before.nlink !== 1n) {
+    throw new Error(`tracked Claude project projection requires a single-link regular file: ${relativePath}`)
+  }
+  let descriptor: number | undefined
+  try {
+    descriptor = fs.openSync(sourcePath, fs.constants.O_RDONLY | fs.constants.O_NOFOLLOW)
+    const opened = fs.fstatSync(descriptor, { bigint: true })
+    const bytes = fs.readFileSync(descriptor)
+    const after = fs.fstatSync(descriptor, { bigint: true })
+    const named = fs.lstatSync(sourcePath, { bigint: true })
+    const expected = regularFileIdentity(before)
+    if (!opened.isFile() || !after.isFile() || !named.isFile() || named.isSymbolicLink()
+        || regularFileIdentity(opened) !== expected || regularFileIdentity(after) !== expected
+        || regularFileIdentity(named) !== expected || BigInt(bytes.length) !== opened.size) {
+      throw new Error(`tracked Claude project source changed while it was read: ${relativePath}`)
+    }
+    return {
+      relativePath,
+      kind: 'file',
+      identity: expected,
+      executable: (Number(opened.mode) & 0o111) !== 0,
+      bytes,
+      digest: createHash('sha256').update(bytes).digest('hex'),
+    }
+  } finally {
+    if (descriptor !== undefined) fs.closeSync(descriptor)
+  }
+}
+
+function snapshotProjection(
+  sourcePath: string,
+  excludedRelativePaths: ReadonlySet<string>,
+): ProjectionEntry[] {
+  const rootInfo = fs.lstatSync(sourcePath, { bigint: true })
+  if (rootInfo.isSymbolicLink()) throw new Error('tracked Claude project source cannot be a symlink')
+  if (rootInfo.isFile()) return [readPinnedProjectionFile(sourcePath, '.')]
+  if (!rootInfo.isDirectory()) throw new Error('tracked Claude project source must be a regular file or directory')
+  const entries: ProjectionEntry[] = []
+  const walk = (absolute: string, relative: string) => {
+    const info = fs.lstatSync(absolute, { bigint: true })
+    if (info.isSymbolicLink()) {
+      throw new Error(`tracked Claude project source contains a symlink: ${relative || '.'}`)
+    }
+    if (!info.isDirectory()) throw new Error(`tracked Claude project source contains a non-file entry: ${relative || '.'}`)
+    entries.push({
+      relativePath: relative || '.', kind: 'directory', identity: directoryIdentity(info), executable: true,
+    })
+    for (const name of fs.readdirSync(absolute).sort()) {
+      const childRelative = relative ? `${relative}/${name}` : name
+      if (excludedRelativePaths.has(childRelative)) continue
+      const child = path.join(absolute, name)
+      const childInfo = fs.lstatSync(child)
+      if (childInfo.isSymbolicLink()) {
+        throw new Error(`tracked Claude project source contains a symlink: ${childRelative}`)
+      }
+      if (childInfo.isDirectory()) walk(child, childRelative)
+      else if (childInfo.isFile()) entries.push(readPinnedProjectionFile(child, childRelative))
+      else throw new Error(`tracked Claude project source contains a non-file entry: ${childRelative}`)
+    }
+  }
+  walk(sourcePath, '')
+  return entries
+}
+
+/** Copy the discoverable Claude project program into the disposable workspace as regular, read-only
+ * files. Project settings are deliberately omitted: Claude merges permission arrays from settings sources,
+ * so loading the repository's interactive hooks/permissions would widen the tracked-run boundary. */
+function createPinnedProjection(
+  sourcePath: string,
+  destinationPath: string,
+  excludedRelativePaths: ReadonlySet<string> = new Set(),
+): ClaudeMirrorProjection {
+  const sourceEntries = snapshotProjection(sourcePath, excludedRelativePaths)
+  const sourceFingerprint = projectionFingerprint(sourceEntries)
+  const sourceIsFile = sourceEntries.length === 1 && sourceEntries[0].kind === 'file'
+  if (sourceIsFile) {
+    fs.writeFileSync(destinationPath, sourceEntries[0].bytes!, { flag: 'wx', mode: 0o400 })
+  } else {
+    for (const entry of sourceEntries) {
+      const destination = entry.relativePath === '.'
+        ? destinationPath : path.join(destinationPath, ...entry.relativePath.split('/'))
+      if (entry.kind === 'directory') fs.mkdirSync(destination, { mode: 0o700 })
+      else fs.writeFileSync(destination, entry.bytes!, {
+        flag: 'wx', mode: entry.executable ? 0o500 : 0o400,
+      })
+    }
+    // Seal children before parents so construction never needs to write through an already read-only dir.
+    for (const entry of [...sourceEntries].reverse()) {
+      if (entry.kind !== 'directory') continue
+      const destination = entry.relativePath === '.'
+        ? destinationPath : path.join(destinationPath, ...entry.relativePath.split('/'))
+      fs.chmodSync(destination, 0o500)
+    }
+  }
+  const destinationEntries = snapshotProjection(destinationPath, new Set())
+  const destinationFingerprint = projectionFingerprint(destinationEntries)
+  return {
+    name: path.basename(destinationPath),
+    validate: () => {
+      if (projectionFingerprint(snapshotProjection(sourcePath, excludedRelativePaths)) !== sourceFingerprint) {
+        throw new Error(`tracked Claude project source changed before spawn: ${path.basename(sourcePath)}`)
+      }
+      if (projectionFingerprint(snapshotProjection(destinationPath, new Set())) !== destinationFingerprint) {
+        throw new Error(`tracked Claude project projection changed before spawn: ${path.basename(destinationPath)}`)
+      }
+    },
+  }
+}
+
+function makeClaudeMirrorRemovable(absolute: string): void {
+  let info: fs.Stats
+  try { info = fs.lstatSync(absolute) } catch { return }
+  if (info.isSymbolicLink()) return
+  if (!info.isDirectory()) {
+    try { fs.chmodSync(absolute, 0o600) } catch { /* rmSync reports any remaining failure */ }
+    return
+  }
+  try { fs.chmodSync(absolute, 0o700) } catch { /* continue to the bounded no-follow walk */ }
+  let names: string[] = []
+  try { names = fs.readdirSync(absolute) } catch { return }
+  for (const name of names) makeClaudeMirrorRemovable(path.join(absolute, name))
+}
+
 /**
  * Claude's Bash sandbox always grants its process cwd. Run from a disposable symlink mirror instead of
  * the real repository so that implicit grant covers no durable bytes; real output paths are admitted only
  * through sandbox.filesystem.allowWrite. Project commands/agents and repo-relative scripts remain visible
- * through stable read-only symlinks, while built-in Write/Edit are disabled above.
+ * through stable read-only symlinks, while its discoverable `.claude` program and root doctrine are copied
+ * as pinned regular files. This lets the CLI load `project` commands without loading interactive project
+ * settings and without allowing a run to mutate the canonical program.
  */
 export function createClaudeMirrorWorkspace(
   repoRoot = REPO_ROOT,
@@ -293,6 +448,7 @@ export function createClaudeMirrorWorkspace(
   const scratch = path.join(root, '.scratch')
   fs.mkdirSync(scratch, { mode: 0o700 })
   const links: ClaudeMirrorLink[] = []
+  const projections: ClaudeMirrorProjection[] = []
   let gitPointer = ''
   let cleaned = false
   try {
@@ -343,17 +499,33 @@ export function createClaudeMirrorWorkspace(
         fs.writeFileSync(path.join(root, '.git'), gitPointer, { flag: 'wx', mode: 0o400 })
         continue
       }
+      if (entry.name === '.claude') {
+        if (!sourceInfo.isDirectory()) throw new Error('tracked Claude project program is not a directory')
+        projections.push(createPinnedProjection(sourcePath, path.join(root, entry.name), new Set([
+          'settings.json', 'settings.local.json',
+        ])))
+        continue
+      }
+      if (entry.name === 'CLAUDE.md') {
+        if (!sourceInfo.isFile()) throw new Error('tracked Claude root doctrine is not a regular file')
+        projections.push(createPinnedProjection(sourcePath, path.join(root, entry.name)))
+        continue
+      }
       fs.symlinkSync(target, path.join(root, entry.name), sourceInfo.isDirectory() || sourceLink ? 'dir' : 'file')
       links.push({ name: entry.name, target, sourceLink })
     }
   } catch (error) {
+    makeClaudeMirrorRemovable(root)
     fs.rmSync(root, { recursive: true, force: true })
     throw error
   }
   const validate = () => {
     if (cleaned) throw new Error('tracked Claude mirror was already cleaned')
     const actual = fs.readdirSync(root).sort()
-    const expected = [...links.map((link) => link.name), '.scratch', ...(gitPointer ? ['.git'] : [])].sort()
+    const expected = [
+      ...links.map((link) => link.name), ...projections.map((projection) => projection.name),
+      '.scratch', ...(gitPointer ? ['.git'] : []),
+    ].sort()
     if (JSON.stringify(actual) !== JSON.stringify(expected)) throw new Error('tracked Claude mirror topology changed before spawn')
     for (const link of links) {
       const candidate = path.join(root, link.name)
@@ -374,6 +546,7 @@ export function createClaudeMirrorWorkspace(
         }
       }
     }
+    for (const projection of projections) projection.validate()
     if (gitPointer && fs.readFileSync(path.join(root, '.git'), 'utf8') !== gitPointer) {
       throw new Error('tracked Claude mirror Git pointer changed before spawn')
     }
@@ -388,6 +561,7 @@ export function createClaudeMirrorWorkspace(
     cleanup: () => {
       if (cleaned) return
       cleaned = true
+      makeClaudeMirrorRemovable(root)
       fs.rmSync(root, { recursive: true, force: true })
     },
   }
@@ -615,9 +789,10 @@ async function buildLaunch(context: ProviderLaunchContext): Promise<ProviderLaun
   args.push(
     '--permission-mode', 'dontAsk',
     '--tools', 'Read,Glob,Grep,Write,Edit,Bash,WebSearch,WebFetch,Task',
-    // No user/project/local settings are loaded. Their arrays merge rather than replace and could widen
-    // sandbox writes or Unix sockets; the canonical project commands/agents remain visible in the mirror.
-    '--setting-sources', '',
+    // Load only the pinned project program in the disposable mirror. User/local state stays disabled, and
+    // the project settings files are absent from the projection so their merging permission arrays/hooks
+    // cannot widen the inline tracked-run sandbox.
+    '--setting-sources', CLAUDE_TRACKED_SETTING_SOURCES,
     '--settings', settings,
     '--strict-mcp-config',
     '--mcp-config', JSON.stringify({ mcpServers: {} }),
