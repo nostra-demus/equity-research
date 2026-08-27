@@ -22,6 +22,7 @@ export const DATA_NEEDS_CLIENT_TIMEOUT_MS = 20_000
 export const MEMORY_CLIENT_TIMEOUT_MS = 65_000
 export const REEL_TRANSCRIPT_CLIENT_TIMEOUT_MS = 150_000
 export const EXACT_DECISION_LAUNCH_CONTRACT = 'exact-decision-launch/1' as const
+let chatModelsPending: Promise<ChatModelsRead> | null = null
 export interface ProviderReceiptFields {
   provider?: RunProvider
   executionProfile?: ProviderExecutionProfile
@@ -1753,14 +1754,25 @@ export const api = {
   chatModels: async (): Promise<ChatModelsRead> => {
     const all = { models: CHAT_MODELS.map((choice) => choice.id), defaultModel: 'sonnet' }
     if ((await ensureMode()) === 'static') return all
+    if (chatModelsPending) return chatModelsPending
+    const pending = (async () => {
+      try {
+        const read = normalizeChatModelsRead(await get<unknown>('/api/chat/models', 8_000))
+        if (!read) throw new Error('Ask model catalogue was invalid')
+        return read
+      } catch (error) {
+        const fallback = chatModelsReadAfterFailure(error, null)
+        if (!fallback) throw error
+        return fallback
+      }
+    })()
+    chatModelsPending = pending
     try {
-      const read = normalizeChatModelsRead(await get<unknown>('/api/chat/models', 8_000))
-      if (!read) throw new Error('Ask model catalogue was invalid')
-      return read
-    } catch (error) {
-      const fallback = chatModelsReadAfterFailure(error, null)
-      if (!fallback) throw error
-      return fallback
+      return await pending
+    } finally {
+      // Share only the in-flight request. A loaded browser must notice a server upgrade/reconfiguration;
+      // caching a legacy 404 forever would hide newly deployed GPT choices until the user reloaded.
+      if (chatModelsPending === pending) chatModelsPending = null
     }
   },
   // which scopes are present (chat-able) vs not-yet-run. Static showcase: nothing chat-able (no engine).

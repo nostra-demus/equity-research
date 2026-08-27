@@ -48,6 +48,9 @@ export function isChatModel(value: unknown): value is string {
   return typeof value === 'string' && (
     CHAT_MODELS.some((choice) => choice.id === value)
     || (/^claude-[A-Za-z0-9._-]{1,53}$/.test(value) && value.length <= 60)
+    // The server remains the authority that admits reviewed Codex ids. Accepting the bounded shape here
+    // lets an older browser render a newer server-reviewed model during a rolling deployment.
+    || (/^codex:[A-Za-z0-9._-]{1,53}$/.test(value) && value.length <= 60)
   )
 }
 
@@ -56,12 +59,19 @@ export function chatModelChoices(ids: readonly string[]): ChatModelChoice[] {
     const reviewed = CHAT_MODELS.find((choice) => choice.id === id)
     if (reviewed) return [reviewed]
     if (!isChatModel(id)) return []
-    return [{ id, provider: 'claude' as const, label: id, sub: 'host-configured Claude model' }]
+    const codex = id.startsWith('codex:')
+    return [{
+      id,
+      provider: codex ? 'codex' as const : 'claude' as const,
+      label: codex ? id.slice('codex:'.length) : id,
+      sub: codex ? 'host-configured Codex model' : 'host-configured Claude model',
+    }]
   })
 }
 
 export function chatModelLabel(value: string): string {
-  return CHAT_MODELS.find((choice) => choice.id === value)?.label ?? value
+  return CHAT_MODELS.find((choice) => choice.id === value)?.label
+    ?? (value.startsWith('codex:') ? value.slice('codex:'.length) : value)
 }
 
 export function readChatModel(

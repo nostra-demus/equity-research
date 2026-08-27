@@ -22,6 +22,14 @@ assert.deepEqual(normalizeChatModelsRead({ models: [pinnedClaude], defaultModel:
 assert.deepEqual(chatModelChoices([pinnedClaude]), [{
   id: pinnedClaude, provider: 'claude', label: pinnedClaude, sub: 'host-configured Claude model',
 }], 'a host-pinned concrete Claude model becomes a usable picker row')
+const futureCodex = 'codex:gpt-6-super'
+assert.deepEqual(normalizeChatModelsRead({ models: [futureCodex], defaultModel: futureCodex }), {
+  models: [futureCodex], defaultModel: futureCodex,
+}, 'an older client accepts a bounded Codex id only after the server publishes it')
+assert.deepEqual(chatModelChoices([futureCodex]), [{
+  id: futureCodex, provider: 'codex', label: 'gpt-6-super', sub: 'host-configured Codex model',
+}], 'a newly server-reviewed Codex id stays in the Codex picker group during deploy skew')
+assert.equal(chatModelLabel(futureCodex), 'gpt-6-super')
 const priorCatalogue = { models: [pinnedClaude], defaultModel: pinnedClaude }
 assert.deepEqual(chatModelsReadAfterFailure(Object.assign(new Error('temporary failure'), { status: 503 }), priorCatalogue), priorCatalogue,
   'a transient catalogue failure preserves the last truthful host choice')
@@ -40,8 +48,10 @@ assert.equal(readChatModel(storage), 'sonnet')
 saveChatModel('codex:gpt-5.6-terra', storage)
 assert.equal(values.get(CHAT_MODEL_STORAGE_KEY), 'codex:gpt-5.6-terra')
 assert.equal(readChatModel(storage), 'codex:gpt-5.6-terra', 'the Ask choice survives reloads and is shared by desktop/mobile')
+saveChatModel(futureCodex, storage)
+assert.equal(readChatModel(storage), futureCodex, 'a newer server-published Codex choice survives an older client reload')
 saveChatModel('arbitrary:model', storage)
-assert.equal(values.get(CHAT_MODEL_STORAGE_KEY), 'codex:gpt-5.6-terra', 'unknown model ids never become a saved request')
+assert.equal(values.get(CHAT_MODEL_STORAGE_KEY), futureCodex, 'unknown provider ids never become a saved request')
 saveChatModel(pinnedClaude, storage)
 assert.equal(readChatModel(storage), pinnedClaude, 'a host-pinned Claude choice persists across reloads')
 values.set(CHAT_MODEL_STORAGE_KEY, 'retired:model')
