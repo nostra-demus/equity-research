@@ -295,11 +295,18 @@ async function runClaudeChatTurn(opts: ChatTurnOptions, choice: ChatModelSpec): 
 
 async function runCodexChatTurn(opts: ChatTurnOptions, choice: ChatModelSpec): Promise<ChatTurnOutcome> {
   if (opts.signal.aborted) return { costUsd: 0, error: 'aborted' }
-  let chatRoot: string
+  let chatRoot = ''
   let cleanupAuthHome: (() => void) | undefined
   try {
     chatRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'nostra-codex-chat-'))
-    fs.chmodSync(chatRoot, 0o700)
+    try {
+      fs.chmodSync(chatRoot, 0o700)
+    } catch (error) {
+      // mkdtemp succeeded, so this request owns the bounded directory even if hardening it did not.
+      try { fs.rmSync(chatRoot, { recursive: true, force: true }) } catch { /* best-effort failure cleanup */ }
+      chatRoot = ''
+      throw error
+    }
   } catch (error: any) {
     return { costUsd: 0, error: `Could not prepare Codex chat: ${error?.message || error}` }
   }
@@ -386,7 +393,9 @@ async function runCodexChatTurn(opts: ChatTurnOptions, choice: ChatModelSpec): P
     return { costUsd: 0 }
   } finally {
     try { cleanupAuthHome?.() } catch { /* bounded auth-only temporary home */ }
-    try { fs.rmSync(chatRoot, { recursive: true, force: true }) } catch { /* bounded temporary workspace */ }
+    if (chatRoot) {
+      try { fs.rmSync(chatRoot, { recursive: true, force: true }) } catch { /* bounded temporary workspace */ }
+    }
   }
 }
 
