@@ -391,6 +391,10 @@ async function runCodexChatTurn(opts: ChatTurnOptions, choice: ChatModelSpec): P
     }
     if (!streamedText) return { costUsd: 0, error: 'Codex returned no answer. Retry or choose another Ask model.' }
     return { costUsd: 0 }
+  } catch (error: any) {
+    // Auth isolation and the feature probe happen before the child process exists. Keep those ordinary
+    // host-readiness failures inside the same provider-neutral outcome contract as CLI exit failures.
+    return { costUsd: 0, error: friendlyCodexError(error?.message || error) }
   } finally {
     try { cleanupAuthHome?.() } catch { /* bounded auth-only temporary home */ }
     if (chatRoot) {

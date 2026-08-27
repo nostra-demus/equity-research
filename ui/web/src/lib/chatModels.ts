@@ -24,6 +24,15 @@ export interface ChatModelsRead {
   defaultModel: string | null
 }
 
+export function chatModelsReadAfterFailure(error: unknown, previous: ChatModelsRead | null): ChatModelsRead | null {
+  const status = error && typeof error === 'object' && 'status' in error
+    ? (error as { status?: unknown }).status
+    : undefined
+  return status === 404
+    ? { models: ['sonnet', 'opus', 'haiku'], defaultModel: 'sonnet' }
+    : previous
+}
+
 export function normalizeChatModelsRead(value: unknown): ChatModelsRead | null {
   if (!value || typeof value !== 'object' || Array.isArray(value)) return null
   const read = value as Record<string, unknown>

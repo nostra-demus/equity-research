@@ -7,7 +7,7 @@ import type { AutotuneState, RankWeightChanges, WeightChange } from './types'
 import type { BridgeStatus } from './types'
 import { parseMemoryRead, parseMemoryRuntimeRead, unavailableMemoryRead } from './memoryView'
 import { publishedPaperExecutionResult } from './paperPortfolioView'
-import { CHAT_MODELS, normalizeChatModelsRead, type ChatModelsRead } from './chatModels'
+import { CHAT_MODELS, chatModelsReadAfterFailure, normalizeChatModelsRead, type ChatModelsRead } from './chatModels'
 import { normalizeProvidersRead, normalizeProviderStatus, providerCatalogForError, providerCatalogUnknown, providerLaunchFields, type FrozenProviderLaunch, type ProviderExecutionProfile, type ProvidersRead, type RunProvider } from './provider'
 import type { ActivityQuery, ActivityResult, AddPipelineSourceInput, BuildStep, CallsResult, ChatComputed, ChatConversationDetail, ChatListQuery, ChatListResult, ChatRequest, ChatScopes, CockpitFeedbackCategory, CockpitFeedbackStatus, CockpitFeedbackView, CompletedChatTurn, CoverageGroup, DataNeedsRead, DataNeedUploadRead, DataStatus, DiscoveredFeed, EventEnrichment, EventResearchLink, FeedbackRecord, FeedbackSubmitInput, FeedbackSummary, FeedbackType, FeedItem, IbkrPaperPortfolioRead, IntakePlan, IntensityStats, IntensityWindow, LaunchableRunKind, LaunchPreflight, MemoryRead, MemoryRuntimeRead, NewCompanyInput, NewsChatEvidence, NewsChatReceipt, NewsChatRequest, NewsCycle, NewsDiagnostics, NewsStatus, PaperExecutionResult, PipelineAuditEvent, PipelineTrend, PipelineView, QuoteRead, PortfolioManualInput, PortfolioManualRead, PortfolioLiveMark, PortfolioOverrides, PortfolioRead, PortfolioUploadResult, ResumableRunInfo, RunHistoryEntry, RunKind, ScanVerdict, ScreenerBoard, SignalIntakeInput, SignalState, SourcesReport, SwarmGraph, SwarmMeta, SwarmSubjectSummary, ThesisPlan, TickerSummary, UploadResult, Usage, WhatChangedRead, Whoami } from './types'
 
@@ -22,6 +22,7 @@ export const DATA_NEEDS_CLIENT_TIMEOUT_MS = 20_000
 export const MEMORY_CLIENT_TIMEOUT_MS = 65_000
 export const REEL_TRANSCRIPT_CLIENT_TIMEOUT_MS = 150_000
 export const EXACT_DECISION_LAUNCH_CONTRACT = 'exact-decision-launch/1' as const
+let lastChatModelsRead: ChatModelsRead | null = null
 export interface ProviderReceiptFields {
   provider?: RunProvider
   executionProfile?: ProviderExecutionProfile
@@ -1747,16 +1748,22 @@ export const api = {
   dataStreamUrl: () => `/api/data-status/stream`,
 
   // ---- chat with your data (closed-book Q&A over a run's synthesized output) ----
-  // The host's admitted Ask catalogue. A missing/old endpoint falls back to the three legacy Claude
-  // choices, so a rolling deploy never presents GPT while an older server would silently run Sonnet.
+  // The host's admitted Ask catalogue. Only a confirmed 404 means an old server and earns the legacy
+  // Claude catalogue. A transient/malformed response keeps the last truthful catalogue (or rejects while
+  // unknown), so it can never overwrite a valid host-pinned choice with Sonnet.
   chatModels: async (): Promise<ChatModelsRead> => {
     const all = { models: CHAT_MODELS.map((choice) => choice.id), defaultModel: 'sonnet' }
     if ((await ensureMode()) === 'static') return all
     try {
-      return normalizeChatModelsRead(await get<unknown>('/api/chat/models', 8_000))
-        || { models: ['sonnet', 'opus', 'haiku'], defaultModel: 'sonnet' }
-    } catch {
-      return { models: ['sonnet', 'opus', 'haiku'], defaultModel: 'sonnet' }
+      const read = normalizeChatModelsRead(await get<unknown>('/api/chat/models', 8_000))
+      if (!read) throw new Error('Ask model catalogue was invalid')
+      lastChatModelsRead = read
+      return read
+    } catch (error) {
+      const fallback = chatModelsReadAfterFailure(error, lastChatModelsRead)
+      if (!fallback) throw error
+      lastChatModelsRead = fallback
+      return fallback
     }
   },
   // which scopes are present (chat-able) vs not-yet-run. Static showcase: nothing chat-able (no engine).

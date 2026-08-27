@@ -2,7 +2,7 @@ import assert from 'node:assert/strict'
 import fs from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { CHAT_MODELS, CHAT_MODEL_STORAGE_KEY, chatModelChoices, chatModelLabel, normalizeChatModelsRead, readChatModel, saveChatModel } from './chatModels'
+import { CHAT_MODELS, CHAT_MODEL_STORAGE_KEY, chatModelChoices, chatModelLabel, chatModelsReadAfterFailure, normalizeChatModelsRead, readChatModel, saveChatModel } from './chatModels'
 
 assert.equal(CHAT_MODELS.filter((choice) => choice.provider === 'claude').length, 3)
 assert.deepEqual(CHAT_MODELS.filter((choice) => choice.provider === 'codex').map((choice) => choice.label), [
@@ -22,6 +22,14 @@ assert.deepEqual(normalizeChatModelsRead({ models: [pinnedClaude], defaultModel:
 assert.deepEqual(chatModelChoices([pinnedClaude]), [{
   id: pinnedClaude, provider: 'claude', label: pinnedClaude, sub: 'host-configured Claude model',
 }], 'a host-pinned concrete Claude model becomes a usable picker row')
+const priorCatalogue = { models: [pinnedClaude], defaultModel: pinnedClaude }
+assert.deepEqual(chatModelsReadAfterFailure(Object.assign(new Error('temporary failure'), { status: 503 }), priorCatalogue), priorCatalogue,
+  'a transient catalogue failure preserves the last truthful host choice')
+assert.equal(chatModelsReadAfterFailure(new Error('timeout'), null), null,
+  'an unknown live catalogue never invents legacy models after a transport failure')
+assert.deepEqual(chatModelsReadAfterFailure(Object.assign(new Error('old server'), { status: 404 }), priorCatalogue), {
+  models: ['sonnet', 'opus', 'haiku'], defaultModel: 'sonnet',
+}, 'only a confirmed old-server endpoint receives the legacy Claude catalogue')
 
 const values = new Map<string, string>()
 const storage = {

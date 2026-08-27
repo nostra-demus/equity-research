@@ -47,7 +47,9 @@ export function resolveChatRequestModel(
   defaultModel: string,
 ): ChatModelSpec | null {
   const requested = typeof value === 'string' ? value.trim() : ''
-  return resolveAllowedChatModel(requested || defaultModel, allowedModels)
+  if (requested) return resolveAllowedChatModel(requested, allowedModels)
+  const effectiveDefault = publicChatModelCatalogue(allowedModels, defaultModel).defaultModel
+  return effectiveDefault ? resolveAllowedChatModel(effectiveDefault, allowedModels) : null
 }
 
 /** The reviewed catalogue the browser may truthfully offer for this host configuration. */

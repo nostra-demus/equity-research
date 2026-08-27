@@ -30,6 +30,8 @@ assert.equal(resolveChatRequestModel('codex:gpt-5.6-sol', ['sonnet'], 'sonnet'),
   'an explicitly excluded model is rejected rather than silently becoming the default')
 assert.equal(resolveChatRequestModel(undefined, ['sonnet'], 'sonnet')?.id, 'sonnet',
   'an omitted choice still receives the configured default')
+assert.equal(resolveChatRequestModel(undefined, ['opus'], 'sonnet')?.id, 'opus',
+  'an omitted choice uses the published allowed fallback when the configured default is excluded')
 assert.deepEqual(publicChatModelCatalogue(['sonnet', 'haiku'], 'opus'), {
   models: ['sonnet', 'haiku'], defaultModel: 'sonnet',
 }, 'the browser receives only reviewed models admitted by this host')
