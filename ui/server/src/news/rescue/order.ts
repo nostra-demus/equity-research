@@ -4,12 +4,15 @@ export async function runNormalIdeasThenSecondLook<TIdea extends { coverage_comp
   ideas: () => Promise<TIdea>
   secondLook: () => Promise<TSecondLook>
   onSecondLookBlocked?: (ideaPass: TIdea) => Promise<TSecondLook>
+  shouldStopBeforeSecondLook?: () => boolean
 }): Promise<{ ideaPass: TIdea; secondLook: TSecondLook | null }> {
   const ideaPass = await deps.ideas()
-  const secondLook = ideaPass.coverage_complete === true
-    ? await deps.secondLook()
-    : deps.onSecondLookBlocked
-      ? await deps.onSecondLookBlocked(ideaPass)
-      : null
+  const secondLook = deps.shouldStopBeforeSecondLook?.()
+    ? null
+    : ideaPass.coverage_complete === true
+      ? await deps.secondLook()
+      : deps.onSecondLookBlocked
+        ? await deps.onSecondLookBlocked(ideaPass)
+        : null
   return { ideaPass, secondLook }
 }

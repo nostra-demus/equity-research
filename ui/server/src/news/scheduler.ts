@@ -10,7 +10,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { NEWS, REPO_ROOT, STATE_DIR, buildOmniRouteProvider } from '../config'
-import { withProviderRunDeployLease } from '../deploy-barrier'
+import { providerDeployPending, withProviderRunDeployLease } from '../deploy-barrier'
 import { acquireSingletonLock, releaseSingletonLock } from '../singleton-lock'
 import { refreshBoard } from './write-inbox'
 import { DEFERRED_CAP, DEFERRED_MAX_AGE_MS, inspectDeferredBacklog, loadDeferred, runIngestCycle, triageGroqTokenBound, triagePaceTokenBound } from './runCycle'
@@ -223,22 +223,45 @@ export function withCycleSignal(base: typeof fetch, signal: AbortSignal): typeof
     base(url, { ...init, signal: init?.signal ? AbortSignal.any([init.signal, signal]) : signal })) as typeof fetch
 }
 
-/** Run an abortable cycle: start it with a fresh AbortController, abort it (and call onTimeout once) if it
- *  overruns timeoutMs, and AWAIT it to settlement either way. Resolves/rejects ONLY once the underlying
- *  work has finished, so the caller's `running` lock is released only when nothing is in-flight — no
- *  overlap. Exported for tests. */
+/** Run an abortable cycle: start it with a fresh AbortController, abort it on timeout or a higher-priority
+ *  writer request, and AWAIT it to settlement either way. Resolves/rejects ONLY once the underlying work
+ *  has finished, so the caller's `running` lock is released only when nothing is in-flight — no overlap.
+ *  Exported for tests. */
 export async function runAbortableCycle<T>(
   run: (signal: AbortSignal) => Promise<T>,
   timeoutMs: number = CYCLE_TIMEOUT_MS,
   onTimeout?: () => void,
+  yieldGuard?: {
+    requested: () => boolean
+    pollMs?: number
+    onYield?: () => void
+  },
 ): Promise<T> {
   const ac = new AbortController()
-  const guard = setTimeout(() => { onTimeout?.(); ac.abort() }, timeoutMs)
+  const guard = setTimeout(() => {
+    if (ac.signal.aborted) return
+    onTimeout?.()
+    ac.abort()
+  }, timeoutMs)
   ;(guard as { unref?: () => void }).unref?.()
+  const checkYield = () => {
+    if (ac.signal.aborted || !yieldGuard) return
+    let requested = true
+    try { requested = yieldGuard.requested() }
+    catch { /* fail closed: a broken deployment-intent read must release background work */ }
+    if (!requested) return
+    yieldGuard.onYield?.()
+    ac.abort()
+  }
+  const yieldPoll = yieldGuard
+    ? setInterval(checkYield, Math.max(25, Math.floor(yieldGuard.pollMs ?? 250)))
+    : null
+  ;(yieldPoll as { unref?: () => void } | null)?.unref?.()
   try {
     return await run(ac.signal)
   } finally {
     clearTimeout(guard)
+    if (yieldPoll) clearInterval(yieldPoll)
   }
 }
 
@@ -1823,25 +1846,39 @@ export function startNewsIngester(): void {
             (signal) => runIngestCycle({ log, signal, fetchFn: withCycleSignal(fetch, signal) }),
             CYCLE_TIMEOUT_MS,
             () => log(`cycle exceeded ${Math.round(CYCLE_TIMEOUT_MS / 1000)}s guard — aborting in-flight work`),
+            {
+              requested: () => providerDeployPending(STATE_DIR),
+              onYield: () => log('deployment pending — yielding the current news cycle'),
+            },
           )
           lastNote = summary.note || null
+          if (providerDeployPending(STATE_DIR)) {
+            lastNote = 'Deployment pending; the background news cycle yielded safely.'
+            return
+          }
           // AUTO-FIX (under the SAME cycle lock so it can't overlap a drain and double-spend a budget file):
           // re-read any degraded THE STORY entries still on the wire, so a momentarily-missed article fixes
           // itself without a human reopening it. Budget-gated, capped, never throws, and bounded by its own
           // per-fetch timeouts — AWAITED to completion (not raced) so it can't overlap the next tick either.
           if (budgetHasHeadroom()) await healEnrichCache({ hasBudget: budgetHasHeadroom, log })
         } catch (e: any) {
+          if (providerDeployPending(STATE_DIR)) {
+            lastNote = 'Deployment pending; the background news cycle yielded safely.'
+            return
+          }
           log(`cycle error: ${e?.message || e}`)
           lastNote = `cycle error: ${e?.message || e}`
         }
         // This is deliberately outside the ingest try. runIdeaPass applies its own sweep + found_at age
         // ceiling, so a transient source failure does not suppress a safe pass over still-current inputs.
         // Outcome settlement has one owner: its independent interval above.
+        if (providerDeployPending(STATE_DIR)) return
         await runNormalIdeasThenSecondLook({
           ideas: () => runConfiguredIdeaPass(log),
           secondLook: () => runConfiguredRescueShadow(log, true),
           onSecondLookBlocked: () =>
             runConfiguredRescueShadow(log, false, 'The normal Ideas scan did not finish, so the second look waited.'),
+          shouldStopBeforeSecondLook: () => providerDeployPending(STATE_DIR),
         })
       })
     } catch (e: any) {
@@ -1868,9 +1905,17 @@ export function startNewsIngester(): void {
         (signal) => runIngestCycle({ log, signal, skipFetch: true, fetchFn: withCycleSignal(fetch, signal) }),
         CYCLE_TIMEOUT_MS,
         () => log(`drain exceeded ${Math.round(CYCLE_TIMEOUT_MS / 1000)}s guard — aborting in-flight work`),
+        {
+          requested: () => providerDeployPending(STATE_DIR),
+          onYield: () => log('deployment pending — yielding the current news drain'),
+        },
       ))
       lastNote = summary.note || lastNote
     } catch (e: any) {
+      if (providerDeployPending(STATE_DIR)) {
+        lastNote = 'Deployment pending; the background news drain yielded safely.'
+        return
+      }
       log(`drain error: ${e?.message || e}`)
     } finally {
       running = false

@@ -574,7 +574,8 @@ under every provider. The browser derives that rule from run kind and compares i
 selection; a provider estimate cannot weaken it. Every admitted tracked launch opens Activity immediately.
 No provider may create an invisible run, a provider-only dead end, a permanent spinner, or a different
 cancel/resume/artifact experience. Future manifest-discovered swarms and run kinds inherit this contract
-without provider-specific wiring.
+without provider-specific wiring. Background scanners must yield promptly to a pending reviewed deployment;
+unrelated news work cannot hold provider availability until its normal multi-minute timeout.
 
 The complete state machine, entry-point matrix, allowed differences, and CI requirements live in
 `frameworks/PROVIDER_TRANSPARENT_COCKPIT.md`. A user-visible Claude/Codex difference outside its explicit
