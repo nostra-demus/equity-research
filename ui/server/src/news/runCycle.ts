@@ -20,7 +20,7 @@ import { eventIdFor, loadLedgerEventIds, normalizeAndFilter } from './normalize'
 import { pickTranslation } from './lang'
 import { resolveEventRegion } from './geo'
 import { resolveCountry } from './geography'
-import { invalidateFacets } from './facets'
+import { invalidateAndWarmFacets } from './facets-service'
 import { SeenCache } from './seen-cache'
 import { Budget, NON_BINDING_DAILY_TOKEN_CAP, UsdBudget, armCooldown, clearCooldown, conservativeChatTokenBound, conservativeChatUsdBound, cooldownInfo, dailyQuotaAdmission, getNamedLimiter, getSharedGeminiLimiter, getSharedLimiter, rateInfoForLimiter, readCooldownUntil, selectDailyQuotaCandidate, type DailyQuotaCandidate, type PaceCfg } from './triage/budget'
 import { triageBatchGemini } from './triage/gemini'
@@ -2628,7 +2628,9 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
   const watched = newlyAppendedRows.filter((t) => t.band === 'watch').length
   const dropped = newlyAppendedRows.filter((t) => t.band === 'drop').length
   const inboxFeedPending = feedUnwrittenRows.filter((t) => t.band !== 'drop').length
-  if (newlyAppendedFeedItems.length) invalidateFacets() // a fresh cycle changed the archive — drop the facet index so new items/countries show up before the TTL
+  // A fresh cycle changed the archive. Refresh the complete filter universe in its worker so the next
+  // Geography/Company click is instant without freezing the server's main request thread.
+  if (newlyAppendedFeedItems.length) invalidateAndWarmFacets(repoRoot, { archiveDir: cfg.newsArchiveDir })
   // Historical acknowledgement completes recovery bookkeeping but must not replay a stale live event.
   for (const fi of newlyAppendedFeedItems) newsBus.emit({ type: 'news-item', item: fi })
   if (feedAppend.status === 'cap') {

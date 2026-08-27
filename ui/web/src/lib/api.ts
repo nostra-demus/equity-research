@@ -718,10 +718,9 @@ export const api = {
   },
   // The available geographies (country + continent) / sectors / sub-sectors / sources / themes WITH COUNTS
   // over the whole archive, honouring the active filter — what populates the dropdowns with archive truth.
-  // Budget: this is the heaviest read in the cockpit — on a first build it walks every day in the archive
-  // (measured ~14.5s on a 29-day / 80k-item one, against the 15s default), and the callers now settle it
-  // INDEPENDENTLY of the search beside it, so a slow facets only ever delays a dropdown's counts. Waiting
-  // longer is strictly better than abandoning the build the engine is already paying for.
+  // The server builds this archive-wide index off-thread and pre-warms the unfiltered response. Keep the
+  // larger timeout for a cold deploy or a new filtered context: a slow recount may delay dropdown counts,
+  // but it can no longer freeze unrelated server requests or erase independently-returned search results.
   newsFacets: async (q: ArchiveQuery = {}): Promise<FeedFacets> => {
     if ((await ensureMode()) === 'static') return { countries: [], regions: [], sectors: [], subSectors: [], sources: [], themes: [], companies: [], total: 0, builtThroughDate: null, builtAt: '' }
     return get(`/api/news/facets?${archiveQueryParams(q).toString()}`, 45_000)
