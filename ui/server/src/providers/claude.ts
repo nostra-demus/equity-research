@@ -332,13 +332,28 @@ function readPinnedProjectionFile(sourcePath: string, relativePath: string): Pro
 function snapshotProjection(
   sourcePath: string,
   excludedRelativePaths: ReadonlySet<string>,
+  includedRelativeFiles?: ReadonlySet<string>,
 ): ProjectionEntry[] {
   const rootInfo = fs.lstatSync(sourcePath, { bigint: true })
   if (rootInfo.isSymbolicLink()) throw new Error('tracked Claude project source cannot be a symlink')
   if (rootInfo.isFile()) return [readPinnedProjectionFile(sourcePath, '.')]
   if (!rootInfo.isDirectory()) throw new Error('tracked Claude project source must be a regular file or directory')
   const entries: ProjectionEntry[] = []
+  const includedDirectories = new Set<string>()
+  if (includedRelativeFiles) {
+    for (const file of includedRelativeFiles) {
+      const parts = file.split('/')
+      for (let i = 1; i < parts.length; i += 1) includedDirectories.add(parts.slice(0, i).join('/'))
+    }
+  }
+  const selected = (relative: string, directory: boolean): boolean => {
+    if (!includedRelativeFiles) return true
+    if (!directory) return includedRelativeFiles.has(relative)
+    if (!relative) return includedRelativeFiles.size > 0
+    return includedDirectories.has(relative)
+  }
   const walk = (absolute: string, relative: string) => {
+    if (!selected(relative, true)) return
     const info = fs.lstatSync(absolute, { bigint: true })
     if (info.isSymbolicLink()) {
       throw new Error(`tracked Claude project source contains a symlink: ${relative || '.'}`)
@@ -351,6 +366,11 @@ function snapshotProjection(
       const childRelative = relative ? `${relative}/${name}` : name
       if (excludedRelativePaths.has(childRelative)) continue
       const child = path.join(absolute, name)
+      // Decide from the reviewed Git manifest before lstat: ignored runtime trees such as
+      // `.claude/tools/.venv` contain interpreter symlinks by design and are not prompt-program input.
+      if (includedRelativeFiles
+          && !includedRelativeFiles.has(childRelative)
+          && !selected(childRelative, true)) continue
       const childInfo = fs.lstatSync(child)
       if (childInfo.isSymbolicLink()) {
         throw new Error(`tracked Claude project source contains a symlink: ${childRelative}`)
@@ -371,8 +391,11 @@ function createPinnedProjection(
   sourcePath: string,
   destinationPath: string,
   excludedRelativePaths: ReadonlySet<string> = new Set(),
+  includedRelativeFiles?: ReadonlySet<string>,
+  currentSelectionIdentity?: () => string,
 ): ClaudeMirrorProjection {
-  const sourceEntries = snapshotProjection(sourcePath, excludedRelativePaths)
+  const selectionIdentity = currentSelectionIdentity?.()
+  const sourceEntries = snapshotProjection(sourcePath, excludedRelativePaths, includedRelativeFiles)
   const sourceFingerprint = projectionFingerprint(sourceEntries)
   const sourceIsFile = sourceEntries.length === 1 && sourceEntries[0].kind === 'file'
   if (sourceIsFile) {
@@ -399,7 +422,10 @@ function createPinnedProjection(
   return {
     name: path.basename(destinationPath),
     validate: () => {
-      if (projectionFingerprint(snapshotProjection(sourcePath, excludedRelativePaths)) !== sourceFingerprint) {
+      if (currentSelectionIdentity && currentSelectionIdentity() !== selectionIdentity) {
+        throw new Error(`tracked Claude project file manifest changed before spawn: ${path.basename(sourcePath)}`)
+      }
+      if (projectionFingerprint(snapshotProjection(sourcePath, excludedRelativePaths, includedRelativeFiles)) !== sourceFingerprint) {
         throw new Error(`tracked Claude project source changed before spawn: ${path.basename(sourcePath)}`)
       }
       if (projectionFingerprint(snapshotProjection(destinationPath, new Set())) !== destinationFingerprint) {
@@ -407,6 +433,36 @@ function createPinnedProjection(
       }
     },
   }
+}
+
+const CLAUDE_PROJECT_SETTINGS = new Set(['settings.json', 'settings.local.json'])
+
+/** The deployed Git index—not whatever generated files happen to be in the checkout—is the command/agent
+ * program authority. This keeps local venvs, bytecode, caches, and editor files out of command discovery,
+ * while a newly tracked command changes the manifest and fails a launch already being prepared. */
+function trackedClaudeProjectFiles(repoRoot: string): string[] {
+  const projectRoot = path.join(repoRoot, '.claude')
+  const raw = execFileSync('git', ['ls-files', '-z', '--', '.claude'], {
+    cwd: repoRoot, encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'],
+  })
+  const files = raw.split('\0').filter(Boolean).map((tracked) => {
+    if (!tracked.startsWith('.claude/')) throw new Error('tracked Claude project manifest contains an invalid path')
+    const relative = tracked.slice('.claude/'.length)
+    const resolved = path.resolve(projectRoot, relative)
+    const inside = path.relative(projectRoot, resolved)
+    if (!relative || inside === '..' || inside.startsWith(`..${path.sep}`) || path.isAbsolute(inside)) {
+      throw new Error('tracked Claude project manifest escapes the project program')
+    }
+    return relative
+  }).filter((relative) => !CLAUDE_PROJECT_SETTINGS.has(relative)).sort()
+  if (!files.length) throw new Error('tracked Claude project manifest is empty')
+  return files
+}
+
+function createTrackedClaudeProjectProjection(repoRoot: string, sourcePath: string, destinationPath: string): ClaudeMirrorProjection {
+  const selection = () => JSON.stringify(trackedClaudeProjectFiles(repoRoot))
+  const files = new Set(trackedClaudeProjectFiles(repoRoot))
+  return createPinnedProjection(sourcePath, destinationPath, CLAUDE_PROJECT_SETTINGS, files, selection)
 }
 
 function makeClaudeMirrorRemovable(absolute: string): void {
@@ -501,9 +557,7 @@ export function createClaudeMirrorWorkspace(
       }
       if (entry.name === '.claude') {
         if (!sourceInfo.isDirectory()) throw new Error('tracked Claude project program is not a directory')
-        projections.push(createPinnedProjection(sourcePath, path.join(root, entry.name), new Set([
-          'settings.json', 'settings.local.json',
-        ])))
+        projections.push(createTrackedClaudeProjectProjection(lexicalRepoRoot, sourcePath, path.join(root, entry.name)))
         continue
       }
       if (entry.name === 'CLAUDE.md') {
@@ -780,7 +834,27 @@ async function buildLaunch(context: ProviderLaunchContext): Promise<ProviderLaun
   env.TEMP = mirror.scratch
   env.XDG_CACHE_HOME = mirror.scratch
   env.PYTHONDONTWRITEBYTECODE = '1'
+  // Resolve the subscription CLI before adding any generated tool runtime to descendant PATH lookup.
   const binary = resolvedClaudeBinary(env)
+  // The reviewed Python tools intentionally keep their generated dependency environment out of Git.
+  // It must not enter project command discovery, but using its interpreter through PATH preserves the
+  // established extractor behavior. The canonical `.claude` tree is read-only to every tracked child.
+  const toolsVenvBin = path.join(context.cwd, '.claude', 'tools', '.venv', 'bin')
+  let toolsVenvPresent = false
+  try {
+    const venvInfo = fs.lstatSync(toolsVenvBin)
+    toolsVenvPresent = true
+    const venvPython = fs.statSync(path.join(toolsVenvBin, 'python'))
+    if (!venvInfo.isDirectory() || venvInfo.isSymbolicLink() || !venvPython.isFile()) {
+      throw new Error('invalid generated Claude tools environment')
+    }
+    env.PATH = env.PATH ? `${toolsVenvBin}${path.delimiter}${env.PATH}` : toolsVenvBin
+  } catch (error: any) {
+    if (error?.code !== 'ENOENT' || toolsVenvPresent) {
+      mirror.cleanup()
+      throw error
+    }
+  }
   const binaryInfo = fs.statSync(binary, { bigint: true })
   const binaryIdentity = [binaryInfo.dev, binaryInfo.ino, binaryInfo.mode, binaryInfo.size,
     binaryInfo.mtimeNs, binaryInfo.ctimeNs].join(':')

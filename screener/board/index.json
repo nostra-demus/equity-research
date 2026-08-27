@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-27T09:48:14Z",
+  "generated_at": "2026-08-27T10:54:46Z",
   "inbox": [
     {
       "inbox_id": "INB-20260827-391",
@@ -690,6 +690,105 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260827-445",
+      "headline": "Nvidia revenue tops $96 billion as memory commitments soar to $160 billion — CEO Jensen Huang says AI 'has reached its inflection point'",
+      "headline_en": null,
+      "url": "https://www.tomshardware.com/tech-industry/big-tech/nvidia-revenue-tops-usd96-billion-as-memory-commitments-soar-to-usd160-billion-ceo-jensen-huang-says-ai-has-reached-its-inflection-point",
+      "source_name": "Tom's Hardware",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-27T09:13:54Z",
+      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
+      "prelim_note": "Nvidia reported $96 billion in revenue and $160 billion in memory commitments, signaling massive AI demand.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nvidia reported $96 billion in revenue and $160 billion in memory commitments, signaling massive AI demand.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260827-410",
+      "headline": "AD Ports board backs $8.6 billion buyout offer from L’imad",
+      "headline_en": null,
+      "url": "https://www.arabianbusiness.com/business/transport/ad-ports-board-backs-8-6-billion-buyout-offer-from-limad",
+      "source_name": "Arabian Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-27T09:11:48Z",
+      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
+      "prelim_note": "AD Ports board has backed an $8.6 billion buyout offer.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "AD Ports board has backed an $8.6 billion buyout offer.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "AD Ports",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260827-370",
       "headline": "Nvidia to buy Hugging face for $12.9 bn, says report; same AI firm was hacked by OpenAI agents in July",
       "headline_en": null,
@@ -736,6 +835,55 @@
           "name": "Hugging Face",
           "ticker": null,
           "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260827-414",
+      "headline": "HDFC Bank Share Price Falls To 52-Week Low After US Class Action Lawsuit Over Alleged Bribery Scheme",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/markets/hdfc-bank-share-price-falls-after-us-class-action-lawsuit-over-alleged-bribery-scheme-11964590#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-27T08:26:43Z",
+      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
+      "prelim_note": "HDFC Bank faces a US class action lawsuit regarding an alleged bribery scheme, contributing to a 52-week low.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "HDFC Bank faces a US class action lawsuit regarding an alleged bribery scheme, contributing to a 52-week low.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HDFC Bank",
+          "ticker": null,
+          "listing_country": "IN"
         }
       ],
       "size_bucket": "mega",
@@ -1826,163 +1974,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260827-194",
-      "headline": "Strong AI chip demand fuels Nvidia's Q2 results well beyond Wall Street's expectations",
-      "headline_en": null,
-      "url": "https://gulfnews.com/business/markets/strong-ai-chip-demand-fuels-nvidias-q2-results-well-beyond-wall-streets-expectations-1.500653496",
-      "source_name": "Gulf News",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-27T03:10:07Z",
-      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
-      "prelim_note": "Nvidia reported Q2 results that significantly exceeded analyst expectations, driven by strong AI chip demand.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Nvidia reported Q2 results that significantly exceeded analyst expectations, driven by strong AI chip demand.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": "NVDA",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260827-142",
-      "headline": "Nvidia agrees to buy Hugging Face for $16.4 billion: Report",
-      "headline_en": null,
-      "url": "https://www.straitstimes.com/business/nvidia-agrees-to-buy-hugging-face-for-16-4-billion-report",
-      "source_name": "The Straits Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-27T02:47:00Z",
-      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
-      "prelim_note": "Nvidia is acquiring Hugging Face for $16.4 billion, a major M&A event in the AI sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Nvidia is acquiring Hugging Face for $16.4 billion, a major M&A event in the AI sector.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 90,
-      "rank_factors": {
-        "materiality": 90,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Hugging Face",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260827-139",
-      "headline": "Nvidia in talks to buy Hugging Face for $12.9 billion amid AI deal spree, reports say",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/business/companies/nvidia-hugging-face-acquisition-open-source-models-artificial-intelligence-platform-deal-reports-19978002.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-27T02:38:02Z",
-      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
-      "prelim_note": "Nvidia is reportedly in talks to acquire Hugging Face for $12.9 billion, a significant M&A event in the AI sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Nvidia is reportedly in talks to acquire Hugging Face for $12.9 billion, a significant M&A event in the AI sector.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Hugging Face",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -82463,6 +82454,152 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-2d56f1dcc88c",
+      "idea_version": "IDEAV-40329a5837b226da",
+      "idea_version_started_at": "2026-08-27T10:54:29Z",
+      "ticker": "BOMBURMA",
+      "company": "Bombay Burmah Trading Corporation",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The Supreme Court recalled observations regarding ₹4,655 crore lease rent, removing a significant potential liability for Bombay Burmah Trading Corporation.",
+      "why_now": "The Supreme Court's decision was reported on August 27, 2026, providing a clear, immediate positive catalyst.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-68c5cc93172a"
+      ],
+      "primary_source_event_id": "EVT-68c5cc93172a",
+      "source_headlines": [
+        "Bombay Burmah shares rally 15%: SC recalls ₹4,655 cr lease rent observations"
+      ],
+      "source_headline": "Bombay Burmah shares rally 15%: SC recalls ₹4,655 cr lease rent observations",
+      "source_url": "https://www.thehindubusinessline.com/markets/stock-markets/bombay-burmah-trading-shares-rally-15-supreme-court-recalls-4655-crore-lease-rent-observations/article71395237.ece",
+      "source_name": "The Hindu BusinessLine",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-27T06:39:40Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-27T10:54:29Z",
+      "updated_at": "2026-08-27T10:54:29Z",
+      "decay_at": "2026-08-28T18:39:40Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-edef9dd12a1c",
+      "idea_version": "IDEAV-f97c9af85de4d0a3",
+      "idea_version_started_at": "2026-08-27T10:54:29Z",
+      "ticker": "ZEEL",
+      "company": "Zee Entertainment Enterprises",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Subhash Chandra's ₹6.5 crore payout plan has been approved by NCLT, settling ₹22,006 crore dues, which could remove a significant overhang on Zee Entertainment Enterprises.",
+      "why_now": "The NCLT clearance for the repayment plan was granted on August 27, 2026, providing a fresh catalyst.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-693031621b26",
+        "EVT-621fe50afd27"
+      ],
+      "primary_source_event_id": "EVT-693031621b26",
+      "source_headlines": [
+        "Subhash Chandra gets NCLT clearance for ₹6.5 crore payout to settle ₹22,006 crore dues; Vijay Mallya reacts",
+        "NCLT approves Subhash Chandra's ₹6.5 cr repayment plan; creditors face 99.97% haircut"
+      ],
+      "source_headline": "Subhash Chandra gets NCLT clearance for ₹6.5 crore payout to settle ₹22,006 crore dues; Vijay Mallya reacts",
+      "source_url": "https://www.cnbctv18.com/business/nclt-clears-subhash-chandras-6-5-crore-rupees-payout-to-settle-22006-crore-rupees-dues-with-nearly-99-97-haircut-19977977.htm",
+      "source_name": "CNBC-TV18",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-27T04:59:54Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-27T10:54:29Z",
+      "updated_at": "2026-08-27T10:54:29Z",
+      "decay_at": "2026-08-28T16:59:54Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-0a9a79a819d1",
       "idea_version": "IDEAV-8fda1afdc05e1dc2",
       "idea_version_started_at": "2026-08-27T07:19:10Z",
@@ -83902,77 +84039,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-d6c3f18fcbf9",
-      "idea_version": "IDEAV-566e4dbe9e2d5627",
-      "idea_version_started_at": "2026-08-26T00:07:40Z",
-      "ticker": "FPR",
-      "company": "FPR",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company is actively updating the market on non-binding indicative offers, suggesting ongoing M&A interest and potential for a formal bid.",
-      "why_now": "The update was released on 2026-08-25.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-55a3e1586196"
-      ],
-      "primary_source_event_id": "EVT-55a3e1586196",
-      "source_headlines": [
-        "FPR: Update regarding Non-Binding Indicative Offers [price-sensitive]"
-      ],
-      "source_headline": "FPR: Update regarding Non-Binding Indicative Offers [price-sensitive]",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.FPR?key=2924-03126089-2A1692067",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-25T22:41:50Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-26T00:07:40Z",
-      "updated_at": "2026-08-26T00:07:40Z",
-      "decay_at": "2026-08-27T10:41:50Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-15545ed7f8b1",
       "idea_version": "IDEAV-73067bb8cd7980b7",
       "idea_version_started_at": "2026-08-26T09:35:45Z",
@@ -84957,6 +85023,77 @@
       "surfaced_at": "2026-08-26T00:07:40Z",
       "updated_at": "2026-08-26T00:07:40Z",
       "decay_at": "2026-08-27T02:40:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-d6c3f18fcbf9",
+      "idea_version": "IDEAV-566e4dbe9e2d5627",
+      "idea_version_started_at": "2026-08-26T00:07:40Z",
+      "ticker": "FPR",
+      "company": "FPR",
+      "exchange": "ASX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company is actively updating the market on non-binding indicative offers, suggesting ongoing M&A interest and potential for a formal bid.",
+      "why_now": "The update was released on 2026-08-25.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-55a3e1586196"
+      ],
+      "primary_source_event_id": "EVT-55a3e1586196",
+      "source_headlines": [
+        "FPR: Update regarding Non-Binding Indicative Offers [price-sensitive]"
+      ],
+      "source_headline": "FPR: Update regarding Non-Binding Indicative Offers [price-sensitive]",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.FPR?key=2924-03126089-2A1692067",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-25T22:41:50Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-26T00:07:40Z",
+      "updated_at": "2026-08-26T00:07:40Z",
+      "decay_at": "2026-08-27T10:41:50Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -85966,77 +86103,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-7ff2215d0d79",
-      "idea_version": "IDEAV-30af52caaaec897c",
-      "idea_version_started_at": "2026-08-24T21:01:02Z",
-      "ticker": "00851",
-      "company": "SHENG YUAN HLDG",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company issued a profit warning, suggesting earnings will miss expectations.",
-      "why_now": "The filing was released on 2026-08-24.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-56bf9c1da0bd"
-      ],
-      "primary_source_event_id": "EVT-56bf9c1da0bd",
-      "source_headlines": [
-        "SHENG YUAN HLDG (00851): PROFIT WARNING"
-      ],
-      "source_headline": "SHENG YUAN HLDG (00851): PROFIT WARNING",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0824/2026082401059.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-24T10:40:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-24T21:01:02Z",
-      "updated_at": "2026-08-24T21:01:02Z",
-      "decay_at": "2026-08-25T22:40:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-8ebbe2edbfcb",
       "idea_version": "IDEAV-fd3fed37ef7b0da3",
       "idea_version_started_at": "2026-08-24T21:01:02Z",
@@ -86102,77 +86168,6 @@
       "surfaced_at": "2026-08-24T21:01:02Z",
       "updated_at": "2026-08-24T21:01:02Z",
       "decay_at": "2026-08-25T23:24:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-fbd1882d5992",
-      "idea_version": "IDEAV-fe09499bf0ca5af8",
-      "idea_version_started_at": "2026-08-24T21:01:02Z",
-      "ticker": "08472",
-      "company": "LAPCO HOLDINGS",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "A profit warning signals a decline in profitability that will likely pressure the stock price.",
-      "why_now": "The warning was published on 2026-08-24.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-3ef71346438a"
-      ],
-      "primary_source_event_id": "EVT-3ef71346438a",
-      "source_headlines": [
-        "LAPCO HOLDINGS (08472): PROFIT WARNING"
-      ],
-      "source_headline": "LAPCO HOLDINGS (08472): PROFIT WARNING",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/0824/2026082401017.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-24T10:22:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-24T21:01:02Z",
-      "updated_at": "2026-08-24T21:01:02Z",
-      "decay_at": "2026-08-25T22:22:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -86895,77 +86890,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-56faf0683963",
-      "idea_version": "IDEAV-28c1ebc87f9fe187",
-      "idea_version_started_at": "2026-08-24T12:14:28Z",
-      "ticker": "08340",
-      "company": "Zijing International Financial Holdings",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company issued a profit warning, which typically precedes a downward revision in analyst earnings estimates and valuation multiples.",
-      "why_now": "The announcement was made on August 24, 2026.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-68438cf545d3"
-      ],
-      "primary_source_event_id": "EVT-68438cf545d3",
-      "source_headlines": [
-        "ZIJING INTL FIN (08340): PROFIT WARNING"
-      ],
-      "source_headline": "ZIJING INTL FIN (08340): PROFIT WARNING",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/0824/2026082400746.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-24T09:24:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-24T12:14:28Z",
-      "updated_at": "2026-08-24T12:14:28Z",
-      "decay_at": "2026-08-25T21:24:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-d704446fee63",
       "idea_version": "IDEAV-2fea4607e2989a34",
       "idea_version_started_at": "2026-08-04T08:40:40Z",
@@ -87040,19 +86964,19 @@
     "schema_version": "ideas-archive/v1",
     "health": {
       "status": "ok",
-      "file_count": 110,
+      "file_count": 113,
       "suppression_count": 0,
       "corrupt_count": 0,
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 146,
-    "shown_count": 146,
+    "total_count": 147,
+    "shown_count": 147,
     "hidden_count": 0,
     "side_counts": {
       "long": {
-        "total_count": 59,
-        "shown_count": 59,
+        "total_count": 60,
+        "shown_count": 60,
         "hidden_count": 0
       },
       "short": {
@@ -87077,6 +87001,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-d6c3f18fcbf9",
+        "idea_version": "IDEAV-566e4dbe9e2d5627",
+        "idea_version_started_at": "2026-08-26T00:07:40Z",
+        "ticker": "FPR",
+        "company": "FPR",
+        "exchange": "ASX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company is actively updating the market on non-binding indicative offers, suggesting ongoing M&A interest and potential for a formal bid.",
+        "why_now": "The update was released on 2026-08-25.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-55a3e1586196"
+        ],
+        "primary_source_event_id": "EVT-55a3e1586196",
+        "source_headlines": [
+          "FPR: Update regarding Non-Binding Indicative Offers [price-sensitive]"
+        ],
+        "source_headline": "FPR: Update regarding Non-Binding Indicative Offers [price-sensitive]",
+        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.FPR?key=2924-03126089-2A1692067",
+        "source_name": "ASX (Australia Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-25T22:41:50Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-26T00:07:40Z",
+        "updated_at": "2026-08-26T00:07:40Z",
+        "decay_at": "2026-08-27T10:41:50Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-27T10:41:50Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-c56cd7fabf5d",
         "idea_version": "IDEAV-e298fc8d653164e4",
@@ -89600,8 +89598,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-08-25T22:40:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-08-27T10:54:34Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -89674,8 +89672,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-08-25T22:22:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-08-27T10:54:34Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -89748,8 +89746,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-08-25T21:24:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-08-27T10:54:34Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -97899,8 +97897,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 188,
-    "live_count": 41,
+    "surfaced_total": 190,
+    "live_count": 42,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -97919,9 +97917,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1219985,
-    "news_picked_today": 585,
-    "news_dropped_today": 12447
+    "news_seen_today": 1345609,
+    "news_picked_today": 690,
+    "news_dropped_today": 13542
   },
   "book_momentum": {
     "live_count": 8,
