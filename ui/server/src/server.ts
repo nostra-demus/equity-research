@@ -771,11 +771,10 @@ const ProviderLaunchFields = {
   reasoningLevel: z.string().regex(/^[a-z0-9_-]{1,24}$/i).optional(),
   expectedProfileKey: z.string().min(1).max(240).optional(),
 }
-const ProviderQuery = z.object({
-  provider: z.enum(['claude', 'codex']).default('claude'),
-  model: z.string().regex(/^[a-z0-9.\-]{1,40}$/i).optional(),
-  reasoningLevel: z.string().regex(/^[a-z0-9_-]{1,24}$/i).optional(),
-})
+// Query and POST launch boundaries must parse the exact same provider/profile identity. Keeping one
+// field set prevents a newly added immutable field from being accepted by paid POSTs but silently
+// stripped from estimates (which would make a non-default model impossible to price or confirm).
+const ProviderQuery = z.object(ProviderLaunchFields)
 const ProviderBody = z.object(ProviderLaunchFields)
 const ExactPlanBindingFields = {
   planPath: z.string().min(1).max(700).optional(),
