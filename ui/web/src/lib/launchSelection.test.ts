@@ -422,6 +422,63 @@ try {
   assert.match(useStore.getState().toast?.msg || '', /receipt did not match/i)
 
   const codexPreflight = { ...preflight('full', 'AAA'), provider: 'codex' as const, profileKey: CODEX_SELECTION.expectedProfileKey, model: CODEX_SELECTION.model, reasoningLevel: CODEX_SELECTION.reasoningLevel, executionProfile: CODEX_SELECTION.executionProfile }
+
+  // Claude and Codex share one accepted-launch contract: same full-run acknowledgement payload, same
+  // immediate Activity visibility, and the exact frozen provider/profile stamped on the live run.
+  const claudeProfile = { key: 'claude:opus:default', parentModel: 'opus', parentReasoning: 'default' }
+  const providerMatrix = [
+    {
+      provider: 'claude' as const,
+      selection: { provider: 'claude' as const, expectedProfileKey: claudeProfile.key, model: claudeProfile.parentModel, reasoningLevel: claudeProfile.parentReasoning, executionProfile: claudeProfile },
+      preflight: { ...preflight('full', 'AAA'), provider: 'claude' as const, profileKey: claudeProfile.key, model: claudeProfile.parentModel, reasoningLevel: claudeProfile.parentReasoning, executionProfile: claudeProfile },
+    },
+    { provider: 'codex' as const, selection: CODEX_SELECTION, preflight: codexPreflight },
+  ]
+  for (const row of providerMatrix) {
+    let submitted: any = null
+    const runId = `provider-parity-${row.provider}`
+    api.launch = async (body: any) => {
+      submitted = body
+      return {
+        runId,
+        provider: row.provider,
+        profileKey: row.selection.expectedProfileKey,
+        model: row.selection.model,
+        reasoningLevel: row.selection.reasoningLevel,
+        executionProfile: row.selection.executionProfile,
+        preflight: row.preflight,
+      } as any
+    }
+    useStore.setState({
+      staticMode: false, health: 'online', activeSwarm: 'research', constellationSwarm: 'research',
+      selectedTicker: 'AAA', selectToken: 1061, warp: null, graph, nodesByKey: new Map([[orb.key, orb]]),
+      nodeRuntime: {}, activeRuns: {}, activityOpen: false, runProvider: row.provider,
+      providers: {
+        claude: { provider: 'claude', enabled: true, available: true, checked: true, status: 'available', profile: claudeProfile },
+        codex: { provider: 'codex', enabled: true, available: true, checked: true, status: 'available', profile: CODEX_PROFILE },
+        catalogState: 'valid',
+      },
+      launchConfirm: { kind: 'full', selection: { subject: 'AAA', swarm: 'research', selectToken: 1061, ...row.selection }, preflight: row.preflight },
+      launchPending: null,
+    })
+    await useStore.getState().confirmFull()
+    assert.equal(submitted?.ticker, 'AAA')
+    assert.equal(submitted?.confirmTicker, 'AAA', `${row.provider} full run carries the same typed-subject acknowledgement`)
+    assert.equal(submitted?.selection.provider, row.provider)
+    assert.equal(useStore.getState().activeRuns[runId]?.provider, row.provider)
+    assert.equal(useStore.getState().activityOpen, true, `${row.provider} admitted run opens Activity immediately`)
+  }
+
+  // A malformed or provider-specific estimate cannot silently remove the full-run confirmation step.
+  api.estimate = async () => ({ ...codexPreflight, requiresTypedConfirm: false })
+  useStore.setState({
+    selectedTicker: 'AAA', activeSwarm: 'research', constellationSwarm: 'research', selectToken: 1062,
+    activeRuns: {}, runProvider: 'codex', launchConfirm: null, launchPending: null,
+  })
+  await useStore.getState().requestFull()
+  assert.equal(useStore.getState().launchConfirm, null, 'a full estimate that weakens acknowledgement fails closed')
+  assert.match(useStore.getState().toast?.msg || '', /couldn.t verify/i)
+
   api.launch = async () => ({
     runId: 'contradictory-top-level', provider: 'claude', profileKey: CODEX_SELECTION.expectedProfileKey,
     model: CODEX_SELECTION.model, reasoningLevel: CODEX_SELECTION.reasoningLevel,

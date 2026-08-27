@@ -559,4 +559,25 @@ runtime modes (`off`, `shadow`, `enforced`), benchmarks, and release gates live 
 `frameworks/memory/THREE_LAYER_MEMORY.md`. Where it and this doctrine differ, this doctrine and the
 more conservative research rule win (§23).
 
+---
+
+## 30. Provider-Transparent Cockpit
+
+Claude and Codex are execution adapters behind one cockpit, never separate product modes. For the same run
+kind they have the same entry point, frozen-subject confirmation, admission flow, Activity visibility,
+progress, cancellation, resume, terminal state, artifact requirements, publication, and recovery behavior.
+Provider-specific UI is limited to true provider facts: provider/model/reasoning labels, authentication and
+availability diagnostics, subscription quota versus usage/cost presentation, and low-level adapter errors.
+
+Every true full run requires the user to type the frozen subject before launch, from every entry point and
+under every provider. The browser derives that rule from run kind and compares it to the immutable launch
+selection; a provider estimate cannot weaken it. Every admitted tracked launch opens Activity immediately.
+No provider may create an invisible run, a provider-only dead end, a permanent spinner, or a different
+cancel/resume/artifact experience. Future manifest-discovered swarms and run kinds inherit this contract
+without provider-specific wiring.
+
+The complete state machine, entry-point matrix, allowed differences, and CI requirements live in
+`frameworks/PROVIDER_TRANSPARENT_COCKPIT.md`. A user-visible Claude/Codex difference outside its explicit
+allowlist is a release-blocking defect.
+
 **The twins must match.** This doctrine is maintained as two files — this one (`AGENTS.md`) and its counterpart read by the other assistant — and they must stay identical except for each file's own name. Derive one from the other instead of hand-editing both; drift between them is a defect, and a CI check may enforce that they match.

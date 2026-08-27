@@ -24,6 +24,7 @@ import {
   CODEX_COCKPIT_PERMISSION_PROFILE,
   CODEX_LAUNCH_PROOF_MAX_AGE_MS,
   CODEX_LAUNCH_PROOF_REPLAY_TTL_MS,
+  CODEX_NEGATIVE_CACHE_TTL_MS,
   CODEX_STALE_AUTH_LEASE_AGE_MS,
   createCodexProbeCoordinator,
   createIsolatedCodexProbeHome,
@@ -494,6 +495,34 @@ assert.equal((await failedProbeCoordinator.getAvailability(
   { refresh: true }, cacheEnv, repoRoot, 'codex|fixture-profile',
 )).availability, 'unknown')
 assert.equal(failedProbeCalls, 2, 'an explicit retry never green-lights or indefinitely caches a failed probe')
+
+let negativeNow = 10_000
+let passiveFailureCalls = 0
+const visibleFailureCoordinator = createCodexProbeCoordinator({
+  now: () => negativeNow,
+  probe: async () => {
+    passiveFailureCalls++
+    const error: any = new Error('live catalogue unavailable')
+    error.code = 'CODEX_CATALOGUE_UNKNOWN'
+    throw error
+  },
+})
+assert.equal((await visibleFailureCoordinator.getAvailability(
+  { refresh: true }, cacheEnv, repoRoot, 'codex|visible-failure',
+)).availability, 'unknown')
+assert.equal(passiveFailureCalls, 1)
+negativeNow += CODEX_NEGATIVE_CACHE_TTL_MS - 1
+assert.equal((await visibleFailureCoordinator.getAvailability(
+  { refresh: false }, cacheEnv, repoRoot, 'codex|visible-failure',
+)).availability, 'unknown')
+assert.equal(passiveFailureCalls, 1,
+  'passive status retains the last actionable failure instead of returning to an endless probe spinner')
+negativeNow += 2
+await visibleFailureCoordinator.getAvailability(
+  { refresh: false }, cacheEnv, repoRoot, 'codex|visible-failure',
+)
+await new Promise((resolve) => setImmediate(resolve))
+assert.equal(passiveFailureCalls, 2, 'an expired display failure is retried without becoming launch authority')
 
 const catalogue = JSON.stringify({
   models: [

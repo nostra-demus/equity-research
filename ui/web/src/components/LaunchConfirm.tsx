@@ -4,6 +4,7 @@ import { useStore } from '../lib/store'
 import { resetIn, usageColor, usageLabel, usagePct } from '../lib/format'
 import { cascadeLabel } from '../lib/cascade'
 import { moduleRunConfirmation } from '../lib/moduleRun'
+import { requiresTypedSubjectConfirmation, typedSubjectConfirmationMatches } from '../lib/launchExperience'
 import { Spin } from './Spin'
 import type { Usage } from '../lib/types'
 import { executionProfileLabel, providerBlockedReason, providerIsBlocked, providerLabel, providerLaunchBlockedReason, providerNeedsCheck, providerUsageUnavailableText, type RunProvider } from '../lib/provider'
@@ -22,7 +23,6 @@ function usageText(credit: Usage | null): string {
 
 export function LaunchConfirm() {
   const lc = useStore((s) => s.launchConfirm)
-  const ticker = useStore((s) => s.selectedTicker)
   const confirmModule = useStore((s) => s.confirmModule)
   const confirmFull = useStore((s) => s.confirmFull)
   const confirmRerun = useStore((s) => s.confirmRerun)
@@ -81,22 +81,24 @@ export function LaunchConfirm() {
   // the confirm was clicked and the server hasn't acked yet — the modal stays up, its button spins
   const starting = launchPending?.key === 'confirm'
   const p = lc.preflight
+  const subject = lc.selection.subject
   const provider = lc.selection.provider
   const providerStatus = providers[provider]
   const providerProblem = providerLaunchBlockedReason(providerStatus, providers.catalogState)
   const providerUsage = providerStatus.usage || (provider === 'claude' ? credit : null)
   const isRerun = lc.kind === 'rerun'
   const orbLabel = lc.node?.module === 'master' ? 'the Memo' : (lc.node?.name || 'orb').replace(/-/g, ' ')
-  // full needs typed-ticker confirmation; a re-run does not
-  const needsTyped = p.requiresTypedConfirm
-  const ok = !needsTyped || typed.trim().toUpperCase() === (ticker || '').toUpperCase()
+  // A full run always needs typed-subject confirmation, independent of provider and of a potentially
+  // stale/malformed estimate. Compare with the frozen launch subject, never mutable stage selection.
+  const needsTyped = requiresTypedSubjectConfirmation(lc.kind)
+  const ok = !needsTyped || typedSubjectConfirmationMatches(typed, subject)
   const confirm = isRerun ? confirmRerun : confirmFull
 
   return (
     <div className="scrim" onClick={cancel}>
       <motion.div className="modal" initial={{ opacity: 0, scale: 0.96, y: 8 }} animate={{ opacity: 1, scale: 1, y: 0 }} transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }} onClick={(e) => e.stopPropagation()}>
         <div className="modal__head">
-          <div className="modal__title">{isRerun ? `Re-run ${orbLabel} + downstream on ${ticker}` : `Run the full pipeline on ${ticker}`}</div>
+          <div className="modal__title">{isRerun ? `Re-run ${orbLabel} + downstream on ${subject}` : `Run the full pipeline on ${subject}`}</div>
           <div className="modal__sub">{isRerun ? 'Re-runs the orb, then every synthesis its output flows into — to the Memo. Reuses every other output.' : 'Launches the engine for real — every module, then the master synthesizer.'}</div>
         </div>
         <div className="modal__body">
@@ -137,8 +139,8 @@ export function LaunchConfirm() {
         )}
         {needsTyped && (
           <div className="modal__confirm">
-            <div style={{ fontSize: 12.5, color: 'var(--text-muted)' }}>Type <b style={{ color: 'var(--text)' }}>{ticker}</b> to confirm</div>
-            <input className="modal__input" autoFocus value={typed} onChange={(e) => setTyped(e.target.value)} placeholder={ticker || ''} onKeyDown={(e) => { if (e.key === 'Enter' && ok && !starting && !providerProblem) confirm() }} />
+            <div style={{ fontSize: 12.5, color: 'var(--text-muted)' }}>Type <b style={{ color: 'var(--text)' }}>{subject}</b> to confirm</div>
+            <input className="modal__input" autoFocus value={typed} onChange={(e) => setTyped(e.target.value)} placeholder={subject} onKeyDown={(e) => { if (e.key === 'Enter' && ok && !starting && !providerProblem) confirm() }} />
           </div>
         )}
         <div className="modal__actions">

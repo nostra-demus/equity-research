@@ -23,7 +23,7 @@ const previousStorage = (globalThis as any).localStorage
 
 const { api } = await import('./api')
 const { CODEX_EXECUTION_PROFILE, emptyProviders, providerCatalogFallback, RUN_PROVIDER_STORAGE_KEY } = await import('./provider')
-const { useStore } = await import('./store')
+const { providerCatalogNeedsRediscovery, useStore } = await import('./store')
 
 const originalProviders = api.providers
 const originalProviderCheck = api.providerCheck
@@ -62,6 +62,13 @@ try {
     codex: { provider: 'codex' as const, enabled: true, available: true, checked: true, status: 'available', profile: CODEX_EXECUTION_PROFILE },
     catalogState: 'valid' as const,
   }
+  assert.equal(providerCatalogNeedsRediscovery(emptyProviders()), true)
+  assert.equal(providerCatalogNeedsRediscovery(providerCatalogFallback('old server')), false)
+  assert.equal(providerCatalogNeedsRediscovery(bothAvailable), false)
+  assert.equal(providerCatalogNeedsRediscovery({
+    ...bothAvailable,
+    codex: { ...bothAvailable.codex, available: false, status: 'unknown' },
+  }), true, 'a passive background probe is rediscovered until it reaches a definitive provider state')
   estimateCalls = 0
   useStore.setState({
     staticMode: false,
