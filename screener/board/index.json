@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-27T23:06:17Z",
+  "generated_at": "2026-08-27T23:25:10Z",
   "inbox": [
     {
       "inbox_id": "INB-20260827-822",
@@ -1687,6 +1687,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260827-882",
+      "headline": "Marvell Lifts Long-Term Targets as AI Demand Boosts Second-Quarter Profit, Revenue",
+      "headline_en": null,
+      "url": "https://www.wsj.com/business/earnings/marvell-sees-accelerating-growth-as-ai-demand-boosts-second-quarter-profit-revenue-786b8c74?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-27T22:39:00Z",
+      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
+      "prelim_note": "Marvell raised long-term targets after AI demand boosted Q2 profit and revenue, a quantified guidance upgrade.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Marvell raised long-term targets after AI demand boosted Q2 profit and revenue, a quantified guidance upgrade.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Marvell Technology",
+          "ticker": "MRVL",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260827-841",
       "headline": "SentinelOne Reports Wider Q2 Net Loss",
       "headline_en": null,
@@ -1944,56 +1994,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260827-824",
-      "headline": "Gap names new Old Navy CEO and lifts profit forecast, shares jump 14%",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/retail-consumer/gap-lifts-annual-profit-forecast-strength-namesake-brand-2026-08-27/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-27T21:15:48Z",
-      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
-      "prelim_note": "Gap Inc. named a new Old Navy CEO and raised its profit forecast, resulting in a 14% share price increase.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Gap Inc. named a new Old Navy CEO and raised its profit forecast, resulting in a 14% share price increase.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Gap Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -83980,77 +83980,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-e9dd060b2328",
-      "idea_version": "IDEAV-aec0dfa00c772a8e",
-      "idea_version_started_at": "2026-08-26T17:19:45Z",
-      "ticker": "MANKIND",
-      "company": "Mankind Pharma Ltd",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The acquisition of Bharat Serums and Vaccines Limited significantly expands the company's specialty pharmaceutical portfolio and market reach in high-growth therapeutic segments.",
-      "why_now": "The board approved the integration on August 26, 2026, signaling immediate commencement of the consolidation process.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-f43b1134d89e"
-      ],
-      "primary_source_event_id": "EVT-f43b1134d89e",
-      "source_headlines": [
-        "Mankind Pharma Ltd: Please find attached outcome of the Board Meeting held today, according consent of the Board of Directors of the Company for the integration of Bharat Serums and Vaccines Limited, a wholly ...."
-      ],
-      "source_headline": "Mankind Pharma Ltd: Please find attached outcome of the Board Meeting held today, according consent of the Board of Directors of the Company for the integration of Bharat Serums and Vaccines Limited, a wholly ....",
-      "source_url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/bb1e8a0a-d435-48a4-ac2e-74a395c6a105.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-26T11:13:03Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-26T17:19:45Z",
-      "updated_at": "2026-08-26T17:19:45Z",
-      "decay_at": "2026-08-27T23:13:03Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-ff642e393c3c",
       "idea_version": "IDEAV-eaa5f0b672f19ef2",
       "idea_version_started_at": "2026-08-26T17:19:45Z",
@@ -84535,6 +84464,77 @@
       "surfaced_at": "2026-08-25T03:44:44Z",
       "updated_at": "2026-08-25T03:44:44Z",
       "decay_at": "2026-08-26T12:50:10Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-e9dd060b2328",
+      "idea_version": "IDEAV-aec0dfa00c772a8e",
+      "idea_version_started_at": "2026-08-26T17:19:45Z",
+      "ticker": "MANKIND",
+      "company": "Mankind Pharma Ltd",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The acquisition of Bharat Serums and Vaccines Limited significantly expands the company's specialty pharmaceutical portfolio and market reach in high-growth therapeutic segments.",
+      "why_now": "The board approved the integration on August 26, 2026, signaling immediate commencement of the consolidation process.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-f43b1134d89e"
+      ],
+      "primary_source_event_id": "EVT-f43b1134d89e",
+      "source_headlines": [
+        "Mankind Pharma Ltd: Please find attached outcome of the Board Meeting held today, according consent of the Board of Directors of the Company for the integration of Bharat Serums and Vaccines Limited, a wholly ...."
+      ],
+      "source_headline": "Mankind Pharma Ltd: Please find attached outcome of the Board Meeting held today, according consent of the Board of Directors of the Company for the integration of Bharat Serums and Vaccines Limited, a wholly ....",
+      "source_url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/bb1e8a0a-d435-48a4-ac2e-74a395c6a105.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-26T11:13:03Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-26T17:19:45Z",
+      "updated_at": "2026-08-26T17:19:45Z",
+      "decay_at": "2026-08-27T23:13:03Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -86841,13 +86841,13 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 165,
-    "shown_count": 165,
+    "total_count": 166,
+    "shown_count": 166,
     "hidden_count": 0,
     "side_counts": {
       "long": {
-        "total_count": 70,
-        "shown_count": 70,
+        "total_count": 71,
+        "shown_count": 71,
         "hidden_count": 0
       },
       "short": {
@@ -86872,6 +86872,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-e9dd060b2328",
+        "idea_version": "IDEAV-aec0dfa00c772a8e",
+        "idea_version_started_at": "2026-08-26T17:19:45Z",
+        "ticker": "MANKIND",
+        "company": "Mankind Pharma Ltd",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The acquisition of Bharat Serums and Vaccines Limited significantly expands the company's specialty pharmaceutical portfolio and market reach in high-growth therapeutic segments.",
+        "why_now": "The board approved the integration on August 26, 2026, signaling immediate commencement of the consolidation process.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-f43b1134d89e"
+        ],
+        "primary_source_event_id": "EVT-f43b1134d89e",
+        "source_headlines": [
+          "Mankind Pharma Ltd: Please find attached outcome of the Board Meeting held today, according consent of the Board of Directors of the Company for the integration of Bharat Serums and Vaccines Limited, a wholly ...."
+        ],
+        "source_headline": "Mankind Pharma Ltd: Please find attached outcome of the Board Meeting held today, according consent of the Board of Directors of the Company for the integration of Bharat Serums and Vaccines Limited, a wholly ....",
+        "source_url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/bb1e8a0a-d435-48a4-ac2e-74a395c6a105.pdf",
+        "source_name": "BSE / NSE Exchange Filing",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-26T11:13:03Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-26T17:19:45Z",
+        "updated_at": "2026-08-26T17:19:45Z",
+        "decay_at": "2026-08-27T23:13:03Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-27T23:13:03Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-e2e8adffa9c4",
         "idea_version": "IDEAV-f88b600677b122ca",
@@ -99107,7 +99181,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 204,
-    "live_count": 37,
+    "live_count": 36,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -99126,9 +99200,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3179592,
-    "news_picked_today": 1893,
-    "news_dropped_today": 26163
+    "news_seen_today": 3203586,
+    "news_picked_today": 1960,
+    "news_dropped_today": 26456
   },
   "book_momentum": {
     "live_count": 8,
