@@ -1682,19 +1682,21 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
       routingCandidates.push({ id: ov.p.id, label: ov.p.label, order: configuredOrder++, band: 'demoted-local', eligible: reason === 'eligible', eligibilityReason: reason, releasedCapacityUrgency: 1, consecutiveFailures: cooldownInfo(stateDir, ov.p.id).fails })
     }
     const batchMaxPriority = batch.reduce((maximum, item) => Math.max(maximum, preTriagePriority(item, now())), -Infinity)
-    const haikuCallBoundUsd = cfg.anthropicFallbackMode === 'subscription'
+    // This is the COMPLETE outer-batch envelope: per-call guard multiplied by every required shard.
+    // Keep the name explicit so the final-envelope exception below is never multiplied a second time.
+    const haikuBatchBoundUsd = cfg.anthropicFallbackMode === 'subscription'
       ? Math.max(0, cfg.anthropicPerCallUsd) * Math.max(1, claudeCliShardCount(batch.length))
       : conservativeChatUsdBound(SYSTEM, buildUserMessage(batch), triageMaxOutputTokens(batch.length, cfg.anthropicMaxTokens), cfg.anthropicInPricePerMTok, cfg.anthropicOutPricePerMTok)
-    const haikuAdmission = dailyQuotaAdmission({ id: 'anthropic-triage', meter: 'requests', used: anthropicBudget?.usd || 0, cap: cfg.anthropicDailyUsd, cost: haikuCallBoundUsd, paceCost: haikuCallBoundUsd, floorFraction: cfg.freeProviderPaceFloorFrac }, candidateAt)
-    const haikuHardFit = !!anthropicBudget?.canSpend(haikuCallBoundUsd)
+    const haikuAdmission = dailyQuotaAdmission({ id: 'anthropic-triage', meter: 'requests', used: anthropicBudget?.usd || 0, cap: cfg.anthropicDailyUsd, cost: haikuBatchBoundUsd, paceCost: haikuBatchBoundUsd, floorFraction: cfg.freeProviderPaceFloorFrac }, candidateAt)
+    const haikuHardFit = !!anthropicBudget?.canSpend(haikuBatchBoundUsd)
     // Do not strand the last already-released COMPLETE batch envelope at the dollar ceiling. A 24-row
-    // subscription batch needs both 12-row shards funded; one unfunded half cannot count as progress.
+    // subscription batch needs all three 8-row shards funded; an unfunded partial batch is not progress.
     const haikuFinalEnvelope = (anthropicBudget?.usd || 0) > 0
-      && Math.max(0, cfg.anthropicDailyUsd - (anthropicBudget?.usd || 0)) <= haikuCallBoundUsd + 1e-9
+      && Math.max(0, cfg.anthropicDailyUsd - (anthropicBudget?.usd || 0)) <= haikuBatchBoundUsd + 1e-9
     const haikuPacedFit = haikuAdmission.pacedFit || (haikuHardFit && haikuFinalEnvelope)
     const haikuHeld = anthropicDownThisCycle || triageIsHeld(stateDir, 'anthropic-triage', candidateAt)
     const haikuBaseReason = candidateReason({ enabled: anthropicOn, ledger: anthropicBudget?.ledgerAvailable === true, exhausted: false, held: haikuHeld, rejected: credentialRejectedFor('anthropic-triage'), hard: haikuHardFit, paced: haikuPacedFit })
-    anthropicPaceCallBoundUsd = haikuCallBoundUsd
+    anthropicPaceCallBoundUsd = haikuBatchBoundUsd
     anthropicPacedThisCycle ||= haikuBaseReason === 'paced' && batchMaxPriority >= cfg.anthropicMinPriority
     routingCandidates.push({ id: 'anthropic-triage', label: 'Claude Haiku', order: -1, band: 'direct', eligible: batchMaxPriority >= cfg.anthropicMinPriority && haikuBaseReason === 'eligible', eligibilityReason: batchMaxPriority < cfg.anthropicMinPriority ? 'minimum-priority' : haikuBaseReason, releasedCapacityUrgency: haikuAdmission.normalizedDeficit, consecutiveFailures: cooldownInfo(stateDir, 'anthropic-triage').fails, isHaiku: true })
 
@@ -1790,15 +1792,15 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
     // ledger, priority floor, and cooldown all admit the call. Any unavailable state or failed call returns
     // control to the existing automatic chain below; no fallback provider is removed or disabled.
     const tryAnthropicPrimary = async (): Promise<boolean> => {
-      const anthropicCallBoundUsd = haikuCallBoundUsd
+      const anthropicBatchBoundUsd = haikuBatchBoundUsd
       const anthropicShardCount = cfg.anthropicFallbackMode === 'subscription'
         ? Math.max(1, claudeCliShardCount(batch.length))
         : 1
       const anthropicPerRequestBoundUsd = cfg.anthropicFallbackMode === 'subscription'
         ? Math.max(0, cfg.anthropicPerCallUsd)
-        : anthropicCallBoundUsd
+        : anthropicBatchBoundUsd
       const anthropicShardEst = estimateTokens(Math.min(batch.length, CLAUDE_CLI_SHARD_SIZE))
-      const anthropicCanReserve = !!anthropicBudget?.canSpend(anthropicCallBoundUsd)
+      const anthropicCanReserve = !!anthropicBudget?.canSpend(anthropicBatchBoundUsd)
       const anthropicLedgerAvailable = !anthropicLedgerUnavailable()
       if (!anthropicLedgerAvailable) usageLedgerUnavailable = true
       else if (anthropicOn && !anthropicCanReserve) anthropicBudgetBlocked = true
@@ -1826,13 +1828,13 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
       // atomically before provider I/O. A single-shard batch retains its established optional retry.
       let subscriptionMaxAttempts = 1
       let usdReservation = cfg.anthropicFallbackMode === 'subscription' && anthropicShardCount > 1
-        ? anthropicBudget!.tryReserve(anthropicCallBoundUsd, now().getTime(), anthropicShardCount)
+        ? anthropicBudget!.tryReserve(anthropicBatchBoundUsd, now().getTime(), anthropicShardCount)
         : cfg.anthropicFallbackMode === 'subscription'
-          ? anthropicBudget!.tryReserve(anthropicCallBoundUsd * 2, now().getTime(), 2)
+          ? anthropicBudget!.tryReserve(anthropicBatchBoundUsd * 2, now().getTime(), 2)
           : null
       if (usdReservation && anthropicShardCount === 1 && cfg.anthropicFallbackMode === 'subscription') subscriptionMaxAttempts = 2
       else if (!usdReservation && anthropicShardCount === 1 && anthropicBudget!.lastReserveFailure !== 'authority_unavailable') {
-        usdReservation = anthropicBudget!.tryReserve(anthropicCallBoundUsd, now().getTime(), 1)
+        usdReservation = anthropicBudget!.tryReserve(anthropicBatchBoundUsd, now().getTime(), 1)
       }
       // Another process may have reserved the last dollars after the unlocked routing hint. Treat that as
       // Haiku unavailable for this batch and continue to the free/local fallback chain.
