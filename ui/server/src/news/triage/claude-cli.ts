@@ -33,10 +33,10 @@ export interface ClaudeCliTriageOptions {
 }
 
 /** The live-safe unit for the subscription CLI. A 24-row outer batch is kept for the faster providers,
- * but Haiku receives two of these smaller requests so one complex prompt cannot consume the whole 120s
- * deadline. The second request is admitted separately through the shared limiter. */
-export const CLAUDE_CLI_SHARD_SIZE = 12
-export const CLAUDE_CLI_MAX_CONCURRENT_SHARDS = 2
+ * but Haiku receives three of these smaller requests so one complex prompt cannot consume the whole 120s
+ * deadline. Every request after the first is admitted separately through the shared limiter. */
+export const CLAUDE_CLI_SHARD_SIZE = 8
+export const CLAUDE_CLI_MAX_CONCURRENT_SHARDS = 3
 
 export function claudeCliShardCount(itemCount: number, shardSize = CLAUDE_CLI_SHARD_SIZE): number {
   return itemCount <= 0 ? 0 : Math.ceil(itemCount / Math.max(1, shardSize))
@@ -311,9 +311,10 @@ export async function triageBatchClaudeCli(
 }
 
 /**
- * Keep the scanner's 24-row outer batch while presenting Haiku with the 12-row request shape proven to
- * finish reliably. Shards run with bounded parallelism and no per-shard retry: for a 24-row batch, the two
- * atomically funded calls are useful work, not one large call plus a repeat of that same slow call.
+ * Keep the scanner's 24-row outer batch while presenting Haiku with the 8-row request shape that keeps
+ * complex live inputs below the CLI deadline. Shards run with bounded parallelism and no per-shard retry:
+ * for a 24-row batch, the three atomically funded calls are useful work, not one large call plus a repeat
+ * of that same slow call.
  *
  * The result is all-or-nothing. If either shard fails, no rows escape downstream; the unchanged fallback
  * chain receives the original outer batch and can score it once. This preserves the scanner's exact-batch

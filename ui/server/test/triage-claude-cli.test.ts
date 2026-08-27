@@ -40,23 +40,23 @@ const completeRows = (count: number, score: number) => Array.from({ length: coun
   materiality_pre_score: score,
 }))
 
-await check('Haiku shard count uses the proven 12-row request unit', () => {
-  assert.equal(CLAUDE_CLI_SHARD_SIZE, 12)
+await check('Haiku shard count uses the live-hardened 8-row request unit', () => {
+  assert.equal(CLAUDE_CLI_SHARD_SIZE, 8)
   assert.equal(claudeCliShardCount(0), 0)
-  assert.equal(claudeCliShardCount(12), 1)
-  assert.equal(claudeCliShardCount(13), 2)
-  assert.equal(claudeCliShardCount(24), 2)
-  assert.equal(claudeCliShardCount(25), 3)
+  assert.equal(claudeCliShardCount(8), 1)
+  assert.equal(claudeCliShardCount(9), 2)
+  assert.equal(claudeCliShardCount(24), 3)
+  assert.equal(claudeCliShardCount(25), 4)
 })
 
-await check('a 24-row outer batch runs as two concurrent 12-row Haiku calls and rejoins exact indices', async () => {
+await check('a 24-row outer batch runs as three concurrent 8-row Haiku calls and rejoins exact indices', async () => {
   let started = 0
   let active = 0
   let maxActive = 0
-  let releaseBoth!: () => void
-  const bothStarted = new Promise<void>((resolve, reject) => {
-    const timeout = setTimeout(() => reject(new Error('the second Haiku shard never started')), 2_000)
-    releaseBoth = () => { clearTimeout(timeout); resolve() }
+  let releaseAll!: () => void
+  const allStarted = new Promise<void>((resolve, reject) => {
+    const timeout = setTimeout(() => reject(new Error('all three Haiku shards did not start')), 2_000)
+    releaseAll = () => { clearTimeout(timeout); resolve() }
   })
   const prompts: string[] = []
   const run: ClaudeCliRunner = async (_system, user) => {
@@ -64,10 +64,10 @@ await check('a 24-row outer batch runs as two concurrent 12-row Haiku calls and 
     prompts.push(user)
     active++
     maxActive = Math.max(maxActive, active)
-    if (started === 2) releaseBoth()
-    await bothStarted
+    if (started === 3) releaseAll()
+    await allStarted
     active--
-    return { text: JSON.stringify(completeRows(12, call === 0 ? 71 : 82)), costUsd: 0.04 + call * 0.01, costUsdKnown: true }
+    return { text: JSON.stringify(completeRows(8, 71 + call * 11)), costUsd: 0.04 + call * 0.01, costUsdKnown: true }
   }
   const admitted: Array<[number, number]> = []
   const r = await triageBatchClaudeCliSharded(shardItems, {
@@ -75,25 +75,26 @@ await check('a 24-row outer batch runs as two concurrent 12-row Haiku calls and 
     beforeAdditionalShard: async (shardIndex, itemCount) => { admitted.push([shardIndex, itemCount]); return true },
   }, run)
   assert.equal(r.ok, true)
-  assert.equal(r.requests, 2)
+  assert.equal(r.requests, 3)
   assert.equal(r.byIndex.size, 24)
   assert.equal(r.byIndex.get(0)?.materiality_pre_score, 71)
-  assert.equal(r.byIndex.get(12)?.materiality_pre_score, 82)
-  assert.equal(r.costUsd, 0.09)
+  assert.equal(r.byIndex.get(8)?.materiality_pre_score, 82)
+  assert.equal(r.byIndex.get(16)?.materiality_pre_score, 93)
+  assert.equal(r.costUsd, 0.15)
   assert.equal(r.costUsdKnown, true)
-  assert.equal(maxActive, 2, 'both proven-size calls overlap instead of consuming two full timeouts serially')
-  assert.deepEqual(admitted, [[1, 12]], 'only the second shard needs another limiter admission')
-  assert.equal(prompts.length, 2)
-  assert.ok(prompts.every((prompt) => prompt.startsWith('Score these 12 headlines:')))
+  assert.equal(maxActive, 3, 'all three hardened calls overlap instead of consuming multiple timeouts serially')
+  assert.deepEqual(admitted, [[1, 8], [2, 8]], 'each additional shard gets its own limiter admission')
+  assert.equal(prompts.length, 3)
+  assert.ok(prompts.every((prompt) => prompt.startsWith('Score these 8 headlines:')))
 })
 
 await check('one failed Haiku shard invalidates the whole outer batch so no partial score escapes', async () => {
-  const run: ClaudeCliRunner = async (_system, user) => user.includes('headline-12')
+  const run: ClaudeCliRunner = async (_system, user) => user.includes('headline-8')
     ? { text: '', costUsd: 0, costUsdKnown: false, error: 'claude cli: timed out' }
-    : { text: JSON.stringify(completeRows(12, 70)), costUsd: 0.04, costUsdKnown: true }
+    : { text: JSON.stringify(completeRows(8, 70)), costUsd: 0.04, costUsdKnown: true }
   const r = await triageBatchClaudeCliSharded(shardItems, { ...opts, beforeAdditionalShard: async () => true }, run)
   assert.equal(r.ok, false)
-  assert.equal(r.requests, 2)
+  assert.equal(r.requests, 3)
   assert.equal(r.byIndex.size, 0, 'the automatic fallback must receive the original complete batch')
   assert.equal(r.timedOut, true)
   assert.equal(r.failureKind, 'availability')
@@ -104,7 +105,7 @@ await check('a rejected additional-shard admission starts no unfunded provider c
   let calls = 0
   const run: ClaudeCliRunner = async () => {
     calls++
-    return { text: JSON.stringify(completeRows(12, 70)), costUsd: 0.04, costUsdKnown: true }
+    return { text: JSON.stringify(completeRows(8, 70)), costUsd: 0.04, costUsdKnown: true }
   }
   const r = await triageBatchClaudeCliSharded(shardItems, { ...opts, beforeAdditionalShard: async () => false }, run)
   assert.equal(r.ok, false)

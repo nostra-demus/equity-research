@@ -239,10 +239,11 @@ On top of that:
   ceiling truncates larger batches and the completeness contract then discards the entire answer. It only ever
   raises a ceiling that is too low; a provider configured above the need keeps its own value.
 - **The default outer batch is measured, not aspirational.** `NEWS_TRIAGE_BATCH` defaults to **24**. API and
-  free providers receive all 24 rows. Subscription Haiku splits those same rows into two parallel 12-row
-  calls: a simple 24-row canary finished in 64 seconds, but a complex live batch hit the 120-second ceiling.
-  Both calls are funded atomically (at most $0.20 with the default $0.10 per-call guard), return all-or-nothing,
-  and remain inside the unchanged **$200/day** ceiling. The environment variable is the no-code rollback.
+  free providers receive all 24 rows. Subscription Haiku splits those same rows into three parallel 8-row
+  calls. Two 12-row shards improved live throughput, but one complex shard still reached the 120-second CLI
+  ceiling; 8 rows reduce that remaining tail without shrinking the outer batch. All three calls are funded
+  atomically (at most $0.30 with the default $0.10 per-call guard), return all-or-nothing, and remain inside
+  the unchanged **$200/day** ceiling. The environment variable is the no-code rollback.
 - **Rejected rows stay compact.** A clearly irrelevant, sub-45 row may return only its index, relevance and
   score; the coercer supplies conservative empty defaults and the exact-index contract still requires every
   row. Material/watch rows keep the complete schema. This avoids spending most decode time explaining the
