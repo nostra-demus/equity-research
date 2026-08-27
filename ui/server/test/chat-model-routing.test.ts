@@ -30,6 +30,8 @@ assert.equal(
   'claude-sonnet-4-6-20260801',
   'mixed-case operator/client input resolves against the normalized concrete Claude allow-list',
 )
+assert.equal(resolveAllowedChatModel('SONNET', ['Sonnet'])?.id, 'sonnet',
+  'direct callers cannot reintroduce case-sensitive allow-list mismatches')
 assert.equal(resolveAllowedChatModel('codex:unreviewed-gpt', ['codex:unreviewed-gpt']), null)
 assert.equal(resolveChatRequestModel('codex:gpt-5.6-sol', ['sonnet'], 'sonnet'), null,
   'an explicitly excluded model is rejected rather than silently becoming the default')
@@ -43,6 +45,9 @@ assert.deepEqual(publicChatModelCatalogue(['sonnet', 'haiku'], 'opus'), {
 assert.deepEqual(publicChatModelCatalogue(['claude-sonnet-4-6-20260801'], 'claude-sonnet-4-6-20260801'), {
   models: ['claude-sonnet-4-6-20260801'], defaultModel: 'claude-sonnet-4-6-20260801',
 }, 'a host-pinned concrete Claude model remains selectable instead of emptying the picker')
+assert.deepEqual(publicChatModelCatalogue(['Sonnet', 'Claude-Sonnet-4-6-20260801'], 'SONNET'), {
+  models: ['sonnet', 'claude-sonnet-4-6-20260801'], defaultModel: 'sonnet',
+}, 'the published catalogue normalizes mixed-case direct configuration at the admission boundary')
 assert.deepEqual(publicChatModelCatalogue(['unreviewed:model'], 'unreviewed:model'), { models: [], defaultModel: null },
   'the public response cannot invalidate the complete picker contract with an unreviewed id')
 
@@ -60,12 +65,13 @@ const featureOutput = [
   'view_image stable true',
   'enable_request_compression stable true',
   'future_tool under development true',
+  'preview_tool beta-preview true',
   'retired_tool removed true',
 ].join('\n')
 const disabledFeatures = codexChatFeatureDisables(featureOutput)
 assert.deepEqual(disabledFeatures, [
   'apps', 'browser_use', 'computer_use', 'future_tool', 'image_generation',
-  'multi_agent', 'shell_tool', 'unified_exec', 'view_image',
+  'multi_agent', 'preview_tool', 'shell_tool', 'unified_exec', 'view_image',
 ])
 const args = buildCodexChatArgs(sol, root, system, { disabledFeatures })
 const configs = args.flatMap((arg, index) => args[index - 1] === '--config' ? [arg] : [])

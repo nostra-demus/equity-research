@@ -34,9 +34,10 @@ export function resolveChatModel(value: unknown): ChatModelSpec | null {
 export function resolveAllowedChatModel(value: unknown, allowedModels: readonly string[]): ChatModelSpec | null {
   const id = typeof value === 'string' ? value.trim().toLowerCase() : ''
   if (!id) return null
+  const allowed = new Set(allowedModels.map((model) => model.trim().toLowerCase()).filter(Boolean))
   const reviewed = resolveChatModel(id)
-  if (reviewed) return allowedModels.includes(reviewed.id) ? reviewed : null
-  if (id.toLowerCase().startsWith('codex:') || !allowedModels.includes(id)) return null
+  if (reviewed) return allowed.has(reviewed.id) ? reviewed : null
+  if (id.startsWith('codex:') || !allowed.has(id)) return null
   return { id, provider: 'claude', model: id }
 }
 
@@ -57,14 +58,16 @@ export function publicChatModelCatalogue(allowedModels: readonly string[], defau
   models: string[]
   defaultModel: string | null
 } {
-  const models = [...new Set(allowedModels.flatMap((id) => (
-    resolveAllowedChatModel(id, allowedModels)
-      && (Boolean(resolveChatModel(id)) || (/^claude-[A-Za-z0-9._-]{1,53}$/.test(id) && id.length <= 60))
-      ? [id]
+  const models = [...new Set(allowedModels.flatMap((id) => {
+    const choice = resolveAllowedChatModel(id, allowedModels)
+    if (!choice) return []
+    return resolveChatModel(choice.id) || (/^claude-[A-Za-z0-9._-]{1,53}$/.test(choice.id) && choice.id.length <= 60)
+      ? [choice.id]
       : []
-  )))]
+  }))]
+  const normalizedDefault = defaultModel.trim().toLowerCase()
   return {
     models,
-    defaultModel: models.includes(defaultModel) ? defaultModel : models[0] ?? null,
+    defaultModel: models.includes(normalizedDefault) ? normalizedDefault : models[0] ?? null,
   }
 }

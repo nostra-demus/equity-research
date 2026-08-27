@@ -144,8 +144,11 @@ const CODEX_CHAT_SAFE_ENABLED_FEATURES = new Set([
 
 export function codexChatFeatureDisables(output: string): string[] {
   const rows = output.split(/\r?\n/).flatMap((line) => {
-    const match = line.trim().match(/^(\S+)\s+(under development|stable|experimental|deprecated|removed)\s+(true|false)$/)
-    return match ? [{ name: match[1], state: match[2], enabled: match[3] === 'true' }] : []
+    // Maturity labels belong to the CLI and may grow over time. Parse the stable boundaries (feature
+    // name + final enabled bit) so a new label cannot make an enabled model-callable feature disappear
+    // from the deny list.
+    const match = line.trim().match(/^([A-Za-z0-9_.-]+)\s+(.+?)\s+(true|false)$/i)
+    return match ? [{ name: match[1], state: match[2].trim().toLowerCase(), enabled: match[3].toLowerCase() === 'true' }] : []
   })
   if (!rows.length) throw new Error('Codex feature catalogue was unreadable; closed-book Ask was not started.')
   return rows
