@@ -14,6 +14,17 @@ const originalThesisPlan = api.thesisPlan
 const profile = (provider: 'claude' | 'codex') => provider === 'claude'
   ? { key: 'claude:opus:default', parentModel: 'opus', parentReasoning: 'default' }
   : { key: 'codex|gpt-5.6-sol:max|gpt-5.6-terra:xhigh', parentModel: 'gpt-5.6-sol', parentReasoning: 'max', specialistModel: 'gpt-5.6-terra', specialistReasoning: 'xhigh' }
+const option = (provider: 'claude' | 'codex') => {
+  const executionProfile = profile(provider)
+  return {
+    key: executionProfile.key,
+    label: provider === 'claude' ? 'Opus' : 'Sol + Terra',
+    description: provider === 'claude' ? 'Highest quality' : 'Balanced',
+    model: executionProfile.parentModel,
+    reasoningLevel: executionProfile.parentReasoning,
+    executionProfile,
+  }
+}
 
 const deferred = <T>() => {
   let resolve!: (value: T) => void
@@ -38,10 +49,11 @@ try {
   useStore.setState({
     staticMode: false, health: 'online', selectedTicker: 'AAA', selectToken: 77,
     activeSwarm: 'research', constellationSwarm: 'research', runProvider: 'claude',
+    runProfileKeys: { claude: profile('claude').key, codex: profile('codex').key },
     thesisPlanOpen: false, thesisPlan: null, intake: null,
     providers: {
-      claude: { provider: 'claude', enabled: true, available: true, checked: true, status: 'available', profile: profile('claude') },
-      codex: { provider: 'codex', enabled: true, available: true, checked: true, status: 'available', profile: profile('codex') },
+      claude: { provider: 'claude', enabled: true, available: true, checked: true, status: 'available', profile: profile('claude'), defaultProfileKey: profile('claude').key, profiles: [option('claude')] },
+      codex: { provider: 'codex', enabled: true, available: true, checked: true, status: 'available', profile: profile('codex'), defaultProfileKey: profile('codex').key, profiles: [option('codex')] },
       catalogState: 'valid',
     },
   })

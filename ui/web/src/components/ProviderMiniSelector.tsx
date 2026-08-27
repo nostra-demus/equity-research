@@ -9,6 +9,7 @@ import {
   providerUsagePercentText,
   type RunProvider,
 } from '../lib/provider'
+import { ProviderProfileSelector } from './ProviderProfileSelector'
 
 export function ProviderMiniSelector({
   agentCount,
@@ -22,6 +23,8 @@ export function ProviderMiniSelector({
   const selected = useStore((s) => s.runProvider)
   const providers = useStore((s) => s.providers)
   const setSelected = useStore((s) => s.setRunProvider)
+  const profileKey = useStore((s) => s.runProfileKeys[selected])
+  const setProfile = useStore((s) => s.setRunProfile)
   const check = useStore((s) => s.refreshProviders)
   const current = providers[selected]
   const problem = providerLaunchBlockedReason(current, providers.catalogState)
@@ -30,7 +33,7 @@ export function ProviderMiniSelector({
     .filter((value): value is number => typeof value === 'number')
   const usage = utilization.length ? providerUsagePercentText(Math.max(...utilization)) : null
   const details = [
-    executionProfileLabel(current),
+    executionProfileLabel(current, profileKey),
     selected === 'codex' ? 'selected plan' : null,
     usage ? `${usage} used` : 'Usage unavailable',
     typeof agentCount === 'number' ? `${agentCount} agent${agentCount === 1 ? '' : 's'}` : null,
@@ -59,6 +62,7 @@ export function ProviderMiniSelector({
           >{status.checking ? 'checking…' : providerLabel(provider)}</button>
         })}
       </span>
+      <ProviderProfileSelector status={current} profileKey={profileKey} compact onChange={(key) => setProfile(selected, key)} />
       <span className={`provider-mini__status${problem ? ' provider-mini__status--bad' : ''}`} title={problem || details}>
         {problem || details}
       </span>

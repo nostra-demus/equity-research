@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { api } from '../../lib/api'
 import { useStore } from '../../lib/store'
 import type { TaskAssignee, TaskCard, TaskDecision, TaskInput, TaskScope, TaskStage, TasksRead } from '../../lib/types'
+import { mergeTaskUpdatePatches, optimisticTask, overlayOptimisticTasks, replaceTask, retryableTaskUpdateError, taskMatchesPatch } from './taskOptimistic'
 
 const STAGES: { id: TaskStage; label: string; step: string }[] = [
   { id: 'idea_generation', label: 'Idea generation', step: '01' },
@@ -20,6 +21,7 @@ const DECISIONS: { id: TaskDecision; label: string }[] = [
   { id: 'deploy', label: 'Deploy' }, { id: 'reject', label: 'Reject' }, { id: 'watch', label: 'Watch' },
 ]
 const TASK_MAX_ATTACHMENTS = 5
+type TaskSaveResult = { ok: boolean; task: TaskCard; publish_error?: string; reconcile_warning?: string }
 
 const emptyDraft = (): TaskInput => ({
   scope: 'ticker', ticker: '', subject: '', title: '', stage: 'idea_generation', decision: null, assignee: 'CK',
@@ -27,13 +29,15 @@ const emptyDraft = (): TaskInput => ({
 
 function personName(id: TaskAssignee): string { return PEOPLE.find((person) => person.id === id)?.name ?? id }
 function stageIndex(stage: TaskStage): number { return STAGES.findIndex((item) => item.id === stage) }
+function taskRequestTimedOut(cause: any): boolean { return cause?.name === 'TimeoutError' || cause?.name === 'AbortError' }
 
-function TaskEditor({ task, initial, attachmentsEnabled, onClose, onSaved }: {
+function TaskEditor({ task, initial, attachmentsEnabled, onClose, onSaved, saveTask }: {
   task: TaskCard | null
   initial?: Partial<TaskInput>
   attachmentsEnabled: boolean
   onClose: () => void
   onSaved: () => Promise<void>
+  saveTask: (task: TaskCard | null, input: TaskInput) => Promise<TaskSaveResult>
 }) {
   const tickers = useStore((state) => state.tickers)
   const setToast = useStore((state) => state.setToast)
@@ -44,6 +48,7 @@ function TaskEditor({ task, initial, attachmentsEnabled, onClose, onSaved }: {
   const [files, setFiles] = useState<File[]>([])
   const [attachments, setAttachments] = useState(task?.attachments ?? [])
   const [saving, setSaving] = useState(false)
+  const [retryBlocked, setRetryBlocked] = useState(false)
   const inputRef = useRef<HTMLInputElement>(null)
   const dialogRef = useRef<HTMLElement>(null)
   const savingRef = useRef(saving)
@@ -93,7 +98,8 @@ function TaskEditor({ task, initial, attachmentsEnabled, onClose, onSaved }: {
 
   const watchTickerNeeded = draft.stage === 'final_decision' && draft.decision === 'watch'
   const tickerNeeded = (draft.scope !== 'world_event' && draft.stage !== 'idea_generation') || watchTickerNeeded
-  const blocker = !draft.subject.trim() ? 'Name the ticker or event.'
+  const blocker = retryBlocked ? 'Refresh the board before trying this save again.'
+    : !draft.subject.trim() ? 'Name the ticker or event.'
     : !draft.title.trim() ? 'Write the task.'
       : tickerNeeded && !draft.ticker?.trim() ? 'Add the ticker before this stage.'
         : draft.stage === 'final_decision' && !draft.decision ? 'Choose Deploy, Reject or Watch.'
@@ -110,8 +116,8 @@ function TaskEditor({ task, initial, attachmentsEnabled, onClose, onSaved }: {
         title: draft.title.trim(),
         decision: draft.stage === 'final_decision' ? draft.decision : null,
       }
-      const result = task ? await api.taskUpdate(task.task_id, input) : await api.taskCreate(input)
-      let warning = result.publish_error ? `Saved locally, but did not sync: ${result.publish_error}` : ''
+      const result = await saveTask(task, input)
+      let warning = result.reconcile_warning ?? (result.publish_error ? `Saved locally, but did not sync: ${result.publish_error}` : '')
       if (files.length) {
         try {
           const uploaded = await api.taskAttach(result.task.task_id, files)
@@ -123,6 +129,7 @@ function TaskEditor({ task, initial, attachmentsEnabled, onClose, onSaved }: {
       setToast(warning ? { msg: warning, tone: 'bad' } : { msg: task ? 'Task updated.' : 'Task added.', tone: 'good' })
       onClose()
     } catch (error: any) {
+      if (error?.retryBlocked) setRetryBlocked(true)
       setToast({ msg: error?.message || 'Could not save the task.', tone: 'bad' })
     } finally { setSaving(false) }
   }
@@ -229,9 +236,10 @@ function TaskEditor({ task, initial, attachmentsEnabled, onClose, onSaved }: {
   )
 }
 
-function TaskCardView({ task, readOnly, onEdit, onMove, onAssign, onDragEnd }: {
+function TaskCardView({ task, readOnly, syncing, onEdit, onMove, onAssign, onDragEnd }: {
   task: TaskCard
   readOnly: boolean
+  syncing: boolean
   onEdit: () => void
   onMove: (stage: TaskStage) => void
   onAssign: (assignee: TaskAssignee) => void
@@ -239,11 +247,12 @@ function TaskCardView({ task, readOnly, onEdit, onMove, onAssign, onDragEnd }: {
 }) {
   const index = stageIndex(task.stage)
   return (
-    <article className="taskcard" draggable={!readOnly} title={readOnly ? task.title : undefined} onDragStart={(event) => { if (readOnly) return; event.dataTransfer.setData('text/task-id', task.task_id); event.dataTransfer.effectAllowed = 'move' }} onDragEnd={onDragEnd}>
+    <article className={`taskcard${syncing ? ' is-syncing' : ''}`} aria-busy={syncing} draggable={!readOnly} title={readOnly ? task.title : undefined} onDragStart={(event) => { if (readOnly) return; event.dataTransfer.setData('text/task-id', task.task_id); event.dataTransfer.effectAllowed = 'move' }} onDragEnd={onDragEnd}>
       <button className="taskcard__main" disabled={readOnly} onClick={onEdit} aria-label={readOnly ? task.subject : `Edit ${task.subject}`} title={readOnly ? 'Read-only snapshot' : undefined}>
         <div className="taskcard__top">
           <span className={`taskcard__scope taskcard__scope--${task.scope}`}>{task.scope === 'world_event' ? 'World' : task.scope === 'company_event' ? 'Event' : 'Ticker'}</span>
           {task.ticker && <span className="taskcard__ticker">{task.ticker}</span>}
+          {syncing && <span className="taskcard__sync">Syncing…</span>}
           {task.decision && <span className="taskcard__decision" data-decision={task.decision}>{task.decision}</span>}
         </div>
         <h3>{task.subject}</h3>
@@ -278,12 +287,24 @@ export function TasksStage() {
   const [person, setPerson] = useState<TaskAssignee | 'all'>('all')
   const [editor, setEditor] = useState<{ task: TaskCard | null; initial?: Partial<TaskInput> } | null>(null)
   const [dragOver, setDragOver] = useState<TaskStage | null>(null)
+  const [syncingIds, setSyncingIds] = useState<Set<string>>(() => new Set())
+  const readRef = useRef<TasksRead | null>(null)
+  const optimisticRef = useRef(new Map<string, TaskCard>())
+  const confirmedRef = useRef(new Map<string, TaskCard>())
+  const retryPatchRef = useRef(new Map<string, Partial<TaskInput>>())
+  const revisionRef = useRef(new Map<string, number>())
+  const mutationChainRef = useRef<Promise<void>>(Promise.resolve())
 
   const load = useCallback(async () => {
-    try { setRead(await api.tasks()); setError('') }
+    try {
+      const next = overlayOptimisticTasks(await api.tasks(), optimisticRef.current)
+      setRead(next)
+      setError('')
+    }
     catch (cause: any) { setError(cause?.message || 'Could not load tasks.') }
     finally { setLoading(false) }
   }, [])
+  useEffect(() => { readRef.current = read }, [read])
   const closeEditor = useCallback(() => setEditor(null), [])
   useEffect(() => { void load() }, [load])
 
@@ -292,13 +313,132 @@ export function TasksStage() {
     return (read?.tasks ?? []).filter((task) => (person === 'all' || task.assignee === person) && (!needle || `${task.ticker ?? ''} ${task.subject} ${task.title}`.toLowerCase().includes(needle)))
   }, [read, query, person])
 
-  const update = async (task: TaskCard, patch: Partial<TaskInput>) => {
+  const showTask = useCallback((task: TaskCard) => {
+    setRead((current) => replaceTask(current, task))
+  }, [])
+
+  const enqueueMutation = useCallback(<T,>(operation: () => Promise<T>): Promise<T> => {
+    const queued = mutationChainRef.current.then(operation)
+    mutationChainRef.current = queued.then(() => undefined, () => undefined)
+    return queued
+  }, [])
+
+  const saveEditorTask = useCallback((task: TaskCard | null, input: TaskInput): Promise<TaskSaveResult> => (
+    enqueueMutation(async () => {
+      if (!task) return api.taskCreate(input)
+      try {
+        return await api.taskUpdate(task.task_id, input)
+      } catch (cause: any) {
+        if (!taskRequestTimedOut(cause)) throw cause
+        // A lost response does not prove the update failed. Confirm the complete editor payload against
+        // the authoritative task before the modal closes or offers the same save again.
+        let serverTask: TaskCard | null = null
+        try {
+          serverTask = (await api.tasks()).tasks.find((candidate) => candidate.task_id === task.task_id) ?? null
+        } catch {
+          throw Object.assign(new Error('Could not confirm whether the task saved. Refresh before trying again.'), { retryBlocked: true })
+        }
+        if (serverTask && taskMatchesPatch(serverTask, input)) {
+          return {
+            ok: true,
+            task: serverTask,
+            reconcile_warning: 'The task is saved locally, but the final sync reply was lost.',
+          }
+        }
+        throw new Error('The save timed out and was not confirmed. The latest server version is unchanged; you can retry.')
+      }
+    })
+  ), [enqueueMutation])
+
+  const update = (task: TaskCard, patch: Partial<TaskInput>) => {
     if (staticMode) return
-    try {
-      const result = await api.taskUpdate(task.task_id, patch)
-      if (result.publish_error) setToast({ msg: `Saved locally, but did not sync: ${result.publish_error}`, tone: 'bad' })
-      await load()
-    } catch (cause: any) { setToast({ msg: cause?.message || 'Could not update the task.', tone: 'bad' }) }
+    const taskId = task.task_id
+    const visible = optimisticRef.current.get(taskId)
+      ?? readRef.current?.tasks.find((candidate) => candidate.task_id === taskId)
+      ?? task
+    if (!confirmedRef.current.has(taskId)) confirmedRef.current.set(taskId, visible)
+    const optimistic = optimisticTask(visible, patch)
+    const revision = (revisionRef.current.get(taskId) ?? 0) + 1
+    revisionRef.current.set(taskId, revision)
+    optimisticRef.current.set(taskId, optimistic)
+    showTask(optimistic)
+    setSyncingIds((current) => {
+      const next = new Set(current)
+      next.add(taskId)
+      return next
+    })
+
+    // Publication is intentionally durable and can take a few seconds. Keep one ordered client queue so
+    // rapid moves stay instant without racing the server's shared Tasks/Watchlist mutation lock.
+    void enqueueMutation(async () => {
+      const queuedPatch = mergeTaskUpdatePatches(retryPatchRef.current.get(taskId), patch)
+      try {
+        const result = await api.taskUpdate(taskId, queuedPatch)
+        retryPatchRef.current.delete(taskId)
+        confirmedRef.current.set(taskId, result.task)
+        if (revisionRef.current.get(taskId) === revision) {
+          optimisticRef.current.delete(taskId)
+          showTask(result.task)
+          if (result.publish_error) setToast({ msg: `Saved locally, but did not sync: ${result.publish_error}`, tone: 'bad' })
+        }
+      } catch (cause: any) {
+        const isLatest = revisionRef.current.get(taskId) === revision
+        if (taskRequestTimedOut(cause)) {
+          // The server saves locally before publishing. A lost/slow response therefore has an unknown
+          // outcome: read the authoritative task before deciding whether anything should move back.
+          let serverTask: TaskCard | null = null
+          try {
+            serverTask = (await api.tasks()).tasks.find((candidate) => candidate.task_id === taskId) ?? null
+          } catch { /* Never turn an unavailable reconciliation read into a guessed rejection. */ }
+          if (serverTask && taskMatchesPatch(serverTask, queuedPatch)) {
+            retryPatchRef.current.delete(taskId)
+            confirmedRef.current.set(taskId, serverTask)
+            if (isLatest) {
+              optimisticRef.current.delete(taskId)
+              showTask(serverTask)
+              setToast({ msg: 'Task saved, but the final remote-sync reply was lost.', tone: 'bad' })
+            }
+          } else if (isLatest) {
+            optimisticRef.current.delete(taskId)
+            if (serverTask) {
+              retryPatchRef.current.delete(taskId)
+              confirmedRef.current.set(taskId, serverTask)
+              showTask(serverTask)
+              setToast({ msg: 'The save timed out. The latest server version is shown.', tone: 'bad' })
+            } else {
+              // Keep the visible card when even the reconciliation read failed. A later refresh will
+              // replace it with server truth; rolling back here would be another unproved guess.
+              setToast({ msg: 'Could not confirm whether this task synced. Refresh before changing it again.', tone: 'bad' })
+            }
+          } else {
+            // A newer local edit is already queued. Retry only the fields this failed request owned.
+            retryPatchRef.current.set(taskId, queuedPatch)
+          }
+        } else if (isLatest || !retryableTaskUpdateError(cause)) {
+          retryPatchRef.current.delete(taskId)
+          if (isLatest) {
+            const rollback = confirmedRef.current.get(taskId) ?? task
+            optimisticRef.current.delete(taskId)
+            showTask(rollback)
+            setToast({ msg: `${cause?.message || 'Could not update the task.'} The card was moved back.`, tone: 'bad' })
+          }
+        } else {
+          // The next queued request folds these intentional fields in, without resending stale title,
+          // assignee, or other fields this browser never changed.
+          retryPatchRef.current.set(taskId, queuedPatch)
+        }
+      } finally {
+        if (revisionRef.current.get(taskId) === revision) {
+          confirmedRef.current.delete(taskId)
+          revisionRef.current.delete(taskId)
+          setSyncingIds((current) => {
+            const next = new Set(current)
+            next.delete(taskId)
+            return next
+          })
+        }
+      }
+    })
   }
 
   const move = (task: TaskCard, stage: TaskStage) => {
@@ -339,14 +479,14 @@ export function TasksStage() {
             <section key={stage.id} className={`taskcol${dragOver === stage.id ? ' is-over' : ''}`} onDragOver={(event) => { event.preventDefault(); event.dataTransfer.dropEffect = 'move'; setDragOver(stage.id) }} onDragLeave={(event) => { if (!event.currentTarget.contains(event.relatedTarget as Node)) setDragOver(null) }} onDrop={(event) => onDrop(event, stage.id)}>
               <header className="taskcol__head"><span>{stage.step}</span><h2>{stage.label}</h2><b>{columnTasks.length}</b></header>
               <div className="taskcol__body">
-                {columnTasks.map((task) => <TaskCardView key={task.task_id} task={task} readOnly={staticMode} onEdit={() => setEditor({ task })} onMove={(next) => move(task, next)} onAssign={(assignee) => void update(task, { assignee })} onDragEnd={() => setDragOver(null)} />)}
+                {columnTasks.map((task) => <TaskCardView key={task.task_id} task={task} readOnly={staticMode} syncing={syncingIds.has(task.task_id)} onEdit={() => setEditor({ task })} onMove={(next) => move(task, next)} onAssign={(assignee) => update(task, { assignee })} onDragEnd={() => setDragOver(null)} />)}
                 {!columnTasks.length && <div className="taskcol__empty">{loading ? 'Loading…' : error || (query || person !== 'all' ? 'No matching tasks' : 'Drop a task here')}</div>}
               </div>
             </section>
           )
         })}
       </div>
-      {editor && !staticMode && <TaskEditor key={`${editor.task?.task_id ?? 'new'}-${editor.initial?.stage ?? ''}`} task={editor.task} initial={editor.initial} attachmentsEnabled={read?.attachments_enabled ?? false} onClose={closeEditor} onSaved={load} />}
+      {editor && !staticMode && <TaskEditor key={`${editor.task?.task_id ?? 'new'}-${editor.initial?.stage ?? ''}`} task={editor.task} initial={editor.initial} attachmentsEnabled={read?.attachments_enabled ?? false} onClose={closeEditor} onSaved={load} saveTask={saveEditorTask} />}
     </div>
   )
 }

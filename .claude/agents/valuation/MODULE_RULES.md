@@ -237,6 +237,16 @@ Every case still carries its own `metric × multiple` and its own EV→equity br
 
 **Cases with different implied time horizons must say so in prose — never blend them silently.** `bear_cyclical` and `bear_structural` are not just different LEVELS, they are different HORIZONS (a 12-month trough vs. a 24–36 month structural reset), and CLAUDE.md §10 already requires every forecast to carry a time window. State each case's own horizon in its rationale (the "12-month" / "24–36 month" language already used above is the required form — a bare label with no horizon sentence is incomplete). There is no separate `horizon` schema field for this — a dedicated field was considered and rejected as noise on the handful of runs that actually need it (§2: the shortest change that solves the problem); the prose requirement above is the whole fix. Downstream, the master synthesizer probability-weights these cases' raw targets/returns together with no common valuation date, so the resulting expected return and probability-weighted target mix values that are not at the same point in time. The master's weighting note (§8) MUST flag this explicitly wherever the case set mixes materially different horizons — name the horizons being blended and say plainly that the weighted figure is not a same-date comparison — rather than presenting a single clean number as if it were. This is a stated caveat, not a normalization the engine invents: do not fabricate a common valuation date or discount one case's target back to another's horizon without a cited basis for doing so.
 
+### 3. Sector Cycle Reality Test (mandatory, CLAUDE.md §16)
+
+`02`'s reference is the company's OWN trading multiple over the last 3–5 years; `03`'s reference is the CURRENT peer-group median. Neither reference is a fixed "normal" level — both drift with the sector's own re-rating cycle, so before either implied value is used as a floor or as corroboration for the other:
+
+- **Check the reference window, not just the reference number.** `02` and `03` must each state whether the sector as a whole — a sector index / ETF proxy, or the peer group's own aggregate multiple 3–5 years ago vs today — has materially re-rated or de-rated over the window used as the reference (`02`'s 3–5yr lookback; `03`'s peer set's own recent history, where obtainable from the same Capital IQ/Bloomberg export or web-sourced and labelled).
+- **Rule of thumb for "material."** The peer-group (or sector-index) median multiple has moved more than ~25% from its own level 3–5 years ago, in the SAME direction as the company's current premium/discount finding. This is a trigger for scrutiny, not an auto-fail.
+- **Flag-and-cap, never fabricate a correction.** Where the sector has materially re-rated/de-rated over the reference window, `02`/`03` flag the reference point as **cycle-elevated** or **cycle-depressed** in their own report and this caps that method's confidence contribution in `99` (see Score Cap Rules) — the agent does NOT invent a "cycle-corrected" multiple with no cited basis.
+- **Honest absence.** Where sector-level multiple history cannot be sourced, `02`/`03` state *"Not assessable — no sector-level multiple history"* rather than silently assume the anchor is stable; this is a named data gap (Partial-Data Rules), not a reason to skip the check.
+- **Compounding rule (extends the CLAUDE.md §16 independence-check).** When BOTH `02`'s own-history window AND `03`'s peer group carry the SAME cycle-distortion flag (both sit inside the same shared sector cycle), `07`'s Triangulation & Reconciliation (this file's §1 above) must NOT treat their agreement as two independent corroborating reads — state plainly that the two methods share one cycle and are not independent, and cap the combined base-case confidence accordingly rather than let the multiples-first majority weight apply on autopilot.
+
 ---
 
 ## Scoring Rules
@@ -314,6 +324,8 @@ When data is missing or weak, these hard caps override an agent's own scoring. T
 | Methods disagree on fair value by >40% with no reconciliation | Valuation confidence max 55 |
 | Fair value rests on a terminal value >75% of DCF EV | Valuation confidence max 60 |
 | Structurally misaligned controlling owner flagged (RF-OWN-004, §24 Filter 6) | Valuation attractiveness max 60; value-trap flag mandatory; verdict no better than "Modestly undervalued" on a cheap multiple alone |
+| Sector Cycle Reality Test flags `02` and/or `03`'s reference point as cycle-elevated/depressed and it is not otherwise reconciled | Valuation confidence max 60 on that method's contribution; if BOTH `02` and `03` are flagged in the same direction (compounding rule, Scenario Construction §3), the combined base-case valuation confidence max 55 — their agreement is one distorted read, not two independent ones |
+| Sector-level multiple history sourced for neither `02` nor `03` (both "Not assessable" on the Reality Test) | No cap by itself — an honestly-absent check is not a defect (CLAUDE.md §11) — but note the gap in `99`'s Reconciliation so it is visible, not silently skipped |
 
 If multiple caps affect the same score, use the most restrictive.
 

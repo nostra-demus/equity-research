@@ -172,23 +172,14 @@ no second health process making synthetic provider calls or guessing from log te
 
 - **Gemini** (`GEMINI_API_KEY`) — a rotation pool of free models (`generateContent`), each its own
   per-day bucket, resetting midnight Pacific.
-- **Cerebras** (`CEREBRAS_API_KEY`) — the biggest + fastest free pool, on `gpt-oss-120b`
-  (the current model; `llama-3.3-70b` is retired). Its free tier is **token-gated**, limits verified live
-  (2026-06-17): **1M tokens/day, 30k tokens/min, 5 req/min, 2,400 req/day**, so it paces on the binding
-  limit (a daily **token** cap, not a request cap). `gpt-oss-120b` is a reasoning model but returns its
-  thinking in a separate `reasoning` field (so `content` stays clean JSON) and honours `reasoning_effort`,
-  which we default to `low` so thinking can't truncate the JSON. Knobs: `NEWS_CEREBRAS_MODEL` (default
-  `gpt-oss-120b`) · `NEWS_CEREBRAS_REASONING_EFFORT` (default `low`) · `NEWS_CEREBRAS_DAILY_TOKEN_CAP`
-  (default 900k, ~10% under 1M) · `NEWS_CEREBRAS_TPM` (default 28k, under 30k) · `NEWS_CEREBRAS_RPM`
-  (default 4, under 5) · `NEWS_CEREBRAS_DAILY_REQ_CAP` (default 2,300, under 2,400) ·
-  `NEWS_CEREBRAS_MAX_TOKENS` (default 3,500) · `CEREBRAS_BASE_URL` · `NEWS_CEREBRAS_ENABLED=0` to force off.
-- **Mistral** (`MISTRAL_API_KEY`) — La Plateforme free tier, **rate-gated** (~1 req/s; the ~1B-tokens/month
-  budget is non-binding for overflow), so it paces on request spacing, not a token cap, and its chip reads
-  requests: `NEWS_MISTRAL_MODEL` (default `mistral-small-latest`) · `NEWS_MISTRAL_RPM` (45, ≈1.3s spacing,
-  under 1 req/s) · `NEWS_MISTRAL_DAILY_REQ_CAP` (2000 soft backstop) · `NEWS_MISTRAL_MAX_TOKENS` ·
-  `MISTRAL_BASE_URL` · `NEWS_MISTRAL_ENABLED=0` to force off.
+<!-- Cerebras and Mistral were REMOVED (2026-08-27). Both were wired as free overflow pools and neither
+     ever returned a usable batch: across the full pipeline-telemetry window Cerebras failed 62/62 and
+     Mistral 63/63, with 61 and 62 of those being HTTP 401/403 — the key rejected outright. Each then
+     emitted a single 402 on 2026-08-25, which set the standing quarantine and made the cockpit report
+     "billing or credits unavailable" for a pair that had never worked. Re-adding either is one entry in
+     buildOverflowProviders() (§26) once a key is proven to answer. -->
 - **OpenRouter** (`OPENROUTER_API_KEY`) / **NVIDIA NIM** (`NVIDIA_API_KEY`) — request-gated free pools
-  participating in the same reset-clock allocator instead of waiting behind Cerebras + Mistral. OpenRouter
+  participating in the same reset-clock allocator. OpenRouter
   defaults to its official `openrouter/free` router, which selects from currently available free models and
   filters for the request's required capabilities; `NEWS_OPENROUTER_MODELS` remains the explicit ordered-model
   override. This avoids turning normal free-model retirements into a broken default. Both providers run a

@@ -4827,25 +4827,27 @@ await check('mergeInbox: dismissed rows are preserved like consumed (never evict
   assert.deepEqual(m2.event_types, ['mna']) // theme fields persisted on rows
 })
 
-// ---- Cerebras overflow config: lock the verified-live defaults so a retired/broken model can't sneak back ----
-await check('Cerebras overflow defaults are the verified-live values (model + reasoning_effort + caps under the free-tier ceilings)', () => {
-  const prev = process.env.CEREBRAS_API_KEY
-  process.env.CEREBRAS_API_KEY = 'k'
+// ---- Cerebras and Mistral are REMOVED. Both were wired as free overflow pools and neither ever returned a
+// single usable batch: across the whole pipeline-telemetry window Cerebras failed 62/62 and Mistral 63/63,
+// with 61 and 62 of those being `credential` (HTTP 401 auth / 403 entitlement) — the key rejected outright.
+// Each then emitted exactly one 402 seconds apart on 2026-08-25, which is what set the standing quarantine
+// and made the cockpit report "billing or credits unavailable" for a pair that had never worked at all.
+// A dead provider is not free: it holds a routing slot, files a permanent "needs repair" banner, and burns a
+// probe. The registry entries are gone. This asserts they STAY gone even when a stale key is still sitting
+// in the host's providers.env — otherwise removal would silently undo itself on the next deploy. ----
+await check('a stale Cerebras/Mistral key can never resurrect the removed providers', () => {
+  const prev = { cb: process.env.CEREBRAS_API_KEY, ml: process.env.MISTRAL_API_KEY }
+  process.env.CEREBRAS_API_KEY = 'stale-key-still-in-providers-env'
+  process.env.MISTRAL_API_KEY = 'stale-key-still-in-providers-env'
   try {
-    const cb = buildOverflowProviders().find((p) => p.id === 'cerebras')
-    assert.ok(cb, 'Cerebras provider materializes when the key is present')
-    // the retired llama-3.3-70b must NEVER be the default again; gpt-oss-120b is verified-live working
-    assert.equal(cb!.model, 'gpt-oss-120b', 'default model is the current working one, not the retired llama-3.3-70b')
-    // gpt-oss-120b is a reasoning model — reasoning_effort:low keeps thinking from burning the output budget → truncated JSON
-    assert.equal((cb!.extraBody as Record<string, unknown> | undefined)?.reasoning_effort, 'low', 'reasoning_effort=low so content stays whole JSON')
-    // every cap paces UNDER the live-verified free-tier ceilings (5 rpm / 30k tpm / 1M tok-day / 2400 req-day)
-    assert.ok(cb!.rpm <= 5, 'rpm under the 5 req/min ceiling')
-    assert.ok((cb!.tpm ?? 0) > 0 && (cb!.tpm ?? 0) <= 30_000, 'tpm set and under the 30k tokens/min ceiling')
-    assert.ok((cb!.dailyTokenCap ?? 0) > 0 && (cb!.dailyTokenCap ?? 0) <= 1_000_000, 'daily token cap set and under 1M')
-    assert.ok(cb!.dailyReqCap <= 2_400, 'daily request backstop under the 2400 req/day ceiling')
+    const ids = buildOverflowProviders().map((p) => p.id)
+    assert.ok(!ids.includes('cerebras'), 'a leftover CEREBRAS_API_KEY must not rebuild the removed provider')
+    assert.ok(!ids.includes('mistral'), 'a leftover MISTRAL_API_KEY must not rebuild the removed provider')
   } finally {
-    if (prev === undefined) delete process.env.CEREBRAS_API_KEY
-    else process.env.CEREBRAS_API_KEY = prev
+    if (prev.cb === undefined) delete process.env.CEREBRAS_API_KEY
+    else process.env.CEREBRAS_API_KEY = prev.cb
+    if (prev.ml === undefined) delete process.env.MISTRAL_API_KEY
+    else process.env.MISTRAL_API_KEY = prev.ml
   }
 })
 
@@ -6032,7 +6034,14 @@ await check('last-look provider maps name OmniRoute exactly and legacy summaries
   ], 'rolling-deploy summaries retain the established aggregate fallback')
 })
 
-await check('adaptive actual provider ranks keep Haiku first and tolerate missing fallback ranks', () => {
+// This previously asserted that Haiku ranks 1 even under adaptive routing ("priority 1 overrides the
+// lower-cost fallback fitness rank"). That was a deliberate choice, and it is the one being reversed:
+// measured over a full live day, Haiku scored 0.42 items/second at 88% usable against gemini-3.1-flash-lite's
+// 6.0 at 100%, and the router's own fitness put them at ~26 vs ~70. The panel must report the order the
+// scanner actually runs, so the pin now applies only OUTSIDE adaptive mode — where the chain really does
+// try Haiku first. Haiku keeps its place as the last resort that absorbs what the rate-capped free pools
+// cannot take; it simply stops outranking a provider proven faster and more reliable.
+await check('actual provider ranks follow fitness under adaptive routing, keep Haiku first otherwise', () => {
   assert.equal(compareFiniteRank(Number.MAX_VALUE, -Number.MAX_VALUE), 1, 'finite extremes compare without subtraction overflow')
   assert.equal(compareFiniteRank(Number.MAX_VALUE, Number.MAX_VALUE), 0, 'equal finite ranks compare as equal')
   assert.equal(compareFiniteRank(Number.POSITIVE_INFINITY, Number.NaN), 0, 'all invalid ranks compare as equal')
@@ -6044,13 +6053,21 @@ await check('adaptive actual provider ranks keep Haiku first and tolerate missin
     { id: 'nvidia', band: 'direct', order: 3, eligible: true, rank: Number.NaN },
   ] as any
   const ranks = actualProviderRanks(candidates, 'adaptive')
-  assert.equal(ranks.get('anthropic-triage'), 1, 'priority 1 overrides the lower-cost fallback fitness rank')
-  assert.equal(ranks.get('groq'), 2)
+  assert.equal(ranks.get('groq'), 1, 'the fittest audited provider leads the order the scanner actually runs')
+  assert.equal(ranks.get('anthropic-triage'), 2, 'Haiku no longer outranks a provider measured faster and more usable')
   assert.equal(ranks.get('mistral'), 3, 'an unranked provider sorts last without an Infinity-minus-Infinity NaN')
   assert.deepEqual(
     [...actualProviderRanks([...candidates].reverse(), 'adaptive').entries()],
     [...ranks.entries()],
     'null, undefined, and NaN ranks produce the same order when the input direction is reversed',
+  )
+  // Shadow/static keep the pin, because there the chain genuinely offers every batch to Haiku first.
+  const staticRanks = actualProviderRanks(candidates, 'shadow')
+  assert.equal(staticRanks.get('anthropic-triage'), 1, 'outside adaptive routing Haiku really is tried first')
+  assert.deepEqual(
+    [...actualProviderRanks([...candidates].reverse(), 'shadow').entries()],
+    [...staticRanks.entries()],
+    'the non-adaptive order is also direction-stable',
   )
 })
 

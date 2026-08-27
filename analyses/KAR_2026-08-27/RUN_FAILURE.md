@@ -3,21 +3,21 @@
 - ticker: KAR
 - orchestrator: chained full run (server)
 - status: FAILED — stopped mid-run before the final thesis
-- stopped_at: business-model
-- reason: publication_failed
-- stopped_at_utc: 2026-08-27T10:03:41.468Z
+- stopped_at: management-governance
+- reason: api_error_429
+- stopped_at_utc: 2026-08-27T15:00:03.431Z
 
 ## Modules completed
 
-(none)
+- balance-sheet-survival
+- business-model
+- competitive-intel
+- earnings
 
 ## Error (last 2000 chars of the engine stderr, secrets redacted)
 
 ```
-the provider exited without a supervisor-owned publication request
-
-Provider final message:
-Unknown command: /research:business-model
+You've hit your session limit · resets 10:20pm (Asia/Calcutta)
 ```
 
 ## Resume

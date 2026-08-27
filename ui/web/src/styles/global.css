@@ -170,6 +170,13 @@ a { color: inherit; }
 .provider-mini .providerseg__btn { height: 24px; padding: 0 7px; font-size: 10.5px; }
 .provider-mini__status { max-width: 180px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--text-faint); font-size: 10px; }
 .provider-mini__status--bad { color: var(--bad); }
+.profilepick { display: inline-flex; flex-direction: column; align-items: flex-end; gap: 3px; min-width: 0; }
+.profilepick select { max-width: 240px; height: 30px; padding: 0 28px 0 10px; border: 1px solid var(--hairline); border-radius: var(--r-pill); background: var(--surface-2); color: var(--text); font: 600 11px/1 var(--font-sans); cursor: pointer; }
+.profilepick select:disabled { cursor: default; opacity: .55; }
+.profilepick__hint { max-width: 310px; color: var(--text-faint); font-size: 9.5px; line-height: 1.25; text-align: right; }
+.profilepick--compact { flex-direction: row; align-items: center; }
+.profilepick--compact select { max-width: 112px; height: 24px; padding-inline: 7px 22px; font-size: 10px; }
+.profilepick--compact .profilepick__hint { display: none; }
 
 /* theme toggle (light/dark) — icon pill matching the top-bar control language */
 /* .iconbtn shares the theme toggle's compact 32x30 icon box, so any square icon-only top-bar control
@@ -3747,6 +3754,7 @@ a { color: inherit; }
 .taskcol__empty { flex: 1; min-height: 100px; display: grid; place-items: center; border: 1px dashed var(--hairline); border-radius: var(--r-md); color: var(--text-faint); font-size: 11px; }
 .taskcard { border: 1px solid var(--hairline); border-radius: var(--r-md); background: var(--surface-2); box-shadow: var(--shadow-1); overflow: hidden; transition: transform var(--dur-fast), border-color var(--dur-fast), background var(--dur-fast); }
 .taskcard:hover { transform: translateY(-1px); border-color: var(--hairline-strong); background: var(--surface-3); }
+.taskcard.is-syncing { border-color: color-mix(in srgb, var(--accent) 45%, var(--hairline)); }
 .taskcard:active { cursor: grabbing; }
 .taskcard__main { display: block; width: 100%; padding: 12px 12px 8px; text-align: left; }
 .taskcard__main:disabled { cursor: default; opacity: 1; }
@@ -3754,7 +3762,12 @@ a { color: inherit; }
 .taskcard__scope { padding: 2px 6px; border: 1px solid var(--hairline); border-radius: var(--r-pill); color: var(--text-faint); font-size: 8.5px; font-weight: 700; letter-spacing: 0.4px; text-transform: uppercase; }
 .taskcard__scope--world_event { color: var(--accent-bright); border-color: var(--accent-deep); }
 .taskcard__ticker { color: var(--accent-bright); font-family: var(--font-mono); font-size: 10px; font-weight: 700; }
+.taskcard__sync { margin-left: auto; color: var(--text-faint); font-family: var(--font-mono); font-size: 8.5px; }
+.taskcard__sync::before { content: ''; display: inline-block; width: 5px; height: 5px; margin-right: 5px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 7px var(--accent); animation: task-sync-pulse 900ms ease-in-out infinite alternate; }
 .taskcard__decision { margin-left: auto; padding: 2px 6px; border-radius: var(--r-pill); font-size: 8.5px; font-weight: 800; text-transform: uppercase; }
+.taskcard__sync + .taskcard__decision { margin-left: 0; }
+@keyframes task-sync-pulse { to { opacity: 0.35; } }
+@media (prefers-reduced-motion: reduce) { .taskcard__sync::before { animation: none; } }
 .taskcard__decision[data-decision="deploy"] { color: var(--good); background: color-mix(in srgb, var(--good) 12%, transparent); }
 .taskcard__decision[data-decision="reject"] { color: var(--bad); background: color-mix(in srgb, var(--bad) 12%, transparent); }
 .taskcard__decision[data-decision="watch"] { color: var(--accent-bright); background: var(--accent-wash); }
@@ -5124,9 +5137,56 @@ a { color: inherit; }
    the trades and reconciliation tables, wrapping their headers onto a second line. Declared here so a
    variant added anywhere below reliably overrides it. */
 .fundbook__row { display: grid; grid-template-columns: minmax(88px, 1.5fr) 44px 92px 84px 84px 104px 62px 96px 68px; align-items: center; gap: 8px; padding: 9px 14px; border-bottom: 1px solid var(--hairline); font-size: 11.5px; }
-.fundbook__row--trades { grid-template-columns: 104px 48px 92px 92px 54px 82px 78px 78px 88px 74px 92px 58px; min-width: 940px; }
+/* +1 column: the idea. This is the only place a CLOSED trade can be labelled — the positions table
+   shows open holdings, so a finished idea (sugar, in the real book) had no control anywhere. */
+.fundbook__row--trades { grid-template-columns: 104px 132px 48px 92px 92px 54px 82px 78px 78px 88px 74px 92px 58px; min-width: 1072px; }
 .fundbook__lots { display: block; color: var(--text-faint); font-size: 8px; letter-spacing: 0.2px; text-transform: uppercase; }
 .fundbook__row--checks { grid-template-columns: minmax(240px, 2.4fr) 1fr 1fr 1fr 74px; min-width: 700px; }
+/* By idea — the declared grouping. Same row grammar as the other blotter grids so it reads as part of
+   the same table, not a bolted-on panel. Full width, NOT inside .fundbook__split: six columns in a
+   382px third clipped Realised and pushed Trades/First/Last off-panel behind a sideways scrollbar. */
+.fundbook__row--ideas { grid-template-columns: minmax(140px, 1.4fr) minmax(150px, 1.6fr) 110px 70px 92px 92px; min-width: 660px; }
+/* An idea NAME is prose, not a code. The shared 74px label column is sized for tickers and asset
+   classes; "Consumer recovery 2026" wrapped to three lines there and made its row 50px against the
+   17px of every other bar. Wider, one line, ellipsis — the full name stays in the title attribute. */
+.fundbook__bar-row--prose { grid-template-columns: 116px 1fr 46px 92px; }
+.fundbook__bar-row--prose .fundbook__bar-label {
+  font-family: var(--font-sans); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+/* The idea a holding expresses, ON THE SAME LINE as its symbol. Stacked below, it added 22px to every
+   assignable row and left the cash-equivalent rows visibly short in the same table. */
+.fundbook__symcell { display: flex; align-items: center; gap: 7px; min-width: 0; }
+.fundbook__symcell > span:first-child { flex: none; }
+.fundbook__idea { display: inline-flex; align-items: center; flex-wrap: wrap; gap: 4px; min-width: 0; font-weight: 400; }
+.fundbook__ideaselect {
+  max-width: 100%; padding: 1px 4px; border-radius: var(--r-sm); font-size: 10.5px; font-family: var(--font-sans);
+  color: var(--text-muted); background: var(--surface-3); border: 1px solid var(--hairline);
+  text-overflow: ellipsis;
+}
+.fundbook__ideaselect:focus-visible { outline: none; box-shadow: 0 0 0 2px var(--accent-wash); }
+.fundbook__ideaselect:disabled { opacity: 0.5; }
+@media (hover: hover) and (pointer: fine) { .fundbook__ideaselect:hover { color: var(--text); border-color: var(--hairline-strong); } }
+.fundbook__ideaerr { display: block; margin-top: 2px; color: var(--bad); font-size: 9.5px; }
+/* Naming a new idea inline. window.prompt throws "not supported" in the cockpit's browser, and a modal
+   would be the only native dialog in the whole app. */
+.fundbook__ideainput {
+  min-width: 0; width: 130px; padding: 1px 5px; border-radius: var(--r-sm); font-size: 10.5px;
+  font-family: var(--font-sans); color: var(--text); background: var(--surface-3);
+  border: 1px solid var(--accent-deep);
+}
+.fundbook__ideainput::placeholder { color: var(--text-faint); }
+.fundbook__ideainput:focus-visible { outline: none; box-shadow: 0 0 0 2px var(--accent-wash); }
+.fundbook__ideaok, .fundbook__ideacancel {
+  flex: none; padding: 2px 7px; border-radius: var(--r-sm); font-size: 9.5px; font-weight: 700;
+  font-family: var(--font-sans); border: 1px solid var(--hairline-strong); background: transparent;
+  color: var(--text-muted);
+}
+.fundbook__ideaok { color: var(--accent-bright); border-color: color-mix(in srgb, var(--accent) 38%, transparent); background: var(--accent-wash); }
+.fundbook__ideaok:disabled, .fundbook__ideacancel:disabled { opacity: 0.45; }
+.fundbook__ideaok:focus-visible, .fundbook__ideacancel:focus-visible { outline: none; box-shadow: 0 0 0 2px var(--accent-wash); }
+@media (hover: hover) and (pointer: fine) {
+  .fundbook__ideacancel:hover:not(:disabled) { color: var(--text); border-color: var(--hairline-strong); }
+}
 .fundbook__ok { color: var(--accent-bright); font-weight: 700; font-size: 10px; }
 .fundbook__break { color: var(--bad); font-weight: 700; font-size: 10px; }
 .fundbook__drop.is-compact { padding: 10px 14px; gap: 12px; }

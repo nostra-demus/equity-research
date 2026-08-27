@@ -476,10 +476,10 @@ function overflowUsage(p: (typeof NEWS.overflowProviders)[number]): { id: string
 
 /** Can ANY OpenAI-compatible overflow provider score a batch RIGHT NOW? Mirrors the triage loop's real pick
  *  (`!ov.coolingDown && ov.budget.canSpend(est)`, runCycle): not in a failure cooldown, under its request
- *  cap, and — for a token-gated provider (Cerebras) — with room for one more batch (tokens + est), not just
+ *  cap, and — for a token-gated provider — with room for one more batch (tokens + est), not just
  *  strictly under the cap. The old check was BOTH cooldown-blind (a cooling provider with request budget —
  *  e.g. NVIDIA at 34/150 while cooling — read as headroom, so the drain ran and scored 0) and est-blind (a
- *  token-gated Cerebras one batch short of its 900k cap read as headroom the loop then skipped). */
+ *  token-gated pool one batch short of its daily cap read as headroom the loop then skipped). */
 function overflowHasHeadroom(now = Date.now()): boolean {
   const batch = loadUnscoredDiagnosticBatch()
   return NEWS.overflowProviders.some((p) => {
@@ -678,7 +678,7 @@ export interface NewsStatus {
   }
   // every free OVERFLOW pool (Gemini + each OpenAI-compatible provider), one entry per provider. The cockpit
   // renders a chip per entry, so a newly-added provider appears automatically. Empty when none are keyed.
-  // tokenCap is set ONLY for TOKEN-gated providers (e.g. Cerebras) — the cockpit then shows the chip in
+  // tokenCap is set ONLY for TOKEN-gated providers — the cockpit then shows the chip in
   // tokens (its BINDING limit) instead of requests, so the readout is ground truth, not a non-binding proxy.
   overflow: {
     id: string; label: string; color: string; model: string; requests: number; reqCap: number; tokens: number; tokenCap?: number
@@ -837,7 +837,7 @@ export function getNewsStatus(
       paceCost: p.dailyTokenCap != null ? diagnosticBatchPaceBound(diagnosticBatch) : 1,
       floorFraction: p.paceFloorFrac ?? NEWS.freeProviderPaceFloorFrac,
     }, statusNow).pacedFit
-    // token-gated providers (Cerebras) carry tokenCap so the chip reports tokens (the binding limit); a
+    // token-gated providers carry tokenCap so the chip reports tokens (the binding limit); a
     // request-gated provider (OpenRouter/NVIDIA) leaves it undefined → the chip stays on requests, as before.
     overflow.push({
       id: p.id, label: p.label, color: p.color, model: lead, requests: u.used, reqCap: u.cap, tokens: u.tokens, tokenCap: p.dailyTokenCap,
@@ -923,7 +923,7 @@ export interface TierDiagnostics {
   requestsToday?: number
   reqCap?: number
   tokensToday?: number
-  tokenCap?: number // set only for token-gated providers (Cerebras) — its binding limit
+  tokenCap?: number // set only for token-gated providers — its binding limit
   usdToday?: number // USD-metered tier only
   usdCap?: number // USD-metered tier only
   callsToday?: number // USD-metered tier only
@@ -1303,7 +1303,13 @@ export function actualProviderRanks(candidates: ProviderCandidateScore[], mode: 
   const bandWeight = (candidate: ProviderCandidateScore): number => candidate.band === 'aggregate' ? 1 : candidate.band === 'demoted-local' ? 2 : 0
   const ordered = [...candidates].filter((candidate) => candidate.eligible).sort((left, right) => {
     if (left.id === right.id) return 0
-    if (left.id === 'anthropic-triage' || right.id === 'anthropic-triage') return left.id === 'anthropic-triage' ? -1 : 1
+    // Outside adaptive mode the chain really does offer every batch to Haiku first, so it genuinely ranks 1.
+    // Under adaptive routing the batch goes to whichever provider the audited fitness selected, so pinning
+    // Haiku here too would make the diagnostics panel report an order the scanner is not running — the
+    // display twin of the routing bug this accompanies, and the reason the slow tier looked authoritative.
+    if (mode !== 'adaptive' && (left.id === 'anthropic-triage' || right.id === 'anthropic-triage')) {
+      return left.id === 'anthropic-triage' ? -1 : 1
+    }
     if (mode === 'adaptive') {
       const band = compareFiniteRank(bandWeight(left), bandWeight(right))
       if (band) return band
@@ -1409,7 +1415,7 @@ export function getNewsDiagnostics(options: { omniRouteHomeDir?: string } = {}):
     const coolMs = Math.max(0, cd.until - now)
     // est-aware, via the SAME predicate the drain gate uses (cooling handled separately by tierHealth, so
     // pass false here): a token-gated provider one batch short of its cap CANNOT score, so it reads
-    // "budget-spent", not "Healthy" (the reported Cerebras 900k/900k case).
+    // "budget-spent", not "Healthy" (the reported 900k/900k token-cap case).
     const strictCost = diagnosticBatchTokenBound(diagnosticBatch, p.maxTokens)
     const hardFit = !u.dayUnavailable && (diagnosticBatch.length === 0
       ? u.used < u.cap && (p.dailyTokenCap == null || u.tokens < p.dailyTokenCap)

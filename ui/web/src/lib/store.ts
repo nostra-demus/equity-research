@@ -22,7 +22,7 @@ import { emptyBookFilters } from '../components/screener/BookFilters'
 import { emptyDlFilters, type DlFilterState } from '../components/datalibrary/DataLibraryFilters'
 import type { PipelinesRead } from './types'
 import { emptyReviewFilters, matchesReviewFilters, type ReviewFilterState } from '../components/screener/ReviewFilters'
-import { automaticResumeMatches, emptyProviders, freezeProviderLaunch, isRunProvider, launchProviderReceiptMatches, manualResumeConfirmation, optionalNestedLaunchResponseMatches, providerCatalogUnknown, providerIsBlocked, providerLaunchBlockedReason, providerLabel, providerNeedsCheck, readRunProvider, saveRunProvider, trackedLaunchResponseMatches, type FrozenProviderLaunch, type ProvidersRead, type RecordedRunExecution, type RunProvider } from './provider'
+import { automaticResumeMatches, emptyProviders, freezeProviderLaunch, isRunProvider, launchProviderReceiptMatches, manualResumeConfirmation, optionalNestedLaunchResponseMatches, providerCatalogUnknown, providerIsBlocked, providerLaunchBlockedReason, providerLabel, providerNeedsCheck, readRunProfileKey, readRunProvider, saveRunProfileKey, saveRunProvider, selectedProviderProfile, trackedLaunchResponseMatches, type FrozenProviderLaunch, type ProvidersRead, type RecordedRunExecution, type RunProvider } from './provider'
 import { normalizeRunSnapshotIdentity, reconcileRunIdentity, sseFrameForRun } from './runIdentity'
 
 const SIGNAL_INPUT_NATURES = new Set([
@@ -507,9 +507,11 @@ interface State {
   credit: Usage | null
   creditChecking: boolean
   runProvider: RunProvider
+  runProfileKeys: Record<RunProvider, string>
   providers: ProvidersRead
   providersChecking: boolean
   setRunProvider: (provider: RunProvider) => void
+  setRunProfile: (provider: RunProvider, profileKey: string) => void
   refreshProviders: (provider?: RunProvider) => Promise<void>
   nodeRuntime: Record<string, NodeRuntime>
   now: number // shared 1s clock for every live timer (orb/module/panel/tooltip); ticked only while orbs run
@@ -720,6 +722,7 @@ interface State {
   launchRerun: (node: { module: string; name: string; key: string }, planOrigin?: LaunchSelectionBinding['planOrigin']) => Promise<void>
   confirmRerun: () => Promise<void>
   changeLaunchProvider: (provider: RunProvider) => Promise<void>
+  changeLaunchProfile: (profileKey: string) => Promise<void>
   cancelLaunch: () => void
   cancelRun: (runId: string) => Promise<void>
   readinessGate: { runId: string; report: ReadinessReport; rechecking?: boolean } | null // pre-flight gate panel (null = hidden; rechecking = a re-check is running)
@@ -1256,7 +1259,23 @@ const NEWS_CHAT_RESET = {
 }
 
 function captureProviderLaunch(state: State, provider: RunProvider = state.runProvider): FrozenProviderLaunch | null {
-  return freezeProviderLaunch(state.providers[provider], state.providers.catalogState)
+  return freezeProviderLaunch(state.providers[provider], state.providers.catalogState, state.runProfileKeys[provider])
+}
+
+function reconcileRunProfileKeys(
+  current: Record<RunProvider, string>,
+  providers: ProvidersRead,
+): Record<RunProvider, string> {
+  const next = { ...current }
+  for (const provider of ['claude', 'codex'] as RunProvider[]) {
+    const option = selectedProviderProfile(providers[provider], next[provider])
+    const key = option?.key || providers[provider].defaultProfileKey
+    if (key && key !== next[provider]) {
+      next[provider] = key
+      saveRunProfileKey(provider, key)
+    }
+  }
+  return next
 }
 
 function captureLaunchSelection(state: State): LaunchSelectionBinding | null {
@@ -1418,6 +1437,7 @@ export const useStore = create<State>((set, get) => ({
   credit: null,
   creditChecking: false,
   runProvider: readRunProvider(),
+  runProfileKeys: { claude: readRunProfileKey('claude'), codex: readRunProfileKey('codex') },
   providers: emptyProviders(),
   providersChecking: false,
   nodeRuntime: {},
@@ -1958,6 +1978,13 @@ export const useStore = create<State>((set, get) => ({
     set({ runProvider: provider })
   },
 
+  setRunProfile: (provider, profileKey) => {
+    const option = selectedProviderProfile(get().providers[provider], profileKey)
+    if (!option) return
+    saveRunProfileKey(provider, option.key)
+    set({ runProfileKeys: { ...get().runProfileKeys, [provider]: option.key } })
+  },
+
   refreshProviders: async (provider) => {
     if (get().staticMode) return
     providerChecksInFlight++
@@ -1983,22 +2010,24 @@ export const useStore = create<State>((set, get) => ({
       if (provider) {
         const status = await api.providerCheck(provider)
         if (!targetedIsCurrent()) return
-        set({ providers: { ...get().providers, [provider]: { ...status, provider, checked: true, checking: false } } })
+        const providers = { ...get().providers, [provider]: { ...status, provider, checked: true, checking: false } }
+        set({ providers, runProfileKeys: reconcileRunProfileKeys(get().runProfileKeys, providers) })
       } else {
         const providers = await api.providers()
         if (!catalogIsCurrent()) return
         if (providers.catalogState === 'fallback' && get().runProvider === 'codex') {
           saveRunProvider('claude')
-          set({ providers, runProvider: 'claude' })
+          set({ providers, runProvider: 'claude', runProfileKeys: reconcileRunProfileKeys(get().runProfileKeys, providers) })
         } else {
           // A targeted check that began after this catalogue read owns its provider row. Keep that newer
           // answer while still applying the catalogue's contract state and the other row.
           const current = get().providers
-          set({ providers: {
+          const reconciledProviders = {
             ...providers,
             claude: claudeGeneration === providerCheckSeq.claude ? providers.claude : current.claude,
             codex: codexGeneration === providerCheckSeq.codex ? providers.codex : current.codex,
-          } })
+          }
+          set({ providers: reconciledProviders, runProfileKeys: reconcileRunProfileKeys(get().runProfileKeys, reconciledProviders) })
         }
       }
     } catch {
@@ -2564,6 +2593,24 @@ export const useStore = create<State>((set, get) => ({
     const moduleName = lc.kind === 'module' ? lc.module : undefined
     const planOrigin = lc.selection.planOrigin
     get().setRunProvider(provider)
+    set({ launchConfirm: null })
+    if (moduleName) await get().launchModule(moduleName)
+    else if (lc.kind === 'rerun' && node) await get().launchRerun(node, planOrigin)
+    else await get().requestFull()
+  },
+
+  changeLaunchProfile: async (profileKey) => {
+    const lc = get().launchConfirm
+    if (!lc || get().launchPending) return
+    const provider = lc.selection.provider
+    const option = selectedProviderProfile(get().providers[provider], profileKey)
+    if (!option || option.key === lc.selection.expectedProfileKey) return
+    ++launchPriceSeq
+    const node = lc.kind === 'rerun' ? lc.node : undefined
+    const moduleName = lc.kind === 'module' ? lc.module : undefined
+    const planOrigin = lc.selection.planOrigin
+    get().setRunProvider(provider)
+    get().setRunProfile(provider, option.key)
     set({ launchConfirm: null })
     if (moduleName) await get().launchModule(moduleName)
     else if (lc.kind === 'rerun' && node) await get().launchRerun(node, planOrigin)
@@ -6362,6 +6409,9 @@ async function runExactResearchModule(
     }
     set({ thesisPlan: plan, thesisPlanError: null })
   } catch (e: any) {
+    // A plan that failed provider/profile validation is not partial authority. Clear it before leaving the
+    // verification block so the paid module POST below cannot run from an unverified server response.
+    plan = null
     if (launchSelectionIsCurrent(get(), selection)) {
       get().setToast({ msg: e?.message || `Could not check ${moduleLabel(module)}`, tone: 'bad' })
     }

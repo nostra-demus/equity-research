@@ -314,5 +314,41 @@ check('archive service mirrors and safely prunes pipeline telemetry under the fi
   assert.match(script, /news-queue-latest\.sqlite\.gz/)
   assert.match(script, /NEWS_LOCAL_RETENTION_DAYS:-30/)
 })
+// An interrupted cycle leaves its decision without an outcome for ever. Requiring ZERO pending decisions
+// across the whole seven-day window therefore made activation unreachable on any host that ever restarts
+// mid-cycle: measured on the live engine, 22 interruptions left 21 permanent orphans in six days and the
+// router sat in shadow for 958 consecutive decisions while the fitness evidence it needed was already in
+// hand. A decision that can no longer complete is a CLOSED gap; only one still inside a live batch's
+// window is open.
+check('a stale orphaned decision cannot pin the router in shadow for ever', () => {
+  const activationRows = (): PipelineAuditEvent[] => {
+    const rows: PipelineAuditEvent[] = []
+    for (let index = 0; index < 20; index++) {
+      const ts = new Date(NOW - 25 * 3_600_000 + index * 60_000).toISOString()
+      const provider = index % 2 ? 'alpha' : 'beta'
+      rows.push(decision(ts, index, provider), outcome(ts, index, provider, true))
+    }
+    return rows
+  }
+  const options = (root: string, state: string) => ({ repoRoot: root, stateDir: state, requestedMode: 'auto' as const, shadowHours: 24, minOutcomes: 20, now: NOW })
+  const haikuIneligible = candidates({ 'anthropic-triage': { eligible: false, eligibilityReason: 'haiku-pressure' as const } })
+
+  const stale = workspace()
+  seed(stale.root, activationRows())
+  // Two hours old with no outcome — exactly what a killed cycle leaves behind.
+  seed(stale.root, [decision(new Date(NOW - 2 * 3_600_000).toISOString(), 900, 'alpha')])
+  const staleResult = evaluateProviderRouting(options(stale.root, stale.state), haikuIneligible)
+  assert.equal(staleResult.router.mode, 'adaptive', 'an orphan that can never complete must not block activation')
+  assert.equal(staleResult.router.pendingDecisions, 0, 'a closed gap is not reported as an open one')
+
+  const live = workspace()
+  seed(live.root, activationRows())
+  // Seconds old — a batch that is genuinely still running is still a real open gap.
+  seed(live.root, [decision(new Date(NOW - 30_000).toISOString(), 901, 'alpha')])
+  const liveResult = evaluateProviderRouting(options(live.root, live.state), haikuIneligible)
+  assert.equal(liveResult.router.mode, 'shadow', 'a decision still inside its batch window must keep blocking')
+  assert.equal(liveResult.router.pendingDecisions, 1)
+  assert.match(liveResult.router.reason, /audit gaps/)
+})
 
 console.log(`provider routing tests: ${passed} passed`)

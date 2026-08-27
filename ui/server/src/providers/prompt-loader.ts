@@ -4,13 +4,14 @@ import fg from 'fast-glob'
 import matter from 'gray-matter'
 import { REPO_ROOT } from '../config'
 import {
-  CODEX_COMPATIBILITY_PREAMBLE,
   CODEX_PROJECT_DOC_HEADROOM_BYTES,
   CODEX_PROJECT_DOC_MAX_BYTES,
   CODEX_TOOL_MAP,
+  codexCompatibilityPreamble,
   codexAgentExecutionProfile,
   type CanonicalClaudeTool,
 } from './codex-contract'
+import type { ResolvedProviderProfile } from './types'
 
 const SEGMENT_RE = /^[a-z0-9][a-z0-9-]*$/
 export const CANONICAL_COMMAND_FRONTMATTER_KEYS = new Set(['description', 'argument-hint', 'allowed-tools'])
@@ -134,7 +135,11 @@ function assertCanonicalRealpath(candidate: string, canonicalRoot: string, label
   return realCandidate
 }
 
-export function loadCanonicalCommand(invocation: string, repoRoot: string = REPO_ROOT): CanonicalCommand {
+export function loadCanonicalCommand(
+  invocation: string,
+  repoRoot: string = REPO_ROOT,
+  executionProfile?: ResolvedProviderProfile,
+): CanonicalCommand {
   const parsedInvocation = parseClaudeCommandInvocation(invocation)
   const sourcePath = commandPath(repoRoot, parsedInvocation.namespace, parsedInvocation.command)
   if (!fs.existsSync(sourcePath)) {
@@ -157,7 +162,7 @@ export function loadCanonicalCommand(invocation: string, repoRoot: string = REPO
   const content = expandClaudeArguments(parsed.content, parsedInvocation.arguments)
   const relativeSource = path.relative(repoRoot, resolvedSourcePath).split(path.sep).join('/')
   const prompt = [
-    CODEX_COMPATIBILITY_PREAMBLE,
+    codexCompatibilityPreamble(executionProfile),
     '',
     `CANONICAL COMMAND SOURCE: ${relativeSource}`,
     `DECLARED TOOLS: ${allowedTools.join(', ')}`,
@@ -278,7 +283,7 @@ export function discoverCodexInstructionChain(
 }
 
 /** Runtime fail-closed validation for the zero-touch canonical prompt program. */
-export function validateCodexPromptProgram(repoRoot: string = REPO_ROOT): {
+export function validateCodexPromptProgram(repoRoot: string = REPO_ROOT, executionProfile?: ResolvedProviderProfile): {
   commands: number
   agents: number
   literalTaskTargets: number
@@ -306,11 +311,11 @@ export function validateCodexPromptProgram(repoRoot: string = REPO_ROOT): {
     const relative = path.relative(path.resolve(repoRoot, '.claude', 'commands'), file).split(path.sep).join('/')
     const match = relative.match(/^([a-z0-9][a-z0-9-]*)\/([a-z0-9][a-z0-9-]*)\.md$/)
     if (!match) contractError('CANONICAL_COMMAND_INVALID', `${relative}: canonical command path must be namespace/name.md`)
-    loadCanonicalCommand(`/${match[1]}:${match[2]} __CODEX_RUNTIME_VALIDATION__`, repoRoot)
+    loadCanonicalCommand(`/${match[1]}:${match[2]} __CODEX_RUNTIME_VALIDATION__`, repoRoot, executionProfile)
   }
 
   const agents = discoverCanonicalAgents(repoRoot)
-  for (const agent of agents) codexAgentExecutionProfile(agent)
+  for (const agent of agents) codexAgentExecutionProfile(agent, executionProfile)
 
   const promptFiles = fg.sync(['.claude/commands/**/*.md', '.claude/agents/**/*.md', 'frameworks/**/*.md'], {
     cwd: repoRoot,

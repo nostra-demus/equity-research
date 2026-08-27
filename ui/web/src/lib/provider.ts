@@ -1,6 +1,7 @@
 export type RunProvider = 'claude' | 'codex'
 
 export const RUN_PROVIDER_STORAGE_KEY = 'nsw.runProvider'
+export const RUN_PROFILE_STORAGE_PREFIX = 'nsw.runProfile.'
 
 export function isRunProvider(value: unknown): value is RunProvider {
   return value === 'claude' || value === 'codex'
@@ -19,6 +20,27 @@ export function saveRunProvider(provider: RunProvider, storage: Pick<Storage, 's
   try { storage?.setItem(RUN_PROVIDER_STORAGE_KEY, provider) } catch { /* private mode */ }
 }
 
+export const DEFAULT_RUN_PROFILE_KEYS: Record<RunProvider, string> = {
+  claude: 'claude:opus:default',
+  codex: 'codex|gpt-5.6-sol:max|gpt-5.6-terra:xhigh',
+}
+
+export function readRunProfileKey(
+  provider: RunProvider,
+  storage: Pick<Storage, 'getItem'> | null = typeof localStorage === 'undefined' ? null : localStorage,
+): string {
+  try { return storage?.getItem(`${RUN_PROFILE_STORAGE_PREFIX}${provider}`)?.trim() || DEFAULT_RUN_PROFILE_KEYS[provider] }
+  catch { return DEFAULT_RUN_PROFILE_KEYS[provider] }
+}
+
+export function saveRunProfileKey(
+  provider: RunProvider,
+  profileKey: string,
+  storage: Pick<Storage, 'setItem'> | null = typeof localStorage === 'undefined' ? null : localStorage,
+): void {
+  try { storage?.setItem(`${RUN_PROFILE_STORAGE_PREFIX}${provider}`, profileKey) } catch { /* private mode */ }
+}
+
 export interface ProviderExecutionProfile {
   key: string
   parentModel?: string
@@ -33,6 +55,23 @@ export const CODEX_EXECUTION_PROFILE: Required<ProviderExecutionProfile> = {
   parentReasoning: 'max',
   specialistModel: 'gpt-5.6-terra',
   specialistReasoning: 'xhigh',
+}
+
+export const CODEX_SOL_ONLY_EXECUTION_PROFILE: Required<ProviderExecutionProfile> = {
+  key: 'codex|gpt-5.6-sol:max|gpt-5.6-sol:max',
+  parentModel: 'gpt-5.6-sol',
+  parentReasoning: 'max',
+  specialistModel: 'gpt-5.6-sol',
+  specialistReasoning: 'max',
+}
+
+export interface ProviderProfileOption {
+  key: string
+  label: string
+  description: string
+  model: string
+  reasoningLevel?: string
+  executionProfile: ProviderExecutionProfile
 }
 
 /** Immutable provider/profile selection captured at the user launch boundary. The legacy flag is only
@@ -55,12 +94,14 @@ export interface ProviderStatus {
   reason?: string
   status?: string
   profile?: ProviderExecutionProfile
+  defaultProfileKey?: string
+  profiles?: ProviderProfileOption[]
   usage?: import('./types').Usage
 }
 
 export type ProvidersRead = Record<RunProvider, ProviderStatus> & {
-  /** `fallback` means the provider endpoint was absent or did not prove its contract. In that state
-   * Claude is the only safe legacy choice; Codex must never be sent to a server that may ignore it. */
+  /** `fallback` means the provider endpoint predates the current contract. It may describe the legacy
+   * Claude path for status, but a current client cannot launch until model choice is verifiable. */
   catalogState?: 'unknown' | 'valid' | 'fallback'
 }
 
@@ -80,10 +121,10 @@ export function providerCatalogUnknown(reason = 'Provider selection could not be
   }
 }
 
-export function providerCatalogFallback(reason = 'This server cannot verify provider selection. Claude only.'): ProvidersRead {
+export function providerCatalogFallback(reason = 'This server cannot verify provider/model selection. Engine update required.'): ProvidersRead {
   return {
-    // An old cockpit server is itself the proof that the legacy Claude path exists. Keep that path usable,
-    // but make Codex impossible to select so a server that ignores `provider` cannot mislabel the run.
+    // Preserve honest legacy status for display. providerLaunchBlockedReason still blocks current clients:
+    // an old server cannot prove Opus vs Sonnet and therefore cannot receive a model-selected launch.
     claude: { provider: 'claude', enabled: true, available: true, checked: true },
     codex: { provider: 'codex', enabled: false, available: false, checked: true, reason },
     catalogState: 'fallback',
@@ -102,6 +143,20 @@ export function normalizeProviderStatus(raw: unknown, expected?: RunProvider): P
   if (entry.available !== (entry.enabled && availability === 'available')) return null
   const profile = normalizeProviderExecutionProfile(entry.provider, entry.profile)
   if (!profile) return null
+  const advertisedProfiles = entry.profiles
+  const defaultProfileKey = cleanString(entry.defaultProfileKey)
+  if (!defaultProfileKey) return null
+  // The model picker must be server-authored. During a rolling deploy, an older provider endpoint may
+  // still expose only its current profile; treating that as a selectable catalogue would overwrite the
+  // user's saved model (notably Opus → old Sonnet). Block until the matching server is live instead.
+  const profiles = Array.isArray(advertisedProfiles)
+    ? advertisedProfiles.map((candidate) => normalizeProviderProfileOption(entry.provider as RunProvider, candidate))
+    : []
+  if (!profiles.length || profiles.some((candidate) => candidate === null)) return null
+  const exactProfiles = profiles as ProviderProfileOption[]
+  if (new Set(exactProfiles.map((candidate) => candidate.key)).size !== exactProfiles.length) return null
+  const defaultOption = exactProfiles.find((candidate) => candidate.key === defaultProfileKey)
+  if (!defaultOption || JSON.stringify(defaultOption.executionProfile) !== JSON.stringify(profile)) return null
   return {
     provider: entry.provider,
     enabled: entry.enabled,
@@ -111,8 +166,25 @@ export function normalizeProviderStatus(raw: unknown, expected?: RunProvider): P
     reason: typeof entry.reason === 'string' && entry.reason.trim() ? entry.reason.trim() : undefined,
     status: availability,
     profile,
+    defaultProfileKey,
+    profiles: exactProfiles,
     usage: entry.usage && typeof entry.usage === 'object' ? entry.usage as import('./types').Usage : undefined,
   }
+}
+
+export function normalizeProviderProfileOption(provider: RunProvider, raw: unknown): ProviderProfileOption | null {
+  if (!raw || typeof raw !== 'object' || Array.isArray(raw)) return null
+  const row = raw as Record<string, unknown>
+  const key = cleanString(row.key)
+  const label = cleanString(row.label)
+  const description = cleanString(row.description)
+  const model = cleanString(row.model)
+  const reasoningLevel = cleanString(row.reasoningLevel)
+  const executionProfile = normalizeProviderExecutionProfile(provider, row.executionProfile)
+  if (!key || !label || !description || !model || !executionProfile
+      || key !== executionProfile.key || model !== executionProfile.parentModel
+      || reasoningLevel !== executionProfile.parentReasoning) return null
+  return { key, label, description, model, reasoningLevel, executionProfile }
 }
 
 function cleanString(value: unknown): string | undefined {
@@ -139,10 +211,12 @@ export function normalizeProviderExecutionProfile(provider: RunProvider, raw: un
   const profile = normalizeExecutionProfile(raw)
   if (!profile?.parentModel || !profile.parentReasoning) return null
   if (provider === 'codex') {
-    return JSON.stringify(profile) === JSON.stringify(CODEX_EXECUTION_PROFILE) ? profile : null
+    return [CODEX_EXECUTION_PROFILE, CODEX_SOL_ONLY_EXECUTION_PROFILE]
+      .some((candidate) => JSON.stringify(profile) === JSON.stringify(candidate)) ? profile : null
   }
   if (profile.parentReasoning !== 'default'
       || profile.key !== `claude:${profile.parentModel}:default`
+      || !['opus', 'sonnet'].includes(profile.parentModel)
       || profile.specialistModel !== undefined || profile.specialistReasoning !== undefined) return null
   return profile
 }
@@ -164,7 +238,7 @@ export function normalizeProvidersRead(raw: unknown): ProvidersRead | null {
  * malformed body, or any other failure is current-but-unverified and must block both providers. */
 export function providerCatalogForError(error: unknown): ProvidersRead {
   return (error as { status?: unknown } | null)?.status === 404
-    ? providerCatalogFallback('Provider selection is unavailable on this older server. Claude only.')
+    ? providerCatalogFallback('Provider/model selection is unavailable on this older server. Engine update required.')
     : providerCatalogUnknown('Provider selection could not be verified. Check again.')
 }
 
@@ -188,10 +262,13 @@ export function providerBlockedReason(status: ProviderStatus | undefined): strin
  * proved the complete current catalogue. This closes the startup race for a persisted Codex preference:
  * an old server cannot receive that launch before its missing endpoint resets the choice to Claude. */
 export function providerLaunchBlockedReason(status: ProviderStatus | undefined, catalogState?: ProvidersRead['catalogState']): string | null {
+  if (catalogState === 'fallback') {
+    return 'This server cannot verify model selection yet — wait for the engine update to finish'
+  }
   if (status?.provider === 'codex' && (catalogState !== 'valid' || !status.checked)) {
     return 'Codex availability has not been verified by this server'
   }
-  if (catalogState !== 'fallback' && (!status?.checked || status.checking || status.status === 'unknown')) {
+  if (!status?.checked || status.checking || status.status === 'unknown') {
     return `${providerLabel(status?.provider || 'claude')} availability is unknown — check again`
   }
   if (catalogState === 'valid' && (!status || !normalizeProviderExecutionProfile(status.provider, status.profile))) {
@@ -200,21 +277,37 @@ export function providerLaunchBlockedReason(status: ProviderStatus | undefined, 
   return providerBlockedReason(status)
 }
 
+export function selectedProviderProfile(
+  status: ProviderStatus | undefined,
+  selectedProfileKey?: string,
+): ProviderProfileOption | null {
+  if (!status?.profiles?.length) return null
+  // An explicit choice is a compare-and-swap input, not a hint. Falling back to the default here would
+  // silently run a different model when local storage is stale or a rolling deploy removes a profile.
+  // Reconciliation may deliberately repair saved preferences before launch; freezing never substitutes.
+  if (selectedProfileKey) {
+    return status.profiles.find((profile) => profile.key === selectedProfileKey) || null
+  }
+  return status.profiles.find((profile) => profile.key === status.defaultProfileKey) || null
+}
+
 /** Freeze the exact execution profile selected by the user. Every paid request is derived from this one
  * value, so an await, catalogue refresh, or toggle cannot silently change model/reasoning mid-launch. */
-export function freezeProviderLaunch(status: ProviderStatus | undefined, catalogState?: ProvidersRead['catalogState']): FrozenProviderLaunch | null {
-  if (catalogState === 'fallback' && status?.provider === 'claude' && status.enabled && status.available) {
-    return { provider: 'claude', legacyClaudeFallback: true }
-  }
+export function freezeProviderLaunch(
+  status: ProviderStatus | undefined,
+  catalogState?: ProvidersRead['catalogState'],
+  selectedProfileKey?: string,
+): FrozenProviderLaunch | null {
   if (catalogState !== 'valid' || providerLaunchBlockedReason(status, catalogState)) return null
   if (!status) return null
-  const profile = normalizeProviderExecutionProfile(status.provider, status.profile)
-  if (!profile) return null
+  const option = selectedProviderProfile(status, selectedProfileKey)
+  const profile = normalizeProviderExecutionProfile(status.provider, option?.executionProfile)
+  if (!option || !profile) return null
   return {
     provider: status.provider,
     expectedProfileKey: profile.key,
-    model: profile.parentModel,
-    ...(profile.parentReasoning ? { reasoningLevel: profile.parentReasoning } : {}),
+    model: option.model,
+    ...(option.reasoningLevel ? { reasoningLevel: option.reasoningLevel } : {}),
     executionProfile: profile,
   }
 }
@@ -399,11 +492,18 @@ export function providerUsageUnavailableText(usage: Pick<import('./types').Usage
   return providerUsagePercentText(usage.utilization) === null ? 'Usage unavailable' : null
 }
 
-export function executionProfileLabel(status: ProviderStatus | undefined): string {
-  const p = status?.profile
-  if (!p) return providerLabel(status?.provider || 'claude')
+export function executionProfileText(p: ProviderExecutionProfile | undefined): string {
+  if (!p) return 'Unknown profile'
   if (p.parentModel && p.specialistModel && p.parentModel !== p.specialistModel) {
     return `${p.parentModel}${p.parentReasoning ? ` ${p.parentReasoning}` : ''} · ${p.specialistModel}${p.specialistReasoning ? ` ${p.specialistReasoning}` : ''}`
   }
   return `${p.parentModel || p.key}${p.parentReasoning ? ` ${p.parentReasoning}` : ''}`
+}
+
+export function executionProfileLabel(status: ProviderStatus | undefined, selectedProfileKey?: string): string {
+  const option = selectedProviderProfile(status, selectedProfileKey)
+  if (option) return option.label
+  const p = status?.profile
+  if (!p) return providerLabel(status?.provider || 'claude')
+  return executionProfileText(p)
 }

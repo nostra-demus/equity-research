@@ -3,10 +3,13 @@ import type { CreditPreflight, RunStatus } from '../types'
 
 export type RunProvider = 'claude' | 'codex'
 
-export interface ProviderModelProfile {
-  id: string
+export interface ProviderSelectableProfile {
+  key: string
   label: string
-  reasoningLevels?: string[]
+  description: string
+  model: string
+  reasoningLevel?: string
+  executionProfile: ProviderExecutionProfile
 }
 
 /** Stable, non-secret metadata the cockpit can render before probing a provider. */
@@ -14,9 +17,8 @@ export interface ProviderProfile {
   provider: RunProvider
   label: string
   description: string
-  defaultModel: string
-  models: ProviderModelProfile[]
-  reasoningLevels?: string[]
+  defaultProfileKey: string
+  profiles: ProviderSelectableProfile[]
   supportsUsage: boolean
 }
 
@@ -136,7 +138,7 @@ export type ProviderExitClassification =
 
 export interface ProviderAdapter {
   readonly profile: ProviderProfile
-  resolveProfile(request: { model?: string; reasoningLevel?: string }): ResolvedProviderProfile
+  resolveProfile(request: { model?: string; reasoningLevel?: string; profileKey?: string }): ResolvedProviderProfile
   /** `refresh:false` is a non-blocking status read; launch and explicit checks request a fresh proof. */
   getAvailability(options?: { refresh?: boolean; proofId?: string }): Promise<ProviderAvailability>
   buildLaunch(context: ProviderLaunchContext): Promise<ProviderLaunchSpec>

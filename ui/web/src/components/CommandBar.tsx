@@ -13,6 +13,7 @@ import { RunHistory } from './RunHistory'
 import { executionProfileLabel, providerBlockedReason, providerIsBlocked, providerLabel, providerNeedsCheck, providerUsagePercentText, type RunProvider } from '../lib/provider'
 import { CODEX_PARITY_CANARY_SELECTION, providerParityCanaryPrefill, providerParityCanaryResponseMatches, providerParityCanaryRunRootIsValid, providerParityCanarySubject } from '../lib/parityCanary'
 import { Spin } from './Spin'
+import { ProviderProfileSelector } from './ProviderProfileSelector'
 
 function BrandMark() {
   return (
@@ -492,6 +493,8 @@ function ProviderSelector() {
   const selected = useStore((s) => s.runProvider)
   const setSelected = useStore((s) => s.setRunProvider)
   const providers = useStore((s) => s.providers)
+  const profileKey = useStore((s) => s.runProfileKeys[selected])
+  const setProfile = useStore((s) => s.setRunProfile)
   const checking = useStore((s) => s.providersChecking)
   const check = useStore((s) => s.refreshProviders)
   const staticMode = useStore((s) => s.staticMode)
@@ -656,8 +659,11 @@ function ProviderSelector() {
                 </button>
               })}
             </div>
+            <div style={{ margin: '9px 2px 5px' }}>
+              <ProviderProfileSelector status={current} profileKey={profileKey} onChange={(key) => setProfile(selected, key)} />
+            </div>
             <div style={{ margin: '8px 2px', fontSize: 11, color: current.available ? 'var(--text-muted)' : 'var(--bad)' }}>
-              {current.available ? executionProfileLabel(current) : currentProblem || (providerNeedsCheck(current) ? current.reason || 'Status unknown — choose the provider to check again' : 'Unavailable')}
+              {current.available ? executionProfileLabel(current, profileKey) : currentProblem || (providerNeedsCheck(current) ? current.reason || 'Status unknown — choose the provider to check again' : 'Unavailable')}
             </div>
             {windows.length ? (
               windows.map(([type, w]) => {
@@ -677,7 +683,7 @@ function ProviderSelector() {
               <div style={{ padding: '8px 2px', fontSize: 12, color: 'var(--text-faint)' }}>{checking ? 'checking…' : 'Usage unavailable'}</div>
             )}
             <div style={{ marginTop: 8, fontSize: 10.5, color: 'var(--text-faint)', lineHeight: 1.5 }}>
-              The choice is remembered for new work. A run already in progress keeps its original provider.
+              Provider and model are remembered for new work. A run already in progress keeps its frozen execution profile.
               {credit?.isUsingOverage && <div style={{ color: 'var(--accent-bright)', marginTop: 3 }}>Currently using paid overage.</div>}
             </div>
             {canLaunchCanary && (

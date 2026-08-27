@@ -1118,7 +1118,7 @@ export interface NewsStatus {
   }
   // every free OVERFLOW pool (Gemini + each OpenAI-compatible provider) — one entry per provider; the
   // cockpit renders a chip per entry, so a newly-wired key appears automatically. color = a CSS var name.
-  // tokenCap is present only for TOKEN-gated providers (Cerebras) — the chip then reads tokens (its
+  // tokenCap is present only for TOKEN-gated providers — the chip then reads tokens (its
   // binding limit) instead of requests, so the number shown is ground truth.
   overflow?: {
     id: string; label: string; color: string; model: string; requests: number; reqCap: number; tokens: number; tokenCap?: number
@@ -1142,7 +1142,7 @@ export type TierHealth = 'healthy' | 'paced' | 'cooling' | 'budget-spent' | 'una
 export interface TierDiagnostics {
   id: string
   label: string
-  color: string // a CSS var NAME (e.g. '--accent', '--provider-cb'); the chip reads it, never a literal
+  color: string // a CSS var NAME (e.g. '--accent', '--provider-or'); the chip reads it, never a literal
   role: 'primary' | 'overflow' | 'gemini' | 'last-resort'
   order: number // routing order in the fallback chain (0 = tried first)
   enabled: boolean
@@ -2276,6 +2276,29 @@ export interface PortfolioOverrides {
   cashEquivalents: string[]
 }
 
+/** A named idea the book expresses. The id is the anchor assignments point at; the label is only what
+ *  is shown, so renaming never orphans a trade. */
+export interface PortfolioIdea {
+  id: string
+  label: string
+}
+
+/** Which idea each holding and each closed round trip was expressing. DECLARED, never inferred: a
+ *  ticker is not an idea, so positions are keyed by symbol (one open position at a time) and closed
+ *  trades by the broker's own closeTradeIDs (which cannot span two eras of the same ticker). */
+/** What POST /api/portfolio/idea returns: the whole read, plus the idea it created OR already had.
+ *  The id is handed back explicitly because the server is idempotent on the slug — asking for 'sugar'
+ *  when 'Sugar' exists returns 'Sugar', and a label match would miss it. */
+export interface PortfolioIdeaCreated extends PortfolioRead { idea: PortfolioIdea }
+
+export interface PortfolioIdeaBook {
+  ideas: PortfolioIdea[]
+  assignments: {
+    positions: Record<string, string>
+    closures: Record<string, string>
+  }
+}
+
 /** One holding re-priced at the market. */
 export interface PortfolioLiveRow {
   symbol: string
@@ -2334,6 +2357,9 @@ export interface PortfolioRead {
   /** Hand-logged fills. A SEPARATE layer from the book: nothing here reaches the reconciled figures. */
   manual: PortfolioManualRead
   overrides: PortfolioOverrides
+  /** Absent on an engine that predates idea grouping — the client must positively match it rather than
+   *  defaulting one in, or a deploy skew window renders an empty grouping as real (DESIGN.md §5). */
+  ideas?: PortfolioIdeaBook
   book: PortfolioBook | null
   performance: PortfolioPerformance | null
   error: string | null

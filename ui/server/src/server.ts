@@ -47,8 +47,9 @@ import { memberMatchesGeo, type ThemeGeo } from './news/themes/geo-index'
 import { memberMatchesCommodity } from './news/themes/commodity-index'
 import { createThemesIndexReader } from './news/themes/api-index'
 import {
-  clearSupersededManual, declareCashEquivalent, deleteStatement, logManualTrade, readPortfolio,
-  removeManualTrade, saveStatement, STATEMENT_MAX_BYTES,
+  assignHoldingIdea, assignTradeIdea, clearSupersededManual, declareCashEquivalent, declareIdea,
+  deleteStatement, logManualTrade, readPortfolio, removeDeclaredIdea, removeManualTrade,
+  renameDeclaredIdea, saveStatement, STATEMENT_MAX_BYTES,
 } from './portfolio-store'
 import { liveMark } from './portfolio-live'
 import { buildThemeBrief } from './news/themes/brief'
@@ -691,6 +692,8 @@ async function providerStatus(provider: RunProvider, checkUsage = false) {
     checked: true,
     reason: availability.reason,
     profile: resolved.executionProfile,
+    defaultProfileKey: adapter.profile.defaultProfileKey,
+    profiles: adapter.profile.profiles,
     usage,
     cliVersion: availability.cliVersion,
   }
@@ -769,11 +772,10 @@ const ProviderLaunchFields = {
   reasoningLevel: z.string().regex(/^[a-z0-9_-]{1,24}$/i).optional(),
   expectedProfileKey: z.string().min(1).max(240).optional(),
 }
-const ProviderQuery = z.object({
-  provider: z.enum(['claude', 'codex']).default('claude'),
-  model: z.string().regex(/^[a-z0-9.\-]{1,40}$/i).optional(),
-  reasoningLevel: z.string().regex(/^[a-z0-9_-]{1,24}$/i).optional(),
-})
+// Query and POST launch boundaries must parse the exact same provider/profile identity. Keeping one
+// field set prevents a newly added immutable field from being accepted by paid POSTs but silently
+// stripped from estimates (which would make a non-default model impossible to price or confirm).
+const ProviderQuery = z.object(ProviderLaunchFields)
 const ProviderBody = z.object(ProviderLaunchFields)
 const ExactPlanBindingFields = {
   planPath: z.string().min(1).max(700).optional(),
@@ -866,7 +868,7 @@ function boundLaunchEstimate(
     if (runRoot || decisionFingerprint || planPath || planSha256 || sourceDecisionFingerprint) {
       return reply.code(400).send({ error: 'exact call binding is rerun-only' })
     }
-    return estimate(kind, subject, selection.provider, module, agent, swarm, selection.model, selection.reasoningLevel)
+    return estimate(kind, subject, selection.provider, module, agent, swarm, selection.model, selection.reasoningLevel, selection.expectedProfileKey)
   }
   const binding = exactDecisionLaunchBinding(swarm || RESEARCH_SWARM_ID, subject, runRoot, decisionFingerprint)
   if (!binding) return reply.code(409).send({ error: 'selected_decision_required' })
@@ -878,7 +880,7 @@ function boundLaunchEstimate(
     : undefined
   if (requestedPlan && !intakePlan) return reply.code(409).send({ error: 'intake_plan_changed' })
   return {
-    ...estimate(kind, subject, selection.provider, module, agent, swarm, selection.model, selection.reasoningLevel),
+    ...estimate(kind, subject, selection.provider, module, agent, swarm, selection.model, selection.reasoningLevel, selection.expectedProfileKey),
     exactDecisionBinding: exactDecisionLaunchReceipt(binding, intakePlan ?? undefined),
   }
 }
@@ -3772,6 +3774,71 @@ app.post('/api/portfolio/cash-equivalent', { config: { rateLimit: { max: 60, tim
   }
 })
 
+// ---------- ideas (portfolio-ideas.ts) ----------
+// WHICH IDEA a trade was expressing. Nothing here infers: CANE and SUGAl are one sugar bet and NHYDY is
+// an aluminium bet, and no field in the statement says so. Assignments are keyed to the open position
+// or to the broker's own closeTradeIDs, never to the bare symbol, so labelling this year's AMZN cannot
+// relabel next year's. Same 60/min lane as the cash-equivalent declaration above.
+app.post('/api/portfolio/idea', { config: { rateLimit: { max: 60, timeWindow: '1 minute' } } }, async (req, reply) => {
+  if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request rejected' })
+  const body = (req.body ?? {}) as { label?: unknown }
+  try {
+    return declareIdea(String(body.label ?? ''))
+  } catch (e: any) {
+    return reply.code(400).send({ error: String(e?.message || 'that idea could not be saved') })
+  }
+})
+
+app.post('/api/portfolio/idea/rename', { config: { rateLimit: { max: 60, timeWindow: '1 minute' } } }, async (req, reply) => {
+  if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request rejected' })
+  const body = (req.body ?? {}) as { id?: unknown; label?: unknown }
+  try {
+    return renameDeclaredIdea(String(body.id ?? ''), String(body.label ?? ''))
+  } catch (e: any) {
+    return reply.code(400).send({ error: String(e?.message || 'that idea could not be renamed') })
+  }
+})
+
+app.post('/api/portfolio/idea/delete', { config: { rateLimit: { max: 60, timeWindow: '1 minute' } } }, async (req, reply) => {
+  if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request rejected' })
+  const body = (req.body ?? {}) as { id?: unknown }
+  try {
+    return removeDeclaredIdea(String(body.id ?? ''))
+  } catch (e: any) {
+    return reply.code(400).send({ error: String(e?.message || 'that idea could not be removed') })
+  }
+})
+
+// Label a HOLDING. `ideaId: null` clears it.
+app.post('/api/portfolio/idea/holding', { config: { rateLimit: { max: 60, timeWindow: '1 minute' } } }, async (req, reply) => {
+  if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request rejected' })
+  const body = (req.body ?? {}) as { symbol?: unknown; ideaId?: unknown }
+  try {
+    // ABSENT is not NULL. Clearing is a deliberate act, so it takes a deliberate `null`; a malformed or
+    // version-skewed request that simply omits the field would otherwise silently unassign the holding.
+    if (!('ideaId' in body)) throw new Error('ideaId is required — send null to clear the assignment')
+    const id = body.ideaId === null ? null : String(body.ideaId)
+    return assignHoldingIdea(String(body.symbol ?? ''), id)
+  } catch (e: any) {
+    return reply.code(400).send({ error: String(e?.message || 'that holding could not be assigned') })
+  }
+})
+
+// Label a CLOSED ROUND TRIP by the broker trade ids behind it. A split sale carries several, and every
+// one is written, so the row still reads as assigned however a later import re-folds it.
+app.post('/api/portfolio/idea/trade', { config: { rateLimit: { max: 60, timeWindow: '1 minute' } } }, async (req, reply) => {
+  if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request rejected' })
+  const body = (req.body ?? {}) as { closeTradeIDs?: unknown; ideaId?: unknown }
+  const ids = Array.isArray(body.closeTradeIDs) ? body.closeTradeIDs.map((v) => String(v ?? '')) : []
+  try {
+    if (!('ideaId' in body)) throw new Error('ideaId is required — send null to clear the assignment')
+    const id = body.ideaId === null ? null : String(body.ideaId)
+    return assignTradeIdea(ids, id)
+  } catch (e: any) {
+    return reply.code(400).send({ error: String(e?.message || 'that trade could not be assigned') })
+  }
+})
+
 // ---------- watchlist (watchlist.ts) ----------
 // Sits beside /api/quote because it shares the quote lane: one batched getQuotes call prices the whole
 // list. Membership + the archive rule live in watchlist.ts; these routes only validate, call, and shape.
@@ -3907,11 +3974,15 @@ async function standingCalls(): Promise<StandingCall[]> {
 // to close. A failure is reported back to the caller as `publish_error` rather than swallowed — the row
 // still saved locally (so nothing already typed is lost), but the client can now say so.
 const WATCHLIST_PUBLISH_TIMEOUT_MS = 20 * 60_000
-async function publishWatchlist(relPaths: string[], msg: string): Promise<{ ok: boolean; error?: string }> {
+// The Tasks client waits 90 seconds. Bound the only potentially long pre-write read to 20 seconds and
+// publication to 60, leaving 10 seconds for the small synchronous validation/write steps in between.
+const TASK_UPDATE_PUBLISH_TIMEOUT_MS = 60_000
+const TASK_ENGINE_WATCH_TIMEOUT_MS = 20_000
+async function publishWatchlist(relPaths: string[], msg: string, timeoutMs = WATCHLIST_PUBLISH_TIMEOUT_MS): Promise<{ ok: boolean; error?: string }> {
   const script = path.join(REPO_ROOT, 'scripts', 'commit-run.sh')
   if (!fs.existsSync(script)) return { ok: false, error: 'commit-run.sh not found (not a full checkout)' }
   try {
-    await execa('bash', [script, msg, '--', ...relPaths], { cwd: REPO_ROOT, timeout: WATCHLIST_PUBLISH_TIMEOUT_MS })
+    await execa('bash', [script, msg, '--', ...relPaths], { cwd: REPO_ROOT, timeout: timeoutMs })
     return { ok: true }
   } catch (e: any) {
     return { ok: false, error: String(e?.stderr || e?.message || e).slice(0, 400) }
@@ -3920,10 +3991,17 @@ async function publishWatchlist(relPaths: string[], msg: string): Promise<{ ok: 
 const watchlistEntryPath = (entryId: string) => `watchlist/entries/${entryId}.json`
 const PLANNING_MUTATION_LOCK = 'planning-mutation:tasks-watchlist'
 
+class TaskEngineWatchTimeoutError extends Error {
+  constructor() { super('task engine Watchlist lookup timed out'); this.name = 'TaskEngineWatchTimeoutError' }
+}
+
 async function withPlanningMutation(reply: FastifyReply, fn: () => Promise<unknown>): Promise<unknown> {
   try {
     return await withSubjectLock(PLANNING_MUTATION_LOCK, fn)
   } catch (error) {
+    if (error instanceof TaskEngineWatchTimeoutError) {
+      return reply.code(503).send({ error: 'The Watchlist lookup took too long. Nothing was saved; try again.' })
+    }
     if (error instanceof SubjectBusyError) {
       return reply.code(409).send({ error: 'Tasks and Watchlist are being updated. Try again in a moment.' })
     }
@@ -4554,8 +4632,24 @@ app.get('/api/tasks', { config: { rateLimit: { max: 600, timeWindow: '1 minute' 
 
 async function taskEngineWatch(task: TaskCard) {
   if (task.stage !== 'final_decision' || task.decision !== 'watch' || !task.ticker) return []
-  return readEngineWatch(await standingCalls(), readSizingDecoration())
-    .filter((row) => row.listing.ticker === task.ticker)
+  let timer: ReturnType<typeof setTimeout> | null = null
+  let timedOut = false
+  try {
+    const work = standingCalls().then((calls) => timedOut ? [] : readEngineWatch(calls, readSizingDecoration())
+      .filter((row) => row.listing.ticker === task.ticker))
+    // Promise.race installs its own rejection handler, but keep an explicit boundary too: when the
+    // timeout wins, a much later failed directory walk must never become process-level noise.
+    void work.catch(() => undefined)
+    return await Promise.race([
+      work,
+      new Promise<never>((_, reject) => {
+        timer = setTimeout(() => { timedOut = true; reject(new TaskEngineWatchTimeoutError()) }, TASK_ENGINE_WATCH_TIMEOUT_MS)
+        timer.unref?.()
+      }),
+    ])
+  } finally {
+    if (timer) clearTimeout(timer)
+  }
 }
 
 function conflictingWatchTask(ticker: string | null, exceptTaskId: string | null = null): TaskCard | null {
@@ -4658,7 +4752,9 @@ app.patch('/api/tasks/:id', { config: { rateLimit: { max: 240, timeWindow: '1 mi
     if (watchSync.problem) return reply.code(409).send({ error: watchSync.problem })
     writeTask(task)
     const paths = [taskPath(task.task_id), ...watchSync.changedEntries.map((entry) => watchlistEntryPath(entry.entry_id))]
-    const pub = await publishWatchlist(paths, `Tasks: update ${task.ticker || task.subject}`)
+    // Card movement must not hold every later planning mutation behind a long git retry. The task is
+    // already saved locally above; a publication timeout is returned explicitly as publish_error.
+    const pub = await publishWatchlist(paths, `Tasks: update ${task.ticker || task.subject}`, TASK_UPDATE_PUBLISH_TIMEOUT_MS)
     return { ok: true, task, publish_error: pub.ok ? undefined : pub.error }
   })
 })

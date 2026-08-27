@@ -7,7 +7,7 @@ import { isDeepStrictEqual } from 'node:util'
 import { execa, type ResultPromise } from 'execa'
 import { logLaunch } from './activity-log'
 import { admitRun, admissionMessage } from './admission'
-import { DATA_DIR, ESTIMATES, FULL_PER_MODULE, HOST, LAUNCH_GUARDS, MAX_CONCURRENT_RUNS, PORT, REPO_ROOT, RUN_STALL_MINUTES, STATE_DIR } from './config'
+import { DATA_DIR, ESTIMATES, FULL_PER_MODULE, HOST, LAUNCH_GUARDS, MAX_CONCURRENT_RUNS, PORT, PUBLICATION_SOCKET_ROOT, REPO_ROOT, RUN_STALL_MINUTES, STATE_DIR } from './config'
 import { getCreditStatus, setCreditStatus } from './credit'
 import { writeAgentMetrics } from './agent-metrics'
 import { startRunWatcher, sweepRunOutputs } from './fs-watcher'
@@ -1809,8 +1809,9 @@ export function estimate(
   swarm?: string,
   model?: string,
   reasoningLevel?: string,
+  profileKey?: string,
 ): LaunchPreflight {
-  const profile = getProviderAdapter(provider).resolveProfile({ model, reasoningLevel })
+  const profile = getProviderAdapter(provider).resolveProfile({ model, reasoningLevel, profileKey })
   const swarmId = swarmIdFor(kind, swarm)
   const g = buildSwarmGraph(swarmId)
   let agentCount = 1
@@ -2647,7 +2648,7 @@ export function chainedResumePreflight(
   const full = estimate(
     'full', ticker, selection.provider, undefined, undefined,
     swarmId === RESEARCH_SWARM_ID ? undefined : swarmId,
-    selection.model, selection.reasoningLevel,
+    selection.model, selection.reasoningLevel, selection.expectedProfileKey,
   )
   return {
     ...full,
@@ -2773,7 +2774,7 @@ export async function launchFullChained(
   const resumed = skippedModules.length > 0
   const preflight: LaunchPreflight = resumed
     ? chainedResumePreflight(ticker, plannedModules, selection)
-    : estimate('full', ticker, selection.provider, undefined, undefined, undefined, selection.model, selection.reasoningLevel)
+    : estimate('full', ticker, selection.provider, undefined, undefined, undefined, selection.model, selection.reasoningLevel, selection.expectedProfileKey)
   let stopped = false
   let stoppedOutcome: RunStatus | null = null
   let stoppedMessage = ''
@@ -3080,6 +3081,7 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
   const profile = getProviderAdapter(params.provider).resolveProfile({
     model: params.model,
     reasoningLevel: params.reasoningLevel,
+    profileKey: params.expectedProfileKey,
   })
   if (params.expectedProfileKey && params.expectedProfileKey !== profile.profileKey) {
     const error: any = new Error('The selected provider profile changed after preflight. Refresh and confirm the run again.')
@@ -3772,7 +3774,7 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
   void continueLaunch(run)
   return {
     runId: run.runId,
-    preflight: estimate(kind, ticker, profile.provider, module, agent, swarmId, profile.model, profile.reasoningLevel),
+    preflight: estimate(kind, ticker, profile.provider, module, agent, swarmId, profile.model, profile.reasoningLevel, profile.profileKey),
   }
   } finally {
     releaseTargetPoolClaim()
@@ -4151,32 +4153,48 @@ export interface SupervisorPublicationSocket {
  */
 export async function startSupervisorPublicationSocket(run: RunState): Promise<SupervisorPublicationSocket> {
   if (!run.publicationToken) throw new Error('run has no supervisor publication capability')
-  const socketRoot = path.join(STATE_DIR, 's')
+  if (typeof process.getuid !== 'function') {
+    throw new Error('publication capabilities require Unix owner identity checks')
+  }
+  const ownerUid = process.getuid()
+  const identity = (target: string, kind: 'directory' | 'socket'): string => {
+    const info = fs.lstatSync(target, { bigint: true })
+    if ((kind === 'directory' && !info.isDirectory()) || (kind === 'socket' && !info.isSocket())
+        || info.isSymbolicLink() || Number(info.uid) !== ownerUid
+        || Number(info.mode & 0o077n) !== 0 || fs.realpathSync(target) !== target) {
+      throw new Error(`publication ${kind} identity is unsafe`)
+    }
+    return [info.dev, info.ino, info.mode, info.size, info.mtimeNs, info.ctimeNs].join(':')
+  }
+  const rootIdentity = (target: string): string => {
+    const info = fs.lstatSync(target, { bigint: true })
+    if (!info.isDirectory() || info.isSymbolicLink()
+        || Number(info.uid) !== ownerUid
+        || Number(info.mode & 0o077n) !== 0 || fs.realpathSync(target) !== target) {
+      throw new Error('publication socket root identity is unsafe')
+    }
+    // Concurrent runs legitimately add/remove their own private child directory. Pin the root inode and
+    // mode, not its mutable directory timestamps/size, so one admitted run cannot poison another.
+    return [info.dev, info.ino, info.mode, info.uid].join(':')
+  }
+  const socketRoot = PUBLICATION_SOCKET_ROOT
   fs.mkdirSync(socketRoot, { recursive: true, mode: 0o700 })
   fs.chmodSync(socketRoot, 0o700)
+  const socketRootIdentity = rootIdentity(socketRoot)
   const directory = fs.mkdtempSync(path.join(socketRoot, 'r-'))
   fs.chmodSync(directory, 0o700)
   const socketPath = path.join(directory, 'p.sock')
   // Darwin sockaddr_un.sun_path is 104 bytes including the NUL. Fail before listen rather than silently
-  // truncating a configured STATE_DIR into a different capability path.
+  // truncating the owner-only capability path into a different socket.
   if (Buffer.byteLength(socketPath) > 103) {
     fs.rmdirSync(directory)
-    throw new Error('ENGINE_STATE_DIR is too long for a safe per-run publication Unix socket')
+    throw new Error('the owner-only publication socket path is too long for a safe Unix socket')
   }
   let closed = false
   let dirty: string | null = null
   let directoryIdentity = ''
   let socketIdentity = ''
   let watcher: fs.FSWatcher | null = null
-  const identity = (target: string, kind: 'directory' | 'socket'): string => {
-    const info = fs.lstatSync(target, { bigint: true })
-    if ((kind === 'directory' && !info.isDirectory()) || (kind === 'socket' && !info.isSocket())
-        || info.isSymbolicLink() || Number(info.uid) !== (process.getuid?.() ?? Number(info.uid))
-        || Number(info.mode & 0o077n) !== 0 || fs.realpathSync(target) !== target) {
-      throw new Error(`publication ${kind} identity is unsafe`)
-    }
-    return [info.dev, info.ino, info.mode, info.size, info.mtimeNs, info.ctimeNs].join(':')
-  }
   const invalidate = (reason: string): never => {
     dirty = dirty || reason
     run.publicationError = `publication transport integrity failed: ${dirty}`
@@ -4189,6 +4207,7 @@ export async function startSupervisorPublicationSocket(run: RunState): Promise<S
     if (closed) invalidate('socket already closed')
     if (dirty) invalidate(dirty)
     try {
+      if (rootIdentity(socketRoot) !== socketRootIdentity) invalidate('socket root changed')
       if (identity(directory, 'directory') !== directoryIdentity) invalidate('socket directory changed')
       if (identity(socketPath, 'socket') !== socketIdentity) invalidate('socket inode changed')
     } catch (error: any) {
@@ -4301,7 +4320,8 @@ export async function startSupervisorPublicationSocket(run: RunState): Promise<S
       // tampering. A real unlink/rebind/chmod necessarily changes the socket or parent ctime/inode and is
       // still poisoned synchronously here as well as at every request/finalization boundary.
       try {
-        if (identity(directory, 'directory') === directoryIdentity
+        if (rootIdentity(socketRoot) === socketRootIdentity
+            && identity(directory, 'directory') === directoryIdentity
             && identity(socketPath, 'socket') === socketIdentity) return
       } catch { /* unsafe/missing identity is handled below */ }
       dirty = `${event}:${filename?.toString() || path.basename(socketPath)}`

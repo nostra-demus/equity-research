@@ -1,0 +1,129 @@
+{
+  "agents": [
+    {
+      "agent": "competitive-intel-synthesis",
+      "model": "claude-sonnet-5",
+      "calls": 3,
+      "usage": {
+        "input_tokens": 6,
+        "output_tokens": 8847,
+        "cache_read_input_tokens": 112561,
+        "cache_creation_input_tokens": 59327,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 59327,
+          "ephemeral_1h_input_tokens": 0
+        }
+      },
+      "cost": 0.38896755,
+      "runtime_ms": 85242,
+      "module": "competitive-intel"
+    },
+    {
+      "agent": "peer-readthrough-to-subject",
+      "model": "claude-sonnet-5",
+      "calls": 3,
+      "usage": {
+        "input_tokens": 6,
+        "output_tokens": 4783,
+        "cache_read_input_tokens": 97032,
+        "cache_creation_input_tokens": 56500,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 56500,
+          "ephemeral_1h_input_tokens": 0
+        }
+      },
+      "cost": 0.31274759999999996,
+      "runtime_ms": 49009,
+      "module": "competitive-intel"
+    },
+    {
+      "agent": "peer-claim-extraction",
+      "model": "claude-sonnet-5",
+      "calls": 3,
+      "usage": {
+        "input_tokens": 6,
+        "output_tokens": 1836,
+        "cache_read_input_tokens": 92208,
+        "cache_creation_input_tokens": 35155,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 35155,
+          "ephemeral_1h_input_tokens": 0
+        }
+      },
+      "cost": 0.18705164999999999,
+      "runtime_ms": 20523,
+      "module": "competitive-intel"
+    },
+    {
+      "agent": "peer-narrative-triangulation",
+      "model": "claude-sonnet-5",
+      "calls": 26,
+      "usage": {
+        "input_tokens": 52,
+        "output_tokens": 11272,
+        "cache_read_input_tokens": 1703744,
+        "cache_creation_input_tokens": 76428,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 76428,
+          "ephemeral_1h_input_tokens": 0
+        }
+      },
+      "cost": 0.9669642,
+      "runtime_ms": 147399,
+      "module": "competitive-intel"
+    },
+    {
+      "agent": "peer-dimension-matrix",
+      "model": "claude-sonnet-5",
+      "calls": 3,
+      "usage": {
+        "input_tokens": 6,
+        "output_tokens": 2674,
+        "cache_read_input_tokens": 93916,
+        "cache_creation_input_tokens": 37527,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 37527,
+          "ephemeral_1h_input_tokens": 0
+        }
+      },
+      "cost": 0.20902905,
+      "runtime_ms": 28876,
+      "module": "competitive-intel"
+    },
+    {
+      "agent": "competitive-intel-triage",
+      "model": "claude-sonnet-5",
+      "calls": 10,
+      "usage": {
+        "input_tokens": 20,
+        "output_tokens": 6546,
+        "cache_read_input_tokens": 560902,
+        "cache_creation_input_tokens": 79846,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 79846,
+          "ephemeral_1h_input_tokens": 0
+        }
+      },
+      "cost": 0.5659430999999999,
+      "runtime_ms": 76653,
+      "module": "competitive-intel"
+    }
+  ],
+  "orchestrator": {
+    "agent": "(orchestrator)",
+    "model": "claude-sonnet-5",
+    "calls": 40,
+    "usage": {
+      "input_tokens": 80,
+      "output_tokens": 22382,
+      "cache_read_input_tokens": 3929773,
+      "cache_creation_input_tokens": 123243,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 123243
+      }
+    },
+    "cost": 2.2543599000000003,
+    "runtime_ms": 0
+  }
+}
