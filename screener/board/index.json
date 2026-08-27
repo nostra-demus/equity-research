@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-27T05:24:04Z",
+  "generated_at": "2026-08-27T05:25:01Z",
   "inbox": [
     {
       "inbox_id": "INB-20260827-134",
@@ -81482,6 +81482,77 @@
   "handoffs": [],
   "ideas": [
     {
+      "idea_id": "IDEA-301c9958417a",
+      "idea_version": "IDEAV-4cd410735af0a497",
+      "idea_version_started_at": "2026-08-27T05:24:46Z",
+      "ticker": "META",
+      "company": "Meta Platforms",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company faces a massive $16-18 billion settlement regarding teen safety and addiction lawsuits, which will materially impact its cash reserves and potentially limit user engagement through new usage restrictions.",
+      "why_now": "The settlement was announced on 2026-08-27.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 6,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-a5331170a808",
+        "EVT-cc33836b4cd3"
+      ],
+      "primary_source_event_id": "EVT-a5331170a808",
+      "source_headlines": [
+        "Meta Agrees To $16 Billion Settlement Over Teen Safety Lawsuit; Will Introduce 2-Hour Daily Usage Limit For Kids Under 18",
+        "Meta agrees to pay $18 billion to settle US lawsuits over social media addiction"
+      ],
+      "source_headline": "Meta Agrees To $16 Billion Settlement Over Teen Safety Lawsuit; Will Introduce 2-Hour Daily Usage Limit For Kids Under 18",
+      "source_url": "https://www.freepressjournal.in/tech/meta-agrees-to-16-billion-settlement-over-teen-safety-lawsuit-will-introduce-2-hour-daily-usage-limit-for-kids-under-18",
+      "source_name": "Free Press Journal",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-27T04:05:03Z",
+      "prior_coverage": {
+        "has_run": true,
+        "latest_run": "analyses/META_2026-08-27",
+        "latest_decision": null,
+        "data_pool_present": true
+      },
+      "surfaced_at": "2026-08-26T21:03:32Z",
+      "updated_at": "2026-08-27T05:24:46Z",
+      "decay_at": "2026-08-28T16:05:03Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-baf9e41cf166",
       "idea_version": "IDEAV-e630aa4f46b33c69",
       "idea_version_started_at": "2026-08-27T03:27:43Z",
@@ -82041,77 +82112,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-301c9958417a",
-      "idea_version": "IDEAV-73c1e71a203e25e3",
-      "idea_version_started_at": "2026-08-26T21:03:32Z",
-      "ticker": "META",
-      "company": "Meta Platforms",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "An $18 billion settlement for litigation regarding children's social media addiction represents a significant, immediate cash outflow and potential long-term regulatory overhang.",
-      "why_now": "The settlement was announced on 2026-08-26, creating a massive one-time hit to the balance sheet.",
-      "conviction": 80,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 55,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 23,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-898e78c589a5"
-      ],
-      "primary_source_event_id": "EVT-898e78c589a5",
-      "source_headlines": [
-        "Meta agrees to pay $18 billion to settle US lawsuits over children's social media addiction"
-      ],
-      "source_headline": "Meta agrees to pay $18 billion to settle US lawsuits over children's social media addiction",
-      "source_url": "https://www.reuters.com/business/meta-reaches-18-billion-settlements-over-childrens-social-media-addiction-2026-08-26/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-26T20:09:43Z",
-      "prior_coverage": {
-        "has_run": true,
-        "latest_run": "analyses/META_2026-08-27",
-        "latest_decision": null,
-        "data_pool_present": true
-      },
-      "surfaced_at": "2026-08-26T21:03:32Z",
-      "updated_at": "2026-08-26T21:03:32Z",
-      "decay_at": "2026-08-28T08:09:43Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-fa9512f6988e",
       "idea_version": "IDEAV-8e32e03160a422e5",
       "idea_version_started_at": "2026-08-26T20:21:39Z",
@@ -82178,6 +82178,78 @@
       "surfaced_at": "2026-08-26T20:21:39Z",
       "updated_at": "2026-08-26T20:21:39Z",
       "decay_at": "2026-08-28T01:27:05Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-8839eeba27cf",
+      "idea_version": "IDEAV-d8864c0931efb631",
+      "idea_version_started_at": "2026-08-27T05:24:46Z",
+      "ticker": "TATAPOWER",
+      "company": "Tata Power",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company lost a $490 million arbitration challenge in Singapore, which will negatively impact its cash position and balance sheet.",
+      "why_now": "The arbitration loss was reported on 2026-08-27.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-80ad508cc6cd"
+      ],
+      "primary_source_event_id": "EVT-80ad508cc6cd",
+      "source_headlines": [
+        "Tata Power loses $490 million arbitration challenge in Singapore"
+      ],
+      "source_headline": "Tata Power loses $490 million arbitration challenge in Singapore",
+      "source_url": "https://www.thehindubusinessline.com/companies/tata-power-loses-490-million-arbitration-challenge-in-singapore/article71394855.ece",
+      "source_name": "The Hindu BusinessLine",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-27T03:23:17Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-27T05:24:46Z",
+      "updated_at": "2026-08-27T05:24:46Z",
+      "decay_at": "2026-08-28T15:23:17Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -97329,8 +97401,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 180,
-    "live_count": 34,
+    "surfaced_total": 181,
+    "live_count": 35,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
