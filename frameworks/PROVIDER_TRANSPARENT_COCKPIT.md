@@ -40,6 +40,11 @@ Model choice is part of the same provider-transparent contract, not a second lau
   continue with the original profile or any other currently verified reviewed profile; completed work is
   retained, only unfinished work runs, and the resulting lineage is labelled exact, mixed-profile, or
   mixed-provider. A global provider preference or a native yes/no browser prompt may never force the choice.
+- A saved partial does not expire at midnight. For each subject, the newest unfinished run remains available
+  as **Complete old run** until a newer completed run supersedes it. The ordinary cockpit presents that next
+  to **Run full**, so the user always chooses between explicitly completing saved work and requesting the
+  ordinary full pipeline. The completion path rechecks data freshness and reruns stale gaps rather than
+  blindly copying old work.
 - A profile name is a runtime promise. Every unpinned nested agent must use the selected specialist tier;
   canonical role pins may only make the tier stricter. Unsupported, stale, mismatched, or unavailable profiles
   fail before admission. There is no silent substitution.
@@ -86,6 +91,10 @@ Provider-specific presentation is limited to facts that truly differ:
 
 Provider-specific launch buttons, confirmations, navigation, Activity behavior, cancellation, resume,
 completion criteria, artifact requirements, or recovery semantics are defects.
+
+Release canaries, freeze receipts, and other operator-only calibration controls are not research-user
+actions. They must not appear in the normal provider/model menu. If retained for engineering, they require
+an authenticated operator-only entry point and must never compete with **Complete old run** or **Run full**.
 
 ## Enforcement
 

@@ -74,7 +74,11 @@ function hasReport(r: ActivityRow): boolean {
 // The plain-English "N/total done" hint for a resume — modules for a full/signal, checks for a module.
 function resumeHint(info: ResumableRunInfo): string {
   const noun = info.unit === 'agent' ? 'check' : 'module'
-  return `Resume with the currently selected provider — ${info.doneCount}/${info.totalCount} ${noun}${info.totalCount === 1 ? '' : 's'} done, runs only the rest${info.provider ? ` (originally ${providerLabel(info.provider)})` : ''}`
+  return `Complete this saved ${info.kind === 'module' ? 'module' : 'run'} — ${info.doneCount}/${info.totalCount} ${noun}${info.totalCount === 1 ? '' : 's'} done, runs only the rest${info.provider ? ` (originally ${providerLabel(info.provider)})` : ''}`
+}
+
+function completeLabel(info: ResumableRunInfo): string {
+  return info.kind === 'module' ? 'Complete module' : 'Complete run'
 }
 
 // The label a step shows on its progress dot and in its child row's Target — the module it ran (the
@@ -264,7 +268,7 @@ export function ActivityHistory({ onLoaded }: { onLoaded?: (s: { runCount: numbe
             title={resumeHint(resumable)}
             aria-label={resumeHint(resumable)}
             onClick={(e) => { e.stopPropagation(); void resumeRun(resumable) }}
-          >{resuming ? 'Resuming…' : 'Resume'}<span className="aresume__glyph" aria-hidden>▸</span></button>
+          >{resuming ? 'Starting…' : completeLabel(resumable)}<span className="aresume__glyph" aria-hidden>▸</span></button>
         )}
         {showReport && (
           <button
