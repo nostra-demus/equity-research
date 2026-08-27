@@ -20,6 +20,7 @@ const MAX_LOCATOR_LENGTH = 160
 const MAX_ID_LENGTH = 180
 const MAX_CACHE_FUTURE_SKEW_MS = 60_000
 const MEMORY_CACHE_SCHEMA = 'memory-ui-cache/v1' as const
+const DURABLE_CACHE_SUPPORTED = process.platform !== 'win32'
 
 export type MemoryCockpit = 'research' | 'screener' | 'commodity'
 export type MemoryStatusState = 'healthy' | 'degraded' | 'unavailable'
@@ -742,18 +743,18 @@ function encodeCache(read: MemoryRead): string {
   return JSON.stringify({
     schema: MEMORY_CACHE_SCHEMA,
     read_sha256: sha256(readJson),
-    read,
+    read_json: readJson,
   })
 }
 
 function decodeCache(serialized: string, maxBytes: number): MemoryRead {
   if (Buffer.byteLength(serialized, 'utf8') > maxBytes) throw new Error('memory cache is too large')
   const envelope: unknown = JSON.parse(serialized)
-  if (!record(envelope) || envelope.schema !== MEMORY_CACHE_SCHEMA || !record(envelope.read)
-      || hash(envelope.read_sha256) !== sha256(JSON.stringify(envelope.read))) {
+  if (!record(envelope) || envelope.schema !== MEMORY_CACHE_SCHEMA || typeof envelope.read_json !== 'string'
+      || hash(envelope.read_sha256) !== sha256(envelope.read_json)) {
     throw new Error('memory cache integrity check failed')
   }
-  return parseCachedRead(envelope.read)
+  return parseCachedRead(JSON.parse(envelope.read_json))
 }
 
 async function secureDirectory(directory: string): Promise<void> {
@@ -763,14 +764,15 @@ async function secureDirectory(directory: string): Promise<void> {
   if (!stat.isDirectory() || stat.isSymbolicLink() || (uid !== null && stat.uid !== uid)) {
     throw new Error('memory state directory is unsafe')
   }
-  if ((stat.mode & 0o077) !== 0) await fs.promises.chmod(directory, 0o700)
+  if (DURABLE_CACHE_SUPPORTED && (stat.mode & 0o077) !== 0) await fs.promises.chmod(directory, 0o700)
 }
 
 async function readSecureFile(file: string, maxBytes: number): Promise<string> {
   const before = await fs.promises.lstat(file)
   const uid = typeof process.getuid === 'function' ? process.getuid() : null
   if (!before.isFile() || before.isSymbolicLink() || before.nlink !== 1 || before.size > maxBytes
-      || (before.mode & 0o077) !== 0 || (uid !== null && before.uid !== uid)) {
+      || (DURABLE_CACHE_SUPPORTED && (before.mode & 0o077) !== 0)
+      || (uid !== null && before.uid !== uid)) {
     throw new Error('memory cache file is unsafe')
   }
   const noFollow = fs.constants.O_NOFOLLOW ?? 0
@@ -779,7 +781,8 @@ async function readSecureFile(file: string, maxBytes: number): Promise<string> {
     const opened = await handle.stat()
     if (!opened.isFile() || opened.nlink !== 1 || opened.size !== before.size || opened.size > maxBytes
         || opened.dev !== before.dev || opened.ino !== before.ino
-        || (opened.mode & 0o077) !== 0 || (uid !== null && opened.uid !== uid)) {
+        || (DURABLE_CACHE_SUPPORTED && (opened.mode & 0o077) !== 0)
+        || (uid !== null && opened.uid !== uid)) {
       throw new Error('memory cache file changed while opening')
     }
     return await handle.readFile({ encoding: 'utf8' })
@@ -805,8 +808,10 @@ async function writeSecureFile(directory: string, file: string, content: string,
     await handle.close()
     handle = null
     await fs.promises.rename(temporary, file)
-    const directoryHandle = await fs.promises.open(directory, fs.constants.O_RDONLY)
-    try { await directoryHandle.sync() } finally { await directoryHandle.close() }
+    if (DURABLE_CACHE_SUPPORTED) {
+      const directoryHandle = await fs.promises.open(directory, fs.constants.O_RDONLY)
+      try { await directoryHandle.sync() } finally { await directoryHandle.close() }
+    }
   } finally {
     if (handle) await handle.close().catch(() => undefined)
     await fs.promises.unlink(temporary).catch(() => undefined)
@@ -860,6 +865,9 @@ export function createMemoryReader(options: MemoryReaderOptions): MemoryReader {
     if (hydrating) return hydrating
     hydrating = (async () => {
       try {
+        // Windows cannot prove this contract's Unix owner-only mode boundary through Node's stat
+        // fields. Keep the live bounded reader working there, but do not trust a durable cache.
+        if (!DURABLE_CACHE_SUPPORTED) return
         await secureDirectory(projectionDir)
         const read = decodeCache(await readSecureFile(verifiedReadCache, maxBuffer), maxBuffer)
         const generatedAt = Date.parse(read.generated_at!)
@@ -882,6 +890,7 @@ export function createMemoryReader(options: MemoryReaderOptions): MemoryReader {
 
   const persist = async (read: MemoryRead): Promise<void> => {
     try {
+      if (!DURABLE_CACHE_SUPPORTED) return
       await writeSecureFile(projectionDir, verifiedReadCache, encodeCache(read), maxBuffer)
     } catch {
       // The current verified live read is still safe to serve. Persistence is availability hardening,

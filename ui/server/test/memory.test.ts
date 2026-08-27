@@ -504,11 +504,15 @@ await check('rejects corrupt, inconsistent, hard-linked or symlinked persisted v
     const cacheFile = path.join(root, 'memory-ui', 'verified-read.json')
     if (attack === 'corrupt' || attack === 'inconsistent') {
       const envelope = JSON.parse(fs.readFileSync(cacheFile, 'utf8'))
+      const cachedRead = JSON.parse(envelope.read_json)
       if (attack === 'corrupt') {
-        envelope.read.items[0].summary = 'SECRET_TAMPERED_CACHE'
+        cachedRead.items[0].summary = 'SECRET_TAMPERED_CACHE'
       } else {
-        envelope.read.counts.total += 1
-        envelope.read_sha256 = createHash('sha256').update(JSON.stringify(envelope.read)).digest('hex')
+        cachedRead.counts.total += 1
+      }
+      envelope.read_json = JSON.stringify(cachedRead)
+      if (attack === 'inconsistent') {
+        envelope.read_sha256 = createHash('sha256').update(envelope.read_json).digest('hex')
       }
       fs.writeFileSync(cacheFile, JSON.stringify(envelope), { mode: 0o600 })
     } else if (attack === 'hardlink') {

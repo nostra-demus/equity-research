@@ -255,7 +255,9 @@ and a large promotion backlog.
 
 The legacy `memory-ui/1` Explorer read is pre-warmed when the control plane starts. Its latest
 curated, verified response is atomically persisted at `<engine_state>/memory-ui/verified-read.json`
-inside an owner-only directory and file (`0700` / `0600`). Restart hydration rechecks ownership,
+inside an owner-only directory and file (`0700` / `0600`) on the Unix production hosts. Windows
+keeps the bounded live reader but disables durable hydration because Node cannot prove that Unix
+owner-only mode boundary there. Restart hydration rechecks ownership,
 link count, mode, size, schema, internal counts, and the response digest before serving it. Missing,
 expired, future-dated, corrupt, hard-linked, or symlinked state is ignored and a bounded live rebuild
 is attempted. A cold projection command has a one-minute ceiling inside the browser's 65-second
