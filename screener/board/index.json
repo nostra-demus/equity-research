@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-27T15:42:18Z",
+  "generated_at": "2026-08-27T15:50:52Z",
   "inbox": [
     {
       "inbox_id": "INB-20260827-635",
@@ -1439,6 +1439,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260827-673",
+      "headline": "J&J’s latest Impella recall tied to 3 deaths, 37 injuries",
+      "headline_en": null,
+      "url": "https://www.medtechdive.com/news/jjs-latest-impella-recall-tied-to-3-deaths-37-injuries/828953/",
+      "source_name": "MedTech Dive",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-27T14:53:35Z",
+      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
+      "prelim_note": "Johnson & Johnson's Impella device is subject to a recall linked to 3 deaths and 37 injuries, posing significant regulatory and legal risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Johnson & Johnson's Impella device is subject to a recall linked to 3 deaths and 37 injuries, posing significant regulatory and legal risk.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Johnson & Johnson",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260827-637",
       "headline": "Best Buy raises annual forecast after quarterly profit beats estimates",
       "headline_en": null,
@@ -1931,55 +1980,6 @@
           "name": "Pernod Ricard",
           "ticker": "RI",
           "listing_country": "FR"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260827-587",
-      "headline": "HP Q3 2026 earnings: record revenue but PC shipments drop 16%",
-      "headline_en": null,
-      "url": "https://finance.yahoo.com/markets/stocks/articles/hp-q3-2026-earnings-record-125155738.html",
-      "source_name": "Yahoo Finance",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-27T12:51:55Z",
-      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
-      "prelim_note": "HP reported record revenue but a 16% drop in PC shipments, indicating mixed operational performance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "HP reported record revenue but a 16% drop in PC shipments, indicating mixed operational performance.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "HP",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -98375,9 +98375,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2127789,
-    "news_picked_today": 1189,
-    "news_dropped_today": 18851
+    "news_seen_today": 2160554,
+    "news_picked_today": 1197,
+    "news_dropped_today": 18915
   },
   "book_momentum": {
     "live_count": 8,
