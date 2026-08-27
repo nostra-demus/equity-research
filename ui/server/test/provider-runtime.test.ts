@@ -17,7 +17,7 @@ import {
   applySupervisorPublicationEnv, paritySnapshotRootMatchesDataSubject, providerWritablePaths,
 } from '../src/launcher'
 import {
-  claudeChildEnv, claudeSandboxSettings, createClaudeMirrorWorkspace,
+  CLAUDE_TRACKED_SETTING_SOURCES, claudeChildEnv, claudeSandboxSettings, createClaudeMirrorWorkspace,
   claudeNestedToolEnv, isClaudeMaxAuth, isClaudeSubscriptionAuth,
 } from '../src/providers/claude'
 import { codexChildEnv } from '../src/providers/codex'
@@ -242,13 +242,60 @@ try {
     const mirror = createClaudeMirrorWorkspace(REPO_ROOT)
     try {
       assert.notEqual(mirror.cwd, REPO_ROOT)
-      assert.equal(fs.lstatSync(path.join(mirror.cwd, '.claude')).isSymbolicLink(), true)
+      assert.equal(fs.lstatSync(path.join(mirror.cwd, '.claude')).isDirectory(), true)
+      assert.equal(fs.lstatSync(path.join(mirror.cwd, '.claude')).isSymbolicLink(), false)
+      assert.equal(fs.lstatSync(path.join(mirror.cwd, 'CLAUDE.md')).isFile(), true)
+      assert.equal(fs.lstatSync(path.join(mirror.cwd, 'CLAUDE.md')).isSymbolicLink(), false)
+      assert.equal(
+        fs.readFileSync(path.join(mirror.cwd, '.claude', 'commands', 'research', 'business-model.md'), 'utf8'),
+        fs.readFileSync(path.join(REPO_ROOT, '.claude', 'commands', 'research', 'business-model.md'), 'utf8'),
+      )
+      assert.equal(fs.existsSync(path.join(mirror.cwd, '.claude', 'settings.json')), false)
+      assert.equal(fs.existsSync(path.join(mirror.cwd, '.claude', 'settings.local.json')), false)
       assert.equal(fs.lstatSync(path.join(mirror.cwd, '.git')).isFile(), true)
       mirror.validate()
       fs.writeFileSync(path.join(mirror.cwd, 'forged-extra'), 'x')
       assert.throws(mirror.validate, /topology changed/)
     } finally { mirror.cleanup() }
     assert.equal(fs.existsSync(mirror.cwd), false)
+  })
+
+  check('tracked Claude enables only pinned project command discovery', () => {
+    assert.equal(CLAUDE_TRACKED_SETTING_SOURCES, 'project')
+    const source = fs.readFileSync(path.join(REPO_ROOT, 'ui/server/src/providers/claude.ts'), 'utf8')
+    assert.match(source, /'--setting-sources', CLAUDE_TRACKED_SETTING_SOURCES/)
+    assert.doesNotMatch(source, /'--setting-sources',\s*''/)
+  })
+
+  check('tracked Claude project projection is immutable and excludes interactive settings', () => {
+    const fixture = fs.mkdtempSync(path.join(os.tmpdir(), 'nostra-claude-project-program-'))
+    try {
+      const repo = path.join(fixture, 'repo')
+      fs.mkdirSync(path.join(repo, '.claude', 'commands', 'research'), { recursive: true })
+      fs.writeFileSync(path.join(repo, 'CLAUDE.md'), 'doctrine\n')
+      fs.writeFileSync(path.join(repo, '.claude', 'commands', 'research', 'full.md'), 'canonical\n')
+      fs.writeFileSync(path.join(repo, '.claude', 'settings.json'), '{"permissions":{"allow":["Bash"]}}\n')
+      fs.writeFileSync(path.join(repo, '.claude', 'settings.local.json'), '{"hooks":{}}\n')
+      fs.mkdirSync(path.join(repo, 'data'))
+      const mirror = createClaudeMirrorWorkspace(repo)
+      try {
+        const projected = path.join(mirror.cwd, '.claude', 'commands', 'research', 'full.md')
+        assert.equal(fs.readFileSync(projected, 'utf8'), 'canonical\n')
+        assert.equal(fs.existsSync(path.join(mirror.cwd, '.claude', 'settings.json')), false)
+        assert.equal(fs.existsSync(path.join(mirror.cwd, '.claude', 'settings.local.json')), false)
+        fs.chmodSync(projected, 0o600)
+        fs.writeFileSync(projected, 'forged\n')
+        assert.throws(mirror.validate, /project projection changed before spawn/)
+      } finally { mirror.cleanup() }
+
+      const second = createClaudeMirrorWorkspace(repo)
+      try {
+        fs.writeFileSync(path.join(repo, '.claude', 'commands', 'research', 'full.md'), 'changed\n')
+        assert.throws(second.validate, /project source changed before spawn/)
+      } finally { second.cleanup() }
+    } finally {
+      fs.rmSync(fixture, { recursive: true, force: true })
+    }
   })
 
   check('tracked Claude mirrors the declared production data symlink without widening root-link trust', () => {
