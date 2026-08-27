@@ -206,9 +206,13 @@ export function groupByIdea(
   const out = new Map<string, IdeaGroupRow>()
 
   for (const r of rows) {
-    // A declared cash equivalent short-circuits: it is answered, and an explicit idea on it would be
-    // the operator contradicting their own declaration — so the declaration wins and says so.
-    if (cash.has((r.symbol ?? '').toUpperCase())) {
+    // A declared cash equivalent short-circuits — UNLESS this particular round trip carries a label of
+    // its own. The cash declaration is about what the symbol is doing NOW; it is not a statement about
+    // every trade ever done in it. A past SGOV rates trade the operator deliberately labelled through
+    // the blotter picker was being overridden by today's parked-cash declaration, losing the explicit
+    // word in favour of the implicit one. Explicit beats implicit; unlabelled cash-symbol trades still
+    // land in the cash bucket, which is what stops SGOV reading as an unfinished job.
+    if (cash.has((r.symbol ?? '').toUpperCase()) && !ideaOfRow(r.closeTradeIDs, assigned).id) {
       const g = out.get('\u0000cash') ?? {
         ideaId: null, label: 'Cash equivalent', symbols: [], realized: 0, trades: 0, unlabellable: 0,
         firstClosed: null, lastClosed: null, isCash: true, unvalued: 0,

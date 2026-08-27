@@ -795,7 +795,9 @@ function Exposure({ book, risked, parkedValue, nav, ccy, ideas, bars }: {
               {residualCount > 0 && (
                 <div className="fundbook__barnote">
                   {residualCount === 1 ? 'One holding is' : `${residualCount} holdings are`} under {fmtMoney(RESIDUAL_VALUE_BASE, ccy)} and
-                  left out of this weighting — dust from a closed trade, not a view. Still listed and still reconciled below.
+                  left out of this weighting. Size is the only test applied — the statement says nothing about why a holding is
+                  small, so a deliberate starter position is treated the same as a leftover share. Still listed and still
+                  reconciled below.
                 </div>
               )}
             </>
@@ -1469,7 +1471,18 @@ function Trades({ book, manual, onChanged, ideas, cashEquivalents, importOpen, o
                 <div key={g.ideaId ?? g.label} className="fundbook__row fundbook__row--ideas">
                   <span>{g.label}</span>
                   <span className="mono dim">{g.symbols.join(' · ') || '—'}</span>
-                  <span className="num" style={{ color: toneOf(g.realized) }}>{fmtSmallMoney(g.realized)}</span>
+                  <span className="num" style={{ color: toneOf(g.realized) }}>
+                    {fmtSmallMoney(g.realized)}
+                    {/* groupByIdea counts the legs the statement carried no rate for. Rendering the sum
+                        without that count publishes a plausible, understated idea result as if it were
+                        the whole thing — the qualifier has to travel with the number. */}
+                    {g.unvalued > 0 && (
+                      <small
+                        className="fundbook__lots"
+                        title={`${g.unvalued} leg${g.unvalued === 1 ? '' : 's'} the statement carried no rate for — excluded, so this is the convertible part only`}
+                      >part only</small>
+                    )}
+                  </span>
                   <span className="num dim">{g.trades}</span>
                   <span className="num dim">{g.firstClosed ?? '—'}</span>
                   <span className="num dim">{g.lastClosed ?? '—'}</span>

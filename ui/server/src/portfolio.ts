@@ -231,9 +231,13 @@ export function supersessionMap(documents: FlexDocument[]): Record<string, strin
   const out: Record<string, string> = {}
   for (const doc of documents) {
     for (const t of doc.trades ?? []) {
-      if (!t.tradeID) continue
-      if (t.origTradeID) out[t.origTradeID] = t.tradeID
-      if (t.origTransactionID) out[t.origTransactionID] = t.tradeID
+      // The SAME fallback runFifo stamps onto closeTradeID. Keyed on tradeID alone, a restating row
+      // that carries only a transactionID was left out of the map, so the label stayed on the removed
+      // execution while the live replacement showed Unassigned.
+      const replacement = t.tradeID ?? t.transactionID
+      if (!replacement) continue
+      if (t.origTradeID) out[t.origTradeID] = replacement
+      if (t.origTransactionID) out[t.origTransactionID] = replacement
     }
   }
   return out

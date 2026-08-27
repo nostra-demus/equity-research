@@ -487,10 +487,14 @@ export function readPortfolio(): PortfolioRead {
   if (book) {
     try {
       migrateClosureIds(PORTFOLIO_DIR, supersessionMap(docs))
-      // documents > 0 is what makes it a REAL book: an account that sold everything still has
-      // statements behind it, and every position label should go. No statements is a different
-      // thing entirely and must never wipe the ledger.
-      pruneClosedPositions(PORTFOLIO_DIR, book.positions.map((p) => p.symbol ?? ''), book.coverage.documents > 0)
+      // The closures are the EVIDENCE a position actually closed. Absence from the statement set is
+      // not evidence — the operator may have removed the newest statement to repair it — so a label is
+      // dropped only where the book itself shows the position being sold out of.
+      pruneClosedPositions(
+        PORTFOLIO_DIR,
+        book.positions.map((p) => p.symbol ?? ''),
+        book.closures.map((c) => c.symbol ?? ''),
+      )
     } catch { /* the ledger decorates the book; failing to tidy it must never cost the book */ }
   }
 

@@ -75,9 +75,22 @@ export function normalizeSymbol(symbol: string | null | undefined): string {
   return String(symbol ?? '').trim().toUpperCase()
 }
 
-/** Slug used as the stable id. Kept separate from the label so renaming never orphans an assignment. */
+/** Slug used as the stable id. Kept separate from the label so renaming never orphans an assignment.
+ *
+ *  UNICODE-AWARE, because this engine reads non-English filings on purpose (CLAUDE.md 27). Stripping to
+ *  [a-z0-9] collapsed distinct names onto one id — 黄金 2026 and 白银 2026 both became '2026', so naming
+ *  the second silently handed back the first and filed the holding under the wrong thesis — and
+ *  rejected a name written entirely in a non-Latin script. Letters and digits of ANY script are kept.
+ *  A name with no letter or digit in it at all is still no name, and still yields '' so createIdea can
+ *  refuse it — the fix is for scripts, not for punctuation. */
 export function ideaId(label: string): string {
-  const slug = String(label ?? '').trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '')
+  const clean = String(label ?? '').trim().toLowerCase()
+  let slug = ''
+  try {
+    slug = clean.normalize('NFKC').replace(/[^\p{L}\p{N}]+/gu, '-').replace(/^-+|-+$/g, '')
+  } catch {
+    slug = clean.replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '')
+  }
   return slug
 }
 
@@ -230,11 +243,14 @@ export function assignClosures(dir: string, closeTradeIDs: string[], id: string 
   if (ids.length === 0) throw new Error('a closed trade needs at least one broker trade id')
   const book = readIdeas(dir)
   if (id !== null && !book.ideas.some((i) => i.id === id)) throw new Error(`no such idea: ${id}`)
+  // Counted ONCE and then tracked. Rebuilding Object.keys() inside the loop made a heavily split trade
+  // near the 20,000 cap roughly quadratic work, synchronously, on the request thread.
+  let count = Object.keys(book.assignments.closures).length
   for (const tradeId of ids) {
     if (id === null) { delete book.assignments.closures[tradeId]; continue }
-    if (!(tradeId in book.assignments.closures)
-      && Object.keys(book.assignments.closures).length >= MAX_ASSIGNMENTS) {
-      throw new Error(`no room for more assignments (${MAX_ASSIGNMENTS})`)
+    if (!(tradeId in book.assignments.closures)) {
+      if (count >= MAX_ASSIGNMENTS) throw new Error(`no room for more assignments (${MAX_ASSIGNMENTS})`)
+      count += 1
     }
     book.assignments.closures[tradeId] = id
   }
@@ -250,18 +266,19 @@ export function assignClosures(dir: string, closeTradeIDs: string[], id: string 
  *  the same ticker again months later then silently inherited the old idea, which is exactly the
  *  cross-era relabelling this whole module is keyed on trade ids to prevent.
  *
- *  Guarded on `bookIsReal`, NOT on the position count. Inferring "no book" from "no positions" left
- *  the hole open in the one case it mattered most: sell the last holding and the empty list skipped
- *  the prune entirely, so re-opening that ticker still inherited the old bet. A book with statements
- *  behind it and nothing in it means everything is closed — which is precisely when every position
- *  label should go. The caller passes false only when there is no book at all, so removing every
- *  statement still cannot wipe the ledger.
- *  Returns how many went, so a caller can avoid writing when nothing changed. */
-export function pruneClosedPositions(dir: string, openSymbols: string[], bookIsReal = true): number {
-  if (!bookIsReal) return 0
+ *  EVIDENCE, not absence. Two earlier attempts got this wrong in opposite directions: guarding on
+ *  "no open positions" skipped the sold-everything case entirely, and pruning on absence alone deleted
+ *  labels for holdings that were merely missing from a temporarily reduced statement set — remove the
+ *  newest statement to repair it and every position opened after the older snapshot lost its label,
+ *  coming back Unassigned on re-import. Absence from an incomplete set is not proof that a position
+ *  closed. So a label is dropped only where the book actually SHOWS the position closing: the symbol
+ *  is not open AND it has at least one closure. Returns how many went. */
+export function pruneClosedPositions(dir: string, openSymbols: string[], closedSymbols: string[]): number {
   const open = new Set(openSymbols.map(normalizeSymbol).filter(Boolean))
+  const closed = new Set(closedSymbols.map(normalizeSymbol).filter(Boolean))
+  if (closed.size === 0) return 0
   const book = readIdeas(dir)
-  const stale = Object.keys(book.assignments.positions).filter((k) => !open.has(k))
+  const stale = Object.keys(book.assignments.positions).filter((k) => !open.has(k) && closed.has(k))
   if (stale.length === 0) return 0
   for (const k of stale) delete book.assignments.positions[k]
   write(dir, book)
@@ -277,9 +294,20 @@ export function pruneClosedPositions(dir: string, openSymbols: string[], bookIsR
 export function migrateClosureIds(dir: string, oldToNew: Record<string, string>): number {
   const pairs = Object.entries(oldToNew).filter(([a, b]) => a && b && a !== b)
   if (pairs.length === 0) return 0
+  // A trade can be restated more than once (A -> B -> C). One pass over the map moved A's label to
+  // whichever edge happened to come first — B, already superseded — leaving the live C unassigned. So
+  // each id is followed to the END of its chain, with a visit set because a malformed map can cycle.
+  const terminal = (start: string): string => {
+    let cur = start
+    const seen = new Set<string>([cur])
+    while (oldToNew[cur] && !seen.has(oldToNew[cur]!)) { cur = oldToNew[cur]!; seen.add(cur) }
+    return cur
+  }
   const book = readIdeas(dir)
   let moved = 0
-  for (const [oldId, newId] of pairs) {
+  for (const [oldId] of pairs) {
+    const newId = terminal(oldId)
+    if (newId === oldId) continue
     const idea = book.assignments.closures[oldId]
     if (!idea) continue
     // The replacement wins only where it is not already labelled — an explicit label on the new row is

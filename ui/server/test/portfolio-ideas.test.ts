@@ -246,7 +246,8 @@ check('a closed position does not lend its idea to the next one in the same tick
   assignPosition(d, 'AMZN', ai.id)
   assignPosition(d, 'GLDM', createIdea(d, 'Gold').id)
   // AMZN has been sold; GLDM is still held.
-  const dropped = pruneClosedPositions(d, ['GLDM'])
+  // AMZN has been sold — the book carries closures proving it; GLDM is still held.
+  const dropped = pruneClosedPositions(d, ['GLDM'], ['AMZN'])
   assert.equal(dropped, 1)
   const book = readIdeas(d)
   assert.equal(ideaForPosition(book, 'AMZN'), null, 'the closed one is gone')
@@ -255,22 +256,64 @@ check('a closed position does not lend its idea to the next one in the same tick
 })
 
 check('selling the LAST holding still drops its label', () => {
-  // The residual of the bug above. Guarding on "no open positions" meant the sold-everything case —
-  // the one where every label is stale — skipped the prune entirely, so re-opening that ticker still
-  // inherited the old bet. A real book that holds nothing is not the same as no book.
+  // Guarding on "no open positions" skipped the sold-everything case — the one where every label is
+  // stale — so re-opening that ticker still inherited the old bet.
   const d = dir('prune-last')
   assignPosition(d, 'AMZN', createIdea(d, 'AI').id)
-  assert.equal(pruneClosedPositions(d, [], true), 1)
+  assert.equal(pruneClosedPositions(d, [], ['AMZN']), 1)
   assert.equal(ideaForPosition(readIdeas(d), 'AMZN'), null)
 })
 
-check('no book at all prunes nothing', () => {
-  // Removing every statement must never wipe the ledger: there is nothing to compare against, and the
-  // labels are still the operator's.
+check('a holding merely MISSING from the statements keeps its label', () => {
+  // Remove the newest statement to repair it and the book rebuilds from an older snapshot. Every
+  // holding opened after that snapshot is simply absent — which is not proof it closed. Pruning on
+  // absence deleted those labels, and re-importing brought the positions back Unassigned.
+  const d = dir('prune-absent')
+  assignPosition(d, 'AMZN', createIdea(d, 'AI').id)
+  // AMZN is neither open nor shown closing anywhere in this reduced book.
+  assert.equal(pruneClosedPositions(d, ['GLDM'], ['GLDM']), 0)
+  assert.equal(ideaForPosition(readIdeas(d), 'AMZN'), 'ai', 'the label survives an incomplete book')
+})
+
+check('no closures at all prunes nothing', () => {
   const d = dir('prune-nobook')
   assignPosition(d, 'AMZN', createIdea(d, 'AI').id)
-  assert.equal(pruneClosedPositions(d, [], false), 0)
+  assert.equal(pruneClosedPositions(d, [], []), 0)
   assert.equal(ideaForPosition(readIdeas(d), 'AMZN'), 'ai')
+})
+
+check('a label follows a trade through a CHAIN of restatements', () => {
+  // Restated twice (A -> B -> C). One order-dependent pass moved A's label onto B, which is itself
+  // superseded, leaving the live C closure Unassigned.
+  const d = dir('restate-chain')
+  const sugar = createIdea(d, 'Sugar')
+  assignClosures(d, ['A'], sugar.id)
+  // deliberately the newest edge first
+  assert.equal(migrateClosureIds(d, { B: 'C', A: 'B' }), 1)
+  const book = readIdeas(d)
+  assert.equal(ideaForClosure(book, ['C']), 'sugar', 'it lands on the live one')
+  assert.equal(ideaForClosure(book, ['A']), null)
+  assert.equal(ideaForClosure(book, ['B']), null, 'and not on the superseded middle')
+})
+
+check('a cyclic restatement map cannot hang the migration', () => {
+  const d = dir('restate-cycle')
+  const sugar = createIdea(d, 'Sugar')
+  assignClosures(d, ['A'], sugar.id)
+  assert.doesNotThrow(() => migrateClosureIds(d, { A: 'B', B: 'A' }))
+})
+
+check('a non-Latin idea name keeps its own identity', () => {
+  // The engine reads non-English filings by design (CLAUDE.md 27). Stripping to [a-z0-9] made
+  // 黄金 2026 and 白银 2026 both '2026', so naming the second handed back the first.
+  const d = dir('unicode')
+  const gold = createIdea(d, '黄金 2026')
+  const silver = createIdea(d, '白银 2026')
+  assert.notEqual(gold.id, silver.id)
+  assert.notEqual(gold.id, '2026')
+  assert.equal(readIdeas(d).ideas.length, 2)
+  // and it is still idempotent on the same name
+  assert.equal(createIdea(d, '黄金 2026').id, gold.id)
 })
 
 check('a label follows its trade through a restatement', () => {

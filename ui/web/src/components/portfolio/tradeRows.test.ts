@@ -271,12 +271,21 @@ check('a declared cash equivalent gets its own bucket, not Unassigned', () => {
   assert.deepEqual(unassigned!.symbols, ['AMZN'], 'and SGOV is no longer sitting in Unassigned')
 })
 
-check('a cash declaration beats an idea label on the same symbol', () => {
-  // Both were declared by the operator; the cash one is the more specific statement about what the
-  // holding IS, so it wins rather than the two contradicting each other across two tabs.
+check('an EXPLICIT label on a past trade beats today\'s cash declaration', () => {
+  // The cash declaration describes what the symbol is doing NOW; it is not a statement about every
+  // trade ever done in it. A past SGOV rates trade the operator deliberately labelled was being
+  // overridden by today's parked-cash declaration — the implicit word beating the explicit one.
   const rows = foldRoundTrips([closure({ symbol: 'SGOV', quantity: 500, realizedBase: 458.66, closeTradeID: 's1' })])
-  const groups = groupByIdea(rows, ideaBook([['parked', 'Parked cash']], { s1: 'parked' }), ['sgov'])
+  const groups = groupByIdea(rows, ideaBook([['rates', 'Rates']], { s1: 'rates' }), ['sgov'])
   assert.equal(groups.length, 1)
+  assert.equal(groups[0]!.isCash, false)
+  assert.equal(groups[0]!.label, 'Rates')
+})
+
+check('an UNLABELLED trade in a cash symbol still lands in the cash bucket', () => {
+  // Which is what stops SGOV reading as an unfinished job on the blotter.
+  const rows = foldRoundTrips([closure({ symbol: 'SGOV', quantity: 500, realizedBase: 458.66, closeTradeID: 's1' })])
+  const groups = groupByIdea(rows, ideaBook([], {}), ['SGOV'])
   assert.equal(groups[0]!.isCash, true)
   assert.equal(groups[0]!.label, 'Cash equivalent')
 })
