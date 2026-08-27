@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-27T16:41:30Z",
+  "generated_at": "2026-08-27T16:56:53Z",
   "inbox": [
     {
       "inbox_id": "INB-20260827-635",
@@ -1383,6 +1383,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260827-683",
+      "headline": "Google agrees to settle UK app developers' lawsuit for $353 million",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/technology/articles/google-agrees-settle-uk-app-161127465.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-27T16:17:05Z",
+      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
+      "prelim_note": "Google agreed to a $353 million settlement regarding a lawsuit with UK app developers.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Google agreed to a $353 million settlement regarding a lawsuit with UK app developers.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Google",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260827-676",
       "headline": "Velocity to buy Toorak platform, manage $3B BPL portfolio",
       "headline_en": null,
@@ -1928,60 +1977,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260827-625",
-      "headline": "First Financial To Acquire First Illinois In Cash And Stock Deal Valued At About $111.3 Mln",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/first-financial-acquire-first-illinois-cash-and-stock-deal-valued-about-1113-mln",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-27T14:00:44Z",
-      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
-      "prelim_note": "First Financial is acquiring First Illinois in a deal valued at $111.3 million.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "First Financial is acquiring First Illinois in a deal valued at $111.3 million.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "First Financial",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "First Illinois",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -98162,9 +98157,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2342820,
-    "news_picked_today": 1247,
-    "news_dropped_today": 19489
+    "news_seen_today": 2455994,
+    "news_picked_today": 1258,
+    "news_dropped_today": 19766
   },
   "book_momentum": {
     "live_count": 8,
