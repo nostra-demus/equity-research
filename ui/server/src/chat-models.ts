@@ -25,3 +25,15 @@ export function resolveChatModel(value: unknown): ChatModelSpec | null {
   const id = typeof value === 'string' ? value.trim().toLowerCase() : ''
   return CHAT_MODEL_SPECS.find((choice) => choice.id === id) ?? null
 }
+
+// Reviewed catalogue ids get their explicit provider route. A host may also pin a concrete Claude model
+// id through ENGINE_CHAT_MODELS_ALLOWED; preserve that pre-existing escape hatch without letting an unknown
+// provider-qualified Codex id bypass the reviewed GPT catalogue.
+export function resolveAllowedChatModel(value: unknown, allowedModels: readonly string[]): ChatModelSpec | null {
+  const id = typeof value === 'string' ? value.trim() : ''
+  if (!id) return null
+  const reviewed = resolveChatModel(id)
+  if (reviewed) return allowedModels.includes(reviewed.id) ? reviewed : null
+  if (id.toLowerCase().startsWith('codex:') || !allowedModels.includes(id)) return null
+  return { id, provider: 'claude', model: id }
+}

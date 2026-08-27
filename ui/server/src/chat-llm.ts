@@ -9,8 +9,8 @@ import path from 'node:path'
 import { execa, type ResultPromise } from 'execa'
 import { CHAT, CLAUDE_BIN, REPO_ROOT } from './config'
 import { childEnv, detectFlags } from './launcher'
-import { resolveChatModel, type ChatModelSpec } from './chat-models'
-import { codexChildEnv, resolveCodexBin } from './providers/codex'
+import { resolveAllowedChatModel, type ChatModelSpec } from './chat-models'
+import { codexChildEnv, createIsolatedCodexProbeHome, resolveCodexBin } from './providers/codex'
 
 // Light backstop so a stuck UI cannot spawn dozens of subscription CLIs at once.
 let activeChatTurns = 0
@@ -114,7 +114,9 @@ export function classifyCodexChatLine(o: any, model?: string): ChatStreamEvent[]
   }
   if (o.type === 'turn.completed') return [{ kind: 'result', costUsd: 0 }]
   if (o.type === 'turn.failed') return [{ kind: 'result', costUsd: 0, error: friendlyCodexError(o.error?.message || 'Codex turn failed.') }]
-  if (o.type === 'error') return [{ kind: 'result', costUsd: 0, error: friendlyCodexError(o.message || 'Codex emitted an error.') }]
+  // Generic `error` events include temporary reconnect notices while the CLI keeps retrying. The runner
+  // retains their text only as a final diagnostic if no terminal completion arrives.
+  if (o.type === 'error') return []
   return []
 }
 
@@ -130,23 +132,59 @@ export interface ChatTurnOptions {
   budgetUsd?: number
 }
 
+// These transport-only features do not expose a model-callable capability. Every other enabled, supported
+// feature reported by the installed CLI is disabled for Ask. This automatically closes future browser/tool
+// additions without sending unknown flags to an older CLI under --strict-config.
+const CODEX_CHAT_SAFE_ENABLED_FEATURES = new Set([
+  'enable_request_compression',
+  'fast_mode',
+  'remote_compaction_v2',
+  'unbounded_connection_retries',
+])
+
+export function codexChatFeatureDisables(output: string): string[] {
+  const rows = output.split(/\r?\n/).flatMap((line) => {
+    const match = line.trim().match(/^(\S+)\s+(under development|stable|experimental|deprecated|removed)\s+(true|false)$/)
+    return match ? [{ name: match[1], state: match[2], enabled: match[3] === 'true' }] : []
+  })
+  if (!rows.length) throw new Error('Codex feature catalogue was unreadable; closed-book Ask was not started.')
+  return rows
+    .filter((row) => row.enabled && row.state !== 'removed' && !CODEX_CHAT_SAFE_ENABLED_FEATURES.has(row.name))
+    .map((row) => row.name)
+    .sort()
+}
+
+async function inspectCodexChatFeatures(command: string, env: NodeJS.ProcessEnv, cwd: string): Promise<string[]> {
+  let result: any
+  try {
+    result = await execa(command, ['features', 'list'], { cwd, env, reject: false, timeout: 10_000 })
+  } catch (error: any) {
+    throw new Error(`Codex feature check failed: ${error?.shortMessage || error?.message || error}`)
+  }
+  if (result?.exitCode !== 0 || result?.failed) {
+    throw new Error(`Codex feature check failed: ${String(result?.stderr || result?.stdout || `exit ${result?.exitCode}`).trim().slice(0, 240)}`)
+  }
+  return codexChatFeatureDisables(`${result?.stdout || ''}\n${result?.stderr || ''}`)
+}
+
 /** Pure launch contract kept exported so tests pin every closed-book Codex boundary. */
-export function buildCodexChatArgs(choice: ChatModelSpec, chatRoot: string, system: string, parser = false): string[] {
-  const reasoning = parser ? 'low' : choice.reasoningLevel || 'medium'
+export function buildCodexChatArgs(
+  choice: ChatModelSpec,
+  chatRoot: string,
+  system: string,
+  options: { parser?: boolean; disabledFeatures?: readonly string[] } = {},
+): string[] {
+  const reasoning = options.parser ? 'low' : choice.reasoningLevel || 'medium'
   return [
     'exec',
     '--strict-config',
+    ...(options.disabledFeatures || []).flatMap((feature) => ['--disable', feature]),
     '--model', choice.model,
     '--config', 'model_provider="openai"',
     '--config', `model_reasoning_effort="${reasoning}"`,
     '--config', `developer_instructions=${JSON.stringify(system)}`,
     '--config', 'approval_policy="never"',
     '--config', 'history.persistence="none"',
-    '--config', 'agents.enabled=false',
-    '--config', 'features.apps=false',
-    '--config', 'features.shell_tool=false',
-    '--config', 'features.unified_exec=false',
-    '--config', 'features.skill_mcp_dependency_install=false',
     '--config', 'web_search="disabled"',
     '--config', 'tools.web_search=false',
     '--config', 'shell_environment_policy.inherit="none"',
@@ -256,6 +294,7 @@ async function runClaudeChatTurn(opts: ChatTurnOptions, choice: ChatModelSpec): 
 async function runCodexChatTurn(opts: ChatTurnOptions, choice: ChatModelSpec): Promise<ChatTurnOutcome> {
   if (opts.signal.aborted) return { costUsd: 0, error: 'aborted' }
   let chatRoot: string
+  let cleanupAuthHome: (() => void) | undefined
   try {
     chatRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'nostra-codex-chat-'))
     fs.chmodSync(chatRoot, 0o700)
@@ -264,14 +303,25 @@ async function runCodexChatTurn(opts: ChatTurnOptions, choice: ChatModelSpec): P
   }
   try {
     if (opts.signal.aborted) return { costUsd: 0, error: 'aborted' }
+    const authHome = createIsolatedCodexProbeHome()
+    cleanupAuthHome = authHome.cleanup
     const env = codexChildEnv()
+    // The auth-only home has no config.toml, AGENTS.md, plugins, skills, or user instructions. The empty
+    // workspace likewise has no project instructions, so the supplied system/context is the only book.
+    env.CODEX_HOME = authHome.home
     env.TMPDIR = chatRoot
     env.TMP = chatRoot
     env.TEMP = chatRoot
-    const args = buildCodexChatArgs(choice, chatRoot, opts.system, opts.thinkingTokens === 0)
+    const command = resolveCodexBin()
+    const disabledFeatures = await inspectCodexChatFeatures(command, env, chatRoot)
+    if (opts.signal.aborted) return { costUsd: 0, error: 'aborted' }
+    const args = buildCodexChatArgs(choice, chatRoot, opts.system, {
+      parser: opts.thinkingTokens === 0,
+      disabledFeatures,
+    })
     let child: ResultPromise
     try {
-      child = execa(resolveCodexBin(), args, {
+      child = execa(command, args, {
         cwd: chatRoot,
         env,
         stdin: 'pipe', stdout: 'pipe', stderr: 'pipe', buffer: false, reject: false,
@@ -288,12 +338,16 @@ async function runCodexChatTurn(opts: ChatTurnOptions, choice: ChatModelSpec): P
 
     let streamedText = false
     let resultError: string | undefined
+    let lastNonTerminalError = ''
     let terminal = false
     const handle = (line: string) => {
       const text = line.trim()
       if (!text) return
       let parsed: any
       try { parsed = JSON.parse(text) } catch { return }
+      if (parsed?.type === 'error' && typeof parsed.message === 'string') {
+        lastNonTerminalError = parsed.message.replace(/\s+/g, ' ').trim().slice(-1000)
+      }
       for (const event of classifyCodexChatLine(parsed, choice.model)) {
         if (event.kind === 'token') { streamedText = true; opts.onToken(event.text) }
         else if (event.kind === 'result') { terminal = !event.error; if (event.error) resultError = event.error }
@@ -323,18 +377,21 @@ async function runCodexChatTurn(opts: ChatTurnOptions, choice: ChatModelSpec): P
     if (opts.signal.aborted) return { costUsd: 0, error: 'aborted' }
     if (resultError) return { costUsd: 0, error: resultError }
     if (result?.timedOut) return { costUsd: 0, error: 'The Codex answer took too long and was stopped. Try a narrower scope or a faster GPT model.' }
-    if (!terminal || result?.exitCode !== 0) return { costUsd: 0, error: friendlyCodexError(stderr || `Codex exited with code ${result?.exitCode ?? 'unknown'}.`) }
+    if (!terminal || result?.exitCode !== 0) {
+      return { costUsd: 0, error: friendlyCodexError(lastNonTerminalError || stderr || `Codex exited with code ${result?.exitCode ?? 'unknown'}.`) }
+    }
     if (!streamedText) return { costUsd: 0, error: 'Codex returned no answer. Retry or choose another Ask model.' }
     return { costUsd: 0 }
   } finally {
+    try { cleanupAuthHome?.() } catch { /* bounded auth-only temporary home */ }
     try { fs.rmSync(chatRoot, { recursive: true, force: true }) } catch { /* bounded temporary workspace */ }
   }
 }
 
 export async function runChatTurn(opts: ChatTurnOptions): Promise<ChatTurnOutcome> {
   if (opts.signal.aborted) return { costUsd: 0, error: 'aborted' }
-  const choice = resolveChatModel(opts.model)
-  if (!choice || !CHAT.allowedModels.includes(choice.id)) {
+  const choice = resolveAllowedChatModel(opts.model, CHAT.allowedModels)
+  if (!choice) {
     return { costUsd: 0, error: 'That Ask model is not supported or allowed. Choose another model and retry.' }
   }
   if (activeChatTurns >= CHAT.maxConcurrent) return { costUsd: 0, error: 'Chat is busy right now — try again in a moment.' }
