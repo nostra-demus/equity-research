@@ -24,6 +24,7 @@ import type { PipelinesRead } from './types'
 import { emptyReviewFilters, matchesReviewFilters, type ReviewFilterState } from '../components/screener/ReviewFilters'
 import { automaticResumeMatches, emptyProviders, freezeProviderLaunch, isRunProvider, launchProviderReceiptMatches, optionalNestedLaunchResponseMatches, providerCatalogUnknown, providerIsBlocked, providerLaunchBlockedReason, providerLabel, providerNeedsCheck, readRunProfileKey, readRunProvider, saveRunProfileKey, saveRunProvider, selectedProviderProfile, trackedLaunchResponseMatches, type FrozenProviderLaunch, type ProvidersRead, type RecordedRunExecution, type RunProvider } from './provider'
 import { normalizeRunSnapshotIdentity, reconcileRunIdentity, sseFrameForRun } from './runIdentity'
+import { readChatModel, saveChatModel } from './chatModels'
 
 const SIGNAL_INPUT_NATURES = new Set([
   'news_headline', 'regulatory_filing', 'earnings_release', 'earnings_call_transcript',
@@ -1519,7 +1520,7 @@ export const useStore = create<State>((set, get) => ({
   chatOrbKey: undefined,
   chatAnswerRunRoot: undefined,
   chatTitle: '',
-  chatModel: 'sonnet',
+  chatModel: readChatModel(),
   chatStyle: loadChatStyle(),
   chatMemoryMode: 'auto',
   chatMemory: undefined,
@@ -3534,7 +3535,7 @@ export const useStore = create<State>((set, get) => ({
       chatTitle: defaultChatTitle(scope, chatSubjectOf(get()) || '', opts),
     })
   },
-  setChatModel: (m) => set({ chatModel: m }),
+  setChatModel: (m) => { saveChatModel(m); set({ chatModel: m }) },
   setChatStyle: (s) => { try { localStorage.setItem(CHAT_STYLE_KEY, s) } catch { /* blocked storage */ } set({ chatStyle: s }) },
   setChatMemoryMode: (mode) => set({ chatMemoryMode: mode }),
   // Clear starts a NEW conversation (fresh saved thread); the prior one stays in history — nothing is lost.
@@ -3600,6 +3601,7 @@ export const useStore = create<State>((set, get) => ({
         chatHistoryOpen: false,
         chatOpen: false,
         newsChatOpen: true,
+        chatModel: c.model || get().chatModel,
         newsChatWindow: newsWindow,
         newsChatMessages: messages.map((message) => ({ role: message.role, content: message.content, turnId: message.turnId, memory: message.memory })),
         newsChatConversationId: c.id,

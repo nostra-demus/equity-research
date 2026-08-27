@@ -9,6 +9,7 @@ import type { AutotuneState, RankWeightChanges, WeightChange } from './types'
 import type { BridgeStatus } from './types'
 import { parseMemoryRead, parseMemoryRuntimeRead, unavailableMemoryRead } from './memoryView'
 import { publishedPaperExecutionResult } from './paperPortfolioView'
+import { CHAT_MODELS, chatModelsReadAfterFailure, normalizeChatModelsRead, type ChatModelsRead } from './chatModels'
 import { normalizeProvidersRead, normalizeProviderStatus, providerCatalogForError, providerCatalogUnknown, providerLaunchFields, type FrozenProviderLaunch, type ProviderExecutionProfile, type ProvidersRead, type RunProvider } from './provider'
 import type { ActivityQuery, ActivityResult, AddPipelineSourceInput, BuildStep, CallsResult, ChatComputed, ChatConversationDetail, ChatListQuery, ChatListResult, ChatRequest, ChatScopes, CockpitFeedbackCategory, CockpitFeedbackStatus, CockpitFeedbackView, CompletedChatTurn, CoverageGroup, DataNeedsRead, DataNeedUploadRead, DataStatus, DiscoveredFeed, EventEnrichment, EventResearchLink, FeedbackRecord, FeedbackSubmitInput, FeedbackSummary, FeedbackType, FeedItem, IbkrPaperPortfolioRead, IntakePlan, IntensityStats, IntensityWindow, LaunchableRunKind, LaunchPreflight, MemoryRead, MemoryRuntimeRead, NewCompanyInput, NewsChatEvidence, NewsChatReceipt, NewsChatRequest, NewsCycle, NewsDiagnostics, NewsStatus, PaperExecutionResult, PipelineAuditEvent, PipelineTrend, PipelineView, QuoteRead, PortfolioManualInput, PortfolioManualRead, PortfolioLiveMark, PortfolioOverrides, PortfolioRead, PortfolioUploadResult, ResumableRunInfo, RunHistoryEntry, RunKind, ScanVerdict, ScreenerBoard, SignalIntakeInput, SignalState, SourcesReport, SwarmGraph, SwarmMeta, SwarmSubjectSummary, ThesisPlan, TickerSummary, UploadResult, Usage, WhatChangedRead, Whoami } from './types'
 
@@ -23,6 +24,7 @@ export const DATA_NEEDS_CLIENT_TIMEOUT_MS = 20_000
 export const MEMORY_CLIENT_TIMEOUT_MS = 65_000
 export const REEL_TRANSCRIPT_CLIENT_TIMEOUT_MS = 150_000
 export const EXACT_DECISION_LAUNCH_CONTRACT = 'exact-decision-launch/1' as const
+let chatModelsPending: Promise<ChatModelsRead> | null = null
 export interface ProviderReceiptFields {
   provider?: RunProvider
   executionProfile?: ProviderExecutionProfile
@@ -1774,6 +1776,33 @@ export const api = {
   dataStreamUrl: () => `/api/data-status/stream`,
 
   // ---- chat with your data (closed-book Q&A over a run's synthesized output) ----
+  // The host's admitted Ask catalogue. Only a confirmed 404 means an old server and earns the legacy
+  // Claude catalogue. A transient/malformed response rejects so each picker can keep its last truthful
+  // catalogue and retry; it can never overwrite a valid host-pinned choice with Sonnet.
+  chatModels: async (): Promise<ChatModelsRead> => {
+    const all = { models: CHAT_MODELS.map((choice) => choice.id), defaultModel: 'sonnet' }
+    if ((await ensureMode()) === 'static') return all
+    if (chatModelsPending) return chatModelsPending
+    const pending = (async () => {
+      try {
+        const read = normalizeChatModelsRead(await get<unknown>('/api/chat/models', 8_000))
+        if (!read) throw new Error('Ask model catalogue was invalid')
+        return read
+      } catch (error) {
+        const fallback = chatModelsReadAfterFailure(error, null)
+        if (!fallback) throw error
+        return fallback
+      }
+    })()
+    chatModelsPending = pending
+    try {
+      return await pending
+    } finally {
+      // Share only the in-flight request. A loaded browser must notice a server upgrade/reconfiguration;
+      // caching a legacy 404 forever would hide newly deployed GPT choices until the user reloaded.
+      if (chatModelsPending === pending) chatModelsPending = null
+    }
+  },
   // which scopes are present (chat-able) vs not-yet-run. Static showcase: nothing chat-able (no engine).
   chatScopes: async (ticker: string, swarm?: string): Promise<ChatScopes> => {
     if ((await ensureMode()) === 'static') return { ticker, runRoot: null, run: { present: false }, modules: [], orbs: [] }

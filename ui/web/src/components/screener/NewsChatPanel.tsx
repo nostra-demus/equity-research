@@ -7,6 +7,7 @@ import { restoreAskEntryFocus } from '../../lib/askFocus'
 import { displayHeadline } from '../../lib/plain'
 import type { NewsChatEvidence, NewsChatWindow } from '../../lib/types'
 import { ChatErrorNotice } from '../ChatPanel'
+import { ChatModelMenu } from '../chat/ChatModelMenu'
 
 const WINDOWS: { id: NewsChatWindow; label: string; intro: string; help: string }[] = [
   { id: '24h', label: '24H', intro: 'the last 24 hours', help: 'News from the last 24 hours. Older news is used only to test what is new.' },
@@ -46,7 +47,10 @@ export function NewsChatPanel() {
   const runSignal = useStore((s) => s.sendNewsChatToSignalCheck)
   const openEvent = useStore((s) => s.scSelectEvent)
   const staticMode = useStore((s) => s.staticMode)
+  const model = useStore((s) => s.chatModel)
+  const setModel = useStore((s) => s.setChatModel)
   const [draft, setDraft] = useState('')
+  const [modelMenu, setModelMenu] = useState(false)
   const [showSources, setShowSources] = useState(true)
   const [copied, setCopied] = useState(false)
   const inputRef = useRef<HTMLTextAreaElement | null>(null)
@@ -65,10 +69,10 @@ export function NewsChatPanel() {
 
   useEffect(() => { (staticMode ? closeRef.current : inputRef.current)?.focus() }, [])
   useEffect(() => {
-    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') close() }
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') { if (modelMenu) setModelMenu(false); else close() } }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
-  }, [close])
+  }, [close, modelMenu])
   useLayoutEffect(() => {
     const el = threadRef.current
     if (el && lockedRef.current) el.scrollTop = el.scrollHeight
@@ -130,6 +134,7 @@ export function NewsChatPanel() {
           </div>
         </div>
         <div className="newschat__headbuttons">
+          <ChatModelMenu model={model} open={modelMenu} onOpenChange={setModelMenu} onSelect={setModel} />
           <button className="btn btn--ghost" onClick={openHistory} title="View and reopen saved Ask conversations">History</button>
           {messages.length > 0 && <button className="btn btn--ghost" onClick={clear}>Clear</button>}
           <button ref={closeRef} data-ask-close="true" className="btn btn--ghost" onClick={close}>Close ✕</button>
