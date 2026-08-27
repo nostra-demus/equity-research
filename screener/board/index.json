@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-27T16:07:18Z",
+  "generated_at": "2026-08-27T16:07:52Z",
   "inbox": [
     {
       "inbox_id": "INB-20260827-635",
@@ -81479,6 +81479,76 @@
   "handoffs": [],
   "ideas": [
     {
+      "idea_id": "IDEA-728d9c6bfb69",
+      "idea_version": "IDEAV-90c32c29e4857311",
+      "idea_version_started_at": "2026-08-27T16:07:35Z",
+      "ticker": "HRL",
+      "company": "Hormel Foods",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company issued a downward revision to its sales outlook due to weakening consumer demand and persistent inflationary cost pressures.",
+      "why_now": "The guidance cut was announced on August 27, 2026, and the market is likely still adjusting to the margin compression implications.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-1c5e68b37a76"
+      ],
+      "primary_source_event_id": "EVT-1c5e68b37a76",
+      "source_headlines": [
+        "Hormel Foods Cuts Sales Outlook Amid Consumer Pullback, Higher Costs"
+      ],
+      "source_headline": "Hormel Foods Cuts Sales Outlook Amid Consumer Pullback, Higher Costs",
+      "source_url": "https://www.wsj.com/business/earnings/hormel-foods-cuts-sales-outlook-on-lower-quarterly-revenue-3cd92718?siteid=yhoof2&yptr=yahoo",
+      "source_name": "Yahoo Finance",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-27T14:20:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-27T13:17:25Z",
+      "updated_at": "2026-08-27T16:07:35Z",
+      "decay_at": "2026-08-29T02:20:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-eca4f9742c9b",
       "idea_version": "IDEAV-416c47135182b874",
       "idea_version_started_at": "2026-08-27T14:03:31Z",
@@ -81613,76 +81683,6 @@
       "surfaced_at": "2026-08-27T13:17:25Z",
       "updated_at": "2026-08-27T13:17:25Z",
       "decay_at": "2026-08-28T23:11:07Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-728d9c6bfb69",
-      "idea_version": "IDEAV-9aba153eb4463081",
-      "idea_version_started_at": "2026-08-27T13:17:25Z",
-      "ticker": "HRL",
-      "company": "Hormel Foods",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company cut its annual sales forecast due to persistent weakness in consumer demand, signaling margin pressure and volume headwinds.",
-      "why_now": "The guidance cut was announced today, August 27, 2026.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-80588cab0a7e"
-      ],
-      "primary_source_event_id": "EVT-80588cab0a7e",
-      "source_headlines": [
-        "Hormel Foods cuts annual sales forecast as sluggish consumer demand weighs"
-      ],
-      "source_headline": "Hormel Foods cuts annual sales forecast as sluggish consumer demand weighs",
-      "source_url": "https://www.reuters.com/business/retail-consumer/hormel-foods-cuts-annual-sales-forecast-sluggish-consumer-demand-weighs-2026-08-27/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-27T11:41:44Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-27T13:17:25Z",
-      "updated_at": "2026-08-27T13:17:25Z",
-      "decay_at": "2026-08-28T23:41:44Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -82809,6 +82809,77 @@
       "surfaced_at": "2026-08-26T20:21:39Z",
       "updated_at": "2026-08-26T20:21:39Z",
       "decay_at": "2026-08-28T01:27:05Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-7ec8a1db7a66",
+      "idea_version": "IDEAV-88323be63b305034",
+      "idea_version_started_at": "2026-08-27T16:07:35Z",
+      "ticker": "00871",
+      "company": "China Dredging Environment Protection Holdings Limited",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company issued a profit warning indicating an expected increase in losses, signaling deteriorating operational performance.",
+      "why_now": "The filing was released on August 27, 2026, and the market has not yet fully priced in the extent of the widening losses.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-9466f96a141a"
+      ],
+      "primary_source_event_id": "EVT-9466f96a141a",
+      "source_headlines": [
+        "CH DREDG ENV (00871): PROFIT WARNING - EXPECTED INCREASE IN LOSS"
+      ],
+      "source_headline": "CH DREDG ENV (00871): PROFIT WARNING - EXPECTED INCREASE IN LOSS",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0827/2026082702355.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-27T14:46:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-27T16:07:35Z",
+      "updated_at": "2026-08-27T16:07:35Z",
+      "decay_at": "2026-08-29T02:46:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -86252,437 +86323,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-997ba9627856",
-      "idea_version": "IDEAV-e753d73e8b3609a1",
-      "idea_version_started_at": "2026-08-24T23:28:07Z",
-      "ticker": "06887",
-      "company": "Sunshine Pharma",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "A profit warning indicates significant deterioration in margins or revenue, likely requiring a downward revision of earnings expectations.",
-      "why_now": "The profit warning was issued on August 24, 2026, and the market has not yet fully adjusted to the negative guidance.",
-      "conviction": 80,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-9330f5c5cc8c"
-      ],
-      "primary_source_event_id": "EVT-9330f5c5cc8c",
-      "source_headlines": [
-        "SUNSHINE PHARMA (06887): PROFIT WARNING"
-      ],
-      "source_headline": "SUNSHINE PHARMA (06887): PROFIT WARNING",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0824/2026082402015.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-24T14:50:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-24T23:28:07Z",
-      "updated_at": "2026-08-24T23:28:07Z",
-      "decay_at": "2026-08-26T02:50:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-5eb83f28e809",
-      "idea_version": "IDEAV-edc735557a877cff",
-      "idea_version_started_at": "2026-08-24T19:00:25Z",
-      "ticker": "01070",
-      "company": "TCL Electronics",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Potential spin-off and separate listing of its photovoltaic business could unlock value for shareholders.",
-      "why_now": "The company announced this potential spin-off on August 24, 2026.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-00b8ceaa13f5"
-      ],
-      "primary_source_event_id": "EVT-00b8ceaa13f5",
-      "source_headlines": [
-        "TCL ELECTRONICS (01070): INSIDE INFORMATION IN RELATION TO THE POTENTIAL SPIN-OFF AND SEPARATE LISTING OF PHOTOVOLTAIC BUSINESS"
-      ],
-      "source_headline": "TCL ELECTRONICS (01070): INSIDE INFORMATION IN RELATION TO THE POTENTIAL SPIN-OFF AND SEPARATE LISTING OF PHOTOVOLTAIC BUSINESS",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0824/2026082401763.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-24T14:12:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-24T16:24:36Z",
-      "updated_at": "2026-08-24T19:00:25Z",
-      "decay_at": "2026-08-26T02:12:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-aaaaf1fc1368",
-      "idea_version": "IDEAV-3c2e59d52bf37f43",
-      "idea_version_started_at": "2026-08-24T19:00:25Z",
-      "ticker": "IPCL",
-      "company": "India Power Corporation Limited",
-      "exchange": "BSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company is undergoing a Corporate Insolvency Resolution Process, indicating severe financial distress.",
-      "why_now": "The company informed the exchange about the Committee of Creditors meeting on August 24, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-1100c983eabc"
-      ],
-      "primary_source_event_id": "EVT-1100c983eabc",
-      "source_headlines": [
-        "DPSC Limited: DPSC Limited has informed the Exchange about Corporate Insolvency Resolution Process-Post facto intimation of the 5th (Fifth) Meeting of the Committee of Creditors (CoC) of India Power Corporation Limited (IPCL)"
-      ],
-      "source_headline": "DPSC Limited: DPSC Limited has informed the Exchange about Corporate Insolvency Resolution Process-Post facto intimation of the 5th (Fifth) Meeting of the Committee of Creditors (CoC) of India Power Corporation Limited (IPCL)",
-      "source_url": "https://nsearchives.nseindia.com/corporate/DPSCLTD_24082026213702_Intimationofpostponmentof5thCOCMeetingtoSE24082026.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-24T16:07:24Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-24T19:00:25Z",
-      "updated_at": "2026-08-24T19:00:25Z",
-      "decay_at": "2026-08-26T04:07:24Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-b9b5c6dfbbcc",
-      "idea_version": "IDEAV-a3fefe3e61967f5f",
-      "idea_version_started_at": "2026-08-24T19:00:25Z",
-      "ticker": "VIJI",
-      "company": "Viji Finance Ltd",
-      "exchange": "BSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Resignation of the statutory auditor raises concerns about the company's financial reporting and internal controls.",
-      "why_now": "The disclosure of the auditor's resignation was made on August 24, 2026.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 18,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-070cc53c4fe9"
-      ],
-      "primary_source_event_id": "EVT-070cc53c4fe9",
-      "source_headlines": [
-        "Viji Finance Ltd: DISCLOSURE PERTAINING TO SEBI REGULATION 30 OF THE SEBI LODR REGULATIONS, 2015 IN RESPECT OF RESIGNATION OF STATUTORY AUDITOR OF THE COMPANY"
-      ],
-      "source_headline": "Viji Finance Ltd: DISCLOSURE PERTAINING TO SEBI REGULATION 30 OF THE SEBI LODR REGULATIONS, 2015 IN RESPECT OF RESIGNATION OF STATUTORY AUDITOR OF THE COMPANY",
-      "source_url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/9507d9b0-0437-419e-8469-23d0b101a8bd.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-24T15:14:22Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-24T19:00:25Z",
-      "updated_at": "2026-08-24T19:00:25Z",
-      "decay_at": "2026-08-26T03:14:22Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-c4367824b313",
-      "idea_version": "IDEAV-e72f7c9b1affcd09",
-      "idea_version_started_at": "2026-08-24T16:50:38Z",
-      "ticker": "DPSC",
-      "company": "India Power Corporation Limited",
-      "exchange": "BSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company is undergoing a Corporate Insolvency Resolution Process, which typically results in substantial value destruction for existing shareholders.",
-      "why_now": "The update regarding the 5th Committee of Creditors meeting was filed on August 24, 2026.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-1100c983eabc"
-      ],
-      "primary_source_event_id": "EVT-1100c983eabc",
-      "source_headlines": [
-        "DPSC Limited: DPSC Limited has informed the Exchange about Corporate Insolvency Resolution Process-Post facto intimation of the 5th (Fifth) Meeting of the Committee of Creditors (CoC) of India Power Corporation Limited (IPCL)"
-      ],
-      "source_headline": "DPSC Limited: DPSC Limited has informed the Exchange about Corporate Insolvency Resolution Process-Post facto intimation of the 5th (Fifth) Meeting of the Committee of Creditors (CoC) of India Power Corporation Limited (IPCL)",
-      "source_url": "https://nsearchives.nseindia.com/corporate/DPSCLTD_24082026213702_Intimationofpostponmentof5thCOCMeetingtoSE24082026.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-24T16:07:24Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-24T16:50:38Z",
-      "updated_at": "2026-08-24T16:50:38Z",
-      "decay_at": "2026-08-26T04:07:24Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-d405caebf67e",
-      "idea_version": "IDEAV-504d292584970131",
-      "idea_version_started_at": "2026-08-24T16:50:38Z",
-      "ticker": "SHRENIK",
-      "company": "Shrenik Limited",
-      "exchange": "BSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company has entered the Corporate Insolvency Resolution Process, signaling severe financial distress and a high probability of significant equity impairment.",
-      "why_now": "The exchange filing confirming the insolvency process was made on August 24, 2026.",
-      "conviction": 80,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 23,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-aff62580c943"
-      ],
-      "primary_source_event_id": "EVT-aff62580c943",
-      "source_headlines": [
-        "Shrenik Limited: Shrenik Limited has informed the Exchange about Corporate Insolvency Resolution Process"
-      ],
-      "source_headline": "Shrenik Limited: Shrenik Limited has informed the Exchange about Corporate Insolvency Resolution Process",
-      "source_url": "https://nsearchives.nseindia.com/corporate/SHRENIK_24082026204921_Disclosure_of_Constitution_of_CoC.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-24T15:19:47Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-24T16:50:38Z",
-      "updated_at": "2026-08-24T16:50:38Z",
-      "decay_at": "2026-08-26T03:19:47Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-45be7ab74aa4",
       "idea_version": "IDEAV-9ece0dbfbc954d63",
       "idea_version_started_at": "2026-08-26T09:18:20Z",
@@ -86899,7 +86539,7 @@
     "schema_version": "ideas-archive/v1",
     "health": {
       "status": "ok",
-      "file_count": 123,
+      "file_count": 129,
       "suppression_count": 1,
       "corrupt_count": 0,
       "invalid_count": 0,
@@ -88941,8 +88581,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-08-26T04:07:24Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-08-27T16:07:40Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -89016,8 +88656,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-08-26T04:07:24Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-08-27T16:07:40Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -89091,8 +88731,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-08-26T03:19:47Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-08-27T16:07:40Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -89166,8 +88806,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-08-26T03:14:22Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-08-27T16:07:40Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -89240,8 +88880,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-08-26T02:50:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-08-27T16:07:40Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -89315,8 +88955,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-08-26T02:12:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-08-27T16:07:40Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -98354,8 +97994,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 199,
-    "live_count": 43,
+    "surfaced_total": 200,
+    "live_count": 44,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
