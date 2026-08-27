@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-27T03:28:00Z",
+  "generated_at": "2026-08-27T03:47:23Z",
   "inbox": [
     {
       "inbox_id": "INB-20260827-134",
@@ -1047,6 +1047,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260827-183",
+      "headline": "TRI: Appendix 4E - Preliminary Final Report [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.TRI?key=2924-03127388-3A700099",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-27T03:05:55Z",
+      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
+      "prelim_note": "Preliminary final report (Appendix 4E) contains full-year financial results and is marked as price-sensitive by the exchange.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Preliminary final report (Appendix 4E) contains full-year financial results and is marked as price-sensitive by the exchange.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Trident Estates Ltd",
+          "ticker": "TRI",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260827-085",
       "headline": "BTN: Preliminary Final Report [price-sensitive]",
       "headline_en": null,
@@ -1929,55 +1978,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260827-124",
-      "headline": "SKIL Infrastructure Ltd: SKIL Infrastructure Limited has informed the Exchange regarding the Post Facto Intimation of the Tenth (10th) Committee of Creditors meeting held on Tuesday, August 25, 2026",
-      "headline_en": null,
-      "url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/a9ad5111-70d4-48bc-bbf4-0c4501e1eea0.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-26T06:31:45Z",
-      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
-      "prelim_note": "The company is in a committee of creditors meeting, indicating ongoing financial distress or insolvency proceedings.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "The company is in a committee of creditors meeting, indicating ongoing financial distress or insolvency proceedings.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 9,
-        "size": -1,
-        "recency": 1,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "default_distress",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SKIL Infrastructure Ltd",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -97767,9 +97767,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 427222,
-    "news_picked_today": 200,
-    "news_dropped_today": 3448
+    "news_seen_today": 465249,
+    "news_picked_today": 220,
+    "news_dropped_today": 3752
   },
   "book_momentum": {
     "live_count": 8,
