@@ -1215,7 +1215,7 @@ provider_barrier_delta_required() {
     rm -f "$paths" 2>/dev/null || true
     return 0
   fi
-  classification="$($PYTHON -I - "$paths" <<'PYPROVIDERDELTA'
+  if ! classification="$($PYTHON -I - "$paths" <<'PYPROVIDERDELTA'
 import sys
 
 raw = open(sys.argv[1], "rb").read()
@@ -1235,9 +1235,15 @@ for encoded in parts:
         raise SystemExit
 print("data")
 PYPROVIDERDELTA
-)"
+)"; then
+    rm -f "$paths" 2>/dev/null || true
+    return 0
+  fi
   rm -f "$paths" 2>/dev/null || true
-  [ "$classification" = barrier ]
+  case "$classification" in
+    none|data) return 1 ;;
+    *) return 0 ;;
+  esac
 }
 
 # has_nondata_dirty — rc 0 if the working tree holds ANY dirty path (modified, staged, OR untracked) that is
