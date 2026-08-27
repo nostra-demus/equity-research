@@ -10,7 +10,7 @@ import { execa, type ResultPromise } from 'execa'
 import { CHAT, CLAUDE_BIN, REPO_ROOT } from './config'
 import { childEnv, detectFlags } from './launcher'
 import { resolveAllowedChatModel, type ChatModelSpec } from './chat-models'
-import { codexChildEnv, createIsolatedCodexProbeHome, resolveCodexBin } from './providers/codex'
+import { codexChildEnv, createIsolatedCodexProbeHome, pinCodexExecutable, resolveCodexBin } from './providers/codex'
 
 // Light backstop so a stuck UI cannot spawn dozens of subscription CLIs at once.
 let activeChatTurns = 0
@@ -156,11 +156,11 @@ export function codexChatFeatureDisables(output: string): string[] {
 
 // Deduplicate concurrent turns and avoid a CLI feature subprocess on every question. The short TTL also
 // makes an in-place CLI upgrade self-heal without a server restart; rejected probes are never cached.
-let codexChatFeatureCache: { command: string; expiresAt: number; pending: Promise<string[]> } | null = null
+let codexChatFeatureCache: { commandIdentity: string; expiresAt: number; pending: Promise<string[]> } | null = null
 
-async function inspectCodexChatFeatures(command: string): Promise<string[]> {
+async function inspectCodexChatFeatures(command: string, commandIdentity: string): Promise<string[]> {
   const now = Date.now()
-  if (codexChatFeatureCache?.command === command && codexChatFeatureCache.expiresAt > now) {
+  if (codexChatFeatureCache?.commandIdentity === commandIdentity && codexChatFeatureCache.expiresAt > now) {
     return codexChatFeatureCache.pending
   }
   const pending = (async () => {
@@ -191,7 +191,7 @@ async function inspectCodexChatFeatures(command: string): Promise<string[]> {
     }
     return codexChatFeatureDisables(`${result?.stdout || ''}\n${result?.stderr || ''}`)
   })()
-  const entry = { command, expiresAt: now + 60_000, pending }
+  const entry = { commandIdentity, expiresAt: now + 60_000, pending }
   codexChatFeatureCache = entry
   try {
     return await pending
@@ -355,8 +355,9 @@ async function runCodexChatTurn(opts: ChatTurnOptions, choice: ChatModelSpec): P
     env.TMPDIR = chatRoot
     env.TMP = chatRoot
     env.TEMP = chatRoot
-    const command = resolveCodexBin()
-    const disabledFeatures = await inspectCodexChatFeatures(command)
+    const pinnedCommand = pinCodexExecutable(resolveCodexBin(), env)
+    const command = pinnedCommand.command
+    const disabledFeatures = await inspectCodexChatFeatures(command, pinnedCommand.identity)
     if (opts.signal.aborted) return { costUsd: 0, error: 'aborted' }
     const args = buildCodexChatArgs(choice, chatRoot, opts.system, {
       parser: opts.thinkingTokens === 0,
@@ -364,6 +365,11 @@ async function runCodexChatTurn(opts: ChatTurnOptions, choice: ChatModelSpec): P
     })
     let child: ResultPromise
     try {
+      // The feature boundary belongs to an exact executable snapshot. Re-check immediately before spawn so
+      // an in-place CLI replacement can never inherit another binary's cached tool-disable list.
+      if (pinCodexExecutable(command, env).identity !== pinnedCommand.identity) {
+        throw new Error('Codex executable changed after its closed-book feature check. Retry the Ask turn.')
+      }
       child = execa(command, args, {
         cwd: chatRoot,
         env,
