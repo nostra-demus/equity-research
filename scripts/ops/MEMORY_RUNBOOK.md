@@ -253,6 +253,17 @@ promotions, quarantines, SLOs, and configured identity roles. It alerts on the g
 disabled layers, local playbook quarantines, failed or unmeasured readiness, blocked/partial runs,
 and a large promotion backlog.
 
+The legacy `memory-ui/1` Explorer read is pre-warmed when the control plane starts. Its latest
+curated, verified response is atomically persisted at `<engine_state>/memory-ui/verified-read.json`
+inside an owner-only directory and file (`0700` / `0600`). Restart hydration rechecks ownership,
+link count, mode, size, schema, internal counts, and the response digest before serving it. Missing,
+expired, future-dated, corrupt, hard-linked, or symlinked state is ignored and a bounded live rebuild
+is attempted. A cold projection command has a one-minute ceiling inside the browser's 65-second
+Memory budget. The fixed last-known-good deadline is never extended by a failed refresh. The Explorer
+searches a bounded newest-first working set; older records remain in canonical memory, so corpus
+growth cannot turn the UI response into an unbounded payload or make the endpoint unavailable merely
+because the history passed a display limit.
+
 ## Incident order
 
 1. Activate the narrowest local switch that removes the unsafe content. Use the global switch for

@@ -7148,6 +7148,9 @@ purgeReelTempDirs(0)
     const g = graphs[0]
     // eslint-disable-next-line no-console
     console.log(`[swarm-cockpit] control plane on http://${HOST}:${PORT}  (${g.totals.modules} modules, ${g.totals.agents} agents; ${graphs.length} swarm graphs warm)`)
+    // Revalidate Memory as soon as the control plane is listening. A browser arriving during the
+    // refresh receives the bounded, verified last-known-good view; concurrent callers join one rebuild.
+    void memoryReader.warm()
     // warm the once-per-process claude CLI probes so the FIRST launch click doesn't pay them (~1-4s)
     void warmLaunchProbes()
     // autonomous news ingester (screener swarm): fills a ranked inbox 24/7 at ~$0 when GROQ_API_KEY
