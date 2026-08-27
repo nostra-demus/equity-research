@@ -1,6 +1,56 @@
 {
-  "generated_at": "2026-08-27T23:35:22Z",
+  "generated_at": "2026-08-27T23:55:24Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260827-884",
+      "headline": "RHT: FY26 Full Year Results & FY27 Guidance Investor Presentation [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.RHT?key=2924-03128013-6A1340857",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-27T23:24:29Z",
+      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
+      "prelim_note": "RHT released full year results and FY27 guidance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "RHT released full year results and FY27 guidance.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "guidance_change",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "RHT",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260827-883",
       "headline": "AII: UPDATE REGARDING VOLUNTARY DELISTING FROM ASX [price-sensitive]",
@@ -1939,60 +1989,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260827-850",
-      "headline": "Japanese chipmaker Kioxia, Sandisk to spend ¥5 tril to boost output",
-      "headline_en": null,
-      "url": "https://japantoday.com/category/tech/update1-japanese-chipmaker-kioxia-sandisk-to-spend-5-tril.-yen-to-boost-output",
-      "source_name": "Japan Today",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-27T21:26:07Z",
-      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
-      "prelim_note": "Kioxia and Sandisk announced a major ¥5 trillion capital expenditure to boost production capacity.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Kioxia and Sandisk announced a major ¥5 trillion capital expenditure to boost production capacity.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 6,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Kioxia",
-          "ticker": null,
-          "listing_country": "JP"
-        },
-        {
-          "name": "Sandisk",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -99270,9 +99266,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3215458,
-    "news_picked_today": 1979,
-    "news_dropped_today": 26509
+    "news_seen_today": 3250562,
+    "news_picked_today": 2064,
+    "news_dropped_today": 26808
   },
   "book_momentum": {
     "live_count": 8,
