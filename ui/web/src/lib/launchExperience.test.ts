@@ -36,6 +36,13 @@ assert.doesNotMatch(thesisPanel, /provider === 'claude' && <div className="tpp__
   'the full-run typed-confirmation explanation must be visible under every provider')
 
 const storeSource = readFileSync(fileURLToPath(new URL('./store.ts', import.meta.url)), 'utf8')
+const resumeConfirm = readFileSync(fileURLToPath(new URL('../components/ResumeConfirm.tsx', import.meta.url)), 'utf8')
+const appSource = readFileSync(fileURLToPath(new URL('../App.tsx', import.meta.url)), 'utf8')
+assert.match(appSource, /<ResumeConfirm\s*\/>/, 'the universal manual-resume chooser must stay mounted')
+assert.match(resumeConfirm, /Continue with/, 'Resume must expose provider choice at the final action boundary')
+assert.match(resumeConfirm, /ProviderProfileSelector/, 'Resume must expose the server-reviewed model catalogue')
+assert.doesNotMatch(storeSource, /window\.confirm\(/,
+  'manual resume must never fall back to a native yes/no prompt that forces the global profile')
 const rediscoverySource = storeSource.slice(
   storeSource.indexOf('function reconcileProviderRediscovery'),
   storeSource.indexOf('// Auto-resume of interrupted screener runs'),
