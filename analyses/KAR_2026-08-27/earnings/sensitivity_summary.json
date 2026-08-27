@@ -1,0 +1,76 @@
+{
+  "schema_version": "1.0",
+  "ticker": "KAR",
+  "as_of": "2026-08-27",
+  "currency": "USD",
+  "base_metric": "underlying_ebitdax_usd_m",
+  "base_value": 388.8,
+  "base_value_source": "FY2025 Annual Report, Financial Summary p.48-49 (Underlying EBITDAX US$388.8m); reconciled in analyses/KAR_2026-08-27/earnings/01_historical-financials.md §4",
+  "base_period": "FY2025 (12 months to 31-Dec-2025)",
+  "revenue_base": 628.6,
+  "revenue_period": "FY2025 (12 months to 31-Dec-2025)",
+  "sensitivities": [
+    {
+      "variable": "group_blended_realized_oil_price",
+      "label": "Group-blended realized oil/liquids price (Brent-linked at Baúna, Mars-differential-linked at Who Dat)",
+      "unit": "USD/bbl",
+      "base_value": 65.9,
+      "coefficient": 8.6,
+      "confidence": "medium",
+      "basis": "inferred",
+      "valid_range": {"low": 59.00, "high": 84.74},
+      "non_linearity": "No hedges in place at 31-Dec-2025 or as of the 2Q26 filing, so the pass-through is effectively linear and unmitigated across the full disclosed range; a move beyond the 5-year range (below FY2021's $59.00/bbl or above FY2022's $84.74/bbl) is unproven territory for this coefficient. The dollar Brazilian export-tax cost also rises automatically with price (ad valorem), so realized upside is somewhat smaller than this coefficient alone implies on the bull side.",
+      "source": "Q4 2025 Activities Report, p.3; FY2025 Earnings Call transcript, 26-Feb-2026, p.5 (CFO price/volume revenue bridge); business-model 04_unit-economics.md §4 (5-year realized-price range); coefficient = this report's own derivation from disclosed FY2025 sold volumes (Baúna 7.35 MMbbl + Who Dat liquids 1.95 MMbbl = 9.30 $m revenue per $1/bbl) net of the ~7.0% mechanical royalty rate (royalties $44.1m / revenue $628.6m, FY2025 Annual Report Note 2(b)) — see 02_revenue-drivers.md §6a"
+    },
+    {
+      "variable": "total_production_volume",
+      "label": "Total NRI production volume (Brazil + USA)",
+      "unit": "MMboe",
+      "base_value": 7.7,
+      "coefficient": 43.8,
+      "confidence": "medium",
+      "basis": "inferred",
+      "valid_range": {"low": 7.2, "high": 8.2},
+      "non_linearity": "Unit production costs are largely fixed short-term, so a volume shortfall dilutes them (operating deleverage) rather than being cushioned by falling costs — the downside case understates the true earnings hit if the shortfall also raises unit opex, as observed at Who Dat (+7.6% YoY unit cost on lower FY2025 production).",
+      "source": "2Q26 Activities Report (Jul-22-2026), '2026 Full Year Guidance' table (7.2-8.2 MMboe CY2026 range); coefficient = this report's own derivation (blended FY2025 revenue-per-boe of ~US$61.3/boe [FY2025 revenue $628.6m / FY2025 NRI production 10.26 MMboe, FY2025 Annual Report p.78 and Q4 2025 Activities Report p.3] less unit production cost US$13.20/boe and the ~7.0% mechanical royalty rate, both FY2025 Annual Report p.48-49 and Note 2(b))"
+    },
+    {
+      "variable": "unit_production_cost",
+      "label": "Unit production cost (NWI, group)",
+      "unit": "USD/boe",
+      "base_value": 13.5,
+      "coefficient": -7.7,
+      "confidence": "high",
+      "basis": "company-disclosed",
+      "valid_range": {"low": 12.0, "high": 15.0},
+      "non_linearity": null,
+      "source": "2Q26 Activities Report (Jul-22-2026), '2026 Full Year Guidance' table (unit production costs US$12-15/boe CY2026); coefficient = guided range applied to the guided CY2026 production midpoint (7.7 MMboe)"
+    },
+    {
+      "variable": "net_interest_finance_costs",
+      "label": "Net interest and other finance costs",
+      "unit": "USD million",
+      "base_value": 65,
+      "coefficient": -1,
+      "impact_metric": "pretax_profit_usd_m",
+      "confidence": "high",
+      "basis": "company-disclosed",
+      "valid_range": {"low": 60, "high": 70},
+      "non_linearity": "The RBL facility was undrawn at both 31-Dec-2025 and 30-Jun-2026, so most of this exposure is the fixed 10.50% coupon on the US$350m Notes plus lower interest income on cash balances, not floating-rate risk; the company's own disclosed floating-rate sensitivity is only ±US$1.6m per 1% p.a. move (FY2025). Net debt rose sharply in 1H26 (US$132.7m to US$269.7m), a risk to the top of this guided range not yet reflected in the range itself.",
+      "source": "2Q26 Activities Report (Jul-22-2026), '2026 Full Year Guidance' table (finance costs & interest, net, US$60-70m CY2026); FY2025 Annual Report, Note 20(a)(ii) (interest-rate sensitivity, corroborating)"
+    },
+    {
+      "variable": "unit_dd_a",
+      "label": "Unit DD&A (NWI)",
+      "unit": "USD/boe",
+      "base_value": 16,
+      "coefficient": -7.7,
+      "impact_metric": "pretax_profit_usd_m",
+      "confidence": "high",
+      "basis": "company-disclosed",
+      "valid_range": {"low": 15, "high": 17},
+      "non_linearity": "Non-cash; does not affect EBITDAX, CFO, or cash-basis covenant/borrowing-base tests, but flows through to NPAT/EPS and the statutory net-margin line.",
+      "source": "2Q26 Activities Report (Jul-22-2026), '2026 Full Year Guidance' table (unit DD&A US$15-17/boe CY2026); coefficient = guided range applied to the guided CY2026 production midpoint (7.7 MMboe)"
+    }
+  ]
+}
