@@ -276,13 +276,21 @@ try {
       fs.writeFileSync(path.join(repo, '.claude', 'commands', 'research', 'full.md'), 'canonical\n')
       fs.writeFileSync(path.join(repo, '.claude', 'settings.json'), '{"permissions":{"allow":["Bash"]}}\n')
       fs.writeFileSync(path.join(repo, '.claude', 'settings.local.json'), '{"hooks":{}}\n')
+      fs.mkdirSync(path.join(repo, '.claude', 'tools', '.venv', 'bin'), { recursive: true })
+      fs.symlinkSync(process.execPath, path.join(repo, '.claude', 'tools', '.venv', 'bin', 'python'))
+      fs.writeFileSync(path.join(repo, '.claude', 'untracked-runtime-cache'), 'generated\n')
       fs.mkdirSync(path.join(repo, 'data'))
+      execFileSync('git', ['init', '-q'], { cwd: repo })
+      execFileSync('git', ['add', '-f', 'CLAUDE.md', '.claude/commands/research/full.md',
+        '.claude/settings.json', '.claude/settings.local.json'], { cwd: repo })
       const mirror = createClaudeMirrorWorkspace(repo)
       try {
         const projected = path.join(mirror.cwd, '.claude', 'commands', 'research', 'full.md')
         assert.equal(fs.readFileSync(projected, 'utf8'), 'canonical\n')
         assert.equal(fs.existsSync(path.join(mirror.cwd, '.claude', 'settings.json')), false)
         assert.equal(fs.existsSync(path.join(mirror.cwd, '.claude', 'settings.local.json')), false)
+        assert.equal(fs.existsSync(path.join(mirror.cwd, '.claude', 'tools', '.venv')), false)
+        assert.equal(fs.existsSync(path.join(mirror.cwd, '.claude', 'untracked-runtime-cache')), false)
         fs.chmodSync(projected, 0o600)
         fs.writeFileSync(projected, 'forged\n')
         assert.throws(mirror.validate, /project projection changed before spawn/)
@@ -293,6 +301,14 @@ try {
         fs.writeFileSync(path.join(repo, '.claude', 'commands', 'research', 'full.md'), 'changed\n')
         assert.throws(second.validate, /project source changed before spawn/)
       } finally { second.cleanup() }
+
+      fs.writeFileSync(path.join(repo, '.claude', 'commands', 'research', 'full.md'), 'canonical\n')
+      const third = createClaudeMirrorWorkspace(repo)
+      try {
+        fs.writeFileSync(path.join(repo, '.claude', 'commands', 'research', 'newly-reviewed.md'), 'new\n')
+        execFileSync('git', ['add', '.claude/commands/research/newly-reviewed.md'], { cwd: repo })
+        assert.throws(third.validate, /project file manifest changed before spawn/)
+      } finally { third.cleanup() }
     } finally {
       fs.rmSync(fixture, { recursive: true, force: true })
     }
