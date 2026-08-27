@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-27T14:12:51Z",
+  "generated_at": "2026-08-27T14:44:08Z",
   "inbox": [
     {
       "inbox_id": "INB-20260827-604",
@@ -1137,6 +1137,204 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260827-607",
+      "headline": "Salesforce Soars 14% as Claudeforce and a Guidance Raise End the Slump, ServiceNow Climbs 5%, Adobe Advances 3%",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/markets/stocks/articles/salesforce-soars-14-claudeforce-guidance-133818262.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-27T13:38:18Z",
+      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
+      "prelim_note": "Salesforce reported earnings and raised guidance, causing a 14% stock price increase.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Salesforce reported earnings and raised guidance, causing a 14% stock price increase.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Salesforce",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260827-612",
+      "headline": "NCLT clears Subhash Chandra’s ₹6.5 crore repayment plan against ₹22,006 crore claims",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/companies/nclt-clears-subhash-chandras-65-crore-repayment-plan-against-22006-crore-claims/article71393464.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-27T13:33:48Z",
+      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
+      "prelim_note": "NCLT approved a repayment plan of ₹6.5 crore against total claims of ₹22,006 crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "NCLT approved a repayment plan of ₹6.5 crore against total claims of ₹22,006 crore.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Subhash Chandra",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260827-609",
+      "headline": "Subhash Chandra insolvency: How creditors will recover just 3 paise for every ₹100 owed | Explained",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/people/subhash-chandra-insolvency-how-creditors-will-recover-just-3-paise-for-every-rs-100-owed-explained-11787835257335.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-27T13:30:05Z",
+      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
+      "prelim_note": "Creditors are set to recover only 3 paise per 100 rupees owed in the insolvency of Subhash Chandra's entities.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Creditors are set to recover only 3 paise per 100 rupees owed in the insolvency of Subhash Chandra's entities.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Subhash Chandra",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260827-618",
+      "headline": "Jameson Maker Pernod Ricard Warns of Sales Hit as Americans Ease Off on Drinking",
+      "headline_en": null,
+      "url": "https://www.wsj.com/business/retail/pernod-ricard-warns-weak-u-s-drinking-to-keep-clipping-sales-growth-45a92af3?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-27T13:14:00Z",
+      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
+      "prelim_note": "Pernod Ricard warned of a sales hit due to Americans easing off on drinking.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Pernod Ricard warned of a sales hit due to Americans easing off on drinking.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change",
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Pernod Ricard",
+          "ticker": "RI",
+          "listing_country": "FR"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260827-587",
       "headline": "HP Q3 2026 earnings: record revenue but PC shipments drop 16%",
       "headline_en": null,
@@ -1790,206 +1988,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260827-383",
-      "headline": "Nvidia To Acquire Hugging Face For $12.9 Bn: Report",
-      "headline_en": null,
-      "url": "https://www.outlookbusiness.com/corporate/nvidia-to-acquire-hugging-face-for-129-bn-report",
-      "source_name": "Outlook Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-27T08:17:34Z",
-      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
-      "prelim_note": "Reported $12.9 billion acquisition of Hugging Face by Nvidia.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Reported $12.9 billion acquisition of Hugging Face by Nvidia.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Hugging Face",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260827-352",
-      "headline": "Boeing Paid $4.7 Billion to Buy Back a Business It Sold in 2005",
-      "headline_en": null,
-      "url": "https://www.fool.com/investing/2026/08/27/boeing-paid-usd4-7-billion-to-buy-back-a-business-it-sold-in-2005/?source=iedfolrf0000001",
-      "source_name": "The Motley Fool",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-27T07:44:01Z",
-      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
-      "prelim_note": "Boeing spent $4.7 billion to re-acquire a business unit, impacting cash flow and capital allocation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Boeing spent $4.7 billion to re-acquire a business unit, impacting cash flow and capital allocation.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Boeing",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260827-351",
-      "headline": "Nvidia agrees to buy Hugging Face for $12.9 billion, report says",
-      "headline_en": null,
-      "url": "https://www.cnbc.com/2026/08/27/nvidia-hugging-face-acquisition.html",
-      "source_name": "CNBC",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-27T07:29:46Z",
-      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
-      "prelim_note": "Nvidia reportedly agreed to acquire Hugging Face for $12.9 billion, a large M&A deal that can reshape AI infrastructure and move both companies' valuations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Nvidia reportedly agreed to acquire Hugging Face for $12.9 billion, a large M&A deal that can reshape AI infrastructure and move both companies' valuations.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": "NVDA",
-          "listing_country": "US"
-        },
-        {
-          "name": "Hugging Face",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260827-387",
-      "headline": "NYSE-listed digital infrastructure giant to buy Ausgrid’s $3b Plus Es",
-      "headline_en": null,
-      "url": "https://www.afr.com/street-talk/nyse-listed-player-set-to-acquire-ausgrid-s-plus-es-20260827-p60s7x?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-27T07:25:31Z",
-      "sweep_file": "screener/inbox/2026-08-27_sweep.json",
-      "prelim_note": "Major $3 billion acquisition of infrastructure assets.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Major $3 billion acquisition of infrastructure assets.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -84273,78 +84271,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-84d3d160ac55",
-      "idea_version": "IDEAV-1ef6796bb157b3aa",
-      "idea_version_started_at": "2026-08-26T09:18:20Z",
-      "ticker": "INA",
-      "company": "Ingenia Communities Group",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The $1 billion acquisition of Peet significantly expands Ingenia's land bank, providing a larger pipeline for future residential development and long-term earnings growth.",
-      "why_now": "The acquisition was announced on August 26, 2026, and is currently being digested by the market.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 18,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-4109cf9a84ba"
-      ],
-      "primary_source_event_id": "EVT-4109cf9a84ba",
-      "source_headlines": [
-        "Developer Ingenia secures land bank with $1b acquisition of Peet"
-      ],
-      "source_headline": "Developer Ingenia secures land bank with $1b acquisition of Peet",
-      "source_url": "https://www.afr.com/property/commercial/developer-ingenia-secures-land-bank-with-1b-acquisition-of-peet-20260826-p60rnn?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-26T02:36:38Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-26T09:18:20Z",
-      "updated_at": "2026-08-26T09:18:20Z",
-      "decay_at": "2026-08-27T14:36:38Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-dbb0c0af5d7a",
       "idea_version": "IDEAV-598a128eedd3f0f6",
       "idea_version_started_at": "2026-08-26T06:46:12Z",
@@ -84410,79 +84336,6 @@
       "surfaced_at": "2026-08-26T06:46:12Z",
       "updated_at": "2026-08-26T06:46:12Z",
       "decay_at": "2026-08-27T16:09:14Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-5057424de03d",
-      "idea_version": "IDEAV-9f70f8b01b8a2072",
-      "idea_version_started_at": "2026-08-26T04:56:22Z",
-      "ticker": "PPC",
-      "company": "Peet Limited",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Ingenia Communities has agreed to a $1 billion acquisition of the company, which typically trades up toward the offer price.",
-      "why_now": "The acquisition was announced on 2026-08-26.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 18,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-4109cf9a84ba"
-      ],
-      "primary_source_event_id": "EVT-4109cf9a84ba",
-      "source_headlines": [
-        "Developer Ingenia secures land bank with $1b acquisition of Peet"
-      ],
-      "source_headline": "Developer Ingenia secures land bank with $1b acquisition of Peet",
-      "source_url": "https://www.afr.com/property/commercial/developer-ingenia-secures-land-bank-with-1b-acquisition-of-peet-20260826-p60rnn?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-26T02:36:38Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-26T04:56:22Z",
-      "updated_at": "2026-08-26T04:56:22Z",
-      "decay_at": "2026-08-27T14:36:38Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -85189,6 +85042,151 @@
       "surfaced_at": "2026-08-25T03:44:44Z",
       "updated_at": "2026-08-25T03:44:44Z",
       "decay_at": "2026-08-26T12:50:10Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-84d3d160ac55",
+      "idea_version": "IDEAV-1ef6796bb157b3aa",
+      "idea_version_started_at": "2026-08-26T09:18:20Z",
+      "ticker": "INA",
+      "company": "Ingenia Communities Group",
+      "exchange": "ASX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The $1 billion acquisition of Peet significantly expands Ingenia's land bank, providing a larger pipeline for future residential development and long-term earnings growth.",
+      "why_now": "The acquisition was announced on August 26, 2026, and is currently being digested by the market.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 18,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-4109cf9a84ba"
+      ],
+      "primary_source_event_id": "EVT-4109cf9a84ba",
+      "source_headlines": [
+        "Developer Ingenia secures land bank with $1b acquisition of Peet"
+      ],
+      "source_headline": "Developer Ingenia secures land bank with $1b acquisition of Peet",
+      "source_url": "https://www.afr.com/property/commercial/developer-ingenia-secures-land-bank-with-1b-acquisition-of-peet-20260826-p60rnn?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-26T02:36:38Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-26T09:18:20Z",
+      "updated_at": "2026-08-26T09:18:20Z",
+      "decay_at": "2026-08-27T14:36:38Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-5057424de03d",
+      "idea_version": "IDEAV-9f70f8b01b8a2072",
+      "idea_version_started_at": "2026-08-26T04:56:22Z",
+      "ticker": "PPC",
+      "company": "Peet Limited",
+      "exchange": "ASX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Ingenia Communities has agreed to a $1 billion acquisition of the company, which typically trades up toward the offer price.",
+      "why_now": "The acquisition was announced on 2026-08-26.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 18,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-4109cf9a84ba"
+      ],
+      "primary_source_event_id": "EVT-4109cf9a84ba",
+      "source_headlines": [
+        "Developer Ingenia secures land bank with $1b acquisition of Peet"
+      ],
+      "source_headline": "Developer Ingenia secures land bank with $1b acquisition of Peet",
+      "source_url": "https://www.afr.com/property/commercial/developer-ingenia-secures-land-bank-with-1b-acquisition-of-peet-20260826-p60rnn?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-26T02:36:38Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-26T04:56:22Z",
+      "updated_at": "2026-08-26T04:56:22Z",
+      "decay_at": "2026-08-27T14:36:38Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -86995,13 +86993,13 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 150,
-    "shown_count": 150,
+    "total_count": 152,
+    "shown_count": 152,
     "hidden_count": 0,
     "side_counts": {
       "long": {
-        "total_count": 60,
-        "shown_count": 60,
+        "total_count": 62,
+        "shown_count": 62,
         "hidden_count": 0
       },
       "short": {
@@ -87026,6 +87024,157 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-5057424de03d",
+        "idea_version": "IDEAV-9f70f8b01b8a2072",
+        "idea_version_started_at": "2026-08-26T04:56:22Z",
+        "ticker": "PPC",
+        "company": "Peet Limited",
+        "exchange": "ASX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Ingenia Communities has agreed to a $1 billion acquisition of the company, which typically trades up toward the offer price.",
+        "why_now": "The acquisition was announced on 2026-08-26.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 18,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-4109cf9a84ba"
+        ],
+        "primary_source_event_id": "EVT-4109cf9a84ba",
+        "source_headlines": [
+          "Developer Ingenia secures land bank with $1b acquisition of Peet"
+        ],
+        "source_headline": "Developer Ingenia secures land bank with $1b acquisition of Peet",
+        "source_url": "https://www.afr.com/property/commercial/developer-ingenia-secures-land-bank-with-1b-acquisition-of-peet-20260826-p60rnn?ref=rss&utm_medium=rss&utm_source=rss_feed",
+        "source_name": "Australian Financial Review",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-26T02:36:38Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-26T04:56:22Z",
+        "updated_at": "2026-08-26T04:56:22Z",
+        "decay_at": "2026-08-27T14:36:38Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-27T14:36:38Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-84d3d160ac55",
+        "idea_version": "IDEAV-1ef6796bb157b3aa",
+        "idea_version_started_at": "2026-08-26T09:18:20Z",
+        "ticker": "INA",
+        "company": "Ingenia Communities Group",
+        "exchange": "ASX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The $1 billion acquisition of Peet significantly expands Ingenia's land bank, providing a larger pipeline for future residential development and long-term earnings growth.",
+        "why_now": "The acquisition was announced on August 26, 2026, and is currently being digested by the market.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 18,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-4109cf9a84ba"
+        ],
+        "primary_source_event_id": "EVT-4109cf9a84ba",
+        "source_headlines": [
+          "Developer Ingenia secures land bank with $1b acquisition of Peet"
+        ],
+        "source_headline": "Developer Ingenia secures land bank with $1b acquisition of Peet",
+        "source_url": "https://www.afr.com/property/commercial/developer-ingenia-secures-land-bank-with-1b-acquisition-of-peet-20260826-p60rnn?ref=rss&utm_medium=rss&utm_source=rss_feed",
+        "source_name": "Australian Financial Review",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-26T02:36:38Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-26T09:18:20Z",
+        "updated_at": "2026-08-26T09:18:20Z",
+        "decay_at": "2026-08-27T14:36:38Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-27T14:36:38Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-49a2653dd307",
         "idea_version": "IDEAV-bbf0f9c9aff71064",
@@ -98146,7 +98295,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 199,
-    "live_count": 48,
+    "live_count": 46,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -98165,9 +98314,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1802564,
-    "news_picked_today": 1032,
-    "news_dropped_today": 17880
+    "news_seen_today": 1868267,
+    "news_picked_today": 1101,
+    "news_dropped_today": 18243
   },
   "book_momentum": {
     "live_count": 8,
