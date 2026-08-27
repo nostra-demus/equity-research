@@ -1,25 +1,25 @@
 {
-  "idea_id": "IDEA-56faf0683963",
-  "idea_version": "IDEAV-28c1ebc87f9fe187",
-  "idea_version_started_at": "2026-08-24T12:14:28Z",
-  "ticker": "08340",
-  "company": "Zijing International Financial Holdings",
-  "exchange": "HKEX",
+  "idea_id": "IDEA-0a9a79a819d1",
+  "idea_version": "IDEAV-8fda1afdc05e1dc2",
+  "idea_version_started_at": "2026-08-27T07:19:10Z",
+  "ticker": "BOL",
+  "company": "Boliden AB",
+  "exchange": "Nasdaq Stockholm",
   "ticker_verified": false,
   "listing_verified": false,
   "liquidity_verified": false,
   "listing_verification_source": null,
-  "direction": "short",
+  "direction": "long",
   "pair_with": null,
-  "reason": "The company issued a profit warning, which typically precedes a downward revision in analyst earnings estimates and valuation multiples.",
-  "why_now": "The announcement was made on August 24, 2026.",
-  "conviction": 60,
+  "reason": "Boliden is acquiring a controlling stake in Nexa Resources for $1.3 billion, which expands its base metals production footprint.",
+  "why_now": "The deal was announced today, August 27, 2026.",
+  "conviction": 70,
   "conviction_basis": "pre_edge_proxy",
   "trade_score": 45,
   "trade_score_basis": "evidence_gate_v2",
   "trade_score_breakdown": {
-    "evidence": 25,
-    "impact": 20,
+    "evidence": 14,
+    "impact": 21,
     "specificity": 7,
     "timing": 10,
     "expression": 0,
@@ -32,6 +32,7 @@
     "verified listing",
     "live liquidity",
     "dated catalyst",
+    "independent confirmation",
     "live price, liquidity, and consensus"
   ],
   "learning": {
@@ -48,26 +49,26 @@
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-68438cf545d3"
+    "EVT-6e685d6a7201"
   ],
-  "primary_source_event_id": "EVT-68438cf545d3",
+  "primary_source_event_id": "EVT-6e685d6a7201",
   "source_headlines": [
-    "ZIJING INTL FIN (08340): PROFIT WARNING"
+    "Boliden to Buy Controlling Nexa Stake in $1.3 Billion Deal"
   ],
-  "source_headline": "ZIJING INTL FIN (08340): PROFIT WARNING",
-  "source_url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/0824/2026082400746.pdf",
-  "source_name": "HKEXnews (HK Exchange Filing)",
+  "source_headline": "Boliden to Buy Controlling Nexa Stake in $1.3 Billion Deal",
+  "source_url": "https://www.bloomberg.com/news/articles/2026-08-27/boliden-to-buy-controlling-stake-in-nexa-in-1-3-billion-deal",
+  "source_name": "Bloomberg",
   "materiality_max": 100,
-  "newest_source_at": "2026-08-24T09:24:00Z",
+  "newest_source_at": "2026-08-27T05:23:00Z",
   "prior_coverage": {
     "has_run": false,
     "latest_run": null,
     "latest_decision": null,
     "data_pool_present": false
   },
-  "surfaced_at": "2026-08-24T12:14:28Z",
-  "updated_at": "2026-08-24T12:14:28Z",
-  "decay_at": "2026-08-25T21:24:00Z",
+  "surfaced_at": "2026-08-27T07:19:10Z",
+  "updated_at": "2026-08-27T07:19:10Z",
+  "decay_at": "2026-08-28T17:23:00Z",
   "status": "live",
   "promoted_signal_id": null
 }

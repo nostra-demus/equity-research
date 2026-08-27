@@ -2,6 +2,7 @@ process.env.ENGINE_ACTIVITY_LOG_DISABLED = '1'
 
 import assert from 'node:assert/strict'
 import { execFileSync } from 'node:child_process'
+import { randomUUID } from 'node:crypto'
 import fs from 'node:fs'
 import net from 'node:net'
 import os from 'node:os'
@@ -836,6 +837,22 @@ try {
   assert.throws(() => buildCodexLaunchSpec({ ...context, writablePaths: [dataRoot] }, broadWriteProbe), /Refusing broad/,
     'repo/data roots can never be restored as broad model write grants')
   assert.equal(fs.existsSync(broadWriteProbe.authLease.home), false)
+
+  const dataRootAlias = path.join(os.tmpdir(), `nostra-codex-data-link-${randomUUID()}`)
+  fs.symlinkSync(dataRoot, dataRootAlias, 'dir')
+  try {
+    const linkedDataProbe = launchProbe(launchAuthHome)
+    const linkedDataSpec = buildCodexLaunchSpec({ ...context, additionalWritableDataRoot: dataRootAlias }, linkedDataProbe)
+    assert.deepEqual(
+      linkedDataSpec.args.slice(linkedDataSpec.args.indexOf('--add-dir'), linkedDataSpec.args.indexOf('--add-dir') + 2),
+      ['--add-dir', fs.realpathSync(dataRoot)],
+      'Codex must resolve the same sanctioned external data projection used by the production checkout',
+    )
+    linkedDataSpec.beforeSpawn?.()
+    linkedDataSpec.cleanup?.()
+  } finally {
+    fs.unlinkSync(dataRootAlias)
+  }
 
   const tempPublication = await createTestPublicationTransport('/tmp/nostra-publication-test-')
   try {

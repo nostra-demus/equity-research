@@ -11,6 +11,47 @@ TEST_TMP="$(mktemp -d)" || exit 1
 trap 'rm -rf "$TEST_TMP"' EXIT
 PYTHON_BIN="$(command -v python3)"
 
+# Autonomous research commits advance main continuously. They must never impersonate a reviewed engine
+# deployment and pause provider admission; any executable/prompt/ops delta must retain the barrier.
+DEPLOY_DELTA_HOME="$TEST_TMP/deploy-delta-home"
+DEPLOY_DELTA_REPO="$TEST_TMP/deploy-delta-repo"
+mkdir -p "$DEPLOY_DELTA_HOME" "$DEPLOY_DELTA_REPO"
+git -C "$DEPLOY_DELTA_REPO" init -q -b main
+git -C "$DEPLOY_DELTA_REPO" config user.email test@example.com
+git -C "$DEPLOY_DELTA_REPO" config user.name "Deploy Contract"
+mkdir -p "$DEPLOY_DELTA_REPO/analyses/BASE"
+printf '%s\n' base > "$DEPLOY_DELTA_REPO/analyses/BASE/value.json"
+git -C "$DEPLOY_DELTA_REPO" add .
+git -C "$DEPLOY_DELTA_REPO" commit -qm base
+DEPLOY_DELTA_BASE="$(git -C "$DEPLOY_DELTA_REPO" rev-parse HEAD)"
+mkdir -p "$DEPLOY_DELTA_REPO/screener/board" "$DEPLOY_DELTA_REPO/commodity/GOLD" "$DEPLOY_DELTA_REPO/watchlist"
+printf '%s\n' data > "$DEPLOY_DELTA_REPO/screener/board/value.json"
+printf '%s\n' data > "$DEPLOY_DELTA_REPO/commodity/GOLD/value.json"
+printf '%s\n' data > "$DEPLOY_DELTA_REPO/watchlist/value.json"
+git -C "$DEPLOY_DELTA_REPO" add .
+git -C "$DEPLOY_DELTA_REPO" commit -qm data
+DEPLOY_DELTA_DATA="$(git -C "$DEPLOY_DELTA_REPO" rev-parse HEAD)"
+mkdir -p "$DEPLOY_DELTA_REPO/ui/server/src"
+printf '%s\n' code > "$DEPLOY_DELTA_REPO/ui/server/src/value.ts"
+git -C "$DEPLOY_DELTA_REPO" add .
+git -C "$DEPLOY_DELTA_REPO" commit -qm code
+DEPLOY_DELTA_CODE="$(git -C "$DEPLOY_DELTA_REPO" rev-parse HEAD)"
+HOME="$DEPLOY_DELTA_HOME" ENGINE_REPO_ROOT="$DEPLOY_DELTA_REPO" \
+  /bin/bash "$HERE/deploy.sh" --check-provider-barrier-delta "$DEPLOY_DELTA_BASE" "$DEPLOY_DELTA_DATA"
+data_barrier_rc=$?
+HOME="$DEPLOY_DELTA_HOME" ENGINE_REPO_ROOT="$DEPLOY_DELTA_REPO" \
+  /bin/bash "$HERE/deploy.sh" --check-provider-barrier-delta "$DEPLOY_DELTA_DATA" "$DEPLOY_DELTA_CODE"
+code_barrier_rc=$?
+HOME="$DEPLOY_DELTA_HOME" ENGINE_REPO_ROOT="$DEPLOY_DELTA_REPO" \
+  /bin/bash "$HERE/deploy.sh" --check-provider-barrier-delta "$DEPLOY_DELTA_CODE" "$DEPLOY_DELTA_DATA"
+rewrite_barrier_rc=$?
+if [ "$data_barrier_rc" = 1 ] && [ "$code_barrier_rc" = 0 ] && [ "$rewrite_barrier_rc" = 0 ]; then
+  echo "  ok  provider deploy intent ignores only proven autonomous-data deltas"
+else
+  echo "  FAIL provider deploy intent misclassified data, code, or rewritten history"
+  failures=$((failures + 1))
+fi
+
 # The optional OmniRoute sidecar is a security + availability boundary: foreground supervision must stay
 # with launchd, and the local model gateway must never drift from loopback. Parse the template structurally so
 # formatting changes cannot weaken the assertion.

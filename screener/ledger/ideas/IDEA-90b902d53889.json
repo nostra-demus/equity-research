@@ -1,7 +1,7 @@
 {
   "idea_id": "IDEA-90b902d53889",
-  "idea_version": "IDEAV-8e958126bfb1c724",
-  "idea_version_started_at": "2026-08-27T03:27:43Z",
+  "idea_version": "IDEAV-4b55128cf90b4516",
+  "idea_version_started_at": "2026-08-27T11:49:33Z",
   "ticker": "NVDA",
   "company": "Nvidia",
   "exchange": "NASDAQ",
@@ -11,26 +11,25 @@
   "listing_verification_source": "yahoo_symbol_directory",
   "direction": "long",
   "pair_with": null,
-  "reason": "Nvidia's potential acquisition of Hugging Face would expand its AI software capabilities and ecosystem, reinforcing its dominant position in the AI market.",
-  "why_now": "Business Insider reported on August 27, 2026, that Nvidia is in talks to acquire Hugging Face for $13 billion, creating a fresh catalyst.",
-  "conviction": 65,
+  "reason": "Nvidia's revenue exceeded $96 billion, and CEO Jensen Huang stated that AI has reached an inflection point, suggesting strong future growth prospects, further supported by a potential $12.9 billion acquisition of Hugging Face.",
+  "why_now": "The company reported record revenue and provided an optimistic outlook on AI inflection today, alongside acquisition rumors.",
+  "conviction": 70,
   "conviction_basis": "pre_edge_proxy",
-  "trade_score": 59,
+  "trade_score": 62,
   "trade_score_basis": "evidence_gate_v2",
   "trade_score_breakdown": {
-    "evidence": 7,
-    "impact": 21,
+    "evidence": 14,
+    "impact": 20,
     "specificity": 15,
     "timing": 10,
     "expression": 6,
-    "corroboration": 0,
+    "corroboration": 6,
     "learning_adjustment": 0
   },
   "trade_readiness": "needs_data",
   "missing_checks": [
     "live liquidity",
     "dated catalyst",
-    "independent confirmation",
     "live price, liquidity, and consensus"
   ],
   "learning": {
@@ -47,17 +46,19 @@
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-5621f94b1828"
+    "EVT-6cfe1436e69a",
+    "EVT-045e4a30f063"
   ],
-  "primary_source_event_id": "EVT-5621f94b1828",
+  "primary_source_event_id": "EVT-6cfe1436e69a",
   "source_headlines": [
-    "Nvidia in talks to acquire Hugging Face in $13 billion deal, Business Insider reports"
+    "Nvidia To Acquire Hugging Face For $12.9 Bn: Report",
+    "Nvidia revenue tops $96 billion as memory commitments soar to $160 billion — CEO Jensen Huang says AI 'has reached its inflection point'"
   ],
-  "source_headline": "Nvidia in talks to acquire Hugging Face in $13 billion deal, Business Insider reports",
-  "source_url": "https://www.reuters.com/technology/nvidia-talks-acquire-hugging-face-13-billion-deal-business-insider-reports-2026-08-27/",
-  "source_name": "Reuters — Latest (news sitemap)",
+  "source_headline": "Nvidia To Acquire Hugging Face For $12.9 Bn: Report",
+  "source_url": "https://www.outlookbusiness.com/corporate/nvidia-to-acquire-hugging-face-for-129-bn-report",
+  "source_name": "Outlook Business",
   "materiality_max": 100,
-  "newest_source_at": "2026-08-27T00:52:46Z",
+  "newest_source_at": "2026-08-27T09:13:54Z",
   "prior_coverage": {
     "has_run": false,
     "latest_run": null,
@@ -65,8 +66,8 @@
     "data_pool_present": false
   },
   "surfaced_at": "2026-08-27T03:27:43Z",
-  "updated_at": "2026-08-27T03:27:43Z",
-  "decay_at": "2026-08-28T12:52:46Z",
+  "updated_at": "2026-08-27T11:49:33Z",
+  "decay_at": "2026-08-28T21:13:54Z",
   "status": "live",
   "promoted_signal_id": null
 }

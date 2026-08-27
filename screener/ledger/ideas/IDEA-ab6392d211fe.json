@@ -1,0 +1,73 @@
+{
+  "idea_id": "IDEA-ab6392d211fe",
+  "idea_version": "IDEAV-4303f9c968250a66",
+  "idea_version_started_at": "2026-08-27T11:49:33Z",
+  "ticker": "HDB",
+  "company": "HDFC Bank",
+  "exchange": "NYSE",
+  "ticker_verified": true,
+  "listing_verified": true,
+  "liquidity_verified": false,
+  "listing_verification_source": "yahoo_symbol_directory",
+  "direction": "short",
+  "pair_with": null,
+  "reason": "HDFC Bank's share price fell to a 52-week low following a US class action lawsuit alleging a bribery scheme.",
+  "why_now": "The lawsuit and subsequent share price drop occurred today.",
+  "conviction": 60,
+  "conviction_basis": "pre_edge_proxy",
+  "trade_score": 60,
+  "trade_score_basis": "evidence_gate_v2",
+  "trade_score_breakdown": {
+    "evidence": 14,
+    "impact": 19,
+    "specificity": 15,
+    "timing": 10,
+    "expression": 6,
+    "corroboration": 0,
+    "learning_adjustment": 0
+  },
+  "trade_readiness": "needs_data",
+  "missing_checks": [
+    "live liquidity",
+    "dated catalyst",
+    "price and market expectations",
+    "independent confirmation",
+    "live price, liquidity, and consensus"
+  ],
+  "learning": {
+    "resolved": 0,
+    "positive": 0,
+    "negative": 0,
+    "neutral": 0,
+    "adjustment": 0,
+    "basis": "not_enough_outcomes",
+    "evidenceIds": []
+  },
+  "priced_in": "unknown",
+  "thesis_type": "company_specific",
+  "origin_type": "wire",
+  "source_themes": [],
+  "source_event_ids": [
+    "EVT-e6dcd8ef1d62"
+  ],
+  "primary_source_event_id": "EVT-e6dcd8ef1d62",
+  "source_headlines": [
+    "HDFC Bank Share Price Falls To 52-Week Low After US Class Action Lawsuit Over Alleged Bribery Scheme"
+  ],
+  "source_headline": "HDFC Bank Share Price Falls To 52-Week Low After US Class Action Lawsuit Over Alleged Bribery Scheme",
+  "source_url": "https://www.ndtvprofit.com/markets/hdfc-bank-share-price-falls-after-us-class-action-lawsuit-over-alleged-bribery-scheme-11964590#publisher=newsstand",
+  "source_name": "NDTV Profit",
+  "materiality_max": 100,
+  "newest_source_at": "2026-08-27T08:26:43Z",
+  "prior_coverage": {
+    "has_run": false,
+    "latest_run": null,
+    "latest_decision": null,
+    "data_pool_present": false
+  },
+  "surfaced_at": "2026-08-27T11:49:33Z",
+  "updated_at": "2026-08-27T11:49:33Z",
+  "decay_at": "2026-08-28T20:26:43Z",
+  "status": "live",
+  "promoted_signal_id": null
+}

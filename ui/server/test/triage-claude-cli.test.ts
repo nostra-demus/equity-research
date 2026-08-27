@@ -10,7 +10,7 @@ import assert from 'node:assert/strict'
 import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
-import { triageBatchClaudeCli, isUsageLimit, isAuthExpiredNote, isPlanQuotaNote, isTerminalApiNote, type ClaudeCliRunner } from '../src/news/triage/claude-cli'
+import { CLAUDE_CLI_SHARD_SIZE, claudeCliShardCount, triageBatchClaudeCli, triageBatchClaudeCliSharded, isUsageLimit, isAuthExpiredNote, isPlanQuotaNote, isTerminalApiNote, type ClaudeCliRunner } from '../src/news/triage/claude-cli'
 import { UsdBudget, conservativeChatUsdBound } from '../src/news/triage/budget'
 import { NEWS } from '../src/config'
 import { DEFERRED_CAP } from '../src/news/runCycle'
@@ -28,6 +28,92 @@ const items = [
 ] as unknown as NewsItem[]
 
 const opts = { model: 'claude-haiku-4-5' }
+
+const shardItems = Array.from({ length: 24 }, (_, index) => ({
+  headline: `Company headline-${index} changes guidance materially`,
+  source_name: 'Exchange',
+  region: 'US',
+})) as unknown as NewsItem[]
+const completeRows = (count: number, score: number) => Array.from({ length: count }, (_, index) => ({
+  i: index,
+  relevance: 'material',
+  materiality_pre_score: score,
+}))
+
+await check('Haiku shard count uses the live-hardened 8-row request unit', () => {
+  assert.equal(CLAUDE_CLI_SHARD_SIZE, 8)
+  assert.equal(claudeCliShardCount(0), 0)
+  assert.equal(claudeCliShardCount(8), 1)
+  assert.equal(claudeCliShardCount(9), 2)
+  assert.equal(claudeCliShardCount(24), 3)
+  assert.equal(claudeCliShardCount(25), 4)
+})
+
+await check('a 24-row outer batch runs as three concurrent 8-row Haiku calls and rejoins exact indices', async () => {
+  let started = 0
+  let active = 0
+  let maxActive = 0
+  let releaseAll!: () => void
+  const allStarted = new Promise<void>((resolve, reject) => {
+    const timeout = setTimeout(() => reject(new Error('all three Haiku shards did not start')), 2_000)
+    releaseAll = () => { clearTimeout(timeout); resolve() }
+  })
+  const prompts: string[] = []
+  const run: ClaudeCliRunner = async (_system, user) => {
+    const call = started++
+    prompts.push(user)
+    active++
+    maxActive = Math.max(maxActive, active)
+    if (started === 3) releaseAll()
+    await allStarted
+    active--
+    return { text: JSON.stringify(completeRows(8, 71 + call * 11)), costUsd: 0.04 + call * 0.01, costUsdKnown: true }
+  }
+  const admitted: Array<[number, number]> = []
+  const r = await triageBatchClaudeCliSharded(shardItems, {
+    ...opts,
+    beforeAdditionalShard: async (shardIndex, itemCount) => { admitted.push([shardIndex, itemCount]); return true },
+  }, run)
+  assert.equal(r.ok, true)
+  assert.equal(r.requests, 3)
+  assert.equal(r.byIndex.size, 24)
+  assert.equal(r.byIndex.get(0)?.materiality_pre_score, 71)
+  assert.equal(r.byIndex.get(8)?.materiality_pre_score, 82)
+  assert.equal(r.byIndex.get(16)?.materiality_pre_score, 93)
+  assert.equal(r.costUsd, 0.15)
+  assert.equal(r.costUsdKnown, true)
+  assert.equal(maxActive, 3, 'all three hardened calls overlap instead of consuming multiple timeouts serially')
+  assert.deepEqual(admitted, [[1, 8], [2, 8]], 'each additional shard gets its own limiter admission')
+  assert.equal(prompts.length, 3)
+  assert.ok(prompts.every((prompt) => prompt.startsWith('Score these 8 headlines:')))
+})
+
+await check('one failed Haiku shard invalidates the whole outer batch so no partial score escapes', async () => {
+  const run: ClaudeCliRunner = async (_system, user) => user.includes('headline-8')
+    ? { text: '', costUsd: 0, costUsdKnown: false, error: 'claude cli: timed out' }
+    : { text: JSON.stringify(completeRows(8, 70)), costUsd: 0.04, costUsdKnown: true }
+  const r = await triageBatchClaudeCliSharded(shardItems, { ...opts, beforeAdditionalShard: async () => true }, run)
+  assert.equal(r.ok, false)
+  assert.equal(r.requests, 3)
+  assert.equal(r.byIndex.size, 0, 'the automatic fallback must receive the original complete batch')
+  assert.equal(r.timedOut, true)
+  assert.equal(r.failureKind, 'availability')
+  assert.equal(r.costUsdKnown, false)
+})
+
+await check('a rejected additional-shard admission starts no unfunded provider call', async () => {
+  let calls = 0
+  const run: ClaudeCliRunner = async () => {
+    calls++
+    return { text: JSON.stringify(completeRows(8, 70)), costUsd: 0.04, costUsdKnown: true }
+  }
+  const r = await triageBatchClaudeCliSharded(shardItems, { ...opts, beforeAdditionalShard: async () => false }, run)
+  assert.equal(r.ok, false)
+  assert.equal(calls, 1)
+  assert.equal(r.requests, 1)
+  assert.equal(r.byIndex.size, 0)
+  assert.match(r.note || '', /capacity/)
+})
 
 // ---- happy path: the CLI text is parsed, rows coerced, and the reported cost surfaces for the ledger ----
 await check('scores every index and surfaces the CLI-reported costUsd (what the $ ledger meters on)', async () => {
@@ -87,6 +173,8 @@ await check('an unknown-cost dispatched attempt cannot retry under the same one-
   assert.equal(r.ok, false)
   assert.equal(r.requests, 1)
   assert.equal(r.costUsdKnown, false)
+  assert.equal(r.timedOut, true)
+  assert.equal(r.failureKind, 'availability')
 })
 
 // ---- prose-wrapped JSON (the CLI has no JSON mode) still parses ----
@@ -356,7 +444,7 @@ await check('subscription model is a CLI-resolvable alias — never the Messages
   assert.equal(NEWS.anthropicApiModel, 'claude-haiku-4-5') // api backend addresses it by API id — kept apart
 })
 
-await check('default triage batch is the measured 24-row safe ceiling', () => {
+await check('default outer triage batch is 24 while Haiku stays below the observed 36-row timeout', () => {
   assert.equal(NEWS.triageBatch, 24)
   assert.ok(NEWS.triageBatch < 36, '36 rows hit the existing 120s Haiku timeout in the production-contract canary')
 })

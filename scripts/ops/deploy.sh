@@ -1195,9 +1195,56 @@ PYLOCK
 }
 gitlock_release() { [ -n "$GITLOCK" ] && exec 9>&-; GITLOCK=""; }
 
-# A §28 DATA path — the only paths the engine ever writes into this checkout (analyses/**, screener/**,
-# analyses/tracking/**). Anything else dirty is an unexpected/unreviewed edit and must block a release.
-is_data_path() { case "$1" in analyses/tracking/*|analyses/*|screener/*) return 0 ;; *) return 1 ;; esac; }
+# A §28 DATA path — the only paths commit-run.sh admits into the autonomous publication lane. Anything
+# else is reviewed code/prompt/ops state and must retain the provider lifecycle barrier.
+is_data_path() { case "$1" in analyses/*|screener/*|commodity/*|watchlist/*) return 0 ;; *) return 1 ;; esac; }
+
+# provider_barrier_delta_required <base> <target> — rc 0 when a provider admission barrier is required.
+# A proven ancestor delta containing only autonomous research data is inert to the running program and must
+# not show an "engine updating" banner or block new runs. Missing objects, rewritten history, malformed paths,
+# and every code/prompt/ops path fail closed to the barrier. NUL-delimited enumeration keeps unusual names
+# from changing classification.
+provider_barrier_delta_required() {
+  local base="${1:-}" target="${2:-}" paths classification
+  valid_git_sha "$base" && valid_git_sha "$target" || return 0
+  "$GIT" cat-file -e "$base^{commit}" 2>/dev/null || return 0
+  "$GIT" cat-file -e "$target^{commit}" 2>/dev/null || return 0
+  "$GIT" merge-base --is-ancestor "$base" "$target" 2>/dev/null || return 0
+  paths="$(mktemp "$OPS/.provider-delta.XXXXXX")" || return 0
+  if ! "$GIT" diff --name-only -z "$base" "$target" > "$paths" 2>/dev/null; then
+    rm -f "$paths" 2>/dev/null || true
+    return 0
+  fi
+  if ! classification="$($PYTHON -I - "$paths" <<'PYPROVIDERDELTA'
+import sys
+
+raw = open(sys.argv[1], "rb").read()
+parts = raw.split(b"\0")
+if parts and parts[-1] == b"": parts.pop()
+if not parts:
+    print("none")
+    raise SystemExit
+allowed = ("analyses/", "screener/", "commodity/", "watchlist/")
+for encoded in parts:
+    try: path = encoded.decode("utf-8", "strict")
+    except UnicodeError:
+        print("barrier")
+        raise SystemExit
+    if not path.startswith(allowed):
+        print("barrier")
+        raise SystemExit
+print("data")
+PYPROVIDERDELTA
+)"; then
+    rm -f "$paths" 2>/dev/null || true
+    return 0
+  fi
+  rm -f "$paths" 2>/dev/null || true
+  case "$classification" in
+    none|data) return 1 ;;
+    *) return 0 ;;
+  esac
+}
 
 # has_nondata_dirty — rc 0 if the working tree holds ANY dirty path (modified, staged, OR untracked) that is
 # not a §28 data path. Built on `git status --porcelain` rather than `git diff`, because `git diff` is blind
@@ -1229,7 +1276,7 @@ while index < len(fields):
     for encoded in paths:
         try: value = encoded.decode("utf-8", "strict")
         except UnicodeError: raise SystemExit(0)
-        if not (value.startswith("analyses/") or value.startswith("screener/")):
+        if not value.startswith(("analyses/", "screener/", "commodity/", "watchlist/")):
             raise SystemExit(0)
     index += 1
 raise SystemExit(1)
@@ -1247,6 +1294,10 @@ if [ "${1:-}" = --check-dirty ]; then
   exit $?
 elif [ "${1:-}" = --check-engine-archive ]; then
   engine_archive_contract
+  exit $?
+elif [ "${1:-}" = --check-provider-barrier-delta ] && [ "$#" -eq 3 ]; then
+  cd "$PROD" 2>/dev/null || exit 0
+  provider_barrier_delta_required "$2" "$3"
   exit $?
 elif [ "$#" -gt 0 ]; then
   exit 2
@@ -1456,8 +1507,16 @@ if [ "$CURRENT_BRANCH_HINT" != main ]; then
   clear_deploy_intent
 elif valid_git_sha "$REMOTE_HINT" && valid_git_sha "$LOCAL_HINT"; then
   intent_needed=0
-  [ "$REMOTE_HINT" != "$LOCAL_HINT" ] && intent_needed=1
-  [ "$MARKER_HINT" != "$LOCAL_HINT" ] && intent_needed=1
+  if [ "$REMOTE_HINT" != "$LOCAL_HINT" ] \
+      && provider_barrier_delta_required "$LOCAL_HINT" "$REMOTE_HINT"; then
+    intent_needed=1
+  fi
+  if [ "$MARKER_HINT" != "$LOCAL_HINT" ]; then
+    if ! valid_git_sha "$MARKER_HINT" \
+        || provider_barrier_delta_required "$MARKER_HINT" "$LOCAL_HINT"; then
+      intent_needed=1
+    fi
+  fi
   # A known broken target is deliberately held on last-good during FAIL_BACKOFF. It cannot make progress by
   # pausing the scanner, so do not publish writer intent for that terminal release state.
   if [ "$intent_needed" = 1 ] && [ -f "$FAILMARK" ]; then

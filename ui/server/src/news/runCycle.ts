@@ -20,12 +20,12 @@ import { eventIdFor, loadLedgerEventIds, normalizeAndFilter } from './normalize'
 import { pickTranslation } from './lang'
 import { resolveEventRegion } from './geo'
 import { resolveCountry } from './geography'
-import { invalidateFacets } from './facets'
+import { invalidateAndWarmFacets } from './facets-service'
 import { SeenCache } from './seen-cache'
 import { Budget, NON_BINDING_DAILY_TOKEN_CAP, UsdBudget, armCooldown, clearCooldown, conservativeChatTokenBound, conservativeChatUsdBound, cooldownInfo, dailyQuotaAdmission, getNamedLimiter, getSharedGeminiLimiter, getSharedLimiter, rateInfoForLimiter, readCooldownUntil, selectDailyQuotaCandidate, type DailyQuotaCandidate, type PaceCfg } from './triage/budget'
 import { triageBatchGemini } from './triage/gemini'
 import { triageBatchAnthropic } from './triage/anthropic'
-import { isAuthExpiredNote, isPlanQuotaNote, isTerminalApiNote, triageBatchClaudeCli, type ClaudeCliRunner } from './triage/claude-cli'
+import { CLAUDE_CLI_SHARD_SIZE, claudeCliShardCount, isAuthExpiredNote, isPlanQuotaNote, isTerminalApiNote, triageBatchClaudeCliSharded, type ClaudeCliRunner } from './triage/claude-cli'
 import { SYSTEM, TRIAGE_CONTRACT_VERSION, buildUserMessage, estimateTokens, openAiRequestIdentity, scoreToBand, triageBatch, triageMaxOutputTokens, type TriageOptions, type TriageResult } from './triage/groq'
 import { readProviderQuarantine } from './provider-failure'
 import { rankScore, preTriagePriority, capSocialBand, capSocialScore, deriveMaterialityLabel } from './rank'
@@ -1564,7 +1564,7 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
     }
     if (providerId === 'anthropic-triage' && anthropicBudget) {
       const callBound = cfg.anthropicFallbackMode === 'subscription'
-        ? Math.max(0, cfg.anthropicPerCallUsd)
+        ? Math.max(0, cfg.anthropicPerCallUsd) * Math.max(1, claudeCliShardCount(auditBatch.length))
         : conservativeChatUsdBound(SYSTEM, buildUserMessage(auditBatch), triageMaxOutputTokens(auditBatch.length, cfg.anthropicMaxTokens), cfg.anthropicInPricePerMTok, cfg.anthropicOutPricePerMTok)
       const admission = dailyQuotaAdmission({ id: providerId, meter: 'requests', used: anthropicBudget.usd, cap: cfg.anthropicDailyUsd, cost: callBound, paceCost: callBound, floorFraction: cfg.freeProviderPaceFloorFrac }, at)
       return { allowanceUsed: anthropicBudget.usd, allowanceReleased: admission.released, allowanceCap: cfg.anthropicDailyUsd }
@@ -1682,19 +1682,21 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
       routingCandidates.push({ id: ov.p.id, label: ov.p.label, order: configuredOrder++, band: 'demoted-local', eligible: reason === 'eligible', eligibilityReason: reason, releasedCapacityUrgency: 1, consecutiveFailures: cooldownInfo(stateDir, ov.p.id).fails })
     }
     const batchMaxPriority = batch.reduce((maximum, item) => Math.max(maximum, preTriagePriority(item, now())), -Infinity)
-    const haikuCallBoundUsd = cfg.anthropicFallbackMode === 'subscription'
-      ? Math.max(0, cfg.anthropicPerCallUsd)
+    // This is the COMPLETE outer-batch envelope: per-call guard multiplied by every required shard.
+    // Keep the name explicit so the final-envelope exception below is never multiplied a second time.
+    const haikuBatchBoundUsd = cfg.anthropicFallbackMode === 'subscription'
+      ? Math.max(0, cfg.anthropicPerCallUsd) * Math.max(1, claudeCliShardCount(batch.length))
       : conservativeChatUsdBound(SYSTEM, buildUserMessage(batch), triageMaxOutputTokens(batch.length, cfg.anthropicMaxTokens), cfg.anthropicInPricePerMTok, cfg.anthropicOutPricePerMTok)
-    const haikuAdmission = dailyQuotaAdmission({ id: 'anthropic-triage', meter: 'requests', used: anthropicBudget?.usd || 0, cap: cfg.anthropicDailyUsd, cost: haikuCallBoundUsd, paceCost: haikuCallBoundUsd, floorFraction: cfg.freeProviderPaceFloorFrac }, candidateAt)
-    const haikuHardFit = !!anthropicBudget?.canSpend(haikuCallBoundUsd)
-    // Do not strand the last already-released call envelope at the dollar ceiling. This preserves the
-    // established one-call fallback while the normal path still spreads Haiku spend across the UTC day.
+    const haikuAdmission = dailyQuotaAdmission({ id: 'anthropic-triage', meter: 'requests', used: anthropicBudget?.usd || 0, cap: cfg.anthropicDailyUsd, cost: haikuBatchBoundUsd, paceCost: haikuBatchBoundUsd, floorFraction: cfg.freeProviderPaceFloorFrac }, candidateAt)
+    const haikuHardFit = !!anthropicBudget?.canSpend(haikuBatchBoundUsd)
+    // Do not strand the last already-released COMPLETE batch envelope at the dollar ceiling. A 24-row
+    // subscription batch needs all three 8-row shards funded; an unfunded partial batch is not progress.
     const haikuFinalEnvelope = (anthropicBudget?.usd || 0) > 0
-      && Math.max(0, cfg.anthropicDailyUsd - (anthropicBudget?.usd || 0)) <= haikuCallBoundUsd + 1e-9
+      && Math.max(0, cfg.anthropicDailyUsd - (anthropicBudget?.usd || 0)) <= haikuBatchBoundUsd + 1e-9
     const haikuPacedFit = haikuAdmission.pacedFit || (haikuHardFit && haikuFinalEnvelope)
     const haikuHeld = anthropicDownThisCycle || triageIsHeld(stateDir, 'anthropic-triage', candidateAt)
     const haikuBaseReason = candidateReason({ enabled: anthropicOn, ledger: anthropicBudget?.ledgerAvailable === true, exhausted: false, held: haikuHeld, rejected: credentialRejectedFor('anthropic-triage'), hard: haikuHardFit, paced: haikuPacedFit })
-    anthropicPaceCallBoundUsd = haikuCallBoundUsd
+    anthropicPaceCallBoundUsd = haikuBatchBoundUsd
     anthropicPacedThisCycle ||= haikuBaseReason === 'paced' && batchMaxPriority >= cfg.anthropicMinPriority
     routingCandidates.push({ id: 'anthropic-triage', label: 'Claude Haiku', order: -1, band: 'direct', eligible: batchMaxPriority >= cfg.anthropicMinPriority && haikuBaseReason === 'eligible', eligibilityReason: batchMaxPriority < cfg.anthropicMinPriority ? 'minimum-priority' : haikuBaseReason, releasedCapacityUrgency: haikuAdmission.normalizedDeficit, consecutiveFailures: cooldownInfo(stateDir, 'anthropic-triage').fails, isHaiku: true })
 
@@ -1790,8 +1792,15 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
     // ledger, priority floor, and cooldown all admit the call. Any unavailable state or failed call returns
     // control to the existing automatic chain below; no fallback provider is removed or disabled.
     const tryAnthropicPrimary = async (): Promise<boolean> => {
-      const anthropicCallBoundUsd = haikuCallBoundUsd
-      const anthropicCanReserve = !!anthropicBudget?.canSpend(anthropicCallBoundUsd)
+      const anthropicBatchBoundUsd = haikuBatchBoundUsd
+      const anthropicShardCount = cfg.anthropicFallbackMode === 'subscription'
+        ? Math.max(1, claudeCliShardCount(batch.length))
+        : 1
+      const anthropicPerRequestBoundUsd = cfg.anthropicFallbackMode === 'subscription'
+        ? Math.max(0, cfg.anthropicPerCallUsd)
+        : anthropicBatchBoundUsd
+      const anthropicShardEst = estimateTokens(Math.min(batch.length, CLAUDE_CLI_SHARD_SIZE))
+      const anthropicCanReserve = !!anthropicBudget?.canSpend(anthropicBatchBoundUsd)
       const anthropicLedgerAvailable = !anthropicLedgerUnavailable()
       if (!anthropicLedgerAvailable) usageLedgerUnavailable = true
       else if (anthropicOn && !anthropicCanReserve) anthropicBudgetBlocked = true
@@ -1804,7 +1813,7 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
         return false
       }
 
-      const acquired = await anthropicLimiter!.acquire(est, sleep, () => now().getTime(), undefined, deps.signal)
+      const acquired = await anthropicLimiter!.acquire(anthropicShardEst, sleep, () => now().getTime(), undefined, deps.signal)
       if (stopAbortedBatch()) return true
       if (!acquired) {
         closeUnattemptedAudit('anthropic-triage')
@@ -1815,15 +1824,17 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
         closeUnattemptedAudit('anthropic-triage')
         return false
       }
-      // The subscription adapter may make one bounded retry when the first exact response is unusable.
-      // Reserve both possible calls atomically when the day still has room. Near the ceiling, keep one call.
+      // A multi-shard subscription batch is useful only when every shard can run, so reserve every call
+      // atomically before provider I/O. A single-shard batch retains its established optional retry.
       let subscriptionMaxAttempts = 1
-      let usdReservation = cfg.anthropicFallbackMode === 'subscription'
-        ? anthropicBudget!.tryReserve(anthropicCallBoundUsd * 2, now().getTime(), 2)
-        : null
-      if (usdReservation) subscriptionMaxAttempts = 2
-      else if (anthropicBudget!.lastReserveFailure !== 'authority_unavailable') {
-        usdReservation = anthropicBudget!.tryReserve(anthropicCallBoundUsd, now().getTime(), 1)
+      let usdReservation = cfg.anthropicFallbackMode === 'subscription' && anthropicShardCount > 1
+        ? anthropicBudget!.tryReserve(anthropicBatchBoundUsd, now().getTime(), anthropicShardCount)
+        : cfg.anthropicFallbackMode === 'subscription'
+          ? anthropicBudget!.tryReserve(anthropicBatchBoundUsd * 2, now().getTime(), 2)
+          : null
+      if (usdReservation && anthropicShardCount === 1 && cfg.anthropicFallbackMode === 'subscription') subscriptionMaxAttempts = 2
+      else if (!usdReservation && anthropicShardCount === 1 && anthropicBudget!.lastReserveFailure !== 'authority_unavailable') {
+        usdReservation = anthropicBudget!.tryReserve(anthropicBatchBoundUsd, now().getTime(), 1)
       }
       // Another process may have reserved the last dollars after the unlocked routing hint. Treat that as
       // Haiku unavailable for this batch and continue to the free/local fallback chain.
@@ -1838,16 +1849,24 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
       const attemptStartedAt = now().getTime()
       prepareAudit('anthropic-triage')
       const ar = cfg.anthropicFallbackMode === 'subscription'
-        ? await triageBatchClaudeCli(batch, {
+        ? await triageBatchClaudeCliSharded(batch, {
             model: cfg.anthropicModel,
             timeoutMs: cfg.anthropicTimeoutMs,
             budgetUsd: cfg.anthropicPerCallUsd,
             budgetRemainingUsd: usdReservation.usd,
             maxAttempts: subscriptionMaxAttempts,
             signal: deps.signal,
+            beforeAdditionalShard: anthropicShardCount > 1
+              ? async (_shardIndex, itemCount) => {
+                  const shardAcquired = await anthropicLimiter!.acquire(estimateTokens(itemCount), sleep, () => now().getTime(), undefined, deps.signal)
+                  return shardAcquired
+                    && !credentialRejectedFor('anthropic-triage')
+                    && !triageIsHeld(stateDir, 'anthropic-triage', now().getTime())
+                }
+              : undefined,
             beforeRetry: subscriptionMaxAttempts > 1
               ? async () => {
-                  const acquired = await anthropicLimiter!.acquire(est, sleep, () => now().getTime(), undefined, deps.signal)
+                  const acquired = await anthropicLimiter!.acquire(anthropicShardEst, sleep, () => now().getTime(), undefined, deps.signal)
                   return acquired && !triageIsHeld(stateDir, 'anthropic-triage', now().getTime())
                 }
               : undefined,
@@ -1866,7 +1885,7 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
         ? 0
         : ar.costUsdKnown === true
           ? ar.costUsd
-          : Math.min(usdReservation.usd, ar.requests * anthropicCallBoundUsd)
+          : Math.min(usdReservation.usd, ar.requests * anthropicPerRequestBoundUsd)
       anthropicCostUsd += reconciledAnthropicUsd
       completeAudit('anthropic-triage', ar, reconciledAnthropicUsd)
       addProviderCount(providerAttempts, 'anthropic-triage', ar.requests)
@@ -2609,7 +2628,9 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
   const watched = newlyAppendedRows.filter((t) => t.band === 'watch').length
   const dropped = newlyAppendedRows.filter((t) => t.band === 'drop').length
   const inboxFeedPending = feedUnwrittenRows.filter((t) => t.band !== 'drop').length
-  if (newlyAppendedFeedItems.length) invalidateFacets() // a fresh cycle changed the archive — drop the facet index so new items/countries show up before the TTL
+  // A fresh cycle changed the archive. Refresh the complete filter universe in its worker so the next
+  // Geography/Company click is instant without freezing the server's main request thread.
+  if (newlyAppendedFeedItems.length) invalidateAndWarmFacets(repoRoot, { archiveDir: cfg.newsArchiveDir })
   // Historical acknowledgement completes recovery bookkeeping but must not replay a stale live event.
   for (const fi of newlyAppendedFeedItems) newsBus.emit({ type: 'news-item', item: fi })
   if (feedAppend.status === 'cap') {

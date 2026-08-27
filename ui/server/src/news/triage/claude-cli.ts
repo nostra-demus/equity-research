@@ -32,6 +32,23 @@ export interface ClaudeCliTriageOptions {
   beforeRetry?: () => Promise<boolean>
 }
 
+/** The live-safe unit for the subscription CLI. A 24-row outer batch is kept for the faster providers,
+ * but Haiku receives three of these smaller requests so one complex prompt cannot consume the whole 120s
+ * deadline. Every request after the first is admitted separately through the shared limiter. */
+export const CLAUDE_CLI_SHARD_SIZE = 8
+export const CLAUDE_CLI_MAX_CONCURRENT_SHARDS = 3
+
+export function claudeCliShardCount(itemCount: number, shardSize = CLAUDE_CLI_SHARD_SIZE): number {
+  return itemCount <= 0 ? 0 : Math.ceil(itemCount / Math.max(1, shardSize))
+}
+
+export interface ClaudeCliShardedTriageOptions extends ClaudeCliTriageOptions {
+  shardSize?: number
+  /** runCycle has already admitted shard zero. Every additional shard must independently pass the same
+   * provider-wide limiter before it may start, while the dollar budget is reserved atomically up front. */
+  beforeAdditionalShard?: (shardIndex: number, itemCount: number) => Promise<boolean>
+}
+
 /** One CLI completion. Returns the assistant text + the cost the CLI reported for it. Injectable for tests
  *  (the real one spawns a process; a test passes a fake). `error` set ⇒ the batch must be deferred. */
 export type ClaudeCliRunner = (
@@ -213,6 +230,7 @@ export async function triageBatchClaudeCli(
   let dispatchedAttempts = 0
   let note = 'claude cli: no output'
   let failureKind: TriageResult['failureKind']
+  let timedOut = false
 
   for (let attempt = 1; attempt <= maxAttempts; attempt++) {
     // Stop before a (re)try that must not run — both gates the caller's single pre-batch check cannot see
@@ -240,6 +258,10 @@ export async function triageBatchClaudeCli(
       break
     }
     if (opts.signal?.aborted) { note = 'claude cli: cycle aborted before attempt'; break }
+    // Reset only when a new provider attempt will actually dispatch. If a retry is skipped above because
+    // the first timed out with unknown cost, that timeout remains the truthful final failure classification.
+    failureKind = undefined
+    timedOut = false
     // after a billed-but-unparseable reply, push harder toward a bare JSON array on the retry
     const user = attempt === 1 ? baseUser : `${baseUser}\n\nReturn ONLY the JSON array — no prose, no markdown, no code fences.`
     let out: Awaited<ReturnType<ClaudeCliRunner>>
@@ -264,11 +286,13 @@ export async function triageBatchClaudeCli(
     }
     if (out.error) {
       note = out.error
+      timedOut = /timed out/i.test(out.error)
+      failureKind = timedOut ? 'availability' : undefined
       // a spent plan won't recover on retry — return now so the caller arms the LONG cooldown (wait for reset).
       // A terminal API error (bad/revoked key, no credits, …) is the same shape of "won't recover on retry":
       // re-asking an unauthenticated call bills nothing new but still spawns a second CLI process and holds
       // the lock for another timeout, only to fail again the same way (Codex review, PR #316).
-      if (isPlanQuotaNote(out.error) || isTerminalApiNote(out.error)) return { byIndex, requests: dispatchedAttempts, tokens: dispatchedAttempts * est, ok: false, note, costUsd, costUsdKnown }
+      if (isPlanQuotaNote(out.error) || isTerminalApiNote(out.error)) return { byIndex, requests: dispatchedAttempts, tokens: dispatchedAttempts * est, ok: false, note, costUsd, costUsdKnown, failureKind, ...(timedOut ? { timedOut: true } : {}) }
       continue // transient (timeout / no output / generic) → retry
     }
     let parsed: any
@@ -282,7 +306,91 @@ export async function triageBatchClaudeCli(
   return {
     byIndex, requests: dispatchedAttempts, tokens: dispatchedAttempts * est,
     ok: false, note, costUsd, costUsdKnown, ...(failureKind ? { failureKind } : {}),
+    ...(timedOut ? { timedOut: true } : {}),
   }
+}
+
+/**
+ * Keep the scanner's 24-row outer batch while presenting Haiku with the 8-row request shape that keeps
+ * complex live inputs below the CLI deadline. Shards run with bounded parallelism and no per-shard retry:
+ * for a 24-row batch, the three atomically funded calls are useful work, not one large call plus a repeat
+ * of that same slow call.
+ *
+ * The result is all-or-nothing. If either shard fails, no rows escape downstream; the unchanged fallback
+ * chain receives the original outer batch and can score it once. This preserves the scanner's exact-batch
+ * contract and prevents half a batch from being marked complete.
+ */
+export async function triageBatchClaudeCliSharded(
+  items: NewsItem[],
+  opts: ClaudeCliShardedTriageOptions,
+  run: ClaudeCliRunner = defaultClaudeCliRunner,
+): Promise<ClaudeCliTriageResult> {
+  const empty = new Map<number, Triage>()
+  if (!items.length) return { byIndex: empty, requests: 0, tokens: 0, ok: true, costUsd: 0, costUsdKnown: true }
+
+  const shardSize = Math.max(1, Math.floor(opts.shardSize ?? CLAUDE_CLI_SHARD_SIZE))
+  const shards: NewsItem[][] = []
+  for (let start = 0; start < items.length; start += shardSize) shards.push(items.slice(start, start + shardSize))
+  if (shards.length === 1) return triageBatchClaudeCli(items, opts, run)
+
+  const results = new Array<ClaudeCliTriageResult>(shards.length)
+  let nextShard = 0
+  let admissionClosed = false
+  const worker = async (): Promise<void> => {
+    while (true) {
+      const shardIndex = nextShard++
+      if (shardIndex >= shards.length) return
+      const shard = shards[shardIndex]
+      let admitted = !admissionClosed
+      if (shardIndex > 0 && admitted && opts.beforeAdditionalShard) {
+        try { admitted = await opts.beforeAdditionalShard(shardIndex, shard.length) } catch { admitted = false }
+      }
+      if (shardIndex > 0 && !admitted) {
+        admissionClosed = true
+        results[shardIndex] = {
+          byIndex: new Map(), requests: 0, tokens: 0, ok: false, costUsd: 0, costUsdKnown: true,
+          note: opts.signal?.aborted ? 'claude cli: cycle aborted before additional shard' : 'claude cli: additional shard waiting for capacity',
+          failureKind: 'availability',
+        }
+        continue
+      }
+      results[shardIndex] = await triageBatchClaudeCli(shard, {
+        ...opts,
+        maxAttempts: 1,
+        beforeRetry: undefined,
+      }, run)
+    }
+  }
+  await Promise.all(Array.from(
+    { length: Math.min(CLAUDE_CLI_MAX_CONCURRENT_SHARDS, shards.length) },
+    () => worker(),
+  ))
+
+  const requests = results.reduce((sum, result) => sum + result.requests, 0)
+  const tokens = results.reduce((sum, result) => sum + result.tokens, 0)
+  const costUsd = results.reduce((sum, result) => sum + result.costUsd, 0)
+  const costUsdKnown = results.every((result) => result.costUsdKnown)
+  const failed = results.find((result) => !result.ok)
+  if (failed) {
+    return {
+      byIndex: empty, requests, tokens, ok: false, costUsd, costUsdKnown,
+      ...(failed.note ? { note: failed.note } : {}),
+      ...(failed.failureKind ? { failureKind: failed.failureKind } : {}),
+      ...(failed.httpStatus != null ? { httpStatus: failed.httpStatus } : {}),
+      ...(failed.timedOut ? { timedOut: true } : {}),
+      ...(failed.dailyLimit ? { dailyLimit: true } : {}),
+      ...(failed.rate ? { rate: failed.rate } : {}),
+      ...(failed.failure ? { failure: failed.failure } : {}),
+    }
+  }
+
+  const byIndex = new Map<number, Triage>()
+  let offset = 0
+  for (let shardIndex = 0; shardIndex < shards.length; shardIndex++) {
+    for (const [localIndex, row] of results[shardIndex].byIndex) byIndex.set(offset + localIndex, row)
+    offset += shards[shardIndex].length
+  }
+  return { byIndex, requests, tokens, ok: true, costUsd, costUsdKnown }
 }
 
 /** A last-resort failure that is the PLAN's own quota being spent (not a transient blip) — the caller then

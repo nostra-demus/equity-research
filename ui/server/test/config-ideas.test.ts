@@ -145,6 +145,36 @@ assert.equal(anthropicDrain.status, 0, anthropicDrain.stderr)
 assert.equal(anthropicDrain.stdout, 'false', 'an active triage-only Anthropic hold suppresses a no-progress backlog drain')
 fs.rmSync(anthropicDrainState, { recursive: true, force: true })
 
+// A 24-row subscription drain is three atomically funded 8-row calls. The scheduler must price the same
+// complete outer batch as runCycle; otherwise the final $0.29 of a $1 day looks usable here, the drain
+// starts, and runCycle immediately refuses because its required $0.30 reservation cannot fit.
+const anthropicShardState = fs.mkdtempSync(path.join(os.tmpdir(), 'anthropic-shard-drain-'))
+const anthropicShardDay = new Date().toISOString().slice(0, 10)
+fs.writeFileSync(path.join(anthropicShardState, 'anthropic-triage-budget.json'), JSON.stringify({ date: anthropicShardDay, usd: 0.71, calls: 9 }))
+fs.writeFileSync(path.join(anthropicShardState, 'news-deferred.json'), JSON.stringify(Array.from({ length: 24 }, (_, index) => ({
+  event_id: `shard-${index}`,
+  headline: `Company ${index} materially cuts full-year guidance`,
+  url: `https://example.com/shard-${index}`,
+  source_name: 'Test',
+  region: 'US',
+  ts: new Date().toISOString(),
+}))))
+const anthropicShardDrain = spawnSync(process.execPath, ['--import', 'tsx', '--input-type=module', '-e', "import('./src/news/scheduler.ts').then((m) => process.stdout.write(String(m.anthropicHasHeadroom(Date.now()))))"], {
+  cwd: SERVER_DIR,
+  env: isolatedProviderEnv({
+    ENGINE_STATE_DIR: anthropicShardState,
+    NEWS_TRIAGE_BATCH: '24',
+    NEWS_ANTHROPIC_FALLBACK_ENABLED: '1',
+    NEWS_ANTHROPIC_FALLBACK_MODE: 'subscription',
+    NEWS_ANTHROPIC_FALLBACK_DAILY_USD: '1',
+    NEWS_ANTHROPIC_FALLBACK_PER_CALL_USD: '0.10',
+  }),
+  encoding: 'utf8',
+})
+assert.equal(anthropicShardDrain.status, 0, anthropicShardDrain.stderr)
+assert.equal(anthropicShardDrain.stdout, 'false', 'the drain gate refuses a 24-row batch unless all three Haiku shards fit')
+fs.rmSync(anthropicShardState, { recursive: true, force: true })
+
 // Title ingestion and the lead skim are independent feature gates. A standalone pass owns the provider
 // lease and may safely process a fresh persisted sweep even when NEWS_INGEST_ENABLED=0; the scheduler must
 // not turn that into the old `ingester_disabled` no-op.

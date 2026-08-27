@@ -422,6 +422,12 @@ export function EventRail() {
     const id = setTimeout(() => { void runArchiveSearch(archiveMode ? archiveQueryRef.current : {}) }, 220)
     return () => clearTimeout(id)
   }, [archiveKey, archiveMode, runArchiveSearch])
+  // The server now pre-builds archive facets in a background worker, so asking for the warm snapshot on
+  // mount no longer freezes startup. Populate native selects BEFORE their first click: macOS snapshots a
+  // native select's options when it opens, so fetching on pointer-down alone left that open menu stuck on
+  // "loading countries…" even when the response arrived moments later. The intent handlers remain as a
+  // self-healing retry if the mount request raced a deploy or transient archive outage.
+  useEffect(() => { void loadFacets({}) }, [loadFacets])
   // the rendered set: the archive matches in archive mode, the live wire otherwise
   const items = archiveMode ? archiveResults : liveItems
 
@@ -734,7 +740,7 @@ export function EventRail() {
             onChange={(e) => { const cc = e.target.value; setGeo({ country: cc, geoRegion: cc ? countryParent(cc) || filters.geoRegion : filters.geoRegion }) }}
             title={facets ? 'Country — every country that has any archived match' : facetsLoading ? 'Loading the archive’s countries…' : 'Open to load every country in the archive'}
           >
-            <option value="">{facetsLoading ? 'loading countries…' : filters.geoRegion ? `all of ${filters.geoRegion}` : 'any country'}</option>
+            <option value="">{facetsLoading && !facets ? 'loading countries…' : filters.geoRegion ? `all of ${filters.geoRegion}` : 'any country'}</option>
             {countryOptions.map((c) => (
               <option key={c.key} value={c.key}>{c.label} · {c.count}</option>
             ))}

@@ -1,5 +1,6 @@
-// Archive facets are intentionally demand-loaded: the rail's mount-time empty search must stay cheap,
-// while clearing a filter must restore the full facet universe. Run: npx tsx src/lib/archiveFacetsLazy.test.ts
+// Archive facets are preloaded from the server's off-thread warm index so native geography selects have
+// their options before the first click. Intent handlers remain as retries, while an empty archive search
+// itself stays cheap. Run: npx tsx src/lib/archiveFacetsLazy.test.ts
 import assert from 'node:assert/strict'
 import { readFileSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
@@ -21,6 +22,7 @@ const previousDocument = (globalThis as any).document
 const { api } = await import('./api')
 const { useStore } = await import('./store')
 const originalNewsFacets = api.newsFacets
+const originalNewsSearch = api.newsSearch
 let facetCalls = 0
 api.newsFacets = async () => {
   facetCalls++
@@ -32,12 +34,13 @@ api.newsFacets = async () => {
 
 try {
   const railSource = readFileSync(fileURLToPath(new URL('../components/screener/EventRail.tsx', import.meta.url)), 'utf8')
-  assert.doesNotMatch(railSource, /useEffect\(\(\) => \{ void loadFacets\(\{\}\)/, 'the rail must not restore a mount-time facet scan')
+  assert.match(railSource, /useEffect\(\(\) => \{ void loadFacets\(\{\}\) \}, \[loadFacets\]\)/, 'the rail preloads the warm facet snapshot once before a native select opens')
   assert.equal((railSource.match(/onFocusCapture=\{ensureFacets\}/g) || []).length, 2, 'keyboard focus must demand-load both primary facet controls')
   assert.equal((railSource.match(/onPointerDown=\{ensureFacets\}/g) || []).length, 2, 'pointer use must demand-load both primary facet controls')
   assert.equal((railSource.match(/onClick=\{ensureFacets\}/g) || []).length, 2, 'keyboard activation must retry both primary facet controls')
   assert.doesNotMatch(railSource, /if \(n\) ensureFacets\(\)/, 'opening static secondary Filters must not start a redundant facet scan')
   assert.match(railSource, /onTextIntent=\{ensureFacets\}/, 'using the keyword input must demand-load ticker-to-company facets')
+  assert.match(railSource, /facetsLoading && !facets \? 'loading countries…'/, 'a background recount must keep the existing country selection visible')
 
   const filterSource = readFileSync(fileURLToPath(new URL('../components/screener/FeedFilters.tsx', import.meta.url)), 'utf8')
   assert.match(filterSource, /onFocus=\{onTextIntent\}/, 'keyboard entry into the keyword input must signal filter intent')
@@ -52,9 +55,34 @@ try {
   await useStore.getState().scRunArchiveSearch({})
   await Promise.resolve()
   assert.equal(facetCalls, 1, 'clearing a used filter must restore full-archive facets')
-  console.log('\narchiveFacetsLazy.test.ts: 10 passed')
+
+  let finishSearch: ((value: Awaited<ReturnType<typeof api.newsSearch>>) => void) | undefined
+  api.newsSearch = async () => new Promise((resolve) => { finishSearch = resolve })
+  facetCalls = 0
+  const activeSearch = useStore.getState().scRunArchiveSearch({ geoRegion: 'Asia' })
+  await Promise.resolve()
+  assert.equal(facetCalls, 0, 'a full-archive recount must not compete with the first history result page')
+  assert.ok(finishSearch, 'the history search must start immediately')
+  finishSearch({ items: [], nextCursor: null, scannedThroughDate: '2099-01-01', exhausted: true })
+  await activeSearch
+  assert.equal(facetCalls, 1, 'context counts refresh after the first history result page settles')
+
+  let finishStaleSearch: ((value: Awaited<ReturnType<typeof api.newsSearch>>) => void) | undefined
+  api.newsSearch = async () => new Promise((resolve) => { finishStaleSearch = resolve })
+  facetCalls = 0
+  useStore.setState({ wireSwarm: 'screener' })
+  const staleSearch = useStore.getState().scRunArchiveSearch({ geoRegion: 'Europe' })
+  await Promise.resolve()
+  useStore.getState()._enterWire('commodity')
+  assert.ok(finishStaleSearch, 'the old wire history request must be in flight before switching wires')
+  finishStaleSearch({ items: [], nextCursor: null, scannedThroughDate: '2099-01-01', exhausted: true })
+  await staleSearch
+  assert.equal(facetCalls, 0, 'a wire switch must cancel the old wire background facet recount')
+  assert.deepEqual(useStore.getState().scArchiveQuery, {}, 'a stale history response must not repopulate the new wire')
+  console.log('\narchiveFacetsLazy.test.ts: 18 passed')
 } finally {
   api.newsFacets = originalNewsFacets
+  api.newsSearch = originalNewsSearch
   ;(globalThis as any).window = previousWindow
   ;(globalThis as any).document = previousDocument
 }

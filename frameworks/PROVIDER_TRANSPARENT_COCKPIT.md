@@ -46,6 +46,11 @@ For every admitted tracked launch:
 - Background scanners cannot make provider availability depend on unrelated work. A pending reviewed deploy
   closes new background admission and makes an already-running abortable news cycle yield at its next safe
   boundary; the deployer never waits for the normal multi-minute scanner timeout.
+- Provider isolation must accept the same sanctioned deployed repository topology. In particular, the
+  configured repo-root `data/` projection may resolve to the owner-pinned external pool under both Claude
+  and Codex, without becoming a provider write grant. An undeclared repository-root link is rejected, and a
+  link change after the adapter binds its canonical target cannot redirect the process. These checks happen
+  before provider spawn or spend.
 
 ## Allowed differences
 
@@ -64,4 +69,5 @@ completion criteria, artifact requirements, or recovery semantics are defects.
 CI must exercise the launch matrix with both Claude and Codex receipts. It must prove that full-run typing is
 derived from run kind, a mismatched confirmation receipt fails closed, an admitted run opens Activity, and
 the submitted subject/provider/profile remain the frozen values even if cockpit selection changes. Any future
-provider joins the same matrix before it can be enabled.
+provider joins the same matrix before it can be enabled. The matrix includes the deployed external-data-root
+projection—not only a simplified checkout—plus undeclared-link and post-bind replacement controls.
