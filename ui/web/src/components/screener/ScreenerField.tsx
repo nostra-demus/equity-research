@@ -8,7 +8,7 @@ import { EdgeLayer } from '../swarm/EdgeLayer'
 import { AgentTooltip } from '../AgentTooltip'
 import { Switchyard } from './Switchyard'
 import { ProviderMiniSelector } from '../ProviderMiniSelector'
-import { providerLabel, providerLaunchBlockedReason } from '../../lib/provider'
+import { providerLabel } from '../../lib/provider'
 
 // The live shell paints before the discovered screener graph arrives. Keep that cold-start interval honest
 // and useful: this skeleton follows the eventual left-to-right gauntlet shape, while the existing graph,
@@ -56,10 +56,7 @@ export function ScreenerField() {
   const continueSignal = useStore((s) => s.continueSignal)
   const now = useStore((s) => s.now)
   const setNow = useStore((s) => s.setNow)
-  const runProvider = useStore((s) => s.runProvider)
-  const providers = useStore((s) => s.providers)
   const activeRuns = useStore((s) => s.activeRuns)
-  const providerProblem = providerLaunchBlockedReason(providers[runProvider], providers.catalogState)
 
   const ref = useRef<HTMLDivElement>(null)
   const [size, setSize] = useState({ w: 1200, h: 760 })
@@ -212,12 +209,12 @@ export function ScreenerField() {
                   </button>
                 )}
                 {resumable && (
-                  <button type="button" className="scsignal__act scsignal__act--continue" disabled={launchPending?.key === `continue:${selectedSignal}` || !!providerProblem} onClick={() => void continueSignal(selectedSignal)} title={providerProblem || 'Resume from where it stopped — reuses the finished checks, runs only the rest'}>
+                  <button type="button" className="scsignal__act scsignal__act--continue" disabled={launchPending?.key === `continue:${selectedSignal}`} onClick={() => void continueSignal(selectedSignal)} title="Resume from where it stopped — choose Claude or Codex and a model; finished checks are reused">
                     {launchPending?.key === `continue:${selectedSignal}` ? 'Resuming…' : 'Continue'} <span className="scsignal__act-glyph" aria-hidden>▸</span>
                   </button>
                 )}
                 {overridable && (
-                  <button type="button" className="scsignal__act scsignal__act--continue" disabled={launchPending?.key === `continue:${selectedSignal}` || !!providerProblem} onClick={() => void continueSignal(selectedSignal, undefined, true)} title={providerProblem || 'Override the promotion gate and run the rest of the gauntlet — the finished first checks are reused, not redone (a recorded human override of the auto-cull)'}>
+                  <button type="button" className="scsignal__act scsignal__act--continue" disabled={launchPending?.key === `continue:${selectedSignal}`} onClick={() => void continueSignal(selectedSignal, undefined, true)} title="Override the promotion gate and run the rest with the provider/model you choose — finished checks are reused, not redone">
                     {launchPending?.key === `continue:${selectedSignal}` ? 'Running…' : 'Override & run forward'} <span className="scsignal__act-glyph" aria-hidden>▸</span>
                   </button>
                 )}

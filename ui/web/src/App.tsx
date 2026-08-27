@@ -31,6 +31,7 @@ import { FeedbackPanel } from './components/FeedbackPanel'
 import { CallsTracker } from './components/CallsTracker'
 import { DataLibrary } from './components/datalibrary/DataLibrary'
 import { LaunchConfirm } from './components/LaunchConfirm'
+import { ResumeConfirm } from './components/ResumeConfirm'
 import { ThesisPlanPanel } from './components/ThesisPlanPanel'
 import { WhatChangedPanel } from './components/WhatChangedPanel'
 import { AddCompany } from './components/AddCompany'
@@ -323,6 +324,7 @@ export function App() {
       {sourcesOpen && <SourcesPanel />}
       <SignalIntake />
       <LaunchConfirm />
+      <ResumeConfirm />
       <ThesisPlanPanel />
       <WhatChangedPanel />
       <AddCompany />

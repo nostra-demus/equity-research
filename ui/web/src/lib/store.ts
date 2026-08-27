@@ -22,7 +22,7 @@ import { emptyBookFilters } from '../components/screener/BookFilters'
 import { emptyDlFilters, type DlFilterState } from '../components/datalibrary/DataLibraryFilters'
 import type { PipelinesRead } from './types'
 import { emptyReviewFilters, matchesReviewFilters, type ReviewFilterState } from '../components/screener/ReviewFilters'
-import { automaticResumeMatches, emptyProviders, freezeProviderLaunch, isRunProvider, launchProviderReceiptMatches, manualResumeConfirmation, optionalNestedLaunchResponseMatches, providerCatalogUnknown, providerIsBlocked, providerLaunchBlockedReason, providerLabel, providerNeedsCheck, readRunProfileKey, readRunProvider, saveRunProfileKey, saveRunProvider, selectedProviderProfile, trackedLaunchResponseMatches, type FrozenProviderLaunch, type ProvidersRead, type RecordedRunExecution, type RunProvider } from './provider'
+import { automaticResumeMatches, emptyProviders, freezeProviderLaunch, isRunProvider, launchProviderReceiptMatches, optionalNestedLaunchResponseMatches, providerCatalogUnknown, providerIsBlocked, providerLaunchBlockedReason, providerLabel, providerNeedsCheck, readRunProfileKey, readRunProvider, saveRunProfileKey, saveRunProvider, selectedProviderProfile, trackedLaunchResponseMatches, type FrozenProviderLaunch, type ProvidersRead, type RecordedRunExecution, type RunProvider } from './provider'
 import { normalizeRunSnapshotIdentity, reconcileRunIdentity, sseFrameForRun } from './runIdentity'
 
 const SIGNAL_INPUT_NATURES = new Set([
@@ -466,6 +466,18 @@ type LaunchConfirmation =
       node?: { module: string; name: string; key: string }
     }
 
+export type ResumeConfirmation = {
+  selection: FrozenProviderLaunch
+  records: RecordedRunExecution[]
+  label: string
+  doneCount: number
+  totalCount: number
+  unit: ResumableRunInfo['unit']
+} & (
+  | { kind: 'run'; info: ResumableRunInfo }
+  | { kind: 'signal'; sigId: string; until?: string; override?: boolean }
+)
+
 // A run is "live" (counts for launch guards) only while starting/running. Finished runs linger in
 // activeRuns for the panel until the next ticker switch prunes them.
 // Every server status a run holds while in flight — INCLUDING the pre-spawn gate states, which the
@@ -580,6 +592,10 @@ interface State {
   callsOpen: boolean
   selectedNodeKey: string | null
   launchConfirm: LaunchConfirmation | null
+  // Every manual continuation stops here before it can spend. Unlike automatic recovery (which remains
+  // exact-profile only), this user-owned boundary may intentionally select another reviewed profile or
+  // provider; the runtime records that continuation as mixed-profile / mixed-provider provenance.
+  resumeConfirm: ResumeConfirmation | null
   // Synchronous click→feedback state: set BEFORE any launch-family await so every Run control renders
   // an instant pending state (spinner + disabled), cleared in the action's finally. `key` identifies
   // the specific control so only IT spins; `ticker` scopes stage-level ambient indicators.
@@ -700,6 +716,10 @@ interface State {
   // affordance; `resumeRun` relaunches the unit into its existing folder, continuing from work on disk.
   refreshResumable: () => Promise<void>
   resumeRun: (info: ResumableRunInfo) => Promise<void>
+  confirmResume: () => Promise<void>
+  changeResumeProvider: (provider: RunProvider) => Promise<void>
+  changeResumeProfile: (profileKey: string) => void
+  cancelResume: () => void
   checkCredit: () => Promise<void>
   selectNode: (key: string | null) => void
   setNow: (n: number) => void
@@ -1262,6 +1282,27 @@ function captureProviderLaunch(state: State, provider: RunProvider = state.runPr
   return freezeProviderLaunch(state.providers[provider], state.providers.catalogState, state.runProfileKeys[provider])
 }
 
+// A Resume click must still reach the chooser when the command-bar provider is unavailable. Refresh the
+// authoritative server catalogue, then seed the dialog with the first exact launchable profile (current
+// preference first, original provider second, the other provider last). This only prepares a choice; it
+// never launches and does not silently rewrite the user's saved provider preference.
+async function captureAvailableResumeLaunch(
+  get: () => State,
+  recordedProviders: readonly RunProvider[] = [],
+): Promise<FrozenProviderLaunch | null> {
+  if (get().providers.catalogState !== 'valid') await get().refreshProviders()
+  const candidates = [get().runProvider, ...recordedProviders, 'claude', 'codex'] as RunProvider[]
+  const seen = new Set<RunProvider>()
+  for (const provider of candidates) {
+    if (seen.has(provider)) continue
+    seen.add(provider)
+    if (providerNeedsCheck(get().providers[provider])) await get().refreshProviders(provider)
+    const execution = captureProviderLaunch(get(), provider)
+    if (execution) return execution
+  }
+  return null
+}
+
 function reconcileRunProfileKeys(
   current: Record<RunProvider, string>,
   providers: ProvidersRead,
@@ -1508,6 +1549,7 @@ export const useStore = create<State>((set, get) => ({
   callsOpen: false,
   selectedNodeKey: null,
   launchConfirm: null,
+  resumeConfirm: null,
   launchPending: null,
   scopedRerunPending: false,
   stoppingRuns: {},
@@ -1864,30 +1906,118 @@ export const useStore = create<State>((set, get) => ({
     } catch {}
   },
 
-  // Manually resume ONE interrupted run — relaunch the same unit into its existing run folder so the
-  // engine continues from the work already on disk (finished modules/agents are skipped). Mirrors the
-  // screener's continueSignal; usable from the Activity log (any subject) and the orb view (this subject).
+  // Open the universal manual-continuation boundary. No resume request leaves the browser until the user
+  // has seen and chosen the exact provider + reviewed model profile that will finish the saved work.
   resumeRun: async (info) => {
     if (get().staticMode) return get().setToast({ msg: 'Read-only showcase — runs happen on your machine via npm run dev', tone: 'info' })
     if (isLaunchHealthBlocked(get().health)) return get().setToast({ msg: 'Engine offline — live runs are paused until it reconnects.', tone: 'info' })
-    const provider = get().runProvider
     // Screener signals resume through their own path — it keeps the finished orbs and re-queues the rest.
-    // That path compares both the board and disk receipts; do not pre-confirm only the weaker row here.
+    // That path compares both the board and disk receipts; do not seed its chooser from only this row.
     if (info.kind === 'signal') { await get().continueSignal(info.subject); return }
-    const providerProblem = providerLaunchBlockedReason(get().providers[provider], get().providers.catalogState)
-    if (providerProblem) return get().setToast({ msg: `${providerProblem}. Choose another run provider.`, tone: 'bad' })
-    const execution = captureProviderLaunch(get(), provider)
-    if (!execution) return get().setToast({ msg: 'The selected execution profile could not be frozen. Check the provider again.', tone: 'bad' })
-    const confirmation = manualResumeConfirmation([{
+    const records: RecordedRunExecution[] = [{
       provider: isRunProvider(info.provider) ? info.provider : undefined,
       executionProfile: info.executionProfile,
       source: 'disk',
-    }], execution)
-    if (confirmation && (typeof window === 'undefined' || !window.confirm(confirmation))) return
+    }]
+    const recorded = records.map((record) => record.provider).filter(isRunProvider)
+    const execution = await captureAvailableResumeLaunch(get, recorded)
+    if (!execution) return get().setToast({ msg: 'No verified provider/model is available to resume this run. Check Claude or Codex and try again.', tone: 'bad' })
+    set({
+      resumeConfirm: {
+        kind: 'run', info, selection: execution, records,
+        label: info.label || info.subject,
+        doneCount: info.doneCount, totalCount: info.totalCount, unit: info.unit,
+      },
+    })
+  },
+
+  changeResumeProvider: async (provider) => {
+    const rc = get().resumeConfirm
+    if (!rc || get().launchPending || providerIsBlocked(get().providers[provider])) return
+    if (providerNeedsCheck(get().providers[provider])) {
+      await get().refreshProviders(provider)
+      if (get().resumeConfirm !== rc || get().launchPending) return
+    }
+    const execution = captureProviderLaunch(get(), provider)
+    if (!execution) {
+      const problem = providerLaunchBlockedReason(get().providers[provider], get().providers.catalogState)
+      return get().setToast({ msg: problem || `The ${providerLabel(provider)} profile could not be verified.`, tone: 'bad' })
+    }
+    set({ resumeConfirm: { ...rc, selection: execution } })
+  },
+
+  changeResumeProfile: (profileKey) => {
+    const rc = get().resumeConfirm
+    if (!rc || get().launchPending) return
+    const provider = rc.selection.provider
+    const option = selectedProviderProfile(get().providers[provider], profileKey)
+    if (!option || option.key === rc.selection.expectedProfileKey) return
+    const execution = freezeProviderLaunch(get().providers[provider], get().providers.catalogState, option.key)
+    if (!execution) return get().setToast({ msg: 'That execution profile could not be frozen. Check the provider again.', tone: 'bad' })
+    set({ resumeConfirm: { ...rc, selection: execution } })
+  },
+
+  cancelResume: () => {
+    if (!get().launchPending) set({ resumeConfirm: null })
+  },
+
+  confirmResume: async () => {
+    const rc = get().resumeConfirm
+    if (!rc || get().launchPending) return
+    if (isLaunchHealthBlocked(get().health)) {
+      set({ resumeConfirm: null })
+      return get().setToast({ msg: 'Engine offline — live runs are paused until it reconnects.', tone: 'info' })
+    }
+    const providerProblem = providerLaunchBlockedReason(get().providers[rc.selection.provider], get().providers.catalogState)
+    const current = freezeProviderLaunch(
+      get().providers[rc.selection.provider],
+      get().providers.catalogState,
+      rc.selection.expectedProfileKey,
+    )
+    if (providerProblem || !current || JSON.stringify(current) !== JSON.stringify(rc.selection)) {
+      set({ resumeConfirm: null })
+      return get().setToast({ msg: providerProblem || 'The selected provider/model changed before resume. Open Resume and choose again.', tone: 'bad' })
+    }
+    // Persist the explicit choice only at this final boundary. The request below always uses `selection`,
+    // the immutable snapshot shown in the dialog, rather than re-reading command-bar state after an await.
+    get().setRunProvider(rc.selection.provider)
+    if (rc.selection.expectedProfileKey) get().setRunProfile(rc.selection.provider, rc.selection.expectedProfileKey)
+    const execution = rc.selection
+
+    if (rc.kind === 'signal') {
+      const { sigId, until, override } = rc
+      const pending = { key: `continue:${sigId}`, label: override ? `Running ${sigId} forward…` : `Resuming ${sigId}…`, ticker: sigId }
+      set({ launchPending: pending })
+      try {
+        // Load disk truth before launch so finished checks stay done while the remaining ones re-queue.
+        if (get().scSelectedSignal !== sigId || !Object.keys(get().scRuntime).length) await get().scSelectSignal(sigId)
+        const done = { ...get().scRuntime }
+        const out = await api.launchSignal(execution, { sigId, until, override })
+        requireLaunchProviderReceipt(out, execution, get().providers.catalogState)
+        revealAcceptedTrackedLaunch(set, get)
+        const { runId } = out
+        const rt: Record<string, NodeRuntime> = {}
+        for (const k of get().scNodesByKey.keys()) rt[k] = done[k]?.status === 'done' ? done[k] : { status: 'queued', runId }
+        set({ resumeConfirm: null, scSelectedSignal: sigId, scRuntime: rt, pipelineOpen: false })
+        connectScreenerRun(get, runId, sigId)
+        void get().refreshActiveRuns()
+        void get().refreshResumable()
+        get().setToast({ msg: override ? `Running ${sigId} forward — overriding the gate, reusing finished checks` : `Resuming ${sigId} — picking up where it stopped`, tone: 'good' })
+      } catch (e: any) {
+        set({ resumeConfirm: null })
+        get().setToast({ msg: e?.message ? String(e.message) : (override ? 'Could not run the checks forward' : 'Could not resume the checks'), tone: e?.body?.code ? 'info' : 'bad' })
+      } finally {
+        if (get().launchPending === pending) set({ launchPending: null })
+      }
+      return
+    }
+
+    const { info } = rc
     const swarm = info.swarm && info.swarm !== 'research' ? info.swarm : undefined
-    const label = info.label || info.subject
+    const label = rc.label
     const doResume = async (force?: boolean) => {
-      set({ launchPending: { key: `resume:${info.subject}:${info.module || ''}`, label: `Resuming ${label}…`, ticker: info.subject } })
+      const pending = { key: `resume:${info.subject}:${info.module || ''}`, label: `Resuming ${label}…`, ticker: info.subject }
+      set({ launchPending: pending })
       try {
         const body: { selection: FrozenProviderLaunch; kind: 'full' | 'module'; ticker: string; module?: string; confirmTicker?: string; force?: boolean; swarm?: string } =
           { selection: execution, kind: info.kind as 'full' | 'module', ticker: info.subject, module: info.module, force, swarm }
@@ -1941,6 +2071,7 @@ export const useStore = create<State>((set, get) => ({
           }
           void get().refreshActiveRuns()
         }
+        set({ resumeConfirm: null })
         void get().refreshResumable()
         const skippedN = skipped?.length || 0
         const runningLabel = hasSplit ? (plannedMods!.length ? plannedMods!.join(', ') : 'the final synthesis') : 'the rest'
@@ -1951,9 +2082,10 @@ export const useStore = create<State>((set, get) => ({
           tone: 'good',
         })
       } catch (e: any) {
+        set({ resumeConfirm: null })
         launchErrorToast(get, e, info.subject, `resume of ${label}`, force ? undefined : () => doResume(true))
       } finally {
-        set({ launchPending: null })
+        if (get().launchPending === pending) set({ launchPending: null })
       }
     }
     await doResume()
@@ -5457,43 +5589,25 @@ export const useStore = create<State>((set, get) => ({
   continueSignal: async (sigId, until, override) => {
     if (get().staticMode) return get().setToast({ msg: 'Read-only showcase — signals run on your machine via npm run dev', tone: 'info' })
     if (isLaunchHealthBlocked(get().health)) return get().setToast({ msg: 'Engine offline — live runs are paused until it reconnects.', tone: 'info' })
-    const provider = get().runProvider
-    const providerProblem = providerLaunchBlockedReason(get().providers[provider], get().providers.catalogState)
-    if (providerProblem) return get().setToast({ msg: `${providerProblem}. Choose another run provider.`, tone: 'bad' })
-    const execution = captureProviderLaunch(get(), provider)
-    if (!execution) return get().setToast({ msg: 'The selected execution profile could not be frozen. Check the provider again.', tone: 'bad' })
     const disk = get().resumableRuns.find((entry) => entry.kind === 'signal' && entry.subject === sigId)
     const board = get().scBoard?.resumable?.find((entry) => entry.sigId === sigId)
     const records: RecordedRunExecution[] = [
       ...(board ? [{ provider: isRunProvider(board.provider) ? board.provider : undefined, executionProfile: board.executionProfile, source: 'board' }] : []),
       ...(disk ? [{ provider: isRunProvider(disk.provider) ? disk.provider : undefined, executionProfile: disk.executionProfile, source: 'disk' }] : []),
     ]
-    const confirmation = manualResumeConfirmation(records, execution)
-    if (confirmation && (typeof window === 'undefined' || !window.confirm(confirmation))) return
-    set({ launchPending: { key: `continue:${sigId}`, label: override ? `Running ${sigId} forward…` : `Resuming ${sigId}…`, ticker: sigId } })
-    try {
-      // make sure we hold the authoritative finished-orb set from disk before relaunching
-      if (get().scSelectedSignal !== sigId || !Object.keys(get().scRuntime).length) await get().scSelectSignal(sigId)
-      const done = { ...get().scRuntime } // the orbs already finished (loaded from disk / frozen from the stop)
-      // `until` continues only THROUGH the named module then stops again (a staged partial); undefined runs
-      // the rest of the gauntlet to the end. `override` pushes a signal-gate PARK/LOG past the promotion gate.
-      // Either way the gauntlet skips modules already on disk, so finished checks are reused, never redone.
-      const out = await api.launchSignal(execution, { sigId, until, override })
-      requireLaunchProviderReceipt(out, execution, get().providers.catalogState)
-      revealAcceptedTrackedLaunch(set, get)
-      const { runId } = out
-      // keep finished orbs as-is; re-queue everything else under the new runId so they animate as they run
-      const rt: Record<string, NodeRuntime> = {}
-      for (const k of get().scNodesByKey.keys()) rt[k] = done[k]?.status === 'done' ? done[k] : { status: 'queued', runId }
-      set({ scSelectedSignal: sigId, scRuntime: rt, pipelineOpen: false })
-      connectScreenerRun(get, runId, sigId)
-      void get().refreshActiveRuns()
-      get().setToast({ msg: override ? `Running ${sigId} forward — overriding the gate, reusing finished checks` : `Resuming ${sigId} — picking up where it stopped`, tone: 'good' })
-    } catch (e: any) {
-      get().setToast({ msg: e?.message ? String(e.message) : (override ? 'Could not run the checks forward' : 'Could not resume the checks'), tone: e?.body?.code ? 'info' : 'bad' })
-    } finally {
-      set({ launchPending: null })
-    }
+    const recorded = records.map((record) => record.provider).filter(isRunProvider)
+    const execution = await captureAvailableResumeLaunch(get, recorded)
+    if (!execution) return get().setToast({ msg: 'No verified provider/model is available to resume these checks. Check Claude or Codex and try again.', tone: 'bad' })
+    const progress = disk || board
+    set({
+      resumeConfirm: {
+        kind: 'signal', sigId, until, override, selection: execution, records,
+        label: board?.headline || disk?.label || sigId,
+        doneCount: progress?.doneCount || 0,
+        totalCount: progress?.totalCount || 0,
+        unit: 'module',
+      },
+    })
   },
 
   // Read (and cache) the run-state of an opened event's signal, so the "Run the checks" split button can pick

@@ -36,6 +36,10 @@ Model choice is part of the same provider-transparent contract, not a second lau
   automatic continuation, resume metadata, artifacts, and execution provenance.
 - Automatic continuation and ordinary resume use the exact frozen profile. A manual change is an explicit
   mixed-profile continuation and requires the same warning and provenance treatment as a provider change.
+- Every manual Resume action opens the same provider/model chooser before any request is submitted. It may
+  continue with the original profile or any other currently verified reviewed profile; completed work is
+  retained, only unfinished work runs, and the resulting lineage is labelled exact, mixed-profile, or
+  mixed-provider. A global provider preference or a native yes/no browser prompt may never force the choice.
 - A profile name is a runtime promise. Every unpinned nested agent must use the selected specialist tier;
   canonical role pins may only make the tier stricter. Unsupported, stale, mismatched, or unavailable profiles
   fail before admission. There is no silent substitution.
