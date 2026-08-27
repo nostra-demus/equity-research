@@ -1,0 +1,45 @@
+import assert from 'node:assert/strict'
+import test from 'node:test'
+import type { TaskCard, TasksRead } from '../../lib/types'
+import { optimisticTask, overlayOptimisticTasks, replaceTask } from './taskOptimistic'
+
+const card = (overrides: Partial<TaskCard> = {}): TaskCard => ({
+  schema_version: 'task-card/v1', task_id: 'TASK-20260827-1234abcd', scope: 'ticker', ticker: 'MIDEA',
+  subject: 'European Heat', title: 'Need to run a full scanner on right data', stage: 'ticker_identified',
+  decision: null, assignee: 'CK', attachments: [], watchlist_entry_id: null, watchlist_created: false,
+  history: [], created_at: '2026-08-27T00:00:00.000Z', created_by: 'CK', updated_at: '2026-08-27T00:00:00.000Z',
+  ...overrides,
+})
+
+const read = (tasks: TaskCard[]): TasksRead => ({
+  tasks, people: [], unreadable: [], attachments_enabled: true, as_of: '2026-08-27T00:00:00.000Z',
+})
+
+test('a stage move is visible immediately and leaving Final Decision clears its outcome', () => {
+  assert.equal(optimisticTask(card(), { stage: 'deep_dive' }).stage, 'deep_dive')
+  const movedBack = optimisticTask(card({ stage: 'final_decision', decision: 'watch' }), { stage: 'deep_dive' })
+  assert.equal(movedBack.stage, 'deep_dive')
+  assert.equal(movedBack.decision, null)
+})
+
+test('rapid changes build on the card already shown to the user', () => {
+  const moved = optimisticTask(card(), { stage: 'deep_dive' })
+  const reassigned = optimisticTask(moved, { assignee: 'AB' })
+  assert.equal(reassigned.stage, 'deep_dive')
+  assert.equal(reassigned.assignee, 'AB')
+})
+
+test('an unrelated refresh cannot replace a task whose save is still pending', () => {
+  const stale = card()
+  const pending = optimisticTask(stale, { stage: 'deep_dive' })
+  const refreshed = overlayOptimisticTasks(read([stale]), new Map([[stale.task_id, pending]]))
+  assert.equal(refreshed.tasks[0]?.stage, 'deep_dive')
+})
+
+test('the authoritative response replaces only the saved task', () => {
+  const other = card({ task_id: 'TASK-20260827-deadbeef', subject: 'Other' })
+  const saved = card({ stage: 'deep_dive', updated_at: '2026-08-27T00:00:05.000Z' })
+  const next = replaceTask(read([card(), other]), saved)
+  assert.equal(next?.tasks[0], saved)
+  assert.equal(next?.tasks[1], other)
+})
