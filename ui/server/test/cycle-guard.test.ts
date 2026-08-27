@@ -47,6 +47,47 @@ await check('runAbortableCycle: a throwing run rejects AND clears the guard time
   await assert.rejects(runAbortableCycle(async () => { throw new Error('boom') }, 10_000), /boom/)
 })
 
+await check('runAbortableCycle: deployment intent aborts a background cycle without waiting for its long timeout', async () => {
+  let deployPending = false
+  let timeoutCalled = false
+  let yieldCalled = 0
+  const startedAt = Date.now()
+  const result = runAbortableCycle(
+    (signal) => new Promise<string>((resolve) => {
+      signal.addEventListener('abort', () => resolve('yielded'), { once: true })
+    }),
+    10_000,
+    () => { timeoutCalled = true },
+    {
+      requested: () => deployPending,
+      pollMs: 5,
+      onYield: () => { yieldCalled++ },
+    },
+  )
+  const keepTestProcessAlive = delay(75)
+  await delay(15)
+  deployPending = true
+  assert.equal(await result, 'yielded')
+  await keepTestProcessAlive
+  assert.ok(Date.now() - startedAt < 500, 'writer intent must not wait for the normal cycle timeout')
+  assert.equal(timeoutCalled, false, 'deployment yield is not mislabeled as a cycle timeout')
+  assert.equal(yieldCalled, 1, 'deployment yield callback runs exactly once')
+})
+
+await check('runAbortableCycle: deployment polling stops after a normal cycle settles', async () => {
+  let polls = 0
+  const result = await runAbortableCycle(
+    async () => 'done',
+    10_000,
+    undefined,
+    { requested: () => { polls++; return false }, pollMs: 5 },
+  )
+  const settledPolls = polls
+  await delay(20)
+  assert.equal(result, 'done')
+  assert.equal(polls, settledPolls, 'a completed cycle leaks no deployment-poll timer')
+})
+
 await check('withCycleSignal: aborting the cycle signal cancels the fetch (merged with the per-request signal)', async () => {
   let seen: AbortSignal | undefined
   const fakeFetch = (async (_url: any, init: any) => { seen = init.signal; return new Promise(() => {}) }) as unknown as typeof fetch

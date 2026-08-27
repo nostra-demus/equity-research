@@ -43,6 +43,9 @@ For every admitted tracked launch:
   stale reservation, or ambiguous instruction to retry.
 - Quota failure preserves completed artifacts and the frozen provider. Automatic continuation uses that
   provider; a human can explicitly choose a mixed-provider continuation.
+- Background scanners cannot make provider availability depend on unrelated work. A pending reviewed deploy
+  closes new background admission and makes an already-running abortable news cycle yield at its next safe
+  boundary; the deployer never waits for the normal multi-minute scanner timeout.
 
 ## Allowed differences
 

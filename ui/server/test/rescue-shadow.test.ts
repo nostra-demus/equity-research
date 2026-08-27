@@ -194,6 +194,17 @@ function recordRescueRows(stateDir: string, rows: readonly FeedItem[], now = STA
   assert.equal(result.secondLook, 'paused')
 }
 
+{
+  let secondLookCalls = 0
+  const result = await runNormalIdeasThenSecondLook({
+    ideas: async () => ({ coverage_complete: true }),
+    secondLook: async () => { secondLookCalls++; return { ran: true } },
+    shouldStopBeforeSecondLook: () => true,
+  })
+  assert.equal(secondLookCalls, 0, 'a pending deployment prevents new second-look work after Ideas settles')
+  assert.equal(result.secondLook, null)
+}
+
 function row(index: number, nameOnly = false): FeedItem {
   const ticker = `C${index}`
   return withInitialRescueDecision({
