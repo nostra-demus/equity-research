@@ -9,7 +9,7 @@ import type {
 import { useStore } from '../../lib/store'
 import { GrowthChart, UnderwaterChart } from './charts'
 import { LogTradeForm, ManualTradeList, ProvisionalEffects } from './manual'
-import { groupByIdea } from './tradeRows'
+import { groupByIdea, ideaOfRow } from './tradeRows'
 
 const EMPTY_MANUAL: PortfolioManualRead = { trades: [], live: 0, superseded: 0, effects: [] }
 
@@ -635,7 +635,10 @@ function Exposure({ book, risked, parkedValue, nav, ccy, ideas, bars }: {
 }) {
   const derivatives = book.positions.filter((p) => p.isDerivative)
   const valued = risked
-    .map((p) => ({ p, base: baseValue(p.positionValue, p) ?? 0 }))
+    // `known` is kept alongside the coerced figure because UNKNOWN IS NOT SMALL: a position the
+    // statement could not value reads as 0 here, and treating that 0 as residual dust would drop a
+    // real holding out of the idea weighting and then describe it on screen as loose change.
+    .map((p) => { const b = baseValue(p.positionValue, p); return { p, base: b ?? 0, known: b !== null } })
     .sort((a, b) => Math.abs(b.base) - Math.abs(a.base))
   if (valued.length === 0) return null
 
@@ -667,13 +670,13 @@ function Exposure({ book, risked, parkedValue, nav, ccy, ideas, bars }: {
   // book, and counting it renders a closed idea as an open 0.0% one forever. It stays in the positions
   // list and in reconciliation; only its weight is withheld.
   const ideaLabel = new Map((ideas?.ideas ?? []).map((i) => [i.id, i.label]))
-  const nonResidual = valued.filter((v) => Math.abs(v.base) >= RESIDUAL_VALUE_BASE)
+  const nonResidual = valued.filter((v) => !v.known || Math.abs(v.base) >= RESIDUAL_VALUE_BASE)
   const residualCount = valued.length - nonResidual.length
   const byIdea = (() => {
     if (!ideas) return []
     const by = new Map<string, number>()
     for (const { p, base } of nonResidual) {
-      const id = ideas.assignments.positions[(p.symbol ?? '').toUpperCase()] ?? ''
+      const id = ideas.assignments?.positions?.[(p.symbol ?? '').toUpperCase()] ?? ''
       by.set(id, (by.get(id) ?? 0) + base)
     }
     return [...by.entries()].sort((a, b) => {
@@ -907,13 +910,15 @@ function IdeaPicker({ symbol, ideas, onChanged, closeTradeIDs }: {
   const [naming, setNaming] = useState(false)
   const [draft, setDraft] = useState('')
   const onTrade = Array.isArray(closeTradeIDs)
-  // A round trip's legs can disagree — the operator may have labelled them separately. Showing one of
-  // them as if it were the row's answer would misreport it, so the picker shows no selection and the
-  // row's own '(split)' marker says why.
-  const found = onTrade ? new Set(closeTradeIDs!.map((t) => ideas.assignments.closures[t] ?? '')) : null
+  // A round trip's legs can carry TWO DIFFERENT declared ideas — the operator really did label them
+  // apart. Showing one of them as if it were the row's answer would misreport it, so the picker shows
+  // no selection and reads '— split —' instead. A leg that is merely unlabelled is not a
+  // disagreement (see ideaOfRow): the row keeps the one idea it does carry, and re-picking it
+  // backfills every id behind the row.
+  const declared = onTrade ? ideaOfRow(closeTradeIDs!, ideas.assignments?.closures ?? {}) : null
   const current = onTrade
-    ? (found!.size === 1 ? [...found!][0]! : '')
-    : (ideas.assignments.positions[symbol.toUpperCase()] ?? '')
+    ? (declared!.split ? '' : (declared!.id ?? ''))
+    : (ideas.assignments?.positions?.[symbol.toUpperCase()] ?? '')
   // No broker id means no stable key, so there is nothing to label and the control must not pretend.
   const unlabellable = onTrade && closeTradeIDs!.length === 0
 
@@ -997,7 +1002,7 @@ function IdeaPicker({ symbol, ideas, onChanged, closeTradeIDs }: {
           void assign(v || null)
         }}
       >
-        <option value="">{onTrade && found!.size > 1 ? '— split —' : '— no idea yet —'}</option>
+        <option value="">{declared?.split ? '— split —' : '— no idea yet —'}</option>
         {ideas.ideas.map((i) => <option key={i.id} value={i.id}>{i.label}</option>)}
         <option value={NEW_IDEA}>+ New idea…</option>
       </select>
@@ -1284,12 +1289,11 @@ function Trades({ book, manual, onChanged, ideas, cashEquivalents, importOpen, o
     let folded = 0
     for (const c of rows) {
       const sym = c.symbol ?? '—'
-      // One idea per row only when every leg agrees — the same rule groupByIdea applies, so the two
-      // panels can never disagree about which bucket a trade is in.
-      const found = new Set(c.closeTradeIDs.map((t) => assigned[t] ?? ''))
-      const id = found.size === 1 ? [...found][0]! : ''
+      // ONE shared rule (ideaOfRow), the same one groupByIdea applies, so the two panels can never
+      // disagree about which bucket a trade is in.
+      const { id } = ideaOfRow(c.closeTradeIDs, assigned)
       const useIdea = !!id && !cash.has(sym.toUpperCase())
-      const k = useIdea ? (labels.get(id) ?? id) : sym
+      const k = useIdea ? (labels.get(id!) ?? id!) : sym
       const cur = by.get(k) ?? { value: 0, trades: 0, names: new Set<string>() }
       cur.value += c.realized
       cur.trades += 1

@@ -206,6 +206,21 @@ check('a row whose legs were labelled differently is reported, not filed under o
   assert.equal(groups[0]!.label, 'Split across ideas')
 })
 
+check('a labelled row that grows an unlabelled leg keeps its idea', () => {
+  // The regression this pins: statements arrive in pieces, so a round trip labelled while it held one
+  // broker id routinely grows a second on the next import. Reading an UNLABELLED leg as a split would
+  // move an already-labelled trade out of its idea's realised total with nobody having touched it.
+  const rows = foldRoundTrips([
+    closure({ symbol: 'CANE', quantity: 100, realizedBase: 10, closeTradeID: 'x' }),
+    closure({ symbol: 'CANE', quantity: 100, realizedBase: 10, closeTradeID: 'later' }),
+  ])
+  assert.equal(rows.length, 1, 'one round trip, two broker ids')
+  const groups = groupByIdea(rows, ideaBook([['sugar', 'Sugar']], { x: 'sugar' }))
+  assert.equal(groups.length, 1)
+  assert.equal(groups[0]!.label, 'Sugar', 'still the sugar bet, not "Split across ideas"')
+  assert.equal(groups[0]!.realized, 20)
+})
+
 check('an engine with no idea support yields one honest Unassigned row', () => {
   // DESIGN.md §5 deploy skew: the new field is absent for 15-30s after a deploy. Absent must read as
   // "feature off", never as "every trade is unassigned and that is the answer".

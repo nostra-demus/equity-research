@@ -101,6 +101,31 @@ check('a row whose legs disagree reads as mixed, not as one of them', () => {
   assert.equal(ideaForClosure(readIdeas(d), ['301', '302']), 'mixed')
 })
 
+check('a leg that carries no label yet is not a disagreement', () => {
+  // Statements arrive in pieces. A round trip labelled while the book held one broker id routinely
+  // grows a second on the next import; reading THAT as a split would drop an already-labelled trade
+  // out of its idea's realised total with nobody having touched it.
+  const d = dir('partial')
+  const sugar = createIdea(d, 'Sugar')
+  assignClosures(d, ['401'], sugar.id)
+  assert.equal(ideaForClosure(readIdeas(d), ['401', '402']), 'sugar')
+})
+
+check('a new name that slugs onto a renamed idea gets its own id', () => {
+  // renameIdea deliberately leaves the id alone, so 'sugar' can end up labelled 'Aluminium'. Matching
+  // a fresh "Sugar" on the slug would hand back the aluminium bet and file the trade under a view the
+  // operator never named.
+  const d = dir('reslug')
+  const first = createIdea(d, 'Sugar')
+  renameIdea(d, first.id, 'Aluminium')
+  const second = createIdea(d, 'Sugar')
+  assert.notEqual(second.id, first.id)
+  assert.equal(second.label, 'Sugar')
+  assert.equal(readIdeas(d).ideas.length, 2)
+  // and the renamed one keeps every assignment that pointed at it
+  assert.equal(readIdeas(d).ideas.find((i) => i.id === first.id)!.label, 'Aluminium')
+})
+
 check('a closure with no broker trade id is not assignable', () => {
   // It cannot be keyed stably, so it gets no key at all rather than a positional one that would point
   // at a different trade after the next import.

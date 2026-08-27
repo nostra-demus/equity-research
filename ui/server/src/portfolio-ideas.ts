@@ -56,8 +56,6 @@ export interface IdeaBook {
   assignments: IdeaAssignments
 }
 
-const EMPTY: IdeaBook = { ideas: [], assignments: { positions: {}, closures: {} } }
-
 const emptyBook = (): IdeaBook => ({ ideas: [], assignments: { positions: {}, closures: {} } })
 
 function filePath(dir: string): string { return path.join(dir, FILE) }
@@ -133,15 +131,24 @@ function write(dir: string, book: IdeaBook): void {
   fs.renameSync(tmp, filePath(dir))
 }
 
-/** Create an idea, or return the existing one with the same id. Idempotent on the slug. */
+/** Create an idea, or return the existing one of the same NAME. Idempotent on the name, not on the
+ *  slug: renameIdea deliberately leaves the id alone, so an idea slugged 'sugar' may by now be
+ *  labelled 'Aluminium'. Matching on the slug would hand that back to an operator who typed "Sugar"
+ *  and file their trade under a bet they never named — so a name that is genuinely new takes its own
+ *  id, suffixed where the slug is already spoken for. */
 export function createIdea(dir: string, label: string): Idea {
   const clean = String(label ?? '').trim().slice(0, MAX_LABEL_LENGTH)
   if (!clean) throw new Error('an idea needs a name')
-  const id = ideaId(clean)
+  let id = ideaId(clean)
   if (!id) throw new Error('an idea name needs at least one letter or number')
   const book = readIdeas(dir)
-  const existing = book.ideas.find((i) => i.id === id)
+  const existing = book.ideas.find((i) => i.label.toLowerCase() === clean.toLowerCase())
   if (existing) return existing
+  if (book.ideas.some((i) => i.id === id)) {
+    let n = 2
+    while (book.ideas.some((i) => i.id === `${id}-${n}`)) n++
+    id = `${id}-${n}`
+  }
   if (book.ideas.length >= MAX_IDEAS) throw new Error(`no room for more ideas (${MAX_IDEAS})`)
   const idea: Idea = { id, label: clean }
   book.ideas.push(idea)
@@ -215,20 +222,24 @@ export function ideaForPosition(book: IdeaBook, symbol: string | null): string |
   return key ? (book.assignments.positions[key] ?? null) : null
 }
 
-/** The idea labelling a closed round trip. A row whose ids disagree is 'mixed', not silently one of
- *  them — the disagreement is a real thing the operator did and hiding it would misreport the row. */
+/** The idea labelling a closed round trip. A row carrying TWO DIFFERENT declared ideas is 'mixed', not
+ *  silently one of them — the disagreement is a real thing the operator did and hiding it would
+ *  misreport the row.
+ *
+ *  A leg carrying NO label is not a disagreement. Statements arrive in pieces, so a round trip labelled
+ *  when it held one broker id routinely grows a second on the next import; reading that as a split
+ *  would drop an already-labelled trade out of its idea's realised total with nobody having touched it. */
 export function ideaForClosure(book: IdeaBook, closeTradeIDs: (string | null)[]): string | null | 'mixed' {
-  const ids = closeTradeIDs.map((v) => String(v ?? '').trim()).filter(Boolean)
-  if (ids.length === 0) return null
-  const found = new Set(ids.map((t) => book.assignments.closures[t] ?? ''))
+  const found = new Set<string>()
+  for (const raw of closeTradeIDs) {
+    const v = book.assignments.closures[String(raw ?? '').trim()]
+    if (v) found.add(v)
+  }
   if (found.size > 1) return 'mixed'
-  const only = [...found][0]
-  return only ? only : null
+  return found.size === 1 ? [...found][0]! : null
 }
 
 /** Dust, not a view — see RESIDUAL_VALUE_BASE. Null value is NOT residual: unknown is not small. */
 export function isResidual(positionValue: number | null): boolean {
   return positionValue !== null && Math.abs(positionValue) < RESIDUAL_VALUE_BASE
 }
-
-export const EMPTY_IDEA_BOOK: IdeaBook = EMPTY

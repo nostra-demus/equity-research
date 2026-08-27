@@ -163,6 +163,24 @@ export interface IdeaGroupRow {
   lastClosed: string | null
 }
 
+/** The idea a closed round trip carries, read from the broker ids behind it. ONE implementation, used
+ *  by every panel that asks the question, so the grouping, the attribution bars and the row picker
+ *  cannot drift into disagreeing about which bucket a trade is in.
+ *
+ *  `split` is true only when the legs carry TWO DIFFERENT declared ideas — the operator really did
+ *  label them apart, and filing the row under one of them would misreport it. A leg carrying NO label
+ *  is not a disagreement: statements arrive in pieces, so a round trip labelled while it held one
+ *  broker id routinely grows a second on the next import, and reading that as a split would drop an
+ *  already-labelled trade out of its idea's realised total with nobody having touched it. */
+export function ideaOfRow(
+  closeTradeIDs: string[], assigned: Record<string, string>,
+): { id: string | null; split: boolean } {
+  const found = new Set<string>()
+  for (const t of closeTradeIDs) { const v = assigned[t]; if (v) found.add(v) }
+  if (found.size > 1) return { id: null, split: true }
+  return { id: found.size === 1 ? [...found][0]! : null, split: false }
+}
+
 /** Fold closed round trips into one row per idea. `ideas` absent (an engine that predates the feature)
  *  yields a single Unassigned row rather than an empty screen — DESIGN.md §5, fail closed.
  *
@@ -198,15 +216,13 @@ export function groupByIdea(
     }
     // A row whose legs were labelled differently is NOT quietly filed under one of them: that
     // disagreement is something the operator actually did, and hiding it would misreport the row.
-    const found = new Set(r.closeTradeIDs.map((t) => assigned[t] ?? ''))
-    const mixed = found.size > 1
-    const only = found.size === 1 ? [...found][0]! : ''
-    const id = mixed ? '\u0000mixed' : (only || null)
+    const { id: declared, split } = ideaOfRow(r.closeTradeIDs, assigned)
+    const id = split ? '\u0000mixed' : declared
     const key = id ?? '\u0000none'
-    const label = mixed ? 'Split across ideas' : (id ? (labels.get(id) ?? id) : 'Unassigned')
+    const label = split ? 'Split across ideas' : (declared ? (labels.get(declared) ?? declared) : 'Unassigned')
 
     const g = out.get(key) ?? {
-      ideaId: mixed ? null : id, label, symbols: [], realized: 0, trades: 0, unlabellable: 0,
+      ideaId: split ? null : id, label, symbols: [], realized: 0, trades: 0, unlabellable: 0,
       firstClosed: null, lastClosed: null, isCash: false,
     }
     if (r.symbol && !g.symbols.includes(r.symbol)) g.symbols.push(r.symbol)

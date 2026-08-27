@@ -5144,7 +5144,7 @@ a { color: inherit; }
    assignable row and left the cash-equivalent rows visibly short in the same table. */
 .fundbook__symcell { display: flex; align-items: center; gap: 7px; min-width: 0; }
 .fundbook__symcell > span:first-child { flex: none; }
-.fundbook__idea { display: inline-flex; align-items: center; min-width: 0; font-weight: 400; }
+.fundbook__idea { display: inline-flex; align-items: center; flex-wrap: wrap; gap: 4px; min-width: 0; font-weight: 400; }
 .fundbook__ideaselect {
   max-width: 100%; padding: 1px 4px; border-radius: var(--r-sm); font-size: 10.5px; font-family: var(--font-sans);
   color: var(--text-muted); background: var(--surface-3); border: 1px solid var(--hairline);
@@ -5174,7 +5174,6 @@ a { color: inherit; }
 @media (hover: hover) and (pointer: fine) {
   .fundbook__ideacancel:hover:not(:disabled) { color: var(--text); border-color: var(--hairline-strong); }
 }
-.fundbook__idea { flex-wrap: wrap; gap: 4px; }
 .fundbook__ok { color: var(--accent-bright); font-weight: 700; font-size: 10px; }
 .fundbook__break { color: var(--bad); font-weight: 700; font-size: 10px; }
 .fundbook__drop.is-compact { padding: 10px 14px; gap: 12px; }
