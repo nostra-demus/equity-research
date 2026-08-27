@@ -1862,6 +1862,10 @@ export function startNewsIngester(): void {
           // per-fetch timeouts — AWAITED to completion (not raced) so it can't overlap the next tick either.
           if (budgetHasHeadroom()) await healEnrichCache({ hasBudget: budgetHasHeadroom, log })
         } catch (e: any) {
+          if (providerDeployPending(STATE_DIR)) {
+            lastNote = 'Deployment pending; the background news cycle yielded safely.'
+            return
+          }
           log(`cycle error: ${e?.message || e}`)
           lastNote = `cycle error: ${e?.message || e}`
         }
@@ -1908,6 +1912,10 @@ export function startNewsIngester(): void {
       ))
       lastNote = summary.note || lastNote
     } catch (e: any) {
+      if (providerDeployPending(STATE_DIR)) {
+        lastNote = 'Deployment pending; the background news drain yielded safely.'
+        return
+      }
       log(`drain error: ${e?.message || e}`)
     } finally {
       running = false
