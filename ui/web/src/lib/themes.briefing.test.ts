@@ -17,7 +17,7 @@ const renderThemesFromCurrentStore = (): string => {
   }
 }
 
-const assessment: ThemeSurfaceAssessment = {
+const ideaReadyAssessment: ThemeSurfaceAssessment = {
   status: 'actionable',
   activity: 'reinforced',
   conviction: 'medium',
@@ -38,7 +38,31 @@ const assessment: ThemeSurfaceAssessment = {
   },
 }
 
+// Production's evidence-first contract keeps theme validation separate from Ideas admission: a complete
+// narrative can be a visible Theme-only row while its investing blockers live in `idea_blockers`.
+const themeOnlyAssessment: ThemeSurfaceAssessment = {
+  status: 'forming',
+  activity: 'quiet',
+  conviction: 'watch',
+  reasons: ['A validator tied the thesis, why-now, mechanism and falsifier to one evidence core.'],
+  blockers: [],
+  metrics: {
+    recent_6h_flow: 0,
+    prior_6h_flow: 0,
+    unique_evidence_count: 10,
+    high_quality_evidence_count: 2,
+    narrative_support_count: 2,
+    narrative_coherence_pct: 82,
+    recurring_narrative_token_count: 2,
+    first_order_directional_ticker_count: 0,
+    recent_24h_support_count: 0,
+    recent_24h_challenge_count: 0,
+    off_core_evidence_count: 8,
+  },
+}
+
 function theme(id: string, ideaReady: boolean): Theme {
+  const surfaceAssessment = ideaReady ? ideaReadyAssessment : themeOnlyAssessment
   return {
     theme_id: id,
     name: ideaReady ? 'Grid bottleneck' : 'Private launch demand',
@@ -53,8 +77,8 @@ function theme(id: string, ideaReady: boolean): Theme {
     first_seen: '2026-08-25T09:00:00Z',
     last_flow: ideaReady ? '2026-08-25T12:10:00Z' : '2026-08-25T12:00:00Z',
     rev: 7,
-    activity: 'reinforced',
-    conviction: 'medium',
+    activity: surfaceAssessment.activity,
+    conviction: surfaceAssessment.conviction,
     off_core_member_count: 8,
     narrative: {
       version: 1,
@@ -71,7 +95,7 @@ function theme(id: string, ideaReady: boolean): Theme {
       { event_id: 'EV-PLAYER', headline: 'Acme named in capacity expansion', found_at: '2026-08-25T11:10:00Z', score: 82, source_tier: 'company', source_name: 'Acme release', url: 'https://example.test/player', stance: 'supports' },
     ],
     qualified_expressions: [{ name: 'Acme Grid', name_key: 'acme-grid', ticker: 'ACME', listing_country: 'US', side: 'beneficiary', role: 'direct', mechanism: 'The backlog raises demand for Acme Grid transformers.', evidence_event_ids: ['EV-PLAYER'] }],
-    assessment,
+    assessment: surfaceAssessment,
     idea_ready: ideaReady,
     idea_blockers: ideaReady ? [] : ['No verified listed player has a separate player-proof event.'],
     player_counts: ideaReady

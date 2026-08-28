@@ -886,11 +886,13 @@ export interface ThemeBriefingGroups {
   excludedContextCount: number
 }
 
-/** The PM surface receives only validated investment narratives. Raw Context clusters remain internal. */
+/** The PM surface receives every evidence-bound validated narrative. Theme admission is intentionally
+ * separate from Ideas admission: `idea_ready` and `idea_blockers` decide whether a visible theme can
+ * seed Ideas, while the legacy assessment blockers no longer decide whether the theme itself exists. */
 export function themesForPmSurface(themes: readonly Theme[]): Theme[] {
   return themes.filter((theme) => {
-    const status = themeSurfaceStatus(theme)
-    return status === 'actionable' || status === 'forming'
+    const status = (theme.assessment || theme.opportunity)?.status
+    return (status === 'actionable' || status === 'forming') && validatedThemeNarrative(theme) !== null
   })
 }
 
