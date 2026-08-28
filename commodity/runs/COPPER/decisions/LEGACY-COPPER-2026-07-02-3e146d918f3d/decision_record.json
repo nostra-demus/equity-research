@@ -1,0 +1,48 @@
+{
+  "swarm": "commodity",
+  "commodity": "COPPER",
+  "decision_date": "2026-07-02",
+  "action": "Avoid",
+  "benchmark": "LME Copper Grade A (USD/tonne)",
+  "current_price": {
+    "value": 13202,
+    "currency": "USD",
+    "unit": "tonne",
+    "as_of": "2026-07-02"
+  },
+  "curve": "contango",
+  "balance": "surplus",
+  "net_macro": "mixed",
+  "positioning": "crowded long",
+  "thesis_summary": "Copper at $13,202/t is substantially a US Section 232 tariff-expectations premium layered on top of a structural electrification bid; the underlying 2026 refined balance is a surplus (~96,000 t ICSG forecast), speculative longs are at a COT Index of ~96/100 with ETF flows already reversing, and the curve is in contango imposing ~5-6% annualised roll drag — the risk/reward for a fresh long is negative-skewed until the tariff binary resolves and crowded positioning normalises.",
+  "key_risks": [
+    "US Section 232 refined copper tariff deferral or rejection strips $1,000-1,500/t from LME price",
+    "Crowded-long unwind (COT Index ~96/100, ~66,500 net contracts) amplifies any bearish catalyst into a self-reinforcing selloff",
+    "COMEX 652,000 t inventory overhang creates a 12-18 month US demand air-pocket if tariff is shelved",
+    "DXY near 15-month highs (~101.3-101.6) and 10-year TIPS at 2.16% are active macro headwinds",
+    "Chinese smelter-cut compliance unverified from official sources — if cuts fail, refined surplus persists and concentrate tightness (zero TC/RCs) overstates tightening risk",
+    "Contango curve: ~5-6% annualised roll drag on a long position requires material price appreciation just to break even"
+  ],
+  "key_levels": {
+    "support": 12147,
+    "resistance": 14528,
+    "fair_value_range": "11500-13000 (ex-tariff-premium structural floor; tariff-confirmed bull scenario: 13700-14500)"
+  },
+  "relative_view": "Copper is not the most attractive commodity in the tracked set for a fresh long today — gold has a cleaner macro setup without the tariff binary risk or crowded-long overhang and carries near-zero roll drag; aluminium warrants a comparative setup run as the closest base-metal alternative",
+  "confidence": 55,
+  "sources": [
+    "commodity/runs/COPPER/market-structure/99_market-structure-synthesis.md",
+    "commodity/runs/COPPER/supply-demand/99_supply-demand-synthesis.md",
+    "commodity/runs/COPPER/macro-positioning/99_macro-positioning-synthesis.md",
+    "commodity/runs/COPPER/commodity-thesis/01_commodity-catalysts.md",
+    "ICSG Copper Market Forecast press release, 2026-04-23",
+    "CFTC Disaggregated COT via IndexBox, week ending 2026-06-23, 2026-06-27",
+    "Westmetall citing LME cash settle, 2026-07-02 (unverified web)",
+    "TradingEconomics COMEX, 2026-07-01 (unverified web)",
+    "Federal Register, 2026-04-09 (Section 232 copper proclamation)",
+    "Bloomberg, 2026-01-15 (State Grid capex)",
+    "FRED DFII10, 2026-06-29 (10-year TIPS)",
+    "ISM PMI Report, 2026-07-01",
+    "stockanalysis.com / investing.com CPER flows, 2026-07-02 (unverified web)"
+  ]
+}
