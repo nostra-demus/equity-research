@@ -33,6 +33,9 @@ const repoRoot = path.resolve(here, '../../..')
 const agentsDoc = fs.readFileSync(path.join(repoRoot, 'AGENTS.md'))
 const claudeDoc = fs.readFileSync(path.join(repoRoot, 'CLAUDE.md'))
 const contributingDoc = fs.readFileSync(path.join(repoRoot, 'CONTRIBUTING.md'), 'utf8')
+const codeownersDoc = fs.readFileSync(path.join(repoRoot, '.github', 'CODEOWNERS'), 'utf8')
+const deployScript = fs.readFileSync(path.join(repoRoot, 'scripts', 'ops', 'deploy.sh'), 'utf8')
+const commitRunScript = fs.readFileSync(path.join(repoRoot, 'scripts', 'commit-run.sh'), 'utf8')
 assert.equal(claudeDoc.byteLength, agentsDoc.byteLength)
 assert.ok(agentsDoc.byteLength > 32_768, 'guard fixture no longer proves the Codex default 32 KiB limit is insufficient')
 assert.ok(agentsDoc.byteLength <= CODEX_PROJECT_DOC_MAX_BYTES)
@@ -53,9 +56,24 @@ assert.equal(
 )
 const doctrineText = agentsDoc.toString('utf8')
 assert.match(doctrineText, /## 31\. Production Engineering Reliability/)
-assert.match(doctrineText, /No production-affecting task is "done" at a local pass, commit, PR, merge, or restart\./)
+assert.match(doctrineText, /Without explicit authority for a specific merge and production action, a code task is "done" only at an open,/)
+assert.match(doctrineText, /If and only if the user separately authorizes those exact later actions in the current/)
 assert.match(doctrineText, /The deployed filesystem and service topology is part of the launch contract\./)
+assert.match(doctrineText, /Explicit user authority is required for merge and production\./)
+assert.match(doctrineText, /Its normal terminal state is an open, green, reviewed PR\./)
+assert.match(doctrineText, /PR ready; not merged or deployed/)
+assert.match(doctrineText, /Production may be inspected read-only to diagnose a reported problem\./)
+assert.doesNotMatch(doctrineText, /Autonomous merge authority|self-merge|self-merges|no human approval is required/i)
 assert.match(contributingDoc, /## Permanent production-engineering standard \(Claude, Codex, humans\)/)
+assert.match(contributingDoc, /## The engine's PR agent prepares the whole PR, then stops/)
+assert.match(contributingDoc, /The coding agent must use a separate non-owner GitHub App\/account/)
+assert.match(contributingDoc, /A merge is inert until separately authorized for production/)
+assert.match(codeownersDoc, /^\* @ceekay-munshot$/m)
+assert.match(deployScript, /deploy_authorization_allows "\$REMOTE"/)
+assert.match(deployScript, /consume_deploy_authorization "\$REMOTE" "\$AUTHORIZED_CODE_COMMIT"/)
+assert.doesNotMatch(commitRunScript, /git rebase -q origin\/main/)
+assert.match(commitRunScript, /reconcile_without_checkout_update/)
+assert.doesNotMatch(contributingDoc, /Autonomous merge authority|self-merge|self-merges|no human approval is required/i)
 const providerTransparentContract = fs.readFileSync(
   path.join(repoRoot, 'frameworks', 'PROVIDER_TRANSPARENT_COCKPIT.md'),
   'utf8',
@@ -66,7 +84,7 @@ for (const requiredContract of [
   'Start from the product invariant and trace the whole path',
   'Close the failure class, not one incident',
   'Prove the state machine, including failure and recovery',
-  '"Done" means deployed and independently verified',
+  '"Done" is scoped to the authority granted',
   'Make each material lesson durable',
 ]) {
   assert.ok(
