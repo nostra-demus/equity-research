@@ -5,7 +5,7 @@ import React, { createElement } from 'react'
 import { renderToStaticMarkup } from 'react-dom/server'
 import { ThemeDetailContent, ThemesView, exactNewsCount, rankedValidatedThemes } from '../components/screener/ThemesView'
 import { useStore } from './store'
-import { type Theme, type ThemeDetail, type ThemeSurfaceAssessment } from './themes'
+import { themeSurfaceAssessment, themeSurfaceStatus, type Theme, type ThemeDetail, type ThemeSurfaceAssessment } from './themes'
 
 const renderThemesFromCurrentStore = (): string => {
   const useSyncExternalStore = React.useSyncExternalStore
@@ -106,8 +106,19 @@ function theme(id: string, ideaReady: boolean): Theme {
 
 const ideaTheme = theme('THM-grid-ready', true)
 const themeOnly = theme('THM-private-only', false)
+const contradictoryThemeOnly: Theme = {
+  ...themeOnly,
+  assessment: {
+    ...themeOnlyAssessment,
+    metrics: { ...themeOnlyAssessment.metrics, narrative_support_count: 1 },
+  },
+}
 
 assert.equal(exactNewsCount(ideaTheme), 10)
+assert.deepEqual(themeSurfaceAssessment(themeOnly), themeOnlyAssessment, 'the shared validator admits the production Theme-only contract')
+assert.equal(themeSurfaceStatus(themeOnly), 'forming', 'detail, refresh, sorting, and list admission share one normalized status')
+assert.equal(themeSurfaceAssessment(contradictoryThemeOnly), null, 'relaxing the obsolete blocker rule must not bypass evidence consistency')
+assert.deepEqual(rankedValidatedThemes([contradictoryThemeOnly]), [], 'a contradictory cached record remains off the PM surface')
 assert.deepEqual(rankedValidatedThemes([themeOnly, ideaTheme]).map((row) => row.theme_id), [ideaTheme.theme_id, themeOnly.theme_id])
 
 useStore.setState({

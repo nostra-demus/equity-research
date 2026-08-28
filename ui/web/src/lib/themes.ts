@@ -61,10 +61,10 @@ export interface ThemeScores {
   composite: number
 }
 
-// The first-look qualification is deliberately separate from heat. Heat says how much news a cluster
-// is taking; this read says whether the cluster has enough distinct, coherent evidence and a ticker-linked,
-// directional expression to deserve scarce PM attention. Every field is optional on Theme below so a
-// newly deployed web bundle fails closed while an older server is still serving the previous shape.
+// Theme validation is deliberately separate from heat and Ideas admission. Heat says how much news a
+// cluster is taking; this read says whether it has a complete narrative backed by distinct, coherent
+// evidence. `idea_ready` separately requires an eligible listed player and the full Ideas contract. Every
+// field is optional on Theme below so a new web bundle fails closed against an older server payload.
 export interface ThemeSurfaceAssessment {
   status: ThemeSurfaceStatus
   // Optional in the TypeScript mirror so cached/older payloads still deserialize. Runtime qualification
@@ -72,6 +72,8 @@ export interface ThemeSurfaceAssessment {
   activity?: ThemeActivity
   conviction?: ThemeConviction
   reasons: string[]
+  // Legacy theme-formation gate failures. This may be empty for a validated `forming` Theme-only row;
+  // investing blockers now live in `idea_blockers` and do not erase the underlying theme.
   blockers: string[]
   metrics: {
     recent_6h_flow: number
@@ -799,7 +801,9 @@ export function themeSurfaceAssessment(t: ThemeAssessmentInput): ThemeSurfaceAss
     || m.narrative_coherence_pct < 60
     || evidence.supports.length < 2
   )) return null
-  if (candidate.status === 'forming' && (candidate.conviction !== 'watch' || !candidate.blockers.length)) return null
+  // Forming is a validated Theme-only lane, not a failed Ideas package. Its evidence still clears every
+  // trust-boundary check above; only the old requirement for a duplicated theme blocker is obsolete.
+  if (candidate.status === 'forming' && candidate.conviction !== 'watch') return null
   // An actionable row has cleared every gate: it must explain at least one fact and have no blocker.
   // A partial deploy or malformed cache that merely says `status: actionable` fails closed to Context.
   if (candidate.status === 'actionable' && (
@@ -891,8 +895,8 @@ export interface ThemeBriefingGroups {
  * seed Ideas, while the legacy assessment blockers no longer decide whether the theme itself exists. */
 export function themesForPmSurface(themes: readonly Theme[]): Theme[] {
   return themes.filter((theme) => {
-    const status = (theme.assessment || theme.opportunity)?.status
-    return (status === 'actionable' || status === 'forming') && validatedThemeNarrative(theme) !== null
+    const status = themeSurfaceStatus(theme)
+    return status === 'actionable' || status === 'forming'
   })
 }
 
