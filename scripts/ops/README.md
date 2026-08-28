@@ -318,6 +318,10 @@ one-minute backlog drain starve releases indefinitely. The deployer then:
 3. logs every deploy to `~/Library/Logs/nostradamus-deploy.log`. Single-flight (mkdir lock), always
    exits 0 so launchd never marks it failed. Force one now: `bash ~/.nostra-ops/deploy.sh`.
 
+The machine has exactly one deployment owner. When `com.nostradamus.deploy` is loaded, companion jobs such
+as `com.nostra.ibkr-paper-bridge` never call `deploy.sh` themselves. A known dirty-code blocker is checked
+before writer intent is published, so a refused deploy neither pauses new runs nor claims the engine is updating.
+
 #### The one thing auto-deploy CANNOT recover from: a rewritten `main`
 
 `deploy.sh` is fast-forward-only by design — it must never discard an unpushed engine data commit. That

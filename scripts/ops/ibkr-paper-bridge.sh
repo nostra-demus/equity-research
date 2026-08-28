@@ -1,6 +1,7 @@
 #!/bin/bash
-# Local-only IBKR Paper companion for a Mac that runs TWS but is not Nostra's public doer.
-# The com.nostra.* label is intentionally outside the com.nostradamus.* failover namespace.
+# IBKR Paper companion for a Mac that runs TWS. It may share a host with Nostra's public doer, but it never
+# becomes a second deployment owner there. The com.nostra.* label remains outside the com.nostradamus.*
+# failover namespace.
 set -uo pipefail
 
 BRIDGE_HOME="${HOME:?HOME is required}"
@@ -9,8 +10,14 @@ CONFIG_DIR="${NOSTRA_ENGINE_CONFIG_DIR:-$BRIDGE_HOME/.config/nostra-engine}"
 CONFIG_FILE="$CONFIG_DIR/paper.env"
 LOCK_DIR="$BRIDGE_HOME/Library/Application Support/nostradamus/ibkr-paper-local-bridge/run.lock"
 DEPLOY="$BRIDGE_HOME/.nostra-ops/deploy.sh"
+DEPLOY_LABEL="com.nostradamus.deploy"
 NODE_BIN="${NODE_BIN:-$(command -v node 2>/dev/null || true)}"
 LOCK_OWNER="$LOCK_DIR/owner"
+
+canonical_deployer_loaded() {
+  command -v launchctl >/dev/null 2>&1 \
+    && launchctl print "gui/$(id -u)/$DEPLOY_LABEL" >/dev/null 2>&1
+}
 
 lock_owner_active() {
   [ -f "$LOCK_OWNER" ] || return 1
@@ -62,9 +69,14 @@ if [ "$config_meta" != "$(id -u) 600" ]; then
   echo "paper bridge waiting: private paper.env must be owned by this user with mode 600" >&2
   exit 0
 fi
-if [ ! -x "$DEPLOY" ] || ! "$DEPLOY"; then
-  echo "paper bridge waiting: the verified main deployment could not be refreshed" >&2
-  exit 0
+# A public doer already has one canonical deployment owner. Calling the same deployer again from this
+# 120-second bridge would double the update checks and repeatedly publish/clear admission intent. A true
+# local-only TWS companion has no canonical watcher, so it retains the reviewed refresh fallback.
+if ! canonical_deployer_loaded; then
+  if [ ! -x "$DEPLOY" ] || ! "$DEPLOY"; then
+    echo "paper bridge waiting: the verified main deployment could not be refreshed" >&2
+    exit 0
+  fi
 fi
 if [ -z "$NODE_BIN" ] || [ "${NODE_BIN#/}" = "$NODE_BIN" ] \
   || [ ! -x "$NODE_BIN" ] || [ ! -x "$PROD/ui/server/node_modules/.bin/tsx" ]; then
