@@ -2,8 +2,9 @@
 # ─────────────────────────────────────────────────────────────────────────────
 # Auto-deploy watcher for app.nostra-demus.com  (com.nostradamus.deploy, ~every 120s)
 #
-# Keeps the PRODUCTION checkout fast-forwarded to origin/main and rebuilds/restarts
-# ONLY what changed:
+# Keeps autonomous research data current. A non-data change remains inert until a separate short-lived,
+# exact-program deployment receipt authorizes it; only then does the watcher fast-forward and reconcile
+# what changed:
 #   • ui/web/**     -> rebuild ui/dist  (served instantly by the running engine; no restart)
 #   • ui/server/**  -> restart the engine (it runs `tsx src/server.ts` straight from source)
 #   • package-lock  -> npm ci in that package first
@@ -17,6 +18,7 @@
 # the built artifacts are behind HEAD, we rebuild the delta regardless of how HEAD advanced.
 #
 # Safe by construction:
+#   • receipt-gated — merge is not deployment; every non-data byte needs an exact, one-shot authorization
 #   • ff-only      — never reset/discard; if HEAD is ahead (an unpushed data commit) it SKIPS
 #   • skip-if-conflict — the ff path skips only when an incoming commit overlaps a dirty file, or any
 #                     non-data (code/ops) file is dirty; it does NOT block on how recently engine DATA was
@@ -49,6 +51,8 @@ FAILMARK="$OPS/.deploy.failed"                       # "<sha> <epoch>" of the la
 RUN_BARRIER_DIR="${ENGINE_STATE_DIR:-$PROD/ui/server/.state}"
 RUN_BARRIER_LOCK="$RUN_BARRIER_DIR/provider-deploy-barrier.flock"
 DEPLOY_INTENT="$RUN_BARRIER_DIR/provider-deploy-pending"
+DEPLOY_AUTHORIZATION_DIR="${NOSTRA_DEPLOY_AUTHORIZATION_DIR:-$OPS/deploy-authorizations}"
+DEPLOY_AUTHORIZATION_HELPER="${NOSTRA_DEPLOY_AUTHORIZATION_HELPER:-$OPS/deploy-authorization.py}"
 FAIL_BACKOFF="${DEPLOY_FAIL_BACKOFF_SECS:-1800}"     # don't re-attempt the SAME failing SHA more often than this
 # After an engine restart, poll /api/health before trusting the new code. A commit that BUILDS but throws at
 # boot/first request otherwise flaps forever under launchd KeepAlive (the build-failure breaker above never
@@ -1246,6 +1250,32 @@ PYPROVIDERDELTA
   esac
 }
 
+# deploy_authorization_allows <target> — print the exact reviewed commit and return 0 only when an
+# owner-issued, unexpired receipt proves that <target>'s complete non-data program is byte-for-byte the
+# approved program. The target may have moved past the approved commit only through autonomous research
+# data commits. Missing helpers/receipts, stale receipts, rewritten history, malformed JSON, and later code
+# all fail closed. Nothing sensitive is stored in the receipt.
+deploy_authorization_allows() {
+  local target="${1:-}" output approved
+  valid_git_sha "$target" || return 1
+  [ -f "$DEPLOY_AUTHORIZATION_HELPER" ] && [ ! -L "$DEPLOY_AUTHORIZATION_HELPER" ] \
+    || return 1
+  output="$($PYTHON -I "$DEPLOY_AUTHORIZATION_HELPER" check \
+    --repo "$PROD" --state-dir "$DEPLOY_AUTHORIZATION_DIR" --target "$target" 2>/dev/null)" \
+    || return 1
+  approved="$(printf '%s\n' "$output" | awk -F= '/^AUTHORIZED_COMMIT=/{print $2; exit}')"
+  valid_git_sha "$approved" || return 1
+  printf '%s\n' "$approved"
+}
+
+consume_deploy_authorization() {
+  local target="${1:-}" approved="${2:-}"
+  valid_git_sha "$target" && valid_git_sha "$approved" || return 1
+  "$PYTHON" -I "$DEPLOY_AUTHORIZATION_HELPER" consume \
+    --repo "$PROD" --state-dir "$DEPLOY_AUTHORIZATION_DIR" \
+    --target "$target" --approved-commit "$approved" >/dev/null 2>&1
+}
+
 # has_nondata_dirty — rc 0 if the working tree holds ANY dirty path (modified, staged, OR untracked) that is
 # not a §28 data path. Built on `git status --porcelain` rather than `git diff`, because `git diff` is blind
 # to UNTRACKED files — and a build compiles the working tree, so an untracked `ui/web/x.ts` would otherwise
@@ -1298,6 +1328,10 @@ elif [ "${1:-}" = --check-engine-archive ]; then
 elif [ "${1:-}" = --check-provider-barrier-delta ] && [ "$#" -eq 3 ]; then
   cd "$PROD" 2>/dev/null || exit 0
   provider_barrier_delta_required "$2" "$3"
+  exit $?
+elif [ "${1:-}" = --check-deploy-authorization ] && [ "$#" -eq 2 ]; then
+  cd "$PROD" 2>/dev/null || exit 1
+  deploy_authorization_allows "$2" >/dev/null
   exit $?
 elif [ "$#" -gt 0 ]; then
   exit 2
@@ -1442,7 +1476,7 @@ reconcile_build() {
   # self-update the installed ops shell scripts when they change on main (atomic temp+mv; safe mid-run).
   # These scripts read their paths from env (ENGINE_REPO_ROOT/REPO) at runtime, so a straight copy is
   # portable across machines / usernames — no per-host path rewriting is needed.
-  for opsscript in watchdog.sh deploy.sh housekeeping.sh connector-supervisor.py; do
+  for opsscript in watchdog.sh deploy.sh deploy-authorization.py housekeeping.sh connector-supervisor.py; do
     case "$changed" in
       *scripts/ops/$opsscript*)
         staged_ops="$(mktemp "$OPS/.$opsscript.staged.XXXXXX")" \
@@ -1531,28 +1565,47 @@ else
 fi
 chmod 700 "$RUN_BARRIER_DIR" 2>/dev/null || { log "WARN cannot protect provider deploy barrier directory"; exit 0; }
 
-# Writer priority. A non-mutating remote-ref probe tells us whether production or its built marker is behind
-# before we contend with a live scanner. Publish the intent first: the already-admitted lifecycle drains,
-# while every later scanner/drain/Ideas admission sees the marker and returns deployment_in_progress. The
-# next launchd tick therefore gets the exclusive flock instead of racing another one-minute backlog drain.
-# A failed remote probe never clears an existing intent; losing network must not silently re-open admissions
-# ahead of a deployment already known to be pending.
+# Writer priority. Fetching updates only the remote-tracking ref and is serialized with data publication; it
+# never changes the production checkout or running process. We need the actual target object before pausing
+# admissions so an unmerged or merely merged code PR cannot manufacture an "engine updating" incident.
+# Only a valid exact-program deployment receipt may publish writer intent for a non-data delta. Autonomous
+# data-only deltas retain their ordinary publication lane and require no production authorization.
+if ! gitlock_acquire; then
+  log "SKIP repository mutation in progress before deploy authorization preflight"
+  exit 0
+fi
+if ! "$GIT" fetch --quiet origin main 2>"$OPS/.fetch.err"; then
+  gitlock_release
+  log "WARN git fetch failed before deploy authorization preflight: $(tail -1 "$OPS/.fetch.err" 2>/dev/null)"
+  exit 0
+fi
+gitlock_release
 CURRENT_BRANCH_HINT="$("$GIT" symbolic-ref --quiet --short HEAD 2>/dev/null || true)"
 LOCAL_HINT="$("$GIT" rev-parse HEAD 2>/dev/null || true)"
 MARKER_HINT="$(cat "$MARK" 2>/dev/null || true)"
-REMOTE_HINT="$(GIT_TERMINAL_PROMPT=0 "$GIT" ls-remote --exit-code --refs origin refs/heads/main 2>/dev/null | awk 'NR == 1 { print $1; exit }')"
+REMOTE_HINT="$("$GIT" rev-parse origin/main 2>/dev/null || true)"
+HINT_AUTHORIZED_COMMIT=""
 if [ "$CURRENT_BRANCH_HINT" != main ]; then
   clear_deploy_intent
 elif valid_git_sha "$REMOTE_HINT" && valid_git_sha "$LOCAL_HINT"; then
-  intent_needed=0
+  intent_needed=0 authorization_required=0
   if [ "$REMOTE_HINT" != "$LOCAL_HINT" ] \
       && provider_barrier_delta_required "$LOCAL_HINT" "$REMOTE_HINT"; then
-    intent_needed=1
+    authorization_required=1
   fi
   if [ "$MARKER_HINT" != "$LOCAL_HINT" ]; then
     if ! valid_git_sha "$MARKER_HINT" \
         || provider_barrier_delta_required "$MARKER_HINT" "$LOCAL_HINT"; then
+      authorization_required=1
+    fi
+  fi
+  if [ "$authorization_required" = 1 ]; then
+    if HINT_AUTHORIZED_COMMIT="$(deploy_authorization_allows "$REMOTE_HINT")"; then
       intent_needed=1
+    else
+      clear_deploy_intent
+      log "BLOCKED production program differs from deployed state but no valid exact-program deployment authorization exists for ${REMOTE_HINT:0:9}"
+      exit 0
     fi
   fi
   # Dependency drift has its own health signal: an old deploy process may have advanced both checkout and
@@ -1649,6 +1702,26 @@ CURRENT_BRANCH="$("$GIT" symbolic-ref --quiet --short HEAD 2>/dev/null || true)"
   exit 0
 }
 MARKER="$(cat "$MARK" 2>/dev/null || true)"   # SHA the built ui/dist + running engine were last reconciled to
+AUTHORIZED_CODE_COMMIT=""
+authorization_required=0
+if [ "$LOCAL" != "$REMOTE" ] && provider_barrier_delta_required "$LOCAL" "$REMOTE"; then
+  authorization_required=1
+fi
+if [ "$MARKER" != "$REMOTE" ]; then
+  if ! valid_git_sha "$MARKER" || provider_barrier_delta_required "$MARKER" "$REMOTE"; then
+    authorization_required=1
+  fi
+fi
+if [ "$authorization_required" = 1 ]; then
+  if ! AUTHORIZED_CODE_COMMIT="$(deploy_authorization_allows "$REMOTE")"; then
+    log "BLOCKED fetched production program differs from deployed state but exact-program authorization is absent, stale, or mismatched for ${REMOTE:0:9}"
+    exit 0
+  fi
+  if [ -n "$HINT_AUTHORIZED_COMMIT" ] && [ "$HINT_AUTHORIZED_COMMIT" != "$AUTHORIZED_CODE_COMMIT" ]; then
+    log "BLOCKED deployment authorization changed between preflight and locked verification"
+    exit 0
+  fi
+fi
 
 # Don't re-deploy a SHA we just rolled back FROM. After an auto-rollback, HEAD sits on last-good while
 # origin/main still points at the boot-broken commit — the ff path below would otherwise fast-forward the
@@ -1744,6 +1817,11 @@ if [ "$LOCAL" = "$REMOTE" ]; then
   fi
   log "SYNC built ${MARKER:0:9} behind HEAD ${target:0:9} (checkout advanced outside deploy) — reconciling"
   reconcile_build "$CHANGED" "$target"
+  if [ -n "$AUTHORIZED_CODE_COMMIT" ] && [ "$(cat "$MARK" 2>/dev/null || true)" = "$target" ]; then
+    consume_deploy_authorization "$target" "$AUTHORIZED_CODE_COMMIT" \
+      && log "  consumed one-shot deployment authorization for ${AUTHORIZED_CODE_COMMIT:0:9}" \
+      || log "  WARN deployed program is healthy but its one-shot authorization receipt could not be consumed"
+  fi
   gitlock_release
   log "DONE ${target:0:9}"
   exit 0
@@ -1847,6 +1925,11 @@ build_base="$LOCAL"
 [ -n "$MARKER" ] && "$GIT" merge-base --is-ancestor "$MARKER" "$REMOTE" 2>/dev/null && build_base="$MARKER"
 CHANGED="$("$GIT" diff --name-only "$build_base" "$REMOTE" 2>/dev/null)"
 reconcile_build "$CHANGED" "$REMOTE"
+if [ -n "$AUTHORIZED_CODE_COMMIT" ] && [ "$(cat "$MARK" 2>/dev/null || true)" = "$REMOTE" ]; then
+  consume_deploy_authorization "$REMOTE" "$AUTHORIZED_CODE_COMMIT" \
+    && log "  consumed one-shot deployment authorization for ${AUTHORIZED_CODE_COMMIT:0:9}" \
+    || log "  WARN deployed program is healthy but its one-shot authorization receipt could not be consumed"
+fi
 gitlock_release
 log "DONE ${REMOTE:0:9}"
 exit 0

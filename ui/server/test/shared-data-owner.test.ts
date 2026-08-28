@@ -7,6 +7,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import {
+  classifyIntakeOwnerRefusal,
   isSharedDataPoolConsumer,
   sharedDataPoolConflict,
   type FinishedIntakeOwner,
@@ -120,3 +121,41 @@ assert.ok(finalCas > buildLaunch,
   'the same target-aware probe runs again after the async buildArgs boundary')
 
 console.log('shared-data-owner: all checks passed')
+
+// ---- why a refusal happened, not just that one did ----------------------------------------------
+// resolveUniqueFinishedIntakeOwner collapses four states into one null, so every send-to-research
+// refusal used to read "This label is not owned unambiguously by a finished research call." A company
+// that simply had no finished run therefore reported an ownership CLASH that did not exist, and the
+// reader went looking for a second cockpit instead of finishing the run.
+const decided = { swarm: 'research', runRoot: 'analyses/GOLD_2026-08-13', decisionFingerprint: 'fp-1' }
+
+assert.deepEqual(
+  classifyIntakeOwnerRefusal('research', [], null),
+  { code: 'shared_data_owner_none' },
+  'no finished run at all is NOT ambiguity — it is an empty pool',
+)
+assert.deepEqual(
+  classifyIntakeOwnerRefusal('research', [research, commodity], null),
+  { code: 'shared_data_owner_ambiguous', owners: ['commodity', 'research'] },
+  'two cockpits finishing the same label is the real ambiguous case',
+)
+assert.deepEqual(
+  classifyIntakeOwnerRefusal('research', [commodity], null),
+  { code: 'shared_data_owner_mismatch', owners: ['commodity'] },
+  'a sole owner in another cockpit is a mismatch, never ambiguity',
+)
+assert.deepEqual(
+  classifyIntakeOwnerRefusal('research', [research], null),
+  { code: 'shared_data_owner_undecided', owners: ['research'] },
+  'the right cockpit owns it but no usable decision record exists — a finished thesis whose decision never landed',
+)
+assert.equal(
+  classifyIntakeOwnerRefusal('research', [research], decided),
+  null,
+  'a sole research owner with a resolved decision is not a refusal',
+)
+assert.deepEqual(
+  classifyIntakeOwnerRefusal('research', [research], { ...decided, swarm: 'commodity' }),
+  { code: 'shared_data_owner_undecided', owners: ['research'] },
+  'a resolver answering for a DIFFERENT swarm is never accepted as this swarm’s owner',
+)

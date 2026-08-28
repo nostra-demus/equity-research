@@ -57,12 +57,56 @@ function recordedExecution(runRoot: string): { provider?: RunProvider; execution
   }
 }
 
-function todayDate(): string {
-  const d = new Date()
-  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
+const DATE_SUFFIX = /_(\d{4}-\d{2}-\d{2})$/
+
+interface RunFolder {
+  entry: string
+  subject: string
+  runRoot: string
+  date?: string
 }
 
-const DATE_SUFFIX = /_(\d{4}-\d{2}-\d{2})$/
+// Research folders are dated, but a saved run does not become worthless at midnight. Keep only the
+// newest folder for each subject: if it is unfinished the user can complete it; if it is finished it
+// supersedes older abandoned attempts and prevents a stale forest of Resume buttons. The launch path
+// still performs the real freshness check and carries forward only valid work into today's target root.
+//
+// Validate directory shape before choosing the newest candidate. Otherwise a newer dangling symlink or
+// plain file could hide the last real run and turn a recoverable partial into a false "nothing to resume".
+function runFolders(swarm: SwarmManifest, entries: readonly string[]): RunFolder[] {
+  const isResearch = swarm.id === RESEARCH_SWARM_ID
+  const candidates: RunFolder[] = []
+  for (const entry of entries) {
+    const abs = path.join(REPO_ROOT, swarm.runsRoot, entry)
+    try {
+      const stat = fs.lstatSync(abs)
+      if (!stat.isDirectory() || stat.isSymbolicLink()) continue
+    } catch { continue }
+
+    if (!isResearch) {
+      candidates.push({
+        entry,
+        subject: entry,
+        runRoot: runRootForSubject(swarm, entry) ?? `${swarm.runsRoot}/${entry}`,
+      })
+      continue
+    }
+
+    const match = DATE_SUFFIX.exec(entry)
+    if (!match) continue
+    const subject = entry.slice(0, match.index)
+    if (!subject) continue
+    candidates.push({ entry, subject, date: match[1], runRoot: `${swarm.runsRoot}/${entry}` })
+  }
+
+  if (!isResearch) return candidates
+  const newest = new Map<string, RunFolder>()
+  for (const candidate of candidates) {
+    const current = newest.get(candidate.subject)
+    if (!current || (candidate.date ?? '') > (current.date ?? '')) newest.set(candidate.subject, candidate)
+  }
+  return [...newest.values()].sort((a, b) => a.subject.localeCompare(b.subject))
+}
 
 // Subjects with a run currently in flight (holding a subject claim), OR a run that is still finalizing.
 // Both are excluded — a live run is not interrupted, and resuming it would race admission.
@@ -90,8 +134,8 @@ function baseOf(agentKey: string): string {
 }
 
 // Collect resumable units from ONE non-screener swarm's run folders. Research folders are date-stamped
-// (`<TICKER>_<DATE>`) and — per the same-day scope — only today's are eligible; constellation swarms
-// (e.g. commodity) keep one stable folder per subject, so every folder is eligible.
+// (`<TICKER>_<DATE>`) and the newest folder per subject is eligible even after midnight; constellation
+// swarms (e.g. commodity) keep one stable folder per subject, so every folder is eligible.
 function collectSwarmResumable(swarm: SwarmManifest, live: Set<string>, out: ResumableRunInfo[]): void {
   const isResearch = swarm.id === RESEARCH_SWARM_ID
   const resolve = isResearch ? resolveInsideAnalyses : resolveInsideRuns
@@ -103,21 +147,9 @@ function collectSwarmResumable(swarm: SwarmManifest, live: Set<string>, out: Res
   const moduleNames = graph.modules.map((m) => m.name)
   const agentCountOf = new Map(graph.modules.map((m) => [m.name, m.agentCount]))
 
-  for (const entry of entries) {
-    let subject: string
-    let runRoot: string
-    if (isResearch) {
-      const m = DATE_SUFFIX.exec(entry)
-      if (!m) continue // not a "<TICKER>_<YYYY-MM-DD>" run folder
-      if (m[1] !== todayDate()) continue // same-day scope: an older folder is out of scope
-      subject = entry.slice(0, m.index)
-      runRoot = `${swarm.runsRoot}/${entry}`
-    } else {
-      subject = entry // constellation swarm: the folder name IS the subject
-      runRoot = runRootForSubject(swarm, subject) ?? `${swarm.runsRoot}/${entry}`
-    }
+  for (const folder of runFolders(swarm, entries)) {
+    const { subject, runRoot } = folder
     if (!subject || live.has(subject)) continue // never launched name, or currently running
-    try { if (!fs.statSync(path.join(REPO_ROOT, runRoot)).isDirectory()) continue } catch { continue }
     // NOTE: a `.aborted` marker (a deliberate Cancel) is NOT excluded here. Cancel = pause: it stops the
     // run and leaves the finished modules on disk, and clicking Resume is the user's explicit choice to
     // continue — so a cancelled-but-unfinished run must still offer Resume (that's how pause→resume works,

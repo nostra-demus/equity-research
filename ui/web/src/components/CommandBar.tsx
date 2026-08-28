@@ -440,10 +440,10 @@ function TickerPicker() {
   )
 }
 
-// Orb-view mirror of the screener's Continue: when the SELECTED subject has an interrupted run whose
-// final thesis is missing, offer to finish it from where it stopped. Resuming skips the modules already
-// on disk, so it's cheaper than a fresh full run — the hint shows how much is already done. Hidden while
-// the subject is live (the resumable set excludes in-flight subjects) or when nothing is resumable.
+// When the SELECTED subject has an unfinished saved run, put the two honest choices beside each other:
+// "Complete old run" explicitly keeps valid finished work; "Run full" requests the ordinary full pipeline.
+// The saved-run detector survives midnight, so this choice does not disappear merely because the calendar
+// date changed.
 function ResumeChip() {
   const resumableRuns = useStore((s) => s.resumableRuns)
   const resumeRun = useStore((s) => s.resumeRun)
@@ -462,10 +462,10 @@ function ResumeChip() {
     ? 'Engine update in progress — Resume becomes available when it finishes'
     : engineDown
       ? 'Engine offline — live runs are paused until it reconnects'
-      : `This run stopped partway (${entry.doneCount}/${entry.totalCount} ${noun}s done). Resume finishes it from where it stopped — the done work is reused.`
+      : `This saved run stopped partway (${entry.doneCount}/${entry.totalCount} ${noun}s done). Complete it from where it stopped — valid finished work is reused.`
   return (
     <button className="aresume aresume--bar" disabled={engineDown || !!resuming} onClick={() => void resumeRun(entry)} title={title}>
-      {resuming ? 'Resuming…' : 'Resume'}<span className="aresume__glyph" aria-hidden>▸</span>
+      {resuming ? 'Starting…' : 'Complete old run'}<span className="aresume__glyph" aria-hidden>▸</span>
       <span className="aresume__meta">{entry.doneCount}/{entry.totalCount}</span>
     </button>
   )
@@ -516,6 +516,11 @@ function ProviderSelector() {
   const canaryPrefill = useRef(typeof window === 'undefined' ? null : providerParityCanaryPrefill(window.location.search))
 
   useEffect(() => {
+    // Release calibration is an operator workflow, not a research-user control. Keep the deep-link path
+    // for an authenticated operator, but do not even perform its identity lookup during an ordinary
+    // cockpit visit. The normal provider menu therefore has no canary button, state fetch, or extra work.
+    const prefill = canaryPrefill.current
+    if (!prefill) return
     let alive = true
     void api.whoami().then((who) => {
       if (!alive) return
@@ -523,9 +528,9 @@ function ProviderSelector() {
       const launch = who.canLaunchProviderParity === true && inspect
       setCanInspectCanary(inspect)
       setCanLaunchCanary(launch)
-      if (inspect && canaryPrefill.current) {
-        setCanaryRunRoot(canaryPrefill.current.runRoot)
-        setCanaryFreeze(canaryPrefill.current.freezeReceipt)
+      if (inspect) {
+        setCanaryRunRoot(prefill.runRoot)
+        setCanaryFreeze(prefill.freezeReceipt)
         setCanaryOpen(true)
       }
     }).catch(() => { if (alive) { setCanInspectCanary(false); setCanLaunchCanary(false) } })
@@ -686,11 +691,6 @@ function ProviderSelector() {
               Provider and model are remembered for new work. A run already in progress keeps its frozen execution profile.
               {credit?.isUsingOverage && <div style={{ color: 'var(--accent-bright)', marginTop: 3 }}>Currently using paid overage.</div>}
             </div>
-            {canLaunchCanary && (
-              <button className="btn btn--ghost" style={{ width: '100%', marginTop: 10 }} onClick={() => { setOpen(false); setCanaryOpen(true) }}>
-                Launch release canary…
-              </button>
-            )}
           </div>
         </>
       )}

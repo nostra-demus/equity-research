@@ -81,6 +81,24 @@ check('summarizeRuns surfaces the standing (complete) run, not the newer gov-onl
 })
 check('summarizeRuns counts every run folder', () => assert.equal(summarizeRuns('AMZN').runCount, 5))
 check('summarizeRuns flags a newer decision-less run shadowing the standing one', () => assert.equal(summarizeRuns('AMZN').hasNewerPartial, true))
+// `latestRun` alone cannot answer "can this ticker be written to?": a partial run and a decided run whose
+// verdict is null both arrive as `decision: null`. The send-to-research picker used to render that as
+// "finished" — the exact opposite of the truth — and offered a click the server could only refuse.
+check('summarizeRuns reports a usable decision record for a decided ticker', () => {
+  assert.equal(summarizeRuns('AMZN').hasStandingDecision, true)
+  assert.equal(summarizeRuns('MAL').hasStandingDecision, true, 'a half-written newest record falls back to the last GOOD one')
+  assert.equal(summarizeRuns('ARR').hasStandingDecision, true, 'a non-object record is skipped, not treated as the answer')
+})
+check('summarizeRuns reports NO usable decision when every run is partial', () => {
+  const bg = summarizeRuns('BG')
+  assert.equal(bg.hasStandingDecision, false)
+  assert.ok(bg.latestRun, 'the row still surfaces a run — it just cannot be written to')
+  assert.equal(bg.latestRun?.decision, null)
+})
+check('summarizeRuns reports no decision for a ticker with no runs at all', () => {
+  assert.equal(summarizeRuns('NOSUCHTICKER').hasStandingDecision, false)
+  assert.equal(summarizeRuns('NOSUCHTICKER').latestRun, null)
+})
 check('latestDecision is the standing run', () => assert.equal(latestDecision('AMZN')?.runRoot, 'analyses/AMZN_2026-07-10'))
 check('standingRunDir agrees with summarizeRuns.latestRun (one rule, two call sites)', () => {
   assert.equal(`analyses/${standingRunDir('AMZN')}`, summarizeRuns('AMZN').latestRun?.runRoot)
@@ -141,7 +159,7 @@ check('listRunsForTicker excludes run-support folders from a run’s modules', (
 
 // ---- unknown ticker: null everywhere, no throw ----
 check('unknown ticker resolves to null / empty', () => {
-  assert.deepEqual(summarizeRuns('ZZZ'), { latestRun: null, runCount: 0, hasNewerPartial: false })
+  assert.deepEqual(summarizeRuns('ZZZ'), { latestRun: null, runCount: 0, hasNewerPartial: false, hasStandingDecision: false })
   assert.equal(standingRunDir('ZZZ'), null)
   assert.equal(resolveRunRoot({ ticker: 'ZZZ', preferComplete: true }), null)
 })

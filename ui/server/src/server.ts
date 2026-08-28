@@ -94,6 +94,7 @@ import {
 import { readValuationSummary, readOverrides, appendOverride } from './valuation-levers'
 import { assembleContext, buildChatPrompts, scopeAvailability } from './chat-context'
 import { chatTurnsInFlight, runChatTurn } from './chat-llm'
+import { publicChatModelCatalogue, resolveChatRequestModel } from './chat-models'
 import { computePlan, computedContextBlock, detectWhatIf, isNumberlessTargetFollowUp, loadSidecar, parseWhatIf, recordedList, repriceFromMetric, resolveAuthenticatedPriorScenario, validateIntents } from './chat-whatif'
 import { ChatTurnReservationError, deleteConversation, findCompletedTurnForUser, getConversation, isValidConversationId, isValidTurnId, listConversations, recordAssistantMessageForPending, recordPendingUserMessage, rollbackUserMessage, searchConversationMemory, type UserMessageRollback } from './chat-store'
 import { askMemoryMeta, compactNewsEvidence, routeAskMemory, type AskMemoryPromptContext } from './ask-memory'
@@ -125,7 +126,7 @@ import {
   sealProviderPreSpawnFailureAuthority,
 } from './execution-provenance'
 import { intakePoolNewest, latestPlanFileFor, readIntakePlan, resolveIntakeRunRoot, type IntakeReceiptIntent } from './intake'
-import { finishedOwnerConflict, listFinishedIntakeOwners, resolveUniqueFinishedIntakeOwner, type FinishedIntakeOwner } from './intake-owner'
+import { explainIntakeOwnerRefusal, finishedOwnerConflict, listFinishedIntakeOwners, resolveUniqueFinishedIntakeOwner, type FinishedIntakeOwner } from './intake-owner'
 import { getBridgeStatus, getBridgeSubjectNames, startBridgeScheduler } from './bridge-scheduler'
 import { readWhatChanged, whatChangedMarkdown, RUN_ROOT_RE } from './what-changed'
 import { readDataNeeds, resolveDataNeedsRunRoot } from './data-needs'
@@ -5069,12 +5070,17 @@ const ChatBody = z.object({
     computed: z.array(z.record(z.string(), z.unknown())).max(6).optional(),
   })).min(1).max(40),
 })
+app.get('/api/chat/models', { config: { rateLimit: { max: 600, timeWindow: '1 minute' } } }, async () => (
+  publicChatModelCatalogue(CHAT.allowedModels, CHAT.defaultModel)
+))
 app.post('/api/chat', async (req, reply) => {
   if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request blocked' })
   const parsed = ChatBody.safeParse(req.body)
   if (!parsed.success) return reply.code(400).send({ error: 'invalid chat request', detail: parsed.error.issues?.[0]?.message })
   const { scope, module, orbPath, messages } = parsed.data
-  const model = CHAT.allowedModels.includes(parsed.data.model || '') ? parsed.data.model! : CHAT.defaultModel
+  const modelChoice = resolveChatRequestModel(parsed.data.model, CHAT.allowedModels, CHAT.defaultModel)
+  if (!modelChoice) return reply.code(400).send({ error: 'that Ask model is not supported or allowed — choose another model' })
+  const model = modelChoice.id
   const swarmId = parsed.data.swarm && parsed.data.swarm !== 'research' ? parsed.data.swarm : 'research'
 
   const last = messages[messages.length - 1]
@@ -5576,9 +5582,11 @@ app.post('/api/news/chat', { config: { rateLimit: { max: NEWS.chatRateLimitPerMi
   const { window, messages } = parsed.data
   const last = messages[messages.length - 1]
   if (last.role !== 'user' || !last.content.trim()) return reply.code(400).send({ error: 'the last message must be a question' })
+  const modelChoice = resolveChatRequestModel(parsed.data.model, CHAT.allowedModels, CHAT.defaultModel)
+  if (!modelChoice) return reply.code(400).send({ error: 'that Ask model is not supported or allowed — choose another model' })
+  const model = modelChoice.id
   const releaseNewsChat = newsChatGate.tryAcquire()
   if (!releaseNewsChat) return reply.code(429).send({ error: 'news chat is busy — try again in a moment' })
-  const model = CHAT.allowedModels.includes(parsed.data.model || '') ? parsed.data.model! : CHAT.defaultModel
   const { user: chatUser, userVia } = identify(req)
   const requestAbort = bindNewsChatRequestAbort(req.raw, reply.raw)
   const ac = requestAbort.controller
@@ -6368,7 +6376,19 @@ app.post('/api/screener/event/:eventId/send-to-research', { config: { rateLimit:
     // scoped staging/manual intake cannot slip between "research owns GOLD" and the actual note write.
     const initialOwner = resolveSwarmForSubject(ticker)
     if (!initialOwner || initialOwner.swarm !== RESEARCH_SWARM_ID) {
-      return reply.code(409).send({ error: 'This label is not owned unambiguously by a finished research call.', code: 'shared_data_owner_ambiguous' })
+      // Four different states used to share one "not owned unambiguously" line, so a company that simply
+      // had no finished run read as an ownership conflict and sent the reader hunting for a clash that did
+      // not exist. Name the state that actually applies (CLAUDE.md §21 — plain words, and never a raw code).
+      const refusal = explainIntakeOwnerRefusal(ticker, RESEARCH_SWARM_ID)
+      const owners = refusal && 'owners' in refusal ? refusal.owners.join(' and ') : ''
+      const message = refusal?.code === 'shared_data_owner_none'
+        ? `${ticker} has no finished research run yet, so there is no dossier for this event to become evidence for. Finish a run on ${ticker} first — this story stays on the wire.`
+        : refusal?.code === 'shared_data_owner_mismatch'
+          ? `${ticker}'s finished run belongs to the ${owners} cockpit, not research, so a research note would attach to the wrong thesis.`
+          : refusal?.code === 'shared_data_owner_undecided'
+            ? `${ticker}'s research run has not recorded a decision yet, so there is nothing for this event to be evidence against.`
+            : `${ticker} is claimed by more than one cockpit${owners ? ` (${owners})` : ''}, so no single thesis owns this evidence.`
+      return reply.code(409).send({ error: message, code: refusal?.code || 'shared_data_owner_ambiguous' })
     }
     return await withSubjectLock(subjectMutationLockKey(initialOwner.swarm, ticker), async () => {
       const owner = resolveSwarmForSubject(ticker)

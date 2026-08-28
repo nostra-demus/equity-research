@@ -27,6 +27,9 @@ interface SubjectRow {
   ticker: string
   named: boolean // this story names the company (wire guess or the article read)
   latestRun: TickerSummary['latestRun']
+  /** Undefined on an older engine — see TickerSummary. Only an explicit false marks a row unsendable. */
+  hasStandingDecision?: boolean
+  runCount?: number
   sent: boolean
 }
 
@@ -116,7 +119,7 @@ export function SendToResearchMenu({ it }: Props) {
     const sent = new Set([...links.map((l) => l.ticker), ...sentLocal])
     return (subjects || [])
       .filter((t) => t.valid)
-      .map((t) => ({ ticker: t.ticker, named: namedTickers.has(t.ticker.toUpperCase()), latestRun: t.latestRun, sent: sent.has(t.ticker) }))
+      .map((t) => ({ ticker: t.ticker, named: namedTickers.has(t.ticker.toUpperCase()), latestRun: t.latestRun, hasStandingDecision: t.hasStandingDecision, runCount: t.runCount, sent: sent.has(t.ticker) }))
       .sort((a, b) =>
         Number(b.named) - Number(a.named) ||
         Number(!!b.latestRun) - Number(!!a.latestRun) ||
@@ -143,10 +146,20 @@ export function SendToResearchMenu({ it }: Props) {
   const lowSignal = typeof it.triage_score === 'number' && it.triage_score < 40
   const eventContext = typeof it.triage_score === 'number' ? `score ${Math.round(it.triage_score)} · ${it.band || 'unbanded'}` : ''
 
+  // A row the server will certainly refuse: the pool has run folders but none carries a usable decision
+  // record, so there is no dossier for the note to become evidence against. Only an EXPLICIT false blocks —
+  // an older engine omits the field, and disabling a working feature on a missing value is the worse failure.
+  const unfinished = (r: SubjectRow): boolean => r.hasStandingDecision === false && !!r.latestRun
+
   const subFor = (r: SubjectRow): string => {
     if (r.sent) return 'already in its data pool'
+    if (unfinished(r)) return r.runCount && r.runCount > 1
+      ? `${r.runCount} runs, none finished — no decision to attach evidence to`
+      : 'run never finished — no decision to attach evidence to'
     if (r.named) return 'named in this story'
-    if (r.latestRun) return `research run · ${r.latestRun.decision || 'finished'}${r.latestRun.decisionDate ? ` · ${r.latestRun.decisionDate}` : ''}`
+    // `decision || 'finished'` used to print "finished" for a run with NO decision — the exact opposite of
+    // the truth, and what invited a click the server could only refuse.
+    if (r.latestRun) return `research run · ${r.latestRun.decision || 'no verdict recorded'}${r.latestRun.decisionDate ? ` · ${r.latestRun.decisionDate}` : ''}`
     return 'data pool only — no run yet'
   }
 
@@ -202,13 +215,17 @@ export function SendToResearchMenu({ it }: Props) {
                 {rows.map((r) => {
                   const busy = sending === r.ticker
                   const isArmed = armed === r.ticker && !busy
+                  const blocked = unfinished(r)
                   return (
                     <button
                       key={r.ticker}
                       className="reportpop__item"
                       role="menuitem"
-                      disabled={!!sending}
-                      onClick={() => (isArmed ? fire(r.ticker) : setArmed(r.ticker))}
+                      disabled={!!sending || blocked}
+                      aria-disabled={blocked || undefined}
+                      title={blocked ? `${r.ticker} has no finished research run yet — a note needs a decision to be evidence against.` : undefined}
+                      style={blocked ? { opacity: 0.45, cursor: 'not-allowed' } : undefined}
+                      onClick={() => { if (blocked) return; isArmed ? fire(r.ticker) : setArmed(r.ticker) }}
                     >
                       <b style={isArmed ? { color: 'var(--accent-deep)' } : undefined}>
                         {busy ? <><Spin /> Sending to {r.ticker}…</> : isArmed ? `yes — send to ${r.ticker} ▸` : <>{r.sent ? '✓ ' : ''}{r.ticker}{r.named ? ' ·' : ''}{r.named && <span style={{ fontWeight: 600, color: 'var(--accent-bright)' }}> named here</span>}</>}

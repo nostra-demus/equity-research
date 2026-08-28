@@ -559,6 +559,12 @@ a { color: inherit; }
 .modal__actions { display: flex; gap: 10px; justify-content: flex-end; padding: 0 20px 20px; }
 .warn { color: var(--accent-bright); }
 .danger { color: var(--bad); }
+.resumeconfirm { width: min(500px, calc(100vw - 28px)); }
+.resumeconfirm__eyebrow { margin-bottom: 5px; color: var(--accent-bright); font-size: 9px; font-weight: 700; letter-spacing: 1.1px; text-transform: uppercase; }
+.resumeconfirm__original { max-width: 290px; overflow-wrap: anywhere; text-align: right; }
+.resumeconfirm__note { margin: 4px 20px 16px; padding: 11px 12px; border: 1px solid var(--hairline); border-radius: var(--r-md); background: var(--surface-2); color: var(--text-muted); font-size: 12px; line-height: 1.45; }
+.resumeconfirm__note--warn { border-color: var(--hairline-strong); color: var(--accent-bright); }
+.resumeconfirm__problem { padding: 0 20px 12px; color: var(--bad); font-size: 12px; }
 
 /* ---------- output reader ---------- */
 .reader {

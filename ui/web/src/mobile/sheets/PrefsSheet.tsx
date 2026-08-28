@@ -1,16 +1,11 @@
 // Model + style + theme, the desktop drawer's three pickers as one sheet. The blurbs are the desktop's
-// verbatim (ChatPanel MODELS/STYLES) — same vocabulary, same stickiness (style persists, model resets
-// per session like desktop's default; theme is the shared nsw.theme contract).
+// vocabulary and stickiness. Ask model, style, and theme share their desktop localStorage contracts.
 import { Sheet } from './Sheet'
 import { applyTheme, readTheme, saveChatStyle, type ChatStyle } from '../prefs'
 import { providerBlockedReason, providerIsBlocked, providerLabel, providerNeedsCheck, type ProvidersRead, type RunProvider } from '../../lib/provider'
 import { useStore } from '../../lib/store'
+import { useChatModelChoices } from '../../lib/useChatModels'
 
-const MODELS: Array<{ id: string; blurb: string }> = [
-  { id: 'sonnet', blurb: 'fast · strong default' },
-  { id: 'opus', blurb: 'deepest reasoning' },
-  { id: 'haiku', blurb: 'fastest · lightest' },
-]
 const STYLES: Array<{ id: ChatStyle; blurb: string }> = [
   { id: 'simple', blurb: 'plain English, like you’re 18 — no jargon' },
   { id: 'analyst', blurb: 'terse, technical buy-side notes' },
@@ -30,6 +25,7 @@ export function PrefsSheet({ open, model, style, provider, providers, onModel, o
 }) {
   const runProfileKey = useStore((s) => s.runProfileKeys[provider])
   const setRunProfile = useStore((s) => s.setRunProfile)
+  const chatModels = useChatModelChoices(model, onModel)
   return (
     <Sheet open={open} onClose={onClose} label="Chat preferences">
       <div className="msheet__head">Run research with</div>
@@ -51,12 +47,13 @@ export function PrefsSheet({ open, model, style, provider, providers, onModel, o
       </div>
       <div className="msheet__head">Ask model</div>
       <div className="msheet__list msheet__list--tight">
-        {MODELS.map((m) => (
+        {chatModels.map((m) => (
           <button key={m.id} className={`msheet__row${model === m.id ? ' msheet__row--on' : ''}`} onClick={() => onModel(m.id)}>
-            <span className="msheet__rowlabel">{m.id}</span>
-            <span className="msheet__rowsub">{m.blurb}</span>
+            <span className="msheet__rowlabel">{m.label}</span>
+            <span className="msheet__rowsub">{m.provider === 'codex' ? 'Codex · ' : 'Claude · '}{m.sub}</span>
           </button>
         ))}
+        {!chatModels.length && <div className="msheet__row"><span className="msheet__rowsub">No Ask models are enabled on this host.</span></div>}
       </div>
       <div className="msheet__head">Explain answers as…</div>
       <div className="msheet__list msheet__list--tight">

@@ -1,7 +1,7 @@
 {
   "idea_id": "IDEA-90b902d53889",
-  "idea_version": "IDEAV-4b55128cf90b4516",
-  "idea_version_started_at": "2026-08-27T11:49:33Z",
+  "idea_version": "IDEAV-2c04e7b677388d2c",
+  "idea_version_started_at": "2026-08-28T03:48:03Z",
   "ticker": "NVDA",
   "company": "Nvidia",
   "exchange": "NASDAQ",
@@ -11,19 +11,19 @@
   "listing_verification_source": "yahoo_symbol_directory",
   "direction": "long",
   "pair_with": null,
-  "reason": "Nvidia's revenue exceeded $96 billion, and CEO Jensen Huang stated that AI has reached an inflection point, suggesting strong future growth prospects, further supported by a potential $12.9 billion acquisition of Hugging Face.",
-  "why_now": "The company reported record revenue and provided an optimistic outlook on AI inflection today, alongside acquisition rumors.",
-  "conviction": 70,
+  "reason": "Nvidia's guidance for 70% sales growth next year and the rapid ramp of the $20 billion Vera Rubin system indicate that AI infrastructure demand remains significantly ahead of market expectations.",
+  "why_now": "The earnings and guidance update were released on 2026-08-27.",
+  "conviction": 85,
   "conviction_basis": "pre_edge_proxy",
   "trade_score": 62,
   "trade_score_basis": "evidence_gate_v2",
   "trade_score_breakdown": {
     "evidence": 14,
-    "impact": 20,
+    "impact": 21,
     "specificity": 15,
     "timing": 10,
     "expression": 6,
-    "corroboration": 6,
+    "corroboration": 10,
     "learning_adjustment": 0
   },
   "trade_readiness": "needs_data",
@@ -46,19 +46,21 @@
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-6cfe1436e69a",
-    "EVT-045e4a30f063"
+    "EVT-062a06d26ebd",
+    "EVT-2048141fb835",
+    "EVT-6273298eef03"
   ],
-  "primary_source_event_id": "EVT-6cfe1436e69a",
+  "primary_source_event_id": "EVT-062a06d26ebd",
   "source_headlines": [
-    "Nvidia To Acquire Hugging Face For $12.9 Bn: Report",
-    "Nvidia revenue tops $96 billion as memory commitments soar to $160 billion — CEO Jensen Huang says AI 'has reached its inflection point'"
+    "Nvidia Stock Jumps On Bullish Quarterly Report, Outlook",
+    "Nvidia expects to sell $20 billion of Vera Rubin systems in Q3 as shipments begin — figure would account for 20% of its data center revenue mix, marks fastest ramp in company history",
+    "Nvidia Sees AI-Fueled Demand Boosting Sales 70% Next Year"
   ],
-  "source_headline": "Nvidia To Acquire Hugging Face For $12.9 Bn: Report",
-  "source_url": "https://www.outlookbusiness.com/corporate/nvidia-to-acquire-hugging-face-for-129-bn-report",
-  "source_name": "Outlook Business",
+  "source_headline": "Nvidia Stock Jumps On Bullish Quarterly Report, Outlook",
+  "source_url": "https://www.investors.com/news/technology/nvidia-stock-jumps-on-bullish-quarterly-report-outlook/?src=A00220&yptr=yahoo",
+  "source_name": "Yahoo Finance",
   "materiality_max": 100,
-  "newest_source_at": "2026-08-27T09:13:54Z",
+  "newest_source_at": "2026-08-27T15:33:14Z",
   "prior_coverage": {
     "has_run": false,
     "latest_run": null,
@@ -66,8 +68,8 @@
     "data_pool_present": false
   },
   "surfaced_at": "2026-08-27T03:27:43Z",
-  "updated_at": "2026-08-27T11:49:33Z",
-  "decay_at": "2026-08-28T21:13:54Z",
+  "updated_at": "2026-08-28T03:48:03Z",
+  "decay_at": "2026-08-29T03:33:14Z",
   "status": "live",
   "promoted_signal_id": null
 }

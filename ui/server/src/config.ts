@@ -3,6 +3,7 @@ import fs from 'node:fs'
 import os from 'node:os'
 import { fileURLToPath } from 'node:url'
 import path from 'node:path'
+import { DEFAULT_CHAT_MODEL_ID, DEFAULT_CHAT_MODEL_IDS } from './chat-models'
 import type { ArticleReadProvider } from './news/triage/article-read'
 import { NON_BINDING_DAILY_TOKEN_CAP } from './news/triage/budget'
 
@@ -624,16 +625,16 @@ export const ESTIMATES = {
 
 // ---- in-cockpit "chat with your data" (closed-book Q&A over a run's synthesized output) ----
 // A side-panel chat answers questions using ONLY the engine's own output for a chosen scope (the whole
-// run / one module / one orb), via the SAME local subscription Claude the engine reasons with — the
-// `claude` CLI, authed by the host keychain (no API key). It is NOT a research run: it bypasses the run
-// registry + admission and carries its own light guards. Every knob is env-tunable.
+// run / one module / one orb), through the selected local subscription CLI (Claude or Codex; no API key).
+// It is NOT a research run: it bypasses the run registry + admission and carries its own light guards.
+// Every knob is env-tunable.
 export const CHAT = {
   // default model + the allow-list the panel's model switcher may pick from. Validated server-side so a
-  // tampered request can't pass an arbitrary `--model`. 'sonnet' matches the engine default.
-  defaultModel: process.env.ENGINE_CHAT_MODEL || 'sonnet',
-  allowedModels: (process.env.ENGINE_CHAT_MODELS_ALLOWED || 'sonnet,opus,haiku').split(',').map((s) => s.trim()).filter(Boolean),
-  // HARD per-turn ceiling (the CLI stops at it). A whole-run context is ~90k input tokens; $3 leaves
-  // headroom across sonnet/opus/haiku for a multi-turn conversation while still capping any runaway.
+  // tampered request can't pass an arbitrary `--model`. Provider-qualified Codex ids keep routing explicit.
+  defaultModel: (process.env.ENGINE_CHAT_MODEL || DEFAULT_CHAT_MODEL_ID).trim().toLowerCase(),
+  allowedModels: (process.env.ENGINE_CHAT_MODELS_ALLOWED || DEFAULT_CHAT_MODEL_IDS).split(',').map((s) => s.trim().toLowerCase()).filter(Boolean),
+  // HARD per-turn ceiling for Claude (the subscription CLI stops at it). Codex plan turns do not expose a
+  // per-turn dollar meter; they remain bounded by the same timeout, concurrency, one-turn and no-tool guards.
   budgetUsd: capNum(process.env.ENGINE_CHAT_BUDGET_USD, 3),
   // wall-clock cap on one turn — past it the child is killed and the turn errors (so it can never hang).
   timeoutMs: capNum(process.env.ENGINE_CHAT_TIMEOUT_MS, 120_000),

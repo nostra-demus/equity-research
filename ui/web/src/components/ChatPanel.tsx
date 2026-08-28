@@ -6,6 +6,7 @@ import { useStore, isFlowActive } from '../lib/store'
 import { focusAskDrawer, restoreAskEntryFocus } from '../lib/askFocus'
 import type { AskMemoryMode, ChatScope, ChatStyle, ChatWork } from '../lib/types'
 import { ComputedCard } from './chat/computed'
+import { ChatModelMenu } from './chat/ChatModelMenu'
 
 const titleize = (s: string) => s.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase())
 
@@ -21,12 +22,6 @@ const MEMORY_MODES: { id: AskMemoryMode; label: string; sub: string }[] = [
   { id: 'auto', label: 'Auto sources', sub: 'Ask uses the run, matching past calls, saved news, and earlier chats when useful' },
   { id: 'run', label: 'This run only', sub: 'Use this run plus any exact matching past call; ignore news and earlier chats' },
   { id: 'news', label: 'Include news', sub: 'Use the run, matching past calls, saved news, and earlier chats' },
-]
-
-const MODELS: { id: string; label: string; sub: string }[] = [
-  { id: 'sonnet', label: 'Sonnet', sub: 'fast · strong default' },
-  { id: 'opus', label: 'Opus', sub: 'deepest reasoning' },
-  { id: 'haiku', label: 'Haiku', sub: 'fastest · lightest' },
 ]
 
 // narration style — HOW the answer is phrased (the closed-book + citation rules never change)
@@ -244,24 +239,12 @@ export function ChatPanel() {
               </>
             )}
           </div>
-          {/* model selector */}
-          <div style={{ position: 'relative' }}>
-            <button className="btn" style={{ height: 30 }} aria-expanded={modelMenu} onClick={() => { setModelMenu((o) => !o); setScopeMenu(false); setStyleMenu(false); setMemoryMenu(false) }} title="Model used for the answer">
-              {MODELS.find((m) => m.id === model)?.label ?? model} ▾
-            </button>
-            {modelMenu && (
-              <>
-                <div style={{ position: 'fixed', inset: 0, zIndex: 51 }} onClick={() => setModelMenu(false)} />
-                <div className="dlmenu">
-                  {MODELS.map((m) => (
-                    <button key={m.id} className="dlmenu__item" onClick={() => { setModel(m.id); setModelMenu(false) }}>
-                      <b>{m.label}{m.id === model ? ' ✓' : ''}</b><span>{m.sub}</span>
-                    </button>
-                  ))}
-                </div>
-              </>
-            )}
-          </div>
+          <ChatModelMenu
+            model={model}
+            open={modelMenu}
+            onOpenChange={(open) => { setModelMenu(open); if (open) { setScopeMenu(false); setStyleMenu(false); setMemoryMenu(false) } }}
+            onSelect={setModel}
+          />
           {/* narration-style selector — HOW the answer is phrased (default: Simple) */}
           <div style={{ position: 'relative' }}>
             <button className="btn" style={{ height: 30 }} aria-expanded={styleMenu} onClick={() => { setStyleMenu((o) => !o); setScopeMenu(false); setModelMenu(false); setMemoryMenu(false) }} title="How answers are explained">

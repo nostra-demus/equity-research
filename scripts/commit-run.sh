@@ -13,7 +13,7 @@
 # Prints: COMMIT_SHA=<sha>   on a successful commit (and push)
 #         NOOP=1             when nothing matched the pathspecs (idempotent)
 # Exit:   0 ok/noop; 2 usage; 3 unrelated staged changes; 4 committed locally but
-#         not pushed (origin moved + unsafe to auto-rebase); 5 add/validation/commit failed.
+#         not pushed (origin moved + safe in-memory reconciliation failed); 5 add/validation/commit failed.
 set -u
 
 RETRY_SHA=""
@@ -429,11 +429,12 @@ if git push -q origin "$SHA:main" 2>/dev/null; then
   exit 0
 fi
 
-# A dirty production checkout must never be autostashed/reset: live screeners can rewrite tracked DATA
-# while this helper is publishing another DATA commit. When all tracked dirt is inside the reviewed data
-# lane, reconcile the committed snapshot with origin/main through Git's in-memory merge-tree plumbing.
-# That leaves every worktree/index byte untouched and makes the local commit a parent of the pushed merge,
-# so deploy.sh can still fast-forward the production checkout. Any dirty code/ops path fails closed.
+# Publishing DATA must never update the production checkout to newer CODE. A normal `git rebase origin/main`
+# used to do exactly that after a push race: it made the data commit publishable but silently pulled a newly
+# merged PR into the live worktree, where deploy.sh later rebuilt/restarted it without a separate production
+# decision. Reconcile every non-fast-forward DATA publication through Git's in-memory merge-tree plumbing
+# instead. It leaves every worktree/index/ref byte untouched and makes the exact protected data commit a
+# parent of the pushed merge. Dirty code/ops still fails closed; dirty engine data stays byte-for-byte intact.
 dirty_tracked_paths_are_engine_data() {
   python3 - "$TOP" <<'PYDIRTY'
 import subprocess
@@ -455,13 +456,13 @@ for encoded in paths:
         value = encoded.decode("utf-8", "strict")
     except UnicodeError:
         raise SystemExit(1)
-    if not (value.startswith("analyses/") or value.startswith("screener/")):
+    if not value.startswith(("analyses/", "screener/", "commodity/", "watchlist/")):
         raise SystemExit(1)
 raise SystemExit(0)
 PYDIRTY
 }
 
-reconcile_with_dirty_data() {
+reconcile_without_checkout_update() {
   local attempt remote_sha merge_tree merge_sha
   attempt=1
   while [ "$attempt" -le 3 ]; do
@@ -473,7 +474,7 @@ reconcile_with_dirty_data() {
     fi
     if ! merge_tree="$(git merge-tree --write-tree "$remote_sha" "$SHA" 2>/dev/null)" \
        || ! git cat-file -e "${merge_tree}^{tree}" 2>/dev/null; then
-      echo "commit-run: dirty-data reconciliation conflicts with origin/main; commit $SHA remains local — push manually" >&2
+      echo "commit-run: data reconciliation conflicts with origin/main; commit $SHA remains local — retry later" >&2
       return 1
     fi
     merge_sha="$(printf '%s\n' "Reconcile engine data commit ${SHA:0:12} with origin/main" \
@@ -486,65 +487,24 @@ reconcile_with_dirty_data() {
     fi
     attempt=$((attempt + 1))
   done
-  echo "commit-run: dirty-data reconciliation lost three remote races; commit $SHA remains local — retry later" >&2
+  echo "commit-run: data reconciliation lost three remote races; commit $SHA remains local — retry later" >&2
   return 1
 }
 
-# push rejected — origin/main moved. Rebase only if the worktree is clean. Never autostash.
+# Push rejected because origin/main moved. Fetch objects, but never rebase/merge/checkout the production
+# worktree. The synthetic remote merge publishes only the already-validated DATA commit and the current
+# remote tree, preserving the live program until a separately authorized deployment moves it.
 git fetch -q origin main 2>/dev/null || { echo "commit-run: push + fetch failed; commit $SHA is local — push manually" >&2; echo "COMMIT_SHA=$SHA"; exit 4; }
 if ! git diff --quiet; then
-  if dirty_tracked_paths_are_engine_data && reconcile_with_dirty_data; then
+  if dirty_tracked_paths_are_engine_data && reconcile_without_checkout_update; then
     exit 0
   fi
   echo "commit-run: push rejected and the worktree has unsafe/conflicting tracked changes — NOT reconciling; commit $SHA is local — push manually" >&2
   echo "COMMIT_SHA=$SHA"
   exit 4
 fi
-if ! git rebase -q origin/main 2>/dev/null; then
-  # A conflicting append-only ledger is plausible. Never leave the shared production checkout in
-  # rebase-merge/rebase-apply: abort under the same lease so HEAD/index return to the local commit.
-  if ! git rebase --abort >/dev/null 2>&1; then
-    echo "commit-run: rebase conflicted and abort failed; checkout needs repair; original commit $SHA" >&2
-  else
-    echo "commit-run: rebase conflicted and was safely aborted; commit $SHA remains local — push manually" >&2
-  fi
-  echo "COMMIT_SHA=$(git rev-parse HEAD)"
-  exit 4
-fi
-REBASED_SHA="$(git rev-parse HEAD)"
-if [ -n "${NOSTRA_SUPERVISOR_SNAPSHOT_MANIFEST:-}" ]; then
-  REBASED_PARENT="$(git rev-parse "$REBASED_SHA^")"
-  if ! python3 - "$TOP" "$NOSTRA_SUPERVISOR_SNAPSHOT_MANIFEST" "$REBASED_PARENT" "$REBASED_SHA" <<'PYREBASEVERIFY'
-import hashlib, json, pathlib, subprocess, sys
-top, manifest_path, parent, commit = sys.argv[1:]
-entries = json.loads(pathlib.Path(manifest_path).read_text(encoding="utf-8"))["entries"]
-expected_changed = []
-for entry in entries:
-    relative, digest = entry["path"], entry["sha256"]
-    blob = subprocess.check_output(["git", "-C", top, "show", f"{commit}:{relative}"])
-    if "sha256:" + hashlib.sha256(blob).hexdigest() != digest:
-        raise RuntimeError(f"rebased blob differs from protected snapshot: {relative}")
-    prior = subprocess.run(["git", "-C", top, "show", f"{parent}:{relative}"],
-                           stdout=subprocess.PIPE, stderr=subprocess.DEVNULL)
-    if prior.returncode != 0 or prior.stdout != blob:
-        expected_changed.append(relative)
-actual = subprocess.check_output(
-    ["git", "-C", top, "diff-tree", "--no-commit-id", "--name-only", "-r", "-z", parent, commit]
-).decode().split("\0")
-actual = [item for item in actual if item]
-if sorted(actual) != sorted(expected_changed):
-    raise RuntimeError("rebased commit delta contains paths outside the protected supervisor snapshot")
-PYREBASEVERIFY
-  then
-    echo "commit-run: rebased tree disagrees with protected supervisor snapshot — nothing was pushed" >&2
-    echo "COMMIT_SHA=$REBASED_SHA"
-    exit 4
-  fi
-fi
-if git push -q origin "$REBASED_SHA:main" 2>/dev/null; then
-  echo "COMMIT_SHA=$REBASED_SHA"
+if reconcile_without_checkout_update; then
   exit 0
 fi
-echo "commit-run: rebase succeeded but the push retry lost another remote race; rebased commit $REBASED_SHA remains local — push manually" >&2
-echo "COMMIT_SHA=$REBASED_SHA"
+echo "COMMIT_SHA=$SHA"
 exit 4

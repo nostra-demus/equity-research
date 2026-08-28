@@ -18,6 +18,7 @@ import { ScopeSheet } from './sheets/ScopeSheet'
 import { SubjectSheet, type SubjectChoice } from './sheets/SubjectSheet'
 import { SnapshotHeader, useSnapshot } from './snapshot/SnapshotHeader'
 import { emptyProviders, providerIsBlocked, providerNeedsCheck, readRunProvider, saveRunProvider, type ProvidersRead, type RunProvider } from '../lib/provider'
+import { useStore } from '../lib/store'
 
 // the desktop's per-scope starters, verbatim (ChatPanel.tsx) — same empty state, same wording
 const SUGGESTIONS: Record<ChatScope, string[]> = {
@@ -43,7 +44,8 @@ export function MobileApp() {
   const [newsWire, setNewsWire] = useState(false)
   const [wireConversation, setWireConversation] = useState<ChatConversationDetail | null>(null)
   const [sheet, setSheet] = useState<SheetId>(null)
-  const [model, setModel] = useState('sonnet')
+  const model = useStore((s) => s.chatModel)
+  const setModel = useStore((s) => s.setChatModel)
   const [style, setStyle] = useState<ChatStyle>(readChatStyle())
   const [provider, setProviderState] = useState<RunProvider>(readRunProvider())
   const [providers, setProviders] = useState<ProvidersRead>(emptyProviders())

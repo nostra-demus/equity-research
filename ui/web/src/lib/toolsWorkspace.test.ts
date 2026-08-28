@@ -44,7 +44,7 @@ const bar = renderToStaticMarkup(createElement(CommandBar))
 assert.equal((bar.match(/data-tools-entry="true"/g) || []).length, 1, 'the shared top bar exposes one Tools entry')
 assert.match(bar, />Workspace<span/, 'secondary tools are grouped under the compact Workspace menu')
 assert.match(bar, /class="tickerpick providerpick"/,
-  'the provider and canary controller stays mounted while the Status menu is closed, so deep links can open it')
+  'the provider controller stays mounted while the Status menu is closed; operator deep links remain separate')
 
 const globalCss = fs.readFileSync(path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../styles/global.css'), 'utf8')
 assert.match(globalCss, /\.barmenu__panel\[hidden\]\s*\{\s*display:\s*none;/,
