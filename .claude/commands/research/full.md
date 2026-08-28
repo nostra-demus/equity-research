@@ -396,7 +396,7 @@ Run this step only if `<RUN_ROOT>/final_thesis.md` and `<RUN_ROOT>/decision_reco
 
 ### 10B.1 — Deterministic validator (always runs; can stamp the thesis PROVISIONAL)
 
-Run this via Bash. It re-derives the §10 scenario math from `decision_record.json` (same identities as `eval` harness check M), the missing-price / score-range caps, the §11 data-sufficiency ↔ decision cap (check Y), the §7 edge gate (check V), the §14 external-variable conviction cap (check Z), the §24 rejector-filter conviction caps — Filters 1/2/4/5/6 (checks AC/AD/AE/AF, via `scripts/rating_caps.py`) — the §13 cross-module forensic-mosaic conviction cap (check AQ, via `scripts/rating_caps.py`) — the Headline Scorecard ↔ decision_record.json reconciliation plus red-flag severity reconciliation (checks AI/AK, via `scripts/headline_checks.py`) — and the §10 scenario-span check, sign-check presence gate, and §10 conjunction-disclosure check (checks AT/AU/AV, via `scripts/scenario_integrity_checks.py`). Prepends a PROVISIONAL banner to `final_thesis.md` if any inconsistency is found:
+Run this via Bash. It re-derives the §10 scenario math from `decision_record.json` (same identities as `eval` harness check M), the missing-price / score-range caps, the §11 data-sufficiency ↔ decision cap (check Y), the §7 edge gate (check V), the §14 external-variable conviction cap (check Z), the §24 rejector-filter conviction caps — Filters 1/2/4/5/6 (checks AC/AD/AE/AF, via `scripts/rating_caps.py`) — the §13 cross-module forensic-mosaic conviction cap (check AQ, via `scripts/rating_caps.py`) — the §16 Sector Cycle Reality Test compounding cap on the valuation module's own stated confidence score (check BB, via `scripts/rating_caps.py`) — the Headline Scorecard ↔ decision_record.json reconciliation plus red-flag severity reconciliation (checks AI/AK, via `scripts/headline_checks.py`) — and the §10 scenario-span check, sign-check presence gate, and §10 conjunction-disclosure check (checks AT/AU/AV, via `scripts/scenario_integrity_checks.py`). Prepends a PROVISIONAL banner to `final_thesis.md` if any inconsistency is found:
 
 ```bash
 python3 - "<RUN_ROOT>" <<'PY'
@@ -595,6 +595,19 @@ if rc.eval_ac_turnaround_cap(dec, ddte, _tt24) == "fail":
 viol.extend(rc.eval_ad_filter_4_6_cap(dec, ddte, _bm_txt, _mg_txt) or [])
 viol.extend(rc.eval_ae_filter5_cap(dec, ddte, _bm_txt, _es24, _bq_txt) or [])
 viol.extend(rc.eval_af_filter1_integrity_cap(dec, ddte, _mg_txt, _track_txt) or [])
+# check BB — §16 Sector Cycle Reality Test compounding cap (live pre-publish; mirrors eval.py check
+# BB via scripts/rating_caps.py, same shared detection module as AC/AD/AE/AF above). Mechanizes
+# valuation/MODULE_RULES.md's Sector Cycle Reality Test compounding rule (CLAUDE.md §16): when
+# 02_multiples-own-history AND 03_relative-valuation-peers both flag their reference point
+# cycle-elevated/depressed in the SAME direction (standalone RF-VAL-001/RF-VAL-002 tags), their
+# agreement is one shared sector cycle counted twice, not independent corroboration — 99's own
+# stated "Valuation confidence /100" must not exceed 55. Unlike AC/AD/AE/AF/AQ, this caps a NUMERIC
+# score parsed from 99_valuation-synthesis.md's own text, not the decision enum, so it is checked
+# unconditionally here (not folded into `viol.extend(... or [])` against `dec`).
+_v02_txt = _read_orb("valuation", "02_*.md")
+_v03_txt = _read_orb("valuation", "03_*.md")
+_v99_txt = _read_orb("valuation", "99_*-synthesis.md")
+viol.extend(rc.eval_bb_sector_cycle_compounding_cap(ddte, _v02_txt, _v03_txt, _v99_txt) or [])
 # check AQ — §13 cross-module forensic-mosaic conviction cap (live pre-publish; mirrors eval.py check
 # AQ via scripts/rating_caps.py, same shared detection module as AC/AD/AE/AF above). Mechanizes
 # synthesizer.md Pre-Write Gate step 4B's "3+ distinct forensic tags across 2+ modules compound into

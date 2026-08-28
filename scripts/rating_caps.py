@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
-"""Conviction-cap detectors: the §24 rejector filters (Filters 1, 2, 4, 5, 6 — CLAUDE.md §24) plus
-the §13 cross-module forensic-mosaic cap (CLAUDE.md §13 / synthesizer.md Pre-Write Gate step 4B).
+"""Conviction/score-cap detectors: the §24 rejector filters (Filters 1, 2, 4, 5, 6 — CLAUDE.md §24),
+the §13 cross-module forensic-mosaic cap (CLAUDE.md §13 / synthesizer.md Pre-Write Gate step 4B),
+and the §16 Sector Cycle Reality Test compounding cap (CLAUDE.md §16 / valuation/MODULE_RULES.md).
 
 Side-effect-free, importable, doctrine logic — extracted from `scripts/eval.py` (checks
-AC/AD/AE/AF, and now AQ) so the SAME detection functions can run in TWO places instead of one:
+AC/AD/AE/AF, and now AQ/BB) so the SAME detection functions can run in TWO places instead of one:
 
 1. **Retrospective** — `scripts/eval.py` imports these to grade already-committed runs
    (checks AC/AD/AE/AF), as it always has.
@@ -29,13 +30,18 @@ synthesis/specialist text (or None if the module didn't run), it returns:
   - `None`  — not applicable (pre-gate date, or the source module never ran)
   - `[]`    — applicable and satisfied (checked, no violation)
   - `[...]` — one or more violation strings (the cap fired and the decision exceeds it)
-(`eval_ac_turnaround_cap` is the one exception — it predates this convention and returns
-the string `'pass' | 'fail' | 'na'`; kept as-is rather than changed at import time.)
+(`eval_ac_turnaround_cap` is one exception — it predates this convention and returns the
+string `'pass' | 'fail' | 'na'`; kept as-is rather than changed at import time. `eval_bb_
+sector_cycle_compounding_cap` is the other — it caps a NUMERIC score, not the decision
+enum, so it takes no `decision` argument; its None/[]/[...] return convention is otherwise
+identical.)
 
 No caller may treat a violation as fatal — CLAUDE.md §13 requires caps to be *applied*, not
 used to silently kill a run. Both call sites (eval.py, the finish-gate) turn a non-empty
 result into a visible flag (a FAIL row, or a PROVISIONAL banner) — never a silent abort.
 """
+
+import re
 
 
 def isdate(s):
@@ -434,3 +440,109 @@ def eval_aq_forensic_mosaic_cap(decision, decision_date, module_synth_txt, modul
             f"accounting-integrity flag; CLAUDE.md §13 — do not average a red flag away; no edge-score "
             f"bypass)"]
     return []  # empty list = pass (mosaic fired but decision is at/below the ceiling, or Short Candidate)
+
+# ── Check BB (§16 Sector Cycle Reality Test compounding cap, valuation module) ────────────────────
+# CLAUDE.md §16: "a reversion target or a peer median is only a stable anchor if it isn't itself
+# cycle-distorted ... a peer-median read and an own-history reversion that both sit inside the same
+# shared sector cycle are not two independent corroborating reads — they are one distorted read
+# counted twice." valuation/MODULE_RULES.md's Sector Cycle Reality Test (§3, added by the PR that
+# introduced the doctrine) requires `02_multiples-own-history` and `03_relative-valuation-peers` to
+# each flag their reference point cycle-elevated/depressed when the sector materially re-rated over
+# the reference window, and requires `99_valuation-synthesis` to cap the COMBINED base-case
+# "Valuation confidence" score at 55 (not 60 — the single-method cap) when BOTH specialists flag the
+# SAME direction, because their agreement is one shared sector cycle counted twice, not independent
+# corroboration. Until now that compounding cap existed only as prose in three files (02, 03, 99) —
+# unlike its five sibling §13/§24 caps (checks AC/AD/AE/AF/AQ above), nothing verified a run that
+# actually tripped the compounding condition (both specialists flagging the same direction) actually
+# held its stated confidence score to the cap. `02`/`03` are also the module's OWN default
+# majority-weighted methods (Method-Weighting Policy §1), so an unenforced cap here sits at the
+# load-bearing center of the base case for most runs, not an edge case.
+#
+# Detection: `02`/`03` each emit a standalone tag line where they flag the reference point —
+# `RF-VAL-001` (cycle-elevated) or `RF-VAL-002` (cycle-depressed) — mirroring the RF-* convention
+# checks AD/AE/AF/AQ already read (see _tag_fired_standalone). The SAME two tags are used in both
+# files; which specialist fired a given tag is known from which file is being read, so no separate
+# per-specialist tag pair is needed. The compounding trigger is BOTH files firing the SAME tag
+# (both RF-VAL-001, or both RF-VAL-002) — one flagged elevated and the other depressed is not a
+# shared distortion and does not trigger this cap.
+#
+# What gets checked: NOT the decision enum (unlike AC/AD/AE/AF/AQ) — this caps a NUMERIC score,
+# "Valuation confidence /100", which `99_valuation-synthesis.md` states in its own Verdict block
+# (§1). Reading that number directly out of `99`'s own text, rather than decision_record.json's
+# `module_scores.valuation.score` (a loosely-specified field — synthesizer.md documents it only as
+# "module-level scores from module syntheses," with no guarantee it carries this SPECIFIC one of the
+# module's six §12 scores), keeps the check pinned to the exact figure the doctrine names and avoids
+# a whole class of false-positive/false-negative risk from an ambiguous downstream field.
+#
+# Landing date: 2026-08-28 (forward-looking; the RF-VAL-00x tags did not exist in any agent file
+# before this check shipped, so no run before this date could possibly emit them — every committed
+# golden fixture predates it → N/A → suite green).
+BB_DATE = "2026-08-28"
+CYCLE_ELEV_TAG = "RF-VAL-001"  # Sector Cycle Reality Test: reference point cycle-elevated
+CYCLE_DEPR_TAG = "RF-VAL-002"  # Sector Cycle Reality Test: reference point cycle-depressed
+BB_COMPOUND_CAP = 55  # combined base-case Valuation confidence ceiling when 02 AND 03 agree
+
+_BB_CONF_RE = re.compile(r"Valuation confidence\s*/?\s*100[^\n\d]{0,20}?(\d{1,3})", re.IGNORECASE)
+
+def _bb_parse_valuation_confidence(synth_txt):
+    """Extract the numeric 'Valuation confidence /100' figure from 99_valuation-synthesis.md's own
+    §1 Verdict block text. Returns an int 0-100, or None if the line is absent/unparseable. Scans
+    line-by-line (not the whole blob) so a match is always anchored to the actual stated-score line,
+    never to an unrelated number elsewhere in the file."""
+    if not synth_txt:
+        return None
+    for line in synth_txt.splitlines():
+        if "valuation confidence" not in line.lower():
+            continue
+        m = _BB_CONF_RE.search(line)
+        if m:
+            v = int(m.group(1))
+            if 0 <= v <= 100:
+                return v
+    return None
+
+def eval_bb_sector_cycle_compounding_cap(decision_date, mult_txt, peer_txt, synth_txt):
+    """Check BB: §16 Sector Cycle Reality Test compounding cap. Returns None (N/A — pre-gate, or
+    BOTH 02 and 03 source texts absent), or a list of violation strings (empty list = pass or the
+    compounding trigger did not fire). Side-effect-free + module-level so eval.py selftest can drive
+    it.
+    mult_txt: 02_multiples-own-history.md specialist text, or None.
+    peer_txt: 03_relative-valuation-peers.md specialist text, or None.
+    synth_txt: 99_valuation-synthesis.md text, or None — if the compounding trigger fires but this
+    is absent, the cap cannot be verified as applied, which is itself a violation (CLAUDE.md §11:
+    caps must be applied, never silently unverifiable)."""
+    if not (isdate(decision_date) and decision_date >= BB_DATE):
+        return None  # forward-looking; pre-gate runs N/A
+    if mult_txt is None and peer_txt is None:
+        return None  # neither specialist ran — N/A
+    elev02 = _tag_fired_standalone(mult_txt, CYCLE_ELEV_TAG)
+    depr02 = _tag_fired_standalone(mult_txt, CYCLE_DEPR_TAG)
+    elev03 = _tag_fired_standalone(peer_txt, CYCLE_ELEV_TAG)
+    depr03 = _tag_fired_standalone(peer_txt, CYCLE_DEPR_TAG)
+    same_direction = (elev02 and elev03) or (depr02 and depr03)
+    if not same_direction:
+        return []  # no compounding trigger — nothing to cap (includes the case where only one, or
+                   # neither, specialist flagged, or they flagged opposite directions)
+    direction = "cycle-elevated" if (elev02 and elev03) else "cycle-depressed"
+    if synth_txt is None:
+        return [
+            f"§16 Sector Cycle Reality Test compounding trigger fired ({CYCLE_ELEV_TAG if direction=='cycle-elevated' else CYCLE_DEPR_TAG} "
+            f"in BOTH 02_multiples-own-history and 03_relative-valuation-peers, same direction: {direction}) "
+            f"but 99_valuation-synthesis.md is absent — the combined base-case Valuation confidence "
+            f"cap (max {BB_COMPOUND_CAP}, MODULE_RULES.md Scenario Construction §3 compounding rule) "
+            f"cannot be verified as applied"]
+    score = _bb_parse_valuation_confidence(synth_txt)
+    if score is None:
+        return [
+            f"§16 Sector Cycle Reality Test compounding trigger fired (both 02 and 03 flagged {direction}) "
+            f"but 99_valuation-synthesis.md's Valuation confidence /100 figure could not be parsed from "
+            f"its §1 Verdict block — the max {BB_COMPOUND_CAP} compounding cap cannot be verified as "
+            f"applied (CLAUDE.md §11: caps must be applied, never silently unverifiable)"]
+    if score > BB_COMPOUND_CAP:
+        return [
+            f"§16 Sector Cycle Reality Test compounding trigger fired (both 02 and 03 flagged {direction}, "
+            f"one shared sector cycle counted twice, not independent corroboration) but 99's stated "
+            f"Valuation confidence is {score}/100, exceeding the max {BB_COMPOUND_CAP} combined cap "
+            f"(MODULE_RULES.md Scenario Construction & Method-Weighting Policy §3 compounding rule; "
+            f"CLAUDE.md §16)"]
+    return []  # empty list = pass — compounding trigger fired and the stated score respects the cap

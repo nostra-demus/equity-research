@@ -649,6 +649,7 @@ from rating_caps import (
     AE_DATE, CAP5_TAG, ABOVE_STARTER_AE, eval_ae_filter5_cap,
     AF_DATE, CAP1_TAG, ABOVE_WATCHLIST_AF, eval_af_filter1_integrity_cap,
     AQ_DATE, FORENSIC_TAGS, ABOVE_STARTER_AQ, eval_aq_forensic_mosaic_cap,
+    BB_DATE, CYCLE_ELEV_TAG, CYCLE_DEPR_TAG, BB_COMPOUND_CAP, eval_bb_sector_cycle_compounding_cap,
 )
 
 AG_DATE = "2026-07-06"
@@ -3351,6 +3352,42 @@ if scope=="selftest":
         print(("  [ok] " if ok else "  [BAD] ")+f"BA({_dd!r},kc={_kc!r}) -> {got!r} (want {_want!r})")
         if not ok: bad+=1
 
+    # ---- check BB: §16 Sector Cycle Reality Test compounding cap -----------------------------------
+    _bb_elev02 = "## 5. Sector Cycle Reality Test\nSector re-rated ~32%.\nRF-VAL-001: own-history band cycle-elevated — sector index re-rated 32% over the window, cited 2026-08-01\n"
+    _bb_elev03 = "## 6. Sector Cycle Reality Test\nPeer group re-rated too.\nRF-VAL-001: peer-median anchor cycle-elevated — peer aggregate re-rated 28% over the window, cited 2026-08-01\n"
+    _bb_depr02 = "## 5. Sector Cycle Reality Test\nRF-VAL-002: own-history band cycle-depressed — sector index de-rated 30%, cited\n"
+    _bb_depr03 = "## 6. Sector Cycle Reality Test\nRF-VAL-002: peer-median anchor cycle-depressed — peer aggregate de-rated 27%, cited\n"
+    _bb_na02   = "## 5. Sector Cycle Reality Test\nNot assessable — no sector-level multiple history.\n"
+    _bb_cleared02 = "## 5. Sector Cycle Reality Test\nRF-VAL-001 not triggered — sector flat over the window.\n"
+    _bb_synth_ok   = "## 1. Valuation Verdict\n- Valuation confidence /100: 50\n"
+    _bb_synth_atcap= "## 1. Valuation Verdict\n- Valuation confidence /100: 55\n"
+    _bb_synth_over = "## 1. Valuation Verdict\n- Valuation confidence /100: 62\n"
+    _bb_synth_noscore = "## 1. Valuation Verdict\n- no score line here\n"
+    bbcases=[  # (decision_date, mult_txt(02), peer_txt(03), synth_txt(99), expect: None=N/A, []=pass, [substr]=fail-with)
+        ("2026-08-28",_bb_elev02,_bb_elev03,_bb_synth_ok,[]),                    # same-direction elevated, within cap → pass
+        ("2026-08-28",_bb_elev02,_bb_elev03,_bb_synth_atcap,[]),                 # exactly at the 55 cap → pass
+        ("2026-08-28",_bb_elev02,_bb_elev03,_bb_synth_over,["exceeding the max 55"]),  # over cap → FAIL
+        ("2026-08-28",_bb_depr02,_bb_depr03,_bb_synth_over,["exceeding the max 55"]),  # same-direction depressed, over cap → FAIL
+        ("2026-08-28",_bb_elev02,_bb_depr03,_bb_synth_over,[]),                  # opposite directions → no compounding, pass regardless of score
+        ("2026-08-28",_bb_elev02,_bb_na02,_bb_synth_over,[]),                    # only one flagged (other Not assessable) → pass
+        ("2026-08-28",_bb_elev02,_bb_cleared02,_bb_synth_over,[]),               # 03's tag line is a cleared/negation status → not fired, no compounding
+        ("2026-08-28",_bb_elev02,_bb_elev03,None,["cannot be verified as applied"]),        # trigger fired, 99 absent → FAIL (unverifiable)
+        ("2026-08-28",_bb_elev02,_bb_elev03,_bb_synth_noscore,["could not be parsed"]),      # trigger fired, score unparseable → FAIL
+        ("2026-08-28",_bb_na02,_bb_na02,_bb_synth_over,[]),                      # neither flagged → pass
+        ("2026-08-27",_bb_elev02,_bb_elev03,_bb_synth_over,None),                # predates BB_DATE → N/A
+        ("2026-08-28",None,None,_bb_synth_over,None),                           # neither 02 nor 03 ran → N/A
+        ("2026-08-28",_bb_elev02,None,_bb_synth_over,[]),                       # only 02 ran, no 03 text → can't compound, pass
+        ("not-a-date",_bb_elev02,_bb_elev03,_bb_synth_over,None),               # unparseable decision_date → N/A
+    ]
+    for _dd,_m2,_p3,_sy,_want in bbcases:
+        got=eval_bb_sector_cycle_compounding_cap(_dd,_m2,_p3,_sy)
+        if _want is None:
+            ok = got is None
+        else:
+            ok = got is not None and len(got)==len(_want) and all(any(w in g for g in got) for w in _want)
+        print(("  [ok] " if ok else "  [BAD] ")+f"BB({_dd!r}) -> {got!r} (want {_want!r})")
+        if not ok: bad+=1
+
     for dt_,fl_,exp in aocases:
         got=eval_ao_forecast_resolvability(dt_,fl_)
         if exp is None: ok=(got is None)
@@ -3697,7 +3734,7 @@ if scope=="selftest":
     # AP — valuation-summary lever-sidecar integrity: reuse the module's own fixture-free selftest (DRY),
     # covering soft-presence, structure, blend, and the decision_record non-contradiction check.
     if _vs_selftest() != 0: bad += 1
-    print(("SELFTEST PASS" if not bad else f"SELFTEST FAIL ({bad} case(s))")+f" — {len(cases)} check-W + {len(xcases)} check-X + {len(aycases)} check-AY + {len(azcases)} check-AZ + {len(ycases)} check-Y + {len(zcases)} check-Z + {len(t2cases)} check-T2 + {len(t3cases)} check-T3 + {len(t4cases)} check-T4 + {len(aacases)} check-AA + {len(evcases)} AA-extractor + {len(abcases)} check-AB + {len(accases)} check-AC + {len(adcases)} check-AD + {len(aecases)} check-AE + {len(afcases)} check-AF + {len(aqcases)} check-AQ + {len(agcases)+len(agci_cases)} check-AG + {len(ahcases)} check-AH + {len(aicases)} check-AI + {len(ajcases)} check-AJ + {len(akcases)} check-AK + {len(ancases)} check-AN + {len(amcases)} check-AM + {len(arcases)} check-AR + {len(aocases)} check-AO + {len(ascases)} check-AS + {len(awcases)} check-AW + {len(bacases)} check-BA + {len(atcases)} check-AT + {len(aucases)} check-AU + {len(avcases)} check-AV + {len(axcases)} check-AX cases + AP lever-sidecar (module selftest)")
+    print(("SELFTEST PASS" if not bad else f"SELFTEST FAIL ({bad} case(s))")+f" — {len(cases)} check-W + {len(xcases)} check-X + {len(aycases)} check-AY + {len(azcases)} check-AZ + {len(ycases)} check-Y + {len(zcases)} check-Z + {len(t2cases)} check-T2 + {len(t3cases)} check-T3 + {len(t4cases)} check-T4 + {len(aacases)} check-AA + {len(evcases)} AA-extractor + {len(abcases)} check-AB + {len(accases)} check-AC + {len(adcases)} check-AD + {len(aecases)} check-AE + {len(afcases)} check-AF + {len(aqcases)} check-AQ + {len(agcases)+len(agci_cases)} check-AG + {len(ahcases)} check-AH + {len(aicases)} check-AI + {len(ajcases)} check-AJ + {len(akcases)} check-AK + {len(ancases)} check-AN + {len(amcases)} check-AM + {len(arcases)} check-AR + {len(aocases)} check-AO + {len(ascases)} check-AS + {len(awcases)} check-AW + {len(bacases)} check-BA + {len(bbcases)} check-BB + {len(atcases)} check-AT + {len(aucases)} check-AU + {len(avcases)} check-AV + {len(axcases)} check-AX cases + AP lever-sidecar (module selftest)")
     sys.exit(0 if not bad else 1)
 
 runs=sorted(glob.glob("analyses/*/decision_record.json"))
@@ -4250,6 +4287,30 @@ for drp in runs:
         add("BA_kill_criteria_trigger_test", False, "; ".join(_bar))
     else:
         add("BA_kill_criteria_trigger_test", True, f"every kill_criteria row carries comparable_basis and fired_last_two_periods ({len(d.get('kill_criteria') or [])} row(s))")
+    # BB §16 Sector Cycle Reality Test compounding cap (forward-looking; landing BB_DATE). See the
+    # BB_DATE / eval_bb_sector_cycle_compounding_cap comment block in rating_caps.py for the full
+    # rationale. Reads 02_multiples-own-history.md and 03_relative-valuation-peers.md for the
+    # standalone RF-VAL-001/RF-VAL-002 tags, and 99_valuation-synthesis.md for the stated Valuation
+    # confidence score, via the SAME _read_specialist_text/_read_synth_text closures the AD/AE blocks
+    # define above — gate on BB_DATE here too (not just inside eval_bb_sector_cycle_compounding_cap)
+    # so those closures are only called once we know AD's own gate already ran and defined them
+    # (BB_DATE > AD_DATE guarantees isdate(ddte) and ddte>=AD_DATE whenever this branch is entered).
+    if isdate(ddte) and ddte>=BB_DATE:
+        _v02_txt = _read_specialist_text("valuation", "02_")
+        _v03_txt = _read_specialist_text("valuation", "03_")
+        _v99_txt = _read_synth_text("valuation")
+        _bbr = eval_bb_sector_cycle_compounding_cap(ddte, _v02_txt, _v03_txt, _v99_txt)
+        if _bbr is None:
+            add("BB_sector_cycle_compounding_cap", True,
+                "N/A (neither 02 nor 03 specialist ran)", na=True)
+        elif _bbr:
+            add("BB_sector_cycle_compounding_cap", False, "; ".join(_bbr))
+        else:
+            add("BB_sector_cycle_compounding_cap", True,
+                "compounding trigger did not fire, or the stated Valuation confidence respects the cap")
+    else:
+        add("BB_sector_cycle_compounding_cap", True,
+            f"N/A (decision_date {ddte!r} predates BB_DATE {BB_DATE!r})", na=True)
     # W sector ↔ valuation-method consistency (forward-looking; landing SECTOR_DATE / SECTOR_OVERLAYS.md).
     #   When business_type AND primary_valuation_method are both set, verify the method is not one
     #   SECTOR_OVERLAYS.md forbids for that sector type (logic + forbidden list live in SECTOR_FORBIDDEN /
