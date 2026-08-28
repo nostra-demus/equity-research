@@ -1,85 +1,91 @@
 # Market Structure Module Memo — COPPER
 
-**Verdict (module read, from the synthesis):** Copper trades at ~$13,202/t (LME cash, ~613¢/lb COMEX) as of 2026-07-02 — up 30–38% year-on-year but 9% below the January 29, 2026 record of $14,527.50/t and 6% off the early-June high. The near-term picture is a soft consolidation inside a wide $12,000–$14,500/t range with no proven new leg up, and the futures curve is now in **contango** (later-dated contracts priced higher than the front). For a rolled long position, that contango costs roughly **−5% per year** in "roll drag" (the loss from selling the cheaper expiring contract and buying the pricier next one); on top of CPER's ~0.97% annual fee that is a total drag of about **6% per year vs spot** in a flat market. Cleanest instrument: **COMEX HG front-month futures** if direct futures access exists; CPER is the practical fallback with a structural cost.
+**Memo date:** 2026-08-28 · **Run root:** `commodity/runs/COPPER/` · **Source:** `99_market-structure-synthesis.md` (this memo condenses that file and adds nothing to it)
 
-Memo date: 2026-07-02.
+**Verdict: Partial — structure described, nothing evidenced.** The shape of the copper market is legible — the two exchanges are in opposite carry regimes, and the list of ways to own copper is clear — but **not one figure in the module is vintaged** (none has a fixed, checkable "as of" record behind it), so none of it can support a rated call.
+
+**Read this first.** Every number below is unvintaged live-web context or arithmetic on it. The sibling triage records **0 of 22 required data series usable**, and **0 of the 4** series this module owns. All **13** signal rows across the two sidecars carry `unvintaged:` or `missing:` tags with empty source references — **zero are conviction-eligible**. Under the module's §8A rule this material may explain context but cannot raise data sufficiency or conviction, and nothing here is a recommendation to buy, size, or hold anything.
 
 ---
 
-## Scores at a Glance
+## 1. Scores at a Glance
 
-This is a market-structure module (price, curve, instruments). The synthesis carries **no numeric /100 scores, no §24 filter trips, and no score caps** — it delivers factual reads and a plumbing note for the thesis module, not a scored verdict. What the synthesis does carry:
+| Score | Value | Band / status | Basis carried by the synthesis |
+|---|---|---|---|
+| **Data sufficiency** | **10 / 100** | Root §11 band 0–29: **"insufficient — refuse to rate"** | 0 of 22 required series usable engine-wide; 0 of 4 owned by this module; no vintaged price anchor; no price history at all |
+| **Market-structure directional conviction** | **capped at 0 / 100**, reported as **`not assessable`** | Capped, not scored | Measures strength of evidence for a stated direction — **never bullishness** (module §9 convention). No score above the cap may be derived from anything in this module |
 
-| Item | Reading (from synthesis) |
+**Caps applied** (all carried from the synthesis, none loosened here):
+- **§8A cap** — every figure is unvintaged live-web context, so nothing in this module can raise sufficiency or conviction.
+- **§8 contradiction cap** — two signal clusters (`curve-carry`, `delivery-pressure`) hold both bullish and bearish rows, so both are `contradiction: true` and are never conviction-eligible even if the vintages were restored today.
+- **§4 conservative default** — applied twice: the COMEX carry **cost** stands for a long (the contradicting roll *gain* is not banked), and the **higher** CPER fee is used where sources conflict.
+- **Routing constraint (MODULE_RULES §10/§11)** — a `not_assessable` risk distribution mechanically forces **`Research More`** unless an independently proven critical risk with a cited source forces `Avoid`. No such proven critical risk exists in this module's evidence. **This module issues no action verdict; the terminal `commodity-thesis` module routes.**
+
+**§24 Avoid-Big-Risks filters:** the synthesis carries no §24 filter trip — **none tripped** in this module.
+
+---
+
+## 2. What This Module Found
+
+Copper trades at **US$6.62/lb on COMEX front month (2026-08-28)**, up **+46.63% over twelve months** and roughly 3% below a reported all-time high of US$6.83/lb [`02` §1, TradingEconomics — unvintaged]. The module's own attribution arithmetic finds that twelve-month move **~0% explained and ~100% residual (unattributed)**: the US tariff premium is a *level* roughly where it was a year ago, so it accounts for about **+$0.00/lb of the +$2.11/lb** rise [`02` §4]. **That residual is the finding, not a caveat** — the terminal thesis must not adopt a tariff, deficit, or electrification driver story this module's arithmetic does not carry. Whether the rally is a global shortage or a location dislocation is **Not proven from available data**.
+
+The most decision-relevant structural fact is a **split in the carry between the two exchanges** (carry = what it costs, or pays, to hold the position through time rather than the price move itself). LME cash-versus-3-month is in **backwardation** — near metal dearer than later metal — at **+US$248/t (2026-08-26), worth about +6.9%/yr to a holder who keeps rolling the position forward**. The COMEX chain reads the opposite, **contango** — later metal dearer — at about **−6.1%/yr** to the same roller [`02` §3a, §3b]. That is roughly **13 percentage points a year of difference on the same metal**, so **which venue you hold is currently a bigger decision than which way you think the price goes**. The conservative case for a long is the COMEX bleed, not the LME pay: a COMEX-rolled long nets about **−2.3%/yr** (roll −6.1% plus collateral interest +3.79%), or **≈ −3.2% to −3.4%/yr after CPER's 0.88%–1.06% fee** — copper has to rise roughly 3% a year just to break even [`02` §5; `01` §3].
+
+The biggest risk is one this module can name but cannot size. The empirical risk distribution is **`not_assessable` at all ten forecast horizons** — **N = 0** non-overlapping outcomes against a floor of **30**, and **0 of 3** required regimes — because no lawful point-in-time copper price history exists anywhere in this engine (structurally absent, not merely stale: none of the 27 connectors is a price-history connector for any commodity) [`03` §0–§4]. The killer risk is **identified in kind** — a live, unscheduled, yes/no US refined-copper tariff ruling, whose single-session realised move in 2025-07-30/31 is put at **19% / 20% / 22%** by three disagreeing unverified secondary sources — and **`not assessable` in magnitude**. That is **not a tail bound** (N = 1, and it carries no direction: the 2025 gap was down because the ruling landed softer than expected; a harder ruling gaps the other way) [`03` §3a]. **There is no empirical bound for a scenario set to clear, and the absence of a bound is not a licence to pick one.**
+
+On instruments, the constraining fact is that **there is no physically-backed copper vehicle** — copper's bulk makes vaulting uneconomic, so every listed route pays either a roll or takes equity risk [`01` §2].
+
+---
+
+## 3. The Specialists, Briefly
+
+- **`00_commodity-triage`** — the data floor collapsed before analysis began: 0 of 22 required series usable, the swarm pulse quote transport dead (`PULSE-MISSING`, an EPERM permission failure on the pinned `tsx` runner's IPC pipe).
+- **`01_commodity-instruments`** — no physically-backed copper vehicle found ("none found", not proof none exists). Cleanest mechanical expressions: **LME Copper Grade A 3-month** for a global view, **COMEX `HG` front month** for a US-delivered/tariff view. **`CPER`** is a futures pool charging **0.88%–1.06%** that sat in **deferred** months (Dec-26, May-27) with a **±10% tracking tolerance**, so it tracks neither the COMEX front contract nor the LME 3-month. **`COPX` / `ICOP` / `FCX` are not the metal** — a 1% copper move is about **1.41%** of miner cash margin, and that is a *floor* on the leverage, before fixed costs, tax, capex, the equity multiple, and non-copper revenue.
+- **`02_commodity-price-curve`** — the venue carry split above; LME **cash-and-carry does not pay** (about **−US$439/t per quarter ≈ −12.1%/yr**, implying a convenience yield near **12.2%/yr** — London paying to have metal now); COMEX cash-and-carry **roughly pays, marginally** (**≈ +0.75%/yr**, labelled directional, not decided). The **+US$547/t (+3.8%) COMEX-over-LME spread is a gross venue spread, not "the arb"** — grades, locations, and delivery dates are mismatched, and freight, duty, and VAT are not deducted.
+- **`03_commodity-volatility-distribution`** — the distribution is **absent, not thin**, at all ten horizons; **eight event-gap classes, N = 0 measured gaps in each**; it refused the two shortcuts (rebuilding returns from remembered prices; using overlapping windows to manufacture N above 30) that would have produced a plausible-looking table.
+
+**The disagreement that matters, and how the synthesis resolved it.** The COMEX curve **sign** is contested: the TradingView chain gives contango (**−6.1%/yr** roll cost), while two other unvintaged sources put December-2026 at **US$6.017/lb** and **US$6.18/lb**, which against a ~US$6.63 front would be steep *backwardation* (≈ **−31%/yr**, a large roll **gain** — the opposite sign). Neither read is verified, and the figure **6.7270** appears both as the Dec-26 contract price and as a 2026-08-25 spot record print, which is its own reason to distrust the chain. **Resolution carried unchanged: §4's conservative default applies — the carry cost stands for a long, the roll gain is not banked, and the COMEX curve shape is formally `not assessable` for conviction.** Separately, the LME-versus-COMEX carry difference is **not** a contradiction — it is a venue and delivery-date split (metal touchable in London/Asia today versus US-delivered metal after a possible January-2027 tariff) and both are carried, neither netted.
+
+---
+
+## 4. What Would Change This Read
+
+The synthesis lists no upgrade/downgrade trigger table — because with a `not_assessable` distribution there is nothing to trigger against. What it does name is the repair list, in its own priority order:
+
+| What would change the read | Why it is binding, per the synthesis |
 |---|---|
-| Spot level (LME cash, 2026-07-02) | ~$13,202/t (~613¢/lb COMEX) |
-| Year-on-year price move | +30–38% |
-| Position in 52-week range | ~66% (near mid-band) |
-| Curve shape (LME cash-to-3M) | Contango, ~−$36 to −$94/t |
-| Curve shape (COMEX HG term structure) | Contango, front-to-Dec '26 premium ~$0.15/lb |
-| Roll drag (rolled long, annualised) | Approximately −5% |
-| CPER total holding drag vs spot | Approximately −6% per year (roll drag + 0.97% fee) |
-| CPER long-run gap vs spot since inception | ~21 percentage points cumulatively |
-| Data sufficiency note | Deferred COMEX settles, LME spread, LME daily warehouse stocks, SHFE price, and CFTC COT detail are only partially sourced (see "What's Missing") |
-
-Score caps: none applied (module has no scored verdict). §24 Avoid-Big-Risks filters: none tripped.
+| **A lawful point-in-time daily close history for COMEX Copper `HG` front month** — continuous back-adjusted, with source identity and an accepted immutable vintage; **at least 3 years** for the tactical grid and **10 years** for the strategic grid and a three-regime split | The **single highest-value next data request (§22)**. It is the only item that can lift the distribution off `not_assessable`, and with it the scenario span, volatility, drawdowns, and event gaps |
+| Repair of the **pulse quote transport** (`PULSE-MISSING`, EPERM on the `tsx` IPC pipe) | **The necessary second item, not the first** — a healthy pulse returns *one current quote*, not a return history, so fixing it alone still leaves the distribution empty |
+| `copper.lme-cash-three-month-curve` becoming available | Without it the profile's headline tightness lens is not evidence, and **no z-score or percentile for copper carry exists — anyone quoting one in this run is making it up** |
+| `copper-refined-balance` and `macro-china-industrial-activity` becoming available | They settle the open question the trend read turns on: global deficit versus location dislocation |
+| `copper-visible-inventory` / `copper-inventory-accessibility-opacity` (other module) becoming available | How much of the record **~675,185 t** of COMEX stock is actually reachable by a non-US buyer is the question the tariff basis turns on, and §9 forbids inferring hidden stocks as zero |
+| Primary filings becoming readable (CPER 424B3, FCX 8-K exhibits returned **HTTP 403**) | Every instrument fee, component, guidance, and sensitivity figure is secondary-summary sourced and unverified against EDGAR |
+| An **independently proven critical risk with a cited source** | The only condition under which the routing constraint moves off `Research More` toward `Avoid`. No such proven risk exists in this module's evidence |
 
 ---
 
-## What This Module Found
+## 5. Bottom Line
 
-The 12-month direction is sharply higher (up 30–38% from a July 2025 range of $9,535–$10,120/t), but the story inside 2026 is peaks-and-reversals: the January 29, 2026 record ($14,527.50/t) fell back to a $12,499/t monthly average by April as US tariff uncertainty weighed, a second surge to $14,097/t on May 29 faded through the June 30 US tariff-decision date, and price is now clustering at $13,300–$13,400/t. [02_commodity-price-curve.md] The 50-day moving average (~$13,967/t) now sits **above** the current price, which is the technical signature of near-term softening; the 200-day (~$12,800/t) is still below current, so the cushion is there but narrower. [Barchart COMEX HGU26 technical data, 2026-07, unverified web]
-
-The single most important change vs earlier in the year is the curve shape. The LME cash-to-3M spread was in deep backwardation (later prices lower than cash — a sign of prompt tightness) as recently as 2026-06-23 (+$345/t) as metal was pulled toward the US ahead of tariff deadlines; it has since flipped to contango at roughly −$36 to −$94/t on 2026-07-02. [MetalRadar citing LME, 2026-07-02, unverified web; SMM/metal.com citing LME, 2026-06-23, unverified web] Contango is consistent with heavy inventories: COMEX warehouses are at a record ~652,000 t, and combined LME+COMEX+SHFE visible stocks exceed 1 million tonnes — the highest since 2004. [02_commodity-price-curve.md] Ample near-term supply has removed the prompt squeeze, and the market is pricing normal cost of carry.
-
-The single most important risk to a bull thesis on the metal: contango imposes a real recurring cost on any rolled long. Front-to-Sep is a ~$0.05/lb premium (≈−4.9% annualised drag) and front-to-Dec is a ~$0.15/lb premium (≈−5.9% annualised drag), so a rolled COMEX long loses roughly 5% per year to the roll alone. Through CPER, add the 0.97% fee for a total drag near 6% per year vs spot — the price needs to appreciate ~6% just to break even in a flat market. [02_commodity-price-curve.md]
-
----
-
-## The Specialists, Briefly
-
-- **00 Commodity Triage** — Set the module baseline: spot ~$13,170/t as of 2026-07-01; cited the ICSG projection of a **2026 refined copper surplus of ~96,000 mt** (swung from a prior 150,000 mt deficit); flagged CFTC managed-money net long ~66,547 contracts as of 2026-06-23. [00]
-- **01 Commodity Instruments** — Mapped the instrument set (LME cash/3M, COMEX HG + E-mini QC / Micro MHC, CPER, COPX, FCX, SHFE CU) with costs and divergences from LME spot; noted a fleeting +$345/t LME backwardation on 2026-06-23. [01]
-- **02 Commodity Price & Curve** — The primary source for today's curve reading: LME cash ~$13,202/t; COMEX HG contango (Jul '26 ~613¢, Sep '26 ~618¢, Dec '26 ~628¢, Mar '27 ~643¢); LME cash-to-3M at −$36 to −$94/t contango; roll drag ~−5% annualised. [02]
-
-**Most important reconciliation the synthesis flagged:** the instruments file (01) referenced both the June 23 backwardation spike and a July 16 backwardation figure; the price-curve specialist (02) reads today's shape as contango. The synthesis resolved this in favour of the price-curve specialist — LME briefly went backwardated around June 23, then flipped back to contango by July 2; the July 16 figure is treated as unverified and forward-looking and does **not** change today's read. Current shape: contango.
+- **The verdict is "Partial — structure described, nothing evidenced."** Data sufficiency **10/100** (refuse-to-rate band); directional conviction **capped at 0/100, `not assessable`**. This module issues no action verdict; the routing constraint it hands forward is **`Research More`**.
+- **Better than it looks:** the structural map is legible and internally consistent — the venue carry split, the delivery-pressure sequence, and the instrument list would be genuinely usable if a vintaged price history arrived. Every one of the four specialist reports was produced; **no upstream file is missing.** What failed is the data beneath them.
+- **Worse than it looks:** the **+46.63%** twelve-month move is **~100% unexplained** by anything this module holds, and the killer risk — a binary US refined-copper tariff ruling — is identified in kind but unmeasured. Any COPPER scenario set spanning only ordinary volatility **fails root §10's span check on its face**, and the engine cannot say by how much. Record-level and premium figures inside `02` are internally inconsistent (a "record" LME close of $14,201/t quoted below a prior record of $14,527.50/t; 6.7125 vs 6.7270 for the same date), so **no level in this module may be used as a threshold, trigger, or bound.**
+- **What is missing:** a lawful point-in-time price history (structurally absent — no price-history connector exists for any commodity), the pulse quote anchor, the LME curve series, the refined balance, and the inventory-accessibility read. That is why the real-price placement — top of its own ~5-year range, roughly the **100th percentile**, ~10% above the deflated 2021 peak of US$6.03/lb — is **a placement, not a forecast, not a short signal, and not a fair value**: the incentive-price anchor that would carry fair value is unavailable, and whether it has risen underneath the price is **Not proven from available data**.
+- **The one thing to watch next:** the **LME cash–3M spread**. It hit roughly the 99th percentile of a five-year window **by reported rank only**, then gave back **55–68% in two to three sessions** to **+US$248/t** after more than **20,000 t** was delivered into LME warehouses — mean-reverting by construction, and the whole **13-point-a-year** venue gap sits on it.
 
 ---
 
-## What Would Change This Read
+## 6. Plain-English Glossary
 
-The synthesis does not carry a formal upgrade/downgrade table (no verdict to move). It does name the specific events that would flip the curve read — the load-bearing input into the thesis — and the ones that would confirm or break the trend:
-
-- **Contango → backwardation flip.** If new US tariffs on refined copper trigger another wave of frontloading, the prompt LME market could tighten and the cash-to-3M spread could narrow toward backwardation, reducing roll drag and improving rolled-long economics. The **Goldman Sachs scenario cited in 02** — phased 15%/30% US tariffs in Jan 2027 / Jan 2028 — is the primary trigger to watch.
-- **Break of the range floor.** A decisive move below **$12,147/t** (the April 2, 2026 LME cycle low — the "tariff washout" support) would break the current $12,000–$14,500/t band to the downside. [Zamak.us LME monthly data, 2026-04, unverified web]
-- **Clean break of the near-term pivot.** A sustained move through **$13,371/t** (LME 3M close, June 24, 2026) with the 50-day (~$13,967/t) rolling back under price would be the technical signature of a fresh leg up. [TradingKey citing LME close, 2026-06-24, unverified web]
-- **Fundamentals swing.** A change in the ICSG 2026 balance away from the current ~96,000 mt surplus (back toward deficit) would be a headline pressure change; this is the supply/demand module's territory, flagged here as context.
-
----
-
-## Bottom Line
-
-- **Verdict of the module:** Trend is up over 12 months (+30–38% YoY) but softening in the near term (below the 50-day MA, ~9% below the January record, 6% off the June high); curve is in contango with ~−5% annualised roll drag.
-- **Reason it could be better than it looks:** A tariff-driven prompt squeeze could re-flip the curve to backwardation (as happened as recently as June 23), collapsing roll drag and improving rolled-long economics.
-- **Reason it could be worse than it looks:** The ICSG points to a **~96,000 mt refined surplus for 2026** (a swing from a prior projected deficit), combined stocks are at 2004 highs (over 1 million tonnes across LME+COMEX+SHFE), and a rolled long needs ~6% price gain per year via CPER just to break even in a flat tape.
-- **What evidence is missing:** exact CME settlements for Sep, Dec '26 and Mar '27 (currently web-aggregated Google Finance quotes); LME cash-to-3M spread confirmation against official LME settlement; daily LME warehouse lot counts; SHFE price and the LME–SHFE arb; full CFTC COT positioning detail.
-- **One thing to watch next:** the LME cash-to-3M spread — is it still contango, and by how much? That single number changes whether a rolled long copper position costs you ~5%/year or pays you.
-
----
-
-## Plain-English Glossary
-
-- **LME cash / 3M forward** — LME cash is the "spot" price for immediate metal at the London Metal Exchange; the 3M forward is the agreed price for delivery three months out. The difference between them tells you whether prompt metal is tight or plentiful.
-- **Contango** — the futures curve where later-dated contracts trade **higher** than the front / spot. It's the normal shape when there's no prompt shortage; it's costly for someone who is long via futures because each roll (see below) sells the cheap expiring contract and buys the pricier next one.
-- **Backwardation** — the opposite of contango: later-dated contracts trade **lower** than spot. It signals prompt tightness; a rolled long benefits because each roll sells the pricier expiring contract and buys the cheaper next one.
-- **Roll / roll drag** — a futures holder who wants continuous exposure sells the expiring contract and buys the next one; "roll drag" is the built-in loss of doing that in contango, expressed here as an annual percentage.
-- **Front month / deferred contract** — the front month is the nearest-expiry futures contract (most liquid); deferred are later expiries (Dec '26, Mar '27, etc.).
-- **COMEX HG / LME Copper Grade A** — COMEX HG is the New York copper futures contract (quoted in US¢/lb); LME Copper Grade A is the London benchmark (quoted in $/t). Prices track each other but can diverge on tariff and shipping arbitrage.
-- **LME–COMEX arb / basis** — the price gap between the two exchanges. Normally $50–200/t; can widen sharply on tariff shocks.
-- **CPER** — a US-listed exchange-traded fund that holds COMEX copper futures for investors who don't have direct futures access. Carries a 0.97% annual fee, uses a "smart-roll" method to reduce (not eliminate) roll drag, and issues a K-1 tax form.
-- **COPX / FCX** — COPX is an ETF of ~46 copper-mining stocks; FCX is Freeport-McMoRan, a single mining stock. Both are **equity** plays — they add operating leverage and stock-market risk on top of the copper price, so a 10% copper move can be 20–30%+ in COPX.
-- **SHFE** — Shanghai Futures Exchange copper contract, denominated in Chinese yuan; not directly accessible to non-PRC investors.
-- **Open interest / average daily volume** — open interest is the total number of futures contracts outstanding (a depth-of-market gauge); average daily volume is how many change hands per day (a liquidity gauge).
-- **50-day / 200-day moving average** — the average closing price over the last 50 (or 200) trading days; used here purely as a rough trend reference — 50-day above current is the standard signature of near-term softening, price above 200-day is the standard signature of a medium-term uptrend.
-- **ICSG surplus / deficit** — the International Copper Study Group's estimate of refined-copper supply minus demand for the year. Surplus means more supply than use (a price headwind); deficit means the opposite.
-- **CFTC COT / managed-money net long** — the US futures regulator's weekly report of who holds futures positions. "Managed-money net long" is how much more speculative funds are long than short — a crowded-positioning gauge.
+- **Vintaged / unvintaged** — a vintaged figure has a fixed, checkable record of what it was and when. An unvintaged one is a live web read nobody can reproduce later; it can explain context but cannot support a rating.
+- **Carry** — what holding a position costs or pays over time, separate from any price move.
+- **Backwardation** — metal for delivery now is dearer than metal for delivery later; a holder rolling the position forward gains.
+- **Contango** — metal for delivery later is dearer than now; a holder rolling forward loses, because they sell the cheaper near contract and buy the dearer far one at each roll.
+- **Roll / roll yield** — moving an expiring futures position into a later month, and the gain or loss that move creates.
+- **Cash-and-carry** — buying the metal now, storing it, and selling a future against it. It "pays" only if the price gap beats financing plus storage.
+- **Convenience yield** — what the market is implicitly paying for having the metal in hand today rather than later.
+- **Basis / regional premium** — the price gap between two versions of the same metal (different grade, place, or delivery date).
+- **Not assessable / `not_assessable`** — the engine cannot measure it from data it lawfully holds; this is a refusal, not a zero and not a neutral reading.
+- **Non-overlapping outcomes (N)** — independent historical episodes used to build a risk distribution. N = 0 against a floor of 30 means there is no distribution at all.
+- **Scenario span** — the requirement that a set of scenarios actually covers the outcomes that could happen, not merely that its probabilities add to 100%.
+- **Tail bound** — the extreme high/low edge of a distribution. One disputed event is not one.
+- **Directional conviction score** — strength of evidence for a stated direction. It is not a measure of bullishness.
