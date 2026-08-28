@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-28T05:51:21Z",
+  "generated_at": "2026-08-28T06:04:56Z",
   "inbox": [
     {
       "inbox_id": "INB-20260828-556",
@@ -186,6 +186,55 @@
           "name": "Build-A-Bear Workshop",
           "ticker": null,
           "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260828-710",
+      "headline": "Bathla founder approaches lenders for cash despite collapse",
+      "headline_en": null,
+      "url": "https://www.afr.com/property/residential/bathla-founder-approaches-lenders-for-cash-despite-builder-s-collapse-20260828-p60sc2?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-28T03:46:36Z",
+      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
+      "prelim_note": "The founder of Bathla is seeking emergency liquidity from lenders following a collapse, indicating severe financial distress.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The founder of Bathla is seeking emergency liquidity from lenders following a collapse, indicating severe financial distress.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bathla",
+          "ticker": null,
+          "listing_country": "AU"
         }
       ],
       "size_bucket": "small",
@@ -1951,55 +2000,6 @@
           "name": "Delivery Hero",
           "ticker": null,
           "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260828-658",
-      "headline": "Nvidia Reportedly Agrees to Pay $12.9 Billion for the Central Hub of the Open-Source AI World, a Company With Just $150 Million in Revenue",
-      "headline_en": null,
-      "url": "https://247wallst.com/investing/2026/08/27/nvidia-reportedly-agrees-to-pay-12-9-billion-for-the-central-hub-of-the-open-source-ai-world-a-company-with-just-150-million-in-revenue/",
-      "source_name": "24/7 Wall St.",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-27T10:33:49Z",
-      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
-      "prelim_note": "Nvidia reportedly agreed to acquire an AI company for $12.9 billion, a major M&A event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Nvidia reportedly agreed to acquire an AI company for $12.9 billion, a major M&A event.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "mega",
@@ -102133,9 +102133,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 413497,
-    "news_picked_today": 1293,
-    "news_dropped_today": 4659
+    "news_seen_today": 429164,
+    "news_picked_today": 1332,
+    "news_dropped_today": 4836
   },
   "book_momentum": {
     "live_count": 8,
