@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-28T06:04:56Z",
+  "generated_at": "2026-08-28T06:49:51Z",
   "inbox": [
     {
       "inbox_id": "INB-20260828-556",
@@ -144,6 +144,207 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260828-715",
+      "headline": "Banca Generali Mulling Monte di Paschi’s $10 Billion Takeover Bid",
+      "headline_en": null,
+      "url": "https://www.wsj.com/business/deals/banca-generali-mulling-monte-di-paschis-10-billion-takeover-bid-6f17eaf5?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-28T05:51:00Z",
+      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
+      "prelim_note": "Banca Generali mulling a $10 billion takeover bid for Monte di Paschi, a major European banking M&A event altering both parties' capital structure and strategic direction, without confirmed commitment or timing.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Banca Generali mulling a $10 billion takeover bid for Monte di Paschi, a major European banking M&A event altering both parties' capital structure and strategic direction, without confirmed commitment or timing.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Banca Generali",
+          "ticker": null,
+          "listing_country": "IT"
+        },
+        {
+          "name": "Monte dei Paschi di Siena",
+          "ticker": null,
+          "listing_country": "IT"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260828-741",
+      "headline": "+++ Geschäftszahlen +++: Strabag hebt dank Rekordaufträgen Jahresprognose an",
+      "headline_en": "+++ Financial Figures +++: Strabag raises annual forecast thanks to record orders",
+      "url": "https://www.handelsblatt.com/unternehmen/industrie/quartalszahlen-strabag-hebt-dank-rekordauftraegen-jahresprognose-an/24098412.html",
+      "source_name": "Handelsblatt",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-28T05:35:41Z",
+      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
+      "prelim_note": "Strabag raises annual guidance due to record order intake.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Strabag raises annual guidance due to record order intake.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Strabag",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260828-737",
+      "headline": "SK Hynix starts work on US$4 billion Indiana AI memory hub, expects shortage through 2030",
+      "headline_en": null,
+      "url": "https://www.businesstimes.com.sg/companies-markets/telcos-media-tech/sk-hynix-starts-work-us4-billion-indiana-ai-memory-hub-expects-shortage-through-2030",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-28T05:29:28Z",
+      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
+      "prelim_note": "SK Hynix is investing US$4 billion in an Indiana AI memory hub, citing a projected supply shortage through 2030.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "SK Hynix is investing US$4 billion in an Indiana AI memory hub, citing a projected supply shortage through 2030.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SK Hynix",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260828-757",
+      "headline": "Top Sydney Builder’s $2.3 Billion Debt Woes Hit Private Credit",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-08-28/top-sydney-builder-s-2-3-billion-debt-woes-hit-private-credit",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-28T04:37:15Z",
+      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
+      "prelim_note": "A major builder faces $2.3 billion in debt issues, signaling potential credit contagion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A major builder faces $2.3 billion in debt issues, signaling potential credit contagion.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Probuild",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260828-679",
       "headline": "US Stock Market: Build-A-Bear shares plunge after retailer cuts revenue outlook, fires growth chief",
       "headline_en": null,
@@ -189,6 +390,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260828-756",
+      "headline": "SK Hynix starts construction of $5 billion memory hub in US state of Indiana",
+      "headline_en": null,
+      "url": "https://www.straitstimes.com/business/sk-hynix-starts-construction-of-5-billion-memory-hub-in-us-state-of-indiana",
+      "source_name": "The Straits Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-28T04:21:28Z",
+      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
+      "prelim_note": "Construction of a $5 billion memory hub is a major capacity expansion project.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Construction of a $5 billion memory hub is a major capacity expansion project.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SK Hynix",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1753,256 +2003,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260828-625",
-      "headline": "Rheinmetall investiert in Hessen in Drohnen- und Panzerbau",
-      "headline_en": "Rheinmetall invests in drone and tank construction in Hesse",
-      "url": "https://www.reuters.com/de/firma/rheinmetall-investiert-hessen-drohnen-und-panzerbau-2026-08-27/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-27T11:03:44Z",
-      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
-      "prelim_note": "Rheinmetall is investing in new drone and tank manufacturing facilities in Hesse.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Rheinmetall is investing in new drone and tank manufacturing facilities in Hesse.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Rheinmetall",
-          "ticker": null,
-          "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260828-628",
-      "headline": "Schwarz-Gruppe baut milliardenschweres Rechenzentrum",
-      "headline_en": "Schwarz-Gruppe builds multi-billion data center",
-      "url": "https://www.reuters.com/de/firma/schwarz-gruppe-baut-milliardenschweres-rechenzentrum-2026-08-27/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-27T11:01:45Z",
-      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
-      "prelim_note": "Schwarz-Gruppe is building a data center with a multi-billion euro investment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Schwarz-Gruppe is building a data center with a multi-billion euro investment.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Schwarz-Gruppe",
-          "ticker": null,
-          "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260828-634",
-      "headline": "Polonia insta a la UE a multar con 250 millones de euros a Meta por estafas y anuncios falsos",
-      "headline_en": "Poland urges the EU to fine Meta 250 million euros for scams and false ads",
-      "url": "https://www.reuters.com/es/mundo/5Q5AHEVS75ICHPCRXYC4B5IYZE-2026-08-27/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-27T10:59:43Z",
-      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
-      "prelim_note": "Poland urges the EU to fine Meta 250 million euros for scams and false ads.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Poland urges the EU to fine Meta 250 million euros for scams and false ads.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Meta",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260828-640",
-      "headline": "The Morning Risk Report: Meta Reaches $18 Billion Settlement Over Child-Safety Claims",
-      "headline_en": null,
-      "url": "https://www.wsj.com/risk-compliance-journal/the-morning-risk-report-meta-reaches-18-billion-settlement-over-child-safety-claims-6f2d6620?mod=rss_Technology",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-27T10:50:00Z",
-      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
-      "prelim_note": "Meta settles $18 billion child-safety litigation — a named, quantified enforcement action confirming a material cash outflow and resolving a significant legal risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Meta settles $18 billion child-safety litigation — a named, quantified enforcement action confirming a material cash outflow and resolving a significant legal risk.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Meta Platforms Inc.",
-          "ticker": "META",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260828-641",
-      "headline": "Uber startet offizielles Milliardenangebot für Delivery Hero – Mehrheit sicher",
-      "headline_en": "Uber launches official multi-billion offer for Delivery Hero – majority secured",
-      "url": "https://www.reuters.com/de/firma/uber-startet-offizielles-milliardenangebot-fr-delivery-hero-mehrheit-sicher-2026-08-27/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-27T10:49:48Z",
-      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
-      "prelim_note": "Uber has launched a multi-billion dollar acquisition offer for Delivery Hero, securing majority support.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Uber has launched a multi-billion dollar acquisition offer for Delivery Hero, securing majority support.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Uber",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Delivery Hero",
-          "ticker": null,
-          "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -84746,76 +84746,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-492fb380ef56",
-      "idea_version": "IDEAV-d66fd299676ae4cf",
-      "idea_version_started_at": "2026-08-26T21:03:32Z",
-      "ticker": "INTU",
-      "company": "Intuit",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company explicitly guided for decelerating revenue growth in 2027, indicating a cooling demand environment for its core software products.",
-      "why_now": "The CFO provided this outlook on 2026-08-26, which contradicts previous growth expectations.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-86027c73f3e3"
-      ],
-      "primary_source_event_id": "EVT-86027c73f3e3",
-      "source_headlines": [
-        "Intuit expects 2027 revenue to ‘decelerate,’ CFO says"
-      ],
-      "source_headline": "Intuit expects 2027 revenue to ‘decelerate,’ CFO says",
-      "source_url": "https://www.cfodive.com/news/intuit-expects-2027-revenue-decelerate-cfo-AI/828869/",
-      "source_name": "CFO Dive",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-26T18:27:16Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-26T21:03:32Z",
-      "updated_at": "2026-08-26T21:03:32Z",
-      "decay_at": "2026-08-28T06:27:16Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-151e26db4506",
       "idea_version": "IDEAV-bb3927f61873c568",
       "idea_version_started_at": "2026-08-27T23:55:54Z",
@@ -86669,6 +86599,76 @@
       "surfaced_at": "2026-08-26T23:18:30Z",
       "updated_at": "2026-08-26T23:18:30Z",
       "decay_at": "2026-08-27T22:09:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-492fb380ef56",
+      "idea_version": "IDEAV-d66fd299676ae4cf",
+      "idea_version_started_at": "2026-08-26T21:03:32Z",
+      "ticker": "INTU",
+      "company": "Intuit",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company explicitly guided for decelerating revenue growth in 2027, indicating a cooling demand environment for its core software products.",
+      "why_now": "The CFO provided this outlook on 2026-08-26, which contradicts previous growth expectations.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-86027c73f3e3"
+      ],
+      "primary_source_event_id": "EVT-86027c73f3e3",
+      "source_headlines": [
+        "Intuit expects 2027 revenue to ‘decelerate,’ CFO says"
+      ],
+      "source_headline": "Intuit expects 2027 revenue to ‘decelerate,’ CFO says",
+      "source_url": "https://www.cfodive.com/news/intuit-expects-2027-revenue-decelerate-cfo-AI/828869/",
+      "source_name": "CFO Dive",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-26T18:27:16Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-26T21:03:32Z",
+      "updated_at": "2026-08-26T21:03:32Z",
+      "decay_at": "2026-08-28T06:27:16Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -89327,8 +89327,8 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 172,
-    "shown_count": 172,
+    "total_count": 173,
+    "shown_count": 173,
     "hidden_count": 0,
     "side_counts": {
       "long": {
@@ -89337,8 +89337,8 @@
         "hidden_count": 0
       },
       "short": {
-        "total_count": 98,
-        "shown_count": 98,
+        "total_count": 99,
+        "shown_count": 99,
         "hidden_count": 0
       }
     },
@@ -89358,6 +89358,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-492fb380ef56",
+        "idea_version": "IDEAV-d66fd299676ae4cf",
+        "idea_version_started_at": "2026-08-26T21:03:32Z",
+        "ticker": "INTU",
+        "company": "Intuit",
+        "exchange": "NASDAQ",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company explicitly guided for decelerating revenue growth in 2027, indicating a cooling demand environment for its core software products.",
+        "why_now": "The CFO provided this outlook on 2026-08-26, which contradicts previous growth expectations.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 62,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-86027c73f3e3"
+        ],
+        "primary_source_event_id": "EVT-86027c73f3e3",
+        "source_headlines": [
+          "Intuit expects 2027 revenue to ‘decelerate,’ CFO says"
+        ],
+        "source_headline": "Intuit expects 2027 revenue to ‘decelerate,’ CFO says",
+        "source_url": "https://www.cfodive.com/news/intuit-expects-2027-revenue-decelerate-cfo-AI/828869/",
+        "source_name": "CFO Dive",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-26T18:27:16Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-26T21:03:32Z",
+        "updated_at": "2026-08-26T21:03:32Z",
+        "decay_at": "2026-08-28T06:27:16Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-28T06:27:16Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-a06045bd26d9",
         "idea_version": "IDEAV-1958a334293ed605",
@@ -102114,7 +102187,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 218,
-    "live_count": 44,
+    "live_count": 43,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -102133,9 +102206,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 429164,
-    "news_picked_today": 1332,
-    "news_dropped_today": 4836
+    "news_seen_today": 468049,
+    "news_picked_today": 1434,
+    "news_dropped_today": 6078
   },
   "book_momentum": {
     "live_count": 8,
