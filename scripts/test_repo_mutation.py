@@ -58,6 +58,19 @@ def test_deploy_holds_both_leases_through_build() -> None:
         run(["git", "push", "-q", "origin", "main"], seed, env)
         target = run(["git", "rev-parse", "HEAD"], seed, env).stdout.strip()
 
+        # The base..target delta is a code change (ui/web/src/version.ts), so deploy.sh's exact-program
+        # gate requires an unexpired owner receipt before it may rebuild. Issue one for target's program
+        # so this test still exercises the deploy/build lease (its subject) rather than stalling at the
+        # gate. The manifest is hashed from git objects, so give prod target's objects first (no checkout
+        # move — HEAD stays on base) and authorize from the same repo the gate verifies against.
+        run(["git", "fetch", "-q", "origin", "main"], prod, env)
+        authz_dir = os.path.join(tmp, "deploy-authorizations")
+        authz_helper = os.path.join(HERE, "ops", "deploy-authorization.py")
+        run([sys.executable, authz_helper, "authorize",
+             "--repo", prod, "--state-dir", authz_dir, "--commit", target,
+             "--authorization-reference", "repo-mutation-lease-test",
+             "--authorized-by", "test-suite", "--ttl-seconds", "3600"], tmp, env)
+
         ops = os.path.join(home, ".nostra-ops")
         os.makedirs(ops)
         with open(os.path.join(ops, ".deployed.sha"), "w", encoding="utf-8") as handle:
@@ -84,6 +97,8 @@ def test_deploy_holds_both_leases_through_build() -> None:
             "NOSTRA_POOL": os.path.join(tmp, "absent-pool"),
             "PATH": fake_bin + os.pathsep + "/usr/bin:/bin:/usr/sbin:/sbin",
             "DEPLOY_DEBOUNCE_SECS": "0",
+            "NOSTRA_DEPLOY_AUTHORIZATION_DIR": authz_dir,
+            "NOSTRA_DEPLOY_AUTHORIZATION_HELPER": authz_helper,
             "FAKE_NPM_STARTED": started,
             "FAKE_NPM_RELEASE": release,
             "FAKE_NPM_CALLS": calls,
