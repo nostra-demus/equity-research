@@ -353,6 +353,7 @@ def _coverage_errors(
     record: dict[str, Any], artifact: Any | None, artifact_sha256: str | None,
     profile_requirements: list[dict[str, str]] | None,
     coverage_resolver: Callable[[str, str, str], dict[str, Any] | None] | None,
+    frozen_coverage: bool,
 ) -> list[str]:
     errors: list[str] = []
     if not isinstance(record.get("commodity_family"), str) or re.fullmatch(r"[a-z0-9][a-z0-9-]*", record["commodity_family"]) is None:
@@ -412,7 +413,7 @@ def _coverage_errors(
         return errors
     resolver_kinds: dict[str, Any] = {}
     if profile_requirements is None:
-        if is_fresh:
+        if is_fresh and not frozen_coverage:
             errors.append("current profile requirements are required for deterministic coverage validation")
     else:
         resolver_kinds = {
@@ -464,7 +465,7 @@ def _coverage_errors(
             or not isinstance(row.get("as_of"), str)
         ):
             errors.append(f"required_series_coverage.rows[{index}] usable row lacks a vintage/as-of identity")
-        elif status == "usable":
+        elif status == "usable" and not frozen_coverage:
             if coverage_resolver is None:
                 if is_fresh:
                     errors.append(f"required_series_coverage.rows[{index}] has no point-in-time resolver")
@@ -540,13 +541,19 @@ def validate_decision_record(
     record: Any, coverage_artifact: Any | None = None, coverage_sha256: str | None = None,
     profile_requirements: list[dict[str, str]] | None = None,
     coverage_resolver: Callable[[str, str, str], dict[str, Any] | None] | None = None,
+    *, frozen_coverage: bool = False,
 ) -> list[str]:
-    """Validate the post-rollout dual-horizon forecast and its mechanically derived action."""
+    """Validate the post-rollout forecast and mechanically derived action.
+
+    Immutable archives set ``frozen_coverage`` so replay is checked against the artifact that was
+    frozen beside the decision, rather than today's profile roster or mutable data pool.
+    """
     if not isinstance(record, dict):
         return ["commodity decision_record must be an object"]
     errors: list[str] = []
     errors.extend(_coverage_errors(
         record, coverage_artifact, coverage_sha256, profile_requirements, coverage_resolver,
+        frozen_coverage,
     ))
     current_price = record.get("current_price")
     price_value = current_price.get("value") if isinstance(current_price, dict) else None

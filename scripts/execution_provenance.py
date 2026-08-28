@@ -492,9 +492,20 @@ def audit_repository(repo_root: Path, cutoff: str = PROVIDER_ROLLOUT_CUTOFF) -> 
         raise ProvenanceError("legacy provenance inventory contract/cutoff is invalid")
     legacy_records = inventory["records"]
     legacy_projections = inventory["mutable_legacy_projections"]
-    if any(not isinstance(item, str) or not item.startswith("sha256:") or len(item) != 71
-           for item in legacy_records.values()):
+    if any(
+        not isinstance(path_text, str)
+        or not path_text
+        or Path(path_text).is_absolute()
+        or ".." in Path(path_text).parts
+        or "\\" in path_text
+        or Path(path_text).as_posix() != path_text
+        or not isinstance(digest, str)
+        or not digest.startswith("sha256:")
+        or len(digest) != 71
+        for path_text, digest in legacy_records.items()
+    ):
         raise ProvenanceError("legacy provenance inventory contains an invalid digest")
+    archive_targets: set[str] = set()
     for projection_path, projection in legacy_projections.items():
         if not isinstance(projection_path, str) or not isinstance(projection, dict) \
                 or set(projection) != {"archive", "sha256"}:
@@ -505,21 +516,34 @@ def audit_repository(repo_root: Path, cutoff: str = PROVIDER_ROLLOUT_CUTOFF) -> 
         if len(parts) != 4 or parts[:2] != ("commodity", "runs") \
                 or parts[-1] != "decision_record.json":
             raise ProvenanceError("legacy mutable projection is not a commodity current projection")
-        expected_archive_prefix = f"commodity/runs/{parts[2]}/decisions/"
-        if not isinstance(archive, str) or not archive.startswith(expected_archive_prefix) \
-                or not archive.endswith("/decision_record.json") \
+        expected_archive = (
+            "frameworks/execution_provenance_legacy_snapshots/commodity/"
+            f"{parts[2]}/decision_record.json"
+        )
+        if archive != expected_archive \
                 or archive not in legacy_records or legacy_records[archive] != digest:
             raise ProvenanceError("legacy mutable projection has no matching immutable archive")
+        archive_targets.add(archive)
     patterns = _terminal_record_patterns(repo)
-    paths = sorted({path for pattern in patterns for path in repo.glob(pattern)})
-    discovered = {path.relative_to(repo).as_posix() for path in paths}
-    stale = sorted((set(legacy_records) | set(legacy_projections)) - discovered)
+    terminal_paths = {path for pattern in patterns for path in repo.glob(pattern)}
+    terminal_discovered = {path.relative_to(repo).as_posix() for path in terminal_paths}
+    inventory_only = set(legacy_records) - terminal_discovered
+    if inventory_only != archive_targets:
+        unexpected = sorted(inventory_only.symmetric_difference(archive_targets))
+        raise ProvenanceError(
+            f"legacy provenance inventory has missing/stale entries: {unexpected[0]}"
+        )
+    stale = sorted(set(legacy_projections) - terminal_discovered)
     if stale:
         raise ProvenanceError(f"legacy provenance inventory has missing/stale entries: {stale[0]}")
+    paths = sorted(terminal_paths | {repo / Path(path_text) for path_text in archive_targets})
     counts = {"records": 0, "legacy": 0, "required": 0, "commodity_hashed": 0}
     for artifact in paths:
         relative = artifact.relative_to(repo)
-        info = artifact.lstat()
+        try:
+            info = artifact.lstat()
+        except OSError as error:
+            raise ProvenanceError(f"terminal record is missing: {relative}: {error}") from error
         if not stat.S_ISREG(info.st_mode) or artifact.is_symlink() or artifact.resolve() != artifact:
             raise ProvenanceError(f"terminal record must be a regular non-symlink file: {relative}")
         try:
