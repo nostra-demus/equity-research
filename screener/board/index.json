@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-28T02:39:09Z",
+  "generated_at": "2026-08-28T02:58:37Z",
   "inbox": [
     {
       "inbox_id": "INB-20260828-024",
@@ -95,6 +95,110 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260828-433",
+      "headline": "Hero MotoCorp to invest ₹1,758 crore in Ather Energy, raise stake to 32.8%",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/companies/hero-motocorp-to-invest-1758-crore-in-ather-energy-raise-stake-to-328/article71398956.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-28T02:26:39Z",
+      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
+      "prelim_note": "Hero MotoCorp invests ₹1,758 crore in Ather Energy, raising its stake to 32.8%, a sizable strategic bet on EV two-wheelers.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Hero MotoCorp invests ₹1,758 crore in Ather Energy, raising its stake to 32.8%, a sizable strategic bet on EV two-wheelers.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna",
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Hero MotoCorp",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "Ather Energy",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260828-416",
+      "headline": "SK하이닉스, 미국 인디애나에 40억 달러 투자",
+      "headline_en": "SK Hynix to Invest $4 Billion in Indiana, USA",
+      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=275709",
+      "source_name": "Business Korea — All Articles (CDN)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-28T01:04:34Z",
+      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
+      "prelim_note": "SK Hynix announces a $4 billion investment in Indiana, a major capacity-expansion commitment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "SK Hynix announces a $4 billion investment in Indiana, a major capacity-expansion commitment.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SK Hynix",
+          "ticker": "000660.KS",
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -651,6 +755,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260828-399",
+      "headline": "BGE: Preliminary Final Report [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.BGE?key=2924-03128237-2A1693188",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-28T02:27:55Z",
+      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
+      "prelim_note": "Preliminary final report is a key financial disclosure for BGE.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Preliminary final report is a key financial disclosure for BGE.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BGE",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260828-081",
       "headline": "OLL: H1 2026 Results - Gross Profit Up 64% and Revenue Up 43% [price-sensitive]",
       "headline_en": null,
@@ -890,6 +1043,49 @@
           "listing_country": null
         }
       ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260828-415",
+      "headline": "Chad accuses Sudan of deadly air strike near shared border",
+      "headline_en": null,
+      "url": "https://www.aljazeera.com/news/2026/8/28/chad-accuses-sudan-of-deadly-air-strike-near-shared-border?traffic_source=rss",
+      "source_name": "Al Jazeera — All news",
+      "input_nature": "geopolitical_event",
+      "found_at": "2026-08-28T01:33:01Z",
+      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
+      "prelim_note": "Chad accusing Sudan of a deadly air strike represents a significant geopolitical escalation in the region.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Chad accusing Sudan of a deadly air strike represents a significant geopolitical escalation in the region.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 9,
+        "event": 0,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "geopolitical",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -1375,6 +1571,202 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260828-400",
+      "headline": "CLU: Appendix 4E & FY26 Audited Financial Report [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.CLU?key=2924-03128226-2A1693186",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-28T02:19:05Z",
+      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
+      "prelim_note": "CLU released its audited FY26 financial report and Appendix 4E, a full-year earnings disclosure that can move estimates.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "CLU released its audited FY26 financial report and Appendix 4E, a full-year earnings disclosure that can move estimates.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CLU",
+          "ticker": "CLU",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260828-401",
+      "headline": "SEN: Appendix 4E and Consolidated Financial Report [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.SEN?key=2924-03128225-3A700302",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-28T02:18:30Z",
+      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
+      "prelim_note": "SEN filed its FY26 Appendix 4E and consolidated financial report, a full-year earnings release that can revise forecasts.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "SEN filed its FY26 Appendix 4E and consolidated financial report, a full-year earnings release that can revise forecasts.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SEN",
+          "ticker": "SEN",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260828-402",
+      "headline": "BGT: Appendix 4E and 2026 Annual Report [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.BGT?key=2924-03128224-3A700301",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-28T02:13:10Z",
+      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
+      "prelim_note": "BGT published its FY26 Appendix 4E and annual report, a full-year earnings disclosure that can shift expectations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "BGT published its FY26 Appendix 4E and annual report, a full-year earnings disclosure that can shift expectations.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BGT",
+          "ticker": "BGT",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260828-403",
+      "headline": "FGH: FY26 Appendix 4E and Annual Report [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.FGH?key=2924-03128218-2A1693182",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-28T02:07:45Z",
+      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
+      "prelim_note": "FGH lodged its FY26 Appendix 4E and annual report, a full-year earnings release that can alter analyst estimates.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "FGH lodged its FY26 Appendix 4E and annual report, a full-year earnings release that can alter analyst estimates.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "FGH",
+          "ticker": "FGH",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260828-088",
       "headline": "SPG: SPC Global FY26 Appendix 4E [price-sensitive]",
       "headline_en": null,
@@ -1566,410 +1958,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260828-171",
-      "headline": "Enbridge, KKR form $1.95 billion JV to fund Westcoast gas pipeline expansions",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/energy/enbridge-kkr-form-joint-venture-invest-westcoast-natural-gas-pipeline-2026-08-27/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-27T16:24:13Z",
-      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
-      "prelim_note": "Enbridge and KKR form $1.95 billion joint venture to fund Westcoast pipeline expansion, materially changing capex funding and capital structure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "Enbridge and KKR form $1.95 billion joint venture to fund Westcoast pipeline expansion, materially changing capex funding and capital structure.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capex",
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Enbridge",
-          "ticker": "ENB",
-          "listing_country": "CA"
-        },
-        {
-          "name": "KKR",
-          "ticker": "KKR",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260828-184",
-      "headline": "IPO avalia Shein em US$26,5 bilhões, dizem fontes",
-      "headline_en": "IPO values Shein at $26.5 billion, sources say",
-      "url": "https://www.reuters.com/pt/negocio/TTJSNBRNMFLWXLTHMNCFR5724U-2026-08-27/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-27T16:12:22Z",
-      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
-      "prelim_note": "Shein is reportedly valued at $26.5 billion in a potential IPO.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "Shein is reportedly valued at $26.5 billion in a potential IPO.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Shein",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260828-333",
-      "headline": "US weighs a new round of tariffs on semiconductors, Politico reports",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/us-weighs-new-round-tariffs-semiconductors-politico-reports-2026-08-27/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-27T14:28:29Z",
-      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
-      "prelim_note": "The U.S. is weighing a new round of semiconductor tariffs, a policy shift that could raise costs and disrupt supply chains across the global chip industry.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "The U.S. is weighing a new round of semiconductor tariffs, a policy shift that could raise costs and disrupt supply chains across the global chip industry.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory",
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260828-351",
-      "headline": "Enbridge lands $2.7-billion investment from KKR, Apollo in B.C. pipeline expansion",
-      "headline_en": null,
-      "url": "https://www.theglobeandmail.com/business/article-enbridge-kkr-apollo-bc-westcoast-pipeline-2/",
-      "source_name": "The Globe and Mail",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-27T14:10:39Z",
-      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
-      "prelim_note": "Enbridge lands a $2.7 billion investment from KKR and Apollo for B.C. pipeline expansion — a large, named capital commitment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "Enbridge lands a $2.7 billion investment from KKR and Apollo for B.C. pipeline expansion — a large, named capital commitment.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna",
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Enbridge",
-          "ticker": "ENB",
-          "listing_country": "CA"
-        },
-        {
-          "name": "KKR",
-          "ticker": "KKR",
-          "listing_country": "US"
-        },
-        {
-          "name": "Apollo Global Management",
-          "ticker": "APO",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260828-030",
-      "headline": "CMG: Leadership Transition - Pat Kelly Appointed Interim CEO [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.CMG?key=2924-03128090-2A1693127",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-27T23:50:09Z",
-      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
-      "prelim_note": "CMG announced a leadership transition with the appointment of an interim CEO.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "CMG announced a leadership transition with the appointment of an interim CEO.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "management",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "CMG",
-          "ticker": "CMG",
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260828-114",
-      "headline": "Orient Overseas Warns of Freight Rate Slip as First Half Earnings Dip",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-08-28/orient-overseas-warns-of-freight-rate-slip-as-first-half-earnings-dip",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-28T00:00:00Z",
-      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
-      "prelim_note": "Orient Overseas reported a dip in first-half earnings and warned of a decline in freight rates.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "Orient Overseas reported a dip in first-half earnings and warned of a decline in freight rates.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Orient Overseas",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260828-231",
-      "headline": "Genius Group Plans $1.2B Capital Raise to Build AI, Bitcoin Treasuries",
-      "headline_en": null,
-      "url": "https://finance.yahoo.com/markets/crypto/articles/genius-group-plans-1-2b-152900669.html",
-      "source_name": "Yahoo Finance",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-27T15:29:00Z",
-      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
-      "prelim_note": "Genius Group announced a $1.2B capital raise, a significant event for the company's capital structure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "Genius Group announced a $1.2B capital raise, a significant event for the company's capital structure.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 2,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Genius Group",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260828-240",
-      "headline": "India's Hero MotoCorp to invest additional $184 million in Ather Energy",
-      "headline_en": null,
-      "url": "https://www.reuters.com/world/india/indias-hero-motocorp-invest-additional-184-million-ather-energy-2026-08-27/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-27T15:27:02Z",
-      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
-      "prelim_note": "Hero MotoCorp to invest additional $184 million in Ather Energy, signaling expansion in electric vehicle business.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "Hero MotoCorp to invest additional $184 million in Ather Energy, signaling expansion in electric vehicle business.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Hero MotoCorp",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -102032,9 +102020,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 196971,
-    "news_picked_today": 509,
-    "news_dropped_today": 2419
+    "news_seen_today": 215508,
+    "news_picked_today": 586,
+    "news_dropped_today": 2726
   },
   "book_momentum": {
     "live_count": 8,
