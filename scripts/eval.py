@@ -4296,14 +4296,30 @@ for drp in runs:
         add("BA_kill_criteria_trigger_test", False, "; ".join(_bar))
     else:
         add("BA_kill_criteria_trigger_test", True, f"every kill_criteria row carries comparable_basis and fired_last_two_periods ({len(d.get('kill_criteria') or [])} row(s))")
+    # The valuation specialist/synthesis text readers are defined ONCE here, unconditionally, at loop-body
+    # scope, so every date-gated cap that consumes them (BB below, then AD/AE/AF/AQ) can call them no
+    # matter which gate fires first. They were previously defined inside the AD/AE blocks, which sit
+    # textually BELOW this BB block; because BB_DATE > AD_DATE the earlier author assumed "ddte>=AD_DATE
+    # ⇒ the AD block already defined them" — but the AD *def* runs later in the SAME iteration, so it had
+    # only ever been reached in a PRIOR iteration. A scoped run whose single iteration is dated
+    # >= BB_DATE therefore entered BB and called _read_specialist_text before any def ran → NameError
+    # (masked in `eval.py all`, where no committed golden run is dated >= BB_DATE so BB is never entered).
+    # Both closures capture `run` only, so one loop-body definition per iteration is correct.
+    def _read_synth_text(mod_dir):
+        ss=glob.glob(os.path.join(run,mod_dir,"99_*-synthesis.md"))
+        if not ss: return None
+        try: return open(ss[0],encoding="utf-8").read()
+        except: return None
+    def _read_specialist_text(mod_dir, prefix):
+        ss=glob.glob(os.path.join(run,mod_dir,prefix+"*.md"))
+        if not ss: return None
+        try: return open(ss[0],encoding="utf-8").read()
+        except: return None
     # BB §16 Sector Cycle Reality Test compounding cap (forward-looking; landing BB_DATE). See the
     # BB_DATE / eval_bb_sector_cycle_compounding_cap comment block in rating_caps.py for the full
     # rationale. Reads 02_multiples-own-history.md and 03_relative-valuation-peers.md for the
     # standalone RF-VAL-001/RF-VAL-002 tags, and 99_valuation-synthesis.md for the stated Valuation
-    # confidence score, via the SAME _read_specialist_text/_read_synth_text closures the AD/AE blocks
-    # define above — gate on BB_DATE here too (not just inside eval_bb_sector_cycle_compounding_cap)
-    # so those closures are only called once we know AD's own gate already ran and defined them
-    # (BB_DATE > AD_DATE guarantees isdate(ddte) and ddte>=AD_DATE whenever this branch is entered).
+    # confidence score, via the _read_specialist_text/_read_synth_text closures hoisted just above.
     if isdate(ddte) and ddte>=BB_DATE:
         _v02_txt = _read_specialist_text("valuation", "02_")
         _v03_txt = _read_specialist_text("valuation", "03_")
@@ -4477,11 +4493,7 @@ for drp in runs:
     #   (agents embed them per MODULE_RULES.md; a conviction decision alongside a fired tag is
     #   a doctrine violation). No bypass clause: these caps fire regardless of thesis type.
     if isdate(ddte) and ddte>=AD_DATE:
-        def _read_synth_text(mod_dir):
-            ss=glob.glob(os.path.join(run,mod_dir,"99_*-synthesis.md"))
-            if not ss: return None
-            try: return open(ss[0],encoding="utf-8").read()
-            except: return None
+        # _read_synth_text / _read_specialist_text are hoisted to loop-body scope above the BB block.
         bm_txt_ad=_read_synth_text("business-model")
         mg_txt_ad=_read_synth_text("management-governance")
         adresult=eval_ad_filter_4_6_cap(dec,ddte,bm_txt_ad,mg_txt_ad)
@@ -4520,13 +4532,7 @@ for drp in runs:
     #   (shorting a fast-changing-industry loser is a valid distinct thesis). No bypass clause other than
     #   the edge_score ≥ 50 exception. (Both detection refinements per Codex review on PR #120.)
     if isdate(ddte) and ddte>=AE_DATE:
-        # _read_synth_text is defined in the AD block above; AE_DATE > AD_DATE so it is always
-        # available here (any run reaching AE also entered the AD gate first).
-        def _read_specialist_text(mod_dir, prefix):
-            ss=glob.glob(os.path.join(run,mod_dir,prefix+"*.md"))
-            if not ss: return None
-            try: return open(ss[0],encoding="utf-8").read()
-            except: return None
+        # _read_synth_text / _read_specialist_text are hoisted to loop-body scope above the BB block.
         bm_txt_ae=_read_synth_text("business-model")
         bq_txt_ae=_read_specialist_text("business-model","07_")  # RF-BQ-005 source emitter
         edge_score_ae=d.get("edge_score")
