@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-28T00:59:06Z",
+  "generated_at": "2026-08-28T01:08:21Z",
   "inbox": [
     {
       "inbox_id": "INB-20260828-024",
@@ -591,6 +591,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260828-114",
+      "headline": "Orient Overseas Warns of Freight Rate Slip as First Half Earnings Dip",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-08-28/orient-overseas-warns-of-freight-rate-slip-as-first-half-earnings-dip",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-28T00:00:00Z",
+      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
+      "prelim_note": "Orient Overseas reported a dip in first-half earnings and warned of a decline in freight rates.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "Orient Overseas reported a dip in first-half earnings and warned of a decline in freight rates.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Orient Overseas",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260828-087",
       "headline": "DBF: Pause in Trading [price-sensitive]",
       "headline_en": null,
@@ -885,6 +934,61 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260828-117",
+      "headline": "영풍·MBK \"최윤범 이사 일가 투자 후 펀드 자금 투입, 사실상 한 몸처럼 움직여\"",
+      "headline_en": "Young Poong and MBK Partners claim 'Choi Yoon-beom's family invested and then injected fund capital, effectively acting as one body'",
+      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=275702",
+      "source_name": "Business Korea — All Articles (CDN)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-28T00:48:29Z",
+      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
+      "prelim_note": "Young Poong and MBK Partners have raised allegations regarding the investment structure and fund management of Choi Yoon-beom's family, indicating an escalating corporate governance dispute.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Young Poong and MBK Partners have raised allegations regarding the investment structure and fund management of Choi Yoon-beom's family, indicating an escalating corporate governance dispute.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "ownership_activist",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "management",
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Young Poong",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "MBK Partners",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1285,6 +1389,153 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260828-109",
+      "headline": "KYN: FY26 Results Presentation [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.KYN?key=2924-03128130-2A1693147",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-28T00:30:15Z",
+      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
+      "prelim_note": "The company released its FY26 financial results presentation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 84,
+      "triage_reason": "The company released its FY26 financial results presentation.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Kyneton",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260828-110",
+      "headline": "SPG: SPC Global FY26 Results Investor Presentation [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.SPG?key=2924-03128129-3A700281",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-28T00:29:15Z",
+      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
+      "prelim_note": "The company released its FY26 financial results presentation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 84,
+      "triage_reason": "The company released its FY26 financial results presentation.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SPC Global",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260828-115",
+      "headline": "Real REMAX Group halts Motto Mortgage franchise growth",
+      "headline_en": null,
+      "url": "https://www.housingwire.com/articles/real-remax-motto-mortgage-platform/",
+      "source_name": "HousingWire",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-28T00:48:08Z",
+      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
+      "prelim_note": "RE/MAX Group has halted the growth of its Motto Mortgage franchise, signaling a strategic shift or operational constraint.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 84,
+      "triage_reason": "RE/MAX Group has halted the growth of its Motto Mortgage franchise, signaling a strategic shift or operational constraint.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "RE/MAX",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1712,239 +1963,6 @@
           "name": "Vodafone Idea",
           "ticker": "IDEA",
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260828-026",
-      "headline": "JIANGSU EXPRESS (00177): 2026 INTERIM RESULTS PRELIMINARY ANNOUNCEMENT",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0828/2026082800095.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-27T23:16:00Z",
-      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
-      "prelim_note": "Jiangsu Expressway released preliminary 2026 interim results.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 76,
-      "triage_reason": "Jiangsu Expressway released preliminary 2026 interim results.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Jiangsu Expressway",
-          "ticker": "00177",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260828-082",
-      "headline": "Tokyo Inflation Ticks Up, Backing BOJ’s Case for Rate Hike",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-08-27/tokyo-inflation-ticks-up-backing-boj-s-case-for-rate-hike",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-27T23:35:05Z",
-      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
-      "prelim_note": "Tokyo inflation data supports potential Bank of Japan rate hikes, impacting market liquidity.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 76,
-      "triage_reason": "Tokyo inflation data supports potential Bank of Japan rate hikes, impacting market liquidity.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260828-006",
-      "headline": "Colombia Plans to Restore Fiscal Rule to Bolster Confidence",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-08-27/colombia-seeks-16-budget-increase-as-debt-service-costs-soar",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-27T18:53:53Z",
-      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
-      "prelim_note": "Colombia is moving to restore its fiscal rule, which is a significant policy shift to improve sovereign credit confidence.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 75,
-      "triage_reason": "Colombia is moving to restore its fiscal rule, which is a significant policy shift to improve sovereign credit confidence.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 3,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260828-086",
-      "headline": "HAV: Quarterly Activities/Appendix 5B Cash Flow Report [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.HAV?key=2924-03128122-2A1693143",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-28T00:12:45Z",
-      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
-      "prelim_note": "Price-sensitive quarterly cash-flow report may reveal burn-rate or funding changes but headline lacks numbers.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 74,
-      "triage_reason": "Price-sensitive quarterly cash-flow report may reveal burn-rate or funding changes but headline lacks numbers.",
-      "region": "OTHER",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "HAV",
-          "ticker": "HAV",
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260828-033",
-      "headline": "VOBILE GROUP (03738): INTERIM RESULTS ANNOUNCEMENT FOR THE SIX MONTHS ENDED 30 JUNE 2026",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0828/2026082800085.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-27T23:00:00Z",
-      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
-      "prelim_note": "Vobile Group released interim results for the six months ended June 30, 2026.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 74,
-      "triage_reason": "Vobile Group released interim results for the six months ended June 30, 2026.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Vobile Group",
-          "ticker": "03738",
-          "listing_country": "CN"
         }
       ],
       "size_bucket": "mid",
@@ -86270,77 +86288,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-e9f7d83c2f9e",
-      "idea_version": "IDEAV-7a30f084832ce743",
-      "idea_version_started_at": "2026-08-26T22:23:24Z",
-      "ticker": "00950",
-      "company": "Lee's Pharmaceutical Holdings Limited",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company issued a positive profit alert, indicating an improvement in earnings performance compared to the previous period.",
-      "why_now": "The profit alert was filed on 2026-08-26.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-cf525820828c"
-      ],
-      "primary_source_event_id": "EVT-cf525820828c",
-      "source_headlines": [
-        "LEE'S PHARM (00950): Positive Profit Alert"
-      ],
-      "source_headline": "LEE'S PHARM (00950): Positive Profit Alert",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0826/2026082601649.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-26T13:06:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-26T22:23:24Z",
-      "updated_at": "2026-08-26T22:23:24Z",
-      "decay_at": "2026-08-28T01:06:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-4402530dd0df",
       "idea_version": "IDEAV-1b64f1ccf2917e03",
       "idea_version_started_at": "2026-08-26T17:19:45Z",
@@ -86685,6 +86632,77 @@
       "surfaced_at": "2026-08-25T06:14:06Z",
       "updated_at": "2026-08-25T06:14:06Z",
       "decay_at": "2026-08-26T15:42:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-e9f7d83c2f9e",
+      "idea_version": "IDEAV-7a30f084832ce743",
+      "idea_version_started_at": "2026-08-26T22:23:24Z",
+      "ticker": "00950",
+      "company": "Lee's Pharmaceutical Holdings Limited",
+      "exchange": "HKEX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company issued a positive profit alert, indicating an improvement in earnings performance compared to the previous period.",
+      "why_now": "The profit alert was filed on 2026-08-26.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-cf525820828c"
+      ],
+      "primary_source_event_id": "EVT-cf525820828c",
+      "source_headlines": [
+        "LEE'S PHARM (00950): Positive Profit Alert"
+      ],
+      "source_headline": "LEE'S PHARM (00950): Positive Profit Alert",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0826/2026082601649.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-26T13:06:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-26T22:23:24Z",
+      "updated_at": "2026-08-26T22:23:24Z",
+      "decay_at": "2026-08-28T01:06:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -89133,13 +89151,13 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 167,
-    "shown_count": 167,
+    "total_count": 168,
+    "shown_count": 168,
     "hidden_count": 0,
     "side_counts": {
       "long": {
-        "total_count": 72,
-        "shown_count": 72,
+        "total_count": 73,
+        "shown_count": 73,
         "hidden_count": 0
       },
       "short": {
@@ -89164,6 +89182,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-e9f7d83c2f9e",
+        "idea_version": "IDEAV-7a30f084832ce743",
+        "idea_version_started_at": "2026-08-26T22:23:24Z",
+        "ticker": "00950",
+        "company": "Lee's Pharmaceutical Holdings Limited",
+        "exchange": "HKEX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company issued a positive profit alert, indicating an improvement in earnings performance compared to the previous period.",
+        "why_now": "The profit alert was filed on 2026-08-26.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-cf525820828c"
+        ],
+        "primary_source_event_id": "EVT-cf525820828c",
+        "source_headlines": [
+          "LEE'S PHARM (00950): Positive Profit Alert"
+        ],
+        "source_headline": "LEE'S PHARM (00950): Positive Profit Alert",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0826/2026082601649.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-26T13:06:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-26T22:23:24Z",
+        "updated_at": "2026-08-26T22:23:24Z",
+        "decay_at": "2026-08-28T01:06:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-28T01:06:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-ff642e393c3c",
         "idea_version": "IDEAV-eaa5f0b672f19ef2",
@@ -101547,7 +101639,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 211,
-    "live_count": 42,
+    "live_count": 41,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -101566,9 +101658,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 78045,
-    "news_picked_today": 145,
-    "news_dropped_today": 911
+    "news_seen_today": 88809,
+    "news_picked_today": 171,
+    "news_dropped_today": 1053
   },
   "book_momentum": {
     "live_count": 8,
