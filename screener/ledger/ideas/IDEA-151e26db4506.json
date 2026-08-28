@@ -1,25 +1,25 @@
 {
-  "idea_id": "IDEA-1604e5b6569e",
-  "idea_version": "IDEAV-a0fcf8bc22993918",
-  "idea_version_started_at": "2026-08-27T23:25:23Z",
-  "ticker": "CRM",
-  "company": "Salesforce Inc",
+  "idea_id": "IDEA-151e26db4506",
+  "idea_version": "IDEAV-bb3927f61873c568",
+  "idea_version_started_at": "2026-08-27T23:55:54Z",
+  "ticker": "S",
+  "company": "SentinelOne",
   "exchange": "NYSE",
   "ticker_verified": true,
   "listing_verified": true,
   "liquidity_verified": false,
   "listing_verification_source": "yahoo_symbol_directory",
-  "direction": "long",
+  "direction": "short",
   "pair_with": null,
-  "reason": "Salesforce reported a 23% surge following a strong Q2 earnings beat and a strategic partnership with Anthropic, which enhances its AI capabilities.",
-  "why_now": "The market reaction occurred on August 27, 2026, following the earnings release and partnership announcement.",
-  "conviction": 75,
+  "reason": "SentinelOne reported a wider Q2 net loss, showing deteriorating profitability despite revenue growth.",
+  "why_now": "Q2 earnings released Aug 27, 2026.",
+  "conviction": 60,
   "conviction_basis": "pre_edge_proxy",
-  "trade_score": 62,
+  "trade_score": 60,
   "trade_score_basis": "evidence_gate_v2",
   "trade_score_breakdown": {
     "evidence": 14,
-    "impact": 21,
+    "impact": 20,
     "specificity": 15,
     "timing": 10,
     "expression": 6,
@@ -30,6 +30,7 @@
   "missing_checks": [
     "live liquidity",
     "dated catalyst",
+    "price and market expectations",
     "independent confirmation",
     "live price, liquidity, and consensus"
   ],
@@ -42,31 +43,31 @@
     "basis": "not_enough_outcomes",
     "evidenceIds": []
   },
-  "priced_in": "room",
+  "priced_in": "unknown",
   "thesis_type": "company_specific",
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-2f4bc2395022"
+    "EVT-fd9c16f9aef6"
   ],
-  "primary_source_event_id": "EVT-2f4bc2395022",
+  "primary_source_event_id": "EVT-fd9c16f9aef6",
   "source_headlines": [
-    "Stock Market Today, Aug. 27: Salesforce Surges 23% on Anthropic Partnership and Q2 Earnings Beat"
+    "SentinelOne Reports Wider Q2 Net Loss"
   ],
-  "source_headline": "Stock Market Today, Aug. 27: Salesforce Surges 23% on Anthropic Partnership and Q2 Earnings Beat",
-  "source_url": "https://www.nasdaq.com/articles/stock-market-today-aug-27-salesforce-surges-23-anthropic-partnership-and-q2-earnings-beat",
+  "source_headline": "SentinelOne Reports Wider Q2 Net Loss",
+  "source_url": "https://www.nasdaq.com/articles/sentinelone-reports-wider-q2-net-loss",
   "source_name": "Nasdaq",
   "materiality_max": 100,
-  "newest_source_at": "2026-08-27T21:47:47Z",
+  "newest_source_at": "2026-08-27T21:48:11Z",
   "prior_coverage": {
     "has_run": false,
     "latest_run": null,
     "latest_decision": null,
     "data_pool_present": false
   },
-  "surfaced_at": "2026-08-26T21:03:32Z",
-  "updated_at": "2026-08-27T23:25:23Z",
-  "decay_at": "2026-08-29T09:47:47Z",
+  "surfaced_at": "2026-08-27T23:55:54Z",
+  "updated_at": "2026-08-27T23:55:54Z",
+  "decay_at": "2026-08-29T09:48:11Z",
   "status": "live",
   "promoted_signal_id": null
 }
