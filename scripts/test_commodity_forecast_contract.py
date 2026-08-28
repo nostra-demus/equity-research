@@ -420,6 +420,12 @@ def main() -> int:
     assert validate_decision_record(
         usable_record, usable_artifact, usable_digest, requirements, matching_resolver,
     ) == []
+    assert validate_decision_record(
+        usable_record, usable_artifact, usable_digest, frozen_coverage=True,
+    ) == []
+    assert any("digest does not match" in error for error in validate_decision_record(
+        usable_record, usable_artifact, "sha256:" + "0" * 64, frozen_coverage=True,
+    ))
     assert any("does not resolve" in error for error in validate_decision_record(
         usable_record, usable_artifact, usable_digest, requirements,
         lambda *_args: {
