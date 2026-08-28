@@ -51,7 +51,10 @@ import sys
 
 from commodity_decision_archive import ArchiveError, decision_id_for
 from commodity_evidence_links import validate_horizon_evidence_links, validate_signal_projection
-from commodity_forecast_contract import validate_decision_record as validate_dual_horizon_record
+from commodity_forecast_contract import (
+    production_coverage_resolver,
+    validate_decision_record as validate_dual_horizon_record,
+)
 from data_need_contract import (
     DATA_NEED_PROMISE_RE as _DATA_NEED_GUARANTEE_RE,
     DATA_NEED_URL_RE as _DATA_NEED_URL_RE,
@@ -551,8 +554,8 @@ def commodity_signal_evidence() -> list[str]:
     )
 
 
-def check_commodity_dual_horizon(doc_path: str) -> list[str]:
-    """Require the independent tactical/strategic contract for decisions from its rollout date."""
+def check_commodity_dual_horizon(doc_path: str, *, frozen_coverage: bool = False) -> list[str]:
+    """Require the tactical/strategic contract with the decision's adjacent coverage artifact."""
     try:
         record = json.load(open(doc_path, encoding="utf-8"))
     except Exception as error:
@@ -562,7 +565,32 @@ def check_commodity_dual_horizon(doc_path: str) -> list[str]:
     decision_date = record.get("decision_date")
     if not isinstance(decision_date, str) or decision_date < COMMODITY_DUAL_HORIZON_GATE_DATE:
         return []
-    return validate_dual_horizon_record(record)
+    coverage_path = os.path.join(os.path.dirname(doc_path), "required_series_coverage.json")
+    coverage = None
+    coverage_sha256 = None
+    try:
+        coverage_raw = open(coverage_path, "rb").read()
+        coverage = json.loads(coverage_raw.decode("utf-8"))
+        coverage_sha256 = "sha256:" + hashlib.sha256(coverage_raw).hexdigest()
+    except FileNotFoundError:
+        pass
+    except (OSError, UnicodeDecodeError, json.JSONDecodeError) as error:
+        return [f"required_series_coverage artifact is unreadable: {error}"]
+    if frozen_coverage:
+        return validate_dual_horizon_record(
+            record, coverage, coverage_sha256, frozen_coverage=True,
+        )
+    profile_requirements = None
+    try:
+        from commodity_profile_coverage import PROFILE_PATH, structured_profile
+        profile_requirements = structured_profile(
+            str(record.get("commodity", "")), profile_path=PROFILE_PATH,
+        )
+    except (OSError, ValueError):
+        pass
+    return validate_dual_horizon_record(
+        record, coverage, coverage_sha256, profile_requirements, production_coverage_resolver,
+    )
 
 
 def check_commodity_decision_archive(doc_path: str) -> list[str]:
@@ -1913,7 +1941,7 @@ def main(argv: list[str]) -> int:
                 errs = (
                     errs
                     + check_commodity_data_needs_v2(doc_p)
-                    + check_commodity_dual_horizon(doc_p)
+                    + check_commodity_dual_horizon(doc_p, frozen_coverage=True)
                     + check_commodity_archived_snapshot(doc_p)
                 )
             else:
