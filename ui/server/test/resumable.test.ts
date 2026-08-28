@@ -1,7 +1,7 @@
 // listResumableRuns() — the disk-truth detector behind the manual "Resume run" affordance. It must
 // surface an interrupted run (final deliverable missing) at BOTH full and module granularity, while
-// excluding a finished run, a deliberately-aborted run, a prior-day folder (same-day scope), and a
-// currently-live subject. Isolated in a temp repo so a fake 2-module research graph + fixture run
+// excluding a finished run, a superseded prior run, and a currently-live subject. A saved partial remains
+// resumable after midnight. Isolated in a temp repo so a fake 2-module research graph + fixture run
 // folders drive it without touching the real analyses/. Run: npx tsx test/resumable.test.ts
 process.env.ENGINE_ACTIVITY_LOG_DISABLED = '1'
 import assert from 'node:assert/strict'
@@ -39,7 +39,7 @@ decision_artifacts: [decision_record.json]
 `)
 write('.claude/agents/commodity/thesis/99_thesis-synthesis.md', fm('thesis-synthesis', 99, 'depends_on: []\n'))
 
-// today's date, matching resumable.ts's own todayDate()
+// Deterministic dated folders around today.
 const d = new Date()
 const TODAY = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
 const y = new Date(d.getTime() - 86_400_000)
@@ -51,8 +51,14 @@ write(`analyses/ACME_${TODAY}/alpha/01_alpha-thing.md`, '# alpha thing\nVerdict:
 // DONE (today): a finished run (final_thesis present) → NOT resumable.
 write(`analyses/DONE_${TODAY}/final_thesis.md`, '# thesis\n')
 write(`analyses/DONE_${TODAY}/alpha/99_alpha-synthesis.md`, '# a\n')
-// OLD (yesterday): half-done but out of the same-day scope → NOT resumable.
+// OLD (yesterday): half-done and still the newest run for OLD → resumable after midnight.
 write(`analyses/OLD_${YESTERDAY}/alpha/01_alpha-thing.md`, '# a\n')
+// SUPERSEDED: yesterday's partial has a newer completed run → the old partial must stay hidden.
+write(`analyses/SUPERSEDED_${YESTERDAY}/alpha/01_alpha-thing.md`, '# old partial\n')
+write(`analyses/SUPERSEDED_${TODAY}/final_thesis.md`, '# newer complete thesis\n')
+// RECENTPARTIAL: an older completed run followed by a newer partial → offer the newer saved work.
+write(`analyses/RECENTPARTIAL_${YESTERDAY}/final_thesis.md`, '# old complete thesis\n')
+write(`analyses/RECENTPARTIAL_${TODAY}/alpha/01_alpha-thing.md`, '# newest partial\n')
 // ABRT (today): half-done, deliberately aborted (.aborted marker from a user Cancel) → STILL manually
 // resumable. Cancel = pause: finished work is kept and Resume is the user's explicit choice to continue.
 // (The AUTO supervisor stays conservative and never touches .aborted — see research-resume.test.ts.)
@@ -104,8 +110,20 @@ check('a finished run (final_thesis present) is excluded', () => {
   assert.equal(listResumableRuns().some((r) => r.subject === 'DONE'), false)
 })
 
-check('a prior-day folder is excluded (same-day scope)', () => {
-  assert.equal(listResumableRuns().some((r) => r.subject === 'OLD'), false)
+check('a prior-day partial remains resumable after midnight', () => {
+  const old = listResumableRuns().find((r) => r.subject === 'OLD' && r.kind === 'full')
+  assert.ok(old)
+  assert.equal(old!.runRoot, `analyses/OLD_${YESTERDAY}`)
+})
+
+check('a newer completed run supersedes an older partial for the same company', () => {
+  assert.equal(listResumableRuns().some((r) => r.subject === 'SUPERSEDED'), false)
+})
+
+check('a newer partial is resumable even when an older completed run exists', () => {
+  const latest = listResumableRuns().find((r) => r.subject === 'RECENTPARTIAL' && r.kind === 'full')
+  assert.ok(latest)
+  assert.equal(latest!.runRoot, `analyses/RECENTPARTIAL_${TODAY}`)
 })
 
 check('a stable commodity root with an old decision and a newer quota interruption remains resumable', () => {

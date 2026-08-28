@@ -2017,7 +2017,7 @@ export const useStore = create<State>((set, get) => ({
     const swarm = info.swarm && info.swarm !== 'research' ? info.swarm : undefined
     const label = rc.label
     const doResume = async (force?: boolean) => {
-      const pending = { key: `resume:${info.subject}:${info.module || ''}`, label: `Resuming ${label}…`, ticker: info.subject }
+      const pending = { key: `resume:${info.subject}:${info.module || ''}`, label: `Completing ${label}…`, ticker: info.subject }
       set({ launchPending: pending })
       try {
         const body: { selection: FrozenProviderLaunch; kind: 'full' | 'module'; ticker: string; module?: string; confirmTicker?: string; force?: boolean; swarm?: string } =
@@ -2078,8 +2078,8 @@ export const useStore = create<State>((set, get) => ({
         const runningLabel = hasSplit ? (plannedMods!.length ? plannedMods!.join(', ') : 'the final synthesis') : 'the rest'
         get().setToast({
           msg: resumed && skippedN
-            ? `Resuming ${label} — ${skippedN} module${skippedN === 1 ? '' : 's'} already done, running only ${runningLabel}`
-            : `Resuming ${label} — picking up where it stopped`,
+            ? `Completing ${label} — ${skippedN} module${skippedN === 1 ? '' : 's'} already done, running only ${runningLabel}`
+            : `Completing ${label} — picking up where it stopped`,
           tone: 'good',
         })
       } catch (e: any) {

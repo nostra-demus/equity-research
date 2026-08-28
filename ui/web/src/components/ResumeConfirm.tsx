@@ -58,7 +58,7 @@ export function ResumeConfirm() {
     : remaining > 0
       ? `${remaining} remaining ${noun}${remaining === 1 ? '' : 's'}`
       : 'Final synthesis only'
-  const action = rc.kind === 'signal' && rc.override ? 'Override & resume remaining' : 'Resume remaining work'
+  const action = rc.kind === 'signal' && rc.override ? 'Override & complete remaining' : 'Complete remaining work'
 
   return (
     <div className="scrim" onClick={cancel}>
@@ -74,12 +74,12 @@ export function ResumeConfirm() {
       >
         <div className="modal__head">
           <div className="resumeconfirm__eyebrow">Continue saved work</div>
-          <div className="modal__title" id="resume-confirm-title">Resume {rc.label}</div>
+          <div className="modal__title" id="resume-confirm-title">Complete {rc.label}</div>
           <div className="modal__sub">Choose who finishes the run. Completed work stays intact; only the unfinished work runs.</div>
         </div>
         <div className="modal__body">
           <div className="modal__row"><span className="modal__k">Continue with</span><span className="modal__v">
-            <span className="providerseg" role="radiogroup" aria-label="Resume provider">
+            <span className="providerseg" role="radiogroup" aria-label="Completion provider">
               {(['claude', 'codex'] as RunProvider[]).map((choice) => {
                 const choiceStatus = providers[choice]
                 const problem = providerBlockedReason(choiceStatus)
@@ -112,7 +112,7 @@ export function ResumeConfirm() {
         <div className="modal__actions">
           <button className="btn btn--ghost" disabled={starting} onClick={cancel}>Cancel</button>
           <button className="btn btn--amber" disabled={starting || !!providerProblem} title={providerProblem || undefined} onClick={() => void confirm()}>
-            {starting ? <><Spin /> Resuming…</> : action}
+            {starting ? <><Spin /> Starting…</> : action}
           </button>
         </div>
       </motion.div>
