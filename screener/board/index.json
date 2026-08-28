@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-28T01:08:21Z",
+  "generated_at": "2026-08-28T02:38:27Z",
   "inbox": [
     {
       "inbox_id": "INB-20260828-024",
@@ -100,6 +100,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260828-118",
+      "headline": "Dentsu Soken Receives Buyout Offer From Itochu; Shares Rally",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-08-28/dentsu-soken-receives-buyout-offer-from-itochu-shares-rally",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-28T00:22:55Z",
+      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
+      "prelim_note": "Itochu has made a buyout offer for Dentsu Soken, signaling a potential acquisition.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Itochu has made a buyout offer for Dentsu Soken, signaling a potential acquisition.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Dentsu Soken",
+          "ticker": null,
+          "listing_country": "JP"
+        },
+        {
+          "name": "Itochu",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260828-070",
       "headline": "Why Hormel Foods Stock Swooned by 10% Today",
       "headline_en": null,
@@ -139,6 +193,454 @@
       "companies": [
         {
           "name": "Hormel Foods",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260828-224",
+      "headline": "Nvidia expects to sell $20 billion of Vera Rubin systems in Q3 as shipments begin — figure would account for 20% of its data center revenue mix, marks fastest ramp in company history",
+      "headline_en": null,
+      "url": "https://www.tomshardware.com/tech-industry/artificial-intelligence/nvidia-expects-to-sell-usd20-billion-worth-of-vera-rubin-hardware-this-quarter-would-account-for-20-percent-of-data-center-revenue-its-fastest-ramp-in-company-history",
+      "source_name": "Tom's Hardware",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-27T15:33:14Z",
+      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
+      "prelim_note": "Nvidia expects $20 billion in revenue from its new Vera Rubin systems in Q3, representing 20% of its data center revenue.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nvidia expects $20 billion in revenue from its new Vera Rubin systems in Q3, representing 20% of its data center revenue.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260828-278",
+      "headline": "Nvidia Sees AI-Fueled Demand Boosting Sales 70% Next Year",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/videos/2026-08-27/nvidia-sees-70-ai-fueled-demand-sales-boost-next-year-video",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-27T14:59:17Z",
+      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
+      "prelim_note": "Nvidia expects AI-fueled demand to boost sales by 70% next year.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nvidia expects AI-fueled demand to boost sales by 70% next year.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260828-292",
+      "headline": "Shein's Hong Kong IPO pricing values company at $26.5 billion, sources say",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/retail-consumer/shein-set-raise-17-billion-hong-kong-ipo-sources-say-2026-08-27/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-27T14:53:56Z",
+      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
+      "prelim_note": "Shein's IPO pricing values the company at $26.5 billion, a significant valuation event for a major retailer.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Shein's IPO pricing values the company at $26.5 billion, a significant valuation event for a major retailer.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Shein",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260828-307",
+      "headline": "Meta pays $18 bln to secure social-media status",
+      "headline_en": null,
+      "url": "https://www.reuters.com/commentary/breakingviews/meta-pays-18-bln-secure-social-media-status-2026-08-27/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-27T14:50:38Z",
+      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
+      "prelim_note": "Meta is paying $18 billion to secure its market position.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Meta is paying $18 billion to secure its market position.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Meta",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260828-325",
+      "headline": "SK Hynix holds groundbreaking ceremony for $4 billion Indiana AI chip packaging facility",
+      "headline_en": null,
+      "url": "https://www.reuters.com/world/asia-pacific/sk-hynix-holds-groundbreaking-ceremony-4-billion-indiana-ai-chip-packaging-2026-08-27/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-27T14:34:33Z",
+      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
+      "prelim_note": "SK Hynix is investing $4 billion in a new AI chip packaging facility in Indiana, representing a significant capacity expansion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "SK Hynix is investing $4 billion in a new AI chip packaging facility in Indiana, representing a significant capacity expansion.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SK Hynix",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260828-350",
+      "headline": "Apollo Buys Into Atlantic Aviation at Near $10 Billion Valuation",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-08-27/apollo-buys-into-atlantic-aviation-at-near-10-billion-valuation",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-27T14:12:13Z",
+      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
+      "prelim_note": "Apollo buys into Atlantic Aviation at a near $10 billion valuation — a large, named private-equity deal with a clear price tag.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Apollo buys into Atlantic Aviation at a near $10 billion valuation — a large, named private-equity deal with a clear price tag.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Apollo Global Management",
+          "ticker": "APO",
+          "listing_country": "US"
+        },
+        {
+          "name": "Atlantic Aviation",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260828-354",
+      "headline": "Nvidia Stock Jumps On Bullish Quarterly Report, Outlook",
+      "headline_en": null,
+      "url": "https://www.investors.com/news/technology/nvidia-stock-jumps-on-bullish-quarterly-report-outlook/?src=A00220&yptr=yahoo",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-27T14:04:36Z",
+      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
+      "prelim_note": "Nvidia reported strong quarterly results and provided a bullish outlook.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nvidia reported strong quarterly results and provided a bullish outlook.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": "NVDA",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260828-356",
+      "headline": "Alpha Wave Ventures to sell up to 1.2% stake in Lenskart for ₹1,313 crore",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/companies/alpha-wave-ventures-to-sell-up-to-12-stake-in-lenskart-for-1313-crore/article71396817.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-27T14:00:53Z",
+      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
+      "prelim_note": "Alpha Wave Ventures is selling a 1.2% stake in Lenskart for ₹1,313 crore, representing a significant liquidity event for a major private company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Alpha Wave Ventures is selling a 1.2% stake in Lenskart for ₹1,313 crore, representing a significant liquidity event for a major private company.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "ownership_activist",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Lenskart",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260828-374",
+      "headline": "Best Buy beats quarterly estimates and hikes its outlook, but stock falls",
+      "headline_en": null,
+      "url": "https://www.cnbc.com/2026/08/27/best-buy-bby-q2-2027-earnings.html",
+      "source_name": "CNBC",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-27T13:48:45Z",
+      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
+      "prelim_note": "Best Buy beat quarterly estimates and raised its outlook, though the stock price declined.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Best Buy beat quarterly estimates and raised its outlook, though the stock price declined.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Best Buy",
           "ticker": null,
           "listing_country": "US"
         }
@@ -198,6 +700,153 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260828-180",
+      "headline": "IPO-bound OYO parent Prism's profit jumps fourfold to ₹994 crore in FY26",
+      "headline_en": null,
+      "url": "https://www.livemint.com/market/stock-market-news/ipobound-oyo-parent-prisms-profit-jumps-fourfold-to-rs-994-crore-in-fy26-11787845751761.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-27T16:12:23Z",
+      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
+      "prelim_note": "OYO parent reported a fourfold profit increase to ₹994 crore in FY26 ahead of its IPO.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "OYO parent reported a fourfold profit increase to ₹994 crore in FY26 ahead of its IPO.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 2,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "OYO",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260828-347",
+      "headline": "Okta pops 20% after topping estimates as AI threat spikes demand for identity security",
+      "headline_en": null,
+      "url": "https://www.cnbc.com/2026/08/26/okta-okta-earnings-q2-2027.html",
+      "source_name": "CNBC",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-27T14:12:37Z",
+      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
+      "prelim_note": "Okta reported earnings that beat estimates and saw a 20% stock price increase due to strong demand.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Okta reported earnings that beat estimates and saw a 20% stock price increase due to strong demand.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Okta",
+          "ticker": "OKTA",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260828-358",
+      "headline": "Bath & Body Works Q2 net sales fall amid weak underlying demand",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/markets/stocks/articles/bath-body-works-q2-net-140043186.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-27T14:00:43Z",
+      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
+      "prelim_note": "Bath & Body Works reported a decline in Q2 net sales due to weak underlying demand.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Bath & Body Works reported a decline in Q2 net sales due to weak underlying demand.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bath & Body Works",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260828-042",
       "headline": "WEC: Pause in Trading [price-sensitive]",
       "headline_en": null,
@@ -242,6 +891,104 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260828-208",
+      "headline": "SEBI ‘close’ to approving NSE's long-awaited IPO, says chairman Pandey",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/markets/sebi-close-to-approving-nses-long-awaited-ipo-says-chairman-pandey/article71397403.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-27T15:54:40Z",
+      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
+      "prelim_note": "SEBI close to approving NSE's long-awaited IPO, a major exchange listing event for India's largest stock exchange.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "SEBI close to approving NSE's long-awaited IPO, a major exchange listing event for India's largest stock exchange.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "National Stock Exchange of India",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260828-320",
+      "headline": "Hyundai’s $26 Billion 4-Year US Investment Will Exceed Its Previous 40 Years Combined",
+      "headline_en": null,
+      "url": "https://247wallst.com/investing/2026/08/27/hyundais-26-billion-4-year-us-investment-will-exceed-its-previous-40-years-combined/",
+      "source_name": "24/7 Wall St.",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-27T14:37:52Z",
+      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
+      "prelim_note": "Hyundai announces $26 billion 4-year US capex plan exceeding its prior 40 years of investment combined, signaling major strategic shift in US capacity and capital allocation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Hyundai announces $26 billion 4-year US capex plan exceeding its prior 40 years of investment combined, signaling major strategic shift in US capacity and capital allocation.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 76,
+      "rank_factors": {
+        "materiality": 76,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Hyundai Motor Company",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -292,6 +1039,195 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260828-335",
+      "headline": "Humana-owned Villages Health agrees to $542M settlement for overbilling Medicare",
+      "headline_en": null,
+      "url": "https://www.healthcaredive.com/news/the-villages-health-medicare-overbilling-settlement-doj-humana/828915/",
+      "source_name": "Healthcare Dive",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-27T14:30:00Z",
+      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
+      "prelim_note": "Humana's Villages Health unit agreed to a $542 million settlement for overbilling Medicare, a quantified legal hit.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "Humana's Villages Health unit agreed to a $542 million settlement for overbilling Medicare, a quantified legal hit.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Humana",
+          "ticker": "HUM",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260828-130",
+      "headline": "Japanese chipmaker Kioxia, Sandisk to spend 5 tril. yen to boost output",
+      "headline_en": null,
+      "url": "https://mainichi.jp/english/articles/20260828/p2g/00m/0bu/018000c",
+      "source_name": "The Mainichi",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-28T00:30:04Z",
+      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
+      "prelim_note": "Kioxia and SanDisk announce 5 trillion yen capex to expand semiconductor output capacity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Kioxia and SanDisk announce 5 trillion yen capex to expand semiconductor output capacity.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Kioxia",
+          "ticker": null,
+          "listing_country": "JP"
+        },
+        {
+          "name": "SanDisk",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260828-176",
+      "headline": "Newlywed woman killed by Israeli air strike on southern Lebanon",
+      "headline_en": null,
+      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/newlywed-woman-killed-israeli-air-strike-southern-lebanon",
+      "source_name": "Middle East Eye",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-27T16:15:07Z",
+      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
+      "prelim_note": "Escalation of military conflict in Lebanon increases regional geopolitical risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Escalation of military conflict in Lebanon increases regional geopolitical risk.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 9,
+        "event": 0,
+        "size": 0,
+        "recency": 2,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "geopolitical",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260828-262",
+      "headline": "Rusia lanza ataques aéreos contra comercios, puertos e instalaciones industriales de Kiev",
+      "headline_en": "Russia launches air strikes on Kyiv commercial, port and industrial facilities",
+      "url": "https://www.reuters.com/es/mundo/FHV2HKUD7ZLC5FHDB63ID6P6KE-2026-08-27/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-27T15:11:11Z",
+      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
+      "prelim_note": "Russia launched air strikes on Kyiv commercial, port and industrial sites, a military escalation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Russia launched air strikes on Kyiv commercial, port and industrial sites, a military escalation.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 9,
+        "event": 0,
+        "size": 0,
+        "recency": 2,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "geopolitical",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -389,6 +1325,50 @@
           "listing_country": "HK"
         }
       ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260828-293",
+      "headline": "Arson plot targeted Ukraine-founded drone maker, Slovak prosecutor says",
+      "headline_en": null,
+      "url": "https://www.reuters.com/world/suspects-planned-arson-attack-drone-maker-skyeton-slovak-prosecution-says-2026-08-27/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-27T14:53:04Z",
+      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
+      "prelim_note": "An arson plot targeted a Ukraine-founded drone maker, indicating a significant security risk and potential operational disruption.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "An arson plot targeted a Ukraine-founded drone maker, indicating a significant security risk and potential operational disruption.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 6,
+        "size": 0,
+        "recency": 2,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement",
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -542,6 +1522,263 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260828-120",
+      "headline": "4DX: Appendix 4E - Preliminary Final Report [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.4DX?key=2924-03128146-3A700283",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-28T00:58:30Z",
+      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
+      "prelim_note": "4DX released its preliminary final report, which is a price-sensitive financial disclosure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "4DX released its preliminary final report, which is a price-sensitive financial disclosure.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "4DX",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260828-171",
+      "headline": "Enbridge, KKR form $1.95 billion JV to fund Westcoast gas pipeline expansions",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/energy/enbridge-kkr-form-joint-venture-invest-westcoast-natural-gas-pipeline-2026-08-27/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-27T16:24:13Z",
+      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
+      "prelim_note": "Enbridge and KKR form $1.95 billion joint venture to fund Westcoast pipeline expansion, materially changing capex funding and capital structure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "Enbridge and KKR form $1.95 billion joint venture to fund Westcoast pipeline expansion, materially changing capex funding and capital structure.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capex",
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Enbridge",
+          "ticker": "ENB",
+          "listing_country": "CA"
+        },
+        {
+          "name": "KKR",
+          "ticker": "KKR",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260828-184",
+      "headline": "IPO avalia Shein em US$26,5 bilhões, dizem fontes",
+      "headline_en": "IPO values Shein at $26.5 billion, sources say",
+      "url": "https://www.reuters.com/pt/negocio/TTJSNBRNMFLWXLTHMNCFR5724U-2026-08-27/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-27T16:12:22Z",
+      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
+      "prelim_note": "Shein is reportedly valued at $26.5 billion in a potential IPO.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "Shein is reportedly valued at $26.5 billion in a potential IPO.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Shein",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260828-333",
+      "headline": "US weighs a new round of tariffs on semiconductors, Politico reports",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/us-weighs-new-round-tariffs-semiconductors-politico-reports-2026-08-27/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-27T14:28:29Z",
+      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
+      "prelim_note": "The U.S. is weighing a new round of semiconductor tariffs, a policy shift that could raise costs and disrupt supply chains across the global chip industry.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "The U.S. is weighing a new round of semiconductor tariffs, a policy shift that could raise costs and disrupt supply chains across the global chip industry.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 2,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260828-351",
+      "headline": "Enbridge lands $2.7-billion investment from KKR, Apollo in B.C. pipeline expansion",
+      "headline_en": null,
+      "url": "https://www.theglobeandmail.com/business/article-enbridge-kkr-apollo-bc-westcoast-pipeline-2/",
+      "source_name": "The Globe and Mail",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-27T14:10:39Z",
+      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
+      "prelim_note": "Enbridge lands a $2.7 billion investment from KKR and Apollo for B.C. pipeline expansion — a large, named capital commitment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "Enbridge lands a $2.7 billion investment from KKR and Apollo for B.C. pipeline expansion — a large, named capital commitment.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Enbridge",
+          "ticker": "ENB",
+          "listing_country": "CA"
+        },
+        {
+          "name": "KKR",
+          "ticker": "KKR",
+          "listing_country": "US"
+        },
+        {
+          "name": "Apollo Global Management",
+          "ticker": "APO",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260828-030",
       "headline": "CMG: Leadership Transition - Pat Kelly Appointed Interim CEO [price-sensitive]",
       "headline_en": null,
@@ -640,189 +1877,37 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260828-087",
-      "headline": "DBF: Pause in Trading [price-sensitive]",
+      "inbox_id": "INB-20260828-231",
+      "headline": "Genius Group Plans $1.2B Capital Raise to Build AI, Bitcoin Treasuries",
       "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.DBF?key=2924-03128121-2A1693142",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-28T00:08:15Z",
-      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
-      "prelim_note": "Trading pause flagged price-sensitive, typically signalling a pending material announcement or capital action.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "Trading pause flagged price-sensitive, typically signalling a pending material announcement or capital action.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 2,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "operations",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "DBF",
-          "ticker": "DBF",
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260828-090",
-      "headline": "ADX: HOCH-1 Production Testing Update-3 Additional Zones Flow Gas [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ADX?key=2924-03128114-6A1340880",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-28T00:03:45Z",
-      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
-      "prelim_note": "Additional gas-flow zones in production testing can materially upgrade reserves and project economics.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "Additional gas-flow zones in production testing can materially upgrade reserves and project economics.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 2,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "operations",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ADX",
-          "ticker": "ADX",
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260828-102",
-      "headline": "Yatharth Hospitals draws interest from Aster, Advent as healthcare consolidation heats up",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/industry/healthcare/biotech/healthcare/yatharth-hospitals-draws-interest-from-aster-advent-as-healthcare-consolidation-heats-up/articleshow/133577494.cms",
-      "source_name": "The Economic Times",
+      "url": "https://finance.yahoo.com/markets/crypto/articles/genius-group-plans-1-2b-152900669.html",
+      "source_name": "Yahoo Finance",
       "input_nature": "news_headline",
-      "found_at": "2026-08-28T00:00:00Z",
+      "found_at": "2026-08-27T15:29:00Z",
       "sweep_file": "screener/inbox/2026-08-28_sweep.json",
-      "prelim_note": "Yatharth Hospitals is attracting interest from potential acquirers, signaling consolidation in the healthcare sector.",
+      "prelim_note": "Genius Group announced a $1.2B capital raise, a significant event for the company's capital structure.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Yatharth Hospitals is attracting interest from potential acquirers, signaling consolidation in the healthcare sector.",
-      "region": "IN",
+      "triage_score": 92,
+      "triage_reason": "Genius Group announced a $1.2B capital raise, a significant event for the company's capital structure.",
+      "region": "US",
       "relevance": "material",
-      "materiality_pre_score": 65,
+      "materiality_pre_score": 80,
       "rank_factors": {
-        "materiality": 65,
+        "materiality": 80,
         "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Yatharth Hospital",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "Aster DM Healthcare",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260828-089",
-      "headline": "WMA: Sound investment port. performance, increased full year div [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.WMA?key=2924-03128116-2A1693138",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-28T00:04:20Z",
-      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
-      "prelim_note": "Increased full-year dividend and positive portfolio performance signal stronger cash generation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Increased full-year dividend and positive portfolio performance signal stronger cash generation.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
         "scope": 6,
         "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
+        "size": -1,
+        "recency": 2,
+        "materiality_label_floor": 5,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
+        "source_tier_id": "news",
         "event_id": null,
-        "size_bucket": "unknown"
+        "size_bucket": "small"
       },
       "event_types": [
         "capital_actions"
@@ -830,43 +1915,43 @@
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "WMA",
-          "ticker": "WMA",
-          "listing_country": "AU"
+          "name": "Genius Group",
+          "ticker": null,
+          "listing_country": "US"
         }
       ],
-      "size_bucket": "unknown",
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260828-107",
-      "headline": "(LEAD) SK hynix holds groundbreaking ceremony for HBM production base in U.S.",
+      "inbox_id": "INB-20260828-240",
+      "headline": "India's Hero MotoCorp to invest additional $184 million in Ather Energy",
       "headline_en": null,
-      "url": "https://en.yna.co.kr/view/AEN20260828000351315",
-      "source_name": "Yonhap News Agency — All News (English)",
+      "url": "https://www.reuters.com/world/india/indias-hero-motocorp-invest-additional-184-million-ather-energy-2026-08-27/",
+      "source_name": "Reuters — Latest (news sitemap)",
       "input_nature": "news_headline",
-      "found_at": "2026-08-28T00:06:14Z",
+      "found_at": "2026-08-27T15:27:02Z",
       "sweep_file": "screener/inbox/2026-08-28_sweep.json",
-      "prelim_note": "SK hynix breaks ground on a U.S. HBM production base, a major capacity-expansion commitment for high-bandwidth memory.",
+      "prelim_note": "Hero MotoCorp to invest additional $184 million in Ather Energy, signaling expansion in electric vehicle business.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "SK hynix breaks ground on a U.S. HBM production base, a major capacity-expansion commitment for high-bandwidth memory.",
-      "region": "US",
+      "triage_score": 92,
+      "triage_reason": "Hero MotoCorp to invest additional $184 million in Ather Energy, signaling expansion in electric vehicle business.",
+      "region": "IN",
       "relevance": "material",
-      "materiality_pre_score": 70,
+      "materiality_pre_score": 65,
       "rank_factors": {
-        "materiality": 70,
+        "materiality": 65,
         "source_tier": 0,
         "scope": 6,
         "event": 6,
         "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
+        "recency": 2,
+        "materiality_label_floor": 5,
+        "quantified": 6,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "news",
@@ -879,1093 +1964,12 @@
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "SK hynix",
-          "ticker": "000660.KS",
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260828-050",
-      "headline": "MEDCAPTAIN (02041): GLOBAL OFFERING",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0828/2026082800009.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-27T22:08:00Z",
-      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
-      "prelim_note": "Company announces global offering, signalling capital raise or new equity listing; offering size, pricing, timing, and use of proceeds not disclosed in headline.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Company announces global offering, signalling capital raise or new equity listing; offering size, pricing, timing, and use of proceeds not disclosed in headline.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 68,
-      "rank_factors": {
-        "materiality": 68,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 2,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "MEDCAPTAIN",
-          "ticker": "02041",
-          "listing_country": "HK"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260828-117",
-      "headline": "영풍·MBK \"최윤범 이사 일가 투자 후 펀드 자금 투입, 사실상 한 몸처럼 움직여\"",
-      "headline_en": "Young Poong and MBK Partners claim 'Choi Yoon-beom's family invested and then injected fund capital, effectively acting as one body'",
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=275702",
-      "source_name": "Business Korea — All Articles (CDN)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-28T00:48:29Z",
-      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
-      "prelim_note": "Young Poong and MBK Partners have raised allegations regarding the investment structure and fund management of Choi Yoon-beom's family, indicating an escalating corporate governance dispute.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Young Poong and MBK Partners have raised allegations regarding the investment structure and fund management of Choi Yoon-beom's family, indicating an escalating corporate governance dispute.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "ownership_activist",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "management",
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Young Poong",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "MBK Partners",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260828-105",
-      "headline": "ASX edges up on tech; PEXA dives 20pc on housing warning",
-      "headline_en": null,
-      "url": "https://www.afr.com/markets/equity-markets/asx-to-open-slightly-higher-nvidia-boosts-tech-rally-20260828-p60sa8?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-28T00:23:34Z",
-      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
-      "prelim_note": "PEXA shares fell 20% following a negative warning regarding the housing market.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "PEXA shares fell 20% following a negative warning regarding the housing market.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "PEXA Group",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260828-100",
-      "headline": "Close to clearing NSE IPO: Sebi Chief Tuhin Kanta Pandey",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/stocks/news/close-to-clearing-nse-ipo-sebi-chief-tuhin-kanta-pandey/articleshow/133580722.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-28T00:12:14Z",
-      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
-      "prelim_note": "The government official indicated progress toward clearing the NSE IPO, a significant potential market event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "The government official indicated progress toward clearing the NSE IPO, a significant potential market event.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "National Stock Exchange of India",
+          "name": "Hero MotoCorp",
           "ticker": null,
           "listing_country": "IN"
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260828-079",
-      "headline": "Here's Why Salesforce Stock Soared Today",
-      "headline_en": null,
-      "url": "https://www.fool.com/investing/2026/08/27/heres-why-salesforce-stock-soared-today/?source=iedfolrf0000001",
-      "source_name": "The Motley Fool",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-27T22:57:22Z",
-      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
-      "prelim_note": "Salesforce stock experienced a significant positive price movement.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Salesforce stock experienced a significant positive price movement.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Salesforce",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260828-022",
-      "headline": "SK Hynix iniciará produção de chips de IA em Indiana, nos EUA, em 2029 e prevê escassez de memória até 2030",
-      "headline_en": "SK Hynix will begin production of AI chips in Indiana, USA, in 2029 and forecasts a memory shortage until 2030",
-      "url": "https://www.reuters.com/pt/tecnologia/AFC3PCUOPZNT5AIFED6BY4YIIE-2026-08-27/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-27T18:35:44Z",
-      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
-      "prelim_note": "SK Hynix to open new AI-chip fab in Indiana starting 2029; forecasts global memory shortage through 2030.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "SK Hynix to open new AI-chip fab in Indiana starting 2029; forecasts global memory shortage through 2030.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capex",
-        "macro_sector"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SK Hynix",
-          "ticker": "000660",
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260828-016",
-      "headline": "Nvidia vai comprar Hugging Face por US$12,9 bilhões, diz The Information",
-      "headline_en": "Nvidia to buy Hugging Face for US$12.9 billion, says The Information",
-      "url": "https://www.reuters.com/pt/tecnologia/PUCXPJTMNFKWNIDKJTYPOFHKXE-2026-08-27/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-27T18:49:37Z",
-      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
-      "prelim_note": "Nvidia reportedly to acquire Hugging Face for $12.9 billion, attributed to The Information; unconfirmed but high-signal AI-sector M&A if true.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Nvidia reportedly to acquire Hugging Face for $12.9 billion, attributed to The Information; unconfirmed but high-signal AI-sector M&A if true.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 58,
-      "rank_factors": {
-        "materiality": 58,
-        "source_tier": -8,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 12,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "unconfirmed",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna",
-        "rumor"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": "NVDA",
-          "listing_country": "US"
-        },
-        {
-          "name": "Hugging Face",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260828-008",
-      "headline": "Pernod Ricard weighs options for India IPO, kicks off legal process",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/industry/cons-products/liquor/pernod-ricard-weighs-options-for-india-ipo-kicks-off-legal-process/articleshow/133576791.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-27T18:45:14Z",
-      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
-      "prelim_note": "Pernod Ricard is formally exploring an IPO for its Indian operations, a significant strategic move.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "Pernod Ricard is formally exploring an IPO for its Indian operations, a significant strategic move.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "strategic_review",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "strategic_review"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Pernod Ricard",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260828-021",
-      "headline": "Nvidia Sees 70% Growth as AI Boom Accelerates",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/videos/2026-08-27/nvidia-sees-70-growth-as-ai-boom-accelerates-video",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-27T18:36:57Z",
-      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
-      "prelim_note": "Nvidia reports or projects 70% growth, moving revenue expectations and analyst outlooks.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "Nvidia reports or projects 70% growth, moving revenue expectations and analyst outlooks.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 58,
-      "rank_factors": {
-        "materiality": 58,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 12,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": "NVDA",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260828-005",
-      "headline": "Yallourn operator locks in 2028 exit as mine wind-down begins",
-      "headline_en": null,
-      "url": "https://www.afr.com/policy/energy-and-climate/yallourn-operator-locks-in-2028-exit-as-mine-wind-down-begins-20260827-p60s4q?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-27T19:00:00Z",
-      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
-      "prelim_note": "The operator of the Yallourn power station has confirmed a 2028 exit, signaling a major asset wind-down.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "The operator of the Yallourn power station has confirmed a 2028 exit, signaling a major asset wind-down.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "operations",
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "EnergyAustralia",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260828-109",
-      "headline": "KYN: FY26 Results Presentation [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.KYN?key=2924-03128130-2A1693147",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-28T00:30:15Z",
-      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
-      "prelim_note": "The company released its FY26 financial results presentation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 84,
-      "triage_reason": "The company released its FY26 financial results presentation.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Kyneton",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260828-110",
-      "headline": "SPG: SPC Global FY26 Results Investor Presentation [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.SPG?key=2924-03128129-3A700281",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-28T00:29:15Z",
-      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
-      "prelim_note": "The company released its FY26 financial results presentation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 84,
-      "triage_reason": "The company released its FY26 financial results presentation.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SPC Global",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260828-115",
-      "headline": "Real REMAX Group halts Motto Mortgage franchise growth",
-      "headline_en": null,
-      "url": "https://www.housingwire.com/articles/real-remax-motto-mortgage-platform/",
-      "source_name": "HousingWire",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-28T00:48:08Z",
-      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
-      "prelim_note": "RE/MAX Group has halted the growth of its Motto Mortgage franchise, signaling a strategic shift or operational constraint.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 84,
-      "triage_reason": "RE/MAX Group has halted the growth of its Motto Mortgage franchise, signaling a strategic shift or operational constraint.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "RE/MAX",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260828-025",
-      "headline": "IRC (01029): 2026 INTERIM RESULTS K&S OPERATED AT 106% CAPACITY PROFIT ATTRIBUTABLE TO SHAREHOLDERS OF US$0.4 MILLION",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0828/2026082800103.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-27T23:30:00Z",
-      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
-      "prelim_note": "IRC reported 2026 interim profit of US$0.4 million with operations at 106% capacity.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "IRC reported 2026 interim profit of US$0.4 million with operations at 106% capacity.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "IRC",
-          "ticker": "01029",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260828-108",
-      "headline": "Samsung Biologics to raise 3 tln won via rights offering",
-      "headline_en": null,
-      "url": "https://en.yna.co.kr/view/AEN20260828001300320",
-      "source_name": "Yonhap News Agency — All News (English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-27T23:56:16Z",
-      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
-      "prelim_note": "Samsung Biologics plans a 3 trillion won rights offering, a sizable equity raise that will dilute existing shareholders but strengthen the balance sheet.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "Samsung Biologics plans a 3 trillion won rights offering, a sizable equity raise that will dilute existing shareholders but strengthen the balance sheet.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Samsung Biologics",
-          "ticker": "207940.KS",
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260828-077",
-      "headline": "Optimus Just Entered Production at Fremont. Here's What Changes for Tesla Investors.",
-      "headline_en": null,
-      "url": "https://www.fool.com/investing/2026/08/27/optimus-just-entered-production-at-fremont-heres-w/?source=iedfolrf0000001",
-      "source_name": "The Motley Fool",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-27T23:05:00Z",
-      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
-      "prelim_note": "Tesla has entered production of its Optimus robot at the Fremont facility, a significant operational milestone.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 82,
-      "triage_reason": "Tesla has entered production of its Optimus robot at the Fremont facility, a significant operational milestone.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tesla",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260828-076",
-      "headline": "Nvidia suspende operaciones de reparto de ingresos con empresas de IA en la nube, según el WSJ",
-      "headline_en": "Nvidia suspends revenue-sharing operations with cloud AI companies, according to the WSJ",
-      "url": "https://www.reuters.com/es/negocio/7YBGIGLZXVNJDJVAIWXVDGOXQU-2026-08-27/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-27T22:15:10Z",
-      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
-      "prelim_note": "Nvidia is suspending revenue-sharing operations with cloud AI companies, impacting business model and partner revenue.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 82,
-      "triage_reason": "Nvidia is suspending revenue-sharing operations with cloud AI companies, impacting business model and partner revenue.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260828-071",
-      "headline": "US officials tie cyclospora outbreak involving iceberg lettuce to 3 more states",
-      "headline_en": null,
-      "url": "https://gulfnews.com/world/americas/us-officials-tie-cyclospora-outbreak-involving-iceberg-lettuce-to-3-more-states-1.500654833",
-      "source_name": "Gulf News",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-27T23:24:16Z",
-      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
-      "prelim_note": "A foodborne illness outbreak linked to iceberg lettuce creates operational and regulatory risk for the produce sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "A foodborne illness outbreak linked to iceberg lettuce creates operational and regulatory risk for the produce sector.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260828-048",
-      "headline": "INSILICO (03696): PRICING OF US$305,000,000 ZERO COUPON CONVERTIBLE BONDS DUE 2027",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0828/2026082800033.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-27T22:23:00Z",
-      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
-      "prelim_note": "Insilico prices US$305m zero-coupon convertible bonds due 2027, affecting capital structure and dilution exposure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 80,
-      "triage_reason": "Insilico prices US$305m zero-coupon convertible bonds due 2027, affecting capital structure and dilution exposure.",
-      "region": "CN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "debt_credit",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capital_actions",
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Insilico",
-          "ticker": "03696",
-          "listing_country": "HK"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260828-075",
-      "headline": "US bank regulators finalize rules defining 'unsafe' bank practices",
-      "headline_en": null,
-      "url": "https://www.reuters.com/legal/government/us-bank-regulators-finalize-rules-defining-unsafe-bank-practices-2026-08-27/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-27T22:22:24Z",
-      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
-      "prelim_note": "US bank regulators finalizing rules on 'unsafe' practices increases compliance and operational risk for the banking sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 80,
-      "triage_reason": "US bank regulators finalizing rules on 'unsafe' practices increases compliance and operational risk for the banking sector.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260828-091",
-      "headline": "KYN: FY26 Appendix 4E and Annual Report [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.KYN?key=2924-03128112-2A1693137",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-28T00:02:35Z",
-      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
-      "prelim_note": "KYN filed its FY26 Appendix 4E and Annual Report, the statutory full-year earnings disclosure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 79,
-      "triage_reason": "KYN filed its FY26 Appendix 4E and Annual Report, the statutory full-year earnings disclosure.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "KYN",
-          "ticker": "KYN",
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260828-067",
-      "headline": "Vodafone Idea plans to repay ₹49,000 crore spectrum dues in 3 years",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/industry/telecom/telecom-news/vodafone-idea-plans-to-repay-49000-crore-spectrum-dues-in-3-years/articleshow/133577467.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-27T23:30:00Z",
-      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
-      "prelim_note": "Vodafone Idea plans to repay ₹49,000 crore spectrum dues in 3 years, a significant debt reduction commitment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 79,
-      "triage_reason": "Vodafone Idea plans to repay ₹49,000 crore spectrum dues in 3 years, a significant debt reduction commitment.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Vodafone Idea",
-          "ticker": "IDEA",
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -84921,78 +84925,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-fa9512f6988e",
-      "idea_version": "IDEAV-8e32e03160a422e5",
-      "idea_version_started_at": "2026-08-26T20:21:39Z",
-      "ticker": "BKSY",
-      "company": "BlackSky Technology Inc.",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company has received a delisting notification from the NYSE, which typically signals severe liquidity or compliance distress and often precedes further equity erosion.",
-      "why_now": "The delisting notice was filed with the SEC on 2026-08-26.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 55,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-2d4d4442635c",
-        "EVT-f14c29c6fe25"
-      ],
-      "primary_source_event_id": "EVT-2d4d4442635c",
-      "source_headlines": [
-        "25-NSE - BlackSky Technology Inc. (0001753539) (Subject)",
-        "25-NSE - NEW YORK STOCK EXCHANGE LLC (0000876661) (Filed by)"
-      ],
-      "source_headline": "25-NSE - BlackSky Technology Inc. (0001753539) (Subject)",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/1753539/000087666126000707/0000876661-26-000707-index.htm",
-      "source_name": "SEC EDGAR — Latest 25-NSE (Delisting Notification)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-26T13:27:05Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-26T20:21:39Z",
-      "updated_at": "2026-08-26T20:21:39Z",
-      "decay_at": "2026-08-28T01:27:05Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-3d29191d07b1",
       "idea_version": "IDEAV-f8810176db6f3b69",
       "idea_version_started_at": "2026-08-28T00:58:50Z",
@@ -86144,221 +86076,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-a06045bd26d9",
-      "idea_version": "IDEAV-1958a334293ed605",
-      "idea_version_started_at": "2026-08-27T02:10:48Z",
-      "ticker": "06860",
-      "company": "Fingertango",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company issued a profit warning, signaling deteriorating margins or revenue performance that will likely lead to downward earnings revisions.",
-      "why_now": "The profit warning was filed on 2026-08-26.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-8348e5c7ac6a"
-      ],
-      "primary_source_event_id": "EVT-8348e5c7ac6a",
-      "source_headlines": [
-        "FINGERTANGO (06860): PROFIT WARNING"
-      ],
-      "source_headline": "FINGERTANGO (06860): PROFIT WARNING",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0826/2026082601861.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-26T14:03:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-27T02:10:48Z",
-      "updated_at": "2026-08-27T02:10:48Z",
-      "decay_at": "2026-08-28T02:03:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-ba7402b9aa86",
-      "idea_version": "IDEAV-57bfd54e9ecf6363",
-      "idea_version_started_at": "2026-08-26T23:18:30Z",
-      "ticker": "BSKY",
-      "company": "BlackSky Technology Inc.",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "BlackSky Technology Inc. is facing delisting from the New York Stock Exchange, which typically signals severe financial distress and can lead to reduced liquidity and investor confidence.",
-      "why_now": "The delisting notification was filed on August 26, 2026, making this a live event.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-2d4d4442635c",
-        "EVT-f14c29c6fe25"
-      ],
-      "primary_source_event_id": "EVT-2d4d4442635c",
-      "source_headlines": [
-        "25-NSE - BlackSky Technology Inc. (0001753539) (Subject)",
-        "25-NSE - NEW YORK STOCK EXCHANGE LLC (0000876661) (Filed by)"
-      ],
-      "source_headline": "25-NSE - BlackSky Technology Inc. (0001753539) (Subject)",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/1753539/000087666126000707/0000876661-26-000707-index.htm",
-      "source_name": "SEC EDGAR — Latest 25-NSE (Delisting Notification)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-26T13:27:05Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-26T23:18:30Z",
-      "updated_at": "2026-08-26T23:18:30Z",
-      "decay_at": "2026-08-28T01:27:05Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-4402530dd0df",
-      "idea_version": "IDEAV-1b64f1ccf2917e03",
-      "idea_version_started_at": "2026-08-26T17:19:45Z",
-      "ticker": "03958",
-      "company": "DFZQ",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The acquisition of 100% of Shanghai Securities will significantly increase the firm's market share and asset base in the Chinese brokerage sector.",
-      "why_now": "The Shanghai Stock Exchange accepted the application for the asset purchase on August 26, 2026.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-b61b739ecc2a"
-      ],
-      "primary_source_event_id": "EVT-b61b739ecc2a",
-      "source_headlines": [
-        "DFZQ (03958): (1) MAJOR TRANSACTION - THE PROPOSED ACQUISITION OF 100% EQUITY INTERESTS IN SHANGHAI SECURITIES BY WAY OF ISSUE OF CONSIDERATION A SHARES UNDER SPECIFIC MANDATE AND PAYMENT OF CASH AND (2) APPLICATION FOR WHITEWASH WAIVER ACCEPTANCE OF APPLICATION FOR THE PURCHASE OF ASSETS BY WAY OF ISSUE OF CONSIDERATION A SHARES UNDER THE PROPOSED TRANSACTION BY THE SHANGHAI STOCK EXCHANGE"
-      ],
-      "source_headline": "DFZQ (03958): (1) MAJOR TRANSACTION - THE PROPOSED ACQUISITION OF 100% EQUITY INTERESTS IN SHANGHAI SECURITIES BY WAY OF ISSUE OF CONSIDERATION A SHARES UNDER SPECIFIC MANDATE AND PAYMENT OF CASH AND (2) APPLICATION FOR WHITEWASH WAIVER ACCEPTANCE OF APPLICATION FOR THE PURCHASE OF ASSETS BY WAY OF ISSUE OF CONSIDERATION A SHARES UNDER THE PROPOSED TRANSACTION BY THE SHANGHAI STOCK EXCHANGE",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0826/2026082601813.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-26T13:49:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-24T16:50:38Z",
-      "updated_at": "2026-08-26T17:19:45Z",
-      "decay_at": "2026-08-28T01:49:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-e2e8adffa9c4",
       "idea_version": "IDEAV-f88b600677b122ca",
       "idea_version_started_at": "2026-08-26T23:18:30Z",
@@ -86638,6 +86355,222 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-fa9512f6988e",
+      "idea_version": "IDEAV-8e32e03160a422e5",
+      "idea_version_started_at": "2026-08-26T20:21:39Z",
+      "ticker": "BKSY",
+      "company": "BlackSky Technology Inc.",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company has received a delisting notification from the NYSE, which typically signals severe liquidity or compliance distress and often precedes further equity erosion.",
+      "why_now": "The delisting notice was filed with the SEC on 2026-08-26.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 55,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-2d4d4442635c",
+        "EVT-f14c29c6fe25"
+      ],
+      "primary_source_event_id": "EVT-2d4d4442635c",
+      "source_headlines": [
+        "25-NSE - BlackSky Technology Inc. (0001753539) (Subject)",
+        "25-NSE - NEW YORK STOCK EXCHANGE LLC (0000876661) (Filed by)"
+      ],
+      "source_headline": "25-NSE - BlackSky Technology Inc. (0001753539) (Subject)",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1753539/000087666126000707/0000876661-26-000707-index.htm",
+      "source_name": "SEC EDGAR — Latest 25-NSE (Delisting Notification)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-26T13:27:05Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-26T20:21:39Z",
+      "updated_at": "2026-08-26T20:21:39Z",
+      "decay_at": "2026-08-28T01:27:05Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-a06045bd26d9",
+      "idea_version": "IDEAV-1958a334293ed605",
+      "idea_version_started_at": "2026-08-27T02:10:48Z",
+      "ticker": "06860",
+      "company": "Fingertango",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company issued a profit warning, signaling deteriorating margins or revenue performance that will likely lead to downward earnings revisions.",
+      "why_now": "The profit warning was filed on 2026-08-26.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-8348e5c7ac6a"
+      ],
+      "primary_source_event_id": "EVT-8348e5c7ac6a",
+      "source_headlines": [
+        "FINGERTANGO (06860): PROFIT WARNING"
+      ],
+      "source_headline": "FINGERTANGO (06860): PROFIT WARNING",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0826/2026082601861.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-26T14:03:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-27T02:10:48Z",
+      "updated_at": "2026-08-27T02:10:48Z",
+      "decay_at": "2026-08-28T02:03:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-ba7402b9aa86",
+      "idea_version": "IDEAV-57bfd54e9ecf6363",
+      "idea_version_started_at": "2026-08-26T23:18:30Z",
+      "ticker": "BSKY",
+      "company": "BlackSky Technology Inc.",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "BlackSky Technology Inc. is facing delisting from the New York Stock Exchange, which typically signals severe financial distress and can lead to reduced liquidity and investor confidence.",
+      "why_now": "The delisting notification was filed on August 26, 2026, making this a live event.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-2d4d4442635c",
+        "EVT-f14c29c6fe25"
+      ],
+      "primary_source_event_id": "EVT-2d4d4442635c",
+      "source_headlines": [
+        "25-NSE - BlackSky Technology Inc. (0001753539) (Subject)",
+        "25-NSE - NEW YORK STOCK EXCHANGE LLC (0000876661) (Filed by)"
+      ],
+      "source_headline": "25-NSE - BlackSky Technology Inc. (0001753539) (Subject)",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1753539/000087666126000707/0000876661-26-000707-index.htm",
+      "source_name": "SEC EDGAR — Latest 25-NSE (Delisting Notification)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-26T13:27:05Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-26T23:18:30Z",
+      "updated_at": "2026-08-26T23:18:30Z",
+      "decay_at": "2026-08-28T01:27:05Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-e9f7d83c2f9e",
       "idea_version": "IDEAV-7a30f084832ce743",
       "idea_version_started_at": "2026-08-26T22:23:24Z",
@@ -86703,6 +86636,77 @@
       "surfaced_at": "2026-08-26T22:23:24Z",
       "updated_at": "2026-08-26T22:23:24Z",
       "decay_at": "2026-08-28T01:06:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-4402530dd0df",
+      "idea_version": "IDEAV-1b64f1ccf2917e03",
+      "idea_version_started_at": "2026-08-26T17:19:45Z",
+      "ticker": "03958",
+      "company": "DFZQ",
+      "exchange": "HKEX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The acquisition of 100% of Shanghai Securities will significantly increase the firm's market share and asset base in the Chinese brokerage sector.",
+      "why_now": "The Shanghai Stock Exchange accepted the application for the asset purchase on August 26, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-b61b739ecc2a"
+      ],
+      "primary_source_event_id": "EVT-b61b739ecc2a",
+      "source_headlines": [
+        "DFZQ (03958): (1) MAJOR TRANSACTION - THE PROPOSED ACQUISITION OF 100% EQUITY INTERESTS IN SHANGHAI SECURITIES BY WAY OF ISSUE OF CONSIDERATION A SHARES UNDER SPECIFIC MANDATE AND PAYMENT OF CASH AND (2) APPLICATION FOR WHITEWASH WAIVER ACCEPTANCE OF APPLICATION FOR THE PURCHASE OF ASSETS BY WAY OF ISSUE OF CONSIDERATION A SHARES UNDER THE PROPOSED TRANSACTION BY THE SHANGHAI STOCK EXCHANGE"
+      ],
+      "source_headline": "DFZQ (03958): (1) MAJOR TRANSACTION - THE PROPOSED ACQUISITION OF 100% EQUITY INTERESTS IN SHANGHAI SECURITIES BY WAY OF ISSUE OF CONSIDERATION A SHARES UNDER SPECIFIC MANDATE AND PAYMENT OF CASH AND (2) APPLICATION FOR WHITEWASH WAIVER ACCEPTANCE OF APPLICATION FOR THE PURCHASE OF ASSETS BY WAY OF ISSUE OF CONSIDERATION A SHARES UNDER THE PROPOSED TRANSACTION BY THE SHANGHAI STOCK EXCHANGE",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0826/2026082601813.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-26T13:49:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-24T16:50:38Z",
+      "updated_at": "2026-08-26T17:19:45Z",
+      "decay_at": "2026-08-28T01:49:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -89151,18 +89155,18 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 168,
-    "shown_count": 168,
+    "total_count": 172,
+    "shown_count": 172,
     "hidden_count": 0,
     "side_counts": {
       "long": {
-        "total_count": 73,
-        "shown_count": 73,
+        "total_count": 74,
+        "shown_count": 74,
         "hidden_count": 0
       },
       "short": {
-        "total_count": 95,
-        "shown_count": 95,
+        "total_count": 98,
+        "shown_count": 98,
         "hidden_count": 0
       }
     },
@@ -89182,6 +89186,305 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-a06045bd26d9",
+        "idea_version": "IDEAV-1958a334293ed605",
+        "idea_version_started_at": "2026-08-27T02:10:48Z",
+        "ticker": "06860",
+        "company": "Fingertango",
+        "exchange": "HKEX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company issued a profit warning, signaling deteriorating margins or revenue performance that will likely lead to downward earnings revisions.",
+        "why_now": "The profit warning was filed on 2026-08-26.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-8348e5c7ac6a"
+        ],
+        "primary_source_event_id": "EVT-8348e5c7ac6a",
+        "source_headlines": [
+          "FINGERTANGO (06860): PROFIT WARNING"
+        ],
+        "source_headline": "FINGERTANGO (06860): PROFIT WARNING",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0826/2026082601861.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-26T14:03:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-27T02:10:48Z",
+        "updated_at": "2026-08-27T02:10:48Z",
+        "decay_at": "2026-08-28T02:03:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-28T02:03:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-4402530dd0df",
+        "idea_version": "IDEAV-1b64f1ccf2917e03",
+        "idea_version_started_at": "2026-08-26T17:19:45Z",
+        "ticker": "03958",
+        "company": "DFZQ",
+        "exchange": "HKEX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The acquisition of 100% of Shanghai Securities will significantly increase the firm's market share and asset base in the Chinese brokerage sector.",
+        "why_now": "The Shanghai Stock Exchange accepted the application for the asset purchase on August 26, 2026.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 20,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-b61b739ecc2a"
+        ],
+        "primary_source_event_id": "EVT-b61b739ecc2a",
+        "source_headlines": [
+          "DFZQ (03958): (1) MAJOR TRANSACTION - THE PROPOSED ACQUISITION OF 100% EQUITY INTERESTS IN SHANGHAI SECURITIES BY WAY OF ISSUE OF CONSIDERATION A SHARES UNDER SPECIFIC MANDATE AND PAYMENT OF CASH AND (2) APPLICATION FOR WHITEWASH WAIVER ACCEPTANCE OF APPLICATION FOR THE PURCHASE OF ASSETS BY WAY OF ISSUE OF CONSIDERATION A SHARES UNDER THE PROPOSED TRANSACTION BY THE SHANGHAI STOCK EXCHANGE"
+        ],
+        "source_headline": "DFZQ (03958): (1) MAJOR TRANSACTION - THE PROPOSED ACQUISITION OF 100% EQUITY INTERESTS IN SHANGHAI SECURITIES BY WAY OF ISSUE OF CONSIDERATION A SHARES UNDER SPECIFIC MANDATE AND PAYMENT OF CASH AND (2) APPLICATION FOR WHITEWASH WAIVER ACCEPTANCE OF APPLICATION FOR THE PURCHASE OF ASSETS BY WAY OF ISSUE OF CONSIDERATION A SHARES UNDER THE PROPOSED TRANSACTION BY THE SHANGHAI STOCK EXCHANGE",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0826/2026082601813.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-26T13:49:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-24T16:50:38Z",
+        "updated_at": "2026-08-26T17:19:45Z",
+        "decay_at": "2026-08-28T01:49:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-28T01:49:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-fa9512f6988e",
+        "idea_version": "IDEAV-8e32e03160a422e5",
+        "idea_version_started_at": "2026-08-26T20:21:39Z",
+        "ticker": "BKSY",
+        "company": "BlackSky Technology Inc.",
+        "exchange": "NYSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company has received a delisting notification from the NYSE, which typically signals severe liquidity or compliance distress and often precedes further equity erosion.",
+        "why_now": "The delisting notice was filed with the SEC on 2026-08-26.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 55,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 20,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "balance_sheet_survival",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-2d4d4442635c",
+          "EVT-f14c29c6fe25"
+        ],
+        "primary_source_event_id": "EVT-2d4d4442635c",
+        "source_headlines": [
+          "25-NSE - BlackSky Technology Inc. (0001753539) (Subject)",
+          "25-NSE - NEW YORK STOCK EXCHANGE LLC (0000876661) (Filed by)"
+        ],
+        "source_headline": "25-NSE - BlackSky Technology Inc. (0001753539) (Subject)",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1753539/000087666126000707/0000876661-26-000707-index.htm",
+        "source_name": "SEC EDGAR — Latest 25-NSE (Delisting Notification)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-26T13:27:05Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-26T20:21:39Z",
+        "updated_at": "2026-08-26T20:21:39Z",
+        "decay_at": "2026-08-28T01:27:05Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-28T01:27:05Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-ba7402b9aa86",
+        "idea_version": "IDEAV-57bfd54e9ecf6363",
+        "idea_version_started_at": "2026-08-26T23:18:30Z",
+        "ticker": "BSKY",
+        "company": "BlackSky Technology Inc.",
+        "exchange": "NYSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "BlackSky Technology Inc. is facing delisting from the New York Stock Exchange, which typically signals severe financial distress and can lead to reduced liquidity and investor confidence.",
+        "why_now": "The delisting notification was filed on August 26, 2026, making this a live event.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 20,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "balance_sheet_survival",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-2d4d4442635c",
+          "EVT-f14c29c6fe25"
+        ],
+        "primary_source_event_id": "EVT-2d4d4442635c",
+        "source_headlines": [
+          "25-NSE - BlackSky Technology Inc. (0001753539) (Subject)",
+          "25-NSE - NEW YORK STOCK EXCHANGE LLC (0000876661) (Filed by)"
+        ],
+        "source_headline": "25-NSE - BlackSky Technology Inc. (0001753539) (Subject)",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1753539/000087666126000707/0000876661-26-000707-index.htm",
+        "source_name": "SEC EDGAR — Latest 25-NSE (Delisting Notification)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-26T13:27:05Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-26T23:18:30Z",
+        "updated_at": "2026-08-26T23:18:30Z",
+        "decay_at": "2026-08-28T01:27:05Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-28T01:27:05Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-e9f7d83c2f9e",
         "idea_version": "IDEAV-7a30f084832ce743",
@@ -101639,7 +101942,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 211,
-    "live_count": 41,
+    "live_count": 37,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -101658,9 +101961,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 88809,
-    "news_picked_today": 171,
-    "news_dropped_today": 1053
+    "news_seen_today": 196971,
+    "news_picked_today": 509,
+    "news_dropped_today": 2419
   },
   "book_momentum": {
     "live_count": 8,
