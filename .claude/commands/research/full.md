@@ -607,7 +607,16 @@ viol.extend(rc.eval_af_filter1_integrity_cap(dec, ddte, _mg_txt, _track_txt) or 
 _v02_txt = _read_orb("valuation", "02_*.md")
 _v03_txt = _read_orb("valuation", "03_*.md")
 _v99_txt = _read_orb("valuation", "99_*-synthesis.md")
-viol.extend(rc.eval_bb_sector_cycle_compounding_cap(ddte, _v02_txt, _v03_txt, _v99_txt) or [])
+# [PR#629 review fix] gate BB on the LIVE execution date, not `ddte` (decision_date). A /research:rerun
+# mutates the existing run folder and its decision_date stays pinned to that folder's original
+# pre-BB_DATE YYYY-MM-DD suffix (synthesizer.md) — it never advances on rerun. Passing `ddte` would make
+# BB permanently N/A on the ordinary rerun path even when 02/03 freshly emit RF-VAL-001/002 (they run
+# under today's prompts) and 99 states a confidence above 55, silently bypassing the very cap this check
+# exists to enforce (CLAUDE.md §11: caps are applied, never silently overridden). This mirrors the exact
+# AT/AU/AV `_live_date` precedent below; retrospective eval.py check BB correctly keeps the true
+# decision_date. Defined here (first live-gate use) and reused by the AT/AU/AV block below.
+_live_date = datetime.date.today().isoformat()
+viol.extend(rc.eval_bb_sector_cycle_compounding_cap(_live_date, _v02_txt, _v03_txt, _v99_txt) or [])
 # check AQ — §13 cross-module forensic-mosaic conviction cap (live pre-publish; mirrors eval.py check
 # AQ via scripts/rating_caps.py, same shared detection module as AC/AD/AE/AF above). Mechanizes
 # synthesizer.md Pre-Write Gate step 4B's "3+ distinct forensic tags across 2+ modules compound into
@@ -699,8 +708,8 @@ import scenario_integrity_checks as sic
 # them into the LIVE, pre-publish gate: they exist to check what ships on THIS execution, not to re-judge
 # when the thesis was first decided (that retrospective distinction stays correct in eval.py, which grades
 # already-committed history and must keep using the true decision_date to avoid retroactively flagging
-# pre-rollout runs).
-_live_date = datetime.date.today().isoformat()
+# pre-rollout runs). `_live_date` is defined once in the BB cap block above (first live-gate use) and
+# reused here — the same execution-date rationale, one source of truth.
 viol.extend(sic.eval_at_scenario_span(_live_date, scen) or [])
 viol.extend(sic.eval_au_sign_check_recorded(_live_date, body) or [])
 viol.extend(sic.eval_av_conjunction_disclosure(_live_date, scen) or [])

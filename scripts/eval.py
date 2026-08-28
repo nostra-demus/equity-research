@@ -3363,6 +3363,12 @@ if scope=="selftest":
     _bb_synth_atcap= "## 1. Valuation Verdict\n- Valuation confidence /100: 55\n"
     _bb_synth_over = "## 1. Valuation Verdict\n- Valuation confidence /100: 62\n"
     _bb_synth_noscore = "## 1. Valuation Verdict\n- no score line here\n"
+    # A non-whole (55.9) or ranged (55–60) confidence must NOT truncate to a passing 55: it reads as
+    # unparseable and fails closed (Codex review P2; CLAUDE.md §11/§12/§15). Expected value pinned to
+    # 99_valuation-synthesis.md §1 (Valuation confidence is a whole /100 score) — not to code behaviour.
+    _bb_synth_decimal = "## 1. Valuation Verdict\n- Valuation confidence /100: 55.9\n"
+    _bb_synth_range   = "## 1. Valuation Verdict\n- Valuation confidence /100: 55–60\n"
+    _bb_synth_range_sp= "## 1. Valuation Verdict\n- Valuation confidence /100: 55 - 60\n"
     bbcases=[  # (decision_date, mult_txt(02), peer_txt(03), synth_txt(99), expect: None=N/A, []=pass, [substr]=fail-with)
         ("2026-08-28",_bb_elev02,_bb_elev03,_bb_synth_ok,[]),                    # same-direction elevated, within cap → pass
         ("2026-08-28",_bb_elev02,_bb_elev03,_bb_synth_atcap,[]),                 # exactly at the 55 cap → pass
@@ -3373,6 +3379,9 @@ if scope=="selftest":
         ("2026-08-28",_bb_elev02,_bb_cleared02,_bb_synth_over,[]),               # 03's tag line is a cleared/negation status → not fired, no compounding
         ("2026-08-28",_bb_elev02,_bb_elev03,None,["cannot be verified as applied"]),        # trigger fired, 99 absent → FAIL (unverifiable)
         ("2026-08-28",_bb_elev02,_bb_elev03,_bb_synth_noscore,["could not be parsed"]),      # trigger fired, score unparseable → FAIL
+        ("2026-08-28",_bb_elev02,_bb_elev03,_bb_synth_decimal,["could not be parsed"]),      # 55.9 must not truncate to a passing 55 → unparseable → FAIL
+        ("2026-08-28",_bb_elev02,_bb_elev03,_bb_synth_range,["could not be parsed"]),        # 55–60 range must not truncate to 55 → unparseable → FAIL
+        ("2026-08-28",_bb_elev02,_bb_elev03,_bb_synth_range_sp,["could not be parsed"]),     # 55 - 60 (spaced range) likewise → FAIL
         ("2026-08-28",_bb_na02,_bb_na02,_bb_synth_over,[]),                      # neither flagged → pass
         ("2026-08-27",_bb_elev02,_bb_elev03,_bb_synth_over,None),                # predates BB_DATE → N/A
         ("2026-08-28",None,None,_bb_synth_over,None),                           # neither 02 nor 03 ran → N/A

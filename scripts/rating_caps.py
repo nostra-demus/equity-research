@@ -482,13 +482,22 @@ CYCLE_ELEV_TAG = "RF-VAL-001"  # Sector Cycle Reality Test: reference point cycl
 CYCLE_DEPR_TAG = "RF-VAL-002"  # Sector Cycle Reality Test: reference point cycle-depressed
 BB_COMPOUND_CAP = 55  # combined base-case Valuation confidence ceiling when 02 AND 03 agree
 
-_BB_CONF_RE = re.compile(r"Valuation confidence\s*/?\s*100[^\n\d]{0,20}?(\d{1,3})", re.IGNORECASE)
+# The captured score must be a COMPLETE whole-number token: the trailing negative lookahead rejects a
+# match that is really the leading part of a decimal (`55.9`) or a range (`55–60`, `55 - 60`) — otherwise
+# `\d{1,3}` would truncate `55.9`/`55–60` to `55`, silently PASSING a stated confidence that actually
+# exceeds the cap (Codex review P2). A malformed token no longer matches → the score reads unparseable →
+# the caller fails closed with a "could not be parsed" violation (CLAUDE.md §11: caps must be applied,
+# never silently unverifiable; §12/§15: the score is a whole number out of 100).
+_BB_CONF_RE = re.compile(
+    r"Valuation confidence\s*/?\s*100[^\n\d]{0,20}?(\d{1,3})(?![\d.]|\s*[-–—]\s*\d)", re.IGNORECASE)
 
 def _bb_parse_valuation_confidence(synth_txt):
     """Extract the numeric 'Valuation confidence /100' figure from 99_valuation-synthesis.md's own
     §1 Verdict block text. Returns an int 0-100, or None if the line is absent/unparseable. Scans
     line-by-line (not the whole blob) so a match is always anchored to the actual stated-score line,
-    never to an unrelated number elsewhere in the file."""
+    never to an unrelated number elsewhere in the file. A non-whole or ranged score (`55.9`, `55–60`)
+    is treated as unparseable → None → the caller fails closed rather than truncating it to a value
+    that spuriously respects the cap (Codex review P2)."""
     if not synth_txt:
         return None
     for line in synth_txt.splitlines():
