@@ -1,0 +1,49 @@
+{
+  "swarm": "commodity",
+  "commodity": "GOLD",
+  "decision_date": "2026-07-03",
+  "action": "Hold",
+  "benchmark": "LBMA Gold Price / COMEX GC front-month (GCQ26)",
+  "current_price": {
+    "value": 4192.4,
+    "currency": "USD",
+    "unit": "troy oz",
+    "as_of": "2026-07-03"
+  },
+  "curve": "contango",
+  "balance": "balanced",
+  "net_macro": "headwind",
+  "positioning": "crowded long",
+  "thesis_summary": "Gold has corrected 25% from its January 2026 all-time high of $5,597, tracking almost exactly the rise in 10-year real yields to +2.25%. The near-term setup — death cross, elevated CFTC net longs at 181K contracts, fading ETF flows with a 298-tonne underwater overhang — does not support adding exposure; but the structural central-bank bid (~244 t in Q1 2026), long-run supply-demand near-balance, and a binary macro catalyst chain through September FOMC (dot plot) are sufficient reasons to hold rather than exit.",
+  "key_risks": [
+    "ETF investor reversal at scale — the channel swung 804 t in a single year (FY2024→FY2025); even a 5% net redemption of 4,086 t ETF holdings equals ~200 t of fast, non-mine supply",
+    "Real yield re-acceleration above 2.3–2.4% if June CPI or July NFP disappoint the disinflation narrative",
+    "Simultaneous speculative long liquidation from the crowded 181K CFTC position + ETF redemptions from the 298 t estimated underwater overhang — an asymmetric downside squeeze",
+    "Fed reaffirms hike bias at July 29 FOMC, removing the rate-cut option that the June NFP miss reopened"
+  ],
+  "key_levels": {
+    "support": 3860,
+    "resistance": 4438,
+    "fair_value_range": "3860–4500 (rate-path conditional; upper end requires real yield durably at or below +1.5%)"
+  },
+  "relative_view": "Most macro-conditional commodity in the tracked universe; gold is waiting for the Fed dot plot while copper, wheat, corn, soybeans, and cocoa sit on physical-balance and weather-driven theses that are independent of the real-yield environment — those offer more fundamentals-driven conviction windows right now",
+  "confidence": 52,
+  "sources": [
+    "WGC Gold Demand Trends FY2025, pub. 2026-01-29",
+    "WGC Gold Demand Trends Q1 2026, pub. 2026-04-29",
+    "WGC ETF Flows: May 2026, pub. 2026-06",
+    "WGC Central Bank Gold Statistics — May 2026, pub. 2026-07-02",
+    "WGC Gold Mid-Year Outlook 2026, gold.org",
+    "FRED DFII10, 2026-07-02",
+    "CFTC COT legacy report, tradingster.com citing CFTC, position date 2026-06-23, released 2026-06-27",
+    "COMEX GCQ26 settle, Google Finance / COMEX, 2026-07-03",
+    "BLS CPI release schedule; BEA Personal Income and Outlays release schedule",
+    "Federal Reserve FOMC calendar, federalreserve.gov, confirmed 2026-07-03",
+    "Metals Focus via Kitco, 2026-06-05 (vendor estimate, unverified)",
+    "Standard Chartered note via goldsilver.com, 2026-06-24 (unverified)"
+  ],
+  "confidence_haircut": 13,
+  "pre_mortem_verdict": "Does not survive — downgrade",
+  "post_review_confidence_score": 39,
+  "post_mortem_action": "Trim"
+}
