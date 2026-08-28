@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-28T03:27:53Z",
+  "generated_at": "2026-08-28T03:47:50Z",
   "inbox": [
     {
       "inbox_id": "INB-20260828-024",
@@ -100,31 +100,80 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260828-466",
-      "headline": "Advent, Stripe abandon $63.5b pursuit of fintech pioneer PayPal",
+      "inbox_id": "INB-20260828-537",
+      "headline": "GuocoLand H2 net profit down 70% at S$9.8 million",
       "headline_en": null,
-      "url": "https://www.straitstimes.com/business/advent-stripe-abandon-63-5b-pursuit-of-fintech-pioneer-paypal",
-      "source_name": "The Straits Times",
+      "url": "https://www.businesstimes.com.sg/companies-markets/guocoland-h2-net-profit-down-70-s9-8-million",
+      "source_name": "The Business Times (Singapore)",
       "input_nature": "news_headline",
-      "found_at": "2026-08-28T02:45:00Z",
+      "found_at": "2026-08-28T03:19:41Z",
       "sweep_file": "screener/inbox/2026-08-28_sweep.json",
-      "prelim_note": "Advent and Stripe have abandoned a $63.5 billion acquisition pursuit of PayPal.",
+      "prelim_note": "GuocoLand reported a 70% decline in H2 net profit to S$9.8 million.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 100,
-      "triage_reason": "Advent and Stripe have abandoned a $63.5 billion acquisition pursuit of PayPal.",
-      "region": "GLOBAL",
+      "triage_reason": "GuocoLand reported a 70% decline in H2 net profit to S$9.8 million.",
+      "region": "OTHER",
       "relevance": "material",
-      "materiality_pre_score": 80,
+      "materiality_pre_score": 75,
       "rank_factors": {
-        "materiality": 80,
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "GuocoLand",
+          "ticker": null,
+          "listing_country": "SG"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260828-538",
+      "headline": "Advent, Stripe abandon US$50 billion pursuit of PayPal: Bloomberg",
+      "headline_en": null,
+      "url": "https://www.businesstimes.com.sg/companies-markets/advent-stripe-abandon-us50-billion-pursuit-paypal-bloomberg",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-28T03:10:40Z",
+      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
+      "prelim_note": "Advent and Stripe abandoned a potential US$50 billion acquisition of PayPal.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Advent and Stripe abandoned a potential US$50 billion acquisition of PayPal.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
         "source_tier": 0,
         "scope": 5,
         "event": 9,
         "size": 2,
         "recency": 5,
-        "materiality_label_floor": 5,
+        "materiality_label_floor": 15,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "multi_name",
@@ -1055,6 +1104,153 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260828-555",
+      "headline": "Burlington Stores Expects Q3 Adj. Income To Slip, Lifts Annual Profit Outlook; Stock Down",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/burlington-stores-expects-q3-adj-income-slip-lifts-annual-profit-outlook-stock-down",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-27T12:30:28Z",
+      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
+      "prelim_note": "Burlington Stores reported a Q3 income slip but raised its annual profit outlook.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Burlington Stores reported a Q3 income slip but raised its annual profit outlook.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Burlington Stores",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260828-528",
+      "headline": "EIQ: Preliminary Final Report [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.EIQ?key=2924-03128284-2A1693221",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-28T03:13:05Z",
+      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
+      "prelim_note": "Preliminary final report is a key financial disclosure for investors.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Preliminary final report is a key financial disclosure for investors.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "EIQ",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260828-531",
+      "headline": "AR1: Austral Resources Appendix 4D and Half-year Report [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.AR1?key=2924-03128266-2A1693209",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-28T02:49:10Z",
+      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
+      "prelim_note": "Half-year financial report is a primary source for earnings and margin analysis.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Half-year financial report is a primary source for earnings and margin analysis.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Austral Resources",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260828-434",
       "headline": "TIP: ASX/Media Release - FY26 results [price-sensitive]",
       "headline_en": null,
@@ -1192,55 +1388,6 @@
       "companies": [
         {
           "name": "Magontec",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260828-399",
-      "headline": "BGE: Preliminary Final Report [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.BGE?key=2924-03128237-2A1693188",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-28T02:27:55Z",
-      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
-      "prelim_note": "Preliminary final report is a key financial disclosure for BGE.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Preliminary final report is a key financial disclosure for BGE.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "BGE",
           "ticker": null,
           "listing_country": null
         }
@@ -1442,6 +1589,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260828-527",
+      "headline": "RFT: Response to ASX Price Query [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.RFT?key=2924-03128287-3A700317",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-28T03:18:05Z",
+      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
+      "prelim_note": "ASX price query marked price-sensitive requires company disclosure of material information affecting the stock; the underlying event (earnings miss, guidance cut, M&A, capital action, or regulatory action) is undisclosed.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "ASX price query marked price-sensitive requires company disclosure of material information affecting the stock; the underlying event (earnings miss, guidance cut, M&A, capital action, or regulatory action) is undisclosed.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "RFT",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1785,190 +1981,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260828-176",
-      "headline": "Newlywed woman killed by Israeli air strike on southern Lebanon",
-      "headline_en": null,
-      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/newlywed-woman-killed-israeli-air-strike-southern-lebanon",
-      "source_name": "Middle East Eye",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-27T16:15:07Z",
-      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
-      "prelim_note": "Escalation of military conflict in Lebanon increases regional geopolitical risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Escalation of military conflict in Lebanon increases regional geopolitical risk.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 9,
-        "event": 0,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "geopolitical",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260828-262",
-      "headline": "Rusia lanza ataques aéreos contra comercios, puertos e instalaciones industriales de Kiev",
-      "headline_en": "Russia launches air strikes on Kyiv commercial, port and industrial facilities",
-      "url": "https://www.reuters.com/es/mundo/FHV2HKUD7ZLC5FHDB63ID6P6KE-2026-08-27/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-27T15:11:11Z",
-      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
-      "prelim_note": "Russia launched air strikes on Kyiv commercial, port and industrial sites, a military escalation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Russia launched air strikes on Kyiv commercial, port and industrial sites, a military escalation.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 9,
-        "event": 0,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "geopolitical",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260828-035",
-      "headline": "IDT INT'L (00167): COMPOSITE DOCUMENT RELATING TO MANDATORY UNCONDITIONAL CASH OFFER BY LEGO SECURITIES LIMITED FOR AND ON BEHALF OF THE OFFEROR TO ACQUIRE ALL ISSUED SHARES OF IDT INTERNATIONAL LIMITED (OTHER THAN THOSE ALREADY OWNED OR AGREED TO BE ACQUIRED BY THE OFFEROR AND PARTIES ACTING IN CONCERT WITH IT)",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0828/2026082800069.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-27T22:37:00Z",
-      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
-      "prelim_note": "IDT International received a mandatory unconditional cash offer.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "IDT International received a mandatory unconditional cash offer.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "IDT International",
-          "ticker": "00167",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260828-049",
-      "headline": "E-HOUSE ENT (02048): OVERWHELMING SUPPORT BY SCHEME CREDITORS - NOTICE OF RESULT OF SCHEME MEETINGS",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0828/2026082800011.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-27T22:09:00Z",
-      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
-      "prelim_note": "Creditor scheme of arrangement received overwhelming support, indicating resolution of a debt restructuring or capital restructuring event; specific terms, financial haircut, and equity implications not disclosed.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Creditor scheme of arrangement received overwhelming support, indicating resolution of a debt restructuring or capital restructuring event; specific terms, financial haircut, and equity implications not disclosed.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 62,
-      "rank_factors": {
-        "materiality": 62,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 8,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "debt_credit",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "E-House Ent",
-          "ticker": "02048",
-          "listing_country": "HK"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -102028,9 +102040,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 250794,
-    "news_picked_today": 718,
-    "news_dropped_today": 3122
+    "news_seen_today": 276349,
+    "news_picked_today": 781,
+    "news_dropped_today": 3347
   },
   "book_momentum": {
     "live_count": 8,
