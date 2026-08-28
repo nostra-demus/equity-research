@@ -316,14 +316,18 @@ decision_artifacts: [decision_record.json]
 """)
             legacy_record = {"decision_date": "2026-07-01", "commodity": "TEST"}
             top = root / "commodity" / "runs" / "TEST" / "decision_record.json"
-            legacy_archive = top.parent / "decisions" / "LEGACY-TEST-2026-07-01" / "decision_record.json"
+            legacy_archive = (
+                root / "frameworks" / "execution_provenance_legacy_snapshots"
+                / "commodity" / "TEST" / "decision_record.json"
+            )
+            top.parent.mkdir(parents=True)
             legacy_archive.parent.mkdir(parents=True)
             legacy_bytes = (json.dumps(legacy_record) + "\n").encode()
             top.write_bytes(legacy_bytes)
             legacy_archive.write_bytes(legacy_bytes)
             digest = "sha256:" + hashlib.sha256(legacy_bytes).hexdigest()
             inventory = root / "frameworks" / "execution_provenance_legacy_inventory.json"
-            inventory.parent.mkdir(parents=True)
+            inventory.parent.mkdir(parents=True, exist_ok=True)
             inventory.write_text(json.dumps({
                 "schema_version": "1.1",
                 "rollout_cutoff": "2026-08-21T00:00:00Z",
@@ -356,6 +360,12 @@ decision_artifacts: [decision_record.json]
             })
             legacy_archive.write_text(json.dumps({**legacy_record, "tampered": True}) + "\n")
             with self.assertRaisesRegex(ProvenanceError, "legacy terminal record changed"):
+                audit_repository(root)
+
+            inventory_data = json.loads(inventory.read_text())
+            inventory_data["records"]["frameworks/unrelated.json"] = digest
+            inventory.write_text(json.dumps(inventory_data) + "\n")
+            with self.assertRaisesRegex(ProvenanceError, "missing/stale"):
                 audit_repository(root)
 
 
