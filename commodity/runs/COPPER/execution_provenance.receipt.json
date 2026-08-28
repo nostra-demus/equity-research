@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.0",
+  "source": "cockpit_supervisor",
+  "epoch_id": "f89d63e6-1c0a-44c7-bde7-7cab72519cc3",
+  "attempts": [
+    {
+      "schema_version": "1.0",
+      "event": "attempt_started",
+      "attempt_id": "f89d63e6-1c0a-44c7-bde7-7cab72519cc3",
+      "provider": "claude",
+      "model": "opus",
+      "reasoning_level": "default",
+      "attribution": "recorded",
+      "profile_key": "claude:opus:default",
+      "cli_version": "2.1.241 (Claude Code)",
+      "scope": [
+        "commodity",
+        "full"
+      ],
+      "role": "terminal_adjudicator",
+      "decision_author": true,
+      "decision_artifacts": [
+        "decision_record.json"
+      ],
+      "decision_artifacts_optional": false,
+      "started_at": "2026-08-28T13:14:25.366Z"
+    }
+  ],
+  "written_at": "2026-08-28T14:59:58.322Z"
+}

@@ -1,0 +1,204 @@
+{
+  "schema_version": 1,
+  "commodity": "COPPER",
+  "owner_orb": "commodity-cross-asset-regime",
+  "generated_at": "2026-08-28T00:00:00Z",
+  "signals": [
+    {
+      "signal_id": "copper-relative-real-asset-regime-not-assessable",
+      "owner_orb": "commodity-cross-asset-regime",
+      "economic_cluster": "real-assets-regime",
+      "role": "context",
+      "horizon": "both",
+      "direction": "neutral",
+      "strength": 0.0,
+      "as_of": "2026-08-28T00:00:00Z",
+      "expiry": null,
+      "source_vintage_ids": [
+        "unvintaged:engine-connector-registry-and-pulse-eperm:2026-08-28",
+        "missing:copper.comex-price-history:no-price-history-connector-for-any-commodity"
+      ],
+      "source_vintage_refs": [],
+      "signal_kind": "observational",
+      "validation_ref": null,
+      "validation_status": "source_unverified",
+      "conviction_eligible": false,
+      "numerator_series_id": null,
+      "denominator_series_id": null,
+      "contradicts": [],
+      "notes": "No inflation-adjusted or broad-risk relative regime read can be produced by this orb. It would require a point-in-time copper close history (copper.comex-price-history, owned by commodity-price-curve) which is structurally absent: .claude/connectors/ holds 27 connectors and none is a price-history connector for any commodity or equity, data/COPPER/ does not exist, and scripts/refresh-swarm-pulse.sh commodity COPPER fails EPERM on the tsx IPC pipe (reproduced by me at decision time 2026-08-28) and is in any case a current-quote transport per its own pulse_sources.json header, not a history. Strength 0.0 because this records an absence of measurement, not a market fact. Note explicitly: the inflation-adjusted LEVEL read for copper was already emitted by commodity-price-curve under its own real-price-regime family; this orb does not restate it, so that fact does not vote twice (MODULE_RULES section 8)."
+    },
+    {
+      "signal_id": "copper-gold-ratio-history-not-assessable",
+      "owner_orb": "commodity-cross-asset-regime",
+      "economic_cluster": "related-market-breadth",
+      "role": "context",
+      "horizon": "both",
+      "direction": "neutral",
+      "strength": 0.0,
+      "as_of": "2026-08-28T00:00:00Z",
+      "expiry": null,
+      "source_vintage_ids": [
+        "unvintaged:engine-connector-registry-and-pulse-eperm:2026-08-28",
+        "missing:copper.gold-price-history:no-lawful-point-in-time-gc1-close-history"
+      ],
+      "source_vintage_refs": [],
+      "signal_kind": "observational",
+      "validation_ref": null,
+      "validation_status": "source_unverified",
+      "conviction_eligible": false,
+      "numerator_series_id": "copper.comex-price-history",
+      "denominator_series_id": "copper.gold-price-history",
+      "contradicts": [],
+      "notes": "The required semantic series copper.gold-price-history is unavailable and so is the copper leg the ratio divides by, so the copper/gold ratio has N = 0 aligned observations against a floor of at least five years for any percentile or robust z-score. The Gold-named connectors in the registry (bls-cpi-gold, treasury-real-yields-gold, wgc-official-gold-reserves, ishares-iau-gold-holdings, lbma-gold-vault-clearing, cme-gold-inventory-deliveries, usgs-gold-mine-supply, cftc-cot-gold) are CPI, real-yield, reserves, holdings, vault, inventory, mine-supply and positioning series - none is a price history. The failure is DOUBLE and cannot be repaired one row at a time: a gold history with no copper history still yields zero ratio observations. No history was reconstructed from remembered or approximate levels."
+    },
+    {
+      "signal_id": "copper-gold-ratio-level-unvintaged-no-percentile",
+      "owner_orb": "commodity-cross-asset-regime",
+      "economic_cluster": "related-market-breadth",
+      "role": "context",
+      "horizon": "both",
+      "direction": "neutral",
+      "strength": 0.1,
+      "as_of": "2026-08-28T00:00:00Z",
+      "expiry": null,
+      "source_vintage_ids": [
+        "unvintaged:tradingeconomics-copper-page:2026-08-28",
+        "unvintaged:yahoo-finance-gold-price-today:2026-08-28",
+        "unvintaged:metalcharts-gold-copper-ratio:2026-08-28"
+      ],
+      "source_vintage_refs": [],
+      "signal_kind": "observational",
+      "validation_ref": null,
+      "validation_status": "source_unverified",
+      "conviction_eligible": false,
+      "numerator_series_id": "copper.comex-price-history",
+      "denominator_series_id": "copper.gold-price-history",
+      "contradicts": [],
+      "notes": "Unvintaged cross-sourced level only. My arithmetic: COMEX HG front US$6.62/lb [Web: TradingEconomics, as-of 2026-08-28] divided by gold US$4,650.90/oz [Web: Yahoo Finance, as-of 2026-08-28 07:43 ET] = copper/gold 0.0014234, i.e. about 702.6 lb of copper per oz of gold; an independent live chart relay quotes gold/copper 703, which reconciles. Direction is neutral because a level with no history carries no direction: percentile and z-score are not assessable at N = 0. Two construction warnings travel with this row. (1) The legs are not timestamp-aligned and the gold basis is mixed - the same source page carries $4,656 Dec-26 futures at the open, $4,650.90 at 07:43 ET and $4,608 at 06:30 ET, a 1.0% intraday spread in one article. (2) Venue choice alone moves the level: on the LME 3-month print of US$14,251/tonne = US$6.464/lb the same gold quote gives 719.5 lb per oz, +2.41% versus 702.6. Any 'extreme' or 'cheap' read on this level would be reading its own construction choices."
+    },
+    {
+      "signal_id": "copper-gold-relative-12m-cyclical-leadership-unvintaged",
+      "owner_orb": "commodity-cross-asset-regime",
+      "economic_cluster": "related-market-breadth",
+      "role": "confirmation",
+      "horizon": "strategic",
+      "direction": "bullish",
+      "strength": 0.25,
+      "as_of": "2026-08-28T00:00:00Z",
+      "expiry": null,
+      "source_vintage_ids": [
+        "unvintaged:tradingeconomics-copper-page:2026-08-28",
+        "unvintaged:web-secondary-gold-trailing-12m-return-relay:2026-08-26"
+      ],
+      "source_vintage_refs": [],
+      "signal_kind": "observational",
+      "validation_ref": null,
+      "validation_status": "source_unverified",
+      "conviction_eligible": false,
+      "numerator_series_id": "copper.comex-price-history",
+      "denominator_series_id": "copper.gold-price-history",
+      "contradicts": [
+        "copper-gold-ratio-fifty-year-low-relay-fails-arithmetic"
+      ],
+      "notes": "Unvintaged context, basis-mismatched, non-conviction. Copper +46.63% over 12m [Web: TradingEconomics, as-of 2026-08-28 - front-month futures, price basis, roll excluded] against gold +22.1% over 12m [Web: secondary relay, 'early August 2026' as-of - spot basis]. My arithmetic: 1.4663 / 1.2210 - 1 = +20.09% change in copper/gold. Section 4a attribution: this is a DECOMPOSITION, not an attribution - 0% of copper's own +46.63% is explained by it and 100% remains unattributed, matching the price-curve orb's independent residual. Direction is bullish only in the weak sense that the cyclical metal led the defensive one; strength is held to 0.25 because the two legs carry different as-of dates and different instrument bases, no percentile exists to say whether +20% of ratio change is large or ordinary, and the strongest competing explanation is NOT cyclical: the copper leg is quoted on COMEX, the venue distorted by a possible 2027 US refined-copper tariff, with COMEX stocks at a record above 675,000 t after 46 consecutive daily builds while LME stocks fell to 214,550 t, -14% since 2026-07-31 [Web: wire summaries, 2026-08-26 - unvintaged]. A COMEX-only copper/gold ratio in this regime measures a US import premium at least as much as the global cycle. Denominator-side drivers (real yields, broad USD, official-sector buying, ETF flows) are owned by commodity-macro-drivers, commodity-demand-inventory and commodity-positioning-flows and are deliberately NOT restated here."
+    },
+    {
+      "signal_id": "copper-gold-ratio-fifty-year-low-relay-fails-arithmetic",
+      "owner_orb": "commodity-cross-asset-regime",
+      "economic_cluster": "related-market-breadth",
+      "role": "risk",
+      "horizon": "both",
+      "direction": "neutral",
+      "strength": 0.05,
+      "as_of": "2026-08-28T00:00:00Z",
+      "expiry": null,
+      "source_vintage_ids": [
+        "unvintaged:web-secondary-copper-gold-ratio-fifty-year-low-relay:2026-08-28"
+      ],
+      "source_vintage_refs": [],
+      "signal_kind": "observational",
+      "validation_ref": null,
+      "validation_status": "source_unverified",
+      "conviction_eligible": false,
+      "numerator_series_id": "copper.comex-price-history",
+      "denominator_series_id": "copper.gold-price-history",
+      "contradicts": [
+        "copper-gold-relative-12m-cyclical-leadership-unvintaged"
+      ],
+      "notes": "Recorded as a separate, linked, opposing row rather than averaged away (MODULE_RULES section 8), and then REJECTED on its own arithmetic. A secondary relay states the copper/gold ratio is at 50-year lows at 0.00077 as-of 2026-07-29, below 2008 (0.00110) and 2020 (0.00084). Check: 0.00077 x $4,650.90 implies copper at $3.581/lb, 45.9% below the $6.62 observed a month later; inverted, 6.62 / 0.00077 implies gold at $8,597/oz, 84.8% above the observed quote. The same summary simultaneously asserts gold 'past $4,100/oz' while a same-day source prints $4,650.90, and it never states its convention (US$/lb or US$/tonne over US$/oz). Under no convention does it reconcile with the dated prints, so it is discarded, not hedged. Strength 0.05 and direction neutral: its only legitimate use is as evidence that same-week secondary sources disagree with each other by roughly 2x, which is precisely why an unvintaged ratio cannot be given a percentile."
+    },
+    {
+      "signal_id": "copper-cross-asset-breadth-single-cluster-uncountable",
+      "owner_orb": "commodity-cross-asset-regime",
+      "economic_cluster": "related-market-breadth",
+      "role": "context",
+      "horizon": "both",
+      "direction": "neutral",
+      "strength": 0.0,
+      "as_of": "2026-08-28T00:00:00Z",
+      "expiry": null,
+      "source_vintage_ids": [
+        "unvintaged:commodity-profiles-copper-family-rule-and-connector-registry:2026-08-28"
+      ],
+      "source_vintage_refs": [],
+      "signal_kind": "observational",
+      "validation_ref": null,
+      "validation_status": "source_unverified",
+      "conviction_eligible": false,
+      "numerator_series_id": null,
+      "denominator_series_id": null,
+      "contradicts": [],
+      "notes": "Breadth is not assessable and the raw row count must not be read as breadth. Two mechanisms merge this orb's lenses into ONE relative-cycle cluster before any correlation is measured: (a) copper/gold and COPX/copper share the COMEX copper leg, so a move in copper alone moves both - a shared-component merge; (b) the COPPER profile's family rule states cross-asset ratios 'are computed from the declared price histories and count once under the correlation-cluster rule'. Copper/oil, copper versus broad commodity or industrial-metals indices and copper versus equities were NOT built, because they are not declared price histories for this profile and building them would have added rows without adding one independent read. Zero correlation_edges are emitted: the merge floor is at least three years and 150 weekly observations and this orb has N = 0, so no coefficient - not even an approximate one - can lawfully be stated. Conviction-eligible clusters contributed by this orb: 0."
+    },
+    {
+      "signal_id": "copper-miner-equity-ratio-history-not-assessable",
+      "owner_orb": "commodity-cross-asset-regime",
+      "economic_cluster": "producer-confirmation",
+      "role": "context",
+      "horizon": "both",
+      "direction": "neutral",
+      "strength": 0.0,
+      "as_of": "2026-08-28T00:00:00Z",
+      "expiry": null,
+      "source_vintage_ids": [
+        "unvintaged:engine-connector-registry-and-pulse-eperm:2026-08-28",
+        "missing:copper.miner-equity-history:no-equity-transport-exists-in-this-swarm"
+      ],
+      "source_vintage_refs": [],
+      "signal_kind": "observational",
+      "validation_ref": null,
+      "validation_status": "source_unverified",
+      "conviction_eligible": false,
+      "numerator_series_id": "copper.miner-equity-history",
+      "denominator_series_id": "copper.comex-price-history",
+      "contradicts": [],
+      "notes": "The required semantic series copper.miner-equity-history is unavailable, and the failure is more complete than for gold: there is no equity transport in this swarm at all. frameworks/commodity/pulse_sources.json carries twelve commodity futures symbols and not one equity ticker, so even a healthy pulse would return nothing for COPX; no connector claims the series and no file in the tree holds it. The copper denominator is separately absent. N = 0 aligned observations, so no percentile, no z-score and no miner beta can be computed - and none was assumed. A miners/metal ratio is in any case a LEVERED, equity-risk confirmation carrying operating leverage, hedge books, jurisdiction, index construction and equity-market beta; it never substitutes for the metal."
+    },
+    {
+      "signal_id": "copx-miner-leadership-12m-unvintaged-basis-mismatched",
+      "owner_orb": "commodity-cross-asset-regime",
+      "economic_cluster": "producer-confirmation",
+      "role": "confirmation",
+      "horizon": "strategic",
+      "direction": "bullish",
+      "strength": 0.3,
+      "as_of": "2026-08-27T00:00:00Z",
+      "expiry": null,
+      "source_vintage_ids": [
+        "unvintaged:stockanalysis-copx-etf-page:2026-08-27",
+        "unvintaged:tradingeconomics-copper-page:2026-08-28"
+      ],
+      "source_vintage_refs": [],
+      "signal_kind": "observational",
+      "validation_ref": null,
+      "validation_status": "source_unverified",
+      "conviction_eligible": false,
+      "numerator_series_id": "copper.miner-equity-history",
+      "denominator_series_id": "copper.comex-price-history",
+      "contradicts": [],
+      "notes": "Unvintaged context, basis-mismatched, non-conviction. COPX US$95.54 as-of 2026-08-27 with a 12m TOTAL return of +103.47% including a 2.02% dividend yield, 52-week range 48.50-99.99 [Web: stockanalysis.com - unvintaged]; my arithmetic puts it at 91.4% of that range ((95.54-48.50)/(99.99-48.50)), which is a RANGE POSITION, not a distribution percentile. Against copper +46.63% price-only, the raw ratio is 2.0347/1.4663 = +38.8% miner-over-metal. Section 4a attribution: COMEX copper +46.63% x a COPX-to-copper beta that is UNMEASURED (needs at least 150 aligned weekly observations; N = 0) = no modelled COPX move at all against the +103.47% observed, so 0% explained and 100% residual. The +38.8% figure is corrected in BOTH directions and is therefore left unbounded: stripping the ~2.0% yield lowers the miner leg to about +101% price-only, while charging the copper long its roll lowers the metal's implementable return (the price-curve orb measured about +6.05%/yr contango on one chain, while two other unvintaged sources implied steep backwardation - the sign is contested). Competing non-copper explanations, none of which I can exclude: equity-market beta and an 'AI infrastructure' equity re-rating; basket composition, since COPX holds diversified producers with gold, silver, moly and cobalt by-product revenue and gold itself was +22.1% over the same window; deal and jurisdiction events; and single-theme ETF creation flows. Strength 0.3 reflects that miner strength here is an equity fact of unknown composition, not verified producer confirmation of copper."
+    }
+  ],
+  "correlation_edges": []
+}

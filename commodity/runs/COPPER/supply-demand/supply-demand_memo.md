@@ -1,71 +1,97 @@
 # Supply–Demand Module Memo — COPPER
 
-**Verdict: Modest refined surplus continuing through 2026–2027** — the refined copper market ran a ~380,000 t surplus in 2025 (ICSG preliminary) and ICSG's April 2026 forecast projects a further ~96,000 t surplus in 2026 and ~377,000 t in 2027, though tightness at the mine (concentrate) level tells a different story.
+**Verdict: NOT ESTABLISHED for full-year 2026. Realised year-to-date: surplus.** — the same reported ICSG release gives a **+96 kt surplus** headline and, from its own reported growth rates, an implied **−125 kt deficit**: 221 kt apart with **opposite signs**, so no full-year sign may be published [orb 02 §1.4b].
 
-Memo date: 2 July 2026.
+**Memo date:** 2026-08-28 · **Run root:** `commodity/runs/COPPER/` · **Unit:** thousand tonnes (kt) of contained/refined copper metal.
+
+> **Read this first.** `data/COPPER/` does not exist and no accepted connector vintage exists anywhere in this run. **Every figure below is unvintaged live-web context inherited from the four specialists.** Under MODULE_RULES §8A it may explain the situation but **cannot raise data sufficiency or conviction**. Not one primary document was successfully read (five primary retrievals failed: 2× HTTP 403, 3× unreadable binary PDF); every production figure is a trade-press relay of an ICSG / USGS / Cochilco / INE / MINEM figure.
 
 ---
 
-## At a Glance
+## Scores at a Glance
 
-The synthesis does not carry a numeric 0–100 scoring table for this module. It carries verdicts, not scores. What it does carry:
+*Higher-is-worse (inverted) rows are labelled. The one score below is a confidence measure, not a market call.*
 
-| Item | Reading (from synthesis) |
+| Item | Reading (verbatim from the synthesis) |
 |---|---|
-| 2025 refined balance | Surplus ~380,000 t (ICSG preliminary, via ScrapMonster citing ICSG, 2026-02-25); alternative ICSG estimate ~289,000 t (Mining.com, 2026). Both point to surplus. |
-| 2026 refined balance (forecast) | Surplus ~96,000 t (ICSG press release, 2026-04-23). |
-| 2027 refined balance (forecast) | Surplus ~377,000 t (ICSG press release, 2026-04-23). |
-| Combined visible exchange stocks | ~1.09 Mt — above 1 Mt for the first time since 2004; covers ~2.2 weeks of global consumption (~28.2 Mt/year). |
-| Buffer verdict | Ample in aggregate but geographically split — ~60% of visible stock sits at COMEX (~652,000 t, record) from US tariff front-running; LME ex-US near multi-year lows (~352,000 t); SHFE near historical average (~89,000 t). |
-| Concentrate (mine) layer | Acute tightness — 2026 benchmark TC/RCs (treatment/refining charges — the fee smelters charge miners to process concentrate) settled at $0/tonne, down from ~$21/t in 2025; spot TCs reached minus $40–$45/tonne in Q4 2025. Lowest TC/RC in history. |
-| Seasonality | Not a material near-term driver; next seasonal inflection is "Golden September" restocking in late August, and that signal has weakened. |
-
-Caps, filter trips, and data-sufficiency caps: the synthesis does not carry a §24 Avoid-Big-Risks filter block, and it does not assign a formal data-sufficiency score. It does flag one explicit calibration warning (ICSG's own six-month swing of ~246,000 t between its October 2025 and April 2026 forecasts) and instructs that "the specific surplus figure [be treated] as directional, not precise" — a range between zero and +200,000 t for 2026 is consistent with the plausible outcomes.
+| **Supply–demand directional-conviction score** | **35/100** (raw 35, deterministic opacity **HIGH**, cap 45, reason "primary coverage below 70%"). §12 band: **weak (21–40)** |
+| **Score convention — do not misread** | Higher = **stronger evidence for the separately stated balance direction**. It does **not** mean bullish, tight, or well-supplied. A well-proven surplus and a well-proven deficit could both score highly; this scores low because the direction is contradicted by its own source |
+| **Score cap applied** | **45** (deterministic, opacity HIGH). **It does not bind** — raw 35 already sits below it. A cap can only reduce a score, never raise one |
+| Measured primary-source production coverage | **0.0%** (0 kt of current primary-observed production ÷ 23,500 kt world production) |
+| Estimate dispersion | **0.56%** (n=2) — **must not be read as agreement**; both estimates anchor on a ~23 Mt base and are not independent. Matched-basis alternatives: 1.93% on the 2025 level; **1.4pp on the 2026 growth rate (8× relative spread)** on the quantity that decides direction |
+| Release cycles late (inverted — higher is worse) | **1** (below the >2 trigger, so it does not independently trigger the cap) |
+| Required semantic series owned by this module | **All eight unusable** (§8A) — see the specialist lines below |
+| Globally accessible supply | **NOT ASSESSABLE** — the pre-policy exportable base does not exist this run |
+| §24 Avoid-Big-Risks read | **Killer risk present but TWO-SIDED; NO PROVEN CRITICAL RISK established** (orb 04). Under §11 **nothing in this module may be used to force `Avoid`**. Clean families are recorded as **"none found", NOT "proved zero"** (maritime chokepoints, CBAM); OPEC+-style managed supply and biofuel mandates are structurally inapplicable |
+| Mechanical consequence upstream | **`Research More`** (from `not_assessable` coverage) — the terminal thesis owns that call |
 
 ---
 
 ## What This Module Found
 
-The refined copper market is in surplus and is forecast to stay in surplus through 2027, but this masks two very different signals at two different layers of the supply chain. At the refined metal level, ICSG shows a ~380,000 t surplus in 2025 and forecasts ~96,000 t in 2026 and ~377,000 t in 2027. At the mine-concentrate level, treatment and refining charges (the fees smelters charge miners to process concentrate — normally positive, currently zero on the 2026 benchmark and deeply negative on the spot market) are at all-time lows, which is the strongest available signal that mines cannot feed smelters at current output rates.
+The full-year 2026 balance direction is **not proven from available data**, and the module refuses to publish a sign. The reason is not a derivation error: orb 02's method check reproduces 2025 to within 35 kt (+213 kt derived vs +178 kt reported), so the 221 kt gap in 2026 is an inconsistency **in the reported figures themselves**. `copper.refined-balance` is recorded **unusable**, not carried at +96 kt.
 
-The way these two things coexist: in 2025 Chinese smelters kept running hard even at negative margins, so refined output outran mine output and produced a surplus in refined metal even while concentrate was scarce. In 2026, top Chinese smelters have reportedly agreed to cut output by more than 10% (trade press, unverified); if that cut holds, the refined surplus narrows and the concentrate signal starts to translate through. If it fails, the refined surplus persists.
+What *is* observable is that the **realised** part of 2026 ran a surplus, on two partly independent reads: Q1-2026 printed **+396 kt** (386 kt seasonally adjusted), roughly 2.9× the +135 kt of Q1-2025 [ICSG Q1-2026 prelim via SMM, 2026-05-23 — UNVINTAGED]; and visible three-exchange stock rose **+401 kt** from end-2025 (744.1 kt) to end-May-2026 (1,145.0 kt). Setting a 3-month flow against a 5-month stock change is a period mismatch (§15), so the surplus is established only as the **same order of magnitude** as the visible build — a coarse finding, stated as coarse.
 
-The single most important driver going forward is Chinese smelter-cut compliance combined with the pace of Chinese grid and EV demand — China is ~58% of global refined demand and the dominant share of refined supply. The single most important risk is that the June 30, 2026 US Section 232 determination on 15%/30% tariffs on refined copper (cathodes/anodes) from 2027/2028 is unconfirmed in primary sources at run time, and its outcome determines whether the artificial ~652,000 t COMEX build unwinds or deepens.
+The supply story is a three-way split, and it must travel whole: total mine tonnes are **FLAT** (+0.2% Cochilco / +1.6% ICSG for 2026) **while the smeltable concentrate stream is FALLING** (−1.1% y/y, Q1-2026) **and SX-EW cathode (+3.3%) and scrap-based refined output (+5.6%, Jan–May) are RISING**. This is **not** "copper supply is falling" — the world total is held up by material that never enters a smelter. Spot treatment charges of **−US$182.14/dmt** (2026-08-21), against a **US$0/t** 2026 benchmark and US$21.25/t in 2025, are *consistent with* that concentrate shortfall but are **not measured against it**: no elasticity was sourced, so **0% is arithmetically attributed and 100% is residual**.
+
+The buffer is **comfortable in aggregate and thin where it has to clear — the same metal in the wrong place.** The **~968.4 kt** visible three-exchange total is **LME 235.6 kt total (2026-08-27) + COMEX registered+eligible 676.1 kt (2026-08-25) + SHFE warrant 56.7 kt (2026-08-19)** — an **approximation** across 8 days (24 for the COMEX split) and three non-fungible grade regimes. That equals **12.3 days** of world use, **+30.1%** against end-2025, with LME total at the **46th percentile of 19 years — mid-range, not tight**. But **69.8%** sits in COMEX/US warehouses behind the Section 232 cathode question, leaving **3.7 days ex-US** (LME total + SHFE warrant = 292.3 kt) and an **LME on-warrant** (genuinely deliverable) slice of **107.05 kt = 1.4 days that fell 35.8% in one week**, with **50.52% of LME stock already cancelled** — earmarked to exit, not deliverable (2026-08-21).
+
+The single biggest swing factor is **not weather** (orb 03: not a driver, neutral) — it is the **overdue US Section 232 determination on refined copper**, an undated binary that can move ~740 kt of US-located metal between "accessible to the world" and "trapped inside a border" **without changing a single tonne of production**. The exposure is **location, not quantity**.
+
+The most fragile conclusion here is the ex-US tightness read: **China bonded and LME off-warrant stocks are NOT MEASURED and are explicitly not assumed to be zero**, so every cover figure is a **lower bound**. Bonded articles reachable this run spanned 55.5 kt to 219.8 kt — a factor of four — and could not be dated to 2026, so they were excluded.
 
 ---
 
 ## The Specialists, Briefly
 
-- **Supply specialist** — refined surplus is real (2025 ~380,000 t; 2026 forecast ~96,000 t per ICSG April 2026) but concentrate is genuinely scarce (zero benchmark TC/RCs, spot minus $40–$45/t in Q4 2025) and three big mines (Grasberg, Kamoa-Kakula, Codelco El Teniente) lost an estimated ~350,000–400,000 t vs plan in 2026, or roughly 1.5–1.7% of world mine supply.
-- **Demand & inventory specialist** — combined visible exchange stocks ~1.09 Mt is above 1 Mt for the first time since 2004, but ~60% of that sits at COMEX from tariff front-running; LME ex-US at ~352,000 t is moderately stocked, not loose; China grid capex up ~37% YoY in Q1 2026 (secondary, unverified) is holding demand up.
-- **Weather & seasonality specialist** — copper is not weather-driven; the only seasonal signal is China's "Golden September" restocking, which starts in late August and has been weakened by the shift toward state-plan-driven grid demand.
+- **Orb 01 — commodity supply.** Total mine tonnes flat (world 23,500 kt 2026e), concentrate falling, SX-EW and scrap rising; **zero primary documents read**; every origin's pre-policy exportable cell is **`not computable`, not zero** (domestic absorption unsourced for Chile, Peru, DRC, Indonesia). Three series unusable — `mine-prepolicy-supply`, `scrap-supply`, `concentrate-tcrc`.
+- **Orb 02 — demand & inventory.** Found and published the 221 kt balance contradiction; demand decelerating (**+0.8% realised Q1** against a **+1.6%** full-year forecast already cut from +2.1%, needing ~**+1.9%** over the remaining nine months). Four series unavailable, including `refined-balance` and the whole `energy-transition-demand` bridge.
+- **Orb 03 — weather & seasonality.** **Not a driver, neutral.** Copper is "NOT a weather commodity". Owns no required series and correctly asserts no tonnage; explicitly declined the circulating "~1.6 Mt of capacity at suspension risk" figure as unsourced.
+- **Orb 04 — supply security.** Section 232 refined determination is the killer risk; the loud headlines restrict almost no copper (DRC concentrate ban ≈ **0.36% of world mined copper**, inference; Indonesia's ban changes export **form**; Russian metal is **exchange-ineligible, not lost production**). Its series is **FAILED**; primary coverage **0% across every row** of its bridge.
 
-Most important disagreement the synthesis flagged: ICSG's own October 2025 forecast of a **150,000 t deficit** for 2026 vs its April 2026 forecast of a **~96,000 t surplus** — same institution, six months apart, opposite direction. The synthesis's resolution: the April 2026 number takes precedence as newer, but the ~246,000 t swing is a calibration warning — treat the specific surplus figure as directional, not precise.
-
-The synthesis also called out a second, non-error contradiction: refined surplus (~380,000 t) vs concentrate scarcity (zero/negative TC/RCs). Its resolution: this is an accurate two-layer read of how the chain worked in 2025, and 2026 smelter cuts should partly close it.
+**The most important disagreement, and its resolution.** The aggregate buffer looks comfortable while the accessible buffer looks thin. The synthesis does **not** net them: four figures in its own tables — LME at the 46th percentile, stock +30.1% YTD, LME +77 kt y/y, and the +396 kt Q1 surplus — are **all true and none is overturned**. They say the *world* is not short of copper; they do not address *where* the metal is. A tonne in a COMEX vault behind a prospective 15–30% import duty is not available to a European or Chinese buyer at the LME price. Carried as **two linked rows, not averaged**.
 
 ---
 
 ## What Would Change This Read
 
-- **Chinese smelter-cut compliance data** — hard confirmation via ICSG monthly bulletins or NBS monthly output data that Chinese smelters are actually cutting by more than 10% would narrow the refined surplus and make the concentrate tightness translate into refined tightness. Failure to cut leaves the surplus in place.
-- **The June 30, 2026 Section 232 final determination** on 15%/30% tariffs on cathodes/anodes from 2027/2028. Deferred or reduced tariffs unwind the COMEX build (bearish for the visible buffer, bullish for the ex-US market); confirmation of the tariff schedule deepens the geographic split.
-- **A Chinese demand disappointment** — if grid capex (up ~37% YoY in Q1 2026 per unverified secondary) or EV demand slows on trade-war spillovers, the ICSG surplus figure gets wider, not narrower.
-- **Further major mine disruption** — Grasberg, Kamoa-Kakula, and Codelco El Teniente already account for ~350,000–400,000 t lost vs plan in 2026 (~1.5–1.7% of world mine supply); more of the same tightens the concentrate layer further.
-- **ICSG Copper Bulletin primary data** on 2025 actual mine production (the underlying PDF was not machine-readable at run time) would verify the +~1.4% mine growth read.
+| Trigger (dated and capable of failing, §17) | What it would change |
+|---|---|
+| **Section 232 bull flip:** a Federal Register proclamation imposing a refined-copper duty **≥15% effective on or before 2027-01-01**. Market-implied odds **14.6%** for 15% by Jan-2027; **37%** for 30% by Jan-2028 [FXStreet summary of Société Générale, 2026-08-10 — broker research, verdict-stripped, UNVINTAGED] | US-located metal becomes structurally trapped; confirms the location risk |
+| **Section 232 bear flip:** a published determination **not** to impose a duty, or **2027-01-01** passing with none in force | Frees US metal to move — this is the stated falsifier for the "thin accessible buffer" read. Implies the COMEX–LME spread falling ~**US$497/t (~91%)** from **US$547/t** (2026-08-26) toward the **~US$50/t** implied long-run average |
+| **Chile's required H2 recovery:** 5,270 kt needs H2 **+38 kt above year-ago** after H1 ran **−6.6% y/y**; evidence is **one month** (INE June-2026, 447,294 t, +5.1% y/y) | *Falsifier:* **July and August INE prints below year-ago make 5,270 kt unreachable** |
+| **Demand:** the year must run ~**+1.9%** over nine months against **+0.8%** realised in Q1 | Would settle whether the +1.6% forecast holds |
+| **El Niño — probabilistic, unrealised, two-sided.** NOAA CPC Advisory (2026-08-13): July Niño-3.4 **+1.4°C**, **>90%** chance of a very strong event into NH winter 2026-27; window **Dec-2026 – Mar-2027**, overlapping the **6 Feb 2027** Lunar New Year demand trough | Heavy Andean rain would interrupt mine output (price-positive); above-normal Chilean rain would ease the water constraint on concentrators (price-negative). Escalation trigger: a **named, dated suspension of more than ~two weeks at a top-10 asset**, sourced to the operator or COCHILCO. **Tonnage belongs to orb 01 — do not double-count** |
+| Other dated calendar items | **2026-12-31** Cobre Panamá decision window; **2027-01-01** recommended duty start; **2027-12-31** expiry of the June-2026 modification window; **2028-01-01** recommended step to 30% |
+| **Single highest-value data need** | A **lawful ICSG monthly-bulletin route** (or licensed equivalent) giving world refined production, usage and balance **in tonnes with revisions retained** — it would fix the balance sign, the monthly bridge and the secondary-production split in one series. Second: **LME / COMEX / SHFE warrant-status warehouse history**, ≥5 years weekly, plus a China bonded-zone stock series |
 
 ---
 
 ## Bottom Line
 
-- Verdict is refined surplus continuing through 2026–2027 — ~380,000 t in 2025, ~96,000 t forecast in 2026, ~377,000 t forecast in 2027 (all ICSG). This is the module's headline read.
-- Biggest reason it could be better than it looks (for copper prices — that is, tighter than the surplus suggests): the concentrate layer is genuinely scarce (zero/negative TC/RCs, a historic signal), and Chinese smelter cuts of more than 10%, if they hold, close the gap between the concentrate and refined layers.
-- Biggest reason it could be worse than it looks (looser than the surplus suggests): the ~1.09 Mt visible inventory buffer plus material unquantified off-warrant China bonded stocks; ICSG itself swung ~246,000 t in six months, so the specific number is directional, not precise, and a wider surplus is possible if Chinese demand disappoints.
-- What evidence is missing: verified Chinese smelter-cut compliance data, the Section 232 final determination outcome, ICSG primary 2025 mine-production numbers, and any hard quantification of China bonded/off-warrant stocks.
-- One thing to watch next: whether the 30 June 2026 Section 232 determination on 15%/30% tariffs on refined copper is confirmed — its outcome drives whether the COMEX inventory (~652,000 t, record) unwinds or deepens, which in turn drives ex-US physical access.
+- **The 2026 balance direction is not established and this memo does not pick one.** +96 kt reported surplus vs −125 kt implied deficit, 221 kt apart with opposite signs. The realised year-to-date period ran a surplus (Q1 +396 kt); those are two different statements and are not collapsed into one.
+- **Biggest reason it could be better than it looks:** the world is not short of copper on the aggregate reads — 12.3 days of visible cover, +30.1% YTD, LME total at the 46th percentile of 19 years — and bonded/off-warrant metal is unmeasured, so every cover figure is a **lower bound**.
+- **Biggest reason it could be worse than it looks:** only **1.4 days** of LME on-warrant (deliverable) metal, down **35.8% in one week**, with **50.52%** of LME stock already cancelled, and **69.8%** of the visible total sitting inside the US border.
+- **Missing evidence dominates the score.** Primary coverage **0.0%**, zero primary documents read, **all eight** required series unusable, globally accessible supply **`not assessable`**, the origin bridge closes for **no origin**, and direct-melt scrap is absent from the bridge entirely.
+- **The policy read stays two-sided.** The Section 232 refined determination is a killer risk in the §24 survival-tail sense — a large, sudden, undated repricing that can fire in **either** direction — and **no proven critical risk is established**. Nothing here forces `Avoid`.
+- **Watch next:** the July and August Chile INE prints (a cheap, dated falsifier), and the Federal Register for any refined-copper determination — **59 days overdue as of 2026-08-28, with no new date set**.
 
 ---
 
 ## Plain-English Glossary
 
-Only a few finance/commodity terms appear in this memo; each is defined where it first shows up (treatment and refining charges / TC/RCs in "What This Module Found"; COMEX / LME / SHFE are simply the US, London, and Shanghai metals exchanges; Section 232 is the US trade-law provision that lets the government impose tariffs on national-security grounds). No separate glossary needed — the few terms are explained where they appear.
+*Terms used in this memo, in order of first appearance. No new numbers or claims.*
+
+- **kt / surplus / deficit** — kt is a thousand tonnes of copper metal. A surplus means more metal was produced than used in the period; a deficit, the reverse.
+- **ICSG** — the International Copper Study Group, the body that publishes the world copper production, usage and balance figures.
+- **Unvintaged / secondary relay** — the number was read off a trade-press article rather than the original document, and it carries no verified date-stamped data pull behind it.
+- **Concentrate / smeltable stream** — the part-processed rock that must go through a smelter to become metal. **SX-EW** cathode skips the smelter entirely, which is why the total can be flat while the smelter feed falls.
+- **Treatment charge (TC/RC, US$/dmt)** — the fee a smelter charges a miner to process concentrate. When it goes negative, smelters are paying for feed rather than being paid to process it.
+- **Three-exchange visible stock** — copper sitting in the warehouses of the LME (London), COMEX (US) and SHFE (Shanghai) exchanges, and therefore countable.
+- **On-warrant / cancelled / registered / eligible / warrant** — warrant status says whether the metal can actually be delivered against a contract. **On-warrant** (LME) and **registered** (COMEX) metal is deliverable; **cancelled** warrants are earmarked to leave the warehouse and are not deliverable; **eligible** metal sits in an approved vault but is not warranted. These are never added into one number.
+- **Bonded / off-warrant stock** — metal held outside the exchange system (notably in Chinese bonded zones). Real metal, not counted here, and explicitly not assumed to be zero.
+- **Days of world use / stocks-to-use** — how many days the world could run on the stock on hand at current usage (~78.6 kt/day).
+- **Section 232** — the US trade-law process that can impose an import duty; here, a pending decision on whether refined copper is taxed at the US border.
+- **Backwardation** — the market paying more for metal now than for metal later, a sign of near-term scarcity (LME cash–3M ~US$248–254/t, cited from the market-structure orb but **not** voted as a supply-demand signal).
+- **COMEX–LME spread** — the price gap between US-located and London-located copper; it widens when the market expects a US import duty.
