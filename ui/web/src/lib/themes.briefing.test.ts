@@ -125,6 +125,18 @@ const firstOrderFormingLeak: Theme = {
     metrics: { ...themeOnlyAssessment.metrics, first_order_directional_ticker_count: 1 },
   },
 }
+const revalidatingFirstOrderTheme: Theme = {
+  ...firstOrderFormingLeak,
+  theme_id: 'THM-revalidating-first-order',
+  assessment: {
+    ...firstOrderFormingLeak.assessment!,
+    blockers: ['1 new matching evidence row still needs support/challenge/context classification before this thesis can seed an idea.'],
+    metrics: {
+      ...firstOrderFormingLeak.assessment!.metrics,
+      pending_revalidation: true,
+    },
+  },
+}
 
 assert.equal(exactNewsCount(ideaTheme), 10)
 assert.deepEqual(themeSurfaceAssessment(themeOnly), themeOnlyAssessment, 'the shared validator admits the production Theme-only contract')
@@ -134,6 +146,8 @@ assert.deepEqual(rankedValidatedThemes([contradictoryThemeOnly]), [], 'a contrad
 assert.equal(themeSurfaceAssessment(firstOrderFormingLeak), null, 'a forming row claiming a first-order directional ticker fails closed (would be actionable if genuine)')
 assert.equal(themeSurfaceStatus(firstOrderFormingLeak), 'context', 'the contradictory forming+first-order record normalizes to Context everywhere')
 assert.deepEqual(rankedValidatedThemes([firstOrderFormingLeak]), [], 'a forming row with a first-order ticker stays off the PM surface')
+assert.equal(themeSurfaceStatus(revalidatingFirstOrderTheme), 'forming', 'a first-order theme stays visible while new evidence awaits revalidation')
+assert.deepEqual(rankedValidatedThemes([revalidatingFirstOrderTheme]).map((row) => row.theme_id), [revalidatingFirstOrderTheme.theme_id])
 assert.deepEqual(rankedValidatedThemes([themeOnly, ideaTheme]).map((row) => row.theme_id), [ideaTheme.theme_id, themeOnly.theme_id])
 
 useStore.setState({

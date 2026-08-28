@@ -84,6 +84,7 @@ export interface ThemeSurfaceAssessment {
     narrative_coherence_pct: number
     recurring_narrative_token_count: number
     first_order_directional_ticker_count: number
+    pending_revalidation?: boolean
     recent_24h_support_count?: number
     recent_24h_challenge_count?: number
     off_core_evidence_count?: number
@@ -761,6 +762,7 @@ export function themeSurfaceAssessment(t: ThemeAssessmentInput): ThemeSurfaceAss
     m.off_core_evidence_count,
   ]
   if (!counts.every((v) => typeof v === 'number' && Number.isFinite(v) && Number.isInteger(v) && v >= 0)) return null
+  if (m.pending_revalidation !== undefined && typeof m.pending_revalidation !== 'boolean') return null
   if (!Number.isFinite(m.narrative_coherence_pct) || m.narrative_coherence_pct < 0 || m.narrative_coherence_pct > 100) return null
   const evidence = groupThemeEvidence(t)
   const visibleEvidenceCount = evidence.supports.length + evidence.challenges.length
@@ -803,14 +805,15 @@ export function themeSurfaceAssessment(t: ThemeAssessmentInput): ThemeSurfaceAss
   )) return null
   // Forming is a validated Theme-only lane, not a failed Ideas package. Its evidence still clears every
   // trust-boundary check above; only the old requirement for a duplicated theme blocker is obsolete.
-  // But forming is specifically the "no first-order directional ticker yet" lane: a fully-qualified row
-  // with a first-order directional ticker would have been promoted to `actionable` by the canonical
-  // server. A payload that claims `forming` while its own metrics report a first-order directional ticker
-  // is therefore internally contradictory (a stale/rolling-deploy cache) and fails closed to Context,
-  // exactly like the actionable-status trust-boundary check below.
+  // A blocker-free Forming row is the "no first-order directional ticker yet" lane. The canonical server
+  // can also retain a previously qualified first-order expression while a new matching row awaits
+  // support/challenge/context classification; that row is deliberately downgraded to Forming until the
+  // revalidation finishes. Trust that otherwise contradictory combination only when the server publishes
+  // its structured pending-revalidation bit. Cached or malformed blocker-free Forming+first-order payloads
+  // still fail closed to Context.
   if (candidate.status === 'forming' && (
     candidate.conviction !== 'watch'
-    || m.first_order_directional_ticker_count >= 1
+    || (m.first_order_directional_ticker_count >= 1 && m.pending_revalidation !== true)
   )) return null
   // An actionable row has cleared every gate: it must explain at least one fact and have no blocker.
   // A partial deploy or malformed cache that merely says `status: actionable` fails closed to Context.
