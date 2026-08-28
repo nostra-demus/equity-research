@@ -651,7 +651,13 @@ export function buildSummary(t: Theme, now: Date = new Date(), companyProjection
     conviction: qualified.assessment.conviction,
     off_core_member_count: qualified.off_core_members.length,
     qualified_expressions: expressions,
-    idea_ready: qualified.idea_admission.admitted,
+    // `idea_ready` is deliberately STRICTER than `assessment.status` (qualification.ts): a theme can seed an
+    // Idea only when it is BOTH admitted by the player contract AND actionable. Gating on admission alone let
+    // a `forming` theme — an eligible SECOND-order player (idea-admission accepts order-2) but no first-order
+    // directional ticker, so `expressionReady` is false — carry `idea_ready:true` and be labelled "Idea-ready"
+    // on the PM surface while the real Ideas gate (ideas-store requires status==='actionable') rejects it.
+    // Harmless while forming Theme-only rows were hidden; a live contradiction now that they are shown.
+    idea_ready: qualified.idea_admission.admitted && qualified.assessment.status === 'actionable',
     idea_blockers: [...qualified.idea_admission.blockers],
     player_counts: {
       first_order: players.filter((player) => player.order === 1).length,
