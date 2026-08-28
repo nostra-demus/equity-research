@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-28T05:40:45Z",
+  "generated_at": "2026-08-28T05:50:47Z",
   "inbox": [
     {
       "inbox_id": "INB-20260828-556",
@@ -139,6 +139,56 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260828-679",
+      "headline": "US Stock Market: Build-A-Bear shares plunge after retailer cuts revenue outlook, fires growth chief",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/us-stocks/news/us-stock-market-build-a-bear-shares-plunge-after-retailer-cuts-revenue-outlook-fires-growth-chief/articleshow/133582919.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-28T04:22:13Z",
+      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
+      "prelim_note": "Build-A-Bear cut its revenue outlook and terminated its growth chief.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Build-A-Bear cut its revenue outlook and terminated its growth chief.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "guidance_change",
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Build-A-Bear Workshop",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1953,56 +2003,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260828-676",
-      "headline": "Pernod Ricard prévoit une faiblesse au USA jusqu'en 2029, le titre baisse",
-      "headline_en": "Pernod Ricard forecasts weakness in the USA until 2029, stock falls",
-      "url": "https://www.reuters.com/fr/affaires/pernod-ricard-voit-un-ca-stable-en-2027-toujours-plomb-par-la-chine-et-les-usa-2026-08-27/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-27T10:27:17Z",
-      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
-      "prelim_note": "Pernod Ricard warns of weakness in the US market through 2029, leading to a share price decline.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Pernod Ricard warns of weakness in the US market through 2029, leading to a share price decline.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 82,
-      "rank_factors": {
-        "materiality": 82,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 3,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change",
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Pernod Ricard",
-          "ticker": "RI",
-          "listing_country": "FR"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -101922,9 +101922,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 397814,
-    "news_picked_today": 1246,
-    "news_dropped_today": 4610
+    "news_seen_today": 413497,
+    "news_picked_today": 1293,
+    "news_dropped_today": 4659
   },
   "book_momentum": {
     "live_count": 8,
