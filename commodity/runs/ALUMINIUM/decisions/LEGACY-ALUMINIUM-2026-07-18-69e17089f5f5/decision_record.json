@@ -1,0 +1,71 @@
+{
+  "swarm": "commodity",
+  "commodity": "ALUMINIUM",
+  "decision_date": "2026-07-18",
+  "action": "Research More",
+  "benchmark": "LME Aluminium (high-grade primary, USD/tonne)",
+  "current_price": {
+    "value": 3154.00,
+    "currency": "USD",
+    "unit": "tonne",
+    "as_of": "2026-07-17"
+  },
+  "curve": "backwardation",
+  "balance": "deficit",
+  "net_macro": "supportive",
+  "positioning": "crowded long",
+  "thesis_summary": "The primary-aluminium deficit is physically confirmed by a 32% YTD LME stock drawdown to a multi-year low and reinforced by China's binding 45 Mt cap plus independent Western smelter losses, but the only fund-positioning read (a record net long) is eight months stale, so the market's true entry-timing risk cannot be judged until the 2026-07-21 LME COTR posts.",
+  "key_risks": [
+    "The Nov-2025 record net long has persisted or grown through H1-2026's price highs; a de-escalation headline (Hormuz resolution, eased Guinea bauxite export cap, weak China Politburo signal) triggers a sharp long-liquidation shakeout unrelated to the underlying deficit",
+    "Beijing grants the pending renewable-smelter exemption to the 45 Mt cap, removing the single structural driver holding the deficit in place",
+    "China's construction/property demand (new-home floor-area sales -10.8%, Jan-May 2026) worsens further, undercutting the demand side even as supply stays constrained",
+    "Vendor 2026 deficit estimates (ING/CRU ~1.2-1.4 Mt) are unofficial and have already been revised several-fold in seven months (from ~200-600kt); no official IAI/CRU balance print exists",
+    "A repeat Yunnan dry-season curtailment (~Nov 2026) is a forward risk, not yet visible, and could compound tightness right when the buffer already has little room"
+  ],
+  "key_levels": {
+    "support": 3021,
+    "resistance": 3200,
+    "fair_value_range": "3085-3200 consolidation band (chart-based, web unverified); LME cash last USD 3,154.00/tonne, 2026-07-17"
+  },
+  "relative_view": "Of the four tracked commodities, aluminium has the strongest fundamentals (physically-confirmed stock drawdown, backwardation paying to hold, net-supportive macro) versus COPPER (Avoid: surplus, contango, confirmed crowded long, tariff binary), GOLD (Hold: balanced, macro headwind, confirmed crowded long, Fed-conditional), and WHEAT (Research More: deficit but war-risk-premium-inflated price, punitive contango). Its distinguishing weakness is not the fundamentals but positioning: unlike copper and gold, aluminium's crowded-long read is unconfirmed (8 months stale) rather than current.",
+  "confidence": 45,
+  "sources": [
+    "commodity/runs/ALUMINIUM/market-structure/99_market-structure-synthesis.md",
+    "commodity/runs/ALUMINIUM/supply-demand/99_supply-demand-synthesis.md",
+    "commodity/runs/ALUMINIUM/macro-positioning/99_macro-positioning-synthesis.md",
+    "commodity/runs/ALUMINIUM/commodity-thesis/01_commodity-catalysts.md",
+    "Westmetall LME cash/3-month settlement, 2026-07-17",
+    "IAI production data via AlCircle, pub. 2026-01-26",
+    "ING THINK aluminium deficit estimate, revised 2026-07-14",
+    "CRU independent 2026 deficit estimate (via ING THINK, 2026-07-14)",
+    "Reuters/Andy Home, LME COTR, 2025-11-06",
+    "China NBS property data via Trading Economics, 2026-06",
+    "AlCircle Yunnan/China H1 2026 market review, 2026-07"
+  ],
+  "data_needs": [
+    {
+      "need_id": "lme-cotr-fund-positioning",
+      "series": "LME Commitments of Traders Report (COTR) — investment-fund net positioning, aluminium",
+      "why_it_caps": "the only confirmed fund-positioning data point (a record net long) is from Nov-2025, over eight months stale; whether that crowded long has extended or unwound through H1-2026's price highs directly determines whether a fresh entry faces a headline-driven shakeout risk, independent of the fundamental deficit case",
+      "cap_lifted": "a current COTR print (next due 2026-07-21) confirms whether the position has unwound (supports upgrading toward Buy) or extended further (sharpens the case toward Avoid), directly resolving the single biggest gap in this dossier",
+      "filing_required": false,
+      "entry_modules": ["macro-positioning"],
+      "suggested_source": { "name": "London Metal Exchange (LME) COTR publication", "acquisition": "paid_api", "licensing": "exchange-licensed" },
+      "tier": 5,
+      "cadence": "weekly",
+      "next_release": "2026-07-21"
+    },
+    {
+      "need_id": "shfe-exchange-stock-current",
+      "series": "SHFE (Shanghai Futures Exchange) registered aluminium warehouse stock",
+      "why_it_caps": "the only SHFE stock figure available is tagged to mid-April 2026 (week 16), roughly three months stale by 2026-07-18; the China on-exchange buffer cannot be placed vs. history with the same confidence as the LME read, leaving the 'how tight is China's exchange-visible buffer' question unresolved",
+      "cap_lifted": "a current SHFE stock print would let the supply-demand module state a China exchange-side tightness verdict instead of 'not assessable', sharpening the overall balance read",
+      "filing_required": false,
+      "entry_modules": ["supply-demand"],
+      "suggested_source": { "name": "Shanghai Futures Exchange (SHFE) daily stock report", "acquisition": "scrape", "licensing": "public" },
+      "tier": 9,
+      "cadence": "daily",
+      "next_release": "2026-07-21"
+    }
+  ]
+}

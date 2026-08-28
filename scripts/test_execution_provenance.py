@@ -204,8 +204,9 @@ class ExecutionProvenanceTest(unittest.TestCase):
             inventory = root / "frameworks" / "execution_provenance_legacy_inventory.json"
             inventory.parent.mkdir(parents=True)
             inventory.write_text(json.dumps({
-                "schema_version": "1.0",
+                "schema_version": "1.1",
                 "rollout_cutoff": "2026-08-21T00:00:00Z",
+                "mutable_legacy_projections": {},
                 "records": {
                     legacy.relative_to(root).as_posix():
                         "sha256:" + hashlib.sha256(legacy.read_bytes()).hexdigest(),
@@ -293,6 +294,67 @@ decision_artifacts: [/escape.json]
                 audit_repository(root)
             top.write_text(json.dumps(commodity) + "\n")
             legacy.write_text(json.dumps({"decision_date": "2026-08-20", "changed": True}) + "\n")
+            with self.assertRaisesRegex(ProvenanceError, "legacy terminal record changed"):
+                audit_repository(root)
+
+    def test_mutable_legacy_commodity_projection_preserves_then_replaces_its_archive(self):
+        provenance = project([attempt(
+            "commodity-rollover", "codex", "gpt-5.6-sol", "max",
+            role="terminal_adjudicator", scope=["commodity-thesis"],
+        )])
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            manifest = root / ".claude" / "agents" / "commodity" / "SWARM.md"
+            manifest.parent.mkdir(parents=True)
+            manifest.write_text("""---
+id: commodity
+runs_root: commodity/runs
+run_root_template: commodity/runs/{COMMODITY}
+placeholder: COMMODITY
+decision_artifacts: [decision_record.json]
+---
+""")
+            legacy_record = {"decision_date": "2026-07-01", "commodity": "TEST"}
+            top = root / "commodity" / "runs" / "TEST" / "decision_record.json"
+            legacy_archive = top.parent / "decisions" / "LEGACY-TEST-2026-07-01" / "decision_record.json"
+            legacy_archive.parent.mkdir(parents=True)
+            legacy_bytes = (json.dumps(legacy_record) + "\n").encode()
+            top.write_bytes(legacy_bytes)
+            legacy_archive.write_bytes(legacy_bytes)
+            digest = "sha256:" + hashlib.sha256(legacy_bytes).hexdigest()
+            inventory = root / "frameworks" / "execution_provenance_legacy_inventory.json"
+            inventory.parent.mkdir(parents=True)
+            inventory.write_text(json.dumps({
+                "schema_version": "1.1",
+                "rollout_cutoff": "2026-08-21T00:00:00Z",
+                "records": {legacy_archive.relative_to(root).as_posix(): digest},
+                "mutable_legacy_projections": {
+                    top.relative_to(root).as_posix(): {
+                        "archive": legacy_archive.relative_to(root).as_posix(),
+                        "sha256": digest,
+                    },
+                },
+            }) + "\n")
+            self.assertEqual(audit_repository(root), {
+                "records": 2, "legacy": 2, "required": 0, "commodity_hashed": 0,
+            })
+
+            from commodity_decision_archive import decision_id_for
+            current = {
+                "decision_date": "2026-08-28", "commodity": "TEST",
+                "execution_provenance": provenance,
+            }
+            current["decision_id"] = decision_id_for(current)
+            top.write_text(json.dumps(current) + "\n")
+            with self.assertRaisesRegex(ProvenanceError, "no matching immutable archive"):
+                audit_repository(root)
+            current_archive = top.parent / "decisions" / current["decision_id"] / "decision_record.json"
+            current_archive.parent.mkdir(parents=True)
+            current_archive.write_bytes(top.read_bytes())
+            self.assertEqual(audit_repository(root), {
+                "records": 3, "legacy": 1, "required": 2, "commodity_hashed": 2,
+            })
+            legacy_archive.write_text(json.dumps({**legacy_record, "tampered": True}) + "\n")
             with self.assertRaisesRegex(ProvenanceError, "legacy terminal record changed"):
                 audit_repository(root)
 
