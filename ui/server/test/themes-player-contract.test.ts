@@ -276,6 +276,15 @@ await check('a forming theme admitted only through a second-order player is Them
   assert.equal(summary.assessment.status, 'forming')          // not actionable
   assert.equal(admission(players).admitted, true)             // player contract IS met
   assert.equal(summary.idea_ready, false)                     // ...but the theme is never Idea-ready
+  // PR #630 review (Codex P2): because the player contract cleared, idea_admission.blockers is empty, so
+  // idea_blockers used to be [] and the detail falsely read "No player package has cleared every Ideas
+  // admission check yet." A forming+admitted row must publish the REAL gate instead. Expected value pinned
+  // to the ThemesView empty-state contract (idea_blockers drives "Why this is theme-only"), not to store
+  // behaviour: red-on-old (idea_blockers === []), green-on-new (names the forming/expression gate).
+  assert.ok(summary.idea_blockers.length >= 1,
+    'a forming, admitted Theme-only row must publish a non-empty idea_blockers, not fall back to the misleading empty-state')
+  assert.ok(summary.idea_blockers.some((blocker) => /forming|first-order directional expression/i.test(blocker)),
+    'the published idea blocker must name the forming/expression gate that actually failed')
 })
 
 console.log(`\nthemes-player-contract: ${passed} checks passed`)

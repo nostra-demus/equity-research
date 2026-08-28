@@ -114,11 +114,26 @@ const contradictoryThemeOnly: Theme = {
   },
 }
 
+// PR #630 review (Codex P2): a `forming` payload that carries a first-order directional ticker is
+// internally contradictory — the canonical server would have promoted a fully-qualified row to
+// `actionable` (forming is the "no first-order expression yet" lane). Such a stale/rolling-deploy cache
+// must fail closed to Context, not slip onto the PM surface as a validated Theme-only row.
+const firstOrderFormingLeak: Theme = {
+  ...themeOnly,
+  assessment: {
+    ...themeOnlyAssessment,
+    metrics: { ...themeOnlyAssessment.metrics, first_order_directional_ticker_count: 1 },
+  },
+}
+
 assert.equal(exactNewsCount(ideaTheme), 10)
 assert.deepEqual(themeSurfaceAssessment(themeOnly), themeOnlyAssessment, 'the shared validator admits the production Theme-only contract')
 assert.equal(themeSurfaceStatus(themeOnly), 'forming', 'detail, refresh, sorting, and list admission share one normalized status')
 assert.equal(themeSurfaceAssessment(contradictoryThemeOnly), null, 'relaxing the obsolete blocker rule must not bypass evidence consistency')
 assert.deepEqual(rankedValidatedThemes([contradictoryThemeOnly]), [], 'a contradictory cached record remains off the PM surface')
+assert.equal(themeSurfaceAssessment(firstOrderFormingLeak), null, 'a forming row claiming a first-order directional ticker fails closed (would be actionable if genuine)')
+assert.equal(themeSurfaceStatus(firstOrderFormingLeak), 'context', 'the contradictory forming+first-order record normalizes to Context everywhere')
+assert.deepEqual(rankedValidatedThemes([firstOrderFormingLeak]), [], 'a forming row with a first-order ticker stays off the PM surface')
 assert.deepEqual(rankedValidatedThemes([themeOnly, ideaTheme]).map((row) => row.theme_id), [ideaTheme.theme_id, themeOnly.theme_id])
 
 useStore.setState({

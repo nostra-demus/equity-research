@@ -803,7 +803,15 @@ export function themeSurfaceAssessment(t: ThemeAssessmentInput): ThemeSurfaceAss
   )) return null
   // Forming is a validated Theme-only lane, not a failed Ideas package. Its evidence still clears every
   // trust-boundary check above; only the old requirement for a duplicated theme blocker is obsolete.
-  if (candidate.status === 'forming' && candidate.conviction !== 'watch') return null
+  // But forming is specifically the "no first-order directional ticker yet" lane: a fully-qualified row
+  // with a first-order directional ticker would have been promoted to `actionable` by the canonical
+  // server. A payload that claims `forming` while its own metrics report a first-order directional ticker
+  // is therefore internally contradictory (a stale/rolling-deploy cache) and fails closed to Context,
+  // exactly like the actionable-status trust-boundary check below.
+  if (candidate.status === 'forming' && (
+    candidate.conviction !== 'watch'
+    || m.first_order_directional_ticker_count >= 1
+  )) return null
   // An actionable row has cleared every gate: it must explain at least one fact and have no blocker.
   // A partial deploy or malformed cache that merely says `status: actionable` fails closed to Context.
   if (candidate.status === 'actionable' && (
