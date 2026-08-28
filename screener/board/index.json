@@ -1,6 +1,50 @@
 {
-  "generated_at": "2026-08-28T03:48:18Z",
+  "generated_at": "2026-08-28T05:27:46Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260828-556",
+      "headline": "CIW: FY26 Profit and Dividend Guidance [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.CIW?key=2924-03128298-2A1693228",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-28T03:33:15Z",
+      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
+      "prelim_note": "ASX-listed company announces FY26 profit and dividend guidance, directly affecting earnings and capital-allocation expectations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "ASX-listed company announces FY26 profit and dividend guidance, directly affecting earnings and capital-allocation expectations.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "guidance_change",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "guidance_change",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260828-024",
       "headline": "JIANGSU EXPRESS (00177): PROGRESS ANNOUNCEMENT - DISCLOSEABLE AND CONNECTED TRANSACTION - CASH ACQUISITION OF 100% EQUITY INTERESTS IN SUXICHANG SOUTH EXPRESSWAY COMPANY AND CONTINUING CONNECTED TRANSACTIONS UPON COMPLETION",
@@ -1153,612 +1197,30 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260828-528",
-      "headline": "EIQ: Preliminary Final Report [price-sensitive]",
+      "inbox_id": "INB-20260828-557",
+      "headline": "Enbridge Brings KKR and Apollo Into C$2.7 Billion Westcoast Pipeline Deal",
       "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.EIQ?key=2924-03128284-2A1693221",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-28T03:13:05Z",
-      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
-      "prelim_note": "Preliminary final report is a key financial disclosure for investors.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Preliminary final report is a key financial disclosure for investors.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "EIQ",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260828-531",
-      "headline": "AR1: Austral Resources Appendix 4D and Half-year Report [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.AR1?key=2924-03128266-2A1693209",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-28T02:49:10Z",
-      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
-      "prelim_note": "Half-year financial report is a primary source for earnings and margin analysis.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Half-year financial report is a primary source for earnings and margin analysis.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Austral Resources",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260828-434",
-      "headline": "TIP: ASX/Media Release - FY26 results [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.TIP?key=2924-03128256-2A1693200",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-28T02:39:10Z",
-      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
-      "prelim_note": "Company released FY26 financial results.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Company released FY26 financial results.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Toll Holdings",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260828-435",
-      "headline": "LPE: LPE FY2026 Annual Results and Performance - Market Release [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.LPE?key=2924-03128248-2A1693195",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-28T02:36:10Z",
-      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
-      "prelim_note": "Company released FY2026 annual results.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Company released FY2026 annual results.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "LPE",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260828-436",
-      "headline": "MGL: Magontec 2026 Half Year Results Announcement [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.MGL?key=2924-03128242-2A1693196",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-28T02:34:30Z",
-      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
-      "prelim_note": "Company released 2026 half year results.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Company released 2026 half year results.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Magontec",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260828-081",
-      "headline": "OLL: H1 2026 Results - Gross Profit Up 64% and Revenue Up 43% [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.OLL?key=2924-03128110-6A1340878",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-28T00:01:35Z",
-      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
-      "prelim_note": "Company reported H1 2026 results with 64% gross profit growth and 43% revenue growth.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Company reported H1 2026 results with 64% gross profit growth and 43% revenue growth.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "OLL",
-          "ticker": "OLL",
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260828-180",
-      "headline": "IPO-bound OYO parent Prism's profit jumps fourfold to ₹994 crore in FY26",
-      "headline_en": null,
-      "url": "https://www.livemint.com/market/stock-market-news/ipobound-oyo-parent-prisms-profit-jumps-fourfold-to-rs-994-crore-in-fy26-11787845751761.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-27T16:12:23Z",
-      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
-      "prelim_note": "OYO parent reported a fourfold profit increase to ₹994 crore in FY26 ahead of its IPO.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "OYO parent reported a fourfold profit increase to ₹994 crore in FY26 ahead of its IPO.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 2,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "OYO",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260828-347",
-      "headline": "Okta pops 20% after topping estimates as AI threat spikes demand for identity security",
-      "headline_en": null,
-      "url": "https://www.cnbc.com/2026/08/26/okta-okta-earnings-q2-2027.html",
-      "source_name": "CNBC",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-27T14:12:37Z",
-      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
-      "prelim_note": "Okta reported earnings that beat estimates and saw a 20% stock price increase due to strong demand.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Okta reported earnings that beat estimates and saw a 20% stock price increase due to strong demand.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Okta",
-          "ticker": "OKTA",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260828-358",
-      "headline": "Bath & Body Works Q2 net sales fall amid weak underlying demand",
-      "headline_en": null,
-      "url": "https://finance.yahoo.com/markets/stocks/articles/bath-body-works-q2-net-140043186.html",
+      "url": "https://finance.yahoo.com/energy/articles/enbridge-brings-kkr-apollo-c-120500024.html",
       "source_name": "Yahoo Finance",
       "input_nature": "news_headline",
-      "found_at": "2026-08-27T14:00:43Z",
+      "found_at": "2026-08-27T12:05:00Z",
       "sweep_file": "screener/inbox/2026-08-28_sweep.json",
-      "prelim_note": "Bath & Body Works reported a decline in Q2 net sales due to weak underlying demand.",
+      "prelim_note": "Enbridge is selling a stake in its Westcoast pipeline for C$2.7 billion to KKR and Apollo.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Bath & Body Works reported a decline in Q2 net sales due to weak underlying demand.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bath & Body Works",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260828-527",
-      "headline": "RFT: Response to ASX Price Query [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.RFT?key=2924-03128287-3A700317",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-28T03:18:05Z",
-      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
-      "prelim_note": "ASX price query marked price-sensitive requires company disclosure of material information affecting the stock; the underlying event (earnings miss, guidance cut, M&A, capital action, or regulatory action) is undisclosed.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "ASX price query marked price-sensitive requires company disclosure of material information affecting the stock; the underlying event (earnings miss, guidance cut, M&A, capital action, or regulatory action) is undisclosed.",
+      "triage_score": 100,
+      "triage_reason": "Enbridge is selling a stake in its Westcoast pipeline for C$2.7 billion to KKR and Apollo.",
       "region": "OTHER",
       "relevance": "material",
-      "materiality_pre_score": 75,
+      "materiality_pre_score": 85,
       "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "RFT",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260828-042",
-      "headline": "WEC: Pause in Trading [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.WEC?key=2924-03128103-2A1693136",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-27T23:56:30Z",
-      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
-      "prelim_note": "WEC has entered a trading halt, indicating pending price-sensitive news.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "WEC has entered a trading halt, indicating pending price-sensitive news.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "WEC",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260828-415",
-      "headline": "Chad accuses Sudan of deadly air strike near shared border",
-      "headline_en": null,
-      "url": "https://www.aljazeera.com/news/2026/8/28/chad-accuses-sudan-of-deadly-air-strike-near-shared-border?traffic_source=rss",
-      "source_name": "Al Jazeera — All news",
-      "input_nature": "geopolitical_event",
-      "found_at": "2026-08-28T01:33:01Z",
-      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
-      "prelim_note": "Chad accusing Sudan of a deadly air strike represents a significant geopolitical escalation in the region.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Chad accusing Sudan of a deadly air strike represents a significant geopolitical escalation in the region.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 9,
-        "event": 0,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "geopolitical",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260828-208",
-      "headline": "SEBI ‘close’ to approving NSE's long-awaited IPO, says chairman Pandey",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/markets/sebi-close-to-approving-nses-long-awaited-ipo-says-chairman-pandey/article71397403.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-27T15:54:40Z",
-      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
-      "prelim_note": "SEBI close to approving NSE's long-awaited IPO, a major exchange listing event for India's largest stock exchange.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "SEBI close to approving NSE's long-awaited IPO, a major exchange listing event for India's largest stock exchange.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
+        "materiality": 85,
         "source_tier": 0,
         "scope": 5,
         "event": 9,
         "size": 2,
-        "recency": 2,
+        "recency": 1,
         "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
@@ -1773,9 +1235,19 @@
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "National Stock Exchange of India",
+          "name": "Enbridge",
           "ticker": null,
-          "listing_country": "IN"
+          "listing_country": "CA"
+        },
+        {
+          "name": "KKR",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Apollo Global Management",
+          "ticker": null,
+          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -1784,37 +1256,195 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260828-320",
-      "headline": "Hyundai’s $26 Billion 4-Year US Investment Will Exceed Its Previous 40 Years Combined",
+      "inbox_id": "INB-20260828-563",
+      "headline": "Enbridge forms joint venture with KKR, Apollo to invest in B.C.’s Westcoast pipeline",
       "headline_en": null,
-      "url": "https://247wallst.com/investing/2026/08/27/hyundais-26-billion-4-year-us-investment-will-exceed-its-previous-40-years-combined/",
-      "source_name": "24/7 Wall St.",
+      "url": "https://www.theglobeandmail.com/business/article-enbridge-kkr-apollo-westcoast-natural-gas-pipeline/",
+      "source_name": "The Globe and Mail",
       "input_nature": "news_headline",
-      "found_at": "2026-08-27T14:37:52Z",
+      "found_at": "2026-08-27T12:03:26Z",
       "sweep_file": "screener/inbox/2026-08-28_sweep.json",
-      "prelim_note": "Hyundai announces $26 billion 4-year US capex plan exceeding its prior 40 years of investment combined, signaling major strategic shift in US capacity and capital allocation.",
+      "prelim_note": "Enbridge forms a joint venture with KKR and Apollo for the Westcoast pipeline, confirming the C$2.7 billion deal.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Hyundai announces $26 billion 4-year US capex plan exceeding its prior 40 years of investment combined, signaling major strategic shift in US capacity and capital allocation.",
+      "triage_score": 100,
+      "triage_reason": "Enbridge forms a joint venture with KKR and Apollo for the Westcoast pipeline, confirming the C$2.7 billion deal.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Enbridge",
+          "ticker": null,
+          "listing_country": "CA"
+        },
+        {
+          "name": "KKR",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Apollo Global Management",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260828-584",
+      "headline": "China Vanke Posts $2.2 Billion Loss as Debt Pressure Mounts",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-08-27/china-vanke-posts-2-2-billion-loss-as-debt-pressure-intensifies",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-27T11:35:28Z",
+      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
+      "prelim_note": "China Vanke reported a $2.2 billion loss, highlighting severe debt pressure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "China Vanke reported a $2.2 billion loss, highlighting severe debt pressure.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "China Vanke",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260828-594",
+      "headline": "Dollar General Lifts Outlook, Posts Higher Profit, Sales",
+      "headline_en": null,
+      "url": "https://www.wsj.com/business/retail/dollar-general-lifts-outlook-posts-higher-profit-sales-dcc19043?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-27T11:32:00Z",
+      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
+      "prelim_note": "Dollar General reported higher profit and sales while raising its outlook.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Dollar General reported higher profit and sales while raising its outlook.",
       "region": "US",
       "relevance": "material",
-      "materiality_pre_score": 76,
+      "materiality_pre_score": 80,
       "rank_factors": {
-        "materiality": 76,
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Dollar General",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260828-607",
+      "headline": "Lidl owner to invest up to $6.5 billion by 2033 in data centre in northern Germany",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/lidl-owner-invest-up-56-billion-by-2033-data-centre-northern-germany-2026-08-27/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-27T11:25:01Z",
+      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
+      "prelim_note": "Lidl owner announces a major $6.5 billion investment in a data center project.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Lidl owner announces a major $6.5 billion investment in a data center project.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
         "source_tier": 0,
         "scope": 6,
         "event": 6,
         "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 0,
+        "recency": 1,
+        "materiality_label_floor": 10,
         "quantified": 6,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "news",
         "event_id": "capex",
-        "size_bucket": "mega"
+        "size_bucket": "large"
       },
       "event_types": [
         "capex"
@@ -1822,81 +1452,129 @@
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Hyundai Motor Company",
+          "name": "Lidl",
           "ticker": null,
-          "listing_country": "KR"
+          "listing_country": "DE"
         }
       ],
-      "size_bucket": "mega",
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260828-039",
-      "headline": "HUTCHMED (00013): VOLUNTARY ANNOUNCEMENT - HUTCHMED Announces NMPA Approval for ATLED (Fanregratinib) for the Treatment of Patients with FGFR2-Fusion/Rearrangement Intrahepatic Cholangiocarcinoma",
+      "inbox_id": "INB-20260828-603",
+      "headline": "Rheinmetall Invests €270 Million in Boxer and Drone Facilities",
       "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0828/2026082800127.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-28T00:00:00Z",
+      "url": "https://www.bloomberg.com/news/articles/2026-08-27/rheinmetall-invests-270-million-in-boxer-and-drone-facilities",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-27T11:24:51Z",
       "sweep_file": "screener/inbox/2026-08-28_sweep.json",
-      "prelim_note": "HUTCHMED obtained NMPA approval for Fanregratinib (ATLED) for FGFR2-fusion intrahepatic cholangiocarcinoma, enabling market entry and revenue generation for a new oncology asset.",
+      "prelim_note": "Rheinmetall is investing €270 million in new production facilities for defense equipment.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "HUTCHMED obtained NMPA approval for Fanregratinib (ATLED) for FGFR2-fusion intrahepatic cholangiocarcinoma, enabling market entry and revenue generation for a new oncology asset.",
-      "region": "CN",
+      "triage_score": 100,
+      "triage_reason": "Rheinmetall is investing €270 million in new production facilities for defense equipment.",
+      "region": "OTHER",
       "relevance": "material",
-      "materiality_pre_score": 73,
+      "materiality_pre_score": 75,
       "rank_factors": {
-        "materiality": 73,
-        "source_tier": 8,
+        "materiality": 75,
+        "source_tier": 0,
         "scope": 6,
-        "event": 4,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
+        "event": 6,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 6,
         "boost_weight": 1,
         "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "mid"
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
       },
       "event_types": [
-        "regulatory",
-        "product"
+        "capex"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "HUTCHMED",
-          "ticker": "00013",
-          "listing_country": "HK"
+          "name": "Rheinmetall",
+          "ticker": null,
+          "listing_country": "DE"
         }
       ],
-      "size_bucket": "mid",
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260828-335",
-      "headline": "Humana-owned Villages Health agrees to $542M settlement for overbilling Medicare",
+      "inbox_id": "INB-20260828-618",
+      "headline": "Dollar General Boosts FY26 Outlook; Stock Surges 9% - Update",
       "headline_en": null,
-      "url": "https://www.healthcaredive.com/news/the-villages-health-medicare-overbilling-settlement-doj-humana/828915/",
-      "source_name": "Healthcare Dive",
+      "url": "https://www.nasdaq.com/articles/dollar-general-boosts-fy26-outlook-stock-surges-9-update",
+      "source_name": "Nasdaq",
       "input_nature": "news_headline",
-      "found_at": "2026-08-27T14:30:00Z",
+      "found_at": "2026-08-27T11:13:27Z",
       "sweep_file": "screener/inbox/2026-08-28_sweep.json",
-      "prelim_note": "Humana's Villages Health unit agreed to a $542 million settlement for overbilling Medicare, a quantified legal hit.",
+      "prelim_note": "Dollar General raised FY26 outlook, causing a 9% stock surge—a clear decision-moving guidance change.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "Humana's Villages Health unit agreed to a $542 million settlement for overbilling Medicare, a quantified legal hit.",
+      "triage_score": 100,
+      "triage_reason": "Dollar General raised FY26 outlook, causing a 9% stock surge—a clear decision-moving guidance change.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Dollar General",
+          "ticker": "DG",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260828-621",
+      "headline": "OpenAI gets green light for 3.2GW power deal to supply planned data center in Effingham County, Georgia",
+      "headline_en": null,
+      "url": "https://www.datacenterdynamics.com/en/news/openai-gets-green-light-for-32gw-power-deal-to-supply-planned-data-center-in-effingham-county-georgia/",
+      "source_name": "DataCenterDynamics",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-27T11:11:16Z",
+      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
+      "prelim_note": "OpenAI secured a 3.2GW power deal for a new data center, representing a major infrastructure investment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "OpenAI secured a 3.2GW power deal for a new data center, representing a major infrastructure investment.",
       "region": "US",
       "relevance": "material",
       "materiality_pre_score": 75,
@@ -1906,60 +1584,11 @@
         "scope": 6,
         "event": 6,
         "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Humana",
-          "ticker": "HUM",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260828-130",
-      "headline": "Japanese chipmaker Kioxia, Sandisk to spend 5 tril. yen to boost output",
-      "headline_en": null,
-      "url": "https://mainichi.jp/english/articles/20260828/p2g/00m/0bu/018000c",
-      "source_name": "The Mainichi",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-28T00:30:04Z",
-      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
-      "prelim_note": "Kioxia and SanDisk announce 5 trillion yen capex to expand semiconductor output capacity.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Kioxia and SanDisk announce 5 trillion yen capex to expand semiconductor output capacity.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 78,
-      "rank_factors": {
-        "materiality": 78,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
+        "recency": 1,
+        "materiality_label_floor": 10,
         "quantified": 0,
         "boost_weight": 1,
-        "scope_id": "multi_name",
+        "scope_id": "single_name",
         "source_tier_id": "news",
         "event_id": "capex",
         "size_bucket": "large"
@@ -1970,14 +1599,407 @@
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Kioxia",
+          "name": "OpenAI",
           "ticker": null,
-          "listing_country": "JP"
-        },
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260828-623",
+      "headline": "Shein's Hong Kong IPO pricing values company at $26.5 billion, sources say",
+      "headline_en": null,
+      "url": "https://www.khaleejtimes.com/business/sheins-hong-kong-ipo-pricing-values-company-at-265-billion-sources-say",
+      "source_name": "Khaleej Times — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-27T11:09:35Z",
+      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
+      "prelim_note": "Shein is reportedly pricing its IPO at a $26.5 billion valuation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Shein is reportedly pricing its IPO at a $26.5 billion valuation.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
         {
-          "name": "SanDisk",
+          "name": "Shein",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260828-625",
+      "headline": "Rheinmetall investiert in Hessen in Drohnen- und Panzerbau",
+      "headline_en": "Rheinmetall invests in drone and tank construction in Hesse",
+      "url": "https://www.reuters.com/de/firma/rheinmetall-investiert-hessen-drohnen-und-panzerbau-2026-08-27/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-27T11:03:44Z",
+      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
+      "prelim_note": "Rheinmetall is investing in new drone and tank manufacturing facilities in Hesse.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Rheinmetall is investing in new drone and tank manufacturing facilities in Hesse.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Rheinmetall",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260828-628",
+      "headline": "Schwarz-Gruppe baut milliardenschweres Rechenzentrum",
+      "headline_en": "Schwarz-Gruppe builds multi-billion data center",
+      "url": "https://www.reuters.com/de/firma/schwarz-gruppe-baut-milliardenschweres-rechenzentrum-2026-08-27/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-27T11:01:45Z",
+      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
+      "prelim_note": "Schwarz-Gruppe is building a data center with a multi-billion euro investment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Schwarz-Gruppe is building a data center with a multi-billion euro investment.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Schwarz-Gruppe",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260828-634",
+      "headline": "Polonia insta a la UE a multar con 250 millones de euros a Meta por estafas y anuncios falsos",
+      "headline_en": "Poland urges the EU to fine Meta 250 million euros for scams and false ads",
+      "url": "https://www.reuters.com/es/mundo/5Q5AHEVS75ICHPCRXYC4B5IYZE-2026-08-27/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-27T10:59:43Z",
+      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
+      "prelim_note": "Poland urges the EU to fine Meta 250 million euros for scams and false ads.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Poland urges the EU to fine Meta 250 million euros for scams and false ads.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Meta",
           "ticker": null,
           "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260828-640",
+      "headline": "The Morning Risk Report: Meta Reaches $18 Billion Settlement Over Child-Safety Claims",
+      "headline_en": null,
+      "url": "https://www.wsj.com/risk-compliance-journal/the-morning-risk-report-meta-reaches-18-billion-settlement-over-child-safety-claims-6f2d6620?mod=rss_Technology",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-27T10:50:00Z",
+      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
+      "prelim_note": "Meta settles $18 billion child-safety litigation — a named, quantified enforcement action confirming a material cash outflow and resolving a significant legal risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Meta settles $18 billion child-safety litigation — a named, quantified enforcement action confirming a material cash outflow and resolving a significant legal risk.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Meta Platforms Inc.",
+          "ticker": "META",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260828-641",
+      "headline": "Uber startet offizielles Milliardenangebot für Delivery Hero – Mehrheit sicher",
+      "headline_en": "Uber launches official multi-billion offer for Delivery Hero – majority secured",
+      "url": "https://www.reuters.com/de/firma/uber-startet-offizielles-milliardenangebot-fr-delivery-hero-mehrheit-sicher-2026-08-27/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-27T10:49:48Z",
+      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
+      "prelim_note": "Uber has launched a multi-billion dollar acquisition offer for Delivery Hero, securing majority support.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Uber has launched a multi-billion dollar acquisition offer for Delivery Hero, securing majority support.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Uber",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Delivery Hero",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260828-658",
+      "headline": "Nvidia Reportedly Agrees to Pay $12.9 Billion for the Central Hub of the Open-Source AI World, a Company With Just $150 Million in Revenue",
+      "headline_en": null,
+      "url": "https://247wallst.com/investing/2026/08/27/nvidia-reportedly-agrees-to-pay-12-9-billion-for-the-central-hub-of-the-open-source-ai-world-a-company-with-just-150-million-in-revenue/",
+      "source_name": "24/7 Wall St.",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-27T10:33:49Z",
+      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
+      "prelim_note": "Nvidia reportedly agreed to acquire an AI company for $12.9 billion, a major M&A event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nvidia reportedly agreed to acquire an AI company for $12.9 billion, a major M&A event.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260828-676",
+      "headline": "Pernod Ricard prévoit une faiblesse au USA jusqu'en 2029, le titre baisse",
+      "headline_en": "Pernod Ricard forecasts weakness in the USA until 2029, stock falls",
+      "url": "https://www.reuters.com/fr/affaires/pernod-ricard-voit-un-ca-stable-en-2027-toujours-plomb-par-la-chine-et-les-usa-2026-08-27/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-27T10:27:17Z",
+      "sweep_file": "screener/inbox/2026-08-28_sweep.json",
+      "prelim_note": "Pernod Ricard warns of weakness in the US market through 2029, leading to a share price decline.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Pernod Ricard warns of weakness in the US market through 2029, leading to a share price decline.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 82,
+      "rank_factors": {
+        "materiality": 82,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 3,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change",
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Pernod Ricard",
+          "ticker": "RI",
+          "listing_country": "FR"
         }
       ],
       "size_bucket": "large",
@@ -101972,9 +101994,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 276349,
-    "news_picked_today": 781,
-    "news_dropped_today": 3347
+    "news_seen_today": 381845,
+    "news_picked_today": 1193,
+    "news_dropped_today": 4519
   },
   "book_momentum": {
     "live_count": 8,
