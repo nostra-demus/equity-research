@@ -7,6 +7,9 @@ interface Props {
   node: PlacedNode
   status: NodeStatus
   selected: boolean
+  // Display-only: an interrupted run can leave this orb's saved runtime status as queued/running even
+  // though no process is active. The paused class removes live motion without changing resume state.
+  paused?: boolean
   // intake surface: `scoped` = this orb is in the current scoped rerun plan (persistent, subtle ring);
   // `dimmed` = an intake focus is active and this orb isn't in it (recede so the affected orbs read).
   scoped?: boolean
@@ -22,7 +25,7 @@ interface Props {
   onClick: (n: PlacedNode) => void
 }
 
-function AgentNodeImpl({ node, status, selected, scoped = false, dimmed = false, delayMs = 0, tStart, tExpected, tNow, onEnter, onLeave, onClick }: Props) {
+function AgentNodeImpl({ node, status, selected, paused = false, scoped = false, dimmed = false, delayMs = 0, tStart, tExpected, tNow, onEnter, onLeave, onClick }: Props) {
   const size = node.r * 2
   const live = status === 'running' && tStart != null && tNow != null && tExpected != null
   const p = live ? orbProgress(tStart!, tExpected!, tNow!) : null
@@ -32,7 +35,7 @@ function AgentNodeImpl({ node, status, selected, scoped = false, dimmed = false,
   const fillY = p ? (1 - Math.min(p.fraction, 0.94)) * 100 : 100
   // ring sweep = same progress, clamped to 1 (a full ring at/after the estimate); pathLength=100 normalizes
   const dash = p ? 100 - Math.min(p.fraction, 1) * 100 : 100
-  const cls = `node node--${status}${node.isSynthesis ? ' node--synthesis' : ''}${selected ? ' node--selected' : ''}${overrun ? ' node--overrun' : ''}${scoped ? ' node--scoped' : ''}${dimmed ? ' node--dimmed' : ''}`
+  const cls = `node node--${status}${paused ? ' node--paused' : ''}${node.isSynthesis ? ' node--synthesis' : ''}${selected ? ' node--selected' : ''}${overrun ? ' node--overrun' : ''}${scoped ? ' node--scoped' : ''}${dimmed ? ' node--dimmed' : ''}`
   return (
     <div
       className={cls}

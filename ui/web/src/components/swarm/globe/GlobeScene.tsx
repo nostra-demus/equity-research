@@ -9,6 +9,7 @@ import { GLOBE } from './globe-consts'
 import { sufficiencyColor } from '../../../lib/format'
 import { collectSamples, expectedDurations, expectedFor, fmtClock, fmtEtaLeft, orbClass, scopeTiming, type ScopeOrb } from '../../../lib/eta'
 import { moduleRunAffordance } from '../../../lib/moduleRun'
+import { PAUSED_RUN_HELP, PAUSED_RUN_LABEL, projectRunActivity } from '../../../lib/runActivityProjection'
 import { useStore } from '../../../lib/store'
 import { AgentNode } from '../AgentNode'
 import { CoreOrb } from '../CoreOrb'
@@ -212,6 +213,9 @@ export function GlobeScene({
   const nodes = layout.nodes
   // same store state the flat view derives orb status / timers / decision from — no duplication of meaning
   const nodeRuntime = useStore((s) => s.nodeRuntime)
+  const activeRuns = useStore((s) => s.activeRuns)
+  const resumableRuns = useStore((s) => s.resumableRuns)
+  const selectedTicker = useStore((s) => s.selectedTicker)
   const selectedNodeKey = useStore((s) => s.selectedNodeKey)
   const decision = useStore((s) => s.decision)
   const coreBloom = useStore((s) => s.coreBloom)
@@ -226,11 +230,14 @@ export function GlobeScene({
   const exp = useMemo(() => expectedDurations(collectSamples(nodeRuntime, (k) => classOf.get(k) ?? 'specialist')), [nodeRuntime, classOf])
   const statusSig = nodes.map((n) => nodeStatus(n.key)).join('')
   const statuses = useMemo(() => nodes.map((n) => nodeStatus(n.key)), [nodes, statusSig]) // eslint-disable-line react-hooks/exhaustive-deps
-  const activeModules = useMemo(() => {
-    const s = new Set<string>()
-    for (const [k, v] of Object.entries(nodeRuntime)) if (v.status === 'running' || v.status === 'queued') s.add(k.split('/')[0])
-    return s
-  }, [nodeRuntime])
+  const runActivity = useMemo(() => projectRunActivity({
+    subject: selectedTicker,
+    swarm: activeSwarm,
+    nodeRuntime,
+    activeRuns,
+    resumableRuns,
+  }), [selectedTicker, activeSwarm, nodeRuntime, activeRuns, resumableRuns])
+  const { activeModules, pausedModules, pausedKeys } = runActivity
 
   // refs for the per-frame morph
   const orbRefs = useRef<(Group | null)[]>([])
@@ -465,6 +472,7 @@ export function GlobeScene({
                 node={placed}
                 status={st}
                 selected={selectedNodeKey === n.key || hoverKey === n.key}
+                paused={pausedKeys.has(n.key)}
                 tStart={running ? nodeRuntime[n.key]?.startedAt : undefined}
                 tExpected={running ? expectedFor(orbClass(n), exp) : undefined}
                 tNow={running ? now : undefined}
@@ -488,6 +496,7 @@ export function GlobeScene({
       {layout.moduleAnchors.map((a, i) => {
         const ms = dataStatus?.modules[a.module]?.status
         const live = activeModules.has(a.module)
+        const paused = pausedModules.has(a.module)
         const mod = moduleByName.get(a.module)
         const smartResume = activeSwarm === 'research' && mod?.exactResume === true
         const depLocked = !smartResume && mod?.depsComplete === false
@@ -518,7 +527,7 @@ export function GlobeScene({
           <group key={a.module} ref={(el) => { labelRefs.current[i] = el }}>
             <Html zIndexRange={[12, 0]}>
               <div
-                className={`cluster__label${live ? ' cluster__label--live' : ''}`}
+                className={`cluster__label${live ? ' cluster__label--live' : ''}${paused ? ' cluster__label--paused' : ''}`}
                 style={{ whiteSpace: 'nowrap' }}
                 onMouseEnter={() => setHoverModule(a.module)}
                 onMouseLeave={() => setHoverModule(null)}
@@ -529,11 +538,15 @@ export function GlobeScene({
                 }}
                 role={headingAction ? 'button' : undefined}
                 tabIndex={headingAction ? 0 : undefined}
-                aria-label={headingAction ? `${a.module.replace(/-/g, ' ')}: ${runAffordance.label.replace(/^▸\s*/, '')}. ${runAffordance.title}` : undefined}
+                aria-label={paused
+                  ? `${a.module.replace(/-/g, ' ')}: ${PAUSED_RUN_HELP}`
+                  : headingAction ? `${a.module.replace(/-/g, ' ')}: ${runAffordance.label.replace(/^▸\s*/, '')}. ${runAffordance.title}` : undefined}
               >
                 <div className="cluster__name">{a.module.replace(/-/g, ' ')}</div>
                 {ms && <div className="cluster__status" style={{ color: sufficiencyColor(ms) }}>{ms}</div>}
-                {live && mt ? (
+                {paused ? (
+                  <div className="cluster__run cluster__run--paused" title={PAUSED_RUN_HELP}>{PAUSED_RUN_LABEL}</div>
+                ) : live && mt ? (
                   <div className="cluster__timer">
                     <div className="cluster__timer-line">
                       <span className="cluster__timer-dot">●</span> {mt.done}/{mt.total}
