@@ -52,6 +52,7 @@ import {
   releaseParityRegistration, resolveParityBindingPath, supersedeIncompleteDecisionAuthorAttempt, writeExecutionReceipt,
 } from './execution-provenance'
 import { runIbkrPaperAutoSyncAfterPublication, scheduleIbkrPaperAutoSyncAfterPublication } from './ibkr-paper-auto-sync'
+import type { PreparedRunPlanTransaction } from './run-plan-transaction'
 import { parityCanaryRootBasenameMatches } from './provider-parity-path'
 import {
   attestResearchMemoryUse,
@@ -1937,6 +1938,9 @@ export interface LaunchParams {
   /** Internal Continue binding. Requires `runRoot` to be the exact saved research root and keeps every
    * chained child, command, registry row, watcher, and publication inside it. Never accepted by /api/launch. */
   continuation?: boolean
+  /** Internal only: a complete run root prepared outside Git. Activated after admission and committed by
+   *  the first real provider child; rolled back if the logical attempt terminates before one starts. */
+  preparedRunPlanTransaction?: PreparedRunPlanTransaction
   // A scoped carry may launch into a fresh staging root while still being authorized by the selected
   // decision it copied. Single-orb reruns use the same path for both.
   decisionRunRoot?: string
@@ -2188,6 +2192,7 @@ const intakeReceiptByRun = new WeakMap<RunState, IntakeReceiptIntent>()
 // spawnEngine turns it into a child-only environment value and childEnv strips any ambient copy.
 const deferredModuleMemoRuns = new WeakSet<RunState>()
 const continuationRunRootByRun = new WeakMap<RunState, string>()
+const preparedRunPlanTransactionByRun = new WeakMap<RunState, PreparedRunPlanTransaction>()
 const exactModuleResumeRuns = new WeakSet<RunState>()
 const exactModuleInputsByRun = new WeakMap<RunState, string[]>()
 const exactModuleRunRootByRun = new WeakMap<RunState, string>()
@@ -2634,6 +2639,7 @@ interface FullChainScope {
   parityCanary?: { runRoot: string; freezeReceipt: string }
   /** Operator-authorized same-root recovery seeds completed modules even when raw terminal files exist. */
   continuation?: boolean
+  preparedRunPlanTransaction?: PreparedRunPlanTransaction
 }
 
 export function chainedResumePreflight(
@@ -2734,6 +2740,7 @@ export async function launchFullChained(
   // pre-child exception restores the marker and both reservations. The cleanup operations are idempotent;
   // asynchronous child/master terminal paths remain the ordinary owners after this function returns.
   try {
+  scope.preparedRunPlanTransaction?.activate()
   // Drop a marker in the shared run root so each per-module run SKIPS its inline memo (MODULE_PIPELINE
   // Step 4.9A); the master step regenerates all module memos in ONE batch at the end (rerun.md Step 9B)
   // and removes the marker. Keeps the ~2.5-min-per-module memo off the parallel critical path —
@@ -2803,7 +2810,9 @@ export async function launchFullChained(
         parityCanary: { ...scope.parityCanary, stage: 'final', continuation: scope.continuation === true } }
       : { kind: 'rerun', ticker, module: 'master', agent: 'synthesizer', user, userVia, chained: true,
         chainId, memoryIdentity, ...selection, ...decisionBinding,
-        ...(scope.continuation ? { runRoot: datedRoot, continuation: true } : {}) }
+        ...(scope.continuation ? { runRoot: datedRoot, continuation: true } : {}),
+        ...(scope.preparedRunPlanTransaction
+          ? { preparedRunPlanTransaction: scope.preparedRunPlanTransaction } : {}) }
     const launched = deps.launchAndWire(
       masterParams,
       (status) => {
@@ -2889,6 +2898,8 @@ export async function launchFullChained(
       kind: 'module', ticker, module: name, user, userVia, chained: true, chainId, ...selection,
       memoryIdentity, ...decisionBinding,
       ...(scope.continuation ? { runRoot: datedRoot, continuation: true } : {}),
+      ...(scope.preparedRunPlanTransaction
+        ? { preparedRunPlanTransaction: scope.preparedRunPlanTransaction } : {}),
       ...(scope.parityCanary ? { parityCanary: { ...scope.parityCanary, stage: 'module' as const } } : {}),
     }
     void deps.launchAndWire(
@@ -2990,6 +3001,7 @@ export async function launchFullChained(
   const first = await firstReady
   return { runId: first.runId, preflight, chained: true, skipped: skippedModules, planned: plannedModules, resumed }
   } catch (error) {
+    try { scope.preparedRunPlanTransaction?.rollbackIfUnstarted('full-chain setup or first child failed') } catch {}
     try { deps.clearMarker(ticker, datedRoot) } catch { /* preserve the launch error */ }
     try { releaseChainPool() } catch { /* subject release still runs in releaseChainPool's finally */ }
     finishLogicalCanary(
@@ -3120,10 +3132,17 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
   const continuationRunRoot = params.continuation
     ? exactModuleRunRootBinding(params.ticker ?? '', params.runRoot)
     : null
+  const preparedRunRoot = params.preparedRunPlanTransaction
+    ? exactModuleRunRootBinding(params.ticker ?? '', params.preparedRunPlanTransaction.preparation.targetRunRoot)
+    : null
   if (params.continuation && (swarmId !== RESEARCH_SWARM_ID
       || (kind !== 'full' && kind !== 'module' && kind !== 'rerun')
       || !continuationRunRoot)) {
     throw Object.assign(new Error('Continue requires one exact saved research run root.'), { statusCode: 400 })
+  }
+  if (params.preparedRunPlanTransaction && (!preparedRunRoot
+      || (continuationRunRoot && continuationRunRoot !== preparedRunRoot))) {
+    throw Object.assign(new Error('Prepared run-plan root does not match this exact research launch.'), { statusCode: 400 })
   }
   const exactModuleRunRoot = params.exactModuleResume
     ? exactModuleRunRootBinding(params.ticker ?? '', params.exactModuleRunRoot)
@@ -3421,7 +3440,7 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
     // that protocol can run. Every non-force launch keeps the ordinary fail-fast subject-chain guard.
     assertNoForeignSubjectChain(swarmId, subjectId, params.chained || params.force)
     // opt-in: run a full pipeline as a chain of per-module runs + master (each its own budget)
-    const datedRoot = continuationRunRoot ?? `analyses/${ticker}_${todayDate()}`
+    const datedRoot = continuationRunRoot ?? preparedRunRoot ?? `analyses/${ticker}_${todayDate()}`
     // A sealed full run uses full.md's read-only recovery route. Do not send it through the per-module
     // scheduler, which would begin rewriting modules before the command could observe the seal.
     if (kind === 'full' && FULL_PER_MODULE && !isSealedResearchRun(datedRoot)) {
@@ -3458,7 +3477,14 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
           defaultFullChainDeps,
           binding,
           params.memoryIdentity,
-          continuationRunRoot ? { runRoot: continuationRunRoot, continuation: true } : undefined,
+          continuationRunRoot || params.preparedRunPlanTransaction
+            ? {
+                runRoot: preparedRunRoot ?? continuationRunRoot!,
+                ...(continuationRunRoot ? { continuation: true } : {}),
+                ...(params.preparedRunPlanTransaction
+                  ? { preparedRunPlanTransaction: params.preparedRunPlanTransaction } : {}),
+              }
+            : undefined,
         )
       } finally {
         releasePoolClaim()
@@ -3476,8 +3502,8 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
       }
       if (params.runRoot && latest !== params.runRoot) throw Object.assign(new Error('The selected run no longer matches this subject.'), { statusCode: 409 })
       runRoot = latest
-    } else if (continuationRunRoot) {
-      runRoot = continuationRunRoot
+    } else if (continuationRunRoot || preparedRunRoot) {
+      runRoot = continuationRunRoot ?? preparedRunRoot!
       isFullRelaunch = kind === 'full' && !finalDeliverablesPresent(runRoot)
     } else if (kind === 'agent') {
       runRoot = resolveAgentRunRoot(ticker)
@@ -3704,6 +3730,18 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
   } catch (error) {
     finishRun(run, 'error')
     throw error
+  }
+
+  if (params.preparedRunPlanTransaction) {
+    const transaction = params.preparedRunPlanTransaction
+    preparedRunPlanTransactionByRun.set(run, transaction)
+    run.onNoChildTerminal = () => transaction.rollbackIfUnstarted('admitted run ended before provider start')
+    try {
+      transaction.activate()
+    } catch (error) {
+      finishRun(run, 'error')
+      throw error
+    }
   }
 
   // Finding 13: NOW that admission has actually admitted this launch, reset the relaunch state — clearing
@@ -6141,6 +6179,20 @@ async function spawnEngine(run: RunState): Promise<void> {
 
   run.child = child
   run.processGroupPid = child.pid
+  try {
+    preparedRunPlanTransactionByRun.get(run)?.markPaidChildStarted()
+  } catch (error: any) {
+    try { if (child.pid) process.kill(-child.pid, 'SIGKILL') } catch { /* exited between spawn and receipt */ }
+    try { await child } catch { /* reject:false normally resolves */ }
+    if (child.pid) await holdClaimsUntilProcessGroupExtinct(child.pid)
+    releaseProviderLaunchResources(run)
+    emit(run, {
+      type: 'run-error', runId: run.runId, status: 'error', reason: 'spawn_failed',
+      message: `provider start could not be sealed to its request receipt: ${String(error?.message || error)}`, ts: Date.now(),
+    })
+    finishRun(run, 'error')
+    throw Object.assign(new Error('Failed to seal provider start receipt'), { statusCode: 500 })
+  }
   try {
     // Persist the detached process-group identity before any asynchronous callback can release the
     // singleton. A replacement supervisor reconciles this protected lease before it admits work.

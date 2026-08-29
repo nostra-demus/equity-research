@@ -38,6 +38,7 @@ import { createHash } from 'node:crypto'
 import fs from 'node:fs'
 import path from 'node:path'
 import { ANALYSES_DIR, DATA_DIR, REPO_ROOT } from './config'
+import { canonicalJsonText } from './canonical-json'
 import { chainedResumePreflight, estimate, type RunProviderSelection } from './launcher'
 import { runManifest } from './outputs'
 import { buildSwarmGraph, findRunRootForSubject, moduleAncestors, terminalModuleName, transitiveDownstreamModules } from './roster'
@@ -101,6 +102,9 @@ export interface ThesisPlan {
   /** Additive contract gate for the one-click roster-gap resume path. Older servers omit it, so a newer UI
    *  can fail closed instead of turning "finish empty orbs" into a whole-module rerun during rolling deploy. */
   moduleResumeVersion: 2
+  /** Server-issued, content-addressed admission contract. POST must return this exact receipt; the server
+   *  rebuilds it under the subject lock before any paid child can be admitted. */
+  continuationReceipt: ContinuationPlanReceipt
   /** Present only for a module-heading plan. These inputs were selected from the target's declared graph
    * closure and each has a mechanically valid saved synthesis; global full-thesis reuse stays unchanged. */
   exactModuleScope?: { module: string; savedInputs: string[] }
@@ -137,6 +141,127 @@ export interface ThesisPlan {
   fullPreflight: LaunchPreflight
   /** carry-forward is only meaningful where run folders are dated (research) */
   canCarry: boolean
+}
+
+export interface ContinuationPlanReceiptPayload {
+  version: 1
+  action: 'continue' | 'complete'
+  swarm: string
+  subject: string
+  sourceRunRoots: string[]
+  targetRunRoot: string
+  provider: {
+    id: RunProviderSelection['provider']
+    model: string | null
+    reasoningLevel: string | null
+    profileKey: string | null
+  }
+  reusableOrbKeys: string[]
+  payableOrbKeys: string[]
+  dataPool: { files: number; newestMs: number; sha256: string }
+  /** Content identity of every existing target byte and every module tree this plan will copy. */
+  sourceArtifactsSha256: string
+}
+
+export interface ContinuationPlanReceipt extends ContinuationPlanReceiptPayload {
+  fingerprint: string
+}
+
+export function continuationPlanReceiptFingerprint(payload: ContinuationPlanReceiptPayload): string {
+  return `sha256:${createHash('sha256').update(canonicalJsonText(payload)).digest('hex')}`
+}
+
+function continuationSourceArtifactsSha256(
+  targetRunRoot: string,
+  carries: { module: string; copyFrom: string }[],
+): string {
+  const scopes = [
+    { label: `target:${targetRunRoot}`, abs: path.join(REPO_ROOT, targetRunRoot) },
+    ...carries.map((carry) => ({
+      label: `carry:${carry.copyFrom}/${carry.module}`,
+      abs: path.join(REPO_ROOT, carry.copyFrom, carry.module),
+    })),
+  ].sort((a, b) => a.label.localeCompare(b.label))
+  const rows: {
+    scope: string; path: string; mode?: number; bytes?: number; sha256?: string;
+    kind?: 'symlink' | 'non-file'; missing?: true
+  }[] = []
+  const visit = (scope: string, root: string, current: string): void => {
+    const info = fs.lstatSync(current)
+    const rel = path.relative(root, current) || '.'
+    if (info.isSymbolicLink()) {
+      rows.push({
+        scope, path: rel, mode: info.mode & 0o777, kind: 'symlink',
+        sha256: createHash('sha256').update(fs.readlinkSync(current)).digest('hex'),
+      })
+      return
+    }
+    if (info.isFile()) {
+      rows.push({
+        scope, path: rel, mode: info.mode & 0o777, bytes: info.size,
+        sha256: createHash('sha256').update(fs.readFileSync(current)).digest('hex'),
+      })
+      return
+    }
+    if (!info.isDirectory()) {
+      rows.push({ scope, path: rel, mode: info.mode & 0o777, kind: 'non-file' })
+      return
+    }
+    rows.push({ scope, path: `${rel}/`, mode: info.mode & 0o777 })
+    for (const name of fs.readdirSync(current).sort()) visit(scope, root, path.join(current, name))
+  }
+  for (const scope of scopes) {
+    try { visit(scope.label, scope.abs, scope.abs) } catch (error: any) {
+      if (error?.code === 'ENOENT') rows.push({ scope: scope.label, path: '.', missing: true })
+      else throw error
+    }
+  }
+  return `sha256:${createHash('sha256').update(canonicalJsonText(rows)).digest('hex')}`
+}
+
+function continuationDataPoolSha256(ticker: string, dataDir: string = DATA_DIR): string {
+  const root = path.join(dataDir, safeSubjectSegment(ticker))
+  const rows: { path: string; bytes: number; sha256: string }[] = []
+  const walk = (directory: string, depth: number): void => {
+    if (depth > 24) throw new Error('continuation data-pool nesting exceeds the supported boundary')
+    const entries = fs.readdirSync(directory, { withFileTypes: true }).sort((a, b) => a.name.localeCompare(b.name))
+    const isOutputDir = entries.some((entry) => entry.name === '.nostradamus_output' && entry.isFile())
+    for (const entry of entries) {
+      if (entry.name.startsWith('.')) continue
+      const absolute = path.join(directory, entry.name)
+      if (entry.isSymbolicLink()) continue // matches the evidence reader/freshness walk: never follow links
+      if (entry.isDirectory()) { walk(absolute, depth + 1); continue }
+      if (!entry.isFile() || isOutputDir) continue
+      const before = fs.lstatSync(absolute)
+      if (!before.isFile() || before.isSymbolicLink()) throw new Error('continuation data-pool entry changed during planning')
+      const bytes = fs.readFileSync(absolute)
+      const after = fs.lstatSync(absolute)
+      if (before.dev !== after.dev || before.ino !== after.ino || before.size !== after.size
+          || before.mtimeMs !== after.mtimeMs || before.ctimeMs !== after.ctimeMs) {
+        throw new Error('continuation data-pool entry changed during planning')
+      }
+      rows.push({
+        path: path.relative(root, absolute), bytes: bytes.length,
+        sha256: createHash('sha256').update(bytes).digest('hex'),
+      })
+    }
+  }
+  try { walk(root, 0) } catch (error: any) {
+    if (error?.code !== 'ENOENT') throw error
+  }
+  return `sha256:${createHash('sha256').update(canonicalJsonText(rows)).digest('hex')}`
+}
+
+export function continuationPlanReceiptMatches(
+  expected: ContinuationPlanReceipt,
+  actual: ContinuationPlanReceipt,
+): boolean {
+  const { fingerprint: expectedFingerprint, ...expectedPayload } = expected
+  const { fingerprint: actualFingerprint, ...actualPayload } = actual
+  return expectedFingerprint === continuationPlanReceiptFingerprint(expectedPayload)
+    && actualFingerprint === continuationPlanReceiptFingerprint(actualPayload)
+    && expectedFingerprint === actualFingerprint
+    && canonicalJsonText(expectedPayload) === canonicalJsonText(actualPayload)
 }
 
 /**
@@ -1044,8 +1169,49 @@ export function thesisPlan(
       ? { state: 'blocked', blockedBy: run }
       : { state: 'ready', blockedBy: [] }
 
+  const reusableOrbKeys: string[] = []
+  const payableOrbKeys: string[] = []
+  for (const module of graph.modules) {
+    const entry = byName.get(module.name)
+    if (!entry) continue
+    const all = Object.values(module.layers).flat().map((agent) => agent.key).sort()
+    const reusableForModule = reuseSet.has(module.name) ? new Set(all) : new Set(entry.doneOrbKeys)
+    for (const key of all) (reusableForModule.has(key) ? reusableOrbKeys : payableOrbKeys).push(key)
+  }
+  if (!complete) payableOrbKeys.push('master/synthesizer')
+  const sourceRunRoots = continuationRunRoot
+    ? [continuationRunRoot]
+    : [...new Set(modules
+        .filter((entry) => reuseSet.has(entry.module))
+        .map((entry) => entry.copyFromRunRoot ?? (entry.inTargetRoot ? targetRunRoot : null))
+        .filter((root): root is string => Boolean(root)))]
+      .sort()
+  const receiptPayload: ContinuationPlanReceiptPayload = {
+    version: 1,
+    action: continuationRunRoot ? 'continue' : 'complete',
+    swarm: swarmId,
+    subject: safe,
+    sourceRunRoots,
+    targetRunRoot,
+    provider: {
+      id: selection.provider,
+      model: selection.model ?? null,
+      reasoningLevel: selection.reasoningLevel ?? null,
+      profileKey: selection.expectedProfileKey ?? null,
+    },
+    reusableOrbKeys: [...new Set(reusableOrbKeys)].sort(),
+    payableOrbKeys: [...new Set(payableOrbKeys)].sort(),
+    dataPool: { files: pool.files, newestMs: pool.newestMs, sha256: continuationDataPoolSha256(safe) },
+    sourceArtifactsSha256: continuationSourceArtifactsSha256(targetRunRoot, carry),
+  }
+  const continuationReceipt: ContinuationPlanReceipt = {
+    ...receiptPayload,
+    fingerprint: continuationPlanReceiptFingerprint(receiptPayload),
+  }
+
   return {
     moduleResumeVersion: 2,
+    continuationReceipt,
     ...(exactTarget ? { exactModuleScope: { module: exactTarget.name, savedInputs: exactSavedInputs } } : {}),
     swarm: swarmId,
     subject: safe,
@@ -1467,8 +1633,14 @@ function declaredSynthesisArtifacts(module: ModuleNode, swarmId: string): Set<st
 /** Turn a historical "complete" module into a safe resume workspace when the discovered roster has grown.
  *  Keep only specialists that are valid against the CURRENT roster and its in-module dependencies; remove
  *  the old synthesis plus everything it derived. The caller applies this only to a private staging copy. */
-function invalidateOutdatedSynthesis(module: ModuleNode, dirAbs: string, reusableSpecialists: Set<string>, swarmId: string): void {
-  const analysesResolved = path.resolve(ANALYSES_DIR)
+function invalidateOutdatedSynthesis(
+  module: ModuleNode,
+  dirAbs: string,
+  reusableSpecialists: Set<string>,
+  swarmId: string,
+  containmentRoot: string = ANALYSES_DIR,
+): void {
+  const analysesResolved = path.resolve(containmentRoot)
   const resolved = path.resolve(dirAbs)
   if (!resolved.startsWith(analysesResolved + path.sep)) throw new Error('module refresh staging escaped analyses')
   const dirStat = fs.lstatSync(resolved)
@@ -1665,6 +1837,123 @@ export interface FullContinuationPreparation {
   doneOrbKeys: string[]
   /** Modules whose old bytes were stale and were removed before launch. */
   ranClean: string[]
+}
+
+export interface PrivateThesisPlanPreparation extends FullContinuationPreparation {
+  stagingRootAbs: string
+  targetRunRoot: string
+  carried: { module: string; from: string }[]
+}
+
+/**
+ * Build the exact post-admission run root outside Git. The canonical analyses tree is read-only here.
+ * A caller may later activate this complete tree with the durable transaction in run-plan-transaction.ts.
+ */
+export function prepareThesisPlanPrivately(
+  subject: string,
+  plan: ThesisPlan,
+  transactionDir: string,
+  swarmId: string = RESEARCH_SWARM_ID,
+): PrivateThesisPlanPreparation {
+  const safe = safeSubjectSegment(subject)
+  if (swarmId !== RESEARCH_SWARM_ID || plan.swarm !== RESEARCH_SWARM_ID || plan.subject !== safe) {
+    throw new Error('private run-plan preparation does not match this research subject')
+  }
+  const exactRoot = /^analyses\/([A-Z0-9.\-]{1,15})_(\d{4}-\d{2}-\d{2})$/.exec(plan.targetRunRoot)
+  if (exactRoot?.[1] !== safe) throw new Error('private run-plan target is not the selected dated research root')
+
+  const transactionInfo = fs.lstatSync(transactionDir)
+  if (!transactionInfo.isDirectory() || transactionInfo.isSymbolicLink()) throw new Error('run-plan transaction directory is unsafe')
+  const stagingRootAbs = path.join(transactionDir, 'prepared-root')
+  if (fs.existsSync(stagingRootAbs)) throw new Error('run-plan staging root already exists')
+  const targetAbs = path.join(REPO_ROOT, plan.targetRunRoot)
+  if (fs.existsSync(targetAbs)) {
+    assertRealRunRootInsideAnalyses(plan.targetRunRoot)
+    copyDir(targetAbs, stagingRootAbs)
+  } else {
+    fs.mkdirSync(stagingRootAbs, { mode: 0o700 })
+  }
+
+  const graph = buildSwarmGraph(swarmId)
+  const moduleByName = new Map(graph.modules.map((module) => [module.name, module]))
+  const planByName = new Map(plan.modules.map((module) => [module.module, module]))
+  const carried: { module: string; from: string }[] = []
+  const doneOrbKeys: string[] = []
+  const ranClean: string[] = []
+
+  try {
+    for (const carry of plan.carry) {
+      const module = moduleByName.get(carry.module)
+      if (!module || !plan.reuse.includes(carry.module)) throw new Error(`private carry scope changed: ${carry.module}`)
+      const sourceAbs = assertContainedModuleDir(carry.copyFrom, carry.module)
+      const destinationAbs = path.join(stagingRootAbs, carry.module)
+      if (fs.existsSync(destinationAbs)) {
+        assertCopyableTree(destinationAbs)
+        fs.rmSync(destinationAbs, { recursive: true, force: true })
+      }
+      copyDir(sourceAbs, destinationAbs)
+      fs.writeFileSync(path.join(destinationAbs, CARRY_MARKER), carryNote(
+        carry.module,
+        carry.from,
+        carry.date,
+        plan.targetRunRoot,
+        false,
+        carry.staleReason ?? planByName.get(carry.module)?.staleReason,
+      ), 'utf8')
+      carried.push({ module: carry.module, from: carry.from })
+    }
+
+    if (plan.continuationReceipt.action === 'continue') {
+      for (const name of plan.run) {
+        const entry = planByName.get(name)
+        const module = moduleByName.get(name)
+        if (!entry || !module) throw new Error(`private continuation module changed: ${name}`)
+        const moduleAbs = path.join(stagingRootAbs, name)
+        if (entry.staleReason) {
+          if (fs.existsSync(moduleAbs)) {
+            assertCopyableTree(moduleAbs)
+            fs.rmSync(moduleAbs, { recursive: true, force: true })
+            ranClean.push(name)
+          }
+          continue
+        }
+        if (entry.state !== 'partial' || entry.doneOrbKeys.length === 0) continue
+        if (!fs.existsSync(moduleAbs)) throw new Error(`planned reusable orbs disappeared from ${name}`)
+        const reusableFiles = new Set(entry.doneOrbKeys.map((key) => {
+          const prefix = `${name}/`
+          if (!key.startsWith(prefix)) throw new Error(`reusable orb escaped ${name}`)
+          return `${key.slice(prefix.length)}.md`
+        }))
+        invalidateOutdatedSynthesis(module, moduleAbs, reusableFiles, swarmId, stagingRootAbs)
+        const stagedKeys = orbKeys(name, reusableSpecialistOutputs(module, moduleAbs, swarmId))
+        const expectedKeys = [...entry.doneOrbKeys].sort()
+        if (stagedKeys.length !== expectedKeys.length || stagedKeys.some((key, index) => key !== expectedKeys[index])) {
+          throw new Error(`private reusable-orb scope changed for ${name}`)
+        }
+        fs.writeFileSync(path.join(moduleAbs, RESUME_MARKER), resumeNote(
+          name,
+          entry.sourceRunRoot ?? plan.targetRunRoot,
+          entry.sourceDate ?? null,
+          plan.targetRunRoot,
+          expectedKeys.length,
+          Math.max(0, entry.totalAgents - expectedKeys.length),
+          entry.resumeFromRunRoots ?? [plan.targetRunRoot],
+        ), 'utf8')
+        doneOrbKeys.push(...expectedKeys)
+      }
+    }
+    assertCopyableTree(stagingRootAbs)
+    return {
+      stagingRootAbs,
+      targetRunRoot: plan.targetRunRoot,
+      carried,
+      doneOrbKeys: [...new Set(doneOrbKeys)].sort(),
+      ranClean: [...new Set(ranClean)].sort(),
+    }
+  } catch (error) {
+    fs.rmSync(stagingRootAbs, { recursive: true, force: true })
+    throw error
+  }
 }
 
 /**

@@ -110,6 +110,9 @@ export interface RunState {
   // (The running-child cancel + SIGKILL fallback gate on endedAt — see finalizeRunOnClose / cancel().)
   onFinish?: (status: RunStatus) => void // chained full run: advance to the next step when this one ends
   onTerminal?: (status: RunStatus) => void // headless orchestration hook; fires once with the real outcome
+  /** Internal transactional-admission rollback. Fires only when a run becomes terminal before a provider
+   *  child ever exists; never serialized or exposed through the API. */
+  onNoChildTerminal?: (status: RunStatus) => void
   chained?: boolean // this run is a step of a chained full run — cancelling it must also halt the chain
   /** Immutable id shared by every step of one chained full run. Cancellation is scoped to this id. */
   chainId?: string
@@ -390,6 +393,9 @@ export function finishRun(run: RunState, status: RunStatus) {
       cliResult: run.cliResult,
     })
     // advance a chained full run to its next step (fires once, inside the finishLogged guard)
+    if (!run.child) {
+      try { run.onNoChildTerminal?.(status) } catch {}
+    }
     try {
       run.onFinish?.(status)
     } catch {}
