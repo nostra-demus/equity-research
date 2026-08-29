@@ -84,6 +84,29 @@ ts()  { date '+%Y-%m-%d %H:%M:%S'; }
 log() { echo "$(ts) $*" >> "$LOG"; }
 loaded() { launchctl print "gui/$UID_NUM/$1" >/dev/null 2>&1; }
 
+# Portable owner-only file identity check. The watcher runs on macOS, while the same release contract is
+# exercised on Linux CI; using BSD `stat -f` here made an otherwise healthy audit-only recovery fail closed
+# only in CI. lstat also keeps the no-symlink and single-link checks in one exact place.
+private_owner_file() {
+  "$PYTHON" -I - "$1" <<'PYPRIVATE' >/dev/null 2>&1
+import os
+import stat
+import sys
+
+try:
+    info = os.lstat(sys.argv[1])
+except OSError:
+    raise SystemExit(1)
+if (
+    not stat.S_ISREG(info.st_mode)
+    or stat.S_IMODE(info.st_mode) != 0o600
+    or info.st_nlink != 1
+    or info.st_uid != os.getuid()
+):
+    raise SystemExit(1)
+PYPRIVATE
+}
+
 # A queued launch needs proof of a healthy lifecycle transition, not merely the absence of writer intent.
 # Keep that proof separate from .deployed.sha: dependency-only repair may finish with the same program SHA,
 # while a no-op watcher tick must not mint a new success event. Owner-only temp+rename makes the receipt
@@ -108,8 +131,7 @@ valid_git_sha() { [[ "${1:-}" =~ ^[0-9a-f]{40}$ || "${1:-}" =~ ^[0-9a-f]{64}$ ]]
 set_deploy_intent() {
   local target="$1" existing="" existing_epoch="" staged
   valid_git_sha "$target" || return 1
-  if [ -f "$DEPLOY_INTENT" ] && [ ! -L "$DEPLOY_INTENT" ] && [ -O "$DEPLOY_INTENT" ] \
-      && [ "$(stat -f '%Lp:%l' "$DEPLOY_INTENT" 2>/dev/null || true)" = '600:1' ]; then
+  if private_owner_file "$DEPLOY_INTENT"; then
     read -r existing existing_epoch < "$DEPLOY_INTENT" 2>/dev/null || true
     [ "$existing" = "$target" ] && return 0
   fi
@@ -1377,8 +1399,7 @@ write_audit_pending() {
 
 retry_pending_deploy_audit() {
   local target approved started health rollback deployed
-  [ -f "$DEPLOY_AUDIT_PENDING" ] && [ ! -L "$DEPLOY_AUDIT_PENDING" ] && [ -O "$DEPLOY_AUDIT_PENDING" ] \
-    && [ "$(stat -f '%Lp:%l' "$DEPLOY_AUDIT_PENDING" 2>/dev/null || true)" = '600:1' ] \
+  private_owner_file "$DEPLOY_AUDIT_PENDING" \
     || { log "  deployment audit pending marker is unsafe — manual repair required"; return 1; }
   read -r target approved started health rollback deployed < "$DEPLOY_AUDIT_PENDING" 2>/dev/null || return 1
   valid_git_sha "$target" && valid_git_sha "$approved" && valid_git_sha "$deployed" || return 1
