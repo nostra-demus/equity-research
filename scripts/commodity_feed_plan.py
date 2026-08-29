@@ -81,6 +81,51 @@ def source_rule(need: str, guide: dict[str, Any]) -> dict[str, Any]:
     raise ValueError(f"no source-authority rule covers {need}")
 
 
+def _schema_node(schema: Any, dotted_path: str | None) -> Any:
+    value = schema
+    for part in dotted_path.split(".") if dotted_path else ():
+        if not isinstance(value, dict) or part not in value:
+            return None
+        value = value[part]
+    return value
+
+
+def connector_incompatibilities(
+    manifest: dict[str, Any], requirement: dict[str, Any],
+) -> list[str]:
+    """Explain why a connector cannot satisfy the profile's finish gate."""
+    errors: list[str] = []
+    tier = manifest.get("tier")
+    if not isinstance(tier, int) or isinstance(tier, bool) or tier > 5:
+        errors.append("evidence tier is weaker than 5")
+    if manifest.get("acquisition") == "manual":
+        licensing = manifest.get("licensing")
+        if manifest.get("source_type") not in {"official_data", "vendor_export", "paid_api"}:
+            errors.append("manual source type is context-only")
+        if (
+            not isinstance(licensing, dict)
+            or licensing.get("use") not in {"allowed", "entitlement_required"}
+            or licensing.get("access") not in {"public", "licensed", "restricted"}
+            or not isinstance(manifest.get("manual_ingest"), dict)
+        ):
+            errors.append("manual rights or ingest contract is not decision-grade")
+    quality = requirement.get("quality", {})
+    minimum = quality.get("min_observations")
+    if isinstance(minimum, int) and not isinstance(minimum, bool):
+        history = manifest.get("minimum_history", {})
+        promised = history.get("observations") if isinstance(history, dict) else None
+        if not isinstance(promised, int) or isinstance(promised, bool) or promised < minimum:
+            errors.append(f"connector promises fewer than {minimum} observations")
+        required_path = quality.get("path")
+        if required_path:
+            if not isinstance(history, dict) or history.get("path") != required_path:
+                errors.append(f"history path does not match {required_path}")
+            node = _schema_node(manifest.get("output_schema"), required_path)
+            if not isinstance(node, list) or len(node) != 1:
+                errors.append(f"output schema has no {required_path} observation array")
+    return errors
+
+
 def build_plan(
     commodity: str, *, structured_root: Path = STRUCTURED_PROFILE_ROOT,
     connectors_root: Path = CONNECTORS_ROOT, guide_path: Path = AUTHORITY_PATH,
@@ -104,14 +149,19 @@ def build_plan(
             if manifest.get("series_id") == requirement["series"]
         ]
         conflicts = [manifest for manifest in claimants if manifest not in owners]
-        primary = next((owner for owner in owners if not owner.get("fallback_for")), None)
+        incompatibilities = {
+            owner["id"]: connector_incompatibilities(owner, requirement)
+            for owner in owners
+        }
+        eligible = [owner for owner in owners if not incompatibilities[owner["id"]]]
+        primary = next((owner for owner in eligible if not owner.get("fallback_for")), None)
         if kind != "connector":
             status = "profile_route"
         elif conflicts:
             status = "contract_conflict"
         elif primary is None:
             status = "build_needed"
-        elif all(owner.get("acquisition") == "manual" for owner in owners):
+        elif all(owner.get("acquisition") == "manual" for owner in eligible):
             status = "implemented_manual"
         else:
             status = "implemented_automatic"
@@ -122,6 +172,13 @@ def build_plan(
             "required_history_freshness": requirement["requirement"],
             "lawful_source_policy": requirement["policy"],
             "connector_ids": [owner["id"] for owner in owners],
+            "incompatible_connector_ids": [
+                owner["id"] for owner in owners if incompatibilities[owner["id"]]
+            ],
+            "incompatibility_reasons": {
+                owner["id"]: incompatibilities[owner["id"]]
+                for owner in owners if incompatibilities[owner["id"]]
+            },
             "conflicting_connector_ids": [owner["id"] for owner in conflicts],
             "primary_connector_id": primary.get("id") if isinstance(primary, dict) else None,
             "source_rule_id": rule["id"], "preferred_route": rule["preferred_route"],

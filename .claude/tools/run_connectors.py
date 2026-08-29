@@ -141,6 +141,7 @@ def _acquire_repo_mutation_lock_early(repo_root: str) -> int | None:
 # Unit tests import under a module name and exercise the helper explicitly;
 # the isolated production CLI acquires and retains the descriptor to exit.
 _EARLY_REPO_MUTATION_LOCK_FD: int | None = None
+SCOPED_LOCK_BUSY_EXIT = 75
 if __name__ == "__main__":
     _bootstrap_repo = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
     _EARLY_REPO_MUTATION_LOCK_FD = _acquire_repo_mutation_lock_early(_bootstrap_repo)
@@ -3482,10 +3483,14 @@ def main() -> int:
     if not a.dry_run:
         lock = acquire_lock()
         if lock is None:
-            _log("another runner instance holds the lock — skipping this sweep")
+            scoped = a.subject is not None or a.only is not None or a.manual_file is not None
+            _log(
+                "another runner instance holds the lock — retry this scoped sweep"
+                if scoped else "another runner instance holds the lock — skipping this sweep"
+            )
             if topology is not None:
                 topology.close()
-            return 0
+            return SCOPED_LOCK_BUSY_EXIT if scoped else 0
     if topology is not None:
         # Re-attest after the local wait/exclusion point and only then make the
         # guard visible to the first status publication and acquisition.

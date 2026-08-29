@@ -277,6 +277,22 @@ def _resolved(
     }
 
 
+def decision_grade_manual_vintage(vintage: Any) -> bool:
+    """Return whether one sealed manual vintage may carry a decision."""
+    if not isinstance(vintage, dict) or vintage.get("acquisition") != "manual":
+        return False
+    tier = vintage.get("tier")
+    licensing = vintage.get("licensing")
+    return (
+        isinstance(tier, int) and not isinstance(tier, bool) and tier <= 5
+        and vintage.get("source_type") in {"official_data", "vendor_export", "paid_api"}
+        and isinstance(licensing, dict)
+        and licensing.get("use") in {"allowed", "entitlement_required"}
+        and licensing.get("access") in {"public", "licensed", "restricted"}
+        and isinstance(vintage.get("manual_input"), dict)
+    )
+
+
 def _market_sidecars(
     history: dict[str, Any], market_root: Path, cutoff: dt.datetime,
 ) -> tuple[list[dict[str, Any]] | None, str | None]:
@@ -440,14 +456,7 @@ def _resolve_connector(
     if not isinstance(tier, int) or isinstance(tier, bool) or tier > 5:
         return {"usable": False, "status": "manual", "reason": "selected vintage is not eligible primary/provider evidence", "manifest": manifest}
     if vintage.get("acquisition") == "manual":
-        licensing = vintage.get("licensing")
-        if (
-            vintage.get("source_type") not in {"official_data", "vendor_export", "paid_api"}
-            or not isinstance(licensing, dict)
-            or licensing.get("use") not in {"allowed", "entitlement_required"}
-            or licensing.get("access") not in {"public", "licensed", "restricted"}
-            or not isinstance(vintage.get("manual_input"), dict)
-        ):
+        if not decision_grade_manual_vintage(vintage):
             return {
                 "usable": False, "status": "manual",
                 "reason": "sealed manual vintage is not eligible official/provider evidence",

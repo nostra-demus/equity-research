@@ -53,6 +53,16 @@
       "capital_iq_fallback": "Use a dated Capital IQ fund-flow export when issuer files cannot supply the defined series."
     },
     {
+      "id": "official-sector-reserves",
+      "need_pattern": "official-reserve",
+      "preferred_route": "automatic_or_manual_imf_central_bank_release",
+      "authorities": [
+        {"provider": "International Monetary Fund Data", "url": "https://data.imf.org/", "access": "public"},
+        {"provider": "Reporting central bank or monetary authority", "url": "https://www.bis.org/cbanks.htm", "access": "public"}
+      ],
+      "capital_iq_fallback": "Use a licensed official-reserves series only when its country coverage, unit, reporting lag, and revisions are preserved in each sealed vintage."
+    },
+    {
       "id": "weather-crop-condition",
       "need_pattern": "(climate|weather|enso|phenology|crop-progress|crop-condition|disease)",
       "preferred_route": "automatic_government_api_or_file",

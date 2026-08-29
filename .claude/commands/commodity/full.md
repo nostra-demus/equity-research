@@ -43,6 +43,10 @@ python3 .claude/tools/run_connectors.py --subject "<COMMODITY>"
 bash scripts/refresh-swarm-pulse.sh commodity "<COMMODITY>"
 ```
 
+If the connector refresh exits `75`, another sweep owns the connector lock. STOP this invocation and retry
+Step 3.5 after that sweep finishes. Never continue to the pulse refresh or evidence preflight after exit `75`:
+the scoped refresh did not run, so preflight could otherwise reject usable evidence that is still being published.
+
 Connector failures are not permission to substitute an unreviewed scrape. They remain visible as missing,
 stalled, suspect, or unavailable evidence. Now run the non-publishing preflight at one captured UTC cutoff:
 

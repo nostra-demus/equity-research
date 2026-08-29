@@ -452,6 +452,33 @@ for _argv_suffix in (("--dry-run",), ("--only", "one-connector")):
     check(f"{' '.join(_argv_suffix)} remains operator-scoped outside scheduled topology",
           _scoped_rc == 0 and _scoped_seen == {"topology": 0, "run": 1})
 
+# A scoped refresh must never report success when a scheduled sweep owns the
+# writer lock: callers would immediately preflight stale or empty evidence.
+_old_topology_acquire = m.acquire_scheduled_topology_lease
+_old_lock_acquire = m.acquire_lock
+_old_run = m.run
+_busy_seen = {"topology": 0, "run": 0}
+m.acquire_scheduled_topology_lease = lambda _root: (
+    _busy_seen.__setitem__("topology", _busy_seen["topology"] + 1), None
+)[1]
+m.acquire_lock = lambda: None
+m.run = lambda *_args, **_kwargs: (
+    _busy_seen.__setitem__("run", _busy_seen["run"] + 1),
+    {"rows": [], "skipped_manifests": []},
+)[1]
+_old_argv = sys.argv
+try:
+    sys.argv = ["run_connectors.py", "--data-root", tempfile.gettempdir(), "--subject", "AAA"]
+    _busy_rc = m.main()
+finally:
+    sys.argv = _old_argv
+    m.acquire_scheduled_topology_lease = _old_topology_acquire
+    m.acquire_lock = _old_lock_acquire
+    m.run = _old_run
+check("a lock-busy scoped refresh exits retryably before fetch or preflight",
+      _busy_rc == m.SCOPED_LOCK_BUSY_EXIT
+      and _busy_seen == {"topology": 0, "run": 0})
+
 # The role is an asynchronous kill switch: a demotion that lands while the
 # retained autonomy lease is held is noticed before the next external process
 # and before the next pool write. It yields no terminal status or ledger row.
