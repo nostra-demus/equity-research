@@ -50,23 +50,26 @@ export async function continueExactSavedRun(
   intent: ExactContinuationIntent,
   deps: ExactContinuationDeps = defaultDeps,
 ): ReturnType<typeof launch> {
-  if (!exactContinuationCandidate(intent, deps.resumable())) {
+  const candidate = exactContinuationCandidate(intent, deps.resumable())
+  if (!candidate) {
     const error: any = new Error('The saved run changed before Continue. Refresh and review the remaining work; no run was started.')
     error.statusCode = 409
     error.body = { code: 'saved_run_changed' }
     throw error
   }
   return deps.launch({
-    kind: intent.kind,
-    ticker: intent.subject,
-    module: intent.module,
+    kind: candidate.kind,
+    ticker: candidate.subject,
+    module: candidate.module,
     provider: intent.provider,
     model: intent.model,
     reasoningLevel: intent.reasoningLevel,
     expectedProfileKey: intent.expectedProfileKey,
     user: intent.user,
     userVia: intent.userVia,
-    runRoot: intent.runRoot,
+    // Use only the identity re-read from the server-owned saved-run inventory. The request value is a lookup
+    // key, never a filesystem authority.
+    runRoot: candidate.runRoot,
     continuation: true,
     ...(intent.preparedRunPlanTransaction
       ? { preparedRunPlanTransaction: intent.preparedRunPlanTransaction }

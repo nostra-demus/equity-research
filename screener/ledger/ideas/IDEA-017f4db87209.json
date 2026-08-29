@@ -1,7 +1,7 @@
 {
   "idea_id": "IDEA-017f4db87209",
-  "idea_version": "IDEAV-3a1f5029b454e5af",
-  "idea_version_started_at": "2026-08-27T23:06:02Z",
+  "idea_version": "IDEAV-4671c86b65a88e2c",
+  "idea_version_started_at": "2026-08-29T13:02:30Z",
   "ticker": "GPS",
   "company": "Gap Inc.",
   "exchange": "NYSE",
@@ -11,9 +11,9 @@
   "listing_verification_source": null,
   "direction": "long",
   "pair_with": null,
-  "reason": "Gap raised its profit forecast and appointed a new Old Navy CEO, a dual catalyst that signals improving earnings momentum at its largest brand.",
-  "why_now": "Reuters reported the guidance lift and management change today (2026-08-27), and shares already jumped 14%, confirming the market is reacting in real time.",
-  "conviction": 70,
+  "reason": "Gap raised its profit forecast after a leadership change at Old Navy, indicating improved operational outlook despite a trimmed sales forecast.",
+  "why_now": "The company provided a raised profit outlook on August 28, 2026, following a management change.",
+  "conviction": 65,
   "conviction_basis": "pre_edge_proxy",
   "trade_score": 45,
   "trade_score_basis": "evidence_gate_v2",
@@ -23,7 +23,7 @@
     "specificity": 7,
     "timing": 10,
     "expression": 0,
-    "corroboration": 0,
+    "corroboration": 6,
     "learning_adjustment": 0
   },
   "trade_readiness": "watch_only",
@@ -32,7 +32,6 @@
     "verified listing",
     "live liquidity",
     "dated catalyst",
-    "independent confirmation",
     "live price, liquidity, and consensus"
   ],
   "learning": {
@@ -49,17 +48,19 @@
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-060601716155"
+    "EVT-38dba5bba266",
+    "EVT-5dca59ff8066"
   ],
-  "primary_source_event_id": "EVT-060601716155",
+  "primary_source_event_id": "EVT-38dba5bba266",
   "source_headlines": [
-    "Gap names new Old Navy CEO and lifts profit forecast, shares jump 14%"
+    "Gap climbs after leadership change at Old Navy, profit forecast raise",
+    "Gap Spikes 15% as Raised Profit Outlook Overrides Trimmed Sales Forecast, Abercrombie & Fitch Ticks Up"
   ],
-  "source_headline": "Gap names new Old Navy CEO and lifts profit forecast, shares jump 14%",
-  "source_url": "https://www.reuters.com/business/retail-consumer/gap-lifts-annual-profit-forecast-strength-namesake-brand-2026-08-27/",
-  "source_name": "Reuters — Latest (news sitemap)",
+  "source_headline": "Gap climbs after leadership change at Old Navy, profit forecast raise",
+  "source_url": "https://www.reuters.com/business/retail-consumer/gap-shares-jump-after-old-navy-brings-new-ceo-revive-brand-2026-08-28/",
+  "source_name": "Reuters — Latest, next page (news sitemap)",
   "materiality_max": 100,
-  "newest_source_at": "2026-08-27T21:15:48Z",
+  "newest_source_at": "2026-08-28T15:08:49Z",
   "prior_coverage": {
     "has_run": false,
     "latest_run": null,
@@ -67,8 +68,8 @@
     "data_pool_present": false
   },
   "surfaced_at": "2026-08-27T23:06:02Z",
-  "updated_at": "2026-08-27T23:06:02Z",
-  "decay_at": "2026-08-29T09:15:48Z",
+  "updated_at": "2026-08-29T13:02:30Z",
+  "decay_at": "2026-08-30T03:08:49Z",
   "status": "live",
   "promoted_signal_id": null
 }
