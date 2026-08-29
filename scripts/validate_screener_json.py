@@ -769,7 +769,16 @@ def check_commodity_review_anchors(doc_path: str) -> list[str]:
             "commodity", doc["commodity"], "decision_record.json",
         )
         if os.path.isfile(snapshot_path):
-            record_path = snapshot_path
+            try:
+                snapshot = json.load(open(snapshot_path, encoding="utf-8"))
+            except (OSError, json.JSONDecodeError):
+                snapshot = None
+            if (
+                isinstance(snapshot, dict)
+                and snapshot.get("commodity") == doc.get("commodity")
+                and snapshot.get("decision_date") == doc.get("original_decision_date")
+            ):
+                record_path = snapshot_path
     if not os.path.exists(record_path):
         return [f"immutable decision record not found at {os.path.relpath(record_path, REPO)} — cannot cross-check anchors"]
     record = json.load(open(record_path, encoding="utf-8"))

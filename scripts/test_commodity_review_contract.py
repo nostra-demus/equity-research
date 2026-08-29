@@ -183,6 +183,25 @@ def main() -> int:
         legacy_path.write_text(json.dumps(legacy_review), encoding="utf-8")
         assert check_commodity_review_anchors(str(legacy_path)) == []
 
+        # A different pre-migration date may still exist only as the top-level
+        # compatibility record; the commodity's older snapshot must not hijack it.
+        fallback = copy.deepcopy(frozen)
+        fallback["decision_date"] = "2026-07-10"
+        fallback["current_price"] = {
+            "value": 97.0, "currency": "USD", "unit": "USD/oz", "as_of": "2026-07-10",
+        }
+        (run / "decision_record.json").write_text(json.dumps(fallback), encoding="utf-8")
+        fallback_review = copy.deepcopy(legacy_review)
+        fallback_review["original_decision_date"] = "2026-07-10"
+        fallback_review["reference_price"] = fallback["current_price"]
+        fallback_review["review_price"]["value"] = 98.0
+        fallback_review["absolute_return_pct"] = (98.0 - 97.0) / 97.0 * 100
+        fallback_path = reviews / "2026-08-09_30d_decision_review.json"
+        fallback_review["review_date"] = "2026-08-09"
+        fallback_review["review_price"]["as_of"] = "2026-08-09"
+        fallback_path.write_text(json.dumps(fallback_review), encoding="utf-8")
+        assert check_commodity_review_anchors(str(fallback_path)) == []
+
     print("PASS: v2 horizon reviews are exact-date, arithmetic-safe and immutable-decision anchored")
     return 0
 
