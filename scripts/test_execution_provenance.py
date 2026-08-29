@@ -368,6 +368,78 @@ decision_artifacts: [decision_record.json]
             with self.assertRaisesRegex(ProvenanceError, "missing/stale"):
                 audit_repository(root)
 
+    def test_legacy_projection_rollback_after_modern_archive_is_rejected(self):
+        """A refreshed commodity may not silently roll its top-level projection back to legacy bytes.
+
+        Once a modern decision is archived under the run's decisions/ directory, reverting the mutable
+        top-level decision_record.json to its pre-rollout inventoried bytes leaves the cockpit reading a
+        stale decision while a newer immutable archive exists. The audit must reject that rollback rather
+        than count the reverted projection as legacy. Expected behaviour pinned to the archive invariant
+        in this PR's design note (a replacement carries modern provenance; the legacy exemption holds only
+        while no archive exists), not to prior code behaviour.
+        """
+        provenance = project([attempt(
+            "commodity-rollover", "codex", "gpt-5.6-sol", "max",
+            role="terminal_adjudicator", scope=["commodity-thesis"],
+        )])
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            manifest = root / ".claude" / "agents" / "commodity" / "SWARM.md"
+            manifest.parent.mkdir(parents=True)
+            manifest.write_text("""---
+id: commodity
+runs_root: commodity/runs
+run_root_template: commodity/runs/{COMMODITY}
+placeholder: COMMODITY
+decision_artifacts: [decision_record.json]
+---
+""")
+            legacy_record = {"decision_date": "2026-07-01", "commodity": "TEST"}
+            top = root / "commodity" / "runs" / "TEST" / "decision_record.json"
+            legacy_archive = (
+                root / "frameworks" / "execution_provenance_legacy_snapshots"
+                / "commodity" / "TEST" / "decision_record.json"
+            )
+            top.parent.mkdir(parents=True)
+            legacy_archive.parent.mkdir(parents=True)
+            legacy_bytes = (json.dumps(legacy_record) + "\n").encode()
+            top.write_bytes(legacy_bytes)
+            legacy_archive.write_bytes(legacy_bytes)
+            digest = "sha256:" + hashlib.sha256(legacy_bytes).hexdigest()
+            inventory = root / "frameworks" / "execution_provenance_legacy_inventory.json"
+            inventory.parent.mkdir(parents=True, exist_ok=True)
+            inventory.write_text(json.dumps({
+                "schema_version": "1.1",
+                "rollout_cutoff": "2026-08-21T00:00:00Z",
+                "records": {legacy_archive.relative_to(root).as_posix(): digest},
+                "mutable_legacy_projections": {
+                    top.relative_to(root).as_posix(): {
+                        "archive": legacy_archive.relative_to(root).as_posix(),
+                        "sha256": digest,
+                    },
+                },
+            }) + "\n")
+
+            from commodity_decision_archive import decision_id_for
+            current = {
+                "decision_date": "2026-08-28", "commodity": "TEST",
+                "execution_provenance": provenance,
+            }
+            current["decision_id"] = decision_id_for(current)
+            top.write_text(json.dumps(current) + "\n")
+            current_archive = top.parent / "decisions" / current["decision_id"] / "decision_record.json"
+            current_archive.parent.mkdir(parents=True)
+            current_archive.write_bytes(top.read_bytes())
+            # Baseline: the refreshed state audits clean.
+            self.assertEqual(audit_repository(root), {
+                "records": 3, "legacy": 1, "required": 2, "commodity_hashed": 2,
+            })
+
+            # Roll the top-level projection back to the pre-rollout legacy bytes while the modern archive
+            # still exists. Pre-fix this was waved through as legacy; it must now be rejected.
+            top.write_bytes(legacy_bytes)
+            with self.assertRaisesRegex(ProvenanceError, "reverted to pre-rollout bytes after a modern archive"):
+                audit_repository(root)
 
 if __name__ == "__main__":
     unittest.main()
