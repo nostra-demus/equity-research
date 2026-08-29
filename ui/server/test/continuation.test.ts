@@ -34,7 +34,7 @@ const deps: ExactContinuationDeps = {
 }
 
 await continueExactSavedRun({
-  swarm: 'research', subject: 'KAR', runRoot: saved.runRoot, kind: 'full',
+  swarm: 'research', subject: ' kar ', runRoot: saved.runRoot, kind: 'full',
   provider: 'codex', model: 'gpt-5.6-sol', reasoningLevel: 'max',
   expectedProfileKey: 'codex|gpt-5.6-sol:max|gpt-5.6-terra:xhigh',
   user: 'ceekay@muns.io', userVia: 'cf-access',
@@ -46,7 +46,7 @@ assert.deepEqual(launched, {
   expectedProfileKey: 'codex|gpt-5.6-sol:max|gpt-5.6-terra:xhigh',
   user: 'ceekay@muns.io', userVia: 'cf-access',
   runRoot: saved.runRoot, continuation: true,
-}, 'provider/profile/user and exact saved root reach the one launcher boundary')
+}, 'provider/profile/user and the server-owned saved identity reach the one launcher boundary')
 
 let staleLaunches = 0
 await assert.rejects(

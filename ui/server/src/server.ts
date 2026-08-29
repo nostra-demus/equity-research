@@ -2631,14 +2631,15 @@ app.get('/api/thesis-plan', { config: { rateLimit: { max: 600, timeWindow: '1 mi
     const provider = ProviderQuery.safeParse(q)
     if (!provider.success) return reply.code(400).send({ error: 'invalid provider profile' })
     const swarm = q.swarm || RESEARCH_SWARM_ID
-    if (q.runRoot && !exactContinuationCandidate({
+    const continuationCandidate = q.runRoot ? exactContinuationCandidate({
       swarm: 'research', subject: q.ticker, runRoot: q.runRoot,
       kind: q.module ? 'module' : 'full', module: q.module,
-    }, listResumableRuns())) {
+    }, listResumableRuns()) : null
+    if (q.runRoot && !continuationCandidate) {
       return reply.code(409).send({ error: 'The saved run changed. Refresh before continuing.', code: 'saved_run_changed' })
     }
     const plan = thesisPlan(q.ticker, swarm, reuse, q.module, provider.data,
-      q.runRoot ? { continuationRunRoot: q.runRoot } : undefined)
+      continuationCandidate ? { continuationRunRoot: continuationCandidate.runRoot } : undefined)
     // A finished local module normally reads `done`/non-runnable. A durable failed-publication marker is
     // therefore attached explicitly so the heading offers a publish-only recovery instead of re-running paid
     // orbs. Re-hash on every plan read; edited/stale bytes never receive the affordance.
@@ -2715,13 +2716,15 @@ app.post('/api/thesis-plan/run', { config: { rateLimit: { max: 20, timeWindow: '
       // gets carried. Re-reading between those steps would open a time-of-check/time-of-use gap — a module
       // finishing mid-request would let us carry work this route never validated.
       const selection = { provider, model, reasoningLevel, expectedProfileKey }
-      if (sourceRunRoot && !exactContinuationCandidate({
+      const continuationCandidate = sourceRunRoot ? exactContinuationCandidate({
         swarm: 'research', subject: ticker, runRoot: sourceRunRoot, kind: 'full',
-      }, listResumableRuns())) {
+      }, listResumableRuns()) : null
+      if (sourceRunRoot && !continuationCandidate) {
         return reply.code(409).send({ error: 'The saved run changed. Refresh before continuing; no run was started.', code: 'saved_run_changed' })
       }
+      const trustedSourceRunRoot = continuationCandidate?.runRoot
       const plan = thesisPlan(ticker, undefined, reuse, undefined, selection,
-        sourceRunRoot ? { continuationRunRoot: sourceRunRoot } : undefined)
+        trustedSourceRunRoot ? { continuationRunRoot: trustedSourceRunRoot } : undefined)
       if (plan.complete) return reply.code(409).send({ error: 'this run already has a final thesis', code: 'already_complete', path: plan.finalReportPath })
 
       const allowed = new Set(plan.reusable)
@@ -2740,7 +2743,7 @@ app.post('/api/thesis-plan/run', { config: { rateLimit: { max: 20, timeWindow: '
       let preparedDoneOrbKeys: string[] = []
       let ranClean: string[] = []
       try {
-        if (sourceRunRoot) {
+        if (trustedSourceRunRoot) {
           const prepared = prepareFullContinuation(ticker, plan)
           preparedDoneOrbKeys = prepared.doneOrbKeys
           ranClean = prepared.ranClean
@@ -2752,9 +2755,9 @@ app.post('/api/thesis-plan/run', { config: { rateLimit: { max: 20, timeWindow: '
       }
 
       try {
-        const out = sourceRunRoot
+        const out = trustedSourceRunRoot
           ? await continueExactSavedRun({
-              swarm: 'research', subject: ticker, runRoot: sourceRunRoot, kind: 'full',
+              swarm: 'research', subject: ticker, runRoot: trustedSourceRunRoot, kind: 'full',
               provider, model, reasoningLevel, expectedProfileKey, user, userVia,
             })
           : await launch({ kind: 'full', ticker, provider, model, reasoningLevel, expectedProfileKey, user, userVia })
@@ -3056,15 +3059,17 @@ app.post('/api/thesis-plan/module', { config: { rateLimit: { max: 30, timeWindow
       const graphModule = graphForTicker(ticker).modules.find((m) => m.name === module)
       const exactResume = graphModule?.exactResume === true
 
-      if (sourceRunRoot && !exactContinuationCandidate({
+      const continuationCandidate = sourceRunRoot ? exactContinuationCandidate({
         swarm: 'research', subject: ticker, runRoot: sourceRunRoot, kind: 'module', module,
-      }, listResumableRuns())) {
+      }, listResumableRuns()) : null
+      if (sourceRunRoot && !continuationCandidate) {
         return reply.code(409).send({ error: 'The saved module changed. Refresh before continuing; no run was started.', code: 'saved_run_changed' })
       }
+      const trustedSourceRunRoot = continuationCandidate?.runRoot
 
       // ONE snapshot decides everything: complete-check, runnability, blockedBy, and what gets carried.
       let plan = thesisPlan(ticker, undefined, exactResume ? undefined : reuse, exactResume ? module : undefined,
-        providerSelection, sourceRunRoot ? { continuationRunRoot: sourceRunRoot } : undefined)
+        providerSelection, trustedSourceRunRoot ? { continuationRunRoot: trustedSourceRunRoot } : undefined)
       if (plan.targetRunRoot !== expectedTargetRunRoot) {
         return reply.code(409).send({ error: 'The target analysis date changed while this module was being prepared. Check the updated scope and click again.', code: 'module_scope_changed' })
       }
@@ -3143,7 +3148,7 @@ app.post('/api/thesis-plan/module', { config: { rateLimit: { max: 30, timeWindow
       const readCurrentScope = () => {
         try {
           const current = thesisPlan(ticker, undefined, exactResume ? undefined : reuse, exactResume ? module : undefined,
-            providerSelection, sourceRunRoot ? { continuationRunRoot: sourceRunRoot } : undefined)
+            providerSelection, trustedSourceRunRoot ? { continuationRunRoot: trustedSourceRunRoot } : undefined)
           const currentEntry = current.modules.find((m) => m.module === module)
           const currentDone = [...(currentEntry?.doneOrbKeys ?? [])].sort()
           const currentExactArtifacts = exactArtifactScopeFor(currentDone)
@@ -3313,7 +3318,7 @@ app.post('/api/thesis-plan/module', { config: { rateLimit: { max: 30, timeWindow
           : undefined
         const out = await launch({
           kind: 'module', ticker, module, provider, model, reasoningLevel, expectedProfileKey, user, userVia,
-          ...(sourceRunRoot ? { runRoot: sourceRunRoot, continuation: true } : {}),
+          ...(trustedSourceRunRoot ? { runRoot: trustedSourceRunRoot, continuation: true } : {}),
           deferModuleMemo: exactResume,
           exactModuleResume: exactResume,
           exactModuleInputs: exactResume ? prep.reusedAncestorModules : undefined,
