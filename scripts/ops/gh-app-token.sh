@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Mint a short-lived GitHub App *installation* access token for the engine's
-# data pushes to `main`.
+# data pushes to `main` and read-only exact-push Actions verification.
 #
 # This is the engine's machine identity (CLAUDE.md/AGENTS.md §28): the App is the
 # SOLE bypass actor on the `main` ruleset, so research DATA flows straight to main

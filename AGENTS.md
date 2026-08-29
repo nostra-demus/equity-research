@@ -496,9 +496,9 @@ Two different kinds of commit reach `main`, and they follow opposite rules. Tell
 
 **Why two streams.** Research data is high in volume, low in risk, and machine-generated; gating it behind review would stall the engine and train reviewers to rubber-stamp. Code is low in volume, high in risk, and changes behaviour for every future run; it has to be adversarially reviewed and tested before it is ready for the user's merge decision. One repository, two rules. A data-only commit is not authority to deploy or restart code, and production automation must not treat it as one.
 
-**Explicit user authority is required for merge and production.** The engine's PR agent owns preparation of a code PR end to end: it may update its branch, resolve conflicts, run tests and multi-view adversarial review, triage every finding, and push corrections to that PR. Its normal terminal state is an open, green, reviewed PR. It has **no standing authority** to merge or deploy. Merge authority exists only when the user explicitly asks, in the current conversation, to merge that specific PR. Deployment authority is separate and exists only when the user explicitly asks for that specific production deployment or operation. An implementation request, prior request to open a PR, green CI, approval from a bot, or words such as "continue", "go ahead", "fix it", "done?", and "all done?" are not merge or deployment authority.
+**Explicit user authority is required for merge and production.** The engine's PR agent owns preparation of a code PR end to end: it may update its branch, resolve conflicts, run tests and multi-view adversarial review, triage every finding, and push corrections to that PR. Its normal terminal state is an open, green, reviewed PR. It has **no standing authority** to merge or take a production action. Merge authority exists only when the user explicitly asks, in the current conversation, to merge that specific PR. That human-authorized merge is the release decision: the watcher may deploy it automatically only after independently proving the exact `main` push and all five required jobs green. Manual/bootstrap deployment, restart, configuration, canary, and run mutation remain separate exact authorizations. An implementation request, prior request to open a PR, green PR CI, bot approval, or words such as "continue", "go ahead", "fix it", "done?", and "all done?" are not merge authority.
 
-**Environment boundary.** Until that explicit authority exists, all implementation and verification stays in the feature worktree and local or staging environments. Production may be inspected read-only to diagnose a reported problem. An agent must not merge to the production branch, deploy, restart services, change production flags or configuration, or launch, retry, resume, cancel, or otherwise mutate a production run. Ongoing work belongs to its operator and must not be interrupted by code delivery. If a reviewed PR is ready, report `PR ready; not merged or deployed` and stop.
+**Environment boundary.** Until that explicit merge authority exists, all implementation and verification stays in the feature worktree and local or staging environments. Production may be inspected read-only to diagnose a reported problem. An agent must not merge to the production branch, manually deploy, restart services, change production flags or configuration, or launch, retry, resume, cancel, or otherwise mutate a production run. After an authorized human merge, the exact-CI watcher—not the coding agent—owns deployment, run draining, health verification, rollback, and audit. Ongoing work belongs to its operator and must not be interrupted by code delivery. If a reviewed PR is ready, report `PR ready; not merged or deployed` and stop.
 
 **Enforcement lives in the tooling, not in trust:**
 1. `commit-run.sh` stages only data pathspecs, so the code stream cannot leak through it by accident.
@@ -605,12 +605,13 @@ sanctioned production indirection, including the configured external `data/` pro
 undeclared or swapped links. A provider safety guard that works only in a simplified checkout and blocks the
 real production topology is a release defect, not a successful hardening.
 
-Without explicit authority for a specific merge and production action, a code task is "done" only at an open,
-green, reviewed PR tested on local or staging; it must not proceed to merge, deployment, restart, configuration,
-or run mutation. If and only if the user separately authorizes those exact later actions in the current
-conversation, that production phase requires merged-commit ancestry in the production checkout, the deployer's
-healthy/DONE gate, live read-only contract verification, and proof that no unauthorized run, retry, spend, or
-unrelated mutation occurred. Paid canaries and second attempts require their own explicit authorization. When
+Without explicit authority for a specific merge, a code task is "done" only at an open, green, reviewed PR
+tested on local or staging; it must not proceed to merge or any manual production action. A human-authorized
+merge delegates only its exact automatic release: the watcher must re-run all five jobs on the resulting `main`
+push, verify that exact workflow locally, drain active work, health-check or roll back, and append its immutable
+audit event. Manual/bootstrap deployment, restart, configuration, run mutation, paid canaries, and second
+attempts require their own explicit authorization. Live read-only verification must prove no unauthorized run,
+retry, spend, or unrelated mutation occurred. When
 an external provider, network, subscription, or machine fails, the system must fail visibly, preserve completed
 work, and provide the same bounded recovery path; it must never promise that an external dependency cannot fail.
 

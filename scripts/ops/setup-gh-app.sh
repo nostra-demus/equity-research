@@ -7,7 +7,7 @@
 #
 # It writes the engine's App config under ~/.config/nostra-engine (outside the
 # repo, mode 600 — secrets never touch git), then self-tests that the App can mint
-# a token and actually has Contents:write on the repo. It does NOT change the
+# a token and has Contents:write plus Actions:read on the repo. It does NOT change the
 # `main` ruleset — that flip is a separate, deliberate step in the runbook.
 #
 # Usage:
@@ -71,14 +71,19 @@ EOF
 chmod 600 "$CFG_DIR/github-app.env"
 echo "setup-gh-app: wrote $CFG_DIR/github-app.env (+ private key)" >&2
 
-# ---- self-test: mint an installation token and confirm Contents:write on the repo ----
+# ---- self-test: mint an installation token and confirm Contents:write + Actions:read ----
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 echo "setup-gh-app: minting a test installation token ..." >&2
+# App permission changes do not expand an already-minted installation token. Force this setup verification
+# to exercise a fresh token carrying the currently configured Contents + Actions permissions.
+rm -f "$CFG_DIR/.token-cache"
 TOKEN="$(NOSTRA_ENGINE_CONFIG_DIR="$CFG_DIR" "$HERE/gh-app-token.sh")" \
   || { echo "setup-gh-app: FAILED to mint a token — check App id / key / installation" >&2; exit 1; }
 
 PERM="$(api "$JWT" "https://api.github.com/app" \
   | python3 -c 'import sys,json; print(json.load(sys.stdin).get("permissions",{}).get("contents",""))')"
+ACTIONS_PERM="$(api "$JWT" "https://api.github.com/app" \
+  | python3 -c 'import sys,json; print(json.load(sys.stdin).get("permissions",{}).get("actions",""))')"
 SLUG="$(api "$JWT" "https://api.github.com/app" \
   | python3 -c 'import sys,json; print(json.load(sys.stdin).get("slug",""))')"
 
@@ -88,6 +93,11 @@ if git ls-remote "https://x-access-token:$TOKEN@github.com/$REPO.git" -h refs/he
 else
   REMOTE_OK="NO"
 fi
+if api "$TOKEN" "https://api.github.com/repos/$REPO/actions/workflows/ci.yml/runs?per_page=1" >/dev/null 2>&1; then
+  ACTIONS_OK="yes"
+else
+  ACTIONS_OK="NO"
+fi
 
 echo
 echo "==================== setup-gh-app: RESULT ===================="
@@ -95,11 +105,14 @@ echo "  App slug ............. ${SLUG:-?}"
 echo "  App id (= ruleset bypass actor_id, actor_type=Integration) ... $APP_ID"
 echo "  Installation id ...... $INSTALL_ID"
 echo "  Contents permission .. ${PERM:-?}   (must be: write)"
+echo "  Actions permission ... ${ACTIONS_PERM:-?}   (must be: read)"
+echo "  Actions API access ... $ACTIONS_OK"
 echo "  git auth to $REPO .... $REMOTE_OK"
 echo "  Config dir ........... $CFG_DIR"
 echo "============================================================="
-if [ "$PERM" != "write" ] || [ "$REMOTE_OK" != "yes" ]; then
-  echo "setup-gh-app: NOT ready — fix Contents:write / installation before flipping the ruleset." >&2
+if [ "$PERM" != "write" ] || [ "$ACTIONS_PERM" != "read" ] \
+    || [ "$REMOTE_OK" != "yes" ] || [ "$ACTIONS_OK" != "yes" ]; then
+  echo "setup-gh-app: NOT ready — fix Contents:write, Actions:read, or installation before enabling releases." >&2
   exit 1
 fi
 echo "setup-gh-app: OK. commit-run.sh will now push as the App."

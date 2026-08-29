@@ -126,6 +126,23 @@ with tempfile.TemporaryDirectory(prefix="deploy-authorization-test-") as tempora
     )
     assert f"AUTHORIZED_COMMIT={approved}" in recovered.stdout
 
+    # The old installed watcher may atomically replace its helper before consuming the one manual receipt
+    # that bootstraps this release. v1 remains acceptable only as the same short-lived exact manual proof.
+    legacy_state = root / "legacy-state"
+    legacy_state.mkdir(mode=0o700)
+    legacy = json.loads((meta_state / "deploy-authorization.json").read_text(encoding="utf-8"))
+    legacy["schema_version"] = "nostra-deploy-authorization/1.0"
+    del legacy["authorization_source"]
+    del legacy["workflow"]
+    legacy_path = legacy_state / "deploy-authorization.json"
+    legacy_path.write_text(json.dumps(legacy) + "\n", encoding="utf-8")
+    legacy_path.chmod(0o600)
+    legacy_check = run(
+        sys.executable, str(HELPER), "check", "--repo", str(repo), "--state-dir", str(legacy_state),
+        "--target", data_target, cwd=repo,
+    )
+    assert f"AUTHORIZED_COMMIT={approved}" in legacy_check.stdout
+
     # A malformed or symlinked receipt fails closed; it is never silently replaced by authorize.
     outside = root / "outside.json"
     outside.write_text(json.dumps({"schema_version": "forged"}), encoding="utf-8")
@@ -161,7 +178,7 @@ with tempfile.TemporaryDirectory(prefix="deploy-authorization-test-") as tempora
     log = (production_home / "Library" / "Logs" / "nostradamus-deploy.log").read_text(encoding="utf-8")
     intent = production / "ui" / "server" / ".state" / "provider-deploy-pending"
     assert watcher.returncode == 0 and local_after == base
-    assert "BLOCKED production program differs" in log
+    assert "BLOCKED production program" in log and "lacks an exact successful main-push workflow" in log
     assert not intent.exists()
 
-print("test-deploy-authorization.py: exact program, inert merge, data-only drift, one-shot, and file safety passed")
+print("test-deploy-authorization.py: exact program, blocked unproved merge, data-only drift, one-shot, and file safety passed")
