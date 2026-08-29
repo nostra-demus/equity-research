@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-29T09:43:23Z",
+  "generated_at": "2026-08-29T09:43:54Z",
   "inbox": [
     {
       "inbox_id": "INB-20260829-490",
@@ -85937,6 +85937,77 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-a6df87e99e90",
+      "idea_version": "IDEAV-395ba75422fd6351",
+      "idea_version_started_at": "2026-08-29T09:43:41Z",
+      "ticker": "2722",
+      "company": "Chongqing Machinery & Electric Co., Ltd.",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "A subsidiary of the company has filed for bankruptcy and liquidation, which will likely lead to asset write-downs and negatively impact consolidated earnings.",
+      "why_now": "The inside information filing regarding the bankruptcy application was released on August 28, 2026.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-5d15167b7180"
+      ],
+      "primary_source_event_id": "EVT-5d15167b7180",
+      "source_headlines": [
+        "CHONGQING M&E (02722): INSIDE INFORMATION APPLICATION OF A SUBSIDIARY OF THE COMPANY FOR BANKRUPTCY AND LIQUIDATION"
+      ],
+      "source_headline": "CHONGQING M&E (02722): INSIDE INFORMATION APPLICATION OF A SUBSIDIARY OF THE COMPANY FOR BANKRUPTCY AND LIQUIDATION",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0828/2026082802108.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-28T11:49:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-29T09:43:41Z",
+      "updated_at": "2026-08-29T09:43:41Z",
+      "decay_at": "2026-08-29T23:49:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-23fd3ed9a739",
       "idea_version": "IDEAV-e0d7f83c8b76271d",
       "idea_version_started_at": "2026-08-29T08:47:38Z",
@@ -89352,77 +89423,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-cdd269b5c982",
-      "idea_version": "IDEAV-b1f67878e4d63fbd",
-      "idea_version_started_at": "2026-08-26T11:24:53Z",
-      "ticker": "WEB",
-      "company": "Webjet",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Webjet upgraded 1H27 guidance via price-sensitive ASX filing, citing stronger booking volumes and margin improvement, directly raising near-term earnings expectations.",
-      "why_now": "Guidance upgrade filed on ASX 2026-08-26; primary source with immediate earnings revision.",
-      "conviction": 72,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-d854fc898cc4"
-      ],
-      "primary_source_event_id": "EVT-d854fc898cc4",
-      "source_headlines": [
-        "WEB: Upgrading 1H27 guidance [price-sensitive]"
-      ],
-      "source_headline": "WEB: Upgrading 1H27 guidance [price-sensitive]",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.WEB?key=2924-03126688-3A699937",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-26T08:54:27Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-26T11:24:53Z",
-      "updated_at": "2026-08-26T11:24:53Z",
-      "decay_at": "2026-08-27T20:54:27Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-d704446fee63",
       "idea_version": "IDEAV-2fea4607e2989a34",
       "idea_version_started_at": "2026-08-04T08:40:40Z",
@@ -89497,7 +89497,7 @@
     "schema_version": "ideas-archive/v1",
     "health": {
       "status": "ok",
-      "file_count": 164,
+      "file_count": 165,
       "suppression_count": 1,
       "corrupt_count": 0,
       "invalid_count": 0,
@@ -92496,8 +92496,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-08-27T20:54:27Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-08-29T09:43:44Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -104588,8 +104588,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 221,
-    "live_count": 16,
+    "surfaced_total": 222,
+    "live_count": 17,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
