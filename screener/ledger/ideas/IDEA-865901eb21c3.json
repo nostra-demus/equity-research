@@ -1,7 +1,7 @@
 {
   "idea_id": "IDEA-865901eb21c3",
-  "idea_version": "IDEAV-d0913f669ffdc9ce",
-  "idea_version_started_at": "2026-08-29T13:40:33Z",
+  "idea_version": "IDEAV-b99c1d7ebfc689c2",
+  "idea_version_started_at": "2026-08-29T19:23:11Z",
   "ticker": "PYPL",
   "company": "PayPal Holdings, Inc.",
   "exchange": "NASDAQ",
@@ -11,9 +11,9 @@
   "listing_verification_source": "yahoo_symbol_directory",
   "direction": "short",
   "pair_with": null,
-  "reason": "Advent-Stripe consortium reportedly walked away from a $53B bid, removing a takeover premium that had been supporting the stock.",
-  "why_now": "Reports of the bid withdrawal broke on 2026-08-28 and the stock already fell 13-15% intraday; further downside risk if the market prices in standalone execution risk.",
-  "conviction": 65,
+  "reason": "PayPal shares crashed 13% following reports that the Advent-Stripe consortium has walked away from a potential bid, removing a major valuation floor.",
+  "why_now": "The news of the consortium walking away broke on August 28, 2026, triggering immediate selling pressure.",
+  "conviction": 70,
   "conviction_basis": "pre_edge_proxy",
   "trade_score": 62,
   "trade_score_basis": "evidence_gate_v2",
@@ -21,15 +21,16 @@
     "evidence": 14,
     "impact": 21,
     "specificity": 15,
-    "timing": 10,
+    "timing": 6,
     "expression": 6,
-    "corroboration": 6,
+    "corroboration": 0,
     "learning_adjustment": 0
   },
   "trade_readiness": "needs_data",
   "missing_checks": [
     "live liquidity",
     "dated catalyst",
+    "independent confirmation",
     "live price, liquidity, and consensus"
   ],
   "learning": {
@@ -46,13 +47,11 @@
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-b268ee617228",
-    "EVT-e26f85a3cadb"
+    "EVT-b268ee617228"
   ],
   "primary_source_event_id": "EVT-b268ee617228",
   "source_headlines": [
-    "PayPal shares crash 13% on reports Advent-Stripe consortium walks away from bid",
-    "PayPal Plunges 15% After Reports That Advent, Stripe Abandon $53 Billion Bid"
+    "PayPal shares crash 13% on reports Advent-Stripe consortium walks away from bid"
   ],
   "source_headline": "PayPal shares crash 13% on reports Advent-Stripe consortium walks away from bid",
   "source_url": "https://economictimes.indiatimes.com/markets/us-stocks/news/paypal-shares-crash-13-on-reports-advent-stripe-consortium-walks-away-from-bid/articleshow/133594719.cms",
@@ -66,7 +65,7 @@
     "data_pool_present": false
   },
   "surfaced_at": "2026-08-29T13:40:33Z",
-  "updated_at": "2026-08-29T13:40:33Z",
+  "updated_at": "2026-08-29T19:23:11Z",
   "decay_at": "2026-08-30T03:19:56Z",
   "status": "live",
   "promoted_signal_id": null
