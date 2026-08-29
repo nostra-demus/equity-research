@@ -1316,11 +1316,40 @@ PYDIRTY
   [ "$rc" -eq 0 ]
 }
 
+# Codex Desktop can import project-local Claude agents into `.codex/agents/*.toml`. Production must never
+# be one of those writable project targets: the generated files are not reviewed Git objects, so the normal
+# non-data dirty gate correctly blocks them. Keep this detector read-only and path-exact. It does not delete,
+# move, allowlist, or otherwise weaken the dirty gate; it only turns a generic refusal into an actionable
+# alert. If a future reviewed commit intentionally tracks one of these paths, it is no longer contamination.
+has_untracked_codex_import() {
+  local path
+  for path in \
+    .codex/agents/memo-writer.toml \
+    .codex/agents/module-memo-writer.toml \
+    .codex/agents/provider-parity-adjudicator.toml
+  do
+    if { [ -e "$path" ] || [ -L "$path" ]; } \
+        && ! "$GIT" ls-files --error-unmatch -- "$path" >/dev/null 2>&1; then
+      return 0
+    fi
+  done
+  return 1
+}
+
+log_codex_import_blocker() {
+  has_untracked_codex_import || return 0
+  log "CAUSE Codex external-agent import recreated an untracked .codex/agents helper in production — disable external-agent-import-sync; the §28 dirty gate remains closed"
+}
+
 # Narrow portable test hook: returns 0 when deployment must be blocked and 1
 # only when every dirty old/new path is inside the append-only data roots.
 if [ "${1:-}" = --check-dirty ]; then
   cd "$PROD" 2>/dev/null || exit 0
   has_nondata_dirty
+  exit $?
+elif [ "${1:-}" = --check-codex-import-contamination ]; then
+  cd "$PROD" 2>/dev/null || exit 1
+  has_untracked_codex_import
   exit $?
 elif [ "${1:-}" = --check-engine-archive ]; then
   engine_archive_contract
@@ -1632,6 +1661,7 @@ elif valid_git_sha "$REMOTE_HINT" && valid_git_sha "$LOCAL_HINT"; then
   # repository lease below as the race-closing enforcement gate.
   if [ "$intent_needed" = 1 ] && has_nondata_dirty; then
     clear_deploy_intent
+    log_codex_import_blocker
     log "BLOCKED reviewed deployment ${REMOTE_HINT:0:9} before admission pause — production checkout has a dirty non-data (code/ops) path (§28)"
     exit 0
   fi
@@ -1750,6 +1780,7 @@ if [ "$LOCAL" = "$REMOTE" ]; then
   # the helper bytes cannot change between review, execution, and service
   # activation, even on an otherwise up-to-date deploy tick.
   if has_nondata_dirty; then
+    log_codex_import_blocker
     log "SKIP service reconciliation because a dirty non-data (code/ops) file is present (§28)"
     exit 0
   fi
@@ -1808,6 +1839,7 @@ if [ "$LOCAL" = "$REMOTE" ]; then
   # fine (it never affects the build).
   if has_nondata_dirty; then
     gitlock_release
+    log_codex_import_blocker
     log "SKIP built behind HEAD but a dirty non-data (code/ops) file is present (incl. untracked) — refusing to bake unreviewed code into a release (§28) — retry next cycle"
     exit 0
   fi
@@ -1872,6 +1904,7 @@ fi
 #     an untracked .ts under ui/ would be compiled into the live bundle.
 if has_nondata_dirty; then
   gitlock_release
+  log_codex_import_blocker
   log "SKIP working tree dirty — non-data (code/ops) file present (incl. untracked) — refusing to bake unreviewed code into a release (§28) — retry next cycle"
   exit 0
 fi

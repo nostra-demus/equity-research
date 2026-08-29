@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-29T09:28:29Z",
+  "generated_at": "2026-08-29T13:02:51Z",
   "inbox": [
     {
       "inbox_id": "INB-20260829-490",
@@ -40,6 +40,413 @@
       "issuer_linkage": "sector",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260829-565",
+      "headline": "Astron Paper & Board Mill Limited: Astron Paper & Board Mill Limited has informed the Exchange about Corporate Insolvency Resolution Process",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/ASTRON_29082026171454_E_voting_result.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-29T11:45:34Z",
+      "sweep_file": "screener/inbox/2026-08-29_sweep.json",
+      "prelim_note": "The company has entered the Corporate Insolvency Resolution Process, indicating severe financial distress.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company has entered the Corporate Insolvency Resolution Process, indicating severe financial distress.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Astron Paper & Board Mill Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260829-523",
+      "headline": "Prataap Snacks Ltd: Intimation under Regulation 30 of the SEBI(LODR) Regulations, 2015 regarding completion of acquisition of 100% of the equity share capital of RLOP Food Processing Private Limited (\"Target Company\")",
+      "headline_en": null,
+      "url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/2dba565f-07d4-457d-8dda-7d749c45156f.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-29T09:46:09Z",
+      "sweep_file": "screener/inbox/2026-08-29_sweep.json",
+      "prelim_note": "Company completed the acquisition of 100% equity share capital of RLOP Food Processing Private Limited.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company completed the acquisition of 100% equity share capital of RLOP Food Processing Private Limited.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Prataap Snacks Ltd",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260829-575",
+      "headline": "Temasek Backs Singapore Airlines’ Air India Investment Amid $1.5 Billion Funding Request",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/temasek-backs-singapore-airlines-air-india-investment-amid-15-billion-funding-request",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-29T12:19:25Z",
+      "sweep_file": "screener/inbox/2026-08-29_sweep.json",
+      "prelim_note": "Temasek backing Singapore Airlines' investment in Air India amid a $1.5 billion funding request suggests significant financial support and potential for growth in the Indian aviation market.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Temasek backing Singapore Airlines' investment in Air India amid a $1.5 billion funding request suggests significant financial support and potential for growth in the Indian aviation market.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Singapore Airlines",
+          "ticker": null,
+          "listing_country": "SG"
+        },
+        {
+          "name": "Air India",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260829-563",
+      "headline": "Sebi bars Trafiksol ITS, its promoters from securities market for 1 year; slaps Rs 1.05 cr fine",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/stocks/news/sebi-bars-trafiksol-its-its-promoters-from-securities-market-for-1-year-slaps-rs-1-05-cr-fine/articleshow/133610810.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-29T11:32:17Z",
+      "sweep_file": "screener/inbox/2026-08-29_sweep.json",
+      "prelim_note": "SEBI barred Trafiksol ITS and its promoters for 1 year and imposed a fine of Rs 1.05 crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "SEBI barred Trafiksol ITS and its promoters for 1 year and imposed a fine of Rs 1.05 crore.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Trafiksol ITS",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260829-553",
+      "headline": "Liverpool strike deal to sign PSG’s Barcola for up to $166m: Reports",
+      "headline_en": null,
+      "url": "https://www.aljazeera.com/sports/2026/8/29/liverpool-strike-deal-to-sign-psgs-barcola-for-up-to-166m-reports?traffic_source=rss",
+      "source_name": "Al Jazeera — All news",
+      "input_nature": "geopolitical_event",
+      "found_at": "2026-08-29T10:49:31Z",
+      "sweep_file": "screener/inbox/2026-08-29_sweep.json",
+      "prelim_note": "Liverpool FC is reportedly acquiring a player for $166 million, a significant capital outlay.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Liverpool FC is reportedly acquiring a player for $166 million, a significant capital outlay.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Liverpool FC",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260829-545",
+      "headline": "Allianz envisage de racheter le géant de l'assistance routière AA pour £5 mds -Sky News",
+      "headline_en": "Allianz considers buying roadside assistance giant AA for £5bn - Sky News",
+      "url": "https://www.reuters.com/fr/affaires/allianz-envisage-de-racheter-le-gant-de-lassistance-routire-aa-pour-5-mds-sky-2026-08-29/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-29T10:31:33Z",
+      "sweep_file": "screener/inbox/2026-08-29_sweep.json",
+      "prelim_note": "Allianz is reportedly considering the acquisition of AA for £5 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Allianz is reportedly considering the acquisition of AA for £5 billion.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Allianz",
+          "ticker": null,
+          "listing_country": "DE"
+        },
+        {
+          "name": "AA",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260829-539",
+      "headline": "German insurer Allianz weighs $8.6 billion takeover of AA roadside rescue giant: Report",
+      "headline_en": null,
+      "url": "https://www.straitstimes.com/business/german-insurer-allianz-weighs-8-6-billion-takeover-of-aa-roadside-rescue-giant-report",
+      "source_name": "The Straits Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-29T10:28:00Z",
+      "sweep_file": "screener/inbox/2026-08-29_sweep.json",
+      "prelim_note": "Allianz is reportedly considering an $8.6 billion acquisition of AA.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Allianz is reportedly considering an $8.6 billion acquisition of AA.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Allianz",
+          "ticker": null,
+          "listing_country": "DE"
+        },
+        {
+          "name": "AA",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260829-521",
+      "headline": "Liverpool agree £123 million fee for PSG's Bradley Barcola",
+      "headline_en": null,
+      "url": "https://www.thenationalnews.com/sport/football/2026/08/29/liverpool-agree-123-million-fee-for-psgs-bradley-barcola/",
+      "source_name": "The National — All News",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-29T09:25:03Z",
+      "sweep_file": "screener/inbox/2026-08-29_sweep.json",
+      "prelim_note": "Liverpool FC agreed to a £123 million transfer fee for a player.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Liverpool FC agreed to a £123 million transfer fee for a player.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Liverpool FC",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -94,60 +501,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260829-491",
-      "headline": "German insurer Allianz weighs £5bn takeover of AA roadside rescue giant",
-      "headline_en": null,
-      "url": "https://news.sky.com/story/german-insurer-allianz-weighs-5bn-takeover-of-aa-roadside-rescue-giant-13578449",
-      "source_name": "Sky News — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-29T08:08:00Z",
-      "sweep_file": "screener/inbox/2026-08-29_sweep.json",
-      "prelim_note": "Allianz is considering a 5 billion GBP takeover of AA, a significant M&A event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Allianz is considering a 5 billion GBP takeover of AA, a significant M&A event.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Allianz",
-          "ticker": null,
-          "listing_country": "DE"
-        },
-        {
-          "name": "AA",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1646,350 +1999,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260829-452",
-      "headline": "Nvidia acuerda comprar Hugging Face por 12.900 millones de dólares, según The Information",
-      "headline_en": "Nvidia agrees to buy Hugging Face for $12.9 billion, according to The Information",
-      "url": "https://www.reuters.com/es/negocio/D5Z2SRQQLJLGHELPSHJZXTKDA4-2026-08-27/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-27T06:59:45Z",
-      "sweep_file": "screener/inbox/2026-08-29_sweep.json",
-      "prelim_note": "Nvidia is reported to be acquiring Hugging Face for $12.9 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Nvidia is reported to be acquiring Hugging Face for $12.9 billion.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Hugging Face",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260829-466",
-      "headline": "Pernod Ricard FY26 Profit, Sales Drop; Sees Flat Organic Sales In FY27, Growth In Mid-term",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/pernod-ricard-fy26-profit-sales-drop-sees-flat-organic-sales-fy27-growth-mid-term",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-27T06:32:06Z",
-      "sweep_file": "screener/inbox/2026-08-29_sweep.json",
-      "prelim_note": "Pernod Ricard reported a drop in FY26 profit and sales with flat organic sales guidance for FY27.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Pernod Ricard reported a drop in FY26 profit and sales with flat organic sales guidance for FY27.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Pernod Ricard",
-          "ticker": null,
-          "listing_country": "FR"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260829-510",
-      "headline": "Zelenskyy Says Dozens Killed in Russian Drone Strike Near Kyiv",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-08-29/zelenskyy-says-dozens-killed-in-russian-drone-strike-near-kyiv",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-29T09:08:45Z",
-      "sweep_file": "screener/inbox/2026-08-29_sweep.json",
-      "prelim_note": "Major military escalation with dozens killed in a drone strike near Kyiv, increasing global geopolitical instability.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Major military escalation with dozens killed in a drone strike near Kyiv, increasing global geopolitical instability.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 9,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "geopolitical",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260829-150",
-      "headline": "India's markets regulator approves Jio Platforms' $3.8 billion IPO",
-      "headline_en": null,
-      "url": "https://www.reuters.com/world/india/indias-markets-regulator-approves-jio-platforms-38-billion-ipo-2026-08-28/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-28T16:23:03Z",
-      "sweep_file": "screener/inbox/2026-08-29_sweep.json",
-      "prelim_note": "Regulators approved a $3.8 billion IPO for Jio Platforms, a major capital market event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Regulators approved a $3.8 billion IPO for Jio Platforms, a major capital market event.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Jio Platforms",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260829-222",
-      "headline": "Fake Sales, Round-Tripping, 1,700% Stock Surge: SEBI Uncovers Debock's Pump-And-Dump Scheme",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/markets/fake-sales-round-tripping-1-700-stock-surge-sebi-uncovers-debocks-pump-and-dump-scheme-11972237#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-28T15:22:09Z",
-      "sweep_file": "screener/inbox/2026-08-29_sweep.json",
-      "prelim_note": "SEBI uncovered a pump-and-dump scheme involving fake sales and round-tripping at Debock, following a 1,700% stock surge.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "SEBI uncovered a pump-and-dump scheme involving fake sales and round-tripping at Debock, following a 1,700% stock surge.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": -1,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "accounting_restatement",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "litigation_enforcement",
-        "accounting_restatement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Debock Industries",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260829-231",
-      "headline": "Maharashtra FDA cancels Cipla Pharma’s Pune unit drug sale licence",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/business/maharashtra-fda-cancels-cipla-pharmas-pune-drug-licences-seizes-rs-11-19-lakh-stock-19979240.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-28T15:14:56Z",
-      "sweep_file": "screener/inbox/2026-08-29_sweep.json",
-      "prelim_note": "Maharashtra FDA cancelled Cipla Pharma's Pune unit drug sale licence.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Maharashtra FDA cancelled Cipla Pharma's Pune unit drug sale licence.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Cipla Pharma",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260829-286",
-      "headline": "BYD posts US$1.2 billion profit in second quarter on surging global demand",
-      "headline_en": null,
-      "url": "https://www.scmp.com/business/china-evs/article/3365652/byd-posts-us12-billion-profit-second-quarter-surging-global-demand?utm_source=rss_feed",
-      "source_name": "South China Morning Post",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-28T14:11:21Z",
-      "sweep_file": "screener/inbox/2026-08-29_sweep.json",
-      "prelim_note": "BYD reported a significant quarterly profit of $1.2 billion, reflecting strong global demand.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "BYD reported a significant quarterly profit of $1.2 billion, reflecting strong global demand.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "BYD",
-          "ticker": null,
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -85444,6 +85453,216 @@
   "handoffs": [],
   "ideas": [
     {
+      "idea_id": "IDEA-151e26db4506",
+      "idea_version": "IDEAV-e91163d58cd38db8",
+      "idea_version_started_at": "2026-08-29T13:02:30Z",
+      "ticker": "S",
+      "company": "SentinelOne",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "SentinelOne trimmed its profit forecast, suggesting a negative impact on future earnings despite a revenue beat.",
+      "why_now": "SentinelOne's stock slid on August 28, 2026, following the release of its trimmed profit forecast.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-61757f2ac127"
+      ],
+      "primary_source_event_id": "EVT-61757f2ac127",
+      "source_headlines": [
+        "SentinelOne Slides 8% as Trimmed Profit Forecast Outweighs Revenue Beat, CrowdStrike Declines 7%"
+      ],
+      "source_headline": "SentinelOne Slides 8% as Trimmed Profit Forecast Outweighs Revenue Beat, CrowdStrike Declines 7%",
+      "source_url": "https://247wallst.com/investing/2026/08/28/sentinelone-slides-8-as-trimmed-profit-forecast-outweighs-revenue-beat-crowdstrike-declines-7/",
+      "source_name": "24/7 Wall St.",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-28T14:09:37Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-27T23:55:54Z",
+      "updated_at": "2026-08-29T13:02:30Z",
+      "decay_at": "2026-08-30T02:09:37Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-90b902d53889",
+      "idea_version": "IDEAV-0bcded37d55b17e7",
+      "idea_version_started_at": "2026-08-29T13:02:30Z",
+      "ticker": "NVDA",
+      "company": "Nvidia",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Nvidia is forecasting 70% sales growth due to accelerating demand for its AI chips, which directly boosts its revenue and profitability.",
+      "why_now": "Nvidia's shares surged on August 28, 2026, after the company provided strong sales growth guidance.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 6,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-5a324d7abf53"
+      ],
+      "primary_source_event_id": "EVT-5a324d7abf53",
+      "source_headlines": [
+        "Nvidia Shares Surge 9% After Forecasting 70% Sales Growth As AI Chip Demand Accelerates"
+      ],
+      "source_headline": "Nvidia Shares Surge 9% After Forecasting 70% Sales Growth As AI Chip Demand Accelerates",
+      "source_url": "https://www.freepressjournal.in/business/nvidia-shares-surge-9-after-forecasting-70-sales-growth-as-ai-chip-demand-accelerates",
+      "source_name": "Free Press Journal",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-28T06:18:59Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-27T03:27:43Z",
+      "updated_at": "2026-08-29T13:02:30Z",
+      "decay_at": "2026-08-29T18:18:59Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-9dc53bf2a68a",
+      "idea_version": "IDEAV-89a147beb8a5e923",
+      "idea_version_started_at": "2026-08-29T13:02:30Z",
+      "ticker": "PCG",
+      "company": "PG&E",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "PG&E faces significant wildfire-liability uncertainty, which could lead to substantial financial penalties and negatively impact its balance sheet.",
+      "why_now": "The stock fell on August 28, 2026, ahead of an August 31 deadline for wildfire-liability clarity, creating immediate uncertainty.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-8d3313624fda"
+      ],
+      "primary_source_event_id": "EVT-8d3313624fda",
+      "source_headlines": [
+        "Stock Market Today, Aug. 28: PG&E Falls 8% on Wildfire-Liability Uncertainty Ahead of Aug. 31 Deadline"
+      ],
+      "source_headline": "Stock Market Today, Aug. 28: PG&E Falls 8% on Wildfire-Liability Uncertainty Ahead of Aug. 31 Deadline",
+      "source_url": "https://www.fool.com/coverage/stock-market-today/2026/08/28/stock-market-today-aug-28-pg-and-e-falls-8-on-wildfire-liability-uncertainty-ahead-of-aug-31-deadline/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-28T21:27:53Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-29T13:02:30Z",
+      "updated_at": "2026-08-29T13:02:30Z",
+      "decay_at": "2026-08-30T09:27:53Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-6ef3d9cacc63",
       "idea_version": "IDEAV-871bc7d2d2d4ca1c",
       "idea_version_started_at": "2026-08-28T05:51:01Z",
@@ -85514,22 +85733,22 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-2bb5da7548bc",
-      "idea_version": "IDEAV-5d7a00b11f55bac8",
-      "idea_version_started_at": "2026-08-28T00:35:47Z",
-      "ticker": "WDAY",
-      "company": "Workday",
-      "exchange": "NASDAQ",
+      "idea_id": "IDEA-b95df346cf59",
+      "idea_version": "IDEAV-3143e57a2c18906c",
+      "idea_version_started_at": "2026-08-29T10:08:49Z",
+      "ticker": "MAXESTATES.NS",
+      "company": "Max Estates Limited",
+      "exchange": "NSE",
       "direction": "long",
       "pair_with": null,
-      "reason": "Workday reported revenue growth and flagged strong AI uptake, suggesting product cycle acceleration and pricing power.",
-      "why_now": "Reuters report 2026-08-27 on earnings release with AI commentary; live catalyst.",
-      "conviction": 60,
+      "reason": "Max Estates' board approved the acquisition of land-owning companies, a strategic M&A move that expands its developable land bank and future revenue pipeline in the commercial real estate segment.",
+      "why_now": "Board meeting outcome filed today (2026-08-28) confirms the acquisition decision with immediate effect.",
+      "conviction": 55,
       "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
+      "trade_score": 60,
       "trade_score_basis": "evidence_gate_v2",
       "trade_score_breakdown": {
-        "evidence": 14,
+        "evidence": 25,
         "impact": 19,
         "specificity": 15,
         "timing": 10,
@@ -85541,218 +85760,7 @@
       "missing_checks": [
         "live liquidity",
         "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-4135ecd7abf8"
-      ],
-      "primary_source_event_id": "EVT-4135ecd7abf8",
-      "source_headlines": [
-        "HR software firm Workday reports revenue rise, flags strong AI uptake"
-      ],
-      "source_headline": "HR software firm Workday reports revenue rise, flags strong AI uptake",
-      "source_url": "https://www.reuters.com/business/workday-beats-second-quarter-revenue-estimates-2026-08-27/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-27T22:33:54Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-28T00:35:47Z",
-      "updated_at": "2026-08-28T00:35:47Z",
-      "decay_at": "2026-08-29T10:33:54Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-07f356ae2f72",
-      "idea_version": "IDEAV-2852798c36e76c64",
-      "idea_version_started_at": "2026-08-27T23:55:54Z",
-      "ticker": "MRVL",
-      "company": "Marvell Technology",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Marvell lifted long-term financial targets as AI demand boosted Q2 profit and revenue, indicating sustained secular growth in data-center silicon.",
-      "why_now": "Q2 results and raised guidance published Aug 27, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-34ed04ec3977"
-      ],
-      "primary_source_event_id": "EVT-34ed04ec3977",
-      "source_headlines": [
-        "Marvell Lifts Long-Term Targets as AI Demand Boosts Second-Quarter Profit, Revenue"
-      ],
-      "source_headline": "Marvell Lifts Long-Term Targets as AI Demand Boosts Second-Quarter Profit, Revenue",
-      "source_url": "https://www.wsj.com/business/earnings/marvell-sees-accelerating-growth-as-ai-demand-boosts-second-quarter-profit-revenue-786b8c74?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-27T22:39:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-27T23:55:54Z",
-      "updated_at": "2026-08-27T23:55:54Z",
-      "decay_at": "2026-08-29T10:39:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-1604e5b6569e",
-      "idea_version": "IDEAV-a0fcf8bc22993918",
-      "idea_version_started_at": "2026-08-27T23:25:23Z",
-      "ticker": "CRM",
-      "company": "Salesforce Inc",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Salesforce reported a 23% surge following a strong Q2 earnings beat and a strategic partnership with Anthropic, which enhances its AI capabilities.",
-      "why_now": "The market reaction occurred on August 27, 2026, following the earnings release and partnership announcement.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-2f4bc2395022"
-      ],
-      "primary_source_event_id": "EVT-2f4bc2395022",
-      "source_headlines": [
-        "Stock Market Today, Aug. 27: Salesforce Surges 23% on Anthropic Partnership and Q2 Earnings Beat"
-      ],
-      "source_headline": "Stock Market Today, Aug. 27: Salesforce Surges 23% on Anthropic Partnership and Q2 Earnings Beat",
-      "source_url": "https://www.nasdaq.com/articles/stock-market-today-aug-27-salesforce-surges-23-anthropic-partnership-and-q2-earnings-beat",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-27T21:47:47Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-26T21:03:32Z",
-      "updated_at": "2026-08-27T23:25:23Z",
-      "decay_at": "2026-08-29T09:47:47Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-151e26db4506",
-      "idea_version": "IDEAV-bb3927f61873c568",
-      "idea_version_started_at": "2026-08-27T23:55:54Z",
-      "ticker": "S",
-      "company": "SentinelOne",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "SentinelOne reported a wider Q2 net loss, showing deteriorating profitability despite revenue growth.",
-      "why_now": "Q2 earnings released Aug 27, 2026.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 60,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
         "price and market expectations",
-        "independent confirmation",
         "live price, liquidity, and consensus"
       ],
       "learning": {
@@ -85769,26 +85777,97 @@
       "origin_type": "wire",
       "source_themes": [],
       "source_event_ids": [
-        "EVT-fd9c16f9aef6"
+        "EVT-5e70e300aeef"
       ],
-      "primary_source_event_id": "EVT-fd9c16f9aef6",
+      "primary_source_event_id": "EVT-5e70e300aeef",
       "source_headlines": [
-        "SentinelOne Reports Wider Q2 Net Loss"
+        "Max Estates Limited: Max Estates Limited has informed the Exchange regarding Outcome of Board Meeting held on August 28, 2026 about the Acquisition by Max Estates Limited of Land Owning Companies."
       ],
-      "source_headline": "SentinelOne Reports Wider Q2 Net Loss",
-      "source_url": "https://www.nasdaq.com/articles/sentinelone-reports-wider-q2-net-loss",
-      "source_name": "Nasdaq",
+      "source_headline": "Max Estates Limited: Max Estates Limited has informed the Exchange regarding Outcome of Board Meeting held on August 28, 2026 about the Acquisition by Max Estates Limited of Land Owning Companies.",
+      "source_url": "https://nsearchives.nseindia.com/corporate/MEL_29082026001928_MEL_Outcome_28082026_Final.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
       "materiality_max": 100,
-      "newest_source_at": "2026-08-27T21:48:11Z",
+      "newest_source_at": "2026-08-28T18:49:46Z",
       "prior_coverage": {
         "has_run": false,
         "latest_run": null,
         "latest_decision": null,
         "data_pool_present": false
       },
-      "surfaced_at": "2026-08-27T23:55:54Z",
-      "updated_at": "2026-08-27T23:55:54Z",
-      "decay_at": "2026-08-29T09:48:11Z",
+      "surfaced_at": "2026-08-29T10:08:49Z",
+      "updated_at": "2026-08-29T10:08:49Z",
+      "decay_at": "2026-08-30T06:49:46Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-9e168a4e0799",
+      "idea_version": "IDEAV-7c4d416d59c23a4a",
+      "idea_version_started_at": "2026-08-29T12:26:38Z",
+      "ticker": "MRVL",
+      "company": "Marvell Technology, Inc.",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Marvell guided fiscal 2028 revenue below consensus and flagged Google deal timing delays, implying a growth air-pocket.",
+      "why_now": "CNBC/Nasdaq report 2026-08-28 on the guidance miss; stock already slid 10% but further estimate cuts are likely.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 55,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-28035690795c"
+      ],
+      "primary_source_event_id": "EVT-28035690795c",
+      "source_headlines": [
+        "Stock Market Today, Aug. 28: Marvell Slides 10% on Softer Fiscal 2028 Guidance and Google Deal Timing"
+      ],
+      "source_headline": "Stock Market Today, Aug. 28: Marvell Slides 10% on Softer Fiscal 2028 Guidance and Google Deal Timing",
+      "source_url": "https://www.nasdaq.com/articles/stock-market-today-aug-28-marvell-slides-10-softer-fiscal-2028-guidance-and-google-deal",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-28T21:29:34Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-29T12:26:38Z",
+      "updated_at": "2026-08-29T12:26:38Z",
+      "decay_at": "2026-08-30T09:29:34Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -85866,35 +85945,35 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-728d9c6bfb69",
-      "idea_version": "IDEAV-c7f0f3f91317bddd",
-      "idea_version_started_at": "2026-08-28T00:35:47Z",
-      "ticker": "HRL",
-      "company": "Hormel Foods",
+      "idea_id": "IDEA-017f4db87209",
+      "idea_version": "IDEAV-4671c86b65a88e2c",
+      "idea_version_started_at": "2026-08-29T13:02:30Z",
+      "ticker": "GPS",
+      "company": "Gap Inc.",
       "exchange": "NYSE",
-      "direction": "short",
+      "direction": "long",
       "pair_with": null,
-      "reason": "Hormel Foods stock dropped 10% on earnings miss, indicating near-term demand or margin pressure.",
-      "why_now": "Motley Fool article 2026-08-27 citing today's 10% drop on earnings; fresh negative catalyst.",
-      "conviction": 50,
+      "reason": "Gap raised its profit forecast after a leadership change at Old Navy, indicating improved operational outlook despite a trimmed sales forecast.",
+      "why_now": "The company provided a raised profit outlook on August 28, 2026, following a management change.",
+      "conviction": 65,
       "conviction_basis": "pre_edge_proxy",
-      "trade_score": 55,
+      "trade_score": 45,
       "trade_score_basis": "evidence_gate_v2",
       "trade_score_breakdown": {
         "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
+        "impact": 20,
+        "specificity": 7,
         "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
+        "expression": 0,
+        "corroboration": 6,
         "learning_adjustment": 0
       },
-      "trade_readiness": "needs_data",
+      "trade_readiness": "watch_only",
       "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
         "live liquidity",
         "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
         "live price, liquidity, and consensus"
       ],
       "learning": {
@@ -85906,31 +85985,956 @@
         "basis": "not_enough_outcomes",
         "evidenceIds": []
       },
-      "priced_in": "priced",
+      "priced_in": "room",
       "thesis_type": "company_specific",
       "origin_type": "wire",
       "source_themes": [],
       "source_event_ids": [
-        "EVT-863190b3dfa2"
+        "EVT-38dba5bba266",
+        "EVT-5dca59ff8066"
       ],
-      "primary_source_event_id": "EVT-863190b3dfa2",
+      "primary_source_event_id": "EVT-38dba5bba266",
       "source_headlines": [
-        "Why Hormel Foods Stock Swooned by 10% Today"
+        "Gap climbs after leadership change at Old Navy, profit forecast raise",
+        "Gap Spikes 15% as Raised Profit Outlook Overrides Trimmed Sales Forecast, Abercrombie & Fitch Ticks Up"
       ],
-      "source_headline": "Why Hormel Foods Stock Swooned by 10% Today",
-      "source_url": "https://www.fool.com/investing/2026/08/27/why-hormel-foods-stock-swooned-by-10-today/?source=iedfolrf0000001",
-      "source_name": "The Motley Fool",
+      "source_headline": "Gap climbs after leadership change at Old Navy, profit forecast raise",
+      "source_url": "https://www.reuters.com/business/retail-consumer/gap-shares-jump-after-old-navy-brings-new-ceo-revive-brand-2026-08-28/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
       "materiality_max": 100,
-      "newest_source_at": "2026-08-27T23:16:05Z",
+      "newest_source_at": "2026-08-28T15:08:49Z",
       "prior_coverage": {
         "has_run": false,
         "latest_run": null,
         "latest_decision": null,
         "data_pool_present": false
       },
-      "surfaced_at": "2026-08-27T13:17:25Z",
-      "updated_at": "2026-08-28T00:35:47Z",
-      "decay_at": "2026-08-29T11:16:05Z",
+      "surfaced_at": "2026-08-27T23:06:02Z",
+      "updated_at": "2026-08-29T13:02:30Z",
+      "decay_at": "2026-08-30T03:08:49Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-1139cfa830dc",
+      "idea_version": "IDEAV-eb39829adccd0e98",
+      "idea_version_started_at": "2026-08-29T12:26:38Z",
+      "ticker": "00017.HK",
+      "company": "New World Development Company Limited",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "New World Development deferred distribution on perpetual securities guaranteed by the company, signaling severe liquidity stress and heightened default risk for the guarantor.",
+      "why_now": "Filed on HKEXnews 2026-08-28; the deferral is effective immediately and marks a critical credit event.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 18,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-b9bd6e73e4a6"
+      ],
+      "primary_source_event_id": "EVT-b9bd6e73e4a6",
+      "source_headlines": [
+        "NEW WORLD DEV NWD FIN GSPCSA (00017 05856): DISTRIBUTION DEFERRAL IN RESPECT OF RELEVANT PERPETUAL SECURITIES ISSUED BY NWD FINANCE (BVI) LIMITED AND GUARANTEED BY NEW WORLD DEVELOPMENT COMPANY LIMITED"
+      ],
+      "source_headline": "NEW WORLD DEV NWD FIN GSPCSA (00017 05856): DISTRIBUTION DEFERRAL IN RESPECT OF RELEVANT PERPETUAL SECURITIES ISSUED BY NWD FINANCE (BVI) LIMITED AND GUARANTEED BY NEW WORLD DEVELOPMENT COMPANY LIMITED",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0828/2026082801281.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-28T09:59:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-29T12:26:38Z",
+      "updated_at": "2026-08-29T12:26:38Z",
+      "decay_at": "2026-08-29T21:59:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-7632014ea423",
+      "idea_version": "IDEAV-e134012ebde76b09",
+      "idea_version_started_at": "2026-08-29T12:26:38Z",
+      "ticker": "01518.HK",
+      "company": "NC Healthcare",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Profit warning filed, signaling a significant miss versus previous guidance.",
+      "why_now": "HKEX filing 2026-08-28; fresh catalyst for downward estimate revisions.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-f05bdbd62134"
+      ],
+      "primary_source_event_id": "EVT-f05bdbd62134",
+      "source_headlines": [
+        "NC HEALTHCARE (01518): PROFIT WARNING"
+      ],
+      "source_headline": "NC HEALTHCARE (01518): PROFIT WARNING",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0828/2026082804114.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-28T14:45:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-29T12:26:38Z",
+      "updated_at": "2026-08-29T12:26:38Z",
+      "decay_at": "2026-08-30T02:45:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-e4e4e6e3fc8c",
+      "idea_version": "IDEAV-5d13cacea06259e4",
+      "idea_version_started_at": "2026-08-29T12:26:38Z",
+      "ticker": "00875.HK",
+      "company": "Congyu Inte Agr",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Company issued a profit warning, indicating earnings will fall materially short of prior expectations.",
+      "why_now": "HKEX filing dated 2026-08-28; profit warnings typically precede negative revisions and price adjustment.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-c12e163f7753"
+      ],
+      "primary_source_event_id": "EVT-c12e163f7753",
+      "source_headlines": [
+        "CONGYU INTE AGR (00875): PROFIT WARNING"
+      ],
+      "source_headline": "CONGYU INTE AGR (00875): PROFIT WARNING",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0828/2026082801978.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-28T11:28:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-29T12:26:38Z",
+      "updated_at": "2026-08-29T12:26:38Z",
+      "decay_at": "2026-08-29T23:28:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-0bcb86bfbe51",
+      "idea_version": "IDEAV-75d92ee54c01d1cc",
+      "idea_version_started_at": "2026-08-29T12:04:51Z",
+      "ticker": "01152",
+      "company": "MOMENTUM FIN",
+      "exchange": null,
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Momentum Financial Holdings Limited issued a profit warning, signaling that its upcoming financial results will be weaker than anticipated, which will likely reduce its profitability.",
+      "why_now": "The company released this inside information and profit warning on August 28, 2026, providing a current negative catalyst.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-962cfd08eae3"
+      ],
+      "primary_source_event_id": "EVT-962cfd08eae3",
+      "source_headlines": [
+        "MOMENTUM FIN (01152): INSIDE INFORMATION - PROFIT WARNING"
+      ],
+      "source_headline": "MOMENTUM FIN (01152): INSIDE INFORMATION - PROFIT WARNING",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0828/2026082800863.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-28T09:02:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-29T12:04:51Z",
+      "updated_at": "2026-08-29T12:04:51Z",
+      "decay_at": "2026-08-29T21:02:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-32354a5c12db",
+      "idea_version": "IDEAV-5a0cdb7177ec8150",
+      "idea_version_started_at": "2026-08-29T12:04:51Z",
+      "ticker": "KPGREEN",
+      "company": "KP Green Engineering Ltd",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "KP Green Engineering Limited has secured new orders from multiple clients amounting to Rs. 258 Crores, which will directly increase its revenue.",
+      "why_now": "The company announced these confirmed new orders on August 28, 2026, providing a fresh catalyst for potential share price appreciation.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-9beb1d8c845f"
+      ],
+      "primary_source_event_id": "EVT-9beb1d8c845f",
+      "source_headlines": [
+        "KP Green Engineering Ltd: KP Green Engineering Limited has informed the Exchange regarding confirmed new orders from multiple clients amounting to Rs. 258 Crores. The Disclosure is attached herewith."
+      ],
+      "source_headline": "KP Green Engineering Ltd: KP Green Engineering Limited has informed the Exchange regarding confirmed new orders from multiple clients amounting to Rs. 258 Crores. The Disclosure is attached herewith.",
+      "source_url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/c1fadf5b-c01c-4b2b-928f-15840850596f.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-28T09:32:06Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-29T12:04:51Z",
+      "updated_at": "2026-08-29T12:04:51Z",
+      "decay_at": "2026-08-29T21:32:06Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-3b0ee430113b",
+      "idea_version": "IDEAV-e5b2584375e51428",
+      "idea_version_started_at": "2026-08-29T10:43:25Z",
+      "ticker": "01561",
+      "company": "PAN ASIA DATA H",
+      "exchange": null,
+      "direction": "short",
+      "pair_with": null,
+      "reason": "PAN ASIA DATA H issued a profit warning, indicating that its financial results will be lower than market expectations.",
+      "why_now": "The company released its profit warning announcement on August 28, 2026.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-8b2efa56f6ab"
+      ],
+      "primary_source_event_id": "EVT-8b2efa56f6ab",
+      "source_headlines": [
+        "PAN ASIA DATA H (01561): PROFIT WARNING"
+      ],
+      "source_headline": "PAN ASIA DATA H (01561): PROFIT WARNING",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0828/2026082802706.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-28T12:44:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-29T10:43:25Z",
+      "updated_at": "2026-08-29T10:43:25Z",
+      "decay_at": "2026-08-30T00:44:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-8b68f20f17c3",
+      "idea_version": "IDEAV-4f6f4569db529eb6",
+      "idea_version_started_at": "2026-08-29T10:43:25Z",
+      "ticker": "01255",
+      "company": "TATA HEALTH",
+      "exchange": null,
+      "direction": "short",
+      "pair_with": null,
+      "reason": "TATA HEALTH has issued a profit warning, indicating that its financial performance will be worse than previously expected.",
+      "why_now": "The company filed an inside information clarification announcement regarding its profit warning on August 28, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-430beb9e0fe4"
+      ],
+      "primary_source_event_id": "EVT-430beb9e0fe4",
+      "source_headlines": [
+        "TATA HEALTH (01255): INSIDE INFORMATION CLARIFICATION ANNOUNCEMENT IN RELATION TO PROFIT WARNING"
+      ],
+      "source_headline": "TATA HEALTH (01255): INSIDE INFORMATION CLARIFICATION ANNOUNCEMENT IN RELATION TO PROFIT WARNING",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0828/2026082802456.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-28T12:24:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-29T10:43:25Z",
+      "updated_at": "2026-08-29T10:43:25Z",
+      "decay_at": "2026-08-30T00:24:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-8c0df7c727b4",
+      "idea_version": "IDEAV-377f0cb18b5f070f",
+      "idea_version_started_at": "2026-08-29T10:43:25Z",
+      "ticker": "02722",
+      "company": "CHONGQING M&E",
+      "exchange": null,
+      "direction": "short",
+      "pair_with": null,
+      "reason": "A subsidiary of CHONGQING M&E has applied for bankruptcy and liquidation, which will negatively impact the parent company's financial stability and asset value.",
+      "why_now": "The company announced the bankruptcy and liquidation application of its subsidiary on August 28, 2026.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-5d15167b7180"
+      ],
+      "primary_source_event_id": "EVT-5d15167b7180",
+      "source_headlines": [
+        "CHONGQING M&E (02722): INSIDE INFORMATION APPLICATION OF A SUBSIDIARY OF THE COMPANY FOR BANKRUPTCY AND LIQUIDATION"
+      ],
+      "source_headline": "CHONGQING M&E (02722): INSIDE INFORMATION APPLICATION OF A SUBSIDIARY OF THE COMPANY FOR BANKRUPTCY AND LIQUIDATION",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0828/2026082802108.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-28T11:49:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-29T10:43:25Z",
+      "updated_at": "2026-08-29T10:43:25Z",
+      "decay_at": "2026-08-29T23:49:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-913c9c5d1968",
+      "idea_version": "IDEAV-f1781dc832b7767a",
+      "idea_version_started_at": "2026-08-29T10:43:25Z",
+      "ticker": "01788",
+      "company": "GUOTAI JUNAN I",
+      "exchange": null,
+      "direction": "long",
+      "pair_with": null,
+      "reason": "GUOTAI JUNAN I is subject to a pre-conditional proposal for privatization by way of a scheme of arrangement, which typically offers shareholders a premium to the pre-announcement trading price.",
+      "why_now": "An update on the timeline for despatch of the scheme document was announced on August 28, 2026, confirming the ongoing privatization process.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-823e7436b538"
+      ],
+      "primary_source_event_id": "EVT-823e7436b538",
+      "source_headlines": [
+        "GUOTAI JUNAN I (01788): JOINT ANNOUNCEMENT (1) PRE-CONDITIONAL PROPOSAL FOR THE PRIVATISATION OF GUOTAI JUNAN INTERNATIONAL HOLDINGS LIMITED BY THE OFFEROR BY WAY OF A SCHEME OF ARRANGEMENT UNDER SECTION 673 OF THE COMPANIES ORDINANCE AND (2) PROPOSED WITHDRAWAL OF LISTING OF THE SHARES OF GUOTAI JUNAN INTERNATIONAL HOLDINGS LIMITED UPDATE ON TIMELINE FOR DESPATCH OF SCHEME DOCUMENT"
+      ],
+      "source_headline": "GUOTAI JUNAN I (01788): JOINT ANNOUNCEMENT (1) PRE-CONDITIONAL PROPOSAL FOR THE PRIVATISATION OF GUOTAI JUNAN INTERNATIONAL HOLDINGS LIMITED BY THE OFFEROR BY WAY OF A SCHEME OF ARRANGEMENT UNDER SECTION 673 OF THE COMPANIES ORDINANCE AND (2) PROPOSED WITHDRAWAL OF LISTING OF THE SHARES OF GUOTAI JUNAN INTERNATIONAL HOLDINGS LIMITED UPDATE ON TIMELINE FOR DESPATCH OF SCHEME DOCUMENT",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0828/2026082802100.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-28T11:48:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-29T10:43:25Z",
+      "updated_at": "2026-08-29T10:43:25Z",
+      "decay_at": "2026-08-29T23:48:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-a4e5cec1ef8b",
+      "idea_version": "IDEAV-397b7af7f8590bc8",
+      "idea_version_started_at": "2026-08-29T10:43:25Z",
+      "ticker": "00852",
+      "company": "Strong Petro",
+      "exchange": null,
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Strong Petro announced a further delay in its 2024 interim dividend payment and continued trading suspension, indicating severe financial distress.",
+      "why_now": "The company made this announcement on August 28, 2026, highlighting ongoing financial issues.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-74e06baa7bc7"
+      ],
+      "primary_source_event_id": "EVT-74e06baa7bc7",
+      "source_headlines": [
+        "STRONG PETRO (00852): ANNOUNCEMENT (1) FURTHER DELAY IN PAYMENT OF 2024 INTERIM DIVIDEND; AND (2) CONTINUED SUSPENSION OF TRADING"
+      ],
+      "source_headline": "STRONG PETRO (00852): ANNOUNCEMENT (1) FURTHER DELAY IN PAYMENT OF 2024 INTERIM DIVIDEND; AND (2) CONTINUED SUSPENSION OF TRADING",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0828/2026082802840.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-28T12:58:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-29T10:43:25Z",
+      "updated_at": "2026-08-29T10:43:25Z",
+      "decay_at": "2026-08-30T00:58:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-13e8568c29b3",
+      "idea_version": "IDEAV-6e813d9d0fba047d",
+      "idea_version_started_at": "2026-08-29T10:08:49Z",
+      "ticker": "ALCO",
+      "company": "Alcoa Corporation",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The U.S. Department of War is investing $100 million in Atalco, the sole remaining domestic alumina refinery, securing a critical supply chain asset for aluminum production where Alcoa is the primary U.S. producer and likely strategic partner.",
+      "why_now": "Official DoD announcement today (2026-08-28) confirms the equity investment and strategic rationale for domestic alumina security.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "policy_conditional",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-2da990ee974d"
+      ],
+      "primary_source_event_id": "EVT-2da990ee974d",
+      "source_headlines": [
+        "Department of War Announces a $100 Million Follow-on Equity Investment in Atalco to Secure the Sole Remaining Domestic Alumina Refinery"
+      ],
+      "source_headline": "Department of War Announces a $100 Million Follow-on Equity Investment in Atalco to Secure the Sole Remaining Domestic Alumina Refinery",
+      "source_url": "https://www.war.gov/News/Releases/Release/Article/4585310/department-of-war-announces-a-100-million-follow-on-equity-investment-in-atalco/",
+      "source_name": "U.S. Department of War (formerly DoD) — News Releases",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-28T14:00:34Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-29T10:08:49Z",
+      "updated_at": "2026-08-29T10:08:49Z",
+      "decay_at": "2026-08-30T02:00:34Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-4160870ac271",
+      "idea_version": "IDEAV-ef39ccc7fc099fb2",
+      "idea_version_started_at": "2026-08-29T10:08:49Z",
+      "ticker": "WAREE.NS",
+      "company": "Waaree Renewable Technologies Ltd",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Waaree Renewable Technologies received a Letter of Award for a 291 MWp solar PV and 280 MWh BESS EPC project, a large, high-margin order that directly expands its revenue backlog and execution visibility.",
+      "why_now": "Exchange filing today (2026-08-28) confirms the LOA receipt with specific project scope and capacity details.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-30e4cee52522"
+      ],
+      "primary_source_event_id": "EVT-30e4cee52522",
+      "source_headlines": [
+        "Waaree Renewable Technologies Ltd: Received LOA of EPC work for 291 MWp Solar PV & 280 MWh BESS."
+      ],
+      "source_headline": "Waaree Renewable Technologies Ltd: Received LOA of EPC work for 291 MWp Solar PV & 280 MWh BESS.",
+      "source_url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/cd1e2989-3126-4d55-a20a-71ab2c3efe88.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-28T07:51:44Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-29T10:08:49Z",
+      "updated_at": "2026-08-29T10:08:49Z",
+      "decay_at": "2026-08-29T19:51:44Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-a6df87e99e90",
+      "idea_version": "IDEAV-395ba75422fd6351",
+      "idea_version_started_at": "2026-08-29T09:43:41Z",
+      "ticker": "2722",
+      "company": "Chongqing Machinery & Electric Co., Ltd.",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "A subsidiary of the company has filed for bankruptcy and liquidation, which will likely lead to asset write-downs and negatively impact consolidated earnings.",
+      "why_now": "The inside information filing regarding the bankruptcy application was released on August 28, 2026.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-5d15167b7180"
+      ],
+      "primary_source_event_id": "EVT-5d15167b7180",
+      "source_headlines": [
+        "CHONGQING M&E (02722): INSIDE INFORMATION APPLICATION OF A SUBSIDIARY OF THE COMPANY FOR BANKRUPTCY AND LIQUIDATION"
+      ],
+      "source_headline": "CHONGQING M&E (02722): INSIDE INFORMATION APPLICATION OF A SUBSIDIARY OF THE COMPANY FOR BANKRUPTCY AND LIQUIDATION",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0828/2026082802108.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-28T11:49:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-29T09:43:41Z",
+      "updated_at": "2026-08-29T09:43:41Z",
+      "decay_at": "2026-08-29T23:49:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -86079,504 +87083,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-3d29191d07b1",
-      "idea_version": "IDEAV-f8810176db6f3b69",
-      "idea_version_started_at": "2026-08-28T00:58:50Z",
-      "ticker": "00177.HK",
-      "company": "Jiangsu Expressway",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Jiangsu Expressway is acquiring 100% of Suxichang South Expressway, adding toll-road cash flows in a connected transaction.",
-      "why_now": "HKEX progress announcement on 2026-08-27 confirms the acquisition is advancing.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-a481930cadfb"
-      ],
-      "primary_source_event_id": "EVT-a481930cadfb",
-      "source_headlines": [
-        "JIANGSU EXPRESS (00177): PROGRESS ANNOUNCEMENT - DISCLOSEABLE AND CONNECTED TRANSACTION - CASH ACQUISITION OF 100% EQUITY INTERESTS IN SUXICHANG SOUTH EXPRESSWAY COMPANY AND CONTINUING CONNECTED TRANSACTIONS UPON COMPLETION"
-      ],
-      "source_headline": "JIANGSU EXPRESS (00177): PROGRESS ANNOUNCEMENT - DISCLOSEABLE AND CONNECTED TRANSACTION - CASH ACQUISITION OF 100% EQUITY INTERESTS IN SUXICHANG SOUTH EXPRESSWAY COMPANY AND CONTINUING CONNECTED TRANSACTIONS UPON COMPLETION",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0828/2026082800113.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-27T23:47:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-28T00:58:50Z",
-      "updated_at": "2026-08-28T00:58:50Z",
-      "decay_at": "2026-08-29T11:47:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-81985a64918c",
-      "idea_version": "IDEAV-f2537097bb948e9a",
-      "idea_version_started_at": "2026-08-28T00:58:50Z",
-      "ticker": "09606.HK",
-      "company": "DualityBio",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "DualityBio signed a global R&D collaboration and license agreement with Genentech to develop next-generation ADCs using its DUPAC platform, bringing potential milestone payments and royalties.",
-      "why_now": "HKEX filing announced the deal on 2026-08-27.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-1db28d8096bb"
-      ],
-      "primary_source_event_id": "EVT-1db28d8096bb",
-      "source_headlines": [
-        "DUALITYBIO-B (09606): INSIDE INFORMATION - GLOBAL RESEARCH AND DEVELOPMENT COLLABORATION AND LICENSE AGREEMENT WITH GENENTECH, INC. TO DEVELOP NEXT-GENERATION ADCS BUILT ON THE COMPANY'S DUPAC NOVEL-PAYLOAD PLATFORM"
-      ],
-      "source_headline": "DUALITYBIO-B (09606): INSIDE INFORMATION - GLOBAL RESEARCH AND DEVELOPMENT COLLABORATION AND LICENSE AGREEMENT WITH GENENTECH, INC. TO DEVELOP NEXT-GENERATION ADCS BUILT ON THE COMPANY'S DUPAC NOVEL-PAYLOAD PLATFORM",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0828/2026082800097.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-27T23:18:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-28T00:58:50Z",
-      "updated_at": "2026-08-28T00:58:50Z",
-      "decay_at": "2026-08-29T11:18:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-921ce28082df",
-      "idea_version": "IDEAV-d5320931a7b63b8c",
-      "idea_version_started_at": "2026-08-28T00:35:47Z",
-      "ticker": "09606",
-      "company": "DualityBio",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "DualityBio signed a global R&D collaboration and license agreement with Genentech to develop next-generation ADCs on its DUPAC platform, validating technology and creating revenue optionality.",
-      "why_now": "Inside information filing 2026-08-27 announcing the Genentech deal; fresh commercial catalyst.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-1db28d8096bb"
-      ],
-      "primary_source_event_id": "EVT-1db28d8096bb",
-      "source_headlines": [
-        "DUALITYBIO-B (09606): INSIDE INFORMATION - GLOBAL RESEARCH AND DEVELOPMENT COLLABORATION AND LICENSE AGREEMENT WITH GENENTECH, INC. TO DEVELOP NEXT-GENERATION ADCS BUILT ON THE COMPANY'S DUPAC NOVEL-PAYLOAD PLATFORM"
-      ],
-      "source_headline": "DUALITYBIO-B (09606): INSIDE INFORMATION - GLOBAL RESEARCH AND DEVELOPMENT COLLABORATION AND LICENSE AGREEMENT WITH GENENTECH, INC. TO DEVELOP NEXT-GENERATION ADCS BUILT ON THE COMPANY'S DUPAC NOVEL-PAYLOAD PLATFORM",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0828/2026082800097.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-27T23:18:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-28T00:35:47Z",
-      "updated_at": "2026-08-28T00:35:47Z",
-      "decay_at": "2026-08-29T11:18:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-87ee6f6e0a27",
-      "idea_version": "IDEAV-c7926b8790634ea9",
-      "idea_version_started_at": "2026-08-28T03:27:36Z",
-      "ticker": "OLL",
-      "company": "OLL",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company reported strong H1 2026 results with gross profit up 64% and revenue up 43%, indicating significant operational momentum.",
-      "why_now": "The results were filed on 2026-08-28, making this a live earnings-driven catalyst.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-7dd61df7de65"
-      ],
-      "primary_source_event_id": "EVT-7dd61df7de65",
-      "source_headlines": [
-        "OLL: H1 2026 Results - Gross Profit Up 64% and Revenue Up 43% [price-sensitive]"
-      ],
-      "source_headline": "OLL: H1 2026 Results - Gross Profit Up 64% and Revenue Up 43% [price-sensitive]",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.OLL?key=2924-03128110-6A1340878",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 99,
-      "newest_source_at": "2026-08-28T00:01:35Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-28T03:27:36Z",
-      "updated_at": "2026-08-28T03:27:36Z",
-      "decay_at": "2026-08-29T12:01:35Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-7bcadd0aa831",
-      "idea_version": "IDEAV-0c52e9320ed9604e",
-      "idea_version_started_at": "2026-08-28T02:58:58Z",
-      "ticker": "OLL.AX",
-      "company": "OLL",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "OLL reported H1 2026 gross profit up 64% and revenue up 43%, a strong fundamental inflection that can drive re-rating if sustained.",
-      "why_now": "Results released via ASX price-sensitive announcement on 2026-08-28; the magnitude of beat makes it a live, fresh catalyst.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-7dd61df7de65"
-      ],
-      "primary_source_event_id": "EVT-7dd61df7de65",
-      "source_headlines": [
-        "OLL: H1 2026 Results - Gross Profit Up 64% and Revenue Up 43% [price-sensitive]"
-      ],
-      "source_headline": "OLL: H1 2026 Results - Gross Profit Up 64% and Revenue Up 43% [price-sensitive]",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.OLL?key=2924-03128110-6A1340878",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 99,
-      "newest_source_at": "2026-08-28T00:01:35Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-28T02:58:58Z",
-      "updated_at": "2026-08-28T02:58:58Z",
-      "decay_at": "2026-08-29T12:01:35Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-52c1133413b1",
-      "idea_version": "IDEAV-a4214a5d21d84523",
-      "idea_version_started_at": "2026-08-28T03:27:36Z",
-      "ticker": "00013",
-      "company": "HUTCHMED",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The NMPA approval of Fanregratinib for intrahepatic cholangiocarcinoma provides a new revenue stream in a high-unmet-need oncology segment.",
-      "why_now": "The regulatory approval was announced on 2026-08-28, providing immediate commercialization potential.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 18,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-e0bc1d52b950"
-      ],
-      "primary_source_event_id": "EVT-e0bc1d52b950",
-      "source_headlines": [
-        "HUTCHMED (00013): VOLUNTARY ANNOUNCEMENT - HUTCHMED Announces NMPA Approval for ATLED (Fanregratinib) for the Treatment of Patients with FGFR2-Fusion/Rearrangement Intrahepatic Cholangiocarcinoma"
-      ],
-      "source_headline": "HUTCHMED (00013): VOLUNTARY ANNOUNCEMENT - HUTCHMED Announces NMPA Approval for ATLED (Fanregratinib) for the Treatment of Patients with FGFR2-Fusion/Rearrangement Intrahepatic Cholangiocarcinoma",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0828/2026082800127.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 97,
-      "newest_source_at": "2026-08-28T00:00:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-28T03:27:36Z",
-      "updated_at": "2026-08-28T03:27:36Z",
-      "decay_at": "2026-08-29T12:00:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-44c25bb92282",
-      "idea_version": "IDEAV-5b1a650e996c6c2a",
-      "idea_version_started_at": "2026-08-28T02:38:54Z",
-      "ticker": "00013.HK",
-      "company": "HUTCHMED",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "HUTCHMED received NMPA approval in China for ATLED (Fanregratinib) to treat FGFR2-fusion intrahepatic cholangiocarcinoma, opening a revenue stream in a hard-to-treat cancer indication.",
-      "why_now": "Approval announced via HKEX filing on 2026-08-28; the drug can now be commercialized in China.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 18,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-e0bc1d52b950"
-      ],
-      "primary_source_event_id": "EVT-e0bc1d52b950",
-      "source_headlines": [
-        "HUTCHMED (00013): VOLUNTARY ANNOUNCEMENT - HUTCHMED Announces NMPA Approval for ATLED (Fanregratinib) for the Treatment of Patients with FGFR2-Fusion/Rearrangement Intrahepatic Cholangiocarcinoma"
-      ],
-      "source_headline": "HUTCHMED (00013): VOLUNTARY ANNOUNCEMENT - HUTCHMED Announces NMPA Approval for ATLED (Fanregratinib) for the Treatment of Patients with FGFR2-Fusion/Rearrangement Intrahepatic Cholangiocarcinoma",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0828/2026082800127.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 97,
-      "newest_source_at": "2026-08-28T00:00:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-28T02:38:54Z",
-      "updated_at": "2026-08-28T02:38:54Z",
-      "decay_at": "2026-08-29T12:00:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-fc7caca7ed3e",
       "idea_version": "IDEAV-c1d27daf075ffe99",
       "idea_version_started_at": "2026-08-28T05:51:01Z",
@@ -86647,33 +87153,34 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-90b902d53889",
-      "idea_version": "IDEAV-2c04e7b677388d2c",
-      "idea_version_started_at": "2026-08-28T03:48:03Z",
-      "ticker": "NVDA",
-      "company": "Nvidia",
+      "idea_id": "IDEA-2bb5da7548bc",
+      "idea_version": "IDEAV-5d7a00b11f55bac8",
+      "idea_version_started_at": "2026-08-28T00:35:47Z",
+      "ticker": "WDAY",
+      "company": "Workday",
       "exchange": "NASDAQ",
       "direction": "long",
       "pair_with": null,
-      "reason": "Nvidia's guidance for 70% sales growth next year and the rapid ramp of the $20 billion Vera Rubin system indicate that AI infrastructure demand remains significantly ahead of market expectations.",
-      "why_now": "The earnings and guidance update were released on 2026-08-27.",
-      "conviction": 85,
+      "reason": "Workday reported revenue growth and flagged strong AI uptake, suggesting product cycle acceleration and pricing power.",
+      "why_now": "Reuters report 2026-08-27 on earnings release with AI commentary; live catalyst.",
+      "conviction": 60,
       "conviction_basis": "pre_edge_proxy",
       "trade_score": 62,
       "trade_score_basis": "evidence_gate_v2",
       "trade_score_breakdown": {
         "evidence": 14,
-        "impact": 21,
+        "impact": 19,
         "specificity": 15,
         "timing": 10,
         "expression": 6,
-        "corroboration": 10,
+        "corroboration": 0,
         "learning_adjustment": 0
       },
       "trade_readiness": "needs_data",
       "missing_checks": [
         "live liquidity",
         "dated catalyst",
+        "independent confirmation",
         "live price, liquidity, and consensus"
       ],
       "learning": {
@@ -86690,30 +87197,166 @@
       "origin_type": "wire",
       "source_themes": [],
       "source_event_ids": [
-        "EVT-062a06d26ebd",
-        "EVT-2048141fb835",
-        "EVT-6273298eef03"
+        "EVT-4135ecd7abf8"
       ],
-      "primary_source_event_id": "EVT-062a06d26ebd",
+      "primary_source_event_id": "EVT-4135ecd7abf8",
       "source_headlines": [
-        "Nvidia Stock Jumps On Bullish Quarterly Report, Outlook",
-        "Nvidia expects to sell $20 billion of Vera Rubin systems in Q3 as shipments begin — figure would account for 20% of its data center revenue mix, marks fastest ramp in company history",
-        "Nvidia Sees AI-Fueled Demand Boosting Sales 70% Next Year"
+        "HR software firm Workday reports revenue rise, flags strong AI uptake"
       ],
-      "source_headline": "Nvidia Stock Jumps On Bullish Quarterly Report, Outlook",
-      "source_url": "https://www.investors.com/news/technology/nvidia-stock-jumps-on-bullish-quarterly-report-outlook/?src=A00220&yptr=yahoo",
-      "source_name": "Yahoo Finance",
+      "source_headline": "HR software firm Workday reports revenue rise, flags strong AI uptake",
+      "source_url": "https://www.reuters.com/business/workday-beats-second-quarter-revenue-estimates-2026-08-27/",
+      "source_name": "Reuters — Latest (news sitemap)",
       "materiality_max": 100,
-      "newest_source_at": "2026-08-27T15:33:14Z",
+      "newest_source_at": "2026-08-27T22:33:54Z",
       "prior_coverage": {
         "has_run": false,
         "latest_run": null,
         "latest_decision": null,
         "data_pool_present": false
       },
-      "surfaced_at": "2026-08-27T03:27:43Z",
-      "updated_at": "2026-08-28T03:48:03Z",
-      "decay_at": "2026-08-29T03:33:14Z",
+      "surfaced_at": "2026-08-28T00:35:47Z",
+      "updated_at": "2026-08-28T00:35:47Z",
+      "decay_at": "2026-08-29T10:33:54Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-07f356ae2f72",
+      "idea_version": "IDEAV-2852798c36e76c64",
+      "idea_version_started_at": "2026-08-27T23:55:54Z",
+      "ticker": "MRVL",
+      "company": "Marvell Technology",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Marvell lifted long-term financial targets as AI demand boosted Q2 profit and revenue, indicating sustained secular growth in data-center silicon.",
+      "why_now": "Q2 results and raised guidance published Aug 27, 2026.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-34ed04ec3977"
+      ],
+      "primary_source_event_id": "EVT-34ed04ec3977",
+      "source_headlines": [
+        "Marvell Lifts Long-Term Targets as AI Demand Boosts Second-Quarter Profit, Revenue"
+      ],
+      "source_headline": "Marvell Lifts Long-Term Targets as AI Demand Boosts Second-Quarter Profit, Revenue",
+      "source_url": "https://www.wsj.com/business/earnings/marvell-sees-accelerating-growth-as-ai-demand-boosts-second-quarter-profit-revenue-786b8c74?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-27T22:39:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-27T23:55:54Z",
+      "updated_at": "2026-08-27T23:55:54Z",
+      "decay_at": "2026-08-29T10:39:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-1604e5b6569e",
+      "idea_version": "IDEAV-a0fcf8bc22993918",
+      "idea_version_started_at": "2026-08-27T23:25:23Z",
+      "ticker": "CRM",
+      "company": "Salesforce Inc",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Salesforce reported a 23% surge following a strong Q2 earnings beat and a strategic partnership with Anthropic, which enhances its AI capabilities.",
+      "why_now": "The market reaction occurred on August 27, 2026, following the earnings release and partnership announcement.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-2f4bc2395022"
+      ],
+      "primary_source_event_id": "EVT-2f4bc2395022",
+      "source_headlines": [
+        "Stock Market Today, Aug. 27: Salesforce Surges 23% on Anthropic Partnership and Q2 Earnings Beat"
+      ],
+      "source_headline": "Stock Market Today, Aug. 27: Salesforce Surges 23% on Anthropic Partnership and Q2 Earnings Beat",
+      "source_url": "https://www.nasdaq.com/articles/stock-market-today-aug-27-salesforce-surges-23-anthropic-partnership-and-q2-earnings-beat",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-27T21:47:47Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-26T21:03:32Z",
+      "updated_at": "2026-08-27T23:25:23Z",
+      "decay_at": "2026-08-29T09:47:47Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -87562,75 +88205,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-e2e8adffa9c4",
-      "idea_version": "IDEAV-f88b600677b122ca",
-      "idea_version_started_at": "2026-08-26T23:18:30Z",
-      "ticker": "PRU",
-      "company": "Prudential plc",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Prudential plc is selling a stake in ICICI Prudential Asset Management to meet public float requirements, which could unlock value and improve capital efficiency.",
-      "why_now": "The announcement of the stake sale was made on August 26, 2026, indicating an active corporate action.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-b3f2732415d4"
-      ],
-      "primary_source_event_id": "EVT-b3f2732415d4",
-      "source_headlines": [
-        "PRU (02378): Prudential plc announces sale of up to a 2.0 per cent stake in ICICI Prudential Asset Management to support India public float requirements"
-      ],
-      "source_headline": "PRU (02378): Prudential plc announces sale of up to a 2.0 per cent stake in ICICI Prudential Asset Management to support India public float requirements",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0826/2026082600823.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-26T10:09:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-26T23:18:30Z",
-      "updated_at": "2026-08-26T23:18:30Z",
-      "decay_at": "2026-08-27T22:09:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-492fb380ef56",
       "idea_version": "IDEAV-d66fd299676ae4cf",
       "idea_version_started_at": "2026-08-26T21:03:32Z",
@@ -87843,6 +88417,77 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-728d9c6bfb69",
+      "idea_version": "IDEAV-c7f0f3f91317bddd",
+      "idea_version_started_at": "2026-08-28T00:35:47Z",
+      "ticker": "HRL",
+      "company": "Hormel Foods",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Hormel Foods stock dropped 10% on earnings miss, indicating near-term demand or margin pressure.",
+      "why_now": "Motley Fool article 2026-08-27 citing today's 10% drop on earnings; fresh negative catalyst.",
+      "conviction": 50,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 55,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-863190b3dfa2"
+      ],
+      "primary_source_event_id": "EVT-863190b3dfa2",
+      "source_headlines": [
+        "Why Hormel Foods Stock Swooned by 10% Today"
+      ],
+      "source_headline": "Why Hormel Foods Stock Swooned by 10% Today",
+      "source_url": "https://www.fool.com/investing/2026/08/27/why-hormel-foods-stock-swooned-by-10-today/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-27T23:16:05Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-27T13:17:25Z",
+      "updated_at": "2026-08-28T00:35:47Z",
+      "decay_at": "2026-08-29T11:16:05Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-fa9512f6988e",
       "idea_version": "IDEAV-8e32e03160a422e5",
       "idea_version_started_at": "2026-08-26T20:21:39Z",
@@ -87987,6 +88632,220 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-3d29191d07b1",
+      "idea_version": "IDEAV-f8810176db6f3b69",
+      "idea_version_started_at": "2026-08-28T00:58:50Z",
+      "ticker": "00177.HK",
+      "company": "Jiangsu Expressway",
+      "exchange": "HKEX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Jiangsu Expressway is acquiring 100% of Suxichang South Expressway, adding toll-road cash flows in a connected transaction.",
+      "why_now": "HKEX progress announcement on 2026-08-27 confirms the acquisition is advancing.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "price and market expectations",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "unknown",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-a481930cadfb"
+      ],
+      "primary_source_event_id": "EVT-a481930cadfb",
+      "source_headlines": [
+        "JIANGSU EXPRESS (00177): PROGRESS ANNOUNCEMENT - DISCLOSEABLE AND CONNECTED TRANSACTION - CASH ACQUISITION OF 100% EQUITY INTERESTS IN SUXICHANG SOUTH EXPRESSWAY COMPANY AND CONTINUING CONNECTED TRANSACTIONS UPON COMPLETION"
+      ],
+      "source_headline": "JIANGSU EXPRESS (00177): PROGRESS ANNOUNCEMENT - DISCLOSEABLE AND CONNECTED TRANSACTION - CASH ACQUISITION OF 100% EQUITY INTERESTS IN SUXICHANG SOUTH EXPRESSWAY COMPANY AND CONTINUING CONNECTED TRANSACTIONS UPON COMPLETION",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0828/2026082800113.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-27T23:47:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-28T00:58:50Z",
+      "updated_at": "2026-08-28T00:58:50Z",
+      "decay_at": "2026-08-29T11:47:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-81985a64918c",
+      "idea_version": "IDEAV-f2537097bb948e9a",
+      "idea_version_started_at": "2026-08-28T00:58:50Z",
+      "ticker": "09606.HK",
+      "company": "DualityBio",
+      "exchange": "HKEX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "DualityBio signed a global R&D collaboration and license agreement with Genentech to develop next-generation ADCs using its DUPAC platform, bringing potential milestone payments and royalties.",
+      "why_now": "HKEX filing announced the deal on 2026-08-27.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-1db28d8096bb"
+      ],
+      "primary_source_event_id": "EVT-1db28d8096bb",
+      "source_headlines": [
+        "DUALITYBIO-B (09606): INSIDE INFORMATION - GLOBAL RESEARCH AND DEVELOPMENT COLLABORATION AND LICENSE AGREEMENT WITH GENENTECH, INC. TO DEVELOP NEXT-GENERATION ADCS BUILT ON THE COMPANY'S DUPAC NOVEL-PAYLOAD PLATFORM"
+      ],
+      "source_headline": "DUALITYBIO-B (09606): INSIDE INFORMATION - GLOBAL RESEARCH AND DEVELOPMENT COLLABORATION AND LICENSE AGREEMENT WITH GENENTECH, INC. TO DEVELOP NEXT-GENERATION ADCS BUILT ON THE COMPANY'S DUPAC NOVEL-PAYLOAD PLATFORM",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0828/2026082800097.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-27T23:18:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-28T00:58:50Z",
+      "updated_at": "2026-08-28T00:58:50Z",
+      "decay_at": "2026-08-29T11:18:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-921ce28082df",
+      "idea_version": "IDEAV-d5320931a7b63b8c",
+      "idea_version_started_at": "2026-08-28T00:35:47Z",
+      "ticker": "09606",
+      "company": "DualityBio",
+      "exchange": "HKEX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "DualityBio signed a global R&D collaboration and license agreement with Genentech to develop next-generation ADCs on its DUPAC platform, validating technology and creating revenue optionality.",
+      "why_now": "Inside information filing 2026-08-27 announcing the Genentech deal; fresh commercial catalyst.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-1db28d8096bb"
+      ],
+      "primary_source_event_id": "EVT-1db28d8096bb",
+      "source_headlines": [
+        "DUALITYBIO-B (09606): INSIDE INFORMATION - GLOBAL RESEARCH AND DEVELOPMENT COLLABORATION AND LICENSE AGREEMENT WITH GENENTECH, INC. TO DEVELOP NEXT-GENERATION ADCS BUILT ON THE COMPANY'S DUPAC NOVEL-PAYLOAD PLATFORM"
+      ],
+      "source_headline": "DUALITYBIO-B (09606): INSIDE INFORMATION - GLOBAL RESEARCH AND DEVELOPMENT COLLABORATION AND LICENSE AGREEMENT WITH GENENTECH, INC. TO DEVELOP NEXT-GENERATION ADCS BUILT ON THE COMPANY'S DUPAC NOVEL-PAYLOAD PLATFORM",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0828/2026082800097.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-27T23:18:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-28T00:35:47Z",
+      "updated_at": "2026-08-28T00:35:47Z",
+      "decay_at": "2026-08-29T11:18:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-ac31ba14b5fc",
       "idea_version": "IDEAV-fc423e90ffeed667",
       "idea_version_started_at": "2026-08-27T23:25:23Z",
@@ -88052,78 +88911,6 @@
       "surfaced_at": "2026-08-27T23:25:23Z",
       "updated_at": "2026-08-27T23:25:23Z",
       "decay_at": "2026-08-29T01:42:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-017f4db87209",
-      "idea_version": "IDEAV-3a1f5029b454e5af",
-      "idea_version_started_at": "2026-08-27T23:06:02Z",
-      "ticker": "GPS",
-      "company": "Gap Inc.",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Gap raised its profit forecast and appointed a new Old Navy CEO, a dual catalyst that signals improving earnings momentum at its largest brand.",
-      "why_now": "Reuters reported the guidance lift and management change today (2026-08-27), and shares already jumped 14%, confirming the market is reacting in real time.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-060601716155"
-      ],
-      "primary_source_event_id": "EVT-060601716155",
-      "source_headlines": [
-        "Gap names new Old Navy CEO and lifts profit forecast, shares jump 14%"
-      ],
-      "source_headline": "Gap names new Old Navy CEO and lifts profit forecast, shares jump 14%",
-      "source_url": "https://www.reuters.com/business/retail-consumer/gap-lifts-annual-profit-forecast-strength-namesake-brand-2026-08-27/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-27T21:15:48Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-27T23:06:02Z",
-      "updated_at": "2026-08-27T23:06:02Z",
-      "decay_at": "2026-08-29T09:15:48Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -89210,87 +89997,16 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-e9dd060b2328",
-      "idea_version": "IDEAV-aec0dfa00c772a8e",
-      "idea_version_started_at": "2026-08-26T17:19:45Z",
-      "ticker": "MANKIND",
-      "company": "Mankind Pharma Ltd",
-      "exchange": "NSE",
+      "idea_id": "IDEA-87ee6f6e0a27",
+      "idea_version": "IDEAV-c7926b8790634ea9",
+      "idea_version_started_at": "2026-08-28T03:27:36Z",
+      "ticker": "OLL",
+      "company": "OLL",
+      "exchange": "ASX",
       "direction": "long",
       "pair_with": null,
-      "reason": "The acquisition of Bharat Serums and Vaccines Limited significantly expands the company's specialty pharmaceutical portfolio and market reach in high-growth therapeutic segments.",
-      "why_now": "The board approved the integration on August 26, 2026, signaling immediate commencement of the consolidation process.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-f43b1134d89e"
-      ],
-      "primary_source_event_id": "EVT-f43b1134d89e",
-      "source_headlines": [
-        "Mankind Pharma Ltd: Please find attached outcome of the Board Meeting held today, according consent of the Board of Directors of the Company for the integration of Bharat Serums and Vaccines Limited, a wholly ...."
-      ],
-      "source_headline": "Mankind Pharma Ltd: Please find attached outcome of the Board Meeting held today, according consent of the Board of Directors of the Company for the integration of Bharat Serums and Vaccines Limited, a wholly ....",
-      "source_url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/bb1e8a0a-d435-48a4-ac2e-74a395c6a105.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-26T11:13:03Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-26T17:19:45Z",
-      "updated_at": "2026-08-26T17:19:45Z",
-      "decay_at": "2026-08-27T23:13:03Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-ff642e393c3c",
-      "idea_version": "IDEAV-eaa5f0b672f19ef2",
-      "idea_version_started_at": "2026-08-26T17:19:45Z",
-      "ticker": "NITCO",
-      "company": "Nitco Limited",
-      "exchange": "BSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The joint venture with House of Abhinandan Lodha for a Rs 4,500-crore project provides a major revenue catalyst and operational scale for the company's real estate development business.",
-      "why_now": "The press release regarding the JV was issued on August 26, 2026.",
+      "reason": "The company reported strong H1 2026 results with gross profit up 64% and revenue up 43%, indicating significant operational momentum.",
+      "why_now": "The results were filed on 2026-08-28, making this a live earnings-driven catalyst.",
       "conviction": 70,
       "conviction_basis": "pre_edge_proxy",
       "trade_score": 45,
@@ -89326,49 +90042,49 @@
       "origin_type": "wire",
       "source_themes": [],
       "source_event_ids": [
-        "EVT-d1ea9cbeb12e"
+        "EVT-7dd61df7de65"
       ],
-      "primary_source_event_id": "EVT-d1ea9cbeb12e",
+      "primary_source_event_id": "EVT-7dd61df7de65",
       "source_headlines": [
-        "Nitco Limited: Nitco Limited has informed the Exchange regarding a press release dated August 26, 2026, titled \"NITCO forms JV with House of Abhinandan Lodha for Rs 4,500-crore Alibaug project\"."
+        "OLL: H1 2026 Results - Gross Profit Up 64% and Revenue Up 43% [price-sensitive]"
       ],
-      "source_headline": "Nitco Limited: Nitco Limited has informed the Exchange regarding a press release dated August 26, 2026, titled \"NITCO forms JV with House of Abhinandan Lodha for Rs 4,500-crore Alibaug project\".",
-      "source_url": "https://nsearchives.nseindia.com/corporate/NITCO_26082026173047_SE_PressRelease_HoABL.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-26T12:00:55Z",
+      "source_headline": "OLL: H1 2026 Results - Gross Profit Up 64% and Revenue Up 43% [price-sensitive]",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.OLL?key=2924-03128110-6A1340878",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 99,
+      "newest_source_at": "2026-08-28T00:01:35Z",
       "prior_coverage": {
         "has_run": false,
         "latest_run": null,
         "latest_decision": null,
         "data_pool_present": false
       },
-      "surfaced_at": "2026-08-26T17:19:45Z",
-      "updated_at": "2026-08-26T17:19:45Z",
-      "decay_at": "2026-08-28T00:00:55Z",
+      "surfaced_at": "2026-08-28T03:27:36Z",
+      "updated_at": "2026-08-28T03:27:36Z",
+      "decay_at": "2026-08-29T12:01:35Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
       "stale": true
     },
     {
-      "idea_id": "IDEA-cdd269b5c982",
-      "idea_version": "IDEAV-b1f67878e4d63fbd",
-      "idea_version_started_at": "2026-08-26T11:24:53Z",
-      "ticker": "WEB",
-      "company": "Webjet",
+      "idea_id": "IDEA-7bcadd0aa831",
+      "idea_version": "IDEAV-0c52e9320ed9604e",
+      "idea_version_started_at": "2026-08-28T02:58:58Z",
+      "ticker": "OLL.AX",
+      "company": "OLL",
       "exchange": "ASX",
       "direction": "long",
       "pair_with": null,
-      "reason": "Webjet upgraded 1H27 guidance via price-sensitive ASX filing, citing stronger booking volumes and margin improvement, directly raising near-term earnings expectations.",
-      "why_now": "Guidance upgrade filed on ASX 2026-08-26; primary source with immediate earnings revision.",
-      "conviction": 72,
+      "reason": "OLL reported H1 2026 gross profit up 64% and revenue up 43%, a strong fundamental inflection that can drive re-rating if sustained.",
+      "why_now": "Results released via ASX price-sensitive announcement on 2026-08-28; the magnitude of beat makes it a live, fresh catalyst.",
+      "conviction": 60,
       "conviction_basis": "pre_edge_proxy",
       "trade_score": 45,
       "trade_score_basis": "evidence_gate_v2",
       "trade_score_breakdown": {
         "evidence": 25,
-        "impact": 20,
+        "impact": 19,
         "specificity": 7,
         "timing": 10,
         "expression": 0,
@@ -89397,26 +90113,168 @@
       "origin_type": "wire",
       "source_themes": [],
       "source_event_ids": [
-        "EVT-d854fc898cc4"
+        "EVT-7dd61df7de65"
       ],
-      "primary_source_event_id": "EVT-d854fc898cc4",
+      "primary_source_event_id": "EVT-7dd61df7de65",
       "source_headlines": [
-        "WEB: Upgrading 1H27 guidance [price-sensitive]"
+        "OLL: H1 2026 Results - Gross Profit Up 64% and Revenue Up 43% [price-sensitive]"
       ],
-      "source_headline": "WEB: Upgrading 1H27 guidance [price-sensitive]",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.WEB?key=2924-03126688-3A699937",
+      "source_headline": "OLL: H1 2026 Results - Gross Profit Up 64% and Revenue Up 43% [price-sensitive]",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.OLL?key=2924-03128110-6A1340878",
       "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-26T08:54:27Z",
+      "materiality_max": 99,
+      "newest_source_at": "2026-08-28T00:01:35Z",
       "prior_coverage": {
         "has_run": false,
         "latest_run": null,
         "latest_decision": null,
         "data_pool_present": false
       },
-      "surfaced_at": "2026-08-26T11:24:53Z",
-      "updated_at": "2026-08-26T11:24:53Z",
-      "decay_at": "2026-08-27T20:54:27Z",
+      "surfaced_at": "2026-08-28T02:58:58Z",
+      "updated_at": "2026-08-28T02:58:58Z",
+      "decay_at": "2026-08-29T12:01:35Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-52c1133413b1",
+      "idea_version": "IDEAV-a4214a5d21d84523",
+      "idea_version_started_at": "2026-08-28T03:27:36Z",
+      "ticker": "00013",
+      "company": "HUTCHMED",
+      "exchange": "HKEX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The NMPA approval of Fanregratinib for intrahepatic cholangiocarcinoma provides a new revenue stream in a high-unmet-need oncology segment.",
+      "why_now": "The regulatory approval was announced on 2026-08-28, providing immediate commercialization potential.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 18,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-e0bc1d52b950"
+      ],
+      "primary_source_event_id": "EVT-e0bc1d52b950",
+      "source_headlines": [
+        "HUTCHMED (00013): VOLUNTARY ANNOUNCEMENT - HUTCHMED Announces NMPA Approval for ATLED (Fanregratinib) for the Treatment of Patients with FGFR2-Fusion/Rearrangement Intrahepatic Cholangiocarcinoma"
+      ],
+      "source_headline": "HUTCHMED (00013): VOLUNTARY ANNOUNCEMENT - HUTCHMED Announces NMPA Approval for ATLED (Fanregratinib) for the Treatment of Patients with FGFR2-Fusion/Rearrangement Intrahepatic Cholangiocarcinoma",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0828/2026082800127.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 97,
+      "newest_source_at": "2026-08-28T00:00:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-28T03:27:36Z",
+      "updated_at": "2026-08-28T03:27:36Z",
+      "decay_at": "2026-08-29T12:00:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-44c25bb92282",
+      "idea_version": "IDEAV-5b1a650e996c6c2a",
+      "idea_version_started_at": "2026-08-28T02:38:54Z",
+      "ticker": "00013.HK",
+      "company": "HUTCHMED",
+      "exchange": "HKEX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "HUTCHMED received NMPA approval in China for ATLED (Fanregratinib) to treat FGFR2-fusion intrahepatic cholangiocarcinoma, opening a revenue stream in a hard-to-treat cancer indication.",
+      "why_now": "Approval announced via HKEX filing on 2026-08-28; the drug can now be commercialized in China.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 18,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-e0bc1d52b950"
+      ],
+      "primary_source_event_id": "EVT-e0bc1d52b950",
+      "source_headlines": [
+        "HUTCHMED (00013): VOLUNTARY ANNOUNCEMENT - HUTCHMED Announces NMPA Approval for ATLED (Fanregratinib) for the Treatment of Patients with FGFR2-Fusion/Rearrangement Intrahepatic Cholangiocarcinoma"
+      ],
+      "source_headline": "HUTCHMED (00013): VOLUNTARY ANNOUNCEMENT - HUTCHMED Announces NMPA Approval for ATLED (Fanregratinib) for the Treatment of Patients with FGFR2-Fusion/Rearrangement Intrahepatic Cholangiocarcinoma",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0828/2026082800127.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 97,
+      "newest_source_at": "2026-08-28T00:00:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-28T02:38:54Z",
+      "updated_at": "2026-08-28T02:38:54Z",
+      "decay_at": "2026-08-29T12:00:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -89497,24 +90355,24 @@
     "schema_version": "ideas-archive/v1",
     "health": {
       "status": "ok",
-      "file_count": 164,
+      "file_count": 168,
       "suppression_count": 1,
       "corrupt_count": 0,
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 203,
-    "shown_count": 203,
+    "total_count": 212,
+    "shown_count": 212,
     "hidden_count": 0,
     "side_counts": {
       "long": {
-        "total_count": 92,
-        "shown_count": 92,
+        "total_count": 100,
+        "shown_count": 100,
         "hidden_count": 0
       },
       "short": {
-        "total_count": 111,
-        "shown_count": 111,
+        "total_count": 112,
+        "shown_count": 112,
         "hidden_count": 0
       }
     },
@@ -89535,23 +90393,23 @@
     },
     "rows": [
       {
-        "idea_id": "IDEA-017f4db87209",
-        "idea_version": "IDEAV-3a1f5029b454e5af",
-        "idea_version_started_at": "2026-08-27T23:06:02Z",
-        "ticker": "GPS",
-        "company": "Gap Inc.",
-        "exchange": "NYSE",
+        "idea_id": "IDEA-7bcadd0aa831",
+        "idea_version": "IDEAV-0c52e9320ed9604e",
+        "idea_version_started_at": "2026-08-28T02:58:58Z",
+        "ticker": "OLL.AX",
+        "company": "OLL",
+        "exchange": "ASX",
         "direction": "long",
         "pair_with": null,
-        "reason": "Gap raised its profit forecast and appointed a new Old Navy CEO, a dual catalyst that signals improving earnings momentum at its largest brand.",
-        "why_now": "Reuters reported the guidance lift and management change today (2026-08-27), and shares already jumped 14%, confirming the market is reacting in real time.",
-        "conviction": 70,
+        "reason": "OLL reported H1 2026 gross profit up 64% and revenue up 43%, a strong fundamental inflection that can drive re-rating if sustained.",
+        "why_now": "Results released via ASX price-sensitive announcement on 2026-08-28; the magnitude of beat makes it a live, fresh catalyst.",
+        "conviction": 60,
         "conviction_basis": "pre_edge_proxy",
         "trade_score": 45,
         "trade_score_basis": "evidence_gate_v2",
         "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 20,
+          "evidence": 25,
+          "impact": 19,
           "specificity": 7,
           "timing": 10,
           "expression": 0,
@@ -89562,6 +90420,597 @@
         "missing_checks": [
           "verified listed ticker",
           "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-7dd61df7de65"
+        ],
+        "primary_source_event_id": "EVT-7dd61df7de65",
+        "source_headlines": [
+          "OLL: H1 2026 Results - Gross Profit Up 64% and Revenue Up 43% [price-sensitive]"
+        ],
+        "source_headline": "OLL: H1 2026 Results - Gross Profit Up 64% and Revenue Up 43% [price-sensitive]",
+        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.OLL?key=2924-03128110-6A1340878",
+        "source_name": "ASX (Australia Exchange Filing)",
+        "materiality_max": 99,
+        "newest_source_at": "2026-08-28T00:01:35Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-28T02:58:58Z",
+        "updated_at": "2026-08-28T02:58:58Z",
+        "decay_at": "2026-08-29T12:01:35Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-29T12:01:35Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-87ee6f6e0a27",
+        "idea_version": "IDEAV-c7926b8790634ea9",
+        "idea_version_started_at": "2026-08-28T03:27:36Z",
+        "ticker": "OLL",
+        "company": "OLL",
+        "exchange": "ASX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company reported strong H1 2026 results with gross profit up 64% and revenue up 43%, indicating significant operational momentum.",
+        "why_now": "The results were filed on 2026-08-28, making this a live earnings-driven catalyst.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-7dd61df7de65"
+        ],
+        "primary_source_event_id": "EVT-7dd61df7de65",
+        "source_headlines": [
+          "OLL: H1 2026 Results - Gross Profit Up 64% and Revenue Up 43% [price-sensitive]"
+        ],
+        "source_headline": "OLL: H1 2026 Results - Gross Profit Up 64% and Revenue Up 43% [price-sensitive]",
+        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.OLL?key=2924-03128110-6A1340878",
+        "source_name": "ASX (Australia Exchange Filing)",
+        "materiality_max": 99,
+        "newest_source_at": "2026-08-28T00:01:35Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-28T03:27:36Z",
+        "updated_at": "2026-08-28T03:27:36Z",
+        "decay_at": "2026-08-29T12:01:35Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-29T12:01:35Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-44c25bb92282",
+        "idea_version": "IDEAV-5b1a650e996c6c2a",
+        "idea_version_started_at": "2026-08-28T02:38:54Z",
+        "ticker": "00013.HK",
+        "company": "HUTCHMED",
+        "exchange": "HKEX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "HUTCHMED received NMPA approval in China for ATLED (Fanregratinib) to treat FGFR2-fusion intrahepatic cholangiocarcinoma, opening a revenue stream in a hard-to-treat cancer indication.",
+        "why_now": "Approval announced via HKEX filing on 2026-08-28; the drug can now be commercialized in China.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 18,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-e0bc1d52b950"
+        ],
+        "primary_source_event_id": "EVT-e0bc1d52b950",
+        "source_headlines": [
+          "HUTCHMED (00013): VOLUNTARY ANNOUNCEMENT - HUTCHMED Announces NMPA Approval for ATLED (Fanregratinib) for the Treatment of Patients with FGFR2-Fusion/Rearrangement Intrahepatic Cholangiocarcinoma"
+        ],
+        "source_headline": "HUTCHMED (00013): VOLUNTARY ANNOUNCEMENT - HUTCHMED Announces NMPA Approval for ATLED (Fanregratinib) for the Treatment of Patients with FGFR2-Fusion/Rearrangement Intrahepatic Cholangiocarcinoma",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0828/2026082800127.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 97,
+        "newest_source_at": "2026-08-28T00:00:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-28T02:38:54Z",
+        "updated_at": "2026-08-28T02:38:54Z",
+        "decay_at": "2026-08-29T12:00:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-29T12:00:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-52c1133413b1",
+        "idea_version": "IDEAV-a4214a5d21d84523",
+        "idea_version_started_at": "2026-08-28T03:27:36Z",
+        "ticker": "00013",
+        "company": "HUTCHMED",
+        "exchange": "HKEX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The NMPA approval of Fanregratinib for intrahepatic cholangiocarcinoma provides a new revenue stream in a high-unmet-need oncology segment.",
+        "why_now": "The regulatory approval was announced on 2026-08-28, providing immediate commercialization potential.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 18,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-e0bc1d52b950"
+        ],
+        "primary_source_event_id": "EVT-e0bc1d52b950",
+        "source_headlines": [
+          "HUTCHMED (00013): VOLUNTARY ANNOUNCEMENT - HUTCHMED Announces NMPA Approval for ATLED (Fanregratinib) for the Treatment of Patients with FGFR2-Fusion/Rearrangement Intrahepatic Cholangiocarcinoma"
+        ],
+        "source_headline": "HUTCHMED (00013): VOLUNTARY ANNOUNCEMENT - HUTCHMED Announces NMPA Approval for ATLED (Fanregratinib) for the Treatment of Patients with FGFR2-Fusion/Rearrangement Intrahepatic Cholangiocarcinoma",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0828/2026082800127.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 97,
+        "newest_source_at": "2026-08-28T00:00:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-28T03:27:36Z",
+        "updated_at": "2026-08-28T03:27:36Z",
+        "decay_at": "2026-08-29T12:00:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-29T12:00:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-3d29191d07b1",
+        "idea_version": "IDEAV-f8810176db6f3b69",
+        "idea_version_started_at": "2026-08-28T00:58:50Z",
+        "ticker": "00177.HK",
+        "company": "Jiangsu Expressway",
+        "exchange": "HKEX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Jiangsu Expressway is acquiring 100% of Suxichang South Expressway, adding toll-road cash flows in a connected transaction.",
+        "why_now": "HKEX progress announcement on 2026-08-27 confirms the acquisition is advancing.",
+        "conviction": 55,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "price and market expectations",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "unknown",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-a481930cadfb"
+        ],
+        "primary_source_event_id": "EVT-a481930cadfb",
+        "source_headlines": [
+          "JIANGSU EXPRESS (00177): PROGRESS ANNOUNCEMENT - DISCLOSEABLE AND CONNECTED TRANSACTION - CASH ACQUISITION OF 100% EQUITY INTERESTS IN SUXICHANG SOUTH EXPRESSWAY COMPANY AND CONTINUING CONNECTED TRANSACTIONS UPON COMPLETION"
+        ],
+        "source_headline": "JIANGSU EXPRESS (00177): PROGRESS ANNOUNCEMENT - DISCLOSEABLE AND CONNECTED TRANSACTION - CASH ACQUISITION OF 100% EQUITY INTERESTS IN SUXICHANG SOUTH EXPRESSWAY COMPANY AND CONTINUING CONNECTED TRANSACTIONS UPON COMPLETION",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0828/2026082800113.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-27T23:47:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-28T00:58:50Z",
+        "updated_at": "2026-08-28T00:58:50Z",
+        "decay_at": "2026-08-29T11:47:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-29T11:47:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-81985a64918c",
+        "idea_version": "IDEAV-f2537097bb948e9a",
+        "idea_version_started_at": "2026-08-28T00:58:50Z",
+        "ticker": "09606.HK",
+        "company": "DualityBio",
+        "exchange": "HKEX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "DualityBio signed a global R&D collaboration and license agreement with Genentech to develop next-generation ADCs using its DUPAC platform, bringing potential milestone payments and royalties.",
+        "why_now": "HKEX filing announced the deal on 2026-08-27.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-1db28d8096bb"
+        ],
+        "primary_source_event_id": "EVT-1db28d8096bb",
+        "source_headlines": [
+          "DUALITYBIO-B (09606): INSIDE INFORMATION - GLOBAL RESEARCH AND DEVELOPMENT COLLABORATION AND LICENSE AGREEMENT WITH GENENTECH, INC. TO DEVELOP NEXT-GENERATION ADCS BUILT ON THE COMPANY'S DUPAC NOVEL-PAYLOAD PLATFORM"
+        ],
+        "source_headline": "DUALITYBIO-B (09606): INSIDE INFORMATION - GLOBAL RESEARCH AND DEVELOPMENT COLLABORATION AND LICENSE AGREEMENT WITH GENENTECH, INC. TO DEVELOP NEXT-GENERATION ADCS BUILT ON THE COMPANY'S DUPAC NOVEL-PAYLOAD PLATFORM",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0828/2026082800097.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-27T23:18:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-28T00:58:50Z",
+        "updated_at": "2026-08-28T00:58:50Z",
+        "decay_at": "2026-08-29T11:18:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-29T11:18:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-921ce28082df",
+        "idea_version": "IDEAV-d5320931a7b63b8c",
+        "idea_version_started_at": "2026-08-28T00:35:47Z",
+        "ticker": "09606",
+        "company": "DualityBio",
+        "exchange": "HKEX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "DualityBio signed a global R&D collaboration and license agreement with Genentech to develop next-generation ADCs on its DUPAC platform, validating technology and creating revenue optionality.",
+        "why_now": "Inside information filing 2026-08-27 announcing the Genentech deal; fresh commercial catalyst.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-1db28d8096bb"
+        ],
+        "primary_source_event_id": "EVT-1db28d8096bb",
+        "source_headlines": [
+          "DUALITYBIO-B (09606): INSIDE INFORMATION - GLOBAL RESEARCH AND DEVELOPMENT COLLABORATION AND LICENSE AGREEMENT WITH GENENTECH, INC. TO DEVELOP NEXT-GENERATION ADCS BUILT ON THE COMPANY'S DUPAC NOVEL-PAYLOAD PLATFORM"
+        ],
+        "source_headline": "DUALITYBIO-B (09606): INSIDE INFORMATION - GLOBAL RESEARCH AND DEVELOPMENT COLLABORATION AND LICENSE AGREEMENT WITH GENENTECH, INC. TO DEVELOP NEXT-GENERATION ADCS BUILT ON THE COMPANY'S DUPAC NOVEL-PAYLOAD PLATFORM",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0828/2026082800097.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-27T23:18:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-28T00:35:47Z",
+        "updated_at": "2026-08-28T00:35:47Z",
+        "decay_at": "2026-08-29T11:18:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-29T11:18:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-728d9c6bfb69",
+        "idea_version": "IDEAV-c7f0f3f91317bddd",
+        "idea_version_started_at": "2026-08-28T00:35:47Z",
+        "ticker": "HRL",
+        "company": "Hormel Foods",
+        "exchange": "NYSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "Hormel Foods stock dropped 10% on earnings miss, indicating near-term demand or margin pressure.",
+        "why_now": "Motley Fool article 2026-08-27 citing today's 10% drop on earnings; fresh negative catalyst.",
+        "conviction": 50,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 55,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-863190b3dfa2"
+        ],
+        "primary_source_event_id": "EVT-863190b3dfa2",
+        "source_headlines": [
+          "Why Hormel Foods Stock Swooned by 10% Today"
+        ],
+        "source_headline": "Why Hormel Foods Stock Swooned by 10% Today",
+        "source_url": "https://www.fool.com/investing/2026/08/27/why-hormel-foods-stock-swooned-by-10-today/?source=iedfolrf0000001",
+        "source_name": "The Motley Fool",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-27T23:16:05Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-27T13:17:25Z",
+        "updated_at": "2026-08-28T00:35:47Z",
+        "decay_at": "2026-08-29T11:16:05Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-29T11:16:05Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-07f356ae2f72",
+        "idea_version": "IDEAV-2852798c36e76c64",
+        "idea_version_started_at": "2026-08-27T23:55:54Z",
+        "ticker": "MRVL",
+        "company": "Marvell Technology",
+        "exchange": "NASDAQ",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Marvell lifted long-term financial targets as AI demand boosted Q2 profit and revenue, indicating sustained secular growth in data-center silicon.",
+        "why_now": "Q2 results and raised guidance published Aug 27, 2026.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 62,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
           "live liquidity",
           "dated catalyst",
           "independent confirmation",
@@ -89581,31 +91030,177 @@
         "origin_type": "wire",
         "source_themes": [],
         "source_event_ids": [
-          "EVT-060601716155"
+          "EVT-34ed04ec3977"
         ],
-        "primary_source_event_id": "EVT-060601716155",
+        "primary_source_event_id": "EVT-34ed04ec3977",
         "source_headlines": [
-          "Gap names new Old Navy CEO and lifts profit forecast, shares jump 14%"
+          "Marvell Lifts Long-Term Targets as AI Demand Boosts Second-Quarter Profit, Revenue"
         ],
-        "source_headline": "Gap names new Old Navy CEO and lifts profit forecast, shares jump 14%",
-        "source_url": "https://www.reuters.com/business/retail-consumer/gap-lifts-annual-profit-forecast-strength-namesake-brand-2026-08-27/",
-        "source_name": "Reuters — Latest (news sitemap)",
+        "source_headline": "Marvell Lifts Long-Term Targets as AI Demand Boosts Second-Quarter Profit, Revenue",
+        "source_url": "https://www.wsj.com/business/earnings/marvell-sees-accelerating-growth-as-ai-demand-boosts-second-quarter-profit-revenue-786b8c74?mod=pls_whats_news_us_business_f",
+        "source_name": "The Wall Street Journal",
         "materiality_max": 100,
-        "newest_source_at": "2026-08-27T21:15:48Z",
+        "newest_source_at": "2026-08-27T22:39:00Z",
         "prior_coverage": {
           "has_run": false,
           "latest_run": null,
           "latest_decision": null,
           "data_pool_present": false
         },
-        "surfaced_at": "2026-08-27T23:06:02Z",
-        "updated_at": "2026-08-27T23:06:02Z",
-        "decay_at": "2026-08-29T09:15:48Z",
+        "surfaced_at": "2026-08-27T23:55:54Z",
+        "updated_at": "2026-08-27T23:55:54Z",
+        "decay_at": "2026-08-29T10:39:00Z",
         "status": "expired",
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-08-29T09:15:48Z",
+        "archived_at": "2026-08-29T10:39:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-2bb5da7548bc",
+        "idea_version": "IDEAV-5d7a00b11f55bac8",
+        "idea_version_started_at": "2026-08-28T00:35:47Z",
+        "ticker": "WDAY",
+        "company": "Workday",
+        "exchange": "NASDAQ",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Workday reported revenue growth and flagged strong AI uptake, suggesting product cycle acceleration and pricing power.",
+        "why_now": "Reuters report 2026-08-27 on earnings release with AI commentary; live catalyst.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 62,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-4135ecd7abf8"
+        ],
+        "primary_source_event_id": "EVT-4135ecd7abf8",
+        "source_headlines": [
+          "HR software firm Workday reports revenue rise, flags strong AI uptake"
+        ],
+        "source_headline": "HR software firm Workday reports revenue rise, flags strong AI uptake",
+        "source_url": "https://www.reuters.com/business/workday-beats-second-quarter-revenue-estimates-2026-08-27/",
+        "source_name": "Reuters — Latest (news sitemap)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-27T22:33:54Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-28T00:35:47Z",
+        "updated_at": "2026-08-28T00:35:47Z",
+        "decay_at": "2026-08-29T10:33:54Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-29T10:33:54Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-1604e5b6569e",
+        "idea_version": "IDEAV-a0fcf8bc22993918",
+        "idea_version_started_at": "2026-08-27T23:25:23Z",
+        "ticker": "CRM",
+        "company": "Salesforce Inc",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Salesforce reported a 23% surge following a strong Q2 earnings beat and a strategic partnership with Anthropic, which enhances its AI capabilities.",
+        "why_now": "The market reaction occurred on August 27, 2026, following the earnings release and partnership announcement.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 62,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-2f4bc2395022"
+        ],
+        "primary_source_event_id": "EVT-2f4bc2395022",
+        "source_headlines": [
+          "Stock Market Today, Aug. 27: Salesforce Surges 23% on Anthropic Partnership and Q2 Earnings Beat"
+        ],
+        "source_headline": "Stock Market Today, Aug. 27: Salesforce Surges 23% on Anthropic Partnership and Q2 Earnings Beat",
+        "source_url": "https://www.nasdaq.com/articles/stock-market-today-aug-27-salesforce-surges-23-anthropic-partnership-and-q2-earnings-beat",
+        "source_name": "Nasdaq",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-27T21:47:47Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-26T21:03:32Z",
+        "updated_at": "2026-08-27T23:25:23Z",
+        "decay_at": "2026-08-29T09:47:47Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-29T09:47:47Z",
         "archive_reason": "expired",
         "audit_only": true
       },
@@ -89755,82 +91350,6 @@
         "feedback": null,
         "stale": true,
         "archived_at": "2026-08-29T08:27:00Z",
-        "archive_reason": "expired",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-90b902d53889",
-        "idea_version": "IDEAV-2c04e7b677388d2c",
-        "idea_version_started_at": "2026-08-28T03:48:03Z",
-        "ticker": "NVDA",
-        "company": "Nvidia",
-        "exchange": "NASDAQ",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Nvidia's guidance for 70% sales growth next year and the rapid ramp of the $20 billion Vera Rubin system indicate that AI infrastructure demand remains significantly ahead of market expectations.",
-        "why_now": "The earnings and guidance update were released on 2026-08-27.",
-        "conviction": 85,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 62,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 6,
-          "corroboration": 10,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-062a06d26ebd",
-          "EVT-2048141fb835",
-          "EVT-6273298eef03"
-        ],
-        "primary_source_event_id": "EVT-062a06d26ebd",
-        "source_headlines": [
-          "Nvidia Stock Jumps On Bullish Quarterly Report, Outlook",
-          "Nvidia expects to sell $20 billion of Vera Rubin systems in Q3 as shipments begin — figure would account for 20% of its data center revenue mix, marks fastest ramp in company history",
-          "Nvidia Sees AI-Fueled Demand Boosting Sales 70% Next Year"
-        ],
-        "source_headline": "Nvidia Stock Jumps On Bullish Quarterly Report, Outlook",
-        "source_url": "https://www.investors.com/news/technology/nvidia-stock-jumps-on-bullish-quarterly-report-outlook/?src=A00220&yptr=yahoo",
-        "source_name": "Yahoo Finance",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-27T15:33:14Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-27T03:27:43Z",
-        "updated_at": "2026-08-28T03:48:03Z",
-        "decay_at": "2026-08-29T03:33:14Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-08-29T03:33:14Z",
         "archive_reason": "expired",
         "audit_only": true
       },
@@ -92276,8 +93795,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-08-28T00:00:55Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-08-29T12:04:55Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -92350,8 +93869,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-08-27T23:13:03Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-08-29T11:14:03Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -92422,8 +93941,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-08-27T22:09:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-08-29T10:43:36Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -92496,8 +94015,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-08-27T20:54:27Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-08-29T09:43:44Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -104588,8 +106107,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 221,
-    "live_count": 16,
+    "surfaced_total": 237,
+    "live_count": 23,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -104608,9 +106127,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 584000,
-    "news_picked_today": 1172,
-    "news_dropped_today": 4120
+    "news_seen_today": 586036,
+    "news_picked_today": 1395,
+    "news_dropped_today": 5868
   },
   "book_momentum": {
     "live_count": 8,

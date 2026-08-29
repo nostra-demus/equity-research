@@ -9,6 +9,7 @@ import { useGlobeColors } from './useGlobeColors'
 import { useNodeInteractions } from '../useNodeInteractions'
 import { AgentTooltip } from '../../AgentTooltip'
 import { ModuleReportPopup } from '../ModuleReportPopup'
+import { projectRunActivity } from '../../../lib/runActivityProjection'
 
 // The lazy-loaded host for the 3D globe — this file pulls in three.js (via @react-three/fiber), so it (and
 // GlobeScene) are the chunk that only downloads when the globe is opened. It owns the <Canvas> plus the DOM
@@ -22,6 +23,9 @@ export default function GlobeStage() {
   const selectedTicker = useStore((s) => s.selectedTicker)
   const nodeStatus = useStore((s) => s.nodeStatus)
   const nodeRuntime = useStore((s) => s.nodeRuntime)
+  const activeRuns = useStore((s) => s.activeRuns)
+  const resumableRuns = useStore((s) => s.resumableRuns)
+  const activeSwarm = useStore((s) => s.activeSwarm)
   const dataStatus = useStore((s) => s.dataStatus)
   const now = useStore((s) => s.now)
   const setNow = useStore((s) => s.setNow)
@@ -34,7 +38,14 @@ export default function GlobeStage() {
 
   // the shared 1s clock (same as SwarmField) — ticks only while a run is live, so the tooltip's elapsed/ETA
   // line and any time-based readouts stay current. Smooth orb pulses use the render clock, not this.
-  const anyLive = useMemo(() => Object.values(nodeRuntime).some((v) => v.status === 'running' || v.status === 'queued'), [nodeRuntime])
+  const runActivity = useMemo(() => projectRunActivity({
+    subject: selectedTicker,
+    swarm: activeSwarm,
+    nodeRuntime,
+    activeRuns,
+    resumableRuns,
+  }), [selectedTicker, activeSwarm, nodeRuntime, activeRuns, resumableRuns])
+  const anyLive = runActivity.activeModules.size > 0
   useEffect(() => {
     if (!anyLive) return
     setNow(Date.now())
@@ -121,6 +132,7 @@ export default function GlobeStage() {
         <AgentTooltip
           node={hover.node}
           status={nodeStatus(hover.node.key)}
+          paused={runActivity.pausedKeys.has(hover.node.key)}
           verdict={nodeRuntime[hover.node.key]?.verdict}
           startedAt={nodeRuntime[hover.node.key]?.startedAt}
           endedAt={nodeRuntime[hover.node.key]?.endedAt}

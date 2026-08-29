@@ -3425,6 +3425,7 @@ export interface TaskCard {
   task_id: string
   scope: TaskScope
   ticker: string | null
+  ticker_label: string | null
   subject: string
   title: string
   stage: TaskStage
