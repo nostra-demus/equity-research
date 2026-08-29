@@ -63,4 +63,15 @@ const noPathLeak = createDataScanCoordinator(async () => {
 await assert.rejects(noPathLeak.run('NU'))
 assert.equal(noPathLeak.current('NU')?.error, 'The data scan stopped.')
 
+const invalidMetrics = createDataScanCoordinator(async (ticker, progress) => {
+  progress({ stage: 'reading', completed: 1, total: 2, currentFile: 'one.pdf' })
+  progress({ stage: 'reading', completed: Number.NaN, total: Number.MAX_VALUE, currentFile: 'two.pdf' })
+  progress({ stage: 'checking', completed: 2, total: 2, currentFile: null })
+  return status(ticker)
+})
+const invalidSeen: Array<[number, number]> = []
+invalidMetrics.subscribe((frame) => invalidSeen.push([frame.completed, frame.total]))
+await invalidMetrics.run('NU')
+assert.equal(invalidSeen.some(([completed, total]) => !Number.isSafeInteger(completed) || !Number.isSafeInteger(total)), false)
+
 console.log('data-scan-progress.test.ts: reconnect, failure, retry, and exact-file progress passed')

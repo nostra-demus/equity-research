@@ -12,6 +12,15 @@ export interface DataScanUpdate {
 export type DataAnalyzer = (ticker: string, progress: (update: DataScanUpdate) => void) => Promise<DataStatus>
 type Listener = (progress: DataScanProgress) => void
 
+function normalizeProgressMetrics(current: DataScanProgress, next: DataScanUpdate): { completed: number; total: number } {
+  if (!Number.isSafeInteger(next.completed) || next.completed < 0
+      || !Number.isSafeInteger(next.total) || next.total < 0 || next.completed > next.total) {
+    return { completed: current.completed, total: current.total }
+  }
+  const total = Math.max(current.total, next.total)
+  return { completed: Math.max(current.completed, Math.min(next.completed, total)), total }
+}
+
 // The browser request is not the lifetime of a scan. Keeping the single in-flight promise here means a
 // refresh/reconnect attaches to the same work rather than starting 109 file reads again. The last snapshot
 // is retained so a reconnected SSE client immediately knows exactly where the scan is.
@@ -50,8 +59,8 @@ export function createDataScanCoordinator(analyzer: DataAnalyzer = analyzeTicker
     const update = (next: DataScanUpdate): void => {
       // File completion may only move forward within one scan. This also protects the progress bar from
       // jumping backwards if a future extractor reports late asynchronous detail.
-      const completed = Math.max(current.completed, Math.min(next.completed, Math.max(next.total, next.completed)))
-      current = { ...current, ...next, completed, error: null, updatedAt: Date.now() }
+      const metrics = normalizeProgressMetrics(current, next)
+      current = { ...current, ...next, ...metrics, error: null, updatedAt: Date.now() }
       publish(current)
     }
 

@@ -1105,14 +1105,15 @@ export async function analyzeTicker(ticker: string, onProgress?: (update: DataSc
   let completed = 0
   progress({ stage: 'reading', completed, total, currentFile: null })
   for (const rel of rels) {
-    progress({ stage: 'reading', completed, total, currentFile: rel.split(path.sep).join('/') })
+    const display = rel.split(path.sep).join('/')
+    progress({ stage: 'reading', completed, total, currentFile: display })
     try {
       files.push(await classifyFile(dir, rel))
     } catch (cause) {
-      throw new Error(`Could not read ${rel.split(path.sep).join('/')}.`, { cause })
+      throw new Error(`Could not read ${display}.`, { cause })
     }
     completed += 1
-    progress({ stage: 'reading', completed, total, currentFile: completed < total ? null : rel.split(path.sep).join('/') })
+    progress({ stage: 'reading', completed, total, currentFile: completed < total ? null : display })
   }
   // externally ingested research (data/<T>/external/**) — listed with provenance, readiness-neutral
   for (const rel of externalRels) {

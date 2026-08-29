@@ -1041,7 +1041,7 @@ export const api = {
       if (read.status === 'ready' && read.data) return read.data
       if (read.status === 'failed') throw new Error(read.progress?.error || 'The data scan stopped.')
       await new Promise<void>((resolve, reject) => {
-        const onAbort = () => { clearTimeout(timer); reject(signal?.reason) }
+        const onAbort = () => { clearTimeout(timer); reject(signal?.reason || new DOMException('The operation was aborted.', 'AbortError')) }
         const timer = setTimeout(() => { signal?.removeEventListener('abort', onAbort); resolve() }, 750)
         if (signal?.aborted) { clearTimeout(timer); reject(signal.reason); return }
         signal?.addEventListener('abort', onAbort, { once: true })
