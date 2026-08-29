@@ -4,6 +4,7 @@ import { Uploader } from './Uploader'
 import { DataCoverage } from './DataCoverage'
 import { CompanyPicker } from './CompanyPicker'
 import { SubjectPicker } from './SubjectPicker'
+import { dataScanCopy, dataScanPercent } from '../lib/dataScan'
 
 // Single source of truth for "what's going on with this ticker's data" — so the cockpit is never a
 // silent black box. Covers: nothing selected yet (the cockpit no longer auto-selects), unusable folder
@@ -14,6 +15,8 @@ export function DataUploadEmptyState() {
   const activeSwarm = useStore((s) => s.activeSwarm)
   const dataStatus = useStore((s) => s.dataStatus)
   const dataLoading = useStore((s) => s.dataLoading)
+  const dataScan = useStore((s) => s.dataScan)
+  const refreshData = useStore((s) => s.refreshData)
   const emptyState = useStore((s) => s.emptyState)
   const tickers = useStore((s) => s.tickers)
   const driveEnabled = useStore((s) => s.driveEnabled)
@@ -32,7 +35,11 @@ export function DataUploadEmptyState() {
   const invalid = !!selectedTicker && sel?.valid === false
   const hasData = !!dataStatus?.hasAnyData
   const syncing = !!selectedTicker && !invalid && !!sel?.syncing && !hasData
-  const reading = !!selectedTicker && !invalid && !syncing && dataLoading && !dataStatus
+  const selectedScan = dataScan?.ticker === selectedTicker ? dataScan : null
+  const scanActive = !!selectedScan && ['finding', 'reading', 'checking'].includes(selectedScan.stage)
+  const scanFailed = selectedScan?.stage === 'failed'
+  const scanDone = selectedScan?.stage === 'ready' && !dataStatus
+  const reading = !!selectedTicker && !invalid && !syncing && !dataStatus && (dataLoading || scanActive || scanDone)
   const tickerNoData = !!selectedTicker && !invalid && !!dataStatus && !hasData
   // Show the source-document upload guide (all unmet) whenever the engine has NO data to work with —
   // a selected-but-empty ticker (its per-ticker coverage) OR zero ticker folders at all (defaultCoverage
@@ -41,7 +48,7 @@ export function DataUploadEmptyState() {
   const guideCoverage = dataStatus?.coverage?.length ? dataStatus.coverage : defaultCoverage
   const showGuide = (tickerNoData || noTickers) && !!guideCoverage?.length
 
-  if (!noTickers && !noSelection && !invalid && !syncing && !reading && !tickerNoData) return null
+  if (!noTickers && !noSelection && !invalid && !syncing && !reading && !scanFailed && !tickerNoData) return null
 
   // Companies exist but none chosen → the in-stage company picker (search-first, keyboard-driven), so the
   // user selects right here instead of hunting to the top-right menu. Other states keep the guidance card.
@@ -87,16 +94,18 @@ export function DataUploadEmptyState() {
       </>
     )
     foot = <><span className="pulsedot" /> watching Google Drive · live</>
+  } else if (scanFailed) {
+    icon = 'warn'
+    title = 'Reading stopped'
+    body = <>{selectedScan?.error || 'The files could not be read.'}</>
+    foot = <><span className="empty__warndot" /> nothing was hidden — try the scan again</>
+    actions = <button className="empty__btn" onClick={() => void refreshData()}>Try again</button>
   } else if (reading) {
     icon = 'sync'
-    title = `Reading ${selectedTicker}’s files…`
-    body = (
-      <>
-        Classifying {count > 0 ? `${count} file${count === 1 ? '' : 's'}` : 'the files'} (filings, transcripts, Capital IQ exports) and checking each module’s readiness.
-        {' '}First load from Google Drive can take a moment; results appear as soon as it finishes.
-      </>
-    )
-    foot = <><span className="pulsedot" /> reading & classifying…</>
+    const copy = selectedScan ? dataScanCopy(selectedScan) : null
+    title = copy?.title || `Reading ${selectedTicker}’s files`
+    body = <>{copy?.detail || `Starting ${count || 'the'} file${count === 1 ? '' : 's'}…`}</>
+    foot = <><span className="pulsedot" /> {selectedScan?.stage === 'checking' ? 'files read' : `${selectedScan?.completed ?? 0} of ${selectedScan?.total || count || '?'} complete`}</>
   } else if (tickerNoData) {
     icon = 'upload'
     title = `No data for ${selectedTicker} yet`
@@ -120,8 +129,8 @@ export function DataUploadEmptyState() {
 
   return (
     <div className="empty">
-      <motion.div className={`empty__card${invalid ? ' empty__card--warn' : ''}`} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3 }}>
-        <div className={`empty__icon${invalid ? ' empty__icon--warn' : ''}`}>
+      <motion.div className={`empty__card${invalid || scanFailed ? ' empty__card--warn' : ''}`} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3 }}>
+        <div className={`empty__icon${invalid || scanFailed ? ' empty__icon--warn' : ''}`}>
           {icon === 'warn' ? (
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M12 9v4m0 4h.01M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z" /></svg>
           ) : icon === 'sync' ? (
@@ -132,6 +141,19 @@ export function DataUploadEmptyState() {
         </div>
         <div className="empty__title">{title}</div>
         {showGuide ? <DataCoverage coverage={guideCoverage} mode="guide" /> : <div className="empty__body">{body}</div>}
+        {reading && selectedScan && (
+          <>
+            <div className="empty__progress" role="progressbar" aria-label={title} aria-valuemin={0} aria-valuemax={100} aria-valuenow={dataScanPercent(selectedScan)}>
+              <span style={{ width: `${dataScanPercent(selectedScan)}%` }} />
+            </div>
+            <div className="empty__steps" data-stage={selectedScan.stage}>
+              <span data-done={selectedScan.stage !== 'finding'} data-active={selectedScan.stage === 'finding'}>Find</span>
+              <span data-done={['checking', 'ready'].includes(selectedScan.stage)} data-active={selectedScan.stage === 'reading'}>Read</span>
+              <span data-done={selectedScan.stage === 'ready'} data-active={selectedScan.stage === 'checking'}>Check</span>
+              <span data-active={selectedScan.stage === 'ready'}>Ready</span>
+            </div>
+          </>
+        )}
         {actions && <div className="empty__actions">{actions}</div>}
         {dir && <div className="empty__path">{dir}</div>}
         <div className="empty__watch">{foot}</div>

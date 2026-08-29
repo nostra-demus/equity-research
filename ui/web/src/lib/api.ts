@@ -12,7 +12,7 @@ import { publishedPaperExecutionResult } from './paperPortfolioView'
 import { retryTaskPlanning } from './taskPlanning'
 import { CHAT_MODELS, chatModelsReadAfterFailure, normalizeChatModelsRead, type ChatModelsRead } from './chatModels'
 import { normalizeProvidersRead, normalizeProviderStatus, providerCatalogForError, providerCatalogUnknown, providerLaunchFields, type FrozenProviderLaunch, type ProviderExecutionProfile, type ProvidersRead, type RunProvider } from './provider'
-import type { ActivityQuery, ActivityResult, AddPipelineSourceInput, BuildStep, CallsResult, ChatComputed, ChatConversationDetail, ChatListQuery, ChatListResult, ChatRequest, ChatScopes, CockpitFeedbackCategory, CockpitFeedbackStatus, CockpitFeedbackView, CompletedChatTurn, ContinuationPlanReceipt, CoverageGroup, DataNeedsRead, DataNeedUploadRead, DataStatus, DiscoveredFeed, EventEnrichment, EventResearchLink, FeedbackRecord, FeedbackSubmitInput, FeedbackSummary, FeedbackType, FeedItem, IbkrPaperPortfolioRead, IntakePlan, IntensityStats, IntensityWindow, LaunchableRunKind, LaunchPreflight, MemoryRead, MemoryRuntimeRead, NewCompanyInput, NewsChatEvidence, NewsChatReceipt, NewsChatRequest, NewsCycle, NewsDiagnostics, NewsStatus, PaperExecutionResult, PendingAdmission, PipelineAuditEvent, PipelineTrend, PipelineView, QuoteRead, PortfolioManualInput, PortfolioManualRead, PortfolioLiveMark, PortfolioOverrides, PortfolioRead, PortfolioUploadResult, ResumableRunInfo, RunHistoryEntry, RunKind, ScanVerdict, ScreenerBoard, SignalIntakeInput, SignalState, SourcesReport, SwarmGraph, SwarmMeta, SwarmSubjectSummary, ThesisPlan, TickerSummary, UploadResult, Usage, WhatChangedRead, Whoami } from './types'
+import type { ActivityQuery, ActivityResult, AddPipelineSourceInput, BuildStep, CallsResult, ChatComputed, ChatConversationDetail, ChatListQuery, ChatListResult, ChatRequest, ChatScopes, CockpitFeedbackCategory, CockpitFeedbackStatus, CockpitFeedbackView, CompletedChatTurn, ContinuationPlanReceipt, CoverageGroup, DataNeedsRead, DataNeedUploadRead, DataScanProgress, DataStatus, DiscoveredFeed, EventEnrichment, EventResearchLink, FeedbackRecord, FeedbackSubmitInput, FeedbackSummary, FeedbackType, FeedItem, IbkrPaperPortfolioRead, IntakePlan, IntensityStats, IntensityWindow, LaunchableRunKind, LaunchPreflight, MemoryRead, MemoryRuntimeRead, NewCompanyInput, NewsChatEvidence, NewsChatReceipt, NewsChatRequest, NewsCycle, NewsDiagnostics, NewsStatus, PaperExecutionResult, PendingAdmission, PipelineAuditEvent, PipelineTrend, PipelineView, QuoteRead, PortfolioManualInput, PortfolioManualRead, PortfolioLiveMark, PortfolioOverrides, PortfolioRead, PortfolioUploadResult, ResumableRunInfo, RunHistoryEntry, RunKind, ScanVerdict, ScreenerBoard, SignalIntakeInput, SignalState, SourcesReport, SwarmGraph, SwarmMeta, SwarmSubjectSummary, ThesisPlan, TickerSummary, UploadResult, Usage, WhatChangedRead, Whoami } from './types'
 
 // Vite supplies `import.meta.env` in the app; standalone tsx regression tests do not.
 const BASE = import.meta.env?.BASE_URL || '/'
@@ -205,8 +205,9 @@ export function snapshotGeneratedAt(): string | null {
 // whole UI at "connecting". AbortSignal.timeout makes a hang a bounded failure the caller can retry —
 // the same pattern the enrich call already uses. Default ~15s covers a cold engine + the tunnel hop +
 // heavy JSON; pass a shorter budget for small, frequently-polled endpoints (e.g. news status).
-async function get<T>(url: string, timeoutMs = 15_000): Promise<T> {
-  const r = await fetch(url, { signal: AbortSignal.timeout(timeoutMs) })
+async function get<T>(url: string, timeoutMs = 15_000, signal?: AbortSignal): Promise<T> {
+  const timeout = AbortSignal.timeout(timeoutMs)
+  const r = await fetch(url, { signal: signal ? AbortSignal.any([signal, timeout]) : timeout })
   // Carry the status on the error (as post() already does) so a caller can tell "this doesn't exist yet"
   // (404) from "the engine is broken/unreachable" (500, timeout) instead of guessing from the message.
   if (!r.ok) throw Object.assign(new Error(`${r.status} ${url}`), { status: r.status })
@@ -1023,9 +1024,34 @@ export const api = {
     if ((await ensureMode()) === 'static') return { window, from: null, to: new Date().toISOString(), scans: 0, totalFetched: 0, ratePerSec: 0, byTier: {}, hourly: [] }
     return get(`/api/screener/intensity?window=${encodeURIComponent(window)}`)
   },
-  dataStatus: async (ticker: string): Promise<DataStatus> => {
+  dataStatus: async (ticker: string, signal?: AbortSignal, onProgress?: (progress: DataScanProgress) => void): Promise<DataStatus> => {
     if ((await ensureMode()) === 'static') return snap.dataStatus[ticker] || { ticker, hasAnyData: false, fileCount: 0, files: [], recentByType: {}, modules: {}, coverage: [], overallReady: false, dataDir: snap.dataDir }
-    return get(`/api/data-status/${encodeURIComponent(ticker)}`)
+    const encoded = encodeURIComponent(ticker)
+    const started = await post<{ progress: DataScanProgress | null }>(`/api/data-status/${encoded}/scan`, undefined, 8_000, signal)
+    if (started.progress) onProgress?.(started.progress)
+    // Poll small snapshots instead of holding one fragile request open for an entire cold Drive scan.
+    // The SSE carries live progress; this loop only retrieves the final result for the store.
+    for (;;) {
+      const read = await get<{
+        status: 'not_started' | 'running' | 'ready' | 'failed'
+        progress: DataScanProgress | null
+        data: DataStatus | null
+      }>(`/api/data-status/${encoded}/result`, 8_000, signal)
+      if (read.progress) onProgress?.(read.progress)
+      if (read.status === 'ready' && read.data) return read.data
+      if (read.status === 'failed') throw new Error(read.progress?.error || 'The data scan stopped.')
+      await new Promise<void>((resolve, reject) => {
+        const onAbort = () => { clearTimeout(timer); reject(signal?.reason) }
+        const timer = setTimeout(() => { signal?.removeEventListener('abort', onAbort); resolve() }, 750)
+        if (signal?.aborted) { clearTimeout(timer); reject(signal.reason); return }
+        signal?.addEventListener('abort', onAbort, { once: true })
+      })
+    }
+  },
+  dataStatusResult: async (ticker: string): Promise<DataStatus | null> => {
+    if ((await ensureMode()) === 'static') return snap.dataStatus[ticker] || null
+    const read = await get<{ status: string; data: DataStatus | null }>(`/api/data-status/${encodeURIComponent(ticker)}/result`, 8_000)
+    return read.status === 'ready' ? read.data : null
   },
   credit: async (): Promise<Usage> => {
     if ((await ensureMode()) === 'static') return { ok: true, checked: false }

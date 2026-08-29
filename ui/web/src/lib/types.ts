@@ -2072,6 +2072,18 @@ export interface DataStatus {
   overallReady: boolean
   dataDir: string
 }
+export type DataScanStage = 'finding' | 'reading' | 'checking' | 'ready' | 'failed'
+export interface DataScanProgress {
+  scanId: string
+  ticker: string
+  stage: DataScanStage
+  completed: number
+  total: number
+  currentFile: string | null
+  error: string | null
+  startedAt: number
+  updatedAt: number
+}
 export interface TickerSummary {
   ticker: string
   fileCount: number

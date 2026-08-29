@@ -19,7 +19,8 @@ import { recordDataChange, syncingState, SYNC_WINDOW_MS } from './data-activity'
 import { buildReportHtml, parseMeta, safeName } from './export'
 import { ARTICLE_READ_PROVIDERS, CHAT, DATA_DIR, FILING_READ_PROVIDERS, GDRIVE, HOST, NEWS, PORT, REPO_ROOT, STATE_DIR, TOOLS, WEB_DIST, connectorDispatchReady, feedbackDispatchReady, feedbackEmailReady, isDispatchAdmin, isReservedDataFolder, pipelineScanReady } from './config'
 import { getCreditStatus } from './credit'
-import { analyzeTicker, listTickers } from './data-status'
+import { listTickers } from './data-status'
+import { dataScans } from './data-scan'
 import { ensureCompanyFolder, ensureCompanyIdentity, uploadToCompany, deleteDriveFile, deleteDriveFileStrict, driveErrorMessage, GDRIVE_ENABLED, readWatchlistFile, uploadToWatchlist } from './drive'
 import { attachmentExists, attachmentPath, deleteAttachment, readAttachment, saveAttachment, watchlistFilesAvailable } from './watchlist-files'
 import {
@@ -728,7 +729,39 @@ app.post('/api/tickers/:ticker/files', async (req, reply) => {
 app.get('/api/data-status/:ticker', async (req, reply) => {
   const ticker = (req.params as any).ticker as string
   if (!TICKER_RE.test(ticker)) return reply.code(400).send({ error: 'bad ticker' })
-  return analyzeTicker(ticker)
+  reply.header('cache-control', 'no-store')
+  return dataScans.run(ticker)
+})
+
+// New browsers start the server-owned scan and then use short status reads. The expensive work is never
+// tied to one 15-second browser request, so a large first-time pool cannot vanish when that request times out.
+app.post('/api/data-status/:ticker/scan', async (req, reply) => {
+  if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request blocked' })
+  const ticker = (req.params as any).ticker as string
+  if (!TICKER_RE.test(ticker)) return reply.code(400).send({ error: 'bad ticker' })
+  reply.header('cache-control', 'no-store')
+  void dataScans.run(ticker).catch(() => {})
+  return reply.code(202).send({ progress: dataScans.current(ticker) })
+})
+
+app.get('/api/data-status/:ticker/result', async (req, reply) => {
+  const ticker = (req.params as any).ticker as string
+  if (!TICKER_RE.test(ticker)) return reply.code(400).send({ error: 'bad ticker' })
+  reply.header('cache-control', 'no-store')
+  const progress = dataScans.current(ticker)
+  const data = dataScans.result(ticker)
+  if (data && progress?.stage === 'ready') return { status: 'ready', progress, data }
+  if (progress?.stage === 'failed') return { status: 'failed', progress, data: null }
+  return reply.code(202).send({ status: progress ? 'running' : 'not_started', progress, data: null })
+})
+
+// A refresh does not make a live scan disappear. This small read endpoint and the SSE replay below expose
+// the same server-owned snapshot; neither starts new work.
+app.get('/api/data-status/:ticker/progress', async (req, reply) => {
+  const ticker = (req.params as any).ticker as string
+  if (!TICKER_RE.test(ticker)) return reply.code(400).send({ error: 'bad ticker' })
+  reply.header('cache-control', 'no-store')
+  return { progress: dataScans.current(ticker) }
 })
 
 // Pre-flight data-readiness report (deterministic, no LLM). Read-only preview of what the pre-spawn
@@ -7439,8 +7472,12 @@ app.get('/api/data-status/stream', (req, reply) => {
   const client = { send }
   dataClients.add(client)
   send({ type: 'data-watch-connected', ts: Date.now() })
+  // Reconnect first, then replay: the user sees the same scan id/count/current file after a browser refresh.
+  for (const progress of dataScans.snapshots()) send({ type: 'data-scan-progress', progress })
+  const unsubscribeScan = dataScans.subscribe((progress) => send({ type: 'data-scan-progress', progress }))
   req.raw.on('close', () => {
     clearInterval(ping)
+    unsubscribeScan()
     dataClients.delete(client)
   })
 })

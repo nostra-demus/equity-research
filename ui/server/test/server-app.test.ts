@@ -25,6 +25,13 @@ assert.equal(health.statusCode, 200)
 assert.equal(health.headers['cache-control'], 'no-store')
 assert.equal(health.json().ok, true)
 
+const scanProgress = await first.app.inject({ method: 'GET', url: '/api/data-status/NU/progress' })
+assert.equal(scanProgress.statusCode, 200)
+assert.equal(scanProgress.json().progress, null, 'progress reads never start a scan')
+const scanResult = await first.app.inject({ method: 'GET', url: '/api/data-status/NU/result' })
+assert.equal(scanResult.statusCode, 202)
+assert.equal(scanResult.json().status, 'not_started')
+
 const activity = await first.app.inject({ method: 'GET', url: '/api/activity?status=readiness-checking' })
 assert.equal(activity.statusCode, 200, 'canonical pre-spawn statuses are accepted by the real route')
 assert.ok(Array.isArray(activity.json().rows))

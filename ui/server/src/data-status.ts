@@ -7,6 +7,7 @@ import { syncingState } from './data-activity'
 import { listModuleNames, moduleReadinessDecls } from './roster'
 import { isValidTicker, suggestTicker, tickerInvalidReason } from './sandbox'
 import type { ClassifiedFile, CoverageGroup, DataReadinessDecl, DataStatus, FileType, ModuleReadiness, ReadinessToken, Sufficiency, TickerSummary, WorkbookSheet } from './types'
+import type { DataScanUpdate } from './data-scan'
 
 // ---- persistent extract cache ----
 // Reading workbook tabs / pdf-rtf content spawns python over the Google Drive mount,
@@ -1069,7 +1070,9 @@ export function deriveCoverage(files: ClassifiedFile[]): CoverageGroup[] {
   })
 }
 
-export async function analyzeTicker(ticker: string): Promise<DataStatus> {
+export async function analyzeTicker(ticker: string, onProgress?: (update: DataScanUpdate) => void): Promise<DataStatus> {
+  const progress = (update: DataScanUpdate): void => { try { onProgress?.(update) } catch { /* UI reporting is never allowed to stop classification */ } }
+  progress({ stage: 'finding', completed: 0, total: 0, currentFile: null })
   // Containment: the /api/data-status route validates TICKER_RE, but that allows dots — a lone '..'
   // slips through path.join and escapes DATA_DIR. Resolve and confine to DATA_DIR; an escaping ticker
   // returns the empty (no-data) status. EARLY return so the guard dominates every read below (incl.
@@ -1080,22 +1083,48 @@ export async function analyzeTicker(ticker: string): Promise<DataStatus> {
   // even if hit directly, alongside the path-containment guard ('..' slips through TICKER_RE's dots).
   if (isReservedDataFolder(ticker) || (dir !== DATA_DIR && !dir.startsWith(DATA_DIR + path.sep))) {
     const modules = Object.fromEntries(listModuleNames().map((m) => [m, { status: 'Insufficient' as Sufficiency, reasons: ['no data uploaded'], caps: [] }]))
+    progress({ stage: 'checking', completed: 0, total: 0, currentFile: null })
     return { ticker, hasAnyData: false, fileCount: 0, files: [], recentByType: {}, modules, coverage: deriveCoverage([]), overallReady: false, dataDir: DATA_DIR, ts: Date.now() }
   }
   // Recursive: a filing dropped in a "Filings 4/" or "Transcript Digest/" subfolder is real pool data
   // (extract_pool.py walks the whole tree), so the panel, readiness dots, and coverage now reflect it —
   // the user never has to move files to the top level for the cockpit to count what the orbs already read.
   const rels = listPoolFiles(dir)
+  const externalRels = listExternalFiles(dir)
+  const total = rels.length + externalRels.length
   // sequential on purpose: one extractor spawn at a time, the same load the sync version put on the
   // Drive mount — the win is that the loop now YIELDS between files, so SSE pings, /api/runs, and a
   // cancel POST keep flowing through a cold 44-file classify instead of freezing 20-30s per file.
   const files: ClassifiedFile[] = []
-  for (const rel of rels) files.push(await classifyFile(dir, rel))
+  let completed = 0
+  progress({ stage: 'reading', completed, total, currentFile: null })
+  for (const rel of rels) {
+    progress({ stage: 'reading', completed, total, currentFile: rel.split(path.sep).join('/') })
+    try {
+      files.push(await classifyFile(dir, rel))
+    } catch (cause) {
+      throw new Error(`Could not read ${rel.split(path.sep).join('/')}.`, { cause })
+    }
+    completed += 1
+    progress({ stage: 'reading', completed, total, currentFile: completed < total ? null : rel.split(path.sep).join('/') })
+  }
   // externally ingested research (data/<T>/external/**) — listed with provenance, readiness-neutral
-  for (const rel of listExternalFiles(dir)) files.push(await classifyExternalFile(dir, rel))
+  for (const rel of externalRels) {
+    const display = rel.split(path.sep).join('/')
+    progress({ stage: 'reading', completed, total, currentFile: display })
+    try {
+      files.push(await classifyExternalFile(dir, rel))
+    } catch (cause) {
+      throw new Error(`Could not read ${display}.`, { cause })
+    }
+    completed += 1
+    progress({ stage: 'reading', completed, total, currentFile: completed < total ? null : display })
+  }
   // sort by the full pool location so subfolder files group under their folder (a top-level file has no
   // `path`, so it sorts by its basename exactly as before)
   files.sort((a, b) => (a.path ?? a.filename).localeCompare(b.path ?? b.filename))
+
+  progress({ stage: 'checking', completed, total, currentFile: null })
 
   const recentByType: DataStatus['recentByType'] = {}
   for (const f of files) {

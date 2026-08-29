@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { motion } from 'framer-motion'
 import { useStore } from '../lib/store'
 import { DataCoverage } from './DataCoverage'
@@ -31,6 +31,7 @@ const TYPE_LABEL: Record<string, string> = {
 // Populated only in live mode (the static showcase ships an empty file list).
 export function DataFilesPanel() {
   const dataStatus = useStore((s) => s.dataStatus)
+  const dataScan = useStore((s) => s.dataScan)
   const driveEnabled = useStore((s) => s.driveEnabled)
   const staticMode = useStore((s) => s.staticMode)
   const openUploader = useStore((s) => s.openUploader)
@@ -38,6 +39,7 @@ export function DataFilesPanel() {
   const intakeAnalyzing = useStore((s) => s.intakeAnalyzing)
   const analyzeIntake = useStore((s) => s.analyzeIntake)
   const [open, setOpen] = useState(false) // collapsed by default — just the pill; click the header to expand
+  const openedScan = useRef<string | null>(null)
   const [expanded, setExpanded] = useState<Record<string, boolean>>({})
   // Bumped by e.g. the news-bridge chip after it selects the subject holding the newest routed note — a
   // click that only changed the selection would leave the note hidden behind a still-collapsed panel
@@ -47,6 +49,12 @@ export function DataFilesPanel() {
   useEffect(() => {
     if (expandRequest > 0) setOpen(true)
   }, [expandRequest])
+  useEffect(() => {
+    if (dataScan?.stage === 'ready' && openedScan.current !== dataScan.scanId) {
+      openedScan.current = dataScan.scanId
+      setOpen(true)
+    }
+  }, [dataScan?.scanId, dataScan?.stage])
 
   if (!dataStatus || !dataStatus.hasAnyData || !dataStatus.files?.length) return null
   const files = dataStatus.files
@@ -65,6 +73,7 @@ export function DataFilesPanel() {
           <span className="datafiles__count">
             {files.length} file{files.length === 1 ? '' : 's'}
             {tabTotal ? ` · ${tabTotal} tabs` : ''}
+            {dataScan?.stage === 'ready' ? ' · Ready' : ''}
           </span>
         </button>
         {canAnalyze && (
