@@ -36,4 +36,7 @@ aluminium = next(plan for plan in plans if plan["commodity"] == "ALUMINIUM")
 for need in ("aluminium-lme-investment-fund-positioning", "aluminium-primary-production"):
     row = next(item for item in aluminium["rows"] if item["need_id"] == need)
     assert row["status"] == "build_needed" and row["incompatibility_reasons"]
+for plan in (copper, aluminium):
+    row = next(item for item in plan["rows"] if "prepolicy-supply" in item["need_id"])
+    assert row["source_rule_id"] == "metals-fundamentals"
 print("PASS: every commodity profile need has an implemented route or authoritative source plan")

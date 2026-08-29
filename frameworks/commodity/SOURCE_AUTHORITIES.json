@@ -17,7 +17,7 @@
   "rules": [
     {
       "id": "official-policy-events",
-      "need_pattern": "(policy|routing|restriction|curtailment|opec|pipeline-availability|capacity-availability)",
+      "need_pattern": "((^|-)policy(-|$)|routing|restriction|curtailment|opec|pipeline-availability|capacity-availability)",
       "preferred_route": "manual_official_event",
       "authorities": [
         {"provider": "Issuing government, regulator, ministry, customs authority, or producer group", "url": "https://www.opec.org/", "access": "mixed"}

@@ -146,8 +146,17 @@ if __name__ == "__main__":
     _bootstrap_repo = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
     _EARLY_REPO_MUTATION_LOCK_FD = _acquire_repo_mutation_lock_early(_bootstrap_repo)
     if _EARLY_REPO_MUTATION_LOCK_FD is None:
-        print("[run_connectors] repository mutation lock is held or unsafe — skipping this sweep")
-        raise SystemExit(0)
+        _bootstrap_scoped = any(
+            argument in {"--subject", "--only", "--manual-file"}
+            or any(argument.startswith(f"{option}=") for option in ("--subject", "--only", "--manual-file"))
+            for argument in sys.argv[1:]
+        )
+        print(
+            "[run_connectors] repository mutation lock is held or unsafe — retry this scoped sweep"
+            if _bootstrap_scoped
+            else "[run_connectors] repository mutation lock is held or unsafe — skipping this sweep"
+        )
+        raise SystemExit(SCOPED_LOCK_BUSY_EXIT if _bootstrap_scoped else 0)
 
 _ephemeral_pycache_prefix = _bootstrap_sys.pycache_prefix
 if (_ephemeral_pycache_prefix

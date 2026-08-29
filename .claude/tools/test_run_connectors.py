@@ -1858,6 +1858,26 @@ reacquired_repo_lock = m._acquire_repo_mutation_lock_early(repo_lock_root)
 check("repository mutation lock is released with its descriptor", reacquired_repo_lock is not None)
 if reacquired_repo_lock is not None:
     os.close(reacquired_repo_lock)
+
+# The production bootstrap must preserve scoped/full semantics before any
+# repository module import. Exercise a copied CLI in a real temporary Git repo.
+bootstrap_cli = os.path.join(repo_lock_root, ".claude", "tools", "run_connectors.py")
+os.makedirs(os.path.dirname(bootstrap_cli), exist_ok=True)
+shutil.copyfile(os.path.join(HERE, "run_connectors.py"), bootstrap_cli)
+held_bootstrap_lock = m._acquire_repo_mutation_lock_early(repo_lock_root)
+scoped_bootstrap = subprocess.run(
+    [sys.executable, bootstrap_cli, "--subject", "AAA"], capture_output=True, text=True,
+)
+full_bootstrap = subprocess.run(
+    [sys.executable, bootstrap_cli], capture_output=True, text=True,
+)
+check("bootstrap lock contention is retryable for a scoped refresh but skippable for a full sweep",
+      held_bootstrap_lock is not None
+      and scoped_bootstrap.returncode == m.SCOPED_LOCK_BUSY_EXIT
+      and full_bootstrap.returncode == 0
+      and "retry this scoped sweep" in scoped_bootstrap.stdout)
+if held_bootstrap_lock is not None:
+    os.close(held_bootstrap_lock)
 shutil.rmtree(repo_lock_root)
 shutil.rmtree(lock_dir)
 shutil.rmtree(root)
