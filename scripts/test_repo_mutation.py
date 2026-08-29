@@ -119,8 +119,8 @@ def test_deploy_holds_both_leases_through_build() -> None:
             check(not os.path.exists(os.path.join(barrier_dir, "provider-deploy-pending")),
                   "a known dirty-code blocker must not claim an update is in progress or pause admissions")
             deploy_log = os.path.join(home, "Library", "Logs", "nostradamus-deploy.log")
-            check("before admission pause" in open(deploy_log, encoding="utf-8").read(),
-                  "the refused deployment must record the real preflight blocker")
+            check("before authorization" in open(deploy_log, encoding="utf-8").read(),
+                  "the refused deployment must record the dirty-tree blocker before token mint or admission pause")
             os.remove(dirty_path)
             os.removedirs(os.path.dirname(dirty_path))
 
