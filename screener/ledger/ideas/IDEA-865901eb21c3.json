@@ -1,0 +1,73 @@
+{
+  "idea_id": "IDEA-865901eb21c3",
+  "idea_version": "IDEAV-d0913f669ffdc9ce",
+  "idea_version_started_at": "2026-08-29T13:40:33Z",
+  "ticker": "PYPL",
+  "company": "PayPal Holdings, Inc.",
+  "exchange": "NASDAQ",
+  "ticker_verified": true,
+  "listing_verified": true,
+  "liquidity_verified": false,
+  "listing_verification_source": "yahoo_symbol_directory",
+  "direction": "short",
+  "pair_with": null,
+  "reason": "Advent-Stripe consortium reportedly walked away from a $53B bid, removing a takeover premium that had been supporting the stock.",
+  "why_now": "Reports of the bid withdrawal broke on 2026-08-28 and the stock already fell 13-15% intraday; further downside risk if the market prices in standalone execution risk.",
+  "conviction": 65,
+  "conviction_basis": "pre_edge_proxy",
+  "trade_score": 62,
+  "trade_score_basis": "evidence_gate_v2",
+  "trade_score_breakdown": {
+    "evidence": 14,
+    "impact": 21,
+    "specificity": 15,
+    "timing": 10,
+    "expression": 6,
+    "corroboration": 6,
+    "learning_adjustment": 0
+  },
+  "trade_readiness": "needs_data",
+  "missing_checks": [
+    "live liquidity",
+    "dated catalyst",
+    "live price, liquidity, and consensus"
+  ],
+  "learning": {
+    "resolved": 0,
+    "positive": 0,
+    "negative": 0,
+    "neutral": 0,
+    "adjustment": 0,
+    "basis": "not_enough_outcomes",
+    "evidenceIds": []
+  },
+  "priced_in": "room",
+  "thesis_type": "company_specific",
+  "origin_type": "wire",
+  "source_themes": [],
+  "source_event_ids": [
+    "EVT-b268ee617228",
+    "EVT-e26f85a3cadb"
+  ],
+  "primary_source_event_id": "EVT-b268ee617228",
+  "source_headlines": [
+    "PayPal shares crash 13% on reports Advent-Stripe consortium walks away from bid",
+    "PayPal Plunges 15% After Reports That Advent, Stripe Abandon $53 Billion Bid"
+  ],
+  "source_headline": "PayPal shares crash 13% on reports Advent-Stripe consortium walks away from bid",
+  "source_url": "https://economictimes.indiatimes.com/markets/us-stocks/news/paypal-shares-crash-13-on-reports-advent-stripe-consortium-walks-away-from-bid/articleshow/133594719.cms",
+  "source_name": "The Economic Times",
+  "materiality_max": 100,
+  "newest_source_at": "2026-08-28T15:19:56Z",
+  "prior_coverage": {
+    "has_run": false,
+    "latest_run": null,
+    "latest_decision": null,
+    "data_pool_present": false
+  },
+  "surfaced_at": "2026-08-29T13:40:33Z",
+  "updated_at": "2026-08-29T13:40:33Z",
+  "decay_at": "2026-08-30T03:19:56Z",
+  "status": "live",
+  "promoted_signal_id": null
+}
