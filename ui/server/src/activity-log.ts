@@ -1,7 +1,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { ACTIVITY_LOG_PATH, STATE_DIR } from './config'
-import type { RunKind, RunStatus } from './types'
+import { RUN_KINDS, RUN_STATUSES, type RunKind, type RunStatus } from './types'
 import type { ProviderExecutionProfile, RunProvider } from './providers/types'
 
 // Perpetual, append-only audit log of who ran what, when, on which company. One JSON object per line
@@ -16,9 +16,8 @@ export type ActivityEventType = 'launched' | 'finished'
 // (not inline in the route) so it is unit-testable and cannot silently omit a newly-added kind: `doc-intake`
 // was missing, so a ?kind=doc-intake filter was quietly dropped and returned an unfiltered list. Must list
 // every value of the RunKind union (types.ts).
-export const ACTIVITY_FILTER_KINDS: RunKind[] = [
-  'full', 'module', 'agent', 'rerun', 'review', 'track', 'doc-intake', 'signal', 'sweep', 'screener-agent', 'handoff',
-]
+export const ACTIVITY_FILTER_KINDS: readonly RunKind[] = RUN_KINDS
+export const ACTIVITY_FILTER_STATUSES: readonly RunStatus[] = RUN_STATUSES
 
 export interface ActivityEvent {
   v: 1
@@ -155,10 +154,7 @@ export function resolveSubjectLabel(ticker: string, sigLabels?: Map<string, stri
 
 const ACTIVITY_EVENT_TYPES = new Set<ActivityEventType>(['launched', 'finished'])
 const ACTIVITY_USER_VIA = new Set<ActivityEvent['userVia']>(['cf-access', 'local'])
-const ACTIVITY_RUN_STATUSES = new Set<RunStatus>([
-  'starting', 'readiness-checking', 'awaiting-readiness-decision',
-  'running', 'done', 'error', 'cancelled', 'incomplete',
-])
+const ACTIVITY_RUN_STATUSES = new Set<RunStatus>(RUN_STATUSES)
 
 function validOptionalString(value: unknown): boolean {
   return value === undefined || typeof value === 'string'
