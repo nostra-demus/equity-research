@@ -113,7 +113,8 @@ import { startResumeSupervisor } from './resume-supervisor'
 import { listResumableRuns } from './resumable'
 import {
   capturePreparedModuleResumeScope, carryForwardModules, carryForwardScoped,
-  continuationPlanReceiptMatches, dataPoolNewest, prepareModuleResume, thesisPlan,
+  continuationPlanReceiptMatches, dataPoolNewest, prepareModuleResume,
+  thesisPlanForRequest, thesisPlanForScopeGuard,
 } from './completion'
 import { continueExactSavedRun, exactContinuationCandidate } from './continuation'
 import {
@@ -2672,7 +2673,7 @@ app.get('/api/thesis-plan', { config: { rateLimit: { max: 600, timeWindow: '1 mi
     }, listResumableRuns())) {
       return reply.code(409).send({ error: 'The saved run changed. Refresh before continuing.', code: 'saved_run_changed' })
     }
-    const plan = thesisPlan(q.ticker, swarm, reuse, q.module, provider.data,
+    const plan = await thesisPlanForRequest(q.ticker, swarm, reuse, q.module, provider.data,
       q.runRoot ? { continuationRunRoot: q.runRoot } : undefined)
     // A finished local module normally reads `done`/non-runnable. A durable failed-publication marker is
     // therefore attached explicitly so the heading offers a publish-only recovery instead of re-running paid
@@ -2734,7 +2735,7 @@ app.post('/api/thesis-plan/run', { config: { rateLimit: { max: 20, timeWindow: '
   }
   // Idempotent replay is resolved before another provider probe. A successful click remains successful even
   // if the provider later goes offline; an in-flight first request never becomes a second launch.
-  const existingRequest = readRunPlanRequest(requestId)
+  const existingRequest = await readRunPlanRequest(requestId)
   if (existingRequest) {
     const sameIntent = existingRequest.planFingerprint === requestIntent.planFingerprint
       && existingRequest.user === user && existingRequest.subject === ticker
@@ -2744,7 +2745,7 @@ app.post('/api/thesis-plan/run', { config: { rateLimit: { max: 20, timeWindow: '
     if ((existingRequest.status === 'admitted' || existingRequest.status === 'started') && existingRequest.response) {
       return existingRequest.response
     }
-    if (existingRequest.status === 'claimed' || existingRequest.status === 'admitted' || existingRequest.status === 'started') {
+    if (existingRequest.status === 'admitted' || existingRequest.status === 'started') {
       return reply.code(409).send({ error: 'This reviewed request is already being admitted or is running.', code: 'request_in_progress' })
     }
   }
@@ -2775,7 +2776,7 @@ app.post('/api/thesis-plan/run', { config: { rateLimit: { max: 20, timeWindow: '
       }, listResumableRuns())) {
         return reply.code(409).send({ error: 'The saved run changed. Refresh before continuing; no run was started.', code: 'plan_changed' })
       }
-      const plan = thesisPlan(ticker, undefined, reuse, undefined, selection,
+      const plan = await thesisPlanForRequest(ticker, undefined, reuse, undefined, selection,
         sourceRunRoot ? { continuationRunRoot: sourceRunRoot } : undefined)
       if (!continuationPlanReceiptMatches(continuationReceipt, plan.continuationReceipt)) {
         return reply.code(409).send({
@@ -2797,7 +2798,7 @@ app.post('/api/thesis-plan/run', { config: { rateLimit: { max: 20, timeWindow: '
         return reply.code(412).send({ error: 'nothing is being reused — this is a full run and needs typed confirmation', code: 'needs_typed_confirm' })
       }
 
-      const claim = claimRunPlanRequest(requestIntent)
+      const claim = await claimRunPlanRequest(requestIntent)
       if (claim.kind === 'conflict') {
         return reply.code(409).send({ error: 'This request id belongs to a different reviewed plan.', code: 'request_reused' })
       }
@@ -2812,12 +2813,12 @@ app.post('/api/thesis-plan/run', { config: { rateLimit: { max: 20, timeWindow: '
 
       let transaction
       try {
-        transaction = prepareRunPlanTransaction(requestId, ticker, plan, {
-          onStarted: () => { markRunPlanStarted(requestId) },
-          onRolledBack: (reason) => { markRunPlanFailedBeforeStart(requestId, reason) },
+        transaction = await prepareRunPlanTransaction(requestId, ticker, plan, {
+          onStarted: async () => { await markRunPlanStarted(requestId) },
+          onRolledBack: async (reason) => { await markRunPlanFailedBeforeStart(requestId, reason) },
         })
       } catch (e: any) {
-        try { markRunPlanFailedBeforeStart(requestId, String(e?.message || e)) } catch {}
+        try { await markRunPlanFailedBeforeStart(requestId, String(e?.message || e)) } catch {}
         return reply.code(500).send({ error: `could not prepare existing work safely: ${e?.message || e}` })
       }
 
@@ -2842,10 +2843,10 @@ app.post('/api/thesis-plan/run', { config: { rateLimit: { max: 20, timeWindow: '
           preparedDoneOrbKeys: transaction.preparation.doneOrbKeys,
           ranClean: transaction.preparation.ranClean,
         }
-        markRunPlanAdmitted(requestId, out.runId, response)
+        await markRunPlanAdmitted(requestId, out.runId, response)
         return response
       } catch (e: any) {
-        try { transaction.rollbackIfUnstarted(String(e?.message || e)) } catch {}
+        try { await transaction.rollbackIfUnstarted(String(e?.message || e)) } catch {}
         const body = e?.body && typeof e.body === 'object' ? e.body : null
         return reply.code(e?.statusCode || 500).send({ error: e?.message || 'launch failed', ...(body || {}) })
       }
@@ -3146,7 +3147,7 @@ app.post('/api/thesis-plan/module', { config: { rateLimit: { max: 30, timeWindow
       }
 
       // ONE snapshot decides everything: complete-check, runnability, blockedBy, and what gets carried.
-      let plan = thesisPlan(ticker, undefined, exactResume ? undefined : reuse, exactResume ? module : undefined,
+      let plan = await thesisPlanForRequest(ticker, undefined, exactResume ? undefined : reuse, exactResume ? module : undefined,
         providerSelection, sourceRunRoot ? { continuationRunRoot: sourceRunRoot } : undefined)
       if (plan.targetRunRoot !== expectedTargetRunRoot) {
         return reply.code(409).send({ error: 'The target analysis date changed while this module was being prepared. Check the updated scope and click again.', code: 'module_scope_changed' })
@@ -3225,7 +3226,7 @@ app.post('/api/thesis-plan/module', { config: { rateLimit: { max: 30, timeWindow
       let expectedAncestorModules: string[] = []
       const readCurrentScope = () => {
         try {
-          const current = thesisPlan(ticker, undefined, exactResume ? undefined : reuse, exactResume ? module : undefined,
+          const current = thesisPlanForScopeGuard(ticker, undefined, exactResume ? undefined : reuse, exactResume ? module : undefined,
             providerSelection, sourceRunRoot ? { continuationRunRoot: sourceRunRoot } : undefined)
           const currentEntry = current.modules.find((m) => m.module === module)
           const currentDone = [...(currentEntry?.doneOrbKeys ?? [])].sort()
@@ -3555,7 +3556,7 @@ app.post('/api/intake-plan/run-exact', { config: { rateLimit: { max: 20, timeWin
       // Reuse override = every reusable module: stale ones included — the scoped carry stages their
       // finished copy and punches holes in it.
       const selection = { provider, model, reasoningLevel }
-      const first = thesisPlan(ticker, undefined, undefined, undefined, selection)
+      const first = await thesisPlanForRequest(ticker, undefined, undefined, undefined, selection)
       if (first.complete) {
         return reply.code(409).send({ error: 'Today\'s run root already has a final thesis — a scoped rerun would overwrite the decision of record. Use the single-orb Re-run for a same-day refresh.', code: 'already_complete', path: first.finalReportPath })
       }
@@ -3586,7 +3587,7 @@ app.post('/api/intake-plan/run-exact', { config: { rateLimit: { max: 20, timeWin
       if (lateWhy) {
         return reply.code(409).send({ error: `${lateWhy} while this run was being prepared — re-run the new-data analysis first.`, code: 'plan_stale' })
       }
-      const snap = thesisPlan(ticker, undefined, first.reusable, undefined, selection)
+      const snap = await thesisPlanForRequest(ticker, undefined, first.reusable, undefined, selection)
       // The plan file copied into today's staging root is provenance for THIS exact selected call. Never
       // fall back to newest-run-wins here: a newer incomplete shell can carry a different plan even while
       // the selected finished decision remains the current call.
@@ -7401,7 +7402,7 @@ async function start() {
   installProcessHandlers()
   // A crash between atomic root activation and provider start must not leave a fake resumable run. Restore
   // every transaction that lacks a durable `started` receipt before any route or supervisor can inspect it.
-  recoverRunPlanTransactions()
+  await recoverRunPlanTransactions()
   startRuntimeBindings()
   // A process crash can leave private media behind. Before accepting any request on a restart, remove every
   // abandoned Reel temp directory; there cannot be a live transcription owned by this new process yet.

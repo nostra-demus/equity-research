@@ -75,7 +75,7 @@ write(`analyses/FIN_${TODAY}/beta/99_beta-synthesis.md`, '# b\n')
 write(`analyses/FIN_${TODAY}/final_thesis.md`, '# thesis\n')
 
 const {
-  capturePreparedModuleResumeScope, continuationPlanReceiptMatches, thesisPlan,
+  capturePreparedModuleResumeScope, continuationPlanReceiptMatches, thesisPlan, thesisPlanForRequest,
   carryForwardModules, dataPoolNewest, prepareFullContinuation, prepareModuleResume,
 } = await import('../src/completion')
 const { buildSwarmGraph } = await import('../src/roster')
@@ -115,6 +115,9 @@ const { buildSwarmGraph } = await import('../src/roster')
     expectedProfileKey: 'claude:sonnet:default',
   }
   const reviewed = thesisPlan('ACME', undefined, undefined, undefined, selection)
+  const requestSafe = await thesisPlanForRequest('ACME', undefined, undefined, undefined, selection)
+  assert.equal(requestSafe.continuationReceipt.fingerprint, reviewed.continuationReceipt.fingerprint,
+    'async request hashing produces the same exact receipt as the deterministic planner')
   assert.equal(reviewed.continuationReceipt.action, 'complete')
   assert.deepEqual(reviewed.continuationReceipt.sourceRunRoots, [`analyses/ACME_${YESTERDAY}`])
   assert.ok(reviewed.continuationReceipt.reusableOrbKeys.includes('alpha/01_alpha-thing'))

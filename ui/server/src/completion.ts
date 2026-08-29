@@ -219,6 +219,61 @@ function continuationSourceArtifactsSha256(
   return `sha256:${createHash('sha256').update(canonicalJsonText(rows)).digest('hex')}`
 }
 
+async function continuationSourceArtifactsSha256Async(
+  targetRunRoot: string,
+  carries: { module: string; copyFrom: string }[],
+): Promise<string> {
+  const scopes = [
+    { label: `target:${targetRunRoot}`, abs: path.join(REPO_ROOT, targetRunRoot) },
+    ...carries.map((carry) => ({
+      label: `carry:${carry.copyFrom}/${carry.module}`,
+      abs: path.join(REPO_ROOT, carry.copyFrom, carry.module),
+    })),
+  ].sort((a, b) => a.label.localeCompare(b.label))
+  const rows: {
+    scope: string; path: string; mode?: number; bytes?: number; sha256?: string;
+    kind?: 'symlink' | 'non-file'; missing?: true
+  }[] = []
+  const visit = async (scope: string, root: string, current: string): Promise<void> => {
+    const before = await fs.promises.lstat(current)
+    const rel = path.relative(root, current) || '.'
+    if (before.isSymbolicLink()) {
+      rows.push({
+        scope, path: rel, mode: before.mode & 0o777, kind: 'symlink',
+        sha256: createHash('sha256').update(await fs.promises.readlink(current)).digest('hex'),
+      })
+      return
+    }
+    if (before.isFile()) {
+      const bytes = await fs.promises.readFile(current)
+      const after = await fs.promises.lstat(current)
+      if (!after.isFile() || after.isSymbolicLink() || before.dev !== after.dev || before.ino !== after.ino
+          || before.size !== after.size || before.mtimeMs !== after.mtimeMs || before.ctimeMs !== after.ctimeMs) {
+        throw new Error('continuation source artifact changed during planning')
+      }
+      rows.push({
+        scope, path: rel, mode: before.mode & 0o777, bytes: bytes.length,
+        sha256: createHash('sha256').update(bytes).digest('hex'),
+      })
+      return
+    }
+    if (!before.isDirectory()) {
+      rows.push({ scope, path: rel, mode: before.mode & 0o777, kind: 'non-file' })
+      return
+    }
+    rows.push({ scope, path: `${rel}/`, mode: before.mode & 0o777 })
+    const names = (await fs.promises.readdir(current)).sort()
+    for (const name of names) await visit(scope, root, path.join(current, name))
+  }
+  for (const scope of scopes) {
+    try { await visit(scope.label, scope.abs, scope.abs) } catch (error: any) {
+      if (error?.code === 'ENOENT') rows.push({ scope: scope.label, path: '.', missing: true })
+      else throw error
+    }
+  }
+  return `sha256:${createHash('sha256').update(canonicalJsonText(rows)).digest('hex')}`
+}
+
 function continuationDataPoolSha256(ticker: string, dataDir: string = DATA_DIR): string {
   const root = path.join(dataDir, safeSubjectSegment(ticker))
   const rows: { path: string; bytes: number; sha256: string }[] = []
@@ -252,6 +307,40 @@ function continuationDataPoolSha256(ticker: string, dataDir: string = DATA_DIR):
   return `sha256:${createHash('sha256').update(canonicalJsonText(rows)).digest('hex')}`
 }
 
+async function continuationDataPoolSha256Async(ticker: string, dataDir: string = DATA_DIR): Promise<string> {
+  const root = path.join(dataDir, safeSubjectSegment(ticker))
+  const rows: { path: string; bytes: number; sha256: string }[] = []
+  const walk = async (directory: string, depth: number): Promise<void> => {
+    if (depth > 24) throw new Error('continuation data-pool nesting exceeds the supported boundary')
+    const entries = (await fs.promises.readdir(directory, { withFileTypes: true }))
+      .sort((a, b) => a.name.localeCompare(b.name))
+    const isOutputDir = entries.some((entry) => entry.name === '.nostradamus_output' && entry.isFile())
+    for (const entry of entries) {
+      if (entry.name.startsWith('.')) continue
+      const absolute = path.join(directory, entry.name)
+      if (entry.isSymbolicLink()) continue
+      if (entry.isDirectory()) { await walk(absolute, depth + 1); continue }
+      if (!entry.isFile() || isOutputDir) continue
+      const before = await fs.promises.lstat(absolute)
+      if (!before.isFile() || before.isSymbolicLink()) throw new Error('continuation data-pool entry changed during planning')
+      const bytes = await fs.promises.readFile(absolute)
+      const after = await fs.promises.lstat(absolute)
+      if (before.dev !== after.dev || before.ino !== after.ino || before.size !== after.size
+          || before.mtimeMs !== after.mtimeMs || before.ctimeMs !== after.ctimeMs) {
+        throw new Error('continuation data-pool entry changed during planning')
+      }
+      rows.push({
+        path: path.relative(root, absolute), bytes: bytes.length,
+        sha256: createHash('sha256').update(bytes).digest('hex'),
+      })
+    }
+  }
+  try { await walk(root, 0) } catch (error: any) {
+    if (error?.code !== 'ENOENT') throw error
+  }
+  return `sha256:${createHash('sha256').update(canonicalJsonText(rows)).digest('hex')}`
+}
+
 export function continuationPlanReceiptMatches(
   expected: ContinuationPlanReceipt,
   actual: ContinuationPlanReceipt,
@@ -271,6 +360,16 @@ export function continuationPlanReceiptMatches(
  */
 export interface ThesisPlanScope {
   continuationRunRoot: string
+}
+
+interface ContinuationReceiptHashes {
+  dataPoolSha256: string
+  sourceArtifactsSha256: string
+}
+
+const DEFERRED_RECEIPT_HASHES: ContinuationReceiptHashes = {
+  dataPoolSha256: `sha256:${'0'.repeat(64)}`,
+  sourceArtifactsSha256: `sha256:${'0'.repeat(64)}`,
 }
 
 const DATE_SUFFIX = /_(\d{4}-\d{2}-\d{2})$/
@@ -809,6 +908,7 @@ export function thesisPlan(
   exactModule?: string,
   selection: RunProviderSelection = { provider: 'claude' },
   scope?: ThesisPlanScope,
+  receiptHashes?: ContinuationReceiptHashes,
 ): ThesisPlan {
   const swarm = swarmById(swarmId)
   const graph = buildSwarmGraph(swarmId)
@@ -1201,8 +1301,13 @@ export function thesisPlan(
     },
     reusableOrbKeys: [...new Set(reusableOrbKeys)].sort(),
     payableOrbKeys: [...new Set(payableOrbKeys)].sort(),
-    dataPool: { files: pool.files, newestMs: pool.newestMs, sha256: continuationDataPoolSha256(safe) },
-    sourceArtifactsSha256: continuationSourceArtifactsSha256(targetRunRoot, carry),
+    dataPool: {
+      files: pool.files,
+      newestMs: pool.newestMs,
+      sha256: receiptHashes?.dataPoolSha256 ?? continuationDataPoolSha256(safe),
+    },
+    sourceArtifactsSha256: receiptHashes?.sourceArtifactsSha256
+      ?? continuationSourceArtifactsSha256(targetRunRoot, carry),
   }
   const continuationReceipt: ContinuationPlanReceipt = {
     ...receiptPayload,
@@ -1237,6 +1342,55 @@ export function thesisPlan(
     ),
     canCarry,
   }
+}
+
+/**
+ * Request-safe plan builder. The existing synchronous planner remains available to deterministic local tools,
+ * while HTTP/background callers hash large filing and artifact trees with promises so one plan cannot freeze
+ * Fastify health checks, Activity streams, or unrelated users. Stable before/after metadata checks make a
+ * concurrent byte change fail the receipt instead of producing a torn fingerprint.
+ */
+export async function thesisPlanForRequest(
+  subject: string,
+  swarmId: string = RESEARCH_SWARM_ID,
+  reuseOverride?: string[],
+  exactModule?: string,
+  selection: RunProviderSelection = { provider: 'claude' },
+  scope?: ThesisPlanScope,
+): Promise<ThesisPlan> {
+  const plan = thesisPlan(
+    subject, swarmId, reuseOverride, exactModule, selection, scope, DEFERRED_RECEIPT_HASHES,
+  )
+  const [dataPoolSha256, sourceArtifactsSha256] = await Promise.all([
+    continuationDataPoolSha256Async(plan.subject),
+    continuationSourceArtifactsSha256Async(plan.targetRunRoot, plan.carry),
+  ])
+  const { fingerprint: _ignored, ...deferred } = plan.continuationReceipt
+  const payload: ContinuationPlanReceiptPayload = {
+    ...deferred,
+    dataPool: { ...deferred.dataPool, sha256: dataPoolSha256 },
+    sourceArtifactsSha256,
+  }
+  return {
+    ...plan,
+    continuationReceipt: {
+      ...payload,
+      fingerprint: continuationPlanReceiptFingerprint(payload),
+    },
+  }
+}
+
+/** Lightweight synchronous snapshot for the launcher's final no-await scope guard. Receipt bytes were already
+ * checked asynchronously at admission; this guard compares only module/root/pool metadata after the last await. */
+export function thesisPlanForScopeGuard(
+  subject: string,
+  swarmId: string = RESEARCH_SWARM_ID,
+  reuseOverride?: string[],
+  exactModule?: string,
+  selection: RunProviderSelection = { provider: 'claude' },
+  scope?: ThesisPlanScope,
+): ThesisPlan {
+  return thesisPlan(subject, swarmId, reuseOverride, exactModule, selection, scope, DEFERRED_RECEIPT_HASHES)
 }
 
 // ---- carry-forward -------------------------------------------------------------------------------

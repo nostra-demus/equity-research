@@ -2740,7 +2740,7 @@ export async function launchFullChained(
   // pre-child exception restores the marker and both reservations. The cleanup operations are idempotent;
   // asynchronous child/master terminal paths remain the ordinary owners after this function returns.
   try {
-  scope.preparedRunPlanTransaction?.activate()
+  await scope.preparedRunPlanTransaction?.activate()
   // Drop a marker in the shared run root so each per-module run SKIPS its inline memo (MODULE_PIPELINE
   // Step 4.9A); the master step regenerates all module memos in ONE batch at the end (rerun.md Step 9B)
   // and removes the marker. Keeps the ~2.5-min-per-module memo off the parallel critical path —
@@ -3001,7 +3001,7 @@ export async function launchFullChained(
   const first = await firstReady
   return { runId: first.runId, preflight, chained: true, skipped: skippedModules, planned: plannedModules, resumed }
   } catch (error) {
-    try { scope.preparedRunPlanTransaction?.rollbackIfUnstarted('full-chain setup or first child failed') } catch {}
+    try { await scope.preparedRunPlanTransaction?.rollbackIfUnstarted('full-chain setup or first child failed') } catch {}
     try { deps.clearMarker(ticker, datedRoot) } catch { /* preserve the launch error */ }
     try { releaseChainPool() } catch { /* subject release still runs in releaseChainPool's finally */ }
     finishLogicalCanary(
@@ -3735,9 +3735,13 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
   if (params.preparedRunPlanTransaction) {
     const transaction = params.preparedRunPlanTransaction
     preparedRunPlanTransactionByRun.set(run, transaction)
-    run.onNoChildTerminal = () => transaction.rollbackIfUnstarted('admitted run ended before provider start')
+    run.onNoChildTerminal = () => {
+      void transaction.rollbackIfUnstarted('admitted run ended before provider start').catch((error: any) => {
+        console.error(`[run-plan] terminal rollback failed for ${run.runId}: ${String(error?.message || error)}`) // eslint-disable-line no-console
+      })
+    }
     try {
-      transaction.activate()
+      await transaction.activate()
     } catch (error) {
       finishRun(run, 'error')
       throw error
@@ -6147,6 +6151,41 @@ async function spawnEngine(run: RunState): Promise<void> {
     releaseProviderLaunchResources(run)
     throw error
   }
+  const preparedTransaction = preparedRunPlanTransactionByRun.get(run)
+  if (preparedTransaction) {
+    try {
+      await preparedTransaction.markPaidChildSpawning()
+    } catch (error: any) {
+      releaseProviderLaunchResources(run)
+      emit(run, {
+        type: 'run-error', runId: run.runId, status: 'error', reason: 'spawn_failed',
+        message: `provider spawn boundary could not be sealed: ${String(error?.message || error)}`, ts: Date.now(),
+      })
+      finishRun(run, 'error')
+      throw Object.assign(new Error('Failed to seal provider spawn boundary'), { statusCode: 500 })
+    }
+    // The durable journal write above is asynchronous. Recheck every synchronous spend guard after it and
+    // before execa; a binding/scope change in that fsync window fails without creating a paid child.
+    const afterSealBinding = changedLaunchBinding()
+    if (afterSealBinding) {
+      await preparedTransaction.rollbackIfUnstarted(afterSealBinding)
+      stopForChangedBinding(afterSealBinding)
+      releaseProviderLaunchResources(run)
+      return
+    }
+    const afterSealGuard = evaluatePreSpawnGuard(preSpawnGuards.get(run))
+    if (!afterSealGuard.ok) {
+      await preparedTransaction.rollbackIfUnstarted(afterSealGuard.message)
+      run.note = afterSealGuard.message
+      emit(run, {
+        type: 'run-error', runId: run.runId, status: 'error', reason: afterSealGuard.reason,
+        message: afterSealGuard.message, ts: Date.now(),
+      })
+      finishRun(run, 'error')
+      releaseProviderLaunchResources(run)
+      return
+    }
+  }
   let child: ResultPromise
   try {
     // Provider-owned lease/binary validation is deliberately the final synchronous operation before
@@ -6171,6 +6210,7 @@ async function spawnEngine(run: RunState): Promise<void> {
       detached: true,
     })
   } catch (e: any) {
+    try { await preparedTransaction?.rollbackIfUnstarted(`provider spawn failed: ${String(e?.message || e)}`) } catch {}
     releaseProviderLaunchResources(run)
     emit(run, { type: 'run-error', runId: run.runId, status: 'error', reason: 'spawn_failed', message: String(e?.message || e), ts: Date.now() })
     finishRun(run, 'error')
@@ -6180,11 +6220,14 @@ async function spawnEngine(run: RunState): Promise<void> {
   run.child = child
   run.processGroupPid = child.pid
   try {
-    preparedRunPlanTransactionByRun.get(run)?.markPaidChildStarted()
+    await preparedTransaction?.markPaidChildStarted()
   } catch (error: any) {
     try { if (child.pid) process.kill(-child.pid, 'SIGKILL') } catch { /* exited between spawn and receipt */ }
     try { await child } catch { /* reject:false normally resolves */ }
     if (child.pid) await holdClaimsUntilProcessGroupExtinct(child.pid)
+    try {
+      await preparedTransaction?.rollbackIfUnstarted(`Failed to seal provider start receipt: ${String(error?.message || error)}`)
+    } catch { /* the original sealing error remains authoritative */ }
     releaseProviderLaunchResources(run)
     emit(run, {
       type: 'run-error', runId: run.runId, status: 'error', reason: 'spawn_failed',

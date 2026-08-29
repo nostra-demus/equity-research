@@ -46,25 +46,27 @@ function requestPath(requestId: string, stateDir: string): string {
   return path.join(requestDir(stateDir), `${requestId.toLowerCase()}.json`)
 }
 
-function ensurePrivateDirectory(directory: string): void {
-  if (fs.existsSync(directory)) {
-    const info = fs.lstatSync(directory)
+async function ensurePrivateDirectory(directory: string): Promise<void> {
+  try {
+    const info = await fs.promises.lstat(directory)
     if (!info.isDirectory() || info.isSymbolicLink()) throw new Error('run-plan request directory is unsafe')
-  } else {
-    fs.mkdirSync(directory, { recursive: true, mode: 0o700 })
-    const info = fs.lstatSync(directory)
+  } catch (error: any) {
+    if (error?.code !== 'ENOENT') throw error
+    await fs.promises.mkdir(directory, { recursive: true, mode: 0o700 })
+    const info = await fs.promises.lstat(directory)
     if (!info.isDirectory() || info.isSymbolicLink()) throw new Error('run-plan request directory is unsafe')
   }
-  fs.chmodSync(directory, 0o700)
+  await fs.promises.chmod(directory, 0o700)
 }
 
-function syncDirectory(directory: string): void {
-  let fd: number | null = null
+async function syncDirectory(directory: string): Promise<void> {
+  if (process.platform === 'win32') return
+  let handle: fs.promises.FileHandle | null = null
   try {
-    fd = fs.openSync(directory, fs.constants.O_RDONLY)
-    fs.fsyncSync(fd)
+    handle = await fs.promises.open(directory, fs.constants.O_RDONLY)
+    await handle.sync()
   } finally {
-    if (fd !== null) fs.closeSync(fd)
+    await handle?.close()
   }
 }
 
@@ -79,43 +81,43 @@ function validRecord(value: unknown): value is RunPlanRequestRecord {
     && typeof row.instanceId === 'string'
 }
 
-function readRecord(requestId: string, stateDir: string): RunPlanRequestRecord | null {
+async function readRecord(requestId: string, stateDir: string): Promise<RunPlanRequestRecord | null> {
   try {
     const target = requestPath(requestId, stateDir)
-    const stat = fs.lstatSync(target)
+    const stat = await fs.promises.lstat(target)
     if (!stat.isFile() || stat.isSymbolicLink() || (stat.mode & 0o077) !== 0) return null
-    const value = JSON.parse(fs.readFileSync(target, 'utf8'))
+    const value = JSON.parse(await fs.promises.readFile(target, 'utf8'))
     return validRecord(value) ? value : null
   } catch {
     return null
   }
 }
 
-function atomicWrite(record: RunPlanRequestRecord, stateDir: string, exclusive = false): void {
+async function atomicWrite(record: RunPlanRequestRecord, stateDir: string, exclusive = false): Promise<void> {
   const directory = requestDir(stateDir)
-  ensurePrivateDirectory(directory)
+  await ensurePrivateDirectory(directory)
   const target = requestPath(record.requestId, stateDir)
   if (exclusive) {
-    const fd = fs.openSync(target, 'wx', 0o600)
+    const handle = await fs.promises.open(target, 'wx', 0o600)
     try {
-      fs.writeFileSync(fd, `${JSON.stringify(record, null, 2)}\n`, 'utf8')
-      fs.fsyncSync(fd)
+      await handle.writeFile(`${JSON.stringify(record, null, 2)}\n`, 'utf8')
+      await handle.sync()
     } finally {
-      fs.closeSync(fd)
+      await handle.close()
     }
-    syncDirectory(directory)
+    await syncDirectory(directory)
     return
   }
   const staged = path.join(directory, `.${record.requestId}.${process.pid}.${crypto.randomUUID()}.tmp`)
-  const fd = fs.openSync(staged, 'wx', 0o600)
+  const handle = await fs.promises.open(staged, 'wx', 0o600)
   try {
-    fs.writeFileSync(fd, `${JSON.stringify(record, null, 2)}\n`, 'utf8')
-    fs.fsyncSync(fd)
+    await handle.writeFile(`${JSON.stringify(record, null, 2)}\n`, 'utf8')
+    await handle.sync()
   } finally {
-    fs.closeSync(fd)
+    await handle.close()
   }
-  fs.renameSync(staged, target)
-  syncDirectory(directory)
+  await fs.promises.rename(staged, target)
+  await syncDirectory(directory)
 }
 
 function sameIntent(record: RunPlanRequestRecord, intent: RunPlanRequestIntent): boolean {
@@ -125,15 +127,17 @@ function sameIntent(record: RunPlanRequestRecord, intent: RunPlanRequestIntent):
     && record.subject === intent.subject
 }
 
-export function claimRunPlanRequest(
+export async function claimRunPlanRequest(
   intent: RunPlanRequestIntent,
   stateDir: string = STATE_DIR,
-): RunPlanRequestClaim {
-  const existing = readRecord(intent.requestId, stateDir)
+): Promise<RunPlanRequestClaim> {
+  const existing = await readRecord(intent.requestId, stateDir)
   if (existing) {
     if (!sameIntent(existing, intent)) return { kind: 'conflict', record: existing }
     if (existing.status === 'admitted' || existing.status === 'started') return { kind: 'replay', record: existing }
-    if (existing.status === 'claimed') return { kind: 'in_progress', record: existing }
+    if (existing.status === 'claimed' && existing.instanceId === INSTANCE_ID) {
+      return { kind: 'in_progress', record: existing }
+    }
     const reclaimed: RunPlanRequestRecord = {
       ...existing,
       status: 'claimed',
@@ -141,7 +145,7 @@ export function claimRunPlanRequest(
       instanceId: INSTANCE_ID,
       failure: undefined,
     }
-    atomicWrite(reclaimed, stateDir)
+    await atomicWrite(reclaimed, stateDir)
     return { kind: 'new', record: reclaimed }
   }
 
@@ -158,37 +162,42 @@ export function claimRunPlanRequest(
     instanceId: INSTANCE_ID,
   }
   try {
-    atomicWrite(record, stateDir, true)
+    await atomicWrite(record, stateDir, true)
     return { kind: 'new', record }
   } catch (error: any) {
     if (error?.code !== 'EEXIST') throw error
-    const raced = readRecord(intent.requestId, stateDir)
+    const raced = await readRecord(intent.requestId, stateDir)
     if (!raced) throw new Error('run-plan request receipt is unreadable')
     if (!sameIntent(raced, intent)) return { kind: 'conflict', record: raced }
-    return raced.status === 'admitted' || raced.status === 'started'
-      ? { kind: 'replay', record: raced }
-      : { kind: 'in_progress', record: raced }
+    if (raced.status === 'admitted' || raced.status === 'started') return { kind: 'replay', record: raced }
+    if (raced.status === 'claimed' && raced.instanceId === INSTANCE_ID) return { kind: 'in_progress', record: raced }
+    const reclaimed: RunPlanRequestRecord = {
+      ...raced, status: 'claimed', updatedAt: new Date().toISOString(), instanceId: INSTANCE_ID,
+      failure: undefined,
+    }
+    await atomicWrite(reclaimed, stateDir)
+    return { kind: 'new', record: reclaimed }
   }
 }
 
-function updateRunPlanRequest(
+async function updateRunPlanRequest(
   requestId: string,
   mutate: (record: RunPlanRequestRecord) => RunPlanRequestRecord,
   stateDir: string,
-): RunPlanRequestRecord {
-  const record = readRecord(requestId, stateDir)
+): Promise<RunPlanRequestRecord> {
+  const record = await readRecord(requestId, stateDir)
   if (!record) throw new Error('run-plan request receipt is missing or unsafe')
   const next = mutate(record)
-  atomicWrite({ ...next, updatedAt: new Date().toISOString() }, stateDir)
+  await atomicWrite({ ...next, updatedAt: new Date().toISOString() }, stateDir)
   return next
 }
 
-export function markRunPlanAdmitted(
+export async function markRunPlanAdmitted(
   requestId: string,
   runId: string,
   response: Record<string, unknown>,
   stateDir: string = STATE_DIR,
-): RunPlanRequestRecord {
+): Promise<RunPlanRequestRecord> {
   return updateRunPlanRequest(requestId, (record) => ({
     ...record,
     status: record.status === 'started' ? 'started' : 'admitted',
@@ -197,22 +206,22 @@ export function markRunPlanAdmitted(
   }), stateDir)
 }
 
-export function markRunPlanStarted(requestId: string, stateDir: string = STATE_DIR): RunPlanRequestRecord {
+export async function markRunPlanStarted(requestId: string, stateDir: string = STATE_DIR): Promise<RunPlanRequestRecord> {
   return updateRunPlanRequest(requestId, (record) => record.status === 'started'
     ? record
     : { ...record, status: 'started' }, stateDir)
 }
 
-export function markRunPlanFailedBeforeStart(
+export async function markRunPlanFailedBeforeStart(
   requestId: string,
   failure: string,
   stateDir: string = STATE_DIR,
-): RunPlanRequestRecord {
+): Promise<RunPlanRequestRecord> {
   return updateRunPlanRequest(requestId, (record) => record.status === 'started'
     ? record
     : { ...record, status: 'failed_before_start', failure: failure.slice(0, 500) }, stateDir)
 }
 
-export function readRunPlanRequest(requestId: string, stateDir: string = STATE_DIR): RunPlanRequestRecord | null {
+export function readRunPlanRequest(requestId: string, stateDir: string = STATE_DIR): Promise<RunPlanRequestRecord | null> {
   return readRecord(requestId, stateDir)
 }
