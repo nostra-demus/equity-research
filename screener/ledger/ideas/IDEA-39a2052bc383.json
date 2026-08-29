@@ -1,27 +1,27 @@
 {
-  "idea_id": "IDEA-a06045bd26d9",
-  "idea_version": "IDEAV-1958a334293ed605",
-  "idea_version_started_at": "2026-08-27T02:10:48Z",
-  "ticker": "06860",
-  "company": "Fingertango",
-  "exchange": "HKEX",
+  "idea_id": "IDEA-39a2052bc383",
+  "idea_version": "IDEAV-c2649f388f3e14e6",
+  "idea_version_started_at": "2026-08-29T14:17:28Z",
+  "ticker": "IREN",
+  "company": "Iris Energy",
+  "exchange": "NASDAQ",
   "ticker_verified": false,
   "listing_verified": false,
   "liquidity_verified": false,
   "listing_verification_source": null,
   "direction": "short",
   "pair_with": null,
-  "reason": "The company issued a profit warning, signaling deteriorating margins or revenue performance that will likely lead to downward earnings revisions.",
-  "why_now": "The profit warning was filed on 2026-08-26.",
-  "conviction": 75,
+  "reason": "Iris Energy's stock fell due to a $639 million writedown of mining rigs, which overshadowed its AI cloud growth.",
+  "why_now": "The market reacted negatively on August 28, 2026, to the reported writedown, causing a 6% decline in the stock.",
+  "conviction": 45,
   "conviction_basis": "pre_edge_proxy",
   "trade_score": 45,
   "trade_score_basis": "evidence_gate_v2",
   "trade_score_breakdown": {
-    "evidence": 25,
+    "evidence": 14,
     "impact": 19,
     "specificity": 7,
-    "timing": 10,
+    "timing": 6,
     "expression": 0,
     "corroboration": 0,
     "learning_adjustment": 0
@@ -32,6 +32,7 @@
     "verified listing",
     "live liquidity",
     "dated catalyst",
+    "independent confirmation",
     "live price, liquidity, and consensus"
   ],
   "learning": {
@@ -48,26 +49,26 @@
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-8348e5c7ac6a"
+    "EVT-fc07c0e4b285"
   ],
-  "primary_source_event_id": "EVT-8348e5c7ac6a",
+  "primary_source_event_id": "EVT-fc07c0e4b285",
   "source_headlines": [
-    "FINGERTANGO (06860): PROFIT WARNING"
+    "IREN Falls 6% as $639M Mining Rig Writedown Overshadows AI Cloud Growth, TeraWulf Eases"
   ],
-  "source_headline": "FINGERTANGO (06860): PROFIT WARNING",
-  "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0826/2026082601861.pdf",
-  "source_name": "HKEXnews (HK Exchange Filing)",
+  "source_headline": "IREN Falls 6% as $639M Mining Rig Writedown Overshadows AI Cloud Growth, TeraWulf Eases",
+  "source_url": "https://247wallst.com/investing/2026/08/28/iren-falls-6-as-a-639m-mining-rig-writedown-overshadows-ai-cloud-growth-terawulf-eases/",
+  "source_name": "24/7 Wall St.",
   "materiality_max": 100,
-  "newest_source_at": "2026-08-26T14:03:00Z",
+  "newest_source_at": "2026-08-28T13:04:59Z",
   "prior_coverage": {
     "has_run": false,
     "latest_run": null,
     "latest_decision": null,
     "data_pool_present": false
   },
-  "surfaced_at": "2026-08-27T02:10:48Z",
-  "updated_at": "2026-08-27T02:10:48Z",
-  "decay_at": "2026-08-28T02:03:00Z",
+  "surfaced_at": "2026-08-29T14:17:28Z",
+  "updated_at": "2026-08-29T14:17:28Z",
+  "decay_at": "2026-08-30T01:04:59Z",
   "status": "live",
   "promoted_signal_id": null
 }
