@@ -51,6 +51,16 @@ test('free-form ticker labels survive reconciliation and label an otherwise empt
   assert.equal(taskLabel(card({ ticker: null, ticker_label: null, subject: '', title: '' })), 'Untitled task')
 })
 
+test('optimistic ticker identity mirrors the server while a save is in flight', () => {
+  const valid = optimisticTask(card(), { ticker: 'nu' })
+  assert.deepEqual({ ticker: valid.ticker, ticker_label: valid.ticker_label }, { ticker: 'NU', ticker_label: null })
+  const freeform = optimisticTask(card(), { ticker: 'NU HOLDINGS LTD.' })
+  assert.deepEqual(
+    { ticker: freeform.ticker, ticker_label: freeform.ticker_label },
+    { ticker: null, ticker_label: 'NU HOLDINGS LTD.' },
+  )
+})
+
 test('only temporary task failures are carried into a later queued edit', () => {
   assert.equal(retryableTaskUpdateError(Object.assign(new Error('invalid body'), { status: 400 })), false)
   assert.equal(retryableTaskUpdateError(Object.assign(new Error('watch conflict'), { status: 409 })), false)

@@ -1,9 +1,9 @@
 const RETRY_DELAYS_MS = [200, 400, 800, 1_600, 3_000, 5_000, 5_000] as const
 
 export function taskPlanningBusy(error: unknown): boolean {
-  const cause = error as { status?: unknown; message?: unknown }
+  const cause = error as { status?: unknown; message?: unknown; error?: unknown; body?: { error?: unknown } }
   return Number(cause?.status) === 409
-    && String(cause?.message ?? '').includes('Tasks and Watchlist are being updated')
+    && String(cause?.message ?? cause?.error ?? cause?.body?.error ?? '').includes('Tasks and Watchlist are being updated')
 }
 
 /** A planning lock is transient and is raised before a mutation starts, so retrying it is idempotent. */

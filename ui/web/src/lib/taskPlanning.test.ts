@@ -15,6 +15,7 @@ test('planning lock errors retry without dropping the queued operation', async (
   assert.equal(result, 'saved')
   assert.equal(calls, 3)
   assert.deepEqual(waits, [10, 20])
+  assert.equal(taskPlanningBusy({ status: 409, body: { error: 'Tasks and Watchlist are being updated. Try again in a moment.' } }), true)
 })
 
 test('validation and semantic conflicts are never retried', async () => {

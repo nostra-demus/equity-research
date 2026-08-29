@@ -4835,7 +4835,11 @@ app.post('/api/tasks/:id/attachments', { config: { rateLimit: { max: 60, timeWin
     fresh.updated_at = new Date().toISOString()
     fresh.history = [...fresh.history, { at: fresh.updated_at, by: user, action: 'attached', detail: added.map((a) => a.filename).join(', ') }].slice(-50)
     writeTask(fresh)
-    const pub = await publishWatchlist([taskPath(fresh.task_id)], `Tasks: attach files to ${taskTickerInput(fresh) || fresh.subject || fresh.task_id}`)
+    const pub = await publishWatchlist(
+      [taskPath(fresh.task_id)],
+      `Tasks: attach files to ${taskTickerInput(fresh) || fresh.subject || fresh.task_id}`,
+      TASK_UPDATE_PUBLISH_TIMEOUT_MS,
+    )
     publishError = pub.ok ? undefined : pub.error
   }
   return reply.code(added.length ? 201 : 400).send({ ok: added.length > 0, task: { ...task, attachments: [...task.attachments, ...added] }, fileErrors, publish_error: publishError })
