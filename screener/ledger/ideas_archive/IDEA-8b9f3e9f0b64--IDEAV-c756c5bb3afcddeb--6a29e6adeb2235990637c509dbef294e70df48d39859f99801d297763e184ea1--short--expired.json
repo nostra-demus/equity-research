@@ -1,0 +1,78 @@
+{
+  "schema_version": "idea-archive/v1",
+  "archived_at": "2026-08-29T08:47:42Z",
+  "archive_reason": "expired_pruned",
+  "snapshot": {
+    "idea_id": "IDEA-8b9f3e9f0b64",
+    "idea_version": "IDEAV-c756c5bb3afcddeb",
+    "idea_version_started_at": "2026-08-25T10:36:18Z",
+    "ticker": "00348",
+    "company": "China Healthwise",
+    "exchange": "HKEX",
+    "ticker_verified": false,
+    "listing_verified": false,
+    "liquidity_verified": false,
+    "listing_verification_source": null,
+    "direction": "short",
+    "pair_with": null,
+    "reason": "China Healthwise issued a profit warning, indicating that its financial results will be significantly lower than previously expected.",
+    "why_now": "The company filed a profit warning today, signaling an immediate negative revision to its earnings expectations.",
+    "conviction": 60,
+    "conviction_basis": "pre_edge_proxy",
+    "trade_score": 45,
+    "trade_score_basis": "evidence_gate_v2",
+    "trade_score_breakdown": {
+      "evidence": 25,
+      "impact": 19,
+      "specificity": 7,
+      "timing": 10,
+      "expression": 0,
+      "corroboration": 0,
+      "learning_adjustment": 0
+    },
+    "trade_readiness": "watch_only",
+    "missing_checks": [
+      "verified listed ticker",
+      "verified listing",
+      "live liquidity",
+      "dated catalyst",
+      "live price, liquidity, and consensus"
+    ],
+    "learning": {
+      "resolved": 0,
+      "positive": 0,
+      "negative": 0,
+      "neutral": 0,
+      "adjustment": 0,
+      "basis": "not_enough_outcomes",
+      "evidenceIds": []
+    },
+    "priced_in": "room",
+    "thesis_type": "company_specific",
+    "origin_type": "wire",
+    "source_themes": [],
+    "source_event_ids": [
+      "EVT-7c7d0d9e5dde"
+    ],
+    "primary_source_event_id": "EVT-7c7d0d9e5dde",
+    "source_headlines": [
+      "CHINAHEALTHWISE (00348): INSIDE INFORMATION PROFIT WARNING"
+    ],
+    "source_headline": "CHINAHEALTHWISE (00348): INSIDE INFORMATION PROFIT WARNING",
+    "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0825/2026082500909.pdf",
+    "source_name": "HKEXnews (HK Exchange Filing)",
+    "materiality_max": 100,
+    "newest_source_at": "2026-08-25T09:42:00Z",
+    "prior_coverage": {
+      "has_run": false,
+      "latest_run": null,
+      "latest_decision": null,
+      "data_pool_present": false
+    },
+    "surfaced_at": "2026-08-25T10:36:18Z",
+    "updated_at": "2026-08-25T10:36:18Z",
+    "decay_at": "2026-08-26T21:42:00Z",
+    "status": "live",
+    "promoted_signal_id": null
+  }
+}
