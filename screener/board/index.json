@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-29T10:33:44Z",
+  "generated_at": "2026-08-29T10:43:05Z",
   "inbox": [
     {
       "inbox_id": "INB-20260829-490",
@@ -89,6 +89,60 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260829-545",
+      "headline": "Allianz envisage de racheter le géant de l'assistance routière AA pour £5 mds -Sky News",
+      "headline_en": "Allianz considers buying roadside assistance giant AA for £5bn - Sky News",
+      "url": "https://www.reuters.com/fr/affaires/allianz-envisage-de-racheter-le-gant-de-lassistance-routire-aa-pour-5-mds-sky-2026-08-29/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-29T10:31:33Z",
+      "sweep_file": "screener/inbox/2026-08-29_sweep.json",
+      "prelim_note": "Allianz is reportedly considering the acquisition of AA for £5 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Allianz is reportedly considering the acquisition of AA for £5 billion.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Allianz",
+          "ticker": null,
+          "listing_country": "DE"
+        },
+        {
+          "name": "AA",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1934,55 +1988,6 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260829-150",
-      "headline": "India's markets regulator approves Jio Platforms' $3.8 billion IPO",
-      "headline_en": null,
-      "url": "https://www.reuters.com/world/india/indias-markets-regulator-approves-jio-platforms-38-billion-ipo-2026-08-28/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-28T16:23:03Z",
-      "sweep_file": "screener/inbox/2026-08-29_sweep.json",
-      "prelim_note": "Regulators approved a $3.8 billion IPO for Jio Platforms, a major capital market event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Regulators approved a $3.8 billion IPO for Jio Platforms, a major capital market event.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Jio Platforms",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -85507,146 +85512,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-2bb5da7548bc",
-      "idea_version": "IDEAV-5d7a00b11f55bac8",
-      "idea_version_started_at": "2026-08-28T00:35:47Z",
-      "ticker": "WDAY",
-      "company": "Workday",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Workday reported revenue growth and flagged strong AI uptake, suggesting product cycle acceleration and pricing power.",
-      "why_now": "Reuters report 2026-08-27 on earnings release with AI commentary; live catalyst.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-4135ecd7abf8"
-      ],
-      "primary_source_event_id": "EVT-4135ecd7abf8",
-      "source_headlines": [
-        "HR software firm Workday reports revenue rise, flags strong AI uptake"
-      ],
-      "source_headline": "HR software firm Workday reports revenue rise, flags strong AI uptake",
-      "source_url": "https://www.reuters.com/business/workday-beats-second-quarter-revenue-estimates-2026-08-27/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-27T22:33:54Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-28T00:35:47Z",
-      "updated_at": "2026-08-28T00:35:47Z",
-      "decay_at": "2026-08-29T10:33:54Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-07f356ae2f72",
-      "idea_version": "IDEAV-2852798c36e76c64",
-      "idea_version_started_at": "2026-08-27T23:55:54Z",
-      "ticker": "MRVL",
-      "company": "Marvell Technology",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Marvell lifted long-term financial targets as AI demand boosted Q2 profit and revenue, indicating sustained secular growth in data-center silicon.",
-      "why_now": "Q2 results and raised guidance published Aug 27, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-34ed04ec3977"
-      ],
-      "primary_source_event_id": "EVT-34ed04ec3977",
-      "source_headlines": [
-        "Marvell Lifts Long-Term Targets as AI Demand Boosts Second-Quarter Profit, Revenue"
-      ],
-      "source_headline": "Marvell Lifts Long-Term Targets as AI Demand Boosts Second-Quarter Profit, Revenue",
-      "source_url": "https://www.wsj.com/business/earnings/marvell-sees-accelerating-growth-as-ai-demand-boosts-second-quarter-profit-revenue-786b8c74?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-27T22:39:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-27T23:55:54Z",
-      "updated_at": "2026-08-27T23:55:54Z",
-      "decay_at": "2026-08-29T10:39:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-b95df346cf59",
       "idea_version": "IDEAV-3143e57a2c18906c",
       "idea_version_started_at": "2026-08-29T10:08:49Z",
@@ -86849,6 +86714,146 @@
       "surfaced_at": "2026-08-27T03:27:43Z",
       "updated_at": "2026-08-28T03:48:03Z",
       "decay_at": "2026-08-29T03:33:14Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-2bb5da7548bc",
+      "idea_version": "IDEAV-5d7a00b11f55bac8",
+      "idea_version_started_at": "2026-08-28T00:35:47Z",
+      "ticker": "WDAY",
+      "company": "Workday",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Workday reported revenue growth and flagged strong AI uptake, suggesting product cycle acceleration and pricing power.",
+      "why_now": "Reuters report 2026-08-27 on earnings release with AI commentary; live catalyst.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-4135ecd7abf8"
+      ],
+      "primary_source_event_id": "EVT-4135ecd7abf8",
+      "source_headlines": [
+        "HR software firm Workday reports revenue rise, flags strong AI uptake"
+      ],
+      "source_headline": "HR software firm Workday reports revenue rise, flags strong AI uptake",
+      "source_url": "https://www.reuters.com/business/workday-beats-second-quarter-revenue-estimates-2026-08-27/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-27T22:33:54Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-28T00:35:47Z",
+      "updated_at": "2026-08-28T00:35:47Z",
+      "decay_at": "2026-08-29T10:33:54Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-07f356ae2f72",
+      "idea_version": "IDEAV-2852798c36e76c64",
+      "idea_version_started_at": "2026-08-27T23:55:54Z",
+      "ticker": "MRVL",
+      "company": "Marvell Technology",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Marvell lifted long-term financial targets as AI demand boosted Q2 profit and revenue, indicating sustained secular growth in data-center silicon.",
+      "why_now": "Q2 results and raised guidance published Aug 27, 2026.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-34ed04ec3977"
+      ],
+      "primary_source_event_id": "EVT-34ed04ec3977",
+      "source_headlines": [
+        "Marvell Lifts Long-Term Targets as AI Demand Boosts Second-Quarter Profit, Revenue"
+      ],
+      "source_headline": "Marvell Lifts Long-Term Targets as AI Demand Boosts Second-Quarter Profit, Revenue",
+      "source_url": "https://www.wsj.com/business/earnings/marvell-sees-accelerating-growth-as-ai-demand-boosts-second-quarter-profit-revenue-786b8c74?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-27T22:39:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-27T23:55:54Z",
+      "updated_at": "2026-08-27T23:55:54Z",
+      "decay_at": "2026-08-29T10:39:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -89708,13 +89713,13 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 205,
-    "shown_count": 205,
+    "total_count": 207,
+    "shown_count": 207,
     "hidden_count": 0,
     "side_counts": {
       "long": {
-        "total_count": 93,
-        "shown_count": 93,
+        "total_count": 95,
+        "shown_count": 95,
         "hidden_count": 0
       },
       "short": {
@@ -89739,6 +89744,152 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-07f356ae2f72",
+        "idea_version": "IDEAV-2852798c36e76c64",
+        "idea_version_started_at": "2026-08-27T23:55:54Z",
+        "ticker": "MRVL",
+        "company": "Marvell Technology",
+        "exchange": "NASDAQ",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Marvell lifted long-term financial targets as AI demand boosted Q2 profit and revenue, indicating sustained secular growth in data-center silicon.",
+        "why_now": "Q2 results and raised guidance published Aug 27, 2026.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 62,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-34ed04ec3977"
+        ],
+        "primary_source_event_id": "EVT-34ed04ec3977",
+        "source_headlines": [
+          "Marvell Lifts Long-Term Targets as AI Demand Boosts Second-Quarter Profit, Revenue"
+        ],
+        "source_headline": "Marvell Lifts Long-Term Targets as AI Demand Boosts Second-Quarter Profit, Revenue",
+        "source_url": "https://www.wsj.com/business/earnings/marvell-sees-accelerating-growth-as-ai-demand-boosts-second-quarter-profit-revenue-786b8c74?mod=pls_whats_news_us_business_f",
+        "source_name": "The Wall Street Journal",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-27T22:39:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-27T23:55:54Z",
+        "updated_at": "2026-08-27T23:55:54Z",
+        "decay_at": "2026-08-29T10:39:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-29T10:39:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-2bb5da7548bc",
+        "idea_version": "IDEAV-5d7a00b11f55bac8",
+        "idea_version_started_at": "2026-08-28T00:35:47Z",
+        "ticker": "WDAY",
+        "company": "Workday",
+        "exchange": "NASDAQ",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Workday reported revenue growth and flagged strong AI uptake, suggesting product cycle acceleration and pricing power.",
+        "why_now": "Reuters report 2026-08-27 on earnings release with AI commentary; live catalyst.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 62,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-4135ecd7abf8"
+        ],
+        "primary_source_event_id": "EVT-4135ecd7abf8",
+        "source_headlines": [
+          "HR software firm Workday reports revenue rise, flags strong AI uptake"
+        ],
+        "source_headline": "HR software firm Workday reports revenue rise, flags strong AI uptake",
+        "source_url": "https://www.reuters.com/business/workday-beats-second-quarter-revenue-estimates-2026-08-27/",
+        "source_name": "Reuters — Latest (news sitemap)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-27T22:33:54Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-28T00:35:47Z",
+        "updated_at": "2026-08-28T00:35:47Z",
+        "decay_at": "2026-08-29T10:33:54Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-29T10:33:54Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-151e26db4506",
         "idea_version": "IDEAV-bb3927f61873c568",
@@ -104941,7 +105092,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 225,
-    "live_count": 18,
+    "live_count": 16,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -104960,9 +105111,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 584516,
-    "news_picked_today": 1237,
-    "news_dropped_today": 4571
+    "news_seen_today": 584596,
+    "news_picked_today": 1243,
+    "news_dropped_today": 4645
   },
   "book_momentum": {
     "live_count": 8,
