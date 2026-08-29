@@ -89,7 +89,7 @@ import {
 } from './watchlist'
 import {
   TASKS_DIR, TASK_MAX_ATTACHMENTS, TASK_PEOPLE, isTaskId, newTaskId, readTasks,
-  syncTaskWatchlist, syncWatchAssigneeToTask, taskPath, writeTask,
+  syncTaskWatchlist, syncWatchAssigneeToTask, taskPath, taskTickerIdentity, taskTickerInput, writeTask,
   type TaskCard, type TaskDecision, type TaskStage,
 } from './tasks'
 import { readValuationSummary, readOverrides, appendOverride } from './valuation-levers'
@@ -3973,16 +3973,15 @@ const WatchRowBody = z.object({
 
 const TaskBody = z.object({
   scope: z.enum(['ticker', 'company_event', 'world_event']),
-  ticker: z.string().trim().max(24).nullable().optional(),
-  subject: z.string().trim().min(1).max(240),
-  title: z.string().trim().min(1).max(4000),
+  ticker: z.string().trim().max(240).nullable().optional(),
+  subject: z.string().trim().max(240),
+  title: z.string().trim().max(4000),
   stage: z.enum(['idea_generation', 'ticker_identified', 'deep_dive', 'final_decision']),
   decision: z.enum(['deploy', 'reject', 'watch']).nullable().optional(),
   assignee: z.enum(['AB', 'NV', 'CK']),
 }).strip()
 
 function taskOutcomeProblem(stage: TaskStage, decision: TaskDecision | null): string | null {
-  if (stage === 'final_decision' && !decision) return 'Choose Deploy, Reject or Watch before moving to Final Decision.'
   if (stage !== 'final_decision' && decision) return 'A final decision belongs only in Final Decision.'
   return null
 }
@@ -4726,20 +4725,13 @@ app.post('/api/tasks', { config: { rateLimit: { max: 120, timeWindow: '1 minute'
   const problem = taskOutcomeProblem(parsed.data.stage, parsed.data.decision ?? null)
   if (problem) return reply.code(400).send({ error: problem })
   const rawTicker = parsed.data.ticker?.trim() || ''
-  const ticker = rawTicker ? cleanTicker(rawTicker) : null
-  if (rawTicker && !ticker) return reply.code(400).send({ error: 'ticker not usable' })
-  if (parsed.data.scope !== 'world_event' && !ticker && parsed.data.stage !== 'idea_generation') {
-    return reply.code(400).send({ error: 'Add a ticker before moving this card past Idea generation.' })
-  }
-  if (parsed.data.stage === 'final_decision' && parsed.data.decision === 'watch' && !ticker) {
-    return reply.code(400).send({ error: 'Add a ticker before choosing Watch so it can sync to Watchlist.' })
-  }
-  return withPlanningMutation(reply, async () => {
+  const identity = taskTickerIdentity(rawTicker)
+  const save = async () => {
     const { user } = identify(req)
     const at = new Date().toISOString()
     const task: TaskCard = {
       schema_version: 'task-card/v1', task_id: newTaskId(new Date()), scope: parsed.data.scope,
-      ticker: ticker ? ticker.toUpperCase() : null, subject: parsed.data.subject, title: parsed.data.title,
+      ...identity, subject: parsed.data.subject, title: parsed.data.title,
       stage: parsed.data.stage, decision: parsed.data.stage === 'final_decision' ? parsed.data.decision ?? null : null,
       assignee: parsed.data.assignee, attachments: [], watchlist_entry_id: null, watchlist_created: false,
       history: [{ at, by: user, action: 'created', detail: parsed.data.stage }],
@@ -4754,9 +4746,14 @@ app.post('/api/tasks', { config: { rateLimit: { max: 120, timeWindow: '1 minute'
     if (watchSync.problem) return reply.code(409).send({ error: watchSync.problem })
     writeTask(task)
     const paths = [taskPath(task.task_id), ...watchSync.changedEntries.map((entry) => watchlistEntryPath(entry.entry_id))]
-    const pub = await publishWatchlist(paths, `Tasks: add ${task.ticker || task.subject}`)
+    const pub = await publishWatchlist(paths, `Tasks: add ${taskTickerInput(task) || task.subject || task.task_id}`, TASK_UPDATE_PUBLISH_TIMEOUT_MS)
     return reply.code(201).send({ ok: true, task, publish_error: pub.ok ? undefined : pub.error })
-  })
+  }
+  // A normal task writes its own unique file and has no shared Watchlist state to reconcile. Do not let
+  // an unrelated Watchlist publication reject the user's planning card (or the files queued behind it).
+  const needsWatchlistMutation = parsed.data.stage === 'final_decision'
+    && parsed.data.decision === 'watch' && !!identity.ticker
+  return needsWatchlistMutation ? withPlanningMutation(reply, save) : save()
 })
 
 app.patch('/api/tasks/:id', { config: { rateLimit: { max: 240, timeWindow: '1 minute' } } }, async (req, reply) => {
@@ -4775,24 +4772,19 @@ app.patch('/api/tasks/:id', { config: { rateLimit: { max: 240, timeWindow: '1 mi
       : null
     const problem = taskOutcomeProblem(stage, decision ?? null)
     if (problem) return reply.code(400).send({ error: problem })
-    const rawTicker = d.ticker === undefined ? task.ticker ?? '' : d.ticker?.trim() || ''
-    const ticker = rawTicker ? cleanTicker(rawTicker) : null
-    if (rawTicker && !ticker) return reply.code(400).send({ error: 'ticker not usable' })
+    const rawTicker = d.ticker === undefined ? taskTickerInput(task) : d.ticker?.trim() || ''
+    const identity = taskTickerIdentity(rawTicker)
+    const ticker = identity.ticker
     const scope = d.scope ?? task.scope
-    if (scope !== 'world_event' && !ticker && stage !== 'idea_generation') {
-      return reply.code(400).send({ error: 'Add a ticker before moving this card past Idea generation.' })
-    }
-    if (stage === 'final_decision' && decision === 'watch' && !ticker) {
-      return reply.code(400).send({ error: 'Add a ticker before choosing Watch so it can sync to Watchlist.' })
-    }
     if (decision === 'watch' && conflictingWatchTask(ticker, task.task_id)) {
       return reply.code(409).send({ error: `${ticker} already has a Final Decision · Watch task.` })
     }
     const { user } = identify(req)
     const at = new Date().toISOString()
-    const prior = { stage: task.stage, assignee: task.assignee, ticker: task.ticker }
+    const prior = { stage: task.stage, assignee: task.assignee, ticker: taskTickerInput(task) }
     task.scope = scope
-    task.ticker = ticker ? ticker.toUpperCase() : null
+    task.ticker = identity.ticker
+    task.ticker_label = identity.ticker_label
     task.subject = d.subject ?? task.subject
     task.title = d.title ?? task.title
     task.stage = stage
@@ -4803,8 +4795,8 @@ app.patch('/api/tasks/:id', { config: { rateLimit: { max: 240, timeWindow: '1 mi
       ? { action: 'moved', detail: `${prior.stage} → ${stage}${task.decision ? ` · ${task.decision}` : ''}` }
       : prior.assignee !== task.assignee
         ? { action: 'assigned', detail: `${prior.assignee} → ${task.assignee}` }
-        : prior.ticker !== task.ticker
-          ? { action: 'retargeted', detail: `${prior.ticker ?? 'no ticker'} → ${task.ticker ?? 'no ticker'}` }
+        : prior.ticker !== taskTickerInput(task)
+          ? { action: 'retargeted', detail: `${prior.ticker || 'no ticker'} → ${taskTickerInput(task) || 'no ticker'}` }
           : { action: 'edited', detail: '' }
     task.history = [...task.history, { at, by: user, ...event }].slice(-50)
     const engineMatches = await taskEngineWatch(task)
@@ -4815,7 +4807,7 @@ app.patch('/api/tasks/:id', { config: { rateLimit: { max: 240, timeWindow: '1 mi
     const paths = [taskPath(task.task_id), ...watchSync.changedEntries.map((entry) => watchlistEntryPath(entry.entry_id))]
     // Card movement must not hold every later planning mutation behind a long git retry. The task is
     // already saved locally above; a publication timeout is returned explicitly as publish_error.
-    const pub = await publishWatchlist(paths, `Tasks: update ${task.ticker || task.subject}`, TASK_UPDATE_PUBLISH_TIMEOUT_MS)
+    const pub = await publishWatchlist(paths, `Tasks: update ${taskTickerInput(task) || task.subject || task.task_id}`, TASK_UPDATE_PUBLISH_TIMEOUT_MS)
     return { ok: true, task, publish_error: pub.ok ? undefined : pub.error }
   })
 })
@@ -4903,7 +4895,11 @@ app.post('/api/tasks/:id/attachments', { config: { rateLimit: { max: 60, timeWin
     fresh.updated_at = new Date().toISOString()
     fresh.history = [...fresh.history, { at: fresh.updated_at, by: user, action: 'attached', detail: added.map((a) => a.filename).join(', ') }].slice(-50)
     writeTask(fresh)
-    const pub = await publishWatchlist([taskPath(fresh.task_id)], `Tasks: attach files to ${fresh.ticker || fresh.subject}`)
+    const pub = await publishWatchlist(
+      [taskPath(fresh.task_id)],
+      `Tasks: attach files to ${taskTickerInput(fresh) || fresh.subject || fresh.task_id}`,
+      TASK_UPDATE_PUBLISH_TIMEOUT_MS,
+    )
     publishError = pub.ok ? undefined : pub.error
   }
   return reply.code(added.length ? 201 : 400).send({ ok: added.length > 0, task: { ...task, attachments: [...task.attachments, ...added] }, fileErrors, publish_error: publishError })

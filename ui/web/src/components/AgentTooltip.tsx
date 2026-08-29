@@ -1,9 +1,11 @@
 import type { AgentNode, NodeStatus } from '../lib/types'
 import { fmtClock, fmtEtaLeft, fmtSpan, orbProgress } from '../lib/eta'
+import { PAUSED_RUN_HELP } from '../lib/runActivityProjection'
 
 interface Props {
   node: AgentNode
   status: NodeStatus
+  paused?: boolean
   verdict?: string | null
   startedAt?: number
   endedAt?: number
@@ -45,13 +47,15 @@ function timeLine(status: NodeStatus, startedAt?: number, endedAt?: number, expe
   return null
 }
 
-export function AgentTooltip({ node, status, verdict, startedAt, endedAt, expectedMs, now, screenX, screenY }: Props) {
+export function AgentTooltip({ node, status, paused = false, verdict, startedAt, endedAt, expectedMs, now, screenX, screenY }: Props) {
   const w = 300
   const left = Math.min(screenX + 18, window.innerWidth - w - 12)
   const top = Math.max(12, Math.min(screenY - 30, window.innerHeight - 220))
-  const h = hint(node, status)
-  const t = timeLine(status, startedAt, endedAt, expectedMs, now)
-  const tdim = status === 'done' || status === 'queued'
+  const h = paused
+    ? { text: PAUSED_RUN_HELP, go: false }
+    : hint(node, status)
+  const t = paused ? 'saved — waiting to resume' : timeLine(status, startedAt, endedAt, expectedMs, now)
+  const tdim = paused || status === 'done' || status === 'queued'
   return (
     <div className="tipcard" style={{ left, top, width: w }}>
       <div className="tipcard__top">
