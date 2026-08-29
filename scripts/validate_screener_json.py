@@ -759,6 +759,17 @@ def check_commodity_review_anchors(doc_path: str) -> list[str]:
     record_path = os.path.join(run_dir, "decision_record.json")
     if doc.get("schema_version") == "2.0" and isinstance(doc.get("decision_id"), str):
         record_path = os.path.join(run_dir, "decisions", doc["decision_id"], "decision_record.json")
+    elif isinstance(doc.get("commodity"), str):
+        # Legacy top-level records became mutable UI projections once immutable
+        # dual-horizon archives shipped. Anchor old reviews to the frozen migration
+        # snapshot even when that commodity now also has a modern decision.
+        repository = os.path.abspath(os.path.join(run_dir, "..", "..", ".."))
+        snapshot_path = os.path.join(
+            repository, "frameworks", "execution_provenance_legacy_snapshots",
+            "commodity", doc["commodity"], "decision_record.json",
+        )
+        if os.path.isfile(snapshot_path):
+            record_path = snapshot_path
     if not os.path.exists(record_path):
         return [f"immutable decision record not found at {os.path.relpath(record_path, REPO)} — cannot cross-check anchors"]
     record = json.load(open(record_path, encoding="utf-8"))
