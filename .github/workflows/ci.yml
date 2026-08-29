@@ -402,9 +402,15 @@ jobs:
         with:
           node-version: 22
           cache: npm
-          cache-dependency-path: ui/web/package-lock.json
+          cache-dependency-path: |
+            ui/web/package-lock.json
+            ui/server/package-lock.json
 
       - name: Install dependencies
+        run: npm ci
+
+      - name: Install server runtime for the provider lifecycle fixture
+        working-directory: ui/server
         run: npm ci
 
       - name: Typecheck (tsc --noEmit)
