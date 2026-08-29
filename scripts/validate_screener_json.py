@@ -580,9 +580,9 @@ def check_commodity_dual_horizon(doc_path: str, *, frozen_coverage: bool = False
     if frozen_coverage:
         rows = coverage.get("rows", []) if isinstance(coverage, dict) else []
         usable = any(isinstance(row, dict) and row.get("status") == "usable" for row in rows)
-        if not isinstance(coverage, dict) or coverage.get("schema_version") != 2:
+        if not isinstance(coverage, dict) or coverage.get("schema_version") != 3:
             if usable:
-                return ["archived usable coverage has no hash-bound frozen profile snapshot"]
+                return ["archived usable coverage has no hash-bound frozen profile and source snapshot"]
             return validate_dual_horizon_record(
                 record, coverage, coverage_sha256, frozen_coverage=True,
             )
@@ -590,7 +590,8 @@ def check_commodity_dual_horizon(doc_path: str, *, frozen_coverage: bool = False
         snapshot_markdown = os.path.join(snapshot_root, "COMMODITY_PROFILES.md")
         try:
             from commodity_profile_coverage import (
-                profile_snapshot_sha256, resolve_profile_series, structured_profile,
+                frozen_source_resolver, profile_snapshot_sha256,
+                source_snapshot_sha256, structured_profile,
             )
             snapshot_digest = profile_snapshot_sha256(
                 str(record.get("commodity", "")),
@@ -600,30 +601,46 @@ def check_commodity_dual_horizon(doc_path: str, *, frozen_coverage: bool = False
                 str(record.get("commodity", "")),
                 profile_path=Path(snapshot_markdown), structured_root=Path(snapshot_root),
             )
+            source_path = Path(os.path.dirname(doc_path)) / "required_series_sources.json"
+            source_snapshot = json.loads(source_path.read_text(encoding="utf-8"))
+            source_digest = source_snapshot_sha256(source_snapshot)
+            resolver = frozen_source_resolver(source_snapshot, coverage)
         except (OSError, ValueError) as error:
-            return [f"archived required-series profile snapshot is invalid: {error}"]
-        resolver = lambda series, commodity, decision_time: resolve_profile_series(
-            series, commodity, decision_time,
-            profile_path=Path(snapshot_markdown), structured_root=Path(snapshot_root),
-        )
+            return [f"archived required-series profile/source snapshot is invalid: {error}"]
         return validate_dual_horizon_record(
             record, coverage, coverage_sha256, profile_requirements,
             coverage_resolver=resolver, frozen_coverage=True,
             profile_snapshot_sha256=snapshot_digest,
+            source_snapshot_sha256=source_digest,
         )
     profile_requirements = None
     profile_digest = None
     try:
-        from commodity_profile_coverage import PROFILE_PATH, profile_snapshot_sha256, structured_profile
+        from commodity_profile_coverage import (
+            PROFILE_PATH, frozen_source_resolver, profile_snapshot_sha256,
+            source_snapshot_sha256, structured_profile,
+        )
         profile_requirements = structured_profile(
             str(record.get("commodity", "")), profile_path=PROFILE_PATH,
         )
         profile_digest = profile_snapshot_sha256(str(record.get("commodity", "")))
     except (OSError, ValueError):
         pass
+    source_digest = None
+    resolver = production_coverage_resolver
+    if isinstance(coverage, dict) and coverage.get("schema_version") == 3:
+        try:
+            source_snapshot = json.loads(
+                (Path(os.path.dirname(doc_path)) / "required_series_sources.json").read_text(encoding="utf-8")
+            )
+            source_digest = source_snapshot_sha256(source_snapshot)
+            resolver = frozen_source_resolver(source_snapshot, coverage)
+        except (OSError, ValueError, json.JSONDecodeError):
+            resolver = lambda *_args: None
     return validate_dual_horizon_record(
-        record, coverage, coverage_sha256, profile_requirements, production_coverage_resolver,
+        record, coverage, coverage_sha256, profile_requirements, resolver,
         profile_snapshot_sha256=profile_digest,
+        source_snapshot_sha256=source_digest,
     )
 
 
@@ -745,6 +762,29 @@ def check_commodity_archived_snapshot(doc_path: str) -> list[str]:
                 else:
                     if snapshot_digest != coverage.get("profile_snapshot_sha256"):
                         errors.append("archived required-series profile snapshot digest mismatch")
+            if isinstance(coverage, dict) and coverage.get("schema_version") == 3:
+                snapshot_root = Path(os.path.dirname(doc_path)) / "required_series_profile"
+                try:
+                    from commodity_profile_coverage import (
+                        frozen_source_resolver, profile_snapshot_sha256, source_snapshot_sha256,
+                    )
+                    profile_digest = profile_snapshot_sha256(
+                        str(record.get("commodity", "")),
+                        profile_path=snapshot_root / "COMMODITY_PROFILES.md",
+                        structured_root=snapshot_root,
+                    )
+                    source_snapshot = json.loads(
+                        (Path(os.path.dirname(doc_path)) / "required_series_sources.json").read_text(encoding="utf-8")
+                    )
+                    source_digest = source_snapshot_sha256(source_snapshot)
+                    frozen_source_resolver(source_snapshot, coverage)
+                except (OSError, ValueError, json.JSONDecodeError) as error:
+                    errors.append(f"archived required-series profile/source snapshot is invalid: {error}")
+                else:
+                    if profile_digest != coverage.get("profile_snapshot_sha256"):
+                        errors.append("archived required-series profile snapshot digest mismatch")
+                    if source_digest != coverage.get("source_snapshot_sha256"):
+                        errors.append("archived required-series source snapshot digest mismatch")
     return errors
 
 

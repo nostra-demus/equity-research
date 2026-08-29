@@ -14,7 +14,7 @@ from typing import Any, Callable
 
 from canonical_json import canonical_json_bytes
 from connector_contract import load_valid_manifests
-from connector_vintages import read_point_in_time
+from connector_vintages import read_point_in_time, resolve_vintage_id
 from market_prices import load_feed
 from repo_mutation import atomic_write_json
 
@@ -273,7 +273,7 @@ def _resolved(
             "tier": tier, "retrieved_at": retrieved_at,
         },
         "vintage_id": vintage_id, "selected_provider": provider,
-        "usable": True, "health": "current",
+        "usable": True, "health": "current", "identity": identity,
     }
 
 
@@ -532,13 +532,22 @@ def _result_row(row: dict[str, Any], result: dict[str, Any]) -> dict[str, Any]:
     }
 
 
-def compile_coverage(
+def source_snapshot_bytes(snapshot: dict[str, Any]) -> bytes:
+    """Serialize the frozen non-connector evidence exactly as the CLI writes it."""
+    return (json.dumps(snapshot, indent=2, ensure_ascii=False) + "\n").encode("utf-8")
+
+
+def source_snapshot_sha256(snapshot: dict[str, Any]) -> str:
+    return "sha256:" + hashlib.sha256(source_snapshot_bytes(snapshot)).hexdigest()
+
+
+def compile_coverage_bundle(
     *, commodity: str, decision_time: str, profile_path: Path = PROFILE_PATH,
     structured_root: Path = STRUCTURED_PROFILE_ROOT, connectors_root: Path = CONNECTORS_ROOT,
     data_root: Path = REPO / "data", market_root: Path = MARKET_ROOT, state_root: Path = STATE_ROOT,
     reader: Callable[..., dict[str, Any] | None] = read_point_in_time,
     manifests: list[dict[str, Any]] | None = None,
-) -> dict[str, Any]:
+) -> tuple[dict[str, Any], dict[str, Any]]:
     commodity = commodity.upper()
     cutoff = _iso(_utc(decision_time))
     requirements = structured_profile(commodity, profile_path=profile_path, structured_root=structured_root)
@@ -547,27 +556,156 @@ def compile_coverage(
         if defects:
             raise ValueError(f"connector discovery failed: {defects[0]}")
     compiled = []
+    frozen_sources = []
     for requirement in requirements:
         result = resolve_profile_series(
             requirement["series"], commodity, cutoff, profile_path=profile_path,
             structured_root=structured_root, connectors_root=connectors_root, data_root=data_root,
             market_root=market_root, state_root=state_root, reader=reader, manifests=manifests,
         )
-        compiled.append(_result_row(requirement, result or {"status": "suspect", "reason": "resolver returned no result"}))
+        result = result or {"status": "suspect", "reason": "resolver returned no result"}
+        compiled_row = _result_row(requirement, result)
+        compiled.append(compiled_row)
+        # Connector vintages already live in the repository's immutable, content-addressed history.
+        # Pulse, shared-market and derived routes do not, so freeze their complete selected result.
+        if compiled_row["status"] == "usable" and compiled_row["connector_id"] is None:
+            identity = result.get("identity") if isinstance(result, dict) else None
+            if (
+                not isinstance(identity, dict)
+                or "sha256:" + hashlib.sha256(canonical_json_bytes(identity)).hexdigest()
+                != compiled_row["vintage_id"]
+            ):
+                raise ValueError(f"non-connector series {requirement['series']} has no content-bound identity")
+            frozen_sources.append({
+                "series_id": requirement["series"],
+                "vintage_id": compiled_row["vintage_id"],
+                "result": result,
+            })
     unresolved = [row["need_id"] for row in compiled if row["status"] != "usable"]
     try:
         profile_identity = profile_path.resolve().relative_to(REPO).as_posix()
     except ValueError:
         profile_identity = profile_path.resolve().as_posix()
-    return {
-        "schema_version": 2, "commodity": commodity, "decision_time": cutoff,
+    source_snapshot = {
+        "schema_version": 1, "commodity": commodity, "decision_time": cutoff,
+        "rows": frozen_sources,
+    }
+    artifact = {
+        "schema_version": 3, "commodity": commodity, "decision_time": cutoff,
         "generated_at": _iso(dt.datetime.now(dt.timezone.utc)), "profile_path": profile_identity,
         "profile_snapshot_sha256": profile_snapshot_sha256(
             commodity, profile_path=profile_path, structured_root=structured_root,
         ),
+        "source_snapshot_sha256": source_snapshot_sha256(source_snapshot),
         "required_count": len(compiled), "usable_count": len(compiled) - len(unresolved),
         "complete": not unresolved, "unresolved_need_ids": unresolved, "rows": compiled,
     }
+    return artifact, source_snapshot
+
+
+def compile_coverage(
+    *, commodity: str, decision_time: str, profile_path: Path = PROFILE_PATH,
+    structured_root: Path = STRUCTURED_PROFILE_ROOT, connectors_root: Path = CONNECTORS_ROOT,
+    data_root: Path = REPO / "data", market_root: Path = MARKET_ROOT, state_root: Path = STATE_ROOT,
+    reader: Callable[..., dict[str, Any] | None] = read_point_in_time,
+    manifests: list[dict[str, Any]] | None = None,
+) -> dict[str, Any]:
+    """Backward-compatible artifact-only wrapper; publication uses the bundle API."""
+    artifact, _snapshot = compile_coverage_bundle(
+        commodity=commodity, decision_time=decision_time, profile_path=profile_path,
+        structured_root=structured_root, connectors_root=connectors_root, data_root=data_root,
+        market_root=market_root, state_root=state_root, reader=reader, manifests=manifests,
+    )
+    return artifact
+
+
+def frozen_source_resolver(
+    snapshot: dict[str, Any], coverage: dict[str, Any], *, data_root: Path = REPO / "data",
+) -> Callable[[str, str, str], dict[str, Any] | None]:
+    """Resolve archived rows from immutable connector history or the frozen source snapshot."""
+    snapshot_rows = snapshot.get("rows") if isinstance(snapshot, dict) else None
+    coverage_rows = coverage.get("rows") if isinstance(coverage, dict) else None
+    if (
+        not isinstance(snapshot_rows, list) or not isinstance(coverage_rows, list)
+        or snapshot.get("schema_version") != 1
+        or snapshot.get("commodity") != coverage.get("commodity")
+        or snapshot.get("decision_time") != coverage.get("decision_time")
+        or source_snapshot_sha256(snapshot) != coverage.get("source_snapshot_sha256")
+    ):
+        raise ValueError("required-series source snapshot identity or digest is invalid")
+    by_series: dict[str, dict[str, Any]] = {}
+    for entry in snapshot_rows:
+        if (
+            not isinstance(entry, dict) or set(entry) != {"series_id", "vintage_id", "result"}
+            or not isinstance(entry.get("series_id"), str) or entry["series_id"] in by_series
+            or not isinstance(entry.get("result"), dict)
+        ):
+            raise ValueError("required-series source snapshot rows are malformed or duplicated")
+        by_series[entry["series_id"]] = entry
+    coverage_by_series = {
+        row.get("series_id"): row for row in coverage_rows
+        if isinstance(row, dict) and isinstance(row.get("series_id"), str)
+    }
+    expected_frozen = {
+        row.get("series_id"): row.get("vintage_id") for row in coverage_rows
+        if isinstance(row, dict) and row.get("status") == "usable" and row.get("connector_id") is None
+    }
+    if {series: entry.get("vintage_id") for series, entry in by_series.items()} != expected_frozen:
+        raise ValueError("required-series source snapshot does not exactly cover non-connector usable rows")
+    cutoff = _utc(str(coverage.get("decision_time")))
+
+    def resolve(series_id: str, commodity: str, decision_time: str) -> dict[str, Any] | None:
+        if commodity.upper() != snapshot["commodity"] or _iso(_utc(decision_time)) != _iso(cutoff):
+            return None
+        row = coverage_by_series.get(series_id)
+        if not isinstance(row, dict) or row.get("status") != "usable":
+            return None
+        if isinstance(row.get("connector_id"), str):
+            result = resolve_vintage_id(
+                str(data_root), series_id, commodity.upper(), str(row.get("vintage_id")),
+            )
+        else:
+            entry = by_series.get(series_id)
+            if not isinstance(entry, dict) or entry.get("vintage_id") != row.get("vintage_id"):
+                return None
+            result = entry.get("result")
+            identity = result.get("identity") if isinstance(result, dict) else None
+            if (
+                not isinstance(identity, dict) or identity.get("series_id") != series_id
+                or "sha256:" + hashlib.sha256(canonical_json_bytes(identity)).hexdigest()
+                != row.get("vintage_id")
+                or identity.get("kind") not in {"shared_market", "pulse_quote", "derived"}
+            ):
+                return None
+            payload = result.get("payload")
+            if identity["kind"] == "shared_market" and (
+                not isinstance(payload, dict)
+                or hashlib.sha256(canonical_json_bytes(payload.get("points"))).hexdigest()
+                != identity.get("points_sha256")
+            ):
+                return None
+            if identity["kind"] == "derived" and identity.get("payload") != payload:
+                return None
+            if identity["kind"] == "pulse_quote":
+                quote = identity.get("quote")
+                if not isinstance(quote, dict) or not isinstance(payload, dict) or any(
+                    payload.get(key) != quote.get(source_key)
+                    for key, source_key in (("value", "last"), ("unit", "unit"), ("symbol", "symbol"), ("source", "source"))
+                ):
+                    return None
+        vintage = result.get("vintage") if isinstance(result, dict) else None
+        retrieved = _parse_instant(vintage.get("retrieved_at")) if isinstance(vintage, dict) else None
+        as_of = _parse_instant(vintage.get("as_of")) if isinstance(vintage, dict) else None
+        if (
+            not isinstance(result, dict) or result.get("usable") is not True
+            or result.get("health") != "current" or result.get("vintage_id") != row.get("vintage_id")
+            or not isinstance(vintage, dict) or vintage.get("series_id", series_id) != series_id
+            or retrieved is None or retrieved > cutoff or as_of is None or as_of > cutoff
+        ):
+            return None
+        return result
+
+    return resolve
 
 
 def artifact_sha256(path: Path) -> str:
@@ -589,12 +727,14 @@ def main() -> int:
         run_root = args.run_root.resolve()
         commodity = run_root.name.upper()
         decision_time = _iso(_utc(args.decision_time))
-        artifact = compile_coverage(
+        artifact, sources = compile_coverage_bundle(
             commodity=commodity, decision_time=decision_time, profile_path=args.profile,
             structured_root=args.structured_profile_root, connectors_root=args.connectors_root,
             data_root=args.data_root, market_root=args.market_root, state_root=args.state_root,
         )
         output = run_root / "required_series_coverage.json"
+        source_output = run_root / "required_series_sources.json"
+        atomic_write_json(str(source_output), sources)
         atomic_write_json(str(output), artifact)
         digest = artifact_sha256(output)
     except (OSError, RuntimeError, ValueError) as error:

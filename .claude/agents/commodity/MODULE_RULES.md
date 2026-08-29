@@ -199,10 +199,12 @@ After all orbs finish, run `scripts/commodity_profile_coverage.py` at the decisi
 `required_series_coverage.json` is binding and is hash-linked from the decision record. Any required
 semantic series that remains unusable makes BOTH horizons `not_assessable`. The deterministic forecast
 contract rejects any stronger call and mechanically produces `Research More`, unless independently proven
-critical risk forces `Avoid`. Coverage schema v2 also hashes the exact human and structured profile bytes
-used to compile the roster. The archive helper freezes those bytes under the decision archive; historical
-replay must use that frozen resolver/quality roster, never today's possibly renamed or tightened profile,
-while still resolving every usable source at the original decision-time cutoff. Never fall back to a stale dossier or to a methodology report. WILTW, its
+critical risk forces `Avoid`. Coverage schema v3 hashes both the exact human/structured profile bytes and
+`required_series_sources.json`, which freezes the selected pulse, shared-market and derived vintages.
+The archive helper freezes both artifacts under the decision archive; historical replay must use that
+frozen resolver/quality roster and source snapshot, never today's possibly renamed profile, live pulse or
+expanded shared-market directory, while still resolving connector rows from immutable vintage history.
+Never fall back to a stale dossier or to a methodology report. WILTW, its
 supporting files, and report-derived assertions are method-transfer material only and are forbidden as
 runtime evidence or Gold provenance.
 

@@ -20,9 +20,10 @@ from commodity_evidence_links import validate_signal_projection
 from commodity_profile_coverage import (
     PROFILE_PATH,
     STRUCTURED_PROFILE_ROOT,
+    frozen_source_resolver,
     profile_family,
     profile_snapshot_sha256,
-    resolve_profile_series,
+    source_snapshot_sha256,
     structured_profile,
 )
 from execution_provenance import (
@@ -225,13 +226,16 @@ def archive_decision(run_root: Path) -> tuple[str, Path, bool]:
     coverage_text = None
     profile_markdown_text = None
     profile_structured_text = None
+    source_snapshot = None
+    source_snapshot_text = None
     # The dual-horizon contract began on 2026-08-10. Required-series coverage has its own
     # one-day-later cutover inside validate_decision_record, so an Aug-10 decision is still fully
     # checked while legitimately carrying no coverage artifact.
     if isinstance(record.get("decision_date"), str) and record["decision_date"] >= "2026-08-10":
         coverage = None
         coverage_sha256 = None
-        coverage_path = run_root / "required_series_coverage.json"
+        evidence_root = candidate_archive.parent if exact_existing_archive else run_root
+        coverage_path = evidence_root / "required_series_coverage.json"
         try:
             coverage_raw = coverage_path.read_bytes()
             coverage_text = coverage_raw.decode("utf-8")
@@ -258,10 +262,6 @@ def archive_decision(run_root: Path) -> tuple[str, Path, bool]:
                     str(record.get("commodity", "")), profile_path=snapshot_markdown,
                     structured_root=snapshot_root,
                 )
-                coverage_resolver = lambda series, commodity, decision_time: resolve_profile_series(
-                    series, commodity, decision_time, profile_path=snapshot_markdown,
-                    structured_root=snapshot_root,
-                )
                 profile_markdown_text = snapshot_markdown.read_text(encoding="utf-8")
                 profile_structured_text = (snapshot_root / f"{record['commodity']}.json").read_text(encoding="utf-8")
             except (OSError, ValueError):
@@ -276,14 +276,32 @@ def archive_decision(run_root: Path) -> tuple[str, Path, bool]:
                 ).read_text(encoding="utf-8")
             except (OSError, ValueError):
                 requirements = None
+        source_digest = None
+        if isinstance(coverage, dict) and coverage.get("schema_version") == 3:
+            source_path = evidence_root / "required_series_sources.json"
+            try:
+                source_snapshot_text = source_path.read_text(encoding="utf-8")
+                source_snapshot = json.loads(source_snapshot_text)
+                source_digest = source_snapshot_sha256(source_snapshot)
+                coverage_resolver = frozen_source_resolver(source_snapshot, coverage)
+            except (OSError, ValueError, json.JSONDecodeError) as error:
+                raise ArchiveError(f"required-series source snapshot is invalid: {error}") from error
         contract_errors = validate_decision_record(
             record, coverage, coverage_sha256, requirements, coverage_resolver,
             profile_snapshot_sha256=profile_digest,
+            source_snapshot_sha256=source_digest,
         )
         if contract_errors:
             raise ArchiveError(f"forecast contract failed: {contract_errors[0]}")
         try:
-            expected_family = profile_family(str(record.get("commodity", "")))
+            expected_family = profile_family(
+                str(record.get("commodity", "")),
+                structured_root=(
+                    snapshot_root
+                    if exact_existing_archive and (snapshot_root / f"{record.get('commodity', '')}.json").is_file()
+                    else STRUCTURED_PROFILE_ROOT
+                ),
+            )
         except ValueError as error:
             raise ArchiveError(f"commodity family cannot be resolved: {error}") from error
         if record.get("commodity_family") != expected_family:
@@ -317,9 +335,9 @@ def archive_decision(run_root: Path) -> tuple[str, Path, bool]:
         _create_or_verify_text(archive_root / "signal_evidence.json", graph_text, "signal evidence graph")
     if coverage_text is not None:
         _create_or_verify_text(archive_root / "required_series_coverage.json", coverage_text, "required-series coverage")
-    if isinstance(coverage, dict) and coverage.get("schema_version") == 2:
+    if isinstance(coverage, dict) and coverage.get("schema_version") in {2, 3}:
         if profile_markdown_text is None or profile_structured_text is None:
-            raise ArchiveError("coverage v2 cannot be archived without its validated profile snapshot")
+            raise ArchiveError("profile-bound coverage cannot be archived without its validated profile snapshot")
         profile_root = archive_root / "required_series_profile"
         _create_or_verify_text(
             profile_root / "COMMODITY_PROFILES.md", profile_markdown_text,
@@ -328,6 +346,13 @@ def archive_decision(run_root: Path) -> tuple[str, Path, bool]:
         _create_or_verify_text(
             profile_root / f"{record['commodity']}.json", profile_structured_text,
             "required-series structured profile snapshot",
+        )
+    if isinstance(coverage, dict) and coverage.get("schema_version") == 3:
+        if source_snapshot_text is None or source_snapshot is None:
+            raise ArchiveError("coverage v3 cannot be archived without its validated source snapshot")
+        _create_or_verify_text(
+            archive_root / "required_series_sources.json", source_snapshot_text,
+            "required-series source snapshot",
         )
     created = _create_or_verify(archive_path, archived_record, "decision record")
 

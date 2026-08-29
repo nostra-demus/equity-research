@@ -40,15 +40,17 @@ You must:
   causal ownership, contradiction state and statistical conviction eligibility.
 - **Profile evidence coverage** — `commodity/runs/{COMMODITY}/required_series_coverage.json`, compiled
   deterministically from every `Required semantic series` row, accepted connector-v2 vintages and the
-  decision-time cutoff. This artifact—not prose reconciliation—is the terminal decision gate.
+  decision-time cutoff. Its hash-bound sibling `required_series_sources.json` freezes every selected
+  non-connector vintage. These artifacts—not prose reconciliation—are the terminal decision gate.
 
 # WORKFLOW
 
 1. Read `CLAUDE.md` and `.claude/agents/commodity/MODULE_RULES.md`.
 2. Rebuild `signal_evidence.json` with
    `python3 scripts/commodity_signal_evidence.py "commodity/runs/{COMMODITY}"`, then read it and the
-   caller-frozen `required_series_coverage.json`. The caller MUST compile coverage immediately before
-   dispatch; if it is absent or unreadable, stop instead of creating it here. Do not regenerate it during
+   caller-frozen `required_series_coverage.json` and `required_series_sources.json`. The caller MUST compile
+   both immediately before dispatch; if either is absent or unreadable, stop instead of creating it here.
+   Do not regenerate either during
    synthesis: the final record must hash the exact point-in-time artifact supplied as input. If compilation fails,
    evidence coverage is incomplete, or no independent cluster is conviction-eligible, the verdict is
    capped at `Research More`; do not fall back to counting prose bullets. Copy every machine coverage row

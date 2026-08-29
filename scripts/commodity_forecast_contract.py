@@ -48,6 +48,7 @@ COVERAGE_ARTIFACT_FIELDS_V1 = {
     "required_count", "usable_count", "complete", "unresolved_need_ids", "rows",
 }
 COVERAGE_ARTIFACT_FIELDS_V2 = COVERAGE_ARTIFACT_FIELDS_V1 | {"profile_snapshot_sha256"}
+COVERAGE_ARTIFACT_FIELDS_V3 = COVERAGE_ARTIFACT_FIELDS_V2 | {"source_snapshot_sha256"}
 COVERAGE_ROW_FIELDS = {
     "need_id", "series_id", "owner_orb", "required_history_freshness", "lawful_source_policy",
     "status", "as_of", "vintage_id", "dataset_id", "connector_id", "provider", "reason",
@@ -355,6 +356,7 @@ def _coverage_errors(
     profile_requirements: list[dict[str, str]] | None,
     coverage_resolver: Callable[[str, str, str], dict[str, Any] | None] | None,
     frozen_coverage: bool, profile_snapshot_sha256: str | None,
+    source_snapshot_sha256: str | None,
 ) -> list[str]:
     errors: list[str] = []
     if not isinstance(record.get("commodity_family"), str) or re.fullmatch(r"[a-z0-9][a-z0-9-]*", record["commodity_family"]) is None:
@@ -386,19 +388,30 @@ def _coverage_errors(
     if not isinstance(artifact, dict):
         return [*errors, "required_series_coverage artifact must be an object"]
     artifact_version = artifact.get("schema_version")
-    expected_artifact_fields = (
-        COVERAGE_ARTIFACT_FIELDS_V2 if artifact_version == 2 else COVERAGE_ARTIFACT_FIELDS_V1
-    )
-    if artifact_version not in {1, 2} or set(artifact) != expected_artifact_fields:
+    expected_artifact_fields = {
+        1: COVERAGE_ARTIFACT_FIELDS_V1,
+        2: COVERAGE_ARTIFACT_FIELDS_V2,
+        3: COVERAGE_ARTIFACT_FIELDS_V3,
+    }.get(artifact_version, COVERAGE_ARTIFACT_FIELDS_V1)
+    if artifact_version not in {1, 2, 3} or set(artifact) != expected_artifact_fields:
         errors.append("required_series_coverage artifact must contain exactly the contract fields")
     if artifact.get("commodity") != record.get("commodity"):
         errors.append("required_series_coverage artifact identity does not match the decision")
-    if artifact_version == 2:
+    if artifact_version in {2, 3}:
         frozen_digest = artifact.get("profile_snapshot_sha256")
         if not isinstance(frozen_digest, str) or re.fullmatch(r"sha256:[a-f0-9]{64}", frozen_digest) is None:
             errors.append("required_series_coverage profile snapshot digest is invalid")
         elif frozen_digest != profile_snapshot_sha256:
             errors.append("required_series_coverage profile snapshot does not match the validated profile bytes")
+    if artifact_version == 3:
+        frozen_source_digest = artifact.get("source_snapshot_sha256")
+        if (
+            not isinstance(frozen_source_digest, str)
+            or re.fullmatch(r"sha256:[a-f0-9]{64}", frozen_source_digest) is None
+        ):
+            errors.append("required_series_coverage source snapshot digest is invalid")
+        elif frozen_source_digest != source_snapshot_sha256:
+            errors.append("required_series_coverage source snapshot does not match the validated source bytes")
     decision_time = artifact.get("decision_time")
     try:
         parsed_decision_time = dt.datetime.fromisoformat(str(decision_time).replace("Z", "+00:00"))
@@ -557,6 +570,7 @@ def validate_decision_record(
     profile_requirements: list[dict[str, str]] | None = None,
     coverage_resolver: Callable[[str, str, str], dict[str, Any] | None] | None = None,
     *, frozen_coverage: bool = False, profile_snapshot_sha256: str | None = None,
+    source_snapshot_sha256: str | None = None,
 ) -> list[str]:
     """Validate the post-rollout forecast and mechanically derived action.
 
@@ -569,7 +583,7 @@ def validate_decision_record(
     errors: list[str] = []
     errors.extend(_coverage_errors(
         record, coverage_artifact, coverage_sha256, profile_requirements, coverage_resolver,
-        frozen_coverage, profile_snapshot_sha256,
+        frozen_coverage, profile_snapshot_sha256, source_snapshot_sha256,
     ))
     current_price = record.get("current_price")
     price_value = current_price.get("value") if isinstance(current_price, dict) else None
@@ -707,15 +721,30 @@ def main() -> int:
         return 1
     profile_requirements = None
     profile_digest = None
+    source_digest = None
+    coverage_resolver = production_coverage_resolver
     try:
-        from commodity_profile_coverage import PROFILE_PATH, profile_snapshot_sha256, structured_profile
+        from commodity_profile_coverage import (
+            PROFILE_PATH, frozen_source_resolver, profile_snapshot_sha256,
+            source_snapshot_sha256, structured_profile,
+        )
         profile_requirements = structured_profile(str(record.get("commodity", "")), profile_path=PROFILE_PATH)
         profile_digest = profile_snapshot_sha256(str(record.get("commodity", "")))
     except (OSError, ValueError):
         pass
+    if isinstance(coverage, dict) and coverage.get("schema_version") == 3:
+        try:
+            source_snapshot = json.loads(
+                (args.decision_record.parent / "required_series_sources.json").read_text(encoding="utf-8")
+            )
+            source_digest = source_snapshot_sha256(source_snapshot)
+            coverage_resolver = frozen_source_resolver(source_snapshot, coverage)
+        except (OSError, ValueError, json.JSONDecodeError):
+            coverage_resolver = lambda *_args: None
     errors = validate_decision_record(
-        record, coverage, coverage_sha256, profile_requirements, production_coverage_resolver,
+        record, coverage, coverage_sha256, profile_requirements, coverage_resolver,
         profile_snapshot_sha256=profile_digest,
+        source_snapshot_sha256=source_digest,
     )
     if errors:
         for error in errors:
