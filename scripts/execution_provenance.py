@@ -575,6 +575,15 @@ def audit_repository(repo_root: Path, cutoff: str = PROVIDER_ROLLOUT_CUTOFF) -> 
         # new decision replaces it. Treating the current projection itself as immutable blocked every
         # legitimate post-rollout commodity refresh even though the new immutable archive was present.
         if projection_digest is not None and actual_digest == projection_digest:
+            # The legacy exemption holds only while the commodity has never been refreshed. Once a
+            # modern decision has been archived under this run's decisions/ directory, the mutable
+            # top-level projection must carry that modern decision; reverting it to the pre-rollout
+            # legacy bytes would leave the cockpit and snapshot builder reading a stale decision while
+            # a newer immutable archive exists, and the audit would otherwise wave it through as legacy.
+            archive_dir = artifact.parent / "decisions"
+            if archive_dir.is_dir() and any(archive_dir.glob("*/decision_record.json")):
+                raise ProvenanceError(
+                    f"legacy commodity projection reverted to pre-rollout bytes after a modern archive exists: {relative}")
             counts["legacy"] += 1
             if persisted is not None:
                 validate_projection(persisted, f"{relative}:execution_provenance")
