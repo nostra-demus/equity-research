@@ -61,10 +61,10 @@ export interface ThemeScores {
   composite: number
 }
 
-// The first-look qualification is deliberately separate from heat. Heat says how much news a cluster
-// is taking; this read says whether the cluster has enough distinct, coherent evidence and a ticker-linked,
-// directional expression to deserve scarce PM attention. Every field is optional on Theme below so a
-// newly deployed web bundle fails closed while an older server is still serving the previous shape.
+// Theme validation is deliberately separate from heat and Ideas admission. Heat says how much news a
+// cluster is taking; this read says whether it has a complete narrative backed by distinct, coherent
+// evidence. `idea_ready` separately requires an eligible listed player and the full Ideas contract. Every
+// field is optional on Theme below so a new web bundle fails closed against an older server payload.
 export interface ThemeSurfaceAssessment {
   status: ThemeSurfaceStatus
   // Optional in the TypeScript mirror so cached/older payloads still deserialize. Runtime qualification
@@ -72,6 +72,8 @@ export interface ThemeSurfaceAssessment {
   activity?: ThemeActivity
   conviction?: ThemeConviction
   reasons: string[]
+  // Legacy theme-formation gate failures. This may be empty for a validated `forming` Theme-only row;
+  // investing blockers now live in `idea_blockers` and do not erase the underlying theme.
   blockers: string[]
   metrics: {
     recent_6h_flow: number
@@ -82,6 +84,7 @@ export interface ThemeSurfaceAssessment {
     narrative_coherence_pct: number
     recurring_narrative_token_count: number
     first_order_directional_ticker_count: number
+    pending_revalidation?: boolean
     recent_24h_support_count?: number
     recent_24h_challenge_count?: number
     off_core_evidence_count?: number
@@ -759,6 +762,7 @@ export function themeSurfaceAssessment(t: ThemeAssessmentInput): ThemeSurfaceAss
     m.off_core_evidence_count,
   ]
   if (!counts.every((v) => typeof v === 'number' && Number.isFinite(v) && Number.isInteger(v) && v >= 0)) return null
+  if (m.pending_revalidation !== undefined && typeof m.pending_revalidation !== 'boolean') return null
   if (!Number.isFinite(m.narrative_coherence_pct) || m.narrative_coherence_pct < 0 || m.narrative_coherence_pct > 100) return null
   const evidence = groupThemeEvidence(t)
   const visibleEvidenceCount = evidence.supports.length + evidence.challenges.length
@@ -799,7 +803,18 @@ export function themeSurfaceAssessment(t: ThemeAssessmentInput): ThemeSurfaceAss
     || m.narrative_coherence_pct < 60
     || evidence.supports.length < 2
   )) return null
-  if (candidate.status === 'forming' && (candidate.conviction !== 'watch' || !candidate.blockers.length)) return null
+  // Forming is a validated Theme-only lane, not a failed Ideas package. Its evidence still clears every
+  // trust-boundary check above; only the old requirement for a duplicated theme blocker is obsolete.
+  // A blocker-free Forming row is the "no first-order directional ticker yet" lane. The canonical server
+  // can also retain a previously qualified first-order expression while a new matching row awaits
+  // support/challenge/context classification; that row is deliberately downgraded to Forming until the
+  // revalidation finishes. Trust that otherwise contradictory combination only when the server publishes
+  // its structured pending-revalidation bit. Cached or malformed blocker-free Forming+first-order payloads
+  // still fail closed to Context.
+  if (candidate.status === 'forming' && (
+    candidate.conviction !== 'watch'
+    || (m.first_order_directional_ticker_count >= 1 && m.pending_revalidation !== true)
+  )) return null
   // An actionable row has cleared every gate: it must explain at least one fact and have no blocker.
   // A partial deploy or malformed cache that merely says `status: actionable` fails closed to Context.
   if (candidate.status === 'actionable' && (
@@ -886,7 +901,9 @@ export interface ThemeBriefingGroups {
   excludedContextCount: number
 }
 
-/** The PM surface receives only validated investment narratives. Raw Context clusters remain internal. */
+/** The PM surface receives every evidence-bound validated narrative. Theme admission is intentionally
+ * separate from Ideas admission: `idea_ready` and `idea_blockers` decide whether a visible theme can
+ * seed Ideas, while the legacy assessment blockers no longer decide whether the theme itself exists. */
 export function themesForPmSurface(themes: readonly Theme[]): Theme[] {
   return themes.filter((theme) => {
     const status = themeSurfaceStatus(theme)

@@ -158,6 +158,50 @@ def main() -> int:
         errors = check_commodity_review_anchors(str(path))
         assert any("invalid point-in-time" in error for error in errors), errors
 
+        # A modern top-level projection must not steal the anchor from the
+        # immutable pre-archive decision for the same commodity.
+        frozen = {
+            "swarm": "commodity", "commodity": "GOLD", "decision_date": "2026-07-03",
+            "action": "Hold", "confidence": 52,
+            "current_price": {"value": 95.0, "currency": "USD", "unit": "USD/oz", "as_of": "2026-07-03"},
+            "key_risks": [],
+        }
+        snapshot = Path(temporary) / "frameworks/execution_provenance_legacy_snapshots/commodity/GOLD/decision_record.json"
+        snapshot.parent.mkdir(parents=True)
+        snapshot.write_text(json.dumps(frozen), encoding="utf-8")
+        (run / "decision_record.json").write_text(json.dumps(archived_decision()), encoding="utf-8")
+        legacy_review = {
+            "schema_version": "1.0", "swarm": "commodity", "commodity": "GOLD",
+            "original_decision_date": "2026-07-03", "review_date": "2026-08-02", "review_window": "30d",
+            "original_action": "Hold", "original_confidence": 52, "reference_price": frozen["current_price"],
+            "review_price": {"value": 96.0, "currency": "USD", "unit": "USD/oz", "as_of": "2026-08-02", "source": "synthetic close"},
+            "absolute_return_pct": (96.0 - 95.0) / 95.0 * 100, "price_vs_levels": {},
+            "thesis_status": "on-track", "action_outcome": "partial", "decision_quality": "skill",
+            "risk_results": [], "error_taxonomy": [], "lessons": ["synthetic"], "notes": "synthetic legacy review",
+        }
+        legacy_path = reviews / "2026-08-02_30d_decision_review.json"
+        legacy_path.write_text(json.dumps(legacy_review), encoding="utf-8")
+        assert check_commodity_review_anchors(str(legacy_path)) == []
+
+        # A different pre-migration date may still exist only as the top-level
+        # compatibility record; the commodity's older snapshot must not hijack it.
+        fallback = copy.deepcopy(frozen)
+        fallback["decision_date"] = "2026-07-10"
+        fallback["current_price"] = {
+            "value": 97.0, "currency": "USD", "unit": "USD/oz", "as_of": "2026-07-10",
+        }
+        (run / "decision_record.json").write_text(json.dumps(fallback), encoding="utf-8")
+        fallback_review = copy.deepcopy(legacy_review)
+        fallback_review["original_decision_date"] = "2026-07-10"
+        fallback_review["reference_price"] = fallback["current_price"]
+        fallback_review["review_price"]["value"] = 98.0
+        fallback_review["absolute_return_pct"] = (98.0 - 97.0) / 97.0 * 100
+        fallback_path = reviews / "2026-08-09_30d_decision_review.json"
+        fallback_review["review_date"] = "2026-08-09"
+        fallback_review["review_price"]["as_of"] = "2026-08-09"
+        fallback_path.write_text(json.dumps(fallback_review), encoding="utf-8")
+        assert check_commodity_review_anchors(str(fallback_path)) == []
+
     print("PASS: v2 horizon reviews are exact-date, arithmetic-safe and immutable-decision anchored")
     return 0
 

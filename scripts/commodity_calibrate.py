@@ -45,9 +45,8 @@ def _relative(path):
 
 
 def read_decision_records():
-    """Read every immutable decision; use one top-level legacy record only where no archive exists."""
+    """Read every immutable decision, including frozen pre-archive snapshots."""
     records = []
-    archived_commodities = set()
     pattern = os.path.join(REPO, "commodity", "runs", "*", "decisions", "*", "decision_record.json")
     for path in sorted(glob.glob(pattern)):
         record = read_json(path)
@@ -58,16 +57,42 @@ def read_decision_records():
             continue
         record = dict(record, _path=_relative(path), _decision_key=decision_id, _legacy=False)
         records.append(record)
-        archived_commodities.add(record["commodity"])
+
+    legacy_identities = set()
+    snapshot_pattern = os.path.join(
+        REPO, "frameworks", "execution_provenance_legacy_snapshots",
+        "commodity", "*", "decision_record.json",
+    )
+    for path in sorted(glob.glob(snapshot_pattern)):
+        record = read_json(path)
+        if not isinstance(record, dict) or record.get("swarm") != "commodity":
+            continue
+        identity = (record.get("commodity"), record.get("decision_date"))
+        if not all(isinstance(value, str) and value for value in identity):
+            continue
+        key = f"legacy:{identity[0]}:{identity[1]}"
+        records.append(dict(record, _path=_relative(path), _decision_key=key, _legacy=True))
+        legacy_identities.add(identity)
+
+    # Compatibility fallback for a repository that predates the frozen-snapshot
+    # migration. A modern top-level projection is never a legacy decision.
     top_pattern = os.path.join(REPO, "commodity", "runs", "*", "decision_record.json")
     for path in sorted(glob.glob(top_pattern)):
         record = read_json(path)
-        if not isinstance(record, dict) or record.get("swarm") != "commodity" or not record.get("commodity"):
+        if (
+            not isinstance(record, dict)
+            or record.get("swarm") != "commodity"
+            or record.get("decision_id")
+            or not isinstance(record.get("commodity"), str)
+            or not isinstance(record.get("decision_date"), str)
+        ):
             continue
-        if record["commodity"] in archived_commodities:
+        identity = (record["commodity"], record["decision_date"])
+        if identity in legacy_identities:
             continue
-        key = f"legacy:{record['commodity']}:{record.get('decision_date', '')}"
+        key = f"legacy:{identity[0]}:{identity[1]}"
         records.append(dict(record, _path=_relative(path), _decision_key=key, _legacy=True))
+        legacy_identities.add(identity)
     return records
 
 
@@ -617,9 +642,29 @@ def _selftest():
                         "lessons": ["synthetic"], "notes": "synthetic exact-date review",
                     }
                     write_json(os.path.join(reviews_dir, f"{target}_{horizon}_decision_review.json"), review)
+            # A pre-archive decision remains a separate immutable calibration
+            # row even after the same commodity gains modern archives. Its old
+            # top-level projection is only a duplicate compatibility copy.
+            frozen_gold = {
+                "swarm": "commodity", "commodity": "GOLD", "decision_date": "2025-12-01",
+                "action": "Hold", "confidence": 50,
+                "current_price": {"value": 90.0, "currency": "USD", "unit": "USD/unit", "as_of": "2025-12-01"},
+                "key_risks": [],
+            }
+            frozen_gold_path = os.path.join(
+                temporary, "frameworks", "execution_provenance_legacy_snapshots",
+                "commodity", "GOLD", "decision_record.json",
+            )
+            write_json(frozen_gold_path, frozen_gold)
+            write_json(os.path.join(temporary, "commodity", "runs", "GOLD", "decision_record.json"), frozen_gold)
+            discovered = read_decision_records()
+            check("frozen legacy survives modern archive", len(discovered) == 6)
+            check("legacy top-level projection is deduplicated", sum(
+                row["_decision_key"] == "legacy:GOLD:2025-12-01" for row in discovered
+            ) == 1)
             check("future target cannot calibrate early", _valid_probability_observation(review, record, date(2026, 12, 31)) is None)
             out = build(today="2027-01-10")
-            check("unique decisions", out["n_decisions"] == 5)
+            check("unique decisions", out["n_decisions"] == 6)
             check("horizons separate", out["n_horizon_observations"] == 10)
             check("headline not doubled", out["n_headline_outcomes"] == 5)
             check("probability measured", out["forecast_calibration"]["overall"]["metrics"] is not None)
@@ -651,12 +696,18 @@ def _selftest():
             legacy_dir = os.path.join(temporary, "commodity", "runs", "COPPER")
             os.makedirs(os.path.join(legacy_dir, "reviews"), exist_ok=True)
             legacy_record = {"swarm": "commodity", "commodity": "COPPER", "decision_date": "2026-01-01", "action": "Hold", "confidence": 50, "current_price": {"value": 100.0, "currency": "USD", "unit": "USD/unit", "as_of": "2026-01-01"}, "key_risks": []}
-            write_json(os.path.join(legacy_dir, "decision_record.json"), legacy_record)
+            write_json(os.path.join(
+                temporary, "frameworks", "execution_provenance_legacy_snapshots",
+                "commodity", "COPPER", "decision_record.json",
+            ), legacy_record)
+            modern_projection = dict(legacy_record, decision_id="CMD-COPPER-2026-02-01-deadbeef0000", decision_date="2026-02-01", action="Buy")
+            write_json(os.path.join(legacy_dir, "decision_record.json"), modern_projection)
             legacy_review = {"schema_version": "1.0", "swarm": "commodity", "commodity": "COPPER", "original_decision_date": "2026-01-01", "review_date": "2026-02-01", "review_window": "30d", "original_action": "Hold", "original_confidence": 50, "reference_price": legacy_record["current_price"], "review_price": {"value": 105.0, "currency": "USD", "unit": "USD/unit", "as_of": "2026-02-01", "source": "official synthetic close"}, "absolute_return_pct": 5.0, "price_vs_levels": {}, "thesis_status": "confirmed", "action_outcome": "vindicated", "decision_quality": "skill", "risk_results": [], "error_taxonomy": [], "lessons": ["synthetic"], "notes": "synthetic legacy review"}
             write_json(os.path.join(legacy_dir, "reviews", "2026-02-01_30d_decision_review.json"), legacy_review)
             write_json(os.path.join(legacy_dir, "reviews", "2026-02-01_30d_decision_review_v2.json"), {"schema_version": "2.0", "action_outcome": "vindicated"})
             excluded = build(today="2027-01-10")
             check("legacy, anchor-drifted and malformed excluded", excluded["n_probability_excluded"] == 3)
+            check("both frozen legacy decisions retained", excluded["n_decisions"] == 7)
             check("legacy headline once", excluded["n_headline_outcomes"] == 6)
             check("anchor-drifted and malformed reviews excluded", excluded["n_invalid_reviews"] == 2)
         finally:

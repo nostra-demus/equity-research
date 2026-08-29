@@ -430,6 +430,7 @@ export interface ThemeAssessmentMetrics {
   narrative_coherence_pct: number // narrative_support_count / unique_evidence_count × 100
   recurring_narrative_token_count: number // non-company theme tokens recurring in >=2 distinct rows
   first_order_directional_ticker_count: number // syntactically-clean ticker-linked order-1 names with raw proof; listing/liquidity unverified
+  pending_revalidation: boolean // a prior expression is retained while new matching evidence awaits classification
   recent_24h_support_count: number
   recent_24h_challenge_count: number
   off_core_evidence_count: number
