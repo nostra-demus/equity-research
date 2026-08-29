@@ -270,6 +270,21 @@ export interface DataStatus {
   ts: number
 }
 
+// One canonical, reconnectable view of a company's deterministic data scan. The scan happens before
+// any provider is chosen or paid work starts, so this contract is shared by Claude and Codex.
+export type DataScanStage = 'finding' | 'reading' | 'checking' | 'ready' | 'failed'
+export interface DataScanProgress {
+  scanId: string
+  ticker: string
+  stage: DataScanStage
+  completed: number
+  total: number
+  currentFile: string | null
+  error: string | null
+  startedAt: number
+  updatedAt: number
+}
+
 export interface TickerSummary {
   ticker: string
   fileCount: number

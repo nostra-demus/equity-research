@@ -16,7 +16,8 @@ import { affectedModules, focusKeysFor } from './intake'
 import { moduleRunAffordance, moduleRunInputModules } from './moduleRun'
 import { preflightConfirmationMatches } from './launchExperience'
 import type { BridgeStatus } from './types'
-import type { ActiveRunLite, AgentNode, AskMemoryMeta, AskMemoryMode, BoardIdea, BoardInboxRow, BookFilterState, BookSort, ChatMessage, ChatScope, ChatStyle, ChatWork, ConvictionDetail, CoverageGroup, CycleSummary, DataNeedsRead, DataStatus, EventEnrichment, FeedbackSubmitInput, FeedbackType, FeedItem, HealthState, IntakePlan, IntensityStats, IntensityWindow, LaunchPreflight, ListingStatus, NewCompanyInput, NewsChatCompletedTurn, NewsChatEvidence, NewsChatReceipt, NewsChatWindow, NewsDiagnostics, NewsStatus, NodeRuntime, NodeStatus, PendingAdmission, QuoteRead, ReadinessReport, ResumableRunInfo, RunActivity, RunKind, ScreenerBoard, SignalIntakeInput, SignalState, SseEvent, SwarmGraph, SwarmMeta, SwarmSubjectSummary, ThesisPlan, ThesisPlanIntake, TickerSummary, Usage, WhatChangedRead } from './types'
+import type { ActiveRunLite, AgentNode, AskMemoryMeta, AskMemoryMode, BoardIdea, BoardInboxRow, BookFilterState, BookSort, ChatMessage, ChatScope, ChatStyle, ChatWork, ConvictionDetail, CoverageGroup, CycleSummary, DataNeedsRead, DataScanProgress, DataStatus, EventEnrichment, FeedbackSubmitInput, FeedbackType, FeedItem, HealthState, IntakePlan, IntensityStats, IntensityWindow, LaunchPreflight, ListingStatus, NewCompanyInput, NewsChatCompletedTurn, NewsChatEvidence, NewsChatReceipt, NewsChatWindow, NewsDiagnostics, NewsStatus, NodeRuntime, NodeStatus, PendingAdmission, QuoteRead, ReadinessReport, ResumableRunInfo, RunActivity, RunKind, ScreenerBoard, SignalIntakeInput, SignalState, SseEvent, SwarmGraph, SwarmMeta, SwarmSubjectSummary, ThesisPlan, ThesisPlanIntake, TickerSummary, Usage, WhatChangedRead } from './types'
+import { isDataScanProgress } from './dataScan'
 import { feedbackInputFromItem, feedbackLabel, polarityOf } from './feedbackTypes'
 import { emptyBookFilters } from '../components/screener/BookFilters'
 import { emptyDlFilters, type DlFilterState } from '../components/datalibrary/DataLibraryFilters'
@@ -194,6 +195,7 @@ function loadChatStyle(): ChatStyle {
   return 'simple'
 }
 let dataSource: EventSource | null = null
+let dataScanRequest: { ticker: string; controller: AbortController; promise: Promise<DataStatus> } | null = null
 let bloomTimer: any = null
 let pollTimer: any = null
 let intensityRefetchTimer: any = null // debounces the screener intensity re-fetch on each news cycle
@@ -519,6 +521,7 @@ interface State {
   nodesByKey: Map<string, AgentNode>
   dataStatus: DataStatus | null
   dataLoading: boolean
+  dataScan: DataScanProgress | null
   credit: Usage | null
   creditChecking: boolean
   runProvider: RunProvider
@@ -1491,6 +1494,7 @@ export const useStore = create<State>((set, get) => ({
   nodesByKey: new Map(),
   dataStatus: null,
   dataLoading: false,
+  dataScan: null,
   credit: null,
   creditChecking: false,
   runProvider: readRunProvider(),
@@ -1730,6 +1734,24 @@ export const useStore = create<State>((set, get) => ({
             refreshTickersSoon(get, set) // live count update + keep polling while Drive is still syncing
           } catch {}
         })
+        dataSource.addEventListener('data-scan-progress', (ev: MessageEvent) => {
+          try {
+            const progress = JSON.parse(ev.data)?.progress
+            if (isDataScanProgress(progress) && get().activeSwarm === 'research' && progress.ticker === get().selectedTicker) {
+              set({ dataScan: progress })
+              if (progress.stage === 'ready') {
+                const token = get().selectToken
+                void api.dataStatusResult(progress.ticker).then((dataStatus) => {
+                  if (dataStatus && get().selectToken === token && get().selectedTicker === progress.ticker) {
+                    set({ dataStatus, dataLoading: false })
+                  }
+                }).catch(() => {})
+              } else if (progress.stage === 'failed') {
+                set({ dataLoading: false })
+              }
+            }
+          } catch {}
+        })
       }
       // one cheap usage probe on first connect (backend only)
       if (!creditProbed) {
@@ -1757,6 +1779,10 @@ export const useStore = create<State>((set, get) => ({
 
   selectTicker: async (t, runRoot) => {
     closeAllRunSources() // stop the previous company's live streams before anything else (no event bleed)
+    if (dataScanRequest?.ticker !== t) {
+      dataScanRequest?.controller.abort()
+      dataScanRequest = null
+    }
     // the active swarm owns this selection: research loads the research graph + data pool; a constellation
     // swarm (e.g. commodity) loads ITS graph + resolves reads/chat by subject. Non-research subjects have
     // no research data pool, so dataStatus stays null (its own in-run triage owns sufficiency).
@@ -1768,7 +1794,7 @@ export const useStore = create<State>((set, get) => ({
     chatPendingBaseline = null
     chatAbort?.abort(); chatAbort = null // a new subject → drop any in-flight chat + its thread
     // the completion plan is per-subject disk truth — never let a previous subject's plan survive a switch
-    set({ selectToken: token, selectedTicker: t, constellationSwarm: sw, dataStatus: null, dataLoading: isResearch, nodeRuntime: {}, decision: null, runRoot: null, reports: { memo: false, thesis: false, dossier: false }, moduleReports: {}, coreBloom: false, selectedNodeKey: null, runStream: [], activeRuns, openOutput: null, thesisPlan: null, thesisPlanExecution: null, thesisPlanOpen: false, thesisPlanError: null, intake: null, dataNeeds: null, whatChanged: null, whatChangedOpen: false, intakeFocusKeys: new Set(), intakePlanKeys: new Set(), intakeAnalyzing: false, runActivity: {}, thesisPlanIntake: null, liveQuote: null, liveQuoteAt: null, launchConfirm: null, launchPending: get().launchPending?.selection ? null : get().launchPending, ...CHAT_RESET })
+    set({ selectToken: token, selectedTicker: t, constellationSwarm: sw, dataStatus: null, dataLoading: isResearch, dataScan: null, nodeRuntime: {}, decision: null, runRoot: null, reports: { memo: false, thesis: false, dossier: false }, moduleReports: {}, coreBloom: false, selectedNodeKey: null, runStream: [], activeRuns, openOutput: null, thesisPlan: null, thesisPlanExecution: null, thesisPlanOpen: false, thesisPlanError: null, intake: null, dataNeeds: null, whatChanged: null, whatChangedOpen: false, intakeFocusKeys: new Set(), intakePlanKeys: new Set(), intakeAnalyzing: false, runActivity: {}, thesisPlanIntake: null, liveQuote: null, liveQuoteAt: null, launchConfirm: null, launchPending: get().launchPending?.selection ? null : get().launchPending, ...CHAT_RESET })
     const graph = isResearch ? await api.swarm(t) : await api.swarmGraph(sw, t)
     if (get().selectToken !== token) return // a newer selection superseded this one
     set({ graph, nodesByKey: flatten(graph) })
@@ -1832,14 +1858,36 @@ export const useStore = create<State>((set, get) => ({
     // an unusable folder name (e.g. "TATA MOTORS") would 400 on data-status — skip the fetch and let the
     // empty-state surface the rename guidance instead of failing silently
     const sel = get().tickers.find((x) => x.ticker === t)
-    if (sel && sel.valid === false) { if (get().selectToken === token) set({ dataStatus: null, dataLoading: false }); return }
+    if (sel && sel.valid === false) { if (get().selectToken === token) set({ dataStatus: null, dataLoading: false, dataScan: null }); return }
     set({ dataLoading: true })
     try {
-      const dataStatus = await api.dataStatus(t)
+      if (!dataScanRequest || dataScanRequest.ticker !== t) {
+        const controller = new AbortController()
+        const promise = api.dataStatus(t, controller.signal, (progress) => {
+          if (get().selectToken === token && get().selectedTicker === t && isDataScanProgress(progress)) {
+            set({ dataScan: progress })
+          }
+        })
+        dataScanRequest = { ticker: t, controller, promise }
+        void promise.finally(() => {
+          if (dataScanRequest?.promise === promise) dataScanRequest = null
+        }).catch(() => {})
+      }
+      const dataStatus = await dataScanRequest.promise
       if (get().selectToken !== token) return // a newer selection superseded this fetch
       set({ dataStatus })
-    } catch {
-      // leave dataStatus as-is; the loading flag clears below so the UI stops showing "reading…"
+    } catch (error: any) {
+      // Never make a failed scan disappear. The server normally sends the exact file over SSE; this local
+      // fallback covers a broken connection before that frame arrives.
+      const scan = get().dataScan
+      if (get().selectToken === token && (!scan || !['finding', 'reading', 'checking', 'failed'].includes(scan.stage))) {
+        const now = Date.now()
+        set({ dataScan: {
+          scanId: `browser-${now}`, ticker: t, stage: 'failed', completed: 0, total: sel?.fileCount ?? 0,
+          currentFile: null, error: String(error?.body?.error || error?.message || 'The data scan stopped.').slice(0, 180),
+          startedAt: now, updatedAt: now,
+        } })
+      }
     } finally {
       if (get().selectToken === token) set({ dataLoading: false })
     }
@@ -4533,9 +4581,11 @@ export const useStore = create<State>((set, get) => ({
     // the selection when the owner changes (a screener detour leaves constellationSwarm untouched, so
     // returning to research keeps its selection). Then load the swarm's subject list (commodity only).
     if (get().constellationSwarm !== to) {
+      dataScanRequest?.controller.abort()
+      dataScanRequest = null
       set({
         constellationSwarm: to, selectedTicker: null, graph: null, nodesByKey: new Map(),
-        dataStatus: null, dataLoading: false, nodeRuntime: {}, decision: null, runRoot: null,
+        dataStatus: null, dataLoading: false, dataScan: null, nodeRuntime: {}, decision: null, runRoot: null,
         reports: { memo: false, thesis: false, dossier: false }, moduleReports: {}, selectedNodeKey: null, ...CHAT_RESET,
       })
     }
@@ -6944,7 +6994,7 @@ function reconcileSelection(get: () => State, set: (p: Partial<State>) => void):
   const sel = get().selectedTicker
   const list = get().tickers
   if (sel && list.length > 0 && !list.some((t) => t.ticker === sel)) {
-    set({ selectedTicker: null, dataStatus: null, dataLoading: false, decision: null, runRoot: null, nodeRuntime: {}, reports: { memo: false, thesis: false, dossier: false }, moduleReports: {}, selectedNodeKey: null, openOutput: null })
+    set({ selectedTicker: null, dataStatus: null, dataLoading: false, dataScan: null, decision: null, runRoot: null, nodeRuntime: {}, reports: { memo: false, thesis: false, dossier: false }, moduleReports: {}, selectedNodeKey: null, openOutput: null })
     return sel
   }
   return null
