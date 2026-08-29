@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-29T15:47:25Z",
+  "generated_at": "2026-08-29T15:47:58Z",
   "inbox": [
     {
       "inbox_id": "INB-20260829-490",
@@ -86081,6 +86081,78 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-2bf283da46ec",
+      "idea_version": "IDEAV-76cabd50311d5286",
+      "idea_version_started_at": "2026-08-29T15:47:43Z",
+      "ticker": "TVVISION",
+      "company": "TV Vision Limited",
+      "exchange": "BSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The formal constitution of the Committee of Creditors confirms the company is deep into the insolvency resolution process, signaling high risk of equity wipeout.",
+      "why_now": "The Committee of Creditors was officially formed on August 22, 2026, with the filing released August 29, 2026.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-0435ea54ef70"
+      ],
+      "primary_source_event_id": "EVT-0435ea54ef70",
+      "source_headlines": [
+        "TV Vision Limited: In furtherance to our intimation dated July 31, 2026, regarding intimation for initiation of Corporate Insolvency Resolution Process (CIRP) of TV Vision Limited ( the Company ) by the Hon'ble National Company Law Tribunal, Mumbai Bench I, we hereby inform you that the Committee of Creditors ( COC ) has been formed on August 22, 2026 pursuant to Section 21 of the Insolvency and Bankruptcy Code, 2016 (IBC), read with the Insolvency and Bankruptcy (Insolvency Resolution Process f"
+      ],
+      "source_headline": "TV Vision Limited: In furtherance to our intimation dated July 31, 2026, regarding intimation for initiation of Corporate Insolvency Resolution Process (CIRP) of TV Vision Limited ( the Company ) by the Hon'ble National Company Law Tribunal, Mumbai Bench I, we hereby inform you that the Committee of Creditors ( COC ) has been formed on August 22, 2026 pursuant to Section 21 of the Insolvency and Bankruptcy Code, 2016 (IBC), read with the Insolvency and Bankruptcy (Insolvency Resolution Process f",
+      "source_url": "https://nsearchives.nseindia.com/corporate/TVVISION_29082026200519_Intimation_of_CoC_Meeting-1-sd.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-29T14:35:30Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-29T15:47:43Z",
+      "updated_at": "2026-08-29T15:47:43Z",
+      "decay_at": "2026-08-31T02:35:30Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-1216c09ce08d",
       "idea_version": "IDEAV-2412c527a81f63ee",
       "idea_version_started_at": "2026-08-29T15:13:07Z",
@@ -106604,8 +106676,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 247,
-    "live_count": 31,
+    "surfaced_total": 248,
+    "live_count": 32,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
