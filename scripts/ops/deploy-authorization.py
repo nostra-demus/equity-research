@@ -35,11 +35,13 @@ import urllib.request
 
 SCHEMA_VERSION = "nostra-deploy-authorization/2.0"
 AUDIT_SCHEMA_VERSION = "nostra-deploy-audit/1.0"
+AUDIT_ANCHOR_SCHEMA_VERSION = "nostra-deploy-audit-anchor/1.0"
 RECEIPT_NAME = "deploy-authorization.json"
 DATA_ROOTS = ("analyses/", "screener/", "commodity/", "watchlist/")
 SHA_RE = re.compile(r"(?:[0-9a-f]{40}|[0-9a-f]{64})\Z")
 MAX_RECEIPT_BYTES = 16 * 1024
 MAX_LEDGER_BYTES = 32 * 1024 * 1024
+MAX_AUDIT_ANCHOR_BYTES = 4 * 1024
 MAX_TTL_SECONDS = 24 * 60 * 60
 MAX_API_BYTES = 2 * 1024 * 1024
 WORKFLOW_PATH = ".github/workflows/ci.yml"
@@ -516,6 +518,7 @@ def exact_green_push(
     if not isinstance(raw_runs, list):
         raise AuthorizationError("GitHub Actions workflow-runs response is malformed")
     target_digest, target_count = program_manifest(repo, target)
+    last_job_error: AuthorizationError | None = None
     for raw in raw_runs:
         if not isinstance(raw, dict):
             continue
@@ -547,7 +550,11 @@ def exact_green_push(
             continue
         if head_digest != target_digest or head_count != target_count:
             continue
-        jobs = required_job_proof(api_base, token, repository, run_id)
+        try:
+            jobs = required_job_proof(api_base, token, repository, run_id)
+        except AuthorizationError as error:
+            last_job_error = error
+            continue
         run_url = raw.get("html_url")
         if not isinstance(run_url, str) or not run_url.startswith(f"https://github.com/{repository}/actions/runs/"):
             raise AuthorizationError("successful push-CI run URL is malformed")
@@ -571,6 +578,8 @@ def exact_green_push(
             "updated_at": updated_at,
             "jobs": jobs,
         }
+    if last_job_error is not None:
+        raise last_job_error
     raise AuthorizationError("no exact all-green main push workflow proves this program")
 
 
@@ -731,6 +740,119 @@ def read_audit_rows(descriptor: int, size: int) -> list[dict[str, Any]]:
     return rows
 
 
+def audit_anchor_path(ledger: pathlib.Path) -> pathlib.Path:
+    return ledger.with_name(f"{ledger.name}.anchor.json")
+
+
+def read_audit_anchor(path: pathlib.Path) -> dict[str, Any] | None:
+    if path.is_symlink():
+        raise AuthorizationError("deployment audit anchor is unsafe")
+    if not path.exists():
+        return None
+    descriptor: int | None = None
+    try:
+        descriptor = os.open(path, os.O_RDONLY | getattr(os, "O_NOFOLLOW", 0))
+        opened = os.fstat(descriptor)
+        named = path.lstat()
+        if (
+            not stat.S_ISREG(opened.st_mode)
+            or opened.st_uid != os.getuid()
+            or opened.st_nlink != 1
+            or opened.st_mode & 0o077
+            or opened.st_size <= 0
+            or opened.st_size > MAX_AUDIT_ANCHOR_BYTES
+            or (opened.st_dev, opened.st_ino) != (named.st_dev, named.st_ino)
+        ):
+            raise AuthorizationError("deployment audit anchor is not a safe owner-only file")
+        raw = os.read(descriptor, MAX_AUDIT_ANCHOR_BYTES + 1)
+        if len(raw) != opened.st_size or not raw.endswith(b"\n"):
+            raise AuthorizationError("deployment audit anchor changed or is truncated")
+        value = json.loads(raw.decode("utf-8", "strict"))
+    except AuthorizationError:
+        raise
+    except (OSError, UnicodeError, json.JSONDecodeError) as error:
+        raise AuthorizationError("deployment audit anchor could not be read") from error
+    finally:
+        if descriptor is not None:
+            os.close(descriptor)
+    if not isinstance(value, dict):
+        raise AuthorizationError("deployment audit anchor is malformed")
+    return value
+
+
+def validate_audit_anchor(
+    anchor: dict[str, Any] | None,
+    ledger: pathlib.Path,
+    opened: os.stat_result,
+    rows: list[dict[str, Any]],
+) -> None:
+    if anchor is None:
+        if opened.st_size != 0 or rows:
+            raise AuthorizationError("deployment audit anchor is missing for a non-empty ledger")
+        return
+    expected_keys = {
+        "schema_version",
+        "ledger_path",
+        "ledger_device",
+        "ledger_inode",
+        "ledger_size_bytes",
+        "event_count",
+        "tip_event_sha256",
+    }
+    tip = rows[-1]["event_sha256"] if rows else None
+    expected = {
+        "schema_version": AUDIT_ANCHOR_SCHEMA_VERSION,
+        "ledger_path": str(ledger),
+        "ledger_device": opened.st_dev,
+        "ledger_inode": opened.st_ino,
+        "ledger_size_bytes": opened.st_size,
+        "event_count": len(rows),
+        "tip_event_sha256": tip,
+    }
+    if set(anchor) != expected_keys or anchor != expected:
+        raise AuthorizationError("deployment audit ledger disagrees with its durable length/tip anchor")
+
+
+def write_audit_anchor(
+    path: pathlib.Path,
+    ledger: pathlib.Path,
+    opened: os.stat_result,
+    rows: list[dict[str, Any]],
+) -> None:
+    value = {
+        "schema_version": AUDIT_ANCHOR_SCHEMA_VERSION,
+        "ledger_path": str(ledger),
+        "ledger_device": opened.st_dev,
+        "ledger_inode": opened.st_ino,
+        "ledger_size_bytes": opened.st_size,
+        "event_count": len(rows),
+        "tip_event_sha256": rows[-1]["event_sha256"] if rows else None,
+    }
+    descriptor, temporary = tempfile.mkstemp(prefix=f".{path.name}.", dir=path.parent)
+    try:
+        os.fchmod(descriptor, 0o600)
+        with os.fdopen(descriptor, "wb", closefd=True) as handle:
+            descriptor = -1
+            handle.write(canonical_json(value) + b"\n")
+            handle.flush()
+            os.fsync(handle.fileno())
+        os.replace(temporary, path)
+        directory = os.open(path.parent, os.O_RDONLY)
+        try:
+            os.fsync(directory)
+        finally:
+            os.close(directory)
+    except OSError as error:
+        raise AuthorizationError("deployment audit anchor could not be persisted") from error
+    finally:
+        if descriptor >= 0:
+            os.close(descriptor)
+        try:
+            os.unlink(temporary)
+        except FileNotFoundError:
+            pass
+
+
 def append_audit_event(path: pathlib.Path, event: dict[str, Any]) -> str:
     descriptor: int | None = None
     try:
@@ -753,6 +875,8 @@ def append_audit_event(path: pathlib.Path, event: dict[str, Any]) -> str:
         ):
             raise AuthorizationError("deployment audit ledger is not a safe owner-only file")
         rows = read_audit_rows(descriptor, opened.st_size)
+        anchor_path = audit_anchor_path(path)
+        validate_audit_anchor(read_audit_anchor(anchor_path), path, opened, rows)
         event_key = event["event_key"]
         for row in rows:
             if row.get("event_key") == event_key:
@@ -766,6 +890,8 @@ def append_audit_event(path: pathlib.Path, event: dict[str, Any]) -> str:
         if os.write(descriptor, encoded) != len(encoded):
             raise AuthorizationError("deployment audit ledger append was short")
         os.fsync(descriptor)
+        rows.append(value)
+        write_audit_anchor(anchor_path, path, os.fstat(descriptor), rows)
         return event_hash
     except OSError as error:
         raise AuthorizationError("deployment audit ledger could not be appended") from error

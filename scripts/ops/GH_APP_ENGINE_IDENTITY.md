@@ -58,7 +58,7 @@ cd "$HOME/equity-research"   # your checkout of this repo on the engine Mac (dev
 scripts/ops/setup-gh-app.sh --app-id <APP_ID> --key ~/Downloads/nostra-engine.*.private-key.pem
 ```
 
-It writes `~/.config/nostra-engine/` (env + key, mode 600, **outside the repo**), auto-discovers the installation id, then **self-tests**: it mints a token, confirms `Contents: write` and `Actions: read`, and proves the token can reach the repo over git. It prints the **App id to use as the ruleset bypass actor**. It does **not** touch the ruleset.
+It writes `~/.config/nostra-engine/` (env + key, mode 600, **outside the repo**), auto-discovers the installation id, then **self-tests**: it mints a token, confirms `Contents: write` and `Actions: read`, and proves the token can reach the repo over git. It prints the **App id to use as the ruleset bypass actor**. It does **not** touch the ruleset. The deploy watcher executes only the atomically installed `~/.nostra-ops/gh-app-token.sh`; it never executes the production-checkout copy during authorization.
 
 After this, `commit-run.sh` automatically pushes as the App (it routes git's credentials through `scripts/ops/gh-app-credential.sh` for that one process only — global/interactive git is untouched). You can delete the downloaded `.pem`.
 

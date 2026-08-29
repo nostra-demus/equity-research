@@ -8,6 +8,7 @@ import http.server
 import json
 import os
 import pathlib
+import re
 import subprocess
 import sys
 import tempfile
@@ -43,41 +44,55 @@ def commit(repo: pathlib.Path, relative: str, body: str, message: str) -> str:
     return run("git", "rev-parse", "HEAD", cwd=repo).stdout.strip()
 
 
+def workflow_run(
+    head: str,
+    *,
+    run_id: int = 7001,
+    event: str = "push",
+    branch: str = "main",
+    status: str = "completed",
+    conclusion: str = "success",
+) -> dict[str, object]:
+    return {
+        "id": run_id,
+        "run_attempt": 1,
+        "path": ".github/workflows/ci.yml",
+        "event": event,
+        "head_branch": branch,
+        "head_sha": head,
+        "status": status,
+        "conclusion": conclusion,
+        "html_url": f"https://github.com/nostra-demus/equity-research/actions/runs/{run_id}",
+        "created_at": "2026-08-29T10:00:00Z",
+        "updated_at": "2026-08-29T10:05:00Z",
+    }
+
+
+def job_rows(*, missing: str | None = None, overrides: dict[str, tuple[str, str]] | None = None) -> list[dict[str, str]]:
+    result: list[dict[str, str]] = []
+    for name in JOB_NAMES:
+        if name == missing:
+            continue
+        status, conclusion = (overrides or {}).get(name, ("completed", "success"))
+        result.append({"name": name, "status": status, "conclusion": conclusion})
+    return result
+
+
 class GitHubFixture(http.server.BaseHTTPRequestHandler):
-    workflow_head = ""
-    missing_job = False
+    workflow_runs: list[dict[str, object]] = []
+    jobs_by_run: dict[int, list[dict[str, str]]] = {}
 
     def do_GET(self) -> None:  # noqa: N802 - stdlib callback name
         if self.headers.get("Authorization") != f"Bearer {TOKEN}":
             self.send_error(401)
             return
         path = urllib.parse.urlparse(self.path).path
-        if path.endswith("/runs/7001/jobs"):
-            names = JOB_NAMES[:-1] if self.missing_job else JOB_NAMES
-            value = {
-                "jobs": [
-                    {"name": name, "status": "completed", "conclusion": "success"}
-                    for name in names
-                ]
-            }
+        jobs_match = re.search(r"/actions/runs/(\d+)/jobs$", path)
+        if jobs_match:
+            run_id = int(jobs_match.group(1))
+            value = {"jobs": self.jobs_by_run.get(run_id, [])}
         elif "/actions/workflows/" in path and path.endswith("/runs"):
-            value = {
-                "workflow_runs": [
-                    {
-                        "id": 7001,
-                        "run_attempt": 1,
-                        "path": ".github/workflows/ci.yml",
-                        "event": "push",
-                        "head_branch": "main",
-                        "head_sha": self.workflow_head,
-                        "status": "completed",
-                        "conclusion": "success",
-                        "html_url": "https://github.com/nostra-demus/equity-research/actions/runs/7001",
-                        "created_at": "2026-08-29T10:00:00Z",
-                        "updated_at": "2026-08-29T10:05:00Z",
-                    }
-                ]
-            }
+            value = {"workflow_runs": self.workflow_runs}
         else:
             self.send_error(404)
             return
@@ -109,31 +124,36 @@ with tempfile.TemporaryDirectory(prefix="deploy-push-ci-test-") as temporary:
     token_command = root / "token-command.sh"
     token_command.write_text(f"#!/bin/sh\nprintf '%s\\n' '{TOKEN}'\n", encoding="utf-8")
     token_command.chmod(0o700)
-    GitHubFixture.workflow_head = reviewed
+    GitHubFixture.workflow_runs = [workflow_run(reviewed)]
+    GitHubFixture.jobs_by_run = {7001: job_rows()}
     server = http.server.ThreadingHTTPServer(("127.0.0.1", 0), GitHubFixture)
     thread = threading.Thread(target=server.serve_forever, daemon=True)
     thread.start()
     api_base = f"http://127.0.0.1:{server.server_address[1]}"
     try:
+        def authorize_to(destination: pathlib.Path, *, ok: bool = True) -> subprocess.CompletedProcess[str]:
+            return run(
+                sys.executable,
+                str(HELPER),
+                "authorize-ci",
+                "--repo",
+                str(repo),
+                "--state-dir",
+                str(destination),
+                "--target",
+                data_target,
+                "--repository",
+                "nostra-demus/equity-research",
+                "--token-command",
+                str(token_command),
+                "--api-base",
+                api_base,
+                cwd=repo,
+                ok=ok,
+            )
+
         state = root / "state"
-        issued = run(
-            sys.executable,
-            str(HELPER),
-            "authorize-ci",
-            "--repo",
-            str(repo),
-            "--state-dir",
-            str(state),
-            "--target",
-            data_target,
-            "--repository",
-            "nostra-demus/equity-research",
-            "--token-command",
-            str(token_command),
-            "--api-base",
-            api_base,
-            cwd=repo,
-        )
+        issued = authorize_to(state)
         assert f"AUTHORIZED_COMMIT={reviewed}" in issued.stdout
         assert "WORKFLOW_RUN_ID=7001" in issued.stdout
         receipt = json.loads((state / "deploy-authorization.json").read_text(encoding="utf-8"))
@@ -177,6 +197,12 @@ with tempfile.TemporaryDirectory(prefix="deploy-push-ci-test-") as temporary:
         canonical = json.dumps(unhashed, sort_keys=True, separators=(",", ":")).encode("utf-8")
         assert event_hash == "sha256:" + hashlib.sha256(canonical).hexdigest()
         assert oct(ledger.stat().st_mode & 0o777) == "0o600"
+        anchor = ledger.with_name(f"{ledger.name}.anchor.json")
+        anchor_value = json.loads(anchor.read_text(encoding="utf-8"))
+        assert oct(anchor.stat().st_mode & 0o777) == "0o600"
+        assert anchor_value["event_count"] == 1
+        assert anchor_value["tip_event_sha256"] == rows[0]["event_sha256"]
+        assert anchor_value["ledger_size_bytes"] == ledger.stat().st_size
 
         failed_audit = run(
             sys.executable,
@@ -205,9 +231,12 @@ with tempfile.TemporaryDirectory(prefix="deploy-push-ci-test-") as temporary:
         assert "AUDIT_EVENT_SHA256=sha256:" in failed_audit.stdout
         chained = [json.loads(line) for line in ledger.read_text(encoding="utf-8").splitlines()]
         assert len(chained) == 2 and chained[1]["previous_event_sha256"] == chained[0]["event_sha256"]
+        anchor_value = json.loads(anchor.read_text(encoding="utf-8"))
+        assert anchor_value["event_count"] == 2
+        assert anchor_value["tip_event_sha256"] == chained[-1]["event_sha256"]
 
         # One missing required job cannot mint a receipt, and the secret is absent from all output.
-        GitHubFixture.missing_job = True
+        GitHubFixture.jobs_by_run = {7001: job_rows(missing=JOB_NAMES[-1])}
         missing_state = root / "missing-state"
         missing = run(
             sys.executable,
@@ -233,7 +262,51 @@ with tempfile.TemporaryDirectory(prefix="deploy-push-ci-test-") as temporary:
         assert not (missing_state / "deploy-authorization.json").exists()
 
         # A green workflow for an older, different program cannot authorize newer code.
-        GitHubFixture.missing_job = False
+        GitHubFixture.jobs_by_run = {7001: job_rows()}
+
+        # A failed/cancelled run, wrong event, or wrong branch never authorizes even when its SHA and jobs
+        # look perfect. These cases make deleting the run-level filter fail the regression suite.
+        for label, invalid_run in (
+            ("failed-run", workflow_run(reviewed, conclusion="failure")),
+            ("cancelled-run", workflow_run(reviewed, conclusion="cancelled")),
+            ("wrong-event", workflow_run(reviewed, event="pull_request")),
+            ("wrong-branch", workflow_run(reviewed, branch="release-candidate")),
+        ):
+            GitHubFixture.workflow_runs = [invalid_run]
+            refused = authorize_to(root / label, ok=False)
+            assert refused.returncode == 1 and "no exact all-green main push workflow" in refused.stderr
+
+        # Every required job must itself be completed/successful. A skipped, cancelled, or still-running
+        # job cannot hide behind a successful workflow conclusion.
+        GitHubFixture.workflow_runs = [workflow_run(reviewed)]
+        for label, status, conclusion in (
+            ("skipped-job", "completed", "skipped"),
+            ("cancelled-job", "completed", "cancelled"),
+            ("running-job", "in_progress", ""),
+        ):
+            GitHubFixture.jobs_by_run = {
+                7001: job_rows(overrides={JOB_NAMES[0]: (status, conclusion)})
+            }
+            refused = authorize_to(root / label, ok=False)
+            assert refused.returncode == 1 and "required push-CI job is not green" in refused.stderr
+
+        # Selection is not "first row wins": invalid newer rows are ignored and the exact green main-push
+        # run is selected from a multi-run response.
+        GitHubFixture.workflow_runs = [
+            workflow_run(reviewed, run_id=7201),
+            workflow_run(reviewed, run_id=7202, event="pull_request"),
+            workflow_run(reviewed, run_id=7203),
+        ]
+        GitHubFixture.jobs_by_run = {
+            7201: job_rows(overrides={JOB_NAMES[0]: ("completed", "cancelled")}),
+            7202: job_rows(),
+            7203: job_rows(),
+        }
+        selected = authorize_to(root / "multi-run")
+        assert "WORKFLOW_RUN_ID=7203" in selected.stdout
+
+        GitHubFixture.workflow_runs = [workflow_run(reviewed)]
+        GitHubFixture.jobs_by_run = {7001: job_rows()}
         later_code = commit(repo, "ui/web/src/later.ts", "later\n", "later unproved program")
         run("git", "push", "-q", "origin", "main", cwd=repo)
         wrong_state = root / "wrong-state"
@@ -283,9 +356,32 @@ with tempfile.TemporaryDirectory(prefix="deploy-push-ci-test-") as temporary:
         )
         assert unsafe.returncode == 1 and "safe owner-controlled executable" in unsafe.stderr
 
-        # Any edit to an earlier event breaks the chain and blocks the next append.
-        chained[0]["health_result"] = "failed"
-        ledger.write_text("\n".join(json.dumps(row) for row in chained) + "\n", encoding="utf-8")
+        # Dropping a valid trailing row used to leave a valid hash chain. The separate durable length/tip
+        # anchor now makes that deletion visible and blocks every later append.
+        original_ledger = ledger.read_bytes()
+        original_anchor = anchor.read_bytes()
+        lines = original_ledger.splitlines(keepends=True)
+        ledger.write_bytes(b"".join(lines[:-1]))
+        ledger.chmod(0o600)
+        truncated = run(*audit_args, cwd=repo, ok=False)
+        assert truncated.returncode == 1 and "durable length/tip anchor" in truncated.stderr
+
+        # A non-empty ledger without its anchor is also untrusted; it is never silently re-anchored.
+        ledger.write_bytes(original_ledger)
+        ledger.chmod(0o600)
+        anchor.unlink()
+        missing_anchor = run(*audit_args, cwd=repo, ok=False)
+        assert missing_anchor.returncode == 1 and "anchor is missing" in missing_anchor.stderr
+
+        # Restore the exact pair, then prove ordinary in-place row tampering remains detected too.
+        ledger.write_bytes(original_ledger)
+        ledger.chmod(0o600)
+        anchor.write_bytes(original_anchor)
+        anchor.chmod(0o600)
+        text = original_ledger.decode("utf-8")
+        original_target = chained[0]["target_commit"]
+        altered_target = ("0" if original_target[0] != "0" else "1") + original_target[1:]
+        ledger.write_text(text.replace(original_target, altered_target, 1), encoding="utf-8")
         ledger.chmod(0o600)
         tampered = run(*audit_args, cwd=repo, ok=False)
         assert tampered.returncode == 1 and "event digest disagrees" in tampered.stderr

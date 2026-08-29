@@ -1,24 +1,24 @@
 {
-  "idea_id": "IDEA-e9f7d83c2f9e",
-  "idea_version": "IDEAV-7a30f084832ce743",
-  "idea_version_started_at": "2026-08-26T22:23:24Z",
-  "ticker": "00950",
-  "company": "Lee's Pharmaceutical Holdings Limited",
-  "exchange": "HKEX",
+  "idea_id": "IDEA-932317e51e1d",
+  "idea_version": "IDEAV-0a6209f8fa8d8b25",
+  "idea_version_started_at": "2026-08-29T16:42:52Z",
+  "ticker": "GLEN",
+  "company": "Glencore",
+  "exchange": "LSE",
   "ticker_verified": false,
   "listing_verified": false,
   "liquidity_verified": false,
   "listing_verification_source": null,
-  "direction": "long",
+  "direction": "short",
   "pair_with": null,
-  "reason": "The company issued a positive profit alert, indicating an improvement in earnings performance compared to the previous period.",
-  "why_now": "The profit alert was filed on 2026-08-26.",
-  "conviction": 70,
+  "reason": "Glencore took a $480 million provision related to its exposure to Radiant World, suggesting a potential financial loss or write-down.",
+  "why_now": "The provision was reported on August 29, 2026.",
+  "conviction": 50,
   "conviction_basis": "pre_edge_proxy",
   "trade_score": 45,
   "trade_score_basis": "evidence_gate_v2",
   "trade_score_breakdown": {
-    "evidence": 25,
+    "evidence": 14,
     "impact": 19,
     "specificity": 7,
     "timing": 10,
@@ -32,6 +32,8 @@
     "verified listing",
     "live liquidity",
     "dated catalyst",
+    "price and market expectations",
+    "independent confirmation",
     "live price, liquidity, and consensus"
   ],
   "learning": {
@@ -43,31 +45,31 @@
     "basis": "not_enough_outcomes",
     "evidenceIds": []
   },
-  "priced_in": "room",
+  "priced_in": "unknown",
   "thesis_type": "company_specific",
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-cf525820828c"
+    "EVT-48237898a4f4"
   ],
-  "primary_source_event_id": "EVT-cf525820828c",
+  "primary_source_event_id": "EVT-48237898a4f4",
   "source_headlines": [
-    "LEE'S PHARM (00950): Positive Profit Alert"
+    "Glencore Took $480 Million Provision on Radiant World Exposure"
   ],
-  "source_headline": "LEE'S PHARM (00950): Positive Profit Alert",
-  "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0826/2026082601649.pdf",
-  "source_name": "HKEXnews (HK Exchange Filing)",
+  "source_headline": "Glencore Took $480 Million Provision on Radiant World Exposure",
+  "source_url": "https://www.bloomberg.com/news/articles/2026-08-29/glencore-took-480-million-provision-on-radiant-world-exposure",
+  "source_name": "Bloomberg",
   "materiality_max": 100,
-  "newest_source_at": "2026-08-26T13:06:00Z",
+  "newest_source_at": "2026-08-29T15:54:32Z",
   "prior_coverage": {
     "has_run": false,
     "latest_run": null,
     "latest_decision": null,
     "data_pool_present": false
   },
-  "surfaced_at": "2026-08-26T22:23:24Z",
-  "updated_at": "2026-08-26T22:23:24Z",
-  "decay_at": "2026-08-28T01:06:00Z",
+  "surfaced_at": "2026-08-29T16:42:52Z",
+  "updated_at": "2026-08-29T16:42:52Z",
+  "decay_at": "2026-08-31T03:54:32Z",
   "status": "live",
   "promoted_signal_id": null
 }
