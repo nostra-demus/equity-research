@@ -3376,6 +3376,8 @@ if scope=="selftest":
                           "## 4. Score Cap Application\nValuation confidence /100: 55\n")
     _bb_synth_duplicate= ("## 1. Valuation Verdict\n- Valuation confidence /100: 50\n"
                           "- Valuation confidence /100: 55\n")
+    _bb_synth_na_cap= "## 1. Valuation Verdict\n- Valuation confidence /100: N/A (max 55)\n"
+    _bb_synth_negative= "## 1. Valuation Verdict\n- Valuation confidence /100: -5\n"
     bbcases=[  # (decision_date, mult_txt(02), peer_txt(03), synth_txt(99), expect: None=N/A, []=pass, [substr]=fail-with)
         ("2026-08-28",_bb_elev02,_bb_elev03,_bb_synth_ok,[]),                    # same-direction elevated, within cap → pass
         ("2026-08-28",_bb_elev02,_bb_elev03,_bb_synth_atcap,[]),                 # exactly at the 55 cap → pass
@@ -3394,6 +3396,8 @@ if scope=="selftest":
         ("2026-08-28",_bb_elev02,_bb_elev03,_bb_synth_range_or,["could not be parsed"]),     # 55 or 60 (worded alternative) likewise → FAIL
         ("2026-08-28",_bb_elev02,_bb_elev03,_bb_synth_later_cap,["could not be parsed"]),    # later cap prose cannot replace the missing Verdict score
         ("2026-08-28",_bb_elev02,_bb_elev03,_bb_synth_duplicate,["could not be parsed"]),    # conflicting Verdict scores fail closed
+        ("2026-08-28",_bb_elev02,_bb_elev03,_bb_synth_na_cap,["could not be parsed"]),       # explanatory max is not the stated score
+        ("2026-08-28",_bb_elev02,_bb_elev03,_bb_synth_negative,["could not be parsed"]),     # signed values cannot lose their sign
         ("2026-08-28",_bb_na02,_bb_na02,_bb_synth_over,[]),                      # neither flagged → pass
         ("2026-08-27",_bb_elev02,_bb_elev03,_bb_synth_over,None),                # predates BB_DATE → N/A
         ("2026-08-28",None,None,_bb_synth_over,None),                           # neither 02 nor 03 ran → N/A
