@@ -651,8 +651,24 @@ export function buildSummary(t: Theme, now: Date = new Date(), companyProjection
     conviction: qualified.assessment.conviction,
     off_core_member_count: qualified.off_core_members.length,
     qualified_expressions: expressions,
-    idea_ready: qualified.idea_admission.admitted,
-    idea_blockers: [...qualified.idea_admission.blockers],
+    // `idea_ready` is deliberately STRICTER than `assessment.status` (qualification.ts): a theme can seed an
+    // Idea only when it is BOTH admitted by the player contract AND actionable. Gating on admission alone let
+    // a `forming` theme — an eligible SECOND-order player (idea-admission accepts order-2) but no first-order
+    // directional ticker, so `expressionReady` is false — carry `idea_ready:true` and be labelled "Idea-ready"
+    // on the PM surface while the real Ideas gate (ideas-store requires status==='actionable') rejects it.
+    // Harmless while forming Theme-only rows were hidden; a live contradiction now that they are shown.
+    idea_ready: qualified.idea_admission.admitted && qualified.assessment.status === 'actionable',
+    // When the player contract IS met but the theme is not actionable (the forming Theme-only case above —
+    // an eligible second-order player, no first-order directional expression), idea_admission.blockers is
+    // empty, yet the theme still cannot seed an Idea. Publish the real gate so the detail does not read the
+    // misleading empty-state "No player package has cleared every Ideas admission check yet" — the package
+    // HAS cleared admission; the theme is simply still forming.
+    idea_blockers: [
+      ...qualified.idea_admission.blockers,
+      ...(qualified.idea_admission.admitted && qualified.assessment.status !== 'actionable'
+        ? ['The theme is still forming: no first-order directional expression has qualified, so it cannot seed an Idea yet.']
+        : []),
+    ],
     player_counts: {
       first_order: players.filter((player) => player.order === 1).length,
       second_order: players.filter((player) => player.order === 2).length,

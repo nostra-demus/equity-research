@@ -485,23 +485,65 @@ def audit_repository(repo_root: Path, cutoff: str = PROVIDER_ROLLOUT_CUTOFF) -> 
         inventory = json.loads(inventory_path.read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError) as error:
         raise ProvenanceError(f"legacy provenance inventory is unreadable: {error}") from error
-    if not isinstance(inventory, dict) or inventory.get("schema_version") != "1.0" \
-            or inventory.get("rollout_cutoff") != cutoff or not isinstance(inventory.get("records"), dict):
+    if not isinstance(inventory, dict) or inventory.get("schema_version") != "1.1" \
+            or inventory.get("rollout_cutoff") != cutoff \
+            or not isinstance(inventory.get("records"), dict) \
+            or not isinstance(inventory.get("mutable_legacy_projections"), dict):
         raise ProvenanceError("legacy provenance inventory contract/cutoff is invalid")
     legacy_records = inventory["records"]
-    if any(not isinstance(item, str) or not item.startswith("sha256:") or len(item) != 71
-           for item in legacy_records.values()):
+    legacy_projections = inventory["mutable_legacy_projections"]
+    if any(
+        not isinstance(path_text, str)
+        or not path_text
+        or Path(path_text).is_absolute()
+        or ".." in Path(path_text).parts
+        or "\\" in path_text
+        or Path(path_text).as_posix() != path_text
+        or not isinstance(digest, str)
+        or not digest.startswith("sha256:")
+        or len(digest) != 71
+        for path_text, digest in legacy_records.items()
+    ):
         raise ProvenanceError("legacy provenance inventory contains an invalid digest")
+    archive_targets: set[str] = set()
+    for projection_path, projection in legacy_projections.items():
+        if not isinstance(projection_path, str) or not isinstance(projection, dict) \
+                or set(projection) != {"archive", "sha256"}:
+            raise ProvenanceError("legacy provenance inventory contains an invalid mutable projection")
+        digest = projection.get("sha256")
+        archive = projection.get("archive")
+        parts = Path(projection_path).parts
+        if len(parts) != 4 or parts[:2] != ("commodity", "runs") \
+                or parts[-1] != "decision_record.json":
+            raise ProvenanceError("legacy mutable projection is not a commodity current projection")
+        expected_archive = (
+            "frameworks/execution_provenance_legacy_snapshots/commodity/"
+            f"{parts[2]}/decision_record.json"
+        )
+        if archive != expected_archive \
+                or archive not in legacy_records or legacy_records[archive] != digest:
+            raise ProvenanceError("legacy mutable projection has no matching immutable archive")
+        archive_targets.add(archive)
     patterns = _terminal_record_patterns(repo)
-    paths = sorted({path for pattern in patterns for path in repo.glob(pattern)})
-    discovered = {path.relative_to(repo).as_posix() for path in paths}
-    stale = sorted(set(legacy_records) - discovered)
+    terminal_paths = {path for pattern in patterns for path in repo.glob(pattern)}
+    terminal_discovered = {path.relative_to(repo).as_posix() for path in terminal_paths}
+    inventory_only = set(legacy_records) - terminal_discovered
+    if inventory_only != archive_targets:
+        unexpected = sorted(inventory_only.symmetric_difference(archive_targets))
+        raise ProvenanceError(
+            f"legacy provenance inventory has missing/stale entries: {unexpected[0]}"
+        )
+    stale = sorted(set(legacy_projections) - terminal_discovered)
     if stale:
         raise ProvenanceError(f"legacy provenance inventory has missing/stale entries: {stale[0]}")
+    paths = sorted(terminal_paths | {repo / Path(path_text) for path_text in archive_targets})
     counts = {"records": 0, "legacy": 0, "required": 0, "commodity_hashed": 0}
     for artifact in paths:
         relative = artifact.relative_to(repo)
-        info = artifact.lstat()
+        try:
+            info = artifact.lstat()
+        except OSError as error:
+            raise ProvenanceError(f"terminal record is missing: {relative}: {error}") from error
         if not stat.S_ISREG(info.st_mode) or artifact.is_symlink() or artifact.resolve() != artifact:
             raise ProvenanceError(f"terminal record must be a regular non-symlink file: {relative}")
         try:
@@ -518,10 +560,30 @@ def audit_repository(repo_root: Path, cutoff: str = PROVIDER_ROLLOUT_CUTOFF) -> 
         relative_text = relative.as_posix()
         actual_digest = "sha256:" + __import__("hashlib").sha256(artifact.read_bytes()).hexdigest()
         legacy_digest = legacy_records.get(relative_text)
+        projection_digest = (legacy_projections.get(relative_text) or {}).get("sha256")
         persisted = record.get("execution_provenance")
         if legacy_digest is not None:
             if actual_digest != legacy_digest:
                 raise ProvenanceError(f"inventoried legacy terminal record changed after rollout: {relative}")
+            counts["legacy"] += 1
+            if persisted is not None:
+                validate_projection(persisted, f"{relative}:execution_provenance")
+            continue
+        # A content-addressed commodity keeps a mutable top-level UI projection. Preserve its pre-rollout
+        # bytes in the immutable archive named by the inventory, count the projection as legacy only while
+        # it still matches those bytes, and require the full modern provenance/hash contract as soon as a
+        # new decision replaces it. Treating the current projection itself as immutable blocked every
+        # legitimate post-rollout commodity refresh even though the new immutable archive was present.
+        if projection_digest is not None and actual_digest == projection_digest:
+            # The legacy exemption holds only while the commodity has never been refreshed. Once a
+            # modern decision has been archived under this run's decisions/ directory, the mutable
+            # top-level projection must carry that modern decision; reverting it to the pre-rollout
+            # legacy bytes would leave the cockpit and snapshot builder reading a stale decision while
+            # a newer immutable archive exists, and the audit would otherwise wave it through as legacy.
+            archive_dir = artifact.parent / "decisions"
+            if archive_dir.is_dir() and any(archive_dir.glob("*/decision_record.json")):
+                raise ProvenanceError(
+                    f"legacy commodity projection reverted to pre-rollout bytes after a modern archive exists: {relative}")
             counts["legacy"] += 1
             if persisted is not None:
                 validate_projection(persisted, f"{relative}:execution_provenance")
@@ -543,6 +605,15 @@ def audit_repository(repo_root: Path, cutoff: str = PROVIDER_ROLLOUT_CUTOFF) -> 
                 index = parts.index("decisions")
                 if index + 1 >= len(parts) or parts[index + 1] != decision_id:
                     raise ProvenanceError(f"commodity archive directory disagrees with decision id: {relative}")
+            elif projection_digest is not None:
+                archive = artifact.parent / "decisions" / decision_id / "decision_record.json"
+                try:
+                    archive_matches = archive.read_bytes() == artifact.read_bytes()
+                except OSError:
+                    archive_matches = False
+                if not archive_matches:
+                    raise ProvenanceError(
+                        f"updated legacy commodity projection has no matching immutable archive: {relative}")
             counts["commodity_hashed"] += 1
     return counts
 

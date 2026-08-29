@@ -649,6 +649,7 @@ from rating_caps import (
     AE_DATE, CAP5_TAG, ABOVE_STARTER_AE, eval_ae_filter5_cap,
     AF_DATE, CAP1_TAG, ABOVE_WATCHLIST_AF, eval_af_filter1_integrity_cap,
     AQ_DATE, FORENSIC_TAGS, ABOVE_STARTER_AQ, eval_aq_forensic_mosaic_cap,
+    BB_DATE, CYCLE_ELEV_TAG, CYCLE_DEPR_TAG, BB_COMPOUND_CAP, eval_bb_sector_cycle_compounding_cap,
 )
 
 AG_DATE = "2026-07-06"
@@ -3352,6 +3353,73 @@ if scope=="selftest":
         print(("  [ok] " if ok else "  [BAD] ")+f"BA({_dd!r},kc={_kc!r}) -> {got!r} (want {_want!r})")
         if not ok: bad+=1
 
+    # ---- check BB: §16 Sector Cycle Reality Test compounding cap -----------------------------------
+    _bb_elev02 = "## 5. Sector Cycle Reality Test\nSector re-rated ~32%.\nRF-VAL-001: own-history band cycle-elevated — sector index re-rated 32% over the window, cited 2026-08-01\n"
+    _bb_elev03 = "## 6. Sector Cycle Reality Test\nPeer group re-rated too.\nRF-VAL-001: peer-median anchor cycle-elevated — peer aggregate re-rated 28% over the window, cited 2026-08-01\n"
+    _bb_depr02 = "## 5. Sector Cycle Reality Test\nRF-VAL-002: own-history band cycle-depressed — sector index de-rated 30%, cited\n"
+    _bb_depr03 = "## 6. Sector Cycle Reality Test\nRF-VAL-002: peer-median anchor cycle-depressed — peer aggregate de-rated 27%, cited\n"
+    _bb_na02   = "## 5. Sector Cycle Reality Test\nNot assessable — no sector-level multiple history.\n"
+    _bb_cleared02 = "## 5. Sector Cycle Reality Test\nRF-VAL-001 not triggered — sector flat over the window.\n"
+    _bb_synth_ok   = "## 1. Valuation Verdict\n- Valuation confidence /100: 50\n"
+    _bb_synth_atcap= "## 1. Valuation Verdict\n- Valuation confidence /100: 55\n"
+    _bb_synth_over = "## 1. Valuation Verdict\n- Valuation confidence /100: 62\n"
+    _bb_synth_noscore = "## 1. Valuation Verdict\n- no score line here\n"
+    # A non-whole (55.9) or ranged (55–60) confidence must NOT truncate to a passing 55: it reads as
+    # unparseable and fails closed (Codex review P2; CLAUDE.md §11/§12/§15). Expected value pinned to
+    # 99_valuation-synthesis.md §1 (Valuation confidence is a whole /100 score) — not to code behaviour.
+    _bb_synth_decimal = "## 1. Valuation Verdict\n- Valuation confidence /100: 55.9\n"
+    _bb_synth_range   = "## 1. Valuation Verdict\n- Valuation confidence /100: 55–60\n"
+    _bb_synth_range_sp= "## 1. Valuation Verdict\n- Valuation confidence /100: 55 - 60\n"
+    _bb_synth_range_to= "## 1. Valuation Verdict\n- Valuation confidence /100: 55 to 60\n"
+    _bb_synth_range_pct= "## 1. Valuation Verdict\n- Valuation confidence /100: 55%–60%\n"
+    _bb_synth_range_or= "## 1. Valuation Verdict\n- Valuation confidence /100: 55 or 60\n"
+    _bb_synth_later_cap= ("## 1. Valuation Verdict\n- no score line here\n\n"
+                          "## 4. Score Cap Application\nValuation confidence /100: 55\n")
+    _bb_synth_duplicate= ("## 1. Valuation Verdict\n- Valuation confidence /100: 50\n"
+                          "- Valuation confidence /100: 55\n")
+    _bb_synth_na_cap= "## 1. Valuation Verdict\n- Valuation confidence /100: N/A (max 55)\n"
+    _bb_synth_negative= "## 1. Valuation Verdict\n- Valuation confidence /100: -5\n"
+    _bb_synth_comma_decimal= "## 1. Valuation Verdict\n- Valuation confidence /100: 55,9\n"
+    _bb_synth_exponent= "## 1. Valuation Verdict\n- Valuation confidence /100: 55e0\n"
+    _bb_synth_single_asterisk = "## 1. Valuation Verdict\n- *Valuation confidence /100:* *55*\n"
+    bbcases=[  # (decision_date, mult_txt(02), peer_txt(03), synth_txt(99), expect: None=N/A, []=pass, [substr]=fail-with)
+        ("2026-08-28",_bb_elev02,_bb_elev03,_bb_synth_ok,[]),                    # same-direction elevated, within cap → pass
+        ("2026-08-28",_bb_elev02,_bb_elev03,_bb_synth_atcap,[]),                 # exactly at the 55 cap → pass
+        ("2026-08-28",_bb_elev02,_bb_elev03,_bb_synth_over,["exceeding the max 55"]),  # over cap → FAIL
+        ("2026-08-28",_bb_depr02,_bb_depr03,_bb_synth_over,["exceeding the max 55"]),  # same-direction depressed, over cap → FAIL
+        ("2026-08-28",_bb_elev02,_bb_depr03,_bb_synth_over,[]),                  # opposite directions → no compounding, pass regardless of score
+        ("2026-08-28",_bb_elev02,_bb_na02,_bb_synth_over,[]),                    # only one flagged (other Not assessable) → pass
+        ("2026-08-28",_bb_elev02,_bb_cleared02,_bb_synth_over,[]),               # 03's tag line is a cleared/negation status → not fired, no compounding
+        ("2026-08-28",_bb_elev02,_bb_elev03,None,["cannot be verified as applied"]),        # trigger fired, 99 absent → FAIL (unverifiable)
+        ("2026-08-28",_bb_elev02,_bb_elev03,_bb_synth_noscore,["could not be parsed"]),      # trigger fired, score unparseable → FAIL
+        ("2026-08-28",_bb_elev02,_bb_elev03,_bb_synth_decimal,["could not be parsed"]),      # 55.9 must not truncate to a passing 55 → unparseable → FAIL
+        ("2026-08-28",_bb_elev02,_bb_elev03,_bb_synth_range,["could not be parsed"]),        # 55–60 range must not truncate to 55 → unparseable → FAIL
+        ("2026-08-28",_bb_elev02,_bb_elev03,_bb_synth_range_sp,["could not be parsed"]),     # 55 - 60 (spaced range) likewise → FAIL
+        ("2026-08-28",_bb_elev02,_bb_elev03,_bb_synth_range_to,["could not be parsed"]),     # 55 to 60 (word range) likewise → FAIL
+        ("2026-08-28",_bb_elev02,_bb_elev03,_bb_synth_range_pct,["could not be parsed"]),    # 55%–60% (percent range) likewise → FAIL
+        ("2026-08-28",_bb_elev02,_bb_elev03,_bb_synth_range_or,["could not be parsed"]),     # 55 or 60 (worded alternative) likewise → FAIL
+        ("2026-08-28",_bb_elev02,_bb_elev03,_bb_synth_later_cap,["could not be parsed"]),    # later cap prose cannot replace the missing Verdict score
+        ("2026-08-28",_bb_elev02,_bb_elev03,_bb_synth_duplicate,["could not be parsed"]),    # conflicting Verdict scores fail closed
+        ("2026-08-28",_bb_elev02,_bb_elev03,_bb_synth_na_cap,["could not be parsed"]),       # explanatory max is not the stated score
+        ("2026-08-28",_bb_elev02,_bb_elev03,_bb_synth_negative,["could not be parsed"]),     # signed values cannot lose their sign
+        ("2026-08-28",_bb_elev02,_bb_elev03,_bb_synth_comma_decimal,["could not be parsed"]),# locale decimal cannot truncate to 55
+        ("2026-08-28",_bb_elev02,_bb_elev03,_bb_synth_exponent,["could not be parsed"]),     # exponent form is not a whole score token
+        ("2026-08-28",_bb_elev02,_bb_elev03,_bb_synth_single_asterisk,[]),                    # ordinary Markdown italics around label/value → parse 55
+        ("2026-08-28",_bb_na02,_bb_na02,_bb_synth_over,[]),                      # neither flagged → pass
+        ("2026-08-27",_bb_elev02,_bb_elev03,_bb_synth_over,None),                # predates BB_DATE → N/A
+        ("2026-08-28",None,None,_bb_synth_over,None),                           # neither 02 nor 03 ran → N/A
+        ("2026-08-28",_bb_elev02,None,_bb_synth_over,[]),                       # only 02 ran, no 03 text → can't compound, pass
+        ("not-a-date",_bb_elev02,_bb_elev03,_bb_synth_over,None),               # unparseable decision_date → N/A
+    ]
+    for _dd,_m2,_p3,_sy,_want in bbcases:
+        got=eval_bb_sector_cycle_compounding_cap(_dd,_m2,_p3,_sy)
+        if _want is None:
+            ok = got is None
+        else:
+            ok = got is not None and len(got)==len(_want) and all(any(w in g for g in got) for w in _want)
+        print(("  [ok] " if ok else "  [BAD] ")+f"BB({_dd!r}) -> {got!r} (want {_want!r})")
+        if not ok: bad+=1
+
     for dt_,fl_,exp in aocases:
         got=eval_ao_forecast_resolvability(dt_,fl_)
         if exp is None: ok=(got is None)
@@ -3484,6 +3552,16 @@ if scope=="selftest":
         # unrecognized free text → FAIL
         ("2026-08-29",[_bc_scn("bull",25,"management is confident")], None,
          ["does not match any of the three HARD GATE 13 forms"]),
+        # 'empirical' at/above the n floor but with NO measurement window → FAIL (the advertised form is
+        # `empirical (n=X over {window})`; CLAUDE.md §10 requires "the sample size AND the window it was
+        # measured over" — a windowless n=X is not a measured frequency the reader can locate)
+        ("2026-08-29",[_bc_scn("bull",25,"empirical (n=9)")], None, ["states no measurement window"]),
+        # a valid 'judgment' string that also mentions 'base rate' must classify as judgment, not be
+        # rejected by the base-rate branch for having too little text after "base rate" (judgment is
+        # checked first). Pre-fix, "base rate)" left group(1)=")" and this row FAILED; it must PASS now.
+        ("2026-08-29",[_bc_scn("bull",25,"judgment (no base rate)")], None, []),
+        # plural "judgments"/"judgements" (US/UK) is still the judgment form → pass
+        ("2026-08-29",[_bc_scn("bull",25,"judgements across the peer set")], None, []),
         # forecast_ledger carries the same requirement
         ("2026-08-29", None, [_bc_fl("FC-1",65,"empirical (n=12 over 3 fiscal years)")], []),
         ("2026-08-29", None, [_bc_fl("FC-1",65,None)], ["forecast_ledger 'FC-1': missing or empty"]),
@@ -3738,7 +3816,7 @@ if scope=="selftest":
     # AP — valuation-summary lever-sidecar integrity: reuse the module's own fixture-free selftest (DRY),
     # covering soft-presence, structure, blend, and the decision_record non-contradiction check.
     if _vs_selftest() != 0: bad += 1
-    print(("SELFTEST PASS" if not bad else f"SELFTEST FAIL ({bad} case(s))")+f" — {len(cases)} check-W + {len(xcases)} check-X + {len(aycases)} check-AY + {len(azcases)} check-AZ + {len(ycases)} check-Y + {len(zcases)} check-Z + {len(t2cases)} check-T2 + {len(t3cases)} check-T3 + {len(t4cases)} check-T4 + {len(aacases)} check-AA + {len(evcases)} AA-extractor + {len(abcases)} check-AB + {len(accases)} check-AC + {len(adcases)} check-AD + {len(aecases)} check-AE + {len(afcases)} check-AF + {len(aqcases)} check-AQ + {len(agcases)+len(agci_cases)} check-AG + {len(ahcases)} check-AH + {len(aicases)} check-AI + {len(ajcases)} check-AJ + {len(akcases)} check-AK + {len(ancases)} check-AN + {len(amcases)} check-AM + {len(arcases)} check-AR + {len(aocases)} check-AO + {len(ascases)} check-AS + {len(awcases)} check-AW + {len(bacases)} check-BA + {len(atcases)} check-AT + {len(aucases)} check-AU + {len(avcases)} check-AV + {len(bccases)} check-BC + {len(axcases)} check-AX cases + AP lever-sidecar (module selftest)")
+    print(("SELFTEST PASS" if not bad else f"SELFTEST FAIL ({bad} case(s))")+f" — {len(cases)} check-W + {len(xcases)} check-X + {len(aycases)} check-AY + {len(azcases)} check-AZ + {len(ycases)} check-Y + {len(zcases)} check-Z + {len(t2cases)} check-T2 + {len(t3cases)} check-T3 + {len(t4cases)} check-T4 + {len(aacases)} check-AA + {len(evcases)} AA-extractor + {len(abcases)} check-AB + {len(accases)} check-AC + {len(adcases)} check-AD + {len(aecases)} check-AE + {len(afcases)} check-AF + {len(aqcases)} check-AQ + {len(agcases)+len(agci_cases)} check-AG + {len(ahcases)} check-AH + {len(aicases)} check-AI + {len(ajcases)} check-AJ + {len(akcases)} check-AK + {len(ancases)} check-AN + {len(amcases)} check-AM + {len(arcases)} check-AR + {len(aocases)} check-AO + {len(ascases)} check-AS + {len(awcases)} check-AW + {len(bacases)} check-BA + {len(bbcases)} check-BB + {len(atcases)} check-AT + {len(aucases)} check-AU + {len(avcases)} check-AV + {len(bccases)} check-BC + {len(axcases)} check-AX cases + AP lever-sidecar (module selftest)")
     sys.exit(0 if not bad else 1)
 
 runs=sorted(glob.glob("analyses/*/decision_record.json"))
@@ -4291,6 +4369,46 @@ for drp in runs:
         add("BA_kill_criteria_trigger_test", False, "; ".join(_bar))
     else:
         add("BA_kill_criteria_trigger_test", True, f"every kill_criteria row carries comparable_basis and fired_last_two_periods ({len(d.get('kill_criteria') or [])} row(s))")
+    # The valuation specialist/synthesis text readers are defined ONCE here, unconditionally, at loop-body
+    # scope, so every date-gated cap that consumes them (BB below, then AD/AE/AF/AQ) can call them no
+    # matter which gate fires first. They were previously defined inside the AD/AE blocks, which sit
+    # textually BELOW this BB block; because BB_DATE > AD_DATE the earlier author assumed "ddte>=AD_DATE
+    # ⇒ the AD block already defined them" — but the AD *def* runs later in the SAME iteration, so it had
+    # only ever been reached in a PRIOR iteration. A scoped run whose single iteration is dated
+    # >= BB_DATE therefore entered BB and called _read_specialist_text before any def ran → NameError
+    # (masked in `eval.py all`, where no committed golden run is dated >= BB_DATE so BB is never entered).
+    # Both closures capture `run` only, so one loop-body definition per iteration is correct.
+    def _read_synth_text(mod_dir):
+        ss=glob.glob(os.path.join(run,mod_dir,"99_*-synthesis.md"))
+        if not ss: return None
+        try: return open(ss[0],encoding="utf-8").read()
+        except: return None
+    def _read_specialist_text(mod_dir, prefix):
+        ss=glob.glob(os.path.join(run,mod_dir,prefix+"*.md"))
+        if not ss: return None
+        try: return open(ss[0],encoding="utf-8").read()
+        except: return None
+    # BB §16 Sector Cycle Reality Test compounding cap (forward-looking; landing BB_DATE). See the
+    # BB_DATE / eval_bb_sector_cycle_compounding_cap comment block in rating_caps.py for the full
+    # rationale. Reads 02_multiples-own-history.md and 03_relative-valuation-peers.md for the
+    # standalone RF-VAL-001/RF-VAL-002 tags, and 99_valuation-synthesis.md for the stated Valuation
+    # confidence score, via the _read_specialist_text/_read_synth_text closures hoisted just above.
+    if isdate(ddte) and ddte>=BB_DATE:
+        _v02_txt = _read_specialist_text("valuation", "02_")
+        _v03_txt = _read_specialist_text("valuation", "03_")
+        _v99_txt = _read_synth_text("valuation")
+        _bbr = eval_bb_sector_cycle_compounding_cap(ddte, _v02_txt, _v03_txt, _v99_txt)
+        if _bbr is None:
+            add("BB_sector_cycle_compounding_cap", True,
+                "N/A (neither 02 nor 03 specialist ran)", na=True)
+        elif _bbr:
+            add("BB_sector_cycle_compounding_cap", False, "; ".join(_bbr))
+        else:
+            add("BB_sector_cycle_compounding_cap", True,
+                "compounding trigger did not fire, or the stated Valuation confidence respects the cap")
+    else:
+        add("BB_sector_cycle_compounding_cap", True,
+            f"N/A (decision_date {ddte!r} predates BB_DATE {BB_DATE!r})", na=True)
     # W sector ↔ valuation-method consistency (forward-looking; landing SECTOR_DATE / SECTOR_OVERLAYS.md).
     #   When business_type AND primary_valuation_method are both set, verify the method is not one
     #   SECTOR_OVERLAYS.md forbids for that sector type (logic + forbidden list live in SECTOR_FORBIDDEN /
@@ -4448,11 +4566,7 @@ for drp in runs:
     #   (agents embed them per MODULE_RULES.md; a conviction decision alongside a fired tag is
     #   a doctrine violation). No bypass clause: these caps fire regardless of thesis type.
     if isdate(ddte) and ddte>=AD_DATE:
-        def _read_synth_text(mod_dir):
-            ss=glob.glob(os.path.join(run,mod_dir,"99_*-synthesis.md"))
-            if not ss: return None
-            try: return open(ss[0],encoding="utf-8").read()
-            except: return None
+        # _read_synth_text / _read_specialist_text are hoisted to loop-body scope above the BB block.
         bm_txt_ad=_read_synth_text("business-model")
         mg_txt_ad=_read_synth_text("management-governance")
         adresult=eval_ad_filter_4_6_cap(dec,ddte,bm_txt_ad,mg_txt_ad)
@@ -4491,13 +4605,7 @@ for drp in runs:
     #   (shorting a fast-changing-industry loser is a valid distinct thesis). No bypass clause other than
     #   the edge_score ≥ 50 exception. (Both detection refinements per Codex review on PR #120.)
     if isdate(ddte) and ddte>=AE_DATE:
-        # _read_synth_text is defined in the AD block above; AE_DATE > AD_DATE so it is always
-        # available here (any run reaching AE also entered the AD gate first).
-        def _read_specialist_text(mod_dir, prefix):
-            ss=glob.glob(os.path.join(run,mod_dir,prefix+"*.md"))
-            if not ss: return None
-            try: return open(ss[0],encoding="utf-8").read()
-            except: return None
+        # _read_synth_text / _read_specialist_text are hoisted to loop-body scope above the BB block.
         bm_txt_ae=_read_synth_text("business-model")
         bq_txt_ae=_read_specialist_text("business-model","07_")  # RF-BQ-005 source emitter
         edge_score_ae=d.get("edge_score")

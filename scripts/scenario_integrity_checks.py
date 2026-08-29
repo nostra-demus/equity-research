@@ -226,15 +226,20 @@ BC_DATE = "2026-08-29"
 BC_MIN_EMPIRICAL_N = 8  # CLAUDE.md §10: "fewer than roughly eight observations ... is judgment"
 
 _BC_EMPIRICAL_RE = re.compile(r"\bempirical\b.*?\bn\s*=\s*(\d+)", re.I | re.S)
+# The advertised empirical form is `empirical (n=X over {window})`: the window the sample was measured
+# over is part of the contract (CLAUDE.md §10, "the sample size and the window it was measured over"),
+# so an `empirical` claim that states n=X but no window is rejected, not accepted.
+_BC_WINDOW_RE = re.compile(r"\bover\b\s+\S", re.I)
 _BC_BASE_RATE_RE = re.compile(r"\bbase[\s\-]*rate\b\s*:?\s*(.*)", re.I)
-_BC_JUDGMENT_RE = re.compile(r"\bjudge?ment\b", re.I)  # "judgment" (US) or "judgement" (UK)
+_BC_JUDGMENT_RE = re.compile(r"\bjudge?ments?\b", re.I)  # "judgment"/"judgement" (US/UK), singular or plural
 
 
 def _bc_classify(text):
     """Classify one probability_basis string per HARD GATE 13. Returns (ok: bool, reason: str|None) —
-    ok=False means the string is missing, matches none of the three permitted forms, or labels itself
+    ok=False means the string is missing, matches none of the three permitted forms, labels itself
     'empirical' from a sample smaller than BC_MIN_EMPIRICAL_N (which HARD GATE 13 requires be called
-    judgment, never a measured frequency)."""
+    judgment, never a measured frequency), or claims 'empirical' without stating its measurement
+    window."""
     t = text.strip() if isinstance(text, str) else ""
     if not t:
         return False, "missing or empty probability_basis"
@@ -246,14 +251,21 @@ def _bc_classify(text):
                             f"(<{BC_MIN_EMPIRICAL_N}) — CLAUDE.md §10 requires a sample this small be "
                             f"called judgment informed by that sample, never presented as a measured "
                             f"frequency")
+        if not _BC_WINDOW_RE.search(t):
+            return False, (f"probability_basis={t!r} labels itself 'empirical' (n={n}) but states no "
+                            f"measurement window — HARD GATE 13 requires the form 'empirical (n=X over "
+                            f"{{window}})', naming the window the sample was measured over")
+        return True, None
+    # Judgment is checked before base rate: a valid judgment string may mention 'base rate' (e.g.
+    # "judgment — no base rate available"), and the base-rate branch below would otherwise reject it
+    # for having too little text after "base rate".
+    if _BC_JUDGMENT_RE.search(t):
         return True, None
     m = _BC_BASE_RATE_RE.search(t)
     if m:
         if len(m.group(1).strip()) < 5:
             return False, (f"probability_basis={t!r} names 'base rate' but no actual reference "
                             f"class/source follows it")
-        return True, None
-    if _BC_JUDGMENT_RE.search(t):
         return True, None
     return False, (f"probability_basis={t!r} does not match any of the three HARD GATE 13 forms — "
                     f"'empirical (n=X over {{window}})' / 'base rate: {{class, source}}' / 'judgment'")

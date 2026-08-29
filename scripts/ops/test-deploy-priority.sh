@@ -23,13 +23,14 @@ assert "PROVIDER_DEPLOY_INTENT_FILE = 'provider-deploy-pending'" in barrier
 assert 'DEBOUNCE_SECS="${DEPLOY_DEBOUNCE_SECS:-0}"' in deploy
 
 authorization = deploy.index('HINT_AUTHORIZED_COMMIT="$(deploy_authorization_allows "$REMOTE_HINT")"')
+dirty_preflight = deploy.index('BLOCKED reviewed deployment ${REMOTE_HINT:0:9} before admission pause')
 publish = deploy.index('set_deploy_intent "$REMOTE_HINT"')
 exclusive = deploy.index('exec 10>>"$RUN_BARRIER_LOCK"')
 busy = deploy.index('if [ "$barrier_rc" -ne 0 ]')
 admitted = deploy.index('CLEAR_DEPLOY_INTENT_ON_EXIT=1', busy)
 locked_authorization = deploy.index('AUTHORIZED_CODE_COMMIT="$(deploy_authorization_allows "$REMOTE")"', admitted)
 fast_forward = deploy.index('"$GIT" merge --ff-only origin/main', locked_authorization)
-assert authorization < publish < exclusive < busy < admitted < locked_authorization < fast_forward
+assert authorization < dirty_preflight < publish < exclusive < busy < admitted < locked_authorization < fast_forward
 
 busy_block = deploy[busy:admitted]
 assert 'new provider admissions remain paused' in busy_block

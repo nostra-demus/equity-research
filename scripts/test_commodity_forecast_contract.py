@@ -420,6 +420,27 @@ def main() -> int:
     assert validate_decision_record(
         usable_record, usable_artifact, usable_digest, requirements, matching_resolver,
     ) == []
+    assert any("no point-in-time resolver" in error for error in validate_decision_record(
+        usable_record, usable_artifact, usable_digest, frozen_coverage=True,
+    ))
+    assert validate_decision_record(
+        usable_record, usable_artifact, usable_digest,
+        coverage_resolver=matching_resolver, frozen_coverage=True,
+    ) == []
+    assert any("digest does not match" in error for error in validate_decision_record(
+        usable_record, usable_artifact, "sha256:" + "0" * 64,
+        coverage_resolver=matching_resolver, frozen_coverage=True,
+    ))
+    invented_artifact = copy.deepcopy(usable_artifact)
+    invented_artifact["rows"][0]["vintage_id"] = "sha256:" + "b" * 64
+    invented_bytes = (json.dumps(invented_artifact, indent=2, ensure_ascii=False) + "\n").encode()
+    invented_digest = "sha256:" + hashlib.sha256(invented_bytes).hexdigest()
+    invented_record = copy.deepcopy(usable_record)
+    invented_record["required_series_coverage"]["artifact_sha256"] = invented_digest
+    assert any("does not resolve at decision_time" in error for error in validate_decision_record(
+        invented_record, invented_artifact, invented_digest,
+        coverage_resolver=matching_resolver, frozen_coverage=True,
+    ))
     assert any("does not resolve" in error for error in validate_decision_record(
         usable_record, usable_artifact, usable_digest, requirements,
         lambda *_args: {

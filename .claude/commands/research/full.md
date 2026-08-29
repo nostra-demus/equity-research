@@ -396,7 +396,7 @@ Run this step only if `<RUN_ROOT>/final_thesis.md` and `<RUN_ROOT>/decision_reco
 
 ### 10B.1 — Deterministic validator (always runs; can stamp the thesis PROVISIONAL)
 
-Run this via Bash. It re-derives the §10 scenario math from `decision_record.json` (same identities as `eval` harness check M), the missing-price / score-range caps, the §11 data-sufficiency ↔ decision cap (check Y), the §7 edge gate (check V), the §14 external-variable conviction cap (check Z), the §24 rejector-filter conviction caps — Filters 1/2/4/5/6 (checks AC/AD/AE/AF, via `scripts/rating_caps.py`) — the §13 cross-module forensic-mosaic conviction cap (check AQ, via `scripts/rating_caps.py`) — the Headline Scorecard ↔ decision_record.json reconciliation plus red-flag severity reconciliation (checks AI/AK, via `scripts/headline_checks.py`) — the §10 scenario-span check, sign-check presence gate, and §10 conjunction-disclosure check (checks AT/AU/AV, via `scripts/scenario_integrity_checks.py`) — and the §10 HARD GATE 13 probability-basis presence/form check on every probability-bearing `scenarios[]`/`forecast_ledger[]` row (check BC, same module). Prepends a PROVISIONAL banner to `final_thesis.md` if any inconsistency is found:
+Run this via Bash. It re-derives the §10 scenario math from `decision_record.json` (same identities as `eval` harness check M), the missing-price / score-range caps, the §11 data-sufficiency ↔ decision cap (check Y), the §7 edge gate (check V), the §14 external-variable conviction cap (check Z), the §24 rejector-filter conviction caps — Filters 1/2/4/5/6 (checks AC/AD/AE/AF, via `scripts/rating_caps.py`) — the §13 cross-module forensic-mosaic conviction cap (check AQ, via `scripts/rating_caps.py`) — the §16 Sector Cycle Reality Test compounding cap on the valuation module's own stated confidence score (check BB, via `scripts/rating_caps.py`) — the Headline Scorecard ↔ decision_record.json reconciliation plus red-flag severity reconciliation (checks AI/AK, via `scripts/headline_checks.py`) — the §10 scenario-span check, sign-check presence gate, and §10 conjunction-disclosure check (checks AT/AU/AV, via `scripts/scenario_integrity_checks.py`) — and the §10 HARD GATE 13 probability-basis presence/form check on every probability-bearing `scenarios[]`/`forecast_ledger[]` row (check BC, same module). Prepends a PROVISIONAL banner to `final_thesis.md` if any inconsistency is found:
 
 ```bash
 python3 - "<RUN_ROOT>" <<'PY'
@@ -595,6 +595,28 @@ if rc.eval_ac_turnaround_cap(dec, ddte, _tt24) == "fail":
 viol.extend(rc.eval_ad_filter_4_6_cap(dec, ddte, _bm_txt, _mg_txt) or [])
 viol.extend(rc.eval_ae_filter5_cap(dec, ddte, _bm_txt, _es24, _bq_txt) or [])
 viol.extend(rc.eval_af_filter1_integrity_cap(dec, ddte, _mg_txt, _track_txt) or [])
+# check BB — §16 Sector Cycle Reality Test compounding cap (live pre-publish; mirrors eval.py check
+# BB via scripts/rating_caps.py, same shared detection module as AC/AD/AE/AF above). Mechanizes
+# valuation/MODULE_RULES.md's Sector Cycle Reality Test compounding rule (CLAUDE.md §16): when
+# 02_multiples-own-history AND 03_relative-valuation-peers both flag their reference point
+# cycle-elevated/depressed in the SAME direction (standalone RF-VAL-001/RF-VAL-002 tags), their
+# agreement is one shared sector cycle counted twice, not independent corroboration — 99's own
+# stated "Valuation confidence /100" must not exceed 55. Unlike AC/AD/AE/AF/AQ, this caps a NUMERIC
+# score parsed from 99_valuation-synthesis.md's own text, not the decision enum, so it is checked
+# unconditionally here (not folded into `viol.extend(... or [])` against `dec`).
+_v02_txt = _read_orb("valuation", "02_*.md")
+_v03_txt = _read_orb("valuation", "03_*.md")
+_v99_txt = _read_orb("valuation", "99_*-synthesis.md")
+# [PR#629 review fix] gate BB on the LIVE execution date, not `ddte` (decision_date). A /research:rerun
+# mutates the existing run folder and its decision_date stays pinned to that folder's original
+# pre-BB_DATE YYYY-MM-DD suffix (synthesizer.md) — it never advances on rerun. Passing `ddte` would make
+# BB permanently N/A on the ordinary rerun path even when 02/03 freshly emit RF-VAL-001/002 (they run
+# under today's prompts) and 99 states a confidence above 55, silently bypassing the very cap this check
+# exists to enforce (CLAUDE.md §11: caps are applied, never silently overridden). This mirrors the exact
+# AT/AU/AV `_live_date` precedent below; retrospective eval.py check BB correctly keeps the true
+# decision_date. Defined here (first live-gate use) and reused by the AT/AU/AV block below.
+_live_date = datetime.date.today().isoformat()
+viol.extend(rc.eval_bb_sector_cycle_compounding_cap(_live_date, _v02_txt, _v03_txt, _v99_txt) or [])
 # check AQ — §13 cross-module forensic-mosaic conviction cap (live pre-publish; mirrors eval.py check
 # AQ via scripts/rating_caps.py, same shared detection module as AC/AD/AE/AF above). Mechanizes
 # synthesizer.md Pre-Write Gate step 4B's "3+ distinct forensic tags across 2+ modules compound into
@@ -686,8 +708,8 @@ import scenario_integrity_checks as sic
 # them into the LIVE, pre-publish gate: they exist to check what ships on THIS execution, not to re-judge
 # when the thesis was first decided (that retrospective distinction stays correct in eval.py, which grades
 # already-committed history and must keep using the true decision_date to avoid retroactively flagging
-# pre-rollout runs).
-_live_date = datetime.date.today().isoformat()
+# pre-rollout runs). `_live_date` is defined once in the BB cap block above (first live-gate use) and
+# reused here — the same execution-date rationale, one source of truth.
 viol.extend(sic.eval_at_scenario_span(_live_date, scen) or [])
 viol.extend(sic.eval_au_sign_check_recorded(_live_date, body) or [])
 viol.extend(sic.eval_av_conjunction_disclosure(_live_date, scen) or [])
@@ -719,7 +741,66 @@ The gate never aborts the run — a thesis is always produced — but "always pr
 
 So: **if 10B.1 printed `GATE: PROVISIONAL`, run exactly one remediation pass before continuing.**
 
-1. Re-dispatch `.claude/agents/synthesizer.md` against the same `<RUN_ROOT>`, passing the verbatim violation list and this instruction: *"The finish-gate rejected these specific numbers. Fix the underlying figures in `final_thesis.md` AND `decision_record.json` so they reconcile — do not restate the thesis, do not re-run modules, and do not weaken a threshold merely to clear a check. If a violation is genuinely not fixable from the available evidence (the input it needs does not exist in the pool), leave it and say in one line why it is unfixable."*
+Every Task in this remediation step rewrites an analytical decision artifact. Before each dispatch,
+compile and append the exact agent packet and declaration obligations from `frameworks/MEMORY_RUNTIME.md`;
+after the normal output checks pass, attest the new exact bytes under that agent's ordinary key
+(`master/synthesizer` or `valuation/99_valuation-synthesis`). In `enforced` mode, any compile or
+attestation failure stops before re-gating or committing. In `shadow`, record the missing/failed receipt
+as usual. A pre-remediation attestation never authorizes rewritten bytes.
+
+1. Split the verbatim violation list before any dispatch. A **BB violation** is one whose text starts
+   `§16 Sector Cycle Reality Test compounding trigger fired`; every other entry is a **master-owned
+   violation**. Pass only the master-owned list to `.claude/agents/synthesizer.md`. If that list is empty,
+   skip this initial master pass. This exclusion is mandatory: the master does not own valuation `99`,
+   and letting it react to BB before the module correction can change downstream scores from stale inputs.
+   For a non-empty master-owned list, re-dispatch the master against the same `<RUN_ROOT>` with: *"The
+   finish-gate rejected these specific numbers. Fix the underlying figures in `final_thesis.md` AND
+   `decision_record.json` so they reconcile — do not restate the thesis, do not re-run modules, and do not
+   weaken a threshold merely to clear a check. If a violation is genuinely not fixable from the available
+   evidence (the input it needs does not exist in the pool), leave it and say in one line why it is
+   unfixable."*
+
+   - **Route BB only to the valuation owner.** BB reads the "Valuation confidence /100" stated in
+     `<RUN_ROOT>/valuation/99_*-synthesis.md` (see `_read_orb("valuation", "99_*-synthesis.md")` in
+     10B.1), not a value owned by the master. When the BB list is non-empty, first resolve its exact `99`
+     path using the same glob. If no non-empty file exists, do not create a snapshot and do not dispatch
+     valuation synthesis: the missing required input is not remediable in place, so leave BB PROVISIONAL
+     for the second gate. Never regenerate a missing valuation module inside this finish-gate loop.
+
+   - When the exact valuation `99` exists, save its bytes to a `mktemp` path outside `<RUN_ROOT>`, then
+     re-dispatch `.claude/agents/valuation/99_valuation-synthesis.md` against the same run with: *"Both
+     `02` and `03` flagged the same-direction sector-cycle distortion; per MODULE_RULES.md Score Cap Rules
+     the combined base-case Valuation confidence is capped at 55. In the existing report, change only (1)
+     the single Valuation confidence /100 line in the §1 Verdict block and (2) the single §4 Score Cap
+     Application table row whose trigger begins `Sector Cycle Reality Test flags`, marking Applied? `Y`
+     and recording the max-55 combined cap. Preserve every other byte: do not recompose the report,
+     change its verdict, fair-value levels, other scores, evidence, sidecars, or any other file. If you
+     genuinely believe the distortion is otherwise reconciled and the score should stand, leave both
+     lines unchanged and say in one line why — that remains an honest PROVISIONAL."*
+
+   - After the normal output check, enforce byte scope before attestation. In both saved and rewritten
+     text, locate exactly one `Valuation confidence /100` line inside §1 and exactly one Markdown table
+     row containing `Sector Cycle Reality Test flags`. Replace those two complete lines with distinct,
+     identical sentinels in both copies. Also verify that the rewritten confidence is a whole score at or
+     below 55 and that the rewritten cap row's Applied? cell is `Y`. If either copy has zero/multiple
+     matches, either postcondition fails, or the sentinel-normalized bytes differ anywhere, atomically
+     restore the saved original, delete the temporary file, do not attest, do not refresh derived tiers,
+     and leave BB PROVISIONAL. Otherwise attest the new exact `99` bytes and delete the temporary file
+     immediately. Only these two synchronized line changes are authorized.
+
+   - If that scoped valuation correction succeeded, immediately refresh every derived valuation tier
+     before the master consumes it: run `frameworks/MODULE_PIPELINE.md` Step 4.9B verbatim with
+     `MODULE="valuation"` to rebuild `valuation_dossier.md`, and Step 4.9C to refresh labelled synthesis
+     sidecars. A standalone `/research:rerun` also regenerates `valuation_memo.md` now with
+     `module-memo-writer`; `/research:full` defers it to Step 10C, and a chained full rerun defers it to
+     `/research:rerun` Step 9A. Then run one master propagation pass with: *"The valuation module synthesis
+     lowered its stated Valuation confidence to the §16 compounding cap and marked that cap applied.
+     Propagate the corrected score into `final_thesis.md`'s valuation chapter and into
+     `decision_record.json` (module_scores plus any headline figure that echoes it) so the published
+     outputs match the capped module file — do not re-run modules, restate the thesis, or change any other
+     number."* Skip this propagation when valuation was absent, refused the correction, or failed the
+     byte-scope guard. Without the derived-tier refresh and this post-module propagation, the second gate
+     can pass while reader-facing outputs still carry the pre-cap score.
 2. Re-run 10B.1 verbatim. Its banner logic is idempotent — it strips the old banner and re-stamps only what still fails.
 3. Run this loop **once**. If violations remain after the second gate, ship PROVISIONAL with the remaining reasons; that is now an honest record of what could not be fixed rather than of what nobody tried to fix.
 

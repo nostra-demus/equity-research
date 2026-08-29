@@ -1499,6 +1499,44 @@ reconcile_build() {
     printf '%s %s\n' "$target" "$(date +%s)" > "$FAILMARK.tmp" 2>/dev/null && mv "$FAILMARK.tmp" "$FAILMARK" 2>/dev/null || true
   fi
 }
+
+# Keep the extractor's managed Python environment aligned with its reviewed requirements. This function is
+# reached only after deploy owns the exclusive provider lifecycle barrier, so no admitted research process
+# can be using the venv while it is repaired. setup-tools' import probe is instant when the environment is
+# healthy; its bounded pip fallback runs only when a dependency is actually missing. A failure never
+# restarts the engine or advances the release marker, and FAILMARK prevents a package-index outage from
+# hammering production every watcher tick.
+reconcile_extractor_python_deps() {
+  local target="$1"
+  # Older/minimal installations (and deploy contract fixtures) do not carry the Chain parser. There is no
+  # extractor dependency contract to reconcile until that reviewed tool exists in the checkout.
+  [ -f "$PROD/.claude/tools/relationship_graph.py" ] || return 0
+  log "  verify extractor python deps"
+  if ( cd "$PROD" && .claude/tools/setup-tools.sh --python-only ) >>"$LOG" 2>&1; then
+    rm -f "$FAILMARK" 2>/dev/null || true
+    return 0
+  fi
+  printf '%s %s\n' "$target" "$(date +%s)" > "$FAILMARK.tmp" 2>/dev/null \
+    && mv "$FAILMARK.tmp" "$FAILMARK" 2>/dev/null || true
+  log "  WARN extractor python dependency repair failed — engine stays live; no restart or marker advance"
+  return 1
+}
+
+# Read-only preflight used before the provider barrier. When the managed venv is stale, publish deploy
+# intent even if source/marker SHAs already match (for example, the first tick after an older deploy.sh
+# fast-forwarded the commit that introduced this repair). Existing runs drain normally; later admissions
+# yield until the exclusive repair has had one chance to run.
+extractor_python_deps_ready() {
+  local py="$PROD/.claude/tools/.venv/bin/python"
+  [ -f "$PROD/.claude/tools/relationship_graph.py" ] || return 0
+  [ -x "$py" ] || return 1
+  "$py" -I - <<'PYEXTRACTORREADY' >/dev/null 2>&1
+import openpyxl
+import pypdf
+import xlrd
+from striprtf.striprtf import rtf_to_text
+PYEXTRACTORREADY
+}
 CLEAR_DEPLOY_INTENT_ON_EXIT=0
 deploy_cleanup() {
   gitlock_release
@@ -1570,6 +1608,11 @@ elif valid_git_sha "$REMOTE_HINT" && valid_git_sha "$LOCAL_HINT"; then
       exit 0
     fi
   fi
+  # Dependency drift has its own health signal: an old deploy process may have advanced both checkout and
+  # marker before the newly-reviewed deploy code could run. Keep writer priority until the venv is healthy.
+  if [ "$intent_needed" = 0 ] && ! extractor_python_deps_ready; then
+    intent_needed=1
+  fi
   # A known broken target is deliberately held on last-good during FAIL_BACKOFF. It cannot make progress by
   # pausing the scanner, so do not publish writer intent for that terminal release state.
   if [ "$intent_needed" = 1 ] && [ -f "$FAILMARK" ]; then
@@ -1582,6 +1625,15 @@ elif valid_git_sha "$REMOTE_HINT" && valid_git_sha "$LOCAL_HINT"; then
           intent_needed=0
         fi ;;
     esac
+  fi
+  # A dirty code/ops path is a terminal preflight blocker, not an in-progress deployment. Check it before
+  # publishing writer intent so the healthy cockpit stays available and never claims an update is being
+  # installed when the deployer already knows it must refuse. The same check remains under the final
+  # repository lease below as the race-closing enforcement gate.
+  if [ "$intent_needed" = 1 ] && has_nondata_dirty; then
+    clear_deploy_intent
+    log "BLOCKED reviewed deployment ${REMOTE_HINT:0:9} before admission pause — production checkout has a dirty non-data (code/ops) path (§28)"
+    exit 0
   fi
   if [ "$intent_needed" = 1 ]; then
     set_deploy_intent "$REMOTE_HINT" \
@@ -1711,6 +1763,10 @@ if [ "$LOCAL" = "$REMOTE" ]; then
   fi
   reconcile_omniroute_launchagent \
     || log "WARN omniroute-agent remains unreconciled; optional sidecar will retry next deploy tick"
+  if ! reconcile_extractor_python_deps "$LOCAL"; then
+    log "WARN extractor dependencies remain unreconciled — leaving the deployed marker unchanged for retry"
+    exit 0
+  fi
   # The checkout is level with origin/main — but that does NOT mean the BUILT artifacts are current.
   # The engine commits research data into THIS worktree and, when origin has moved, rebases onto
   # origin/main before pushing (scripts/commit-run.sh) — which pulls freshly MERGED CODE into the checkout
@@ -1867,6 +1923,10 @@ if ! migrate_connector_launchagent_v2; then
 fi
 reconcile_omniroute_launchagent \
   || log "WARN omniroute-agent remains unreconciled after fast-forward; optional sidecar will retry next deploy tick"
+if ! reconcile_extractor_python_deps "$REMOTE"; then
+  log "WARN extractor dependency reconciliation failed after fast-forward — leaving the deployed marker unchanged for retry"
+  exit 0
+fi
 
 # Rebuild from the DEPLOYED marker (not merely from the old LOCAL) so any pre-existing dist staleness heals
 # in the same pass; fall back to LOCAL when there is no usable marker.

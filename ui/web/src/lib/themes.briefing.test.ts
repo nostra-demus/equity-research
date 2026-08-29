@@ -5,7 +5,7 @@ import React, { createElement } from 'react'
 import { renderToStaticMarkup } from 'react-dom/server'
 import { ThemeDetailContent, ThemesView, exactNewsCount, rankedValidatedThemes } from '../components/screener/ThemesView'
 import { useStore } from './store'
-import { type Theme, type ThemeDetail, type ThemeSurfaceAssessment } from './themes'
+import { themeSurfaceAssessment, themeSurfaceStatus, type Theme, type ThemeDetail, type ThemeSurfaceAssessment } from './themes'
 
 const renderThemesFromCurrentStore = (): string => {
   const useSyncExternalStore = React.useSyncExternalStore
@@ -17,7 +17,7 @@ const renderThemesFromCurrentStore = (): string => {
   }
 }
 
-const assessment: ThemeSurfaceAssessment = {
+const ideaReadyAssessment: ThemeSurfaceAssessment = {
   status: 'actionable',
   activity: 'reinforced',
   conviction: 'medium',
@@ -38,7 +38,31 @@ const assessment: ThemeSurfaceAssessment = {
   },
 }
 
+// Production's evidence-first contract keeps theme validation separate from Ideas admission: a complete
+// narrative can be a visible Theme-only row while its investing blockers live in `idea_blockers`.
+const themeOnlyAssessment: ThemeSurfaceAssessment = {
+  status: 'forming',
+  activity: 'quiet',
+  conviction: 'watch',
+  reasons: ['A validator tied the thesis, why-now, mechanism and falsifier to one evidence core.'],
+  blockers: [],
+  metrics: {
+    recent_6h_flow: 0,
+    prior_6h_flow: 0,
+    unique_evidence_count: 10,
+    high_quality_evidence_count: 2,
+    narrative_support_count: 2,
+    narrative_coherence_pct: 82,
+    recurring_narrative_token_count: 2,
+    first_order_directional_ticker_count: 0,
+    recent_24h_support_count: 0,
+    recent_24h_challenge_count: 0,
+    off_core_evidence_count: 8,
+  },
+}
+
 function theme(id: string, ideaReady: boolean): Theme {
+  const surfaceAssessment = ideaReady ? ideaReadyAssessment : themeOnlyAssessment
   return {
     theme_id: id,
     name: ideaReady ? 'Grid bottleneck' : 'Private launch demand',
@@ -53,8 +77,8 @@ function theme(id: string, ideaReady: boolean): Theme {
     first_seen: '2026-08-25T09:00:00Z',
     last_flow: ideaReady ? '2026-08-25T12:10:00Z' : '2026-08-25T12:00:00Z',
     rev: 7,
-    activity: 'reinforced',
-    conviction: 'medium',
+    activity: surfaceAssessment.activity,
+    conviction: surfaceAssessment.conviction,
     off_core_member_count: 8,
     narrative: {
       version: 1,
@@ -71,7 +95,7 @@ function theme(id: string, ideaReady: boolean): Theme {
       { event_id: 'EV-PLAYER', headline: 'Acme named in capacity expansion', found_at: '2026-08-25T11:10:00Z', score: 82, source_tier: 'company', source_name: 'Acme release', url: 'https://example.test/player', stance: 'supports' },
     ],
     qualified_expressions: [{ name: 'Acme Grid', name_key: 'acme-grid', ticker: 'ACME', listing_country: 'US', side: 'beneficiary', role: 'direct', mechanism: 'The backlog raises demand for Acme Grid transformers.', evidence_event_ids: ['EV-PLAYER'] }],
-    assessment,
+    assessment: surfaceAssessment,
     idea_ready: ideaReady,
     idea_blockers: ideaReady ? [] : ['No verified listed player has a separate player-proof event.'],
     player_counts: ideaReady
@@ -82,8 +106,48 @@ function theme(id: string, ideaReady: boolean): Theme {
 
 const ideaTheme = theme('THM-grid-ready', true)
 const themeOnly = theme('THM-private-only', false)
+const contradictoryThemeOnly: Theme = {
+  ...themeOnly,
+  assessment: {
+    ...themeOnlyAssessment,
+    metrics: { ...themeOnlyAssessment.metrics, narrative_support_count: 1 },
+  },
+}
+
+// PR #630 review (Codex P2): a `forming` payload that carries a first-order directional ticker is
+// internally contradictory — the canonical server would have promoted a fully-qualified row to
+// `actionable` (forming is the "no first-order expression yet" lane). Such a stale/rolling-deploy cache
+// must fail closed to Context, not slip onto the PM surface as a validated Theme-only row.
+const firstOrderFormingLeak: Theme = {
+  ...themeOnly,
+  assessment: {
+    ...themeOnlyAssessment,
+    metrics: { ...themeOnlyAssessment.metrics, first_order_directional_ticker_count: 1 },
+  },
+}
+const revalidatingFirstOrderTheme: Theme = {
+  ...firstOrderFormingLeak,
+  theme_id: 'THM-revalidating-first-order',
+  assessment: {
+    ...firstOrderFormingLeak.assessment!,
+    blockers: ['1 new matching evidence row still needs support/challenge/context classification before this thesis can seed an idea.'],
+    metrics: {
+      ...firstOrderFormingLeak.assessment!.metrics,
+      pending_revalidation: true,
+    },
+  },
+}
 
 assert.equal(exactNewsCount(ideaTheme), 10)
+assert.deepEqual(themeSurfaceAssessment(themeOnly), themeOnlyAssessment, 'the shared validator admits the production Theme-only contract')
+assert.equal(themeSurfaceStatus(themeOnly), 'forming', 'detail, refresh, sorting, and list admission share one normalized status')
+assert.equal(themeSurfaceAssessment(contradictoryThemeOnly), null, 'relaxing the obsolete blocker rule must not bypass evidence consistency')
+assert.deepEqual(rankedValidatedThemes([contradictoryThemeOnly]), [], 'a contradictory cached record remains off the PM surface')
+assert.equal(themeSurfaceAssessment(firstOrderFormingLeak), null, 'a forming row claiming a first-order directional ticker fails closed (would be actionable if genuine)')
+assert.equal(themeSurfaceStatus(firstOrderFormingLeak), 'context', 'the contradictory forming+first-order record normalizes to Context everywhere')
+assert.deepEqual(rankedValidatedThemes([firstOrderFormingLeak]), [], 'a forming row with a first-order ticker stays off the PM surface')
+assert.equal(themeSurfaceStatus(revalidatingFirstOrderTheme), 'forming', 'a first-order theme stays visible while new evidence awaits revalidation')
+assert.deepEqual(rankedValidatedThemes([revalidatingFirstOrderTheme]).map((row) => row.theme_id), [revalidatingFirstOrderTheme.theme_id])
 assert.deepEqual(rankedValidatedThemes([themeOnly, ideaTheme]).map((row) => row.theme_id), [ideaTheme.theme_id, themeOnly.theme_id])
 
 useStore.setState({

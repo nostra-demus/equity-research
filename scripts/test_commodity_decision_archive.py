@@ -5,11 +5,16 @@ from __future__ import annotations
 import json
 import hashlib
 import os
+import shutil
 import tempfile
 from pathlib import Path
 from unittest.mock import patch
 
 from commodity_decision_archive import ArchiveError, archive_decision, decision_id_for
+from commodity_profile_coverage import (
+    PROFILE_PATH, STRUCTURED_PROFILE_ROOT, profile_family,
+    profile_snapshot_sha256, source_snapshot_sha256, structured_profile,
+)
 from execution_provenance import project, stamp_artifact
 from test_commodity_forecast_contract import _record
 
@@ -66,6 +71,15 @@ def main() -> int:
 
         same_id, same_path, created_again = archive_decision(root)
         assert (same_id, same_path, created_again) == (first_id, first_path, False)
+
+        # Exact retries use the profile frozen beside that historical archive when one exists.
+        profile_root = first_path.parent / "required_series_profile"
+        profile_root.mkdir()
+        shutil.copyfile(PROFILE_PATH, profile_root / "COMMODITY_PROFILES.md")
+        shutil.copyfile(STRUCTURED_PROFILE_ROOT / "GOLD.json", profile_root / "GOLD.json")
+        with patch("commodity_decision_archive.profile_family", wraps=profile_family) as family_lookup:
+            assert archive_decision(root) == (first_id, first_path, False)
+        assert family_lookup.call_args.kwargs["structured_root"] == profile_root
 
         wrong_family = dict(projected)
         wrong_family["commodity_family"] = "energy"
@@ -257,6 +271,71 @@ def main() -> int:
                 os.environ.pop("NOSTRA_PUBLICATION_TOKEN", None)
             else:
                 os.environ["NOSTRA_PUBLICATION_TOKEN"] = saved_token
+
+        # Coverage v3 publishes its exact non-connector source snapshot into the immutable archive.
+        # This fixture keeps all routes unresolved so it exercises archive binding without depending
+        # on the workstation's mutable pulse or shared-market stores.
+        fresh_root = Path(temporary) / "fresh" / "GOLD"
+        fresh = _record()
+        fresh["decision_date"] = "2026-08-11"
+        fresh["current_price"] = {"value": None, "unavailable_reason": "required current quote unresolved"}
+        for name, days, target in (
+            ("tactical", 60, "2026-10-10"), ("strategic", 365, "2027-08-11"),
+        ):
+            fresh["forecast_horizons"][name] = {
+                "horizon": name, "status": "not_assessable", "horizon_days": days,
+                "target_date": target, "classification": "not_assessable", "confidence": 0,
+                "not_assessable_reason": "required profile series is unresolved", "scenarios": [],
+            }
+        fresh.update({
+            "action": "Research More", "target_exposure_risk_units": None,
+            "forecast_confidence": 0, "confidence": 0,
+        })
+        requirements = structured_profile("GOLD")
+        source_snapshot = {
+            "schema_version": 1, "commodity": "GOLD",
+            "decision_time": "2026-08-11T12:00:00Z", "rows": [],
+        }
+        coverage = {
+            "schema_version": 3, "commodity": "GOLD", "decision_time": "2026-08-11T12:00:00Z",
+            "generated_at": "2026-08-11T12:00:01Z",
+            "profile_path": "frameworks/commodity/COMMODITY_PROFILES.md",
+            "profile_snapshot_sha256": profile_snapshot_sha256("GOLD"),
+            "source_snapshot_sha256": source_snapshot_sha256(source_snapshot),
+            "required_count": len(requirements), "usable_count": 0, "complete": False,
+            "unresolved_need_ids": [row["need"] for row in requirements],
+            "rows": [{
+                "need_id": row["need"], "series_id": row["series"], "owner_orb": row["owner"],
+                "required_history_freshness": row["requirement"], "lawful_source_policy": row["policy"],
+                "status": "unavailable", "as_of": None, "vintage_id": None, "dataset_id": None,
+                "connector_id": None, "provider": None, "reason": "synthetic unresolved fixture",
+            } for row in requirements],
+        }
+        _write(fresh_root / "required_series_sources.json", source_snapshot)
+        _write(fresh_root / "required_series_coverage.json", coverage)
+        coverage_digest = "sha256:" + hashlib.sha256((fresh_root / "required_series_coverage.json").read_bytes()).hexdigest()
+        fresh["required_series_coverage"] = {
+            "path": "required_series_coverage.json", "generated_at": coverage["generated_at"],
+            "artifact_sha256": coverage_digest, "complete": False,
+            "required_count": len(requirements), "usable_count": 0,
+            "unresolved_need_ids": coverage["unresolved_need_ids"],
+        }
+        fresh_graph = dict(graph)
+        fresh_graph["coverage"] = {"complete": False}
+        _write(fresh_root / "signal_evidence.json", fresh_graph)
+        fresh["signal_evidence"] = {
+            **fresh["signal_evidence"], "coverage_complete": False,
+            "artifact_sha256": "sha256:" + hashlib.sha256((fresh_root / "signal_evidence.json").read_bytes()).hexdigest(),
+        }
+        _write(fresh_root / "decision_record.json", fresh)
+        fresh_id, fresh_path, fresh_created = archive_decision(fresh_root)
+        assert fresh_created and fresh_id == decision_id_for(json.loads(fresh_path.read_text()))
+        assert (fresh_path.parent / "required_series_sources.json").read_bytes() == (
+            fresh_root / "required_series_sources.json"
+        ).read_bytes()
+        assert (fresh_path.parent / "required_series_profile" / "GOLD.json").is_file()
+        from validate_screener_json import check_commodity_archived_snapshot
+        assert check_commodity_archived_snapshot(str(fresh_path)) == []
 
         bad_root = Path(temporary) / "SILVER"
         _write(bad_root / "decision_record.json", record)
