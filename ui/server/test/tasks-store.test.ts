@@ -3,7 +3,7 @@ import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
 import {
-  isTaskId, newTaskId, readTasks, syncTaskWatchlist, syncWatchAssigneeToTask, writeTask,
+  isTaskId, newTaskId, readTasks, syncTaskWatchlist, syncWatchAssigneeToTask, taskTickerIdentity, writeTask,
   type TaskCard,
 } from '../src/tasks'
 import { makeListing, newEntryId, readEntries, writeEntry, type EngineWatchRow, type WatchEntry } from '../src/watchlist'
@@ -18,7 +18,7 @@ function check(name: string, fn: () => void): void {
 
 const card = (over: Partial<TaskCard> = {}): TaskCard => ({
   schema_version: 'task-card/v1', task_id: newTaskId(new Date('2026-08-26T12:00:00Z')),
-  scope: 'ticker', ticker: 'AMZN', subject: 'AWS growth', title: 'Rebuild the segment model',
+  scope: 'ticker', ticker: 'AMZN', ticker_label: null, subject: 'AWS growth', title: 'Rebuild the segment model',
   stage: 'deep_dive', decision: null, assignee: 'CK', attachments: [], watchlist_entry_id: null,
   watchlist_created: false, history: [], created_at: '2026-08-26T12:00:00.000Z', created_by: 'test',
   updated_at: '2026-08-26T12:00:00.000Z', ...over,
@@ -37,6 +37,26 @@ check('ids and atomic card round-trip', () => {
   assert.equal(isTaskId(task.task_id), true)
   writeTask(task, tasksDir)
   assert.deepEqual(readTasks(tasksDir), { tasks: [task], unreadable: [] })
+})
+
+check('free-form ticker labels and empty task fields remain valid planning cards', () => {
+  const identity = taskTickerIdentity('NU HOLDINGS LTD.')
+  assert.deepEqual(identity, { ticker: null, ticker_label: 'NU HOLDINGS LTD.' })
+  assert.deepEqual(taskTickerIdentity('nu'), { ticker: 'NU', ticker_label: null })
+  const freeformDir = path.join(root, 'freeform')
+  const task = card({ ...identity, subject: '', title: '', stage: 'deep_dive' })
+  writeTask(task, freeformDir)
+  assert.deepEqual(readTasks(freeformDir), { tasks: [task], unreadable: [] })
+})
+
+check('legacy cards without ticker_label are normalized on read', () => {
+  const legacyDir = path.join(root, 'legacy')
+  const task = card()
+  const legacy = { ...task } as Partial<TaskCard>
+  delete legacy.ticker_label
+  fs.mkdirSync(legacyDir, { recursive: true })
+  fs.writeFileSync(path.join(legacyDir, `${task.task_id}.json`), JSON.stringify(legacy))
+  assert.equal(readTasks(legacyDir).tasks[0]?.ticker_label, null)
 })
 
 check('one unreadable card does not empty the board', () => {
@@ -156,11 +176,12 @@ check('an ambiguous same-ticker listing is refused instead of guessed', () => {
   assert.equal(task.watchlist_entry_id, null)
 })
 
-check('tickerless Watch is explicit and does not silently skip sync', () => {
+check('tickerless Watch remains a task and does not create a false Watchlist security', () => {
   fs.rmSync(entriesDir, { recursive: true, force: true })
-  const task = card({ scope: 'world_event', ticker: null, stage: 'final_decision', decision: 'watch' })
+  const task = card({ scope: 'world_event', ticker: null, ticker_label: null, stage: 'final_decision', decision: 'watch' })
   const result = syncTaskWatchlist(task, 'tester', entriesDir)
-  assert.match(result.problem ?? '', /Add a ticker/)
+  assert.equal(result.problem, undefined)
+  assert.equal(result.changed, false)
   assert.equal(readEntries(entriesDir).entries.length, 0)
 })
 

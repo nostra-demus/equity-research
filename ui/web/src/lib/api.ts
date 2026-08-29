@@ -9,6 +9,7 @@ import type { AutotuneState, RankWeightChanges, WeightChange } from './types'
 import type { BridgeStatus } from './types'
 import { parseMemoryRead, parseMemoryRuntimeRead, unavailableMemoryRead } from './memoryView'
 import { publishedPaperExecutionResult } from './paperPortfolioView'
+import { retryTaskPlanning } from './taskPlanning'
 import { CHAT_MODELS, chatModelsReadAfterFailure, normalizeChatModelsRead, type ChatModelsRead } from './chatModels'
 import { normalizeProvidersRead, normalizeProviderStatus, providerCatalogForError, providerCatalogUnknown, providerLaunchFields, type FrozenProviderLaunch, type ProviderExecutionProfile, type ProvidersRead, type RunProvider } from './provider'
 import type { ActivityQuery, ActivityResult, AddPipelineSourceInput, BuildStep, CallsResult, ChatComputed, ChatConversationDetail, ChatListQuery, ChatListResult, ChatRequest, ChatScopes, CockpitFeedbackCategory, CockpitFeedbackStatus, CockpitFeedbackView, CompletedChatTurn, ContinuationPlanReceipt, CoverageGroup, DataNeedsRead, DataNeedUploadRead, DataStatus, DiscoveredFeed, EventEnrichment, EventResearchLink, FeedbackRecord, FeedbackSubmitInput, FeedbackSummary, FeedbackType, FeedItem, IbkrPaperPortfolioRead, IntakePlan, IntensityStats, IntensityWindow, LaunchableRunKind, LaunchPreflight, MemoryRead, MemoryRuntimeRead, NewCompanyInput, NewsChatEvidence, NewsChatReceipt, NewsChatRequest, NewsCycle, NewsDiagnostics, NewsStatus, PaperExecutionResult, PendingAdmission, PipelineAuditEvent, PipelineTrend, PipelineView, QuoteRead, PortfolioManualInput, PortfolioManualRead, PortfolioLiveMark, PortfolioOverrides, PortfolioRead, PortfolioUploadResult, ResumableRunInfo, RunHistoryEntry, RunKind, ScanVerdict, ScreenerBoard, SignalIntakeInput, SignalState, SourcesReport, SwarmGraph, SwarmMeta, SwarmSubjectSummary, ThesisPlan, TickerSummary, UploadResult, Usage, WhatChangedRead, Whoami } from './types'
@@ -1508,19 +1509,20 @@ export const api = {
   },
   taskCreate: async (input: import('./types').TaskInput) => {
     if ((await ensureMode()) === 'static') throw STATIC_ERR()
-    return post<{ ok: boolean; task: import('./types').TaskCard; publish_error?: string }>('/api/tasks', input)
+    return retryTaskPlanning(() => post<{ ok: boolean; task: import('./types').TaskCard; publish_error?: string }>('/api/tasks', input))
   },
   taskUpdate: async (taskId: string, input: Partial<import('./types').TaskInput>) => {
     if ((await ensureMode()) === 'static') throw STATIC_ERR()
     // Durable git publication normally completes in seconds. Bound the request so one broken connection
     // can never pin the ordered board-save queue behind it indefinitely.
-    return patch<{ ok: boolean; task: import('./types').TaskCard; publish_error?: string }>(`/api/tasks/${encodeURIComponent(taskId)}`, input, 90_000)
+    return retryTaskPlanning(() => patch<{ ok: boolean; task: import('./types').TaskCard; publish_error?: string }>(`/api/tasks/${encodeURIComponent(taskId)}`, input, 90_000))
   },
   taskAttach: async (taskId: string, files: File[]): Promise<{ ok: boolean; task: import('./types').TaskCard; fileErrors: { filename: string; reason: string }[]; publish_error?: string }> => {
     if ((await ensureMode()) === 'static') throw STATIC_ERR()
-    const fd = new FormData()
-    for (const file of files) fd.append('files', file, file.name)
-    return new Promise((resolve, reject) => {
+    return retryTaskPlanning(() => new Promise((resolve, reject) => {
+      // Build a fresh multipart body for every retry; some browser engines consume request bodies.
+      const fd = new FormData()
+      for (const file of files) fd.append('files', file, file.name)
       const xhr = new XMLHttpRequest()
       xhr.open('POST', `/api/tasks/${encodeURIComponent(taskId)}/attachments`)
       xhr.onload = () => {
@@ -1531,11 +1533,11 @@ export const api = {
       }
       xhr.onerror = () => reject(new Error('upload failed'))
       xhr.send(fd)
-    })
+    }))
   },
   taskDetach: async (taskId: string, attachmentId: string) => {
     if ((await ensureMode()) === 'static') throw STATIC_ERR()
-    return del<{ ok: boolean; task: import('./types').TaskCard; publish_error?: string }>(`/api/tasks/${encodeURIComponent(taskId)}/attachment/${encodeURIComponent(attachmentId)}`)
+    return retryTaskPlanning(() => del<{ ok: boolean; task: import('./types').TaskCard; publish_error?: string }>(`/api/tasks/${encodeURIComponent(taskId)}/attachment/${encodeURIComponent(attachmentId)}`))
   },
   taskAttachmentUrl: (taskId: string, attachmentId: string) =>
     `/api/tasks/${encodeURIComponent(taskId)}/attachment/${encodeURIComponent(attachmentId)}`,

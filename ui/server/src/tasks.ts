@@ -41,7 +41,10 @@ export interface TaskCard {
   schema_version: 'task-card/v1'
   task_id: string
   scope: TaskScope
+  /** A normalized exchange symbol. Only this field may drive Watchlist/research integration. */
   ticker: string | null
+  /** Free-form planning text entered in the ticker box when it is not an exchange symbol. */
+  ticker_label: string | null
   subject: string
   title: string
   stage: TaskStage
@@ -88,20 +91,36 @@ export function newTaskId(now: Date = new Date()): string {
   return `TASK-${date}-${crypto.randomBytes(4).toString('hex')}`
 }
 
+/**
+ * Task intake is intentionally broader than market symbology. Preserve anything that is not a usable
+ * exchange symbol as a planning label; it must never block the card or leak into Watchlist identity.
+ */
+export function taskTickerIdentity(value: unknown): { ticker: string | null; ticker_label: string | null } {
+  const raw = String(value ?? '').trim()
+  if (!raw) return { ticker: null, ticker_label: null }
+  const ticker = cleanTicker(raw)
+  return ticker ? { ticker, ticker_label: null } : { ticker: null, ticker_label: raw }
+}
+
+export function taskTickerInput(task: Pick<TaskCard, 'ticker' | 'ticker_label'>): string {
+  return task.ticker_label || task.ticker || ''
+}
+
 function taskShape(value: unknown): value is TaskCard {
   const task = value as TaskCard
   return !!task && typeof task === 'object' && !Array.isArray(task)
     && task.schema_version === 'task-card/v1' && isTaskId(task.task_id)
     && SCOPES.has(task.scope) && STAGES.has(task.stage)
     && (task.decision === null || DECISIONS.has(task.decision))
-    && (task.stage === 'final_decision' ? task.decision !== null : task.decision === null)
+    && (task.stage === 'final_decision' || task.decision === null)
     && ASSIGNEES.has(task.assignee)
     && (task.ticker === null || (typeof task.ticker === 'string' && task.ticker.length > 0 && task.ticker.length <= 24
       && cleanTicker(task.ticker) === task.ticker))
-    && (task.scope === 'world_event' || task.stage === 'idea_generation' || task.ticker !== null)
-    && (task.decision !== 'watch' || task.ticker !== null)
-    && typeof task.subject === 'string' && task.subject.length > 0 && task.subject.length <= 240
-    && typeof task.title === 'string' && task.title.length > 0 && task.title.length <= 4000
+    && (task.ticker_label === undefined || task.ticker_label === null
+      || (typeof task.ticker_label === 'string' && task.ticker_label.length > 0 && task.ticker_label.length <= 240
+        && task.ticker_label.trim() === task.ticker_label))
+    && typeof task.subject === 'string' && task.subject.length <= 240
+    && typeof task.title === 'string' && task.title.length <= 4000
     && Array.isArray(task.attachments) && task.attachments.length <= TASK_MAX_ATTACHMENTS && task.attachments.every(attachmentShape)
     && (task.watchlist_entry_id === null || isWatchId(task.watchlist_entry_id))
     && typeof task.watchlist_created === 'boolean'
@@ -119,7 +138,11 @@ export function readTasks(dir: string = TASKS_DIR): { tasks: TaskCard[]; unreada
   for (const name of names) {
     try {
       const value = JSON.parse(fs.readFileSync(path.join(dir, name), 'utf8'))
-      if (taskShape(value)) tasks.push(value)
+      if (taskShape(value)) {
+        // Cards written before ticker_label existed remain valid and receive the API's complete shape.
+        if (value.ticker_label === undefined) value.ticker_label = null
+        tasks.push(value)
+      }
       else unreadable.push(name)
     } catch { unreadable.push(name) }
   }
@@ -161,7 +184,9 @@ export function syncTaskWatchlist(
 ): TaskWatchSync {
   const { entries } = readEntries(entriesDir)
   const linked = task.watchlist_entry_id ? entries.find((entry) => entry.entry_id === task.watchlist_entry_id) ?? null : null
-  const shouldWatch = task.stage === 'final_decision' && task.decision === 'watch'
+  // A Watch decision without a usable symbol remains a valid planning card. It simply has no Watchlist
+  // side effect until a real symbol is added later.
+  const shouldWatch = task.stage === 'final_decision' && task.decision === 'watch' && !!task.ticker
   const changedEntries: WatchEntry[] = []
   const persist = (entry: WatchEntry) => {
     writeEntry(entry, entriesDir)
@@ -182,11 +207,7 @@ export function syncTaskWatchlist(
     return { entry: linked, changed: true, changedEntries }
   }
 
-  if (!task.ticker) return {
-    entry: linked, changed: false, changedEntries,
-    problem: 'Add a ticker before choosing Watch so the decision can sync to one Watchlist security.',
-  }
-  const ticker = task.ticker
+  const ticker = task.ticker!
   const otherOwner = entries.find((candidate) => candidate.listing?.ticker === ticker
     && candidate.task_id && candidate.task_id !== task.task_id)
   if (otherOwner) return {
