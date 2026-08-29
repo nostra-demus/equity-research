@@ -34,6 +34,29 @@ mkdir -p "commodity/runs/<COMMODITY>"
 
 Capture `commodity/runs/<COMMODITY>` as `<RUN_ROOT>`. (One stable run folder per commodity — NOT date-stamped; a re-run refreshes it in place and resumes past finished modules.)
 
+## 3.5. Refresh feeds + evidence preflight before any orb dispatch
+
+Refresh only the automatic connectors declared for this commodity, then refresh its quote:
+
+```bash
+python3 .claude/tools/run_connectors.py --subject "<COMMODITY>"
+bash scripts/refresh-swarm-pulse.sh commodity "<COMMODITY>"
+```
+
+Connector failures are not permission to substitute an unreviewed scrape. They remain visible as missing,
+stalled, suspect, or unavailable evidence. Now run the non-publishing preflight at one captured UTC cutoff:
+
+```bash
+PREFLIGHT_TIME="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+python3 scripts/commodity_profile_coverage.py "<RUN_ROOT>" --preflight --decision-time "$PREFLIGHT_TIME"
+```
+
+This mode writes nothing and does not freeze the terminal coverage artifacts. If it exits `2`, zero required
+series are usable: STOP before every research orb, report the exact status counts and affected owner orbs,
+and point the user to `python3 scripts/commodity_feed_plan.py "<COMMODITY>" --gaps-only`. Spending the full
+swarm budget cannot turn zero evidence into a forecast. Exit `0` permits the run to continue; partial evidence
+remains subject to the terminal sufficiency caps and can still end in `Research More`.
+
 ## 4. Discover modules + dependency order
 
 Glob `.claude/agents/commodity/*/99_*-synthesis.md`. For each, the parent folder name is the module; read its frontmatter `depends_on`. Topologically sort the modules by `depends_on` (alphabetical tiebreak) — mirrors `/research:full`. Expect: `market-structure`, `supply-demand`, `macro-positioning`, then terminal `commodity-thesis` (which depends on the other three). Do NOT hardcode this list — derive it from the discovered graph.
@@ -161,6 +184,9 @@ Print a final summary:
 
 - Do not hardcode module or agent names — everything is discovered from the folders + frontmatter, exactly like `/research:full` and `frameworks/MODULE_PIPELINE.md`.
 - Adding a new module folder `.claude/agents/commodity/<new>/` (with a `99_<new>-synthesis.md` carrying `depends_on`) must require zero changes to this command.
-- Write only inside `commodity/runs/<COMMODITY>/`. Do not touch other commodities or any company run.
+- Research outputs write only inside `commodity/runs/<COMMODITY>/`. The sole exception is step 3.5's
+  reviewed connector publisher, scoped by `--subject <COMMODITY>`; it may update only that commodity's
+  canonical feed vintages/projections and connector health ledger. Do not touch other commodity pools or
+  any company run.
 - After the terminal module writes `decision_record.json`, only step 5.5 may mutate it: first the deterministic
   pre-mortem cap, then immutable archive/publication. `commodity:pre-mortem.md` itself stays read-only.

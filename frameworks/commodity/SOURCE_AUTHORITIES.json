@@ -1,0 +1,163 @@
+{
+  "schema_version": 1,
+  "purpose": "Routing guide only. A source becomes evidence only after a reviewed connector publishes a valid immutable vintage.",
+  "selection_order": [
+    "Free primary authority with lawful machine-readable access",
+    "Free primary authority with an operator-supplied official file",
+    "Licensed Capital IQ export supplied by an entitled user",
+    "Refuse to rate when none of those routes can meet the profile contract"
+  ],
+  "capital_iq": {
+    "provider": "S&P Capital IQ Pro",
+    "access": "licensed",
+    "terms_url": "https://www.capitaliq.spglobal.com/cache/Documents/msa4.pdf",
+    "route": "manual_csv_export",
+    "rule": "Never scrape a signed-in page or store credentials. Export CSV under the user's entitlement, ingest it through the attested manual connector path, and preserve redistribution restrictions."
+  },
+  "rules": [
+    {
+      "id": "official-policy-events",
+      "need_pattern": "(policy|routing|restriction|curtailment|opec|pipeline-availability|capacity-availability)",
+      "preferred_route": "manual_official_event",
+      "authorities": [
+        {"provider": "Issuing government, regulator, ministry, customs authority, or producer group", "url": "https://www.opec.org/", "access": "mixed"}
+      ],
+      "capital_iq_fallback": "Use dated primary-source event records or news linked to the original notice; never treat an unsourced headline as the policy fact."
+    },
+    {
+      "id": "derived-cost-value",
+      "need_pattern": "(cost|parity|replacement|switching|incentive)",
+      "preferred_route": "derived_from_primary_inputs",
+      "authorities": [
+        {"provider": "EIA, USDA, USGS, official FX/rate publishers, and relevant exchanges", "url": "https://www.eia.gov/opendata/", "access": "public"}
+      ],
+      "capital_iq_fallback": "Use Capital IQ only for licensed raw input series. Keep formulas, units, assumptions, and parent vintage IDs in the derived record."
+    },
+    {
+      "id": "futures-positioning",
+      "need_pattern": "(managed-money|positioning|investment-fund)",
+      "preferred_route": "automatic_official_api_or_exchange_file",
+      "authorities": [
+        {"provider": "U.S. Commodity Futures Trading Commission", "url": "https://publicreporting.cftc.gov/", "access": "public"},
+        {"provider": "Relevant futures exchange", "url": "https://www.cmegroup.com/market-data.html", "access": "mixed"}
+      ],
+      "capital_iq_fallback": "Use a licensed positioning export only when the exchange/regulator does not publish the required contract or history."
+    },
+    {
+      "id": "fund-holdings-flows",
+      "need_pattern": "(etf|etn|fund-flow|issuer)",
+      "preferred_route": "automatic_issuer_file",
+      "authorities": [
+        {"provider": "Fund issuer daily holdings/creation files", "url": "https://www.ishares.com/us/products/239561/ishares-gold-trust-fund", "access": "mixed"}
+      ],
+      "capital_iq_fallback": "Use a dated Capital IQ fund-flow export when issuer files cannot supply the defined series."
+    },
+    {
+      "id": "weather-crop-condition",
+      "need_pattern": "(climate|weather|enso|phenology|crop-progress|crop-condition|disease)",
+      "preferred_route": "automatic_government_api_or_file",
+      "authorities": [
+        {"provider": "NOAA Climate Prediction Center", "url": "https://www.cpc.ncep.noaa.gov/", "access": "public"},
+        {"provider": "USDA National Agricultural Statistics Service", "url": "https://quickstats.nass.usda.gov/", "access": "public"}
+      ],
+      "capital_iq_fallback": "Capital IQ may fill a market series, but it does not replace NOAA/USDA weather and crop observations when those are required."
+    },
+    {
+      "id": "us-macro-rates-dollar",
+      "need_pattern": "(real-yield|broad-usd|us-10y)",
+      "preferred_route": "automatic_government_api_or_csv",
+      "authorities": [
+        {"provider": "U.S. Treasury", "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates", "access": "public"},
+        {"provider": "Federal Reserve / FRED", "url": "https://fred.stlouisfed.org/", "access": "public"}
+      ],
+      "capital_iq_fallback": "Use Capital IQ only as an explicit fallback provider with the same series definition and units."
+    },
+    {
+      "id": "china-activity-trade",
+      "need_pattern": "(china-industrial|china-import|china-demand)",
+      "preferred_route": "automatic_or_manual_government_release",
+      "authorities": [
+        {"provider": "National Bureau of Statistics of China", "url": "https://www.stats.gov.cn/english/", "access": "mixed"},
+        {"provider": "General Administration of Customs of China", "url": "https://english.customs.gov.cn/", "access": "mixed"}
+      ],
+      "capital_iq_fallback": "Use a dated Capital IQ export when the official release is not lawfully machine-readable; retain the official series name and release period."
+    },
+    {
+      "id": "global-activity",
+      "need_pattern": "global-activity",
+      "preferred_route": "automatic_multilateral_api",
+      "authorities": [
+        {"provider": "OECD Data Explorer", "url": "https://data-explorer.oecd.org/", "access": "public"},
+        {"provider": "World Bank Data", "url": "https://data.worldbank.org/", "access": "public"}
+      ],
+      "capital_iq_fallback": "Use a licensed, named macro series only if it preserves the same definition and release vintage."
+    },
+    {
+      "id": "fx",
+      "need_pattern": "(trade-fx|exporter-fx)",
+      "preferred_route": "automatic_central_bank_or_multilateral_api",
+      "authorities": [
+        {"provider": "Relevant central bank, Federal Reserve, BIS, or IMF", "url": "https://www.bis.org/statistics/full_data_sets.htm", "access": "public"}
+      ],
+      "capital_iq_fallback": "Use a licensed spot/real-effective FX series with the currency pair, fixing time, and rate convention stated."
+    },
+    {
+      "id": "exchange-price-structure",
+      "need_pattern": "(curve|cash-price|spot-price|spread|basis|premium|arbitrage|delivery|certified-stock|visible-inventory)",
+      "preferred_route": "official_exchange_file_or_licensed_export",
+      "authorities": [
+        {"provider": "Relevant futures/physical exchange or benchmark administrator", "url": "https://www.cmegroup.com/market-data.html", "access": "mixed"}
+      ],
+      "capital_iq_fallback": "Capital IQ is the normal licensed fallback for curves and cash series. Export all required contracts/tenors together so curve math is point-in-time consistent."
+    },
+    {
+      "id": "inventory-balance",
+      "need_pattern": "(inventory|storage|stocks-use|stocks-grindings|balance|inventory-days-cover|stock-change)",
+      "preferred_route": "automatic_authority_api_or_file",
+      "authorities": [
+        {"provider": "EIA for energy; USDA for crops; exchange/industry body for metals and softs", "url": "https://www.eia.gov/opendata/", "access": "mixed"},
+        {"provider": "USDA Economics, Statistics, and Market Information System", "url": "https://usda.library.cornell.edu/", "access": "public"}
+      ],
+      "capital_iq_fallback": "Use a dated licensed balance/inventory export only when the primary publisher route is unavailable. Preserve revisions as new vintages."
+    },
+    {
+      "id": "agriculture-fundamentals",
+      "need_pattern": "^(corn|soybeans|wheat|cotton|sugar|coffee|cocoa|grains)-.*(acreage|yield|production|export|import|shipment|port-arrival|mill|crush|ethanol|biofuel|farmgate|physical-demand)",
+      "preferred_route": "automatic_or_manual_agency_release",
+      "authorities": [
+        {"provider": "USDA FAS, NASS, WAOB, and the relevant national crop authority", "url": "https://www.fas.usda.gov/data", "access": "public"},
+        {"provider": "USDA NASS Quick Stats", "url": "https://quickstats.nass.usda.gov/", "access": "public"}
+      ],
+      "capital_iq_fallback": "Use a licensed export only for the exact crop/country/marketing-year series; do not mix crop years or units."
+    },
+    {
+      "id": "energy-fundamentals",
+      "need_pattern": "(crude-oil|natural-gas|lng|refinery|dry-production|sector-demand)",
+      "preferred_route": "automatic_energy_authority_api",
+      "authorities": [
+        {"provider": "U.S. Energy Information Administration", "url": "https://www.eia.gov/opendata/", "access": "public"},
+        {"provider": "OPEC official publications", "url": "https://www.opec.org/opec_web/en/publications/338.htm", "access": "public"}
+      ],
+      "capital_iq_fallback": "Use Capital IQ for licensed global or non-public histories, with geography, unit, frequency, and release period fixed in the connector contract."
+    },
+    {
+      "id": "metals-fundamentals",
+      "need_pattern": "(mine|primary-production|capacity-power|bauxite|alumina|concentrate|scrap|supply|end-use|energy-transition)",
+      "preferred_route": "official_geological_or_industry_release",
+      "authorities": [
+        {"provider": "U.S. Geological Survey", "url": "https://www.usgs.gov/centers/national-minerals-information-center", "access": "public"},
+        {"provider": "Relevant national geological survey or recognized commodity study group", "url": "https://www.usgs.gov/information-policies-and-instructions/copyrights-and-credits", "access": "mixed"}
+      ],
+      "capital_iq_fallback": "Use a licensed industry series when the primary body restricts machine access; label estimates and keep each release vintage."
+    },
+    {
+      "id": "generic-authoritative-fallback",
+      "need_pattern": ".*",
+      "preferred_route": "manual_source_review_then_connector",
+      "authorities": [
+        {"provider": "Commodity regulator, exchange, ministry, statistical agency, or recognized industry body", "url": "https://unstats.un.org/unsd/methodology/m49/", "access": "mixed"}
+      ],
+      "capital_iq_fallback": "If no lawful primary route exists, use a licensed Capital IQ CSV export. If neither can satisfy the exact profile definition, leave the series unavailable."
+    }
+  ]
+}

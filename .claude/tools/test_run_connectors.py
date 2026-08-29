@@ -166,6 +166,7 @@ check("full sweep writes running progress and a reconciled completion heartbeat"
 for _excluded_args in (
     ["--data-root", _status_main_root, "--dry-run"],
     ["--data-root", _status_main_root, "--only", "one-connector"],
+    ["--data-root", _status_main_root, "--subject", "AAA"],
 ):
     _excluded_rc, _excluded_statuses = _exercise_main_status(_excluded_args, _status_fake_run)
     check(f"{_excluded_args[-1]} invocation does not publish scheduled-service telemetry",
@@ -846,6 +847,15 @@ make_connector(croot, "stub-b", manifest_extra={"output_path": "data/<SUBJECT>/e
 res = m.run(data, only="stub-a", connectors_root=croot)
 check("--only runs just the named connector",
       rows_for(res, "stub-a", "AAA") and not rows_for(res, "stub-b", "AAA"))
+shutil.rmtree(root)
+
+# 6. malformed manifests skipped with reasons; healthy connector still processes
+root, croot, data = make_repo()
+os.makedirs(os.path.join(data, "BBB"))
+make_connector(croot, "stub-subject", subjects=("AAA", "BBB"))
+res = m.run(data, dry_run=True, subject_filter="bbb", connectors_root=croot)
+check("--subject limits an interactive sweep to one subject",
+      rows_for(res, "stub-subject", "BBB") and not rows_for(res, "stub-subject", "AAA"))
 shutil.rmtree(root)
 
 # 6. malformed manifests skipped with reasons; healthy connector still processes

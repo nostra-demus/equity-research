@@ -10,7 +10,7 @@ import tempfile
 from pathlib import Path
 
 from commodity_profile_coverage import (
-    _quality_error, compile_coverage, compile_coverage_bundle, frozen_source_resolver,
+    _quality_error, compile_coverage, compile_coverage_bundle, coverage_status_counts, frozen_source_resolver,
     profile_family, profile_snapshot_sha256, resolve_profile_series,
     source_snapshot_sha256, structured_profile,
 )
@@ -97,13 +97,29 @@ def main() -> int:
             {
                 "id": "manual", "dataset_id": "manual.capture", "series_id": "gold.manual",
                 "subjects": ["GOLD"], "satisfies": ["manual-need"], "acquisition": "manual",
-                "manual": True, "provider": "User capture",
+                "manual": True, "provider": "Licensed provider", "source_type": "vendor_export",
             },
         ]
         calls = []
 
         def reader(data_root, series_id, subject, cutoff, **_kwargs):
             calls.append((series_id, subject, cutoff))
+            if series_id == "gold.manual":
+                return {
+                    "usable": True, "health": "current", "vintage_id": "sha256:" + "b" * 64,
+                    "selected_provider": "Licensed provider", "payload": {"value": 7.0},
+                    "vintage": {
+                        "as_of": "2026-08-10", "acquisition": "manual", "tier": 5,
+                        "source_type": "vendor_export",
+                        "licensing": {"access": "licensed", "use": "entitlement_required"},
+                        "manual_input": {
+                            "sha256": "c" * 64, "size_bytes": 123, "filename": "export.csv",
+                            "detected_format": "csv",
+                        },
+                        "dataset_id": "manual.capture", "connector_id": "manual",
+                        "provider": "Licensed provider", "retrieved_at": "2026-08-10T20:00:00Z",
+                    },
+                }
             return {
                 "usable": True, "health": "current", "vintage_id": "sha256:" + "a" * 64,
                 "selected_provider": "Official provider",
@@ -164,13 +180,19 @@ def main() -> int:
         (frozen_root / "GOLD.json").write_bytes((structured_root / "GOLD.json").read_bytes())
         statuses = {row["need_id"]: row["status"] for row in artifact["rows"]}
         assert statuses == {
-            "automatic-need": "usable", "manual-need": "manual", "shared-need": "usable",
+            "automatic-need": "usable", "manual-need": "usable", "shared-need": "usable",
             "price-need": "usable", "basis-need": "usable", "missing-route": "unavailable",
         }, statuses
         assert artifact["rows"][4]["vintage_id"].startswith("sha256:")
-        assert calls and all(call == ("gold.automatic", "GOLD", "2026-08-11T00:00:00Z") for call in calls)
+        assert calls and set(calls) == {
+            ("gold.automatic", "GOLD", "2026-08-11T00:00:00Z"),
+            ("gold.manual", "GOLD", "2026-08-11T00:00:00Z"),
+        }
         assert artifact["complete"] is False
-        assert artifact["unresolved_need_ids"] == ["manual-need", "missing-route"]
+        assert artifact["unresolved_need_ids"] == ["missing-route"]
+        assert coverage_status_counts(artifact) == {
+            "manual": 0, "missing": 0, "suspect": 0, "unavailable": 1, "usable": 5,
+        }
 
         # Replay non-connector vintages from the frozen bundle. Later pulse or shared-market mutations
         # must not change the decision-time value selected by the coverage compiler.
@@ -274,6 +296,27 @@ def main() -> int:
             market_root=market_root, state_root=state_root, reader=reader, manifests=duplicate,
         )
         assert ambiguous["rows"][0]["status"] == "suspect"
+
+        fallback = {
+            **manifests[0], "id": "automatic-fallback", "dataset_id": "fallback.auto",
+            "provider": "Fallback provider", "provider_priority": 200,
+            "fallback_for": "automatic",
+        }
+        with_fallback = compile_coverage(
+            commodity="GOLD", decision_time="2026-08-11T00:00:00Z", profile_path=profile,
+            structured_root=structured_root, connectors_root=root, data_root=root,
+            market_root=market_root, state_root=state_root, reader=reader,
+            manifests=[*manifests, fallback],
+        )
+        assert with_fallback["rows"][0]["status"] == "usable"
+
+        manual_missing = compile_coverage(
+            commodity="GOLD", decision_time="2026-08-11T00:00:00Z", profile_path=profile,
+            structured_root=structured_root, connectors_root=root, data_root=root,
+            market_root=market_root, state_root=state_root,
+            reader=lambda *_args, **_kwargs: None, manifests=manifests,
+        )
+        assert manual_missing["rows"][1]["status"] == "manual"
 
         baseline = json.loads((structured_root / "GOLD.json").read_text(encoding="utf-8"))
         broken = copy.deepcopy(baseline)

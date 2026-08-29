@@ -405,29 +405,54 @@ def _resolve_connector(
         manifest for manifest in manifests
         if commodity in manifest.get("subjects", []) and requirement["need"] in manifest.get("satisfies", [])
     ]
-    if len(owners) > 1:
-        return {"usable": False, "status": "suspect", "reason": "more than one connector claims this need"}
     if not owners:
         return {"usable": False, "status": "unavailable", "reason": "no connector claims the profile-owned series"}
-    manifest = owners[0]
-    if manifest.get("series_id") != requirement["series"]:
+    if any(manifest.get("series_id") != requirement["series"] for manifest in owners):
         return {"usable": False, "status": "suspect", "reason": "connector series identity conflicts with the profile"}
-    if manifest.get("acquisition") == "manual" or manifest.get("manual") is True:
-        return {
-            "usable": False, "status": "manual", "reason": "manual capture is context-only",
-            "manifest": manifest,
-        }
+    primaries = [manifest for manifest in owners if not manifest.get("fallback_for")]
+    if len(primaries) != 1 or any(
+        manifest.get("fallback_for") not in {None, primaries[0].get("id")}
+        for manifest in owners
+    ):
+        return {"usable": False, "status": "suspect", "reason": "connector provider group is ambiguous"}
+    manifest = primaries[0]
     result = reader(
         str(data_root), requirement["series"], commodity, _iso(cutoff),
         connectors_root=str(connectors_root), manifests=manifests,
     )
     if result is None:
-        return {"usable": False, "status": "missing", "reason": "no eligible immutable vintage was knowable at decision time", "manifest": manifest}
+        manual_only = all(
+            owner.get("acquisition") == "manual" or owner.get("manual") is True
+            for owner in owners
+        )
+        return {
+            "usable": False, "status": "manual" if manual_only else "missing",
+            "reason": (
+                "no sealed manual vintage was knowable at decision time"
+                if manual_only else "no eligible immutable vintage was knowable at decision time"
+            ),
+            "manifest": manifest,
+        }
     vintage = result.get("vintage") if isinstance(result, dict) else None
     if not isinstance(result, dict) or result.get("usable") is not True or result.get("health") != "current" or not isinstance(vintage, dict):
         return {"usable": False, "status": "suspect", "reason": "point-in-time reader rejected the available vintage", "manifest": manifest}
-    if vintage.get("acquisition") == "manual" or not isinstance(vintage.get("tier"), int) or vintage.get("tier") > 5:
+    tier = vintage.get("tier")
+    if not isinstance(tier, int) or isinstance(tier, bool) or tier > 5:
         return {"usable": False, "status": "manual", "reason": "selected vintage is not eligible primary/provider evidence", "manifest": manifest}
+    if vintage.get("acquisition") == "manual":
+        licensing = vintage.get("licensing")
+        if (
+            vintage.get("source_type") not in {"official_data", "vendor_export", "paid_api"}
+            or not isinstance(licensing, dict)
+            or licensing.get("use") not in {"allowed", "entitlement_required"}
+            or licensing.get("access") not in {"public", "licensed", "restricted"}
+            or not isinstance(vintage.get("manual_input"), dict)
+        ):
+            return {
+                "usable": False, "status": "manual",
+                "reason": "sealed manual vintage is not eligible official/provider evidence",
+                "manifest": manifest,
+            }
     defect = _quality_error(result.get("payload"), vintage.get("as_of"), requirement["quality"], cutoff)
     if defect:
         return {"usable": False, "status": "suspect", "reason": defect, "manifest": manifest}
@@ -619,6 +644,20 @@ def compile_coverage(
     return artifact
 
 
+def coverage_status_counts(artifact: dict[str, Any]) -> dict[str, int]:
+    """Return an explicit status census for operator preflight and tests."""
+    rows = artifact.get("rows") if isinstance(artifact, dict) else None
+    if not isinstance(rows, list):
+        raise ValueError("coverage artifact rows are missing")
+    counts = {status: 0 for status in sorted(STATUSES)}
+    for row in rows:
+        status = row.get("status") if isinstance(row, dict) else None
+        if status not in STATUSES:
+            raise ValueError("coverage artifact contains an unknown status")
+        counts[status] += 1
+    return counts
+
+
 def frozen_source_resolver(
     snapshot: dict[str, Any], coverage: dict[str, Any], *, data_root: Path = REPO / "data",
 ) -> Callable[[str, str, str], dict[str, Any] | None]:
@@ -722,6 +761,10 @@ def main() -> int:
     parser.add_argument("--data-root", type=Path, default=REPO / "data")
     parser.add_argument("--market-root", type=Path, default=MARKET_ROOT)
     parser.add_argument("--state-root", type=Path, default=STATE_ROOT)
+    parser.add_argument(
+        "--preflight", action="store_true",
+        help="report decision-time coverage without writing or freezing run artifacts",
+    )
     args = parser.parse_args()
     try:
         run_root = args.run_root.resolve()
@@ -732,6 +775,18 @@ def main() -> int:
             structured_root=args.structured_profile_root, connectors_root=args.connectors_root,
             data_root=args.data_root, market_root=args.market_root, state_root=args.state_root,
         )
+        counts = coverage_status_counts(artifact)
+        if args.preflight:
+            affected_orbs = sorted({
+                row["owner_orb"] for row in artifact["rows"] if row["status"] != "usable"
+            })
+            print(
+                f"PROFILE-PREFLIGHT: usable={counts['usable']}/{artifact['required_count']} "
+                f"missing={counts['missing']} manual={counts['manual']} "
+                f"unavailable={counts['unavailable']} suspect={counts['suspect']} "
+                f"affected_orbs={','.join(affected_orbs) or 'none'}"
+            )
+            return 2 if counts["usable"] == 0 else 0
         output = run_root / "required_series_coverage.json"
         source_output = run_root / "required_series_sources.json"
         atomic_write_json(str(source_output), sources)

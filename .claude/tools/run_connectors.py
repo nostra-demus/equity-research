@@ -33,14 +33,14 @@ CONTRACT
   Ledger — every (connector × subject) decision appends one NDJSON row to
     <data-root>/_connectors/run_ledger.ndjson (the data/_market-style reserved
     lane). --dry-run writes nothing, ledger included.
-  Service status — a full automatic sweep (never --dry-run, --only, or manual
-    ingest) atomically refreshes <data-root>/_connectors/runner_status.json at
+  Service status — a full automatic sweep (never --dry-run, --only, --subject,
+    or manual ingest) atomically refreshes <data-root>/_connectors/runner_status.json at
     start, after each decision row, and at completion/fatal exit. It contains
     no URLs, credentials, messages, or exception text. Status I/O is best effort
     and can never change a publication outcome.
 
 USAGE
-  python3 -I run_connectors.py [--data-root data] [--only <connector-id>] [--force] [--dry-run]
+  python3 -I run_connectors.py [--data-root data] [--only <connector-id>] [--subject <SUBJECT>] [--force] [--dry-run]
   Run from anywhere (the due-aware launchd timer com.nostradamus.connectors does every 15 minutes).
 """
 from __future__ import annotations
@@ -2918,8 +2918,13 @@ def _report_sweep_progress(progress_callback, row: dict | None, skipped_count: i
 
 
 def run(data_root: str, only: str | None = None, force: bool = False, dry_run: bool = False,
+        subject_filter: str | None = None,
         connectors_root: str = CONNECTORS_ROOT, now: datetime | None = None,
         progress_callback=None):
+    if subject_filter is not None:
+        subject_filter = subject_filter.upper()
+        if re.fullmatch(r"[A-Z0-9][A-Z0-9._-]*", subject_filter) is None or ".." in subject_filter:
+            raise ValueError("subject_filter must be an uppercase-safe subject identifier")
     valid, skipped = discover(connectors_root)
     for name, reason in skipped:
         _log(f"skip manifest {name}: {reason}")
@@ -2946,6 +2951,8 @@ def run(data_root: str, only: str | None = None, force: bool = False, dry_run: b
         transform_hash = connector_fingerprint(cdir)
         code_ok, code_error, publisher_hash = production_code_state(cdir, connectors_root)
         for subject in man["subjects"]:
+            if subject_filter is not None and subject != subject_filter:
+                continue
             today = (now.astimezone(ZoneInfo(man["release"]["timezone"])).date()
                      if man.get("manifest_version") == 2 else host_today)
             latest = latest_as_of(man, data_root, subject)
@@ -3433,7 +3440,10 @@ def run_manual_ingest(
 
 
 def _is_full_scheduled_sweep(args: argparse.Namespace) -> bool:
-    return not args.dry_run and args.only is None and args.manual_file is None
+    return (
+        not args.dry_run and args.only is None and args.manual_file is None
+        and args.subject is None
+    )
 
 
 def _fatal_status_code(exc: BaseException) -> str:
@@ -3452,7 +3462,7 @@ def main() -> int:
     ap.add_argument("--force", action="store_true", help="ignore the release gate (still respects the pool gate)")
     ap.add_argument("--dry-run", action="store_true", help="print the freshness/decision table; execute nothing")
     ap.add_argument("--manual-file", help="operator-supplied source file; requires --only and --subject")
-    ap.add_argument("--subject", help="subject for --manual-file")
+    ap.add_argument("--subject", help="limit an interactive sweep to one subject; required by --manual-file")
     a = ap.parse_args()
     if a.manual_file and (not a.only or not a.subject or a.dry_run):
         ap.error("--manual-file requires --only <manual-connector> and --subject, and cannot be dry-run")
@@ -3507,6 +3517,7 @@ def main() -> int:
             result = (run_manual_ingest(a.data_root, a.only, a.subject, a.manual_file)
                       if a.manual_file else run(
                           a.data_root, only=a.only, force=a.force, dry_run=a.dry_run,
+                          subject_filter=a.subject,
                           progress_callback=record_progress if scheduled_full_sweep else None,
                       ))
         except ScheduledTopologyLost:
