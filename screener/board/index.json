@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-29T16:13:08Z",
+  "generated_at": "2026-08-29T16:17:48Z",
   "inbox": [
     {
       "inbox_id": "INB-20260829-490",
@@ -530,6 +530,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260829-638",
+      "headline": "Glencore Took $480 Million Provision on Radiant World Exposure",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-08-29/glencore-took-480-million-provision-on-radiant-world-exposure",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-29T15:54:32Z",
+      "sweep_file": "screener/inbox/2026-08-29_sweep.json",
+      "prelim_note": "Glencore took a $480 million provision related to its exposure to Radiant World.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Glencore took a $480 million provision related to its exposure to Radiant World.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "accounting_restatement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "accounting_restatement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Glencore",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1940,55 +1989,6 @@
       "companies": [
         {
           "name": "Marvell Technology",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260829-303",
-      "headline": "PayPal Plunges 15% After Reports That Advent, Stripe Abandon $53 Billion Bid",
-      "headline_en": null,
-      "url": "https://www.forbes.com/sites/fionariley/2026/08/28/paypal-plunges-15-after-reports-that-advent-stripe-abandon-53-billion-bid/",
-      "source_name": "Forbes",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-28T13:39:16Z",
-      "sweep_file": "screener/inbox/2026-08-29_sweep.json",
-      "prelim_note": "PayPal stock fell 15% following reports that a $53 billion acquisition bid was abandoned.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "PayPal stock fell 15% following reports that a $53 billion acquisition bid was abandoned.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "PayPal",
           "ticker": null,
           "listing_country": "US"
         }
@@ -106766,9 +106766,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 587379,
-    "news_picked_today": 1589,
-    "news_dropped_today": 6997
+    "news_seen_today": 587410,
+    "news_picked_today": 1591,
+    "news_dropped_today": 7026
   },
   "book_momentum": {
     "live_count": 8,
