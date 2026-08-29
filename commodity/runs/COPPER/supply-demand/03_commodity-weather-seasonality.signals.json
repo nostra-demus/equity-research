@@ -1,0 +1,130 @@
+{
+  "schema_version": 1,
+  "commodity": "COPPER",
+  "owner_orb": "commodity-weather-seasonality",
+  "generated_at": "2026-08-28T00:00:00Z",
+  "signals": [
+    {
+      "signal_id": "copper-weather-lens-not-applicable",
+      "owner_orb": "commodity-weather-seasonality",
+      "economic_cluster": "weather-seasonality",
+      "role": "context",
+      "horizon": "both",
+      "direction": "neutral",
+      "strength": 0.0,
+      "as_of": "2026-08-28T00:00:00Z",
+      "expiry": null,
+      "source_vintage_ids": [
+        "unvintaged:commodity-profiles-copper-lens-declaration:2026-08-28"
+      ],
+      "source_vintage_refs": [],
+      "signal_kind": "observational",
+      "validation_ref": null,
+      "validation_status": "source_unverified",
+      "conviction_eligible": false,
+      "numerator_series_id": null,
+      "denominator_series_id": null,
+      "contradicts": [],
+      "notes": "The COPPER profile marks weather/seasonality NOT applicable (mild China seasonality only). Copper is a mined metal with no crop year, growing season or harvest, so there is no monsoon, ENSO-crop or degree-day lens to apply. Strength is 0.0 because this row records the absence of a driver, not a measured market fact. Emitted so the compiler sees an explicit non-applicable verdict from the declared owner rather than silence. Mine tonnes, disruptions, water and permit constraints are owned by commodity-supply (orb 01); routing disruption is owned by commodity-supply-security; hydro-power to smelting is an ALUMINIUM lens in this profile and is deliberately not applied to copper."
+    },
+    {
+      "signal_id": "copper-china-consumption-calendar-position",
+      "owner_orb": "commodity-weather-seasonality",
+      "economic_cluster": "weather-seasonality",
+      "role": "context",
+      "horizon": "tactical",
+      "direction": "neutral",
+      "strength": 0.1,
+      "as_of": "2026-08-28T00:00:00Z",
+      "expiry": "2027-02-06T00:00:00Z",
+      "source_vintage_ids": [
+        "unvintaged:china-lunar-new-year-calendar-2027-02-06:2026-08-28",
+        "unvintaged:web-secondary-china-copper-fabricator-seasonality-reporting:2026-08-28"
+      ],
+      "source_vintage_refs": [],
+      "signal_kind": "observational",
+      "validation_ref": null,
+      "validation_status": "source_unverified",
+      "conviction_eligible": false,
+      "numerator_series_id": null,
+      "denominator_series_id": null,
+      "contradicts": [],
+      "notes": "Calendar position only, amplitude UNMEASURED. As of 2026-08-28 China sits just ahead of the autumn fabricator/restocking pick-up; the next scheduled demand trough is the Lunar New Year shutdown on 2027-02-06 (plants typically close one to two weeks; SHFE stocks build across the holiday, as around the 2026-02-17 holiday). No ICSG refined balance, no SMM or SHFE monthly series and no accepted vintage is reachable in this run, so the size of the seasonal swing cannot be quantified and direction is recorded neutral rather than guessed. Strength 0.1 reflects a known but unsized calendar effect. Expiry set to the 2027 Lunar New Year date, after which the calendar position must be re-read."
+    },
+    {
+      "signal_id": "copper-andean-el-nino-mine-disruption-risk",
+      "owner_orb": "commodity-weather-seasonality",
+      "economic_cluster": "weather-seasonality",
+      "role": "risk",
+      "horizon": "strategic",
+      "direction": "bullish",
+      "strength": 0.15,
+      "as_of": "2026-08-13T00:00:00Z",
+      "expiry": "2027-03-31T00:00:00Z",
+      "source_vintage_ids": [
+        "unvintaged:noaa-cpc-enso-diagnostic-discussion-issued-2026-08-13:2026-08-28"
+      ],
+      "source_vintage_refs": [],
+      "signal_kind": "observational",
+      "validation_ref": null,
+      "validation_status": "source_unverified",
+      "conviction_eligible": false,
+      "numerator_series_id": null,
+      "denominator_series_id": null,
+      "contradicts": [
+        "copper-chile-el-nino-water-constraint-relief"
+      ],
+      "notes": "PROBABILISTIC AND UNREALISED (MODULE_RULES section 7 - ENSO signals are probabilistic and labelled so; weather is a risk to the balance, never a certainty). NOAA CPC ENSO Diagnostic Discussion issued 2026-08-13: ENSO Alert System Status is El Nino Advisory; July Nino-3.4 anomaly +1.4C; synopsis states a greater than 90% chance of a very strong event during NH fall and winter 2026-27, and a 69% chance the Oct-Dec 2026 season exceeds +2.5C. This raises the probability of heavy rain, flood and landslide events over the Dec 2026 - Mar 2027 altiplano/Bolivian-winter window affecting high-elevation (3000-4500m) northern Chilean and Peruvian operations and coastal Peruvian road/port logistics. Direction bullish refers to PRICE if a disruption is realised. NO TONNAGE IS ASSERTED HERE: mine output effects are owned by commodity-supply (orb 01) and this row must not be read as a second vote for the same tonnes. Strength 0.15 because the driver is a forecast probability with no realised copper-output loss attached. A widely circulated secondary figure of ~1.6 Mt of annual capacity at simultaneous suspension risk was reviewed and DECLINED: it is a tonnage claim outside this orb's ownership and traceable only to low-quality secondary blogs."
+    },
+    {
+      "signal_id": "copper-chile-el-nino-water-constraint-relief",
+      "owner_orb": "commodity-weather-seasonality",
+      "economic_cluster": "weather-seasonality",
+      "role": "context",
+      "horizon": "strategic",
+      "direction": "bearish",
+      "strength": 0.1,
+      "as_of": "2026-08-28T00:00:00Z",
+      "expiry": "2027-03-31T00:00:00Z",
+      "source_vintage_ids": [
+        "unvintaged:noaa-cpc-enso-diagnostic-discussion-issued-2026-08-13:2026-08-28",
+        "unvintaged:cochilco-2024-mining-water-mix-via-secondary-summary:2026-08-28"
+      ],
+      "source_vintage_refs": [],
+      "signal_kind": "observational",
+      "validation_ref": null,
+      "validation_status": "source_unverified",
+      "conviction_eligible": false,
+      "numerator_series_id": null,
+      "denominator_series_id": null,
+      "contradicts": [
+        "copper-andean-el-nino-mine-disruption-risk"
+      ],
+      "notes": "The OPPOSING side of the same ENSO fact, emitted as a separate linked row rather than averaged away (MODULE_RULES section 8). Above-normal Chilean precipitation under a strong El Nino would EASE the water constraint that has limited concentrator throughput through Chile's roughly 15-year drought, which is price-negative over the strategic horizon - the mirror image of the near-term disruption risk. Both are unrealised. Separately, the structural sensitivity of Chilean copper to continental rainfall is FALLING: COCHILCO (2024, via secondary summary) reports desalinated or reused water already meets about 40% of northern-mining water demand, up from 25% in 2020 and projected above 65% by 2032; Los Pelambres has run a roughly US$2bn desalination plant since March 2024 at 400 litres/second with a doubling to 800 l/s targeted for 2027. That substitution is the evidence-based reason the weather lens is weak for copper and weakening further. Water and permitting as a supply constraint are owned by commodity-supply (orb 01); this row casts no tonnage vote. This row and copper-andean-el-nino-mine-disruption-risk carry opposite directions inside one cluster and therefore make that cluster an explicit contradiction, which is the honest representation and is never conviction-eligible."
+    },
+    {
+      "signal_id": "copper-chile-winter-storm-episode-closed",
+      "owner_orb": "commodity-weather-seasonality",
+      "economic_cluster": "weather-seasonality",
+      "role": "context",
+      "horizon": "tactical",
+      "direction": "neutral",
+      "strength": 0.05,
+      "as_of": "2026-07-23T00:00:00Z",
+      "expiry": null,
+      "source_vintage_ids": [
+        "unvintaged:antofagasta-los-pelambres-operational-update-via-secondary-reporting:2026-08-28"
+      ],
+      "source_vintage_refs": [],
+      "signal_kind": "observational",
+      "validation_ref": null,
+      "validation_status": "source_unverified",
+      "conviction_eligible": false,
+      "numerator_series_id": null,
+      "denominator_series_id": null,
+      "contradicts": [],
+      "notes": "REALISED AND RESOLVED - recorded so the episode is not later mistaken for a live constraint. Severe central-Chile winter storms in July 2026 caused an orderly shutdown of roughly five days at Antofagasta's Los Pelambres; production restarted 2026-07-23 with no injuries and no significant damage to equipment or essential infrastructure, and the company reaffirmed full-year production guidance, i.e. no material impact on planned output. Source is secondary reporting of the operator's own update (Proactive / Yahoo Finance / TipRanks), retrieved 2026-08-28, unverified. Direction neutral and strength 0.05 because as of 2026-08-28 the episode is over and reversed; it demonstrates the exposure rather than constituting a standing push on the balance. Any residual tonnage question belongs to commodity-supply (orb 01). Codelco's separately reported El Teniente expansion pause is attributed to seismic risk, NOT weather, and is deliberately excluded from this weather row."
+    }
+  ],
+  "correlation_edges": []
+}
