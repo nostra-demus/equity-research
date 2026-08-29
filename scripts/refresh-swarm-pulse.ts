@@ -11,7 +11,7 @@ async function main(): Promise<void> {
     return
   }
 
-  const snapshot = await getPulse(swarm)
+  const snapshot = await getPulse(swarm, { requirePriceHistory: true })
   const price = snapshot?.subjects?.[subject]?.price
   if (!price) {
     console.log(`PULSE-MISSING: ${swarm}/${subject}; coverage will abstain if no current cached quote exists`)

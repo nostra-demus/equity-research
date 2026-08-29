@@ -19,7 +19,8 @@
 // pulseCotTtlHours), with a single-flight guard so concurrent requests share one fetch, and the last
 // good snapshot persisted under STATE_DIR so a restart doesn't open with an empty pulse. On a fetch
 // failure the previous data for that half is kept and the snapshot says `stale: true`. Reports and
-// verdicts are recomputed every call (pure local reads, cheap). Never throws.
+// verdicts are recomputed every call (pure local reads, cheap). UI calls never throw; the headless
+// research refresh fails when it cannot preserve the exact price snapshot needed at decision time.
 //
 // Security posture: the HOSTS are hardcoded here (quote.cnbc.com, publicreporting.cftc.gov).
 // The config file (frameworks/commodity/pulse_sources.json, path declared by the swarm manifest's
@@ -51,6 +52,9 @@ export interface PulseDeps {
   stateDir?: string
   repoRoot?: string
   manifest?: { id: string; wire?: { pulse?: string }; runRootTemplate?: string; placeholder?: string }
+  // Headless research must prove the point-in-time price archive landed before it dispatches orbs.
+  // The ordinary UI keeps best-effort persistence so a local disk problem does not break the wire.
+  requirePriceHistory?: boolean
 }
 
 // ---- config (frameworks/commodity/pulse_sources.json) ----
@@ -343,17 +347,26 @@ function atomicJsonReplace(file: string, value: unknown): void {
  * when ordinary cockpit polling refreshes commodity-pulse.json while the analytical orbs are running.
  */
 function persistPriceHistory(stateDir: string, swarmId: string, entry: CacheEntry): void {
-  try {
-    if (!Number.isSafeInteger(entry.price.at) || entry.price.at <= 0) return
-    const material = { swarm: swarmId, priceAt: entry.price.at, prices: entry.price.data }
-    const digest = createHash('sha256').update(canonicalJsonText(material), 'utf8').digest('hex')
-    const directory = path.join(
-      stateDir, 'commodity-pulse-history', createHash('sha256').update(swarmId, 'utf8').digest('hex'),
-    )
-    const target = path.join(directory, `${entry.price.at}-${digest}.json`)
-    if (fs.existsSync(target)) return
-    atomicJsonReplace(target, { schema_version: 1, ...material, snapshot_sha256: `sha256:${digest}` })
-  } catch { /* history is best-effort; the mutable cache and returned snapshot remain available */ }
+  if (!Number.isSafeInteger(entry.price.at) || entry.price.at <= 0) return
+  const material = { swarm: swarmId, priceAt: entry.price.at, prices: entry.price.data }
+  const digest = createHash('sha256').update(canonicalJsonText(material), 'utf8').digest('hex')
+  const directory = path.join(
+    stateDir, 'commodity-pulse-history', createHash('sha256').update(swarmId, 'utf8').digest('hex'),
+  )
+  const target = path.join(directory, `${entry.price.at}-${digest}.json`)
+  const snapshot = { schema_version: 1, ...material, snapshot_sha256: `sha256:${digest}` }
+  if (fs.existsSync(target)) {
+    const existing = JSON.parse(fs.readFileSync(target, 'utf8'))
+    if (canonicalJsonText(existing) !== canonicalJsonText(snapshot)) {
+      throw new Error(`commodity pulse history target is not the expected immutable snapshot: ${target}`)
+    }
+    return
+  }
+  atomicJsonReplace(target, snapshot)
+}
+
+function archivePriceHistory(stateDir: string, swarmId: string, entry: CacheEntry, required: boolean): void {
+  try { persistPriceHistory(stateDir, swarmId, entry) } catch (error) { if (required) throw error }
 }
 
 function loadPersisted(stateDir: string, swarmId: string): CacheEntry {
@@ -372,7 +385,7 @@ function loadPersisted(stateDir: string, swarmId: string): CacheEntry {
   }
 }
 
-function persist(stateDir: string, swarmId: string, entry: CacheEntry): void {
+function persist(stateDir: string, swarmId: string, entry: CacheEntry, requirePriceHistory: boolean): void {
   try {
     fs.mkdirSync(stateDir, { recursive: true })
     let j: Record<string, unknown> = {}
@@ -380,7 +393,10 @@ function persist(stateDir: string, swarmId: string, entry: CacheEntry): void {
     j[swarmId] = { priceAt: entry.price.at, prices: entry.price.data, cotAt: entry.cot.at, cots: entry.cot.data }
     persistPriceHistory(stateDir, swarmId, entry)
     atomicJsonReplace(persistFile(stateDir), j)
-  } catch { /* persistence is best-effort — the in-memory snapshot still serves */ }
+  } catch (error) {
+    if (requirePriceHistory) throw error
+    // UI persistence is best-effort — the in-memory snapshot still serves.
+  }
 }
 
 // ---- the two refreshes (each replaces its WHOLE half only on a successful fetch) ----
@@ -443,7 +459,8 @@ async function refreshCot(entry: CacheEntry, cfg: PulseSourcesConfig, fetchFn: t
 /**
  * Build the pulse snapshot for a swarm. Returns null when the swarm doesn't exist, declares no
  * `wire.pulse`, its config is unreadable, or NEWS.pulseEnabled is off — the route treats null as
- * "this swarm has no pulse". Never throws.
+ * "this swarm has no pulse". Ordinary UI calls never throw. A headless research call with
+ * `requirePriceHistory` throws when its point-in-time archive cannot be written.
  */
 export async function getPulse(swarmId: string, deps: PulseDeps = {}): Promise<PulseSnapshot | null> {
   try {
@@ -478,15 +495,15 @@ export async function getPulse(swarmId: string, deps: PulseDeps = {}): Promise<P
         if (priceStale) tasks.push(refreshPrices(e, cfg, fetchFn, now, NEWS.pulseTimeoutMs))
         if (cotStale) tasks.push(refreshCot(e, cfg, fetchFn, now, NEWS.pulseTimeoutMs))
         e.inflight = Promise.all(tasks)
-          .then(() => persist(stateDir, manifest.id, e))
-          .catch(() => { /* refreshes never throw, but never let a rejection escape the guard */ })
+          .then(() => persist(stateDir, manifest.id, e, deps.requirePriceHistory === true))
+          .catch((error) => { if (deps.requirePriceHistory) throw error })
           .finally(() => { e.inflight = null })
       }
       await entry.inflight
     }
     // A within-TTL refresh may only read a legacy mutable warm-start file. Archive that exact price
     // half too, so the /commodity:full preflight always leaves a point-in-time snapshot behind.
-    persistPriceHistory(stateDir, manifest.id, entry)
+    archivePriceHistory(stateDir, manifest.id, entry, deps.requirePriceHistory === true)
 
     // reports + verdicts are pure local reads — recomputed every call, never cached
     const subjectsSource = (manifest as { subjectsSource?: string }).subjectsSource
@@ -521,7 +538,8 @@ export async function getPulse(swarmId: string, deps: PulseDeps = {}): Promise<P
     // and we are serving the previous data — or nothing at all). Fresh halves ⇒ false.
     const stale = nowMs - entry.price.at > priceTtlMs || nowMs - entry.cot.at > cotTtlMs
     return { swarm: manifest.id, as_of: new Date(nowMs).toISOString(), stale, subjects }
-  } catch {
+  } catch (error) {
+    if (deps.requirePriceHistory) throw error
     return null // never throws — the route treats null as "no pulse available"
   }
 }

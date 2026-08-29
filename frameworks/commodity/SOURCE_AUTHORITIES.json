@@ -105,6 +105,15 @@
       "capital_iq_fallback": "A licensed export may fill one leg, but the connector must still preserve USDA sales, cancellations and shipments plus China arrivals as separate dated fields."
     },
     {
+      "id": "soybeans-board-crush",
+      "need_pattern": "^soybeans-board-crush$",
+      "preferred_route": "derived_from_aligned_cme_settlements",
+      "authorities": [
+        {"provider": "CME Group CBOT soybean, soybean-meal, and soybean-oil settlements", "url": "https://www.cmegroup.com/market-data/settlements.html", "access": "mixed"}
+      ],
+      "capital_iq_fallback": "A licensed export may supply the exact CME settlement legs, but all three contracts must use aligned months and preserve the stated conversion yields, fees, units, formulas, and parent vintage IDs."
+    },
+    {
       "id": "china-activity-trade",
       "need_pattern": "(china-industrial|china-import|china-demand)",
       "preferred_route": "automatic_or_manual_government_release",
@@ -132,6 +141,15 @@
         {"provider": "Relevant central bank, Federal Reserve, BIS, or IMF", "url": "https://www.bis.org/statistics/full_data_sets.htm", "access": "public"}
       ],
       "capital_iq_fallback": "Use a licensed spot/real-effective FX series with the currency pair, fixing time, and rate convention stated."
+    },
+    {
+      "id": "gold-comex-inventory-deliveries",
+      "need_pattern": "^gold-comex-inventory-deliveries$",
+      "preferred_route": "manual_cme_official_report",
+      "authorities": [
+        {"provider": "CME Group COMEX official inventory and delivery reports", "url": "https://www.cmegroup.com/clearing/operations-and-deliveries/nymex-delivery-notices.html", "access": "mixed"}
+      ],
+      "capital_iq_fallback": "Not permitted for this CME-only series. If no stable lawful machine route exists, ingest the dated CME official report manually or leave the series unavailable."
     },
     {
       "id": "exchange-price-structure",

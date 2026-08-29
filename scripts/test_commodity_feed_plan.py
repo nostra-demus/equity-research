@@ -32,6 +32,12 @@ gold = next(plan for plan in plans if plan["commodity"] == "GOLD")
 for need in ("gold-comex-inventory-deliveries", "gold-official-reserve-changes"):
     row = next(item for item in gold["rows"] if item["need_id"] == need)
     assert row["status"] == "build_needed" and row["incompatibility_reasons"]
+comex = next(row for row in gold["rows"] if row["need_id"] == "gold-comex-inventory-deliveries")
+assert comex["source_rule_id"] == "gold-comex-inventory-deliveries"
+assert {authority["provider"] for authority in comex["authorities"]} == {
+    "CME Group COMEX official inventory and delivery reports",
+}
+assert "not permitted" in comex["capital_iq_fallback"].lower()
 aluminium = next(plan for plan in plans if plan["commodity"] == "ALUMINIUM")
 for need in ("aluminium-lme-investment-fund-positioning", "aluminium-primary-production"):
     row = next(item for item in aluminium["rows"] if item["need_id"] == need)
@@ -61,6 +67,13 @@ for need in (
     assert "Federal Energy Regulatory Commission" in providers
     assert "U.S. Department of Energy natural-gas import/export reports" in providers
     assert "ENTSOG Transparency Platform and primary transmission operators" in providers
+soybeans = next(plan for plan in plans if plan["commodity"] == "SOYBEANS")
+board_crush = next(row for row in soybeans["rows"] if row["need_id"] == "soybeans-board-crush")
+assert board_crush["source_rule_id"] == "soybeans-board-crush"
+assert {authority["provider"] for authority in board_crush["authorities"]} == {
+    "CME Group CBOT soybean, soybean-meal, and soybean-oil settlements",
+}
+assert "aligned months" in board_crush["capital_iq_fallback"]
 fund_rows = [
     row for plan in plans for row in plan["rows"]
     if row["source_rule_id"] == "fund-holdings-flows"

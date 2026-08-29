@@ -81,6 +81,9 @@ assert profile_owners <= set(real_owners)
 full_command = (
     Path(__file__).resolve().parents[1] / ".claude/commands/commodity/full.md"
 ).read_text(encoding="utf-8")
+pulse_refresh = (
+    Path(__file__).resolve().parents[1] / "scripts/refresh-swarm-pulse.ts"
+).read_text(encoding="utf-8")
 assert 'mkdir -p "commodity/runs/<COMMODITY>" "data/<COMMODITY>"' in full_command
 assert "commodity_evidence_delta.py" in full_command
 assert full_command.count("refresh-swarm-pulse.sh commodity") == 1
@@ -89,5 +92,6 @@ assert '--write-state' in full_command
 assert '--read-decision-time' in full_command
 assert '--module-status "$MOD"' in full_command
 assert "EVIDENCE_INVALIDATED_MODULES" not in full_command
+assert "requirePriceHistory: true" in pulse_refresh
 
 print("PASS: changed evidence invalidates its owning commodity modules")

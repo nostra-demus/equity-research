@@ -393,5 +393,42 @@ await check('getPulse single-flight: two concurrent calls share ONE fetch per so
   assert.deepEqual(a!.subjects.GOLD.price, b!.subjects.GOLD.price)
 })
 
+await check('headless refresh fails closed before replacing the mutable cache when price history cannot be archived', async () => {
+  const repo3 = makeRepo()
+  const state3 = tmp()
+  fs.writeFileSync(path.join(state3, 'commodity-pulse-history'), 'not a directory')
+  const m3 = makeManifest('pulse-history-fail')
+  const f3 = makeFetch()
+  await assert.rejects(
+    getPulse('pulse-history-fail', {
+      manifest: m3, fetchFn: f3.fetchFn, now: at(T0), stateDir: state3, repoRoot: repo3,
+      requirePriceHistory: true,
+    }),
+    /not a directory|ENOTDIR/i,
+  )
+  assert.equal(
+    fs.existsSync(path.join(state3, 'commodity-pulse.json')), false,
+    'the warm-start cache cannot become the only surviving copy of the refreshed price half',
+  )
+})
+
+await check('headless refresh rejects an existing malformed content-addressed history target', async () => {
+  const repo4 = makeRepo()
+  const state4 = tmp()
+  const m4 = makeManifest('pulse-history-corrupt')
+  const f4 = makeFetch()
+  const base: PulseDeps = { manifest: m4, fetchFn: f4.fetchFn, now: at(T0), stateDir: state4, repoRoot: repo4 }
+  assert.ok(await getPulse('pulse-history-corrupt', base))
+  const historyDir = path.join(
+    state4, 'commodity-pulse-history', createHash('sha256').update('pulse-history-corrupt').digest('hex'),
+  )
+  const target = path.join(historyDir, fs.readdirSync(historyDir)[0])
+  fs.writeFileSync(target, '{"wrong":true}\n')
+  await assert.rejects(
+    getPulse('pulse-history-corrupt', { ...base, now: at(T0 + 60_000), requirePriceHistory: true }),
+    /not the expected immutable snapshot/,
+  )
+})
+
 for (const d of tmpdirs) fs.rmSync(d, { recursive: true, force: true })
 console.log(`\ncommodity-pulse.test.ts: ${passed} passed`)
