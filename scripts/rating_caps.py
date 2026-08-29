@@ -494,25 +494,46 @@ _BB_CONF_RE = re.compile(
     r"(?![\d.]|\s*(?:(?:%|percent\b)\s*)?(?:[-–—/]|to\b|through\b|or\b)\s*\d)",
     re.IGNORECASE,
 )
+_BB_VERDICT_HEADING_RE = re.compile(
+    r"^(#{1,6})\s+1\.\s+Valuation Verdict\s*#*\s*$", re.IGNORECASE,
+)
+_BB_HEADING_RE = re.compile(r"^(#{1,6})\s+\S")
 
 def _bb_parse_valuation_confidence(synth_txt):
     """Extract the numeric 'Valuation confidence /100' figure from 99_valuation-synthesis.md's own
-    §1 Verdict block text. Returns an int 0-100, or None if the line is absent/unparseable. Scans
-    line-by-line (not the whole blob) so a match is always anchored to the actual stated-score line,
-    never to an unrelated number elsewhere in the file. A non-whole or ranged score (`55.9`, `55–60`,
-    `55 to 60`, `55%–60%`)
+    §1 Verdict block text. Returns an int 0-100, or None if the block or its one score line is
+    absent/unparseable. The block boundary prevents a later Score Cap Application explanation from
+    substituting for a missing Verdict score; requiring exactly one confidence line also fails closed
+    on conflicting values. A non-whole or ranged score (`55.9`, `55–60`, `55 to 60`, `55%–60%`)
     is treated as unparseable → None → the caller fails closed rather than truncating it to a value
     that spuriously respects the cap (Codex review P2)."""
     if not synth_txt:
         return None
-    for line in synth_txt.splitlines():
-        if "valuation confidence" not in line.lower():
+    lines = synth_txt.splitlines()
+    block = None
+    for index, line in enumerate(lines):
+        heading = _BB_VERDICT_HEADING_RE.match(line.strip())
+        if not heading:
             continue
-        m = _BB_CONF_RE.search(line)
-        if m:
-            v = int(m.group(1))
-            if 0 <= v <= 100:
-                return v
+        level = len(heading.group(1))
+        end = len(lines)
+        for candidate in range(index + 1, len(lines)):
+            next_heading = _BB_HEADING_RE.match(lines[candidate].strip())
+            if next_heading and len(next_heading.group(1)) <= level:
+                end = candidate
+                break
+        block = lines[index + 1:end]
+        break
+    if block is None:
+        return None
+    score_lines = [line for line in block if "valuation confidence" in line.lower()]
+    if len(score_lines) != 1:
+        return None
+    match = _BB_CONF_RE.search(score_lines[0])
+    if match:
+        value = int(match.group(1))
+        if 0 <= value <= 100:
+            return value
     return None
 
 def eval_bb_sector_cycle_compounding_cap(decision_date, mult_txt, peer_txt, synth_txt):
