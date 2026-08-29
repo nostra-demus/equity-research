@@ -11,7 +11,7 @@ import { parseMemoryRead, parseMemoryRuntimeRead, unavailableMemoryRead } from '
 import { publishedPaperExecutionResult } from './paperPortfolioView'
 import { CHAT_MODELS, chatModelsReadAfterFailure, normalizeChatModelsRead, type ChatModelsRead } from './chatModels'
 import { normalizeProvidersRead, normalizeProviderStatus, providerCatalogForError, providerCatalogUnknown, providerLaunchFields, type FrozenProviderLaunch, type ProviderExecutionProfile, type ProvidersRead, type RunProvider } from './provider'
-import type { ActivityQuery, ActivityResult, AddPipelineSourceInput, BuildStep, CallsResult, ChatComputed, ChatConversationDetail, ChatListQuery, ChatListResult, ChatRequest, ChatScopes, CockpitFeedbackCategory, CockpitFeedbackStatus, CockpitFeedbackView, CompletedChatTurn, ContinuationPlanReceipt, CoverageGroup, DataNeedsRead, DataNeedUploadRead, DataStatus, DiscoveredFeed, EventEnrichment, EventResearchLink, FeedbackRecord, FeedbackSubmitInput, FeedbackSummary, FeedbackType, FeedItem, IbkrPaperPortfolioRead, IntakePlan, IntensityStats, IntensityWindow, LaunchableRunKind, LaunchPreflight, MemoryRead, MemoryRuntimeRead, NewCompanyInput, NewsChatEvidence, NewsChatReceipt, NewsChatRequest, NewsCycle, NewsDiagnostics, NewsStatus, PaperExecutionResult, PipelineAuditEvent, PipelineTrend, PipelineView, QuoteRead, PortfolioManualInput, PortfolioManualRead, PortfolioLiveMark, PortfolioOverrides, PortfolioRead, PortfolioUploadResult, ResumableRunInfo, RunHistoryEntry, RunKind, ScanVerdict, ScreenerBoard, SignalIntakeInput, SignalState, SourcesReport, SwarmGraph, SwarmMeta, SwarmSubjectSummary, ThesisPlan, TickerSummary, UploadResult, Usage, WhatChangedRead, Whoami } from './types'
+import type { ActivityQuery, ActivityResult, AddPipelineSourceInput, BuildStep, CallsResult, ChatComputed, ChatConversationDetail, ChatListQuery, ChatListResult, ChatRequest, ChatScopes, CockpitFeedbackCategory, CockpitFeedbackStatus, CockpitFeedbackView, CompletedChatTurn, ContinuationPlanReceipt, CoverageGroup, DataNeedsRead, DataNeedUploadRead, DataStatus, DiscoveredFeed, EventEnrichment, EventResearchLink, FeedbackRecord, FeedbackSubmitInput, FeedbackSummary, FeedbackType, FeedItem, IbkrPaperPortfolioRead, IntakePlan, IntensityStats, IntensityWindow, LaunchableRunKind, LaunchPreflight, MemoryRead, MemoryRuntimeRead, NewCompanyInput, NewsChatEvidence, NewsChatReceipt, NewsChatRequest, NewsCycle, NewsDiagnostics, NewsStatus, PaperExecutionResult, PendingAdmission, PipelineAuditEvent, PipelineTrend, PipelineView, QuoteRead, PortfolioManualInput, PortfolioManualRead, PortfolioLiveMark, PortfolioOverrides, PortfolioRead, PortfolioUploadResult, ResumableRunInfo, RunHistoryEntry, RunKind, ScanVerdict, ScreenerBoard, SignalIntakeInput, SignalState, SourcesReport, SwarmGraph, SwarmMeta, SwarmSubjectSummary, ThesisPlan, TickerSummary, UploadResult, Usage, WhatChangedRead, Whoami } from './types'
 
 // Vite supplies `import.meta.env` in the app; standalone tsx regression tests do not.
 const BASE = import.meta.env?.BASE_URL || '/'
@@ -33,6 +33,23 @@ export interface ProviderReceiptFields {
   reasoningLevel?: string
 }
 export type LaunchResponse = ProviderReceiptFields & { runId: string; preflight: LaunchPreflight; chained?: boolean; skipped?: string[]; planned?: string[]; resumed?: boolean }
+export interface QueuedLaunchResponse {
+  queued: true
+  requestId: string
+  status: 'waiting_for_update' | 'admitting' | 'needs_attention'
+  ticker: string
+  action: 'continue' | 'full'
+  sourceRunRoot?: string
+  provider: RunProvider
+  expectedProfileKey?: string
+}
+export function isQueuedLaunchResponse(value: unknown): value is QueuedLaunchResponse {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) return false
+  const row = value as Record<string, unknown>
+  return row.queued === true && typeof row.requestId === 'string'
+    && (row.action === 'continue' || row.action === 'full')
+    && (row.provider === 'claude' || row.provider === 'codex')
+}
 export interface ProviderParityCanaryRequest {
   provider: RunProvider
   model: string
@@ -1067,7 +1084,7 @@ export const api = {
     }
     return get(`/api/launch/estimate?${qs.toString()}`)
   },
-  launch: async (body: { selection: FrozenProviderLaunch; kind: LaunchableRunKind; ticker: string; module?: string; agent?: string; window?: string; confirmTicker?: string; force?: boolean; swarm?: string; runRoot?: string; decisionFingerprint?: string }): Promise<LaunchResponse> => {
+  launch: async (body: { selection: FrozenProviderLaunch; kind: LaunchableRunKind; ticker: string; module?: string; agent?: string; window?: string; confirmTicker?: string; requestId?: string; force?: boolean; swarm?: string; runRoot?: string; decisionFingerprint?: string }): Promise<LaunchResponse> => {
     if ((await ensureMode()) === 'static') throw STATIC_ERR()
     if (body.kind === 'rerun') throw new Error('exact reruns require the versioned launch endpoint')
     const { selection, ...request } = body
@@ -2000,6 +2017,14 @@ export const api = {
     for (const [k, v] of Object.entries(query)) if (v !== undefined && v !== '' && v !== null) qs.set(k, String(v))
     const s = qs.toString()
     return get(`/api/activity${s ? `?${s}` : ''}`)
+  },
+  pendingAdmissions: async (): Promise<{ requests: PendingAdmission[] }> => {
+    if ((await ensureMode()) === 'static') return { requests: [] }
+    return get('/api/pending-admissions')
+  },
+  cancelPendingAdmission: async (requestId: string): Promise<{ ok: boolean; request: PendingAdmission }> => {
+    if ((await ensureMode()) === 'static') throw STATIC_ERR()
+    return post(`/api/pending-admissions/${encodeURIComponent(requestId)}/cancel`)
   },
 
   // ---- saved chat history (persisted Ask conversations) — live only ----

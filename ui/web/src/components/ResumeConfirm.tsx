@@ -35,6 +35,7 @@ export function ResumeConfirm() {
   const rc = useStore((s) => s.resumeConfirm)
   const providers = useStore((s) => s.providers)
   const launchPending = useStore((s) => s.launchPending)
+  const health = useStore((s) => s.health)
   const changeProvider = useStore((s) => s.changeResumeProvider)
   const changeProfile = useStore((s) => s.changeResumeProfile)
   const confirm = useStore((s) => s.confirmResume)
@@ -59,6 +60,10 @@ export function ResumeConfirm() {
       ? `${remaining} remaining ${noun}${remaining === 1 ? '' : 's'}`
       : 'Final synthesis only'
   const action = rc.kind === 'signal' && rc.override ? 'Override & complete remaining' : 'Complete remaining work'
+  const preflight = rc.preflight
+  const costEstimated = preflight?.estimateEvidence?.source === 'comparable_completed_runs' && preflight.estCostUsdRange[1] > 0
+  const timeEstimated = preflight?.estimateEvidence?.source === 'comparable_completed_runs' && preflight.estMinutesRange[1] > 0
+  const queueingUpdate = health === 'updating' && rc.kind === 'run' && (rc.info.swarm || 'research') === 'research' && rc.info.kind === 'full'
 
   return (
     <div className="scrim" onClick={cancel}>
@@ -75,7 +80,7 @@ export function ResumeConfirm() {
         <div className="modal__head">
           <div className="resumeconfirm__eyebrow">Continue saved work</div>
           <div className="modal__title" id="resume-confirm-title">Complete {rc.label}</div>
-          <div className="modal__sub">Choose who finishes the run. Completed work stays intact; only the unfinished work runs.</div>
+          <div className="modal__sub">{queueingUpdate ? 'Save this exact Continue request. It starts once after the update is healthy; completed work stays intact.' : 'Choose who finishes the run. Completed work stays intact; only the unfinished work runs.'}</div>
         </div>
         <div className="modal__body">
           <div className="modal__row"><span className="modal__k">Continue with</span><span className="modal__v">
@@ -101,7 +106,10 @@ export function ResumeConfirm() {
             <ProviderProfileSelector status={status} profileKey={rc.selection.expectedProfileKey} disabled={starting} onChange={changeProfile} />
           </span></div>
           <div className="modal__row"><span className="modal__k">Already complete</span><span className="modal__v">{completedCopy}</span></div>
-          <div className="modal__row"><span className="modal__k">Runs now</span><span className="modal__v">{remainingCopy}</span></div>
+          <div className="modal__row"><span className="modal__k">Runs now</span><span className="modal__v">{preflight ? `${preflight.agentCount} exact orbs` : remainingCopy}</span></div>
+          {provider === 'claude' ? <div className="modal__row"><span className="modal__k">Est. cost</span><span className="modal__v">{costEstimated ? `$${preflight!.estCostUsdRange[0]}–${preflight!.estCostUsdRange[1]}` : 'Estimate unavailable'}</span></div> : <div className="modal__row"><span className="modal__k">Allowance impact</span><span className="modal__v">{preflight ? `${preflight.agentCount} orbs` : remainingCopy} · exact allowance change unavailable</span></div>}
+          <div className="modal__row"><span className="modal__k">Est. time</span><span className="modal__v">{timeEstimated ? `${preflight!.estMinutesRange[0]}–${preflight!.estMinutesRange[1]} min` : 'Estimate unavailable'}</span></div>
+          {preflight?.estimateEvidence?.source === 'comparable_completed_runs' && <div className="modal__row"><span className="modal__k">Estimate basis</span><span className="modal__v">same {providerLabel(provider)} model · {Math.max(preflight.estimateEvidence.durationSampleSize, preflight.estimateEvidence.costSampleSize)} completed runs</span></div>}
           <div className="modal__row"><span className="modal__k">Original execution</span><span className="modal__v resumeconfirm__original">{recordedExecutionLabel(rc.records)}</span></div>
           <div className="modal__row"><span className="modal__k">Provenance</span><span className={`modal__v${disposition === 'exact' ? '' : ' warn'}`}>{resumeModeLabel[disposition]}</span></div>
         </div>
@@ -112,7 +120,7 @@ export function ResumeConfirm() {
         <div className="modal__actions">
           <button className="btn btn--ghost" disabled={starting} onClick={cancel}>Cancel</button>
           <button className="btn btn--amber" disabled={starting || !!providerProblem} title={providerProblem || undefined} onClick={() => void confirm()}>
-            {starting ? <><Spin /> Starting…</> : action}
+            {starting ? <><Spin /> {queueingUpdate ? 'Saving…' : 'Starting…'}</> : queueingUpdate ? 'Queue Continue' : action}
           </button>
         </div>
       </motion.div>

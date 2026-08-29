@@ -117,6 +117,8 @@ export function RunNowSection() {
   const now = useStore((s) => s.now) // the shared 1s clock owned by SwarmField; ticks only while orbs run
   const launchPending = useStore((s) => s.launchPending)
   const stoppingRuns = useStore((s) => s.stoppingRuns)
+  const pendingAdmissions = useStore((s) => s.pendingAdmissions)
+  const cancelPendingAdmission = useStore((s) => s.cancelPendingAdmission)
 
   // run-adaptive expected duration per orb class (gate / specialist / synthesis), learned from finished orbs
   const exp = useMemo(() => expectedDurations(collectSamples(nodeRuntime, (k) => { const n = nodesByKey.get(k); return n ? orbClass(n) : 'specialist' })), [nodeRuntime, nodesByKey])
@@ -124,6 +126,9 @@ export function RunNowSection() {
   // the scope's runs + the click→ack window, from the shared helper the dock shell also reads (lib/runScope)
   const runs = runsForScope(activeRuns, activeSwarm, ticker)
   const pendingHere = pendingForScope(launchPending, activeSwarm, ticker)
+  const queuedHere = activeSwarm === 'research'
+    ? pendingAdmissions.filter((request) => !ticker || request.ticker === ticker)
+    : []
 
   const perRun = runs.map((run) => {
     const rows = runStream.filter((r) => r.runId === run.runId)
@@ -136,13 +141,47 @@ export function RunNowSection() {
   })
   // Nothing running and nothing just-finished for this subject: the section says so in one quiet line
   // rather than vanishing, so the dock's shape doesn't jump as runs come and go.
-  if (!runs.length && runStream.length === 0 && !pendingHere) {
+  if (!runs.length && runStream.length === 0 && !pendingHere && queuedHere.length === 0) {
     return <div className="adock__idle">Nothing running for this {activeSwarm === 'screener' ? 'signal' : 'company'} right now. Anything you launch appears here as it happens.</div>
   }
 
   return (
     <>
       <div className="sidepanel__body">
+        {queuedHere.map((request) => {
+          const state = request.status === 'waiting_for_update'
+            ? 'Waiting for update'
+            : request.status === 'admitting'
+              ? 'Starting after update'
+              : 'Needs attention'
+          const diff = request.planDifference
+          const changed = diff && (diff.addedPayableOrbKeys.length || diff.removedPayableOrbKeys.length)
+          return (
+            <div key={request.requestId} className="sidepanel__runcard" style={{ borderBottom: '1px solid var(--hairline)', padding: '8px 16px', marginBottom: 6 }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                <div style={{ minWidth: 0, flex: 1 }}>
+                  <div className="sidepanel__title" style={{ fontSize: 13 }}>{request.action === 'continue' ? 'Complete old run' : 'Full run'} · {request.ticker}</div>
+                  <div className="sidepanel__meta">{state} · {providerLabel(request.provider)} · {request.expectedProfileKey || 'profile unknown'}</div>
+                </div>
+                {(request.status === 'waiting_for_update' || request.status === 'needs_attention') && (
+                  <button className="btn btn--danger" style={{ height: 26, padding: '0 9px', fontSize: 12 }} onClick={() => void cancelPendingAdmission(request.requestId)}>Cancel</button>
+                )}
+              </div>
+              <div className="sidepanel__meta" style={{ paddingTop: 5 }}>
+                {request.status === 'waiting_for_update'
+                  ? 'No paid work has started. This exact request survives refresh and restart.'
+                  : request.status === 'admitting'
+                    ? 'The update is healthy. Rechecking the exact plan before any paid work starts.'
+                    : request.attention || 'Nothing was started automatically. Review this request.'}
+              </div>
+              {changed ? (
+                <div className="sidepanel__meta" style={{ paddingTop: 4 }}>
+                  Plan changed after update: {diff!.addedPayableOrbKeys.length} added, {diff!.removedPayableOrbKeys.length} removed. {request.action === 'continue' ? 'It remains Continue, never Full.' : ''}
+                </div>
+              ) : null}
+            </div>
+          )
+        })}
         {/* click→ack window: the launch was fired and the server hasn't answered yet */}
         {pendingHere && !runs.some((r) => LIVEISH.has(r.status)) && (
           <div className="sidepanel__empty" style={{ display: 'flex', alignItems: 'center', gap: 8 }}>

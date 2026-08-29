@@ -482,6 +482,13 @@ export interface LaunchPreflight {
   agentCount: number
   estCostUsdRange: [number, number]
   estMinutesRange: [number, number]
+  estimateEvidence: {
+    source: 'comparable_completed_runs' | 'unavailable'
+    provider: RunProvider
+    profileKey: string
+    durationSampleSize: number
+    costSampleSize: number
+  }
   willCommitToMain: boolean
   estCommits: number
   requiresTypedConfirm: boolean

@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-import { api, ensureMode, EXACT_DECISION_LAUNCH_CONTRACT, isStatic, snapshotGeneratedAt } from './api'
+import { api, ensureMode, EXACT_DECISION_LAUNCH_CONTRACT, isQueuedLaunchResponse, isStatic, snapshotGeneratedAt } from './api'
 import type { ArchiveQuery, FeedFacets, SearchCursor } from './api'
 import { downstreamCascade, type CascadeNode } from './cascade'
 import { moduleLabel, preferRunRoot, resolveVerdict } from './format'
@@ -16,7 +16,7 @@ import { affectedModules, focusKeysFor } from './intake'
 import { moduleRunAffordance, moduleRunInputModules } from './moduleRun'
 import { preflightConfirmationMatches } from './launchExperience'
 import type { BridgeStatus } from './types'
-import type { ActiveRunLite, AgentNode, AskMemoryMeta, AskMemoryMode, BoardIdea, BoardInboxRow, BookFilterState, BookSort, ChatMessage, ChatScope, ChatStyle, ChatWork, ConvictionDetail, CoverageGroup, CycleSummary, DataNeedsRead, DataStatus, EventEnrichment, FeedbackSubmitInput, FeedbackType, FeedItem, HealthState, IntakePlan, IntensityStats, IntensityWindow, LaunchPreflight, ListingStatus, NewCompanyInput, NewsChatCompletedTurn, NewsChatEvidence, NewsChatReceipt, NewsChatWindow, NewsDiagnostics, NewsStatus, NodeRuntime, NodeStatus, QuoteRead, ReadinessReport, ResumableRunInfo, RunActivity, RunKind, ScreenerBoard, SignalIntakeInput, SignalState, SseEvent, SwarmGraph, SwarmMeta, SwarmSubjectSummary, ThesisPlan, ThesisPlanIntake, TickerSummary, Usage, WhatChangedRead } from './types'
+import type { ActiveRunLite, AgentNode, AskMemoryMeta, AskMemoryMode, BoardIdea, BoardInboxRow, BookFilterState, BookSort, ChatMessage, ChatScope, ChatStyle, ChatWork, ConvictionDetail, CoverageGroup, CycleSummary, DataNeedsRead, DataStatus, EventEnrichment, FeedbackSubmitInput, FeedbackType, FeedItem, HealthState, IntakePlan, IntensityStats, IntensityWindow, LaunchPreflight, ListingStatus, NewCompanyInput, NewsChatCompletedTurn, NewsChatEvidence, NewsChatReceipt, NewsChatWindow, NewsDiagnostics, NewsStatus, NodeRuntime, NodeStatus, PendingAdmission, QuoteRead, ReadinessReport, ResumableRunInfo, RunActivity, RunKind, ScreenerBoard, SignalIntakeInput, SignalState, SseEvent, SwarmGraph, SwarmMeta, SwarmSubjectSummary, ThesisPlan, ThesisPlanIntake, TickerSummary, Usage, WhatChangedRead } from './types'
 import { feedbackInputFromItem, feedbackLabel, polarityOf } from './feedbackTypes'
 import { emptyBookFilters } from '../components/screener/BookFilters'
 import { emptyDlFilters, type DlFilterState } from '../components/datalibrary/DataLibraryFilters'
@@ -359,6 +359,7 @@ const STREAM_LIVE_MS = 20000
 let lastStreamActivityAt = 0
 const HARD_DOWN = new Set<HealthState>(['engine-offline', 'your-network', 'session-expired'])
 export const isLaunchHealthBlocked = (health: HealthState): boolean => health === 'updating' || HARD_DOWN.has(health)
+export const isEngineUnavailable = (health: HealthState): boolean => HARD_DOWN.has(health)
 
 export const PROVIDER_REDISCOVERY_DELAYS_MS = [2_000, 5_000, 10_000, 20_000, 30_000] as const
 
@@ -474,6 +475,7 @@ export type ResumeConfirmation = {
   doneCount: number
   totalCount: number
   unit: ResumableRunInfo['unit']
+  preflight?: LaunchPreflight
 } & (
   | { kind: 'run'; info: ResumableRunInfo }
   | { kind: 'signal'; sigId: string; until?: string; override?: boolean }
@@ -529,6 +531,7 @@ interface State {
   nodeRuntime: Record<string, NodeRuntime>
   now: number // shared 1s clock for every live timer (orb/module/panel/tooltip); ticked only while orbs run
   activeRuns: Record<string, ActiveRun> // selected-ticker live runs (+ just-finished, until next switch)
+  pendingAdmissions: PendingAdmission[] // durable Run/Continue intents waiting across a reviewed update/restart
   resumableRuns: ResumableRunInfo[] // disk-truth set of interrupted runs the cockpit can resume (all swarms)
   activeRunsByTicker: Set<string> // live subject labels in activeSwarm only; globalActive remains unfiltered
   chainTickers: Set<string> // swarm\0subject keys whose full run is a per-module CHAIN
@@ -712,6 +715,8 @@ interface State {
   addCompany: (input: NewCompanyInput) => Promise<boolean>
   uploadFiles: (ticker: string, files: File[]) => Promise<void>
   refreshActiveRuns: () => Promise<void>
+  refreshPendingAdmissions: () => Promise<void>
+  cancelPendingAdmission: (requestId: string) => Promise<void>
   // disk-truth resumable set (interrupted runs across all swarms) + the manual Resume trigger. The
   // Activity log and the orb view join their rows/subjects against `resumableRuns` to show a Resume
   // affordance; `resumeRun` relaunches the unit into its existing folder, continuing from work on disk.
@@ -719,7 +724,7 @@ interface State {
   resumeRun: (info: ResumableRunInfo) => Promise<void>
   confirmResume: () => Promise<void>
   changeResumeProvider: (provider: RunProvider) => Promise<void>
-  changeResumeProfile: (profileKey: string) => void
+  changeResumeProfile: (profileKey: string) => Promise<void>
   cancelResume: () => void
   checkCredit: () => Promise<void>
   selectNode: (key: string | null) => void
@@ -1416,6 +1421,16 @@ function revealAcceptedTrackedLaunch(set: any, get: () => State): void {
   void get().refreshActiveRuns()
 }
 
+async function exactResumePreflight(info: ResumableRunInfo, execution: FrozenProviderLaunch): Promise<LaunchPreflight | undefined> {
+  if ((info.swarm || 'research') !== 'research' || info.kind !== 'full') return undefined
+  const plan = await api.thesisPlan(info.subject, execution, 'research', undefined, undefined, info.runRoot)
+  if (plan.continuationReceipt?.version !== 1 || plan.continuationReceipt.action !== 'continue'
+      || plan.continuationReceipt.targetRunRoot !== info.runRoot) {
+    throw new Error('The exact saved-run plan is unavailable. Refresh before continuing; nothing was started.')
+  }
+  return plan.preflight
+}
+
 async function verifyScopedRerunCapability(
   get: () => State,
   selection: LaunchSelectionBinding & { runRoot: string; decisionFingerprint: string },
@@ -1485,6 +1500,7 @@ export const useStore = create<State>((set, get) => ({
   nodeRuntime: {},
   now: Date.now(),
   activeRuns: {},
+  pendingAdmissions: [],
   resumableRuns: [],
   activeRunsByTicker: new Set(),
   chainTickers: new Set(),
@@ -1699,6 +1715,7 @@ export const useStore = create<State>((set, get) => ({
       // "resume live run" affordance on the picker (and the top-bar N-running pill), and starts the poll so
       // the banner clears itself the moment the run ends. Self-guarded (no-op in static mode).
       void get().refreshActiveRuns()
+      void get().refreshPendingAdmissions()
       // live data-folder watcher (Drive sync) — backend only
       if (!dataSource) {
         dataSource = new EventSource(api.dataStreamUrl())
@@ -1894,7 +1911,30 @@ export const useStore = create<State>((set, get) => ({
         }
       }
       schedulePoll(get, active.length > 0)
+      void get().refreshPendingAdmissions()
     } catch {}
+  },
+
+  // Durable admission truth is separate from active-run truth: while the engine is updating there is no
+  // runId yet, and inventing one would create the fake Activity entry this boundary exists to prevent.
+  refreshPendingAdmissions: async () => {
+    if (get().staticMode) return
+    try {
+      const { requests } = await api.pendingAdmissions()
+      const prior = new Map(get().pendingAdmissions.map((request) => [request.requestId, request.status]))
+      const newlyNeedsAttention = requests.some((request) => request.status === 'needs_attention' && prior.get(request.requestId) !== 'needs_attention')
+      set({ pendingAdmissions: requests, ...(newlyNeedsAttention ? { activityOpen: true } : {}) })
+    } catch {}
+  },
+
+  cancelPendingAdmission: async (requestId) => {
+    try {
+      await api.cancelPendingAdmission(requestId)
+      await get().refreshPendingAdmissions()
+      get().setToast({ msg: 'Waiting request cancelled — no run was started.', tone: 'info' })
+    } catch (e: any) {
+      get().setToast({ msg: e?.body?.error || e?.message || 'Could not cancel the waiting request.', tone: 'bad' })
+    }
   },
 
   // Pull the disk-truth set of interrupted runs the cockpit can resume (all swarms). Cheap, read-only;
@@ -1911,7 +1951,8 @@ export const useStore = create<State>((set, get) => ({
   // has seen and chosen the exact provider + reviewed model profile that will finish the saved work.
   resumeRun: async (info) => {
     if (get().staticMode) return get().setToast({ msg: 'Read-only showcase — runs happen on your machine via npm run dev', tone: 'info' })
-    if (isLaunchHealthBlocked(get().health)) return get().setToast({ msg: 'Engine offline — live runs are paused until it reconnects.', tone: 'info' })
+    const mayQueueThroughUpdate = get().health === 'updating' && (info.swarm || 'research') === 'research' && info.kind === 'full'
+    if (isLaunchHealthBlocked(get().health) && !mayQueueThroughUpdate) return get().setToast({ msg: 'Engine offline — live runs are paused until it reconnects.', tone: 'info' })
     // Screener signals resume through their own path — it keeps the finished orbs and re-queues the rest.
     // That path compares both the board and disk receipts; do not seed its chooser from only this row.
     if (info.kind === 'signal') { await get().continueSignal(info.subject); return }
@@ -1923,11 +1964,15 @@ export const useStore = create<State>((set, get) => ({
     const recorded = records.map((record) => record.provider).filter(isRunProvider)
     const execution = await captureAvailableResumeLaunch(get, recorded)
     if (!execution) return get().setToast({ msg: 'No verified provider/model is available to resume this run. Check Claude or Codex and try again.', tone: 'bad' })
+    let preflight: LaunchPreflight | undefined
+    try { preflight = await exactResumePreflight(info, execution) }
+    catch (e: any) { return get().setToast({ msg: e?.message || 'The saved run could not be planned safely.', tone: 'bad' }) }
     set({
       resumeConfirm: {
         kind: 'run', info, selection: execution, records,
         label: info.label || info.subject,
         doneCount: info.doneCount, totalCount: info.totalCount, unit: info.unit,
+        preflight,
       },
     })
   },
@@ -1944,10 +1989,19 @@ export const useStore = create<State>((set, get) => ({
       const problem = providerLaunchBlockedReason(get().providers[provider], get().providers.catalogState)
       return get().setToast({ msg: problem || `The ${providerLabel(provider)} profile could not be verified.`, tone: 'bad' })
     }
-    set({ resumeConfirm: { ...rc, selection: execution } })
+    set({ resumeConfirm: { ...rc, selection: execution, preflight: undefined } })
+    if (rc.kind === 'run') {
+      try {
+        const preflight = await exactResumePreflight(rc.info, execution)
+        if (get().resumeConfirm?.selection === execution) set({ resumeConfirm: { ...get().resumeConfirm!, preflight } })
+      } catch (e: any) {
+        if (get().resumeConfirm?.selection === execution) set({ resumeConfirm: null })
+        get().setToast({ msg: e?.message || 'The saved run could not be re-planned safely.', tone: 'bad' })
+      }
+    }
   },
 
-  changeResumeProfile: (profileKey) => {
+  changeResumeProfile: async (profileKey) => {
     const rc = get().resumeConfirm
     if (!rc || get().launchPending) return
     const provider = rc.selection.provider
@@ -1955,7 +2009,16 @@ export const useStore = create<State>((set, get) => ({
     if (!option || option.key === rc.selection.expectedProfileKey) return
     const execution = freezeProviderLaunch(get().providers[provider], get().providers.catalogState, option.key)
     if (!execution) return get().setToast({ msg: 'That execution profile could not be frozen. Check the provider again.', tone: 'bad' })
-    set({ resumeConfirm: { ...rc, selection: execution } })
+    set({ resumeConfirm: { ...rc, selection: execution, preflight: undefined } })
+    if (rc.kind === 'run') {
+      try {
+        const preflight = await exactResumePreflight(rc.info, execution)
+        if (get().resumeConfirm?.selection === execution) set({ resumeConfirm: { ...get().resumeConfirm!, preflight } })
+      } catch (e: any) {
+        if (get().resumeConfirm?.selection === execution) set({ resumeConfirm: null })
+        get().setToast({ msg: e?.message || 'The saved run could not be re-planned safely.', tone: 'bad' })
+      }
+    }
   },
 
   cancelResume: () => {
@@ -1965,7 +2028,9 @@ export const useStore = create<State>((set, get) => ({
   confirmResume: async () => {
     const rc = get().resumeConfirm
     if (!rc || get().launchPending) return
-    if (isLaunchHealthBlocked(get().health)) {
+    const mayQueueThroughUpdate = get().health === 'updating' && rc.kind === 'run'
+      && (rc.info.swarm || 'research') === 'research' && rc.info.kind === 'full'
+    if (isLaunchHealthBlocked(get().health) && !mayQueueThroughUpdate) {
       set({ resumeConfirm: null })
       return get().setToast({ msg: 'Engine offline — live runs are paused until it reconnects.', tone: 'info' })
     }
@@ -2033,6 +2098,12 @@ export const useStore = create<State>((set, get) => ({
             info.subject, plan.reuse, 'research', execution, crypto.randomUUID(),
             plan.continuationReceipt, info.runRoot,
           )
+          if (isQueuedLaunchResponse(out)) {
+            set({ resumeConfirm: null, activityOpen: true })
+            await get().refreshPendingAdmissions()
+            get().setToast({ msg: `Saved Continue for ${info.subject}. It will start once after the update, using only the work still needed.`, tone: 'good' })
+            return
+          }
         } else if ((info.swarm || 'research') === 'research' && info.kind === 'module' && info.module) {
           const plan = await api.thesisPlan(info.subject, execution, 'research', undefined, info.module, info.runRoot)
           const entry = plan.modules.find((candidate) => candidate.module === info.module)
@@ -2534,7 +2605,8 @@ export const useStore = create<State>((set, get) => ({
 
   requestFull: async () => {
     if (get().staticMode) return get().setToast({ msg: 'Read-only showcase — a full run executes on your machine via npm run dev', tone: 'info' })
-    if (isLaunchHealthBlocked(get().health)) return get().setToast({ msg: 'Engine offline — live runs are paused until it reconnects.', tone: 'info' })
+    const mayQueueThroughUpdate = get().health === 'updating' && get().activeSwarm === 'research'
+    if (isLaunchHealthBlocked(get().health) && !mayQueueThroughUpdate) return get().setToast({ msg: 'Engine offline — live runs are paused until it reconnects.', tone: 'info' })
     const providerProblem = providerLaunchBlockedReason(get().providers[get().runProvider], get().providers.catalogState)
     if (providerProblem) return get().setToast({ msg: `${providerProblem}. Choose another run provider.`, tone: 'bad' })
     const selection = captureLaunchSelection(get())
@@ -2572,7 +2644,8 @@ export const useStore = create<State>((set, get) => ({
       set({ launchConfirm: null })
       return get().setToast({ msg: 'The selected call changed. Nothing was launched.', tone: 'info' })
     }
-    if (isLaunchHealthBlocked(get().health)) { set({ launchConfirm: null }); return get().setToast({ msg: 'Engine offline — the run was not started.', tone: 'bad' }) }
+    const mayQueueThroughUpdate = get().health === 'updating' && selection.swarm === 'research'
+    if (isLaunchHealthBlocked(get().health) && !mayQueueThroughUpdate) { set({ launchConfirm: null }); return get().setToast({ msg: 'Engine offline — the run was not started.', tone: 'bad' }) }
     const planned = [...get().nodesByKey.keys()]
     // keep the confirm modal OPEN with its Launch button spinning until the server acks — closing it
     // immediately read as "dismissed", not "launching" (the old dead-air window)
@@ -2585,7 +2658,13 @@ export const useStore = create<State>((set, get) => ({
         set({ launchConfirm: null })
         return get().setToast({ msg: 'The selected call changed. Nothing was launched.', tone: 'info' })
       }
-      const out = await api.launch({ selection, kind: 'full', ticker: selection.subject, confirmTicker: selection.subject, swarm: selection.swarm !== 'research' ? selection.swarm : undefined })
+      const out = await api.launch({ selection, kind: 'full', ticker: selection.subject, confirmTicker: selection.subject, requestId: crypto.randomUUID(), swarm: selection.swarm !== 'research' ? selection.swarm : undefined })
+      if (isQueuedLaunchResponse(out)) {
+        set({ launchConfirm: null, activityOpen: true })
+        await get().refreshPendingAdmissions()
+        get().setToast({ msg: `Full run on ${selection.subject} is waiting for the update and will start once.`, tone: 'good' })
+        return
+      }
       const { runId, chained, preflight } = out
       if (typeof runId !== 'string' || !runId.trim()
           || !launchProviderReceiptMatches(out, selection, get().providers.catalogState)

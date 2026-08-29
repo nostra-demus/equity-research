@@ -368,3 +368,56 @@ export function readActivity(query: ActivityQuery = {}, sigLabels?: Map<string, 
     earliest,
   }
 }
+
+export interface ComparableRunEstimate {
+  source: 'comparable_completed_runs' | 'unavailable'
+  provider: RunProvider
+  profileKey: string
+  durationSampleSize: number
+  costSampleSize: number
+  minutesRange?: [number, number]
+  costUsdRange?: [number, number]
+}
+
+const MIN_COMPARABLE_RUNS = 3
+
+function observedRange(values: number[], transform: (value: number) => number): [number, number] | undefined {
+  if (values.length < MIN_COMPARABLE_RUNS) return undefined
+  const sorted = values.filter(Number.isFinite).sort((a, b) => a - b)
+  if (sorted.length < MIN_COMPARABLE_RUNS) return undefined
+  return [transform(sorted[0]), transform(sorted[sorted.length - 1])]
+}
+
+/** Historical estimates are evidence, not config. Match the exact provider/profile/scope and require at
+ * least three clean completions. A thin or legacy ledger returns unavailable instead of a made-up band. */
+export function estimateFromComparableRuns(input: {
+  kind: RunKind
+  provider: RunProvider
+  profileKey: string
+  swarm?: string
+  module?: string
+  agent?: string
+}): ComparableRunEstimate {
+  const swarm = input.swarm || 'research'
+  const rows = readActivity({ kind: input.kind, provider: input.provider, limit: null }).rows.filter((row) =>
+    row.status === 'done'
+    && row.profileKey === input.profileKey
+    && (row.swarm || 'research') === swarm
+    && (input.module === undefined || row.module === input.module)
+    && (input.agent === undefined || row.agent === input.agent))
+  const durations = rows.map((row) => row.durationMs).filter((value): value is number => typeof value === 'number' && value > 0)
+  const costs = input.provider === 'claude'
+    ? rows.map((row) => row.costUsd).filter((value): value is number => typeof value === 'number' && value >= 0)
+    : []
+  const minutesRange = observedRange(durations, (value) => Math.max(1, Math.ceil(value / 60_000)))
+  const costUsdRange = observedRange(costs, (value) => Math.round(value * 10) / 10)
+  return {
+    source: minutesRange || costUsdRange ? 'comparable_completed_runs' : 'unavailable',
+    provider: input.provider,
+    profileKey: input.profileKey,
+    durationSampleSize: durations.length,
+    costSampleSize: costs.length,
+    ...(minutesRange ? { minutesRange } : {}),
+    ...(costUsdRange ? { costUsdRange } : {}),
+  }
+}

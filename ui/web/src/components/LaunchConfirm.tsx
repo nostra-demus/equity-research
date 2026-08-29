@@ -33,6 +33,7 @@ export function LaunchConfirm() {
   const changeProvider = useStore((s) => s.changeLaunchProvider)
   const changeProfile = useStore((s) => s.changeLaunchProfile)
   const launchPending = useStore((s) => s.launchPending)
+  const health = useStore((s) => s.health)
   const [typed, setTyped] = useState('')
   useEffect(() => {
     // A typed spend confirmation belongs to one exact provider/profile price. Re-pricing the modal must
@@ -109,13 +110,16 @@ export function LaunchConfirm() {
   const needsTyped = requiresTypedSubjectConfirmation(lc.kind)
   const ok = !needsTyped || typedSubjectConfirmationMatches(typed, subject)
   const confirm = isRerun ? confirmRerun : confirmFull
+  const costEstimated = p.estimateEvidence?.source === 'comparable_completed_runs' && p.estCostUsdRange[1] > 0
+  const timeEstimated = p.estimateEvidence?.source === 'comparable_completed_runs' && p.estMinutesRange[1] > 0
+  const queueingUpdate = health === 'updating' && !isRerun
 
   return (
     <div className="scrim" onClick={cancel}>
       <motion.div className="modal" initial={{ opacity: 0, scale: 0.96, y: 8 }} animate={{ opacity: 1, scale: 1, y: 0 }} transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }} onClick={(e) => e.stopPropagation()}>
         <div className="modal__head">
           <div className="modal__title">{isRerun ? `Re-run ${orbLabel} + downstream on ${subject}` : `Run the full pipeline on ${subject}`}</div>
-          <div className="modal__sub">{isRerun ? 'Re-runs the orb, then every synthesis its output flows into — to the Memo. Reuses every other output.' : 'Launches the engine for real — every module, then the master synthesizer.'}</div>
+          <div className="modal__sub">{isRerun ? 'Re-runs the orb, then every synthesis its output flows into — to the Memo. Reuses every other output.' : queueingUpdate ? 'Saves this exact full-run request. It starts once after the update is healthy.' : 'Launches the engine for real — every module, then the master synthesizer.'}</div>
         </div>
         <div className="modal__body">
           <div className="modal__row"><span className="modal__k">Run with</span><span className="modal__v">
@@ -129,8 +133,9 @@ export function LaunchConfirm() {
           </span></div>
           <div className="modal__row"><span className="modal__k">Model</span><span className="modal__v"><ProviderProfileSelector status={providerStatus} profileKey={lc.selection.expectedProfileKey} disabled={starting} onChange={(key) => void changeProfile(key)} /></span></div>
           <div className="modal__row"><span className="modal__k">{isRerun ? 'Orbs re-run' : 'Agents'}</span><span className="modal__v">{p.agentCount}</span></div>
-          {provider === 'claude' ? <div className="modal__row"><span className="modal__k">Est. cost</span><span className="modal__v">${p.estCostUsdRange[0]}–{p.estCostUsdRange[1]}</span></div> : <div className="modal__row"><span className="modal__k">Plan billing</span><span className="modal__v">Codex subscription allowance</span></div>}
-          <div className="modal__row"><span className="modal__k">Est. time</span><span className="modal__v">{p.estMinutesRange[0]}–{p.estMinutesRange[1]} min</span></div>
+          {provider === 'claude' ? <div className="modal__row"><span className="modal__k">Est. cost</span><span className="modal__v">{costEstimated ? `$${p.estCostUsdRange[0]}–${p.estCostUsdRange[1]}` : 'Estimate unavailable'}</span></div> : <div className="modal__row"><span className="modal__k">Allowance impact</span><span className="modal__v">{p.agentCount} orbs · exact allowance change unavailable</span></div>}
+          <div className="modal__row"><span className="modal__k">Est. time</span><span className="modal__v">{timeEstimated ? `${p.estMinutesRange[0]}–${p.estMinutesRange[1]} min` : 'Estimate unavailable'}</span></div>
+          {p.estimateEvidence?.source === 'comparable_completed_runs' && <div className="modal__row"><span className="modal__k">Estimate basis</span><span className="modal__v">same {providerLabel(provider)} model · {Math.max(p.estimateEvidence.durationSampleSize, p.estimateEvidence.costSampleSize)} completed runs</span></div>}
           <div className="modal__row"><span className="modal__k">Writes to main</span><span className="modal__v warn">{p.estCommits} commit{p.estCommits === 1 ? '' : 's'} · pushed</span></div>
           <div className="modal__row"><span className="modal__k">Plan usage</span><span className="modal__v" style={{ color: providerUsage?.checked ? usageColor(providerUsage.status, providerUsage.utilization) : 'var(--text-faint)' }}>{providerUsage ? usageText(providerUsage) : 'Usage unavailable'}</span></div>
         </div>
@@ -162,7 +167,7 @@ export function LaunchConfirm() {
         <div className="modal__actions">
           <button className="btn btn--ghost" disabled={starting} onClick={cancel}>Cancel</button>
           <button className="btn btn--amber" disabled={!ok || starting || !!providerProblem} title={providerProblem || undefined} onClick={confirm}>
-            {starting ? <><Spin /> Starting…</> : isRerun ? 'Re-run ↻' : 'Launch full run'}
+            {starting ? <><Spin /> {queueingUpdate ? 'Saving…' : 'Starting…'}</> : isRerun ? 'Re-run ↻' : queueingUpdate ? 'Queue full run' : 'Launch full run'}
           </button>
         </div>
       </motion.div>

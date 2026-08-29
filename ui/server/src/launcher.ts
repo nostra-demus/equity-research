@@ -5,9 +5,9 @@ import http from 'node:http'
 import path from 'node:path'
 import { isDeepStrictEqual } from 'node:util'
 import { execa, type ResultPromise } from 'execa'
-import { logLaunch } from './activity-log'
+import { estimateFromComparableRuns, logLaunch } from './activity-log'
 import { admitRun, admissionMessage } from './admission'
-import { DATA_DIR, ESTIMATES, FULL_PER_MODULE, HOST, LAUNCH_GUARDS, MAX_CONCURRENT_RUNS, PORT, PUBLICATION_SOCKET_ROOT, REPO_ROOT, RUN_STALL_MINUTES, STATE_DIR } from './config'
+import { DATA_DIR, FULL_PER_MODULE, HOST, LAUNCH_GUARDS, MAX_CONCURRENT_RUNS, PORT, PUBLICATION_SOCKET_ROOT, REPO_ROOT, RUN_STALL_MINUTES, STATE_DIR } from './config'
 import { getCreditStatus, setCreditStatus } from './credit'
 import { writeAgentMetrics } from './agent-metrics'
 import { startRunWatcher, sweepRunOutputs } from './fs-watcher'
@@ -1821,28 +1821,9 @@ export function estimate(
   else if (kind === 'module') agentCount = g.modules.find((m) => m.name === module)?.agentCount ?? 0
   else if (kind === 'rerun') agentCount = downstreamCascade(module!, agent, swarmId).length
 
-  let estCostUsdRange: [number, number]
-  let estMinutesRange: [number, number]
-  if (kind === 'full') {
-    // Calibrated to the one metered full run (TMCV, 2026-06-14): 60 orbs, $88.99, 153 min WALL-CLOCK
-    // (the summed per-orb duration was ~257 min, but pipelined modules overlap, so the user waits ~153).
-    // Ranged for ticker / data-volume / cache variance — an honest "~" band, not a single false-precise point.
-    estCostUsdRange = [55, 130]
-    estMinutesRange = [110, 210]
-  } else if (kind === 'signal') {
-    // a PROMOTE-to-candidates path runs every module; a Gate-0/LOG stop costs a fraction of this
-    estCostUsdRange = [8, 45]
-    estMinutesRange = [6, 30]
-  } else if (kind === 'sweep') {
-    estCostUsdRange = [2, 12]
-    estMinutesRange = [3, 10]
-  } else if (kind === 'handoff') {
-    estCostUsdRange = [1, 4]
-    estMinutesRange = [1, 4]
-  } else {
-    estCostUsdRange = [round1(agentCount * ESTIMATES.perAgentUsd[0]), round1(agentCount * ESTIMATES.perAgentUsd[1])]
-    estMinutesRange = [Math.max(1, Math.ceil(agentCount * ESTIMATES.perAgentMin[0])), Math.max(2, Math.ceil(agentCount * ESTIMATES.perAgentMin[1]))]
-  }
+  const historical = estimateFromComparableRuns({ kind, provider: profile.provider, profileKey: profile.profileKey, swarm: swarmId, module, agent })
+  const estCostUsdRange: [number, number] = historical.costUsdRange ?? [0, 0]
+  const estMinutesRange: [number, number] = historical.minutesRange ?? [0, 0]
 
   return {
     kind,
@@ -1858,16 +1839,19 @@ export function estimate(
     agentCount,
     estCostUsdRange,
     estMinutesRange,
+    estimateEvidence: {
+      source: historical.source,
+      provider: historical.provider,
+      profileKey: historical.profileKey,
+      durationSampleSize: historical.durationSampleSize,
+      costSampleSize: historical.costSampleSize,
+    },
     willCommitToMain: kind !== 'agent' && kind !== 'screener-agent' && kind !== 'parity',
     estCommits: kind === 'full' ? 2 : kind === 'module' || kind === 'rerun' || kind === 'signal'
       || kind === 'sweep' || kind === 'handoff' || kind === 'conviction' ? 1 : 0,
     requiresTypedConfirm: kind === 'full',
     creditPreflight: getCreditStatus(provider),
   }
-}
-
-function round1(n: number) {
-  return Math.round(n * 10) / 10
 }
 
 export interface LaunchParams {
@@ -2654,7 +2638,6 @@ export function chainedResumePreflight(
   const agentCountOf = new Map(g.modules.map((m) => [m.name, m.agentCount]))
   const totalAgents = g.totals.agents + 1 // + master
   const plannedAgents = plannedModules.reduce((s, n) => s + (agentCountOf.get(n) ?? 0), 0) + 1 // + master
-  const frac = totalAgents > 0 ? Math.min(1, plannedAgents / totalAgents) : 1
   const full = estimate(
     'full', ticker, selection.provider, undefined, undefined,
     swarmId === RESEARCH_SWARM_ID ? undefined : swarmId,
@@ -2663,8 +2646,21 @@ export function chainedResumePreflight(
   return {
     ...full,
     agentCount: plannedAgents,
-    estCostUsdRange: [round1(full.estCostUsdRange[0] * frac), round1(full.estCostUsdRange[1] * frac)],
-    estMinutesRange: [Math.max(1, Math.round(full.estMinutesRange[0] * frac)), Math.max(2, Math.round(full.estMinutesRange[1] * frac))],
+    // A subset of a full run has different dependency overlap. Scaling one old full-run bill by orb count
+    // was invented precision, so only an actual full-sized plan may inherit the comparable full-run range.
+    ...(plannedAgents === totalAgents
+      ? {}
+      : {
+          estCostUsdRange: [0, 0] as [number, number],
+          estMinutesRange: [0, 0] as [number, number],
+          estimateEvidence: {
+            source: 'unavailable' as const,
+            provider: full.provider,
+            profileKey: full.profileKey,
+            durationSampleSize: 0,
+            costSampleSize: 0,
+          },
+        }),
   }
 }
 

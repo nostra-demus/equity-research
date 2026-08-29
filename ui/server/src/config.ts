@@ -611,18 +611,6 @@ export const CONNECTOR_REPAIR = {
   budgetUsd: capNum(process.env.ENGINE_CONNECTOR_REPAIR_BUDGET_USD, 15),
 }
 
-// Rough cost/time estimates surfaced to the UI before launch (heuristic only; the hard cap is budgetUsd).
-// Calibrated to the one metered full run (TMCV, 2026-06-14): 60 orbs, $88.99, 153 min wall-clock => ~$1.48/orb.
-// These per-orb numbers drive the module / agent / rerun estimates (agentCount x per-orb); the full run is
-// calibrated separately in estimate(), since it pipelines all six modules and so overlaps far more than a
-// single module does. perAgentMin is the per-orb WALL-CLOCK contribution, not the raw orb duration: within
-// one module the layers serialize, so a module's per-orb wall-clock (~3-5 min) sits above the full run's
-// blended ~2.5 min/orb. Honest "~" ranges, not false-precise points.
-export const ESTIMATES = {
-  perAgentUsd: [0.8, 2.2] as [number, number],
-  perAgentMin: [3, 5] as [number, number],
-}
-
 // ---- in-cockpit "chat with your data" (closed-book Q&A over a run's synthesized output) ----
 // A side-panel chat answers questions using ONLY the engine's own output for a chosen scope (the whole
 // run / one module / one orb), through the selected local subscription CLI (Claude or Codex; no API key).

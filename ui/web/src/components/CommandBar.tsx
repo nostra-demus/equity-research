@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
-import { isLaunchHealthBlocked, useStore } from '../lib/store'
+import { isEngineUnavailable, isLaunchHealthBlocked, useStore } from '../lib/store'
 import { api } from '../lib/api'
 import type { ProviderParityCanaryStatus } from '../lib/api'
 import { captureAskOpener } from '../lib/askFocus'
@@ -451,7 +451,7 @@ function ResumeChip() {
   const activeSwarm = useStore((s) => s.activeSwarm)
   const health = useStore((s) => s.health)
   const launchPending = useStore((s) => s.launchPending)
-  const engineDown = isLaunchHealthBlocked(health)
+  const engineDown = isEngineUnavailable(health)
   const entry = selectedTicker
     ? resumableRuns.find((e) => e.kind === 'full' && e.subject === selectedTicker && e.swarm === activeSwarm)
     : undefined
@@ -459,7 +459,7 @@ function ResumeChip() {
   const resuming = launchPending?.key?.startsWith(`resume:${entry.subject}:`)
   const noun = entry.unit === 'agent' ? 'check' : 'module'
   const title = health === 'updating'
-    ? 'Engine update in progress — Resume becomes available when it finishes'
+    ? 'Save this exact Continue request now — it starts once after the update and keeps valid finished work'
     : engineDown
       ? 'Engine offline — live runs are paused until it reconnects'
       : `This saved run stopped partway (${entry.doneCount}/${entry.totalCount} ${noun}s done). Complete it from where it stopped — valid finished work is reused.`
@@ -864,14 +864,14 @@ export function CommandBar() {
   const health = useStore((s) => s.health)
   const activeSwarm = useStore((s) => s.activeSwarm)
   const swarms = useStore((s) => s.swarms)
-  const engineDown = isLaunchHealthBlocked(health)
+  const engineDown = isEngineUnavailable(health)
   const screenerMode = activeSwarm === 'screener'
   const pendingOnSelectedTicker = Boolean(selectedTicker && launchPending?.ticker === selectedTicker)
   const fullPending = pendingOnSelectedTicker && launchPending?.key === 'full:request'
   const fullRunTitle = staticMode
     ? 'Runs on your local machine (npm run dev)'
     : health === 'updating'
-      ? 'Engine update in progress — new runs become available when it finishes'
+      ? 'Save this full-run request now — it starts once after the update'
       : engineDown
         ? 'Engine offline — live runs are paused until it reconnects'
         : anyRun

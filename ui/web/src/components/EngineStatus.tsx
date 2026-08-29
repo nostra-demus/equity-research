@@ -34,7 +34,7 @@ type BannerMeta = { title: string; body: string; cta: 'retry' | 'reload' }
 const BANNER: Partial<Record<HealthState, BannerMeta>> = {
   updating: {
     title: 'Engine updating',
-    body: 'A reviewed update is being installed. Existing work is protected; new runs become available when it finishes.',
+    body: 'A reviewed update is being installed. Existing runs keep going. Full runs and saved Continue requests can wait safely and start after it finishes.',
     cta: 'retry',
   },
   'engine-offline': {
