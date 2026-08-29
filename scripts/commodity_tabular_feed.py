@@ -10,6 +10,7 @@ providers and licensed Capital IQ exports.
 from __future__ import annotations
 
 import argparse
+import calendar
 import csv
 import io
 import json
@@ -95,7 +96,7 @@ def validate_config(config: Any) -> None:
         if (
             not isinstance(source, str) or source not in csv_config["header"] or source in sources
             or not isinstance(target, str) or not SAFE_SLUG_RE.fullmatch(target) or target in targets
-            or column.get("type") not in {"date", "string", "int", "float"}
+            or column.get("type") not in {"date", "month_end", "string", "int", "float"}
         ):
             raise RuntimeError(f"column {index} identity or type is invalid")
         sources.add(source)
@@ -158,6 +159,14 @@ def _convert(raw: str, column: dict[str, Any], row_number: int) -> Any:
         except ValueError as error:
             raise RuntimeError(f"row {row_number} column {label} is not a real date") from error
         return raw
+    if kind == "month_end":
+        if re.fullmatch(r"\d{4}-\d{2}", raw) is None:
+            raise RuntimeError(f"row {row_number} column {label} is not YYYY-MM")
+        try:
+            year, month = (int(part) for part in raw.split("-"))
+            return date(year, month, calendar.monthrange(year, month)[1]).isoformat()
+        except (ValueError, calendar.IllegalMonthError) as error:
+            raise RuntimeError(f"row {row_number} column {label} is not a real month") from error
     if kind == "string":
         if not raw:
             raise RuntimeError(f"row {row_number} column {label} is empty")
@@ -274,7 +283,9 @@ def main(fetch_file: str) -> int:
     try:
         raw = (
             _read_file(args.manual_file, config["max_bytes"])
-            if manual_arg else fetch_bytes(url, manifest, max_bytes=config["max_bytes"])
+            if manual_arg else fetch_bytes(
+                url, manifest, max_bytes=config["max_bytes"], accept="*/*",
+            )
         )
         as_of, payload, sidecar = build(raw, manifest, config, url=url)
     except RuntimeError as error:

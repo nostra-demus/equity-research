@@ -34,13 +34,19 @@ def fetch_bytes(
     *,
     max_bytes: int,
     timeout: int = 20,
+    accept: str | None = None,
 ) -> bytes:
+    if accept not in {None, "*/*", "text/csv"}:
+        raise RuntimeError("connector Accept header is outside the reviewed safe values")
+    headers = {
+        "User-Agent": "NostraResearch/1.0 (+https://github.com/nostra-demus/equity-research)",
+        "X-Nostra-Connector": manifest["id"],
+    }
+    if accept:
+        headers["Accept"] = accept
     request = urllib.request.Request(
         url,
-        headers={
-            "User-Agent": "NostraResearch/1.0 (+https://github.com/nostra-demus/equity-research)",
-            "X-Nostra-Connector": manifest["id"],
-        },
+        headers=headers,
     )
     with open_allowed_https(request, manifest["host_allowlist"], timeout=timeout) as response:
         if response.status != 200:

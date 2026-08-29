@@ -1,0 +1,31 @@
+{
+  "manifest_version": 2,
+  "schema_version": 1,
+  "id": "bis-sugar-trade-fx",
+  "dataset_id": "bis.xru.sugar-trade-fx",
+  "series_id": "sugar.trade-fx",
+  "series": "BIS daily USD exchange rates for Brazil, India and Thailand",
+  "satisfies": ["sugar-trade-fx"],
+  "subjects": ["SUGAR"],
+  "provider": "Bank for International Settlements",
+  "authority_class": "government_official",
+  "provider_priority": 100,
+  "acquisition": "official_api",
+  "source_type": "official_data",
+  "tier": 5,
+  "license": "BIS statistics permitted use with source citation and BIS conditions",
+  "licensing": {"access": "public", "use": "allowed", "redistribution": "allowed", "terms_url": "https://data.bis.org/help/legal"},
+  "host_allowlist": ["stats.bis.org"],
+  "credential_env": [],
+  "release": {"cadence": "daily", "timezone": "Europe/Zurich", "expected_lag_days": 3, "grace_days": 7, "revision_policy": "revisable"},
+  "entry": "fetch.py",
+  "verify": "fetch.py --verify",
+  "output_path": "data/<SUBJECT>/external/bis/sugar_trade_fx_<as_of>.json",
+  "output_schema": {
+    "series": "string", "as_of": "date", "rate_basis": "string", "currency_pairs": ["string"],
+    "observations": [{"date": "date", "brl_per_usd": "float", "inr_per_usd": "float", "thb_per_usd": "float"}],
+    "source_url": "string"
+  },
+  "units": {"observations[].brl_per_usd": "BRL_per_USD", "observations[].inr_per_usd": "INR_per_USD", "observations[].thb_per_usd": "THB_per_USD"},
+  "minimum_history": {"observations": 750, "path": "observations"}
+}

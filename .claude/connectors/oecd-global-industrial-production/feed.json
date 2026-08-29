@@ -1,0 +1,30 @@
+{
+  "config_version": 1,
+  "format": "csv",
+  "source_url_template": "https://sdmx.oecd.org/public/rest/data/OECD.SDD.STES,DSD_KEI%40DF_KEI,4.0/OECD.M.PRVM.IX.BTE.Y._Z?startPeriod=2010-01&dimensionAtObservation=AllDimensions&format=csvfile&client=NostraResearch-v1",
+  "lookback_days": null,
+  "max_bytes": 4194304,
+  "csv": {
+    "delimiter": ",",
+    "header": ["DATAFLOW", "REF_AREA", "FREQ", "MEASURE", "UNIT_MEASURE", "ACTIVITY", "ADJUSTMENT", "TRANSFORMATION", "TIME_PERIOD", "OBS_VALUE", "OBS_STATUS", "BASE_PER"],
+    "allow_extra_columns": true
+  },
+  "columns": [
+    {"source": "TIME_PERIOD", "target": "date", "type": "month_end"},
+    {"source": "OBS_VALUE", "target": "index", "type": "float", "minimum": 0, "maximum": 1000},
+    {"source": "OBS_STATUS", "target": "status", "type": "string"},
+    {"source": "BASE_PER", "target": "base_period", "type": "string"}
+  ],
+  "records_field": "observations",
+  "as_of_field": "date",
+  "static_fields": {
+    "oecd_dataflow": "OECD.SDD.STES:DSD_KEI@DF_KEI(4.0)",
+    "reference_area": "OECD Total",
+    "measure": "Production volume, industry except construction",
+    "adjustment": "Seasonally adjusted"
+  },
+  "source_url_field": "source_url",
+  "provider_slug": "oecd",
+  "filename_stem": "global_industrial_production",
+  "note": "OECD Data Explorer monthly OECD Total industrial-production volume index. Retrieval is preserved as an immutable release vintage."
+}

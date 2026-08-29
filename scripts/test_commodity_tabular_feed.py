@@ -58,3 +58,31 @@ except RuntimeError as error:
 else:
     raise AssertionError("a changed Capital IQ export layout was accepted")
 print("PASS: declarative Capital IQ CSV is licensed, typed, and fail-closed")
+
+monthly_manifest = copy.deepcopy(manifest)
+monthly_manifest["minimum_history"] = {"observations": 2, "path": "observations"}
+monthly_config = copy.deepcopy(config)
+monthly_config["columns"][0]["type"] = "month_end"
+monthly_config["lookback_days"] = None
+monthly_config["source_url_template"] = "https://fred.stlouisfed.org/"
+as_of, monthly_payload, _ = build(
+    b"observation_date,DFII10\n2024-02,1.0\n2024-04,1.2\n",
+    monthly_manifest,
+    monthly_config,
+    url=monthly_config["source_url_template"],
+)
+assert as_of == "2024-04-30"
+assert monthly_payload["observations"][0]["date"] == "2024-02-29"
+
+try:
+    build(
+        b"observation_date,DFII10\n2024-02,1.0\n2024-13,1.2\n",
+        monthly_manifest,
+        monthly_config,
+        url=monthly_config["source_url_template"],
+    )
+except RuntimeError as error:
+    assert "real month" in str(error)
+else:
+    raise AssertionError("an invalid monthly period was accepted")
+print("PASS: monthly periods normalize to real month-end dates")
