@@ -3,6 +3,7 @@ import { computeLayout, type PlacedNode } from '../../lib/layout'
 import { sufficiencyColor } from '../../lib/format'
 import { collectSamples, expectedDurations, expectedFor, fmtClock, fmtEtaLeft, orbClass, scopeTiming, type ScopeOrb } from '../../lib/eta'
 import { moduleRunAffordance } from '../../lib/moduleRun'
+import { PAUSED_RUN_HELP, PAUSED_RUN_LABEL, projectRunActivity } from '../../lib/runActivityProjection'
 import { useStore } from '../../lib/store'
 import { AgentNode } from './AgentNode'
 import { CoreOrb } from './CoreOrb'
@@ -17,6 +18,8 @@ export function SwarmField() {
   const activeSwarm = useStore((s) => s.activeSwarm)
   const dataStatus = useStore((s) => s.dataStatus)
   const nodeRuntime = useStore((s) => s.nodeRuntime)
+  const activeRuns = useStore((s) => s.activeRuns)
+  const resumableRuns = useStore((s) => s.resumableRuns)
   const launchPending = useStore((s) => s.launchPending)
   const selectedTicker = useStore((s) => s.selectedTicker)
   const decision = useStore((s) => s.decision)
@@ -63,11 +66,14 @@ export function SwarmField() {
 
   // modules with a live (queued or running) orb — they light their edges and pulse their label,
   // so a running module reads as "alive" from the moment of launch (incl. the engine-startup phase)
-  const activeModules = useMemo(() => {
-    const s = new Set<string>()
-    for (const [k, v] of Object.entries(nodeRuntime)) if (v.status === 'running' || v.status === 'queued') s.add(k.split('/')[0])
-    return s
-  }, [nodeRuntime])
+  const runActivity = useMemo(() => projectRunActivity({
+    subject: selectedTicker,
+    swarm: activeSwarm,
+    nodeRuntime,
+    activeRuns,
+    resumableRuns,
+  }), [selectedTicker, activeSwarm, nodeRuntime, activeRuns, resumableRuns])
+  const { activeModules, pausedModules, pausedKeys } = runActivity
 
   // the single shared 1s clock that drives every live timer (orb fill, ring sweep, module triad, panel,
   // tooltip). Runs ONLY while a module has a queued/running orb, so an idle constellation never re-renders.
@@ -126,6 +132,7 @@ export function SwarmField() {
       {layout.clusters.map((c) => {
         const ms = dataStatus?.modules[c.module]?.status
         const live = activeModules.has(c.module)
+        const paused = pausedModules.has(c.module)
         const mod = moduleByName.get(c.module)
         const smartResume = activeSwarm === 'research' && mod?.exactResume === true
         const depLocked = !smartResume && mod?.depsComplete === false
@@ -150,7 +157,7 @@ export function SwarmField() {
         return (
           <div
             key={c.module}
-            className={`cluster__label${live ? ' cluster__label--live' : ''}`}
+            className={`cluster__label${live ? ' cluster__label--live' : ''}${paused ? ' cluster__label--paused' : ''}`}
             style={{ left: c.labelX, top: c.labelY }}
             onMouseEnter={() => setHoverModule(c.module)}
             onMouseLeave={() => setHoverModule(null)}
@@ -161,11 +168,15 @@ export function SwarmField() {
             }}
             role={headingAction ? 'button' : undefined}
             tabIndex={headingAction ? 0 : undefined}
-            aria-label={headingAction ? `${c.module.replace(/-/g, ' ')}: ${runAffordance.label.replace(/^▸\s*/, '')}. ${runAffordance.title}` : undefined}
+            aria-label={paused
+              ? `${c.module.replace(/-/g, ' ')}: ${PAUSED_RUN_HELP}`
+              : headingAction ? `${c.module.replace(/-/g, ' ')}: ${runAffordance.label.replace(/^▸\s*/, '')}. ${runAffordance.title}` : undefined}
           >
             <div className="cluster__name">{c.module.replace(/-/g, ' ')}</div>
             {ms && <div className="cluster__status" style={{ color: sufficiencyColor(ms) }}>{ms}</div>}
-            {live && mt ? (
+            {paused ? (
+              <div className="cluster__run cluster__run--paused" title={PAUSED_RUN_HELP}>{PAUSED_RUN_LABEL}</div>
+            ) : live && mt ? (
               <div className="cluster__timer">
                 <div className="cluster__timer-line">
                   <span className="cluster__timer-dot">●</span> {mt.done}/{mt.total}
@@ -205,6 +216,7 @@ export function SwarmField() {
               node={n}
               status={st}
               selected={selectedNodeKey === n.key || hover?.node.key === n.key || intakeFocusKeys.has(n.key)}
+              paused={pausedKeys.has(n.key)}
               scoped={intakePlanKeys.has(n.key)}
               dimmed={intakeFocusKeys.size > 0 && !intakeFocusKeys.has(n.key)}
               delayMs={(moduleOrder.get(n.module) ?? 0) * 45 + n.layer * 50}
@@ -223,7 +235,7 @@ export function SwarmField() {
 
       {modulePop && <ModuleReportPopup module={modulePop.module} cx={modulePop.cx} top={modulePop.top} onClose={() => setModulePop(null)} />}
 
-      {hover && <AgentTooltip node={hover.node} status={nodeStatus(hover.node.key)} verdict={nodeRuntime[hover.node.key]?.verdict} startedAt={nodeRuntime[hover.node.key]?.startedAt} endedAt={nodeRuntime[hover.node.key]?.endedAt} expectedMs={expectedFor(orbClass(hover.node), exp)} now={now} screenX={hover.x} screenY={hover.y} />}
+      {hover && <AgentTooltip node={hover.node} status={nodeStatus(hover.node.key)} paused={pausedKeys.has(hover.node.key)} verdict={nodeRuntime[hover.node.key]?.verdict} startedAt={nodeRuntime[hover.node.key]?.startedAt} endedAt={nodeRuntime[hover.node.key]?.endedAt} expectedMs={expectedFor(orbClass(hover.node), exp)} now={now} screenX={hover.x} screenY={hover.y} />}
     </div>
   )
 }

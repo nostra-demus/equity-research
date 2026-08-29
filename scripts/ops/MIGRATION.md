@@ -94,6 +94,10 @@ for a in deploy engine tunnel news-archive caffeinate; do launchctl bootout gui/
   recreated. Most files are Drive *dataless placeholders* (0 blocks); the engine plist sets
   `MaterializeDatalessFiles` so reads stream them in.
 - **Never `rsync` the pool** — copy nothing; sign the machine into the same Drive.
+- **Keep Codex external-agent import off on every production host.** In owner-only `~/.codex/config.toml`,
+  `[desktop] external-agent-import-sync-enabled` must be `false`. Importing Claude projects can otherwise
+  recreate untracked `.codex/agents/*.toml` helpers inside `~/nostra-prod`; the §28 dirty gate deliberately
+  blocks deployment rather than compiling an unreviewed file. The deploy log identifies this exact cause.
 - **Distinguish machines by arch + IPv6**, not by edge location: the primary here is `darwin_amd64`
   (Intel toolchain), the standby is `darwin_arm64` (M-series). Both can be on a Delhi network.
 - **Never run the failover script's side-effecting path to "test" it on a live node** — use

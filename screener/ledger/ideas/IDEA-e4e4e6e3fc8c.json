@@ -1,0 +1,73 @@
+{
+  "idea_id": "IDEA-e4e4e6e3fc8c",
+  "idea_version": "IDEAV-5d13cacea06259e4",
+  "idea_version_started_at": "2026-08-29T12:26:38Z",
+  "ticker": "00875.HK",
+  "company": "Congyu Inte Agr",
+  "exchange": "HKEX",
+  "ticker_verified": false,
+  "listing_verified": false,
+  "liquidity_verified": false,
+  "listing_verification_source": null,
+  "direction": "short",
+  "pair_with": null,
+  "reason": "Company issued a profit warning, indicating earnings will fall materially short of prior expectations.",
+  "why_now": "HKEX filing dated 2026-08-28; profit warnings typically precede negative revisions and price adjustment.",
+  "conviction": 70,
+  "conviction_basis": "pre_edge_proxy",
+  "trade_score": 45,
+  "trade_score_basis": "evidence_gate_v2",
+  "trade_score_breakdown": {
+    "evidence": 25,
+    "impact": 21,
+    "specificity": 7,
+    "timing": 6,
+    "expression": 0,
+    "corroboration": 0,
+    "learning_adjustment": 0
+  },
+  "trade_readiness": "watch_only",
+  "missing_checks": [
+    "verified listed ticker",
+    "verified listing",
+    "live liquidity",
+    "dated catalyst",
+    "live price, liquidity, and consensus"
+  ],
+  "learning": {
+    "resolved": 0,
+    "positive": 0,
+    "negative": 0,
+    "neutral": 0,
+    "adjustment": 0,
+    "basis": "not_enough_outcomes",
+    "evidenceIds": []
+  },
+  "priced_in": "room",
+  "thesis_type": "company_specific",
+  "origin_type": "wire",
+  "source_themes": [],
+  "source_event_ids": [
+    "EVT-c12e163f7753"
+  ],
+  "primary_source_event_id": "EVT-c12e163f7753",
+  "source_headlines": [
+    "CONGYU INTE AGR (00875): PROFIT WARNING"
+  ],
+  "source_headline": "CONGYU INTE AGR (00875): PROFIT WARNING",
+  "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0828/2026082801978.pdf",
+  "source_name": "HKEXnews (HK Exchange Filing)",
+  "materiality_max": 100,
+  "newest_source_at": "2026-08-28T11:28:00Z",
+  "prior_coverage": {
+    "has_run": false,
+    "latest_run": null,
+    "latest_decision": null,
+    "data_pool_present": false
+  },
+  "surfaced_at": "2026-08-29T12:26:38Z",
+  "updated_at": "2026-08-29T12:26:38Z",
+  "decay_at": "2026-08-29T23:28:00Z",
+  "status": "live",
+  "promoted_signal_id": null
+}

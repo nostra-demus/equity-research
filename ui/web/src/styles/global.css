@@ -347,11 +347,13 @@ a { color: inherit; }
   display: flex; align-items: center; gap: 4px;
 }
 .cluster__run--action { opacity: 1; }
+.cluster__run--paused { opacity: 1; color: var(--text-secondary); }
 .cluster__label:hover .cluster__run { opacity: 1; }
 .cluster__label[role="button"]:focus-visible { outline: 1px solid var(--accent-bright); outline-offset: 2px; }
 /* a module with a live (queued/running) orb: pulse its name + show a persistent "running…" */
 .cluster__label--live .cluster__name { color: var(--accent-bright); animation: clusterlive 1.7s ease-in-out infinite; }
 .cluster__label--live .cluster__run { opacity: 1; color: var(--accent-bright); }
+.cluster__label--paused .cluster__name { color: var(--text-secondary); animation: none; }
 @keyframes clusterlive { 0%, 100% { opacity: 0.65; } 50% { opacity: 1; } }
 
 /* agent dot */
@@ -394,6 +396,13 @@ a { color: inherit; }
 .node--failed .node__core { width: 30%; height: 30%; background: var(--bad); }
 .node--synthesis .node__ring { border-width: 2px; }
 .node--selected .node__ring { box-shadow: 0 0 0 3px var(--accent-wash), 0 0 18px var(--accent-glow); border-color: var(--accent-bright); }
+/* An interrupted run keeps its real queued/running store state so Resume can reuse it, but must look
+   stopped. No live pulse, fill or sweep is shown until an active run with the same run id exists again. */
+.node--paused.node--queued .node__ring,
+.node--paused.node--running .node__ring { border-color: var(--text-faint); animation: none; box-shadow: none; }
+.node--paused.node--running .node__core { width: 30%; height: 30%; background: var(--text-faint); }
+.node--paused .node__fill,
+.node--paused .node__sweep { opacity: 0; }
 
 /* live orb water-clock: the rising amber fill = elapsed, the perimeter sweep = progress toward the
    estimated finish. Both appear ONLY while running — the orb's clock is born the instant data reaches it,
