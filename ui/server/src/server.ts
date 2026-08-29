@@ -5,15 +5,16 @@ import path from 'node:path'
 import { Transform } from 'node:stream'
 import { execFile } from 'node:child_process'
 import { promisify } from 'node:util'
+import { fileURLToPath } from 'node:url'
 import chokidar from 'chokidar'
 import cors from '@fastify/cors'
 import rateLimit from '@fastify/rate-limit'
 import multipart from '@fastify/multipart'
 import { execa } from 'execa'
-import Fastify, { type FastifyReply, type FastifyRequest } from 'fastify'
+import Fastify, { type FastifyInstance, type FastifyReply, type FastifyRequest } from 'fastify'
 import { z } from 'zod'
 import { providerDeployPending } from './deploy-barrier'
-import { readActivity, ACTIVITY_FILTER_KINDS } from './activity-log'
+import { readActivity, ACTIVITY_FILTER_KINDS, ACTIVITY_FILTER_STATUSES } from './activity-log'
 import { recordDataChange, syncingState, SYNC_WINDOW_MS } from './data-activity'
 import { buildReportHtml, parseMeta, safeName } from './export'
 import { ARTICLE_READ_PROVIDERS, CHAT, DATA_DIR, FILING_READ_PROVIDERS, GDRIVE, HOST, NEWS, PORT, REPO_ROOT, STATE_DIR, TOOLS, WEB_DIST, connectorDispatchReady, feedbackDispatchReady, feedbackEmailReady, isDispatchAdmin, isReservedDataFolder, pipelineScanReady } from './config'
@@ -168,6 +169,16 @@ const execFileAsync = promisify(execFile)
 // PROXY always closes an idle pooled connection first, never the origin. Node's Fastify default (72s) is
 // SHORTER than 90s: cloudflared would reuse a socket the origin had already closed → intermittent
 // 502 Bad Gateway under low traffic. 92s clears 90s with margin (Node auto-raises headersTimeout above it).
+export interface BuiltServerApp {
+  app: FastifyInstance
+  start: () => Promise<void>
+  shutdown: (signal: string, code?: number) => Promise<void>
+}
+
+/** Build the complete control plane without claiming the process singleton, opening a listener, installing
+ * process handlers, recovering provider processes, or starting background schedulers. Tests use `app.inject`
+ * against this boundary; production calls `start()` exactly once from the executable entry point below. */
+export async function buildApp(): Promise<BuiltServerApp> {
 const app = Fastify({ logger: false, keepAliveTimeout: 92_000 })
 // Tolerate an EMPTY application/json body. A bodyless POST (cancel, credit-check) sent WITH
 // content-type: application/json is otherwise rejected 400 FST_ERR_CTP_EMPTY_JSON_BODY before the route
@@ -745,7 +756,7 @@ app.get('/api/activity', async (req) => {
     return Number.isFinite(n) ? n : undefined
   }
   const kinds = ACTIVITY_FILTER_KINDS as readonly string[]
-  const statuses = ['starting', 'running', 'done', 'error', 'cancelled', 'incomplete']
+  const statuses = ACTIVITY_FILTER_STATUSES as readonly string[]
   // Swarm runs are keyed by an opaque subject id (a SIG-… signal id); resolve each to the company /
   // headline it concerns so the Company column reads as a name, not an id. Falls back to the raw id.
   return readActivity({
@@ -6443,7 +6454,7 @@ const newsClients = new Set<{ send: (e: any) => void }>()
 // sends (and their bridge ledger) are the training data that earns this path its trust first. The
 // enrichment peek is a THUNK so the whole-cache parse only runs for the rare item that passes every
 // gate — never per wire item on the ingest hot path. Never breaks the fan-out.
-newsBus.subscribe((e) => {
+const bridgeNewsEvent = (e: Parameters<typeof newsBus.emit>[0]) => {
   if (e.type !== 'news-item') return
   try {
     autoBridgeItem(
@@ -6455,8 +6466,8 @@ newsBus.subscribe((e) => {
   } catch {
     /* best-effort — a missed bridge loses one note, never the wire */
   }
-})
-newsBus.subscribe((e) => {
+}
+const broadcastNewsEvent = (e: Parameters<typeof newsBus.emit>[0]) => {
   // Exhaustive per-variant mapping: adding a bus event is a compile error here, never a silently
   // mis-shaped payload on the wire.
   const payload = (() => {
@@ -6473,7 +6484,7 @@ newsBus.subscribe((e) => {
     }
   })()
   for (const c of newsClients) c.send(payload)
-})
+}
 app.get('/api/news/stream', (req, reply) => {
   const { send, ping } = startSSE(reply)
   const client = { send }
@@ -7096,25 +7107,42 @@ function broadcastData(fp: string, change: 'added' | 'removed') {
   }
 }
 
-if (fs.existsSync(DATA_DIR)) {
-  // data/ is a Google Drive CloudStorage mount -> polling is the robust choice across the FUSE boundary.
-  // No `depth` cap: data-status.ts's listPoolFiles walks the WHOLE tree with no depth limit (a filing can
-  // sit at data/<T>/Filings/2026/Q1/report.pdf or deeper), so a fixed depth here would silently stop
-  // watching below that bound — a nested drop would satisfy readiness/coverage on the next listing but
-  // never fire the live "data-changed" event or auto-intake until an unrelated shallower change, or a
-  // manual refresh, happened to trigger one (PR #457 review). Unbounded matches the recursive contract
-  // exactly; the cost is the same per-poll-cycle FUSE walk the recursive pool scan already performs.
-  const dataWatcher = chokidar.watch(DATA_DIR, {
-    ignoreInitial: true,
-    usePolling: true,
-    interval: 1500,
-    awaitWriteFinish: { stabilityThreshold: 2000, pollInterval: 500 },
-  })
-  dataWatcher.on('add', (f) => broadcastData(f, 'added'))
-  dataWatcher.on('addDir', (f) => broadcastData(f, 'added'))
-  dataWatcher.on('unlink', (f) => broadcastData(f, 'removed'))
-  dataWatcher.on('unlinkDir', (f) => broadcastData(f, 'removed'))
+let dataWatcher: ReturnType<typeof chokidar.watch> | undefined
+let newsBusUnsubscribers: Array<() => void> = []
+
+function startRuntimeBindings() {
+  if (newsBusUnsubscribers.length === 0) {
+    newsBusUnsubscribers = [newsBus.subscribe(bridgeNewsEvent), newsBus.subscribe(broadcastNewsEvent)]
+  }
+  if (!dataWatcher && fs.existsSync(DATA_DIR)) {
+    // data/ is a Google Drive CloudStorage mount -> polling is the robust choice across the FUSE boundary.
+    // No `depth` cap: data-status.ts's listPoolFiles walks the WHOLE tree with no depth limit (a filing can
+    // sit at data/<T>/Filings/2026/Q1/report.pdf or deeper), so a fixed depth here would silently stop
+    // watching below that bound — a nested drop would satisfy readiness/coverage on the next listing but
+    // never fire the live "data-changed" event or auto-intake until an unrelated shallower change, or a
+    // manual refresh, happened to trigger one (PR #457 review). Unbounded matches the recursive contract
+    // exactly; the cost is the same per-poll-cycle FUSE walk the recursive pool scan already performs.
+    dataWatcher = chokidar.watch(DATA_DIR, {
+      ignoreInitial: true,
+      usePolling: true,
+      interval: 1500,
+      awaitWriteFinish: { stabilityThreshold: 2000, pollInterval: 500 },
+    })
+    dataWatcher.on('add', (f) => broadcastData(f, 'added'))
+    dataWatcher.on('addDir', (f) => broadcastData(f, 'added'))
+    dataWatcher.on('unlink', (f) => broadcastData(f, 'removed'))
+    dataWatcher.on('unlinkDir', (f) => broadcastData(f, 'removed'))
+  }
 }
+
+async function stopRuntimeBindings() {
+  for (const unsubscribe of newsBusUnsubscribers.splice(0)) unsubscribe()
+  const watcher = dataWatcher
+  dataWatcher = undefined
+  if (watcher) await watcher.close()
+}
+
+app.addHook('onClose', stopRuntimeBindings)
 
 // ---------- static (built UI) ----------
 if (fs.existsSync(WEB_DIST)) {
@@ -7187,7 +7215,6 @@ function claimSingleInstanceLock() {
   }
   process.once('exit', () => releaseSingletonLock(STATE_DIR, ENGINE_LOCK_FILE))
 }
-claimSingleInstanceLock()
 
 // ── Global safety net + graceful shutdown ─────────────────────────────────────
 // Two failure modes this closes: (1) `launchctl kickstart -k` sends SIGTERM, which by default terminates
@@ -7226,23 +7253,29 @@ async function shutdown(signal: string, code = 0) {
   }
   process.exit(code)
 }
-process.on('SIGTERM', () => { void shutdown('SIGTERM', 0) })
-process.on('SIGINT', () => { void shutdown('SIGINT', 0) })
-process.on('uncaughtException', (err) => {
-  // eslint-disable-next-line no-console
-  console.error('[swarm-cockpit] uncaughtException — draining and restarting', err)
-  void shutdown('uncaughtException', 1)
-})
-// A single rejected promise in one request must NOT take the whole single-operator cockpit down — log and
-// keep serving. (Deliberate trade-off; promote to shutdown(1) if a future audit prefers fail-fast.)
-process.on('unhandledRejection', (reason) => {
-  // eslint-disable-next-line no-console
-  console.error('[swarm-cockpit] unhandledRejection (continuing)', reason)
-})
+function installProcessHandlers() {
+  process.on('SIGTERM', () => { void shutdown('SIGTERM', 0) })
+  process.on('SIGINT', () => { void shutdown('SIGINT', 0) })
+  process.on('uncaughtException', (err) => {
+    // eslint-disable-next-line no-console
+    console.error('[swarm-cockpit] uncaughtException — draining and restarting', err)
+    void shutdown('uncaughtException', 1)
+  })
+  // A single rejected promise in one request must NOT take the whole single-operator cockpit down — log and
+  // keep serving. (Deliberate trade-off; promote to shutdown(1) if a future audit prefers fail-fast.)
+  process.on('unhandledRejection', (reason) => {
+    // eslint-disable-next-line no-console
+    console.error('[swarm-cockpit] unhandledRejection (continuing)', reason)
+  })
+}
 
-// A process crash can leave private media behind. Before accepting any request on a restart, remove every
-// abandoned Reel temp directory; there cannot be a live transcription owned by this new process yet.
-purgeReelTempDirs(0)
+async function start() {
+  claimSingleInstanceLock()
+  installProcessHandlers()
+  startRuntimeBindings()
+  // A process crash can leave private media behind. Before accepting any request on a restart, remove every
+  // abandoned Reel temp directory; there cannot be a live transcription owned by this new process yet.
+  await purgeReelTempDirs(0)
   .then(() => reconcileOrphanedProviderGroups())
   .then(async (count) => {
     if (count) console.log(`[swarm-cockpit] reconciled ${count} orphaned provider process group(s) before admission`) // eslint-disable-line no-console
@@ -7356,10 +7389,19 @@ purgeReelTempDirs(0)
     // The current runtime deliberately has no such backend; fetching remains independent and defaults on.
     startConnectorRunner()
   })
-  .catch((err: any) => {
+}
+
+return { app, start, shutdown }
+}
+
+// Executable-only startup. Importing `buildApp` for route tests is side-effect free: no singleton claim,
+// listener, process handlers, recovery, provider probes, or autonomous schedulers run until this branch.
+if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+  buildApp().then((runtime) => runtime.start()).catch((err: any) => {
     // eslint-disable-next-line no-console
     if (err?.code === 'EADDRINUSE') console.error(`[swarm-cockpit] port ${PORT} is already in use — another engine owns it; exiting`)
     // eslint-disable-next-line no-console
     else console.error('[swarm-cockpit] failed to start', err)
     process.exit(1)
   })
+}

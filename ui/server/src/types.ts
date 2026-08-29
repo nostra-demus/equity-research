@@ -331,16 +331,21 @@ export interface SwarmSubjectSummary {
 // a ticker's data pool from a locked thesis (idempotent; never launches the research run itself).
 // 'doc-intake' is an advisory research kind (like 'review'/'track'): it reads the docs that landed
 // since the last run and writes a SCOPED rerun plan (frameworks/INTAKE.md) — it launches no run.
-export type RunKind = 'full' | 'module' | 'agent' | 'rerun' | 'review' | 'track' | 'doc-intake'
-  | 'signal' | 'sweep' | 'screener-agent' | 'handoff' | 'conviction' | 'parity'
+export const RUN_KINDS = [
+  'full', 'module', 'agent', 'rerun', 'review', 'track', 'doc-intake',
+  'signal', 'sweep', 'screener-agent', 'handoff', 'conviction', 'parity',
+] as const
+export type RunKind = typeof RUN_KINDS[number]
 // 'incomplete' = the process exited cleanly but a full/rerun didn't produce its final deliverables
 // (thesis/decision) — almost always budget/turn truncation. Distinct from 'error' (a real failure).
 // 'readiness-checking' / 'awaiting-readiness-decision' are PRE-SPAWN states: the deterministic
 // data-readiness gate runs before any `claude` CLI is spawned (run.child is still null). A run
 // only reaches 'running' once the gate passes clean or the user proceeds/overrides.
-export type RunStatus =
-  | 'starting' | 'readiness-checking' | 'awaiting-readiness-decision'
-  | 'running' | 'done' | 'error' | 'cancelled' | 'incomplete'
+export const RUN_STATUSES = [
+  'starting', 'readiness-checking', 'awaiting-readiness-decision',
+  'running', 'done', 'error', 'cancelled', 'incomplete',
+] as const
+export type RunStatus = typeof RUN_STATUSES[number]
 export type AgentRunStatus = 'queued' | 'running' | 'done' | 'failed'
 
 // ---- data-readiness gate (pre-spawn; deterministic, no LLM) ----
