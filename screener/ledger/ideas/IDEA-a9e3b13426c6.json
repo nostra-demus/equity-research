@@ -1,0 +1,72 @@
+{
+  "idea_id": "IDEA-a9e3b13426c6",
+  "idea_version": "IDEAV-7bc46110756cac1a",
+  "idea_version_started_at": "2026-08-29T14:17:28Z",
+  "ticker": "MRNA",
+  "company": "Moderna",
+  "exchange": "NASDAQ",
+  "ticker_verified": true,
+  "listing_verified": true,
+  "liquidity_verified": false,
+  "listing_verification_source": "yahoo_symbol_directory",
+  "direction": "short",
+  "pair_with": null,
+  "reason": "Moderna's stock fell following the announcement of a $2.6 billion private offering of convertible senior notes, which could dilute existing shareholder value.",
+  "why_now": "The announcement of the convertible senior notes offering on August 28, 2026, caused an immediate 6% drop in Moderna's stock.",
+  "conviction": 50,
+  "conviction_basis": "pre_edge_proxy",
+  "trade_score": 62,
+  "trade_score_basis": "evidence_gate_v2",
+  "trade_score_breakdown": {
+    "evidence": 14,
+    "impact": 20,
+    "specificity": 15,
+    "timing": 10,
+    "expression": 6,
+    "corroboration": 0,
+    "learning_adjustment": 0
+  },
+  "trade_readiness": "needs_data",
+  "missing_checks": [
+    "live liquidity",
+    "dated catalyst",
+    "independent confirmation",
+    "live price, liquidity, and consensus"
+  ],
+  "learning": {
+    "resolved": 0,
+    "positive": 0,
+    "negative": 0,
+    "neutral": 0,
+    "adjustment": 0,
+    "basis": "not_enough_outcomes",
+    "evidenceIds": []
+  },
+  "priced_in": "room",
+  "thesis_type": "company_specific",
+  "origin_type": "wire",
+  "source_themes": [],
+  "source_event_ids": [
+    "EVT-ff322e2ccd41"
+  ],
+  "primary_source_event_id": "EVT-ff322e2ccd41",
+  "source_headlines": [
+    "Moderna Stock Falls 6% On Announcement Of $2.6 Bln Private Offering Of Convertible Senior Notes"
+  ],
+  "source_headline": "Moderna Stock Falls 6% On Announcement Of $2.6 Bln Private Offering Of Convertible Senior Notes",
+  "source_url": "https://www.nasdaq.com/articles/moderna-stock-falls-6-announcement-26-bln-private-offering-convertible-senior-notes",
+  "source_name": "Nasdaq",
+  "materiality_max": 100,
+  "newest_source_at": "2026-08-28T15:28:19Z",
+  "prior_coverage": {
+    "has_run": false,
+    "latest_run": null,
+    "latest_decision": null,
+    "data_pool_present": false
+  },
+  "surfaced_at": "2026-08-29T14:17:28Z",
+  "updated_at": "2026-08-29T14:17:28Z",
+  "decay_at": "2026-08-30T03:28:19Z",
+  "status": "live",
+  "promoted_signal_id": null
+}
