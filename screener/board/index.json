@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-29T14:37:34Z",
+  "generated_at": "2026-08-29T14:41:46Z",
   "inbox": [
     {
       "inbox_id": "INB-20260829-490",
@@ -40,6 +40,55 @@
       "issuer_linkage": "sector",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260829-626",
+      "headline": "TV Vision Limited: In furtherance to our intimation dated July 31, 2026, regarding intimation for initiation of Corporate Insolvency Resolution Process (CIRP) of TV Vision Limited ( the Company ) by the Hon'ble National Company Law Tribunal, Mumbai Bench I, we hereby inform you that the Committee of Creditors ( COC ) has been formed on August 22, 2026 pursuant to Section 21 of the Insolvency and Bankruptcy Code, 2016 (IBC), read with the Insolvency and Bankruptcy (Insolvency Resolution Process f",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/TVVISION_29082026200519_Intimation_of_CoC_Meeting-1-sd.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-29T14:35:30Z",
+      "sweep_file": "screener/inbox/2026-08-29_sweep.json",
+      "prelim_note": "The company has entered the Corporate Insolvency Resolution Process and formed a Committee of Creditors, indicating a formal insolvency proceeding.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company has entered the Corporate Insolvency Resolution Process and formed a Committee of Creditors, indicating a formal insolvency proceeding.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "TV Vision Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1950,55 +1999,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260829-370",
-      "headline": "Aberdeen takes £200mn hit on failure of UK broadband provider",
-      "headline_en": null,
-      "url": "https://www.ft.com/content/d3eead8b-7b38-45bd-8fba-489d02a3e440",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-28T10:28:16Z",
-      "sweep_file": "screener/inbox/2026-08-29_sweep.json",
-      "prelim_note": "abrdn reported a £200 million impairment charge due to the failure of a UK broadband provider.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "abrdn reported a £200 million impairment charge due to the failure of a UK broadband provider.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "accounting_restatement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "accounting_restatement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "abrdn",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -106411,9 +106411,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 586902,
-    "news_picked_today": 1524,
-    "news_dropped_today": 6585
+    "news_seen_today": 586944,
+    "news_picked_today": 1526,
+    "news_dropped_today": 6625
   },
   "book_momentum": {
     "live_count": 8,
