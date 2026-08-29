@@ -3371,6 +3371,7 @@ if scope=="selftest":
     _bb_synth_range_sp= "## 1. Valuation Verdict\n- Valuation confidence /100: 55 - 60\n"
     _bb_synth_range_to= "## 1. Valuation Verdict\n- Valuation confidence /100: 55 to 60\n"
     _bb_synth_range_pct= "## 1. Valuation Verdict\n- Valuation confidence /100: 55%–60%\n"
+    _bb_synth_range_or= "## 1. Valuation Verdict\n- Valuation confidence /100: 55 or 60\n"
     bbcases=[  # (decision_date, mult_txt(02), peer_txt(03), synth_txt(99), expect: None=N/A, []=pass, [substr]=fail-with)
         ("2026-08-28",_bb_elev02,_bb_elev03,_bb_synth_ok,[]),                    # same-direction elevated, within cap → pass
         ("2026-08-28",_bb_elev02,_bb_elev03,_bb_synth_atcap,[]),                 # exactly at the 55 cap → pass
@@ -3386,6 +3387,7 @@ if scope=="selftest":
         ("2026-08-28",_bb_elev02,_bb_elev03,_bb_synth_range_sp,["could not be parsed"]),     # 55 - 60 (spaced range) likewise → FAIL
         ("2026-08-28",_bb_elev02,_bb_elev03,_bb_synth_range_to,["could not be parsed"]),     # 55 to 60 (word range) likewise → FAIL
         ("2026-08-28",_bb_elev02,_bb_elev03,_bb_synth_range_pct,["could not be parsed"]),    # 55%–60% (percent range) likewise → FAIL
+        ("2026-08-28",_bb_elev02,_bb_elev03,_bb_synth_range_or,["could not be parsed"]),     # 55 or 60 (worded alternative) likewise → FAIL
         ("2026-08-28",_bb_na02,_bb_na02,_bb_synth_over,[]),                      # neither flagged → pass
         ("2026-08-27",_bb_elev02,_bb_elev03,_bb_synth_over,None),                # predates BB_DATE → N/A
         ("2026-08-28",None,None,_bb_synth_over,None),                           # neither 02 nor 03 ran → N/A
