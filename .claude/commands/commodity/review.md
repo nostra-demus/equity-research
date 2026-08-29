@@ -34,7 +34,7 @@ Resolve `<TODAY>` once: `date +%F`.
 
 ## 2. Discover immutable decisions
 
-Glob `commodity/runs/*/decisions/*/decision_record.json` first. A fresh candidate must parse and carry `swarm == "commodity"`, a matching `decision_id`, `commodity`, `decision_date`, `action`, and `forecast_horizons`. The archive is the grading source; never use the mutable top-level UI projection for a fresh review. If a run has no valid archived dual-horizon decision, fall back to its legacy top-level `decision_record.json` and the old cadence.
+Glob `commodity/runs/*/decisions/*/decision_record.json` first. A fresh candidate must parse and carry `swarm == "commodity"`, a matching `decision_id`, `commodity`, `decision_date`, `action`, and `forecast_horizons`. The archive is the grading source; never use the mutable top-level UI projection for a fresh review. Then glob `frameworks/execution_provenance_legacy_snapshots/commodity/*/decision_record.json`: each valid snapshot remains a separate legacy decision even when that commodity now also has a fresh archive. Only if no frozen snapshot exists for a legacy `(commodity, decision_date)` may discovery fall back to the old top-level `decision_record.json` compatibility path.
 
 Narrow by mode after discovery. In `due`, use every decision/horizon pair Step 3 marks `DUE`. In `commodity` and `all`, include only matching commodities. A supplied window filters the emitted pairs.
 
@@ -61,13 +61,11 @@ for path in review_files:
         else:
             print("INVALID_REVIEW_DOES_NOT_SUPPRESS_DUE", path)
     except Exception: pass
-fresh_commodities = set()
 for f in sorted(glob.glob("commodity/runs/*/decisions/*/decision_record.json")):
     try:
         d = json.load(open(f))
         decision_id, commodity = d["decision_id"], d["commodity"]
         if os.path.basename(os.path.dirname(f)) != decision_id or d.get("swarm") != "commodity": raise ValueError("identity")
-        fresh_commodities.add(commodity)
         for name in ("tactical", "strategic"):
             horizon = d.get("forecast_horizons", {}).get(name, {})
             if horizon.get("status") != "assessable":
@@ -79,12 +77,19 @@ for f in sorted(glob.glob("commodity/runs/*/decisions/*/decision_record.json")):
     except Exception as e:
         print("SKIP invalid_archive", f, str(e)[:80])
 
-# Legacy fallback only where no fresh archived decision exists.
+# Frozen legacy snapshots remain gradeable after a newer archive replaces the
+# commodity's top-level UI projection.
 WINDOWS = {"30d": 30, "90d": 90, "180d": 180, "365d": 365}
-for f in sorted(glob.glob("commodity/runs/*/decision_record.json")):
+legacy_identities = set()
+legacy_files = sorted(glob.glob("frameworks/execution_provenance_legacy_snapshots/commodity/*/decision_record.json"))
+legacy_files += sorted(glob.glob("commodity/runs/*/decision_record.json"))
+for f in legacy_files:
     try:
         d = json.load(open(f)); commodity = d["commodity"]
-        if commodity in fresh_commodities: continue
+        identity = (commodity, d["decision_date"])
+        is_snapshot = f.startswith("frameworks/execution_provenance_legacy_snapshots/")
+        if not is_snapshot and (d.get("decision_id") or identity in legacy_identities): continue
+        if is_snapshot: legacy_identities.add(identity)
         decision_date = datetime.date.fromisoformat(d["decision_date"])
         for name, offset in WINDOWS.items():
             target = decision_date + datetime.timedelta(days=offset)
@@ -108,7 +113,7 @@ commodity/runs/<COMMODITY>/reviews/<REVIEW_DATE>_<WINDOW>_decision_review.json
 
 ## 5. Gather the review price and level checks
 
-For a fresh review, read only `commodity/runs/<COMMODITY>/decisions/<DECISION_ID>/decision_record.json`. Copy `current_price` into `reference_price`, and select exactly one assessable `forecast_horizons.<HORIZON>` object. Write schema `2.0`, `decision_id`, `forecast_horizon`, `review_window` equal to that horizon name, and copy its exact `target_date`. Set `outcome_as_of` to that same date. Legacy reviews continue to read their top-level record and write schema `1.0`.
+For a fresh review, read only `commodity/runs/<COMMODITY>/decisions/<DECISION_ID>/decision_record.json`. Copy `current_price` into `reference_price`, and select exactly one assessable `forecast_horizons.<HORIZON>` object. Write schema `2.0`, `decision_id`, `forecast_horizon`, `review_window` equal to that horizon name, and copy its exact `target_date`. Set `outcome_as_of` to that same date. Legacy reviews read `frameworks/execution_provenance_legacy_snapshots/commodity/<COMMODITY>/decision_record.json` and write schema `1.0`; use the top-level record only for the explicit compatibility fallback selected in Step 3.
 
 Two distinct action/confidence values, kept separate — do NOT conflate them:
 
@@ -204,7 +209,7 @@ Report the commit SHA from `git rev-parse HEAD`. If no review files were created
 
 ## Hard rules
 
-- Reads immutable archived decisions first (legacy top-level records only for legacy fallback) and sibling market evidence read-only; writes only `commodity/runs/<COMMODITY>/reviews/*_decision_review*.json`.
+- Reads immutable archived decisions and frozen legacy snapshots first (legacy top-level records only for pre-migration compatibility) and sibling market evidence read-only; writes only `commodity/runs/<COMMODITY>/reviews/*_decision_review*.json`.
 - Append-only: an existing review file is never overwritten; a re-review of the same window gets a `_vN` suffix.
 - No fabricated prices, returns, or evidence. A fresh target-date outcome missing any implementable-return component remains due rather than entering calibration with a spot-only proxy.
 - `frameworks/commodity/decision_review.schema.json` and `DECISION_LEDGER.md` §7/§10/§12 are the only doctrine sources; this command does not redefine them.

@@ -248,4 +248,43 @@ await check('a player whose exact proof is no longer active support cannot remai
   assert.equal(summary.idea_ready, false)
 })
 
+await check('a forming theme admitted only through a second-order player is Theme-only, never Idea-ready', async () => {
+  // Regression for the "forming row labelled Idea-ready" contradiction (PR #630 review, Codex P1).
+  // Drop the first-order directional expression so `expressionReady` is false → status `forming` (not
+  // `actionable`), but keep an eligible SECOND-order player so the Ideas admission contract is met. The
+  // Ideas gate (ideas-store.ts) requires status==='actionable', so this theme can NEVER seed an Idea; its
+  // "Idea-ready" label (driven by `idea_ready`) must therefore be false. Expected value pinned to
+  // qualification.ts's stated invariant ("`idea_ready` is deliberately stricter [than status]") + the
+  // ideas-store admission gate, not to current store behaviour.
+  const value = theme()
+  value.narrative!.expressions = []
+  const stateDir = fs.mkdtempSync(path.join(os.tmpdir(), 'theme-player-'))
+  fs.writeFileSync(path.join(stateDir, 'news-enrich-cache.json'), JSON.stringify({
+    'evt-player': {
+      event_id: 'evt-player', ok: true, complete: true, fetched_at: NOW.toISOString(), prior_coverage: [], related: [],
+      beneficiaries: [{ name: 'Cooling Supplier', named_in_article: true, ticker: 'COOL', mechanism: 'The article states it supplies the cooling equipment.', order: 'second', relationship: 'supplier' }], exposed: [],
+    },
+  }))
+  const players = await rebuildThemePlayers(value, REPO_ROOT, stateDir, async (ticker, name) => ({ ticker, exchange: 'NYSE', companyName: name, source: 'yahoo_symbol_directory' }), emptyBoard())
+  const eligible = players.filter((row) => row.idea_eligible)
+  assert.ok(eligible.length >= 1 && eligible.every((row) => row.order === 2),
+    'fixture must yield an eligible second-order player and no eligible first-order one')
+  value.players = players
+  value.rev = 7
+  const summary = buildSummary(value, NOW)
+  assert.equal(summary.player_counts.first_order, 0)
+  assert.equal(summary.assessment.status, 'forming')          // not actionable
+  assert.equal(admission(players).admitted, true)             // player contract IS met
+  assert.equal(summary.idea_ready, false)                     // ...but the theme is never Idea-ready
+  // PR #630 review (Codex P2): because the player contract cleared, idea_admission.blockers is empty, so
+  // idea_blockers used to be [] and the detail falsely read "No player package has cleared every Ideas
+  // admission check yet." A forming+admitted row must publish the REAL gate instead. Expected value pinned
+  // to the ThemesView empty-state contract (idea_blockers drives "Why this is theme-only"), not to store
+  // behaviour: red-on-old (idea_blockers === []), green-on-new (names the forming/expression gate).
+  assert.ok(summary.idea_blockers.length >= 1,
+    'a forming, admitted Theme-only row must publish a non-empty idea_blockers, not fall back to the misleading empty-state')
+  assert.ok(summary.idea_blockers.some((blocker) => /forming|first-order directional expression/i.test(blocker)),
+    'the published idea blocker must name the forming/expression gate that actually failed')
+})
+
 console.log(`\nthemes-player-contract: ${passed} checks passed`)

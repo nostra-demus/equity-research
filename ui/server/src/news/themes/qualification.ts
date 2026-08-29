@@ -309,6 +309,7 @@ export function qualifyTheme(
     narrative_coherence_pct: coherencePct,
     recurring_narrative_token_count: selected.anchors.length,
     first_order_directional_ticker_count: validExpressions.length,
+    pending_revalidation: Boolean(theme.needs_narrative_update || theme.narrative_update_overflow || theme.needs_player_revalidation),
     recent_24h_support_count: recent24Support.length,
     recent_24h_challenge_count: recent24Challenge.length,
     off_core_evidence_count: offCoreMembers.length,
