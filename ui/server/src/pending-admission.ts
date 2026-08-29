@@ -453,13 +453,21 @@ export async function deploymentSucceededAfter(
         const key = `${path.resolve(repoRoot)}\0${requestedDeployCommit}\0${sha}`
         let isAncestor = ancestryCache.get(key)
         if (isAncestor === undefined) {
+          // Only a DEFINITIVE answer may be memoized. git exits 1 for "not an ancestor"; exit 128, a
+          // timeout kill, or a missing binary all mean the question could not be answered right now (busy
+          // repo, held pack lock, auto-gc). Caching that as a negative would strand this request forever —
+          // the key is fixed for a queued launch, so every later drain tick would re-read the poisoned
+          // entry and keep re-writing "waiting for update" on a healthy, deployed engine (§30/§31).
           try {
             await execFileAsync('git', ['merge-base', '--is-ancestor', requestedDeployCommit, sha], {
               cwd: repoRoot,
               timeout: 5_000,
             })
             isAncestor = true
-          } catch { isAncestor = false }
+          } catch (error: any) {
+            if (error?.code !== 1 || error?.killed) return null // transient: stay retryable, never cached
+            isAncestor = false
+          }
           ancestryCache.set(key, isAncestor)
           if (ancestryCache.size > 256) ancestryCache.delete(ancestryCache.keys().next().value!)
         }

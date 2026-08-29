@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-29T13:02:51Z",
+  "generated_at": "2026-08-29T16:13:08Z",
   "inbox": [
     {
       "inbox_id": "INB-20260829-490",
@@ -40,6 +40,398 @@
       "issuer_linkage": "sector",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260829-637",
+      "headline": "Trinity Tradelink Ltd: ENCLOSED HEREWITH IMPACT OF AUDIT QUALIFICATION",
+      "headline_en": null,
+      "url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/a2e25f00-d7e2-482e-8f30-45ac4863b1b5.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-29T15:22:38Z",
+      "sweep_file": "screener/inbox/2026-08-29_sweep.json",
+      "prelim_note": "Trinity Tradelink Ltd disclosed the impact of an audit qualification.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Trinity Tradelink Ltd disclosed the impact of an audit qualification.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "accounting_restatement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "accounting_restatement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Trinity Tradelink Ltd",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260829-632",
+      "headline": "TV Vision Ltd: Intimation of Committee of Creditors has been formed on August 22, 2026 and first meeting of Committee of Creditors is scheduled to be held on Monday, 31st August, 2026",
+      "headline_en": null,
+      "url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/8099579c-d9ff-44c2-b6f6-c922e5d85525.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-29T15:03:45Z",
+      "sweep_file": "screener/inbox/2026-08-29_sweep.json",
+      "prelim_note": "TV Vision Ltd has entered insolvency proceedings with a Committee of Creditors formed and first meeting scheduled, indicating active bankruptcy process.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "TV Vision Ltd has entered insolvency proceedings with a Committee of Creditors formed and first meeting scheduled, indicating active bankruptcy process.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "TV Vision Ltd",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260829-626",
+      "headline": "TV Vision Limited: In furtherance to our intimation dated July 31, 2026, regarding intimation for initiation of Corporate Insolvency Resolution Process (CIRP) of TV Vision Limited ( the Company ) by the Hon'ble National Company Law Tribunal, Mumbai Bench I, we hereby inform you that the Committee of Creditors ( COC ) has been formed on August 22, 2026 pursuant to Section 21 of the Insolvency and Bankruptcy Code, 2016 (IBC), read with the Insolvency and Bankruptcy (Insolvency Resolution Process f",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/TVVISION_29082026200519_Intimation_of_CoC_Meeting-1-sd.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-29T14:35:30Z",
+      "sweep_file": "screener/inbox/2026-08-29_sweep.json",
+      "prelim_note": "The company has entered the Corporate Insolvency Resolution Process and formed a Committee of Creditors, indicating a formal insolvency proceeding.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company has entered the Corporate Insolvency Resolution Process and formed a Committee of Creditors, indicating a formal insolvency proceeding.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "TV Vision Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260829-625",
+      "headline": "TV Vision Limited: TV Vision Limited has informed the Exchange about Corporate Insolvency Resolution Process",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/TVVISION_29082026200126_Intimation_to_Stk_exchange_list_of_claims_-_sd.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-29T14:31:42Z",
+      "sweep_file": "screener/inbox/2026-08-29_sweep.json",
+      "prelim_note": "TV Vision Limited has entered the Corporate Insolvency Resolution Process, indicating potential bankruptcy or insolvency proceedings.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "TV Vision Limited has entered the Corporate Insolvency Resolution Process, indicating potential bankruptcy or insolvency proceedings.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "TV Vision Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260829-616",
+      "headline": "Tata Chemicals Limited: Tata Chemicals Limited has informed the Exchange regarding a press release dated August 29, 2026, titled \"Tata Chemicals North America acquires customer contracts expected to generate over USD 110 million in revenue through 2028\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/TATACHEMYS_29082026193323_PressReleaseSigned.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-29T14:03:58Z",
+      "sweep_file": "screener/inbox/2026-08-29_sweep.json",
+      "prelim_note": "Tata Chemicals acquired customer contracts expected to generate over USD 110 million in revenue through 2028.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Tata Chemicals acquired customer contracts expected to generate over USD 110 million in revenue through 2028.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Chemicals Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260829-613",
+      "headline": "Ishaan Infrastructures and Shelters Ltd: The Acquisition of 100% of the Share Capital of Blisstering Electronics Private Limited ('BEPL') and Bliss Cab Electronics Private Limited ('BCEPL'). The Board has approved the execution ....",
+      "headline_en": null,
+      "url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/982ddb90-7fb6-47d9-86fa-d0e596a342c8.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-29T13:46:54Z",
+      "sweep_file": "screener/inbox/2026-08-29_sweep.json",
+      "prelim_note": "The company approved the acquisition of 100% of the share capital of two entities, Blisstering Electronics and Bliss Cab Electronics.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company approved the acquisition of 100% of the share capital of two entities, Blisstering Electronics and Bliss Cab Electronics.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ishaan Infrastructures and Shelters Ltd",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260829-603",
+      "headline": "CCME Global Ltd: Board's approval for acquisition of entities through share swap and cash.",
+      "headline_en": null,
+      "url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/5e7a3c53-53e5-459a-9d79-2faa68567420.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-29T13:39:12Z",
+      "sweep_file": "screener/inbox/2026-08-29_sweep.json",
+      "prelim_note": "The company announced an acquisition strategy involving both cash and share swaps.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company announced an acquisition strategy involving both cash and share swaps.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CCME Global Ltd",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260829-576",
+      "headline": "DIC India Limited: DIC India Limited has filed the detailed resignation received from Mr. Manish Bhatia and he ceases to be the Director, MD & CEO of the Company w.e.f close of business hours of August 29, 2026.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/DICIND_29082026183345_Disclosure_Para7c.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-29T13:09:12Z",
+      "sweep_file": "screener/inbox/2026-08-29_sweep.json",
+      "prelim_note": "The MD & CEO of DIC India Limited is resigning, which is a significant leadership change.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The MD & CEO of DIC India Limited is resigning, which is a significant leadership change.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "executive_exit",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "DIC India Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -138,6 +530,350 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260829-630",
+      "headline": "Meta settles social media addiction suit for up to $17.1 billion",
+      "headline_en": null,
+      "url": "https://www.cbsnews.com/news/meta-settles-social-media-addiction-lawsuit/",
+      "source_name": "CBS MoneyWatch",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-29T14:49:07Z",
+      "sweep_file": "screener/inbox/2026-08-29_sweep.json",
+      "prelim_note": "Meta has agreed to a settlement of up to $17.1 billion regarding social media addiction lawsuits, representing a significant financial impact.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Meta has agreed to a settlement of up to $17.1 billion regarding social media addiction lawsuits, representing a significant financial impact.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Meta Platforms",
+          "ticker": "META",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260829-624",
+      "headline": "Ather Energy invests over ₹400-500 crore to develop scooter platform EL, e-scooter Monarc",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/companies/ather-energy-invests-over-400-500-crore-to-develop-scooter-platform-el-e-scooter-monarc/article71404903.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-29T13:55:21Z",
+      "sweep_file": "screener/inbox/2026-08-29_sweep.json",
+      "prelim_note": "Ather Energy is investing 400-500 crore rupees to develop a new scooter platform and model.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Ather Energy is investing 400-500 crore rupees to develop a new scooter platform and model.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ather Energy",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260829-615",
+      "headline": "HDFC Bank CEO Jagdishan opts out of reappointment amid governance concerns",
+      "headline_en": null,
+      "url": "https://www.deccanherald.com/business/companies/hdfc-bank-ceo-jagdishan-opts-out-of-reappointment-amid-governance-concerns-4128372",
+      "source_name": "Deccan Herald",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-29T13:40:34Z",
+      "sweep_file": "screener/inbox/2026-08-29_sweep.json",
+      "prelim_note": "The CEO of HDFC Bank is opting out of reappointment, citing governance concerns.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The CEO of HDFC Bank is opting out of reappointment, citing governance concerns.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HDFC Bank",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260829-608",
+      "headline": "Aseguradora alemana Allianz estudia la adquisición del gigante de asistencia en carretera AA: medio",
+      "headline_en": "German insurer Allianz studies the acquisition of roadside assistance giant AA: media",
+      "url": "https://www.reuters.com/es/negocio/56V64L5T4RPAFABFZUONE4YQ7Q-2026-08-29/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-29T13:37:28Z",
+      "sweep_file": "screener/inbox/2026-08-29_sweep.json",
+      "prelim_note": "Allianz is reportedly exploring the acquisition of roadside assistance provider AA.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Allianz is reportedly exploring the acquisition of roadside assistance provider AA.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna",
+        "strategic_review"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Allianz",
+          "ticker": null,
+          "listing_country": "DE"
+        },
+        {
+          "name": "AA",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260829-614",
+      "headline": "Sashidhar Jagdishan To Step Down As HDFC Bank MD & CEO On Oct 26",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/business/sashidhar-jagdishan-to-step-down-as-hdfc-bank-md-ceo-on-oct-26-11975079#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-29T13:14:47Z",
+      "sweep_file": "screener/inbox/2026-08-29_sweep.json",
+      "prelim_note": "The MD & CEO of HDFC Bank, Sashidhar Jagdishan, is stepping down on October 26.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The MD & CEO of HDFC Bank, Sashidhar Jagdishan, is stepping down on October 26.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HDFC Bank",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260829-602",
+      "headline": "UAE-based private jet firm explores $1 billion IPO",
+      "headline_en": null,
+      "url": "https://www.arabianbusiness.com/business/transport/uae-based-private-jet-firm-explores-1-billion-ipo",
+      "source_name": "Arabian Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-29T13:14:18Z",
+      "sweep_file": "screener/inbox/2026-08-29_sweep.json",
+      "prelim_note": "A UAE-based private jet firm is exploring a $1 billion IPO, representing a significant capital market event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A UAE-based private jet firm is exploring a $1 billion IPO, representing a significant capital market event.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260829-596",
+      "headline": "Meta’s $18 bn child safety settlement comes with a catch: Why TikTok, YouTube, Snapchat’s actions matter | Explained",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/news/metas-18-bn-child-safety-settlement-comes-with-a-catch-why-tiktok-youtube-snapchat-s-actions-matter-explained-11788003743009.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-29T13:08:37Z",
+      "sweep_file": "screener/inbox/2026-08-29_sweep.json",
+      "prelim_note": "Meta has reached a significant $18 billion settlement regarding child safety, impacting cash flow and regulatory standing.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Meta has reached a significant $18 billion settlement regarding child safety, impacting cash flow and regulatory standing.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement",
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Meta Platforms, Inc.",
+          "ticker": "META",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1253,747 +1989,6 @@
       "companies": [
         {
           "name": "PayPal",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260829-309",
-      "headline": "IREN Falls 6% as $639M Mining Rig Writedown Overshadows AI Cloud Growth, TeraWulf Eases",
-      "headline_en": null,
-      "url": "https://247wallst.com/investing/2026/08/28/iren-falls-6-as-a-639m-mining-rig-writedown-overshadows-ai-cloud-growth-terawulf-eases/",
-      "source_name": "24/7 Wall St.",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-28T13:04:59Z",
-      "sweep_file": "screener/inbox/2026-08-29_sweep.json",
-      "prelim_note": "Company reported a significant $639M writedown, negatively impacting financial performance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Company reported a significant $639M writedown, negatively impacting financial performance.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": -1,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Iris Energy",
-          "ticker": "IREN",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260829-326",
-      "headline": "Jio Platforms IPO gets SEBI approval, mega listing moves a step closer",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/jio-platforms-ipo-gets-sebi-approval-mega-listing-moves-a-step-closer-19979158.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-28T12:39:45Z",
-      "sweep_file": "screener/inbox/2026-08-29_sweep.json",
-      "prelim_note": "Jio Platforms received SEBI approval for an IPO, moving toward a major listing.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Jio Platforms received SEBI approval for an IPO, moving toward a major listing.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Jio Platforms",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260829-335",
-      "headline": "Roche bets $1B+ on DualityBio's ADC tech to tackle TOPO1 resistance",
-      "headline_en": null,
-      "url": "https://endpoints.news/roche-bets-1b-on-dualitybios-adc-tech-to-tackle-topo1-resistance/",
-      "source_name": "Endpoints News",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-28T11:30:02Z",
-      "sweep_file": "screener/inbox/2026-08-29_sweep.json",
-      "prelim_note": "Roche is investing over $1 billion in a licensing deal for ADC technology.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Roche is investing over $1 billion in a licensing deal for ADC technology.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Roche",
-          "ticker": null,
-          "listing_country": "CH"
-        },
-        {
-          "name": "DualityBio",
-          "ticker": null,
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260829-370",
-      "headline": "Aberdeen takes £200mn hit on failure of UK broadband provider",
-      "headline_en": null,
-      "url": "https://www.ft.com/content/d3eead8b-7b38-45bd-8fba-489d02a3e440",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-28T10:28:16Z",
-      "sweep_file": "screener/inbox/2026-08-29_sweep.json",
-      "prelim_note": "abrdn reported a £200 million impairment charge due to the failure of a UK broadband provider.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "abrdn reported a £200 million impairment charge due to the failure of a UK broadband provider.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "accounting_restatement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "accounting_restatement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "abrdn",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260829-373",
-      "headline": "SK hynix breaks ground on the first HBM plant in the US, bringing key AI component production to the States — says production starts in 2029",
-      "headline_en": null,
-      "url": "https://www.tomshardware.com/pc-components/dram/sk-hynix-breaks-ground-on-the-first-hbm-plant-in-the-us-bringing-key-ai-component-production-to-the-states-says-production-starts-in-2029",
-      "source_name": "Tom's Hardware",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-28T09:58:37Z",
-      "sweep_file": "screener/inbox/2026-08-29_sweep.json",
-      "prelim_note": "SK Hynix breaks ground on a new HBM plant in the US, a major capacity expansion for AI components.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "SK Hynix breaks ground on a new HBM plant in the US, a major capacity expansion for AI components.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SK Hynix",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260829-385",
-      "headline": "Noel Tata, Shapoorji Pallonji negotiate share swap for 18.4% Tata Sons holding: Report",
-      "headline_en": null,
-      "url": "https://www.businesstoday.in/latest/corporate/story/noel-tata-and-shapoorji-pallonji-negotiate-share-swap-for-18-4-tata-sons-holding-report-551973-2026-08-28?utm_source=rssfeed",
-      "source_name": "Business Today",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-28T08:53:36Z",
-      "sweep_file": "screener/inbox/2026-08-29_sweep.json",
-      "prelim_note": "Noel Tata and Shapoorji Pallonji are negotiating a share swap for an 18.4% stake in Tata Sons.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Noel Tata and Shapoorji Pallonji are negotiating a share swap for an 18.4% stake in Tata Sons.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tata Sons",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260829-394",
-      "headline": "Baukonzern Strabag hebt Jahresprognose an - Aktie im Höhenflug",
-      "headline_en": "Construction group Strabag raises annual forecast - stock soars",
-      "url": "https://www.reuters.com/de/firma/baukonzern-strabag-hebt-jahresprognose-an-aktie-im-hhenflug-2026-08-28/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-28T08:13:59Z",
-      "sweep_file": "screener/inbox/2026-08-29_sweep.json",
-      "prelim_note": "Strabag raised its annual guidance, signaling improved financial expectations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Strabag raised its annual guidance, signaling improved financial expectations.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 1,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Strabag",
-          "ticker": null,
-          "listing_country": "AT"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260829-397",
-      "headline": "Trump-Tied Firm Boosts Bosnia Investment Plans to $2.3 Billion",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-08-28/trump-tied-firm-boosts-bosnia-investment-plans-to-2-3-billion",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-28T08:11:24Z",
-      "sweep_file": "screener/inbox/2026-08-29_sweep.json",
-      "prelim_note": "A firm linked to Donald Trump announced a $2.3 billion investment plan in Bosnia.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "A firm linked to Donald Trump announced a $2.3 billion investment plan in Bosnia.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260829-401",
-      "headline": "SoftBank seeks another US$10 billion loan for OpenAI stake funding",
-      "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/companies-markets/banking-finance/softbank-seeks-another-us10-billion-loan-openai-stake-funding",
-      "source_name": "The Business Times (Singapore)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-28T07:37:23Z",
-      "sweep_file": "screener/inbox/2026-08-29_sweep.json",
-      "prelim_note": "SoftBank is seeking a $10 billion loan to fund an OpenAI stake, representing a significant capital-raising event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "SoftBank is seeking a $10 billion loan to fund an OpenAI stake, representing a significant capital-raising event.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SoftBank",
-          "ticker": null,
-          "listing_country": "JP"
-        },
-        {
-          "name": "OpenAI",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260829-404",
-      "headline": "Bertelsmann steigert Gewinn und erhöht Prognose für 2026",
-      "headline_en": "Bertelsmann increases profit and raises forecast for 2026",
-      "url": "https://www.reuters.com/de/firma/bertelsmann-steigert-gewinn-und-erhht-prognose-fr-2026-2026-08-28/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-28T07:06:27Z",
-      "sweep_file": "screener/inbox/2026-08-29_sweep.json",
-      "prelim_note": "Bertelsmann reported increased profit and raised its 2026 guidance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Bertelsmann reported increased profit and raised its 2026 guidance.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bertelsmann",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260829-416",
-      "headline": "Nvidia Shares Surge 9% After Forecasting 70% Sales Growth As AI Chip Demand Accelerates",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/nvidia-shares-surge-9-after-forecasting-70-sales-growth-as-ai-chip-demand-accelerates",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-28T06:18:59Z",
-      "sweep_file": "screener/inbox/2026-08-29_sweep.json",
-      "prelim_note": "Nvidia shares rose 9% following a forecast of 70% sales growth driven by AI chip demand.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Nvidia shares rose 9% following a forecast of 70% sales growth driven by AI chip demand.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260829-425",
-      "headline": "Shein valoraría su negocio en 26.500 millones de dólares con su salida a bolsa, según fuentes",
-      "headline_en": "Shein would value its business at $26.5 billion with its IPO, according to sources",
-      "url": "https://www.reuters.com/es/negocio/QEDXNIR3RNLHLARESLCKFD3GCE-2026-08-27/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-27T07:33:44Z",
-      "sweep_file": "screener/inbox/2026-08-29_sweep.json",
-      "prelim_note": "Shein is reportedly targeting a $26.5 billion valuation for its upcoming IPO.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Shein is reportedly targeting a $26.5 billion valuation for its upcoming IPO.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Shein",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260829-420",
-      "headline": "Shein’s Hong Kong IPO pricing values company at $33.7 billion, sources say",
-      "headline_en": null,
-      "url": "https://www.straitstimes.com/business/sheins-hong-kong-ipo-pricing-values-company-at-33-7-billion-sources-say",
-      "source_name": "The Straits Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-27T07:30:00Z",
-      "sweep_file": "screener/inbox/2026-08-29_sweep.json",
-      "prelim_note": "Shein is reportedly targeting a $33.7 billion valuation for its upcoming Hong Kong IPO.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Shein is reportedly targeting a $33.7 billion valuation for its upcoming Hong Kong IPO.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Shein",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260829-434",
-      "headline": "Global Market | Shein set to raise $1.7 billion in Hong Kong IPO at $26.5 billion valuation: Reports",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/us-stocks/wall-street-guide/global-market-shein-set-to-raise-1-7-billion-in-hong-kong-ipo-at-26-5-billion-valuation-reports/articleshow/133560552.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-27T07:20:51Z",
-      "sweep_file": "screener/inbox/2026-08-29_sweep.json",
-      "prelim_note": "Shein is planning a $1.7 billion IPO at a $26.5 billion valuation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Shein is planning a $1.7 billion IPO at a $26.5 billion valuation.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Shein",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260829-438",
-      "headline": "NFL champions Seattle Seahawks sold to Khosla Group for record $9.6 billion",
-      "headline_en": null,
-      "url": "https://www.aljazeera.com/sports/2026/8/27/nfl-champions-seattle-seahawks-sold-to-khosla-group-for-record-9-6-billion?traffic_source=rss",
-      "source_name": "Al Jazeera — All news",
-      "input_nature": "geopolitical_event",
-      "found_at": "2026-08-27T07:14:49Z",
-      "sweep_file": "screener/inbox/2026-08-29_sweep.json",
-      "prelim_note": "Seattle Seahawks sold for a record $9.6 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Seattle Seahawks sold for a record $9.6 billion.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Seattle Seahawks",
           "ticker": null,
           "listing_country": "US"
         }
@@ -85453,6 +85448,287 @@
   "handoffs": [],
   "ideas": [
     {
+      "idea_id": "IDEA-301c9958417a",
+      "idea_version": "IDEAV-6c0f6392a5713e52",
+      "idea_version_started_at": "2026-08-29T16:03:33Z",
+      "ticker": "META",
+      "company": "Meta Platforms",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "A $17.1 billion settlement for social media addiction litigation represents a significant cash outflow and potential long-term regulatory overhang on the company's core business model.",
+      "why_now": "The settlement was announced on August 29, 2026, and the market is currently digesting the magnitude of the financial impact.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-bef4b96e40e0"
+      ],
+      "primary_source_event_id": "EVT-bef4b96e40e0",
+      "source_headlines": [
+        "Meta settles social media addiction suit for up to $17.1 billion"
+      ],
+      "source_headline": "Meta settles social media addiction suit for up to $17.1 billion",
+      "source_url": "https://www.cbsnews.com/news/meta-settles-social-media-addiction-lawsuit/",
+      "source_name": "CBS MoneyWatch",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-29T14:49:07Z",
+      "prior_coverage": {
+        "has_run": true,
+        "latest_run": "analyses/META_2026-08-28",
+        "latest_decision": null,
+        "data_pool_present": true
+      },
+      "surfaced_at": "2026-08-29T16:03:33Z",
+      "updated_at": "2026-08-29T16:03:33Z",
+      "decay_at": "2026-08-31T02:49:07Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-3bb4c249dc6a",
+      "idea_version": "IDEAV-6534eb5d8aa9b222",
+      "idea_version_started_at": "2026-08-29T14:17:28Z",
+      "ticker": "GOOGL",
+      "company": "Alphabet",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Alphabet's stock fell after CEO Sundar Pichai raised the company's 2026 capital expenditure forecast to as much as $205 billion, indicating higher future spending.",
+      "why_now": "The announcement of the increased capex forecast on August 28, 2026, led to an immediate 7% decline in the stock.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-dc600dd78802"
+      ],
+      "primary_source_event_id": "EVT-dc600dd78802",
+      "source_headlines": [
+        "Sundar Pichai Raised Alphabet's 2026 Capex Forecast to as Much as $205 Billion, Sending the Stock Down 7%. Was That an Overreaction That Investors Should Buy Into?"
+      ],
+      "source_headline": "Sundar Pichai Raised Alphabet's 2026 Capex Forecast to as Much as $205 Billion, Sending the Stock Down 7%. Was That an Overreaction That Investors Should Buy Into?",
+      "source_url": "https://www.nasdaq.com/articles/sundar-pichai-raised-alphabets-2026-capex-forecast-much-205-billion-sending-stock-down-7-0",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-28T15:35:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-29T14:17:28Z",
+      "updated_at": "2026-08-29T14:17:28Z",
+      "decay_at": "2026-08-30T03:35:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-a9e3b13426c6",
+      "idea_version": "IDEAV-7bc46110756cac1a",
+      "idea_version_started_at": "2026-08-29T14:17:28Z",
+      "ticker": "MRNA",
+      "company": "Moderna",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Moderna's stock fell following the announcement of a $2.6 billion private offering of convertible senior notes, which could dilute existing shareholder value.",
+      "why_now": "The announcement of the convertible senior notes offering on August 28, 2026, caused an immediate 6% drop in Moderna's stock.",
+      "conviction": 50,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-ff322e2ccd41"
+      ],
+      "primary_source_event_id": "EVT-ff322e2ccd41",
+      "source_headlines": [
+        "Moderna Stock Falls 6% On Announcement Of $2.6 Bln Private Offering Of Convertible Senior Notes"
+      ],
+      "source_headline": "Moderna Stock Falls 6% On Announcement Of $2.6 Bln Private Offering Of Convertible Senior Notes",
+      "source_url": "https://www.nasdaq.com/articles/moderna-stock-falls-6-announcement-26-bln-private-offering-convertible-senior-notes",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-28T15:28:19Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-29T14:17:28Z",
+      "updated_at": "2026-08-29T14:17:28Z",
+      "decay_at": "2026-08-30T03:28:19Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-865901eb21c3",
+      "idea_version": "IDEAV-d0913f669ffdc9ce",
+      "idea_version_started_at": "2026-08-29T13:40:33Z",
+      "ticker": "PYPL",
+      "company": "PayPal Holdings, Inc.",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Advent-Stripe consortium reportedly walked away from a $53B bid, removing a takeover premium that had been supporting the stock.",
+      "why_now": "Reports of the bid withdrawal broke on 2026-08-28 and the stock already fell 13-15% intraday; further downside risk if the market prices in standalone execution risk.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 6,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-b268ee617228",
+        "EVT-e26f85a3cadb"
+      ],
+      "primary_source_event_id": "EVT-b268ee617228",
+      "source_headlines": [
+        "PayPal shares crash 13% on reports Advent-Stripe consortium walks away from bid",
+        "PayPal Plunges 15% After Reports That Advent, Stripe Abandon $53 Billion Bid"
+      ],
+      "source_headline": "PayPal shares crash 13% on reports Advent-Stripe consortium walks away from bid",
+      "source_url": "https://economictimes.indiatimes.com/markets/us-stocks/news/paypal-shares-crash-13-on-reports-advent-stripe-consortium-walks-away-from-bid/articleshow/133594719.cms",
+      "source_name": "The Economic Times",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-28T15:19:56Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-29T13:40:33Z",
+      "updated_at": "2026-08-29T13:40:33Z",
+      "decay_at": "2026-08-30T03:19:56Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-151e26db4506",
       "idea_version": "IDEAV-e91163d58cd38db8",
       "idea_version_started_at": "2026-08-29T13:02:30Z",
@@ -85663,23 +85939,23 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-6ef3d9cacc63",
-      "idea_version": "IDEAV-871bc7d2d2d4ca1c",
-      "idea_version_started_at": "2026-08-28T05:51:01Z",
-      "ticker": "000660.KS",
-      "company": "SK Hynix",
-      "exchange": "Korea",
+      "idea_id": "IDEA-c559ff4a8d85",
+      "idea_version": "IDEAV-b6ac5ae76f01d0ea",
+      "idea_version_started_at": "2026-08-29T13:40:33Z",
+      "ticker": "FLR",
+      "company": "Fluor Corporation",
+      "exchange": "NYSE",
       "direction": "long",
       "pair_with": null,
-      "reason": "The $4 billion investment in an Indiana facility strengthens the company's US-based supply chain and aligns with regional semiconductor manufacturing incentives.",
-      "why_now": "The announcement was made on 2026-08-28, marking a significant strategic expansion into the US market.",
-      "conviction": 65,
+      "reason": "Completion of a $5B Alabama plant construction project removes execution risk and should unlock milestone payments and cash flow for the engineering and construction firm.",
+      "why_now": "Project wrap-up reported on 2026-08-28, providing a dated catalyst for revenue recognition and balance-sheet improvement.",
+      "conviction": 50,
       "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
+      "trade_score": 60,
       "trade_score_basis": "evidence_gate_v2",
       "trade_score_breakdown": {
         "evidence": 14,
-        "impact": 20,
+        "impact": 19,
         "specificity": 15,
         "timing": 10,
         "expression": 6,
@@ -85690,6 +85966,7 @@
       "missing_checks": [
         "live liquidity",
         "dated catalyst",
+        "price and market expectations",
         "independent confirmation",
         "live price, liquidity, and consensus"
       ],
@@ -85702,31 +85979,31 @@
         "basis": "not_enough_outcomes",
         "evidenceIds": []
       },
-      "priced_in": "room",
+      "priced_in": "unknown",
       "thesis_type": "company_specific",
       "origin_type": "wire",
       "source_themes": [],
       "source_event_ids": [
-        "EVT-2f11eb103002"
+        "EVT-a225fc453d91"
       ],
-      "primary_source_event_id": "EVT-2f11eb103002",
+      "primary_source_event_id": "EVT-a225fc453d91",
       "source_headlines": [
-        "SK Hynix to Invest $4 Billion in Indiana, USA"
+        "Fluor to wrap $5B Alabama plant construction"
       ],
-      "source_headline": "SK하이닉스, 미국 인디애나에 40억 달러 투자",
-      "source_url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=275709",
-      "source_name": "Business Korea — All Articles (CDN)",
+      "source_headline": "Fluor to wrap $5B Alabama plant construction",
+      "source_url": "https://www.constructiondive.com/news/fluor-alabama-plant-construction-novelis/829026/",
+      "source_name": "Construction Dive",
       "materiality_max": 100,
-      "newest_source_at": "2026-08-28T01:04:34Z",
+      "newest_source_at": "2026-08-28T15:27:09Z",
       "prior_coverage": {
         "has_run": false,
         "latest_run": null,
         "latest_decision": null,
         "data_pool_present": false
       },
-      "surfaced_at": "2026-08-28T05:51:01Z",
-      "updated_at": "2026-08-28T05:51:01Z",
-      "decay_at": "2026-08-29T13:04:34Z",
+      "surfaced_at": "2026-08-29T13:40:33Z",
+      "updated_at": "2026-08-29T13:40:33Z",
+      "decay_at": "2026-08-30T03:27:09Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -85874,35 +86151,36 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-ad9e65208b35",
-      "idea_version": "IDEAV-52b0bb5639279ad2",
-      "idea_version_started_at": "2026-08-28T05:51:01Z",
-      "ticker": "F17.SI",
-      "company": "GuocoLand",
-      "exchange": "Singapore",
+      "idea_id": "IDEA-2bf283da46ec",
+      "idea_version": "IDEAV-76cabd50311d5286",
+      "idea_version_started_at": "2026-08-29T15:47:43Z",
+      "ticker": "TVVISION",
+      "company": "TV Vision Limited",
+      "exchange": "BSE",
       "direction": "short",
       "pair_with": null,
-      "reason": "A 70% decline in H2 net profit highlights significant margin compression and operational headwinds in their real estate portfolio.",
-      "why_now": "The earnings report was released on 2026-08-28, confirming the negative trend.",
-      "conviction": 60,
+      "reason": "The formal constitution of the Committee of Creditors confirms the company is deep into the insolvency resolution process, signaling high risk of equity wipeout.",
+      "why_now": "The Committee of Creditors was officially formed on August 22, 2026, with the filing released August 29, 2026.",
+      "conviction": 80,
       "conviction_basis": "pre_edge_proxy",
-      "trade_score": 55,
+      "trade_score": 45,
       "trade_score_basis": "evidence_gate_v2",
       "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
+        "evidence": 25,
+        "impact": 21,
+        "specificity": 7,
         "timing": 10,
-        "expression": 6,
+        "expression": 0,
         "corroboration": 0,
         "learning_adjustment": 0
       },
-      "trade_readiness": "needs_data",
+      "trade_readiness": "watch_only",
       "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
         "live liquidity",
         "dated catalyst",
         "priced-in risk",
-        "independent confirmation",
         "live price, liquidity, and consensus"
       ],
       "learning": {
@@ -85915,30 +86193,461 @@
         "evidenceIds": []
       },
       "priced_in": "priced",
-      "thesis_type": "company_specific",
+      "thesis_type": "balance_sheet_survival",
       "origin_type": "wire",
       "source_themes": [],
       "source_event_ids": [
-        "EVT-882f77c6221c"
+        "EVT-0435ea54ef70"
       ],
-      "primary_source_event_id": "EVT-882f77c6221c",
+      "primary_source_event_id": "EVT-0435ea54ef70",
       "source_headlines": [
-        "GuocoLand H2 net profit down 70% at S$9.8 million"
+        "TV Vision Limited: In furtherance to our intimation dated July 31, 2026, regarding intimation for initiation of Corporate Insolvency Resolution Process (CIRP) of TV Vision Limited ( the Company ) by the Hon'ble National Company Law Tribunal, Mumbai Bench I, we hereby inform you that the Committee of Creditors ( COC ) has been formed on August 22, 2026 pursuant to Section 21 of the Insolvency and Bankruptcy Code, 2016 (IBC), read with the Insolvency and Bankruptcy (Insolvency Resolution Process f"
       ],
-      "source_headline": "GuocoLand H2 net profit down 70% at S$9.8 million",
-      "source_url": "https://www.businesstimes.com.sg/companies-markets/guocoland-h2-net-profit-down-70-s9-8-million",
-      "source_name": "The Business Times (Singapore)",
+      "source_headline": "TV Vision Limited: In furtherance to our intimation dated July 31, 2026, regarding intimation for initiation of Corporate Insolvency Resolution Process (CIRP) of TV Vision Limited ( the Company ) by the Hon'ble National Company Law Tribunal, Mumbai Bench I, we hereby inform you that the Committee of Creditors ( COC ) has been formed on August 22, 2026 pursuant to Section 21 of the Insolvency and Bankruptcy Code, 2016 (IBC), read with the Insolvency and Bankruptcy (Insolvency Resolution Process f",
+      "source_url": "https://nsearchives.nseindia.com/corporate/TVVISION_29082026200519_Intimation_of_CoC_Meeting-1-sd.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
       "materiality_max": 100,
-      "newest_source_at": "2026-08-28T03:19:41Z",
+      "newest_source_at": "2026-08-29T14:35:30Z",
       "prior_coverage": {
         "has_run": false,
         "latest_run": null,
         "latest_decision": null,
         "data_pool_present": false
       },
-      "surfaced_at": "2026-08-28T05:51:01Z",
-      "updated_at": "2026-08-28T05:51:01Z",
-      "decay_at": "2026-08-29T15:19:41Z",
+      "surfaced_at": "2026-08-29T15:47:43Z",
+      "updated_at": "2026-08-29T15:47:43Z",
+      "decay_at": "2026-08-31T02:35:30Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-1216c09ce08d",
+      "idea_version": "IDEAV-2412c527a81f63ee",
+      "idea_version_started_at": "2026-08-29T15:13:07Z",
+      "ticker": "TATACHEM",
+      "company": "Tata Chemicals Limited",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The acquisition of customer contracts is expected to generate over USD 110 million in incremental revenue through 2028, directly bolstering the North American business unit.",
+      "why_now": "The press release was issued on August 29, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-0a563a74816e"
+      ],
+      "primary_source_event_id": "EVT-0a563a74816e",
+      "source_headlines": [
+        "Tata Chemicals Limited: Tata Chemicals Limited has informed the Exchange regarding a press release dated August 29, 2026, titled \"Tata Chemicals North America acquires customer contracts expected to generate over USD 110 million in revenue through 2028\"."
+      ],
+      "source_headline": "Tata Chemicals Limited: Tata Chemicals Limited has informed the Exchange regarding a press release dated August 29, 2026, titled \"Tata Chemicals North America acquires customer contracts expected to generate over USD 110 million in revenue through 2028\".",
+      "source_url": "https://nsearchives.nseindia.com/corporate/TATACHEMYS_29082026193323_PressReleaseSigned.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-29T14:03:58Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-29T15:13:07Z",
+      "updated_at": "2026-08-29T15:13:07Z",
+      "decay_at": "2026-08-31T02:03:58Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-279942e1dba3",
+      "idea_version": "IDEAV-f7f1efe32bb04acb",
+      "idea_version_started_at": "2026-08-29T15:13:07Z",
+      "ticker": "HDFCBANK",
+      "company": "HDFC Bank",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The unexpected departure of the MD & CEO amid cited governance concerns creates significant leadership uncertainty and potential institutional instability.",
+      "why_now": "The announcement was made on August 29, 2026, with the CEO stepping down effective October 26, 2026.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 18,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 6,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-2bee2888c8f9",
+        "EVT-f2a0525428e6"
+      ],
+      "primary_source_event_id": "EVT-2bee2888c8f9",
+      "source_headlines": [
+        "Sashidhar Jagdishan To Step Down As HDFC Bank MD & CEO On Oct 26",
+        "HDFC Bank CEO Jagdishan opts out of reappointment amid governance concerns"
+      ],
+      "source_headline": "Sashidhar Jagdishan To Step Down As HDFC Bank MD & CEO On Oct 26",
+      "source_url": "https://www.ndtvprofit.com/business/sashidhar-jagdishan-to-step-down-as-hdfc-bank-md-ceo-on-oct-26-11975079#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-29T13:40:34Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-29T15:13:07Z",
+      "updated_at": "2026-08-29T15:13:07Z",
+      "decay_at": "2026-08-31T01:40:34Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-0b5dc86cd04c",
+      "idea_version": "IDEAV-ae38bb0ccca7c1ba",
+      "idea_version_started_at": "2026-08-29T14:33:23Z",
+      "ticker": "ASTRON",
+      "company": "Astron Paper & Board Mill Limited",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company has officially entered the Corporate Insolvency Resolution Process, which typically wipes out or severely dilutes existing equity holders.",
+      "why_now": "The insolvency process was formally communicated to the exchanges on August 29, 2026.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-524d8df6e2f3"
+      ],
+      "primary_source_event_id": "EVT-524d8df6e2f3",
+      "source_headlines": [
+        "Astron Paper & Board Mill Limited: Astron Paper & Board Mill Limited has informed the Exchange about Corporate Insolvency Resolution Process"
+      ],
+      "source_headline": "Astron Paper & Board Mill Limited: Astron Paper & Board Mill Limited has informed the Exchange about Corporate Insolvency Resolution Process",
+      "source_url": "https://nsearchives.nseindia.com/corporate/ASTRON_29082026171454_E_voting_result.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-29T11:45:34Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-29T14:33:23Z",
+      "updated_at": "2026-08-29T14:33:23Z",
+      "decay_at": "2026-08-30T23:45:34Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-e89adaf01a10",
+      "idea_version": "IDEAV-712c6013abb8e9c1",
+      "idea_version_started_at": "2026-08-29T14:33:23Z",
+      "ticker": "ALV",
+      "company": "Allianz SE",
+      "exchange": "XETRA",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Allianz is considering a massive 5 billion GBP (8.6 billion USD) takeover of roadside assistance giant AA, which could strain its capital allocation and introduce integration risks.",
+      "why_now": "The acquisition plans were reported by Sky News on August 29, 2026, signaling immediate market scrutiny on Allianz's capital deployment.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 6,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-0cd3bfc6ed36",
+        "EVT-5d53280276d9"
+      ],
+      "primary_source_event_id": "EVT-0cd3bfc6ed36",
+      "source_headlines": [
+        "Allianz considers buying roadside assistance giant AA for £5bn - Sky News",
+        "German insurer Allianz weighs $8.6 billion takeover of AA roadside rescue giant: Report"
+      ],
+      "source_headline": "Allianz envisage de racheter le géant de l'assistance routière AA pour £5 mds -Sky News",
+      "source_url": "https://www.reuters.com/fr/affaires/allianz-envisage-de-racheter-le-gant-de-lassistance-routire-aa-pour-5-mds-sky-2026-08-29/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-29T10:31:33Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-29T14:33:23Z",
+      "updated_at": "2026-08-29T14:33:23Z",
+      "decay_at": "2026-08-30T22:31:33Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-eea7081fed7e",
+      "idea_version": "IDEAV-ac905aa5149a8b38",
+      "idea_version_started_at": "2026-08-29T14:33:23Z",
+      "ticker": "DICIND",
+      "company": "DIC India Limited",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The sudden resignation and exit of Managing Director and CEO Manish Bhatia deprives the company of its top leadership, creating operational and strategic uncertainty.",
+      "why_now": "The executive's resignation is effective as of the close of business hours on August 29, 2026.",
+      "conviction": 50,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-cefa77d1bf41"
+      ],
+      "primary_source_event_id": "EVT-cefa77d1bf41",
+      "source_headlines": [
+        "DIC India Limited: DIC India Limited has filed the detailed resignation received from Mr. Manish Bhatia and he ceases to be the Director, MD & CEO of the Company w.e.f close of business hours of August 29, 2026."
+      ],
+      "source_headline": "DIC India Limited: DIC India Limited has filed the detailed resignation received from Mr. Manish Bhatia and he ceases to be the Director, MD & CEO of the Company w.e.f close of business hours of August 29, 2026.",
+      "source_url": "https://nsearchives.nseindia.com/corporate/DICIND_29082026183345_Disclosure_Para7c.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-29T13:09:12Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-29T14:33:23Z",
+      "updated_at": "2026-08-29T14:33:23Z",
+      "decay_at": "2026-08-31T01:09:12Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-39a2052bc383",
+      "idea_version": "IDEAV-c2649f388f3e14e6",
+      "idea_version_started_at": "2026-08-29T14:17:28Z",
+      "ticker": "IREN",
+      "company": "Iris Energy",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Iris Energy's stock fell due to a $639 million writedown of mining rigs, which overshadowed its AI cloud growth.",
+      "why_now": "The market reacted negatively on August 28, 2026, to the reported writedown, causing a 6% decline in the stock.",
+      "conviction": 45,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-fc07c0e4b285"
+      ],
+      "primary_source_event_id": "EVT-fc07c0e4b285",
+      "source_headlines": [
+        "IREN Falls 6% as $639M Mining Rig Writedown Overshadows AI Cloud Growth, TeraWulf Eases"
+      ],
+      "source_headline": "IREN Falls 6% as $639M Mining Rig Writedown Overshadows AI Cloud Growth, TeraWulf Eases",
+      "source_url": "https://247wallst.com/investing/2026/08/28/iren-falls-6-as-a-639m-mining-rig-writedown-overshadows-ai-cloud-growth-terawulf-eases/",
+      "source_name": "24/7 Wall St.",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-28T13:04:59Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-29T14:17:28Z",
+      "updated_at": "2026-08-29T14:17:28Z",
+      "decay_at": "2026-08-30T01:04:59Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -87081,6 +87790,76 @@
       "promoted_signal_id": null,
       "feedback": null,
       "stale": false
+    },
+    {
+      "idea_id": "IDEA-6ef3d9cacc63",
+      "idea_version": "IDEAV-871bc7d2d2d4ca1c",
+      "idea_version_started_at": "2026-08-28T05:51:01Z",
+      "ticker": "000660.KS",
+      "company": "SK Hynix",
+      "exchange": "Korea",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The $4 billion investment in an Indiana facility strengthens the company's US-based supply chain and aligns with regional semiconductor manufacturing incentives.",
+      "why_now": "The announcement was made on 2026-08-28, marking a significant strategic expansion into the US market.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-2f11eb103002"
+      ],
+      "primary_source_event_id": "EVT-2f11eb103002",
+      "source_headlines": [
+        "SK Hynix to Invest $4 Billion in Indiana, USA"
+      ],
+      "source_headline": "SK하이닉스, 미국 인디애나에 40억 달러 투자",
+      "source_url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=275709",
+      "source_name": "Business Korea — All Articles (CDN)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-28T01:04:34Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-28T05:51:01Z",
+      "updated_at": "2026-08-28T05:51:01Z",
+      "decay_at": "2026-08-29T13:04:34Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
     },
     {
       "idea_id": "IDEA-fc7caca7ed3e",
@@ -88417,6 +89196,77 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-ad9e65208b35",
+      "idea_version": "IDEAV-52b0bb5639279ad2",
+      "idea_version_started_at": "2026-08-28T05:51:01Z",
+      "ticker": "F17.SI",
+      "company": "GuocoLand",
+      "exchange": "Singapore",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "A 70% decline in H2 net profit highlights significant margin compression and operational headwinds in their real estate portfolio.",
+      "why_now": "The earnings report was released on 2026-08-28, confirming the negative trend.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 55,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-882f77c6221c"
+      ],
+      "primary_source_event_id": "EVT-882f77c6221c",
+      "source_headlines": [
+        "GuocoLand H2 net profit down 70% at S$9.8 million"
+      ],
+      "source_headline": "GuocoLand H2 net profit down 70% at S$9.8 million",
+      "source_url": "https://www.businesstimes.com.sg/companies-markets/guocoland-h2-net-profit-down-70-s9-8-million",
+      "source_name": "The Business Times (Singapore)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-28T03:19:41Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-28T05:51:01Z",
+      "updated_at": "2026-08-28T05:51:01Z",
+      "decay_at": "2026-08-29T15:19:41Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-728d9c6bfb69",
       "idea_version": "IDEAV-c7f0f3f91317bddd",
       "idea_version_started_at": "2026-08-28T00:35:47Z",
@@ -88482,78 +89332,6 @@
       "surfaced_at": "2026-08-27T13:17:25Z",
       "updated_at": "2026-08-28T00:35:47Z",
       "decay_at": "2026-08-29T11:16:05Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-fa9512f6988e",
-      "idea_version": "IDEAV-8e32e03160a422e5",
-      "idea_version_started_at": "2026-08-26T20:21:39Z",
-      "ticker": "BKSY",
-      "company": "BlackSky Technology Inc.",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company has received a delisting notification from the NYSE, which typically signals severe liquidity or compliance distress and often precedes further equity erosion.",
-      "why_now": "The delisting notice was filed with the SEC on 2026-08-26.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 55,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-2d4d4442635c",
-        "EVT-f14c29c6fe25"
-      ],
-      "primary_source_event_id": "EVT-2d4d4442635c",
-      "source_headlines": [
-        "25-NSE - BlackSky Technology Inc. (0001753539) (Subject)",
-        "25-NSE - NEW YORK STOCK EXCHANGE LLC (0000876661) (Filed by)"
-      ],
-      "source_headline": "25-NSE - BlackSky Technology Inc. (0001753539) (Subject)",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/1753539/000087666126000707/0000876661-26-000707-index.htm",
-      "source_name": "SEC EDGAR — Latest 25-NSE (Delisting Notification)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-26T13:27:05Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-26T20:21:39Z",
-      "updated_at": "2026-08-26T20:21:39Z",
-      "decay_at": "2026-08-28T01:27:05Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -89711,292 +90489,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-a06045bd26d9",
-      "idea_version": "IDEAV-1958a334293ed605",
-      "idea_version_started_at": "2026-08-27T02:10:48Z",
-      "ticker": "06860",
-      "company": "Fingertango",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company issued a profit warning, signaling deteriorating margins or revenue performance that will likely lead to downward earnings revisions.",
-      "why_now": "The profit warning was filed on 2026-08-26.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-8348e5c7ac6a"
-      ],
-      "primary_source_event_id": "EVT-8348e5c7ac6a",
-      "source_headlines": [
-        "FINGERTANGO (06860): PROFIT WARNING"
-      ],
-      "source_headline": "FINGERTANGO (06860): PROFIT WARNING",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0826/2026082601861.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-26T14:03:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-27T02:10:48Z",
-      "updated_at": "2026-08-27T02:10:48Z",
-      "decay_at": "2026-08-28T02:03:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-ba7402b9aa86",
-      "idea_version": "IDEAV-57bfd54e9ecf6363",
-      "idea_version_started_at": "2026-08-26T23:18:30Z",
-      "ticker": "BSKY",
-      "company": "BlackSky Technology Inc.",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "BlackSky Technology Inc. is facing delisting from the New York Stock Exchange, which typically signals severe financial distress and can lead to reduced liquidity and investor confidence.",
-      "why_now": "The delisting notification was filed on August 26, 2026, making this a live event.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-2d4d4442635c",
-        "EVT-f14c29c6fe25"
-      ],
-      "primary_source_event_id": "EVT-2d4d4442635c",
-      "source_headlines": [
-        "25-NSE - BlackSky Technology Inc. (0001753539) (Subject)",
-        "25-NSE - NEW YORK STOCK EXCHANGE LLC (0000876661) (Filed by)"
-      ],
-      "source_headline": "25-NSE - BlackSky Technology Inc. (0001753539) (Subject)",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/1753539/000087666126000707/0000876661-26-000707-index.htm",
-      "source_name": "SEC EDGAR — Latest 25-NSE (Delisting Notification)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-26T13:27:05Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-26T23:18:30Z",
-      "updated_at": "2026-08-26T23:18:30Z",
-      "decay_at": "2026-08-28T01:27:05Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-e9f7d83c2f9e",
-      "idea_version": "IDEAV-7a30f084832ce743",
-      "idea_version_started_at": "2026-08-26T22:23:24Z",
-      "ticker": "00950",
-      "company": "Lee's Pharmaceutical Holdings Limited",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company issued a positive profit alert, indicating an improvement in earnings performance compared to the previous period.",
-      "why_now": "The profit alert was filed on 2026-08-26.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-cf525820828c"
-      ],
-      "primary_source_event_id": "EVT-cf525820828c",
-      "source_headlines": [
-        "LEE'S PHARM (00950): Positive Profit Alert"
-      ],
-      "source_headline": "LEE'S PHARM (00950): Positive Profit Alert",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0826/2026082601649.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-26T13:06:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-26T22:23:24Z",
-      "updated_at": "2026-08-26T22:23:24Z",
-      "decay_at": "2026-08-28T01:06:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-4402530dd0df",
-      "idea_version": "IDEAV-1b64f1ccf2917e03",
-      "idea_version_started_at": "2026-08-26T17:19:45Z",
-      "ticker": "03958",
-      "company": "DFZQ",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The acquisition of 100% of Shanghai Securities will significantly increase the firm's market share and asset base in the Chinese brokerage sector.",
-      "why_now": "The Shanghai Stock Exchange accepted the application for the asset purchase on August 26, 2026.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-b61b739ecc2a"
-      ],
-      "primary_source_event_id": "EVT-b61b739ecc2a",
-      "source_headlines": [
-        "DFZQ (03958): (1) MAJOR TRANSACTION - THE PROPOSED ACQUISITION OF 100% EQUITY INTERESTS IN SHANGHAI SECURITIES BY WAY OF ISSUE OF CONSIDERATION A SHARES UNDER SPECIFIC MANDATE AND PAYMENT OF CASH AND (2) APPLICATION FOR WHITEWASH WAIVER ACCEPTANCE OF APPLICATION FOR THE PURCHASE OF ASSETS BY WAY OF ISSUE OF CONSIDERATION A SHARES UNDER THE PROPOSED TRANSACTION BY THE SHANGHAI STOCK EXCHANGE"
-      ],
-      "source_headline": "DFZQ (03958): (1) MAJOR TRANSACTION - THE PROPOSED ACQUISITION OF 100% EQUITY INTERESTS IN SHANGHAI SECURITIES BY WAY OF ISSUE OF CONSIDERATION A SHARES UNDER SPECIFIC MANDATE AND PAYMENT OF CASH AND (2) APPLICATION FOR WHITEWASH WAIVER ACCEPTANCE OF APPLICATION FOR THE PURCHASE OF ASSETS BY WAY OF ISSUE OF CONSIDERATION A SHARES UNDER THE PROPOSED TRANSACTION BY THE SHANGHAI STOCK EXCHANGE",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0826/2026082601813.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-26T13:49:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-24T16:50:38Z",
-      "updated_at": "2026-08-26T17:19:45Z",
-      "decay_at": "2026-08-28T01:49:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-87ee6f6e0a27",
       "idea_version": "IDEAV-c7926b8790634ea9",
       "idea_version_started_at": "2026-08-28T03:27:36Z",
@@ -90355,24 +90847,24 @@
     "schema_version": "ideas-archive/v1",
     "health": {
       "status": "ok",
-      "file_count": 168,
+      "file_count": 173,
       "suppression_count": 1,
       "corrupt_count": 0,
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 212,
-    "shown_count": 212,
+    "total_count": 214,
+    "shown_count": 214,
     "hidden_count": 0,
     "side_counts": {
       "long": {
-        "total_count": 100,
-        "shown_count": 100,
+        "total_count": 101,
+        "shown_count": 101,
         "hidden_count": 0
       },
       "short": {
-        "total_count": 112,
-        "shown_count": 112,
+        "total_count": 113,
+        "shown_count": 113,
         "hidden_count": 0
       }
     },
@@ -90392,6 +90884,153 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-ad9e65208b35",
+        "idea_version": "IDEAV-52b0bb5639279ad2",
+        "idea_version_started_at": "2026-08-28T05:51:01Z",
+        "ticker": "F17.SI",
+        "company": "GuocoLand",
+        "exchange": "Singapore",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "A 70% decline in H2 net profit highlights significant margin compression and operational headwinds in their real estate portfolio.",
+        "why_now": "The earnings report was released on 2026-08-28, confirming the negative trend.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 55,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-882f77c6221c"
+        ],
+        "primary_source_event_id": "EVT-882f77c6221c",
+        "source_headlines": [
+          "GuocoLand H2 net profit down 70% at S$9.8 million"
+        ],
+        "source_headline": "GuocoLand H2 net profit down 70% at S$9.8 million",
+        "source_url": "https://www.businesstimes.com.sg/companies-markets/guocoland-h2-net-profit-down-70-s9-8-million",
+        "source_name": "The Business Times (Singapore)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-28T03:19:41Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-28T05:51:01Z",
+        "updated_at": "2026-08-28T05:51:01Z",
+        "decay_at": "2026-08-29T15:19:41Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-29T15:19:41Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-6ef3d9cacc63",
+        "idea_version": "IDEAV-871bc7d2d2d4ca1c",
+        "idea_version_started_at": "2026-08-28T05:51:01Z",
+        "ticker": "000660.KS",
+        "company": "SK Hynix",
+        "exchange": "Korea",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The $4 billion investment in an Indiana facility strengthens the company's US-based supply chain and aligns with regional semiconductor manufacturing incentives.",
+        "why_now": "The announcement was made on 2026-08-28, marking a significant strategic expansion into the US market.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 62,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-2f11eb103002"
+        ],
+        "primary_source_event_id": "EVT-2f11eb103002",
+        "source_headlines": [
+          "SK Hynix to Invest $4 Billion in Indiana, USA"
+        ],
+        "source_headline": "SK하이닉스, 미국 인디애나에 40억 달러 투자",
+        "source_url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=275709",
+        "source_name": "Business Korea — All Articles (CDN)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-28T01:04:34Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-28T05:51:01Z",
+        "updated_at": "2026-08-28T05:51:01Z",
+        "decay_at": "2026-08-29T13:04:34Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-29T13:04:34Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-7bcadd0aa831",
         "idea_version": "IDEAV-0c52e9320ed9604e",
@@ -93422,8 +94061,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-08-28T02:03:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-08-29T14:17:34Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -93496,8 +94135,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-08-28T01:49:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-08-29T14:17:34Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -93571,8 +94210,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-08-28T01:27:05Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-08-29T13:40:39Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -93647,8 +94286,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-08-28T01:27:05Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-08-29T13:40:39Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -93721,8 +94360,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-08-28T01:06:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-08-29T13:40:39Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -106107,8 +106746,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 237,
-    "live_count": 23,
+    "surfaced_total": 249,
+    "live_count": 33,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -106127,9 +106766,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 586036,
-    "news_picked_today": 1395,
-    "news_dropped_today": 5868
+    "news_seen_today": 587379,
+    "news_picked_today": 1589,
+    "news_dropped_today": 6997
   },
   "book_momentum": {
     "live_count": 8,
