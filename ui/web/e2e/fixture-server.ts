@@ -203,7 +203,12 @@ async function readBody(req: http.IncomingMessage): Promise<any> {
   const chunks: Buffer[] = []
   for await (const chunk of req) chunks.push(Buffer.from(chunk))
   if (!chunks.length) return {}
-  return JSON.parse(Buffer.concat(chunks).toString('utf8'))
+  try {
+    const parsed = JSON.parse(Buffer.concat(chunks).toString('utf8'))
+    return parsed && typeof parsed === 'object' && !Array.isArray(parsed) ? parsed : {}
+  } catch {
+    return {}
+  }
 }
 
 function json(res: http.ServerResponse, status: number, value: unknown): void {
@@ -395,8 +400,11 @@ const server = http.createServer(async (req, res) => {
       })
     }
     if (method === 'GET' && /^\/api\/runs\/[^/]+\/events$/.test(url.pathname)) {
-      res.writeHead(200, { 'content-type': 'text/event-stream', 'cache-control': 'no-cache' })
-      res.end()
+      // Ending the stream immediately makes EventSource treat it as a dropped connection and
+      // reconnect in a tight loop, spamming the fixture. Keep it open until the client disconnects.
+      res.writeHead(200, { 'content-type': 'text/event-stream', 'cache-control': 'no-cache', connection: 'keep-alive' })
+      res.write(':\n\n')
+      req.once('close', () => res.end())
       return
     }
     return json(res, 404, { error: `${method} ${url.pathname} is not part of the lifecycle fixture` })
