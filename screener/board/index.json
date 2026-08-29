@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-29T09:28:29Z",
+  "generated_at": "2026-08-29T09:43:23Z",
   "inbox": [
     {
       "inbox_id": "INB-20260829-490",
@@ -40,6 +40,109 @@
       "issuer_linkage": "sector",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260829-515",
+      "headline": "German insurer Allianz weighs $6.77 billion takeover of AA roadside rescue giant, Sky News reports",
+      "headline_en": null,
+      "url": "https://www.reuters.com/legal/transactional/german-insurer-allianz-weighs-677-billion-takeover-aa-roadside-rescue-giant-sky-2026-08-29/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-29T09:30:58Z",
+      "sweep_file": "screener/inbox/2026-08-29_sweep.json",
+      "prelim_note": "Allianz is considering a $6.77 billion acquisition of AA.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Allianz is considering a $6.77 billion acquisition of AA.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Allianz",
+          "ticker": null,
+          "listing_country": "DE"
+        },
+        {
+          "name": "AA",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260829-521",
+      "headline": "Liverpool agree £123 million fee for PSG's Bradley Barcola",
+      "headline_en": null,
+      "url": "https://www.thenationalnews.com/sport/football/2026/08/29/liverpool-agree-123-million-fee-for-psgs-bradley-barcola/",
+      "source_name": "The National — All News",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-29T09:25:03Z",
+      "sweep_file": "screener/inbox/2026-08-29_sweep.json",
+      "prelim_note": "Liverpool FC agreed to a £123 million transfer fee for a player.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Liverpool FC agreed to a £123 million transfer fee for a player.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Liverpool FC",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -94,60 +197,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260829-491",
-      "headline": "German insurer Allianz weighs £5bn takeover of AA roadside rescue giant",
-      "headline_en": null,
-      "url": "https://news.sky.com/story/german-insurer-allianz-weighs-5bn-takeover-of-aa-roadside-rescue-giant-13578449",
-      "source_name": "Sky News — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-29T08:08:00Z",
-      "sweep_file": "screener/inbox/2026-08-29_sweep.json",
-      "prelim_note": "Allianz is considering a 5 billion GBP takeover of AA, a significant M&A event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Allianz is considering a 5 billion GBP takeover of AA, a significant M&A event.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Allianz",
-          "ticker": null,
-          "listing_country": "DE"
-        },
-        {
-          "name": "AA",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1941,55 +1990,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260829-286",
-      "headline": "BYD posts US$1.2 billion profit in second quarter on surging global demand",
-      "headline_en": null,
-      "url": "https://www.scmp.com/business/china-evs/article/3365652/byd-posts-us12-billion-profit-second-quarter-surging-global-demand?utm_source=rss_feed",
-      "source_name": "South China Morning Post",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-28T14:11:21Z",
-      "sweep_file": "screener/inbox/2026-08-29_sweep.json",
-      "prelim_note": "BYD reported a significant quarterly profit of $1.2 billion, reflecting strong global demand.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "BYD reported a significant quarterly profit of $1.2 billion, reflecting strong global demand.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "BYD",
-          "ticker": null,
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -104608,9 +104608,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 584000,
-    "news_picked_today": 1172,
-    "news_dropped_today": 4120
+    "news_seen_today": 584071,
+    "news_picked_today": 1184,
+    "news_dropped_today": 4179
   },
   "book_momentum": {
     "live_count": 8,
