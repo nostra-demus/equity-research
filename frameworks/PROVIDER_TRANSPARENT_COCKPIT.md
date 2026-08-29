@@ -45,6 +45,11 @@ Model choice is part of the same provider-transparent contract, not a second lau
   to **Run full**, so the user always chooses between explicitly completing saved work and requesting the
   ordinary full pipeline. The completion path rechecks data freshness and reruns stale gaps rather than
   blindly copying old work.
+- **Continue names one exact saved run root.** That root must survive the Activity row, browser confirmation,
+  versioned plan receipt, admission transaction, background supervisor, provider invocation, and artifact
+  publication unchanged. Continue may reuse valid outputs and rerun missing, stale, or invalid orbs, but it
+  may never call the generic full-run route, default to today's folder, or widen into Full. Reused artifact
+  hashes are immutable evidence: if valid saved work changes, the continuation fails closed before spend.
 - A profile name is a runtime promise. Every unpinned nested agent must use the selected specialist tier;
   canonical role pins may only make the tier stricter. Unsupported, stale, mismatched, or unavailable profiles
   fail before admission. There is no silent substitution.
@@ -74,6 +79,14 @@ For every admitted tracked launch:
 - Background scanners cannot make provider availability depend on unrelated work. A pending reviewed deploy
   closes new background admission and makes an already-running abortable news cycle yield at its next safe
   boundary; the deployer never waits for the normal multi-minute scanner timeout.
+- While a healthy engine waits for a reviewed update, Run or Continue creates one narrow durable admission,
+  not a run folder and not a fake active run. Activity says **Waiting for update** across refresh and restart.
+  After the exact new program is healthy, the engine recomputes the saved plan and starts the request at most
+  once. Activity records every before/after payable-orb difference. A queued Continue may automatically
+  narrow its paid scope; newly payable work requires a fresh review and moves to **Needs attention**. It can
+  never become Full. Provider unavailability, an unsafe source, or a failed/rolled-back update
+  leaves the request waiting or marks it **Needs attention**; it never substitutes a provider or reports
+  success. Cancellation is available only until admission begins.
 - Provider isolation must accept the same sanctioned deployed repository topology. In particular, the
   configured repo-root `data/` projection may resolve to the owner-pinned external pool under both Claude
   and Codex, without becoming a provider write grant. An undeclared repository-root link is rejected, and a
@@ -98,8 +111,16 @@ an authenticated operator-only entry point and must never compete with **Complet
 
 ## Enforcement
 
-CI must exercise the launch matrix with both Claude and Codex receipts. It must prove that full-run typing is
-derived from run kind, a mismatched confirmation receipt fails closed, an admitted run opens Activity, and
-the submitted subject/provider/profile remain the frozen values even if cockpit selection changes. Any future
-provider joins the same matrix before it can be enabled. The matrix includes the deployed external-data-root
-projection—not only a simplified checkout—plus undeclared-link and post-bind replacement controls.
+CI must exercise the launch matrix with both Claude and Codex receipts. A real browser runs the production
+Run, Continue, confirmation, and Activity components against a throwaway control plane. Fake provider
+binaries enter through `CLAUDE_BIN` and `CODEX_BIN`, and their native JSONL is normalized by the production
+adapters. The identical matrix proves: full-run typing; durable queued admission and refresh/reconnect truth;
+interruption; cross-midnight exact-root Continue; unchanged reusable-artifact hashes; terminal publication;
+required artifacts; and provider/profile provenance. It also proves that Continue never reaches generic
+`/api/launch`. No subscription credit, production data, or production engine is used.
+
+The matrix also proves that a mismatched confirmation receipt fails closed, an admitted run opens Activity,
+and the submitted subject/provider/profile remain the frozen values even if cockpit selection changes. Any
+future provider joins the same matrix before it can be enabled. The matrix includes the deployed
+external-data-root projection—not only a simplified checkout—plus undeclared-link and post-bind replacement
+controls.
