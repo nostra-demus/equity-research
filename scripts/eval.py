@@ -1413,6 +1413,7 @@ from scenario_integrity_checks import (
     eval_at_scenario_span,
     eval_au_sign_check_recorded,
     eval_av_conjunction_disclosure,
+    eval_bc_probability_basis_stated,
 )
 
 
@@ -3528,6 +3529,56 @@ if scope=="selftest":
         print(f"  [{'ok' if ok else 'XX'}] AV({_dd!r}) -> {str(got)[:64]}")
         if not ok: bad+=1
 
+    # ---- check BC: HARD GATE 13 probability-basis presence/form on scenarios[] + forecast_ledger[] ----
+    _bc_scn = lambda label,prob,basis: {"label":label,"probability":prob,"probability_basis":basis}
+    _bc_fl  = lambda fid,prob,basis: {"forecast_id":fid,"probability":prob,"probability_basis":basis}
+    bccases=[  # (decision_date, scenarios, forecast_ledger, expect: None=N/A, []=pass, [substr]=fail-with)
+        ("2026-08-28",[_bc_scn("bull",25,None)],None,None),                          # predates BC_DATE → N/A
+        # all three permitted forms → pass
+        ("2026-08-29",[_bc_scn("bull",25,"empirical (n=9 over the last 9 reported quarters)"),
+                        _bc_scn("base",50,"base rate: sector median beat-rate, Capital IQ"),
+                        _bc_scn("bear",25,"judgment")], None, []),
+        # missing field → FAIL
+        ("2026-08-29",[_bc_scn("bull",25,None)], None, ["missing or empty probability_basis"]),
+        ("2026-08-29",[_bc_scn("bull",25,"")], None, ["missing or empty probability_basis"]),
+        # small-sample claim mislabeled 'empirical' (the §10 worked example: "two of the last four
+        # quarters missed" is judgment with a four-observation prior, not a measured frequency) → FAIL
+        ("2026-08-29",[_bc_scn("bear",55,"empirical (n=4 over the last four quarters)")], None,
+         ["labels itself 'empirical' from n=4"]),
+        # empirical at exactly the n=8 floor → pass
+        ("2026-08-29",[_bc_scn("bear",55,"empirical (n=8 over the last 8 quarters)")], None, []),
+        # 'base rate' named with no actual reference class following → FAIL
+        ("2026-08-29",[_bc_scn("base",50,"base rate")], None, ["no actual reference class/source follows"]),
+        # unrecognized free text → FAIL
+        ("2026-08-29",[_bc_scn("bull",25,"management is confident")], None,
+         ["does not match any of the three HARD GATE 13 forms"]),
+        # 'empirical' at/above the n floor but with NO measurement window → FAIL (the advertised form is
+        # `empirical (n=X over {window})`; CLAUDE.md §10 requires "the sample size AND the window it was
+        # measured over" — a windowless n=X is not a measured frequency the reader can locate)
+        ("2026-08-29",[_bc_scn("bull",25,"empirical (n=9)")], None, ["states no measurement window"]),
+        # a valid 'judgment' string that also mentions 'base rate' must classify as judgment, not be
+        # rejected by the base-rate branch for having too little text after "base rate" (judgment is
+        # checked first). Pre-fix, "base rate)" left group(1)=")" and this row FAILED; it must PASS now.
+        ("2026-08-29",[_bc_scn("bull",25,"judgment (no base rate)")], None, []),
+        # plural "judgments"/"judgements" (US/UK) is still the judgment form → pass
+        ("2026-08-29",[_bc_scn("bull",25,"judgements across the peer set")], None, []),
+        # forecast_ledger carries the same requirement
+        ("2026-08-29", None, [_bc_fl("FC-1",65,"empirical (n=12 over 3 fiscal years)")], []),
+        ("2026-08-29", None, [_bc_fl("FC-1",65,None)], ["forecast_ledger 'FC-1': missing or empty"]),
+        # a row with probability=None is not probability-bearing → not counted (would otherwise be N/A
+        # if it were the only row; paired here with a real row so the case is a real applicability test)
+        ("2026-08-29",[_bc_scn("bull",None,None),_bc_scn("base",100,"judgment")], None, []),
+        # no probability-bearing row anywhere → N/A
+        ("2026-08-29",[], [], None),
+        ("2026-08-29", None, None, None),
+        ("2026-08-29", "nope", "nope", None),                                        # malformed → N/A, never crash
+    ]
+    for _dd,_scn,_fl,_want in bccases:
+        got=eval_bc_probability_basis_stated(_dd,_scn,_fl)
+        ok = (got is None) if _want is None else (isinstance(got,list) and len(got)==len(_want) and all(any(w in g for g in got) for w in _want))
+        print(f"  [{'ok' if ok else 'XX'}] BC({_dd!r}) -> {str(got)[:80]}")
+        if not ok: bad+=1
+
     # ---- check AX: versioned, ranked, two-sided data-needs decision guidance ----
     _aw_need = {
         "need_id": "filed-segment-margin",
@@ -3765,7 +3816,7 @@ if scope=="selftest":
     # AP — valuation-summary lever-sidecar integrity: reuse the module's own fixture-free selftest (DRY),
     # covering soft-presence, structure, blend, and the decision_record non-contradiction check.
     if _vs_selftest() != 0: bad += 1
-    print(("SELFTEST PASS" if not bad else f"SELFTEST FAIL ({bad} case(s))")+f" — {len(cases)} check-W + {len(xcases)} check-X + {len(aycases)} check-AY + {len(azcases)} check-AZ + {len(ycases)} check-Y + {len(zcases)} check-Z + {len(t2cases)} check-T2 + {len(t3cases)} check-T3 + {len(t4cases)} check-T4 + {len(aacases)} check-AA + {len(evcases)} AA-extractor + {len(abcases)} check-AB + {len(accases)} check-AC + {len(adcases)} check-AD + {len(aecases)} check-AE + {len(afcases)} check-AF + {len(aqcases)} check-AQ + {len(agcases)+len(agci_cases)} check-AG + {len(ahcases)} check-AH + {len(aicases)} check-AI + {len(ajcases)} check-AJ + {len(akcases)} check-AK + {len(ancases)} check-AN + {len(amcases)} check-AM + {len(arcases)} check-AR + {len(aocases)} check-AO + {len(ascases)} check-AS + {len(awcases)} check-AW + {len(bacases)} check-BA + {len(bbcases)} check-BB + {len(atcases)} check-AT + {len(aucases)} check-AU + {len(avcases)} check-AV + {len(axcases)} check-AX cases + AP lever-sidecar (module selftest)")
+    print(("SELFTEST PASS" if not bad else f"SELFTEST FAIL ({bad} case(s))")+f" — {len(cases)} check-W + {len(xcases)} check-X + {len(aycases)} check-AY + {len(azcases)} check-AZ + {len(ycases)} check-Y + {len(zcases)} check-Z + {len(t2cases)} check-T2 + {len(t3cases)} check-T3 + {len(t4cases)} check-T4 + {len(aacases)} check-AA + {len(evcases)} AA-extractor + {len(abcases)} check-AB + {len(accases)} check-AC + {len(adcases)} check-AD + {len(aecases)} check-AE + {len(afcases)} check-AF + {len(aqcases)} check-AQ + {len(agcases)+len(agci_cases)} check-AG + {len(ahcases)} check-AH + {len(aicases)} check-AI + {len(ajcases)} check-AJ + {len(akcases)} check-AK + {len(ancases)} check-AN + {len(amcases)} check-AM + {len(arcases)} check-AR + {len(aocases)} check-AO + {len(ascases)} check-AS + {len(awcases)} check-AW + {len(bacases)} check-BA + {len(bbcases)} check-BB + {len(atcases)} check-AT + {len(aucases)} check-AU + {len(avcases)} check-AV + {len(bccases)} check-BC + {len(axcases)} check-AX cases + AP lever-sidecar (module selftest)")
     sys.exit(0 if not bad else 1)
 
 runs=sorted(glob.glob("analyses/*/decision_record.json"))
@@ -4787,6 +4838,17 @@ for drp in runs:
         add("AV_conjunction_disclosure",False,"; ".join(_avresult))
     else:
         add("AV_conjunction_disclosure",True,"every scenario's conditions[] / joint_probability_basis pair is schema-consistent (§10)")
+    # BC probability-basis presence/form (§10 HARD GATE 13): every probability-bearing scenarios[]/
+    # forecast_ledger[] row must state empirical(n=X)/base rate/judgment, and a sub-8-observation sample
+    # may not call itself empirical. Same "prose rule, no mechanization" gap check BA closed for HARD
+    # GATE 11's kill-criteria triggers.
+    _bcresult=eval_bc_probability_basis_stated(ddte,d.get("scenarios"),d.get("forecast_ledger"))
+    if _bcresult is None:
+        add("BC_probability_basis_stated",True,"run predates the gate, or no scenario/forecast_ledger row carries a probability — N/A",na=True)
+    elif _bcresult:
+        add("BC_probability_basis_stated",False,"; ".join(_bcresult))
+    else:
+        add("BC_probability_basis_stated",True,"every probability-bearing row states a valid basis (empirical/base rate/judgment) per HARD GATE 13")
     # AX versioned data-needs guidance (DECISION_LEDGER §5): fresh records prove the check ran even when
     # empty, and any populated queue is exact, ranked by decision value, two-sided, URL-free and makes no
     # promised/numeric conviction lift.

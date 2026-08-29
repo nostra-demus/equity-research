@@ -280,7 +280,7 @@ The three `post_review_*` fields are **additive and optional** — the synthesiz
 | `downside_risk_pct` | Recommended | Bear-case downside, if quantified. | Part I / valuation |
 | `margin_of_safety_pct` | Required once derivable (additive) | Discount of price to the **base-case** fair value, in percentage points = `((base FV − price) / base FV) × 100`; `null` ONLY when there is no pool-verified price ("Not assessable"). Direction-uniform (built from price levels, not returns) — a short candidate yields a negative MoS. The eval harness re-derives it from the `base`-labelled `scenarios[]` target (check M) and, for runs dated on/after 2026-07-10, FAILS a `null` value that is derivable from `entry_price` + the base scenario's `price_target` — it is not optional once assessable. Backward-compatible — older records omit it. | Part I / valuation |
 | `risk_reward` | Recommended | Risk/reward ratio. | Part I |
-| `scenarios` | Recommended (additive; structured authority required for final Ideas projection) | Array of §8 scenario rows. Existing math fields remain, and every forward Ideas-eligible row also carries stable `scenario_id`, non-empty `conditions`, a concrete `source`, and `joint_probability_basis` (string when the case joins conditions; otherwise `null`). Probabilities sum to 100. See the structured shape below. | Part I / §8 Scenario Model |
+| `scenarios` | Recommended (additive; structured authority required for final Ideas projection) | Array of §8 scenario rows. Existing math fields remain, and every forward Ideas-eligible row also carries stable `scenario_id`, non-empty `conditions`, a concrete `source`, `probability_basis` (`CLAUDE.md` §10 HARD GATE 13 — `empirical (n=X over {window})` / `base rate: {class, source}` / `judgment`, required on every row that carries a `probability`), and `joint_probability_basis` (string when the case joins conditions; otherwise `null` — a distinct field from `probability_basis`, see below). Probabilities sum to 100. See the structured shape below. | Part I / §8 Scenario Model |
 | `idea_valuation_bridge` | Additive (required for final Ideas projection) | One object `{source_horizon_days, method, convergence_fraction, rationale, source}` that binds the scenario target horizon to the 3–6 month projection. `source_horizon_days` exactly equals `scenario_horizon_days`; this object is copied byte-for-byte to `candidate.valuation_bridge`. | §8 Scenario Model / valuation |
 | `confidence_score` | Yes | Confidence /100. | Part I |
 | `data_sufficiency_score` | Yes | Data sufficiency /100 (`CLAUDE.md` §11). | Part I / gate |
@@ -456,6 +456,7 @@ re-projected into a final 3–6 month candidate uses this exact decision-record 
       "scenario_id": "base-demand-normalises",
       "label": "base",
       "probability": 50,
+      "probability_basis": "base rate: sector-median beat rate over the last 8 reported quarters, Capital IQ",
       "return_pct": 12.4,
       "price_target": 112.4,
       "conditions": ["Demand follows the filed base case"],
@@ -466,6 +467,7 @@ re-projected into a final 3–6 month candidate uses this exact decision-record 
       "scenario_id": "bull-demand-and-margin",
       "label": "bull",
       "probability": 25,
+      "probability_basis": "empirical (n=9 over the last 9 reported quarters)",
       "return_pct": 35.0,
       "price_target": 135.0,
       "conditions": ["Demand exceeds the filed base case", "Gross margin clears the cited threshold"],
@@ -476,6 +478,7 @@ re-projected into a final 3–6 month candidate uses this exact decision-record 
       "scenario_id": "bear-demand-miss",
       "label": "bear",
       "probability": 25,
+      "probability_basis": "judgment",
       "return_pct": -25.0,
       "price_target": 75.0,
       "conditions": ["Demand misses the filed downside threshold"],
@@ -495,7 +498,24 @@ re-projected into a final 3–6 month candidate uses this exact decision-record 
 
 There are three to seven scenarios, ids and labels are unique, probabilities sum to 100, and each
 scenario has at least one condition. `joint_probability_basis` is required as a non-empty explanation
-when multiple independent conditions must hold simultaneously; otherwise it is `null`. For Ideas,
+when multiple independent conditions must hold simultaneously; otherwise it is `null`.
+
+**`probability_basis` (additive, introduced 2026-08-29) is a separate field from `joint_probability_basis`
+and required on every scenario row, per `CLAUDE.md` §10 HARD GATE 13.** It states one of three forms:
+`"empirical (n=X over {window})"` (a measured frequency, only where `X` is at least 8 observations —
+CLAUDE.md §10: "a probability computed from fewer than roughly eight observations ... is judgment
+informed by that sample ... never present it as a measured frequency"), `"base rate: {named reference
+class, source}"`, or `"judgment"`. Where `joint_probability_basis` explains why several SIMULTANEOUS
+conditions move together (and is `null` for a single-condition case), `probability_basis` explains where
+the PROBABILITY NUMBER ITSELF came from, and applies to every row regardless of how many conditions it
+has. The two fields answer different questions and a scenario can require both. `scripts/eval.py` check
+BC (mirrored live in `/research:full` Step 10B.1 via `scripts/scenario_integrity_checks.py`) fails a run
+dated on/after 2026-08-29 that omits `probability_basis` on any row carrying a `probability`, whose text
+matches none of the three forms, or whose `empirical` claim understates its own sub-8 sample size. Records
+dated before 2026-08-29 omit the field; downstream consumers treat absence as unclassified. `schema_version`
+stays `"1.0"` — the same additive convention as `conditions[]` / `joint_probability_basis`.
+
+For Ideas,
 `decision_record.scenarios[].price_target` is the source-horizon target. The final candidate preserves it
 as `source_price_target` and computes its separate shorter-window `price_target` only through the exact
 `idea_valuation_bridge`. The candidate copies ids, labels, probabilities, conditions, sources, and
@@ -528,6 +548,7 @@ Each element of `decision_record.forecast_ledger` — the machine-readable form 
   "forecast_id": "FC-TICKER-RESULTS-2026Q4",
   "prediction": "The next filed result will report volume growth of at least 12% year over year.",
   "probability": 65,
+  "probability_basis": "empirical (n=11 over the last 11 reported quarters)",
   "time_window": "2026-11-01 to 2026-11-15",
   "window_start": "2026-11-01T00:00:00Z",
   "window_end": "2026-11-15T23:59:59Z",
@@ -565,6 +586,7 @@ Rules:
 - If no reliable forecast can be created, say why (and leave `forecast_ledger` as `[]`).
 - `forecast_type` (**additive, introduced 2026-07-01**) tags what KIND of forecast this is, from a closed set: `revenue`, `margin_or_cost`, `earnings_eps`, `cash_flow`, `valuation_or_price_return`, `balance_sheet_or_solvency`, `governance_or_accounting`, `catalyst_or_estimate_revision`, `other`. This is orthogonal to `owner_module` (which module wrote the forecast) — a single module (e.g. earnings) routinely produces more than one forecast_type (a revenue call and a margin call behave differently under Phase 4 calibration and can fail for different reasons). Its purpose is to let `/research:calibrate` answer "which KIND of forecast is the engine systematically over/under-confident on," not just which module — a flat, unsliced Brier score hides that pattern no matter how much history accumulates. `""` (empty string) or the field's absence is allowed and treated identically — records dated before 2026-07-01 omit it; downstream consumers (calibrate) bucket those as "untagged" and never fabricate a type. Eval check T (the `T_forecast_ledger_quality` check) validates it against the closed enum, case-exact, when present, for runs dated on/after 2026-07-01 — same forward-looking-gate convention as check T2 for `probability`.
 - **`owner_module`, `confidence_score`, and `evidence_today` are REQUIRED on every entry**, not optional extras — CLAUDE.md §19 lists all 8 fields (prediction, probability, time window, evidence today, confirmation trigger, falsification trigger, owner module, confidence score) as what "each ledger entry records." `owner_module` must be one of the discovered module roster names (self-discovered from `.claude/agents/*/99_*-synthesis.md` directory names per §26 — never hardcoded) and is what `/research:calibrate`'s `calibration_by_module` slices on; `confidence_score` must be a number in [0, 100] per §12; `evidence_today` must be non-empty and is what `/research:review-decisions`' luck-vs-skill judgment (§10 below) reads to see what was known AT THE TIME the forecast was made, not read back with hindsight. Eval check T (`eval_forecast_entry_completeness`, `OWNERCONF_DATE=2026-08-06`) enforces all three, same forward-looking-gate convention as T2/T3 above — a run dated before that predates the gate and is N/A.
+- **`probability_basis` (additive, introduced 2026-08-29) is REQUIRED whenever `probability` is set** — CLAUDE.md §10 HARD GATE 13 applies to "every probability in §9 Risk Register and the Forecast Ledger," not only the §8 Scenario Model. Same three-form contract as `scenarios[].probability_basis` above (`"empirical (n=X over {window})"` with X ≥ 8, `"base rate: {class, source}"`, or `"judgment"`). Eval check BC (`eval_bc_probability_basis_stated`, `BC_DATE=2026-08-29`) enforces it on this array too, same forward-looking-gate convention — a run dated before that predates the gate and is N/A. Records omitting it are read as unclassified, never as a satisfied HARD GATE 13.
 
 ---
 

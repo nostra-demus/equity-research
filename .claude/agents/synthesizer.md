@@ -635,7 +635,7 @@ Create bull/base/bear scenarios.
 
 Probabilities must sum to 100%.
 
-**"Probability basis" is mandatory (CLAUDE.md §10, HARD GATE 13)** and is one of: `empirical (n=X over {window})` / `base rate: {named reference class, source}` / `judgment`. A probability read off a handful of quarters, or off a sample that includes a derived rather than a reported period, is **judgment informed by** that sample — never a measured frequency. "Two of the last four quarters missed, so a 55% chance of a miss" is judgment with a four-observation prior; write it that way. The same requirement applies to every probability in §9 Risk Register and the Forecast Ledger.
+**"Probability basis" is mandatory (CLAUDE.md §10, HARD GATE 13)** and is one of: `empirical (n=X over {window})` / `base rate: {named reference class, source}` / `judgment`. A probability read off a handful of quarters, or off a sample that includes a derived rather than a reported period, is **judgment informed by** that sample — never a measured frequency. "Two of the last four quarters missed, so a 55% chance of a miss" is judgment with a four-observation prior; write it that way. The same requirement applies to every probability in §9 Risk Register and the Forecast Ledger. Record it in `decision_record.json` `scenarios[].probability_basis` — `scripts/eval.py` check BC fails a run dated ≥2026-08-29 that carries a scenario probability with no `probability_basis`, an unparseable one, or an `empirical` claim from fewer than 8 observations.
 
 **For a Short Candidate, the bull scenario is the disconfirming branch and must be a genuine loss to the short** — its `price_target` must sit ABOVE `entry_price` (real squeeze/upside risk), exactly mirroring how a conviction long's bear scenario must sit below entry. A short whose own "what if I'm wrong" case is not actually a loss has skipped §8's strongest-bull-case test on the direction that matters for a short (`scripts/eval.py`'s `eval_ar_short_bull_case_sanity` enforces this mechanically for runs dated on/after 2026-07-25, the mirror of check AM's long-side bear-below-entry requirement).
 
@@ -668,7 +668,7 @@ Create a table:
 | Risk | Severity /100 | Probability /100 | Probability basis | Early Warning Signal | How To Monitor |
 |---|---:|---:|---|---|---|
 
-Probability basis per HARD GATE 13 (`empirical (n=X over {window})` / `base rate: {class, source}` / `judgment`). Each Early Warning Signal that carries a number is a trigger and passes the §17 trigger test in HARD GATE 11 — like-for-like comparable, implied-stub arithmetic shown, and capable of failing.
+Probability basis per HARD GATE 13 (`empirical (n=X over {window})` / `base rate: {class, source}` / `judgment`) — the Risk Register itself is prose only (no dedicated JSON array), so this column is enforced by this instruction, not by `eval.py`. Each Early Warning Signal that carries a number is a trigger and passes the §17 trigger test in HARD GATE 11 — like-for-like comparable, implied-stub arithmetic shown, and capable of failing.
 
 Include at least:
 
@@ -1256,7 +1256,7 @@ Populate each field as follows. All of these come from work you have already don
 | downside_risk_pct | downside from bear case/scenario math |
 | margin_of_safety_pct | discount of price to base-case fair value, IN PERCENTAGE POINTS = ((base FV − price)/base FV) × 100 — do not publish the bare 0–1 ratio, from the valuation module; null when no pool-verified price ("Not assessable"). Direction-uniform — a short candidate → negative MoS. Required once entry_price and the base-labelled scenario's price_target both exist (derivable); only stays null when price is not pool-verified. The eval harness re-derives it from the base-labelled scenario target (check M). |
 | risk_reward | risk/reward from final thesis |
-| scenarios | §8 Scenario Model rows — array of `{scenario_id, label, probability, return_pct, price_target, conditions, source, joint_probability_basis}`; stable structured authority for deterministic math and Ideas projection |
+| scenarios | §8 Scenario Model rows — array of `{scenario_id, label, probability, probability_basis, return_pct, price_target, conditions, source, joint_probability_basis}`; stable structured authority for deterministic math and Ideas projection. `probability_basis` (HARD GATE 13) is `empirical (n=X over {window})` / `base rate: {class, source}` / `judgment` — do not confuse with `joint_probability_basis`, which is a distinct field for the conjunction check (§10, check AV) and stays `null`/omitted for a single-condition scenario, while `probability_basis` is required on every row that carries a `probability`. `scripts/eval.py` check BC fails a run dated ≥2026-08-29 that omits it, cannot parse it, or mislabels a sub-8-observation sample `empirical`. |
 | idea_valuation_bridge | §8/valuation object `{source_horizon_days, method, convergence_fraction, rationale, source}`; `source_horizon_days` exactly equals `scenario_horizon_days` |
 | confidence_score | final confidence score /100 (post-split runs ≥ 2026-07-11: set equal to `conviction` for backward-compat) |
 | data_sufficiency_score | data sufficiency score /100 |
@@ -1275,7 +1275,7 @@ Populate each field as follows. All of these come from work you have already don
 | edge_proof | Part I variant perception, 4th bullet — the falsifiable §7 item-4 test |
 | killer_risk | main killer risk |
 | kill_criteria | Thesis Kill Criteria section — array of **objects**, one per row of the form `{"condition": "", "comparable_basis": "", "stub_arithmetic": null, "fired_last_two_periods": false, "monitor": "", "module_source": ""}`. `condition` (string) is the criterion text — use this key, not `criterion`: it is the corpus-canonical key the ledger canonicalizers (`_canon_kill_criterion`, `ledger-corrections.ts`) emit and the only one `run-diff.ts` maps for row identity and readable text, so a `criterion`-keyed row would diff as raw JSON and never pair across runs. `comparable_basis` (string) records the like-for-like period/basis this trigger is measured against (HARD GATE 11 check 1). `fired_last_two_periods` (bool) records the literal backtest fact: would this exact trigger, applied as written, have been satisfied on each of the last two reported periods (HARD GATE 11 check 3)? A row that already clears trivially, or clears while the underlying series still falls y/y, is a rubber stamp — HARD GATE 11's third bullet says delete it and write one that bites, before it is recorded here, not after. `stub_arithmetic` is `null` when no part of the period has yet reported. `scripts/eval.py` check BA fails a run dated ≥2026-08-22 that omits `comparable_basis` or `fired_last_two_periods` on any row — presence only; whether the recorded basis is genuinely like-for-like stays the synthesizer's own judgment. |
-| forecast_ledger | Forecast Ledger section |
+| forecast_ledger | Forecast Ledger section — each element also carries `probability_basis` (HARD GATE 13, same three-form contract as `scenarios[]`); check BC applies here too |
 | module_scores | module-level scores from module syntheses |
 | red_flags | critical/high/medium red flags |
 | missing_data | missing-data list from pre-write gate |
@@ -1352,8 +1352,11 @@ python3 -c "import datetime; d=datetime.date.fromisoformat('<DECISION_DATE>'); p
   ties only after likely decision impact. Older records without this discriminator remain legacy-valid.
 - `scenarios` is an array of three to seven objects, one per §8 case:
   `{"scenario_id": <stable id>, "label": "bull|base|bear|…", "probability": <0–100 number>,
+  "probability_basis": <"empirical (n=X over {window})" | "base rate: {class, source}" | "judgment">,
   "return_pct": <number>, "price_target": <positive source-horizon target>, "conditions": [<one or more>],
-  "source": <exact citation>, "joint_probability_basis": <string or null>}`. Ids and labels are unique;
+  "source": <exact citation>, "joint_probability_basis": <string or null>}`. `probability_basis` (HARD
+  GATE 13) is required on every row and is distinct from `joint_probability_basis` (the conjunction
+  check, §10, required only for 2+ simultaneous conditions, `null` otherwise). Ids and labels are unique;
   probabilities sum to 100. Explain the conjunction when multiple independent conditions must hold.
   Copy these straight from §8; the eval harness recomputes `expected_return_pct` / `risk_reward`, and the
   Ideas projection copies the ids, probabilities, source targets, conditions, sources, and conjunction
@@ -1365,8 +1368,10 @@ python3 -c "import datetime; d=datetime.date.fromisoformat('<DECISION_DATE>'); p
 - `calibration_feedback` is a JSON **object** with exactly the nine keys shown in the schema above (`source_summary`, `status`, `haircut_points`, `modules_flagged`, `flagged_forecast_types`, `flagged_thesis_types`, `leading_error_categories_flagged`, `error_defense_evidence`, `rationale`); `status` must be one of the four literal strings — never a paraphrase. `status=="applied"` requires at least one of `modules_flagged` / `flagged_forecast_types` / `flagged_thesis_types` / `leading_error_categories_flagged` to carry an entry. `error_defense_evidence` is an object keyed by the as-of summary's leading `error_taxonomy_distribution` categories (count ≥ 2); `{}` when none exists yet.
 - `review_schedule` is a JSON **object** with `30d` / `90d` / `180d` / `365d` keys.
 - Each `forecast_ledger` element follows `frameworks/DECISION_LEDGER.md` §6: `prediction`, `probability`,
-  `time_window`, `evidence_today`, `confirmation_trigger`, `falsification_trigger`, `owner_module`,
-  `confidence_score`, `status` (default `"open"`), and `forecast_type` (from the closed set). The one row
+  `probability_basis` (HARD GATE 13 — same three-form contract as `scenarios[]`, required whenever
+  `probability` is set; check BC applies here too), `time_window`, `evidence_today`, `confirmation_trigger`,
+  `falsification_trigger`, `owner_module`, `confidence_score`, `status` (default `"open"`), and
+  `forecast_type` (from the closed set). The one row
   eligible to anchor the final Ideas catalyst must additionally carry stable `forecast_id`, exact
   `window_start` / `window_end` / `status_as_of`, `source_citation`, `metric`, `threshold`, at least two
   `causal_steps`, and `stock_bullish_trigger` / `stock_bearish_trigger`. Probabilities use the
