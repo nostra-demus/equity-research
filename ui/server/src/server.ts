@@ -7142,7 +7142,7 @@ async function stopRuntimeBindings() {
   if (watcher) await watcher.close()
 }
 
-app.addHook('onClose', async () => { await stopRuntimeBindings() })
+app.addHook('onClose', stopRuntimeBindings)
 
 // ---------- static (built UI) ----------
 if (fs.existsSync(WEB_DIST)) {
