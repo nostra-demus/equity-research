@@ -1,7 +1,7 @@
 {
   "idea_id": "IDEA-151e26db4506",
-  "idea_version": "IDEAV-bb3927f61873c568",
-  "idea_version_started_at": "2026-08-27T23:55:54Z",
+  "idea_version": "IDEAV-e91163d58cd38db8",
+  "idea_version_started_at": "2026-08-29T13:02:30Z",
   "ticker": "S",
   "company": "SentinelOne",
   "exchange": "NYSE",
@@ -11,15 +11,15 @@
   "listing_verification_source": "yahoo_symbol_directory",
   "direction": "short",
   "pair_with": null,
-  "reason": "SentinelOne reported a wider Q2 net loss, showing deteriorating profitability despite revenue growth.",
-  "why_now": "Q2 earnings released Aug 27, 2026.",
+  "reason": "SentinelOne trimmed its profit forecast, suggesting a negative impact on future earnings despite a revenue beat.",
+  "why_now": "SentinelOne's stock slid on August 28, 2026, following the release of its trimmed profit forecast.",
   "conviction": 60,
   "conviction_basis": "pre_edge_proxy",
-  "trade_score": 60,
+  "trade_score": 62,
   "trade_score_basis": "evidence_gate_v2",
   "trade_score_breakdown": {
     "evidence": 14,
-    "impact": 20,
+    "impact": 19,
     "specificity": 15,
     "timing": 10,
     "expression": 6,
@@ -30,7 +30,6 @@
   "missing_checks": [
     "live liquidity",
     "dated catalyst",
-    "price and market expectations",
     "independent confirmation",
     "live price, liquidity, and consensus"
   ],
@@ -43,22 +42,22 @@
     "basis": "not_enough_outcomes",
     "evidenceIds": []
   },
-  "priced_in": "unknown",
+  "priced_in": "room",
   "thesis_type": "company_specific",
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-fd9c16f9aef6"
+    "EVT-61757f2ac127"
   ],
-  "primary_source_event_id": "EVT-fd9c16f9aef6",
+  "primary_source_event_id": "EVT-61757f2ac127",
   "source_headlines": [
-    "SentinelOne Reports Wider Q2 Net Loss"
+    "SentinelOne Slides 8% as Trimmed Profit Forecast Outweighs Revenue Beat, CrowdStrike Declines 7%"
   ],
-  "source_headline": "SentinelOne Reports Wider Q2 Net Loss",
-  "source_url": "https://www.nasdaq.com/articles/sentinelone-reports-wider-q2-net-loss",
-  "source_name": "Nasdaq",
+  "source_headline": "SentinelOne Slides 8% as Trimmed Profit Forecast Outweighs Revenue Beat, CrowdStrike Declines 7%",
+  "source_url": "https://247wallst.com/investing/2026/08/28/sentinelone-slides-8-as-trimmed-profit-forecast-outweighs-revenue-beat-crowdstrike-declines-7/",
+  "source_name": "24/7 Wall St.",
   "materiality_max": 100,
-  "newest_source_at": "2026-08-27T21:48:11Z",
+  "newest_source_at": "2026-08-28T14:09:37Z",
   "prior_coverage": {
     "has_run": false,
     "latest_run": null,
@@ -66,8 +65,8 @@
     "data_pool_present": false
   },
   "surfaced_at": "2026-08-27T23:55:54Z",
-  "updated_at": "2026-08-27T23:55:54Z",
-  "decay_at": "2026-08-29T09:48:11Z",
+  "updated_at": "2026-08-29T13:02:30Z",
+  "decay_at": "2026-08-30T02:09:37Z",
   "status": "live",
   "promoted_signal_id": null
 }
