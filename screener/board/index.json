@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-29T08:29:00Z",
+  "generated_at": "2026-08-29T08:47:25Z",
   "inbox": [
     {
       "inbox_id": "INB-20260829-490",
@@ -85720,77 +85720,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-ef1043135048",
-      "idea_version": "IDEAV-8499a5e61e0b9d0e",
-      "idea_version_started_at": "2026-08-27T21:21:14Z",
-      "ticker": "ULTA",
-      "company": "Ulta Beauty",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company raised its annual sales and profit forecasts, indicating that consumer demand for beauty products remains resilient despite broader retail headwinds.",
-      "why_now": "The updated guidance was released on August 27, 2026, providing a fresh catalyst for a positive earnings revision cycle.",
-      "conviction": 80,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 6,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-c04cc1626a0c",
-        "EVT-e9e56c19f45b"
-      ],
-      "primary_source_event_id": "EVT-c04cc1626a0c",
-      "source_headlines": [
-        "Ulta Beauty raises annual sales, profit forecasts on strong beauty demand",
-        "Ulta Beauty Raises Forecast as Sales Grow"
-      ],
-      "source_headline": "Ulta Beauty raises annual sales, profit forecasts on strong beauty demand",
-      "source_url": "https://www.reuters.com/business/retail-consumer/ulta-beauty-raises-annual-sales-profit-forecasts-2026-08-27/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-27T20:38:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-27T21:21:14Z",
-      "updated_at": "2026-08-27T21:21:14Z",
-      "decay_at": "2026-08-29T08:38:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-151e26db4506",
       "idea_version": "IDEAV-bb3927f61873c568",
       "idea_version_started_at": "2026-08-27T23:55:54Z",
@@ -86711,6 +86640,77 @@
       "surfaced_at": "2026-08-27T03:27:43Z",
       "updated_at": "2026-08-28T03:48:03Z",
       "decay_at": "2026-08-29T03:33:14Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-ef1043135048",
+      "idea_version": "IDEAV-8499a5e61e0b9d0e",
+      "idea_version_started_at": "2026-08-27T21:21:14Z",
+      "ticker": "ULTA",
+      "company": "Ulta Beauty",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company raised its annual sales and profit forecasts, indicating that consumer demand for beauty products remains resilient despite broader retail headwinds.",
+      "why_now": "The updated guidance was released on August 27, 2026, providing a fresh catalyst for a positive earnings revision cycle.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 6,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-c04cc1626a0c",
+        "EVT-e9e56c19f45b"
+      ],
+      "primary_source_event_id": "EVT-c04cc1626a0c",
+      "source_headlines": [
+        "Ulta Beauty raises annual sales, profit forecasts on strong beauty demand",
+        "Ulta Beauty Raises Forecast as Sales Grow"
+      ],
+      "source_headline": "Ulta Beauty raises annual sales, profit forecasts on strong beauty demand",
+      "source_url": "https://www.reuters.com/business/retail-consumer/ulta-beauty-raises-annual-sales-profit-forecasts-2026-08-27/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-27T20:38:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-27T21:21:14Z",
+      "updated_at": "2026-08-27T21:21:14Z",
+      "decay_at": "2026-08-29T08:38:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -91211,13 +91211,13 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 201,
-    "shown_count": 201,
+    "total_count": 202,
+    "shown_count": 202,
     "hidden_count": 0,
     "side_counts": {
       "long": {
-        "total_count": 90,
-        "shown_count": 90,
+        "total_count": 91,
+        "shown_count": 91,
         "hidden_count": 0
       },
       "short": {
@@ -91242,6 +91242,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-ef1043135048",
+        "idea_version": "IDEAV-8499a5e61e0b9d0e",
+        "idea_version_started_at": "2026-08-27T21:21:14Z",
+        "ticker": "ULTA",
+        "company": "Ulta Beauty",
+        "exchange": "NASDAQ",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company raised its annual sales and profit forecasts, indicating that consumer demand for beauty products remains resilient despite broader retail headwinds.",
+        "why_now": "The updated guidance was released on August 27, 2026, providing a fresh catalyst for a positive earnings revision cycle.",
+        "conviction": 80,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 62,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 6,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-c04cc1626a0c",
+          "EVT-e9e56c19f45b"
+        ],
+        "primary_source_event_id": "EVT-c04cc1626a0c",
+        "source_headlines": [
+          "Ulta Beauty raises annual sales, profit forecasts on strong beauty demand",
+          "Ulta Beauty Raises Forecast as Sales Grow"
+        ],
+        "source_headline": "Ulta Beauty raises annual sales, profit forecasts on strong beauty demand",
+        "source_url": "https://www.reuters.com/business/retail-consumer/ulta-beauty-raises-annual-sales-profit-forecasts-2026-08-27/",
+        "source_name": "Reuters — Latest (news sitemap)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-27T20:38:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-27T21:21:14Z",
+        "updated_at": "2026-08-27T21:21:14Z",
+        "decay_at": "2026-08-29T08:38:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-29T08:38:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-3eb5e87acb4c",
         "idea_version": "IDEAV-87d5fb76880fb435",
@@ -106148,7 +106222,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 219,
-    "live_count": 16,
+    "live_count": 15,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -106167,9 +106241,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 580667,
-    "news_picked_today": 1102,
-    "news_dropped_today": 3222
+    "news_seen_today": 583050,
+    "news_picked_today": 1112,
+    "news_dropped_today": 3476
   },
   "book_momentum": {
     "live_count": 8,
