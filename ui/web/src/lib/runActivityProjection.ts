@@ -2,6 +2,8 @@ import type { NodeRuntime, ResumableRunInfo } from './types'
 
 const LIVE_RUN_STATUSES = new Set(['starting', 'readiness-checking', 'awaiting-readiness-decision', 'running'])
 
+const normalizeIdentity = (value: string | null | undefined) => value?.trim().toLowerCase() ?? ''
+
 export const PAUSED_RUN_LABEL = 'Paused · waiting to resume'
 export const PAUSED_RUN_HELP = 'This run is paused. Choose Complete old run to continue, or Run full to start again.'
 
@@ -45,10 +47,17 @@ export function projectRunActivity({
   const pausedKeys = new Set<string>()
   if (!subject) return { activeModules, pausedModules, pausedKeys, waitingToResume: false }
 
+  const normalizedSubject = normalizeIdentity(subject)
+  const normalizedSwarm = normalizeIdentity(swarm)
   const hasSavedFullRun = resumableRuns.some((run) =>
-    run.kind === 'full' && run.subject === subject && run.swarm === swarm)
+    run.kind === 'full'
+    && normalizeIdentity(run.subject) === normalizedSubject
+    && normalizeIdentity(run.swarm) === normalizedSwarm)
   const liveRunIds = new Set(Object.values(activeRuns)
-    .filter((run) => run.ticker === subject && run.swarmId === swarm && LIVE_RUN_STATUSES.has(run.status))
+    .filter((run) =>
+      normalizeIdentity(run.ticker) === normalizedSubject
+      && normalizeIdentity(run.swarmId) === normalizedSwarm
+      && LIVE_RUN_STATUSES.has(run.status))
     .map((run) => run.runId))
 
   for (const [key, runtime] of Object.entries(nodeRuntime)) {

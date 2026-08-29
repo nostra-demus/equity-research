@@ -44,6 +44,17 @@ assert.equal(genuinelyStarting.waitingToResume, false)
 assert.deepEqual([...genuinelyStarting.activeModules], ['business-model', 'valuation'])
 assert.deepEqual([...genuinelyStarting.pausedModules], [])
 
+const normalizedIdentity = projectRunActivity({
+  subject: ' kar ',
+  swarm: ' Research ',
+  nodeRuntime: oldRuntime,
+  activeRuns: { 'old-run': { runId: 'old-run', ticker: 'kar', swarmId: 'RESEARCH', status: 'running' } },
+  resumableRuns: [{ ...savedFullRun, subject: 'KAR', swarm: 'research' }],
+})
+assert.equal(normalizedIdentity.waitingToResume, false)
+assert.deepEqual([...normalizedIdentity.activeModules], ['business-model', 'valuation'])
+assert.deepEqual([...normalizedIdentity.pausedModules], [])
+
 const mixedRuns = projectRunActivity({
   subject: 'KAR',
   swarm: 'research',
