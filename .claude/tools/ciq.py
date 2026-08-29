@@ -22,7 +22,17 @@ _OLE_MAGIC = b"\xd0\xcf\x11\xe0"
 _ZIP_MAGIC = b"PK\x03\x04"
 
 
-class CiqFormat(enum.StrEnum):
+try:
+    _StrEnum = enum.StrEnum
+except AttributeError:  # Python 3.9/3.10 (production currently runs 3.9).
+    class _StrEnum(str, enum.Enum):
+        """Small stdlib-compatible backport of the behaviour this module needs."""
+
+        def __str__(self) -> str:
+            return str(self.value)
+
+
+class CiqFormat(_StrEnum):
     """The REAL format behind a CIQ file (sniffed from bytes, not the extension)."""
 
     BIFF_XLS = "biff_xls"  # legacy Excel binary -> xlrd
