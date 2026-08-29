@@ -38,6 +38,14 @@ function report(overall: ReadinessReport['overall'], blocker = false): Readiness
   return { ticker: 'TEST', kind: 'full', overall, fileCount: 1, usableCount: 1, entities: [], issues, ts: Date.now() }
 }
 
+function checkerFailureReport(): ReadinessReport {
+  return {
+    ticker: 'TEST', kind: 'full', overall: 'blocked', fileCount: 0, usableCount: 0, entities: [],
+    issues: [{ code: 'check_failed', severity: 'blocker', message: 'technical checker failure' }],
+    ts: Date.now(),
+  }
+}
+
 function mkAwaiting(rep: ReadinessReport): { run: RunState; spawned: () => boolean } {
   let spawned = false
   const run = createRun({
@@ -111,6 +119,18 @@ async function main() {
     const res = await decideReadiness(run.runId, 'proceed', 'local')
     const t = fs.existsSync(traceFile('r9')) ? JSON.parse(fs.readFileSync(traceFile('r9'), 'utf8')) : null
     ok(res.ok && spawned() && t?.action === 'proceed-degraded', 'proceed on a degraded gate records a proceed-degraded trace')
+  }
+  // A technical checker failure carries no data judgment a user can knowingly
+  // accept. Even a direct API caller with the right typed ticker must not spend.
+  {
+    const { run, spawned } = mkAwaiting(checkerFailureReport())
+    run.runRoot = runRootFor('technical')
+    const proceed = await decideReadiness(run.runId, 'proceed', 'admin')
+    ok(!proceed.ok && proceed.httpStatus === 409 && !spawned(),
+      'a technical checker failure cannot proceed or spawn')
+    const override = await decideReadiness(run.runId, 'override', 'admin', 'TEST')
+    ok(!override.ok && override.httpStatus === 409 && !spawned(),
+      'a technical checker failure cannot be typed-overridden or spawn')
   }
   // 10. concurrent decisions on one run -> exactly ONE spawn (no double-spawn race). The stub sets
   //     status AFTER an await, mimicking spawnEngine's buildArgs await — the window the race lived in.

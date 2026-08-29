@@ -6,7 +6,7 @@ import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
 import { callDateMonths, classify, deriveCoverage, evalDecl, extractPeriod, latestDecision, quoteAsOfMonths, readinessHas } from '../src/data-status'
-import { moduleReadinessIssues } from '../src/readiness'
+import { moduleReadinessIssues, parseReadinessStdout } from '../src/readiness'
 import { moduleReadinessDecls } from '../src/roster'
 import type { ClassifiedFile, FileType, ModuleReadiness } from '../src/types'
 
@@ -170,6 +170,43 @@ check('moduleReadinessIssues: Partial is not surfaced (runs capped, not a gate c
 check('moduleReadinessIssues: agent + rerun are skipped entirely', () => {
   assert.equal(moduleReadinessIssues('agent', undefined, { earnings: M('Insufficient') }).length, 0)
   assert.equal(moduleReadinessIssues('rerun', undefined, { earnings: M('Insufficient') }).length, 0)
+})
+
+// ---- extractor stdout protocol: noisy parser diagnostics cannot masquerade as data failure ----
+const pyReport = {
+  data_path: '/tmp/data/KAR', file_count: 86, usable_count: 86,
+  issues: [], entities: [{ file: 'annual-report.pdf', entity: 'Karoon Energy Ltd' }],
+}
+
+check('parseReadinessStdout: accepts the strict one-document protocol', () => {
+  const parsed = parseReadinessStdout(JSON.stringify(pyReport))
+  assert.equal(parsed.report.file_count, 86)
+  assert.equal(parsed.ignoredDiagnosticLines, 0)
+})
+check('parseReadinessStdout: accepts Python nulls for optional issue details', () => {
+  const parsed = parseReadinessStdout(JSON.stringify({
+    ...pyReport,
+    issues: [{ code: 'empty_file', severity: 'blocker', message: 'empty', evidence: null, file: null }],
+  }))
+  assert.equal(parsed.report.issues[0].code, 'empty_file')
+})
+check('parseReadinessStdout: recovers one schema-valid report surrounded by parser warnings', () => {
+  const parsed = parseReadinessStdout(`WARNING *** noisy workbook\n${JSON.stringify(pyReport)}\nlate parser warning`)
+  assert.equal(parsed.report.usable_count, 86)
+  assert.equal(parsed.ignoredDiagnosticLines, 2)
+})
+check('parseReadinessStdout: rejects ambiguous output containing two valid reports', () => {
+  assert.throws(
+    () => parseReadinessStdout(`${JSON.stringify(pyReport)}\n${JSON.stringify(pyReport)}`),
+    /2 valid reports/,
+  )
+})
+check('parseReadinessStdout: rejects unrelated JSON or an impossible report shape', () => {
+  assert.throws(() => parseReadinessStdout('{"level":"warning"}'), /0 valid reports/)
+  assert.throws(
+    () => parseReadinessStdout(JSON.stringify({ ...pyReport, file_count: 1, usable_count: 2 })),
+    /0 valid reports/,
+  )
 })
 
 // ---- period from the FILENAME wins over content-scraped years (the "Data Coverage picks 2024 not 2025" bug) ----

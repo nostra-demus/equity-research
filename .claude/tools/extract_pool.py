@@ -2667,8 +2667,9 @@ def readiness_summary(data_path, out_dir, force=False):
     """Deterministic pre-flight summary for the data-readiness gate. No LLM.
     Returns {file_count, usable_count, issues[], entities[]}."""
     # The whole body sniffs files — extract_pool prints log lines, and the entity reads can invoke pypdf
-    # in-process (which may print). Redirect stdout->stderr for ALL of it so a stray library write can't
-    # corrupt the pure-JSON stdout the caller parses. Restored in finally, before main() prints the result.
+    # in-process (which may print). Redirect ordinary Python stdout for direct/module callers. The CLI's
+    # _emit_machine_json additionally shields file descriptor 1 because retained stream defaults/native
+    # writes bypass this assignment (the real noisy-xlrd failure this two-layer contract prevents).
     _saved_stdout = sys.stdout
     sys.stdout = sys.stderr
     try:
@@ -2751,6 +2752,51 @@ def readiness_summary(data_path, out_dir, force=False):
         sys.stdout = _saved_stdout
 
 
+def _emit_machine_json(build_payload):
+    """Emit exactly one JSON document on stdout, even when a parser is noisy.
+
+    Reassigning ``sys.stdout`` is not sufficient: some dependencies retain the
+    original stream object in a default argument, and native code can write to
+    file descriptor 1 directly.  That is exactly what xlrd does for warnings on
+    some real Capital IQ OLE2 workbooks.  Shield the OS descriptor for the
+    entire build and write the protocol payload through a duplicate of the
+    original descriptor.  Descriptor 1 intentionally remains pointed at
+    stderr until process exit, so a late flush/atexit warning cannot appear
+    after the JSON document either.
+    """
+    try:
+        stdout_fd = sys.stdout.fileno()
+        stderr_fd = sys.stderr.fileno()
+    except (AttributeError, ValueError, OSError):
+        # Import-level/unit callers may replace stdout with StringIO.  Keep a
+        # safe Python-stream fallback; the production CLI always takes the FD
+        # path above.
+        protocol_stdout = sys.stdout
+        sys.stdout = sys.stderr
+        try:
+            payload = build_payload()
+        finally:
+            sys.stdout = protocol_stdout
+        protocol_stdout.write(json.dumps(payload) + "\n")
+        protocol_stdout.flush()
+        return
+
+    protocol_fd = os.dup(stdout_fd)
+    try:
+        sys.stdout.flush()
+        os.dup2(stderr_fd, stdout_fd)
+        payload = build_payload()
+        # Flush every Python-level diagnostic while fd 1 still points at
+        # stderr.  os.write below bypasses the redirected TextIO wrapper.
+        sys.stdout.flush()
+        encoded = (json.dumps(payload) + "\n").encode("utf-8")
+        view = memoryview(encoded)
+        while view:
+            view = view[os.write(protocol_fd, view):]
+    finally:
+        os.close(protocol_fd)
+
+
 def main(argv):
     _ensure_deps()  # re-exec under .claude/tools/.venv if xlrd/openpyxl are missing here
     if "--readiness-json" in argv:
@@ -2758,12 +2804,12 @@ def main(argv):
         dp = argv[i + 1]
         rest = [a for a in argv[i + 2:] if not a.startswith("--")]
         od = rest[0] if rest else tempfile.mkdtemp(prefix="readiness_")
-        print(json.dumps(readiness_summary(dp, od, force=("--force" in argv))))
+        _emit_machine_json(lambda: readiness_summary(dp, od, force=("--force" in argv)))
         return 0
     if "--list-json" in argv:
         i = argv.index("--list-json")
         f = argv[i + 1]
-        print(json.dumps(list_file(f)))
+        _emit_machine_json(lambda: list_file(f))
         return 0
     if "--text" in argv:
         f = argv[argv.index("--text") + 1]

@@ -6582,7 +6582,12 @@ async function checkReadiness(run: RunState, force: boolean): Promise<ReadinessR
     const report: ReadinessReport = {
       ticker: run.ticker, kind: run.kind, module: run.module, overall: 'blocked',
       fileCount: 0, usableCount: 0, entities: [],
-      issues: [{ code: 'check_failed', severity: 'blocker', message: 'The data-readiness check could not run.', evidence: (e as Error)?.message }],
+      issues: [{
+        code: 'check_failed', severity: 'blocker',
+        message: 'The safety checker had a technical error. This does not mean your files are bad.',
+        evidence: 'No provider was started and no tokens were spent.',
+        suggestedFix: 'Try the check once more. If it returns, the checker needs repair; your files were not judged bad.',
+      }],
       ts: Date.now(),
     }
     run.readiness = report
@@ -6679,7 +6684,18 @@ export async function decideReadiness(
   }
 
   // proceed / override — a human chooses to run on a STILL-non-clean gate
-  const hasBlocker = !!run.readiness?.issues.some((i) => i.severity === 'blocker')
+  // A technical failure is not a data judgment the user can knowingly accept.
+  // Keep it fail-closed even when a caller bypasses the UI and POSTs a typed
+  // override directly: only recheck or cancel are legal until the checker can
+  // produce a schema-valid report.
+  const checkerFailed = !!run.readiness?.issues?.some((i) => i.code === 'check_failed')
+  if (checkerFailed) {
+    return {
+      ok: false, status: 'awaiting-readiness-decision', httpStatus: 409,
+      error: 'the safety checker had a technical error — recheck or cancel; override is unavailable',
+    }
+  }
+  const hasBlocker = !!run.readiness?.issues?.some((i) => i.severity === 'blocker')
   if (hasBlocker && action !== 'override') {
     return { ok: false, status: 'awaiting-readiness-decision', error: 'blockers present — use override with a typed acknowledgment', httpStatus: 409 }
   }

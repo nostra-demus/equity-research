@@ -16,7 +16,15 @@ import { DATA_DIR, REPO_ROOT } from './config'
 import { analyzeTicker } from './data-status'
 import type { ModuleReadiness, ReadinessReport, ReadinessIssue, ReadinessSeverity, RunKind } from './types'
 
-interface PyIssue { code: string; severity: ReadinessSeverity; message: string; evidence?: string; file?: string }
+interface PyIssue {
+  code: string
+  severity: ReadinessSeverity
+  message: string
+  // Python's optional values serialize as JSON null. Keep that wire shape
+  // explicit, then normalize it before it reaches the canonical TS report.
+  evidence?: string | null
+  file?: string | null
+}
 interface PyReadiness {
   data_path: string
   file_count: number
@@ -25,8 +33,14 @@ interface PyReadiness {
   entities: { file: string; entity: string }[]
 }
 
+interface ParsedPyReadiness {
+  report: PyReadiness
+  ignoredDiagnosticLines: number
+}
+
 // suggested-fix hints by issue code (shown in the panel; only the user-fixable ones get "Fix & re-check")
 const FIX_HINT: Record<string, string> = {
+  check_failed: 'Try the check once more. If it returns, the checker needs repair; your files were not judged bad.',
   zero_files: 'Add the company\'s filings to the data folder, then re-check.',
   zero_usable_data: 'Re-upload readable files (PDF/XLSX/HTML), then re-check.',
   // The pool sits on a Google Drive mount, so a read can fail for reasons that have nothing to do
@@ -41,6 +55,59 @@ const FIX_HINT: Record<string, string> = {
 }
 
 const execFileAsync = promisify(execFile)
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return !!value && typeof value === 'object' && !Array.isArray(value)
+}
+
+function isPyReadiness(value: unknown): value is PyReadiness {
+  if (!isRecord(value)
+      || typeof value.data_path !== 'string'
+      || !Number.isInteger(value.file_count) || Number(value.file_count) < 0
+      || !Number.isInteger(value.usable_count) || Number(value.usable_count) < 0
+      || Number(value.usable_count) > Number(value.file_count)
+      || !Array.isArray(value.issues)
+      || !Array.isArray(value.entities)) return false
+  const issuesOk = value.issues.every((issue) => isRecord(issue)
+    && typeof issue.code === 'string'
+    && ['blocker', 'degrade', 'info'].includes(String(issue.severity))
+    && typeof issue.message === 'string'
+    && (issue.evidence == null || typeof issue.evidence === 'string')
+    && (issue.file == null || typeof issue.file === 'string'))
+  const entitiesOk = value.entities.every((entity) => isRecord(entity)
+    && typeof entity.file === 'string' && typeof entity.entity === 'string')
+  return issuesOk && entitiesOk
+}
+
+/**
+ * Parse the extractor's stdout protocol. Current extractors promise one JSON
+ * document. The line fallback keeps a rolling deployment compatible with an
+ * older/noisy extractor, but accepts exactly one schema-valid report — never
+ * an arbitrary JSON log line and never an ambiguous pair of reports.
+ */
+export function parseReadinessStdout(stdout: string | Buffer): ParsedPyReadiness {
+  const text = stdout.toString().trim()
+  if (!text) throw new Error('readiness extractor returned empty stdout')
+  try {
+    const direct: unknown = JSON.parse(text)
+    if (!isPyReadiness(direct)) throw new Error('readiness JSON did not match the required schema')
+    return { report: direct, ignoredDiagnosticLines: 0 }
+  } catch (directError) {
+    const lines = text.split(/\r?\n/).map((line) => line.trim()).filter(Boolean)
+    const reports: PyReadiness[] = []
+    for (const line of lines) {
+      try {
+        const candidate: unknown = JSON.parse(line)
+        if (isPyReadiness(candidate)) reports.push(candidate)
+      } catch { /* ordinary parser diagnostics are not JSON */ }
+    }
+    if (reports.length === 1) {
+      return { report: reports[0], ignoredDiagnosticLines: Math.max(0, lines.length - 1) }
+    }
+    const reason = directError instanceof Error ? directError.message : String(directError)
+    throw new Error(`invalid readiness extractor protocol (${reports.length} valid reports; ${reason})`)
+  }
+}
 
 // The pre-flight extracts every file — now including OCR of image-only/scanned PDFs, which is the
 // slow part on a FRESH pool (cached thereafter, so only the first check on a new scan pays it). Give
@@ -68,7 +135,11 @@ async function runPhaseAPython(dataDir: string, outDir: string, force: boolean):
       // (the agents' own extract_pool call) sets no budget, so it OCRs the whole pool + caches it.
       env: { ...process.env, EXTRACT_OCR_BUDGET_S: String(READINESS_OCR_BUDGET_S) },
     })
-    return JSON.parse(stdout.toString()) as PyReadiness
+    const parsed = parseReadinessStdout(stdout)
+    if (parsed.ignoredDiagnosticLines > 0) {
+      console.warn(`[readiness] ignored ${parsed.ignoredDiagnosticLines} non-protocol stdout line(s); accepted one schema-valid report`)
+    }
+    return parsed.report
   } catch (e: any) {
     // never swallow silently: a failed gate check surfaces as the generic "The data-readiness check could
     // not run" blocker, and WHY (timeout / non-zero exit / bad JSON) was undiagnosable before this. Log the
@@ -128,13 +199,21 @@ export async function runReadiness(
     // the check itself could not run — fail SAFE (a blocker), never let the run proceed blind
     issues.push({
       code: 'check_failed', severity: 'blocker',
-      message: 'The data-readiness check could not run.',
-      evidence: 'extract_pool.py --readiness-json failed (see server logs)',
+      message: 'The safety checker had a technical error. This does not mean your files are bad.',
+      evidence: 'No provider was started and no tokens were spent.',
+      suggestedFix: FIX_HINT.check_failed,
     })
     return finalize(ticker, kind, module, issues, 0, 0, [])
   }
   for (const i of py.issues) {
-    issues.push({ ...i, suggestedFix: FIX_HINT[i.code] })
+    issues.push({
+      code: i.code,
+      severity: i.severity,
+      message: i.message,
+      ...(typeof i.evidence === 'string' ? { evidence: i.evidence } : {}),
+      ...(typeof i.file === 'string' ? { file: i.file } : {}),
+      suggestedFix: FIX_HINT[i.code],
+    })
   }
 
   // (2) file-type + §26 module readiness, scoped by kind (see moduleReadinessIssues). Only when files
