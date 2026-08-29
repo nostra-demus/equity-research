@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-29T13:39:50Z",
+  "generated_at": "2026-08-29T13:40:51Z",
   "inbox": [
     {
       "inbox_id": "INB-20260829-490",
@@ -85448,6 +85448,77 @@
   "handoffs": [],
   "ideas": [
     {
+      "idea_id": "IDEA-865901eb21c3",
+      "idea_version": "IDEAV-d0913f669ffdc9ce",
+      "idea_version_started_at": "2026-08-29T13:40:33Z",
+      "ticker": "PYPL",
+      "company": "PayPal Holdings, Inc.",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Advent-Stripe consortium reportedly walked away from a $53B bid, removing a takeover premium that had been supporting the stock.",
+      "why_now": "Reports of the bid withdrawal broke on 2026-08-28 and the stock already fell 13-15% intraday; further downside risk if the market prices in standalone execution risk.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 6,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-b268ee617228",
+        "EVT-e26f85a3cadb"
+      ],
+      "primary_source_event_id": "EVT-b268ee617228",
+      "source_headlines": [
+        "PayPal shares crash 13% on reports Advent-Stripe consortium walks away from bid",
+        "PayPal Plunges 15% After Reports That Advent, Stripe Abandon $53 Billion Bid"
+      ],
+      "source_headline": "PayPal shares crash 13% on reports Advent-Stripe consortium walks away from bid",
+      "source_url": "https://economictimes.indiatimes.com/markets/us-stocks/news/paypal-shares-crash-13-on-reports-advent-stripe-consortium-walks-away-from-bid/articleshow/133594719.cms",
+      "source_name": "The Economic Times",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-28T15:19:56Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-29T13:40:33Z",
+      "updated_at": "2026-08-29T13:40:33Z",
+      "decay_at": "2026-08-30T03:19:56Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-151e26db4506",
       "idea_version": "IDEAV-e91163d58cd38db8",
       "idea_version_started_at": "2026-08-29T13:02:30Z",
@@ -85652,6 +85723,77 @@
       "surfaced_at": "2026-08-29T13:02:30Z",
       "updated_at": "2026-08-29T13:02:30Z",
       "decay_at": "2026-08-30T09:27:53Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-c559ff4a8d85",
+      "idea_version": "IDEAV-b6ac5ae76f01d0ea",
+      "idea_version_started_at": "2026-08-29T13:40:33Z",
+      "ticker": "FLR",
+      "company": "Fluor Corporation",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Completion of a $5B Alabama plant construction project removes execution risk and should unlock milestone payments and cash flow for the engineering and construction firm.",
+      "why_now": "Project wrap-up reported on 2026-08-28, providing a dated catalyst for revenue recognition and balance-sheet improvement.",
+      "conviction": 50,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 60,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "price and market expectations",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "unknown",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-a225fc453d91"
+      ],
+      "primary_source_event_id": "EVT-a225fc453d91",
+      "source_headlines": [
+        "Fluor to wrap $5B Alabama plant construction"
+      ],
+      "source_headline": "Fluor to wrap $5B Alabama plant construction",
+      "source_url": "https://www.constructiondive.com/news/fluor-alabama-plant-construction-novelis/829026/",
+      "source_name": "Construction Dive",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-28T15:27:09Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-29T13:40:33Z",
+      "updated_at": "2026-08-29T13:40:33Z",
+      "decay_at": "2026-08-30T03:27:09Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -88483,78 +88625,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-fa9512f6988e",
-      "idea_version": "IDEAV-8e32e03160a422e5",
-      "idea_version_started_at": "2026-08-26T20:21:39Z",
-      "ticker": "BKSY",
-      "company": "BlackSky Technology Inc.",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company has received a delisting notification from the NYSE, which typically signals severe liquidity or compliance distress and often precedes further equity erosion.",
-      "why_now": "The delisting notice was filed with the SEC on 2026-08-26.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 55,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-2d4d4442635c",
-        "EVT-f14c29c6fe25"
-      ],
-      "primary_source_event_id": "EVT-2d4d4442635c",
-      "source_headlines": [
-        "25-NSE - BlackSky Technology Inc. (0001753539) (Subject)",
-        "25-NSE - NEW YORK STOCK EXCHANGE LLC (0000876661) (Filed by)"
-      ],
-      "source_headline": "25-NSE - BlackSky Technology Inc. (0001753539) (Subject)",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/1753539/000087666126000707/0000876661-26-000707-index.htm",
-      "source_name": "SEC EDGAR — Latest 25-NSE (Delisting Notification)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-26T13:27:05Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-26T20:21:39Z",
-      "updated_at": "2026-08-26T20:21:39Z",
-      "decay_at": "2026-08-28T01:27:05Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-26b2131063db",
       "idea_version": "IDEAV-3a283c2eaa9e0ad2",
       "idea_version_started_at": "2026-08-28T06:50:04Z",
@@ -89777,150 +89847,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-ba7402b9aa86",
-      "idea_version": "IDEAV-57bfd54e9ecf6363",
-      "idea_version_started_at": "2026-08-26T23:18:30Z",
-      "ticker": "BSKY",
-      "company": "BlackSky Technology Inc.",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "BlackSky Technology Inc. is facing delisting from the New York Stock Exchange, which typically signals severe financial distress and can lead to reduced liquidity and investor confidence.",
-      "why_now": "The delisting notification was filed on August 26, 2026, making this a live event.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-2d4d4442635c",
-        "EVT-f14c29c6fe25"
-      ],
-      "primary_source_event_id": "EVT-2d4d4442635c",
-      "source_headlines": [
-        "25-NSE - BlackSky Technology Inc. (0001753539) (Subject)",
-        "25-NSE - NEW YORK STOCK EXCHANGE LLC (0000876661) (Filed by)"
-      ],
-      "source_headline": "25-NSE - BlackSky Technology Inc. (0001753539) (Subject)",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/1753539/000087666126000707/0000876661-26-000707-index.htm",
-      "source_name": "SEC EDGAR — Latest 25-NSE (Delisting Notification)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-26T13:27:05Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-26T23:18:30Z",
-      "updated_at": "2026-08-26T23:18:30Z",
-      "decay_at": "2026-08-28T01:27:05Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-e9f7d83c2f9e",
-      "idea_version": "IDEAV-7a30f084832ce743",
-      "idea_version_started_at": "2026-08-26T22:23:24Z",
-      "ticker": "00950",
-      "company": "Lee's Pharmaceutical Holdings Limited",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company issued a positive profit alert, indicating an improvement in earnings performance compared to the previous period.",
-      "why_now": "The profit alert was filed on 2026-08-26.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-cf525820828c"
-      ],
-      "primary_source_event_id": "EVT-cf525820828c",
-      "source_headlines": [
-        "LEE'S PHARM (00950): Positive Profit Alert"
-      ],
-      "source_headline": "LEE'S PHARM (00950): Positive Profit Alert",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0826/2026082601649.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-26T13:06:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-26T22:23:24Z",
-      "updated_at": "2026-08-26T22:23:24Z",
-      "decay_at": "2026-08-28T01:06:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-4402530dd0df",
       "idea_version": "IDEAV-1b64f1ccf2917e03",
       "idea_version_started_at": "2026-08-26T17:19:45Z",
@@ -90350,7 +90276,7 @@
     "schema_version": "ideas-archive/v1",
     "health": {
       "status": "ok",
-      "file_count": 168,
+      "file_count": 171,
       "suppression_count": 1,
       "corrupt_count": 0,
       "invalid_count": 0,
@@ -93639,8 +93565,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-08-28T01:27:05Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-08-29T13:40:39Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -93715,8 +93641,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-08-28T01:27:05Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-08-29T13:40:39Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -93789,8 +93715,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-08-28T01:06:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-08-29T13:40:39Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -106175,8 +106101,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 237,
-    "live_count": 22,
+    "surfaced_total": 239,
+    "live_count": 24,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
