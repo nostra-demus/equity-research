@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-29T13:29:44Z",
+  "generated_at": "2026-08-29T13:39:50Z",
   "inbox": [
     {
       "inbox_id": "INB-20260829-490",
@@ -187,6 +187,49 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260829-602",
+      "headline": "UAE-based private jet firm explores $1 billion IPO",
+      "headline_en": null,
+      "url": "https://www.arabianbusiness.com/business/transport/uae-based-private-jet-firm-explores-1-billion-ipo",
+      "source_name": "Arabian Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-29T13:14:18Z",
+      "sweep_file": "screener/inbox/2026-08-29_sweep.json",
+      "prelim_note": "A UAE-based private jet firm is exploring a $1 billion IPO, representing a significant capital market event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A UAE-based private jet firm is exploring a $1 billion IPO, representing a significant capital market event.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1951,55 +1994,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260829-425",
-      "headline": "Shein valoraría su negocio en 26.500 millones de dólares con su salida a bolsa, según fuentes",
-      "headline_en": "Shein would value its business at $26.5 billion with its IPO, according to sources",
-      "url": "https://www.reuters.com/es/negocio/QEDXNIR3RNLHLARESLCKFD3GCE-2026-08-27/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-27T07:33:44Z",
-      "sweep_file": "screener/inbox/2026-08-29_sweep.json",
-      "prelim_note": "Shein is reportedly targeting a $26.5 billion valuation for its upcoming IPO.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Shein is reportedly targeting a $26.5 billion valuation for its upcoming IPO.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Shein",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -106201,9 +106195,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 586358,
-    "news_picked_today": 1442,
-    "news_dropped_today": 6123
+    "news_seen_today": 586432,
+    "news_picked_today": 1451,
+    "news_dropped_today": 6188
   },
   "book_momentum": {
     "live_count": 8,
