@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-29T09:16:51Z",
+  "generated_at": "2026-08-29T09:28:29Z",
   "inbox": [
     {
       "inbox_id": "INB-20260829-490",
@@ -39,6 +39,60 @@
       ],
       "issuer_linkage": "sector",
       "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260829-501",
+      "headline": "Liverpool finalise agreement to sign PSG's Barcola in deal worth up to £123 million, reports say",
+      "headline_en": null,
+      "url": "https://www.reuters.com/sports/soccer/liverpool-finalise-agreement-sign-psgs-barcola-deal-worth-up-123-million-reports-2026-08-29/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-29T09:06:09Z",
+      "sweep_file": "screener/inbox/2026-08-29_sweep.json",
+      "prelim_note": "Significant transfer of capital for a player acquisition valued at £123 million.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Significant transfer of capital for a player acquisition valued at £123 million.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Liverpool FC",
+          "ticker": null,
+          "listing_country": "GB"
+        },
+        {
+          "name": "Paris Saint-Germain",
+          "ticker": null,
+          "listing_country": "FR"
+        }
+      ],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -1701,6 +1755,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260829-510",
+      "headline": "Zelenskyy Says Dozens Killed in Russian Drone Strike Near Kyiv",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-08-29/zelenskyy-says-dozens-killed-in-russian-drone-strike-near-kyiv",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-29T09:08:45Z",
+      "sweep_file": "screener/inbox/2026-08-29_sweep.json",
+      "prelim_note": "Major military escalation with dozens killed in a drone strike near Kyiv, increasing global geopolitical instability.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Major military escalation with dozens killed in a drone strike near Kyiv, increasing global geopolitical instability.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 9,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "geopolitical",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260829-150",
       "headline": "India's markets regulator approves Jio Platforms' $3.8 billion IPO",
       "headline_en": null,
@@ -1893,104 +1990,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260829-329",
-      "headline": "Gap shares surge 15% in premarket on same-store-sales strength",
-      "headline_en": null,
-      "url": "https://www.marketwatch.com/bulletins/redirect/go?g=4b53499b-7b51-40d4-af50-e6894aafe038&mod=mw_rss_bulletins",
-      "source_name": "MarketWatch",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-28T11:56:02Z",
-      "sweep_file": "screener/inbox/2026-08-29_sweep.json",
-      "prelim_note": "Gap shares surged 15% following strong same-store-sales results, indicating a material beat on performance expectations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Gap shares surged 15% following strong same-store-sales results, indicating a material beat on performance expectations.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Gap",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260829-337",
-      "headline": "BYD H1 profit falls 20.5% as overseas growth fails to offset China weakness",
-      "headline_en": null,
-      "url": "https://cnevpost.com/2026/08/28/byd-h1-2026-earnings/",
-      "source_name": "CnEVPost",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-28T11:19:45Z",
-      "sweep_file": "screener/inbox/2026-08-29_sweep.json",
-      "prelim_note": "BYD reported a 20.5% decline in H1 profit due to domestic market weakness.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "BYD reported a 20.5% decline in H1 profit due to domestic market weakness.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "BYD",
-          "ticker": null,
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -104609,9 +104608,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 583864,
-    "news_picked_today": 1161,
-    "news_dropped_today": 3995
+    "news_seen_today": 584000,
+    "news_picked_today": 1172,
+    "news_dropped_today": 4120
   },
   "book_momentum": {
     "live_count": 8,
