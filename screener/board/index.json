@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-29T18:43:23Z",
+  "generated_at": "2026-08-29T18:44:06Z",
   "inbox": [
     {
       "inbox_id": "INB-20260829-490",
@@ -85938,6 +85938,77 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-b6c0f11fb03b",
+      "idea_version": "IDEAV-1335a8ecc7249039",
+      "idea_version_started_at": "2026-08-29T18:43:39Z",
+      "ticker": "CVX",
+      "company": "Chevron",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Chevron is nearing a deal to invest billions in Venezuelan oil fields, which represents a significant expansion of its oil production capacity and reserves.",
+      "why_now": "The news of the potential deal emerged on August 28, 2026.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 60,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 6,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "price and market expectations",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "unknown",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-0112ea3c81c2"
+      ],
+      "primary_source_event_id": "EVT-0112ea3c81c2",
+      "source_headlines": [
+        "Chevron, Other U.S. Firms Near Deal to Invest Billions in Venezuelan Oil Fields"
+      ],
+      "source_headline": "Chevron, Other U.S. Firms Near Deal to Invest Billions in Venezuelan Oil Fields",
+      "source_url": "https://www.wsj.com/business/energy-oil/chevron-other-u-s-firms-near-deal-to-invest-billions-in-venezuelan-oil-fields-55739e38?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-28T14:08:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-29T18:43:39Z",
+      "updated_at": "2026-08-29T18:43:39Z",
+      "decay_at": "2026-08-30T02:08:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-c559ff4a8d85",
       "idea_version": "IDEAV-b6ac5ae76f01d0ea",
       "idea_version_started_at": "2026-08-29T13:40:33Z",
@@ -86080,16 +86151,16 @@
     },
     {
       "idea_id": "IDEA-9e168a4e0799",
-      "idea_version": "IDEAV-7c4d416d59c23a4a",
-      "idea_version_started_at": "2026-08-29T12:26:38Z",
+      "idea_version": "IDEAV-371e40d6f7861351",
+      "idea_version_started_at": "2026-08-29T18:43:39Z",
       "ticker": "MRVL",
-      "company": "Marvell Technology, Inc.",
+      "company": "Marvell Technology",
       "exchange": "NASDAQ",
       "direction": "short",
       "pair_with": null,
-      "reason": "Marvell guided fiscal 2028 revenue below consensus and flagged Google deal timing delays, implying a growth air-pocket.",
-      "why_now": "CNBC/Nasdaq report 2026-08-28 on the guidance miss; stock already slid 10% but further estimate cuts are likely.",
-      "conviction": 65,
+      "reason": "Marvell Technology provided softer fiscal 2028 guidance and delayed a Google deal, indicating a slowdown in expected revenue and potential future headwinds.",
+      "why_now": "The guidance update and news of the Google deal timing were reported on August 28, 2026.",
+      "conviction": 75,
       "conviction_basis": "pre_edge_proxy",
       "trade_score": 55,
       "trade_score_basis": "evidence_gate_v2",
@@ -86142,8 +86213,292 @@
         "data_pool_present": false
       },
       "surfaced_at": "2026-08-29T12:26:38Z",
-      "updated_at": "2026-08-29T12:26:38Z",
+      "updated_at": "2026-08-29T18:43:39Z",
       "decay_at": "2026-08-30T09:29:34Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-5ca7ca4ccdb1",
+      "idea_version": "IDEAV-46cad2b4d5f4ae4b",
+      "idea_version_started_at": "2026-08-29T18:43:39Z",
+      "ticker": "PRATAPSNK",
+      "company": "Prataap Snacks Ltd",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Prataap Snacks Ltd completed the acquisition of 100% of RLOP Food Processing Private Limited, which is expected to expand its business operations.",
+      "why_now": "The acquisition was completed as of August 29, 2026.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 16,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-cdf8bda797d8"
+      ],
+      "primary_source_event_id": "EVT-cdf8bda797d8",
+      "source_headlines": [
+        "Prataap Snacks Ltd: Intimation under Regulation 30 of the SEBI(LODR) Regulations, 2015 regarding completion of acquisition of 100% of the equity share capital of RLOP Food Processing Private Limited (\"Target Company\")"
+      ],
+      "source_headline": "Prataap Snacks Ltd: Intimation under Regulation 30 of the SEBI(LODR) Regulations, 2015 regarding completion of acquisition of 100% of the equity share capital of RLOP Food Processing Private Limited (\"Target Company\")",
+      "source_url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/2dba565f-07d4-457d-8dda-7d749c45156f.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-29T09:46:09Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-29T18:43:39Z",
+      "updated_at": "2026-08-29T18:43:39Z",
+      "decay_at": "2026-08-30T21:46:09Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-801081566dec",
+      "idea_version": "IDEAV-ce699957a91aa372",
+      "idea_version_started_at": "2026-08-29T18:43:39Z",
+      "ticker": "01518",
+      "company": "NC HEALTHCARE",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "NC HEALTHCARE issued a profit warning, indicating that its financial performance is expected to be significantly worse than previously anticipated.",
+      "why_now": "The profit warning was issued on August 28, 2026.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-f05bdbd62134"
+      ],
+      "primary_source_event_id": "EVT-f05bdbd62134",
+      "source_headlines": [
+        "NC HEALTHCARE (01518): PROFIT WARNING"
+      ],
+      "source_headline": "NC HEALTHCARE (01518): PROFIT WARNING",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0828/2026082804114.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-28T14:45:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-29T18:43:39Z",
+      "updated_at": "2026-08-29T18:43:39Z",
+      "decay_at": "2026-08-30T02:45:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-b9d5031899a7",
+      "idea_version": "IDEAV-a676fff74c3d9db9",
+      "idea_version_started_at": "2026-08-29T18:43:39Z",
+      "ticker": "DICINDIA",
+      "company": "DIC India Limited",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The resignation of the MD & CEO of DIC India Limited, Mr. Manish Bhatia, suggests potential leadership instability and operational uncertainty.",
+      "why_now": "The executive exit is effective as of August 29, 2026.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-cefa77d1bf41"
+      ],
+      "primary_source_event_id": "EVT-cefa77d1bf41",
+      "source_headlines": [
+        "DIC India Limited: DIC India Limited has filed the detailed resignation received from Mr. Manish Bhatia and he ceases to be the Director, MD & CEO of the Company w.e.f close of business hours of August 29, 2026."
+      ],
+      "source_headline": "DIC India Limited: DIC India Limited has filed the detailed resignation received from Mr. Manish Bhatia and he ceases to be the Director, MD & CEO of the Company w.e.f close of business hours of August 29, 2026.",
+      "source_url": "https://nsearchives.nseindia.com/corporate/DICIND_29082026183345_Disclosure_Para7c.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-29T13:09:12Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-29T18:43:39Z",
+      "updated_at": "2026-08-29T18:43:39Z",
+      "decay_at": "2026-08-31T01:09:12Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-edbe01539b46",
+      "idea_version": "IDEAV-22278f4180300b49",
+      "idea_version_started_at": "2026-08-29T18:43:39Z",
+      "ticker": "TMX",
+      "company": "Trilogy Metals",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The Department of War is making a strategic equity investment in Trilogy Metals to secure critical mineral supplies, which should boost the company's financial standing and operational capacity.",
+      "why_now": "The announcement of the investment was made on August 28, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-ff99b800ac73"
+      ],
+      "primary_source_event_id": "EVT-ff99b800ac73",
+      "source_headlines": [
+        "Department of War Announces $35.6 Million Strategic Equity Investment in Trilogy Metals to Secure Critical Copper, Cobalt, and Germanium Supplies in Northwest Alaska"
+      ],
+      "source_headline": "Department of War Announces $35.6 Million Strategic Equity Investment in Trilogy Metals to Secure Critical Copper, Cobalt, and Germanium Supplies in Northwest Alaska",
+      "source_url": "https://www.war.gov/News/Releases/Release/Article/4585334/department-of-war-announces-356-million-strategic-equity-investment-in-trilogy/",
+      "source_name": "U.S. Department of War (formerly DoD) — News Releases",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-28T14:00:37Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-29T18:43:39Z",
+      "updated_at": "2026-08-29T18:43:39Z",
+      "decay_at": "2026-08-30T02:00:37Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -89697,76 +90052,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-492fb380ef56",
-      "idea_version": "IDEAV-d66fd299676ae4cf",
-      "idea_version_started_at": "2026-08-26T21:03:32Z",
-      "ticker": "INTU",
-      "company": "Intuit",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company explicitly guided for decelerating revenue growth in 2027, indicating a cooling demand environment for its core software products.",
-      "why_now": "The CFO provided this outlook on 2026-08-26, which contradicts previous growth expectations.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-86027c73f3e3"
-      ],
-      "primary_source_event_id": "EVT-86027c73f3e3",
-      "source_headlines": [
-        "Intuit expects 2027 revenue to ‘decelerate,’ CFO says"
-      ],
-      "source_headline": "Intuit expects 2027 revenue to ‘decelerate,’ CFO says",
-      "source_url": "https://www.cfodive.com/news/intuit-expects-2027-revenue-decelerate-cfo-AI/828869/",
-      "source_name": "CFO Dive",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-26T18:27:16Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-26T21:03:32Z",
-      "updated_at": "2026-08-26T21:03:32Z",
-      "decay_at": "2026-08-28T06:27:16Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-6f55bf31e25a",
       "idea_version": "IDEAV-5d771201ad67cf74",
       "idea_version_started_at": "2026-08-27T11:49:33Z",
@@ -91560,7 +91845,7 @@
     "schema_version": "ideas-archive/v1",
     "health": {
       "status": "ok",
-      "file_count": 173,
+      "file_count": 174,
       "suppression_count": 1,
       "corrupt_count": 0,
       "invalid_count": 0,
@@ -94773,8 +95058,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-08-28T06:27:16Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-08-29T18:43:52Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -107532,8 +107817,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 259,
-    "live_count": 42,
+    "surfaced_total": 264,
+    "live_count": 47,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
