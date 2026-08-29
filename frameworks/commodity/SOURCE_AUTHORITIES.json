@@ -16,6 +16,18 @@
   },
   "rules": [
     {
+      "id": "natural-gas-capacity-availability",
+      "need_pattern": "^(natural-gas-lng-export-capacity-availability|natural-gas-russian-pipeline-availability)$",
+      "preferred_route": "automatic_composite_energy_authorities_and_primary_operator_files",
+      "authorities": [
+        {"provider": "U.S. Energy Information Administration", "url": "https://www.eia.gov/naturalgas/", "access": "public"},
+        {"provider": "Federal Energy Regulatory Commission", "url": "https://www.ferc.gov/natural-gas/lng", "access": "public"},
+        {"provider": "U.S. Department of Energy natural-gas import/export reports", "url": "https://www.energy.gov/hgeo/listings/monthly-natural-gas-reports", "access": "public"},
+        {"provider": "ENTSOG Transparency Platform and primary transmission operators", "url": "https://transparency.entsog.eu/", "access": "public"}
+      ],
+      "capital_iq_fallback": "A licensed export may fill one leg, but the connector must preserve installed and commissioned LNG capacity, terminal outages, pipeline technical and available capacity, nominations, physical flows, and restriction notices as separate dated fields."
+    },
+    {
       "id": "official-policy-events",
       "need_pattern": "((^|-)policy(-|$)|routing|restriction|curtailment|opec|pipeline-availability|capacity-availability)",
       "preferred_route": "manual_official_event",

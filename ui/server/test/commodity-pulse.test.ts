@@ -12,8 +12,10 @@ import assert from 'node:assert/strict'
 import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
+import { createHash } from 'node:crypto'
 import { fileURLToPath } from 'node:url'
 import { NEWS } from '../src/config'
+import { canonicalJsonText } from '../src/canonical-json'
 import {
   getPulse,
   loadPulseConfig,
@@ -344,6 +346,16 @@ await check('getPulse happy path: prices, COT, reports, verdict — and honest a
   assert.equal(calls.cftc, 1)
   const persisted = JSON.parse(fs.readFileSync(path.join(stateDir, 'commodity-pulse.json'), 'utf8'))
   assert.ok(persisted['pulse-test']?.prices?.GOLD, 'snapshot persisted under the state dir for restart warm-start')
+  const historyDir = path.join(
+    stateDir, 'commodity-pulse-history', createHash('sha256').update('pulse-test').digest('hex'),
+  )
+  const historyFiles = fs.readdirSync(historyDir)
+  assert.equal(historyFiles.length, 1, 'the exact price half is retained for point-in-time research')
+  const historical = JSON.parse(fs.readFileSync(path.join(historyDir, historyFiles[0]), 'utf8'))
+  const material = { swarm: historical.swarm, priceAt: historical.priceAt, prices: historical.prices }
+  const digest = createHash('sha256').update(canonicalJsonText(material)).digest('hex')
+  assert.equal(historical.snapshot_sha256, `sha256:${digest}`)
+  assert.equal(historyFiles[0], `${T0}-${digest}.json`, 'the immutable filename binds time and content')
 })
 
 await check('getPulse serves the cache within TTL — no refetch', async () => {

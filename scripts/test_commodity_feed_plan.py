@@ -49,4 +49,16 @@ for commodity, need in (
     assert {authority["provider"] for authority in row["authorities"]} == {
         "USDA Foreign Agricultural Service", "General Administration of Customs of China",
     }
+natural_gas = next(plan for plan in plans if plan["commodity"] == "NATURAL-GAS")
+for need in (
+    "natural-gas-lng-export-capacity-availability",
+    "natural-gas-russian-pipeline-availability",
+):
+    row = next(item for item in natural_gas["rows"] if item["need_id"] == need)
+    assert row["source_rule_id"] == "natural-gas-capacity-availability"
+    providers = {authority["provider"] for authority in row["authorities"]}
+    assert "U.S. Energy Information Administration" in providers
+    assert "Federal Energy Regulatory Commission" in providers
+    assert "U.S. Department of Energy natural-gas import/export reports" in providers
+    assert "ENTSOG Transparency Platform and primary transmission operators" in providers
 print("PASS: every commodity profile need has an implemented route or authoritative source plan")

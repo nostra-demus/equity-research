@@ -9,6 +9,7 @@ import json
 import tempfile
 from pathlib import Path
 
+from canonical_json import canonical_json_bytes
 from commodity_profile_coverage import (
     _quality_error, compile_coverage, compile_coverage_bundle, coverage_status_counts, frozen_source_resolver,
     profile_family, profile_snapshot_sha256, resolve_profile_series,
@@ -156,11 +157,25 @@ def main() -> int:
 
         state_root = root / "state"
         state_root.mkdir()
+        pulse_prices = {
+            "GOLD": {
+                "symbol": "@GC.1", "last": 100.0, "unit": "USD/oz",
+                "as_of": "2026-08-10T20:00:00Z", "source": "cnbc",
+            },
+        }
         (state_root / "commodity-pulse.json").write_text(json.dumps({
             "commodity": {
                 "priceAt": 1786392000000,
-                "prices": {"GOLD": {"symbol": "@GC.1", "last": 100.0, "unit": "USD/oz", "as_of": "2026-08-10T20:00:00Z", "source": "cnbc"}},
+                "prices": pulse_prices,
             },
+        }), encoding="utf-8")
+        pulse_material = {"swarm": "commodity", "priceAt": 1786392000000, "prices": pulse_prices}
+        pulse_digest = hashlib.sha256(canonical_json_bytes(pulse_material)).hexdigest()
+        pulse_history_root = state_root / "commodity-pulse-history" / hashlib.sha256(b"commodity").hexdigest()
+        pulse_history_root.mkdir(parents=True)
+        pulse_history_file = pulse_history_root / f"1786392000000-{pulse_digest}.json"
+        pulse_history_file.write_text(json.dumps({
+            "schema_version": 1, **pulse_material, "snapshot_sha256": "sha256:" + pulse_digest,
         }), encoding="utf-8")
 
         artifact, source_snapshot = compile_coverage_bundle(
@@ -210,6 +225,33 @@ def main() -> int:
         csv_path.write_text(csv_path.read_text(encoding="utf-8") + "2026-08-11,TEST,999\n", encoding="utf-8")
         assert replay("gold.price", "GOLD", "2026-08-11T00:00:00Z")["payload"]["value"] == 100.0
         assert replay("gold.shared", "GOLD", "2026-08-11T00:00:00Z")["payload"]["points"][-1]["close"] == 11.0
+        # Cockpit polling after the frozen cutoff may replace the mutable warm-start snapshot. The live
+        # resolver must still select the newest content-addressed price snapshot knowable at the cutoff.
+        (state_root / "commodity-pulse.json").write_text(json.dumps({
+            "commodity": {
+                "priceAt": 1786410000000,
+                "prices": {"GOLD": {"symbol": "@GC.1", "last": 1234.0, "unit": "USD/oz", "as_of": "2026-08-11T01:00:00Z", "source": "cnbc"}},
+            },
+        }), encoding="utf-8")
+        historical_live = resolve_profile_series(
+            "gold.price", "GOLD", "2026-08-11T00:00:00Z", profile_path=profile,
+            structured_root=structured_root, connectors_root=root, data_root=root,
+            market_root=market_root, state_root=state_root, reader=reader, manifests=manifests,
+        )
+        assert historical_live and historical_live["usable"] is True
+        assert historical_live["payload"]["value"] == 100.0
+        original_history = pulse_history_file.read_bytes()
+        tampered_history = json.loads(original_history)
+        tampered_history["prices"]["GOLD"]["last"] = 101.0
+        pulse_history_file.write_text(json.dumps(tampered_history), encoding="utf-8")
+        rejected_history = resolve_profile_series(
+            "gold.price", "GOLD", "2026-08-11T00:00:00Z", profile_path=profile,
+            structured_root=structured_root, connectors_root=root, data_root=root,
+            market_root=market_root, state_root=state_root, reader=reader, manifests=manifests,
+        )
+        assert rejected_history and rejected_history["usable"] is False
+        assert rejected_history["status"] == "suspect", "a rewritten history snapshot passed its content hash"
+        pulse_history_file.write_bytes(original_history)
         orphaned = copy.deepcopy(source_snapshot)
         orphaned["rows"].append({
             "series_id": "gold.orphan", "vintage_id": "sha256:" + "f" * 64,
@@ -287,7 +329,8 @@ def main() -> int:
             structured_root=structured_root, connectors_root=root, data_root=root,
             market_root=market_root, state_root=state_root, reader=reader, manifests=manifests,
         )
-        assert malformed_pulse and malformed_pulse["usable"] is False and malformed_pulse["status"] == "suspect"
+        assert malformed_pulse and malformed_pulse["usable"] is True
+        assert malformed_pulse["payload"]["value"] == 100.0, "the immutable snapshot outranks mutated warm-start state"
 
         duplicate = manifests + [{**manifests[0], "id": "automatic-two", "dataset_id": "other.auto"}]
         ambiguous = compile_coverage(

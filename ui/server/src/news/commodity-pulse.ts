@@ -28,7 +28,9 @@
 
 import fs from 'node:fs'
 import path from 'node:path'
+import { createHash } from 'node:crypto'
 import { NEWS, STATE_DIR, REPO_ROOT } from '../config'
+import { canonicalJsonText } from '../canonical-json'
 import { swarmById, runRootForSubject } from '../swarms'
 import type { SwarmManifest } from '../types'
 import { BROWSER_UA, buildCnbcQuoteUrl, parseCnbcRows } from './cnbc-quote'
@@ -315,6 +317,44 @@ interface CacheEntry {
 const memCache = new Map<string, CacheEntry>()
 
 const persistFile = (stateDir: string) => path.join(stateDir, 'commodity-pulse.json')
+let persistSequence = 0
+
+function atomicJsonReplace(file: string, value: unknown): void {
+  const dir = path.dirname(file)
+  fs.mkdirSync(dir, { recursive: true })
+  const temporary = path.join(dir, `.${path.basename(file)}.${process.pid}.${++persistSequence}.tmp`)
+  try {
+    const descriptor = fs.openSync(temporary, 'wx', 0o600)
+    try {
+      fs.writeFileSync(descriptor, `${JSON.stringify(value, null, 2)}\n`)
+      fs.fsyncSync(descriptor)
+    } finally {
+      fs.closeSync(descriptor)
+    }
+    fs.renameSync(temporary, file)
+  } finally {
+    try { fs.unlinkSync(temporary) } catch { /* renamed or never created */ }
+  }
+}
+
+/**
+ * Keep every price half under a content-addressed filename before the mutable warm-start file changes.
+ * A research run can therefore recover the exact newest snapshot at or before its decision cutoff even
+ * when ordinary cockpit polling refreshes commodity-pulse.json while the analytical orbs are running.
+ */
+function persistPriceHistory(stateDir: string, swarmId: string, entry: CacheEntry): void {
+  try {
+    if (!Number.isSafeInteger(entry.price.at) || entry.price.at <= 0) return
+    const material = { swarm: swarmId, priceAt: entry.price.at, prices: entry.price.data }
+    const digest = createHash('sha256').update(canonicalJsonText(material), 'utf8').digest('hex')
+    const directory = path.join(
+      stateDir, 'commodity-pulse-history', createHash('sha256').update(swarmId, 'utf8').digest('hex'),
+    )
+    const target = path.join(directory, `${entry.price.at}-${digest}.json`)
+    if (fs.existsSync(target)) return
+    atomicJsonReplace(target, { schema_version: 1, ...material, snapshot_sha256: `sha256:${digest}` })
+  } catch { /* history is best-effort; the mutable cache and returned snapshot remain available */ }
+}
 
 function loadPersisted(stateDir: string, swarmId: string): CacheEntry {
   const empty: CacheEntry = { price: { at: 0, data: {} }, cot: { at: 0, data: {} }, inflight: null }
@@ -338,7 +378,8 @@ function persist(stateDir: string, swarmId: string, entry: CacheEntry): void {
     let j: Record<string, unknown> = {}
     try { j = JSON.parse(fs.readFileSync(persistFile(stateDir), 'utf8')) || {} } catch { /* first write */ }
     j[swarmId] = { priceAt: entry.price.at, prices: entry.price.data, cotAt: entry.cot.at, cots: entry.cot.data }
-    fs.writeFileSync(persistFile(stateDir), JSON.stringify(j, null, 2) + '\n')
+    persistPriceHistory(stateDir, swarmId, entry)
+    atomicJsonReplace(persistFile(stateDir), j)
   } catch { /* persistence is best-effort — the in-memory snapshot still serves */ }
 }
 
@@ -443,6 +484,9 @@ export async function getPulse(swarmId: string, deps: PulseDeps = {}): Promise<P
       }
       await entry.inflight
     }
+    // A within-TTL refresh may only read a legacy mutable warm-start file. Archive that exact price
+    // half too, so the /commodity:full preflight always leaves a point-in-time snapshot behind.
+    persistPriceHistory(stateDir, manifest.id, entry)
 
     // reports + verdicts are pure local reads — recomputed every call, never cached
     const subjectsSource = (manifest as { subjectsSource?: string }).subjectsSource

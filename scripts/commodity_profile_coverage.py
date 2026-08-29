@@ -36,6 +36,7 @@ QUALITY_KEYS = {
     "max_parent_gap_days",
 }
 FUTURES_PRICE_BASES = {"front_contract", "continuous_back_adjusted", "continuous_ratio_adjusted"}
+PULSE_HISTORY_FILE_RE = re.compile(r"^(?P<price_at>\d+)-(?P<digest>[0-9a-f]{64})\.json$")
 
 
 def _utc(value: str | None) -> dt.datetime:
@@ -381,17 +382,77 @@ def _resolve_pulse(
     requirement: dict[str, Any], commodity: str, cutoff: dt.datetime, state_root: Path,
 ) -> dict[str, Any]:
     resolver = requirement["resolver"]
+    swarm_id = resolver["swarm"]
+    candidates: list[tuple[dt.datetime, dict[str, Any], str]] = []
+    current_exists = False
     try:
         state = json.loads((state_root / "commodity-pulse.json").read_text(encoding="utf-8"))
-        swarm = state[resolver["swarm"]]
+        current_exists = True
+        swarm = state[swarm_id]
         price_at = dt.datetime.fromtimestamp(float(swarm["priceAt"]) / 1000, dt.timezone.utc)
-        quote = swarm["prices"][commodity]
-    except (OSError, ValueError, OverflowError, TypeError, KeyError, json.JSONDecodeError):
+        if price_at <= cutoff and isinstance(swarm.get("prices"), dict):
+            candidates.append((price_at, swarm, "current"))
+    except (OSError, ValueError, OverflowError, TypeError, KeyError, json.JSONDecodeError, AttributeError):
+        pass
+
+    history_root = state_root / "commodity-pulse-history" / hashlib.sha256(swarm_id.encode("utf-8")).hexdigest()
+    history_defect: str | None = None
+    try:
+        names = sorted(
+            (path.name for path in history_root.iterdir() if path.is_file() and not path.is_symlink()),
+            reverse=True,
+        )
+    except OSError:
+        names = []
+    for name in names:
+        match = PULSE_HISTORY_FILE_RE.fullmatch(name)
+        if not match:
+            continue
+        try:
+            price_at_ms = int(match.group("price_at"))
+            price_at = dt.datetime.fromtimestamp(price_at_ms / 1000, dt.timezone.utc)
+        except (ValueError, OverflowError, OSError):
+            continue
+        if price_at > cutoff:
+            continue
+        try:
+            envelope = json.loads((history_root / name).read_text(encoding="utf-8"))
+            if not isinstance(envelope, dict) or set(envelope) != {
+                "schema_version", "swarm", "priceAt", "prices", "snapshot_sha256",
+            }:
+                raise ValueError("invalid pulse history envelope")
+            material = {
+                "swarm": envelope["swarm"], "priceAt": envelope["priceAt"], "prices": envelope["prices"],
+            }
+            actual = hashlib.sha256(canonical_json_bytes(material)).hexdigest()
+            if (
+                envelope["schema_version"] != 1 or envelope["swarm"] != swarm_id
+                or envelope["priceAt"] != price_at_ms or not isinstance(envelope["prices"], dict)
+                or envelope["snapshot_sha256"] != "sha256:" + actual or actual != match.group("digest")
+            ):
+                raise ValueError("pulse history identity or content hash failed")
+            candidates.append((price_at, {"priceAt": price_at_ms, "prices": envelope["prices"]}, "history"))
+        except (OSError, ValueError, TypeError, KeyError, json.JSONDecodeError):
+            history_defect = "point-in-time pulse history identity or content hash failed"
+        break
+
+    if not candidates:
+        if history_defect:
+            return {"usable": False, "status": "suspect", "reason": history_defect}
+        if current_exists:
+            return {"usable": False, "status": "suspect", "reason": "pulse quote point-in-time boundary failed"}
         return {"usable": False, "status": "missing", "reason": "pulse quote snapshot is absent"}
+
+    candidates.sort(key=lambda item: (item[0], item[2] == "history"), reverse=True)
+    price_at, swarm, _source = candidates[0]
+    try:
+        quote = swarm["prices"][commodity]
+    except (TypeError, KeyError):
+        return {"usable": False, "status": "missing", "reason": "pulse quote snapshot has no commodity price"}
     quote_at = _parse_instant(quote.get("as_of")) if isinstance(quote, dict) else None
     value = quote.get("last") if isinstance(quote, dict) else None
     if (
-        not isinstance(quote, dict) or price_at > cutoff or quote_at is None or quote_at > price_at
+        not isinstance(quote, dict) or quote_at is None or quote_at > price_at
         or quote.get("symbol") != resolver.get("symbol") or quote.get("source") != resolver.get("source")
         or not isinstance(value, (int, float)) or isinstance(value, bool) or not math.isfinite(value) or value <= 0
     ):
