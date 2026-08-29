@@ -90,6 +90,9 @@ function ensurePrivateDirectory(directory: string): void {
 }
 
 function syncDirectory(directory: string): void {
+  // Windows raises EPERM opening a directory for fsync and does not support fsync on one at all;
+  // the durability this buys is a POSIX guarantee, so skip it there rather than fail the write.
+  if (process.platform === 'win32') return
   const fd = fs.openSync(directory, fs.constants.O_RDONLY)
   try { fs.fsyncSync(fd) } finally { fs.closeSync(fd) }
 }
@@ -108,7 +111,8 @@ function validReceipt(value: unknown): value is ContinuationPlanReceipt {
     && Array.isArray(receipt.sourceRunRoots) && receipt.sourceRunRoots.every((root: unknown) => typeof root === 'string' && RUN_ROOT.test(root))
     && typeof receipt.targetRunRoot === 'string' && RUN_ROOT.test(receipt.targetRunRoot)
     && receipt.provider && (receipt.provider.id === 'claude' || receipt.provider.id === 'codex')
-    && Array.isArray(receipt.reusableOrbKeys) && Array.isArray(receipt.payableOrbKeys)
+    && Array.isArray(receipt.reusableOrbKeys) && receipt.reusableOrbKeys.every((k: unknown) => typeof k === 'string')
+    && Array.isArray(receipt.payableOrbKeys) && receipt.payableOrbKeys.every((k: unknown) => typeof k === 'string')
     && receipt.dataPool && Number.isInteger(receipt.dataPool.files) && Number.isFinite(receipt.dataPool.newestMs)
     && FINGERPRINT.test(String(receipt.dataPool.sha256))
     && FINGERPRINT.test(String(receipt.sourceArtifactsSha256))
