@@ -107,6 +107,10 @@ if (
 PYPRIVATE
 }
 
+file_mtime_epoch() {
+  "$PYTHON" -I -c 'import os, sys; print(int(os.stat(sys.argv[1]).st_mtime))' "$1" 2>/dev/null
+}
+
 # A queued launch needs proof of a healthy lifecycle transition, not merely the absence of writer intent.
 # Keep that proof separate from .deployed.sha: dependency-only repair may finish with the same program SHA,
 # while a no-op watcher tick must not mint a new success event. Owner-only temp+rename makes the receipt
@@ -2021,7 +2025,7 @@ if [ "$LOCAL" = "$REMOTE" ]; then
     fi
     # built artifacts already match HEAD — heartbeat at most ~hourly so the log proves the watcher is alive
     hb_age=999999
-    [ -f "$LOG" ] && hb_age=$(( $(date +%s) - $(stat -f %m "$LOG" 2>/dev/null || echo 0) ))
+    [ -f "$LOG" ] && hb_age=$(( $(date +%s) - $(file_mtime_epoch "$LOG" || echo 0) ))
     [ "$hb_age" -ge "$HEARTBEAT" ] && log "OK up-to-date ${LOCAL:0:9}"
     exit 0
   fi
