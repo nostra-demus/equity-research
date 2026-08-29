@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-29T08:47:58Z",
+  "generated_at": "2026-08-29T09:16:51Z",
   "inbox": [
     {
       "inbox_id": "INB-20260829-490",
@@ -40,6 +40,109 @@
       "issuer_linkage": "sector",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260829-491",
+      "headline": "German insurer Allianz weighs £5bn takeover of AA roadside rescue giant",
+      "headline_en": null,
+      "url": "https://news.sky.com/story/german-insurer-allianz-weighs-5bn-takeover-of-aa-roadside-rescue-giant-13578449",
+      "source_name": "Sky News — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-29T08:08:00Z",
+      "sweep_file": "screener/inbox/2026-08-29_sweep.json",
+      "prelim_note": "Allianz is considering a 5 billion GBP takeover of AA, a significant M&A event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Allianz is considering a 5 billion GBP takeover of AA, a significant M&A event.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Allianz",
+          "ticker": null,
+          "listing_country": "DE"
+        },
+        {
+          "name": "AA",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260829-499",
+      "headline": "Max Estates Buys 85-Acre Land In Delhi To Build Projects, Eyes ₹10,000-12,000 Cr Revenue",
+      "headline_en": null,
+      "url": "https://www.outlookbusiness.com/corporate/max-estates-buys-85-acre-land-in-delhi-to-build-projects-eyes-10000-12000-cr-revenue",
+      "source_name": "Outlook Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-29T06:35:09Z",
+      "sweep_file": "screener/inbox/2026-08-29_sweep.json",
+      "prelim_note": "Max Estates acquired 85 acres of land in Delhi with projected revenue of 10,000-12,000 crore rupees.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Max Estates acquired 85 acres of land in Delhi with projected revenue of 10,000-12,000 crore rupees.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Max Estates",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1883,104 +1986,6 @@
       "companies": [
         {
           "name": "BYD",
-          "ticker": null,
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260829-354",
-      "headline": "BYD reports 20.5% drop in first-half profit",
-      "headline_en": null,
-      "url": "https://www.reuters.com/world/asia-pacific/byd-reports-205-drop-first-half-profit-2026-08-28/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-28T10:49:44Z",
-      "sweep_file": "screener/inbox/2026-08-29_sweep.json",
-      "prelim_note": "BYD reported a significant 20.5% drop in first-half profit, a major earnings miss for a leading EV maker.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "BYD reported a significant 20.5% drop in first-half profit, a major earnings miss for a leading EV maker.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "BYD",
-          "ticker": "1211",
-          "listing_country": "HK"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260829-382",
-      "headline": "Meituan swings to profit in Q2 as price wars subside",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/retail-consumer/meituan-swings-profit-q2-price-wars-subside-2026-08-28/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-28T08:55:43Z",
-      "sweep_file": "screener/inbox/2026-08-29_sweep.json",
-      "prelim_note": "Meituan reported a swing to profit in Q2 as price competition eased.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Meituan reported a swing to profit in Q2 as price competition eased.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Meituan",
           "ticker": null,
           "listing_country": "CN"
         }
@@ -86289,78 +86294,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-017f4db87209",
-      "idea_version": "IDEAV-3a1f5029b454e5af",
-      "idea_version_started_at": "2026-08-27T23:06:02Z",
-      "ticker": "GPS",
-      "company": "Gap Inc.",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Gap raised its profit forecast and appointed a new Old Navy CEO, a dual catalyst that signals improving earnings momentum at its largest brand.",
-      "why_now": "Reuters reported the guidance lift and management change today (2026-08-27), and shares already jumped 14%, confirming the market is reacting in real time.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-060601716155"
-      ],
-      "primary_source_event_id": "EVT-060601716155",
-      "source_headlines": [
-        "Gap names new Old Navy CEO and lifts profit forecast, shares jump 14%"
-      ],
-      "source_headline": "Gap names new Old Navy CEO and lifts profit forecast, shares jump 14%",
-      "source_url": "https://www.reuters.com/business/retail-consumer/gap-lifts-annual-profit-forecast-strength-namesake-brand-2026-08-27/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-27T21:15:48Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-27T23:06:02Z",
-      "updated_at": "2026-08-27T23:06:02Z",
-      "decay_at": "2026-08-29T09:15:48Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-87ee6f6e0a27",
       "idea_version": "IDEAV-c7926b8790634ea9",
       "idea_version_started_at": "2026-08-28T03:27:36Z",
@@ -88126,6 +88059,78 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-017f4db87209",
+      "idea_version": "IDEAV-3a1f5029b454e5af",
+      "idea_version_started_at": "2026-08-27T23:06:02Z",
+      "ticker": "GPS",
+      "company": "Gap Inc.",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Gap raised its profit forecast and appointed a new Old Navy CEO, a dual catalyst that signals improving earnings momentum at its largest brand.",
+      "why_now": "Reuters reported the guidance lift and management change today (2026-08-27), and shares already jumped 14%, confirming the market is reacting in real time.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-060601716155"
+      ],
+      "primary_source_event_id": "EVT-060601716155",
+      "source_headlines": [
+        "Gap names new Old Navy CEO and lifts profit forecast, shares jump 14%"
+      ],
+      "source_headline": "Gap names new Old Navy CEO and lifts profit forecast, shares jump 14%",
+      "source_url": "https://www.reuters.com/business/retail-consumer/gap-lifts-annual-profit-forecast-strength-namesake-brand-2026-08-27/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-27T21:15:48Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-27T23:06:02Z",
+      "updated_at": "2026-08-27T23:06:02Z",
+      "decay_at": "2026-08-29T09:15:48Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-3eb5e87acb4c",
       "idea_version": "IDEAV-87d5fb76880fb435",
       "idea_version_started_at": "2026-08-27T21:21:14Z",
@@ -89499,13 +89504,13 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 202,
-    "shown_count": 202,
+    "total_count": 203,
+    "shown_count": 203,
     "hidden_count": 0,
     "side_counts": {
       "long": {
-        "total_count": 91,
-        "shown_count": 91,
+        "total_count": 92,
+        "shown_count": 92,
         "hidden_count": 0
       },
       "short": {
@@ -89530,6 +89535,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-017f4db87209",
+        "idea_version": "IDEAV-3a1f5029b454e5af",
+        "idea_version_started_at": "2026-08-27T23:06:02Z",
+        "ticker": "GPS",
+        "company": "Gap Inc.",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Gap raised its profit forecast and appointed a new Old Navy CEO, a dual catalyst that signals improving earnings momentum at its largest brand.",
+        "why_now": "Reuters reported the guidance lift and management change today (2026-08-27), and shares already jumped 14%, confirming the market is reacting in real time.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-060601716155"
+        ],
+        "primary_source_event_id": "EVT-060601716155",
+        "source_headlines": [
+          "Gap names new Old Navy CEO and lifts profit forecast, shares jump 14%"
+        ],
+        "source_headline": "Gap names new Old Navy CEO and lifts profit forecast, shares jump 14%",
+        "source_url": "https://www.reuters.com/business/retail-consumer/gap-lifts-annual-profit-forecast-strength-namesake-brand-2026-08-27/",
+        "source_name": "Reuters — Latest (news sitemap)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-27T21:15:48Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-27T23:06:02Z",
+        "updated_at": "2026-08-27T23:06:02Z",
+        "decay_at": "2026-08-29T09:15:48Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-29T09:15:48Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-ef1043135048",
         "idea_version": "IDEAV-8499a5e61e0b9d0e",
@@ -104510,7 +104590,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 221,
-    "live_count": 17,
+    "live_count": 16,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -104529,9 +104609,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 583050,
-    "news_picked_today": 1112,
-    "news_dropped_today": 3476
+    "news_seen_today": 583864,
+    "news_picked_today": 1161,
+    "news_dropped_today": 3995
   },
   "book_momentum": {
     "live_count": 8,
