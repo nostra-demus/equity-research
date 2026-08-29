@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-29T22:03:18Z",
+  "generated_at": "2026-08-29T22:07:57Z",
   "inbox": [
     {
       "inbox_id": "INB-20260829-490",
@@ -530,6 +530,60 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260829-654",
+      "headline": "Sandisk and Kioxia Plan to Invest More Than $31 Billion in Japanese Memory Plants — About 60% of What They Have Spent There in 25 Years.",
+      "headline_en": null,
+      "url": "https://www.fool.com/investing/2026/08/29/sandisk-and-kioxia-plan-to-invest-more-than-usd31-billion-in-japanese-memory-plants-about-60-of-what-they-have-spent-there-in-25-years/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-29T21:38:01Z",
+      "sweep_file": "screener/inbox/2026-08-29_sweep.json",
+      "prelim_note": "Sandisk and Kioxia announced a major capital investment of more than $31 billion in Japanese memory plants.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Sandisk and Kioxia announced a major capital investment of more than $31 billion in Japanese memory plants.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Sandisk",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Kioxia",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1930,55 +1984,6 @@
       "companies": [
         {
           "name": "Gap Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260829-284",
-      "headline": "Marvell Guided to 50% Growth and the Stock Dropped 6%. Every AI Investor Should Read That Warning.",
-      "headline_en": null,
-      "url": "https://247wallst.com/investing/2026/08/28/marvell-guided-to-50-growth-and-the-stock-dropped-6-every-ai-investor-should-read-that-warning/",
-      "source_name": "24/7 Wall St.",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-28T14:22:17Z",
-      "sweep_file": "screener/inbox/2026-08-29_sweep.json",
-      "prelim_note": "Marvell provided guidance for 50% growth, yet the stock dropped 6%, indicating a market mismatch with management's outlook.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Marvell provided guidance for 50% growth, yet the stock dropped 6%, indicating a market mismatch with management's outlook.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Marvell",
           "ticker": null,
           "listing_country": "US"
         }
@@ -108921,9 +108926,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 588334,
-    "news_picked_today": 1745,
-    "news_dropped_today": 7796
+    "news_seen_today": 588349,
+    "news_picked_today": 1748,
+    "news_dropped_today": 7808
   },
   "book_momentum": {
     "live_count": 8,
