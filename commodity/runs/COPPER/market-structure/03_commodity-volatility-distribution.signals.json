@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "commodity": "COPPER",
+  "owner_orb": "commodity-volatility-distribution",
+  "generated_at": "2026-08-28T00:00:00Z",
+  "signals": [
+    {
+      "signal_id": "copper-return-distribution-not-assessable",
+      "owner_orb": "commodity-volatility-distribution",
+      "economic_cluster": "volatility-regime",
+      "role": "context",
+      "horizon": "both",
+      "direction": "neutral",
+      "strength": 0.0,
+      "as_of": "2026-08-28T00:00:00Z",
+      "expiry": null,
+      "source_vintage_ids": [
+        "unvintaged:engine-connector-registry-and-pulse-eperm:2026-08-28"
+      ],
+      "source_vintage_refs": [],
+      "signal_kind": "observational",
+      "validation_ref": null,
+      "validation_status": "source_unverified",
+      "conviction_eligible": false,
+      "numerator_series_id": null,
+      "denominator_series_id": null,
+      "contradicts": [],
+      "notes": "No lawful point-in-time COMEX Copper HG front-month close history is reachable: copper.comex-price-history is unavailable, .claude/connectors/ contains no price-history connector for any commodity, data/COPPER/ does not exist, and scripts/refresh-swarm-pulse.sh commodity COPPER fails EPERM on the tsx IPC pipe (reproduced 2026-08-28) and would in any case return only a current quote, not a history. N = 0 non-overlapping outcomes at all ten grid horizons (30/45/60/75/92/182/273/365/456/548 days) against the MODULE_RULES section 10 floor of 30; 0 comparable point-in-time regimes against a floor of 3. Distribution, realised vol, skew, drawdown and the full scenario-span envelope are therefore not_assessable. Strength is 0.0 because this row records an absence of measurement, not a measured market fact; it is context only and cannot lift sufficiency or conviction (section 8A)."
+    },
+    {
+      "signal_id": "copper-policy-event-gap-class-unmeasured",
+      "owner_orb": "commodity-volatility-distribution",
+      "economic_cluster": "tail-risk",
+      "role": "risk",
+      "horizon": "both",
+      "direction": "neutral",
+      "strength": 0.1,
+      "as_of": "2026-08-28T00:00:00Z",
+      "expiry": null,
+      "source_vintage_ids": [
+        "unvintaged:web-secondary-us-refined-copper-tariff-reporting:2026-08-28"
+      ],
+      "source_vintage_refs": [],
+      "signal_kind": "observational",
+      "validation_ref": null,
+      "validation_status": "source_unverified",
+      "conviction_eligible": false,
+      "numerator_series_id": null,
+      "denominator_series_id": null,
+      "contradicts": [],
+      "notes": "An unscheduled US refined-copper trade-policy event class is identified in kind but unmeasured in magnitude. Unvintaged secondary reporting describes a single-session COMEX collapse on 2025-07-30/31 after refined cathode was excluded from the US tariff, with magnitude disagreeing across sources at 19 percent [Web: ING Think, 2025-07-31 - unverified], 20 percent [Web: SunSirs, 2025-08 - unverified] and 22 percent [Web: secondary trade commentary, accessed 2026-08-28 - unverified]; secondary reporting also describes a still-undecided US Commerce ruling with the COMEX-LME differential near a historical high [Web: CNBC 2026-08-14, Bloomberg 2026-08-05 - unverified]. This is NOT a tail bound and must not be entered into the scenario-span envelope: N = 1, the reported magnitude is self-inconsistent across sources, and no lawful point-in-time series exists from which to compute a 5th/95th percentile or a measured event gap. Direction is neutral because the class is two-sided - the 2025 gap was down only because the ruling landed softer than positioning expected, and a harder ruling gaps the other way. This orb states no directional view. The only admissible use is qualitative: a copper scenario set spanning only ordinary volatility would fail the root section 10 span check, though this orb cannot say by how much."
+    }
+  ],
+  "correlation_edges": []
+}
