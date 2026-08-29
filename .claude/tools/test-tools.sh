@@ -55,7 +55,9 @@ if not m: print("  FAIL: could not extract the finish-gate script from full.md")
 d=tempfile.mkdtemp(); gp=os.path.join(d,"gate.py"); open(gp,"w").write(m.group(1))
 MARK="PROVISIONAL — the automated finish-gate"
 BASE={"decision_date":"2026-07-01","thesis_type":["Company-specific"],"confidence_score":50,"data_sufficiency_score":60,"notes":"x"}
-def gate(rec, body="# Thesis\n\nReal body content.\n"):
+VALID_BODY=("# Thesis\n\nSIGN CHECK: margin-drivers — recovering margin (tailwind), high confidence; "
+            "the thesis agrees.\n\nReal body content.\n")
+def gate(rec, body=VALID_BODY):
     json.dump(rec, open(os.path.join(d,"decision_record.json"),"w"))
     open(os.path.join(d,"final_thesis.md"),"w").write(body)
     out=subprocess.run([sys.executable,gp,d],capture_output=True,text=True).stdout

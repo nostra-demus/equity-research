@@ -441,6 +441,5 @@ decision_artifacts: [decision_record.json]
             with self.assertRaisesRegex(ProvenanceError, "reverted to pre-rollout bytes after a modern archive"):
                 audit_repository(root)
 
-
 if __name__ == "__main__":
     unittest.main()
