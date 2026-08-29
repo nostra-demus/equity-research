@@ -1,5 +1,13 @@
 import type { TaskCard, TaskInput, TasksRead } from '../../lib/types'
 
+export function taskTickerInput(task: Pick<TaskCard, 'ticker' | 'ticker_label'>): string {
+  return task.ticker_label || task.ticker || ''
+}
+
+export function taskLabel(task: Pick<TaskCard, 'ticker' | 'ticker_label' | 'subject' | 'title'>): string {
+  return task.subject.trim() || taskTickerInput(task) || task.title.trim() || 'Untitled task'
+}
+
 /** Apply the same small-field rules as PATCH /api/tasks without waiting for its durable publication. */
 export function optimisticTask(task: TaskCard, patch: Partial<TaskInput>): TaskCard {
   const stage = patch.stage ?? task.stage
@@ -9,7 +17,8 @@ export function optimisticTask(task: TaskCard, patch: Partial<TaskInput>): TaskC
   return {
     ...task,
     scope: patch.scope ?? task.scope,
-    ticker: patch.ticker === undefined ? task.ticker : patch.ticker,
+    ticker: patch.ticker === undefined ? task.ticker : null,
+    ticker_label: patch.ticker === undefined ? task.ticker_label : patch.ticker?.trim() || null,
     subject: patch.subject ?? task.subject,
     title: patch.title ?? task.title,
     stage,
@@ -26,7 +35,8 @@ export function mergeTaskUpdatePatches(...patches: (Partial<TaskInput> | undefin
 /** Did the server apply every field in this browser's patch? Used after an unknown timeout outcome. */
 export function taskMatchesPatch(task: TaskCard, patch: Partial<TaskInput>): boolean {
   return (patch.scope === undefined || task.scope === patch.scope)
-    && (patch.ticker === undefined || (task.ticker || null) === (patch.ticker || null))
+    && (patch.ticker === undefined
+      || taskTickerInput(task).trim().toUpperCase() === String(patch.ticker ?? '').trim().toUpperCase())
     && (patch.subject === undefined || task.subject === patch.subject)
     && (patch.title === undefined || task.title === patch.title)
     && (patch.stage === undefined || task.stage === patch.stage)

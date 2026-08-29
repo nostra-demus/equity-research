@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { api } from '../../lib/api'
 import { useStore } from '../../lib/store'
 import type { TaskAssignee, TaskCard, TaskDecision, TaskInput, TaskScope, TaskStage, TasksRead } from '../../lib/types'
-import { mergeTaskUpdatePatches, optimisticTask, overlayOptimisticTasks, replaceTask, retryableTaskUpdateError, taskMatchesPatch } from './taskOptimistic'
+import { mergeTaskUpdatePatches, optimisticTask, overlayOptimisticTasks, replaceTask, retryableTaskUpdateError, taskLabel, taskMatchesPatch, taskTickerInput } from './taskOptimistic'
 
 const STAGES: { id: TaskStage; label: string; step: string }[] = [
   { id: 'idea_generation', label: 'Idea generation', step: '01' },
@@ -42,7 +42,7 @@ function TaskEditor({ task, initial, attachmentsEnabled, onClose, onSaved, saveT
   const tickers = useStore((state) => state.tickers)
   const setToast = useStore((state) => state.setToast)
   const [draft, setDraft] = useState<TaskInput>({ ...emptyDraft(), ...(task ? {
-    scope: task.scope, ticker: task.ticker, subject: task.subject, title: task.title, stage: task.stage,
+    scope: task.scope, ticker: taskTickerInput(task), subject: task.subject, title: task.title, stage: task.stage,
     decision: task.decision, assignee: task.assignee,
   } : {}), ...(initial ?? {}) })
   const [files, setFiles] = useState<File[]>([])
@@ -96,14 +96,8 @@ function TaskEditor({ task, initial, attachmentsEnabled, onClose, onSaved, saveT
     }
   }, [])
 
-  const watchTickerNeeded = draft.stage === 'final_decision' && draft.decision === 'watch'
-  const tickerNeeded = (draft.scope !== 'world_event' && draft.stage !== 'idea_generation') || watchTickerNeeded
-  const blocker = retryBlocked ? 'Refresh the board before trying this save again.'
-    : !draft.subject.trim() ? 'Name the ticker or event.'
-    : !draft.title.trim() ? 'Write the task.'
-      : tickerNeeded && !draft.ticker?.trim() ? 'Add the ticker before this stage.'
-        : draft.stage === 'final_decision' && !draft.decision ? 'Choose Deploy, Reject or Watch.'
-          : null
+  const showWatchTicker = draft.stage === 'final_decision' && draft.decision === 'watch'
+  const blocker = retryBlocked ? 'Refresh the board before trying this save again.' : null
 
   const save = async () => {
     if (blocker || saving) return
@@ -111,7 +105,7 @@ function TaskEditor({ task, initial, attachmentsEnabled, onClose, onSaved, saveT
     try {
       const input: TaskInput = {
         ...draft,
-        ticker: draft.ticker?.trim().toUpperCase() || null,
+        ticker: draft.ticker?.trim() || null,
         subject: draft.subject.trim(),
         title: draft.title.trim(),
         decision: draft.stage === 'final_decision' ? draft.decision : null,
@@ -166,20 +160,20 @@ function TaskEditor({ task, initial, attachmentsEnabled, onClose, onSaved, saveT
             </div>
           </div>
           <div className="taskmodal__identity">
-            {(draft.scope !== 'world_event' || watchTickerNeeded) && (
+            {(draft.scope !== 'world_event' || showWatchTicker) && (
               <div className="taskfield taskfield--ticker">
-                <label htmlFor="task-ticker">Ticker {tickerNeeded ? <b>*</b> : <span>optional at this stage</span>}</label>
-                <input id="task-ticker" className="fld" list="task-ticker-list" value={draft.ticker ?? ''} onChange={(event) => setDraft({ ...draft, ticker: event.target.value.toUpperCase() })} placeholder="e.g. AMZN" />
+                <label htmlFor="task-ticker">Ticker <span>optional · any label is accepted</span></label>
+                <input id="task-ticker" className="fld" list="task-ticker-list" value={draft.ticker ?? ''} onChange={(event) => setDraft({ ...draft, ticker: event.target.value })} placeholder="e.g. NU or Nu Holdings" />
                 <datalist id="task-ticker-list">{tickers.map((ticker) => <option key={ticker.ticker} value={ticker.ticker} />)}</datalist>
               </div>
             )}
             <div className="taskfield">
-              <label htmlFor="task-subject">{draft.scope === 'ticker' ? 'Company / idea' : 'Event'} <b>*</b></label>
+              <label htmlFor="task-subject">{draft.scope === 'ticker' ? 'Company / idea' : 'Event'} <span>optional</span></label>
               <input id="task-subject" className="fld" value={draft.subject} onChange={(event) => setDraft({ ...draft, subject: event.target.value })} placeholder={draft.scope === 'world_event' ? 'e.g. India rate decision' : draft.scope === 'company_event' ? 'e.g. Q3 results on 29 October' : 'e.g. Cloud margin inflection'} />
             </div>
           </div>
           <div className="taskfield">
-            <label htmlFor="task-copy">Task <b>*</b></label>
+            <label htmlFor="task-copy">Task <span>optional</span></label>
             <textarea id="task-copy" className="fld" rows={4} value={draft.title} onChange={(event) => setDraft({ ...draft, title: event.target.value })} placeholder="What needs to be done?" />
           </div>
           <div className="taskmodal__identity">
@@ -201,11 +195,11 @@ function TaskEditor({ task, initial, attachmentsEnabled, onClose, onSaved, saveT
           </div>
           {draft.stage === 'final_decision' && (
             <div className="taskfield">
-              <label>Final decision <b>*</b></label>
+              <label>Final decision <span>optional</span></label>
               <div className="taskdecision" role="group" aria-label="Final decision">
                 {DECISIONS.map((decision) => <button key={decision.id} aria-pressed={draft.decision === decision.id} data-decision={decision.id} className={draft.decision === decision.id ? 'is-on' : ''} onClick={() => setDraft({ ...draft, decision: decision.id })}>{decision.label}</button>)}
               </div>
-              {draft.decision === 'watch' && <p className="taskfield__hint">Watch syncs this ticker and its person to the Watchlist. Assignment changes there flow back here.</p>}
+              {draft.decision === 'watch' && <p className="taskfield__hint">A usable ticker syncs to Watchlist. Without one, the task still saves and can be linked later.</p>}
             </div>
           )}
           <div className="taskfield">
@@ -246,17 +240,19 @@ function TaskCardView({ task, readOnly, syncing, onEdit, onMove, onAssign, onDra
   onDragEnd: () => void
 }) {
   const index = stageIndex(task.stage)
+  const label = taskLabel(task)
+  const ticker = taskTickerInput(task)
   return (
-    <article className={`taskcard${syncing ? ' is-syncing' : ''}`} aria-busy={syncing} draggable={!readOnly} title={readOnly ? task.title : undefined} onDragStart={(event) => { if (readOnly) return; event.dataTransfer.setData('text/task-id', task.task_id); event.dataTransfer.effectAllowed = 'move' }} onDragEnd={onDragEnd}>
-      <button className="taskcard__main" disabled={readOnly} onClick={onEdit} aria-label={readOnly ? task.subject : `Edit ${task.subject}`} title={readOnly ? 'Read-only snapshot' : undefined}>
+    <article className={`taskcard${syncing ? ' is-syncing' : ''}`} aria-busy={syncing} draggable={!readOnly} title={readOnly ? task.title || label : undefined} onDragStart={(event) => { if (readOnly) return; event.dataTransfer.setData('text/task-id', task.task_id); event.dataTransfer.effectAllowed = 'move' }} onDragEnd={onDragEnd}>
+      <button className="taskcard__main" disabled={readOnly} onClick={onEdit} aria-label={readOnly ? label : `Edit ${label}`} title={readOnly ? 'Read-only snapshot' : undefined}>
         <div className="taskcard__top">
           <span className={`taskcard__scope taskcard__scope--${task.scope}`}>{task.scope === 'world_event' ? 'World' : task.scope === 'company_event' ? 'Event' : 'Ticker'}</span>
-          {task.ticker && <span className="taskcard__ticker">{task.ticker}</span>}
+          {ticker && <span className="taskcard__ticker">{ticker}</span>}
           {syncing && <span className="taskcard__sync">Syncing…</span>}
           {task.decision && <span className="taskcard__decision" data-decision={task.decision}>{task.decision}</span>}
         </div>
-        <h3>{task.subject}</h3>
-        <p>{task.title}</p>
+        <h3>{label}</h3>
+        {task.title && task.title !== label ? <p>{task.title}</p> : null}
       </button>
       {!!task.attachments.length && <div className="taskcard__files">{task.attachments.slice(0, 2).map((attachment) => readOnly
         ? <span key={attachment.attachment_id}>⌁ {attachment.filename}</span>
@@ -264,7 +260,7 @@ function TaskCardView({ task, readOnly, syncing, onEdit, onMove, onAssign, onDra
       <div className="taskcard__foot">
         <div className="taskperson" title={personName(task.assignee)}>
           <span>{task.assignee}<i aria-hidden>⌄</i></span>
-          <select disabled={readOnly} aria-label={`Assign ${task.subject}`} value={task.assignee} onChange={(event) => onAssign(event.target.value as TaskAssignee)}>
+          <select disabled={readOnly} aria-label={`Assign ${label}`} value={task.assignee} onChange={(event) => onAssign(event.target.value as TaskAssignee)}>
             {PEOPLE.map((person) => <option key={person.id} value={person.id}>{person.id} · {person.name}</option>)}
           </select>
         </div>
@@ -310,7 +306,7 @@ export function TasksStage() {
 
   const tasks = useMemo(() => {
     const needle = query.trim().toLowerCase()
-    return (read?.tasks ?? []).filter((task) => (person === 'all' || task.assignee === person) && (!needle || `${task.ticker ?? ''} ${task.subject} ${task.title}`.toLowerCase().includes(needle)))
+    return (read?.tasks ?? []).filter((task) => (person === 'all' || task.assignee === person) && (!needle || `${taskTickerInput(task)} ${task.subject} ${task.title}`.toLowerCase().includes(needle)))
   }, [read, query, person])
 
   const showTask = useCallback((task: TaskCard) => {
@@ -443,10 +439,6 @@ export function TasksStage() {
 
   const move = (task: TaskCard, stage: TaskStage) => {
     if (!stage || stage === task.stage) return
-    if (task.scope !== 'world_event' && !task.ticker && stage !== 'idea_generation') {
-      setEditor({ task, initial: { stage, decision: stage === 'final_decision' ? task.decision : null } }); return
-    }
-    if (stage === 'final_decision' && !task.decision) { setEditor({ task, initial: { stage } }); return }
     void update(task, { stage, decision: stage === 'final_decision' ? task.decision : null })
   }
 
@@ -461,7 +453,7 @@ export function TasksStage() {
   return (
     <div className="tasks">
       <header className="tasks__head">
-        <div><div className="tasks__eyebrow">Shared research queue</div><h1>Tasks</h1><p>Move an idea through research, then choose Deploy, Reject or Watch.</p></div>
+        <div><div className="tasks__eyebrow">Shared work queue</div><h1>Tasks</h1><p>Track any ticker, idea, event or to-do. Add research details only when they are useful.</p></div>
         <div className="tasks__tools">
           <input className="fld fld--search" placeholder="Search tasks…" value={query} onChange={(event) => setQuery(event.target.value)} aria-label="Search tasks" />
           <div className="taskpeople" role="group" aria-label="Filter by person">
