@@ -82,8 +82,9 @@ For every admitted tracked launch:
 - While a healthy engine waits for a reviewed update, Run or Continue creates one narrow durable admission,
   not a run folder and not a fake active run. Activity says **Waiting for update** across refresh and restart.
   After the exact new program is healthy, the engine recomputes the saved plan and starts the request at most
-  once. A queued Continue may narrow or change its payable-orb list, and Activity records that difference,
-  but it can never become Full. Provider unavailability, an unsafe source, or a failed/rolled-back update
+  once. Activity records every before/after payable-orb difference. A queued Continue may automatically
+  narrow its paid scope; newly payable work requires a fresh review and moves to **Needs attention**. It can
+  never become Full. Provider unavailability, an unsafe source, or a failed/rolled-back update
   leaves the request waiting or marks it **Needs attention**; it never substitutes a provider or reports
   success. Cancellation is available only until admission begins.
 - Provider isolation must accept the same sanctioned deployed repository topology. In particular, the
