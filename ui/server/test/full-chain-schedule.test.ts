@@ -35,6 +35,7 @@ async function check(name: string, fn: () => void | Promise<void>) {
 function makeFake(opts?: { fail429Once?: string[]; graph?: SwarmGraph; failMaster?: boolean }) {
   const launches: { kind: string; module?: string; agent?: string; provider: string; model?: string;
     reasoningLevel?: string; expectedProfileKey?: string; chainId?: string;
+    runRoot?: string; continuation?: boolean;
     parityCanary?: { runRoot: string; freezeReceipt: string; stage?: string; continuation?: boolean } }[] = []
   const onFinish = new Map<string, (s: RunStatus) => void>()
   let marker: string | null = null
@@ -59,6 +60,7 @@ function makeFake(opts?: { fail429Once?: string[]; graph?: SwarmGraph; failMaste
         kind: params.kind, module: params.module, agent: params.agent,
         provider: params.provider, model: params.model, reasoningLevel: params.reasoningLevel,
         expectedProfileKey: params.expectedProfileKey, chainId: params.chainId,
+        runRoot: params.runRoot, continuation: params.continuation,
         parityCanary: params.parityCanary,
       })
       onFinish.set(key, cb)
@@ -591,6 +593,33 @@ const sorted = (a: string[]) => [...a].sort()
       assert.ok(!f.mods().includes('business-model') && !f.mods().includes('earnings'), 'a finished module is NOT re-launched (the money the user was worried about)')
       // both deps of bss + mgov are seeded done, so they are the newly-ready wave and launch immediately
       assert.ok(f.mods().includes('balance-sheet-survival') && f.mods().includes('management-governance'), 'the next-ready modules launch straight away on resume')
+    } finally {
+      fs.rmSync(runRootAbs, { recursive: true, force: true })
+    }
+  })
+
+  await check('CONTINUE: every module and master child keeps the exact cross-midnight run root', async () => {
+    const TICK = 'ZZEXACTCHAIN'
+    const runRoot = `analyses/${TICK}_2026-08-27`
+    const runRootAbs = path.join(REPO_ROOT, runRoot)
+    try {
+      fs.mkdirSync(runRootAbs, { recursive: true })
+      const f = makeFake()
+      const pending = launchFullChained(TICK, 'tester', 'local', { provider: 'codex' }, f.deps,
+        undefined, undefined, { runRoot, continuation: true })
+      assert.ok(f.launches.length > 0, 'the first exact-root module wave launches')
+      for (const child of f.launches) {
+        assert.equal(child.runRoot, runRoot)
+        assert.equal(child.continuation, true)
+      }
+      for (const module of buildSwarmGraph().modules.map((entry) => entry.name)) {
+        if (f.mods().includes(module)) f.finish(module)
+      }
+      await pending
+      const master = f.launches.find((entry) => entry.kind === 'rerun' && entry.module === 'master')
+      assert.ok(master, 'the terminal master launches after the modules finish')
+      assert.equal(master!.runRoot, runRoot)
+      assert.equal(master!.continuation, true)
     } finally {
       fs.rmSync(runRootAbs, { recursive: true, force: true })
     }

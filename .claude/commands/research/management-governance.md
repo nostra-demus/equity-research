@@ -32,6 +32,15 @@ if [ "${NOSTRA_EXACT_MODULE_RESUME:-}" = "1" ]; then
     exit 1
   fi
   RUN_ROOT="$EXACT_RUN_ROOT"
+elif [ -n "${NOSTRA_CONTINUATION_RUN_ROOT:-}" ]; then
+  RUN_ROOT="$NOSTRA_CONTINUATION_RUN_ROOT"
+  DATE="${RUN_ROOT##*_}"
+  if [[ ! "$DATE" =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}$ ]] \
+     || [ "$RUN_ROOT" != "analyses/${ARGUMENTS}_${DATE}" ] \
+     || [ ! -d "$RUN_ROOT" ] || [ -L "$RUN_ROOT" ]; then
+    echo "Continue is missing its valid immutable saved-run binding; refusing to widen scope." >&2
+    exit 1
+  fi
 else
   DATE="$(date +%Y-%m-%d)"
   RUN_ROOT="analyses/${ARGUMENTS}_${DATE}"

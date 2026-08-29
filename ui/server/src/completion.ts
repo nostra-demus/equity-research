@@ -139,6 +139,15 @@ export interface ThesisPlan {
   canCarry: boolean
 }
 
+/**
+ * Internal continuation scope. Ordinary completion plans deliberately aggregate reusable work across dated
+ * folders and write into today's folder. A Continue action is different: it is bound to one saved folder,
+ * and both planning and execution must remain inside that exact root.
+ */
+export interface ThesisPlanScope {
+  continuationRunRoot: string
+}
+
 const DATE_SUFFIX = /_(\d{4}-\d{2}-\d{2})$/
 
 export function todayDate(now: Date = new Date()): string {
@@ -674,6 +683,7 @@ export function thesisPlan(
   reuseOverride?: string[],
   exactModule?: string,
   selection: RunProviderSelection = { provider: 'claude' },
+  scope?: ThesisPlanScope,
 ): ThesisPlan {
   const swarm = swarmById(swarmId)
   const graph = buildSwarmGraph(swarmId)
@@ -688,10 +698,25 @@ export function thesisPlan(
   // amount of `..`/`/` in the request can steer a readdir, a stat, or a write out of its intended tree.
   const safe = safeSubjectSegment(subject)
 
+  let continuationRunRoot: string | undefined
+  if (scope) {
+    if (!isResearch) throw new Error('exact saved-run continuation is supported only for research runs')
+    const match = /^analyses\/([A-Z0-9.\-]{1,15})_(\d{4}-\d{2}-\d{2})$/.exec(scope.continuationRunRoot)
+    if (!match || match[1] !== safe) throw new Error('saved run root does not match this ticker')
+    const parsedDate = new Date(`${match[2]}T00:00:00.000Z`)
+    if (!Number.isFinite(parsedDate.getTime()) || parsedDate.toISOString().slice(0, 10) !== match[2]) {
+      throw new Error('saved run root has an invalid date')
+    }
+    if (!realDirectoryInsideAnalyses(path.join(REPO_ROOT, scope.continuationRunRoot))) {
+      throw new Error('saved run root is missing or unsafe')
+    }
+    continuationRunRoot = scope.continuationRunRoot
+  }
+
   // Where a completion writes. Research: today's dated folder — the one BOTH full-run paths seed their
   // skip-set from. Any other swarm: its single stable per-subject folder.
   const targetRunRoot = isResearch
-    ? `analyses/${safe}_${todayDate()}`
+    ? continuationRunRoot ?? `analyses/${safe}_${todayDate()}`
     : (swarm && runRootForSubject(swarm, safe)) || `analyses/${safe}`
 
   // A hard process stop can land between the two synchronous renames used by partial staging. Restore the
@@ -703,7 +728,11 @@ export function thesisPlan(
 
   const targetAbs = path.join(REPO_ROOT, targetRunRoot)
   const pool = dataPoolNewest(safe)
-  const dated = isResearch ? datedRunFoldersFor(safe) : []
+  const dated = isResearch
+    ? (continuationRunRoot
+        ? datedRunFoldersFor(safe).filter((candidate) => candidate.runRoot === continuationRunRoot)
+        : datedRunFoldersFor(safe))
+    : []
 
   const modules: ModulePlanEntry[] = []
   const synthesisMeta = new Map<string, { runRoot: string; sourceDate?: string; mtimeMs: number }>()
@@ -890,7 +919,11 @@ export function thesisPlan(
   }
 
   const mustReuse = modules
-    .filter((entry) => entry.inTargetRoot && !entry.synthesisNeedsRefresh && (entry.state === 'done' || entry.state === 'stale'))
+    // Ordinary completion cannot rebuild an in-target synthesis because both historical full launchers skip
+    // it. Exact continuation prepares its bound folder before launch, so a stale synthesis is intentionally
+    // removable there and must not be forced into reuse.
+    .filter((entry) => entry.inTargetRoot && !entry.synthesisNeedsRefresh
+      && (entry.state === 'done' || (!continuationRunRoot && entry.state === 'stale')))
     .map((entry) => entry.module)
 
   // A module can be reused iff a finished synthesis for it exists on disk — `done` or `stale`. Staleness
@@ -1625,6 +1658,44 @@ export function prepareModuleResume(subject: string, module: string, swarmId: st
 
   // Missing module → runs whole. Nothing to carry for the module itself.
   return { ...resumeBase, resumedFrom: null, doneOrbKeys: [], willRunAgents: entry.totalAgents, discardedStaleOrbs: false }
+}
+
+export interface FullContinuationPreparation {
+  /** Exact reusable specialist identities left in the saved root after sanitizing it. */
+  doneOrbKeys: string[]
+  /** Modules whose old bytes were stale and were removed before launch. */
+  ranClean: string[]
+}
+
+/**
+ * Prepare every unfinished module of an exact saved-root Continue action.
+ *
+ * This deliberately reuses the single-module staging primitive. It keeps mutually-valid specialists,
+ * removes obsolete syntheses/derived files, and discards stale module trees. A missing module is untouched.
+ * The caller must hold the subject lock and must pass a plan built with `continuationRunRoot`.
+ */
+export function prepareFullContinuation(
+  subject: string,
+  plan: ThesisPlan,
+  swarmId: string = RESEARCH_SWARM_ID,
+): FullContinuationPreparation {
+  const safe = safeSubjectSegment(subject)
+  if (swarmId !== RESEARCH_SWARM_ID || plan.swarm !== RESEARCH_SWARM_ID || plan.subject !== safe) {
+    throw new Error('full continuation plan does not match this research subject')
+  }
+  const exactRoot = /^analyses\/([A-Z0-9.\-]{1,15})_(\d{4}-\d{2}-\d{2})$/.exec(plan.targetRunRoot)
+  if (exactRoot?.[1] !== safe || !realDirectoryInsideAnalyses(path.join(REPO_ROOT, plan.targetRunRoot))) {
+    throw new Error('full continuation plan has no safe existing saved root')
+  }
+
+  const doneOrbKeys: string[] = []
+  const ranClean: string[] = []
+  for (const module of plan.run) {
+    const prepared = prepareModuleResume(safe, module, swarmId, plan)
+    doneOrbKeys.push(...prepared.doneOrbKeys)
+    if (prepared.discardedStaleOrbs) ranClean.push(module)
+  }
+  return { doneOrbKeys: [...new Set(doneOrbKeys)].sort(), ranClean }
 }
 
 // ---- scoped batch rerun (executes an intake plan in ONE pass) --------------------------------------

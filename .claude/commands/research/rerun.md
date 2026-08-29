@@ -40,7 +40,9 @@ Only `INTAKE-RECEIPT-PREFLIGHT: OK` passes. On mismatch, STOP without writing. S
 `<WRITE_INTAKE_RECEIPT>` true only for that validated 8-token form. Never reproduce the helper's
 canonical hashing or containment checks by hand.
 
-Run `date +%Y-%m-%d` via Bash and capture `<DATE>`.
+When `NOSTRA_CONTINUATION_RUN_ROOT` is set, require it to equal `analyses/<TICKER>_YYYY-MM-DD`, require
+that exact path to be a real existing directory (not a symlink), and derive `<DATE>` from its suffix. Do
+not call `date` or select a newer run in this mode. Otherwise run `date +%Y-%m-%d` and capture `<DATE>`.
 
 `<MODULE> = master` (with `<AGENT> = synthesizer`) is the special **master target** — the Memo itself. For it, skip steps 5–7 and go straight to step 8.
 
@@ -54,7 +56,9 @@ If missing or empty, STOP: "No data found at `data/<TICKER>/`. Populate the Driv
 
 ## 3. Resolve the run root (latest EXISTING run — never create one)
 
-When `<EXACT_RUN_ROOT>` is present, require it to match `analyses/<TICKER>_YYYY-MM-DD`, be a real direct
+When `NOSTRA_CONTINUATION_RUN_ROOT` is present, use that already-validated path exactly as `<RUN_ROOT>`.
+Never fall back to latest, and never require a decision record merely to finish an interrupted unsealed run.
+Otherwise, when `<EXACT_RUN_ROOT>` is present, require it to match `analyses/<TICKER>_YYYY-MM-DD`, be a real direct
 child directory of `analyses/` (neither it nor its decision file may be a symlink), and carry an object
 `decision_record.json`; use it exactly or STOP. Never fall back to latest. Otherwise resolve with:
 

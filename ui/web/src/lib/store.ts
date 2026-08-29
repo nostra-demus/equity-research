@@ -2020,12 +2020,30 @@ export const useStore = create<State>((set, get) => ({
       const pending = { key: `resume:${info.subject}:${info.module || ''}`, label: `Completing ${label}…`, ticker: info.subject }
       set({ launchPending: pending })
       try {
-        const body: { selection: FrozenProviderLaunch; kind: 'full' | 'module'; ticker: string; module?: string; confirmTicker?: string; force?: boolean; swarm?: string } =
-          { selection: execution, kind: info.kind as 'full' | 'module', ticker: info.subject, module: info.module, force, swarm }
-        if (info.kind === 'full') body.confirmTicker = info.subject // the server requires a typed confirm for a full run
+        let out: any
+        if ((info.swarm || 'research') === 'research' && info.kind === 'full') {
+          // Continue is an exact saved-run action. Re-plan that one root immediately before POST, then use
+          // the completion route; never send it through generic /api/launch (which defaults to today's root).
+          const plan = await api.thesisPlan(info.subject, execution, 'research', undefined, undefined, info.runRoot)
+          out = await api.runThesisPlan(info.subject, plan.reuse, 'research', execution, info.runRoot)
+        } else if ((info.swarm || 'research') === 'research' && info.kind === 'module' && info.module) {
+          const plan = await api.thesisPlan(info.subject, execution, 'research', undefined, info.module, info.runRoot)
+          const entry = plan.modules.find((candidate) => candidate.module === info.module)
+          if (plan.moduleResumeVersion !== 2 || typeof plan.dataPool.newestMs !== 'number' || !entry) {
+            throw new Error('The saved module scope could not be verified. Refresh before continuing.')
+          }
+          out = await api.runThesisPlanModule(
+            info.subject, info.module, plan.reuse, 'research', entry.willRunAgents, entry.doneOrbKeys,
+            plan.targetRunRoot, plan.dataPool.files, plan.dataPool.newestMs, execution, info.runRoot,
+          )
+        } else {
+          const body: { selection: FrozenProviderLaunch; kind: 'full' | 'module'; ticker: string; module?: string; confirmTicker?: string; force?: boolean; swarm?: string } =
+            { selection: execution, kind: info.kind as 'full' | 'module', ticker: info.subject, module: info.module, force, swarm }
+          if (info.kind === 'full') body.confirmTicker = info.subject
+          out = await api.launch(body)
+        }
         // The engine reports the resume split: `skipped` = modules already finished on disk (NOT re-run),
         // `planned` = modules this relaunch will actually run. Use it to keep the UI honest.
-        const out = await api.launch(body)
         requireLaunchProviderReceipt(out, execution, get().providers.catalogState)
         revealAcceptedTrackedLaunch(set, get)
         const { runId, chained, skipped, planned: plannedMods, resumed } = out
@@ -2084,7 +2102,9 @@ export const useStore = create<State>((set, get) => ({
         })
       } catch (e: any) {
         set({ resumeConfirm: null })
-        launchErrorToast(get, e, info.subject, `resume of ${label}`, force ? undefined : () => doResume(true))
+        const exactResearchContinue = (info.swarm || 'research') === 'research'
+        launchErrorToast(get, e, info.subject, `resume of ${label}`,
+          exactResearchContinue || force ? undefined : () => doResume(true))
       } finally {
         if (get().launchPending === pending) set({ launchPending: null })
       }

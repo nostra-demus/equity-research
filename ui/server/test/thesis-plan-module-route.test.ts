@@ -28,6 +28,8 @@ assert.match(schema, /poolFiles:\s*z\.number\(\)\.int\(\)/,
   'pool file count is part of the evidence snapshot')
 assert.match(schema, /poolNewestMs:\s*z\.number\(\)\.finite\(\)/,
   'pool freshness watermark is part of the evidence snapshot')
+assert.match(schema, /sourceRunRoot:\s*z\.string\(\)\.regex\(/,
+  'Continue carries the exact saved run root into module admission')
 
 const routeStart = source.indexOf("app.post('/api/thesis-plan/module'")
 const routeEnd = source.indexOf("\napp.post('/api/intake-plan/run'", routeStart)
@@ -38,7 +40,7 @@ const lock = route.indexOf('withSubjectLock(subjectMutationLockKey(RESEARCH_SWAR
 const activeChain = route.indexOf('subjectChainActive(ticker, RESEARCH_SWARM_ID)', lock)
 const reap = route.indexOf('reapDeadSubjectRuns(ticker, RESEARCH_SWARM_ID)', activeChain)
 const busy = route.indexOf('const busy = listRuns()', reap)
-const freshPlan = route.indexOf('let plan = thesisPlan(ticker, undefined, exactResume ? undefined : reuse, exactResume ? module : undefined, providerSelection)', busy)
+const freshPlan = route.indexOf('let plan = thesisPlan(ticker, undefined, exactResume ? undefined : reuse, exactResume ? module : undefined,', busy)
 const targetRootCas = route.indexOf('plan.targetRunRoot !== expectedTargetRunRoot', freshPlan)
 const poolCas = route.indexOf('plan.dataPool.files !== poolFiles || plan.dataPool.newestMs !== poolNewestMs', freshPlan)
 const sealed = route.indexOf('if (plan.complete || isSealedResearchRun(plan.targetRunRoot))', poolCas)

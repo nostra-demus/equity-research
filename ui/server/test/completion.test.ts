@@ -74,7 +74,7 @@ write(`analyses/FIN_${TODAY}/beta/01_beta-thing.md`, '# b\n')
 write(`analyses/FIN_${TODAY}/beta/99_beta-synthesis.md`, '# b\n')
 write(`analyses/FIN_${TODAY}/final_thesis.md`, '# thesis\n')
 
-const { capturePreparedModuleResumeScope, thesisPlan, carryForwardModules, dataPoolNewest, prepareModuleResume } = await import('../src/completion')
+const { capturePreparedModuleResumeScope, thesisPlan, carryForwardModules, dataPoolNewest, prepareFullContinuation, prepareModuleResume } = await import('../src/completion')
 const { buildSwarmGraph } = await import('../src/roster')
 
 // ---- 1. cross-folder reuse: the money test -------------------------------------------------------
@@ -1159,6 +1159,48 @@ const { buildSwarmGraph } = await import('../src/roster')
   assert.deepEqual(punctuation.doneOrbKeys, ['alpha/01_alpha-thing', 'alpha/02_alpha-new-check'],
     'a real output filename followed by sentence punctuation still invalidates its older dependent')
   console.log('✅ specialist dependency discovery rejects longer-filename substring matches')
+}
+
+// ---- 21. Continue stays inside one saved root and preserves only valid work -----------------------
+{
+  const root = `analyses/EXACTPART_${YESTERDAY}`
+  write(`${root}/alpha/01_alpha-thing.md`, '# exact alpha specialist\n')
+  write(`${root}/alpha/02_alpha-new-check.md`, '# exact alpha second specialist\n')
+  write(`${root}/alpha/03_alpha-dependent-check.md`, '# exact alpha dependent specialist\n')
+  write(`${root}/alpha/99_alpha-synthesis.md`, '# exact alpha synthesis\n')
+  write(`${root}/beta/01_beta-thing.md`, '# exact beta specialist\n')
+  poolFile('EXACTPART', 'filing.pdf', -3)
+  const alphaBefore = fs.readFileSync(path.join(REPO, root, 'alpha/99_alpha-synthesis.md'), 'utf8')
+
+  const plan = thesisPlan('EXACTPART', undefined, undefined, undefined, { provider: 'claude' }, {
+    continuationRunRoot: root,
+  })
+  assert.equal(plan.targetRunRoot, root, 'Continue targets the saved folder, not today')
+  assert.deepEqual(plan.reuse, ['alpha'], 'finished valid module remains reusable')
+  assert.ok(plan.run.includes('beta'), 'the partial module remains payable')
+  assert.ok(!plan.run.includes('alpha'), 'the valid finished module is never payable again')
+  assert.deepEqual(plan.modules.find((entry) => entry.module === 'beta')!.doneOrbKeys, ['beta/01_beta-thing'])
+
+  const prepared = prepareFullContinuation('EXACTPART', plan)
+  assert.deepEqual(prepared.doneOrbKeys, ['beta/01_beta-thing'])
+  assert.equal(fs.readFileSync(path.join(REPO, root, 'alpha/99_alpha-synthesis.md'), 'utf8'), alphaBefore,
+    'valid finished bytes are unchanged')
+  assert.ok(fs.existsSync(path.join(REPO, root, 'beta/01_beta-thing.md')), 'valid partial orb remains in exact root')
+  assert.ok(!fs.existsSync(path.join(REPO, `analyses/EXACTPART_${TODAY}`)), 'Continue never creates today’s folder')
+
+  const staleRoot = `analyses/EXACTSTALE_${YESTERDAY}`
+  write(`${staleRoot}/alpha/01_alpha-thing.md`, '# stale specialist\n')
+  write(`${staleRoot}/alpha/99_alpha-synthesis.md`, '# stale synthesis\n')
+  poolFile('EXACTSTALE', 'new-filing.pdf', 0)
+  const stalePlan = thesisPlan('EXACTSTALE', undefined, undefined, undefined, { provider: 'claude' }, {
+    continuationRunRoot: staleRoot,
+  })
+  assert.ok(stalePlan.run.includes('alpha'), 'an in-root stale synthesis is no longer forced into reuse')
+  assert.ok(!stalePlan.mustReuse.includes('alpha'))
+  const stalePrepared = prepareFullContinuation('EXACTSTALE', stalePlan)
+  assert.ok(stalePrepared.ranClean.includes('alpha'))
+  assert.ok(!fs.existsSync(path.join(REPO, staleRoot, 'alpha')), 'stale module bytes are removed before rerun')
+  console.log('✅ exact-root continuation keeps valid hashes, resumes partial orbs, and discards stale work')
 }
 
 fs.rmSync(REPO, { recursive: true, force: true })

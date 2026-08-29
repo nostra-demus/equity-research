@@ -69,7 +69,7 @@ interface RunFolder {
 // Research folders are dated, but a saved run does not become worthless at midnight. Keep only the
 // newest folder for each subject: if it is unfinished the user can complete it; if it is finished it
 // supersedes older abandoned attempts and prevents a stale forest of Resume buttons. The launch path
-// still performs the real freshness check and carries forward only valid work into today's target root.
+// still performs the real freshness check, but Continue remains bound to this exact saved root.
 //
 // Validate directory shape before choosing the newest candidate. Otherwise a newer dangling symlink or
 // plain file could hide the last real run and turn a recoverable partial into a false "nothing to resume".
