@@ -739,9 +739,59 @@ after the normal output checks pass, attest the new exact bytes under that agent
 attestation failure stops before re-gating or committing. In `shadow`, record the missing/failed receipt
 as usual. A pre-remediation attestation never authorizes rewritten bytes.
 
-1. Re-dispatch `.claude/agents/synthesizer.md` against the same `<RUN_ROOT>`, passing the verbatim violation list and this instruction: *"The finish-gate rejected these specific numbers. Fix the underlying figures in `final_thesis.md` AND `decision_record.json` so they reconcile — do not restate the thesis, do not re-run modules, and do not weaken a threshold merely to clear a check. If a violation is genuinely not fixable from the available evidence (the input it needs does not exist in the pool), leave it and say in one line why it is unfixable."*
-   - **The one violation the master-synthesizer pass cannot reach — a check-BB (§16 sector-cycle compounding) break.** BB is the only finish-gate check that reads its value out of a MODULE synthesis — the "Valuation confidence /100" stated in `<RUN_ROOT>/valuation/99_*-synthesis.md` (see `_read_orb("valuation", "99_*-synthesis.md")` in 10B.1) — not out of `final_thesis.md`/`decision_record.json`. The master synthesizer in step 1 does not own that file, so a BB violation survives its pass untouched and the step-2 re-gate re-flags the identical break. When (and only when) the remaining violation list includes a BB break, save the exact valuation synthesis bytes to a `mktemp` path outside `<RUN_ROOT>`, then ALSO re-dispatch the valuation module synthesis (`.claude/agents/valuation/99_valuation-synthesis.md`) against the same `<RUN_ROOT>` with: *"Both `02` and `03` flagged the same-direction sector-cycle distortion; per MODULE_RULES.md Score Cap Rules the combined base-case Valuation confidence is capped at 55. Change only the single Valuation confidence /100 line in the existing Verdict block, including its cap explanation if needed. Preserve every other byte: do not recompose the report, change its verdict, fair-value levels, other scores, evidence, sidecars, or any other file. If you genuinely believe the compounding distortion is otherwise reconciled and the score should stand, leave it unchanged and say in one line why — that is then an honest PROVISIONAL, since a 99-only remediation cannot clear the `RF-VAL` tags in `02`/`03`."* After the normal output check, compare the before/after files after replacing exactly their one `Valuation confidence /100` line with the same sentinel. If either file has zero or multiple matching lines, or any other byte differs, restore the saved original atomically, delete the temporary file, do not attest or regenerate derived tiers, and leave BB PROVISIONAL. Only a one-line-scoped change may be attested; delete the temporary file immediately after either comparison result. This routes the break to the agent that wrote the capped number without authorizing an incidental full-module rewrite.
-     If the valuation synthesis actually changed, immediately refresh every derived valuation tier before the master consumes it: run `frameworks/MODULE_PIPELINE.md` Step 4.9B verbatim with `MODULE="valuation"` to rebuild `valuation_dossier.md`, and run Step 4.9C to refresh any labelled synthesis sidecars. A standalone `/research:rerun` must also regenerate `valuation_memo.md` now with `module-memo-writer`; a monolithic `/research:full` defers that memo to Step 10C, and a chained full rerun defers it to `/research:rerun` Step 9A, both of which regenerate it unconditionally from the corrected synthesis. **Then propagate the corrected score into the reader-facing outputs.** The master synthesizer in step 1 wrote `final_thesis.md`'s valuation chapter and `decision_record.json` from the *pre-cap* module score, and BB reads only the module file — so if the valuation re-dispatch actually lowered the stated confidence, re-dispatch `.claude/agents/synthesizer.md` ONE more time against the same `<RUN_ROOT>` with: *"The valuation module synthesis lowered its stated Valuation confidence to the §16 compounding cap. Propagate that corrected score into `final_thesis.md`'s valuation chapter and into `decision_record.json` (module_scores + any headline figure that echoes it) so the published outputs match the capped module file — do not re-run modules, do not restate the thesis, do not change any other number."* Skip this extra master pass when the valuation synthesis left the score standing (an honest PROVISIONAL — nothing to propagate). Without the derived-tier refresh and final master pass, the step-2 re-gate can pass while reader-facing outputs still carry the pre-cap score.
+1. Split the verbatim violation list before any dispatch. A **BB violation** is one whose text starts
+   `§16 Sector Cycle Reality Test compounding trigger fired`; every other entry is a **master-owned
+   violation**. Pass only the master-owned list to `.claude/agents/synthesizer.md`. If that list is empty,
+   skip this initial master pass. This exclusion is mandatory: the master does not own valuation `99`,
+   and letting it react to BB before the module correction can change downstream scores from stale inputs.
+   For a non-empty master-owned list, re-dispatch the master against the same `<RUN_ROOT>` with: *"The
+   finish-gate rejected these specific numbers. Fix the underlying figures in `final_thesis.md` AND
+   `decision_record.json` so they reconcile — do not restate the thesis, do not re-run modules, and do not
+   weaken a threshold merely to clear a check. If a violation is genuinely not fixable from the available
+   evidence (the input it needs does not exist in the pool), leave it and say in one line why it is
+   unfixable."*
+
+   - **Route BB only to the valuation owner.** BB reads the "Valuation confidence /100" stated in
+     `<RUN_ROOT>/valuation/99_*-synthesis.md` (see `_read_orb("valuation", "99_*-synthesis.md")` in
+     10B.1), not a value owned by the master. When the BB list is non-empty, first resolve its exact `99`
+     path using the same glob. If no non-empty file exists, do not create a snapshot and do not dispatch
+     valuation synthesis: the missing required input is not remediable in place, so leave BB PROVISIONAL
+     for the second gate. Never regenerate a missing valuation module inside this finish-gate loop.
+
+   - When the exact valuation `99` exists, save its bytes to a `mktemp` path outside `<RUN_ROOT>`, then
+     re-dispatch `.claude/agents/valuation/99_valuation-synthesis.md` against the same run with: *"Both
+     `02` and `03` flagged the same-direction sector-cycle distortion; per MODULE_RULES.md Score Cap Rules
+     the combined base-case Valuation confidence is capped at 55. In the existing report, change only (1)
+     the single Valuation confidence /100 line in the §1 Verdict block and (2) the single §4 Score Cap
+     Application table row whose trigger begins `Sector Cycle Reality Test flags`, marking Applied? `Y`
+     and recording the max-55 combined cap. Preserve every other byte: do not recompose the report,
+     change its verdict, fair-value levels, other scores, evidence, sidecars, or any other file. If you
+     genuinely believe the distortion is otherwise reconciled and the score should stand, leave both
+     lines unchanged and say in one line why — that remains an honest PROVISIONAL."*
+
+   - After the normal output check, enforce byte scope before attestation. In both saved and rewritten
+     text, locate exactly one `Valuation confidence /100` line inside §1 and exactly one Markdown table
+     row containing `Sector Cycle Reality Test flags`. Replace those two complete lines with distinct,
+     identical sentinels in both copies. Also verify that the rewritten confidence is a whole score at or
+     below 55 and that the rewritten cap row's Applied? cell is `Y`. If either copy has zero/multiple
+     matches, either postcondition fails, or the sentinel-normalized bytes differ anywhere, atomically
+     restore the saved original, delete the temporary file, do not attest, do not refresh derived tiers,
+     and leave BB PROVISIONAL. Otherwise attest the new exact `99` bytes and delete the temporary file
+     immediately. Only these two synchronized line changes are authorized.
+
+   - If that scoped valuation correction succeeded, immediately refresh every derived valuation tier
+     before the master consumes it: run `frameworks/MODULE_PIPELINE.md` Step 4.9B verbatim with
+     `MODULE="valuation"` to rebuild `valuation_dossier.md`, and Step 4.9C to refresh labelled synthesis
+     sidecars. A standalone `/research:rerun` also regenerates `valuation_memo.md` now with
+     `module-memo-writer`; `/research:full` defers it to Step 10C, and a chained full rerun defers it to
+     `/research:rerun` Step 9A. Then run one master propagation pass with: *"The valuation module synthesis
+     lowered its stated Valuation confidence to the §16 compounding cap and marked that cap applied.
+     Propagate the corrected score into `final_thesis.md`'s valuation chapter and into
+     `decision_record.json` (module_scores plus any headline figure that echoes it) so the published
+     outputs match the capped module file — do not re-run modules, restate the thesis, or change any other
+     number."* Skip this propagation when valuation was absent, refused the correction, or failed the
+     byte-scope guard. Without the derived-tier refresh and this post-module propagation, the second gate
+     can pass while reader-facing outputs still carry the pre-cap score.
 2. Re-run 10B.1 verbatim. Its banner logic is idempotent — it strips the old banner and re-stamps only what still fails.
 3. Run this loop **once**. If violations remain after the second gate, ship PROVISIONAL with the remaining reasons; that is now an honest record of what could not be fixed rather than of what nobody tried to fix.
 

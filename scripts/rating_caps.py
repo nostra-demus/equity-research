@@ -490,8 +490,8 @@ BB_COMPOUND_CAP = 55  # combined base-case Valuation confidence ceiling when 02 
 # the caller fails closed with a "could not be parsed" violation (CLAUDE.md §11: caps must be applied,
 # never silently unverifiable; §12/§15: the score is a whole number out of 100).
 _BB_CONF_RE = re.compile(
-    r"^\s*(?:[-+*]\s+)?(?:\*\*)?Valuation confidence\s*/?\s*100\s*"
-    r"(?:\*\*)?\s*:\s*(?:\*\*)?\s*(?:\*\*)?(\d{1,3})(?:\*\*)?"
+    r"^\s*(?:[-+*]\s+)?\*{0,2}Valuation confidence\s*/?\s*100\s*"
+    r"\*{0,2}\s*:\s*\*{0,2}\s*\*{0,2}(\d{1,3})\*{0,2}"
     r"(?![\d.,eE_]|\s*(?:(?:%|percent\b)\s*)?(?:[-–—/]|to\b|through\b|or\b)\s*\d)",
     re.IGNORECASE,
 )
