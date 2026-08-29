@@ -41,6 +41,8 @@ export interface ActivityEvent {
   model?: string
   reasoningLevel?: string
   cliVersion?: string
+  /** Hash of the exact planned orb identities. Historical estimates never compare rows without it. */
+  scopeFingerprint?: string
   // finished-only
   status?: RunStatus
   costUsd?: number
@@ -80,6 +82,7 @@ export interface ActivityRow {
   model?: string
   reasoningLevel?: string
   cliVersion?: string
+  scopeFingerprint?: string
   launchedAt: number
   finishedAt?: number
   status: RunStatus // from the finished event; 'running' if none yet
@@ -207,7 +210,8 @@ function isActivityEvent(value: unknown): value is ActivityEvent {
   if (event.status !== undefined && !ACTIVITY_RUN_STATUSES.has(event.status as RunStatus)) return false
   if (event.chained !== undefined && typeof event.chained !== 'boolean') return false
   if (![event.swarm, event.runRoot, event.module, event.agent, event.profileKey, event.model, event.reasoningLevel,
-    event.cliVersion, event.note, event.chainId, event.executionEpoch].every(validOptionalString)) return false
+    event.cliVersion, event.note, event.chainId, event.executionEpoch, event.scopeFingerprint].every(validOptionalString)) return false
+  if (event.scopeFingerprint !== undefined && !/^sha256:[a-f0-9]{64}$/.test(event.scopeFingerprint as string)) return false
   if (event.executionProfile !== undefined && !validExecutionProfile(event.executionProfile)) return false
   if (event.provider !== undefined && event.provider !== 'claude' && event.provider !== 'codex') return false
   if (event.swarm !== undefined && !canonicalIdentity(event.swarm)) return false
@@ -266,6 +270,7 @@ function foldRows(events: ActivityEvent[]): ActivityRow[] {
         model: ev.model,
         reasoningLevel: ev.reasoningLevel,
         cliVersion: ev.cliVersion,
+        scopeFingerprint: ev.scopeFingerprint,
         launchedAt: ev.ts,
         status: 'running',
       }
@@ -291,6 +296,7 @@ function foldRows(events: ActivityEvent[]): ActivityRow[] {
       row.model = ev.model
       row.reasoningLevel = ev.reasoningLevel
       row.cliVersion = ev.cliVersion
+      row.scopeFingerprint = ev.scopeFingerprint
     } else if (ev.event === 'finished') {
       row.finishedAt = ev.ts
       row.status = ev.status ?? 'done'
@@ -397,6 +403,7 @@ export function estimateFromComparableRuns(input: {
   swarm?: string
   module?: string
   agent?: string
+  scopeFingerprint: string
 }): ComparableRunEstimate {
   const swarm = input.swarm || 'research'
   const rows = readActivity({ kind: input.kind, provider: input.provider, limit: null }).rows.filter((row) =>
@@ -404,7 +411,8 @@ export function estimateFromComparableRuns(input: {
     && row.profileKey === input.profileKey
     && (row.swarm || 'research') === swarm
     && (input.module === undefined || row.module === input.module)
-    && (input.agent === undefined || row.agent === input.agent))
+    && (input.agent === undefined || row.agent === input.agent)
+    && row.scopeFingerprint === input.scopeFingerprint)
   const durations = rows.map((row) => row.durationMs).filter((value): value is number => typeof value === 'number' && value > 0)
   const costs = input.provider === 'claude'
     ? rows.map((row) => row.costUsd).filter((value): value is number => typeof value === 'number' && value >= 0)

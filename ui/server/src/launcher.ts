@@ -1801,6 +1801,11 @@ function buildExpected(swarmId: string, kind: RunKind, module?: string, agent?: 
   return map
 }
 
+function launchScopeFingerprint(swarmId: string, kind: RunKind, module?: string, agent?: string): string {
+  const exactOrbKeys = [...buildExpected(swarmId, kind, module, agent).keys()].sort()
+  return `sha256:${createHash('sha256').update(JSON.stringify({ swarmId, kind, module: module ?? null, agent: agent ?? null, exactOrbKeys })).digest('hex')}`
+}
+
 export function estimate(
   kind: RunKind,
   ticker: string,
@@ -1821,7 +1826,10 @@ export function estimate(
   else if (kind === 'module') agentCount = g.modules.find((m) => m.name === module)?.agentCount ?? 0
   else if (kind === 'rerun') agentCount = downstreamCascade(module!, agent, swarmId).length
 
-  const historical = estimateFromComparableRuns({ kind, provider: profile.provider, profileKey: profile.profileKey, swarm: swarmId, module, agent })
+  const historical = estimateFromComparableRuns({
+    kind, provider: profile.provider, profileKey: profile.profileKey, swarm: swarmId, module, agent,
+    scopeFingerprint: launchScopeFingerprint(swarmId, kind, module, agent),
+  })
   const estCostUsdRange: [number, number] = historical.costUsdRange ?? [0, 0]
   const estMinutesRange: [number, number] = historical.minutesRange ?? [0, 0]
 
@@ -6293,6 +6301,7 @@ async function spawnEngine(run: RunState): Promise<void> {
       executionProfile: run.executionProfile, profileKey: run.profileKey, model: run.model,
       reasoningLevel: run.reasoningLevel, cliVersion: run.cliVersion, chained: run.chained,
       chainId: run.chainId, executionEpoch: run.provenanceEpoch, swarm: run.swarmId,
+      scopeFingerprint: launchScopeFingerprint(run.swarmId, run.kind, run.module, run.agent),
     })
   }
 

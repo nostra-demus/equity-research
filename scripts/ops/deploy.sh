@@ -48,6 +48,7 @@ LOG="$HOME/Library/Logs/nostradamus-deploy.log"
 DEPLOY_LOCK="$OPS/.deploy.flock"
 MARK="$OPS/.deployed.sha"   # the SHA the built ui/dist + running engine were last reconciled to
 FAILMARK="$OPS/.deploy.failed"                       # "<sha> <epoch>" of the last build/boot that failed (backoff)
+SUCCESSMARK="$OPS/.deploy.succeeded"                 # "<sha> <epoch-ms>" of the last healthy lifecycle reconciliation
 RUN_BARRIER_DIR="${ENGINE_STATE_DIR:-$PROD/ui/server/.state}"
 RUN_BARRIER_LOCK="$RUN_BARRIER_DIR/provider-deploy-barrier.flock"
 DEPLOY_INTENT="$RUN_BARRIER_DIR/provider-deploy-pending"
@@ -71,6 +72,21 @@ mkdir -p "$OPS" "$(dirname "$LOG")"
 ts()  { date '+%Y-%m-%d %H:%M:%S'; }
 log() { echo "$(ts) $*" >> "$LOG"; }
 loaded() { launchctl print "gui/$UID_NUM/$1" >/dev/null 2>&1; }
+
+# A queued launch needs proof of a healthy lifecycle transition, not merely the absence of writer intent.
+# Keep that proof separate from .deployed.sha: dependency-only repair may finish with the same program SHA,
+# while a no-op watcher tick must not mint a new success event. Owner-only temp+rename makes the receipt
+# durable without exposing a partially written identity to the engine.
+write_deploy_success() {
+  local target="$1" now_ms
+  valid_git_sha "$target" || return 1
+  now_ms="$($PYTHON -I -c 'import time; print(time.time_ns() // 1_000_000)' 2>/dev/null)" || return 1
+  case "$now_ms" in ''|*[!0-9]*) return 1 ;; esac
+  umask 077
+  printf '%s %s\n' "$target" "$now_ms" > "$SUCCESSMARK.tmp" 2>/dev/null \
+    && chmod 600 "$SUCCESSMARK.tmp" 2>/dev/null \
+    && mv "$SUCCESSMARK.tmp" "$SUCCESSMARK" 2>/dev/null
+}
 
 valid_git_sha() { [[ "${1:-}" =~ ^[0-9a-f]{40}$ || "${1:-}" =~ ^[0-9a-f]{64}$ ]]; }
 
@@ -1494,7 +1510,10 @@ reconcile_build() {
   # breaker above can back the same SHA off instead of hot-looping.
   if [ "$failed" = 0 ]; then
     printf '%s\n' "$target" > "$MARK.tmp" 2>/dev/null && mv "$MARK.tmp" "$MARK" 2>/dev/null || log "  WARN could not persist deployed marker"
-    rm -f "$FAILMARK" 2>/dev/null || true
+    if [ "$(cat "$MARK" 2>/dev/null || true)" = "$target" ]; then
+      write_deploy_success "$target" || log "  WARN could not persist healthy deployment receipt"
+      rm -f "$FAILMARK" 2>/dev/null || true
+    fi
   else
     printf '%s %s\n' "$target" "$(date +%s)" > "$FAILMARK.tmp" 2>/dev/null && mv "$FAILMARK.tmp" "$FAILMARK" 2>/dev/null || true
   fi
@@ -1763,6 +1782,8 @@ if [ "$LOCAL" = "$REMOTE" ]; then
   fi
   reconcile_omniroute_launchagent \
     || log "WARN omniroute-agent remains unreconciled; optional sidecar will retry next deploy tick"
+  dependency_repair_needed=0
+  extractor_python_deps_ready || dependency_repair_needed=1
   if ! reconcile_extractor_python_deps "$LOCAL"; then
     log "WARN extractor dependencies remain unreconciled — leaving the deployed marker unchanged for retry"
     exit 0
@@ -1773,6 +1794,9 @@ if [ "$LOCAL" = "$REMOTE" ]; then
   # without deploy.sh ever running its fast-forward path. So a code PR can land in the working tree while
   # the old ui/dist is still being served. Reconcile against the deployed marker, not against origin.
   if [ "$MARKER" = "$LOCAL" ]; then
+    if [ "$dependency_repair_needed" = 1 ]; then
+      write_deploy_success "$LOCAL" || log "  WARN could not persist healthy dependency-repair receipt"
+    fi
     # built artifacts already match HEAD — heartbeat at most ~hourly so the log proves the watcher is alive
     hb_age=999999
     [ -f "$LOG" ] && hb_age=$(( $(date +%s) - $(stat -f %m "$LOG" 2>/dev/null || echo 0) ))

@@ -1,8 +1,9 @@
 import crypto from 'node:crypto'
-import { spawnSync } from 'node:child_process'
+import { execFile } from 'node:child_process'
 import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
+import { promisify } from 'node:util'
 import { REPO_ROOT, STATE_DIR } from './config'
 import type { ContinuationPlanReceipt } from './completion'
 import type { RunProvider } from './providers/types'
@@ -69,14 +70,21 @@ const FINGERPRINT = /^sha256:[a-f0-9]{64}$/
 const STATUSES = new Set<PendingAdmissionStatus>([
   'waiting_for_update', 'admitting', 'started', 'needs_attention', 'cancelled',
 ])
+const TERMINAL_STATUSES = new Set<PendingAdmissionStatus>(['started', 'needs_attention', 'cancelled'])
+const execFileAsync = promisify(execFile)
+const ancestryCache = new Map<string, boolean>()
 
 function recordsDir(stateDir: string): string {
   return path.join(path.resolve(stateDir), 'pending-admissions')
 }
 
-function recordPath(requestId: string, stateDir: string): string {
+function archiveDir(stateDir: string, status: 'started' | 'needs_attention' | 'cancelled'): string {
+  return path.join(path.resolve(stateDir), 'pending-admissions-archive', status)
+}
+
+function recordPathIn(requestId: string, directory: string): string {
   if (!REQUEST_ID.test(requestId)) throw new Error('invalid pending-admission request id')
-  return path.join(recordsDir(stateDir), `${requestId.toLowerCase()}.json`)
+  return path.join(directory, `${requestId.toLowerCase()}.json`)
 }
 
 function ensurePrivateDirectory(directory: string): void {
@@ -137,9 +145,9 @@ function validRecord(value: unknown): value is PendingAdmissionRecord {
   return true
 }
 
-function readFile(requestId: string, stateDir: string): PendingAdmissionRecord | null {
+function readFileAt(requestId: string, directory: string): PendingAdmissionRecord | null {
   try {
-    const target = recordPath(requestId, stateDir)
+    const target = recordPathIn(requestId, directory)
     const info = fs.lstatSync(target)
     if (!info.isFile() || info.isSymbolicLink() || (info.mode & 0o077) !== 0 || info.nlink !== 1) return null
     const value = JSON.parse(fs.readFileSync(target, 'utf8'))
@@ -147,10 +155,21 @@ function readFile(requestId: string, stateDir: string): PendingAdmissionRecord |
   } catch { return null }
 }
 
-function atomicWrite(record: PendingAdmissionRecord, stateDir: string, exclusive = false): void {
-  const directory = recordsDir(stateDir)
+function locateRecord(requestId: string, stateDir: string): { record: PendingAdmissionRecord; directory: string } | null {
+  const active = recordsDir(stateDir)
+  const record = readFileAt(requestId, active)
+  if (record) return { record, directory: active }
+  for (const status of ['started', 'needs_attention', 'cancelled'] as const) {
+    const archive = archiveDir(stateDir, status)
+    const archived = readFileAt(requestId, archive)
+    if (archived) return { record: archived, directory: archive }
+  }
+  return null
+}
+
+function atomicWrite(record: PendingAdmissionRecord, directory: string, exclusive = false): void {
   ensurePrivateDirectory(directory)
-  const target = recordPath(record.requestId, stateDir)
+  const target = recordPathIn(record.requestId, directory)
   if (exclusive) {
     const fd = fs.openSync(target, 'wx', 0o600)
     try {
@@ -168,6 +187,21 @@ function atomicWrite(record: PendingAdmissionRecord, stateDir: string, exclusive
   } finally { fs.closeSync(fd) }
   fs.renameSync(staged, target)
   syncDirectory(directory)
+}
+
+function moveRecord(requestId: string, sourceDirectory: string, targetDirectory: string): void {
+  ensurePrivateDirectory(targetDirectory)
+  const source = recordPathIn(requestId, sourceDirectory)
+  const target = recordPathIn(requestId, targetDirectory)
+  fs.renameSync(source, target)
+  syncDirectory(sourceDirectory)
+  syncDirectory(targetDirectory)
+}
+
+function directoryForStatus(status: PendingAdmissionStatus, stateDir: string): string {
+  return TERMINAL_STATUSES.has(status)
+    ? archiveDir(stateDir, status as 'started' | 'needs_attention' | 'cancelled')
+    : recordsDir(stateDir)
 }
 
 function sameIntent(record: PendingAdmissionRecord, intent: PendingAdmissionIntent): boolean {
@@ -192,7 +226,7 @@ export function enqueuePendingAdmission(
 ): EnqueuePendingAdmissionResult {
   if (!REQUEST_ID.test(intent.requestId)) throw new Error('invalid pending-admission request id')
   const requestId = intent.requestId.toLowerCase()
-  const existing = readFile(requestId, stateDir)
+  const existing = locateRecord(requestId, stateDir)?.record ?? null
   if (existing) return sameIntent(existing, intent)
     ? { kind: 'existing', record: existing }
     : { kind: 'conflict', record: existing }
@@ -217,11 +251,11 @@ export function enqueuePendingAdmission(
     updatedAt: now,
   }
   try {
-    atomicWrite(record, stateDir, true)
+    atomicWrite(record, recordsDir(stateDir), true)
     return { kind: 'new', record }
   } catch (error: any) {
     if (error?.code !== 'EEXIST') throw error
-    const raced = readFile(requestId, stateDir)
+    const raced = locateRecord(requestId, stateDir)?.record ?? null
     if (!raced) throw new Error('pending-admission receipt is unreadable')
     return sameIntent(raced, intent) ? { kind: 'existing', record: raced } : { kind: 'conflict', record: raced }
   }
@@ -232,20 +266,22 @@ function update(
   mutate: (record: PendingAdmissionRecord) => PendingAdmissionRecord,
   stateDir: string,
 ): PendingAdmissionRecord {
-  const record = readFile(requestId, stateDir)
-  if (!record) throw new Error('pending admission is missing or unsafe')
+  const located = locateRecord(requestId, stateDir)
+  if (!located) throw new Error('pending admission is missing or unsafe')
+  const { record } = located
   const next = { ...mutate(record), updatedAt: new Date().toISOString() }
   if (!validRecord(next)) throw new Error('pending admission update is invalid')
-  atomicWrite(next, stateDir)
+  atomicWrite(next, located.directory)
+  const destination = directoryForStatus(next.status, stateDir)
+  if (located.directory !== destination) moveRecord(requestId, located.directory, destination)
   return next
 }
 
 export function readPendingAdmission(requestId: string, stateDir: string = STATE_DIR): PendingAdmissionRecord | null {
-  return readFile(requestId, stateDir)
+  return locateRecord(requestId, stateDir)?.record ?? null
 }
 
-export function listPendingAdmissions(stateDir: string = STATE_DIR): PendingAdmissionRecord[] {
-  const directory = recordsDir(stateDir)
+function listDirectory(directory: string): PendingAdmissionRecord[] {
   let names: string[]
   try {
     const info = fs.lstatSync(directory)
@@ -254,8 +290,18 @@ export function listPendingAdmissions(stateDir: string = STATE_DIR): PendingAdmi
   } catch { return [] }
   return names
     .filter((name) => REQUEST_ID.test(name.replace(/\.json$/, '')) && name.endsWith('.json'))
-    .map((name) => readFile(name.slice(0, -5), stateDir))
+    .map((name) => readFileAt(name.slice(0, -5), directory))
     .filter((record): record is PendingAdmissionRecord => Boolean(record))
+}
+
+export function listPendingAdmissions(
+  stateDir: string = STATE_DIR,
+  includeNeedsAttention = false,
+): PendingAdmissionRecord[] {
+  return [
+    ...listDirectory(recordsDir(stateDir)),
+    ...(includeNeedsAttention ? listDirectory(archiveDir(stateDir, 'needs_attention')) : []),
+  ]
     .sort((a, b) => Date.parse(a.createdAt) - Date.parse(b.createdAt))
 }
 
@@ -335,6 +381,15 @@ export function pendingPlanDifference(
   }
 }
 
+/** A deployment may remove paid work from Continue (a saving), but it may not add spend the user never
+ * reviewed. Full remains the separately typed action and is therefore evaluated as a full plan. */
+export function pendingPlanMayAutoStart(
+  action: PendingAdmissionAction,
+  difference: NonNullable<PendingAdmissionRecord['planDifference']>,
+): boolean {
+  return action === 'full' || difference.addedPayableOrbKeys.length === 0
+}
+
 /** The writer-intent file is owner-only and contains "<target sha> <epoch>". Treat anything else as
  * unknown rather than widening a queued request around an untrusted deployment identity. */
 export function pendingDeployCommit(intentPath: string): string | null {
@@ -363,41 +418,54 @@ export function deploymentFailedAfter(
     const failedAt = Number(epoch)
     const queuedAt = Date.parse(createdAt)
     if (!SHA.test(sha || '') || !Number.isSafeInteger(failedAt) || !Number.isFinite(queuedAt)) return null
-    return failedAt * 1000 >= queuedAt ? { sha, failedAt } : null
+    return info.mtimeMs >= queuedAt ? { sha, failedAt } : null
   } catch { return null }
 }
 
 /** Successful deployment proof is the deployer's atomically replaced marker, not the absence of intent.
  * Its mtime must post-date the click, which also permits coalescing onto a newer all-green commit without
  * pretending an old marker admitted the request. */
-export function deploymentSucceededAfter(
+export async function deploymentSucceededAfter(
   createdAt: string,
   requestedDeployCommit?: string | null,
   opsDir: string = path.join(os.homedir(), '.nostra-ops'),
   repoRoot: string = REPO_ROOT,
-): { sha: string; deployedAt: number } | null {
+): Promise<{ sha: string; deployedAt: number } | null> {
   try {
-    const target = path.join(path.resolve(opsDir), '.deployed.sha')
+    const successReceipt = path.join(path.resolve(opsDir), '.deploy.succeeded')
+    const legacyMarker = path.join(path.resolve(opsDir), '.deployed.sha')
+    const target = fs.existsSync(successReceipt) ? successReceipt : legacyMarker
     const info = fs.lstatSync(target)
     const ownedByProcess = typeof process.getuid !== 'function' || info.uid === process.getuid()
     if (!info.isFile() || info.isSymbolicLink() || !ownedByProcess
         || info.nlink !== 1 || (info.mode & 0o022) !== 0 || info.size > 256) return null
-    const sha = fs.readFileSync(target, 'utf8').trim()
+    const parts = fs.readFileSync(target, 'utf8').trim().split(/\s+/)
+    const [sha] = parts
     const queuedAt = Date.parse(createdAt)
-    if (!SHA.test(sha) || !Number.isFinite(queuedAt) || info.mtimeMs < queuedAt) return null
+    const stampedAt = target === successReceipt ? Number(parts[1]) : info.mtimeMs
+    if (!SHA.test(sha) || !Number.isFinite(queuedAt) || !Number.isSafeInteger(Math.trunc(stampedAt))
+        || stampedAt < queuedAt) return null
     // A newer all-green commit may coalesce the requested release, but an unrelated/older marker cannot.
     // Prove ancestry in the local production repository instead of trusting timestamps alone.
     if (requestedDeployCommit) {
       if (!SHA.test(requestedDeployCommit)) return null
       if (sha !== requestedDeployCommit) {
-        const ancestry = spawnSync('git', ['merge-base', '--is-ancestor', requestedDeployCommit, sha], {
-          cwd: repoRoot,
-          stdio: 'ignore',
-          timeout: 5_000,
-        })
-        if (ancestry.status !== 0) return null
+        const key = `${path.resolve(repoRoot)}\0${requestedDeployCommit}\0${sha}`
+        let isAncestor = ancestryCache.get(key)
+        if (isAncestor === undefined) {
+          try {
+            await execFileAsync('git', ['merge-base', '--is-ancestor', requestedDeployCommit, sha], {
+              cwd: repoRoot,
+              timeout: 5_000,
+            })
+            isAncestor = true
+          } catch { isAncestor = false }
+          ancestryCache.set(key, isAncestor)
+          if (ancestryCache.size > 256) ancestryCache.delete(ancestryCache.keys().next().value!)
+        }
+        if (!isAncestor) return null
       }
     }
-    return { sha, deployedAt: info.mtimeMs }
+    return { sha, deployedAt: stampedAt }
   } catch { return null }
 }

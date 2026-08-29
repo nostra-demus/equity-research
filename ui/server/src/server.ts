@@ -126,6 +126,7 @@ import {
   cancelPendingAdmission, deploymentFailedAfter, deploymentSucceededAfter, enqueuePendingAdmission, listPendingAdmissions,
   markPendingAdmissionAdmitting, markPendingAdmissionNeedsAttention, markPendingAdmissionStarted,
   markPendingAdmissionWaiting, pendingDeployCommit, pendingPlanDifference,
+  pendingPlanMayAutoStart,
   readPendingAdmission, type PendingAdmissionRecord,
 } from './pending-admission'
 import { beginExactModuleSupervisorPause, settleExactModuleSupervisorPause } from './exact-module-supervisor-pause'
@@ -315,7 +316,7 @@ app.get('/api/pending-admissions', async (req, reply) => {
   const { user } = identify(req)
   const admin = isDispatchAdmin(user)
   return {
-    requests: listPendingAdmissions()
+    requests: listPendingAdmissions(STATE_DIR, true)
       .filter((record) => record.status !== 'started' && record.status !== 'cancelled' && (admin || record.user === user))
       .map((record) => ({
         requestId: record.requestId,
@@ -1761,7 +1762,7 @@ app.post('/api/launch', { config: { rateLimit: { max: 60, timeWindow: '1 minute'
         // Continue. `reuse: []` is deliberate and typed-confirmed; after deployment it can never be mistaken
         // for, or widened from, a saved-root continuation.
         const selection = { provider, model, reasoningLevel, expectedProfileKey }
-        const plan = thesisPlan(ticker, RESEARCH_SWARM_ID, [], undefined, selection)
+        const plan = await thesisPlanForRequest(ticker, RESEARCH_SWARM_ID, [], undefined, selection)
         if (plan.complete) {
           return reply.code(409).send({ error: 'Today’s run already has a final thesis.', code: 'already_complete', path: plan.finalReportPath })
         }
@@ -1807,7 +1808,7 @@ app.post('/api/launch', { config: { rateLimit: { max: 60, timeWindow: '1 minute'
             return reply.code(503).send({ error: 'The update identity could not be verified. Nothing was queued or started.', code: 'deployment_identity_unavailable' })
           }
           const selection = { provider, model, reasoningLevel, expectedProfileKey }
-          const plan = thesisPlan(ticker, RESEARCH_SWARM_ID, [], undefined, selection)
+          const plan = await thesisPlanForRequest(ticker, RESEARCH_SWARM_ID, [], undefined, selection)
           if (plan.complete) return reply.code(409).send({ error: 'Today’s run already has a final thesis.', code: 'already_complete', path: plan.finalReportPath })
           const queued = enqueuePendingAdmission({
             requestId, user, userVia, ticker, action: 'full', provider, model, reasoningLevel,
@@ -3060,7 +3061,7 @@ async function drainOnePendingAdmission(record: PendingAdmissionRecord): Promise
       'The reviewed update failed health checks and production stayed on its last healthy version. This request was not started.')
     return
   }
-  if (!deploymentSucceededAfter(record.createdAt, record.requestedDeployCommit)) {
+  if (!await deploymentSucceededAfter(record.createdAt, record.requestedDeployCommit)) {
     if (record.status !== 'waiting_for_update') {
       markPendingAdmissionWaiting(record.requestId, 'Waiting for the deployer’s healthy release receipt.')
     }
@@ -3069,7 +3070,7 @@ async function drainOnePendingAdmission(record: PendingAdmissionRecord): Promise
 
   // Reconcile an ACK that may have landed just before a process restart. A started request is never retried,
   // even when the final HTTP response was lost; an admitted response can be projected back into Activity.
-  const request = readRunPlanRequest(record.requestId)
+  const request = await readRunPlanRequest(record.requestId)
   if ((request?.status === 'admitted' || request?.status === 'started') && request.response) {
     markPendingAdmissionStarted(record.requestId, request.runId, request.response)
     return
@@ -3121,6 +3122,18 @@ async function drainOnePendingAdmission(record: PendingAdmissionRecord): Promise
 
   const difference = pendingPlanDifference(record.originalPlan, receipt)
   markPendingAdmissionAdmitting(record.requestId, difference)
+  if (!pendingPlanMayAutoStart(record.action, difference)) {
+    markPendingAdmissionNeedsAttention(record.requestId,
+      `The update added ${difference.addedPayableOrbKeys.length} paid item${difference.addedPayableOrbKeys.length === 1 ? '' : 's'} to this saved run. Nothing was started; review the updated Continue plan first.`)
+    return
+  }
+  // A second reviewed deployment can publish writer intent after the planning GET. Do not send the old
+  // receipt into the route and let its durable enqueue boundary collide with this request id; leave this
+  // exact user intent waiting for the newest healthy release, then rebuild it once more.
+  if (providerDeployPending(STATE_DIR)) {
+    markPendingAdmissionWaiting(record.requestId, 'A newer reviewed update is now waiting. This request remains queued.')
+    return
+  }
   const postBody = {
     ticker: record.ticker,
     reuse: Array.isArray(planned.reuse) ? planned.reuse : [],
@@ -3137,7 +3150,8 @@ async function drainOnePendingAdmission(record: PendingAdmissionRecord): Promise
     method: 'POST', url: '/api/thesis-plan/run', headers: pendingAdmissionHeaders(record), payload: postBody,
   })
   const admitted = (() => { try { return admittedResponse.json() as any } catch { return {} } })()
-  if (admittedResponse.statusCode === 202 || admitted?.code === 'deployment_in_progress') {
+  if (admittedResponse.statusCode === 202 || admitted?.code === 'deployment_in_progress'
+      || (admitted?.code === 'request_reused' && providerDeployPending(STATE_DIR))) {
     markPendingAdmissionWaiting(record.requestId, 'A newer reviewed update is now waiting. This request remains queued.')
     return
   }

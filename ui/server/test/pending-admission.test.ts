@@ -8,6 +8,7 @@ import {
   cancelPendingAdmission, deploymentFailedAfter, deploymentSucceededAfter, enqueuePendingAdmission, listPendingAdmissions,
   markPendingAdmissionAdmitting, markPendingAdmissionNeedsAttention,
   markPendingAdmissionStarted, pendingDeployCommit, pendingPlanDifference,
+  pendingPlanMayAutoStart,
   readPendingAdmission,
 } from '../src/pending-admission'
 import type { ContinuationPlanReceipt } from '../src/completion'
@@ -62,6 +63,8 @@ try {
   assert.throws(() => cancelPendingAdmission(requestId, { user: 'owner@example.com', isAdmin: false }, state), /no longer be cancelled/)
   markPendingAdmissionNeedsAttention(requestId, 'provider unavailable', state)
   assert.equal(readPendingAdmission(requestId, state)?.status, 'needs_attention')
+  assert.equal(listPendingAdmissions(state).length, 0, 'terminal attention does not stay in the hot drain scan')
+  assert.equal(listPendingAdmissions(state, true)[0]?.status, 'needs_attention', 'Activity can still read durable attention')
   cancelPendingAdmission(requestId, { user: 'owner@example.com', isAdmin: false }, state)
   assert.equal(readPendingAdmission(requestId, state)?.status, 'cancelled')
   assert.equal(markPendingAdmissionAdmitting(requestId, undefined, state).status, 'cancelled', 'a stale drain cannot resurrect a cancelled request')
@@ -72,12 +75,19 @@ try {
   assert.equal(enqueuePendingAdmission({ ...intent, requestId: startedId }, state).kind, 'new')
   markPendingAdmissionStarted(startedId, 'run-1', { runId: 'run-1' }, state)
   assert.equal(readPendingAdmission(startedId, state)?.runId, 'run-1')
+  assert.equal(fs.existsSync(path.join(state, 'pending-admissions', `${startedId}.json`)), false,
+    'terminal receipts leave the hot polling directory')
+  assert.equal(fs.existsSync(path.join(state, 'pending-admissions-archive', 'started', `${startedId}.json`)), true)
+  assert.equal(listPendingAdmissions(state).some((record) => record.requestId === startedId), false)
   assert.throws(() => cancelPendingAdmission(startedId, { user: 'owner@example.com', isAdmin: false }, state), /no longer be cancelled/)
 
   const changed = receipt('continue', ['valuation/02_model', 'master/synthesizer'])
   const difference = pendingPlanDifference(original, changed)
   assert.deepEqual(difference.addedPayableOrbKeys, ['valuation/02_model'])
   assert.deepEqual(difference.removedPayableOrbKeys, ['earnings/01_triage'])
+  assert.equal(pendingPlanMayAutoStart('continue', difference), false, 'new paid continuation work requires a fresh review')
+  assert.equal(pendingPlanMayAutoStart('continue', pendingPlanDifference(original, receipt('continue', ['master/synthesizer']))), true,
+    'an update that only removes paid work may start once')
 
   const intentFile = path.join(state, 'provider-deploy-pending')
   fs.writeFileSync(intentFile, `${'e'.repeat(40)} 123\n`, { mode: 0o600 })
@@ -88,6 +98,7 @@ try {
   const ops = path.join(state, 'ops')
   fs.mkdirSync(ops)
   fs.writeFileSync(path.join(ops, '.deploy.failed'), `${'f'.repeat(40)} 1609459200\n`)
+  fs.utimesSync(path.join(ops, '.deploy.failed'), 1609459200, 1609459200)
   assert.deepEqual(deploymentFailedAfter('2020-12-31T23:59:59.000Z', ops), { sha: 'f'.repeat(40), failedAt: 1609459200 })
   assert.equal(deploymentFailedAfter('2021-01-01T00:00:01.000Z', ops), null, 'an older failure cannot block a later click')
   fs.rmSync(path.join(ops, '.deploy.failed'))
@@ -97,8 +108,13 @@ try {
   const deployedMarker = path.join(ops, '.deployed.sha')
   fs.writeFileSync(deployedMarker, `${'9'.repeat(40)}\n`)
   const deployedAt = fs.statSync(deployedMarker).mtimeMs
-  assert.equal(deploymentSucceededAfter(new Date(deployedAt + 1_000).toISOString(), null, ops), null, 'an old healthy marker cannot admit a newer click')
-  assert.equal(deploymentSucceededAfter(new Date(deployedAt - 1_000).toISOString(), '9'.repeat(40), ops)?.sha, '9'.repeat(40))
+  assert.equal(await deploymentSucceededAfter(new Date(deployedAt + 1_000).toISOString(), null, ops), null, 'an old healthy marker cannot admit a newer click')
+  assert.equal((await deploymentSucceededAfter(new Date(deployedAt - 1_000).toISOString(), '9'.repeat(40), ops))?.sha, '9'.repeat(40))
+  const successReceipt = path.join(ops, '.deploy.succeeded')
+  fs.writeFileSync(successReceipt, `${'9'.repeat(40)} 1700000000123\n`, { mode: 0o600 })
+  fs.utimesSync(successReceipt, 1_600_000_000, 1_600_000_000)
+  assert.equal((await deploymentSucceededAfter('2023-11-14T22:13:20.000Z', '9'.repeat(40), ops))?.deployedAt, 1_700_000_000_123,
+    'the millisecond success receipt, not a rounded shell epoch or stale marker mtime, proves completion')
 
   const unsafe = fs.mkdtempSync(path.join(os.tmpdir(), 'nostra-pending-unsafe-'))
   try {
