@@ -7,6 +7,7 @@ interface FixtureState {
   provider: Provider
   updating: boolean
   pending: unknown[]
+  activity: { status: string }[]
   resumable: { runRoot: string }[]
   spawnCount: number
   launchPosts: number
@@ -96,7 +97,13 @@ for (const provider of ['claude', 'codex'] as const) {
     await expect(page.getByRole('dialog')).toContainText(provider === 'claude' ? 'Opus' : 'Sol + Terra')
     await page.getByRole('button', { name: 'Complete remaining work' }).click()
 
-    fixture = await waitForState(request, (value) => value.spawnCount === 2 && value.continuationPosts === 1)
+    // Wait on the handler's LAST mutation, not on counters it bumps on the way in. `continuationPosts`
+    // is incremented before the receipt is even validated and `spawnCount` before the fake CLI is awaited,
+    // so polling those two can observe a half-applied continuation — receipt accepted and provider spawned,
+    // but `resumable`, `partialHashAfter` and `activity` not yet written. The settled marker is the 'done'
+    // activity row, which the route assigns after every other field.
+    fixture = await waitForState(request, (value) => value.spawnCount === 2 && value.continuationPosts === 1
+      && value.activity[0]?.status === 'done')
     expect(fixture.launchPosts).toBe(1) // Continue never fell back to generic /api/launch.
     expect(fixture.pending).toHaveLength(0)
     expect(fixture.resumable).toHaveLength(0)
