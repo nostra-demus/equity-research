@@ -41,6 +41,8 @@ export interface ActivityEvent {
   model?: string
   reasoningLevel?: string
   cliVersion?: string
+  /** Hash of the exact planned orb identities. Historical estimates never compare rows without it. */
+  scopeFingerprint?: string
   // finished-only
   status?: RunStatus
   costUsd?: number
@@ -80,6 +82,7 @@ export interface ActivityRow {
   model?: string
   reasoningLevel?: string
   cliVersion?: string
+  scopeFingerprint?: string
   launchedAt: number
   finishedAt?: number
   status: RunStatus // from the finished event; 'running' if none yet
@@ -207,7 +210,8 @@ function isActivityEvent(value: unknown): value is ActivityEvent {
   if (event.status !== undefined && !ACTIVITY_RUN_STATUSES.has(event.status as RunStatus)) return false
   if (event.chained !== undefined && typeof event.chained !== 'boolean') return false
   if (![event.swarm, event.runRoot, event.module, event.agent, event.profileKey, event.model, event.reasoningLevel,
-    event.cliVersion, event.note, event.chainId, event.executionEpoch].every(validOptionalString)) return false
+    event.cliVersion, event.note, event.chainId, event.executionEpoch, event.scopeFingerprint].every(validOptionalString)) return false
+  if (event.scopeFingerprint !== undefined && !/^sha256:[a-f0-9]{64}$/.test(event.scopeFingerprint as string)) return false
   if (event.executionProfile !== undefined && !validExecutionProfile(event.executionProfile)) return false
   if (event.provider !== undefined && event.provider !== 'claude' && event.provider !== 'codex') return false
   if (event.swarm !== undefined && !canonicalIdentity(event.swarm)) return false
@@ -266,6 +270,7 @@ function foldRows(events: ActivityEvent[]): ActivityRow[] {
         model: ev.model,
         reasoningLevel: ev.reasoningLevel,
         cliVersion: ev.cliVersion,
+        scopeFingerprint: ev.scopeFingerprint,
         launchedAt: ev.ts,
         status: 'running',
       }
@@ -291,6 +296,7 @@ function foldRows(events: ActivityEvent[]): ActivityRow[] {
       row.model = ev.model
       row.reasoningLevel = ev.reasoningLevel
       row.cliVersion = ev.cliVersion
+      row.scopeFingerprint = ev.scopeFingerprint
     } else if (ev.event === 'finished') {
       row.finishedAt = ev.ts
       row.status = ev.status ?? 'done'
@@ -366,5 +372,60 @@ export function readActivity(query: ActivityQuery = {}, sigLabels?: Map<string, 
     tickers,
     tickerLabels,
     earliest,
+  }
+}
+
+export interface ComparableRunEstimate {
+  source: 'comparable_completed_runs' | 'unavailable'
+  provider: RunProvider
+  profileKey: string
+  durationSampleSize: number
+  costSampleSize: number
+  minutesRange?: [number, number]
+  costUsdRange?: [number, number]
+}
+
+const MIN_COMPARABLE_RUNS = 3
+
+function observedRange(values: number[], transform: (value: number) => number): [number, number] | undefined {
+  if (values.length < MIN_COMPARABLE_RUNS) return undefined
+  const sorted = values.filter(Number.isFinite).sort((a, b) => a - b)
+  if (sorted.length < MIN_COMPARABLE_RUNS) return undefined
+  return [transform(sorted[0]), transform(sorted[sorted.length - 1])]
+}
+
+/** Historical estimates are evidence, not config. Match the exact provider/profile/scope and require at
+ * least three clean completions. A thin or legacy ledger returns unavailable instead of a made-up band. */
+export function estimateFromComparableRuns(input: {
+  kind: RunKind
+  provider: RunProvider
+  profileKey: string
+  swarm?: string
+  module?: string
+  agent?: string
+  scopeFingerprint: string
+}): ComparableRunEstimate {
+  const swarm = input.swarm || 'research'
+  const rows = readActivity({ kind: input.kind, provider: input.provider, limit: null }).rows.filter((row) =>
+    row.status === 'done'
+    && row.profileKey === input.profileKey
+    && (row.swarm || 'research') === swarm
+    && (input.module === undefined || row.module === input.module)
+    && (input.agent === undefined || row.agent === input.agent)
+    && row.scopeFingerprint === input.scopeFingerprint)
+  const durations = rows.map((row) => row.durationMs).filter((value): value is number => typeof value === 'number' && value > 0)
+  const costs = input.provider === 'claude'
+    ? rows.map((row) => row.costUsd).filter((value): value is number => typeof value === 'number' && value >= 0)
+    : []
+  const minutesRange = observedRange(durations, (value) => Math.max(1, Math.ceil(value / 60_000)))
+  const costUsdRange = observedRange(costs, (value) => Math.round(value * 10) / 10)
+  return {
+    source: minutesRange || costUsdRange ? 'comparable_completed_runs' : 'unavailable',
+    provider: input.provider,
+    profileKey: input.profileKey,
+    durationSampleSize: durations.length,
+    costSampleSize: costs.length,
+    ...(minutesRange ? { minutesRange } : {}),
+    ...(costUsdRange ? { costUsdRange } : {}),
   }
 }

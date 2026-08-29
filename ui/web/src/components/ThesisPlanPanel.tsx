@@ -8,8 +8,8 @@ import './ThesisPlanPanel.css'
 import { providerBlockedReason, providerIsBlocked, providerLabel, providerLaunchBlockedReason, providerNeedsCheck, type RunProvider } from '../lib/provider'
 import { ProviderProfileSelector } from './ProviderProfileSelector'
 
-/** Cost/time are calibrated "~" bands, not quotes. Showing "$13.5–31.9" beside "$55–130" implies a precision
- *  neither number has (and reads as sloppy next to it). Round both — same band, honest about its width. */
+/** Historical ranges are evidence, not quotes. Round their observed endpoints so the UI does not imply
+ * precision beyond the completed comparable runs that produced them. */
 const band = ([lo, hi]: [number, number]) => `${Math.round(lo)}–${Math.round(hi)}`
 
 /** "2026-07-03" → "Jul 3". Falls back to the raw string for anything unexpected. */
@@ -182,9 +182,10 @@ export function ThesisPlanPanel() {
   }
   const p = plan?.preflight
   const full = plan?.fullPreflight
-  // Only claim a saving when there is one. Reusing nothing costs the full price, and the panel must say so
-  // rather than quietly showing a "saving" of zero.
-  const saves = p && full && p.estCostUsdRange[1] < full.estCostUsdRange[1]
+  const costEstimated = p?.estimateEvidence?.source === 'comparable_completed_runs' && p.estCostUsdRange[1] > 0
+  const timeEstimated = p?.estimateEvidence?.source === 'comparable_completed_runs' && p.estMinutesRange[1] > 0
+  const fullCostEstimated = full?.estimateEvidence?.source === 'comparable_completed_runs' && full.estCostUsdRange[1] > 0
+  const fullTimeEstimated = full?.estimateEvidence?.source === 'comparable_completed_runs' && full.estMinutesRange[1] > 0
 
   // Launching a completion is research-only for now. Match POSITIVELY on 'research': during a deploy the new
   // bundle can talk to the old engine, and a field that is merely absent must never read as "allowed".
@@ -302,8 +303,7 @@ export function ThesisPlanPanel() {
               </div>
             )}
 
-            {/* The cost band is calibrated on a research run and has no per-swarm variant, so it is only shown
-                where it is actually this swarm's price — i.e. where we can also launch it. */}
+            {/* Estimates are evidence from comparable completed runs. Thin history stays unavailable. */}
             {canRun && (
               <>
                 <div className="modal__body">
@@ -343,12 +343,13 @@ export function ThesisPlanPanel() {
                   </div>
                   {provider === 'claude' ? <div className="modal__row">
                     <span className="modal__k">Est. cost</span>
-                    <span className="modal__v">${band(p!.estCostUsdRange)}</span>
-                  </div> : <div className="modal__row"><span className="modal__k">Plan billing</span><span className="modal__v">Codex subscription allowance</span></div>}
+                    <span className="modal__v">{costEstimated ? `$${band(p!.estCostUsdRange)}` : 'Estimate unavailable'}</span>
+                  </div> : <div className="modal__row"><span className="modal__k">Allowance impact</span><span className="modal__v">{p!.agentCount} orbs · exact allowance change unavailable</span></div>}
                   <div className="modal__row">
                     <span className="modal__k">Est. time</span>
-                    <span className="modal__v">{band(p!.estMinutesRange)} min</span>
+                    <span className="modal__v">{timeEstimated ? `${band(p!.estMinutesRange)} min` : 'Estimate unavailable'}</span>
                   </div>
+                  {p!.estimateEvidence?.source === 'comparable_completed_runs' && <div className="modal__row"><span className="modal__k">Estimate basis</span><span className="modal__v">same {providerLabel(provider)} model · {Math.max(p!.estimateEvidence.durationSampleSize, p!.estimateEvidence.costSampleSize)} completed runs</span></div>}
                   <div className="modal__row">
                     <span className="modal__k">Writes to main</span>
                     <span className="modal__v warn">{p!.estCommits} commit{p!.estCommits === 1 ? '' : 's'} · pushed</span>
@@ -356,10 +357,8 @@ export function ThesisPlanPanel() {
                 </div>
 
                 <div className="tpp__saving">
-                  {saves ? (
-                    provider === 'claude'
-                      ? <>Re-running everything would cost <b>${band(full!.estCostUsdRange)}</b> and take <b>{band(full!.estMinutesRange)} min</b>. Reusing what’s done skips {full!.agentCount - p!.agentCount} orbs.</>
-                      : <>Re-running everything would use more of your Codex allowance and take <b>{band(full!.estMinutesRange)} min</b>. Reusing what’s done skips {full!.agentCount - p!.agentCount} orbs.</>
+                  {reuseCount > 0 ? (
+                    <>Reusing finished work skips <b>{full!.agentCount - p!.agentCount} orbs</b>. {provider === 'claude' && fullCostEstimated ? <>A comparable full run cost <b>${band(full!.estCostUsdRange)}</b>. </> : null}{fullTimeEstimated ? <>Comparable full runs took <b>{band(full!.estMinutesRange)} min</b>.</> : 'There is not enough comparable history to estimate this exact subset.'}</>
                   ) : (
                     <>Nothing is being reused, so this is a full run — the next step asks you to type <b>{ticker}</b> to confirm. Click a module above to keep its existing output instead.</>
                   )}

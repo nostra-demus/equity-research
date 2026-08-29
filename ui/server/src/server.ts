@@ -13,7 +13,7 @@ import multipart from '@fastify/multipart'
 import { execa } from 'execa'
 import Fastify, { type FastifyInstance, type FastifyReply, type FastifyRequest } from 'fastify'
 import { z } from 'zod'
-import { providerDeployPending } from './deploy-barrier'
+import { providerDeployIntentPath, providerDeployPending } from './deploy-barrier'
 import { readActivity, ACTIVITY_FILTER_KINDS, ACTIVITY_FILTER_STATUSES } from './activity-log'
 import { recordDataChange, syncingState, SYNC_WINDOW_MS } from './data-activity'
 import { buildReportHtml, parseMeta, safeName } from './export'
@@ -122,6 +122,13 @@ import {
   markRunPlanStarted, readRunPlanRequest,
 } from './run-plan-admission'
 import { prepareRunPlanTransaction, recoverRunPlanTransactions } from './run-plan-transaction'
+import {
+  cancelPendingAdmission, deploymentFailedAfter, deploymentSucceededAfter, enqueuePendingAdmission, listPendingAdmissions,
+  markPendingAdmissionAdmitting, markPendingAdmissionNeedsAttention, markPendingAdmissionStarted,
+  markPendingAdmissionWaiting, pendingDeployCommit, pendingPlanDifference,
+  pendingPlanMayAutoStart,
+  readPendingAdmission, type PendingAdmissionRecord,
+} from './pending-admission'
 import { beginExactModuleSupervisorPause, settleExactModuleSupervisorPause } from './exact-module-supervisor-pause'
 import {
   acquireModulePublicationLease,
@@ -299,6 +306,49 @@ function startSSE(reply: FastifyReply) {
 app.get('/api/health', async (_req, reply) => {
   reply.header('cache-control', 'no-store')
   return { ok: true, repoRoot: REPO_ROOT, deploymentPending: providerDeployPending(STATE_DIR) }
+})
+
+// Durable launch intent is intentionally separate from the run registry: waiting for an update has not
+// admitted provider work and must never manufacture a runId or a fake active run. Activity reads this small
+// queue beside the live registry, and a restart reads the same owner-only receipts from STATE_DIR.
+app.get('/api/pending-admissions', async (req, reply) => {
+  reply.header('cache-control', 'no-store')
+  const { user } = identify(req)
+  const admin = isDispatchAdmin(user)
+  return {
+    requests: listPendingAdmissions(STATE_DIR, true)
+      .filter((record) => record.status !== 'started' && record.status !== 'cancelled' && (admin || record.user === user))
+      .map((record) => ({
+        requestId: record.requestId,
+        user: record.user,
+        userVia: record.userVia,
+        ticker: record.ticker,
+        action: record.action,
+        sourceRunRoot: record.sourceRunRoot,
+        provider: record.provider,
+        model: record.model,
+        reasoningLevel: record.reasoningLevel,
+        expectedProfileKey: record.expectedProfileKey,
+        status: record.status,
+        createdAt: record.createdAt,
+        updatedAt: record.updatedAt,
+        attention: record.attention,
+        planDifference: record.planDifference,
+      })),
+  }
+})
+
+app.post('/api/pending-admissions/:requestId/cancel', { config: { rateLimit: { max: 30, timeWindow: '1 minute' } } }, async (req, reply) => {
+  if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request blocked' })
+  const requestId = String((req.params as any)?.requestId || '')
+  if (!/^[0-9a-f-]{36}$/i.test(requestId)) return reply.code(400).send({ error: 'invalid request id' })
+  const { user } = identify(req)
+  try {
+    const request = cancelPendingAdmission(requestId, { user, isAdmin: isDispatchAdmin(user) })
+    return { ok: true, request }
+  } catch (error: any) {
+    return reply.code(error?.statusCode || 409).send({ error: error?.message || 'could not cancel the waiting request' })
+  }
 })
 
 // One shared, read-only Memory view for research, screener and commodity. The reader owns the fixed
@@ -959,6 +1009,9 @@ const ResearchLaunchBody = z.object({
   window: z.enum(['30d', '90d', '180d', '365d', '24m', '36m', 'ad-hoc', 'post-mortem']).optional(),
   model: z.string().regex(/^[a-z0-9.\-]{1,40}$/i).optional(),
   confirmTicker: z.string().optional(),
+  // A confirmed full-run click carries one durable identity so an update can queue it without creating a
+  // fake run. Older clients may omit it while no deployment is pending; queuing fails closed without it.
+  requestId: z.string().uuid().optional(),
   // "Run anyway": stop any in-flight run on this ticker that holds the lock, then launch (overwrite OK).
   force: z.boolean().optional(),
   runRoot: z.string().min(1).max(300).optional(),
@@ -1638,7 +1691,7 @@ app.post('/api/launch', { config: { rateLimit: { max: 60, timeWindow: '1 minute'
   // ---- research kinds (pre-swarm contract, unchanged) ----
   const parsed = ResearchLaunchBody.safeParse(req.body)
   if (!parsed.success) return reply.code(400).send({ error: 'invalid body', detail: parsed.error.flatten() })
-  const { ticker, module, agent, provider, reasoningLevel, model, expectedProfileKey, confirmTicker, runRoot, decisionFingerprint } = parsed.data
+  const { ticker, module, agent, provider, reasoningLevel, model, expectedProfileKey, confirmTicker, requestId, runRoot, decisionFingerprint } = parsed.data
   const rkind = parsed.data.kind
   if (parsed.data.memoryIdentity && parsed.data.memoryIdentity.ticker !== ticker) {
     return reply.code(400).send({ error: 'memory identity ticker does not match the research subject' })
@@ -1677,8 +1730,64 @@ app.post('/api/launch', { config: { rateLimit: { max: 60, timeWindow: '1 minute'
     : null
   if (rkind === 'rerun' && !exactBinding) return reply.code(409).send({ error: 'selected_decision_required' })
 
+  // A request id first seen during an update remains authoritative after the update. Replaying the old
+  // browser POST can only replay its durable result; it can never fall through to a second ordinary launch.
+  if (rkind === 'full' && requestId) {
+    const pending = readPendingAdmission(requestId)
+    if (pending) {
+      const sameIntent = pending.user === user && pending.ticker === ticker && pending.action === 'full'
+        && pending.provider === provider && pending.model === model && pending.reasoningLevel === reasoningLevel
+        && pending.expectedProfileKey === expectedProfileKey
+      if (!sameIntent) return reply.code(409).send({ error: 'This request id belongs to a different waiting launch.', code: 'request_reused' })
+      if (pending.status === 'started' && pending.response) return pending.response
+      if (pending.status === 'waiting_for_update') return reply.code(202).send({ queued: true, requestId, status: pending.status, ticker, action: 'full', provider, expectedProfileKey })
+      if (pending.status === 'cancelled') return reply.code(409).send({ error: 'This waiting request was cancelled. Start a new request if you still want to run it.', code: 'request_cancelled' })
+      return reply.code(409).send({
+        error: pending.attention || 'This request is already being admitted. Check Activity; it will not be started twice.',
+        code: pending.status === 'needs_attention' ? 'request_needs_attention' : 'request_in_progress',
+      })
+    }
+  }
+
   try {
     return await withSubjectLock(subjectMutationLockKey(RESEARCH_SWARM_ID, ticker), async () => {
+      if (rkind === 'full' && providerDeployPending(STATE_DIR)) {
+        if (!requestId) {
+          return reply.code(503).send({
+            error: 'The engine is updating. Refresh once so this confirmed run can receive a durable request id.',
+            code: 'durable_request_id_required',
+          })
+        }
+        // Convert the confirmed full-run click into the same exact transactional plan contract used by
+        // Continue. `reuse: []` is deliberate and typed-confirmed; after deployment it can never be mistaken
+        // for, or widened from, a saved-root continuation.
+        const selection = { provider, model, reasoningLevel, expectedProfileKey }
+        const plan = await thesisPlanForRequest(ticker, RESEARCH_SWARM_ID, [], undefined, selection)
+        if (plan.complete) {
+          return reply.code(409).send({ error: 'Today’s run already has a final thesis.', code: 'already_complete', path: plan.finalReportPath })
+        }
+        const requestedDeployCommit = pendingDeployCommit(providerDeployIntentPath(STATE_DIR))
+        if (!requestedDeployCommit) {
+          return reply.code(503).send({ error: 'The update identity could not be verified. Nothing was queued or started.', code: 'deployment_identity_unavailable' })
+        }
+        const queued = enqueuePendingAdmission({
+          requestId, user, userVia, ticker, action: 'full',
+          provider, model, reasoningLevel, expectedProfileKey,
+          reuse: [],
+          originalPlan: plan.continuationReceipt,
+          requestedDeployCommit,
+        })
+        if (queued.kind === 'conflict') {
+          return reply.code(409).send({ error: 'This request id belongs to a different waiting launch.', code: 'request_reused' })
+        }
+        if (queued.record.status === 'cancelled') {
+          return reply.code(409).send({ error: 'This waiting request was cancelled. Start a new request if you still want to run it.', code: 'request_cancelled' })
+        }
+        return reply.code(202).send({
+          queued: true, requestId, status: queued.record.status,
+          ticker, action: 'full', provider, expectedProfileKey,
+        })
+      }
       const out = await launch({ kind: rkind, ticker, module, agent, window, provider, reasoningLevel, model, expectedProfileKey, user, userVia, force: parsed.data.force,
         memoryIdentity: parsed.data.memoryIdentity,
         ...(exactBinding ? { ...exactBinding, decisionRunRoot: exactBinding.runRoot } : {}) })
@@ -1687,6 +1796,33 @@ app.post('/api/launch', { config: { rateLimit: { max: 60, timeWindow: '1 minute'
         : out
     })
   } catch (e: any) {
+    // Close the last check/acquire race: deploy intent can land after the under-lock precheck but before
+    // launch acquires its retained shared lease. That refusal proves no provider child started, so the
+    // separately typed full-run request may still become the same durable pending admission.
+    const deployRace = e?.code === 'deployment_in_progress' || e?.body?.code === 'deployment_in_progress'
+    if (rkind === 'full' && requestId && deployRace && providerDeployPending(STATE_DIR)) {
+      try {
+        return await withSubjectLock(subjectMutationLockKey(RESEARCH_SWARM_ID, ticker), async () => {
+          const requestedDeployCommit = pendingDeployCommit(providerDeployIntentPath(STATE_DIR))
+          if (!requestedDeployCommit) {
+            return reply.code(503).send({ error: 'The update identity could not be verified. Nothing was queued or started.', code: 'deployment_identity_unavailable' })
+          }
+          const selection = { provider, model, reasoningLevel, expectedProfileKey }
+          const plan = await thesisPlanForRequest(ticker, RESEARCH_SWARM_ID, [], undefined, selection)
+          if (plan.complete) return reply.code(409).send({ error: 'Today’s run already has a final thesis.', code: 'already_complete', path: plan.finalReportPath })
+          const queued = enqueuePendingAdmission({
+            requestId, user, userVia, ticker, action: 'full', provider, model, reasoningLevel,
+            expectedProfileKey, reuse: [], originalPlan: plan.continuationReceipt, requestedDeployCommit,
+          })
+          if (queued.kind === 'conflict') return reply.code(409).send({ error: 'This request id belongs to a different waiting launch.', code: 'request_reused' })
+          if (queued.record.status === 'cancelled') return reply.code(409).send({ error: 'This waiting request was cancelled. Start a new request if you still want to run it.', code: 'request_cancelled' })
+          return reply.code(202).send({ queued: true, requestId, status: queued.record.status, ticker, action: 'full', provider, expectedProfileKey })
+        })
+      } catch (queueError: any) {
+        if (queueError instanceof SubjectBusyError) return reply.code(409).send({ error: `Another request for ${ticker} is preparing a run. Wait for it to finish before retrying.`, code: 'subject_busy' })
+        return fail(queueError)
+      }
+    }
     if (e instanceof SubjectBusyError) {
       return reply.code(409).send({ error: `Another request for ${ticker} is preparing a run. Wait for it to finish before retrying.`, code: 'subject_busy' })
     }
@@ -2751,10 +2887,13 @@ app.post('/api/thesis-plan/run', { config: { rateLimit: { max: 20, timeWindow: '
     }
   }
 
-  // This may wait on a cold CLI probe, so do it before the subject lock and before creating a request or
-  // transaction. launch() repeats the availability/binding check at the paid boundary.
-  try { await assertProviderAvailable(provider) } catch (e: any) {
-    return reply.code(e?.statusCode || 503).send({ error: e?.message || 'engine CLI unavailable', code: e?.code })
+  // A reviewed deployment intentionally closes provider admission while this healthy process still serves
+  // planning reads. Do not probe/reject the provider in that window: the exact request is persisted below
+  // and availability is re-checked on the deployed program before any provider child can start.
+  if (!providerDeployPending(STATE_DIR)) {
+    try { await assertProviderAvailable(provider) } catch (e: any) {
+      return reply.code(e?.statusCode || 503).send({ error: e?.message || 'engine CLI unavailable', code: e?.code })
+    }
   }
 
   // Reserve this ticker across the final plan CAS, durable claim, private preparation, and launch admission.
@@ -2793,12 +2932,53 @@ app.post('/api/thesis-plan/run', { config: { rateLimit: { max: 20, timeWindow: '
       const bad = reuse.filter((m) => !allowed.has(m))
       if (bad.length) return reply.code(400).send({ error: `cannot reuse a module that never finished: ${bad.join(', ')}`, code: 'unreusable' })
 
-      // When NOTHING is reused this is a bit-for-bit full run — same orbs, same $55-130, same commits pushed to
-      // main. The "it's already an explicit priced click" argument only justifies dropping the typed-ticker guard
+      // When NOTHING is reused this is a bit-for-bit full run — same payable orbs and same publication scope.
+      // The "it's already an explicit reviewed click" argument only justifies dropping the typed-ticker guard
       // when the run is genuinely smaller than a full one. So the guard comes back exactly when the run is a full
       // one, and the panel routes that case to the normal full-run confirm dialog.
       if (!sourceRunRoot && plan.reuse.length === 0 && confirmTicker !== ticker) {
         return reply.code(412).send({ error: 'nothing is being reused — this is a full run and needs typed confirmation', code: 'needs_typed_confirm' })
+      }
+
+      if (providerDeployPending(STATE_DIR)) {
+        // The durable update queue supports the two user-level actions whose scope is unambiguous here:
+        // Continue one exact saved root, or a separately typed full run. A general multi-root completion
+        // request remains review-bound and retries after the update rather than being renamed as either.
+        const action = sourceRunRoot ? 'continue' : plan.reuse.length === 0 ? 'full' : null
+        if (!action) {
+          return reply.code(503).send({
+            error: 'The engine is updating. This completion plan was not queued because it is neither one exact saved run nor a full run.',
+            code: 'deployment_in_progress',
+          })
+        }
+        const requestedDeployCommit = pendingDeployCommit(providerDeployIntentPath(STATE_DIR))
+        if (!requestedDeployCommit) {
+          return reply.code(503).send({ error: 'The update identity could not be verified. Nothing was queued or started.', code: 'deployment_identity_unavailable' })
+        }
+        const queued = enqueuePendingAdmission({
+          requestId, user, userVia, ticker, action,
+          ...(sourceRunRoot ? { sourceRunRoot } : {}),
+          provider, model, reasoningLevel, expectedProfileKey,
+          reuse: plan.reuse,
+          originalPlan: plan.continuationReceipt,
+          requestedDeployCommit,
+        })
+        if (queued.kind === 'conflict') {
+          return reply.code(409).send({ error: 'This request id belongs to a different waiting launch.', code: 'request_reused' })
+        }
+        if (queued.record.status === 'cancelled') {
+          return reply.code(409).send({ error: 'This waiting request was cancelled. Start a new request if you still want to run it.', code: 'request_cancelled' })
+        }
+        return reply.code(202).send({
+          queued: true,
+          requestId,
+          status: queued.record.status,
+          ticker,
+          action,
+          sourceRunRoot: queued.record.sourceRunRoot,
+          provider,
+          expectedProfileKey,
+        })
       }
 
       const claim = await claimRunPlanRequest(requestIntent)
@@ -2861,6 +3041,158 @@ app.post('/api/thesis-plan/run', { config: { rateLimit: { max: 20, timeWindow: '
     throw e
   }
 })
+
+let pendingAdmissionDrainRunning = false
+let pendingAdmissionTimer: ReturnType<typeof setInterval> | null = null
+
+function pendingAdmissionHeaders(record: PendingAdmissionRecord): Record<string, string> {
+  return {
+    'content-type': 'application/json',
+    ...(record.userVia === 'cf-access' ? { 'cf-access-authenticated-user-email': record.user } : {}),
+  }
+}
+
+async function drainOnePendingAdmission(record: PendingAdmissionRecord): Promise<void> {
+  if (record.status === 'cancelled' || record.status === 'started' || record.status === 'needs_attention') return
+  if (providerDeployPending(STATE_DIR)) {
+    if (record.status !== 'waiting_for_update') markPendingAdmissionWaiting(record.requestId)
+    return
+  }
+  const failedDeploy = deploymentFailedAfter(record.createdAt)
+  if (failedDeploy) {
+    markPendingAdmissionNeedsAttention(record.requestId,
+      'The reviewed update failed health checks and production stayed on its last healthy version. This request was not started.')
+    return
+  }
+  if (!await deploymentSucceededAfter(record.createdAt, record.requestedDeployCommit)) {
+    if (record.status !== 'waiting_for_update') {
+      markPendingAdmissionWaiting(record.requestId, 'Waiting for the deployer’s healthy release receipt.')
+    }
+    return
+  }
+
+  // Reconcile an ACK that may have landed just before a process restart. A started request is never retried,
+  // even when the final HTTP response was lost; an admitted response can be projected back into Activity.
+  const request = await readRunPlanRequest(record.requestId)
+  if ((request?.status === 'admitted' || request?.status === 'started') && request.response) {
+    markPendingAdmissionStarted(record.requestId, request.runId, request.response)
+    return
+  }
+  if (request?.status === 'started') {
+    markPendingAdmissionNeedsAttention(record.requestId, 'The provider child started, but its launch response was interrupted. Check Activity; this request will not retry.')
+    return
+  }
+  if (request?.status === 'claimed') {
+    markPendingAdmissionNeedsAttention(record.requestId, 'Admission was interrupted before its durable outcome could be proven. It will not retry automatically.')
+    return
+  }
+
+  // This synchronous transition is the cancellation cut-off. Once Activity says "Starting after update",
+  // Cancel must fail; before it, Cancel wins and this stale drain snapshot exits without resurrecting it.
+  const admitting = markPendingAdmissionAdmitting(record.requestId)
+  if (admitting.status !== 'admitting') return
+
+  const fields = new URLSearchParams({
+    ticker: record.ticker,
+    swarm: RESEARCH_SWARM_ID,
+    provider: record.provider,
+  })
+  if (record.model) fields.set('model', record.model)
+  if (record.reasoningLevel) fields.set('reasoningLevel', record.reasoningLevel)
+  if (record.expectedProfileKey) fields.set('expectedProfileKey', record.expectedProfileKey)
+  if (record.action === 'continue') fields.set('runRoot', record.sourceRunRoot!)
+  else fields.set('reuse', '') // a separately typed full run may never inherit newly reusable work
+
+  const plannedResponse = await app.inject({ method: 'GET', url: `/api/thesis-plan?${fields.toString()}`, headers: pendingAdmissionHeaders(record) })
+  const planned = (() => { try { return plannedResponse.json() as any } catch { return {} } })()
+  if (plannedResponse.statusCode !== 200) {
+    const code = String(planned?.code || '')
+    if (code === 'deployment_in_progress') markPendingAdmissionWaiting(record.requestId, planned?.error)
+    else markPendingAdmissionNeedsAttention(record.requestId, planned?.error || 'The saved plan could not be rebuilt after the update.')
+    return
+  }
+  const receipt = planned?.continuationReceipt
+  const expectedAction = record.action === 'continue' ? 'continue' : 'complete'
+  if (!receipt || receipt.version !== 1 || receipt.action !== expectedAction
+      || receipt.subject !== record.ticker || receipt.provider?.id !== record.provider
+      || (record.action === 'continue' && (receipt.targetRunRoot !== record.sourceRunRoot || planned.complete))) {
+    markPendingAdmissionNeedsAttention(record.requestId,
+      record.action === 'continue'
+        ? 'The exact saved run is completed, sealed, or no longer matches the reviewed continuation. Nothing was started.'
+        : 'The full-run plan changed shape after the update. Nothing was started.')
+    return
+  }
+
+  const difference = pendingPlanDifference(record.originalPlan, receipt)
+  markPendingAdmissionAdmitting(record.requestId, difference)
+  if (!pendingPlanMayAutoStart(record.action, difference)) {
+    markPendingAdmissionNeedsAttention(record.requestId,
+      `The update added ${difference.addedPayableOrbKeys.length} paid item${difference.addedPayableOrbKeys.length === 1 ? '' : 's'} to this saved run. Nothing was started; review the updated Continue plan first.`)
+    return
+  }
+  // A second reviewed deployment can publish writer intent after the planning GET. Do not send the old
+  // receipt into the route and let its durable enqueue boundary collide with this request id; leave this
+  // exact user intent waiting for the newest healthy release, then rebuild it once more.
+  if (providerDeployPending(STATE_DIR)) {
+    markPendingAdmissionWaiting(record.requestId, 'A newer reviewed update is now waiting. This request remains queued.')
+    return
+  }
+  const postBody = {
+    ticker: record.ticker,
+    reuse: Array.isArray(planned.reuse) ? planned.reuse : [],
+    swarm: RESEARCH_SWARM_ID,
+    requestId: record.requestId,
+    continuationReceipt: receipt,
+    ...(record.action === 'continue' ? { sourceRunRoot: record.sourceRunRoot } : { confirmTicker: record.ticker }),
+    provider: record.provider,
+    ...(record.model ? { model: record.model } : {}),
+    ...(record.reasoningLevel ? { reasoningLevel: record.reasoningLevel } : {}),
+    ...(record.expectedProfileKey ? { expectedProfileKey: record.expectedProfileKey } : {}),
+  }
+  const admittedResponse = await app.inject({
+    method: 'POST', url: '/api/thesis-plan/run', headers: pendingAdmissionHeaders(record), payload: postBody,
+  })
+  const admitted = (() => { try { return admittedResponse.json() as any } catch { return {} } })()
+  if (admittedResponse.statusCode === 202 || admitted?.code === 'deployment_in_progress'
+      || (admitted?.code === 'request_reused' && providerDeployPending(STATE_DIR))) {
+    markPendingAdmissionWaiting(record.requestId, 'A newer reviewed update is now waiting. This request remains queued.')
+    return
+  }
+  if (admittedResponse.statusCode >= 200 && admittedResponse.statusCode < 300) {
+    markPendingAdmissionStarted(record.requestId, typeof admitted.runId === 'string' && admitted.runId ? admitted.runId : undefined, admitted)
+    return
+  }
+  const code = String(admitted?.code || '')
+  if (code === 'request_in_progress') {
+    markPendingAdmissionNeedsAttention(record.requestId, 'Admission may already have started. Check Activity; this request will not retry.')
+    return
+  }
+  markPendingAdmissionNeedsAttention(record.requestId,
+    admitted?.error || 'The post-update admission failed before a provider child could be proven started.')
+}
+
+async function drainPendingAdmissionsOnce(): Promise<void> {
+  if (pendingAdmissionDrainRunning || providerDeployPending(STATE_DIR)) return
+  pendingAdmissionDrainRunning = true
+  try {
+    // Oldest first makes two user clicks deterministic. Subject locking and the ordinary launcher capacity
+    // checks remain authoritative; a refusal becomes Needs attention rather than silently reordering spend.
+    for (const record of listPendingAdmissions()) {
+      try { await drainOnePendingAdmission(record) }
+      catch (error: any) {
+        try { markPendingAdmissionNeedsAttention(record.requestId, error?.message || 'could not admit the waiting request') } catch {}
+      }
+      if (providerDeployPending(STATE_DIR)) break
+    }
+  } finally { pendingAdmissionDrainRunning = false }
+}
+
+function startPendingAdmissionDrain(): void {
+  if (pendingAdmissionTimer) return
+  void drainPendingAdmissionsOnce()
+  pendingAdmissionTimer = setInterval(() => { void drainPendingAdmissionsOnce() }, 2_000)
+  pendingAdmissionTimer.unref?.()
+}
 
 const MODULE_RESUME_PUBLISH_TIMEOUT_MS = 20 * 60_000
 
@@ -3613,8 +3945,8 @@ app.post('/api/intake-plan/run-exact', { config: { rateLimit: { max: 20, timeWin
         return reply.code(409).send({ error: 'The plan\'s entry orbs no longer match the roster — re-run the new-data analysis.', code: 'plan_stale', dropped: staged.droppedEntries })
       }
       // Nothing on disk to scope AGAINST (no finished module was carried whole or with holes): the launch
-      // below would be a bare full run wearing a "scoped" label — a hidden $55-130 spend with none of the
-      // full-run path's typed-ticker confirmation. Refuse and point at the honest button for that.
+      // below would be a bare full run wearing a "scoped" label, with none of the full-run path's explicit
+      // consent or typed-ticker confirmation. Refuse and point at the honest button for that.
       if (staged.scoped.length === 0 && staged.carried.length === 0) {
         return reply.code(409).send({ error: 'No finished run to scope against — this would be a plain full run. Use "Complete the thesis" for that.', code: 'nothing_to_scope' })
       }
@@ -7356,6 +7688,7 @@ let shuttingDown = false
 async function shutdown(signal: string, code = 0) {
   if (shuttingDown) return
   shuttingDown = true
+  if (pendingAdmissionTimer) { clearInterval(pendingAdmissionTimer); pendingAdmissionTimer = null }
   // eslint-disable-next-line no-console
   console.log(`[swarm-cockpit] ${signal} — draining ${liveResponses.size} live stream(s), exit ${code}`)
   // Keep the singleton while provider groups drain. Exiting on a wall-clock timer would orphan the
@@ -7403,7 +7736,13 @@ async function start() {
   installProcessHandlers()
   // A crash between atomic root activation and provider start must not leave a fake resumable run. Restore
   // every transaction that lacks a durable `started` receipt before any route or supervisor can inspect it.
-  await recoverRunPlanTransactions()
+  const transactionRecovery = await recoverRunPlanTransactions()
+  for (const requestId of transactionRecovery.started) {
+    try { await markRunPlanStarted(requestId) } catch { /* no adjacent request receipt: transaction remains the spend seal */ }
+  }
+  for (const requestId of transactionRecovery.rolledBack) {
+    try { await markRunPlanFailedBeforeStart(requestId, 'process restarted before a provider child started') } catch {}
+  }
   startRuntimeBindings()
   // A process crash can leave private media behind. Before accepting any request on a restart, remove every
   // abandoned Reel temp directory; there cannot be a live transcription owned by this new process yet.
@@ -7438,6 +7777,10 @@ async function start() {
     void warmFacets(REPO_ROOT, { archiveDir: NEWS.newsArchiveDir })
     // warm the once-per-process claude CLI probes so the FIRST launch click doesn't pay them (~1-4s)
     void warmLaunchProbes()
+    // A queued Run/Continue intent survives the engine restart in STATE_DIR. Drain only after the new
+    // process is serving healthy reads; the deployment writer-intent keeps this loop inert until the
+    // deployer has completed health verification and released its exclusive lifecycle barrier.
+    startPendingAdmissionDrain()
     // autonomous news ingester (screener swarm): fills a ranked inbox 24/7 at ~$0 when GROQ_API_KEY
     // is set; stays dark otherwise. Never launches a paid run — promotion is the human's one click.
     startNewsIngester()

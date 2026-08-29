@@ -155,10 +155,17 @@ async function restoreUnstarted(workspace: string, journal: TransactionJournal):
   if (await pathEntryExists(preparedAbs)) await removeTreeInside(workspace, preparedAbs)
 }
 
-/** Recover only transactions proven not to have crossed the paid-child spawn boundary. */
-export async function recoverRunPlanTransactions(stateDir: string = STATE_DIR): Promise<void> {
+export interface RunPlanTransactionRecovery {
+  started: string[]
+  rolledBack: string[]
+}
+
+/** Recover only transactions proven not to have crossed the paid-child spawn boundary, and return exact
+ * request ids so the adjacent idempotency receipt is reconciled before any retry is accepted. */
+export async function recoverRunPlanTransactions(stateDir: string = STATE_DIR): Promise<RunPlanTransactionRecovery> {
+  const recovered: RunPlanTransactionRecovery = { started: [], rolledBack: [] }
   const root = journalRoot(stateDir)
-  if (!await pathEntryExists(root)) return
+  if (!await pathEntryExists(root)) return recovered
   if (!await safeDirectory(root)) throw new Error('run-plan transaction journal root is unsafe')
   for (const name of await fs.promises.readdir(root)) {
     if (!REQUEST_ID.test(name)) continue
@@ -171,12 +178,18 @@ export async function recoverRunPlanTransactions(stateDir: string = STATE_DIR): 
         await removeTreeInside(workspace, path.join(workspace, 'previous-root'))
         await removeTreeInside(workspace, path.join(workspace, 'prepared-root'))
       }
+      recovered.started.push(journal.requestId)
       continue
     }
-    if (journal.status === 'spawning') continue
+    if (journal.status === 'spawning') {
+      recovered.started.push(journal.requestId)
+      continue
+    }
     if (await pathEntryExists(workspace)) await restoreUnstarted(workspace, journal)
     await writeJournal(journalDirectory, { ...journal, status: 'rolled_back' })
+    recovered.rolledBack.push(journal.requestId)
   }
+  return recovered
 }
 
 export async function prepareRunPlanTransaction(

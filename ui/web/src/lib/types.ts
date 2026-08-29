@@ -2412,6 +2412,13 @@ export interface LaunchPreflight {
   agentCount: number
   estCostUsdRange: [number, number]
   estMinutesRange: [number, number]
+  estimateEvidence?: {
+    source: 'comparable_completed_runs' | 'unavailable'
+    provider: import('./provider').RunProvider
+    profileKey: string
+    durationSampleSize: number
+    costSampleSize: number
+  }
   willCommitToMain: boolean
   estCommits: number
   requiresTypedConfirm: boolean
@@ -3269,6 +3276,30 @@ export interface ActivityResult {
   tickers: string[]
   tickerLabels?: Record<string, string> // subject id -> readable label (for the rows/dropdown that have one)
   earliest: number | null
+}
+
+export type PendingAdmissionStatus = 'waiting_for_update' | 'admitting' | 'needs_attention'
+export interface PendingAdmission {
+  requestId: string
+  user: string
+  userVia: 'cf-access' | 'local'
+  ticker: string
+  action: 'continue' | 'full'
+  sourceRunRoot?: string
+  provider: import('./provider').RunProvider
+  model?: string
+  reasoningLevel?: string
+  expectedProfileKey?: string
+  status: PendingAdmissionStatus
+  createdAt: string
+  updatedAt: string
+  attention?: string
+  planDifference?: {
+    beforeFingerprint: string
+    afterFingerprint: string
+    addedPayableOrbKeys: string[]
+    removedPayableOrbKeys: string[]
+  }
 }
 
 export interface UsageWindow { utilization?: number; resetsAt?: number; status?: string; isUsingOverage?: boolean }

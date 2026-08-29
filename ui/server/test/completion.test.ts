@@ -102,10 +102,13 @@ const { buildSwarmGraph } = await import('../src/roster')
   assert.equal(p.complete, false)
   assert.equal(p.canCarry, true)
 
-  // The savings must be real, not cosmetic: completing costs strictly less than a naive full re-run.
-  assert.ok(p.preflight.estCostUsdRange[1] < p.fullPreflight.estCostUsdRange[1], 'scoped cost < full re-run cost')
+  // Savings are proven by exact payable scope. With no comparable completed subset in this isolated
+  // fixture, the engine must refuse an invented cost band instead of scaling a full-run guess.
+  assert.equal(p.preflight.estimateEvidence.source, 'unavailable')
+  assert.deepEqual(p.preflight.estCostUsdRange, [0, 0])
+  assert.deepEqual(p.preflight.estMinutesRange, [0, 0])
   assert.ok(p.preflight.agentCount < p.fullPreflight.agentCount, 'scoped agent count < full')
-  console.log('✅ cross-folder reuse detected; only the missing module is priced')
+  console.log('✅ cross-folder reuse detected; only the missing module is payable, with no invented estimate')
 }
 
 // ---- 1b. the continuation receipt binds artifacts, data, provider/profile, and exact work ------------
@@ -322,13 +325,15 @@ const { buildSwarmGraph } = await import('../src/roster')
   assert.deepEqual(none.preflight.estMinutesRange, none.fullPreflight.estMinutesRange, 'reuse nothing ⇒ exactly the full-run time')
   assert.equal(none.preflight.agentCount, none.fullPreflight.agentCount, 'reuse nothing ⇒ every orb runs')
 
-  // …and reusing something must cost strictly less on every axis.
+  // …and reusing something narrows the exact payable scope. A partial dependency graph is not linearly
+  // comparable to a full run, so the estimate remains unavailable until real matching history exists.
   const some = thesisPlan('PRICING')
   assert.deepEqual(some.reuse, ['alpha'])
   assert.ok(some.preflight.agentCount < some.fullPreflight.agentCount)
-  assert.ok(some.preflight.estMinutesRange[1] < some.fullPreflight.estMinutesRange[1])
+  assert.equal(some.preflight.estimateEvidence.source, 'unavailable')
+  assert.deepEqual(some.preflight.estMinutesRange, [0, 0])
   assert.equal(some.swarm, 'research', 'the plan names its swarm so the client can match POSITIVELY on research')
-  console.log('✅ scoped pricing reconciles with the full-run band at both extremes')
+  console.log('✅ scoped pricing uses exact orb counts and withholds unsupported partial-run bands')
 }
 
 // ---- 11. newer target-root specialist work refreshes only the synthesis -----------------------------

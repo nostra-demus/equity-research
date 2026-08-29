@@ -37,13 +37,25 @@ export function ActivityDock() {
   const closeActivity = useStore((s) => s.closeActivity)
   const activeRuns = useStore((s) => s.activeRuns)
   const launchPending = useStore((s) => s.launchPending)
+  const pendingAdmissions = useStore((s) => s.pendingAdmissions)
+  const refreshPendingAdmissions = useStore((s) => s.refreshPendingAdmissions)
   const ticker = useStore((s) => s.selectedTicker)
   const activeSwarm = useStore((s) => s.activeSwarm)
   const scSelectedSignal = useStore((s) => s.scSelectedSignal)
 
   const runs = runsForScope(activeRuns, activeSwarm, ticker)
   const pending = pendingForScope(launchPending, activeSwarm, ticker)
-  const live = anyLiveIn(runs, pending)
+  const queuedHere = activeSwarm === 'research'
+    ? pendingAdmissions.filter((request) => !ticker || request.ticker === ticker)
+    : []
+  const waitingHere = queuedHere.filter((request) => request.status === 'waiting_for_update' || request.status === 'admitting')
+  const live = anyLiveIn(runs, pending) || waitingHere.length > 0
+
+  useEffect(() => {
+    void refreshPendingAdmissions()
+    const timer = window.setInterval(() => { void refreshPendingAdmissions() }, 3_000)
+    return () => window.clearInterval(timer)
+  }, [refreshPendingAdmissions])
 
   // Anything going live opens the dock — the "whenever things are run, this pops up" rule. It stays open
   // when the run finishes (the flag is set while live, not toggled on the finish transition), so you keep
@@ -104,7 +116,7 @@ export function ActivityDock() {
   if (!open) return null
 
   const scope = activeSwarm === 'screener' ? (scSelectedSignal ? `Screener · ${scSelectedSignal}` : 'Screener') : ticker || 'No company selected'
-  const liveCount = runs.filter((r) => r.status === 'running' || r.status === 'starting' || r.status === 'readiness-checking' || r.status === 'awaiting-readiness-decision').length
+  const liveCount = runs.filter((r) => r.status === 'running' || r.status === 'starting' || r.status === 'readiness-checking' || r.status === 'awaiting-readiness-decision').length + waitingHere.length
 
   return (
     <aside
@@ -142,7 +154,7 @@ export function ActivityDock() {
           </div>
           <div className="adock__sub">
             {live
-              ? `${liveCount || 1} running · ${scope}`
+              ? `${liveCount || 1} waiting or running · ${scope}`
               : hist.loading
                 ? scope
                 : `${scope} · ${hist.allTime} run${hist.allTime === 1 ? '' : 's'} ever`}

@@ -47,6 +47,7 @@ const originalLaunch = api.launch
 const originalLaunchSignal = api.launchSignal
 const originalThesisPlan = api.thesisPlan
 const originalRunThesisPlan = api.runThesisPlan
+const originalPendingAdmissions = api.pendingAdmissions
 
 try {
   let runLaunches = 0
@@ -132,6 +133,50 @@ try {
   assert.equal(useStore.getState().resumeConfirm?.selection.provider, 'claude')
   useStore.getState().cancelResume()
 
+  // A reviewed update turns the exact Continue into one durable waiting admission. It does not create
+  // a fake active run, lose the selected historical root, or fall through to generic Full.
+  let queuedRequestId = ''
+  api.runThesisPlan = (async (
+    ticker: string, _reuse: string[], _swarm: string, selection: any,
+    requestId: string, _receipt: any, sourceRunRoot?: string,
+  ) => {
+    queuedRequestId = requestId
+    completionSourceRoot = sourceRunRoot
+    return {
+      queued: true, requestId, status: 'waiting_for_update', ticker, action: 'continue',
+      sourceRunRoot, provider: selection.provider, expectedProfileKey: selection.expectedProfileKey,
+    } as any
+  }) as typeof api.runThesisPlan
+  api.pendingAdmissions = (async () => ({ requests: [{
+    requestId: queuedRequestId,
+    user: 'local',
+    userVia: 'local',
+    ticker: 'KAR',
+    action: 'continue',
+    sourceRunRoot: partialRun.runRoot,
+    provider: 'claude',
+    model: 'opus',
+    reasoningLevel: 'default',
+    expectedProfileKey: opusProfile.key,
+    status: 'waiting_for_update',
+    createdAt: '2026-08-29T00:00:00.000Z',
+    updatedAt: '2026-08-29T00:00:00.000Z',
+  }] })) as typeof api.pendingAdmissions
+  useStore.setState({
+    health: 'updating', providers, runProvider: 'claude',
+    runProfileKeys: { claude: opusProfile.key, codex: CODEX_EXECUTION_PROFILE.key },
+    resumeConfirm: null, launchPending: null, pendingAdmissions: [], activeRuns: {}, activityOpen: false,
+  })
+  await useStore.getState().resumeRun(partialRun)
+  await useStore.getState().confirmResume()
+  assert.ok(queuedRequestId, 'the queued Continue carries one idempotency key')
+  assert.equal(completionSourceRoot, partialRun.runRoot, 'queued Continue retains the exact saved root')
+  assert.equal(runLaunches, 0, 'queued Continue never widens into generic Full')
+  assert.deepEqual(Object.keys(useStore.getState().activeRuns), [], 'waiting admission is not presented as an active run')
+  assert.equal(useStore.getState().pendingAdmissions[0]?.requestId, queuedRequestId)
+  assert.equal(useStore.getState().pendingAdmissions[0]?.status, 'waiting_for_update')
+  assert.equal(useStore.getState().activityOpen, true, 'Activity opens on the truthful waiting request')
+
   let signalLaunches = 0
   let signalSelection: any = null
   api.launchSignal = (async (selection: any) => {
@@ -140,7 +185,7 @@ try {
     throw new Error('fixture stop after request capture')
   }) as typeof api.launchSignal
   useStore.setState({
-    activeSwarm: 'screener', runProvider: 'codex', providers,
+    health: 'online', activeSwarm: 'screener', runProvider: 'codex', providers,
     runProfileKeys: { claude: opusProfile.key, codex: CODEX_EXECUTION_PROFILE.key },
     resumeConfirm: null, launchPending: null, scSelectedSignal: 'SIG-CONFLICT',
     scRuntime: { finished: { status: 'done' } }, scNodesByKey: new Map(),
@@ -170,6 +215,7 @@ try {
   api.launchSignal = originalLaunchSignal
   api.thesisPlan = originalThesisPlan
   api.runThesisPlan = originalRunThesisPlan
+  api.pendingAdmissions = originalPendingAdmissions
   ;(globalThis as any).window = previousWindow
   ;(globalThis as any).document = previousDocument
   ;(globalThis as any).localStorage = previousStorage
