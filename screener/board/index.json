@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-29T12:44:52Z",
+  "generated_at": "2026-08-29T13:02:14Z",
   "inbox": [
     {
       "inbox_id": "INB-20260829-490",
@@ -138,6 +138,60 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260829-575",
+      "headline": "Temasek Backs Singapore Airlines’ Air India Investment Amid $1.5 Billion Funding Request",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/temasek-backs-singapore-airlines-air-india-investment-amid-15-billion-funding-request",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-29T12:19:25Z",
+      "sweep_file": "screener/inbox/2026-08-29_sweep.json",
+      "prelim_note": "Temasek backing Singapore Airlines' investment in Air India amid a $1.5 billion funding request suggests significant financial support and potential for growth in the Indian aviation market.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Temasek backing Singapore Airlines' investment in Air India amid a $1.5 billion funding request suggests significant financial support and potential for growth in the Indian aviation market.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Singapore Airlines",
+          "ticker": null,
+          "listing_country": "SG"
+        },
+        {
+          "name": "Air India",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1945,60 +1999,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260829-452",
-      "headline": "Nvidia acuerda comprar Hugging Face por 12.900 millones de dólares, según The Information",
-      "headline_en": "Nvidia agrees to buy Hugging Face for $12.9 billion, according to The Information",
-      "url": "https://www.reuters.com/es/negocio/D5Z2SRQQLJLGHELPSHJZXTKDA4-2026-08-27/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-27T06:59:45Z",
-      "sweep_file": "screener/inbox/2026-08-29_sweep.json",
-      "prelim_note": "Nvidia is reported to be acquiring Hugging Face for $12.9 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Nvidia is reported to be acquiring Hugging Face for $12.9 billion.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Hugging Face",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -106285,9 +106285,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 585878,
-    "news_picked_today": 1380,
-    "news_dropped_today": 5749
+    "news_seen_today": 586036,
+    "news_picked_today": 1395,
+    "news_dropped_today": 5868
   },
   "book_momentum": {
     "live_count": 8,
