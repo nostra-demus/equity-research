@@ -15,10 +15,10 @@
     "analyses/TSLA_2026-07-25/decision_record.json": "sha256:56d605436d0e6309024d6bb27d7c9ef0b38a91b9ae06975719ba0e51f188b21c",
     "analyses/UBER_2026-08-06/decision_record.json": "sha256:f592eb6a536caaa4508244d0d6528c483a1e430772f926a7c696b602f706d99d",
     "analyses/UBER_2026-08-09/decision_record.json": "sha256:40ba6a36690a0f66354ba87931fe4196f320aac592cdf4678cc694caf2b2b77a",
-    "commodity/runs/ALUMINIUM/decision_record.json": "sha256:69e17089f5f5b6a9a4ea512b12391beb77b7f86df01e352da6d1e439a094f1b1",
-    "commodity/runs/COPPER/decision_record.json": "sha256:3e146d918f3d5d3ec6870a4a2c20c766e15f7da153052d3a9a8d6f6f87c5427b",
-    "commodity/runs/GOLD/decision_record.json": "sha256:9675002e916ddf1c79aa7ed0ec192f58bb202010921d377d505c2e38b94cd75a",
-    "commodity/runs/WHEAT/decision_record.json": "sha256:7fe846cd3d50048ba282b4187443ecdaf122338ba99faba4588b92d82c879eb1",
+    "frameworks/execution_provenance_legacy_snapshots/commodity/ALUMINIUM/decision_record.json": "sha256:69e17089f5f5b6a9a4ea512b12391beb77b7f86df01e352da6d1e439a094f1b1",
+    "frameworks/execution_provenance_legacy_snapshots/commodity/COPPER/decision_record.json": "sha256:3e146d918f3d5d3ec6870a4a2c20c766e15f7da153052d3a9a8d6f6f87c5427b",
+    "frameworks/execution_provenance_legacy_snapshots/commodity/GOLD/decision_record.json": "sha256:9675002e916ddf1c79aa7ed0ec192f58bb202010921d377d505c2e38b94cd75a",
+    "frameworks/execution_provenance_legacy_snapshots/commodity/WHEAT/decision_record.json": "sha256:7fe846cd3d50048ba282b4187443ecdaf122338ba99faba4588b92d82c879eb1",
     "screener/runs/SIG-20260610-a3f2c81d/thesis_record.json": "sha256:c9fe0575a8bcbc03e6274319ebdabbe2e0cf872fa335a747905ccb5d09183b1e",
     "screener/runs/SIG-20260612-dd716589/thesis_record.json": "sha256:46d5d63e077e9947592081345a13c778b76687276dff3295c5ad3a1da20c58ea",
     "screener/runs/SIG-20260613-4bbcdeae/thesis_record.json": "sha256:7d085a22aa40f4aadb1d3c48e5981c1b3e97ab5384189c8ddf3aa4ab91059fd1",
@@ -40,6 +40,24 @@
     "screener/ledger/theses/THS-SIG-20260711-b55e8917-v1.json": "sha256:53da4e65c3d6a538e0bc03708ff2bc14858c27b0bc2499b393c1b8a25dde4681",
     "screener/ledger/theses/THS-SIG-20260804-da21208a-v1.json": "sha256:aa78de84f53ce767148c292d96472845220109c798aad7cd0ddb4d69d3b7dc0c"
   },
+  "mutable_legacy_projections": {
+    "commodity/runs/ALUMINIUM/decision_record.json": {
+      "archive": "frameworks/execution_provenance_legacy_snapshots/commodity/ALUMINIUM/decision_record.json",
+      "sha256": "sha256:69e17089f5f5b6a9a4ea512b12391beb77b7f86df01e352da6d1e439a094f1b1"
+    },
+    "commodity/runs/COPPER/decision_record.json": {
+      "archive": "frameworks/execution_provenance_legacy_snapshots/commodity/COPPER/decision_record.json",
+      "sha256": "sha256:3e146d918f3d5d3ec6870a4a2c20c766e15f7da153052d3a9a8d6f6f87c5427b"
+    },
+    "commodity/runs/GOLD/decision_record.json": {
+      "archive": "frameworks/execution_provenance_legacy_snapshots/commodity/GOLD/decision_record.json",
+      "sha256": "sha256:9675002e916ddf1c79aa7ed0ec192f58bb202010921d377d505c2e38b94cd75a"
+    },
+    "commodity/runs/WHEAT/decision_record.json": {
+      "archive": "frameworks/execution_provenance_legacy_snapshots/commodity/WHEAT/decision_record.json",
+      "sha256": "sha256:7fe846cd3d50048ba282b4187443ecdaf122338ba99faba4588b92d82c879eb1"
+    }
+  },
   "rollout_cutoff": "2026-08-21T00:00:00Z",
-  "schema_version": "1.0"
+  "schema_version": "1.1"
 }
