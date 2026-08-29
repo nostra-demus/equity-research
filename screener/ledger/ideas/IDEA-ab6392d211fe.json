@@ -1,7 +1,7 @@
 {
   "idea_id": "IDEA-ab6392d211fe",
-  "idea_version": "IDEAV-4303f9c968250a66",
-  "idea_version_started_at": "2026-08-27T11:49:33Z",
+  "idea_version": "IDEAV-4c803510a67fbf9f",
+  "idea_version_started_at": "2026-08-29T20:03:46Z",
   "ticker": "HDB",
   "company": "HDFC Bank",
   "exchange": "NYSE",
@@ -11,15 +11,15 @@
   "listing_verification_source": "yahoo_symbol_directory",
   "direction": "short",
   "pair_with": null,
-  "reason": "HDFC Bank's share price fell to a 52-week low following a US class action lawsuit alleging a bribery scheme.",
-  "why_now": "The lawsuit and subsequent share price drop occurred today.",
-  "conviction": 60,
+  "reason": "The unexpected departure of the CEO amid governance concerns introduces leadership uncertainty and potential institutional instability.",
+  "why_now": "The announcement was made on 2026-08-29, and the market has not yet fully priced in the potential for further management turnover.",
+  "conviction": 65,
   "conviction_basis": "pre_edge_proxy",
-  "trade_score": 60,
+  "trade_score": 62,
   "trade_score_basis": "evidence_gate_v2",
   "trade_score_breakdown": {
     "evidence": 14,
-    "impact": 19,
+    "impact": 18,
     "specificity": 15,
     "timing": 10,
     "expression": 6,
@@ -30,7 +30,6 @@
   "missing_checks": [
     "live liquidity",
     "dated catalyst",
-    "price and market expectations",
     "independent confirmation",
     "live price, liquidity, and consensus"
   ],
@@ -43,22 +42,22 @@
     "basis": "not_enough_outcomes",
     "evidenceIds": []
   },
-  "priced_in": "unknown",
-  "thesis_type": "company_specific",
+  "priced_in": "room",
+  "thesis_type": "governance_turnaround",
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-e6dcd8ef1d62"
+    "EVT-f2a0525428e6"
   ],
-  "primary_source_event_id": "EVT-e6dcd8ef1d62",
+  "primary_source_event_id": "EVT-f2a0525428e6",
   "source_headlines": [
-    "HDFC Bank Share Price Falls To 52-Week Low After US Class Action Lawsuit Over Alleged Bribery Scheme"
+    "HDFC Bank CEO Jagdishan opts out of reappointment amid governance concerns"
   ],
-  "source_headline": "HDFC Bank Share Price Falls To 52-Week Low After US Class Action Lawsuit Over Alleged Bribery Scheme",
-  "source_url": "https://www.ndtvprofit.com/markets/hdfc-bank-share-price-falls-after-us-class-action-lawsuit-over-alleged-bribery-scheme-11964590#publisher=newsstand",
-  "source_name": "NDTV Profit",
+  "source_headline": "HDFC Bank CEO Jagdishan opts out of reappointment amid governance concerns",
+  "source_url": "https://www.deccanherald.com/business/companies/hdfc-bank-ceo-jagdishan-opts-out-of-reappointment-amid-governance-concerns-4128372",
+  "source_name": "Deccan Herald",
   "materiality_max": 100,
-  "newest_source_at": "2026-08-27T08:26:43Z",
+  "newest_source_at": "2026-08-29T13:40:34Z",
   "prior_coverage": {
     "has_run": false,
     "latest_run": null,
@@ -66,8 +65,8 @@
     "data_pool_present": false
   },
   "surfaced_at": "2026-08-27T11:49:33Z",
-  "updated_at": "2026-08-27T11:49:33Z",
-  "decay_at": "2026-08-28T20:26:43Z",
+  "updated_at": "2026-08-29T20:03:46Z",
+  "decay_at": "2026-08-31T01:40:34Z",
   "status": "live",
   "promoted_signal_id": null
 }
