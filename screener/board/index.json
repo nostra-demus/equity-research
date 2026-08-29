@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-29T18:44:06Z",
+  "generated_at": "2026-08-29T18:54:19Z",
   "inbox": [
     {
       "inbox_id": "INB-20260829-490",
@@ -530,6 +530,56 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260829-647",
+      "headline": "Banco do Egito analisa notificação sobre sanção dos EUA; BC dos Emirados Árabes inicia investigação urgente",
+      "headline_en": "Bank of Egypt analyzes notification about US sanction; UAE Central Bank starts urgent investigation",
+      "url": "https://www.reuters.com/pt/mundo/PZTLEY75LBPSLKC5DDIFP4C5NM-2026-08-29/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-29T18:41:34Z",
+      "sweep_file": "screener/inbox/2026-08-29_sweep.json",
+      "prelim_note": "Banco do Egito is reviewing a US sanction notification, while the UAE Central Bank has launched an urgent investigation, indicating potential material regulatory and compliance risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Banco do Egito is reviewing a US sanction notification, while the UAE Central Bank has launched an urgent investigation, indicating potential material regulatory and compliance risk.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement",
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Banco do Egito",
+          "ticker": null,
+          "listing_country": "EG"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1939,60 +1989,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260829-294",
-      "headline": "Gap Spikes 15% as Raised Profit Outlook Overrides Trimmed Sales Forecast, Abercrombie & Fitch Ticks Up",
-      "headline_en": null,
-      "url": "https://247wallst.com/investing/2026/08/28/gap-spikes-15-as-raised-profit-outlook-overrides-trimmed-sales-forecast-abercrombie-fitch-ticks-up/",
-      "source_name": "24/7 Wall St.",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-28T14:02:24Z",
-      "sweep_file": "screener/inbox/2026-08-29_sweep.json",
-      "prelim_note": "Gap raised its profit outlook, which is a material event for its valuation, despite a trimmed sales forecast.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Gap raised its profit outlook, which is a material event for its valuation, despite a trimmed sales forecast.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 7,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Gap",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Abercrombie & Fitch",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -107837,9 +107833,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 587941,
-    "news_picked_today": 1673,
-    "news_dropped_today": 7475
+    "news_seen_today": 587973,
+    "news_picked_today": 1680,
+    "news_dropped_today": 7500
   },
   "book_momentum": {
     "live_count": 8,
