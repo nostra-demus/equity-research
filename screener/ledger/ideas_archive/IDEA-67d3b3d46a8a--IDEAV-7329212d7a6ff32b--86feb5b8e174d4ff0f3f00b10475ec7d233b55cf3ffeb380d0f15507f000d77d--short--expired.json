@@ -1,0 +1,80 @@
+{
+  "schema_version": "idea-archive/v1",
+  "archived_at": "2026-08-29T08:47:42Z",
+  "archive_reason": "expired_pruned",
+  "snapshot": {
+    "idea_id": "IDEA-67d3b3d46a8a",
+    "idea_version": "IDEAV-7329212d7a6ff32b",
+    "idea_version_started_at": "2026-08-26T09:53:03Z",
+    "ticker": "ATD",
+    "company": "Alimentation Couche-Tard",
+    "exchange": "TSX",
+    "ticker_verified": false,
+    "listing_verified": false,
+    "liquidity_verified": false,
+    "listing_verification_source": null,
+    "direction": "short",
+    "pair_with": null,
+    "reason": "The company is initiating a massive $8.7 billion takeover bid for Zabka, which introduces significant execution risk, potential overpayment, and balance sheet strain.",
+    "why_now": "The tender offer was launched today, August 26, 2026.",
+    "conviction": 65,
+    "conviction_basis": "pre_edge_proxy",
+    "trade_score": 45,
+    "trade_score_basis": "evidence_gate_v2",
+    "trade_score_breakdown": {
+      "evidence": 14,
+      "impact": 23,
+      "specificity": 7,
+      "timing": 10,
+      "expression": 0,
+      "corroboration": 6,
+      "learning_adjustment": 0
+    },
+    "trade_readiness": "watch_only",
+    "missing_checks": [
+      "verified listed ticker",
+      "verified listing",
+      "live liquidity",
+      "dated catalyst",
+      "live price, liquidity, and consensus"
+    ],
+    "learning": {
+      "resolved": 0,
+      "positive": 0,
+      "negative": 0,
+      "neutral": 0,
+      "adjustment": 0,
+      "basis": "not_enough_outcomes",
+      "evidenceIds": []
+    },
+    "priced_in": "room",
+    "thesis_type": "company_specific",
+    "origin_type": "wire",
+    "source_themes": [],
+    "source_event_ids": [
+      "EVT-a3fdccaa2d2d",
+      "EVT-323f8b310869"
+    ],
+    "primary_source_event_id": "EVT-a3fdccaa2d2d",
+    "source_headlines": [
+      "Couche-Tard Starts $8.7 Billion Takeover Bid for Poland’s Zabka",
+      "Couche-Tard launches tender offer for all shares of Poland's Zabka"
+    ],
+    "source_headline": "Couche-Tard Starts $8.7 Billion Takeover Bid for Poland’s Zabka",
+    "source_url": "https://www.bloomberg.com/news/articles/2026-08-26/couche-tard-starts-8-7-billion-takeover-bid-for-poland-s-zabka",
+    "source_name": "Bloomberg",
+    "materiality_max": 100,
+    "newest_source_at": "2026-08-26T08:21:09Z",
+    "prior_coverage": {
+      "has_run": false,
+      "latest_run": null,
+      "latest_decision": null,
+      "data_pool_present": false
+    },
+    "surfaced_at": "2026-08-26T09:53:03Z",
+    "updated_at": "2026-08-26T09:53:03Z",
+    "decay_at": "2026-08-27T20:21:09Z",
+    "status": "live",
+    "promoted_signal_id": null
+  }
+}

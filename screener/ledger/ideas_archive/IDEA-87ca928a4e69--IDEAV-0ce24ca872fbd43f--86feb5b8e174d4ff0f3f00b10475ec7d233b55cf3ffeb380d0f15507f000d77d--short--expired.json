@@ -1,0 +1,80 @@
+{
+  "schema_version": "idea-archive/v1",
+  "archived_at": "2026-08-29T08:47:42Z",
+  "archive_reason": "expired_pruned",
+  "snapshot": {
+    "idea_id": "IDEA-87ca928a4e69",
+    "idea_version": "IDEAV-0ce24ca872fbd43f",
+    "idea_version_started_at": "2026-08-26T09:53:03Z",
+    "ticker": "WTC",
+    "company": "WiseTech Global",
+    "exchange": "ASX",
+    "ticker_verified": false,
+    "listing_verified": false,
+    "liquidity_verified": false,
+    "listing_verification_source": null,
+    "direction": "short",
+    "pair_with": null,
+    "reason": "The market is reacting negatively to the acquisition costs of e2open, which are weighing on margins and raising concerns about capital allocation efficiency.",
+    "why_now": "The stock slumped 10% today, August 26, 2026, following the news.",
+    "conviction": 70,
+    "conviction_basis": "pre_edge_proxy",
+    "trade_score": 45,
+    "trade_score_basis": "evidence_gate_v2",
+    "trade_score_breakdown": {
+      "evidence": 14,
+      "impact": 19,
+      "specificity": 7,
+      "timing": 10,
+      "expression": 0,
+      "corroboration": 0,
+      "learning_adjustment": 0
+    },
+    "trade_readiness": "watch_only",
+    "missing_checks": [
+      "verified listed ticker",
+      "verified listing",
+      "live liquidity",
+      "dated catalyst",
+      "priced-in risk",
+      "independent confirmation",
+      "live price, liquidity, and consensus"
+    ],
+    "learning": {
+      "resolved": 0,
+      "positive": 0,
+      "negative": 0,
+      "neutral": 0,
+      "adjustment": 0,
+      "basis": "not_enough_outcomes",
+      "evidenceIds": []
+    },
+    "priced_in": "priced",
+    "thesis_type": "company_specific",
+    "origin_type": "wire",
+    "source_themes": [],
+    "source_event_ids": [
+      "EVT-3e6045a0bcc5"
+    ],
+    "primary_source_event_id": "EVT-3e6045a0bcc5",
+    "source_headlines": [
+      "Australia's top software firm WiseTech slumps 10% as e2open acquisition costs weigh"
+    ],
+    "source_headline": "Australia's top software firm WiseTech slumps 10% as e2open acquisition costs weigh",
+    "source_url": "https://www.reuters.com/world/asia-pacific/australias-top-software-firm-wisetech-slumps-10-annual-profit-miss-2026-08-26/",
+    "source_name": "Reuters — Latest (news sitemap)",
+    "materiality_max": 100,
+    "newest_source_at": "2026-08-26T08:28:07Z",
+    "prior_coverage": {
+      "has_run": false,
+      "latest_run": null,
+      "latest_decision": null,
+      "data_pool_present": false
+    },
+    "surfaced_at": "2026-08-26T09:53:03Z",
+    "updated_at": "2026-08-26T09:53:03Z",
+    "decay_at": "2026-08-27T20:28:07Z",
+    "status": "live",
+    "promoted_signal_id": null
+  }
+}
