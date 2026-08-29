@@ -17,7 +17,14 @@ from typing import Any
 
 from commodity_forecast_contract import production_coverage_resolver, validate_decision_record
 from commodity_evidence_links import validate_signal_projection
-from commodity_profile_coverage import PROFILE_PATH, profile_family, structured_profile
+from commodity_profile_coverage import (
+    PROFILE_PATH,
+    STRUCTURED_PROFILE_ROOT,
+    profile_family,
+    profile_snapshot_sha256,
+    resolve_profile_series,
+    structured_profile,
+)
 from execution_provenance import (
     MANIFEST_BASENAME,
     ProvenanceError,
@@ -216,6 +223,8 @@ def archive_decision(run_root: Path) -> tuple[str, Path, bool]:
     _validate_prearchive(record, enforce_live_roster=not exact_existing_archive)
     coverage = None
     coverage_text = None
+    profile_markdown_text = None
+    profile_structured_text = None
     # The dual-horizon contract began on 2026-08-10. Required-series coverage has its own
     # one-day-later cutover inside validate_decision_record, so an Aug-10 decision is still fully
     # checked while legitimately carrying no coverage artifact.
@@ -232,12 +241,44 @@ def archive_decision(run_root: Path) -> tuple[str, Path, bool]:
             pass
         except (OSError, UnicodeDecodeError, json.JSONDecodeError) as error:
             raise ArchiveError(f"required-series coverage artifact is unreadable: {error}") from error
-        try:
-            requirements = structured_profile(str(record.get("commodity", "")), profile_path=PROFILE_PATH)
-        except (OSError, ValueError):
-            requirements = None
+        profile_digest = None
+        coverage_resolver = production_coverage_resolver
+        snapshot_root = (
+            candidate_archive.parent / "required_series_profile"
+            if exact_existing_archive else run_root / ".no-frozen-profile"
+        )
+        snapshot_markdown = snapshot_root / "COMMODITY_PROFILES.md"
+        if exact_existing_archive and snapshot_markdown.is_file():
+            try:
+                requirements = structured_profile(
+                    str(record.get("commodity", "")), profile_path=snapshot_markdown,
+                    structured_root=snapshot_root,
+                )
+                profile_digest = profile_snapshot_sha256(
+                    str(record.get("commodity", "")), profile_path=snapshot_markdown,
+                    structured_root=snapshot_root,
+                )
+                coverage_resolver = lambda series, commodity, decision_time: resolve_profile_series(
+                    series, commodity, decision_time, profile_path=snapshot_markdown,
+                    structured_root=snapshot_root,
+                )
+                profile_markdown_text = snapshot_markdown.read_text(encoding="utf-8")
+                profile_structured_text = (snapshot_root / f"{record['commodity']}.json").read_text(encoding="utf-8")
+            except (OSError, ValueError):
+                requirements = None
+        else:
+            try:
+                requirements = structured_profile(str(record.get("commodity", "")), profile_path=PROFILE_PATH)
+                profile_digest = profile_snapshot_sha256(str(record.get("commodity", "")))
+                profile_markdown_text = PROFILE_PATH.read_text(encoding="utf-8")
+                profile_structured_text = (
+                    STRUCTURED_PROFILE_ROOT / f"{record['commodity']}.json"
+                ).read_text(encoding="utf-8")
+            except (OSError, ValueError):
+                requirements = None
         contract_errors = validate_decision_record(
-            record, coverage, coverage_sha256, requirements, production_coverage_resolver,
+            record, coverage, coverage_sha256, requirements, coverage_resolver,
+            profile_snapshot_sha256=profile_digest,
         )
         if contract_errors:
             raise ArchiveError(f"forecast contract failed: {contract_errors[0]}")
@@ -276,6 +317,18 @@ def archive_decision(run_root: Path) -> tuple[str, Path, bool]:
         _create_or_verify_text(archive_root / "signal_evidence.json", graph_text, "signal evidence graph")
     if coverage_text is not None:
         _create_or_verify_text(archive_root / "required_series_coverage.json", coverage_text, "required-series coverage")
+    if isinstance(coverage, dict) and coverage.get("schema_version") == 2:
+        if profile_markdown_text is None or profile_structured_text is None:
+            raise ArchiveError("coverage v2 cannot be archived without its validated profile snapshot")
+        profile_root = archive_root / "required_series_profile"
+        _create_or_verify_text(
+            profile_root / "COMMODITY_PROFILES.md", profile_markdown_text,
+            "required-series human profile snapshot",
+        )
+        _create_or_verify_text(
+            profile_root / f"{record['commodity']}.json", profile_structured_text,
+            "required-series structured profile snapshot",
+        )
     created = _create_or_verify(archive_path, archived_record, "decision record")
 
     # Archive-first publication: after a crash the UI may remain on its earlier projection, but it can

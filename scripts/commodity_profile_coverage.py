@@ -204,6 +204,22 @@ def profile_family(commodity: str, *, structured_root: Path = STRUCTURED_PROFILE
     return family
 
 
+def profile_snapshot_sha256(
+    commodity: str, *, profile_path: Path = PROFILE_PATH,
+    structured_root: Path = STRUCTURED_PROFILE_ROOT,
+) -> str:
+    """Hash the exact human + structured profile bytes used by a coverage compilation."""
+    commodity = commodity.upper()
+    structured = Path(structured_root) / f"{commodity}.json"
+    # Validate the pair before it can become replay authority.
+    structured_profile(commodity, profile_path=Path(profile_path), structured_root=Path(structured_root))
+    identity = {
+        "markdown_sha256": hashlib.sha256(Path(profile_path).read_bytes()).hexdigest(),
+        "structured_sha256": hashlib.sha256(structured.read_bytes()).hexdigest(),
+    }
+    return "sha256:" + hashlib.sha256(canonical_json_bytes(identity)).hexdigest()
+
+
 def _value_at(value: Any, dotted_path: str | None) -> Any:
     if not dotted_path:
         return value
@@ -544,8 +560,11 @@ def compile_coverage(
     except ValueError:
         profile_identity = profile_path.resolve().as_posix()
     return {
-        "schema_version": 1, "commodity": commodity, "decision_time": cutoff,
+        "schema_version": 2, "commodity": commodity, "decision_time": cutoff,
         "generated_at": _iso(dt.datetime.now(dt.timezone.utc)), "profile_path": profile_identity,
+        "profile_snapshot_sha256": profile_snapshot_sha256(
+            commodity, profile_path=profile_path, structured_root=structured_root,
+        ),
         "required_count": len(compiled), "usable_count": len(compiled) - len(unresolved),
         "complete": not unresolved, "unresolved_need_ids": unresolved, "rows": compiled,
     }

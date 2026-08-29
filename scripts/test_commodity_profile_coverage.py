@@ -9,7 +9,10 @@ import json
 import tempfile
 from pathlib import Path
 
-from commodity_profile_coverage import _quality_error, compile_coverage, profile_family, resolve_profile_series, structured_profile
+from commodity_profile_coverage import (
+    _quality_error, compile_coverage, profile_family, profile_snapshot_sha256,
+    resolve_profile_series, structured_profile,
+)
 
 
 ROWS = [
@@ -148,6 +151,15 @@ def main() -> int:
             structured_root=structured_root, connectors_root=root, data_root=root,
             market_root=market_root, state_root=state_root, reader=reader, manifests=manifests,
         )
+        assert artifact["schema_version"] == 2
+        assert artifact["profile_snapshot_sha256"] == profile_snapshot_sha256(
+            "GOLD", profile_path=profile, structured_root=structured_root,
+        )
+        frozen_root = root / "frozen-profile"
+        frozen_root.mkdir()
+        frozen_markdown = frozen_root / "COMMODITY_PROFILES.md"
+        frozen_markdown.write_bytes(profile.read_bytes())
+        (frozen_root / "GOLD.json").write_bytes((structured_root / "GOLD.json").read_bytes())
         statuses = {row["need_id"]: row["status"] for row in artifact["rows"]}
         assert statuses == {
             "automatic-need": "usable", "manual-need": "manual", "shared-need": "usable",
@@ -234,6 +246,12 @@ def main() -> int:
             raise AssertionError("markdown/structured policy mismatch must fail")
         except ValueError as error:
             assert "mirror" in str(error), f"Expected profile-mirror error, got: {error}"
+        assert structured_profile(
+            "GOLD", profile_path=frozen_markdown, structured_root=frozen_root,
+        )
+        assert profile_snapshot_sha256(
+            "GOLD", profile_path=frozen_markdown, structured_root=frozen_root,
+        ) == artifact["profile_snapshot_sha256"]
         typo = copy.deepcopy(baseline)
         typo["requirements"][0]["quality"]["max_staleness_day"] = typo["requirements"][0]["quality"].pop("max_staleness_days")
         (structured_root / "GOLD.json").write_text(json.dumps(typo), encoding="utf-8")

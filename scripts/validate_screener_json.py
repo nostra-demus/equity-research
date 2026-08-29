@@ -48,6 +48,7 @@ import math
 import os
 import re
 import sys
+from pathlib import Path
 
 from commodity_decision_archive import ArchiveError, decision_id_for
 from commodity_evidence_links import validate_horizon_evidence_links, validate_signal_projection
@@ -577,21 +578,52 @@ def check_commodity_dual_horizon(doc_path: str, *, frozen_coverage: bool = False
     except (OSError, UnicodeDecodeError, json.JSONDecodeError) as error:
         return [f"required_series_coverage artifact is unreadable: {error}"]
     if frozen_coverage:
+        rows = coverage.get("rows", []) if isinstance(coverage, dict) else []
+        usable = any(isinstance(row, dict) and row.get("status") == "usable" for row in rows)
+        if not isinstance(coverage, dict) or coverage.get("schema_version") != 2:
+            if usable:
+                return ["archived usable coverage has no hash-bound frozen profile snapshot"]
+            return validate_dual_horizon_record(
+                record, coverage, coverage_sha256, frozen_coverage=True,
+            )
+        snapshot_root = os.path.join(os.path.dirname(doc_path), "required_series_profile")
+        snapshot_markdown = os.path.join(snapshot_root, "COMMODITY_PROFILES.md")
+        try:
+            from commodity_profile_coverage import (
+                profile_snapshot_sha256, resolve_profile_series, structured_profile,
+            )
+            snapshot_digest = profile_snapshot_sha256(
+                str(record.get("commodity", "")),
+                profile_path=Path(snapshot_markdown), structured_root=Path(snapshot_root),
+            )
+            profile_requirements = structured_profile(
+                str(record.get("commodity", "")),
+                profile_path=Path(snapshot_markdown), structured_root=Path(snapshot_root),
+            )
+        except (OSError, ValueError) as error:
+            return [f"archived required-series profile snapshot is invalid: {error}"]
+        resolver = lambda series, commodity, decision_time: resolve_profile_series(
+            series, commodity, decision_time,
+            profile_path=Path(snapshot_markdown), structured_root=Path(snapshot_root),
+        )
         return validate_dual_horizon_record(
-            record, coverage, coverage_sha256,
-            coverage_resolver=production_coverage_resolver,
-            frozen_coverage=True,
+            record, coverage, coverage_sha256, profile_requirements,
+            coverage_resolver=resolver, frozen_coverage=True,
+            profile_snapshot_sha256=snapshot_digest,
         )
     profile_requirements = None
+    profile_digest = None
     try:
-        from commodity_profile_coverage import PROFILE_PATH, structured_profile
+        from commodity_profile_coverage import PROFILE_PATH, profile_snapshot_sha256, structured_profile
         profile_requirements = structured_profile(
             str(record.get("commodity", "")), profile_path=PROFILE_PATH,
         )
+        profile_digest = profile_snapshot_sha256(str(record.get("commodity", "")))
     except (OSError, ValueError):
         pass
     return validate_dual_horizon_record(
         record, coverage, coverage_sha256, profile_requirements, production_coverage_resolver,
+        profile_snapshot_sha256=profile_digest,
     )
 
 
@@ -691,9 +723,28 @@ def check_commodity_archived_snapshot(doc_path: str) -> list[str]:
         if not os.path.isfile(coverage_path):
             errors.append("archived required_series_coverage.json is missing")
         else:
-            digest = "sha256:" + hashlib.sha256(open(coverage_path, "rb").read()).hexdigest()
+            coverage_raw = open(coverage_path, "rb").read()
+            digest = "sha256:" + hashlib.sha256(coverage_raw).hexdigest()
             if digest != projection.get("artifact_sha256"):
                 errors.append("archived required-series coverage digest mismatch")
+            try:
+                coverage = json.loads(coverage_raw.decode("utf-8"))
+            except (UnicodeDecodeError, json.JSONDecodeError):
+                coverage = None
+            if isinstance(coverage, dict) and coverage.get("schema_version") == 2:
+                snapshot_root = Path(os.path.dirname(doc_path)) / "required_series_profile"
+                try:
+                    from commodity_profile_coverage import profile_snapshot_sha256
+                    snapshot_digest = profile_snapshot_sha256(
+                        str(record.get("commodity", "")),
+                        profile_path=snapshot_root / "COMMODITY_PROFILES.md",
+                        structured_root=snapshot_root,
+                    )
+                except (OSError, ValueError) as error:
+                    errors.append(f"archived required-series profile snapshot is invalid: {error}")
+                else:
+                    if snapshot_digest != coverage.get("profile_snapshot_sha256"):
+                        errors.append("archived required-series profile snapshot digest mismatch")
     return errors
 
 
