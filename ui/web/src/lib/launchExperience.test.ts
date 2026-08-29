@@ -7,6 +7,7 @@ import {
   requiresTypedSubjectConfirmation,
   typedSubjectConfirmationMatches,
 } from './launchExperience'
+import { isTechnicalReadinessFailure } from '../components/ReadinessWarnings'
 import type { RunKind } from './types'
 
 assert.equal(PROVIDER_TRANSPARENT_UX_CONTRACT_VERSION, 'provider-transparent-ux/1')
@@ -24,6 +25,12 @@ assert.equal(preflightConfirmationMatches('rerun', false), true)
 assert.equal(preflightConfirmationMatches('rerun', true), false, 'an estimate cannot invent a different rerun flow')
 assert.equal(typedSubjectConfirmationMatches('  kar ', 'KAR'), true)
 assert.equal(typedSubjectConfirmationMatches('META', 'KAR'), false)
+assert.equal(isTechnicalReadinessFailure([
+  { code: 'check_failed', severity: 'blocker', message: 'technical failure' },
+]), true, 'a technical checker failure gets the non-overridable recovery UI')
+assert.equal(isTechnicalReadinessFailure([
+  { code: 'zero_files', severity: 'blocker', message: 'no files' },
+]), false, 'a genuine data blocker keeps the ordinary typed-override UI')
 
 const launchConfirm = readFileSync(fileURLToPath(new URL('../components/LaunchConfirm.tsx', import.meta.url)), 'utf8')
 assert.doesNotMatch(launchConfirm, /needsTyped\s*=\s*p\.requiresTypedConfirm/,

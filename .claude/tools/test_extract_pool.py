@@ -19,7 +19,10 @@ Run: python3 test_extract_pool.py   (exit 0 = all pass; skips are not failures)
 from __future__ import annotations
 
 import importlib.util
+import json
 import shutil
+import subprocess
+import sys
 import tempfile
 from pathlib import Path
 
@@ -110,6 +113,61 @@ def test_readers() -> None:
         check("rtf: 'Earnings Call' text extracted", "Earnings Call" in rtf_txt, f"err={rtf_err!r}")
     else:
         skip("rtf: text extracted", "textutil not available (macOS-only reader)")
+
+
+def test_machine_json_stdout_contract() -> None:
+    """A noisy/corrupt-tolerant parser can never corrupt the CLI JSON protocol."""
+    with tempfile.TemporaryDirectory() as root_td:
+        root = Path(root_td)
+        pool = root / "pool"
+        out = root / "out"
+        pool.mkdir()
+        out.mkdir()
+
+        # Appending one byte preserves this synthetic OLE2 workbook's readable
+        # contents but makes xlrd print the same ``WARNING *** file size`` line
+        # that the live KAR Capital IQ exports produced.  xlrd retains stdout
+        # in default arguments, so a mere ``sys.stdout = sys.stderr`` does not
+        # contain it; the CLI FD shield must.
+        noisy = pool / "noisy.xls"
+        noisy.write_bytes((_FX / "ciq_synth.xls").read_bytes() + b"!")
+        script = _HERE / "extract_pool.py"
+
+        readiness = subprocess.run(
+            [sys.executable, str(script), "--readiness-json", str(pool), str(out)],
+            capture_output=True, text=True, timeout=120,
+        )
+        try:
+            readiness_payload = json.loads(readiness.stdout)
+        except Exception as exc:
+            readiness_payload = None
+            readiness_error = f"{exc}: {readiness.stdout[:240]!r}"
+        else:
+            readiness_error = ""
+        check("readiness CLI: noisy workbook still emits one valid JSON document",
+              readiness.returncode == 0 and readiness_payload is not None,
+              readiness_error or readiness.stderr[-500:])
+        check("readiness CLI: parser warning is kept off stdout",
+              "WARNING" not in readiness.stdout and readiness_payload.get("file_count") == 1,
+              readiness.stdout[:240])
+
+        listed = subprocess.run(
+            [sys.executable, str(script), "--list-json", str(noisy)],
+            capture_output=True, text=True, timeout=120,
+        )
+        try:
+            listed_payload = json.loads(listed.stdout)
+        except Exception as exc:
+            listed_payload = None
+            listed_error = f"{exc}: {listed.stdout[:240]!r}"
+        else:
+            listed_error = ""
+        check("list CLI: noisy workbook still emits one valid JSON document",
+              listed.returncode == 0 and listed_payload is not None,
+              listed_error or listed.stderr[-500:])
+        check("list CLI: parser warning is kept off stdout",
+              "WARNING" not in listed.stdout and listed_payload.get("status") == "ok",
+              listed.stdout[:240])
 
 
 def test_durable_relationship_artifact() -> None:
@@ -1229,6 +1287,8 @@ def main() -> int:
     test_sniff()
     print("== deterministic readers (per physical form) ==")
     test_readers()
+    print("== machine JSON protocol stays clean under noisy parsers ==")
+    test_machine_json_stdout_contract()
     print("== supply-chain relationship graph crosses the cache/deployment boundary ==")
     test_durable_relationship_artifact()
     print("== full extract_pool pipeline (statuses + corpus) ==")
