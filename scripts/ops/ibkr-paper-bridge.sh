@@ -1,6 +1,7 @@
 #!/bin/bash
-# Local-only IBKR Paper companion for a Mac that runs TWS but is not Nostra's public doer.
-# The com.nostra.* label is intentionally outside the com.nostradamus.* failover namespace.
+# IBKR Paper companion for a Mac that runs TWS. It may share a host with Nostra's public doer, but it never
+# becomes a second deployment owner there. The com.nostra.* label remains outside the com.nostradamus.*
+# failover namespace.
 set -uo pipefail
 
 BRIDGE_HOME="${HOME:?HOME is required}"
@@ -9,8 +10,64 @@ CONFIG_DIR="${NOSTRA_ENGINE_CONFIG_DIR:-$BRIDGE_HOME/.config/nostra-engine}"
 CONFIG_FILE="$CONFIG_DIR/paper.env"
 LOCK_DIR="$BRIDGE_HOME/Library/Application Support/nostradamus/ibkr-paper-local-bridge/run.lock"
 DEPLOY="$BRIDGE_HOME/.nostra-ops/deploy.sh"
+DEPLOY_LABEL="com.nostradamus.deploy"
+DEPLOY_MARK="$BRIDGE_HOME/.nostra-ops/.deployed.sha"
+DEPLOY_WAIT_TRIES="${IBKR_DEPLOY_WAIT_TRIES:-90}"
 NODE_BIN="${NODE_BIN:-$(command -v node 2>/dev/null || true)}"
+GIT_BIN="${GIT_BIN:-$(command -v git 2>/dev/null || true)}"
 LOCK_OWNER="$LOCK_DIR/owner"
+
+canonical_deployer_loaded() {
+  command -v launchctl >/dev/null 2>&1 \
+    && launchctl print "gui/$UID/$DEPLOY_LABEL" >/dev/null 2>&1
+}
+
+valid_git_sha() {
+  [[ "${1:-}" =~ ^[0-9a-f]{40}$ || "${1:-}" =~ ^[0-9a-f]{64}$ ]]
+}
+
+canonical_remote_main() {
+  local remote_line remote_sha remote_ref
+  [ -n "$GIT_BIN" ] && [ -x "$GIT_BIN" ] || return 1
+  remote_line="$(GIT_TERMINAL_PROMPT=0 "$GIT_BIN" -C "$PROD" ls-remote --exit-code origin refs/heads/main 2>/dev/null)" \
+    || return 1
+  read -r remote_sha remote_ref <<EOF
+$remote_line
+EOF
+  [ "$remote_ref" = "refs/heads/main" ] && valid_git_sha "$remote_sha" || return 1
+  printf '%s\n' "$remote_sha"
+}
+
+deployed_revision_matches() {
+  local expected_sha="$1" deployed_sha local_sha
+  deployed_sha="$(sed -n '1p' "$DEPLOY_MARK" 2>/dev/null || true)"
+  local_sha="$("$GIT_BIN" -C "$PROD" rev-parse HEAD 2>/dev/null || true)"
+  [ "$deployed_sha" = "$expected_sha" ] && [ "$local_sha" = "$expected_sha" ]
+}
+
+wait_for_canonical_deployment() {
+  local expected_sha deploy_try final_remote_sha
+  case "$DEPLOY_WAIT_TRIES" in ''|*[!0-9]*) return 1 ;; esac
+  [ "$DEPLOY_WAIT_TRIES" -ge 1 ] && [ "$DEPLOY_WAIT_TRIES" -le 300 ] || return 1
+  expected_sha="$(canonical_remote_main)" || return 1
+
+  if ! deployed_revision_matches "$expected_sha"; then
+    # Ask the one canonical owner to run now; never invoke its deploy script as a second owner. If it is
+    # already running, kickstart may return non-zero, so convergence below remains the source of truth.
+    launchctl kickstart "gui/$UID/$DEPLOY_LABEL" >/dev/null 2>&1 || true
+    deploy_try=0
+    while ! deployed_revision_matches "$expected_sha"; do
+      deploy_try=$((deploy_try + 1))
+      [ "$deploy_try" -lt "$DEPLOY_WAIT_TRIES" ] || return 1
+      sleep 1
+    done
+  fi
+
+  # main may advance while the canonical owner is reconciling. Never trade the previous ledger in that
+  # race; a later bridge tick will ask the deployer to converge on the new revision.
+  final_remote_sha="$(canonical_remote_main)" || return 1
+  [ "$final_remote_sha" = "$expected_sha" ] && deployed_revision_matches "$final_remote_sha"
+}
 
 lock_owner_active() {
   [ -f "$LOCK_OWNER" ] || return 1
@@ -62,9 +119,19 @@ if [ "$config_meta" != "$(id -u) 600" ]; then
   echo "paper bridge waiting: private paper.env must be owned by this user with mode 600" >&2
   exit 0
 fi
-if [ ! -x "$DEPLOY" ] || ! "$DEPLOY"; then
-  echo "paper bridge waiting: the verified main deployment could not be refreshed" >&2
-  exit 0
+# A public doer already has one canonical deployment owner. Calling the same deployer again from this
+# 120-second bridge would double the update checks and repeatedly publish/clear admission intent. A true
+# local-only TWS companion has no canonical watcher, so it retains the reviewed refresh fallback.
+if canonical_deployer_loaded; then
+  if ! wait_for_canonical_deployment; then
+    echo "paper bridge waiting: the canonical deployment has not converged to current main" >&2
+    exit 0
+  fi
+else
+  if [ ! -x "$DEPLOY" ] || ! "$DEPLOY"; then
+    echo "paper bridge waiting: the verified main deployment could not be refreshed" >&2
+    exit 0
+  fi
 fi
 if [ -z "$NODE_BIN" ] || [ "${NODE_BIN#/}" = "$NODE_BIN" ] \
   || [ ! -x "$NODE_BIN" ] || [ ! -x "$PROD/ui/server/node_modules/.bin/tsx" ]; then

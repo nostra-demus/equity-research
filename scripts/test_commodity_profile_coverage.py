@@ -9,7 +9,11 @@ import json
 import tempfile
 from pathlib import Path
 
-from commodity_profile_coverage import _quality_error, compile_coverage, profile_family, resolve_profile_series, structured_profile
+from commodity_profile_coverage import (
+    _quality_error, compile_coverage, compile_coverage_bundle, frozen_source_resolver,
+    profile_family, profile_snapshot_sha256, resolve_profile_series,
+    source_snapshot_sha256, structured_profile,
+)
 
 
 ROWS = [
@@ -143,11 +147,21 @@ def main() -> int:
             },
         }), encoding="utf-8")
 
-        artifact = compile_coverage(
+        artifact, source_snapshot = compile_coverage_bundle(
             commodity="GOLD", decision_time="2026-08-11T00:00:00Z", profile_path=profile,
             structured_root=structured_root, connectors_root=root, data_root=root,
             market_root=market_root, state_root=state_root, reader=reader, manifests=manifests,
         )
+        assert artifact["schema_version"] == 3
+        assert artifact["profile_snapshot_sha256"] == profile_snapshot_sha256(
+            "GOLD", profile_path=profile, structured_root=structured_root,
+        )
+        assert artifact["source_snapshot_sha256"] == source_snapshot_sha256(source_snapshot)
+        frozen_root = root / "frozen-profile"
+        frozen_root.mkdir()
+        frozen_markdown = frozen_root / "COMMODITY_PROFILES.md"
+        frozen_markdown.write_bytes(profile.read_bytes())
+        (frozen_root / "GOLD.json").write_bytes((structured_root / "GOLD.json").read_bytes())
         statuses = {row["need_id"]: row["status"] for row in artifact["rows"]}
         assert statuses == {
             "automatic-need": "usable", "manual-need": "manual", "shared-need": "usable",
@@ -157,6 +171,42 @@ def main() -> int:
         assert calls and all(call == ("gold.automatic", "GOLD", "2026-08-11T00:00:00Z") for call in calls)
         assert artifact["complete"] is False
         assert artifact["unresolved_need_ids"] == ["manual-need", "missing-route"]
+
+        # Replay non-connector vintages from the frozen bundle. Later pulse or shared-market mutations
+        # must not change the decision-time value selected by the coverage compiler.
+        replay = frozen_source_resolver(source_snapshot, artifact, data_root=root)
+        frozen_pulse = replay("gold.price", "GOLD", "2026-08-11T00:00:00Z")
+        frozen_shared = replay("gold.shared", "GOLD", "2026-08-11T00:00:00Z")
+        assert frozen_pulse and frozen_pulse["payload"]["value"] == 100.0
+        assert frozen_shared and frozen_shared["payload"]["points"][-1]["close"] == 11.0
+        (state_root / "commodity-pulse.json").write_text(json.dumps({
+            "commodity": {
+                "priceAt": 1786395600000,
+                "prices": {"GOLD": {"symbol": "@GC.1", "last": 999.0, "unit": "USD/oz", "as_of": "2026-08-10T21:00:00Z", "source": "cnbc"}},
+            },
+        }), encoding="utf-8")
+        csv_path.write_text(csv_path.read_text(encoding="utf-8") + "2026-08-11,TEST,999\n", encoding="utf-8")
+        assert replay("gold.price", "GOLD", "2026-08-11T00:00:00Z")["payload"]["value"] == 100.0
+        assert replay("gold.shared", "GOLD", "2026-08-11T00:00:00Z")["payload"]["points"][-1]["close"] == 11.0
+        orphaned = copy.deepcopy(source_snapshot)
+        orphaned["rows"].append({
+            "series_id": "gold.orphan", "vintage_id": "sha256:" + "f" * 64,
+            "result": {},
+        })
+        orphaned_artifact = {**artifact, "source_snapshot_sha256": source_snapshot_sha256(orphaned)}
+        try:
+            frozen_source_resolver(orphaned, orphaned_artifact, data_root=root)
+            raise AssertionError("an orphan frozen source row was accepted")
+        except ValueError as error:
+            assert "exactly cover" in str(error)
+        # Restore the live fixtures used by the remaining fail-closed resolver cases.
+        (state_root / "commodity-pulse.json").write_text(json.dumps({
+            "commodity": {
+                "priceAt": 1786392000000,
+                "prices": {"GOLD": {"symbol": "@GC.1", "last": 100.0, "unit": "USD/oz", "as_of": "2026-08-10T20:00:00Z", "source": "cnbc"}},
+            },
+        }), encoding="utf-8")
+        csv_path.write_text("date,symbol,close\n2026-08-08,TEST,10\n2026-08-10,TEST,11\n", encoding="utf-8")
 
         malformed_result = compile_coverage(
             commodity="GOLD", decision_time="2026-08-11T00:00:00Z", profile_path=profile,
@@ -234,6 +284,12 @@ def main() -> int:
             raise AssertionError("markdown/structured policy mismatch must fail")
         except ValueError as error:
             assert "mirror" in str(error), f"Expected profile-mirror error, got: {error}"
+        assert structured_profile(
+            "GOLD", profile_path=frozen_markdown, structured_root=frozen_root,
+        )
+        assert profile_snapshot_sha256(
+            "GOLD", profile_path=frozen_markdown, structured_root=frozen_root,
+        ) == artifact["profile_snapshot_sha256"]
         typo = copy.deepcopy(baseline)
         typo["requirements"][0]["quality"]["max_staleness_day"] = typo["requirements"][0]["quality"].pop("max_staleness_days")
         (structured_root / "GOLD.json").write_text(json.dumps(typo), encoding="utf-8")

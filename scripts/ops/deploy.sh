@@ -1626,6 +1626,15 @@ elif valid_git_sha "$REMOTE_HINT" && valid_git_sha "$LOCAL_HINT"; then
         fi ;;
     esac
   fi
+  # A dirty code/ops path is a terminal preflight blocker, not an in-progress deployment. Check it before
+  # publishing writer intent so the healthy cockpit stays available and never claims an update is being
+  # installed when the deployer already knows it must refuse. The same check remains under the final
+  # repository lease below as the race-closing enforcement gate.
+  if [ "$intent_needed" = 1 ] && has_nondata_dirty; then
+    clear_deploy_intent
+    log "BLOCKED reviewed deployment ${REMOTE_HINT:0:9} before admission pause — production checkout has a dirty non-data (code/ops) path (§28)"
+    exit 0
+  fi
   if [ "$intent_needed" = 1 ]; then
     set_deploy_intent "$REMOTE_HINT" \
       || log "WARN could not publish provider deploy intent — this tick still attempts the lifecycle lock"

@@ -86,8 +86,11 @@ the simpler and more reliable control path.
 - Socket clients are enabled, Read-Only API is disabled, and Nostra connects to loopback port
   `7497`.
 - `com.nostra.ibkr-paper-bridge` is a local LaunchAgent that wakes every 120 seconds.
-- The bridge refreshes the verified `main` deployment, reads the published Calls ledger, and
-  reconciles only eligible paper positions.
+- The bridge reads the published Calls ledger and reconciles only eligible paper positions. On the public
+  doer, `com.nostradamus.deploy` is the only deployment owner; the bridge asks that LaunchAgent to run and
+  waits until the checkout and deployed marker both match a fresh `origin/main` observation before it trades.
+  A local-only TWS companion refreshes the verified `main` deployment itself only when that canonical watcher
+  is absent.
 - Low-conviction eligible calls use 5%; high-conviction eligible calls use 10%, with 75 as the
   high-conviction threshold.
 - Watchlist, Avoid, provisional, unverified, superseded, or otherwise blocked calls remain visible
