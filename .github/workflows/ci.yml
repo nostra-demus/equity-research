@@ -206,6 +206,7 @@ jobs:
           python3 scripts/test_grains_profile_connectors.py
           python3 scripts/test_softs_profile_connectors.py
           python3 scripts/test_commodity_profile_coverage.py
+          python3 scripts/test_commodity_evidence_delta.py
           python3 scripts/test_commodity_feed_plan.py
           python3 scripts/test_commodity_tabular_feed.py
           python3 scripts/test_connector_http.py

@@ -39,4 +39,14 @@ for need in ("aluminium-lme-investment-fund-positioning", "aluminium-primary-pro
 for plan in (copper, aluminium):
     row = next(item for item in plan["rows"] if "prepolicy-supply" in item["need_id"])
     assert row["source_rule_id"] == "metals-fundamentals"
+for commodity, need in (
+    ("CORN", "corn-export-sales-china-demand"),
+    ("SOYBEANS", "soybeans-china-imports-export-sales"),
+):
+    plan = next(item for item in plans if item["commodity"] == commodity)
+    row = next(item for item in plan["rows"] if item["need_id"] == need)
+    assert row["source_rule_id"] == "usda-china-crop-trade"
+    assert {authority["provider"] for authority in row["authorities"]} == {
+        "USDA Foreign Agricultural Service", "General Administration of Customs of China",
+    }
 print("PASS: every commodity profile need has an implemented route or authoritative source plan")
