@@ -200,6 +200,96 @@ def eval_av_conjunction_disclosure(decision_date, scenarios):
     return out
 
 
+# ---- check BC: every stated probability must declare its BASIS (empirical / base rate / judgment) ----
+# CLAUDE.md §10 HARD GATE 13: "every probability states its basis — one of: empirical (with the sample
+# size and the window it was measured over), a named reference class / base rate, or judgment. A
+# probability computed from fewer than roughly eight observations ... is judgment informed by that
+# sample ... Never present it as a measured frequency." synthesizer.md §8/§9 (the Scenario Model and
+# Risk Register tables) already instruct every probability to carry this as `empirical (n=X over
+# {window})` / `base rate: {class, source}` / `judgment` — but until now nothing checked the field was
+# populated, or that a small-sample read was not mislabeled "empirical" to borrow the credibility of a
+# measured frequency it does not have. This is the same "prose rule, no mechanization" gap check BA
+# closed for HARD GATE 11's kill-criteria triggers (comparable_basis / fired_last_two_periods): a HARD
+# GATE stated as mandatory in both CLAUDE.md and synthesizer.md, with zero schema field to carry it and
+# zero check to verify it, until this one.
+#
+# Scope: `scenarios[]` and `forecast_ledger[]` are the two `decision_record.json` arrays that carry a
+# structured `probability` field. §9 Risk Register has no JSON array of its own (it lives only in
+# `final_thesis.md` prose), so it stays a prose-enforced rule here — the same restraint check AT/AV
+# already take on the conjunction check's other half (a rule that needs data the schema does not carry
+# stays a prose rule, documented plainly, rather than a brittle text-mining check).
+#
+# This is presence + FORM checking — does the field exist, and does it match one of the three permitted
+# shapes with an internally consistent number — never a truth check of whether the classification is
+# honest (whether the sample is really representative, or the named base rate genuinely applies).
+BC_DATE = "2026-08-29"
+BC_MIN_EMPIRICAL_N = 8  # CLAUDE.md §10: "fewer than roughly eight observations ... is judgment"
+
+_BC_EMPIRICAL_RE = re.compile(r"\bempirical\b.*?\bn\s*=\s*(\d+)", re.I | re.S)
+_BC_BASE_RATE_RE = re.compile(r"\bbase[\s\-]*rate\b\s*:?\s*(.*)", re.I)
+_BC_JUDGMENT_RE = re.compile(r"\bjudge?ment\b", re.I)  # "judgment" (US) or "judgement" (UK)
+
+
+def _bc_classify(text):
+    """Classify one probability_basis string per HARD GATE 13. Returns (ok: bool, reason: str|None) —
+    ok=False means the string is missing, matches none of the three permitted forms, or labels itself
+    'empirical' from a sample smaller than BC_MIN_EMPIRICAL_N (which HARD GATE 13 requires be called
+    judgment, never a measured frequency)."""
+    t = text.strip() if isinstance(text, str) else ""
+    if not t:
+        return False, "missing or empty probability_basis"
+    m = _BC_EMPIRICAL_RE.search(t)
+    if m:
+        n = int(m.group(1))
+        if n < BC_MIN_EMPIRICAL_N:
+            return False, (f"probability_basis={t!r} labels itself 'empirical' from n={n} "
+                            f"(<{BC_MIN_EMPIRICAL_N}) — CLAUDE.md §10 requires a sample this small be "
+                            f"called judgment informed by that sample, never presented as a measured "
+                            f"frequency")
+        return True, None
+    m = _BC_BASE_RATE_RE.search(t)
+    if m:
+        if len(m.group(1).strip()) < 5:
+            return False, (f"probability_basis={t!r} names 'base rate' but no actual reference "
+                            f"class/source follows it")
+        return True, None
+    if _BC_JUDGMENT_RE.search(t):
+        return True, None
+    return False, (f"probability_basis={t!r} does not match any of the three HARD GATE 13 forms — "
+                    f"'empirical (n=X over {{window}})' / 'base rate: {{class, source}}' / 'judgment'")
+
+
+def eval_bc_probability_basis_stated(decision_date, scenarios, forecast_ledger):
+    """Check BC. None = N/A (pre-gate, or neither array carries a row with a probability); [] = every
+    probability-bearing row states a valid basis; [violation,...] = at least one row is missing,
+    malformed, or mislabels a small sample as empirical."""
+    if not (_isdate(decision_date) and decision_date >= BC_DATE):
+        return None
+    out = []
+    found = False
+    if isinstance(scenarios, list):
+        for s in scenarios:
+            if not isinstance(s, dict) or s.get("probability") is None:
+                continue
+            found = True
+            label = str(s.get("label") or s.get("scenario_id") or "?")
+            ok, reason = _bc_classify(s.get("probability_basis"))
+            if not ok:
+                out.append(f"scenario '{label}': {reason}")
+    if isinstance(forecast_ledger, list):
+        for i, f in enumerate(forecast_ledger):
+            if not isinstance(f, dict) or f.get("probability") is None:
+                continue
+            found = True
+            fid = str(f.get("forecast_id") or f.get("prediction") or f"#{i}")[:60]
+            ok, reason = _bc_classify(f.get("probability_basis"))
+            if not ok:
+                out.append(f"forecast_ledger {fid!r}: {reason}")
+    if not found:
+        return None
+    return out
+
+
 def _isdate(s):
     import datetime
     try:
