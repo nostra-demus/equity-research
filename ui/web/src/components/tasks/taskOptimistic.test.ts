@@ -1,10 +1,10 @@
 import assert from 'node:assert/strict'
 import test from 'node:test'
 import type { TaskCard, TasksRead } from '../../lib/types'
-import { mergeTaskUpdatePatches, optimisticTask, overlayOptimisticTasks, replaceTask, retryableTaskUpdateError, taskMatchesPatch } from './taskOptimistic'
+import { mergeTaskUpdatePatches, optimisticTask, overlayOptimisticTasks, replaceTask, retryableTaskUpdateError, taskLabel, taskMatchesPatch, taskTickerInput } from './taskOptimistic'
 
 const card = (overrides: Partial<TaskCard> = {}): TaskCard => ({
-  schema_version: 'task-card/v1', task_id: 'TASK-20260827-1234abcd', scope: 'ticker', ticker: 'MIDEA',
+  schema_version: 'task-card/v1', task_id: 'TASK-20260827-1234abcd', scope: 'ticker', ticker: 'MIDEA', ticker_label: null,
   subject: 'European Heat', title: 'Need to run a full scanner on right data', stage: 'ticker_identified',
   decision: null, assignee: 'CK', attachments: [], watchlist_entry_id: null, watchlist_created: false,
   history: [], created_at: '2026-08-27T00:00:00.000Z', created_by: 'CK', updated_at: '2026-08-27T00:00:00.000Z',
@@ -40,7 +40,25 @@ test('retry patches never include untouched fields owned by another client', () 
 })
 
 test('server null and an empty ticker input reconcile as the same value', () => {
-  assert.equal(taskMatchesPatch(card({ ticker: null }), { ticker: '' }), true)
+  assert.equal(taskMatchesPatch(card({ ticker: null, ticker_label: null }), { ticker: '' }), true)
+})
+
+test('free-form ticker labels survive reconciliation and label an otherwise empty card', () => {
+  const task = card({ ticker: null, ticker_label: 'NU HOLDINGS LTD.', subject: '', title: '' })
+  assert.equal(taskTickerInput(task), 'NU HOLDINGS LTD.')
+  assert.equal(taskLabel(task), 'NU HOLDINGS LTD.')
+  assert.equal(taskMatchesPatch(task, { ticker: 'NU HOLDINGS LTD.' }), true)
+  assert.equal(taskLabel(card({ ticker: null, ticker_label: null, subject: '', title: '' })), 'Untitled task')
+})
+
+test('optimistic ticker identity mirrors the server while a save is in flight', () => {
+  const valid = optimisticTask(card(), { ticker: 'nu' })
+  assert.deepEqual({ ticker: valid.ticker, ticker_label: valid.ticker_label }, { ticker: 'NU', ticker_label: null })
+  const freeform = optimisticTask(card(), { ticker: 'NU HOLDINGS LTD.' })
+  assert.deepEqual(
+    { ticker: freeform.ticker, ticker_label: freeform.ticker_label },
+    { ticker: null, ticker_label: 'NU HOLDINGS LTD.' },
+  )
 })
 
 test('only temporary task failures are carried into a later queued edit', () => {

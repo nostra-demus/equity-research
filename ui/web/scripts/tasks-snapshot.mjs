@@ -19,6 +19,8 @@ const PEOPLE = [
 ]
 const ticker = (value) => value === null || (typeof value === 'string' && value.length <= 15
   && /^[A-Z0-9][A-Z0-9.\-&]*$/.test(value) && !/^\d{7,}$/.test(value.replace(/[.\-]/g, '')))
+const tickerLabel = (value) => value === undefined || value === null || (typeof value === 'string'
+  && value.length > 0 && value.length <= 240 && value.trim() === value)
 
 const timestamp = (value) => typeof value === 'string' && value.length <= 40 && Number.isFinite(Date.parse(value))
 const basename = (value) => typeof value === 'string' && value.length > 0 && value.length <= 500
@@ -34,12 +36,10 @@ function validTask(task) {
   return task && typeof task === 'object' && !Array.isArray(task) && task.schema_version === 'task-card/v1'
     && TASK_ID_RE.test(task.task_id) && SCOPES.has(task.scope) && STAGES.has(task.stage)
     && (task.decision === null || DECISIONS.has(task.decision))
-    && (task.stage === 'final_decision' ? task.decision !== null : task.decision === null)
-    && ASSIGNEES.has(task.assignee) && ticker(task.ticker)
-    && (task.scope === 'world_event' || task.stage === 'idea_generation' || task.ticker !== null)
-    && (task.decision !== 'watch' || task.ticker !== null)
-    && typeof task.subject === 'string' && task.subject.length > 0 && task.subject.length <= 240
-    && typeof task.title === 'string' && task.title.length > 0 && task.title.length <= 4000
+    && (task.stage === 'final_decision' || task.decision === null)
+    && ASSIGNEES.has(task.assignee) && ticker(task.ticker) && tickerLabel(task.ticker_label)
+    && typeof task.subject === 'string' && task.subject.length <= 240
+    && typeof task.title === 'string' && task.title.length <= 4000
     && Array.isArray(task.attachments) && task.attachments.length <= 5 && task.attachments.every(attachment)
     && (task.watchlist_entry_id === null || WATCH_ID_RE.test(task.watchlist_entry_id))
     && typeof task.watchlist_created === 'boolean'
@@ -59,6 +59,7 @@ export function buildTasksSnapshot(repoRoot, asOf = new Date().toISOString()) {
       if (!validTask(task)) { unreadable.push(name); continue }
       tasks.push({
         ...task,
+        ticker_label: task.ticker_label ?? null,
         attachments: task.attachments.map((item) => ({ ...item, added_by: 'redacted' })),
         history: task.history.map((item) => ({ ...item, by: 'redacted' })),
         created_by: 'redacted',
