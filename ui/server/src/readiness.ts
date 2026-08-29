@@ -16,7 +16,15 @@ import { DATA_DIR, REPO_ROOT } from './config'
 import { analyzeTicker } from './data-status'
 import type { ModuleReadiness, ReadinessReport, ReadinessIssue, ReadinessSeverity, RunKind } from './types'
 
-interface PyIssue { code: string; severity: ReadinessSeverity; message: string; evidence?: string; file?: string }
+interface PyIssue {
+  code: string
+  severity: ReadinessSeverity
+  message: string
+  // Python's optional values serialize as JSON null. Keep that wire shape
+  // explicit, then normalize it before it reaches the canonical TS report.
+  evidence?: string | null
+  file?: string | null
+}
 interface PyReadiness {
   data_path: string
   file_count: number
@@ -64,8 +72,8 @@ function isPyReadiness(value: unknown): value is PyReadiness {
     && typeof issue.code === 'string'
     && ['blocker', 'degrade', 'info'].includes(String(issue.severity))
     && typeof issue.message === 'string'
-    && (issue.evidence === undefined || typeof issue.evidence === 'string')
-    && (issue.file === undefined || typeof issue.file === 'string'))
+    && (issue.evidence == null || typeof issue.evidence === 'string')
+    && (issue.file == null || typeof issue.file === 'string'))
   const entitiesOk = value.entities.every((entity) => isRecord(entity)
     && typeof entity.file === 'string' && typeof entity.entity === 'string')
   return issuesOk && entitiesOk
@@ -198,7 +206,14 @@ export async function runReadiness(
     return finalize(ticker, kind, module, issues, 0, 0, [])
   }
   for (const i of py.issues) {
-    issues.push({ ...i, suggestedFix: FIX_HINT[i.code] })
+    issues.push({
+      code: i.code,
+      severity: i.severity,
+      message: i.message,
+      ...(typeof i.evidence === 'string' ? { evidence: i.evidence } : {}),
+      ...(typeof i.file === 'string' ? { file: i.file } : {}),
+      suggestedFix: FIX_HINT[i.code],
+    })
   }
 
   // (2) file-type + §26 module readiness, scoped by kind (see moduleReadinessIssues). Only when files

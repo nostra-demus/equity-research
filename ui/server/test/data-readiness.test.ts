@@ -183,6 +183,13 @@ check('parseReadinessStdout: accepts the strict one-document protocol', () => {
   assert.equal(parsed.report.file_count, 86)
   assert.equal(parsed.ignoredDiagnosticLines, 0)
 })
+check('parseReadinessStdout: accepts Python nulls for optional issue details', () => {
+  const parsed = parseReadinessStdout(JSON.stringify({
+    ...pyReport,
+    issues: [{ code: 'empty_file', severity: 'blocker', message: 'empty', evidence: null, file: null }],
+  }))
+  assert.equal(parsed.report.issues[0].code, 'empty_file')
+})
 check('parseReadinessStdout: recovers one schema-valid report surrounded by parser warnings', () => {
   const parsed = parseReadinessStdout(`WARNING *** noisy workbook\n${JSON.stringify(pyReport)}\nlate parser warning`)
   assert.equal(parsed.report.usable_count, 86)

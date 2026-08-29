@@ -6688,14 +6688,14 @@ export async function decideReadiness(
   // Keep it fail-closed even when a caller bypasses the UI and POSTs a typed
   // override directly: only recheck or cancel are legal until the checker can
   // produce a schema-valid report.
-  const checkerFailed = !!run.readiness?.issues.some((i) => i.code === 'check_failed')
+  const checkerFailed = !!run.readiness?.issues?.some((i) => i.code === 'check_failed')
   if (checkerFailed) {
     return {
       ok: false, status: 'awaiting-readiness-decision', httpStatus: 409,
       error: 'the safety checker had a technical error — recheck or cancel; override is unavailable',
     }
   }
-  const hasBlocker = !!run.readiness?.issues.some((i) => i.severity === 'blocker')
+  const hasBlocker = !!run.readiness?.issues?.some((i) => i.severity === 'blocker')
   if (hasBlocker && action !== 'override') {
     return { ok: false, status: 'awaiting-readiness-decision', error: 'blockers present — use override with a typed acknowledgment', httpStatus: 409 }
   }

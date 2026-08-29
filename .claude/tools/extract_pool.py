@@ -2767,7 +2767,7 @@ def _emit_machine_json(build_payload):
     try:
         stdout_fd = sys.stdout.fileno()
         stderr_fd = sys.stderr.fileno()
-    except (AttributeError, io.UnsupportedOperation):
+    except (AttributeError, ValueError, OSError):
         # Import-level/unit callers may replace stdout with StringIO.  Keep a
         # safe Python-stream fallback; the production CLI always takes the FD
         # path above.
