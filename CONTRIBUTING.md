@@ -7,9 +7,9 @@ How we keep many people (and AI agents) shipping features into `main` without re
 1. Branch off `main`, make the change, open a PR.
 2. CI runs automatically (typecheck + tests), and the standing bot reviewers (CodeQL, Gemini, Codex, Copilot) review it. The engine also runs its own multi-lens adversarial pass. Get it green, and triage every review finding — fix the real ones, record a reasoned won't-fix for the rest.
 3. Stop with an open, green, reviewed PR and report: `PR ready; not merged or deployed`.
-4. Only after the user explicitly authorizes that specific PR's merge in the current conversation may it enter the **merge queue**. Deployment is a separate action requiring separate explicit production authorization and a short-lived, exact-program deployment receipt.
+4. Only after the user explicitly authorizes that specific PR's merge in the current conversation may it enter the **merge queue**. That human-authorized merge is the release decision: after the exact resulting `main` push passes all five required jobs, the production watcher may deploy it automatically under its one-shot local receipt. Direct/manual production operations remain separately authorized.
 
-CI and adversarial review prove that a PR is ready; they never authorize merge or deployment (CLAUDE.md/AGENTS.md §28). The user's explicit instruction for the specific PR is mandatory. Retaining the multiple independent views (each bot reviewer + the engine's own lenses) makes the recommendation stronger, but does not replace the authorization boundary.
+PR CI and adversarial review prove that a PR is ready; they never authorize merge (CLAUDE.md/AGENTS.md §28). The user's explicit instruction for the specific PR is mandatory. After that authorized merge, a separate push workflow re-tests the exact merge result; only its five-job success may authorize automatic deployment. Retaining the multiple independent views makes the recommendation stronger, but never replaces either gate.
 
 You never hand-rebase for the normal case, and you never need to know whether your change is "big" or "small" — every PR takes the identical path.
 
@@ -22,7 +22,7 @@ The engine's PR agent owns preparation and review of a code PR end to end. It is
 - **run the multi-view adversarial review** — the bot reviewers above plus its own multi-agent lenses — and **triage every finding**: fix the real ones, reply with a reasoned won't-fix for the rest;
 - **keep updating the same PR** until CI is green and the review is clean.
 
-It is not authorized to merge, deploy, or issue a deployment receipt. The PR remains open until the user explicitly names that PR and asks for its merge in the current conversation. "Continue", "go ahead", "fix it", "done?", an implementation request, and an earlier request to open a PR are not merge or deployment authorization. Production deployment, restart, configuration changes, and run launch/retry/resume/cancel each require explicit authorization for that exact action. Without it, production access is read-only.
+It is not authorized to merge, deploy, or issue a manual deployment receipt. The PR remains open until the user explicitly names that PR and asks for its merge in the current conversation. "Continue", "go ahead", "fix it", "done?", an implementation request, and an earlier request to open a PR are not merge authority. Once an authorized human merges that PR, the exact all-green `main` push may deploy automatically without an agent taking a production action. Manual deployment/bootstrap, restart, configuration changes, and run launch/retry/resume/cancel still require explicit authorization for that exact action. Without it, production access is read-only.
 
 ## Permanent production-engineering standard (Claude, Codex, humans)
 
@@ -35,9 +35,10 @@ definition of done.
 - The default delivery target is an open pull request, not `main` and not production. A coding task includes
   local or staging implementation, tests, CI, reviewer triage, and updates to the same PR. It does not include
   merge or deployment.
-- Merge and deployment are separate irreversible boundaries. Each needs explicit authorization in the current
-  conversation for the specific PR or production action. Never carry authority forward from an earlier task,
-  infer it from urgency, or treat a generic continuation as permission.
+- Merge is the human release boundary: it needs explicit authorization in the current conversation for the
+  specific PR. The automatic watcher may cross the deployment boundary only after re-proving the exact merge
+  result through all five required `main` push jobs. Manual/bootstrap deployment and every other production
+  action remain separate exact authorizations. Never infer merge authority from urgency or generic continuation.
 - Test in an isolated worktree and local or staging environments. Production may be inspected read-only for
   diagnosis. Do not deploy, restart services, change flags/configuration, or launch, retry, resume, cancel, or
   mutate a production run without exact authorization. Ongoing runs belong to their operators.
@@ -86,12 +87,13 @@ definition of done.
 
 ### "Done" is scoped to the authority granted
 
-A code task without explicit merge/deploy authority is complete when the open PR is green, reviewed, tested
+A code task without explicit merge authority is complete when the open PR is green, reviewed, tested
 on local or staging, and reported as `PR ready; not merged or deployed`. Merge and deployment are later,
-separately authorized tasks. If the user explicitly authorizes a production-affecting change, that later task
+protected stages; a human-authorized merge delegates only the exact all-green automatic release described
+below, not any manual production action. If the user explicitly authorizes a production-affecting change, that later task
 is complete only after all applicable evidence exists:
 
-1. the user explicitly authorized the specific PR merge and production action;
+1. the user explicitly authorized the specific PR merge (and separately authorized any manual production action);
 2. the protected PR/merge-queue path is green and every review thread is resolved;
 3. the merged commit is proven to be an ancestor of the production checkout (exact `HEAD` is not required
    when legitimate data-only commits have advanced it);
@@ -101,23 +103,25 @@ is complete only after all applicable evidence exists:
 6. the user-facing recovery path is actionable. If any proof is missing, report "merged, deployment pending"
    or the exact blocker — never "all done."
 
-### A merge is inert until separately authorized for production
+### A merge deploys only after exact five-job push CI
 
 The production watcher may fetch `origin/main` and may fast-forward autonomous research-data-only deltas.
 It must not fast-forward, build, restart, reconcile services, or pause provider admissions for a code,
-prompt, workflow, doctrine, or ops delta without a valid one-shot receipt from
-`scripts/ops/deploy-authorization.py`. The receipt binds the full reviewed commit and a deterministic digest
-of every non-data Git object. Later data-only commits may trail that commit without invalidating it; any later
-non-data byte invalidates it. The deployer rechecks the receipt after fetching and while holding the repository
-mutation lock, then consumes it only after the healthy deployed marker reaches the verified target.
+prompt, workflow, doctrine, or ops delta until `scripts/ops/deploy-authorization.py` independently verifies a
+completed successful `push` workflow for `main` and all five exact jobs: `ui-server`, `eval-contracts`,
+`tools-tests`, `ui-web`, and `edge`. It then issues a short-lived one-shot local receipt binding that workflow
+run, its head SHA, and a deterministic digest of every non-data Git object. Later data-only commits may trail
+that SHA without invalidating it; any later non-data byte requires its own exact push workflow. The deployer
+rechecks the receipt after fetching and while holding the repository mutation lock, appends the outcome to an
+owner-only hash-chained audit ledger, and consumes the receipt only after the healthy deployed marker reaches
+the verified target. It never trusts a PR badge, an earlier workflow, or one aggregate status.
 
 Autonomous data publication has the same boundary. `scripts/commit-run.sh` may publish a synthetic merge to
 remote `main`, but it must never rebase, merge, reset, or check out newer remote code into the production
-worktree. This keeps research publication live while a merged code PR remains inert pending a separate
-deployment decision.
+worktree. Pure data pushes are excluded from release CI and must not cancel a code workflow, publish update
+intent, rebuild, restart, or pause admissions.
 
-After the user explicitly authorizes production deployment of a specific merged PR, the operator may issue
-the receipt for its full merge SHA (the reference is an audit label, never a credential):
+The manual receipt command is break-glass/bootstrap only and requires separate explicit production authority:
 
 ```sh
 ~/.nostra-ops/deploy-authorization.py authorize \
@@ -128,11 +132,11 @@ the receipt for its full merge SHA (the reference is an audit label, never a cre
   --authorized-by "<OWNER_LOGIN>"
 ```
 
-The first release that introduces this gate is a deliberate bootstrap exception, not an automatic rollout:
-with separate explicit production authorization, stop the legacy watcher before merging, install the reviewed
-gated watcher/helper while it is stopped, issue the receipt for that exact merge, run and verify one deployment,
-then reload the watcher. Never merge this gate while the legacy ungated watcher is live; the old watcher would
-deploy the merge before the new rule could protect it.
+The first release that introduces exact push-CI deployment is a deliberate bootstrap, not an automatic rollout:
+the already-installed watcher knows only the old manual-receipt rule. With separate explicit production
+authorization, grant the GitHub App read-only Actions access, issue one manual receipt for the exact merge,
+run and verify one deployment, and confirm the new watcher/helper and audit ledger are installed. Every later
+human-authorized green merge follows the automatic exact-push-CI path.
 
 ### Make each material lesson durable
 

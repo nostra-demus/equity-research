@@ -33,7 +33,8 @@ Org-owned so it survives any one person leaving.
 2. **Name:** `nostra-engine` (or similar). **Homepage URL:** anything (e.g. `https://app.nostra-demus.com`).
 3. **Webhook:** **uncheck "Active"** (the engine doesn't receive webhooks).
 4. **Repository permissions:**
-   - **Contents → Read and write**  ← the only one that matters.
+   - **Contents → Read and write**  ← publishes the data-only stream.
+   - **Actions → Read-only**  ← independently verifies the exact all-green `main` push before deploy.
    - (Metadata → Read-only is added automatically.)
    - Leave everything else "No access".
 5. **Where can this app be installed?** → **Only on this account**.
@@ -57,7 +58,7 @@ cd "$HOME/equity-research"   # your checkout of this repo on the engine Mac (dev
 scripts/ops/setup-gh-app.sh --app-id <APP_ID> --key ~/Downloads/nostra-engine.*.private-key.pem
 ```
 
-It writes `~/.config/nostra-engine/` (env + key, mode 600, **outside the repo**), auto-discovers the installation id, then **self-tests**: it mints a token and confirms the App has `Contents: write` and can reach the repo over git. It prints the **App id to use as the ruleset bypass actor**. It does **not** touch the ruleset.
+It writes `~/.config/nostra-engine/` (env + key, mode 600, **outside the repo**), auto-discovers the installation id, then **self-tests**: it mints a token, confirms `Contents: write` and `Actions: read`, and proves the token can reach the repo over git. It prints the **App id to use as the ruleset bypass actor**. It does **not** touch the ruleset. The deploy watcher executes only the atomically installed `~/.nostra-ops/gh-app-token.sh`; it never executes the production-checkout copy during authorization.
 
 After this, `commit-run.sh` automatically pushes as the App (it routes git's credentials through `scripts/ops/gh-app-credential.sh` for that one process only — global/interactive git is untouched). You can delete the downloaded `.pem`.
 
@@ -117,4 +118,7 @@ You are an **org owner**, so you can always recover:
 - `gh-app-token.sh` — mints a ~1h installation token (openssl RS256 JWT → installation-token API), cached in `~/.config/nostra-engine/.token-cache`. No long-lived secret in git.
 - `gh-app-credential.sh` — a git credential helper that returns `x-access-token` + that token, **only** for `github.com`.
 - `commit-run.sh` — when `~/.config/nostra-engine/github-app.env` exists, injects that helper via `GIT_CONFIG_*` **for its own process only** (never global config), so engine pushes = the App and human git = the human.
+- `deploy-authorization.py authorize-ci` — uses the same short-lived token only to read the exact completed
+  `main` push workflow and its jobs. It never prints or stores the token; it issues a local owner-only release
+  receipt only when all five required jobs are successful for the exact non-data program.
 - Ruleset id `17683955` (`main — code lane`); bypass actor for a GitHub App is `actor_type: "Integration"`, `actor_id: <App ID>`.

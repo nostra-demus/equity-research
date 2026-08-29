@@ -325,7 +325,7 @@ install_runtime_script() {
   fi
 }
 if [ -z "$ONLY" ]; then
-  for s in watchdog.sh deploy.sh deploy-authorization.py housekeeping.sh calibrate-local.sh connector-supervisor.py; do
+  for s in watchdog.sh deploy.sh deploy-authorization.py gh-app-token.sh housekeeping.sh calibrate-local.sh connector-supervisor.py; do
     install_runtime_script "$s" || exit 1
   done
 fi

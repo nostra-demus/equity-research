@@ -300,12 +300,18 @@ from `ENGINE_REPO_ROOT` / `ENGINE_STATE_DIR`, so moving machines is the usual "c
 The engine does **not** serve this dev checkout. Live runs from a dedicated git worktree pinned to
 `main` at **`$HOME/nostra-prod`** (e.g. `/Users/admin/nostra-prod`), so feature-branch work and uncommitted
 edits can never leak to the public site. The engine runs `tsx` straight from source there (so the live API = `main`),
-and serves `nostra-prod/ui/dist`. Runtime state (`ui/server/.state`, gitignored) and the ops shell
-scripts (`~/.nostra-ops/{deploy,watchdog}.sh`) live outside the tree so a fast-forward never disturbs them.
+and serves `nostra-prod/ui/dist`. Runtime state (`ui/server/.state`, gitignored) and every credential-bearing
+release helper (`~/.nostra-ops/{deploy,deploy-authorization,gh-app-token,watchdog}.*`) live outside the tree.
+The watcher never executes a helper from the production checkout before CI proof or the dirty-tree gate.
 
 ### How a change goes live (auto-deploy — `deploy.sh`)
-**Merge a PR to `main` → it receives priority on the next ≤~2 min deploy tick. No manual step.** Every
-120s `deploy.sh` first publishes a writer intent when the remote or built marker is ahead. An already-running
+**After an authorized human merges a PR, its exact `main` push must pass all five required CI jobs; then it
+receives priority on the next ≤~2 min deploy tick. No later manual step.** The watcher mints a short-lived
+GitHub App token, reads the exact Actions run, checks `ui-server`, `eval-contracts`, `tools-tests`, `ui-web`,
+and `edge` itself, and binds the successful workflow head plus the complete non-data program digest into a
+one-shot local receipt. A PR badge, an earlier PR workflow, or four of five jobs cannot release. Pure data-only
+pushes do not run release CI and cannot cancel it. Every 120s `deploy.sh` publishes writer intent only after
+that proof. An already-running
 research/scanner lifecycle finishes safely, but no new provider lifecycle is admitted ahead of the pending
 deployment; this bounds convergence to the current lifecycle plus one deploy tick instead of letting the
 one-minute backlog drain starve releases indefinitely. The deployer then:
@@ -315,8 +321,30 @@ one-minute backlog drain starve releases indefinitely. The deployer then:
 2. acts on *what* changed: `ui/web/**` → rebuild `ui/dist` (served instantly, no restart);
    `ui/server/**` → `kickstart` the engine; a changed `package-lock` → `npm ci` first; data/docs only
    (`analyses/**`, `screener/**`, `*.md`) → nothing to rebuild;
-3. logs every deploy to `~/Library/Logs/nostradamus-deploy.log`. Single-flight (mkdir lock), always
+3. records every authorized deploy or rollback in the owner-only, hash-chained
+   `~/.nostra-ops/deploy-audit/events.jsonl`. A separate owner-only
+   `events.jsonl.anchor.json` binds its exact byte length, event count, inode, and tip hash, so deleting a
+   valid trailing event is detected rather than accepted as a shorter valid chain. Operations are logged to
+   `~/Library/Logs/nostradamus-deploy.log`. Single-flight (kernel lock), always
    exits 0 so launchd never marks it failed. Force one now: `bash ~/.nostra-ops/deploy.sh`.
+
+If the engine becomes healthy but the audit append fails, the watcher advances `.deployed.sha` to the code
+that is actually live, keeps the one-shot receipt, and writes `~/.nostra-ops/.deploy.audit-pending`. Later
+ticks retry only that exact audit/consume transaction—never `npm`, a rebuild, or a restart—and do not pause
+research admissions. A later code release remains blocked until the ledger is repaired. Do not delete or
+recreate the ledger/anchor pair. Restore both from the owner backup or inspect and repair them explicitly;
+the deploy log now prints the precise safe helper error instead of collapsing every failure into “CI red”.
+
+The first rollout is intentionally different: the installed watcher still understands only explicit manual
+receipts, so it cannot authorize its own upgrade. Grant the GitHub App `Actions: read`, then perform one
+separately-authorized manual bootstrap deployment **and re-run `install-services.sh` from that reviewed
+checkout** so `deploy.sh`, `deploy-authorization.py`, and `gh-app-token.sh` are atomically installed under
+`~/.nostra-ops`. Verify those installed paths and the audit ledger/anchor before relying on automatic
+releases. This bootstrap authority never carries forward to another manual operation.
+
+The five release job display names are part of the installed verifier's security policy. Renaming one fails
+closed; it cannot silently weaken the gate or self-authorize its own policy change. Such a rename therefore
+requires the same explicit bootstrap/re-install procedure, after which ordinary green merges are automatic.
 
 The machine has exactly one deployment owner. When `com.nostradamus.deploy` is loaded, companion jobs such
 as `com.nostra.ibkr-paper-bridge` never call `deploy.sh` themselves. The paper bridge asks the canonical
@@ -499,8 +527,9 @@ Keep the rollback directory until the engine has restarted and the queue count h
 1. **Never run the server manually** (`npm run dev` / `npm start` in a terminal). launchd already owns
    `:8787`; a second server collides on the port (`EADDRINUSE`) and one of them fails. If you must
    debug locally, `launchctl bootout gui/$(id -u)/com.nostradamus.engine` first, and re-install after.
-2. **To deploy a change**: just **merge it to `main`** — `com.nostradamus.deploy` rebuilds prod within
-   ≤~2 min (see "How a change goes live"). Building `ui/dist` in *this dev tree* no longer affects the
+2. **To deploy a change**: explicitly authorize and merge its reviewed PR. The exact resulting `main` push
+   must pass all five release jobs; then `com.nostradamus.deploy` independently verifies and rebuilds prod
+   within ≤~2 min (see "How a change goes live"). Building `ui/dist` in *this dev tree* no longer affects the
    live site. No engine restart is needed for web changes: the server reads `index.html` **fresh per
    request**, so new asset hashes are served immediately (the fix for the blank-page-after-rebuild bug —
    the server used to cache `index.html` at startup and desync from the on-disk hashes).

@@ -8,6 +8,13 @@ on:
   merge_group:
   push:
     branches: [main]
+    # Autonomous research publication must never cancel, starve, or manufacture a production release.
+    # A push containing any program path still runs all five jobs; a pure data-only push is ignored.
+    paths-ignore:
+      - "analyses/**"
+      - "screener/**"
+      - "commodity/**"
+      - "watchlist/**"
 
 # A newer commit on the same ref cancels the older, still-running check.
 concurrency:
@@ -359,6 +366,8 @@ jobs:
           bash scripts/ops/test-deploy-codex-import-guard.sh || rc=1
           echo "== test-deploy-authorization.py =="
           python3 scripts/ops/test-deploy-authorization.py || rc=1
+          echo "== test-deploy-push-ci.py =="
+          python3 scripts/ops/test-deploy-push-ci.py || rc=1
           echo "== test-connector-service-recovery.sh =="
           bash scripts/ops/test-connector-service-recovery.sh || rc=1
           echo "== test-connector-supervisor.py =="
