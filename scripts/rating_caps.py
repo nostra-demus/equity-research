@@ -492,7 +492,7 @@ BB_COMPOUND_CAP = 55  # combined base-case Valuation confidence ceiling when 02 
 _BB_CONF_RE = re.compile(
     r"^\s*(?:[-+*]\s+)?(?:\*\*)?Valuation confidence\s*/?\s*100\s*"
     r"(?:\*\*)?\s*:\s*(?:\*\*)?\s*(?:\*\*)?(\d{1,3})(?:\*\*)?"
-    r"(?![\d.]|\s*(?:(?:%|percent\b)\s*)?(?:[-–—/]|to\b|through\b|or\b)\s*\d)",
+    r"(?![\d.,eE_]|\s*(?:(?:%|percent\b)\s*)?(?:[-–—/]|to\b|through\b|or\b)\s*\d)",
     re.IGNORECASE,
 )
 _BB_VERDICT_HEADING_RE = re.compile(
@@ -507,7 +507,7 @@ def _bb_parse_valuation_confidence(synth_txt):
     substituting for a missing Verdict score; requiring exactly one confidence line also fails closed
     on conflicting values. The integer must occupy the value position immediately after the label's
     colon (apart from Markdown emphasis), so `N/A (max 55)` and signed values cannot be truncated into
-    passing scores. A non-whole or ranged score (`55.9`, `55–60`, `55 to 60`, `55%–60%`)
+    passing scores. A non-whole or ranged score (`55.9`, `55,9`, `55e0`, `55–60`, `55 to 60`, `55%–60%`)
     is treated as unparseable → None → the caller fails closed rather than truncating it to a value
     that spuriously respects the cap (Codex review P2)."""
     if not synth_txt:
