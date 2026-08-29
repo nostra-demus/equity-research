@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-29T09:47:02Z",
+  "generated_at": "2026-08-29T10:07:56Z",
   "inbox": [
     {
       "inbox_id": "INB-20260829-490",
@@ -40,6 +40,55 @@
       "issuer_linkage": "sector",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260829-523",
+      "headline": "Prataap Snacks Ltd: Intimation under Regulation 30 of the SEBI(LODR) Regulations, 2015 regarding completion of acquisition of 100% of the equity share capital of RLOP Food Processing Private Limited (\"Target Company\")",
+      "headline_en": null,
+      "url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/2dba565f-07d4-457d-8dda-7d749c45156f.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-29T09:46:09Z",
+      "sweep_file": "screener/inbox/2026-08-29_sweep.json",
+      "prelim_note": "Company completed the acquisition of 100% equity share capital of RLOP Food Processing Private Limited.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company completed the acquisition of 100% equity share capital of RLOP Food Processing Private Limited.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Prataap Snacks Ltd",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1804,6 +1853,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260829-537",
+      "headline": "Russian drone strike near Kyiv kills at least 27",
+      "headline_en": null,
+      "url": "https://www.scmp.com/news/world/europe/article/3365705/russian-drone-strike-near-kyiv-kills-least-27?utm_source=rss_feed",
+      "source_name": "South China Morning Post",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-29T09:55:07Z",
+      "sweep_file": "screener/inbox/2026-08-29_sweep.json",
+      "prelim_note": "A major Russian drone strike killing 27 people marks a significant escalation in the ongoing conflict, impacting regional stability.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "A major Russian drone strike killing 27 people marks a significant escalation in the ongoing conflict, impacting regional stability.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 9,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "geopolitical",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260829-510",
       "headline": "Zelenskyy Says Dozens Killed in Russian Drone Strike Near Kyiv",
       "headline_en": null,
@@ -1888,105 +1980,6 @@
           "name": "Jio Platforms",
           "ticker": null,
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260829-222",
-      "headline": "Fake Sales, Round-Tripping, 1,700% Stock Surge: SEBI Uncovers Debock's Pump-And-Dump Scheme",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/markets/fake-sales-round-tripping-1-700-stock-surge-sebi-uncovers-debocks-pump-and-dump-scheme-11972237#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-28T15:22:09Z",
-      "sweep_file": "screener/inbox/2026-08-29_sweep.json",
-      "prelim_note": "SEBI uncovered a pump-and-dump scheme involving fake sales and round-tripping at Debock, following a 1,700% stock surge.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "SEBI uncovered a pump-and-dump scheme involving fake sales and round-tripping at Debock, following a 1,700% stock surge.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": -1,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "accounting_restatement",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "litigation_enforcement",
-        "accounting_restatement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Debock Industries",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260829-231",
-      "headline": "Maharashtra FDA cancels Cipla Pharma’s Pune unit drug sale licence",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/business/maharashtra-fda-cancels-cipla-pharmas-pune-drug-licences-seizes-rs-11-19-lakh-stock-19979240.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-28T15:14:56Z",
-      "sweep_file": "screener/inbox/2026-08-29_sweep.json",
-      "prelim_note": "Maharashtra FDA cancelled Cipla Pharma's Pune unit drug sale licence.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Maharashtra FDA cancelled Cipla Pharma's Pune unit drug sale licence.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Cipla Pharma",
-          "ticker": null,
-          "listing_country": null
         }
       ],
       "size_bucket": "large",
@@ -85654,147 +85647,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-1604e5b6569e",
-      "idea_version": "IDEAV-a0fcf8bc22993918",
-      "idea_version_started_at": "2026-08-27T23:25:23Z",
-      "ticker": "CRM",
-      "company": "Salesforce Inc",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Salesforce reported a 23% surge following a strong Q2 earnings beat and a strategic partnership with Anthropic, which enhances its AI capabilities.",
-      "why_now": "The market reaction occurred on August 27, 2026, following the earnings release and partnership announcement.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-2f4bc2395022"
-      ],
-      "primary_source_event_id": "EVT-2f4bc2395022",
-      "source_headlines": [
-        "Stock Market Today, Aug. 27: Salesforce Surges 23% on Anthropic Partnership and Q2 Earnings Beat"
-      ],
-      "source_headline": "Stock Market Today, Aug. 27: Salesforce Surges 23% on Anthropic Partnership and Q2 Earnings Beat",
-      "source_url": "https://www.nasdaq.com/articles/stock-market-today-aug-27-salesforce-surges-23-anthropic-partnership-and-q2-earnings-beat",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-27T21:47:47Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-26T21:03:32Z",
-      "updated_at": "2026-08-27T23:25:23Z",
-      "decay_at": "2026-08-29T09:47:47Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-151e26db4506",
-      "idea_version": "IDEAV-bb3927f61873c568",
-      "idea_version_started_at": "2026-08-27T23:55:54Z",
-      "ticker": "S",
-      "company": "SentinelOne",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "SentinelOne reported a wider Q2 net loss, showing deteriorating profitability despite revenue growth.",
-      "why_now": "Q2 earnings released Aug 27, 2026.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 60,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-fd9c16f9aef6"
-      ],
-      "primary_source_event_id": "EVT-fd9c16f9aef6",
-      "source_headlines": [
-        "SentinelOne Reports Wider Q2 Net Loss"
-      ],
-      "source_headline": "SentinelOne Reports Wider Q2 Net Loss",
-      "source_url": "https://www.nasdaq.com/articles/sentinelone-reports-wider-q2-net-loss",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-27T21:48:11Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-27T23:55:54Z",
-      "updated_at": "2026-08-27T23:55:54Z",
-      "decay_at": "2026-08-29T09:48:11Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-ad9e65208b35",
       "idea_version": "IDEAV-52b0bb5639279ad2",
       "idea_version_started_at": "2026-08-28T05:51:01Z",
@@ -86791,6 +86643,76 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-1604e5b6569e",
+      "idea_version": "IDEAV-a0fcf8bc22993918",
+      "idea_version_started_at": "2026-08-27T23:25:23Z",
+      "ticker": "CRM",
+      "company": "Salesforce Inc",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Salesforce reported a 23% surge following a strong Q2 earnings beat and a strategic partnership with Anthropic, which enhances its AI capabilities.",
+      "why_now": "The market reaction occurred on August 27, 2026, following the earnings release and partnership announcement.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-2f4bc2395022"
+      ],
+      "primary_source_event_id": "EVT-2f4bc2395022",
+      "source_headlines": [
+        "Stock Market Today, Aug. 27: Salesforce Surges 23% on Anthropic Partnership and Q2 Earnings Beat"
+      ],
+      "source_headline": "Stock Market Today, Aug. 27: Salesforce Surges 23% on Anthropic Partnership and Q2 Earnings Beat",
+      "source_url": "https://www.nasdaq.com/articles/stock-market-today-aug-27-salesforce-surges-23-anthropic-partnership-and-q2-earnings-beat",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-27T21:47:47Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-26T21:03:32Z",
+      "updated_at": "2026-08-27T23:25:23Z",
+      "decay_at": "2026-08-29T09:47:47Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-ef1043135048",
       "idea_version": "IDEAV-8499a5e61e0b9d0e",
       "idea_version_started_at": "2026-08-27T21:21:14Z",
@@ -87766,6 +87688,77 @@
       "surfaced_at": "2026-08-26T21:03:32Z",
       "updated_at": "2026-08-26T21:03:32Z",
       "decay_at": "2026-08-28T06:27:16Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-151e26db4506",
+      "idea_version": "IDEAV-bb3927f61873c568",
+      "idea_version_started_at": "2026-08-27T23:55:54Z",
+      "ticker": "S",
+      "company": "SentinelOne",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "SentinelOne reported a wider Q2 net loss, showing deteriorating profitability despite revenue growth.",
+      "why_now": "Q2 earnings released Aug 27, 2026.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 60,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "price and market expectations",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "unknown",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-fd9c16f9aef6"
+      ],
+      "primary_source_event_id": "EVT-fd9c16f9aef6",
+      "source_headlines": [
+        "SentinelOne Reports Wider Q2 Net Loss"
+      ],
+      "source_headline": "SentinelOne Reports Wider Q2 Net Loss",
+      "source_url": "https://www.nasdaq.com/articles/sentinelone-reports-wider-q2-net-loss",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-27T21:48:11Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-27T23:55:54Z",
+      "updated_at": "2026-08-27T23:55:54Z",
+      "decay_at": "2026-08-29T09:48:11Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -89503,18 +89496,18 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 203,
-    "shown_count": 203,
+    "total_count": 205,
+    "shown_count": 205,
     "hidden_count": 0,
     "side_counts": {
       "long": {
-        "total_count": 92,
-        "shown_count": 92,
+        "total_count": 93,
+        "shown_count": 93,
         "hidden_count": 0
       },
       "short": {
-        "total_count": 111,
-        "shown_count": 111,
+        "total_count": 112,
+        "shown_count": 112,
         "hidden_count": 0
       }
     },
@@ -89534,6 +89527,153 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-151e26db4506",
+        "idea_version": "IDEAV-bb3927f61873c568",
+        "idea_version_started_at": "2026-08-27T23:55:54Z",
+        "ticker": "S",
+        "company": "SentinelOne",
+        "exchange": "NYSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "SentinelOne reported a wider Q2 net loss, showing deteriorating profitability despite revenue growth.",
+        "why_now": "Q2 earnings released Aug 27, 2026.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 60,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "price and market expectations",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "unknown",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-fd9c16f9aef6"
+        ],
+        "primary_source_event_id": "EVT-fd9c16f9aef6",
+        "source_headlines": [
+          "SentinelOne Reports Wider Q2 Net Loss"
+        ],
+        "source_headline": "SentinelOne Reports Wider Q2 Net Loss",
+        "source_url": "https://www.nasdaq.com/articles/sentinelone-reports-wider-q2-net-loss",
+        "source_name": "Nasdaq",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-27T21:48:11Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-27T23:55:54Z",
+        "updated_at": "2026-08-27T23:55:54Z",
+        "decay_at": "2026-08-29T09:48:11Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-29T09:48:11Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-1604e5b6569e",
+        "idea_version": "IDEAV-a0fcf8bc22993918",
+        "idea_version_started_at": "2026-08-27T23:25:23Z",
+        "ticker": "CRM",
+        "company": "Salesforce Inc",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Salesforce reported a 23% surge following a strong Q2 earnings beat and a strategic partnership with Anthropic, which enhances its AI capabilities.",
+        "why_now": "The market reaction occurred on August 27, 2026, following the earnings release and partnership announcement.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 62,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-2f4bc2395022"
+        ],
+        "primary_source_event_id": "EVT-2f4bc2395022",
+        "source_headlines": [
+          "Stock Market Today, Aug. 27: Salesforce Surges 23% on Anthropic Partnership and Q2 Earnings Beat"
+        ],
+        "source_headline": "Stock Market Today, Aug. 27: Salesforce Surges 23% on Anthropic Partnership and Q2 Earnings Beat",
+        "source_url": "https://www.nasdaq.com/articles/stock-market-today-aug-27-salesforce-surges-23-anthropic-partnership-and-q2-earnings-beat",
+        "source_name": "Nasdaq",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-27T21:47:47Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-26T21:03:32Z",
+        "updated_at": "2026-08-27T23:25:23Z",
+        "decay_at": "2026-08-29T09:47:47Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-29T09:47:47Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-017f4db87209",
         "idea_version": "IDEAV-3a1f5029b454e5af",
@@ -104589,7 +104729,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 222,
-    "live_count": 17,
+    "live_count": 15,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -104608,9 +104748,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 584114,
-    "news_picked_today": 1193,
-    "news_dropped_today": 4213
+    "news_seen_today": 584311,
+    "news_picked_today": 1213,
+    "news_dropped_today": 4390
   },
   "book_momentum": {
     "live_count": 8,
