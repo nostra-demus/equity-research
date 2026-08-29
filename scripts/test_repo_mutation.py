@@ -109,9 +109,26 @@ def test_deploy_holds_both_leases_through_build() -> None:
         barrier_fd = os.open(barrier_path, os.O_RDWR | os.O_CREAT | os.O_APPEND, 0o600)
         try:
             fcntl.flock(barrier_fd, fcntl.LOCK_SH | fcntl.LOCK_NB)
+            dirty_path = os.path.join(prod, ".codex", "agents", "unreviewed.toml")
+            os.makedirs(os.path.dirname(dirty_path), exist_ok=True)
+            with open(dirty_path, "w", encoding="utf-8") as handle:
+                handle.write("model = 'unreviewed'\n")
+            dirty_blocked = subprocess.run(["bash", DEPLOY], cwd=prod, env=deploy_env,
+                                           check=False, capture_output=True, text=True, timeout=5)
+            check(dirty_blocked.returncode == 0, "a dirty-code deploy should refuse cleanly")
+            check(not os.path.exists(os.path.join(barrier_dir, "provider-deploy-pending")),
+                  "a known dirty-code blocker must not claim an update is in progress or pause admissions")
+            deploy_log = os.path.join(home, "Library", "Logs", "nostradamus-deploy.log")
+            check("before admission pause" in open(deploy_log, encoding="utf-8").read(),
+                  "the refused deployment must record the real preflight blocker")
+            os.remove(dirty_path)
+            os.removedirs(os.path.dirname(dirty_path))
+
             deferred = subprocess.run(["bash", DEPLOY], cwd=prod, env=deploy_env,
                                       check=False, capture_output=True, text=True, timeout=5)
             check(deferred.returncode == 0, "an active run should defer deploy cleanly")
+            check(os.path.exists(os.path.join(barrier_dir, "provider-deploy-pending")),
+                  "a clean authorized deploy should pause later admissions while the active run drains")
             check(run(["git", "rev-parse", "HEAD"], prod, env).stdout.strip() == base,
                   "active-run barrier must defer before fast-forwarding the checkout")
             check(not os.path.exists(calls),

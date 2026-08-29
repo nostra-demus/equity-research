@@ -43,10 +43,12 @@ EMPIRICAL_GRID = (30, 45, 60, 75, 92, 182, 273, 365, 456, 548)
 SCENARIO_ID_RE = re.compile(r"^[a-z0-9][a-z0-9-]*$")
 COVERAGE_CUTOVER = dt.date(2026, 8, 11)
 COVERAGE_STATUSES = {"usable", "missing", "manual", "unavailable", "suspect"}
-COVERAGE_ARTIFACT_FIELDS = {
+COVERAGE_ARTIFACT_FIELDS_V1 = {
     "schema_version", "commodity", "decision_time", "generated_at", "profile_path",
     "required_count", "usable_count", "complete", "unresolved_need_ids", "rows",
 }
+COVERAGE_ARTIFACT_FIELDS_V2 = COVERAGE_ARTIFACT_FIELDS_V1 | {"profile_snapshot_sha256"}
+COVERAGE_ARTIFACT_FIELDS_V3 = COVERAGE_ARTIFACT_FIELDS_V2 | {"source_snapshot_sha256"}
 COVERAGE_ROW_FIELDS = {
     "need_id", "series_id", "owner_orb", "required_history_freshness", "lawful_source_policy",
     "status", "as_of", "vintage_id", "dataset_id", "connector_id", "provider", "reason",
@@ -353,7 +355,8 @@ def _coverage_errors(
     record: dict[str, Any], artifact: Any | None, artifact_sha256: str | None,
     profile_requirements: list[dict[str, str]] | None,
     coverage_resolver: Callable[[str, str, str], dict[str, Any] | None] | None,
-    frozen_coverage: bool,
+    frozen_coverage: bool, profile_snapshot_sha256: str | None,
+    source_snapshot_sha256: str | None,
 ) -> list[str]:
     errors: list[str] = []
     if not isinstance(record.get("commodity_family"), str) or re.fullmatch(r"[a-z0-9][a-z0-9-]*", record["commodity_family"]) is None:
@@ -384,10 +387,31 @@ def _coverage_errors(
         errors.append("required_series_coverage artifact digest does not match the decision projection")
     if not isinstance(artifact, dict):
         return [*errors, "required_series_coverage artifact must be an object"]
-    if set(artifact) != COVERAGE_ARTIFACT_FIELDS:
+    artifact_version = artifact.get("schema_version")
+    expected_artifact_fields = {
+        1: COVERAGE_ARTIFACT_FIELDS_V1,
+        2: COVERAGE_ARTIFACT_FIELDS_V2,
+        3: COVERAGE_ARTIFACT_FIELDS_V3,
+    }.get(artifact_version, COVERAGE_ARTIFACT_FIELDS_V1)
+    if artifact_version not in {1, 2, 3} or set(artifact) != expected_artifact_fields:
         errors.append("required_series_coverage artifact must contain exactly the contract fields")
-    if artifact.get("schema_version") != 1 or artifact.get("commodity") != record.get("commodity"):
+    if artifact.get("commodity") != record.get("commodity"):
         errors.append("required_series_coverage artifact identity does not match the decision")
+    if artifact_version in {2, 3}:
+        frozen_digest = artifact.get("profile_snapshot_sha256")
+        if not isinstance(frozen_digest, str) or re.fullmatch(r"sha256:[a-f0-9]{64}", frozen_digest) is None:
+            errors.append("required_series_coverage profile snapshot digest is invalid")
+        elif frozen_digest != profile_snapshot_sha256:
+            errors.append("required_series_coverage profile snapshot does not match the validated profile bytes")
+    if artifact_version == 3:
+        frozen_source_digest = artifact.get("source_snapshot_sha256")
+        if (
+            not isinstance(frozen_source_digest, str)
+            or re.fullmatch(r"sha256:[a-f0-9]{64}", frozen_source_digest) is None
+        ):
+            errors.append("required_series_coverage source snapshot digest is invalid")
+        elif frozen_source_digest != source_snapshot_sha256:
+            errors.append("required_series_coverage source snapshot does not match the validated source bytes")
     decision_time = artifact.get("decision_time")
     try:
         parsed_decision_time = dt.datetime.fromisoformat(str(decision_time).replace("Z", "+00:00"))
@@ -465,7 +489,7 @@ def _coverage_errors(
             or not isinstance(row.get("as_of"), str)
         ):
             errors.append(f"required_series_coverage.rows[{index}] usable row lacks a vintage/as-of identity")
-        elif status == "usable" and not frozen_coverage:
+        elif status == "usable":
             if coverage_resolver is None:
                 if is_fresh:
                     errors.append(f"required_series_coverage.rows[{index}] has no point-in-time resolver")
@@ -479,7 +503,11 @@ def _coverage_errors(
                     isinstance(tier, int) and not isinstance(tier, bool) and tier <= 10
                     and acquisition != "manual"
                     and (
-                        (expected_resolver_kind == "pulse_quote" and acquisition == "public_quote")
+                        # Frozen replay proves that the exact source identity still
+                        # resolves from the point-in-time data pool. It deliberately
+                        # does not import today's mutable profile resolver kind.
+                        frozen_coverage
+                        or (expected_resolver_kind == "pulse_quote" and acquisition == "public_quote")
                         or (expected_resolver_kind == "derived" and acquisition == "derived")
                         or (
                             expected_resolver_kind not in {"pulse_quote", "derived"}
@@ -541,19 +569,21 @@ def validate_decision_record(
     record: Any, coverage_artifact: Any | None = None, coverage_sha256: str | None = None,
     profile_requirements: list[dict[str, str]] | None = None,
     coverage_resolver: Callable[[str, str, str], dict[str, Any] | None] | None = None,
-    *, frozen_coverage: bool = False,
+    *, frozen_coverage: bool = False, profile_snapshot_sha256: str | None = None,
+    source_snapshot_sha256: str | None = None,
 ) -> list[str]:
     """Validate the post-rollout forecast and mechanically derived action.
 
-    Immutable archives set ``frozen_coverage`` so replay is checked against the artifact that was
-    frozen beside the decision, rather than today's profile roster or mutable data pool.
+    Immutable archives set ``frozen_coverage`` so roster shape is checked against the artifact frozen
+    beside the decision rather than today's profile. Usable rows must still resolve to the exact
+    point-in-time source identity; a self-consistent archive is not its own proof of provenance.
     """
     if not isinstance(record, dict):
         return ["commodity decision_record must be an object"]
     errors: list[str] = []
     errors.extend(_coverage_errors(
         record, coverage_artifact, coverage_sha256, profile_requirements, coverage_resolver,
-        frozen_coverage,
+        frozen_coverage, profile_snapshot_sha256, source_snapshot_sha256,
     ))
     current_price = record.get("current_price")
     price_value = current_price.get("value") if isinstance(current_price, dict) else None
@@ -690,13 +720,31 @@ def main() -> int:
         print(f"FORECAST-CONTRACT-FAIL: required_series_coverage artifact: {error}")
         return 1
     profile_requirements = None
+    profile_digest = None
+    source_digest = None
+    coverage_resolver = production_coverage_resolver
     try:
-        from commodity_profile_coverage import PROFILE_PATH, structured_profile
+        from commodity_profile_coverage import (
+            PROFILE_PATH, frozen_source_resolver, profile_snapshot_sha256,
+            source_snapshot_sha256, structured_profile,
+        )
         profile_requirements = structured_profile(str(record.get("commodity", "")), profile_path=PROFILE_PATH)
+        profile_digest = profile_snapshot_sha256(str(record.get("commodity", "")))
     except (OSError, ValueError):
         pass
+    if isinstance(coverage, dict) and coverage.get("schema_version") == 3:
+        try:
+            source_snapshot = json.loads(
+                (args.decision_record.parent / "required_series_sources.json").read_text(encoding="utf-8")
+            )
+            source_digest = source_snapshot_sha256(source_snapshot)
+            coverage_resolver = frozen_source_resolver(source_snapshot, coverage)
+        except (OSError, ValueError, json.JSONDecodeError):
+            coverage_resolver = lambda *_args: None
     errors = validate_decision_record(
-        record, coverage, coverage_sha256, profile_requirements, production_coverage_resolver,
+        record, coverage, coverage_sha256, profile_requirements, coverage_resolver,
+        profile_snapshot_sha256=profile_digest,
+        source_snapshot_sha256=source_digest,
     )
     if errors:
         for error in errors:
