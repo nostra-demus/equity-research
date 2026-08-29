@@ -10,7 +10,7 @@ import sys
 HERE = os.path.dirname(os.path.abspath(__file__))
 SCRIPTS = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(HERE))), "scripts")
 sys.path.insert(0, SCRIPTS)
-from commodity_tabular_feed import build, load_config  # noqa: E402
+from commodity_tabular_feed import build, load_config, source_url  # noqa: E402
 from connector_contract import validate_manifest, validate_staged_output  # noqa: E402
 
 manifest = json.load(open(os.path.join(HERE, "connector.json"), encoding="utf-8"))
@@ -19,7 +19,8 @@ start = dt.date(2022, 1, 1)
 lines = ["observation_date,DFII10"] + [
     f"{start + dt.timedelta(days=index)},{1 + index / 10000}" for index in range(1200)
 ]
-as_of, payload, sidecar = build("\n".join(lines).encode(), manifest, config)
+fixture_url = source_url(config, today=dt.date(2026, 8, 30))
+as_of, payload, sidecar = build("\n".join(lines).encode(), manifest, config, url=fixture_url)
 defects = validate_manifest(manifest["id"], HERE, manifest) + validate_staged_output(
     manifest, "COPPER", payload, sidecar, as_of,
 )
@@ -37,7 +38,7 @@ for bad in (
     )).encode(),
 ):
     try:
-        build(bad, manifest, config)
+        build(bad, manifest, config, url=fixture_url)
     except RuntimeError:
         pass
     else:

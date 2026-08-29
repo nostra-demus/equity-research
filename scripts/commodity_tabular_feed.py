@@ -16,9 +16,11 @@ import json
 import math
 import os
 import re
-from datetime import date, timedelta
+import sys
+from datetime import date, datetime, timedelta
 from pathlib import Path
 from typing import Any
+from zoneinfo import ZoneInfo
 
 from connector_contract import validate_payload
 from connector_fetch_support import fetch_bytes, load_manifest, provenance, publish_pair
@@ -132,12 +134,12 @@ def validate_config(config: Any) -> None:
         raise RuntimeError("note must be a non-empty provenance statement")
 
 
-def source_url(config: dict[str, Any], *, today: date | None = None) -> str:
+def source_url(config: dict[str, Any], *, today: date) -> str:
     template = config["source_url_template"]
     lookback = config.get("lookback_days")
     if lookback is None:
         return template
-    start = (today or date.today()) - timedelta(days=lookback)
+    start = today - timedelta(days=lookback)
     return template.replace("{start_date}", start.isoformat())
 
 
@@ -177,7 +179,7 @@ class _SkipRow(Exception):
     pass
 
 
-def build(raw: bytes, manifest: dict[str, Any], config: dict[str, Any], *, url: str | None = None):
+def build(raw: bytes, manifest: dict[str, Any], config: dict[str, Any], *, url: str):
     validate_config(config)
     if manifest.get("minimum_history", {}).get("path") != config["records_field"]:
         raise RuntimeError("feed records_field must equal the manifest minimum_history path")
@@ -223,7 +225,6 @@ def build(raw: bytes, manifest: dict[str, Any], config: dict[str, Any], *, url: 
     if len(records) < minimum:
         raise RuntimeError(f"feed has {len(records)} usable rows; {minimum} are required")
     as_of = records[-1][config["as_of_field"]]
-    url = url or source_url(config)
     payload = {
         "series": manifest["series"], "as_of": as_of, **config["static_fields"],
         config["records_field"]: records, config["source_url_field"]: url,
@@ -268,7 +269,8 @@ def main(fetch_file: str) -> int:
         parser.error("--subject is required unless --verify")
     if manual_arg and not args.manual_file:
         parser.error(f"{manual_arg} is required for this licensed manual connector")
-    url = source_url(config)
+    release_today = datetime.now(ZoneInfo(manifest["release"]["timezone"])).date()
+    url = source_url(config, today=release_today)
     try:
         raw = (
             _read_file(args.manual_file, config["max_bytes"])
@@ -276,7 +278,8 @@ def main(fetch_file: str) -> int:
         )
         as_of, payload, sidecar = build(raw, manifest, config, url=url)
     except RuntimeError as error:
-        parser.error(str(error))
+        print(f"FEED-ERROR: {error}", file=sys.stderr)
+        return 1
     if args.verify:
         print(f"OK verify: {len(payload[config['records_field']])} rows through {as_of}")
         return 0

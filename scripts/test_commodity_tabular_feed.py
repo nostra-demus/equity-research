@@ -40,7 +40,10 @@ start = dt.date(2023, 1, 1)
 rows = ["observation_date,DFII10"] + [
     f"{start + dt.timedelta(days=index)},{2 + index / 10000}" for index in range(800)
 ]
-as_of, payload, sidecar = build("\n".join(rows).encode(), manual_manifest, manual_config)
+fixture_url = manual_config["source_url_template"]
+as_of, payload, sidecar = build(
+    "\n".join(rows).encode(), manual_manifest, manual_config, url=fixture_url,
+)
 defects = validate_staged_output(
     manual_manifest, "COPPER", payload, sidecar, as_of, manual_ingest=True,
 )
@@ -49,7 +52,7 @@ assert sidecar["provider"] == "S&P Capital IQ Pro"
 assert sidecar["licensing"]["redistribution"] == "prohibited"
 
 try:
-    build(b"Date,Value\n2026-01-01,1", manual_manifest, manual_config)
+    build(b"Date,Value\n2026-01-01,1", manual_manifest, manual_config, url=fixture_url)
 except RuntimeError as error:
     assert "header changed" in str(error)
 else:
