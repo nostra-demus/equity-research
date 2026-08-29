@@ -578,7 +578,9 @@ def check_commodity_dual_horizon(doc_path: str, *, frozen_coverage: bool = False
         return [f"required_series_coverage artifact is unreadable: {error}"]
     if frozen_coverage:
         return validate_dual_horizon_record(
-            record, coverage, coverage_sha256, frozen_coverage=True,
+            record, coverage, coverage_sha256,
+            coverage_resolver=production_coverage_resolver,
+            frozen_coverage=True,
         )
     profile_requirements = None
     try:

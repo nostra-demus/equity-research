@@ -465,7 +465,7 @@ def _coverage_errors(
             or not isinstance(row.get("as_of"), str)
         ):
             errors.append(f"required_series_coverage.rows[{index}] usable row lacks a vintage/as-of identity")
-        elif status == "usable" and not frozen_coverage:
+        elif status == "usable":
             if coverage_resolver is None:
                 if is_fresh:
                     errors.append(f"required_series_coverage.rows[{index}] has no point-in-time resolver")
@@ -479,7 +479,11 @@ def _coverage_errors(
                     isinstance(tier, int) and not isinstance(tier, bool) and tier <= 10
                     and acquisition != "manual"
                     and (
-                        (expected_resolver_kind == "pulse_quote" and acquisition == "public_quote")
+                        # Frozen replay proves that the exact source identity still
+                        # resolves from the point-in-time data pool. It deliberately
+                        # does not import today's mutable profile resolver kind.
+                        frozen_coverage
+                        or (expected_resolver_kind == "pulse_quote" and acquisition == "public_quote")
                         or (expected_resolver_kind == "derived" and acquisition == "derived")
                         or (
                             expected_resolver_kind not in {"pulse_quote", "derived"}
@@ -545,8 +549,9 @@ def validate_decision_record(
 ) -> list[str]:
     """Validate the post-rollout forecast and mechanically derived action.
 
-    Immutable archives set ``frozen_coverage`` so replay is checked against the artifact that was
-    frozen beside the decision, rather than today's profile roster or mutable data pool.
+    Immutable archives set ``frozen_coverage`` so roster shape is checked against the artifact frozen
+    beside the decision rather than today's profile. Usable rows must still resolve to the exact
+    point-in-time source identity; a self-consistent archive is not its own proof of provenance.
     """
     if not isinstance(record, dict):
         return ["commodity decision_record must be an object"]
