@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-29T13:49:43Z",
+  "generated_at": "2026-08-29T13:59:42Z",
   "inbox": [
     {
       "inbox_id": "INB-20260829-490",
@@ -39,6 +39,55 @@
       ],
       "issuer_linkage": "sector",
       "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260829-613",
+      "headline": "Ishaan Infrastructures and Shelters Ltd: The Acquisition of 100% of the Share Capital of Blisstering Electronics Private Limited ('BEPL') and Bliss Cab Electronics Private Limited ('BCEPL'). The Board has approved the execution ....",
+      "headline_en": null,
+      "url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/982ddb90-7fb6-47d9-86fa-d0e596a342c8.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-29T13:46:54Z",
+      "sweep_file": "screener/inbox/2026-08-29_sweep.json",
+      "prelim_note": "The company approved the acquisition of 100% of the share capital of two entities, Blisstering Electronics and Bliss Cab Electronics.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company approved the acquisition of 100% of the share capital of two entities, Blisstering Electronics and Bliss Cab Electronics.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ishaan Infrastructures and Shelters Ltd",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -241,6 +290,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260829-615",
+      "headline": "HDFC Bank CEO Jagdishan opts out of reappointment amid governance concerns",
+      "headline_en": null,
+      "url": "https://www.deccanherald.com/business/companies/hdfc-bank-ceo-jagdishan-opts-out-of-reappointment-amid-governance-concerns-4128372",
+      "source_name": "Deccan Herald",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-29T13:40:34Z",
+      "sweep_file": "screener/inbox/2026-08-29_sweep.json",
+      "prelim_note": "The CEO of HDFC Bank is opting out of reappointment, citing governance concerns.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The CEO of HDFC Bank is opting out of reappointment, citing governance concerns.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HDFC Bank",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260829-608",
       "headline": "Aseguradora alemana Allianz estudia la adquisición del gigante de asistencia en carretera AA: medio",
       "headline_en": "German insurer Allianz studies the acquisition of roadside assistance giant AA: media",
@@ -296,6 +394,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260829-614",
+      "headline": "Sashidhar Jagdishan To Step Down As HDFC Bank MD & CEO On Oct 26",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/business/sashidhar-jagdishan-to-step-down-as-hdfc-bank-md-ceo-on-oct-26-11975079#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-29T13:14:47Z",
+      "sweep_file": "screener/inbox/2026-08-29_sweep.json",
+      "prelim_note": "The MD & CEO of HDFC Bank, Sashidhar Jagdishan, is stepping down on October 26.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The MD & CEO of HDFC Bank, Sashidhar Jagdishan, is stepping down on October 26.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HDFC Bank",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260829-602",
       "headline": "UAE-based private jet firm explores $1 billion IPO",
       "headline_en": null,
@@ -334,55 +481,6 @@
       "issuer_linkage": "primary",
       "companies": [],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260829-580",
-      "headline": "India's HDFC Bank CEO Jagdishan to step down in October",
-      "headline_en": null,
-      "url": "https://www.reuters.com/world/india/indias-hdfc-bank-ceo-jagdishan-step-down-october-2026-08-29/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-29T13:09:43Z",
-      "sweep_file": "screener/inbox/2026-08-29_sweep.json",
-      "prelim_note": "The CEO of HDFC Bank is stepping down in October.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "The CEO of HDFC Bank is stepping down in October.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "executive_exit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "executive_exit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "HDFC Bank",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1901,103 +1999,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260829-397",
-      "headline": "Trump-Tied Firm Boosts Bosnia Investment Plans to $2.3 Billion",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-08-28/trump-tied-firm-boosts-bosnia-investment-plans-to-2-3-billion",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-28T08:11:24Z",
-      "sweep_file": "screener/inbox/2026-08-29_sweep.json",
-      "prelim_note": "A firm linked to Donald Trump announced a $2.3 billion investment plan in Bosnia.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "A firm linked to Donald Trump announced a $2.3 billion investment plan in Bosnia.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260829-401",
-      "headline": "SoftBank seeks another US$10 billion loan for OpenAI stake funding",
-      "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/companies-markets/banking-finance/softbank-seeks-another-us10-billion-loan-openai-stake-funding",
-      "source_name": "The Business Times (Singapore)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-28T07:37:23Z",
-      "sweep_file": "screener/inbox/2026-08-29_sweep.json",
-      "prelim_note": "SoftBank is seeking a $10 billion loan to fund an OpenAI stake, representing a significant capital-raising event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "SoftBank is seeking a $10 billion loan to fund an OpenAI stake, representing a significant capital-raising event.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SoftBank",
-          "ticker": null,
-          "listing_country": "JP"
-        },
-        {
-          "name": "OpenAI",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -106125,9 +106126,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 586555,
-    "news_picked_today": 1458,
-    "news_dropped_today": 6304
+    "news_seen_today": 586648,
+    "news_picked_today": 1477,
+    "news_dropped_today": 6378
   },
   "book_momentum": {
     "live_count": 8,
