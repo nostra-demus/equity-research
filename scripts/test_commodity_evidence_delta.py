@@ -5,7 +5,10 @@ from __future__ import annotations
 import tempfile
 from pathlib import Path
 
-from commodity_evidence_delta import discover_owner_modules, evidence_delta
+from commodity_evidence_delta import (
+    PREFLIGHT_STATE_NAME, discover_owner_modules, evidence_delta, read_preflight_state,
+    validate_preflight_state, write_preflight_state,
+)
 from commodity_profile_coverage import STRUCTURED_PROFILE_ROOT, structured_profile
 
 
@@ -55,6 +58,18 @@ with tempfile.TemporaryDirectory() as temporary:
     assert profile_changed["profile_changed"] is True
     assert profile_changed["modules"] == ["commodity-thesis", "macro-positioning"]
 
+    run_root = repo / "commodity/runs/COPPER"
+    run_root.mkdir(parents=True)
+    write_preflight_state(run_root, delta)
+    assert read_preflight_state(run_root, owners) == delta
+    assert (run_root / PREFLIGHT_STATE_NAME).is_file()
+    malformed = {**delta, "modules": ["unknown-module"]}
+    try:
+        validate_preflight_state(malformed, "COPPER", owners)
+        raise AssertionError("unknown persisted module was accepted")
+    except ValueError as error:
+        assert "unknown owner or module" in str(error)
+
 real_owners = discover_owner_modules()
 profile_owners = {
     requirement["owner"]
@@ -70,5 +85,9 @@ assert 'mkdir -p "commodity/runs/<COMMODITY>" "data/<COMMODITY>"' in full_comman
 assert "commodity_evidence_delta.py" in full_command
 assert full_command.count("refresh-swarm-pulse.sh commodity") == 1
 assert '--decision-time "$PREFLIGHT_TIME"' in full_command
+assert '--write-state' in full_command
+assert '--read-decision-time' in full_command
+assert '--module-status "$MOD"' in full_command
+assert "EVIDENCE_INVALIDATED_MODULES" not in full_command
 
 print("PASS: changed evidence invalidates its owning commodity modules")

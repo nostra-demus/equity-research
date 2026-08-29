@@ -50,29 +50,27 @@ Step 3.5 after that sweep finishes. Never continue to the pulse refresh or evide
 the scoped refresh did not run, so preflight could otherwise reject usable evidence that is still being published.
 
 Connector failures are not permission to substitute an unreviewed scrape. They remain visible as missing,
-stalled, suspect, or unavailable evidence. Now run the non-publishing preflight at one captured UTC cutoff:
+stalled, suspect, or unavailable evidence. Now run the non-publishing preflight and evidence delta in ONE
+Bash invocation at one captured UTC cutoff:
 
 ```bash
 PREFLIGHT_TIME="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
-python3 scripts/commodity_profile_coverage.py "<RUN_ROOT>" --preflight --decision-time "$PREFLIGHT_TIME"
+python3 scripts/commodity_profile_coverage.py "<RUN_ROOT>" --preflight --decision-time "$PREFLIGHT_TIME" &&
+python3 scripts/commodity_evidence_delta.py "<RUN_ROOT>" --decision-time "$PREFLIGHT_TIME" --write-state
 ```
 
-This mode writes nothing and does not freeze the terminal coverage artifacts. If it exits `2`, zero required
-series are usable: STOP before every research orb, report the exact status counts and affected owner orbs,
+The coverage preflight writes nothing and does not freeze the terminal coverage artifacts; after a successful
+preflight, the delta command writes only the run-scoped state described below. If preflight exits `2`, zero
+required series are usable: STOP before every research orb, report the exact status counts and affected owner orbs,
 and point the user to `python3 scripts/commodity_feed_plan.py "<COMMODITY>" --gaps-only`. Spending the full
 swarm budget cannot turn zero evidence into a forecast. Exit `0` permits the run to continue; partial evidence
 remains subject to the terminal sufficiency caps and can still end in `Research More`.
 
-When preflight exits `0`, compare this exact decision-time view with the prior frozen coverage before any
-resume decision:
-
-```bash
-EVIDENCE_DELTA_JSON="$(python3 scripts/commodity_evidence_delta.py "<RUN_ROOT>" --decision-time "$PREFLIGHT_TIME")"
-EVIDENCE_INVALIDATED_MODULES="$(printf '%s' "$EVIDENCE_DELTA_JSON" | python3 -c 'import json,sys; print(" ".join(json.load(sys.stdin)["modules"]))')"
-```
-
-If either command fails, STOP. Print the changed need IDs, owner orbs, and invalidated modules. This snapshot
-writes nothing. It is the evidence-staleness floor for every resume decision below.
+When preflight exits `0`, the second command compares that exact decision-time view with the prior frozen
+coverage before any resume decision. If either command fails, STOP. Print the changed need IDs, owner orbs,
+and invalidated modules from its JSON output. The command atomically writes the same validated JSON to
+`<RUN_ROOT>/commodity_preflight_state.json`. That run-scoped artifact is the durable evidence-staleness floor
+for every later Bash invocation; never rely on a shell variable surviving into another command block.
 
 ## 4. Discover modules + dependency order
 
@@ -91,7 +89,8 @@ For each module in topo order:
    - (d) every orb declaring `emits_signal_evidence: true` has its sibling `.signals.json`, and that
      sidecar is not newer than the synthesis. A legacy markdown-only orb is incomplete under the current
      contract and must rerun; a refreshed sidecar must flow through synthesis before the module is current.
-   - (e) `<module>` is absent from `<EVIDENCE_INVALIDATED_MODULES>`. A new vintage, changed usability state,
+   - (e) `<module>` is absent from the `modules` array in the validated
+     `<RUN_ROOT>/commodity_preflight_state.json`. A new vintage, changed usability state,
      or removed profile need invalidates its owning module even when old output files are newer on disk.
 
    (b) is the load-bearing test and is fully durable: it compares file EXISTENCE against the live roster. (c) compares mtimes, which are **not durable across a fresh clone** (every file lands with the checkout time), so on a freshly cloned tree (c) simply never fires and the check degrades to (a)+(b) — weaker, never wrong. On the persistent checkout the engine actually runs from, mtimes are real and (c) does its job.
@@ -99,7 +98,8 @@ For each module in topo order:
 ```bash
 # prints SKIP or RERUN:<reason> for <module>
 MOD=<module>; RR=<RUN_ROOT>; SYN="$RR/$MOD/99_$MOD-synthesis.md"
-case " $EVIDENCE_INVALIDATED_MODULES " in *" $MOD "*) echo "RERUN:evidence-changed";; *)
+EVIDENCE_STATE="$(python3 scripts/commodity_evidence_delta.py "$RR" --module-status "$MOD")" || exit $?
+case "$EVIDENCE_STATE" in RERUN:evidence-changed) echo "$EVIDENCE_STATE";; CLEAR)
 if [ ! -s "$SYN" ]; then echo "RERUN:no-synthesis"; else
   reason=""
   for f in .claude/agents/commodity/"$MOD"/[0-9][0-9]_*.md; do
@@ -116,7 +116,7 @@ if [ ! -s "$SYN" ]; then echo "RERUN:no-synthesis"; else
   done
   [ -n "$reason" ] && echo "RERUN:$reason" || echo "SKIP"
 fi
-;; esac
+;; *) echo "EVIDENCE-DELTA-FAIL: invalid persisted module status"; exit 1;; esac
 ```
 
    Report each module's SKIP / RERUN decision and its reason in step 7 — a resume that silently skipped a module carrying a missing orb is exactly the failure this check exists to make visible. The evidence delta covers accepted profile-series changes; `/commodity:intake` separately covers user documents and notes landing in `data/<COMMODITY>/`. Neither substitutes for the other.
@@ -126,8 +126,15 @@ fi
    `SKIP`, run `python3 scripts/commodity_signal_evidence.py "<RUN_ROOT>"`. Any
    `SIGNAL-EVIDENCE-FAIL` stops before the next module. Immediately BEFORE the terminal synthesis resume
    decision, do NOT refresh feeds or the pulse again: admitting evidence after its owner module ran would
-   bind fresh vintages to stale conclusions. Run `python3 scripts/commodity_profile_coverage.py "<RUN_ROOT>"
-   --decision-time "$PREFLIGHT_TIME"` exactly once. It freezes the same evidence view used by the staleness
+   bind fresh vintages to stale conclusions. Read the cutoff from durable state and compile in the SAME Bash
+   invocation:
+
+```bash
+PREFLIGHT_TIME="$(python3 scripts/commodity_evidence_delta.py "<RUN_ROOT>" --read-decision-time)" || exit $?
+python3 scripts/commodity_profile_coverage.py "<RUN_ROOT>" --decision-time "$PREFLIGHT_TIME"
+```
+
+   Run that compilation exactly once. It freezes the same evidence view used by the staleness
    check and binds every profile-required series to a vintage knowable at that cutoff. Compute its byte digest.
    The terminal record's `decision_date` must equal the UTC date inside this frozen `decision_time`. If an
    existing `decision_record.json` does not carry

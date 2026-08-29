@@ -61,4 +61,11 @@ for need in (
     assert "Federal Energy Regulatory Commission" in providers
     assert "U.S. Department of Energy natural-gas import/export reports" in providers
     assert "ENTSOG Transparency Platform and primary transmission operators" in providers
+fund_rows = [
+    row for plan in plans for row in plan["rows"]
+    if row["source_rule_id"] == "fund-holdings-flows"
+]
+assert fund_rows
+assert all("issuer" in row["lawful_source_policy"].lower() for row in fund_rows)
+assert all("not permitted" in row["capital_iq_fallback"].lower() for row in fund_rows)
 print("PASS: every commodity profile need has an implemented route or authoritative source plan")

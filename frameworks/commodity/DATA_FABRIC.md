@@ -19,9 +19,9 @@ python3 .claude/tools/run_connectors.py --subject COPPER
 python3 scripts/commodity_profile_coverage.py commodity/runs/COPPER \
   --preflight --decision-time "$(date -u +%Y-%m-%dT%H:%M:%SZ)"
 
-# Show which modules must rerun when accepted evidence changed.
+# Persist the exact cutoff and show which modules must rerun when accepted evidence changed.
 python3 scripts/commodity_evidence_delta.py commodity/runs/COPPER \
-  --decision-time "<the same preflight cutoff>"
+  --decision-time "<the same preflight cutoff>" --write-state
 
 # Show every unimplemented need and its preferred primary authority.
 python3 scripts/commodity_feed_plan.py COPPER --gaps-only
