@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-29T21:18:01Z",
+  "generated_at": "2026-08-29T21:23:04Z",
   "inbox": [
     {
       "inbox_id": "INB-20260829-490",
@@ -530,6 +530,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260829-651",
+      "headline": "GM union deal would invest C$1.1 bln in Canada auto factories amid US tariff pressure",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/autos-transportation/gm-deal-with-workers-would-add-sierra-pickup-assembly-canadian-plant-despite-us-2026-08-29/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-29T21:15:26Z",
+      "sweep_file": "screener/inbox/2026-08-29_sweep.json",
+      "prelim_note": "General Motors reaches a union deal to invest C$1.1 billion in Canadian auto factories amid US tariff pressures.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "General Motors reaches a union deal to invest C$1.1 billion in Canadian auto factories amid US tariff pressures.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 7,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "General Motors",
+          "ticker": "GM",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1930,60 +1979,6 @@
       "companies": [
         {
           "name": "Marvell",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260829-290",
-      "headline": "SentinelOne Slides 8% as Trimmed Profit Forecast Outweighs Revenue Beat, CrowdStrike Declines 7%",
-      "headline_en": null,
-      "url": "https://247wallst.com/investing/2026/08/28/sentinelone-slides-8-as-trimmed-profit-forecast-outweighs-revenue-beat-crowdstrike-declines-7/",
-      "source_name": "24/7 Wall St.",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-28T14:09:37Z",
-      "sweep_file": "screener/inbox/2026-08-29_sweep.json",
-      "prelim_note": "SentinelOne shares fell 8% following a trimmed profit forecast, despite a revenue beat.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "SentinelOne shares fell 8% following a trimmed profit forecast, despite a revenue beat.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 7,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SentinelOne",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "CrowdStrike",
           "ticker": null,
           "listing_country": "US"
         }
@@ -108345,9 +108340,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 588242,
-    "news_picked_today": 1736,
-    "news_dropped_today": 7713
+    "news_seen_today": 588264,
+    "news_picked_today": 1739,
+    "news_dropped_today": 7732
   },
   "book_momentum": {
     "live_count": 8,
