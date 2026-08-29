@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-29T22:07:57Z",
+  "generated_at": "2026-08-29T22:12:33Z",
   "inbox": [
     {
       "inbox_id": "INB-20260829-490",
@@ -530,6 +530,49 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260829-657",
+      "headline": "(LEAD) N. Korea replaces defense minister with Kim Song-gi in military reshuffle: KCNA",
+      "headline_en": null,
+      "url": "https://en.yna.co.kr/view/AEN20260830000351315",
+      "source_name": "Yonhap News Agency — All News (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-29T22:05:41Z",
+      "sweep_file": "screener/inbox/2026-08-29_sweep.json",
+      "prelim_note": "North Korea has replaced its defense minister in a military reshuffle, indicating potential shifts in leadership and strategy.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "North Korea has replaced its defense minister in a military reshuffle, indicating potential shifts in leadership and strategy.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1934,56 +1977,6 @@
         },
         {
           "name": "Stripe",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260829-242",
-      "headline": "Gap climbs after leadership change at Old Navy, profit forecast raise",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/retail-consumer/gap-shares-jump-after-old-navy-brings-new-ceo-revive-brand-2026-08-28/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-28T15:08:49Z",
-      "sweep_file": "screener/inbox/2026-08-29_sweep.json",
-      "prelim_note": "Gap Inc. raised its profit forecast and announced a leadership change at its Old Navy division.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Gap Inc. raised its profit forecast and announced a leadership change at its Old Navy division.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change",
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Gap Inc.",
           "ticker": null,
           "listing_country": "US"
         }
@@ -86643,77 +86636,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-afc171492596",
-      "idea_version": "IDEAV-1c817ddc988ca11c",
-      "idea_version_started_at": "2026-08-29T21:53:05Z",
-      "ticker": "05737",
-      "company": "Zhenjiang Transportation Industry Group Co., Ltd.",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Zhenjiang Transportation Industry Group Co., Ltd. is seeking consent for a debt restructuring on its US$220 million bonds due 2028, indicating potential financial distress.",
-      "why_now": "The results of the consent solicitation were announced on August 28, 2026.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-6c08e7878707"
-      ],
-      "primary_source_event_id": "EVT-6c08e7878707",
-      "source_headlines": [
-        "ZJ TRANS B2807 (05737): Results of Consent Solicitation - U.S.$220,000,000 4.78 per cent. bonds due 2028 issued by Zhenjiang Transportation Industry Group Co., Ltd."
-      ],
-      "source_headline": "ZJ TRANS B2807 (05737): Results of Consent Solicitation - U.S.$220,000,000 4.78 per cent. bonds due 2028 issued by Zhenjiang Transportation Industry Group Co., Ltd.",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0828/2026082801401.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-28T10:09:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-29T21:53:05Z",
-      "updated_at": "2026-08-29T21:53:05Z",
-      "decay_at": "2026-08-29T22:09:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-2bf283da46ec",
       "idea_version": "IDEAV-798ac2349a3070f2",
       "idea_version_started_at": "2026-08-29T21:34:21Z",
@@ -90192,6 +90114,77 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-afc171492596",
+      "idea_version": "IDEAV-1c817ddc988ca11c",
+      "idea_version_started_at": "2026-08-29T21:53:05Z",
+      "ticker": "05737",
+      "company": "Zhenjiang Transportation Industry Group Co., Ltd.",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Zhenjiang Transportation Industry Group Co., Ltd. is seeking consent for a debt restructuring on its US$220 million bonds due 2028, indicating potential financial distress.",
+      "why_now": "The results of the consent solicitation were announced on August 28, 2026.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-6c08e7878707"
+      ],
+      "primary_source_event_id": "EVT-6c08e7878707",
+      "source_headlines": [
+        "ZJ TRANS B2807 (05737): Results of Consent Solicitation - U.S.$220,000,000 4.78 per cent. bonds due 2028 issued by Zhenjiang Transportation Industry Group Co., Ltd."
+      ],
+      "source_headline": "ZJ TRANS B2807 (05737): Results of Consent Solicitation - U.S.$220,000,000 4.78 per cent. bonds due 2028 issued by Zhenjiang Transportation Industry Group Co., Ltd.",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0828/2026082801401.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-28T10:09:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-29T21:53:05Z",
+      "updated_at": "2026-08-29T21:53:05Z",
+      "decay_at": "2026-08-29T22:09:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-8a29f9caadb3",
       "idea_version": "IDEAV-05e11ec08f528464",
       "idea_version_started_at": "2026-08-29T21:34:21Z",
@@ -92347,8 +92340,8 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 223,
-    "shown_count": 223,
+    "total_count": 224,
+    "shown_count": 224,
     "hidden_count": 0,
     "side_counts": {
       "long": {
@@ -92357,8 +92350,8 @@
         "hidden_count": 0
       },
       "short": {
-        "total_count": 116,
-        "shown_count": 116,
+        "total_count": 117,
+        "shown_count": 117,
         "hidden_count": 0
       }
     },
@@ -92378,6 +92371,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-afc171492596",
+        "idea_version": "IDEAV-1c817ddc988ca11c",
+        "idea_version_started_at": "2026-08-29T21:53:05Z",
+        "ticker": "05737",
+        "company": "Zhenjiang Transportation Industry Group Co., Ltd.",
+        "exchange": "HKEX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "Zhenjiang Transportation Industry Group Co., Ltd. is seeking consent for a debt restructuring on its US$220 million bonds due 2028, indicating potential financial distress.",
+        "why_now": "The results of the consent solicitation were announced on August 28, 2026.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 6,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "balance_sheet_survival",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-6c08e7878707"
+        ],
+        "primary_source_event_id": "EVT-6c08e7878707",
+        "source_headlines": [
+          "ZJ TRANS B2807 (05737): Results of Consent Solicitation - U.S.$220,000,000 4.78 per cent. bonds due 2028 issued by Zhenjiang Transportation Industry Group Co., Ltd."
+        ],
+        "source_headline": "ZJ TRANS B2807 (05737): Results of Consent Solicitation - U.S.$220,000,000 4.78 per cent. bonds due 2028 issued by Zhenjiang Transportation Industry Group Co., Ltd.",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0828/2026082801401.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-28T10:09:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-29T21:53:05Z",
+        "updated_at": "2026-08-29T21:53:05Z",
+        "decay_at": "2026-08-29T22:09:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-29T22:09:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-1139cfa830dc",
         "idea_version": "IDEAV-eb39829adccd0e98",
@@ -108907,7 +108974,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 271,
-    "live_count": 46,
+    "live_count": 45,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -108926,9 +108993,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 588349,
-    "news_picked_today": 1748,
-    "news_dropped_today": 7808
+    "news_seen_today": 588376,
+    "news_picked_today": 1758,
+    "news_dropped_today": 7825
   },
   "book_momentum": {
     "live_count": 8,
