@@ -14,6 +14,7 @@ Run:  python3 test_relationship_graph.py      (exit 0 = all pass)
 from __future__ import annotations
 
 import importlib.util
+import subprocess
 import sys
 import tempfile
 from pathlib import Path
@@ -245,7 +246,31 @@ check(kin["concentration"]["intragroup_rows"] == 1,
 check(kin["concentration"].get("likely_group_rows") == 1,
       "the suspected (likely_group) row was not surfaced separately from proven intra-group rows")
 
-# ---- 15. RTF relationship exports are parsed portably, and malformed ones fail visibly ----------------
+# ---- 15. CIQ imports on the production Python 3.9 runtime --------------------------------------------
+# CI runs on newer Python, so simulate 3.9 by removing enum.StrEnum before importing ciq in a clean process.
+compat = subprocess.run(
+    [sys.executable, "-c", r'''
+import enum
+import importlib.util
+import pathlib
+import sys
+
+if hasattr(enum, "StrEnum"):
+    del enum.StrEnum
+path = pathlib.Path(sys.argv[1])
+spec = importlib.util.spec_from_file_location("ciq_py39_compat", path)
+module = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(module)
+assert module.CiqFormat.BIFF_XLS.value == "biff_xls"
+assert str(module.CiqFormat.BIFF_XLS) == "biff_xls"
+''', str(_HERE / "ciq.py")],
+    capture_output=True,
+    text=True,
+)
+check(compat.returncode == 0,
+      f"ciq.py cannot import without Python 3.11 enum.StrEnum: {compat.stderr.strip()}")
+
+# ---- 16. RTF relationship exports are parsed portably, and malformed ones fail visibly ----------------
 with tempfile.TemporaryDirectory() as tmp:
     rtf_path = Path(tmp) / "Anchor Corp NyseANC Suppliers.rtf"
     rtf_path.write_text(r"""{\rtf1\ansi
@@ -284,5 +309,6 @@ if failures:
     sys.exit(1)
 print("  PASS: group/anchor classification, no invented tickers, scope carried, discloser side, "
       "financing capped, conditional mechanism, header-shift tolerance, related-party read, "
-      "brand withholding, empty-pool honesty, customers mirror, RTF export parsed/fails visibly")
+      "brand withholding, empty-pool honesty, customers mirror, Python 3.9 import, "
+      "RTF export parsed/fails visibly")
 sys.exit(0)
