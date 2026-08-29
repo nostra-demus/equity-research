@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-29T13:59:42Z",
+  "generated_at": "2026-08-29T14:07:54Z",
   "inbox": [
     {
       "inbox_id": "INB-20260829-490",
@@ -40,6 +40,55 @@
       "issuer_linkage": "sector",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260829-616",
+      "headline": "Tata Chemicals Limited: Tata Chemicals Limited has informed the Exchange regarding a press release dated August 29, 2026, titled \"Tata Chemicals North America acquires customer contracts expected to generate over USD 110 million in revenue through 2028\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/TATACHEMYS_29082026193323_PressReleaseSigned.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-29T14:03:58Z",
+      "sweep_file": "screener/inbox/2026-08-29_sweep.json",
+      "prelim_note": "Tata Chemicals acquired customer contracts expected to generate over USD 110 million in revenue through 2028.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Tata Chemicals acquired customer contracts expected to generate over USD 110 million in revenue through 2028.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Chemicals Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -282,6 +331,55 @@
           "name": "Prataap Snacks Ltd",
           "ticker": null,
           "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260829-624",
+      "headline": "Ather Energy invests over ₹400-500 crore to develop scooter platform EL, e-scooter Monarc",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/companies/ather-energy-invests-over-400-500-crore-to-develop-scooter-platform-el-e-scooter-monarc/article71404903.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-29T13:55:21Z",
+      "sweep_file": "screener/inbox/2026-08-29_sweep.json",
+      "prelim_note": "Ather Energy is investing 400-500 crore rupees to develop a new scooter platform and model.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Ather Energy is investing 400-500 crore rupees to develop a new scooter platform and model.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ather Energy",
+          "ticker": null,
+          "listing_country": null
         }
       ],
       "size_bucket": "mid",
@@ -1901,104 +1999,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260829-385",
-      "headline": "Noel Tata, Shapoorji Pallonji negotiate share swap for 18.4% Tata Sons holding: Report",
-      "headline_en": null,
-      "url": "https://www.businesstoday.in/latest/corporate/story/noel-tata-and-shapoorji-pallonji-negotiate-share-swap-for-18-4-tata-sons-holding-report-551973-2026-08-28?utm_source=rssfeed",
-      "source_name": "Business Today",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-28T08:53:36Z",
-      "sweep_file": "screener/inbox/2026-08-29_sweep.json",
-      "prelim_note": "Noel Tata and Shapoorji Pallonji are negotiating a share swap for an 18.4% stake in Tata Sons.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Noel Tata and Shapoorji Pallonji are negotiating a share swap for an 18.4% stake in Tata Sons.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tata Sons",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260829-394",
-      "headline": "Baukonzern Strabag hebt Jahresprognose an - Aktie im Höhenflug",
-      "headline_en": "Construction group Strabag raises annual forecast - stock soars",
-      "url": "https://www.reuters.com/de/firma/baukonzern-strabag-hebt-jahresprognose-an-aktie-im-hhenflug-2026-08-28/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-28T08:13:59Z",
-      "sweep_file": "screener/inbox/2026-08-29_sweep.json",
-      "prelim_note": "Strabag raised its annual guidance, signaling improved financial expectations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Strabag raised its annual guidance, signaling improved financial expectations.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 1,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Strabag",
-          "ticker": null,
-          "listing_country": "AT"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -106126,9 +106126,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 586648,
-    "news_picked_today": 1477,
-    "news_dropped_today": 6378
+    "news_seen_today": 586717,
+    "news_picked_today": 1487,
+    "news_dropped_today": 6437
   },
   "book_momentum": {
     "live_count": 8,
