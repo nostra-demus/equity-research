@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-29T19:23:31Z",
+  "generated_at": "2026-08-29T19:43:34Z",
   "inbox": [
     {
       "inbox_id": "INB-20260829-490",
@@ -530,6 +530,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260829-648",
+      "headline": "Walmart settles DOJ opioid crisis lawsuit for $50 million",
+      "headline_en": null,
+      "url": "https://thehill.com/regulation/court-battles/6059138-walmart-opioid-lawsuit-settlement/",
+      "source_name": "The Hill — Homenews",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-29T19:34:50Z",
+      "sweep_file": "screener/inbox/2026-08-29_sweep.json",
+      "prelim_note": "Walmart agreed to pay a $50 million settlement to resolve a DOJ lawsuit regarding its role in the opioid crisis.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Walmart agreed to pay a $50 million settlement to resolve a DOJ lawsuit regarding its role in the opioid crisis.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Walmart",
+          "ticker": "WMT",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1940,55 +1989,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260829-293",
-      "headline": "Chevron, Other U.S. Firms Near Deal to Invest Billions in Venezuelan Oil Fields",
-      "headline_en": null,
-      "url": "https://www.wsj.com/business/energy-oil/chevron-other-u-s-firms-near-deal-to-invest-billions-in-venezuelan-oil-fields-55739e38?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-28T14:08:00Z",
-      "sweep_file": "screener/inbox/2026-08-29_sweep.json",
-      "prelim_note": "Chevron and other firms are nearing a deal to invest billions in Venezuelan oil fields.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Chevron and other firms are nearing a deal to invest billions in Venezuelan oil fields.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Chevron",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -107975,9 +107975,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 588041,
-    "news_picked_today": 1696,
-    "news_dropped_today": 7552
+    "news_seen_today": 588076,
+    "news_picked_today": 1705,
+    "news_dropped_today": 7578
   },
   "book_momentum": {
     "live_count": 8,
