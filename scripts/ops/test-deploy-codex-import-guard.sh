@@ -19,7 +19,8 @@ guard_rc() {
 check_rc() {
   local label="$1" expected="$2" actual
   shift 2
-  if "$@"; then actual=0; else actual=$?; fi
+  "$@"
+  actual=$?
   if [ "$actual" -ne "$expected" ]; then
     echo "FAIL $label (expected rc=$expected, got rc=$actual)" >&2
     exit 1
