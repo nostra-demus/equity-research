@@ -45,15 +45,32 @@ const providers = {
 
 const originalLaunch = api.launch
 const originalLaunchSignal = api.launchSignal
+const originalThesisPlan = api.thesisPlan
+const originalRunThesisPlan = api.runThesisPlan
 
 try {
   let runLaunches = 0
   let runSelection: any = null
+  let completionLaunches = 0
+  let completionSourceRoot: string | undefined
   api.launch = (async (body: any) => {
     runLaunches++
     runSelection = body.selection
     throw new Error('fixture stop after request capture')
   }) as typeof api.launch
+  api.thesisPlan = (async (_ticker: string, _selection: any, _swarm?: string, _reuse?: string[], _module?: string, runRoot?: string) => ({
+    moduleResumeVersion: 2, swarm: 'research', subject: 'KAR', targetRunRoot: runRoot!, complete: false,
+    finalReportPath: null, modules: [], reusable: ['business-model'], mustReuse: ['business-model'],
+    reuse: ['business-model'], run: ['earnings'], carry: [], master: { state: 'blocked', blockedBy: ['earnings'] },
+    dataPool: { files: 1, newestDate: null, newestMs: 0 }, preflight: {} as any, fullPreflight: {} as any,
+    canCarry: true,
+  })) as typeof api.thesisPlan
+  api.runThesisPlan = (async (_ticker: string, _reuse: string[], _swarm: string, selection: any, sourceRunRoot?: string) => {
+    completionLaunches++
+    runSelection = selection
+    completionSourceRoot = sourceRunRoot
+    throw new Error('fixture stop after request capture')
+  }) as typeof api.runThesisPlan
 
   useStore.setState({
     staticMode: false, health: 'online', activeSwarm: 'research', runProvider: 'claude', providers,
@@ -61,7 +78,7 @@ try {
     resumeConfirm: null, launchPending: null,
   })
   const partialRun = {
-    swarm: 'research', subject: 'KAR', runRoot: 'analyses/KAR_partial', kind: 'full' as const,
+    swarm: 'research', subject: 'KAR', runRoot: 'analyses/KAR_2026-08-27', kind: 'full' as const,
     doneCount: 4, totalCount: 7, unit: 'module' as const,
     provider: 'claude' as const, executionProfile: sonnetProfile,
   }
@@ -79,7 +96,9 @@ try {
   assert.equal(dialog?.selection.expectedProfileKey, sonnetProfile.key)
   assert.equal(resumeExecutionDisposition(dialog!.records, dialog!.selection).disposition, 'exact')
   await useStore.getState().confirmResume()
-  assert.equal(runLaunches, 1)
+  assert.equal(runLaunches, 0, 'research Continue never uses generic /api/launch')
+  assert.equal(completionLaunches, 1)
+  assert.equal(completionSourceRoot, partialRun.runRoot, 'the selected saved root reaches the plan-run POST')
   assert.equal(runSelection.expectedProfileKey, sonnetProfile.key, 'confirm submits the exact model shown in the chooser')
 
   useStore.setState({ resumeConfirm: null, launchPending: null, runProvider: 'claude', runProfileKeys: { claude: opusProfile.key, codex: CODEX_EXECUTION_PROFILE.key } })
@@ -90,7 +109,8 @@ try {
   assert.equal(resumeExecutionDisposition(dialog!.records, dialog!.selection).disposition, 'provider-change')
   useStore.getState().cancelResume()
   assert.equal(useStore.getState().resumeConfirm, null)
-  assert.equal(runLaunches, 1, 'cancel never submits a request')
+  assert.equal(runLaunches, 0, 'cancel never submits a generic request')
+  assert.equal(completionLaunches, 1, 'cancel never submits a completion request')
 
   // A disabled command-bar provider cannot dead-end Resume: the dialog seeds the other verified provider.
   useStore.setState({
@@ -137,6 +157,8 @@ try {
 } finally {
   api.launch = originalLaunch
   api.launchSignal = originalLaunchSignal
+  api.thesisPlan = originalThesisPlan
+  api.runThesisPlan = originalRunThesisPlan
   ;(globalThis as any).window = previousWindow
   ;(globalThis as any).document = previousDocument
   ;(globalThis as any).localStorage = previousStorage

@@ -14,9 +14,12 @@ Execute the steps below in order. Do not skip any.
 
 ---
 
-## 1. Resolve today's date
+## 1. Resolve the run root and date
 
-Run `date +%Y-%m-%d` via Bash and capture the result as `<DATE>`.
+If `NOSTRA_CONTINUATION_RUN_ROOT` is set, require it to equal `analyses/${ARGUMENTS}_YYYY-MM-DD`, require
+that exact path to be a real existing directory (not a symlink), derive `<DATE>` from it, and keep it as
+`<RUN_ROOT>`. Never call `date` or choose another folder in this mode. Otherwise run `date +%Y-%m-%d` and
+capture `<DATE>`.
 
 ## 2. Verify the data pool
 
@@ -31,6 +34,8 @@ If the directory is missing or empty, STOP. Tell the user: "No data found at `da
 Note: the module does NOT abort if the pool has no competitor transcripts — the triage returns Insufficient and the module reports the coverage gap. Only an entirely empty pool stops the command here.
 
 ## 3. Create the run root folder
+
+When continuing, use the exact `<RUN_ROOT>` already bound in step 1 and do not create a folder. Otherwise:
 
 ```
 mkdir -p "analyses/${ARGUMENTS}_<DATE>"

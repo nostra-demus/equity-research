@@ -1934,6 +1934,9 @@ export interface LaunchParams {
   // Exact, already-selected run identity for a data-need intake/rerun. It is revalidated in launch()
   // against the swarm manifest/research folder before it enters a prompt; ordinary launches omit it.
   runRoot?: string
+  /** Internal Continue binding. Requires `runRoot` to be the exact saved research root and keeps every
+   * chained child, command, registry row, watcher, and publication inside it. Never accepted by /api/launch. */
+  continuation?: boolean
   // A scoped carry may launch into a fresh staging root while still being authorized by the selected
   // decision it copied. Single-orb reruns use the same path for both.
   decisionRunRoot?: string
@@ -2184,6 +2187,7 @@ const intakeReceiptByRun = new WeakMap<RunState, IntakeReceiptIntent>()
 // and make a later ordinary module silently skip its memo. WeakSet lifetime is the admitted RunState only;
 // spawnEngine turns it into a child-only environment value and childEnv strips any ambient copy.
 const deferredModuleMemoRuns = new WeakSet<RunState>()
+const continuationRunRootByRun = new WeakMap<RunState, string>()
 const exactModuleResumeRuns = new WeakSet<RunState>()
 const exactModuleInputsByRun = new WeakMap<RunState, string[]>()
 const exactModuleRunRootByRun = new WeakMap<RunState, string>()
@@ -2798,7 +2802,8 @@ export async function launchFullChained(
       ? { kind: 'full', ticker, user, userVia, chained: true, chainId, ...selection,
         parityCanary: { ...scope.parityCanary, stage: 'final', continuation: scope.continuation === true } }
       : { kind: 'rerun', ticker, module: 'master', agent: 'synthesizer', user, userVia, chained: true,
-        chainId, memoryIdentity, ...selection, ...decisionBinding }
+        chainId, memoryIdentity, ...selection, ...decisionBinding,
+        ...(scope.continuation ? { runRoot: datedRoot, continuation: true } : {}) }
     const launched = deps.launchAndWire(
       masterParams,
       (status) => {
@@ -2883,6 +2888,7 @@ export async function launchFullChained(
     const moduleParams: LaunchParams = {
       kind: 'module', ticker, module: name, user, userVia, chained: true, chainId, ...selection,
       memoryIdentity, ...decisionBinding,
+      ...(scope.continuation ? { runRoot: datedRoot, continuation: true } : {}),
       ...(scope.parityCanary ? { parityCanary: { ...scope.parityCanary, stage: 'module' as const } } : {}),
     }
     void deps.launchAndWire(
@@ -3110,6 +3116,14 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
   }
   if (params.deferModuleMemo && (swarmId !== RESEARCH_SWARM_ID || kind !== 'module')) {
     throw Object.assign(new Error('Module-memo deferral is valid only for a research module launch.'), { statusCode: 400 })
+  }
+  const continuationRunRoot = params.continuation
+    ? exactModuleRunRootBinding(params.ticker ?? '', params.runRoot)
+    : null
+  if (params.continuation && (swarmId !== RESEARCH_SWARM_ID
+      || (kind !== 'full' && kind !== 'module' && kind !== 'rerun')
+      || !continuationRunRoot)) {
+    throw Object.assign(new Error('Continue requires one exact saved research run root.'), { statusCode: 400 })
   }
   const exactModuleRunRoot = params.exactModuleResume
     ? exactModuleRunRootBinding(params.ticker ?? '', params.exactModuleRunRoot)
@@ -3407,7 +3421,7 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
     // that protocol can run. Every non-force launch keeps the ordinary fail-fast subject-chain guard.
     assertNoForeignSubjectChain(swarmId, subjectId, params.chained || params.force)
     // opt-in: run a full pipeline as a chain of per-module runs + master (each its own budget)
-    const datedRoot = `analyses/${ticker}_${todayDate()}`
+    const datedRoot = continuationRunRoot ?? `analyses/${ticker}_${todayDate()}`
     // A sealed full run uses full.md's read-only recovery route. Do not send it through the per-module
     // scheduler, which would begin rewriting modules before the command could observe the seal.
     if (kind === 'full' && FULL_PER_MODULE && !isSealedResearchRun(datedRoot)) {
@@ -3444,6 +3458,7 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
           defaultFullChainDeps,
           binding,
           params.memoryIdentity,
+          continuationRunRoot ? { runRoot: continuationRunRoot, continuation: true } : undefined,
         )
       } finally {
         releasePoolClaim()
@@ -3461,6 +3476,9 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
       }
       if (params.runRoot && latest !== params.runRoot) throw Object.assign(new Error('The selected run no longer matches this subject.'), { statusCode: 409 })
       runRoot = latest
+    } else if (continuationRunRoot) {
+      runRoot = continuationRunRoot
+      isFullRelaunch = kind === 'full' && !finalDeliverablesPresent(runRoot)
     } else if (kind === 'agent') {
       runRoot = resolveAgentRunRoot(ticker)
     } else {
@@ -3743,6 +3761,7 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
   if (params.sharedPoolTarget) sharedPoolTargetByRun.set(run, { ...params.sharedPoolTarget })
   if (params.intakeReceipt) intakeReceiptByRun.set(run, { ...params.intakeReceipt })
   if (params.deferModuleMemo) deferredModuleMemoRuns.add(run)
+  if (continuationRunRoot) continuationRunRootByRun.set(run, continuationRunRoot)
   if (exactResumeBinding) {
     exactModuleResumeRuns.add(run)
     exactModuleInputsByRun.set(run, exactModuleInputs)
@@ -3989,6 +4008,7 @@ async function continueLaunch(run: RunState): Promise<void> {
 }
 
 export const DEFER_MODULE_MEMO_ENV = 'NOSTRA_DEFER_MODULE_MEMO'
+export const CONTINUATION_RUN_ROOT_ENV = 'NOSTRA_CONTINUATION_RUN_ROOT'
 export const EXACT_MODULE_RESUME_ENV = 'NOSTRA_EXACT_MODULE_RESUME'
 export const EXACT_MODULE_INPUTS_ENV = 'NOSTRA_EXACT_MODULE_INPUTS'
 export const EXACT_MODULE_RUN_ROOT_ENV = 'NOSTRA_EXACT_MODULE_RUN_ROOT'
@@ -4000,6 +4020,7 @@ export const PARITY_CANARY_CONTINUATION_ENV = 'NOSTRA_PARITY_CANARY_CONTINUATION
 // cockpit processes get their environment from their selected ProviderAdapter.
 interface RunPolicyEnvOptions {
   deferModuleMemo?: boolean
+  continuationRunRoot?: unknown
   exactModuleResume?: boolean
   exactModuleInputs?: unknown
   exactModuleRunRoot?: unknown
@@ -4011,11 +4032,18 @@ interface RunPolicyEnvOptions {
 function applyRunPolicyOptions(source: NodeJS.ProcessEnv, options: RunPolicyEnvOptions = {}): NodeJS.ProcessEnv {
   const env = { ...source }
   for (const key of [
-    DEFER_MODULE_MEMO_ENV, EXACT_MODULE_RESUME_ENV, EXACT_MODULE_INPUTS_ENV,
+    DEFER_MODULE_MEMO_ENV, CONTINUATION_RUN_ROOT_ENV, EXACT_MODULE_RESUME_ENV, EXACT_MODULE_INPUTS_ENV,
     EXACT_MODULE_RUN_ROOT_ENV, EXACT_MODULE_NAME_ENV, EXACT_MODULE_WRITABLE_ORBS_ENV,
     EXACT_MODULE_SYNTHESIS_ORBS_ENV,
   ]) delete env[key]
   if (options.deferModuleMemo) env[DEFER_MODULE_MEMO_ENV] = '1'
+  if (options.continuationRunRoot !== undefined) {
+    const root = typeof options.continuationRunRoot === 'string' ? options.continuationRunRoot : ''
+    if (!/^analyses\/[A-Z0-9.\-]{1,15}_\d{4}-\d{2}-\d{2}$/.test(root)) {
+      throw new Error('continuation requires a valid immutable run root')
+    }
+    env[CONTINUATION_RUN_ROOT_ENV] = root
+  }
   if (!options.exactModuleResume) return env
 
   const root = typeof options.exactModuleRunRoot === 'string' ? options.exactModuleRunRoot : ''
@@ -4072,6 +4100,7 @@ function applyRunPolicyEnv(source: NodeJS.ProcessEnv, run: RunState): NodeJS.Pro
   const scope = exactModuleArtifactScopeByRun.get(run)
   const env = applyRunPolicyOptions(source, {
     deferModuleMemo: deferredModuleMemoRuns.has(run),
+    continuationRunRoot: continuationRunRootByRun.get(run),
     exactModuleResume: exactModuleResumeRuns.has(run),
     exactModuleInputs: exactModuleInputsByRun.get(run),
     exactModuleRunRoot: exactModuleRunRootByRun.get(run),

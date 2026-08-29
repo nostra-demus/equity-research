@@ -111,7 +111,8 @@ import { getAutotuneState, readChanges, revertChange, setAutotunePaused, setAuto
 import { routeReason } from './news/triage/reason-router'
 import { startResumeSupervisor } from './resume-supervisor'
 import { listResumableRuns } from './resumable'
-import { capturePreparedModuleResumeScope, carryForwardModules, carryForwardScoped, dataPoolNewest, prepareModuleResume, thesisPlan } from './completion'
+import { capturePreparedModuleResumeScope, carryForwardModules, carryForwardScoped, dataPoolNewest, prepareFullContinuation, prepareModuleResume, thesisPlan } from './completion'
+import { continueExactSavedRun, exactContinuationCandidate } from './continuation'
 import { beginExactModuleSupervisorPause, settleExactModuleSupervisorPause } from './exact-module-supervisor-pause'
 import {
   acquireModulePublicationLease,
@@ -975,6 +976,9 @@ const ThesisPlanRunBody = z.object({
   swarm: z.string().regex(MODULE_RE),
   // Typed-ticker confirmation, required only when the reuse set is empty (i.e. this is really a full run).
   confirmTicker: z.string().optional(),
+  // Present only for Continue. The server positively matches this exact saved root against disk truth and
+  // never substitutes today's root. Ordinary Complete-the-thesis requests omit it.
+  sourceRunRoot: z.string().regex(/^analyses\/[A-Z0-9.\-]{1,15}_\d{4}-\d{2}-\d{2}$/).optional(),
 })
 
 // Launch ONE module of a completion plan, resuming from the orbs already on disk (the RUN pill on a Run row).
@@ -994,6 +998,7 @@ const ThesisPlanModuleBody = z.object({
   expectedTargetRunRoot: z.string().regex(/^analyses\/[A-Z0-9.\-]{1,15}_\d{4}-\d{2}-\d{2}$/),
   poolFiles: z.number().int().min(0),
   poolNewestMs: z.number().finite().min(0),
+  sourceRunRoot: z.string().regex(/^analyses\/[A-Z0-9.\-]{1,15}_\d{4}-\d{2}-\d{2}$/).optional(),
 })
 
 // Publish-only recovery after an exact module finished locally but its terminal Git checkpoint failed.
@@ -2611,18 +2616,30 @@ app.post('/api/intake/:subject/analyze-exact', { config: { rateLimit: { max: 30,
 // stays the only thing that prices a run, so the number on the button can never drift from the number the
 // launcher will charge. Omit it for the safe default (reuse everything finished-and-current).
 app.get('/api/thesis-plan', { config: { rateLimit: { max: 600, timeWindow: '1 minute' } } }, async (req, reply) => {
-  const q = req.query as { ticker?: string; swarm?: string; reuse?: string; module?: string; provider?: string; model?: string; reasoningLevel?: string }
+  const q = req.query as { ticker?: string; swarm?: string; reuse?: string; module?: string; runRoot?: string; provider?: string; model?: string; reasoningLevel?: string }
   // isValidTicker, not the bare TICKER_RE: the regex admits ".." (its charclass includes `.`), and
   // `dataPoolNewest('..')` would synchronously walk the whole repo — a blocking scan on the event loop.
   if (!q.ticker || !isValidTicker(q.ticker)) return reply.code(400).send({ error: 'bad ticker' })
   if (q.swarm && !swarmById(q.swarm)) return reply.code(400).send({ error: 'unknown swarm' })
   if (q.module && !MODULE_RE.test(q.module)) return reply.code(400).send({ error: 'bad module' })
+  if (q.runRoot && !/^analyses\/[A-Z0-9.\-]{1,15}_\d{4}-\d{2}-\d{2}$/.test(q.runRoot)) {
+    return reply.code(400).send({ error: 'bad saved run root' })
+  }
   const reuse = q.reuse === undefined ? undefined : q.reuse.split(',').filter(Boolean)
   if (reuse && (reuse.length > 64 || reuse.some((m) => !MODULE_RE.test(m)))) return reply.code(400).send({ error: 'bad reuse set' })
   try {
     const provider = ProviderQuery.safeParse(q)
     if (!provider.success) return reply.code(400).send({ error: 'invalid provider profile' })
-    const plan = thesisPlan(q.ticker, q.swarm || undefined, reuse, q.module, provider.data)
+    const swarm = q.swarm || RESEARCH_SWARM_ID
+    const continuationCandidate = q.runRoot ? exactContinuationCandidate({
+      swarm: 'research', subject: q.ticker, runRoot: q.runRoot,
+      kind: q.module ? 'module' : 'full', module: q.module,
+    }, listResumableRuns()) : null
+    if (q.runRoot && !continuationCandidate) {
+      return reply.code(409).send({ error: 'The saved run changed. Refresh before continuing.', code: 'saved_run_changed' })
+    }
+    const plan = thesisPlan(q.ticker, swarm, reuse, q.module, provider.data,
+      continuationCandidate ? { continuationRunRoot: continuationCandidate.runRoot } : undefined)
     // A finished local module normally reads `done`/non-runnable. A durable failed-publication marker is
     // therefore attached explicitly so the heading offers a publish-only recovery instead of re-running paid
     // orbs. Re-hash on every plan read; edited/stale bytes never receive the affordance.
@@ -2658,7 +2675,7 @@ app.post('/api/thesis-plan/run', { config: { rateLimit: { max: 20, timeWindow: '
   if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request blocked' })
   const parsed = ThesisPlanRunBody.safeParse(req.body)
   if (!parsed.success) return reply.code(400).send({ error: 'invalid body', detail: parsed.error.flatten() })
-  const { ticker, reuse, swarm, provider, model, reasoningLevel, expectedProfileKey, confirmTicker } = parsed.data
+  const { ticker, reuse, swarm, provider, model, reasoningLevel, expectedProfileKey, confirmTicker, sourceRunRoot } = parsed.data
   const { user, userVia } = identify(req)
   if (!isValidTicker(ticker)) return reply.code(400).send({ error: 'bad ticker' })
   // Same closed allow-list /api/launch enforces before a research launch: membership in the data pool.
@@ -2698,8 +2715,16 @@ app.post('/api/thesis-plan/run', { config: { rateLimit: { max: 20, timeWindow: '
       // ONE disk snapshot decides everything below: the already-complete check, the reuse validation, and what
       // gets carried. Re-reading between those steps would open a time-of-check/time-of-use gap — a module
       // finishing mid-request would let us carry work this route never validated.
-      const selection = { provider, model, reasoningLevel }
-      const plan = thesisPlan(ticker, undefined, reuse, undefined, selection)
+      const selection = { provider, model, reasoningLevel, expectedProfileKey }
+      const continuationCandidate = sourceRunRoot ? exactContinuationCandidate({
+        swarm: 'research', subject: ticker, runRoot: sourceRunRoot, kind: 'full',
+      }, listResumableRuns()) : null
+      if (sourceRunRoot && !continuationCandidate) {
+        return reply.code(409).send({ error: 'The saved run changed. Refresh before continuing; no run was started.', code: 'saved_run_changed' })
+      }
+      const trustedSourceRunRoot = continuationCandidate?.runRoot
+      const plan = thesisPlan(ticker, undefined, reuse, undefined, selection,
+        trustedSourceRunRoot ? { continuationRunRoot: trustedSourceRunRoot } : undefined)
       if (plan.complete) return reply.code(409).send({ error: 'this run already has a final thesis', code: 'already_complete', path: plan.finalReportPath })
 
       const allowed = new Set(plan.reusable)
@@ -2710,20 +2735,33 @@ app.post('/api/thesis-plan/run', { config: { rateLimit: { max: 20, timeWindow: '
       // main. The "it's already an explicit priced click" argument only justifies dropping the typed-ticker guard
       // when the run is genuinely smaller than a full one. So the guard comes back exactly when the run is a full
       // one, and the panel routes that case to the normal full-run confirm dialog.
-      if (plan.reuse.length === 0 && confirmTicker !== ticker) {
+      if (!sourceRunRoot && plan.reuse.length === 0 && confirmTicker !== ticker) {
         return reply.code(412).send({ error: 'nothing is being reused — this is a full run and needs typed confirmation', code: 'needs_typed_confirm' })
       }
 
       let carried: { module: string; from: string }[] = []
+      let preparedDoneOrbKeys: string[] = []
+      let ranClean: string[] = []
       try {
-        ;({ carried } = carryForwardModules(ticker, reuse, undefined, plan))
+        if (trustedSourceRunRoot) {
+          const prepared = prepareFullContinuation(ticker, plan)
+          preparedDoneOrbKeys = prepared.doneOrbKeys
+          ranClean = prepared.ranClean
+        } else {
+          ;({ carried } = carryForwardModules(ticker, reuse, undefined, plan))
+        }
       } catch (e: any) {
-        return reply.code(500).send({ error: `could not carry forward existing work: ${e?.message || e}` })
+        return reply.code(500).send({ error: `could not prepare existing work safely: ${e?.message || e}` })
       }
 
       try {
-        const out = await launch({ kind: 'full', ticker, provider, model, reasoningLevel, expectedProfileKey, user, userVia })
-        return { ...out, carried, reused: plan.reuse, willRun: plan.run }
+        const out = trustedSourceRunRoot
+          ? await continueExactSavedRun({
+              swarm: 'research', subject: ticker, runRoot: trustedSourceRunRoot, kind: 'full',
+              provider, model, reasoningLevel, expectedProfileKey, user, userVia,
+            })
+          : await launch({ kind: 'full', ticker, provider, model, reasoningLevel, expectedProfileKey, user, userVia })
+        return { ...out, carried, reused: plan.reuse, willRun: plan.run, preparedDoneOrbKeys, ranClean }
       } catch (e: any) {
         // The carry-forward already landed on disk. Nothing is LOST (source folders are untouched, and the copied
         // modules are genuinely finished work), and a retry reuses them — but the run root now exists, so the
@@ -2990,7 +3028,7 @@ app.post('/api/thesis-plan/module', { config: { rateLimit: { max: 30, timeWindow
   if (!parsed.success) return reply.code(400).send({ error: 'invalid body', detail: parsed.error.flatten() })
   const {
     ticker, module, reuse, swarm, provider, model, reasoningLevel, expectedProfileKey,
-    expectedWillRun, expectedDoneOrbKeys, expectedTargetRunRoot, poolFiles, poolNewestMs,
+    expectedWillRun, expectedDoneOrbKeys, expectedTargetRunRoot, poolFiles, poolNewestMs, sourceRunRoot,
   } = parsed.data
   const providerSelection: RunProviderSelection = { provider, model, reasoningLevel, expectedProfileKey }
   const { user, userVia } = identify(req)
@@ -3021,8 +3059,17 @@ app.post('/api/thesis-plan/module', { config: { rateLimit: { max: 30, timeWindow
       const graphModule = graphForTicker(ticker).modules.find((m) => m.name === module)
       const exactResume = graphModule?.exactResume === true
 
+      const continuationCandidate = sourceRunRoot ? exactContinuationCandidate({
+        swarm: 'research', subject: ticker, runRoot: sourceRunRoot, kind: 'module', module,
+      }, listResumableRuns()) : null
+      if (sourceRunRoot && !continuationCandidate) {
+        return reply.code(409).send({ error: 'The saved module changed. Refresh before continuing; no run was started.', code: 'saved_run_changed' })
+      }
+      const trustedSourceRunRoot = continuationCandidate?.runRoot
+
       // ONE snapshot decides everything: complete-check, runnability, blockedBy, and what gets carried.
-      let plan = thesisPlan(ticker, undefined, exactResume ? undefined : reuse, exactResume ? module : undefined, providerSelection)
+      let plan = thesisPlan(ticker, undefined, exactResume ? undefined : reuse, exactResume ? module : undefined,
+        providerSelection, trustedSourceRunRoot ? { continuationRunRoot: trustedSourceRunRoot } : undefined)
       if (plan.targetRunRoot !== expectedTargetRunRoot) {
         return reply.code(409).send({ error: 'The target analysis date changed while this module was being prepared. Check the updated scope and click again.', code: 'module_scope_changed' })
       }
@@ -3100,7 +3147,8 @@ app.post('/api/thesis-plan/module', { config: { rateLimit: { max: 30, timeWindow
       let expectedAncestorModules: string[] = []
       const readCurrentScope = () => {
         try {
-          const current = thesisPlan(ticker, undefined, exactResume ? undefined : reuse, exactResume ? module : undefined, providerSelection)
+          const current = thesisPlan(ticker, undefined, exactResume ? undefined : reuse, exactResume ? module : undefined,
+            providerSelection, trustedSourceRunRoot ? { continuationRunRoot: trustedSourceRunRoot } : undefined)
           const currentEntry = current.modules.find((m) => m.module === module)
           const currentDone = [...(currentEntry?.doneOrbKeys ?? [])].sort()
           const currentExactArtifacts = exactArtifactScopeFor(currentDone)
@@ -3270,6 +3318,7 @@ app.post('/api/thesis-plan/module', { config: { rateLimit: { max: 30, timeWindow
           : undefined
         const out = await launch({
           kind: 'module', ticker, module, provider, model, reasoningLevel, expectedProfileKey, user, userVia,
+          ...(trustedSourceRunRoot ? { runRoot: trustedSourceRunRoot, continuation: true } : {}),
           deferModuleMemo: exactResume,
           exactModuleResume: exactResume,
           exactModuleInputs: exactResume ? prep.reusedAncestorModules : undefined,

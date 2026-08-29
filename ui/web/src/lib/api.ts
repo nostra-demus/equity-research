@@ -1279,7 +1279,7 @@ export const api = {
   // `reuse` re-prices the plan for a chosen selection. Omit it for the safe default (reuse what is finished
   // AND current). The server prices every selection — the client never does its own cost math, so the number
   // on the button is always the number the launcher will charge.
-  thesisPlan: async (ticker: string, selection: FrozenProviderLaunch, swarm?: string, reuse?: string[], module?: string): Promise<ThesisPlan> => {
+  thesisPlan: async (ticker: string, selection: FrozenProviderLaunch, swarm?: string, reuse?: string[], module?: string, runRoot?: string): Promise<ThesisPlan> => {
     if ((await ensureMode()) === 'static') throw STATIC_ERR()
     const q = new URLSearchParams({ ticker })
     const fields = providerLaunchFields(selection)
@@ -1293,6 +1293,7 @@ export const api = {
     // the full-thesis reuse picker: an older valid upstream synthesis may be usable as a disclosed input even
     // when a newer partial attempt means that upstream is not reusable as a whole completed module.
     if (module) q.set('module', module)
+    if (runRoot) q.set('runRoot', runRoot)
     return get(`/api/thesis-plan?${q}`, 12_000)
   },
   // `reuse` = the modules to carry forward rather than re-run. Everything else in the graph runs. The
@@ -1302,11 +1303,12 @@ export const api = {
     reuse: string[],
     swarm: string,
     selection: FrozenProviderLaunch,
+    sourceRunRoot?: string,
   ): Promise<{ runId: string; preflight: LaunchPreflight; carried: { module: string; from: string }[]; reused: string[]; willRun: string[]; chained?: boolean; skipped?: string[]; planned?: string[] }> => {
     if ((await ensureMode()) === 'static') throw STATIC_ERR()
     // `swarm` is ALWAYS sent (never omitted for research), so the server can match positively on it rather
     // than treat an absent field as permission to dispatch a research pipeline at another swarm's subject.
-    return post(`/api/thesis-plan/run`, { ticker, reuse, swarm, ...providerLaunchFields(selection) })
+    return post(`/api/thesis-plan/run`, { ticker, reuse, swarm, sourceRunRoot, ...providerLaunchFields(selection) })
   },
   // Launch ONE module of the plan (the RUN pill), resuming from the orbs on disk. `reuse` governs which
   // ancestors get carried into the target root first. Returns the done/planned orb split so the cockpit
@@ -1322,6 +1324,7 @@ export const api = {
     poolFiles: number,
     poolNewestMs: number,
     selection: FrozenProviderLaunch,
+    sourceRunRoot?: string,
   ): Promise<{ runId: string; preflight: LaunchPreflight; module: string; willRun: number; doneOrbKeys: string[]; carried: { module: string; from: string }[]; resumed?: boolean; ranClean?: boolean }> => {
     if ((await ensureMode()) === 'static') throw STATIC_ERR()
     return post(`/api/thesis-plan/module`, {
@@ -1335,6 +1338,7 @@ export const api = {
       expectedTargetRunRoot,
       poolFiles,
       poolNewestMs,
+      sourceRunRoot,
       ...providerLaunchFields(selection),
     })
   },

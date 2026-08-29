@@ -12,9 +12,12 @@ Execute the steps below in order. Do not skip any.
 
 ---
 
-## 1. Resolve today's date
+## 1. Resolve the run root and date
 
-Run `date +%Y-%m-%d` via Bash and capture the result as `<DATE>`.
+If `NOSTRA_CONTINUATION_RUN_ROOT` is set, require it to equal `analyses/${ARGUMENTS}_YYYY-MM-DD`, require
+that exact path to be a real existing directory (not a symlink), derive `<DATE>` from it, and keep it as
+`<RUN_ROOT>`. Never call `date` or choose another folder in this mode. Otherwise run `date +%Y-%m-%d` and
+capture `<DATE>`.
 
 ## 2. Verify the data pool
 
@@ -27,6 +30,8 @@ ls -1 data/$ARGUMENTS/ 2>/dev/null | head -n 1
 If the directory is missing or empty, STOP. Tell the user: "No data found at `data/$ARGUMENTS/`. Populate the Drive folder for this ticker and re-run."
 
 ## 3. Create the run root folder
+
+When continuing, use the exact `<RUN_ROOT>` already bound in step 1 and do not create a folder. Otherwise:
 
 ```
 mkdir -p "analyses/${ARGUMENTS}_<DATE>"

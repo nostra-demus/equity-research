@@ -7,6 +7,7 @@ import assert from 'node:assert/strict'
 import { readFileSync } from 'node:fs'
 import {
   childEnv,
+  CONTINUATION_RUN_ROOT_ENV,
   DEFER_MODULE_MEMO_ENV,
   EXACT_MODULE_INPUTS_ENV,
   EXACT_MODULE_NAME_ENV,
@@ -19,6 +20,7 @@ import {
 } from '../src/launcher'
 
 const prior = process.env[DEFER_MODULE_MEMO_ENV]
+const priorContinuationRoot = process.env[CONTINUATION_RUN_ROOT_ENV]
 const priorExact = process.env[EXACT_MODULE_RESUME_ENV]
 const priorInputs = process.env[EXACT_MODULE_INPUTS_ENV]
 const priorRunRoot = process.env[EXACT_MODULE_RUN_ROOT_ENV]
@@ -27,6 +29,7 @@ const priorWritable = process.env[EXACT_MODULE_WRITABLE_ORBS_ENV]
 const priorSyntheses = process.env[EXACT_MODULE_SYNTHESIS_ORBS_ENV]
 try {
   process.env[DEFER_MODULE_MEMO_ENV] = '1'
+  process.env[CONTINUATION_RUN_ROOT_ENV] = 'analyses/AMBIENT_2026-08-22'
   process.env[EXACT_MODULE_RESUME_ENV] = '1'
   process.env[EXACT_MODULE_INPUTS_ENV] = 'unreviewed-module'
   process.env[EXACT_MODULE_RUN_ROOT_ENV] = 'analyses/TEST_2026-08-22'
@@ -35,6 +38,10 @@ try {
   process.env[EXACT_MODULE_SYNTHESIS_ORBS_ENV] = '99_business-model-synthesis'
   assert.equal(childEnv()[DEFER_MODULE_MEMO_ENV], undefined,
     'ordinary module/full/rerun children strip a server-level deferral flag')
+  assert.equal(childEnv()[CONTINUATION_RUN_ROOT_ENV], undefined,
+    'ordinary children cannot inherit an ambient saved-run root')
+  assert.equal(childEnv({ continuationRunRoot: 'analyses/TEST_2026-08-21' })[CONTINUATION_RUN_ROOT_ENV],
+    'analyses/TEST_2026-08-21', 'only the explicitly bound Continue child receives the saved root')
   assert.equal(childEnv()[EXACT_MODULE_RESUME_ENV], undefined,
     'ordinary children cannot inherit the current-run-only input policy')
   assert.equal(childEnv()[EXACT_MODULE_INPUTS_ENV], undefined,
@@ -123,6 +130,8 @@ try {
 } finally {
   if (prior === undefined) delete process.env[DEFER_MODULE_MEMO_ENV]
   else process.env[DEFER_MODULE_MEMO_ENV] = prior
+  if (priorContinuationRoot === undefined) delete process.env[CONTINUATION_RUN_ROOT_ENV]
+  else process.env[CONTINUATION_RUN_ROOT_ENV] = priorContinuationRoot
   if (priorExact === undefined) delete process.env[EXACT_MODULE_RESUME_ENV]
   else process.env[EXACT_MODULE_RESUME_ENV] = priorExact
   if (priorInputs === undefined) delete process.env[EXACT_MODULE_INPUTS_ENV]

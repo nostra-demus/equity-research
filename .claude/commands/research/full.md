@@ -19,9 +19,12 @@ step 3A; they protect immutable research rather than weakening the workflow.
 
 ---
 
-## 1. Resolve today's date
+## 1. Resolve the run date
 
-Run `date +%Y-%m-%d` via Bash and capture the result as `<DATE>`. Use this exact string everywhere `<DATE>` appears below.
+For a cockpit Continue, read `NOSTRA_CONTINUATION_RUN_ROOT`, require it to equal
+`analyses/${ARGUMENTS}_YYYY-MM-DD`, require that exact path to be a real existing directory (not a symlink),
+and derive `<DATE>` from its suffix. Do not call `date` or choose a newer folder. For an ordinary new run,
+run `date +%Y-%m-%d`. Capture one `<DATE>` and keep it unchanged everywhere below.
 
 Also capture `<STARTED_AT>` from `date -u +%Y-%m-%dT%H:%M:%SZ` for the metadata file.
 
@@ -41,11 +44,15 @@ If the directory is missing or empty, STOP. Tell the user: "No data found at `da
 
 ## 3. Create the run root folder
 
+For a cockpit Continue, capture the already-validated `NOSTRA_CONTINUATION_RUN_ROOT` as `<RUN_ROOT>` and
+do not create or switch folders. Otherwise create and capture `analyses/${ARGUMENTS}_<DATE>` as before:
+
 ```
 mkdir -p "analyses/${ARGUMENTS}_<DATE>"
 ```
 
-Capture the path `analyses/${ARGUMENTS}_<DATE>` as `<RUN_ROOT>`. Every module and the master synthesizer will write inside this folder. Use `${ARGUMENTS}_<DATE>` (with braces) in Bash to avoid the `$ARGUMENTS_<DATE>` shell-parse ambiguity.
+Every module and the master synthesizer writes inside this one folder. Use `${ARGUMENTS}_<DATE>` (with
+braces) in Bash to avoid the `$ARGUMENTS_<DATE>` shell-parse ambiguity.
 
 ### 3A. Detect and protect a sealed run
 

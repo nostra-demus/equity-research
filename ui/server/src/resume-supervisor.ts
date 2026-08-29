@@ -36,6 +36,7 @@ import type { RunProvider } from './providers/types'
 import { hasProvenLegacyClaudeLineage, readLastProviderSelection } from './execution-provenance'
 import { autoResumeDue } from './resume-policy'
 import { listResumableRuns } from './resumable'
+import { continueExactSavedRun } from './continuation'
 
 const LOCK_FILE = 'resume-supervisor.lock'
 const ENABLED = process.env.RESUME_SUPERVISOR_ENABLED === '1'
@@ -174,6 +175,20 @@ const defaultCandidateDispatchDeps: ResumeCandidateDispatchDeps = {
   },
   launchCandidate: (candidate) => {
     if (!candidate.provider) throw new Error('automatic resume has no supervisor-recorded provider')
+    if (candidate.kind === 'full' && (!candidate.swarm || candidate.swarm === 'research')) {
+      if (!candidate.runRoot) throw new Error('automatic resume has no exact saved run root')
+      return continueExactSavedRun({
+        swarm: 'research',
+        subject: candidate.subject,
+        runRoot: candidate.runRoot,
+        kind: 'full',
+        provider: candidate.provider,
+        model: candidate.model,
+        reasoningLevel: candidate.reasoningLevel,
+        user: 'auto',
+        userVia: 'local',
+      })
+    }
     return launch({
       kind: candidate.kind,
       ticker: candidate.subject,
