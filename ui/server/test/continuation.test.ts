@@ -18,6 +18,9 @@ assert.equal(exactContinuationCandidate({
   swarm: 'research', subject: 'KAR', runRoot: saved.runRoot, kind: 'full',
 }, [saved]), saved)
 assert.equal(exactContinuationCandidate({
+  swarm: 'research', subject: ' kar ', runRoot: saved.runRoot, kind: 'full',
+}, [saved]), saved, 'saved-run identity comparison defensively normalizes the ticker')
+assert.equal(exactContinuationCandidate({
   swarm: 'research', subject: 'KAR', runRoot: 'analyses/KAR_2026-08-29', kind: 'full',
 }, [saved]), null, 'a newer/today root is never substituted for the selected saved root')
 

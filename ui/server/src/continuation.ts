@@ -30,8 +30,9 @@ export function exactContinuationCandidate(
   intent: Pick<ExactContinuationIntent, 'swarm' | 'subject' | 'runRoot' | 'kind' | 'module'>,
   runs: readonly ResumableRunInfo[],
 ): ResumableRunInfo | null {
+  const subject = intent.subject.trim().toUpperCase()
   return runs.find((candidate) => candidate.swarm === intent.swarm
-    && candidate.subject === intent.subject
+    && candidate.subject.trim().toUpperCase() === subject
     && candidate.runRoot === intent.runRoot
     && candidate.kind === intent.kind
     && (intent.kind !== 'module' || candidate.module === intent.module)) ?? null
