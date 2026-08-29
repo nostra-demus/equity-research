@@ -40,7 +40,7 @@ const lock = route.indexOf('withSubjectLock(subjectMutationLockKey(RESEARCH_SWAR
 const activeChain = route.indexOf('subjectChainActive(ticker, RESEARCH_SWARM_ID)', lock)
 const reap = route.indexOf('reapDeadSubjectRuns(ticker, RESEARCH_SWARM_ID)', activeChain)
 const busy = route.indexOf('const busy = listRuns()', reap)
-const freshPlan = route.indexOf('let plan = thesisPlan(ticker, undefined, exactResume ? undefined : reuse, exactResume ? module : undefined,', busy)
+const freshPlan = route.indexOf('let plan = await thesisPlanForRequest(ticker, undefined, exactResume ? undefined : reuse, exactResume ? module : undefined,', busy)
 const targetRootCas = route.indexOf('plan.targetRunRoot !== expectedTargetRunRoot', freshPlan)
 const poolCas = route.indexOf('plan.dataPool.files !== poolFiles || plan.dataPool.newestMs !== poolNewestMs', freshPlan)
 const sealed = route.indexOf('if (plan.complete || isSealedResearchRun(plan.targetRunRoot))', poolCas)
@@ -62,7 +62,9 @@ const response = route.indexOf('return { ...out, module, willRun:', snapshot)
 assert.ok(lock >= 0 && activeChain > lock && reap > activeChain && busy > reap,
   'inside the subject lock, a chain-gap reservation rejects before reaping/staging; then dead children are healed before the live check')
 assert.ok(freshPlan > busy && targetRootCas > freshPlan && poolCas > targetRootCas,
-  'target-root and pool CAS use the fresh plan built inside the mutation lock')
+  'target-root and pool CAS use the asynchronously hashed fresh plan built inside the mutation lock')
+assert.match(route, /const readCurrentScope = \(\) => \{[\s\S]*thesisPlanForScopeGuard\(/,
+  'the final no-await guard rechecks scope metadata without synchronously hashing large filing bytes')
 assert.ok(sealed > poolCas && cli > sealed && afterCliCas > cli && stage > afterCliCas,
   'a same-day seal and CLI availability are checked, then exact scope is refreshed, before staging mutates disk')
 assert.match(route, /plan\.complete \|\| isSealedResearchRun\(plan\.targetRunRoot\)/,

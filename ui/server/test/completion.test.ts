@@ -74,7 +74,10 @@ write(`analyses/FIN_${TODAY}/beta/01_beta-thing.md`, '# b\n')
 write(`analyses/FIN_${TODAY}/beta/99_beta-synthesis.md`, '# b\n')
 write(`analyses/FIN_${TODAY}/final_thesis.md`, '# thesis\n')
 
-const { capturePreparedModuleResumeScope, thesisPlan, carryForwardModules, dataPoolNewest, prepareFullContinuation, prepareModuleResume } = await import('../src/completion')
+const {
+  capturePreparedModuleResumeScope, continuationPlanReceiptMatches, thesisPlan, thesisPlanForRequest,
+  carryForwardModules, dataPoolNewest, prepareFullContinuation, prepareModuleResume,
+} = await import('../src/completion')
 const { buildSwarmGraph } = await import('../src/roster')
 
 // ---- 1. cross-folder reuse: the money test -------------------------------------------------------
@@ -103,6 +106,48 @@ const { buildSwarmGraph } = await import('../src/roster')
   assert.ok(p.preflight.estCostUsdRange[1] < p.fullPreflight.estCostUsdRange[1], 'scoped cost < full re-run cost')
   assert.ok(p.preflight.agentCount < p.fullPreflight.agentCount, 'scoped agent count < full')
   console.log('✅ cross-folder reuse detected; only the missing module is priced')
+}
+
+// ---- 1b. the continuation receipt binds artifacts, data, provider/profile, and exact work ------------
+{
+  const selection = {
+    provider: 'claude' as const, model: 'sonnet', reasoningLevel: 'default',
+    expectedProfileKey: 'claude:sonnet:default',
+  }
+  const reviewed = thesisPlan('ACME', undefined, undefined, undefined, selection)
+  const requestSafe = await thesisPlanForRequest('ACME', undefined, undefined, undefined, selection)
+  assert.equal(requestSafe.continuationReceipt.fingerprint, reviewed.continuationReceipt.fingerprint,
+    'async request hashing produces the same exact receipt as the deterministic planner')
+  assert.equal(reviewed.continuationReceipt.action, 'complete')
+  assert.deepEqual(reviewed.continuationReceipt.sourceRunRoots, [`analyses/ACME_${YESTERDAY}`])
+  assert.ok(reviewed.continuationReceipt.reusableOrbKeys.includes('alpha/01_alpha-thing'))
+  assert.ok(reviewed.continuationReceipt.payableOrbKeys.includes('beta/01_beta-thing'))
+  assert.ok(reviewed.continuationReceipt.payableOrbKeys.includes('master/synthesizer'))
+  assert.equal(continuationPlanReceiptMatches(reviewed.continuationReceipt, reviewed.continuationReceipt), true)
+
+  const source = path.join(REPO, `analyses/ACME_${YESTERDAY}/alpha/operator-note.txt`)
+  fs.writeFileSync(source, 'changed source scope\n')
+  const sourceChanged = thesisPlan('ACME', undefined, undefined, undefined, selection)
+  assert.notEqual(sourceChanged.continuationReceipt.fingerprint, reviewed.continuationReceipt.fingerprint,
+    'changing a reusable source artifact invalidates the reviewed receipt')
+  fs.unlinkSync(source)
+
+  const data = path.join(REPO, 'data/ACME/filing.pdf')
+  const dataBefore = fs.readFileSync(data)
+  const dataTimes = fs.statSync(data)
+  fs.writeFileSync(data, 'different bytes')
+  const dataChanged = thesisPlan('ACME', undefined, undefined, undefined, selection)
+  assert.notEqual(dataChanged.continuationReceipt.dataPool.sha256, reviewed.continuationReceipt.dataPool.sha256,
+    'the pool snapshot binds bytes, not file count alone')
+  fs.writeFileSync(data, dataBefore)
+  fs.utimesSync(data, dataTimes.atime, dataTimes.mtime)
+
+  const profileChanged = thesisPlan('ACME', undefined, undefined, undefined, {
+    provider: 'codex', model: 'gpt-5.6-sol', reasoningLevel: 'max',
+    expectedProfileKey: 'codex|gpt-5.6-sol:max|gpt-5.6-terra:xhigh',
+  })
+  assert.notEqual(profileChanged.continuationReceipt.fingerprint, reviewed.continuationReceipt.fingerprint)
+  console.log('✅ receipt binds exact roots, artifacts, pool bytes, work identities, and provider profile')
 }
 
 // ---- 2. staleness demotes a finished module ------------------------------------------------------

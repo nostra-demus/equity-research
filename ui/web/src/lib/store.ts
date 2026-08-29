@@ -2025,7 +2025,14 @@ export const useStore = create<State>((set, get) => ({
           // Continue is an exact saved-run action. Re-plan that one root immediately before POST, then use
           // the completion route; never send it through generic /api/launch (which defaults to today's root).
           const plan = await api.thesisPlan(info.subject, execution, 'research', undefined, undefined, info.runRoot)
-          out = await api.runThesisPlan(info.subject, plan.reuse, 'research', execution, info.runRoot)
+          if (plan.continuationReceipt?.version !== 1 || plan.continuationReceipt.action !== 'continue'
+              || plan.continuationReceipt.targetRunRoot !== info.runRoot) {
+            throw new Error('The exact saved-run receipt is unavailable. Refresh before continuing; nothing was started.')
+          }
+          out = await api.runThesisPlan(
+            info.subject, plan.reuse, 'research', execution, crypto.randomUUID(),
+            plan.continuationReceipt, info.runRoot,
+          )
         } else if ((info.swarm || 'research') === 'research' && info.kind === 'module' && info.module) {
           const plan = await api.thesisPlan(info.subject, execution, 'research', undefined, info.module, info.runRoot)
           const entry = plan.modules.find((candidate) => candidate.module === info.module)
@@ -3391,7 +3398,12 @@ export const useStore = create<State>((set, get) => ({
         return
       }
 
-      const out = await api.runThesisPlan(t, plan.reuse, plan.swarm, execution)
+      if (fresh.continuationReceipt?.version !== 1 || fresh.continuationReceipt.action !== 'complete') {
+        throw new Error('The completion receipt is unavailable. Refresh before trying again; nothing was started.')
+      }
+      const out = await api.runThesisPlan(
+        t, plan.reuse, plan.swarm, execution, crypto.randomUUID(), fresh.continuationReceipt,
+      )
       requireLaunchProviderReceipt(out, execution, get().providers.catalogState)
       revealAcceptedTrackedLaunch(set, get)
       const { runId, chained, carried, willRun } = out

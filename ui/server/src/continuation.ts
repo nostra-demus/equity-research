@@ -1,6 +1,7 @@
 import { launch, type LaunchParams } from './launcher'
 import { listResumableRuns, type ResumableRunInfo } from './resumable'
 import type { RunProvider } from './providers/types'
+import type { PreparedRunPlanTransaction } from './run-plan-transaction'
 
 export interface ExactContinuationIntent {
   swarm: 'research'
@@ -14,6 +15,8 @@ export interface ExactContinuationIntent {
   expectedProfileKey?: string
   user?: string
   userVia?: 'cf-access' | 'local'
+  /** Internal only: the receipt-checked private tree for this exact continuation attempt. */
+  preparedRunPlanTransaction?: PreparedRunPlanTransaction
 }
 
 export interface ExactContinuationDeps {
@@ -68,5 +71,8 @@ export async function continueExactSavedRun(
     // key, never a filesystem authority.
     runRoot: candidate.runRoot,
     continuation: true,
+    ...(intent.preparedRunPlanTransaction
+      ? { preparedRunPlanTransaction: intent.preparedRunPlanTransaction }
+      : {}),
   })
 }

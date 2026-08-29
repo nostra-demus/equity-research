@@ -607,6 +607,7 @@ const sorted = (a: string[]) => [...a].sort()
       const f = makeFake()
       const pending = launchFullChained(TICK, 'tester', 'local', { provider: 'codex' }, f.deps,
         undefined, undefined, { runRoot, continuation: true })
+      await Promise.resolve() // transaction activation is an awaited durability boundary before scheduling
       assert.ok(f.launches.length > 0, 'the first exact-root module wave launches')
       for (const child of f.launches) {
         assert.equal(child.runRoot, runRoot)

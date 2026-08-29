@@ -29,6 +29,16 @@ const activity = await first.app.inject({ method: 'GET', url: '/api/activity?sta
 assert.equal(activity.statusCode, 200, 'canonical pre-spawn statuses are accepted by the real route')
 assert.ok(Array.isArray(activity.json().rows))
 
+const unreceiptedContinue = await first.app.inject({
+  method: 'POST', url: '/api/thesis-plan/run',
+  payload: {
+    ticker: 'KAR', reuse: [], swarm: 'research', provider: 'claude',
+    sourceRunRoot: 'analyses/KAR_2026-08-27',
+  },
+})
+assert.equal(unreceiptedContinue.statusCode, 400, 'Continue fails closed when request id/plan receipt are absent')
+assert.equal(unreceiptedContinue.json().error, 'invalid body')
+
 await first.app.close()
 await second.app.close()
 

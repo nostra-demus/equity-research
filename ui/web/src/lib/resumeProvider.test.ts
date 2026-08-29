@@ -60,12 +60,23 @@ try {
   }) as typeof api.launch
   api.thesisPlan = (async (_ticker: string, _selection: any, _swarm?: string, _reuse?: string[], _module?: string, runRoot?: string) => ({
     moduleResumeVersion: 2, swarm: 'research', subject: 'KAR', targetRunRoot: runRoot!, complete: false,
+    continuationReceipt: {
+      version: 1, action: 'continue', swarm: 'research', subject: 'KAR', sourceRunRoots: [runRoot!],
+      targetRunRoot: runRoot!, provider: { id: 'claude', model: 'sonnet', reasoningLevel: 'default', profileKey: sonnetProfile.key },
+      reusableOrbKeys: [], payableOrbKeys: ['master/synthesizer'],
+      dataPool: { files: 1, newestMs: 0, sha256: `sha256:${'c'.repeat(64)}` },
+      sourceArtifactsSha256: `sha256:${'b'.repeat(64)}`,
+      fingerprint: `sha256:${'a'.repeat(64)}`,
+    },
     finalReportPath: null, modules: [], reusable: ['business-model'], mustReuse: ['business-model'],
     reuse: ['business-model'], run: ['earnings'], carry: [], master: { state: 'blocked', blockedBy: ['earnings'] },
     dataPool: { files: 1, newestDate: null, newestMs: 0 }, preflight: {} as any, fullPreflight: {} as any,
     canCarry: true,
   })) as typeof api.thesisPlan
-  api.runThesisPlan = (async (_ticker: string, _reuse: string[], _swarm: string, selection: any, sourceRunRoot?: string) => {
+  api.runThesisPlan = (async (
+    _ticker: string, _reuse: string[], _swarm: string, selection: any,
+    _requestId: string, _receipt: any, sourceRunRoot?: string,
+  ) => {
     completionLaunches++
     runSelection = selection
     completionSourceRoot = sourceRunRoot

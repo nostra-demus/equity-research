@@ -3207,6 +3207,7 @@ export interface ModulePlanEntry {
 
 export interface ThesisPlan {
   moduleResumeVersion?: 2 // absent on an older server: smart heading launch must fail closed during deploy skew
+  continuationReceipt?: ContinuationPlanReceipt
   /** Present only for a module-specific plan. The server, not the browser, selects and validates these saved
    * inputs; a newer UI must require this positive receipt before launching an exact module resume. */
   exactModuleScope?: { module: string; savedInputs: string[] }
@@ -3228,6 +3229,26 @@ export interface ThesisPlan {
   preflight: LaunchPreflight // cost/time of ONLY the remaining work
   fullPreflight: LaunchPreflight // cost/time of the naive full re-run — the savings, made visible
   canCarry: boolean
+}
+
+export interface ContinuationPlanReceipt {
+  version: 1
+  action: 'continue' | 'complete'
+  swarm: string
+  subject: string
+  sourceRunRoots: string[]
+  targetRunRoot: string
+  provider: {
+    id: 'claude' | 'codex'
+    model: string | null
+    reasoningLevel: string | null
+    profileKey: string | null
+  }
+  reusableOrbKeys: string[]
+  payableOrbKeys: string[]
+  dataPool: { files: number; newestMs: number; sha256: string }
+  sourceArtifactsSha256: string
+  fingerprint: string
 }
 
 export interface ActivityQuery {
