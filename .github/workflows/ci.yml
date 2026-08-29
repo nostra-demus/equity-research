@@ -411,6 +411,12 @@ jobs:
       - name: Tests (pure-logic units — incl. the intake "no new data" safety gate)
         run: npm test
 
+      - name: Install Playwright Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Provider-transparent browser lifecycle (fake Claude + Codex CLIs)
+        run: npm run test:e2e
+
       - name: Build (vite build)
         run: npm run build
 
