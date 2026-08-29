@@ -19,6 +19,11 @@ assert.equal(start.statusCode, 202, 'starting a large scan returns immediately')
 assert.equal(start.headers['cache-control'], 'no-store')
 assert.equal(start.json().progress.ticker, 'TESTX')
 
+const traversal = await built.app.inject({ method: 'POST', url: '/api/data-status/../scan' })
+assert.equal(traversal.statusCode, 404, 'a traversal-shaped path cannot reach the ticker route')
+const punctuation = await built.app.inject({ method: 'POST', url: '/api/data-status/---/scan' })
+assert.equal(punctuation.statusCode, 400, 'an all-punctuation subject cannot reach the filesystem')
+
 let result: ReturnType<typeof start.json> | null = null
 for (let i = 0; i < 100; i += 1) {
   const read = await built.app.inject({ method: 'GET', url: '/api/data-status/TESTX/result' })

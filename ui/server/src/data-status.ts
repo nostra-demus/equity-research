@@ -5,7 +5,7 @@ import { promisify } from 'node:util'
 import { DATA_DIR, ANALYSES_DIR, REPO_ROOT, isReservedDataFolder } from './config'
 import { syncingState } from './data-activity'
 import { listModuleNames, moduleReadinessDecls } from './roster'
-import { isValidTicker, suggestTicker, tickerInvalidReason } from './sandbox'
+import { isValidTicker, safeSubjectSegment, suggestTicker, tickerInvalidReason } from './sandbox'
 import type { ClassifiedFile, CoverageGroup, DataReadinessDecl, DataStatus, FileType, ModuleReadiness, ReadinessToken, Sufficiency, TickerSummary, WorkbookSheet } from './types'
 import type { DataScanUpdate } from './data-scan'
 
@@ -1078,10 +1078,16 @@ export async function analyzeTicker(ticker: string, onProgress?: (update: DataSc
   // returns the empty (no-data) status. EARLY return so the guard dominates every read below (incl.
   // classifyFile), never just the readdir — that's what makes `dir` safe at every sink. (Clears CodeQL
   // js/path-injection.)
-  const dir = path.resolve(DATA_DIR, ticker)
+  let subject: string
+  try { subject = safeSubjectSegment(ticker) } catch {
+    const modules = Object.fromEntries(listModuleNames().map((m) => [m, { status: 'Insufficient' as Sufficiency, reasons: ['no data uploaded'], caps: [] }]))
+    progress({ stage: 'checking', completed: 0, total: 0, currentFile: null })
+    return { ticker, hasAnyData: false, fileCount: 0, files: [], recentByType: {}, modules, coverage: deriveCoverage([]), overallReady: false, dataDir: DATA_DIR, ts: Date.now() }
+  }
+  const dir = path.resolve(DATA_DIR, subject)
   // Reserved system folders (e.g. the news-archive mirror) are never companies — refuse to classify them
   // even if hit directly, alongside the path-containment guard ('..' slips through TICKER_RE's dots).
-  if (isReservedDataFolder(ticker) || (dir !== DATA_DIR && !dir.startsWith(DATA_DIR + path.sep))) {
+  if (isReservedDataFolder(subject) || (dir !== DATA_DIR && !dir.startsWith(DATA_DIR + path.sep))) {
     const modules = Object.fromEntries(listModuleNames().map((m) => [m, { status: 'Insufficient' as Sufficiency, reasons: ['no data uploaded'], caps: [] }]))
     progress({ stage: 'checking', completed: 0, total: 0, currentFile: null })
     return { ticker, hasAnyData: false, fileCount: 0, files: [], recentByType: {}, modules, coverage: deriveCoverage([]), overallReady: false, dataDir: DATA_DIR, ts: Date.now() }

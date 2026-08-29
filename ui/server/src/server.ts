@@ -728,7 +728,7 @@ app.post('/api/tickers/:ticker/files', async (req, reply) => {
 // ---------- data status ----------
 app.get('/api/data-status/:ticker', async (req, reply) => {
   const ticker = (req.params as any).ticker as string
-  if (!TICKER_RE.test(ticker)) return reply.code(400).send({ error: 'bad ticker' })
+  if (!isValidTicker(ticker)) return reply.code(400).send({ error: 'bad ticker' })
   reply.header('cache-control', 'no-store')
   return dataScans.run(ticker)
 })
@@ -738,7 +738,7 @@ app.get('/api/data-status/:ticker', async (req, reply) => {
 app.post('/api/data-status/:ticker/scan', async (req, reply) => {
   if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request blocked' })
   const ticker = (req.params as any).ticker as string
-  if (!TICKER_RE.test(ticker)) return reply.code(400).send({ error: 'bad ticker' })
+  if (!isValidTicker(ticker)) return reply.code(400).send({ error: 'bad ticker' })
   reply.header('cache-control', 'no-store')
   void dataScans.run(ticker).catch(() => {})
   return reply.code(202).send({ progress: dataScans.current(ticker) })
@@ -746,7 +746,7 @@ app.post('/api/data-status/:ticker/scan', async (req, reply) => {
 
 app.get('/api/data-status/:ticker/result', async (req, reply) => {
   const ticker = (req.params as any).ticker as string
-  if (!TICKER_RE.test(ticker)) return reply.code(400).send({ error: 'bad ticker' })
+  if (!isValidTicker(ticker)) return reply.code(400).send({ error: 'bad ticker' })
   reply.header('cache-control', 'no-store')
   const progress = dataScans.current(ticker)
   const data = dataScans.result(ticker)
@@ -759,7 +759,7 @@ app.get('/api/data-status/:ticker/result', async (req, reply) => {
 // the same server-owned snapshot; neither starts new work.
 app.get('/api/data-status/:ticker/progress', async (req, reply) => {
   const ticker = (req.params as any).ticker as string
-  if (!TICKER_RE.test(ticker)) return reply.code(400).send({ error: 'bad ticker' })
+  if (!isValidTicker(ticker)) return reply.code(400).send({ error: 'bad ticker' })
   reply.header('cache-control', 'no-store')
   return { progress: dataScans.current(ticker) }
 })
