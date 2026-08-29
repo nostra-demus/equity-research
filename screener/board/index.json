@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-29T13:02:51Z",
+  "generated_at": "2026-08-29T13:18:18Z",
   "inbox": [
     {
       "inbox_id": "INB-20260829-490",
@@ -40,6 +40,55 @@
       "issuer_linkage": "sector",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260829-576",
+      "headline": "DIC India Limited: DIC India Limited has filed the detailed resignation received from Mr. Manish Bhatia and he ceases to be the Director, MD & CEO of the Company w.e.f close of business hours of August 29, 2026.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/DICIND_29082026183345_Disclosure_Para7c.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-29T13:09:12Z",
+      "sweep_file": "screener/inbox/2026-08-29_sweep.json",
+      "prelim_note": "The MD & CEO of DIC India Limited is resigning, which is a significant leadership change.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The MD & CEO of DIC India Limited is resigning, which is a significant leadership change.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "executive_exit",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "DIC India Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -138,6 +187,105 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260829-580",
+      "headline": "India's HDFC Bank CEO Jagdishan to step down in October",
+      "headline_en": null,
+      "url": "https://www.reuters.com/world/india/indias-hdfc-bank-ceo-jagdishan-step-down-october-2026-08-29/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-29T13:09:43Z",
+      "sweep_file": "screener/inbox/2026-08-29_sweep.json",
+      "prelim_note": "The CEO of HDFC Bank is stepping down in October.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The CEO of HDFC Bank is stepping down in October.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HDFC Bank",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260829-596",
+      "headline": "Meta’s $18 bn child safety settlement comes with a catch: Why TikTok, YouTube, Snapchat’s actions matter | Explained",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/news/metas-18-bn-child-safety-settlement-comes-with-a-catch-why-tiktok-youtube-snapchat-s-actions-matter-explained-11788003743009.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-29T13:08:37Z",
+      "sweep_file": "screener/inbox/2026-08-29_sweep.json",
+      "prelim_note": "Meta has reached a significant $18 billion settlement regarding child safety, impacting cash flow and regulatory standing.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Meta has reached a significant $18 billion settlement regarding child safety, impacting cash flow and regulatory standing.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement",
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Meta Platforms, Inc.",
+          "ticker": "META",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1849,153 +1997,6 @@
           "name": "Shein",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260829-420",
-      "headline": "Shein’s Hong Kong IPO pricing values company at $33.7 billion, sources say",
-      "headline_en": null,
-      "url": "https://www.straitstimes.com/business/sheins-hong-kong-ipo-pricing-values-company-at-33-7-billion-sources-say",
-      "source_name": "The Straits Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-27T07:30:00Z",
-      "sweep_file": "screener/inbox/2026-08-29_sweep.json",
-      "prelim_note": "Shein is reportedly targeting a $33.7 billion valuation for its upcoming Hong Kong IPO.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Shein is reportedly targeting a $33.7 billion valuation for its upcoming Hong Kong IPO.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Shein",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260829-434",
-      "headline": "Global Market | Shein set to raise $1.7 billion in Hong Kong IPO at $26.5 billion valuation: Reports",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/us-stocks/wall-street-guide/global-market-shein-set-to-raise-1-7-billion-in-hong-kong-ipo-at-26-5-billion-valuation-reports/articleshow/133560552.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-27T07:20:51Z",
-      "sweep_file": "screener/inbox/2026-08-29_sweep.json",
-      "prelim_note": "Shein is planning a $1.7 billion IPO at a $26.5 billion valuation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Shein is planning a $1.7 billion IPO at a $26.5 billion valuation.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Shein",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260829-438",
-      "headline": "NFL champions Seattle Seahawks sold to Khosla Group for record $9.6 billion",
-      "headline_en": null,
-      "url": "https://www.aljazeera.com/sports/2026/8/27/nfl-champions-seattle-seahawks-sold-to-khosla-group-for-record-9-6-billion?traffic_source=rss",
-      "source_name": "Al Jazeera — All news",
-      "input_nature": "geopolitical_event",
-      "found_at": "2026-08-27T07:14:49Z",
-      "sweep_file": "screener/inbox/2026-08-29_sweep.json",
-      "prelim_note": "Seattle Seahawks sold for a record $9.6 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Seattle Seahawks sold for a record $9.6 billion.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Seattle Seahawks",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -85663,76 +85664,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-6ef3d9cacc63",
-      "idea_version": "IDEAV-871bc7d2d2d4ca1c",
-      "idea_version_started_at": "2026-08-28T05:51:01Z",
-      "ticker": "000660.KS",
-      "company": "SK Hynix",
-      "exchange": "Korea",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The $4 billion investment in an Indiana facility strengthens the company's US-based supply chain and aligns with regional semiconductor manufacturing incentives.",
-      "why_now": "The announcement was made on 2026-08-28, marking a significant strategic expansion into the US market.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-2f11eb103002"
-      ],
-      "primary_source_event_id": "EVT-2f11eb103002",
-      "source_headlines": [
-        "SK Hynix to Invest $4 Billion in Indiana, USA"
-      ],
-      "source_headline": "SK하이닉스, 미국 인디애나에 40억 달러 투자",
-      "source_url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=275709",
-      "source_name": "Business Korea — All Articles (CDN)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-28T01:04:34Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-28T05:51:01Z",
-      "updated_at": "2026-08-28T05:51:01Z",
-      "decay_at": "2026-08-29T13:04:34Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-b95df346cf59",
       "idea_version": "IDEAV-3143e57a2c18906c",
       "idea_version_started_at": "2026-08-29T10:08:49Z",
@@ -87081,6 +87012,76 @@
       "promoted_signal_id": null,
       "feedback": null,
       "stale": false
+    },
+    {
+      "idea_id": "IDEA-6ef3d9cacc63",
+      "idea_version": "IDEAV-871bc7d2d2d4ca1c",
+      "idea_version_started_at": "2026-08-28T05:51:01Z",
+      "ticker": "000660.KS",
+      "company": "SK Hynix",
+      "exchange": "Korea",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The $4 billion investment in an Indiana facility strengthens the company's US-based supply chain and aligns with regional semiconductor manufacturing incentives.",
+      "why_now": "The announcement was made on 2026-08-28, marking a significant strategic expansion into the US market.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-2f11eb103002"
+      ],
+      "primary_source_event_id": "EVT-2f11eb103002",
+      "source_headlines": [
+        "SK Hynix to Invest $4 Billion in Indiana, USA"
+      ],
+      "source_headline": "SK하이닉스, 미국 인디애나에 40억 달러 투자",
+      "source_url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=275709",
+      "source_name": "Business Korea — All Articles (CDN)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-28T01:04:34Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-28T05:51:01Z",
+      "updated_at": "2026-08-28T05:51:01Z",
+      "decay_at": "2026-08-29T13:04:34Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
     },
     {
       "idea_id": "IDEA-fc7caca7ed3e",
@@ -90361,13 +90362,13 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 212,
-    "shown_count": 212,
+    "total_count": 213,
+    "shown_count": 213,
     "hidden_count": 0,
     "side_counts": {
       "long": {
-        "total_count": 100,
-        "shown_count": 100,
+        "total_count": 101,
+        "shown_count": 101,
         "hidden_count": 0
       },
       "short": {
@@ -90392,6 +90393,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-6ef3d9cacc63",
+        "idea_version": "IDEAV-871bc7d2d2d4ca1c",
+        "idea_version_started_at": "2026-08-28T05:51:01Z",
+        "ticker": "000660.KS",
+        "company": "SK Hynix",
+        "exchange": "Korea",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The $4 billion investment in an Indiana facility strengthens the company's US-based supply chain and aligns with regional semiconductor manufacturing incentives.",
+        "why_now": "The announcement was made on 2026-08-28, marking a significant strategic expansion into the US market.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 62,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-2f11eb103002"
+        ],
+        "primary_source_event_id": "EVT-2f11eb103002",
+        "source_headlines": [
+          "SK Hynix to Invest $4 Billion in Indiana, USA"
+        ],
+        "source_headline": "SK하이닉스, 미국 인디애나에 40억 달러 투자",
+        "source_url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=275709",
+        "source_name": "Business Korea — All Articles (CDN)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-28T01:04:34Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-28T05:51:01Z",
+        "updated_at": "2026-08-28T05:51:01Z",
+        "decay_at": "2026-08-29T13:04:34Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-29T13:04:34Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-7bcadd0aa831",
         "idea_version": "IDEAV-0c52e9320ed9604e",
@@ -106108,7 +106182,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 237,
-    "live_count": 23,
+    "live_count": 22,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -106127,9 +106201,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 586036,
-    "news_picked_today": 1395,
-    "news_dropped_today": 5868
+    "news_seen_today": 586241,
+    "news_picked_today": 1430,
+    "news_dropped_today": 6038
   },
   "book_momentum": {
     "live_count": 8,
