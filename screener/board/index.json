@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-30T04:00:29Z",
+  "generated_at": "2026-08-30T04:04:53Z",
   "inbox": [
     {
       "inbox_id": "INB-20260830-062",
@@ -340,6 +340,56 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260830-071",
+      "headline": "UAE Central Bank orders urgent probe into Banque Misr branches after US warning",
+      "headline_en": null,
+      "url": "https://www.thenationalnews.com/business/banking/2026/08/30/uae-central-bank-orders-urgent-probe-into-banque-misr-branches-after-us-warning/",
+      "source_name": "The National — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-30T03:56:24Z",
+      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
+      "prelim_note": "The UAE Central Bank has launched an urgent probe into Banque Misr following a US warning, indicating significant regulatory and compliance risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "The UAE Central Bank has launched an urgent probe into Banque Misr following a US warning, indicating significant regulatory and compliance risk.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "regulatory",
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Banque Misr",
+          "ticker": null,
+          "listing_country": "EG"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1246,6 +1296,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260830-070",
+      "headline": "Sheffield Green on the hunt for acquisitions in wind power maintenance as it diversifies beyond manpower",
+      "headline_en": null,
+      "url": "https://www.businesstimes.com.sg/companies-markets/energy-commodities/sheffield-green-hunt-acquisitions-wind-power-maintenance-it-diversifies-beyond-manpower",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-30T04:00:00Z",
+      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
+      "prelim_note": "Sheffield Green is actively seeking acquisitions to diversify its business model into wind power maintenance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 68,
+      "triage_reason": "Sheffield Green is actively seeking acquisitions to diversify its business model into wind power maintenance.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Sheffield Green",
+          "ticker": null,
+          "listing_country": "SG"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260830-064",
       "headline": "INTCO Medical meldet für das erste Halbjahr 2026 ein Umsatzwachstum von 40,6 % und baut die weltweit größte Produktionskapazität für Einweghandschuhe auf 107 Milliarden Stück aus",
       "headline_en": "INTCO Medical reports revenue growth of 40.6% for the first half of 2026 and expands the world's largest production capacity for disposable gloves to 107 billion units.",
@@ -1816,98 +1915,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260830-043",
-      "headline": "Etihad Rail sees strong demand as residents return from summer holidays",
-      "headline_en": null,
-      "url": "https://www.khaleejtimes.com/uae/etihad-rail-strong-demand-residents-summer-holidays",
-      "source_name": "Khaleej Times — UAE",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-30T02:00:00Z",
-      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
-      "prelim_note": "Etihad Rail reports strong demand, indicating positive operational momentum.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 56,
-      "triage_reason": "Etihad Rail reports strong demand, indicating positive operational momentum.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Etihad Rail",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260830-015",
-      "headline": "FIR Filed Against Mamata Banerjee Over Alleged Violation Of Calcutta HC Order During TMC Students’ Wing Rally",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/india/fir-filed-against-mamata-banerjee-over-alleged-violation-of-calcutta-hc-order-during-tmc-students-wing-rally",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-30T00:06:29Z",
-      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
-      "prelim_note": "Legal action against a high-profile political figure in India creates potential for regional political instability.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 56,
-      "triage_reason": "Legal action against a high-profile political figure in India creates potential for regional political instability.",
-      "region": "IN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -113252,9 +113259,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 449,
-    "news_picked_today": 76,
-    "news_dropped_today": 373
+    "news_seen_today": 460,
+    "news_picked_today": 79,
+    "news_dropped_today": 381
   },
   "book_momentum": {
     "live_count": 8,
