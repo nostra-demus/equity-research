@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-30T07:39:54Z",
+  "generated_at": "2026-08-30T07:40:57Z",
   "inbox": [
     {
       "inbox_id": "INB-20260830-062",
@@ -87844,6 +87844,76 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-3830e5036df7",
+      "idea_version": "IDEAV-a37bc0d9e4eef57c",
+      "idea_version_started_at": "2026-08-30T07:40:39Z",
+      "ticker": "AZN",
+      "company": "AstraZeneca",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "AstraZeneca's relaxin pill demonstrated positive results in a mid-stage heart failure trial, indicating potential future revenue from a new drug.",
+      "why_now": "The trial results were announced at the #ESC26 conference.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 59,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 14,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-49df10f6e05d"
+      ],
+      "primary_source_event_id": "EVT-49df10f6e05d",
+      "source_headlines": [
+        "#ESC26: AstraZeneca's relaxin pill shows promise in mid-stage heart failure trial"
+      ],
+      "source_headline": "#ESC26: AstraZeneca's relaxin pill shows promise in mid-stage heart failure trial",
+      "source_url": "https://endpoints.news/esc26-astrazenecas-relaxin-pill-shows-promise-in-mid-stage-heart-failure-trial/",
+      "source_name": "Endpoints News",
+      "materiality_max": 83,
+      "newest_source_at": "2026-08-30T07:19:28Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-30T07:40:39Z",
+      "updated_at": "2026-08-30T07:40:39Z",
+      "decay_at": "2026-08-31T19:19:28Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-9e168a4e0799",
       "idea_version": "IDEAV-f52789b232384ccd",
       "idea_version_started_at": "2026-08-29T22:28:34Z",
@@ -113683,8 +113753,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 292,
-    "live_count": 36,
+    "surfaced_total": 293,
+    "live_count": 37,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
